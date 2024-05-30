@@ -2,16 +2,16 @@ pkgname = "gtkmm"
 pkgver = "4.14.0"
 pkgrel = 0
 build_style = "meson"
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = ["meson", "pkgconf", "glib-devel"]
 makedepends = [
-    "gtk4-devel",
     "cairomm-devel",
-    "pangomm-devel",
     "gdk-pixbuf-devel",
+    "gtk4-devel",
     "libepoxy-devel",
+    "pangomm-devel",
 ]
-checkdepends = ["weston"]
+checkdepends = ["xwayland-run"]
 pkgdesc = "C++ bindings for Gtk4"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

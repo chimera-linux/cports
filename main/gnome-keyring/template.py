@@ -12,22 +12,32 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_check_args = ["-j1"]
-make_check_wrapper = ["weston-headless-run", "dbus-run-session"]
-hostmakedepends = [
-    "gmake",
-    "pkgconf",
-    "docbook-xsl-nons",
-    "glib-devel",
-    "python",
-    "libtasn1-progs",
-    "xsltproc",
-    "openssh",
-    "automake",
-    "libtool",
-    "gettext-devel",
+make_check_wrapper = [
+    "wlheadless-run",
+    "--",
+    "dbus-run-session",
+    "--",
 ]
-makedepends = ["gcr3-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"]
-checkdepends = ["weston", "dbus"]
+hostmakedepends = [
+    "automake",
+    "docbook-xsl-nons",
+    "gettext-devel",
+    "glib-devel",
+    "gmake",
+    "libtasn1-progs",
+    "libtool",
+    "openssh",
+    "pkgconf",
+    "python",
+    "xsltproc",
+]
+makedepends = [
+    "gcr3-devel",
+    "glib-devel",
+    "libgcrypt-devel",
+    "linux-pam-devel",
+]
+checkdepends = ["dbus", "xwayland-run"]
 depends = ["dconf"]
 pkgdesc = "GNOME password and secret manager"
 maintainer = "q66 <q66@chimera-linux.org>"

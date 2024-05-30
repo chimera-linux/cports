@@ -3,7 +3,7 @@ pkgver = "0.10.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTS=ON"]
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
     "glib-devel",
@@ -16,7 +16,7 @@ makedepends = [
     "glib-devel",
     "gtk+3-devel",
 ]
-checkdepends = ["gtest-devel", "weston"]
+checkdepends = ["gtest-devel", "xwayland-run"]
 pkgdesc = "Ayatana Indicator Display Objects"
 maintainer = "triallax <triallax@tutanota.com>"
 license = (

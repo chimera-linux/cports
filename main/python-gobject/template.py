@@ -3,20 +3,24 @@ pkgver = "3.48.2"
 pkgrel = 0
 build_style = "meson"
 make_check_env = {"PYGI_TEST_VERBOSE": "1"}
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
     "python-markupsafe",
 ]
-makedepends = ["glib-devel", "python-cairo-devel", "python-devel"]
+makedepends = [
+    "glib-devel",
+    "python-cairo-devel",
+    "python-devel",
+]
 checkdepends = [
-    "python-pytest",
-    "gtk+3",
-    "weston",
-    "fonts-dejavu-otf",
     "bash",
+    "fonts-dejavu-otf",
+    "gtk+3",
+    "python-pytest",
+    "xwayland-run",
 ]
 depends = ["python", "gir-freedesktop", "python-cairo"]
 pkgdesc = "Python bindings for GObject"

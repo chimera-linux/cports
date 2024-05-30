@@ -10,21 +10,21 @@ configure_args = [
     "-Dglade_catalog=disabled",
     "-Dintrospection=enabled",
 ]
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
+    "gettext",
     "glib-devel",
     "gobject-introspection",
-    "vala",
     "libxml2-progs",
-    "gettext",
+    "meson",
+    "pkgconf",
+    "vala",
 ]
 makedepends = [
-    "gtk+3-devel",
     "glib-devel",
+    "gtk+3-devel",
 ]
-checkdepends = ["weston"]
+checkdepends = ["xwayland-run"]
 pkgdesc = "GTK+3 building blocks for modern adaptive applications"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

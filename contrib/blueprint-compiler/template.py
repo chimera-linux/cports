@@ -2,7 +2,7 @@ pkgname = "blueprint-compiler"
 pkgver = "0.12.0"
 pkgrel = 0
 build_style = "meson"
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -12,7 +12,7 @@ depends = [
     "libadwaita",
     "python-gobject",
 ]
-checkdepends = ["weston"] + depends
+checkdepends = ["xwayland-run"] + depends
 pkgdesc = "Markup language compiler for GTK user interfaces"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"

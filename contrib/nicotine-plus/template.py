@@ -6,7 +6,12 @@ build_style = "python_pep517"
 # FIXME test_gui_startup: for some reason there's a sigill in python somewhere
 # when ran headless (works in actual desktop)
 make_check_args = ["-k", "not (test_update_check or test_gui_startup)"]
-make_check_wrapper = ["dbus-run-session", "weston-headless-run"]
+make_check_wrapper = [
+    "dbus-run-session",
+    "--",
+    "wlheadless-run",
+    "--",
+]
 hostmakedepends = [
     "gettext",
     "python-build",
@@ -21,7 +26,7 @@ depends = [
 checkdepends = [
     "dbus",
     "python-pytest",
-    "weston",
+    "xwayland-run",
 ] + depends
 pkgdesc = "Graphical client for the Soulseek network"
 maintainer = "psykose <alice@ayaya.dev>"

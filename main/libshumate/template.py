@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false"]
 make_check_env = {"GTK_A11Y": "none"}
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "gobject-introspection",
     "gperf",
@@ -20,7 +20,7 @@ makedepends = [
     "protobuf-c-devel",
     "sqlite-devel",
 ]
-checkdepends = ["weston"]
+checkdepends = ["xwayland-run"]
 pkgdesc = "GTK library to display maps"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
