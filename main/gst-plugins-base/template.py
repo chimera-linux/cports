@@ -1,16 +1,18 @@
 pkgname = "gst-plugins-base"
 pkgver = "1.24.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
-    "-Dcdparanoia=enabled",
+    "--auto-features=enabled",
     "-Ddefault_library=shared",
+    # stuff we don't want
+    # use pulse
+    "-Dalsa=disabled",
+    # scuffed vorbis decoder
+    "-Dtremor=disabled",
+    # misc
     "-Ddoc=disabled",
     "-Dexamples=disabled",
-    "-Dintrospection=enabled",
-    # disabled below
-    "-Dtests=disabled",
-    "-Dtremor=disabled",
 ]
 make_check_env = {"XDG_RUNTIME_DIR": "/etc/xdg"}
 hostmakedepends = [
@@ -28,6 +30,7 @@ makedepends = [
     "glib-devel",
     "graphene-devel",
     "gstreamer-devel",
+    "iso-codes",
     "libgudev-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
@@ -36,6 +39,7 @@ makedepends = [
     "libvisual-devel",
     "libvorbis-devel",
     "libxext-devel",
+    "libxi-devel",
     "libxml2-devel",
     "libxv-devel",
     "mesa-devel",
@@ -50,7 +54,7 @@ depends = [
     "libvisual-plugins-meta",
     "orc",
 ]
-checkdepends = ["fonts-liberation-otf"] + depends
+checkdepends = ["fonts-liberation-otf"]
 pkgdesc = "GStreamer base plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
@@ -59,8 +63,8 @@ source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "09f4ddf246eeb819da1494ce336316edbbcb28fdff3ee2f9804891e84df39b2a"
 # FIXME int
 hardening = ["!int"]
-# FIXME libs_allocators fail
-options = ["!cross", "!check"]
+# gobject-introspection
+options = ["!cross"]
 
 
 @subpackage("gst-plugins-base-devel")
