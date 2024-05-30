@@ -16,7 +16,6 @@ configure_args = [
 ]
 make_check_args = ["--timeout-multiplier=5"]
 make_check_env = {"XDG_RUNTIME_DIR": "/tmp"}
-make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "gettext",
     "glib-devel",
@@ -56,7 +55,7 @@ depends = [
     "libvisual-plugins-meta",
     "orc",
 ]
-checkdepends = ["fonts-liberation-otf", "xwayland-run"]
+checkdepends = ["fonts-liberation-otf"]
 pkgdesc = "GStreamer base plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
