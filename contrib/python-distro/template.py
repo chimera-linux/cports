@@ -1,6 +1,6 @@
 pkgname = "python-distro"
 pkgver = "1.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=tests/test_distro.py::TestLSBRelease::test_linuxmint17_lsb_release",
@@ -23,6 +23,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Linux OS platform information API"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
