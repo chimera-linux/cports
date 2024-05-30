@@ -1,10 +1,10 @@
 pkgname = "polkit"
-pkgver = "121"
-pkgrel = 6
+pkgver = "124"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsession_tracking=libelogind",
-    "-Dsystemdsystemunitdir=/tmp",
+    "-Dsystemdsystemunitdir=",
     "-Dpolkitd_user=_polkitd",
     "-Djs_engine=duktape",
     "-Dauthfw=pam",
@@ -16,44 +16,40 @@ configure_args = [
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "gobject-introspection",
+    "docbook-xsl-nons",
     "gettext",
     "glib-devel",
+    "gobject-introspection",
+    "meson",
     "perl",
+    "pkgconf",
     "xsltproc",
-    "docbook-xsl-nons",
 ]
-makedepends = ["elogind-devel", "duktape-devel", "linux-pam-devel"]
+makedepends = ["duktape-devel", "elogind-devel", "linux-pam-devel"]
 pkgdesc = "Toolkit for defining and handling authorizations"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/polkit"
-source = f"$(FREEDESKTOP_SITE)/{pkgname}/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "9dc7ae341a797c994a5a36da21963f0c5c8e3e5a1780ccc2a5f52e7be01affaa"
+source = (
+    f"https://github.com/polkit-org/polkit/archive/refs/tags/{pkgver}.tar.gz"
+)
+sha256 = "72457d96a0538fd03a3ca96a6bf9b7faf82184d4d67c793eb759168e4fd49e20"
 file_modes = {
     "usr/lib/polkit-1/polkit-agent-helper-1": ("root", "root", 0o4755),
     "usr/bin/pkexec": ("root", "root", 0o4755),
 }
 # tests are broken on musl
-options = ["!check"]
+options = ["!check", "!cross"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "tmp", recursive=True)
-    self.rm(self.destdir / "etc/pam.d/polkit-1")
+    self.rm(self.destdir / "usr/lib/pam.d/polkit-1")
     self.install_file(
-        self.files_path / "polkit-1.pam", "etc/pam.d", name="polkit-1"
+        self.files_path / "polkit-1.pam", "usr/lib/pam.d", name="polkit-1"
     )
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "polkitd")
-    # move defaults
-    rsrc = self.destdir / "etc/polkit-1/rules.d"
-    rdest = self.destdir / "usr/share/polkit-1/rules.d"
-    self.mv(rsrc / "50-default.rules", rdest)
-    rdest.chmod(0o755)
 
 
 @subpackage("polkit-devel")
