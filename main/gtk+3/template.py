@@ -15,7 +15,7 @@ configure_args = [
     "-Dwayland_backend=true",
     "-Dx11_backend=true",
 ]
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -56,11 +56,11 @@ depends = [
     "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [
-    "weston",
-    "dbus",
     "adwaita-icon-theme",
-    "librsvg",
+    "dbus",
     "fonts-dejavu-otf",
+    "librsvg",
+    "xwayland-run",
 ]
 triggers = ["/usr/lib/gtk-3.0/3.0.0/immodules"]
 pkgdesc = "Gimp Toolkit version 3"

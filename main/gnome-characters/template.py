@@ -2,7 +2,7 @@ pkgname = "gnome-characters"
 pkgver = "46.0"
 pkgrel = 0
 build_style = "meson"
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "desktop-file-utils",
     "gettext",
@@ -20,7 +20,7 @@ makedepends = [
     "libadwaita-devel",
     "libunistring-devel",
 ]
-checkdepends = ["fonts-dejavu", "weston"]
+checkdepends = ["fonts-dejavu", "xwayland-run"]
 depends = ["gjs", "gnome-desktop", "libadwaita"]
 pkgdesc = "GNOME character map utility"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -7,7 +7,7 @@ configure_args = [
     "-Dsystemd=false",
     "-Dtests=false",
 ]
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "asciidoc",
     "gettext",
@@ -48,7 +48,7 @@ depends = [
     "gsettings-desktop-schemas",
     "upower",
 ]
-checkdepends = ["weston"]
+checkdepends = ["xwayland-run"]
 pkgdesc = "Core user interface for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

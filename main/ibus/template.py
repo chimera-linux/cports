@@ -22,7 +22,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_dir = "."  # tests assume this
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "automake",
     "dconf",
@@ -52,7 +52,7 @@ makedepends = [
     "libxtst-devel",
     "wayland-devel",
 ]
-checkdepends = ["weston", "fonts-dejavu-otf", "setxkbmap", "bash"]
+checkdepends = ["xwayland-run", "fonts-dejavu-otf", "setxkbmap", "bash"]
 depends = ["python-gobject", "iso-codes", "dbus-x11"]
 pkgdesc = "Intelligent Input Bus"
 maintainer = "q66 <q66@chimera-linux.org>"

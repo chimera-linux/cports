@@ -2,7 +2,7 @@ pkgname = "gnome-control-center"
 pkgver = "46.2"
 pkgrel = 0
 build_style = "meson"
-make_check_wrapper = ["weston-headless-run"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "gettext",
     "glib-devel",
@@ -61,7 +61,7 @@ depends = [
     "tecla",
     "udisks",
 ]
-checkdepends = ["python-dbusmock", "weston"] + depends
+checkdepends = ["python-dbusmock", "xwayland-run"] + depends
 pkgdesc = "GNOME control center"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
