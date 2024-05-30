@@ -21,9 +21,6 @@ source = f"{url}/-/archive/v{pkgver}/sequoia-git-v{pkgver}.tar.gz"
 sha256 = "c1f7d2647538f3335dab8862a9c4b78bac8c41bb22a3917ec45989849fd035dd"
 options = ["!cross"]
 
-if self.profile().arch == "ppc64le":
-    broken = "rustc segfaults"
-
 
 def do_install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/sq-git")
