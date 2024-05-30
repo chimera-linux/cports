@@ -1,6 +1,6 @@
 pkgname = "catfish"
 pkgver = "4.18.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "intltool",
@@ -13,6 +13,7 @@ hostmakedepends = [
 depends = [
     "gtk+3",
     "python-cairo",
+    "python-dbus",
     "python-gobject",
     "python-pexpect",
     "virtual:cmd:locate!chimerautils-extra",
