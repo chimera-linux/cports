@@ -1,6 +1,6 @@
 pkgname = "protobuf"
-pkgver = "26.1"
-pkgrel = 1
+pkgver = "27.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -14,7 +14,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"https://github.com/protocolbuffers/protobuf/archive/v{pkgver}.tar.gz"
-sha256 = "4fc5ff1b2c339fb86cd3a25f0b5311478ab081e65ad258c6789359cd84d421f8"
+sha256 = "6fbe2e6f703bcd3a246529c2cab586ca12a98c4e641f5f71d51fde09eb48e9e7"
 # FIXME vis breaks linking lite-test, cfi makes protoc not compile any tests
 hardening = ["!vis", "!cfi"]
 
@@ -45,6 +45,13 @@ def _protoc(self):
     ]
 
 
+@subpackage("protobuf-devel-static")
+def _devel_static(self):
+    self.pkgdesc = f"{pkgdesc} (development files) (static libraries)"
+    return ["usr/lib/*.a"]
+
+
 @subpackage("protobuf-devel")
 def _devel(self):
+    self.depends = [f"protobuf-devel-static={pkgver}-r{pkgrel}"]
     return self.default_devel()
