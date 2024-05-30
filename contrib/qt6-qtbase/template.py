@@ -82,9 +82,6 @@ hardening = ["!int"]
 # TODO
 options = ["!cross"]
 
-if self.profile().arch == "aarch64":
-    configure_args += ["-DQT_FEATURE_opengles2=ON"]
-
 if self.profile().cross:
     hostmakedepends += ["qt6-qtbase"]
     configure_args += ["-DQT_FORCE_BUILD_TOOLS=ON"]
