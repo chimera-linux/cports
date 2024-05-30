@@ -34,6 +34,3 @@ license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-ugly/gst-plugins-ugly-{pkgver}.tar.xz"
 sha256 = "4604f8709c0bc4d6960ef6ae6fd91e0b20af011bfe22e103f5b85377cf3f1ef4"
-
-if self.profile().arch == "aarch64":
-    broken = "requires QT_FEATURE_xcb_glx_plugin in qt6 which does not work with opengles2"
