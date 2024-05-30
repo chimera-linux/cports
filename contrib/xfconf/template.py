@@ -4,7 +4,12 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-gsettings-backend"]
 make_cmd = "gmake"
-make_check_wrapper = ["dbus-run-session", "xvfb-run"]
+make_check_wrapper = [
+    "dbus-run-session",
+    "--",
+    "xwfb-run",
+    "--",
+]
 hostmakedepends = [
     "automake",
     "glib-devel",
@@ -18,7 +23,7 @@ hostmakedepends = [
     "xfce4-dev-tools",
 ]
 makedepends = ["glib-devel", "libxfce4util-devel", "vala-devel"]
-checkdepends = ["dbus", "xserver-xorg-xvfb"]
+checkdepends = ["dbus", "xwayland-run"]
 pkgdesc = "Xfce configuration system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.0-or-later"

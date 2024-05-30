@@ -5,7 +5,7 @@ build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["LUA_VERSION=5.1", "LUA_CFLAGS=-I/usr/include/lua5.1"]
 make_check_args = ["LUA=lua5.1"]
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = ["pkgconf", "gobject-introspection"]
 makedepends = [
     "gmake",
@@ -15,7 +15,7 @@ makedepends = [
     "gir-freedesktop",
 ]
 depends = ["gir-freedesktop"]
-checkdepends = ["xserver-xorg-xvfb", "dbus-x11", "lua5.1", "gtk+3"]
+checkdepends = ["xwayland-run", "dbus", "lua5.1", "gtk+3"]
 pkgdesc = "Lua binding to GObject libraries using GObject-Introspection"
 maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"

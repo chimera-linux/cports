@@ -3,7 +3,7 @@ pkgver = "3.24.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dbuild-demos=false", "-Dbuild-tests=true"]
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = ["meson", "pkgconf", "glib-devel"]
 makedepends = [
     "gtk+3-devel",
@@ -12,7 +12,7 @@ makedepends = [
     "atkmm1.6-devel",
     "gdk-pixbuf-devel",
 ]
-checkdepends = ["xserver-xorg-xvfb"]
+checkdepends = ["xwayland-run"]
 pkgdesc = "C++ bindings for Gtk+3"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

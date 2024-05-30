@@ -6,7 +6,7 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["automake", "gmake"]
 makedepends = ["libxmu-devel"]
-checkdepends = ["psmisc", "xserver-xorg-xvfb"]
+checkdepends = ["psmisc", "xwayland-run"]
 pkgdesc = "Command line interface to the X11 clipboard"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
@@ -17,4 +17,4 @@ hardening = ["vis", "cfi"]
 
 
 def do_check(self):
-    self.do("xvfb-run", "./xctest")
+    self.do("xwfb-run", "--", "./xctest")
