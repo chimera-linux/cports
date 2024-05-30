@@ -1,6 +1,6 @@
 pkgname = "gnome"
 pkgver = "46.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
 # some of them are here anyway, for clarity but no other purpose
@@ -73,7 +73,7 @@ def _apps(self):
         "gnome-user-docs",
         # "gnome-user-share",
         "gnome-weather",
-        # "orca",
+        "orca",
         # "phodav",
         "simple-scan",
         "sushi",
