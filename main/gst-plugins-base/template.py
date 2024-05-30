@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-base"
 pkgver = "1.24.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dcdparanoia=enabled",
@@ -14,39 +14,43 @@ configure_args = [
 ]
 make_check_env = {"XDG_RUNTIME_DIR": "/etc/xdg"}
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "gettext",
     "glib-devel",
-    "orc",
     "gobject-introspection",
+    "meson",
+    "orc",
+    "pkgconf",
     "wayland-progs",
 ]
 makedepends = [
-    "gstreamer-devel",
-    "libxml2-devel",
-    "glib-devel",
-    "pango-devel",
     "cairo-devel",
-    "graphene-devel",
-    "libgudev-devel",
-    "libvisual-devel",
-    "orc-devel",
     "cdparanoia-devel",
-    "libtheora-devel",
-    "libvorbis-devel",
-    "opus-devel",
-    "libpng-devel",
+    "glib-devel",
+    "graphene-devel",
+    "gstreamer-devel",
+    "libgudev-devel",
     "libjpeg-turbo-devel",
-    "mesa-devel",
-    "libxv-devel",
-    "libxext-devel",
+    "libpng-devel",
     "libsm-devel",
+    "libtheora-devel",
+    "libvisual-devel",
+    "libvorbis-devel",
+    "libxext-devel",
+    "libxml2-devel",
+    "libxv-devel",
+    "mesa-devel",
+    "opus-devel",
+    "orc-devel",
+    "pango-devel",
     "wayland-devel",
     "wayland-protocols",
 ]
-checkdepends = ["mesa-dri", "fonts-liberation-otf"]
-depends = ["orc", f"gstreamer~{pkgver}"]
+depends = [
+    f"gstreamer~{pkgver}",
+    "libvisual-plugins-meta",
+    "orc",
+]
+checkdepends = ["fonts-liberation-otf"] + depends
 pkgdesc = "GStreamer base plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
