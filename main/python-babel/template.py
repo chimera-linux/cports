@@ -1,6 +1,6 @@
 pkgname = "python-babel"
-pkgver = "2.14.0"
-pkgrel = 1
+pkgver = "2.15.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,9 +13,9 @@ depends = ["python", "python-setuptools", "python-pytz"]
 pkgdesc = "Tools for internationalizing Python applications"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
-url = "http://babel.pocoo.org"
-source = f"$(PYPI_SITE)/B/Babel/Babel-{pkgver}.tar.gz"
-sha256 = "6919867db036398ba21eb5c7a0f6b28ab8cbc3ae7a73a44ebe34ae74a4e7d363"
+url = "https://babel.pocoo.org"
+source = f"$(PYPI_SITE)/B/Babel/babel-{pkgver}.tar.gz"
+sha256 = "8daf0e265d05768bc6c7a314cf1321e9a123afc328cc635c18622a2f30a04413"
 # needs pytest, is a dependency of pytest
 options = ["!check"]
 
