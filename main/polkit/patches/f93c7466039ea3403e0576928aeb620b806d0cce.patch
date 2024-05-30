@@ -1,0 +1,28 @@
+From f93c7466039ea3403e0576928aeb620b806d0cce Mon Sep 17 00:00:00 2001
+From: Jan Rybar <jrybar@redhat.com>
+Date: Fri, 9 Feb 2024 11:16:03 +0100
+Subject: [PATCH] fix: pkexec fails with
+ "GDBus.Error:org.freedesktop.PolicyKit1.Error.Failed: No session for cookie"
+ (#423)
+
+bug:https://gitlab.freedesktop.org/polkit/polkit/-/issues/17
+
+Co-authored-by: huxd1532 <huxiaodong@uniontech.com>
+---
+ src/polkitbackend/polkitbackendinteractiveauthority.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/polkitbackend/polkitbackendinteractiveauthority.c b/src/polkitbackend/polkitbackendinteractiveauthority.c
+index f4be3036..9dab476e 100644
+--- a/src/polkitbackend/polkitbackendinteractiveauthority.c
++++ b/src/polkitbackend/polkitbackendinteractiveauthority.c
+@@ -2611,7 +2611,8 @@ polkit_backend_interactive_authority_register_authentication_agent (PolkitBacken
+   priv->agent_serial++;
+   agent = authentication_agent_new (priv->agent_serial,
+                                     subject,
+-                                    user_of_caller,
++                                    user_of_subject,/*fix pkexec fails with No session for cookie,
++                                    upstream issue:https://gitlab.freedesktop.org/polkit/polkit/issues/17*/
+                                     polkit_system_bus_name_get_name (POLKIT_SYSTEM_BUS_NAME (caller)),
+                                     locale,
+                                     object_path,
