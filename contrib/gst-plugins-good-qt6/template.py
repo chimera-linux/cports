@@ -38,6 +38,3 @@ sha256 = "023096d661cf58cde3e0dcdbf56897bf588830232358c305f3e15fd63e116626"
 hardening = ["!int"]
 # no qt-specific tests, only examples
 options = ["!check"]
-
-if self.profile().arch == "aarch64":
-    broken = "requires QT_FEATURE_xcb_glx_plugin in qt6 which does not work with opengles2"
