@@ -1,43 +1,61 @@
-reverts https://github.com/mesonbuild/meson/pull/12683
+reverts https://github.com/mesonbuild/meson/pull/12683 (and future amendments)
 this change leaves no good option since both b_ndebug=true and =false pass
 something that may be unwanted
+(note in 1.4.1: it now skips if the macro is in compiler defines, but libc++
+default system config does not count as a default compiler define?)
 --
 --- a/mesonbuild/compilers/cpp.py
 +++ b/mesonbuild/compilers/cpp.py
-@@ -306,21 +306,7 @@
+@@ -306,26 +306,7 @@
              return libs
          return []
  
--    def get_assert_args(self, disable: bool) -> T.List[str]:
--        args: T.List[str] = []
+-    def get_assert_args(self, disable: bool, env: 'Environment') -> T.List[str]:
 -        if disable:
 -            return ['-DNDEBUG']
  
--        # Clang supports both libstdc++ and libc++
--        args.append('-D_GLIBCXX_ASSERTIONS=1')
--        if version_compare(self.version, '>=18'):
--            args.append('-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE')
--        elif version_compare(self.version, '>=15'):
--            args.append('-D_LIBCPP_ENABLE_ASSERTIONS=1')
+-        # Don't inject the macro if the compiler already has it pre-defined.
+-        for macro in ['_GLIBCXX_ASSERTIONS', '_LIBCPP_HARDENING_MODE', '_LIBCPP_ENABLE_ASSERTIONS']:
+-            if self.defines.get(macro) is not None:
+-                return []
 -
--        return args
+-        if self.language_stdlib_provider(env) == 'stdc++':
+-            return ['-D_GLIBCXX_ASSERTIONS=1']
+-        else:
+-            if version_compare(self.version, '>=18'):
+-                return ['-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST']
+-            elif version_compare(self.version, '>=15'):
+-                return ['-D_LIBCPP_ENABLE_ASSERTIONS=1']
+-
+-        return []
 -
 -
  class ArmLtdClangCPPCompiler(ClangCPPCompiler):
  
      id = 'armltdclang'
-@@ -488,17 +474,9 @@
+@@ -492,25 +473,6 @@
+             for l in libs:
                  assert isinstance(l, str)
              return libs
-         return []
+-        return []
 -
--    def get_assert_args(self, disable: bool) -> T.List[str]:
+-    def get_assert_args(self, disable: bool, env: 'Environment') -> T.List[str]:
 -        if disable:
 -            return ['-DNDEBUG']
 -
--        # XXX: This needs updating if/when GCC starts to support libc++.
--        # It currently only does so via an experimental configure arg.
--        return ['-D_GLIBCXX_ASSERTIONS=1']
+-        # Don't inject the macro if the compiler already has it pre-defined.
+-        for macro in ['_GLIBCXX_ASSERTIONS', '_LIBCPP_HARDENING_MODE', '_LIBCPP_ENABLE_ASSERTIONS']:
+-            if self.defines.get(macro) is not None:
+-                return []
+-
+-        if self.language_stdlib_provider(env) == 'stdc++':
+-            return ['-D_GLIBCXX_ASSERTIONS=1']
+-        else:
+-            if version_compare(self.version, '>=18'):
+-                return ['-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_FAST']
+-            elif version_compare(self.version, '>=15'):
+-                return ['-D_LIBCPP_ENABLE_ASSERTIONS=1']
+-
+         return []
  
      def get_pch_use_args(self, pch_dir: str, header: str) -> T.List[str]:
-         return ['-fpch-preprocess', '-include', os.path.basename(header)]
