@@ -1,2 +1,2 @@
 url = "https://gitlab.gnome.org/GNOME/libpeas/-/tags"
-ignore = ["*.99.*"]
+ignore = ["*.99.*", "2.*"]
