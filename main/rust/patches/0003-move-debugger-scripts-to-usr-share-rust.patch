@@ -1,4 +1,4 @@
-From a940ace181e12b74018cee95d9c5c923895d60be Mon Sep 17 00:00:00 2001
+From 557fb2825ee46b160ca1dcd4c0e215b254e2afdf Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:01:57 +0100
 Subject: [PATCH 03/12] move debugger scripts to /usr/share/rust
@@ -11,7 +11,7 @@ Subject: [PATCH 03/12] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index f50026368..f48c47104 100644
+index 012d64e53..25c3925a5 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
 @@ -519,7 +519,7 @@ impl Step for DebuggerScripts {
@@ -65,5 +65,5 @@ index bce72f1ba..8abb01245 100755
  # Call LLDB with the commands added to the argument list
  exec "$lldb" --one-line-before-file "$script_import" --source-before-file "$commands_file" "$@"
 -- 
-2.44.0
+2.45.1
 

@@ -1,4 +1,4 @@
-From 91bb1645e46650a645b1f59145de5c18b59c8f3e Mon Sep 17 00:00:00 2001
+From 0143185c83db591a8269ced8efca4c8ce82863eb Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Mon, 20 Dec 2021 01:56:48 +0100
 Subject: [PATCH 09/12] use CBUILD_TARGET_SYSROOT to locate llvm when
@@ -27,5 +27,5 @@ index 4b0c1229d..577dfafa0 100644
          } else if let Some(stripped) = lib.strip_prefix("-LIBPATH:") {
              println!("cargo:rustc-link-search=native={stripped}");
 -- 
-2.44.0
+2.45.1
 

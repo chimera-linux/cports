@@ -1,4 +1,4 @@
-From 80cc918258ba3435e8a3f7947e46fcf9bf56f17c Mon Sep 17 00:00:00 2001
+From ee58c4717843fc3f9d3db106283cdeb61c3f6b3e Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 5 Oct 2023 22:40:31 +0200
 Subject: [PATCH 04/12] fix shebang on install-template.sh
@@ -18,5 +18,5 @@ index b477c3eac..7bf7ed7fb 100644
  # No undefined variables
  set -u
 -- 
-2.44.0
+2.45.1
 
