@@ -9,14 +9,19 @@ configure_args = [
     "-DUSE_HTTP_PARSER=system",
     "-DUSE_HTTPS=OpenSSL",
 ]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "python"]
+hostmakedepends = [
+    "cmake",
+    "ninja",
+    "pkgconf",
+    "python",
+]
 makedepends = [
     "heimdal-devel",
-    "zlib-devel",
+    "http-parser-devel",
     "libssh2-devel",
     "openssl-devel",
-    "http-parser-devel",
     "pcre2-devel",
+    "zlib-devel",
 ]
 pkgdesc = "Linkable library for using git"
 maintainer = "aurelia <git@elia.garden>"
