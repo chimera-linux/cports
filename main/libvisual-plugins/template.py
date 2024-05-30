@@ -1,13 +1,14 @@
 pkgname = "libvisual-plugins"
 pkgver = "0.4.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-alsa",
+    # cycle
+    "--disable-jack",
     "--disable-portaudio",
     "--enable-gdkpixbuf-plugin",
     "--enable-gstreamer-plugin",
-    "--enable-jack",
     "--enable-opengl",
     "--enable-pulseaudio",
 ]
@@ -24,7 +25,6 @@ makedepends = [
     "gtk+3-devel",
     "libpulse-devel",
     "libvisual-devel",
-    "pipewire-jack-devel",
 ]
 install_if = [f"libvisual-plugins-meta={pkgver}-r{pkgrel}"]
 pkgdesc = "Abstraction library for audio visualization plugins (plugins)"
