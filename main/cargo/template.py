@@ -3,8 +3,8 @@ pkgver = "1.77.1"
 # _cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
 # FIXME: newer version segfaults on ppc64le when building self, when
 # building mozjs115, and possibly others (seems to be random)
-_cargover = "0.77.0"
-pkgrel = 1
+_cargover = "0.78.1"
+pkgrel = 2
 build_style = "cargo"
 # PKG_CONFIG being in environment mysteriously brings target sysroot
 # into linker sequence for build script, breaking build entirely
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://github.com/rust-lang/cargo/archive/{_cargover}.tar.gz"
-sha256 = "1c33e2feb197f848f082fdc074162328e231c2f68394e0e1d2dbbbf79c9fc3ec"
+sha256 = "0283fecebb6d3cbd111688eb0359edaf6676f4b2829201a8afe5a0e3afdb4b48"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -47,12 +47,24 @@ else:
     depends = ["rust"]
 
 
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.Cargo(self).vendor()
+    cargo.setup_vendor(self)
+
+
 def init_prepare(self):
     if _bootstrap:
         self.make_env["LIBGIT2_NO_VENDOR"] = "0"
         self.make_env["OPENSSL_STATIC"] = "1"
         self.make_env["OPENSSL_NO_PKG_CONFIG"] = "1"
         self.make_env["OPENSSL_DIR"] = str(self.profile().sysroot / "usr")
+
+
+def do_prepare(self):
+    # we patch the lockfile so vendor after patch
+    pass
 
 
 def do_install(self):
