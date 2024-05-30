@@ -1,17 +1,13 @@
 pkgname = "gst-plugins-good"
 pkgver = "1.24.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
     "-Ddefault_library=shared",
-    "-Dglib-asserts=disabled",
-    "-Dglib-checks=disabled",
-    "-Dgobject-cast-checks=disabled",
-    # disabled below
-    "-Dtests=disabled",
-    "-Dexamples=disabled",
+    # misc
     "-Ddoc=disabled",
+    "-Dexamples=disabled",
     # there are too many auto features and it's difficult to take care that
     # nothing is accidentally disabled and so on, so implicitly enable all,
     # and then disable what's not relevant to us:
@@ -29,53 +25,54 @@ configure_args = [
     "-Daalib=disabled",  # old and obsolete
     "-Ddv=disabled",  # maybe?
     "-Ddv1394=disabled",  # maybe?
-    "-Dqt5=disabled",  # no qt5 in main, maybe package separately?
-    "-Dqt6=disabled",  # ditto
+    "-Dqt5=disabled",  # no qt5
+    "-Dqt6=disabled",  # in contrib
     "-Dshout2=disabled",  # libshout needs speex which we don't package
 ]
+make_check_args = ["--timeout-multiplier=5"]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "gettext",
     "glib-devel",
-    "orc",
+    "meson",
     "nasm",
+    "orc",
+    "pkgconf",
 ]
 makedepends = [
-    "gstreamer-devel",
-    "gst-plugins-base-devel",
-    "libpng-devel",
-    "gtk+3-devel",
-    "gdk-pixbuf-devel",
     "bzip2-devel",
-    "libxml2-devel",
-    "libgudev-devel",
-    "v4l-utils-devel",
-    "libcaca-devel",
-    "pipewire-jack-devel",
-    "wavpack-devel",
-    "taglib-devel",
-    "libvpx-devel",
     "flac-devel",
-    "mpg123-devel",
+    "gdk-pixbuf-devel",
+    "gst-plugins-base-devel",
+    "gstreamer-devel",
+    "gtk+3-devel",
     "lame-devel",
-    "twolame-devel",
+    "libcaca-devel",
+    "libgudev-devel",
+    "libpng-devel",
     "libpulse-devel",
-    "orc-devel",
     "libsoup-devel",
+    "libvpx-devel",
+    "libxml2-devel",
+    "mpg123-devel",
+    "orc-devel",
+    "pipewire-jack-devel",
+    "taglib-devel",
+    "twolame-devel",
+    "v4l-utils-devel",
+    "wavpack-devel",
 ]
 depends = ["libsoup"]  # dynamically loaded
-checkdepends = ["pipewire"]
+checkdepends = ["xwayland-run"]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer good plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
-source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/src/gst-plugins-good/gst-plugins-good-{pkgver}.tar.xz"
 sha256 = "023096d661cf58cde3e0dcdbf56897bf588830232358c305f3e15fd63e116626"
-# FIXME int (extra tests fail, look for SIGILL)
-hardening = ["!int"]
-# 4 out of 105 tests currently fail (qtmux, splitmux, pipelines_tagschecking)
-options = ["!check"]
-
+# sys/v4l2/gstv4l2object.c v4l2object->ioctl = v4l2_ioctl;
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
+# FIXME int (extra tests fail, look for SIGILL)
+# in 1.24.4, pipelines_effectv only
+hardening = ["!int"]
