@@ -30,6 +30,7 @@ def _apps(self):
         "gigolo",
         "mousepad",
         "orage",
+        "orca",
         "parole",
         "pavucontrol",
         "ristretto",
@@ -42,6 +43,5 @@ def _apps(self):
         "xfce4-terminal",
         "xfce4-volumed-pulse",
         "xfdashboard",
-        # "orca"
     ]
     return []
