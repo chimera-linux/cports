@@ -1,12 +1,11 @@
 pkgname = "haproxy"
-pkgver = "2.9.7"
+pkgver = "3.0.0"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = [
     "TARGET=linux-musl",
     "USE_GETADDRINFO=1",
-    "USE_GZIP=1",
     "USE_LUA=1",
     "USE_NS=1",
     "USE_OPENSSL=1",
@@ -16,7 +15,6 @@ make_build_args = [
     "USE_PTHREAD_EMULATION=1",
     "USE_QUIC=1",
     "USE_QUIC_OPENSSL_COMPAT=1",
-    "USE_THREAD=1",
     "USE_ZLIB=1",
     "V=1",
 ]
@@ -25,7 +23,6 @@ make_install_args = [
     "DOCDIR=/usr/share/doc/haproxy",
 ]
 make_check_target = "reg-tests"
-make_use_env = True
 hostmakedepends = [
     "gmake",
     "pkgconf",
@@ -44,14 +41,14 @@ url = "https://www.haproxy.org"
 source = (
     f"{url}/download/{pkgver[:pkgver.rfind('.')]}/src/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "d1a0a56f008a8d2f007bc0c37df6b2952520d1f4dde33b8d3802710e5158c131"
+sha256 = "5aad97416216d2cd9dd212eb674839c40cd387f60fbc4b13d7ea3f1e5664a814"
 hardening = ["!vis", "!cfi", "!int"]
 # hard depends on vtest which doesn't have releases
 options = ["!check"]
 
 
-def pre_build(self):
-    self.do("gmake", "opts")
+def init_build(self):
+    self.make_build_args += ["cmd_LD=" + self.get_tool("CC")]
 
 
 def post_install(self):
