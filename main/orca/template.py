@@ -10,7 +10,6 @@ hostmakedepends = [
     "itstool",
     "meson",
     "pkgconf",
-    "python",
     "python-gobject",
 ]
 makedepends = [
@@ -34,4 +33,3 @@ license = "LGPL-2.1-or-later"
 url = "https://orca.gnome.org"
 source = f"$(GNOME_SITE)/orca/{pkgver[:-2]}/orca-{pkgver}.tar.xz"
 sha256 = "cf675e350c18ac0fa29436c6559d1da975f7ffffefa808ebe476d8f9e9d11114"
-options = ["!cross"]
