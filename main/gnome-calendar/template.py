@@ -3,24 +3,23 @@ pkgver = "46.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
+    "desktop-file-utils",
     "gettext",
-    "itstool",
+    "glib-devel",
     "gobject-introspection",
     "gtk-update-icon-cache",
-    "desktop-file-utils",
+    "itstool",
+    "meson",
+    "pkgconf",
 ]
 makedepends = [
+    "evolution-data-server-devel",
+    "geoclue-devel",
+    "gsettings-desktop-schemas-devel",
     "gtk4-devel",
     "libadwaita-devel",
-    "evolution-data-server-devel",
-    "gsettings-desktop-schemas-devel",
     "libgweather-devel",
     "libical-devel",
-    "geoclue-devel",
-    "libpeas-devel",
     "libsoup-devel",
 ]
 depends = ["gsettings-desktop-schemas"]
