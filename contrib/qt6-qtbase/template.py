@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 pkgname = "qt6-qtbase"
 pkgver = "6.7.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_DATADIR=share/qt6",
@@ -24,6 +24,7 @@ configure_args = [
     "-DQT_FEATURE_vulkan=ON",
     "-DQT_FEATURE_qmake=ON",
     "-DQT_FEATURE_xcb=ON",
+    "-DQT_FEATURE_xcb_glx_plugin=ON",
     "-DBUILD_WITH_PCH=OFF",
     "-DQT_BUILD_TESTS=ON",
 ]
