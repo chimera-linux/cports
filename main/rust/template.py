@@ -262,6 +262,9 @@ def do_build(self):
     with self.profile("target") as pf:
         benv["CFLAGS_" + pf.triplet] = self.get_cflags(shell=True)
         benv["CXXFLAGS_" + pf.triplet] = self.get_cxxflags(shell=True)
+    # prevent arch-specific flags from being passed to that
+    benv["CFLAGS_wasm32_wasi"] = ""
+    benv["CXXFLAGS_wasm32_wasi"] = ""
     # and hope it does not fail
     #
     # we also need to ensure PKG_CONFIG is unset because otherwise the
