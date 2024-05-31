@@ -1,0 +1,23 @@
+otherwise it loads bare .so only
+--- a/src/plugins/multimedia/ffmpeg/qffmpegvaapisymbols.cpp
++++ b/src/plugins/multimedia/ffmpeg/qffmpegvaapisymbols.cpp
+@@ -22,13 +22,16 @@
+ static Libs loadLibs()
+ {
+     Libs libs;
+-    libs.push_back(std::make_unique<QLibrary>("va"));
++    libs.push_back(std::make_unique<QLibrary>());
++    libs.back()->setFileNameAndVersion("va", "2");
+ #ifdef DYNAMIC_RESOLVE_VA_DRM_SYMBOLS
+-    libs.push_back(std::make_unique<QLibrary>("va-drm"));
++    libs.push_back(std::make_unique<QLibrary>());
++    libs.back()->setFileNameAndVersion("va-drm", "2");
+ #endif
+ 
+ #ifdef DYNAMIC_RESOLVE_VA_X11_SYMBOLS
+-    libs.push_back(std::make_unique<QLibrary>("va-x11"));
++    libs.push_back(std::make_unique<QLibrary>());
++    libs.back()->setFileNameAndVersion("va-x11", "2");
+ #endif
+ 
+     if (LibSymbolsResolver::tryLoad(libs))

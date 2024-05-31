@@ -1,6 +1,6 @@
 pkgname = "qt6-qtmultimedia"
 pkgver = "6.7.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 # these install /usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.a which
 # then has to exist for the -devel to work, but not splitting static keeps around
@@ -30,6 +30,12 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 checkdepends = ["xserver-xorg-xvfb", "mesa-dri"]
+depends = [
+    # dlopen
+    "virtual:so:libva-drm.so.2!libva",
+    "virtual:so:libva-x11.so.2!libva",
+    "virtual:so:libva.so.2!libva",
+]
 pkgdesc = "Qt6 Multimedia component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
