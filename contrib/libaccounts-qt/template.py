@@ -20,7 +20,9 @@ pkgdesc = "GLib-based library for managing the accounts database"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-only"
 url = "https://gitlab.com/accounts-sso/libaccounts-qt"
-source = f"https://gitlab.com/accounts-sso/libaccounts-qt/-/archive/VERSION_{pkgver}/libaccounts-qt-VERSION_{pkgver}.tar.gz"
+source = (
+    f"{url}/-/archive/VERSION_{pkgver}/libaccounts-qt-VERSION_{pkgver}.tar.gz"
+)
 sha256 = "6ed3e976133962c1c88f6c66928ba0d0a17a570843577d31e783dc891659e5d8"
 hardening = ["vis", "cfi"]
 
