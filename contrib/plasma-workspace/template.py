@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -59,12 +59,14 @@ makedepends = [
     "ktexteditor-devel",
     "ktextwidgets-devel",
     "kunitconversion-devel",
+    "kuserfeedback-devel",
     "kwallet-devel",
     "kwayland-devel",
     "kwin-devel",
     "layer-shell-qt-devel",
     "libcanberra-devel",
     "libice-devel",
+    "libkexiv2-devel",
     "libkscreen-devel",
     "libksysguard-devel",
     "libplasma-devel",
@@ -83,12 +85,10 @@ makedepends = [
     "qt6-qtwayland-devel",
     "wayland-protocols",
     "xcb-util-devel",
-    # TODO: KUserFeedbackQt6
     # TODO: KF6Baloo
     # TODO: KF6Holidays
     # TODO: AppStreamQt (main/appstream + -Dqt=true)
     # NOTE: make sure PolkitQt6-1 doesn't get pulled in?! just -DGLIBC_LOCALE_GEN=OFF
-    # TODO: KF6KExiv2 (KExiv2Qt6)
     # TODO: AppMenuGtkModule?
     # TODO: SeleniumWebDriverATSPI? (GUI accessibility tests)
 ]
