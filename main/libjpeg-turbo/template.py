@@ -1,6 +1,6 @@
 pkgname = "libjpeg-turbo"
 pkgver = "3.0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DWITH_JPEG8=1",
