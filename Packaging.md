@@ -949,6 +949,10 @@ Keep in mind that default values may be overridden by build styles.
 * `patch_args` *(list)* Options passed to `patch` when applying patches,
   in addition to the builtin ones (`-sNp1 -V none`). You can use this to
   override the strip count or pass additional options.
+* `prepare_after_patch` *(bool)* Normally, the `prepare` phase is run before
+  the `patch` phase so that vendored dependencies can be patched. Sometimes
+  it is necessary to patch lockfiles/dependency lists though and then it may
+  be necessary to run `prepare` after that is done.
 * `provider_priority` *(int)* The final tie-breaker when choosing between
   two virtual providers to install. When everything else fails (i.e. version
   is the same and so on), the provider with the higher priority is chosen.
@@ -2242,12 +2246,13 @@ always has to have it defined in the template.
 6) init: `extract`
 7) `do_extract` OR `do_extract` hooks
 8) post: `extract`
-9) step: `prepare`
+9) step: `prepare` (if before patch)
 10) step: `patch`
-11) step: `configure`
-12) step: `build`
-13) step: `check`
-14) step: `install`
+11) step: `prepare` (if after patch)
+12) step: `configure`
+13) step: `build`
+14) step: `check`
+15) step: `install`
 
 The `install` step is also special in that it does not call `post_install`
 hooks yet (`post_install` function is called though).

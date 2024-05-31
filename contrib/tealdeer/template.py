@@ -2,6 +2,8 @@ pkgname = "tealdeer"
 pkgver = "1.6.1"
 pkgrel = 0
 build_style = "cargo"
+# we patch lockfile
+prepare_after_patch = True
 make_check_args = [
     "--",
     "--skip=test_autoupdate_cache",
@@ -21,18 +23,6 @@ license = "MIT"
 url = "https://github.com/dbrgn/tealdeer"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "d42db25a56a72faec173c86192656c5381281dc197171f385fccffd518930430"
-
-
-def do_prepare(self):
-    # we patch the lockfile so vendor after patch
-    pass
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
 
 
 def post_install(self):

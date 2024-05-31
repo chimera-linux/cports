@@ -2,6 +2,8 @@ pkgname = "delta"
 pkgver = "0.17.0"
 pkgrel = 1
 build_style = "cargo"
+# we patch Cargo.toml and Cargo.lock
+prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
@@ -17,18 +19,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "1abd21587bcc1f2ef0cd342784ce990da9978bc345578e45506419e0952de714"
 # generates completions with host binary
 options = ["!cross"]
-
-
-def do_prepare(self):
-    # we patch the lockfile so vendor after patch
-    pass
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
 
 
 def post_build(self):

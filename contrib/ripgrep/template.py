@@ -2,6 +2,8 @@ pkgname = "ripgrep"
 pkgver = "14.1.0"
 pkgrel = 0
 build_style = "cargo"
+# we patch lockfile
+prepare_after_patch = True
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = (
@@ -19,18 +21,6 @@ sha256 = [
     "33c6169596a6bbfdc81415910008f26e0809422fda2d849562637996553b2ab6",
     "f84757b07f425fe5cf11d87df6644691c644a5cd2348a2c670894272999d3ba7",
 ]
-
-
-def do_prepare(self):
-    # we patch the lockfile so vendor after patch
-    pass
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
 
 
 def post_install(self):

@@ -2,6 +2,8 @@ pkgname = "atuin"
 pkgver = "18.2.0"
 pkgrel = 0
 build_style = "cargo"
+# we patch Cargo.toml and Cargo.lock
+prepare_after_patch = True
 make_build_args = [
     "--no-default-features",
     "--features=client,server,sync,clipboard",
@@ -17,18 +19,6 @@ sha256 = "7fb87902ce09af2d29459e9158bc83c18519690d555259709cab40d9ee75b024"
 # A bunch of failures yet to be investigated
 # generates completions using host binary
 options = ["!check", "!cross"]
-
-
-def do_prepare(self):
-    # we patch Cargo.toml and Cargo.lock, so vendor after patch
-    pass
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
 
 
 def post_build(self):

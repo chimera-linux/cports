@@ -148,15 +148,22 @@ def _build(
     if step == "extract":
         return
 
-    pkg.current_phase = "prepare"
-    prepare.invoke(pkg)
-    if step == "prepare":
-        return
+    if not pkg.prepare_post_patch:
+        pkg.current_phase = "prepare"
+        prepare.invoke(pkg)
+        if step == "prepare":
+            return
 
     pkg.current_phase = "patch"
     patch.invoke(pkg)
     if step == "patch":
         return
+
+    if pkg.prepare_post_patch:
+        pkg.current_phase = "prepare"
+        prepare.invoke(pkg)
+        if step == "prepare":
+            return
 
     pkg.cwd = oldcwd
     pkg.chroot_cwd = oldchd

@@ -2,6 +2,8 @@ pkgname = "xplr"
 pkgver = "0.21.8"
 pkgrel = 0
 build_style = "cargo"
+# we patch lockfile
+prepare_after_patch = True
 make_build_args = ["--no-default-features"]
 make_install_args = list(make_build_args)
 hostmakedepends = [
@@ -26,18 +28,6 @@ options = ["!check"]
 
 def post_extract(self):
     self.rm(".cargo/config")
-
-
-def do_prepare(self):
-    # we patch the lockfile so vendor after patch
-    pass
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
 
 
 def post_install(self):
