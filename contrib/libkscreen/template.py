@@ -1,6 +1,6 @@
 pkgname = "libkscreen"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # testbackendloader testEnv(xrandr 1.1) 'preferred.fileName().startsWith(backend)' returned FALSE, flaky tests when parallel
 make_check_args = ["-E", "testbackendloader", "-j1"]
@@ -34,6 +34,10 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
 sha256 = "01a77569f372d354c172a23f2d4e0661701c024e44d972971b146735e16ae1d9"
 # FIXME: cfi breaks almost all tests
 hardening = ["vis", "!cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
 
 
 @subpackage("libkscreen-devel")

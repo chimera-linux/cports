@@ -1,6 +1,6 @@
 pkgname = "nvme-cli"
 pkgver = "2.9.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "bash",
@@ -23,3 +23,7 @@ sha256 = "4b61684a1d23de1d9d0abd3f273799c60256c0e2a2e68a790d7945183fe33874"
 hardening = ["vis", "cfi"]
 # require /dev nvme device
 options = ["!check"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/system", recursive=True)

@@ -1,6 +1,6 @@
 pkgname = "kactivitymanagerd"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -26,3 +26,7 @@ url = "https://invent.kde.org/plasma/kactivitymanagerd"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kactivitymanagerd-{pkgver}.tar.xz"
 sha256 = "59ef968fa0990ed7aec6682bdbc8c51df1224a297934084c463060bc916fe09e"
 hardening = ["vis", "cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)

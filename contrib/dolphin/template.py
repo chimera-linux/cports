@@ -1,6 +1,6 @@
 pkgname = "dolphin"
 pkgver = "24.05.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -53,6 +53,10 @@ sha256 = "e009ce734355481a08ffff13e6f6a7db8b6b74fa320030b35d9180a1d9ca0794"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # FIXME: cfi breaks at least dolphinmainwindowtest in libdolphinprivate
 hardening = ["vis", "!cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
 
 
 @subpackage("dolphin-devel")
