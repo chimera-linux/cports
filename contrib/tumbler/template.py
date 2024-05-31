@@ -1,6 +1,6 @@
 pkgname = "tumbler"
 pkgver = "4.18.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
@@ -33,3 +33,7 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/tumbler/start"
 source = f"$(XFCE_SITE)/xfce/tumbler/{pkgver[:-2]}/tumbler-{pkgver}.tar.bz2"
 sha256 = "b530eec635eac7f898c0d8d3a3ff79d76a145d3bed3e786d54b1ec058132be7a"
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
