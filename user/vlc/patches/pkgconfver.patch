@@ -1,0 +1,19 @@
+apk compat
+--
+--- a/configure.ac
++++ b/configure.ac
+@@ -2,12 +2,12 @@
+ 
+ AC_COPYRIGHT([Copyright 1999-2024 VLC authors and VideoLAN])
+ 
+-AC_INIT([vlc], [4.0.0-dev])
++AC_INIT([vlc], [4.0.0])
+ VERSION_MAJOR=4
+ VERSION_MINOR=0
+ VERSION_REVISION=0
+ VERSION_EXTRA=0
+-VERSION_DEV=dev
++VERSION_DEV=
+ 
+ # libvlc .so version values
+ LIBVLC_ABI_MAJOR=12
