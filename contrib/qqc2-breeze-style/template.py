@@ -2,9 +2,6 @@ pkgname = "qqc2-breeze-style"
 pkgver = "6.0.5"
 pkgrel = 0
 build_style = "cmake"
-# testAnimationSpeedModifier_kconfig() write not going through? 'longDurationSpy.wait()' returned FALSE
-# make_check_args = ["-E", "animationspeedmodifiertest"]
-make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
