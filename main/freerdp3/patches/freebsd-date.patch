@@ -1,0 +1,11 @@
+--- a/cmake/today.cmake	2024-04-22 10:18:39.000000000 +0100
++++ b/cmake/today.cmake	2024-05-31 21:42:58.871417509 +0100
+@@ -4,7 +4,7 @@
+ #
+ MACRO (TODAY RESULT)
+     if (DEFINED ENV{SOURCE_DATE_EPOCH} AND NOT WIN32)
+-        EXECUTE_PROCESS(COMMAND "date" "-u" "-d" "@$ENV{SOURCE_DATE_EPOCH}" "+%Y-%m-%d"
++        EXECUTE_PROCESS(COMMAND "date" "-j" "-r" "$ENV{SOURCE_DATE_EPOCH}" "+%Y-%m-%d"
+                         OUTPUT_VARIABLE ${RESULT} OUTPUT_STRIP_TRAILING_WHITESPACE)
+         STRING(TIMESTAMP ${RESULT} "%Y-%m-%d" UTC)
+     endif()
