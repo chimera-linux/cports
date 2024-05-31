@@ -110,7 +110,7 @@ def handle_options():
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
 
     # build epilog
-    epilog = ["available commands:\n"]
+    epilog = ["available commands:"]
     for ch in command_handlers:
         chn = ch
         if len(chn) < 24:
