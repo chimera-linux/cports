@@ -1,0 +1,10 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,6 +1,6 @@
+ ACLOCAL_AMFLAGS = -I m4
+ 
+-SUBDIRS = lib gnome doc test testsuite demo tools include
++SUBDIRS = lib gnome doc test testsuite tools include
+ 
+ dox:
+ 	make -C doc dox
