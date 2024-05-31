@@ -1,5 +1,5 @@
 pkgname = "blueman"
-pkgver = "2.4.1"
+pkgver = "2.4.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Druntime_deps_check=false"]
@@ -33,6 +33,11 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://blueman-project.github.io/blueman"
 source = f"https://github.com/blueman-project/blueman/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "89a8cd453152c8cabbb63ad91432c68263dec15cd17f1ea14d56aec24cf25949"
+sha256 = "01acfb0ab717ecc803ee10de4adacb161af998b69f12633e1885bea2ebd5fcd1"
 # TODO
 options = ["!check"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
+    self.rm(self.destdir / "usr/lib/systemd/system", recursive=True)
