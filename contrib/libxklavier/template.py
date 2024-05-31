@@ -1,6 +1,6 @@
 pkgname = "libxklavier"
 pkgver = "5.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -11,9 +11,7 @@ hostmakedepends = [
     "automake",
     "gettext-devel",
     "gmake",
-    # TODO: cause a bunch of build warnings, e.g.:
-    # ../../libxklavier/xkl_config_registry.h:132: Warning: Xkl: symbol='ConfigItemProcessFunc': Unknown namespace for identifier 'ConfigItemProcessFunc'
-    # "gobject-introspection",
+    "gobject-introspection",
     "gtk-doc-tools",
     "libtool",
     "pkgconf",
@@ -33,6 +31,7 @@ license = "LGPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/LibXklavier"
 source = f"https://people.freedesktop.org/~svu/libxklavier-{pkgver}.tar.bz2"
 sha256 = "17a34194df5cbcd3b7bfd0f561d95d1f723aa1c87fca56bc2c209514460a9320"
+options = ["!cross"]
 
 
 @subpackage("libxklavier-devel")
