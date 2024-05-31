@@ -32,6 +32,8 @@ def invoke(pkg):
         "var/run",
         "usr/local",
         "usr/lib/locale",
+        "usr/lib/systemd/system",
+        "usr/lib/systemd/user",
         "usr/share/mime/XMLnamespaces",
         "usr/share/mime/aliases",
         "usr/share/mime/generic-icons",
