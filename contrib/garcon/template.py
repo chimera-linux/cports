@@ -28,6 +28,7 @@ license = "LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/garcon/start"
 source = f"$(XFCE_SITE)/xfce/garcon/{pkgver[:-2]}/garcon-{pkgver}.tar.bz2"
 sha256 = "1b8c9292e131968fbfc8987bbc62c5ba47186dd45ef4e47c5d8c5088bb2d434d"
+options = ["!cross"]
 
 
 @subpackage("garcon-devel")
