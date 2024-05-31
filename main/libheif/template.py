@@ -1,6 +1,6 @@
 pkgname = "libheif"
 pkgver = "1.17.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DWITH_DAV1D=ON",
@@ -31,6 +31,17 @@ options = ["!check"]
 @subpackage("libheif-devel")
 def _devel(self):
     return self.default_devel()
+
+
+@subpackage("heif-thumbnailer")
+def _thumbnailer(self):
+    self.pkgdesc = f"{pkgdesc} (thumbnailer)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    return [
+        "usr/bin/heif-thumbnailer",
+        "usr/share/man/man1/heif-thumbnailer.1",
+        "usr/share/thumbnailers",
+    ]
 
 
 @subpackage("libheif-progs")
