@@ -1,0 +1,10 @@
+--- a/cpuinfo.sh
++++ b/cpuinfo.sh
+@@ -38,6 +38,7 @@
+ {
+ cat > conftest.c <<EOF
+ #include <signal.h>
++#include <stdlib.h>
+ void catch() { exit(1); }
+ int main(void){
+   signal(SIGILL, catch);
