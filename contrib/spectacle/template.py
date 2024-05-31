@@ -1,6 +1,6 @@
 pkgname = "spectacle"
 pkgver = "24.05.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -40,3 +40,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/spectacle-{pkgver}.tar.xz"
 sha256 = "def2851e8db3cc00eab0810d988014b15b8f23b474b932b1cdf3c6144326d5aa"
 # FIXME: cfi kills app on launch
 hardening = ["vis", "!cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)

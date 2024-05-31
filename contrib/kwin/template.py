@@ -1,6 +1,6 @@
 pkgname = "kwin"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -100,6 +100,10 @@ sha256 = "242e7d210529ec631bc5fe3fe0a117a3d1d4edb1dd3a644aafd5089312f8b0d7"
 # }
 # FIXME: cfi breaks lots of tests
 hardening = ["vis", "!cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
 
 
 @subpackage("kwin-devel")

@@ -1,6 +1,6 @@
 pkgname = "kscreen"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -32,3 +32,7 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/kscreen-{pkgver}.tar.xz"
 sha256 = "eded8b558167d89a29a830a7bd3c7d692b365da529c7b6e59ebdadeb916a93f0"
 # FIXME: cfi breaks both tests like https://paste.c-net.org/zfdjtfn6ssy6
 hardening = ["vis", "!cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)

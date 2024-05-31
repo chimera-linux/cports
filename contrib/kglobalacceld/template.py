@@ -1,6 +1,6 @@
 pkgname = "kglobalacceld"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -27,6 +27,10 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
 sha256 = "2c9b391c0e3f91bb8b320029c7b97fc8166658882106d1df9ad441600894fcae"
 # FIXME: cfi breaks at least 50+ kwin tests (together with kidletime)
 hardening = ["vis", "!cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
 
 
 @subpackage("kglobalacceld-devel")

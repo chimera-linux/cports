@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.0.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -118,6 +118,8 @@ hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_license("LICENSES/MIT.txt")
+
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
 
 
 @subpackage("plasma-workspace-devel")

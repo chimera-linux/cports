@@ -1,6 +1,6 @@
 pkgname = "ksystemstats"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
@@ -37,3 +37,7 @@ sha256 = "bdc6fa95c0b4dad9210c7a7734e1c233bc408f09fcaf4961ba709affa1fd4284"
 tool_flags = {"CXXFLAGS": ["-Wno-deprecated-declarations"]}
 # FIXME: cfi breaks at least ksystemstatstest in dbusApi() like https://paste.c-net.org/tnqlkafoixrz
 hardening = ["vis", "!cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)

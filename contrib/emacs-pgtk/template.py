@@ -1,6 +1,6 @@
 pkgname = "emacs-pgtk"
 pkgver = "29.3"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",
@@ -66,3 +66,5 @@ def post_install(self):
         self.destdir
         / f"usr/libexec/emacs/{pkgver}/{self.profile().triplet}/update-game-score"
     ).chmod(0o755)
+
+    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
