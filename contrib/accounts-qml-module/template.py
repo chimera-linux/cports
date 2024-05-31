@@ -21,7 +21,7 @@ pkgdesc = "QML bindings for signond/libaccounts-qt"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-only"
 url = "https://gitlab.com/accounts-sso/accounts-qml-module"
-source = f"https://gitlab.com/accounts-sso/accounts-qml-module/-/archive/{_gitrev}.tar.gz"
+source = f"{url}/-/archive/{_gitrev}.tar.gz"
 sha256 = "1a53a6d8a3a56694244bc24bdab844d91420483744822d08ae8517ff7df84763"
 
 if self.profile().arch == "riscv64":
