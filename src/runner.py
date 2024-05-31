@@ -109,7 +109,19 @@ def handle_options():
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
 
-    parser = argparse.ArgumentParser(description="Chimera Linux build system.")
+    # build epilog
+    epilog = ["available commands:\n"]
+    for ch in command_handlers:
+        chn = ch
+        if len(chn) < 24:
+            chn += " " * (20 - len(chn))
+        epilog.append(f"  {chn}  {command_handlers[ch][1]}.")
+
+    parser = argparse.ArgumentParser(
+        description="Chimera Linux build system.",
+        formatter_class=argparse.RawTextHelpFormatter,
+        epilog="\n".join(epilog),
+    )
 
     parser.add_argument(
         "-c",
@@ -900,6 +912,11 @@ def do_prune_removed(tgt):
             continue
         # finally index
         _prune(repo)
+
+
+def do_prune_pkgs(cmd):
+    do_prune_obsolete(cmd)
+    do_prune_removed(cmd)
 
 
 def do_index(tgt):
@@ -2176,6 +2193,82 @@ def do_bump_pkgrel(tgt):
 # MAIN ENTRYPOINT
 #
 
+command_handlers = {
+    "binary-bootstrap": (binary_bootstrap, "Set up the build container"),
+    "bootstrap": (bootstrap, "Bootstrap the build container from scratch"),
+    "bootstrap-update": (bootstrap_update, "Update the build container"),
+    "build": (do_pkg, "Run up to build phase of a template"),
+    "bulk-pkg": (do_bulkpkg, "Perform a bulk build"),
+    "bulk-print": (
+        lambda cmd: do_bulkpkg(cmd, False),
+        "Print a bulk build list",
+    ),
+    "bulk-raw": (
+        lambda cmd: do_bulkpkg(cmd, True, True),
+        "Perform an unsorted bulk build",
+    ),
+    "bump-pkgrel": (do_bump_pkgrel, "Increase the pkgrel of a template"),
+    "check": (do_pkg, "Run up to check phase of a template"),
+    "chroot": (do_chroot, "Enter an interactive bldroot chroot"),
+    "clean": (do_clean, "Clean the build directory"),
+    "configure": (do_pkg, "Run up to configure phase of a template"),
+    "cycle-check": (
+        do_cycle_check,
+        "Perform a depcycle check on all templates",
+    ),
+    "dump": (do_dump, "Dump the metadata of all templates to the terminal"),
+    "fetch": (do_pkg, "Run up to fetch phase of a template"),
+    "extract": (do_pkg, "Run up to extract phase of a template"),
+    "index": (do_index, "Reindex local repositories"),
+    "install": (do_pkg, "Run up to install phase of a template"),
+    "keygen": (do_keygen, "Generate a new signing key"),
+    "lint": (do_lint, "Parse a template and lint it"),
+    "list-unbuilt": (
+        lambda cmd: do_print_unbuilt(cmd, True),
+        "Print a newline-separated versioned list of unbuilt templates",
+    ),
+    "patch": (do_pkg, "Run up to patch phase of a template"),
+    "pkg": (do_pkg, "Build a package"),
+    "prepare": (do_pkg, "Run up to prepare phase of a template"),
+    "prepare-upgrade": (
+        do_prepare_upgrade,
+        "Update template checksums and reset pkgrel",
+    ),
+    "print-build-graph": (
+        do_print_build_graph,
+        "Print the build graph of a template",
+    ),
+    "print-unbuilt": (
+        lambda cmd: do_print_unbuilt(cmd, False),
+        "Print a space-separated list of unbuilt templates",
+    ),
+    "prune-pkgs": (
+        do_prune_pkgs,
+        "Prune obsolete and removed packages from local repos",
+    ),
+    "prune-obsolete": (
+        do_prune_obsolete,
+        "Prune obsolete packages from local repos",
+    ),
+    "prune-removed": (
+        do_prune_removed,
+        "Prune removed packages from local repos",
+    ),
+    "prune-sources": (do_prune_sources, "Prune local sources"),
+    "relink-subpkgs": (do_relink_subpkgs, "Remake subpackage symlinks"),
+    "remove-autodeps": (
+        do_remove_autodeps,
+        "Remove build dependencies from bldroot",
+    ),
+    "unstage": (do_unstage, "Unstage local repositories"),
+    "unstage-check-remote": (
+        check_unstage,
+        "Try unstaging local packages against remote repositories",
+    ),
+    "update-check": (do_update_check, "Check a template for upstream updates"),
+    "zap": (do_zap, "Remove the bldroot"),
+}
+
 
 def fire():
     import sys
@@ -2238,73 +2331,11 @@ def fire():
 
     try:
         cmd = cmdline.command[0]
-        match cmd:
-            case "binary-bootstrap":
-                binary_bootstrap(cmd)
-            case "bootstrap":
-                bootstrap(cmd)
-            case "bootstrap-update":
-                bootstrap_update(cmd)
-            case "bulk-pkg":
-                do_bulkpkg(cmd)
-            case "bulk-print":
-                do_bulkpkg(cmd, False)
-            case "bulk-raw":
-                do_bulkpkg(cmd, True, True)
-            case "bump-pkgrel":
-                do_bump_pkgrel(cmd)
-            case "check" | "install" | "pkg":
-                do_pkg(cmd)
-            case "chroot":
-                do_chroot(cmd)
-            case "clean":
-                do_clean(cmd)
-            case "cycle-check":
-                do_cycle_check(cmd)
-            case "dump":
-                do_dump(cmd)
-            case "fetch" | "extract" | "prepare":
-                do_pkg(cmd)
-            case "index":
-                do_index(cmd)
-            case "keygen":
-                do_keygen(cmd)
-            case "lint":
-                do_lint(cmd)
-            case "list-unbuilt":
-                do_print_unbuilt(cmd, True)
-            case "patch" | "configure" | "build":
-                do_pkg(cmd)
-            case "prepare-upgrade":
-                do_prepare_upgrade(cmd)
-            case "print-build-graph":
-                do_print_build_graph(cmd)
-            case "print-unbuilt":
-                do_print_unbuilt(cmd, False)
-            case "prune-pkgs":
-                do_prune_obsolete(cmd)
-                do_prune_removed(cmd)
-            case "prune-obsolete":
-                do_prune_obsolete(cmd)
-            case "prune-removed":
-                do_prune_removed(cmd)
-            case "prune-sources":
-                do_prune_sources(cmd)
-            case "relink-subpkgs":
-                do_relink_subpkgs(cmd)
-            case "remove-autodeps":
-                do_remove_autodeps(cmd)
-            case "unstage":
-                do_unstage(cmd)
-            case "unstage-check-remote":
-                check_unstage(cmd)
-            case "update-check":
-                do_update_check(cmd)
-            case "zap":
-                do_zap(cmd)
-            case _:
-                logger.get().out_red(f"cbuild: invalid target {cmd}")
-                sys.exit(1)
+        if cmd in command_handlers:
+            command_handlers[cmd][0](cmd)
+        else:
+            logger.get().out_red(f"cbuild: invalid target {cmd}")
+            sys.exit(1)
     except template.SkipPackage:
         pass
     except errors.CbuildException as e:
