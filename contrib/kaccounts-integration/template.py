@@ -24,7 +24,7 @@ makedepends = [
 depends = [
     # TODO: maybe these should go elsewhere
     "signon-plugin-oauth2",
-    "signon-wallet-extension",
+    "signon-kwallet-extension",
 ]
 pkgdesc = "KDE integration for Accounts-SSO and SignOn-SSO"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
@@ -37,7 +37,7 @@ hardening = ["vis", "!cfi"]
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
-    depends = ["signon-ui"]
+    depends += ["signon-ui"]
 
 
 @subpackage("kaccounts-integration-devel")
