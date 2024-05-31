@@ -1,6 +1,6 @@
 pkgname = "python-pykwalify"
 pkgver = "1.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # needs 'testfixtures'
@@ -29,5 +29,3 @@ sha256 = "796b2ad3ed4cb99b88308b533fb2f559c30fa6efb4fa9fda11347f483d245884"
 
 def post_install(self):
     self.install_license("LICENSE")
-    # some things want this name
-    self.install_link("usr/bin/kwalify", "pykwalify")
