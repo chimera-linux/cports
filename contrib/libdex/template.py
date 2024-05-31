@@ -1,5 +1,5 @@
 pkgname = "libdex"
-pkgver = "0.6.0"
+pkgver = "0.6.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,7 +25,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later AND BSD-3-Clause"
 url = "https://gitlab.gnome.org/GNOME/libdex"
 source = f"$(GNOME_SITE)/libdex/{'.'.join(pkgver.rsplit('.')[:-1])}/libdex-{pkgver}.tar.xz"
-sha256 = "1e88d2b00628e586b723b7fba515cce9752faf12122cde5a3c0d5b883998522a"
+sha256 = "d176de6578571e32a8c0b603b6a5a13fa5f87fb6b5442575b38ec5af16b17a92"
 # for liburing
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # gobject-introspection
