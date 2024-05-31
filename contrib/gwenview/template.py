@@ -4,12 +4,7 @@ pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
-    "("
-    # who knows
-    + "placetreemodeltest|"
-    + "urlutilstest|"
-    + "contextmanagertest"
-    + ")",
+    "(placetreemodeltest|urlutilstest|contextmanagertest)",
 ]
 make_check_wrapper = [
     "wlheadless-run",
