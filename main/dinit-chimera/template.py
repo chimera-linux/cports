@@ -42,7 +42,7 @@ options = ["!check", "brokenlinks"]
 def post_install(self):
     self.install_license("COPYING.md")
     self.install_file(self.files_path / "locale.conf", "etc")
-    self.install_tpfiles(self.files_path / "dinit.conf", name="dinit")
+    self.install_tmpfiles(self.files_path / "dinit.conf", name="dinit")
     self.install_file(
         self.files_path / "sd-tmpfiles-clean", "usr/libexec", mode=0o755
     )
