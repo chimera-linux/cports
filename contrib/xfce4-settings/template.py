@@ -8,6 +8,7 @@ configure_args = [
     "--enable-upower-glib",
 ]
 make_cmd = "gmake"
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",

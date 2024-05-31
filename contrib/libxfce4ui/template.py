@@ -5,6 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--enable-tests", "--disable-static"]
 make_cmd = "gmake"
 # TODO: gobject-introspection, fails to build with it for some reason
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",

@@ -2,6 +2,7 @@ pkgname = "xfce4-dev-tools"
 pkgver = "4.18.1"
 pkgrel = 0
 build_style = "gnu_configure"
+make_dir = "."
 hostmakedepends = [
     "automake",
     "libtool",

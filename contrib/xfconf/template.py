@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-gsettings-backend"]
 make_cmd = "gmake"
+make_dir = "."
 make_check_wrapper = [
     "dbus-run-session",
     "--",
