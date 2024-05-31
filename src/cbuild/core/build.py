@@ -148,7 +148,7 @@ def _build(
     if step == "extract":
         return
 
-    if not pkg.prepare_post_patch:
+    if not pkg.prepare_after_patch:
         pkg.current_phase = "prepare"
         prepare.invoke(pkg)
         if step == "prepare":
@@ -159,7 +159,7 @@ def _build(
     if step == "patch":
         return
 
-    if pkg.prepare_post_patch:
+    if pkg.prepare_after_patch:
         pkg.current_phase = "prepare"
         prepare.invoke(pkg)
         if step == "prepare":
