@@ -38,7 +38,6 @@ makedepends = [
 pkgdesc = "Xfce screensaver"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
-url = "https://xfce.org"
 url = "https://docs.xfce.org/apps/xfce4-screensaver/start"
 source = f"$(XFCE_SITE)/apps/xfce4-screensaver/{pkgver[:-2]}/xfce4-screensaver-{pkgver}.tar.bz2"
 sha256 = "d171316136a1189dfe69ef3da7f7a7f842014129ece184cc21ffb13bc0e13a39"
