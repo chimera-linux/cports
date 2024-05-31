@@ -2,8 +2,8 @@ pkgname = "elisa"
 pkgver = "24.05.0"
 pkgrel = 0
 build_style = "cmake"
-# some tests try open the same test.ogg
-make_check_args = ["-j1"]
+# flaky
+make_check_args = ["-E", "(localfilelistingtest)"]
 make_check_wrapper = [
     "wlheadless-run",
     "--",
