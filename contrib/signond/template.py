@@ -16,7 +16,7 @@ pkgdesc = "D-Bus service for user authentication"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-only"
 url = "https://gitlab.com/accounts-sso/signond"
-source = f"https://gitlab.com/accounts-sso/signond/-/archive/VERSION_{pkgver}/signond-VERSION_{pkgver}.tar.gz"
+source = f"{url}/-/archive/VERSION_{pkgver}/signond-VERSION_{pkgver}.tar.gz"
 sha256 = "3dd57c25e1bf1583b2cb857f96831e38e73d40264ff66ca43e63bb7233f76828"
 
 if self.profile().arch == "riscv64":
