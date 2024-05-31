@@ -1,1 +1,1 @@
-ignore = ["1.*[13579].*"]
+../../main/gst-plugins-good/update.py
