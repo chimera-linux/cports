@@ -1,6 +1,6 @@
 pkgname = "garcon"
 pkgver = "4.18.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
@@ -9,6 +9,7 @@ hostmakedepends = [
     "gettext",
     "glib-devel",
     "gmake",
+    "gobject-introspection",
     "gtk-doc-tools",
     "intltool",
     "libtool",
