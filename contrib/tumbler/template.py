@@ -1,6 +1,6 @@
 pkgname = "tumbler"
 pkgver = "4.18.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
@@ -20,10 +20,11 @@ makedepends = [
     "gst-plugins-base-devel",
     "libgsf-devel",
     "libjpeg-turbo-devel",
+    "libopenraw-devel",
     "libpng-devel",
     "libpoppler-devel",
     "libxfce4util-devel",
-    # TODO: libopenraw, libgepub, cover-thumbnailer
+    # TODO: libgepub, cover-thumbnailer
 ]
 pkgdesc = "Xfce implementation of the thumbnail management D-Bus spec"
 maintainer = "triallax <triallax@tutanota.com>"
