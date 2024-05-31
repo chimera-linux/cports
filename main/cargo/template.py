@@ -1,10 +1,7 @@
 pkgname = "cargo"
-pkgver = "1.77.1"
-# _cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
-# FIXME: newer version segfaults on ppc64le when building self, when
-# building mozjs115, and possibly others (seems to be random)
-_cargover = "0.78.1"
-pkgrel = 2
+pkgver = "1.78.0"
+_cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
+pkgrel = 0
 build_style = "cargo"
 # PKG_CONFIG being in environment mysteriously brings target sysroot
 # into linker sequence for build script, breaking build entirely
@@ -23,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://github.com/rust-lang/cargo/archive/{_cargover}.tar.gz"
-sha256 = "0283fecebb6d3cbd111688eb0359edaf6676f4b2829201a8afe5a0e3afdb4b48"
+sha256 = "b9de52bc7452fd74ab344b636f054de3e9a67cf167567cc4ce948e9219e81d98"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",

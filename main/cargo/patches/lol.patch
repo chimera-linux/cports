@@ -1,20 +1,58 @@
-diff --git a/Cargo.lock b/Cargo.lock
-index 8fa8ac9..b5a496b 100644
+Until we can figure out why it's busted on ppc64le, selectively downgrade
+some dependencies until things no longer crash. This is not sustainable
+forever but for now it makes it work.
+
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -101,9 +101,9 @@ dependencies = [
+@@ -71,15 +71,6 @@ version = "1.0.6"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "8901269c6307e8d93993578286ac0edf7f195079ffff5ebdeea6a59ffb7e36bc"
+ 
+-[[package]]
+-name = "anstyle-lossy"
+-version = "1.1.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a9a0444767dbd4aea9355cb47a370eb184dbfe918875e127eff52cb9d1638181"
+-dependencies = [
+- "anstyle",
+-]
+-
+ [[package]]
+ name = "anstyle-parse"
+ version = "0.2.3"
+@@ -98,19 +89,6 @@ dependencies = [
+  "windows-sys 0.52.0",
+ ]
+ 
+-[[package]]
+-name = "anstyle-svg"
+-version = "0.1.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8b6ddad447b448d6d5db36b31cbd3ff27c7af071619501998eeceab01968287a"
+-dependencies = [
+- "anstream",
+- "anstyle",
+- "anstyle-lossy",
+- "html-escape",
+- "unicode-width",
+-]
+-
+ [[package]]
+ name = "anstyle-wincon"
+ version = "3.0.2"
+@@ -123,9 +101,9 @@ dependencies = [
  
  [[package]]
  name = "anyhow"
--version = "1.0.79"
+-version = "1.0.80"
 +version = "1.0.75"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "080e9890a082662b09c1ad45f567faeeb47f22b5fb23895fbe1e651e718e25ca"
+-checksum = "5ad32ce52e4161730f7098c077cd2ed6229b5804ccf99e5366be1ab72a98b4e1"
 +checksum = "a4668cab20f66d8d020e1fbc0ebe47217433c1b6c8f2040faf858554e394ace6"
  
  [[package]]
  name = "arc-swap"
-@@ -283,7 +283,7 @@ dependencies = [
+@@ -305,7 +283,7 @@ dependencies = [
   "glob",
   "hex",
   "hmac",
@@ -23,19 +61,54 @@ index 8fa8ac9..b5a496b 100644
   "http-auth",
   "humantime",
   "ignore",
-@@ -886,9 +886,9 @@ checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
+@@ -547,18 +525,18 @@ dependencies = [
+ 
+ [[package]]
+ name = "clap"
+-version = "4.5.1"
++version = "4.4.10"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c918d541ef2913577a0f9566e9ce27cb35b6df072075769e0b26cb5a554520da"
++checksum = "41fffed7514f420abec6d183b1d3acfd9099c79c3a10a06ade4f8203f1411272"
+ dependencies = [
+  "clap_builder",
+ ]
+ 
+ [[package]]
+ name = "clap_builder"
+-version = "4.5.1"
++version = "4.4.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "9f3e7391dad68afb0c2ede1bf619f579a3dc9c2ec67f089baa397123a2f3d1eb"
++checksum = "63361bae7eef3771745f02d8d892bec2fee5f6e34af316ba556e7f97a7069ff1"
+ dependencies = [
+  "anstream",
+  "anstyle",
+@@ -569,9 +547,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "clap_lex"
+-version = "0.7.0"
++version = "0.6.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "98cc8fbded0c607b7ba9dd60cd98df59af97e84d24e49c8557331cfc26d301ce"
++checksum = "702fc72eb24e5a1e48ce58027a675bc24edd52096d5397d4aea7c6dd9eca0bd1"
+ 
+ [[package]]
+ name = "clru"
+@@ -910,9 +888,9 @@ checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
  
  [[package]]
  name = "erased-serde"
--version = "0.4.0"
+-version = "0.4.2"
 +version = "0.3.31"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "a3286168faae03a0e583f6fde17c02c8b8bba2dcc2061d0f7817066e5b0af706"
+-checksum = "55d05712b2d8d88102bc9868020c9e5c7a1f5527c452b9b97450a1d006140ba7"
 +checksum = "6c138974f9d5e7fe373eb04df7cae98833802ae4b11c24ac7039a21d5af4b26c"
  dependencies = [
   "serde",
  ]
-@@ -960,14 +960,14 @@ checksum = "27573eac26f4dd11e2b1916c3fe1baa56407c83c71a773a8ba17ec0bca03b6b7"
+@@ -984,14 +962,14 @@ checksum = "27573eac26f4dd11e2b1916c3fe1baa56407c83c71a773a8ba17ec0bca03b6b7"
  
  [[package]]
  name = "filetime"
@@ -54,7 +127,7 @@ index 8fa8ac9..b5a496b 100644
  ]
  
  [[package]]
-@@ -1531,7 +1531,7 @@ checksum = "b8dd0998ab245f33d40ca2267e58d542fe54185ebd1dc41923346cf28d179fb6"
+@@ -1559,7 +1537,7 @@ checksum = "97e9ad649bf5e109562d6acba657ca428661ec08e77eaf3a755d8fa55485be9c"
  dependencies = [
   "bstr",
   "gix-trace",
@@ -63,7 +136,7 @@ index 8fa8ac9..b5a496b 100644
   "once_cell",
   "thiserror",
  ]
-@@ -1749,7 +1749,7 @@ dependencies = [
+@@ -1778,7 +1756,7 @@ dependencies = [
   "bstr",
   "gix-features",
   "gix-path",
@@ -72,7 +145,7 @@ index 8fa8ac9..b5a496b 100644
   "thiserror",
   "url",
  ]
-@@ -1893,11 +1893,11 @@ dependencies = [
+@@ -1923,11 +1901,11 @@ dependencies = [
  
  [[package]]
  name = "home"
@@ -87,8 +160,19 @@ index 8fa8ac9..b5a496b 100644
  ]
  
  [[package]]
-@@ -1909,9 +1909,9 @@ dependencies = [
+@@ -1937,20 +1915,11 @@ dependencies = [
+  "windows-sys 0.52.0",
+ ]
  
+-[[package]]
+-name = "html-escape"
+-version = "0.2.13"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "6d1ad449764d627e22bfd7cd5e8868264fc9236e07c752972b4080cd351cb476"
+-dependencies = [
+- "utf8-width",
+-]
+-
  [[package]]
  name = "http-auth"
 -version = "0.1.9"
@@ -99,19 +183,19 @@ index 8fa8ac9..b5a496b 100644
  dependencies = [
   "memchr",
  ]
-@@ -2060,9 +2060,9 @@ checksum = "884e2677b40cc8c339eaefcb701c32ef1fd2493d71118dc0ca4b6a736c93bd67"
+@@ -2099,9 +2068,9 @@ checksum = "884e2677b40cc8c339eaefcb701c32ef1fd2493d71118dc0ca4b6a736c93bd67"
  
  [[package]]
  name = "libc"
--version = "0.2.151"
+-version = "0.2.153"
 +version = "0.2.150"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "302d7ab3130588088d277783b1e2d2e10c9e9e4a16dd9050e6ec93fb3e7048f4"
+-checksum = "9c198f91728a82281a64e1f4f9eeb25d82cb32a5de251c6bd1b5154d63a8e7bd"
 +checksum = "89d92a4743f9a61002fae18374ed11e7973f530cb3a3255fb354818118b2203c"
  
  [[package]]
  name = "libgit2-sys"
-@@ -2198,9 +2198,9 @@ dependencies = [
+@@ -2237,9 +2206,9 @@ dependencies = [
  
  [[package]]
  name = "memchr"
@@ -123,7 +207,7 @@ index 8fa8ac9..b5a496b 100644
  
  [[package]]
  name = "memmap2"
-@@ -2442,7 +2442,7 @@ checksum = "4c42a9226546d68acdd9c0a280d17ce19bfe27a46bf68784e4066115788d008e"
+@@ -2481,7 +2450,7 @@ checksum = "4c42a9226546d68acdd9c0a280d17ce19bfe27a46bf68784e4066115788d008e"
  dependencies = [
   "cfg-if",
   "libc",
@@ -132,7 +216,7 @@ index 8fa8ac9..b5a496b 100644
   "smallvec",
   "windows-targets 0.48.5",
  ]
-@@ -2469,9 +2469,9 @@ dependencies = [
+@@ -2508,9 +2477,9 @@ dependencies = [
  
  [[package]]
  name = "pasetors"
@@ -144,19 +228,19 @@ index 8fa8ac9..b5a496b 100644
  dependencies = [
   "ct-codecs",
   "ed25519-compact",
-@@ -2572,9 +2572,9 @@ dependencies = [
+@@ -2611,9 +2580,9 @@ dependencies = [
  
  [[package]]
  name = "pkg-config"
--version = "0.3.28"
+-version = "0.3.30"
 +version = "0.3.27"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "69d3587f8a9e599cc7ec2c00e331f71c4e69a5f9a4b8a6efd5b07466b9736f9a"
+-checksum = "d231b230927b5e4ad203db57bbcbee2802f6bce620b1e4a9024a07d94e2907ec"
 +checksum = "26072860ba924cbfa98ea39c8c19b4dd6a4a25423dbdf219c1eca91aa0cf6964"
  
  [[package]]
  name = "plotters"
-@@ -2757,6 +2757,15 @@ dependencies = [
+@@ -2803,6 +2772,15 @@ dependencies = [
   "crossbeam-utils",
  ]
  
@@ -172,14 +256,38 @@ index 8fa8ac9..b5a496b 100644
  [[package]]
  name = "redox_syscall"
  version = "0.4.1"
-@@ -2976,18 +2985,18 @@ dependencies = [
+@@ -2914,9 +2892,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "rustix"
+-version = "0.38.31"
++version = "0.38.28"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "6ea3e1a662af26cd7a3ba09c0297a31af215563ecf42817c98df621387f4e949"
++checksum = "72e572a5e8ca657d7366229cdde4bd14c4eb5499a9573d4d366fe1b599daa316"
+ dependencies = [
+  "bitflags 2.4.1",
+  "errno",
+@@ -3006,9 +2984,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "semver"
+-version = "1.0.22"
++version = "1.0.20"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "92d43fe69e652f3df9bdc2b85b2854a0825b86e4fb76bc44d945137d053639ca"
++checksum = "836fa6a3e1e547f9a2c4040802ec865b5d85f4014efe00555d7090a3dcaa1090"
+ dependencies = [
+  "serde",
+ ]
+@@ -3022,18 +3000,18 @@ dependencies = [
  
  [[package]]
  name = "serde"
--version = "1.0.194"
+-version = "1.0.197"
 +version = "1.0.193"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "0b114498256798c94a0689e1a15fec6005dee8ac1f41de56404b67afc2a4b773"
+-checksum = "3fb1c873e1b9b056a4dc4c0c198b24c3ffa059243875552b2bd0933b1aee4ce2"
 +checksum = "25dd9975e68d0cb5aa1120c288333fc98731bd1dd12f561e468ea4728c042b89"
  dependencies = [
   "serde_derive",
@@ -187,63 +295,95 @@ index 8fa8ac9..b5a496b 100644
  
  [[package]]
  name = "serde-untagged"
--version = "0.1.4"
+-version = "0.1.5"
 +version = "0.1.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "4c8ee00373d8674ba1eb5f93943817357863610d90caa9bac126eccf3e185dac"
+-checksum = "6a160535368dfc353348e7eaa299156bd508c60c45a9249725f5f6d370d82a66"
 +checksum = "0ba3ac59c62f51b75a6bfad8840b2ede4a81ff5cc23c200221ef479ae75a4aa3"
  dependencies = [
   "erased-serde",
   "serde",
-@@ -3005,9 +3014,9 @@ dependencies = [
+@@ -3051,9 +3029,9 @@ dependencies = [
  
  [[package]]
  name = "serde_derive"
--version = "1.0.194"
+-version = "1.0.197"
 +version = "1.0.193"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "a3385e45322e8f9931410f01b3031ec534c3947d0e94c18049af4d9f9907d4e0"
+-checksum = "7eb0b34b42edc17f6b7cac84a52a1c5f0e1bb2227e997ca9011ea3dd34e8610b"
 +checksum = "43576ca501357b9b071ac53cdc7da8ef0cbd9493d8df094cd821777ea6e894d3"
  dependencies = [
   "proc-macro2",
   "quote",
-@@ -3025,9 +3034,9 @@ dependencies = [
+@@ -3062,18 +3040,18 @@ dependencies = [
+ 
+ [[package]]
+ name = "serde_ignored"
+-version = "0.1.10"
++version = "0.1.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a8e319a36d1b52126a0d608f24e93b2d81297091818cd70625fcf50a15d84ddf"
++checksum = "80c31d5c53fd39f208e770f5a20a0bb214dee2a8d0d8adba18e19ad95a482ca5"
+ dependencies = [
+  "serde",
+ ]
  
  [[package]]
  name = "serde_json"
--version = "1.0.110"
+-version = "1.0.114"
 +version = "1.0.108"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "6fbd975230bada99c8bb618e0c365c2eefa219158d5c6c29610fd09ff1833257"
+-checksum = "c5f09b1bd632ef549eaa9f60a1f8de742bdbc698e6cee2095fc84dde5f549ae0"
 +checksum = "3d1c7e3eac408d115102c4c24ad393e0821bb3a5df4d506a80f85f7a742a526b"
  dependencies = [
   "itoa 1.0.10",
   "ryu",
-@@ -3126,9 +3135,9 @@ checksum = "4dccd0940a2dcdf68d092b8cbab7dc0ad8fa938bf95787e1b916b0e3d0e8e970"
+@@ -3172,19 +3150,17 @@ checksum = "4dccd0940a2dcdf68d092b8cbab7dc0ad8fa938bf95787e1b916b0e3d0e8e970"
  
  [[package]]
  name = "snapbox"
--version = "0.4.15"
+-version = "0.5.7"
 +version = "0.4.14"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "c4f1976ee8fd1be27d5f72c98be0aac4397a882a4736935d47418a5fbbd12042"
+-checksum = "4a99efa20de5053229642a477436cdb39828c7651c614622eb4888f9688523e6"
 +checksum = "4b377c0b6e4715c116473d8e40d51e3fa5b0a2297ca9b2a931ba800667b259ed"
  dependencies = [
   "anstream",
   "anstyle",
-@@ -3245,15 +3254,15 @@ dependencies = [
+- "anstyle-svg",
+  "content_inspector",
+  "dunce",
+  "escargot",
+  "filetime",
+  "normalize-line-endings",
+- "serde_json",
+  "similar",
+  "snapbox-macros",
+  "tempfile",
+@@ -3228,9 +3204,9 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
+ 
+ [[package]]
+ name = "strsim"
+-version = "0.11.0"
++version = "0.10.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "5ee073c9e4cd00e28217186dbe12796d692868f432bf2e97ee73bed0c56dfa01"
++checksum = "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623"
+ 
+ [[package]]
+ name = "subtle"
+@@ -3299,14 +3275,15 @@ dependencies = [
  
  [[package]]
  name = "tempfile"
--version = "3.9.0"
+-version = "3.10.1"
 +version = "3.8.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "01ce4141aa927a6d1bd34a041795abd0db1cccba5d5f24b009f694bdf3a1f3fa"
+-checksum = "85b77fafb263dd9d05cbeac119526425676db3784113aa9295c88498cbf8bff1"
 +checksum = "7ef1adac450ad7f4b3c28589471ade84f25f731a7a0fe30d71dfa9f60fd808e5"
  dependencies = [
   "cfg-if",
   "fastrand",
-- "redox_syscall",
 + "redox_syscall 0.4.1",
   "rustix",
 - "windows-sys 0.52.0",
@@ -251,14 +391,14 @@ index 8fa8ac9..b5a496b 100644
  ]
  
  [[package]]
-@@ -3268,18 +3277,18 @@ dependencies = [
+@@ -3321,18 +3298,18 @@ dependencies = [
  
  [[package]]
  name = "thiserror"
--version = "1.0.56"
+-version = "1.0.57"
 +version = "1.0.50"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "d54378c645627613241d077a3a79db965db602882668f9136ac42af9ecb730ad"
+-checksum = "1e45bcbe8ed29775f228095caf2cd67af7a4ccf756ebff23a306bf3e8b47b24b"
 +checksum = "f9a7210f5c9a7156bb50aa36aed4c95afb51df0df00713949448cf9e97d382d2"
  dependencies = [
   "thiserror-impl",
@@ -266,46 +406,57 @@ index 8fa8ac9..b5a496b 100644
  
  [[package]]
  name = "thiserror-impl"
--version = "1.0.56"
+-version = "1.0.57"
 +version = "1.0.50"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "fa0faa943b50f3db30a20aa7e265dbc66076993efed8463e8de414e5d06d3471"
+-checksum = "a953cb265bef375dae3de6663da4d3804eee9682ea80d8e2542529b73c531c81"
 +checksum = "266b2e40bc00e5a6c09c3584011e08b06f123c00362c92b975ba9843aaaa14b8"
  dependencies = [
   "proc-macro2",
   "quote",
-diff --git a/Cargo.toml b/Cargo.toml
-index ce6513c..201e761 100644
+@@ -3588,12 +3565,6 @@ dependencies = [
+  "percent-encoding",
+ ]
+ 
+-[[package]]
+-name = "utf8-width"
+-version = "0.1.7"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "86bd8d4e895da8537e5315b8254664e6b769c4ff3db18321b297a1e7004392e3"
+-
+ [[package]]
+ name = "utf8parse"
+ version = "0.2.1"
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -21,7 +21,7 @@ repository = "https://github.com/rust-lang/cargo"
- annotate-snippets = "0.10.1"
- anstream = "0.6.5"
- anstyle = "1.0.4"
--anyhow = "1.0.79"
+ annotate-snippets = "0.10.2"
+ anstream = "0.6.13"
+ anstyle = "1.0.6"
+-anyhow = "1.0.80"
 +anyhow = "1.0.75"
- base64 = "0.21.5"
+ base64 = "0.21.7"
  bytesize = "1.3"
  cargo = { path = "" }
 @@ -35,14 +35,14 @@ cargo-test-support = { path = "crates/cargo-test-support" }
- cargo-util = { version = "0.2.6", path = "crates/cargo-util" }
- cargo-util-schemas = { version = "0.2.0", path = "crates/cargo-util-schemas" }
+ cargo-util = { version = "0.2.9", path = "crates/cargo-util" }
+ cargo-util-schemas = { version = "0.3.0", path = "crates/cargo-util-schemas" }
  cargo_metadata = "0.18.1"
--clap = "4.4.12"
+-clap = "4.5.1"
 +clap = "4.4.10"
  color-print = "0.3.5"
  core-foundation = { version = "0.9.4", features = ["mac_os_10_7_support"] }
  crates-io = { version = "0.40.0", path = "crates/crates-io" }
  criterion = { version = "0.5.1", features = ["html_reports"] }
- curl = "0.4.44"
- curl-sys = "0.4.70"
+ curl = "0.4.46"
+ curl-sys = "0.4.72"
 -filetime = "0.2.23"
 +filetime = "0.2.22"
  flate2 = { version = "1.0.28", default-features = false, features = ["zlib"] }
  git2 = "0.18.2"
  git2-curl = "0.19.0"
 @@ -52,8 +52,8 @@ glob = "0.3.1"
- handlebars = { version = "5.0.0", features = ["dir_source"] }
+ handlebars = { version = "5.1.0", features = ["dir_source"] }
  hex = "0.4.3"
  hmac = "0.12.1"
 -home = "0.5.9"
@@ -313,18 +464,18 @@ index ce6513c..201e761 100644
 +home = "0.5.5"
 +http-auth = { version = "0.1.8", default-features = false }
  humantime = "2.1.0"
- ignore = "0.4.21"
+ ignore = "0.4.22"
  im-rc = "15.1.0"
 @@ -61,18 +61,18 @@ indexmap = "2"
- itertools = "0.12.0"
+ itertools = "0.12.1"
  jobserver = "0.1.28"
  lazycell = "1.3.0"
--libc = "0.2.151"
+-libc = "0.2.153"
 +libc = "0.2.150"
  libgit2-sys = "0.16.2"
  libloading = "0.8.1"
 -memchr = "2.7.1"
-+memchr = "2.6.4"
++memchr = "2.5.4"
  miow = "0.6.0"
  opener = "0.6.1"
  openssl = "0.10.57"
@@ -333,34 +484,37 @@ index ce6513c..201e761 100644
 +pasetors = { version = "0.6.7", features = ["v3", "paserk", "std", "serde"] }
  pathdiff = "0.2"
  percent-encoding = "2.3"
--pkg-config = "0.3.28"
+-pkg-config = "0.3.30"
 +pkg-config = "0.3.27"
  proptest = "1.4.0"
- pulldown-cmark = { version = "0.9.3", default-features = false }
+ pulldown-cmark = { version = "0.10.0", default-features = false, features = ["html"] }
  rand = "0.8.5"
-@@ -82,19 +82,19 @@ rustfix = { version = "0.8.0", path = "crates/rustfix" }
+@@ -81,20 +81,20 @@ rusqlite = { version = "0.31.0", features = ["bundled"] }
+ rustfix = { version = "0.8.2", path = "crates/rustfix" }
  same-file = "1.0.6"
  security-framework = "2.9.2"
- semver = { version = "1.0.20", features = ["serde"] }
--serde = "1.0.194"
--serde-untagged = "0.1.4"
+-semver = { version = "1.0.22", features = ["serde"] }
+-serde = "1.0.197"
+-serde-untagged = "0.1.5"
++semver = { version = "1.0.20", features = ["serde"] }
 +serde = "1.0.193"
 +serde-untagged = "0.1.1"
  serde-value = "0.7.0"
- serde_ignored = "0.1.9"
--serde_json = "1.0.110"
+-serde_ignored = "0.1.10"
+-serde_json = "1.0.114"
++serde_ignored = "0.1.9"
 +serde_json = "1.0.108"
  sha1 = "0.10.6"
  sha2 = "0.10.8"
  shell-escape = "0.1.5"
- supports-hyperlinks = "2.1.0"
--snapbox = { version = "0.4.15", features = ["diff", "path"] }
+ supports-hyperlinks = "3.0.0"
+-snapbox = { version = "0.5.7", features = ["diff", "path", "term-svg"] }
 +snapbox = { version = "0.4.14", features = ["diff", "path"] }
  tar = { version = "0.4.40", default-features = false }
--tempfile = "3.9.0"
--thiserror = "1.0.56"
+-tempfile = "3.10.1"
+-thiserror = "1.0.57"
 +tempfile = "3.8.1"
 +thiserror = "1.0.50"
  time = { version = "0.3", features = ["parsing", "formatting", "serde"] }
- toml = "0.8.9"
- toml_edit = { version = "0.21.1", features = ["serde"] }
+ toml = "0.8.10"
+ toml_edit = { version = "0.22.7", features = ["serde"] }
