@@ -1,7 +1,7 @@
 pkgname = "minetest"
 pkgver = "5.8.0"
 _irrlichtver = "1.9.0mt13"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SERVER=TRUE",
@@ -15,6 +15,7 @@ makedepends = [
     "gettext-devel",
     "gmp-devel",
     "hiredis-devel",
+    "jsoncpp-devel",
     "libcurl-devel",
     "libjpeg-turbo-devel",
     "libogg-devel",

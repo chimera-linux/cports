@@ -1,0 +1,13 @@
+only LANG is read by musl
+--
+--- a/src/gettext.cpp
++++ b/src/gettext.cpp
+@@ -125,7 +125,7 @@
+ 	if (!configured_language.empty()) {
+ #ifndef _WIN32
+ 		// Add user specified locale to environment
+-		setenv("LANGUAGE", configured_language.c_str(), 1);
++		setenv("LANG", configured_language.c_str(), 1);
+ 
+ #ifdef __ANDROID__
+ 		setenv("LANG", configured_language.c_str(), 1);
