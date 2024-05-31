@@ -3,6 +3,7 @@ pkgver = "0.2.4"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gmake",

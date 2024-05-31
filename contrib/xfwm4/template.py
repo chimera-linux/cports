@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-poswin", "--enable-xi2"]
 make_cmd = "gmake"
+make_dir = "."
 hostmakedepends = [
     "automake",
     "libtool",

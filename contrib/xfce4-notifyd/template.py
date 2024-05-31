@@ -3,6 +3,7 @@ pkgver = "0.9.4"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",

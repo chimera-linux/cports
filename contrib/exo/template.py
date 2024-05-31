@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 make_cmd = "gmake"
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
