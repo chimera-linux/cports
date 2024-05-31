@@ -36,10 +36,6 @@ sha256 = "8cbf4296e373cfd0cedfe9d978760b5b05c58fdc4048b4e2bcaf0a61ac8f5011"
 
 def post_install(self):
     self.install_license("COPYING")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="lighttpd.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_file(self.files_path / "lighttpd.conf", "etc/lighttpd")
     self.install_service(self.files_path / "lighttpd")

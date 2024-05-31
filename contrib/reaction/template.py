@@ -26,10 +26,6 @@ def post_install(self):
     self.install_bin("ip46tables")
     self.install_bin("nft46")
     self.install_license("LICENSE")
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="reaction.conf",
-    )
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "reaction")
     self.install_file("./app/example.yml", "etc/reaction", name="reaction.yml")

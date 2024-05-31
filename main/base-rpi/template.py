@@ -15,7 +15,7 @@ def do_install(self):
     self.install_file(self.files_path / "agetty", "etc/default")
     self.install_file(self.files_path / "rpi-cmdline.txt", "etc/default")
     self.install_file(self.files_path / "rpi-config.txt", "etc/default")
-    self.install_file(self.files_path / "rpi.conf", "usr/lib/tmpfiles.d")
+    self.install_tmpfiles(self.files_path / "rpi.conf", name="rpi")
 
     self.install_file(
         self.files_path / "71-raspberrypi.rules", "usr/lib/udev/rules.d"

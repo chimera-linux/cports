@@ -12,13 +12,5 @@ url = "https://chimera-linux.org"
 
 
 def do_install(self):
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="postgresql.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="postgresql.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf", name="postgresql")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="postgresql")

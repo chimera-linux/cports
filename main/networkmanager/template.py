@@ -105,9 +105,7 @@ def post_install(self):
         self.files_path / "50-org.freedesktop.NetworkManager.rules",
         "usr/share/polkit-1/rules.d",
     )
-    self.install_file(
-        self.files_path / "networkmanager.conf", "usr/lib/tmpfiles.d"
-    )
+    self.install_tmpfiles(self.files_path / "networkmanager.conf")
     # kill hardlinks
     for f in ["nmtui-connect", "nmtui-hostname", "nmtui-edit"]:
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1")

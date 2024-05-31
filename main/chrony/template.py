@@ -34,16 +34,8 @@ def post_install(self):
     self.install_file(
         "examples/chrony.conf.example1", "etc", name="chrony.conf"
     )
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="chrony.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="chrony.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     # dinit services
     self.install_service(self.files_path / "chronyd")
     self.install_service(self.files_path / "chrony", enable=True)

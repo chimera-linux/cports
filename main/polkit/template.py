@@ -46,16 +46,8 @@ def post_install(self):
     self.install_file(
         self.files_path / "polkit-1.pam", "etc/pam.d", name="polkit-1"
     )
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="polkit.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="polkit.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "polkitd")
     # move defaults
     rsrc = self.destdir / "etc/polkit-1/rules.d"

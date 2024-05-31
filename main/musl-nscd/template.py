@@ -20,7 +20,7 @@ options = ["!check"]
 def post_install(self):
     self.install_license("COPYRIGHT")
     self.install_dir("var/db/nscd", empty=True)
-    self.install_file(self.files_path / "nscd.conf", "usr/lib/tmpfiles.d")
+    self.install_tmpfiles(self.files_path / "nscd.conf")
     self.install_service(self.files_path / "nscd")
 
 

@@ -50,16 +50,8 @@ def post_install(self):
         self.files_path / "01dbus-env", "etc/X11/Xsession.d", mode=0o755
     )
     # sysuser and tmpfiles
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="dbus.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="dbus.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
 @subpackage("dbus-devel")

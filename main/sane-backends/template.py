@@ -52,7 +52,7 @@ def post_install(self):
     self.install_license("LICENSE")
 
     self.install_service(self.files_path / "saned")
-    self.install_file(self.files_path / "saned.conf", "usr/lib/sysusers.d")
+    self.install_sysusers(self.files_path / "saned.conf", name="saned")
 
     self.install_file(
         self.files_path / "saned.xinetd", "etc/xinetd.d", name="saned.conf"

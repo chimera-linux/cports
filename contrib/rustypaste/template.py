@@ -30,15 +30,7 @@ sha256 = "d2f23fa70f389dc0e57606799e780ba7bcfc648514e72de55154ccf5571fc6cf"
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="rustypaste.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="rustypaste.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "rustypaste")
     self.install_file("config.toml", "etc/rustypaste")

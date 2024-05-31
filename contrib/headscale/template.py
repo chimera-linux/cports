@@ -32,15 +32,7 @@ def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "headscale")
     self.install_file("config-example.yaml", "usr/share/headscale")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="headscale.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="headscale.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"headscale.{shell}", shell)

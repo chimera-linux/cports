@@ -92,7 +92,7 @@ else:
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_file(self.files_path / "pipewire.conf", "usr/lib/sysusers.d")
+    self.install_sysusers(self.files_path / "pipewire.conf")
     self.install_service(self.files_path / "pipewire.user", enable=True)
     self.install_service(self.files_path / "pipewire-pulse.user", enable=True)
 

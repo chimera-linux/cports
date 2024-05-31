@@ -27,16 +27,8 @@ hardening = ["vis", "cfi"]
 def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "coturn")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="coturn.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="coturn.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
 @subpackage("coturn-devel")

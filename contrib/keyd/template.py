@@ -20,4 +20,4 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "keyd")
-    self.install_file(self.files_path / "keyd.conf", "usr/lib/sysusers.d")
+    self.install_sysusers(self.files_path / "keyd.conf")

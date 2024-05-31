@@ -36,22 +36,14 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="deluge.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_file(
         "deluge/ui/data/share/appdata/deluge.appdata.xml", "usr/share/appdata"
     )
     self.install_file(
         "deluge/ui/data/share/applications/deluge.desktop",
         "usr/share/applications",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="deluge.conf",
     )
     # default services
     self.install_service(self.files_path / "deluged")

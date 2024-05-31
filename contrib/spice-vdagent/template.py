@@ -27,8 +27,8 @@ hardening = ["vis", "!cfi"]
 
 def post_install(self):
     # tmpfiles.d
-    self.install_file(
-        "data/tmpfiles.d/spice-vdagentd.conf", "usr/lib/tmpfiles.d"
+    self.install_tmpfiles(
+        "data/tmpfiles.d/spice-vdagentd.conf", name="spice-vdagentd"
     )
     # dinit
     self.install_service(self.files_path / "spice-vdagentd")

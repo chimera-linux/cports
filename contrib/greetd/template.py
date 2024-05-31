@@ -38,13 +38,5 @@ def do_install(self):
         self.files_path / "greetd.pam", "etc/pam.d", name="greetd"
     )
     self.install_service(self.files_path / "greetd")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="greetd.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="greetd.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")

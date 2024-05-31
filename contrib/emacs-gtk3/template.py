@@ -62,7 +62,7 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.install_file(self.files_path / "emacs.conf", "usr/lib/sysusers.d")
+    self.install_sysusers(self.files_path / "emacs.conf", name="emacs")
     # remove suid from game exe
     (
         self.destdir

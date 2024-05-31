@@ -28,7 +28,7 @@ def do_install(self):
     self.install_bin("linux-boot-prober")
     self.install_bin("os-prober")
 
-    self.install_file(self.files_path / "os-prober.conf", "usr/lib/tmpfiles.d")
+    self.install_tmpfiles(self.files_path / "os-prober.conf")
 
     self.install_file("newns", "usr/lib/os-prober", mode=0o755)
     self.install_file("common.sh", "usr/share/os-prober", mode=0o755)

@@ -18,16 +18,8 @@ def post_install(self):
     self.install_dir("usr/share/trousers")
     # tmpfiles will copy from it
     self.mv(self.destdir / "etc/tcsd.conf", self.destdir / "usr/share/trousers")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="tss.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="tss.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf", name="tss")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="tss")
 
 
 @subpackage("libtspi")

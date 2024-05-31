@@ -121,7 +121,7 @@ else:
 def post_install(self):
     self.install_service(self.files_path / "qemu-ga")
 
-    self.install_file(self.files_path / "qemu.conf", "usr/lib/sysusers.d")
+    self.install_sysusers(self.files_path / "qemu.conf")
     self.install_file(self.files_path / "80-kvm.rules", "usr/lib/udev/rules.d")
     self.install_file(self.files_path / "bridge.conf", "etc/qemu")
 

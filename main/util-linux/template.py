@@ -131,16 +131,8 @@ def post_install(self):
             force=True,
         )
 
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="uuidd.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="uuidd.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf", name="uuidd")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="uuidd")
     # services
     self.install_service(self.files_path / "uuidd")
 

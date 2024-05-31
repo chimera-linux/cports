@@ -21,6 +21,4 @@ sha256 = "9d09e02de0faf15ee9a6a742586cf9b1a314591ec50f84e2513636ecfe4f2ff3"
 
 def post_install(self):
     self.install_service(self.files_path / "openrc-settingsd")
-    self.install_file(
-        self.files_path / "openrc-settingsd.conf", "usr/lib/tmpfiles.d"
-    )
+    self.install_tmpfiles(self.files_path / "openrc-settingsd.conf")

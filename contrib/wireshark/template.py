@@ -79,4 +79,4 @@ def do_check(self):
 
 
 def post_install(self):
-    self.install_file(self.files_path / "wireshark.conf", "usr/lib/sysusers.d")
+    self.install_sysusers(self.files_path / "wireshark.conf")

@@ -71,16 +71,8 @@ def do_install(self):
     self.install_link("usr/local/sbin", "bin")
 
     # Users and tmpfiles
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="base-files.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="base-files.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
     # Mutable files not to be tracked by apk
     for f in [

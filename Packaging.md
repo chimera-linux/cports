@@ -2999,6 +2999,18 @@ If `enable` is `True`, the service will be implicitly enabled as system service.
 
 Equivalent to `self.install_file(src, "etc/dinit.d/scripts", 0o755, name)`.
 
+##### def install_tmpfiles(self, src, name = None)
+
+Install a configuration file in `/usr/lib/tmpfiles.d`. By default, take the
+base name (plus `.conf` extension) from the package name, but that can be
+overridden.
+
+##### def install_sysusers(self, src, name = None)
+
+Install a configuration file in `/usr/lib/sysusers.d`. By default, take the
+base name (plus `.conf` extension) from the package name, but that can be
+overridden.
+
 ##### def install_link(self, dest, tgt, absolute=False)
 
 Creates a symbolic link at `dest`, pointing to `tgt`. The `tgt` should be

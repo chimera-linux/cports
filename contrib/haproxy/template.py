@@ -55,15 +55,7 @@ def post_install(self):
     self.install_file(self.files_path / "haproxy.cfg", "etc/haproxy")
     self.install_files("examples", "usr/share/haproxy")
     self.install_files("doc", "usr/share/haproxy")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="haproxy.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="haproxy.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "haproxy")
     self.install_license("LICENSE")

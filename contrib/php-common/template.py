@@ -14,8 +14,4 @@ options = ["!check"]
 
 
 def do_install(self):
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="php-fpm.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf", name="php-fpm")

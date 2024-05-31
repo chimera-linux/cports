@@ -24,14 +24,6 @@ options = ["!check"]
 
 def post_install(self):
     self.install_file("dbus/dnsmasq.conf", "usr/share/dbus-1/system.d")
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="dnsmasq.conf",
-    )
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="dnsmasq.conf",
-    )
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_service(self.files_path / "dnsmasq")

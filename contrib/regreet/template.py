@@ -24,4 +24,4 @@ sha256 = "a658c91cdf242dfea814f0bfd0c4d877bd39e3af498d36e5024061e3d07ea76b"
 
 def post_install(self):
     self.install_file(self.files_path / "regreet.toml", "etc/greetd")
-    self.install_file(self.files_path / "regreet.conf", "usr/lib/tmpfiles.d")
+    self.install_tmpfiles(self.files_path / "regreet.conf")

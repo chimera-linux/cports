@@ -56,11 +56,7 @@ def post_install(self):
         self.rm(f, recursive=True)
     # service
     self.install_service(self.files_path / "avahi-daemon")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="avahi.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
 
 
 @subpackage("avahi-autoipd")

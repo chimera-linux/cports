@@ -22,11 +22,7 @@ def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd", recursive=True)
     self.install_license("LICENSE")
     self.install_service(self.files_path / "rtkit")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="rtkit.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
     # optional
     self.install_file(
         self.files_path / "50-rtkit.rules", "usr/share/polkit-1/rules.d"

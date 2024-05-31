@@ -13,5 +13,5 @@ options = ["!splitudev"]
 
 
 def do_install(self):
-    self.install_file(self.files_path / "adbusers.conf", "usr/lib/sysusers.d")
+    self.install_sysusers(self.files_path / "adbusers.conf", name="adbusers")
     self.install_file("51-android.rules", "usr/lib/udev/rules.d")

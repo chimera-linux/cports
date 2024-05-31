@@ -38,11 +38,7 @@ def post_install(self):
     (self.destdir / "etc/unbound/unbound.conf").unlink()
     self.install_file(self.files_path / "unbound.conf", "etc/unbound")
 
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="unbound.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_service(self.files_path / "unbound")
 
 

@@ -55,7 +55,7 @@ def post_install(self):
     self.install_file("src/systemd/sd-id128.h", "usr/include")
     self.install_file("src/systemd/_sd-common.h", "usr/include")
     # service file
-    self.install_file(self.files_path / "elogind.conf", "usr/lib/tmpfiles.d")
+    self.install_tmpfiles(self.files_path / "elogind.conf")
     self.install_service(self.files_path / "elogind", enable=True)
 
 

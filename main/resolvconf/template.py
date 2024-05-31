@@ -10,7 +10,7 @@ url = "https://chimera-linux.org"
 
 def post_install(self):
     # tmpfiles.d
-    self.install_file(self.files_path / "resolv.conf", "usr/lib/tmpfiles.d")
+    self.install_tmpfiles(self.files_path / "resolv.conf", name="resolv")
 
 
 @subpackage("resolvconf-symlink")

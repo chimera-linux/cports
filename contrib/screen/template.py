@@ -41,6 +41,6 @@ def post_install(self):
     self.install_file("etc/screenrc", "etc/skel", name=".screenrc")
     # our configs
     self.install_file(self.files_path / "screen", "etc/pam.d")
-    self.install_file(self.files_path / "screen.conf", "usr/lib/tmpfiles.d")
+    self.install_tmpfiles(self.files_path / "screen.conf")
     # drop suid root
     (self.destdir / f"usr/bin/screen-{pkgver}").chmod(0o755)

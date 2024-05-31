@@ -17,16 +17,8 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("COPYING.md")
-    self.install_file(
-        self.files_path / "sysusers.conf",
-        "usr/lib/sysusers.d",
-        name="ckms.conf",
-    )
-    self.install_file(
-        self.files_path / "tmpfiles.conf",
-        "usr/lib/tmpfiles.d",
-        name="ckms.conf",
-    )
+    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     # kernel hook
     self.install_file(
         self.files_path / "10-ckms.sh", "usr/lib/kernel.d", mode=0o755

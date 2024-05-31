@@ -37,7 +37,7 @@ def post_install(self):
         self.destdir / "usr/share/zoneinfo/right",
     )
     # tmpfiles
-    self.install_file(self.files_path / "tzdata.conf", "usr/lib/tmpfiles.d")
+    self.install_tmpfiles(self.files_path / "tzdata.conf", name="tzdata")
     # used by some software, e.g. hare's standard library
     self.install_file("leap-seconds.list", "usr/share/zoneinfo")
 
