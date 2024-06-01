@@ -13,7 +13,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "kaccounts-integration-devel",
     "kconfig-devel",
     "kcoreaddons-devel",
     "kdeclarative-devel",
@@ -37,6 +36,7 @@ sha256 = "55b02d49387b76f54e3bec48f82cd78f398b5403bc8d10d482bfff7e30a0028a"
 hardening = ["vis", "!cfi"]
 
 if self.profile().arch != "riscv64":
+    makedepends += ["kaccounts-integration-devel"]
     depends += ["accounts-qml-module"]
 
 
