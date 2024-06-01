@@ -1,6 +1,6 @@
 pkgname = "kio-fuse"
 pkgver = "5.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
 hostmakedepends = [
@@ -18,9 +18,7 @@ makedepends = [
 ]
 pkgdesc = "KDE KIO fuse interface"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
-license = (
-    "LGPL-2.1-only AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
-)
+license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/system/kio-fuse"
 source = f"$(KDE_SITE)/kio-fuse/kio-fuse-{pkgver}.tar.xz"
 sha256 = "7d104581227d5a19b424b33f4168d181556b1015d6df2218e01a88d64449e94b"
