@@ -1,6 +1,6 @@
 pkgname = "xdg-desktop-portal-kde"
 pkgver = "6.0.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
@@ -27,16 +27,17 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qtwayland-devel",
     "wayland-protocols",
-    # TODO: KIOFuse
+]
+depends = [
+    "kiconthemes",
+    "kio-fuse",
+    "plasma-workspace",
+    "xdg-desktop-portal",
 ]
 checkdepends = [
     "dbus",
     "python-gobject",
-]
-# TODO: kiconthemes plasma-workspace kiofuse?
-depends = [
-    "xdg-desktop-portal",
-]
+] + depends
 pkgdesc = "Backend implementation for xdg-desktop-portal using Qt/KF6"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
