@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.0.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -27,7 +27,6 @@ hostmakedepends = [
     "gettext",
     "ninja",
     "pkgconf",
-    "spirv-tools",
 ]
 makedepends = [
     "breeze-devel",
@@ -46,6 +45,8 @@ makedepends = [
     "kiconthemes-devel",
     "kidletime-devel",
     "kio-devel",
+    "kirigami-addons-devel",
+    "kirigami-devel",
     "kitemmodels-devel",
     "knewstuff-devel",
     "knotifications-devel",
@@ -53,6 +54,7 @@ makedepends = [
     "kparts-devel",
     "kpipewire-devel",
     "krunner-devel",
+    "kquickcharts-devel",
     "kscreenlocker-devel",
     "kstatusnotifieritem-devel",
     "ksvg-devel",
@@ -92,20 +94,21 @@ makedepends = [
     # TODO: AppMenuGtkModule?
     # TODO: SeleniumWebDriverATSPI? (GUI accessibility tests)
 ]
-checkdepends = [
-    "dbus",
-    "python-gobject",
-    "xwayland-run",
-]
 depends = [
     "iso-codes",
     "kirigami-addons",
     # "kio-extras",
-    # "kio-fuse",
+    "kio-fuse",
     "kquickcharts",
     "kwin",
+    "milou",
     "xwayland",
 ]
+checkdepends = [
+    "dbus",
+    "python-gobject",
+    "xwayland-run",
+] + depends
 pkgdesc = "KDE Plasma Workspace"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.1-or-later AND GPL-2.0-or-later AND MIT AND LGPL-2.1-only AND LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only) AND LGPL-2.0-only"
