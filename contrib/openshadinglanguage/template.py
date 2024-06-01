@@ -58,7 +58,7 @@ hardening = ["vis", "!cfi", "!int"]
 options = ["linkundefver"]
 
 if self.profile().arch not in ["ppc64le", "x86_64"]:
-    options += "!check"
+    options += ["!check"]
 
 
 def post_install(self):
