@@ -1,6 +1,6 @@
 pkgname = "libbpf"
 pkgver = "1.4.2"
-pkgrel = 2
+pkgrel = 3
 build_wrksrc = "src"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -42,4 +42,5 @@ def post_install(self):
 
 @subpackage("libbpf-devel")
 def _devel(self):
+    self.depends += ["linux-headers"]
     return self.default_devel()
