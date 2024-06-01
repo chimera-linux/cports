@@ -1,6 +1,6 @@
 pkgname = "goawk"
-pkgver = "1.26.0"
-pkgrel = 1
+pkgver = "1.27.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["gawk"]
@@ -9,7 +9,7 @@ maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT"
 url = "https://github.com/benhoyt/goawk"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d1618e454e01f83ec9ee553f8955a805417bb49bb1449059d4f1cd037556b4ff"
+sha256 = "f39d5b3ff50f3c16cbfaaa40eb01ec045092afa66988e9728661c65c0e5d6a93"
 options = ["!debug"]
 
 
