@@ -1,6 +1,6 @@
 pkgname = "wireplumber"
-pkgver = "0.5.2"
-pkgrel = 1
+pkgver = "0.5.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystem-lua=true",
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.pages.freedesktop.org/wireplumber"
 source = f"https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "24ecc2323f7c39fe577b50903c324cfcbb77b9ea2da01baffd3467c9dbad1d8a"
+sha256 = "626cfaf090efb5359454a30c9b288e068ea04289b341dc4d5c7064fd6b1427b4"
 
 
 def post_install(self):
