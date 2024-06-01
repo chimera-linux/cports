@@ -1,6 +1,6 @@
 pkgname = "qt6-qtshadertools"
 pkgver = "6.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -29,7 +29,10 @@ def _libs(self):
 
 @subpackage("qt6-qtshadertools-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [
+        f"{pkgname}={pkgver}-r{pkgrel}",
+        "spirv-tools",
+    ]
     return self.default_devel(
         extra=[
             "usr/lib/qt6/metatypes",
