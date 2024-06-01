@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
+    "-DHWY_CMAKE_RVV=OFF",
     "-DHWY_SYSTEM_GTEST=ON",
     "-DHWY_ENABLE_EXAMPLES=OFF",
 ]
