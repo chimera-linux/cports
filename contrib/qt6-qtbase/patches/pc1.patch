@@ -1,0 +1,32 @@
+From 062f701a11d2c46660f5c5edd73f245477918a47 Mon Sep 17 00:00:00 2001
+From: Alexey Edelev <alexey.edelev@qt.io>
+Date: Fri, 5 Apr 2024 11:01:24 +0200
+Subject: [PATCH] Consider '^Qt6' deps when generating pkg-config files
+
+Dependencies that alredy start with QT_CMAKE_EXPORT_NAMESPACE shouldn't
+be skipped but collected as is when generating pkg-config files.
+
+Pick-to: 6.6 6.5
+Fixes: QTBUG-124135
+Change-Id: I6875337c2e1d98f657e52a5fc2c37eebccf08b98
+Reviewed-by: Alexandru Croitor <alexandru.croitor@qt.io>
+Reviewed-by: Qt CI Bot <qt_ci_bot@qt-project.org>
+(cherry picked from commit 337cadbcb7900d78505b25e66555b853d2c2c707)
+Reviewed-by: Qt Cherry-pick Bot <cherrypick_bot@qt-project.org>
+---
+ cmake/QtPkgConfigHelpers.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/QtPkgConfigHelpers.cmake b/cmake/QtPkgConfigHelpers.cmake
+index dbe736c438d..ea285169416 100644
+--- a/cmake/QtPkgConfigHelpers.cmake
++++ b/cmake/QtPkgConfigHelpers.cmake
+@@ -74,7 +74,7 @@ function(qt_internal_generate_pkg_config_file module)
+     foreach(dep IN LISTS loose_target_requires)
+         if(dep MATCHES "^Qt::")
+             string(REGEX REPLACE "Qt" "${QT_CMAKE_EXPORT_NAMESPACE}" dep ${dep})
+-        else()
++        elseif(NOT dep MATCHES "^${QT_CMAKE_EXPORT_NAMESPACE}::")
+             # TODO: Figure out a way to get non-Qt requirements PkgConfig files.
+             continue()
+         endif()

@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 pkgname = "qt6-qtbase"
 pkgver = "6.7.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-DBUILD_WITH_PCH=OFF",
