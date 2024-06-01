@@ -1,6 +1,6 @@
 pkgname = "libjxl"
 pkgver = "0.10.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
