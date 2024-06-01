@@ -23,6 +23,10 @@ sha256 = "7e0be78b8318e8bdbf6fa545d2ecb4c90f947df03f7aadc42c1967f019e63343"
 # FIXME: cfi breaks a few tests
 hardening = ["vis"]
 
+if self.profile().arch == "riscv64":
+    # breaks with rvv disabled
+    configure_args += ["-DHWY_ENABLE_TESTS=OFF"]
+
 
 def post_install(self):
     self.install_license("LICENSE-BSD3")
