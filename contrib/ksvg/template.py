@@ -2,7 +2,6 @@ pkgname = "ksvg"
 pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
-# TODO: configure_args = ["-DBUILD_TOOLS=ON"]?
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
