@@ -1,6 +1,6 @@
 pkgname = "spectacle"
 pkgver = "24.05.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -26,11 +26,11 @@ makedepends = [
     "layer-shell-qt-devel",
     "opencv-devel",
     "plasma-wayland-protocols",
+    "purpose-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qtwayland-devel",
     "xcb-util-devel",
     "zxing-cpp-devel",
-    # "purpose-devel",  # TODO: package for export to websites functionality?
 ]
 pkgdesc = "KDE Screenshot capture utility"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
