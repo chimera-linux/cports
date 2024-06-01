@@ -1,0 +1,8 @@
+# uptermd system service
+
+type = process
+command = /usr/bin/uptermd --ssh-addr 0.0.0.0:2222
+before = network.target
+depends-on = pre-network.target
+run-as = _uptermd
+logfile = /var/log/uptermd.log
