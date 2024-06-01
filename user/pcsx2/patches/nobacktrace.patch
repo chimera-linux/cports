@@ -1,0 +1,33 @@
+don't have this
+--
+--- a/cmake/SearchForStuff.cmake
++++ b/cmake/SearchForStuff.cmake
+@@ -69,7 +69,6 @@
+ 			find_package(Wayland REQUIRED Egl)
+ 		endif()
+ 
+-		find_package(Libbacktrace REQUIRED)
+ 		find_package(PkgConfig REQUIRED)
+ 		pkg_check_modules(DBUS REQUIRED dbus-1)
+ 	endif()
+--- a/common/CMakeLists.txt
++++ b/common/CMakeLists.txt
+@@ -159,7 +159,6 @@
+ 	)
+ 	target_link_libraries(common PRIVATE
+ 		${DBUS_LINK_LIBRARIES}
+-		libbacktrace::libbacktrace
+ 		X11::X11
+ 		X11::Xrandr
+ 	)
+--- a/common/CrashHandler.cpp
++++ b/common/CrashHandler.cpp
+@@ -176,7 +176,7 @@
+ 	WriteMinidumpAndCallstack(nullptr);
+ }
+ 
+-#elif !defined(__APPLE__)
++#elif 0
+ 
+ #include "FileSystem.h"
+ 
