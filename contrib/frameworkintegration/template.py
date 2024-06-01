@@ -1,6 +1,6 @@
 pkgname = "frameworkintegration"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -32,4 +32,9 @@ hardening = ["vis", "cfi"]
 
 @subpackage("frameworkintegration-devel")
 def _devel(self):
+    self.depends += [
+        "kcolorscheme-devel",
+        "kiconthemes-devel",
+        "kwidgetsaddons-devel",
+    ]
     return self.default_devel()
