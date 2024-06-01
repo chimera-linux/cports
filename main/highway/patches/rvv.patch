@@ -1,0 +1,13 @@
+plonk rvv a bit harder
+--
+--- a/hwy/foreach_target.h
++++ b/hwy/foreach_target.h
+@@ -308,7 +308,7 @@
+ 
+ // ------------------------------ HWY_ARCH_RISCV
+ 
+-#if (HWY_TARGETS & HWY_RVV) && (HWY_STATIC_TARGET != HWY_RVV)
++#if 0 && (HWY_TARGETS & HWY_RVV) && (HWY_STATIC_TARGET != HWY_RVV)
+ #undef HWY_TARGET
+ #define HWY_TARGET HWY_RVV
+ #include HWY_TARGET_INCLUDE
