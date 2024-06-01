@@ -1,8 +1,6 @@
 pkgname = "lmdb"
-pkgver = "0.9.31_git20240129"
+pkgver = "0.9.33"
 pkgrel = 0
-# literally forgot to tag this.. so just pretend it's git cause there's bugfixes in it
-_gitrev = "e96d8dfa3951c06062a6fffbe1d7a2f3c9c1ff76"
 build_wrksrc = "libraries/liblmdb"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -18,8 +16,8 @@ pkgdesc = "Lightning Memory-Mapped Database Manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OLDAP-2.8"
 url = "http://www.lmdb.tech/doc"
-source = f"https://github.com/LMDB/lmdb/archive/{_gitrev}.tar.gz"
-sha256 = "6c8197c7f473953941cb49070d24e7318ec465b8a0224c284876db646bb8ede0"
+source = f"https://git.openldap.org/openldap/openldap/-/archive/LMDB_{pkgver}/openldap-LMDB_{pkgver}.tar.gz"
+sha256 = "476801f5239c88c7de61c3390502a5d13965ecedef80105b5fb0fcb8373d1e53"
 
 
 def post_install(self):
