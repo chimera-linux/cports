@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.0.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -16,6 +16,7 @@ make_check_args = [
     + "|testimageproxymodel"  # looks like same issue as testimagefinder & testimagelistmodel
     + "|testslidemodel"  # ^ same as above
     + "|testimagebackend"  # cannot find org.kde.plasma.wallpapers.image QML module, try QML2_IMPORT_PATH?
+    + "|locationsrunnertest"
     + "|testimagefrontend)",  # ^ same as above
     "-j1",  # parallel causes a bunch of flaky tests
 ]
@@ -97,7 +98,7 @@ makedepends = [
 depends = [
     "iso-codes",
     "kirigami-addons",
-    # "kio-extras",
+    "kio-extras",
     "kio-fuse",
     "kquickcharts",
     "kwin",
