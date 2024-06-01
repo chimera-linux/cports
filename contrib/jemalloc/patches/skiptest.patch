@@ -1,0 +1,21 @@
+=== test/integration/aligned_alloc ===
+test_alignment_errors:../test/integration/aligned_alloc.c:24: Failed assertion: (p != ((void*)0) || get_errno() != 22) == (0) --> true != false: Expected error for invalid alignment 0
+test_alignment_errors:../test/integration/aligned_alloc.c:32: Failed assertion: (p != ((void*)0) || get_errno() != 22) == (0) --> true != false: Expected error for invalid alignment 9
+test_alignment_errors:../test/integration/aligned_alloc.c:32: Failed assertion: (p != ((void*)0) || get_errno() != 22) == (0) --> true != false: Expected error for invalid alignment 17
+test_alignment_errors:../test/integration/aligned_alloc.c:32: Failed assertion: (p != ((void*)0) || get_errno() != 22) == (0) --> true != false: Expected error for invalid alignment 33
+test_alignment_errors:../test/integration/aligned_alloc.c:32: Failed assertion: (p != ((void*)0) || get_errno() != 22) == (0) --> true != false: Expected error for invalid alignment 65
+test_alignment_errors:../test/integration/aligned_alloc.c:32: Failed assertion: (p != ((void*)0) || get_errno() != 22) == (0) --> true != false: Expected error for invalid alignment 129
+test_alignment_errors:../test/integration/aligned_alloc.c:32: Failed assertion: (p != ((void*)0) || get_errno() != 22) == (0) --> true != false: Expected error for invalid alignment 257
+etc
+--
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -296,7 +296,7 @@
+ 	$(srcroot)test/unit/arena_reset_prof.c \
+ 	$(srcroot)test/unit/batch_alloc_prof.c
+ endif
+-TESTS_INTEGRATION := $(srcroot)test/integration/aligned_alloc.c \
++TESTS_INTEGRATION := \
+ 	$(srcroot)test/integration/allocated.c \
+ 	$(srcroot)test/integration/extent.c \
+ 	$(srcroot)test/integration/malloc.c \
