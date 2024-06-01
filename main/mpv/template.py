@@ -1,6 +1,6 @@
 pkgname = "mpv"
 pkgver = "0.38.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -87,6 +87,11 @@ tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 hardening = ["vis", "!cfi"]
 # development-only
 options = ["!check"]
+
+
+@subpackage("mpv-libs")
+def _libs(self):
+    return self.default_libs()
 
 
 @subpackage("mpv-devel")
