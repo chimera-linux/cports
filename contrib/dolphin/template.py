@@ -1,14 +1,16 @@
 pkgname = "dolphin"
 pkgver = "24.05.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_args = [
     "-E",
     # testIndexForKeyboardSearch() Compared values are not the same (7 vs 6), kfileitemmodeltest.cpp:1297,
     "(kfileitemmodel"
+    # fails to baloo index
+    + "|dolphinquerytest|"
     # testOpenInNewTabTitle() 'tabWidget->tabText(0) != tabWidget->tabText(1)' returned FALSE, dolphinmainwindowtest.cpp:221
     # other times SEGFAULT in testClosingTabsWithSearchBoxVisible() due to rlimit?
-    "|dolphinmainwindow)test",
+    + "|dolphinmainwindow)test",
 ]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
@@ -20,10 +22,12 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "baloo-devel",
     "kcmutils-devel",
     "kcrash-devel",
     "kdbusaddons-devel",
     "kdoctools-devel",
+    "kfilemetadata-devel",
     "ki18n-devel",
     "kiconthemes-devel",
     "kio-devel",
@@ -31,14 +35,12 @@ makedepends = [
     "knotifications-devel",
     "kparts-devel",
     "ktextwidgets-devel",
+    "kuserfeedback-devel",
     "musl-fts-devel",
     "phonon-devel",
     "plasma-activities-devel",
     "qt6-qtdeclarative-devel",
-    # "kuserfeedback-devel",  TODO: package
     # TODO: PackageKitQt6 (service menu installer)
-    # TODO: KF6Baloo + KF6BalooWidgets
-    # TODO: KF6FileMetaData
 ]
 checkdepends = [
     "dbus",
@@ -61,6 +63,9 @@ def post_install(self):
 
 @subpackage("dolphin-devel")
 def _devel(self):
-    self.depends += ["kcoreaddons-devel"]
+    self.depends += [
+        "kio-devel",
+        "qt6-qtbase-devel",
+    ]
 
     return self.default_devel()
