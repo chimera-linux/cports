@@ -25,7 +25,7 @@ makedepends = [
     "prison-devel",
     "qt6-qtdeclarative-devel",
 ]
-depends = ["accounts-qml-module"]
+depends = []
 checkdepends = ["xwayland-run"] + depends
 pkgdesc = "KDE purpose-specific integrations"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
@@ -35,6 +35,9 @@ source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/purpose-{pkgver}.
 sha256 = "55b02d49387b76f54e3bec48f82cd78f398b5403bc8d10d482bfff7e30a0028a"
 # CFI: check
 hardening = ["vis", "!cfi"]
+
+if self.profile().arch != "riscv64":
+    depends += ["accounts-qml-module"]
 
 
 @subpackage("purpose-devel")
