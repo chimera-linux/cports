@@ -1,6 +1,6 @@
 pkgname = "prison"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -8,11 +8,11 @@ hostmakedepends = [
     "ninja",
 ]
 makedepends = [
+    "libdmtx-devel",
     "qrencode-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
     "zxing-cpp-devel",
-    # TODO: https://github.com/dmtx/libdmtx (DataMatrix barcodes)
 ]
 pkgdesc = "KDE library to produce QR codes and DataMatrix barcodes"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
