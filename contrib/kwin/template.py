@@ -1,6 +1,6 @@
 pkgname = "kwin"
 pkgver = "6.0.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -57,6 +57,7 @@ makedepends = [
     "libcap-devel",
     "libdisplay-info-devel",
     "libplasma-devel",
+    "libqaccessibilityclient-devel",
     "libxcvt-devel",
     "pipewire-devel",
     "plasma-activities-devel",
@@ -68,7 +69,6 @@ makedepends = [
     "qt6-qtwayland-devel",
     "wayland-protocols",
     "xcb-util-devel",
-    # TODO: libqaccessibilityclient: Required to enable accessibility features
 ]
 depends = [
     "hwdata",
