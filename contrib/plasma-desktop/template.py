@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -15,6 +15,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "attica-devel",
+    "baloo-devel",
     "ibus-devel",
     "kaccounts-integration-devel",
     "kauth-devel",
@@ -56,7 +57,6 @@ makedepends = [
     "xserver-xorg-devel",
     "xserver-xorg-input-evdev-devel",
     "xserver-xorg-input-libinput-devel",
-    # TODO: baloo-devel (File Search KCM)
     # TODO: PackageKitQt6? (Software Manager integration, KRunner plugin installer)
 ]
 checkdepends = [
@@ -99,6 +99,7 @@ def _meta(self):
         "fonts-hack-ttf",
         "fonts-noto-emoji-ttf",
         # ?
+        "baloo",  # search
         "bluedevil",  # bluetooth
         "kde-cli-tools",  # e.g. mount & open external media
         "kquickcharts",  # notifications
