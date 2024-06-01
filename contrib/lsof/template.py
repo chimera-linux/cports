@@ -1,6 +1,6 @@
 pkgname = "lsof"
 pkgver = "4.99.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [

@@ -9,3 +9,16 @@
             (mod - 1)))
  #define SFRDHASH                                                               \
      1024 /* Sfile hash by raw device number                                    \
+--- a/lib/dialects/linux/dnode.c
++++ b/lib/dialects/linux/dnode.c
+@@ -44,8 +44,8 @@
+                          * in a header file */
+ #define PIDBUCKS 64     /* PID hash buckets */
+ #define PINFOBUCKS 512  /* pipe info hash buckets */
+-#define HASHPID(pid) (((int)((pid * 31415) >> 3)) & (PIDBUCKS - 1))
+-#define HASHPINFO(ino) (((int)((ino * 31415) >> 3)) & (PINFOBUCKS - 1))
++#define HASHPID(pid) (((int)((pid * 31415U) >> 3)) & (PIDBUCKS - 1))
++#define HASHPINFO(ino) (((int)((ino * 31415U) >> 3)) & (PINFOBUCKS - 1))
+ 
+ /*
+  * Local structure definitions
