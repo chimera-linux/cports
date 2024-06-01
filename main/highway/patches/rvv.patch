@@ -1,13 +1,15 @@
-plonk rvv a bit harder
+various targets hard expect rvv if it's attainable at runtime so the build
+fails without magic rvv -march flags that raise the baseline from the whole lib
+to rvv1.0
 --
---- a/hwy/foreach_target.h
-+++ b/hwy/foreach_target.h
-@@ -308,7 +308,7 @@
+--- a/hwy/detect_targets.h
++++ b/hwy/detect_targets.h
+@@ -675,7 +675,7 @@
+ #endif
  
- // ------------------------------ HWY_ARCH_RISCV
- 
--#if (HWY_TARGETS & HWY_RVV) && (HWY_STATIC_TARGET != HWY_RVV)
-+#if 0 && (HWY_TARGETS & HWY_RVV) && (HWY_STATIC_TARGET != HWY_RVV)
- #undef HWY_TARGET
- #define HWY_TARGET HWY_RVV
- #include HWY_TARGET_INCLUDE
+ #if HWY_ARCH_RISCV && HWY_HAVE_RUNTIME_DISPATCH
+-#define HWY_ATTAINABLE_RISCV (HWY_RVV)
++#define HWY_ATTAINABLE_RISCV 0
+ #else
+ #define HWY_ATTAINABLE_RISCV 0
+ #endif
