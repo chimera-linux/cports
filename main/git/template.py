@@ -1,14 +1,14 @@
 pkgname = "git"
-pkgver = "2.45.1"
+pkgver = "2.45.2"
 pkgrel = 0
 hostmakedepends = [
-    "gmake",
     "asciidoc",
     "gettext",
+    "gmake",
     "perl",
     "pkgconf",
-    "xmlto",
     "tk",
+    "xmlto",
 ]
 makedepends = [
     "libcurl-devel",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e64d340a8e627ae22cfb8bcc651cca0b497cf1e9fdf523735544ff4a732f12bf"
+sha256 = "51bfe87eb1c02fed1484051875365eeab229831d30d0cec5d89a14f9e40e9adb"
 hardening = ["!cfi"]  # TODO
 
 
