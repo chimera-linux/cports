@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -111,10 +111,10 @@ def _meta(self):
         "powerdevil",  # power management daemon, TODO: test on baremetal
         "xwaylandvideobridge",  # x11 screen capture compat under wayland, TODO: test on baremetal
         "ksystemstats",  # TODO: does anything call KSystemStats D-Bus etc? maybe some widget
-        # "kde-inotify-survey",  # inotify limit monitor
-        # "plasma-disks",  # smart monitoring
-        # "kdialog",  # scripted message boxes
-        # "polkit-kde-agent",  # password root auth prompts
+        "kde-inotify-survey",  # inotify limit monitor
+        "plasma-disks",  # smart monitoring
+        "kdialog",  # scripted message boxes
+        "polkit-kde-agent",  # password root auth prompts
         "fcitx5-configtool-kde-meta",  # configure IME
         # "plasma-thunderbolt",  # user device authentication
         # "print-manager",
