@@ -1,6 +1,6 @@
 pkgname = "kinfocenter"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -23,6 +23,7 @@ makedepends = [
     # TODO: SeleniumWebDriverATSPI? (GUI accessibility tests)
 ]
 depends = [
+    "kdeclarative",
     "systemsettings",
 ]
 pkgdesc = "Utility providing information about your system"
