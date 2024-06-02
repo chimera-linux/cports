@@ -1,5 +1,5 @@
 pkgname = "vte-common"
-pkgver = "0.76.2"
+pkgver = "0.76.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -39,7 +39,7 @@ url = "https://wiki.gnome.org/Apps/Terminal/VTE"
 source = (
     f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
 )
-sha256 = "70a38449fda947e5cb7b4cecbe8a7a77586c799168bfb22162708c94084f21ae"
+sha256 = "eb6d80b879914b89c22811743a5d779fa0e9c57acfa925873b521d054b809746"
 # assert in meson
 options = ["!lto", "!cross"]
 
