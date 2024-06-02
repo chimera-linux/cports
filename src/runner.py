@@ -320,7 +320,9 @@ def handle_options():
         opt_stage = bcfg.getboolean("keep_stage", fallback=opt_stage)
         opt_makejobs = bcfg.getint("jobs", fallback=opt_makejobs)
         opt_lthreads = bcfg.getint("link_threads", fallback=opt_lthreads)
-        opt_tltocachesize = bcfg.get("thinlto_cache_size", fallback=opt_tltocachesize)
+        opt_tltocachesize = bcfg.get(
+            "thinlto_cache_size", fallback=opt_tltocachesize
+        )
         opt_bwcmd = bcfg.get("bwrap", fallback=opt_bwcmd)
         opt_arch = bcfg.get("arch", fallback=opt_arch)
         opt_harch = bcfg.get("host_arch", fallback=opt_harch)
