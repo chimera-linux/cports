@@ -114,7 +114,7 @@ def _meta(self):
         "kde-inotify-survey",  # inotify limit monitor
         "plasma-disks",  # smart monitoring
         "kdialog",  # scripted message boxes
-        "polkit-kde-agent",  # password root auth prompts
+        "polkit-kde-agent-1",  # password root auth prompts
         "fcitx5-configtool-kde-meta",  # configure IME
         # "plasma-thunderbolt",  # user device authentication
         # "print-manager",
