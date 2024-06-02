@@ -1,5 +1,5 @@
 pkgname = "minizip-ng"
-pkgver = "4.0.5"
+pkgver = "4.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DMZ_LIB_SUFFIX=-ng"]
@@ -16,7 +16,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://github.com/zlib-ng/minizip-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9bb636474b8a4269280d32aca7de4501f5c24cc642c9b4225b4ed7b327f4ee73"
+sha256 = "e96ed3866706a67dbed05bf035e26ef6b60f408e1381bf0fe9af17fe2c0abebc"
 
 
 @subpackage("minizip-ng-devel")
