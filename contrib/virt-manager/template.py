@@ -28,10 +28,10 @@ make_check_args = [
     "and not testcli0424virt_clone",
 ]
 _deps = [
-    "libxml2-python",
     "libosinfo",
-    "python-libvirt",
+    "libxml2-python",
     "python-gobject",
+    "python-libvirt",
     "python-requests",
     "qemu-img",
 ]
