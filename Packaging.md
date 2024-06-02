@@ -3549,11 +3549,6 @@ Generically invoke a `meson` command. This calls `meson`, giving it the command
 and `extra_args`. If `wrapper` is given, `meson` is run through it. The given
 `build_dir` is the working directory, and `env` is the environment.
 
-##### def compile(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
-
-Like running `invoke` with `compile` command. The `--jobs` argument is passed
-before any other `extra_args`, with `pkg.make_jobs`.
-
 ##### def install(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
 
 Like running `invoke` with `install` command. The `DESTDIR` is passed via
