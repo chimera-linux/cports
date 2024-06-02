@@ -1598,7 +1598,7 @@ def do_dump(tgt):
 
 
 def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
-    from cbuild.core import build, chroot, paths, template, errors
+    from cbuild.core import build, chroot, template, errors
     from cbuild.util import compiler
 
     if force is None:
@@ -1616,20 +1616,24 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             raise errors.CbuildException(f"{tgt} needs only one package")
         if len(cmdline.command) > 1:
             pkgn = cmdline.command[1]
-    rp = template.read_pkg(
-        pkgn,
-        opt_arch if opt_arch else chroot.host_cpu(),
-        force,
-        check,
-        (opt_makejobs, opt_lthreads),
-        opt_gen_dbg,
-        (opt_ccache, opt_tltocachesize if opt_tltocache else None),
-        None,
-        target=tgt if (tgt != "pkg") else None,
-        force_check=opt_forcecheck,
-        stage=bstage,
-        allow_restricted=opt_restricted,
-    ) if pkgn else None
+    rp = (
+        template.read_pkg(
+            pkgn,
+            opt_arch if opt_arch else chroot.host_cpu(),
+            force,
+            check,
+            (opt_makejobs, opt_lthreads),
+            opt_gen_dbg,
+            (opt_ccache, opt_tltocachesize if opt_tltocache else None),
+            None,
+            target=tgt if (tgt != "pkg") else None,
+            force_check=opt_forcecheck,
+            stage=bstage,
+            allow_restricted=opt_restricted,
+        )
+        if pkgn
+        else None
+    )
     if opt_mdirtemp:
         chroot.install()
     elif not stage:
