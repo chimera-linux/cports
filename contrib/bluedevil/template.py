@@ -1,6 +1,6 @@
 pkgname = "bluedevil"
 pkgver = "6.0.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -23,6 +23,7 @@ makedepends = [
     "libplasma-devel",
     "qt6-qtdeclarative-devel",
 ]
+depends = ["kdeclarative"]
 pkgdesc = "KDE Plasma Bluetooth integration"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
