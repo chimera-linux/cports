@@ -116,17 +116,6 @@ def invoke(pkg, command, build_dir, extra_args=[], env={}, wrapper=[]):
     )
 
 
-def compile(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
-    invoke(
-        pkg,
-        "compile",
-        build_dir,
-        ["--jobs", str(pkg.make_jobs)] + extra_args,
-        env,
-        wrapper,
-    )
-
-
 def install(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
     renv = {"DESTDIR": str(pkg.chroot_destdir)}
     renv.update(env)
