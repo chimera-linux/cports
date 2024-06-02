@@ -1,6 +1,6 @@
 pkgname = "frei0r"
 pkgver = "2.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
