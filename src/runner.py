@@ -748,32 +748,6 @@ def do_keygen(tgt):
     sign.keygen(keysize, global_cfg, os.path.expanduser(cmdline.config))
 
 
-def do_chroot(tgt):
-    from cbuild.core import chroot, paths
-    from cbuild.util import compiler
-
-    if opt_mdirtemp:
-        chroot.install()
-    paths.prepare()
-    chroot.shell_update(not opt_nonet)
-    chroot.enter(
-        "/usr/bin/sh",
-        "-i",
-        fakeroot=True,
-        new_session=False,
-        mount_binpkgs=True,
-        mount_cbuild_cache=True,
-        env={
-            "HOME": "/tmp",
-            "TERM": "linux",
-            "CBUILD_SHELL": "1",
-            "PS1": "\\u@\\h: \\w$ ",
-            "SHELL": "/bin/sh",
-        },
-        lldargs=compiler._get_lld_cpuargs(opt_lthreads),
-    )
-
-
 def do_clean(tgt):
     import shutil
 
@@ -1624,7 +1598,8 @@ def do_dump(tgt):
 
 
 def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
-    from cbuild.core import build, chroot, template, errors
+    from cbuild.core import build, chroot, paths, template, errors
+    from cbuild.util import compiler
 
     if force is None:
         force = opt_force
@@ -1635,11 +1610,12 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
     else:
         bstage = stage
     if not pkgn:
-        if len(cmdline.command) <= 1:
+        if len(cmdline.command) <= 1 and tgt != "chroot":
             raise errors.CbuildException(f"{tgt} needs a package name")
         elif len(cmdline.command) > 2:
             raise errors.CbuildException(f"{tgt} needs only one package")
-        pkgn = cmdline.command[1]
+        if len(cmdline.command) > 1:
+            pkgn = cmdline.command[1]
     rp = template.read_pkg(
         pkgn,
         opt_arch if opt_arch else chroot.host_cpu(),
@@ -1653,11 +1629,37 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         force_check=opt_forcecheck,
         stage=bstage,
         allow_restricted=opt_restricted,
-    )
+    ) if pkgn else None
     if opt_mdirtemp:
         chroot.install()
     elif not stage:
         chroot.chroot_check()
+    if tgt == "chroot":
+        chroot.shell_update(not opt_nonet)
+        if rp and (rp.builddir / rp.wrksrc).is_dir():
+            curwrk = rp.chroot_builddir / rp.wrksrc
+        elif rp.builddir.is_dir():
+            curwrk = rp.chroot_builddir
+        else:
+            curwrk = None
+        chroot.enter(
+            "/usr/bin/sh",
+            "-i",
+            fakeroot=True,
+            new_session=False,
+            mount_binpkgs=True,
+            mount_cbuild_cache=True,
+            env={
+                "HOME": "/tmp",
+                "TERM": "linux",
+                "CBUILD_SHELL": "1",
+                "PS1": "\\u@\\h: \\w$ ",
+                "SHELL": "/bin/sh",
+            },
+            wrkdir=curwrk,
+            lldargs=compiler._get_lld_cpuargs(opt_lthreads),
+        )
+        return
     # don't remove builddir/destdir
     chroot.prepare_arch(opt_arch, opt_dirty)
     build.build(
@@ -2215,7 +2217,7 @@ command_handlers = {
     ),
     "bump-pkgrel": (do_bump_pkgrel, "Increase the pkgrel of a template"),
     "check": (do_pkg, "Run up to check phase of a template"),
-    "chroot": (do_chroot, "Enter an interactive bldroot chroot"),
+    "chroot": (do_pkg, "Enter an interactive bldroot chroot"),
     "clean": (do_clean, "Clean the build directory"),
     "configure": (do_pkg, "Run up to configure phase of a template"),
     "cycle-check": (

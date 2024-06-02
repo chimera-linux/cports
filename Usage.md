@@ -500,7 +500,9 @@ The following commands are recognized:
 * `chroot` Enter the build root with an interactive shell. In this environment,
   the root is mostly unsandboxed, i.e. writable and with network access. You
   can use this kind of environment for quick testing, as well as entering failed
-  builds and inspecting them.
+  builds and inspecting them. By default it starts in `/tmp` but you can also
+  pass a template name and then it will start inside the template's build
+  directory if it exists (or `/builddir` if not).
 * `clean` Clean up the build root. This means removing automatic dependencies
   and removing `builddir` and `destdir` within.
 * `cycle-check` Scan all templates or a single template for build-time
