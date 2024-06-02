@@ -801,8 +801,10 @@ Keep in mind that default values may be overridden by build styles.
   working directory used for configuration. Only used by build styles that
   use such scripts. The default value is `configure`.
 * `debug_level` *(int)* The level to use when generating debug information
-  in the compiler (i.e. `-gN` for C). By default, this is 2, to match the
-  default level of the compiler with `-g`.
+  in the compiler (i.e. `-gN` for C). By default, this is -1, which will
+  determine it according to build profile (typically 2 for 64-bit targets,
+  to match the default level of the compiler with `-g`, and 1 for 32-bit
+  ones to avoid running out of memory).
 * `depends` *(list)* Runtime dependencies of the package. They are not
   installed in the build container, but are checked for availability (and
   built if missing). While these may be just names, you can also specify

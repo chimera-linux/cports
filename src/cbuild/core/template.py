@@ -462,7 +462,7 @@ core_fields = [
     ("tools", {}, dict, False, False, False),
     ("tool_flags", {}, dict, False, False, False),
     ("env", {}, dict, False, False, False),
-    ("debug_level", 2, int, False, False, False),
+    ("debug_level", -1, int, False, False, False),
     # packaging
     ("origin", None, str, False, True, True),
     ("triggers", [], list, False, True, False),

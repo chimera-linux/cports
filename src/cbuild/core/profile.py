@@ -376,6 +376,19 @@ class Profile:
         return pathlib.Path("/usr") / self.triplet
 
     def _get_tool_flags(self, tmpl, name, extra_flags, hardening, shell):
+        # determine the debug level
+        # on 32-bit targets it's often easy to run out of memory with full
+        # debug these days so default to 1 instead of 2 there, otherwise 2
+        if tmpl.build_dbg and tmpl.options["debug"]:
+            debl = tmpl.debug_level
+            if debl < 0:
+                if self.wordsize == 32:
+                    debl = 1
+                else:
+                    debl = 2
+        else:
+            debl = -1
+
         return _flag_handlers[name](
             self,
             tmpl,
@@ -385,11 +398,7 @@ class Profile:
                 if name in tmpl.tool_flags
                 else extra_flags
             ),
-            (
-                tmpl.debug_level
-                if tmpl.build_dbg and tmpl.options["debug"]
-                else -1
-            ),
+            debl,
             hardening,
             shell,
         )
