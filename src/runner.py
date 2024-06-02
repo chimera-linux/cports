@@ -525,7 +525,10 @@ def short_traceback(e, log):
         log.out(f"  {fs.filename}:{fs.lineno}:", end="")
         log.out_plain(f" in function '{fs.name}'")
     log.out("Raised exception:")
-    log.out(f"  {type(e).__name__}: ", end="")
+    if hasattr(e, "filename"):
+        log.out(f"  {type(e).__name__} ({e.filename}): ", end="")
+    else:
+        log.out(f"  {type(e).__name__}: ", end="")
     match type(e):
         case subprocess.CalledProcessError:
             # a bit nicer handling of cmd
