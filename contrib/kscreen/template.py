@@ -1,6 +1,6 @@
 pkgname = "kscreen"
 pkgver = "6.0.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -24,6 +24,7 @@ makedepends = [
     "qt6-qtsensors-devel",
     "xcb-util-devel",
 ]
+depends = ["kdeclarative"]
 pkgdesc = "KDE screen management"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
