@@ -1642,7 +1642,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         chroot.shell_update(not opt_nonet)
         if rp and (rp.builddir / rp.wrksrc).is_dir():
             curwrk = rp.chroot_builddir / rp.wrksrc
-        elif rp.builddir.is_dir():
+        elif rp and rp.builddir.is_dir():
             curwrk = rp.chroot_builddir
         else:
             curwrk = None
