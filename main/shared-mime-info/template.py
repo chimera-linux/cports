@@ -1,6 +1,6 @@
 pkgname = "shared-mime-info"
 pkgver = "2.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dupdate-mimedb=false"]
 hostmakedepends = ["meson", "pkgconf", "gettext", "xmlto", "libxml2-progs"]
