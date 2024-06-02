@@ -1,5 +1,5 @@
 pkgname = "libxo"
-pkgver = "1.7.0"
+pkgver = "1.7.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = []
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/Juniper/libxo"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "9de1e322382ecfdf0310ce7b083ea22e8fdbddca27290652b021edca78fdf201"
+sha256 = "d12249ffad3ef04b160e6419adf1bbe7e593a60bb23f0a0a077fa780b214934a"
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["bootstrap"]
 
