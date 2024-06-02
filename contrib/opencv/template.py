@@ -1,5 +1,5 @@
 pkgname = "opencv"
-pkgver = "4.9.0"
+pkgver = "4.10.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -88,8 +88,8 @@ source_paths = [
     "extra-modules",
 ]
 sha256 = [
-    "ddf76f9dffd322c7c3cb1f721d0887f62d747b82059342213138dc190f28bc6c",
-    "8952c45a73b75676c522dd574229f563e43c271ae1d5bbbd26f8e2b6bc1a4dae",
+    "b2171af5be6b26f7a06b1229948bbb2bdaa74fcf5cd097e0af6378fce50a6eb9",
+    "65597f8fb8dc2b876c1b45b928bbcc5f772ddbaf97539bf1b737623d0604cba1",
 ]
 # insane spam on ppc64le
 tool_flags = {"CXXFLAGS": ["-Wno-deprecate-lax-vec-conv-all"]}
