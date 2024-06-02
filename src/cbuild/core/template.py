@@ -1278,7 +1278,7 @@ class Template(Package):
         if self.use_ltocache:
             lld_args += [
                 f"--thinlto-cache-policy=cache_size_bytes={self.use_ltocache}",
-                f"--thinlto-cache-dir=/cbuild_cache/lld_thinlto_cache",
+                "--thinlto-cache-dir=/cbuild_cache/lld_thinlto_cache",
             ]
 
         return chroot.enter(
