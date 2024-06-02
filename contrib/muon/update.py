@@ -1,1 +1,2 @@
-ignore = ["9ee6e66d"]
+url = "https://github.com/annacrombie/muon/tags"
+pattern = r"/tag/([\d.]+)"
