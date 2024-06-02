@@ -1,5 +1,5 @@
 commit 34b3ac3195a40757bc5f51a1db5a47a4b18c68b5
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Jan 23 21:13:38 2022 +0100
 
     bypass rust triplet checks and just force ours

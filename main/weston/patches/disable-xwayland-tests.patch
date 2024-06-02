@@ -1,5 +1,5 @@
 commit 4baf8178f8b45a71c435a67e9bcdd92dee0c5cc9
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Apr 10 02:02:56 2022 +0200
 
     disable xwayland tests

@@ -1,5 +1,5 @@
 From a450a59db4a2203346eb6abece958ab12c783a64 Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Mon, 12 Sep 2022 17:06:10 +0000
 Subject: [PATCH] arm64: add missing relocations for clang
 

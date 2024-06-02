@@ -1,5 +1,5 @@
 From 20f096dcf93c65b105b71e364a108c56cab30baf Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 17 Mar 2023 19:55:50 +0100
 Subject: [PATCH 4/4] remove lsb script dependency from cryptdisks
 

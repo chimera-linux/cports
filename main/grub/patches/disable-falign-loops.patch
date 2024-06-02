@@ -1,11 +1,5 @@
-commit b7dfb88b90155374bc904f471ddd96c01b79d410
-Author: Daniel Kolesa <dkolesa@igalia.com>
-Date:   Tue Apr 12 17:55:08 2022 +0200
+disable falign-loops which is not supported on clang
 
-    disable falign-loops which is not supported on clang
-
-diff --git a/configure.ac b/configure.ac
-index 25c11ea..798f249 100755
 --- a/configure.ac
 +++ b/configure.ac
 @@ -801,7 +801,7 @@ if test "x$target_cpu" = xi386; then

@@ -1,5 +1,5 @@
 commit 61a6aa1ebef368cd9b5a9d2432792564fcf3df75
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Nov 13 20:59:08 2022 +0100
 
     undef fortify when using cloop

@@ -1,5 +1,5 @@
 commit bf9578c62265ea2e4fcb0d172e20cc9bb5e7d0e5
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue Aug 23 14:54:28 2022 +0200
 
     Revert: Add Linux arm & x86 clang cross compile defs.

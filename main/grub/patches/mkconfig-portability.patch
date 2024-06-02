@@ -1,5 +1,5 @@
 commit a62577ecd34fbae610834b677cb3e3f94dbb8115
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Mar 4 04:13:29 2023 +0100
 
     portability fix in grub-mkconfig root fallback + fix zfs detection

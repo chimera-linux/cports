@@ -1,5 +1,5 @@
 From fd4dfa4073bf4cc2cdc81a377c7b1c48c7cf6d7d Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 May 2023 16:04:20 +0200
 Subject: [PATCH 03/27] llvm: fix some MF_EXEC related test failures on aarch64
 

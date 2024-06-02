@@ -1,5 +1,5 @@
 commit 93e54432c64a835331d41aaf471a025bbe97d974
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Jun 17 22:20:30 2023 +0200
 
     fix clang 16 build

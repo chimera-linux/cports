@@ -1,5 +1,5 @@
 commit 8ea93966cdcaf968b6bf4be92652cbda5cd062d6
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun May 21 14:47:38 2023 +0200
 
     install(1) argument order portability

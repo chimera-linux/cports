@@ -1,5 +1,5 @@
 From 61f9e17cd707eca606318c8ce9d14c67b7ec62c4 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 22 Jan 2023 00:32:03 +0100
 Subject: [PATCH] hack: explicitly link libraries to openmp
 

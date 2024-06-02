@@ -1,5 +1,5 @@
 From caa8fdb4c7f46d10cf0b3044ea63867e3ec51d6c Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 26 Aug 2022 05:48:04 +0200
 Subject: [PATCH] disable a bunch of non-portable crap
 

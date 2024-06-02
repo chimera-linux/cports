@@ -1,5 +1,5 @@
 From f6546e3e0cadd98764ad85f80e771dca043cb77d Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 23 Sep 2022 02:38:29 +0200
 Subject: [PATCH] fix sqlite3 on ppc with clang
 

@@ -6,7 +6,7 @@
 #
 # The base script does not do much. It only sources files in Xsession.d.
 #
-# Copyright 2022 Daniel "q66" Kolesa <q66@chimera-linux.org>
+# Copyright 2022 q66 <q66@chimera-linux.org>
 #
 
 if [ ! -d /etc/X11/Xsession.d ]; then

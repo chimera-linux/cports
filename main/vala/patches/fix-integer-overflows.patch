@@ -1,5 +1,5 @@
 From 3594288ad0964f30795d4449cbdbd2241eb21fb9 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 20 Jan 2023 02:21:32 +0100
 Subject: [PATCH] fix integer overflows in tests
 

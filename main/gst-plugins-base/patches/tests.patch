@@ -1,5 +1,5 @@
 commit b4a032ef448025b6ae7994a3292b7a6567d5d082
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Feb 11 04:59:17 2022 +0100
 
     disable tests that don't work in sandbox

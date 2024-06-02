@@ -1,5 +1,5 @@
 commit 232dba7d3b5cd7b3537336d63f2a4ae7cf1a568f
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue Jan 25 00:55:28 2022 +0100
 
     disable some broken ppc inline asm code

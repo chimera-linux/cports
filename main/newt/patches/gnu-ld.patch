@@ -1,5 +1,5 @@
 commit 27627d20570670c0f08e200abb2a9f74b5eb167e
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Mar 17 06:12:37 2023 +0100
 
     get rid of broken linker check

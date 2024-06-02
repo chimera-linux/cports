@@ -1,5 +1,5 @@
 From 239825f7528f5b00f7a5361f9457bfcb903d0ff9 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 14 Apr 2023 18:19:48 +0200
 Subject: [PATCH] default resonv.conf to /run/resolvconf/resolv.conf
 

@@ -1,5 +1,5 @@
 commit c67296145d8f12a6bf336440c162b8872bd4ad5c
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Mar 3 01:30:57 2023 +0100
 
     this fails on ppc64le for some reason?

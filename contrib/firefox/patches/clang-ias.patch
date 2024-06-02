@@ -1,5 +1,5 @@
 commit 972b828530565302ac62a8a8eddde4cf1d13b101
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue Aug 23 14:10:54 2022 +0200
 
     fix xptcall assembly stuff to work with clang ias

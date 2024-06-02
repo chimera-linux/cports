@@ -1,5 +1,5 @@
 commit e0c0e794f0c1debefd9a7eecb7b57ba01faf5008
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue May 16 02:01:52 2023 +0200
 
     handle utf-8 in qt streams in a qt6-compatible way

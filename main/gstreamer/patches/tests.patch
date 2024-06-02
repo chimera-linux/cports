@@ -1,5 +1,5 @@
 commit 6689db2ae38728a50b35d2eb6cd3912efa03d642
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Feb 11 04:53:12 2022 +0100
 
     disable failing/timing out tests

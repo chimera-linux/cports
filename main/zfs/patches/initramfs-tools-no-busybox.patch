@@ -1,5 +1,5 @@
 From 6e4e93bda2b4b1a02d21527733a3a005801a23bd Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 10 Apr 2022 23:35:49 +0200
 Subject: [PATCH] prevent inclusion of busybox in initramfs
 

@@ -1,5 +1,5 @@
 commit 6a677b050c91000d7a196dd764a9aca5dda0f98f
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Sep 23 02:43:48 2022 +0200
 
     disable probably broken function that is only built with clang

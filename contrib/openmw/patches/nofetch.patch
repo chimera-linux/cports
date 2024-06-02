@@ -1,5 +1,5 @@
 commit 1d6f48d2f16c6fb588a2800a85cfd42de7347c0b
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue May 16 01:41:08 2023 +0200
 
     use local paths for cmake fetch

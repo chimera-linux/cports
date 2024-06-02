@@ -1,5 +1,5 @@
 commit 3c2a25e8f2b0a9ad61b3d6e12602d7442cb2f024
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Jan 23 06:23:11 2022 +0100
 
     drop some gcc-related lto junk

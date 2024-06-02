@@ -1,5 +1,5 @@
 From a2772083e7efb2fc01a984a013df2b56571ba963 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 9 Dec 2022 00:15:57 +0100
 Subject: [PATCH 2/3] scudo: clean up lingering weak symbols we don't want
 

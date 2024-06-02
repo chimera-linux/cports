@@ -1,5 +1,5 @@
 From c88dca2ad08ac83b3d350ea8a4df1d6ee41f0f2e Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Wed, 6 Apr 2022 01:02:44 +0200
 Subject: [PATCH 18/19] lldb: cross-compiling workarounds for python
 

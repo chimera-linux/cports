@@ -1,5 +1,5 @@
 From 969258b1b25b5b0f78a2a0a2427c4dd4b038f13f Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 3 Sep 2022 09:41:45 +0000
 Subject: [PATCH] permit clang builtins library to be linked in
 

@@ -1,5 +1,5 @@
 commit 6d92058d94236e17d3901cbb4239b3d1b61d3160
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Nov 26 02:33:47 2021 +0100
 
     disable failing tests on musl

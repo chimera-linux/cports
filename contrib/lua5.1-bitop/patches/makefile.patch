@@ -1,5 +1,5 @@
 commit 0c00511118404ab13139f0c869f488f30028ccb3
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Oct 9 13:30:22 2022 +0200
 
     patch makefile for bmake, include cflags when linking

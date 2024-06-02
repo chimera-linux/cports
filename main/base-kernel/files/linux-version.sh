@@ -3,7 +3,7 @@
 # This is Chimera's implementation of Debian's linux-version script, written
 # from scratch without a Perl dependency or dependency on any Debian stuff.
 #
-# I (Daniel Kolesa <q66@chimera-linux.org>) place this in the public domain.
+# I (q66 <q66@chimera-linux.org>) place this in the public domain.
 #
 
 PROGNAME=$0

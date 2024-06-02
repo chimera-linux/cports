@@ -1,5 +1,5 @@
 From 9cc40824632982ff52359be36e44d5c5a1b1f929 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 18 Feb 2023 01:45:34 +0100
 Subject: [PATCH] drop guess behavior for consoles/charmap and specify fixed
  values

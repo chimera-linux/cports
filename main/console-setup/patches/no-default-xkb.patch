@@ -1,5 +1,5 @@
 From 8c3ff0ae56ae00f970da5bb83b65786def7c1860 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Mon, 27 Feb 2023 02:18:41 +0100
 Subject: [PATCH] use standard console keymaps instead of xkb by default
 

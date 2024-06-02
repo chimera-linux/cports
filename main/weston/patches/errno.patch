@@ -1,5 +1,5 @@
 commit e9655532b22a81f01aaf73b2118a3c2b5078c89a
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Mon Oct 10 22:29:49 2022 +0200
 
     reset errnos before returning in config parser

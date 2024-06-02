@@ -1,5 +1,5 @@
 From c636d6626d5cd6f1e37adecef1c4f7d3fabf3e52 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 5 Nov 2022 04:22:48 +0100
 Subject: [PATCH] force .plt to be PROGBITS on ppc64
 

@@ -1,5 +1,5 @@
 commit 7c66e07bfdb6c619d0aa3c5ea38616d1a9e0a107
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Jan 23 23:52:05 2022 +0100
 
     this is broken on musl

@@ -1,5 +1,5 @@
 From 5dedd4990ade3792f918265219a28c0ab905b244 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 27 Jun 2021 20:15:47 +0200
 Subject: [PATCH] allow building with bmake
 

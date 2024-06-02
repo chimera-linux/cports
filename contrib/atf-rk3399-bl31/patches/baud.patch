@@ -1,5 +1,5 @@
 commit a5279eeb047cecc587a3c94f0956d35dc3f0a50f
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Sep 24 03:50:40 2022 +0200
 
     use 1500000 baud for rk3399

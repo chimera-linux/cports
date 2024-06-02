@@ -1,5 +1,5 @@
 commit edbd3120512386426cc1e241eb4cbaf6350a8926
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Wed Jan 19 03:10:35 2022 +0100
 
     fix up version so .pc files are apk compatible

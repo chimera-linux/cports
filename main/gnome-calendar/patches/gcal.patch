@@ -1,5 +1,5 @@
 From 5729a740c1d3b9fb831ea8391310f84dc24b14b2 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 16 May 2023 22:35:47 +0200
 Subject: [PATCH] Make sure days are *really* good enough
 

@@ -1,5 +1,5 @@
 From 7ecf1527ed5245f48598daed5ad4c1243f0a88bc Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 13 Nov 2022 01:42:41 +0100
 Subject: [PATCH] use turnstile's path for lingering
 

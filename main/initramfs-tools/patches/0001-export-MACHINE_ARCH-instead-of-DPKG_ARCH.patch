@@ -1,5 +1,5 @@
 From 50c1e10e5b1375d40ccaf3855b9ce82c78e6b617 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 22 Oct 2021 01:44:15 +0200
 Subject: [PATCH 1/8] export MACHINE_ARCH instead of DPKG_ARCH
 

@@ -1,5 +1,5 @@
 commit 3f583ac83d813078b8b881133914db6bbd31f34b
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Jan 23 21:16:25 2022 +0100
 
     drop some rust compiler validation

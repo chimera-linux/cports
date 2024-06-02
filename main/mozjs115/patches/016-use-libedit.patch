@@ -1,5 +1,5 @@
 commit c5f73cc56edc17eee3fadec7e09ff4090b10e9d0
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Jan 23 21:31:08 2022 +0100
 
     use libedit instead of readline

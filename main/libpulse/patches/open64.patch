@@ -1,5 +1,5 @@
 commit 7952f51186305553b8c5ab10ce30ee1a61229fc8
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Jun 17 03:29:38 2023 +0200
 
     don't use open64

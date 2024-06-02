@@ -1,5 +1,5 @@
 From 0617d34f6f48b860e60864adcd024da6997ff00d Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 14 Dec 2021 02:07:51 +0100
 Subject: [PATCH] disable chacha altivec
 

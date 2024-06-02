@@ -1,5 +1,5 @@
 From c0a2df51953d983d059ae25652af3317035db399 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Wed, 20 Jul 2022 04:06:22 +0200
 Subject: [PATCH 7/8] use fstype from klibc-kinit-standalone
 

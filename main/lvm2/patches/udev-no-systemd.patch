@@ -1,5 +1,5 @@
 commit 9f9924cab244b2065ebf6de869f434cc1f336469
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Wed Nov 16 12:26:51 2022 +0100
 
     support new udev activation without systemd

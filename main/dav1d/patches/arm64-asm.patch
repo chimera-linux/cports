@@ -2,7 +2,7 @@ see https://code.videolan.org/videolan/dav1d/-/issues/423
 we pass -flto in cflags as well as b_lto, so the check breaks
 --
 From 007d789a9e05ef4265dbfb5366903bcb1a1077fb Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 2 Sep 2022 21:01:53 +0000
 Subject: [PATCH] disable HAVE_AS_FUNC check
 

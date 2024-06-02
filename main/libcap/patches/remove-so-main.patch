@@ -1,5 +1,5 @@
 From db79116710455cad5f96fd1d19b808306c7e752b Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Wed, 24 Nov 2021 16:30:22 +0100
 Subject: [PATCH] eliminate cursed library exec code
 

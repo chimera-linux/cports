@@ -1,5 +1,5 @@
 commit 80ae97f2b875493c5714d00ae5c2a13efbd6e017
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Jan 23 21:06:47 2022 +0100
 
     fix musl miscompilation

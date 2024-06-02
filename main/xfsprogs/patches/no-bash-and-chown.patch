@@ -1,5 +1,5 @@
 From d8657fa119ee3807a274dc7357ae1e2d045d5e50 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 Aug 2022 23:47:48 +0200
 Subject: [PATCH] do not use bash and drop chown
 

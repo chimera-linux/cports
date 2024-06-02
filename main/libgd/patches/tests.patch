@@ -1,5 +1,5 @@
 From fefe4c3c141be6098566fd59f0599db185aaba80 Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 2 Sep 2022 21:50:57 +0000
 Subject: [PATCH] disable failing tests
 

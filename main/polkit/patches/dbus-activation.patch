@@ -1,5 +1,5 @@
 commit 0817082c764ea6c64d18ca36897ca28cc08ea60e
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri May 19 22:10:25 2023 +0200
 
     use dinit in dbus activation

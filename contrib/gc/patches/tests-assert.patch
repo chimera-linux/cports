@@ -1,5 +1,5 @@
 commit c2dddf70d6d67d72b6af585b5a3b633a15ebff25
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Wed May 17 23:39:57 2023 +0200
 
     disable failing assert in tests

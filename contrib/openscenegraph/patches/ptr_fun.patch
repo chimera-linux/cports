@@ -1,5 +1,5 @@
 commit 252f91ed4a8d1cc668e1a853c13ef120239feb37
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue May 16 00:48:29 2023 +0200
 
     drop deprecated ptr_fun

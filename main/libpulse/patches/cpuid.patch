@@ -1,5 +1,5 @@
 commit 2f976834e0dd982caef702753a2d1c0155ed7329
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Mon Dec 6 23:38:18 2021 +0100
 
     do not include cpuid.h on non-x86

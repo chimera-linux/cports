@@ -1,5 +1,5 @@
 From ba9220c875c133edef889cb6cec893907815af27 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 Nov 2021 00:51:44 +0100
 Subject: [PATCH] disable objcxx tests
 

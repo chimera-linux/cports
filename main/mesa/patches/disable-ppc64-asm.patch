@@ -1,5 +1,5 @@
 commit 40a554d5ca9c08a4dd3181bb47339aded5252628
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu Jan 20 03:32:35 2022 +0100
 
     disable ppc64le asm

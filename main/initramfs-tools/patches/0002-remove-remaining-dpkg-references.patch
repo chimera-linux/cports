@@ -1,5 +1,5 @@
 From 97709fa233503b9056b2840408276a490d144521 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 22 Oct 2021 01:52:09 +0200
 Subject: [PATCH 2/8] remove remaining dpkg references
 

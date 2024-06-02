@@ -1,5 +1,5 @@
 commit 22a4067ede3b1c78b4291c3ff96e95a9301646c4
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun May 21 16:14:06 2023 +0200
 
     fix power8 intrinsics detection with clang

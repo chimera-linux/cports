@@ -1,5 +1,5 @@
 From 377a804a248bfb909a5f9c079781c165c30f9507 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Mon, 30 Jan 2023 23:34:13 +0100
 Subject: [PATCH] use lib instead of lib64 for default install path
 

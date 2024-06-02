@@ -1,5 +1,5 @@
 commit d96adcd072994b7a917d08140fd4ed9c1716e7ec
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Dec 31 02:49:18 2021 +0100
 
     pass CFLAGS during linking

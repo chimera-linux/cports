@@ -1,11 +1,5 @@
-commit ae36d9ff695e43e89167ac599ecc01df10bbb41e
-Author: Daniel Kolesa <dkolesa@igalia.com>
-Date:   Tue Apr 12 15:40:47 2022 +0200
+likely bad test expectation here
 
-    likely bad test expectation here
-
-diff --git a/src/tests/test.c b/src/tests/test.c
-index 3ddbdf2..a1687f1 100644
 --- a/src/tests/test.c
 +++ b/src/tests/test.c
 @@ -319,6 +319,7 @@ test_spawned_job_abnormal_termination (void)

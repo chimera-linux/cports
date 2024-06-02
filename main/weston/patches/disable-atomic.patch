@@ -1,5 +1,5 @@
 From 1a16b79fce8f61fc7d6664ba241971ad41a04bb3 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 10 Apr 2022 01:59:32 +0200
 Subject: [PATCH] disable atomic modesetting by default
 

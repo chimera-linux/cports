@@ -1,5 +1,5 @@
 commit 441be1894c4701269d846d0230b9b5a35b1acc3c
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu May 11 13:43:53 2023 +0200
 
     fix implicit function declarations (breaks llvm 16 build)

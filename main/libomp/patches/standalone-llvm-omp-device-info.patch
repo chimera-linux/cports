@@ -1,5 +1,5 @@
 commit 975e8ee276a1c0983fe54b5fd1c90ce05c2af51a
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue Apr 12 04:19:10 2022 +0200
 
     build llvm-omp-device-info standalone

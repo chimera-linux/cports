@@ -1,5 +1,5 @@
 From 9e2d57d58d1752ad7fa91966d086c7be982a5f73 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Thu, 9 Dec 2021 23:10:32 +0100
 Subject: [PATCH] workaround: enable R_X86_64_32
 

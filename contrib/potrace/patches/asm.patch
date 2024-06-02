@@ -1,5 +1,5 @@
 commit 19dcf5787d51324d1cc8e73a3af75e7cf100ff99
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Wed May 17 23:52:13 2023 +0200
 
     disable spurious i386 asm

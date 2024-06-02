@@ -1,5 +1,5 @@
 From 0a358d4a5537a5e71dad08a8904ad6db100a7927 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 2 Jan 2022 03:50:13 +0100
 Subject: [PATCH] simple readiness mechanism that we can use with dinit
 

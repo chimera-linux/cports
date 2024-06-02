@@ -1,13 +1,5 @@
-commit 17596e9231f0d72505a1ceb8b5d0cd5dc218da28
-Author: Daniel Kolesa <dkolesa@igalia.com>
-Date:   Tue Apr 12 13:28:02 2022 +0200
+This seems to fail on x86_64, disable for now.
 
-    disable failing test
-    
-    This seems to fail on x86_64, disable for now.
-
-diff --git a/tests/check/meson.build b/tests/check/meson.build
-index 9c4228b..d44c099 100644
 --- a/tests/check/meson.build
 +++ b/tests/check/meson.build
 @@ -88,7 +88,6 @@ core_tests = [

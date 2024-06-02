@@ -1,5 +1,5 @@
 commit 8740fc2767a57729d607bd81a8c924512d59d07b
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Apr 9 22:01:37 2022 +0200
 
     disable duktaped, disable -Os

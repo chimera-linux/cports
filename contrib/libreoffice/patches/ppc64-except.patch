@@ -1,5 +1,5 @@
 commit 3dcfb65dc646853ef154ebb05f70c85a0b21d461
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Jun 9 02:41:41 2023 +0200
 
     sync ppc64 exception code with x86_64

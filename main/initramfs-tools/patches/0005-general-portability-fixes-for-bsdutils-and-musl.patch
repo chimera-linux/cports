@@ -1,5 +1,5 @@
 From a2afa44889254f53774a41a088c668ee9eae11eb Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 22 Oct 2021 05:07:48 +0200
 Subject: [PATCH 5/8] general portability fixes for bsdutils and musl
 

@@ -1,5 +1,5 @@
 From 26a967409d62b16cee5790a5ccb9c87d4dccb06d Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 27 Sep 2020 20:06:37 +0200
 Subject: [PATCH] fix colors on big endian systems
 

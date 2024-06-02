@@ -1,5 +1,5 @@
 From 3ec9081a2e5df0a413392e927a7ae2fa40a511fc Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Wed, 6 Apr 2022 00:58:39 +0200
 Subject: [PATCH 09/27] compiler-rt: HACK: hwasan build on x86_64
 

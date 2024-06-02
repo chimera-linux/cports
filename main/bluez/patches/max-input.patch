@@ -1,5 +1,5 @@
 commit 9d76ead40c252b072f2ff42ef6b5b74f6d73fb22
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Mon Nov 14 02:29:00 2022 +0100
 
     fix missing MAX_INPUT

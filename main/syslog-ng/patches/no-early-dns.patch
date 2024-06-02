@@ -1,5 +1,5 @@
 From d58bf0736fa6d68a26e58df8114f199968761f35 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 11 Mar 2023 05:22:30 +0100
 Subject: [PATCH] don't bother with fully qualified hostname early on
 

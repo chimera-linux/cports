@@ -4,7 +4,7 @@
 # the agetty helper script, but has different defaults, and assumes a
 # no-parity 8-bit-clean tty, also does not clear the screen by default.
 #
-# Copyright 2023 Daniel "q66" Kolesa
+# Copyright 2023 q66 <q66@chimera-linux.org>
 #
 # License: BSD-2-Clause
 #

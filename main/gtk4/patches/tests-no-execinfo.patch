@@ -1,5 +1,5 @@
 From faf9730be42511131cff3fd8b40632c77388fa36 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 22 Jan 2023 01:21:26 +0100
 Subject: [PATCH] disable execinfo for tests
 

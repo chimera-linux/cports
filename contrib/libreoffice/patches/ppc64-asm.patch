@@ -1,5 +1,5 @@
 commit b9ff00f339e65e174d6c2993ca9d5234daef73c4
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu Jun 8 23:21:16 2023 +0200
 
     replace clang-incompatible bits with asm

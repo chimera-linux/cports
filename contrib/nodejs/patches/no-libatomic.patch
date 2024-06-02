@@ -1,5 +1,5 @@
 commit 77fdabaebe1db7ac3af8f7ab6ec75e143982b4d4
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Apr 21 18:47:37 2023 +0200
 
     drop -latomic (none in pure-llvm env)

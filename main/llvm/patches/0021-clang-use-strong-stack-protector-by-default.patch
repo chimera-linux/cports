@@ -1,5 +1,5 @@
 From e6385d7355b6e3e0231ae4bf3bb321cf3a770da5 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 May 2023 16:23:22 +0200
 Subject: [PATCH 21/27] clang: use strong stack protector by default
 

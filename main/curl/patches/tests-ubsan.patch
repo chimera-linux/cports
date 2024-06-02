@@ -1,5 +1,5 @@
 commit 433226ecf11220926c691ed30063e2d580085f4c
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu Jan 12 01:30:10 2023 +0100
 
     disable test that triggers ubsan in test code

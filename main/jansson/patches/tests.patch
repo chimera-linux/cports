@@ -1,5 +1,5 @@
 From 2822df1e7ab04c2f411c5772efca13853fe13c0e Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Wed, 3 Nov 2021 23:51:45 +0100
 Subject: [PATCH] do not require bash or git
 

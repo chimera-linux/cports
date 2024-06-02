@@ -1,5 +1,5 @@
 commit 5f80af1db9277def55a3fe1a549d39c5ea9022d3
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun May 14 21:00:13 2023 +0200
 
     unbreak gettext check with gettext-tiny

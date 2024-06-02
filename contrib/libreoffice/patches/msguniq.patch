@@ -1,5 +1,5 @@
 commit d2d7ac65311616774254da1d05696ebf94943121
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue Jun 6 15:42:57 2023 +0200
 
     get rid of msguniq dep

@@ -1,5 +1,5 @@
 commit 2b90ce886b23bf977716e065246b6fcb610687c1
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu Dec 9 16:30:17 2021 +0100
 
     ensure that off64_t and fpos64_t are never used

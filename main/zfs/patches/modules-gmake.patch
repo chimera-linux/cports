@@ -1,5 +1,5 @@
 From 3abe27fb801758cc02d0954756e4b19651113fca Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sun, 21 Aug 2022 18:28:04 +0200
 Subject: [PATCH] explicitly use gmake for configure test to accommodate our
  env

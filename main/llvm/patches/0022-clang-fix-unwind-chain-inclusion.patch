@@ -1,5 +1,5 @@
 From 41673036255a1ceb5157b1501691ada7af004731 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 May 2023 16:25:59 +0200
 Subject: [PATCH 22/27] clang: fix unwind chain inclusion
 

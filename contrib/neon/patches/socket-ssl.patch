@@ -1,5 +1,5 @@
 commit 56705fb39916bcb327df8d4557d75bec3594ca7f
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue Jun 6 00:12:51 2023 +0200
 
     disable socket-ssl test

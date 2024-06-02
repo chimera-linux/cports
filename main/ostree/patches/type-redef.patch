@@ -1,5 +1,5 @@
 commit 8f5517ed46b13fa803fb65879c6a9102d16ac236
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu Jun 1 18:55:33 2023 +0200
 
     fix type redefinitions made by ext2_fs.h

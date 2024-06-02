@@ -1,5 +1,5 @@
 From 870abdc5c7dbb3327a926529ea6e0048237b2036 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 7 Dec 2021 01:43:04 +0100
 Subject: [PATCH] fix a bunch of fallthrough bullshit
 

@@ -1,5 +1,5 @@
 From bde0dff47d76a874bcbb5e75a74f6db83b90da5f Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Thu, 5 Nov 2020 02:41:14 +0100
 Subject: [PATCH] add support for using ncursesw pkg-config library
 

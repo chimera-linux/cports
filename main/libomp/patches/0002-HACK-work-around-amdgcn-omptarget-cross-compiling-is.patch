@@ -1,5 +1,5 @@
 From 0dd4565f4e6253fe098f7161ba259f75ee81c48a Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Wed, 6 Apr 2022 00:50:18 +0200
 Subject: [PATCH 02/22] HACK: work around amdgcn omptarget cross-compiling
  issues

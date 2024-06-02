@@ -1,5 +1,5 @@
 commit 2df0c9c4c403ec699dd8696001c9b1eef4c46939
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Mon Nov 14 02:40:59 2022 +0100
 
     link libreadline against TERMCAP_LIB

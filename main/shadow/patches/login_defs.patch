@@ -1,5 +1,5 @@
 From 4a423b29d89041c030414e8e218a33702cffe697 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Tue, 31 Jan 2023 00:55:50 +0100
 Subject: [PATCH] clean up login.defs defaults
 

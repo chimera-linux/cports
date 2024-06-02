@@ -1,5 +1,5 @@
 commit 1960a51971e3dbf2ddebd36b6faacd79a6cc592d
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Tue Jun 6 02:57:17 2023 +0200
 
     make usleep available

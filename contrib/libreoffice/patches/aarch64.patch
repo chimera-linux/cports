@@ -1,5 +1,5 @@
 commit 1e39f1fdce1572e37bbd86aca08de296268d069a
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Jun 9 14:55:32 2023 +0200
 
     fix aarch64 build

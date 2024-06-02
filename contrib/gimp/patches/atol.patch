@@ -1,5 +1,5 @@
 commit f3237e747d854967a5333b5870dc7aae5cd19431
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri May 12 02:52:40 2023 +0200
 
     don't use unsafe atol

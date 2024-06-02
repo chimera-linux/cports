@@ -1,5 +1,5 @@
 commit 7867f0c34e685177591b8b7a5c6737aa52342fc9
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Dec 18 01:16:12 2021 +0100
 
     make innetgr optional; does not exist on musl

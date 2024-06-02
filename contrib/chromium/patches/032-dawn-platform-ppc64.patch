@@ -1,5 +1,5 @@
 From f815e833c946a59620a2ca9df37a1da746f61460 Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 1 Oct 2022 00:21:09 +0000
 Subject: [PATCH] fix dawn build for ppc64
 

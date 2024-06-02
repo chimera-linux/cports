@@ -1,5 +1,5 @@
 From 4ba77d1c8a1dbd8e352bc0a9344b258436cc8060 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <q66@chimera-linux.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 19 Nov 2022 02:52:19 +0100
 Subject: [PATCH 3/4] add makefile
 

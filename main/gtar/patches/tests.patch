@@ -1,5 +1,5 @@
 commit 2e1f2bfe1680e09b78624f864b332d652a0a790f
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu Mar 24 03:19:08 2022 +0100
 
     disable tests with missing prereq files

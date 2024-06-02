@@ -1,5 +1,5 @@
 From 1e76410fb41794666384b2a3da035dca4139f893 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 18 Dec 2021 02:02:59 +0100
 Subject: [PATCH] remove xxd dependency
 

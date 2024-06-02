@@ -1,5 +1,5 @@
 commit 29474fd28dc5ac3db7904557e3ca7fb14175575d
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu May 5 02:43:52 2022 +0200
 
     fix out of tree build

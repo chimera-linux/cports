@@ -1,5 +1,5 @@
 From 377dc5d0beb68cb89405f17e5045a5893ffe5b08 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 9 Apr 2022 19:39:08 +0200
 Subject: [PATCH] fix up timestamp stuff for BSD date
 

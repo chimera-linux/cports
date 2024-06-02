@@ -1,5 +1,5 @@
 commit 22daf93a551320d5c9d5c72aa459d9d3b2498fd4
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Mar 17 04:34:24 2023 +0100
 
     disable tests because mocklibc is missing

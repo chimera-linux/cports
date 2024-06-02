@@ -1,5 +1,5 @@
 commit 8a48dfff8f68f075d7277b21589de175b76493c1
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Jun 17 15:33:56 2023 +0200
 
     unify ioctl interface with v4l2 on musl

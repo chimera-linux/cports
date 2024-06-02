@@ -1,5 +1,5 @@
 commit 57afdc2d80bff39cf72a261a6d077472c8fdac44
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Wed May 31 23:59:14 2023 +0200
 
     fix implicit function decls

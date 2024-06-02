@@ -1,5 +1,5 @@
 From f49205db4746040db75efacb38c200f4f2dd336a Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Wed, 16 Jun 2021 02:34:41 +0200
 Subject: [PATCH] comment out check to avoid gnu sed syntax
 

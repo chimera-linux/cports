@@ -1,5 +1,5 @@
 commit 4bc20745a6a47cba1f68c7e9487c687e106fdbf7
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Jul 17 04:27:47 2021 +0200
 
     use llvm-objdump

@@ -1,5 +1,5 @@
 From 3bbcb239437213e59ebec0c43956beb7e7ff31e3 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 25 Feb 2022 00:39:21 +0100
 Subject: [PATCH 10/12] do not export LD_LIBRARY_PATH
 

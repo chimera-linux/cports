@@ -1,5 +1,5 @@
 commit 97a42eb641bc0afb67dd064f150e6cd68778e835
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Jun 17 15:09:36 2023 +0200
 
     don't check for largefile funcs

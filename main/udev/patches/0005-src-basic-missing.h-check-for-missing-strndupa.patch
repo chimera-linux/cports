@@ -1,5 +1,5 @@
 commit b986d8ce7fd66bc0aef5f358d16fab976637bab3
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri Feb 24 03:24:55 2023 +0100
 
     include stdlib_missing.h for strndupa

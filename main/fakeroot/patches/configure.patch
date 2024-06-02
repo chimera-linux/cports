@@ -1,5 +1,5 @@
 commit 33ee0596f89b54dd0dfe2be442a4b71bb3e33fbe
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Thu Jun 15 10:51:42 2023 +0200
 
     fix implicit conf decls in configure

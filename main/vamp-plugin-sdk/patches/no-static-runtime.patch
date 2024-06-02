@@ -1,5 +1,5 @@
 commit b04c363aebfe5ba79f6c9af2fca5e9f3e260d150
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Apr 2 18:56:12 2022 +0200
 
     don't use static runtime

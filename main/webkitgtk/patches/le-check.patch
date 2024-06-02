@@ -1,5 +1,5 @@
 From ef8f9a0b61509401e64c717c7cc6f025f1b49300 Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Mon, 4 Jan 2021 19:12:25 +0100
 Subject: [PATCH] portable little endian check
 

@@ -1,5 +1,5 @@
 commit 97962c1d62b16332571b633dcb819264f49d1160
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri May 12 02:19:36 2023 +0200
 
     fix backtrace build

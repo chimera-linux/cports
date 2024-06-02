@@ -1,5 +1,5 @@
 commit 51f99a9570ea1955916e5ca1e09356d068c04c99
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun May 14 20:55:58 2023 +0200
 
     patch out _FILE_OFFSET_BITS junk

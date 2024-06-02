@@ -1,5 +1,5 @@
 From 430016fa652a5d79c6642c61858c8ed84b1403fb Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Fri, 2 Sep 2022 16:06:52 +0000
 Subject: [PATCH] fix dtbinst install(1) portability
 

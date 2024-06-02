@@ -1,5 +1,5 @@
 commit ff4b4e8825858d4ddb07848db424b4779eeddede
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sat Apr 2 18:54:17 2022 +0200
 
     don't run test target by default

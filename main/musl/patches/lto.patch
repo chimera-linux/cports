@@ -1,5 +1,5 @@
 From 5fde2bfd41561668b23598529c759b161ebae463 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Sat, 27 Nov 2021 22:42:00 +0100
 Subject: [PATCH] build crt and dlstart without LTO
 

@@ -1,5 +1,5 @@
 commit 2db5863e4f9b6b89d37fc05b1522edb469f84cbd
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Fri May 19 21:54:49 2023 +0200
 
     add dinit readiness support

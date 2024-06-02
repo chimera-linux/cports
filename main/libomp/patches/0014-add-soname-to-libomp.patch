@@ -1,5 +1,5 @@
 From 50dfeb5698fcd80d504abc8bb105486be93f8c18 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
+From: q66 <q66@chimera-linux.org>
 Date: Wed, 6 Apr 2022 01:01:23 +0200
 Subject: [PATCH 14/22] add soname to libomp
 

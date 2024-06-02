@@ -1,5 +1,5 @@
 commit f16b75f2f2ccdda706bd5f9d1bee6357f0f31abe
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Apr 3 04:37:27 2022 +0200
 
     disable rtpw tests (broken with our userland)

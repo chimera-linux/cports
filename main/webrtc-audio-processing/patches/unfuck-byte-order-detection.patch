@@ -1,5 +1,5 @@
 commit 5379eb4bb3338201c35c4e5f22931fc31ec857a6
-Author: Daniel Kolesa <daniel@octaforge.org>
+Author: q66 <q66@chimera-linux.org>
 Date:   Sun Apr 3 03:17:25 2022 +0200
 
     unfuck handling of endianness and wordsize
