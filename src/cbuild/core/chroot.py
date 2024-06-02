@@ -24,11 +24,19 @@ def set_host(tgt):
     _host = tgt
 
 
-def chroot_check(force=False):
+def _chroot_check(error):
+    if error and not _chroot_ready:
+        raise errors.CbuildException(
+            "working bldroot is required for this step (try binary-bootstrap)"
+        )
+    return _chroot_ready
+
+
+def chroot_check(force=False, error=True):
     global _chroot_checked, _chroot_ready
 
     if _chroot_checked and not force:
-        return _chroot_ready
+        return _chroot_check(error)
 
     _chroot_checked = True
 
@@ -39,7 +47,7 @@ def chroot_check(force=False):
     else:
         _chroot_ready = False
 
-    return _chroot_ready
+    return _chroot_check(error)
 
 
 def _subst_in(pat, rep, src, dest=None):
@@ -235,7 +243,7 @@ def initdb(path=None):
 
 
 def install():
-    if chroot_check():
+    if chroot_check(error=False):
         return
 
     logger.get().out("cbuild: installing base-cbuild...")
@@ -262,7 +270,7 @@ def install():
 
     paths.prepare()
     _prepare()
-    chroot_check(True)
+    chroot_check(True, False)
     _init()
 
 
@@ -489,8 +497,7 @@ def remove_autodeps(bootstrapping, prof=None):
 
 
 def update(pkg):
-    if not chroot_check():
-        return
+    chroot_check()
 
     logger.get().out(
         "cbuild: updating software in %s container..." % str(paths.bldroot())

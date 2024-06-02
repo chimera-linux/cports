@@ -604,7 +604,7 @@ def bootstrap(tgt):
     paths.set_stage(0)
     paths.reinit_buildroot(oldmdir, 0)
 
-    if not chroot.chroot_check(True):
+    if not chroot.chroot_check(True, False):
         logger.get().out("cbuild: bootstrapping stage 0")
 
         # extra program checks
@@ -661,7 +661,7 @@ def bootstrap(tgt):
     # set build root to stage 1 for chroot check
     paths.reinit_buildroot(oldmdir, 1)
 
-    if not chroot.chroot_check(True):
+    if not chroot.chroot_check(True, False):
         logger.get().out("cbuild: bootstrapping stage 1")
         # use stage 0 build root to build, but build into stage 1 repo
         paths.reinit_buildroot(oldmdir, 0)
@@ -681,7 +681,7 @@ def bootstrap(tgt):
     # set build root to stage 2 for chroot check
     paths.reinit_buildroot(oldmdir, 2)
 
-    if not chroot.chroot_check(True):
+    if not chroot.chroot_check(True, False):
         logger.get().out("cbuild: bootstrapping stage 2")
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 1)
@@ -698,7 +698,7 @@ def bootstrap(tgt):
     # set build root to stage 3 for chroot check
     paths.reinit_buildroot(oldmdir, 3)
 
-    if not chroot.chroot_check(True):
+    if not chroot.chroot_check(True, False):
         logger.get().out("cbuild: bootstrapping stage 3")
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 2)
@@ -1647,10 +1647,8 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
     )
     if opt_mdirtemp:
         chroot.install()
-    elif not stage and not chroot.chroot_check():
-        raise errors.CbuildException(
-            "build root not found (have you boootstrapped?)"
-        )
+    elif not stage:
+        chroot.chroot_check()
     # don't remove builddir/destdir
     chroot.prepare_arch(opt_arch, opt_dirty)
     build.build(
@@ -2091,8 +2089,7 @@ def do_prepare_upgrade(tgt):
 
     pkgn = cmdline.command[1]
 
-    if not chroot.chroot_check():
-        raise errors.CbuildException("prepare-upgrade needs a bldroot")
+    chroot.chroot_check()
 
     tmpl = template.read_pkg(
         pkgn,
@@ -2288,7 +2285,7 @@ def fire():
         chroot.set_host(cli.get_arch())
 
     # check container and while at it perform arch checks
-    chroot.chroot_check()
+    chroot.chroot_check(error=False)
 
     # ensure we've got a signing key
     if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
