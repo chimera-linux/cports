@@ -87,6 +87,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         "-DCMAKE_INSTALL_PREFIX=/usr",
         "-DCMAKE_BUILD_TYPE=None",
         "-DCMAKE_INSTALL_LIBDIR=lib",
+        "-DCMAKE_INSTALL_LIBEXECDIR=libexec",
         "-DCMAKE_INSTALL_SBINDIR=bin",
         *extra_args,
         cdir,
