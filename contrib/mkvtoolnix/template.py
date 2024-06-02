@@ -1,6 +1,6 @@
 pkgname = "mkvtoolnix"
-pkgver = "84.0"
-pkgrel = 1
+pkgver = "85.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimization",
@@ -45,7 +45,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://mkvtoolnix.download/index.html"
 source = f"https://mkvtoolnix.download/sources/mkvtoolnix-{pkgver}.tar.xz"
-sha256 = "e9176dea435c3b06b4716fb131d53c8f2621977576ccc4aee8ff9050c0d9ea7a"
+sha256 = "702442c80706c7c770ac04f7b4eed7a57e9e03ead6c5e6e90b9655dd84c8d829"
 
 if self.profile().arch == "riscv64":
     broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
