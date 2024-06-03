@@ -1,6 +1,6 @@
 pkgname = "systemsettings"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -28,6 +28,7 @@ makedepends = [
     "plasma-workspace-devel",
     "qt6-qtdeclarative-devel",
 ]
+depends = ["plasma-workspace"]
 pkgdesc = "KDE System settings"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
