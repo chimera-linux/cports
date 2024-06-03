@@ -1,5 +1,5 @@
 pkgname = "poppler"
-pkgver = "24.05.0"
+pkgver = "24.06.0"
 _test_commit = "ff3133cdb6cb496ee1d2c3231bfa35006a5e8410"
 pkgrel = 0
 build_style = "cmake"
@@ -44,7 +44,7 @@ source = [
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "d8c5eb30b50285ad9f0af8c6335cc2d3b9597fca475cbc2598a5479fa379f779",
+    "0cdabd495cada11f6ee9e75c793f80daf46367b66c25a63ee8c26d0f9ec40c76",
     "98a06e7dd7619fe20bfd99505a31993dbe40517678d81278e6395a30a40f03bf",
 ]
 
