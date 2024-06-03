@@ -1,0 +1,9 @@
+--- a/cfg/targets/install.mk
++++ b/cfg/targets/install.mk
+@@ -1,5 +1,5 @@
+ # Install target
+-install: $(BUILD_DIR)/toxic
++install:
+ 	@echo "Installing toxic executable"
+ 	@mkdir -p $(abspath $(DESTDIR)/$(BINDIR))
+ 	@install -m 0755 $(BUILD_DIR)/toxic $(abspath $(DESTDIR)/$(BINDIR)/toxic)
