@@ -1,23 +1,23 @@
-From 284898a8395597fa5147ac4015139d851b02b8e7 Mon Sep 17 00:00:00 2001
+From 9defec70bd64f15e8ced44239314548ecb2332f2 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 22 Oct 2021 02:56:25 +0200
 Subject: [PATCH 4/8] enforce strictly usrmerged layout
 
 ---
  docs/framebuffer                 |  6 +++---
- hook-functions                   | 33 ++++++++++++++++++++++----------
+ hook-functions                   | 29 +++++++++++++++++++++--------
  hooks/fsck                       |  8 ++++----
  hooks/keymap                     |  2 +-
  init                             | 15 ++++-----------
  initramfs-tools.7                | 12 ++++++------
- mkinitramfs                      | 24 ++++++++++++++---------
+ mkinitramfs                      | 24 +++++++++++++++---------
  scripts/functions                |  6 +++---
  scripts/init-top/all_generic_ide |  4 ++--
  scripts/init-top/keymap          |  4 ++--
  scripts/local                    |  2 +-
  scripts/local-premount/resume    |  4 ++--
  scripts/nfs                      |  4 ++--
- 13 files changed, 68 insertions(+), 56 deletions(-)
+ 13 files changed, 66 insertions(+), 54 deletions(-)
 
 diff --git a/docs/framebuffer b/docs/framebuffer
 index 453ac8f..5c75e23 100644
@@ -45,21 +45,10 @@ index 453ac8f..5c75e23 100644
  
  if [ -e /proc/fb ]; then
 diff --git a/hook-functions b/hook-functions
-index 95bd584..af6dec4 100644
+index 7fccf0e..d30ff25 100644
 --- a/hook-functions
 +++ b/hook-functions
-@@ -97,8 +97,8 @@ manual_add_modules()
- 	# configuration lines and embedded softdep information is not
- 	# processed.  So we run twice, with and without this option.
- 	# shellcheck disable=SC2034
--	{ /sbin/modprobe --all --set-version="${version?}" --ignore-install --quiet --show-depends "$@";
--	  /sbin/modprobe --all --set-version="${version}" --quiet --show-depends "$@"; } |
-+	{ /usr/bin/modprobe --all --set-version="${version?}" --ignore-install --quiet --show-depends "$@";
-+	  /usr/bin/modprobe --all --set-version="${version}" --quiet --show-depends "$@"; } |
- 	while read -r prefix kmod options ; do
- 		if [ "${prefix}" != "insmod" ]; then
- 			continue
-@@ -153,6 +153,23 @@ add_builtin_firmware()
+@@ -149,6 +149,23 @@ add_builtin_firmware()
  	done
  }
  
@@ -83,7 +72,7 @@ index 95bd584..af6dec4 100644
  # $1 = file type (for logging)
  # $2 = file to copy to initramfs
  # $3 (optional) Name for the file on the initramfs
-@@ -172,10 +189,8 @@ copy_file() {
+@@ -168,10 +185,8 @@ copy_file() {
  		target="${target}/${src##*/}"
  	fi
  
@@ -96,7 +85,7 @@ index 95bd584..af6dec4 100644
  
  	# check if already copied
  	[ -e "${DESTDIR}/${target}" ] && return 1
-@@ -190,10 +205,8 @@ copy_file() {
+@@ -186,10 +201,8 @@ copy_file() {
  		# Update source for the copy
  		src="${link_target}"
  
@@ -110,10 +99,10 @@ index 95bd584..af6dec4 100644
  		if [ "${link_target}" != "${target}" ]; then
  			[ "${verbose?}" = "y" ] && echo "Adding ${type}-link ${target}"
 diff --git a/hooks/fsck b/hooks/fsck
-index 000ce4e..01e47cc 100755
+index 9e84a5b..012c97e 100755
 --- a/hooks/fsck
 +++ b/hooks/fsck
-@@ -85,7 +85,7 @@ prereqs)
+@@ -86,7 +86,7 @@ prereqs)
  	;;
  esac
  
@@ -122,7 +111,7 @@ index 000ce4e..01e47cc 100755
  	exit 0
  fi
  
-@@ -98,13 +98,13 @@ if [ -z "$fsck_types" ]; then
+@@ -99,13 +99,13 @@ if [ -z "$fsck_types" ]; then
  	exit 0
  fi
  
@@ -153,7 +142,7 @@ index 64f8e6d..e2d4e55 100755
  	exit 0
  fi
 diff --git a/init b/init
-index 99c842f..b46f2e7 100755
+index 74a69d9..041235f 100755
 --- a/init
 +++ b/init
 @@ -1,8 +1,7 @@
@@ -185,7 +174,7 @@ index 99c842f..b46f2e7 100755
  load_modules
  [ "$quiet" != "y" ] && log_end_msg
  
-@@ -279,12 +278,6 @@ validate_init() {
+@@ -285,12 +284,6 @@ validate_init() {
  if ! validate_init "$init"; then
  	echo "Target filesystem doesn't have requested ${init}."
  	init=
@@ -254,7 +243,7 @@ index d3ac64f..eac47ca 100644
  \fB\fI readonly
  is the default for mounting the root corresponds to the ro bootarg.
 diff --git a/mkinitramfs b/mkinitramfs
-index 551d564..8152558 100755
+index 4691faa..2c60ee0 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -1,7 +1,7 @@
@@ -266,9 +255,9 @@ index 551d564..8152558 100755
  
  # Defaults
  keep="n"
-@@ -302,12 +302,18 @@ export __TMPCPIOGZ
- # Private, used by 'prepend_earlyinitramfs'.
- export __TMPEARLYCPIO
+@@ -319,12 +319,18 @@ export __TMPEARLYCPIO
+ # Private, used by 'manual_add_modules'.
+ export __MODULES_TO_ADD
  
 -# Create usr-merged filesystem layout, to avoid duplicates if the host
 -# filesystem is usr-merged.
@@ -291,7 +280,7 @@ index 551d564..8152558 100755
  for d in conf/conf.d etc run scripts ${MODULESDIR}; do
  	mkdir -p "${DESTDIR}/${d}"
  done
-@@ -396,8 +402,8 @@ touch "${DESTDIR}/etc/fstab"
+@@ -410,8 +416,8 @@ touch "${DESTDIR}/etc/fstab"
  ln -s /proc/mounts "${DESTDIR}/etc/mtab"
  
  # module-init-tools
@@ -303,7 +292,7 @@ index 551d564..8152558 100755
  for file in /etc/modprobe.d/*.conf /lib/modprobe.d/*.conf ; do
  	if test -e "$file" || test -L "$file" ; then
 diff --git a/scripts/functions b/scripts/functions
-index ae11b96..ebd4b14 100644
+index 60f9195..325ff81 100644
 --- a/scripts/functions
 +++ b/scripts/functions
 @@ -99,13 +99,13 @@ maybe_break()
@@ -412,5 +401,5 @@ index 26a969b..4608cd7 100644
  	wait_for_udev 10
  
 -- 
-2.43.0
+2.45.2
 
