@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.0.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -30,6 +30,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "appmenu-gtk-module-devel",
+    "baloo-devel",
     "breeze-devel",
     "fontconfig-devel",
     "karchive-devel",
@@ -42,6 +44,7 @@ makedepends = [
     "kdoctools-devel",
     "kglobalaccel-devel",
     "kguiaddons-devel",
+    "kholidays-devel",
     "ki18n-devel",
     "kiconthemes-devel",
     "kidletime-devel",
@@ -88,14 +91,12 @@ makedepends = [
     "qt6-qtwayland-devel",
     "wayland-protocols",
     "xcb-util-devel",
-    # TODO: KF6Baloo
-    # TODO: KF6Holidays
     # TODO: AppStreamQt (main/appstream + -Dqt=true)
     # NOTE: make sure PolkitQt6-1 doesn't get pulled in?! just -DGLIBC_LOCALE_GEN=OFF
-    # TODO: AppMenuGtkModule?
     # TODO: SeleniumWebDriverATSPI? (GUI accessibility tests)
 ]
 depends = [
+    "appmenu-gtk-module",
     "iso-codes",
     "kirigami-addons",
     "kio-extras",
@@ -129,6 +130,12 @@ def post_install(self):
 @subpackage("plasma-workspace-devel")
 def _devel(self):
     self.pkgdesc = f"{pkgdesc} (development files)"
+    self.depends += [
+        "kitemmodels-devel",
+        "libplasma-devel",
+        "qt6-qtbase-devel",
+        "qt6-qtdeclarative-devel",
+    ]
     # libkrdb.so unversined, avoid plasma-workspace pulling in plasma-workspace-devel
     return [
         "usr/include",
