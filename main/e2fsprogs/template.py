@@ -58,7 +58,7 @@ def post_patch(self):
 
 def post_install(self):
     # prevents udisks automount
-    self.rm(self.destdir / "usr/lib/udev/rules.d/64-ext4.rules")
+    self.rm(self.destdir / "usr/lib/udev/rules.d/*ext4.rules", glob=True)
 
 
 @subpackage("e2fsprogs-devel")
