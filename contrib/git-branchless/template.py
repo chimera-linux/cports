@@ -1,16 +1,16 @@
 pkgname = "git-branchless"
-pkgver = "0.8.0"
-pkgrel = 1
+pkgver = "0.9.0"
+pkgrel = 0
 build_style = "cargo"
-hostmakedepends = ["cargo-auditable"]
-makedepends = ["rust-std", "sqlite-devel"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
+makedepends = ["libgit2-devel", "rust-std", "sqlite-devel"]
 checkdepends = ["git"]
 pkgdesc = "Additional tools for Git"
 maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/arxanas/git-branchless"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f9e13d9a3de960b32fb684a59492defd812bb0785df48facc964478f675f0355"
+sha256 = "fa64dc92ec522520a6407ff61241fc1819a3093337b4e3d0f80248ae76938d43"
 options = ["!cross"]
 
 
