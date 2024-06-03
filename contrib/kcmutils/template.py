@@ -1,6 +1,6 @@
 pkgname = "kcmutils"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -31,6 +31,10 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("kcmutils-devel")
 def _devel(self):
-    self.depends += ["kconfigwidgets-devel", "qt6-qtdeclarative-devel"]
+    self.depends += [
+        "kconfigwidgets-devel",
+        "kcoreaddons-devel",
+        "qt6-qtdeclarative-devel",
+    ]
 
     return self.default_devel()
