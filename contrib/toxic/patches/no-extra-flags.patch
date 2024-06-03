@@ -1,0 +1,19 @@
+--- a/Makefile
++++ b/Makefile
+@@ -17,16 +17,6 @@
+ OBJ += init_queue.o input.o line_info.o log.o main.o message_queue.o misc_tools.o name_lookup.o notify.o prompt.o qr_code.o
+ OBJ += settings.o term_mplex.o toxic.o toxic_strings.o windows.o
+ 
+-# Check if debug build is enabled
+-RELEASE := $(shell if [ -z "$(ENABLE_RELEASE)" ] || [ "$(ENABLE_RELEASE)" = "0" ] ; then echo disabled ; else echo enabled ; fi)
+-ifneq ($(RELEASE), enabled)
+-	CFLAGS += -O0 -g -DDEBUG
+-	LDFLAGS += -O0
+-else
+-	CFLAGS += -O2 -flto
+-	LDFLAGS += -O2 -flto
+-endif
+-
+ # Check if LLVM Address Sanitizer is enabled
+ ASAN := $(shell if [ -z "$(ENABLE_ASAN)" ] || [ "$(ENABLE_ASAN)" = "0" ] ; then echo disabled ; else echo enabled ; fi)
+ ifneq ($(ASAN), disabled)
