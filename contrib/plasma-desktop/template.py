@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -117,9 +117,10 @@ def _meta(self):
         "polkit-kde-agent-1",  # password root auth prompts
         "fcitx5-configtool-kde-meta",  # configure IME
         # "plasma-thunderbolt",  # user device authentication
-        # "print-manager",
-        # "colord-kde",  # color profile management
-        # "kgamma",  # adjust monitor gamma
+        "colord-kde",  # color profile management
+        "flatpak-kcm",  # flatpak permissions
+        "kgamma",  # adjust monitor gamma
+        "print-manager",  # printer configuration
         # "drkonqi",  # TODO: figure out what crash handler to use
         "kmenuedit",
         # "krdp",  # TODO: remote desktop server kcm for Plasma 6.2
