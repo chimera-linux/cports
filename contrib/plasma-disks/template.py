@@ -7,7 +7,6 @@ hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "gettext",
-    "libcap-progs",
     "ninja",
     "pkgconf",
 ]
