@@ -1,9 +1,10 @@
 pkgname = "initramfs-tools"
-pkgver = "0.142"
-pkgrel = 6
+pkgver = "0.143"
+pkgrel = 0
 build_style = "makefile"
 depends = [
     "base-kernel",
+    "dracut-install",
     "klibc-kinit-standalone",
     "klibc-utils-standalone",
     "virtual:cmd:ischroot!debianutils",
@@ -20,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/kernel-team/initramfs-tools"
 source = f"{url}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
-sha256 = "27a78cc25acc3ca3d9c78deca165bf001b09b260ce25a3f3756e47a0e7bc0554"
+sha256 = "5d3091b0393c4246bcdae499cfd5ba490c78194d7eede01d951f4124ff2f9895"
 # no tests
 options = ["!check"]
 

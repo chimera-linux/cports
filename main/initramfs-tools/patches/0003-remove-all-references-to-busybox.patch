@@ -1,6 +1,6 @@
-From 685bdcf57397f330cc5ca2ddc66bbfc77422940f Mon Sep 17 00:00:00 2001
+From a7d9547b4756edbcbc3e77480cd5596a4eedc622 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 22 Oct 2021 01:54:10 +0200
+Date: Mon, 3 Jun 2024 16:41:14 +0200
 Subject: [PATCH 3/8] remove all references to busybox
 
 ---
@@ -90,7 +90,7 @@ index 76e4010..aff04c0 100644
  \fB KEYMAP
  If set to 'y', the console keymap will be loaded during the initramfs stage.
 diff --git a/mkinitramfs b/mkinitramfs
-index 6be2173..551d564 100755
+index b07ecb7..4691faa 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -7,9 +7,6 @@ export PATH='/usr/bin:/sbin:/bin'
@@ -108,13 +108,13 @@ index 6be2173..551d564 100755
  
  # Check busybox dependency
 -if [ "${BUSYBOX}" = "y" ] && [ -z "${BUSYBOXDIR}" ]; then
--	echo >&2 "E: @BUSYBOX_PACKAGES@, version @BUSYBOX_MIN_VERSION@ or later, is required but not installed"
+-	echo >&2 "E: @BUSYBOX_PACKAGES@ is required but not installed"
 +if [ "${BUSYBOX}" = "y" ]; then
 +	echo >&2 "E: busybox assumed but not supported (patch your hooks/scripts)"
  	exit 1
  fi
  
-@@ -296,7 +293,6 @@ export MACHINE_ARCH
+@@ -310,7 +307,6 @@ export MACHINE_ARCH
  export verbose
  export KEYMAP
  export MODULES
@@ -123,5 +123,5 @@ index 6be2173..551d564 100755
  export FSTYPE
  
 -- 
-2.43.0
+2.45.2
 

@@ -1,6 +1,6 @@
-From 97709fa233503b9056b2840408276a490d144521 Mon Sep 17 00:00:00 2001
+From 8820e36b545e8276b80a99f2f1cbc487d0250862 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 22 Oct 2021 01:52:09 +0200
+Date: Mon, 3 Jun 2024 16:39:45 +0200
 Subject: [PATCH 2/8] remove remaining dpkg references
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH 2/8] remove remaining dpkg references
  2 files changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/mkinitramfs b/mkinitramfs
-index 0f7b81e..6be2173 100755
+index 7b931a4..b07ecb7 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -100,7 +100,7 @@ maybe_add_conf() {
@@ -22,7 +22,7 @@ index 0f7b81e..6be2173 100755
  			echo "W: $1 is a directory instead of file" >&2
  		else
 diff --git a/update-initramfs b/update-initramfs
-index 746a6c1..4f8922c 100755
+index 4bb8d8a..f45169e 100755
 --- a/update-initramfs
 +++ b/update-initramfs
 @@ -11,13 +11,6 @@ set -e
@@ -46,7 +46,7 @@ index 746a6c1..4f8922c 100755
 -	initramfs_bak="${initramfs}.dpkg-bak"
 +	initramfs_bak="${initramfs}.chimera-bak"
  	[ -r "${initramfs_bak}" ] && rm -f "${initramfs_bak}"
- 	ln -f "${initramfs}" "${initramfs_bak}" \
+ 	ln -f "${initramfs}" "${initramfs_bak}" 2>/dev/null \
  		|| cp -a "${initramfs}" "${initramfs_bak}"
 @@ -89,7 +82,7 @@ backup_initramfs()
  # keep booted initramfs
@@ -58,5 +58,5 @@ index 746a6c1..4f8922c 100755
  	# first time run thus no backup
  	[ ! -r "${initramfs_bak}" ] && return 0
 -- 
-2.43.0
+2.45.2
 
