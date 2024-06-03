@@ -1,6 +1,6 @@
 pkgname = "libbsd"
 pkgver = "0.12.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
@@ -36,4 +36,5 @@ def post_install(self):
 
 @subpackage("libbsd-devel")
 def _devel(self):
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "libmd-devel"]
     return self.default_devel()
