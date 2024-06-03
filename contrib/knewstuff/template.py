@@ -1,6 +1,6 @@
 pkgname = "knewstuff"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -29,7 +29,9 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
 sha256 = "f54962756b8eb98c67840352a1efea4698f15a17d4bc8282f65adb0db08c5780"
-hardening = ["vis", "cfi"]
+# FIXME: cfi causes crash when pressing "Get New Plugins..." button in the
+# "Wallpaper" section of Plasma's system settings app
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("knewstuff-devel")
