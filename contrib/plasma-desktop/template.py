@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -121,7 +121,7 @@ def _meta(self):
         # "colord-kde",  # color profile management
         # "kgamma",  # adjust monitor gamma
         # "drkonqi",  # TODO: figure out what crash handler to use
-        # "kmenuedit",
+        "kmenuedit",
         # "krdp",  # TODO: remote desktop server kcm for Plasma 6.2
         # non-kde, misc integrations
         "desktop-file-utils",
@@ -145,7 +145,7 @@ def _x11_meta(self):
         "xserver-xorg-input-libinput",  # general input
         # "xserver-xorg-input-evdev",  # TODO: used by mouse KCM? page loads even without it at least
         "setxkbmap",  # configure non-us layout
-        # "qt6-qtvirtualkeyboard",  # lockscreen virtual keyboard, any alternative that's also usable on wayland side (too?) -> maliit
+        "qt6-qtvirtualkeyboard",  # lockscreen virtual keyboard, any alternative that's also usable on wayland side (too?) -> maliit
     ]
     self.options = ["empty"]
 
@@ -165,22 +165,22 @@ def _apps_meta(self):
         "kio-admin",
         "kio-fuse",
         "kio-extras",
-        # "dolphin-plugins",
+        "dolphin-plugins",
         "ffmpegthumbs",  # video thumbnails
         "kinfocenter",  # system info
         "spectacle",  # screenshot
         # "kipi-plugins",  # image export
         "gwenview",  # image viewer
         "kate",  # text editor(s)
-        # "markdownpart",
-        # "svgpart",
+        "markdownpart",
+        "svgpart",
         "plasma-systemmonitor",
         # "ark",  # local WIP, file (un)archiving
         # "merkuro",  # calendar
         # "haruna",  # local WIP, mpv frontend
         "elisa",  # music player
         "kdenlive",  # video editor
-        # "kalk",  # calculator
+        "kalk",  # calculator
         # "kamoso",  # camera
         # "neochat",  # local WIP, matrix client
         # "kcharselect",  # fonts character picker
@@ -191,9 +191,8 @@ def _apps_meta(self):
         # "konversation",  # irc client
         # "krdc",  # vnc/rdp client
         # "ksystemlog",  # log viewer
-        # "kwalletmanager",
         "okular",  # document viewer
-        # "filelight",
+        "filelight",
         # "partitionmanager",
         # "plasmatube",  # youtube client
         # "skanlite",  # image scanner
@@ -201,8 +200,12 @@ def _apps_meta(self):
         # "yakuake",  # drop-down terminal
         # "zanshin",  # todo
         # "heaptrack",  # heap memory profiler
-        # "kcachegrind",  # callgrind data visualizer
+        "kcachegrind",  # callgrind data visualizer
         # "krita",  # digital art studio
+        # passwords
+        "kwallet",
+        "kwallet-pam",
+        "kwalletmanager",
     ]
     if self.rparent.profile().arch != "riscv64":
         # FIXME: qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)
