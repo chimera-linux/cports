@@ -35,6 +35,6 @@ license = "GPL-2.0-or-later"
 url = "https://userbase.kde.org/System_Settings"
 source = f"$(KDE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"
 sha256 = "b722ba21fabd8cd27e2371a83e33a9a4e1403257d454b3f01c6fa46c2874cf93"
-tool_flags = {"LDFLAGS": "-Wl,-z,stack-size=0x100000"}
+tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 # FIXME: cfi crash on launch
 hardening = ["vis", "!cfi"]
