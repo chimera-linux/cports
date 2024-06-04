@@ -2164,6 +2164,12 @@ Additionally, when using `ccache`, the following are also exported:
 * `CCACHE_COMPRESS` Set to `1`.
 * `CCACHE_BASEDIR` Set to the `cbuild`-set current working directory.
 
+When using `sccache` and it is installed, the following are exported:
+
+* `RUSTC_WRAPPER` Set to `/usr/bin/sccache`.
+* `SCCACHE_DIR` The path to the `sccache` data.
+* `SCCACHE_IDLE_TIMEOUT` Set to 30 by default.
+
 When set in host environment, the variables `NO_PROXY`, `FTP_PROXY`,
 `HTTP_PROXY`, `HTTPS_PROXY`, `SOCKS_PROXY`, `FTP_RETRIES`, `HTTP_PROXY_AUTH`
 are carried over into the environment.
@@ -2695,7 +2701,11 @@ Whether building `dbg` packages is enabled by `cbuild`.
 
 ##### self.use_ccache
 
-Whether using `ccache` is enabled by `cbuild`
+Whether using `ccache` is enabled by `cbuild`.
+
+##### self.use_sccache
+
+Whether using `sccache` is enabled by `cbuild`.
 
 ##### self.wrksrc
 

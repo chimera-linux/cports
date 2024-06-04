@@ -23,6 +23,8 @@ build_root = bldroot
 build_dir =
 # whether ccache will be used in the build
 ccache = no
+# whether sccache will be used for rust in the build
+sccache = no
 # whether to use lld thinlto linker cache; not always entirely safe across runs
 thinlto_cache = no
 # thinlto cache size of enabled

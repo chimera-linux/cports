@@ -1223,6 +1223,14 @@ class Template(Package):
             cenv["CCACHE_COMPRESS"] = "1"
             cenv["CCACHE_BASEDIR"] = str(self.chroot_cwd)
 
+        if (
+            self.use_sccache
+            and (self.bldroot_path / "usr/bin/sccache").exists()
+        ):
+            cenv["RUSTC_WRAPPER"] = "/usr/bin/sccache"
+            cenv["SCCACHE_DIR"] = "/cbuild_cache/sccache"
+            cenv["SCCACHE_IDLE_TIMEOUT"] = "30"
+
         cenv.update(self.tools)
 
         cenv["CC"] = self.get_tool("CC")
@@ -2273,7 +2281,8 @@ def read_mod(
     ret.bulk_mode = bulk_mode
     ret.build_dbg = build_dbg
     ret.use_ccache = caches[0] if caches else None
-    ret.use_ltocache = caches[1] if caches else None
+    ret.use_sccache = caches[1] if caches else None
+    ret.use_ltocache = caches[2] if caches else None
     ret.conf_jobs = jobs[0]
     ret.conf_link_threads = jobs[1]
     ret.stage = stage

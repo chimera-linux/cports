@@ -18,6 +18,7 @@ opt_harch = None
 opt_gen_dbg = True
 opt_check = True
 opt_ccache = False
+opt_sccache = False
 opt_tltocache = False
 opt_tltocachesize = "10g"
 opt_comp = "zstd"
@@ -101,7 +102,7 @@ def handle_options():
     global opt_apkcmd, opt_bwcmd, opt_dryrun, opt_bulkcont
     global opt_arch, opt_cflags, opt_cxxflags, opt_fflags, opt_tltocache
     global opt_harch, opt_gen_dbg, opt_check, opt_ccache, opt_tltocachesize
-    global opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
+    global opt_sccache, opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
     global opt_unsigned, opt_force, opt_mdirtemp, opt_allowcat, opt_restricted
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
@@ -314,6 +315,7 @@ def handle_options():
 
         opt_gen_dbg = bcfg.getboolean("build_dbg", fallback=opt_gen_dbg)
         opt_ccache = bcfg.getboolean("ccache", fallback=opt_ccache)
+        opt_sccache = bcfg.getboolean("sccache", fallback=opt_sccache)
         opt_tltocache = bcfg.getboolean("thinlto_cache", fallback=opt_tltocache)
         opt_check = bcfg.getboolean("check", fallback=opt_check)
         opt_checkfail = bcfg.getboolean("check_fail", fallback=opt_checkfail)
@@ -1624,7 +1626,11 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             check,
             (opt_makejobs, opt_lthreads),
             opt_gen_dbg,
-            (opt_ccache, opt_tltocachesize if opt_tltocache else None),
+            (
+                opt_ccache,
+                opt_sccache,
+                opt_tltocachesize if opt_tltocache else None,
+            ),
             None,
             target=tgt if (tgt != "pkg") else None,
             force_check=opt_forcecheck,
@@ -1825,7 +1831,11 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                 opt_check,
                 (opt_makejobs, opt_lthreads),
                 opt_gen_dbg,
-                (opt_ccache, opt_tltocachesize if opt_tltocache else None),
+                (
+                    opt_ccache,
+                    opt_sccache,
+                    opt_tltocachesize if opt_tltocache else None,
+                ),
                 None,
                 force_check=opt_forcecheck,
                 bulk_mode=True,
