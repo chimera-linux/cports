@@ -1,82 +1,44 @@
-commit 15418031543c673c0ed13b4b1c09417b62576960
+commit 3c259a45e338a1c99d9f2dea96d48e295b8ac9f1
 Author: q66 <q66@chimera-linux.org>
 Date:   Tue Jun 4 13:02:33 2024 +0200
 
-    allocate hwdb strbuf in fixed number of pages and get 16M initial
+    track capacity in strbuf to speed up udev hwdb
     
     Since the hwdb is about 12M, this avoids reallocating the strbuf
     memory all the time, which was really bad for performance. Now
     hwdb update takes around a second instead of 20.
 
 diff --git a/src/basic/strbuf.c b/src/basic/strbuf.c
-index 0617acc..82355d1 100644
+index 0617acc..40b6310 100644
 --- a/src/basic/strbuf.c
 +++ b/src/basic/strbuf.c
-@@ -3,11 +3,15 @@
- #include <errno.h>
- #include <stdlib.h>
- #include <string.h>
-+#include <sys/mman.h>
- 
- #include "alloc-util.h"
- #include "sort-util.h"
- #include "strbuf.h"
- 
-+/* 64k; biggest pages we're to encounter */
-+#define BLOCKSIZE 0x10000
-+
- /*
-  * Strbuf stores given strings in a single continuous allocated memory
-  * area. Identical strings are de-duplicated and return the same offset
-@@ -33,13 +37,15 @@ struct strbuf* strbuf_new(void) {
-         if (!str)
-                 return NULL;
-         *str = (struct strbuf) {
--                .buf = new0(char, 1),
-+                .buf = NULL,
+@@ -36,6 +36,7 @@ struct strbuf* strbuf_new(void) {
+                 .buf = new0(char, 1),
                  .root = new0(struct strbuf_node, 1),
                  .len = 1,
-+                .bufblocks = 0,
++                .cap = 1,
                  .nodes_count = 1,
          };
--        if (!str->buf || !str->root) {
--                free(str->buf);
-+        /* initial empty space, replaced on first string insert */
-+        str->buf = (void *)&str->bufblocks;
-+        if (!str->root) {
-                 free(str->root);
-                 return mfree(str);
-         }
-@@ -47,6 +53,19 @@ struct strbuf* strbuf_new(void) {
+         if (!str->buf || !str->root) {
+@@ -47,6 +48,17 @@ struct strbuf* strbuf_new(void) {
          return str;
  }
  
-+struct strbuf* strbuf_new_cap(size_t nblocks) {
-+        struct strbuf *ret = strbuf_new();
-+        if (!ret) return ret;
-+        if (nblocks == 0) nblocks = 1;
-+        ret->buf = mmap(NULL, nblocks * BLOCKSIZE, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
-+        if (!ret->buf) {
-+                strbuf_free(ret);
-+                return NULL;
-+        }
-+        ret->bufblocks = nblocks;
-+        return ret;
++int strbuf_reserve(struct strbuf *str, size_t cap) {
++        void *nbuf;
++        if (cap <= str->cap) return 0;
++        nbuf = realloc(str->buf, cap);
++        if (!nbuf)
++                return -errno;
++        str->buf = nbuf;
++        str->cap = cap;
++        return 0;
 +}
 +
  static struct strbuf_node* strbuf_node_cleanup(struct strbuf_node *node) {
          size_t i;
  
-@@ -70,7 +89,7 @@ struct strbuf* strbuf_free(struct strbuf *str) {
-                 return NULL;
- 
-         strbuf_complete(str);
--        free(str->buf);
-+        if (str->bufblocks) munmap(str->buf, str->bufblocks * BLOCKSIZE);
-         return mfree(str);
- }
- 
-@@ -146,11 +165,19 @@ ssize_t strbuf_add_string(struct strbuf *str, const char *s, size_t len) {
+@@ -146,11 +158,17 @@ ssize_t strbuf_add_string(struct strbuf *str, const char *s, size_t len) {
                  node = child->child;
          }
  
@@ -85,54 +47,51 @@ index 0617acc..82355d1 100644
 -        if (!buf_new)
 -                return -ENOMEM;
 -        str->buf = buf_new;
-+        /* allocate in 64k blocks */
-+        if ((str->len + len + 1) > (str->bufblocks * BLOCKSIZE)) {
-+                size_t newblocks = str->bufblocks * 2 + ((len + BLOCKSIZE) / BLOCKSIZE);
-+                /* add new string */
-+                buf_new = mmap(NULL, newblocks * BLOCKSIZE, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
-+                if (!buf_new)
++        /* multiply the capacity if needed */
++        if ((str->len + len + 1) > str->cap) {
++                size_t newcap = str->cap * 2;
++                while ((str->len + len + 1) > newcap)
++                        newcap *= 2;
++                void *newp = realloc(str->buf, newcap);
++                if (!newp)
 +                        return -ENOMEM;
-+                memcpy(buf_new, str->buf, str->len);
-+                if (str->buf != &str->bufblocks)
-+                        munmap(str->buf, str->bufblocks * BLOCKSIZE);
-+                str->buf = buf_new;
-+                str->bufblocks = newblocks;
++                str->buf = newp;
++                str->cap = newcap;
 +        }
          off = str->len;
          memcpy(str->buf + off, s, len);
          str->len += len;
 diff --git a/src/basic/strbuf.h b/src/basic/strbuf.h
-index 6187c08..b8ed83a 100644
+index 6187c08..f856d79 100644
 --- a/src/basic/strbuf.h
 +++ b/src/basic/strbuf.h
-@@ -12,6 +12,7 @@ struct strbuf {
+@@ -10,6 +10,7 @@
+ struct strbuf {
+         char *buf;
          size_t len;
++        size_t cap;
          struct strbuf_node *root;
  
-+        size_t bufblocks;
          size_t nodes_count;
-         size_t in_count;
-         size_t in_len;
 @@ -33,6 +34,7 @@ struct strbuf_child_entry {
  };
  
  struct strbuf* strbuf_new(void);
-+struct strbuf* strbuf_new_cap(size_t cap);
++int strbuf_reserve(struct strbuf *str, size_t cap);
  ssize_t strbuf_add_string(struct strbuf *str, const char *s, size_t len);
  void strbuf_complete(struct strbuf *str);
  struct strbuf* strbuf_free(struct strbuf *str);
 diff --git a/src/shared/hwdb-util.c b/src/shared/hwdb-util.c
-index 12621b7..57b968a 100644
+index 12621b7..f3bad31 100644
 --- a/src/shared/hwdb-util.c
 +++ b/src/shared/hwdb-util.c
-@@ -595,8 +595,8 @@ int hwdb_update(const char *root, const char *hwdb_bin_dir, bool strict, bool co
-         if (!trie)
-                 return -ENOMEM;
- 
--        /* string store */
--        trie->strings = strbuf_new();
-+        /* string store; 256 64k blocks (16M) */
-+        trie->strings = strbuf_new_cap(256);
+@@ -600,6 +600,9 @@ int hwdb_update(const char *root, const char *hwdb_bin_dir, bool strict, bool co
          if (!trie->strings)
                  return -ENOMEM;
  
++        /* reserve 16M to avoid allocs */
++        strbuf_reserve(trie->strings, 0x10000 * 16);
++
+         /* index */
+         trie->root = new0(struct trie_node, 1);
+         if (!trie->root)
