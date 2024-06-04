@@ -167,7 +167,9 @@ def do_configure(self):
 
     match self.profile().arch:
         case "x86_64" | "aarch64":
-            conf_opts += ["--enable-rust-simd"]
+            # broken with rust 1.78 as it enables packed_simd feature that uses removed platform_intrinsics
+            # conf_opts += ["--enable-rust-simd"]
+            pass
 
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
