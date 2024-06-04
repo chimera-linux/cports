@@ -9,7 +9,7 @@ this file takes minutes to compile and seems to crash clang sometimes
  // SPDX-License-Identifier: LGPL-2.0-or-later
  
 +#undef _FORTIFY_SOURCE
-+#pragma GCC optimize ("O1")
++#pragma clang optimize off
  #include "utils/emojitones.h"
  #include "utils/emojimodel.h"
 +
