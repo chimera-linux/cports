@@ -1,6 +1,6 @@
 pkgname = "xfdashboard"
 pkgver = "1.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
@@ -30,7 +30,7 @@ makedepends = [
 pkgdesc = "Xfce dashboard"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
-url = "https://xfce.org"
+url = "https://docs.xfce.org/apps/xfdashboard/start"
 source = (
     f"$(XFCE_SITE)/apps/xfdashboard/{pkgver[:-2]}/xfdashboard-{pkgver}.tar.bz2"
 )
