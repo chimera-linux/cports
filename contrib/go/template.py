@@ -1,5 +1,5 @@
 pkgname = "go"
-pkgver = "1.22.3"
+pkgver = "1.22.4"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "80648ef34f903193d72a59c0dff019f5f98ae0c9aa13ade0b0ecbff991a76f68"
+sha256 = "fed720678e728a7ca30ba8d1ded1caafe27d16028fab0232b8ba8e22008fb784"
 env = {}
 # a bunch of tests fail for now, so FIXME
 options = [
