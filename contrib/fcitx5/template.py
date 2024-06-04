@@ -1,5 +1,5 @@
 pkgname = "fcitx5"
-pkgver = "5.1.9"
+pkgver = "5.1.10"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -39,7 +39,7 @@ source = [
     f"!https://download.fcitx-im.org/data/en_dict-{_en_dict_ver}.tar.gz",
 ]
 sha256 = [
-    "00c714d94018182f9501fb60cbabd05d47824713f0d85572b06f6e6a2283b6dc",
+    "a33f71e60a840b37fed7b04d2dcc7544a89bda78e4f4b2df7946ff358032a903",
     "c44a5d7847925eea9e4d2d04748d442cd28dd9299a0b572ef7d91eac4f5a6ceb",
 ]
 # TODO cfi causes illegal instruction crashes
