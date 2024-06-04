@@ -1,6 +1,6 @@
 pkgname = "firefox"
 pkgver = "126.0.1"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 hostmakedepends = [
     "automake",
@@ -98,6 +98,28 @@ if self.profile().arch == "riscv64":
 def post_extract(self):
     self.cp(
         self.files_path / "stab.h", "toolkit/crashreporter/google-breakpad/src"
+    )
+    # bsd patch cannot rename files
+    self.mkdir("media/ffvpx/libavcodec/bsf")
+    self.mv(
+        "media/ffvpx/libavcodec/null_bsf.c",
+        "media/ffvpx/libavcodec/bsf/null.c",
+    )
+    self.mv(
+        "media/ffvpx/libavcodec/fdctdsp_init.c",
+        "media/ffvpx/libavcodec/itut35.h",
+    )
+    self.mv(
+        "media/ffvpx/libavcodec/avpacket.c",
+        "media/ffvpx/libavcodec/packet.c",
+    )
+    self.mv(
+        "media/ffvpx/libavcodec/vp9_superframe_split_bsf.c",
+        "media/ffvpx/libavcodec/bsf/vp9_superframe_split.c",
+    )
+    self.mv(
+        "media/ffvpx/libavcodec/av1_frame_split_bsf.c",
+        "media/ffvpx/libavcodec/bsf/av1_frame_split.c",
     )
 
 

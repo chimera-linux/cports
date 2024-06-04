@@ -1,0 +1,234 @@
+diff --git a/apps/openmw/mwsound/ffmpeg_decoder.cpp b/apps/openmw/mwsound/ffmpeg_decoder.cpp
+index 997b4e30c6..51dd2adb33 100644
+--- a/apps/openmw/mwsound/ffmpeg_decoder.cpp
++++ b/apps/openmw/mwsound/ffmpeg_decoder.cpp
+@@ -29,7 +29,7 @@ int FFmpeg_Decoder::readPacket(void *user_data, uint8_t *buf, int buf_size)
+     }
+ }
+ 
+-int FFmpeg_Decoder::writePacket(void *, uint8_t *, int)
++int FFmpeg_Decoder::writePacket(void *, const uint8_t *, int)
+ {
+     Log(Debug::Error) << "can't write to read-only stream";
+     return -1;
+@@ -124,7 +124,7 @@ bool FFmpeg_Decoder::getAVAudioData()
+             if(!mDataBuf || mDataBufLen < mFrame->nb_samples)
+             {
+                 av_freep(&mDataBuf);
+-                if(av_samples_alloc(&mDataBuf, nullptr, av_get_channel_layout_nb_channels(mOutputChannelLayout),
++                if(av_samples_alloc(&mDataBuf, nullptr, av_popcount64(mOutputChannelLayout),
+                                     mFrame->nb_samples, mOutputSampleFormat, 0) < 0)
+                     return false;
+                 else
+@@ -159,7 +159,7 @@ size_t FFmpeg_Decoder::readAVAudioData(void *data, size_t length)
+             if(!getAVAudioData())
+                 break;
+             mFramePos = 0;
+-            mFrameSize = mFrame->nb_samples * av_get_channel_layout_nb_channels(mOutputChannelLayout) *
++            mFrameSize = mFrame->nb_samples * av_popcount64(mOutputChannelLayout) *
+                          av_get_bytes_per_sample(mOutputSampleFormat);
+         }
+ 
+@@ -256,11 +256,14 @@ void FFmpeg_Decoder::open(const std::string &fname)
+         else
+             mOutputSampleFormat = AV_SAMPLE_FMT_S16;
+ 
+-        mOutputChannelLayout = (*mStream)->codecpar->channel_layout;
+-        if(mOutputChannelLayout == 0)
+-            mOutputChannelLayout = av_get_default_channel_layout(mCodecCtx->channels);
++        mOutputChannelLayout = (*mStream)->codecpar->ch_layout.u.mask;
++        if(mOutputChannelLayout == 0) {
++            AVChannelLayout input_channel_layout;
++            av_channel_layout_default(&input_channel_layout, mCodecCtx->ch_layout.nb_channels);
++            mOutputChannelLayout = input_channel_layout.nb_channels;
++        }
+ 
+-        mCodecCtx->channel_layout = mOutputChannelLayout;
++        mCodecCtx->ch_layout.u.mask = mOutputChannelLayout;
+     }
+     catch(...)
+     {
+@@ -358,11 +361,9 @@ void FFmpeg_Decoder::getInfo(int *samplerate, ChannelConfig *chans, SampleType *
+         *chans = ChannelConfig_7point1;
+     else
+     {
+-        char str[1024];
+-        av_get_channel_layout_string(str, sizeof(str), mCodecCtx->channels, mCodecCtx->channel_layout);
+-        Log(Debug::Error) << "Unsupported channel layout: "<< str;
++        Log(Debug::Error) << "Unsupported channel layout";
+ 
+-        if(mCodecCtx->channels == 1)
++        if(mCodecCtx->ch_layout.nb_channels == 1)
+         {
+             mOutputChannelLayout = AV_CH_LAYOUT_MONO;
+             *chans = ChannelConfig_Mono;
+@@ -375,18 +376,21 @@ void FFmpeg_Decoder::getInfo(int *samplerate, ChannelConfig *chans, SampleType *
+     }
+ 
+     *samplerate = mCodecCtx->sample_rate;
+-    int64_t ch_layout = mCodecCtx->channel_layout;
+-    if(ch_layout == 0)
+-        ch_layout = av_get_default_channel_layout(mCodecCtx->channels);
++    int64_t ch_layout = mCodecCtx->ch_layout.u.mask;
++    if(ch_layout == 0) {
++        AVChannelLayout channel_layout;
++        av_channel_layout_default(&channel_layout, mCodecCtx->ch_layout.nb_channels);
++        ch_layout = channel_layout.nb_channels;
++    }
+ 
+     if(mOutputSampleFormat != mCodecCtx->sample_fmt ||
+        mOutputChannelLayout != ch_layout)
+     {
+-        mSwr = swr_alloc_set_opts(mSwr,                   // SwrContext
+-                          mOutputChannelLayout,           // output ch layout
++        swr_alloc_set_opts2(&mSwr,                   // SwrContext
++                          (const AVChannelLayout*)mOutputChannelLayout,           // output ch layout
+                           mOutputSampleFormat,            // output sample format
+                           mCodecCtx->sample_rate, // output sample rate
+-                          ch_layout,                      // input ch layout
++                          (const AVChannelLayout*)ch_layout,                      // input ch layout
+                           mCodecCtx->sample_fmt,         // input sample format
+                           mCodecCtx->sample_rate, // input sample rate
+                           0,                              // logging level offset
+@@ -419,7 +423,7 @@ void FFmpeg_Decoder::readAll(std::vector<char> &output)
+ 
+     while(getAVAudioData())
+     {
+-        size_t got = mFrame->nb_samples * av_get_channel_layout_nb_channels(mOutputChannelLayout) *
++        size_t got = mFrame->nb_samples * av_popcount64(mOutputChannelLayout) *
+                      av_get_bytes_per_sample(mOutputSampleFormat);
+         const char *inbuf = reinterpret_cast<char*>(mFrameData[0]);
+         output.insert(output.end(), inbuf, inbuf+got);
+@@ -428,7 +432,7 @@ void FFmpeg_Decoder::readAll(std::vector<char> &output)
+ 
+ size_t FFmpeg_Decoder::getSampleOffset()
+ {
+-    int delay = (mFrameSize-mFramePos) / av_get_channel_layout_nb_channels(mOutputChannelLayout) /
++    int delay = (mFrameSize-mFramePos) / av_popcount64(mOutputChannelLayout) /
+                 av_get_bytes_per_sample(mOutputSampleFormat);
+     return (int)(mNextPts*mCodecCtx->sample_rate) - delay;
+ }
+diff --git a/apps/openmw/mwsound/ffmpeg_decoder.hpp b/apps/openmw/mwsound/ffmpeg_decoder.hpp
+index c51639a972..221027c605 100644
+--- a/apps/openmw/mwsound/ffmpeg_decoder.hpp
++++ b/apps/openmw/mwsound/ffmpeg_decoder.hpp
+@@ -59,7 +59,7 @@ namespace MWSound
+         Files::IStreamPtr mDataStream;
+ 
+         static int readPacket(void *user_data, uint8_t *buf, int buf_size);
+-        static int writePacket(void *user_data, uint8_t *buf, int buf_size);
++        static int writePacket(void *user_data, const uint8_t *buf, int buf_size);
+         static int64_t seek(void *user_data, int64_t offset, int whence);
+ 
+         bool getAVAudioData();
+diff --git a/apps/openmw/mwsound/movieaudiofactory.cpp b/apps/openmw/mwsound/movieaudiofactory.cpp
+index aef8f7fe93..a47d9cef51 100644
+--- a/apps/openmw/mwsound/movieaudiofactory.cpp
++++ b/apps/openmw/mwsound/movieaudiofactory.cpp
+@@ -44,7 +44,7 @@ namespace MWSound
+ 
+         size_t getSampleOffset()
+         {
+-            ssize_t clock_delay = (mFrameSize-mFramePos) / av_get_channel_layout_nb_channels(mOutputChannelLayout) /
++            ssize_t clock_delay = (mFrameSize-mFramePos) / av_popcount64(mOutputChannelLayout) /
+                                   av_get_bytes_per_sample(mOutputSampleFormat);
+             return (size_t)(mAudioClock*mAudioContext->sample_rate) - clock_delay;
+         }
+diff --git a/extern/osg-ffmpeg-videoplayer/audiodecoder.cpp b/extern/osg-ffmpeg-videoplayer/audiodecoder.cpp
+index decf57e4df..06395bd903 100644
+--- a/extern/osg-ffmpeg-videoplayer/audiodecoder.cpp
++++ b/extern/osg-ffmpeg-videoplayer/audiodecoder.cpp
+@@ -109,9 +109,12 @@ void MovieAudioDecoder::setupFormat()
+ 
+     AVSampleFormat inputSampleFormat = mAudioContext->sample_fmt;
+ 
+-    uint64_t inputChannelLayout = mAudioContext->channel_layout;
+-    if (inputChannelLayout == 0)
+-        inputChannelLayout = av_get_default_channel_layout(mAudioContext->channels);
++    uint64_t inputChannelLayout = mAudioContext->ch_layout.u.mask;
++    if (inputChannelLayout == 0) {
++        AVChannelLayout input_channel_layout;
++        av_channel_layout_default(&input_channel_layout, mAudioContext->ch_layout.nb_channels);
++        inputChannelLayout = input_channel_layout.nb_channels;
++    }
+ 
+     int inputSampleRate = mAudioContext->sample_rate;
+ 
+@@ -124,11 +127,11 @@ void MovieAudioDecoder::setupFormat()
+             || inputChannelLayout != mOutputChannelLayout
+             || inputSampleRate != mOutputSampleRate)
+     {
+-        mAudioResampler->mSwr = swr_alloc_set_opts(mAudioResampler->mSwr,
+-                          mOutputChannelLayout,
++        swr_alloc_set_opts2(&(mAudioResampler->mSwr),
++                          (const AVChannelLayout*)mOutputChannelLayout,
+                           mOutputSampleFormat,
+                           mOutputSampleRate,
+-                          inputChannelLayout,
++                          (const AVChannelLayout*)inputChannelLayout,
+                           inputSampleFormat,
+                           inputSampleRate,
+                           0,                             // logging level offset
+@@ -158,7 +161,7 @@ int MovieAudioDecoder::synchronize_audio()
+         if(fabs(avg_diff) >= mAudioDiffThreshold)
+         {
+             int n = av_get_bytes_per_sample(mOutputSampleFormat) *
+-                    av_get_channel_layout_nb_channels(mOutputChannelLayout);
++                    av_popcount64(mOutputChannelLayout);
+             sample_skip = ((int)(diff * mAudioContext->sample_rate) * n);
+         }
+     }
+@@ -204,7 +207,7 @@ int MovieAudioDecoder::audio_decode_frame(AVFrame *frame, int &sample_skip)
+                 if(!mDataBuf || mDataBufLen < frame->nb_samples)
+                 {
+                     av_freep(&mDataBuf);
+-                    if(av_samples_alloc(&mDataBuf, nullptr, av_get_channel_layout_nb_channels(mOutputChannelLayout),
++                    if(av_samples_alloc(&mDataBuf, nullptr, av_popcount64(mOutputChannelLayout),
+                                         frame->nb_samples, mOutputSampleFormat, 0) < 0)
+                         break;
+                     else
+@@ -221,7 +224,7 @@ int MovieAudioDecoder::audio_decode_frame(AVFrame *frame, int &sample_skip)
+             else
+                 mFrameData = &frame->data[0];
+ 
+-            int result = frame->nb_samples * av_get_channel_layout_nb_channels(mOutputChannelLayout) *
++            int result = frame->nb_samples * av_popcount64(mOutputChannelLayout) *
+                     av_get_bytes_per_sample(mOutputSampleFormat);
+ 
+             /* We have data, return it and come back for more later */
+@@ -298,7 +301,7 @@ size_t MovieAudioDecoder::read(char *stream, size_t len)
+             len1 = std::min<size_t>(len1, -mFramePos);
+ 
+             int n = av_get_bytes_per_sample(mOutputSampleFormat)
+-                    * av_get_channel_layout_nb_channels(mOutputChannelLayout);
++                    * av_popcount64(mOutputChannelLayout);
+ 
+             /* add samples by copying the first sample*/
+             if(n == 1)
+diff --git a/extern/osg-ffmpeg-videoplayer/videostate.cpp b/extern/osg-ffmpeg-videoplayer/videostate.cpp
+index 096651dfd8..7b0a915a38 100644
+--- a/extern/osg-ffmpeg-videoplayer/videostate.cpp
++++ b/extern/osg-ffmpeg-videoplayer/videostate.cpp
+@@ -243,7 +243,7 @@ int VideoState::istream_read(void *user_data, uint8_t *buf, int buf_size)
+     }
+ }
+ 
+-int VideoState::istream_write(void *, uint8_t *, int)
++int VideoState::istream_write(void *, const uint8_t *, int)
+ {
+     throw std::runtime_error("can't write to read-only stream");
+ }
+diff --git a/extern/osg-ffmpeg-videoplayer/videostate.hpp b/extern/osg-ffmpeg-videoplayer/videostate.hpp
+index 3681a64976..5c965a1e58 100644
+--- a/extern/osg-ffmpeg-videoplayer/videostate.hpp
++++ b/extern/osg-ffmpeg-videoplayer/videostate.hpp
+@@ -155,7 +155,7 @@ struct VideoState {
+     double get_master_clock();
+ 
+     static int istream_read(void *user_data, uint8_t *buf, int buf_size);
+-    static int istream_write(void *user_data, uint8_t *buf, int buf_size);
++    static int istream_write(void *user_data, const uint8_t *buf, int buf_size);
+     static int64_t istream_seek(void *user_data, int64_t offset, int whence);
+ 
+     osg::ref_ptr<osg::Texture2D> mTexture;
+

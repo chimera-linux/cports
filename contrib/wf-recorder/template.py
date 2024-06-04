@@ -1,6 +1,6 @@
 pkgname = "wf-recorder"
 pkgver = "0.4.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

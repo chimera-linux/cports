@@ -1,6 +1,6 @@
 pkgname = "obs-studio"
 pkgver = "30.1.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
