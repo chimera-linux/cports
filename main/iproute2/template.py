@@ -1,6 +1,6 @@
 pkgname = "iproute2"
 pkgver = "6.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_env = {"CC": "clang"}
 make_cmd = "gmake"
@@ -38,4 +38,5 @@ def do_check(self):
 
 
 def post_install(self):
+    self.rm(self.destdir / "usr/include", recursive=True)
     self.rm(self.destdir / "usr/share/man/man3", recursive=True)
