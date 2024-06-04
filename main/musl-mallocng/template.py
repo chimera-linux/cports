@@ -1,6 +1,6 @@
 pkgname = "musl-mallocng"
 pkgver = "1.2.5_git20240512"
-pkgrel = 2
+pkgrel = 3
 _commit = "007997299248b8682dcbb73595c53dfe86071c83"
 _scudo_ver = "18.1.6"
 build_style = "gnu_configure"
@@ -61,6 +61,9 @@ def post_extract(self):
     # copy in our own wrappers
     self.cp(self.files_path / "wrappers.cpp", "src/malloc/scudo")
     # now we're ready to get patched
+    # but also remove musl's x86_64 asm memcpy as it's actually
+    # noticeably slower than the c implementation
+    self.rm("src/string/x86_64/memcpy.s")
 
 
 def pre_install(self):
