@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -116,7 +116,7 @@ def _meta(self):
         "kdialog",  # scripted message boxes
         "polkit-kde-agent-1",  # password root auth prompts
         "fcitx5-configtool-kde-meta",  # configure IME
-        # "plasma-thunderbolt",  # user device authentication
+        "plasma-thunderbolt",  # user device authentication
         "colord-kde",  # color profile management
         "flatpak-kcm",  # flatpak permissions
         "kgamma",  # adjust monitor gamma
@@ -158,11 +158,11 @@ def _apps_meta(self):
     self.pkgdesc = f"{pkgdesc} (apps recommends package)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
-        # core
+        # - core
         "systemsettings",
         "konsole",  # terminal
         "dolphin",  # file manager
-        # extra
+        # - extra
         "kio-admin",
         "kio-fuse",
         "kio-extras",
@@ -170,47 +170,53 @@ def _apps_meta(self):
         "ffmpegthumbs",  # video thumbnails
         "kinfocenter",  # system info
         "spectacle",  # screenshot
-        # "kipi-plugins",  # image export
         "gwenview",  # image viewer
         "kate",  # text editor(s)
         "markdownpart",
         "svgpart",
         "plasma-systemmonitor",
         # "ark",  # local WIP, file (un)archiving
-        # "merkuro",  # calendar
         # "haruna",  # local WIP, mpv frontend
         "elisa",  # music player
         "kdenlive",  # video editor
         "kalk",  # calculator
-        # "kamoso",  # camera
         # "neochat",  # local WIP, matrix client
-        # "kcharselect",  # fonts character picker
+        "kcharselect",  # fonts character picker
         # "kdeconnect",  # phone integration
-        # "khelpcenter",  # kde documentation viewer
-        # "knotes",  # sticky notes
-        # "kompare",  # gui diff
-        # "konversation",  # irc client
+        "konversation",  # irc client
         # "krdc",  # vnc/rdp client
-        # "ksystemlog",  # log viewer
+        "ksystemlog",  # log viewer (TODO: does it ask for root itself?)
         "okular",  # document viewer
-        "filelight",
-        # "partitionmanager",
-        # "plasmatube",  # youtube client
-        # "skanlite",  # image scanner
-        # "tokodon",  # mastodon client
-        # "yakuake",  # drop-down terminal
-        # "zanshin",  # todo
-        # "heaptrack",  # heap memory profiler
+        "filelight",  # disk space usage viewer
+        "partitionmanager",  # partition manager
+        "plasmatube",  # youtube client
+        "skanlite",  # image scanner
+        "yakuake",  # drop-down terminal
         "kcachegrind",  # callgrind data visualizer
-        # "krita",  # digital art studio
-        # passwords
+        # - passwords
         "kwallet",
         "kwallet-pam",
         "kwalletmanager",
+        # - akonadi stuff (mariadb)
+        # "kontact",  # contacts
+        # "merkuro",  # calendar
+        # "zanshin",  # productivity app
+        # "knotes",  # sticky notes
+        # - still qt5
+        # "heaptrack",  # heap memory profiler
+        # "kamoso",  # camera
+        # "kompare",  # gui diff
+        # "kipi-plugins",  # image export
+        # "krita",  # digital art studio
     ]
+    # things missing on some arches
     if self.rparent.profile().arch != "riscv64":
-        # FIXME: qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)
         self.depends += ["qalculate-qt"]
+    if self.rparent.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+        self.depends += [
+            "khelpcenter",  # documentation viewer
+            "tokodon",  # mastodon client
+        ]
     self.options = ["empty"]
 
     return []
