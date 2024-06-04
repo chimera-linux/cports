@@ -1,5 +1,5 @@
 pkgname = "imhex"
-pkgver = "1.33.2"
+pkgver = "1.34.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -47,7 +47,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://imhex.werwolv.net"
 source = f"https://github.com/WerWolv/ImHex/releases/download/v{pkgver}/Full.Sources.tar.gz"
-sha256 = "c126ecebb639f68050a47d1f9ea0e060c6ae25bfade87237cb54f2e584cfa252"
+sha256 = "0918470bfa9603c423fb4708258d18195fbae582c585bcb822ceded141cf75f0"
 
 
 @subpackage("imhex-devel")

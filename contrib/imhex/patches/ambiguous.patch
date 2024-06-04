@@ -1,14 +1,3 @@
---- a/lib/third_party/HashLibPlus/Base/Hash.h
-+++ b/lib/third_party/HashLibPlus/Base/Hash.h
-@@ -214,7 +214,7 @@
- 		{
- 			if (a_length > -1)
- 			{
--				if (UInt64(a_stream.tellg() + a_length) > size)
-+				if (UInt64((UInt64)a_stream.tellg() + a_length) > size)
- 					throw IndexOutOfRangeHashLibException(IndexOutOfRange);
- 			} // end if
- 
 --- a/lib/third_party/jthread/jthread/source/stop_token.hpp
 +++ b/lib/third_party/jthread/jthread/source/stop_token.hpp
 @@ -26,11 +26,11 @@
