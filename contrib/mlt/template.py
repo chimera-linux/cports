@@ -1,6 +1,6 @@
 pkgname = "mlt"
 pkgver = "7.24.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     # needs an ancient abandoned ruby kwalify
@@ -52,6 +52,8 @@ url = "https://www.mltframework.org"
 source = f"https://github.com/mltframework/mlt/releases/download/v{pkgver}/mlt-{pkgver}.tar.gz"
 sha256 = "8cde7c22a1a5395abe913976c2edafb498f81ed81a5f49dd0e6e2d86d68bcec0"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
+# suboverflow in find_first_pts for certain files
+hardening = ["!int"]
 options = ["linkundefver"]
 
 
