@@ -1,5 +1,5 @@
 pkgname = "python-boto3"
-pkgver = "1.34.117"
+pkgver = "1.34.118"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -23,7 +23,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/boto/boto3"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "d983e6049c53ca86e3457f0c4f58dc1e1e939cd72ee5f2afa1718b9e4db25ce8"
+sha256 = "50123d4f6eb78c05f141bb54e3c5d0fa871378f4315f35ee0fd2b178de846f4d"
 
 
 def init_check(self):
