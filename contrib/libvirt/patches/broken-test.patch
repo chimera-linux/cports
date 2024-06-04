@@ -18,6 +18,6 @@ index 7270840..7585787 100644
 -  suite: 'script',
 -)
 -
- # vsh based client self-test, which can be run directly from meson
- test('virsh self-test',
-   virsh_prog,
+ if conf.has('WITH_TEST')
+   # vsh based client self-test, which can be run directly from meson
+   test('virsh self-test',

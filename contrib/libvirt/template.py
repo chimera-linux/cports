@@ -1,5 +1,5 @@
 pkgname = "libvirt"
-pkgver = "10.3.0"
+pkgver = "10.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,6 +31,7 @@ configure_args = [
     f"-Dpackager_version={pkgver}",
     "-Dqemu_user=_libvirt-qemu",
     "-Dqemu_group=_libvirt-qemu",
+    "-Duserfaultfd_sysctl=disabled",
 ]
 hostmakedepends = [
     "libxml2-progs",
@@ -82,12 +83,11 @@ maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
-sha256 = "2af5a50b6b1027822b6344e35080fa78cc8266f821a3ae6f8f372f18dd049018"
+sha256 = "d1308be98da418ce463f0d9e4ac28a94b1a859364db3bb078d6e153dc587efe4"
 
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib/sysusers.d/libvirt-qemu.conf")
-    self.rm(self.destdir / "usr/lib/sysctl.d/60-qemu-postcopy-migration.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_sysusers(self.files_path / "sysusers.conf")
 
