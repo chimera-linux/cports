@@ -1,6 +1,6 @@
 pkgname = "tumbler"
 pkgver = "4.18.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
@@ -37,3 +37,8 @@ sha256 = "b530eec635eac7f898c0d8d3a3ff79d76a145d3bed3e786d54b1ec058132be7a"
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
+
+
+@subpackage("tumbler-devel")
+def _devel(self):
+    return self.default_devel()
