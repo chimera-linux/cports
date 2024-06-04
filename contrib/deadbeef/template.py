@@ -1,14 +1,12 @@
 pkgname = "deadbeef"
 pkgver = "1.9.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     # yasm
     "--disable-ffap",
     # forces -msse3 lol
     "--disable-libretro",
-    # gtk2
-    "--disable-gtkui",
     # prefer pipewire
     "--disable-alsa",
     "--disable-oss",
@@ -28,7 +26,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "alsa-lib-devel",
-    "ffmpeg-devel",
+    "faad2-devel",
     "flac-devel",
     "gtk+3-devel",
     "jansson-devel",
