@@ -1,0 +1,18 @@
+this file takes minutes to compile and seems to crash clang sometimes
+1. <eof> parser at end of file
+2. Optimizer
+--
+--- a/src/utils/emojitones.cpp
++++ b/src/utils/emojitones.cpp
+@@ -1,8 +1,11 @@
+ // SPDX-FileCopyrightText: None
+ // SPDX-License-Identifier: LGPL-2.0-or-later
+ 
++#undef _FORTIFY_SOURCE
++#pragma GCC optimize ("O1")
+ #include "utils/emojitones.h"
+ #include "utils/emojimodel.h"
++
+ 
+ QMultiHash<QString, QVariant> EmojiTones::_tones = {
+ #include "utils/emojitones_data.h"
