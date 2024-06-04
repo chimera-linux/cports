@@ -97,7 +97,7 @@ def configure(
     # libtoolize
     if (pkg.bldroot_path / "usr/bin/slibtoolize").exists():
         eenv["LIBTOOLIZE"] = "slibtoolize"
-        eenv["LIBTOOL"] = "slibtool"
+        eenv["LIBTOOL"] = "rlibtool"
         eenv["ACLOCAL"] = "aclocal -I /usr/share/slibtool"
 
     # caches taken from openembedded

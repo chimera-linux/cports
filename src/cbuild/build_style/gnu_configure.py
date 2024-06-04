@@ -3,7 +3,7 @@ from cbuild.util import gnu_configure, make
 
 def _get_libtool(self):
     if (self.bldroot_path / "usr/bin/slibtool").exists():
-        return ["LIBTOOL=slibtool"]
+        return ["LIBTOOL=rlibtool"]
     return []
 
 
