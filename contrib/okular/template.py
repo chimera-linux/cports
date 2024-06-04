@@ -1,6 +1,6 @@
 pkgname = "okular"
 pkgver = "24.05.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME segfaults/weird failures
 make_check_args = [
@@ -64,3 +64,14 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 hardening = ["vis", "!cfi"]
 # TODO
 options = ["!cross"]
+
+
+@subpackage("okular-devel")
+def _devel(self):
+    self.depends += [
+        "kconfig-devel",
+        "kcoreaddons-devel",
+        "kxmlgui-devel",
+        "qt6-qtbase-devel",
+    ]
+    return self.default_devel()
