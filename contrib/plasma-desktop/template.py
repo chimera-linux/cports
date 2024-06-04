@@ -17,7 +17,6 @@ makedepends = [
     "attica-devel",
     "baloo-devel",
     "ibus-devel",
-    "kaccounts-integration-devel",
     "kauth-devel",
     "kcmutils-devel",
     "kcrash-devel",
@@ -75,6 +74,10 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
 sha256 = "5d9001baea32e35055337667f204e28f206ebccaa0a172e0f109426ba8042ecf"
 # FIXME: cfi kills systemsettings (when entering "Date & Time") in kcm_clock.so
 hardening = ["vis", "!cfi"]
+
+if self.profile().arch != "riscv64":
+    # -> libaccounts-qt qmake broken
+    makedepends += ["kaccounts-integration-devel"]
 
 
 @subpackage("plasma-desktop-meta")
