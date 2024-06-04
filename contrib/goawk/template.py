@@ -1,6 +1,6 @@
 pkgname = "goawk"
 pkgver = "1.27.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["gawk"]

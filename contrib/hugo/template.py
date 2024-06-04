@@ -1,6 +1,6 @@
 pkgname = "hugo"
 pkgver = "0.126.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Static site generator"

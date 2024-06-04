@@ -1,6 +1,6 @@
 pkgname = "runc"
 pkgver = "1.1.12"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["all", "man", f"COMMIT=chimera-r{pkgrel}"]

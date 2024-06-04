@@ -1,6 +1,6 @@
 pkgname = "aerc"
 pkgver = "0.17.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "tests"
