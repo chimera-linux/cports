@@ -2325,7 +2325,9 @@ def fire():
     try:
         aret = subprocess.run([paths.apk(), "--version"], capture_output=True)
     except FileNotFoundError:
-        logger.get().out_red(f"cbuild: apk not found ({paths.apk()}")
+        logger.get().out_red(
+            f"cbuild: apk not found (expected path: {paths.apk()})"
+        )
         sys.exit(1)
 
     if not aret.stdout.startswith(b"apk-tools 3"):
@@ -2335,7 +2337,9 @@ def fire():
     try:
         subprocess.run([paths.bwrap(), "--version"], capture_output=True)
     except FileNotFoundError:
-        logger.get().out_red(f"cbuild: bwrap not found ({paths.bwrap()}")
+        logger.get().out_red(
+            f"cbuild: bwrap not found (expected path: {paths.bwrap()})"
+        )
         sys.exit(1)
 
     template.register_hooks()
