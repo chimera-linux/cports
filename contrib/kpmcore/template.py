@@ -17,7 +17,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 depends = [
-    "sfdisk",
+    "fdisk",
     "smartmontools",
 ]
 pkgdesc = "KDE library for partition management"
