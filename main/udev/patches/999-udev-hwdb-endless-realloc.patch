@@ -1,0 +1,151 @@
+commit 6642f87a45757421e043aa852640436af1639b26
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Jun 4 13:02:33 2024 +0200
+
+    allocate hwdb strbuf in fixed number of pages and get 16M initial
+    
+    Since the hwdb is about 12M, this avoids reallocating the strbuf
+    memory all the time, which was really bad for performance. Now
+    hwdb update takes around a second instead of 20.
+
+diff --git a/src/basic/strbuf.c b/src/basic/strbuf.c
+index 0617acc..ebf9135 100644
+--- a/src/basic/strbuf.c
++++ b/src/basic/strbuf.c
+@@ -3,11 +3,15 @@
+ #include <errno.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <sys/mman.h>
+ 
+ #include "alloc-util.h"
+ #include "sort-util.h"
+ #include "strbuf.h"
+ 
++/* 64k; biggest pages we're to encounter */
++#define BLOCKSIZE 0x10000
++
+ /*
+  * Strbuf stores given strings in a single continuous allocated memory
+  * area. Identical strings are de-duplicated and return the same offset
+@@ -33,13 +37,14 @@ struct strbuf* strbuf_new(void) {
+         if (!str)
+                 return NULL;
+         *str = (struct strbuf) {
+-                .buf = new0(char, 1),
++                .buf = NULL,
+                 .root = new0(struct strbuf_node, 1),
+                 .len = 1,
++                .bufblocks = 0,
++                .bufused = 0,
+                 .nodes_count = 1,
+         };
+-        if (!str->buf || !str->root) {
+-                free(str->buf);
++        if (!str->root) {
+                 free(str->root);
+                 return mfree(str);
+         }
+@@ -47,6 +52,19 @@ struct strbuf* strbuf_new(void) {
+         return str;
+ }
+ 
++struct strbuf* strbuf_new_cap(size_t nblocks) {
++        struct strbuf *ret = strbuf_new();
++        if (!ret) return ret;
++        if (nblocks == 0) nblocks = 1;
++        ret->buf = mmap(NULL, nblocks * BLOCKSIZE, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
++        if (!ret->buf) {
++                strbuf_free(ret);
++                return NULL;
++        }
++        ret->bufblocks = nblocks;
++        return ret;
++}
++
+ static struct strbuf_node* strbuf_node_cleanup(struct strbuf_node *node) {
+         size_t i;
+ 
+@@ -70,7 +88,7 @@ struct strbuf* strbuf_free(struct strbuf *str) {
+                 return NULL;
+ 
+         strbuf_complete(str);
+-        free(str->buf);
++        if (str->bufblocks) munmap(str->buf, str->bufblocks * BLOCKSIZE);
+         return mfree(str);
+ }
+ 
+@@ -130,7 +148,7 @@ ssize_t strbuf_add_string(struct strbuf *str, const char *s, size_t len) {
+ 
+                 /* match against current node */
+                 off = node->value_off + node->value_len - len;
+-                if (depth == len || (node->value_len >= len && memcmp(str->buf + off, s, len) == 0)) {
++                if (depth == len || (node->value_len >= len && str->buf && memcmp(str->buf + off, s, len) == 0)) {
+                         str->dedup_len += len;
+                         str->dedup_count++;
+                         return off;
+@@ -146,15 +164,23 @@ ssize_t strbuf_add_string(struct strbuf *str, const char *s, size_t len) {
+                 node = child->child;
+         }
+ 
+-        /* add new string */
+-        buf_new = realloc(str->buf, str->len + len+1);
+-        if (!buf_new)
+-                return -ENOMEM;
+-        str->buf = buf_new;
++        /* allocate in 64k blocks */
++        if ((str->bufused + len + 1) > (str->bufblocks * BLOCKSIZE)) {
++                size_t newblocks = str->bufblocks * 2 + ((len + BLOCKSIZE) / BLOCKSIZE);
++                /* add new string */
++                buf_new = mmap(NULL, newblocks * BLOCKSIZE, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
++                if (!buf_new)
++                        return -ENOMEM;
++                memcpy(buf_new, str->buf, str->bufused);
++                munmap(str->buf, str->bufblocks * BLOCKSIZE);
++                str->buf = buf_new;
++                str->bufblocks = newblocks;
++        }
+         off = str->len;
+         memcpy(str->buf + off, s, len);
+         str->len += len;
+         str->buf[str->len++] = '\0';
++        str->bufused += len + 1;
+ 
+         /* new node */
+         _cleanup_free_ struct strbuf_node *node_child = NULL;
+diff --git a/src/basic/strbuf.h b/src/basic/strbuf.h
+index 6187c08..b993bca 100644
+--- a/src/basic/strbuf.h
++++ b/src/basic/strbuf.h
+@@ -12,6 +12,8 @@ struct strbuf {
+         size_t len;
+         struct strbuf_node *root;
+ 
++        size_t bufblocks;
++        size_t bufused;
+         size_t nodes_count;
+         size_t in_count;
+         size_t in_len;
+@@ -33,6 +35,7 @@ struct strbuf_child_entry {
+ };
+ 
+ struct strbuf* strbuf_new(void);
++struct strbuf* strbuf_new_cap(size_t cap);
+ ssize_t strbuf_add_string(struct strbuf *str, const char *s, size_t len);
+ void strbuf_complete(struct strbuf *str);
+ struct strbuf* strbuf_free(struct strbuf *str);
+diff --git a/src/shared/hwdb-util.c b/src/shared/hwdb-util.c
+index 12621b7..57b968a 100644
+--- a/src/shared/hwdb-util.c
++++ b/src/shared/hwdb-util.c
+@@ -595,8 +595,8 @@ int hwdb_update(const char *root, const char *hwdb_bin_dir, bool strict, bool co
+         if (!trie)
+                 return -ENOMEM;
+ 
+-        /* string store */
+-        trie->strings = strbuf_new();
++        /* string store; 256 64k blocks (16M) */
++        trie->strings = strbuf_new_cap(256);
+         if (!trie->strings)
+                 return -ENOMEM;
+ 
