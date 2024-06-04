@@ -1,0 +1,15 @@
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -4,12 +4,6 @@
+ addopts = 
+ 	-ra
+ 	--strict-config
+-	--cov=beets
+-	--cov=beetsplug
+-	--cov-report=xml:.reports/coverage.xml
+-	--cov-report=html:.reports/html
+-	--cov-branch
+-	--cov-context=test
+ 
+ [coverage:run]
+ data_file = .reports/coverage/data
