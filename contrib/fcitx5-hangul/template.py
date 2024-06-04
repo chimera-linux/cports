@@ -1,5 +1,5 @@
 pkgname = "fcitx5-hangul"
-pkgver = "5.1.3"
+pkgver = "5.1.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,6 +21,6 @@ url = "https://fcitx-im.org"
 source = (
     f"https://github.com/fcitx/fcitx5-hangul/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "44fa27b0d0168f9e41d24da3e0f3818e09c15c11f2f99261d13134bcef478e45"
+sha256 = "49404de5de38f4b182e487e7a51a4a68fdb5b8acef531d27ba328aca552b9009"
 # TODO cfi causes illegal instruction crashes
 hardening = ["vis"]
