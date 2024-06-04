@@ -1,0 +1,22 @@
+--- a/src/libtracker-miners-common/tracker-seccomp.c
++++ b/src/libtracker-miners-common/tracker-seccomp.c
+@@ -220,6 +220,7 @@
+ 	ALLOW_RULE (sched_getaffinity);
+ 	ALLOW_RULE (sched_get_priority_max);
+ 	ALLOW_RULE (sched_get_priority_min);
++	ALLOW_RULE (sched_setaffinity); /* libomp... */
+ 	ALLOW_RULE (sched_setattr);
+ 	ALLOW_RULE (nanosleep);
+ 	ALLOW_RULE (clock_nanosleep);
+--- a/src/libtracker-miners-common/tracker-landlock.c
++++ b/src/libtracker-miners-common/tracker-landlock.c
+@@ -218,6 +218,9 @@
+ 		  LANDLOCK_ACCESS_FS_READ_FILE },
+ 		{ "/proc/self/mountinfo",
+ 		  LANDLOCK_ACCESS_FS_READ_FILE },
++		/* libomp... */
++		{ "/proc/cpuinfo",
++		  LANDLOCK_ACCESS_FS_READ_FILE },
+ 		/* Necessary for g_get_user_name() */
+ 		{ "/etc/passwd",
+ 		  LANDLOCK_ACCESS_FS_READ_FILE },
