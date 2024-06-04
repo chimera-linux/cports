@@ -1,6 +1,6 @@
 pkgname = "kfilemetadata"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

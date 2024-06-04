@@ -1,6 +1,6 @@
 pkgname = "qt6-qtmultimedia"
 pkgver = "6.7.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 # these install /usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.a which
 # then has to exist for the -devel to work, but not splitting static keeps around

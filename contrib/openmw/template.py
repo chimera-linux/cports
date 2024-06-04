@@ -1,6 +1,6 @@
 pkgname = "openmw"
 pkgver = "0.47.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     # enable once we have proper qt6 support (0.49)

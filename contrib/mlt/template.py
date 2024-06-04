@@ -1,6 +1,6 @@
 pkgname = "mlt"
 pkgver = "7.24.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     # needs an ancient abandoned ruby kwalify

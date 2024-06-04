@@ -1,6 +1,6 @@
 pkgname = "ffmpegthumbs"
 pkgver = "24.05.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
 hostmakedepends = [

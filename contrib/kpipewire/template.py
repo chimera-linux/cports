@@ -1,6 +1,6 @@
 pkgname = "kpipewire"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

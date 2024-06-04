@@ -1,6 +1,6 @@
 pkgname = "waypipe"
 pkgver = "0.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dwith_dmabuf=enabled",
