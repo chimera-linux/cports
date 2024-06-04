@@ -1,21 +1,27 @@
 from cbuild.util import gnu_configure, make
 
 
+def _get_libtool(self):
+    if (self.bldroot_path / "usr/bin/slibtool").exists():
+        return ["LIBTOOL=slibtool"]
+    return []
+
+
 def do_configure(self):
     gnu_configure.replace_guess(self)
     gnu_configure.configure(self)
 
 
 def do_build(self):
-    self.make.build()
+    self.make.build(_get_libtool(self))
 
 
 def do_check(self):
-    self.make.check()
+    self.make.check(_get_libtool(self))
 
 
 def do_install(self):
-    self.make.install()
+    self.make.install(_get_libtool(self))
 
 
 def use(tmpl):

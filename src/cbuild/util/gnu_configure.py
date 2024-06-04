@@ -94,6 +94,10 @@ def configure(
     # autoconf cache
     eenv = dict(benv)
     eenv["MAKE"] = make.Make(pkg).get_command()
+    # libtoolize
+    if (pkg.bldroot_path / "usr/bin/slibtoolize").exists():
+        eenv["LIBTOOLIZE"] = "slibtoolize"
+        eenv["LIBTOOL"] = "slibtool"
 
     # caches taken from openembedded
     cachedir = paths.cbuild() / "misc/autoconf_cache"
