@@ -510,7 +510,7 @@ The following commands are recognized:
   keep the tree free of cycles at all times. Therefore, if you encounter
   a cycle, resolve it and check again.
 * `dump` Dump serialized template metadata in JSON format for all of `cports`.
-* `fetch`, `extract`, `prepare`, `patch`, `configure`, `build`, `check`,
+* `deps`, `fetch`, `extract`, `prepare`, `patch`, `configure`, `build`, `check`,
   `install`, `pkg` Given an argument of template path (`category/name`) this
   will invoke the build process for the given template up until the given phase.
   The `pkg` phase contains all of the others. For example, `configure` will

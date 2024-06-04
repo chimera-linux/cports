@@ -136,6 +136,9 @@ def _build(
         ):
             chroot.update(pkg)
 
+    if step == "deps":
+        return
+
     if hasattr(pkg, "do_fetch"):
         pkg.current_phase = "fetch"
         fetch.invoke(pkg)

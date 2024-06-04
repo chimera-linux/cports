@@ -2228,6 +2228,7 @@ command_handlers = {
         do_cycle_check,
         "Perform a depcycle check on all templates",
     ),
+    "deps": (do_pkg, "Run up to the deps installation phase of a template"),
     "dump": (do_dump, "Dump the metadata of all templates to the terminal"),
     "fetch": (do_pkg, "Run up to fetch phase of a template"),
     "extract": (do_pkg, "Run up to extract phase of a template"),

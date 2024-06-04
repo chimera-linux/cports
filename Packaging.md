@@ -513,7 +513,8 @@ the `builddir` and is created automatically.
   build dependencies. When cross-compiling, the cross target environment
   is prepared and target dependencies are installed in it. When the template
   defines a `do_fetch` function, this is run first, as the function may
-  depend on the sandbox being set up. Otherwise, it is run second.
+  depend on the sandbox being set up. Otherwise, it is run second. The `deps`
+  sub-phase can be invoked separately if needed.
 
 * `fetch` During `fetch`, required files are downloaded as defined by the
   `source` template variable by default (or the `do_fetch` function of
