@@ -117,7 +117,7 @@ def _build(
         if step == "fetch":
             return
 
-    if not dirty:
+    if not dirty or step == "deps":
         # no_update is set when this is a build triggered by a missing dep;
         # in this case chroot.update() was already performed by its parent
         # call and there is no point in doing it again
