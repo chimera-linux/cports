@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 pkgname = "qt6-qtbase"
 pkgver = "6.7.1"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = [
     "-DBUILD_WITH_PCH=OFF",
@@ -85,6 +85,12 @@ options = ["!cross"]
 if self.profile().cross:
     hostmakedepends += ["qt6-qtbase"]
     configure_args += ["-DQT_FORCE_BUILD_TOOLS=ON"]
+
+if self.profile().arch == "riscv64":
+    # https://bugreports.qt.io/browse/QTBUG-98951
+    # our riscv64 is currently emulated, so this breaks anything using qmake from building
+    # just disable it on the arch for now, as it falls back to fork and works anyway
+    configure_args += ["-DQT_FEATURE_forkfd_pidfd=OFF"]
 
 
 def init_configure(self):
