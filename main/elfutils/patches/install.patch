@@ -1,0 +1,14 @@
+--- a/config/Makefile.in
++++ b/config/Makefile.in
+@@ -569,8 +569,9 @@ uninstall-am: uninstall-local uninstall-pkgconfigDATA
+ 
+ 
+ @LIBDEBUGINFOD_TRUE@install-data-local:
+-@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.sh -D $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.sh
+-@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.csh -D $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.csh
++@LIBDEBUGINFOD_TRUE@	$(INSTALL) -d $(DESTDIR)$(sysconfdir)/profile.d
++@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.sh $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.sh
++@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.csh $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.csh
+ @LIBDEBUGINFOD_TRUE@	mkdir -p $(DESTDIR)$(sysconfdir)/debuginfod
+ @LIBDEBUGINFOD_TRUE@	if [ -n "@DEBUGINFOD_URLS@" ]; then \
+ @LIBDEBUGINFOD_TRUE@		echo "@DEBUGINFOD_URLS@" > $(DESTDIR)$(sysconfdir)/debuginfod/elfutils.urls; \

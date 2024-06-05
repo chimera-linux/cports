@@ -1,10 +1,8 @@
 pkgname = "elfutils"
 pkgver = "0.191"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--disable-debuginfod",
-    "--disable-libdebuginfod",
     "--disable-nls",
     "--disable-werror",
     "--enable-deterministic-archives",
@@ -25,6 +23,7 @@ makedepends = [
     "bzip2-devel",
     "libarchive-devel",
     "libcurl-devel",
+    "libmicrohttpd-devel",
     "linux-headers",
     "musl-bsd-headers",
     "musl-fts-devel",
@@ -59,6 +58,27 @@ def post_install(self):
     self.mv(
         self.destdir / "usr/bin/eu-eustack", self.destdir / "usr/bin/eu-stack"
     )
+
+
+@subpackage("debuginfod")
+def _dinfod(self):
+    self.pkgdesc = f"{pkgdesc} (debuginfod)"
+
+    return [
+        "usr/bin/debuginfod*",
+        "usr/share/man/man[18]/debuginfod*",
+    ]
+
+
+@subpackage("debuginfod-libs")
+def _dinfod_libs(self):
+    self.pkgdesc = f"{pkgdesc} (debuginfod library)"
+
+    return [
+        "etc/profile.d",
+        "usr/lib/libdebuginfod.so.*",
+        "usr/lib/libdebuginfod-*.so",
+    ]
 
 
 @subpackage("elfutils-libs")
