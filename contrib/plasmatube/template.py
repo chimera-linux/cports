@@ -1,6 +1,6 @@
 pkgname = "plasmatube"
 pkgver = "24.05.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -24,7 +24,9 @@ makedepends = [
     "qtkeychain-devel",
 ]
 depends = [
+    "kdeclarative",
     "kirigami-addons",
+    "kitemmodels",
     "purpose",
     "yt-dlp",
 ]
