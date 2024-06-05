@@ -180,7 +180,7 @@ def _apps_meta(self):
         "markdownpart",
         "svgpart",
         "plasma-systemmonitor",
-        "plasma-vaults",  # encrypted file storage
+        "plasma-vault",  # encrypted file storage
         # "ark",  # local WIP, file (un)archiving
         # "haruna",  # local WIP, mpv frontend
         "elisa",  # music player
