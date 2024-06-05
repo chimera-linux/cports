@@ -1,24 +1,29 @@
 pkgname = "appstream"
+# match to contrib/appstream-qt
 pkgver = "1.0.3"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dsystemd=false", "-Dstemming=false", "-Dapidocs=false"]
+configure_args = [
+    "-Dapidocs=false",
+    "-Dstemming=false",
+    "-Dsystemd=false",
+]
 hostmakedepends = [
-    "pkgconf",
-    "meson",
-    "gperf",
-    "gettext",
-    "itstool",
-    "xsltproc",
-    "gobject-introspection",
     "docbook-xsl-nons",
+    "gettext",
+    "gobject-introspection",
+    "gperf",
+    "itstool",
+    "meson",
+    "pkgconf",
+    "xsltproc",
 ]
 makedepends = [
     "glib-devel",
-    "libxmlb-devel",
-    "libxml2-devel",
-    "libyaml-devel",
     "libcurl-devel",
+    "libxml2-devel",
+    "libxmlb-devel",
+    "libyaml-devel",
 ]
 depends = ["shared-mime-info"]
 pkgdesc = "Tools and libraries to work with AppStream metadata"
