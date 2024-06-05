@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -87,6 +87,8 @@ def _meta(self):
     self.depends = [
         "kded",  # bg services
         "xdg-desktop-portal-kde",  # flatpak save dialog etc
+        # welcome!
+        "plasma-welcome",
         # default themes, icons, sounds and wallpapers
         "breeze",
         "breeze-icons",
@@ -178,6 +180,7 @@ def _apps_meta(self):
         "markdownpart",
         "svgpart",
         "plasma-systemmonitor",
+        "plasma-vaults",  # encrypted file storage
         # "ark",  # local WIP, file (un)archiving
         # "haruna",  # local WIP, mpv frontend
         "elisa",  # music player
