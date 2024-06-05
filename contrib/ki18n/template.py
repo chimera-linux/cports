@@ -1,6 +1,6 @@
 pkgname = "ki18n"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # similar tests broken as alpine
 make_check_args = ["-E", "(kcatalog|kcountry|klocalizedstring)test"]
@@ -13,10 +13,10 @@ hostmakedepends = [
 makedepends = [
     "qt6-qtdeclarative-devel",
 ]
+depends = ["iso-codes"]
 checkdepends = [
     "iso-codes-locale",
-]
-# depends = list(checkdepends)
+] + depends
 pkgdesc = "KDE Gettext-based UI text internationalization"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-or-later)"
@@ -31,6 +31,6 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("ki18n-devel")
 def _devel(self):
-    # TODO: self.depends += ["gettext"]? only relevant on host tho
+    self.depends += ["qt6-qtbase-devel"]
 
     return self.default_devel()
