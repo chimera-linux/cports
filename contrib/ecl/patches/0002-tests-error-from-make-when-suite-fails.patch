@@ -27,13 +27,13 @@ diff --git a/src/tests/Makefile.in b/src/tests/Makefile.in
 index 2b9ac315c..ebc234cd0 100755
 --- a/src/tests/Makefile.in
 +++ b/src/tests/Makefile.in
-@@ -11,8 +11,7 @@ check: config.lsp
- 	$(ECL) -norc \
-                 -load config.lsp \
-                 -eval "(ecl-tests::run-tests '($(TESTS)))" \
--                -eval "(ext:quit)" \
--                2>&1 | tee check.log
-+                -eval "(ext:quit)"
+@@ -12,8 +12,7 @@
+ 	$(ECL) --norc \
+                --load config.lsp \
+                --eval "(ecl-tests::run-tests '($(TESTS)))" \
+-               --eval "(ext:quit)" \
+-               2>&1 | tee test.log
++               --eval "(ext:quit)"
  
  clean:
  	rm -rf regressions.log cache

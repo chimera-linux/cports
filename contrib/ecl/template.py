@@ -1,5 +1,5 @@
 pkgname = "ecl"
-pkgver = "23.9.9"
+pkgver = "24.5.10"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["autoreconf", "-if", "src"]
@@ -16,8 +16,8 @@ pkgdesc = "Embeddable Common Lisp"
 maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "LGPL-2.1-or-later"
 url = "https://ecl.common-lisp.dev"
-source = f"https://gitlab.com/embeddable-common-lisp/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "2ccda77461f651089d474f57d34c2fcee380ae54e734779b1bf4a4126e2a4686"
+source = f"https://gitlab.com/embeddable-common-lisp/ecl/-/archive/{pkgver}/ecl-{pkgver}.tar.gz"
+sha256 = "7d21ac3bd99132cfb1bb2d73d31d602a536f3a31dac6b982007a8291372dd0bf"
 options = ["!cross", "!lto"]
 
 
@@ -25,7 +25,7 @@ def do_check(self):
     build = self.chroot_cwd / "build"
     ecl = build / "bin/ecl"
     self.make.check(
-        args=[f"ECL={ecl}"],
+        args=[f"ECL={ecl}", "SHELL=/bin/sh"],
         env={
             "LD_LIBRARY_PATH": build,
             "TEST_IMAGE": ecl,
