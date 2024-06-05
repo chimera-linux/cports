@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "24.2.3.2"
-pkgrel = 1
+pkgver = "24.2.4.2"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -29,6 +29,7 @@ configure_args = [
     "--enable-introspection",
     "--enable-gtk3",
     "--enable-gtk4",
+    "--enable-kf6",
     "--enable-qt6",
     "--enable-build-opensymbol",
     "--with-external-dict-dir=/usr/share/hunspell",
@@ -101,6 +102,11 @@ makedepends = [
     "hunspell-devel",
     "hyphen-devel",
     "icu-devel",
+    "kconfig-devel",
+    "kcoreaddons-devel",
+    "ki18n-devel",
+    "kio-devel",
+    "kwindowsystem-devel",
     "lcms2-devel",
     "libabw-devel",
     "libatomic_ops-devel",
@@ -201,10 +207,10 @@ source = [
     f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "f6e2059cd85d07793e8d95828b2412906bdba8bf61a5f76b8c51907898481e64",
-    "31526793ac2af5919bace0e6b2ab3427dcf16d280411720cc396810de78b2f7b",
-    "8e8acf4c09e2a43e8a86a19418bade97f67b837917bd0c2c6af9c8a8b261bb6b",
-    "e71053a3b51f79079ef745663e68432c2bf20e49557083ab4de1a40c9fae2b4a",
+    "9e3180a550af2c5f5c70a64516ef083ca6149076beafee33d83c4edb55b5ee83",
+    "164e658059d606869c2c088dd927e18abfd1d36e35377416332a18cb627ab20a",
+    "d818370c54012ba2ecde41bb3a63275e9e6a1087fc239c87fbe7722753067cea",
+    "b8f3dad0a88d7998a2a2333fb1d16c0187b3dfd480ecf65d3b71468160dc9fcd",
     "1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -484,6 +490,20 @@ def _qt6(self):
     self.install_if = [f"{pkgname}-common={pkgver}-r{pkgrel}", "qt6-qtbase-gui"]
 
     return ["usr/lib/libreoffice/program/libvclplug_qt6lo.so"]
+
+
+@subpackage(f"{pkgname}-kf6")
+def _kf6(self):
+    self.pkgdesc = f"{pkgdesc} (KF6 integration)"
+    self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
+    # KDE integration for those with plasma
+    # TODO: what package actually?
+    self.install_if = [
+        f"{pkgname}-common={pkgver}-r{pkgrel}",
+        "plasma-workspace",
+    ]
+
+    return ["usr/lib/libreoffice/program/libvclplug_kf6lo.so"]
 
 
 @subpackage(f"{pkgname}-common")
