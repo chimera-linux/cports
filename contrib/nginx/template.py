@@ -1,6 +1,6 @@
 pkgname = "nginx"
 pkgver = "1.26.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/var/lib/nginx",
