@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwayland"
 pkgver = "6.7.1"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_args = ["-E", "(tst_seatv4|tst_client|tst_scaling|tst_compositor)"]
