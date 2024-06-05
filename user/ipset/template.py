@@ -1,5 +1,5 @@
 pkgname = "ipset"
-pkgver = "7.21"
+pkgver = "7.22"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-kmod=no"]
@@ -23,7 +23,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://ipset.netfilter.org"
 source = f"{url}/ipset-{pkgver}.tar.bz2"
-sha256 = "e2c6ce4fcf3acb3893ca5d35c86935f80ad76fc5ccae601185842df760e0bc69"
+sha256 = "f6ac5a47c3ef9f4c67fcbdf55e791cbfe38eb0a4aa1baacd12646a140abacdd9"
 # requires modifying actual ipsets for tests
 options = ["linkundefver", "!check"]
 
