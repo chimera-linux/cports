@@ -1,5 +1,5 @@
 pkgname = "sbcl"
-pkgver = "2.4.4"
+pkgver = "2.4.5"
 pkgrel = 0
 # riscv64 FIXME
 archs = ["aarch64", "ppc", "ppc64le", "x86_64"]
@@ -28,7 +28,7 @@ maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:sbcl"
 url = "https://www.sbcl.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}-source.tar.bz2"
-sha256 = "8a932627b3f1d8e9618f1cdc225edcb002456804697e2c87d140683764a106d5"
+sha256 = "4df68e90c9031807642b4b761988deb5bf6a1bd152c4723482834efa735a7bd1"
 # notably not pie on ppc64le due to asm stuff
 nopie_files = ["usr/bin/sbcl"]
 # tests are unreliable
@@ -43,6 +43,8 @@ def init_configure(self):
     match self.profile().arch:
         case "aarch64" | "riscv64" | "x86_64":
             self.configure_args += ["--fancy", "--with-sb-thread"]
+    # build system ignores ldflags
+    self.env["LINKFLAGS"] = str(self.get_ldflags(shell=True))
     # does not work on riscv64?
     if self.profile().arch != "riscv64":
         self.configure_args += ["--with-sb-linkable-runtime"]
