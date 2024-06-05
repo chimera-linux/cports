@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 7
+pkgrel = 8
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -110,6 +110,10 @@ def _meta(self):
         "kquickcharts",  # notifications
         "kscreen",  # display config, TODO: test on baremetal
         "ksshaskpass",  # graphical askpass
+        "kio-admin",
+        "kio-fuse",
+        "kio-extras",
+        "kio-zeroconf",
         "milou",  # krunner
         "plasma-browser-integration",  # browser integration with plasma
         "plasma-integration",
@@ -171,9 +175,6 @@ def _apps_meta(self):
         "dolphin",  # file manager
         # - extra
         "discover",  # extra app management
-        "kio-admin",
-        "kio-fuse",
-        "kio-extras",
         "dolphin-plugins",
         "ffmpegthumbs",  # video thumbnails
         "kinfocenter",  # system info
