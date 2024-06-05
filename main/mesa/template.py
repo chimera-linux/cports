@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "24.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -111,11 +111,12 @@ if _have_llvm:
 # these are good assumptions on all targets we support for now
 _have_nvidia = True
 _have_amd = True
+_have_intel = True
 _have_hwdec = True
 _have_virgl = True
 
 # these change with platforms
-_have_intel = False
+_have_intel_igpu = False
 _have_vmware = False
 _have_nine = False
 _have_arm = False
@@ -126,6 +127,7 @@ _have_zink = False
 match self.profile().arch:
     case "x86_64":
         _have_intel = True
+        _have_intel_igpu = True
         _have_vmware = True
         _have_nine = True
     case "aarch64":
@@ -145,9 +147,14 @@ if _have_amd:
         _vulkan_drivers += ["amd"]
 
 if _have_intel:
-    _gallium_drivers += ["crocus", "iris", "i915"]
+    _gallium_drivers += ["iris"]
     if _have_vulkan:
-        _vulkan_drivers += ["intel", "intel_hasvk"]
+        _vulkan_drivers += ["intel"]
+
+if _have_intel_igpu:
+    _gallium_drivers += ["crocus", "i915"]
+    if _have_vulkan:
+        _vulkan_drivers += ["intel_hasvk"]
 
 if _have_nvidia:
     _gallium_drivers += ["nouveau"]
