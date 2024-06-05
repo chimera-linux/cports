@@ -23,6 +23,7 @@ makedepends = [
     "kcoreaddons-devel",
     "kcrash-devel",
     "kdbusaddons-devel",
+    "kded-devel",
     "kdoctools-devel",
     "kguiaddons-devel",
     "ki18n-devel",
@@ -39,6 +40,7 @@ makedepends = [
     "qt6-qttools-devel",
     "solid-devel",
 ]
+depends = ["kded"]
 checkdepends = ["dbus"]
 pkgdesc = "KDE Network transparent access to files and data"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
