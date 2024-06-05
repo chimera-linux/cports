@@ -1,0 +1,28 @@
+Patch status: here forever(?)
+
+Respect user flags, and provide readelf path.
+
+Upstream has seemingly intentionally left out extra_* variables so
+flags are not respected. It may arguably be easier to overwrite this
+file with chromium's toolchain/linux/unbundle/BUILD.gn which then uses
+e.g. CC+CFLAGS and BUILD_CC+BUILD_CFLAGS env vars and bypass cmake.
+
+Albeit qtwebengine's does set a few extras in there and so
+still using for now.
+
+File is processed twice for host(CBUILD) and target(CHOST), so it
+is better to use CMAKE_* variables where possible (still subpar).
+Odds are cross is still completely broken for many reasons though.
+
+https://bugs.gentoo.org/652172
+--- a/src/host/BUILD.toolchain.gn.in
++++ b/src/host/BUILD.toolchain.gn.in
+@@ -8,3 +8,7 @@
+   nm = "@CMAKE_NM@"
+-  extra_cppflags = ""
++  readelf = "@CMAKE_READELF@"
++  extra_cflags = "@CMAKE_C_FLAGS@"
++  extra_cppflags = getenv("CPPFLAGS")
++  extra_cxxflags = "@CMAKE_CXX_FLAGS@"
++  extra_ldflags = "@CMAKE_EXE_LINKER_FLAGS@"
+   toolchain_args = {

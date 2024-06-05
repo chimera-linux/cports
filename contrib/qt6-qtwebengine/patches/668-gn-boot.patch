@@ -1,0 +1,52 @@
+Patch status: here forever(?), not respecting flags is intentional
+
+Original gen.py respects *FLAGS to some extend, but Qt blocked
+this after a user reported a bug with overzealous *FLAGS[2].
+
+So re-add, but also put more at the end to allow overrides. Also
+allow passing NINJAFLAGS, prevent -static-libstdc++ for libcxx,
+and drop -Werror during Gn bootstrap[4].
+
+TODO: fix cross
+  Technically should use BUILD_CXXFLAGS and so here but, even
+  without trying, cross is most likely broken given it insists
+  on finding Gn in CBUILD rather than cross-compile it. To avoid
+  more patching, an option may be BDEPEND="dev-qt/qtwebengine-gn"
+  that would do INSTALL_GN=ON and not build qtwebengine.
+
+Note that qtwebengine's Gn is modified, so dev-util/gn may not
+be a straight forward to use as an alternative and be fragile.
+
+[1] https://github.com/qt/qtwebengine-chromium/commit/19e8b974c8348dd6ba33153facc0b67a7ab774e1
+[2] https://bugreports.qt.io/browse/QTBUG-64759
+[3] https://bugs.gentoo.org/652172
+[4] https://bugs.gentoo.org/920758
+--- a/src/3rdparty/gn/build/gen.py
++++ b/src/3rdparty/gn/build/gen.py
+@@ -947,4 +947,7 @@
+   executables['gn_unittests']['libs'].extend(static_libraries.keys())
+ 
++  cflags += os.environ.get('CXXFLAGS', '').split()
++  cflags += os.environ.get('CPPFLAGS', '').split()
++  ldflags += os.environ.get('LDFLAGS', '').split()
+   WriteGenericNinja(path, static_libraries, executables, cxx, ar, ld,
+                     platform, host, options, args_list,
+--- a/src/gn/CMakeLists.txt
++++ b/src/gn/CMakeLists.txt
+@@ -40,4 +40,5 @@
+ endif()
+ 
++separate_arguments(NINJAFLAGS UNIX_COMMAND "$ENV{NINJAFLAGS}")
+ file(MAKE_DIRECTORY ${GN_BINARY_DIR})
+ 
+@@ -68,7 +69,9 @@
+         --ar ${CMAKE_AR}
+         --qt-version "${QT_REPO_MODULE_VERSION}.qtwebengine.qt.io"
++        --allow-warnings
++        --no-static-libstdc++
+         $<$<PLATFORM_ID:Darwin>:--isysroot>
+         $<$<PLATFORM_ID:Darwin>:${CMAKE_OSX_SYSROOT}>
+-    COMMAND Ninja::ninja -C ${GN_BINARY_DIR}/$<CONFIG> ${GN_EXECUTABLE}
++    COMMAND Ninja::ninja ${NINJAFLAGS} -C ${GN_BINARY_DIR}/$<CONFIG> ${GN_EXECUTABLE}
+     VERBATIM
+     USES_TERMINAL

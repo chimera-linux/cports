@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwebengine"
 pkgver = "6.7.1"
-pkgrel = 2
+pkgrel = 3
 archs = ["aarch64", "ppc64le", "x86_64"]
 build_style = "cmake"
 configure_args = [
@@ -9,6 +9,7 @@ configure_args = [
     "-DINSTALL_DATADIR=share/qt6",
     "-DINSTALL_DOCDIR=share/doc/qt6",
     "-DINSTALL_EXAMPLESDIR=share/doc/qt6/examples",
+    "-DINSTALL_GN=OFF",
     "-DINSTALL_INCLUDEDIR=include/qt6",
     "-DINSTALL_MKSPECSDIR=lib/qt6/mkspecs",
     "-DQT_FEATURE_webengine_kerberos=ON",
@@ -27,18 +28,18 @@ configure_args = [
     "-DQT_FEATURE_webengine_system_zlib=ON",
     "-DQT_FEATURE_webengine_webrtc_pipewire=ON",
 ]
+configure_env = {
+    "EXTRA_GN": "link_pulseaudio=true rtc_link_pipewire=true symbol_level=1"
+}
 hostmakedepends = [
     "cmake",
     "bison",
     "flex",
     "gperf",
-    # for gn
-    "libcxx-devel-static",
     "ninja",
     "nodejs",
     "perl",
     "pkgconf",
-    "python",
     "python-html5lib",
     "qt6-qtbase",
 ]
@@ -101,7 +102,6 @@ options = ["!check", "!cross"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib/qt6/bin/testbrowser")
-    self.rm(self.destdir / "usr/lib/qt6/libexec/gn")
 
 
 @subpackage("qt6-qtwebengine-devel")
