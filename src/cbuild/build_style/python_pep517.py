@@ -5,6 +5,8 @@ def do_build(self):
     (self.cwd / self.make_dir).mkdir(parents=True, exist_ok=True)
 
     self.do(
+        *self.make_wrapper,
+        *self.make_build_wrapper,
         "python3",
         "-m",
         "build",
@@ -55,8 +57,18 @@ def do_check(self):
 
     envpy = self.chroot_cwd / ".cbuild-checkenv/bin/python3"
 
-    self.do(envpy, "-m", "installer", *self.make_install_args, *whl)
     self.do(
+        *self.make_wrapper,
+        *self.make_install_wrapper,
+        envpy,
+        "-m",
+        "installer",
+        *self.make_install_args,
+        *whl,
+    )
+    self.do(
+        *self.make_wrapper,
+        *self.make_check_wrapper,
         self.chroot_cwd / ".cbuild-checkenv/bin/python3",
         "-m",
         "pytest",
@@ -78,6 +90,8 @@ def do_install(self):
     )
 
     self.do(
+        *self.make_wrapper,
+        *self.make_install_wrapper,
         "python3",
         "-m",
         "installer",
