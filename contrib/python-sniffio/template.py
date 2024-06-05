@@ -1,6 +1,6 @@
 pkgname = "python-sniffio"
 pkgver = "1.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -9,6 +9,7 @@ hostmakedepends = [
     "python-installer",
 ]
 checkdepends = ["python-pytest"]
+depends = ["python"]
 pkgdesc = "Runtime async library detection for Python"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 AND MIT"
