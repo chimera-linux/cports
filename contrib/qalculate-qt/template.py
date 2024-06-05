@@ -24,10 +24,6 @@ source = f"https://github.com/Qalculate/qalculate-qt/releases/download/v{pkgver}
 sha256 = "b6571fc85bde7f2b1422f215a5c4176bc1013726e2971d4c27770078be659a7b"
 
 
-if self.profile().arch == "riscv64":
-    broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
-
-
 def do_configure(self):
     # TODO: build style these
     self.do(
