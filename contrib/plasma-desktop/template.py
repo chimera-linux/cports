@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 8
+pkgrel = 9
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -74,10 +74,6 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
 sha256 = "5d9001baea32e35055337667f204e28f206ebccaa0a172e0f109426ba8042ecf"
 # FIXME: cfi kills systemsettings (when entering "Date & Time") in kcm_clock.so
 hardening = ["vis", "!cfi"]
-
-if self.profile().arch != "riscv64":
-    # -> libaccounts-qt qmake broken
-    makedepends += ["kaccounts-integration-devel"]
 
 
 @subpackage("plasma-desktop-meta")
@@ -220,8 +216,6 @@ def _apps_meta(self):
         # "krita",  # digital art studio
     ]
     # things missing on some arches
-    if self.rparent.profile().arch != "riscv64":
-        self.depends += ["qalculate-qt"]
     if self.rparent.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
         self.depends += [
             "khelpcenter",  # documentation viewer

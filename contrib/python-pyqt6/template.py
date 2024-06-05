@@ -31,9 +31,6 @@ sha256 = "3d31b2c59dc378ee26e16586d9469842483588142fc377280aad22aaf2fa6235"
 # qmake needs a lot of setup to cross anything
 options = ["!cross"]
 
-if self.profile().arch == "riscv64":
-    broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
-
 
 def do_configure(self):
     self.do(

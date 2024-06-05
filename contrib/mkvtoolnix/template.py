@@ -47,9 +47,6 @@ url = "https://mkvtoolnix.download/index.html"
 source = f"https://mkvtoolnix.download/sources/mkvtoolnix-{pkgver}.tar.xz"
 sha256 = "702442c80706c7c770ac04f7b4eed7a57e9e03ead6c5e6e90b9655dd84c8d829"
 
-if self.profile().arch == "riscv64":
-    broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
-
 
 @subpackage("mkvtoolnix-gui")
 def _gui(self):

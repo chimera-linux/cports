@@ -27,10 +27,6 @@ sha256 = "6ed3e976133962c1c88f6c66928ba0d0a17a570843577d31e783dc891659e5d8"
 hardening = ["vis", "cfi"]
 
 
-if self.profile().arch == "riscv64":
-    broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
-
-
 def do_configure(self):
     # TODO: build style these
     self.do(

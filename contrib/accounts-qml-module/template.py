@@ -24,9 +24,6 @@ url = "https://gitlab.com/accounts-sso/accounts-qml-module"
 source = f"{url}/-/archive/{_gitrev}.tar.gz"
 sha256 = "1a53a6d8a3a56694244bc24bdab844d91420483744822d08ae8517ff7df84763"
 
-if self.profile().arch == "riscv64":
-    broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
-
 
 def do_configure(self):
     # TODO: build style these

@@ -38,10 +38,6 @@ hardening = ["!int"]
 options = ["!check"]
 
 
-if self.profile().arch == "riscv64":
-    broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
-
-
 def do_build(self):
     # lib has to come first to not be built multiple times for all subsequent
     # targets, rest can be parallel (and so this is faster than -j1)
