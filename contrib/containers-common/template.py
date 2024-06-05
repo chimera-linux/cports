@@ -1,5 +1,5 @@
 pkgname = "containers-common"
-pkgver = "0.59.0"
+pkgver = "0.59.1"
 pkgrel = 0
 make_cmd = "gmake"
 make_build_args = ["-C", "docs"]
@@ -23,7 +23,7 @@ source = [
     f"{_base_url}/shortnames/archive/v{_shortnames_ver}.tar.gz",
 ]
 sha256 = [
-    "79dc47792fa28b320c58e0db489b80f92d2fe559d1ace5e81505c22fd0cc48d1",
+    "9dc54eedb76d9b0adef3e4adaa52654cb92aa0d945b28af82438ab9e9111f6b8",
     "eaca427de11b7144673d643c36f1d9d277bef520ce4b7fc070c15c8b93fc1485",
     "57ef9cedf4cfa2dfc675275f6a8bc088d77fd5b64618b590ce66933162dd748f",
     "4db9798afd45e3282f35ddad3e494db99231e84470f30d6b105a3ed687e67ee0",
