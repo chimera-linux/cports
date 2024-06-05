@@ -1,6 +1,6 @@
 pkgname = "python-astor"
 pkgver = "0.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=tests/test_rtrip.py::RtripTestCase::test_convert_stdlib",
@@ -13,6 +13,7 @@ hostmakedepends = [
     "python-installer",
 ]
 checkdepends = ["python-pytest"]
+depends = ["python"]
 pkgdesc = "Python AST read/write"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
