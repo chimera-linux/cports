@@ -5,6 +5,9 @@ build_style = "python_pep517"
 make_check_args = [
     # need credentials
     "--deselect=tests/integration",
+    # takes forever
+    "--deselect=tests/functional/docs/test_smoke.py::test_documentation[quicksight]",
+    "--dist=worksteal",
 ]
 hostmakedepends = [
     "python-build",
