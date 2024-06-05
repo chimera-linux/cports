@@ -1,6 +1,6 @@
 pkgname = "gdb"
 pkgver = "14.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-werror",
@@ -16,6 +16,7 @@ configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "texinfo", "python-devel"]
 makedepends = [
+    "elfutils-devel",
     "gettext-devel",
     "gmp-devel",
     "libexpat-devel",
