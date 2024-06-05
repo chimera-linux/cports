@@ -1,6 +1,6 @@
 pkgname = "python-msgpack"
 pkgver = "1.0.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -11,6 +11,7 @@ hostmakedepends = [
 ]
 makedepends = ["python-devel"]
 checkdepends = ["python-pytest"]
+depends = ["python"]
 pkgdesc = "MessagePack serializer for Python"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
