@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 6
+pkgrel = 7
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -109,7 +109,9 @@ def _meta(self):
         "kde-cli-tools",  # e.g. mount & open external media
         "kquickcharts",  # notifications
         "kscreen",  # display config, TODO: test on baremetal
+        "ksshaskpass",  # graphical askpass
         "milou",  # krunner
+        "plasma-browser-integration",  # browser integration with plasma
         "plasma-integration",
         "plasma-nm",  # network-manager integration
         "plasma-pa",  # pipewire-pulse audio integration
@@ -168,6 +170,7 @@ def _apps_meta(self):
         "konsole",  # terminal
         "dolphin",  # file manager
         # - extra
+        "discover",  # extra app management
         "kio-admin",
         "kio-fuse",
         "kio-extras",
@@ -188,7 +191,7 @@ def _apps_meta(self):
         "kalk",  # calculator
         # "neochat",  # local WIP, matrix client
         "kcharselect",  # fonts character picker
-        # "kdeconnect",  # phone integration
+        "kdeconnect",  # phone integration
         "konversation",  # irc client
         # "krdc",  # vnc/rdp client
         "ksystemlog",  # log viewer (TODO: does it ask for root itself?)
