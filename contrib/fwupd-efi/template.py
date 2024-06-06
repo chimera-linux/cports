@@ -1,6 +1,6 @@
 pkgname = "fwupd-efi"
 pkgver = "1.4"
-pkgrel = 1
+pkgrel = 2
 # riscv64 not supported yet
 archs = ["aarch64", "x86_64"]
 build_style = "meson"
@@ -40,3 +40,9 @@ if _sbat:
         "-Defi_sbat_distro_url=https://chimera-linux.org",
         f"-Defi_sbat_distro_version={pkgver}-r{pkgrel}",
     ]
+
+
+@subpackage("fwupd-efi-devel")
+def _devel(self):
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    return self.default_devel()
