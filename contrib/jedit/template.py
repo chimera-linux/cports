@@ -4,8 +4,7 @@ pkgver = "5.6.0"
 pkgrel = 0
 prepare_after_patch = True
 hostmakedepends = ["apache-ant", "docbook-xsl-nons", "openjdk17-jdk"]
-# docs are expected to be installed
-depends = [f"jedit-doc={pkgver}-r{pkgrel}", "virtual:java-jre!openjdk17-jre"]
+depends = ["virtual:java-jre!openjdk17-jre"]
 pkgdesc = "Programming text editor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -31,10 +30,6 @@ env = {
     "ANT_HOME": "/usr/share/apache-ant",
     "JAVA_HOME": "/usr/lib/jvm/java-17-openjdk",
 }
-# manually depended
-broken_symlinks = [
-    "usr/share/jedit/doc",
-]
 
 
 def post_extract(self):
@@ -89,3 +84,12 @@ def do_install(self):
     self.install_file("doc/jedit.png", "usr/share/icons/hicolor/128x128/apps")
 
     self.install_bin(self.files_path / "jedit")
+
+
+@subpackage("jedit-doc")
+def _doc(self):
+    self.pkgdesc = f"{pkgdesc} (docs)"
+
+    return [
+        "usr/share/doc/jedit",
+    ]
