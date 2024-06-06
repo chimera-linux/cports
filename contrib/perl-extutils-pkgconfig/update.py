@@ -1,0 +1,1 @@
+pkgname = "ExtUtils-PkgConfig"
