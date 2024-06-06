@@ -28,6 +28,7 @@ hostmakedepends = [
     "pkgconf",
     "python-mako",
     "python-ply",
+    "python-pycparser",
     "wayland-progs",
     "wayland-protocols",
 ]
