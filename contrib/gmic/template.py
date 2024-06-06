@@ -30,7 +30,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "CECILL-2.1"
 url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"
-sha256 = "783db018dece6dc443349ddf1cc85ff06b2aeb9a4612f795859c39c85d38fddf"
+sha256 = "9d2d07a39040ed6abacafd49c16e746520631a16dc9215b161d1dc3ed0dd23fe"
 # vis broken
 # FIXME int: gmic_qt PreviewWidget::updateOriginalImagePosition
 hardening = ["!int"]
