@@ -111,7 +111,8 @@ if _have_llvm:
 # these are good assumptions on all targets we support for now
 _have_nvidia = True
 _have_amd = True
-_have_intel = True
+# intel_clc fails on big
+_have_intel = self.profile().endian != "big"
 _have_hwdec = True
 _have_virgl = True
 
