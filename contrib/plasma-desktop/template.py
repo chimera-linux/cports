@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 11
+pkgrel = 12
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -104,6 +104,7 @@ def _meta(self):
         "baloo",  # search
         "bluedevil",  # bluetooth
         "kde-cli-tools",  # e.g. mount & open external media
+        "kdeplasma-addons",  # bunch of desktop widgets
         "kquickcharts",  # notifications
         "kscreen",  # display config, TODO: test on baremetal
         "ksshaskpass",  # graphical askpass
@@ -114,6 +115,7 @@ def _meta(self):
         "milou",  # krunner
         "plasma-browser-integration",  # browser integration with plasma
         "plasma-integration",
+        "plasma-firewall",  # firewall configuration
         "plasma-nm",  # network-manager integration
         "plasma-pa",  # pipewire-pulse audio integration
         "powerdevil",  # power management daemon, TODO: test on baremetal
@@ -129,6 +131,7 @@ def _meta(self):
         "flatpak-kcm",  # flatpak permissions
         "kgamma",  # adjust monitor gamma
         "print-manager",  # printer configuration
+        "wacomtablet",  # wacom tablet settings
         # "drkonqi",  # TODO: figure out what crash handler to use
         "kmenuedit",
         # "krdp",  # TODO: remote desktop server kcm for Plasma 6.2
