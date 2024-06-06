@@ -1,6 +1,6 @@
 pkgname = "xkbcomp"
 pkgver = "1.4.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "bison", "xorg-util-macros"]
 makedepends = ["libx11-devel", "libxkbfile-devel"]
@@ -15,3 +15,9 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+
+@subpackage("xkbcomp-devel")
+def _devel(self):
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    return self.default_devel()
