@@ -3,18 +3,12 @@ The pytest tests depend on a systemd environment
 
 --- a/meson.build
 +++ b/meson.build
-@@ -285,14 +285,6 @@ if get_option('tests').enabled()
- 	else
+@@ -285,7 +285,7 @@
  		message('valgrind not found, disabling valgrind test suite')
  	endif
--
--	pymod.find_installation(modules: ['libevdev', 'pyudev', 'pytest'])
--	pytest = find_program('pytest-3', 'pytest')
--	test('pytest',
--	     pytest,
--	     args: [meson.current_source_dir()],
--	     env: ['MESON_SOURCE_ROOT=@0@'.format(meson.current_source_dir())],
--	     suite: ['all'])
- endif
  
- # This is a non-optional test
+-	if get_option('b_sanitize') == 'none'
++	if false and get_option('b_sanitize') == 'none'
+ 		env = environment()
+ 		env.set('MESON_SOURCE_ROOT', meson.current_source_dir())
+ 		env.set('LIBWACOM_HWDB_FILE', hwdb.full_path())
