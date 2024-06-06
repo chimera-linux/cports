@@ -1,0 +1,1864 @@
+From 6dd67745b8036c2f0ebec0daf8eaf8e9e7b2a7ee Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Emilio=20Cobos=20=C3=81lvarez?= <emilio@crisal.io>
+Date: Sun, 19 May 2024 21:24:16 +0000
+Subject: [PATCH] Bug 1897361 - Share counter-style / list-style-type
+ representation between Servo and Gecko. r=jwatt
+
+It's not clear to me what is going on there or what caused it. I suspect
+it might be:
+
+  https://searchfox.org/mozilla-central/rev/1f46481d6c16f27c989e72b898fd1fddce9f445f/servo/components/style/gecko/values.rs#69
+
+Which is the only potential from_raw_parts caller there. But hard to say
+without a regression range.
+
+However I've been wanting to get rid of that code for a while, and
+this is a good opportunity for that.
+
+The WithCounterStyleNameOrSymbols stuff isn't super pretty, but it has
+only two callers, and something more complicated might require further
+refactoring.
+
+Differential Revision: https://phabricator.services.mozilla.com/D210814
+---
+ .../rootAnalysis/analyzeHeapWrites.js         |  14 --
+ layout/base/ContainStyleScopeManager.cpp      |  47 ++--
+ layout/base/nsCSSFrameConstructor.cpp         |  88 ++++----
+ layout/base/nsCounterManager.cpp              |   9 +-
+ layout/base/nsCounterManager.h                |  14 +-
+ layout/generic/ReflowInput.cpp                |  18 +-
+ layout/generic/nsBlockFrame.cpp               |   8 +-
+ layout/style/CounterStyleManager.cpp          | 160 ++++++-------
+ layout/style/CounterStyleManager.h            | 213 +++---------------
+ layout/style/GeckoBindings.cpp                |  28 ---
+ layout/style/GeckoBindings.h                  |  17 --
+ layout/style/ServoBindings.toml               |   6 +-
+ layout/style/ServoStyleSet.cpp                |   2 +-
+ layout/style/nsStyleStruct.cpp                |   7 +-
+ layout/style/nsStyleStruct.h                  |   2 +-
+ servo/components/style/counter_style/mod.rs   | 180 ++++++++++++++-
+ servo/components/style/gecko/values.rs        |  41 ----
+ .../components/style/properties/gecko.mako.rs |  51 +----
+ .../style/properties/longhands/list.mako.rs   |   1 -
+ .../style/properties/shorthands/list.mako.rs  |   6 +-
+ .../style/values/generics/counters.rs         |   2 +-
+ servo/components/style/values/generics/mod.rs | 122 ----------
+ .../style/values/specified/counters.rs        |   7 +-
+ .../components/style/values/specified/list.rs |  50 ++--
+ servo/ports/geckolib/glue.rs                  |  14 +-
+ 25 files changed, 427 insertions(+), 680 deletions(-)
+
+diff --git a/js/src/devtools/rootAnalysis/analyzeHeapWrites.js b/js/src/devtools/rootAnalysis/analyzeHeapWrites.js
+index 28679676a56f..ca094d5d58b9 100644
+--- a/js/src/devtools/rootAnalysis/analyzeHeapWrites.js
++++ b/js/src/devtools/rootAnalysis/analyzeHeapWrites.js
+@@ -99,7 +99,6 @@ function checkOverridableVirtualCall(entry, location, callee)
+         "Gecko_AddRefAtom",
+         "Gecko_ReleaseAtom",
+         /nsPrincipal::Get/,
+-        /CounterStylePtr::Reset/,
+     ];
+     if (entry.matches(whitelist))
+         return;
+@@ -149,11 +148,6 @@ function treatAsSafeArgument(entry, varName, csuName)
+         // Various Servo binding out parameters. This is a mess and there needs
+         // to be a way to indicate which params are out parameters, either using
+         // an attribute or a naming convention.
+-        ["Gecko_SetCounterStyleToName", "aPtr", null],
+-        ["Gecko_SetCounterStyleToSymbols", "aPtr", null],
+-        ["Gecko_SetCounterStyleToString", "aPtr", null],
+-        ["Gecko_CopyCounterStyle", "aDst", null],
+-        ["Gecko_SetMozBinding", "aDisplay", null],
+         [/ClassOrClassList/, /aClass/, null],
+         ["Gecko_GetAtomAsUTF16", "aLength", null],
+         ["Gecko_CopyMozBindingFrom", "aDest", null],
+@@ -223,8 +217,6 @@ function treatAsSafeArgument(entry, varName, csuName)
+         ["Gecko_ClearAlternateValues", "aFont", null],
+         ["Gecko_AppendAlternateValues", "aFont", null],
+         ["Gecko_CopyAlternateValuesFrom", "aDest", null],
+-        ["Gecko_CounterStyle_GetName", "aResult", null],
+-        ["Gecko_CounterStyle_GetSingleString", "aResult", null],
+         ["Gecko_nsTArray_FontFamilyName_AppendNamed", "aNames", null],
+         ["Gecko_nsTArray_FontFamilyName_AppendGeneric", "aNames", null],
+     ];
+@@ -349,12 +341,6 @@ function ignoreCallEdge(entry, callee)
+         return true;
+     }
+ 
+-    // This function has an explicit test for being on the main thread if the
+-    // style has non-threadsafe refcounts, but the analysis isn't smart enough
+-    // to understand what the actual styles that can be involved are.
+-    if (/nsStyleList::SetCounterStyle/.test(callee))
+-        return true;
+-
+     // CachedBorderImageData is exclusively owned by nsStyleImage, but the
+     // analysis is not smart enough to know this.
+     if (/CachedBorderImageData::PurgeCachedImages/.test(callee) &&
+diff --git a/layout/base/ContainStyleScopeManager.cpp b/layout/base/ContainStyleScopeManager.cpp
+index 80f3d7901386..a25ec27ce388 100644
+--- a/layout/base/ContainStyleScopeManager.cpp
++++ b/layout/base/ContainStyleScopeManager.cpp
+@@ -190,28 +190,39 @@ static bool GetFirstCounterValueForScopeAndFrame(ContainStyleScope* aScope,
+ 
+ void ContainStyleScopeManager::GetSpokenCounterText(nsIFrame* aFrame,
+                                                     nsAString& aText) {
++  using Tag = StyleCounterStyle::Tag;
++  const auto& listStyleType = aFrame->StyleList()->mListStyleType;
++  switch (listStyleType.tag) {
++    case Tag::None:
++      return;
++    case Tag::String:
++      listStyleType.AsString().AsAtom()->ToString(aText);
++      return;
++    case Tag::Symbols:
++    case Tag::Name:
++      break;
++  }
++
+   CounterValue ordinal = 1;
+   GetFirstCounterValueForScopeAndFrame(&GetRootScope(), aFrame, ordinal);
+ 
+-  CounterStyle* counterStyle =
+-      aFrame->PresContext()->CounterStyleManager()->ResolveCounterStyle(
+-          aFrame->StyleList()->mCounterStyle);
+-  nsAutoString text;
+-  bool isBullet;
+-  counterStyle->GetSpokenCounterText(ordinal, aFrame->GetWritingMode(), text,
++  aFrame->PresContext()->CounterStyleManager()->WithCounterStyleNameOrSymbols(
++      listStyleType, [&](CounterStyle* aStyle) {
++        nsAutoString text;
++        bool isBullet;
++        aStyle->GetSpokenCounterText(ordinal, aFrame->GetWritingMode(), text,
+                                      isBullet);
+-  if (isBullet) {
+-    aText = text;
+-    if (!counterStyle->IsNone()) {
+-      aText.Append(' ');
+-    }
+-  } else {
+-    counterStyle->GetPrefix(aText);
+-    aText += text;
+-    nsAutoString suffix;
+-    counterStyle->GetSuffix(suffix);
+-    aText += suffix;
+-  }
++        if (isBullet) {
++          aText = text;
++          aText.Append(' ');
++        } else {
++          aStyle->GetPrefix(aText);
++          aText += text;
++          nsAutoString suffix;
++          aStyle->GetSuffix(suffix);
++          aText += suffix;
++        }
++      });
+ }
+ #endif
+ 
+diff --git a/layout/base/nsCSSFrameConstructor.cpp b/layout/base/nsCSSFrameConstructor.cpp
+index c0f35c278d19..0af74790dedc 100644
+--- a/layout/base/nsCSSFrameConstructor.cpp
++++ b/layout/base/nsCSSFrameConstructor.cpp
+@@ -1589,23 +1589,23 @@ void nsCSSFrameConstructor::CreateGeneratedContent(
+     case Type::Counter:
+     case Type::Counters: {
+       RefPtr<nsAtom> name;
+-      CounterStylePtr ptr;
++      const StyleCounterStyle* style;
+       nsString separator;
+       if (type == Type::Counter) {
+-        auto& counter = item.AsCounter();
++        const auto& counter = item.AsCounter();
+         name = counter._0.AsAtom();
+-        ptr = CounterStylePtr::FromStyle(counter._1);
++        style = &counter._1;
+       } else {
+-        auto& counters = item.AsCounters();
++        const auto& counters = item.AsCounters();
+         name = counters._0.AsAtom();
+         CopyUTF8toUTF16(counters._1.AsString(), separator);
+-        ptr = CounterStylePtr::FromStyle(counters._2);
++        style = &counters._2;
+       }
+ 
+       auto* counterList = mContainStyleScopeManager.GetOrCreateCounterList(
+           aOriginatingElement, name);
+       auto node = MakeUnique<nsCounterUseNode>(
+-          std::move(ptr), std::move(separator), aContentIndex,
++          *style, std::move(separator), aContentIndex,
+           /* aAllCounters = */ type == Type::Counters);
+ 
+       auto initializer = MakeUnique<nsGenConInitializer>(
+@@ -1752,8 +1752,6 @@ void nsCSSFrameConstructor::CreateGeneratedContent(
+       break;
+     }
+   }
+-
+-  return;
+ }
+ 
+ void nsCSSFrameConstructor::CreateGeneratedContentFromListStyle(
+@@ -1777,37 +1775,41 @@ void nsCSSFrameConstructor::CreateGeneratedContentFromListStyleType(
+     nsFrameConstructorState& aState, Element& aOriginatingElement,
+     const ComputedStyle& aPseudoStyle,
+     const FunctionRef<void(nsIContent*)> aAddChild) {
+-  const nsStyleList* styleList = aPseudoStyle.StyleList();
+-  CounterStyle* counterStyle =
+-      mPresShell->GetPresContext()->CounterStyleManager()->ResolveCounterStyle(
+-          styleList->mCounterStyle);
+-  bool needUseNode = false;
+-  switch (counterStyle->GetStyle()) {
+-    case ListStyle::None:
++  using Tag = StyleCounterStyle::Tag;
++  const auto& styleType = aPseudoStyle.StyleList()->mListStyleType;
++  switch (styleType.tag) {
++    case Tag::None:
+       return;
+-    case ListStyle::Disc:
+-    case ListStyle::Circle:
+-    case ListStyle::Square:
+-    case ListStyle::DisclosureClosed:
+-    case ListStyle::DisclosureOpen:
++    case Tag::String: {
++      nsDependentAtomString string(styleType.AsString().AsAtom());
++      RefPtr<nsIContent> child = CreateGenConTextNode(aState, string, nullptr);
++      aAddChild(child);
++      return;
++    }
++    case Tag::Name:
++    case Tag::Symbols:
+       break;
+-    default:
+-      const auto* anonStyle = counterStyle->AsAnonymous();
+-      if (!anonStyle || !anonStyle->IsSingleString()) {
+-        needUseNode = true;
+-      }
+   }
+ 
+   auto node = MakeUnique<nsCounterUseNode>(nsCounterUseNode::ForLegacyBullet,
+-                                           styleList->mCounterStyle);
+-  if (!needUseNode) {
+-    nsAutoString text;
+-    node->GetText(WritingMode(&aPseudoStyle), counterStyle, text);
+-    // Note that we're done with 'node' in this case.  It's not inserted into
+-    // any list so it's deleted when we return.
+-    RefPtr<nsIContent> child = CreateGenConTextNode(aState, text, nullptr);
+-    aAddChild(child);
+-    return;
++                                           styleType);
++  if (styleType.IsName()) {
++    nsAtom* name = styleType.AsName().AsAtom();
++    if (name == nsGkAtoms::disc || name == nsGkAtoms::circle ||
++        name == nsGkAtoms::square || name == nsGkAtoms::disclosure_closed ||
++        name == nsGkAtoms::disclosure_open) {
++      // We don't need a use node inserted for these.
++      CounterStyle* counterStyle = mPresShell->GetPresContext()
++                                       ->CounterStyleManager()
++                                       ->ResolveCounterStyle(name);
++      nsAutoString text;
++      node->GetText(WritingMode(&aPseudoStyle), counterStyle, text);
++      // Note that we're done with 'node' in this case.  It's not inserted into
++      // any list so it's deleted when we return.
++      RefPtr<nsIContent> child = CreateGenConTextNode(aState, text, nullptr);
++      aAddChild(child);
++      return;
++    }
+   }
+ 
+   auto* counterList = mContainStyleScopeManager.GetOrCreateCounterList(
+@@ -3404,18 +3406,18 @@ nsCSSFrameConstructor::FindDataByTag(const Element& aElement,
+ 
+ #define SUPPRESS_FCDATA() FrameConstructionData(nullptr, FCDATA_SUPPRESS_FRAME)
+ #define SIMPLE_INT_CREATE(_int, _func) \
+-  { int32_t(_int), FrameConstructionData(_func) }
++  {int32_t(_int), FrameConstructionData(_func)}
+ #define SIMPLE_INT_CHAIN(_int, _func) \
+-  { int32_t(_int), FrameConstructionData(_func) }
++  {int32_t(_int), FrameConstructionData(_func)}
+ #define COMPLEX_INT_CREATE(_int, _func) \
+-  { int32_t(_int), FrameConstructionData(_func) }
++  {int32_t(_int), FrameConstructionData(_func)}
+ 
+ #define SIMPLE_TAG_CREATE(_tag, _func) \
+-  { nsGkAtoms::_tag, FrameConstructionData(_func) }
++  {nsGkAtoms::_tag, FrameConstructionData(_func)}
+ #define SIMPLE_TAG_CHAIN(_tag, _func) \
+-  { nsGkAtoms::_tag, FrameConstructionData(_func) }
++  {nsGkAtoms::_tag, FrameConstructionData(_func)}
+ #define COMPLEX_TAG_CREATE(_tag, _func) \
+-  { nsGkAtoms::_tag, FrameConstructionData(_func) }
++  {nsGkAtoms::_tag, FrameConstructionData(_func)}
+ 
+ static nsFieldSetFrame* GetFieldSetFrameFor(nsIFrame* aFrame) {
+   auto pseudo = aFrame->Style()->GetPseudoType();
+@@ -4091,9 +4093,9 @@ nsresult nsCSSFrameConstructor::GetAnonymousContent(
+       _func, FCDATA_DISALLOW_OUT_OF_FLOW | FCDATA_MAY_NEED_SCROLLFRAME)
+ 
+ #define SIMPLE_XUL_CREATE(_tag, _func) \
+-  { nsGkAtoms::_tag, SIMPLE_XUL_FCDATA(_func) }
++  {nsGkAtoms::_tag, SIMPLE_XUL_FCDATA(_func)}
+ #define SCROLLABLE_XUL_CREATE(_tag, _func) \
+-  { nsGkAtoms::_tag, SCROLLABLE_XUL_FCDATA(_func) }
++  {nsGkAtoms::_tag, SCROLLABLE_XUL_FCDATA(_func)}
+ 
+ /* static */
+ const nsCSSFrameConstructor::FrameConstructionData*
+@@ -4762,7 +4764,7 @@ nsIFrame* nsCSSFrameConstructor::ConstructMarker(
+                             FCDATA_SKIP_ABSPOS_PUSH | \
+                             FCDATA_DISALLOW_GENERATED_CONTENT)
+ #define SIMPLE_SVG_CREATE(_tag, _func) \
+-  { nsGkAtoms::_tag, SIMPLE_SVG_FCDATA(_func) }
++  {nsGkAtoms::_tag, SIMPLE_SVG_FCDATA(_func)}
+ 
+ /* static */
+ const nsCSSFrameConstructor::FrameConstructionData*
+diff --git a/layout/base/nsCounterManager.cpp b/layout/base/nsCounterManager.cpp
+index f2bbb5e50ed1..44ed1ae3286d 100644
+--- a/layout/base/nsCounterManager.cpp
++++ b/layout/base/nsCounterManager.cpp
+@@ -80,10 +80,11 @@ void nsCounterChangeNode::Calc(nsCounterList* aList) {
+ }
+ 
+ void nsCounterUseNode::GetText(nsString& aResult) {
+-  CounterStyle* style =
+-      mPseudoFrame->PresContext()->CounterStyleManager()->ResolveCounterStyle(
+-          mCounterStyle);
+-  GetText(mPseudoFrame->GetWritingMode(), style, aResult);
++  mPseudoFrame->PresContext()
++      ->CounterStyleManager()
++      ->WithCounterStyleNameOrSymbols(mCounterStyle, [&](CounterStyle* aStyle) {
++        GetText(mPseudoFrame->GetWritingMode(), aStyle, aResult);
++      });
+ }
+ 
+ void nsCounterUseNode::GetText(WritingMode aWM, CounterStyle* aStyle,
+diff --git a/layout/base/nsCounterManager.h b/layout/base/nsCounterManager.h
+index db40e64442dd..32206c056058 100644
+--- a/layout/base/nsCounterManager.h
++++ b/layout/base/nsCounterManager.h
+@@ -94,7 +94,7 @@ struct nsCounterNode : public nsGenConNode {
+ };
+ 
+ struct nsCounterUseNode : public nsCounterNode {
+-  mozilla::CounterStylePtr mCounterStyle;
++  mozilla::StyleCounterStyle mCounterStyle;
+   nsString mSeparator;
+ 
+   // false for counter(), true for counters()
+@@ -103,16 +103,18 @@ struct nsCounterUseNode : public nsCounterNode {
+   bool mForLegacyBullet = false;
+ 
+   enum ForLegacyBullet { ForLegacyBullet };
+-  nsCounterUseNode(enum ForLegacyBullet, mozilla::CounterStylePtr aCounterStyle)
++  nsCounterUseNode(enum ForLegacyBullet,
++                   const mozilla::StyleCounterStyle& aCounterStyle)
+       : nsCounterNode(0, USE),
+-        mCounterStyle(std::move(aCounterStyle)),
++        mCounterStyle(aCounterStyle),
+         mForLegacyBullet(true) {}
+ 
+   // args go directly to member variables here and of nsGenConNode
+-  nsCounterUseNode(mozilla::CounterStylePtr aCounterStyle, nsString aSeparator,
+-                   uint32_t aContentIndex, bool aAllCounters)
++  nsCounterUseNode(const mozilla::StyleCounterStyle& aCounterStyle,
++                   nsString aSeparator, uint32_t aContentIndex,
++                   bool aAllCounters)
+       : nsCounterNode(aContentIndex, USE),
+-        mCounterStyle(std::move(aCounterStyle)),
++        mCounterStyle(aCounterStyle),
+         mSeparator(std::move(aSeparator)),
+         mAllCounters(aAllCounters) {
+     NS_ASSERTION(aContentIndex <= INT32_MAX, "out of range");
+diff --git a/layout/generic/ReflowInput.cpp b/layout/generic/ReflowInput.cpp
+index c642c77b2ca8..74ef28cc26e0 100644
+--- a/layout/generic/ReflowInput.cpp
++++ b/layout/generic/ReflowInput.cpp
+@@ -60,7 +60,7 @@ static nscoord FontSizeInflationListMarginAdjustment(const nsIFrame* aFrame) {
+   }
+ 
+   // We only want to adjust the margins if we're dealing with an ordered list.
+-  const nsBlockFrame* blockFrame = static_cast<const nsBlockFrame*>(aFrame);
++  const auto* blockFrame = static_cast<const nsBlockFrame*>(aFrame);
+   if (!blockFrame->HasMarker()) {
+     return 0;
+   }
+@@ -70,22 +70,24 @@ static nscoord FontSizeInflationListMarginAdjustment(const nsIFrame* aFrame) {
+     return 0;
+   }
+ 
++  const auto* list = aFrame->StyleList();
++  if (list->mListStyleType.IsNone()) {
++    return 0;
++  }
++
+   // The HTML spec states that the default padding for ordered lists
+   // begins at 40px, indicating that we have 40px of space to place a
+   // bullet. When performing font inflation calculations, we add space
+   // equivalent to this, but simply inflated at the same amount as the
+   // text, in app units.
+   auto margin = nsPresContext::CSSPixelsToAppUnits(40) * (inflation - 1);
+-
+-  auto* list = aFrame->StyleList();
+-  if (!list->mCounterStyle.IsAtom()) {
++  if (!list->mListStyleType.IsName()) {
+     return margin;
+   }
+ 
+-  nsAtom* type = list->mCounterStyle.AsAtom();
+-  if (type != nsGkAtoms::none && type != nsGkAtoms::disc &&
+-      type != nsGkAtoms::circle && type != nsGkAtoms::square &&
+-      type != nsGkAtoms::disclosure_closed &&
++  nsAtom* type = list->mListStyleType.AsName().AsAtom();
++  if (type != nsGkAtoms::disc && type != nsGkAtoms::circle &&
++      type != nsGkAtoms::square && type != nsGkAtoms::disclosure_closed &&
+       type != nsGkAtoms::disclosure_open) {
+     return margin;
+   }
+diff --git a/layout/generic/nsBlockFrame.cpp b/layout/generic/nsBlockFrame.cpp
+index 4582c29e0bd8..32b9b1be0bc4 100644
+--- a/layout/generic/nsBlockFrame.cpp
++++ b/layout/generic/nsBlockFrame.cpp
+@@ -7978,7 +7978,7 @@ bool nsBlockFrame::MarkerIsEmpty() const {
+   nsIFrame* marker = GetMarker();
+   const nsStyleList* list = marker->StyleList();
+   return marker->StyleContent()->mContent.IsNone() ||
+-         (list->mCounterStyle.IsNone() && list->mListStyleImage.IsNone() &&
++         (list->mListStyleType.IsNone() && list->mListStyleImage.IsNone() &&
+           marker->StyleContent()->ContentCount() == 0);
+ }
+ 
+@@ -8655,13 +8655,11 @@ void nsBlockFrame::VerifyOverflowSituation() {
+       }
+       LineIterator line = flow->LinesBegin();
+       LineIterator line_end = flow->LinesEnd();
+-      for (; line != line_end && line != cursor; ++line)
+-        ;
++      for (; line != line_end && line != cursor; ++line);
+       if (line == line_end && overflowLines) {
+         line = overflowLines->mLines.begin();
+         line_end = overflowLines->mLines.end();
+-        for (; line != line_end && line != cursor; ++line)
+-          ;
++        for (; line != line_end && line != cursor; ++line);
+       }
+       return line != line_end;
+     };
+diff --git a/layout/style/CounterStyleManager.cpp b/layout/style/CounterStyleManager.cpp
+index 356948de2794..8c6973784d30 100644
+--- a/layout/style/CounterStyleManager.cpp
++++ b/layout/style/CounterStyleManager.cpp
+@@ -47,29 +47,44 @@ struct PadType {
+ // points outside the BMP will need 2 16-bit units.
+ #define LENGTH_LIMIT 150
+ 
++static void SymbolToString(const StyleSymbol& aSymbol, nsAString& aResult) {
++  if (aSymbol.IsIdent()) {
++    return aSymbol.AsIdent().AsAtom()->ToString(aResult);
++  }
++  MOZ_ASSERT(aSymbol.IsString());
++  return CopyUTF8toUTF16(aSymbol.AsString().AsString(), aResult);
++}
++
++static size_t SymbolLength(const StyleSymbol& aSymbol) {
++  if (aSymbol.IsIdent()) {
++    return aSymbol.AsIdent().AsAtom()->GetLength();
++  }
++  MOZ_ASSERT(aSymbol.IsString());
++  return aSymbol.AsString().AsString().Length();
++}
++
+ static bool GetCyclicCounterText(CounterValue aOrdinal, nsAString& aResult,
+-                                 Span<const nsString> aSymbols) {
++                                 Span<const StyleSymbol> aSymbols) {
+   MOZ_ASSERT(aSymbols.Length() >= 1, "No symbol available for cyclic counter.");
+   auto n = CounterValue(aSymbols.Length());
+   CounterValue index = (aOrdinal - 1) % n;
+-  aResult = aSymbols[index >= 0 ? index : index + n];
++  SymbolToString(aSymbols[index >= 0 ? index : index + n], aResult);
+   return true;
+ }
+ 
+ static bool GetFixedCounterText(CounterValue aOrdinal, nsAString& aResult,
+                                 CounterValue aStart,
+-                                Span<const nsString> aSymbols) {
++                                Span<const StyleSymbol> aSymbols) {
+   CounterValue index = aOrdinal - aStart;
+   if (index >= 0 && index < CounterValue(aSymbols.Length())) {
+-    aResult = aSymbols[index];
++    SymbolToString(aSymbols[index], aResult);
+     return true;
+-  } else {
+-    return false;
+   }
++  return false;
+ }
+ 
+ static bool GetSymbolicCounterText(CounterValue aOrdinal, nsAString& aResult,
+-                                   Span<const nsString> aSymbols) {
++                                   Span<const StyleSymbol> aSymbols) {
+   MOZ_ASSERT(aSymbols.Length() >= 1,
+              "No symbol available for symbolic counter.");
+   MOZ_ASSERT(aOrdinal >= 0, "Invalid ordinal.");
+@@ -79,23 +94,25 @@ static bool GetSymbolicCounterText(CounterValue aOrdinal, nsAString& aResult,
+ 
+   aResult.Truncate();
+   auto n = aSymbols.Length();
+-  const nsString& symbol = aSymbols[(aOrdinal - 1) % n];
++  const StyleSymbol& symbol = aSymbols[(aOrdinal - 1) % n];
+   size_t len = (aOrdinal + n - 1) / n;
+-  auto symbolLength = symbol.Length();
++  auto symbolLength = SymbolLength(symbol);
+   if (symbolLength > 0) {
+     if (len > LENGTH_LIMIT || symbolLength > LENGTH_LIMIT ||
+         len * symbolLength > LENGTH_LIMIT) {
+       return false;
+     }
++    nsAutoString str;
++    SymbolToString(symbol, str);
+     for (size_t i = 0; i < len; ++i) {
+-      aResult.Append(symbol);
++      aResult.Append(str);
+     }
+   }
+   return true;
+ }
+ 
+ static bool GetAlphabeticCounterText(CounterValue aOrdinal, nsAString& aResult,
+-                                     Span<const nsString> aSymbols) {
++                                     Span<const StyleSymbol> aSymbols) {
+   MOZ_ASSERT(aSymbols.Length() >= 2, "Too few symbols for alphabetic counter.");
+   MOZ_ASSERT(aOrdinal >= 0, "Invalid ordinal.");
+   if (aOrdinal == 0) {
+@@ -115,18 +132,23 @@ static bool GetAlphabeticCounterText(CounterValue aOrdinal, nsAString& aResult,
+ 
+   aResult.Truncate();
+   for (auto i = indexes.Length(); i > 0; --i) {
+-    aResult.Append(aSymbols[indexes[i - 1]]);
++    const auto& symbol = aSymbols[indexes[i - 1]];
++    if (symbol.IsIdent()) {
++      aResult.Append(nsDependentAtomString(symbol.AsIdent().AsAtom()));
++    } else {
++      AppendUTF8toUTF16(symbol.AsString().AsString(), aResult);
++    }
+   }
+   return true;
+ }
+ 
+ static bool GetNumericCounterText(CounterValue aOrdinal, nsAString& aResult,
+-                                  Span<const nsString> aSymbols) {
++                                  Span<const StyleSymbol> aSymbols) {
+   MOZ_ASSERT(aSymbols.Length() >= 2, "Too few symbols for numeric counter.");
+   MOZ_ASSERT(aOrdinal >= 0, "Invalid ordinal.");
+ 
+   if (aOrdinal == 0) {
+-    aResult = aSymbols[0];
++    SymbolToString(aSymbols[0], aResult);
+     return true;
+   }
+ 
+@@ -139,7 +161,12 @@ static bool GetNumericCounterText(CounterValue aOrdinal, nsAString& aResult,
+ 
+   aResult.Truncate();
+   for (auto i = indexes.Length(); i > 0; --i) {
+-    aResult.Append(aSymbols[indexes[i - 1]]);
++    const auto& symbol = aSymbols[indexes[i - 1]];
++    if (symbol.IsIdent()) {
++      aResult.Append(nsDependentAtomString(symbol.AsIdent().AsAtom()));
++    } else {
++      AppendUTF8toUTF16(symbol.AsString().AsString(), aResult);
++    }
+   }
+   return true;
+ }
+@@ -373,7 +400,7 @@ static bool HebrewToText(CounterValue aOrdinal, nsAString& aResult) {
+       } else {
+         n1 -= 100;
+       }  // if
+-    }    // for
++    }  // for
+ 
+     // Process digit for 10 - 90
+     int32_t n2;
+@@ -515,25 +542,22 @@ class BuiltinCounterStyle : public CounterStyle {
+ 
+   nsStaticAtom* GetStyleName() const { return mName; }
+ 
+-  virtual void GetPrefix(nsAString& aResult) override;
+-  virtual void GetSuffix(nsAString& aResult) override;
+-  virtual void GetSpokenCounterText(CounterValue aOrdinal,
+-                                    WritingMode aWritingMode,
+-                                    nsAString& aResult,
+-                                    bool& aIsBullet) override;
+-  virtual bool IsBullet() override;
++  void GetPrefix(nsAString& aResult) override;
++  void GetSuffix(nsAString& aResult) override;
++  void GetSpokenCounterText(CounterValue aOrdinal, WritingMode aWritingMode,
++                            nsAString& aResult, bool& aIsBullet) override;
++  bool IsBullet() override;
+ 
+-  virtual void GetNegative(NegativeType& aResult) override;
+-  virtual bool IsOrdinalInRange(CounterValue aOrdinal) override;
+-  virtual bool IsOrdinalInAutoRange(CounterValue aOrdinal) override;
+-  virtual void GetPad(PadType& aResult) override;
+-  virtual CounterStyle* GetFallback() override;
+-  virtual SpeakAs GetSpeakAs() override;
+-  virtual bool UseNegativeSign() override;
++  void GetNegative(NegativeType& aResult) override;
++  bool IsOrdinalInRange(CounterValue aOrdinal) override;
++  bool IsOrdinalInAutoRange(CounterValue aOrdinal) override;
++  void GetPad(PadType& aResult) override;
++  CounterStyle* GetFallback() override;
++  SpeakAs GetSpeakAs() override;
++  bool UseNegativeSign() override;
+ 
+-  virtual bool GetInitialCounterText(CounterValue aOrdinal,
+-                                     WritingMode aWritingMode,
+-                                     nsAString& aResult, bool& aIsRTL) override;
++  bool GetInitialCounterText(CounterValue aOrdinal, WritingMode aWritingMode,
++                             nsAString& aResult, bool& aIsRTL) override;
+ 
+  protected:
+   constexpr BuiltinCounterStyle(const BuiltinCounterStyle& aOther)
+@@ -953,28 +977,24 @@ class CustomCounterStyle final : public CounterStyle {
+   const StyleLockedCounterStyleRule* GetRule() const { return mRule; }
+   uint32_t GetRuleGeneration() const { return mRuleGeneration; }
+ 
+-  virtual void GetPrefix(nsAString& aResult) override;
+-  virtual void GetSuffix(nsAString& aResult) override;
+-  virtual void GetSpokenCounterText(CounterValue aOrdinal,
+-                                    WritingMode aWritingMode,
+-                                    nsAString& aResult,
+-                                    bool& aIsBullet) override;
+-  virtual bool IsBullet() override;
++  void GetPrefix(nsAString& aResult) override;
++  void GetSuffix(nsAString& aResult) override;
++  void GetSpokenCounterText(CounterValue aOrdinal, WritingMode aWritingMode,
++                            nsAString& aResult, bool& aIsBullet) override;
++  bool IsBullet() override;
+ 
+-  virtual void GetNegative(NegativeType& aResult) override;
+-  virtual bool IsOrdinalInRange(CounterValue aOrdinal) override;
+-  virtual bool IsOrdinalInAutoRange(CounterValue aOrdinal) override;
+-  virtual void GetPad(PadType& aResult) override;
+-  virtual CounterStyle* GetFallback() override;
+-  virtual SpeakAs GetSpeakAs() override;
+-  virtual bool UseNegativeSign() override;
++  void GetNegative(NegativeType& aResult) override;
++  bool IsOrdinalInRange(CounterValue aOrdinal) override;
++  bool IsOrdinalInAutoRange(CounterValue aOrdinal) override;
++  void GetPad(PadType& aResult) override;
++  CounterStyle* GetFallback() override;
++  SpeakAs GetSpeakAs() override;
++  bool UseNegativeSign() override;
+ 
+-  virtual void CallFallbackStyle(CounterValue aOrdinal,
+-                                 WritingMode aWritingMode, nsAString& aResult,
+-                                 bool& aIsRTL) override;
+-  virtual bool GetInitialCounterText(CounterValue aOrdinal,
+-                                     WritingMode aWritingMode,
+-                                     nsAString& aResult, bool& aIsRTL) override;
++  void CallFallbackStyle(CounterValue aOrdinal, WritingMode aWritingMode,
++                         nsAString& aResult, bool& aIsRTL) override;
++  bool GetInitialCounterText(CounterValue aOrdinal, WritingMode aWritingMode,
++                             nsAString& aResult, bool& aIsRTL) override;
+ 
+   bool IsExtendsSystem() { return mSystem == StyleCounterSystem::Extends; }
+ 
+@@ -992,7 +1012,7 @@ class CustomCounterStyle final : public CounterStyle {
+  private:
+   ~CustomCounterStyle() = default;
+ 
+-  Span<const nsString> GetSymbols();
++  Span<const StyleSymbol> GetSymbols();
+   Span<const AdditiveSymbol> GetAdditiveSymbols();
+ 
+   // The speak-as values of counter styles may form a loop, and the
+@@ -1039,7 +1059,6 @@ class CustomCounterStyle final : public CounterStyle {
+   uint16_t mFlags;
+ 
+   // Fields below will be initialized when necessary.
+-  StyleOwnedSlice<nsString> mSymbols;
+   StyleOwnedSlice<AdditiveSymbol> mAdditiveSymbols;
+   NegativeType mNegative;
+   nsString mPrefix, mSuffix;
+@@ -1068,7 +1087,6 @@ class CustomCounterStyle final : public CounterStyle {
+ };
+ 
+ void CustomCounterStyle::ResetCachedData() {
+-  mSymbols.Clear();
+   mAdditiveSymbols.Clear();
+   mFlags &= ~(FLAG_NEGATIVE_INITED | FLAG_PREFIX_INITED | FLAG_SUFFIX_INITED |
+               FLAG_PAD_INITED | FLAG_SPEAKAS_INITED);
+@@ -1296,11 +1314,10 @@ bool CustomCounterStyle::GetInitialCounterText(CounterValue aOrdinal,
+   }
+ }
+ 
+-Span<const nsString> CustomCounterStyle::GetSymbols() {
+-  if (mSymbols.IsEmpty()) {
+-    Servo_CounterStyleRule_GetSymbols(mRule, &mSymbols);
+-  }
+-  return mSymbols.AsSpan();
++Span<const StyleSymbol> CustomCounterStyle::GetSymbols() {
++  size_t count = 0;
++  const StyleSymbol* ptr = Servo_CounterStyleRule_GetSymbols(mRule, &count);
++  return Span(ptr, count);
+ }
+ 
+ Span<const AdditiveSymbol> CustomCounterStyle::GetAdditiveSymbols() {
+@@ -1504,20 +1521,11 @@ CounterStyle* CustomCounterStyle::GetExtendsRoot() {
+   return mExtendsRoot;
+ }
+ 
+-AnonymousCounterStyle::AnonymousCounterStyle(const nsAString& aContent)
+-    : CounterStyle(ListStyle::Custom),
+-      mSingleString(true),
+-      mSymbolsType(StyleSymbolsType::Cyclic) {
+-  mSymbols.SetCapacity(1);
+-  mSymbols.AppendElement(aContent);
+-}
+-
+ AnonymousCounterStyle::AnonymousCounterStyle(StyleSymbolsType aType,
+-                                             nsTArray<nsString> aSymbols)
++                                             Span<const StyleSymbol> aSymbols)
+     : CounterStyle(ListStyle::Custom),
+-      mSingleString(false),
+       mSymbolsType(aType),
+-      mSymbols(std::move(aSymbols)) {}
++      mSymbols(aSymbols) {}
+ 
+ /* virtual */
+ void AnonymousCounterStyle::GetPrefix(nsAString& aResult) {
+@@ -1525,13 +1533,7 @@ void AnonymousCounterStyle::GetPrefix(nsAString& aResult) {
+ }
+ 
+ /* virtual */
+-void AnonymousCounterStyle::GetSuffix(nsAString& aResult) {
+-  if (IsSingleString()) {
+-    aResult.Truncate();
+-  } else {
+-    aResult = ' ';
+-  }
+-}
++void AnonymousCounterStyle::GetSuffix(nsAString& aResult) { aResult = ' '; }
+ 
+ /* virtual */
+ bool AnonymousCounterStyle::IsBullet() {
+diff --git a/layout/style/CounterStyleManager.h b/layout/style/CounterStyleManager.h
+index b6d9c2a0a95f..62c156454f07 100644
+--- a/layout/style/CounterStyleManager.h
++++ b/layout/style/CounterStyleManager.h
+@@ -97,195 +97,36 @@ class CounterStyle {
+   const ListStyle mStyle;
+ };
+ 
+-class AnonymousCounterStyle final : public CounterStyle {
++class MOZ_STACK_CLASS AnonymousCounterStyle final : public CounterStyle {
+  public:
+   explicit AnonymousCounterStyle(const nsAString& aContent);
+-  AnonymousCounterStyle(StyleSymbolsType, nsTArray<nsString> aSymbols);
++  AnonymousCounterStyle(StyleSymbolsType, Span<const StyleSymbol> aSymbols);
+ 
+-  virtual void GetPrefix(nsAString& aResult) override;
+-  virtual void GetSuffix(nsAString& aResult) override;
+-  virtual bool IsBullet() override;
++  void GetPrefix(nsAString& aResult) override;
++  void GetSuffix(nsAString& aResult) override;
++  bool IsBullet() override;
+ 
+-  virtual void GetNegative(NegativeType& aResult) override;
+-  virtual bool IsOrdinalInRange(CounterValue aOrdinal) override;
+-  virtual bool IsOrdinalInAutoRange(CounterValue aOrdinal) override;
+-  virtual void GetPad(PadType& aResult) override;
+-  virtual CounterStyle* GetFallback() override;
+-  virtual SpeakAs GetSpeakAs() override;
+-  virtual bool UseNegativeSign() override;
++  void GetNegative(NegativeType& aResult) override;
++  bool IsOrdinalInRange(CounterValue aOrdinal) override;
++  bool IsOrdinalInAutoRange(CounterValue aOrdinal) override;
++  void GetPad(PadType& aResult) override;
++  CounterStyle* GetFallback() override;
++  SpeakAs GetSpeakAs() override;
++  bool UseNegativeSign() override;
+ 
+-  virtual bool GetInitialCounterText(CounterValue aOrdinal,
+-                                     WritingMode aWritingMode,
+-                                     nsAString& aResult, bool& aIsRTL) override;
++  bool GetInitialCounterText(CounterValue aOrdinal, WritingMode aWritingMode,
++                             nsAString& aResult, bool& aIsRTL) override;
+ 
+-  virtual AnonymousCounterStyle* AsAnonymous() override { return this; }
++  AnonymousCounterStyle* AsAnonymous() override { return this; }
+ 
+-  bool IsSingleString() const { return mSingleString; }
+-  auto GetSymbols() const { return Span<const nsString>{mSymbols}; }
++  auto GetSymbols() const { return mSymbols; }
+ 
+   StyleCounterSystem GetSystem() const;
+ 
+-  NS_INLINE_DECL_THREADSAFE_REFCOUNTING(AnonymousCounterStyle)
+-
+- private:
+   ~AnonymousCounterStyle() = default;
+ 
+-  bool mSingleString;
+   StyleSymbolsType mSymbolsType;
+-  nsTArray<nsString> mSymbols;
+-};
+-
+-// A smart pointer to CounterStyle. It either owns a reference to an
+-// anonymous counter style, or weakly refers to a named counter style
+-// managed by counter style manager.
+-class CounterStylePtr {
+- public:
+-  CounterStylePtr() : mRaw(0) {}
+-  CounterStylePtr(const CounterStylePtr& aOther) : mRaw(aOther.mRaw) {
+-    if (!mRaw) {
+-      return;
+-    }
+-    switch (GetType()) {
+-      case eAnonymousCounterStyle:
+-        AsAnonymous()->AddRef();
+-        break;
+-      case eAtom:
+-        AsAtom()->AddRef();
+-        break;
+-      default:
+-        MOZ_ASSERT_UNREACHABLE("Unknown type");
+-        break;
+-    }
+-  }
+-  CounterStylePtr(CounterStylePtr&& aOther) : mRaw(aOther.mRaw) {
+-    aOther.mRaw = 0;
+-  }
+-  ~CounterStylePtr() { Reset(); }
+-
+-  CounterStylePtr& operator=(const CounterStylePtr& aOther) {
+-    if (this != &aOther) {
+-      Reset();
+-      new (this) CounterStylePtr(aOther);
+-    }
+-    return *this;
+-  }
+-  CounterStylePtr& operator=(CounterStylePtr&& aOther) {
+-    if (this != &aOther) {
+-      Reset();
+-      mRaw = aOther.mRaw;
+-      aOther.mRaw = 0;
+-    }
+-    return *this;
+-  }
+-  CounterStylePtr& operator=(decltype(nullptr)) {
+-    Reset();
+-    return *this;
+-  }
+-  CounterStylePtr& operator=(nsStaticAtom* aStaticAtom) {
+-    Reset();
+-    mRaw = reinterpret_cast<uintptr_t>(aStaticAtom) | eAtom;
+-    return *this;
+-  }
+-  CounterStylePtr& operator=(already_AddRefed<nsAtom> aAtom) {
+-    Reset();
+-    mRaw = reinterpret_cast<uintptr_t>(aAtom.take()) | eAtom;
+-    return *this;
+-  }
+-  CounterStylePtr& operator=(AnonymousCounterStyle* aCounterStyle) {
+-    Reset();
+-    if (aCounterStyle) {
+-      CounterStyle* raw = do_AddRef(aCounterStyle).take();
+-      mRaw = reinterpret_cast<uintptr_t>(raw) | eAnonymousCounterStyle;
+-    }
+-    return *this;
+-  }
+-
+-  // TODO(emilio): Make CounterStyle have a single representation, either by
+-  // removing CounterStylePtr or by moving this representation to Rust.
+-  static CounterStylePtr FromStyle(const StyleCounterStyle& aStyle) {
+-    CounterStylePtr ret;
+-    if (aStyle.IsName()) {
+-      ret = do_AddRef(aStyle.AsName().AsAtom());
+-    } else {
+-      StyleSymbolsType type = aStyle.AsSymbols()._0;
+-      Span<const StyleSymbol> symbols = aStyle.AsSymbols()._1._0.AsSpan();
+-      nsTArray<nsString> transcoded(symbols.Length());
+-      for (const auto& symbol : symbols) {
+-        MOZ_ASSERT(symbol.IsString(), "Should not have <ident> in symbols()");
+-        transcoded.AppendElement(
+-            NS_ConvertUTF8toUTF16(symbol.AsString().AsString()));
+-      }
+-      ret = new AnonymousCounterStyle(type, std::move(transcoded));
+-    }
+-    return ret;
+-  }
+-
+-  explicit operator bool() const { return !!mRaw; }
+-  bool operator!() const { return !mRaw; }
+-  bool operator==(const CounterStylePtr& aOther) const {
+-    // FIXME(emilio): For atoms this is all right, but for symbols doesn't this
+-    // cause us to compare as unequal all the time, even if the specified
+-    // symbols didn't change?
+-    return mRaw == aOther.mRaw;
+-  }
+-  bool operator!=(const CounterStylePtr& aOther) const {
+-    return mRaw != aOther.mRaw;
+-  }
+-
+-  nsAtom* AsAtom() const {
+-    MOZ_ASSERT(IsAtom());
+-    return reinterpret_cast<nsAtom*>(mRaw & ~eMask);
+-  }
+-  AnonymousCounterStyle* AsAnonymous() const {
+-    MOZ_ASSERT(IsAnonymous());
+-    return static_cast<AnonymousCounterStyle*>(
+-        reinterpret_cast<CounterStyle*>(mRaw & ~eMask));
+-  }
+-
+-  bool IsAtom() const { return GetType() == eAtom; }
+-  bool IsAnonymous() const { return GetType() == eAnonymousCounterStyle; }
+-
+-  bool IsNone() const { return IsAtom() && AsAtom() == nsGkAtoms::none; }
+-
+- private:
+-  enum Type : uintptr_t {
+-    eAnonymousCounterStyle = 0,
+-    eAtom = 1,
+-    eMask = 1,
+-  };
+-
+-  static_assert(alignof(CounterStyle) >= 1 << eMask,
+-                "We're gonna tag the pointer, so it better fit");
+-  static_assert(alignof(nsAtom) >= 1 << eMask,
+-                "We're gonna tag the pointer, so it better fit");
+-
+-  Type GetType() const { return static_cast<Type>(mRaw & eMask); }
+-
+-  void Reset() {
+-    if (!mRaw) {
+-      return;
+-    }
+-    switch (GetType()) {
+-      case eAnonymousCounterStyle:
+-        AsAnonymous()->Release();
+-        break;
+-      case eAtom:
+-        AsAtom()->Release();
+-        break;
+-      default:
+-        MOZ_ASSERT_UNREACHABLE("Unknown type");
+-        break;
+-    }
+-    mRaw = 0;
+-  }
+-
+-  // mRaw contains the pointer, and its last bit is used to store the type of
+-  // the pointer.
+-  // If the type is eAtom, the pointer owns a reference to an nsAtom
+-  // (potentially null).
+-  // If the type is eAnonymousCounterStyle, it owns a reference to an
+-  // anonymous counter style (never null).
+-  uintptr_t mRaw;
++  Span<const StyleSymbol> mSymbols;
+ };
+ 
+ class CounterStyleManager final {
+@@ -310,11 +151,23 @@ class CounterStyleManager final {
+   // Same as GetCounterStyle but try to build the counter style object
+   // rather than returning nullptr if that hasn't been built.
+   CounterStyle* ResolveCounterStyle(nsAtom* aName);
+-  CounterStyle* ResolveCounterStyle(const CounterStylePtr& aPtr) {
+-    if (aPtr.IsAtom()) {
+-      return ResolveCounterStyle(aPtr.AsAtom());
++  template <typename F>
++  void WithCounterStyleNameOrSymbols(const StyleCounterStyle& aStyle,
++                                     F&& aCallback) {
++    using Tag = StyleCounterStyle::Tag;
++    switch (aStyle.tag) {
++      case Tag::None:
++      case Tag::String:
++        MOZ_CRASH("Unexpected counter style");
++      case Tag::Symbols: {
++        AnonymousCounterStyle s(aStyle.AsSymbols().ty,
++                                aStyle.AsSymbols().symbols._0.AsSpan());
++        return aCallback(&s);
++      }
++      case Tag::Name: {
++        return aCallback(ResolveCounterStyle(aStyle.AsName().AsAtom()));
++      }
+     }
+-    return aPtr.AsAnonymous();
+   }
+ 
+   static CounterStyle* GetBuiltinStyle(ListStyle aStyle);
+diff --git a/layout/style/GeckoBindings.cpp b/layout/style/GeckoBindings.cpp
+index dc43e9cf6a75..beb4a6bbadf2 100644
+--- a/layout/style/GeckoBindings.cpp
++++ b/layout/style/GeckoBindings.cpp
+@@ -960,34 +960,6 @@ void Gecko_SetFontPaletteOverride(
+       uint32_t(aIndex), gfx::sRGBColor::FromABGR(aColor->ToColor())});
+ }
+ 
+-void Gecko_CounterStyle_ToPtr(const StyleCounterStyle* aStyle,
+-                              CounterStylePtr* aPtr) {
+-  *aPtr = CounterStylePtr::FromStyle(*aStyle);
+-}
+-
+-void Gecko_SetCounterStyleToNone(CounterStylePtr* aPtr) {
+-  *aPtr = nsGkAtoms::none;
+-}
+-
+-void Gecko_SetCounterStyleToString(CounterStylePtr* aPtr,
+-                                   const nsACString* aSymbol) {
+-  *aPtr = new AnonymousCounterStyle(NS_ConvertUTF8toUTF16(*aSymbol));
+-}
+-
+-void Gecko_CopyCounterStyle(CounterStylePtr* aDst,
+-                            const CounterStylePtr* aSrc) {
+-  *aDst = *aSrc;
+-}
+-
+-nsAtom* Gecko_CounterStyle_GetName(const CounterStylePtr* aPtr) {
+-  return aPtr->IsAtom() ? aPtr->AsAtom() : nullptr;
+-}
+-
+-const AnonymousCounterStyle* Gecko_CounterStyle_GetAnonymous(
+-    const CounterStylePtr* aPtr) {
+-  return aPtr->AsAnonymous();
+-}
+-
+ void Gecko_EnsureTArrayCapacity(void* aArray, size_t aCapacity,
+                                 size_t aElemSize) {
+   auto base =
+diff --git a/layout/style/GeckoBindings.h b/layout/style/GeckoBindings.h
+index 7bb839ae1883..294178dde5b7 100644
+--- a/layout/style/GeckoBindings.h
++++ b/layout/style/GeckoBindings.h
+@@ -315,23 +315,6 @@ void Gecko_SetImageOrientationAsFromImage(nsStyleVisibility* aVisibility);
+ void Gecko_CopyImageOrientationFrom(nsStyleVisibility* aDst,
+                                     const nsStyleVisibility* aSrc);
+ 
+-// Counter style.
+-void Gecko_CounterStyle_ToPtr(const mozilla::StyleCounterStyle*,
+-                              mozilla::CounterStylePtr*);
+-
+-void Gecko_SetCounterStyleToNone(mozilla::CounterStylePtr*);
+-
+-void Gecko_SetCounterStyleToString(mozilla::CounterStylePtr* ptr,
+-                                   const nsACString* symbol);
+-
+-void Gecko_CopyCounterStyle(mozilla::CounterStylePtr* dst,
+-                            const mozilla::CounterStylePtr* src);
+-
+-nsAtom* Gecko_CounterStyle_GetName(const mozilla::CounterStylePtr* ptr);
+-
+-const mozilla::AnonymousCounterStyle* Gecko_CounterStyle_GetAnonymous(
+-    const mozilla::CounterStylePtr* ptr);
+-
+ // list-style-image style.
+ void Gecko_SetListStyleImageNone(nsStyleList* style_struct);
+ 
+diff --git a/layout/style/ServoBindings.toml b/layout/style/ServoBindings.toml
+index 67fd902e2bd1..9c911d61e8de 100644
+--- a/layout/style/ServoBindings.toml
++++ b/layout/style/ServoBindings.toml
+@@ -205,7 +205,6 @@ allowlist-types = [
+     "mozilla::DeclarationBlockMutationClosure",
+     "mozilla::AnimatedPropertyID",
+     "mozilla::AnimationPropertySegment",
+-    "mozilla::AnonymousCounterStyle",
+     "mozilla::AtomArray",
+     "mozilla::ComputedTiming",
+     "mozilla::Matrix4x4Components",
+@@ -565,8 +564,8 @@ cbindgen-types = [
+     { gecko = "StyleCounterSet", servo = "crate::values::computed::CounterSet" },
+     { gecko = "StyleCounterIncrement", servo = "crate::values::computed::CounterIncrement" },
+     { gecko = "StyleContent", servo = "crate::values::computed::counters::Content" },
+-    { gecko = "StyleSymbolsType", servo = "crate::values::generics::SymbolsType" },
+-    { gecko = "StyleCounterStyle", servo = "crate::values::generics::CounterStyle" },
++    { gecko = "StyleSymbolsType", servo = "crate::counter_style::SymbolsType" },
++    { gecko = "StyleCounterStyle", servo = "crate::counter_style::CounterStyle" },
+     { gecko = "StyleComputedJustifyItems", servo = "crate::values::computed::align::ComputedJustifyItems" },
+     { gecko = "StyleAlignItems", servo = "crate::values::computed::AlignItems" },
+     { gecko = "StyleJustifySelf", servo = "crate::values::computed::JustifySelf" },
+@@ -618,6 +617,7 @@ cbindgen-types = [
+     { gecko = "StyleLockedImportRule", servo = "crate::gecko::arc_types::LockedImportRule" },
+     { gecko = "StyleLockedFontFaceRule", servo = "crate::gecko::arc_types::LockedFontFaceRule" },
+     { gecko = "StyleBaselineSource", servo = "crate::values::computed::BaselineSource" },
++    { gecko = "StyleListStyleType", servo = "crate::values::computed::ListStyleType" },
+     { gecko = "StyleAu", servo = "app_units::Au" },
+ ]
+ 
+diff --git a/layout/style/ServoStyleSet.cpp b/layout/style/ServoStyleSet.cpp
+index 91231af2b029..21e6d33d12a8 100644
+--- a/layout/style/ServoStyleSet.cpp
++++ b/layout/style/ServoStyleSet.cpp
+@@ -749,7 +749,7 @@ bool ServoStyleSet::GeneratedContentPseudoExists(
+     }
+     // ::marker only exist if we have 'content' or at least one of
+     // 'list-style-type' or 'list-style-image'.
+-    if (aPseudoStyle.StyleList()->mCounterStyle.IsNone() &&
++    if (aPseudoStyle.StyleList()->mListStyleType.IsNone() &&
+         aPseudoStyle.StyleList()->mListStyleImage.IsNone() &&
+         content.IsNormal()) {
+       return false;
+diff --git a/layout/style/nsStyleStruct.cpp b/layout/style/nsStyleStruct.cpp
+index e46566d471e5..7446abf61971 100644
+--- a/layout/style/nsStyleStruct.cpp
++++ b/layout/style/nsStyleStruct.cpp
+@@ -605,17 +605,16 @@ nsSize nsStyleOutline::EffectiveOffsetFor(const nsRect& aRect) const {
+ //
+ nsStyleList::nsStyleList()
+     : mListStylePosition(StyleListStylePosition::Outside),
++      mListStyleType(StyleCounterStyle::Name({StyleAtom(nsGkAtoms::disc)})),
+       mQuotes(StyleQuotes::Auto()),
+       mListStyleImage(StyleImage::None()) {
+   MOZ_COUNT_CTOR(nsStyleList);
+   MOZ_ASSERT(NS_IsMainThread());
+-
+-  mCounterStyle = nsGkAtoms::disc;
+ }
+ 
+ nsStyleList::nsStyleList(const nsStyleList& aSource)
+     : mListStylePosition(aSource.mListStylePosition),
+-      mCounterStyle(aSource.mCounterStyle),
++      mListStyleType(aSource.mListStyleType),
+       mQuotes(aSource.mQuotes),
+       mListStyleImage(aSource.mListStyleImage) {
+   MOZ_COUNT_CTOR(nsStyleList);
+@@ -641,7 +640,7 @@ nsChangeHint nsStyleList::CalcDifference(const nsStyleList& aNewData,
+   // value changes from something else to list-item, that change itself would
+   // cause ReconstructFrame.
+   if (mListStylePosition != aNewData.mListStylePosition ||
+-      mCounterStyle != aNewData.mCounterStyle ||
++      mListStyleType != aNewData.mListStyleType ||
+       mListStyleImage != aNewData.mListStyleImage) {
+     if (aOldStyle.StyleDisplay()->IsListItem()) {
+       return nsChangeHint_ReconstructFrame;
+diff --git a/layout/style/nsStyleStruct.h b/layout/style/nsStyleStruct.h
+index 8835934eafd8..8cf1c5a81542 100644
+--- a/layout/style/nsStyleStruct.h
++++ b/layout/style/nsStyleStruct.h
+@@ -642,7 +642,7 @@ struct MOZ_NEEDS_MEMMOVABLE_MEMBERS nsStyleList {
+ 
+   mozilla::StyleListStylePosition mListStylePosition;
+ 
+-  mozilla::CounterStylePtr mCounterStyle;
++  mozilla::StyleListStyleType mListStyleType;
+   mozilla::StyleQuotes mQuotes;
+   mozilla::StyleImage mListStyleImage;
+ };
+diff --git a/servo/components/style/counter_style/mod.rs b/servo/components/style/counter_style/mod.rs
+index fc7a0fb447d5..c57352753b67 100644
+--- a/servo/components/style/counter_style/mod.rs
++++ b/servo/components/style/counter_style/mod.rs
+@@ -11,7 +11,7 @@ use crate::parser::{Parse, ParserContext};
+ use crate::shared_lock::{SharedRwLockReadGuard, ToCssWithGuard};
+ use crate::str::CssStringWriter;
+ use crate::values::specified::Integer;
+-use crate::values::CustomIdent;
++use crate::values::{AtomString, CustomIdent};
+ use crate::Atom;
+ use cssparser::{
+     AtRuleParser, DeclarationParser, QualifiedRuleParser, RuleBodyItemParser, RuleBodyParser,
+@@ -21,14 +21,174 @@ use selectors::parser::SelectorParseErrorKind;
+ use std::fmt::{self, Write};
+ use std::mem;
+ use std::num::Wrapping;
+-use style_traits::{Comma, CssWriter, OneOrMoreSeparated, ParseError};
+-use style_traits::{StyleParseErrorKind, ToCss};
++use style_traits::{Comma, CssWriter, OneOrMoreSeparated, ParseError,
++StyleParseErrorKind, ToCss,
++KeywordsCollectFn, SpecifiedValueInfo};
+ 
+-/// Parse a counter style name reference.
++/// https://drafts.csswg.org/css-counter-styles/#typedef-symbols-type
++#[allow(missing_docs)]
++#[cfg_attr(feature = "servo", derive(Deserialize, Serialize))]
++#[derive(
++    Clone,
++    Copy,
++    Debug,
++    Eq,
++    MallocSizeOf,
++    Parse,
++    PartialEq,
++    ToComputedValue,
++    ToCss,
++    ToResolvedValue,
++    ToShmem,
++)]
++#[repr(u8)]
++pub enum SymbolsType {
++    Cyclic,
++    Numeric,
++    Alphabetic,
++    Symbolic,
++    Fixed,
++}
++
++/// <https://drafts.csswg.org/css-counter-styles/#typedef-counter-style>
+ ///
++/// Note that 'none' is not a valid name, but we include this (along with String) for space
++/// efficiency when storing list-style-type.
++#[derive(Clone, Debug, Eq, MallocSizeOf, PartialEq, ToComputedValue, ToCss, ToResolvedValue, ToShmem)]
++#[repr(u8)]
++pub enum CounterStyle {
++    /// The 'none' value.
++    None,
++    /// `<counter-style-name>`
++    Name(CustomIdent),
++    /// `symbols()`
++    #[css(function)]
++    Symbols {
++        /// The <symbols-type>, or symbolic if not specified.
++        #[css(skip_if = "is_symbolic")]
++        ty: SymbolsType,
++        /// The actual symbols.
++        symbols: Symbols,
++    },
++    /// A single string value, useful for `<list-style-type>`.
++    String(AtomString),
++}
++
++#[inline]
++fn is_symbolic(symbols_type: &SymbolsType) -> bool {
++    *symbols_type == SymbolsType::Symbolic
++}
++
++impl CounterStyle {
++    /// disc value
++    pub fn disc() -> Self {
++        CounterStyle::Name(CustomIdent(atom!("disc")))
++    }
++
++    /// decimal value
++    pub fn decimal() -> Self {
++        CounterStyle::Name(CustomIdent(atom!("decimal")))
++    }
++
++    /// Is this a bullet? (i.e. `list-style-type: disc|circle|square|disclosure-closed|disclosure-open`)
++    #[inline]
++    pub fn is_bullet(&self) -> bool {
++        match self {
++            CounterStyle::Name(CustomIdent(ref name)) => {
++                name == &atom!("disc") ||
++                    name == &atom!("circle") ||
++                    name == &atom!("square") ||
++                    name == &atom!("disclosure-closed") ||
++                    name == &atom!("disclosure-open")
++            },
++            _ => false,
++        }
++    }
++}
++
++bitflags! {
++    #[derive(Clone, Copy)]
++    /// Flags to control parsing of counter styles.
++    pub struct CounterStyleParsingFlags: u8 {
++        /// Whether `none` is allowed.
++        const ALLOW_NONE = 1 << 0;
++        /// Whether a bare string is allowed.
++        const ALLOW_STRING = 1 << 1;
++    }
++}
++
++impl CounterStyle {
++    /// Parse a counter style, and optionally none|string (for list-style-type).
++    pub fn parse<'i, 't>(
++        context: &ParserContext,
++        input: &mut Parser<'i, 't>,
++        flags: CounterStyleParsingFlags,
++    ) -> Result<Self, ParseError<'i>> {
++        use self::CounterStyleParsingFlags as Flags;
++        let location = input.current_source_location();
++        match input.next()? {
++            Token::QuotedString(ref string) if flags.intersects(Flags::ALLOW_STRING) => {
++                Ok(Self::String(AtomString::from(string.as_ref())))
++            },
++            Token::Ident(ref ident) => {
++                if flags.intersects(Flags::ALLOW_NONE) && ident.eq_ignore_ascii_case("none") {
++                    return Ok(Self::None);
++                }
++                Ok(Self::Name(counter_style_name_from_ident(ident, location)?))
++            },
++            Token::Function(ref name) if name.eq_ignore_ascii_case("symbols") => {
++                input.parse_nested_block(|input| {
++                    let symbols_type = input
++                        .try_parse(SymbolsType::parse)
++                        .unwrap_or(SymbolsType::Symbolic);
++                    let symbols = Symbols::parse(context, input)?;
++                    // There must be at least two symbols for alphabetic or
++                    // numeric system.
++                    if (symbols_type == SymbolsType::Alphabetic || symbols_type == SymbolsType::Numeric) &&
++                        symbols.0.len() < 2
++                    {
++                        return Err(input.new_custom_error(StyleParseErrorKind::UnspecifiedError));
++                    }
++                    // Identifier is not allowed in symbols() function.
++                    if symbols.0.iter().any(|sym| !sym.is_allowed_in_symbols()) {
++                        return Err(input.new_custom_error(StyleParseErrorKind::UnspecifiedError));
++                    }
++                    Ok(Self::Symbols { ty: symbols_type, symbols })
++                })
++            },
++            t => Err(location.new_unexpected_token_error(t.clone())),
++        }
++    }
++}
++
++impl SpecifiedValueInfo for CounterStyle {
++    fn collect_completion_keywords(f: KeywordsCollectFn) {
++        // XXX The best approach for implementing this is probably
++        // having a CounterStyleName type wrapping CustomIdent, and
++        // put the predefined list for that type in counter_style mod.
++        // But that's a non-trivial change itself, so we use a simpler
++        // approach here.
++        macro_rules! predefined {
++            ($($name:expr,)+) => {
++                f(&["symbols", "none", $($name,)+])
++            }
++        }
++        include!("predefined.rs");
++    }
++}
++
++
++fn parse_counter_style_name<'i>(input: &mut Parser<'i, '_>) -> Result<CustomIdent, ParseError<'i>> {
++    let location = input.current_source_location();
++    let ident = input.expect_ident()?;
++    counter_style_name_from_ident(ident, location)
++}
++
++
+ /// This allows the reserved counter style names "decimal" and "disc".
+-pub fn parse_counter_style_name<'i, 't>(
+-    input: &mut Parser<'i, 't>,
++fn counter_style_name_from_ident<'i>(
++    ident: &CowRcStr<'i>,
++    location: SourceLocation,
+ ) -> Result<CustomIdent, ParseError<'i>> {
+     macro_rules! predefined {
+         ($($name: tt,)+) => {{
+@@ -40,8 +200,6 @@ pub fn parse_counter_style_name<'i, 't>(
+                 }
+             }
+ 
+-            let location = input.current_source_location();
+-            let ident = input.expect_ident()?;
+             // This effectively performs case normalization only on predefined names.
+             if let Some(lower_case) = predefined::get(&ident) {
+                 Ok(CustomIdent(lower_case.clone()))
+@@ -583,21 +741,21 @@ impl Parse for Fallback {
+     Clone, Debug, Eq, MallocSizeOf, PartialEq, ToComputedValue, ToResolvedValue, ToCss, ToShmem,
+ )]
+ #[repr(C)]
+-pub struct Symbols(#[css(iterable)] pub crate::OwnedSlice<Symbol>);
++pub struct Symbols(#[css(iterable)] #[ignore_malloc_size_of = "Arc"] pub crate::ArcSlice<Symbol>);
+ 
+ impl Parse for Symbols {
+     fn parse<'i, 't>(
+         context: &ParserContext,
+         input: &mut Parser<'i, 't>,
+     ) -> Result<Self, ParseError<'i>> {
+-        let mut symbols = Vec::new();
++        let mut symbols = smallvec::SmallVec::<[_; 5]>::new();
+         while let Ok(s) = input.try_parse(|input| Symbol::parse(context, input)) {
+             symbols.push(s);
+         }
+         if symbols.is_empty() {
+             return Err(input.new_custom_error(StyleParseErrorKind::UnspecifiedError));
+         }
+-        Ok(Symbols(symbols.into()))
++        Ok(Symbols(crate::ArcSlice::from_iter(symbols.drain(..))))
+     }
+ }
+ 
+diff --git a/servo/components/style/gecko/values.rs b/servo/components/style/gecko/values.rs
+index d04c73c70f3e..1b4f5e453a5e 100644
+--- a/servo/components/style/gecko/values.rs
++++ b/servo/components/style/gecko/values.rs
+@@ -7,12 +7,6 @@
+ //! Different kind of helpers to interact with Gecko values.
+ 
+ use crate::color::{AbsoluteColor, ColorSpace};
+-use crate::counter_style::{Symbol, Symbols};
+-use crate::gecko_bindings::bindings;
+-use crate::gecko_bindings::structs::CounterStylePtr;
+-use crate::values::generics::CounterStyle;
+-use crate::values::Either;
+-use crate::Atom;
+ 
+ /// Convert a color value to `nscolor`.
+ pub fn convert_absolute_color_to_nscolor(color: &AbsoluteColor) -> u32 {
+@@ -40,38 +34,3 @@ fn convert_ns_color_to_absolute_color_should_be_in_legacy_syntax() {
+ 
+     assert!(result.is_legacy_syntax());
+ }
+-
+-impl CounterStyle {
+-    /// Convert this counter style to a Gecko CounterStylePtr.
+-    #[inline]
+-    pub fn to_gecko_value(&self, gecko_value: &mut CounterStylePtr) {
+-        unsafe { bindings::Gecko_CounterStyle_ToPtr(self, gecko_value) }
+-    }
+-
+-    /// Convert Gecko CounterStylePtr to CounterStyle or String.
+-    pub fn from_gecko_value(gecko_value: &CounterStylePtr) -> Either<Self, String> {
+-        use crate::values::CustomIdent;
+-
+-        let name = unsafe { bindings::Gecko_CounterStyle_GetName(gecko_value) };
+-        if !name.is_null() {
+-            let name = unsafe { Atom::from_raw(name) };
+-            debug_assert_ne!(name, atom!("none"));
+-            Either::First(CounterStyle::Name(CustomIdent(name)))
+-        } else {
+-            let anonymous =
+-                unsafe { bindings::Gecko_CounterStyle_GetAnonymous(gecko_value).as_ref() }.unwrap();
+-            let symbols = &anonymous.mSymbols;
+-            if anonymous.mSingleString {
+-                debug_assert_eq!(symbols.len(), 1);
+-                Either::Second(symbols[0].to_string())
+-            } else {
+-                let symbol_type = anonymous.mSymbolsType;
+-                let symbols = symbols
+-                    .iter()
+-                    .map(|gecko_symbol| Symbol::String(gecko_symbol.to_string().into()))
+-                    .collect();
+-                Either::First(CounterStyle::Symbols(symbol_type, Symbols(symbols)))
+-            }
+-        }
+-    }
+-}
+diff --git a/servo/components/style/properties/gecko.mako.rs b/servo/components/style/properties/gecko.mako.rs
+index 8d3f90f8f57d..c83ec2aab9f4 100644
+--- a/servo/components/style/properties/gecko.mako.rs
++++ b/servo/components/style/properties/gecko.mako.rs
+@@ -20,7 +20,6 @@ use crate::gecko_bindings::bindings::Gecko_Construct_Default_${style_struct.geck
+ use crate::gecko_bindings::bindings::Gecko_CopyConstruct_${style_struct.gecko_ffi_name};
+ use crate::gecko_bindings::bindings::Gecko_Destroy_${style_struct.gecko_ffi_name};
+ % endfor
+-use crate::gecko_bindings::bindings::Gecko_CopyCounterStyle;
+ use crate::gecko_bindings::bindings::Gecko_EnsureImageLayersLength;
+ use crate::gecko_bindings::bindings::Gecko_nsStyleFont_SetLang;
+ use crate::gecko_bindings::bindings::Gecko_nsStyleFont_CopyLangFrom;
+@@ -1461,55 +1460,7 @@ fn static_assert() {
+     <% impl_simple_image_array_property("blend_mode", "background", "mImage", "mBlendMode", "Background") %>
+ </%self:impl_trait>
+ 
+-<%self:impl_trait style_struct_name="List" skip_longhands="list-style-type">
+-    pub fn set_list_style_type(&mut self, v: longhands::list_style_type::computed_value::T) {
+-        use nsstring::{nsACString, nsCStr};
+-        use self::longhands::list_style_type::computed_value::T;
+-        match v {
+-            T::None => unsafe {
+-                bindings::Gecko_SetCounterStyleToNone(&mut self.mCounterStyle)
+-            }
+-            T::CounterStyle(s) => s.to_gecko_value(&mut self.mCounterStyle),
+-            T::String(s) => unsafe {
+-                bindings::Gecko_SetCounterStyleToString(
+-                    &mut self.mCounterStyle,
+-                    &nsCStr::from(&s) as &nsACString,
+-                )
+-            }
+-        }
+-    }
+-
+-    pub fn copy_list_style_type_from(&mut self, other: &Self) {
+-        unsafe {
+-            Gecko_CopyCounterStyle(&mut self.mCounterStyle, &other.mCounterStyle);
+-        }
+-    }
+-
+-    pub fn reset_list_style_type(&mut self, other: &Self) {
+-        self.copy_list_style_type_from(other)
+-    }
+-
+-    pub fn clone_list_style_type(&self) -> longhands::list_style_type::computed_value::T {
+-        use self::longhands::list_style_type::computed_value::T;
+-        use crate::values::Either;
+-        use crate::values::generics::CounterStyle;
+-        use crate::gecko_bindings::bindings;
+-
+-        let name = unsafe {
+-            bindings::Gecko_CounterStyle_GetName(&self.mCounterStyle)
+-        };
+-        if !name.is_null() {
+-            let name = unsafe { Atom::from_raw(name) };
+-            if name == atom!("none") {
+-                return T::None;
+-            }
+-        }
+-        let result = CounterStyle::from_gecko_value(&self.mCounterStyle);
+-        match result {
+-            Either::First(counter_style) => T::CounterStyle(counter_style),
+-            Either::Second(string) => T::String(string),
+-        }
+-    }
++<%self:impl_trait style_struct_name="List">
+ </%self:impl_trait>
+ 
+ <%self:impl_trait style_struct_name="Table">
+diff --git a/servo/components/style/properties/longhands/list.mako.rs b/servo/components/style/properties/longhands/list.mako.rs
+index 0a3f8e36ec46..e5031a5b9ec3 100644
+--- a/servo/components/style/properties/longhands/list.mako.rs
++++ b/servo/components/style/properties/longhands/list.mako.rs
+@@ -46,7 +46,6 @@ ${helpers.single_keyword(
+         engines="gecko",
+         initial_specified_value="specified::ListStyleType::disc()",
+         animation_value_type="discrete",
+-        boxed=True,
+         spec="https://drafts.csswg.org/css-lists/#propdef-list-style-type",
+         servo_restyle_damage="rebuild_and_reflow",
+         affects="layout",
+diff --git a/servo/components/style/properties/shorthands/list.mako.rs b/servo/components/style/properties/shorthands/list.mako.rs
+index 183c5ab5daae..ef2234425600 100644
+--- a/servo/components/style/properties/shorthands/list.mako.rs
++++ b/servo/components/style/properties/shorthands/list.mako.rs
+@@ -69,14 +69,14 @@
+                 Ok(expanded! {
+                     list_style_position: position,
+                     list_style_image: Image::None,
+-                    list_style_type: ListStyleType::None,
++                    list_style_type: ListStyleType::none(),
+                 })
+             }
+             (true, 1, None, Some(image)) => {
+                 Ok(expanded! {
+                     list_style_position: position,
+                     list_style_image: image,
+-                    list_style_type: ListStyleType::None,
++                    list_style_type: ListStyleType::none(),
+                 })
+             }
+             (true, 1, Some(list_style_type), None) => {
+@@ -90,7 +90,7 @@
+                 Ok(expanded! {
+                     list_style_position: position,
+                     list_style_image: Image::None,
+-                    list_style_type: ListStyleType::None,
++                    list_style_type: ListStyleType::none(),
+                 })
+             }
+             (true, 0, list_style_type, image) => {
+diff --git a/servo/components/style/values/generics/counters.rs b/servo/components/style/values/generics/counters.rs
+index 3f23c74b3346..31dd964eb0ca 100644
+--- a/servo/components/style/values/generics/counters.rs
++++ b/servo/components/style/values/generics/counters.rs
+@@ -7,7 +7,7 @@
+ #[cfg(feature = "servo")]
+ use crate::computed_values::list_style_type::T as ListStyleType;
+ #[cfg(feature = "gecko")]
+-use crate::values::generics::CounterStyle;
++use crate::counter_style::CounterStyle;
+ use crate::values::specified::Attr;
+ use crate::values::CustomIdent;
+ use std::fmt::{self, Write};
+diff --git a/servo/components/style/values/generics/mod.rs b/servo/components/style/values/generics/mod.rs
+index 800d05817013..e9a675e1f6ec 100644
+--- a/servo/components/style/values/generics/mod.rs
++++ b/servo/components/style/values/generics/mod.rs
+@@ -5,13 +5,8 @@
+ //! Generic types that share their serialization implementations
+ //! for both specified and computed values.
+ 
+-use super::CustomIdent;
+-use crate::counter_style::{parse_counter_style_name, Symbols};
+-use crate::parser::{Parse, ParserContext};
+ use crate::Zero;
+-use cssparser::Parser;
+ use std::ops::Add;
+-use style_traits::{KeywordsCollectFn, ParseError, SpecifiedValueInfo, StyleParseErrorKind};
+ 
+ pub mod animation;
+ pub mod background;
+@@ -42,123 +37,6 @@ pub mod transform;
+ pub mod ui;
+ pub mod url;
+ 
+-/// https://drafts.csswg.org/css-counter-styles/#typedef-symbols-type
+-#[allow(missing_docs)]
+-#[cfg_attr(feature = "servo", derive(Deserialize, Serialize))]
+-#[derive(
+-    Clone,
+-    Copy,
+-    Debug,
+-    Eq,
+-    MallocSizeOf,
+-    Parse,
+-    PartialEq,
+-    ToComputedValue,
+-    ToCss,
+-    ToResolvedValue,
+-    ToShmem,
+-)]
+-#[repr(u8)]
+-pub enum SymbolsType {
+-    Cyclic,
+-    Numeric,
+-    Alphabetic,
+-    Symbolic,
+-    Fixed,
+-}
+-
+-/// <https://drafts.csswg.org/css-counter-styles/#typedef-counter-style>
+-///
+-/// Note that 'none' is not a valid name.
+-#[cfg_attr(feature = "gecko", derive(MallocSizeOf))]
+-#[derive(Clone, Debug, Eq, PartialEq, ToComputedValue, ToCss, ToResolvedValue, ToShmem)]
+-#[repr(u8)]
+-pub enum CounterStyle {
+-    /// `<counter-style-name>`
+-    Name(CustomIdent),
+-    /// `symbols()`
+-    #[css(function)]
+-    Symbols(#[css(skip_if = "is_symbolic")] SymbolsType, Symbols),
+-}
+-
+-#[inline]
+-fn is_symbolic(symbols_type: &SymbolsType) -> bool {
+-    *symbols_type == SymbolsType::Symbolic
+-}
+-
+-impl CounterStyle {
+-    /// disc value
+-    pub fn disc() -> Self {
+-        CounterStyle::Name(CustomIdent(atom!("disc")))
+-    }
+-
+-    /// decimal value
+-    pub fn decimal() -> Self {
+-        CounterStyle::Name(CustomIdent(atom!("decimal")))
+-    }
+-
+-    /// Is this a bullet? (i.e. `list-style-type: disc|circle|square|disclosure-closed|disclosure-open`)
+-    #[inline]
+-    pub fn is_bullet(&self) -> bool {
+-        match self {
+-            CounterStyle::Name(CustomIdent(ref name)) => {
+-                name == &atom!("disc") ||
+-                    name == &atom!("circle") ||
+-                    name == &atom!("square") ||
+-                    name == &atom!("disclosure-closed") ||
+-                    name == &atom!("disclosure-open")
+-            },
+-            _ => false,
+-        }
+-    }
+-}
+-
+-impl Parse for CounterStyle {
+-    fn parse<'i, 't>(
+-        context: &ParserContext,
+-        input: &mut Parser<'i, 't>,
+-    ) -> Result<Self, ParseError<'i>> {
+-        if let Ok(name) = input.try_parse(|i| parse_counter_style_name(i)) {
+-            return Ok(CounterStyle::Name(name));
+-        }
+-        input.expect_function_matching("symbols")?;
+-        input.parse_nested_block(|input| {
+-            let symbols_type = input
+-                .try_parse(SymbolsType::parse)
+-                .unwrap_or(SymbolsType::Symbolic);
+-            let symbols = Symbols::parse(context, input)?;
+-            // There must be at least two symbols for alphabetic or
+-            // numeric system.
+-            if (symbols_type == SymbolsType::Alphabetic || symbols_type == SymbolsType::Numeric) &&
+-                symbols.0.len() < 2
+-            {
+-                return Err(input.new_custom_error(StyleParseErrorKind::UnspecifiedError));
+-            }
+-            // Identifier is not allowed in symbols() function.
+-            if symbols.0.iter().any(|sym| !sym.is_allowed_in_symbols()) {
+-                return Err(input.new_custom_error(StyleParseErrorKind::UnspecifiedError));
+-            }
+-            Ok(CounterStyle::Symbols(symbols_type, symbols))
+-        })
+-    }
+-}
+-
+-impl SpecifiedValueInfo for CounterStyle {
+-    fn collect_completion_keywords(f: KeywordsCollectFn) {
+-        // XXX The best approach for implementing this is probably
+-        // having a CounterStyleName type wrapping CustomIdent, and
+-        // put the predefined list for that type in counter_style mod.
+-        // But that's a non-trivial change itself, so we use a simpler
+-        // approach here.
+-        macro_rules! predefined {
+-            ($($name:expr,)+) => {
+-                f(&["symbols", $($name,)+])
+-            }
+-        }
+-        include!("../../counter_style/predefined.rs");
+-    }
+-}
+-
+ /// A wrapper of Non-negative values.
+ #[cfg_attr(feature = "servo", derive(Deserialize, Serialize))]
+ #[derive(
+diff --git a/servo/components/style/values/specified/counters.rs b/servo/components/style/values/specified/counters.rs
+index 7760be91d78e..a8bc767bbfb7 100644
+--- a/servo/components/style/values/specified/counters.rs
++++ b/servo/components/style/values/specified/counters.rs
+@@ -10,7 +10,7 @@ use crate::parser::{Parse, ParserContext};
+ use crate::values::generics::counters as generics;
+ use crate::values::generics::counters::CounterPair;
+ #[cfg(feature = "gecko")]
+-use crate::values::generics::CounterStyle;
++use crate::counter_style::CounterStyle;
+ use crate::values::specified::image::Image;
+ use crate::values::specified::Attr;
+ use crate::values::specified::Integer;
+@@ -161,12 +161,13 @@ impl Content {
+ 
+     #[cfg(feature = "gecko")]
+     fn parse_counter_style(context: &ParserContext, input: &mut Parser) -> CounterStyle {
++        use crate::counter_style::CounterStyleParsingFlags;
+         input
+             .try_parse(|input| {
+                 input.expect_comma()?;
+-                CounterStyle::parse(context, input)
++                CounterStyle::parse(context, input, CounterStyleParsingFlags::empty())
+             })
+-            .unwrap_or(CounterStyle::decimal())
++            .unwrap_or_else(|_| CounterStyle::decimal())
+     }
+ }
+ 
+diff --git a/servo/components/style/values/specified/list.rs b/servo/components/style/values/specified/list.rs
+index 693471e47828..8894adc9c913 100644
+--- a/servo/components/style/values/specified/list.rs
++++ b/servo/components/style/values/specified/list.rs
+@@ -6,9 +6,7 @@
+ 
+ use crate::parser::{Parse, ParserContext};
+ #[cfg(feature = "gecko")]
+-use crate::values::generics::CounterStyle;
+-#[cfg(feature = "gecko")]
+-use crate::values::CustomIdent;
++use crate::counter_style::{CounterStyle, CounterStyleParsingFlags};
+ use cssparser::{Parser, Token};
+ use style_traits::{ParseError, StyleParseErrorKind};
+ 
+@@ -26,37 +24,36 @@ use style_traits::{ParseError, StyleParseErrorKind};
+     ToResolvedValue,
+     ToShmem,
+ )]
+-pub enum ListStyleType {
+-    /// `none`
+-    None,
+-    /// <counter-style>
+-    CounterStyle(CounterStyle),
+-    /// <string>
+-    String(String),
+-}
++#[repr(transparent)]
++pub struct ListStyleType(pub CounterStyle);
+ 
+ #[cfg(feature = "gecko")]
+ impl ListStyleType {
+     /// Initial specified value for `list-style-type`.
+     #[inline]
+     pub fn disc() -> Self {
+-        ListStyleType::CounterStyle(CounterStyle::disc())
++        Self(CounterStyle::disc())
++    }
++
++    /// none value.
++    #[inline]
++    pub fn none() -> Self {
++        Self(CounterStyle::None)
+     }
+ 
+     /// Convert from gecko keyword to list-style-type.
+     ///
+-    /// This should only be used for mapping type attribute to
+-    /// list-style-type, and thus only values possible in that
+-    /// attribute is considered here.
++    /// This should only be used for mapping type attribute to list-style-type, and thus only
++    /// values possible in that attribute is considered here.
+     pub fn from_gecko_keyword(value: u32) -> Self {
+         use crate::gecko_bindings::structs;
++        use crate::values::CustomIdent;
+         let v8 = value as u8;
+-
+         if v8 == structs::ListStyle_None {
+-            return ListStyleType::None;
++            return Self::none();
+         }
+ 
+-        ListStyleType::CounterStyle(CounterStyle::Name(CustomIdent(match v8 {
++        Self(CounterStyle::Name(CustomIdent(match v8 {
+             structs::ListStyle_Disc => atom!("disc"),
+             structs::ListStyle_Circle => atom!("circle"),
+             structs::ListStyle_Square => atom!("square"),
+@@ -69,13 +66,11 @@ impl ListStyleType {
+         })))
+     }
+ 
++
+     /// Is this a bullet? (i.e. `list-style-type: disc|circle|square|disclosure-closed|disclosure-open`)
+     #[inline]
+     pub fn is_bullet(&self) -> bool {
+-        match self {
+-            ListStyleType::CounterStyle(ref style) => style.is_bullet(),
+-            _ => false,
+-        }
++        self.0.is_bullet()
+     }
+ }
+ 
+@@ -85,15 +80,8 @@ impl Parse for ListStyleType {
+         context: &ParserContext,
+         input: &mut Parser<'i, 't>,
+     ) -> Result<Self, ParseError<'i>> {
+-        if let Ok(style) = input.try_parse(|i| CounterStyle::parse(context, i)) {
+-            return Ok(ListStyleType::CounterStyle(style));
+-        }
+-        if input.try_parse(|i| i.expect_ident_matching("none")).is_ok() {
+-            return Ok(ListStyleType::None);
+-        }
+-        Ok(ListStyleType::String(
+-            input.expect_string()?.as_ref().to_owned(),
+-        ))
++        let flags = CounterStyleParsingFlags::ALLOW_NONE | CounterStyleParsingFlags::ALLOW_STRING;
++        Ok(Self(CounterStyle::parse(context, input, flags)?))
+     }
+ }
+ 
+diff --git a/servo/ports/geckolib/glue.rs b/servo/ports/geckolib/glue.rs
+index 14614704b7ed..746e6a1706c0 100644
+--- a/servo/ports/geckolib/glue.rs
++++ b/servo/ports/geckolib/glue.rs
+@@ -3749,13 +3749,15 @@ pub unsafe extern "C" fn Servo_CounterStyleRule_IsInRange(
+ #[no_mangle]
+ pub unsafe extern "C" fn Servo_CounterStyleRule_GetSymbols(
+     rule: &LockedCounterStyleRule,
+-    symbols: &mut style::OwnedSlice<nsString>,
+-) {
++    count: &mut usize,
++) -> *const counter_style::Symbol {
+     read_locked_arc(rule, |rule: &CounterStyleRule| {
+-        *symbols = match rule.symbols() {
+-            Some(s) => s.0.iter().map(symbol_to_string).collect(),
+-            None => style::OwnedSlice::default(),
++        let symbols = match rule.symbols() {
++            Some(s) => &*s.0,
++            None => &[],
+         };
++        *count = symbols.len();
++        symbols.as_ptr()
+     })
+ }
+ 
+@@ -5350,7 +5352,7 @@ pub extern "C" fn Servo_DeclarationBlock_SetKeywordValue(
+             })
+         },
+         FontWeight => longhands::font_weight::SpecifiedValue::from_gecko_keyword(value),
+-        ListStyleType => Box::new(longhands::list_style_type::SpecifiedValue::from_gecko_keyword(value)),
++        ListStyleType => longhands::list_style_type::SpecifiedValue::from_gecko_keyword(value),
+         MathStyle => longhands::math_style::SpecifiedValue::from_gecko_keyword(value),
+         MozMathVariant => longhands::_moz_math_variant::SpecifiedValue::from_gecko_keyword(value),
+         WhiteSpaceCollapse => get_from_computed::<longhands::white_space_collapse::SpecifiedValue>(value),
+-- 
+2.45.2
+
