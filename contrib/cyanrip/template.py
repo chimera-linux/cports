@@ -1,6 +1,6 @@
 pkgname = "cyanrip"
-pkgver = "0.9.3"
-pkgrel = 1
+pkgver = "0.9.3.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "ninja", "pkgconf"]
 makedepends = [
@@ -15,5 +15,5 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/cyanreg/cyanrip"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0a85ff156a0752e8bf082f6efaeeac882e9a6e9d1b5bdbae5f0e77310f3b22a0"
+sha256 = "01b2679eb5b74b03af0b1232877c2267d141c32be1574a27e7eac19f86cb109b"
 hardening = ["vis", "cfi"]
