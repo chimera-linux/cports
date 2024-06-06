@@ -1,0 +1,16 @@
+use system stylesheets
+
+--- a/build.xml
++++ b/build.xml
+@@ -718,9 +718,9 @@
+ 			<factory name="com.icl.saxon.TransformerFactoryImpl"/>
+ 			<xmlcatalog>
+ 				<entity publicid="http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl"
+-					location="${build.dir}/docbook-xsl/docbook/html/chunk.xsl"/>
++					location="/usr/share/xsl-nons/docbook/html/chunk.xsl"/>
+ 				<entity publicid="http://docbook.sourceforge.net/release/xsl/current/fo/docbook.xsl"
+-					location="${build.dir}/docbook-xsl/docbook/fo/docbook.xsl"/>
++					location="/usr/share/xsl-nons/docbook/fo/docbook.xsl"/>
+ 			</xmlcatalog>
+ 			<sysproperty key="javax.xml.parsers.DocumentBuilderFactory"
+ 				     value="org.apache.xerces.jaxp.DocumentBuilderFactoryImpl"/>
