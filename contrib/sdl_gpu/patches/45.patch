@@ -1,0 +1,100 @@
+From d1ffb7c938eb130e0e6af868d1906056f1cfbd71 Mon Sep 17 00:00:00 2001
+From: Oliver Jowett <oliver@mutability.co.uk>
+Date: Wed, 30 Nov 2016 01:49:18 +0000
+Subject: [PATCH 1/2] Install a basic pkg-config file.
+
+(my cmake-fu is insufficient to get Libs.private into a path-
+independent form, so it ends up with an absolute path in there)
+---
+ src/CMakeLists.txt |  8 ++++++++
+ src/SDL2_gpu.pc.in | 12 ++++++++++++
+ src/SDL_gpu.pc.in  | 12 ++++++++++++
+ 3 files changed, 32 insertions(+)
+ create mode 100644 src/SDL2_gpu.pc.in
+ create mode 100644 src/SDL_gpu.pc.in
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 5a4eff18..2ca53e19 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -162,4 +162,12 @@ if(SDL_gpu_INSTALL)
+ 		install(TARGETS SDL_gpu EXPORT SDL_gpu-targets DESTINATION lib)
+ 	endif()
+ 
++	string(REPLACE ";" " " private_libs "${OPENGL_LIBRARIES}")
++	if(SDL_gpu_USE_SDL1)
++		configure_file(SDL_gpu.pc.in SDL_gpu.pc @ONLY)
++		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/SDL_gpu.pc" DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
++	else(SDL_gpu_USE_SDL1)
++		configure_file(SDL2_gpu.pc.in SDL2_gpu.pc @ONLY)
++		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/SDL2_gpu.pc" DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
++	endif(SDL_gpu_USE_SDL1)
+ endif(SDL_gpu_INSTALL)
+diff --git a/src/SDL2_gpu.pc.in b/src/SDL2_gpu.pc.in
+new file mode 100644
+index 00000000..e9482b68
+--- /dev/null
++++ b/src/SDL2_gpu.pc.in
+@@ -0,0 +1,12 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++exec_prefix=${prefix}
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include
++
++Name: SDL2_gpu
++Description: SDL2_gpu
++Version: @SDL_gpu_VERSION@
++Requires.private: sdl2
++Libs: -L${libdir} -lSDL2_gpu
++Libs.private: @private_libs@
++Cflags: -I${includedir}/SDL2
+diff --git a/src/SDL_gpu.pc.in b/src/SDL_gpu.pc.in
+new file mode 100644
+index 00000000..87e21619
+--- /dev/null
++++ b/src/SDL_gpu.pc.in
+@@ -0,0 +1,12 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++exec_prefix=${prefix}
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include
++
++Name: SDL_gpu
++Description: SDL_gpu
++Version: @SDL_gpu_VERSION@
++Requires.private: sdl
++Libs: -L${libdir} -lSDL_gpu
++Libs.private: @private_libs@
++Cflags: -I${includedir}/SDL
+
+From 1c079e7beb9848b756a330d43353f14cb6c05e35 Mon Sep 17 00:00:00 2001
+From: Oliver Jowett <oliver@mutability.co.uk>
+Date: Thu, 1 Dec 2016 02:31:00 +0000
+Subject: [PATCH 2/2] Try to handle win32 builds which have bare GL library
+ names ("opengl32")
+
+---
+ src/CMakeLists.txt | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 2ca53e19..4e00af17 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -162,7 +162,15 @@ if(SDL_gpu_INSTALL)
+ 		install(TARGETS SDL_gpu EXPORT SDL_gpu-targets DESTINATION lib)
+ 	endif()
+ 
+-	string(REPLACE ";" " " private_libs "${OPENGL_LIBRARIES}")
++	set(private_libs "")
++	foreach(gl_lib ${SDL_gpu_GL_LIBRARIES})
++		if(EXISTS ${gl_lib})
++			set(private_libs "${private_libs} ${gl_lib}")
++		else(EXISTS ${gl_lib})
++			set(private_libs "${private_libs} -l${gl_lib}")
++		endif(EXISTS ${gl_lib})
++	endforeach()
++
+ 	if(SDL_gpu_USE_SDL1)
+ 		configure_file(SDL_gpu.pc.in SDL_gpu.pc @ONLY)
+ 		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/SDL_gpu.pc" DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")

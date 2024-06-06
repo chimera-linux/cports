@@ -1,0 +1,16 @@
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -119,6 +119,13 @@
+ 		${SDL_gpu_HDRS}
+ 		${SDL_gpu_SRCS}
+ 	)
++
++	set_target_properties(SDL_gpu_shared PROPERTIES
++		PUBLIC_HEADER "${SDL_gpu_public_HDRS}"
++		VERSION ${SDL_GPU_VERSION}
++		SOVERSION ${SDL_GPU_VERSION}
++		OUTPUT_NAME ${SHARED_OUTPUT}
++	)
+ 	
+ 	target_link_libraries(SDL_gpu_shared ${GL_LIBRARIES})
+ 
