@@ -1,0 +1,12 @@
+these just log system spawn errors (and then spawn normally), so make it more quiet
+--- a/src/gui/kprocessrunner.cpp
++++ b/src/gui/kprocessrunner.cpp
+@@ -57,7 +57,7 @@
+ 
+ static KProcessRunner *makeInstance()
+ {
+-#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
++#if 0 && defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
+     switch (SystemdProcessRunner::modeAvailable()) {
+     case KProcessRunner::SystemdAsService:
+         return new SystemdProcessRunner();
