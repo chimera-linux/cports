@@ -111,6 +111,7 @@ def _devel(self):
             "usr/lib/qt6/metatypes",
             "usr/lib/qt6/mkspecs",
             "usr/lib/qt6/modules",
+            "usr/lib/qt6/plugins/designer",
             "usr/lib/*.prl",
         ]
     )
