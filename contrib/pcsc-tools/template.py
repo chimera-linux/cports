@@ -1,6 +1,6 @@
 pkgname = "pcsc-tools"
 pkgver = "1.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
@@ -10,7 +10,12 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = ["pcsc-lite-devel"]
-depends = ["pcsc-perl"]
+depends = [
+    "pcsc-perl",
+    # TODO: perl-gtk3
+    "perl-glib",
+    "perl-libintl-perl",
+]
 pkgdesc = "Tools for PCSC"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
