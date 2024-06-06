@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 9
+pkgrel = 10
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -17,6 +17,7 @@ makedepends = [
     "attica-devel",
     "baloo-devel",
     "ibus-devel",
+    "kaccounts-integration-devel",
     "kauth-devel",
     "kcmutils-devel",
     "kcrash-devel",

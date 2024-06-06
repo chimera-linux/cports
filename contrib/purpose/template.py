@@ -1,6 +1,6 @@
 pkgname = "purpose"
 pkgver = "6.2.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # ??
 make_check_args = ["-E", "(menutest)"]
@@ -13,6 +13,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "kaccounts-integration-devel",
     "kconfig-devel",
     "kcoreaddons-devel",
     "kdeclarative-devel",
@@ -24,7 +25,7 @@ makedepends = [
     "prison-devel",
     "qt6-qtdeclarative-devel",
 ]
-depends = []
+depends = ["accounts-qml-module"]
 checkdepends = ["xwayland-run"] + depends
 pkgdesc = "KDE purpose-specific integrations"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
