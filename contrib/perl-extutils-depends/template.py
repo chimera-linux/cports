@@ -1,0 +1,13 @@
+pkgname = "perl-extutils-depends"
+pkgver = "0.8001"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["gmake", "perl"]
+makedepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Perl module for using extensions during the build"
+maintainer = "psykose <alice@ayaya.dev>"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/dist/ExtUtils-Depends"
+source = f"$(CPAN_SITE)/ExtUtils/ExtUtils-Depends-{pkgver}.tar.gz"
+sha256 = "673c4387e7896c1a216099c1fbb3faaa7763d7f5f95a1a56a60a2a2906c131c5"
