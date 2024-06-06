@@ -6,13 +6,11 @@ configure_args = ["-DBUILD_WITH_QT6=ON"]
 make_check_args = [
     "-E",
     "(texttospeechwidgettest"  # hangs
-    # fail in headless
-    + "|texttospeechactionstest"
+    + "|texttospeechactionstest"  # fail in headless
     + "|grammalecteresultwidgettest"
     + "|grammalecteconfigwidgettest"
     + "|languagetoolconfigwidgettest"
-    + "|texttospeechactionstest"
-    # need translator plugins
+    + "|texttospeechactionstest"  # need translator plugins
     + "|translatorwidgettest"
     + "|translatorengineloadertest"
     + ")",
