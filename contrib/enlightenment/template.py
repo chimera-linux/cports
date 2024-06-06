@@ -12,7 +12,6 @@ hostmakedepends = [
     "pkgconf",
     "gettext",
     "efl",
-    "xwayland",
     "wayland-progs",
 ]
 makedepends = [
@@ -26,6 +25,7 @@ makedepends = [
     "libexif-devel",
     "bluez-devel",
     "xkeyboard-config",
+    "xwayland-devel",
 ]
 depends = [
     "desktop-file-utils",

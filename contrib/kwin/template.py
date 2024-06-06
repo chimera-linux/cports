@@ -69,6 +69,7 @@ makedepends = [
     "qt6-qtwayland-devel",
     "wayland-protocols",
     "xcb-util-devel",
+    "xwayland-devel",
 ]
 depends = [
     "hwdata",

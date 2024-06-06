@@ -13,7 +13,7 @@ hostmakedepends = [
     "glslang-progs",
     "meson",
     "pkgconf",
-    "xwayland",
+    "xwayland-devel",
 ]
 makedepends = [
     "hwdata-devel",

@@ -1,6 +1,6 @@
 pkgname = "xwayland"
 pkgver = "24.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dipv6=true",
@@ -51,3 +51,9 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man1/Xserver.1")
     # provided by xserver-xorg-protocol
     self.rm(self.destdir / "usr/lib/xorg/protocol.txt")
+
+
+@subpackage("xwayland-devel")
+def _devel(self):
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    return self.default_devel()

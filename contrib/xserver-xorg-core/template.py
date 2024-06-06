@@ -44,7 +44,7 @@ makedepends = [
     "dbus-devel",
     "openssl-devel",
     "font-util-devel",
-    "xkbcomp",
+    "xkbcomp-devel",
     "xorgproto",
     "xtrans",
     "xcb-util-devel",

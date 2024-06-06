@@ -23,7 +23,7 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
     "wlroots0.17-devel",
-    "xwayland",
+    "xwayland-devel",
 ]
 depends = ["xwayland"]
 pkgdesc = "Stacking wayland compositor"

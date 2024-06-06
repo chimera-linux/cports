@@ -38,7 +38,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-protocols",
     "xcb-util-wm-devel",
-    "xwayland",
+    "xwayland-devel",
 ]
 pkgdesc = "SteamOS compositor"
 maintainer = "q66 <q66@chimera-linux.org>"
