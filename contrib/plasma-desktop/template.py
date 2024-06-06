@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 10
+pkgrel = 11
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -182,8 +182,8 @@ def _apps_meta(self):
         "svgpart",
         "plasma-systemmonitor",
         "plasma-vault",  # encrypted file storage
-        # "ark",  # local WIP, file (un)archiving
-        # "haruna",  # local WIP, mpv frontend
+        "ark",  # file (un)archiving
+        "haruna",  # mpv frontend
         "elisa",  # music player
         "kdenlive",  # video editor
         "kalk",  # calculator
