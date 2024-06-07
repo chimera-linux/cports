@@ -1,5 +1,5 @@
 pkgname = "kglobalaccel"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,10 +16,11 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kglobalaccel/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kglobalaccel-{pkgver}.tar.xz"
-sha256 = "c74727fef4a39680e36c5ed27cdb4c5b755043795fa52774ee3bc6a3b568e724"
-hardening = ["vis", "cfi"]
+sha256 = "c08206ca39db1227a2a8a3c8c06922d5908830cb6d52ef212cb597b8c7029df1"
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("kglobalaccel-devel")
 def _devel(self):
+    self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

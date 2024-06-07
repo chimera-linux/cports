@@ -1,5 +1,5 @@
 pkgname = "krunner"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: similar tests broken on alpine, everything can work in the right env
@@ -32,7 +32,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/krunner/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/krunner-{pkgver}.tar.xz"
-sha256 = "f18f1578ff8c76c455837a4bc9a3e71273bba4ac54afd24e143a9dc20706041f"
+sha256 = "6ca6fe49c9bc0d9da3395db993bfb28d5010bcbd78b0984625819d1d3631e425"
 # FIXME: cfi breaks at least a bunch of tests
 hardening = ["vis", "!cfi"]
 

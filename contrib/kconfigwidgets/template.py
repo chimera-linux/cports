@@ -1,5 +1,5 @@
 pkgname = "kconfigwidgets"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -29,8 +29,8 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/kconfigwidgets"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kconfigwidgets-{pkgver}.tar.xz"
-sha256 = "3b5e72c6e55e7b9d0b3ebee0fe8b39c098dd07a56de39da1556891925eb7d963"
-hardening = ["vis", "cfi"]
+sha256 = "bac86669b83c39fa0d3d45804202ed6db5aa48edc6b4d177c572a2214d262090"
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("kconfigwidgets-devel")

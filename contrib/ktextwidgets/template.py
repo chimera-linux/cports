@@ -1,5 +1,5 @@
 pkgname = "ktextwidgets"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -24,8 +24,8 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/ktextwidgets/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktextwidgets-{pkgver}.tar.xz"
-sha256 = "469368c341265865e2562ab6d3be754db96896280bdca90c134127b1501ab5ed"
-hardening = ["vis", "cfi"]
+sha256 = "9e9fb5aee6ba557ff53c5bf726cb8551efc4208038fda47ee5e9c44fd7d4385e"
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("ktextwidgets-devel")

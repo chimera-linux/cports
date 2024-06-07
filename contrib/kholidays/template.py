@@ -1,5 +1,5 @@
 pkgname = "kholidays"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,8 +16,8 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kholidays/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kholidays-{pkgver}.tar.xz"
-sha256 = "9d7a805287e04281dd59b8ccb1302406a92fe0941e273cac1c724ef6125fac29"
-hardening = ["vis", "cfi"]
+sha256 = "9f99e118c73da1d53805cb38ee876115d75ad5eb5fb108a38e6ae880e7cfac5e"
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("kholidays-devel")

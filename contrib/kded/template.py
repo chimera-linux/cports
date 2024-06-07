@@ -1,6 +1,6 @@
 pkgname = "kded"
-pkgver = "6.2.0"
-pkgrel = 1
+pkgver = "6.3.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -23,8 +23,8 @@ url = "https://api.kde.org/frameworks/kded/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kded-{pkgver}.tar.xz"
 )
-sha256 = "ca6d6971b661b5142ede6ab9a1acbe24d4085efbc9f13988c179649b1261ab4f"
-hardening = ["vis", "cfi"]
+sha256 = "d4b3e55cba11b6ba12df7a3ab958e637130499a34fcc3b918a1cab7de6235e48"
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):

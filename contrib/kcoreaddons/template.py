@@ -1,5 +1,5 @@
 pkgname = "kcoreaddons"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -17,7 +17,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/kcoreaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcoreaddons-{pkgver}.tar.xz"
-sha256 = "3f9836a3ce5e72883bf032587b745ce55435aa7627174579d2e018da717338ed"
+sha256 = "b8bb93bac2a1175ff60583f6fca14b8707eb878eefe074121741b3c85cc5c756"
 # FIXME: cfi breaks at least kpluginfactorytest
 hardening = ["vis", "!cfi"]
 
@@ -25,8 +25,3 @@ hardening = ["vis", "!cfi"]
 @subpackage("kcoreaddons-devel")
 def _devel(self):
     return self.default_devel()
-
-
-@subpackage("kcoreaddons-doc")
-def _doc(self):
-    return self.default_doc(extra=["usr/share/kf6/licenses"])

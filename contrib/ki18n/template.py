@@ -1,6 +1,6 @@
 pkgname = "ki18n"
-pkgver = "6.2.0"
-pkgrel = 1
+pkgver = "6.3.0"
+pkgrel = 0
 build_style = "cmake"
 # similar tests broken as alpine
 make_check_args = ["-E", "(kcatalog|kcountry|klocalizedstring)test"]
@@ -24,7 +24,7 @@ url = "https://api.kde.org/frameworks/ki18n/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ki18n-{pkgver}.tar.xz"
 )
-sha256 = "8aa8f4740db080f4f0c2ce88d0f289740d55caa06b7f76bf2163d0fb9fd3660f"
+sha256 = "4d95341eba2070fec3901396eb0a68f4a8423337de5ea23fb86b0ea70c957282"
 # FIXME: cfi breaks at least ki18n-ktranscripttest
 hardening = ["vis", "!cfi"]
 

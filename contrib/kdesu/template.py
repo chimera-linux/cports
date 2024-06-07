@@ -1,5 +1,5 @@
 pkgname = "kdesu"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,7 +22,7 @@ url = "https://api.kde.org/frameworks/kdesu/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdesu-{pkgver}.tar.xz"
 )
-sha256 = "7c612fea489d9e3e3d3c90cab0d314d98486bdc06014a60f609fdff21505822f"
+sha256 = "a39905a1813347777907622063fc3d515a20c3b6da0fe479aa61734126a9e7de"
 # CFI: test
 hardening = ["vis", "!cfi"]
 

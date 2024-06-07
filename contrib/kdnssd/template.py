@@ -1,5 +1,5 @@
 pkgname = "kdnssd"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kdnssd/html/index.html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdnssd-{pkgver}.tar.xz"
-sha256 = "509011367c11c3b17034d743ea6934951a6fc525b9527d18c38af81f60b08f45"
+sha256 = "671d48d2de1a974b570eb4f5f6f6a03875fa171eade74b81396a4bb474b9712a"
 # CFI: check
 hardening = ["vis", "!cfi"]
 

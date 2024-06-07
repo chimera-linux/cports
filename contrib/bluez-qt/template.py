@@ -1,5 +1,5 @@
 pkgname = "bluez-qt"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/bluez-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/bluez-qt-{pkgver}.tar.xz"
-sha256 = "964874f4e4b4cfa63a940cbd0ac21bd0dc4fc06c14ff7a8db54f98119bf8b430"
+sha256 = "3b68b83fae1032d84213692b0c908f0fd57cafe57175c62b6ce5b89bc1d4a2dc"
 # FIXME: cfi breaks at least almost every test
 hardening = ["vis", "!cfi"]
 

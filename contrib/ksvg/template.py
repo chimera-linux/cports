@@ -1,5 +1,5 @@
 pkgname = "ksvg"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -25,10 +25,11 @@ url = "https://invent.kde.org/frameworks/ksvg"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ksvg-{pkgver}.tar.xz"
 )
-sha256 = "5689bf9dc3efab29fddaea0af00aaec8ca8323e6504f490c3bb3b47a82eb76f3"
-hardening = ["vis", "cfi"]
+sha256 = "0054ed0c094c605a712bc9f8c8cc61c7e0d3eefe1ee50a93912bbd60a6cb07d7"
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("ksvg-devel")
 def _devel(self):
+    self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

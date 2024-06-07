@@ -1,6 +1,6 @@
 pkgname = "knewstuff"
-pkgver = "6.2.0"
-pkgrel = 1
+pkgver = "6.3.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -28,7 +28,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
-sha256 = "f54962756b8eb98c67840352a1efea4698f15a17d4bc8282f65adb0db08c5780"
+sha256 = "a16d16b22e94cb5159a3b1a071c5785729e3052baf9e33f2ab020b9032d967d7"
 # FIXME: cfi causes crash when pressing "Get New Plugins..." button in the
 # "Wallpaper" section of Plasma's system settings app
 hardening = ["vis", "!cfi"]
@@ -36,6 +36,10 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("knewstuff-devel")
 def _devel(self):
-    self.depends += ["attica-devel", "kcoreaddons-devel"]
+    self.depends += [
+        "attica-devel",
+        "kcoreaddons-devel",
+        "qt6-qtbase-devel",
+    ]
 
     return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])

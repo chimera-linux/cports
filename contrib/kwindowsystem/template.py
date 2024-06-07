@@ -1,6 +1,6 @@
 pkgname = "kwindowsystem"
-pkgver = "6.2.0"
-pkgrel = 2
+pkgver = "6.3.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -43,7 +43,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
-sha256 = "0f8fb12b4eea926a7f4cf59ec85d95297a8cb67d8093dc4b194b51a1c4671d89"
+sha256 = "40e33c592934bc27484b922e3dab3c9fdbe078063fa5bcaf29d50d2cd8e8aab9"
 # FIXME: cfi breaks at least kwin testDontCrashUseractionsMenu
 hardening = ["vis", "!cfi"]
 

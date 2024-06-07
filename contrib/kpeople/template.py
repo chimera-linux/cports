@@ -1,5 +1,5 @@
 pkgname = "kpeople"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: off by one in rows after merging people
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpeople/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kpeople-{pkgver}.tar.xz"
-sha256 = "3f5faa48ede1e47ee3e3747ef0adf2f1d8320dbefa8f0ec6eb75fd2f4ab45837"
+sha256 = "967f979e56acdf546198c1950e554663c963aeec56e20405607878294772303e"
 hardening = ["vis", "!cfi"]
 
 

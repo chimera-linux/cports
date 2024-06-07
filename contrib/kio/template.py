@@ -1,6 +1,6 @@
 pkgname = "kio"
-pkgver = "6.2.0"
-pkgrel = 2
+pkgver = "6.3.0"
+pkgrel = 0
 build_style = "cmake"
 # flaky
 make_check_args = ["-E", "kiocore-krecentdocumenttest"]
@@ -51,7 +51,7 @@ url = "https://api.kde.org/frameworks/kio/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kio-{pkgver}.tar.xz"
 )
-sha256 = "331d6ff6b9cbb0e6521a5d0746b152be2588fd631a73d0e249b78cd2cda69ccf"
+sha256 = "39e1afb324069605609c60c1d4638da886debf6159179521167b5159d79a0448"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # FIXME: cfi breaks at least plasma-workspace's testrunnermodel
 hardening = ["vis", "!cfi"]

@@ -1,5 +1,5 @@
 pkgname = "kauth"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
@@ -25,7 +25,7 @@ url = "https://develop.kde.org/docs/features/kauth"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kauth-{pkgver}.tar.xz"
 )
-sha256 = "3511d9d857c0f6962b005b381ec5e2fef9ded59244da14e31dd0673e05a69b0a"
+sha256 = "ebcf36816ff826a2cfb3ed0a0d3746d7da9a23f79901ec43b7a4e7b156af33b5"
 # FIXME: cfi kills systemsettings in libKF6AuthCore.so
 hardening = ["vis", "!cfi"]
 

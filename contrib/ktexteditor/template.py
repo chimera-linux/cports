@@ -1,5 +1,5 @@
 pkgname = "ktexteditor"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -35,7 +35,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.0-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/ktexteditor/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktexteditor-{pkgver}.tar.xz"
-sha256 = "c10a5e4cc921aeb51b17e97d4f29883ab186b63d108199e6a319440a39f1f2a0"
+sha256 = "979dbffaeb0a0413b3745efa180aa0be6e1ed8bf8f5a938281499b931e283776"
 # FIXME: cfi breaks at least vast majority of tests
 hardening = ["vis", "!cfi"]
 

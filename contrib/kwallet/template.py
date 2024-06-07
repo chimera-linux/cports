@@ -1,5 +1,5 @@
 pkgname = "kwallet"
-pkgver = "6.2.1"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -29,7 +29,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kwallet/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwallet-{pkgver}.tar.xz"
-sha256 = "510c6818fb28dd91c2a90c4d05683010caf1b39e9af1b3a8cbb3b4b7c62193bc"
+sha256 = "edb6ebbfa3d90869cadfc9266da47a8b3d5b2b5b0e496b74a7ea5262392d2add"
 # FIXME: cfi kills kwalletd6 (on launch of e.g. chromium) in libKF6WalletBackend.so
 hardening = ["vis", "!cfi"]
 

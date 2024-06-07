@@ -1,5 +1,5 @@
 pkgname = "kiconthemes"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky tests when parallel
@@ -12,6 +12,7 @@ hostmakedepends = [
     "ninja",
 ]
 makedepends = [
+    "breeze-icons-devel",
     "karchive-devel",
     "kcolorscheme-devel",
     "kconfigwidgets-devel",
@@ -26,8 +27,8 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kiconthemes/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kiconthemes-{pkgver}.tar.xz"
-sha256 = "c0ffe65f53f59b75bf0432c4f57f7d36b6840c87f80e9ea5b88ceb71a28b5645"
-hardening = ["vis", "cfi"]
+sha256 = "945394afc9f8207924bf07f9a6de3bee7fcd523bce87e0004d62767ab37cc303"
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("kiconthemes-devel")

@@ -1,5 +1,5 @@
 pkgname = "breeze-icons"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBINARY_ICONS_RESOURCE=ON"]
@@ -20,7 +20,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-or-later"
 url = "https://api.kde.org/frameworks/breeze-icons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/breeze-icons-{pkgver}.tar.xz"
-sha256 = "df5a3b150768dd5c781a6c3d1848d79f4b0eb2f327e248c5426a1234aa4c135b"
+sha256 = "67266378f2d7dbf13dc4f691de43f30b5aca4e4a3336e9f60f0efba2a474e626"
 broken_symlinks = [
     # broken symbolic links to 24
     "usr/share/icons/breeze*/animations/24@*x",  # breeze{,-dark}/animations/24@{2,3}x
@@ -28,7 +28,7 @@ broken_symlinks = [
     # broken symbolic link to fingerprint.svg
     "usr/share/icons/breeze/actions/24/fingerprint-symbolic.svg",
 ]
-hardening = ["vis", "cfi"]
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("breeze-icons-devel")

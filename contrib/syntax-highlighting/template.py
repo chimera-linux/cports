@@ -1,5 +1,5 @@
 pkgname = "syntax-highlighting"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -17,8 +17,8 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://api.kde.org/frameworks/syntax-highlighting/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/syntax-highlighting-{pkgver}.tar.xz"
-sha256 = "327ed58d20d52502bbfd9278fa1c9e7ab4a846159e5cf630d09fbea144ebbb7f"
-hardening = ["vis", "cfi"]
+sha256 = "38300a35c969bef5fa36b437d54342da0a0c805282a657519bd4e2f7b42df984"
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):
