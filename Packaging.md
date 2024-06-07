@@ -2048,6 +2048,7 @@ class Profile:
     cross = ...
     repos = ...
     goarch = ...
+    goarm = ...
 ```
 
 The properties have the following meanings:
@@ -2063,6 +2064,8 @@ The properties have the following meanings:
   `False` otherwise.
 * `goarch` The architecture name for the Go programming language. Optional
   and only present when supported by the toolchain.
+* `goarm` For 32-bit ARM (`goarch` is `arm`) this is the ARM architecture
+  version (ARMv5/6/7).
 
 For the `bootstrap` profile, `triplet` and `short_triplet` are `None`.
 
