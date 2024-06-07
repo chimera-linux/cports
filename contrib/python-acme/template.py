@@ -1,5 +1,5 @@
 pkgname = "python-acme"
-pkgver = "2.10.0"
+pkgver = "2.11.0"
 pkgrel = 0
 build_wrksrc = "acme"
 build_style = "python_pep517"
@@ -27,7 +27,7 @@ url = "https://github.com/certbot/certbot/tree/master/acme"
 source = (
     f"https://github.com/certbot/certbot/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "7e277bb461cae4071e22641e076d9232ae00ffda05bdb02832cbc1f862afab2d"
+sha256 = "93764a18e0b19fe5fc7471a02a2df1937c40eb65c86b3f9ea11b40416c1541dc"
 
 
 def post_install(self):
