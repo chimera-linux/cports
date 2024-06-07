@@ -395,7 +395,7 @@ do_install() {
             ;;
         arm)
             install -m 644 "${OBJDIR}/arch/arm/boot/zImage" \
-                "${DESTDIR}/boot/zImage-${kernver}" \
+                "${DESTDIR}/boot/vmlinuz-${kernver}" \
                 || die "failed to install kernel"
             call_make dtbs_install \
                 INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}" \
