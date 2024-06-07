@@ -1,6 +1,6 @@
 pkgname = "base-rpi"
 pkgver = "0.4"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64"]
 depends = ["rpi-boot", "firmware-linux-brcm-rpi"]
 replaces = ["firmware-rpi<=20220905-r0"]

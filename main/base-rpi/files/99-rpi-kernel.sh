@@ -16,7 +16,10 @@ cp /boot/dtbs/dtbs-${KERNVER}/broadcom/*.dtb /boot
 rm -rf /boot/overlays || :
 cp -R /boot/dtbs/dtbs-${KERNVER}/overlays /boot
 
+KERNBASE=vmlinux
+[ -f "/boot/vmlinuz-${KERNVER}" ] && KERNBASE=vmlinuz
+
 # generate kernel.txt
 rm -f /boot/kernel.txt || :
-echo kernel=vmlinux-${KERNVER} >> /boot/kernel.txt
+echo kernel=${KERNBASE}-${KERNVER} >> /boot/kernel.txt
 echo initramfs initrd.img-${KERNVER} followkernel >> /boot/kernel.txt
