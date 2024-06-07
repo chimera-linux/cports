@@ -1,7 +1,7 @@
 pkgname = "php8.3"
 _majver = "8.3"
 pkgver = f"{_majver}.8"
-pkgrel = 0
+pkgrel = 1
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
