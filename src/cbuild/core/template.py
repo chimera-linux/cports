@@ -1240,15 +1240,14 @@ class Template(Package):
         cenv["PKG_CONFIG"] = self.get_tool("PKG_CONFIG")
 
         with self.profile("host") as hpf:
-            cenv["BUILD_CC"] = self.get_tool("CC")
-            cenv["BUILD_CXX"] = self.get_tool("CXX")
-            cenv["BUILD_CPP"] = self.get_tool("CPP")
-            cenv["BUILD_LD"] = self.get_tool("LD")
-            cenv["BUILD_PKG_CONFIG"] = self.get_tool("PKG_CONFIG")
+            for k in ["CC", "CXX", "CPP", "LD", "PKG_CONFIG"]:
+                cenv[f"BUILD_{k}"] = cenv[f"{k}_FOR_BUILD"] = self.get_tool(k)
 
             # cflags and so on
             for k in self.tool_flags:
-                cenv["BUILD_" + k] = self.get_tool_flags(k, shell=True)
+                cenv[f"BUILD_{k}"] = cenv[f"{k}_FOR_BUILD"] = (
+                    self.get_tool_flags(k, shell=True)
+                )
 
             if hpf.triplet:
                 cenv["CBUILD_HOST_TRIPLET"] = hpf.triplet

@@ -16,13 +16,3 @@ source = f"https://github.com/davmac314/dinit/archive/v{pkgver}.tar.gz"
 sha256 = "ec854903e93416b3f65e72009dcde4965869d8793e2314565484d94ede534e48"
 tool_flags = {"CXXFLAGS": ["-fno-rtti"]}
 hardening = ["vis", "cfi"]
-
-
-def init_configure(self):
-    self.configure_env["CXX_FOR_BUILD"] = "clang++"
-    self.configure_env["CXXFLAGS_FOR_BUILD"] = self.get_cxxflags(
-        shell=True, target="host"
-    )
-    self.configure_env["LDFLAGS_FOR_BUILD"] = self.get_ldflags(
-        shell=True, target="host"
-    )
