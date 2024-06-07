@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 12
+pkgrel = 13
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -75,6 +75,11 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
 sha256 = "5d9001baea32e35055337667f204e28f206ebccaa0a172e0f109426ba8042ecf"
 # FIXME: cfi kills systemsettings (when entering "Date & Time") in kcm_clock.so
 hardening = ["vis", "!cfi"]
+
+# most kdepim stuff depends on messagelib which depends on qtwebengine
+_have_kdepim = False
+if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+    _have_kdepim = True
 
 
 @subpackage("plasma-desktop-meta")
@@ -170,17 +175,18 @@ def _apps_meta(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         # - core
-        "systemsettings",
-        "konsole",  # terminal
-        "dolphin",  # file manager
-        # - extra
         "discover",  # extra app management
+        "dolphin",  # file manager
+        "konsole",  # terminal
+        "systemsettings",  # all settings
+        # - extra
         "dolphin-plugins",
         "ffmpegthumbs",  # video thumbnails
         "kinfocenter",  # system info
         "spectacle",  # screenshot
         "gwenview",  # image viewer
         "kate",  # text editor(s)
+        "kgpg",  # gpg integration
         "markdownpart",
         "svgpart",
         "plasma-systemmonitor",
@@ -207,24 +213,44 @@ def _apps_meta(self):
         "kwallet",
         "kwallet-pam",
         "kwalletmanager",
-        # - akonadi stuff (mariadb)
-        # "kontact",  # contacts
-        # "merkuro",  # calendar
-        # "zanshin",  # productivity app
-        # "knotes",  # sticky notes
         # - still qt5
+        # "digikam",  # photo management
         # "heaptrack",  # heap memory profiler
         # "kamoso",  # camera
-        # "kompare",  # gui diff
         # "kipi-plugins",  # image export
+        # "kompare",  # gui diff
         # "krita",  # digital art studio
+        # "kmymoney",  # finance manager
     ]
     # things missing on some arches
     if self.rparent.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
         self.depends += [
+            "akregator",  # rss feeds
             "khelpcenter",  # documentation viewer
             "tokodon",  # mastodon client
         ]
+    self.options = ["empty"]
+
+    return []
+
+
+@subpackage("plasma-desktop-kdepim-meta", _have_kdepim)
+def _kdepin_meta(self):
+    # contact/calendar/etc
+    self.pkgdesc = f"{pkgdesc} (kdepim recommends package)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        "akonadi-import-wizard",
+        "kaddressbook",
+        "kalarm",
+        "kdepim-addons",
+        "kmail",
+        "knotes",
+        "kontact",
+        "korganizer",
+        "merkuro",
+        "zanshin",
+    ]
     self.options = ["empty"]
 
     return []
