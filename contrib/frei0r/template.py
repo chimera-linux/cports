@@ -1,6 +1,6 @@
 pkgname = "frei0r"
-pkgver = "2.3.2"
-pkgrel = 1
+pkgver = "2.3.3"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://frei0r.dyne.org"
 source = f"https://github.com/dyne/frei0r/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "304291e0ecb456a8b054fe04e14adc50ace54d0223b7b29165ff5343e820ef9d"
+sha256 = "aeeefe3a9b44761b2cf110017d2b1dfa2ceeb873da96d283ba5157380c5d0ce5"
 
 
 @subpackage("frei0r-devel")
