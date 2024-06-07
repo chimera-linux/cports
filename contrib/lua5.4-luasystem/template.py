@@ -1,6 +1,6 @@
 pkgname = "lua5.4-luasystem"
 pkgver = "0.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_use_env = True
@@ -33,4 +33,5 @@ def init_configure(self):
 
 
 def post_install(self):
+    self.install_file("system/init.lua", "usr/share/lua/5.4", name="system.lua")
     self.install_license("LICENSE.md")
