@@ -1,5 +1,5 @@
 pkgname = "zig"
-pkgver = "0.11.0"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -25,7 +25,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ziglang/zig"
 source = f"https://ziglang.org/download/{pkgver}/zig-{pkgver}.tar.xz"
-sha256 = "72014e700e50c0d3528cef3adf80b76b26ab27730133e8202716a187a799e951"
+sha256 = "06c73596beeccb71cc073805bdb9c0e05764128f16478fa53bf17dfabc1d4318"
 # lighten up the build, only applies to bootstrap
 hardening = ["!int", "!scp", "!var-init"]
 # lto only gets applied to the C bootstrap and slows down the build (doesn't
@@ -52,7 +52,6 @@ def do_check(self):
         "--summary",
         "all",
         "-Dcpu=baseline",
-        "-Dskip-cross-glibc",
         "-Dskip-debug",
         "-Dskip-non-native",
         "-Dskip-release-safe",
