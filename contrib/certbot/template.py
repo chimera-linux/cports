@@ -76,7 +76,7 @@ def post_install(self):
             "0",
             "--destdir",
             self.chroot_destdir,
-            f"../{plugin}/dist/{plugin.replace('-','_')}-{pkgver}-py3-none-any.whl",
+            f"../{plugin}/dist/{plugin.replace('-', '_')}-{pkgver}-py3-none-any.whl",
         )
     self.install_license("LICENSE.txt")
 
