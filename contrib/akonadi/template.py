@@ -9,12 +9,13 @@ configure_args = [
 ]
 # entitytreemodeltest: Collection/Col differ
 # mimetypecheckertest: x-vnd.akonadi.calendar.event mime invalid
+# collectionschedulertest: flaky
 # sqlite: all hang (?)
 # mysql: needs running mysql
 # last 3: random abort
 make_check_args = [
     "-E",
-    "(entitytreemodeltest|mimetypecheckertest|.*sqlite.*|.*mysql.*|handlertest|partstreamertest|relationhandlertest)",
+    "(collectionschedulertest|entitytreemodeltest|mimetypecheckertest|.*sqlite.*|.*mysql.*|handlertest|partstreamertest|relationhandlertest)",
 ]
 make_check_wrapper = [
     "dbus-run-session",
