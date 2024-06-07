@@ -293,6 +293,7 @@ class Profile:
             self._wordsize = int(platform.architecture()[0][:-3])
             self._repos = []
             self._goarch = None
+            self._goarm = None
             # account for arch specific bootstrap flags
             if f"flags.{self._arch}" in pdata:
                 pd = pdata[f"flags.{self._arch}"]
@@ -330,8 +331,10 @@ class Profile:
 
         if "goarch" in pdata:
             self._goarch = pdata.get("goarch")
+            self._goarm = pdata.get("goarm")
         else:
             self._goarch = None
+            self._goarm = None
 
         if "repos" in pdata:
             ra = pdata.get("repos").split(" ")
@@ -436,6 +439,10 @@ class Profile:
     @property
     def goarch(self):
         return self._goarch
+
+    @property
+    def goarm(self):
+        return self._goarm
 
     @property
     def repos(self):
