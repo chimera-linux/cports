@@ -1,5 +1,5 @@
 pkgname = "qpdf"
-pkgver = "11.9.0"
+pkgver = "11.9.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/qpdf/qpdf"
 source = f"{url}/releases/download/v{pkgver}/qpdf-{pkgver}.tar.gz"
-sha256 = "9f5d6335bb7292cc24a7194d281fc77be2bbf86873e8807b85aeccfbff66082f"
+sha256 = "2ba4d248f9567a27c146b9772ef5dc93bd9622317978455ffe91b259340d13d1"
 hardening = ["vis", "cfi"]
 # for some reason some tests have an empty output for diff
 options = ["!check"]
