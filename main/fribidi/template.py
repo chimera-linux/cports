@@ -1,5 +1,5 @@
 pkgname = "fribidi"
-pkgver = "1.0.14"
+pkgver = "1.0.15"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fribidi/fribidi"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "7b1b3837f6583432068c71ca333a8988c803e9b94259edbd37c85367bbc51446"
+sha256 = "0db5f0621b6fbfae5960c30da4f132009fd72bf4687f1b04a87a4cfc2a08ea38"
 hardening = ["vis", "cfi"]
 
 
