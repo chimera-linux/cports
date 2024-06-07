@@ -44,7 +44,6 @@ def _meta(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         # basic
-        "dmidecode",
         "plasma-systemmonitor",
         # devices
         "lscpu",
@@ -60,6 +59,8 @@ def _meta(self):
         "xdpyinfo",
     ]
     self.options = ["empty"]
+    if self.rparent.profile().arch in ["aarch64", "riscv64", "x86_64"]:
+        self.depends += ["dmidecode"]
 
     return []
 
