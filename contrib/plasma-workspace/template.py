@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.0.5.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -123,6 +123,12 @@ hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_license("LICENSES/MIT.txt")
+    # in KF5 kservice shipped this, but in KF6 it's been moved to here; but also not named this anymore
+    # krunner via invocation of kbuildsycoca6 then fails to see any applications outside of kde
+    # TODO: find out how this is meant to work at all
+    self.install_link(
+        "etc/xdg/menus/applications.menu", "plasma-applications.menu"
+    )
 
     self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
 
