@@ -1,0 +1,37 @@
+diff --git a/dnsmasq.conf.example b/dnsmasq.conf.example
+index f1fb2d1..ebca0e9 100644
+--- a/dnsmasq.conf.example
++++ b/dnsmasq.conf.example
+@@ -22,7 +22,7 @@
+ 
+ # Uncomment these to enable DNSSEC validation and caching:
+ # (Requires dnsmasq to be built with DNSSEC option.)
+-#conf-file=%%PREFIX%%/share/dnsmasq/trust-anchors.conf
++#conf-file=/usr/share/dnsmasq/trust-anchors.conf
+ #dnssec
+ 
+ # Replies which are not DNSSEC signed may be legitimate, because the domain
+@@ -106,8 +106,12 @@
+ 
+ # If you want dnsmasq to change uid and gid to something other
+ # than the default, edit the following lines.
+-#user=
+-#group=
++#user=_dnsmasq
++#group=_dnsmasq
++
++# Serve DNS and DHCP only to networks directly connected to this machine.
++# Any interface= line will override it.
++local-service
+ 
+ # If you want dnsmasq to listen for DHCP and DNS requests only on
+ # specified interfaces (and the loopback) give the name of the
+@@ -675,7 +679,7 @@
+ 
+ # Include another lot of configuration options.
+ #conf-file=/etc/dnsmasq.more.conf
+-#conf-dir=/etc/dnsmasq.d
++conf-dir=/etc/dnsmasq.d
+ 
+ # Include all the files in a directory except those ending in .bak
+ #conf-dir=/etc/dnsmasq.d,.bak
