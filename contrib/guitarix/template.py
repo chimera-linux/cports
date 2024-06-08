@@ -1,5 +1,5 @@
 pkgname = "guitarix"
-pkgver = "0.44.1"
+pkgver = "0.46.0"
 pkgrel = 0
 build_style = "waf"
 hostmakedepends = [
@@ -38,8 +38,8 @@ pkgdesc = "Virtual guitar amplifier"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://guitarix.org"
-source = f"$(SOURCEFORGE_SITE)/guitarix/guitarix/guitarix2-{pkgver}.tar.xz"
-sha256 = "77e83d754f51ac38c5423f38eeb55de5b3e26128e60b511b02d2defcf36e6c18"
+source = f"https://github.com/brummer10/guitarix/releases/download/V{pkgver}/guitarix2-{pkgver}.tar.xz"
+sha256 = "c660beb3f16cdc455d99e6f074cd6ea2b1f10c1dfc480e84210461637dc98c44"
 # no tests
 options = ["!check"]
 
