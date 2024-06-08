@@ -1,6 +1,6 @@
 pkgname = "wget2"
 pkgver = "2.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-lzma",
@@ -15,16 +15,16 @@ hostmakedepends = [
     "texinfo",
 ]
 makedepends = [
-    "gnutls-devel",
-    "libpsl-devel",
-    "libidn2-devel",
-    "zlib-devel",
-    "zstd-devel",
-    "xz-devel",
-    "bzip2-devel",
     "brotli-devel",
+    "bzip2-devel",
+    "gnutls-devel",
+    "libidn2-devel",
+    "libpsl-devel",
     "nghttp2-devel",
     "pcre2-devel",
+    "xz-devel",
+    "zlib-devel",
+    "zstd-devel",
 ]
 provides = [f"wget={pkgver}-r{pkgrel}"]
 pkgdesc = "GNU downloader"
@@ -40,6 +40,9 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin/wget2_noinstall")
     # we don't have wget1
     self.install_link("usr/bin/wget", "wget2")
+    # this is only installed with pandoc detected
+    self.install_man("docs/man/man1/wget2.1")
+    self.install_link("usr/share/man/man1/wget.1", "wget2.1")
 
 
 @subpackage("libwget")
