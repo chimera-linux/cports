@@ -1,6 +1,6 @@
 pkgname = "procps"
 pkgver = "4.0.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-kill",
@@ -26,10 +26,6 @@ url = "https://gitlab.com/procps-ng/procps"
 source = f"$(SOURCEFORGE_SITE)/procps-ng/Production/procps-ng-{pkgver}.tar.xz"
 sha256 = "22870d6feb2478adb617ce4f09a787addaf2d260c5a8aa7b17d889a962c5e42e"
 hardening = ["!cfi"]  # TODO
-
-
-def post_install(self):
-    self.install_file(self.files_path / "sysctl.conf", "etc")
 
 
 @subpackage("procps-devel")
