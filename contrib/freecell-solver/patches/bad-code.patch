@@ -1,0 +1,10 @@
+--- a/sys/tree.h
++++ b/sys/tree.h
+@@ -30,7 +30,6 @@
+ 
+ #include "rinutils/unused.h"
+ #ifndef _WIN32
+-#include <sys/cdefs.h>
+ #endif
+ 
+ /*
