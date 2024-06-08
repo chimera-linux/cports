@@ -19,7 +19,10 @@ hostmakedepends = [
     "python-random2",
     "python-six",
 ]
-makedepends = ["rinutils"]
+makedepends = [
+    "gmp-devel",
+    "rinutils",
+]
 depends = [
     "python-pysol_cards",
     "python-six",
