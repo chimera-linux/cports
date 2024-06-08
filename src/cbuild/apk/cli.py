@@ -242,7 +242,7 @@ def get_provider(thing, pkg):
         call(
             "search",
             ["--from", "installed", "-q", "-e", thing],
-            pkg,
+            None,
             root=sysp,
             capture_output=True,
             arch=aarch,
