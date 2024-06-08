@@ -1,0 +1,11 @@
+--- a/src/patsolve/patsolve.cpp
++++ b/src/patsolve/patsolve.cpp
+@@ -44,7 +44,7 @@
+ constexpr qint32 FNV_32_PRIME = 0x01000193; // FIXME: move into fnv_hash once we depend on C++14
+ constexpr qint32 fnv_hash(qint32 x, qint32 hash)
+ {
+-    return (hash * FNV_32_PRIME) ^ x;
++    return ((unsigned)hash * FNV_32_PRIME) ^ x;
+ }
+ /* Hash a 0 terminated string. */
+ 
