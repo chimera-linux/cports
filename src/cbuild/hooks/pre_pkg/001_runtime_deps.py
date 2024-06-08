@@ -39,17 +39,19 @@ def _scan_so(pkg):
     # FIXME: also emit dependencies for proper version constraints
     for dep in verify_deps:
         if dep in pkg.ignore_shlibs:
-            log.out_plain(f"   SONAME: {dep} <-> ignore")
+            log.out_plain(f"   SONAME: {dep} (ignored, explicit)")
             continue
         # current package or a subpackage
         if dep in curso:
             depn = curso[dep]
             if depn == pkg.pkgname:
                 # current package: ignore
-                log.out_plain(f"   SONAME: {dep} <-> {depn} (ignored)")
+                log.out_plain(
+                    f"   SONAME: {dep} (provider: {depn}, ignored, same package)"
+                )
             else:
                 # subpackage: add
-                log.out_plain(f"   SONAME: {dep} <-> {depn}")
+                log.out_plain(f"   SONAME: {dep} (provider: {depn})")
                 subpkg_deps[depn] = True
             continue
         # otherwise, check if it came from an installed dependency
@@ -83,7 +85,7 @@ def _scan_so(pkg):
 
         # either of the commands failed
         if info.returncode != 0:
-            log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
+            log.out_red(f"   SONAME: {dep} (unknown provider)")
             broken = True
             continue
 
@@ -103,11 +105,11 @@ def _scan_so(pkg):
 
         if not sdep or len(sdep) == 0:
             # this should never happen though
-            log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
+            log.out_red(f"   SONAME: {dep} (unknown provider)")
             broken = True
             continue
         # we found a package
-        log.out_plain(f"   SONAME: {dep} <-> {sdep}")
+        log.out_plain(f"   SONAME: {dep} (provider: {sdep})")
         pkg.so_requires.append(dep)
 
     for k in subpkg_deps:
@@ -251,15 +253,15 @@ def _scan_pc(pkg):
                 prov = in_subpkg
             # this should never happen
             if not prov:
-                pkg.error(f"   pc: {k} <-> UNKNOWN PACKAGE!")
+                pkg.error(f"   pc: {k} (unknown provider)")
             else:
-                log.out_plain(f"   pc: {k} <-> {prov}")
+                log.out_plain(f"   pc: {k} (provider: {prov})")
             # warn about redundancy
             if prov in pkg.depends:
                 pkg.log_warn(f"redundant runtime dependency '{prov}'")
             continue
         # no provider found
-        pkg.error(f"   pc: {k} <-> UNKNOWN PACKAGE!")
+        pkg.error(f"   pc: {k} (unknown provider)")
 
 
 def _scan_symlinks(pkg):
@@ -300,14 +302,16 @@ def _scan_symlinks(pkg):
         for sp in pkg.rparent.subpkg_list:
             np = sp.destdir / sdest
             if _exists_link(np):
-                log.out_plain(f"   symlink: {ssrc} -> {sdest} <-> {sp.pkgname}")
+                log.out_plain(
+                    f"   symlink: {ssrc} (points to: {sdest}, provider: {sp.pkgname})"
+                )
                 subpkg_deps[sp.pkgname] = True
                 break
         else:
             # could be a main package too
             if _exists_link(pkg.rparent.destdir / sdest):
                 log.out_plain(
-                    f"   symlink: {ssrc} -> {sdest} <-> {pkg.rparent.pkgname}"
+                    f"   symlink: {ssrc} (points to: {sdest}, provider: {pkg.rparent.pkgname})"
                 )
                 subpkg_deps[pkg.rparent.pkgname] = True
             else:
@@ -323,7 +327,9 @@ def _scan_symlinks(pkg):
                 # fine-grained
                 if allow_brokenlink:
                     continue
-                pkg.error(f"   symlink: {ssrc} -> {sdest} <-> UNKNOWN PACKAGE!")
+                pkg.error(
+                    f"   symlink: {ssrc} (points to: {sdest}, unknown provider)"
+                )
 
     for k in subpkg_deps:
         kv = f"{k}={pkg.rparent.pkgver}-r{pkg.rparent.pkgrel}"
