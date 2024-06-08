@@ -1,5 +1,5 @@
 pkgname = "greetd"
-pkgver = "0.10.0"
+pkgver = "0.10.3"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://git.sr.ht/~kennylevinsen/greetd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "d6151a8683f386c53a010b6dfe37cf4c842bc03313bed7a917be96309372d1df"
+sha256 = "ee5cb70e0add4ca9c9fe57e47581ab0002d44c07743fb5492469f3b570db640b"
 
 
 def post_build(self):
