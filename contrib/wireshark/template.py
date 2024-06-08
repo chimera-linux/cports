@@ -75,7 +75,13 @@ system_groups = ["_wireshark"]
 
 def do_check(self):
     # extcaps can't work in our container
-    self.do("pytest", "-k", "not TestExtcaps", wrksrc=self.make_dir)
+    self.do(
+        "pytest",
+        "-k",
+        "not TestExtcaps",
+        "--dist=worksteal",
+        wrksrc=self.make_dir,
+    )
 
 
 def post_install(self):

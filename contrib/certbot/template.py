@@ -63,7 +63,10 @@ def post_build(self):
 
 
 def init_check(self):
-    self.make_check_args += [f"--numprocesses={self.make_jobs}"]
+    self.make_check_args += [
+        f"--numprocesses={self.make_jobs}",
+        "--dist=worksteal",
+    ]
 
 
 def post_install(self):

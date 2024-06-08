@@ -48,4 +48,5 @@ def init_check(self):
         # XXX: fails because posix/ tzdata folder doesn't exist
         "not test_can_generate_prefixes_if_allowed_and_available",
         f"--numprocesses={self.make_jobs}",
+        "--dist=worksteal",
     ]

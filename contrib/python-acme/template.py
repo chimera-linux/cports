@@ -18,7 +18,7 @@ depends = [
     "python-requests",
 ]
 checkdepends = [
-    "python-pytest",
+    "python-pytest-xdist",
 ] + depends
 pkgdesc = "ACME protocol implementation"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
@@ -28,6 +28,13 @@ source = (
     f"https://github.com/certbot/certbot/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "93764a18e0b19fe5fc7471a02a2df1937c40eb65c86b3f9ea11b40416c1541dc"
+
+
+def init_check(self):
+    self.make_check_args += [
+        f"--numprocesses={self.make_jobs}",
+        "--dist=worksteal",
+    ]
 
 
 def post_install(self):
