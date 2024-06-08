@@ -1,6 +1,6 @@
 pkgname = "mold"
 pkgver = "2.31.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DMOLD_USE_MIMALLOC=OFF",
@@ -14,6 +14,7 @@ makedepends = [
     "zlib-devel",
     "zstd-devel",
 ]
+depends = ["binutils-common"]
 pkgdesc = "High-performance linker"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
