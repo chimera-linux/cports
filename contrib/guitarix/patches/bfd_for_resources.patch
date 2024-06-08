@@ -1,11 +1,11 @@
---- a/src/LV2/xputty/resources/wscript	2022-05-02 20:38:03.000000000 +0200
-+++ b/src/LV2/xputty/resources/wscript	2024-02-10 19:34:00.166157338 +0100
-@@ -42,7 +42,7 @@
-     cmd = ("cd src/LV2/xputty/resources/ \
-     && for f in %s; do\
-      %s -r -b binary -z noexecstack ${f}.png -o  ${f}.o; \
--     done " % (src, env.LD[0]) )
-+     done " % (src, 'ld.bfd') )
-    # Logs.debug("runner: system command -> %s" % cmd)
-     ret = task.exec_command(cmd, shell=True)
-     return ret
+--- a/src/LV2/xputty/resources/wscript
++++ b/src/LV2/xputty/resources/wscript
+@@ -43,7 +43,7 @@
+     before = ['xcairo']
+     src = " ".join(["'%s'" % os.path.splitext(v.name)[0] for v in task.inputs[0:]])
+     # win32: fix dir-separator, remove non-existing flag
+-    ld_cmd = env.LD[0]
++    ld_cmd = 'ld.bfd'
+     noexecstack = task.env['OS_RESOURCES_LDFLAGS']
+     if task.env['OS'] == 'win32':
+         ld_cmd = ld_cmd.replace('\\','/')
