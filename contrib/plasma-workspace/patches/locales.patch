@@ -1,0 +1,13 @@
+diff --git a/kcms/region_language/kcmregionandlang.cpp b/kcms/region_language/kcmregionandlang.cpp
+index cc486c1ca0..193de02045 100644
+--- a/kcms/region_language/kcmregionandlang.cpp
++++ b/kcms/region_language/kcmregionandlang.cpp
+@@ -128,7 +128,7 @@ QString KCMRegionAndLang::failedFindLocalesMessage()
+ 
+ QString KCMRegionAndLang::localeFileDirPath()
+ {
+-    return QStringLiteral("/usr/share/i18n/locales");
++    return QStringLiteral("/usr/share/i18n/locales/musl");
+ }
+ 
+ void KCMRegionAndLang::save()
