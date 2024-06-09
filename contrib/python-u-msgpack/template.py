@@ -1,6 +1,6 @@
 pkgname = "python-u-msgpack"
 pkgver = "2.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python msgpack serializer and deserializer"
 maintainer = "psykose <alice@ayaya.dev>"

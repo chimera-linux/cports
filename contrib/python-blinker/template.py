@@ -1,6 +1,6 @@
 pkgname = "python-blinker"
 pkgver = "1.8.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-installer",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest", "python-pytest-asyncio"]
 pkgdesc = "Fast Python in-process signal/event dispatching system"
 maintainer = "firefly-cpp <iztok@iztok.space>"

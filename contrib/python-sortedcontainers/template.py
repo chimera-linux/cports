@@ -1,6 +1,6 @@
 pkgname = "python-sortedcontainers"
 pkgver = "2.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for sorting collections and containers"
 maintainer = "firefly-cpp <iztok@iztok.space>"

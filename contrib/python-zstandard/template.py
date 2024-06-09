@@ -1,6 +1,6 @@
 pkgname = "python-zstandard"
 pkgver = "0.22.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_args = ["--skip-dependency-check"]
 hostmakedepends = [
@@ -11,6 +11,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 makedepends = ["python-devel"]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python bindings to the Zstandard compression library"
 maintainer = "Erica Z <zerica@callcc.eu>"

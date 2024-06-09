@@ -1,12 +1,13 @@
 pkgname = "python-colorama"
 pkgver = "0.4.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-hatchling",
     "python-installer",
 ]
+depends = ["python"]
 checkdepends = [
     "python-mock",
     "python-pytest",

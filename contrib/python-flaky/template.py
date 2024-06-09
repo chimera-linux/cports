@@ -1,6 +1,6 @@
 pkgname = "python-flaky"
 pkgver = "3.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Plugin for nose/pytest that reruns flaky tests"
 maintainer = "psykose <alice@ayaya.dev>"

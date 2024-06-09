@@ -1,6 +1,6 @@
 pkgname = "python-libvirt"
 pkgver = "10.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",
@@ -12,6 +12,7 @@ makedepends = [
     "libvirt-devel",
     "python-devel",
 ]
+depends = ["python"]
 checkdepends = [
     "python-installer",
     "python-lxml",

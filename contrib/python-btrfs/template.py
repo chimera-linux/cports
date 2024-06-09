@@ -1,6 +1,6 @@
 pkgname = "python-btrfs"
 pkgver = "14.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 pkgdesc = "Python module and utilities for interacting with btrfs filesystems"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"

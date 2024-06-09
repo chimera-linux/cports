@@ -1,6 +1,6 @@
 pkgname = "python-lxml"
 pkgver = "5.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {"WITH_CYTHON": "true"}
 hostmakedepends = [
@@ -11,6 +11,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 makedepends = ["libxslt-devel", "libxml2-devel", "python-devel"]
+depends = ["python"]
 pkgdesc = "Python bindings for the libxml2 and libxslt libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND custom:ElementTree"

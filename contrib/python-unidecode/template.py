@@ -1,6 +1,6 @@
 pkgname = "python-unidecode"
 pkgver = "1.3.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "ASCII transliterations of Unicode text for Python"
 maintainer = "Justin Berthault <justin.berthault@zaclys.net>"

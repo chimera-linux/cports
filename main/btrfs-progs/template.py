@@ -1,6 +1,6 @@
 pkgname = "btrfs-progs"
 pkgver = "6.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--enable-python"]
 make_cmd = "gmake"
@@ -82,4 +82,5 @@ def _libbtrfsutil_devel(self):
 @subpackage("python-btrfsutil")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (python module)"
+    self.depends += ["python"]
     return ["usr/lib/python*"]

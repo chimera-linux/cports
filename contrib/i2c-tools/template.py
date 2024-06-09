@@ -1,6 +1,6 @@
 pkgname = "i2c-tools"
 pkgver = "4.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["EXTRA=py-smbus"]
@@ -28,4 +28,5 @@ def _devel(self):
 @subpackage("python-smbus")
 def _python(self):
     self.pkgdesc = "Python bindings for Linux SMBus access through i2c-dev"
+    self.depends += ["python"]
     return ["usr/lib/python3*"]

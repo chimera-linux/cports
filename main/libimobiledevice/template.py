@@ -1,6 +1,6 @@
 pkgname = "libimobiledevice"
 pkgver = "1.3.0"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
 hostmakedepends = ["pkgconf", "automake", "libtool", "python", "python-cython"]
@@ -24,6 +24,7 @@ options = ["!cross"]
 @subpackage("libimobiledevice-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.depends += ["python"]
 
     return ["usr/lib/python3*"]
 

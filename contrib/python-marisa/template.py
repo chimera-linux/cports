@@ -2,7 +2,7 @@
 pkgname = "python-marisa"
 # match to marisa-trie
 pkgver = "0.2.6"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "bindings/python"
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,6 +15,7 @@ hostmakedepends = [
     "swig",
 ]
 makedepends = ["marisa-trie-devel"]
+depends = ["python"]
 pkgdesc = "Python bindings for libmarisa"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause OR LGPL-2.1-or-later"

@@ -1,12 +1,13 @@
 pkgname = "python-dnspython"
 pkgver = "2.6.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-hatchling",
     "python-installer",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "DNS toolkit for Python"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

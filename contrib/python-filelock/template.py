@@ -1,6 +1,6 @@
 pkgname = "python-filelock"
 pkgver = "3.14.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-hatchling",
     "python-installer",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Platform-independent file lock for Python"
 maintainer = "firefly-cpp <iztok@iztok.space>"

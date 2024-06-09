@@ -1,6 +1,6 @@
 pkgname = "python-pyqt-builder"
 pkgver = "1.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools_scm",
     "python-wheel",
 ]
+depends = ["python"]
 pkgdesc = "PEP517 backend for PyQt projects"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "custom:sip"

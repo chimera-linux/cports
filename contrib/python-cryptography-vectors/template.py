@@ -1,12 +1,13 @@
 pkgname = "python-cryptography-vectors"
 pkgver = "42.0.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-flit_core",
     "python-installer",
 ]
+depends = ["python"]
 pkgdesc = "Test vectors for python-cryptography"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause OR Apache-2.0"

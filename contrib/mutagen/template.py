@@ -1,6 +1,6 @@
 pkgname = "mutagen"
 pkgver = "1.47.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-hypothesis", "python-pytest"]
 pkgdesc = "Audio tagger implemented in Python"
 maintainer = "psykose <alice@ayaya.dev>"

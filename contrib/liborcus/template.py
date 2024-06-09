@@ -1,6 +1,6 @@
 pkgname = "liborcus"
 pkgver = "0.19.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "python"]
@@ -27,6 +27,7 @@ def _libs(self):
 @subpackage("liborcus-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.depends += ["python"]
 
     return ["usr/lib/python*"]
 

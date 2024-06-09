@@ -1,6 +1,6 @@
 pkgname = "python-distlib"
 pkgver = "0.3.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=tests/test_locators.py::LocatorTestCase",
@@ -12,6 +12,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Functions for packaging and distribution of Python software"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"

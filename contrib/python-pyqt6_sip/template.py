@@ -1,6 +1,6 @@
 pkgname = "python-pyqt6_sip"
 pkgver = "13.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -10,6 +10,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 makedepends = ["python-devel"]
+depends = ["python"]
 pkgdesc = "PyQt6 support for python-sip"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "custom:sip"

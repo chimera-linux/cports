@@ -1,6 +1,6 @@
 pkgname = "python-numpy"
 pkgver = "1.26.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",
@@ -10,6 +10,7 @@ hostmakedepends = [
     "python-installer",
 ]
 makedepends = ["python-devel", "openblas-devel"]
+depends = ["python"]
 checkdepends = ["meson", "python-hypothesis", "python-pytest"]
 pkgdesc = "Package for scientific computing with Python"
 maintainer = "Erica Z <zerica@callcc.eu>"
@@ -67,6 +68,7 @@ def post_install(self):
 @subpackage("python-numpy-tests")
 def _tests(self):
     self.pkgdesc = f"{pkgdesc} (tests)"
+    self.depends += ["python"]
     return [
         "usr/lib/python*/site-packages/numpy/*/tests/",
         "usr/lib/python*/site-packages/numpy/tests/",

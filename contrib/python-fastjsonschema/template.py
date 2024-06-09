@@ -1,6 +1,6 @@
 pkgname = "python-fastjsonschema"
 pkgver = "2.19.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # pytest-benchmark
@@ -14,6 +14,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python json schema validator"
 maintainer = "psykose <alice@ayaya.dev>"

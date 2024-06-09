@@ -1,6 +1,6 @@
 pkgname = "python-execnet"
 pkgver = "2.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-hatch_vcs",
     "python-hatchling",
 ]
+depends = ["python"]
 checkdepends = [
     "python-pytest",
 ]

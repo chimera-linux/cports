@@ -1,6 +1,6 @@
 pkgname = "libnvme"
 pkgver = "1.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
 hostmakedepends = ["meson", "pkgconf", "bash", "swig"]
@@ -24,6 +24,7 @@ options = ["linkundefver"]
 @subpackage("libnvme-python")
 def _py(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.depends += ["python"]
 
     return ["usr/lib/python*"]
 

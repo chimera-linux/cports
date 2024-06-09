@@ -1,6 +1,6 @@
 pkgname = "python-munkres"
 pkgver = "1.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Algorithm for the Assignment Problem in Python"
 maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
