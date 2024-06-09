@@ -1,6 +1,6 @@
 pkgname = "reaction"
-pkgver = "1.4.0"
-pkgrel = 1
+pkgver = "1.4.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version={pkgver}"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "AGPL-3.0-or-later"
 url = "https://reaction.ppom.me"
 source = f"https://framagit.org/ppom/reaction/-/archive/v{pkgver}/reaction-v{pkgver}.tar.gz"
-sha256 = "fb4697384a1d9859fd6afb395294602a4b0af0b2effbba7aab6d1d88b53171e7"
+sha256 = "1e8c283667353bddedcb343444778d23a07788e0d9e7ad64ad03ca417e298c9c"
 # no tests defined
 options = ["!check"]
 
