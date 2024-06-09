@@ -1,0 +1,22 @@
+--- a/source4/include/includes.h
++++ b/source4/include/includes.h
+@@ -34,6 +34,8 @@
+ #include "system/wait.h"
+ #include "system/locale.h"
+ 
++#include <unistd.h>
++
+ /* only do the C++ reserved word check when we compile
+    to include --with-developer since too many systems
+    still have conflicts with their header files (e.g. IRIX 6.4) */
+--- a/source3/include/includes.h
++++ b/source3/include/includes.h
+@@ -46,6 +46,8 @@
+ #define friend #error DONT_USE_CPLUSPLUS_RESERVED_NAMES
+ #endif
+ 
++#include <unistd.h>
++
+ #include "local.h"
+ 
+ #ifdef SUNOS4
