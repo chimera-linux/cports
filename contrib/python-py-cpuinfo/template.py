@@ -9,13 +9,20 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python"]
-checkdepends = ["python-pytest"]
+checkdepends = ["python-pytest-xdist"]
 pkgdesc = "Python module for getting CPU info"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/workhorsy/py-cpuinfo"
 source = f"$(PYPI_SITE)/p/py-cpuinfo/py-cpuinfo-{pkgver}.tar.gz"
 sha256 = "3cdbbf3fac90dc6f118bfd64384f309edeadd902d7c8fb17f02ffa1fc3f49690"
+
+
+def init_check(self):
+    self.make_check_args += [
+        f"--numprocesses={self.make_jobs}",
+        "--dist=worksteal",
+    ]
 
 
 def post_install(self):
