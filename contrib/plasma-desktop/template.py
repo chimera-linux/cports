@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 14
+pkgrel = 15
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -129,6 +129,7 @@ def _meta(self):
         "kde-cli-tools",  # e.g. mount & open external media
         "kdeplasma-addons",  # bunch of desktop widgets
         "ksshaskpass",  # graphical askpass
+        "orca",  # screen reader
         "plasma-browser-integration",  # browser integration with plasma
         "plasma-firewall",  # firewall configuration
         "xwaylandvideobridge",  # x11 screen capture compat under wayland, TODO: test on baremetal
