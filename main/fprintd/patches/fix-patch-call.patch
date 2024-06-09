@@ -1,5 +1,5 @@
 From 7021b805da31a80d8d01bd7423ff4938c12901b3 Mon Sep 17 00:00:00 2001
-From: Mohammed Anas <triallax@tutanota.com>
+From: triallax <triallax@tutanota.com>
 Date: Mon, 22 Jan 2024 11:24:29 +0000
 Subject: [PATCH] build: don't pass `--merge` to `patch`
 
