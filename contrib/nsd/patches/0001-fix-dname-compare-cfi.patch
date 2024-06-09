@@ -1,5 +1,5 @@
 diff --git a/dname.c b/dname.c
-index 487d2535..7b32047e 100644
+index eced1714..6ae37276 100644
 --- a/dname.c
 +++ b/dname.c
 @@ -339,6 +339,12 @@ dname_compare(const dname_type *left, const dname_type *right)
@@ -16,10 +16,10 @@ index 487d2535..7b32047e 100644
  int
  label_compare(const uint8_t *left, const uint8_t *right)
 diff --git a/dname.h b/dname.h
-index 0d5dc4ac..05a98122 100644
+index e37cb237..dbb9928c 100644
 --- a/dname.h
 +++ b/dname.h
-@@ -183,6 +183,18 @@ dname_label(const dname_type *dname, uint8_t label)
+@@ -184,6 +184,18 @@ dname_label(const dname_type *dname, uint8_t label)
   */
  int dname_compare(const dname_type *left, const dname_type *right);
  
@@ -53,10 +53,10 @@ index 772e038b..1699fd8a 100644
  #endif
  
 diff --git a/options.c b/options.c
-index e662ad14..361e0fb3 100644
+index 92163695..56383655 100644
 --- a/options.c
 +++ b/options.c
-@@ -47,8 +47,7 @@ nsd_options_create(region_type* region)
+@@ -48,8 +48,7 @@ nsd_options_create(region_type* region)
  	opt = (struct nsd_options*)region_alloc(region, sizeof(
  		struct nsd_options));
  	opt->region = region;
@@ -84,10 +84,10 @@ index 8b24fd1b..a33238ef 100644
  tsig_init(region_type *region)
  {
 diff --git a/xfrd.c b/xfrd.c
-index 9882e3d5..7bdfffaf 100644
+index e227e8bc..3a2ab3f7 100644
 --- a/xfrd.c
 +++ b/xfrd.c
-@@ -538,10 +538,8 @@ xfrd_init_zones()
+@@ -545,14 +545,10 @@ xfrd_init_zones()
  	struct zone_options *zone_opt;
  	assert(xfrd->zones == 0);
  
@@ -95,8 +95,14 @@ index 9882e3d5..7bdfffaf 100644
 -		(int (*)(const void *, const void *)) dname_compare);
 -	xfrd->notify_zones = rbtree_create(xfrd->region,
 -		(int (*)(const void *, const void *)) dname_compare);
+-	xfrd->catalog_consumer_zones = rbtree_create(xfrd->region,
+-		(int (*)(const void *, const void *)) dname_compare);
+-	xfrd->catalog_producer_zones = rbtree_create(xfrd->region,
+-		(int (*)(const void *, const void *)) dname_compare);
 +	xfrd->zones = rbtree_create(xfrd->region, tree_dname_compare);
 +	xfrd->notify_zones = rbtree_create(xfrd->region, tree_dname_compare);
++	xfrd->catalog_consumer_zones = rbtree_create(xfrd->region, tree_dname_compare);
++	xfrd->catalog_producer_zones = rbtree_create(xfrd->region, tree_dname_compare);
  
  	RBTREE_FOR(zone_opt, struct zone_options*, xfrd->nsd->options->zone_options)
  	{
