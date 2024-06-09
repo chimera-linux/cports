@@ -34,6 +34,7 @@ def invoke(pkg):
         "usr/lib/locale",
         "usr/lib/systemd/system",
         "usr/lib/systemd/user",
+        "usr/share/glib-2.0/schemas/gschemas.compiled",
         "usr/share/mime/XMLnamespaces",
         "usr/share/mime/aliases",
         "usr/share/mime/generic-icons",
