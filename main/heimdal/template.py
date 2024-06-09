@@ -1,6 +1,6 @@
 pkgname = "heimdal"
 pkgver = "7.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-kcm",
@@ -88,6 +88,10 @@ def post_install(self):
     self.install_link("usr/share/man/man8/ipropd-slave.8", "iprop.8")
     self.install_link("usr/share/man/man5/qop.5", "mech.5")
 
+    self.install_service(self.files_path / "heimdal-kdc")
+    self.install_service(self.files_path / "heimdal-kadmind")
+    self.install_service(self.files_path / "heimdal-kpasswdd")
+
 
 def _genlib(pkgn, desc):
     @subpackage(f"lib{pkgn}")
@@ -125,12 +129,14 @@ def _kcm(self):
     return ["usr/libexec/kcm", "usr/share/man/man8/kcm.8"]
 
 
-# TODO: add services
 @subpackage("heimdal-kdc")
 def _kdc(self):
     self.pkgdesc = "Heimdal Key Distribution Center"
 
     return [
+        "etc/dinit.d/heimdal-kadmind",
+        "etc/dinit.d/heimdal-kdc",
+        "etc/dinit.d/heimdal-kpasswdd",
         "usr/bin/iprop-log",
         "usr/bin/kstash",
         "usr/libexec/digest-service",
