@@ -1,6 +1,6 @@
 pkgname = "qt6-qtdeclarative"
 pkgver = "6.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 hostmakedepends = [
@@ -21,7 +21,6 @@ license = (
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtdeclarative-everywhere-src-{pkgver}.tar.xz"
 sha256 = "81135c96ed2f599385b8a68c57f4f438dad193c62f946f5b200a321558fd9f1c"
-debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
 # TODO

@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 pkgname = "qt6-qtbase"
 pkgver = "6.7.1"
-pkgrel = 6
+pkgrel = 7
 build_style = "cmake"
 configure_args = [
     "-DBUILD_WITH_PCH=OFF",
@@ -76,7 +76,6 @@ license = (
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
 sha256 = "b7338da1bdccb4d861e714efffaa83f174dfe37e194916bfd7ec82279a6ace19"
-debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
 # TODO

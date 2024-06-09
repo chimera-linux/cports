@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwebsockets"
 pkgver = "6.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -20,7 +20,6 @@ license = (
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebsockets-everywhere-src-{pkgver}.tar.xz"
 sha256 = "fe16a6e4d2b819c72a56f671c5c697bae4c7f9fee4df2a4473b14caf7602feeb"
-debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
 # literally doesn't find itself for some byzantine reason
