@@ -1,5 +1,5 @@
 pkgname = "xfce4-power-manager"
-pkgver = "4.18.3"
+pkgver = "4.18.4"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -32,4 +32,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/xfce4-power-manager/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-power-manager/{pkgver[:-2]}/xfce4-power-manager-{pkgver}.tar.bz2"
-sha256 = "0d79dd0f68b90d07b384366be4d2291a6d7815410eb0c20d3d8e8590c62e84f0"
+sha256 = "76918f7bdcd936dbbf20efd9221a33be0cd504c7d7ffce792bace3c720f3d874"
