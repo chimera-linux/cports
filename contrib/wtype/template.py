@@ -1,11 +1,11 @@
 pkgname = "wtype"
 pkgver = "0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
 makedepends = ["libxkbcommon-devel", "wayland-devel"]
 pkgdesc = "Xdotool type for wayland"
-maintainer = "Mohammed Anas <triallax@tutanota.com>"
+maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/atx/wtype"
 source = f"{url}/archive/v{pkgver}.tar.gz"
