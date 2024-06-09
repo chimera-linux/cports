@@ -1,6 +1,6 @@
 pkgname = "xfce4-settings"
-pkgver = "4.18.4"
-pkgrel = 2
+pkgver = "4.18.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pluggable-dialogs",
@@ -43,7 +43,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/xfce4-settings/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-settings/{pkgver[:-2]}/xfce4-settings-{pkgver}.tar.bz2"
-sha256 = "f10c55d0360308d9944f415645d9596d4352f952a20fc7c4a66f30fe511ca1dc"
+sha256 = "8d875b4b079114762e1d917dfdee4c333287424d21e75058d1c6ef2a449e7d1a"
 
 
 @subpackage("xfce4-settings-default-themes")
