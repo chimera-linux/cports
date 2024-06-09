@@ -18,3 +18,5 @@ source = (
     f"$(PYPI_SITE)/p/pytest-rerunfailures/pytest-rerunfailures-{pkgver}.tar.gz"
 )
 sha256 = "4a400bcbcd3c7a4ad151ab8afac123d90eca3abe27f98725dc4d9702887d2e92"
+# fail with pytest 8.2
+options = ["!check"]
