@@ -1,0 +1,14 @@
+e.g. `cam -c` segfaults (missing argument value after -c)
+diff --git a/src/apps/common/options.cpp b/src/apps/common/options.cpp
+index ab19aa3d..2509995d 100644
+--- a/src/apps/common/options.cpp
++++ b/src/apps/common/options.cpp
+@@ -932,7 +932,7 @@ OptionsParser::Options OptionsParser::parse(int argc, char **argv)
+ 				std::cerr << "Invalid option ";
+ 			else
+ 				std::cerr << "Missing argument for option ";
+-			std::cerr << argv[optind - 1] << std::endl;
++			std::cerr << argv[optind - 2] << std::endl;
+ 
+ 			usage();
+ 			return options;
