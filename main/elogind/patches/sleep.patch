@@ -1,0 +1,30 @@
+commit 76283811917cd455eeb72af66b8a47ee2675929c
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Jun 9 22:44:58 2024 +0200
+
+    drop the sleep mode nonsense
+    
+    This differs from systemd and results in defaulting to s2idle.
+
+diff --git a/src/shared/sleep-config.c b/src/shared/sleep-config.c
+index 053e908..afa656e 100644
+--- a/src/shared/sleep-config.c
++++ b/src/shared/sleep-config.c
+@@ -42,7 +42,7 @@ static char* const* const sleep_default_state_table[_SLEEP_OPERATION_CONFIG_MAX]
+ };
+ 
+ static char* const* const sleep_default_mode_table[_SLEEP_OPERATION_CONFIG_MAX] = {
+-#if 0 /// elogind supports suspend modes (deep s2idle) so we need defaults, too
++#if 1 /// elogind supports suspend modes (deep s2idle) so we need defaults, too
+         /* Not used by SLEEP_SUSPEND */
+ #else // 0
+         [SLEEP_SUSPEND]      = STRV_MAKE("s2idle", "deep"),
+@@ -172,7 +172,7 @@ int parse_sleep_config(SleepConfig **ret) {
+                 { "Sleep", "AllowHybridSleep",          config_parse_tristate,    0,               &allow_hybrid_sleep          },
+ 
+                 { "Sleep", "SuspendState",              config_parse_strv,        0,               sc->states + SLEEP_SUSPEND   },
+-#if 0 /// elogind does support suspend modes
++#if 1 /// elogind does support suspend modes
+                 { "Sleep", "SuspendMode",               config_parse_warn_compat, DISABLED_LEGACY, NULL                         },
+ #else // 0
+                 { "Sleep", "SuspendMode",               config_parse_sleep_mode,  0,               sc->modes + SLEEP_SUSPEND    },
