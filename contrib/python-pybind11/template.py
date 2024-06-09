@@ -1,6 +1,6 @@
 pkgname = "python-pybind11"
 pkgver = "2.12.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_build_args = ["--skip-dependency-check"]
 make_check_args = [
@@ -29,6 +29,7 @@ makedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Seamless operability between C++11 and Python"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"

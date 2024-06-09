@@ -1,6 +1,6 @@
 pkgname = "python-magic"
 pkgver = "0.4.27"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 depends = ["libmagic"]
 checkdepends = depends + ["python-pytest"]
 pkgdesc = "Python wrapper for libmagic"

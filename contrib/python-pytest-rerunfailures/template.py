@@ -1,6 +1,6 @@
 pkgname = "python-pytest-rerunfailures"
 pkgver = "14.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Pytest plugin to rerun failed tests multiple times"
 maintainer = "psykose <alice@ayaya.dev>"

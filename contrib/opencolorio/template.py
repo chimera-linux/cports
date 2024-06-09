@@ -1,6 +1,6 @@
 pkgname = "opencolorio"
 pkgver = "2.3.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -56,4 +56,6 @@ def _progs(self):
 @subpackage("python-opencolorio")
 def _python(self):
     self.pkgdesc = "Python bindings for opencolorio"
+    self.depends += ["python"]
+
     return ["usr/lib/python*"]

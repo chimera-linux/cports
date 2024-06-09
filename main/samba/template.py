@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
 pkgver = "4.20.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -379,7 +379,7 @@ def _devel(self):
 @subpackage("samba-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
-    self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
+    self.depends = ["python", f"samba-libs={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/python3*"]
 

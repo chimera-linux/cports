@@ -1,6 +1,6 @@
 pkgname = "python-configargparse"
 pkgver = "1.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest", "python-pyyaml"]
 pkgdesc = "Drop-in replacement for argparse"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"

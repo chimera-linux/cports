@@ -1,6 +1,6 @@
 pkgname = "python-jsonpickle"
 pkgver = "3.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # needs pandas
@@ -12,6 +12,7 @@ hostmakedepends = [
     "python-setuptools_scm",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = [
     "python-numpy",
     # "python-pandas",

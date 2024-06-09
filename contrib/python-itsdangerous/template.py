@@ -1,12 +1,13 @@
 pkgname = "python-itsdangerous"
 pkgver = "2.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-flit_core",
     "python-installer",
 ]
+depends = ["python"]
 checkdepends = [
     "python-freezegun",
     "python-pytest",

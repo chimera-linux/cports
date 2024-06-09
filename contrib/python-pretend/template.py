@@ -1,6 +1,6 @@
 pkgname = "python-pretend"
 pkgver = "1.0.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Stubbing helper for python"
 maintainer = "psykose <alice@ayaya.dev>"

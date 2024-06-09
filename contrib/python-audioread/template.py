@@ -1,12 +1,13 @@
 pkgname = "python-audioread"
 pkgver = "3.0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-flit_core",
     "python-installer",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Cross-library audio decoding for Python"
 maintainer = "psykose <alice@ayaya.dev>"

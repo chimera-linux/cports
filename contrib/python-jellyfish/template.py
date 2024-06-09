@@ -1,6 +1,6 @@
 pkgname = "python-jellyfish"
 pkgver = "1.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
@@ -9,6 +9,7 @@ hostmakedepends = [
     "python-maturin",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for approximate and phonetic string matching"
 maintainer = "Justin Berthault <justin.berthault@zaclys.net>"

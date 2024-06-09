@@ -1,6 +1,6 @@
 pkgname = "python-parsedatetime"
 pkgver = "2.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Parse human-readable date/time strings"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"

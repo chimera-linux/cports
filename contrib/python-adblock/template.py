@@ -1,6 +1,6 @@
 pkgname = "python-adblock"
 pkgver = "0.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
@@ -11,6 +11,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 makedepends = ["rust-std"]
+depends = ["python"]
 checkdepends = ["python-pytest-xdist"]
 pkgdesc = "Python wrapper for Brave's adblocking library"
 maintainer = "ttyyls <contact@behri.org>"

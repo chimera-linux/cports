@@ -1,6 +1,6 @@
 pkgname = "tevent"
 pkgver = "0.16.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -42,5 +42,6 @@ def _devel(self):
 @subpackage("tevent-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.depends += ["python"]
 
     return ["usr/lib/python*"]

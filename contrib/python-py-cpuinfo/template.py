@@ -1,6 +1,6 @@
 pkgname = "python-py-cpuinfo"
 pkgver = "9.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python module for getting CPU info"
 maintainer = "psykose <alice@ayaya.dev>"

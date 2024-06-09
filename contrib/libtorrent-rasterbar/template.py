@@ -1,6 +1,6 @@
 pkgname = "libtorrent-rasterbar"
 pkgver = "2.0.10"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-Dpython-bindings=ON",
@@ -46,5 +46,6 @@ def _devel(self):
 @subpackage("libtorrent-rasterbar-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.depends += ["python"]
 
     return ["usr/lib/python3*"]

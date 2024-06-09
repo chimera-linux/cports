@@ -1,6 +1,6 @@
 pkgname = "ixion"
 pkgver = "0.19.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "python"]
 makedepends = ["boost-devel", "python-devel", "mdds"]
@@ -21,6 +21,7 @@ def _libs(self):
 @subpackage("ixion-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.depends += ["python"]
 
     return ["usr/lib/python*"]
 

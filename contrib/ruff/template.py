@@ -1,6 +1,6 @@
 pkgname = "ruff"
 pkgver = "0.4.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
@@ -9,6 +9,7 @@ hostmakedepends = [
     "python-maturin",
 ]
 makedepends = ["rust-std"]
+depends = ["python"]
 pkgdesc = "Python formatter and linter"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

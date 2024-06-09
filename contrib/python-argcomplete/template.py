@@ -1,6 +1,6 @@
 pkgname = "python-argcomplete"
 pkgver = "3.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -9,6 +9,7 @@ hostmakedepends = [
     "python-setuptools_scm",
     "python-wheel",
 ]
+depends = ["python"]
 checkdepends = [
     "python-pytest",
 ]
