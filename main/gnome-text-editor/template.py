@@ -1,7 +1,10 @@
 pkgname = "gnome-text-editor"
 pkgver = "46.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
+configure_args = [
+    "-Dbugreport_url=https://github.com/chimera-linux/cports/issues",
+]
 hostmakedepends = [
     "desktop-file-utils",
     "gettext",
@@ -10,17 +13,13 @@ hostmakedepends = [
     "itstool",
     "meson",
     "pkgconf",
-    "vala",
 ]
 makedepends = [
     "editorconfig-devel",
     "enchant-devel",
-    "glib-devel",
-    "gtk4-devel",
     "gtksourceview-devel",
     "icu-devel",
     "libadwaita-devel",
-    "pcre2-devel",
 ]
 pkgdesc = "GNOME text editor"
 maintainer = "q66 <q66@chimera-linux.org>"
