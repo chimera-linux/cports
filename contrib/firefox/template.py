@@ -1,6 +1,6 @@
 pkgname = "firefox"
-pkgver = "126.0.1"
-pkgrel = 3
+pkgver = "127.0"
+pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
     "automake",
@@ -64,7 +64,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "f63026359f678a5d45cea4c7744fcef512abbb58a5b016bbbb1c6ace723a263b"
+sha256 = "ea6b089ff046ca503978fdaf11ea123c64f66bbcdc4a968bed8f7c93e9994321"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -98,28 +98,6 @@ if self.profile().arch == "riscv64":
 def post_extract(self):
     self.cp(
         self.files_path / "stab.h", "toolkit/crashreporter/google-breakpad/src"
-    )
-    # bsd patch cannot rename files
-    self.mkdir("media/ffvpx/libavcodec/bsf")
-    self.mv(
-        "media/ffvpx/libavcodec/null_bsf.c",
-        "media/ffvpx/libavcodec/bsf/null.c",
-    )
-    self.mv(
-        "media/ffvpx/libavcodec/fdctdsp_init.c",
-        "media/ffvpx/libavcodec/itut35.h",
-    )
-    self.mv(
-        "media/ffvpx/libavcodec/avpacket.c",
-        "media/ffvpx/libavcodec/packet.c",
-    )
-    self.mv(
-        "media/ffvpx/libavcodec/vp9_superframe_split_bsf.c",
-        "media/ffvpx/libavcodec/bsf/vp9_superframe_split.c",
-    )
-    self.mv(
-        "media/ffvpx/libavcodec/av1_frame_split_bsf.c",
-        "media/ffvpx/libavcodec/bsf/av1_frame_split.c",
     )
 
 
@@ -205,12 +183,14 @@ def do_configure(self):
                 "configure",
                 *conf_opts,
                 "--enable-profile-generate=cross",
+                "--priority",
+                "normal",
             )
         # do the profiling build
         with self.stamp("profile_build") as s:
             s.check()
             self.log("building profile build...")
-            self.do("./mach", "build")
+            self.do("./mach", "build", "--priority", "normal")
         # package it
         with self.stamp("profile_package") as s:
             s.check()
@@ -242,7 +222,7 @@ def do_configure(self):
         with self.stamp("profile_clobber") as s:
             s.check()
             self.log("cleaning up profile build...")
-            self.do("./mach", "clobber")
+            self.do("./mach", "clobber", "objdir")
         # and finally make use of this for real configure
         conf_opts += [
             "--enable-profile-use=cross",
@@ -255,7 +235,7 @@ def do_configure(self):
 
 
 def do_build(self):
-    self.do("./mach", "build")
+    self.do("./mach", "build", "--priority", "normal")
 
 
 def do_install(self):

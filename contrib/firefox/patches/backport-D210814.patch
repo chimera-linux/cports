@@ -1,4 +1,4 @@
-From 6dd67745b8036c2f0ebec0daf8eaf8e9e7b2a7ee Mon Sep 17 00:00:00 2001
+From 52f3fe15867ddd5e940e20d81866e7c2ae17f151 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Emilio=20Cobos=20=C3=81lvarez?= <emilio@crisal.io>
 Date: Sun, 19 May 2024 21:24:16 +0000
 Subject: [PATCH] Bug 1897361 - Share counter-style / list-style-type
@@ -157,10 +157,10 @@ index 80f3d7901386..a25ec27ce388 100644
  #endif
  
 diff --git a/layout/base/nsCSSFrameConstructor.cpp b/layout/base/nsCSSFrameConstructor.cpp
-index c0f35c278d19..0af74790dedc 100644
+index ba43eb70b97c..dccf2027aaee 100644
 --- a/layout/base/nsCSSFrameConstructor.cpp
 +++ b/layout/base/nsCSSFrameConstructor.cpp
-@@ -1589,23 +1589,23 @@ void nsCSSFrameConstructor::CreateGeneratedContent(
+@@ -1588,23 +1588,23 @@ void nsCSSFrameConstructor::CreateGeneratedContent(
      case Type::Counter:
      case Type::Counters: {
        RefPtr<nsAtom> name;
@@ -168,14 +168,14 @@ index c0f35c278d19..0af74790dedc 100644
 +      const StyleCounterStyle* style;
        nsString separator;
        if (type == Type::Counter) {
--        auto& counter = item.AsCounter();
-+        const auto& counter = item.AsCounter();
+-        auto& counter = aItem.AsCounter();
++        const auto& counter = aItem.AsCounter();
          name = counter._0.AsAtom();
 -        ptr = CounterStylePtr::FromStyle(counter._1);
 +        style = &counter._1;
        } else {
--        auto& counters = item.AsCounters();
-+        const auto& counters = item.AsCounters();
+-        auto& counters = aItem.AsCounters();
++        const auto& counters = aItem.AsCounters();
          name = counters._0.AsAtom();
          CopyUTF8toUTF16(counters._1.AsString(), separator);
 -        ptr = CounterStylePtr::FromStyle(counters._2);
@@ -190,7 +190,7 @@ index c0f35c278d19..0af74790dedc 100644
            /* aAllCounters = */ type == Type::Counters);
  
        auto initializer = MakeUnique<nsGenConInitializer>(
-@@ -1752,8 +1752,6 @@ void nsCSSFrameConstructor::CreateGeneratedContent(
+@@ -1751,8 +1751,6 @@ void nsCSSFrameConstructor::CreateGeneratedContent(
        break;
      }
    }
@@ -199,7 +199,7 @@ index c0f35c278d19..0af74790dedc 100644
  }
  
  void nsCSSFrameConstructor::CreateGeneratedContentFromListStyle(
-@@ -1777,37 +1775,41 @@ void nsCSSFrameConstructor::CreateGeneratedContentFromListStyleType(
+@@ -1776,37 +1774,41 @@ void nsCSSFrameConstructor::CreateGeneratedContentFromListStyleType(
      nsFrameConstructorState& aState, Element& aOriginatingElement,
      const ComputedStyle& aPseudoStyle,
      const FunctionRef<void(nsIContent*)> aAddChild) {
@@ -371,7 +371,7 @@ index db40e64442dd..32206c056058 100644
          mAllCounters(aAllCounters) {
      NS_ASSERTION(aContentIndex <= INT32_MAX, "out of range");
 diff --git a/layout/generic/ReflowInput.cpp b/layout/generic/ReflowInput.cpp
-index c642c77b2ca8..74ef28cc26e0 100644
+index bdfd39aff11b..aa77b018f5c9 100644
 --- a/layout/generic/ReflowInput.cpp
 +++ b/layout/generic/ReflowInput.cpp
 @@ -60,7 +60,7 @@ static nscoord FontSizeInflationListMarginAdjustment(const nsIFrame* aFrame) {
@@ -416,19 +416,19 @@ index c642c77b2ca8..74ef28cc26e0 100644
      return margin;
    }
 diff --git a/layout/generic/nsBlockFrame.cpp b/layout/generic/nsBlockFrame.cpp
-index 4582c29e0bd8..32b9b1be0bc4 100644
+index 4b314bfcaf15..4122088164a0 100644
 --- a/layout/generic/nsBlockFrame.cpp
 +++ b/layout/generic/nsBlockFrame.cpp
-@@ -7978,7 +7978,7 @@ bool nsBlockFrame::MarkerIsEmpty() const {
+@@ -7979,7 +7979,7 @@ bool nsBlockFrame::MarkerIsEmpty() const {
    nsIFrame* marker = GetMarker();
    const nsStyleList* list = marker->StyleList();
    return marker->StyleContent()->mContent.IsNone() ||
 -         (list->mCounterStyle.IsNone() && list->mListStyleImage.IsNone() &&
 +         (list->mListStyleType.IsNone() && list->mListStyleImage.IsNone() &&
-           marker->StyleContent()->ContentCount() == 0);
+           marker->StyleContent()->NonAltContentItems().IsEmpty());
  }
  
-@@ -8655,13 +8655,11 @@ void nsBlockFrame::VerifyOverflowSituation() {
+@@ -8656,13 +8656,11 @@ void nsBlockFrame::VerifyOverflowSituation() {
        }
        LineIterator line = flow->LinesBegin();
        LineIterator line_end = flow->LinesEnd();
@@ -990,7 +990,7 @@ index b6d9c2a0a95f..62c156454f07 100644
  
    static CounterStyle* GetBuiltinStyle(ListStyle aStyle);
 diff --git a/layout/style/GeckoBindings.cpp b/layout/style/GeckoBindings.cpp
-index dc43e9cf6a75..beb4a6bbadf2 100644
+index 17ba5c952e1d..1a8b2f06981b 100644
 --- a/layout/style/GeckoBindings.cpp
 +++ b/layout/style/GeckoBindings.cpp
 @@ -960,34 +960,6 @@ void Gecko_SetFontPaletteOverride(
@@ -1025,11 +1025,11 @@ index dc43e9cf6a75..beb4a6bbadf2 100644
 -  return aPtr->AsAnonymous();
 -}
 -
- void Gecko_EnsureTArrayCapacity(void* aArray, size_t aCapacity,
-                                 size_t aElemSize) {
-   auto base =
+ void Gecko_EnsureImageLayersLength(nsStyleImageLayers* aLayers, size_t aLen,
+                                    nsStyleImageLayers::LayerType aLayerType) {
+   size_t oldLength = aLayers->mLayers.Length();
 diff --git a/layout/style/GeckoBindings.h b/layout/style/GeckoBindings.h
-index 7bb839ae1883..294178dde5b7 100644
+index 8ba7fcc5c607..291df732853e 100644
 --- a/layout/style/GeckoBindings.h
 +++ b/layout/style/GeckoBindings.h
 @@ -315,23 +315,6 @@ void Gecko_SetImageOrientationAsFromImage(nsStyleVisibility* aVisibility);
@@ -1057,10 +1057,10 @@ index 7bb839ae1883..294178dde5b7 100644
  void Gecko_SetListStyleImageNone(nsStyleList* style_struct);
  
 diff --git a/layout/style/ServoBindings.toml b/layout/style/ServoBindings.toml
-index 67fd902e2bd1..9c911d61e8de 100644
+index 833fbd02727c..1bbfa38368be 100644
 --- a/layout/style/ServoBindings.toml
 +++ b/layout/style/ServoBindings.toml
-@@ -205,7 +205,6 @@ allowlist-types = [
+@@ -206,7 +206,6 @@ allowlist-types = [
      "mozilla::DeclarationBlockMutationClosure",
      "mozilla::AnimatedPropertyID",
      "mozilla::AnimationPropertySegment",
@@ -1068,7 +1068,7 @@ index 67fd902e2bd1..9c911d61e8de 100644
      "mozilla::AtomArray",
      "mozilla::ComputedTiming",
      "mozilla::Matrix4x4Components",
-@@ -565,8 +564,8 @@ cbindgen-types = [
+@@ -566,8 +565,8 @@ cbindgen-types = [
      { gecko = "StyleCounterSet", servo = "crate::values::computed::CounterSet" },
      { gecko = "StyleCounterIncrement", servo = "crate::values::computed::CounterIncrement" },
      { gecko = "StyleContent", servo = "crate::values::computed::counters::Content" },
@@ -1079,7 +1079,7 @@ index 67fd902e2bd1..9c911d61e8de 100644
      { gecko = "StyleComputedJustifyItems", servo = "crate::values::computed::align::ComputedJustifyItems" },
      { gecko = "StyleAlignItems", servo = "crate::values::computed::AlignItems" },
      { gecko = "StyleJustifySelf", servo = "crate::values::computed::JustifySelf" },
-@@ -618,6 +617,7 @@ cbindgen-types = [
+@@ -619,6 +618,7 @@ cbindgen-types = [
      { gecko = "StyleLockedImportRule", servo = "crate::gecko::arc_types::LockedImportRule" },
      { gecko = "StyleLockedFontFaceRule", servo = "crate::gecko::arc_types::LockedFontFaceRule" },
      { gecko = "StyleBaselineSource", servo = "crate::values::computed::BaselineSource" },
@@ -1088,10 +1088,10 @@ index 67fd902e2bd1..9c911d61e8de 100644
  ]
  
 diff --git a/layout/style/ServoStyleSet.cpp b/layout/style/ServoStyleSet.cpp
-index 91231af2b029..21e6d33d12a8 100644
+index 22359fa82d8f..e246418b55f7 100644
 --- a/layout/style/ServoStyleSet.cpp
 +++ b/layout/style/ServoStyleSet.cpp
-@@ -749,7 +749,7 @@ bool ServoStyleSet::GeneratedContentPseudoExists(
+@@ -750,7 +750,7 @@ bool ServoStyleSet::GeneratedContentPseudoExists(
      }
      // ::marker only exist if we have 'content' or at least one of
      // 'list-style-type' or 'list-style-image'.
@@ -1101,7 +1101,7 @@ index 91231af2b029..21e6d33d12a8 100644
          content.IsNormal()) {
        return false;
 diff --git a/layout/style/nsStyleStruct.cpp b/layout/style/nsStyleStruct.cpp
-index e46566d471e5..7446abf61971 100644
+index 94d120e378b5..e1b321bf6533 100644
 --- a/layout/style/nsStyleStruct.cpp
 +++ b/layout/style/nsStyleStruct.cpp
 @@ -605,17 +605,16 @@ nsSize nsStyleOutline::EffectiveOffsetFor(const nsRect& aRect) const {
@@ -1134,7 +1134,7 @@ index e46566d471e5..7446abf61971 100644
      if (aOldStyle.StyleDisplay()->IsListItem()) {
        return nsChangeHint_ReconstructFrame;
 diff --git a/layout/style/nsStyleStruct.h b/layout/style/nsStyleStruct.h
-index 8835934eafd8..8cf1c5a81542 100644
+index efca72385201..17ff21ae89b4 100644
 --- a/layout/style/nsStyleStruct.h
 +++ b/layout/style/nsStyleStruct.h
 @@ -642,7 +642,7 @@ struct MOZ_NEEDS_MEMMOVABLE_MEMBERS nsStyleList {
@@ -1430,7 +1430,7 @@ index d04c73c70f3e..1b4f5e453a5e 100644
 -    }
 -}
 diff --git a/servo/components/style/properties/gecko.mako.rs b/servo/components/style/properties/gecko.mako.rs
-index 8d3f90f8f57d..c83ec2aab9f4 100644
+index c9f4e6083229..9b83f284194b 100644
 --- a/servo/components/style/properties/gecko.mako.rs
 +++ b/servo/components/style/properties/gecko.mako.rs
 @@ -20,7 +20,6 @@ use crate::gecko_bindings::bindings::Gecko_Construct_Default_${style_struct.geck
@@ -1441,7 +1441,7 @@ index 8d3f90f8f57d..c83ec2aab9f4 100644
  use crate::gecko_bindings::bindings::Gecko_EnsureImageLayersLength;
  use crate::gecko_bindings::bindings::Gecko_nsStyleFont_SetLang;
  use crate::gecko_bindings::bindings::Gecko_nsStyleFont_CopyLangFrom;
-@@ -1461,55 +1460,7 @@ fn static_assert() {
+@@ -1453,55 +1452,7 @@ fn static_assert() {
      <% impl_simple_image_array_property("blend_mode", "background", "mImage", "mBlendMode", "Background") %>
  </%self:impl_trait>
  
@@ -1541,7 +1541,7 @@ index 183c5ab5daae..ef2234425600 100644
              }
              (true, 0, list_style_type, image) => {
 diff --git a/servo/components/style/values/generics/counters.rs b/servo/components/style/values/generics/counters.rs
-index 3f23c74b3346..31dd964eb0ca 100644
+index d6db48f9c419..127936537e33 100644
 --- a/servo/components/style/values/generics/counters.rs
 +++ b/servo/components/style/values/generics/counters.rs
 @@ -7,7 +7,7 @@
@@ -1696,7 +1696,7 @@ index 800d05817013..e9a675e1f6ec 100644
  #[cfg_attr(feature = "servo", derive(Deserialize, Serialize))]
  #[derive(
 diff --git a/servo/components/style/values/specified/counters.rs b/servo/components/style/values/specified/counters.rs
-index 7760be91d78e..a8bc767bbfb7 100644
+index 6e41497cafe5..f6eeb6485c6e 100644
 --- a/servo/components/style/values/specified/counters.rs
 +++ b/servo/components/style/values/specified/counters.rs
 @@ -10,7 +10,7 @@ use crate::parser::{Parse, ParserContext};
@@ -1826,10 +1826,10 @@ index 693471e47828..8894adc9c913 100644
  }
  
 diff --git a/servo/ports/geckolib/glue.rs b/servo/ports/geckolib/glue.rs
-index 14614704b7ed..746e6a1706c0 100644
+index 6efa274b4620..e4baecfbf9f2 100644
 --- a/servo/ports/geckolib/glue.rs
 +++ b/servo/ports/geckolib/glue.rs
-@@ -3749,13 +3749,15 @@ pub unsafe extern "C" fn Servo_CounterStyleRule_IsInRange(
+@@ -3750,13 +3750,15 @@ pub unsafe extern "C" fn Servo_CounterStyleRule_IsInRange(
  #[no_mangle]
  pub unsafe extern "C" fn Servo_CounterStyleRule_GetSymbols(
      rule: &LockedCounterStyleRule,
@@ -1850,7 +1850,7 @@ index 14614704b7ed..746e6a1706c0 100644
      })
  }
  
-@@ -5350,7 +5352,7 @@ pub extern "C" fn Servo_DeclarationBlock_SetKeywordValue(
+@@ -5351,7 +5353,7 @@ pub extern "C" fn Servo_DeclarationBlock_SetKeywordValue(
              })
          },
          FontWeight => longhands::font_weight::SpecifiedValue::from_gecko_keyword(value),
@@ -1861,4 +1861,3 @@ index 14614704b7ed..746e6a1706c0 100644
          WhiteSpaceCollapse => get_from_computed::<longhands::white_space_collapse::SpecifiedValue>(value),
 -- 
 2.45.2
-
