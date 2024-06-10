@@ -1,5 +1,5 @@
 pkgname = "mozjs115"
-pkgver = "115.11.0"
+pkgver = "115.12.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "16be46f16a356a2b8bd3541805a24c8a2acf6f077cf8a65859689685c26025e0"
+sha256 = "b59e1625a0bb2f0565a737394f2bf8a7ce3171314b0d871bde533a101847a8ef"
 debug_level = 1  # make the debug size not explode
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
@@ -68,7 +68,7 @@ def do_configure(self):
 
     match self.profile().arch:
         case "x86_64" | "aarch64":
-            extra_opts += ["--disable-elf-hack", "--enable-rust-simd"]
+            extra_opts += ["--disable-elf-hack"]
 
     if self.has_lto():
         extra_opts += ["--enable-lto=cross"]
