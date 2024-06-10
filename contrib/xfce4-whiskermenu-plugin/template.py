@@ -9,15 +9,15 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "gtk+3-devel",
+    "accountsservice-devel",
     "exo-devel",
     "garcon-devel",
-    "xfce4-panel-devel",
+    "gtk+3-devel",
+    "gtk-layer-shell-devel",
     "libxfce4ui-devel",
     "libxfce4util-devel",
+    "xfce4-panel-devel",
     "xfconf-devel",
-    "accountsservice-devel",
-    "gtk-layer-shell-devel",
 ]
 pkgdesc = "Xfce application launcher panel plugin"
 maintainer = "triallax <triallax@tutanota.com>"
