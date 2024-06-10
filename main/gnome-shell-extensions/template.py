@@ -1,6 +1,6 @@
 pkgname = "gnome-shell-extensions"
 pkgver = "46.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
 depends = [f"gnome-shell~{pkgver[:-2]}", "nautilus", "gnome-menus"]
