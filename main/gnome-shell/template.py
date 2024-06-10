@@ -36,7 +36,6 @@ makedepends = [
     "libpulse-devel",
     "libxml2-devel",
     "mutter-devel",
-    "mutter-devel",
     "networkmanager-devel",
     "pipewire-devel",
     "polkit-devel",
@@ -56,4 +55,4 @@ url = "https://wiki.gnome.org/Projects/GnomeShell"
 source = f"$(GNOME_SITE)/gnome-shell/{pkgver[:-2]}/gnome-shell-{pkgver}.tar.xz"
 sha256 = "6b587101c04bfb364ab09cd38b5d93ebeeb4254754c807cf712fbc8ee3fde238"
 # tests need libmutter-test
-options = ["!check"]
+options = ["!check", "!cross"]
