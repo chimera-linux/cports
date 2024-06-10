@@ -13,6 +13,7 @@ opt_bwcmd = "bwrap"
 opt_cflags = "-O2"
 opt_cxxflags = "-O2"
 opt_fflags = "-O2"
+opt_timing = False
 opt_arch = None
 opt_harch = None
 opt_gen_dbg = True
@@ -100,7 +101,7 @@ def handle_options():
     global global_cfg
     global cmdline
 
-    global opt_apkcmd, opt_bwcmd, opt_dryrun, opt_bulkcont
+    global opt_apkcmd, opt_bwcmd, opt_dryrun, opt_bulkcont, opt_timing
     global opt_arch, opt_cflags, opt_cxxflags, opt_fflags, opt_tltocache
     global opt_harch, opt_gen_dbg, opt_check, opt_ccache, opt_tltocachesize
     global opt_sccache, opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
@@ -314,6 +315,7 @@ def handle_options():
     if "build" in global_cfg:
         bcfg = global_cfg["build"]
 
+        opt_timing = bcfg.getboolean("timing", fallback=opt_timing)
         opt_gen_dbg = bcfg.getboolean("build_dbg", fallback=opt_gen_dbg)
         opt_ccache = bcfg.getboolean("ccache", fallback=opt_ccache)
         opt_sccache = bcfg.getboolean("sccache", fallback=opt_sccache)
@@ -2305,7 +2307,7 @@ def fire():
     from cbuild.core import paths, errors
     from cbuild.apk import cli
 
-    logger.init(not opt_nocolor)
+    logger.init(not opt_nocolor, opt_timing)
 
     # set host arch to provide early guarantees
     if opt_harch:

@@ -14,6 +14,8 @@ command = apk
 # the bwrap command to use
 # also overriden by environment variable CBUILD_BWRAP_PATH
 bwrap = bwrap
+# whether to display build time for each log line
+timing = no
 # whether -dbg packages will be generated
 build_dbg = yes
 # default build root path (absolute or relative to cports)
