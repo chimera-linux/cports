@@ -1,6 +1,6 @@
 pkgname = "libmodplug"
 pkgver = "0.8.9.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--enable-static"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
