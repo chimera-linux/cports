@@ -183,8 +183,6 @@ def do_configure(self):
                 "configure",
                 *conf_opts,
                 "--enable-profile-generate=cross",
-                "--priority",
-                "normal",
             )
         # do the profiling build
         with self.stamp("profile_build") as s:
