@@ -1,6 +1,6 @@
 pkgname = "openscenegraph"
 pkgver = "3.6.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # avoid lib64
@@ -9,17 +9,18 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     # no ffmpeg here, not compatible with ffmpeg 6
-    "mesa-devel",
-    "libcurl-devel",
+    "collada-dom-devel",
     "giflib-devel",
-    "librsvg-devel",
-    "jasper-devel",
-    "libtiff-devel",
-    "sdl-devel",
     "gst-plugins-base-devel",
+    "jasper-devel",
+    "libcurl-devel",
     "libpoppler-devel",
-    "libxrandr-devel",
+    "librsvg-devel",
+    "libtiff-devel",
     "libxinerama-devel",
+    "libxrandr-devel",
+    "mesa-devel",
+    "sdl-devel",
 ]
 pkgdesc = "High-performance real-time graphics toolkit"
 maintainer = "q66 <q66@chimera-linux.org>"
