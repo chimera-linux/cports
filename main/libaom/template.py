@@ -1,6 +1,6 @@
 pkgname = "libaom"
-pkgver = "3.9.0"
-pkgrel = 1
+pkgver = "3.9.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -24,7 +24,7 @@ url = "https://aomedia.org"
 source = [
     f"https://storage.googleapis.com/aom-releases/{pkgname}-{pkgver}.tar.gz"
 ]
-sha256 = ["a662e22299752547488c8e1412c0b41981efa8dbb1a25c696ded7ba9c472e919"]
+sha256 = ["dba99fc1c28aaade28dda59821166b2fa91c06162d1bc99fde0ddaad7cecc50e"]
 # requires a testdata download, tests take long
 options = ["!check"]
 
