@@ -1,9 +1,10 @@
 pkgname = "haproxy"
-pkgver = "3.0.0"
+pkgver = "3.0.1"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = [
+    "EXTRA=admin/halog/halog",
     "TARGET=linux-musl",
     "USE_GETADDRINFO=1",
     "USE_LUA=1",
@@ -19,6 +20,7 @@ make_build_args = [
     "V=1",
 ]
 make_install_args = [
+    "EXTRA=admin/halog/halog",
     "SBINDIR=/usr/bin",
     "DOCDIR=/usr/share/doc/haproxy",
 ]
@@ -41,7 +43,7 @@ url = "https://www.haproxy.org"
 source = (
     f"{url}/download/{pkgver[:pkgver.rfind('.')]}/src/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "5aad97416216d2cd9dd212eb674839c40cd387f60fbc4b13d7ea3f1e5664a814"
+sha256 = "fef923c51ddc0ffb3c73b9b95e31e98c82cb9521c64754c5e95c42907406a670"
 hardening = ["!vis", "!cfi", "!int"]
 # hard depends on vtest which doesn't have releases
 options = ["!check"]

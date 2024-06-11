@@ -1,5 +1,5 @@
 diff --git a/Makefile b/Makefile
-index cefee0f5d..85fd0b501 100644
+index cefee0f5d..7e020466b 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1032,7 +1032,7 @@ else
@@ -11,7 +11,7 @@ index cefee0f5d..85fd0b501 100644
  
  objsize: haproxy
  	$(Q)objdump -t $^|grep ' g '|grep -F '.text'|awk '{print $$5 FS $$6}'|sort
-@@ -1041,31 +1041,31 @@ objsize: haproxy
+@@ -1041,7 +1041,7 @@ objsize: haproxy
  	$(cmd_CC) $(COPTS) -c -o $@ $<
  
  admin/halog/halog: admin/halog/halog.o admin/halog/fgets2.o src/ebtree.o src/eb32tree.o src/eb64tree.o src/ebmbtree.o src/ebsttree.o src/ebistree.o src/ebimtree.o
@@ -19,34 +19,4 @@ index cefee0f5d..85fd0b501 100644
 +	$(cmd_LD) $(COPTS) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
  
  admin/dyncookie/dyncookie: admin/dyncookie/dyncookie.o
--	$(cmd_LD) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
-+	$(cmd_LD) $(COPTS) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
- 
- dev/flags/flags: dev/flags/flags.o
--	$(cmd_LD) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
-+	$(cmd_LD) $(COPTS) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
- 
- dev/haring/haring: dev/haring/haring.o
--	$(cmd_LD) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
-+	$(cmd_LD) $(COPTS) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
- 
- dev/hpack/%: dev/hpack/%.o
--	$(cmd_LD) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
-+	$(cmd_LD) $(COPTS) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
- 
- dev/poll/poll:
- 	$(cmd_MAKE) -C dev/poll poll CC='$(CC)' OPTIMIZE='$(COPTS)' V='$(V)'
- 
- dev/qpack/decode: dev/qpack/decode.o
--	$(cmd_LD) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
-+	$(cmd_LD) $(COPTS) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
- 
- dev/tcploop/tcploop:
- 	$(cmd_MAKE) -C dev/tcploop tcploop CC='$(CC)' OPTIMIZE='$(COPTS)' V='$(V)'
- 
- dev/udp/udp-perturb: dev/udp/udp-perturb.o
--	$(cmd_LD) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
-+	$(cmd_LD) $(COPTS) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
- 
- # rebuild it every time
- .PHONY: src/version.c dev/poll/poll dev/tcploop/tcploop
+ 	$(cmd_LD) $(ARCH_FLAGS) $(LDFLAGS) -o $@ $^ $(LDOPTS)
