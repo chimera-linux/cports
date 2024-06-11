@@ -1,0 +1,33 @@
+--- a/dom/include/dae.h
++++ b/dom/include/dae.h
+@@ -290,7 +290,7 @@
+     daeSidRefCache sidRefCache;
+     daeString COLLADA_VERSION, COLLADA_NAMESPACE; // dynamic
+ 
+-    std::auto_ptr<charEncoding> localCharEncoding;
++    std::unique_ptr<charEncoding> localCharEncoding;
+     static charEncoding globalCharEncoding;
+ };
+ 
+--- a/dom/include/dae/daeErrorHandler.h
++++ b/dom/include/dae/daeErrorHandler.h
+@@ -55,7 +55,7 @@
+ 
+ private:
+ 	static daeErrorHandler *_instance;
+-	static std::auto_ptr<daeErrorHandler> _defaultInstance;
++	static std::unique_ptr<daeErrorHandler> _defaultInstance;
+ };
+ 
+ #endif
+--- a/dom/src/dae/daeErrorHandler.cpp
++++ b/dom/src/dae/daeErrorHandler.cpp
+@@ -10,7 +10,7 @@
+ #include <modules/stdErrPlugin.h>
+ 
+ daeErrorHandler *daeErrorHandler::_instance = NULL;
+-std::auto_ptr<daeErrorHandler> daeErrorHandler::_defaultInstance(new stdErrPlugin);
++std::unique_ptr<daeErrorHandler> daeErrorHandler::_defaultInstance(new stdErrPlugin);
+ 
+ daeErrorHandler::daeErrorHandler() {
+ }
