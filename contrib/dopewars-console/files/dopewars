@@ -1,0 +1,8 @@
+# dopewars service
+
+type        = bgprocess
+command     = /usr/bin/dopewars -S -r /run/dopewars/dopewars.pid
+run-as      = _dopewars
+pid-file    = /run/dopewars/dopewars.pid
+depends-on  = local.target
+after       = network.target

@@ -1,0 +1,35 @@
+From 41f78564fe51572b0cad896d52d2adba67a6f7c9 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Tue, 11 Jun 2024 09:49:50 +0200
+Subject: [PATCH] src/dopewars: correct doc dir, xdg-open as web browser
+
+based on https://sources.debian.org/src/dopewars/1.6.2-1/debian/patches/src_dopewars.patch/
+---
+ src/dopewars.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/dopewars.c b/src/dopewars.c
+index f2caf02..f9e2f39 100644
+--- a/src/dopewars.c
++++ b/src/dopewars.c
+@@ -2333,7 +2333,7 @@ gchar *GetDocRoot(void)
+   path = g_strdup_printf("file://%s/doc/", bindir);
+   g_free(bindir);
+ #else
+-  path = g_strdup_printf("file://%s/", DPDOCDIR);
++  path = g_strdup_printf("file://%s/html/", DPDOCDIR);
+ #endif
+   return path;
+ }
+@@ -2425,7 +2425,7 @@ static void SetupParameters(GSList *extraconfigs, gboolean antique)
+   AssignName(&ServerName, "localhost");
+   AssignName(&ServerMOTD, "");
+   AssignName(&BindAddress, "");
+-  AssignName(&OurWebBrowser, "/usr/bin/firefox");
++  AssignName(&OurWebBrowser, "/usr/bin/xdg-open");
+ 
+   AssignName(&Sounds.FightHit, SNDPATH"colt.wav");
+   AssignName(&Sounds.EnemyBitchKilled, SNDPATH"shotdown.wav");
+-- 
+2.45.2
+

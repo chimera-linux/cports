@@ -1,0 +1,38 @@
+From: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Date: Mon, 24 Mar 2014 14:49:13 +0100
+Subject: dopewars.desktop
+
+---
+ dopewars.desktop | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+--- a/dopewars.desktop
++++ b/dopewars.desktop
+@@ -1,14 +1,13 @@
+ [Desktop Entry]
+-Name=dopewars
++Name=Dopewars
+ Name[de]=Drogenkrieg
+ Name[pl]=Wojny narkotykowe
+ Comment=dopewars drug dealing game
+ Comment[pl]=Gra polegająca na handlowaniu narkotykami
+ Comment[fr]=Jeu de vente de drogue
+ Exec=dopewars
+-Icon=dopewars-weed.png
++Icon=dopewars-weed
+ Terminal=false
+ Type=Application
+-Categories=Application;Game;ArcadeGame;
+-Encoding=UTF-8
+-# vi: encoding=utf-8
++Categories=Game;ArcadeGame;
++Keywords=dope;drugs;war;crime;police;dealer;
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,5 +1,5 @@
+ SUBDIRS        = src doc po sounds
+-DESKTOPDIR     = ${DESTDIR}${datadir}/gnome/apps/Games
++DESKTOPDIR     = ${DESTDIR}${datadir}/applications
+ DESKTOP        = dopewars.desktop
+ SCOREDIR       = ${DESTDIR}${localstatedir}
+ SCORE          = ${SCOREDIR}/dopewars.sco

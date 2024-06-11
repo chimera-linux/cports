@@ -1,0 +1,11 @@
+Description: Patch to correct the path in doc/help/Makefile.am.
+Origin: other
+
+--- a/doc/help/Makefile.am
++++ b/doc/help/Makefile.am
+@@ -1,4 +1,4 @@
+-DOCPATH    = ${DESTDIR}${docdir}/help
++DOCPATH    = ${DESTDIR}${docdir}/html/help
+ DOCS       = cops.html general.html locations.html sounds.html \
+              drugs.html guns.html server.html
+ EXTRA_DIST = ${DOCS}
