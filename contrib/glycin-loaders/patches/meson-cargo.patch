@@ -1,6 +1,8 @@
---- a/loaders/meson.build	2024-03-30 22:29:20.000000000 +0000
-+++ b/loaders/meson.build	2024-04-06 01:29:01.206154760 +0100
-@@ -26,17 +26,8 @@
+diff --git a/loaders/meson.build b/loaders/meson.build
+index 7913b58..7375f28 100644
+--- a/loaders/meson.build
++++ b/loaders/meson.build
+@@ -26,17 +26,8 @@ cargo_options = [
  ]
  
  cargo_env = {
@@ -18,25 +20,3 @@
  }
  
  test_args = []
-@@ -54,21 +45,6 @@
-       cargo_bin, 'build',
-       '--target-dir', target_dir / 'loaders',
-       [cargo_options, [ '--package', loader ]],
--    ],
--  )
--
--  custom_target(
--    loader + '-cp-binary',
--    depends: cargo_build,
--    build_by_default: true,
--    build_always_stale: true,
--    install: true,
--    install_dir: libexecdir,
--    output: loader,
--    command: [
--      'cp',
--      target_dir / 'loaders' / rust_target / loader,
--      '@OUTPUT@',
-     ],
-   )
- 
