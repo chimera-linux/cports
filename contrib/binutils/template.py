@@ -1,7 +1,7 @@
 pkgname = "binutils"
 pkgver = "2.42"
 _llvmver = "18.1.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -30,13 +30,13 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_install_args = ["tooldir=/usr"]
-hostmakedepends = ["gmake", "flex", "bison", "texinfo", "pkgconf"]
+hostmakedepends = ["bison", "flex", "gmake", "pkgconf", "texinfo"]
 makedepends = [
+    "jansson-devel",
+    "linux-headers",
+    "llvm-devel",
     "zlib-devel",
     "zstd-devel",
-    "jansson-devel",
-    "llvm-devel",
-    "linux-headers",
 ]
 # binutils is a metapackage pointing to the current target binutils
 depends = [f"binutils-{self.profile().arch}={pkgver}-r{pkgrel}"]
@@ -45,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/binutils"
 source = [
-    f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz",
+    f"$(GNU_SITE)/binutils/binutils-{pkgver}.tar.xz",
     f"!https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-{_llvmver}/llvm/tools/gold/gold-plugin.cpp>gold-plugin-{_llvmver}.cpp",
 ]
 sha256 = [
