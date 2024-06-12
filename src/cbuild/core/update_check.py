@@ -219,7 +219,7 @@ class UpdateCheck:
             urlpfx = dirpfx = m[0]
         else:
             urlpfx = m[0][:tsl] + "/"
-            dirpfx = m[0][tsl + 1:]
+            dirpfx = m[0][tsl + 1 :]
         urlsfx = re.match(".+/([^/]+)", url[len(urlpfx) + 1 :])
         if urlsfx:
             urlsfx = urlsfx[1]
