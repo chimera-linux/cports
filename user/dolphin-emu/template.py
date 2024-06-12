@@ -1,6 +1,8 @@
 pkgname = "dolphin-emu"
 pkgver = "5.0_git20240612"
 pkgrel = 0
+# others have no jit support (so too slow)
+archs = ["aarch64", "x86_64"]
 _commit = "71171a9e4ddc51a854efe34c3986364104c42ebf"
 build_style = "cmake"
 configure_args = [
