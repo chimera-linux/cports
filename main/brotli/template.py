@@ -1,3 +1,4 @@
+# update main/python-brotli alongside this
 pkgname = "brotli"
 pkgver = "1.1.0"
 pkgrel = 0
