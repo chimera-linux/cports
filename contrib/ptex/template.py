@@ -1,17 +1,17 @@
 pkgname = "ptex"
-pkgver = "2.4.2"
+pkgver = "2.4.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DPTEX_BUILD_STATIC_LIBS=OFF"]
 make_check_args = ["-j1"]
-hostmakedepends = ["cmake", "ninja", "doxygen"]
+hostmakedepends = ["cmake", "ninja", "doxygen", "pkgconf"]
 makedepends = ["zlib-devel"]
 pkgdesc = "Texture mapping library"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://ptex.us"
 source = f"https://github.com/wdas/ptex/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c8235fb30c921cfb10848f4ea04d5b662ba46886c5e32ad5137c5086f3979ee1"
+sha256 = "435aa2ee1781ff24859bd282b7616bfaeb86ca10604b13d085ada8aa7602ad27"
 
 
 def post_install(self):
