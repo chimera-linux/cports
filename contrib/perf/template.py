@@ -1,5 +1,5 @@
 pkgname = "perf"
-pkgver = "6.9.3"
+pkgver = "6.9.4"
 pkgrel = 0
 build_wrksrc = "tools/perf"
 build_style = "makefile"
@@ -52,7 +52,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://perf.wiki.kernel.org/index.php/Main_Page"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[:pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"
-sha256 = "c321c46401368774fc236f57095b205a5da57415f9a6008018902f9fd5eddfae"
+sha256 = "272800e0d1a7d01a78bce95a3aaf5c80816f50eb15c517d7003e58355760ecc2"
 # nope
 # docs are a single tips file that gets displayed in the TUI
 options = ["!check", "!splitdoc"]
