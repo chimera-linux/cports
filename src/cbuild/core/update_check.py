@@ -214,8 +214,12 @@ class UpdateCheck:
         if not m:
             return ret
 
-        urlpfx = re.match("(.+)/[^/]+", m[0])[1] + "/"
-        dirpfx = re.match(".+/([^/]+)", m[0])[1]
+        tsl = m[0].rfind("/")
+        if tsl < 0:
+            urlpfx = dirpfx = m[0]
+        else:
+            urlpfx = m[0][:tsl] + "/"
+            dirpfx = m[0][tsl + 1:]
         urlsfx = re.match(".+/([^/]+)", url[len(urlpfx) + 1 :])
         if urlsfx:
             urlsfx = urlsfx[1]
