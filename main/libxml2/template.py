@@ -1,13 +1,14 @@
 pkgname = "libxml2"
-pkgver = "2.12.8"
+pkgver = "2.13.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-threads",
-    "--with-icu",
-    "--with-history",
     "--enable-shared",
     "--enable-static",
+    "--with-history",
+    "--with-icu",
+    "--with-legacy",
+    "--with-threads",
 ]
 make_cmd = "gmake"
 hostmakedepends = [
@@ -30,12 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.xmlsoft.org"
 source = f"$(GNOME_SITE)/libxml2/{pkgver[:pkgver.rfind('.')]}/libxml2-{pkgver}.tar.xz"
-sha256 = "43ad877b018bc63deb2468d71f95219c2fac196876ef36d1bee51d226173ec93"
-
-
-def post_extract(self):
-    # FIXME: even though we build with icu, this fails to parse for some reason
-    self.rm("test/icu_parse_test.xml")
+sha256 = "d5a2f36bea96e1fb8297c6046fb02016c152d81ed58e65f3d20477de85291bc9"
 
 
 def post_install(self):
@@ -48,12 +44,11 @@ def post_install(self):
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
     self.depends = ["python"]
-    return ["usr/lib/python*", "usr/share/doc/libxml2/python"]
+    return ["usr/lib/python*"]
 
 
 @subpackage("libxml2-devel")
 def _devel(self):
-    self.depends += ["xz-devel", "zlib-devel", "icu-devel"]
     return self.default_devel(
         extra=["usr/share/gtk-doc", "usr/share/doc/libxml2"]
     )
