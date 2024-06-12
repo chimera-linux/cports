@@ -1,11 +1,10 @@
 pkgname = "xapian-core"
 pkgver = "1.4.25"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
-    "autoconf",
     "automake",
-    "libtool",
+    "slibtool",
     "pkgconf",
 ]
 makedepends = [
