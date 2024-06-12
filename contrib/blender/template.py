@@ -1,6 +1,6 @@
 pkgname = "blender"
 pkgver = "4.1.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -76,7 +76,10 @@ source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"
 sha256 = "4fbb3af64d3f84df5c7103748454226c1885c1ac2ed5373d0cea1e80e82c0848"
 # guilty until proven innocent
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
-hardening = ["!int"]
+# var-init seems to pessimise a large stack-reuse optimisation, so repeatedly
+# using a large chunk of stack via onetbb causes memset calls where otherwise
+# there would be none and it makes rendering 5x slower
+hardening = ["!int", "!var-init"]
 # tests expect blender to be installed in /usr/bin
 options = ["!check", "linkundefver"]
 
