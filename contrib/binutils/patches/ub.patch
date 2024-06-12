@@ -1,0 +1,14 @@
+without this the loop keeps running until shift overflows
+diff --git a/gas/config/tc-riscv.c b/gas/config/tc-riscv.c
+index a4161420128..f7b836f4a24 100644
+--- a/gas/config/tc-riscv.c
++++ b/gas/config/tc-riscv.c
+@@ -2009,7 +2009,7 @@ load_const (int reg, expressionS *ep)
+   if (xlen > 32 && !IS_SEXT_32BIT_NUM (ep->X_add_number))
+     {
+       /* Reduce to a signed 32-bit constant using SLLI and ADDI.  */
+-      while (((upper.X_add_number >> shift) & 1) == 0)
++      while ((((bfd_vma)upper.X_add_number >> shift) & 1) == 0)
+ 	shift++;
+ 
+       upper.X_add_number = (int64_t) upper.X_add_number >> shift;
