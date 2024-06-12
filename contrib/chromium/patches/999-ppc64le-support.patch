@@ -944,7 +944,7 @@ index 3f8c92cf26..1a1d93b3e0 100644
    // The stack grows downward.
    void* stack = stack_buf + sizeof(stack_buf);
  #else
-@@ -89,14 +89,18 @@ bool ChrootToSafeEmptyDir() {
+@@ -89,14 +89,18 @@
  
    int clone_flags = CLONE_FS | LINUX_SIGCHLD;
    void* tls = nullptr;
@@ -956,7 +956,7 @@ index 3f8c92cf26..1a1d93b3e0 100644
    // new TLS to avoid corrupting the current process's TLS. On ARCH_CPU_X86,
    // glibc performs syscalls by calling a function pointer in TLS, so we do not
    // attempt this optimization.
-   // TODO(crbug.com/1247458) Broken in MSan builds after LLVM f1bb30a4956f.
+   // TODO(crbug.com/40196869) Broken in MSan builds after LLVM f1bb30a4956f.
 +  //
 +  // NOTE: Without CLONE_VM, fontconfig will attempt to reload configuration
 +  // in every thread.  Since the rendered threads are sandboxed without
