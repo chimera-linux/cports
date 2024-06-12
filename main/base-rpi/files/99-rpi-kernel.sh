@@ -12,6 +12,7 @@ echo "Setting up Raspberry Pi kernel ${KERNVER}..."
 # device tree blobs
 rm -f /boot/*.dtb || :
 cp /boot/dtbs/dtbs-${KERNVER}/broadcom/*.dtb /boot
+cp /boot/dtbs/dtbs-${KERNVER}/*.dtb /boot
 # dtoverlays
 rm -rf /boot/overlays || :
 cp -R /boot/dtbs/dtbs-${KERNVER}/overlays /boot
