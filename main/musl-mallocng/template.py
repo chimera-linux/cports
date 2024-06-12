@@ -2,7 +2,7 @@ pkgname = "musl-mallocng"
 pkgver = "1.2.5_git20240512"
 pkgrel = 3
 _commit = "007997299248b8682dcbb73595c53dfe86071c83"
-_scudo_ver = "18.1.6"
+_scudo_ver = "18.1.7"
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -31,7 +31,7 @@ source = [
 source_paths = [".", "compiler-rt"]
 sha256 = [
     "d93dbd9f944d3fadd4048a2c44304e02cf95812718f290d3db0528e2f8045d21",
-    "f05f4e15a4524194c93303aa6027006a5182eccfe8f5c90491c2f1fbfcedb96b",
+    "7df49e669b0e93d183f5c0fcf01a4b5bbeeeb90304afffbdd84d4871da6b6e98",
 ]
 compression = "deflate"
 # scp makes it segfault
