@@ -1,0 +1,23 @@
+--- a/fceux.desktop	2023-08-26 19:04:21.000000000 +0200
++++ b/fceux.desktop	2024-06-12 19:06:21.272477592 +0200
+@@ -6,7 +6,7 @@
+ NoDisplay=false
+ Comment=Emulate NES ROMs
+ Exec=/usr/bin/fceux %f
+-Icon=/usr/share/pixmaps/fceux1.png
++Icon=fceux1
+ Terminal=false
+ MimeType=application/x-nes-rom
+ Categories=Game;Emulator;
+
+--- a/src/CMakeLists.txt	2023-08-26 19:04:21.000000000 +0200
++++ b/src/CMakeLists.txt	2024-06-12 19:09:09.358469060 +0200
+@@ -723,7 +723,7 @@
+ 
+ install( FILES     ${CMAKE_CURRENT_SOURCE_DIR}/auxlib.lua                DESTINATION share/fceux/luaScripts  )
+ install( DIRECTORY ${CMAKE_SOURCE_DIR}/output/.                          DESTINATION share/fceux  )
+-install( FILES     ${CMAKE_SOURCE_DIR}/fceux1.png                        DESTINATION share/pixmaps  )
++install( FILES     ${CMAKE_SOURCE_DIR}/fceux1.png                        DESTINATION share/icons/hicolor/512x512/apps  )
+ install( FILES     ${CMAKE_SOURCE_DIR}/fceux.desktop                     DESTINATION share/applications  )
+ install( FILES     ${CMAKE_SOURCE_DIR}/documentation/fceux.6             DESTINATION ${CMAKE_INSTALL_MANDIR}/man6  )
+ install( FILES     ${CMAKE_SOURCE_DIR}/documentation/fceux-net-server.6  DESTINATION ${CMAKE_INSTALL_MANDIR}/man6  )
