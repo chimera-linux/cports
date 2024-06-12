@@ -1,0 +1,58 @@
+commit 1348a56
+Author: Renato Botelho do Couto <renato@netgate.com>
+Date:   Tue Jun 11 13:39:28 2024
+
+    Fix build/install on Chimera
+
+diff --git a/miniupnpd/Makefile.linux_nft b/miniupnpd/Makefile.linux_nft
+index 65bace9..eda023b 100644
+--- a/miniupnpd/Makefile.linux_nft
++++ b/miniupnpd/Makefile.linux_nft
+@@ -42,7 +42,7 @@ DEPFLAGS = -MM -MG -MT $(patsubst %.d,%.o,$@) -MT $@
+ # -M : with system headers, -MM : without
+ 
+ INSTALLPREFIX ?= $(PREFIX)/usr
+-SBININSTALLDIR = $(INSTALLPREFIX)/sbin
++SBININSTALLDIR = $(INSTALLPREFIX)/bin
+ ETCINSTALLDIR = $(PREFIX)/etc/miniupnpd
+ MANINSTALLDIR = $(INSTALLPREFIX)/share/man/man8
+ 
+@@ -130,12 +130,10 @@ install:	miniupnpd $(SRCDIR)/miniupnpd.8 $(SRCDIR)/miniupnpd.conf \
+ 	$(INSTALL) $(SRCDIR)/netfilter_nft/scripts/nft_flush.sh $(DESTDIR)$(ETCINSTALLDIR)
+ 	$(INSTALL) $(SRCDIR)/netfilter_nft/scripts/nft_delete_chain.sh $(DESTDIR)$(ETCINSTALLDIR)
+ 	$(INSTALL) $(SRCDIR)/netfilter_nft/scripts/miniupnpd_functions.sh $(DESTDIR)$(ETCINSTALLDIR)
+-	$(INSTALL) --mode=0644 -b $(SRCDIR)/miniupnpd.conf $(DESTDIR)$(ETCINSTALLDIR)
+-	sed -i -e "s/^uuid=[-0-9a-f]*/uuid=$(UUID)/" $(DESTDIR)$(ETCINSTALLDIR)/miniupnpd.conf
+-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/etc/init.d
+-	$(INSTALL) $(SRCDIR)/linux/miniupnpd.init.d.script $(DESTDIR)$(PREFIX)/etc/init.d/miniupnpd
++	$(INSTALL) -m 0644 -b $(SRCDIR)/miniupnpd.conf $(DESTDIR)$(ETCINSTALLDIR)
++	sed -i '' -e "s/^uuid=[-0-9a-f]*/uuid=$(UUID)/" $(DESTDIR)$(ETCINSTALLDIR)/miniupnpd.conf
+ 	$(INSTALL) -d $(DESTDIR)$(MANINSTALLDIR)
+-	$(INSTALL) --mode=0644 $(SRCDIR)/miniupnpd.8 $(DESTDIR)$(MANINSTALLDIR)
++	$(INSTALL) -m 0644 $(SRCDIR)/miniupnpd.8 $(DESTDIR)$(MANINSTALLDIR)
+ 	gzip -f $(DESTDIR)$(MANINSTALLDIR)/miniupnpd.8
+ 
+ include $(SRCDIR)/check.mk
+diff --git a/miniupnpd/configure b/miniupnpd/configure
+index 2edf6fc..548e98d 100755
+--- a/miniupnpd/configure
++++ b/miniupnpd/configure
+@@ -102,7 +102,7 @@ fi
+ 
+ MINIUPNPD_DATE=`date +"%Y%m%d"`
+ if [ -n "$SOURCE_DATE_EPOCH" ]; then
+-	MINIUPNPD_DATE=`date --utc --date="@$SOURCE_DATE_EPOCH" +"%Y%m%d"`
++	MINIUPNPD_DATE=`TZ=UTC date -j -f %s $SOURCE_DATE_EPOCH +%Y%m%d`
+ fi
+ 
+ # Facility to syslog
+@@ -430,9 +430,6 @@ case $OS_NAME in
+ 					FW=iptables
+ 				fi
+ 			fi
+-			if [ -z "$V6SOCKETS_ARE_V6ONLY" ] ; then
+-			V6SOCKETS_ARE_V6ONLY=`$(find /sbin /bin /usr/sbin /usr/bin -name sysctl) -n net.ipv6.bindv6only`
+-			fi
+ 		fi
+ 		;;
+ 	OpenWrt)

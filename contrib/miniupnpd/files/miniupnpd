@@ -1,0 +1,7 @@
+# miniupnpd service
+
+type = process
+command = /usr/bin/miniupnpd -f /etc/miniupnpd/miniupnpd.conf
+depends-on = pre-network.target
+depends-on = local.target
+log-type = buffer
