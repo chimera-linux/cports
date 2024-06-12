@@ -2,6 +2,7 @@ pkgname = "unittest-cpp"
 pkgver = "2.0.0"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DUTPP_INCLUDE_TESTS_IN_BUILD=OFF"]
 make_check_target = "TestUnitTest++"
 makedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Unit testing framework for C++"
