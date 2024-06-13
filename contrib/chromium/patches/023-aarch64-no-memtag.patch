@@ -10,7 +10,7 @@ note: also disables bti
  #include "partition_alloc/partition_alloc_buildflags.h"
  
 -#if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_LINUX)
-+#if 0 && BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_LINUX)
++#if 0 && (BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_LINUX))
  #define HAS_HW_CAPS
  #endif
  
