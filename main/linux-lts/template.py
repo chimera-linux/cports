@@ -17,6 +17,7 @@ sha256 = "a13ebc20dc2a75722699949af74aa86a4ce5d544d6daaa6a7de4e8c81b40de97"
 options = [
     "!check",
     "!debug",
+    "!installroot",
     "!strip",
     "!scanrundeps",
     "!scanshlibs",
