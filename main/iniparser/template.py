@@ -1,5 +1,5 @@
 pkgname = "iniparser"
-pkgver = "4.2.2"
+pkgver = "4.2.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://gitlab.com/iniparser/iniparser"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "454bc88a4a508a43340a5c1b7e4d57f9b41a51d6ca5d72798fc7f32c435290bd"
+sha256 = "99dad91ae3321759a401a22d998339457b1b2deffc39e20d89710b4d4cc3a7ae"
 # vis breaks symbols
 hardening = []
 
