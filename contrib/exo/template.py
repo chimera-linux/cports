@@ -1,6 +1,6 @@
 pkgname = "exo"
 pkgver = "4.18.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 make_cmd = "gmake"
@@ -18,7 +18,6 @@ hostmakedepends = [
     "xfce4-dev-tools",
 ]
 makedepends = ["glib-devel", "gtk+3-devel", "libxfce4ui-devel"]
-depends = ["desktop-file-utils"]
 pkgdesc = "Xfce extensions library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
