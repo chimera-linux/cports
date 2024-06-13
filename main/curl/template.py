@@ -33,7 +33,12 @@ makedepends = [
     "zlib-devel",
     "zstd-devel",
 ]
-checkdepends = ["python", "nghttp2"]
+checkdepends = [
+    "nghttp2-progs",
+    # FIXME: probably caused by weird config shenanigans
+    # "openssh",
+    "python",
+]
 depends = ["ca-certificates"]
 pkgdesc = "Command line tool for transferring data with URL syntax"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -43,8 +48,8 @@ source = f"{url}/download/{pkgname}-{pkgver}.tar.xz"
 sha256 = "0f58bb95fc330c8a46eeb3df5701b0d90c9d9bfcc42bd1cd08791d12551d4400"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
-# missing some checkdepends
-options = ["!check"]
+# workaround for test 1119
+exec_wrappers = [("/usr/bin/clang-cpp", "cpp")]
 
 
 def post_install(self):
@@ -67,6 +72,11 @@ def post_install(self):
         self.destdir / "usr/bin/curl-config",
     )
     self.chmod(self.destdir / "usr/bin/curl-config", 0o755)
+
+
+def init_check(self):
+    # upstream recommends cpucores*7 as a good starting point
+    self.make_check_env["TFLAGS"] = f"-j{self.make_jobs*7}"
 
 
 @subpackage("libcurl")
