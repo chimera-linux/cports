@@ -1,6 +1,6 @@
 pkgname = "python-pexpect"
 pkgver = "4.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # FIXME: some test in this can hang on ppc64le
 make_check_args = ["--deselect", "tests/test_socket.py"]
