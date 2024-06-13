@@ -1,6 +1,6 @@
 pkgname = "python-pytest-benchmark"
 pkgver = "4.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -12,7 +12,7 @@ depends = [
     "python-py-cpuinfo",
     "python-pytest",
 ]
-checkdepends = list(depends)
+checkdepends = depends
 pkgdesc = "Pytest fixture for benchmarking"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
