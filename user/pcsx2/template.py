@@ -1,6 +1,6 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5858"
-pkgrel = 1
+pkgver = "1.7.5887"
+pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
 build_style = "cmake"
@@ -26,7 +26,6 @@ hostmakedepends = [
 makedepends = [
     "extra-cmake-modules",
     "ffmpeg-devel",
-    "fmt-devel",
     "libcurl-devel",
     "libpcap-devel",
     "libpng-devel",
@@ -37,11 +36,9 @@ makedepends = [
     "lz4-devel",
     "qt6-qtbase-devel",
     "qt6-qttools-devel",
-    "rapidyaml-devel",
     "sdl-devel",
     "shaderc-devel",
     "udev-devel",
-    "vulkan-headers",
     "vulkan-loader-devel",
     "wayland-devel",
     "zlib-devel",
@@ -53,26 +50,18 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "9f305ec89e0c8c49c3b2c9ff7da825a8a0152af3"
-_gtest = "v1.14.0"
-_fastfloat = "v6.1.1"
+_patches = "fcb11f6b699fd68e41977bffe53b8e8031ccb578"
 source = [
     f"https://github.com/PCSX2/pcsx2/archive/refs/tags/v{pkgver}.tar.gz",
     f"https://github.com/PCSX2/pcsx2_patches/archive/{_patches}.tar.gz",
-    f"https://github.com/google/googletest/archive/refs/tags/{_gtest}.tar.gz",
-    f"https://github.com/fastfloat/fast_float/archive/refs/tags/{_fastfloat}.tar.gz",
 ]
 source_paths = [
     ".",
     "patches",
-    "3rdparty/gtest",
-    "3rdparty/fast_float",
 ]
 sha256 = [
-    "da14c0ad57dc1111bce6df6654f95899fc8783cf6d91fffa0f83f3f0775788b2",
-    "c6fe9f2ace39ec76be4dc5328eb139662c5481900882ede1879174a83af1bee2",
-    "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
-    "10159a4a58ba95fe9389c3c97fe7de9a543622aa0dcc12dd9356d755e9a94cb4",
+    "44c1a1f17641e1336ca4d36b62587ec53ac74705181ff9cf9391341adcd2bf9c",
+    "2861dacdbd506d014e51334fd9298af88c80445ff2f4325e0969c61561eb5127",
 ]
 # FIXME: cfi, int
 # but it's an emulator so..

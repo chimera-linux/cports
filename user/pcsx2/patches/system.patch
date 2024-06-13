@@ -1,14 +1,6 @@
 --- a/cmake/SearchForStuff.cmake
 +++ b/cmake/SearchForStuff.cmake
-@@ -100,7 +100,6 @@
- 	endif()
- endif()
- 
--add_subdirectory(3rdparty/rapidyaml/rapidyaml EXCLUDE_FROM_ALL)
- add_subdirectory(3rdparty/lzma EXCLUDE_FROM_ALL)
- add_subdirectory(3rdparty/libchdr EXCLUDE_FROM_ALL)
- disable_compiler_warnings_for_target(libchdr)
-@@ -104,11 +104,15 @@
+@@ -104,11 +104,12 @@
  add_subdirectory(3rdparty/cpuinfo EXCLUDE_FROM_ALL)
  disable_compiler_warnings_for_target(cpuinfo)
  add_subdirectory(3rdparty/zydis EXCLUDE_FROM_ALL)
@@ -19,35 +11,6 @@
  add_subdirectory(3rdparty/freesurround EXCLUDE_FROM_ALL)
 +
 +find_package(libzip REQUIRED)
-+find_package(ryml REQUIRED)
-+find_package(Vulkan REQUIRED)
-+find_package(fmt REQUIRED)
  
  if(USE_OPENGL)
  	add_subdirectory(3rdparty/glad EXCLUDE_FROM_ALL)
-@@ -134,6 +134,5 @@
- 
- if(USE_VULKAN)
--	add_subdirectory(3rdparty/vulkan-headers EXCLUDE_FROM_ALL)
- endif()
- 
- add_subdirectory(3rdparty/cubeb EXCLUDE_FROM_ALL)
-@@ -149,7 +152,6 @@
- 
- # Prevent fmt from being built with exceptions, or being thrown at call sites.
- set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DFMT_EXCEPTIONS=0")
--add_subdirectory(3rdparty/fmt/fmt EXCLUDE_FROM_ALL)
- 
- # Deliberately at the end. We don't want to set the flag on third-party projects.
- if(MSVC)
---- a/pcsx2/CMakeLists.txt
-+++ b/pcsx2/CMakeLists.txt
-@@ -648,7 +648,7 @@
- 		GS/Renderers/Vulkan/VKStreamBuffer.h
- 		GS/Renderers/Vulkan/VKSwapChain.h
- 	)
--	target_link_libraries(PCSX2_FLAGS INTERFACE Vulkan-Headers)
-+	target_link_libraries(PCSX2_FLAGS INTERFACE Vulkan::Headers)
- 	target_include_directories(PCSX2_FLAGS INTERFACE ${SHADERC_INCLUDE_DIR})
- endif()
- 
