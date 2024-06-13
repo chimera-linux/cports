@@ -1,6 +1,6 @@
 pkgname = "runc"
-pkgver = "1.1.12"
-pkgrel = 3
+pkgver = "1.1.13"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["all", "man", f"COMMIT=chimera-r{pkgrel}"]
@@ -21,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/opencontainers/runc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "be31b07d6a54a8f234016501c300ad04b6c428c56588e7eca8c3b663308db208"
+sha256 = "789d5749a08ef1fbe5d1999b67883206a68a4e58e6ca0151c411d678f3480b25"
 # objcopy fails on ppc
 # tests create namespaces and fail because no perms
 options = ["!debug", "!check"]
