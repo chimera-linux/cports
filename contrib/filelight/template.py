@@ -1,5 +1,5 @@
 pkgname = "filelight"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -27,6 +27,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = " GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/filelight"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/filelight-{pkgver}.tar.xz"
-sha256 = "0c776ff0db323d47dfb96772cef63b2311eceede940494943b0f3e8bf8a9ab8c"
+sha256 = "c5d6b8fb946c096f5cd806988aaea134b6c0c211f0de478217da5c7b237cec0b"
 # CFI: check
 hardening = ["vis", "!cfi"]

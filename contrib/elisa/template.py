@@ -1,5 +1,5 @@
 pkgname = "elisa"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 # flaky
@@ -41,7 +41,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"
 url = "https://apps.kde.org/elisa"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/elisa-{pkgver}.tar.xz"
-sha256 = "2d377125cb3432d7a220b0e907133348e67d251c8cda60c25e04bba0d24e8df7"
+sha256 = "55ed76a676af42c3af455f64a7f63f51a3fbaa619c92d345be6708ad5cdc77e2"
 # CFI: crashes on start
 hardening = ["vis", "!cfi"]
 # TODO

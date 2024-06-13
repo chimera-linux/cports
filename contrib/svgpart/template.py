@@ -1,5 +1,5 @@
 pkgname = "svgpart"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -23,6 +23,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/svgpart"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/svgpart-{pkgver}.tar.xz"
-sha256 = "7d02438ac3b0d88e59a653f2302d1dbc7a2535ce627d49eb50a3a33852db42d4"
+sha256 = "0ffda1d1ca08592f3ce56416d3b4face0bdcebf4f235f559cd65d30096f68b96"
 # CFI: check
 hardening = ["vis", "!cfi"]

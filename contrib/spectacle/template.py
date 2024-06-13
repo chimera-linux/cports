@@ -1,6 +1,6 @@
 pkgname = "spectacle"
-pkgver = "24.05.0"
-pkgrel = 3
+pkgver = "24.05.1"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -37,7 +37,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/spectacle"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/spectacle-{pkgver}.tar.xz"
-sha256 = "def2851e8db3cc00eab0810d988014b15b8f23b474b932b1cdf3c6144326d5aa"
+sha256 = "87d1fefc927038a2150eb9bf527b4a3f8f8e8e7db8df0be5fa64f9a7a676820c"
 # FIXME: cfi kills app on launch
 hardening = ["vis", "!cfi"]
 

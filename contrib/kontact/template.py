@@ -1,5 +1,5 @@
 pkgname = "kontact"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -29,4 +29,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only AND GPL-2.0-or-later"
 url = "https://kontact.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kontact-{pkgver}.tar.xz"
-sha256 = "184a37465583d67878254dc9e19fbfd8cbf49b451bd8613a1a11824f9ebf10a6"
+sha256 = "c87e18d42ef7912f8ff41327a2c7d60c663438eb284cadb6f035a3963458a028"

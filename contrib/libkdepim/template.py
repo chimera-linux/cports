@@ -1,5 +1,5 @@
 pkgname = "libkdepim"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/libkdepim/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdepim-{pkgver}.tar.xz"
-sha256 = "62fedf50c99296fb076c9f4ea0d907228a3f912c8f927c459156cb5c8950ba8a"
+sha256 = "863aa289c7892255efdaa9b21d389804ee93f58e1479b99dc6f4d018819bb4ee"
 
 
 @subpackage("libkdepim-devel")

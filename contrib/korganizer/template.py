@@ -1,5 +1,5 @@
 pkgname = "korganizer"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
@@ -56,4 +56,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/korganizer"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/korganizer-{pkgver}.tar.xz"
-sha256 = "e12a4be341ba322d666e846d3814efb658fb8c359a8bf89b48369eb803930ad7"
+sha256 = "d7f76ed8cfb24ec594dd08baa78bcb63b772885928b387089755ab13796661f5"

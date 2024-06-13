@@ -1,5 +1,5 @@
 pkgname = "kate"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kate-{pkgver}.tar.xz"
-sha256 = "d2dc5fdf099068d315be9562d334c980c80ef6df7cd7400013abc38d4a4ed626"
+sha256 = "daf6526725de9a3799d97db37428cf513062cc273cc2bc47cf949b327f9a2827"
 # FIXME: cfi breaks at least location_history_test & kate_view_mgmt_tests
 hardening = ["vis", "!cfi"]
 

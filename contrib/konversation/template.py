@@ -1,5 +1,5 @@
 pkgname = "konversation"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -37,6 +37,7 @@ makedepends = [
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
+    "qt6-qttools-devel",
 ]
 pkgdesc = "KDE IRC client"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
@@ -45,4 +46,4 @@ url = "https://konversation.kde.org"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/konversation-{pkgver}.tar.xz"
 )
-sha256 = "f38e56bb5b99d3d15870ecf39419031862e6781cd16266dc33625434124b1f9b"
+sha256 = "35798fd952229828e447698dae6c43626456a5ba5c432f32c748ec6d3d7916f5"

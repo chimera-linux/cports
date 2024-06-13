@@ -1,5 +1,5 @@
 pkgname = "kgpg"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -38,4 +38,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kgpg"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kgpg-{pkgver}.tar.xz"
-sha256 = "a7fe37dfd9018c0769320074731b7b400438976a2428c5604508340cb5449564"
+sha256 = "6fa973f409ec4ec3c516ff04ba7a7f082e7b8784770e0710b264e3f9d7a2fcb3"

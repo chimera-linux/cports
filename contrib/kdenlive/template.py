@@ -1,5 +1,5 @@
 pkgname = "kdenlive"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -49,7 +49,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenlive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenlive-{pkgver}.tar.xz"
-sha256 = "d848a4d33120b39e81e6c279da091d213b93d7bfc9aa57274a253a73409668ae"
+sha256 = "1092592de71675afb08ee67ac9a71d3115b3ee3548da52759971c5b0026103da"
 # avoid crashes
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # CFI: crashes most tests

@@ -1,5 +1,5 @@
 pkgname = "ksystemlog"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -31,4 +31,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ksystemlog"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ksystemlog-{pkgver}.tar.xz"
-sha256 = "b5dbf0bb218dc3927c4d885625bbe2227f4ff76a83418d08daad0e40e4d7704a"
+sha256 = "2a79a39966f4ae69efde2446139fdd0174018d9365e45cad561f09f31207caa9"

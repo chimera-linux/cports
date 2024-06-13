@@ -1,5 +1,5 @@
 pkgname = "kio-zeroconf"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -24,5 +24,5 @@ url = "https://invent.kde.org/network/kio-zeroconf"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kio-zeroconf-{pkgver}.tar.xz"
 )
-sha256 = "a4e78d09a255b05134282e913bdf1d00bd5befb028ac68585021aa88285ed681"
+sha256 = "d0bbb45d001487dbc20d96aa77e683288fdff9fcbf94c8475f9f977d99f6a70d"
 hardening = ["vis", "!cfi"]

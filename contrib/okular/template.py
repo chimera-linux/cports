@@ -1,6 +1,6 @@
 pkgname = "okular"
-pkgver = "24.05.0"
-pkgrel = 1
+pkgver = "24.05.1"
+pkgrel = 0
 build_style = "cmake"
 # FIXME segfaults/weird failures
 make_check_args = [
@@ -58,7 +58,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/okular"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/okular-{pkgver}.tar.xz"
-sha256 = "6f322f78de2aa0a4079351fe4651c080bd98d27eeb7f9dcc37765271b4a3ac80"
+sha256 = "d1986a1ab92804bad3ea287258dab852a691841e0389c5c11ae3795c0efdb45b"
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # CFI: crashes tests
 hardening = ["vis", "!cfi"]

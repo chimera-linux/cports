@@ -1,5 +1,5 @@
 pkgname = "konsole"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -37,6 +37,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/konsole"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konsole-{pkgver}.tar.xz"
-sha256 = "53efd25c1d574448db57f446f423328c7f2f08889f67defc1ed5c783c9ef47f4"
+sha256 = "9b5ae1f56eab27feefae506853c5faaf693afba8f885dcf8d774ed97d693718f"
 # FIXME: cfi breaks at least TerminalInterfaceTest like https://paste.c-net.org/yrqifaktnyhy
 hardening = ["vis", "!cfi"]

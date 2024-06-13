@@ -1,5 +1,5 @@
 pkgname = "mailcommon"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 # sqlite all fail
@@ -50,7 +50,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND GPL-3.0-only"
 url = "https://api.kde.org/kdepim/mailcommon/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/mailcommon-{pkgver}.tar.xz"
-sha256 = "e1377e47d6f9c6026b4321b806039bfdf9cc4aa190cf1c335930b1d01a143e83"
+sha256 = "021bc893fbbcaa174250d16d2c8268b29f432e84c96b809e1ce5427fdaba37b4"
 
 
 @subpackage("mailcommon-devel")

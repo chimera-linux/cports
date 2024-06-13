@@ -1,5 +1,5 @@
 pkgname = "grantleetheme"
-pkgver = "24.05.0"
+pkgver = "24.05.1"
 pkgrel = 0
 build_style = "cmake"
 # can't find itself
@@ -30,7 +30,7 @@ url = "https://invent.kde.org/pim/grantleetheme"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/grantleetheme-{pkgver}.tar.xz"
 )
-sha256 = "ba8e79b0fd460074dfb9f24cedfb606c3c8bde5901e28334967960776f292798"
+sha256 = "40c9f866ed12a65720014b34d2bd4f2c275d5c6147b065683404d95fd11ff277"
 
 
 @subpackage("grantleetheme-devel")
