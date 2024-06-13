@@ -38,6 +38,7 @@ def build(
         pkgm.set_failed(pkgm.pop())
         raise
     pkgm.pop()
+    pkg.log(f"finished phase '{step}'")
 
 
 def _build(
