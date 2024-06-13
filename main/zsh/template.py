@@ -1,6 +1,6 @@
 pkgname = "zsh"
 pkgver = "5.9"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-gdbm",
