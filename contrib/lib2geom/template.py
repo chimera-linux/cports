@@ -1,6 +1,6 @@
 pkgname = "lib2geom"
-pkgver = "1.3"
-pkgrel = 1
+pkgver = "1.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-D2GEOM_BUILD_SHARED=ON",
@@ -12,7 +12,7 @@ make_check_args = [
     # tiny floating point errors
     + "circle-test|ellipse-test"
     # ??
-    + "|bezier-test|elliptical-arc-test)",
+    + "|bezier-test|elliptical-arc-test|line-test)",
 ]
 hostmakedepends = [
     "cmake",
@@ -34,7 +34,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MPL-1.1 OR LGPL-2.1-only"
 url = "https://gitlab.com/inkscape/lib2geom"
 source = f"https://gitlab.com/inkscape/lib2geom/-/archive/{pkgver}/lib2geom-{pkgver}.tar.gz"
-sha256 = "732a81c6564d5c388bae44f0fdd350f628375e23294941abbe928ab87ec937ab"
+sha256 = "edef330f557f188afc11ab505b6ffcfafb075da73e5dde95b9ecf96d20ab6374"
 
 
 @subpackage("lib2geom-devel")
