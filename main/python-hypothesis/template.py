@@ -1,6 +1,6 @@
 pkgname = "python-hypothesis"
 pkgver = "6.103.1"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "hypothesis-python"
 build_style = "python_pep517"
 hostmakedepends = [
