@@ -1,6 +1,6 @@
 pkgname = "python-fastjsonschema"
 pkgver = "2.19.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_check_args = [
     # pytest-benchmark
