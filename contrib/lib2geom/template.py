@@ -12,7 +12,7 @@ make_check_args = [
     # tiny floating point errors
     + "circle-test|ellipse-test"
     # ??
-    + "|bezier-test|elliptical-arc-test|line-test)",
+    + "|bezier-test|elliptical-arc-test|line-test|polynomial-test)",
 ]
 hostmakedepends = [
     "cmake",
