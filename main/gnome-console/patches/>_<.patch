@@ -1,0 +1,18 @@
+commit 7c7d224668fea75839576731f6e9d34cf778ace8
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Jun 15 01:20:53 2024 +0200
+
+    >_<
+
+diff --git a/data/org.gnome.Console.svg b/data/org.gnome.Console.svg
+index 155c101..93608a9 100644
+--- a/data/org.gnome.Console.svg
++++ b/data/org.gnome.Console.svg
+@@ -19,6 +19,7 @@
+     <path d="m 20 14 h 88 c 3.3125 0 6 2.6875 6 6 v 80 c 0 3.3125 -2.6875 6 -6 6 h -88 c -3.3125 0 -6 -2.6875 -6 -6 v -80 c 0 -3.3125 2.6875 -6 6 -6 z m 0 0" fill="#241f31"/>
+     <g fill="#62c9ea">
+         <path d="m 46.011719 40.886719 l -14.011719 -7.613281 v 4.726562 l 9.710938 4.628906 v 0.144532 l -9.710938 5.226562 v 4.726562 l 14.011719 -8.210937 z m 0 0"/>
++        <path d="M 70.156204,40.886281 84.167923,33.273 v 4.726562 l -9.710938,4.628906 V 42.773 l 9.710938,5.226562 v 4.726562 L 70.156204,44.515187 Z m 0,0"/>
+         <path d="m 50 56 v 4 h 16 v -4 z m 0 0"/>
+     </g>
+ </svg>
