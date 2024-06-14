@@ -1,0 +1,23 @@
+--- a/qrcode/image/svg.py
++++ b/qrcode/image/svg.py
+@@ -2,7 +2,7 @@ import decimal
+ from decimal import Decimal
+ from typing import List, Optional, Type, Union, overload
+ 
+-from typing_extensions import Literal
++from typing import Literal
+ 
+ import qrcode.image.base
+ from qrcode.compat.etree import ET
+
+--- a/qrcode/main.py
++++ b/qrcode/main.py
+@@ -12,7 +12,7 @@ from typing import (
+     overload,
+ )
+ 
+-from typing_extensions import Literal
++from typing import Literal
+ 
+ from qrcode import constants, exceptions, util
+ from qrcode.image.base import BaseImage
