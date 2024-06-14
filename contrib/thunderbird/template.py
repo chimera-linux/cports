@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "115.11.1"
+pkgver = "115.12.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -58,7 +58,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/{pkgname}/releases/{pkgver.replace('_beta', 'b')}/source/{pkgname}-{pkgver.replace('_beta', 'b')}.source.tar.xz"
-sha256 = "e0ceb1b9d3e19d5d1fd743eb9e473751bf0c671c00e234f95736f624309b26a5"
+sha256 = "5d0c47eec0e047ac7ad9d39b564487b791528823e18c0012e4bb94233a96d25f"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -160,7 +160,7 @@ def do_configure(self):
 
     match self.profile().arch:
         case "x86_64" | "aarch64":
-            conf_opts += ["--disable-elf-hack", "--enable-rust-simd"]
+            conf_opts += ["--disable-elf-hack"]
 
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
