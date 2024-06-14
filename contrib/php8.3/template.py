@@ -1,7 +1,7 @@
 pkgname = "php8.3"
 _majver = "8.3"
 pkgver = f"{_majver}.8"
-pkgrel = 2
+pkgrel = 3
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -56,6 +56,8 @@ configure_args = [
     "--with-ffi=shared",
     "--with-gettext=shared",
     "--with-gmp=shared",
+    "--with-ldap=shared",
+    "--with-ldap-sasl",
     "--with-mhash",
     "--with-iconv=shared",
     "--with-libedit=shared",
@@ -106,6 +108,7 @@ makedepends = [
     "libxslt-devel",
     "libzip-devel",
     "oniguruma-devel",
+    "openldap-devel",
     "openssl-devel",
     "sqlite-devel",
     "unixodbc-devel",
@@ -286,6 +289,7 @@ for _extn, _iif in [
     ("gmp", False),
     ("iconv", True),
     ("intl", False),
+    ("ldap", False),
     ("mbstring", False),
     ("odbc", False),
     ("opcache", True),
