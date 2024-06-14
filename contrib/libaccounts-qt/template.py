@@ -1,6 +1,6 @@
 pkgname = "libaccounts-qt"
 pkgver = "1.17"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_wrapper = ["dbus-run-session", "--"]
@@ -40,6 +40,10 @@ def do_configure(self):
 
 def init_install(self):
     self.make_install_args += [f"INSTALL_ROOT={self.chroot_destdir}"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/bin/accountstest")
 
 
 @subpackage("libaccounts-qt-devel")
