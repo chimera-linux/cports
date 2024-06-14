@@ -1,0 +1,42 @@
+From b7b9cdf3f36f844c7252d78dac7c81f5ce8da7f8 Mon Sep 17 00:00:00 2001
+From: Subhaditya Nath <sn03.general@gmail.com>
+Date: Sat, 15 Jun 2024 01:36:56 +0530
+Subject: [PATCH 1/4] locale.c: Fix completion
+
+Currently the locale command isn't available, so don't try to execute it
+---
+ src/locale.c | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/src/locale.c b/src/locale.c
+index ccdb479..b92d9d8 100644
+--- a/src/locale.c
++++ b/src/locale.c
+@@ -409,16 +409,8 @@ find_locales(void)
+     garray_T	locales_ga;
+     char_u	*loc;
+     char_u	*locale_list;
+-# ifdef MSWIN
+     size_t	len = 0;
+-# endif
+ 
+-    // Find all available locales by running command "locale -a".  If this
+-    // doesn't work we won't have completion.
+-# ifndef MSWIN
+-    locale_list = get_cmd_output((char_u *)"locale -a",
+-						    NULL, SHELL_SILENT, NULL);
+-# else
+     // Find all available locales by examining the directories in
+     // $VIMRUNTIME/lang/
+     {
+@@ -447,7 +439,6 @@ find_locales(void)
+ 	    p++;
+ 	}
+     }
+-# endif
+     if (locale_list == NULL)
+ 	return NULL;
+     ga_init2(&locales_ga, sizeof(char_u *), 20);
+-- 
+2.45.2
+

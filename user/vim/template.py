@@ -1,8 +1,9 @@
 pkgname = "vim"
-pkgver = "9.1.0470"
+pkgver = "9.1.0485"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    "--disable-nls",
     "--enable-acl",
     "--enable-gui=no",
     # makes them dynamically loaded so we don't install every scripting language
@@ -18,6 +19,7 @@ configure_gen = []
 make_cmd = "gmake"
 make_dir = "."
 make_check_target = "test"
+make_check_args = ["-j1"]
 hostmakedepends = ["gmake"]
 makedepends = [
     "acl-devel",
@@ -27,13 +29,22 @@ makedepends = [
     "ruby-devel",
     "python-devel",
 ]
+checkdepends = [
+    "bash",
+    "gdb",
+    "gmake",
+    "perl",
+    "procps",
+    "python",
+    "tcl",
+]
 depends = [f"xxd={pkgver}-r{pkgrel}"]
 pkgdesc = "Vi-style text editor"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d76ed5d1191b5c76fe7195125c9975d78c92a54254b8b5d377c6caf5739da259"
+sha256 = "857a52ff280a86f7ab051f4b044a3920af82a00082dc4c9de944dd11c9117da1"
 # FIXME cfi int
 hardening = ["vis", "!cfi", "!int"]
 # TODO

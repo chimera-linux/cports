@@ -1,0 +1,47 @@
+From 3dd8d1474117c0b42115bba10a132f9097e6b938 Mon Sep 17 00:00:00 2001
+From: Subhaditya Nath <sn03.general@gmail.com>
+Date: Sat, 15 Jun 2024 02:38:12 +0530
+Subject: [PATCH 4/4] skip: test causes later tests to fail
+
+---
+ src/testdir/test_options.vim | 24 ------------------------
+ 1 file changed, 24 deletions(-)
+
+diff --git a/src/testdir/test_options.vim b/src/testdir/test_options.vim
+index fbfbaae..3773ea9 100644
+--- a/src/testdir/test_options.vim
++++ b/src/testdir/test_options.vim
+@@ -1487,30 +1487,6 @@ func Test_opt_default_cdpath()
+   endif
+ endfunc
+ 
+-" Test for setting keycodes using set
+-func Test_opt_set_keycode()
+-  call assert_fails('set <t_k1=l', 'E474:')
+-  call assert_fails('set <Home=l', 'E474:')
+-  set <t_k9>=abcd
+-  call assert_equal('abcd', &t_k9)
+-  set <t_k9>&
+-  set <F9>=xyz
+-  call assert_equal('xyz', &t_k9)
+-  set <t_k9>&
+-
+-  " should we test all of them?
+-  set t_Ce=testCe
+-  set t_Cs=testCs
+-  set t_Us=testUs
+-  set t_ds=testds
+-  set t_Ds=testDs
+-  call assert_equal('testCe', &t_Ce)
+-  call assert_equal('testCs', &t_Cs)
+-  call assert_equal('testUs', &t_Us)
+-  call assert_equal('testds', &t_ds)
+-  call assert_equal('testDs', &t_Ds)
+-endfunc
+-
+ " Test for changing options in a sandbox
+ func Test_opt_sandbox()
+   for opt in ['backupdir', 'cdpath', 'exrc']
+-- 
+2.45.2
+

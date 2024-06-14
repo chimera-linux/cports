@@ -1,0 +1,33 @@
+From 6cc2aeeb8b0bf569df2dae6439ceee6ca5d50562 Mon Sep 17 00:00:00 2001
+From: Subhaditya Nath <sn03.general@gmail.com>
+Date: Sat, 15 Jun 2024 02:37:21 +0530
+Subject: [PATCH 3/4] skip: musl's locale support is incomplete
+
+---
+ src/testdir/test_functions.vim | 10 ----------
+ 1 file changed, 10 deletions(-)
+
+diff --git a/src/testdir/test_functions.vim b/src/testdir/test_functions.vim
+index 2cbbc6b..78bbe44 100644
+--- a/src/testdir/test_functions.vim
++++ b/src/testdir/test_functions.vim
+@@ -2897,16 +2897,6 @@ func Test_readdirex_sort()
+   let files = readdirex('Xsortdir2', 1, #{sort: 'collate'})->map({-> v:val.name})
+   call assert_equal(['README.txt', 'Readme.txt', 'readme.txt'], files, 'sort by C collation')
+ 
+-  " 6) Collation de_DE
+-  " Switch locale, this may not work on the CI system, if the locale isn't
+-  " available
+-  try
+-    lang collate de_DE
+-    let files = readdirex('Xsortdir2', 1, #{sort: 'collate'})->map({-> v:val.name})
+-    call assert_equal(['readme.txt', 'Readme.txt', 'README.txt'], files, 'sort by de_DE collation')
+-  catch
+-    throw 'Skipped: de_DE collation is not available'
+-
+   finally
+     exe 'lang collate' collate
+   endtry
+-- 
+2.45.2
+
