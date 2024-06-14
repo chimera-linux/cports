@@ -1,6 +1,6 @@
 pkgname = "gnome-console"
 pkgver = "46.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -25,3 +25,15 @@ license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/console"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "1619ce701773b2c0c903718f54768c192ea5074514d55a1774a92c97231d6c3e"
+
+
+def post_install(self):
+    # >_<
+    self.rm(
+        self.destdir
+        / "usr/share/icons/hicolor/scalable/apps/org.gnome.Console.svg"
+    )
+    self.install_file(
+        self.files_path / "org.gnome.Console.svg",
+        "usr/share/icons/hicolor/scalable/apps",
+    )
