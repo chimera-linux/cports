@@ -1,6 +1,6 @@
 pkgname = "libarchive"
 pkgver = "3.7.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
