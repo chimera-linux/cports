@@ -1,0 +1,89 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxslt/-/commit/16f3d7c4954da41788a46e0b14baff2c5785d314
+--
+From 16f3d7c4954da41788a46e0b14baff2c5785d314 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Fri, 14 Jun 2024 16:32:17 +0200
+Subject: [PATCH] xsltproc: Make "-" read from stdin
+
+This broke after libxml2@0a658c0f.
+
+Fixes #109.
+---
+ xsltproc/xsltproc.c | 40 ++++++++++++++++++++++++++++------------
+ 1 file changed, 28 insertions(+), 12 deletions(-)
+
+diff --git a/xsltproc/xsltproc.c b/xsltproc/xsltproc.c
+index b9b67a20..e1437a93 100644
+--- a/xsltproc/xsltproc.c
++++ b/xsltproc/xsltproc.c
+@@ -55,6 +55,10 @@
+ #include <sys/timeb.h>
+ #endif
+ 
++#ifndef STDIN_FILENO
++  #define STDIN_FILENO 0
++#endif
++
+ #ifdef LIBXML_DEBUG_ENABLED
+ static int debug = 0;
+ #endif
+@@ -314,6 +318,28 @@ xsltSubtreeCheck(xsltSecurityPrefsPtr sec ATTRIBUTE_UNUSED,
+     return(0);
+ }
+ 
++static xmlDocPtr
++xsltReadFile(const char *filename) {
++    xmlDocPtr doc;
++
++#ifdef LIBXML_HTML_ENABLED
++    if (html) {
++        if (strcmp(filename, "-") == 0)
++            doc = htmlReadFd(STDIN_FILENO, "-", encoding, options);
++        else
++            doc = htmlReadFile(filename, encoding, options);
++    } else
++#endif
++    {
++        if (strcmp(filename, "-") == 0)
++            doc = xmlReadFd(STDIN_FILENO, "-", encoding, options);
++        else
++            doc = xmlReadFile(filename, encoding, options);
++    }
++
++    return(doc);
++}
++
+ static void
+ xsltProcess(xmlDocPtr doc, xsltStylesheetPtr cur, const char *filename) {
+     xmlDocPtr res;
+@@ -351,12 +377,7 @@ xsltProcess(xmlDocPtr doc, xsltStylesheetPtr cur, const char *filename) {
+ 		res = xsltApplyStylesheet(cur, doc, params);
+ 		xmlFreeDoc(res);
+ 		xmlFreeDoc(doc);
+-#ifdef LIBXML_HTML_ENABLED
+-		if (html)
+-		    doc = htmlReadFile(filename, encoding, options);
+-		else
+-#endif
+-		    doc = xmlReadFile(filename, encoding, options);
++                doc = xsltReadFile(filename);
+ 	    }
+ 	}
+ 	ctxt = xsltNewTransformContext(cur, doc);
+@@ -857,12 +878,7 @@ main(int argc, char **argv)
+ 	    doc = NULL;
+             if (timing)
+                 startTimer();
+-#ifdef LIBXML_HTML_ENABLED
+-            if (html)
+-                doc = htmlReadFile(argv[i], encoding, options);
+-            else
+-#endif
+-                doc = xmlReadFile(argv[i], encoding, options);
++            doc = xsltReadFile(argv[i]);
+             if (doc == NULL) {
+                 fprintf(stderr, "unable to parse %s\n", argv[i]);
+ 		errorno = 6;
+-- 
+GitLab
+

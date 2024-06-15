@@ -1,0 +1,23 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxslt/-/commit/0042855aaa49539bb6d1b7a720c87923a9d53e23
+--
+From 0042855aaa49539bb6d1b7a720c87923a9d53e23 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Sat, 15 Jun 2024 00:31:02 +0200
+Subject: [PATCH] tests: Fix expected error after libxml2 change
+
+---
+ tests/documents/test_bad.err | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tests/documents/test_bad.err b/tests/documents/test_bad.err
+index 91e5f4c7..e6dd5987 100644
+--- a/tests/documents/test_bad.err
++++ b/tests/documents/test_bad.err
+@@ -1,2 +1,2 @@
+-I/O error : failed to load "foofile.xml": No such file or directory
+-I/O error : failed to load "foo_file.xml": No such file or directory
++I/O warning : failed to load "foofile.xml": No such file or directory
++I/O warning : failed to load "foo_file.xml": No such file or directory
+-- 
+GitLab
+
