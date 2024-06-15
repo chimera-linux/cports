@@ -3,7 +3,7 @@ _majver = "17"
 _fver = f"{_majver}.0.11"
 _bver = "9"
 pkgver = f"{_fver}_p{_bver}"
-pkgrel = 0
+pkgrel = 1
 # we don't attempt zero, it's a waste of time
 archs = ["x86_64", "aarch64", "ppc64le", "ppc64"]
 build_style = "gnu_configure"
@@ -29,6 +29,7 @@ configure_args = [
     "--with-vendor-bug-url=https://github.com/chimera-linux/cports/issues",
     "--with-vendor-vm-bug-url=https://github.com/chimera-linux/cports/issues",
 ]
+configure_gen = []
 make_cmd = "gmake"
 make_build_args = ["jdk-image"]
 hostmakedepends = [
@@ -189,27 +190,6 @@ def _jmods(self):
     return [f"{_java_home}/jmods"]
 
 
-@subpackage(f"openjdk{_majver}-jre")
-def _jre(self):
-    self.pkgdesc = f"{pkgdesc} (runtime)"
-    self.depends = [f"openjdk{_majver}-jre-headless={pkgver}-r{pkgrel}"]
-    self.provides = ["java-jre"]
-
-    _rets = []
-    for f in [
-        "awt_xawt",
-        "fontmanager",
-        "javajpeg",
-        "jawt",
-        "jsound",
-        "lcms",
-        "splashscreen",
-    ]:
-        _rets.append(f"{_java_home}/lib/lib{f}.so")
-
-    return _rets
-
-
 @subpackage(f"openjdk{_majver}-src")
 def _src(self):
     self.pkgdesc = f"{pkgdesc} (sources)"
@@ -218,11 +198,26 @@ def _src(self):
     return [f"{_java_home}/lib/src.zip"]
 
 
+@subpackage(f"openjdk{_majver}-jre")
+def _jre(self):
+    self.pkgdesc = f"{pkgdesc} (runtime)"
+    self.depends = [f"openjdk{_majver}-jre-headless={pkgver}-r{pkgrel}"]
+
+    return [
+        f"{_java_home}/lib/libawt_xawt.so",
+        f"{_java_home}/lib/libfontmanager.so",
+        f"{_java_home}/lib/libjavajpeg.so",
+        f"{_java_home}/lib/libjawt.so",
+        f"{_java_home}/lib/libjsound.so",
+        f"{_java_home}/lib/liblcms.so",
+        f"{_java_home}/lib/libsplashscreen.so",
+    ]
+
+
 @subpackage(f"openjdk{_majver}-jre-headless")
 def _jreh(self):
     self.pkgdesc = f"{pkgdesc} (headless runtime)"
     self.depends = ["java-cacerts", "java-common"]
-    self.provides = ["java-jre-headless"]
     self.options = ["brokenlinks"]
 
     return [
@@ -253,14 +248,30 @@ def _jreh(self):
     ]
 
 
-@subpackage(f"openjdk{_majver}-jre-default")
-def _jredef(self):
-    self.pkgdesc = f"{pkgdesc} (JRE default)"
-    self.install_if = [
-        f"openjdk{_majver}-default={pkgver}-r{pkgrel}",
-        f"openjdk{_majver}-jre-headless={pkgver}-r{pkgrel}",
+@subpackage(f"openjdk{_majver}-jdk")
+def _jdk(self):
+    self.pgkdesc = f"{pkgdesc} (JDK)"
+    self.depends = [
+        f"openjdk{_majver}-jre={pkgver}-r{pkgrel}",
+        f"openjdk{_majver}-jmods={pkgver}-r{pkgrel}",
     ]
 
+    return [
+        f"{_java_home}/bin",
+        f"{_java_home}/lib",
+        f"{_java_home}/man",
+        f"{_java_home}/include",
+    ]
+
+
+@subpackage(pkgname, alternative="java-jre-headless")
+def _jrehdef(self):
+    # default version
+    self.provider_priority = 100
+    # compat
+    self.provides = [
+        f"openjdk{_majver}-jre-headless-default={pkgver}-r{pkgrel}"
+    ]
     return [
         "usr/bin/java",
         "usr/bin/jfr",
@@ -276,45 +287,31 @@ def _jredef(self):
     ]
 
 
-@subpackage(f"openjdk{_majver}-jdk")
-def _jdk(self):
-    self.pgkdesc = f"{pkgdesc} (JDK)"
-    self.depends = [
-        f"openjdk{_majver}-jre={pkgver}-r{pkgrel}",
-        f"openjdk{_majver}-jmods={pkgver}-r{pkgrel}",
-    ]
-    self.provides = ["java-jdk"]
-
-    return [
-        f"{_java_home}/bin",
-        f"{_java_home}/lib",
-        f"{_java_home}/man",
-        f"{_java_home}/include",
-    ]
+@subpackage(pkgname, alternative="java-jre")
+def _jredef(self):
+    # default version
+    self.provider_priority = 100
+    # compat
+    self.provides = [f"openjdk{_majver}-jre-default={pkgver}-r{pkgrel}"]
+    # requires
+    self.depends += [f"openjdk{_majver}-jre={pkgver}-r{pkgrel}"]
+    # empty
+    self.options = ["empty"]
+    return []
 
 
-@subpackage(f"openjdk{_majver}-jdk-default")
+@subpackage(pkgname, alternative="java-jdk")
 def _jdkdef(self):
-    self.pkgdesc = f"{pkgdesc} (JDK default)"
-    self.install_if = [
+    # default version
+    self.provider_priority = 100
+    # compat
+    self.provides = [
+        f"openjdk{_majver}-jdk-default={pkgver}-r{pkgrel}",
         f"openjdk{_majver}-default={pkgver}-r{pkgrel}",
-        f"openjdk{_majver}-jdk={pkgver}-r{pkgrel}",
     ]
-    self.depends = [f"openjdk{_majver}-jre-default={pkgver}-r{pkgrel}"]
-
+    # requires the stuff
+    self.depends += [f"java-jre-openjdk{_majver}-default={pkgver}-r{pkgrel}"]
     return [
         "usr/bin",
         "usr/share/man",
     ]
-
-
-@subpackage(f"openjdk{_majver}-default")
-def _default(self):
-    self.pkgdesc = f"{pkgdesc} (default)"
-    self.provides = [f"java-default={pkgver}-r{pkgrel}"]
-    self.options = ["empty"]
-
-    return []
-
-
-configure_gen = []
