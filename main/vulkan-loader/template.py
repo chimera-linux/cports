@@ -1,18 +1,24 @@
 pkgname = "vulkan-loader"
-pkgver = "1.3.287"
+pkgver = "1.3.288"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-Wno-dev",
     f"-DVULKAN_HEADERS_INSTALL_DIR={self.profile().sysroot / 'usr'}",
-    "-DBUILD_TESTS=OFF",  # needs gtest
+    "-DBUILD_TESTS=OFF",  # needs gtest downloaded
 ]
-hostmakedepends = ["cmake", "ninja", "python", "pkgconf"]
+hostmakedepends = [
+    "cmake",
+    "ninja",
+    "pkgconf",
+    "python",
+]
 makedepends = [
-    "vulkan-headers",
+    "gtest-devel",
     "libxcb-devel",
     "libxkbcommon-devel",
     "libxrandr-devel",
+    "vulkan-headers",
     "wayland-devel",
 ]
 pkgdesc = "Vulkan Installable Client Driver (ICD) loader"
@@ -22,7 +28,7 @@ url = "https://www.khronos.org/vulkan"
 source = (
     f"https://github.com/KhronosGroup/Vulkan-Loader/archive/v{pkgver}.tar.gz"
 )
-sha256 = "8501325eb301c9cbd147acf439ad243dc6b4b417c08adc413cdeb4e188537fb0"
+sha256 = ["c3acc079f05a3943ad6ab468adc002bae74f77a54878902166160292f4a52ff1"]
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # tests disabled
