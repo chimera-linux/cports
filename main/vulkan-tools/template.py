@@ -1,5 +1,5 @@
 pkgname = "vulkan-tools"
-pkgver = "1.3.287"
+pkgver = "1.3.288"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -7,17 +7,23 @@ configure_args = [
     "-DVULKAN_HEADERS_INSTALL_DIR=/usr",
     "-DBUILD_CUBE=ON",
 ]
-hostmakedepends = ["cmake", "ninja", "python", "pkgconf", "glslang-progs"]
+hostmakedepends = [
+    "cmake",
+    "glslang-progs",
+    "ninja",
+    "pkgconf",
+    "python",
+]
 makedepends = [
+    "libxcb-devel",
+    "libxkbcommon-devel",
+    "libxrandr-devel",
+    "linux-headers",
+    "volk",
     "vulkan-headers",
     "vulkan-loader-devel",
-    "libxkbcommon-devel",
-    "libxcb-devel",
-    "libxrandr-devel",
-    "volk",
     "wayland-devel",
     "wayland-protocols",
-    "linux-headers",
 ]
 pkgdesc = "Official Vulkan tools and utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -26,7 +32,7 @@ url = "https://www.khronos.org/vulkan"
 source = (
     f"https://github.com/KhronosGroup/Vulkan-Tools/archive/v{pkgver}.tar.gz"
 )
-sha256 = "960e438cf0d77ec651d118655a2265437e6befdb628899378e04f9bfd7658df2"
+sha256 = "f6f3bc87b2daba09c444aad49067ad204e19894babacb8a9b262571a94f321d2"
 # FIXME: vkcube etc fail
 hardening = ["vis", "!cfi"]
 # no test suite
