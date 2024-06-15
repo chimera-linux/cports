@@ -1,0 +1,202 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxml2/-/commit/aa90cb0c578bd189089cd1fe195faf85040ac98b
+--
+From aa90cb0c578bd189089cd1fe195faf85040ac98b Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Fri, 14 Jun 2024 19:42:40 +0200
+Subject: [PATCH] parser: Make failure to load main document a warning
+
+Revert the change that made failures to load the main document an error.
+
+This fixes the --path option of xmllint and xsltproc.
+
+Should fix #733.
+---
+ parserInternals.c                 | 10 +++++-----
+ python/tests/error.py             |  2 +-
+ python/tests/input_callback.py    |  6 +++---
+ python/tests/tstLastError.py      |  2 +-
+ result/XInclude/fallback.xml.err  |  2 +-
+ result/XInclude/fallback2.xml.err |  4 ++--
+ result/XInclude/fallback4.xml.err |  2 +-
+ result/XInclude/fallback5.xml.err | 32 +++++++++++++++----------------
+ result/XInclude/fallback6.xml.err |  4 ++--
+ result/XInclude/fallback7.xml.err |  2 +-
+ result/XInclude/ns1.xml.err       |  2 +-
+ result/schemas/import1_0_0.err    |  2 +-
+ 12 files changed, 35 insertions(+), 35 deletions(-)
+
+diff --git a/parserInternals.c b/parserInternals.c
+index 423467e6e..732b72b1c 100644
+--- a/parserInternals.c
++++ b/parserInternals.c
+@@ -180,12 +180,12 @@ xmlCtxtErrIO(xmlParserCtxtPtr ctxt, int code, const char *uri)
+         return;
+ 
+     /*
+-     * Don't report a well-formedness error if an external entity could
+-     * not be found. We assume that inputNr is zero for the document
+-     * entity which is somewhat fragile.
++     * Only report a warning if a file could not be found. This should
++     * only be done for external entities, but the external entity loader
++     * of xsltproc can try multiple paths and assumes that ENOENT doesn't
++     * raise an error and aborts parsing.
+      */
+-    if ((ctxt->inputNr > 0) &&
+-        ((code == XML_IO_ENOENT) ||
++    if (((code == XML_IO_ENOENT) ||
+          (code == XML_IO_NETWORK_ATTEMPT) ||
+          (code == XML_IO_UNKNOWN))) {
+         if (ctxt->validate == 0)
+diff --git a/python/tests/error.py b/python/tests/error.py
+index 6c8da9990..6668b729b 100755
+--- a/python/tests/error.py
++++ b/python/tests/error.py
+@@ -10,7 +10,7 @@ import libxml2
+ # Memory debug specific
+ libxml2.debugMemory(1)
+ 
+-expect='--> I/O --> error : --> failed to load "missing.xml": No such file or directory\n'
++expect='--> I/O --> warning : --> failed to load "missing.xml": No such file or directory\n'
+ err=""
+ def callback(ctx, str):
+      global err
+diff --git a/python/tests/input_callback.py b/python/tests/input_callback.py
+index 6d5ec0da0..bf245595a 100755
+--- a/python/tests/input_callback.py
++++ b/python/tests/input_callback.py
+@@ -90,7 +90,7 @@ run_test(desc="Loading entity without custom callback",
+         docpath=startURL, catalog=None,
+         exp_status="not loaded", exp_err=[
+             (-1, "I/O "),
+-            (-1, "error : "),
++            (-1, "warning : "),
+             (-1, "failed to load \"py://strings/xml/sample.xml\": No such file or directory\n")
+             ])
+ 
+@@ -122,7 +122,7 @@ run_test(desc="Retry loading document after unregistering callback",
+         docpath=startURL, catalog=catURL,
+         exp_status="not loaded", exp_err=[
+             (-1, "I/O "),
+-            (-1, "error : "),
++            (-1, "warning : "),
+             (-1, "failed to load \"py://strings/xml/sample.xml\": No such file or directory\n")
+             ])
+ 
+@@ -142,7 +142,7 @@ run_test(desc="Loading using standard i/o after unregistering all callbacks",
+         docpath="tst.xml", catalog=None,
+         exp_status="not loaded", exp_err=[
+             (-1, "I/O "),
+-            (-1, "error : "),
++            (-1, "warning : "),
+             (-1, "failed to load \"tst.xml\": No such file or directory\n")
+             ])
+ 
+diff --git a/python/tests/tstLastError.py b/python/tests/tstLastError.py
+index 35f5eb3d9..a07999501 100755
+--- a/python/tests/tstLastError.py
++++ b/python/tests/tstLastError.py
+@@ -60,7 +60,7 @@ class TestCase(unittest.TestCase):
+                         domain=libxml2.XML_FROM_IO,
+                         code=libxml2.XML_IO_ENOENT,
+                         message='failed to load "dummy.xml": No such file or directory\n',
+-                        level=libxml2.XML_ERR_FATAL,
++                        level=libxml2.XML_ERR_WARNING,
+                         file=None,
+                         line=0)
+ 
+diff --git a/result/XInclude/fallback.xml.err b/result/XInclude/fallback.xml.err
+index fa6b9e1ad..3239da075 100644
+--- a/result/XInclude/fallback.xml.err
++++ b/result/XInclude/fallback.xml.err
+@@ -1 +1 @@
+-I/O error : failed to load "test/XInclude/docs/something.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/something.xml": No such file or directory
+diff --git a/result/XInclude/fallback2.xml.err b/result/XInclude/fallback2.xml.err
+index d405ac200..288ed212d 100644
+--- a/result/XInclude/fallback2.xml.err
++++ b/result/XInclude/fallback2.xml.err
+@@ -1,2 +1,2 @@
+-I/O error : failed to load "test/XInclude/docs/b.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/c.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/b.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/c.xml": No such file or directory
+diff --git a/result/XInclude/fallback4.xml.err b/result/XInclude/fallback4.xml.err
+index e27a7e6fb..251567760 100644
+--- a/result/XInclude/fallback4.xml.err
++++ b/result/XInclude/fallback4.xml.err
+@@ -1 +1 @@
+-I/O error : failed to load "test/XInclude/docs/c.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/c.xml": No such file or directory
+diff --git a/result/XInclude/fallback5.xml.err b/result/XInclude/fallback5.xml.err
+index 4ec1892d7..f30bc6974 100644
+--- a/result/XInclude/fallback5.xml.err
++++ b/result/XInclude/fallback5.xml.err
+@@ -1,16 +1,16 @@
+-I/O error : failed to load "test/XInclude/docs/a01.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a02.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a03.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a04.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a05.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a06.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a07.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a08.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a09.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a10.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a11.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a12.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a13.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a14.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a15.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/a16.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a01.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a02.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a03.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a04.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a05.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a06.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a07.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a08.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a09.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a10.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a11.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a12.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a13.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a14.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a15.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/a16.xml": No such file or directory
+diff --git a/result/XInclude/fallback6.xml.err b/result/XInclude/fallback6.xml.err
+index d405ac200..288ed212d 100644
+--- a/result/XInclude/fallback6.xml.err
++++ b/result/XInclude/fallback6.xml.err
+@@ -1,2 +1,2 @@
+-I/O error : failed to load "test/XInclude/docs/b.xml": No such file or directory
+-I/O error : failed to load "test/XInclude/docs/c.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/b.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/docs/c.xml": No such file or directory
+diff --git a/result/XInclude/fallback7.xml.err b/result/XInclude/fallback7.xml.err
+index 3861279f5..5acd3cccf 100644
+--- a/result/XInclude/fallback7.xml.err
++++ b/result/XInclude/fallback7.xml.err
+@@ -1 +1 @@
+-I/O error : failed to load "test/XInclude/without-reader/404.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/without-reader/404.xml": No such file or directory
+diff --git a/result/XInclude/ns1.xml.err b/result/XInclude/ns1.xml.err
+index ef202341b..d750bc3db 100644
+--- a/result/XInclude/ns1.xml.err
++++ b/result/XInclude/ns1.xml.err
+@@ -1 +1 @@
+-I/O error : failed to load "test/XInclude/without-reader/b.xml": No such file or directory
++I/O warning : failed to load "test/XInclude/without-reader/b.xml": No such file or directory
+diff --git a/result/schemas/import1_0_0.err b/result/schemas/import1_0_0.err
+index aafb61070..f780244a8 100644
+--- a/result/schemas/import1_0_0.err
++++ b/result/schemas/import1_0_0.err
+@@ -1,4 +1,4 @@
+-I/O error : failed to load "test/schemas/import1_0bc.imp": No such file or directory
++I/O warning : failed to load "test/schemas/import1_0bc.imp": No such file or directory
+ ./test/schemas/import1_0.xsd:11: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Failed to locate a schema at location 'test/schemas/import1_0bc.imp'. Skipping the import.
+ ./test/schemas/import1_0.xsd:16: element import: Schemas parser warning : Element '{http://www.w3.org/2001/XMLSchema}import': Skipping import of schema located at 'test/schemas/import1_0b.imp' for the namespace 'http://BAR', since this namespace was already imported with the schema located at 'test/schemas/import1_0.imp'.
+ ./test/schemas/import1_0.xsd:26: element element: Schemas parser error : Element '{http://www.w3.org/2001/XMLSchema}element', attribute 'ref': The QName value '{http://BAR}bar.B' does not resolve to a(n) element declaration.
+-- 
+GitLab
+

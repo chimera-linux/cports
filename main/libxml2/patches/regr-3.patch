@@ -1,0 +1,43 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxml2/-/commit/9ecabe1c2461dc4aa28a75bb9c889f82e37a5786
+--
+From 9ecabe1c2461dc4aa28a75bb9c889f82e37a5786 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Fri, 14 Jun 2024 16:44:09 +0200
+Subject: [PATCH] tree: Fix freeing entities via xmlFreeNode
+
+Call xmlFreeEntity to free all entity members.
+
+Fixes #731.
+---
+ tree.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/tree.c b/tree.c
+index 75f7569a3..d5de72848 100644
+--- a/tree.c
++++ b/tree.c
+@@ -3731,17 +3731,16 @@ xmlFreeNode(xmlNodePtr cur) {
+ 	xmlFreeProp((xmlAttrPtr) cur);
+ 	return;
+     }
++    if (cur->type == XML_ENTITY_DECL) {
++        xmlFreeEntity((xmlEntityPtr) cur);
++        return;
++    }
+ 
+     if ((__xmlRegisterCallbacks) && (xmlDeregisterNodeDefaultValue))
+ 	xmlDeregisterNodeDefaultValue(cur);
+ 
+     if (cur->doc != NULL) dict = cur->doc->dict;
+ 
+-    if (cur->type == XML_ENTITY_DECL) {
+-        xmlEntityPtr ent = (xmlEntityPtr) cur;
+-	DICT_FREE(ent->SystemID);
+-	DICT_FREE(ent->ExternalID);
+-    }
+     if ((cur->children != NULL) &&
+ 	(cur->type != XML_ENTITY_REF_NODE))
+ 	xmlFreeNodeList(cur->children);
+-- 
+GitLab
+

@@ -1,0 +1,48 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxml2/-/commit/c04d9b1b87eaf5c12f70173762f8c81c34e59aeb
+--
+From c04d9b1b87eaf5c12f70173762f8c81c34e59aeb Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Fri, 14 Jun 2024 20:44:45 +0200
+Subject: [PATCH] xinclude: Don't raise error on empty nodeset
+
+xmlXPtrEval returning NULL means an empty nodeset if no error code is
+set.
+
+See #733.
+---
+ xinclude.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/xinclude.c b/xinclude.c
+index 7949a1c36..c8dfa2882 100644
+--- a/xinclude.c
++++ b/xinclude.c
+@@ -1471,7 +1471,7 @@ loaded:
+ #endif
+         }
+ 	xptr = xmlXPtrEval(fragment, ctxt->xpctxt);
+-	if (xptr == NULL) {
++	if (ctxt->xpctxt->lastError.code != XML_ERR_OK) {
+             if (ctxt->xpctxt->lastError.code == XML_ERR_NO_MEMORY)
+                 xmlXIncludeErrMemory(ctxt);
+             else
+@@ -1480,6 +1480,8 @@ loaded:
+                                fragment);
+             goto error;
+ 	}
++        if (xptr == NULL)
++            goto done;
+ 	switch (xptr->type) {
+ 	    case XPATH_UNDEFINED:
+ 	    case XPATH_BOOLEAN:
+@@ -1559,6 +1561,7 @@ loaded:
+     }
+ #endif
+ 
++done:
+     ret = 0;
+ 
+ error:
+-- 
+GitLab
+

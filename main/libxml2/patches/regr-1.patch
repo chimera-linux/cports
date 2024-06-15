@@ -1,0 +1,42 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxml2/-/commit/19031bfdb767e4bdab784504bba68bc1e2fc0ae6
+--
+From 19031bfdb767e4bdab784504bba68bc1e2fc0ae6 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Mon, 10 Jun 2024 18:50:28 +0200
+Subject: [PATCH] io: Fix resetting xmlParserInputBufferCreateFilename hook
+
+We don't want to invoke the default function.
+---
+ xmlIO.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/xmlIO.c b/xmlIO.c
+index d4275cbfc..640d909c4 100644
+--- a/xmlIO.c
++++ b/xmlIO.c
+@@ -2211,13 +2211,17 @@ xmlOutputBufferCreateIO(xmlOutputWriteCallback   iowrite,
+  * Returns the old value of the registration function
+  */
+ xmlParserInputBufferCreateFilenameFunc
+-xmlParserInputBufferCreateFilenameDefault(xmlParserInputBufferCreateFilenameFunc func)
++xmlParserInputBufferCreateFilenameDefault(
++        xmlParserInputBufferCreateFilenameFunc func)
+ {
+-    xmlParserInputBufferCreateFilenameFunc old = xmlParserInputBufferCreateFilenameValue;
+-    if (old == NULL) {
+-		old = __xmlParserInputBufferCreateFilename;
+-	}
++    xmlParserInputBufferCreateFilenameFunc old;
++
++    old = xmlParserInputBufferCreateFilenameValue;
++    if (old == NULL)
++        old = __xmlParserInputBufferCreateFilename;
+ 
++    if (func == __xmlParserInputBufferCreateFilename)
++        func = NULL;
+     xmlParserInputBufferCreateFilenameValue = func;
+     return(old);
+ }
+-- 
+GitLab
+
