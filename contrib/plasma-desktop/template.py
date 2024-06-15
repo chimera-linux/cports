@@ -65,7 +65,39 @@ checkdepends = [
 ]
 depends = [
     "kactivitymanagerd",
-    "kirigami-addons",
+    "kirigami-addons",  # needed by tons of apps, should be direct dep but also just pull it here
+    "kded",  # bg services
+    "plasma-welcome",  # welcome!
+    "xdg-desktop-portal-kde",  # flatpak save dialog etc
+    # default themes, icons, sounds and wallpapers
+    "breeze",
+    "breeze-icons",
+    "ocean-sound-theme",
+    "plasma-workspace-wallpapers",
+    "qqc2-breeze-style",
+    "qqc2-desktop-style",
+    # default KDE fonts
+    "fonts-noto",
+    "fonts-hack-ttf",
+    "fonts-noto-emoji-ttf",
+    # very default base stuff
+    "flatpak-kcm",
+    "kgamma",
+    "kio-admin",
+    "kio-zeroconf",
+    "kscreen",
+    "ksystemstats",
+    "kwallet-pam",
+    "kwalletmanager",
+    "plasma-integration",
+    "plasma-nm",
+    "plasma-pa",
+    "polkit-kde-agent-1",
+    "powerdevil",
+    "systemsettings",
+    "udisks",
+    "xdg-user-dirs-gtk",
+    "xdg-utils",
 ]
 pkgdesc = "KDE Plasma Desktop"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
@@ -87,56 +119,27 @@ def _meta(self):
     self.pkgdesc = f"{pkgdesc} (recommends package)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
-        "kded",  # bg services
-        "xdg-desktop-portal-kde",  # flatpak save dialog etc
-        # welcome!
-        "plasma-welcome",
-        # default themes, icons, sounds and wallpapers
-        "breeze",
-        "breeze-icons",
-        "ocean-sound-theme",
+        # alternate older theme
         "oxygen",
         "oxygen-icons",
         "oxygen-sounds",
-        "plasma-workspace-wallpapers",
-        "qqc2-breeze-style",
-        "qqc2-desktop-style",  # TODO: decide if we want this to be automagically pulled in through kwindowsystem (or similar)
-        # default fonts
-        "fonts-noto",
-        "fonts-hack-ttf",
-        "fonts-noto-emoji-ttf",
         # ?
         "baloo",  # search
         "bluedevil",  # bluetooth
         "kde-cli-tools",  # e.g. mount & open external media
         "kdeplasma-addons",  # bunch of desktop widgets
-        "kquickcharts",  # notifications
-        "kscreen",  # display config, TODO: test on baremetal
         "ksshaskpass",  # graphical askpass
-        "kio-admin",
-        "kio-fuse",
-        "kio-extras",
-        "kio-zeroconf",
-        "milou",  # krunner
         "plasma-browser-integration",  # browser integration with plasma
-        "plasma-integration",
         "plasma-firewall",  # firewall configuration
-        "plasma-nm",  # network-manager integration
-        "plasma-pa",  # pipewire-pulse audio integration
-        "powerdevil",  # power management daemon, TODO: test on baremetal
         "xwaylandvideobridge",  # x11 screen capture compat under wayland, TODO: test on baremetal
-        "ksystemstats",  # TODO: does anything call KSystemStats D-Bus etc? maybe some widget
         "kde-inotify-survey",  # inotify limit monitor
         "plasma-disks",  # smart monitoring
         "kdialog",  # scripted message boxes
-        "polkit-kde-agent-1",  # password root auth prompts
         "plasma-thunderbolt",  # user device authentication
         "colord-kde",  # color profile management
-        "flatpak-kcm",  # flatpak permissions
-        "kgamma",  # adjust monitor gamma
         "print-manager",  # printer configuration
         "wacomtablet",  # wacom tablet settings
-        # "drkonqi",  # TODO: figure out what crash handler to use
+        # "drkonqi",  # TODO: figure out what crash handler to use (also is quite useless without coredumpd)
         "kmenuedit",
         # "krdp",  # TODO: remote desktop server kcm for Plasma 6.2
         # non-kde, misc integrations
@@ -144,9 +147,6 @@ def _meta(self):
         "fprintd-meta",  # TODO: test on baremetal
         # "iio-sensor-proxy",  # FIXME: package and test on device with accelerometer
         "power-profiles-daemon-meta",  # battery power saving
-        "udisks",  # removable disks applet
-        "xdg-user-dirs-gtk",
-        "xdg-utils",  # TODO: missing this probably breaks opening various links at least?
     ]
     self.options = ["empty"]
 
@@ -177,7 +177,6 @@ def _apps_meta(self):
         "discover",  # extra app management
         "dolphin",  # file manager
         "konsole",  # terminal
-        "systemsettings",  # all settings
         # - extra
         "dolphin-plugins",
         "ffmpegthumbs",  # video thumbnails
@@ -208,10 +207,6 @@ def _apps_meta(self):
         "skanlite",  # image scanner
         "yakuake",  # drop-down terminal
         "kcachegrind",  # callgrind data visualizer
-        # - passwords
-        "kwallet",
-        "kwallet-pam",
-        "kwalletmanager",
         # - still qt5
         # "digikam",  # photo management
         # "heaptrack",  # heap memory profiler
