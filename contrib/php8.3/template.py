@@ -180,6 +180,10 @@ def post_patch(self):
         "sapi/cli/tests/009.phpt",
         "sapi/cli/tests/012-2.phpt",
         "sapi/fpm/tests/bug77780-header-sent-error.phpt",
+        # fails with new xml libs
+        "ext/simplexml/tests/bug63575.phpt",
+        "ext/simplexml/tests/bug76712.phpt",
+        "ext/simplexml/tests/bug79971_1.phpt",
     ]:
         self.rm(f)
 
