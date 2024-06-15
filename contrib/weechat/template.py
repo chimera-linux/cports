@@ -1,6 +1,6 @@
 pkgname = "weechat"
 pkgver = "4.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # no guile available
@@ -11,12 +11,19 @@ configure_args = [
     "-DENABLE_JAVASCRIPT=False",
     # no, aspell available
     "-DENABLE_ENCHANT=True",
-    # missing dependencies
+    # missing dependency (cpputest); tests seem kinda half broken
     "-DENABLE_TESTS=False",
-    "-DENABLE_MAN=False",
-    "-DENABLE_DOC=False",
+    "-DENABLE_MAN=True",
+    "-DENABLE_DOC=True",
+    "-DENABLE_DOC_INCOMPLETE=True",
 ]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext"]
+hostmakedepends = [
+    "asciidoctor",
+    "cmake",
+    "gettext",
+    "ninja",
+    "pkgconf",
+]
 makedepends = [
     # core deps
     "cjson-devel",
