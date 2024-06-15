@@ -115,10 +115,10 @@ def init_configure(self):
 def post_install(self):
     from cbuild.util import python
 
-    self.install_dir(f"usr/lib")
+    self.install_dir("usr/lib")
     self.mv(
         self.destdir / "usr/share/blender/4.*/python/lib/python*",
-        self.destdir / f"usr/lib/",
+        self.destdir / "usr/lib/",
         glob=True,
     )
 
