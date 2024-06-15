@@ -3,7 +3,7 @@ _majver = "17"
 _fver = f"{_majver}.0.11"
 _bver = "9"
 pkgver = f"{_fver}_p{_bver}"
-pkgrel = 1
+pkgrel = 2
 # we don't attempt zero, it's a waste of time
 archs = ["x86_64", "aarch64", "ppc64le", "ppc64"]
 build_style = "gnu_configure"
@@ -294,7 +294,10 @@ def _jredef(self):
     # compat
     self.provides = [f"openjdk{_majver}-jre-default={pkgver}-r{pkgrel}"]
     # requires
-    self.depends += [f"openjdk{_majver}-jre={pkgver}-r{pkgrel}"]
+    self.depends += [
+        f"java-jre-headless-openjdk{_majver}-default={pkgver}-r{pkgrel}",
+        f"openjdk{_majver}-jre={pkgver}-r{pkgrel}",
+    ]
     # empty
     self.options = ["empty"]
     return []
