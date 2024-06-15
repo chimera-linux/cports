@@ -1,6 +1,6 @@
 pkgname = "heimdal"
 pkgver = "7.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-kcm",
@@ -12,35 +12,37 @@ configure_args = [
     f"--with-sqlite3={self.profile().sysroot / 'usr'}",
     f"--with-libedit={self.profile().sysroot / 'usr'}",
     f"--with-libintl={self.profile().sysroot / 'usr'}",
+    f"--with-openldap={self.profile().sysroot / 'usr'}",
 ]
 make_cmd = "gmake"
 # install and check are racey
 make_install_args = ["-j1"]
 make_check_args = ["-j1"]
 hostmakedepends = [
-    "gmake",
-    "pkgconf",
-    "flex",
+    "automake",
     "byacc",
+    "e2fsprogs-devel",  # for compile_et
+    "flex",
+    "gettext",
+    "gmake",
+    "libtool",
+    "mandoc",
     "perl",
     "perl-json",
+    "pkgconf",
     "python",
-    "mandoc",
     "texinfo",
-    "gettext",
-    "automake",
-    "libtool",
-    "e2fsprogs-devel",  # for compile_et
 ]
 # TODO: reenable openssl once we've figured out the openssl 3.x regressions
 makedepends = [
-    "sqlite-devel",
-    "libedit-devel",
-    "libcap-ng-devel",
-    "linux-pam-devel",
-    "gettext-devel",
-    "ncurses-devel",
     "e2fsprogs-devel",
+    "gettext-devel",
+    "libcap-ng-devel",
+    "libedit-devel",
+    "linux-pam-devel",
+    "ncurses-devel",
+    "openldap-devel",
+    "sqlite-devel",
 ]
 pkgdesc = "Implementation of the Kerberos authentication protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -88,6 +90,10 @@ def post_install(self):
     self.install_link("usr/share/man/man8/ipropd-slave.8", "iprop.8")
     self.install_link("usr/share/man/man5/qop.5", "mech.5")
 
+    self.install_service(self.files_path / "heimdal-kdc")
+    self.install_service(self.files_path / "heimdal-kadmind")
+    self.install_service(self.files_path / "heimdal-kpasswdd")
+
 
 def _genlib(pkgn, desc):
     @subpackage(f"lib{pkgn}")
@@ -125,12 +131,14 @@ def _kcm(self):
     return ["usr/libexec/kcm", "usr/share/man/man8/kcm.8"]
 
 
-# TODO: add services
 @subpackage("heimdal-kdc")
 def _kdc(self):
     self.pkgdesc = "Heimdal Key Distribution Center"
 
     return [
+        "etc/dinit.d/heimdal-kadmind",
+        "etc/dinit.d/heimdal-kdc",
+        "etc/dinit.d/heimdal-kpasswdd",
         "usr/bin/iprop-log",
         "usr/bin/kstash",
         "usr/libexec/digest-service",

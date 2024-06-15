@@ -1,0 +1,7 @@
+# heimdal-kpasswdd service
+
+type = process
+command = /usr/libexec/kpasswdd
+depends-on = network.target
+depends-on = local.target
+smooth-recovery = true
