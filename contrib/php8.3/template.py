@@ -1,7 +1,7 @@
 pkgname = "php8.3"
 _majver = "8.3"
 pkgver = f"{_majver}.8"
-pkgrel = 1
+pkgrel = 2
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -35,6 +35,7 @@ configure_args = [
     "--enable-mbstring=shared",
     "--enable-opcache=shared",
     "--enable-pcntl=shared",
+    "--enable-pdo=shared",
     "--enable-phar=shared",
     "--enable-posix=shared",
     "--enable-session=shared",
@@ -61,6 +62,7 @@ configure_args = [
     "--with-libxml",
     "--with-openssl=shared",
     "--with-password-argon2",
+    "--with-pdo-sqlite=shared",
     "--with-sodium=shared",
     "--with-sqlite3=shared",
     "--with-unixODBC=shared",
@@ -275,6 +277,8 @@ for _extn, _iif in [
     ("opcache", True),
     ("openssl", False),
     ("pcntl", False),
+    ("pdo", True),
+    ("pdo_sqlite", True),
     ("phar", True),
     ("posix", True),
     ("readline", False),
