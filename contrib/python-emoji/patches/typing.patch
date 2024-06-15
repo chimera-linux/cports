@@ -1,0 +1,56 @@
+diff --git a/emoji/core.py b/emoji/core.py
+index 3a62bc8..16fcf21 100644
+--- a/emoji/core.py
++++ b/emoji/core.py
+@@ -9,7 +9,7 @@ Core components for emoji.
+ import re
+ import unicodedata
+ from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple, Union
+-from typing_extensions import Literal, Match, TypedDict
++from typing import Literal, Match, TypedDict
+ 
+ from emoji import unicode_codes
+ from emoji.tokenizer import Token, EmojiMatch, EmojiMatchZWJ, EmojiMatchZWJNonRGI, tokenize, filter_tokens
+diff --git a/pyproject.toml b/pyproject.toml
+index 2f77bd5..d6ae8d1 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -32,9 +32,6 @@ classifiers = [
+     "Topic :: Software Development :: Libraries :: Python Modules",
+     "Typing :: Typed"
+ ]
+-dependencies = [
+-    "typing_extensions >= 4.7.0",
+-]
+ dynamic = ["version"]
+ 
+ [project.urls]
+diff --git a/tests/test_core.py b/tests/test_core.py
+index adc0a19..c7a214a 100644
+--- a/tests/test_core.py
++++ b/tests/test_core.py
+@@ -3,7 +3,7 @@
+ import random
+ import re
+ from typing import Any, Callable, Dict, List, Tuple, Union
+-from typing_extensions import Literal
++from typing import Literal
+ import pytest
+ import emoji.unicode_codes
+ from testutils import ascii, normalize, all_language_packs, all_language_and_alias_packs, get_emoji_unicode_dict
+diff --git a/utils/testutils.py b/utils/testutils.py
+index c538779..809d751 100644
+--- a/utils/testutils.py
++++ b/utils/testutils.py
+@@ -1,8 +1,9 @@
+-from typing import Generator, Dict, Any, Tuple, Iterable
++from typing import Generator, Dict, Any, Tuple, Iterable 
+ import sys
+ import unicodedata
+ import emoji.unicode_codes
+-from typing_extensions import Literal
++from typing import Literal
++
+ 
+ _NormalizationForm = Literal['NFC', 'NFD', 'NFKC', 'NFKD']
+ 
