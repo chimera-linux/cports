@@ -1,5 +1,5 @@
 pkgname = "embree"
-pkgver = "4.3.1"
+pkgver = "4.3.2"
 pkgrel = 0
 # embree really doesn't want to build outside of these without ragepatching
 archs = ["aarch64", "x86_64"]
@@ -9,20 +9,13 @@ configure_args = [
     "-DEMBREE_TUTORIALS=OFF",
 ]
 hostmakedepends = ["cmake", "ninja"]
-makedepends = [
-    "glfw-devel",
-    "libjpeg-turbo-devel",
-    "libpng-devel",
-    "mesa-devel",
-    "onetbb-devel",
-    "openimageio-devel",
-]
+makedepends = ["onetbb-devel"]
 pkgdesc = "Ray tracing library"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://www.embree.org"
 source = f"https://github.com/embree/embree/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "824edcbb7a8cd393c5bdb7a16738487b21ecc4e1d004ac9f761e934f97bb02a4"
+sha256 = "dc7bb6bac095b2e7bc64321435acd07c6137d6d60e4b79ec07bb0b215ddf81cb"
 # guilty until proven otherwise
 hardening = ["!int"]
 
