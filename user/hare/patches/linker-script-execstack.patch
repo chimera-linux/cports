@@ -1,0 +1,13 @@
+otherwise cbuild flags hare and haredoc binaries as using execstack
+diff --git a/rt/+linux/hare.sc b/rt/+linux/hare.sc
+index f93ed9de..be76e31d 100644
+--- a/rt/+linux/hare.sc
++++ b/rt/+linux/hare.sc
+@@ -2,6 +2,7 @@ PHDRS {
+ 	headers PT_PHDR PHDRS;
+ 	text PT_LOAD FILEHDR PHDRS;
+ 	data PT_LOAD;
++	stack PT_GNU_STACK FLAGS (6);
+ }
+ ENTRY(_start);
+ SECTIONS {
