@@ -1,6 +1,6 @@
 pkgname = "gnupg"
 pkgver = "2.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--enable-all-tests"]
 configure_gen = []
@@ -16,6 +16,7 @@ makedepends = [
     "libksba-devel",
     "libusb-devel",
     "npth-devel",
+    "openldap-devel",
     "readline-devel",
     "sqlite-devel",
 ]
