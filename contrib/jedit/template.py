@@ -1,10 +1,10 @@
 pkgname = "jedit"
 # update version in patches on updates
 pkgver = "5.6.0"
-pkgrel = 2
+pkgrel = 3
 prepare_after_patch = True
 hostmakedepends = ["apache-ant", "docbook-xsl-nons", "openjdk17-jdk"]
-# depends = ["virtual:java-jre!openjdk17-jre"]
+depends = ["virtual:java-jre!openjdk17-jre"]
 pkgdesc = "Programming text editor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
