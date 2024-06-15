@@ -1,0 +1,39 @@
+diff --git a/lookandfeel/org.kde.breeze/contents/defaults b/lookandfeel/org.kde.breeze/contents/defaults
+index 896797e240..6d5c7dd4f7 100644
+--- a/lookandfeel/org.kde.breeze/contents/defaults
++++ b/lookandfeel/org.kde.breeze/contents/defaults
+@@ -11,7 +11,7 @@ Theme=breeze
+ name=default
+ 
+ [Wallpaper]
+-Image=Next
++Image=Chimera
+ 
+ [kcminputrc][Mouse]
+ cursorTheme=breeze_cursors
+diff --git a/lookandfeel/org.kde.breezedark/contents/defaults b/lookandfeel/org.kde.breezedark/contents/defaults
+index 32cb13fc77..593ce080bc 100644
+--- a/lookandfeel/org.kde.breezedark/contents/defaults
++++ b/lookandfeel/org.kde.breezedark/contents/defaults
+@@ -11,7 +11,7 @@ Theme=breeze-dark
+ name=default
+ 
+ [Wallpaper]
+-Image=Next
++Image=Chimera
+ 
+ [kcminputrc][Mouse]
+ cursorTheme=breeze_cursors
+diff --git a/lookandfeel/org.kde.breezetwilight/contents/defaults b/lookandfeel/org.kde.breezetwilight/contents/defaults
+index 166394f14e..b65f95f4b2 100644
+--- a/lookandfeel/org.kde.breezetwilight/contents/defaults
++++ b/lookandfeel/org.kde.breezetwilight/contents/defaults
+@@ -11,7 +11,7 @@ Theme=breeze
+ name=breeze-dark
+ 
+ [Wallpaper]
+-Image=Next
++Image=Chimera
+ 
+ [kcminputrc][Mouse]
+ cursorTheme=breeze_cursors
