@@ -1,0 +1,112 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxml2/-/commit/7c3151903da31efb7a42f3e27857f9f7df6f88e1
+--
+From 7c3151903da31efb7a42f3e27857f9f7df6f88e1 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Wed, 6 Dec 2023 18:35:30 +0100
+Subject: [PATCH] include: Readd circular dependency between tree.h and
+ parser.h
+
+There are dozens of downstream projects that only include tree.h but use
+declarations from parser.h. This broke after the recent cleanup of
+circular dependencies.
+
+Make tree.h include parser.h again. This is a hack but doesn't change
+the include directory struture.
+
+This commit only made it into the 2.12 branch but wasn't applied to
+master, so the issue turned up in 2.13.0 again.
+
+Should fix #734.
+---
+ include/libxml/entities.h |  2 ++
+ include/libxml/parser.h   |  2 ++
+ include/libxml/tree.h     | 11 +++++++++++
+ include/libxml/valid.h    |  2 ++
+ include/libxml/xmlIO.h    |  2 ++
+ 5 files changed, 19 insertions(+)
+
+diff --git a/include/libxml/entities.h b/include/libxml/entities.h
+index 96029ba1a..26a8bc424 100644
+--- a/include/libxml/entities.h
++++ b/include/libxml/entities.h
+@@ -12,7 +12,9 @@
+ #define __XML_ENTITIES_H__
+ 
+ #include <libxml/xmlversion.h>
++#define XML_TREE_INTERNALS
+ #include <libxml/tree.h>
++#undef XML_TREE_INTERNALS
+ 
+ #ifdef __cplusplus
+ extern "C" {
+diff --git a/include/libxml/parser.h b/include/libxml/parser.h
+index 86dd54f47..ad378c9e5 100644
+--- a/include/libxml/parser.h
++++ b/include/libxml/parser.h
+@@ -11,7 +11,9 @@
+ #define __XML_PARSER_H__
+ 
+ #include <libxml/xmlversion.h>
++#define XML_TREE_INTERNALS
+ #include <libxml/tree.h>
++#undef XML_TREE_INTERNALS
+ #include <libxml/dict.h>
+ #include <libxml/hash.h>
+ #include <libxml/valid.h>
+diff --git a/include/libxml/tree.h b/include/libxml/tree.h
+index 19bb12671..4070375b9 100644
+--- a/include/libxml/tree.h
++++ b/include/libxml/tree.h
+@@ -9,6 +9,15 @@
+  * Author: Daniel Veillard
+  */
+ 
++#ifndef XML_TREE_INTERNALS
++
++/*
++ * Emulate circular dependency for backward compatibility
++ */
++#include <libxml/parser.h>
++
++#else /* XML_TREE_INTERNALS */
++
+ #ifndef __XML_TREE_H__
+ #define __XML_TREE_H__
+ 
+@@ -1369,3 +1378,5 @@ XML_DEPRECATED XMLPUBFUN int
+ 
+ #endif /* __XML_TREE_H__ */
+ 
++#endif /* XML_TREE_INTERNALS */
++
+diff --git a/include/libxml/valid.h b/include/libxml/valid.h
+index 361e9655e..b9db720e6 100644
+--- a/include/libxml/valid.h
++++ b/include/libxml/valid.h
+@@ -13,7 +13,9 @@
+ 
+ #include <libxml/xmlversion.h>
+ #include <libxml/xmlerror.h>
++#define XML_TREE_INTERNALS
+ #include <libxml/tree.h>
++#undef XML_TREE_INTERNALS
+ #include <libxml/list.h>
+ #include <libxml/xmlautomata.h>
+ #include <libxml/xmlregexp.h>
+diff --git a/include/libxml/xmlIO.h b/include/libxml/xmlIO.h
+index 66eebd42d..15bd9a2eb 100644
+--- a/include/libxml/xmlIO.h
++++ b/include/libxml/xmlIO.h
+@@ -13,7 +13,9 @@
+ #include <stdio.h>
+ #include <libxml/xmlversion.h>
+ #include <libxml/encoding.h>
++#define XML_TREE_INTERNALS
+ #include <libxml/tree.h>
++#undef XML_TREE_INTERNALS
+ 
+ #ifdef __cplusplus
+ extern "C" {
+-- 
+GitLab
+

@@ -1,6 +1,6 @@
 pkgname = "libxml2"
 pkgver = "2.13.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
