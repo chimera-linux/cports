@@ -1,6 +1,6 @@
 pkgname = "fcitx5-configtool"
 pkgver = "5.1.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",
@@ -56,17 +56,9 @@ options = ["!cross"]
 def _kde(self):
     self.pkgdesc = f"{pkgdesc} (KCM integration)"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"fcitx5-configtool-kde-meta={pkgver}-r{pkgrel}"]
 
     return [
         "usr/bin/fcitx5-plasma-theme-generator",
         "usr/share/applications/kcm_fcitx5.desktop",
         "usr/share/locale/*/*/kcm*",
     ]
-
-
-@subpackage("fcitx5-configtool-kde-meta")
-def _kde_meta(self):
-    self.pkgdesc = f"{pkgdesc} (KDE recommends package)"
-    self.options = ["empty"]
-    return []
