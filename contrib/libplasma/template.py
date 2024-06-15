@@ -1,6 +1,6 @@
 pkgname = "libplasma"
 pkgver = "6.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # plasma-dialogstatetest needs X11, DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
 make_check_args = ["-E", "dialognativetest"]
