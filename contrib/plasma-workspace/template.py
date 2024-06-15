@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -62,8 +62,8 @@ makedepends = [
     "knotifyconfig-devel",
     "kparts-devel",
     "kpipewire-devel",
-    "krunner-devel",
     "kquickcharts-devel",
+    "krunner-devel",
     "kscreenlocker-devel",
     "kstatusnotifieritem-devel",
     "ksvg-devel",
@@ -102,10 +102,11 @@ makedepends = [
 ]
 depends = [
     "appmenu-gtk-module",
+    "chimera-artwork-kde",
     "iso-codes",
-    "kirigami-addons",
     "kio-extras",
     "kio-fuse",
+    "kirigami-addons",
     "kquickcharts",
     "kwin",
     "milou",
@@ -118,7 +119,7 @@ checkdepends = [
 ] + depends
 pkgdesc = "KDE Plasma Workspace"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
-license = "(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.1-or-later AND GPL-2.0-or-later AND MIT AND LGPL-2.1-only AND LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only) AND LGPL-2.0-only"
+license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-workspace-{pkgver}.tar.xz"
 sha256 = "47d2c42bdf8c127fa1656f65baa9828f9890cffd3f416b0af9e056cf228c07ee"
@@ -134,6 +135,10 @@ def post_install(self):
     self.install_link(
         "etc/xdg/menus/applications.menu", "plasma-applications.menu"
     )
+
+    for theme in ["breeze", "breezedark", "breezetwilight"]:
+        previews_path = f"usr/share/plasma/look-and-feel/org.kde.{theme}.desktop/contents/previews"
+        self.rm(self.destdir / f"{previews_path}/*", glob=True)
 
     self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
 
