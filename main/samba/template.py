@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
 pkgver = "4.20.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -35,8 +35,6 @@ configure_args = [
     "--with-syslog",
     "--with-quota",
     "--with-pam",
-    "--without-ads",  # needs ldap
-    "--without-ldap",  # don't depend on shit software
     "--without-ad-dc",
 ]
 hostmakedepends = [
@@ -80,6 +78,7 @@ makedepends = [
     "musl-bsd-headers",
     "musl-nscd",
     "ncurses-devel",
+    "openldap-devel",
     "popt-devel",
     "python-devel",
     "talloc-devel",
@@ -108,6 +107,7 @@ configure_args.append(
     "--with-shared-modules="
     + ",".join(
         [
+            "idmap_ad",
             "idmap_rid",
             "idmap_adex",
             "idmap_hash",
