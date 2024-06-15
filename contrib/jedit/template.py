@@ -1,7 +1,7 @@
 pkgname = "jedit"
 # update version in patches on updates
 pkgver = "5.6.0"
-pkgrel = 0
+pkgrel = 1
 prepare_after_patch = True
 hostmakedepends = ["apache-ant", "docbook-xsl-nons", "openjdk17-jdk"]
 depends = ["virtual:java-jre!openjdk17-jre"]
