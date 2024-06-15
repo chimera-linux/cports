@@ -30,7 +30,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "alembic-devel",
     "boost-devel",
     "clang-devel",
     "eigen",
@@ -85,6 +84,10 @@ tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["!int", "!var-init"]
 # tests expect blender to be installed in /usr/bin
 options = ["!check", "linkundefver"]
+
+if self.profile().endian == "little":
+    makedepends += ["alembic-devel"]
+
 
 match self.profile().arch:
     case "ppc64" | "ppc":
