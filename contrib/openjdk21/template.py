@@ -5,7 +5,8 @@ _bver = "9"
 pkgver = f"{_fver}_p{_bver}"
 pkgrel = 0
 # we don't attempt zero, it's a waste of time
-archs = ["aarch64", "ppc64", "ppc64le", "riscv64", "x86_64"]
+# riscv64 ftbfs: java.lang.InternalError: unknown error in checkDeflateStatus
+archs = ["aarch64", "ppc64", "ppc64le", "x86_64"]
 build_style = "gnu_configure"
 configure_args = [
     "--disable-warnings-as-errors",
