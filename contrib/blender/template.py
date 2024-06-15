@@ -1,6 +1,6 @@
 pkgname = "blender"
 pkgver = "4.1.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -21,14 +21,16 @@ configure_args = [
     "-DWITH_SYSTEM_EIGEN3=ON",
     "-DWITH_SYSTEM_FREETYPE=ON",
     "-DWITH_SYSTEM_LZO=ON",
-    # TODO: openvdb/alembic
 ]
 hostmakedepends = [
     "cmake",
     "ninja",
+    "openimageio-progs",
+    "openshadinglanguage-progs",
     "pkgconf",
 ]
 makedepends = [
+    "alembic-devel",
     "boost-devel",
     "clang-devel",
     "eigen",
@@ -37,6 +39,7 @@ makedepends = [
     "freetype-devel",
     "gmpxx-devel",
     "libepoxy-devel",
+    "libharu-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libpulse-devel",
@@ -52,8 +55,8 @@ makedepends = [
     "openimageio-devel",
     "openjpeg-devel",
     "openshadinglanguage-devel",
-    "openshadinglanguage-progs",
     "opensubdiv-devel",
+    "openvdb-devel",
     "pipewire-jack-devel",
     "potrace-devel",
     "pugixml-devel",
