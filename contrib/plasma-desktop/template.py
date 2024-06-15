@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.0.5"
-pkgrel = 13
+pkgrel = 14
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -130,7 +130,6 @@ def _meta(self):
         "plasma-disks",  # smart monitoring
         "kdialog",  # scripted message boxes
         "polkit-kde-agent-1",  # password root auth prompts
-        "fcitx5-configtool-kde-meta",  # configure IME
         "plasma-thunderbolt",  # user device authentication
         "colord-kde",  # color profile management
         "flatpak-kcm",  # flatpak permissions
