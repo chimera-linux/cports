@@ -1,6 +1,6 @@
 pkgname = "blender"
 pkgver = "4.1.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -114,5 +114,12 @@ def init_configure(self):
 
 def post_install(self):
     from cbuild.util import python
+
+    self.install_dir(f"usr/lib")
+    self.mv(
+        self.destdir / "usr/share/blender/4.*/python/lib/python*",
+        self.destdir / f"usr/lib/",
+        glob=True,
+    )
 
     python.precompile(self, "usr/share/blender")
