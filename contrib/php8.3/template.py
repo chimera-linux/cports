@@ -183,9 +183,23 @@ def post_patch(self):
         "sapi/cli/tests/012-2.phpt",
         "sapi/fpm/tests/bug77780-header-sent-error.phpt",
         # fails with new xml libs
+        "ext/dom/tests/DOMDocument_loadHTMLfile_error1.phpt",
+        "ext/dom/tests/DOMDocument_loadXML_error2_gte2_12.phpt",
+        "ext/dom/tests/DOMDocument_load_error2_gte2_12.phpt",
+        "ext/dom/tests/DOMDocument_relaxNGValidate_error2.phpt",
+        "ext/dom/tests/DOMDocument_saveHTMLFile_basic.phpt",
+        "ext/dom/tests/DOMDocument_saveHTMLFile_formatOutput.phpt",
+        "ext/dom/tests/DOMDocument_schemaValidate_error5.phpt",
+        "ext/dom/tests/DOMElement_insertAdjacentText.phpt",
+        "ext/dom/tests/DOMEntityReference_predefined_free.phpt",
+        "ext/dom/tests/dom_create_element.phpt",
+        "ext/libxml/tests/bug61367-read_2.phpt",
+        "ext/libxml/tests/libxml_disable_entity_loader_2.phpt",
         "ext/simplexml/tests/bug63575.phpt",
         "ext/simplexml/tests/bug76712.phpt",
         "ext/simplexml/tests/bug79971_1.phpt",
+        "ext/soap/tests/bug69668.phpt",
+        "ext/soap/tests/bugs/bug42151.phpt",
     ]:
         self.rm(f)
 
