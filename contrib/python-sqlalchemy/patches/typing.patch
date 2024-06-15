@@ -1,0 +1,140 @@
+From 7875bc78884da6cf1089241173d28d00b5c462df Mon Sep 17 00:00:00 2001
+From: ttyyls <contact@behri.org>
+Date: Tue, 18 Jun 2024 12:03:34 +0100
+Subject: [PATCH] fixup
+
+---
+ lib/sqlalchemy/orm/decl_api.py                |  2 +-
+ lib/sqlalchemy/util/typing.py                 | 36 +++++++++----------
+ test/orm/declarative/test_dc_transforms.py    |  2 +-
+ test/orm/declarative/test_mixin.py            |  2 +-
+ .../test_tm_future_annotations_sync.py        |  8 ++---
+ test/orm/declarative/test_typed_mapping.py    |  8 ++---
+ 6 files changed, 28 insertions(+), 30 deletions(-)
+
+diff --git a/lib/sqlalchemy/orm/decl_api.py b/lib/sqlalchemy/orm/decl_api.py
+index 91f9539be..17567e5df 100644
+--- a/lib/sqlalchemy/orm/decl_api.py
++++ b/lib/sqlalchemy/orm/decl_api.py
+@@ -654,7 +654,7 @@ class DeclarativeBase(
+     collection as well as a specific value for
+     :paramref:`_orm.registry.type_annotation_map`::
+ 
+-        from typing_extensions import Annotated
++        from typing import Annotated
+ 
+         from sqlalchemy import BigInteger
+         from sqlalchemy import MetaData
+diff --git a/lib/sqlalchemy/util/typing.py b/lib/sqlalchemy/util/typing.py
+index 64619957a..b27f6f070 100644
+--- a/lib/sqlalchemy/util/typing.py
++++ b/lib/sqlalchemy/util/typing.py
+@@ -35,25 +35,23 @@ from typing import Union
+ from . import compat
+ 
+ if True:  # zimports removes the tailing comments
+-    from typing_extensions import Annotated as Annotated  # 3.8
+-    from typing_extensions import Concatenate as Concatenate  # 3.10
+-    from typing_extensions import (
+-        dataclass_transform as dataclass_transform,  # 3.11,
+-    )
+-    from typing_extensions import Final as Final  # 3.8
+-    from typing_extensions import final as final  # 3.8
+-    from typing_extensions import get_args as get_args  # 3.10
+-    from typing_extensions import get_origin as get_origin  # 3.10
+-    from typing_extensions import Literal as Literal  # 3.8
+-    from typing_extensions import NotRequired as NotRequired  # 3.11
+-    from typing_extensions import ParamSpec as ParamSpec  # 3.10
+-    from typing_extensions import Protocol as Protocol  # 3.8
+-    from typing_extensions import SupportsIndex as SupportsIndex  # 3.8
+-    from typing_extensions import TypeAlias as TypeAlias  # 3.10
+-    from typing_extensions import TypedDict as TypedDict  # 3.8
+-    from typing_extensions import TypeGuard as TypeGuard  # 3.10
+-    from typing_extensions import Self as Self  # 3.11
+-    from typing_extensions import TypeAliasType as TypeAliasType  # 3.12
++    from typing import Annotated
++    from typing import Concatenate
++    from typing import dataclass_transform  
++    from typing import Final 
++    from typing import final
++    from typing import get_args
++    from typing import get_origin
++    from typing import Literal
++    from typing import NotRequired
++    from typing import ParamSpec
++    from typing import Protocol
++    from typing import SupportsIndex
++    from typing import TypeAlias
++    from typing import TypedDict
++    from typing import TypeGuard
++    from typing import Self
++    from typing import TypeAliasType
+ 
+ _T = TypeVar("_T", bound=Any)
+ _KT = TypeVar("_KT")
+diff --git a/test/orm/declarative/test_dc_transforms.py b/test/orm/declarative/test_dc_transforms.py
+index 8408f6961..51207672e 100644
+--- a/test/orm/declarative/test_dc_transforms.py
++++ b/test/orm/declarative/test_dc_transforms.py
+@@ -15,7 +15,7 @@ from typing import Type
+ from typing import TypeVar
+ from unittest import mock
+ 
+-from typing_extensions import Annotated
++from typing import Annotated
+ 
+ from sqlalchemy import BigInteger
+ from sqlalchemy import Column
+diff --git a/test/orm/declarative/test_mixin.py b/test/orm/declarative/test_mixin.py
+index 2520eb846..d37520220 100644
+--- a/test/orm/declarative/test_mixin.py
++++ b/test/orm/declarative/test_mixin.py
+@@ -1,6 +1,6 @@
+ from operator import is_not
+ 
+-from typing_extensions import Annotated
++from typing import Annotated
+ 
+ import sqlalchemy as sa
+ from sqlalchemy import ForeignKey
+diff --git a/test/orm/declarative/test_tm_future_annotations_sync.py b/test/orm/declarative/test_tm_future_annotations_sync.py
+index 2bdf340d4..11b55100d 100644
+--- a/test/orm/declarative/test_tm_future_annotations_sync.py
++++ b/test/orm/declarative/test_tm_future_annotations_sync.py
+@@ -29,10 +29,10 @@ from typing import TypeVar
+ from typing import Union
+ import uuid
+ 
+-from typing_extensions import get_args as get_args
+-from typing_extensions import Literal as Literal
+-from typing_extensions import TypeAlias as TypeAlias
+-from typing_extensions import TypedDict
++from typing import get_args as get_args
++from typing import Literal as Literal
++from typing import TypeAlias as TypeAlias
++from typing import TypedDict
+ 
+ from sqlalchemy import BIGINT
+ from sqlalchemy import BigInteger
+diff --git a/test/orm/declarative/test_typed_mapping.py b/test/orm/declarative/test_typed_mapping.py
+index 6fb792b0b..85c007e2c 100644
+--- a/test/orm/declarative/test_typed_mapping.py
++++ b/test/orm/declarative/test_typed_mapping.py
+@@ -20,10 +20,10 @@ from typing import TypeVar
+ from typing import Union
+ import uuid
+ 
+-from typing_extensions import get_args as get_args
+-from typing_extensions import Literal as Literal
+-from typing_extensions import TypeAlias as TypeAlias
+-from typing_extensions import TypedDict
++from typing import get_args as get_args
++from typing import Literal as Literal
++from typing import TypeAlias as TypeAlias
++from typing import TypedDict
+ 
+ from sqlalchemy import BIGINT
+ from sqlalchemy import BigInteger
+-- 
+2.45.2
+
