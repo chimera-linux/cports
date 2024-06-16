@@ -1,4 +1,4 @@
-From fc1aa328540051152f28e408235ca1da32be198a Mon Sep 17 00:00:00 2001
+From 19f4cb42cc1fc415294874eaf22ea310d52c2cb1 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 29 Feb 2024 01:11:46 +0100
 Subject: [PATCH 11/12] drop -latomic on riscv and elsewhere
@@ -9,10 +9,10 @@ Subject: [PATCH 11/12] drop -latomic on riscv and elsewhere
  2 files changed, 1 insertion(+), 32 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 577dfafa0..2ce85d5c1 100644
+index 1ec879de1..95d36a3e2 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -248,14 +248,7 @@ fn main() {
+@@ -230,14 +230,7 @@ fn main() {
          println!("cargo:rustc-link-lib=kstat");
      }
  
@@ -28,7 +28,7 @@ index 577dfafa0..2ce85d5c1 100644
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
      } else if target.contains("haiku")
-@@ -367,14 +360,6 @@ fn main() {
+@@ -349,14 +342,6 @@ fn main() {
          "stdc++"
      };
  
@@ -44,10 +44,10 @@ index 577dfafa0..2ce85d5c1 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index 701bd585e..af03338ba 100644
+index d4473e240..eacc8856f 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -386,22 +386,6 @@ impl Step for Llvm {
+@@ -404,22 +404,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  
@@ -71,5 +71,5 @@ index 701bd585e..af03338ba 100644
              // LLVM wants 64-bit atomics, while mipsel is 32-bit only, so needs -latomic
              ldflags.exe.push(" -latomic");
 -- 
-2.45.1
+2.45.2
 
