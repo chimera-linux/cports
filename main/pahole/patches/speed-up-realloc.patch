@@ -1,0 +1,16 @@
+the main kernel vmlinux symbol export list is fucking huge, so reallocing in a
+loop with 2048 entries more each time is really slow.
+make it exponential- this speeds up a pahole invocation on .tmp.vmlinux.btf from
+60 seconds to 25 on my hardware.
+--
+--- a/dwarves.c
++++ b/dwarves.c
+@@ -508,7 +508,7 @@
+ 	const uint32_t rc = pt->nr_entries;
+ 
+ 	if (nr_entries > pt->allocated_entries) {
+-		uint32_t allocated_entries = pt->allocated_entries + 2048;
++		uint32_t allocated_entries = pt->allocated_entries < 2048 ? 2048 : pt->allocated_entries * 2;;
+ 		void *entries = realloc(pt->entries,
+ 					sizeof(void *) * allocated_entries);
+ 		if (entries == NULL)

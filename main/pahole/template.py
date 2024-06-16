@@ -1,7 +1,7 @@
 pkgname = "pahole"
 pkgver = "1.27"
 _realver = "1.26"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-D__LIB=lib",
