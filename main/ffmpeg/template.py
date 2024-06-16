@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "7.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -28,6 +28,7 @@ configure_args = [
     "--enable-libfreetype",
     "--enable-libharfbuzz",
     "--enable-libjack",
+    "--enable-libjxl",
     "--enable-libmodplug",
     "--enable-libmp3lame",
     "--enable-libopenjpeg",
@@ -74,8 +75,8 @@ makedepends = [
     "dav1d-devel",
     "freetype-devel",
     "harfbuzz-devel",
-    "lame-devel",
     "ladspa-sdk",
+    "lame-devel",
     "libaom-devel",
     "libass-devel",
     "libbluray-devel",
@@ -83,6 +84,7 @@ makedepends = [
     "libcdio-devel",
     "libcdio-paranoia-devel",
     "libdrm-devel",
+    "libjxl-devel",
     "libmodplug-devel",
     "libplacebo-devel",
     "libpulse-devel",
