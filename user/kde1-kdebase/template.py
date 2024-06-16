@@ -1,6 +1,6 @@
 pkgname = "kde1-kdebase"
 pkgver = "1.1.2"
-pkgrel = 2
+pkgrel = 3
 _gitrev = "4987e047002f9b8364c16fa0e6650717c24bcc7e"
 build_style = "cmake"
 hostmakedepends = [
@@ -47,3 +47,10 @@ tool_flags = {
         "-Wno-c++11-compat-deprecated-writable-strings",
     ],
 }
+
+
+# conflicts with kde6
+def post_install(self):
+    self.mv(self.destdir / "usr/bin/kstart", self.destdir / "usr/bin/kstart1")
+    for f in (self.destdir / "usr/share/locale").rglob("kstart.mo"):
+        f.rename(f.with_name("kstart1.mo"))
