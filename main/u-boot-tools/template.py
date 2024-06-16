@@ -1,5 +1,5 @@
 pkgname = "u-boot-tools"
-pkgver = "2024.01"
+pkgver = "2024.04"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "b99611f1ed237bf3541bdc8434b68c96a6e05967061f992443cb30aabebef5b3"
+sha256 = "18a853fe39fad7ad03a90cc2d4275aeaed6da69735defac3492b80508843dd4a"
 hardening = ["vis", "cfi"]
 # weird test suite
 options = ["!check"]
