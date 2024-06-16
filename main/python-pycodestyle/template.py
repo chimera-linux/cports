@@ -1,6 +1,6 @@
 pkgname = "python-pycodestyle"
-pkgver = "2.11.1"
-pkgrel = 1
+pkgver = "2.12.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/PyCQA/pycodestyle"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a01fdd890c6472eebc32e8baf21e29173c35776e765c64cc83ccd09b99dc5399"
+sha256 = "c72dccf2bf7ceb603b5bd8b737a511d5241e675e90d4f75bc8a12fe81f24c094"
 
 
 def post_install(self):
