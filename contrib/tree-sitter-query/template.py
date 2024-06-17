@@ -9,7 +9,7 @@ hostmakedepends = [
     "tree-sitter-cli",
     "pkgconf",
 ]
-pkgdesc = "Tree-sitter query grammar for tree-sitte"
+pkgdesc = "Tree-sitter query grammar for tree-sitter"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/tree-sitter-grammars/tree-sitter-query"
