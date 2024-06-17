@@ -1,0 +1,34 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxml2/-/commit/05976dae2a12c50601b3e5c990e259c67dfea493
+--
+From 05976dae2a12c50601b3e5c990e259c67dfea493 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Mon, 17 Jun 2024 12:54:46 +0200
+Subject: [PATCH] xinclude: Load included documents with XML_PARSE_DTDLOAD
+
+We must detect ID attributes declared in external DTDs.
+
+Regressed in 12f0bb94.
+---
+ xinclude.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/xinclude.c b/xinclude.c
+index c8dfa2882..7ee4930e9 100644
+--- a/xinclude.c
++++ b/xinclude.c
+@@ -334,7 +334,11 @@ xmlXIncludeParseFile(xmlXIncludeCtxtPtr ctxt, const char *URL) {
+ 	xmlDictReference(pctxt->dict);
+     }
+ 
+-    xmlCtxtUseOptions(pctxt, ctxt->parseFlags);
++    /*
++     * We set DTDLOAD to make sure that ID attributes declared in
++     * external DTDs are detected.
++     */
++    xmlCtxtUseOptions(pctxt, ctxt->parseFlags | XML_PARSE_DTDLOAD);
+ 
+     inputStream = xmlLoadExternalEntity(URL, NULL, pctxt);
+     if (inputStream == NULL)
+-- 
+GitLab
+

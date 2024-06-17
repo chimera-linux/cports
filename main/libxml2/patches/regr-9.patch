@@ -1,0 +1,28 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/libxml2/-/commit/9204d862c8c6a493826f2f0faf6a24b6e671c98d
+--
+From 9204d862c8c6a493826f2f0faf6a24b6e671c98d Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Mon, 17 Jun 2024 14:15:49 +0200
+Subject: [PATCH] xinclude: Set XPath context doc
+
+Regressed in commit 78eab7a1.
+---
+ xinclude.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/xinclude.c b/xinclude.c
+index 7ee4930e9..103fb54da 100644
+--- a/xinclude.c
++++ b/xinclude.c
+@@ -1473,6 +1473,8 @@ loaded:
+ #ifdef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
+             ctxt->xpctxt->opLimit = 100000;
+ #endif
++        } else {
++            ctxt->xpctxt->doc = doc;
+         }
+ 	xptr = xmlXPtrEval(fragment, ctxt->xpctxt);
+ 	if (ctxt->xpctxt->lastError.code != XML_ERR_OK) {
+-- 
+GitLab
+
