@@ -1,7 +1,7 @@
 # nb: neovim requires either lua5.1 or luaJIT (a mess)
 pkgname = "neovim"
 pkgver = "0.10.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
@@ -27,7 +27,11 @@ makedepends = [
 ]
 depends = [
     "lua5.1-lpeg",
+    "tree-sitter-bash",
+    "tree-sitter-c",
     "tree-sitter-lua",
+    "tree-sitter-markdown",
+    "tree-sitter-python",
     "tree-sitter-query",
     "tree-sitter-vimdoc",
 ]
