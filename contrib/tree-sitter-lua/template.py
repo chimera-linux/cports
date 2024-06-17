@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-lua"
 pkgver = "0.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "test"
@@ -23,7 +23,6 @@ def post_install(self):
     self.install_link(
         "usr/lib/tree-sitter/lua.so", "../libtree-sitter-lua.so.0"
     )
-    self.install_files("queries", "usr/share/tree-sitter/queries", name="lua")
 
 
 @subpackage("tree-sitter-lua-devel")

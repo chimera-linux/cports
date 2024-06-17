@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-vimdoc"
 pkgver = "2.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "test"
@@ -22,7 +22,6 @@ def post_install(self):
     self.install_link(
         "usr/lib/tree-sitter/vimdoc.so", "../libtree-sitter-vimdoc.so.2"
     )
-    self.install_files("queries/vimdoc", "usr/share/tree-sitter/queries")
 
 
 @subpackage("tree-sitter-vimdoc-devel")
