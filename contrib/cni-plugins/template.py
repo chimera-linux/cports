@@ -1,6 +1,6 @@
 pkgname = "cni-plugins"
-pkgver = "1.5.0"
-pkgrel = 1
+pkgver = "1.5.1"
+pkgrel = 0
 hostmakedepends = ["bash", "go"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standard CNI plugins for containers"
@@ -8,7 +8,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://www.cni.dev"
 source = f"https://github.com/containernetworking/plugins/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "16754edd9d795aef56962b13db991addbb7669dab0a85adc5c7cbbf9c174e2e4"
+sha256 = "a2eff5f064f809ee41f8f49ef8aed1f0a4093c0c772f2ce2caaee4e6f395050a"
 # objcopy fails on ppc
 # can't run tests inside namespaces
 options = ["!debug", "!check"]
