@@ -1,6 +1,6 @@
 pkgname = "openldap"
 pkgver = "2.6.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-debug",
@@ -56,4 +56,5 @@ def _lib(self):
 
 @subpackage("openldap-devel")
 def _devel(self):
+    self.depends += ["libsasl-devel"]
     return self.default_devel()
