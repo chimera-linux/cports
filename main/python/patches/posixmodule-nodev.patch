@@ -1,0 +1,16 @@
+The musl libc does not define this, which results
+in python not handling it and crashing with OverflowError.
+
+--- a/Modules/posixmodule.c
++++ b/Modules/posixmodule.c
+@@ -552,6 +552,10 @@ extern char        *ctermid_r(char *);
+ #  include <sanitizer/msan_interface.h>
+ #endif
+ 
++#ifndef NODEV
++#define NODEV ((dev_t)-1)
++#endif
++
+ #ifdef HAVE_FORK
+ static void
+ run_at_forkers(PyObject *lst, int reverse)

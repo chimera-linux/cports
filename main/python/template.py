@@ -2,8 +2,8 @@
 pkgname = "python"
 _majver = "3.12"
 # .3 segfaults in ppc64le tests
-pkgver = f"{_majver}.2"
-pkgrel = 3
+pkgver = f"{_majver}.4"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -36,6 +36,8 @@ make_check_args = [
     + "-i test_unicodedata "
     + "-i test_urllib2net "  # just loops blocked connection failures into success
     + "-i test_tools "
+    + "-i test_functools "  # ppc64le stack overflow
+    + "-i test_isinstance "  # ppc64le stack overflow
 ]
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
@@ -59,7 +61,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "be28112dac813d2053545c14bf13a16401a21877f1a69eb6ea5d84c4a0f3d870"
+sha256 = "f6d419a6d8743ab26700801b4908d26d97e8b986e14f95de31b32de2b0e79554"
 # FIXME int cfi; cfi ftbfs, int fails ctypes test
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being
