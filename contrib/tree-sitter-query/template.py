@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-query"
 pkgver = "0.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "test"
@@ -35,7 +35,6 @@ def post_install(self):
     self.install_link(
         "usr/lib/tree-sitter/query.so", "../libtree-sitter-query.so.0"
     )
-    self.install_files("queries", "usr/share/tree-sitter/queries", name="query")
 
 
 @subpackage("tree-sitter-query-devel")
