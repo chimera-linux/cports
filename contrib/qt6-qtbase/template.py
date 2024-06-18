@@ -162,6 +162,7 @@ def init_check(self):
         "tst_qdir",  # flaky
         "tst_qsqltablemodel",  # tst_QSqlTableModel::modelInAnotherThread() 't.isFinished()' returned FALSE. ()
         "tst_qtimer_no_glib",  # times out after 300s
+        "tst_qmetatype",  # times out after 300s when busy in threadsafety test
     ]
     self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
     self.make_check_env["QT_QPA_PLATFORM"] = "offscreen"
