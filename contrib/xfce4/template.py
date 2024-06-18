@@ -1,6 +1,6 @@
 pkgname = "xfce4"
 pkgver = "4.18"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 depends = [
     "thunar",
@@ -43,5 +43,40 @@ def _apps(self):
         "xfce4-terminal",
         "xfce4-volumed-pulse",
         "xfdashboard",
+    ]
+    return []
+
+
+@subpackage("xfce4-panel-plugins")
+def _panel_plugins(self):
+    self.pkgdesc = "Xfce desktop environment (panel plugins)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        "xfce4-clipman-plugin",
+        "xfce4-cpufreq-plugin",
+        "xfce4-cpugraph-plugin",
+        "xfce4-diskperf-plugin",
+        "xfce4-docklike-plugin",
+        "xfce4-eyes-plugin",
+        "xfce4-fsguard-plugin",
+        "xfce4-generic-slider",
+        "xfce4-genmon-plugin",
+        "xfce4-indicator-plugin",
+        "xfce4-mailwatch-plugin",
+        "xfce4-netload-plugin",
+        "xfce4-notes-plugin",
+        "xfce4-places-plugin",
+        "xfce4-pulseaudio-plugin",
+        "xfce4-sensors-plugin",
+        "xfce4-smartbookmark-plugin",
+        "xfce4-stopwatch-plugin",
+        "xfce4-systemload-plugin",
+        "xfce4-time-out-plugin",
+        "xfce4-timer-plugin",
+        "xfce4-verve-plugin",
+        "xfce4-wavelan-plugin",
+        "xfce4-whiskermenu-plugin",
+        "xfce4-windowck-plugin",
+        "xfce4-xkb-plugin",
     ]
     return []
