@@ -1,5 +1,5 @@
 pkgname = "openimagedenoise"
-pkgver = "2.2.2"
+pkgver = "2.3.0"
 pkgrel = 0
 # ispc
 archs = ["x86_64", "aarch64", "armv7"]
@@ -19,7 +19,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://www.openimagedenoise.org"
 source = f"https://github.com/OpenImageDenoise/oidn/releases/download/v{pkgver}/oidn-{pkgver}.src.tar.gz"
-sha256 = "d26b75fa216165086f65bf48c80648290f2cfed7d3c4bfc1e86c247b46c96b7e"
+sha256 = "cce3010962ec84e0ba1acd8c9055a3d8de402fedb1b463517cfeb920a276e427"
 # set in release
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 # guilty until proven innocent
