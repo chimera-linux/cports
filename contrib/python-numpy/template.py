@@ -1,6 +1,6 @@
 pkgname = "python-numpy"
-pkgver = "1.26.4"
-pkgrel = 2
+pkgver = "2.0.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",
@@ -11,18 +11,20 @@ hostmakedepends = [
 ]
 makedepends = ["python-devel", "openblas-devel"]
 depends = ["python"]
-checkdepends = ["meson", "python-hypothesis", "python-pytest"]
+checkdepends = [
+    "python-hypothesis",
+    "python-pytest-xdist",
+]
 pkgdesc = "Package for scientific computing with Python"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
-sha256 = "2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010"
+sha256 = "cf5d1c9e6837f8af9f92b6bd3e86d513cdc11f60fd62185cc49ec7d1aba34864"
 hardening = ["!int"]
 
 
-# numpy includes a test suite
-# create a venv manually and run it
+# this is identical to the default do_check, we just have to change cwd
 def do_check(self):
     whl = list(
         map(
@@ -47,10 +49,23 @@ def do_check(self):
     self.do(envpy, "-m", "installer", *whl)
     self.do(
         envpy,
-        "-c",
-        "import numpy; numpy.test()",
+        "-m",
+        "pytest",
+        "--pyargs",
+        "numpy",
+        f"--numprocesses={self.make_jobs}",
+        "--dist=worksteal",
+        "-k",
+        "not test_cython"
+        # f2py stuff
+        + " and not test_limited_api"
+        + " and not test_no_py312_distutils_fcompiler"
+        + " and not test_untitled_cli"
+        + " and not test_features"
+        # ppc
+        + " and not test_ppc64_ibm_double_double128",
         # can't run from source directory
-        wrksrc="/tmp",
+        wrksrc=f"{self.chroot_cwd}/tools",
         path=[envpy.parent],
     )
 
