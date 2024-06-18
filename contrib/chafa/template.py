@@ -1,5 +1,5 @@
 pkgname = "chafa"
-pkgver = "1.14.0"
+pkgver = "1.14.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-man"]
@@ -30,7 +30,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://hpjansson.org/chafa"
 source = f"https://github.com/hpjansson/chafa/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "faefc09807c955c882fa044947fc939952862f6e8d2e242262dbcc9f97e108ef"
+sha256 = "b838d96989478b59841dbe9bafb308e58c4507375502cfd01273fea8daf77079"
 
 
 @subpackage("chafa-devel")
