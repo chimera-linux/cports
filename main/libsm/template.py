@@ -1,8 +1,8 @@
 pkgname = "libsm"
 pkgver = "1.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
 makedepends = ["libice-devel", "libuuid-devel", "xtrans"]
 pkgdesc = "X session management library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("libsm-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
