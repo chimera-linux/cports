@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwayland"
-pkgver = "6.7.1"
-pkgrel = 7
+pkgver = "6.7.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_args = ["-E", "(tst_seatv4|tst_client|tst_scaling|tst_compositor)"]
@@ -23,7 +23,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwayland-everywhere-src-{pkgver}.tar.xz"
-sha256 = "7ef176a8e701c90edd8e591dad36f83c30d623ef94439ff62cafcffd46a83d20"
+sha256 = "a2a057e1dd644bd44abb9990fecc194b2e25c2e0f39e81aa9fee4c1e5e2a8a5b"
 # FIXME
 hardening = ["!int"]
 # TODO
