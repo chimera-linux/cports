@@ -58,8 +58,6 @@ hostmakedepends = [
     "gmake",
     "gperf",
     "hwdata",
-    # for gn
-    "libcxx-devel-static",
     "ninja",
     "nodejs",
     "perl",
@@ -176,16 +174,6 @@ def post_patch(self):
 
 
 def do_configure(self):
-    # gn rebootstrap will fail after unbundle step below
-    with self.stamp("bootstrap_gn") as s:
-        s.check()
-        # compile gn early so it can be used to generate gni stuff
-        self.do(
-            "./tools/gn/bootstrap/bootstrap.py",
-            f"-j{self.make_jobs}",
-            "--skip-generate-buildfiles",
-        )
-
     # where we mess with libvpx configuration, regen the files
     if self.profile().arch == "ppc64le":
         self.do(
@@ -261,7 +249,7 @@ def do_configure(self):
     ]
 
     self.do(
-        "./out/Release/gn",
+        "gn",
         "gen",
         "out/Release",
         "--args=" + " ".join(_confargs),
