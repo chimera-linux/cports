@@ -1,6 +1,6 @@
 pkgname = "systemsettings"
-pkgver = "6.0.5"
-pkgrel = 2
+pkgver = "6.1.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -34,7 +34,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://userbase.kde.org/System_Settings"
 source = f"$(KDE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"
-sha256 = "b722ba21fabd8cd27e2371a83e33a9a4e1403257d454b3f01c6fa46c2874cf93"
+sha256 = "bd94b1342064794a142cb285ed102a6db6959bf2682d4e661d560d734a68ca5c"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 # FIXME: cfi crash on launch
 hardening = ["vis", "!cfi"]

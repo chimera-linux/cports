@@ -1,5 +1,5 @@
 pkgname = "plasma-systemmonitor"
-pkgver = "6.0.5"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -7,9 +7,11 @@ hostmakedepends = [
     "extra-cmake-modules",
     "gettext",
     "ninja",
+    "pkgconf",
 ]
 makedepends = [
     "kconfig-devel",
+    "kcrash-devel",
     "kdbusaddons-devel",
     "kglobalaccel-devel",
     "ki18n-devel",
@@ -32,6 +34,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://apps.kde.org/plasma-systemmonitor"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-systemmonitor-{pkgver}.tar.xz"
-sha256 = "662518e6dc763d19cbd878c145a3761a6a2e2765fd237278ffdd0a2a5253080b"
+sha256 = "b49aa1cf7b6f84ea7df711729a5d3f6fd000444be2a2b90ff65e0dbbadc91224"
 # FIXME: cfi crash on launch
 hardening = ["vis", "!cfi"]

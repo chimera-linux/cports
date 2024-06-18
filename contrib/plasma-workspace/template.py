@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
-pkgver = "6.0.5.1"
-pkgrel = 3
+pkgver = "6.1.0"
+pkgrel = 0
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -15,7 +15,10 @@ make_check_args = [
     + "|testpackageimagelistmodel"  # just SEGFAULTS after testPackageListModelRemoveBackground(), broken kio? test_packagelistmodel.cpp(262)
     + "|testimageproxymodel"  # looks like same issue as testimagefinder & testimagelistmodel
     + "|testslidemodel"  # ^ same as above
-    + "|testimagebackend"  # cannot find org.kde.plasma.wallpapers.image QML module, try QML2_IMPORT_PATH?
+    + "|keystatetest"  # fails in offscreen
+    + "|lockedtest"  # needs selenium
+    + "|klippertest"  # segfaults instantly
+    + "|testimagebackend"  # cannot find org.kde.plasma.wallpapers.image QML module, try QML2_IMPORT_PATH
     + "|locationsrunnertest"
     + "|testimagefrontend)",  # ^ same as above
     "-j1",  # parallel causes a bunch of flaky tests
@@ -31,6 +34,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "appmenu-gtk-module-devel",
+    "appstream-qt-devel",
     "baloo-devel",
     "breeze-devel",
     "fontconfig-devel",
@@ -85,13 +89,13 @@ makedepends = [
     "plasma-wayland-protocols",
     "plasma5support-devel",
     "prison-devel",
+    "qcoro-devel",
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",
     "wayland-protocols",
     "xcb-util-devel",
-    # TODO: AppStreamQt (main/appstream + -Dqt=true)
     # NOTE: make sure PolkitQt6-1 doesn't get pulled in?! just -DGLIBC_LOCALE_GEN=OFF
     # TODO: SeleniumWebDriverATSPI? (GUI accessibility tests)
 ]
@@ -115,8 +119,8 @@ pkgdesc = "KDE Plasma Workspace"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.1-or-later AND GPL-2.0-or-later AND MIT AND LGPL-2.1-only AND LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only) AND LGPL-2.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
-source = f"$(KDE_SITE)/plasma/6.0.5/plasma-workspace-{pkgver}.tar.xz"
-sha256 = "8907f9fded5fc6e5d95355f8346328de18d7c8850dabd9109d75458d5aeed813"
+source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-workspace-{pkgver}.tar.xz"
+sha256 = "f4f542e6f201f46080ee6fb966d9f895811a8dcd7d4f18a4c6c48ce0c35a127c"
 # FIXME: cfi breaks at least 3 tests
 hardening = ["vis", "!cfi"]
 

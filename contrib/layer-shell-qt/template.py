@@ -1,5 +1,5 @@
 pkgname = "layer-shell-qt"
-pkgver = "6.0.5"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/layer-shell-qt/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/layer-shell-qt-{pkgver}.tar.xz"
-sha256 = "bd6bf73dc79b561dd38c1fc78c373b2ef4b9df69d6a827e305d011109d91a2c2"
+sha256 = "55bd8e819a279b059fe29dbf463f8f15f833707379c719153ec750b7b50821d8"
 # FIXME: cfi kills plasmashell (on desktop/panel right click) in libLayerShellQtInterface.so
 hardening = ["vis", "!cfi"]
 

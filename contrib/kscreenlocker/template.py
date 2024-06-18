@@ -1,6 +1,6 @@
 pkgname = "kscreenlocker"
-pkgver = "6.0.5"
-pkgrel = 1
+pkgver = "6.1.0"
+pkgrel = 0
 build_style = "cmake"
 # circular plasma-workspace dep (QML org.kde.plasma.private.sessions) needed by kscreenlocker_greet,
 # ksmserver-ksldTest even needs it installed under /usr/lib/libexec
@@ -40,7 +40,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://invent.kde.org/plasma/kscreenlocker"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreenlocker-{pkgver}.tar.xz"
-sha256 = "5bb94a2a0d69cceb7ed4efcbf786b53388567d510a410fd9d01be913d2b163d0"
+sha256 = "0a32c52e74d1cc4e9044a1be29780736aa0cfae619dff03097d5677ec9f10671"
 hardening = ["vis", "cfi"]
 
 

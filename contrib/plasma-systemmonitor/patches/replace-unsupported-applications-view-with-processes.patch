@@ -11,7 +11,7 @@
  
  [Face-94410261307168][Appearance]
  chartFace=org.kde.ksysguard.piechart
-@@ -512,51 +512,51 @@ name=section-4
+@@ -512,53 +512,53 @@ name=section-4
  isTitle=true
  name=row-3
  heightMode=minimum
@@ -32,6 +32,7 @@
 -Title[fi]=Sovellukset
 -Title[fr]=Applications
 -Title[gl]=Aplicacións
+-Title[he]=יישומים
 -Title[hsb]=Aplikacije
 -Title[hu]=Alkalmazások
 -Title[ia]=Applicationes
@@ -42,6 +43,7 @@
 -Title[ka]=პლიკაციები
 -Title[ko]=앱
 -Title[lt]=Programos
+-Title[lv]=Programmas
 -Title[nl]=Toepassingen
 -Title[nn]=Program
 -Title[pa]=ਐਪਲੀਕੇਸ਼ਨਾਂ
@@ -77,6 +79,7 @@
 +Title[fi]=Prosessit
 +Title[fr]=Processus
 +Title[gl]=Procesos
++Title[he]=תהליכים
 +Title[hsb]=Procesy
 +Title[hu]=Folyamatok
 +Title[ia]=Processos
@@ -87,6 +90,7 @@
 +Title[ka]=პროცესები
 +Title[ko]=프로세스
 +Title[lt]=Procesai
++Title[lv]=Procesi
 +Title[nl]=Processen
 +Title[nn]=Prosessar
 +Title[pa]=ਪਰੋਸੈੱਸ

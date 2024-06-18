@@ -1,6 +1,6 @@
 pkgname = "ksystemstats"
-pkgver = "6.0.5"
-pkgrel = 1
+pkgver = "6.1.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
@@ -32,7 +32,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/ksystemstats"
 source = f"$(KDE_SITE)/plasma/{pkgver}/ksystemstats-{pkgver}.tar.xz"
-sha256 = "bdc6fa95c0b4dad9210c7a7734e1c233bc408f09fcaf4961ba709affa1fd4284"
+sha256 = "ce59bffedf15fcfda0f91ee459955f7fe8ffd2bda13435757e709a4406efe93c"
 # silence some ~600 lines of spam...
 tool_flags = {"CXXFLAGS": ["-Wno-deprecated-declarations"]}
 # FIXME: cfi breaks at least ksystemstatstest in dbusApi() like https://paste.c-net.org/tnqlkafoixrz

@@ -1,5 +1,5 @@
 pkgname = "milou"
-pkgver = "6.0.5"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,6 +22,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://api.kde.org/plasma/milou/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/milou-{pkgver}.tar.xz"
-sha256 = "708e18b5b424985a167507e9b5934de93c65acaf2f524466312d09515eb842cf"
+sha256 = "7b682a4ead85ad6dbc32823b8d4dc941b4951e50709fd4d33cd9a5dc3489be46"
 # FIXME: cfi kills krunner (plasma-workspace) on launch (Alt+Space) in libmilouqmlplugin.so
 hardening = ["vis", "!cfi"]

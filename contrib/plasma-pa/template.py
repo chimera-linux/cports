@@ -1,5 +1,5 @@
 pkgname = "plasma-pa"
-pkgver = "6.0.5"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: only test, needs selenium-webdriver-at-spi-run
@@ -16,6 +16,7 @@ makedepends = [
     "kconfig-devel",
     "kcoreaddons-devel",
     "kdeclarative-devel",
+    "kdbusaddons-devel",
     "kdoctools-devel",
     "kglobalaccel-devel",
     "ki18n-devel",
@@ -25,13 +26,18 @@ makedepends = [
     "libcanberra-devel",
     "libplasma-devel",
     "libpulse-devel",
+    "pulseaudio-qt-devel",
     "qt6-qtdeclarative-devel",
+]
+depends = [
+    "kirigami-addons",
+    "kitemmodels",
 ]
 pkgdesc = "KDE Plasma PulseAudio integration"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-pa"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-pa-{pkgver}.tar.xz"
-sha256 = "ecbf3bb40720809481cab6857e7c1b34368a139d1162b00cd46b2cc63cd9aac4"
+sha256 = "e2caae1910bbf3de80247bd465458d3d7988e6ce6034eb63da9763ef1aad2639"
 # FIXME: cfi kills systemsettings (when leaving "Sound" page) in libplasma-volume-declarative.so
 hardening = ["vis", "!cfi"]

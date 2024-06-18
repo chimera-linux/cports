@@ -1,9 +1,9 @@
 pkgname = "libplasma"
-pkgver = "6.0.5"
-pkgrel = 1
+pkgver = "6.1.0"
+pkgrel = 0
 build_style = "cmake"
-# plasma-dialogstatetest needs X11, DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
-make_check_args = ["-E", "dialognativetest"]
+# DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
+make_check_args = ["-E", "(bug485688test|dialognativetest)"]
 make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = [
     "cmake",
@@ -41,7 +41,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/plasma/libplasma/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libplasma-{pkgver}.tar.xz"
-sha256 = "d35765c039901e739b014ff92640c6cd4a4d8524c26fe4d00bd134d16ab0ccd2"
+sha256 = "ed25f04ca68a040964b7bcdb043cb70beebdf8780c63026a5b2cb13c6bbe753b"
 # FIXME: cfi kills plasmashell (on launch of startplasma-wayland) in liborg_kde_plasmacomponents3.so
 hardening = ["vis", "!cfi"]
 

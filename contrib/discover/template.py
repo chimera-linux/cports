@@ -1,5 +1,5 @@
 pkgname = "discover"
-pkgver = "6.0.5"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "cmake"
 # fails in chroot env
@@ -41,6 +41,7 @@ makedepends = [
     "kuserfeedback-devel",
     "kxmlgui-devel",
     "purpose-devel",
+    "qcoro-devel",
     "qt6-qtdeclarative-devel",
 ]
 depends = [
@@ -56,7 +57,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://userbase.kde.org/Discover"
 source = f"$(KDE_SITE)/plasma/{pkgver}/discover-{pkgver}.tar.xz"
-sha256 = "944ca03fe131e0e92f795b32e4e7fc714c9a59fc18a4bbda9f50408d0c6af395"
+sha256 = "beb9238a83787dc68030aac1eeba52138af039c07c4ab2ff8decfe9e86203b08"
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

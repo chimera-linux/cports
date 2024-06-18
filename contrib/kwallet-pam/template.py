@@ -1,5 +1,5 @@
 pkgname = "kwallet-pam"
-pkgver = "6.0.5"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kwallet-pam"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwallet-pam-{pkgver}.tar.xz"
-sha256 = "25c61128eaefb563e500547f650be293e75126ed5fc2fac574ef40cccbfd00db"
+sha256 = "b21ed862e9751dfea938e557185ac8eaa24ae260ef795fb99ad74d3c4cb96a1a"
 # CFI: check
 hardening = ["vis", "!cfi"]
 

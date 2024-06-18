@@ -1,6 +1,6 @@
 pkgname = "kwin"
-pkgver = "6.0.5"
-pkgrel = 2
+pkgver = "6.1.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -46,6 +46,7 @@ makedepends = [
     "knewstuff-devel",
     "knotifications-devel",
     "kpackage-devel",
+    "kpipewire-devel",
     "krunner-devel",
     "kscreenlocker-devel",
     "kservice-devel",
@@ -56,6 +57,7 @@ makedepends = [
     "lcms2-devel",
     "libcap-devel",
     "libdisplay-info-devel",
+    "libei-devel",
     "libplasma-devel",
     "libqaccessibilityclient-devel",
     "libxcvt-devel",
@@ -89,7 +91,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwin-{pkgver}.tar.xz"
-sha256 = "242e7d210529ec631bc5fe3fe0a117a3d1d4edb1dd3a644aafd5089312f8b0d7"
+sha256 = "50affd6c5c23cc2c6a8c23d741a66b06f6679c82c7fd3cafea66a6b0643b4f2f"
 # NOTE FROM ALPINE:
 # kwin_wayland has CAP_SYS_NICE set. Because of this, libdbus doesn't trust the
 # environment and ignores it, causing for example keyboard shortcuts to not work

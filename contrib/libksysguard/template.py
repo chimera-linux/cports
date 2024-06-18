@@ -1,7 +1,9 @@
 pkgname = "libksysguard"
-pkgver = "6.0.5"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "cmake"
+# some bug in the cmake files seems to not set this to on
+# configure_args = ["-DBUILD_NETWORK_PLUGIN=ON"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
@@ -9,6 +11,7 @@ hostmakedepends = [
     "gettext",
     "libcap-progs",
     "ninja",
+    "pkgconf",
 ]
 makedepends = [
     "kauth-devel",
@@ -36,12 +39,12 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/libksysguard/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libksysguard-{pkgver}.tar.xz"
-sha256 = "ca954f5bb57700bd14bae3233a82094ea69d32271cc3edd6d32bcf38db23e177"
+sha256 = "6d1e9af7ae10b124ab62aca70e2f3da15b742a72f7c0646f8c219f7f4b65e36a"
 file_modes = {
-    "usr/lib/libexec/ksysguard/ksgrd_network_helper": ("root", "root", 0o755),
+    "usr/libexec/ksysguard/ksgrd_network_helper": ("root", "root", 0o755),
 }
 file_xattrs = {
-    "usr/lib/libexec/ksysguard/ksgrd_network_helper": {
+    "usr/libexec/ksysguard/ksgrd_network_helper": {
         "security.capability": "cap_net_raw+ep",
     },
 }
