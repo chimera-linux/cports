@@ -1,8 +1,8 @@
 pkgname = "sdl_gpu"
 pkgver = "0.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = ["-DUSE_SYSTEM_GLEW=YES"]
+configure_args = ["-DUSE_SYSTEM_GLEW=YES", "-DBUILD_DEMOS=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["glew-devel", "sdl-devel"]
 pkgdesc = "Library for high-performance 2D graphics with SDL"
