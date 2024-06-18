@@ -324,9 +324,10 @@ class UpdateCheck:
                 url = f"https://gitlab.xfce.org/{pn}/-/tags"
                 rx = rf"""
                     /archive/[^/]+/
-                    {re.escape(f"{pname}-{pname}")}-v? # lol
+                    ({re.escape(pname)}-)?{re.escape(pname)}-v? # lol
                     ([\d.]+)(?=\.tar\.gz) # match
                 """
+                rxg = 1
             elif "kernel.org/pub/linux/kernel/" in url:
                 mver = ".".join(self.pkgver.split(".")[0:2])
                 rx = rf"{mver}[\d.]+(?=\.tar\.xz)"
