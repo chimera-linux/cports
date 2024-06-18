@@ -392,7 +392,7 @@ def _clang_analyzer(self):
     self.pkgdesc = f"{pkgdesc} (source code analysis)"
     self.depends = [f"clang={pkgver}-r{pkgrel}"]
     if self.stage > 0:
-        self.depends.append("python")
+        self.depends += ["perl", "python"]
 
     return [
         "usr/bin/analyze-build",
