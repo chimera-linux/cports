@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "24.1.1"
-pkgrel = 1
+pkgver = "24.1.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -82,7 +82,7 @@ source = [
     f"!https://crates.io/api/v1/crates/unicode-ident/{_unicode_ident}/download>unicode-ident-{_unicode_ident}.tar.gz",
 ]
 sha256 = [
-    "0038826c6f7e88d90b4ce6f719192fa58ca7dedf4edcaa1174cf7bd920ef89ea",
+    "a2c584c8d57d3bd8ba11790a6e9ae3713f8821df96c059b78afb29dd975c9f45",
     "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c",
     "39278fbbf5fb4f646ce651690877f89d1c5811a3d4acb27700c1cb3cdb78fd3b",
     "5267fca4496028628a95160fc423a33e8b2e6af8a5302579e322e4b520293cae",
