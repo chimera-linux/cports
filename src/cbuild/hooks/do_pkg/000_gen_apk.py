@@ -1,5 +1,5 @@
 from cbuild.core import logger, paths, template, chroot
-from cbuild.apk import sign as asign, util as autil
+from cbuild.apk import sign as asign, util as autil, cli as acli
 
 import shlex
 import pathlib
@@ -14,6 +14,104 @@ _scriptlets = {
     ".post-deinstall": True,
     ".trigger": True,
 }
+
+
+def getdeps(pkg, arch):
+    if pkg.stage < 3:
+        return None, None, None
+
+    cpf = pkg.rparent.profile()
+
+    if cpf.cross:
+        sysp = paths.bldroot() / cpf.sysroot.relative_to("/")
+    else:
+        sysp = paths.bldroot()
+
+    def _get_sum(allow_net):
+        return acli.call(
+            "info",
+            [
+                "--quiet",
+                "--from=none",
+                "--depends",
+                "--provides",
+                "--install-if",
+                pkg.pkgname,
+            ],
+            pkg,
+            root=sysp,
+            capture_output=True,
+            arch=arch,
+            allow_untrusted=True,
+            allow_network=allow_net,
+        ).stdout.decode()
+
+    # first fetch from local repo, fall back to network
+    # this is to prevent having to disambiguate between different
+    # package providers and so on, always get only one...
+    depsum = _get_sum(False)
+    if len(depsum) == 0:
+        depsum = _get_sum(True)
+
+    depsum = depsum.splitlines()
+
+    deps = []
+    provides = []
+    instif = []
+
+    part = 1
+    curcont = deps
+
+    for ln in depsum:
+        ln = ln.strip()
+        if ln == "":
+            # skip to next list
+            if part == 1:
+                curcont = provides
+            elif part == 2:
+                curcont = instif
+            else:
+                # skip other providers
+                break
+            part += 1
+            continue
+        # add to list
+        curcont.append(ln)
+
+    deps.sort()
+    provides.sort()
+    instif.sort()
+
+    return deps, provides, instif
+
+
+def print_diff(head, pkg, oldl, newl):
+    if oldl is None:
+        return
+
+    sold = set(oldl)
+    snew = set(newl)
+
+    log = pkg.rparent.logger
+
+    ldel = []
+    ladd = []
+
+    for v in oldl:
+        if v not in snew:
+            ldel.append(v)
+    for v in newl:
+        if v not in sold:
+            ladd.append(v)
+
+    if len(ldel) == 0 and len(ladd) == 0:
+        return
+
+    pkg.log(f"changed {head}:")
+    for v in ldel:
+        log.out_red(f"  -{v}")
+    for v in ladd:
+        log.out_green(f"  +{v}")
 
 
 def genpkg(pkg, repo, arch, binpkg):
@@ -81,13 +179,6 @@ def genpkg(pkg, repo, arch, binpkg):
     if hasattr(pkg, "pc_requires"):
         deps += map(lambda v: f"pc:{v}", sorted(pkg.pc_requires))
 
-    if len(deps) > 0:
-        pargs += ["--info", f"depends:{' '.join(deps)}"]
-
-    # install-if
-    if len(pkg.install_if) > 0:
-        pargs += ["--info", f"install-if:{' '.join(pkg.install_if)}"]
-
     # providers
     provides = []
 
@@ -112,6 +203,24 @@ def genpkg(pkg, repo, arch, binpkg):
     # command provides
     if hasattr(pkg, "cmd_provides"):
         provides += map(lambda x: f"cmd:{x}", sorted(pkg.cmd_provides))
+
+    # sorted for stats
+    deps.sort()
+    provides.sort()
+    riif = sorted(pkg.install_if)
+
+    odeps, oprovides, oiif = getdeps(pkg, arch)
+
+    print_diff("dependencies", pkg, odeps, deps)
+    print_diff("providers", pkg, oprovides, provides)
+    print_diff("install-ifs", pkg, oiif, riif)
+
+    if len(deps) > 0:
+        pargs += ["--info", f"depends:{' '.join(deps)}"]
+
+    # install-if
+    if len(pkg.install_if) > 0:
+        pargs += ["--info", f"install-if:{' '.join(riif)}"]
 
     if len(provides) > 0:
         pargs += ["--info", f"provides:{' '.join(provides)}"]
