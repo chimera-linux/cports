@@ -189,7 +189,6 @@ def _apps_meta(self):
         "markdownpart",
         "svgpart",
         "plasma-systemmonitor",
-        "plasma-vault",  # encrypted file storage
         "ark",  # file (un)archiving
         "haruna",  # mpv frontend
         "elisa",  # music player
@@ -223,6 +222,17 @@ def _apps_meta(self):
             "akregator",  # rss feeds
             "khelpcenter",  # documentation viewer
             "tokodon",  # mastodon client
+        ]
+    if self.rparent.profile().arch in [
+        "aarch64",
+        "ppc64le",
+        "riscv64",
+        "x86_64",
+    ]:
+        self.depends += [
+            # gocryptfs -> go
+            # there are other backends too, but one is abandoned and the other needs fuse2
+            "plasma-vault",  # encrypted file storage
         ]
     self.options = ["empty"]
 
