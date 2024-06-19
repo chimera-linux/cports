@@ -1,7 +1,7 @@
 pkgname = "openssh"
 # XXX the version here is a workaround to force an upgrade, fix it next bump
 pkgver = "9.7.1_p1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--datadir=/usr/share/openssh",
@@ -62,7 +62,9 @@ def init_configure(self):
 def post_install(self):
     self.install_license("LICENCE")
 
-    self.install_file(self.files_path / "sshd.pam", "etc/pam.d", name="sshd")
+    self.install_file(
+        self.files_path / "sshd.pam", "usr/lib/pam.d", name="sshd"
+    )
 
     self.install_bin("contrib/ssh-copy-id")
     self.install_man("contrib/ssh-copy-id.1")

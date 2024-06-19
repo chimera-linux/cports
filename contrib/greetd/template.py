@@ -1,6 +1,6 @@
 pkgname = "greetd"
 pkgver = "0.10.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = [
     "bmake",
@@ -35,7 +35,7 @@ def do_install(self):
 
     self.install_file("config.toml", "etc/greetd")
     self.install_file(
-        self.files_path / "greetd.pam", "etc/pam.d", name="greetd"
+        self.files_path / "greetd.pam", "usr/lib/pam.d", name="greetd"
     )
     self.install_service(self.files_path / "greetd")
     self.install_sysusers(self.files_path / "sysusers.conf")

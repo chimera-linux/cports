@@ -1,6 +1,6 @@
 pkgname = "screen"
 pkgver = "4.9.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pam",
@@ -40,7 +40,7 @@ def post_install(self):
     self.install_file("etc/etcscreenrc", "etc", name="screenrc")
     self.install_file("etc/screenrc", "etc/skel", name=".screenrc")
     # our configs
-    self.install_file(self.files_path / "screen", "etc/pam.d")
+    self.install_file(self.files_path / "screen", "usr/lib/pam.d")
     self.install_tmpfiles(self.files_path / "screen.conf")
     # drop suid root
     (self.destdir / f"usr/bin/screen-{pkgver}").chmod(0o755)
