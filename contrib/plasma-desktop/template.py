@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -64,27 +64,25 @@ checkdepends = [
     "iso-codes",
 ]
 depends = [
-    "kactivitymanagerd",
-    "kirigami-addons",  # needed by tons of apps, should be direct dep but also just pull it here
-    "kded",  # bg services
     "plasma-welcome",  # welcome!
-    "xdg-desktop-portal-kde",  # flatpak save dialog etc
     # default themes, icons, sounds and wallpapers
     "breeze",
     "breeze-icons",
     "ocean-sound-theme",
     "plasma-workspace-wallpapers",
-    "qqc2-breeze-style",
-    "qqc2-desktop-style",
     # default KDE fonts
     "fonts-noto",
     "fonts-hack-ttf",
     "fonts-noto-emoji-ttf",
     # very default base stuff
+    "accountsservice",
     "flatpak-kcm",
+    "kactivitymanagerd",
+    "kded",  # bg services
     "kgamma",
     "kio-admin",
     "kio-zeroconf",
+    "kirigami-addons",  # needed by tons of apps, should be direct dep but also just pull it here
     "kscreen",
     "ksystemstats",
     "kwallet-pam",
@@ -94,8 +92,11 @@ depends = [
     "plasma-pa",
     "polkit-kde-agent-1",
     "powerdevil",
+    "qqc2-breeze-style",
+    "qqc2-desktop-style",
     "systemsettings",
     "udisks",
+    "xdg-desktop-portal-kde",  # flatpak save dialog etc
     "xdg-user-dirs-gtk",
     "xdg-utils",
 ]
@@ -126,26 +127,26 @@ def _meta(self):
         # ?
         "baloo",  # search
         "bluedevil",  # bluetooth
+        "colord-kde",  # color profile management
+        # "drkonqi",  # TODO: figure out what crash handler to use (also is quite useless without coredumpd)
         "kde-cli-tools",  # e.g. mount & open external media
+        "kde-inotify-survey",  # inotify limit monitor
         "kdeplasma-addons",  # bunch of desktop widgets
+        "kdialog",  # scripted message boxes
+        "kmenuedit",
+        # "krdp",  # TODO: remote desktop server kcm for Plasma 6.2
         "ksshaskpass",  # graphical askpass
         "orca",  # screen reader
         "plasma-browser-integration",  # browser integration with plasma
-        "plasma-firewall",  # firewall configuration
-        "xwaylandvideobridge",  # x11 screen capture compat under wayland, TODO: test on baremetal
-        "kde-inotify-survey",  # inotify limit monitor
         "plasma-disks",  # smart monitoring
-        "kdialog",  # scripted message boxes
+        "plasma-firewall",  # firewall configuration
         "plasma-thunderbolt",  # user device authentication
-        "colord-kde",  # color profile management
         "print-manager",  # printer configuration
         "wacomtablet",  # wacom tablet settings
-        # "drkonqi",  # TODO: figure out what crash handler to use (also is quite useless without coredumpd)
-        "kmenuedit",
-        # "krdp",  # TODO: remote desktop server kcm for Plasma 6.2
+        "xwaylandvideobridge",  # x11 screen capture compat under wayland, TODO: test on baremetal
         # non-kde, misc integrations
         "desktop-file-utils",
-        "fprintd-meta",  # TODO: test on baremetal
+        "fprintd-meta",
         # "iio-sensor-proxy",  # FIXME: package and test on device with accelerometer
         "power-profiles-daemon-meta",  # battery power saving
     ]
@@ -179,42 +180,42 @@ def _apps_meta(self):
         "dolphin",  # file manager
         "konsole",  # terminal
         # - extra
-        "dolphin-plugins",
-        "ffmpegthumbs",  # video thumbnails
-        "kinfocenter",  # system info
-        "spectacle",  # screenshot
-        "gwenview",  # image viewer
-        "kate",  # text editor(s)
-        "kgpg",  # gpg integration
-        "markdownpart",
-        "svgpart",
-        "plasma-systemmonitor",
         "ark",  # file (un)archiving
-        "haruna",  # mpv frontend
+        "dolphin-plugins",
         "elisa",  # music player
-        "kdenlive",  # video editor
+        "ffmpegthumbs",  # video thumbnails
+        "filelight",  # disk space usage viewer
+        "gwenview",  # image viewer
+        "haruna",  # mpv frontend
         "kalk",  # calculator
-        # "neochat",  # local WIP, matrix client
+        "kate",  # text editor(s)
         "kcharselect",  # fonts character picker
         "kdeconnect",  # phone integration
+        "kdenlive",  # video editor
+        "kgpg",  # gpg integration
+        "kinfocenter",  # system info
         "konversation",  # irc client
         # "krdc",  # vnc/rdp client
+        "markdownpart",
+        # "neochat",  # local WIP, matrix client
+        "plasma-systemmonitor",
+        "spectacle",  # screenshot
+        "svgpart",
+        "kcachegrind",  # callgrind data visualizer
         "ksystemlog",  # log viewer (TODO: does it ask for root itself?)
         "okular",  # document viewer
-        "filelight",  # disk space usage viewer
         "partitionmanager",  # partition manager
         "plasmatube",  # youtube client
         "skanlite",  # image scanner
         "yakuake",  # drop-down terminal
-        "kcachegrind",  # callgrind data visualizer
         # - still qt5
         # "digikam",  # photo management
         # "heaptrack",  # heap memory profiler
         # "kamoso",  # camera
         # "kipi-plugins",  # image export
+        # "kmymoney",  # finance manager
         # "kompare",  # gui diff
         # "krita",  # digital art studio
-        # "kmymoney",  # finance manager
     ]
     # things missing on some arches
     if self.rparent.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
