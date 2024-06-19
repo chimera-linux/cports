@@ -1,6 +1,6 @@
 pkgname = "libxml2"
-pkgver = "2.13.0"
-pkgrel = 3
+pkgver = "2.13.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.xmlsoft.org"
 source = f"$(GNOME_SITE)/libxml2/{pkgver[:pkgver.rfind('.')]}/libxml2-{pkgver}.tar.xz"
-sha256 = "d5a2f36bea96e1fb8297c6046fb02016c152d81ed58e65f3d20477de85291bc9"
+sha256 = "25239263dc37f5f55a5393eff27b35f0b7d9ea4b2a7653310598ea8299e3b741"
 
 
 def post_install(self):
