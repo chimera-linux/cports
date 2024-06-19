@@ -140,7 +140,7 @@ def _common(self):
     self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
 
     return [
-        "etc/pam.d",
+        "usr/lib/pam.d",
         "usr/bin/dbwrap_tool",
         "usr/bin/net",
         "usr/bin/nmblookup",
