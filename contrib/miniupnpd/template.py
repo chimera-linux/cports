@@ -28,7 +28,7 @@ makedepends = [
 ]
 depends = ["nftables"]
 checkdepends = ["iproute2"]
-pkgdesc = "UPnP and NAT-PMP daemon for gateway routers"
+pkgdesc = "UPnP IGD and PCP/NAT-PMP daemon for gateway router"
 maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/miniupnp/miniupnp"
