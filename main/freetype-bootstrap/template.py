@@ -24,7 +24,7 @@ pkgdesc = "Font rendering engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
-source = f"https://de.freedif.org/savannah/freetype/freetype-{pkgver}.tar.xz"
+source = f"$(SOURCEFORGE_SITE)/freetype/freetype-{pkgver}.tar.xz"
 sha256 = "12991c4e55c506dd7f9b765933e62fd2be2e06d421505d7950a132e4f1bb484d"
 options = ["!lto", "!scanshlibs", "!scanpkgconf", "!autosplit"]
 
