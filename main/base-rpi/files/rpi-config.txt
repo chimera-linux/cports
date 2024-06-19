@@ -1,18 +1,32 @@
 [all]
 include kernel.txt
 
+[pi1]
+
+[pi2]
+
 [pi3]
+arm_64bit=1
 dtoverlay=vc4-kms-v3d
+dtoverlay=dwc2
 
 [pi4]
+arm_64bit=1
 dtoverlay=vc4-kms-v3d
 max_framebuffers=2
 arm_boost=1
+dtoverlay=dwc2
 
 [pi5]
+arm_64bit=1
 dtoverlay=vc4-kms-v3d
 max_framebuffers=2
 arm_boost=1
+dtoverlay=dwc2
+
+[pi02]
+arm_64bit=1
+dtoverlay=dwc2
 
 [all]
 # Enable the audio output, I2C and SPI interfaces on the GPIO header. As these
@@ -42,10 +56,6 @@ enable_uart=1
 # the legacy camera stack
 camera_auto_detect=1
 display_auto_detect=1
-
-# Config settings specific to arm64
-arm_64bit=1
-dtoverlay=dwc2
 
 [cm4]
 # Enable the USB2 outputs on the IO board (assuming your CM4 is plugged into

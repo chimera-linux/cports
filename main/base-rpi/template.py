@@ -1,7 +1,7 @@
 pkgname = "base-rpi"
 pkgver = "0.4"
-pkgrel = 1
-archs = ["aarch64"]
+pkgrel = 2
+archs = ["aarch64", "armhf"]
 depends = ["rpi-boot", "firmware-linux-brcm-rpi"]
 replaces = ["firmware-rpi<=20220905-r0"]
 pkgdesc = "Chimera base package for Raspberry Pi devices"
