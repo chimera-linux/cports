@@ -1,7 +1,8 @@
 pkgname = "libassuan"
-pkgver = "2.5.7"
+pkgver = "3.0.0"
 pkgrel = 0
 build_style = "gnu_configure"
+# their autoconf is dumb
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["libgpg-error-devel"]
@@ -10,7 +11,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnupg.org/related_software/libassuan"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "0103081ffc27838a2e50479153ca105e873d3d65d8a9593282e9c94c7e6afb76"
+sha256 = "0b160cbb898b852c6c04314b9a63e90ca87501305ad72a58a010f808665bbaf6"
 
 
 @subpackage("libassuan-devel")
