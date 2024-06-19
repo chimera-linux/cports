@@ -121,7 +121,9 @@ configure_args.append(
 
 def post_install(self):
     self.install_file("examples/smb.conf.default", "etc/samba", name="smb.conf")
-    self.install_file(self.files_path / "samba.pam", "etc/pam.d", name="samba")
+    self.install_file(
+        self.files_path / "samba.pam", "usr/lib/pam.d", name="samba"
+    )
     self.rm(self.destdir / "etc/sudoers.d", recursive=True)
     self.rm(self.destdir / "usr/share/man/man7/traffic_learner.7")
     self.rm(self.destdir / "usr/share/man/man7/traffic_replay.7")
