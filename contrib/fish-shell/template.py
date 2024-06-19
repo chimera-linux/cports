@@ -1,7 +1,8 @@
 pkgname = "fish-shell"
 pkgver = "3.7.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
+configure_args = ["-DCMAKE_INSTALL_SYSCONFDIR=/etc"]
 make_check_target = "fish_run_tests"
 hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext"]
 makedepends = ["ncurses-devel", "pcre2-devel"]
