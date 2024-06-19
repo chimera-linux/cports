@@ -1,5 +1,5 @@
 pkgname = "ldb"
-pkgver = "2.9.0"
+pkgver = "2.9.1"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -34,7 +34,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://www.samba.org/ldb"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "105aaff71ad881a7faeb582fd416ae28221b6fde338fff82828065062c2507a5"
+sha256 = "c95e4dc32dea8864b79899ee340c9fdf28b486f464bbc38ba99151a08b493f9b"
 env = {"PYTHONHASHSEED": "1"}
 options = ["!cross", "linkundefver"]
 
