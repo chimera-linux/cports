@@ -18,7 +18,7 @@ _scriptlets = {
 
 def getdeps(pkg, arch):
     if pkg.stage < 3:
-        return None, None, None
+        return None, None, None, None
 
     cpf = pkg.rparent.profile()
 
@@ -31,7 +31,6 @@ def getdeps(pkg, arch):
         return acli.call(
             "info",
             [
-                "--quiet",
                 "--from=none",
                 "--depends",
                 "--provides",
@@ -44,7 +43,7 @@ def getdeps(pkg, arch):
             arch=arch,
             allow_untrusted=True,
             allow_network=allow_net,
-        ).stdout.decode()
+        ).stdout.strip().decode()
 
     # first fetch from local repo, fall back to network
     # this is to prevent having to disambiguate between different
@@ -58,49 +57,67 @@ def getdeps(pkg, arch):
     deps = []
     provides = []
     instif = []
+    curpver = None
 
-    part = 1
+    parts = 0
     curcont = deps
 
     for ln in depsum:
         ln = ln.strip()
+        # skip empty lines
         if ln == "":
-            # skip to next list
-            if part == 1:
-                curcont = provides
-            elif part == 2:
-                curcont = instif
-            else:
-                # skip other providers
-                break
-            part += 1
             continue
-        # add to list
+        # extract info and determine lists
+        if ln.endswith(":"):
+            # only consider one package
+            if parts == 3:
+                break
+            # use verbose mode, it sucks but no other way to get pkgver
+            if ln.endswith(" depends on:"):
+                curcont = deps
+                ln = ln.removesuffix(" depends on:")
+            elif ln.endswith(" provides:"):
+                curcont = provides
+                ln = ln.removesuffix(" provides:")
+            elif ln.endswith(" has auto-install rule:"):
+                curcont = instif
+                ln = ln.removesuffix(" has auto-install rule:")
+            parts += 1
+            # extract pkgver
+            if not curpver:
+                pn, curpver = autil.get_namever(ln)
+            continue
+        # now add to current list
         curcont.append(ln)
 
     deps.sort()
     provides.sort()
     instif.sort()
 
-    return deps, provides, instif
+    return curpver, deps, provides, instif
 
 
-def print_diff(head, pkg, oldl, newl):
+def print_diff(head, pkg, over, oldl, newl):
     if oldl is None:
         return
 
-    sold = set(oldl)
-    snew = set(newl)
+    sold = set()
+    snew = set()
+
+    for v in oldl:
+        sold.add(v.removesuffix(f"={over}"))
+    for v in newl:
+        snew.add(v.removesuffix(f"={pkg.pkgver}-r{pkg.pkgrel}"))
 
     log = pkg.rparent.logger
 
     ldiff = []
 
     for v in oldl:
-        if v not in snew:
+        if v.removesuffix(f"={over}") not in snew:
             ldiff.append((v, False))
     for v in newl:
-        if v not in sold:
+        if v.removesuffix(f"={pkg.pkgver}-r{pkg.pkgrel}") not in sold:
             ldiff.append((v, True))
 
     if len(ldiff) == 0:
@@ -211,11 +228,11 @@ def genpkg(pkg, repo, arch, binpkg):
     provides.sort()
     riif = sorted(pkg.install_if)
 
-    odeps, oprovides, oiif = getdeps(pkg, arch)
+    over, odeps, oprovides, oiif = getdeps(pkg, arch)
 
-    print_diff("dependencies", pkg, odeps, deps)
-    print_diff("providers", pkg, oprovides, provides)
-    print_diff("install-ifs", pkg, oiif, riif)
+    print_diff("dependencies", pkg, over, odeps, deps)
+    print_diff("providers", pkg, over, oprovides, provides)
+    print_diff("install-ifs", pkg, over, oiif, riif)
 
     if len(deps) > 0:
         pargs += ["--info", f"depends:{' '.join(deps)}"]
