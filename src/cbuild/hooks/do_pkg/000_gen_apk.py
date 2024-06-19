@@ -28,22 +28,26 @@ def getdeps(pkg, arch):
         sysp = paths.bldroot()
 
     def _get_sum(allow_net):
-        return acli.call(
-            "info",
-            [
-                "--from=none",
-                "--depends",
-                "--provides",
-                "--install-if",
-                pkg.pkgname,
-            ],
-            pkg,
-            root=sysp,
-            capture_output=True,
-            arch=arch,
-            allow_untrusted=True,
-            allow_network=allow_net,
-        ).stdout.strip().decode()
+        return (
+            acli.call(
+                "info",
+                [
+                    "--from=none",
+                    "--depends",
+                    "--provides",
+                    "--install-if",
+                    pkg.pkgname,
+                ],
+                pkg,
+                root=sysp,
+                capture_output=True,
+                arch=arch,
+                allow_untrusted=True,
+                allow_network=allow_net,
+            )
+            .stdout.strip()
+            .decode()
+        )
 
     # first fetch from local repo, fall back to network
     # this is to prevent having to disambiguate between different
