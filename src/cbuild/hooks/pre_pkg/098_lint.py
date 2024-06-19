@@ -26,6 +26,7 @@ def invoke(pkg):
         "lib32",
         "lib64",
         "sbin",
+        "usr/etc",
         "usr/sbin",
         "usr/lib32",
         "usr/lib64",
