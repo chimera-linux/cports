@@ -1,7 +1,7 @@
 pkgname = "pinentry-qt"
 # Keep pkgver in sync with main/pinentry
 pkgver = "1.3.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-qt",
