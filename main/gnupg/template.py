@@ -1,6 +1,6 @@
 pkgname = "gnupg"
 pkgver = "2.4.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--enable-all-tests"]
 configure_gen = []
