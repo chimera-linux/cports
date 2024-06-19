@@ -94,24 +94,26 @@ def print_diff(head, pkg, oldl, newl):
 
     log = pkg.rparent.logger
 
-    ldel = []
-    ladd = []
+    ldiff = []
 
     for v in oldl:
         if v not in snew:
-            ldel.append(v)
+            ldiff.append((v, False))
     for v in newl:
         if v not in sold:
-            ladd.append(v)
+            ldiff.append((v, True))
 
-    if len(ldel) == 0 and len(ladd) == 0:
+    if len(ldiff) == 0:
         return
 
+    ldiff.sort()
+
     pkg.log(f"changed {head}:")
-    for v in ldel:
-        log.out_red(f"  -{v}")
-    for v in ladd:
-        log.out_green(f"  +{v}")
+    for v, isadd in ldiff:
+        if isadd:
+            log.out_green(f"  +{v}")
+        else:
+            log.out_red(f"  -{v}")
 
 
 def genpkg(pkg, repo, arch, binpkg):
