@@ -1,7 +1,7 @@
 pkgname = "gpgme"
 # update contrib/gpgme-qt too
 pkgver = "1.23.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 # otherwise cmake files are broken
 make_cmd = "gmake"
