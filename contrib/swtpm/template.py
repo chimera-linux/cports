@@ -1,5 +1,5 @@
 pkgname = "swtpm"
-pkgver = "0.8.2"
+pkgver = "0.9.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,19 +28,14 @@ makedepends = [
     "linux-headers",
     "openssl-devel",
 ]
-checkdepends = [
-    "iproute2",
-]
-depends = [
-    "gnutls-progs",
-    "trousers",
-]
+checkdepends = ["iproute2"]
+depends = ["gnutls-progs", "trousers"]
 pkgdesc = "TPM emulator with socket, character device, and Linux CUSE interface"
 maintainer = "cesorious <cesorious@gmail.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/stefanberger/swtpm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b281b4e8c39f68e1928675f788abc70072e4081152e129144359a8c5c304c06b"
+sha256 = "9679ca171e8aaa3c4e4053e8bc1d10c8dabf0220bd4b16aba78743511c25f731"
 
 
 def post_install(self):
