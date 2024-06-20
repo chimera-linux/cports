@@ -1,6 +1,6 @@
 pkgname = "wireshark"
 pkgver = "4.2.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DENABLE_GNUTLS=ON",
@@ -37,6 +37,7 @@ makedepends = [
     "lz4-devel",
     "minizip-devel",
     "nghttp2-devel",
+    "nghttp3-devel",
     "opus-devel",
     "pcre2-devel",
     "portaudio-devel",
@@ -45,6 +46,7 @@ makedepends = [
     "qt6-qtmultimedia-devel",
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
+    "sbc-devel",
     "snappy-devel",
     "spandsp-devel",
     "speexdsp-devel",
