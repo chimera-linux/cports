@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "1.0.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -97,13 +97,27 @@ def post_install(self):
     self.install_service(self.files_path / "pipewire-pulse.user", enable=True)
 
 
-@subpackage("libpipewire")
+@subpackage("pipewire-bluetooth")
+def _bluez(self):
+    self.pkgdesc = f"{pkgdesc} (Bluetooth support)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
+    self.provides = [f"libspa-bluez5={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/spa-0.2/bluez5"]
+
+
+@subpackage("pipewire-libs")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.provides = [f"libpipewire={pkgver}-r{pkgrel}"]
+    self.replaces = ["libpipewire<1.0.7-r1"]
 
     return [
         "usr/lib/libpipewire-*.so.*",
         "usr/lib/pipewire-*/*.so",
+        "usr/lib/spa-0.2",
+        "usr/share/pipewire/client*",
     ]
 
 
@@ -135,16 +149,6 @@ def _jack(self):
 @subpackage("pipewire-devel")
 def _devel(self):
     return self.default_devel()
-
-
-@subpackage("pipewire-bluetooth")
-def _bluez(self):
-    self.pkgdesc = f"{pkgdesc} (Bluetooth support)"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
-    self.provides = [f"libspa-bluez5={pkgver}-r{pkgrel}"]
-
-    return ["usr/lib/spa-0.2/bluez5"]
 
 
 @subpackage("gstreamer-pipewire")
