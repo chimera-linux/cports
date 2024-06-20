@@ -1,6 +1,6 @@
 pkgname = "libdisplay-info"
-pkgver = "0.1.1"
-pkgrel = 1
+pkgver = "0.2.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -15,9 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/emersion/libdisplay-info"
 source = f"{url}/-/archive/{pkgver}/libdisplay-info-{pkgver}.tar.gz"
-sha256 = "a5aeef57817916286526292ec816a5338c4d3c0094ce91e584fc82b57070a44f"
-# edid-decode
-options = ["!check"]
+sha256 = "f7331fcaf5527251b84c8fb84238d06cd2f458422ce950c80e86c72927aa8c2b"
 
 
 def post_install(self):
