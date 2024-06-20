@@ -1,6 +1,6 @@
 pkgname = "furnace"
 pkgver = "0.6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSYSTEM_FFTW=ON",
