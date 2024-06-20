@@ -1,10 +1,11 @@
 pkgname = "muon"
 pkgver = "0.2.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = ["libarchive-devel", "libcurl-devel", "pkgconf-devel"]
 checkdepends = ["git"]
+depends = ["ninja"]
 pkgdesc = "Minimal implementation of meson"
 maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-only AND Apache-2.0 AND MIT AND Unlicense"
