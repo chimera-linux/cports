@@ -1,6 +1,6 @@
 pkgname = "libcanberra"
 pkgver = "0.30"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-null",
@@ -49,7 +49,11 @@ def _gtk3(self):
     self.pkgdesc = f"{pkgdesc} (Gtk+3 support)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
 
-    return ["usr/lib/libcanberra-gtk3.so.*", "usr/lib/gtk-3.0"]
+    return [
+        "usr/lib/libcanberra-gtk3.so.*",
+        "usr/lib/gtk-3.0",
+        "usr/lib/gnome-settings-daemon-3.0/gtk-modules/canberra-gtk-module.desktop",
+    ]
 
 
 @subpackage("libcanberra-pulse")
@@ -70,4 +74,10 @@ def _gst(self):
 
 @subpackage("libcanberra-progs")
 def _progs(self):
-    return self.default_progs()
+    return self.default_progs(
+        extra=[
+            "usr/share/gdm/autostart/LoginWindow/libcanberra-ready-sound.desktop",
+            "usr/share/gnome/autostart/libcanberra-login-sound.desktop",
+            "usr/share/gnome/shutdown/libcanberra-logout-sound.sh",
+        ]
+    )
