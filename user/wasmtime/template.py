@@ -1,5 +1,5 @@
 pkgname = "wasmtime"
-pkgver = "21.0.1"
+pkgver = "22.0.0"
 pkgrel = 0
 # no implementation for other architectures
 archs = ["aarch64", "riscv64", "x86_64"]
@@ -23,7 +23,9 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://wasmtime.dev"
 source = f"https://github.com/bytecodealliance/wasmtime/releases/download/v{pkgver}/wasmtime-v{pkgver}-src.tar.gz"
-sha256 = "1e1c85c3c3b69812c7674c14a75ac6d3b917ab121c501d6a348acc2fcdd6a739"
+sha256 = "9fe87339e61b57338473b857d8ddebda958d8bb7534ddddf463b1f7648faf1e5"
+# wast tests take like an hour
+options = ["!check"]
 
 
 def post_extract(self):
