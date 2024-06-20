@@ -1,6 +1,6 @@
 pkgname = "libcanberra"
 pkgver = "0.30"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-null",
@@ -48,8 +48,14 @@ def _devel(self):
 def _gtk3(self):
     self.pkgdesc = f"{pkgdesc} (Gtk+3 support)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
+    # compat
+    self.provides = [f"libcanberra-progs={pkgver}-r{pkgrel}"]
 
-    return ["usr/lib/libcanberra-gtk3.so.*", "usr/lib/gtk-3.0"]
+    return [
+        "usr/bin/canberra-gtk-play",
+        "usr/lib/libcanberra-gtk3.so.*",
+        "usr/lib/gtk-3.0",
+    ]
 
 
 @subpackage("libcanberra-pulse")
@@ -68,6 +74,14 @@ def _gst(self):
     return ["usr/lib/libcanberra-*/libcanberra-gstreamer.so"]
 
 
-@subpackage("libcanberra-progs")
-def _progs(self):
-    return self.default_progs()
+@subpackage("libcanberra-gnome")
+def _gnome(self):
+    self.pkgdesc = f"{pkgdesc} (GNOME support)"
+    self.depends += [f"libcanberra-gtk3={pkgver}-r{pkgrel}"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gnome"]
+
+    return [
+        "usr/lib/gnome*",
+        "usr/share/gdm",
+        "usr/share/gnome",
+    ]
