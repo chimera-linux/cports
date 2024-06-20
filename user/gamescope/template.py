@@ -2,7 +2,15 @@ pkgname = "gamescope"
 pkgver = "3.14.18"
 pkgrel = 1
 build_style = "meson"
-configure_args = ["-Ddefault_library=static"]
+configure_args = [
+    "-Ddefault_library=static",
+    "-Davif_screenshots=enabled",
+    "-Ddrm_backend=enabled",
+    "-Dinput_emulation=enabled",
+    "-Dpipewire=enabled",
+    "-Drt_cap=enabled",
+    "-Dsdl2_backend=enabled",
+]
 make_install_args = ["--skip-subprojects", "libliftoff,wlroots"]
 hostmakedepends = [
     "cmake",
@@ -18,8 +26,10 @@ makedepends = [
     "glm",
     "glslang-devel",
     "hwdata-devel",
+    "libavif-devel",
     "libcap-devel",
     "libdisplay-info-devel",
+    "libei-devel",
     "libinput-devel",
     "libseat-devel",
     "libx11-devel",
