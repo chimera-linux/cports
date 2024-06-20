@@ -1,6 +1,6 @@
 _trip = "aarch64-none-elf"
 pkgname = f"gcc-{_trip}"
-pkgver = "13.2.0"
+pkgver = "14.1.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -37,6 +37,7 @@ configure_args = [
     "--with-gnu-as",
     "--with-gnu-ld",
     "--with-libelf",
+    "--with-matchpd-partitions=32",
     "--with-mpc",
     "--with-mpfr",
     "--with-native-system-header-dir=/include",
@@ -45,6 +46,7 @@ configure_args = [
     f"--with-python-dir=share/gcc-{_trip}",
     f"--with-headers=/usr/{_trip}/include",
 ]
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
@@ -61,13 +63,13 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
-sha256 = "e275e76442a6067341a27f04c5c6b83d8613144004c0413528863dc6b5c743da"
+sha256 = "e283c654987afe3de9d8080bc0bd79534b5ca0d681a73a11ff2b5d3767426840"
 env = {
     "CFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
     "CXXFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
 }
 nostrip_files = ["libgcc.a"]
-hardening = ["!pie"]
+hardening = ["!pie", "!format"]
 # no tests to run
 options = ["!check", "!lto", "!cross", "!scanshlibs"]
 
@@ -82,6 +84,3 @@ def post_install(self):
     self.rm(self.destdir / f"usr/bin/{_trip}-c++")
     self.install_link(f"usr/bin/{_trip}-gcc", f"{_trip}-gcc-{pkgver}")
     self.install_link(f"usr/bin/{_trip}-c++", f"{_trip}-g++")
-
-
-configure_gen = []
