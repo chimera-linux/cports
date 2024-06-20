@@ -6,8 +6,8 @@ Date:   Sat May 18 03:13:13 2024 +0200
 
 diff --git a/src/wayland_backend.cpp b/src/wayland_backend.cpp
 index a8b0673..83ba712 100644
---- a/src/wayland_backend.cpp
-+++ b/src/wayland_backend.cpp
+--- a/src/Backends/WaylandBackend.cpp
++++ b/src/Backends/WaylandBackend.cpp
 @@ -377,7 +377,8 @@ namespace gamescope
          std::optional<wl_fixed_t> m_ofPendingCursorX;
          std::optional<wl_fixed_t> m_ofPendingCursorY;

@@ -12,8 +12,8 @@ is a little bit slower
 
 diff --git a/src/sdlwindow.cpp b/src/sdlwindow.cpp
 index 50c3b95..7bd1104 100644
---- a/src/sdlwindow.cpp
-+++ b/src/sdlwindow.cpp
+--- a/src/Backends/SDLBackend.cpp
++++ b/src/Backends/SDLBackend.cpp
 @@ -177,13 +177,14 @@ namespace gamescope
  		std::vector<const char *> m_pszInstanceExtensions;
  
