@@ -165,6 +165,10 @@ match self.profile().arch:
         # also crashes on riscv64
         hardening += ["!int"]
 
+match self.profile().arch:
+    case "aarch64" | "ppc64le":
+        broken = "for now"
+
 
 def post_patch(self):
     self.mkdir("third_party/node/linux/node-linux-x64/bin", parents=True)
