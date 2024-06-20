@@ -1,5 +1,5 @@
 pkgname = "libva-bootstrap"
-pkgver = "2.21.0"
+pkgver = "2.22.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://01.org/linuxmedia/vaapi"
 source = f"https://github.com/intel/libva/archive/{pkgver}.tar.gz"
-sha256 = "f7c3fffef3f04eb146e036dad2587d852bfb70e4926d014bf437244915ef7425"
+sha256 = "467c418c2640a178c6baad5be2e00d569842123763b80507721ab87eb7af8735"
 options = ["!lto", "!scanshlibs", "!scanpkgconf", "!autosplit", "linkundefver"]
 
 
