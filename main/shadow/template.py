@@ -1,5 +1,5 @@
 pkgname = "shadow"
-pkgver = "4.15.1"
+pkgver = "4.16.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/shadow-maint/shadow"
 source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"
-sha256 = "bb5f70639a0581f9d626f227ce45b31ac137daa7c451c0f672ce14f2731a96ee"
+sha256 = "b78e3921a95d53282a38e90628880624736bf6235e36eea50c50835f59a3530b"
 file_modes = {
     "usr/bin/chage": ("root", "root", 0o4755),
     "usr/bin/chfn": ("root", "root", 0o4755),
@@ -66,7 +66,7 @@ def post_install(self):
 
     # install our own pam files
     for f in ["chage", "chfn", "chsh", "login", "su", "passwd"]:
-        self.install_file(self.files_path / f"{f}.pam", "etc/pam.d", name=f)
+        self.install_file(self.files_path / f"{f}.pam", "usr/lib/pam.d", name=f)
 
     for f in [
         "chpasswd",
@@ -80,7 +80,9 @@ def post_install(self):
         "userdel",
         "usermod",
     ]:
-        self.install_file(self.destdir / "etc/pam.d/chage", "etc/pam.d", name=f)
+        self.install_file(
+            self.destdir / "usr/lib/pam.d/chage", "usr/lib/pam.d", name=f
+        )
 
     # defaults for useradd
     self.install_file(
