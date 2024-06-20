@@ -1,7 +1,7 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
 pkgver = "20240610"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -94,6 +94,18 @@ _pkgs = [
     ("go7007", "WIS GO7007 MPEG encoder", None, "misc", ["go7007"]),
     ("hermes", "Orinoco Hermes WLAN", None, "network", ["agere*"]),
     ("hfi1", "Intel OPA hfi1", _arch_x86, "network", ["hfi1_*.fw*"]),
+    # comes first because it needs some stuff from i915
+    (
+        "xe",
+        "Intel Xe GPUs",
+        None,
+        "gpu",
+        [
+            "i915/bmg*",  # battlemage
+            "i915/dg*",  # dg1 and dg2
+            "xe",
+        ],
+    ),
     ("i915", "Intel GPUs", _arch_x86, "gpu", ["i915"]),
     (
         "intel-audio",
@@ -348,7 +360,6 @@ _pkgs = [
     ("whiteheat", "WhiteHEAT USB-Serial", None, "misc", ["whiteheat*"]),
     ("wil6210", "Qualcomm wil6210 60GHz WLAN", None, "network", ["wil6210*"]),
     ("wfx", "Silicon Laboratories WFx WLAN", None, "network", ["wfx"]),
-    ("xe", "Intel Xe GPUs", None, "gpu", ["xe"]),
     ("yamaha", "Yamaha audio drivers", None, "audio", ["yamaha"]),
 ]
 
