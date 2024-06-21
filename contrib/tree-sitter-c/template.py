@@ -1,5 +1,5 @@
 pkgname = "tree-sitter-c"
-pkgver = "0.21.0"
+pkgver = "0.21.3"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/tree-sitter/tree-sitter-c"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6f0f5d1b71cf8ffd8a37fb638c6022fa1245bd630150b538547d52128ce0ea7e"
+sha256 = "75a3780df6114cd37496761c4a7c9fd900c78bee3a2707f590d78c0ca3a24368"
 
 
 def post_install(self):
