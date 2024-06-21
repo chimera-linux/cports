@@ -1,7 +1,8 @@
 pkgname = "git-branchless"
 pkgver = "0.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std", "sqlite-devel"]
 checkdepends = ["git"]
@@ -11,7 +12,8 @@ license = "MIT OR Apache-2.0"
 url = "https://github.com/arxanas/git-branchless"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "fa64dc92ec522520a6407ff61241fc1819a3093337b4e3d0f80248ae76938d43"
-options = ["!cross"]
+# check: test snapshots fail with libgit2 1.8
+options = ["!cross", "!check"]
 
 
 def init_check(self):

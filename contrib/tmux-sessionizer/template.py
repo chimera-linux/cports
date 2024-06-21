@@ -1,7 +1,8 @@
 pkgname = "tmux-sessionizer"
 pkgver = "0.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl-devel", "libgit2-devel"]
 pkgdesc = "Tool for opening git repositories as tmux sessions"

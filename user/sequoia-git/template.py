@@ -1,7 +1,8 @@
 pkgname = "sequoia-git"
 pkgver = "0.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
+prepare_after_patch = True
 make_check_env = {"TARGET": self.profile().triplet}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [

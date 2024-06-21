@@ -1,9 +1,7 @@
 pkgname = "git-cliff"
 pkgver = "2.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
-# we patch Cargo.toml and Cargo.lock
-prepare_after_patch = True
 make_check_args = [
     "--",
     "--skip=repo::test::get_latest_commit",

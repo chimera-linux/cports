@@ -1,7 +1,8 @@
 pkgname = "gitui"
 pkgver = "0.26.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 make_build_args = [
     "--no-default-features",
     "--features=ghemoji,regex-onig,vendor-openssl",

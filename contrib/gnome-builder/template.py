@@ -1,6 +1,6 @@
 pkgname = "gnome-builder"
 pkgver = "46.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dnetwork_tests=false"]
 make_check_wrapper = [

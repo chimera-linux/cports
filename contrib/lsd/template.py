@@ -1,7 +1,8 @@
 pkgname = "lsd"
 pkgver = "1.1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std"]
 checkdepends = ["git"]

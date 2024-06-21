@@ -1,7 +1,8 @@
 pkgname = "cargo-c"
 pkgver = "0.10.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 # no tests in others
 make_check_args = ["--lib"]
 hostmakedepends = [

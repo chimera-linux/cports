@@ -1,6 +1,6 @@
 pkgname = "git-absorb"
 pkgver = "0.6.13"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = ["asciidoc", "cargo-auditable", "pkgconf"]
