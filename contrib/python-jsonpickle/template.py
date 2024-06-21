@@ -1,5 +1,5 @@
 pkgname = "python-jsonpickle"
-pkgver = "3.2.1"
+pkgver = "3.2.2"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -23,7 +23,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/jsonpickle/jsonpickle"
 source = f"$(PYPI_SITE)/j/jsonpickle/jsonpickle-{pkgver}.tar.gz"
-sha256 = "4b6d7640974199f7acf9035295365b5a1a71a91109effa15ba170fbb48cf871c"
+sha256 = "d425fd2b8afe9f5d7d57205153403fbf897782204437882a477e8eed60930f8c"
 
 
 def post_install(self):
