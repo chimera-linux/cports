@@ -1,3 +1,5 @@
+Additional fixes by q66 to make it build with Clang.
+
 From 43154c8bc3ab56e5186ffaa669d3b2274c819ef4 Mon Sep 17 00:00:00 2001
 From: D Scott Phillips <scott@os.amperecomputing.com>
 Date: Tue, 13 Feb 2024 09:01:07 -0800
@@ -34,7 +36,7 @@ Signed-off-by: D Scott Phillips <scott@os.amperecomputing.com>
  create mode 100644 arch/arm64/kernel/alignment.c
 
 diff --git a/arch/arm64/include/asm/exception.h b/arch/arm64/include/asm/exception.h
-index ad688e157c9be..ac87282f790b6 100644
+index f296662..9b4e56c 100644
 --- a/arch/arm64/include/asm/exception.h
 +++ b/arch/arm64/include/asm/exception.h
 @@ -67,6 +67,7 @@ void do_el0_sys(unsigned long esr, struct pt_regs *regs);
@@ -46,7 +48,7 @@ index ad688e157c9be..ac87282f790b6 100644
  void do_el0_svc(struct pt_regs *regs);
  void do_el0_svc_compat(struct pt_regs *regs);
 diff --git a/arch/arm64/kernel/Makefile b/arch/arm64/kernel/Makefile
-index d95b3d6b471a7..7bb50f26a85a0 100644
+index 7638249..3617d09 100644
 --- a/arch/arm64/kernel/Makefile
 +++ b/arch/arm64/kernel/Makefile
 @@ -26,7 +26,7 @@ KCOV_INSTRUMENT_entry-common.o := n
@@ -54,16 +56,24 @@ index d95b3d6b471a7..7bb50f26a85a0 100644
  
  # Object file lists.
 -obj-y			:= debug-monitors.o entry.o irq.o fpsimd.o		\
-+obj-y			:= alignment.o debug-monitors.o entry.o irq.o fpsimd.o	\
++obj-y			:= alignment.o alignment_neon.o debug-monitors.o entry.o irq.o fpsimd.o	\
  			   entry-common.o entry-fpsimd.o process.o ptrace.o	\
  			   setup.o signal.o sys.o stacktrace.o time.o traps.o	\
  			   io.o vdso.o hyp-stub.o psci.o cpu_ops.o		\
+@@ -84,5 +84,7 @@ ifeq ($(CONFIG_DEBUG_EFI),y)
+ AFLAGS_head.o += -DVMLINUX_PATH="\"$(realpath $(objtree)/vmlinux)\""
+ endif
+ 
++CFLAGS_REMOVE_alignment_neon.o += -mgeneral-regs-only
++
+ # for cleaning
+ subdir- += vdso vdso32
 diff --git a/arch/arm64/kernel/alignment.c b/arch/arm64/kernel/alignment.c
 new file mode 100644
-index 0000000000000..dd5028398a4c8
+index 0000000..590378e
 --- /dev/null
 +++ b/arch/arm64/kernel/alignment.c
-@@ -0,0 +1,1049 @@
+@@ -0,0 +1,1007 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (C) 2023 Ampere Computing LLC
@@ -199,53 +209,11 @@ index 0000000000000..dd5028398a4c8
 +	return 0;
 +}
 +
-+static u64 get_vn_dt(int n, int t)
-+{
-+	u64 res;
++extern u64 __arm64_get_vn_dt(int n, int t);
++extern void __arm64_set_vn_dt(int n, int t, u64 val);
 +
-+	switch (n) {
-+#define V(n)						\
-+	case n:						\
-+		asm("cbnz %w1, 1f\n\t"			\
-+		    "mov %0, v"#n".d[0]\n\t"		\
-+		    "b 2f\n\t"				\
-+		    "1: mov %0, v"#n".d[1]\n\t"		\
-+		    "2:" : "=r" (res) : "r" (t));	\
-+		break					\
-+
-+	V(0);  V(1);  V(2);  V(3);  V(4);  V(5);  V(6);  V(7);
-+	V(8);  V(9);  V(10); V(11); V(12); V(13); V(14); V(15);
-+	V(16); V(17); V(18); V(19); V(20); V(21); V(22); V(23);
-+	V(24); V(25); V(26); V(27); V(28); V(29); V(30); V(31);
-+#undef V
-+	default:
-+		res = 0;
-+		break;
-+	}
-+	return res;
-+}
-+
-+static void set_vn_dt(int n, int t, u64 val)
-+{
-+	switch (n) {
-+#define V(n)						\
-+	case n:						\
-+		asm("cbnz %w1, 1f\n\t"			\
-+		    "mov v"#n".d[0], %0\n\t"		\
-+		    "b 2f\n\t"				\
-+		    "1: mov v"#n".d[1], %0\n\t"		\
-+		    "2:" :: "r" (val), "r" (t));	\
-+		break					\
-+
-+	V(0);  V(1);  V(2);  V(3);  V(4);  V(5);  V(6);  V(7);
-+	V(8);  V(9);  V(10); V(11); V(12); V(13); V(14); V(15);
-+	V(16); V(17); V(18); V(19); V(20); V(21); V(22); V(23);
-+	V(24); V(25); V(26); V(27); V(28); V(29); V(30); V(31);
-+#undef Q
-+	default:
-+		break;
-+	}
-+}
++#define get_vn_dt __arm64_get_vn_dt
++#define set_vn_dt __arm64_set_vn_dt
 +
 +static u64 replicate64(u64 val, int bits)
 +{
@@ -1112,6 +1080,75 @@ index 0000000000000..dd5028398a4c8
 +		arm64_skip_faulting_instruction(regs, AARCH64_INSN_SIZE);
 +	}
 +	return res;
++}
+diff --git a/arch/arm64/kernel/alignment_neon.c b/arch/arm64/kernel/alignment_neon.c
+new file mode 100644
+index 0000000..df4dedd
+--- /dev/null
++++ b/arch/arm64/kernel/alignment_neon.c
+@@ -0,0 +1,63 @@
++/*
++ * These functions require asimd, which is not accepted by Clang in normal
++ * kernel code, which is compiled with -mgeneral-regs-only. GCC will somehow
++ * eat it regardless, but we want it to be portable, so move these in their
++ * own translation unit. This allows us to turn off -mgeneral-regs-only for
++ * these (where it should be harmless) without risking the compiler doing
++ * wrong things in places where we don't want it to.
++ *
++ * Otherwise this is identical to the original patch.
++ *
++ * -- q66 <q66@chimera-linux.org>
++ *
++ */
++
++#include <linux/types.h>
++
++u64 __arm64_get_vn_dt(int n, int t)
++{
++	u64 res;
++
++	switch (n) {
++#define V(n)						\
++	case n:						\
++		asm("cbnz %w1, 1f\n\t"			\
++		    "mov %0, v"#n".d[0]\n\t"		\
++		    "b 2f\n\t"				\
++		    "1: mov %0, v"#n".d[1]\n\t"		\
++		    "2:" : "=r" (res) : "r" (t));	\
++		break					\
++
++	V(0);  V(1);  V(2);  V(3);  V(4);  V(5);  V(6);  V(7);
++	V(8);  V(9);  V(10); V(11); V(12); V(13); V(14); V(15);
++	V(16); V(17); V(18); V(19); V(20); V(21); V(22); V(23);
++	V(24); V(25); V(26); V(27); V(28); V(29); V(30); V(31);
++#undef V
++	default:
++		res = 0;
++		break;
++	}
++	return res;
++}
++
++void __arm64_set_vn_dt(int n, int t, u64 val)
++{
++	switch (n) {
++#define V(n)						\
++	case n:						\
++		asm("cbnz %w1, 1f\n\t"			\
++		    "mov v"#n".d[0], %0\n\t"		\
++		    "b 2f\n\t"				\
++		    "1: mov v"#n".d[1], %0\n\t"		\
++		    "2:" :: "r" (val), "r" (t));	\
++		break					\
++
++	V(0);  V(1);  V(2);  V(3);  V(4);  V(5);  V(6);  V(7);
++	V(8);  V(9);  V(10); V(11); V(12); V(13); V(14); V(15);
++	V(16); V(17); V(18); V(19); V(20); V(21); V(22); V(23);
++	V(24); V(25); V(26); V(27); V(28); V(29); V(30); V(31);
++#undef Q
++	default:
++		break;
++	}
 +}
 diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
 index 55f6455a82843..e43e5b1c33f19 100644
