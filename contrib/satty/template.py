@@ -1,5 +1,5 @@
 pkgname = "satty"
-pkgver = "0.12.1"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -15,12 +15,13 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MPL-2.0"
 url = "https://github.com/gabm/Satty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6ecd5a1ac7ac4b1e70754b27db398ed339c04227b5aeb2fccf3277876b9548b9"
+sha256 = "7903b9886894c86983089994e9abb864ad2c8aacca01cf66a9536de619982052"
 # no tests defined
 options = ["!check"]
 
 
-def post_install(self):
+def do_install(self):
+    self.install_bin(f"./target/{self.profile().triplet}/release/satty")
     self.install_file("satty.desktop", "usr/share/applications")
     self.install_file(
         "assets/satty.svg", "usr/share/icons/hicolor/scalable/apps"
