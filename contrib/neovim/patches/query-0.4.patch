@@ -1,0 +1,28 @@
+Patch-Source: https://github.com/neovim/neovim/commit/61b3a26e5b3d7fb6a19dd587994277bc4479307f
+--
+From 61b3a26e5b3d7fb6a19dd587994277bc4479307f Mon Sep 17 00:00:00 2001
+From: Christian Clason <c.clason@uni-graz.at>
+Date: Sun, 26 May 2024 12:17:47 +0200
+Subject: [PATCH] build(deps): bump tree-sitter-query to v0.4.0
+
+---
+ cmake.deps/deps.txt                  | 4 ++--
+ runtime/queries/query/highlights.scm | 3 ---
+ 2 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/cmake.deps/deps.txt b/cmake.deps/deps.txt
+index 50f86e766aae3e..ca43c53b66bbe8 100644
+diff --git a/runtime/queries/query/highlights.scm b/runtime/queries/query/highlights.scm
+index 210d03dc330458..c02ee3f2a01d9c 100644
+--- a/runtime/queries/query/highlights.scm
++++ b/runtime/queries/query/highlights.scm
+@@ -5,9 +5,6 @@
+ (capture
+   (identifier) @type)
+ 
+-(anonymous_node
+-  (identifier) @string)
+-
+ (predicate
+   name: (identifier) @function.call)
+ 
