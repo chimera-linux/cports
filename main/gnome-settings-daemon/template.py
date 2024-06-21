@@ -1,64 +1,66 @@
 pkgname = "gnome-settings-daemon"
 pkgver = "46.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-configure_args = ["-Dsystemd=false"]
+configure_args = [
+    "-Dsystemd=false",
+    # Unpackaged
+    "-Dusb-protection=false",
+]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
-    "xsltproc",
-    "docbook-xsl-nons",
-    "perl",
     "gettext",
+    "glib-devel",
+    "meson",
+    "perl",
+    "pkgconf",
 ]
 makedepends = [
-    "glib-devel",
+    # actually pulseaudio is used, alsa is only used to query hw info
+    "alsa-lib-devel",
+    "colord-devel",
+    "cups-devel",
+    "gcr-devel",
+    "geoclue-devel",
     "geocode-glib-devel",
     "gnome-desktop-devel",
-    "gtk+3-devel",
     "gsettings-desktop-schemas-devel",
-    "libgweather-devel",
-    "lcms2-devel",
+    "gtk+3-devel",
     "libcanberra-devel",
-    "geoclue-devel",
+    "libgudev-devel",
+    "libgweather-devel",
     "libnotify-devel",
     "libpulse-devel",
-    "pango-devel",
-    "upower-devel",
+    "libwacom-devel",
     "libx11-devel",
     "libxfixes-devel",
-    "libgudev-devel",
-    "wayland-devel",
-    "cups-devel",
-    "udev-devel",
-    "networkmanager-devel",
-    "colord-devel",
-    "polkit-devel",
-    # actually pulseaudio is used, alsa is only used to query hw info
     "modemmanager-devel",
-    "gcr-devel",
-    "alsa-lib-devel",
-    "libwacom-devel",
-    "nss-devel",
+    "networkmanager-devel",
+    "pango-devel",
+    "polkit-devel",
+    "udev-devel",
+    "upower-devel",
+    "wayland-devel",
 ]
 checkdepends = [
     "elogind",
-    "udev",
+    "gnome-session",
+    "gnome-shell",
+    "hwdata",
     "libnotify",
     "python-dbusmock",
     "python-gobject",
     "python-pycodestyle",
-    "hwdata",
+    "udev",
+    "umockdev",
 ]
 pkgdesc = "GNOME settings daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/gnome-settings-daemon/{pkgver[:-2]}/gnome-settings-daemon-{pkgver}.tar.xz"
 sha256 = "0b9a0f64fa18a8e7e09b4c95a3f754fa033c2cdbd2dc35701f0618572c1cb3d7"
 tool_flags = {"CFLAGS": ["-UG_DISABLE_ASSERT"]}
-# unpackaged checkdepends
+# wants xvfb
 options = ["!check"]
 
 
