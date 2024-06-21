@@ -1,13 +1,13 @@
 pkgname = "tree-sitter-query"
-pkgver = "0.3.0"
-pkgrel = 1
+pkgver = "0.4.0"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
     "gmake",
-    "tree-sitter-cli",
     "pkgconf",
+    "tree-sitter-cli",
 ]
 pkgdesc = "Tree-sitter query grammar for tree-sitter"
 maintainer = "psykose <alice@ayaya.dev>"
@@ -24,7 +24,7 @@ source_paths = [
     ".tests/nvim-treesitter-textobjects",
 ]
 sha256 = [
-    "f878ff37abcb83250e31a6569e997546f3dbab74dcb26683cb2d613f7568cfc0",
+    "d3a423ab66dc62b2969625e280116678a8a22582b5ff087795222108db2f6a6e",
     "f18e3705a55bc36ca43c8a8f64dcecf1fa04c9995046e2ed25639ee8c5e8f3c9",
     "73dcba69ae5a005451a95f2155ceaefc3e32c7bcda3f41b35d69f97f234a3198",
 ]
