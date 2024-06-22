@@ -1,6 +1,6 @@
 pkgname = "darktable"
-pkgver = "4.6.1"
-pkgrel = 2
+pkgver = "4.8.0"
+pkgrel = 0
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -45,6 +45,7 @@ makedepends = [
     "lensfun-devel",
     "libavif-devel",
     "libcurl-devel",
+    "libedit-devel",
     "libgphoto2-devel",
     "libheif-devel",
     "libjxl-devel",
@@ -65,9 +66,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://www.darktable.org"
 source = f"https://github.com/darktable-org/darktable/releases/download/release-{pkgver}/darktable-{pkgver}.tar.xz"
-sha256 = "16edc0a070293e2d3cda4ea10e49bda9bde932e23f9e62e2fa2e7ac74acf7afd"
-# vis breaks symbols
-hardening = []
+sha256 = "419849e9015270e4075f2341c6b5532d3d1cccccfa8f19592cb2ea3ad17f9255"
 # no tests in release tarball
 options = ["!check"]
 
