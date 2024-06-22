@@ -1,0 +1,21 @@
+commit 34ddbeb1700ad385de6ae5859ffc64057648ff37
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Jun 22 03:42:44 2024 +0200
+
+    modules-early: make failed modprobes warns, but still boot
+    
+    Exiting the script with the last modprobe's exit code just makes
+    no sense. We do want to warn about anything that fails though.
+
+diff --git a/early/scripts/modules-early.sh b/early/scripts/modules-early.sh
+index 65b09a3..45de703 100644
+--- a/early/scripts/modules-early.sh
++++ b/early/scripts/modules-early.sh
+@@ -9,5 +9,6 @@ MODFILE=/lib/modules/$(uname -r)/modules.devname
+ [ -r "$MODFILE" ] || exit 0
+ 
+ for f in $(awk '/^[^#]/ {print $1}' "$MODFILE"); do
+-    modprobe -bq "$f" 2> /dev/null
++    modprobe -bq "$f" 2> /dev/null || \
++        echo "WARNING: modprobe failed for '$f'"
+ done
