@@ -1,6 +1,6 @@
 pkgname = "perf"
 pkgver = "6.9.6"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "tools/perf"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -10,7 +10,6 @@ make_build_args = [
     "LLVM=1",
     "NO_LIBAUDIT=1",
     "NO_LIBBABELTRACE=1",
-    "NO_LIBDEBUGINFOD=1",
     "NO_LIBPFM4=1",
     "NO_LIBUNWIND=1",
     "NO_SDT=1",
