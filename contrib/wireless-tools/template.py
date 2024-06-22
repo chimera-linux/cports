@@ -1,6 +1,6 @@
 pkgname = "wireless-tools"
 pkgver = "30_pre9"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
@@ -26,4 +26,5 @@ def init_install(self):
 
 @subpackage("wireless-tools-devel")
 def _devel(self):
+    self.depends += ["linux-headers"]
     return self.default_devel()
