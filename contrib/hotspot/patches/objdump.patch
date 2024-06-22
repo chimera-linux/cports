@@ -1,0 +1,61 @@
+all these arm things don't match at all, so just skip them rather than pass
+the chimera aarch64 version (this breaks disassembling a aarch64 binary on
+not-aarch64, but who cares?)
+also pass gobjdump instead of objdump by default as the disas calls are written
+against gnu objdump specifically (flags don't match in llvm)
+--
+--- a/src/resultsdisassemblypage.cpp
++++ b/src/resultsdisassemblypage.cpp
+@@ -571,11 +571,7 @@
+         if (!m_objdump.isEmpty())
+             return m_objdump;
+ 
+-        if (m_arch.startsWith(QLatin1String("armv8")) || m_arch.startsWith(QLatin1String("aarch64"))) {
+-            return QStringLiteral("aarch64-linux-gnu-objdump");
+-        }
+-        const auto isArm = m_arch.startsWith(QLatin1String("arm"));
+-        return isArm ? QStringLiteral("arm-linux-gnueabi-objdump") : QStringLiteral("objdump");
++        return QStringLiteral("gobjdump");
+     };
+ 
+     ui->symbolNotFound->hide();
+--- a/tests/modeltests/tst_disassemblyoutput.cpp
++++ b/tests/modeltests/tst_disassemblyoutput.cpp
+@@ -39,7 +39,7 @@
+     {
+         qRegisterMetaType<Data::Symbol>();
+ 
+-        mObjdumpBinary = QStandardPaths::findExecutable(QStringLiteral("objdump"));
++        mObjdumpBinary = QStandardPaths::findExecutable(QStringLiteral("gobjdump"));
+         if (mObjdumpBinary.isEmpty())
+             QSKIP("cannot use disassembly without objdump binary");
+     }
+--- a/tests/modeltests/tst_models.cpp
++++ b/tests/modeltests/tst_models.cpp
+@@ -360,7 +360,7 @@
+         QCOMPARE(model.rowCount(), 0);
+ 
+         DisassemblyOutput disassemblyOutput =
+-            DisassemblyOutput::disassemble(QStringLiteral("objdump"), QStringLiteral("x86_64"), {}, {}, {}, {}, symbol);
++            DisassemblyOutput::disassemble(QStringLiteral("gobjdump"), QStringLiteral("x86_64"), {}, {}, {}, {}, symbol);
+         model.setDisassembly(disassemblyOutput, results);
+         QCOMPARE(model.columnCount(), DisassemblyModel::COLUMN_COUNT + results.selfCosts.numTypes());
+         QCOMPARE(model.rowCount(), disassemblyOutput.disassemblyLines.size());
+@@ -398,7 +398,7 @@
+         QCOMPARE(model.rowCount(), 0);
+ 
+         DisassemblyOutput disassemblyOutput =
+-            DisassemblyOutput::disassemble(QStringLiteral("objdump"), QStringLiteral("x86_64"), {}, {}, {}, {}, symbol);
++            DisassemblyOutput::disassemble(QStringLiteral("gobjdump"), QStringLiteral("x86_64"), {}, {}, {}, {}, symbol);
+         model.setDisassembly(disassemblyOutput, results);
+ 
+         // no source file name
+@@ -442,7 +442,7 @@
+         QCOMPARE(model.rowCount(), 0);
+ 
+         auto disassemblyOutput =
+-            DisassemblyOutput::disassemble(QStringLiteral("objdump"), QStringLiteral("x86_64"), {}, {}, {}, {}, symbol);
++            DisassemblyOutput::disassemble(QStringLiteral("gobjdump"), QStringLiteral("x86_64"), {}, {}, {}, {}, symbol);
+         QVERIFY(disassemblyOutput.errorMessage.isEmpty());
+         model.setDisassembly(disassemblyOutput, {});
+ 
