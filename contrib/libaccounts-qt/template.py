@@ -1,6 +1,6 @@
 pkgname = "libaccounts-qt"
 pkgver = "1.17"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_wrapper = ["dbus-run-session", "--"]
@@ -34,7 +34,7 @@ def do_configure(self):
         "PREFIX=/usr",
         f"QMAKE_CFLAGS={self.get_cflags(shell=True)}",
         f"QMAKE_CXXFLAGS={self.get_cxxflags(shell=True)}",
-        f"QMAKE_LDFLAGS={self.get_ldflags(shell=True)}",
+        f"QMAKE_LFLAGS={self.get_ldflags(shell=True)}",
     )
 
 

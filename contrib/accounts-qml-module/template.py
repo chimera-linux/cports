@@ -1,7 +1,7 @@
 pkgname = "accounts-qml-module"
 # last release from previous century
 pkgver = "0.7_git20231028"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "05e79ebbbf3784a87f72b7be571070125c10dfe3"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -33,7 +33,7 @@ def do_configure(self):
         "CONFIG+=no_docs",
         f"QMAKE_CFLAGS={self.get_cflags(shell=True)}",
         f"QMAKE_CXXFLAGS={self.get_cxxflags(shell=True)}",
-        f"QMAKE_LDFLAGS={self.get_ldflags(shell=True)}",
+        f"QMAKE_LFLAGS={self.get_ldflags(shell=True)}",
     )
 
 

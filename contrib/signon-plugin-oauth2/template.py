@@ -1,7 +1,7 @@
 pkgname = "signon-plugin-oauth2"
 # fewer deprecations
 pkgver = "0.25_git20210102"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "d759439066f0a34e5ad352ebab0b3bb2790d429e"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -31,7 +31,7 @@ def do_configure(self):
         "PREFIX=/usr",
         f"QMAKE_CFLAGS={self.get_cflags(shell=True)}",
         f"QMAKE_CXXFLAGS={self.get_cxxflags(shell=True)}",
-        f"QMAKE_LDFLAGS={self.get_ldflags(shell=True)}",
+        f"QMAKE_LFLAGS={self.get_ldflags(shell=True)}",
     )
 
 

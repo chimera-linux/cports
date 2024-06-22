@@ -1,7 +1,7 @@
 pkgname = "signon-ui"
 # last release is from previous century
 pkgver = "0.17_git20231016"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "eef943f0edf3beee8ecb85d4a9dae3656002fc24"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -34,7 +34,7 @@ def do_configure(self):
         "PREFIX=/usr",
         f"QMAKE_CFLAGS={self.get_cflags(shell=True)}",
         f"QMAKE_CXXFLAGS={self.get_cxxflags(shell=True)}",
-        f"QMAKE_LDFLAGS={self.get_ldflags(shell=True)}",
+        f"QMAKE_LFLAGS={self.get_ldflags(shell=True)}",
     )
 
 

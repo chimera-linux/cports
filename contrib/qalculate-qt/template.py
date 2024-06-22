@@ -1,7 +1,7 @@
 pkgname = "qalculate-qt"
 # match to libqalculate
 pkgver = "5.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_use_env = True
@@ -31,7 +31,7 @@ def do_configure(self):
         "PREFIX=/usr",
         f"QMAKE_CFLAGS={self.get_cflags(shell=True)}",
         f"QMAKE_CXXFLAGS={self.get_cxxflags(shell=True)}",
-        f"QMAKE_LDFLAGS={self.get_ldflags(shell=True)}",
+        f"QMAKE_LFLAGS={self.get_ldflags(shell=True)}",
     )
 
 
