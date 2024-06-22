@@ -1,5 +1,5 @@
 pkgname = "libcxx-wasi"
-pkgver = "18.1.7"
+pkgver = "18.1.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -55,7 +55,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "74446ab6943f686391954cbda0d77ae92e8a60c432eff437b8666e121d748ec4"
+sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
 debug_level = 0
 hardening = ["!int", "!scp", "!var-init"]
 # crosstoolchain
