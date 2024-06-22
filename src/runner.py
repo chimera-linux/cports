@@ -1603,7 +1603,7 @@ def do_dump(tgt):
 
 
 def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
-    from cbuild.core import build, chroot, template, errors
+    from cbuild.core import build, chroot, template, errors, paths
     from cbuild.util import compiler
 
     if force is None:
@@ -1648,6 +1648,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
     elif not stage:
         chroot.chroot_check()
     if tgt == "chroot":
+        paths.prepare()
         chroot.shell_update(not opt_nonet)
         if rp and (rp.builddir / rp.wrksrc).is_dir():
             curwrk = rp.chroot_builddir / rp.wrksrc
