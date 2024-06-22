@@ -1,5 +1,5 @@
 pkgname = "perl-template-toolkit"
-pkgver = "3.101"
+pkgver = "3.102"
 pkgrel = 0
 build_style = "perl_module"
 make_cmd = "gmake"
@@ -17,4 +17,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/pod/Template"
 source = f"$(CPAN_SITE)/Template/Template-Toolkit-{pkgver}.tar.gz"
-sha256 = "d2a32dd6c21e4b37c6a93df8087ca9e880cfae613a3e5efaea307b0bdcaedb58"
+sha256 = "d161c89dee9b213a7c55709ea782e2dd5923dbd1215b9576612889e6e74a2e06"
