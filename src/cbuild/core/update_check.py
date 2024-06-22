@@ -333,7 +333,7 @@ class UpdateCheck:
                 rx = rf"{mver}[\d.]+(?=\.tar\.xz)"
             elif "codeberg.org" in url:
                 pn = "/".join(url.split("/")[3:5])
-                url = f"https://codeberg.org/{pn}/releases"
+                url = f"https://codeberg.org/{pn}/tags"
                 rx = r"""
                     /archive/
                     ([\d.]+)(?=\.tar\.gz) # match
