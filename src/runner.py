@@ -1854,7 +1854,8 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                 failed = ofailed
             continue
         elif tp.broken:
-            tp.log_red(f"ERROR: {tp.broken}")
+            if do_build:
+                tp.log_red(f"ERROR: {tp.broken}")
             statusf.write(f"{pn} broken\n")
             continue
         failed = False
@@ -1906,7 +1907,8 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                 # if we previously failed and want it this way, skip
                 if failed and not opt_bulkcont:
                     statusf.write(f"{pn} skipped\n")
-                    log.out_red(f"cbuild: skipping template '{pn}'")
+                    if do_build:
+                        log.out_red(f"cbuild: skipping template '{pn}'")
                     continue
                 # ensure to write the status
                 if _do_with_exc(
