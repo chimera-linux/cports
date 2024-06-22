@@ -4,10 +4,9 @@ import datetime
 
 
 class Logger:
-    def __init__(self, colors, timing, ostream, estream):
+    def __init__(self, colors, timing, ostream):
         self.use_colors = colors
         self.ostream = ostream
-        self.estream = estream
         self.fileno = ostream.fileno()
         self.timing = timing
         self.time = datetime.datetime.now()
@@ -36,38 +35,38 @@ class Logger:
 
     def out_orange(self, msg, end="\n"):
         if self.use_colors:
-            self.estream.write("\033[1m\033[33m")
-        self._out_arrow(self.estream)
-        self.estream.write(msg)
+            self.ostream.write("\033[1m\033[33m")
+        self._out_arrow(self.ostream)
+        self.ostream.write(msg)
         if self.use_colors:
-            self.estream.write("\033[m")
-        self.estream.write(end)
+            self.ostream.write("\033[m")
+        self.ostream.write(end)
 
     def warn(self, msg, end="\n"):
         self.out_orange(f"WARNING: {msg}", end)
 
     def out_red(self, msg, end="\n"):
         if self.use_colors:
-            self.estream.write("\033[1m\033[31m")
-        self._out_arrow(self.estream)
-        self.estream.write(msg)
+            self.ostream.write("\033[1m\033[31m")
+        self._out_arrow(self.ostream)
+        self.ostream.write(msg)
         if self.use_colors:
-            self.estream.write("\033[m")
-        self.estream.write(end)
+            self.ostream.write("\033[m")
+        self.ostream.write(end)
 
     def out_green(self, msg, end="\n"):
         if self.use_colors:
-            self.estream.write("\033[1m\033[32m")
-        self._out_arrow(self.estream)
-        self.estream.write(msg)
+            self.ostream.write("\033[1m\033[32m")
+        self._out_arrow(self.ostream)
+        self.ostream.write(msg)
         if self.use_colors:
-            self.estream.write("\033[m")
-        self.estream.write(end)
+            self.ostream.write("\033[m")
+        self.ostream.write(end)
 
 
 def init(colors, timing):
     global logger_inst
-    logger_inst = Logger(colors, timing, sys.stdout, sys.stderr)
+    logger_inst = Logger(colors, timing, sys.stdout)
 
 
 def get():
