@@ -382,7 +382,14 @@ def build_index(repopath, epoch, allow_untrusted=False):
     if keypath:
         aargs += ["--sign-key", keypath]
 
+    ilen = len(aargs)
+
     summarize_repo(repopath, aargs)
+
+    # no packages, just drop the index
+    if (len(aargs) - ilen) == 0 and (repopath / "APKINDEX.tar.gz").is_file():
+        (repopath / "APKINDEX.tar.gz").unlink()
+        return True
 
     signr = call(
         "mkndx",
