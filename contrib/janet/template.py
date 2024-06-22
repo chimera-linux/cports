@@ -1,5 +1,5 @@
 pkgname = "janet"
-pkgver = "1.34.0"
+pkgver = "1.35.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Depoll=true"]
@@ -11,7 +11,7 @@ url = "https://janet-lang.org"
 source = (
     f"https://github.com/janet-lang/janet/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "d49670c564dcff6f9f7945067fa2acbd3431d923c25fc4ce6e400de28eeb0b1b"
+sha256 = "947dfdab6c1417c7c43efef2ecb7a92a3c339ce2135233fe88323740e6e7fab1"
 
 
 def post_install(self):
