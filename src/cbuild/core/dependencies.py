@@ -131,7 +131,7 @@ def _install_virt(pkg, vlist, tgt=True):
     for vd in virtlist:
         ret = apki.call_chroot(
             "add",
-            ["--virtual", vd],
+            ["--force-non-repository", "--virtual", vd],
             None,
             capture_output=True,
             allow_untrusted=True,
@@ -143,7 +143,13 @@ def _install_virt(pkg, vlist, tgt=True):
         for vd in virtlist:
             ret = apki.call_chroot(
                 "add",
-                ["--root", str(pkg.profile().sysroot), "--virtual", vd],
+                [
+                    "--root",
+                    str(pkg.profile().sysroot),
+                    "--force-non-repository",
+                    "--virtual",
+                    vd,
+                ],
                 None,
                 capture_output=True,
                 arch=pkg.profile().arch,
