@@ -7,6 +7,7 @@ make_use_env = True
 hostmakedepends = [
     "pkgconf",
     "python-pyqt-builder",
+    "python-setuptools",
     "python-sip",
 ]
 makedepends = [

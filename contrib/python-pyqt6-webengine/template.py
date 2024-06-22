@@ -11,6 +11,7 @@ hostmakedepends = [
     "python",
     "python-pyqt-builder",
     "python-pyqt6",
+    "python-setuptools",
     "python-sip",
 ]
 makedepends = [
