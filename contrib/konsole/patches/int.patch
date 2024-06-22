@@ -1,0 +1,16 @@
+caught via ubsan and running `/usr/bin/eza -T /usr` in hotspot profiler as a test
+(24.05.1)
+../src/terminalDisplay/TerminalPainter.cpp:509:64: runtime error: signed integer overflow: 28572 * 91368 cannot be represented in type 'int'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ../src/terminalDisplay/TerminalPainter.cpp:509:64 
+--
+--- a/src/terminalDisplay/TerminalPainter.cpp
++++ b/src/terminalDisplay/TerminalPainter.cpp
+@@ -506,7 +506,7 @@
+     if (nb_lines > 0 && m_parentDisplay->scrollBar()->maximum() > 0) {
+         QRect new_highlight;
+         bool addToCurrentHighlight = scrollBar->highlightScrolledLines().isTimerActive()
+-            && (m_parentDisplay->screenWindow()->scrollCount() * scrollBar->highlightScrolledLines().getPreviousScrollCount() > 0);
++            && ((unsigned)m_parentDisplay->screenWindow()->scrollCount() * (unsigned)scrollBar->highlightScrolledLines().getPreviousScrollCount() > 0);
+         if (addToCurrentHighlight) {
+             const int oldScrollCount = scrollBar->highlightScrolledLines().getPreviousScrollCount();
+             if (m_parentDisplay->screenWindow()->scrollCount() > 0) {
