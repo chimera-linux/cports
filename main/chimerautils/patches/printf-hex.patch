@@ -1,0 +1,54 @@
+commit a8f0ae6cf884637a1af1eb5dba158e5c4fce8463
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Jun 23 00:32:19 2024 +0200
+
+    printf(1): interpret hexadecimal escapes
+
+diff --git a/src.freebsd/coreutils/printf/printf.1 b/src.freebsd/coreutils/printf/printf.1
+index 1a43ecf..e670f44 100644
+--- a/src.freebsd/coreutils/printf/printf.1
++++ b/src.freebsd/coreutils/printf/printf.1
+@@ -96,6 +96,14 @@ Write a <carriage return> character.
+ Write a <tab> character.
+ .It Cm \ev
+ Write a <vertical tab> character.
++.It Cm \ex Ns Ar num
++Write a byte whose
++value is the 1- or 2-digit
++hexadecimal number
++.Ar num .
++Multibyte characters can be constructed using multiple
++.Cm \ex Ns Ar num
++sequences.
+ .It Cm \e\'
+ Write a <single quote> character.
+ .It Cm \e\e
+diff --git a/src.freebsd/coreutils/printf/printf.c b/src.freebsd/coreutils/printf/printf.c
+index 94667f3..8bb72f4 100644
+--- a/src.freebsd/coreutils/printf/printf.c
++++ b/src.freebsd/coreutils/printf/printf.c
+@@ -521,6 +521,24 @@ escape(char *fmt, int percent, size_t *len)
+ 			break;
+ 		case 'v':		/* vertical tab */
+ 			*store = '\v';
++			break;
++		case 'x':		/* hexadecimal constant */
++			if (!percent) {
++				*store = 'x';
++				break;
++			}
++			c = 2;
++			++fmt;
++			for (value = 0; c-- && (
++				(*fmt >= '0' && *fmt <= '9') ||
++				((*fmt|32) >= 'a' && (*fmt|32) <= 'f')
++			); ++fmt) {
++				value <<= 4;
++				value += ((*fmt|32) >= 'a')
++					? (10 + (*fmt|32) - 'a') : (*fmt - '0');
++			}
++			--fmt;
++			*store = (char)value;
+ 			break;
+ 					/* octal constant */
+ 		case '0': case '1': case '2': case '3':
