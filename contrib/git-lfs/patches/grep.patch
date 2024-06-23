@@ -1,0 +1,22 @@
+--- a/t/t-no-remote.sh
++++ b/t/t-no-remote.sh
+@@ -26,7 +26,7 @@ begin_test "fetch lfs-tracked file despite no remote"
+   git archive $rev -o archive.out
+ 
+   # Verify archive contains our file
+-  grep "test_file.dat" archive.out
++  tar tf archive.out | grep "test_file.dat"
+ 
+ )
+ end_test
+@@ -60,8 +60,8 @@ begin_test "fallback ignored when remote present"
+   git archive $rev -o archive.out
+ 
+   # Verify archive contains file from second repo, but not first repo
+-  grep "test_file_A.dat" archive.out
+-  grep -v "test_file_B.dat" archive.out
++  tar tf archive.out | grep "test_file_A.dat"
++  tar tf archive.out | grep -v "test_file_B.dat"
+ )
+ end_test
+ 

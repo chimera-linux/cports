@@ -1,0 +1,22 @@
+--- a/t/Makefile
++++ b/t/Makefile
+@@ -31,12 +31,7 @@ TEST_CMDS += ../bin/lfstest-realpath$X
+ TEST_CMDS += ../bin/lfstest-standalonecustomadapter$X
+ TEST_CMDS += ../bin/lfstest-testutils$X
+ 
+-# Not used for the integration tests, but build it here anyway to ensure it
+-# continues to work.
+-TEST_CMDS += ../bin/git-lfs-test-server-api$X
+-
+ TEST_SRCS     = $(wildcard t-*.sh)
+-TEST_API_SRCS = $(wildcard git-lfs-test-server-api/*.go)
+ 
+ all : $(DEFAULT_TEST_TARGET)
+ 
+@@ -60,6 +55,3 @@ clean :
+ 
+ ../bin/%$X : cmd/%.go
+ 	$(GO) build -o $@ $^
+-
+-../bin/git-lfs-test-server-api$X : $(TEST_API_SRCS)
+-	$(GO) build -o $@ $^
