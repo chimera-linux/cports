@@ -1,5 +1,4 @@
 # update and rebuild shaderc when updating
-# update vulkan-validationlayers on next release
 pkgname = "spirv-tools"
 pkgver = "1.3.283.0"
 pkgrel = 0
