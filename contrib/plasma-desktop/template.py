@@ -71,12 +71,11 @@ depends = [
     "ocean-sound-theme",
     "plasma-workspace-wallpapers",
     # default KDE fonts
-    "fonts-noto",
     "fonts-hack-ttf",
+    "fonts-noto",
     "fonts-noto-emoji-ttf",
     # very default base stuff
     "accountsservice",
-    "flatpak-kcm",
     "kactivitymanagerd",
     "kded",  # bg services
     "kgamma",
@@ -129,6 +128,7 @@ def _meta(self):
         "bluedevil",  # bluetooth
         "colord-kde",  # color profile management
         # "drkonqi",  # TODO: figure out what crash handler to use (also is quite useless without coredumpd)
+        "flatpak-kcm",  # flatpak permission settings
         "kde-cli-tools",  # e.g. mount & open external media
         "kde-inotify-survey",  # inotify limit monitor
         "kdegraphics-thumbnailers",  # various thumbnailers
