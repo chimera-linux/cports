@@ -2258,6 +2258,11 @@ def read_mod(
                 return None, None
             raise errors.CbuildException(f"missing template for '{pkgname}'")
     else:
+        # if a valid path to template.py, try translating to pkgname
+        tmplp = pathlib.Path(pkgname).resolve()
+        if tmplp.name == "template.py" and tmplp.is_file():
+            pkgname = f"{tmplp.parent.parent.name}/{tmplp.parent.name}"
+        # otherwise validate the format
         pnl = pkgname.split("/")
         if len(pnl) == 3 and pnl[2] == "":
             pnl = pnl[:-1]
