@@ -1,6 +1,6 @@
 pkgname = "dino"
 pkgver = "0.4.3"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-DBUILD_TESTS=ON",
@@ -66,3 +66,8 @@ for _plugin, _desc in [
     ("rtp", "Jingle RTP"),
 ]:
     _genmod(_plugin, _desc)
+
+
+@subpackage("dino-devel")
+def _devel(self):
+    return self.default_devel()
