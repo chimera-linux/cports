@@ -1,6 +1,6 @@
 pkgname = "kwin"
 pkgver = "6.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -93,15 +93,14 @@ license = (
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwin-{pkgver}.tar.xz"
 sha256 = "50affd6c5c23cc2c6a8c23d741a66b06f6679c82c7fd3cafea66a6b0643b4f2f"
-# NOTE FROM ALPINE:
-# kwin_wayland has CAP_SYS_NICE set. Because of this, libdbus doesn't trust the
-# environment and ignores it, causing for example keyboard shortcuts to not work
-# Remove CAP_SYS_NICE from kwin_wayland to make them work again
-# file_xattrs = {
-#     "usr/bin/kwin_wayland_wrapper": {
-#         "security.capability": "cap_sys_nice+ep",
-#     },
-# }
+file_modes = {
+    "usr/bin/kwin_wayland": ("root", "root", 0o755),
+}
+file_xattrs = {
+    "usr/bin/kwin_wayland": {
+        "security.capability": "cap_sys_nice+ep",
+    },
+}
 # FIXME: cfi breaks lots of tests
 hardening = ["vis", "!cfi"]
 
