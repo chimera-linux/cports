@@ -103,8 +103,20 @@ class SPDXParser:
                 tok = self.stream[0:idlen]
                 self.stream = self.stream[idlen:]
                 return tok
-            # this must be a license id
-            if tok not in self.ldict and tok not in self.edict:
+            if tok.startswith("LicenseRef-") or tok.startswith("AdditionRef-"):
+                # licenseref, additionref stand on their own
+                self.stream = self.stream[idlen:]
+                return tok
+            elif tok.startswith("DocumentRef-"):
+                # parse with the :
+                if self.stream[idlen : idlen + 1] != ":":
+                    raise RuntimeError("DocumentRef must be followed by colon")
+                # skip
+                idlen = idlen + 1
+                self.stream = self.stream[idlen:]
+                return tok
+            elif tok not in self.ldict and tok not in self.edict:
+                # this must be a license id
                 raise RuntimeError("unknown token: " + tok)
             # may be directly followed by a +
             if self.stream[idlen : idlen + 1] == "+":
@@ -126,33 +138,40 @@ class SPDXParser:
                 raise RuntimeError("')' expected to close '('")
             self.token = self.lex()
             return
+        # documentref
+        if tok.startswith("DocumentRef-"):
+            self.need_install = True
+            tok = self.token = self.lex()
         # license id maybe with exception
         if tok.endswith("+"):
             tok = tok[0 : len(tok) - 1]
         # custom licenses do not allow exceptions etc.
-        if tok.startswith("custom:"):
+        if tok.startswith("custom:") or tok.startswith("LicenseRef-"):
             if tok != "custom:none" and tok != "custom:meta":
                 self.need_install = True
-            self.token = self.lex()
-            return
-        # not a custom license
-        if tok not in self.ldict:
-            raise RuntimeError("license id expected, got: " + tok)
-        if _license_install(tok):
-            self.need_install = True
+        else:
+            # not a custom license
+            if tok not in self.ldict:
+                raise RuntimeError("license id expected, got: " + tok)
+            if _license_install(tok):
+                self.need_install = True
         # check for exception
         self.token = self.lex()
         if self.token == "WITH":
-            self.token = self.lex()
-            if not self.token:
+            tok = self.token = self.lex()
+            if not tok:
                 raise RuntimeError("token expected")
+            # documentref
+            if tok.startswith("DocumentRef-"):
+                self.need_install = True
+                tok = self.token = self.lex()
             # custom exceptions
-            if self.token.startswith("custom:"):
+            if tok.startswith("custom:") or tok.startswith("AdditionRef-"):
                 self.token = self.lex()
                 self.need_install = True
                 return
-            if self.token not in self.edict:
-                raise RuntimeError("exception id expected, got: " + self.token)
+            if tok not in self.edict:
+                raise RuntimeError("exception id expected, got: " + tok)
             self.token = self.lex()
 
     def parse_expr(self, mprec=1):
