@@ -2366,6 +2366,12 @@ def fire():
 
     try:
         cmd = cmdline.command[0]
+        if "/" in cmd and len(cmdline.command) >= 2:
+            # allow reverse order for commands taking package names
+            ncmd = cmdline.command[1]
+            cmdline.command[0] = ncmd
+            cmdline.command[1] = cmd
+            cmd = ncmd
         if cmd in command_handlers:
             command_handlers[cmd][0](cmd)
         else:

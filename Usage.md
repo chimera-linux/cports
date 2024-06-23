@@ -233,6 +233,14 @@ Then, the only thing left to do is to pick a package to build. Let's say,
 $ ./cbuild pkg main/apk-tools
 ```
 
+The inverse syntax
+
+```
+$ ./cbuild main/apk-tools pkg
+```
+
+is also accepted as a special case.
+
 This will parse `main/apk-tools/template.py` and build it according to the
 metadata and routines declared in the template.
 
@@ -369,6 +377,15 @@ Every `cbuild` action consists of the following:
 ```
 $ ./cbuild [optional arguments] COMMAND [command arguments]
 ```
+
+For commands that take a package name (i.e. a slash is present in the arg),
+you can also swap the order:
+
+```
+$ ./cbuild [optional arguments] PACKAGE COMMAND [additional arguments]
+```
+
+This is a minor convenience feature as in "perform action on package".
 
 The order of reading settings is the following:
 
