@@ -1,6 +1,6 @@
 pkgname = "powerdevil"
 pkgver = "6.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: all tests broken like on alpine, migrateconfig_test*
 make_check_args = [
@@ -54,16 +54,14 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/powerdevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/powerdevil-{pkgver}.tar.xz"
 sha256 = "445b2a5366bc1d64b04547efe6e713b75a2d3309fe4727e9edf6157be6dd4580"
-# FIXME: having CAP_WAKE_ALARM set breaks kdbusaddons connecting to DBus session bus?!
-# "Needed for scheduled wakeup which can wake from suspend"
-# file_modes = {
-#     "usr/lib/libexec/org_kde_powerdevil": ("root", "root", 0o755),
-# }
-# file_xattrs = {
-#     "usr/lib/libexec/org_kde_powerdevil": {
-#         "security.capability": "cap_wake_alarm+ep",
-#     },
-# }
+file_modes = {
+    "usr/libexec/org_kde_powerdevil": ("root", "root", 0o755),
+}
+file_xattrs = {
+    "usr/libexec/org_kde_powerdevil": {
+        "security.capability": "cap_wake_alarm+ep",
+    },
+}
 hardening = ["vis", "cfi"]
 
 
