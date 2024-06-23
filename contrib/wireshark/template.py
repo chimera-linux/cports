@@ -1,6 +1,6 @@
 pkgname = "wireshark"
 pkgver = "4.2.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DENABLE_GNUTLS=ON",
@@ -66,7 +66,7 @@ file_modes = {
 }
 file_xattrs = {
     "usr/bin/dumpcap": {
-        "security.capability": "cap_net_raw,cap_net_admin+eip",
+        "security.capability": "cap_net_raw,cap_net_admin+ep",
     },
 }
 # FIXME: cfi
