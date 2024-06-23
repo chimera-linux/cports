@@ -1,6 +1,6 @@
 pkgname = "darktable"
 pkgver = "4.8.0"
-pkgrel = 0
+pkgrel = 1
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -12,8 +12,8 @@ configure_args = [
     "-DDONT_USE_INTERNAL_LUA=ON",
     "-DRAWSPEED_ENABLE_WERROR=OFF",
     "-DTESTBUILD_OPENCL_PROGRAMS=ON",
-    "-DUSE_GMIC=OFF",
-    "-DUSE_GRAPHICSMAGICK=OFF",
+    "-DUSE_GMIC=ON",
+    "-DUSE_GRAPHICSMAGICK=ON",
     "-DUSE_ICU=ON",
     "-DUSE_MAP=OFF",
     "-DUSE_OPENCL=ON",
@@ -38,6 +38,8 @@ makedepends = [
     "colord-gtk-devel",
     "cups-devel",
     "exiv2-devel",
+    "gmic-devel",
+    "graphicsmagick-devel",
     "gtk+3-devel",
     "imath-devel",
     "json-glib-devel",
