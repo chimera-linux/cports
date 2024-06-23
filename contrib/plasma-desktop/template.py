@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -131,17 +131,22 @@ def _meta(self):
         # "drkonqi",  # TODO: figure out what crash handler to use (also is quite useless without coredumpd)
         "kde-cli-tools",  # e.g. mount & open external media
         "kde-inotify-survey",  # inotify limit monitor
+        "kdegraphics-thumbnailers",  # various thumbnailers
+        "kdenetwork-filesharing",  # network file sharing
         "kdeplasma-addons",  # bunch of desktop widgets
         "kdialog",  # scripted message boxes
+        "kio-gdrive",  # kio plugin for gdrive
         "kmenuedit",
         # "krdp",  # TODO: remote desktop server kcm for Plasma 6.2
         "ksshaskpass",  # graphical askpass
+        "markdownpart",  # markdown renderer kpart plugin
         "orca",  # screen reader
         "plasma-browser-integration",  # browser integration with plasma
         "plasma-disks",  # smart monitoring
         "plasma-firewall",  # firewall configuration
         "plasma-thunderbolt",  # user device authentication
         "print-manager",  # printer configuration
+        "svgpart",  # svg renderer kpart plugin
         "wacomtablet",  # wacom tablet settings
         "xwaylandvideobridge",  # x11 screen capture compat under wayland, TODO: test on baremetal
         # non-kde, misc integrations
@@ -182,32 +187,37 @@ def _apps_meta(self):
         # - extra
         "ark",  # file (un)archiving
         "dolphin-plugins",
-        "elisa",  # music player
-        "ffmpegthumbs",  # video thumbnails
         "filelight",  # disk space usage viewer
+        "francis",  # time tracker
         "gwenview",  # image viewer
         "haruna",  # mpv frontend
+        "isoimagewriter",  # iso to usb writer
         "kalk",  # calculator
         "kate",  # text editor(s)
+        "kcachegrind",  # callgrind data visualizer
         "kcharselect",  # fonts character picker
+        "kcolorchooser",  # color palette tool
+        "kdebugsettings",  # qloggingcategory display editor
         "kdeconnect",  # phone integration
-        "kdenlive",  # video editor
+        "keditbookmarks",  # bookmark editor
+        "kget",  # download manager
         "kgpg",  # gpg integration
         "kinfocenter",  # system info
         "konversation",  # irc client
-        # "krdc",  # vnc/rdp client
-        "markdownpart",
-        # "neochat",  # local WIP, matrix client
-        "plasma-systemmonitor",
-        "spectacle",  # screenshot
-        "svgpart",
-        "kcachegrind",  # callgrind data visualizer
+        "krdc",  # vnc/rdp client
+        "kruler",  # on screen ruler
         "ksystemlog",  # log viewer (TODO: does it ask for root itself?)
+        "ktorrent",  # torrent client
+        "ktrip",  # trip planner
         "okular",  # document viewer
         "partitionmanager",  # partition manager
-        "plasmatube",  # youtube client
+        "plasma-systemmonitor",
         "skanlite",  # image scanner
+        # "skanpage",  # document scanner (TODO: tesseract)
+        "spectacle",  # screenshot
+        "sweeper",  # cache cleaner
         "yakuake",  # drop-down terminal
+        # "neochat",  # local WIP, matrix client
         # - still qt5
         # "digikam",  # photo management
         # "heaptrack",  # heap memory profiler
@@ -222,6 +232,7 @@ def _apps_meta(self):
         self.depends += [
             "akregator",  # rss feeds
             "khelpcenter",  # documentation viewer
+            "konqueror",  # web browser
             "tokodon",  # mastodon client
         ]
     if self.rparent.profile().arch in [
@@ -240,16 +251,65 @@ def _apps_meta(self):
     return []
 
 
+@subpackage("plasma-desktop-multimedia-meta")
+def _multimedia_meta(self):
+    self.pkgdesc = f"{pkgdesc} (multimedia recommends package)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        "audiocd-kio",  # kio plugin for audio cds
+        "audiotube",  # youtube music client
+        "elisa",  # music player
+        "ffmpegthumbs",  # video thumbnails
+        # "k3b",  # disc ripper TODO: bunch of dvd/cd tools
+        "kasts",  # podcast player
+        "kdenlive",  # video editor
+        "juk",  # music player and manager
+        "plasmatube",  # youtube client
+    ]
+    self.options = ["empty"]
+    return []
+
+
+@subpackage("plasma-desktop-games-meta")
+def _games_meta(self):
+    self.pkgdesc = f"{pkgdesc} (games recommends package)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        "kpat",
+    ]
+    self.options = ["empty"]
+    return []
+
+
+@subpackage("plasma-desktop-accessibility-meta")
+def _accessibility_meta(self):
+    self.pkgdesc = f"{pkgdesc} (accessibility recommends package)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        "accessibility-inspector",  # accesibility tree inspector
+        # "kmag",  # magnifier TODO: broken?
+        # "kmousetool",  # mouse clicker TODO: broken?
+        # "kmouth",  # speech synthesizer TODO: hangs forever on init until speechd killed, orca works better
+        "kontrast",  # contrast checker
+    ]
+    self.options = ["empty"]
+    return []
+
+
 @subpackage("plasma-desktop-kdepim-meta", _have_kdepim)
 def _kdepin_meta(self):
     # contact/calendar/etc
     self.pkgdesc = f"{pkgdesc} (kdepim recommends package)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
+        "akonadi-calendar-tools",
         "akonadi-import-wizard",
+        "grantlee-editor",
+        "itinerary",
         "kaddressbook",
         "kalarm",
         "kdepim-addons",
+        #  "kleopatra", TODO: crashes in certificate search in std::sort
         "kmail",
         "knotes",
         "kontact",
