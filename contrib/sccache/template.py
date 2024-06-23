@@ -2,6 +2,8 @@ pkgname = "sccache"
 pkgver = "0.8.1"
 pkgrel = 1
 build_style = "cargo"
+make_build_args = []
+make_install_args = []
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
@@ -19,17 +21,19 @@ sha256 = "30b951b49246d5ca7d614e5712215cb5f39509d6f899641f511fb19036b5c4e5"
 # fails due to comparing ldd output to a glibc bin
 options = ["!check"]
 
+# only supported by upstream on x86_64 linux and freebsd
+_have_dist = self.profile().arch == "x86_64"
 
-# sccache-dist is only supported on x86_64 Linux machines and on FreeBSD
-if self.profile().arch == "x86_64":
-    make_build_args = [
+if _have_dist:
+    _eargs = [
         "--no-default-features",
         "--features=all,dist-server",
     ]
-    make_install_args = make_build_args
+    make_build_args += _eargs
+    make_install_args += _eargs
 
 
-@subpackage("sccache-dist", self.profile().arch == "x86_64")
+@subpackage("sccache-dist", _have_dist)
 def _dist(self):
     self.pkgdesc = f"{pkgdesc} (distributed server)"
     return ["usr/bin/sccache-dist"]
