@@ -1,0 +1,6 @@
+# icecc scheduler service
+
+type = process
+command = /usr/bin/icecc-scheduler --log-file /var/log/icecc/icecc-scheduler.log --user-uid _icecc
+depends-on = local.target
+depends-on = network.target
