@@ -300,7 +300,27 @@ def handle_options():
         parser.print_help(sys.stderr)
         sys.exit(1)
 
-    cmdline = parser.parse_args()
+    argl = sys.argv[1:]
+    posn = 0
+    optn = 0
+    # count initial posargs
+    for av in argl:
+        if not av.startswith("-"):
+            posn += 1
+        else:
+            break
+    posl = argl[0:posn]
+    # count initial optargs
+    argl = argl[posn:]
+    for av in argl:
+        if av.startswith("-"):
+            optn += 1
+        else:
+            break
+    # re-combine
+    argl = argl[0:optn] + posl + argl[optn:]
+
+    cmdline = parser.parse_args(argl)
 
     # parse config file and set the global options from it
 
