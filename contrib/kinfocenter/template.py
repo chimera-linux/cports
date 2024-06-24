@@ -1,6 +1,6 @@
 pkgname = "kinfocenter"
 pkgver = "6.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -46,6 +46,7 @@ def _meta(self):
         # basic
         "plasma-systemmonitor",
         # devices
+        "libpulse-progs",
         "lscpu",
         "aha",
         "fwupd",
@@ -55,7 +56,7 @@ def _meta(self):
         "mesa-utils",
         "vulkan-tools",
         "wayland-utils",
-        "qt6-qttools",  # FIXME: adds ~50 MiB, clang-libs heavy? split qt6-qttools into more subpkgs? just qdbus needed here
+        "qdbus",
         "xdpyinfo",
     ]
     self.options = ["empty"]
