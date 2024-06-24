@@ -1,5 +1,5 @@
 pkgname = "qca"
-pkgver = "2.3.8"
+pkgver = "2.3.9"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -15,7 +15,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/qca/html"
 source = f"$(KDE_SITE)/qca/{pkgver}/qca-{pkgver}.tar.xz"
-sha256 = "48759ca86a0202461d908ba66134380cc3bb7d20fed3c031b9fc0289796a8264"
+sha256 = "c555d5298cdd7b6bafe2b1f96106f30cfa543a23d459d50c8a91eac33c476e4e"
 hardening = ["vis", "cfi"]
 
 
