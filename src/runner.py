@@ -1475,8 +1475,8 @@ def _get_unbuilt(outdated=False):
     return fvers
 
 
-def do_print_unbuilt(tgt, do_list):
-    unb = _get_unbuilt()
+def do_print_unbuilt(tgt, do_list, do_outdated):
+    unb = _get_unbuilt(do_outdated)
     if not unb:
         return
     if do_list:
@@ -2075,10 +2075,10 @@ def _collect_blist(pkgs):
         # status files
         if pkg.startswith("status:"):
             if pkg == "status:unbuilt":
-                rpkgs += _get_unbuilt()
+                rpkgs += list(map(lambda v: v[0], _get_unbuilt()))
                 continue
             if pkg == "status:outdated":
-                rpkgs += _get_unbuilt(True)
+                rpkgs += list(map(lambda v: v[0], _get_unbuilt(True)))
                 continue
             with open(pkg.removeprefix("status:"), "r") as inf:
                 rpkgs += _collect_status(inf)
@@ -2280,8 +2280,12 @@ command_handlers = {
     "install": (do_pkg, "Run up to install phase of a template"),
     "keygen": (do_keygen, "Generate a new signing key"),
     "lint": (do_lint, "Parse a template and lint it"),
+    "list-outdated": (
+        lambda cmd: do_print_unbuilt(cmd, True, True),
+        "Like list-unbuilt, but only consider packages in local repository",
+    ),
     "list-unbuilt": (
-        lambda cmd: do_print_unbuilt(cmd, True),
+        lambda cmd: do_print_unbuilt(cmd, True, False),
         "Print a newline-separated versioned list of unbuilt templates",
     ),
     "patch": (do_pkg, "Run up to patch phase of a template"),
@@ -2295,8 +2299,12 @@ command_handlers = {
         do_print_build_graph,
         "Print the build graph of a template",
     ),
+    "print-outdated": (
+        lambda cmd: do_print_unbuilt(cmd, False, True),
+        "Like print-unbuilt, but only consider packages in local repository",
+    ),
     "print-unbuilt": (
-        lambda cmd: do_print_unbuilt(cmd, False),
+        lambda cmd: do_print_unbuilt(cmd, False, False),
         "Print a space-separated list of unbuilt templates",
     ),
     "prune-pkgs": (
