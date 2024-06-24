@@ -1,5 +1,5 @@
 pkgname = "c-blosc"
-pkgver = "1.21.5"
+pkgver = "1.21.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,7 +24,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://www.blosc.org"
 source = f"https://github.com/Blosc/c-blosc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "32e61961bbf81ffea6ff30e9d70fca36c86178afd3e3cfa13376adec8c687509"
+sha256 = "9fcd60301aae28f97f1301b735f966cc19e7c49b6b4321b839b4579a0c156f38"
 hardening = ["vis", "!cfi"]
 
 
