@@ -3,7 +3,6 @@ pkgver = "2.24"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--disable-internal-sqlite",
     "--json",
     "--with-th1-docs",
     "--with-th1-hooks",
@@ -12,7 +11,7 @@ configure_args = [
 ]
 configure_gen = []
 make_check_target = "test"
-makedepends = ["openssl-devel", "zlib-devel", "sqlite-devel", "tcl-devel"]
+makedepends = ["openssl-devel", "zlib-devel", "tcl-devel"]
 checkdepends = ["tcl", "tcllib"]
 pkgdesc = "Distributed software configuration management system"
 maintainer = "Erica Z <zerica@callcc.eu>"
