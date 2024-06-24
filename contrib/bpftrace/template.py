@@ -1,5 +1,5 @@
 pkgname = "bpftrace"
-pkgver = "0.21.0"
+pkgver = "0.21.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -32,7 +32,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/bpftrace/bpftrace"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8bbca667633fd7b64077cd59b493b94bfab19af582a824091582299aaca76b04"
+sha256 = "6bd8f83ba741670d73dc0302cd21e749714ce0b2881fed26734e50587ef6fab4"
 # bpftrace/bpftrace-aotrt binaries need keeping BEGIN/END_trigger syms
 # just skip strip for now until we can plumb through --keep-symbol to objcopy
 options = ["!strip"]
