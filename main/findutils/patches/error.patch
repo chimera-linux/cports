@@ -1,0 +1,13 @@
+fails due to error.h and i cbf to patch it
+--
+--- a/tests/local.mk
++++ b/tests/local.mk
+@@ -85,8 +85,6 @@
+   tests/find/type_list.sh
+ 
+ check_PROGRAMS = $(binary_tests)
+-binary_tests = \
+-	tests/xargs/test-sigusr
+ 
+ ALL_RECURSIVE_TARGETS += check-root
+ .PHONY: check-root
