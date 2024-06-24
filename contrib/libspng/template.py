@@ -1,9 +1,11 @@
-pkgname = "spng"
+pkgname = "libspng"
 pkgver = "0.7.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["zlib-devel"]
+provides = [f"spng={pkgver}-r{pkgrel}"]
+replaces = ["spng<0.7.5"]
 pkgdesc = "Simple PNG library"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-2-Clause"
@@ -18,6 +20,8 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("spng-devel")
+@subpackage("libspng-devel")
 def _devel(self):
+    self.provides = [f"spng-devel={pkgver}-r{pkgrel}"]
+    self.replaces = ["spng-devel<0.7.5"]
     return self.default_devel()
