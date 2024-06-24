@@ -1315,7 +1315,7 @@ def do_print_build_graph(tgt):
     _print_deps(root)
 
 
-def _get_unbuilt():
+def _get_unbuilt(outdated=False):
     from cbuild.core import chroot, template, paths
     from cbuild.apk import util
     import subprocess
@@ -1399,6 +1399,9 @@ def _get_unbuilt():
             prv = ""
         else:
             prv = f"{apv}-r{apr}"
+        # skip stuff that is not in repo if needed
+        if outdated and apn not in repovers:
+            continue
         # skip templates that are exact match
         if apn in repovers and repovers[apn] == prv:
             continue
@@ -2073,6 +2076,9 @@ def _collect_blist(pkgs):
         if pkg.startswith("status:"):
             if pkg == "status:unbuilt":
                 rpkgs += _get_unbuilt()
+                continue
+            if pkg == "status:outdated":
+                rpkgs += _get_unbuilt(True)
                 continue
             with open(pkg.removeprefix("status:"), "r") as inf:
                 rpkgs += _collect_status(inf)
