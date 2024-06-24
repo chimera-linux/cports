@@ -33,7 +33,7 @@ index 8f68ba9..6a99b9d 100644
 @@ -38,6 +38,7 @@ cmirrord: $(OBJECTS)
  
  install_cluster: $(TARGETS)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(usrsbindir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(usrsbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(usrsbindir)/$(<F)
@@ -46,13 +46,13 @@ index af51198..19948ae 100644
 @@ -85,27 +85,32 @@ endif
  
  install_include: $(srcdir)/libdevmapper-event.h
- 	@echo "    [INSTALL] $(<F)"
+ 	$(SHOW) "    [INSTALL] $(<F)"
 -	$(Q) $(INSTALL_DATA) -D $< $(includedir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(includedir)
 +	$(Q) $(INSTALL_DATA) $< $(includedir)/$(<F)
  
  install_pkgconfig: libdevmapper-event.pc
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_DATA) -D $< $(pkgconfigdir)/devmapper-event.pc
 +	$(Q) $(INSTALL_DIR) $(pkgconfigdir)
 +	$(Q) $(INSTALL_DATA) $< $(pkgconfigdir)/devmapper-event.pc
@@ -60,7 +60,7 @@ index af51198..19948ae 100644
  install_lib_dynamic: install_lib_shared
  
  install_lib_static: $(LIB_STATIC)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_DATA) -D $< $(usrlibdir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(usrlibdir)
 +	$(Q) $(INSTALL_DATA) $< $(usrlibdir)/$(<F)
@@ -68,13 +68,13 @@ index af51198..19948ae 100644
  install_lib: $(INSTALL_LIB_TARGETS)
  
  install_dmeventd_dynamic: dmeventd
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(sbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
  
  install_dmeventd_static: dmeventd.static
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(staticdir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(staticdir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(staticdir)/$(<F)
@@ -88,13 +88,13 @@ index 91beb1a..9298721 100644
 @@ -66,11 +66,13 @@ lvmlockctl: lvmlockctl.o $(INTERNAL_LIBS)
  
  install_lvmlockd: lvmlockd
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(sbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
  
  install_lvmlockctl: lvmlockctl
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(sbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
@@ -108,7 +108,7 @@ index 3e85644..c46c6b4 100644
 @@ -37,7 +37,8 @@ lvmpolld: $(OBJECTS) $(top_builddir)/libdaemon/server/libdaemonserver.a $(INTERN
  
  install_lvmpolld: lvmpolld
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(sbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
@@ -122,7 +122,7 @@ index 35115d7..dccb13c 100644
 @@ -97,7 +97,8 @@ install_device-mapper: install
  
  install_include: $(srcdir)/libdevmapper.h
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_DATA) -D $< $(includedir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(includedir)
 +	$(Q) $(INSTALL_DATA) $< $(includedir)/$(<F)
@@ -132,13 +132,13 @@ index 35115d7..dccb13c 100644
 @@ -107,11 +108,13 @@ install_ioctl: install_lib_shared
  
  install_pkgconfig: libdevmapper.pc
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_DATA) -D $< $(pkgconfigdir)/devmapper.pc
 +	$(Q) $(INSTALL_DIR) $(pkgconfigdir)
 +	$(Q) $(INSTALL_DATA) $< $(pkgconfigdir)/devmapper.pc
  
  install_ioctl_static: $(LIB_STATIC)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_DATA) -D $< $(usrlibdir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(usrlibdir)
 +	$(Q) $(INSTALL_DATA) $< $(usrlibdir)/$(<F)
@@ -152,14 +152,14 @@ index 9ddb3c2..d31af40 100644
 @@ -68,12 +68,14 @@ dmsetup.static: dmsetup.o $(LIBDM_STATIC)
  
  install_dmsetup_dynamic: dmsetup
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(sbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
  	$(Q) $(LN_S) -f $(<F) $(sbindir)/dmstats
  
  install_dmsetup_static: dmsetup.static
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(staticdir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(staticdir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(staticdir)/$(<F)
@@ -169,13 +169,13 @@ index 9ddb3c2..d31af40 100644
 @@ -89,11 +91,13 @@ dmfilemapd.static: dmfilemapd.o $(LIBDM_STATIC)
  
  install_dmfilemapd_dynamic: dmfilemapd
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(sbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
  
  install_dmfilemapd_static: dmfilemapd.static
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(staticdir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(staticdir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(staticdir)/$(<F)
@@ -189,7 +189,7 @@ index f1c88fa..71c302f 100644
 @@ -449,7 +449,8 @@ CLEAN_TARGETS += $(LDDEPS) .exported_symbols_generated
  
  install_lib_shared: $(LIB_SHARED)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/$(<F).$(LIB_VERSION)
 +	$(Q) $(INSTALL_DIR) $(libdir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/$(<F).$(LIB_VERSION)
@@ -199,14 +199,14 @@ index f1c88fa..71c302f 100644
 @@ -458,12 +459,14 @@ install_lib_shared: $(LIB_SHARED)
  #        when the code is fixed links could be removed.
  install_dm_plugin: $(LIB_SHARED)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/device-mapper/$(<F)
 +	$(Q) $(INSTALL_DIR) $(libdir)/device-mapper
 +	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/device-mapper/$(<F)
  	$(Q) $(LN_S) -f device-mapper/$(<F) $(libdir)/$(<F)
  
  install_lvm2_plugin: $(LIB_SHARED)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/lvm2/$(<F)
 +	$(Q) $(INSTALL_DIR) $(libdir)/lvm2
 +	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/lvm2/$(<F)
@@ -220,7 +220,7 @@ index 869b87e..67cf661 100644
 @@ -514,7 +514,8 @@ CLEAN_TARGETS += $(LDDEPS) .exported_symbols_generated
  
  install_lib_shared: $(LIB_SHARED)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/$(<F).$(LIB_VERSION)
 +	$(Q) $(INSTALL_DIR) $(libdir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/$(<F).$(LIB_VERSION)
@@ -230,14 +230,14 @@ index 869b87e..67cf661 100644
 @@ -523,12 +524,14 @@ install_lib_shared: $(LIB_SHARED)
  #        when the code is fixed links could be removed.
  install_dm_plugin: $(LIB_SHARED)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/device-mapper/$(<F)
 +	$(Q) $(INSTALL_DIR) $(libdir)/device-mapper
 +	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/device-mapper/$(<F)
  	$(Q) $(LN_S) -f device-mapper/$(<F) $(libdir)/$(<F)
  
  install_lvm2_plugin: $(LIB_SHARED)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/lvm2/$(<F)
 +	$(Q) $(INSTALL_DIR) $(libdir)/lvm2
 +	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/lvm2/$(<F)
@@ -249,7 +249,7 @@ index 6201f59..4cc1b36 100644
 --- a/po/Makefile.in
 +++ b/po/Makefile.in
 @@ -53,13 +53,15 @@ install: $(TARGETS)
- 	@echo Installing translation files in $(localedir)
+ 	$(SHOW) Installing translation files in $(localedir)
  	@( \
  		for lang in $(LANGS); do \
 -			$(INSTALL_DATA) -D $$lang.mo \
@@ -271,15 +271,15 @@ index 47b24a2..f35b6c6 100644
 --- a/scripts/Makefile.in
 +++ b/scripts/Makefile.in
 @@ -45,7 +45,8 @@ vpath %.sh $(srcdir)
- vpath %.ocf $(srcdir)
  
  %_install: %.sh
+ 	$(SHOW) "    [INSTALL] $^"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(basename $(<F))
 +	$(Q) $(INSTALL_DIR) $(sbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(basename $(<F))
  
  %_install: %.ocf
- 	$(Q) $(INSTALL_DIR) $(ocf_scriptdir)
+ 	$(SHOW) "    [INSTALL] $^"
 diff --git a/test/Makefile.in b/test/Makefile.in
 index 1cad634..abd85a3 100644
 --- a/test/Makefile.in
@@ -318,13 +318,13 @@ index a6e2291..bae202d 100644
 @@ -194,21 +194,25 @@ lvm.cflow lvm.xref lvm.tree lvm.xref: command-lines-input.h command-count.h
  
  install_cmdlib_include: $(srcdir)/lvm2cmd.h
- 	@echo "    [INSTALL] $(<F)"
+ 	$(SHOW) "    [INSTALL] $(<F)"
 -	$(Q) $(INSTALL_DATA) -D $< $(includedir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(includedir)
 +	$(Q) $(INSTALL_DATA) $< $(includedir)/$(<F)
  
  install_cmdlib_dynamic: liblvm2cmd.$(LIB_SUFFIX)
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/$(<F).$(LIB_VERSION)
 +	$(Q) $(INSTALL_DIR) $(libdir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/$(<F).$(LIB_VERSION)
@@ -332,13 +332,13 @@ index a6e2291..bae202d 100644
  	$(Q) $(LN_S) -f $(USRLIB_RELPATH)$(<F).$(LIB_VERSION) $(usrlibdir)/$(<F)
  
  install_cmdlib_static: liblvm2cmd-static.a
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_DATA) -D $< $(usrlibdir)/liblvm2cmd.a
 +	$(Q) $(INSTALL_DIR) $(usrlibdir)
 +	$(Q) $(INSTALL_DATA) $< $(usrlibdir)/liblvm2cmd.a
  
  install_tools_dynamic: lvm .commands
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(sbindir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
@@ -348,7 +348,7 @@ index a6e2291..bae202d 100644
 @@ -217,7 +221,8 @@ install_tools_dynamic: lvm .commands
  
  install_tools_static: lvm.static
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_PROGRAM) -D $< $(staticdir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(staticdir)
 +	$(Q) $(INSTALL_PROGRAM) $< $(staticdir)/$(<F)
@@ -362,7 +362,7 @@ index e777dda..ebfc7da 100644
 @@ -56,7 +56,8 @@ endif
  
  %_install: %.rules
- 	@echo "    [INSTALL] $<"
+ 	$(SHOW) "    [INSTALL] $<"
 -	$(Q) $(INSTALL_DATA) -D $< $(udevdir)/$(<F)
 +	$(Q) $(INSTALL_DIR) $(udevdir)
 +	$(Q) $(INSTALL_DATA) $< $(udevdir)/$(<F)

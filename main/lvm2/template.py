@@ -1,5 +1,5 @@
 pkgname = "lvm2"
-pkgver = "2.03.23"
+pkgver = "2.03.24"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -51,7 +51,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
 source = f"https://mirrors.kernel.org/sourceware/{pkgname}/releases/LVM2.{pkgver}.tgz"
-sha256 = "74e794a9e9dee1bcf8a2065f65b9196c44fdf321e22d63b98ed7de8c9aa17a5d"
+sha256 = "593c5503ba00faab1c6e0b4a597b9605ec7b5881845c04bf412ebf9d1bbfa13c"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]
 # otherwise we're in for a world of pain
