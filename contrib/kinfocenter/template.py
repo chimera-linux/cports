@@ -1,6 +1,6 @@
 pkgname = "kinfocenter"
 pkgver = "6.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -63,6 +63,3 @@ def _meta(self):
         self.depends += ["dmidecode"]
 
     return []
-
-
-# FIXME: kinfo stops midway through printing "Processors:" line, after nproc and right before "×"

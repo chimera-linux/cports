@@ -1,0 +1,19 @@
+when wcout is never imbued, it defaults to the system default codepage or
+the current program locale (which starts as C)
+qt usually probably inits the locale but seems to not happen on libc++
+maybe related: https://github.com/llvm/llvm-project/issues/73930
+since we are on linux not using wstring is fine
+--
+diff --git a/kcms/about-distro/src/main.cpp b/kcms/about-distro/src/main.cpp
+index a23cc670..2ac8f6ba 100644
+--- a/kcms/about-distro/src/main.cpp
++++ b/kcms/about-distro/src/main.cpp
+@@ -137,7 +137,7 @@ public:
+         loadEntries();
+ 
+         if (m_dumpToStdout) {
+-            std::wcout << clipboardText(Entry::Language::English).toStdWString();
++            std::cout << clipboardText(Entry::Language::English).toStdString();
+             // No more output thank you very much. This for example prevents warnings coming out of libwayland.
+             fclose(stderr);
+             fclose(stdout);
