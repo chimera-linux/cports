@@ -1,0 +1,24 @@
+note the $? = 8 removal, which is a bug fixed in our otf2bdf:
+https://github.com/jirutka/otf2bdf/pull/1
+we don't have to check that the exit is 8 to guarantee success; it'll fail
+normally
+--
+--- a/Fonts/Makefile
++++ b/Fonts/Makefile
+@@ -316,12 +319,12 @@
+ 
+ dejavu_bdfs := $(foreach face, $(RASTERIZED_FACES), $./bdf/$($(face)-BDFS))
+ 
+-$./bdf/dejavu-u%b.bdf: /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf
+-	otf2bdf -c C -p $* -r 115 $< > $@ ; [ $$? = 8 ]
++$./bdf/dejavu-u%b.bdf: /usr/share/fonts/dejavu/DejaVuSansMono-Bold.otf
++	otf2bdf -c C -p $* -r 115 $< > $@
+ 	sed -i -e 's/^AVERAGE_WIDTH .*$$/AVERAGE_WIDTH $*0/' $@
+ 
+-$./bdf/dejavu-u%.bdf: /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf
+-	otf2bdf -c C -p $* -r 115 $< > $@ ; [ $$? = 8 ]
++$./bdf/dejavu-u%.bdf: /usr/share/fonts/dejavu/DejaVuSansMono.otf
++	otf2bdf -c C -p $* -r 115 $< > $@
+ 	sed -i -e 's/^AVERAGE_WIDTH .*$$/AVERAGE_WIDTH $*0/' $@
+ 
+ # $(call add_bdf, xxx+yyy) = $(fntdir)/bdf/xxx+$(fntdir)/bdf/yyy
