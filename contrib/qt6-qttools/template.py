@@ -1,6 +1,6 @@
 pkgname = "qt6-qttools"
 pkgver = "6.7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DQT_BUILD_TESTS=OFF",  # downloads gtest
@@ -26,6 +26,7 @@ makedepends = [
     "clang-devel",
     "clang-tools-extra",
 ]
+depends = [f"qdbus={pkgver}-r{pkgrel}"]
 pkgdesc = "Qt6 tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = (
@@ -57,6 +58,14 @@ def post_install(self):
         for line in f.readlines():
             a, b = line.split()
             self.install_link(b, a.replace("/usr/lib", "../lib"))
+
+
+@subpackage("qdbus")
+def _qdbus(self):
+    return [
+        "usr/bin/qdbus6",
+        "usr/lib/qt6/bin/qdbus",
+    ]
 
 
 @subpackage("qt6-qttools-libs")
