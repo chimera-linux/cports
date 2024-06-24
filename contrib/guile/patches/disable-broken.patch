@@ -1,0 +1,46 @@
+these tests fail due to only-utf8 support in musl
+--- a/test-suite/Makefile.am
++++ b/test-suite/Makefile.am
+@@ -47,9 +47,7 @@
+ 	    tests/elisp.test			\
+ 	    tests/elisp-compiler.test		\
+ 	    tests/elisp-reader.test		\
+-	    tests/encoding-escapes.test		\
+ 	    tests/encoding-iso88591.test	\
+-	    tests/encoding-iso88597.test	\
+ 	    tests/encoding-utf8.test		\
+ 	    tests/error-handling.test		\
+ 	    tests/eval.test			\
+@@ -69,8 +67,6 @@
+ 	    tests/guardians.test		\
+ 	    tests/hash.test			\
+ 	    tests/hooks.test			\
+-	    tests/i18n.test			\
+-	    tests/iconv.test			\
+ 	    tests/import.test			\
+ 	    tests/interp.test			\
+ 	    tests/keywords.test			\
+@@ -104,7 +104,6 @@
+ 	    tests/r6rs-files.test		\
+ 	    tests/r6rs-hashtables.test		\
+ 	    tests/r6rs-lists.test		\
+-	    tests/r6rs-ports.test		\
+ 	    tests/r6rs-records-inspection.test	\
+ 	    tests/r6rs-records-procedural.test	\
+ 	    tests/r6rs-records-syntactic.test	\
+@@ -163,7 +162,6 @@
+ 	    tests/streams.test			\
+ 	    tests/strings.test			\
+ 	    tests/structs.test			\
+-	    tests/suspendable-ports.test	\
+ 	    tests/sxml.fold.test		\
+ 	    tests/sxml.match.test		\
+ 	    tests/sxml.simple.test		\
+@@ -184,7 +180,6 @@
+ 	    tests/texinfo.serialize.test	\
+ 	    tests/texinfo.string-utils.test	\
+ 	    tests/threads.test			\
+-	    tests/time.test			\
+ 	    tests/tree-il.test			\
+ 	    tests/types.test			\
+ 	    tests/unicode.test			\

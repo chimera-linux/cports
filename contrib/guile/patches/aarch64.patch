@@ -1,0 +1,17 @@
+--- a/libguile/lightening/lightening/aarch64.c
++++ b/libguile/lightening/lightening/aarch64.c
+@@ -172,11 +172,11 @@
+ #ifdef __gnu_linux__
+ // See
+ // https://github.com/gcc-mirror/gcc/blob/master/libgcc/config/aarch64/lse-init.c.
+-# define AT_HWCAP	16
+-unsigned long __getauxval (unsigned long int);
++#include <elf.h>
++#include <sys/auxv.h>
+ static unsigned long get_hwcap(void)
+ {
+-  return __getauxval (AT_HWCAP);
++  return getauxval (AT_HWCAP);
+ }
+ #elif defined(DARWIN)
+ static unsigned long get_hwcap(void)
