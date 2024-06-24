@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "7.0.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -43,6 +43,7 @@ configure_args = [
     "--enable-libopus",
     "--enable-libplacebo",
     "--enable-libpulse",
+    "--enable-librav1e",
     "--enable-librsvg",
     "--enable-librtmp",
     "--enable-librubberband",
@@ -123,6 +124,7 @@ makedepends = [
     "openssl-devel",
     "opus-devel",
     "pipewire-jack-devel",
+    "rav1e-devel",
     "rubberband-devel",
     "sdl-devel",
     "shaderc-devel",
