@@ -1,0 +1,6 @@
+# hostapd service
+
+type = process
+command = /usr/bin/hostapd /etc/hostapd.conf
+depends-on = network.target
+depends-on = local.target
