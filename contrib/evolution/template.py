@@ -1,8 +1,7 @@
 pkgname = "evolution"
 pkgver = "3.52.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
-configure_args = ["-DWITH_OPENLDAP=OFF"]
 hostmakedepends = [
     "cmake",
     "gettext",
@@ -37,6 +36,7 @@ makedepends = [
     "libxml2-devel",
     "nspr-devel",
     "nss-devel",
+    "openldap-devel",
     "shared-mime-info",
     "sqlite-devel",
     "webkitgtk-devel",
