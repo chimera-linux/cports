@@ -13,15 +13,13 @@ depends = [
     "python-execnet",
     "python-pytest",
 ]
-checkdepends = depends
+checkdepends = ["python-filelock", "python-pexpect", "python-psutil"] + depends
 pkgdesc = "Pytest plugin for testing parallelisation"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-xdist"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "d8a26b8dbfa97f6f5bee904816b0feb15f3b95eec1e0fcee601535a572a03f5a"
-# unpackaged filelock
-options = ["!check"]
 
 
 def init_build(self):
