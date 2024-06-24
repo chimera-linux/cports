@@ -1,4 +1,4 @@
-From 8995ccbf34c2a639cdc2ff823d664ec7530702ef Mon Sep 17 00:00:00 2001
+From 1a48bd90548f3dd9c8edfe9df814bb753c207aec Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 17 Mar 2023 19:53:56 +0100
 Subject: [PATCH 2/4] global replace of path names for usrmerge
@@ -185,7 +185,7 @@ index ce5e6f4..c35b284 100644
              else
                  log_warning_msg "$target: the check for '$CRYPTTAB_NAME' failed. $CRYPTTAB_NAME contains data: $out"
 diff --git a/debian/functions b/debian/functions
-index 8758abb..45e6f41 100644
+index 9e2481b..f6fa2aa 100644
 --- a/debian/functions
 +++ b/debian/functions
 @@ -15,7 +15,7 @@ export DM_DEFAULT_NAME_MANGLING_MODE=hex # for dmsetup(8)
@@ -446,7 +446,7 @@ index 54492f0..24c2613 100644
  fi
  
 diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
-index 5e7f6f1..d9ebe13 100644
+index adf8d25..107d7cd 100644
 --- a/debian/initramfs/hooks/cryptroot
 +++ b/debian/initramfs/hooks/cryptroot
 @@ -15,7 +15,7 @@ case "$1" in
@@ -503,7 +503,7 @@ index 5e7f6f1..d9ebe13 100644
      [ -d "$libcryptodir" ] || return
  
      crypttab_foreach_entry populate_CRYPTO_HASHES
-@@ -336,10 +336,10 @@ fi
+@@ -337,10 +337,10 @@ fi
  manual_add_modules dm_mod
  manual_add_modules dm_crypt
  
@@ -517,7 +517,7 @@ index 5e7f6f1..d9ebe13 100644
  
  # We need sed. Either via busybox or as standalone binary.
  # chimera: already provided via chimerautils-tiny by default
-@@ -369,4 +369,4 @@ else
+@@ -370,4 +370,4 @@ else
      fi
      add_crypto_modules $(printf '%s' "${CRYPTO_MODULES-}" | tr ' ' '\n' | sort -u)
  fi
@@ -713,5 +713,5 @@ index 845ccae..5bc2828 100644
  			      /*"ext4,ext3,ext2,vfat,btrfs,reiserfs,xfs,jfs,ntfs,iso9660,udf",*/
  			      "-o", "noatime,nodiratime,nodev,noexec,nosuid,ro",
 -- 
-2.43.0
+2.45.2
 
