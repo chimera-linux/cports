@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "7.0.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -39,6 +39,7 @@ configure_args = [
     "--enable-libmodplug",
     "--enable-libmp3lame",
     "--enable-libopenjpeg",
+    "--enable-libopenmpt",
     "--enable-libopus",
     "--enable-libplacebo",
     "--enable-libpulse",
@@ -100,6 +101,7 @@ makedepends = [
     "libdvdread-devel",
     "libjxl-devel",
     "libmodplug-devel",
+    "libopenmpt-devel",
     "libplacebo-devel",
     "libpulse-devel",
     "librsvg-devel",
