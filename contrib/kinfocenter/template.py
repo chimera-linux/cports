@@ -56,7 +56,7 @@ def _meta(self):
         "mesa-utils",
         "vulkan-tools",
         "wayland-utils",
-        "qdbus",
+        "qt6-qttools-qdbus",
         "xdpyinfo",
     ]
     self.options = ["empty"]
