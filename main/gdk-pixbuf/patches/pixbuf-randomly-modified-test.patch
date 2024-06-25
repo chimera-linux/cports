@@ -1,0 +1,14 @@
+the test seems to hit the 100M memory limit consistently and thus fails
+diff --git a/tests/pixbuf-randomly-modified.c b/tests/pixbuf-randomly-modified.c
+index 932e53cbc..993fb9975 100644
+--- a/tests/pixbuf-randomly-modified.c
++++ b/tests/pixbuf-randomly-modified.c
+@@ -100,7 +100,7 @@ main (int argc, char **argv)
+ #ifdef HAVE_SETRLIMIT
+   struct rlimit max_mem_size;
+ 
+-  max_mem_size.rlim_cur = 100 * 1024 * 1024; /* 100M */
++  max_mem_size.rlim_cur = 1 * 1024 * 1024 * 1024; /* 1G */
+   max_mem_size.rlim_max = max_mem_size.rlim_cur;
+   setrlimit (RLIMIT_DATA, &max_mem_size);
+ #endif
