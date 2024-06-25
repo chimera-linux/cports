@@ -6,7 +6,7 @@ hostmakedepends = [
     "desktop-file-utils",
     "docbook-xsl-nons",
     "gettext",
-    "gobject-introspection",
+    "glib-devel",
     "gtk-update-icon-cache",
     "meson",
     "pkgconf",
@@ -28,8 +28,6 @@ pkgdesc = "GNOME contacts application"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Contacts"
-source = (
-    f"$(GNOME_SITE)/{pkgname}/{pkgver.split('.')[0]}/{pkgname}-{pkgver}.tar.xz"
-)
+source = f"$(GNOME_SITE)/gnome-contacts/{pkgver.split('.')[0]}/gnome-contacts-{pkgver}.tar.xz"
 sha256 = "70aeb4e835a1c77f9bcc7e57a2dcc2376d93bdb617571618257445f56c6370df"
 options = ["!cross"]
