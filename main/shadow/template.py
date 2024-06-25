@@ -1,6 +1,6 @@
 pkgname = "shadow"
 pkgver = "4.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -92,6 +92,22 @@ def post_install(self):
     # chimerautils
     self.rm(self.destdir / "usr/bin/groups")
     self.rm(self.destdir / "usr/share/man/man1/groups.1")
+    # links
+    for mp in [
+        "endspent",
+        "fgetspent",
+        "fgetspent_r",
+        "getspent",
+        "getspent_r",
+        "getspnam_r",
+        "lckpwdf",
+        "putspent",
+        "setspent",
+        "sgetspent",
+        "sgetspent_r",
+        "ulckpwdf",
+    ]:
+        self.install_link(f"usr/share/man/man3/{mp}.3", "getspnam.3")
 
     # trigger
     self.install_dir("var/lib/shadow", empty=True)
