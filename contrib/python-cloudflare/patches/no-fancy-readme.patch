@@ -1,0 +1,31 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index deca8803..efcd8ec0 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -88,7 +88,7 @@ typecheck = { chain = [
+ "typecheck:mypy" = "mypy ."
+ 
+ [build-system]
+-requires = ["hatchling", "hatch-fancy-pypi-readme"]
++requires = ["hatchling"]
+ build-backend = "hatchling.build"
+ 
+ [tool.hatch.build]
+@@ -99,17 +99,6 @@ include = [
+ [tool.hatch.build.targets.wheel]
+ packages = ["src/cloudflare"]
+ 
+-[tool.hatch.metadata.hooks.fancy-pypi-readme]
+-content-type = "text/markdown"
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+-path = "README.md"
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+-# replace relative links with absolute links
+-pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
+-replacement = '[\1](https://github.com/cloudflare/cloudflare-python/tree/main/\g<2>)'
+-
+ [tool.black]
+ line-length = 120
+ target-version = ["py37"]
