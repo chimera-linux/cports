@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5912"
+pkgver = "1.7.5934"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -50,7 +50,7 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "fcb11f6b699fd68e41977bffe53b8e8031ccb578"
+_patches = "05f473cb22f3571525b873d1430cbfb459e4e635"
 source = [
     f"https://github.com/PCSX2/pcsx2/archive/refs/tags/v{pkgver}.tar.gz",
     f"https://github.com/PCSX2/pcsx2_patches/archive/{_patches}.tar.gz",
@@ -60,8 +60,8 @@ source_paths = [
     "patches",
 ]
 sha256 = [
-    "b8731627dcbd07eadbecafe4f96aca993ea69d2e00da581411092130cefbf72c",
-    "2861dacdbd506d014e51334fd9298af88c80445ff2f4325e0969c61561eb5127",
+    "57f660a36d765a34f537982cf3bcf807e9652779ce599a1af3ffbe2e32e1c251",
+    "2ccc3c6d4d5bce27c046ad5668e948d957c13aba8d84a66abe2ec32d514194e6",
 ]
 # FIXME: cfi, int
 # but it's an emulator so..
