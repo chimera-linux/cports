@@ -1,0 +1,41 @@
+diff --git a/gdk/loaders/gdktiff.c b/gdk/loaders/gdktiff.c
+index 93f39a7830..1a4e35edea 100644
+--- a/gdk/loaders/gdktiff.c
++++ b/gdk/loaders/gdktiff.c
+@@ -341,7 +341,7 @@ static GdkTexture *
+ load_fallback (TIFF    *tif,
+                GError **error)
+ {
+-  int width, height;
++  uint32_t width, height;
+   guchar *data;
+   GBytes *bytes;
+   GdkTexture *texture;
+diff --git a/gsk/gskrendernodeimpl.c b/gsk/gskrendernodeimpl.c
+index d9c5e61aa4..065c8f9956 100644
+--- a/gsk/gskrendernodeimpl.c
++++ b/gsk/gskrendernodeimpl.c
+@@ -6376,7 +6376,7 @@ apply_luminance_to_pattern (cairo_pattern_t *pattern,
+             luminance = 10000 * alpha - luminance;
+           luminance = (luminance + 5000) / 10000;
+ 
+-          pixel_data[x] = luminance * 0x1010101;
++          pixel_data[x] = (guint32)luminance * 0x1010101;
+         }
+       data += stride;
+     }
+diff --git a/gtk/gtklistview.c b/gtk/gtklistview.c
+index 53e8558dd8..f6309bf8ee 100644
+--- a/gtk/gtklistview.c
++++ b/gtk/gtklistview.c
+@@ -186,7 +186,9 @@ gtk_list_view_split (GtkListBase *base,
+                           new_tile,
+                           &(GdkRectangle) {
+                             tile->area.x,
+-                            tile->area.y + tile->area.height + spacing,
++                            /* ../gtk/gtklistview.c:189:42: runtime error: signed integer overflow: 2111085624 + 72796048 cannot be represented in type 'int'
++                              when starting nautilus */
++                            (guint)tile->area.y + tile->area.height + spacing,
+                             tile->area.width,
+                             row_height * new_tile->n_items + spacing * (new_tile->n_items - 1)
+                           });
