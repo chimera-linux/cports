@@ -1,5 +1,5 @@
 pkgname = "github-cli"
-pkgver = "2.51.0"
+pkgver = "2.52.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -15,7 +15,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://cli.github.com"
 source = f"https://github.com/cli/cli/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "babc66157676eadc30c150ab9151981792796d6f24663cebc6eb070eb14c390f"
+sha256 = "41de39d0f1bcacb454d9b8a46e5b97ff8b8e803cd26d284e553e45bf025325d9"
 # cross: uses native binary to generate completions
 # debug: fails to split on powerpc
 # check: needs network access
@@ -25,14 +25,9 @@ options = ["!cross", "!debug", "!check"]
 def post_build(self):
     self.do("./build/gen-docs", "--man-page", "--doc-path", "man")
 
-    with open(self.cwd / "gh.bash", "w") as cf:
-        self.do("build/gh", "completion", "-s=bash", stdout=cf)
-
-    with open(self.cwd / "gh.zsh", "w") as cf:
-        self.do("build/gh", "completion", "-s=zsh", stdout=cf)
-
-    with open(self.cwd / "gh.fish", "w") as cf:
-        self.do("build/gh", "completion", "-s=fish", stdout=cf)
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"gh.{shell}", "w") as cf:
+            self.do("build/gh", "completion", f"-s={shell}", stdout=cf)
 
 
 def do_install(self):
