@@ -1,7 +1,7 @@
 pkgname = "gpgme-qt"
 # update main/gpgme too
 pkgver = "1.23.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-languages=cpp qt6",
