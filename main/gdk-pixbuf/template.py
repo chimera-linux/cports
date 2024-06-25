@@ -7,13 +7,11 @@ configure_args = [
     "-Dinstalled_tests=false",
 ]
 hostmakedepends = [
-    "meson",
     "gettext",
-    "pkgconf",
-    "docbook-xsl-nons",
-    "xsltproc",
     "glib-devel",
     "gobject-introspection",
+    "meson",
+    "pkgconf",
     "python-docutils",
 ]
 makedepends = [
@@ -28,12 +26,11 @@ pkgdesc = "Image loading library for GTK"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GdkPixbuf"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/gdk-pixbuf/{pkgver[:-3]}/gdk-pixbuf-{pkgver}.tar.xz"
 sha256 = "b9505b3445b9a7e48ced34760c3bcb73e966df3ac94c95a148cb669ab748e3c7"
 # FIXME int
 hardening = ["!int"]
-# pixbuf-randomly-modified aborts, FIXME
-options = ["!check"]
+options = ["!cross"]
 
 
 @subpackage("gdk-pixbuf-devel")
