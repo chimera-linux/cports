@@ -1,0 +1,16 @@
+Handle out-of-memory scenarios for remap, as this is only used from the
+secondary allocator in our case, which would then unmap the mapping.
+
+This fixes aborts when doing really chunky allocs.
+
+--- a/src/malloc/scudo/mem_map_linux.cpp
++++ a/src/malloc/scudo/mem_map_linux.cpp
+@@ -108,6 +108,8 @@ void MemMapLinux::unmapImpl(uptr Addr, uptr Size) {
+ bool MemMapLinux::remapImpl(uptr Addr, uptr Size, const char *Name,
+                             uptr Flags) {
+   void *P = mmapWrapper(Addr, Size, Name, Flags);
++  if (P == nullptr)
++    return false;
+   if (reinterpret_cast<uptr>(P) != Addr)
+     reportMapError();
+   return true;
