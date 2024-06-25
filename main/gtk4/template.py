@@ -1,12 +1,10 @@
 pkgname = "gtk4"
 pkgver = "4.14.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
-    "-Dbuild-tests=false",
-    "-Dbuild-testsuite=false",
-    "-Dgtk_doc=false",
+    "-Ddocumentation=false",
     "-Dbroadway-backend=true",
     "-Dx11-backend=true",
     "-Dwayland-backend=true",
@@ -16,6 +14,7 @@ configure_args = [
     "-Dcloudproviders=enabled",
     "-Dtracker=enabled",
 ]
+make_check_args = ["--timeout-multiplier=4"]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "docbook-xsl-nons",
@@ -68,7 +67,9 @@ depends = [
 ]
 checkdepends = [
     "adwaita-icon-theme",
+    "bash",
     "dbus",
+    "fonts-cantarell-otf",
     "fonts-dejavu-otf",
     "librsvg",
     "python-gobject",
@@ -80,10 +81,7 @@ license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
 sha256 = "443518b97e8348f9f6430ac435b1010f9a6c5207f4dc6a7cd5d24e3820cee633"
-# FIXME overflow in gtklabel.c (repro: gnome-text-editor file reload)
-hardening = ["!int"]
-# FIXME
-options = ["!cross", "!check"]
+options = ["!cross"]
 
 
 def post_install(self):
