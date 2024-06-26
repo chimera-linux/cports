@@ -1,7 +1,8 @@
 pkgname = "python-numpy"
 pkgver = "2.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
+make_build_args = []
 hostmakedepends = [
     "pkgconf",
     "python-build",
@@ -22,6 +23,15 @@ url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
 sha256 = "cf5d1c9e6837f8af9f92b6bd3e86d513cdc11f60fd62185cc49ec7d1aba34864"
 hardening = ["!int"]
+
+if self.profile().arch == "aarch64":
+    # FIXME: segfault in python in
+    # test_half_ordering and test_sort_degrade
+    # with this enabled
+    make_build_args += [
+        "--config-setting",
+        "setup-args=-Ddisable-highway=true",
+    ]
 
 
 # this is identical to the default do_check, we just have to change cwd
@@ -61,7 +71,6 @@ def do_check(self):
         "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_casting_floatingpoint_errors.py",
         "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_umath.py",
         "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/linalg/tests/test_linalg.py",
-        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_multiarray.py",
         "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_numeric.py",
         "-k",
         "not test_cython"
@@ -73,9 +82,7 @@ def do_check(self):
         + " and not test_untitled_cli"
         + " and not test_features"
         # ppc
-        + " and not test_ppc64_ibm_double_double128"
-        # FIXME: this segfaults python on aarch64
-        + " and not test_half_ordering" + " and not test_sort_degraded",
+        + " and not test_ppc64_ibm_double_double128",
         # can't run from source directory
         wrksrc=f"{self.chroot_cwd}/tools",
         path=[envpy.parent],
