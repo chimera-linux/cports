@@ -1,8 +1,9 @@
 pkgname = "lagrange"
 pkgver = "1.17.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_BUILD_TYPE=Release",
     "-DENABLE_POPUP_MENUS=OFF",
     "-DENABLE_X11_XLIB=OFF",
     "-DTFDN_ENABLE_SSE41=OFF",
