@@ -24,6 +24,19 @@ diff --git a/clang/lib/Sema/TreeTransform.h b/clang/lib/Sema/TreeTransform.h
 index 2d22692f3ab75..f2f7d7ab9c7c3 100644
 --- a/clang/lib/Sema/TreeTransform.h
 +++ b/clang/lib/Sema/TreeTransform.h
+@@ -13516,6 +13516,12 @@
+
+     // Capturing 'this' is trivial.
+     if (C->capturesThis()) {
++      Sema::CXXThisScopeRAII ThisScope(
++          getSema(),
++          dyn_cast_if_present<CXXRecordDecl>(
++              getSema().getFunctionLevelDeclContext()),
++          Qualifiers());
++
+       getSema().CheckCXXThisCapture(C->getLocation(), C->isExplicit(),
+                                     /*BuildAndDiagnose*/ true, nullptr,
+                                     C->getCaptureKind() == LCK_StarThis);
 @@ -13714,6 +13714,16 @@ TreeTransform<Derived>::TransformLambdaExpr(LambdaExpr *E) {
  
      // Capturing 'this' is trivial.
