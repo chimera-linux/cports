@@ -1,6 +1,6 @@
 pkgname = "libetonyek"
 pkgver = "0.1.10"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
