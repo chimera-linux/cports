@@ -1,6 +1,6 @@
 pkgname = "librevenge"
 pkgver = "0.0.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = ["--disable-werror", "--disable-static"]
 make_cmd = "gmake"

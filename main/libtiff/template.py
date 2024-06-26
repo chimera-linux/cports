@@ -1,6 +1,6 @@
 pkgname = "libtiff"
 pkgver = "4.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx", "--without-x"]
 make_cmd = "gmake"

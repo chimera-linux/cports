@@ -1,6 +1,6 @@
 pkgname = "pcre2"
 pkgver = "10.44"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-pic",

@@ -1,6 +1,6 @@
 pkgname = "kpublictransport"
 pkgver = "24.05.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

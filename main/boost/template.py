@@ -1,6 +1,6 @@
 pkgname = "boost"
 pkgver = "1.85.0"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "bzip2-devel",
