@@ -1,6 +1,6 @@
 pkgname = "pango"
 pkgver = "1.54.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled"]
 hostmakedepends = [
@@ -28,8 +28,6 @@ license = "LGPL-2.1-or-later"
 url = "https://www.pango.org"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:pkgver.rfind('.')]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "8a9eed75021ee734d7fc0fdf3a65c3bba51dfefe4ae51a9b414a60c70b2d1ed8"
-# crashes gtksourceview testsuite sometimes (test-view)
-hardening = ["!int"]
 
 
 @subpackage("pango-xft")
