@@ -1,5 +1,5 @@
 pkgname = "kirigami-addons"
-pkgver = "1.2.1"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -35,7 +35,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kirigami-addons/html"
 source = f"$(KDE_SITE)/kirigami-addons/kirigami-addons-{pkgver}.tar.xz"
-sha256 = "657426f9ec55cfec5a7f04848ed2b4df2ac8bfcb33c25626ad239219d444ee98"
+sha256 = "f5e44d7a7d7dfd866c529bb004f7204013609a16c9757091fcdb2c6c5be00ff3"
 # FIXME: cfi kills plasmashell (started under kwin_wayland) in libcomponents.so
 hardening = ["vis", "!cfi"]
 
