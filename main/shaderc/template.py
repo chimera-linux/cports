@@ -1,11 +1,10 @@
 pkgname = "shaderc"
 pkgver = "2024.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DSHADERC_SKIP_TESTS=ON",
     "-DSHADERC_SKIP_EXAMPLES=ON",
-    "-DPYTHON_EXECUTABLE=python",
 ]
 hostmakedepends = ["cmake", "ninja", "python", "pkgconf"]
 makedepends = ["spirv-tools-devel", "spirv-headers", "glslang-devel"]
