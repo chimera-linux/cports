@@ -8,11 +8,24 @@ diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
 index 93abbfa..2ac0df3 100644
 --- a/test/CMakeLists.txt
 +++ b/test/CMakeLists.txt
-@@ -197,7 +197,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
- 		message("GLM: Clang - ${CMAKE_CXX_COMPILER_ID} compiler")
+@@ -11,7 +11,6 @@
  	endif()
  
--	add_compile_options(-Werror -Weverything)
- 	add_compile_options(-Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++11-long-long -Wno-padded -Wno-gnu-anonymous-struct -Wno-nested-anon-types)
- 	add_compile_options(-Wno-undefined-reinterpret-cast -Wno-sign-conversion -Wno-unused-variable -Wno-missing-prototypes -Wno-unreachable-code -Wno-missing-variable-declarations -Wno-sign-compare -Wno-global-constructors -Wno-unused-macros -Wno-format-nonliteral)
+ 	if(NOT GLM_DISABLE_AUTO_DETECTION)
+-		add_compile_options(-Werror -Weverything)
+ 	endif()
  
+ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+@@ -20,12 +19,10 @@
+ 	endif()
+ 
+ 	if(NOT GLM_DISABLE_AUTO_DETECTION)
+-		add_compile_options(-Werror)
+ #		add_compile_options(-Wpedantic)
+ #		add_compile_options(-Wall)
+ #		add_compile_options(-Wextra)
+ 	endif()
+-	add_compile_options(-O2)
+ 	#add_compile_options(-Wno-long-long)
+ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+ 	if(NOT GLM_QUIET)
