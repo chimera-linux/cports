@@ -1,5 +1,5 @@
 pkgname = "breeze"
-pkgver = "6.1.0"
+pkgver = "6.1.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
@@ -33,7 +33,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/breeze"
 source = f"$(KDE_SITE)/plasma/{pkgver}/breeze-{pkgver}.tar.xz"
-sha256 = "f71b8f4e7677e5685676ac72f961015853de959b1e08ba73539147cec7bd1d0e"
+sha256 = "8943ff74c4cb16b1b3c03eea0cca39821d444bea60dc163ff18e2bd313609725"
 # FIXME: cfi kills plasma-apply-lookandfeel in breeze6.so
 hardening = ["vis", "!cfi"]
 # TODO: split qt6 theme?

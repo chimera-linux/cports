@@ -1,5 +1,5 @@
 pkgname = "plasma-workspace"
-pkgver = "6.1.0"
+pkgver = "6.1.1"
 pkgrel = 0
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
@@ -120,7 +120,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.1-or-later AND GPL-2.0-or-later AND MIT AND LGPL-2.1-only AND LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only) AND LGPL-2.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-workspace-{pkgver}.tar.xz"
-sha256 = "f4f542e6f201f46080ee6fb966d9f895811a8dcd7d4f18a4c6c48ce0c35a127c"
+sha256 = "47d2c42bdf8c127fa1656f65baa9828f9890cffd3f416b0af9e056cf228c07ee"
 # FIXME: cfi breaks at least 3 tests
 hardening = ["vis", "!cfi"]
 

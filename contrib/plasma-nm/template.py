@@ -1,5 +1,5 @@
 pkgname = "plasma-nm"
-pkgver = "6.1.0"
+pkgver = "6.1.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -36,6 +36,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-nm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-nm-{pkgver}.tar.xz"
-sha256 = "5352aff9b67351860945000d097203d53be124c0f107c87b3242818980f54690"
+sha256 = "36a2f708aac51af907b88664f9641fac5540b1f55f326b9f2162ee0cb57dfb50"
 # FIXME: cfi kills systemsettings (upon apply of change and clicking another NIC) in libplasmanm_editor.so
 hardening = ["vis", "!cfi"]

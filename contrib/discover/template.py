@@ -1,5 +1,5 @@
 pkgname = "discover"
-pkgver = "6.1.0"
+pkgver = "6.1.1"
 pkgrel = 0
 build_style = "cmake"
 # fails in chroot env
@@ -57,7 +57,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://userbase.kde.org/Discover"
 source = f"$(KDE_SITE)/plasma/{pkgver}/discover-{pkgver}.tar.xz"
-sha256 = "beb9238a83787dc68030aac1eeba52138af039c07c4ab2ff8decfe9e86203b08"
+sha256 = "18e70053e7e51d32c42e3713082e50e81862a2811757a95c98d9b68692d38b5e"
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
