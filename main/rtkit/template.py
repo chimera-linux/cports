@@ -7,7 +7,12 @@ configure_args = [
     "-Dinstalled_tests=false",
 ]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["dbus-devel", "libcap-devel", "polkit-devel", "zlib-ng-compat-devel"]
+makedepends = [
+    "dbus-devel",
+    "libcap-devel",
+    "polkit-devel",
+    "zlib-ng-compat-devel",
+]
 depends = ["polkit"]
 pkgdesc = "Realtime policy and watchdog daemon"
 maintainer = "q66 <q66@chimera-linux.org>"

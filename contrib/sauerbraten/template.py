@@ -5,7 +5,12 @@ build_wrksrc = "src"
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
-makedepends = ["sdl-devel", "sdl_image-devel", "sdl_mixer-devel", "zlib-ng-compat-devel"]
+makedepends = [
+    "sdl-devel",
+    "sdl_image-devel",
+    "sdl_mixer-devel",
+    "zlib-ng-compat-devel",
+]
 depends = [f"sauerbraten-data={pkgver}-r{pkgrel}"]
 pkgdesc = "Free FPS game, successor to Cube"
 maintainer = "q66 <q66@chimera-linux.org>"

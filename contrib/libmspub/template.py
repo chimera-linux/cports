@@ -5,7 +5,12 @@ build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
-makedepends = ["librevenge-devel", "boost-devel", "icu-devel", "zlib-ng-compat-devel"]
+makedepends = [
+    "librevenge-devel",
+    "boost-devel",
+    "icu-devel",
+    "zlib-ng-compat-devel",
+]
 pkgdesc = "Library for mspub format"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
