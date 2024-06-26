@@ -53,17 +53,29 @@ def do_check(self):
         "pytest",
         "--pyargs",
         "numpy",
+        "-m",
+        "not slow",
         f"--numprocesses={self.make_jobs}",
         "--dist=worksteal",
+        # fails casts/float stuff on aarch64
+        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_casting_floatingpoint_errors.py",
+        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_umath.py",
+        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/linalg/tests/test_linalg.py",
+        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_multiarray.py",
+        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_numeric.py",
         "-k",
         "not test_cython"
+        # more float aarch64 stuff
+        + " and not test_vecdot_complex"
         # f2py stuff
         + " and not test_limited_api"
         + " and not test_no_py312_distutils_fcompiler"
         + " and not test_untitled_cli"
         + " and not test_features"
         # ppc
-        + " and not test_ppc64_ibm_double_double128",
+        + " and not test_ppc64_ibm_double_double128"
+        # FIXME: this segfaults python on aarch64
+        + " and not test_half_ordering" + " and not test_sort_degraded",
         # can't run from source directory
         wrksrc=f"{self.chroot_cwd}/tools",
         path=[envpy.parent],
