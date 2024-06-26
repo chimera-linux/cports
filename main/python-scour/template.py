@@ -9,12 +9,10 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-six"]
-checkdepends = list(depends)
+checkdepends = ["python-pytest"] + depends
 pkgdesc = "Python SVG scrubber"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/scour-project/scour"
-source = f"$(PYPI_SITE)/s/scour/scour-{pkgver}.tar.gz"
-sha256 = "6881ec26660c130c5ecd996ac6f6b03939dd574198f50773f2508b81a68e0daf"
-# no tests in pypi
-options = ["!check"]
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "26166de53d9da3eccc52570bf8c2853e60efefd9e90e26fdfc7124fe0bd873af"
