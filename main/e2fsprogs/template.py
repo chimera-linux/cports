@@ -30,30 +30,18 @@ makedepends = [
     "linux-headers",
     "udev-devel",
 ]
-checkdepends = ["perl", "bzip2"]
+checkdepends = ["bzip2", "perl"]
 pkgdesc = "Ext2/3/4 file system utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
-url = "http://e2fsprogs.sourceforge.net"
-source = f"$(KERNEL_SITE)/kernel/people/tytso/{pkgname}/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+url = "https://e2fsprogs.sourceforge.net"
+source = f"$(KERNEL_SITE)/kernel/people/tytso/e2fsprogs/v{pkgver}/e2fsprogs-{pkgver}.tar.xz"
 sha256 = "5a33dc047fd47284bca4bb10c13cfe7896377ae3d01cb81a05d406025d99e0d1"
-# test suite hangs on tr, killing it makes it continue? FIXME
-options = ["!check"]
 
 
 def post_patch(self):
-    # failing tests
-    for test in [
-        "f_boundscheck",
-        "f_del_dup_quota",
-        "f_super_bad_csum",
-        "j_recover_csum2_32bit",
-        "j_recover_csum2_64bit",
-        "j_recover_csum3_64bit",
-        "j_recover_fast_commit",
-        "m_offset",
-    ]:
-        self.rm(f"tests/{test}", recursive=True)
+    # FIXME: fails
+    self.rm("tests/m_offset", recursive=True)
 
 
 def init_configure(self):
