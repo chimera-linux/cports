@@ -12,7 +12,7 @@ configure_args = [
 ]
 configure_gen = []
 hostmakedepends = ["pkgconf"]
-makedepends = ["libedit-devel", "zlib-devel"]
+makedepends = ["libedit-devel", "zlib-ng-compat-devel"]
 pkgdesc = "SQL Database Engine in a C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "blessing"

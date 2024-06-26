@@ -27,7 +27,7 @@ makedepends = [
     "openexr-devel",
     "orc-devel",
     "pango-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast image processing library"
 maintainer = "psykose <alice@ayaya.dev>"

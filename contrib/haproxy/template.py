@@ -34,7 +34,7 @@ makedepends = [
     "lua5.4-devel",
     "openssl-devel",
     "pcre2-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "TCP/HTTP reverse proxy for high availability environments"
 maintainer = "ttyyls <contact@behri.org>"

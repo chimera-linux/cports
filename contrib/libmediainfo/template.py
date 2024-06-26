@@ -5,7 +5,7 @@ build_wrksrc = "Project/CMake"
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
-makedepends = ["libcurl-devel", "libzen-devel", "libmms-devel", "zlib-devel"]
+makedepends = ["libcurl-devel", "libzen-devel", "libmms-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Shared library for mediainfo"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"

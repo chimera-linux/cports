@@ -45,7 +45,7 @@ makedepends = [
     "python-devel",
     "slang-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Linux performance analyzer"

@@ -39,7 +39,7 @@ hostmakedepends = [
     "llvm-devel",
     "clang-tools-extra",
 ]
-makedepends = ["zlib-devel", "libffi-devel"]
+makedepends = ["zlib-ng-compat-devel", "libffi-devel"]
 depends = []
 pkgdesc = "Core cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"

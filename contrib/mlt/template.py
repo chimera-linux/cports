@@ -43,7 +43,7 @@ makedepends = [
     "qt6-qtbase-devel",
     "qt6-qtsvg-devel",
     "sdl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Multimedia framework for video editors"
 maintainer = "psykose <alice@ayaya.dev>"

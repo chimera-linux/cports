@@ -19,7 +19,7 @@ make_install_args = [
 ]
 make_use_env = True
 hostmakedepends = ["gmake", "pkgconf"]
-makedepends = ["zlib-devel", "libkmod-devel", "linux-headers"]
+makedepends = ["zlib-ng-compat-devel", "libkmod-devel", "linux-headers"]
 depends = ["hwdata-pci"]
 pkgdesc = "PCI bus utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

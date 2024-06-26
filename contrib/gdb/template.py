@@ -25,7 +25,7 @@ makedepends = [
     "ncurses-devel",
     "python-devel",
     "readline-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 depends = [f"gdb-common={pkgver}-r{pkgrel}"]

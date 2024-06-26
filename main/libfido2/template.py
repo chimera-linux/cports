@@ -17,7 +17,7 @@ makedepends = [
     "linux-headers",
     "openssl-devel",
     "udev-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library and tools for FIDO devices over USB or NFC"
 maintainer = "Val Packett <val@packett.cool>"

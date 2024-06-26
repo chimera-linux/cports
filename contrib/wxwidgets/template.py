@@ -39,7 +39,7 @@ makedepends = [
     "mesa-devel",
     "pcre2-devel",
     "sdl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "WXwidgets GUI toolkit"
 maintainer = "psykose <alice@ayaya.dev>"

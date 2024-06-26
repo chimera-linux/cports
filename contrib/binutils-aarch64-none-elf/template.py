@@ -30,7 +30,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "flex", "texinfo"]
-makedepends = ["zlib-devel"]
+makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "GNU binutils for AArch64 bare metal targets"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

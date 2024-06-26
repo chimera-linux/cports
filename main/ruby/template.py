@@ -25,7 +25,7 @@ makedepends = [
     "libffi-devel",
     "libyaml-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Ruby scripting language"
 maintainer = "q66 <q66@chimera-linux.org>"

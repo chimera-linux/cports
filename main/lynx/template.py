@@ -17,7 +17,7 @@ makedepends = [
     "libidn2-devel",
     "ncurses-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Text web browser"
 maintainer = "q66 <q66@chimera-linux.org>"

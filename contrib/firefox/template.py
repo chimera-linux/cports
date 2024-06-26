@@ -48,7 +48,7 @@ makedepends = [
     "pipewire-jack-devel",
     "pixman-devel",
     "rust-std",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [
     "libavcodec",

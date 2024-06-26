@@ -29,7 +29,7 @@ makedepends = [
     "libxml2-devel",
     "linux-headers",
     "llvm-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [
     f"python-bcc={pkgver}-r{pkgrel}",

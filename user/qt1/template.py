@@ -22,7 +22,7 @@ makedepends = [
     "libxext-devel",
     "libxmu-devel",
     "mesa-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Qt 1.x"
 maintainer = "q66 <q66@chimera-linux.org>"

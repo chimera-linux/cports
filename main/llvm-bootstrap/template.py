@@ -47,7 +47,7 @@ configure_args = [
     "-DLLVM_ENABLE_RUNTIMES=compiler-rt;libcxx;libcxxabi;libunwind",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python"]
-makedepends = ["zlib-devel", "libatomic-chimera-devel", "linux-headers"]
+makedepends = ["zlib-ng-compat-devel", "libatomic-chimera-devel", "linux-headers"]
 depends = ["fortify-headers", "libatomic-chimera-devel"]
 pkgdesc = "Low Level Virtual Machine (bootstrap)"
 maintainer = "q66 <q66@chimera-linux.org>"

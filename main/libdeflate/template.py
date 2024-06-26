@@ -13,7 +13,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for DEFLATE/zlib/gzip compression and decompression"
 maintainer = "psykose <alice@ayaya.dev>"

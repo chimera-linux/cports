@@ -50,7 +50,7 @@ makedepends = [
     "openssl-devel",
     "sqlite-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["ca-certificates"]
 depends = [f"base-python{_majver}={pkgver}-r{pkgrel}", "ca-certificates"]

@@ -11,7 +11,7 @@ makedepends = [
     "libevent-devel",
     "libxml2-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["cppunit-devel"]
 pkgdesc = "HTTP/2 C Library"

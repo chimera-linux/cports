@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 # TODO: libjte (if it's actually worth it)
-makedepends = ["acl-devel", "zlib-devel"]
+makedepends = ["acl-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Library to create ISO 9660 images"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"

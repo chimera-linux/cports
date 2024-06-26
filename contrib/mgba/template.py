@@ -20,7 +20,7 @@ makedepends = [
     # next release: qt6
     "sdl-devel",
     "sqlite-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "GBA emulator"
 maintainer = "Erica Z <zerica@callcc.eu>"

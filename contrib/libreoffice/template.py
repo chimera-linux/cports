@@ -155,7 +155,7 @@ makedepends = [
     "sane-backends-devel",
     "unixodbc-devel",
     "xmlsec1-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zxing-cpp-devel",
 ]
 pkgdesc = "Free office suite"

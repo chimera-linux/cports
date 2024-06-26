@@ -8,7 +8,7 @@ makedepends = [
     "libucontext-devel",
     "linux-headers",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Cap'n Proto serialization/RPC system"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"

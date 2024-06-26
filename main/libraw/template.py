@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = [
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "jasper-devel",
     "libjpeg-turbo-devel",
     "lcms2-devel",

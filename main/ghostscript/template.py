@@ -40,7 +40,7 @@ makedepends = [
     "libxt-devel",
     "libpaper-devel",
     "ijs-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "PostScript and PDF language interpreter"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -23,7 +23,7 @@ makedepends = [
     "p11-kit-devel",
     "trousers-devel",
     "unbound-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 # dlopened
 depends = ["libtspi"]

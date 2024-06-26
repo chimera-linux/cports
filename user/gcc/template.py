@@ -75,7 +75,7 @@ makedepends = [
     "libunwind-devel-static",
     "mpfr-devel",
     "mpc-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [
     f"binutils-{self.profile().arch}",

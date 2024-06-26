@@ -25,7 +25,7 @@ makedepends = [
     "libffi-devel",
     "libmount-devel",
     "pcre2-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = [
     "dbus",

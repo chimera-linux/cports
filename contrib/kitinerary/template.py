@@ -23,7 +23,7 @@ makedepends = [
     "openssl-devel",
     "qt6-qtdeclarative-devel",
     "shared-mime-info",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zxing-cpp-devel",
 ]
 pkgdesc = "KDE travel reservation parsing library"

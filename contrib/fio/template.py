@@ -17,7 +17,7 @@ makedepends = [
     "libaio-devel",
     "libnuma-devel",
     "linux-headers",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Flexible I/O tester"
 maintainer = "psykose <alice@ayaya.dev>"

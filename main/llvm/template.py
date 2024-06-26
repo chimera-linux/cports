@@ -36,8 +36,8 @@ configure_args = [
     "-DLIBUNWIND_USE_COMPILER_RT=YES",
     "-DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF",
 ]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel"]
-makedepends = ["zlib-devel", "libatomic-chimera-devel"]
+hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python", "zlib-ng-compat-devel"]
+makedepends = ["zlib-ng-compat-devel", "libatomic-chimera-devel"]
 depends = [
     f"llvm-libs={pkgver}-r{pkgrel}",
     f"llvm-binutils={pkgver}-r{pkgrel}",

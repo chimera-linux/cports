@@ -8,7 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Open source search engine library"
 maintainer = "psykose <alice@ayaya.dev>"

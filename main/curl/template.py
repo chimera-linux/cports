@@ -30,7 +30,7 @@ makedepends = [
     "nghttp2-devel",
     "nghttp3-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 checkdepends = [

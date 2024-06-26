@@ -40,7 +40,7 @@ makedepends = [
     "python-devel",
     "readline-devel",
     "tcl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 depends = ["postgresql-common", "tzdata"]

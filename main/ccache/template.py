@@ -12,7 +12,7 @@ makedepends = [
     "fmt-devel",
     "xxhash-devel",
     "zstd-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["bash"]
 pkgdesc = "Fast C/C++ compiler cache"

@@ -19,7 +19,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "glib-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "gsettings-desktop-schemas-devel",
     "duktape-devel",
 ]

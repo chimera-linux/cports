@@ -10,7 +10,7 @@ hostmakedepends = [
 makedepends = [
     "libsasl-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["perl"]
 pkgdesc = "IMAP and MailDir mailbox synchronizer"

@@ -19,7 +19,7 @@ makedepends = [
     "kservice-devel",
     "protobuf-devel",
     "qt6-qtdeclarative-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "KDE OSM multi-floor renderer"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"

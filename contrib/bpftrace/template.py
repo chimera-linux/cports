@@ -25,7 +25,7 @@ makedepends = [
     "linux-headers",
     "lldb-devel",
     "llvm-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "High-level eBPF tracing language"
 maintainer = "psykose <alice@ayaya.dev>"

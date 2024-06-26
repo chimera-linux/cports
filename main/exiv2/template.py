@@ -13,7 +13,7 @@ makedepends = [
     "gtest-devel",
     "inih-devel",
     "libexpat-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Image metadata manipulation"
 maintainer = "q66 <q66@chimera-linux.org>"

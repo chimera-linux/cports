@@ -18,7 +18,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-devel",
     "xfconf-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = ["lscpu"]
 pkgdesc = "Neofetch-like system information fetching tool"

@@ -127,7 +127,7 @@ makedepends = [
     "sqlite-devel",
     "udev-devel",
     "xcbproto",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [
     "hwdata-usb",

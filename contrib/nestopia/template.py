@@ -11,7 +11,7 @@ makedepends = [
     "libpng-devel",
     "libxft-devel",
     "sdl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "NES/Famicom emulator"
 maintainer = "Erica Z <zerica@callcc.eu>"

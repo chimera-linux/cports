@@ -35,7 +35,7 @@ makedepends = [
     "jansson-devel",
     "linux-headers",
     "llvm-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 # binutils is a metapackage pointing to the current target binutils

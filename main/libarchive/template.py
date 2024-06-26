@@ -19,7 +19,7 @@ makedepends = [
     "lz4-devel",
     "xz-devel",
     "musl-bsd-headers",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library to read/write several different streaming archive formats"
 maintainer = "q66 <q66@chimera-linux.org>"

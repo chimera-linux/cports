@@ -41,7 +41,7 @@ makedepends = [
     "pugixml-devel",
     "python-pybind11-devel",
     "qt6-qtbase-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Shading language library for renderers"
 maintainer = "psykose <alice@ayaya.dev>"

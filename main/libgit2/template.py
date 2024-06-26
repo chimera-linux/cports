@@ -21,7 +21,7 @@ makedepends = [
     "libssh2-devel",
     "openssl-devel",
     "pcre2-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Linkable library for using git"
 maintainer = "aurelia <git@elia.garden>"

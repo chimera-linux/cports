@@ -35,7 +35,7 @@ makedepends = [
     "libldns-devel",
     "linux-pam-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "OpenSSH free Secure Shell (SSH) client and server implementation"
 maintainer = "q66 <q66@chimera-linux.org>"

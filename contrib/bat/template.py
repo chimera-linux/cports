@@ -7,7 +7,7 @@ makedepends = [
     "rust-std",
     "oniguruma-devel",
     "libgit2-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["bash"]
 pkgdesc = "Cat clone with wings"

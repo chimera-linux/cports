@@ -42,7 +42,7 @@ hostmakedepends = [
     "linux-headers",
     "openssl",
     "pkgconf",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zip",
 ]
 makedepends = [

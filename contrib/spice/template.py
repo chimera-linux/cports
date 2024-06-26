@@ -16,7 +16,7 @@ makedepends = [
     "spice-protocol",
     "pixman-devel",
     "libjpeg-turbo-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "libsasl-devel",
     "libcacard-devel",
     "opus-devel",

@@ -20,7 +20,7 @@ makedepends = [
     "colord-devel",
     "libwebp-devel",
     "sane-backends-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = ["sane-backends"]
 pkgdesc = "GNOME scanning utility"

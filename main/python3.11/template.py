@@ -47,7 +47,7 @@ makedepends = [
     "openssl-devel",
     "sqlite-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["ca-certificates"]
 depends = ["ca-certificates"]

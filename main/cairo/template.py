@@ -19,7 +19,7 @@ makedepends = [
     "libxext-devel",
     "libxrender-devel",
     "lzo-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "pixman-devel",
 ]
 checkdepends = ["ghostscript", "libpoppler-devel", "librsvg-devel"]

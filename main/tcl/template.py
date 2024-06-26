@@ -13,7 +13,7 @@ configure_args = [
     "tcl_cv_strtoul_unbroken=ok",
 ]
 hostmakedepends = ["automake", "pkgconf"]
-makedepends = ["zlib-devel", "sqlite-devel"]
+makedepends = ["zlib-ng-compat-devel", "sqlite-devel"]
 provides = ["so:libtcl8.6.so=0"]
 pkgdesc = "TCL scripting language"
 maintainer = "q66 <q66@chimera-linux.org>"

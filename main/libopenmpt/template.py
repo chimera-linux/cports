@@ -17,7 +17,7 @@ makedepends = [
     "libpulse-devel",
     "libsndfile-devel",
     "mpg123-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for rendering tracker music to PCM"
 maintainer = "psykose <alice@ayaya.dev>"

@@ -6,7 +6,7 @@ makedepends = [
     "musl-bsd-headers",
     "ncurses-devel",
     "sqlite-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Text-based user interface for Fossil"
 maintainer = "Erica Z <zerica@callcc.eu>"

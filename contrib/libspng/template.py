@@ -3,7 +3,7 @@ pkgver = "0.7.4"
 pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["zlib-devel"]
+makedepends = ["zlib-ng-compat-devel"]
 provides = [f"spng={pkgver}-r{pkgrel}"]
 replaces = ["spng<0.7.5"]
 pkgdesc = "Simple PNG library"

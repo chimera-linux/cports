@@ -21,7 +21,7 @@ makedepends = [
     "openssl-devel",
     "libproxy-devel",
     "libexpat-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = ["ca-certificates"]
 pkgdesc = "HTTP and WebDAV client library"

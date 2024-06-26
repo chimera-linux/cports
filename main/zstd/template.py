@@ -13,7 +13,7 @@ configure_args = [
 make_dir = "mbuild"
 meson_dir = "build/meson"
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["lz4-devel", "xz-devel", "zlib-devel"]
+makedepends = ["lz4-devel", "xz-devel", "zlib-ng-compat-devel"]
 provides = [f"libzstd={pkgver}-r{pkgrel}"]
 pkgdesc = "Zstd compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

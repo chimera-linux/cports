@@ -15,7 +15,7 @@ makedepends = [
     "cmocka-devel",
     "heimdal-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for accessing ssh client services through C libraries"
 maintainer = "psykose <alice@ayaya.dev>"

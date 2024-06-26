@@ -41,7 +41,7 @@ makedepends = [
     "udev-devel",
     "vulkan-loader-devel",
     "wayland-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 depends = ["virtual:cmd:gst-play-1.0!gst-plugins-base"]

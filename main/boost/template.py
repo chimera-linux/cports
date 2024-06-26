@@ -8,7 +8,7 @@ makedepends = [
     "linux-headers",
     "python-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 provides = [f"boost{pkgver[:-2]}={pkgver}-r{pkgrel}"]

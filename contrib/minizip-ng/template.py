@@ -8,7 +8,7 @@ makedepends = [
     "bzip2-devel",
     "openssl-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Fork of the popular zip manipulation library"

@@ -29,7 +29,7 @@ makedepends = [
     "python-devel",
     "python-pybind11-devel",
     "yaml-cpp-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Color management framework"
 maintainer = "Erica Z <zerica@callcc.eu>"

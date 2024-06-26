@@ -8,7 +8,7 @@ configure_args = [
     "-Dprotobuf_ABSL_PROVIDER=package",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["zlib-devel", "gtest-devel", "abseil-cpp-devel"]
+makedepends = ["zlib-ng-compat-devel", "gtest-devel", "abseil-cpp-devel"]
 pkgdesc = "Protocol buffers library"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause"

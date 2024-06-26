@@ -58,7 +58,7 @@ makedepends = [
     "libwebp-devel",
     "openexr-devel",
     "openjpeg-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "bzip2-devel",
     "zstd-devel",
     "graphviz-devel",

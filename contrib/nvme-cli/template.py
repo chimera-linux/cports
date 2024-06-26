@@ -12,7 +12,7 @@ makedepends = [
     "libnvme-devel",
     "libuuid-devel",
     "linux-headers",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "NVMe management command line interface"
 maintainer = "psykose <alice@ayaya.dev>"

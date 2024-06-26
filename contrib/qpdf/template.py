@@ -15,7 +15,7 @@ hostmakedepends = [
 makedepends = [
     "libjpeg-turbo-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["perl"]
 pkgdesc = "Command-line tool and C++ library for PDF files"

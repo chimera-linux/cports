@@ -16,7 +16,7 @@ make_check_args = make_build_args + [
     "--skip=modules::directory::tests::truncated_directory_config_large",
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["rust-std", "zlib-devel"]
+makedepends = ["rust-std", "zlib-ng-compat-devel"]
 checkdepends = ["git"]
 pkgdesc = "Cross-shell prompt"
 maintainer = "ttyyls <contact@behri.org>"

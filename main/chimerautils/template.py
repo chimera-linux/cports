@@ -12,7 +12,7 @@ makedepends = [
     "musl-fts-devel",
     "musl-rpmatch-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "bzip2-devel",
     "libxo-devel",
     "musl-bsd-headers",

@@ -7,7 +7,7 @@ configure_args = [
     "-DBUILD_TESTING=ON",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["cppunit-devel", "utfcpp", "zlib-devel"]
+makedepends = ["cppunit-devel", "utfcpp", "zlib-ng-compat-devel"]
 pkgdesc = "Library for accessing ID tags in various media files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
@@ -19,6 +19,6 @@ hardening = ["!cfi"]  # TODO
 
 @subpackage("taglib-devel")
 def _devel(self):
-    self.depends += ["zlib-devel"]
+    self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()

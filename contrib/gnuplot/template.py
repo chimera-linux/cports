@@ -31,7 +31,7 @@ makedepends = [
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
     "wxwidgets-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [f"gnuplot-common={pkgver}-r{pkgrel}"]
 pkgdesc = "Command-line-driven graphing utility"

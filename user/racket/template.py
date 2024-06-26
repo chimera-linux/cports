@@ -11,7 +11,7 @@ makedepends = [
     "libffi-devel",
     "lz4-devel",
     "ncurses-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Language-oriented programming language"
 maintainer = "Erica Z <zerica@callcc.eu>"

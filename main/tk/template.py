@@ -13,7 +13,7 @@ configure_args = [
 ]
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "tcl-devel",
     "libxext-devel",
     "libxscrnsaver-devel",

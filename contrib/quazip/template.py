@@ -14,7 +14,7 @@ hostmakedepends = [
 makedepends = [
     "qt6-qtbase-devel",
     "qt6-qt5compat-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Qt wrapper for minizip"
 maintainer = "psykose <alice@ayaya.dev>"

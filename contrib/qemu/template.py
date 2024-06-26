@@ -93,7 +93,7 @@ makedepends = [
     "usbredir-devel",
     "virglrenderer-devel",
     "vte-gtk3-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Generic machine emulator and virtualizer"

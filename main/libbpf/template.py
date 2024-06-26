@@ -12,7 +12,7 @@ hostmakedepends = [
 makedepends = [
     "elfutils-devel",
     "linux-headers",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Linux BPF userspace library"
 maintainer = "psykose <alice@ayaya.dev>"

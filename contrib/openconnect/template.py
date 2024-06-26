@@ -23,7 +23,7 @@ makedepends = [
     "pcsc-lite-devel",
     "tpm2-tss-devel",
     "trousers-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["bash"]
 depends = ["vpnc-scripts"]

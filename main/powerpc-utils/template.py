@@ -12,7 +12,7 @@ configure_gen = ["./autogen.sh"]
 hostmakedepends = ["automake", "libtool"]
 makedepends = [
     "librtas-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "libnuma-devel",
     "linux-headers",
 ]

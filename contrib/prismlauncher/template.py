@@ -18,7 +18,7 @@ makedepends = [
     "qt6-qtbase-devel",
     "qt6-qtsvg-devel",
     "quazip-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Minecraft launcher with multiple instances support"
 maintainer = "aurelia <git@elia.garden>"

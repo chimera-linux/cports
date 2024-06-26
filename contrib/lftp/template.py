@@ -20,7 +20,7 @@ makedepends = [
     "ncurses-devel",
     "openssl-devel",
     "readline-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "FTP/HTTP client"
 maintainer = "shtayerc <david.murko@mailbox.org>"

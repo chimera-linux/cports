@@ -62,7 +62,7 @@ makedepends = [
     "poppler-data",
     "webkitgtk-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [
     "iso-codes",

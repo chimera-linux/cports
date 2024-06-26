@@ -7,7 +7,7 @@ configure_args = ["--parallelmake", "--prefix=/usr"]
 make_cmd = "gmake"
 make_check_target = "tests"
 hostmakedepends = ["bash", "gmake"]
-makedepends = ["libffi-devel", "zlib-devel"]
+makedepends = ["libffi-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Data munging language"
 maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:txr"

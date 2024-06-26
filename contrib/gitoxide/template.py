@@ -13,7 +13,7 @@ makedepends = [
     "libcurl-devel",
     "rust-std",
     "sqlite-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Rust implementation of Git"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"

@@ -24,7 +24,7 @@ hostmakedepends = [
     "python-jinja2",
 ]
 makedepends = [
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "icu-devel",
     "openssl-devel",
     "libuv-devel",

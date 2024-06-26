@@ -7,9 +7,9 @@ configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
 hostmakedepends = ["pkgconf", "meson", "lua5.4", "lua5.4-zlib", "scdoc"]
 makedepends = [
     "openssl-devel-static",
-    "zlib-devel-static",
-    "libunwind-devel-static",
     "libatomic-chimera-devel-static",
+    "libunwind-devel-static",
+    "zlib-ng-compat-devel-static",
 ]
 pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -18,7 +18,7 @@ makedepends = [
     "freetype-bootstrap",
     "harfbuzz-devel",
     "libpng-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Font rendering engine"
 maintainer = "q66 <q66@chimera-linux.org>"

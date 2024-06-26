@@ -113,6 +113,6 @@ def _libs(self):
 
 @subpackage("cups-devel")
 def _devel(self):
-    self.depends += ["zlib-devel"]
+    self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()

@@ -12,7 +12,7 @@ hostmakedepends = ["gmake", "pkgconf"]
 checkdepends = [
     "perl",
     "sqlite-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "OpenResty's LuaJIT fork"
 maintainer = "q66 <q66@chimera-linux.org>"

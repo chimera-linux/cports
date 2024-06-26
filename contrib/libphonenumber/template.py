@@ -19,7 +19,7 @@ makedepends = [
     "gtest-devel",
     "icu-devel",
     "protobuf-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for parsing, formatting, and validating phone numbers"
 maintainer = "psykose <alice@ayaya.dev>"

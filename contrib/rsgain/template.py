@@ -14,7 +14,7 @@ makedepends = [
     "inih-devel",
     "libebur128-devel",
     "taglib-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "ReplayGain 2.0 tagging utility"
 maintainer = "psykose <alice@ayaya.dev>"

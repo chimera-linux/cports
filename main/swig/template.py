@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 # broken
 configure_gen = []
 hostmakedepends = ["byacc"]
-makedepends = ["zlib-devel", "pcre2-devel"]
+makedepends = ["zlib-ng-compat-devel", "pcre2-devel"]
 pkgdesc = "Simplified Wrapper and Interface Generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

@@ -44,7 +44,7 @@ makedepends = [
     "libxml2-devel",
     "openssl-devel",
     "sqlite-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Multi-protocol download utility"
 maintainer = "nullobsi <nullobsi@unix.dog>"

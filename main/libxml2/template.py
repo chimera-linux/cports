@@ -24,7 +24,7 @@ makedepends = [
     "ncurses-devel",
     "python-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "XML parsing library"
 maintainer = "q66 <q66@chimera-linux.org>"

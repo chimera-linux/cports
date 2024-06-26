@@ -8,7 +8,7 @@ makedepends = [
     "gtest-devel",
     "ocl-icd-devel",
     "protobuf-c-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "UCI chess engine designed to play via neural network"
 maintainer = "shtayerc <david.murko@mailbox.org>"

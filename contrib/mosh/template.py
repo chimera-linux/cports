@@ -16,7 +16,7 @@ makedepends = [
     "protobuf-devel",
     "ncurses-devel",
     "openssl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = ["perl"]
 pkgdesc = "Mobile shell"

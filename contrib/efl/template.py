@@ -60,7 +60,7 @@ makedepends = [
     "xcb-util-renderutil-devel",
     "xorgproto",
     "lz4-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "fontconfig-devel",
     "fribidi-devel",
     "harfbuzz-devel",

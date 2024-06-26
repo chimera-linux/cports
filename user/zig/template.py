@@ -17,7 +17,7 @@ makedepends = [
     "lld-devel",
     "llvm-devel",
     "ncurses-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Zig programming language toolchain"

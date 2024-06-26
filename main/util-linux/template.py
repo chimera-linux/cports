@@ -55,7 +55,7 @@ makedepends = [
     "linux-headers",
     "linux-pam-devel",
     "ncurses-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["xz", "iproute2", "socat", "procps"]
 depends = [f"util-linux-common={pkgver}-r{pkgrel}"]

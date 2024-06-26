@@ -19,7 +19,7 @@ makedepends = [
     "libpng-devel",
     "openssl-devel",
     "lzo-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "VNC client/server libraries"
 maintainer = "psykose <alice@ayaya.dev>"

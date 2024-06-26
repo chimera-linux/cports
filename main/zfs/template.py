@@ -24,7 +24,7 @@ makedepends = [
     "attr-devel",
     "openssl-devel",
     "udev-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "linux-headers",
 ]
 pkgdesc = "OpenZFS for Linux"

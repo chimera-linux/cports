@@ -21,7 +21,7 @@ makedepends = [
     "libidn2-devel",
     "glib-devel",
     "gpgme-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "C/C++ MIME creation and parser library"
 maintainer = "psykose <alice@ayaya.dev>"

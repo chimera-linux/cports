@@ -16,7 +16,7 @@ makedepends = [
     "libusb-devel",
     "pcsc-lite-devel",
     "udev-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "PC/SC driver to support CCID compliant readers"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"

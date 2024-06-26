@@ -23,7 +23,7 @@ makedepends = [
     "openssl-devel",
     "sdl-devel",
     "pcre2-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Beautiful gemini client"
 maintainer = "psykose <alice@ayaya.dev>"

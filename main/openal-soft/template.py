@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = ["-DALSOFT_EXAMPLES=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "libpulse-devel",
     "pipewire-devel",
     "pipewire-jack-devel",

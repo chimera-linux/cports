@@ -37,7 +37,7 @@ makedepends = [
     "linux-headers",
     "musl-devel-static",
     "pcre2-devel-static",
-    "zlib-devel-static",
+    "zlib-ng-compat-devel-static",
 ]
 pkgdesc = "QEMU user mode emulators"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -128,7 +128,7 @@ def _baseloc(self):
         "linux-headers",
         "elfutils-devel",
         "openssl-devel",
-        "zlib-devel",
+        "zlib-ng-compat-devel",
     ]
 
     return ["usr/bin/chimera-buildkernel", "usr/bin/chimera-stripko"]

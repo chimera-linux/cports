@@ -5,7 +5,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DLIBRARY_TYPE=SHARED"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["zlib-devel", "libpulse-devel"]
+makedepends = ["zlib-ng-compat-devel", "libpulse-devel"]
 pkgdesc = "VGM playback library"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "custom:libvgm"

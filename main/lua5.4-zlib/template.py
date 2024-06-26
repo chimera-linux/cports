@@ -5,7 +5,7 @@ build_style = "makefile"
 make_build_target = "linux"
 make_build_args = ["LUA_VER=5.4"]
 hostmakedepends = ["pkgconf"]
-makedepends = ["lua5.4-devel", "zlib-devel"]
+makedepends = ["lua5.4-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Zlib streaming interface for Lua 5.4"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

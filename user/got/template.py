@@ -22,7 +22,7 @@ makedepends = [
     "linux-headers",
     "musl-devel",
     "ncurses-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["git"]
 pkgdesc = "VCS prioritizing simplicity over flexibily"

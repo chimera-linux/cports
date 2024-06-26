@@ -30,7 +30,7 @@ makedepends = [
     "musl-obstack-devel",
     "sqlite-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 checkdepends = ["bash"]

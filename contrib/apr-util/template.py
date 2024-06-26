@@ -19,7 +19,7 @@ makedepends = [
     "openssl-devel",
     "sqlite-devel",
     "unixodbc-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Apache Portable Runtime utility library"
 maintainer = "q66 <q66@chimera-linux.org>"

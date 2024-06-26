@@ -14,7 +14,7 @@ makedepends = [
     "networkmanager-qt-devel",
     "protobuf-devel",
     "qt6-qtdeclarative-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "KDE library for accessing public transport information"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
@@ -28,5 +28,5 @@ sha256 = "4707090df6a5a7bf342b484dbc07bcf627e60f8f67a0d8009cb2df695a91a1b6"
 
 @subpackage("kpublictransport-devel")
 def _devel(self):
-    self.depends += ["qt6-qtbase-devel", "zlib-devel"]
+    self.depends += ["qt6-qtbase-devel", "zlib-ng-compat-devel"]
     return self.default_devel()

@@ -59,7 +59,7 @@ makedepends = [
     "libxml2-devel",
     "lua5.4-devel",
     "ncurses-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
     # video accel
     "libva-bootstrap",

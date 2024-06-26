@@ -21,7 +21,7 @@ makedepends = [
     "libxml2-devel",
     "linux-headers",
     "sdl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Free Unix Spectrum Emulator"
 maintainer = "q66 <q66@chimera-linux.org>"

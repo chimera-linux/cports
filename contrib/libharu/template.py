@@ -8,7 +8,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libpng-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "C library for generating pdfs"
 maintainer = "psykose <alice@ayaya.dev>"

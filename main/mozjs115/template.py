@@ -16,7 +16,7 @@ makedepends = [
     "icu-devel",
     "libffi-devel",
     "nspr-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "libedit-devel",
     "rust-std",
     "linux-headers",

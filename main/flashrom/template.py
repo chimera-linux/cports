@@ -9,7 +9,7 @@ makedepends = [
     "libusb-devel",
     "linux-headers",
     "pciutils-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["cmocka-devel"]
 pkgdesc = "Utility for flashing ROM chips"

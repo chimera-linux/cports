@@ -11,7 +11,7 @@ makedepends = [
     "blake3-devel",
     "linux-headers",
     "onetbb-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 depends = ["binutils-common"]

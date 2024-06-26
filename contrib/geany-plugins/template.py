@@ -26,7 +26,7 @@ makedepends = [
     "lua5.1-devel",
     "vte-gtk3-devel",
     "webkitgtk-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [f"geany~{pkgver}"]
 pkgdesc = "Geany IDE plugins"

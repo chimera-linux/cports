@@ -13,7 +13,7 @@ makedepends = [
     "bzip2-devel",
     "libedit-devel",
     "linux-headers",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "ISO 9660 Rock Ridge Filesystem Manipulator"
 maintainer = "q66 <q66@chimera-linux.org>"

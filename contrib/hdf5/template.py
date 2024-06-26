@@ -25,7 +25,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libaec-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "HDF5 data model library"
 maintainer = "psykose <alice@ayaya.dev>"

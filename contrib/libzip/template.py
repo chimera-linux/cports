@@ -18,7 +18,7 @@ makedepends = [
     "bzip2-devel",
     "xz-devel",
     "zstd-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["nihtest"]
 pkgdesc = "C library for manipulating zip archives"

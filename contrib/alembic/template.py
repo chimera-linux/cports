@@ -13,7 +13,7 @@ makedepends = [
     "boost-devel",
     "hdf5-devel",
     "openexr-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Computer graphics interchange framework"
 maintainer = "psykose <alice@ayaya.dev>"

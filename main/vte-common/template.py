@@ -29,7 +29,7 @@ makedepends = [
     "fribidi-devel",
     "icu-devel",
     "lz4-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "linux-headers",
 ]
 pkgdesc = "Gtk terminal widget (common files)"

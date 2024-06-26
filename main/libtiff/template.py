@@ -17,7 +17,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "xz-devel",
     "zstd-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library and tools for reading and writing TIFF data files"
 maintainer = "q66 <q66@chimera-linux.org>"

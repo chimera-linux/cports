@@ -10,7 +10,7 @@ makedepends = [
     "libxml2-devel",
     "libxslt-devel",
     "icu-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "xz-devel",
 ]
 pkgdesc = "Raptor RDF syntax library"

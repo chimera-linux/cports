@@ -15,7 +15,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "minizip-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Open asset importing library"
 maintainer = "psykose <alice@ayaya.dev>"
@@ -36,7 +36,7 @@ def post_install(self):
 
 @subpackage("assimp-devel")
 def _devel(self):
-    self.depends += ["minizip-devel", "zlib-devel"]
+    self.depends += ["minizip-devel", "zlib-ng-compat-devel"]
     return self.default_devel()
 
 

@@ -64,7 +64,7 @@ makedepends = [
     "xcb-util-keysyms-devel",
     "xcb-util-renderutil-devel",
     "xcb-util-wm-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 depends = ["shared-mime-info"]

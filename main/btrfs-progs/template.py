@@ -29,7 +29,7 @@ makedepends = [
     "lzo-devel",
     "udev-devel",
     "python-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 checkdepends = ["xz"]

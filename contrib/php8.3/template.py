@@ -112,7 +112,7 @@ makedepends = [
     "openssl-devel",
     "sqlite-devel",
     "unixodbc-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["procps"]
 depends = ["php-common"]

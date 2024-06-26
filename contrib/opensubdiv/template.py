@@ -26,7 +26,7 @@ makedepends = [
     "mesa-devel",
     "ocl-icd-devel",
     "onetbb-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Surface subdivision library"
 maintainer = "psykose <alice@ayaya.dev>"

@@ -5,7 +5,7 @@ build_style = "cmake"
 # TODO cunit
 configure_args = ["-DBUILD_TESTS=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["zlib-devel"]
+makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Reader for AES SOFA files to get better HRTFs"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

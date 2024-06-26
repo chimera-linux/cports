@@ -23,7 +23,7 @@ makedepends = [
     "nghttp2-devel",
     "pcre2-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 provides = [f"wget={pkgver}-r{pkgrel}"]

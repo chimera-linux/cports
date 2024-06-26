@@ -136,7 +136,7 @@ makedepends = [
     "x265-devel",
     "xvidcore-devel",
     "zimg-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [f"ffplay={pkgver}-r{pkgrel}"]
 pkgdesc = "Decoding, encoding and streaming software"

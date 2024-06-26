@@ -9,7 +9,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]
-makedepends = ["libarchive-devel", "openssl-devel", "zlib-devel"]
+makedepends = ["libarchive-devel", "openssl-devel", "zlib-ng-compat-devel"]
 depends = ["ca-certificates"]
 checkdepends = ["kyua", "atf-devel"]
 pkgdesc = "XBPS package manager"

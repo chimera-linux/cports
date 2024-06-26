@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = ["-DPTEX_BUILD_STATIC_LIBS=OFF"]
 make_check_args = ["-j1"]
 hostmakedepends = ["cmake", "ninja", "doxygen", "pkgconf"]
-makedepends = ["zlib-devel"]
+makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Texture mapping library"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"

@@ -11,7 +11,7 @@ hostmakedepends = [
     "libffi-devel",
     "ncurses-devel",
     "libxml2-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
     "cargo-bootstrap",
     "wasi-libc",
@@ -20,7 +20,7 @@ makedepends = [
     "libffi-devel",
     "ncurses-devel",
     "libxml2-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
     "llvm-devel",
 ]

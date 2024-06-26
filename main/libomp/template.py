@@ -10,7 +10,7 @@ hostmakedepends = ["cmake", "ninja", "python", "perl", "clang-tools-extra"]
 makedepends = [
     "llvm-devel",
     "libffi-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "ncurses-devel",
     "linux-headers",
 ]

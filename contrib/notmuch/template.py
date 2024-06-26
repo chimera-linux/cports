@@ -14,7 +14,7 @@ makedepends = [
     "gmime-devel",
     "talloc-devel",
     "xapian-core-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast, global-search, tag-based email system"
 maintainer = "psykose <alice@ayaya.dev>"

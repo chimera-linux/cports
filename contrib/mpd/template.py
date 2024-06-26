@@ -141,7 +141,7 @@ makedepends = [
     "twolame-devel",
     "wavpack-devel",
     "yajl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Music player daemon"
 maintainer = "nullobsi <nullobsi@unix.dog>"

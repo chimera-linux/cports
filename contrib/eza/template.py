@@ -6,7 +6,7 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
     "rust-std",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Directory listing utility"
 maintainer = "psykose <alice@ayaya.dev>"

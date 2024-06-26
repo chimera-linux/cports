@@ -8,7 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for reading ID3 metadata tags from MP3 files"
 maintainer = "psykose <alice@ayaya.dev>"

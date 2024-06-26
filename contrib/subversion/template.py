@@ -42,7 +42,7 @@ makedepends = [
     "serf-devel",
     "sqlite-devel",
     "utf8proc-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Centralized version control system"
 maintainer = "q66 <q66@chimera-linux.org>"

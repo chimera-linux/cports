@@ -17,7 +17,7 @@ makedepends = [
     "libbpf-devel",
     "linux-headers",
     "musl-obstack-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Debug information utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

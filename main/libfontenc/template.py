@@ -6,7 +6,7 @@ configure_args = ["--with-encodingsdir=/usr/share/fonts/encodings"]
 # cycle with mkfontscale
 configure_gen = []
 hostmakedepends = ["pkgconf"]
-makedepends = ["xorgproto", "zlib-devel"]
+makedepends = ["xorgproto", "zlib-ng-compat-devel"]
 pkgdesc = "Fontenc Library from X.org"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

@@ -12,7 +12,7 @@ makedepends = [
     "lz4-devel",
     "lzo-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Set of tools and libraries for working with SquashFS images"

@@ -16,7 +16,7 @@ makedepends = [
     "sdl-devel",
     "sdl_net-devel",
     "speexdsp-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Modern continuation of DOSBox"
 maintainer = "miko <mikoxyzzz@gmail.com>"

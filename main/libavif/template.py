@@ -19,7 +19,7 @@ makedepends = [
     "libaom-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for encoding and decoding .avif files"
 maintainer = "q66 <q66@chimera-linux.org>"

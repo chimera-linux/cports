@@ -20,7 +20,7 @@ makedepends = [
     "lz4-devel",
     "udev-devel",
     "userspace-rcu-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Bcachefs utilities"

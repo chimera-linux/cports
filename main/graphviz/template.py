@@ -30,7 +30,7 @@ makedepends = [
     "libpng-devel",
     "libwebp-devel",
     "pango-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["fonts-liberation-otf"]
 depends = ["fonts-liberation"]

@@ -39,7 +39,7 @@ makedepends = [
     # pyhton plugin
     "python-devel",
     # relay plugin
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     # ruby plugin
     "ruby-devel",
     # spell plugin

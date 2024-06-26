@@ -41,7 +41,7 @@ hostmakedepends = [
     "clang-tools-extra",
 ]
 makedepends = [
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "libffi-devel",
     "clang-rt-crt-cross",
     "libcxx-cross",

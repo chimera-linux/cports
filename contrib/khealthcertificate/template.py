@@ -15,7 +15,7 @@ makedepends = [
     "ki18n-devel",
     "openssl-devel",
     "qt6-qtdeclarative-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "KDE library for health certificates"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"

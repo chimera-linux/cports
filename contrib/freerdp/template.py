@@ -49,7 +49,7 @@ makedepends = [
     "pkcs11-helper-devel",
     "uriparser-devel",
     "wayland-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "RDP clients and libraries"
 maintainer = "psykose <alice@ayaya.dev>"

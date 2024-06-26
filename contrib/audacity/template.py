@@ -53,7 +53,7 @@ makedepends = [
     "vamp-plugin-sdk-devel",
     "wavpack-devel",
     "wxwidgets-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Multitrack audio editor"
 maintainer = "psykose <alice@ayaya.dev>"

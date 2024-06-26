@@ -6,7 +6,7 @@ make_build_args = ["CRYPTO=OPENSSL"]
 make_install_args = ["prefix=/usr", "sbindir=/usr/bin", "mandir=/usr/share/man"]
 make_use_env = True
 hostmakedepends = ["pkgconf"]
-makedepends = ["zlib-devel", "openssl-devel", "linux-headers"]
+makedepends = ["zlib-ng-compat-devel", "openssl-devel", "linux-headers"]
 pkgdesc = "Toolkit for RTMP streams"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -47,6 +47,6 @@ def _libmagic(self):
 @subpackage("librtmp-devel")
 def _devel(self):
     self.pkgdesc = f"{pkgdesc} (development files)"
-    self.depends += ["zlib-devel"]
+    self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()

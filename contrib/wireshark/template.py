@@ -50,7 +50,7 @@ makedepends = [
     "snappy-devel",
     "spandsp-devel",
     "speexdsp-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 checkdepends = ["python-pytest-xdist"]

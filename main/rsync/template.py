@@ -16,7 +16,7 @@ makedepends = [
     "openssl-devel",
     "popt-devel",
     "xxhash-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Fast incremental file transfer tool"

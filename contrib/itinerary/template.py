@@ -42,7 +42,7 @@ makedepends = [
     "qt6-qtmultimedia-devel",
     "qt6-qtpositioning-devel",
     "solid-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = [
     "kirigami-addons",

@@ -8,7 +8,7 @@ makedepends = [
     "boost-devel",
     "ixion-devel",
     "python-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "mdds",
 ]
 pkgdesc = "Library for processing spreadsheets"

@@ -22,7 +22,7 @@ makedepends = [
     "pcre2-devel",
     "sqlite-devel",
     "xxhash-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 checkdepends = ["perl"]

@@ -23,7 +23,7 @@ makedepends = [
     "llvm-devel",
     "clang-devel",
     "libffi-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "xz-devel",
     "libedit-devel",
     "libxml2-devel",

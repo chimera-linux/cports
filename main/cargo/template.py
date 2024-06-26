@@ -12,7 +12,7 @@ hostmakedepends = [
     "curl",
     "cmake",
     "pkgconf",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 makedepends = ["libcurl-devel", "openssl-devel", "sqlite-devel"]
 pkgdesc = "Rust package manager"

@@ -27,7 +27,7 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "python", "perl", "clang-tools-extra"]
 makedepends = [
     "llvm-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "libffi-devel",
     "ncurses-devel",
     "libunwind-devel",

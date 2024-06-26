@@ -9,7 +9,7 @@ makedepends = [
     "freetype-devel",
     "libfontenc-devel",
     "xorgproto",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 triggers = ["/usr/share/fonts/*"]
 pkgdesc = "X11 scalable font index generator"

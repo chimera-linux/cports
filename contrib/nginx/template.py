@@ -65,7 +65,7 @@ hostmakedepends = [
     "openssl-devel",
     "pcre2-devel",
     "perl",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 makedepends = list(hostmakedepends)
 checkdepends = [

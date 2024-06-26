@@ -7,7 +7,7 @@ hostmakedepends = ["cmake", "ninja", "gettext", "pkgconf"]
 makedepends = [
     "python-devel",
     "libedit-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "giflib-devel",
     "libpng-devel",
     "libjpeg-turbo-devel",

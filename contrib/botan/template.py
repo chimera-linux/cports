@@ -22,7 +22,7 @@ makedepends = [
     "bzip2-devel",
     "sqlite-devel",
     "xz-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Crypto and TLS for C++"
 maintainer = "psykose <alice@ayaya.dev>"

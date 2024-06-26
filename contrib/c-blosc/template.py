@@ -16,7 +16,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "lz4-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "zstd-devel",
 ]
 pkgdesc = "Library optimised for binary data compression"

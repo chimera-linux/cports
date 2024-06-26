@@ -23,7 +23,7 @@ makedepends = [
     "portaudio-devel",
     "rtmidi-devel",
     "sdl-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 depends = ["zenity"]
 pkgdesc = "Multi-system chiptune tracker"

@@ -12,7 +12,7 @@ hostmakedepends = [
     "libedit-devel",
     "libffi-devel",
     "ncurses-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
     "spirv-llvm-translator",
     "clang-tools-extra",
 ]

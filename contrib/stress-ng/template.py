@@ -9,7 +9,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "linux-headers",
     "xxhash-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Stress test a computer in various selectable ways"
 maintainer = "ttyyls <contact@behri.org>"

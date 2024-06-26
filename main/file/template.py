@@ -9,7 +9,7 @@ configure_args = [
     "--disable-xzlib",
 ]
 hostmakedepends = ["pkgconf"]
-makedepends = ["zlib-devel"]
+makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "File type identification utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"

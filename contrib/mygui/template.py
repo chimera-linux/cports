@@ -14,7 +14,7 @@ makedepends = [
     "freetype-devel",
     "sdl-devel",
     "mesa-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast, flexible and simple GUI"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -84,7 +84,7 @@ makedepends = [
     "talloc-devel",
     "tdb-devel",
     "tevent-devel",
-    "zlib-devel",
+    "zlib-ng-compat-devel",
 ]
 self.depends = [
     f"samba-common={pkgver}-r{pkgrel}",

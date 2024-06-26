@@ -54,7 +54,7 @@ hostmakedepends = [
     "perl",
     "texinfo",
 ]
-makedepends = ["zlib-devel", "gmp-devel", "mpfr-devel", "mpc-devel"]
+makedepends = ["zlib-ng-compat-devel", "gmp-devel", "mpfr-devel", "mpc-devel"]
 depends = [f"binutils-{_trip}"]
 pkgdesc = "GNU C compiler for RISC-V embedded targets"
 maintainer = "q66 <q66@chimera-linux.org>"
