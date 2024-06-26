@@ -1,0 +1,20 @@
+--- a/python/fasttext_module/fasttext/FastText.py
++++ b/python/fasttext_module/fasttext/FastText.py
+@@ -38,7 +38,7 @@
+         else:
+             y_scores, y_true = ([], ())
+ 
+-        return np.array(y_scores, copy=False), np.array(y_true, copy=False)
++        return np.asarray(y_scores), np.asarray(y_true)
+ 
+     def precision_recall_curve(self, label=None):
+         """Return precision/recall curve"""
+@@ -53,7 +53,7 @@
+         else:
+             precision, recall = ([], ())
+ 
+-        return np.array(precision, copy=False), np.array(recall, copy=False)
++        return np.asarray(precision), np.asarray(recall)
+ 
+     def precision_at_recall(self, recall, label=None):
+         """Return precision for a given recall"""
