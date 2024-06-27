@@ -51,33 +51,64 @@ class StampCheck:
             raise StampException()
 
 
-@contextlib.contextmanager
-def redir_allout(pkg, logpath):
+def redir_log(pkg, logpath):
+    # save old descriptors
+    oldout = os.dup(sys.stdout.fileno())
+    olderr = os.dup(sys.stderr.fileno())
+    pkg.logger.fileno = oldout
+    # child will do the logging for us through a pipe
+    prd, prw = os.pipe()
+    # read end propagates into child through the fork
     try:
-        # save old descriptors
-        oldout = os.dup(sys.stdout.fileno())
-        olderr = os.dup(sys.stderr.fileno())
-        pkg.logger.fileno = oldout
-        # this will do the logging for us; this way we can get
-        # both standard output and file redirection at once
-        tee = subprocess.Popen(["tee", logpath], stdin=subprocess.PIPE)
-        # everything goes into the pipe
-        os.dup2(tee.stdin.fileno(), sys.stdout.fileno())
-        os.dup2(tee.stdin.fileno(), sys.stderr.fileno())
-        # fire
-        yield
-    finally:
-        # restore
-        os.dup2(oldout, sys.stdout.fileno())
-        os.dup2(olderr, sys.stderr.fileno())
-        pkg.logger.fileno = sys.stdout.fileno()
-        # close the pipe
-        tee.stdin.close()
-        # close the old duplicates
-        os.close(oldout)
-        os.close(olderr)
-        # wait for the tee to finish
-        tee.communicate()
+        fpid = os.fork()
+    except OSError:
+        prd.close()
+        prw.close()
+        raise
+    # child
+    if fpid == 0:
+        os.close(prw)
+        # here emulate the behavior of the 'tee' program
+        try:
+            with open(logpath, "wb") as fout:
+                rbuf = [bytearray(8192)]
+                while True:
+                    rlen = os.readv(prd, rbuf)
+                    fout.write(rbuf[0][0:rlen])
+                    os.write(1, rbuf[0][0:rlen])
+                    if rlen == 0:
+                        break
+        finally:
+            # raw exit (no exception) since we forked
+            # don't want to propagate back to the outside
+            #
+            # when this triggers in case of failure, the
+            # original streams should get restored in the
+            # unredir_log function, so we'll lose file logs
+            # but retain actual console output (hopefully)
+            os._exit(0)
+            return
+    # in parent, close read end, we don't need it here
+    os.close(prd)
+    # everything goes into the pipe
+    os.dup2(prw, sys.stdout.fileno())
+    os.dup2(prw, sys.stderr.fileno())
+    # close original write end too now that it's dup
+    os.close(prw)
+    # fire
+    return fpid, oldout, olderr
+
+
+def unredir_log(pkg, fpid, oldout, olderr):
+    # restore
+    os.dup2(oldout, sys.stdout.fileno())
+    os.dup2(olderr, sys.stderr.fileno())
+    pkg.logger.fileno = sys.stdout.fileno()
+    # close the old duplicates
+    os.close(oldout)
+    os.close(olderr)
+    # wait for the logger process to finish
+    os.waitpid(fpid, 0)
 
 
 # relocate "src" from root "root" to root "dest"
@@ -163,11 +194,14 @@ def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
     else:
         logf = pkg.statedir / f"{pkg.pkgname}_{crossb}_{funcn}.log"
     pkg.log(f"running {desc}...")
-    with redir_allout(pkg, logf):
+    try:
+        fpid, oldout, olderr = redir_log(pkg, logf)
         if on_subpkg:
             func()
         else:
             func(pkg)
+    finally:
+        unredir_log(pkg, fpid, oldout, olderr)
     return True
 
 
