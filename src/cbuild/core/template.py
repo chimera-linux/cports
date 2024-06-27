@@ -7,6 +7,7 @@ import fnmatch
 import shutil
 import time
 import glob
+import pty
 import sys
 import os
 import re
@@ -51,19 +52,37 @@ class StampCheck:
             raise StampException()
 
 
+def unredir_log(pkg, fpid, oldout, olderr):
+    # restore
+    os.dup2(oldout, sys.stdout.fileno())
+    os.dup2(olderr, sys.stderr.fileno())
+    pkg.logger.fileno = sys.stdout.fileno()
+    # close the old duplicates
+    os.close(oldout)
+    os.close(olderr)
+    # wait for the logger process to finish
+    os.waitpid(fpid, 0)
+
+
 def redir_log(pkg, logpath):
     # save old descriptors
     oldout = os.dup(sys.stdout.fileno())
     olderr = os.dup(sys.stderr.fileno())
     pkg.logger.fileno = oldout
-    # child will do the logging for us through a pipe
-    prd, prw = os.pipe()
+    # child will do the logging for us through a pipe or pty
+    try:
+        prd, prw = pty.openpty()
+        os.set_inheritable(prd, True)
+        os.set_inheritable(prw, True)
+    except Exception:
+        prd, prw = os.pipe()
     # read end propagates into child through the fork
     try:
         fpid = os.fork()
-    except OSError:
-        prd.close()
-        prw.close()
+    except Exception:
+        os.close(prd)
+        os.close(prw)
+        unredir_log(pkg, fpid, oldout, olderr)
         raise
     # child
     if fpid == 0:
@@ -88,27 +107,19 @@ def redir_log(pkg, logpath):
             # but retain actual console output (hopefully)
             os._exit(0)
             return
-    # in parent, close read end, we don't need it here
-    os.close(prd)
-    # everything goes into the pipe
-    os.dup2(prw, sys.stdout.fileno())
-    os.dup2(prw, sys.stderr.fileno())
-    # close original write end too now that it's dup
-    os.close(prw)
+    try:
+        # in parent, close read end, we don't need it here
+        os.close(prd)
+        # everything goes into the pipe/pty
+        os.dup2(prw, sys.stdout.fileno())
+        os.dup2(prw, sys.stderr.fileno())
+        # close original write end too now that it's dup
+        os.close(prw)
+    except Exception:
+        unredir_log(pkg, fpid, oldout, olderr)
+        raise
     # fire
     return fpid, oldout, olderr
-
-
-def unredir_log(pkg, fpid, oldout, olderr):
-    # restore
-    os.dup2(oldout, sys.stdout.fileno())
-    os.dup2(olderr, sys.stderr.fileno())
-    pkg.logger.fileno = sys.stdout.fileno()
-    # close the old duplicates
-    os.close(oldout)
-    os.close(olderr)
-    # wait for the logger process to finish
-    os.waitpid(fpid, 0)
 
 
 # relocate "src" from root "root" to root "dest"
@@ -183,7 +194,6 @@ def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
         if not hasattr(pkg, func):
             return False
         funcn = func
-
         func = getattr(pkg, funcn)
     if not desc:
         desc = funcn
@@ -194,8 +204,8 @@ def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
     else:
         logf = pkg.statedir / f"{pkg.pkgname}_{crossb}_{funcn}.log"
     pkg.log(f"running {desc}...")
+    fpid, oldout, olderr = redir_log(pkg, logf)
     try:
-        fpid, oldout, olderr = redir_log(pkg, logf)
         if on_subpkg:
             func()
         else:
