@@ -36,11 +36,11 @@ url = "https://www.samba.org/ldb"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c95e4dc32dea8864b79899ee340c9fdf28b486f464bbc38ba99151a08b493f9b"
 env = {"PYTHONHASHSEED": "1"}
-# check sometimes hangs
 options = ["!cross", "linkundefver"]
 
 
 if self.profile().arch == "ppc64":
+    # check sometimes hangs
     options += ["!check"]
 
 
