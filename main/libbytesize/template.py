@@ -1,6 +1,6 @@
 pkgname = "libbytesize"
 pkgver = "2.10"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
@@ -32,4 +32,4 @@ def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
     self.depends += ["python"]
 
-    return ["usr/lib/python*"]
+    return ["usr/lib/python*", "usr/bin/bscalc", "usr/share/man/man1/bscalc.1"]
