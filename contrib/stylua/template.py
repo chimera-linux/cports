@@ -1,6 +1,6 @@
 pkgname = "stylua"
 pkgver = "0.20.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = [
     "--features",
@@ -8,12 +8,8 @@ make_build_args = [
 ]
 make_install_args = list(make_build_args)
 make_check_args = list(make_build_args)
-hostmakedepends = [
-    "cargo",
-]
-makedepends = [
-    "rust-std",
-]
+hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
 pkgdesc = "Lua formatter"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MPL-2.0"
