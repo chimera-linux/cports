@@ -60,7 +60,6 @@ The userland dependencies are the following:
 * `openssl` (key generation only; not needed otherwise)
 * `git` (optional; required for reproducibility)
 * `bwrap` (from `bubblewrap`)
-* `tee`
 
 If running a Chimera system, these tools can all be installed with the
 `base-cbuild-host` metapackage.
