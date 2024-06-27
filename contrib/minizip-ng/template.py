@@ -1,6 +1,6 @@
 pkgname = "minizip-ng"
 pkgver = "4.0.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DMZ_LIB_SUFFIX=-ng"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -8,7 +8,7 @@ makedepends = [
     "bzip2-devel",
     "openssl-devel",
     "xz-devel",
-    "zlib-ng-compat-devel",
+    "zlib-ng-devel",
     "zstd-devel",
 ]
 pkgdesc = "Fork of the popular zip manipulation library"
