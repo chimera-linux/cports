@@ -1,5 +1,5 @@
 pkgname = "sad"
-pkgver = "0.4.29"
+pkgver = "0.4.31"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "python"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/ms-jpq/sad"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2f66d3031a662c197dba1758ccc9f670694e825b7f90b20fa32c1670c4ae9ee4"
+sha256 = "c717e54798e21356340271e32e43de5b05ba064ae64edf639fede27b1ed15ceb"
 
 
 def post_install(self):
