@@ -1,6 +1,9 @@
 pkgname = "qt6-qtwebengine"
 pkgver = "6.7.2"
-pkgrel = 0
+pkgrel = 1
+# latest from https://github.com/qt/qtwebengine-chromium/commits/118-based
+# check CHROMIUM_VERSION on qt majors
+_qtwebengine_gitrev = "7d28f93db7534943f84c5e6cab7778b83e1d2c3b"
 archs = ["aarch64", "ppc64le", "x86_64"]
 build_style = "cmake"
 configure_args = [
@@ -29,7 +32,10 @@ configure_args = [
     "-DQT_FEATURE_webengine_webrtc_pipewire=ON",
 ]
 configure_env = {
-    "EXTRA_GN": "link_pulseaudio=true rtc_link_pipewire=true symbol_level=1"
+    "EXTRA_GN": "link_pulseaudio=true"
+    + " rtc_link_pipewire=true"
+    + " symbol_level=1"
+    + " use_dwarf5=true"
 }
 hostmakedepends = [
     "cmake",
@@ -80,8 +86,15 @@ license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )
 url = "https://www.qt.io"
-source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebengine-everywhere-src-{pkgver}.tar.xz"
-sha256 = "c7755875594d8be382b07bf3634d44fd77012805794d8b588891709a6405ffd1"
+source = [
+    f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebengine-everywhere-src-{pkgver}.tar.xz",
+    f"https://github.com/qt/qtwebengine-chromium/archive/{_qtwebengine_gitrev}.tar.gz",
+]
+source_paths = [".", "3rdparty-chromium"]
+sha256 = [
+    "c7755875594d8be382b07bf3634d44fd77012805794d8b588891709a6405ffd1",
+    "edb36db47bc288ad698e57db1ebcc448664faebbc350e8b40663c7eed283b40a",
+]
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "CFLAGS": [
@@ -98,6 +111,12 @@ tool_flags = {
 hardening = ["!int", "!scp"]
 # lol
 options = ["!check", "!cross"]
+
+
+def post_extract(self):
+    # nuke old chromium tree to replace with the updated one
+    self.rm("src/3rdparty", recursive=True)
+    self.mv("3rdparty-chromium", "src/3rdparty")
 
 
 def post_install(self):
