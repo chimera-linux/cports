@@ -9,7 +9,6 @@ configure_args = [
     "-Dvulkan=disabled",
     "-Dsdl2=disabled",
     "-Dsystemd=disabled",
-    "-Dlibcamera=enabled",
     "-Dlibffado=disabled",
     "-Droc=disabled",
     "-Dselinux=disabled",
