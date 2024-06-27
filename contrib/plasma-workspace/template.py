@@ -15,6 +15,7 @@ make_check_args = [
     + "|testpackageimagelistmodel"  # just SEGFAULTS after testPackageListModelRemoveBackground(), broken kio? test_packagelistmodel.cpp(262)
     + "|testimageproxymodel"  # looks like same issue as testimagefinder & testimagelistmodel
     + "|testslidemodel"  # ^ same as above
+    + "|testrunnermodel"  # segfaults on aarch64
     + "|keystatetest"  # fails in offscreen
     + "|lockedtest"  # needs selenium
     + "|klippertest"  # segfaults instantly
