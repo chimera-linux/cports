@@ -1,5 +1,5 @@
 pkgname = "ruff"
-pkgver = "0.4.10"
+pkgver = "0.5.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,8 +18,8 @@ pkgdesc = "Python formatter and linter"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
-source = f"https://github.com/astral-sh/ruff/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cd3212c8e44c0c2c92eba10c44df0ed4073c77b2cff669563b37a56a090c9e74"
+source = f"https://github.com/astral-sh/ruff/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "d82f44f45fc310345cb7d4ce3fc5c9a39556515062002804bb4ae9f6e191c2b2"
 # generates completions with host bin
 options = ["!cross"]
 
@@ -45,9 +45,9 @@ def post_patch(self):
 git = "https://github.com/astral-sh/lsp-types.git"
 rev = "3512a9f"
 replace-with = "vendored-sources"
-[source."git+https://github.com/salsa-rs/salsa.git?rev=05b4e3ebdcdc47730cdd359e7e97fb2470527279"]
+[source."git+https://github.com/salsa-rs/salsa.git?rev=f706aa2d32d473ee633a77c1af01d180c85da308"]
 git = "https://github.com/salsa-rs/salsa.git"
-rev = "05b4e3ebdcdc47730cdd359e7e97fb2470527279"
+rev = "f706aa2d32d473ee633a77c1af01d180c85da308"
 replace-with = "vendored-sources"
 """
         )
@@ -65,7 +65,7 @@ def post_build(self):
         with open(self.cwd / f"ruff.{shell}", "w") as f:
             self.do(
                 "./target/release/ruff",
-                "--generate-shell-completion",
+                "generate-shell-completion",
                 shell,
                 stdout=f,
             )
