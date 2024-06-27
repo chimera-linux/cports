@@ -1,6 +1,6 @@
 pkgname = "python-pybind11"
-pkgver = "2.12.0"
-pkgrel = 2
+pkgver = "2.13.1"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_args = ["--skip-dependency-check"]
 make_check_args = [
@@ -30,7 +30,7 @@ makedepends = [
     "python-wheel",
 ]
 depends = ["python"]
-checkdepends = ["python-pytest"]
+checkdepends = ["python-pytest-xdist"]
 pkgdesc = "Seamless operability between C++11 and Python"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "BSD-3-Clause"
@@ -38,10 +38,10 @@ url = "https://pybind11.readthedocs.io/en/stable/index.html"
 source = (
     f"https://github.com/pybind/pybind11/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "bf8f242abd1abcd375d516a7067490fb71abd79519a282d22b6e4d19282185a7"
+sha256 = "51631e88960a8856f9c497027f55c9f2f9115cafb08c0005439838a05ba17bfc"
 
 
-def pre_check(self):
+def post_build(self):
     from cbuild.util import cmake
 
     cmake.configure(
@@ -49,6 +49,13 @@ def pre_check(self):
         build_dir="build-tests",
     )
     cmake.build(self, "build-tests")
+
+
+def init_check(self):
+    self.make_check_args += [
+        f"--numprocesses={self.make_jobs}",
+        "--dist=worksteal",
+    ]
 
 
 def post_install(self):
