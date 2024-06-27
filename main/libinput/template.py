@@ -1,5 +1,5 @@
 pkgname = "libinput"
-pkgver = "1.26.0"
+pkgver = "1.26.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libinput"
 source = f"https://gitlab.freedesktop.org/libinput/libinput/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "bda944e6d60741432e10f29001c3326ee8aba2968787f78611f420f90580bd8b"
+sha256 = "84fdd16ba0bd3a9adf6c1ffe4292b7a644b0d70f57f81f8239fd499a801189fb"
 
 
 def post_install(self):
