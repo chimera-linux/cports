@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -231,6 +231,7 @@ def _apps_meta(self):
     if self.rparent.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
         self.depends += [
             "akregator",  # rss feeds
+            "ghostwriter",  # markdown editor
             "khelpcenter",  # documentation viewer
             "konqueror",  # web browser
             "tokodon",  # mastodon client
