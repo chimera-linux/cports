@@ -1,5 +1,5 @@
 pkgname = "nss"
-pkgver = "3.101"
+pkgver = "3.101.1"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -7,10 +7,10 @@ make_build_target = "all"
 make_build_args = []
 hostmakedepends = ["gmake", "pkgconf", "perl"]
 makedepends = [
+    "linux-headers",
     "nspr-devel",
     "sqlite-devel",
     "zlib-ng-compat-devel",
-    "linux-headers",
 ]
 checkdepends = ["bash"]
 pkgdesc = "Mozilla Network Security Services"
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 source = f"$(MOZILLA_SITE)/security/nss/releases/NSS_{pkgver.replace('.', '_')}_RTM/src/{pkgname}-{pkgver}.tar.gz"
-sha256 = "859748f0b4b7bb51e7e600ae5a88ef4d71f93e6964b1beed2727784dd9ed85e7"
+sha256 = "f20e8c5daafd89419d229ec8c54100a5c320dce1467377c9dfcd5e4d8446b468"
 tool_flags = {"CFLAGS": []}
 env = {
     "MAKE": "gmake",
