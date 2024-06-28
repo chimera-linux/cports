@@ -1,6 +1,6 @@
 pkgname = "gexiv2"
-pkgver = "0.14.2"
-pkgrel = 1
+pkgver = "0.14.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true", "-Dvapi=true"]
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gexiv2"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "2a0c9cf48fbe8b3435008866ffd40b8eddb0667d2212b42396fdf688e93ce0be"
+sha256 = "21e64d2c56e9b333d44fef3f2a4b25653d922c419acd972fa96fab695217e2c8"
 
 
 @subpackage("gexiv2-devel")
