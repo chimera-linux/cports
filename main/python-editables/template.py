@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-flit_core",
     "python-wheel",
 ]
-checkdepends = ["python-coverage", "python-pytest", "python-pytest-cov"]
+checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Editable installations for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,7 +16,7 @@ license = "MIT"
 url = "https://github.com/pfmoore/editables"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "1ff2663aa1669eb89115a38e2d4067c21bb847e7006f72bf979a1a91b8bc2304"
-# checkdepends missing
+# cycle
 options = ["!check"]
 
 
