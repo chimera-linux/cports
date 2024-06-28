@@ -1,6 +1,6 @@
 pkgname = "xwayland-run"
-pkgver = "0.0.3"
-pkgrel = 2
+pkgver = "0.0.4"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dcompositor=weston"]
 hostmakedepends = ["meson"]
@@ -15,4 +15,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.freedesktop.org/ofourdan/xwayland-run"
 source = f"{url}/-/archive/{pkgver}/xwayland-run-{pkgver}.tar.gz"
-sha256 = "66cb0441fc71fb04838845478aef822e0a39fc2d803248b1e93651f9c5e75f46"
+sha256 = "409eaf44938b120e8abe4e7c4a384d71d6ee1c72239f36e585fa0a2815d0fd8f"
