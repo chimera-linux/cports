@@ -1,5 +1,5 @@
 pkgname = "qpwgraph"
-pkgver = "0.7.3"
+pkgver = "0.7.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,6 +18,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.freedesktop.org/rncbc/qpwgraph"
 source = f"{url}/-/archive/v{pkgver}/qpwgraph-v{pkgver}.tar.bz2"
-sha256 = "9e80f4ec811eeae28c932ddfcec8c1bbc8aa74b7fbe308bc937225c27e4760a9"
+sha256 = "46416346ef9a77faa2122ea8b7112cf4f0daf9c68454bb5a8ac2418aa25895fc"
 # FIXME: cfi
 hardening = ["vis"]
