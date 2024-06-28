@@ -16,5 +16,5 @@ license = "Apache-2.0"
 url = "https://github.com/dateutil/dateutil"
 source = f"$(PYPI_SITE)/p/python-dateutil/python-dateutil-{pkgver}.tar.gz"
 sha256 = "78e73e19c63f5b20ffa567001531680d939dc042bf7850431877645523c66709"
-# pytest-cov
+# cycle with python-freezegun
 options = ["!check"]
