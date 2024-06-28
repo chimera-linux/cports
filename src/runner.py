@@ -1688,13 +1688,13 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             mount_cbuild_cache=True,
             env={
                 "HOME": "/tmp",
-                "TERM": "linux",
                 "CBUILD_SHELL": "1",
                 "PS1": "\\u@\\h: \\w$ ",
                 "SHELL": "/bin/sh",
             },
             wrkdir=curwrk,
             lldargs=compiler._get_lld_cpuargs(opt_lthreads),
+            term=True,
         )
         return
     # don't remove builddir/destdir

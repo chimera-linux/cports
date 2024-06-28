@@ -89,6 +89,17 @@ def _prepare_etc():
     with open(tfp / "machine-id", "w") as mf:
         mf.write("e91d1c901dd8d2509161fd9b548b54f5\n")
 
+    # terminfo in case it's missing so host TERM works inside the bldroot
+    if "TERM" in os.environ:
+        tinfo = os.environ["TERM"]
+        if len(tinfo) > 0:
+            tpath = f"usr/share/terminfo/{tinfo[0]}/{tinfo}"
+            spath = pathlib.Path("/") / tpath
+            dpath = paths.bldroot() / tpath
+            if not dpath.exists() and spath.exists():
+                dpath.parent.mkdir(0o755, parents=True, exist_ok=True)
+                shutil.copy(spath, dpath.parent)
+
 
 def _init():
     xdir = paths.bldroot() / "etc" / "apk"
@@ -563,6 +574,7 @@ def enter(
     wrapper=None,
     binpath=None,
     lldargs=None,
+    term=False,
 ):
     defpath = []
     if binpath:
@@ -589,6 +601,13 @@ def enter(
         "UNAME_m": hprof.machine,
         **env,
     }
+
+    # propagate outside TERM and stuff into the chroot
+    if term:
+        if "TERM" in os.environ:
+            envs["TERM"] = os.environ["TERM"]
+        if "COLORTERM" in os.environ:
+            envs["COLORTERM"] = os.environ["COLORTERM"]
 
     if hprof.wordsize == 32:
         kpers = "linux32"

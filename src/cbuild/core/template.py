@@ -1383,6 +1383,7 @@ class Template(Package):
             input=input,
             lldargs=lld_args,
             binpath=path,
+            term=True,
         )
 
     def stamp(self, name):
