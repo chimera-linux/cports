@@ -1,14 +1,18 @@
 pkgname = "libndp"
-pkgver = "1.8"
+pkgver = "1.9"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = [
+    "automake",
+    "libtool",
+    "pkgconf",
+]
 pkgdesc = "Library for Neighbor Discovery Protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libndp.org"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.gz"
-sha256 = "88ffb66ee2eb527f146f5c02f5ccbc38ba97d2b0d57eb46bfba488821ab0c02b"
+sha256 = "a8ab214e01dc3a9b615276905395637f391298c84d77651f0cbf0b1082dd2dd4"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
@@ -21,6 +25,3 @@ def _devel(self):
 @subpackage("libndp-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
