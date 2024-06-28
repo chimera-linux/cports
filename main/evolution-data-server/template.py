@@ -1,5 +1,5 @@
 pkgname = "evolution-data-server"
-pkgver = "3.52.2"
+pkgver = "3.52.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -44,8 +44,8 @@ pkgdesc = "Centralized access to appointments and contacts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/evolution-data-server"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a006a44edcb38d26ffb1c62e1d5d0a31d1f2e59075565e26c79a2ee01c45a7e5"
+source = f"$(GNOME_SITE)/evolution-data-server/{pkgver[:-2]}/evolution-data-server-{pkgver}.tar.xz"
+sha256 = "e9f6c80c142033b1801bccaa6221c453de34ead4ea089b2086b19086f9a9c2e4"
 options = ["!cross"]
 
 
