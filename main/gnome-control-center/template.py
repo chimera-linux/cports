@@ -1,5 +1,5 @@
 pkgname = "gnome-control-center"
-pkgver = "46.2"
+pkgver = "46.3"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -69,7 +69,7 @@ url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = (
     f"$(GNOME_SITE)/{pkgname}/{pkgver.split('.')[0]}/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "6335c6cb8164e574db521fff61cfa3dfaa55f1db66ae3bca02750a193e1c4f3d"
+sha256 = "97dc6c7d1dee195914f3cbc845b68164b7611480d893beb411006c15eae46cb9"
 
 
 @subpackage("gnome-control-center-devel")
