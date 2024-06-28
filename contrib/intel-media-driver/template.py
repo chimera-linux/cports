@@ -1,6 +1,6 @@
 pkgname = "intel-media-driver"
 pkgver = "24.2.5"
-pkgrel = 0
+pkgrel = 1
 # doesn't build elsewhere
 archs = ["x86_64"]
 build_style = "cmake"
