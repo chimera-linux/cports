@@ -64,6 +64,19 @@ def unredir_log(pkg, fpid, oldout, olderr):
     os.waitpid(fpid, 0)
 
 
+ansi_esc = None
+
+
+# https://stackoverflow.com/a/38662876
+def escape_ansi(line):
+    global ansi_esc
+    if not ansi_esc:
+        import re
+
+        ansi_esc = re.compile(rb"(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]")
+    return ansi_esc.sub(b"", line)
+
+
 def redir_log(pkg, logpath):
     # save old descriptors
     oldout = os.dup(sys.stdout.fileno())
@@ -90,13 +103,32 @@ def redir_log(pkg, logpath):
         # here emulate the behavior of the 'tee' program
         try:
             with open(logpath, "wb") as fout:
-                rbuf = [bytearray(8192)]
+                rprev = bytes()
+                bufmax = 8192
+                rarr = [bytearray(bufmax)]
                 while True:
-                    rlen = os.readv(prd, rbuf)
-                    fout.write(rbuf[0][0:rlen])
-                    os.write(1, rbuf[0][0:rlen])
+                    rlen = os.readv(prd, rarr)
+                    rbuf = rarr[0][0:rlen]
+                    # write everything line by line
+                    pidx = 0
+                    for idx in range(0, rlen):
+                        if rbuf[idx] == 0xA:
+                            rnl = rprev + rbuf[pidx : idx + 1]
+                            rprev = bytes()
+                            os.write(1, rnl)
+                            fout.write(escape_ansi(rnl))
+                            pidx = idx + 1
+                    # eof or we accumulated too much data
+                    if len(rprev) >= bufmax or rlen == 0:
+                        rnl = rprev + rbuf[pidx:]
+                        rprev = bytes()
+                        os.write(1, rnl)
+                        fout.write(escape_ansi(rnl))
+                    # on eof also end entirely
                     if rlen == 0:
                         break
+                    # save whatever was left
+                    rprev += rbuf[pidx:]
         finally:
             # raw exit (no exception) since we forked
             # don't want to propagate back to the outside
