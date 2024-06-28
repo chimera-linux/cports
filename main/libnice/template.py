@@ -10,16 +10,15 @@ configure_args = [
     "-Dintrospection=enabled",
     "-Dtests=enabled",
 ]
-hostmakedepends = ["meson", "pkgconf", "glib-devel", "gobject-introspection"]
-makedepends = ["gstreamer-devel", "openssl-devel", "glib-devel"]
+hostmakedepends = ["glib-devel", "gobject-introspection", "meson", "pkgconf"]
+makedepends = ["glib-devel", "gstreamer-devel", "openssl-devel"]
 pkgdesc = "Implementation of the IETF's draft ICE"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libnice.freedesktop.org"
-source = f"{url}/releases/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/libnice-{pkgver}.tar.gz"
 sha256 = "a5f724cf09eae50c41a7517141d89da4a61ec9eaca32da4a0073faed5417ad7e"
-# tests fail for now
-options = ["!cross", "!check"]
+options = ["!cross"]
 
 
 @subpackage("libnice-devel")

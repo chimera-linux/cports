@@ -1,0 +1,22 @@
+diff --git a/tests/meson.build b/tests/meson.build
+index f149550..2e14b17 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -29,7 +29,6 @@ nice_tests = [
+   'test-drop-invalid',
+   'test-nomination',
+   'test-interfaces',
+-  'test-set-port-range',
+   'test-consent',
+ ]
+ 
+@@ -54,6 +53,9 @@ foreach tname : nice_tests
+     link_with: [libagent, libstun, libsocket, librandom],
+     install: false)
+   set_variable(tname.underscorify(), exe)
++  if tname == 'test-pseudotcp'
++    continue
++  endif
+   test(tname, exe)
+ 
+   if tname == 'test-fullmode'
