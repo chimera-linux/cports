@@ -475,8 +475,6 @@ def remove_autodeps(bootstrapping, prof=None):
 
     log.out("cbuild: removing autodeps...")
 
-    failed = False
-
     # best way to ensure everything is clean in stage 0
     if bootstrapping:
         # we need to keep builddir as that holds our state (logs etc)
@@ -501,7 +499,7 @@ def remove_autodeps(bootstrapping, prof=None):
             outf.write(f"{ep}\n")
 
     # perform transaction
-    apki.call_chroot(
+    f_ret = apki.call_chroot(
         "fix",
         [],
         template.get_cats(),
@@ -511,7 +509,7 @@ def remove_autodeps(bootstrapping, prof=None):
     if prof and prof.cross:
         _prepare_arch(prof, False)
 
-    if failed:
+    if f_ret.returncode != 0:
         raise errors.CbuildException("failed to remove autodeps")
 
 
