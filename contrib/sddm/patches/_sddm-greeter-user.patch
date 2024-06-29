@@ -1,0 +1,75 @@
+--- a/src/common/Configuration.h
++++ b/src/common/Configuration.h
+@@ -106,7 +106,7 @@ namespace SDDM {
+         );
+     );
+ 
+-    Config(StateConfig, []()->QString{auto tmp = getpwnam("sddm"); return tmp ? QString::fromLocal8Bit(tmp->pw_dir) : QStringLiteral(STATE_DIR);}().append(QStringLiteral("/state.conf")), QString(), QString(),
++    Config(StateConfig, []()->QString{auto tmp = getpwnam("_sddm"); return tmp ? QString::fromLocal8Bit(tmp->pw_dir) : QStringLiteral(STATE_DIR);}().append(QStringLiteral("/state.conf")), QString(), QString(),
+         Section(Last,
+             Entry(Session,         QString,     QString(),                                      _S("Name of the session for the last logged-in user.\n"
+                                                                                                    "This session will be preselected when the login screen appears."));
+--- a/src/daemon/Display.cpp
++++ b/src/daemon/Display.cpp
+@@ -233,7 +233,7 @@ namespace SDDM {
+ 
+         if (!daemonApp->testing()) {
+             // change the owner and group of the socket to avoid permission denied errors
+-            struct passwd *pw = getpwnam("sddm");
++            struct passwd *pw = getpwnam("_sddm");
+             if (pw) {
+                 if (chown(qPrintable(m_socketServer->socketAddress()), pw->pw_uid, pw->pw_gid) == -1) {
+                     qWarning() << "Failed to change owner of the socket";
+@@ -322,7 +322,7 @@ namespace SDDM {
+ 
+         //the SDDM user has special privileges that skip password checking so that we can load the greeter
+         //block ever trying to log in as the SDDM user
+-        if (user == QLatin1String("sddm")) {
++        if (user == QLatin1String("_sddm")) {
+             emit loginFailed(m_socket);
+             return;
+         }
+--- a/src/daemon/Greeter.cpp
++++ b/src/daemon/Greeter.cpp
+@@ -229,7 +229,7 @@ namespace SDDM {
+             qDebug() << "Greeter starting...";
+ 
+             // start greeter
+-            m_auth->setUser(QStringLiteral("sddm"));
++            m_auth->setUser(QStringLiteral("_sddm"));
+             m_auth->setDisplayServerCommand(m_displayServerCmd);
+             m_auth->setGreeter(true);
+             m_auth->setSession(cmd.join(QLatin1Char(' ')));
+--- a/src/daemon/XorgDisplayServer.cpp
++++ b/src/daemon/XorgDisplayServer.cpp
+@@ -306,7 +306,7 @@ namespace SDDM {
+ 
+     void XorgDisplayServer::changeOwner(const QString &fileName) {
+         // change the owner and group of the auth file to the sddm user
+-        struct passwd *pw = getpwnam("sddm");
++        struct passwd *pw = getpwnam("_sddm");
+         if (!pw)
+             qWarning() << "Failed to find the sddm user. Owner of the auth file will not be changed.";
+         else {
+--- a/src/helper/Backend.cpp
++++ b/src/helper/Backend.cpp
+@@ -97,7 +97,7 @@ namespace SDDM {
+             env.insert(QProcessEnvironment::systemEnvironment());
+             // for sddm itself, we don't want to set LANG from capabilities.
+             // instead, honour sddm_lang variable from rc script
+-            if (qobject_cast<HelperApp*>(parent())->user() == QStringLiteral("sddm"))
++            if (qobject_cast<HelperApp*>(parent())->user() == QStringLiteral("_sddm"))
+                 env.insert(QStringLiteral("LANG"), savedLang);
+             // finally, restore original helper environment
+             QProcessEnvironment::systemEnvironment().clear();
+--- a/src/helper/backend/PamBackend.cpp
++++ b/src/helper/backend/PamBackend.cpp
+@@ -219,7 +219,7 @@ namespace SDDM {
+ 
+         QString service = QStringLiteral("sddm");
+ 
+-        if (user == QStringLiteral("sddm") && m_greeter)
++        if (user == QStringLiteral("_sddm") && m_greeter)
+             service = QStringLiteral("sddm-greeter");
+         else if (m_autologin)
+             service = QStringLiteral("sddm-autologin");
