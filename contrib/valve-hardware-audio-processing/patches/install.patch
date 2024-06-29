@@ -8,16 +8,39 @@ diff --git a/scripts/install_plugins.sh b/scripts/install_plugins.sh
 index 591514a..c54f8d0 100755
 --- a/scripts/install_plugins.sh
 +++ b/scripts/install_plugins.sh
-@@ -6,8 +6,8 @@ if [ -e $HARDCODED_PLUGIN_DEST_2 ]; then rm -r $HARDCODED_PLUGIN_DEST_2; fi;
+@@ -10,8 +10,8 @@
  
  
- mkdir -p $DEST_DIR/usr/lib/lv2
--cp -r bin/lv2/g++/valve_deck_speakers.lv2 $DEST_DIR/usr/lib/lv2/valve_deck_speakers.lv2
--cp -r bin/lv2/g++/valve_binaural.lv2 $DEST_DIR/usr/lib/lv2/valve_binaural.lv2
--cp -r bin/lv2/g++/valve_deck_microphone.lv2 $DEST_DIR/usr/lib/lv2/valve_deck_microphone.dsp
--cp -r bin/svg $DEST_DIR/usr/lib/lv2/svg
-+cp -R bin/lv2/clang++/valve_deck_speakers.lv2 $DEST_DIR/usr/lib/lv2/valve_deck_speakers.lv2
-+cp -R bin/lv2/clang++/valve_binaural.lv2 $DEST_DIR/usr/lib/lv2/valve_binaural.lv2
-+cp -R bin/lv2/clang++/valve_deck_microphone.lv2 $DEST_DIR/usr/lib/lv2/valve_deck_microphone.dsp
-+cp -R bin/svg $DEST_DIR/usr/lib/lv2/svg
- cp version.txt $DEST_DIR/usr/lib/lv2/valve_audio_dsp_version.txt
+ mkdir -p "$DEST_DIR"/usr/lib/lv2
+-cp -r bin/lv2/g++/valve_deck_speakers.lv2 "$DEST_DIR"/usr/lib/lv2/valve_deck_speakers.lv2
+-cp -r bin/lv2/g++/valve_binaural.lv2 "$DEST_DIR"/usr/lib/lv2/valve_binaural.lv2
+-cp -r bin/lv2/g++/valve_deck_microphone.lv2 "$DEST_DIR"/usr/lib/lv2/valve_deck_microphone.dsp
++cp -R bin/lv2/clang++/valve_deck_speakers.lv2 "$DEST_DIR"/usr/lib/lv2/valve_deck_speakers.lv2
++cp -R bin/lv2/clang++/valve_binaural.lv2 "$DEST_DIR"/usr/lib/lv2/valve_binaural.lv2
++cp -R bin/lv2/clang++/valve_deck_microphone.lv2 "$DEST_DIR"/usr/lib/lv2/valve_deck_microphone.dsp
+ # cp -r bin/svg $DEST_DIR/usr/lib/lv2/svg
+ # cp version.txt $DEST_DIR/usr/lib/lv2/valve_audio_dsp_version.txt
+--- a/scripts/setup_wireplumber.sh
++++ b/scripts/setup_wireplumber.sh
+@@ -6,11 +6,3 @@
+ 
+ mkdir -p $destination_dir
+ cp -r wireplumber/{*.d,scripts,hardware-profiles} $destination_dir
+-
+-mkdir -p $systemd_dir
+-cp -a wireplumber/systemd/system/* $systemd_dir
+-
+-mkdir -p $DEST_DIR/etc
+-cd $DEST_DIR/etc && ln -s /run/wireplumber wireplumber
+-echo "wireplumber setup complete. reboot your machine."
+-
+--- a/scripts/setup_pipewire.sh
++++ b/scripts/setup_pipewire.sh
+@@ -7,7 +7,3 @@
+ mkdir -p $destination_dir
+ cp -r pipewire-confs/hardware-profiles $destination_dir
+ 
+-mkdir -p $systemd_dir
+-cp -a pipewire-confs/systemd/system/* $systemd_dir
+-echo "pipewire setup complete. reboot your machine."
+-

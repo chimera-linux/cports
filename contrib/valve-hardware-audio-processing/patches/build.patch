@@ -8,6 +8,15 @@ diff --git a/Makefile b/Makefile
 index 3efdc3c..a11cc9f 100644
 --- a/Makefile
 +++ b/Makefile
+@@ -1,7 +1,7 @@
+ CC = gcc
+ 
+ CFLAGS= -O0 -g -Wall -Werror
+-LDFLAGS=-lrt -lm -shared
++LDFLAGS+=-lrt -lm -shared
+ 
+ #ROOT = $(CURDIR)
+ INC_DIR = include
 @@ -28,12 +28,12 @@ all: clean
  	@mkdir -m 777 -p $(OBJ_DIR)/$(SRC_DIR)
  	@mkdir -m 777 temp_includes
@@ -20,9 +29,9 @@ index 3efdc3c..a11cc9f 100644
 -	( CXX=$(FAUST_COMPILER) CXXFLAGS+=" -Itemp_includes " faust2lv2 src/faust/valve_deck_speakers.dsp)
 -	( CXX=$(FAUST_COMPILER) CXXFLAGS+=" -Itemp_includes " faust2lv2 src/faust/valve_binaural.dsp)
 -	( CXX=$(FAUST_COMPILER) CXXFLAGS+=" -Itemp_includes " faust2lv2 src/faust/valve_deck_microphone.dsp)
-+	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_deck_speakers.dsp)
-+	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_binaural.dsp)
-+	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_deck_microphone.dsp)
++	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} ${LDFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_deck_speakers.dsp)
++	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} ${LDFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_binaural.dsp)
++	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} ${LDFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_deck_microphone.dsp)
  	@echo "Generating Faust plugin documentation..."
  	faust2svg src/faust/valve_deck_speakers.dsp
  	faust2svg src/faust/valve_binaural.dsp
