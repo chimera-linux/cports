@@ -1,5 +1,5 @@
 pkgname = "jaq"
-pkgver = "1.4.0"
+pkgver = "1.5.0"
 pkgrel = 0
 build_style = "cargo"
 # disable the default mimalloc feature and just use the system allocator
@@ -13,7 +13,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/01mf02/jaq"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "20d53c2c992db9bbe3e4e8636015cdd1429b936fd897cd4b3ff02c3abdd3a9ed"
+sha256 = "318e9344a85e96b43acca2615c8d47b7e061f8ed4c664728a0b9528d7ac1782a"
 
 
 def do_install(self):
