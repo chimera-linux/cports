@@ -1,6 +1,6 @@
 pkgname = "sysprof"
 pkgver = "46.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     # creates static separately itself
@@ -44,4 +44,10 @@ def post_install(self):
 
 @subpackage("sysprof-devel")
 def _devel(self):
-    return self.default_devel()
+    self.pkgdesc = f"{pkgdesc} (development files)"
+    return [
+        "usr/include",
+        "usr/lib/pkgconfig",
+        "usr/lib/libsysprof-6.so",
+        "usr/lib/*.a",
+    ]
