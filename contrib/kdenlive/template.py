@@ -1,6 +1,6 @@
 pkgname = "kdenlive"
 pkgver = "24.05.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -42,7 +42,10 @@ makedepends = [
     "qt6-qtsvg-devel",
     "solid-devel",
 ]
-depends = ["frei0r"]
+depends = [
+    "ffmpeg",
+    "frei0r",
+]
 checkdepends = ["xwayland-run"] + depends
 pkgdesc = "KDE video editor"
 maintainer = "psykose <alice@ayaya.dev>"
