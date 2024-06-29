@@ -166,6 +166,8 @@ def _get_hldflags(prof, tmpl, tharden):
     if tmpl.options["relr"] and prof._has_relr(tmpl.stage):
         hflags.append("-Wl,-z,pack-relative-relocs")
 
+    hflags += ["-Wl,-O2"]
+
     hflags += _get_archflags(prof, tmpl, hard)
 
     return hflags
