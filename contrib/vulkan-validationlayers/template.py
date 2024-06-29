@@ -1,6 +1,6 @@
 pkgname = "vulkan-validationlayers"
-pkgver = "1.3.288"
-pkgrel = 1
+pkgver = "1.3.289"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -27,4 +27,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://vulkan.lunarg.com/doc/sdk/latest/linux/khronos_validation_layer.html"
 source = f"https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7703075c39fec5d8e78de20db8a4fc578846c96a9017a60770dab06eececfff2"
+sha256 = "4054b035879e90d6f0b7f993069fa50499c87776ae6c981c65f8a13ed69e12a1"
