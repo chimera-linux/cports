@@ -76,7 +76,9 @@ def escape_ansi(line):
     return ansi_esc.sub(b"", line)
 
 
-def sync_winsize(fd):
+def sync_winsize(fd, is_pty):
+    if not is_pty:
+        return
     try:
         if os.isatty(sys.stdout.fileno()):
             termios.tcsetwinsize(fd, termios.tcgetwinsize(sys.stdout))
@@ -93,12 +95,14 @@ def redir_log(pkg, logpath):
     # child will do the logging for us through a pipe or pty
     prd, prw = None, None
     colors = logger.get().use_colors
+    is_pty = False
     try:
         # use a pipe if colors are suppressed, no need for pty
         if colors:
             prd, prw = pty.openpty()
             os.set_inheritable(prd, True)
             os.set_inheritable(prw, True)
+            is_pty = True
     except Exception:
         pass
     if not prd:
@@ -112,7 +116,7 @@ def redir_log(pkg, logpath):
         unredir_log(pkg, fpid, oldout, olderr)
         raise
     # set initial window size
-    sync_winsize(prd)
+    sync_winsize(prd, is_pty)
     # child
     if fpid == 0:
         os.close(prw)
@@ -124,7 +128,7 @@ def redir_log(pkg, logpath):
                 rarr = [bytearray(bufmax)]
                 while True:
                     # do this on each loop as the terminal may resize
-                    sync_winsize(prd)
+                    sync_winsize(prd, is_pty)
                     rlen = os.readv(prd, rarr)
                     rbuf = rarr[0][0:rlen]
                     # search for last newline and unescape everything up to it
