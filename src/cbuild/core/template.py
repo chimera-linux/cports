@@ -11,6 +11,7 @@ import pty
 import sys
 import os
 import re
+import termios
 import importlib
 import importlib.util
 import pathlib
@@ -71,10 +72,17 @@ ansi_esc = None
 def escape_ansi(line):
     global ansi_esc
     if not ansi_esc:
-        import re
-
         ansi_esc = re.compile(rb"(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]")
     return ansi_esc.sub(b"", line)
+
+
+def sync_winsize(fd):
+    try:
+        if os.isatty(sys.stdout.fileno()):
+            termios.tcsetwinsize(fd, termios.tcgetwinsize(sys.stdout))
+    except AttributeError:
+        # not supported by this version of python
+        pass
 
 
 def redir_log(pkg, logpath):
@@ -103,6 +111,8 @@ def redir_log(pkg, logpath):
         os.close(prw)
         unredir_log(pkg, fpid, oldout, olderr)
         raise
+    # set initial window size
+    sync_winsize(prd)
     # child
     if fpid == 0:
         os.close(prw)
@@ -113,6 +123,8 @@ def redir_log(pkg, logpath):
                 bufmax = 8192
                 rarr = [bytearray(bufmax)]
                 while True:
+                    # do this on each loop as the terminal may resize
+                    sync_winsize(prd)
                     rlen = os.readv(prd, rarr)
                     rbuf = rarr[0][0:rlen]
                     # search for last newline and unescape everything up to it
