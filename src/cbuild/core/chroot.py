@@ -13,6 +13,7 @@ from cbuild.util import flock
 
 _chroot_checked = False
 _chroot_ready = False
+_extra_pkgs = []
 
 
 def host_cpu():
@@ -48,6 +49,12 @@ def chroot_check(force=False, error=True):
         _chroot_ready = False
 
     return _chroot_check(error)
+
+
+def set_extras(elist):
+    global _extra_pkgs
+
+    _extra_pkgs = ["base-cbuild"] + elist
 
 
 def _subst_in(pat, rep, src, dest=None):
@@ -257,7 +264,7 @@ def install():
     if chroot_check(error=False):
         return
 
-    logger.get().out("cbuild: installing base-cbuild...")
+    logger.get().out(f"cbuild: installing {' '.join(_extra_pkgs)}...")
 
     initdb()
 
@@ -269,15 +276,15 @@ def install():
     with flock.lock(lkp):
         irun = apki.call(
             "add",
-            ["--usermode", "--no-scripts", "base-cbuild"],
+            ["--usermode", "--no-scripts"] + _extra_pkgs,
             "main",
             arch=host_cpu(),
         )
 
     if irun.returncode != 0:
-        raise errors.CbuildException("failed to install base-cbuild")
+        raise errors.CbuildException("failed to install container packages")
 
-    logger.get().out("cbuild: installed base-cbuild successfully!")
+    logger.get().out("cbuild: container set up successfully!")
 
     paths.prepare()
     _prepare()
@@ -459,6 +466,8 @@ def prepare_arch(arch, dirty):
 
 
 def remove_autodeps(bootstrapping, prof=None):
+    from cbuild.core import template
+
     if bootstrapping is None:
         bootstrapping = not (paths.bldroot() / ".cbuild_chroot_init").is_file()
 
@@ -488,11 +497,16 @@ def remove_autodeps(bootstrapping, prof=None):
 
     # clean world
     with open(paths.bldroot() / "etc/apk/world", "w") as outf:
-        outf.write("base-cbuild\n")
+        for ep in _extra_pkgs:
+            outf.write(f"{ep}\n")
 
     # perform transaction
     f_ret = apki.call_chroot(
-        "fix", [], None, capture_output=True, allow_untrusted=True
+        "fix",
+        [],
+        template.get_cats(),
+        capture_output=True,
+        allow_untrusted=True,
     )
 
     if f_ret.returncode != 0:

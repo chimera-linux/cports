@@ -18,6 +18,7 @@ opt_arch = None
 opt_harch = None
 opt_gen_dbg = True
 opt_check = True
+opt_epkgs = ""
 opt_ccache = False
 opt_sccache = False
 opt_tltocache = False
@@ -109,7 +110,7 @@ def handle_options():
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
-    global opt_acceptsum, opt_comp, opt_maint
+    global opt_acceptsum, opt_comp, opt_maint, opt_epkgs
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -360,6 +361,7 @@ def handle_options():
         opt_arch = bcfg.get("arch", fallback=opt_arch)
         opt_harch = bcfg.get("host_arch", fallback=opt_harch)
         opt_bldroot = bcfg.get("build_root", fallback=opt_bldroot)
+        opt_epkgs = bcfg.get("extra_packages", fallback=opt_epkgs)
         opt_blddir = bcfg.get("build_dir", fallback=opt_blddir)
         opt_comp = bcfg.get("compression", fallback=opt_comp)
         opt_stagepath = bcfg.get("stage_repository", fallback=opt_stagepath)
@@ -2372,6 +2374,9 @@ def fire():
 
     # check container and while at it perform arch checks
     chroot.chroot_check(error=False)
+
+    # register extra packages
+    chroot.set_extras(opt_epkgs.split())
 
     # ensure we've got a signing key
     if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
