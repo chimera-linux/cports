@@ -1,10 +1,8 @@
 pkgname = "gnome-calculator"
 pkgver = "46.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-# the library has some kind of weird meson issue:
-# ERROR: Target 'gcalc-2' has 1 outputs: ['libgcalc-2.a'], but only 4 "install_dir"s were found
-configure_args = ["-Dgcalc=false", "-Dgci=false"]
+configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = [
     "meson",
     "pkgconf",
