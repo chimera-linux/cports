@@ -4,7 +4,6 @@ pkgver = "1.3.283.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DSPIRV_SKIP_TESTS=ON",
     "-DSPIRV_WERROR=OFF",
     f"-DSPIRV-Headers_SOURCE_DIR={self.profile().sysroot / 'usr'}",
 ]
@@ -17,8 +16,9 @@ url = "https://github.com/KhronosGroup/SPIRV-Tools"
 source = f"{url}/archive/vulkan-sdk-{pkgver}.tar.gz"
 sha256 = "5e2e5158bdd7442f9e01e13b5b33417b06cddff4965c9c19aab9763ab3603aae"
 hardening = ["!cfi"]  # TODO
-# needs gtest
-options = ["!check"]
+
+# Note: only some tests are run, the others need subfolders of gtest and effcee
+# and some other stuff
 
 
 @subpackage("spirv-tools-devel-static")
