@@ -1,6 +1,6 @@
 pkgname = "rust"
 pkgver = "1.79.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "cmake",
     "curl",
@@ -101,9 +101,12 @@ def do_configure(self):
     else:
         _local_rebuild = "false"
 
-    # disable debug info entirely for now
-    _debug = "0"
-    _debug_rustc = "0"
+    if self.build_dbg:
+        _debug = "2"
+        _debug_rustc = "1"
+    else:
+        _debug = "0"
+        _debug_rustc = "0"
 
     tgt_profile = self.profile()
     _tgt_spec = [f"'{tgt_profile.triplet}'"]
@@ -175,12 +178,12 @@ prefix = '/usr'
 
 optimize = true
 debug = false
+backtrace-on-ice = true
 codegen-units = 1
 codegen-units-std = 1
 
-debuginfo-level = {_debug}
-debuginfo-level-rustc = {_debug_rustc}
-debuginfo-level-tests = 0
+debuginfo-level = {_debug_rustc}
+debuginfo-level-std = {_debug}
 
 incremental = false
 parallel-compiler = false
@@ -278,7 +281,6 @@ def do_build(self):
         "python",
         "x.py",
         "dist",
-        "-v",
         "--jobs",
         str(self.make_jobs),
         env=benv,
@@ -400,12 +402,19 @@ def _fmt(self):
 @subpackage("rust-std")
 def _std(self):
     self.pkgdesc = f"{pkgdesc} (static rlibs)"
+    self.options = ["!strip"]
 
-    return [f"{_rlib_dir}/lib/*.rlib"]
+    return [
+        f"{_rlib_dir}/lib/*.rlib",
+        f"{_rlib_dir}/lib/*.rmeta",
+    ]
 
 
 @subpackage("rust-src")
 def _src(self):
     self.pkgdesc = f"{pkgdesc} (source)"
 
-    return ["usr/lib/rustlib/src"]
+    return [
+        "usr/lib/rustlib/rustc-src",
+        "usr/lib/rustlib/src",
+    ]
