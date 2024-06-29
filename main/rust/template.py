@@ -253,7 +253,7 @@ def do_build(self):
     benv = {}
     benv["CARGO_HOME"] = str(self.chroot_cwd / ".cargo")
     # we don't want the default cross sysroot here
-    with self.profile(f"target:native"):
+    with self.profile("target:native"):
         benv["RUSTFLAGS"] = self.get_rustflags(shell=True)
     # ensure correct flags are used for host C/C++ code
     with self.profile("host") as pf:
