@@ -1,5 +1,5 @@
 pkgname = "imhex"
-pkgver = "1.35.1"
+pkgver = "1.35.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -53,7 +53,7 @@ source = [
 ]
 source_paths = [".", "ImHex-Patterns"]
 sha256 = [
-    "2f730ae432230df16abc53a2176758027b3a66ccb3a197540be84eee2f0c615d",
+    "8296449547b8b446b352907144bbd02f1abefa7ba1af6311c7490d8f8f883e51",
     "895aea1e0f4367f0e52e25205c459bbe8589d2f094d676e0874982a7ca5ae359",
 ]
 
