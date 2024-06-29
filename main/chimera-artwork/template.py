@@ -1,12 +1,12 @@
 pkgname = "chimera-artwork"
-pkgver = "0.99.1"
+pkgver = "0.99.2"
 pkgrel = 0
 pkgdesc = "Chimera Linux artwork"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "CC-BY-SA-4.0"
 url = "https://chimera-linux.org"
 source = f"https://github.com/chimera-linux/chimera-artwork/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "77b74b464d78938ebebd9f73f5dbf7a932aa43c0cdf11ed25358fb3fd49ce66c"
+sha256 = "45ada21998df2c45a1d638119eaf450ee31da8a123911e4d15a8f9db9ffdc2c6"
 
 
 def do_install(self):
@@ -27,3 +27,38 @@ def do_install(self):
     self.install_file(
         self.files_path / "chimera.xml", "usr/share/gnome-background-properties"
     )
+
+    self.install_dir("usr/share/wallpapers/Chimera/contents/images")
+    self.install_dir("usr/share/wallpapers/Chimera/contents/images_dark")
+    self.install_file(
+        "breeze-previews/metadata.json", "usr/share/wallpapers/Chimera"
+    )
+    self.install_link(
+        "usr/share/wallpapers/Chimera/contents/images/2560x1600.svg",
+        "../../../../backgrounds/chimera/bg-l.svg",
+    )
+    self.install_link(
+        "usr/share/wallpapers/Chimera/contents/images_dark/2560x1600.svg",
+        "../../../../backgrounds/chimera/bg-d.svg",
+    )
+
+    for theme in ["breeze", "breezedark", "breezetwilight"]:
+        previews_path = f"usr/share/plasma/look-and-feel/org.kde.{theme}.desktop/contents/previews"
+        self.install_dir(previews_path)
+        self.install_file(
+            f"breeze-previews/{theme}-preview.png",
+            previews_path,
+            name="preview.png",
+        )
+        self.install_file(
+            f"breeze-previews/{theme}-fullscreenpreview.jpg",
+            previews_path,
+            name="fullscreenpreview.jpg",
+        )
+
+
+@subpackage("chimera-artwork-kde")
+def _kde(self):
+    self.pkgdesc = f"{pkgdesc} (KDE files)"
+
+    return ["usr/share/plasma", "usr/share/wallpapers"]
