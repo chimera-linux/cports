@@ -41,21 +41,17 @@ env = {
 # lto always breaks across major llvm vers because of consumer/reader mismatch
 options = ["!check", "!lto"]
 
-# bootstrapping mode: generates tarballs for rust-bootstrap
-# do not use a temporary directory mode when running this!
-_bootstrap = False
-
 if self.profile().cross:
     hostmakedepends += ["rust"]
     env["PKG_CONFIG_ALLOW_CROSS"] = "1"
-elif _bootstrap:
+elif self.current_target == "custom:bootstrap":
     hostmakedepends += ["rust"]
 else:
     hostmakedepends += ["rust-bootstrap"]
 
 _rlib_dir = f"usr/lib/rustlib/{self.profile().triplet}"
 
-if _bootstrap:
+if self.current_target == "custom:bootstrap":
     # bootstrap binaries are statically linked to llvm to
     # avoid cyclic pains when updating llvm to a newer version
     #
@@ -78,7 +74,7 @@ def post_patch(self):
 
 def do_configure(self):
     _tools = ["rustdoc"]
-    if _bootstrap:
+    if self.current_target == "custom:bootstrap":
         _llvm_shared = "false"
         _use_docs = "false"
         _use_rpath = "true"
@@ -111,7 +107,7 @@ def do_configure(self):
 
     tgt_profile = self.profile()
     _tgt_spec = [f"'{tgt_profile.triplet}'"]
-    if not _bootstrap:
+    if self.current_target != "custom:bootstrap":
         _tgt_spec += ["'wasm32-wasi'", "'wasm32-unknown-unknown'"]
 
     # this is a hack that violates packaging guidelines, but it's only
@@ -233,7 +229,7 @@ crt-static = false
 """
             )
         # wasm targets for non-bootstrap
-        if not _bootstrap:
+        if self.current_target != "custom:bootstrap":
             cfg.write(
                 """
 [target.wasm32-unknown-unknown]
@@ -330,13 +326,16 @@ def _untar(self, name, has_triple=True):
     )
 
 
+@custom_target("bootstrap", "build")
+def _boot(self):
+    # already done
+    pass
+
+
 def do_install(self):
     self.install_license("COPYRIGHT")
     self.install_license("LICENSE-APACHE")
     self.install_license("LICENSE-MIT")
-
-    if _bootstrap:
-        self.error("build done, collect your archives in build/dist")
 
     # used if we decide to ship src
     self.install_dir("usr/src")
