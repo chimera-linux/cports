@@ -1,0 +1,49 @@
+--- a/sddmauthhelper.cpp
++++ b/sddmauthhelper.cpp
+@@ -57,9 +57,9 @@
+     // check for sddm user; return empty string if user not present
+     // we have to check with QString and isEmpty() instead of QDir and exists() because
+     // QDir returns "." and true for exists() in the case of a non-existent user;
+-    const QString sddmHomeDirPath = KUser("sddm").homeDir();
++    const QString sddmHomeDirPath = KUser("_sddm").homeDir();
+     if (sddmHomeDirPath.isEmpty()) {
+-        qDebug() << "Cannot proceed, user 'sddm' does not exist. Please check your SDDM install.";
++        qDebug() << "Cannot proceed, user '_sddm' does not exist. Please check your SDDM install.";
+         return QString();
+     } else {
+         return sddmHomeDirPath;
+@@ -88,7 +88,7 @@
+ 
+ void SddmAuthHelper::copyFile(const QString &source, const QString &destination)
+ {
+-    KUser sddmUser(QStringLiteral("sddm"));
++    KUser sddmUser(QStringLiteral("_sddm"));
+ 
+     if (QFile::exists(destination)) {
+         QFile::remove(destination);
+--- a/src/sddmkcm.cpp
++++ b/src/sddmkcm.cpp
+@@ -150,9 +150,9 @@
+     // initial check for sddm user; abort if user not present
+     // we have to check with QString and isEmpty() instead of QDir and exists() because
+     // QDir returns "." and true for exists() in the case of a non-existent user;
+-    QString sddmHomeDirPath = KUser("sddm").homeDir();
++    QString sddmHomeDirPath = KUser("_sddm").homeDir();
+     if (sddmHomeDirPath.isEmpty()) {
+-        Q_EMIT errorOccured(kli18n("Cannot proceed, user 'sddm' does not exist. Please check your SDDM install.").untranslatedText());
++        Q_EMIT errorOccured(kli18n("Cannot proceed, user '_sddm' does not exist. Please check your SDDM install.").untranslatedText());
+         return;
+     }
+ 
+@@ -288,9 +288,9 @@
+     // initial check for sddm user; abort if user not present
+     // we have to check with QString and isEmpty() instead of QDir and exists() because
+     // QDir returns "." and true for exists() in the case of a non-existent user
+-    QString sddmHomeDirPath = KUser("sddm").homeDir();
++    QString sddmHomeDirPath = KUser("_sddm").homeDir();
+     if (sddmHomeDirPath.isEmpty()) {
+-        Q_EMIT errorOccured(kli18n("Cannot proceed, user 'sddm' does not exist. Please check your SDDM install.").untranslatedText());
++        Q_EMIT errorOccured(kli18n("Cannot proceed, user '_sddm' does not exist. Please check your SDDM install.").untranslatedText());
+         return;
+     }
+ 
