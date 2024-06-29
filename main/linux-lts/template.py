@@ -20,7 +20,6 @@ options = [
     "!strip",
     "!scanrundeps",
     "!scanshlibs",
-    "!linkparallel",
     "!lto",
     "textrels",
     "execstack",
