@@ -1648,7 +1648,12 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         bstage = 3
     else:
         bstage = stage
-    if not pkgn:
+    if tgt == "invoke-custom":
+        if len(cmdline.command) != 3:
+            raise errors.CbuildException(f"{tgt} eneeds two arguments")
+        tgt = "custom:" + cmdline.command[1]
+        pkgn = cmdline.command[2]
+    elif not pkgn:
         if len(cmdline.command) <= 1 and tgt != "chroot":
             raise errors.CbuildException(f"{tgt} needs a package name")
         elif len(cmdline.command) > 2:
@@ -2290,6 +2295,7 @@ command_handlers = {
     "extract": (do_pkg, "Run up to extract phase of a template"),
     "index": (do_index, "Reindex local repositories"),
     "install": (do_pkg, "Run up to install phase of a template"),
+    "invoke-custom": (do_pkg, "Run a custom template-specific target"),
     "keygen": (do_keygen, "Generate a new signing key"),
     "lint": (do_lint, "Parse a template and lint it"),
     "list-outdated": (

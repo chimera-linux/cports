@@ -2070,7 +2070,7 @@ def from_module(m, ret):
     if (
         not ret.force_mode
         and not ret.bulk_mode
-        and not ret._target
+        and not ret.current_target
         and ret.is_built()
     ):
         raise SkipPackage()
@@ -2398,7 +2398,8 @@ def read_mod(
     ret.conf_jobs = jobs[0]
     ret.conf_link_threads = jobs[1]
     ret.stage = stage
-    ret._target = target
+    ret._custom_targets = {}
+    ret.current_target = target
     ret._force_check = force_check
     ret._allow_restricted = allow_restricted
 
@@ -2423,7 +2424,14 @@ def read_mod(
 
         return deco
 
+    def target_deco(tname, tdep):
+        def deco(f):
+            ret._custom_targets[tname] = (f, tdep)
+
+        return deco
+
     setattr(builtins, "subpackage", subpkg_deco)
+    setattr(builtins, "custom_target", target_deco)
     setattr(builtins, "self", ret)
 
     modh, modspec = _tmpl_dict.get(pkgname, (None, None))

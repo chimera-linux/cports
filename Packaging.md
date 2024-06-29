@@ -33,6 +33,7 @@ you should not rely on them or expect them to be stable.
 * [Build Profiles](#build_profiles)
 * [Build Environment](#build_environment)
 * [Hooks and Invocation](#hooks)
+  * [Custom Targets](#custom_targets)
 * [Staging](#staging)
 * [Template API](#template_api)
   * [Builtins](#api_builtins)
@@ -2295,6 +2296,33 @@ From this point onwards, it should be considered read only.
 Finally, `do_pkg` and `post_pkg` hooks are called first for each subpackage
 and then for the main package. After this, the build system rebuilds repo
 indexes, removes automatic dependencies, and performs cleanup.
+
+<a id="custom_targets"></a>
+### Custom Targets
+
+It is possible to define custom target functions like so:
+
+```
+@custom_target("my-target", "configure")
+def _dostuff(self):
+    ...
+```
+
+This can then be invoked like `./cbuild invoke-custom my-target main/mypkg`.
+The second argument specifies which regular packaging steps have to run before
+running this.
+
+Custom targets do not emit/capture log files so they can be used for things
+that require interactivity. The primary purpose is to provide simple logic
+for things like bindist generation for toolchain bootstrapping and so on.
+
+You can query the current target at template toplevel, e.g. to add extra
+dependencies:
+
+```
+if self.current_target == "custom:my-target":
+    hostmakedepends += ...
+```
 
 <a id="staging"></a>
 ## Staging

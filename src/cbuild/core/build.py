@@ -66,6 +66,15 @@ def _build(
 
     depmap[depn] = True
 
+    cfunc = None
+    cdep = None
+
+    if step.startswith("custom:"):
+        npstep = step.removeprefix("custom:")
+        if npstep not in pkg._custom_targets:
+            pkg.error(f"custom target '{npstep}' is not defined in template")
+        cfunc, cdep = pkg._custom_targets[npstep]
+
     pkg.install_done = False
     pkg.current_phase = "setup"
     pkg.update_check = update_check
@@ -115,12 +124,24 @@ def _build(
     # ensure the wrksrc exists; it will be populated later
     pkg.cwd.mkdir(exist_ok=True, parents=True)
 
+    # a little DRY abstraction
+    def _step_sentinel(stepn):
+        if stepn == step:
+            return True
+
+        if cdep and cdep == stepn:
+            pkg.log(f"running custom target '{stepn}'...")
+            cfunc(pkg)
+            return True
+
+        return False
+
     if not hasattr(pkg, "do_fetch"):
         pkg.current_phase = "fetch"
         fetch.invoke(pkg)
         pkg.current_phase = "setup"
 
-        if step == "fetch":
+        if _step_sentinel("fetch"):
             return
 
     if not dirty or step == "deps":
@@ -142,36 +163,36 @@ def _build(
         ):
             chroot.update(pkg)
 
-    if step == "deps":
+    if _step_sentinel("deps"):
         return
 
     if hasattr(pkg, "do_fetch"):
         pkg.current_phase = "fetch"
         fetch.invoke(pkg)
 
-        if step == "fetch":
+        if _step_sentinel("fetch"):
             return
 
     pkg.current_phase = "extract"
     extract.invoke(pkg)
-    if step == "extract":
+    if _step_sentinel("extract"):
         return
 
     if not pkg.prepare_after_patch:
         pkg.current_phase = "prepare"
         prepare.invoke(pkg)
-        if step == "prepare":
+        if _step_sentinel("prepare"):
             return
 
     pkg.current_phase = "patch"
     patch.invoke(pkg)
-    if step == "patch":
+    if _step_sentinel("patch"):
         return
 
     if pkg.prepare_after_patch:
         pkg.current_phase = "prepare"
         prepare.invoke(pkg)
-        if step == "prepare":
+        if _step_sentinel("prepare"):
             return
 
     pkg.cwd = oldcwd
@@ -179,15 +200,15 @@ def _build(
 
     pkg.current_phase = "configure"
     configure.invoke(pkg, step)
-    if step == "configure":
+    if _step_sentinel("configure"):
         return
     pkg.current_phase = "build"
     buildm.invoke(pkg, step)
-    if step == "build":
+    if _step_sentinel("build"):
         return
     pkg.current_phase = "check"
     check.invoke(pkg, step, check_fail)
-    if step == "check":
+    if _step_sentinel("check"):
         return
 
     # perform destdir and statedir cleanup
@@ -202,7 +223,7 @@ def _build(
     # invoke install for main package
     pkg.current_phase = "install"
     install.invoke(pkg, step)
-    if step == "install":
+    if _step_sentinel("install"):
         return
 
     pkg.current_phase = "pkg"

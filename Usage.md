@@ -542,6 +542,9 @@ The following commands are recognized:
   a path, reindex a specific repository. Only either the host architecture or
   the `-a` architecture are indexed, and the path should not include the
   architecture.
+* `invoke-custom` Takes a target name and a package. Invokes a custom-defined
+  template-specific target function. Typically used to handle logic for
+  generation of bootstrap bindists, kernel config refresh, and the likes.
 * `keygen [KEYPATH [KEYSIZE]]` Generate your signing key. You can optionally
   specify the key name (if not a path, will be stored in the default location
   of `etc/keys`), key path, and key size (2048 by default). The configuration
