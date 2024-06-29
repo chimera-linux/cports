@@ -1,5 +1,5 @@
 pkgname = "imhex"
-pkgver = "1.35.0"
+pkgver = "1.35.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -48,12 +48,12 @@ license = "GPL-2.0-or-later"
 url = "https://imhex.werwolv.net"
 _patterns = "a0bb71be5864588fd0f33ec524c8a3b32dcc3a59"
 source = [
-    f"https://github.com/WerWolv/ImHex/releases/download/v{pkgver}/Full.Sources.tar.gz",
+    f"https://github.com/WerWolv/ImHex/releases/download/v{pkgver}/Full.Sources.tar.gz>src-{pkgver}.tar.gz",
     f"https://github.com/WerWolv/ImHex-Patterns/archive/{_patterns}.tar.gz",
 ]
 source_paths = [".", "ImHex-Patterns"]
 sha256 = [
-    "0af5f14fd95027612b8093b2c6c99c9a0734d791ee6451c7b8fda18ef1dc8799",
+    "2f730ae432230df16abc53a2176758027b3a66ccb3a197540be84eee2f0c615d",
     "895aea1e0f4367f0e52e25205c459bbe8589d2f094d676e0874982a7ca5ae359",
 ]
 
