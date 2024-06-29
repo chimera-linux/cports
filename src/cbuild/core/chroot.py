@@ -606,7 +606,7 @@ def enter(
     if term:
         if "TERM" in os.environ:
             envs["TERM"] = os.environ["TERM"]
-        if "COLORTERM" in os.environ:
+        if "COLORTERM" in os.environ and logger.get().use_colors:
             envs["COLORTERM"] = os.environ["COLORTERM"]
 
     if hprof.wordsize == 32:

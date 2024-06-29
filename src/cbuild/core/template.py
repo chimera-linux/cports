@@ -83,11 +83,17 @@ def redir_log(pkg, logpath):
     olderr = os.dup(sys.stderr.fileno())
     pkg.logger.fileno = oldout
     # child will do the logging for us through a pipe or pty
+    prd, prw = None, None
+    colors = logger.get().use_colors
     try:
-        prd, prw = pty.openpty()
-        os.set_inheritable(prd, True)
-        os.set_inheritable(prw, True)
+        # use a pipe if colors are suppressed, no need for pty
+        if colors:
+            prd, prw = pty.openpty()
+            os.set_inheritable(prd, True)
+            os.set_inheritable(prw, True)
     except Exception:
+        pass
+    if not prd:
         prd, prw = os.pipe()
     # read end propagates into child through the fork
     try:
@@ -114,16 +120,18 @@ def redir_log(pkg, logpath):
                     for idx in range(0, rlen):
                         if rbuf[idx] == 0xA:
                             rnl = rprev + rbuf[pidx : idx + 1]
+                            ernl = escape_ansi(rnl)
                             rprev = bytes()
-                            os.write(1, rnl)
-                            fout.write(escape_ansi(rnl))
+                            os.write(1, rnl if colors else ernl)
+                            fout.write(ernl)
                             pidx = idx + 1
                     # eof or we accumulated too much data
                     if len(rprev) >= bufmax or rlen == 0:
                         rnl = rprev + rbuf[pidx:]
+                        ernl = escape_ansi(rnl)
                         rprev = bytes()
-                        os.write(1, rnl)
-                        fout.write(escape_ansi(rnl))
+                        os.write(1, rnl if colors else ernl)
+                        fout.write(ernl)
                     # on eof also end entirely
                     if rlen == 0:
                         break
