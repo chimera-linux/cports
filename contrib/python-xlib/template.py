@@ -2,6 +2,7 @@ pkgname = "python-xlib"
 pkgver = "0.33"
 pkgrel = 1
 build_style = "python_pep517"
+make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
     "python-build",
     "python-installer",
@@ -21,5 +22,3 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/python-xlib/python-xlib"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "b7a45aaf919915f4908e4b2d79fc2ff3abbbec3b801a45162b3d0f67ed581b37"
-# unpackaged checkdepends
-options = ["!check"]
