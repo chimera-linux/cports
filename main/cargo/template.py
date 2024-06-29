@@ -29,12 +29,7 @@ env = {
 # disable check at least for now
 options = ["!check"]
 
-# you can use this to generate bootstrap binaries for cargo
-# these are mostly static and only bootstrap toolchain is used
-# do not use a temporary directory mode when running this!
-_bootstrap = False
-
-if _bootstrap:
+if self.current_target == "custom:bootstrap":
     hostmakedepends += ["rust-bootstrap"]
     makedepends += ["rust-bootstrap", "openssl-devel-static"]
     options += ["!debug"]
@@ -52,7 +47,7 @@ def post_patch(self):
 
 
 def init_prepare(self):
-    if _bootstrap:
+    if self.current_target == "custom:bootstrap":
         self.make_env["LIBGIT2_NO_VENDOR"] = "0"
         self.make_env["OPENSSL_STATIC"] = "1"
         self.make_env["OPENSSL_NO_PKG_CONFIG"] = "1"
@@ -64,21 +59,22 @@ def do_prepare(self):
     pass
 
 
+@custom_target("bootstrap", "build")
+def _boot(self):
+    bdirn = f"cargo-{pkgver}-{self.profile().triplet}"
+    self.mkdir(bdirn)
+    self.cp(_binp, bdirn)
+    self.cp("LICENSE-APACHE", bdirn)
+    self.cp("LICENSE-MIT", bdirn)
+    self.cp("LICENSE-THIRD-PARTY", bdirn)
+    self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
+    self.rm(bdirn, recursive=True)
+
+
 def do_install(self):
     _binp = f"target/{self.profile().triplet}/release/cargo"
 
-    if _bootstrap:
-        bdirn = f"cargo-{pkgver}-{self.profile().triplet}"
-        self.mkdir(bdirn)
-        self.cp(_binp, bdirn)
-        self.cp("LICENSE-APACHE", bdirn)
-        self.cp("LICENSE-MIT", bdirn)
-        self.cp("LICENSE-THIRD-PARTY", bdirn)
-        self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
-        self.rm(bdirn, recursive=True)
-        self.error("build done, collect your tarball in builddir")
-    else:
-        self.install_bin(_binp)
+    self.install_bin(_binp)
 
     for f in (self.cwd / "src/etc/man").glob("*.?"):
         self.install_man(f)
