@@ -501,18 +501,12 @@ def remove_autodeps(bootstrapping, prof=None):
             outf.write(f"{ep}\n")
 
     # perform transaction
-    f_ret = apki.call_chroot(
+    apki.call_chroot(
         "fix",
         [],
         template.get_cats(),
-        capture_output=True,
         allow_untrusted=True,
     )
-
-    if f_ret.returncode != 0:
-        log.out_plain(">> stderr (host):")
-        log.out_plain(f_ret.stderr.decode())
-        failed = True
 
     if prof and prof.cross:
         _prepare_arch(prof, False)
