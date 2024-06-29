@@ -1,12 +1,11 @@
 pkgname = "fakeroot"
-pkgver = "1.25.3"
+pkgver = "1.35"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
-configure_gen = []
 make_cmd = "gmake"
 make_check_env = {"VERBOSE": "x"}
-hostmakedepends = ["gmake"]
+hostmakedepends = ["automake", "gmake", "libtool"]
 makedepends = ["acl-devel"]
 checkdepends = ["ugetopt"]
 depends = [f"fakeroot-core={pkgver}-r{pkgrel}"]
@@ -14,8 +13,10 @@ pkgdesc = "Tool for simulating superuser privileges"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
-source = f"https://repo.chimera-linux.org/distfiles/{pkgname}-{pkgver}.tar.gz"
-sha256 = "2c8a1443d77009b07f3b9ef3797036fb7d77b16fb648692ae39e8c480fd0e0e9"
+source = f"{url}/-/archive/upstream/{pkgver}/fakeroot-upstream-{pkgver}.tar.gz"
+sha256 = "544c403716e56c70e7e64390b5601f241feb41f0e710401a50ca7414d20cf1f7"
+# redefinition of id_t in libfakeroot
+tool_flags = {"CFLAGS": ["-D_ID_T"]}
 options = ["bootstrap"]
 
 if self.stage > 0:

@@ -1,36 +1,20 @@
-commit 4630b5e76a527de0b10493ac9c3f35ac714138e9
-Author: q66 <q66@chimera-linux.org>
-Date:   Thu Sep 29 05:21:17 2022 +0200
+This patch was original added in aports commit
+439b449b68ebf3462a3f659804c41195e2d8d8ae. It
+seems to be needed since this sanity checks
+fails spuriously when cros compiling fakeroot.
 
-    drop some cross-incompatible nonsense
-
-diff --git a/configure b/configure
-index d144000..1a458f0 100755
---- a/configure
-+++ b/configure
-@@ -12188,73 +12188,6 @@ fi
- { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_use_ipc" >&5
- $as_echo "$ac_cv_use_ipc" >&6; }
+diff -upr fakeroot-1.27.orig/configure.ac fakeroot-1.27/configure.ac
+--- fakeroot-1.27.orig/configure.ac	2022-01-30 10:43:52.992260063 +0100
++++ fakeroot-1.27/configure.ac	2022-01-30 10:46:22.989526929 +0100
+@@ -25,50 +25,6 @@ AC_CACHE_CHECK([which IPC method to use]
+ 	       [ac_cv_use_ipc],
+ 	       [ac_cv_use_ipc=sysv])
  
 -if test $ac_cv_use_ipc = "sysv"; then
--  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether SysV IPC message queues are actually working on the host" >&5
--$as_echo_n "checking whether SysV IPC message queues are actually working on the host... " >&6; }
+-  AC_MSG_CHECKING([whether SysV IPC message queues are actually working on the host])
 -
--  ac_ext=c
--ac_cpp='$CPP $CPPFLAGS'
--ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
--ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
--ac_compiler_gnu=$ac_cv_c_compiler_gnu
--
--  if test "$cross_compiling" = yes; then :
--  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
--$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
--as_fn_error $? "cannot run test program while cross compiling
--See \`config.log' for more details" "$LINENO" 5; }
--else
--  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
--/* end confdefs.h.  */
--
+-  AC_LANG_PUSH(C)
+-  AC_RUN_IFELSE([AC_LANG_SOURCE([[
 -#include <stdlib.h>
 -#include <sys/types.h>
 -#include <sys/ipc.h>
@@ -51,34 +35,26 @@ index d144000..1a458f0 100755
 -    return 0;
 -  }
 -
--}
--_ACEOF
--if ac_fn_c_try_run "$LINENO"; then :
--  ac_cv_use_ipc=sysv
--else
--  ac_cv_use_ipc=tcp
--fi
--rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
--  conftest.$ac_objext conftest.beam conftest.$ac_ext
--fi
+-}]])],[ac_cv_use_ipc=sysv],[ac_cv_use_ipc=tcp],[ac_cv_use_ipc=cross])
 -
--
--  if test $ac_cv_use_ipc = "tcp"; then
--    { $as_echo "$as_me:${as_lineno-$LINENO}: result: No, using TCP" >&5
--$as_echo "No, using TCP" >&6; }
+-  if test $ac_cv_use_ipc = cross; then
+-    if test "$host_os" = linux-gnu; then
+-      ac_cv_use_ipc=sysv
+-      AC_MSG_RESULT([cross, guessing yes])
+-    else
+-      (set -o posix; set)
+-      AC_MSG_ERROR([cross compiling, unknown result for $host_os])
+-    fi
+-  elif test $ac_cv_use_ipc = "tcp"; then
+-    AC_MSG_RESULT([No, using TCP])
 -  else
--    { $as_echo "$as_me:${as_lineno-$LINENO}: result: Yes" >&5
--$as_echo "Yes" >&6; }
+-    AC_MSG_RESULT([Yes])
 -  fi
 -
--  ac_ext=c
--ac_cpp='$CPP $CPPFLAGS'
--ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
--ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
--ac_compiler_gnu=$ac_cv_c_compiler_gnu
--
+-  AC_LANG_POP(C)
 -fi
 -
- 
- # Check whether --with-dbformat was given.
- if test "${with_dbformat+set}" = set; then :
+ AC_ARG_WITH([dbformat],
+ 	    AS_HELP_STRING([--with-dbformat@<:@=DBFORMAT@:>@],
+ 			   [database format to use: either inode (default) or path]),
+
