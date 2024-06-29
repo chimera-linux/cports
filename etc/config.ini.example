@@ -23,6 +23,8 @@ build_root = bldroot
 # default physical path for builddir and destdir (absolute or relative
 # to cports); if empty, they will be directly in bldroot
 build_dir =
+# additional packages/constraints to always have in bldroot apk world
+extra_packages =
 # whether ccache will be used in the build
 ccache = no
 # whether sccache will be used for rust in the build
