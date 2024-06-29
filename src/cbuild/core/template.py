@@ -308,7 +308,11 @@ class Package:
         self.logger.warn(self._get_pv() + ": " + msg, end)
 
     def error(self, msg, end="\n", bt=False):
-        raise errors.PackageException(msg, end, self, bt)
+        quiet = False
+        if not msg:
+            msg = ""
+            quiet = True
+        raise errors.PackageException(msg, end, self, bt, quiet)
 
     def _get_pv(self):
         if self.pkgname and self.pkgver:

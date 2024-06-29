@@ -1763,9 +1763,10 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             failed = True
             return False
         except errors.PackageException as e:
-            e.pkg.log_red(f"ERROR: {e}", e.end)
-            if e.bt:
-                short_traceback(e, log)
+            if not e.quiet:
+                e.pkg.log_red(f"ERROR: {e}", e.end)
+                if e.bt:
+                    short_traceback(e, log)
             failed = True
             return False
         except Exception as e:
@@ -2434,9 +2435,10 @@ def fire():
         short_traceback(e, logger.get())
         sys.exit(1)
     except errors.PackageException as e:
-        e.pkg.log_red(f"ERROR: {e}", e.end)
-        if e.bt:
-            short_traceback(e, logger.get())
+        if not e.quiet:
+            e.pkg.log_red(f"ERROR: {e}", e.end)
+            if e.bt:
+                short_traceback(e, logger.get())
         sys.exit(1)
     except Exception as e:
         logger.get().out_red("A failure has occurred!")

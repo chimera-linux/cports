@@ -323,33 +323,25 @@ def scan(pkg, somap):
     # some linting
 
     if len(elf_usrshare) > 0:
-        try:
-            pkg.error("ELF files in /usr/share:")
-        except Exception:
-            for f in elf_usrshare:
-                print(f"   {f}")
-            raise
+        pkg.log_red("ELF files in /usr/share:")
+        for f in elf_usrshare:
+            print(f"   {f}")
+        pkg.error(None)
 
     if len(elf_textrels) > 0:
-        try:
-            pkg.error("found textrels:")
-        except Exception:
-            for f in elf_textrels:
-                print(f"   {f}")
-            raise
+        pkg.log_red("found textrels:")
+        for f in elf_textrels:
+            print(f"   {f}")
+        pkg.error(None)
 
     if len(elf_xstack) > 0:
-        try:
-            pkg.error("found executable stack:")
-        except Exception:
-            for f in elf_xstack:
-                print(f"   {f}")
-            raise
+        pkg.log_red("found executable stack:")
+        for f in elf_xstack:
+            print(f"   {f}")
+        pkg.error(None)
 
     if len(elf_foreign) > 0:
-        try:
-            pkg.error("found foreign-machine ELF files:")
-        except Exception:
-            for f in elf_foreign:
-                print(f"   {f}")
-            raise
+        pkg.log_red("found foreign-machine ELF files:")
+        for f in elf_foreign:
+            print(f"   {f}")
+        pkg.error(None)
