@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.1.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -220,7 +220,6 @@ def _apps_meta(self):
         # "neochat",  # local WIP, matrix client
         # - still qt5
         # "digikam",  # photo management
-        # "heaptrack",  # heap memory profiler
         # "kamoso",  # camera
         # "kipi-plugins",  # image export
         # "kmymoney",  # finance manager
@@ -266,6 +265,19 @@ def _multimedia_meta(self):
         "kdenlive",  # video editor
         "juk",  # music player and manager
         "plasmatube",  # youtube client
+    ]
+    self.options = ["empty"]
+    return []
+
+
+@subpackage("plasma-desktop-devtools-meta")
+def _devtools_meta(self):
+    self.pkgdesc = f"{pkgdesc} (devtools recommends package)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        "heaptrack",
+        "kcachegrind",
+        "massif-visualizer",
     ]
     self.options = ["empty"]
     return []
