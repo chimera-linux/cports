@@ -1,6 +1,6 @@
 pkgname = "libunwind-nongnu"
 pkgver = "1.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--includedir=/usr/include/libunwind-nongnu",
@@ -29,6 +29,11 @@ options = ["!check"]
 if self.profile().arch in ["ppc64", "ppc64le"]:
     # ld: error: relocation R_PPC64_REL16_LO cannot be used against symbol '.TOC.'; recompile with -fPIC
     options += ["!lto"]
+
+
+# it's trying to export outline atomic helpers for some reason?
+if self.profile().arch == "aarch64":
+    tool_flags["CFLAGS"] = ["-mno-outline-atomics"]
 
 
 def post_extract(self):
