@@ -1,6 +1,6 @@
 pkgname = "chimera-artwork"
 pkgver = "0.99.2"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Chimera Linux artwork"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "CC-BY-SA-4.0"
@@ -60,5 +60,6 @@ def do_install(self):
 @subpackage("chimera-artwork-kde")
 def _kde(self):
     self.pkgdesc = f"{pkgdesc} (KDE files)"
+    self.replaces = ["plasma-workspace<6.1.1-r1"]
 
     return ["usr/share/plasma", "usr/share/wallpapers"]
