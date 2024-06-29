@@ -27,31 +27,32 @@ options = [
 ]
 
 _flavor = "generic"
-# set to True to refresh kernel configs
-_conf = False
 
-if _conf:
+if self.current_target == "custom:generate-configs":
     hostmakedepends += ["base-cross", "ncurses-devel"]
 
 if self.profile().cross:
     broken = "linux-devel does not come out right"
 
 
+@custom_target("generate-configs", "patch")
+def _genconf(self):
+    from cbuild.util import linux
+
+    linux.update_configs(self, archs, _flavor)
+
+
 def init_configure(self):
     # generate scriptlets for packaging, just hooking to base-kernel helpers
     from cbuild.util import linux
 
-    if not _conf:
-        linux.generate_scriptlets(self, _flavor)
+    linux.generate_scriptlets(self, _flavor)
 
 
 def do_configure(self):
     from cbuild.util import linux
 
-    if _conf:
-        linux.update_configs(self, archs, _flavor)
-    else:
-        linux.configure(self, _flavor)
+    linux.configure(self, _flavor)
 
 
 def do_build(self):
