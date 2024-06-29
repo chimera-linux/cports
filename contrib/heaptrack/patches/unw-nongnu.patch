@@ -1,0 +1,16 @@
+--- a/cmake/FindLibunwind.cmake
++++ b/cmake/FindLibunwind.cmake
+@@ -22,13 +22,10 @@
+ # SPDX-License-Identifier: BSD-3-Clause
+ 
+ 
+-find_path(LIBUNWIND_INCLUDE_DIR libunwind.h )
+ if(NOT EXISTS "${LIBUNWIND_INCLUDE_DIR}/unwind.h")
+   MESSAGE("Found libunwind.h but corresponding unwind.h is absent!")
+   SET(LIBUNWIND_INCLUDE_DIR "")
+ endif()
+-
+-find_library(LIBUNWIND_LIBRARY unwind)
+ 
+ if(LIBUNWIND_INCLUDE_DIR AND EXISTS "${LIBUNWIND_INCLUDE_DIR}/libunwind-common.h")
+   file(STRINGS "${LIBUNWIND_INCLUDE_DIR}/libunwind-common.h" LIBUNWIND_HEADER_CONTENTS REGEX "#define UNW_VERSION_[A-Z]+\t[0-9]*")
