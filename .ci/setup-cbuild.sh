@@ -26,6 +26,7 @@ command = $(pwd)/${APK_FILE}
 [build]
 # they will not be packaged, but we can still CI them (no public artifacts)
 allow_restricted = yes
+timing = yes
 EOF
 
 echo "=> Generating cbuild key..."
