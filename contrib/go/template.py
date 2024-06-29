@@ -63,15 +63,36 @@ def do_build(self):
     )
 
 
+def _get_binpath(self):
+    _binpath = "bin"
+    if self.profile().cross:
+        _binpath = f"bin/linux_{self.profile().goarch}"
+        with self.profile("host") as hpf:
+            _hostarch = hpf.goarch
+    else:
+        _hostarch = None
+    return _binpath, _hostarch
+
+
+def _clear_pkg(self, arch, ppath):
+    if arch:
+        self.rm(ppath / f"tool/linux_{arch}", recursive=True)
+        self.rm(ppath / f"linux_{arch}", recursive=True)
+    for f in (ppath / "tool").iterdir():
+        self.rm(f / "api", force=True)
+
+
 @custom_target("bootstrap", "build")
 def _boot(self):
+    _binpath, _hostarch = _get_binpath(self)
+
     bdirn = f"go-bootstrap-{pkgver}-{self.profile().goarch}"
     self.mkdir(bdirn)
     self.cp(_binpath, f"{bdirn}/bin", recursive=True)
     self.cp("src", bdirn, recursive=True)
     self.cp("pkg", bdirn, recursive=True)
     self.cp("LICENSE", bdirn)
-    _clear_pkg(self.cwd / bdirn / "pkg")
+    _clear_pkg(self, _hostarch, self.cwd / bdirn / "pkg")
     self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
     self.rm(bdirn, recursive=True)
 
@@ -81,20 +102,7 @@ def do_check(self):
 
 
 def do_install(self):
-    _binpath = "bin"
-    if self.profile().cross:
-        _binpath = f"bin/linux_{self.profile().goarch}"
-        with self.profile("host") as hpf:
-            _hostarch = hpf.goarch
-    else:
-        _hostarch = None
-
-    def _clear_pkg(ppath):
-        if _hostarch:
-            self.rm(ppath / f"tool/linux_{_hostarch}", recursive=True)
-            self.rm(ppath / f"linux_{_hostarch}", recursive=True)
-        for f in (ppath / "tool").iterdir():
-            self.rm(f / "api", force=True)
+    _binpath, _hostarch = _get_binpath(self)
 
     self.install_files(_binpath, "usr/lib/go", name="bin")
     self.install_files("lib", "usr/lib/go")
@@ -116,4 +124,4 @@ def do_install(self):
 
     self.install_license("LICENSE")
 
-    _clear_pkg(self.destdir / "usr/lib/go/pkg")
+    _clear_pkg(self, _hostarch, self.destdir / "usr/lib/go/pkg")
