@@ -26,11 +26,7 @@ options = [
     "execstack",
 ]
 
-# bootstrapping mode generates tarballs for go-bootstrap
-# do not use a temporary directory mode when running this!
-_bootstrap = False
-
-if _bootstrap:
+if self.current_target == "custom:bootstrap":
     options += ["!check"]
     env["GOROOT_FINAL"] = "/usr/lib/go-bootstrap"
 else:
@@ -67,6 +63,19 @@ def do_build(self):
     )
 
 
+@custom_target("bootstrap", "build")
+def _boot(self):
+    bdirn = f"go-bootstrap-{pkgver}-{self.profile().goarch}"
+    self.mkdir(bdirn)
+    self.cp(_binpath, f"{bdirn}/bin", recursive=True)
+    self.cp("src", bdirn, recursive=True)
+    self.cp("pkg", bdirn, recursive=True)
+    self.cp("LICENSE", bdirn)
+    _clear_pkg(self.cwd / bdirn / "pkg")
+    self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
+    self.rm(bdirn, recursive=True)
+
+
 def do_check(self):
     self.do(self.chroot_cwd / "bin/go", "tool", "dist", "test", "-v", "-run")
 
@@ -86,18 +95,6 @@ def do_install(self):
             self.rm(ppath / f"linux_{_hostarch}", recursive=True)
         for f in (ppath / "tool").iterdir():
             self.rm(f / "api", force=True)
-
-    if _bootstrap:
-        bdirn = f"go-bootstrap-{pkgver}-{self.profile().goarch}"
-        self.mkdir(bdirn)
-        self.cp(_binpath, f"{bdirn}/bin", recursive=True)
-        self.cp("src", bdirn, recursive=True)
-        self.cp("pkg", bdirn, recursive=True)
-        self.cp("LICENSE", bdirn)
-        _clear_pkg(self.cwd / bdirn / "pkg")
-        self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
-        self.rm(bdirn, recursive=True)
-        self.error("build done, collect your tarball in builddir")
 
     self.install_files(_binpath, "usr/lib/go", name="bin")
     self.install_files("lib", "usr/lib/go")
