@@ -277,8 +277,10 @@ _flag_types = list(_flag_handlers.keys())
 
 
 class Profile:
-    def __init__(self, archn, pdata, gdata):
+    def __init__(self, archn, pdata, gdata, native=False):
         self._flags = {}
+        self._native = native
+        self._native_profile = self
 
         # profile flags are always used
         if "flags" in pdata:
@@ -436,7 +438,7 @@ class Profile:
 
     @property
     def cross(self):
-        return self._arch != chroot.host_cpu()
+        return not self._native and self._arch != chroot.host_cpu()
 
     @property
     def goarch(self):
@@ -472,6 +474,8 @@ def init(cparser):
             raise errors.CbuildException(f"malformed profile: {archn}")
 
         _all_profiles[archn] = Profile(archn, cp, cparser)
+        _all_profiles[f"{archn}:native"] = Profile(archn, cp, cparser, True)
+        _all_profiles[archn]._native_profile = _all_profiles[f"{archn}:native"]
 
 
 def get_profile(archn):

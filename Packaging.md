@@ -2893,6 +2893,10 @@ example `aarch64`) or the special aliases `host` and `target`, which refer
 to the build machine and the target machine respectively (the target machine
 is the same as build machine when not cross compiling).
 
+It is also possible to specify `target:native` as well as e.g. `aarch64:native`
+to force a non-cross profile in an environment where target would otherwise
+be cross. This is useful for particular cases of compiler flags and so on.
+
 Usage:
 
 ```

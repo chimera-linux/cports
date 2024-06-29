@@ -753,6 +753,8 @@ def pkg_profile(pkg, target):
         return profile.get_profile(chroot.host_cpu())
     elif target == "target":
         return pkg._target_profile
+    elif target == "target:native":
+        return pkg._target_profile._native_profile
     elif not target:
         return pkg._current_profile
 
@@ -1520,6 +1522,8 @@ class Template(Package):
             target = chroot.host_cpu()
         elif target == "target":
             target = self._target_profile.arch
+        elif target == "target:native":
+            target = f"{self._target_profile.arch}:native"
 
         try:
             self._current_profile = profile.get_profile(target)
