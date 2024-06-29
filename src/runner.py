@@ -151,6 +151,14 @@ def handle_options():
         help="Force plain output.",
     )
     parser.add_argument(
+        "-W",
+        "--force-color",
+        action="store_const",
+        const=True,
+        default=False,
+        help="Force color output.",
+    )
+    parser.add_argument(
         "-j", "--jobs", help="Number of jobs to use.", default=None
     )
     parser.add_argument(
@@ -399,6 +407,9 @@ def handle_options():
 
     if cmdline.no_color:
         opt_nocolor = True
+
+    if cmdline.force_color:
+        opt_nocolor = False
 
     if cmdline.force:
         opt_force = True
