@@ -19,6 +19,7 @@ make_check_args = [
     + "|keystatetest"  # fails in offscreen
     + "|lockedtest"  # needs selenium
     + "|klippertest"  # segfaults instantly
+    + "|lookandfeel-kcmTest"  # segfaults with our patch to default theme
     + "|testimagebackend"  # cannot find org.kde.plasma.wallpapers.image QML module, try QML2_IMPORT_PATH
     + "|locationsrunnertest"
     + "|testimagefrontend)",  # ^ same as above
