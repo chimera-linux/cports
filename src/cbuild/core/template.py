@@ -116,7 +116,12 @@ def redir_log(pkg, logpath):
                     rlen = os.readv(prd, rarr)
                     rbuf = rarr[0][0:rlen]
                     # search for last newline and unescape everything up to it
-                    idx = rbuf.rfind(b"\n")
+                    idx = -1
+                    for tidx in range(rlen - 1, -1, -1):
+                        # look for either CR or LF for correct line buffering
+                        if rbuf[tidx] == 0xA or rbuf[tidx] == 0xD:
+                            idx = tidx
+                            break
                     if idx >= 0:
                         rnl = rprev + rbuf[0 : idx + 1]
                         ernl = escape_ansi(rnl)
