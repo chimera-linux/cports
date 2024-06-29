@@ -115,19 +115,17 @@ def redir_log(pkg, logpath):
                 while True:
                     rlen = os.readv(prd, rarr)
                     rbuf = rarr[0][0:rlen]
-                    # write everything line by line
-                    pidx = 0
-                    for idx in range(0, rlen):
-                        if rbuf[idx] == 0xA:
-                            rnl = rprev + rbuf[pidx : idx + 1]
-                            ernl = escape_ansi(rnl)
-                            rprev = bytes()
-                            os.write(1, rnl if colors else ernl)
-                            fout.write(ernl)
-                            pidx = idx + 1
+                    # search for last newline and unescape everything up to it
+                    idx = rbuf.rfind(b"\n")
+                    if idx >= 0:
+                        rnl = rprev + rbuf[0 : idx + 1]
+                        ernl = escape_ansi(rnl)
+                        rprev = bytes()
+                        os.write(1, rnl if colors else ernl)
+                        fout.write(ernl)
                     # eof or we accumulated too much data
                     if len(rprev) >= bufmax or rlen == 0:
-                        rnl = rprev + rbuf[pidx:]
+                        rnl = rprev + rbuf[idx + 1 :]
                         ernl = escape_ansi(rnl)
                         rprev = bytes()
                         os.write(1, rnl if colors else ernl)
@@ -136,7 +134,7 @@ def redir_log(pkg, logpath):
                     if rlen == 0:
                         break
                     # save whatever was left
-                    rprev += rbuf[pidx:]
+                    rprev += rbuf[idx + 1 :]
         finally:
             # raw exit (no exception) since we forked
             # don't want to propagate back to the outside
