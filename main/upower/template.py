@@ -1,6 +1,6 @@
 pkgname = "upower"
 pkgver = "1.90.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
