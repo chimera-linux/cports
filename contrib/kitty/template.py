@@ -1,6 +1,6 @@
 pkgname = "kitty"
 pkgver = "0.35.2"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "go",
     "pkgconf",
@@ -25,6 +25,7 @@ makedepends = [
     "libxrandr-devel",
     "openssl-devel",
     "python-devel",
+    "simde",
     "xxhash-devel",
 ]
 depends = [
@@ -42,8 +43,7 @@ options = ["!cross"]
 
 tool_flags = {
     # musl/posix ioctl int argument crap
-    # sketchy simd garbage
-    "CFLAGS": ["-Wno-error=overflow", "-DKITTY_NO_SIMD"],
+    "CFLAGS": ["-Wno-error=overflow"],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
 }
 
