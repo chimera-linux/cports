@@ -6,6 +6,7 @@ make_check_args = [
     # python-reflink
     "--deselect=test/test_files.py::MoveTest::test_reflink_arrives",
     "--deselect=test/test_files.py::MoveTest::test_reflink_does_not_depart",
+    "--config-file=/dev/null",
 ]
 hostmakedepends = [
     "python-build",
@@ -33,7 +34,10 @@ sha256 = "3b1172b5bc3729e33a6ea4689f7d0236682bf828c67196b6a260f0389cb1f8cf"
 
 
 def init_check(self):
-    self.make_check_args += [f"--numprocesses={self.make_jobs}"]
+    self.make_check_args += [
+        f"--numprocesses={self.make_jobs}",
+        "--dist=worksteal",
+    ]
 
 
 def post_install(self):
