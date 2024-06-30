@@ -8,7 +8,7 @@ diff --git a/src/wayland_backend.cpp b/src/wayland_backend.cpp
 index a8b0673..83ba712 100644
 --- a/src/Backends/WaylandBackend.cpp
 +++ b/src/Backends/WaylandBackend.cpp
-@@ -377,7 +377,8 @@ namespace gamescope
+@@ -382,7 +382,8 @@ namespace gamescope
          std::optional<wl_fixed_t> m_ofPendingCursorX;
          std::optional<wl_fixed_t> m_ofPendingCursorY;
  
@@ -18,15 +18,26 @@ index a8b0673..83ba712 100644
          std::unordered_set<uint32_t> m_uScancodesHeld;
  
          void Wayland_Registry_Global( wl_registry *pRegistry, uint32_t uName, const char *pInterface, uint32_t uVersion );
-@@ -2048,6 +2049,7 @@ namespace gamescope
- 
-     void CWaylandInputThread::SetRelativePointer( bool bRelative )
-     {
-+        std::lock_guard<std::mutex> g{m_pRelativePointerMutex};
+@@ -2125,12 +2126,17 @@ namespace gamescope
          // This constructors/destructors the display's mutex, so should be safe to do across threads.
          if ( !bRelative )
          {
-@@ -2229,8 +2231,11 @@ namespace gamescope
++            std::lock_guard<std::mutex> g{m_pRelativePointerMutex};
+             m_pRelativePointer = nullptr;
+         }
+         else
+         {
+             zwp_relative_pointer_v1 *pRelativePointer = zwp_relative_pointer_manager_v1_get_relative_pointer( m_pRelativePointerManager, m_pPointer );
+-            m_pRelativePointer = std::shared_ptr<zwp_relative_pointer_v1>{ pRelativePointer, []( zwp_relative_pointer_v1 *pObject ){ zwp_relative_pointer_v1_destroy( pObject ); } };
++            auto relp = std::shared_ptr<zwp_relative_pointer_v1>{ pRelativePointer, []( zwp_relative_pointer_v1 *pObject ){ zwp_relative_pointer_v1_destroy( pObject ); } };
++            {
++                std::lock_guard<std::mutex> g{m_pRelativePointerMutex};
++                m_pRelativePointer = std::move(relp);
++            }
+             zwp_relative_pointer_v1_add_listener( pRelativePointer, &s_RelativePointerListener, this );
+         }
+     }
+@@ -2303,8 +2309,11 @@ namespace gamescope
      }
      void CWaylandInputThread::Wayland_Pointer_Motion( wl_pointer *pPointer, uint32_t uTime, wl_fixed_t fSurfaceX, wl_fixed_t fSurfaceY )
      {
