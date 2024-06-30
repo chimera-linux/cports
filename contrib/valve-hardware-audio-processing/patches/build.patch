@@ -8,12 +8,11 @@ diff --git a/Makefile b/Makefile
 index 3efdc3c..a11cc9f 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,7 +1,7 @@
+@@ -1,7 +1,6 @@
  CC = gcc
  
  CFLAGS= -O0 -g -Wall -Werror
 -LDFLAGS=-lrt -lm -shared
-+LDFLAGS+=-lrt -lm -shared
  
  #ROOT = $(CURDIR)
  INC_DIR = include
