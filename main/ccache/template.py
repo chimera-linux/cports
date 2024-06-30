@@ -2,7 +2,12 @@ pkgname = "ccache"
 pkgver = "4.10.1"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DENABLE_TESTING=OFF", "-DREDIS_STORAGE_BACKEND=OFF"]
+configure_args = [
+    "-DENABLE_TESTING=ON",
+    "-DREDIS_STORAGE_BACKEND=OFF",
+]
+# these fail cause of running grep on .o and musl has no reg_startend so shit sucks
+make_check_args = ["-E", "(test.direct|test.debug_prefix_map)"]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -10,12 +15,13 @@ hostmakedepends = [
 ]
 makedepends = [
     "blake3-devel",
+    "doctest",
     "fmt-devel",
     "xxhash-devel",
     "zstd-devel",
     "zlib-ng-compat-devel",
 ]
-checkdepends = ["bash"]
+checkdepends = ["bash", "elfutils"]
 pkgdesc = "Fast C/C++ compiler cache"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
