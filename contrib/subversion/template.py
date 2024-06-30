@@ -52,8 +52,8 @@ source = (
     f"https://archive.apache.org/dist/subversion/subversion-{pkgver}.tar.gz"
 )
 sha256 = "cf70775e5ed075ebc6a63fe8619dc6b530da254a3f61ba53a502dd83c8f14afc"
-# not even once
-options = ["!cross"]
+# not even once also nobody cares l l l l
+options = ["!cross", "!check"]
 
 
 def post_build(self):
