@@ -264,6 +264,8 @@ def install():
     if chroot_check(error=False):
         return
 
+    from cbuild.core import template
+
     logger.get().out(f"cbuild: installing {' '.join(_extra_pkgs)}...")
 
     initdb()
@@ -277,7 +279,7 @@ def install():
         irun = apki.call(
             "add",
             ["--usermode", "--no-scripts"] + _extra_pkgs,
-            "main",
+            template.get_cats(),
             arch=host_cpu(),
         )
 
