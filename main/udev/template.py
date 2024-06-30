@@ -211,16 +211,17 @@ def post_install(self):
     )
     self.install_service(self.files_path / "udevd", enable=True)
     # systemd-boot
-    self.install_file("build/systemd-bless-boot", "usr/libexec", mode=0o755)
-    self.install_file(
-        self.files_path / "99-gen-systemd-boot.sh",
-        "usr/lib/kernel.d",
-        mode=0o755,
-    )
-    self.install_bin(
-        self.files_path / "gen-systemd-boot.sh", name="gen-systemd-boot"
-    )
-    self.install_file(self.files_path / "systemd-boot", "etc/default")
+    if _have_sd_boot:
+        self.install_file("build/systemd-bless-boot", "usr/libexec", mode=0o755)
+        self.install_file(
+            self.files_path / "99-gen-systemd-boot.sh",
+            "usr/lib/kernel.d",
+            mode=0o755,
+        )
+        self.install_bin(
+            self.files_path / "gen-systemd-boot.sh", name="gen-systemd-boot"
+        )
+        self.install_file(self.files_path / "systemd-boot", "etc/default")
 
 
 @subpackage("udev-devel")
