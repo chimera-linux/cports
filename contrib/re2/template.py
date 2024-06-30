@@ -1,5 +1,5 @@
 pkgname = "re2"
-pkgver = "2024.06.01"
+pkgver = "2024.07.01"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -25,7 +25,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/google/re2"
 source = f"{url}/archive/refs/tags/{pkgver.replace('.', '-')}.tar.gz"
-sha256 = "7326c74cddaa90b12090fcfc915fe7b4655723893c960ee3c2c66e85c5504b6c"
+sha256 = "b767b92cd1e4d2f5eb3fea3401fdc3f45b7541fef59f0f516cc4e3b8f19afbdc"
 tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 
 
