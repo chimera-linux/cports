@@ -65,17 +65,6 @@ def unredir_log(pkg, fpid, oldout, olderr):
     os.waitpid(fpid, 0)
 
 
-ansi_esc = None
-
-
-# https://stackoverflow.com/a/38662876
-def escape_ansi(line):
-    global ansi_esc
-    if not ansi_esc:
-        ansi_esc = re.compile(rb"(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]")
-    return ansi_esc.sub(b"", line)
-
-
 def sync_winsize(fd, is_pty):
     if not is_pty:
         return
@@ -87,7 +76,7 @@ def sync_winsize(fd, is_pty):
         pass
 
 
-def redir_log(pkg, logpath):
+def redir_log(pkg):
     # save old descriptors
     oldout = os.dup(sys.stdout.fileno())
     olderr = os.dup(sys.stderr.fileno())
@@ -120,42 +109,12 @@ def redir_log(pkg, logpath):
     # child
     if fpid == 0:
         os.close(prw)
-        # here emulate the behavior of the 'tee' program
         try:
-            with open(logpath, "wb") as fout:
-                rprev = bytes()
-                bufmax = 8192
-                rarr = [bytearray(bufmax)]
-                while True:
-                    # do this on each loop as the terminal may resize
-                    sync_winsize(prd, is_pty)
-                    rlen = os.readv(prd, rarr)
-                    rbuf = rarr[0][0:rlen]
-                    # search for last newline and unescape everything up to it
-                    idx = -1
-                    for tidx in range(rlen - 1, -1, -1):
-                        # look for either CR or LF for correct line buffering
-                        if rbuf[tidx] == 0xA or rbuf[tidx] == 0xD:
-                            idx = tidx
-                            break
-                    if idx >= 0:
-                        rnl = rprev + rbuf[0 : idx + 1]
-                        ernl = escape_ansi(rnl)
-                        rprev = bytes()
-                        os.write(1, rnl if colors else ernl)
-                        fout.write(ernl)
-                    # eof or we accumulated too much data
-                    if len(rprev) >= bufmax or rlen == 0:
-                        rnl = rprev + rbuf[idx + 1 :]
-                        ernl = escape_ansi(rnl)
-                        rprev = bytes()
-                        os.write(1, rnl if colors else ernl)
-                        fout.write(ernl)
-                    # on eof also end entirely
-                    if rlen == 0:
-                        break
-                    # save whatever was left
-                    rprev += rbuf[idx + 1 :]
+            rarr = [bytearray(8192)]
+            while True:
+                # do this on each loop as the terminal may resize
+                sync_winsize(prd, is_pty)
+                os.write(1, rarr[0][0 : os.readv(prd, rarr)])
         finally:
             # raw exit (no exception) since we forked
             # don't want to propagate back to the outside
@@ -256,14 +215,8 @@ def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
         func = getattr(pkg, funcn)
     if not desc:
         desc = funcn
-    p = pkg.rparent.profile()
-    crossb = p.arch if p.cross else ""
-    if pkg.parent:
-        logf = pkg.parent.statedir / f"{pkg.pkgname}_{crossb}_{funcn}.log"
-    else:
-        logf = pkg.statedir / f"{pkg.pkgname}_{crossb}_{funcn}.log"
     pkg.log(f"running {desc}...")
-    fpid, oldout, olderr = redir_log(pkg, logf)
+    fpid, oldout, olderr = redir_log(pkg)
     try:
         if on_subpkg:
             func()
