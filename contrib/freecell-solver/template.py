@@ -1,5 +1,5 @@
 pkgname = "freecell-solver"
-pkgver = "6.10.0"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -32,7 +32,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/shlomif/fc-solve"
 source = f"https://fc-solve.shlomifish.org/downloads/fc-solve/freecell-solver-{pkgver}.tar.xz"
-sha256 = "443ba29de08be751a60faca42a817b65b342cea93188fd7651741b75048379b4"
+sha256 = "a2b89e804ce4b918ef749031676210f2095fea3a8cb129805602843c7c4884a0"
 
 
 def post_install(self):
