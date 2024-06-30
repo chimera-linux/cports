@@ -1,7 +1,7 @@
 pkgname = "perl"
-pkgver = "5.38.2"
+pkgver = "5.40.0"
 pkgrel = 0
-_perl_cross_ver = "1.5.2"
+_perl_cross_ver = "1.5.3"
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
@@ -20,8 +20,8 @@ source = [
     f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_ver}/perl-cross-{_perl_cross_ver}.tar.gz",
 ]
 sha256 = [
-    "a0a31534451eb7b83c7d6594a497543a54d488bc90ca00f5e34762577f40655e",
-    "584dc54c48dca25e032b676a15bef377c1fed9de318b4fc140292a5dbf326e90",
+    "c740348f357396327a9795d3e8323bafd0fe8a5c7835fc1cbaba0cc8dfe7161f",
+    "ecc37b41a60cc3c030413a960cc386455f70c43781c6333d1fcaad02ece32ea8",
 ]
 # prevent a massive log dump
 tool_flags = {
@@ -62,6 +62,9 @@ def do_configure(self):
     cargs = [
         "--prefix=/usr",
         "-Dusethreads",
+        # this has to come after the above or cross breaks
+        # don't ask questions!
+        "--host-use-threads",
         "-Duseshrplib",
         "-Dusesoname",
         "-Dusevendorprefix",
