@@ -1,9 +1,11 @@
 pkgname = "telescope"
-pkgver = "0.9.1"
+pkgver = "0.10.1"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_gen = []
-hostmakedepends = ["pkgconf"]
+configure_args = ["--with-default-editor=vi"]
+make_cmd = "gmake"
+make_dir = "."
+hostmakedepends = ["automake", "bison", "gmake", "pkgconf"]
 makedepends = [
     "libgrapheme-devel",
     "libretls-devel",
@@ -13,9 +15,9 @@ makedepends = [
 pkgdesc = "Terminal browser for gemini/gopher/finger"
 maintainer = "ttyyls <contact@behri.org>"
 license = "ISC AND Unicode-3.0 AND BSD-3-Clause AND MIT"
-url = "https://telescope.omarpolo.com"
+url = "https://www.telescope-browser.org"
 source = f"https://ftp.omarpolo.com/telescope-{pkgver}.tar.gz"
-sha256 = "fed1ef4db27e713c8719f1e32cc30c911532e90d1bd8aa507acf3db74973c7ac"
+sha256 = "01446a1129741c6a201c4b5446390e9331487af844cef6bfd35419989168e618"
 hardening = ["vis", "cfi"]
 
 
