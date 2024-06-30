@@ -1,0 +1,21 @@
+commit 805a449
+Author: Renato Botelho do Couto <renato@netgate.com>
+Date:   Sun Jun 30 17:38:00 2024
+
+    configure.ac: Make DOWNLOAD optional
+    
+    Add AM_CONDITIONAL to define DOWNLOAD as false when neither curl or wget
+    are found on system
+
+diff --git a/configure.ac b/configure.ac
+index d6ba62b..d926cd7 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -60,6 +60,7 @@ if test "x$WGET" = "x"; then
+ 	if test "x$CURL" = "x"; then
+ 		AC_MSG_WARN([** Neither wget nor curl could be found.])
+ 		AC_MSG_WARN([** IANA PEN database will not be installed by `make install` !])
++		AM_CONDITIONAL([DOWNLOAD], [false])
+ 	else
+ 		DOWNLOAD="$CURL --location --progress-bar"
+ 		AM_CONDITIONAL([DOWNLOAD], [true])
