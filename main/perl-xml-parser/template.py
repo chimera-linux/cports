@@ -1,6 +1,6 @@
 pkgname = "perl-xml-parser"
 pkgver = "2.47"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 make_build_args = ["MAKE=gmake"]
 make_install_args = ["MAKE=gmake"]

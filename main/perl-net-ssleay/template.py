@@ -1,6 +1,6 @@
 pkgname = "perl-net-ssleay"
 pkgver = "1.94"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["gmake", "perl", "openssl"]
 makedepends = ["perl", "zlib-ng-compat-devel", "openssl-devel"]
