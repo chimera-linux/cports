@@ -1,5 +1,5 @@
 pkgname = "croc"
-pkgver = "10.0.8"
+pkgver = "10.0.9"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT"
 url = "https://github.com/schollz/croc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9dde7d5114b4466a7351f9117e5ffc0b2866e5dae5d094bd1bc65c83787528c1"
+sha256 = "5f17aa4d62d50034fd8dc56e92e98adb414977da382c60be1973f7e3df3a18f3"
 # debug: fails to split on powerpc
 # check: needs network access
 options = ["!debug", "!check"]
