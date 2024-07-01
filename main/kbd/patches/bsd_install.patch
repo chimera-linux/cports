@@ -5,7 +5,7 @@
  
  install-data-local:
 -	install -Dm644 $(srcdir)/vlock.pamd $(DESTDIR)$(sysconfdir)/pam.d/vlock
-+	install -d $(DESTDIR)$(sysconfdir)/pam.d; install -m644 $(srcdir)/vlock.pamd $(DESTDIR)$(sysconfdir)/pam.d/vlock
++	install -d $(DESTDIR)/usr/lib/pam.d; install -m644 $(srcdir)/vlock.pamd $(DESTDIR)/usr/lib/pam.d/vlock
  uninstall-local:
  	rm $(DESTDIR)$(sysconfdir)/pam.d/vlock
  endif
