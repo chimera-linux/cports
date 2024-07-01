@@ -1,8 +1,13 @@
 pkgname = "opendoas"
 pkgver = "6.8.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
-configure_args = ["--with-pam", "--with-timestamp", "--prefix=/usr"]
+configure_args = [
+    "--with-pam",
+    "--with-timestamp",
+    "--prefix=/usr",
+    "--pamdir=/usr/lib/pam.d",
+]
 make_cmd = "gmake"
 hostmakedepends = ["byacc", "gmake"]
 makedepends = ["linux-pam-devel"]
