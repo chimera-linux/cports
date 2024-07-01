@@ -1,6 +1,6 @@
 pkgname = "libqalculate"
 # match to qalculate-gtk/qt
-pkgver = "5.1.1"
+pkgver = "5.2.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -24,8 +24,8 @@ pkgdesc = "Multi-purpose desktop calculator library"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://qalculate.github.io"
-source = f"https://github.com/Qalculate/libqalculate/releases/download/v{pkgver}/libqalculate-{pkgver}.tar.gz"
-sha256 = "04db2d1c8dc0d5a006971bb138aa71d4a944275dde8dbf952ad8b59bf499aba1"
+source = f"https://github.com/Qalculate/libqalculate/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "df48e3693a034afa239f37b445a48b60c07d336073af8e8df8a36e1c6657d37f"
 
 
 @subpackage("libqalculate-devel")
