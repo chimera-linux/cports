@@ -2,6 +2,7 @@ pkgname = "bat"
 pkgver = "0.24.0"
 pkgrel = 0
 build_style = "cargo"
+make_build_env = {"BAT_ASSETS_GEN_DIR": "gen"}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "rust-std",
@@ -19,8 +20,8 @@ sha256 = "907554a9eff239f256ee8fe05a922aad84febe4fe10a499def72a4557e9eedfb"
 
 
 def post_install(self):
-    self.install_man(next(self.find("target/", "bat.1")))
+    self.install_man("gen/assets/manual/bat.1")
     self.install_license("LICENSE-MIT")
-    self.install_completion(next(self.find("target/", "bat.bash")), "bash")
-    self.install_completion(next(self.find("target/", "bat.zsh")), "zsh")
-    self.install_completion(next(self.find("target/", "bat.fish")), "fish")
+    self.install_completion("gen/assets/completions/bat.bash", "bash")
+    self.install_completion("gen/assets/completions/bat.fish", "fish")
+    self.install_completion("gen/assets/completions/bat.zsh", "zsh")
