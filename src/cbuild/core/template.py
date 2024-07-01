@@ -114,7 +114,10 @@ def redir_log(pkg):
             while True:
                 # do this on each loop as the terminal may resize
                 sync_winsize(prd, is_pty)
-                os.write(1, rarr[0][0 : os.readv(prd, rarr)])
+                rlen = os.readv(prd, rarr)
+                if rlen == 0:
+                    break
+                os.write(1, rarr[0][0 : rlen])
         finally:
             # raw exit (no exception) since we forked
             # don't want to propagate back to the outside
