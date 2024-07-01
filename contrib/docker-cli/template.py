@@ -1,8 +1,8 @@
 pkgname = "docker-cli"
-pkgver = "27.0.2"
+pkgver = "27.0.3"
 pkgrel = 0
 build_style = "makefile"
-_commit = "912c1ddf8a3eb97595c5ea967d01c0fc18666409"
+_commit = "7d4bcd863a4c863e650eed02a550dfeb98560b83"
 make_cmd = "gmake"
 make_build_target = "dynbinary"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://docker.com"
 source = f"https://github.com/docker/cli/archive/v{pkgver}.tar.gz"
-sha256 = "a2b31d4c8143c8b126e98a359639f51727fc83fc1e61670efbdeaa7dea92fd5a"
+sha256 = "f992e895c949852686abef9a6fa9efd622826c4f4d70b83876569a4641c4c8fc"
 env = {
     "AUTO_GOPATH": "1",
     "GITCOMMIT": _commit,
