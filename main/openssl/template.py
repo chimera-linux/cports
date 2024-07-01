@@ -35,7 +35,7 @@ compression = "deflate"
 # the codebase is not LTO-ready:
 # https://github.com/openssl/openssl/issues/18663
 # https://github.com/openssl/openssl/issues/22854
-options = ["bootstrap", "!lto"]
+options = ["bootstrap", "!lto", "!check"]
 
 if self.stage > 0:
     makedepends = ["linux-headers"]
