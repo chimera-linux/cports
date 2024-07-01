@@ -1,6 +1,6 @@
 pkgname = "gdm"
 pkgver = "46.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -9,6 +9,7 @@ configure_args = [
     "-Dscreenshot-dir=/var/lib/gdm/greeter",
     "-Dplymouth=disabled",
     "-Dxauth-dir=/run/gdm",
+    "-Dpam-prefix=/usr/lib",
     "-Dpid-file=/run/gdm/gdm.pid",
     "-Dwayland-support=true",
     "-Dselinux=disabled",
