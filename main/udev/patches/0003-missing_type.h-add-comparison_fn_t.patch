@@ -1,7 +1,7 @@
-From 9b5f8ac9193a8a5522e7c1c6564d10b8ec8eaec0 Mon Sep 17 00:00:00 2001
+From 5513b918d02900a3a78fd0e0300a118b163edfef Mon Sep 17 00:00:00 2001
 From: Chen Qi <Qi.Chen@windriver.com>
 Date: Mon, 25 Feb 2019 13:55:12 +0800
-Subject: [PATCH 06/22] missing_type.h: add comparison_fn_t
+Subject: [PATCH] missing_type.h: add comparison_fn_t
 
 Make it work with musl where comparison_fn_t and is not provided.
 
@@ -21,19 +21,19 @@ Signed-off-by: Jiaqing Zhao <jiaqing.zhao@linux.intel.com>
  3 files changed, 6 insertions(+)
 
 diff --git a/src/basic/missing_type.h b/src/basic/missing_type.h
-index 1d17705..fc33b76 100644
+index f6233090a9..6c0456349d 100644
 --- a/src/basic/missing_type.h
 +++ b/src/basic/missing_type.h
 @@ -10,3 +10,7 @@
  #if !HAVE_CHAR16_T
- #  define char16_t uint16_t
+ #define char16_t uint16_t
  #endif
 +
 +#ifndef __GLIBC__
 +typedef int (*comparison_fn_t)(const void *, const void *);
 +#endif
 diff --git a/src/basic/sort-util.h b/src/basic/sort-util.h
-index 9c818bd..ef10c8b 100644
+index 02a6784d99..0b33c83d59 100644
 --- a/src/basic/sort-util.h
 +++ b/src/basic/sort-util.h
 @@ -4,6 +4,7 @@
@@ -45,10 +45,10 @@ index 9c818bd..ef10c8b 100644
  /* This is the same as glibc's internal __compar_d_fn_t type. glibc exports a public comparison_fn_t, for the
   * external type __compar_fn_t, but doesn't do anything similar for __compar_d_fn_t. Let's hence do that
 diff --git a/src/libsystemd/sd-journal/catalog.c b/src/libsystemd/sd-journal/catalog.c
-index a0b673f..29dd2fe 100644
+index 8fc87b131a..36a6efdbd8 100644
 --- a/src/libsystemd/sd-journal/catalog.c
 +++ b/src/libsystemd/sd-journal/catalog.c
-@@ -29,6 +29,7 @@
+@@ -28,6 +28,7 @@
  #include "string-util.h"
  #include "strv.h"
  #include "tmpfile-util.h"
@@ -57,5 +57,5 @@ index a0b673f..29dd2fe 100644
  const char * const catalog_file_dirs[] = {
          "/usr/local/lib/systemd/catalog/",
 -- 
-2.45.2
+2.34.1
 

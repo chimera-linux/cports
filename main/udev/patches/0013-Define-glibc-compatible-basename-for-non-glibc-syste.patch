@@ -1,25 +1,37 @@
-From 612d28cfe14d45db852aaa0128d9d0bd7b0d8e1e Mon Sep 17 00:00:00 2001
-From: q66 <q66@chimera-linux.org>
-Date: Sun, 30 Jun 2024 02:24:11 +0200
-Subject: [PATCH 13/22] Define glibc compatible basename() for non-glibc
- systems
+Added in more places by q66.
+
+From d0bdce977b7acc5e45e82cf84256c4bedc0e74c4 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Sun, 27 May 2018 08:36:44 -0700
+Subject: [PATCH] Define glibc compatible basename() for non-glibc systems
+
+Fixes builds with musl, even though systemd is adamant about
+using non-posix basename implementation, we have a way out
+
+Upstream-Status: Inappropriate [musl specific]
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
 
 ---
- src/analyze/analyze-verify-util.c         | 5 +++++
- src/basic/unit-file.c                     | 5 +++++
- src/core/execute.c                        | 5 +++++
- src/core/load-dropin.c                    | 5 +++++
- src/delta/delta.c                         | 5 +++++
- src/machine/machine-dbus.c                | 5 +++++
- src/shared/install.c                      | 5 +++++
- src/systemctl/systemctl-enable.c          | 5 +++++
- src/systemctl/systemctl-list-unit-files.c | 5 +++++
- src/systemctl/systemctl-show.c            | 5 +++++
- src/udev/net/link-config.c                | 5 +++++
- 11 files changed, 55 insertions(+)
+ src/machine/machine-dbus.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
+--- a/src/machine/machine-dbus.c
++++ b/src/machine/machine-dbus.c
+@@ -4,6 +4,11 @@
+ #include <sys/mount.h>
+ #include <sys/wait.h>
+ 
++#if !defined(__GLIBC__)
++#include <string.h>
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++#endif
++
+ #include "alloc-util.h"
+ #include "bus-common-errors.h"
+ #include "bus-get-properties.h"
 diff --git a/src/analyze/analyze-verify-util.c b/src/analyze/analyze-verify-util.c
-index 8e83c9a..c0304c3 100644
+index 132a846..5683e5c 100644
 --- a/src/analyze/analyze-verify-util.c
 +++ b/src/analyze/analyze-verify-util.c
 @@ -16,6 +16,11 @@
@@ -51,21 +63,21 @@ index 54f2137..33a593e 100644
          return IN_SET(type,
                        UNIT_SERVICE,
 diff --git a/src/core/execute.c b/src/core/execute.c
-index 3e7ead4..52a5588 100644
+index c4788a4..0e0d167 100644
 --- a/src/core/execute.c
 +++ b/src/core/execute.c
-@@ -74,6 +74,11 @@
- #include "utmp-wtmp.h"
- #include "missing_stdlib.h"
+@@ -121,6 +121,11 @@
+ 
+ #define SNDBUF_SIZE (8*1024*1024)
  
 +#if !defined(__GLIBC__)
 +#include <string.h>
 +#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
 +#endif
 +
- static bool is_terminal_input(ExecInput i) {
-         return IN_SET(i,
-                       EXEC_INPUT_TTY,
+ static int shift_fds(int fds[], size_t n_fds) {
+         if (n_fds <= 0)
+                 return 0;
 diff --git a/src/core/load-dropin.c b/src/core/load-dropin.c
 index fd45744..c8e6a51 100644
 --- a/src/core/load-dropin.c
@@ -83,7 +95,7 @@ index fd45744..c8e6a51 100644
          _cleanup_strv_free_ char **paths = NULL;
          int r;
 diff --git a/src/delta/delta.c b/src/delta/delta.c
-index 3433250..b1eaa9a 100644
+index eee2111..2462bbd 100644
 --- a/src/delta/delta.c
 +++ b/src/delta/delta.c
 @@ -28,6 +28,11 @@
@@ -98,27 +110,11 @@ index 3433250..b1eaa9a 100644
  static const char prefixes[] =
          "/etc\0"
          "/run\0"
-diff --git a/src/machine/machine-dbus.c b/src/machine/machine-dbus.c
-index a4f04c0..791838e 100644
---- a/src/machine/machine-dbus.c
-+++ b/src/machine/machine-dbus.c
-@@ -4,6 +4,11 @@
- #include <sys/mount.h>
- #include <sys/wait.h>
- 
-+#if !defined(__GLIBC__)
-+#include <string.h>
-+#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
-+#endif
-+
- #include "alloc-util.h"
- #include "bus-common-errors.h"
- #include "bus-get-properties.h"
 diff --git a/src/shared/install.c b/src/shared/install.c
-index c94b456..f899bd8 100644
+index a34e7bf..c3a38fa 100644
 --- a/src/shared/install.c
 +++ b/src/shared/install.c
-@@ -39,6 +39,11 @@
+@@ -38,6 +38,11 @@
  #include "strv.h"
  #include "unit-file.h"
  
@@ -131,7 +127,7 @@ index c94b456..f899bd8 100644
  
  typedef enum SearchFlags {
 diff --git a/src/systemctl/systemctl-enable.c b/src/systemctl/systemctl-enable.c
-index 496a817..7e8dd96 100644
+index 940f546..a388ac6 100644
 --- a/src/systemctl/systemctl-enable.c
 +++ b/src/systemctl/systemctl-enable.c
 @@ -11,6 +11,11 @@
@@ -147,7 +143,7 @@ index 496a817..7e8dd96 100644
          int r;
  
 diff --git a/src/systemctl/systemctl-list-unit-files.c b/src/systemctl/systemctl-list-unit-files.c
-index b8b1531..4010ba8 100644
+index fc1ad98..29ca24a 100644
 --- a/src/systemctl/systemctl-list-unit-files.c
 +++ b/src/systemctl/systemctl-list-unit-files.c
 @@ -8,6 +8,11 @@
@@ -163,7 +159,7 @@ index b8b1531..4010ba8 100644
          const char *d1, *d2;
  
 diff --git a/src/systemctl/systemctl-show.c b/src/systemctl/systemctl-show.c
-index 2fdf321..3ea24de 100644
+index 6422550..ed860dc 100644
 --- a/src/systemctl/systemctl-show.c
 +++ b/src/systemctl/systemctl-show.c
 @@ -42,6 +42,11 @@
@@ -179,12 +175,12 @@ index 2fdf321..3ea24de 100644
          return
                  FLAGS_SET(arg_print_flags, BUS_PRINT_PROPERTY_SHOW_EMPTY) * OUTPUT_SHOW_ALL |
 diff --git a/src/udev/net/link-config.c b/src/udev/net/link-config.c
-index 647cdee..dbc28e9 100644
+index b554a68..ef90e34 100644
 --- a/src/udev/net/link-config.c
 +++ b/src/udev/net/link-config.c
-@@ -46,6 +46,11 @@ static const Specifier link_specifier_table[] = {
-         {}
- };
+@@ -36,6 +36,11 @@
+ #include "strv.h"
+ #include "utf8.h"
  
 +#if !defined(__GLIBC__)
 +#include <string.h>
@@ -194,6 +190,3 @@ index 647cdee..dbc28e9 100644
  struct LinkConfigContext {
          LIST_HEAD(LinkConfig, configs);
          int ethtool_fd;
--- 
-2.45.2
-

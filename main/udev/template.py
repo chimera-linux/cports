@@ -1,27 +1,27 @@
 pkgname = "udev"
-pkgver = "256.1"
-pkgrel = 0
+pkgver = "254"
+pkgrel = 11
 build_style = "meson"
 configure_args = [
-    "-Dacl=enabled",
+    "-Dacl=true",
     "-Dadm-group=false",
     "-Danalyze=false",
-    "-Dapparmor=disabled",
-    "-Daudit=disabled",
+    "-Dapparmor=false",
+    "-Daudit=false",
     "-Dbacklight=false",
     "-Dbinfmt=false",
-    "-Dbpf-framework=disabled",
-    "-Dbzip2=disabled",
+    "-Dbpf-framework=false",
+    "-Dbzip2=false",
     "-Dcoredump=false",
-    "-Ddbus=disabled",
+    "-Ddbus=false",
     "-Defi=false",
-    "-Delfutils=disabled",
+    "-Delfutils=false",
     "-Denvironment-d=false",
-    "-Dfdisk=disabled",
-    "-Dgcrypt=disabled",
-    "-Dglib=disabled",
+    "-Dfdisk=false",
+    "-Dgcrypt=false",
+    "-Dglib=false",
     "-Dgshadow=false",
-    "-Dgnutls=disabled",
+    "-Dgnutls=false",
     "-Dhibernate=false",
     "-Dhostnamed=false",
     "-Didn=false",
@@ -30,36 +30,36 @@ configure_args = [
     "-Dfirstboot=false",
     "-Dkernel-install=false",
     "-Dldconfig=false",
-    "-Dlibcryptsetup=disabled",
-    "-Dlibcurl=disabled",
-    "-Dlibfido2=disabled",
-    "-Dlibidn=disabled",
-    "-Dlibidn2=disabled",
-    "-Dlibiptc=disabled",
+    "-Dlibcryptsetup=false",
+    "-Dlibcurl=false",
+    "-Dlibfido2=false",
+    "-Dlibidn=false",
+    "-Dlibidn2=false",
+    "-Dlibiptc=false",
     "-Dlocaled=false",
     "-Dlogind=false",
-    "-Dlz4=disabled",
+    "-Dlz4=false",
     "-Dmachined=false",
-    "-Dmicrohttpd=disabled",
+    "-Dmicrohttpd=false",
     "-Dnetworkd=false",
     "-Dnscd=false",
     "-Dnss-myhostname=false",
-    "-Dnss-resolve=disabled",
+    "-Dnss-resolve=false",
     "-Dnss-systemd=false",
     "-Doomd=false",
-    "-Dopenssl=disabled",
-    "-Dp11kit=disabled",
-    "-Dpam=disabled",
-    "-Dpcre2=disabled",
-    "-Dpolkit=disabled",
+    "-Dopenssl=false",
+    "-Dp11kit=false",
+    "-Dpam=false",
+    "-Dpcre2=false",
+    "-Dpolkit=false",
     "-Dportabled=false",
     "-Dpstore=false",
-    "-Dpwquality=disabled",
+    "-Dpwquality=false",
     "-Drandomseed=false",
     "-Dresolve=false",
     "-Drfkill=false",
-    "-Dseccomp=disabled",
-    "-Dselinux=disabled",
+    "-Dseccomp=false",
+    "-Dselinux=false",
     "-Dsmack=false",
     "-Dsysext=false",
     "-Dsysusers=false",
@@ -67,20 +67,19 @@ configure_args = [
     "-Dtimesyncd=false",
     "-Dtmpfiles=false",
     "-Dtpm=false",
-    "-Dqrencode=disabled",
+    "-Dqrencode=false",
     "-Dquotacheck=false",
     "-Duserdb=false",
-    "-Dukify=disabled",
     "-Dutmp=false",
     "-Dvconsole=false",
     "-Dwheel-group=false",
     "-Dxdg-autostart=false",
-    "-Dxkbcommon=disabled",
-    "-Dxz=disabled",
-    "-Dzlib=disabled",
-    "-Dzstd=disabled",
+    "-Dxkbcommon=false",
+    "-Dxz=false",
+    "-Dzlib=false",
+    "-Dzstd=false",
     "-Dhwdb=true",
-    "-Dman=enabled",
+    "-Dman=true",
     "-Dstandalone-binaries=true",
     "-Dstatic-libudev=true",
     "-Dtests=false",
@@ -90,6 +89,7 @@ configure_args = [
     "-Dlink-systemctl-shared=false",
     "-Dlink-timesyncd-shared=false",
     "-Dlink-udev-shared=false",
+    "-Dsplit-usr=false",
     "-Dsplit-bin=false",
     "-Dsysvinit-path=",
     "-Drpmmacrosdir=no",
@@ -122,9 +122,8 @@ url = "https://github.com/systemd/systemd"
 source = (
     f"https://github.com/systemd/systemd/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "9c9243209e5b1bf429fc213ade6111a95769531a3a741bdf01c8a5dbeeab9f8a"
-# the tests that can run are mostly useless
-options = ["!splitudev", "!check"]
+sha256 = "244da7605800a358915e4b45d079b0b89364be35da4bc8d849821e67bac0ce62"
+options = ["!splitudev"]
 
 _have_sd_boot = False
 
@@ -135,7 +134,7 @@ match self.profile().arch:
 
 if _have_sd_boot:
     configure_args += [
-        "-Dbootloader=enabled",
+        "-Dbootloader=true",
         "-Defi=true",
         # secure boot
         "-Dsbat-distro=chimera",
@@ -158,24 +157,23 @@ def post_patch(self):
 
 
 def post_install(self):
+    # oh boy, big cleanup time
+
     ddir = self.destdir
 
     # drop some more systemd bits
     for f in [
-        "etc/systemd",
-        "usr/lib/libsystemd.*",
-        "usr/lib/pkgconfig/libsystemd.pc",
+        "usr/include/systemd",
         "usr/share/dbus-1",
-        "usr/share/pkgconfig/systemd.pc",
-        "usr/share/polkit-1",
+        "usr/share/doc",
     ]:
-        self.rm(ddir / f, recursive=True, glob=True)
+        self.rm(ddir / f, recursive=True)
 
     for f in (ddir / "usr/lib/systemd").iterdir():
         # keep efi stubs
         if f.name == "boot":
             continue
-        self.rm(f, recursive=True, glob=True)
+        self.rm(f, recursive=True)
 
     # predictable interface names
     self.install_file(
@@ -204,24 +202,20 @@ def post_install(self):
         name="udev",
     )
     # services
-    self.install_dir("usr/libexec")
-    self.install_link("usr/libexec/udevd", "../bin/udevadm")
     self.install_file(
         self.files_path / "udevd.wrapper", "usr/libexec", mode=0o755
     )
     self.install_service(self.files_path / "udevd", enable=True)
     # systemd-boot
-    if _have_sd_boot:
-        self.install_file("build/systemd-bless-boot", "usr/libexec", mode=0o755)
-        self.install_file(
-            self.files_path / "99-gen-systemd-boot.sh",
-            "usr/lib/kernel.d",
-            mode=0o755,
-        )
-        self.install_bin(
-            self.files_path / "gen-systemd-boot.sh", name="gen-systemd-boot"
-        )
-        self.install_file(self.files_path / "systemd-boot", "etc/default")
+    self.install_file(
+        self.files_path / "99-gen-systemd-boot.sh",
+        "usr/lib/kernel.d",
+        mode=0o755,
+    )
+    self.install_bin(
+        self.files_path / "gen-systemd-boot.sh", name="gen-systemd-boot"
+    )
+    self.install_file(self.files_path / "systemd-boot", "etc/default")
 
 
 @subpackage("udev-devel")
