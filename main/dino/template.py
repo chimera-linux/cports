@@ -1,6 +1,6 @@
 pkgname = "dino"
-pkgver = "0.4.3"
-pkgrel = 5
+pkgver = "0.4.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_TESTS=ON",
@@ -39,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/dino/dino"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "432d7c3b5170c595b1b31a8d64d73ded26e32af9f03a2d1a01828c22a8ade3fa"
+sha256 = "29f37dc3a54fb123f223964d01de76fcea038ca6d134aa35b75c62b07acb9d03"
 
 
 def do_check(self):
