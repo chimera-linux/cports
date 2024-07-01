@@ -1,6 +1,6 @@
 pkgname = "greetd"
 pkgver = "0.10.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 hostmakedepends = [
     "bmake",
@@ -21,7 +21,7 @@ sha256 = "ee5cb70e0add4ca9c9fe57e47581ab0002d44c07743fb5492469f3b570db640b"
 
 
 def post_build(self):
-    self.do("make", "-C", "man", "all")
+    self.do("make", "-C", "man", "all", "SCDOC=scdoc")
 
 
 def do_install(self):
@@ -29,9 +29,14 @@ def do_install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/fakegreet")
     self.install_bin(f"target/{self.profile().triplet}/release/greetd")
 
-    self.install_man("man/*.1", glob=True)
-    self.install_man("man/*.5", glob=True)
-    self.install_man("man/*.7", glob=True)
+    self.do(
+        "make",
+        "-C",
+        "man",
+        "install",
+        f"DESTDIR=f{self.chroot_destdir}",
+        "PREFIX=/usr",
+    )
 
     self.install_file("config.toml", "etc/greetd")
     self.install_file(
