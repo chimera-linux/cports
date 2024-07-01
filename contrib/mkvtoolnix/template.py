@@ -1,10 +1,9 @@
 pkgname = "mkvtoolnix"
 pkgver = "86.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimization",
-    "--disable-precompiled-headers",
     "--disable-update-check",
     "--with-docbook-xsl-root=/usr/share/xsl/docbook",
 ]

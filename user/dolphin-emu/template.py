@@ -1,6 +1,6 @@
 pkgname = "dolphin-emu"
 pkgver = "2407"
-pkgrel = 0
+pkgrel = 1
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
@@ -9,6 +9,7 @@ configure_args = [
     "-DDISTRIBUTOR=chimera-linux.org",
     "-DENABLE_ANALYTICS=ON",
     "-DENABLE_AUTOUPDATE=OFF",
+    "-DENABLE_TESTS=OFF",
     "-DUSE_SANITIZERS=OFF",
     "-DWITH_SANITIZER=OFF",
 ]
@@ -23,7 +24,6 @@ makedepends = [
     "bzip2-devel",
     "ffmpeg-devel",
     "fmt-devel",
-    "gtest-devel",
     "hidapi-devel",
     "libcurl-devel",
     "libevdev-devel",

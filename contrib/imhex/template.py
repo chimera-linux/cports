@@ -1,6 +1,6 @@
 pkgname = "imhex"
 pkgver = "1.35.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DIMHEX_BUNDLE_DOTNET=OFF",

@@ -1,0 +1,16 @@
+--- a/lib/external/pattern_language/lib/source/pl/core/preprocessor.cpp
++++ b/lib/external/pattern_language/lib/source/pl/core/preprocessor.cpp
+@@ -1,5 +1,6 @@
+ #include <pl/core/preprocessor.hpp>
+ 
++#include <iterator>
+ #include <wolv/utils/string.hpp>
+ 
+ #include <pl/pattern_language.hpp>
+@@ -485,4 +486,4 @@
+         };
+     }
+ 
+-}
+\ No newline at end of file
++}
