@@ -79,6 +79,7 @@ def invoke(pkg):
     for d in [
         "kernel.d",
         "modprobe.d",
+        "pam.d",
         "sysctl.d",
         "tmpfiles.d",
         "udev/rules.d",
