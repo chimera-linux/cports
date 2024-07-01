@@ -1,6 +1,6 @@
 pkgname = "swaylock"
 pkgver = "1.7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -26,3 +26,5 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_dir("usr/lib/pam.d")
+    self.mv(self.destdir / "etc/pam.d/swaylock", self.destdir / "usr/lib/pam.d")
