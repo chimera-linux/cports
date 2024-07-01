@@ -1,6 +1,6 @@
 pkgname = "libarchive"
 pkgver = "3.7.4"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -47,6 +47,8 @@ def post_install(self):
             self.mv("bsdtar.1", "tar.1")
         with self.pushd("usr/share/man/man5"):
             self.mv("mtree.5", "libarchive-mtree.5")
+    self.install_link("usr/bin/bsdtar", "tar")
+    self.install_link("usr/share/man/man1/bsdtar.1", "tar.1")
 
 
 @subpackage("bsdtar")
