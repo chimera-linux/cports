@@ -1,6 +1,6 @@
 pkgname = "turnstile"
 pkgver = "0.1.8"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = ["-Dmanage_rundir=true"]
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
@@ -25,3 +25,8 @@ def post_install(self):
     # also default systemwide link
     self.install_dir("usr/lib/dinit.d/boot.d")
     self.install_link("usr/lib/dinit.d/boot.d/turnstiled", "../turnstiled")
+    # move pam.d stuff, FIXME in turnstile later
+    self.install_dir("usr/lib/pam.d")
+    self.mv(
+        self.destdir / "etc/pam.d/turnstiled", self.destdir / "usr/lib/pam.d"
+    )
