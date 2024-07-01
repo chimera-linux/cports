@@ -1,6 +1,6 @@
 pkgname = "ccache"
 pkgver = "4.10.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DENABLE_TESTING=ON",
@@ -16,7 +16,6 @@ hostmakedepends = [
 makedepends = [
     "blake3-devel",
     "doctest",
-    "fmt-devel",
     "xxhash-devel",
     "zstd-devel",
     "zlib-ng-compat-devel",
