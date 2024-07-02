@@ -4,16 +4,18 @@ pkgrel = 1
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
+    "--enable-bpf",
     "--enable-cap-ng",
     "--enable-capstone",
     "--enable-curl",
     "--enable-curses",
     "--enable-dbus-display",
     "--enable-docs",
+    "--enable-gtk",
     "--enable-guest-agent",
     "--enable-jack",
-    "--enable-gtk",
     "--enable-kvm",
+    "--enable-libdw",
     "--enable-libnfs",
     "--enable-libssh",
     "--enable-linux-aio",
@@ -25,18 +27,19 @@ configure_args = [
     "--enable-seccomp",
     "--enable-snappy",
     "--enable-system",
-    "--enable-vhost-net",
-    "--enable-virtfs",
     "--enable-tpm",
     "--enable-usb-redir",
+    "--enable-vhost-net",
     "--enable-virglrenderer",
+    "--enable-virtfs",
     "--enable-vnc",
     "--enable-vnc-jpeg",
     "--enable-zstd",
-    "--disable-linux-user",
-    "--disable-glusterfs",
-    "--disable-debug-info",
     "--disable-bsd-user",
+    "--disable-debug-info",
+    "--disable-glusterfs",
+    "--disable-linux-user",
+    "--disable-oss",
     "--disable-werror",
     "--disable-xen",
     "--audio-drv-list=pa,pipewire,jack,sdl",
@@ -60,11 +63,13 @@ makedepends = [
     "bzip2-devel",
     "capstone-devel",
     "dtc-devel",
+    "elfutils-devel",
     "fuse-devel",
     "glib-devel",
     "gnutls-devel",
     "gtk+3-devel",
     "libaio-devel",
+    "libbpf-devel",
     "libcacard-devel",
     "libcap-ng-devel",
     "libcurl-devel",
@@ -102,6 +107,11 @@ license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
 sha256 = "d0f4db0fbd151c0cf16f84aeb2a500f6e95009732546f44dafab8d2049bbb805"
+tool_flags = {
+    # see libbpf comment about bpf headers
+    "CFLAGS": ["-I/usr/include/bpf/uapi"],
+    "CXXFLAGS": ["-I/usr/include/bpf/uapi"],
+}
 file_modes = {
     "etc/qemu/bridge.conf": ("root", "_qemu", 0o640),
     "usr/libexec/qemu-bridge-helper": ("root", "_qemu", 0o4710),
