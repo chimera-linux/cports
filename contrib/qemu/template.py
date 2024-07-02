@@ -1,6 +1,6 @@
 pkgname = "qemu"
 pkgver = "9.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
@@ -190,6 +190,17 @@ def _vhost_user_gpu(self):
     ]
 
 
+@subpackage("qemu-edk2-firmware")
+def _firmware(self):
+    self.pkgdesc = "QEMU edk2 firmware files"
+    self.depends = []
+
+    return [
+        "usr/lib/qemu/firmware",
+        "usr/lib/qemu/edk2*",
+    ]
+
+
 def _spkg(sname):
     @subpackage(f"qemu-system-{sname}")
     def _system(self):
@@ -201,18 +212,13 @@ def _spkg(sname):
 
         match sname:
             case "aarch64":
-                extras = [
-                    "usr/lib/qemu/edk2-aarch64-code.fd",
-                    "usr/lib/qemu/firmware/60-edk2-aarch64.json",
-                ]
+                self.depends += [f"qemu-edk2-firmware={pkgver}-r{pkgrel}"]
             case "alpha":
                 extras = ["usr/lib/qemu/palcode-clipper"]
             case "arm":
+                self.depends += [f"qemu-edk2-firmware={pkgver}-r{pkgrel}"]
                 extras = [
-                    "usr/lib/qemu/edk2-arm-code.fd",
-                    "usr/lib/qemu/edk2-arm-vars.fd",
                     "usr/lib/qemu/npcm7xx_bootrom.bin",
-                    "usr/lib/qemu/firmware/60-edk2-arm.json",
                 ]
             case "hppa":
                 extras = [
@@ -221,13 +227,7 @@ def _spkg(sname):
                 ]
                 self.options += ["execstack"]
             case "i386":
-                extras = [
-                    "usr/lib/qemu/edk2-i386-code.fd",
-                    "usr/lib/qemu/edk2-i386-secure-code.fd",
-                    "usr/lib/qemu/edk2-i386-vars.fd",
-                    "usr/lib/qemu/firmware/50-edk2-i386-secure.json",
-                    "usr/lib/qemu/firmware/60-edk2-i386.json",
-                ]
+                self.depends += [f"qemu-edk2-firmware={pkgver}-r{pkgrel}"]
             case "ppc":
                 extras = [
                     "usr/lib/qemu/openbios-ppc",
@@ -260,12 +260,7 @@ def _spkg(sname):
                 ]
                 self.options += ["execstack"]
             case "x86_64":
-                extras = [
-                    "usr/lib/qemu/edk2-x86_64-code.fd",
-                    "usr/lib/qemu/edk2-x86_64-secure-code.fd",
-                    "usr/lib/qemu/firmware/50-edk2-x86_64-secure.json",
-                    "usr/lib/qemu/firmware/60-edk2-x86_64.json",
-                ]
+                self.depends += [f"qemu-edk2-firmware={pkgver}-r{pkgrel}"]
 
         # never strip them
         self.nostrip_files = extras
