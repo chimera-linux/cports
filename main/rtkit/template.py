@@ -1,6 +1,6 @@
 pkgname = "rtkit"
 pkgver = "0.13"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 configure_args = [
     "-Dlibsystemd=disabled",

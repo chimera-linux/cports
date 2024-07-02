@@ -1,0 +1,25 @@
+From a859c0a3698287fbc5c559dc706654dcccc9c615 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Sun, 9 Jun 2024 12:33:33 +0200
+Subject: [PATCH] make the _rtkit user own the service instead of rtkit
+
+---
+ org.freedesktop.RealtimeKit1.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/org.freedesktop.RealtimeKit1.conf b/org.freedesktop.RealtimeKit1.conf
+index 780363a..f213fbe 100644
+--- a/org.freedesktop.RealtimeKit1.conf
++++ b/org.freedesktop.RealtimeKit1.conf
+@@ -4,7 +4,7 @@
+         "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+ <busconfig>
+ 
+-        <policy user="rtkit">
++        <policy user="_rtkit">
+                 <allow own="org.freedesktop.RealtimeKit1"/>
+         </policy>
+ 
+-- 
+2.45.2
+
