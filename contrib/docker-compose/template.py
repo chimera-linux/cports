@@ -1,6 +1,6 @@
 pkgname = "docker-compose"
 pkgver = "2.28.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags",

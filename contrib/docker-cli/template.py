@@ -1,6 +1,6 @@
 pkgname = "docker-cli"
 pkgver = "27.0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 _commit = "7d4bcd863a4c863e650eed02a550dfeb98560b83"
 make_cmd = "gmake"

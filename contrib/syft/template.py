@@ -1,6 +1,6 @@
 pkgname = "syft"
 pkgver = "1.4.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [
     f"-ldflags= -X main.version={pkgver}",
