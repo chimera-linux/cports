@@ -11,6 +11,13 @@ ln -sf udevadm "${DESTDIR}/usr/bin/udevd"
 mkdir -p "${DESTDIR}/etc/udev"
 mkdir -p "${DESTDIR}/usr/lib/udev/rules.d"
 
+# libkmod is loaded via dlopen() since v256 so pull it in manually
+for library in /usr/lib/libkmod.so.*; do
+    if [ -f "${library}" ]; then
+        copy_exec "${library}"
+    fi
+done
+
 cp -p /etc/udev/udev.conf "${DESTDIR}/etc/udev"
 
 for rule in \
