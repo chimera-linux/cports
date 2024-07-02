@@ -1,5 +1,5 @@
 pkgname = "tree"
-pkgver = "2.1.1"
+pkgver = "2.1.2"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -9,7 +9,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "GPL-2.0-or-later"
 url = "https://oldmanprogrammer.net/source.php?dir=projects/tree"
 source = f"https://gitlab.com/OldManProgrammer/unix-tree/-/archive/{pkgver}/unix-tree-{pkgver}.tar.gz"
-sha256 = "bcd2a0327ad40592a9c43e09a4d2ef834e6f17aa9a59012a5fb1007950b5eced"
+sha256 = "5b4c92fa770ba157056546b4e59343a28749cb42b4a3a671ef76c17319cfeb2e"
 hardening = ["vis", "cfi"]
 # no check target
 options = ["!check"]
