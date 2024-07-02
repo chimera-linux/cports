@@ -1,6 +1,6 @@
 pkgname = "libvirt"
-pkgver = "10.4.0"
-pkgrel = 1
+pkgver = "10.5.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dattr=enabled",
@@ -83,7 +83,7 @@ maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
-sha256 = "d1308be98da418ce463f0d9e4ac28a94b1a859364db3bb078d6e153dc587efe4"
+sha256 = "8e853a9c91c9029b9019cf5fdf2b5fea36d501d563e43254efc20e12c00557e8"
 
 
 def post_install(self):
