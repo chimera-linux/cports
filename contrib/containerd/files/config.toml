@@ -61,8 +61,10 @@ version = 2
     enable_tls_streaming = false
     enable_unprivileged_icmp = false
     enable_unprivileged_ports = false
+    ignore_deprecation_warnings = []
     ignore_image_defined_volumes = false
-    image_pull_progress_timeout = "1m0s"
+    image_pull_progress_timeout = "5m0s"
+    image_pull_with_sync_fs = false
     max_concurrent_downloads = 3
     max_container_log_line_size = 16384
     netns_mounts_under_state_dir = false
@@ -183,8 +185,6 @@ version = 2
     interval = "10s"
 
   [plugins."io.containerd.internal.v1.tracing"]
-    sampling_ratio = 1.0
-    service_name = "containerd"
 
   [plugins."io.containerd.metadata.v1.bolt"]
     content_sharing_policy = "shared"
@@ -253,9 +253,6 @@ version = 2
     root_path = ""
 
   [plugins."io.containerd.tracing.processor.v1.otlp"]
-    endpoint = ""
-    insecure = false
-    protocol = ""
 
   [plugins."io.containerd.transfer.v1.local"]
     config_path = ""
