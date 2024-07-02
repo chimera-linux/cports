@@ -1,15 +1,15 @@
 pkgname = "restic"
-pkgver = "0.16.4"
-pkgrel = 3
+pkgver = "0.16.5"
+pkgrel = 0
 build_style = "go"
-make_build_args = ["./cmd/restic"]
+make_build_args = [f"-ldflags=-X main.version=v{pkgver}", "./cmd/restic"]
 hostmakedepends = ["go"]
-pkgdesc = "Backup solution written in Go"
+pkgdesc = "Backup tool"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://restic.net"
 source = f"https://github.com/restic/restic/releases/download/v{pkgver}/restic-{pkgver}.tar.gz"
-sha256 = "d736a57972bb7ee3398cf6b45f30e5455d51266f5305987534b45a4ef505f965"
+sha256 = "2e8a57f0d1d2b90d67253d1287159dc467bdb7f3b385be2db39e7213b44672be"
 # debug: fails to split on powerpc
 # check: fails in bwrap chroot
 options = ["!debug", "!check"]
