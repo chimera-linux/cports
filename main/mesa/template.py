@@ -226,16 +226,14 @@ configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
 
 
 def post_extract(self):
-    self.cp(self.sources_path / f"paste-{_paste}.tar.gz", self.builddir)
-    self.cp(
-        self.sources_path / f"proc-macro2-{_proc_macro2}.tar.gz", self.builddir
-    )
+    self.cp(self.sources_path / f"paste-{_paste}.tar.gz", ".")
+    self.cp(self.sources_path / f"proc-macro2-{_proc_macro2}.tar.gz", ".")
     self.cp(
         self.sources_path / f"unicode-ident-{_unicode_ident}.tar.gz",
-        self.builddir,
+        ".",
     )
-    self.cp(self.sources_path / f"syn-{_syn}.tar.gz", self.builddir)
-    self.cp(self.sources_path / f"quote-{_quote}.tar.gz", self.builddir)
+    self.cp(self.sources_path / f"syn-{_syn}.tar.gz", ".")
+    self.cp(self.sources_path / f"quote-{_quote}.tar.gz", ".")
 
 
 def init_configure(self):
@@ -243,7 +241,7 @@ def init_configure(self):
     # patch_directory (which contains the meson.build definitions for rust
     # crates) upon extracting the tarball itself. we fetch those above and leave
     # them named the same as in the .wrap in here
-    self.env = {"MESON_PACKAGE_CACHE_DIR": str(self.chroot_builddir)}
+    self.env = {"MESON_PACKAGE_CACHE_DIR": str(self.chroot_cwd)}
 
 
 def post_install(self):
