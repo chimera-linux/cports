@@ -1,0 +1,6 @@
+# iceccd service
+
+type = process
+command = /usr/bin/iceccd --log-file /var/log/icecc/iceccd.log --user-uid _icecc
+depends-on = local.target
+depends-on = network.target

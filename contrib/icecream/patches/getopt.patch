@@ -1,0 +1,11 @@
+--- a/client/icecc-test-env	2022-03-04 16:20:38.000000000 +0100
++++ b/client/icecc-test-env	2024-06-26 22:03:03.260141500 +0200
+@@ -55,7 +55,7 @@
+     echo "Tests a toolchain environment to see if it is correctly constructed"
+ }
+ 
+-OPTIONS=`getopt -o hqf --long help,quiet -n $(basename $0) -- "$@"`
++OPTIONS=`ugetopt -o hqf --long help,quiet -n $(basename $0) -- "$@"`
+ eval set -- "$OPTIONS"
+ 
+ while true; do
