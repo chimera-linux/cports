@@ -1,4 +1,4 @@
-From a7d9547b4756edbcbc3e77480cd5596a4eedc622 Mon Sep 17 00:00:00 2001
+From 1ab05745c8e865c68a8fc8a1038349d7cda3dd94 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 3 Jun 2024 16:41:14 +0200
 Subject: [PATCH 3/8] remove all references to busybox

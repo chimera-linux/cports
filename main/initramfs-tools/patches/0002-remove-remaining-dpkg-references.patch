@@ -1,4 +1,4 @@
-From 8820e36b545e8276b80a99f2f1cbc487d0250862 Mon Sep 17 00:00:00 2001
+From 5811af73954711d733245a04796a8782bfddcdda Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 3 Jun 2024 16:39:45 +0200
 Subject: [PATCH 2/8] remove remaining dpkg references

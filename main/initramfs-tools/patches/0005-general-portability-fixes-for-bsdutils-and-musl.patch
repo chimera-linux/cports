@@ -1,16 +1,16 @@
-From 11e9a0b65505c4a02f3511234d2f67b1ec29d8e1 Mon Sep 17 00:00:00 2001
+From c94327f8c4420e244b3e5a22170b971ad53dc7e3 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 3 Jun 2024 16:45:18 +0200
 Subject: [PATCH 5/8] general portability fixes for bsdutils and musl
 
 ---
- hook-functions | 50 +++++++++++++++++++++-----------------------------
- mkinitramfs    | 21 ++++-----------------
+ hook-functions | 53 +++++++++++++++++++++++---------------------------
+ mkinitramfs    | 21 ++++----------------
  unmkinitramfs  | 12 ++++++------
- 3 files changed, 31 insertions(+), 52 deletions(-)
+ 3 files changed, 34 insertions(+), 52 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index d30ff25..f1924fc 100644
+index d30ff25..e221f95 100644
 --- a/hook-functions
 +++ b/hook-functions
 @@ -166,6 +166,19 @@ _sanitize_target() {
@@ -52,7 +52,7 @@ index d30ff25..f1924fc 100644
  		fi
  
  		# Copy the link target if it doesn't already exist
-@@ -236,30 +250,7 @@ copy_exec() {
+@@ -236,30 +250,10 @@ copy_exec() {
  	copy_file binary "${src}" "${target}" || return $(($? - 1))
  
  	# Copy the dependant libraries
@@ -81,10 +81,13 @@ index d30ff25..f1924fc 100644
 -		esac
 -
 +	for x in $(env -u LD_PRELOAD ldd "${src}" 2>/dev/null | awk '{print $3}'); do
++		# XXX: when running ldd on a .solib, the libc.so dependency is resolved
++		# as `ldd` and not the ld-musl loader, so this loop would copy `ldd` and fail
++		if [ "$x" = "ldd" ]; then continue; fi
  		copy_file binary "${x}" || {
  			ret=$?
  			[ ${ret} = 1 ] || return $((ret - 1))
-@@ -307,7 +298,8 @@ copy_modules_dir()
+@@ -307,7 +301,8 @@ copy_modules_dir()
  	done
  
  	# shellcheck disable=SC2044
@@ -94,7 +97,7 @@ index d30ff25..f1924fc 100644
  		modules="$modules ${kmod%%.*}"
  	done
  	# shellcheck disable=SC2086
-@@ -403,8 +395,8 @@ block_dev_mod_add()
+@@ -403,8 +398,8 @@ block_dev_mod_add()
  	dev_node="$1"
  
  	# Look up device number and convert to decimal as it appears in sysfs
