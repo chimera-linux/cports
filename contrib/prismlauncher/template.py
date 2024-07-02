@@ -1,6 +1,6 @@
 pkgname = "prismlauncher"
 pkgver = "8.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
 hostmakedepends = [
@@ -26,3 +26,17 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/PrismLauncher/PrismLauncher"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "a4df9059559df2e410ddf933e05fe4bffaa01631c6eeb55e63af4a2d0d719726"
+
+
+@subpackage("prismlauncher-natives")
+def _natives(self):
+    self.pkgdesc = f"{pkgdesc} (native default libs)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [
+        "so:libglfw.so.3!glfw",
+        "so:libjemalloc.so.2!jemalloc",
+        "so:libopenal.so.1!openal-soft",
+    ]
+    self.options = ["empty"]
+
+    return []
