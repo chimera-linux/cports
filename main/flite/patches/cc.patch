@@ -1,0 +1,11 @@
+--- a/testsuite/Makefile
++++ b/testsuite/Makefile
+@@ -80,7 +80,7 @@
+ 	$(CC) $(CFLAGS) -o $@ $@_main.o $($(@:=_LIBS)) $(FLITELIBFLAGS) $(LDFLAGS)
+ 
+ multi_thread: multi_thread_main.c
+-	gcc -fopenmp -o multi_thread multi_thread_main.c \
++	$(CC) -fopenmp -o multi_thread multi_thread_main.c \
+ 		$(CFLAGS) -I$(TOP)/include $(FLITELIBFLAGS) $(LDFLAGS) \
+ 		-l flite_cmu_us_slt -lflite_cmulex -lflite_usenglish \
+ 		-lflite -lm -lasound -lgomp
