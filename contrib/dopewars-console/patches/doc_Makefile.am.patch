@@ -1,0 +1,11 @@
+Description: Patch to correct the path in doc/Makefile.am.
+Origin: other
+
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -1,4 +1,4 @@
+-DOCPATH        = ${DESTDIR}${docdir}
++DOCPATH        = ${DESTDIR}${docdir}/html
+ DOCS           = aiplayer.html configfile.html index.html i18n.html \
+                  server.html clientplay.html credits.html example-cfg \
+                  installation.html servercommands.html commandline.html \
