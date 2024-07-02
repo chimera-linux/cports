@@ -1,0 +1,58 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6018d66..83e4962 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2068,7 +2068,7 @@ target_link_libraries(systemd-cat-native libnetdata)
+ 
+ install(TARGETS systemd-cat-native
+         COMPONENT systemd-cat-native
+-        DESTINATION usr/sbin)
++        DESTINATION usr/bin)
+ 
+ #
+ # build log2journal
+@@ -2103,7 +2103,7 @@ if(PCRE2_FOUND)
+ 
+         install(TARGETS log2journal
+                 COMPONENT log2journal
+-                DESTINATION usr/sbin)
++                DESTINATION usr/bin)
+ 
+         install(DIRECTORY src/collectors/log2journal/log2journal.d
+                 COMPONENT log2journal
+@@ -2126,7 +2126,7 @@ target_link_libraries(netdatacli libnetdata)
+ 
+ install(TARGETS netdatacli
+         COMPONENT netdatacli
+-        DESTINATION usr/sbin)
++        DESTINATION usr/bin)
+ 
+ #
+ # Build go.d.plugin
+@@ -2177,7 +2177,7 @@ configure_file(packaging/cmake/config.cmake.h.in config.h)
+ # install
+ #
+ 
+-install(TARGETS netdata DESTINATION usr/sbin)
++install(TARGETS netdata DESTINATION usr/bin)
+ 
+ install(DIRECTORY DESTINATION var/cache/netdata)
+ install(DIRECTORY DESTINATION var/log/netdata)
+@@ -2201,7 +2201,7 @@ install(DIRECTORY DESTINATION ${WEB_DEST})
+ set(libsysdir_POST "${CMAKE_INSTALL_PREFIX}/usr/lib/netdata/system")
+ set(pkglibexecdir_POST "${CMAKE_INSTALL_PREFIX}/usr/libexec/netdata")
+ set(localstatedir_POST "${CMAKE_INSTALL_PREFIX}/var")
+-set(sbindir_POST "${CMAKE_INSTALL_PREFIX}/usr/sbin")
++set(sbindir_POST "${CMAKE_INSTALL_PREFIX}/usr/bin")
+ set(configdir_POST "${CMAKE_INSTALL_PREFIX}/etc/netdata")
+ set(libconfigdir_POST "${CMAKE_INSTALL_PREFIX}/usr/lib/netdata/conf.d")
+ set(cachedir_POST "${CMAKE_INSTALL_PREFIX}/var/cache/netdata")
+@@ -2225,7 +2225,7 @@ endif()
+ configure_file(src/claim/netdata-claim.sh.in src/claim/netdata-claim.sh @ONLY)
+ install(PROGRAMS
+         ${CMAKE_BINARY_DIR}/src/claim/netdata-claim.sh
+-        DESTINATION usr/sbin)
++        DESTINATION usr/bin)
+ 
+ #
+ # We don't check ENABLE_PLUGIN_CGROUP_NETWORK because rpm builds assume

@@ -1,0 +1,42 @@
+diff --git a/src/logsmanagement/unit_test/unit_test.c b/src/logsmanagement/unit_test/unit_test.c
+index d9a490d..715f131 100644
+--- a/src/logsmanagement/unit_test/unit_test.c
++++ b/src/logsmanagement/unit_test/unit_test.c
+@@ -21,26 +21,31 @@
+ #include "../query.h"
+ #include "../db_api.h"
+ 
++static int null_fd = 0;
+ static int old_stdout = STDOUT_FILENO;
+ static int old_stderr = STDERR_FILENO;
+ 
+ #define SUPRESS_STDX(stream_no)                                                     \
+ {                                                                                   \
++    null_fd = open("/dev/null", O_WRONLY|O_TRUNC);                                  \
+     if(stream_no == STDOUT_FILENO)                                                  \
+         old_stdout = dup(old_stdout);                                               \
+     else                                                                            \
+         old_stderr = dup(old_stderr);                                               \
+-    if(!freopen("/dev/null", "w", stream_no == STDOUT_FILENO ? stdout : stderr))    \
++    if(dup2(null_fd, stream_no) == -1)                                              \
+         exit(-1);                                                                   \
++    close(null_fd);                                                                 \
+ }
+ 
+ #define UNSUPRESS_STDX(stream_no)                                                   \
+ {                                                                                   \
+-    fclose(stream_no == STDOUT_FILENO ? stdout : stderr);                           \
+-    if(stream_no == STDOUT_FILENO)                                                  \
+-        stdout = fdopen(old_stdout, "w");                                           \
+-    else                                                                            \
+-        stderr = fdopen(old_stderr, "w");                                           \
++    if(stream_no == STDOUT_FILENO){                                                 \
++        dup2(old_stdout, STDOUT_FILENO);                                            \
++        close(old_stdout);                                                          \
++    }else{                                                                          \
++        dup2(old_stderr, STDERR_FILENO);                                            \
++        close(old_stderr);                                                          \
++    }                                                                               \
+ }
+ 
+ #define SUPRESS_STDOUT()    SUPRESS_STDX(STDOUT_FILENO)
