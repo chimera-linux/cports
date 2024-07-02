@@ -1,0 +1,6 @@
+# rpcbind service
+
+type        = process
+depends-on  = local.target
+after       = network.target
+command     = /usr/bin/rpcbind -fw

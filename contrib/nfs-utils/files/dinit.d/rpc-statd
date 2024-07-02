@@ -1,0 +1,7 @@
+# rpc-statd service
+
+type        = process
+depends-on  = local.target
+depends-on  = rpcbind
+after       = network.target
+command     = /usr/bin/rpc.statd -F
