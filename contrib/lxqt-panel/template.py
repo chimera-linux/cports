@@ -1,13 +1,10 @@
 pkgname = "lxqt-panel"
 pkgver = "2.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
-    "-DALSA_PLUGIN=NO",
-    "-DCPULOAD_PLUGIN=NO",
-    "-DNETWORKMONITOR_PLUGIN=NO",
-    "-DSYSSTAT_PLUGIN=NO",
-    "-DVOLUME_USE_ALSA=NO",
+    "-DSYSSTAT_PLUGIN=OFF",
+    "-DVOLUME_USE_ALSA=OFF",
 ]
 hostmakedepends = [
     "cmake",
@@ -23,6 +20,7 @@ makedepends = [
     "liblxqt-devel",
     "libpulse-devel",
     "libsensors-devel",
+    "libstatgrab-devel",
     "lxqt-globalkeys-devel",
     "lxqt-menu-data",
     "qt6-qttools-devel",
