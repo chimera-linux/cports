@@ -1,6 +1,6 @@
 pkgname = "greetd"
 pkgver = "0.10.3"
-pkgrel = 3
+pkgrel = 4
 build_style = "cargo"
 hostmakedepends = [
     "bmake",
