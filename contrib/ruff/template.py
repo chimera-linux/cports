@@ -36,9 +36,7 @@ def post_patch(self):
 
     # TODO: our cargo vendor does not take into account custom source entries
     # (this is spat out by `cargo vendor`)
-    with open(
-        f"{self.builddir}/{pkgname}-{pkgver}/.cargo/config.toml", "a"
-    ) as f:
+    with open(f"{self.cwd}/.cargo/config.toml", "a") as f:
         f.write(
             """
 [source."git+https://github.com/astral-sh/lsp-types.git?rev=3512a9f"]
