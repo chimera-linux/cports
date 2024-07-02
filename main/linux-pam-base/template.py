@@ -1,5 +1,5 @@
 pkgname = "linux-pam-base"
-pkgver = "0.11"
+pkgver = "0.111"
 pkgrel = 0
 pkgdesc = "Pluggable Authentication Modules for Linux"
 maintainer = "q66 <q66@chimera-linux.org>"
