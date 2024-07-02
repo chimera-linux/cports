@@ -1709,6 +1709,12 @@ def _split_fishcomp(pkg):
     pkg.take("usr/share/fish/vendor_completions.d", missing_ok=True)
 
 
+def _split_locale(pkg):
+    pkg.take("usr/share/locale", missing_ok=True)
+    # lxqt uses its own special dir since it uses a .qm format
+    pkg.take("usr/share/lxqt/translations", missing_ok=True)
+
+
 autopkgs = [
     # dbg is handled by its own hook
     ("dbg", "debug files", None, None),
@@ -1763,7 +1769,7 @@ autopkgs = [
         "locale",
         "locale data",
         "base-locale",
-        lambda p: p.take("usr/share/locale", missing_ok=True),
+        _split_locale,
     ),
     ("pycache", "Python bytecode", "python-pycache", _split_pycache),
 ]
