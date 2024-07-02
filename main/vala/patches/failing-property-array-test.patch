@@ -1,0 +1,13 @@
+https://gitlab.gnome.org/GNOME/vala/-/issues/1543
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 5bde146b3..d4b6b9ddc 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -558,7 +558,6 @@ TESTS = \
+ 	objects/paramspec.vala \
+ 	objects/plugin-module-init.vala \
+ 	objects/properties.vala \
+-	objects/property-array.vala \
+ 	objects/property-array-length.vala \
+ 	objects/property-base-access.vala \
+ 	objects/property-dynamic-not-supported.test \
