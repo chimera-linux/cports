@@ -151,9 +151,7 @@ match self.profile().arch:
 def post_extract(self):
     # 'contrib' modules. by default all of them are built (from the repo),
     # so keep just whatever we want
-    for d in (
-        (self.builddir) / f"{self.wrksrc}" / "extra-modules" / "modules"
-    ).iterdir():
+    for d in (self.cwd / "extra-modules/modules").iterdir():
         if d.name not in [
             "alphamat",
             "aruco",
