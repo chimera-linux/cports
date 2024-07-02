@@ -1,0 +1,24 @@
+we don't run the tests, and they make up a hundred lto'd bins
+halve the build time by just skipping them
+--
+--- a/meson.build
++++ b/meson.build
+@@ -3576,10 +3576,6 @@
+ subdir('bsd-user')
+ subdir('linux-user')
+ 
+-# needed for fuzzing binaries
+-subdir('tests/qtest/libqos')
+-subdir('tests/qtest/fuzz')
+-
+ # accel modules
+ tcg_real_module_ss = ss.source_set()
+ tcg_real_module_ss.add_all(when: 'CONFIG_TCG_MODULAR', if_true: tcg_module_ss)
+@@ -4094,7 +4090,6 @@
+ subdir('tools')
+ subdir('pc-bios')
+ subdir('docs')
+-subdir('tests')
+ if gtk.found()
+   subdir('po')
+ endif
