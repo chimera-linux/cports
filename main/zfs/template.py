@@ -89,7 +89,7 @@ def post_install(self):
     self.do(
         "tar",
         "xf",
-        self.chroot_builddir / self.wrksrc / f"{pkgname}-{pkgver}.tar",
+        self.chroot_cwd / f"{pkgname}-{pkgver}.tar",
         wrksrc=self.chroot_destdir / srcp,
     )
     self.install_file(self.files_path / "ckms.ini", srcp)

@@ -179,7 +179,7 @@ def post_extract(self):
 
 def init_configure(self):
     self.configure_args += [
-        f"-DOPENCV_EXTRA_MODULES_PATH={self.chroot_builddir}/{self.wrksrc}/extra-modules/modules",
+        f"-DOPENCV_EXTRA_MODULES_PATH={self.chroot_cwd}/extra-modules/modules",
     ]
 
 
