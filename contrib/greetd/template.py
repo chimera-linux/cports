@@ -1,10 +1,10 @@
 pkgname = "greetd"
 pkgver = "0.10.3"
-pkgrel = 4
+pkgrel = 5
 build_style = "cargo"
 hostmakedepends = [
-    "bmake",
     "cargo-auditable",
+    "gmake",
     "pkgconf",
     "scdoc",
 ]
@@ -21,7 +21,7 @@ sha256 = "ee5cb70e0add4ca9c9fe57e47581ab0002d44c07743fb5492469f3b570db640b"
 
 
 def post_build(self):
-    self.do("make", "-C", "man", "all", "SCDOC=scdoc")
+    self.do("gmake", "-C", "man", "all")
 
 
 def do_install(self):
@@ -30,11 +30,11 @@ def do_install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/greetd")
 
     self.do(
-        "make",
+        "gmake",
         "-C",
         "man",
         "install",
-        f"DESTDIR=f{self.chroot_destdir}",
+        f"DESTDIR={self.chroot_destdir}",
         "PREFIX=/usr",
     )
 
