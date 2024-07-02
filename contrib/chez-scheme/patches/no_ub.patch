@@ -1,0 +1,21 @@
+--- a/c/prim5.c	2024-02-05 23:52:07.000000000 +0100
++++ b/c/prim5.c	2024-06-09 17:17:07.190223079 +0200
+@@ -22,6 +22,7 @@
+ #include <limits.h>
+ #include <ctype.h>
+ #include <math.h>
++#include <stdint.h>
+ 
+ #if defined(__GNU__) /* Hurd */
+ #include <sys/resource.h>
+@@ -2059,8 +2060,8 @@
+   INT test = 0;
+   I32 n1 = 0x73215609;
+   I64 n2 = n1 * 37;
+-  I32 n3 = (I32)1<<31;
+-  I64 n4 = (I64)1<<63;
++  I32 n3 = INT32_MIN;
++  I64 n4 = INT64_MIN;
+   I32 n5 = -1;
+ 
+   SCHLIBTEST(Sinteger_value(Sinteger(n1)) == n1)
