@@ -1,5 +1,5 @@
 pkgname = "clapper"
-pkgver = "0.6.0"
+pkgver = "0.6.1"
 pkgrel = 0
 build_style = "meson"
 # avoid .a gst
@@ -27,7 +27,7 @@ url = "https://rafostar.github.io/clapper"
 source = (
     f"https://github.com/Rafostar/clapper/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "65cc76afe6fc11058855d98058b6f371e557ea4f29f2f6bf4e0178b6978585de"
+sha256 = "d244ec6108ebff5ccc817a5888f3f73f52cac129fe480d480cb3f6b9db19cfbe"
 # FIXME: clapper gst upload plugin has a needed on libgstclapper.so in here, and
 # it fails to load without explicit rpath
 tool_flags = {"LDFLAGS": ["-Wl,--rpath=/usr/lib/gstreamer-1.0"]}
