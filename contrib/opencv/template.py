@@ -16,7 +16,6 @@ configure_args = [
     "-DOPENCV_GENERATE_PKGCONFIG=ON",
     "-DOPENCV_GENERATE_SETUPVARS=OFF",  # useless /usr/bin env scripts
     "-DOPENCV_SKIP_PYTHON_LOADER=ON",  # to allow using as regular cv2 system install
-    "-Wno-dev",
     # features
     "-DBUILD_PROTOBUF=OFF",
     "-DBUILD_opencv_python3=ON",

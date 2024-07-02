@@ -3,7 +3,6 @@ pkgver = "1.3.289"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-Wno-dev",
     "-DVULKAN_HEADERS_INSTALL_DIR=/usr",
     "-DBUILD_CUBE=ON",
 ]

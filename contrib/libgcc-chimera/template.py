@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-Wno-dev",
     # prevent a bunch of checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # we want to link it into libgcc_s

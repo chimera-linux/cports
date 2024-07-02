@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-Wno-dev",
     "-DLLVM_COMMON_CMAKE_UTILS=cmake",
     "-DLLDB_ENABLE_LUA=NO",  # maybe later
     "-DLLDB_ENABLE_PYTHON=YES",

@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-Wno-dev",
     f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0:pkgver.find('.')]}",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
     # only build that target

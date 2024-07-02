@@ -7,7 +7,6 @@ configure_args = [
     "-DCMAKE_SYSTEM_NAME=WASI",
     "-DCMAKE_SYSTEM_VERSION=1",
     "-DCMAKE_SYSTEM_PROCESSOR=wasm32",
-    "-Wno-dev",
     "-DCMAKE_SYSROOT=/usr/wasm32-unknown-wasi",
     f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0:pkgver.find('.')]}",
     # prevent executable checks

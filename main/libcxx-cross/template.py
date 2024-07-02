@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-Wno-dev",
     "-DCMAKE_C_COMPILER=/usr/bin/clang",
     "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
     "-DCMAKE_AR=/usr/bin/llvm-ar",

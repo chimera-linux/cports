@@ -4,7 +4,6 @@ pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-Wno-dev",
     "-DENABLE_LINKER_BUILD_ID=YES",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
     # only build that target

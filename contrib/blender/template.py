@@ -4,7 +4,6 @@ pkgrel = 6
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-Wno-dev",
     "-C",
     # predefined config with everything we want
     "../build_files/cmake/config/blender_full.cmake",

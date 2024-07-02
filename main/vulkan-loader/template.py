@@ -3,7 +3,6 @@ pkgver = "1.3.289"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-Wno-dev",
     f"-DVULKAN_HEADERS_INSTALL_DIR={self.profile().sysroot / 'usr'}",
     "-DBUILD_TESTS=OFF",  # needs gtest downloaded
 ]

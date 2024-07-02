@@ -7,7 +7,6 @@ build_style = "cmake"
 configure_args = [
     # disables debug mode
     "-DCMAKE_BUILD_TYPE=Release",
-    "-DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON",
     "-DDISABLE_ADVANCE_SIMD=ON",
     "-DENABLE_TESTS=ON",
     "-DUSE_LINKED_FFMPEG=ON",

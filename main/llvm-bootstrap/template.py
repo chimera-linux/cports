@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-Wno-dev",
     "-DCMAKE_INSTALL_PREFIX=/usr/lib/llvm-bootstrap",
     # use rpath so the installed tools always use their own libs
     "-DCMAKE_INSTALL_RPATH=/usr/lib/llvm-bootstrap/lib",

@@ -3,7 +3,6 @@ pkgver = "18.1.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-Wno-dev",
     "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr/include/spirv",
     "-DLLVM_LINK_LLVM_DYLIB=ON",
     "-DBUILD_SHARED_LIBS=ON",

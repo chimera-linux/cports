@@ -7,7 +7,6 @@ configure_args = [
     "-DCMAKE_SYSTEM_NAME=WASI",
     "-DCMAKE_SYSTEM_VERSION=1",
     "-DCMAKE_SYSTEM_PROCESSOR=wasm32",
-    "-Wno-dev",
     "-DCMAKE_SYSROOT=/usr/wasm32-unknown-wasi",
     "-DCMAKE_INSTALL_PREFIX=/",
     # prevent executable checks
