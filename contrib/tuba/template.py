@@ -1,11 +1,9 @@
 pkgname = "tuba"
 pkgver = "0.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    # change this on next clapper update- current version mostly crashes after
-    # closing the player
-    "-Dclapper=false",
+    "-Dclapper=true",
     "-Ddistro=true",
 ]
 hostmakedepends = [
