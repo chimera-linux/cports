@@ -1,6 +1,6 @@
 pkgname = "kitinerary"
 pkgver = "24.05.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # difference in AT/österreich key
 make_check_args = ["-E", "extractortest"]
