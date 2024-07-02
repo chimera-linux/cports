@@ -78,7 +78,7 @@ def pre_configure(self):
 
 def post_install(self):
     # FIXME: check if cross-endian icudt is still busted later
-    self.install_license(self.builddir / self.wrksrc / "LICENSE")
+    self.install_license("LICENSE")
 
 
 @subpackage("icu-libs")
