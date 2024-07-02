@@ -124,7 +124,7 @@ restricted = "does not work well yet"
 
 
 def post_extract(self):
-    with open(f"{self.builddir}/{self.wrksrc}/src/revision.txt", "w") as rev:
+    with open(f"{self.cwd}/src/revision.txt", "w") as rev:
         rev.write(f"{_gitrev}\n")
 
 
