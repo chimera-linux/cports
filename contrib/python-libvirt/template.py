@@ -1,6 +1,6 @@
 pkgname = "python-libvirt"
-pkgver = "10.4.0"
-pkgrel = 1
+pkgver = "10.5.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",
@@ -23,4 +23,4 @@ maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://pypi.org/project/libvirt-python"
 source = f"https://libvirt.org/sources/python/libvirt-python-{pkgver}.tar.gz"
-sha256 = "a20273a3374fcacb45b5ac4fd135e2c40460bb4a3a290d26c4aa8d0eaf1225b5"
+sha256 = "785023500f58d3e8e829af98647d43eee97e517aacc9d9e7ded43594ea52d032"
