@@ -9119,6 +9119,7 @@ abb-escp         6316/tcp
 abb-escp         6316/udp
 nav-data-cmd     6317/tcp
 nav-data         6317/udp
+iona-data        6318/tcp
 repsvc           6320/tcp
 repsvc           6320/udp
 emp-server1      6321/tcp
