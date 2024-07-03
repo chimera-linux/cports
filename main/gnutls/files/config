@@ -1,0 +1,7 @@
+# https://gnutls.org/manual/html_node/Enabling_002fDisabling-system_002facceleration-protocols.html#Enabling-KTLS
+#
+# When gnutls is built with ktls, it is disabled by default.
+# This can be enabled by setting ktls = true in the [global] section.
+
+[global]
+ktls = false
