@@ -2794,15 +2794,6 @@ like `build_wrksrc`.
 
 Like `srcdir`, but when viewed from inside the sandbox.
 
-##### self.builddir
-
-The absolute path to the `builddir`. This directory is where sources are
-extracted, and which is used as the mutable base for builds.
-
-##### self.chroot_builddir
-
-Like `builddir`, but when viewed from inside the sandbox.
-
 ##### self.wrapperdir
 
 A directory within `statedir` (an absolute path to it) that is used for

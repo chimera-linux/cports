@@ -1266,8 +1266,8 @@ class Template(Package):
 
         fakestrip = self.wrapperdir / "strip"
         if self.stage > 0:
-            fakestrip = pathlib.Path("/builddir") / fakestrip.relative_to(
-                self.builddir
+            fakestrip = self.chroot_statedir / fakestrip.relative_to(
+                self.statedir
             )
 
         cenv["STRIPBIN"] = str(fakestrip)
@@ -2126,13 +2126,15 @@ def from_module(m, ret):
         if hasattr(m, "post_" + phase):
             setattr(ret, "post_" + phase, getattr(m, "post_" + phase))
 
+    bdirbase = paths.builddir() / "builddir"
+    cbdirbase = pathlib.Path("/builddir")
+
     # paths that can be used by template methods
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
     ret.sources_path = paths.sources() / f"{ret.pkgname}-{ret.pkgver}"
     ret.bldroot_path = paths.bldroot()
-    ret.builddir = paths.builddir() / "builddir"
-    ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
+    ret.statedir = bdirbase / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
 
     if ret.profile().cross:
@@ -2142,25 +2144,19 @@ def from_module(m, ret):
 
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.pkgver}"
 
-    ret.srcdir = ret.builddir / f"{ret.pkgname}-{ret.pkgver}"
+    ret.srcdir = bdirbase / f"{ret.pkgname}-{ret.pkgver}"
     ret.cwd = ret.srcdir / ret.build_wrksrc
 
     if ret.stage == 0:
         ret.chroot_cwd = ret.cwd
         ret.chroot_srcdir = ret.srcdir
         ret.chroot_statedir = ret.statedir
-        ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
         ret.chroot_sources_path = ret.sources_path
     else:
-        ret.chroot_builddir = pathlib.Path("/builddir")
-        ret.chroot_cwd = ret.chroot_builddir / ret.cwd.relative_to(ret.builddir)
-        ret.chroot_srcdir = ret.chroot_builddir / ret.srcdir.relative_to(
-            ret.builddir
-        )
-        ret.chroot_statedir = ret.chroot_builddir / ret.statedir.relative_to(
-            ret.builddir
-        )
+        ret.chroot_cwd = cbdirbase / ret.cwd.relative_to(bdirbase)
+        ret.chroot_srcdir = cbdirbase / ret.srcdir.relative_to(bdirbase)
+        ret.chroot_statedir = cbdirbase / ret.statedir.relative_to(bdirbase)
         ret.chroot_destdir_base = pathlib.Path("/destdir")
         ret.chroot_sources_path = (
             pathlib.Path("/sources") / f"{ret.pkgname}-{ret.pkgver}"
