@@ -1,0 +1,13 @@
+the -session wrapper is a systemd script, use the normal session startup that
+imports envs itself
+--
+--- a/resources/niri.desktop
++++ b/resources/niri.desktop
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+ Name=Niri
+ Comment=A scrollable-tiling Wayland compositor
+-Exec=niri-session
++Exec=/usr/bin/niri --session
+ Type=Application
+ DesktopNames=niri
