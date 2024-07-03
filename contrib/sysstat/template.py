@@ -1,5 +1,5 @@
 pkgname = "sysstat"
-pkgver = "12.7.5"
+pkgver = "12.7.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-compress-manpg"]
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://sysstat.github.io"
 source = f"https://sysstat.github.io/sysstat-packages/sysstat-{pkgver}.tar.xz"
-sha256 = "57664040a549d33bb06a1121c7124d4cadd9b8b35f815856c194393047cd4d6b"
+sha256 = "474b2bbc89e47b22dc8e4832cc2c555e7fb52f1271b7913434290986a62b71f7"
 hardening = ["vis", "cfi"]
 # dunno how to run these
 options = ["!check"]
