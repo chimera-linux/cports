@@ -1,5 +1,5 @@
 pkgname = "kinfocenter"
-pkgver = "6.1.1"
+pkgver = "6.1.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -31,7 +31,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kinfocenter"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kinfocenter-{pkgver}.tar.xz"
-sha256 = "df3eed2d2bd855f800802628eec07565b72d3c92b2ed1c38f3c5e2cf84b0ee28"
+sha256 = "61c02ba3451e3324dbf54af314cefc4f389b09c9d3e0ad66613fec239fdeb03c"
 # symlink to systemsettings, runtime dep provided
 broken_symlinks = ["usr/bin/kinfocenter"]
 # FIXME: cfi kills app on launch in kcm_about-distro.so

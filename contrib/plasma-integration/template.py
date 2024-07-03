@@ -1,5 +1,5 @@
 pkgname = "plasma-integration"
-pkgver = "6.1.1"
+pkgver = "6.1.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
@@ -43,6 +43,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-integration"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-integration-{pkgver}.tar.xz"
-sha256 = "180bea892d6dd249e98e0c320fcad557354340bd6c0958e7fe7928c347e5597d"
+sha256 = "e15a232928ac8572daa05404d26b4d1112cf189a051cacbdf604352eddbf0804"
 # FIXME: cfi crashes e.g. kwrite upon "Save" in save file dialog in KDEPlasmaPlatformTheme6.so
 hardening = ["vis", "!cfi"]

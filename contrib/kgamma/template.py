@@ -1,5 +1,5 @@
 pkgname = "kgamma"
-pkgver = "6.1.1"
+pkgver = "6.1.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,6 +22,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kgamma"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kgamma-{pkgver}.tar.xz"
-sha256 = "3d0c05911e6d67fddcc6c2e4903c0e8df7eae0191a582d57199082d539efc8a2"
+sha256 = "cb3d8e701b1aba7bd8286b0d19603fb93b0dd5f1e06f52de8fe128a166662663"
 # CFI: check
 hardening = ["vis", "!cfi"]

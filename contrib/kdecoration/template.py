@@ -1,5 +1,5 @@
 pkgname = "kdecoration"
-pkgver = "6.1.1"
+pkgver = "6.1.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -18,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/plasma/kdecoration/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdecoration-{pkgver}.tar.xz"
-sha256 = "cf1c53d2b6e88c978c8557d6c0bcd3499affd69aec5ad5f0d840b3811e678323"
+sha256 = "81e85dd278bcfee3c90f1b5f908ee85f289eee6afad1d64964f990f9c6edbebe"
 # FIXME: cfi breaks at least 20+ kwin tests
 hardening = ["vis", "!cfi"]
 

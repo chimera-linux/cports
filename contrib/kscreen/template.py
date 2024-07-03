@@ -1,5 +1,5 @@
 pkgname = "kscreen"
-pkgver = "6.1.1"
+pkgver = "6.1.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreen-{pkgver}.tar.xz"
-sha256 = "dce5119d75b930bf39f72e10ab4bec4d38f9175fb2f02e10368dc98d7c883bf9"
+sha256 = "7f854a696aac5ae01c4456c7ce18837e1b9b0c1f16df0d1505f1e83e0239bd5c"
 # FIXME: cfi breaks both tests like https://paste.c-net.org/zfdjtfn6ssy6
 hardening = ["vis", "!cfi"]
 

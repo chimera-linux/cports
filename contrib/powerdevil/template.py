@@ -1,5 +1,5 @@
 pkgname = "powerdevil"
-pkgver = "6.1.1"
+pkgver = "6.1.2"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: all tests broken like on alpine, migrateconfig_test*
@@ -53,7 +53,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/powerdevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/powerdevil-{pkgver}.tar.xz"
-sha256 = "495076e90366898399f6c2fee22a2d1fe9698524a7c6f2cacd82f8ca8d699f27"
+sha256 = "d4a8b85536f69e223697bd1c7abd1dc3fc283a71c5b5cc09a91a247d85d85014"
 file_modes = {
     "usr/libexec/org_kde_powerdevil": ("root", "root", 0o755),
 }

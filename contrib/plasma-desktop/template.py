@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
-pkgver = "6.1.1"
-pkgrel = 2
+pkgver = "6.1.2"
+pkgrel = 0
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -104,7 +104,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
-sha256 = "95e3ad9c3018cd05a2266f977f964c2415845d581cdda10f0f1517cd00c9f64e"
+sha256 = "29e4047c49274ade6996240695cbdabe78c184181708079404debf6dad87e2d8"
 # FIXME: cfi kills systemsettings (when entering "Date & Time") in kcm_clock.so
 hardening = ["vis", "!cfi"]
 

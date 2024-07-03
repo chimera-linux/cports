@@ -1,5 +1,5 @@
 pkgname = "kpipewire"
-pkgver = "6.1.1"
+pkgver = "6.1.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -25,7 +25,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kpipewire"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kpipewire-{pkgver}.tar.xz"
-sha256 = "6a1d5aba6eaf530605bb22514cbb17a144d3e8c7c1a5ddf0d3a9ce6b481f7686"
+sha256 = "250f505d723fb71fdfb5af5f89e4f878f632c534fb2b01ba0bbb3ac19170d571"
 # FIXME: cfi breaks at least mediamonitortest (further) and xwaylandvideobridge upon screen share
 hardening = ["vis", "!cfi"]
 # only available test needs running pipewire
