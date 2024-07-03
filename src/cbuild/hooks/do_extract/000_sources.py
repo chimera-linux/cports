@@ -141,7 +141,7 @@ def rename_edir(extractdir, wpath):
 
 
 def invoke(pkg):
-    wpath = pkg.builddir / pkg.wrksrc
+    wpath = pkg.srcdir
     # ensure that we start clean
     if wpath.exists():
         try:

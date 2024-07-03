@@ -2073,7 +2073,6 @@ def from_module(m, ret):
             ropts[opt] = not neg
 
     ret.options = ropts
-    ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"
 
     if ret.provider_priority < 0:
         ret.error("provider_priority must be positive")
@@ -2143,12 +2142,12 @@ def from_module(m, ret):
 
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.pkgver}"
 
-    ret.srcdir = ret.builddir / ret.wrksrc
+    ret.srcdir = ret.builddir / f"{ret.pkgname}-{ret.pkgver}"
     ret.cwd = ret.srcdir / ret.build_wrksrc
 
     if ret.stage == 0:
         ret.chroot_cwd = ret.cwd
-        ret.chroot_srcdir = ret.srccid
+        ret.chroot_srcdir = ret.srcdir
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
         ret.chroot_sources_path = ret.sources_path
