@@ -158,7 +158,7 @@ def get_make_env():
 
 
 def replace_guess(pkg):
-    for f in (pkg.builddir / pkg.wrksrc).rglob("*config*.*"):
+    for f in pkg.srcdir.rglob("*config*.*"):
         if f.is_symlink():
             continue
         if f.suffix == ".guess":

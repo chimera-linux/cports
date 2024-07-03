@@ -125,7 +125,7 @@ def _get_hcflags(prof, tmpl, tharden):
     hard = get_hardening(prof, tmpl, tharden)
 
     if tmpl.stage > 0:
-        hflags = [f"-ffile-prefix-map={tmpl.chroot_builddir / tmpl.wrksrc}=."]
+        hflags = [f"-ffile-prefix-map={tmpl.chroot_srcdir}=."]
     else:
         hflags = []
 
@@ -232,7 +232,7 @@ def _get_ldflags(self, tmpl, name, extra_flags, debug, hardening, shell):
 
 
 def _get_rustflags(self, tmpl, name, extra_flags, debug, hardening, shell):
-    bflags = [f"--remap-path-prefix={tmpl.chroot_builddir / tmpl.wrksrc}=."]
+    bflags = [f"--remap-path-prefix={tmpl.chroot_srcdir}=."]
 
     if self.cross:
         bflags += [

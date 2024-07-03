@@ -50,9 +50,7 @@ sha256 = [
 
 
 def init_configure(self):
-    self.configure_args.append(
-        f"-DTESTDATADIR={self.chroot_srcdir}/testdata"
-    )
+    self.configure_args.append(f"-DTESTDATADIR={self.chroot_srcdir}/testdata")
 
 
 @subpackage("libpoppler")

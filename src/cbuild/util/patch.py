@@ -55,8 +55,8 @@ def patch(pkg, patch_path, wrksrc=None, patch_args=[]):
     patchfn = patch_path.name
     patchsfx = patch_path.suffix
 
-    wdir = pkg.builddir / pkg.wrksrc
-    cwdir = pkg.chroot_builddir / pkg.wrksrc
+    wdir = pkg.srcdir
+    cwdir = pkg.chroot_srcdir
     if wrksrc:
         wdir = wdir / wrksrc
         cwdir = cwdir / wrksrc

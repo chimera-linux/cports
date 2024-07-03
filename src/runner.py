@@ -1691,10 +1691,10 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
     if tgt == "chroot":
         paths.prepare()
         chroot.shell_update(not opt_nonet)
-        if rp and (rp.builddir / rp.wrksrc).is_dir():
-            curwrk = rp.chroot_builddir / rp.wrksrc
-        elif rp and rp.builddir.is_dir():
-            curwrk = rp.chroot_builddir
+        if rp and rp.srcdir.is_dir():
+            curwrk = rp.chroot_srcdir
+        elif rp and rp.srcdir.parent.is_dir():
+            curwrk = rp.chroot_srcdir.parent
         else:
             curwrk = None
         chroot.enter(

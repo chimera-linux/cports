@@ -2,7 +2,7 @@ from cbuild.util import patch
 
 
 def invoke(pkg):
-    if not (pkg.builddir / pkg.wrksrc).is_dir():
+    if not pkg.srcdir.is_dir():
         return
     if not pkg.patches_path.is_dir():
         return

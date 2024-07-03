@@ -35,9 +35,9 @@ def _remove_ro(f, path, _):
 
 
 def remove_pkg_wrksrc(pkg):
-    if (pkg.builddir / pkg.wrksrc).is_dir():
+    if pkg.srcdir.is_dir():
         pkg.log("cleaning build directory...")
-        shutil.rmtree(pkg.builddir / pkg.wrksrc, onerror=_remove_ro)
+        shutil.rmtree(pkg.srcdir, onerror=_remove_ro)
 
 
 def remove_pkg_statedir(pkg):

@@ -19,7 +19,7 @@ def invoke(pkg):
     else:
         template.call_pkg_hooks(pkg, "do_extract")
 
-    (pkg.builddir / pkg.wrksrc).mkdir(parents=True, exist_ok=True)
+    pkg.srcdir.mkdir(parents=True, exist_ok=True)
 
     template.run_pkg_func(pkg, "post_extract")
     template.call_pkg_hooks(pkg, "post_extract")

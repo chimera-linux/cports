@@ -99,8 +99,8 @@ def _build(
     oldcwd = pkg.cwd
     oldchd = pkg.chroot_cwd
 
-    pkg.cwd = pkg.builddir / pkg.wrksrc
-    pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
+    pkg.cwd = pkg.srcdir
+    pkg.chroot_cwd = pkg.chroot_srcdir
 
     pkg._maintainer = maintainer
 
