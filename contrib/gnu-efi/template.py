@@ -1,8 +1,7 @@
 pkgname = "gnu-efi"
-pkgver = "3.0.17"
+pkgver = "3.0.18"
 pkgrel = 0
-# riscv64 does not build but also nothing needs it there
-archs = ["x86_64", "aarch64"]
+archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
 make_cmd = "gmake"
 make_use_env = True
@@ -12,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/gnu-efi"
 source = f"$(SOURCEFORGE_SITE)/gnu-efi/gnu-efi-{pkgver}.tar.bz2"
-sha256 = "7807e903349343a7a142ebb934703a2872235e89688cf586c032b0a1087bcaf4"
+sha256 = "7f212c96ee66547eeefb531267b641e5473d7d8529f0bd8ccdefd33cf7413f5c"
 tools = {
     "LD": "ld.bfd",
     "OBJCOPY": "gobjcopy",
@@ -26,6 +25,9 @@ options = ["!check", "!debug", "!strip", "!lto", "!relr", "!splitstatic"]
 
 
 def init_configure(self):
+    # unset ldflags as we pass some things with -Wl and none of them are
+    # relevant for efi bins
+    self.env["LDFLAGS"] = ""
     eargs = ["PREFIX=/usr", "INSTALLROOT=" + str(self.chroot_destdir)]
     with self.profile("host"):
         eargs += ["HOSTCC=" + self.get_tool("CC")]
