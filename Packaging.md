@@ -2449,7 +2449,8 @@ Shared API for both templates and subpackages.
 All APIs may raise errors. The user is not supposed to handle the errors,
 they will be handled appropriately by `cbuild`.
 
-Filesystem APIs take strings or `pathlib` paths.
+Filesystem APIs take strings or `pathlib` paths. They also allow the special
+prefix `>/` in the path as a shorthand for `self.destdir`.
 
 ##### self.pkgname
 

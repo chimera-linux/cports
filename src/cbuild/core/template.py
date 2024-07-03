@@ -236,12 +236,17 @@ def call_pkg_hooks(pkg, stepn):
 
 
 def _pglob_path(oldp, patp):
-    oldp = pathlib.Path(oldp)
-    patp = pathlib.Path(patp)
     if patp.is_absolute():
         rootp = pathlib.Path("/")
         return list(rootp.glob(str(patp.relative_to(rootp))))
     return list(oldp.glob(str(patp)))
+
+
+def _subst_path(pkg, pathn):
+    if pathn.startswith(">/"):
+        return pkg.destdir / pathn.removeprefix(">/")
+    else:
+        return pathlib.Path(pathn)
 
 
 class Package:
@@ -283,14 +288,14 @@ class Package:
         old_cpath = self.rparent.chroot_cwd
 
         if glob:
-            new_paths = _pglob_path(old_path, dirn)
+            new_paths = _pglob_path(old_path, _subst_path(self, dirn))
             if len(new_paths) != 1:
                 self.error(
                     f"path '{dirn}' must match exactly one directory", bt=True
                 )
             new_path = new_paths[0]
         else:
-            new_path = old_path / dirn
+            new_path = old_path / _subst_path(self, dirn)
 
         if not new_path.is_dir():
             self.error(f"path '{new_path}' is not a directory", bt=True)
@@ -309,6 +314,9 @@ class Package:
             self.rparent.chroot_cwd = old_cpath
 
     def cp(self, srcp, destp, recursive=False, symlinks=True, glob=False):
+        srcp = _subst_path(self, srcp)
+        destp = _subst_path(self, destp)
+
         if not glob:
             srcs = [self.rparent.cwd / srcp]
         else:
@@ -339,7 +347,8 @@ class Package:
         return pathlib.Path(ret)
 
     def mv(self, srcp, destp, glob=False):
-        destp = self.rparent.cwd / destp
+        srcp = _subst_path(self, srcp)
+        destp = self.rparent.cwd / _subst_path(self, destp)
         if not glob:
             return pathlib.Path(shutil.move(self.rparent.cwd / srcp, destp))
 
@@ -354,9 +363,13 @@ class Package:
         return ret
 
     def mkdir(self, path, parents=False):
-        (self.rparent.cwd / path).mkdir(parents=parents, exist_ok=parents)
+        (self.rparent.cwd / _subst_path(self, path)).mkdir(
+            parents=parents, exist_ok=parents
+        )
 
     def rm(self, path, recursive=False, force=False, glob=False):
+        path = _subst_path(self, path)
+
         if not glob:
             paths = [self.rparent.cwd / path]
         else:
@@ -384,7 +397,8 @@ class Package:
                     shutil.rmtree(path, onerror=_remove_ro)
 
     def ln_s(self, srcp, destp, relative=False):
-        destp = self.rparent.cwd / destp
+        srcp = _subst_path(self, srcp)
+        destp = _subst_path(self, destp)
         if destp.is_dir():
             destp = destp / pathlib.Path(srcp).name
         if relative:
@@ -392,17 +406,21 @@ class Package:
         destp.symlink_to(srcp)
 
     def chmod(self, path, mode):
-        (self.rparent.cwd / path).chmod(mode)
+        (self.rparent.cwd / _subst_path(self, path)).chmod(mode)
 
     def touch_epoch(self, path):
         ts = self.rparent.source_date_epoch
         if not ts:
             return
         self.log(f"normalizing timestamp for {path}...")
-        os.utime(self.rparent.cwd / path, (ts, ts), follow_symlinks=False)
+        os.utime(
+            self.rparent.cwd / _subst_path(self, path),
+            (ts, ts),
+            follow_symlinks=False,
+        )
 
     def find(self, path, pattern, files=False):
-        path = pathlib.Path(path)
+        path = _subst_path(self, path)
         if path.is_absolute():
             for fn in path.rglob(pattern):
                 if not files or fn.is_file():
@@ -1493,7 +1511,7 @@ class Template(Package):
         return self._profile(target)
 
     def install_files(self, path, dest, symlinks=True, name=None):
-        path = pathlib.Path(path)
+        path = _subst_path(self, path)
         dest = pathlib.Path(dest)
         if dest.is_absolute():
             raise errors.TracebackException(
