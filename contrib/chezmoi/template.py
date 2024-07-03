@@ -1,6 +1,6 @@
 pkgname = "chezmoi"
-pkgver = "2.49.1"
-pkgrel = 1
+pkgver = "2.50.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X 'main.builtBy=Chimera Linux'",
@@ -13,7 +13,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
-sha256 = "898ef09b52bd23619327f4bebc83d58b578c5e5af9310a9ce12b556bb4c3cbc0"
+sha256 = "20529464eba8b6e2a801bd6898c75fae4ce0a4da7aadb873241a0ea461c18454"
 # debug: fails to split on powerpc
 # check: needs network access
 options = ["!debug", "!check"]
