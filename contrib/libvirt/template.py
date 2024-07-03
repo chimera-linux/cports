@@ -1,6 +1,6 @@
 pkgname = "libvirt"
 pkgver = "10.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dattr=enabled",
@@ -34,6 +34,7 @@ configure_args = [
     "-Duserfaultfd_sysctl=disabled",
 ]
 hostmakedepends = [
+    "gettext",
     "libxml2-progs",
     "lvm2",  # buildtime check
     "meson",
