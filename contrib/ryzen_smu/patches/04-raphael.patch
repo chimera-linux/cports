@@ -1,0 +1,37 @@
+Patch-Source: https://github.com/amkillam/ryzen_smu/commit/52a292b015471d6ac38e1c6b0bf0875b34614793
+--
+From 52a292b015471d6ac38e1c6b0bf0875b34614793 Mon Sep 17 00:00:00 2001
+From: Adam Killam <amkillam@mun.ca>
+Date: Fri, 29 Dec 2023 17:44:05 -0330
+Subject: [PATCH] Add CODENAME_RAPHAEL to lib
+
+---
+ lib/libsmu.c | 2 ++
+ lib/libsmu.h | 1 +
+ 2 files changed, 3 insertions(+)
+
+diff --git a/lib/libsmu.c b/lib/libsmu.c
+index dba5156..9ce8689 100755
+--- a/lib/libsmu.c
++++ b/lib/libsmu.c
+@@ -450,6 +450,8 @@ const char* smu_codename_to_str(smu_obj_t* obj) {
+             return "Thread Ripper";
+         case CODENAME_REMBRANDT:
+             return "Rembrandt";
++        case CODENAME_RAPHAEL:
++            return "Raphael";
+         case CODENAME_VERMEER:
+             return "Vermeer";
+         case CODENAME_VANGOGH:
+diff --git a/lib/libsmu.h b/lib/libsmu.h
+index ac96e1e..efddc38 100755
+--- a/lib/libsmu.h
++++ b/lib/libsmu.h
+@@ -86,6 +86,7 @@ typedef enum {
+     CODENAME_SUMMITRIDGE,
+     CODENAME_PINNACLERIDGE,
+     CODENAME_REMBRANDT,
++    CODENAME_RAPHAEL,
+     CODENAME_VERMEER,
+     CODENAME_VANGOGH,
+     CODENAME_CEZANNE,

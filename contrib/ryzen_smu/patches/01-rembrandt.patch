@@ -1,0 +1,109 @@
+Patch-Source: https://github.com/amkillam/ryzen_smu/commit/cdfe728b3299400b7cd17d31bdfe5bedab6b1cc9
+--
+From cdfe728b3299400b7cd17d31bdfe5bedab6b1cc9 Mon Sep 17 00:00:00 2001
+From: moson-mo <mo-son@mailbox.org>
+Date: Thu, 7 Dec 2023 13:14:56 +0100
+Subject: [PATCH] Add Rembrandt support
+
+Signed-off-by: moson-mo <mo-son@mailbox.org>
+---
+ drv.c |  2 ++
+ smu.c | 19 +++++++++++++++++--
+ 2 files changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/drv.c b/drv.c
+index 2183bc1..a794dc2 100755
+--- a/drv.c
++++ b/drv.c
+@@ -30,6 +30,7 @@ MODULE_LICENSE("GPL");
+ #define PCI_DEVICE_ID_AMD_17H_M10H_ROOT    0x15d0
+ #define PCI_DEVICE_ID_AMD_17H_M60H_ROOT    0x1630
+ #define PCI_DEVICE_ID_AMD_17H_M30H_ROOT    0x1480
++#define PCI_DEVICE_ID_AMD_17H_MA0H_ROOT    0x14b5
+ 
+ #define MAX_ATTRS_LEN                      13
+ 
+@@ -428,6 +429,7 @@ static struct pci_device_id ryzen_smu_id_table[] = {
+     { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_17H_M10H_ROOT) },
+     { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_17H_M30H_ROOT) },
+     { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_17H_M60H_ROOT) },
++    { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_17H_MA0H_ROOT) },
+     { }
+ };
+ MODULE_DEVICE_TABLE(pci, ryzen_smu_id_table);
+diff --git a/smu.c b/smu.c
+index 40a57c1..a1821d0 100755
+--- a/smu.c
++++ b/smu.c
+@@ -303,6 +303,7 @@ int smu_resolve_cpu_class(struct pci_dev* dev) {
+                 g_smu.codename = CODENAME_VERMEER;
+                 break;
+             case 0x40:
++            case 0x44:
+                 g_smu.codename = CODENAME_REMBRANDT;
+                 break;
+             case 0x50:
+@@ -360,12 +361,12 @@ int smu_init(struct pci_dev* dev) {
+         case CODENAME_RAVENRIDGE:
+         case CODENAME_RAVENRIDGE2:
+         case CODENAME_DALI:
++        case CODENAME_REMBRANDT:
+             g_smu.addr_rsmu_mb_cmd  = 0x3B10A20;
+             g_smu.addr_rsmu_mb_rsp  = 0x3B10A80;
+             g_smu.addr_rsmu_mb_args = 0x3B10A88;
+             goto LOG_RSMU;
+-        case CODENAME_VANGOGH:
+-        case CODENAME_REMBRANDT:
++        case CODENAME_VANGOGH:        
+             pr_debug("RSMU Mailbox: Not supported or unknown, disabling use.");
+             goto MP1_DETECT;
+         default:
+@@ -570,6 +571,7 @@ u64 smu_get_dram_base_address(struct pci_dev* dev) {
+         case CODENAME_RENOIR:
+         case CODENAME_LUCIENNE:
+         case CODENAME_CEZANNE:
++        case CODENAME_REMBRANDT:
+             fn[0] = 0x66;
+             goto BASE_ADDR_CLASS_1;
+         case CODENAME_COLFAX:
+@@ -680,6 +682,7 @@ enum smu_return_val smu_transfer_table_to_dram(struct pci_dev* dev) {
+             break;
+         case CODENAME_RENOIR:
+         case CODENAME_LUCIENNE:
++        case CODENAME_REMBRANDT:
+             args.s.arg0 = 3;
+             fn = 0x65;
+             break;
+@@ -768,6 +771,7 @@ enum smu_return_val smu_get_pm_table_version(struct pci_dev* dev, u32* version)
+         case CODENAME_RENOIR:
+         case CODENAME_LUCIENNE:
+         case CODENAME_CEZANNE:
++        case CODENAME_REMBRANDT:
+             fn = 0x06;
+             break;
+         default:
+@@ -884,6 +888,16 @@ u32 smu_update_pmtable_size(u32 version) {
+                     goto UNKNOWN_PM_TABLE_VERSION;
+             }
+             break;
++        case CODENAME_REMBRANDT:
++            switch (version) {
++                case 0x450004:
++                case 0x450005:
++                    g_smu.pm_dram_map_size = 0xA44;
++                    break;
++                default:
++                    goto UNKNOWN_PM_TABLE_VERSION;
++            }
++            break;
+         case CODENAME_PICASSO:
+         case CODENAME_RAVENRIDGE:
+         case CODENAME_RAVENRIDGE2:
+@@ -941,6 +955,7 @@ enum smu_return_val smu_read_pm_table(struct pci_dev* dev, unsigned char* dst, s
+             g_smu.codename == CODENAME_RAPHAEL  ||
+             g_smu.codename == CODENAME_RENOIR   ||
+             g_smu.codename == CODENAME_LUCIENNE ||
++            g_smu.codename == CODENAME_REMBRANDT  ||
+             g_smu.codename == CODENAME_CEZANNE  ||
+             g_smu.codename == CODENAME_CHAGALL  ||
+             g_smu.codename == CODENAME_MILAN) {

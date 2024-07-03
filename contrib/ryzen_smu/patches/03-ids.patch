@@ -1,0 +1,57 @@
+Patch-Source: https://github.com/amkillam/ryzen_smu/commit/3f740bbc502fee95d7fe840baf7cfc09d3ed38ff
+--
+From 3f740bbc502fee95d7fe840baf7cfc09d3ed38ff Mon Sep 17 00:00:00 2001
+From: Adam Killam <amkillam@mun.ca>
+Date: Fri, 29 Dec 2023 17:43:15 -0330
+Subject: [PATCH] Add missing root IDs
+
+---
+ drv.c | 27 +++++++++++++++++++++------
+ 1 file changed, 21 insertions(+), 6 deletions(-)
+
+diff --git a/drv.c b/drv.c
+index dc58055..7e12c11 100755
+--- a/drv.c
++++ b/drv.c
+@@ -26,12 +26,20 @@ MODULE_LICENSE("GPL");
+ 
+ #define MSEC_TO_NSEC(x)                    (x * 1000000)
+ 
+-#define PCI_DEVICE_ID_AMD_17H_ROOT         0x1450
+-#define PCI_DEVICE_ID_AMD_17H_M10H_ROOT    0x15d0
+-#define PCI_DEVICE_ID_AMD_17H_M60H_ROOT    0x1630
+-#define PCI_DEVICE_ID_AMD_17H_M30H_ROOT    0x1480
+-#define PCI_DEVICE_ID_AMD_17H_MA0H_ROOT    0x14b5
+-#define PCI_DEVICE_ID_AMD_19H_M70H_ROOT    0x14e8
++
++#define PCI_DEVICE_ID_AMD_17H_ROOT		0x1450
++#define PCI_DEVICE_ID_AMD_17H_M10H_ROOT		0x15d0
++#define PCI_DEVICE_ID_AMD_17H_M30H_ROOT		0x1480
++#define PCI_DEVICE_ID_AMD_17H_M60H_ROOT		0x1630
++#define PCI_DEVICE_ID_AMD_17H_MA0H_ROOT		0x14b5
++#define PCI_DEVICE_ID_AMD_19H_M10H_ROOT		0x14a4
++#define PCI_DEVICE_ID_AMD_19H_M40H_ROOT		0x14b5
++#define PCI_DEVICE_ID_AMD_19H_M60H_ROOT		0x14d8
++#define PCI_DEVICE_ID_AMD_19H_M70H_ROOT		0x14e8
++#define PCI_DEVICE_ID_AMD_1AH_M00H_ROOT		0x153a
++#define PCI_DEVICE_ID_AMD_1AH_M20H_ROOT		0x1507
++#define PCI_DEVICE_ID_AMD_MI200_ROOT		0x14bb
++#define PCI_DEVICE_ID_AMD_MI300_ROOT		0x14f8
+ 
+ #define MAX_ATTRS_LEN                      13
+ 
+@@ -431,7 +439,14 @@ static struct pci_device_id ryzen_smu_id_table[] = {
+     { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_17H_M30H_ROOT) },
+     { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_17H_M60H_ROOT) },
+     { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_17H_MA0H_ROOT) },
++    { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_19H_M10H_ROOT) },
++    { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_19H_M40H_ROOT) },
++    { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_19H_M60H_ROOT) },
+     { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_19H_M70H_ROOT) },
++    { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_1AH_M00H_ROOT) },
++    { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_1AH_M20H_ROOT) },
++    { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_MI200_ROOT) },
++    { PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_MI300_ROOT) }, 
+     { }
+ };
+ MODULE_DEVICE_TABLE(pci, ryzen_smu_id_table);
