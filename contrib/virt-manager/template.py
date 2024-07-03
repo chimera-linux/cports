@@ -1,6 +1,6 @@
 pkgname = "virt-manager"
 pkgver = "4.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "-k",
@@ -28,12 +28,14 @@ make_check_args = [
     "and not testcli0424virt_clone",
 ]
 _deps = [
+    "bsdtar",  # cpio
     "libosinfo",
     "libxml2-python",
     "python-gobject",
     "python-libvirt",
     "python-requests",
     "qemu-img",
+    "xorriso",
 ]
 hostmakedepends = [
     "gettext",
@@ -45,14 +47,14 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = [
+    f"virt-manager-progs={pkgver}-r{pkgrel}",
     "gtk-vnc",
     "gtksourceview4",
     "libvirt-glib",
     "spice-gtk",
-    "virt-manager-progs",
     "vte-gtk3",
 ]
-checkdepends = ["python-pytest", "xorriso"] + _deps
+checkdepends = ["python-pytest"] + _deps
 pkgdesc = "GUI for managing virtual machines"
 maintainer = "cesorious <cesorious@gmail.com>"
 license = "GPL-2.0-or-later"
