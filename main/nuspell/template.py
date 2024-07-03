@@ -1,6 +1,6 @@
 pkgname = "nuspell"
-pkgver = "5.1.4"
-pkgrel = 2
+pkgver = "5.1.5"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://nuspell.github.io"
 source = f"https://github.com/nuspell/nuspell/archive/v{pkgver}.tar.gz"
-sha256 = "bdf344c5adbcc6797940f8f8cb75cb59f5a3794eb21b9547751a11782a792ef7"
+sha256 = "39fa6d9da6797cd711d7981b1f55359c55dfa4a302560e645cb59af6f764401a"
 hardening = ["!cfi"]  # TODO
 
 
