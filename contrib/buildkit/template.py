@@ -1,6 +1,6 @@
 pkgname = "buildkit"
 pkgver = "0.14.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = ["go"]
