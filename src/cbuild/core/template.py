@@ -2143,18 +2143,21 @@ def from_module(m, ret):
 
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.pkgver}"
 
-    ret.cwd = ret.builddir / ret.wrksrc / ret.build_wrksrc
+    ret.srcdir = ret.builddir / ret.wrksrc
+    ret.cwd = ret.srcdir / ret.build_wrksrc
 
     if ret.stage == 0:
         ret.chroot_cwd = ret.cwd
+        ret.chroot_srcdir = ret.srccid
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
         ret.chroot_sources_path = ret.sources_path
     else:
-        ret.chroot_cwd = pathlib.Path("/builddir") / ret.cwd.relative_to(
+        ret.chroot_builddir = pathlib.Path("/builddir")
+        ret.chroot_cwd = ret.chroot_builddir / ret.cwd.relative_to(ret.builddir)
+        ret.chroot_srcdir = ret.chroot_builddir / ret.srcdir.relative_to(
             ret.builddir
         )
-        ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
         ret.chroot_sources_path = (
             pathlib.Path("/sources") / f"{ret.pkgname}-{ret.pkgver}"

@@ -52,9 +52,7 @@ hardening = ["!int"]
 
 
 def init_configure(self):
-    self.configure_args.append(
-        f"-DTESTDATADIR=/builddir/{self.wrksrc}/testdata"
-    )
+    self.configure_args.append(f"-DTESTDATADIR={self.chroot_srcdir}/testdata")
 
 
 def do_install(self):

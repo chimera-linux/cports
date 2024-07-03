@@ -73,7 +73,6 @@ env = {
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
     "MOZ_APP_REMOTINGNAME": "Thunderbird",
     "MOZ_NOSPAM": "1",
-    "MOZBUILD_STATE_PATH": f"/builddir/{pkgname}-{pkgver}/.mozbuild",
     # thunderbird checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
@@ -105,6 +104,7 @@ def post_patch(self):
 def init_configure(self):
     from cbuild.util import cargo
 
+    self.env["MOZBUILD_STATE_PATH"] = str(self.chroot_srcdir / ".mozbuild")
     self.env["AS"] = self.get_tool("CC")
     self.env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
     self.env["RUST_TARGET"] = self.profile().triplet

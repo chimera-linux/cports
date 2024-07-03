@@ -51,7 +51,7 @@ sha256 = [
 
 def init_configure(self):
     self.configure_args.append(
-        f"-DTESTDATADIR=/builddir/{self.wrksrc}/testdata"
+        f"-DTESTDATADIR={self.chroot_srcdir}/testdata"
     )
 
 

@@ -44,8 +44,8 @@ def do_check(self):
         "-y",
         "xxx.7z",
         # XXX: this is self.sources_path but chroot
-        self.chroot_builddir / self.wrksrc / "Asm",
-        self.chroot_builddir / self.wrksrc / "C",
+        self.chroot_srcdir / "Asm",
+        self.chroot_srcdir / "C",
     )
 
     self.do(
