@@ -14,17 +14,24 @@ url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
 sha256 = "ac9c723f224969aee624bc34fd34c9e13f2a212d75c71c807de644bb46e112f6"
 env = {}
-# a bunch of tests fail for now, so FIXME
+# see below
 options = [
     "!strip",
     "!debug",
     "!lto",
-    "!check",
     "!scanrundeps",
     "!lintstatic",
     "foreignelf",
     "execstack",
 ]
+
+match self.profile().arch:
+    case "aarch64":
+        # FIXME: these fail for unknown reasons currently
+        options += ["!check"]
+    case "ppc64le":
+        # assume gnu as
+        options += ["!check"]
 
 if self.current_target == "custom:bootstrap":
     options += ["!check"]
@@ -104,7 +111,17 @@ def _boot(self):
 
 
 def do_check(self):
-    self.do(self.chroot_cwd / "bin/go", "tool", "dist", "test", "-v", "-run")
+    self.do(
+        self.chroot_cwd / "bin/go",
+        "tool",
+        "dist",
+        "test",
+        "-v",
+        env={
+            "GO_TEST_TIMEOUT_SCALE": "5",
+            "GO_TEST_SHARDS": str(self.make_jobs),
+        },
+    )
 
 
 def do_install(self):
