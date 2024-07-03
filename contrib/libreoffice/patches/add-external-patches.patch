@@ -10,11 +10,11 @@
  
 --- a/external/libcmis/UnpackedTarball_libcmis.mk
 +++ b/external/libcmis/UnpackedTarball_libcmis.mk
-@@ -14,6 +14,7 @@ $(eval $(call gb_UnpackedTarball_set_tarball,libcmis,$(LIBCMIS_TARBALL)))
+@@ -14,6 +14,7 @@
  $(eval $(call gb_UnpackedTarball_set_patchlevel,libcmis,1))
-
+ 
  $(eval $(call gb_UnpackedTarball_add_patches,libcmis,\
 +    external/libcmis/libcmis-libxml2.patch.1 \
+ 	external/libcmis/http-session-cleanup.patch.1 \
  ))
-
- # vim: set noet sw=4 ts=4:
+ 
