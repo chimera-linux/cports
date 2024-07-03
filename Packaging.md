@@ -2523,6 +2523,10 @@ The absolute path to the directory (stored within `builddir`) which
 contains all the state files (i.e. tracking which phases are done and
 so on in a persistent manner to allow resuming, plus any wrappers).
 
+##### self.chroot_statedir
+
+Same as `statedir`, but when viewed from inside the sandbox.
+
 ##### def log(self, msg, end = "\n")
 
 Using `self.logger.out()`, print out a specially prefixed message. The

@@ -2148,6 +2148,7 @@ def from_module(m, ret):
     if ret.stage == 0:
         ret.chroot_cwd = ret.cwd
         ret.chroot_srcdir = ret.srcdir
+        ret.chroot_statedir = ret.statedir
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
         ret.chroot_sources_path = ret.sources_path
@@ -2155,6 +2156,9 @@ def from_module(m, ret):
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_cwd = ret.chroot_builddir / ret.cwd.relative_to(ret.builddir)
         ret.chroot_srcdir = ret.chroot_builddir / ret.srcdir.relative_to(
+            ret.builddir
+        )
+        ret.chroot_statedir = ret.chroot_builddir / ret.statedir.relative_to(
             ret.builddir
         )
         ret.chroot_destdir_base = pathlib.Path("/destdir")
