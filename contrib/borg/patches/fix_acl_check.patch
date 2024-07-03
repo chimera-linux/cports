@@ -1,0 +1,13 @@
+this blows up during check otherwise
+
+--- a/src/borg/testsuite/platform.py
++++ b/src/borg/testsuite/platform.py
+@@ -63,7 +63,7 @@
+         except PermissionError:
+             pass
+         except OSError as e:
+-            if e.errno not in (errno.ENOTSUP, ):
++            if e.errno not in (errno.ENOTSUP, errno.EINVAL):
+                 raise
+         return False
+ 

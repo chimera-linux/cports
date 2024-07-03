@@ -1,19 +1,21 @@
 pkgname = "borg"
-pkgver = "1.2.8"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "python_pep517"
-make_build_env = {
-    "BORG_LIBLZ4_PREFIX": "/usr/include",
-    "BORG_ZSTD_PREFIX": "/usr/include",
-    "BORG_XXHASH_PREFIX": "/usr/include",
-}
+make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 make_check_args = [
     "--pyargs",
     "borg.testsuite",
     "--benchmark-skip",
-    # these take forever
     "-k",
-    "not test_prune_retain_and_expire_oldest and not test_prune_repository_example",
+    # these take forever
+    "not test_prune_retain_and_expire_oldest and not test_prune_repository_example"
+    # these require files that aren't copied to the checkenv
+    + " and not test_detect_attic_repo"
+    + " and not test_key_export_qr"
+    + " and not test_convert_segments"
+    + " and not test_keys"
+    + " and not test_convert_all",
     "--dist=worksteal",
 ]
 make_check_env = {"BORG_FUSE_IMPL": "none"}
@@ -45,8 +47,8 @@ pkgdesc = "Deduplicating backup program"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://www.borgbackup.org"
-source = f"https://github.com/borgbackup/borg/releases/download/{pkgver}/borgbackup-{pkgver}.tar.gz"
-sha256 = "d39d22b0d2cb745584d68608a179b6c75f7b40e496e96feb789e41d34991f4aa"
+source = f"https://github.com/borgbackup/borg/archive/tags/{pkgver}.tar.gz"
+sha256 = "34fa63c8921ad7c6c1eadc3029ed3261a8494f9c264f900d7079197a1584bcd5"
 
 
 def init_check(self):
