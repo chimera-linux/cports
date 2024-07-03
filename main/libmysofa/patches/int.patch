@@ -1,0 +1,14 @@
+causes fail-issue-130 to fail with int
+diff --git a/src/hdf/btree.c b/src/hdf/btree.c
+index e847b24..d83495f 100644
+--- a/src/hdf/btree.c
++++ b/src/hdf/btree.c
+@@ -254,7 +254,7 @@ int treeRead(struct READER *reader, struct DATAOBJECT *data) {
+ 
+   elements = 1;
+   for (j = 0; j < data->ds.dimensionality; j++)
+-    elements *= data->datalayout_chunk[j];
++    elements = (unsigned)elements * data->datalayout_chunk[j];
+   dy = data->datalayout_chunk[1];
+   dz = data->datalayout_chunk[2];
+   sx = data->ds.dimension_size[0];
