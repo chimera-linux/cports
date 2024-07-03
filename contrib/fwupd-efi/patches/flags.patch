@@ -1,0 +1,23 @@
+no-integrated to use gas
+ld.lld: error: -shared and -pie may not be used together;
+ld: error: section: .dynamic is not contiguous with other relro sections
+--
+--- a/efi/meson.build
++++ b/efi/meson.build
+@@ -169,6 +169,7 @@
+                 '-funsigned-char',
+                 '-fshort-wchar',
+                 '-ffreestanding',
++                '-fno-integrated-as',
+                 '-fno-strict-aliasing',
+                 '-fno-stack-protector',
+                 '-fno-stack-check',
+@@ -300,7 +300,7 @@
+   fwupd_so_deps += [o_crt0]
+ endif
+ 
+-efi_cc_ldflags = []
++efi_cc_ldflags = ['-fno-builtin', '-Wl,-z,norelro', '-Wl,--no-pie']
+ foreach flag : efi_ldflags
+   efi_cc_ldflags += ['-Wl,' + flag]
+ endforeach
