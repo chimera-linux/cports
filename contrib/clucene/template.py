@@ -1,6 +1,6 @@
 pkgname = "clucene"
 pkgver = "2.3.3.4"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-DENABLE_ASCII_MODE=OFF",
@@ -32,4 +32,4 @@ def post_check(self):
 
 @subpackage("clucene-devel")
 def _devel(self):
-    return self.default_devel()
+    return self.default_devel(extra=["usr/lib/CLuceneConfig.cmake"])
