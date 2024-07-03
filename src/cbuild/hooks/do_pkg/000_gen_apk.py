@@ -273,11 +273,7 @@ def genpkg(pkg, repo, arch, binpkg):
 
     for f in sclist:
         # get in-chroot path to that
-        scp = (
-            pkg.rparent.chroot_builddir
-            / (pkg.statedir.relative_to(pkg.rparent.builddir))
-            / f"scriptlets/{pkg.pkgname}.{f}"
-        )
+        scp = pkg.rparent.chroot_statedir / f"scriptlets/{pkg.pkgname}.{f}"
         # pass it
         pargs += ["--script", f"{f}:{scp}"]
 

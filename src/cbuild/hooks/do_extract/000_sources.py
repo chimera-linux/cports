@@ -70,7 +70,7 @@ def extract_notar(pkg, fname, dfile, edir, sfx):
         pkg.error(f"unknown suffix '{sfx}'")
 
     ofn = pathlib.Path(fname).stem
-    opath = pkg.builddir / edir.name / ofn
+    opath = pkg.statedir / edir.name / ofn
 
     with open(opath, "wb") as outf:
         return (
@@ -165,7 +165,7 @@ def invoke(pkg):
 
     # now extract in a temporary place
     with (
-        tempfile.TemporaryDirectory(dir=pkg.builddir) as extractdir,
+        tempfile.TemporaryDirectory(dir=pkg.statedir) as extractdir,
         close_edirs(),
     ):
         # need to be able to manipulate it
@@ -180,8 +180,8 @@ def invoke(pkg):
                 if not sp or sp == ".":
                     edirs.append(("", None, extractdir))
                     continue
-                tdir = tempfile.TemporaryDirectory(dir=pkg.builddir)
-                edirs.append((sp, tdir, pkg.builddir / tdir.name))
+                tdir = tempfile.TemporaryDirectory(dir=pkg.statedir)
+                edirs.append((sp, tdir, pkg.statedir / tdir.name))
         # go over each source and ensure extraction in the dir
         for d, sp in zip(pkg.source, edirs):
             if d.startswith("!"):
@@ -228,7 +228,7 @@ def invoke(pkg):
                 pkg,
                 fname,
                 srcs_path / f"{pkg.pkgname}-{pkg.pkgver}/{fname}",
-                pkg.chroot_builddir / sp[2].name,
+                pkg.chroot_statedir / sp[2].name,
                 suffix,
             ):
                 pkg.error(f"extracting '{fname}' failed (missing program?)")
