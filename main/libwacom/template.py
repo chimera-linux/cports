@@ -1,6 +1,6 @@
 pkgname = "libwacom"
 pkgver = "2.12.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddocumentation=disabled", "-Dtests=enabled"]
 hostmakedepends = ["meson", "pkgconf"]
@@ -10,12 +10,13 @@ makedepends = [
     "libgudev-devel",
     "libxml2-devel",
 ]
-checkdepends = ["bash"]
+depends = ["python-libevdev", "python-pyudev"]
+checkdepends = ["bash", "python-pytest"] + depends
 pkgdesc = "Library to handle Wacom tablets"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/linuxwacom/libwacom"
-source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/download/libwacom-{pkgver}/libwacom-{pkgver}.tar.xz"
 sha256 = "c8319c40c70edd05d1839c0d3f449c23bdc90cd1f0d819bd0c1ec7c00b117700"
 
 
