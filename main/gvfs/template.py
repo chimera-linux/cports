@@ -1,6 +1,6 @@
 pkgname = "gvfs"
 pkgver = "1.54.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no",
@@ -8,46 +8,46 @@ configure_args = [
     "-Dlogind=true",
     "-Dman=true",
     "-Dgoogle=false",  # TODO libgdata
-    "-Donedrive=false",  # TODO msgraph
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
-    "xsltproc",
-    "openssh",
-    "polkit-devel",
     "docbook-xsl-nons",
     "gettext",
+    "glib-devel",
+    "meson",
+    "openssh",
+    "pkgconf",
+    "polkit-devel",
+    "xsltproc",
 ]
 makedepends = [
-    "dbus-devel",
-    "glib-devel",
-    "fuse-devel",
-    "libarchive-devel",
+    "avahi-glib-devel",
     "bluez-devel",
+    "dbus-devel",
+    "elogind-devel",
+    "fuse-devel",
+    "gcr-devel",
+    "glib-devel",
+    "gnome-online-accounts-devel",
+    "gsettings-desktop-schemas-devel",
+    "libarchive-devel",
     "libbluray-devel",
     "libcap-devel",
-    "gcr-devel",
     "libcdio-paranoia-devel",
     "libgcrypt-devel",
     "libgphoto2-devel",
     "libgudev-devel",
-    "libsecret-devel",
-    "libxml2-devel",
-    "polkit-devel",
-    "udisks-devel",
-    "gsettings-desktop-schemas-devel",
-    "elogind-devel",
-    "libusb-devel",
-    "gnome-online-accounts-devel",
-    "libsmbclient-devel",
-    "avahi-glib-devel",
-    "libplist-devel",
     "libimobiledevice-devel",
-    "libsoup-devel",
     "libmtp-devel",
     "libnfs-devel",
+    "libplist-devel",
+    "libsecret-devel",
+    "libsmbclient-devel",
+    "libsoup-devel",
+    "libusb-devel",
+    "libxml2-devel",
+    "msgraph-devel",
+    "polkit-devel",
+    "udisks-devel",
 ]
 depends = ["desktop-file-utils"]
 # some shared libs that modules depend on
@@ -56,7 +56,7 @@ pkgdesc = "GNOME virtual file system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gvfs"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/gvfs/{pkgver[:-2]}/gvfs-{pkgver}.tar.xz"
 sha256 = "54908f4e10b5f1c231e90330c8c15b7f21f2bb610f194c034b338e379c508e3c"
 
 
@@ -109,6 +109,8 @@ def _goa(self):
 
     return [
         "usr/libexec/gvfs-goa*",
+        "usr/libexec/gvfsd-onedrive",
+        "usr/share/gvfs/mounts/onedrive.mount",
         # "usr/libexec/gvfsd-google", TODO: for libgdata
         # "usr/share/gvfs/mounts/google.mount",
         "usr/share/dbus-1/services/org.gtk.vfs.GoaVolumeMonitor.service",
