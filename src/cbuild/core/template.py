@@ -243,7 +243,7 @@ def _pglob_path(oldp, patp):
 
 
 def _subst_path(pkg, pathn):
-    if pathn.startswith(">/"):
+    if isinstance(pathn, str) and pathn.startswith(">/"):
         return pkg.destdir / pathn.removeprefix(">/")
     else:
         return pathlib.Path(pathn)
@@ -1509,6 +1509,22 @@ class Template(Package):
         if target is None:
             return self._current_profile
         return self._profile(target)
+
+    def uninstall(self, path, glob=False):
+        if path.startswith("/"):
+            raise errors.TracebackException(
+                f"uninstall: path '{path}' must not be absolute"
+            )
+        if not glob:
+            dests = [self.destdir / path]
+            if not dests[0].exists() and not dests[0].is_symlink():
+                self.error(f"path '{path}' does not match anything", bt=True)
+        else:
+            dests = list(self.destdir.glob(path))
+            if len(dests) < 1:
+                self.error(f"path '{path}' does not match anything", bt=True)
+        for dst in dests:
+            self.rm(dst, recursive=True, force=True)
 
     def install_files(self, path, dest, symlinks=True, name=None):
         path = _subst_path(self, path)

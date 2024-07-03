@@ -3089,6 +3089,12 @@ Usage:
 self.install_shell("/usr/bin/bash")
 ```
 
+##### def uninstall(self, path, glob = False)
+
+Wipes the `path` (which must be a relative string) from the destination
+directory. The path must match some files or directories. It can optionally
+be globbed.
+
 <a id="class_subpackage"></a>
 #### Subpackage Class
 

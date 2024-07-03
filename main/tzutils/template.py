@@ -24,13 +24,13 @@ if self.profile().cross:
 
 def post_install(self):
     # localtime
-    self.rm(self.destdir / "etc", recursive=True)
+    self.uninstall("etc")
     # useless static lib
-    self.rm(self.destdir / "usr/lib", recursive=True)
+    self.uninstall("usr/lib")
     # irrelevant c manpages
-    self.rm(self.destdir / "usr/share/man/man3", recursive=True)
+    self.uninstall("usr/share/man/man3")
     # don't care
-    self.rm(self.destdir / "usr/share/zoneinfo-posix")
+    self.uninstall("usr/share/zoneinfo-posix")
     # this will be split
     self.mv(
         self.destdir / "usr/share/zoneinfo-leaps",
