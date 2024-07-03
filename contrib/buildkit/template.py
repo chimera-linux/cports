@@ -1,6 +1,6 @@
 pkgname = "buildkit"
 pkgver = "0.14.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = ["go"]
@@ -16,11 +16,6 @@ sha256 = "5a587973a76173a5e42af0a3d25999596b5374e4b2f373c51cd07e64aa779da0"
 options = ["!debug", "!check"]
 
 
-def post_extract(self):
-    # delete stray incomplete vendor dir
-    self.rm("vendor/", recursive=True)
-
-
 def post_install(self):
-    self.install_dir("var/lib/buildkit", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "buildkitd")
