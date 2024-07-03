@@ -1,6 +1,6 @@
 pkgname = "konqueror"
 pkgver = "24.05.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -56,4 +56,9 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("konqueror-devel")
 def _devel(self):
-    return self.default_devel()
+    return [
+        "usr/include",
+        "usr/lib/cmake",
+        "usr/lib/libKF6Konq.so",
+        "usr/lib/libkonqsidebarplugin.so",
+    ]
