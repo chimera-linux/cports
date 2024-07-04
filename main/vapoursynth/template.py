@@ -1,5 +1,5 @@
 pkgname = "vapoursynth"
-pkgver = "68"
+pkgver = "69"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
@@ -19,15 +19,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.vapoursynth.com"
 source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"
-sha256 = "3bd787f7d1e5feb9e57861b6b9a4646b88300e26a3b9302fe21c6102b1f193f0"
+sha256 = "cbd5421df85ba58228ea373cc452ca677e0e2ec61b59944d7e514234633057d9"
 
 
 @subpackage("vapoursynth-devel")
 def _devel(self):
-    # libvapoursynth.so should be in main package, don't use default_devel
-    return [
-        "usr/include",
-        "usr/lib/pkgconfig",
-        "usr/lib/*.a",
-        "usr/lib/libvapoursynth-script.so",
-    ]
+    return self.default_devel()
