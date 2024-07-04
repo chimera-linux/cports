@@ -1,5 +1,5 @@
 pkgname = "conky"
-pkgver = "1.21.3"
+pkgver = "1.21.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -56,8 +56,8 @@ source = [
 ]
 source_paths = [".", "manpage"]
 sha256 = [
-    "8de17f704abff4290cd76e513e43d28fba6475ba8da5fdbbf4902eda5890ad9a",
-    "b2021c2ffc91d1f24eb83bf6f9a01a5ddc4886faa68ab8583b812b8655a240cd",
+    "567607122272f4d7d9c2665319b5c17c1aab1f953d388fbfcf4b22c5acab4480",
+    "ce4d49dd9e1f9eafe668c21c456ad81257fff6975139e0bf0806e3d3f1ff19ed",
 ]
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 # needs host tolua++
