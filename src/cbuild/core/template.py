@@ -1928,7 +1928,27 @@ class Subpackage(Package):
             if f.name != "pkg-config":
                 self.take(f"usr/bin/{f.name}")
         self.take("usr/lib/*.a", missing_ok=True)
-        self.take("usr/lib/*.so", missing_ok=True)
+        # .so files are a bit special
+        # we have no mechanism for bypassing errors for the special case,
+        # but it's always wrong to devel actual ELF files, so the warning
+        # is just in case (for linker scripts, it breaks dep tracer, but
+        # can we do anything about that?)
+        for f in (self.parent.destdir / "usr/lib").glob("*.so"):
+            if f.is_symlink():
+                self.take(f"usr/lib/{f.name}")
+                continue
+            # check if ELF
+            with open(f, "rb") as sof:
+                if sof.read(4) == b"\x7fELF":
+                    self.log_warn(
+                        f"{f}: unsuffixed ELF .so encountered, skipping for devel"
+                    )
+                    continue
+            # otherwise maybe a linker script? take it
+            self.log_warn(
+                f"{f}: unsuffixed non-ELF .so encountered, linker script? (check dependencies)"
+            )
+            self.take(f"usr/lib/{f.name}")
         self.take("usr/lib/pkgconfig", missing_ok=True)
         self.take("usr/lib/cmake", missing_ok=True)
         self.take("usr/lib/glade/modules", missing_ok=True)

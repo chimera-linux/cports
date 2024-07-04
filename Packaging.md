@@ -3139,6 +3139,10 @@ This function will `take` everything that should usually belong in a
 development package. See the implementation in `cbuild/core/template.py`
 for the current coverage.
 
+Note that its handling of `.so` files in `/usr/lib` is a bit special; it will
+only take symlinks, and files that are not ELF (in order to cover linker
+scripts). Actual ELF files with raw `.so` suffix are skipped.
+
 If `man` is a non-empty string, it represents the manpage categories to take.
 
 ##### def take_static(self)
