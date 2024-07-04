@@ -389,9 +389,13 @@ class Package:
                     f(p)
 
                 if force and not path.exists():
-                    return
+                    do_unl = path.is_symlink()
+                    if not do_unl:
+                        return
+                else:
+                    do_unl = not path.is_dir() or path.is_symlink()
 
-                if not path.is_dir() or path.is_symlink():
+                if do_unl:
                     path.unlink(missing_ok=force)
                 else:
                     shutil.rmtree(path, onerror=_remove_ro)
