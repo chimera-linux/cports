@@ -1,6 +1,6 @@
 pkgname = "libxslt"
-pkgver = "1.1.41"
-pkgrel = 1
+pkgver = "1.1.42"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-python=no"]
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://xmlsoft.org/XSLT"
 source = f"$(GNOME_SITE)/libxslt/{pkgver[:pkgver.rfind('.')]}/libxslt-{pkgver}.tar.xz"
-sha256 = "3ad392af91115b7740f7b50d228cc1c5fc13afc1da7f16cb0213917a37f71bda"
+sha256 = "85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb"
 
 
 def post_install(self):
