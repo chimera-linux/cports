@@ -51,6 +51,6 @@ tool_flags = {
 
 # conflicts with kde6
 def post_install(self):
-    self.mv(self.destdir / "usr/bin/kstart", self.destdir / "usr/bin/kstart1")
+    self.rename("usr/bin/kstart", "kstart1")
     for f in (self.destdir / "usr/share/locale").rglob("kstart.mo"):
         f.rename(f.with_name("kstart1.mo"))

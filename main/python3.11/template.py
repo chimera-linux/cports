@@ -1,7 +1,7 @@
 pkgname = "python3.11"
 _majver = "3.11"
 pkgver = f"{_majver}.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -99,32 +99,34 @@ def do_install(self):
     )
     self.install_license("LICENSE")
 
-    self.rm(self.destdir / "usr/bin/2to3", force=True)
-    for f in (self.destdir / "usr/bin").glob("idle*"):
-        f.unlink()
+    self.uninstall("usr/bin/2to3")
+    self.uninstall("usr/bin/idle*", glob=True)
 
-    lbase = self.destdir / ("usr/lib/python" + _majver)
+    lbase = "usr/lib/python" + _majver
 
-    self.rm(lbase / "idlelib", recursive=True)
-    self.rm(lbase / "tkinter", recursive=True)
-    self.rm(lbase / "turtledemo", recursive=True)
-    self.rm(lbase / "test", recursive=True)
-    self.rm(lbase / "lib2to3/tests", recursive=True)
+    self.uninstall(f"{lbase}/idlelib")
+    self.uninstall(f"{lbase}/tkinter")
+    self.uninstall(f"{lbase}/turtledemo")
+    self.uninstall(f"{lbase}/test")
+    self.uninstall(f"{lbase}/lib2to3/tests")
+    self.uninstall(f"{lbase}/turtle.py")
 
-    (lbase / "turtle.py").unlink(missing_ok=True)
-
-    for f in lbase.glob("config-*"):
-        for ff in f.glob("libpython*.a"):
-            self.mv(ff, self.destdir / "usr/lib")
+    self.rename(
+        f"{lbase}/config*/libpython*.a",
+        "usr/lib",
+        glob=True,
+        keep_name=True,
+        relative=False,
+    )
 
     # nuke stuff that conflicts with primary python package
-    self.rm(self.destdir / "usr/bin/pydoc3")
-    self.rm(self.destdir / "usr/bin/python3")
-    self.rm(self.destdir / "usr/bin/python3-config")
-    self.rm(self.destdir / "usr/lib/libpython3.so")
-    self.rm(self.destdir / "usr/lib/pkgconfig/python3.pc")
-    self.rm(self.destdir / "usr/lib/pkgconfig/python3-embed.pc")
-    self.rm(self.destdir / "usr/share/man/man1/python3.1")
+    self.uninstall("usr/bin/pydoc3")
+    self.uninstall("usr/bin/python3")
+    self.uninstall("usr/bin/python3-config")
+    self.uninstall("usr/lib/libpython3.so")
+    self.uninstall("usr/lib/pkgconfig/python3.pc")
+    self.uninstall("usr/lib/pkgconfig/python3-embed.pc")
+    self.uninstall("usr/share/man/man1/python3.1")
 
 
 @subpackage("python3.11-devel")

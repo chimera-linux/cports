@@ -38,5 +38,4 @@ def post_install(self):
     self.install_file(self.files_path / "anacron", "etc/default")
 
     # new-style pam.d paths
-    self.install_dir("usr/lib/pam.d")
-    self.mv(self.destdir / "etc/pam.d/crond", self.destdir / "usr/lib/pam.d")
+    self.rename("etc/pam.d", "usr/lib/pam.d", relative=False)

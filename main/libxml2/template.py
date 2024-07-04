@@ -36,7 +36,7 @@ sha256 = "e7c8f5e0b5542159e0ddc409c22c9164304b581eaa9930653a76fb845b169263"
 
 def post_install(self):
     # Delete unwanted python static lib that gets built due to --enable-static
-    self.rm(self.destdir / "usr/lib/python*/site-packages/*.a", glob=True)
+    self.uninstall("usr/lib/python*/site-packages/*.a", glob=True)
     self.install_license("Copyright")
 
 

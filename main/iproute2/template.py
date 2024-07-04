@@ -38,5 +38,6 @@ def do_check(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/include", recursive=True)
-    self.rm(self.destdir / "usr/share/man/man3", recursive=True)
+    # nothing includes the one header here
+    self.uninstall("usr/include")
+    self.uninstall("usr/share/man/man3")

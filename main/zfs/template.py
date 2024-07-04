@@ -70,10 +70,10 @@ def post_install(self):
     self.install_license("NOTICE")
 
     # TODO: clean up the initramfs + /etc/default/zfs of sysvinit cruft
-    self.rm(self.destdir / "usr/share/zfs/zfs-tests", recursive=True)
-    self.rm(self.destdir / "etc/init.d", recursive=True)
-    self.rm(self.destdir / "usr/share/pam-configs/zfs_key")
-    self.rm(self.destdir / "usr/share/man/man8/zfs-mount-generator.8")
+    self.uninstall("usr/share/zfs/zfs-tests")
+    self.uninstall("etc/init.d")
+    self.uninstall("usr/share/pam-configs/zfs_key")
+    self.uninstall("usr/share/man/man8/zfs-mount-generator.8")
 
     # install the zdev hook for udev rules (also handles enc keys)
     self.install_file(

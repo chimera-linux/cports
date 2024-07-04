@@ -15,7 +15,7 @@ sha256 = "e4be9eb6b6bafdbbf81f47f7163047215376e45e2dc786d0ea6181c930725ed9"
 def post_install(self):
     self.install_license("COPYING")
     # in xorgproto
-    self.rm(self.destdir / "usr/include/X11/extensions/vldXvMC.h")
+    self.uninstall("usr/include/X11/extensions/vldXvMC.h")
 
 
 @subpackage("libxvmc-devel")

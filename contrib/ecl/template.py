@@ -37,9 +37,9 @@ def do_check(self):
 def post_install(self):
     self.install_license("LICENSE")
 
-    self.rm(self.destdir / f"usr/lib/ecl-{pkgver}/COPYING")
-    self.rm(self.destdir / f"usr/lib/ecl-{pkgver}/LICENSE")
-    self.rm(self.destdir / f"usr/lib/ecl-{pkgver}/build-stamp")
+    self.uninstall(f"usr/lib/ecl-{pkgver}/COPYING")
+    self.uninstall(f"usr/lib/ecl-{pkgver}/LICENSE")
+    self.uninstall(f"usr/lib/ecl-{pkgver}/build-stamp")
 
 
 @subpackage("ecl-devel")

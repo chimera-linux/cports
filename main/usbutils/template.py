@@ -16,7 +16,7 @@ hardening = ["vis", "cfi"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/bin/lsusb.py")
+    self.uninstall("usr/bin/lsusb.py")
 
 
 @subpackage("usbutils-devel")

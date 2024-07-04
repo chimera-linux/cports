@@ -43,7 +43,7 @@ options = ["!check", "!cross"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/pam.d/polkit-1")
+    self.uninstall("usr/lib/pam.d/polkit-1")
     self.install_file(
         self.files_path / "polkit-1.pam", "usr/lib/pam.d", name="polkit-1"
     )

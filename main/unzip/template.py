@@ -58,10 +58,7 @@ def init_build(self):
 
 def post_install(self):
     # hardlink
-    self.rm(self.destdir / "usr/bin/zipinfo")
+    self.uninstall("usr/bin/zipinfo")
     self.install_link("usr/bin/zipinfo", "unzip")
-
-    self.install_dir("usr/share")
-    self.mv(self.destdir / "usr/man", self.destdir / "usr/share")
-
+    self.rename("usr/man", "share/man")
     self.install_license("LICENSE")

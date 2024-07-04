@@ -149,37 +149,30 @@ def init_configure(self):
 
 def post_install(self):
     # version symlink
-    self.mv(
-        self.destdir / f"usr/lib/gcc/{_trip}/{_bver}",
-        self.destdir / f"usr/lib/gcc/{_trip}/{_mnver}",
-    )
+    self.rename(f"usr/lib/gcc/{_trip}/{_bver}", f"{_mnver}")
     # link the runtime and nuke libgcc
     self.install_link(
         f"usr/lib/gcc/{_trip}/{_mnver}/libclang_rt.builtins.a",
         f"../../../clang/{_clangver}/lib/{_trip}/libclang_rt.builtins.a",
     )
-    self.rm(self.destdir / f"usr/lib/gcc/{_trip}/{_mnver}/libgcc*.a", glob=True)
+    self.uninstall(f"usr/lib/gcc/{_trip}/{_mnver}/libgcc*.a", glob=True)
     # nuke libstdc++; this build is not compatible with chimera
-    self.rm(self.destdir / "usr/include/c++", recursive=True)
-    self.rm(self.destdir / "usr/lib/libstdc++*", glob=True)
-    self.rm(self.destdir / "usr/lib/libsupc++.*", glob=True)
-    self.rm(
-        self.destdir / "usr/share/gcc-*/python/libstdcxx",
-        recursive=True,
-        glob=True,
-    )
+    self.uninstall(self.destdir / "usr/include/c++")
+    self.uninstall("usr/lib/libstdc++*", glob=True)
+    self.uninstall("usr/lib/libsupc++.*", glob=True)
+    self.uninstall("usr/share/gcc-*/python/libstdcxx", glob=True)
     # other stuff we don't want
-    self.rm(self.destdir / "usr/lib/libatomic.*", glob=True)
-    self.rm(self.destdir / "usr/lib/libgcc_s.*", glob=True)
+    self.uninstall("usr/lib/libatomic.*", glob=True)
+    self.uninstall("usr/lib/libgcc_s.*", glob=True)
     # provided by clang
-    self.rm(self.destdir / "usr/bin/c++")
-    self.rm(self.destdir / f"usr/bin/{_trip}-c++")
+    self.uninstall("usr/bin/c++")
+    self.uninstall(f"usr/bin/{_trip}-c++")
     # hardlinks
     for f in ["g++", "gcc", "gcc-ar", "gcc-nm", "gcc-ranlib", "gfortran"]:
-        self.rm(self.destdir / f"usr/bin/{_trip}-{f}")
+        self.uninstall(f"usr/bin/{_trip}-{f}")
         self.install_link(f"usr/bin/{_trip}-{f}", f)
-    self.rm(self.destdir / f"usr/bin/{_trip}-gcc")
-    self.rm(self.destdir / f"usr/bin/{_trip}-gcc-{_bver}")
+    self.uninstall(f"usr/bin/{_trip}-gcc")
+    self.uninstall(f"usr/bin/{_trip}-gcc-{_bver}")
     self.install_link(f"usr/bin/{_trip}-gcc-{_bver}", "gcc")
     self.install_link(f"usr/bin/{_trip}-gcc", f"{_trip}-gcc-{_bver}")
     # lto plugin symlink

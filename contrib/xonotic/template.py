@@ -92,7 +92,7 @@ def do_install(self):
 
     self.install_license("source/d0_blind_id/COPYING")
 
-    self.rm(self.destdir / "usr/include", recursive=True)
-    self.rm(self.destdir / "usr/lib/pkgconfig", recursive=True)
-    self.rm(self.destdir / "usr/lib/libd0_blind_id.a")
-    self.rm(self.destdir / "usr/lib/libd0_blind_id.so")
+    self.uninstall("usr/include")
+    self.uninstall("usr/lib/pkgconfig")
+    self.uninstall("usr/lib/libd0_blind_id.a")
+    self.uninstall("usr/lib/libd0_blind_id.so")

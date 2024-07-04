@@ -93,10 +93,10 @@ def post_install(self):
         "data/bash-completion/fwupdtool", "bash", name="fwupdtool"
     )
     # nuke installed tests
-    self.rm(self.destdir / "usr/share/fwupd/remotes.d/fwupd-tests.conf")
-    self.rm(self.destdir / "usr/libexec/installed-tests", recursive=True)
-    self.rm(self.destdir / "usr/share/fwupd/device-tests", recursive=True)
-    self.rm(self.destdir / "usr/share/installed-tests", recursive=True)
+    self.uninstall("usr/share/fwupd/remotes.d/fwupd-tests.conf")
+    self.uninstall("usr/libexec/installed-tests")
+    self.uninstall("usr/share/fwupd/device-tests")
+    self.uninstall("usr/share/installed-tests")
 
 
 @subpackage("fwupd-devel")

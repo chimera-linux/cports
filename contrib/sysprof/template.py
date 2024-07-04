@@ -39,7 +39,7 @@ hardening = ["!int"]
 
 def post_install(self):
     self.install_service(self.files_path / "sysprof")
-    self.rm(self.destdir / "usr/systemd", recursive=True)
+    self.uninstall("usr/systemd")
 
 
 @subpackage("sysprof-devel")

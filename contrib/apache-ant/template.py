@@ -45,11 +45,7 @@ def do_install(self):
     )
     self.install_file(self.files_path / "apache-ant.sh", "etc/profile.d")
     self.install_dir("usr/bin")
-    self.install_dir("usr/share/doc")
     self.install_link("usr/bin/ant", "../share/apache-ant/bin/ant")
-    self.mv(
-        self.destdir / _pfx / "manual",
-        self.destdir / "usr/share/doc/apache-ant",
-    )
-    self.rm(self.destdir / _pfx / "bin/*.bat", glob=True)
-    self.rm(self.destdir / _pfx / "bin/*.cmd", glob=True)
+    self.rename(f"{_pfx}/manual", "usr/share/doc/apache-ant", relative=False)
+    self.uninstall(f"{_pfx}/bin/*.bat", glob=True)
+    self.uninstall(f"{_pfx}/bin/*.cmd", glob=True)

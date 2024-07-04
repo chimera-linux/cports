@@ -32,9 +32,9 @@ options = ["!cross"]
 
 def post_install(self):
     # we only want libsasl
-    self.rm(self.destdir / "usr/bin", recursive=True)
-    self.rm(self.destdir / "usr/share", recursive=True)
-    self.rm(self.destdir / "usr/lib/sasl2", recursive=True)
+    self.uninstall("usr/bin")
+    self.uninstall("usr/share")
+    self.uninstall("usr/lib/sasl2")
     self.install_license("COPYING")
 
 

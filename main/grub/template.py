@@ -154,7 +154,7 @@ def do_install(self):
         self.do("gmake", "-C", bdir, "install", f"DESTDIR={ddir}")
         # remove stuff that is not platform specific
         for d in ["etc", "usr/share", "usr/bin"]:
-            self.rm(self.destdir / d, recursive=True, force=True)
+            self.uninstall(d)
     # install tools last
     self.do("gmake", "-C", "build", "install", f"DESTDIR={ddir}")
 
@@ -171,14 +171,14 @@ def post_install(self):
     # update-grub
     self.install_bin(self.files_path / "update-grub")
     # move completions
-    self.install_dir("usr/share/bash-completion/completions")
-    self.mv(
-        self.destdir / "etc/bash_completion.d/grub",
-        self.destdir / "usr/share/bash-completion/completions",
+    self.rename(
+        "etc/bash_completion.d",
+        "usr/share/bash-completion/completions",
+        relative=False,
     )
     # unused tools
-    self.rm(self.destdir / "usr/bin/grub-ofpathname")
-    self.rm(self.destdir / "usr/bin/grub-sparc64-setup")
+    self.uninstall("usr/bin/grub-ofpathname")
+    self.uninstall("usr/bin/grub-sparc64-setup")
 
 
 @subpackage("grub-utils")

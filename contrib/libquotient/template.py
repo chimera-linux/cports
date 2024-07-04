@@ -30,7 +30,7 @@ sha256 = "12ff2fa8b80a934b9dd88fa3416a4b88e94bc0e18a8df0dcebfc90614dd2f5c9"
 
 def post_install(self):
     # android only
-    self.rm(self.destdir / "usr/share/ndk-modules", recursive=True)
+    self.uninstall("usr/share/ndk-modules")
 
 
 @subpackage("libquotient-devel")

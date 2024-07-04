@@ -36,7 +36,7 @@ sha256 = "b530eec635eac7f898c0d8d3a3ff79d76a145d3bed3e786d54b1ec058132be7a"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
+    self.uninstall("usr/lib/systemd/user")
 
 
 @subpackage("tumbler-devel")

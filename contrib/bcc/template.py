@@ -53,10 +53,8 @@ options = ["!check"]
 
 def post_install(self):
     # bpf-ps, elf binary
-    self.install_dir("usr/bin")
-    self.mv(
-        self.destdir / "usr/share/bcc/introspection/bps",
-        self.destdir / "usr/bin",
+    self.rename(
+        "usr/share/bcc/introspection/bps", "usr/bin/bps", relative=False
     )
     self.install_link("usr/share/bcc/introspection/bps", "../../../bin/bps")
 

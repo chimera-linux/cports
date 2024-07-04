@@ -22,7 +22,7 @@ sha256 = "b858aa1e74e80c862790dbb912906e6eab8b1e4db9339cd759473af62b461e65"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
     self.install_file(
         self.files_path / "portals.conf", "usr/share/xdg-desktop-portal"
     )

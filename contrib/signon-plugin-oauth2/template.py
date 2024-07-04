@@ -41,10 +41,8 @@ def init_install(self):
 
 def post_install(self):
     # mistakenly installed
-    self.rm(self.destdir / "usr/bin/signon-oauth2plugin-tests")
-    self.rm(
-        self.destdir / "usr/share/signon-oauth2plugin-tests", recursive=True
-    )
+    self.uninstall("usr/bin/signon-oauth2plugin-tests")
+    self.uninstall("usr/share/signon-oauth2plugin-tests")
 
 
 @subpackage("signon-plugin-oauth2-devel")

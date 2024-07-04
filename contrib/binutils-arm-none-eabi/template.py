@@ -28,6 +28,8 @@ configure_args = [
     "--enable-plugins",
     "--enable-relro",
 ]
+# requires specific version of autoconf
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "flex", "texinfo"]
 makedepends = ["zlib-ng-compat-devel"]
@@ -50,15 +52,12 @@ if self.profile().cross:
 def post_install(self):
     # fix up hardlinks
     for f in (self.destdir / f"usr/{_trip}/bin").iterdir():
-        self.rm(self.destdir / f"usr/bin/{_trip}-{f.name}")
+        self.uninstall(f"usr/bin/{_trip}-{f.name}")
         self.install_link(
             f"usr/bin/{_trip}-{f.name}", f"../{_trip}/bin/{f.name}"
         )
     # this is also a hardlink
-    self.rm(self.destdir / f"usr/{_trip}/bin/ld")
+    self.uninstall(f"usr/{_trip}/bin/ld")
     self.install_link(f"usr/{_trip}/bin/ld", "ld.bfd")
     # remove unnecessary dupe
-    self.rm(self.destdir / "usr/lib", recursive=True)
-
-
-configure_gen = []
+    self.uninstall("usr/lib")

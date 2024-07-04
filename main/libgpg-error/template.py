@@ -13,7 +13,7 @@ sha256 = "69405349e0a633e444a28c5b35ce8f14484684518a508dc48a089992fe93e20a"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/common-lisp", recursive=True)
+    self.uninstall("usr/share/common-lisp")
 
 
 @subpackage("libgpg-error-devel")

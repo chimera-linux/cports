@@ -26,4 +26,4 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd/system", recursive=True)
+    self.uninstall("usr/lib/systemd/system")

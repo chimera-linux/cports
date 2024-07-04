@@ -41,7 +41,7 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/doc", recursive=True)
+    self.uninstall("usr/share/doc")
 
 
 @subpackage("xfsprogs-devel")

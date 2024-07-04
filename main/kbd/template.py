@@ -41,7 +41,7 @@ def post_patch(self):
 
 def post_install(self):
     self.install_dir("usr/libexec/kbd")
-    self.mv(self.destdir / "usr/bin/findkeys", self.destdir / "usr/libexec/kbd")
+    self.rename("usr/bin/findkeys", "usr/libexec/kbd/findkeys", relative=False)
 
     for f in ["sun", "amiga", "atari", "i386/olpc"]:
-        self.rm(self.destdir / f"usr/share/keymaps/{f}", recursive=True)
+        self.uninstall(f"usr/share/keymaps/{f}")

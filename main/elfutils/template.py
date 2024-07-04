@@ -55,9 +55,7 @@ def post_build(self):
 
 
 def post_install(self):
-    self.mv(
-        self.destdir / "usr/bin/eu-eustack", self.destdir / "usr/bin/eu-stack"
-    )
+    self.rename("usr/bin/eu-eustack", "eu-stack")
 
 
 @subpackage("debuginfod")

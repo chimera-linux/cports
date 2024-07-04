@@ -100,22 +100,25 @@ def do_install(self):
     )
     self.install_license("LICENSE")
 
-    self.rm(self.destdir / "usr/bin/2to3", force=True)
-    for f in (self.destdir / "usr/bin").glob("idle*"):
-        f.unlink()
+    self.uninstall("usr/bin/2to3")
+    self.uninstall("usr/bin/idle*", glob=True)
 
-    lbase = self.destdir / ("usr/lib/python" + _majver)
+    lbase = "usr/lib/python" + _majver
 
-    self.rm(lbase / "idlelib", recursive=True)
-    self.rm(lbase / "tkinter", recursive=True)
-    self.rm(lbase / "turtledemo", recursive=True)
-    self.rm(lbase / "test", recursive=True)
+    self.uninstall(f"{lbase}/idlelib")
+    self.uninstall(f"{lbase}/tkinter")
+    self.uninstall(f"{lbase}/turtledemo")
+    self.uninstall(f"{lbase}/test")
+    self.uninstall(f"{lbase}/lib2to3/tests")
+    self.uninstall(f"{lbase}/turtle.py")
 
-    (lbase / "turtle.py").unlink(missing_ok=True)
-
-    for f in lbase.glob("config-*"):
-        for ff in f.glob("libpython*.a"):
-            self.mv(ff, self.destdir / "usr/lib")
+    self.rename(
+        f"{lbase}/config*/libpython*.a",
+        "usr/lib",
+        glob=True,
+        keep_name=True,
+        relative=False,
+    )
 
     self.install_file(
         self.files_path / "EXTERNALLY-MANAGED", f"usr/lib/python{_majver}"

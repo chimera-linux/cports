@@ -15,16 +15,14 @@ sha256 = "d0e69d5d608cc22ff4843791ad097f554dd32540ddc9bed7638cc6fea7c1b4b5"
 
 def post_install(self):
     # we are only interested in the library
-    self.rm(self.destdir / "sbin", recursive=True)
-    self.rm(self.destdir / "usr/bin", recursive=True)
-    self.rm(self.destdir / "usr/lib/pkgconfig", recursive=True)
-    self.rm(self.destdir / "usr/share", recursive=True)
-    self.rm(self.destdir / "usr/include", recursive=True)
-    self.rm(self.destdir / "etc", recursive=True)
-    for f in (self.destdir / "usr/lib").glob("*.so"):
-        f.unlink()
-    for f in (self.destdir / "usr/lib").glob("libulockmgr*"):
-        f.unlink()
+    self.uninstall("sbin")
+    self.uninstall("usr/bin")
+    self.uninstall("usr/lib/pkgconfig")
+    self.uninstall("usr/share")
+    self.uninstall("usr/include")
+    self.uninstall("etc")
+    self.uninstall("usr/lib/*.so", glob=True)
+    self.uninstall("usr/lib/libulockmgr*", glob=True)
 
 
 configure_gen = []

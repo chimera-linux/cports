@@ -30,7 +30,7 @@ sha256 = "70771033543097e6c616a39ae8bb40fd0e991a25560ed10c65b33756c3061511"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd/system", recursive=True)
+    self.uninstall("usr/lib/systemd/system")
 
 
 @subpackage("xserver-xorg-input-wacom-devel")

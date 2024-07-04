@@ -40,4 +40,4 @@ hardening = ["vis", "!cfi"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "tmp", recursive=True)
+    self.uninstall("tmp")

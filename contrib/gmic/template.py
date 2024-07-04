@@ -46,11 +46,7 @@ def do_build(self):
 
 
 def post_install(self):
-    self.install_dir("usr/share")
-    self.mv(
-        self.destdir / "plug-ins",
-        self.destdir / "usr/share/gmic",
-    )
+    self.rename("plug-ins", "usr/share/gmic")
 
 
 @subpackage("gmic-devel")

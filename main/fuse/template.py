@@ -23,7 +23,7 @@ def do_check(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "etc/init.d/fuse3")
+    self.uninstall("etc/init.d/fuse3")
     # compat links
     self.install_link("usr/bin/fusermount", "fusermount3")
     self.install_link("usr/bin/mount.fuse", "mount.fuse3")

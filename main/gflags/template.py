@@ -26,7 +26,7 @@ hardening = []
 def post_install(self):
     self.install_license("COPYING.txt")
     # useless completion script
-    self.rm(self.destdir / "usr/bin/gflags_completions.sh")
+    self.uninstall("usr/bin/gflags_completions.sh")
 
 
 @subpackage("gflags-devel")

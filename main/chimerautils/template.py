@@ -56,8 +56,8 @@ def post_install(self):
     # license
     self.install_license("LICENSE")
     # less
-    self.rm(self.destdir / "usr/bin/zless")
-    self.rm(self.destdir / "usr/share/man/man1/zless.1")
+    self.uninstall("usr/bin/zless")
+    self.uninstall("usr/share/man/man1/zless.1")
     # base shell
     self.install_shell("/usr/bin/sh")
     # tiny tools

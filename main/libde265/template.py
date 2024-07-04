@@ -25,7 +25,7 @@ def post_install(self):
         "tests",
         "yuv-distortion",
     ]:
-        self.rm(self.destdir / "usr/bin" / f)
+        self.uninstall(f"usr/bin/{f}")
 
 
 @subpackage("libde265-devel")

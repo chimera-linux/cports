@@ -51,14 +51,8 @@ def post_install(self):
     self.install_file(self.files_path / f"lua{_lver}.pc", "usr/lib/pkgconfig")
     self.install_license("doc/readme.html")
 
-    self.mv(
-        self.destdir / "usr/share/man/man1/lua.1",
-        self.destdir / f"usr/share/man/man1/lua{_lver}.1",
-    )
-    self.mv(
-        self.destdir / "usr/share/man/man1/luac.1",
-        self.destdir / f"usr/share/man/man1/luac{_lver}.1",
-    )
+    self.rename(self.destdir / "usr/share/man/man1/lua.1", f"lua{_lver}.1")
+    self.rename("usr/share/man/man1/luac.1", f"luac{_lver}.1")
 
     _libf = f"liblua{_lver}.so.{pkgver}"
     self.install_link(f"usr/lib/liblua{_lver}.so", _libf)

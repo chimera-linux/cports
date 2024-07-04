@@ -32,4 +32,4 @@ sha256 = "f6b21df7824ee2328fc46d2592b9e453c4ecc031b3dd3708dc50f5aa22b35c7e"
 
 def post_install(self):
     # useless lib that nothing uses and doesn't even come with headers
-    self.rm(self.destdir / "usr/lib/libcrun.a")
+    self.uninstall("usr/lib/libcrun.a")

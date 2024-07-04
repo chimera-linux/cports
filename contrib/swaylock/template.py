@@ -26,5 +26,4 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_dir("usr/lib/pam.d")
-    self.mv(self.destdir / "etc/pam.d/swaylock", self.destdir / "usr/lib/pam.d")
+    self.rename("etc/pam.d", "usr/lib/pam.d", relative=False)

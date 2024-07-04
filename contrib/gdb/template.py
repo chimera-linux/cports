@@ -42,11 +42,11 @@ options = ["!check", "!cross"]
 def post_install(self):
     from cbuild.util import python
 
-    self.rm(self.destdir / "usr/lib", recursive=True)
-    self.rm(self.destdir / "usr/include", recursive=True)
+    self.uninstall("usr/lib")
+    self.uninstall("usr/include")
     # may conflict with binutils
-    self.rm(self.destdir / "usr/share/info/bfd.info")
-    self.rm(self.destdir / "usr/share/info/ctf-spec.info")
+    self.uninstall("usr/share/info/bfd.info")
+    self.uninstall("usr/share/info/ctf-spec.info")
 
     python.precompile(self, "usr/share/gdb/python")
 

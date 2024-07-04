@@ -52,8 +52,7 @@ options = ["!cross"]
 
 def post_install(self):
     # will be in avahi-discover
-    for f in (self.destdir / "usr/lib").glob("python*"):
-        self.rm(f, recursive=True)
+    self.uninstall("usr/lib/python*", glob=True)
     # service
     self.install_service(self.files_path / "avahi-daemon")
     self.install_sysusers(self.files_path / "sysusers.conf")

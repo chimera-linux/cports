@@ -21,6 +21,6 @@ sha256 = "478ffd68a0f5dde8ef6ca989b7f035b5a0a22c599142e5cd3ff7b03bbebe5f2b"
 
 def post_install(self):
     # make it not conflict
-    self.rm(self.destdir / "usr/bin", recursive=True)
-    self.rm(self.destdir / "usr/include", recursive=True)
-    self.rm(self.destdir / "usr/lib", recursive=True)
+    self.uninstall("usr/bin")
+    self.uninstall("usr/include")
+    self.uninstall("usr/lib")

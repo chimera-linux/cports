@@ -45,10 +45,10 @@ def post_install(self):
     self.install_license("LICENSE")
     # chimerautils-extra ex/view conflict with these symlinks
     # TODO: just rename and update the code in main.c:parse_command_name
-    self.rm(self.destdir / "usr/bin/ex")
-    self.rm(self.destdir / "usr/share/man/*/man1/ex.1", glob=True)
-    self.rm(self.destdir / "usr/bin/view")
-    self.rm(self.destdir / "usr/share/man/*/man1/view.1", glob=True)
+    self.uninstall("usr/bin/ex")
+    self.uninstall("usr/share/man/*/man1/ex.1", glob=True)
+    self.uninstall("usr/bin/view")
+    self.uninstall("usr/share/man/*/man1/view.1", glob=True)
 
 
 @subpackage("xxd")

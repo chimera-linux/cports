@@ -18,5 +18,5 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.rm(self.destdir / f"usr/share/doc/{pkgname}/COPYING")
+    self.uninstall(f"usr/share/doc/{pkgname}/COPYING")
     self.install_license("COPYING")

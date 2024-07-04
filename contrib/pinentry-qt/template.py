@@ -30,7 +30,7 @@ sha256 = "bc72ee27c7239007ab1896c3c2fae53b076e2c9bd2483dc2769a16902bce8c04"
 
 def post_install(self):
     # wipe the default symlink, user-chosen
-    self.rm(self.destdir / "usr/bin/pinentry")
+    self.uninstall("usr/bin/pinentry")
 
 
 @subpackage("pinentry-qt-default")

@@ -29,7 +29,7 @@ options = ["!check", "!cross"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
 
 
 @subpackage("at-spi2-core-devel")

@@ -86,7 +86,7 @@ def post_install(self):
         mode=0o755,
     )
 
-    self.rm(self.destdir / "usr/sbin")
+    self.uninstall("usr/sbin")
 
 
 @subpackage("device-mapper-devel")

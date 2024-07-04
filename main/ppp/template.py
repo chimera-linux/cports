@@ -29,7 +29,7 @@ def post_install(self):
     for f in (self.destdir / f"usr/lib/pppd/{pkgver}").glob("*.so"):
         f.chmod(0o755)
 
-    self.rm(self.destdir / "etc/ppp/options")
+    self.uninstall("etc/ppp/options")
     self.install_file(self.files_path / "options", "etc/ppp", mode=0o644)
     self.install_file(self.files_path / "ip-up", "etc/ppp", mode=0o755)
     self.install_file(self.files_path / "ip-down", "etc/ppp", mode=0o755)

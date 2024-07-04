@@ -89,14 +89,14 @@ def do_install(self):
     )
 
     # remove cvs for now
-    self.rm(self.destdir / "usr/bin/git-cvsserver")
-    self.rm(self.destdir / "usr/libexec/git-core/git-cvsexportcommit")
-    self.rm(self.destdir / "usr/libexec/git-core/git-cvsimport")
-    self.rm(self.destdir / "usr/libexec/git-core/git-cvsserver")
-    self.rm(self.destdir / "usr/share/man/man1/git-cvsexportcommit.1")
-    self.rm(self.destdir / "usr/share/man/man1/git-cvsimport.1")
-    self.rm(self.destdir / "usr/share/man/man1/git-cvsserver.1")
-    self.rm(self.destdir / "usr/share/man/man7/gitcvs-migration.7")
+    self.uninstall("usr/bin/git-cvsserver")
+    self.uninstall("usr/libexec/git-core/git-cvsexportcommit")
+    self.uninstall("usr/libexec/git-core/git-cvsimport")
+    self.uninstall("usr/libexec/git-core/git-cvsserver")
+    self.uninstall("usr/share/man/man1/git-cvsexportcommit.1")
+    self.uninstall("usr/share/man/man1/git-cvsimport.1")
+    self.uninstall("usr/share/man/man1/git-cvsserver.1")
+    self.uninstall("usr/share/man/man7/gitcvs-migration.7")
 
     self.install_completion("contrib/completion/git-completion.bash", "bash")
     self.install_file("contrib/completion/git-prompt.sh", "usr/share/git")

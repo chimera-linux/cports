@@ -38,8 +38,8 @@ sha256 = "37f1580200ab78305d1fc872d89241aaee0c93cbe85bc559bf332737a60d3be8"
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.mv(self.destdir / "etc/tmpfiles.d", self.destdir / "usr/lib")
-    self.mv(self.destdir / "etc/sysusers.d", self.destdir / "usr/lib")
+    self.rename("etc/tmpfiles.d", "usr/lib", keep_name=True, relative=False)
+    self.rename("etc/sysusers.d", "usr/lib", keep_name=True, relative=False)
 
 
 @subpackage("tpm2-tss-devel")

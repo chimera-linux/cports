@@ -26,5 +26,5 @@ options = ["!cross"]
 
 def post_install(self):
     # ???
-    self.rm(self.destdir / "usr/share/fceux/*.chm", glob=True)
-    self.rm(self.destdir / "usr/share/fceux/*.dll", glob=True)
+    self.uninstall("usr/share/fceux/*.chm", glob=True)
+    self.uninstall("usr/share/fceux/*.dll", glob=True)

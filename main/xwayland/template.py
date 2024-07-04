@@ -48,9 +48,9 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("COPYING")
-    self.rm(self.destdir / "usr/share/man/man1/Xserver.1")
+    self.uninstall("usr/share/man/man1/Xserver.1")
     # provided by xserver-xorg-protocol
-    self.rm(self.destdir / "usr/lib/xorg/protocol.txt")
+    self.uninstall("usr/lib/xorg/protocol.txt")
 
 
 @subpackage("xwayland-devel")

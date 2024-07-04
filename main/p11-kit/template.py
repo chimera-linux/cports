@@ -33,10 +33,7 @@ sha256 = "4c4153f81167444ff6d5e7ca118472ae607bd25c0cf6346fcc5dcc30451e97ce"
 def post_install(self):
     self.install_license("COPYING")
 
-    self.mv(
-        self.destdir / "etc/pkcs11/pkcs11.conf.example",
-        self.destdir / "etc/pkcs11/pkcs11.conf",
-    )
+    self.rename("etc/pkcs11/pkcs11.conf.example", "pkcs11.conf")
 
 
 @subpackage("p11-kit-devel")

@@ -78,9 +78,7 @@ def post_install(self):
         "subversion/bindings/swig/perl/native",
         f"PERL_INSTALL_ROOT={self.chroot_destdir}",
     )
-    self.mv(
-        self.destdir / "usr/share/pkgconfig", self.destdir / "usr/lib/pkgconfig"
-    )
+    self.rename("usr/share/pkgconfig", "usr/lib/pkgconfig", relative=False)
     # bash completions
     self.install_completion("tools/client-side/bash_completion", "bash")
     for f in [
@@ -95,7 +93,7 @@ def post_install(self):
             f"usr/share/bash-completion/completions/{f}", "subversion"
         )
     # remove these, conflicts
-    self.rm(self.destdir / "usr/bin/diff*", glob=True)
+    self.uninstall("usr/bin/diff*", glob=True)
 
 
 @subpackage("subversion-gnome-keyring")

@@ -23,7 +23,7 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/openal/alsoftrc.sample")
+    self.uninstall("usr/share/openal/alsoftrc.sample")
     self.install_file("alsoftrc.sample", "usr/share/examples/openal-soft")
 
 

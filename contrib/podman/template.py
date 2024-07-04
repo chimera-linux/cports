@@ -64,10 +64,10 @@ def post_install(self):
         name="podman-docker",
         mode=0o755,
     )
-    self.install_dir("usr/libexec/podman")
-    self.mv(
-        self.destdir / "usr/bin/rootlessport",
-        self.destdir / "usr/libexec/podman",
+    self.rename(
+        "usr/bin/rootlessport",
+        "usr/libexec/podman/rootlessport",
+        relative=False,
     )
     self.install_link("usr/bin/podmansh", "podman")
     self.do(

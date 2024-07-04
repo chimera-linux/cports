@@ -126,10 +126,10 @@ def post_install(self):
     self.install_file(self.files_path / "bridge.conf", "etc/qemu")
 
     # no elf files in /usr/share
-    self.mv(self.destdir / "usr/share/qemu", self.destdir / "usr/lib/qemu")
+    self.rename("usr/share/qemu", "usr/lib/qemu", relative=False)
     self.install_link("usr/share/qemu", "../lib/qemu")
 
-    self.rm(self.destdir / "usr/share/doc", recursive=True)
+    self.uninstall("usr/share/doc")
 
 
 @subpackage("qemu-guest-agent")

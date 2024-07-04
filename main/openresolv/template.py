@@ -18,14 +18,8 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE")
     # rename
-    self.mv(
-        self.destdir / "usr/bin/resolvconf",
-        self.destdir / "usr/bin/resolvconf-openresolv",
-    )
-    self.mv(
-        self.destdir / "usr/share/man/man8/resolvconf.8",
-        self.destdir / "usr/share/man/man8/resolvconf-openresolv.8",
-    )
+    self.rename("usr/bin/resolvconf", "resolvconf-openresolv")
+    self.rename("usr/share/man/man8/resolvconf.8", "resolvconf-openresolv.8")
 
 
 configure_gen = []

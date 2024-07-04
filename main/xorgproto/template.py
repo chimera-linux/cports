@@ -23,13 +23,11 @@ def post_install(self):
     for f in (self.destdir / "usr/include/X11/extensions").glob("windows*"):
         f.unlink()
 
-    self.rm(self.destdir / f"usr/share/licenses/{pkgname}/COPYING-applewmproto")
-    self.rm(
-        self.destdir / f"usr/share/licenses/{pkgname}/COPYING-windowswmproto"
-    )
+    self.uninstall(f"usr/share/licenses/{pkgname}/COPYING-applewmproto")
+    self.uninstall(f"usr/share/licenses/{pkgname}/COPYING-windowswmproto")
 
-    self.rm(self.destdir / "usr/share/pkgconfig/applewmproto.pc")
-    self.rm(self.destdir / "usr/share/pkgconfig/windowswmproto.pc")
+    self.uninstall("usr/share/pkgconfig/applewmproto.pc")
+    self.uninstall("usr/share/pkgconfig/windowswmproto.pc")
 
     # provided by libx11-devel
-    self.rm(self.destdir / "usr/include/X11/extensions/XKBgeom.h")
+    self.uninstall("usr/include/X11/extensions/XKBgeom.h")

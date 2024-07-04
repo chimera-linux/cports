@@ -39,8 +39,8 @@ sha256 = "ea3f3d8cfa2f6ae78c8722751d008f54bc17a3aed2be3f7399eb7bf5f4cda8f1"
 def post_install(self):
     self.install_service(self.files_path / "named")
     # get rid of hard links
-    self.rm(self.destdir / "usr/bin/named-compilezone")
-    self.rm(self.destdir / "usr/bin/ddns-confgen")
+    self.uninstall("usr/bin/named-compilezone")
+    self.uninstall("usr/bin/ddns-confgen")
     self.install_link("usr/bin/named-compilezone", "named-checkzone")
     self.install_link("usr/bin/ddns-confgen", "tsig-keygen")
 

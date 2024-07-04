@@ -28,7 +28,7 @@ hardening = ["vis", "!cfi"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
+    self.uninstall("usr/lib/systemd/user")
 
 
 @subpackage("kded-devel")

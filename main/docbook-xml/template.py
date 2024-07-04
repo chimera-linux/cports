@@ -49,10 +49,8 @@ def do_install(self):
             "--gid",
             "0",
         )
-        self.rm(self.destdir / tdir / fname)
-        self.mv(
-            self.destdir / tdir / "catalog.xml", self.destdir / tdir / "catalog"
-        )
+        self.uninstall(f"{tdir}/{fname}")
+        self.rename(f"{tdir}/catalog.xml", "catalog")
 
     with self.pushd(self.destdir / "usr/share/xml/docbook/4.2"):
         with open(self.cwd / "catalog-4.1.2", "w") as ocat:

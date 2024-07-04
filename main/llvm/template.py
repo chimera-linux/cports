@@ -237,8 +237,8 @@ def post_install(self):
 
     # we don't want debuginfod symlinks, these may be provided by actual
     # debuginfod from elfutils (and there is no need to alias them)
-    self.rm(self.destdir / "usr/bin/debuginfod")
-    self.rm(self.destdir / "usr/bin/debuginfod-find")
+    self.uninstall("usr/bin/debuginfod")
+    self.uninstall("usr/bin/debuginfod-find")
 
     # python bytecode cache
     if self.stage > 0:

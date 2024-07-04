@@ -21,7 +21,7 @@ hardening = ["!int"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/embree-vars.*", glob=True)
+    self.uninstall("usr/embree-vars.*", glob=True)
 
 
 @subpackage("embree-devel")

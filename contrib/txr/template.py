@@ -40,10 +40,10 @@ def post_install(self):
     self.install_license("LICENSE")
     self.install_license("METALICENSE")
 
-    self.rm(self.destdir / "usr/share/txr/LICENSE")
-    self.rm(self.destdir / "usr/share/txr/METALICENSE")
+    self.uninstall("usr/share/txr/LICENSE")
+    self.uninstall("usr/share/txr/METALICENSE")
 
     # hardlinks
     for f in ["txrlisp", "txrvm"]:
-        self.rm(self.destdir / f"usr/bin/{f}")
+        self.uninstall(f"usr/bin/{f}")
         self.install_link(f"usr/bin/{f}", "txr")

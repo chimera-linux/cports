@@ -20,9 +20,7 @@ hardening = ["vis"]
 
 def post_install(self):
     self.install_license("COPYING")
-    self.mv(
-        self.destdir / "usr/lib/libyajl_s.a", self.destdir / "usr/lib/libyajl.a"
-    )
+    self.rename("usr/lib/libyajl_s.a", "libyajl.a")
 
 
 @subpackage("yajl-devel")

@@ -15,9 +15,8 @@ sha256 = "1e5be93e518372acf1d92d2f567d01a46fdb0b730487e544e6fb896c59cac77f"
 def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "tcsd")
-    self.install_dir("usr/share/trousers")
     # tmpfiles will copy from it
-    self.mv(self.destdir / "etc/tcsd.conf", self.destdir / "usr/share/trousers")
+    self.rename("etc/tcsd.conf", "usr/share/trousers/tcsd.conf", relative=False)
     self.install_sysusers(self.files_path / "sysusers.conf", name="tss")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="tss")
 

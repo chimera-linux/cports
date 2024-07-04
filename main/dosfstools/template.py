@@ -15,7 +15,7 @@ hardening = ["vis", "cfi"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/doc", recursive=True)
+    self.uninstall("usr/share/doc")
 
 
 configure_gen = []

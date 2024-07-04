@@ -139,9 +139,9 @@ def post_install(self):
 
     for theme in ["breeze", "breezedark", "breezetwilight"]:
         previews_path = f"usr/share/plasma/look-and-feel/org.kde.{theme}.desktop/contents/previews"
-        self.rm(self.destdir / f"{previews_path}/*", glob=True)
+        self.uninstall(f"{previews_path}/*", glob=True)
 
-    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
+    self.uninstall("usr/lib/systemd/user")
 
 
 @subpackage("plasma-workspace-devel")

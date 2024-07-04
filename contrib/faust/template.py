@@ -19,12 +19,9 @@ options = ["!cross", "!check"]
 
 
 def post_install(self):
-    self.mv(self.destdir / "usr/share/faust", self.destdir / "usr/lib")
+    self.rename("usr/share/faust", "usr/lib", relative=False)
     self.install_link("usr/share/faust", "../lib/faust")
-    self.rm(self.destdir / "usr/lib/libOSCFaust.a")
-    self.rm(self.destdir / "usr/lib/ios-libsndfile.a")
-    self.rm(self.destdir / "usr/lib/faust/max-msp/sndfile", recursive=True)
-    self.rm(
-        self.destdir / "usr/lib/faust/android/app/lib/libsndfile",
-        recursive=True,
-    )
+    self.uninstall("usr/lib/libOSCFaust.a")
+    self.uninstall("usr/lib/ios-libsndfile.a")
+    self.uninstall("usr/lib/faust/max-msp/sndfile")
+    self.uninstall("usr/lib/faust/android/app/lib/libsndfile")

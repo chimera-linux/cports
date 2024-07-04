@@ -17,7 +17,7 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE.txt")
-    self.mv(self.destdir / "usr/cmake", self.destdir / "usr/lib/cmake")
+    self.rename("usr/cmake", "lib/cmake")
 
 
 @subpackage("libaec-devel")

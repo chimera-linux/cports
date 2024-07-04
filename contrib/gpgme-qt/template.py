@@ -33,13 +33,13 @@ sha256 = "9499e8b1f33cccb6815527a1bc16049d35a6198a6c5fae0185f2bd561bce5224"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/bin", recursive=True)
-    self.rm(self.destdir / "usr/include/gpgme++", recursive=True)
-    self.rm(self.destdir / "usr/include/gpgme.h")
-    self.rm(self.destdir / "usr/lib/cmake/Gpgmepp", recursive=True)
-    self.rm(self.destdir / "usr/lib/libgpg*", glob=True)
-    self.rm(self.destdir / "usr/lib/pkgconfig", recursive=True)
-    self.rm(self.destdir / "usr/share", recursive=True)
+    self.uninstall("usr/bin")
+    self.uninstall("usr/include/gpgme++")
+    self.uninstall("usr/include/gpgme.h")
+    self.uninstall("usr/lib/cmake/Gpgmepp")
+    self.uninstall("usr/lib/libgpg*", glob=True)
+    self.uninstall("usr/lib/pkgconfig")
+    self.uninstall("usr/share")
 
 
 @subpackage("gpgme-qt-devel")

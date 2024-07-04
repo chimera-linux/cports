@@ -180,10 +180,10 @@ def post_install(self):
         self.error(f"leftover contribs: {clist}")
     # move some stuff not meant to be multiversioned
     if _default_ver:
-        self.install_dir("usr/bin")
-        self.mv(
-            self.destdir / f"usr/libexec/{pkgname}/pg_config",
-            self.destdir / "usr/bin",
+        self.rename(
+            f"usr/libexec/{pkgname}/pg_config",
+            "usr/bin/pg_config",
+            relative=False,
         )
     # service
     self.install_service(self.files_path / pkgname)

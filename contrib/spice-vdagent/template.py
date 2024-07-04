@@ -33,4 +33,4 @@ def post_install(self):
     # dinit
     self.install_service(self.files_path / "spice-vdagentd")
     # drop GDM integration files which break XDG autostarted spice-vdagent for the logged in user
-    self.rm(self.destdir / "usr/share/gdm", recursive=True)
+    self.uninstall("usr/share/gdm")

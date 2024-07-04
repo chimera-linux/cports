@@ -14,8 +14,7 @@ options = ["!check"]
 
 
 def post_extract(self):
-    # FIXME: I can't get the included vendor path to work, weird dir layout?
-    # Remove and re-vendor.
+    # use our own
     self.rm("vendor", recursive=True)
 
 

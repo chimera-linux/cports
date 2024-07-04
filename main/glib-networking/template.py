@@ -23,12 +23,12 @@ pkgdesc = "Network extensions for glib"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glib-networking"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/glib-networking/{pkgver[:-2]}/glib-networking-{pkgver}.tar.xz"
 sha256 = "d8f4f1aab213179ae3351617b59dab5de6bcc9e785021eee178998ebd4bb3acf"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
 
 
 @subpackage("glib-networking-openssl")

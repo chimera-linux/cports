@@ -76,12 +76,11 @@ options = ["!check", "!lto", "!cross", "!scanshlibs"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/info", recursive=True)
-    self.rm(self.destdir / "usr/share/man/man7", recursive=True)
-    for f in (self.destdir / "usr/lib").glob("libcc1.*"):
-        f.unlink()
+    self.uninstall("usr/share/info")
+    self.uninstall("usr/share/man/man7")
+    self.uninstall("usr/lib/libcc1.*", glob=True)
     # hardlinks
-    self.rm(self.destdir / f"usr/bin/{_trip}-gcc")
-    self.rm(self.destdir / f"usr/bin/{_trip}-c++")
+    self.uninstall(f"usr/bin/{_trip}-gcc")
+    self.uninstall(f"usr/bin/{_trip}-c++")
     self.install_link(f"usr/bin/{_trip}-gcc", f"{_trip}-gcc-{pkgver}")
     self.install_link(f"usr/bin/{_trip}-c++", f"{_trip}-g++")

@@ -53,4 +53,4 @@ def post_install(self):
         / f"usr/libexec/emacs/{pkgver}/{self.profile().triplet}/update-game-score"
     ).chmod(0o755)
 
-    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
+    self.uninstall("usr/lib/systemd/user")

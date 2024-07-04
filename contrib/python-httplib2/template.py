@@ -33,9 +33,8 @@ sha256 = "d7a10bc5ef5ab08322488bde8c726eeee5c8618723fdb399597ec58f3d82df81"
 
 def post_install(self):
     # We patch it to use system cacerts
-    self.rm(
-        self.destdir
-        / f"usr/lib/python{self.python_version}/site-packages/httplib2/cacerts.txt"
+    self.uninstall(
+        f"usr/lib/python{self.python_version}/site-packages/httplib2/cacerts.txt"
     )
 
     self.install_license("LICENSE")

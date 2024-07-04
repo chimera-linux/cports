@@ -27,8 +27,6 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE")
     # prune vendored modules
-    self.rm(
-        self.destdir / "usr/lib/python*/site-packages/poetry/core/_vendor",
-        glob=True,
-        recursive=True,
+    self.uninstall(
+        "usr/lib/python*/site-packages/poetry/core/_vendor", glob=True
     )

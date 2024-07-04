@@ -24,7 +24,7 @@ hardening = ["vis", "cfi"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
     self.install_license("LICENSE")
     self.install_service(self.files_path / "rtkit")
     self.install_sysusers(self.files_path / "sysusers.conf")

@@ -17,7 +17,7 @@ sha256 = "8826b5189efc4d9bdb64fdb1aa89d0fdf4e53c60948ed7995621ed046e38c003"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/tests", recursive=True)
+    self.uninstall("usr/tests")
 
 
 @subpackage("qt6-qt5compat-devel")

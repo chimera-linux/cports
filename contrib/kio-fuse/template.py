@@ -31,7 +31,7 @@ options = ["!check"]
 def post_install(self):
     # TODO: port to dinit user instead
     self.install_file(self.files_path / "kio-fuse.desktop", "etc/xdg/autostart")
-    self.rm(self.destdir / "usr/lib/systemd/user", recursive=True)
+    self.uninstall("usr/lib/systemd/user")
     self.install_file(
         self.files_path / "modules-load.conf",
         "usr/lib/modules-load.d",

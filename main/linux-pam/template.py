@@ -30,7 +30,7 @@ def post_install(self):
     self.install_license("COPYING")
 
     self.chmod(self.destdir / "usr/bin/unix_chkpwd", 0o4755)
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
 
     for f in ["limits.d", "namespace.d"]:
         self.install_dir(f"etc/security/{f}", empty=True)

@@ -88,8 +88,9 @@ options = ["!cross", "!check"]
 
 def post_install(self):
     # we don't really need it (provided by gtk3)
-    self.rm(self.destdir / "usr/bin/gtk4-update-icon-cache")
-    self.rm(self.destdir / "usr/share/man/man1/gtk4-update-icon-cache.1")
+    # note: there are no changes in this since gtk3 aside from warning cleanups anyway
+    self.uninstall("usr/bin/gtk4-update-icon-cache")
+    self.uninstall("usr/share/man/man1/gtk4-update-icon-cache.1")
 
 
 @subpackage("gtk4-devel")

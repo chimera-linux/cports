@@ -37,4 +37,4 @@ def do_check(self):
 
 def post_install(self):
     self.install_license("COPYING")
-    self.rm(self.destdir / "usr/share/cvise/tests", recursive=True)
+    self.uninstall("usr/share/cvise/tests")

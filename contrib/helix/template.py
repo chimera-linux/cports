@@ -16,7 +16,7 @@ def do_install(self):
     self.cargo.install(wrksrc="helix-term")
     runtime_dir = "usr/libexec/helix/runtime"
     self.install_dir(runtime_dir)
-    self.mv(self.destdir / "usr/bin/hx", self.destdir / "usr/libexec/helix")
+    self.rename("usr/bin/hx", "usr/libexec/helix/hx", relative=False)
     self.install_link("usr/bin/hx", "../libexec/helix/hx")
 
     self.install_files("runtime/queries", runtime_dir)

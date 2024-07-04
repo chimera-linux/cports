@@ -63,18 +63,18 @@ def post_install(self):
         libp.chmod(0o755)
         self.install_link(f"usr/lib/lib{lib}.a", f"lib{lib}w.a")
 
-    self.rm(self.destdir / "usr/lib/libncurses++.a", force=True)
+    self.uninstall("usr/lib/libncurses++.a")
     self.install_link("usr/lib/libncurses++.a", "libncurses++w.a")
 
     # some packages look for -lcurses during build
-    self.rm(self.destdir / "usr/lib/libcursesw.so", force=True)
+    self.uninstall("usr/lib/libcursesw.so")
     with open(self.destdir / "usr/lib/libcursesw.so", "w") as f:
         f.write("INPUT(-lncursesw)\n")
     (self.destdir / "usr/lib/libcursesw.so").chmod(0o755)
 
-    self.rm(self.destdir / "usr/lib/libcurses.so", force=True)
-    self.rm(self.destdir / "usr/lib/libcursesw.a", force=True)
-    self.rm(self.destdir / "usr/lib/libcurses.a", force=True)
+    self.uninstall("usr/lib/libcurses.so")
+    self.uninstall("usr/lib/libcursesw.a")
+    self.uninstall("usr/lib/libcurses.a")
 
     self.install_link("usr/lib/libcurses.so", "libncurses.so")
     self.install_link("usr/lib/libcursesw.a", "libncursesw.a")
@@ -92,7 +92,7 @@ def post_install(self):
     self.install_link("usr/lib/pkgconfig/tinfo.pc", "ncursesw.pc")
 
     # remove broken symlink
-    self.rm(self.destdir / "usr/lib/terminfo", force=True)
+    self.uninstall("usr/lib/terminfo")
 
 
 @subpackage("ncurses-libtinfo-libs")

@@ -21,4 +21,4 @@ sha256 = "b5c65ea25e8483502d033a613be6dc6b71883ac07f1a3e474ad18049c47d16d6"
 
 def post_install(self):
     # systemd service destination dir
-    self.rm(self.destdir / "tmp/delete_me", recursive=True)
+    self.uninstall("tmp/delete_me")

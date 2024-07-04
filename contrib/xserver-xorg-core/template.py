@@ -100,7 +100,7 @@ def post_install(self):
 
     self.chmod(self.destdir / "usr/libexec/Xorg.wrap", mode=0o4755)
     # provided by xserver-xorg-protocol
-    self.rm(self.destdir / "usr/lib/xorg/protocol.txt")
+    self.uninstall("usr/lib/xorg/protocol.txt")
     # from debian: https://salsa.debian.org/xorg-team/xserver/xorg-server
     # check debian/local/xvfb-run for updates as needed
     # note ours is slightly patched (non-GNU fmt(1))

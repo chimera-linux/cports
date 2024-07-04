@@ -1,6 +1,6 @@
 pkgname = "libarchive"
 pkgver = "3.7.4"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -17,8 +17,8 @@ makedepends = [
     "acl-devel",
     "bzip2-devel",
     "lz4-devel",
-    "xz-devel",
     "musl-bsd-headers",
+    "xz-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library to read/write several different streaming archive formats"
@@ -39,16 +39,16 @@ else:
 
 def post_install(self):
     self.install_license("COPYING")
-    with self.pushd(self.destdir):
-        self.mv("usr/bin/bsdtar", "usr/bin/tar")
-        self.mv("usr/bin/bsdcpio", "usr/bin/cpio")
-        with self.pushd("usr/share/man/man1"):
-            self.mv("bsdcpio.1", "cpio.1")
-            self.mv("bsdtar.1", "tar.1")
-        with self.pushd("usr/share/man/man5"):
-            self.mv("mtree.5", "libarchive-mtree.5")
+    self.rename("usr/bin/bsdtar", "tar")
+    # but symlink them back
     self.install_link("usr/bin/bsdtar", "tar")
+    self.rename("usr/bin/bsdcpio", "cpio")
+    self.install_link("usr/bin/bsdcpio", "cpio")
+    self.rename("usr/share/man/man1/bsdcpio.1", "cpio.1")
+    self.install_link("usr/share/man/man1/bsdcpio.1", "cpio.1")
+    self.rename("usr/share/man/man1/bsdtar.1", "tar.1")
     self.install_link("usr/share/man/man1/bsdtar.1", "tar.1")
+    self.rename("usr/share/man/man5/mtree.5", "libarchive-mtree.5")
 
 
 @subpackage("bsdtar")

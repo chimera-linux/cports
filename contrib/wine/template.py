@@ -90,7 +90,7 @@ def post_install(self):
         "winemine",
         "winepath",
     ]:
-        self.rm(self.destdir / f"usr/bin/{link}")
+        self.uninstall(f"usr/bin/{link}")
         self.install_link(f"usr/bin/{link}", "wineapploader")
 
 

@@ -159,17 +159,15 @@ def post_patch(self):
 def post_install(self):
     # oh boy, big cleanup time
 
-    ddir = self.destdir
-
     # drop some more systemd bits
     for f in [
         "usr/include/systemd",
         "usr/share/dbus-1",
         "usr/share/doc",
     ]:
-        self.rm(ddir / f, recursive=True)
+        self.uninstall(f)
 
-    for f in (ddir / "usr/lib/systemd").iterdir():
+    for f in (self.destdir / "usr/lib/systemd").iterdir():
         # keep efi stubs
         if f.name == "boot":
             continue

@@ -39,7 +39,7 @@ def do_install(self):
             "etcdir=" + str(self.chroot_destdir / "etc"),
         ]
     )
-    self.rm(self.destdir / "bin")
+    self.uninstall("bin")
 
 
 def post_install(self):

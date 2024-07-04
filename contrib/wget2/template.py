@@ -37,7 +37,7 @@ sha256 = "a05dc5191c6bad9313fd6db2777a78f5527ba4774f665d5d69f5a7461b49e2e7"
 
 def post_install(self):
     # testing-only
-    self.rm(self.destdir / "usr/bin/wget2_noinstall")
+    self.uninstall("usr/bin/wget2_noinstall")
     # we don't have wget1
     self.install_link("usr/bin/wget", "wget2")
     # this is only installed with pandoc detected

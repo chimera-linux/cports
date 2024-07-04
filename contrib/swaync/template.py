@@ -27,5 +27,5 @@ sha256 = "5586d8a679dde5e530cb8b6f0c86abdd0d5e41362fc1c4e56e2211edea0f7a13"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
     self.install_service(self.files_path / "swaync.user")

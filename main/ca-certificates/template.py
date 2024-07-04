@@ -65,6 +65,6 @@ def post_install(self):
             ofile.write("\n")
 
     self.install_link("etc/ssl/certs.pem", "certs/ca-certificates.crt")
-    self.rm(self.destdir / "usr/sbin")
+    self.uninstall("usr/sbin")
 
     self.install_dir("etc/ca-certificates/update.d")

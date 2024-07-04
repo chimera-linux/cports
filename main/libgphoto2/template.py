@@ -33,7 +33,7 @@ if self.profile().cross:
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/udev", recursive=True)
+    self.uninstall("usr/lib/udev")
 
     self.install_dir("usr/lib/udev/hwdb.d")
     self.install_dir("usr/lib/udev/rules.d")

@@ -36,7 +36,7 @@ options = ["!cross"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/installed-tests", recursive=True)
+    self.uninstall("usr/share/installed-tests")
 
 
 @subpackage("appstream-glib-devel")

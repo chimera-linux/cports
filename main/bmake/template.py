@@ -37,7 +37,7 @@ def do_install(self):
         *eargs,
         wrksrc="build",
     )
-    self.rm(self.destdir / "usr/share/man", recursive=True)
+    self.uninstall("usr/share/man")
     self.install_man("bmake.1")
     self.install_man("make.1")
     self.install_license("LICENSE")

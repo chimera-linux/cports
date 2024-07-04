@@ -85,8 +85,8 @@ def post_install(self):
 
     # make room for defaults
     for f in ["tables", "tables-save", "tables-restore"]:
-        self.rm(self.destdir / f"usr/bin/ip{f}", force=True)
-        self.rm(self.destdir / f"usr/bin/ip6{f}", force=True)
+        self.uninstall(f"usr/bin/ip{f}")
+        self.uninstall(f"usr/bin/ip6{f}")
 
 
 @subpackage("iptables-nft")

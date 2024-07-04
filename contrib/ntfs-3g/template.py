@@ -35,8 +35,8 @@ def pre_install(self):
 
 def post_install(self):
     self.install_link("usr/bin/mount.ntfs", "ntfs-3g")
-    self.rm(self.destdir / "usr/share/man/man8/ntfsfallocate.8")
-    self.rm(self.destdir / "sbin")
+    self.uninstall("usr/share/man/man8/ntfsfallocate.8")
+    self.uninstall("sbin")
 
 
 @subpackage("libntfs-3g")

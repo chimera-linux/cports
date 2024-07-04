@@ -92,9 +92,8 @@ def do_check(self):
 def post_install(self):
     self.install_license("LICENSE.txt")
     # remove static libs
-    self.rm(
-        self.destdir
-        / f"usr/lib/python{self.python_version}/site-packages/numpy/*/lib/lib*.a",
+    self.uninstall(
+        f"usr/lib/python{self.python_version}/site-packages/numpy/*/lib/lib*.a",
         glob=True,
     )
 

@@ -103,19 +103,19 @@ def post_install(self):
     # must be present in main package
     self.install_dir("usr/lib/nginx/modules", empty=True)
     # better default configs, mostly adapted from alpine
-    self.rm(self.destdir / "etc/nginx/nginx.conf")
+    self.uninstall("etc/nginx/nginx.conf")
     self.install_file(self.files_path / "nginx.conf", "etc/nginx")
     self.install_file(self.files_path / "default.conf", "etc/nginx/http.d")
     self.install_file(self.files_path / "stream.conf", "etc/nginx/conf.d")
     # needed for relative module loads
     self.install_link("var/lib/nginx/modules", "../../../usr/lib/nginx/modules")
     # remove old charset maps
-    self.rm(self.destdir / "etc/nginx/koi-*", glob=True)
-    self.rm(self.destdir / "etc/nginx/win-utf")
+    self.uninstall("etc/nginx/koi-*", glob=True)
+    self.uninstall("etc/nginx/win-utf")
     # these interfere with tmpfiles ownership and are not used anyway
-    self.rm(self.destdir / "var/lib/nginx/html", recursive=True)
+    self.uninstall("var/lib/nginx/html")
     # these are unnecessary with apk backups
-    self.rm(self.destdir / "etc/nginx/*.default", glob=True)
+    self.uninstall("etc/nginx/*.default", glob=True)
 
 
 def do_check(self):

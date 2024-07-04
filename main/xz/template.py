@@ -20,7 +20,7 @@ if self.stage > 0:
 
 def post_install(self):
     self.install_license("COPYING")
-    self.rm(self.destdir / "usr/share/doc", recursive=True)
+    self.uninstall("usr/share/doc")
     for tool in [
         "xzgrep",
         "xzfgrep",
@@ -37,12 +37,8 @@ def post_install(self):
         "lzless",
         "lzmore",
     ]:
-        self.rm(self.destdir / "usr/bin" / tool)
-        self.rm(self.destdir / "usr/share/man/man1" / (tool + ".1"))
-        for lang in (self.destdir / "usr/share/man").iterdir():
-            if lang.name == "man1":
-                continue
-            self.rm(lang / "man1" / (tool + ".1"), force=True)
+        self.uninstall(f"usr/bin/{tool}")
+        self.uninstall(f"usr/share/man/man1/{tool + '.1'}")
 
 
 @subpackage("xz-devel")

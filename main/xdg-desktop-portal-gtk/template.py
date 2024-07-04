@@ -28,4 +28,4 @@ sha256 = "425551ca5f36451d386d53599d95a3a05b94020f1a4927c5111a2c3ba3a0fe4c"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")

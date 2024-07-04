@@ -79,10 +79,9 @@ def init_check(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/tests", recursive=True)
-    self.rm(self.destdir / "usr/lib/qt6/bin/testapp")
-    for f in (self.destdir / "usr/lib/qt6/bin").glob("qqmldebug*"):
-        f.unlink()
+    self.uninstall("usr/tests")
+    self.uninstall("usr/lib/qt6/bin/testapp")
+    self.uninstall("usr/lib/qt6/bin/qqmldebug*", glob=True)
 
 
 @subpackage("qt6-qtdeclarative-devel-static")

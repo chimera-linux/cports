@@ -143,7 +143,7 @@ def do_install(self):
             s.check()
             self.make.install(wrksrc=f"build-{tgtn}")
             # clean up stuff we don't want
-            self.rm(self.destdir / "usr/lib/bfd-plugins", recursive=True)
+            self.uninstall("usr/lib/bfd-plugins")
             # remove non-prefix binaries
             for f in (self.destdir / "usr/bin").glob("*"):
                 if f.name.find("-") > 0:
@@ -155,9 +155,9 @@ def do_install(self):
                     continue
                 f.unlink()
             # temporary
-            self.mv(
-                self.destdir / "usr/lib/ldscripts",
-                self.destdir / f"usr/lib/ldscripts-{tgtp.arch}",
+            self.rename(
+                "usr/lib/ldscripts",
+                f"ldscripts-{tgtp.arch}",
             )
 
     self.make.install(wrksrc=f"build-{self.profile().arch}")
@@ -167,20 +167,20 @@ def do_install(self):
     self.install_link("usr/lib/bfd-plugins/LLVMgold.so", "../LLVMgold.so")
 
     for m in ["dlltool", "nlmconv", "windres", "windmc"]:
-        self.rm(self.destdir / f"usr/share/man/man1/{m}.1", force=True)
+        self.uninstall(f"usr/share/man/man1/{m}.1")
 
     # provided as ld.bfd, hardlink so it's safe to remove
     for f in (self.destdir / "usr/bin").glob("*-ld"):
         self.rm(f)
-        self.mv(
-            self.destdir / f"usr/share/man/man1/{f.name}.1",
-            self.destdir / f"usr/share/man/man1/{f.name}.bfd.1",
+        self.rename(
+            f"usr/share/man/man1/{f.name}.1",
+            f"{f.name}.bfd.1",
         )
 
-    self.rm(self.destdir / "usr/bin/ld")
-    self.mv(
-        self.destdir / "usr/share/man/man1/ld.1",
-        self.destdir / "usr/share/man/man1/ld.bfd.1",
+    self.uninstall("usr/bin/ld")
+    self.rename(
+        "usr/share/man/man1/ld.1",
+        "ld.bfd.1",
     )
 
     # rename some tools to prefixed versions - conflicts with llvm
@@ -210,13 +210,8 @@ def do_install(self):
             if p == "as":
                 f.symlink_to(tf.name)
         # rename native version
-        self.mv(
-            self.destdir / "usr/bin" / p, self.destdir / "usr/bin" / f"g{p}"
-        )
-        self.mv(
-            self.destdir / "usr/share/man/man1" / f"{p}.1",
-            self.destdir / "usr/share/man/man1" / f"g{p}.1",
-        )
+        self.rename(f"usr/bin/{p}", f"g{p}")
+        self.mv(f"usr/share/man/man1/{p}.1" f"g{p}.1")
 
     # gas can be symlinked to as though, as nothing else provides it
     self.install_link("usr/bin/as", "gas")
@@ -263,9 +258,9 @@ def _gen_subp(an, native):
         def takef():
             self.take(f"usr/bin/{at}-*")
             self.take(f"usr/lib/ldscripts-{an}")
-            self.mv(
-                self.destdir / f"usr/lib/ldscripts-{an}",
-                self.destdir / "usr/lib/ldscripts",
+            self.rename(
+                f"usr/lib/ldscripts-{an}",
+                "ldscripts",
             )
 
         return takef

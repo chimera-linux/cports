@@ -35,7 +35,7 @@ def init_check(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/tests", recursive=True)
+    self.uninstall("usr/tests")
 
 
 @subpackage("qt6-qtlocation-devel")

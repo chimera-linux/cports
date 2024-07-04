@@ -19,7 +19,7 @@ tool_flags = {"LDFLAGS": [f"-Wl,-rpath=/usr/lib:/usr/lib/{pkgname}{pkgver}"]}
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/bin/weather")
+    self.uninstall("usr/bin/weather")
 
 
 @subpackage("expect-devel")

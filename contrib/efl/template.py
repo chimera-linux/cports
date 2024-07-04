@@ -122,8 +122,8 @@ def post_install(self):
     self.install_license("licenses/COPYING.DNS")
 
     # service files: maybe reimplement for dinit later
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
-    self.rm(self.destdir / "usr/lib/ecore/system/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
+    self.uninstall("usr/lib/ecore/system/systemd")
 
 
 @subpackage("efl-ibus")

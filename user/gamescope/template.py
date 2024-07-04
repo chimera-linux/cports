@@ -11,7 +11,7 @@ configure_args = [
     "-Drt_cap=enabled",
     "-Dsdl2_backend=enabled",
 ]
-make_install_args = ["--skip-subprojects", "libliftoff,wlroots"]
+make_install_args = ["--skip-subprojects", "libliftoff,vkroots,wlroots"]
 hostmakedepends = [
     "cmake",
     "glslang-progs",
@@ -95,8 +95,4 @@ tool_flags = {"CXXFLAGS": ["-DRTLD_DEEPBIND=0"]}
 def post_install(self):
     self.install_license("LICENSE")
     # already installed
-    self.rm(self.destdir / "usr/share/licenses/gamescope/LICENSE")
-    # don't need it
-    self.rm(self.destdir / "usr/lib/libopenvr_api.a")
-    self.rm(self.destdir / "usr/lib/pkgconfig/vkroots.pc")
-    self.rm(self.destdir / "usr/include/vkroots.h")
+    self.uninstall("usr/share/licenses/gamescope/LICENSE")

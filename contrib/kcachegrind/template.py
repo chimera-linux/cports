@@ -34,7 +34,7 @@ hardening = ["vis", "!cfi"]
 
 def post_install(self):
     # python2
-    self.rm(self.destdir / "usr/bin/hotshot2calltree")
+    self.uninstall("usr/bin/hotshot2calltree")
 
 
 @subpackage("kcachegrind-scripts")

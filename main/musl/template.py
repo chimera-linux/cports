@@ -111,7 +111,7 @@ def pre_install(self):
 
 def post_install(self):
     # no need for the symlink anymore
-    self.rm(self.destdir / "lib")
+    self.uninstall("lib")
 
     # fix up ld-musl-whatever so it does not point to absolute path
     for f in (self.destdir / "usr/lib").glob("ld-musl-*.so.1"):

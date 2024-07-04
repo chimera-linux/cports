@@ -73,8 +73,8 @@ options = ["!check", "!cross"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
-    self.rm(self.destdir / "usr/lib/tmpfiles.d/flatpak.conf")
+    self.uninstall("usr/lib/systemd")
+    self.uninstall("usr/lib/tmpfiles.d/flatpak.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_file(
         self.files_path / "modules-load.conf",

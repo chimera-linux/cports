@@ -105,9 +105,7 @@ def do_install(self):
         "install",
         f"DESTDIR={self.chroot_destdir}",
     )
-    self.mv(
-        self.destdir / "usr/bin/gnuplot", self.destdir / "usr/bin/gnuplot-qt"
-    )
+    self.rename("usr/bin/gnuplot", "gnuplot-qt")
 
     self.do(
         "gmake",
@@ -117,9 +115,7 @@ def do_install(self):
         "install",
         f"DESTDIR={self.chroot_destdir}",
     )
-    self.mv(
-        self.destdir / "usr/bin/gnuplot", self.destdir / "usr/bin/gnuplot-wx"
-    )
+    self.rename("usr/bin/gnuplot", "usr/bin/gnuplot-wx")
 
     self.do(
         "gmake",

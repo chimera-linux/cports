@@ -23,6 +23,4 @@ sha256 = "1530ea13e350031b6312d8580ddb6b27a104275a31106523b8f123787f494f64"
 
 
 def post_install(self):
-    self.rm(
-        self.destdir / "usr/lib/python3*/site-packages/distlib/*.exe", glob=True
-    )
+    self.uninstall("usr/lib/python3*/site-packages/distlib/*.exe", glob=True)

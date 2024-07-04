@@ -30,7 +30,7 @@ def do_install(self):
         ("hpnv21.bin", "qca/hpnv21.309"),
         ("hpnv21g.bin", "qca/hpnv21g.309"),
     ]:
-        self.rm(self.destdir / f"usr/lib/firmware/{tof}")
+        self.uninstall(f"usr/lib/firmware/{tof}")
         self.install_link(f"usr/lib/firmware/{tof}", fromf)
     # dsp
     self.install_file("cs35l41-dsp1-*", "usr/lib/firmware", glob=True)

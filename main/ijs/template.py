@@ -16,7 +16,7 @@ options = ["!distlicense"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/bin", recursive=True)
+    self.uninstall("usr/bin")
 
 
 @subpackage("ijs-devel")

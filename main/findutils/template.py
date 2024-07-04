@@ -19,9 +19,9 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     # we don't want this
-    self.rm(self.destdir / "usr/bin/glocate")
-    self.rm(self.destdir / "usr/bin/gupdatedb")
-    self.rm(self.destdir / "usr/libexec", recursive=True)
-    self.rm(self.destdir / "usr/share/man/man1/glocate.1")
-    self.rm(self.destdir / "usr/share/man/man1/gupdatedb.1")
-    self.rm(self.destdir / "usr/share/man/man5", recursive=True)
+    self.uninstall("usr/bin/glocate")
+    self.uninstall("usr/bin/gupdatedb")
+    self.uninstall("usr/libexec")
+    self.uninstall("usr/share/man/man1/glocate.1")
+    self.uninstall("usr/share/man/man1/gupdatedb.1")
+    self.uninstall("usr/share/man/man5")

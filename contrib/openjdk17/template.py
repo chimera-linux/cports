@@ -155,7 +155,7 @@ def do_install(self):
 
     # shared cacerts store
     _cacerts = f"{_java_home}/lib/security/cacerts"
-    self.rm(self.destdir / _cacerts)
+    self.uninstall(_cacerts)
     self.install_link(_cacerts, "../../../../../../etc/ssl/certs/java/cacerts")
 
     # system links

@@ -43,4 +43,4 @@ def init_install(self):
 
 def post_install(self):
     # mistakenly installed
-    self.rm(self.destdir / "usr/bin/tst_plugin")
+    self.uninstall("usr/bin/tst_plugin")

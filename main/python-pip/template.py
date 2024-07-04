@@ -22,5 +22,5 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE.txt")
     # replace shim with symlink
-    self.rm(self.destdir / "usr/bin/pip")
+    self.uninstall("usr/bin/pip")
     self.install_link("usr/bin/pip", "pip3")

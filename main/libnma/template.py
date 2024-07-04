@@ -35,10 +35,7 @@ options = ["!cross"]
 def post_install(self):
     # Conflicts with contrib/network-manager-applet
     # See https://gitlab.gnome.org/GNOME/network-manager-applet/-/commit/574fdd97ae38b89f6d3d1a1c3fbfd63754b25df2
-    self.rm(
-        self.destdir
-        / "usr/share/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml"
-    )
+    self.uninstall("usr/share/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml")
 
 
 @subpackage("libnma-devel")

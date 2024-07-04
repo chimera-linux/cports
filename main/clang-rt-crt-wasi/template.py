@@ -63,7 +63,4 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.rm(
-        self.destdir / f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include",
-        recursive=True,
-    )
+    self.uninstall(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include")

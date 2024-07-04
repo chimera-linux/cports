@@ -33,7 +33,7 @@ options = ["!cross", "!lto"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
 
 
 @subpackage("nautilus-gnome-terminal-extension")

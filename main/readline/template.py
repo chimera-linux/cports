@@ -24,7 +24,7 @@ sha256 = "a492621bc1dcf18ee89851942ad1752025ffaae661a5cd9f188f54f892989e77"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/doc", recursive=True)
+    self.uninstall("usr/share/doc")
 
 
 @subpackage("libhistory")

@@ -383,31 +383,31 @@ def do_install(self):
 def post_install(self):
     dp = self.destdir / "usr/lib/firmware"
     # deprecated driver
-    self.rm(dp / "av7110", recursive=True)
+    self.uninstall("usr/lib/firmware/av7110")
     # pcmcia stuff unlikely to ever be used
-    self.rm(dp / "cis", recursive=True)
+    self.uninstall("usr/lib/firmware/cis")
     # only present in ancient kernels
-    self.rm(dp / "dabusb", recursive=True)
+    self.uninstall("usr/lib/firmware/dabusb")
     # m68k-specific
-    self.rm(dp / "dsp56k", recursive=True)
+    self.uninstall("usr/lib/firmware/dsp56k")
     # 32-bit imx6/7
-    self.rm(dp / "imx", recursive=True)
+    self.uninstall("usr/lib/firmware/imx")
     # not mainline
-    self.rm(dp / "mwlwifi", recursive=True)
+    self.uninstall("usr/lib/firmware/mwlwifi")
     # not in our kernels, mostly 32-bit socs etc.
-    self.rm(dp / "ositech", recursive=True)
-    self.rm(dp / "r128", recursive=True)
-    self.rm(dp / "r8a779x_usb3_v1.dlmem*", glob=True)
-    self.rm(dp / "r8a779x_usb3_v2.dlmem*", glob=True)
-    self.rm(dp / "r8a779x_usb3_v3.dlmem*", glob=True)
-    self.rm(dp / "sb16", recursive=True)
-    self.rm(dp / "sxg", recursive=True)
-    self.rm(dp / "ti-keystone", recursive=True)
-    self.rm(dp / "ti/vpdma-1b8.bin*", glob=True)
-    self.rm(dp / "usbdux_firmware.bin*", glob=True)
-    self.rm(dp / "usbduxfast_firmware.bin*", glob=True)
-    self.rm(dp / "usbduxsigma_firmware.bin*", glob=True)
-    self.rm(dp / "yam", recursive=True)
+    self.uninstall("usr/lib/firmware/ositech")
+    self.uninstall("usr/lib/firmware/r128")
+    self.uninstall("usr/lib/firmware/r8a779x_usb3_v1.dlmem*", glob=True)
+    self.uninstall("usr/lib/firmware/r8a779x_usb3_v2.dlmem*", glob=True)
+    self.uninstall("usr/lib/firmware/r8a779x_usb3_v3.dlmem*", glob=True)
+    self.uninstall("usr/lib/firmware/sb16")
+    self.uninstall("usr/lib/firmware/sxg")
+    self.uninstall("usr/lib/firmware/ti-keystone")
+    self.uninstall("usr/lib/firmware/ti/vpdma-1b8.bin*", glob=True)
+    self.uninstall("usr/lib/firmware/usbdux_firmware.bin*", glob=True)
+    self.uninstall("usr/lib/firmware/usbduxfast_firmware.bin*", glob=True)
+    self.uninstall("usr/lib/firmware/usbduxsigma_firmware.bin*", glob=True)
+    self.uninstall("usr/lib/firmware/yam")
 
 
 @subpackage("firmware-linux-audio")

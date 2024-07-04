@@ -58,17 +58,16 @@ def post_install(self):
 
     python.precompile(self, "usr/share/hplip")
 
-    dd = self.destdir
     self.install_license("COPYING")
-    self.rm(dd / "usr/lib/systemd", recursive=True)
+    self.uninstall("usr/lib/systemd")
     # rename default dll.conf that conflicts with sane-backends to own name,
     # loads hpaio
-    self.install_dir("etc/sane.d/dll.d")
-    self.mv(dd / "etc/sane.d/dll.conf", dd / "etc/sane.d/dll.d/hpaio")
-    self.mv(dd / "etc/udev", dd / "usr/lib")
+    self.rename("etc/sane.d/dll.conf", "dll.d/hpaio")
+    self.rename("etc/udev", "usr/lib/udev")
 
     # move elfs to libexec
-    self.install_dir("usr/libexec/hplip")
     for f in ["locatedriver", "dat2drv"]:
-        self.mv(dd / "usr/share/hplip" / f, dd / "usr/libexec/hplip")
+        self.rename(
+            f"usr/share/hplip/{f}", f"usr/libexec/hplip/{f}", relative=False
+        )
         self.install_link(f"usr/share/hplip/{f}", f"../../libexec/hplip/{f}")

@@ -1,6 +1,6 @@
 pkgname = "python-hyperlink"
 pkgver = "21.0.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_check_target = "build"
 hostmakedepends = [
@@ -21,6 +21,5 @@ sha256 = "427af957daa58bc909471c6c40f74c5450fa123dd093fc53efd2e91d2705a56b"
 
 def post_install(self):
     self.install_license("LICENSE")
-    # remove illegal pycache
-    for f in (self.destdir / "usr/lib").glob("python3*"):
-        self.rm(f / "site-packages/hyperlink/test/__pycache__", recursive=True)
+    # remove tests
+    self.uninstall("usr/lib/python*/site-packages/hyperlink/test", glob=True)

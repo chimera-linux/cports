@@ -51,11 +51,11 @@ def post_install(self):
     #     "usr/lib/cmake",
     #     "usr/lib/libAppStreamQt*",
     # ]
-    self.rm(self.destdir / "usr/bin", recursive=True)
-    self.rm(self.destdir / "usr/include/appstream", recursive=True)
-    self.rm(self.destdir / "usr/lib/libappstream.*", glob=True)
-    self.rm(self.destdir / "usr/lib/pkgconfig", recursive=True)
-    self.rm(self.destdir / "usr/share", recursive=True)
+    self.uninstall("usr/bin")
+    self.uninstall("usr/include/appstream")
+    self.uninstall("usr/lib/libappstream.*", glob=True)
+    self.uninstall("usr/lib/pkgconfig")
+    self.uninstall("usr/share")
 
 
 @subpackage("appstream-qt-devel")

@@ -41,7 +41,7 @@ def post_install(self):
     # register with shells
     self.install_shell("/usr/bin/bash")
 
-    self.rm(self.destdir / "usr/share/doc", recursive=True, force=True)
+    self.uninstall("usr/share/doc")
 
     self.install_link("usr/bin/rbash", "bash")
 
@@ -49,8 +49,8 @@ def post_install(self):
     self.install_file(self.files_path / "bash.sh", "etc/profile.d")
 
     # remove devel files
-    self.rm(self.destdir / "usr/lib", recursive=True)
-    self.rm(self.destdir / "usr/include", recursive=True)
+    self.uninstall("usr/lib")
+    self.uninstall("usr/include")
 
 
 configure_gen = []

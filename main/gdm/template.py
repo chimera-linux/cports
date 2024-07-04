@@ -78,7 +78,7 @@ def post_install(self):
 
     # drop magic nonsense with wayland disabling, we don't support
     # xorg in main repository anyway, so that has to be optional
-    self.rm(self.destdir / "usr/lib/udev/rules.d/61-gdm.rules")
+    self.uninstall("usr/lib/udev/rules.d/61-gdm.rules")
 
 
 @subpackage("libgdm")

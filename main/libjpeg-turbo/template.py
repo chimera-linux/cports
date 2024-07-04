@@ -30,8 +30,8 @@ def post_install(self):
     self.install_file("jpegint.h", "usr/include")
     self.install_file("transupp.h", "usr/include")
 
-    self.rm(self.destdir / "usr/share/doc", recursive=True)
-    self.rm(self.destdir / "usr/bin/tjbench")
+    self.uninstall("usr/share/doc")
+    self.uninstall("usr/bin/tjbench")
 
 
 @subpackage("libjpeg-turbo-devel")

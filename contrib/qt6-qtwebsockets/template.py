@@ -27,7 +27,7 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/tests", recursive=True)
+    self.uninstall("usr/tests", recursive=True)
 
 
 @subpackage("qt6-qtwebsockets-devel")

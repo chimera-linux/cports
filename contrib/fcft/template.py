@@ -21,11 +21,10 @@ hardening = ["vis", "cfi"]
 
 
 def post_install(self):
-    ded = self.destdir
-    self.install_dir(f"usr/share/licenses/{pkgname}")
-    self.mv(
-        ded / "usr/share/doc/fcft/LICENSE",
-        ded / f"usr/share/licenses/{pkgname}/LICENSE",
+    self.rename(
+        "usr/share/doc/fcft/LICENSE",
+        f"usr/share/licenses/{pkgname}/LICENSE",
+        relative=False,
     )
 
 

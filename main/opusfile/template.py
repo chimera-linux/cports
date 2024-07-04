@@ -15,7 +15,7 @@ hardening = ["vis", "!cfi"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share", recursive=True)
+    self.uninstall("usr/share")
     self.install_license("COPYING")
 
 

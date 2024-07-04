@@ -26,4 +26,4 @@ def init_configure(self):
 
 def post_install(self):
     # glibc bin from sof-bin
-    self.rm(self.destdir / "usr/lib/firmware/amd/sof/sof-logger")
+    self.uninstall("usr/lib/firmware/amd/sof/sof-logger")

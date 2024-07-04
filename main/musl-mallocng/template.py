@@ -76,7 +76,7 @@ def pre_install(self):
 
 def post_install(self):
     # no need for the symlink anymore
-    self.rm(self.destdir / "lib")
+    self.uninstall("lib")
 
     # fix up ld-musl-whatever so it does not point to absolute path
     for f in (self.destdir / "usr/lib").glob("ld-musl-*.so.1"):
@@ -84,9 +84,8 @@ def post_install(self):
         f.symlink_to("libc.so")
 
     # remove devel stuff provided by main package
-    self.rm(self.destdir / "usr/include", recursive=True)
-    for f in (self.destdir / "usr/lib").glob("*.o"):
-        f.unlink()
+    self.uninstall("usr/include")
+    self.uninstall("usr/lib/*.o", glob=True)
     for f in (self.destdir / "usr/lib").glob("*.a"):
         if f.name == "libc.a":
             continue

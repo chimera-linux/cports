@@ -51,7 +51,7 @@ def init_configure(self):
 
 def post_install(self):
     # prevents udisks automount
-    self.rm(self.destdir / "usr/lib/udev/rules.d/64-ext4.rules")
+    self.uninstall("usr/lib/udev/rules.d/64-ext4.rules")
 
 
 @subpackage("e2fsprogs-devel")

@@ -23,8 +23,7 @@ sha256 = "63085fd9835c42c9399ea6bb13a7ebd4b1547ace75c4595ce8e9759512bd998a"
 
 
 def post_install(self):
-    # We disable the tool but the manpage gets installed anyway
-    self.rm(self.destdir / "usr/share/man/man1/lv-tool-0.4.1")
+    self.uninstall("usr/share/man/man1/lv-tool-0.4.1")
 
 
 @subpackage("libvisual-devel")

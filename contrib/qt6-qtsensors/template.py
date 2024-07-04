@@ -18,8 +18,8 @@ options = ["!cross"]
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/cmake/Qt6BuildInternals", recursive=True)
-    self.rm(self.destdir / "usr/tests", recursive=True)
+    self.uninstall("usr/lib/cmake/Qt6BuildInternals")
+    self.uninstall("usr/tests")
 
 
 @subpackage("qt6-qtsensors-devel")

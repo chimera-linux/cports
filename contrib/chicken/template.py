@@ -26,9 +26,8 @@ def init_build(self):
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.mv(
-        self.destdir / "usr/share/chicken/doc",
-        self.destdir / "usr/share/doc/chicken",
+    self.rename(
+        "usr/share/chicken/doc", "usr/share/doc/chicken", relative=False
     )
 
 

@@ -124,9 +124,9 @@ def post_install(self):
     self.install_file(
         self.files_path / "samba.pam", "usr/lib/pam.d", name="samba"
     )
-    self.rm(self.destdir / "etc/sudoers.d", recursive=True)
-    self.rm(self.destdir / "usr/share/man/man7/traffic_learner.7")
-    self.rm(self.destdir / "usr/share/man/man7/traffic_replay.7")
+    self.uninstall("etc/sudoers.d")
+    self.uninstall("usr/share/man/man7/traffic_learner.7")
+    self.uninstall("usr/share/man/man7/traffic_replay.7")
     # symlink cups backend
     self.install_dir("usr/lib/cups/backend")
     self.install_link("usr/lib/cups/backend/smb", "../../../bin/smbspool")

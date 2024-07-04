@@ -20,9 +20,9 @@ def post_install(self):
 
     # remove all the broken upstream junk
     # also TODO: write a manpage for new startx
-    self.rm(self.destdir / "usr/bin/startx")
-    self.rm(self.destdir / "usr/share/man/man1/startx.1")
-    self.rm(self.destdir / "etc/X11/xinit", recursive=True)
+    self.uninstall("usr/bin/startx")
+    self.uninstall("usr/share/man/man1/startx.1")
+    self.uninstall("etc/X11/xinit", recursive=True)
 
     self.install_file(self.files_path / "startx", "usr/bin", mode=0o755)
     self.install_file(self.files_path / "Xsession", "etc/X11", mode=0o755)

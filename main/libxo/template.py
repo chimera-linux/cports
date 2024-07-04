@@ -39,7 +39,7 @@ def post_install(self):
     self.install_license("Copyright")
 
     if self.stage == 0:
-        self.rm(self.destdir / "usr/lib/libxo", recursive=True)
+        self.uninstall("usr/lib/libxo")
 
 
 @subpackage("libxo-devel")

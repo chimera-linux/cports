@@ -43,7 +43,7 @@ def init_install(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/bin/accountstest")
+    self.uninstall("usr/bin/accountstest")
 
 
 @subpackage("libaccounts-qt-devel")

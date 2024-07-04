@@ -120,7 +120,7 @@ def post_extract(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/qt6/bin/testbrowser")
+    self.uninstall("usr/lib/qt6/bin/testbrowser")
 
 
 @subpackage("qt6-qtwebengine-devel")

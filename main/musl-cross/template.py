@@ -118,7 +118,7 @@ def do_install(self):
                 default_args=False,
                 wrksrc=self.chroot_cwd / f"build-{an}",
             )
-            self.rm(self.destdir / f"usr/{at}/lib")
+            self.uninstall(f"usr/{at}/lib")
 
 
 def _gen_crossp(an, at):

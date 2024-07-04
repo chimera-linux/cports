@@ -57,4 +57,4 @@ sha256 = "efdb17b60f531b13cb5222b293349050711a4636282ac3d586da98aa50564780"
 
 def post_install(self):
     # stray single static lib and nothing else (?)
-    self.rm(self.destdir / "usr/lib/libkdeconnectinterfaces.a")
+    self.uninstall("usr/lib/libkdeconnectinterfaces.a")

@@ -55,14 +55,14 @@ def pre_install(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/sbin", force=True)
+    self.uninstall("usr/sbin")
 
     # install sulogin which is noinst
     self.install_bin("src/sulogin")
     self.install_man("man/man8/sulogin.8")
 
     # do not install pam files supplied with shadow
-    self.rm(self.destdir / "etc/pam.d", recursive=True, force=True)
+    self.uninstall("etc/pam.d")
 
     # install our own pam files
     for f in ["chage", "chfn", "chsh", "login", "su", "passwd"]:
@@ -90,8 +90,8 @@ def post_install(self):
     )
 
     # chimerautils
-    self.rm(self.destdir / "usr/bin/groups")
-    self.rm(self.destdir / "usr/share/man/man1/groups.1")
+    self.uninstall("usr/bin/groups")
+    self.uninstall("usr/share/man/man1/groups.1")
     # links
     for mp in [
         "endspent",

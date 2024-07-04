@@ -91,15 +91,10 @@ def do_install(self):
     self.install_file(
         self.files_path / "PCSX2.desktop", "usr/share/applications"
     )
-    self.install_files("build/bin", "usr/lib")
-    self.mv(self.destdir / "usr/lib/bin", self.destdir / "usr/lib/PCSX2")
-
-    self.install_dir("usr/lib/PCSX2/resources")
+    self.install_files("build/bin", "usr/lib", name="PCSX2")
+    self.install_dir("usr/bin")
+    self.install_link("usr/bin/pcsx2", "../lib/PCSX2/pcsx2-qt")
     self.install_file("./patches.zip", "usr/lib/PCSX2/resources")
 
     # prune test exes since we copy bin/ wholesale
-    for f in (self.destdir / "usr/lib/PCSX2").glob("*test"):
-        f.unlink()
-
-    self.install_dir("usr/bin")
-    self.install_link("usr/bin/pcsx2", "../lib/PCSX2/pcsx2-qt")
+    self.uninstall("usr/lib/PCSX2/*test", glob=True)

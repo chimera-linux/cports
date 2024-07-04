@@ -66,11 +66,7 @@ def post_install(self):
                 ln = ln.replace(f"{self.profile().triplet}-", "")
                 outf.write(ln)
 
-    self.rm(self.destdir / "usr/bin/curl-config")
-    self.mv(
-        self.destdir / "usr/bin/curl-config.new",
-        self.destdir / "usr/bin/curl-config",
-    )
+    self.rename("usr/bin/curl-config.new", "curl-config")
     self.chmod(self.destdir / "usr/bin/curl-config", 0o755)
 
 

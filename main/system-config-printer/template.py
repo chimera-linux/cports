@@ -40,7 +40,6 @@ sha256 = "b1a69e1b4ec2add569a87aeca811a37c5361ee6ae327ec852b79e64223e34bee"
 
 
 def post_install(self):
-    self.mv(
-        self.destdir / "etc/dbus-1/system.d",
-        self.destdir / "usr/share/dbus-1/system.d",
+    self.rename(
+        "etc/dbus-1/system.d", "usr/share/dbus-1/system.d", relative=False
     )

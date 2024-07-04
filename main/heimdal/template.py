@@ -62,30 +62,22 @@ else:
 def post_install(self):
     self.install_license("LICENSE")
 
-    for f in (self.destdir / "usr/share/man").glob("cat*"):
-        self.rm(f, recursive=True)
-    for f in (self.destdir / "usr/lib").glob("windc*"):
-        self.rm(f)
+    self.uninstall("usr/share/man/cat*", glob=True)
+    self.uninstall("usr/lib/windc*", glob=True)
 
-    self.rm(self.destdir / "usr/bin/bsearch")
-    self.rm(self.destdir / "usr/bin/idn-lookup")
-    self.rm(self.destdir / "usr/share/man/man1/bsearch.1")
+    self.uninstall("usr/bin/bsearch")
+    self.uninstall("usr/bin/idn-lookup")
+    self.uninstall("usr/share/man/man1/bsearch.1")
 
-    self.mv(self.destdir / "usr/bin/su", self.destdir / "usr/bin/ksu")
-    self.mv(self.destdir / "usr/bin/pagsh", self.destdir / "usr/bin/kpagsh")
-    self.mv(
-        self.destdir / "usr/share/man/man1/su.1",
-        self.destdir / "usr/share/man/man1/ksu.1",
-    )
-    self.mv(
-        self.destdir / "usr/share/man/man1/pagsh.1",
-        self.destdir / "usr/share/man/man1/kpagsh.1",
-    )
+    self.rename("usr/bin/su", "ksu")
+    self.rename("usr/bin/pagsh", "kpagsh")
+    self.rename("usr/share/man/man1/su.1", "ksu.1")
+    self.rename("usr/share/man/man1/pagsh.1", "kpagsh.1")
 
     # hardlink resolution
-    self.rm(self.destdir / "usr/share/man/man8/ipropd-master.8")
-    self.rm(self.destdir / "usr/share/man/man8/ipropd-slave.8")
-    self.rm(self.destdir / "usr/share/man/man5/qop.5")
+    self.uninstall("usr/share/man/man8/ipropd-master.8")
+    self.uninstall("usr/share/man/man8/ipropd-slave.8")
+    self.uninstall("usr/share/man/man5/qop.5")
     self.install_link("usr/share/man/man8/ipropd-master.8", "iprop.8")
     self.install_link("usr/share/man/man8/ipropd-slave.8", "iprop.8")
     self.install_link("usr/share/man/man5/qop.5", "mech.5")

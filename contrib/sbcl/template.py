@@ -68,7 +68,7 @@ def do_install(self):
         env={"INSTALL_ROOT": str(self.chroot_destdir / "usr")},
     )
     # nuke that afterwards
-    self.rm(self.destdir / "usr/tlsf-bsd", recursive=True)
+    self.uninstall("usr/tlsf-bsd")
 
     self.install_license("COPYING")
-    self.rm(self.destdir / "usr/share/doc/sbcl/COPYING")
+    self.uninstall("usr/share/doc/sbcl/COPYING")

@@ -121,10 +121,11 @@ def post_install(self):
     from cbuild.util import python
 
     self.install_dir("usr/lib")
-    self.mv(
-        self.destdir / "usr/share/blender/4.*/python/lib/python*",
-        self.destdir / "usr/lib/",
+    self.rename(
+        "usr/share/blender/4.*/python/lib/python*",
+        "usr/lib",
         glob=True,
+        keep_name=True,
     )
 
     python.precompile(self, "usr/share/blender")

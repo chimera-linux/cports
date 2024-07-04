@@ -34,7 +34,7 @@ options = ["empty"]
 
 def post_install(self):
     # wipe the default symlink, user-chosen (curses is default)
-    self.rm(self.destdir / "usr/bin/pinentry")
+    self.uninstall("usr/bin/pinentry")
 
 
 def _frontend(name):

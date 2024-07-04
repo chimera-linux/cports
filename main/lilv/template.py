@@ -23,10 +23,10 @@ hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
-    self.install_dir("usr/share/bash-completion/completions")
-    self.mv(
-        self.destdir / "etc/bash_completion.d/lilv",
-        self.destdir / "usr/share/bash-completion/completions",
+    self.rename(
+        "etc/bash_completion.d/lilv",
+        "usr/share/bash-completion/completions/lilv",
+        relative=False,
     )
 
 

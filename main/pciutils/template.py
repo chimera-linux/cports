@@ -50,10 +50,10 @@ def do_install(self):
     # static lib
     self.install_file("libpci_a", "usr/lib", name="libpci.a")
     # provided by hwdata-pci
-    self.rm(self.destdir / "usr/share/hwdata", recursive=True)
+    self.uninstall("usr/share/hwdata")
     # we don't want to touch pci.ids
-    self.rm(self.destdir / "usr/bin/update-pciids")
-    self.rm(self.destdir / "usr/share/man/man8/update-pciids.8")
+    self.uninstall("usr/bin/update-pciids")
+    self.uninstall("usr/share/man/man8/update-pciids.8")
 
 
 @subpackage("pciutils-devel")

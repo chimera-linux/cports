@@ -28,8 +28,8 @@ hardening = ["!cfi"]  # TODO
 def post_install(self):
     self.install_license("LICENSE")
     for tool in ["zstdgrep", "zstdless"]:
-        self.rm(self.destdir / "usr/bin" / tool)
-        self.rm(self.destdir / f"usr/share/man/man1/{tool}.1")
+        self.uninstall(f"usr/bin/{tool}")
+        self.uninstall(f"usr/share/man/man1/{tool}.1")
 
 
 @subpackage("zstd-progs")

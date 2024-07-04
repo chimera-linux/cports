@@ -88,7 +88,7 @@ sha256 = "8e853a9c91c9029b9019cf5fdf2b5fea36d501d563e43254efc20e12c00557e8"
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/sysusers.d/libvirt-qemu.conf")
+    self.uninstall("usr/lib/sysusers.d/libvirt-qemu.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_sysusers(self.files_path / "sysusers.conf")
 

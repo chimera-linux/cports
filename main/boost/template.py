@@ -141,7 +141,7 @@ def do_install(self):
     for f in (self.destdir / "usr/share/b2").rglob("*.orig"):
         f.unlink()
 
-    self.rm(self.destdir / "usr/share/b2/src/engine/b2")
+    self.uninstall("usr/share/b2/src/engine/b2")
 
     self.install_dir("etc")
 

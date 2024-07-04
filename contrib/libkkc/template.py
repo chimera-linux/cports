@@ -41,16 +41,9 @@ options = ["!cross"]
 
 
 def post_install(self):
-    self.rm(
-        self.destdir / "usr/share/libkkc/templates/libkkc-data/configure.ac.in"
-    )
-    self.rm(
-        self.destdir / "usr/share/libkkc/templates/libkkc-data/data/Makefile.am"
-    )
-    self.rm(
-        self.destdir
-        / "usr/share/libkkc/templates/libkkc-data/tools/Makefile.am",
-    )
+    self.uninstall("usr/share/libkkc/templates/libkkc-data/configure.ac.in")
+    self.uninstall("usr/share/libkkc/templates/libkkc-data/data/Makefile.am")
+    self.uninstall("usr/share/libkkc/templates/libkkc-data/tools/Makefile.am")
 
 
 @subpackage("libkkc-devel")

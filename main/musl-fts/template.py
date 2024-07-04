@@ -17,7 +17,7 @@ options = ["bootstrap", "!check", "!lto"]
 def post_install(self):
     self.install_license("COPYING")
     # single fts.3, the same-named version in man-pages is 97% identical anyway
-    self.rm(self.destdir / "usr/share/man", recursive=True)
+    self.uninstall("usr/share/man")
 
 
 @subpackage("musl-fts-devel")

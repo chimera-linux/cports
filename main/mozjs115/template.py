@@ -119,12 +119,9 @@ def do_install(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/libjs_static.ajs")
+    self.uninstall("usr/lib/libjs_static.ajs")
     # it has correct soname but not the right file name
-    self.mv(
-        self.destdir / "usr/lib/libmozjs-115.so",
-        self.destdir / "usr/lib/libmozjs-115.so.0",
-    )
+    self.rename("usr/lib/libmozjs-115.so", "libmozjs-115.so.0")
     self.install_link("usr/lib/libmozjs-115.so", "libmozjs-115.so.0")
 
 

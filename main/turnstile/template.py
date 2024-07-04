@@ -26,7 +26,4 @@ def post_install(self):
     self.install_dir("usr/lib/dinit.d/boot.d")
     self.install_link("usr/lib/dinit.d/boot.d/turnstiled", "../turnstiled")
     # move pam.d stuff, FIXME in turnstile later
-    self.install_dir("usr/lib/pam.d")
-    self.mv(
-        self.destdir / "etc/pam.d/turnstiled", self.destdir / "usr/lib/pam.d"
-    )
+    self.mv("etc/pam.d", "usr/lib/pam.d", relative=False)

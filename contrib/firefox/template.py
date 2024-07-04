@@ -261,5 +261,5 @@ def do_install(self):
         )
 
     # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
-    self.rm(self.destdir / "usr/lib/firefox/firefox-bin")
+    self.uninstall("usr/lib/firefox/firefox-bin")
     self.install_link("usr/lib/firefox/firefox-bin", "firefox")
