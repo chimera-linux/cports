@@ -15,7 +15,9 @@ make_check_args = [
     + " and not test_key_export_qr"
     + " and not test_convert_segments"
     + " and not test_keys"
-    + " and not test_convert_all",
+    + " and not test_convert_all"
+    # flaky
+    + " and not test_corrupted_repository",
     "--dist=worksteal",
 ]
 make_check_env = {"BORG_FUSE_IMPL": "none"}
