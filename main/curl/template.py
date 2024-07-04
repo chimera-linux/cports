@@ -1,12 +1,14 @@
 pkgname = "curl"
 pkgver = "8.8.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimize",
+    "--enable-ares",
     "--enable-ipv6",
     "--enable-threaded-resolver",
     "--enable-threads",
+    "--enable-websockets",
     "--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt",
     "--with-fish-functions-dir=/usr/share/fish/vendor_completions.d",
     "--with-libidn2",
@@ -24,6 +26,7 @@ configure_args = [
 ]
 hostmakedepends = ["pkgconf", "perl", "mandoc"]
 makedepends = [
+    "c-ares-devel",
     "libidn2-devel",
     "libpsl-devel",
     "libssh2-devel",
