@@ -1,8 +1,8 @@
 pkgname = "luajit"
-pkgver = "2.1_p20231117"
-pkgrel = 1
+pkgver = "2.1_p20240626"
+pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "x86_64"]
-_tests_rev = "9ad3724b1a02855a3cad638bba2e564f825954ce"
+_tests_rev = "a3a5deb5d97d57fb4da567017a621ae73ee7305e"
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "amalg"
@@ -27,8 +27,8 @@ source_paths = [
     "test-suite",
 ]
 sha256 = [
-    "cc92968c57c00303eb9eaebf65cc8b29a0f851670f16bb514896ab5057ae381f",
-    "f87648d5392b0fa7a82107b84478d1011d12f82920b2757ca0029c9330c2fb3e",
+    "1e53822a1105df216b9657ccb0293a152ac5afd875abc848453bfa353ca8181b",
+    "b9862f002768dac55c8ab3d1ea21f3aa06d4075f6d022bb2eff76e82df264ffc",
 ]
 hardening = []
 # cba

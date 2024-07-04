@@ -28,24 +28,3 @@ Some of these won't run on targets where we don't have proper JIT
  end
 -
 +]]
---- a/test-suite/test/misc/iter-bug.lua
-+++ b/test-suite/test/misc/iter-bug.lua
-@@ -1,4 +1,5 @@
- -- from Mike Pall
--
-+--[[
- require "jit.opt".start("maxside=0")
- local t={1}; for i=1,100 do for k,v in pairs(t) do end end
-+]]
---- a/test-suite/test/misc/jit_record.lua
-+++ b/test-suite/test/misc/jit_record.lua
-@@ -1,3 +1,4 @@
-+--[[
- require "jit.opt".start("hotloop=2", "hotexit=1", "maxsnap=9")
- 
- local m = 1
-@@ -29,3 +30,4 @@ end
- bar()
- 
- print(m)
-+]]
