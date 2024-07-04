@@ -170,7 +170,7 @@ def post_install(self):
         "usr/share/pkgconfig/systemd.pc",
         "usr/share/polkit-1",
     ]:
-        self.uninstall(f)
+        self.uninstall(f, glob=True)
 
     for f in (self.destdir / "usr/lib/systemd").iterdir():
         # keep efi stubs
@@ -210,6 +210,7 @@ def post_install(self):
     self.install_file(
         self.files_path / "udevd.wrapper", "usr/libexec", mode=0o755
     )
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="udev")
     self.install_service(self.files_path / "udevd", enable=True)
     # systemd-boot
     if _have_sd_boot:
