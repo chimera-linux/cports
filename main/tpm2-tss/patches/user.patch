@@ -1,19 +1,20 @@
 --- a/dist/tmpfiles.d/tpm2-tss-fapi.conf.in
 +++ b/dist/tmpfiles.d/tpm2-tss-fapi.conf.in
 @@ -1,7 +1,7 @@
- #Type   Path                                           Mode User Group Age         Argument
+-#Type   Path                                           Mode User Group Age         Argument
 -d       @localstatedir@/lib/tpm2-tss/system/keystore   2775 tss  tss   -           -
 -a+      @localstatedir@/lib/tpm2-tss/system/keystore   -    -    -     -           default:group:tss:rwx
 -d       @runstatedir@/tpm2-tss/eventlog                2775 tss  tss   -           -
 -a+      @runstatedir@/tpm2-tss/eventlog                -    -    -     -           default:group:tss:rwx
--z	/sys/kernel/security/tpm[0-9]/binary_bios_measurements	0440  root tss	-	    -
--z	/sys/kernel/security/ima/binary_runtime_measurements	0440  root tss	-	    -
-+d       @localstatedir@/lib/tpm2-tss/system/keystore   2775 _tss _tss  -           -
-+a+      @localstatedir@/lib/tpm2-tss/system/keystore   -    -    -     -           default:group:_tss:rwx
-+d       @runstatedir@/tpm2-tss/eventlog                2775 _tss _tss  -           -
-+a+      @runstatedir@/tpm2-tss/eventlog                -    -    -     -           default:group:_tss:rwx
-+z	/sys/kernel/security/tpm[0-9]/binary_bios_measurements	0440  root _tss	-	    -
-+z	/sys/kernel/security/ima/binary_runtime_measurements	0440  root _tss	-	    -
+-z-	/sys/kernel/security/tpm[0-9]/binary_bios_measurements	0440  root tss	-	    -
+-z-	/sys/kernel/security/ima/binary_runtime_measurements	0440  root tss	-	    -
++# Type Path Mode User Group Age Argument
++d @localstatedir@/lib/tpm2-tss/system/keystore 2775 _tss _tss - -
++a+ @localstatedir@/lib/tpm2-tss/system/keystore - - - - default:group:_tss:rwx
++d @runstatedir@/tpm2-tss/eventlog 2775 _tss _tss - -
++a+ @runstatedir@/tpm2-tss/eventlog - - - - default:group:_tss:rwx
++z- /sys/kernel/security/tpm[0-9]/binary_bios_measurements 0440 root _tss - -
++z- /sys/kernel/security/ima/binary_runtime_measurements	0440 root _tss - -
 diff --git a/dist/tpm-udev.rules b/dist/tpm-udev.rules
 index d7745b4..f16badd 100644
 --- a/dist/tpm-udev.rules
