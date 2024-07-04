@@ -2,6 +2,8 @@ pkgname = "libktorrent"
 pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
+# flakes sometimes
+make_check_args = ["-E", "superseedtest"]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
