@@ -1,6 +1,6 @@
 pkgname = "qt6-qttools"
 pkgver = "6.7.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DQT_BUILD_TESTS=OFF",  # downloads gtest
@@ -40,13 +40,10 @@ hardening = ["!int"]
 # TODO
 options = ["!check"]
 
-# why?
-nopie_files = ["usr/lib/qt6/bin/lupdate", "usr/lib/qt6/bin/qdoc"]
-
 
 def post_install(self):
     # hardlink
-    self.rm(self.destdir / "usr/lib/qt6/bin/qtdiag")
+    self.uninstall("usr/lib/qt6/bin/qtdiag")
     self.install_link("usr/lib/qt6/bin/qtdiag", "qtdiag6")
 
     # link publicbindir utils to usr/bin, like qmake6
