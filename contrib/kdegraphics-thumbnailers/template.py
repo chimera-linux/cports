@@ -1,5 +1,5 @@
 pkgname = "kdegraphics-thumbnailers"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -23,4 +23,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdegraphics_thumbnailers"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdegraphics-thumbnailers-{pkgver}.tar.xz"
-sha256 = "7cd69cfc2fab59b5c61421c6648b3689aef1059c9df1dc546011d62f7c5ccbc0"
+sha256 = "2f5398ce129c26ab4e68c43ce15a5c7cb1465d608e6fb2e2b98490842270baf0"

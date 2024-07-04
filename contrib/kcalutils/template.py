@@ -1,5 +1,5 @@
 pkgname = "kcalutils"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 # doesn't find its own text template plugin
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/kdepim/kcalutils/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcalutils-{pkgver}.tar.xz"
-sha256 = "309d7298ded7160592076616c51273db7c1cd60ec7f954e596b46ddf8fc835f8"
+sha256 = "7803884fbc9f4bf64c9c1a9dad39a0a81aa05552df2876cfd7b8dac4e17e3ec2"
 
 
 @subpackage("kcalutils-devel")

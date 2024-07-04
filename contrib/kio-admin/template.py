@@ -1,5 +1,5 @@
 pkgname = "kio-admin"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -21,6 +21,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/system/kio-admin"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-admin-{pkgver}.tar.xz"
-sha256 = "4aead84eeded90cad050fb664148c64ce084f39332905b5df5da1a51df359e18"
+sha256 = "51640fd2322406d05c474c43a8cadf0efb85e0a5b22d16a537f24fdd683da994"
 # CFI: check
 hardening = ["vis", "!cfi"]

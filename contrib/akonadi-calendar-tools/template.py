@@ -1,5 +1,5 @@
 pkgname = "akonadi-calendar-tools"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -23,4 +23,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/pim/akonadi-calendar-tools"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-calendar-tools-{pkgver}.tar.xz"
-sha256 = "69becb8528060deb9605e5c08b88062b18083342e4f58438ca282a3be1787e80"
+sha256 = "63480e063b6d18b9bfad2d97d9b8ca4f4760779a9cf2b40e27ef25dbcdfd54ee"

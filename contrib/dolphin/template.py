@@ -1,5 +1,5 @@
 pkgname = "dolphin"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -50,7 +50,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/dolphin"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/dolphin-{pkgver}.tar.xz"
-sha256 = "aafc4fba0a03c9af397f878b0cbc0ec23c6ebd08cfb9cddcbf6bd23ca806bab8"
+sha256 = "5f850a4fd7f463f93e05c1b162be55f7d4360cca2189b446fa296ceef35f3567"
 # fixes copy/pasting file segfault in kio_file.so (KIO::WorkerThread) https://bugs.kde.org/show_bug.cgi?id=470763
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # FIXME: cfi breaks at least dolphinmainwindowtest in libdolphinprivate

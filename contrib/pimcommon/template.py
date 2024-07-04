@@ -1,5 +1,5 @@
 pkgname = "pimcommon"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -44,7 +44,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-3.0-only"
 url = "https://api.kde.org/kdepim/pimcommon/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/pimcommon-{pkgver}.tar.xz"
-sha256 = "f2d4924b4ca34bfe4b6baf432bfe2ccf3d3a2a83fdfd0df1922949acf9a7acc5"
+sha256 = "d0bf4de3756033bb0eecc0db57385585b54f2b366da8a44e4a69b416fa54ff4c"
 
 
 @subpackage("pimcommon-devel")

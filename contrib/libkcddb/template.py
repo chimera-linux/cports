@@ -1,5 +1,5 @@
 pkgname = "libkcddb"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -27,7 +27,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://api.kde.org/libkcddb/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkcddb-{pkgver}.tar.xz"
-sha256 = "71b72b19b70f428980c7e3487a9e94e67d4537eba56834e9a2c0a0f07b4e2aff"
+sha256 = "36310f6401524c3f247fcb62e5a5996ae4363ec05a52905524ccca511d83532c"
 
 
 @subpackage("libkcddb-devel")

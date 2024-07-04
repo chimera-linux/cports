@@ -1,5 +1,5 @@
 pkgname = "kasts"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -29,4 +29,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kasts"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kasts-{pkgver}.tar.xz"
-sha256 = "6029595e573300e83f82acbf782166de989687db1a879a894f7d5b705955aa18"
+sha256 = "41c935e6196ea0fe4e7dcb08abbfc4dfe3cdb323962f8205a73f9fecda41f6c3"

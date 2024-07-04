@@ -1,5 +1,5 @@
 pkgname = "kpmcore"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -25,7 +25,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpmcore-{pkgver}.tar.xz"
-sha256 = "5da46934f79f2b5e17dc498d4f07e95ff303b625862edf4d93ea2bc2a8abd198"
+sha256 = "8e8646bfe990834acbbe56149015aaecd3099cc2e9115ac7426a2d88747735db"
 hardening = ["vis", "!cfi"]
 
 

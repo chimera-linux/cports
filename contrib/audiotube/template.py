@@ -1,5 +1,5 @@
 pkgname = "audiotube"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 _deps = [
@@ -35,6 +35,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/audiotube"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/audiotube-{pkgver}.tar.xz"
-sha256 = "6ea7b8a5bf52ce99b1b3da983ab92cfa7222d2d1cc9f1dd343ce0d03c7eccf6a"
+sha256 = "5a2bb1e9726f41957a628f08a364f04122c1d81b7bb8d28fe790ee4f1f3d3c44"
 # only test needs net
 options = ["!check"]

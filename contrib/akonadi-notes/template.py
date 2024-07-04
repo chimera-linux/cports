@@ -1,5 +1,5 @@
 pkgname = "akonadi-notes"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ url = "https://api.kde.org/kdepim/akonadi-notes/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-notes-{pkgver}.tar.xz"
 )
-sha256 = "a8e01508fd1ecc88cffdb37fdd3f0d3fca90e8b31c18703aaad774a3e2ae4f1f"
+sha256 = "aaf37d4a840a4a3a25e955eb7b60e650d2b7f2ab30bf77c48774744de5b26131"
 
 
 @subpackage("akonadi-notes-devel")

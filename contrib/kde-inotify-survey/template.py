@@ -1,5 +1,5 @@
 pkgname = "kde-inotify-survey"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,7 +24,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/system/kde-inotify-survey"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kde-inotify-survey-{pkgver}.tar.xz"
-sha256 = "f5a09d8ee03a0b5123eed19803bce4f9e1b98c3a0e079031209ee02633b32c82"
+sha256 = "d185ae82e31764617b209686169185d52e3c2b51e85f43643a922cccb862ec20"
 # CFI: check
 hardening = ["vis", "!cfi"]
 # TODO

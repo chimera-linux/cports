@@ -1,6 +1,6 @@
 pkgname = "kitinerary"
-pkgver = "24.05.1"
-pkgrel = 2
+pkgver = "24.05.2"
+pkgrel = 0
 build_style = "cmake"
 # difference in AT/österreich key
 make_check_args = ["-E", "extractortest"]
@@ -31,7 +31,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kitinerary/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kitinerary-{pkgver}.tar.xz"
-sha256 = "e1c77f0a8e826fd95f001a6d8fc941906d3e0aad98c2876c77c5e3ba7462d0e6"
+sha256 = "519a3abcf16d2f56fd2a21f14c8c77d39420196454badf608abeaa600b6aedb0"
 
 
 @subpackage("kitinerary-devel")

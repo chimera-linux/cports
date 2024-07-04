@@ -1,5 +1,5 @@
 pkgname = "kmime"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 # fails on ppc64le with wrong encoding
@@ -21,7 +21,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kmime/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kmime-{pkgver}.tar.xz"
-sha256 = "f0138e11d9e8a9de8e9d57081a1fb4b43676e08bc4c3389740b31e9a00c91efa"
+sha256 = "d82f38dcf97c6491c6b7367db8b18a65acb594d7eb752543dc23c65d4abab6a5"
 
 
 @subpackage("kmime-devel")

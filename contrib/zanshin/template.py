@@ -1,5 +1,5 @@
 pkgname = "zanshin"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -37,4 +37,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://zanshin.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/zanshin-{pkgver}.tar.xz"
-sha256 = "5059e09e3059d8c60ac8d8e9a8e24f798a245e86fd085699d11ccbe95f08dabf"
+sha256 = "97a25eadac865122dd0032cb3c1b282da935fa0d679391506482d175232b5960"

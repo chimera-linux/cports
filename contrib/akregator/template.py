@@ -1,5 +1,5 @@
 pkgname = "akregator"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -38,6 +38,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/akregator"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akregator-{pkgver}.tar.xz"
-sha256 = "3f09a17c3bb79ed19e21c628900786bd3eab73f482199a2dd09c865de83c8244"
+sha256 = "381cfb63e76b4e9f8ab8714d789280e005d7a3a6e0267158e0a9df13cc60d41d"
 # INT: probably a shift overflow in remap.cpp:CalcHash
 hardening = ["!int"]

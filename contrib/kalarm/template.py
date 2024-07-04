@@ -1,5 +1,5 @@
 pkgname = "kalarm"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -53,4 +53,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/kalarm"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kalarm-{pkgver}.tar.xz"
-sha256 = "f74cd65dc8cb5e56265fc6a5696ec4b562f4cb6453c60e26bc0fedd4ad0c95f3"
+sha256 = "20d1d17575d7bcd58821199aa577ec6bead940e8da25d02a529b0818a67c6102"

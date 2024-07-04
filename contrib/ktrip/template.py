@@ -1,5 +1,5 @@
 pkgname = "ktrip"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,4 +24,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ktrip"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ktrip-{pkgver}.tar.xz"
-sha256 = "4fe89426f5a261b2fc33de30adbc0a5405321b13e5e1d644a034aa772ac49b37"
+sha256 = "4e87115b3ad5255aef5ecaa43f49f743268dcbe298e4e899b139c36a50c0d3c2"

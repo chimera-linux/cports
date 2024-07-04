@@ -1,5 +1,5 @@
 pkgname = "knotes"
-pkgver = "24.05.1"
+pkgver = "24.05.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -51,4 +51,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(LGPL-2.1-only OR LGPL-3.0-only) AND GPL-2.0-or-later"
 url = "https://apps.kde.org/knotes"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/knotes-{pkgver}.tar.xz"
-sha256 = "cafdc8de22088a46fe11e4ef86208595fb89c199c9000c16be4ab4ddae4dff34"
+sha256 = "4e6da68e1ccfd5a2fcaf038a6438bef7b671446b05a3e739787b63689016d592"
