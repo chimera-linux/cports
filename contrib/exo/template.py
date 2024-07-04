@@ -27,5 +27,5 @@ sha256 = "4f2c61d045a888cdb64297fd0ae20cc23da9b97ffb82562ed12806ed21da7d55"
 
 
 @subpackage("exo-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

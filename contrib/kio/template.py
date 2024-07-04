@@ -61,7 +61,6 @@ options = ["!check"]
 
 @subpackage("kio-devel")
 def _devel(self):
-    self.pkgdesc = f"{pkgdesc} (development files)"
     self.depends += [
         "kbookmarks-devel",
         "kcompletion-devel",
@@ -74,10 +73,4 @@ def _devel(self):
         "solid-devel",
     ]
 
-    # libkuriikwsfiltereng_private.so unversined, avoid kio pulling in kio-devel
-    return [
-        "usr/include",
-        "usr/lib/libKF6KIO*.so",
-        "usr/lib/cmake",
-        "usr/lib/qt6/plugins/designer",
-    ]
+    return self.default_devel()

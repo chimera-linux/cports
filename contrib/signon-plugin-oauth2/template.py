@@ -49,6 +49,5 @@ def post_install(self):
 
 @subpackage("signon-plugin-oauth2-devel")
 def _devel(self):
-    self.pkgdesc = f"{pkgdesc} (development files)"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
-    return ["usr/include", "usr/lib/pkgconfig"]
+    return self.default_devel()

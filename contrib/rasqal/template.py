@@ -14,5 +14,5 @@ sha256 = "6924c9ac6570bd241a9669f83b467c728a322470bf34f4b2da4f69492ccfd97c"
 
 
 @subpackage("rasqal-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

@@ -52,6 +52,5 @@ def _libs(self):
 
 @subpackage("wasmtime-devel")
 def _devel(self):
-    self.pkgdesc = f"{pkgdesc} (development files)"
     self.depends = [f"wasmtime-libs={pkgver}-r{pkgrel}"]
-    return ["usr/include", "usr/lib/libwasmtime.a"]
+    return self.default_devel()

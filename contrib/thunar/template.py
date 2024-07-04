@@ -42,5 +42,5 @@ def post_install(self):
 
 
 @subpackage("thunar-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

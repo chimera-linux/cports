@@ -367,15 +367,7 @@ def _ctdb(self):
 
 @subpackage("samba-devel")
 def _devel(self):
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/pkgconfig")
-        # prevent private libraries from being moved
-        for f in (self.parent.destdir / "usr/lib").glob("*.so"):
-            if f.is_symlink():
-                self.take(f"usr/lib/{f.name}")
-
-    return install
+    return self.default_devel()
 
 
 @subpackage("samba-python")

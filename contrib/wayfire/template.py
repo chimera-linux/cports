@@ -44,10 +44,4 @@ def post_install(self):
 
 @subpackage("wayfire-devel")
 def _devel(self):
-    # libwayfire-blur-base.so should remain in main package
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/libwf-utils.so",
-        "usr/lib/pkgconfig",
-    ]
+    return self.default_devel()

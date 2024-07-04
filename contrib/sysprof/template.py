@@ -44,10 +44,4 @@ def post_install(self):
 
 @subpackage("sysprof-devel")
 def _devel(self):
-    self.pkgdesc = f"{pkgdesc} (development files)"
-    return [
-        "usr/include",
-        "usr/lib/pkgconfig",
-        "usr/lib/libsysprof-6.so",
-        "usr/lib/*.a",
-    ]
+    return self.default_devel()

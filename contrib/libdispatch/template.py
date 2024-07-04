@@ -24,6 +24,5 @@ hardening = ["vis"]
 
 @subpackage("libdispatch-devel")
 def _devel(self):
-    # .so libs are unversioned but abi stable
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
-    return ["usr/include"]
+    return self.default_devel()

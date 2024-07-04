@@ -1,6 +1,6 @@
 pkgname = "tcl"
 pkgver = "8.6.14"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "unix"
 build_style = "gnu_configure"
 configure_args = [
@@ -41,10 +41,4 @@ def post_install(self):
 def _devel(self):
     self.depends += [f"tcl={pkgver}-r{pkgrel}"]
     self.options = ["!splitstatic"]
-    return [
-        "usr/lib/tclConfig.sh",
-        "usr/include",
-        "usr/lib/pkgconfig",
-        "usr/share/man/man3",
-        "usr/lib/*.a",
-    ]
+    return self.default_devel(extra=["usr/lib/*.sh"])

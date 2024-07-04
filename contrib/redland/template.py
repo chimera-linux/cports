@@ -41,5 +41,5 @@ def _sqlite(self):
 
 
 @subpackage("redland-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

@@ -18,5 +18,5 @@ def _libs(self):
 
 
 @subpackage("unixodbc-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

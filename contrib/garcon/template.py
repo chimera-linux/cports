@@ -32,5 +32,5 @@ options = ["!cross"]
 
 
 @subpackage("garcon-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

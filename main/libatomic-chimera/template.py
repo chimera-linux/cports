@@ -12,5 +12,5 @@ options = ["bootstrap", "!lto"]
 
 
 @subpackage("libatomic-chimera-devel")
-def _rldevel(self):
+def _devel(self):
     return self.default_devel()

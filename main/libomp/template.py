@@ -49,6 +49,7 @@ def _devel_static(self):
 def _devel(self):
     self.depends = [f"libomp-devel-static={pkgver}-r{pkgrel}"]
 
+    # keep libomptarget symlinks in main
     return [
         "usr/include",
         "usr/lib/libomp.so",

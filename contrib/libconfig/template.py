@@ -21,5 +21,5 @@ sha256 = "68757e37c567fd026330c8a8449aa5f9cac08a642f213f2687186b903bd7e94e"
 
 
 @subpackage("libconfig-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

@@ -27,5 +27,5 @@ options = ["!cross"]
 
 
 @subpackage("libxfce4util-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

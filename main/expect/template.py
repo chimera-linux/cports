@@ -26,7 +26,4 @@ def post_install(self):
 def _devel(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
-    return [
-        "usr/include",
-        "usr/share/man/man3",
-    ]
+    return self.default_devel()

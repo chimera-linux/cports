@@ -46,7 +46,6 @@ def _libmagic(self):
 
 @subpackage("librtmp-devel")
 def _devel(self):
-    self.pkgdesc = f"{pkgdesc} (development files)"
     self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()

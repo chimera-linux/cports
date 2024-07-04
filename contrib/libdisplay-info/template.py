@@ -23,5 +23,5 @@ def post_install(self):
 
 
 @subpackage("libdisplay-info-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

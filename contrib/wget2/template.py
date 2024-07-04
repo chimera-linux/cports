@@ -52,5 +52,5 @@ def _lib(self):
 
 
 @subpackage("libwget-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()

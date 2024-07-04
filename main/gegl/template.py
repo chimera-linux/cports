@@ -49,12 +49,4 @@ hardening = ["!int"]
 
 @subpackage("gegl-devel")
 def _devel(self):
-    # some .so's should remain in main package
-    return [
-        "usr/include/gegl-0.4",
-        "usr/lib/libgegl-0.4.so",
-        "usr/lib/*.a",
-        "usr/lib/pkgconfig",
-        "usr/share/gir-1.0",
-        "usr/share/vala/vapi",
-    ]
+    return self.default_devel()

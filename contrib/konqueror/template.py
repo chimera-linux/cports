@@ -56,9 +56,4 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("konqueror-devel")
 def _devel(self):
-    return [
-        "usr/include",
-        "usr/lib/cmake",
-        "usr/lib/libKF6Konq.so",
-        "usr/lib/libkonqsidebarplugin.so",
-    ]
+    return self.default_devel()

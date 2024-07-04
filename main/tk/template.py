@@ -45,12 +45,9 @@ def post_install(self):
 @subpackage("tk-devel")
 def _devel(self):
     self.options = ["!splitstatic"]
-
-    return [
-        "usr/lib/tkConfig.sh",
-        "usr/include",
-        "usr/lib/pkgconfig",
-        "usr/share/man/man3",
-        "usr/share/man/mann",
-        "usr/lib/*.a",
-    ]
+    return self.default_devel(
+        extra=[
+            "usr/lib/tkConfig.sh",
+            "usr/share/man/mann",
+        ]
+    )

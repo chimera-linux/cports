@@ -146,22 +146,4 @@ def post_install(self):
 
 @subpackage("plasma-workspace-devel")
 def _devel(self):
-    self.pkgdesc = f"{pkgdesc} (development files)"
-    self.depends += [
-        "kitemmodels-devel",
-        "libplasma-devel",
-        "qt6-qtbase-devel",
-        "qt6-qtdeclarative-devel",
-    ]
-    # libkrdb.so unversined, avoid plasma-workspace pulling in plasma-workspace-devel
-    return [
-        "usr/include",
-        "usr/lib/libcolorcorrect.so",
-        "usr/lib/libkfontinst*.so",
-        "usr/lib/libkmpris.so",
-        "usr/lib/libkworkspace6.so",
-        "usr/lib/libnotificationmanager.so",
-        "usr/lib/libtaskmanager.so",
-        "usr/lib/libweather_ion.so",
-        "usr/lib/cmake",
-    ]
+    return self.default_devel()

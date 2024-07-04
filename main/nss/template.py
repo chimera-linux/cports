@@ -107,11 +107,4 @@ def do_install(self):
 @subpackage("nss-devel")
 def _devel(self):
     self.depends += [f"nss={pkgver}-r{pkgrel}"]
-
-    # .so belong to main package
-    return [
-        "usr/bin/nss-config",
-        "usr/lib/pkgconfig",
-        "usr/include",
-        "usr/lib/*.a",
-    ]
+    return self.default_devel()

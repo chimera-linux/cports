@@ -22,9 +22,4 @@ def post_install(self):
 @subpackage("ijs-devel")
 def _devel(self):
     # can't use default_devel, soname versioning is weird for this one
-    return [
-        "usr/include",
-        "usr/lib/libijs.so",
-        "usr/lib/libijs.a",
-        "usr/lib/pkgconfig",
-    ]
+    return self.default_devel()

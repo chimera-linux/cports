@@ -1,6 +1,6 @@
 pkgname = "imhex"
 pkgver = "1.35.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DIMHEX_BUNDLE_DOTNET=OFF",
@@ -58,6 +58,10 @@ sha256 = [
 ]
 
 
+def post_install(self):
+    self.uninstall("usr/bin/imhex-updater")
+
+
 @subpackage("imhex-devel")
 def _devel(self):
-    return ["usr/share/imhex/sdk"]
+    return self.default_devel(extra=["usr/share/imhex/sdk"])

@@ -41,14 +41,7 @@ def post_install(self):
 @subpackage("nspr-devel")
 def _devel(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    # can't use default_devel, .so is not a symlink
-    return [
-        "usr/include",
-        "usr/lib/pkgconfig",
-        "usr/share/aclocal",
-        "usr/lib/*.a",
-    ]
+    return self.default_devel()
 
 
 configure_gen = []

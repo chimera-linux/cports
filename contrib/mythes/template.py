@@ -18,5 +18,5 @@ def post_extract(self):
 
 
 @subpackage("mythes-devel")
-def _dev(self):
+def _devel(self):
     return self.default_devel()
