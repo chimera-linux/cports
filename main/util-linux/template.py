@@ -1,5 +1,5 @@
 pkgname = "util-linux"
-pkgver = "2.40.1"
+pkgver = "2.40.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -66,7 +66,7 @@ url = "https://www.kernel.org/pub/linux/utils/util-linux"
 source = (
     f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "59e676aa53ccb44b6c39f0ffe01a8fa274891c91bef1474752fad92461def24f"
+sha256 = "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3"
 tool_flags = {"CFLAGS": ["-D_DIRENT_HAVE_D_TYPE"]}
 # checkdepends are missing
 options = ["!check"]

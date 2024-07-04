@@ -1,8 +1,0 @@
---- a/libmount/python/meson.build
-+++ b/libmount/python/meson.build
-@@ -1,4 +1,4 @@
--build_python = python.found()
-+build_python = get_option('build-python').enabled()
- 
- pylibmount_sources = '''
-   pylibmount.c
