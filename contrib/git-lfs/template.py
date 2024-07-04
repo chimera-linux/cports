@@ -1,6 +1,6 @@
 pkgname = "git-lfs"
 pkgver = "3.5.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_dir = "bin"  # needed for tests
 make_build_args = [
@@ -25,7 +25,7 @@ def post_build(self):
             "-bmanpage",
             "-Dman",
             "-a",
-            "mansource={pkgname} {pkgver}",
+            f"mansource={pkgname} {pkgver}",
             file,
         )
 
