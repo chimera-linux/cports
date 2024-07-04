@@ -1,7 +1,7 @@
 pkgname = "pinentry"
 # Keep pkgver in sync with contrib/pinentry-qt
-pkgver = "1.3.0"
-pkgrel = 3
+pkgver = "1.3.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-tty",
@@ -28,7 +28,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "9b3cd5226e7597f2fded399a3bc659923351536559e9db0826981bca316494de"
+sha256 = "bc72ee27c7239007ab1896c3c2fae53b076e2c9bd2483dc2769a16902bce8c04"
 options = ["empty"]
 
 
