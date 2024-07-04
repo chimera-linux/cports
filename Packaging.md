@@ -3095,6 +3095,15 @@ Wipes the `path` (which must be a relative string) from the destination
 directory. The path must match some files or directories. It can optionally
 be globbed.
 
+##### def rename(self, src, dest, relative = True)
+
+Renames the `src` path (which must be a relative string) in the destination
+directory to `dest`. The `dest` can be a relative path too. When `relative`
+is true, something like `self.rename("foo/bar", "baz")` will make a `foo/baz`
+while `self.rename("foo/bar", "bar/baz")` will make `foo/bar/baz`. When
+it's false, the `dest` is treated as a separate new path within `destdir`,
+so `self.rename("foo/bar", "bar/baz")` will make a `bar/baz`.
+
 <a id="class_subpackage"></a>
 #### Subpackage Class
 

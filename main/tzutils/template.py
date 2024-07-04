@@ -32,10 +32,7 @@ def post_install(self):
     # don't care
     self.uninstall("usr/share/zoneinfo-posix")
     # this will be split
-    self.mv(
-        self.destdir / "usr/share/zoneinfo-leaps",
-        self.destdir / "usr/share/zoneinfo/right",
-    )
+    self.rename("usr/share/zoneinfo-leaps", "zoneinfo/right")
     # tmpfiles
     self.install_tmpfiles(self.files_path / "tzdata.conf", name="tzdata")
     # used by some software, e.g. hare's standard library
