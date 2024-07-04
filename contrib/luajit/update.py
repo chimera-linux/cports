@@ -1,4 +1,4 @@
-pattern = r"v2.1-\d+"
+pattern = r"v(2.1-\d+)"
 
 
 def fetch_versions(self, src):
