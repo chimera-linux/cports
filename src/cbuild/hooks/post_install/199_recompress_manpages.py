@@ -28,14 +28,16 @@ def invoke(pkg):
         f.with_suffix(f"{f.suffix}.gz").symlink_to(f"{linktgt}.gz")
     # and then files
     for f in files:
-        cf = pkg.chroot_destdir / f.relative_to(pkg.destdir)
+        rp = f.relative_to(pkg.destdir)
+        # keep to avoid tripping the hardlink detector
         chroot.enter(
             "gzip",
-            "-9n",
-            cf,
+            "-9nk",
+            pkg.chroot_destdir / rp,
             check=True,
             ro_root=True,
             ro_build=True,
             ro_dest=False,
             unshare_all=True,
         )
+        (pkg.destdir / rp).unlink()
