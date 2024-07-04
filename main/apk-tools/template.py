@@ -1,14 +1,20 @@
 pkgname = "apk-tools"
-pkgver = "3.0.0_pre5"
-pkgrel = 1
-_gitrev = "35b0e71ec58b9e2d917c72be0031b95b5eb81942"
+pkgver = "3.0.0_pre6"
+pkgrel = 0
+_gitrev = "6052bfef57a81d82451b4cad86f78a2d01959767"
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
-hostmakedepends = ["pkgconf", "meson", "lua5.4", "lua5.4-zlib", "scdoc"]
+hostmakedepends = [
+    "pkgconf",
+    "meson",
+    "lua5.4",
+    "lua5.4-zlib",
+    "scdoc",
+]
 makedepends = [
-    "openssl-devel-static",
     "libatomic-chimera-devel-static",
     "libunwind-devel-static",
+    "openssl-devel-static",
     "zlib-ng-compat-devel-static",
 ]
 pkgdesc = "Alpine package manager"
@@ -16,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"https://gitlab.alpinelinux.org/alpine/{pkgname}/-/archive/{_gitrev}.tar.gz"
-sha256 = "e93a36d4a1d9ac8619b28af723cd64b563412111bd6ff8a1d0c971168fadd43c"
+sha256 = "252876eb71fa891195ec53d17ca8b0585a753a152e3f96f10147b3a68a010a9b"
 compression = "deflate"
 options = ["bootstrap"]
 
