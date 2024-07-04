@@ -381,7 +381,6 @@ def do_install(self):
 
 # remove unused junk
 def post_install(self):
-    dp = self.destdir / "usr/lib/firmware"
     # deprecated driver
     self.uninstall("usr/lib/firmware/av7110")
     # pcmcia stuff unlikely to ever be used
