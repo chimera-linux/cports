@@ -12,10 +12,11 @@ configure_args = [
 # collectionschedulertest: flaky
 # sqlite: all hang (?)
 # mysql: needs running mysql
-# last 5: random abort
 make_check_args = [
     "-E",
-    "(collectionschedulertest|entitytreemodeltest|mimetypecheckertest|.*sqlite.*|.*mysql.*|handlertest|partstreamertest|relationhandlertest|dbtypetest|parttypehelpertest)",
+    "(entitytreemodeltest|mimetypecheckertest|.*sqlite.*|.*mysql.*)",
+    # flaky
+    "-j1",
 ]
 make_check_wrapper = [
     "dbus-run-session",
