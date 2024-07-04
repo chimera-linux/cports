@@ -1,0 +1,12 @@
+diff --git a/internal/cmd/applycmd_test.go b/internal/cmd/applycmd_test.go
+index bf0610119..5a3717bd2 100644
+--- a/internal/cmd/applycmd_test.go
++++ b/internal/cmd/applycmd_test.go
+@@ -236,6 +236,7 @@ func TestIssue2132(t *testing.T) {
+ }
+ 
+ func TestIssue2597(t *testing.T) {
++	t.Skip("needs network")
+ 	chezmoitest.WithTestFS(t, map[string]any{
+ 		"/home/user": map[string]any{
+ 			".local/share/chezmoi": map[string]any{
