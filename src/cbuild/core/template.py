@@ -1526,7 +1526,7 @@ class Template(Package):
         for dst in dests:
             self.rm(dst, recursive=True, force=True)
 
-    def rename(self, src, dest, relative=True):
+    def rename(self, src, dest, relative=True, glob=False, keep_name=False):
         if src.startswith("/"):
             raise errors.TracebackException(
                 f"uninstall: path '{src}' must not be absolute"
@@ -1535,13 +1535,23 @@ class Template(Package):
             raise errors.TracebackException(
                 f"uninstall: path '{dest}' must not be absolute"
             )
-        src = self.destdir / src
+        if glob:
+            tsrc = list(self.destdir.glob(src))
+            if len(tsrc) != 1:
+                self.error(f"rename glob '{src}' must match one result")
+            src = tsrc[0]
+        else:
+            src = self.destdir / src
         if relative:
             dest = (src.resolve(True).parent / dest).resolve()
         else:
             dest = (self.destdir / dest).resolve()
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        src.rename(dest)
+        if keep_name:
+            dest.mkdir(parents=True, exist_ok=True)
+            src.rename(dest / src.name)
+        else:
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            src.rename(dest)
 
     def install_files(self, path, dest, symlinks=True, name=None):
         path = _subst_path(self, path)
