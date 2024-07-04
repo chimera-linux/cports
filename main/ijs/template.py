@@ -21,5 +21,4 @@ def post_install(self):
 
 @subpackage("ijs-devel")
 def _devel(self):
-    # can't use default_devel, soname versioning is weird for this one
     return self.default_devel()
