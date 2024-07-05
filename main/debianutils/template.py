@@ -1,12 +1,12 @@
 pkgname = "debianutils"
-pkgver = "5.19"
+pkgver = "5.20"
 pkgrel = 0
 pkgdesc = "Miscellaneous utilities from Debian"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/debianutils"
 source = f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.tar.xz"
-sha256 = "1f5552d3f7ecc811a37ba3a70a446bd988fdce64813a475f4038646d126b2019"
+sha256 = "dce8731adee52d1620d562c1d98b8f4177b4ae591b7a17091ffe09700dbd4be8"
 compression = "deflate"
 hardening = ["vis", "cfi"]
 
