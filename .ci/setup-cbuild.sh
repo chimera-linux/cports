@@ -2,7 +2,7 @@
 
 set -e
 
-APK_VER="3.0.0_pre5-r0"
+APK_VER="3.0.0_pre6-r0"
 APK_URL="https://repo.chimera-linux.org/apk"
 APK_ARCH=$(uname -m)
 APK_FILE="apk-${APK_ARCH}-${APK_VER}.static"
