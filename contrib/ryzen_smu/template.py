@@ -1,7 +1,7 @@
 # remember to update files/ckms.ini
 pkgname = "ryzen_smu"
 pkgver = "0.1.5"
-pkgrel = 1
+pkgrel = 2
 # only for ryzen cpus
 archs = ["x86_64"]
 build_style = "makefile"
