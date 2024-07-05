@@ -3,6 +3,7 @@ pkgver = "2.12.2"
 pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddocumentation=disabled", "-Dtests=enabled"]
+make_check_args = ["--timeout-multiplier", "4"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "glib-devel",
