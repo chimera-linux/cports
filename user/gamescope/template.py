@@ -1,6 +1,6 @@
 pkgname = "gamescope"
-pkgver = "3.14.22"
-pkgrel = 2
+pkgver = "3.14.23"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=static",
@@ -11,7 +11,7 @@ configure_args = [
     "-Drt_cap=enabled",
     "-Dsdl2_backend=enabled",
 ]
-make_install_args = ["--skip-subprojects", "libliftoff,vkroots,wlroots"]
+make_install_args = ["--skip-subprojects", "libliftoff,openvr,vkroots,wlroots"]
 hostmakedepends = [
     "cmake",
     "glslang-progs",
@@ -71,7 +71,7 @@ source_paths = [
     "src/reshade",
 ]
 sha256 = [
-    "6e5494773dfe4fbb758b66f58314f317fdb4fee2ca9f1a51b43bb088b26c4342",
+    "d384641fdea5941f5e91658f8dfb54e1913232300efde66764199549f6fa3af2",
     "c1913dbd1f3218b113ca7921d8cf9a1c1ddd28b432452c236cdd027dfbd7a95b",
     "37b77586e91f7ebee70380dcddd73bf01ae4acef1053e6be41d0485ede022422",
     "f3f91b679114e565d94e87cd0c4c61444e48d7ef8a77cd101ef3081fd87f4726",
