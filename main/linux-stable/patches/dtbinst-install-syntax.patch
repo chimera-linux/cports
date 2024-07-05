@@ -11,14 +11,14 @@ diff --git a/scripts/Makefile.dtbinst b/scripts/Makefile.dtbinst
 index 190d781..a550643 100644
 --- a/scripts/Makefile.dtbinst
 +++ b/scripts/Makefile.dtbinst
-@@ -24,7 +24,7 @@ __dtbs_install: $(dtbs) $(subdirs)
- 	@:
+@@ -17,7 +17,7 @@
+ dst := $(INSTALL_DTBS_PATH)
  
  quiet_cmd_dtb_install = INSTALL $@
--      cmd_dtb_install = install -D $< $@
-+      cmd_dtb_install = install -d `dirname "$@"`; install $< $@
+-      cmd_dtb_install = install -D -m 0644 $< $@
++      cmd_dtb_install = install -d `dirname "$@"`; install -m 0644 $< $@
  
- $(dst)/%.dtb: $(obj)/%.dtb
+ $(dst)/%: $(obj)/%
  	$(call cmd,dtb_install)
 -- 
 2.34.1
