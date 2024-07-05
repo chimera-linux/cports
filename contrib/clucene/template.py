@@ -1,6 +1,6 @@
 pkgname = "clucene"
 pkgver = "2.3.3.4"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = [
     "-DENABLE_ASCII_MODE=OFF",
@@ -30,6 +30,10 @@ def post_check(self):
     self.do("./cl_test", wrksrc="build/bin", env={"TMP": "../tmp"})
 
 
+def post_install(self):
+    self.uninstall("usr/lib/CLuceneConfig.cmake")
+
+
 @subpackage("clucene-devel")
 def _devel(self):
-    return self.default_devel(extra=["usr/lib/CLuceneConfig.cmake"])
+    return self.default_devel()
