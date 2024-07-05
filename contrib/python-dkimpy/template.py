@@ -1,5 +1,5 @@
 pkgname = "python-dkimpy"
-pkgver = "1.1.7"
+pkgver = "1.1.8"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -20,7 +20,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://launchpad.net/dkimpy"
 source = f"$(PYPI_SITE)/d/dkimpy/dkimpy-{pkgver}.tar.gz"
-sha256 = "393ea47063713482a03cdf512eed5b85e2b657e7f9606e9acfd7b0651d56b04f"
+sha256 = "b5f60fb47bbf5d8d762f134bcea0c388eba6b498342a682a21f1686545094b77"
 
 
 def post_install(self):
