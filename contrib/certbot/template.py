@@ -1,6 +1,6 @@
 pkgname = "certbot"
 pkgver = "2.11.0"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "certbot"
 build_style = "python_pep517"
 _plugins = [
@@ -99,6 +99,7 @@ def _genmod(pname, pdesc):
             case "dns-route53":
                 self.depends += ["python-boto3", "python-botocore"]
             case "nginx":
+                self.depends += ["python-openssl", "python-pyparsing"]
                 self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "nginx"]
 
         return [
