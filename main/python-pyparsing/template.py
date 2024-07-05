@@ -3,7 +3,6 @@ pkgver = "3.1.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
-    "python-setuptools",
     "python-flit_core",
     "python-installer",
 ]
