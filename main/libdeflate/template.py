@@ -27,9 +27,6 @@ hardening = ["vis"]
 
 def post_install(self):
     self.install_license("COPYING")
-    # for some reason the link points to a full destdir path (and is also hard by default)
-    self.uninstall("usr/bin/libdeflate-gunzip")
-    self.install_link("usr/bin/libdeflate-gunzip", "libdeflate-gzip")
 
 
 @subpackage("libdeflate-devel")
