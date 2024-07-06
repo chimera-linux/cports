@@ -182,6 +182,8 @@ targets may be promoted at a later point.
 
 **Untiered targets:**
 
+* `armhf`
+* `armv7`
 * `ppc`
 
 <a id="quality_requirements"></a>
