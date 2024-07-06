@@ -73,22 +73,15 @@ _proc_macro2 = "1.0.70"
 _quote = "1.0.33"
 _syn = "2.0.39"
 _unicode_ident = "1.0.12"
-source = [
-    f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz",
-    f"!https://crates.io/api/v1/crates/paste/{_paste}/download>paste-{_paste}.tar.gz",
-    f"!https://crates.io/api/v1/crates/proc-macro2/{_proc_macro2}/download>proc-macro2-{_proc_macro2}.tar.gz",
-    f"!https://crates.io/api/v1/crates/quote/{_quote}/download>quote-{_quote}.tar.gz",
-    f"!https://crates.io/api/v1/crates/syn/{_syn}/download>syn-{_syn}.tar.gz",
-    f"!https://crates.io/api/v1/crates/unicode-ident/{_unicode_ident}/download>unicode-ident-{_unicode_ident}.tar.gz",
+_subproject_list = [
+    "paste",
+    "proc-macro2",
+    "quote",
+    "syn",
+    "unicode-ident",
 ]
-sha256 = [
-    "63236426b25a745ba6aa2d6daf8cd769d5ea01887b0745ab7124d2ef33a9020d",
-    "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c",
-    "39278fbbf5fb4f646ce651690877f89d1c5811a3d4acb27700c1cb3cdb78fd3b",
-    "5267fca4496028628a95160fc423a33e8b2e6af8a5302579e322e4b520293cae",
-    "23e78b90f2fcf45d3e842032ce32e3f2d1545ba6636271dcbf24fa306d87be7a",
-    "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b",
-]
+source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
+sha256 = "63236426b25a745ba6aa2d6daf8cd769d5ea01887b0745ab7124d2ef33a9020d"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -226,22 +219,13 @@ configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
 
 
 def post_extract(self):
-    self.cp(self.sources_path / f"paste-{_paste}.tar.gz", ".")
-    self.cp(self.sources_path / f"proc-macro2-{_proc_macro2}.tar.gz", ".")
-    self.cp(
-        self.sources_path / f"unicode-ident-{_unicode_ident}.tar.gz",
-        ".",
+    self.do(
+        "meson",
+        "subprojects",
+        "download",
+        *_subproject_list,
+        allow_network=True,
     )
-    self.cp(self.sources_path / f"syn-{_syn}.tar.gz", ".")
-    self.cp(self.sources_path / f"quote-{_quote}.tar.gz", ".")
-
-
-def init_configure(self):
-    # meson requires finding source_filename in .wrap unextracted to apply
-    # patch_directory (which contains the meson.build definitions for rust
-    # crates) upon extracting the tarball itself. we fetch those above and leave
-    # them named the same as in the .wrap in here
-    self.env = {"MESON_PACKAGE_CACHE_DIR": str(self.chroot_cwd)}
 
 
 def post_install(self):
