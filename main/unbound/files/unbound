@@ -1,8 +1,7 @@
 # unbound daemon service
 
-type               = process
-command            = /usr/bin/unbound -dp
-before             = network.target
-depends-on         = pre-network.target
-restart            = true
-smooth-recovery    = true
+type = process
+command = /usr/bin/unbound -dp
+before = network.target
+depends-on = pre-network.target
+smooth-recovery = true

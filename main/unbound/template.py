@@ -1,26 +1,40 @@
 pkgname = "unbound"
 pkgver = "1.20.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
+    "--enable-cachedb",
     "--enable-dnscrypt",
+    "--enable-dnstap",
     "--enable-event-api",
+    "--enable-subnet",
+    "--enable-tfo-client",
+    "--enable-tfo-server",
     "--with-username=_unbound",
     "--with-rootkey-file=/etc/dns/root.key",
     "--with-conf-file=/etc/unbound/unbound.conf",
     "--with-pidfile=/run/unbound.pid",
-    f"--with-ssl={self.profile().sysroot / 'usr'}",
     f"--with-libevent={self.profile().sysroot / 'usr'}",
     f"--with-libexpat={self.profile().sysroot / 'usr'}",
+    f"--with-libhiredis={self.profile().sysroot / 'usr'}",
+    f"--with-libnghttp2={self.profile().sysroot / 'usr'}",
+    f"--with-protobuf-c={self.profile().sysroot / 'usr'}",
+    f"--with-ssl={self.profile().sysroot / 'usr'}",
 ]
 configure_gen = []
 make_dir = "."  # fails to build otherwise
-hostmakedepends = ["pkgconf"]
+hostmakedepends = [
+    "pkgconf",
+    "protobuf-c-devel",
+]
 makedepends = [
+    "hiredis-devel",
     "libexpat-devel",
     "libevent-devel",
     "libsodium-devel",
+    "nghttp2-devel",
     "openssl-devel",
+    "protobuf-c-devel",
 ]
 depends = ["dnssec-anchors"]
 pkgdesc = "Validating, recursive, and caching DNS resolver"
