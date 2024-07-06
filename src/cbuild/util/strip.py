@@ -5,7 +5,13 @@ def strip(pkg, path):
     cfile = str(pkg.chroot_destdir / relp)
 
     try:
-        pkg.rparent.do(strip_path, "--strip-debug", cfile)
+        pkg.rparent.do(
+            strip_path,
+            "--strip-unneeded",
+            "--remove-section=.comment",
+            "--keep-section=.gnu_debuglink",
+            cfile,
+        )
     except Exception:
         pkg.error(f"failed to strip {relp}")
 
