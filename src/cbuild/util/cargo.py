@@ -49,6 +49,21 @@ def get_environment(pkg, jobs=None):
         "HOST_CFLAGS": "-O2",
     }
 
+    # the default of cargo is not to emit any debuginfo for --release
+    # values >2 are also invalid
+    # also, limit this to =1 for now. pretty much everything ever built with =0
+    # so it's already a bonus, but with =2 the debuginfo is completely massive
+    # also, putting this in regular rustflags is ignored for things that specify
+    # things like
+    # [profile.release.package.crate] strip = debuginfo
+    # which will prioritize not generating anything, unless you use this var.
+    # TODO: make this way less ugly by not copying _get_tool_flags logic,
+    # but there's no way to reuse the debug value set here
+    if (pkg.debug_level >= 1 or pkg.debug_level == -1) and pkg.options["debug"]:
+        env["CARGO_PROFILE_RELEASE_DEBUG"] = "1"
+    else:
+        env["CARGO_PROFILE_RELEASE_DEBUG"] = "0"
+
     if pkg.profile().cross:
         env["PKG_CONFIG_ALLOW_CROSS"] = "1"
 
