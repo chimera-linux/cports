@@ -1,6 +1,6 @@
 pkgname = "mpv"
 pkgver = "0.38.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -85,7 +85,8 @@ source = f"https://github.com/mpv-player/mpv/archive/v{pkgver}.tar.gz"
 sha256 = "86d9ef40b6058732f67b46d0bbda24a074fae860b3eaae05bab3145041303066"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 # FIXME cfi
-hardening = ["vis", "!cfi"]
+# FIXME: int causes haruna to crash when started up with some video files
+hardening = ["!int", "vis", "!cfi"]
 
 
 @subpackage("mpv-libs")
