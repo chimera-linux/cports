@@ -467,7 +467,7 @@ def prepare_arch(arch, dirty):
     _prepare_arch(prof, dirty)
 
 
-def remove_autodeps(bootstrapping, prof=None):
+def cleanup_world(bootstrapping, prof=None):
     from cbuild.core import template
 
     if bootstrapping is None:
@@ -475,7 +475,7 @@ def remove_autodeps(bootstrapping, prof=None):
 
     log = logger.get()
 
-    log.out("cbuild: removing autodeps...")
+    log.out("cbuild: cleaning world...")
 
     # best way to ensure everything is clean in stage 0
     if bootstrapping:
@@ -496,8 +496,35 @@ def remove_autodeps(bootstrapping, prof=None):
     paths.prepare()
 
     # clean world
+    old_world = set()
+    new_world = set()
+
+    with open(paths.bldroot() / "etc/apk/world", "r") as inf:
+        for ln in inf:
+            old_world.add(ln.strip())
+
+    for ep in _extra_pkgs:
+        new_world.add(ep)
+
+    old_wlist = sorted(old_world)
+    new_wlist = sorted(new_world)
+
+    remlist = []
+    addlist = []
+    for x in old_wlist:
+        if x not in new_world:
+            remlist.append(x)
+    for x in new_wlist:
+        if x not in old_world:
+            addlist.append(x)
+
+    if len(remlist) > 0:
+        log.out_red("  " + " ".join(map(lambda x: f"-{x}", remlist)))
+    if len(addlist) > 0:
+        log.out_green("  " + " ".join(map(lambda x: f"+{x}", addlist)))
+
     with open(paths.bldroot() / "etc/apk/world", "w") as outf:
-        for ep in _extra_pkgs:
+        for ep in new_wlist:
             outf.write(f"{ep}\n")
 
     # perform transaction
@@ -505,8 +532,13 @@ def remove_autodeps(bootstrapping, prof=None):
         "fix",
         [],
         template.get_cats(),
+        capture_output=True,
         allow_untrusted=True,
     )
+
+    if f_ret.returncode != 0:
+        log.out_plain(">> stderr (host):")
+        log.out_plain(f_ret.stderr.decode())
 
     if prof and prof.cross:
         _prepare_arch(prof, False)

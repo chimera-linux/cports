@@ -153,7 +153,7 @@ def _build(
         if pkg.stage > 0 and not no_update:
             chroot.update(pkg)
 
-        chroot.remove_autodeps(pkg.stage == 0, prof)
+        chroot.cleanup_world(pkg.stage == 0, prof)
 
         # check and install dependencies
         # if a missing dependency has triggered a build, update the chroot
@@ -253,7 +253,7 @@ def _build(
     # cleanup
     pkg.current_phase = "cleanup"
     if not keep_temp:
-        chroot.remove_autodeps(pkg.stage == 0, pkg.profile())
+        chroot.cleanup_world(pkg.stage == 0, pkg.profile())
         pkgm.remove_pkg_wrksrc(pkg)
         pkgm.remove_pkg(pkg)
         pkgm.remove_pkg_statedir(pkg)
