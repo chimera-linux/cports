@@ -40,21 +40,27 @@ def post_configure(self):
     from cbuild.util import cmake
 
     cmake.configure(
-        self, build_dir="build-capi-headers", cmake_dir="crates/c-api"
+        self,
+        build_dir="build-capi",
+        cmake_dir="crates/c-api",
+        extra_args=[f"-DWASMTIME_TARGET={self.profile().triplet}"],
     )
 
 
 def post_build(self):
-    self.cargo.build(args=["-p", "wasmtime-c-api", "-F", "logging"])
+    from cbuild.util import cargo, cmake
+
+    renv = cargo.get_environment(self)
+    self.env.update(renv)
+
+    cmake.build(self, "build-capi")
 
 
 def do_install(self):
     from cbuild.util import cmake
 
-    cmake.install(self, "build-capi-headers")
+    cmake.install(self, "build-capi")
     self.install_bin(f"target/{self.profile().triplet}/release/wasmtime")
-    self.install_lib(f"target/{self.profile().triplet}/release/libwasmtime.so")
-    self.install_lib(f"target/{self.profile().triplet}/release/libwasmtime.a")
 
 
 @subpackage("wasmtime-libs")
