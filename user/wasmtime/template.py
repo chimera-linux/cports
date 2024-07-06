@@ -1,6 +1,6 @@
 pkgname = "wasmtime"
 pkgver = "22.0.0"
-pkgrel = 1
+pkgrel = 2
 # no implementation for other architectures
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
@@ -45,7 +45,7 @@ def post_configure(self):
 
 
 def post_build(self):
-    self.cargo.build(args=["-p", "wasmtime-c-api"])
+    self.cargo.build(args=["-p", "wasmtime-c-api", "-F", "logging"])
 
 
 def do_install(self):
