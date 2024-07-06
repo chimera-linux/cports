@@ -1,9 +1,10 @@
 pkgname = "wasmtime"
 pkgver = "22.0.0"
-pkgrel = 0
+pkgrel = 1
 # no implementation for other architectures
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
+# make_build_env = {"CARGO_PROFILE_RELEASE_DEBUG": "2"}
 make_check_args = [
     "--",
     # who knows
@@ -11,6 +12,8 @@ make_check_args = [
 ]
 hostmakedepends = [
     "cargo-auditable",
+    "cmake",
+    "ninja",
     "pkgconf",
 ]
 makedepends = [
@@ -33,15 +36,25 @@ def post_extract(self):
     self.rm(".cargo/config.toml")
 
 
+def post_configure(self):
+    from cbuild.util import cmake
+
+    cmake.configure(
+        self, build_dir="build-capi-headers", cmake_dir="crates/c-api"
+    )
+
+
 def post_build(self):
     self.cargo.build(args=["-p", "wasmtime-c-api"])
 
 
 def do_install(self):
+    from cbuild.util import cmake
+
+    cmake.install(self, "build-capi-headers")
     self.install_bin(f"target/{self.profile().triplet}/release/wasmtime")
     self.install_lib(f"target/{self.profile().triplet}/release/libwasmtime.so")
     self.install_lib(f"target/{self.profile().triplet}/release/libwasmtime.a")
-    self.install_files("crates/c-api/include", "usr")
 
 
 @subpackage("wasmtime-libs")
