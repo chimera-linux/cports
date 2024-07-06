@@ -1,5 +1,5 @@
 pkgname = "mutter"
-pkgver = "46.2"
+pkgver = "46.3.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -68,8 +68,8 @@ pkgdesc = "GNOME X11 window manager, Wayland display server and compositor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/Mutter"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "009baa77f8362612caa2e18c338a1b3c8aad3b5fe2964c2fef7824d321228983"
+source = f"$(GNOME_SITE)/mutter/{pkgver.split('.')[0]}/mutter-{pkgver}.tar.xz"
+sha256 = "747a63da3745f304b01b55393d96abdaa820983b188b60b40dbbab3e683c805f"
 # libmutter crashes gnome-shell with some applications? FIXME debug
 hardening = ["!int"]
 # needs graphical environment

@@ -343,12 +343,12 @@ index 93e4c93..6bd8310 100644
  
    /*
     * However, the last presentation could have happened more than a frame ago.
-@@ -601,7 +697,7 @@ calculate_next_update_time_us (ClutterFrameClock *frame_clock,
-         }
+@@ -703,7 +703,7 @@
      }
  
--  if (next_presentation_time_us != last_presentation_time_us + refresh_interval_us)
-+  if (next_presentation_time_us != next_smooth_presentation_time_us)
+   if (frame_clock->last_presentation_flags & CLUTTER_FRAME_INFO_FLAG_VSYNC &&
+-      next_presentation_time_us != last_presentation_time_us + refresh_interval_us)
++      next_presentation_time_us != next_smooth_presentation_time_us)
      {
        /* There was an idle period since the last presentation, so there seems
         * be no constantly updating actor. In this case it's best to start
