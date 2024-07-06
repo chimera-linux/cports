@@ -1,0 +1,21 @@
+this takes forever to build so just use the host one
+--
+--- a/scripts/docs/generate-man.sh
++++ b/scripts/docs/generate-man.sh
+@@ -28,7 +28,7 @@
+   # build gen-manpages
+   go build -mod=vendor -modfile=vendor.mod -tags manpages -o /tmp/gen-manpages ./man/generate.go
+   # build go-md2man
+-  go build -mod=vendor -modfile=vendor.mod -o /tmp/go-md2man ./vendor/github.com/cpuguy83/go-md2man/v2
++  #go build -mod=vendor -modfile=vendor.mod -o /tmp/go-md2man ./vendor/github.com/cpuguy83/go-md2man/v2
+ )
+ 
+ mkdir -p man/man1
+@@ -45,6 +45,6 @@
+       continue
+     fi
+     mkdir -p "./man${num}"
+-    (set -x ; /tmp/go-md2man -in "$FILE" -out "./man${num}/${name}")
++    (set -x ; go-md2man -in "$FILE" -out "./man${num}/${name}")
+   done
+ )

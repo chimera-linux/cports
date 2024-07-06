@@ -29,7 +29,7 @@ env = {
 options = ["!debug", "!check"]
 
 
-def init_prepare(self):
+def init_build(self):
     from cbuild.util import golang
 
     self.env["GOPATH"] = str(self.chroot_cwd)
@@ -38,11 +38,9 @@ def init_prepare(self):
     self.env.update(golang.get_go_env(self))
 
 
-def do_prepare(self):
-    self.do("gmake", "manpages", allow_network=True)
-
-
 def pre_build(self):
+    # has to come first
+    self.do("gmake", "manpages")
     self.mkdir(self.cwd / "src/github.com/docker", parents=True)
     self.ln_s(self.chroot_cwd, self.cwd / "src/github.com/docker/cli")
 
