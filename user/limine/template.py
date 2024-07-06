@@ -1,5 +1,5 @@
 pkgname = "limine"
-pkgver = "7.9.1"
+pkgver = "7.9.2"
 pkgrel = 0
 # these targets implemented
 archs = ["aarch64", "x86_64", "riscv64"]
@@ -12,7 +12,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause AND 0BSD"
 url = "https://limine-bootloader.org"
 source = f"https://github.com/limine-bootloader/limine/releases/download/v{pkgver}/limine-{pkgver}.tar.zst"
-sha256 = "46973e5c0bf9de5c62c93560eeed4bd2d577acc7a15790452c18c106a36803ca"
+sha256 = "4d6092d5a4bb7bc468d9b628fb5f7414800f02908faf84e66842862e809afea6"
 # no test suite
 options = ["!check"]
 
