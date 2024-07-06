@@ -1,7 +1,7 @@
-From ffc62d15c8157fb353b4216e33245a6bd5e99db3 Mon Sep 17 00:00:00 2001
+From e01f0c444423eb65d176713735ff8cefb3068f3d Mon Sep 17 00:00:00 2001
 From: Khem Raj <raj.khem@gmail.com>
 Date: Tue, 8 Nov 2022 13:31:34 -0800
-Subject: [PATCH 04/22] test-bus-error: strerror() is assumed to be GNU
+Subject: [PATCH 20/27] test-bus-error: strerror() is assumed to be GNU
  specific version mark it so
 
 Upstream-Status: Inappropriate [Upstream systemd only supports glibc]
@@ -13,7 +13,7 @@ Signed-off-by: Khem Raj <raj.khem@gmail.com>
  2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/src/libsystemd/sd-bus/test-bus-error.c b/src/libsystemd/sd-bus/test-bus-error.c
-index 91045c0..a06b9ba 100644
+index 91045c06c2..a06b9bac0c 100644
 --- a/src/libsystemd/sd-bus/test-bus-error.c
 +++ b/src/libsystemd/sd-bus/test-bus-error.c
 @@ -99,7 +99,9 @@ TEST(error) {
@@ -27,7 +27,7 @@ index 91045c0..a06b9ba 100644
          assert_se(sd_bus_error_get_errno(&error) == EBUSY);
          assert_se(sd_bus_error_is_set(&error));
 diff --git a/src/test/test-errno-util.c b/src/test/test-errno-util.c
-index ab463bd..ce766bf 100644
+index ab463bd1b3..e2ebcaaf33 100644
 --- a/src/test/test-errno-util.c
 +++ b/src/test/test-errno-util.c
 @@ -4,7 +4,7 @@
@@ -39,13 +39,14 @@ index ab463bd..ce766bf 100644
  TEST(strerror_not_threadsafe) {
          /* Just check that strerror really is not thread-safe. */
          log_info("strerror(%d) → %s", 200, strerror(200));
-@@ -108,5 +108,6 @@ TEST(ERRNO_IS_TRANSIENT) {
-         assert_se(!ERRNO_IS_NEG_TRANSIENT(INTMAX_MAX));
-         assert_se(!ERRNO_IS_NEG_TRANSIENT(INTMAX_MIN));
+@@ -46,6 +46,7 @@ TEST(STRERROR_OR_ELSE) {
+         log_info("STRERROR_OR_ELSE(EPERM, \"EOF\") → %s", STRERROR_OR_EOF(EPERM));
+         log_info("STRERROR_OR_ELSE(-EPERM, \"EOF\") → %s", STRERROR_OR_EOF(-EPERM));
  }
 +#endif /* __GLIBC__ */
  
- DEFINE_TEST_MAIN(LOG_INFO);
+ TEST(PROTECT_ERRNO) {
+         errno = 12;
 -- 
-2.45.2
+2.45.1
 

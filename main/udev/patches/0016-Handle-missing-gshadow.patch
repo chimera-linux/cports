@@ -1,16 +1,23 @@
-From 6c2f6a8dbe680f403fdcfb2c9aad374d6b1860fd Mon Sep 17 00:00:00 2001
-From: q66 <q66@chimera-linux.org>
-Date: Sun, 30 Jun 2024 02:32:39 +0200
-Subject: [PATCH 21/22] Handle missing gshadow
+From 8b540d8240bbc3f917de9ca8d3b62f28c3424d91 Mon Sep 17 00:00:00 2001
+From: Alex Kiernan <alex.kiernan@gmail.com>
+Date: Tue, 10 Mar 2020 11:05:20 +0000
+Subject: [PATCH 16/27] Handle missing gshadow
 
+gshadow usage is now present in the userdb code. Mask all uses of it to
+allow compilation on musl
+
+Upstream-Status: Inappropriate [musl specific]
+Signed-off-by: Alex Kiernan <alex.kiernan@gmail.com>
+[Rebased for v247]
+Signed-off-by: Luca Boccassi <luca.boccassi@microsoft.com>
 ---
- src/shared/user-record-nss.c | 16 ++++++++++++++++
+ src/shared/user-record-nss.c | 20 ++++++++++++++++++++
  src/shared/user-record-nss.h |  4 ++++
  src/shared/userdb.c          |  7 ++++++-
- 3 files changed, 26 insertions(+), 1 deletion(-)
+ 3 files changed, 30 insertions(+), 1 deletion(-)
 
 diff --git a/src/shared/user-record-nss.c b/src/shared/user-record-nss.c
-index ffb5721..7a89d9f 100644
+index ffb5721466..4d01815c8c 100644
 --- a/src/shared/user-record-nss.c
 +++ b/src/shared/user-record-nss.c
 @@ -286,8 +286,10 @@ int nss_group_to_group_record(
@@ -58,7 +65,17 @@ index ffb5721..7a89d9f 100644
  }
  
  int nss_group_record_by_name(
-@@ -391,6 +399,7 @@ int nss_group_record_by_name(
+@@ -382,7 +390,9 @@ int nss_group_record_by_name(
+         _cleanup_free_ char *sbuf = NULL;
+         _cleanup_free_ struct group *result = NULL;
+         bool incomplete = false;
++#if ENABLE_GSHADOW
+         struct sgrp sgrp, *sresult = NULL;
++#endif
+         int r;
+ 
+         assert(name);
+@@ -391,6 +401,7 @@ int nss_group_record_by_name(
          if (r < 0)
                  return r;
  
@@ -66,21 +83,37 @@ index ffb5721..7a89d9f 100644
          if (with_shadow) {
                  r = nss_sgrp_for_group(result, &sgrp, &sbuf);
                  if (r < 0) {
-@@ -425,6 +434,7 @@ int nss_group_record_by_gid(
-         if (r < 0)
-                 return r;
- 
-+#if ENABLE_GSHADOW
-         if (with_shadow) {
-                 r = nss_sgrp_for_group(result, &sgrp, &sbuf);
-                 if (r < 0) {
-@@ -436,6 +446,12 @@ int nss_group_record_by_gid(
+@@ -402,6 +413,9 @@ int nss_group_record_by_name(
                  incomplete = true;
  
          r = nss_group_to_group_record(result, sresult, ret);
 +#else
 +        r = nss_group_to_group_record(result, NULL, ret);
 +#endif
+         if (r < 0)
+                 return r;
+ 
+@@ -418,13 +432,16 @@ int nss_group_record_by_gid(
+         _cleanup_free_ char *sbuf = NULL;
+         _cleanup_free_ struct group *result = NULL;
+         bool incomplete = false;
++#if ENABLE_GSHADOW
+         struct sgrp sgrp, *sresult = NULL;
++#endif
+         int r;
+ 
+         r = getgrgid_malloc(gid, &result);
+         if (r < 0)
+                 return r;
+ 
++#if ENABLE_GSHADOW
+         if (with_shadow) {
+                 r = nss_sgrp_for_group(result, &sgrp, &sbuf);
+                 if (r < 0) {
+@@ -436,6 +453,9 @@ int nss_group_record_by_gid(
+                 incomplete = true;
+ 
+         r = nss_group_to_group_record(result, sresult, ret);
 +#else
 +        r = nss_group_to_group_record(result, NULL, ret);
 +#endif
@@ -88,7 +121,7 @@ index ffb5721..7a89d9f 100644
                  return r;
  
 diff --git a/src/shared/user-record-nss.h b/src/shared/user-record-nss.h
-index 22ab04d..4e52e7a 100644
+index 22ab04d6ee..4e52e7a911 100644
 --- a/src/shared/user-record-nss.h
 +++ b/src/shared/user-record-nss.h
 @@ -2,7 +2,11 @@
@@ -104,7 +137,7 @@ index 22ab04d..4e52e7a 100644
  #include <shadow.h>
  
 diff --git a/src/shared/userdb.c b/src/shared/userdb.c
-index 75dece3..5628e14 100644
+index 75dece3442..5628e1410f 100644
 --- a/src/shared/userdb.c
 +++ b/src/shared/userdb.c
 @@ -1038,13 +1038,15 @@ int groupdb_iterator_get(UserDBIterator *iterator, GroupRecord **ret) {
@@ -135,5 +168,5 @@ index 75dece3..5628e14 100644
                                  return r;
  
 -- 
-2.45.2
+2.45.1
 
