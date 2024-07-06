@@ -246,6 +246,17 @@ def _get_rustflags(self, tmpl, name, extra_flags, debug, hardening, shell):
     if tmpl.options["relr"] and self._has_relr(tmpl.stage):
         bflags += ["-Clink-arg=-Wl,-z,pack-relative-relocs"]
 
+    # the default of cargo is not to emit any debuginfo for --release
+    # values >2 are also invalid
+    if debug > 2:
+        debuglevel = 2
+    elif debug >= 0:
+        debuglevel = debug
+    else:
+        debuglevel = 0
+
+    bflags += [f"-Cdebuginfo={debuglevel}"]
+
     ret = self._flags["RUSTFLAGS"] + bflags + extra_flags
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
