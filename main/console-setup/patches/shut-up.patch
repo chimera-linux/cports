@@ -1,25 +1,7 @@
-line 478 has
-my $row = hex ($hex);
-this returns up to a 64-bit int- but perl on 32-bit platforms without
-Duse64bitint has 32-bit ints. so with all warnings, every return that is
->0xffffffff prints
-
-Hexadecimal number > 0xffffffff non-portable at /builddir/console-setup-1.228/Fonts/bdf2psf line 478, <BDF> line 248860.
-
-this is printed a hundred thousand times. make it silent.
-
-do the same for 'WARNING: U+FEF8: truncating width' spam
+silence 'WARNING: U+FEF8: truncating width' spam
 --
 --- a/Fonts/bdf2psf
 +++ b/Fonts/bdf2psf
-@@ -20,6 +20,7 @@
- #     59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- 
- use warnings 'all';
-+no warnings 'portable';
- use strict;
- srand(0);
- 
 @@ -191,7 +191,7 @@
  ########### FUNCTIONS ###############################################
  

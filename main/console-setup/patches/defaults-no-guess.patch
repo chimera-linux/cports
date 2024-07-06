@@ -78,7 +78,7 @@ diff --git a/setupcon b/setupcon
 index 04641c6..6a638cf 100755
 --- a/setupcon
 +++ b/setupcon
-@@ -477,42 +477,12 @@ ACTIVE_CONSOLES=$(
+@@ -473,41 +473,12 @@
          fi
      done
  )
@@ -103,7 +103,6 @@ index 04641c6..6a638cf 100755
 -if [ -z "$ACTIVE_CONSOLES" ]; then
 -    case "$kernel" in
 -        linux) ACTIVE_CONSOLES=$(ls /dev/tty[1-6] 2>/dev/null) ;;
--        freebsd) ACTIVE_CONSOLES=$(ls /dev/ttyv[0-3] 2>/dev/null) ;;
 -    esac
 -    report Can not find the active virtual consoles, \
 -        assuming ACTIVE_CONSOLES=\"$ACTIVE_CONSOLES\" >&2
