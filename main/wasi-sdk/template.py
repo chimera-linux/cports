@@ -1,6 +1,6 @@
 pkgname = "wasi-sdk"
 pkgver = "22"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "clang-rt-crt-wasi",
@@ -15,7 +15,12 @@ options = ["brokenlinks"]
 
 
 def do_install(self):
-    for at in ["wasm32-unknown-wasi", "wasm32-unknown-wasi-threads"]:
+    for at in [
+        "wasm32-unknown-wasi",
+        "wasm32-unknown-wasip1",
+        "wasm32-unknown-wasip1-threads",
+        "wasm32-unknown-wasip2",
+    ]:
         # convenient cross symlinks
         self.install_dir("usr/bin")
         self.install_link(f"usr/bin/{at}-clang", "clang")
