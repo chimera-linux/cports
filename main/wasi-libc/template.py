@@ -1,6 +1,6 @@
 pkgname = "wasi-libc"
 pkgver = "0.20240412"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "9e8c542319242a5e536e14e6046de5968d298038"
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
@@ -13,11 +13,25 @@ sha256 = "d86d115be80cc796da0e1b7d63f192da91e17927cf24273be7d89b2a9284ad4c"
 # no tests
 options = ["!check", "!lto"]
 
+_targets = [
+    # TODO: remove wasm32-wasi here and in the other components once firefox
+    # doesn't need it
+    ("wasm32-wasi", ""),
+    ("wasm32-wasip1", ""),
+    ("wasm32-wasip1-threads", "THREAD_MODEL=posix"),
+    ("wasm32-wasip2", "WASI_SNAPSHOT=p2"),
+]
+
 
 def do_build(self):
-    # https://bugzilla.mozilla.org/show_bug.cgi?id=1773200#c4
-    self.do("gmake", f"-j{self.make_jobs}", "CC=clang", "BULK_MEMORY_SOURCES=")
-    self.do("gmake", f"-j{self.make_jobs}", "CC=clang", "THREAD_MODEL=posix")
+    for tgt in _targets:
+        self.do(
+            "gmake",
+            f"-j{self.make_jobs}",
+            "CC=clang",
+            f"TARGET_TRIPLE={tgt[0]}",
+            tgt[1],
+        )
 
 
 def do_install(self):
