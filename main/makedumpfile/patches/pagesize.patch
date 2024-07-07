@@ -1,0 +1,10 @@
+--- a/makedumpfile.h
++++ b/makedumpfile.h
+@@ -168,6 +168,7 @@ test_bit(int nr, unsigned long addr)
+ #define PTOB(X)			(((unsigned long long)(X)) << PAGESHIFT())
+ #define BTOP(X)			(((unsigned long long)(X)) >> PAGESHIFT())
+ 
++#undef PAGESIZE
+ #define PAGESIZE()		(info->page_size)
+ #define PAGESHIFT()		(info->page_shift)
+ #define PAGEOFFSET(X)		(((unsigned long long)(X)) & (PAGESIZE() - 1))
