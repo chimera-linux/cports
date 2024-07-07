@@ -1,5 +1,5 @@
 pkgname = "swayimg"
-pkgver = "2.2"
+pkgver = "2.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -32,7 +32,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/artemsen/swayimg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fc9cf24def4459570d2cd7fcd142e7e2228fc8ca77892c773b2061de778ac5c3"
+sha256 = "c5bde4bee699d8379cd666a027db806fdc3dc08639fd53edbc2fcf8cffab038d"
 
 
 def post_install(self):
