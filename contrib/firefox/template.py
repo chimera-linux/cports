@@ -124,45 +124,46 @@ def do_configure(self):
         "--libdir=/usr/lib",
         "--host=" + self.profile().triplet,
         "--target=" + self.profile().triplet,
-        "--enable-linker=lld",
-        "--enable-release",
-        "--enable-optimize",
         "--disable-install-strip",
         "--disable-strip",
+        "--enable-linker=lld",
+        "--enable-optimize",
+        "--enable-release",
         "--with-wasi-sysroot=/usr/wasm32-unknown-wasi",
         # we have our own flags and better
         "--disable-hardening",
         # system libs
-        "--with-system-pixman",
         "--with-system-ffi",
-        "--with-system-nspr",
-        "--with-system-nss",
+        "--with-system-icu",
         "--with-system-jpeg",
-        "--with-system-webp",
-        "--with-system-zlib",
         "--with-system-libevent",
         "--with-system-libvpx",
-        "--with-system-icu",
+        "--with-system-nspr",
+        "--with-system-nss",
+        "--with-system-pixman",
+        "--with-system-webp",
+        "--with-system-zlib",
         # no apng support
         "--without-system-png",
         # features
-        "--enable-dbus",
-        "--enable-jack",
-        "--enable-ffmpeg",
-        "--enable-pulseaudio",
-        "--enable-necko-wifi",
-        "--enable-default-toolkit=cairo-gtk3-wayland",
         "--enable-audio-backends=pulseaudio",
+        "--enable-dbus",
+        "--enable-default-toolkit=cairo-gtk3-wayland",
+        "--enable-ffmpeg",
+        "--enable-jack",
+        "--enable-necko-wifi",
+        "--enable-pulseaudio",
         # disabled features
-        "--disable-profiling",
+        "--disable-alsa",
         "--disable-jemalloc",
+        "--disable-profiling",
         "--disable-tests",
         "--disable-updater",
-        "--disable-alsa",
         # browser options
-        "--enable-official-branding",
-        "--enable-application=browser",
         "--allow-addon-sideload",
+        "--enable-application=browser",
+        "--enable-official-branding",
+        "--with-distribution-id=org.chimera-linux",
     ]
 
     match self.profile().arch:
@@ -246,6 +247,10 @@ def do_install(self):
     self.install_file(
         self.files_path / "vendor.js",
         "usr/lib/firefox/browser/defaults/preferences",
+    )
+    self.install_file(
+        self.files_path / "distribution.ini",
+        "usr/lib/firefox/distribution",
     )
     self.install_file(
         "taskcluster/docker/firefox-snap/firefox.desktop",
