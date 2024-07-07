@@ -109,7 +109,6 @@ def do_install(self):
     self.uninstall(f"{lbase}/tkinter")
     self.uninstall(f"{lbase}/turtledemo")
     self.uninstall(f"{lbase}/test")
-    self.uninstall(f"{lbase}/lib2to3/tests")
     self.uninstall(f"{lbase}/turtle.py")
 
     self.rename(
