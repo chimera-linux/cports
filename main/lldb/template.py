@@ -1,62 +1,60 @@
 pkgname = "lldb"
 pkgver = "18.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-DLLVM_COMMON_CMAKE_UTILS=cmake",
     "-DLLDB_ENABLE_LUA=NO",  # maybe later
     "-DLLDB_ENABLE_PYTHON=YES",
     "-DLLDB_ENABLE_LIBEDIT=YES",
-    "-DLLDB_USE_SYSTEM_SIX=YES",
 ]
 hostmakedepends = [
+    "clang-tools-extra",
     "cmake",
     "ninja",
     "pkgconf",
     "python-devel",
-    "clang-tools-extra",
     "swig",
 ]
 makedepends = [
-    "llvm-devel",
     "clang-devel",
-    "libffi-devel",
-    "zlib-ng-compat-devel",
-    "xz-devel",
     "libedit-devel",
+    "libffi-devel",
     "libxml2-devel",
+    "linux-headers",
+    "llvm-devel",
     "ncurses-devel",
     "python-devel",
-    "linux-headers",
+    "xz-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "LLVM debugger"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
-source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/lldb-{pkgver}.src.tar.xz"
-sha256 = "cac2db253ee3566c01774a888cc0ac3853f1e141c5c9962f04ee562bdb0af426"
+source = [
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/lldb-{pkgver}.src.tar.xz",
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/cmake-{pkgver}.src.tar.xz",
+]
+source_paths = [".", "llvm-cmake"]
+sha256 = [
+    "cac2db253ee3566c01774a888cc0ac3853f1e141c5c9962f04ee562bdb0af426",
+    "59badef592dd34893cd319d42b323aaa990b452d05c7180ff20f23ab1b41e837",
+]
 # tests are not enabled
 options = ["!check"]
 
 
-def post_extract(self):
-    # not shipped with standalone lldb tarball
-    self.mkdir("cmake/Modules", parents=True)
-    self.cp(self.files_path / "FindLibEdit.cmake", self.cwd / "cmake/modules")
-    self.cp(self.files_path / "CMakePolicy.cmake", self.cwd / "cmake/Modules")
-    self.cp(
-        self.files_path / "GetClangResourceDir.cmake",
-        self.cwd / "cmake/modules",
-    )
-
-
 def init_configure(self):
-    if not self.profile().cross:
-        return
-    self.configure_args.append(
-        "-DLLDB_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/lldb-tblgen")
-    )
+    self.configure_args += [
+        f"-DLLVM_COMMON_CMAKE_UTILS={self.chroot_cwd}/llvm-cmake",
+    ]
+
+    if self.profile().cross:
+        self.configure_args += [
+            "-DLLDB_TABLEGEN="
+            + str(self.chroot_cwd / "build_host/bin/lldb-tblgen")
+        ]
 
 
 def pre_configure(self):
@@ -92,8 +90,8 @@ def post_install(self):
                 s.with_name("_lldb.so").symlink_to(
                     f"../../../liblldb.so.{pkgver}"
                 )
-        # also precompile bytecode
-        python.precompile(self, str(fp.relative_to(self.destdir)))
+    # also precompile bytecode
+    python.precompile(self, "usr/lib")
 
 
 @subpackage("lldb-devel")
