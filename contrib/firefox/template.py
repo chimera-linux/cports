@@ -1,6 +1,6 @@
 pkgname = "firefox"
 pkgver = "127.0.2"
-pkgrel = 1
+pkgrel = 2
 make_cmd = "gmake"
 hostmakedepends = [
     "automake",
