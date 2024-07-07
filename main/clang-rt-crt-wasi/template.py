@@ -1,6 +1,6 @@
 pkgname = "clang-rt-crt-wasi"
 pkgver = "18.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -28,13 +28,13 @@ configure_args = [
     "-DCOMPILER_RT_HAS_FPIC_FLAG=OFF",
     "-DCOMPILER_RT_OS_DIR=wasi",
 ]
-make_cmd = "make"
 cmake_dir = "compiler-rt"
 hostmakedepends = [
     "clang-tools-extra",
     "cmake",
-    "python",
     "llvm-devel",
+    "ninja",
+    "python",
     "wasi-libc",
 ]
 depends = ["wasi-libc"]
@@ -64,3 +64,9 @@ def init_configure(self):
 
 def post_install(self):
     self.uninstall(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include")
+    self.install_link(
+        f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/wasip1", "wasi"
+    )
+    self.install_link(
+        f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/wasip2", "wasi"
+    )
