@@ -14,7 +14,7 @@ configure_args = [
 # needs autoconf 2.69
 configure_gen = []
 make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "texinfo", "python-devel"]
+hostmakedepends = ["gmake", "gsed", "pkgconf", "texinfo", "python-devel"]
 makedepends = [
     "elfutils-devel",
     "gettext-devel",
@@ -35,6 +35,8 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gdb"
 source = f"$(GNU_SITE)/gdb/gdb-{pkgver}.tar.xz"
 sha256 = "38254eacd4572134bca9c5a5aa4d4ca564cbbd30c369d881f733fb6b903354f2"
+# weird autotools bullshittery
+env = {"SED": "gsed"}
 # massive
 options = ["!check", "!cross"]
 
