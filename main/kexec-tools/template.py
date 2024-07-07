@@ -18,4 +18,5 @@ options = ["!check"]
 
 def post_install(self):
     # useless test program
-    self.uninstall("usr/lib/kexec-tools")
+    if self.profile().arch == "x86_64":
+        self.uninstall("usr/lib/kexec-tools")
