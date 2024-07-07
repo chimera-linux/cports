@@ -1,6 +1,6 @@
 pkgname = "libcxx-wasi"
 pkgver = "18.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -8,7 +8,7 @@ configure_args = [
     "-DCMAKE_SYSTEM_VERSION=1",
     "-DCMAKE_SYSTEM_PROCESSOR=wasm32",
     "-DCMAKE_SYSROOT=/usr/wasm32-unknown-wasi",
-    "-DCMAKE_INSTALL_PREFIX=/",
+    "-DCMAKE_STAGING_PREFIX=/usr/wasm32-unknown-wasi",
     # prevent executable checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # tools
@@ -32,21 +32,22 @@ configure_args = [
     "-DLIBCXX_ENABLE_SHARED=NO",
     "-DLIBCXX_HAS_EXTERNAL_THREAD_API=OFF",
     "-DLIBCXX_HARDENING_MODE=fast",
+    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
     "-DLLVM_ENABLE_RUNTIMES=libcxxabi;libcxx",
     "-DCMAKE_AR=/usr/bin/llvm-ar",
     "-DCMAKE_NM=/usr/bin/llvm-nm",
     "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
     "-DUNIX=ON",
 ]
-make_cmd = "make"
 cmake_dir = "runtimes"
 hostmakedepends = [
+    "clang-rt-crt-wasi",
     "clang-tools-extra",
     "cmake",
-    "python",
     "llvm-devel",
+    "ninja",
+    "python",
     "wasi-libc",
-    "clang-rt-crt-wasi",
 ]
 depends = [f"clang-rt-crt-wasi~{pkgver}"]
 pkgdesc = "Compiler runtime for WASI"
@@ -55,10 +56,17 @@ license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
-debug_level = 0
 hardening = ["!int", "!scp", "!var-init"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "!strip"]
+
+
+_targets = [
+    ("wasm32-wasi", False),
+    ("wasm32-wasip1", False),
+    ("wasm32-wasip1-threads", True),
+    ("wasm32-wasip2", False),
+]
 
 
 def post_patch(self):
@@ -76,97 +84,48 @@ def init_configure(self):
 def do_configure(self):
     from cbuild.util import cmake
 
-    with self.stamp("nothread_configure") as s:
-        s.check()
-        cmake.configure(
-            self,
-            "build-nothread",
-            self.cmake_dir,
-            configure_args
-            + [
-                "-DCMAKE_ASM_COMPILER_TARGET=wasm32-unknown-wasi",
-                "-DCMAKE_C_COMPILER_TARGET=wasm32-unknown-wasi",
-                "-DCMAKE_CXX_COMPILER_TARGET=wasm32-unknown-wasi",
-                "-DCMAKE_C_FLAGS=-O2",
-                "-DCMAKE_CXX_FLAGS=-O2",
-                "-DLIBCXXABI_ENABLE_THREADS=OFF",
-                "-DLIBCXXABI_HAS_PTHREAD_API=OFF",
-                "-DLIBCXX_ENABLE_THREADS=OFF",
-                "-DLIBCXX_HAS_PTHREAD_API=OFF",
-                "-DLIBCXX_LIBDIR_SUFFIX=/wasm32-wasi",
-                # this is necessary! the config headers record the overall
-                # configuration which will differ if threads are enabled
-                "-DLIBCXX_INSTALL_INCLUDE_DIR=include/wasm32-wasi/c++/v1",
-                "-DLIBCXX_INSTALL_INCLUDE_TARGET_DIR=include/wasm32-wasi/c++/v1",
-                "-DLIBCXXABI_LIBDIR_SUFFIX=/wasm32-wasi",
-                "-DLIBCXXABI_INSTALL_INCLUDE_DIR=include/wasm32-wasi/c++/v1",
-            ],
-            cross_build=False,
-            generator="Unix Makefiles",
-        )
-    with self.stamp("thread_configure") as s:
-        s.check()
-        cmake.configure(
-            self,
-            "build-thread",
-            self.cmake_dir,
-            configure_args
-            + [
-                "-DCMAKE_ASM_COMPILER_TARGET=wasm32-unknown-wasi-threads",
-                "-DCMAKE_C_COMPILER_TARGET=wasm32-unknown-wasi-threads",
-                "-DCMAKE_CXX_COMPILER_TARGET=wasm32-unknown-wasi-threads",
-                "-DCMAKE_C_FLAGS=-O2 -pthread",
-                "-DCMAKE_CXX_FLAGS=-O2 -pthread",
-                "-DLIBCXXABI_ENABLE_THREADS=ON",
-                "-DLIBCXXABI_HAS_PTHREAD_API=ON",
-                "-DLIBCXX_ENABLE_THREADS=ON",
-                "-DLIBCXX_HAS_PTHREAD_API=ON",
-                "-DLIBCXX_LIBDIR_SUFFIX=/wasm32-wasi-threads",
-                "-DLIBCXX_INSTALL_INCLUDE_DIR=include/wasm32-wasi-threads/c++/v1",
-                "-DLIBCXX_INSTALL_INCLUDE_TARGET_DIR=include/wasm32-wasi-threads/c++/v1",
-                "-DLIBCXXABI_LIBDIR_SUFFIX=/wasm32-wasi-threads",
-                "-DLIBCXXABI_INSTALL_INCLUDE_DIR=include/wasm32-wasi-threads/c++/v1",
-            ],
-            cross_build=False,
-            generator="Unix Makefiles",
-        )
+    for tgt in _targets:
+        with self.stamp(f"{tgt[0]}_configure") as s:
+            s.check()
+            threads = "ON" if tgt[1] else "OFF"
+            flags = "-O2 -pthread" if tgt[1] else "-O2"
+            cmake.configure(
+                self,
+                f"build-{tgt[0]}",
+                self.cmake_dir,
+                configure_args
+                + [
+                    f"-DCMAKE_ASM_COMPILER_TARGET={tgt[0]}",
+                    f"-DCMAKE_C_COMPILER_TARGET={tgt[0]}",
+                    f"-DCMAKE_CXX_COMPILER_TARGET={tgt[0]}",
+                    f"-DCMAKE_C_FLAGS={flags}",
+                    f"-DCMAKE_CXX_FLAGS={flags}",
+                    f"-DLLVM_DEFAULT_TARGET_TRIPLE={tgt[0]}",
+                    f"-DLIBCXXABI_ENABLE_THREADS={threads}",
+                    f"-DLIBCXXABI_HAS_PTHREAD_API={threads}",
+                    f"-DLIBCXX_ENABLE_THREADS={threads}",
+                    f"-DLIBCXX_HAS_PTHREAD_API={threads}",
+                    # this is necessary! the config headers record the overall
+                    # configuration which will differ if threads are enabled
+                    f"-DLIBCXX_INSTALL_INCLUDE_DIR=include/{tgt[0]}/c++/v1",
+                    f"-DLIBCXX_INSTALL_INCLUDE_TARGET_DIR=include/{tgt[0]}/c++/v1",
+                    f"-DLIBCXXABI_INSTALL_INCLUDE_DIR=include/{tgt[0]}/c++/v1",
+                ],
+                cross_build=False,
+            )
 
 
 def do_build(self):
     from cbuild.util import cmake
 
-    with self.stamp("nothread_build") as s:
-        s.check()
-        cmake.build(self, "build-nothread")
-
-    with self.stamp("thread_build") as s:
-        s.check()
-        cmake.build(self, "build-thread")
+    for tgt in _targets:
+        with self.stamp(f"{tgt[0]}_build") as s:
+            s.check()
+            cmake.build(self, f"build-{tgt[0]}")
 
 
 def do_install(self):
     from cbuild.util import cmake
 
-    with self.stamp("nothread_install") as s:
-        s.check()
-        cmake.install(
-            self,
-            "build-nothread",
-            env={
-                "DESTDIR": str(self.chroot_destdir / "usr/wasm32-unknown-wasi")
-            },
-        )
-
-    with self.stamp("thread_install") as s:
-        s.check()
-        cmake.install(
-            self,
-            "build-thread",
-            env={
-                "DESTDIR": str(self.chroot_destdir / "usr/wasm32-unknown-wasi")
-            },
-        )
-
-    # clang will not try including any c++ paths unless this path exists
-    self.install_dir("usr/wasm32-unknown-wasi/include/c++/v1")
-    (self.destdir / "usr/wasm32-unknown-wasi/include/c++/v1/__empty").touch()
+    for tgt in _targets:
+        cmake.install(self, f"build-{tgt[0]}")
