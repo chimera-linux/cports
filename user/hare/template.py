@@ -34,7 +34,7 @@ if self.profile().cross:
     hostmakedepends += ["hare"]
     make_build_args += ["HARE=hare"]
 else:
-    make_build_args += ["HARE=.bin/hare"]
+    make_build_args += ["HARE=.bin/hare", "HAREC=/usr/bin/harec"]
 
 
 def pre_build(self):
