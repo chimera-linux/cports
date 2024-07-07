@@ -1,6 +1,7 @@
 pkgname = "kexec-tools"
 pkgver = "2.0.28"
 pkgrel = 0
+archs = ["aarch64", "armhf", "armv7", "ppc64", "ppc64le", "x86_64"]
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["automake", "gmake", "libtool"]
