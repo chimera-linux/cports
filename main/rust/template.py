@@ -108,6 +108,13 @@ def do_configure(self):
         _debug = "0"
         _debug_rustc = "0"
 
+    if self.current_target != "custom:bootstrap":
+        _comp = "gz"
+        _comp_prof = "fast"
+    else:
+        _comp = "xz"
+        _comp_prof = "best"
+
     tgt_profile = self.profile()
     _tgt_spec = [f"'{tgt_profile.triplet}'"]
     if self.current_target != "custom:bootstrap":
@@ -207,8 +214,8 @@ llvm-libunwind = 'system'
 [dist]
 
 src-tarball = true
-compression-formats = ['gz']
-compression-profile = 'fast'
+compression-formats = ['{_comp}']
+compression-profile = '{_comp_prof}'
 
 [target.{host_profile.triplet}]
 
