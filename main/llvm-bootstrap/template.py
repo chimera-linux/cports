@@ -94,6 +94,7 @@ match self.profile().arch:
     case "riscv64":
         _arch = "RISCV64"
     case _:
+        _arch = ""
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 configure_args += [
