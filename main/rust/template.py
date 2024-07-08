@@ -38,7 +38,9 @@ env = {
     "RUST_BACKTRACE": "1",
 }
 # disable check at least for now
-# lto always breaks across major llvm vers because of consumer/reader mismatch
+# lto always breaks across major llvm vers because of consumer/reader mismatch,
+# because it builds some not useful C stuff that is part of rust
+# we manually enable it below for librustc_driver itself
 options = ["!check", "!lto"]
 
 if self.profile().cross:
@@ -111,9 +113,12 @@ def do_configure(self):
     if self.current_target != "custom:bootstrap":
         _comp = "gz"
         _comp_prof = "fast"
+        # thin-local is the default value
+        _lto = "thin" if self.can_lto() else "thin-local"
     else:
         _comp = "xz"
         _comp_prof = "best"
+        _lto = "thin-local"
 
     tgt_profile = self.profile()
     _tgt_spec = [f"'{tgt_profile.triplet}'"]
@@ -196,6 +201,8 @@ codegen-units-std = 1
 
 debuginfo-level = {_debug_rustc}
 debuginfo-level-std = {_debug}
+
+lto = '{_lto}'
 
 incremental = false
 parallel-compiler = false
