@@ -1,5 +1,5 @@
 pkgname = "libgit2"
-pkgver = "1.7.2"
+pkgver = "1.8.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -28,7 +28,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "GPL-2.0-only WITH GCC-exception-2.0"
 url = "https://libgit2.org"
 source = f"https://github.com/libgit2/libgit2/archive/v{pkgver}.tar.gz"
-sha256 = "de384e29d7efc9330c6cdb126ebf88342b5025d920dcb7c645defad85195ea7f"
+sha256 = "8c1eaf0cf07cba0e9021920bfba9502140220786ed5d8a8ec6c7ad9174522f8e"
 
 
 def post_install(self):
