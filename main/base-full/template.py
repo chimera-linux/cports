@@ -155,7 +155,7 @@ def _misc(self):
 
 
 @subpackage("base-full-net-tools")
-def _net(self):
+def _net_tools(self):
     self.pkgdesc = f"{pkgdesc} (network tools)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provider_priority = 100
@@ -201,7 +201,7 @@ def _session(self):
 
 
 @subpackage("base-full-sound")
-def _session(self):
+def _sound(self):
     self.pkgdesc = f"{pkgdesc} (sound)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provider_priority = 100
