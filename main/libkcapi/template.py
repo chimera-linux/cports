@@ -7,8 +7,10 @@ configure_args = [
     "--enable-lib-asym",
     "--enable-lib-kpp",
 ]
+make_cmd = "gmake"
 hostmakedepends = [
     "automake",
+    "gmake",
     "libtool",
     "pkgconf",
 ]
