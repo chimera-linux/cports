@@ -1,5 +1,5 @@
 pkgname = "mozjs115"
-pkgver = "115.12.0"
+pkgver = "115.13.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -26,13 +26,12 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "b59e1625a0bb2f0565a737394f2bf8a7ce3171314b0d871bde533a101847a8ef"
+sha256 = "3fa20d1897100684d2560a193a48d4a413f31e61f2ed134713d607c5f30d5d5c"
 debug_level = 1  # make the debug size not explode
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
     "RUST_TARGET": self.profile().triplet,
-    "RUSTFLAGS": "",  # our -Clink-arg breaks this build
     "PYTHON": "/usr/bin/python3.11",
     "SHELL": "/usr/bin/sh",
     "MAKE": "gmake",
@@ -55,7 +54,6 @@ def init_configure(self):
     self.env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
     self.env["MOZ_OBJDIR"] = f"{self.chroot_cwd / 'objdir'}"
     self.env["RUST_TARGET"] = self.profile().triplet
-    self.env["RUSTFLAGS"] = ""
     # use all the cargo env vars we enforce
     self.env.update(cargo.get_environment(self))
 
