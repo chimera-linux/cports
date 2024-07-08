@@ -24,6 +24,7 @@ cat << EOF > etc/config.ini
 [apk]
 command = $(pwd)/${APK_FILE}
 [build]
+ccache = yes
 # they will not be packaged, but we can still CI them (no public artifacts)
 allow_restricted = yes
 timing = yes
