@@ -1,18 +1,18 @@
 pkgname = "nodejs"
-pkgver = "22.4.0"
+pkgver = "22.4.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
-    "--shared-zlib",
-    "--shared-openssl",
+    "--ninja",
+    "--openssl-use-def-ca-store",
+    "--prefix=/usr",
+    "--shared-brotli",
+    "--shared-cares",
     "--shared-libuv",
     "--shared-nghttp2",
-    "--shared-cares",
-    "--shared-brotli",
+    "--shared-openssl",
+    "--shared-zlib",
     "--with-intl=system-icu",
-    "--openssl-use-def-ca-store",
-    "--ninja",
-    "--prefix=/usr",
 ]
 make_cmd = "gmake"
 make_check_target = "test-only"
@@ -39,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
-sha256 = "b62cd83c9a57a11349883f89b1727a16e66c02eb6255a4bf32714ff5d93165f5"
+sha256 = "b3051c3358c96d06dd17305c065cc6f5205c1f4d72dd42cb184f7ba79605f8a8"
 debug_level = 1  # allow LTO build to not run out of mem
 hardening = ["!cfi"]  # TODO
 options = ["!cross"]
