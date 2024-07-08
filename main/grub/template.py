@@ -83,6 +83,7 @@ match self.profile().arch:
         # otherwise crashes llvm backend (unsupported code model for lowering)
         configure_args += ["grub_cv_cc_mcmodel=no"]
     case _:
+        _archs = []
         broken = f"Unsupported platform ({self.profile().arch})"
 
 
