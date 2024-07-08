@@ -1,15 +1,9 @@
 pkgname = "base-desktop"
 pkgver = "0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
-depends = [
-    "base-full",
-    "fonts-dejavu",
-    "mesa-dri",
-    "pipewire",
-    "xdg-utils",
-]
-pkgdesc = "Chimera default desktop session"
+depends = ["base-full"]
+pkgdesc = "Chimera default desktop session (deprecated transitional package)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
@@ -22,8 +16,5 @@ def _gnome(self):
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}",
         "gnome",
-        "gst-plugins-bad",
-        "gst-plugins-good",
-        "gst-libav",
     ]
     return []
