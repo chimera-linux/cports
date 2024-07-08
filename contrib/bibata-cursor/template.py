@@ -1,12 +1,12 @@
 pkgname = "bibata-cursor"
-pkgver = "2.0.6"
-pkgrel = 1
+pkgver = "2.0.7"
+pkgrel = 0
 pkgdesc = "Material design cursor set"
 maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/ful1e5/Bibata_Cursor"
 source = f"https://github.com/ful1e5/Bibata_Cursor/releases/download/v{pkgver}/Bibata.tar.xz"
-sha256 = "88252b36063a85e8f2123502917c7e64296a94290d08731884625d7436bd24cb"
+sha256 = "172e33c4ae415278384dcecc7d1a9b7a024266bc944bc751fd86532be1cc6251"
 
 
 def do_install(self):
