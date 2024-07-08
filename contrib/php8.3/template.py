@@ -198,6 +198,7 @@ def post_patch(self):
         "ext/dom/tests/dom_create_element.phpt",
         "ext/libxml/tests/bug61367-read_2.phpt",
         "ext/libxml/tests/libxml_disable_entity_loader_2.phpt",
+        "ext/libxml/tests/libxml_set_external_entity_loader_variation1.phpt",
         "ext/simplexml/tests/bug63575.phpt",
         "ext/simplexml/tests/bug76712.phpt",
         "ext/simplexml/tests/bug79971_1.phpt",
