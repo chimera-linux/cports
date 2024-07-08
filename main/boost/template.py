@@ -64,7 +64,7 @@ _libs = [
 match self.profile().arch:
     case "ppc64le" | "ppc64" | "ppc":
         _arch, _abi = "power", "sysv"
-    case "aarch64":
+    case "aarch64" | "armhf" | "armv7":
         _arch, _abi = "arm", "aapcs"
     case "x86_64":
         _arch, _abi = "x86", "sysv"
