@@ -373,7 +373,7 @@ def do_install(self):
         self.log(f"unpacking {f}...")
         _untar(self, f)
     # wasm shit
-    self.log(f"unpacking wasm targets...")
+    self.log("unpacking wasm targets...")
     _untar(self, "rust-std", "wasm32-unknown-unknown")
     _untar(self, "rust-std", "wasm32-wasip1")
     _untar(self, "rust-std", "wasm32-wasip1-threads")
