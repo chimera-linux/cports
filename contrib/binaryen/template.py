@@ -1,5 +1,5 @@
 pkgname = "binaryen"
-pkgver = "117"
+pkgver = "118"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -21,8 +21,10 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/WebAssembly/binaryen"
 source = f"{url}/archive/refs/tags/version_{pkgver}.tar.gz"
-sha256 = "9acf7cc5be94bcd16bebfb93a1f5ac6be10e0995a33e1981dd7c404dafe83387"
+sha256 = "58a2fbad5aa986b52f8044c99fa7780e0a524e3d1bcc4f588ccda62bc33498a7"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
+# FIXME: negoverflow wasm::Literal::abs in tests
+hardening = ["!int"]
 # take forever
 options = ["!check"]
 
