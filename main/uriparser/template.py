@@ -1,6 +1,6 @@
 pkgname = "uriparser"
 pkgver = "0.9.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DURIPARSER_BUILD_DOCS=OFF"]
 hostmakedepends = [
