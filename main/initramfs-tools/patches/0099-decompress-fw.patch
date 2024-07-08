@@ -1,0 +1,48 @@
+commit 1a95da9bfde97621a10dfc3baf4ad85480e13265
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Jul 8 20:26:46 2024 +0200
+
+    decompress firmware in initramfs
+
+diff --git a/mkinitramfs b/mkinitramfs
+index 9e7f670..52ab156 100755
+--- a/mkinitramfs
++++ b/mkinitramfs
+@@ -457,6 +457,37 @@ find "${DESTDIR}/${MODULESDIR}" -name '*.ko.*' | while read -r ko; do
+ 	esac
+ done
+ 
++# decompress firmware for size
++find "${DESTDIR}/lib/firmware" -name '*.zst' -o -name '*.xz' | while read -r fw; do
++    case "$fw" in
++    *.zst)
++        if ! command -v zstd >/dev/null 2>&1; then
++            break
++        fi
++        ;;
++    *.xz)
++        if ! command -v xz >/dev/null 2>&1; then
++            break
++        fi
++        ;;
++    esac
++    if [ -L "$fw" ]; then
++        # point the symlink to uncompressed file
++        fwdest=$(readlink "$fw")
++        rm -f "$fw"
++        case "$fw" in
++        *.zst) ln -sf "${fwdest%.zst}" "${fw%.zst}" ;;
++        *.xz) ln -sf "${fwdest%.xz}" "${fw%.xz}" ;;
++        esac
++    else
++        # uncompress
++        case "$fw" in
++        *.zst) zstd -q -d --rm "$fw" ;;
++        *.xz) xz -d "$fw" ;;
++        esac
++    fi
++done
++
+ # generate module deps
+ depmod -a -b "${DESTDIR}" "${version}"
+ rm -f "${DESTDIR}/lib/modules/${version}"/modules.*map
