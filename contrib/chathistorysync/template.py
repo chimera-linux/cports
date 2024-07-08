@@ -1,6 +1,6 @@
 pkgname = "chathistorysync"
-pkgver = "0.2.0"
-pkgrel = 2
+pkgver = "0.2.1"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = [
     "go",
@@ -11,7 +11,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "AGPL-3.0-only"
 url = "https://git.sr.ht/~emersion/chathistorysync"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "97d428a7ce46caabdfcf13e1863eeaa534b7c8247d8bd9f8cbcc64c20e5cf86a"
+sha256 = "dc1fdbd1910b356d239afc2cffdd181faa47b8a82cf3251281c99cd3d612b4cf"
 # no tests
 options = ["!check"]
 
