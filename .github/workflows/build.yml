@@ -30,12 +30,15 @@ jobs:
         id: cache-cbuild
         uses: actions/cache@v4
         env:
-          cache-name: cache-cbuild-data
+          cache-name: cbuild-ci-cache
         with:
+          save-always: true
           path: |
             ./cbuild_cache
             ./sources
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.cache-name }}
 
       - name: Set up cbuild configuration
         run: sh .ci/setup-cbuild.sh
