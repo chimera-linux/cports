@@ -3,8 +3,6 @@ pkgver = "0.1.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "python-build",
     "python-meson",
     "python-installer",
