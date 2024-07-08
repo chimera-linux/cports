@@ -28,7 +28,8 @@ def do_install(self):
 
     # need either standard or minimal
     self.ln_s(
-        "cyfmac43455-sdio-standard.bin", f"{wfw}/cypress/cyfmac43455-sdio.bin"
+        "cyfmac43455-sdio-standard.bin",
+        f"{self.cwd}/{wfw}/cypress/cyfmac43455-sdio.bin",
     )
     # install all wifi firmware
     self.install_files(f"{wfw}/cypress", "usr/lib/firmware")
