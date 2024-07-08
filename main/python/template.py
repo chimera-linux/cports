@@ -1,7 +1,6 @@
 # update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
 _majver = "3.12"
-# .3 segfaults in ppc64le tests
 pkgver = f"{_majver}.4"
 pkgrel = 0
 build_style = "gnu_configure"
