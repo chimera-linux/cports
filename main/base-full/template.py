@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "base-bootstrap",
@@ -58,6 +58,18 @@ def _fw(self):
     ]
     if self.rparent.profile().arch == "x86_64":
         self.depends += ["base-firmware-sof"]
+    return []
+
+
+@subpackage("base-full-fonts")
+def _fonts(self):
+    self.pkgdesc = f"{pkgdesc} (fonts)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "fontconfig"]
+    self.provider_priority = 100
+    self.depends = [
+        f"{pkgname}={pkgver}-r{pkgrel}",
+        "fonts-dejavu",
+    ]
     return []
 
 
@@ -218,6 +230,7 @@ def _minimal(self):
     self.depends = [f"base-full={pkgver}-r{pkgrel}"]
     self.provides = [
         f"base-full-firmware={pkgver}-r{pkgrel}",
+        f"base-full-fonts={pkgver}-r{pkgrel}",
         f"base-full-kernel={pkgver}-r{pkgrel}",
         f"base-full-misc={pkgver}-r{pkgrel}",
         f"base-full-net={pkgver}-r{pkgrel}",
