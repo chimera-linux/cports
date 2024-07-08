@@ -36,7 +36,7 @@ options = ["!cross"]
 
 
 @subpackage("libadwaita-devel")
-def _devel(self):
+def _devel2(self):
     return self.default_devel()
 
 
