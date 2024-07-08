@@ -1490,6 +1490,9 @@ class Template(Package):
 
         return self.options["lto"] and target._has_lto(self.stage)
 
+    def can_lto(self, target=None):
+        return pkg_profile(self, target)._has_lto(self.stage)
+
     @contextlib.contextmanager
     def _profile(self, target):
         old_tgt = self._current_profile

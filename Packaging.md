@@ -2963,6 +2963,16 @@ as well as the current profile or the `target`) is going to LTO the
 build. This will be `True` if the template does not disable it, and
 if the stage is at least 2 and the profile supports it.
 
+##### def can_lto(self, target = None)
+
+Check if the current profile and stage can utilize LTO during builds.
+Unlike `has_lto()`, it will still potentially return `True` even if
+the template disables it in options.
+
+This is useful for specific scenarios such as when the template disables
+LTO but still uses it internally in the build system (e.g. toolchain
+builds where LTO is only applied to the last stage).
+
 ##### def install_files(self, path, dest, symlinks = True, name = None)
 
 Installs `path` (which may be a file or a directory and is relative
