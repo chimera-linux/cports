@@ -1,0 +1,7 @@
+# strongswan service
+
+type = process
+command = /usr/bin/ipsec start --nofork
+depends-on = pre-network.target
+depends-on = local.target
+log-type = buffer
