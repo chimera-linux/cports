@@ -1,7 +1,7 @@
 pkgname = "php8.3"
 _majver = "8.3"
 pkgver = f"{_majver}.9"
-pkgrel = 0
+pkgrel = 1
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -65,6 +65,7 @@ configure_args = [
     "--with-openssl=shared",
     "--with-password-argon2",
     "--with-pdo-sqlite=shared",
+    "--with-pear",
     "--with-sodium=shared",
     "--with-sqlite3=shared",
     "--with-unixODBC=shared",
@@ -229,6 +230,8 @@ def post_install(self):
     self.install_service(self.files_path / f"php-fpm{_majver}")
     # default php-fpm config files
     self.rename(f"etc/php{_majver}/php-fpm.conf.default", "php-fpm.conf")
+    for f in ["pear", "peardev", "pecl"]:
+        self.rename(f"usr/bin/{f}", f"{f}{_majver}")
     self.install_file(
         self.files_path / "www.conf", f"etc/php{_majver}/php-fpm.d"
     )
@@ -245,6 +248,20 @@ def post_install(self):
                 outf.write(f"zend_extension={extso}\n")
             else:
                 outf.write(f"extension={extso}\n")
+    # remove temporary files/dirs that shouldn't be part of package
+    for f in [
+        ".channels",
+        ".depdb",
+        ".depdblock",
+        ".filemap",
+        ".lock",
+        f"usr/share/php{_majver}/pear/.channels",
+        f"usr/share/php{_majver}/pear/.filemap",
+        f"usr/share/php{_majver}/pear/.lock",
+        f"usr/share/php{_majver}/pear/.registry",
+        f"usr/share/php{_majver}/pear/test",
+    ]:
+        self.uninstall(f)
 
 
 @subpackage(pkgname, alternative="php")
@@ -253,6 +270,9 @@ def _default(self):
     self.provider_priority = 100
     return [
         f"@etc/dinit.d/php-fpm=>php-fpm{_majver}",
+        f"@usr/bin/pear=>pear{_majver}",
+        f"@usr/bin/peardev=>peardev{_majver}",
+        f"@usr/bin/pecl=>pecl{_majver}",
         f"@usr/bin/phar=>phar{_majver}",
         f"@usr/bin/phar.phar=>phar{_majver}.phar",
         f"@usr/bin/php=>php{_majver}",
@@ -326,6 +346,21 @@ for _extn, _iif in [
     ("zlib", False),
 ]:
     _extension(_extn, _iif)
+
+
+@subpackage(f"php{_majver}-pear")
+def _pear(self):
+    self.pkgdesc = f"PHP{_majver} Extension and Application Repository"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", f"{pkgname}-xml"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return [
+        f"etc/php{_majver}/pear.conf",
+        f"usr/bin/pear{_majver}",
+        f"usr/bin/peardev{_majver}",
+        f"usr/bin/pecl{_majver}",
+        f"usr/share/php{_majver}/pear",
+    ]
 
 
 @subpackage(f"php{_majver}-devel")
