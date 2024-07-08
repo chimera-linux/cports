@@ -38,7 +38,7 @@ def do_configure(self):
     cenv.update(
         {
             "PERL5LIB": str(
-                self.chroot_srcdir / perlpfx.relative_to(self.srcdir)
+                self.chroot_statedir / perlpfx.relative_to(self.statedir)
             ),
             "PERL_MM_USE_DEFAULT": "1",
             "GCC": cct,
