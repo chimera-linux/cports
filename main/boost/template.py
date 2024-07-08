@@ -75,14 +75,6 @@ match self.profile().arch:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 
-def init_configure(self):
-    self._pyver = (
-        self.do("pkgconf", "--modversion", "python3", capture_output=True)
-        .stdout.decode()
-        .strip()
-    )
-
-
 def _call_b2(self, *args):
     self.do(
         self.chroot_cwd / "b2",
@@ -90,7 +82,9 @@ def _call_b2(self, *args):
         f"--user-config={self.chroot_cwd}/user-config.jam",
         f"--prefix={self.chroot_destdir}/usr",
         "release",
-        f"python={self._pyver}",
+        f"python={self.python_version}",
+        f"architecture={_arch}",
+        f"abi={_abi}",
         "toolset=clang",
         "cxxflags=" + self.get_cxxflags(shell=True),
         "linkflags=" + self.get_ldflags(shell=True),
@@ -118,7 +112,7 @@ def do_build(self):
         cf.write(
             f"""
 using clang : : {self.get_tool("CXX")} : <cxxflags>"{self.get_cxxflags(shell=True)}" <linkflags>"{self.get_ldflags(shell=True)}" <warnings-as-errors>"off" ;
-using python : {self._pyver} : /usr/bin/python3 : /usr/include/python{self._pyver} : /usr/lib/python{self._pyver} ;
+using python : {self.python_version} : /usr/bin/python3 : /usr/include/python{self.python_version} : /usr/lib/python{self.python_version} ;
 """
         )
 
