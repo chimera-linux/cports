@@ -227,12 +227,12 @@ def post_install(self):
     self.install_file("README.md", f"usr/share/doc/php{_majver}")
     self.install_service(self.files_path / f"php-fpm{_majver}")
     # default php-fpm config files
-    self.mv(f"etc/php{_majver}/php-fpm.conf.default", "php-fpm.conf")
+    self.rename(f"etc/php{_majver}/php-fpm.conf.default", "php-fpm.conf")
     self.install_file(
         self.files_path / "www.conf", f"etc/php{_majver}/php-fpm.d"
     )
     # these are unnecessary with apk backups
-    self.uninstall(f"etc/php{_majver}/php-fpm.d/*.default")
+    self.uninstall(f"etc/php{_majver}/php-fpm.d/*.default", glob=True)
     # extensions
     extcp = self.destdir / f"etc/php{_majver}/conf.d"
     self.mkdir(extcp, parents=True)
