@@ -1,6 +1,6 @@
 pkgname = "libcxx-wasi"
 pkgver = "18.1.8"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -129,3 +129,7 @@ def do_install(self):
 
     for tgt in _targets:
         cmake.install(self, f"build-{tgt[0]}")
+
+    # clang will not try including any c++ paths unless this path exists
+    self.install_dir("usr/wasm32-unknown-wasi/include/c++/v1")
+    (self.destdir / "usr/wasm32-unknown-wasi/include/c++/v1/__empty").touch()
