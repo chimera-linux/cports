@@ -1,6 +1,6 @@
 pkgname = "botan"
-pkgver = "3.4.0"
-pkgrel = 1
+pkgver = "3.5.0"
+pkgrel = 0
 build_style = "configure"
 configure_script = "./configure.py"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://botan.randombit.net"
 source = f"{url}/releases/Botan-{pkgver}.tar.xz"
-sha256 = "71843afcc0a2c585f8f33fa304f0b58ae4b9c5d8306f894667b3746044277557"
+sha256 = "67e8dae1ca2468d90de4e601c87d5f31ff492b38e8ab8bcbd02ddf7104ed8a9f"
 # FIXME: cfi
 hardening = ["vis"]
 # see below
