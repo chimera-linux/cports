@@ -2,8 +2,8 @@
 # also bump update.py
 pkgname = "linux-steamdeck"
 pkgver = "6.5.0"
-pkgrel = 0
-_vver = 7
+pkgrel = 1
+_vver = 13
 archs = ["x86_64"]
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://gitlab.com/evlaV/linux-integration"
 source = f"{url}/-/archive/{pkgver}-valve{_vver}/linux-integration-{pkgver}-valve{_vver}.tar.gz"
-sha256 = "bf026a1bc6835f8ad7de1854189509e979232892064e936665bd591024404318"
+sha256 = "75ce455a751dcaf3bbf475b28d2d507b242d90923987de888c75ee611790ff11"
 # no meaningful checking to be done
 options = [
     "!check",
@@ -30,8 +30,18 @@ options = [
 
 _flavor = "valve"
 
+if self.current_target == "custom:generate-configs":
+    hostmakedepends += ["base-cross", "ncurses-devel"]
+
 if self.profile().cross:
     broken = "linux-devel does not come out right"
+
+
+@custom_target("generate-configs", "patch")
+def _genconf(self):
+    from cbuild.util import linux
+
+    linux.update_configs(self, archs, _flavor)
 
 
 def init_configure(self):
