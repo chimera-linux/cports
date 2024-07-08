@@ -215,6 +215,7 @@ def _sound(self):
 @subpackage("base-minimal")
 def _minimal(self):
     self.pkgdesc = f"{pkgdesc} (metapackage for small installations)"
+    self.depends = [f"base-full={pkgver}-r{pkgrel}"]
     self.provides = [
         f"base-full-firmware={pkgver}-r{pkgrel}",
         f"base-full-kernel={pkgver}-r{pkgrel}",
