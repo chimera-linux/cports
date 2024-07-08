@@ -1,6 +1,6 @@
 pkgname = "libcxx-wasi"
 pkgver = "18.1.8"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -62,7 +62,6 @@ options = ["!cross", "!check", "!lto", "!strip"]
 
 
 _targets = [
-    ("wasm32-wasi", False),
     ("wasm32-wasip1", False),
     ("wasm32-wasip1-threads", True),
     ("wasm32-wasip2", False),
