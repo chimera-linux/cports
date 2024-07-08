@@ -402,7 +402,7 @@ class Package:
 
     def ln_s(self, srcp, destp, relative=False):
         srcp = _subst_path(self, srcp)
-        destp = _subst_path(self, destp)
+        destp = self.rparent.cwd / _subst_path(self, destp)
         if destp.is_dir():
             destp = destp / pathlib.Path(srcp).name
         if relative:
