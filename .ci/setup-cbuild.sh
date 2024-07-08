@@ -32,4 +32,11 @@ EOF
 echo "=> Generating cbuild key..."
 python3.11 cbuild keygen
 
+echo "=> Setting up ccache configuration..."
+mkdir -p cbuild_cache/ccache
+printf "%s\n%s\n" \
+    "absolute_paths_in_stderr = true" \
+    "sloppiness = pch_defines,time_macros,file_stat_matches,file_stat_matches_ctime,random_seed,include_file_mtime" \
+    > cbuild_cache/ccache/ccache.conf
+
 echo "... done setting up cbuild."
