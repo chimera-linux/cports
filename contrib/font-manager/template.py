@@ -1,12 +1,14 @@
 pkgname = "font-manager"
-pkgver = "0.8.9"
+pkgver = "0.9.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dnautilus=true",
+    "-Dreproducible=true",
     "-Dthunar=true",
 ]
 hostmakedepends = [
+    "desktop-file-utils",
     "gettext",
     "gobject-introspection",
     "itstool",
@@ -16,19 +18,19 @@ hostmakedepends = [
     "yelp-tools",
 ]
 makedepends = [
-    "gtk+3-devel",
+    "gtk4-devel",
     "json-glib-devel",
     "libsoup-devel",
     "nautilus-devel",
     "thunar-devel",
-    "webkitgtk-devel",
+    "webkitgtk4-devel",
 ]
 pkgdesc = "Font management application"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://fontmanager.github.io"
 source = f"https://github.com/FontManager/font-manager/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "55e48601dd5f924412931e29c4137f6fdf6a07d7c41d977c840b60f0837740ec"
+sha256 = "8c2a2bfd4b26430a9f376e2e868d11e2d7a0695523f97a5402c0c3edb0b5762c"
 # gobject-introspection
 options = ["!cross"]
 
