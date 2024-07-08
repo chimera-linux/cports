@@ -1,6 +1,6 @@
 pkgname = "cargo-edit"
 pkgver = "0.12.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["openssl-devel", "libgit2-devel"]

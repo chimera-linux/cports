@@ -1,6 +1,6 @@
 pkgname = "bat"
 pkgver = "0.24.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_env = {"BAT_ASSETS_GEN_DIR": "gen"}
 hostmakedepends = ["cargo-auditable", "pkgconf"]

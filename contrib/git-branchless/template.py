@@ -1,6 +1,6 @@
 pkgname = "git-branchless"
 pkgver = "0.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std", "sqlite-devel"]

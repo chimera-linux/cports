@@ -1,6 +1,6 @@
 pkgname = "geany-plugins"
 pkgver = "2.0.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-all-plugins",

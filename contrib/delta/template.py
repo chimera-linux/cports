@@ -1,6 +1,6 @@
 pkgname = "delta"
 pkgver = "0.17.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 # we patch Cargo.toml and Cargo.lock
 prepare_after_patch = True

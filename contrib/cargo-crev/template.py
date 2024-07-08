@@ -1,6 +1,6 @@
 pkgname = "cargo-crev"
 pkgver = "0.25.9"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "cargo-crev"
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]

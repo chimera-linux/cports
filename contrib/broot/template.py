@@ -1,6 +1,6 @@
 pkgname = "broot"
 pkgver = "1.39.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
