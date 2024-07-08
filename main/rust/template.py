@@ -1,28 +1,28 @@
 pkgname = "rust"
 pkgver = "1.79.0"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = [
+    "cargo-bootstrap",
     "cmake",
     "curl",
-    "pkgconf",
-    "python",
+    "libffi-devel",
+    "libxml2-devel",
     "llvm-devel",
     "llvm-tools",
-    "libffi-devel",
     "ncurses-devel",
-    "libxml2-devel",
+    "pkgconf",
+    "python",
+    "wasi-libc",
     "zlib-ng-compat-devel",
     "zstd-devel",
-    "cargo-bootstrap",
-    "wasi-libc",
 ]
 makedepends = [
     "libffi-devel",
-    "ncurses-devel",
     "libxml2-devel",
+    "llvm-devel",
+    "ncurses-devel",
     "zlib-ng-compat-devel",
     "zstd-devel",
-    "llvm-devel",
 ]
 depends = [f"rust-std={pkgver}-r{pkgrel}", "clang", "musl-devel"]
 pkgdesc = "Rust programming language"
@@ -111,7 +111,12 @@ def do_configure(self):
     tgt_profile = self.profile()
     _tgt_spec = [f"'{tgt_profile.triplet}'"]
     if self.current_target != "custom:bootstrap":
-        _tgt_spec += ["'wasm32-wasi'", "'wasm32-unknown-unknown'"]
+        _tgt_spec += [
+            "'wasm32-unknown-unknown'",
+            "'wasm32-wasip1'",
+            "'wasm32-wasip1-threads'",
+            "'wasm32-wasip2'",
+        ]
 
     # this is a hack that violates packaging guidelines, but it's only
     # for bootstrapping anyway, and conditionally patching it is worse
@@ -202,7 +207,8 @@ llvm-libunwind = 'system'
 [dist]
 
 src-tarball = true
-compression-formats = ['xz']
+compression-formats = ['gz']
+compression-profile = 'fast'
 
 [target.{host_profile.triplet}]
 
@@ -240,7 +246,19 @@ crt-static = false
 sanitizers = false
 profiler = false
 
-[target.wasm32-wasi]
+[target.wasm32-wasip1]
+
+sanitizers = false
+profiler = false
+wasi-root = '/usr/wasm32-unknown-wasi'
+
+[target.wasm32-wasip1-threads]
+
+sanitizers = false
+profiler = false
+wasi-root = '/usr/wasm32-unknown-wasi'
+
+[target.wasm32-wasip2]
 
 sanitizers = false
 profiler = false
@@ -315,7 +333,7 @@ def _untar(self, name, has_triple=True):
         fname += f"-{has_triple}"
     elif has_triple:
         fname += f"-{trip}"
-    fname += ".tar.xz"
+    fname += ".tar.gz"
 
     self.do(
         "tar",
@@ -344,12 +362,22 @@ def do_install(self):
     self.install_dir("usr/src")
 
     # extract the archives
-    for f in ["rustc", "rust-std", "rustc-dev", "clippy", "rustfmt"]:
+    for f in [
+        "rustc",
+        "rust-std",
+        "rustc-dev",
+        "clippy",
+        "rustfmt",
+        "rust-demangler",
+    ]:
         self.log(f"unpacking {f}...")
         _untar(self, f)
     # wasm shit
+    self.log(f"unpacking wasm targets...")
     _untar(self, "rust-std", "wasm32-unknown-unknown")
-    _untar(self, "rust-std", "wasm32-wasi")
+    _untar(self, "rust-std", "wasm32-wasip1")
+    _untar(self, "rust-std", "wasm32-wasip1-threads")
+    _untar(self, "rust-std", "wasm32-wasip2")
 
     self.log("unpacking rust-src...")
     _untar(self, "rust-src", False)
