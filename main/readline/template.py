@@ -3,24 +3,26 @@
 # really bad ones) and sometimes we cannot just replace it
 pkgname = "readline"
 # use a git revision so we don't have to deal with the stupid patches
-_gitrev = "7274faabe97ce53d6b464272d7e6ab6c1392837b"
-pkgver = "8.2.001"
-pkgrel = 1
+_gitrev = "5d4d92f221d6aac4be445bdd8cd9b48d9ac33f04"
+pkgver = "8.2.010"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-curses",
-    "--enable-multibyte",
-    "bash_cv_termcap_lib=libncursesw",
     "--disable-static",
+    "--enable-multibyte",
+    "--with-curses",
+    "bash_cv_termcap_lib=libncursesw",
 ]
+# broken af
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "GNU Readline library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://tiswww.cwru.edu/php/chet/readline/rltop.html"
-source = f"http://git.savannah.gnu.org/cgit/{pkgname}.git/snapshot/{pkgname}-{_gitrev}.tar.gz"
-sha256 = "a492621bc1dcf18ee89851942ad1752025ffaae661a5cd9f188f54f892989e77"
+source = f"https://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-{_gitrev}.tar.gz"
+sha256 = "08b86f4db02481b4105d62f137fa6469bcb5d16ffc01bccb9c3d1be83d33974e"
 
 
 def post_install(self):
@@ -37,6 +39,3 @@ def _history(self):
 @subpackage("readline-devel")
 def _devel(self):
     return self.default_devel(extra=["usr/share/info"])
-
-
-configure_gen = []
