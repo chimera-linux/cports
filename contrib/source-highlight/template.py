@@ -1,6 +1,6 @@
 pkgname = "source-highlight"
 pkgver = "3.1.9"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = [
     "--with-bash-completion=/usr/share/bash-completion/completions"
@@ -30,4 +30,5 @@ def _libs(self):
 
 @subpackage("source-highlight-devel")
 def _devel(self):
+    self.depends += ["boost-devel"]
     return self.default_devel()
