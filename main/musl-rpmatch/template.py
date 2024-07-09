@@ -1,6 +1,6 @@
 pkgname = "musl-rpmatch"
 pkgver = "1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = ["PREFIX=/usr"]
 hostmakedepends = ["pkgconf"]

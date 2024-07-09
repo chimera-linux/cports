@@ -1,6 +1,6 @@
 pkgname = "lz4"
 pkgver = "1.9.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_args = ["-j1"]

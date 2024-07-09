@@ -1,6 +1,6 @@
 pkgname = "debianutils"
 pkgver = "5.20"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Miscellaneous utilities from Debian"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

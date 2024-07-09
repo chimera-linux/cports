@@ -1,6 +1,6 @@
 pkgname = "openssl"
 pkgver = "3.3.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [

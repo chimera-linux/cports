@@ -1,7 +1,7 @@
 pkgname = "bzip2"
 # update bzip2.pc if the version changes (and check if upstreamed)
 pkgver = "1.0.8"
-pkgrel = 2
+pkgrel = 3
 hostmakedepends = ["pkgconf"]
 provides = [f"libbz2={pkgver}-r{pkgrel}"]
 pkgdesc = "Freely available, patent free, high-quality data compressor"

@@ -1,6 +1,6 @@
 pkgname = "acl"
 pkgver = "2.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--libdir=/usr/lib", "--libexecdir=/usr/lib"]
 # cycle chimerautils -> acl -> automake -> chimerautils

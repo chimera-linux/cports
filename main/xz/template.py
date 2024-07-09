@@ -1,6 +1,6 @@
 pkgname = "xz"
 pkgver = "5.6.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = []

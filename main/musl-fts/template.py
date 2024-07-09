@@ -1,6 +1,6 @@
 pkgname = "musl-fts"
 pkgver = "1.2.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_args = ["PREFIX=/usr"]
 hostmakedepends = ["pkgconf"]

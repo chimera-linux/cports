@@ -1,6 +1,6 @@
 pkgname = "musl"
 pkgver = "1.2.5_git20240622"
-pkgrel = 1
+pkgrel = 2
 _commit = "ab31e9d6a0fa7c5c408856c89df2dfb12c344039"
 _scudo_ver = "18.1.8"
 build_style = "gnu_configure"
