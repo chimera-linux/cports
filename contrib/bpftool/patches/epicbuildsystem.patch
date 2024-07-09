@@ -1,5 +1,5 @@
---- a/tools/bpf/bpftool/Makefile
-+++ b/tools/bpf/bpftool/Makefile
+--- a/src/Makefile
++++ b/src/Makefile
 @@ -48,7 +48,8 @@
  
  $(LIBBPF_INTERNAL_HDRS): $(LIBBPF_HDRS_DIR)/%.h: $(BPF_DIR)/%.h | $(LIBBPF_HDRS_DIR)
