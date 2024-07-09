@@ -14,6 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  PYTHONUNBUFFERED: 1
   SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
 jobs:
@@ -58,10 +59,10 @@ jobs:
         run: sh .ci/setup-cbuild.sh
 
       - name: Cycle check
-        run: env PYTHONUNBUFFERED=1 python3.11 cbuild cycle-check
+        run: python3.11 cbuild cycle-check
 
       - name: Symlink check
-        run: env PYTHONUNBUFFERED=1 python3.11 cbuild relink-subpkgs && git diff --exit-code
+        run: python3.11 cbuild relink-subpkgs && git diff --exit-code
 
       - name: Build and test packages
-        run: env PYTHONUNBUFFERED=1 python3.11 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
+        run: python3.11 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
