@@ -36,8 +36,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install --no-install-recommends python3-pip ca-certificates python3.11 openssl git bubblewrap wget
 
-      - name: Install pip dependencies
-        run: sudo pip3 install black flake8
+      - name: Install ruff
+        run: sudo pip3 install ruff
 
       - name: Checkout
         uses: classabbyamp/treeless-checkout-action@v1
