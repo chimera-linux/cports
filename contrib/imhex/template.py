@@ -1,6 +1,6 @@
 pkgname = "imhex"
-pkgver = "1.35.3"
-pkgrel = 1
+pkgver = "1.35.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DIMHEX_BUNDLE_DOTNET=OFF",
@@ -46,15 +46,15 @@ pkgdesc = "Hex editor for reverse engineers"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://imhex.werwolv.net"
-_patterns = "a0bb71be5864588fd0f33ec524c8a3b32dcc3a59"
+_patterns = "4299243e950bca438e16114937a2691ce23a4869"
 source = [
     f"https://github.com/WerWolv/ImHex/releases/download/v{pkgver}/Full.Sources.tar.gz>src-{pkgver}.tar.gz",
     f"https://github.com/WerWolv/ImHex-Patterns/archive/{_patterns}.tar.gz",
 ]
 source_paths = [".", "ImHex-Patterns"]
 sha256 = [
-    "371c36f57c82b36e44069c91448891d1f0795962604246539f9ae38f330c11af",
-    "895aea1e0f4367f0e52e25205c459bbe8589d2f094d676e0874982a7ca5ae359",
+    "987188df511a01dca407c4fd398a9dbc805ef82cdf044ea27da57ec343c7d6df",
+    "ed187d7d143ecf0cb69bbb9186f7aea02fbd9bf996c7e55fc3893e73db45d7aa",
 ]
 
 
