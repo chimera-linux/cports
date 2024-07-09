@@ -21,7 +21,9 @@ jobs:
   build:
     name: Build packages
     runs-on: ubuntu-latest
-    if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
+    if: |
+      !contains(github.event.pull_request.title, '[ci skip]')
+      && !contains(github.event.pull_request.body, '[ci skip]')
 
     env:
       update_check: |-
