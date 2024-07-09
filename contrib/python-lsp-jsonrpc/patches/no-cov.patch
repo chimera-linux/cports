@@ -1,0 +1,7 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -48,4 +48,3 @@
+ 
+ [tool.pytest.ini_options]
+ testpaths = ["test"]
+-addopts = "--cov-report html --cov-report term --junitxml=pytest.xml --cov pylsp_jsonrpc --cov test"
