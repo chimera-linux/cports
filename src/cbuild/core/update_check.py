@@ -183,6 +183,7 @@ class UpdateCheck:
             or "codeberg.org" in url
             or "hg.sr.ht" in url
             or "git.sr.ht" in url
+            or "pagure.io" in url
         ):
             return ret
 
@@ -358,6 +359,8 @@ class UpdateCheck:
                 rxg = 1
             elif "pkgs.fedoraproject.org" in url:
                 url = f"https://pkgs.fedoraproject.org/repo/pkgs/{pname}"
+            elif "pagure.io" in url:
+                url = f"https://pagure.io/{pname}/releases"
 
         if self.pattern:
             rx = self.pattern
