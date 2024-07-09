@@ -754,6 +754,7 @@ class Template(Package):
 
         # make this available early
         self.repository, self.pkgname = pkgname.split("/")
+        self.full_pkgname = pkgname
 
         # resolve all source repos available to this package
         self.source_repositories = [self.repository]

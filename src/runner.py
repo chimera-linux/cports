@@ -1207,7 +1207,7 @@ def do_relink_subpkgs(tgt):
                 None,
                 target="lint",
             )
-            links[f"{tp.repository}/{tp.pkgname}"] = tp.all_subpackages
+            links[tp.full_pkgname] = tp.all_subpackages
             return tp
         except errors.PackageException:
             return None
@@ -1525,15 +1525,15 @@ def do_update_check(tgt):
 
         if len(tmpl.pkgver) > verlen:
             verlen = len(tmpl.pkgver)
-        if (len(tmpl.pkgname) + len(tmpl.repository) + 1) > namelen:
-            namelen = len(tmpl.pkgname) + len(tmpl.repository) + 1
+        if len(tmpl.full_pkgname) > namelen:
+            namelen = len(tmpl.full_pkgname)
 
         return tmpl
 
-    def _print_upd(rp, pn, pv, nv):
+    def _print_upd(pn, pv, nv):
         # align name
-        s = f"{rp}/{pn}: "
-        s += " " * (namelen - len(pn) - len(rp) - 1)
+        s = f"{pn}: "
+        s += " " * (namelen - len(pn))
         # add version
         vs = f"{pv} -> {nv}"
         s += vs
@@ -1559,7 +1559,7 @@ def do_update_check(tgt):
     if len(tmpls) == 1:
         cv = update_check.update_check(tmpls[0], verbose)
         for pv, nv in cv:
-            _print_upd(tmpls[0].repository, tmpls[0].pkgname, pv, nv)
+            _print_upd(tmpls[0].full_pkgname, pv, nv)
         return
 
     maint = None
@@ -1601,7 +1601,7 @@ def do_update_check(tgt):
             pmaint = True
         # now we can actually print the versions
         for pv, nv in cv:
-            _print_upd(tmpl.repository, tmpl.pkgname, pv, nv)
+            _print_upd(tmpl.full_pkgname, pv, nv)
 
 
 def do_dump(tgt):
@@ -2193,7 +2193,7 @@ def do_prepare_upgrade(tgt):
     )
     newsha = list(tmpl.sha256)
 
-    tmplp = f"{tmpl.repository}/{tmpl.pkgname}/template.py"
+    tmplp = f"{tmpl.full_pkgname}/template.py"
 
     tmpl_source = pathlib.Path(tmplp).read_text()
     found_sha = False
@@ -2249,7 +2249,7 @@ def do_bump_pkgrel(tgt):
                 target="lint",
             )
             pr = tmpl.pkgrel
-            tmplp = f"{tmpl.repository}/{tmpl.pkgname}/template.py"
+            tmplp = f"{tmpl.full_pkgname}/template.py"
             tmpl_source = pathlib.Path(tmplp).read_text()
             with open(tmplp + ".tmp", "w") as outf:
                 for ln in tmpl_source.splitlines():

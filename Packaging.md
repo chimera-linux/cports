@@ -2458,6 +2458,10 @@ prefix `>/` in the path as a shorthand for `self.destdir`.
 
 A string representing the name of the package.
 
+##### self.full_pkgname
+
+A string in the format `repository/pkgname`.
+
 ##### self.pkgver
 
 The version number of the package. While provided as a template variable,
