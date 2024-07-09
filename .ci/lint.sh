@@ -2,12 +2,22 @@
 
 RET=0
 
-flake8 main contrib user src
+if command -v ruff 2>/dev/null; then
+    ruff check
+else
+    flake8 main contrib user src
+fi
+
 if [ $? -ne 0 ]; then
     RET=1
 fi
 
-find main contrib user src -name '*.py' -exec black --fast --check {} +
+if command -v ruff 2>/dev/null; then
+    ruff format --diff
+else
+    find main contrib user src -name '*.py' -exec black --fast --check {} +
+fi
+
 if [ $? -ne 0 ]; then
     RET=1
 fi
