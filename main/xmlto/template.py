@@ -1,23 +1,24 @@
 pkgname = "xmlto"
-pkgver = "0.0.28"
+pkgver = "0.0.29"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["ac_cv_path_BASH=/usr/bin/bash"]
 configure_env = {"GETOPT": "ugetopt"}
+make_cmd = "gmake"
 hostmakedepends = [
-    "bash",
-    "xsltproc",
-    "docbook-xsl-nons",
-    "ugetopt",
     "automake",
-    "libtool",
+    "bash",
+    "docbook-xsl-nons",
+    "gmake",
     "flex",
+    "libtool",
+    "ugetopt",
+    "xsltproc",
 ]
 depends = ["bash", "ugetopt", "xsltproc", "docbook-xsl-nons"]
 pkgdesc = "Tool to help transform XML documents into other formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
-url = "http://cyberelk.net/tim/software/xmlto"
-source = f"http://anduin.linuxfromscratch.org/BLFS/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "1130df3a7957eb9f6f0d29e4aa1c75732a7dfb6d639be013859b5c7ec5421276"
+url = "https://pagure.io/xmlto"
+source = f"{url}/archive/{pkgver}/xmlto-{pkgver}.tar.gz"
+sha256 = "40504db68718385a4eaa9154a28f59e51e59d006d1aa14f5bc9d6fded1d6017a"
 hardening = ["vis", "cfi"]
