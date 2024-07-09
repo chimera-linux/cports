@@ -1,6 +1,6 @@
 pkgname = "dinit"
 pkgver = "0.18.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--syscontrolsocket=/run/dinitctl"]
 configure_gen = []
