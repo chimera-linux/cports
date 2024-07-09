@@ -1537,18 +1537,22 @@ class Template(Package):
             return self._current_profile
         return self._profile(target)
 
-    def uninstall(self, path, glob=False):
+    def uninstall(self, path, glob=False, force=False):
         if path.startswith("/"):
             raise errors.TracebackException(
                 f"uninstall: path '{path}' must not be absolute"
             )
         if not glob:
             dests = [self.destdir / path]
-            if not dests[0].exists() and not dests[0].is_symlink():
+            if (
+                not dests[0].exists()
+                and not dests[0].is_symlink()
+                and not force
+            ):
                 self.error(f"path '{path}' does not match anything", bt=True)
         else:
             dests = list(self.destdir.glob(path))
-            if len(dests) < 1:
+            if len(dests) < 1 and not force:
                 self.error(f"path '{path}' does not match anything", bt=True)
         for dst in dests:
             self.rm(dst, recursive=True, force=True)

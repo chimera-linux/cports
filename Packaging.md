@@ -3114,11 +3114,11 @@ Usage:
 self.install_shell("/usr/bin/bash")
 ```
 
-##### def uninstall(self, path, glob = False)
+##### def uninstall(self, path, glob = False, force = False)
 
 Wipes the `path` (which must be a relative string) from the destination
-directory. The path must match some files or directories. It can optionally
-be globbed.
+directory. The path must match some files or directories unless force is
+enabled. It can optionally be globbed.
 
 ##### def rename(self, src, dest, relative = True, glob = False, keep_name = False)
 
