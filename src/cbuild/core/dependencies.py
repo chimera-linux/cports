@@ -447,7 +447,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                 template.read_pkg(
                     pn,
                     chost if pkg.stage > 0 else None,
-                    False,
+                    True,
                     pkg.run_check,
                     (pkg.conf_jobs, pkg.conf_link_threads),
                     pkg.build_dbg,
