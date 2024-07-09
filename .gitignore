@@ -12,3 +12,6 @@ void-*.tar.xz
 bootstrap.*
 !bootstrap.sh
 !bootstrap.ini
+
+# custom configs
+.nvim.lua
