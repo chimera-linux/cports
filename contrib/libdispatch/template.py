@@ -18,8 +18,7 @@ license = "Apache-2.0"
 url = "https://apple.github.io/swift-corelibs-libdispatch"
 source = f"https://github.com/apple/swift-corelibs-libdispatch/archive/refs/tags/swift-{pkgver}-RELEASE.tar.gz"
 sha256 = "affa3544b0fdb60f8f175bc0d2846177436d5848ef8ca73e3e560d23986f38b3"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("libdispatch-devel")

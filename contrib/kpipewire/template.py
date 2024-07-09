@@ -26,7 +26,7 @@ license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kpipewire"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kpipewire-{pkgver}.tar.xz"
 sha256 = "250f505d723fb71fdfb5af5f89e4f878f632c534fb2b01ba0bbb3ac19170d571"
-# FIXME: cfi breaks at least mediamonitortest (further) and xwaylandvideobridge upon screen share
+# CFI: breaks at least mediamonitortest (further) and xwaylandvideobridge upon screen share
 hardening = ["vis", "!cfi"]
 # only available test needs running pipewire
 options = ["!check"]

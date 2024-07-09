@@ -28,5 +28,5 @@ url = "https://github.com/fastfetch-cli/fastfetch"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "f41322a9d9601a5a5a74f67a3253c7e8631e6241053094d050cf02bbade8cbcd"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
-# TODO: CFI dies immediately (ffPlatformPathAddHome at FFlist.c:31:12)
+# CFI: dies immediately (ffPlatformPathAddHome at FFlist.c:31:12)
 hardening = ["vis", "!cfi"]

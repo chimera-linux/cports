@@ -30,7 +30,7 @@ license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "51bfe87eb1c02fed1484051875365eeab229831d30d0cec5d89a14f9e40e9adb"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 
 
 def do_configure(self):

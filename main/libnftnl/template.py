@@ -12,7 +12,7 @@ license = "GPL-2.0-or-later"
 url = "https://www.netfilter.org/projects/libnftnl"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ceeaea2cd92147da19f13a35a7f1a4bc2767ff897e838e4b479cf54b59c777f4"
-# FIXME cfi: verify function pointers
+# CFI: verify function pointers
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]
 

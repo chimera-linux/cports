@@ -28,8 +28,8 @@ license = "BSD-3-Clause"
 url = "https://www.openexr.com"
 source = f"https://github.com/openexr/openexr/archive/v{pkgver}.tar.gz"
 sha256 = "81e6518f2c4656fdeaf18a018f135e96a96e7f66dbe1c1f05860dd94772176cc"
-# FIXME: cfi has a bunch of test failures
-hardening = ["vis"]
+# CIF: has a bunch of test failures
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):

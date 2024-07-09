@@ -38,5 +38,5 @@ license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/konsole"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konsole-{pkgver}.tar.xz"
 sha256 = "1d05ef1bfa531e41f9625acb95eeb18ef5409fa5160d4b976ce6997759518994"
-# FIXME: cfi breaks at least TerminalInterfaceTest like https://paste.c-net.org/yrqifaktnyhy
+# CFI: breaks at least TerminalInterfaceTest like https://paste.c-net.org/yrqifaktnyhy
 hardening = ["vis", "!cfi"]

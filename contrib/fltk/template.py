@@ -31,8 +31,7 @@ license = "LGPL-2.0-only WITH FLTK-exception"
 url = "https://www.fltk.org"
 source = f"{url}/pub/fltk/{pkgver}/fltk-{pkgver}-source.tar.gz"
 sha256 = "d736b0445c50d607432c03d5ba5e82f3fba2660b10bc1618db8e077a42d9511b"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):

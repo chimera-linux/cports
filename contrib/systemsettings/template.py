@@ -36,5 +36,5 @@ url = "https://userbase.kde.org/System_Settings"
 source = f"$(KDE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"
 sha256 = "907addec0baf4026d7741a0db3380d388f5cf69984dac07c0fa05e11058b46b6"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
-# FIXME: cfi crash on launch
+# CFI: crash on launch
 hardening = ["vis", "!cfi"]

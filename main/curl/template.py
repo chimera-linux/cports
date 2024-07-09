@@ -49,7 +49,6 @@ license = "MIT"
 url = "https://curl.haxx.se"
 source = f"{url}/download/{pkgname}-{pkgver}.tar.xz"
 sha256 = "0f58bb95fc330c8a46eeb3df5701b0d90c9d9bfcc42bd1cd08791d12551d4400"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 # workaround for test 1119
 exec_wrappers = [("/usr/bin/clang-cpp", "cpp")]

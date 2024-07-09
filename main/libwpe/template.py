@@ -11,7 +11,7 @@ license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c7f3a3c6b3d006790d486dc7cceda2b6d2e329de07f33bc47dfc53f00f334b2a"
-# FIXME cfi (wpe_view_backend_create_with_backend_interface)
+# CFI: wpe_view_backend_create_with_backend_interface
 hardening = ["vis", "!cfi"]
 
 

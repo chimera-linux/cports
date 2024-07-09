@@ -25,7 +25,7 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.com/procps-ng/procps"
 source = f"$(SOURCEFORGE_SITE)/procps-ng/Production/procps-ng-{pkgver}.tar.xz"
 sha256 = "22870d6feb2478adb617ce4f09a787addaf2d260c5a8aa7b17d889a962c5e42e"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 
 
 def post_install(self):

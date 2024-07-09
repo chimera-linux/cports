@@ -28,7 +28,7 @@ source = (
     f"$(SOURCEFORGE_SITE)/enlightenment/{pkgname}-src/{pkgname}-{pkgver}.tar.gz"
 )
 sha256 = "e96b43014ac9d61a0775e28a46cf7befbd49654705df845001e849e44839481b"
-hardening = ["!cfi"]  # TODO investigate
+hardening = ["!cfi"]  # investigate
 
 
 def post_install(self):

@@ -17,7 +17,7 @@ license = "LGPL-2.0-or-later AND BSD-2-Clause"
 url = "https://api.kde.org/frameworks/syndication/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/syndication-{pkgver}.tar.xz"
 sha256 = "cdf057c09be35e39809040072a67b8526ee612b6d8761f96f613b350d979c8d4"
-# FIXME: cfi breaks 2/3 tests
+# CFI: breaks 2/3 tests
 hardening = ["vis", "!cfi"]
 
 

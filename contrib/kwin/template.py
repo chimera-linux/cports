@@ -101,7 +101,7 @@ file_xattrs = {
         "security.capability": "cap_sys_nice+ep",
     },
 }
-# FIXME: cfi breaks lots of tests
+# CFI: breaks lots of tests
 hardening = ["vis", "!cfi"]
 
 

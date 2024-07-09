@@ -24,8 +24,7 @@ license = "MIT"
 url = "https://github.com/emersion/xdg-desktop-portal-wlr"
 source = f"https://github.com/emersion/xdg-desktop-portal-wlr/releases/download/v{pkgver}/xdg-desktop-portal-wlr-{pkgver}.tar.gz"
 sha256 = "eec6e4be808e1a445e677dba1e20e5acb2f091825f5ff4c6ac49d5843b2185f9"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 # no tests
 options = ["!check"]
 

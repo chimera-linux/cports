@@ -12,8 +12,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/benhoyt/inih"
 source = f"{url}/archive/r{pkgver}.tar.gz"
 sha256 = "e79216260d5dffe809bda840be48ab0eec7737b2bb9f02d2275c1b46344ea7b7"
-# FIXME: cfi breaks xdg-desktop-portal-wlr when it loads an empty config
-hardening = ["vis"]
+# CFI: breaks xdg-desktop-portal-wlr when it loads an empty config
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):

@@ -27,8 +27,8 @@ license = "GPL-2.0-or-later"
 url = "https://www.qbittorrent.org"
 source = f"https://github.com/qbittorrent/qBittorrent/archive/refs/tags/release-{pkgver}.tar.gz"
 sha256 = "f330042fd0b27530b4a7b70b5d7ab356b2c9246393761df3b06891dc9dd8c106"
-# FIXME: BitTorrent::SessionImpl::SessionImpl cfi crash
-hardening = ["vis"]
+# CFI: BitTorrent::SessionImpl::SessionImpl crash
+hardening = ["vis", "!cfi"]
 # don't build
 options = ["!check"]
 

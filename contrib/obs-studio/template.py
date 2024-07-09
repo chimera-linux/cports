@@ -62,8 +62,7 @@ license = "GPL-2.0-or-later"
 url = "https://obsproject.com"
 source = f"https://github.com/obsproject/obs-studio/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "490bae1c392b3b344b0270afd8cb887da4bc50bd92c0c426e96713c1ccb9701a"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 # don't build with lto
 options = ["!check"]
 

@@ -21,7 +21,7 @@ license = "GPL-3.0-or-later"
 url = "https://www.spice-space.org"
 source = f"https://www.spice-space.org/download/releases/spice-vdagent-{pkgver}.tar.bz2"
 sha256 = "93b0d15aca4762cc7d379b179a7101149dbaed62b72112fffb2b3e90b11687a0"
-# FIXME: with CFI both daemon and client can upon exit crash each other
+# CFI: both daemon and client can upon exit crash each other
 hardening = ["vis", "!cfi"]
 
 

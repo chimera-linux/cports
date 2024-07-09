@@ -26,9 +26,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/intel/media-driver"
 source = f"{url}/archive/refs/tags/intel-media-{pkgver}.tar.gz"
 sha256 = "dec2210c1f824a721e4ea6f66f5899e300801b3e7fae232d3f8a94db38c2edd1"
-# FIXME: cfi
 # INT: crashes during certain vaapi decode (twitch.tv?)
-hardening = ["vis", "!int"]
+hardening = ["vis", "!cfi", "!int"]
 # no tests
 options = ["!check"]
 

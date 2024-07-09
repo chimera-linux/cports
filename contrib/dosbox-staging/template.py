@@ -24,5 +24,5 @@ license = "GPL-2.0-or-later"
 url = "https://www.dosbox-staging.org"
 source = f"https://github.com/dosbox-staging/dosbox-staging/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "2b389fdc338454f916240aab5a2ae5560d1dd9808d63c70f34ec9a91e60b535a"
-# FIXME: cfi breaks the tests
+# CFI: breaks the tests
 hardening = ["!cfi", "vis"]

@@ -11,7 +11,6 @@ license = "MIT"
 url = "https://c-ares.haxx.se"
 source = f"https://github.com/c-ares/c-ares/releases/download/v{pkgver}/c-ares-{pkgver}.tar.gz"
 sha256 = "63be2c4ee121faa47e9766f735b4cde750fff2c563f81c11e572d3dc6401e5e7"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 # does not like the sandbox
 options = ["!check"]

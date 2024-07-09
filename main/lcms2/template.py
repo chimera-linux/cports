@@ -15,7 +15,6 @@ license = "MIT"
 url = "https://littlecms.com"
 source = f"https://github.com/mm2/Little-CMS/releases/download/lcms{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "d873d34ad8b9b4cea010631f1a6228d2087475e4dc5e763eb81acc23d9d45a51"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

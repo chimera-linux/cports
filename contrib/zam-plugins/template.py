@@ -40,8 +40,7 @@ sha256 = [
     "c4e8ca5ef8637dc9c6fdaa7ac88eee8227c46d91cf30f781b79e1b471fced50c",
     "7e813d35d619a0ba3e790be5e102cfd2dc7c1f7b99333c9aa0a8661ca8419e02",
 ]
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 # no tests
 options = ["!check", "linkundefver"]
 

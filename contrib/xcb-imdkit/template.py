@@ -19,8 +19,7 @@ license = "LGPL-2.1-only"
 url = "https://github.com/fcitx/xcb-imdkit"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "c2f0bbad8a335a64cdc7c19ac7b6ea1f0887dd6300ca9a4fa2e2fec6b9d3f695"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("xcb-imdkit-devel")

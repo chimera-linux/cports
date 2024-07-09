@@ -31,8 +31,7 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/intel/thermal_daemon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "b7df06bbd813bf039893a533d1e30073102a2494f6fdd432ae7c05f376c7cc15"
-# TODO: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 
 
 # autoreconf fails otherwise

@@ -32,7 +32,7 @@ license = (
 url = "https://invent.kde.org/plasma/libkscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
 sha256 = "36dc01b9f4308aec1b70994cf1554daf2a77f950db15cd285fced8b4125897b8"
-# FIXME: cfi breaks almost all tests
+# CFI: breaks almost all tests
 hardening = ["vis", "!cfi"]
 
 

@@ -12,7 +12,6 @@ source = (
     f"https://dist.libuv.org/dist/v{pkgver}/{pkgname}-v{pkgver}-dist.tar.gz"
 )
 sha256 = "c593139feb9061699fdd2f7fde47bb6c1ca77761ae9ec04f052083f1ef46c13b"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

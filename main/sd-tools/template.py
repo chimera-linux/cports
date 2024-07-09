@@ -20,7 +20,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/chimera-linux/sd-tools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "09ffbc8bfe1f660d4918fd50dff51db1686ac9b3bd45c7ddcbf27b0470394da3"
-# FIXME: hashmap needs a rewrite to be non-UB
+# CFI: hashmap needs a rewrite to be non-UB
 hardening = ["vis", "!cfi"]
 
 

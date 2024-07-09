@@ -11,7 +11,7 @@ license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
 sha256 = "b06ff63a83536aa8c2f6422fa80ad45e4833f590266feb14eaddfe1d4c853c69"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 # checkdepends not available yet
 options = ["bootstrap", "!check"]
 

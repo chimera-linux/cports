@@ -24,7 +24,7 @@ tool_flags = {
         "-D_PR_INET6_PROBE",
     ]
 }
-# FIXME cfi (crashes nss build)
+# CFI: crashes nss build
 hardening = ["vis", "!cfi"]
 # no check target
 options = ["!cross", "!check"]

@@ -15,8 +15,7 @@ license = "BSD-3-Clause-Clear"
 url = "https://www.capstone-engine.org"
 source = f"https://github.com/capstone-engine/capstone/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "2b9c66915923fdc42e0e32e2a9d7d83d3534a45bb235e163a70047951890c01a"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):

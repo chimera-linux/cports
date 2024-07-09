@@ -41,7 +41,7 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/{pkgname}-{pkgver}/xserver-{pkgname}-{pkgver}.tar.gz"
 sha256 = "73b308e1054507e6189de090ec98e5e7ea0dcef3a8fde288dd4a2361ac561c6e"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 # needs xtest repository
 options = ["!check"]
 

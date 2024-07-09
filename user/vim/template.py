@@ -34,7 +34,7 @@ license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "409e7ba3cb911ded9a7cf8bbed70c85c740f2e68d4a46e782cce52f8bcabf99a"
-# FIXME cfi int
+# FIXME int
 hardening = ["vis", "!cfi", "!int"]
 # TODO
 options = ["!check"]

@@ -16,7 +16,7 @@ license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
 source = f"{url}/release/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ed19a0383fad72e3ad435fd239d7cd80d64916b87269550159d20e47160ebe5f"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 # no check target
 options = ["!check"]
 

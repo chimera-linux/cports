@@ -26,7 +26,7 @@ license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(SOURCEFORGE_SITE)/freetype/freetype-{pkgver}.tar.xz"
 sha256 = "12991c4e55c506dd7f9b765933e62fd2be2e06d421505d7950a132e4f1bb484d"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 # data files missing
 options = ["!check"]
 

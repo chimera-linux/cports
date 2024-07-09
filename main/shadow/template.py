@@ -43,7 +43,7 @@ file_modes = {
     "usr/bin/sg": ("root", "root", 0o4755),
     "usr/bin/su": ("root", "root", 0o4755),
 }
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 # messes with filesystem
 options = ["!check"]
 

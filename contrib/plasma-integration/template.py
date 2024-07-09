@@ -44,5 +44,5 @@ license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-integration"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-integration-{pkgver}.tar.xz"
 sha256 = "e15a232928ac8572daa05404d26b4d1112cf189a051cacbdf604352eddbf0804"
-# FIXME: cfi crashes e.g. kwrite upon "Save" in save file dialog in KDEPlasmaPlatformTheme6.so
+# CFI: crashes e.g. kwrite upon "Save" in save file dialog in KDEPlasmaPlatformTheme6.so
 hardening = ["vis", "!cfi"]

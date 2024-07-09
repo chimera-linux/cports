@@ -11,7 +11,6 @@ license = "WTFPL"
 url = "https://github.com/sekrit-twc/zimg"
 source = f"{url}/archive/release-{pkgver}.tar.gz"
 sha256 = "a9a0226bf85e0d83c41a8ebe4e3e690e1348682f6a2a7838f1b8cbff1b799bcf"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

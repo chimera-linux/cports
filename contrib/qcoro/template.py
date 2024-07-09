@@ -22,8 +22,8 @@ source = (
     f"https://github.com/danvratil/qcoro/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "b7c8f00273ad27d85814bf4ec93eb6922c75656800a61d11854d36355a4a1aec"
-# FIXME: vis breaks symbols for test-qcorothread build,
-#        cfi breaks at least test-qcoro{task,websocket}
+# vis breaks symbols for test-qcorothread build,
+# cfi breaks at least test-qcoro{task,websocket}
 hardening = ["!vis", "!cfi"]
 
 

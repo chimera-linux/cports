@@ -42,8 +42,8 @@ sha256 = [
     "a33f71e60a840b37fed7b04d2dcc7544a89bda78e4f4b2df7946ff358032a903",
     "c44a5d7847925eea9e4d2d04748d442cd28dd9299a0b572ef7d91eac4f5a6ceb",
 ]
-# TODO cfi causes illegal instruction crashes
-hardening = ["vis"]
+# CFI: causes illegal instruction crashes
+hardening = ["vis", "!cfi"]
 
 
 def post_extract(self):

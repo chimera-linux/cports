@@ -12,7 +12,7 @@ license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/libexpat/libexpat/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"
 sha256 = "ee14b4c5d8908b1bec37ad937607eab183d4d9806a08adee472c3c3121d27364"
-# FIXME crash reproducible e.g. with graphene build
+# CFI: crash reproducible e.g. with graphene build
 hardening = ["vis", "!cfi"]
 
 

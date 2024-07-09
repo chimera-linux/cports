@@ -23,7 +23,6 @@ license = "LGPL-3.0-or-later"
 url = "https://lsp-plug.in"
 source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.tar.gz"
 sha256 = "c36054205e38cfbf2cc8bae8424d9ab155c0e5bb7d3fd3ce8aec31a6796473ca"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 # no tests
 # cross broken because of dumb uname arch detection

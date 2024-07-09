@@ -17,7 +17,6 @@ license = "ISC"
 url = "https://drobilla.net/software/lilv.html"
 source = f"https://download.drobilla.net/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6bb6be9f88504176d0642f12de809b2b9e2dc55621a68adb8c7edb99aefabb4f"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

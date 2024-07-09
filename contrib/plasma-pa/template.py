@@ -39,5 +39,5 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-pa"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-pa-{pkgver}.tar.xz"
 sha256 = "fd84e0336bfdcc13fadee91582fa0a858dc36a155f3e1e5691ddc6ff9c6b4466"
-# FIXME: cfi kills systemsettings (when leaving "Sound" page) in libplasma-volume-declarative.so
+# CFI: kills systemsettings (when leaving "Sound" page) in libplasma-volume-declarative.so
 hardening = ["vis", "!cfi"]
