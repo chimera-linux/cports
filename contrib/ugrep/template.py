@@ -27,8 +27,6 @@ license = "BSD-3-Clause"
 url = "https://ugrep.com"
 source = f"https://github.com/Genivia/ugrep/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "e7b54e8e7d2d9058167269673fd783651071ba1ace547cf6c926b833607d2e1b"
-# relies on diff interpreting a regex
-options = ["!check"]
 
 
 def post_install(self):

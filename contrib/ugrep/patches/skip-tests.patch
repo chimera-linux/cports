@@ -1,0 +1,28 @@
+these patterns don't get expanded by diff
+--
+--- a/tests/verify.sh
++++ b/tests/verify.sh
+@@ -260,6 +260,7 @@
+     || ERR "--range=1,1 Hello $FILES"
+ 
+ for PAT in '' 'Hello' '\w+[\n\h]+\S+' '\S\n\S' 'nomatch' ; do
++  continue
+   FN=`echo "Hello_$PAT" | tr -Cd '[:alnum:]_'`
+   for OUT in '' '-I' '-W' '-X' ; do
+     for OPS in '' '-l' '-lv' '-c' '-co' '-cv' '-n' '-nkbT' '-unkbT' '-o' '-on' '-onkbT' '-ounkbT' '-v' '-nv' '-C2' '-nC2' '-vC2' '-nvC2' '-onC10' '-y' '-ny' '-vy' '-nvy' ; do
+@@ -353,6 +353,7 @@
+ done
+ 
+ for PAT in '' 'Hello World' 'Hello -World' 'Hello -bin' 'bin -Hello' 'bin -greeting' 'Hello -World|greeting' 'Hello -bin|greeting' 'Hello -(greeting|World)' '"a Hello" greeting' ; do
++  continue
+   FN=`echo "Hello_$PAT" | tr -Cd '[:alnum:]_-'`
+   for OPS in '' '-l' '-c' '-co' '-o' '-C2' '-y' '--json' ; do
+     printf .
+@@ -489,6 +489,7 @@
+ printf .
+ $UG -z -c '' archive.gz | $DIFF out/archive.gz.out || ERR "-z -c '' archive.gz"
+ for PAT in '\.' 'et' 'hendrerit' 'aliquam' 'sit amet aliquam' 'Nunc hendrerit at metus sit amet aliquam' 'adip[a-z]{1,}' 'adip[a-z]{4,}' 'adip[a-z]{6}' '[a-z]+' 'a[a-z]+' 'ad[a-z]+' 'adi[a-z]+' ; do
++  continue
+   FN=`echo "archive_$PAT" | tr -Cd '[:alnum:]_'`
+   printf .
+   $UG -z -co "$PAT" archive.gz | $DIFF out/$FN-co.gz.out || ERR "-z -co '$PAT' archive.gz"
