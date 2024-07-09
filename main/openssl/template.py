@@ -17,8 +17,8 @@ make_check_args = [
     "TESTS="
     # XXX: with ktls enabled this fails if the running env can't utilise it
     + "-test_afalg"
-    # FIXME: broken now for some reason
-    + "test_quic_tserver"
+    # FIXME: broken now for some reason and the test server hangs
+    + " -test_quic*"
     # flaky on ppc64le
     + " -test_key_share"
     + " -test_sslrecords"
@@ -35,7 +35,7 @@ compression = "deflate"
 # the codebase is not LTO-ready:
 # https://github.com/openssl/openssl/issues/18663
 # https://github.com/openssl/openssl/issues/22854
-options = ["bootstrap", "!lto", "!check"]
+options = ["bootstrap", "!lto"]
 
 if self.stage > 0:
     makedepends = ["linux-headers"]
