@@ -416,6 +416,8 @@ only have an effect with specific commands.
   where builds will happen. If not set, `builddir` inside the build root will be
   used as is. Otherwise, it will be bound to the given path (which will be created
   if necessary).
+* `--bulk-continue` When doing bulk builds, do not abort the whole bulk if a
+  package fails. This may result in incorrect build order.
 * `-c PATH`, `--config PATH` *(default: `etc/config.ini`)* The path to the config
   file that `cbuild` reads configuration data from. If relative, it is to cports.
 * `-C`, `--skip-check` Never attempt to run the `check` phase.
