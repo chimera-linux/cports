@@ -1,14 +1,14 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20240610"
-pkgrel = 1
+pkgver = "20240709"
+pkgrel = 0
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "fe7687f7264ef1193704824c884be515cd385c15303962cb85c929d40c6cd5b9"
+sha256 = "72a524675182f2b07a87be16d73f77eb0a78400146bd14d4e7b689aec214687e"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -26,7 +26,13 @@ _pkgs = [
     ("amdgpu", "Newer AMD GPUs", None, "gpu", ["amdgpu"]),
     ("amphion", "i.MX8Q VPU", _arch_arm64, "misc", ["amphion"]),
     ("amdtee", "AMD ASP TEE", _arch_x86, "misc", ["amdtee"]),
-    ("amlogic-bt", "Amlogic Bluetooth", None, "network", ["amlogic/bluetooth"]),
+    (
+        "amlogic-bt",
+        "Amlogic Bluetooth",
+        None,
+        "network",
+        ["amlogic/aml_w*_bt_uart.bin*"],
+    ),
     ("ar3k", "Atheros AR3K Bluetooth", None, "network", ["ar3k"]),
     ("ar3011", "AR3011 Bluetooth", None, "network", ["ath3k*.fw*"]),
     ("ar5523", "AR5523 WLAN", None, "network", ["ar5523.bin*"]),
@@ -148,6 +154,13 @@ _pkgs = [
         _arch_x86,
         "misc",
         ["intel/ipu/ipu6*.bin*"],
+    ),
+    (
+        "intel-ish",
+        "Intel Integrated Sensor Hub",
+        _arch_x86,
+        "misc",
+        ["intel/ish"],
     ),
     (
         "intel-ivsc",
