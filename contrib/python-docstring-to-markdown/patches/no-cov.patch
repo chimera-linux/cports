@@ -1,0 +1,15 @@
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -36,12 +36,6 @@
+ [tool:pytest]
+ addopts = 
+ 	--pyargs tests
+-	--cov docstring_to_markdown
+-	--cov-fail-under=99
+-	--cov-report term-missing:skip-covered
+-	-p no:warnings
+-	--flake8
+-	-vv
+ 
+ [flake8]
+ max-line-length = 120
