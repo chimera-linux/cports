@@ -22,6 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
 
+    env:
+      update_check: |-
+        ${{
+          ( !contains(github.event.pull_request.title, '[update skip]')
+          && !contains(github.event.pull_request.body, '[update skip]') )
+          && '--update-check'
+          || ''
+        }}
+
     steps:
       - name: Install dependencies
         run: |
@@ -55,4 +64,4 @@ jobs:
         run: env PYTHONUNBUFFERED=1 python3.11 cbuild relink-subpkgs && git diff --exit-code
 
       - name: Build and test packages
-        run: env PYTHONUNBUFFERED=1 python3.11 cbuild -W --update-check -t bulk-pkg 'git:master..+!\[ci skip\]'
+        run: env PYTHONUNBUFFERED=1 python3.11 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
