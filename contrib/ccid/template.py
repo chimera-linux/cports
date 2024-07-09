@@ -1,5 +1,5 @@
 pkgname = "ccid"
-pkgver = "1.6.0"
+pkgver = "1.6.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "LGPL-2.1-or-later"
 url = "https://ccid.apdu.fr"
 source = f"{url}/files/ccid-{pkgver}.tar.xz"
-sha256 = "cdca7c22c45169cfc300d65d5362b7644ee195289f4fb8bf475a6cd321752c2c"
+sha256 = "2eca8fb07e8fe7c0d39daeaca7b97cd73c40ed9b72738a24ad3dcbdfc918e1ea"
 
 
 def post_install(self):
