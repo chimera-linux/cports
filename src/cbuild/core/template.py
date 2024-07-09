@@ -804,7 +804,7 @@ class Template(Package):
         bdeps = {}
         visited = {}
         hds, tds, rds = dependencies.setup_depends(self, True)
-        for bd in hds + tds:
+        for bd in (hds + tds) if not self.profile().cross else tds:
             if bd in visited:
                 continue
             visited[bd] = True
