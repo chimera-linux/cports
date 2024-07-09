@@ -1,6 +1,6 @@
 pkgname = "kldap"
 pkgver = "24.05.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -15,7 +15,7 @@ makedepends = [
     "kio-devel",
     "kwidgetsaddons-devel",
     "libsasl-devel",
-    # "openldap-devel",  # TODO: needed for actual LDAP support
+    "openldap-devel",
     "qt6-qtdeclarative-devel",
     "qtkeychain-devel",
 ]
