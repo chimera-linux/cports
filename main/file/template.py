@@ -1,6 +1,6 @@
 pkgname = "file"
 pkgver = "5.45"
-pkgrel = 1
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-static",

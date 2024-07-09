@@ -2193,7 +2193,7 @@ def do_prepare_upgrade(tgt):
     )
     newsha = list(tmpl.sha256)
 
-    tmplp = f"{pkgn}/template.py"
+    tmplp = f"{tmpl.repository}/{tmpl.pkgname}/template.py"
 
     tmpl_source = pathlib.Path(tmplp).read_text()
     found_sha = False
@@ -2237,7 +2237,7 @@ def do_bump_pkgrel(tgt):
 
     for pkgn in cmdline.command[1:]:
         try:
-            pr = template.read_pkg(
+            tmpl = template.read_pkg(
                 pkgn,
                 chroot.host_cpu(),
                 True,
@@ -2247,8 +2247,9 @@ def do_bump_pkgrel(tgt):
                 False,
                 None,
                 target="lint",
-            ).pkgrel
-            tmplp = f"{pkgn}/template.py"
+            )
+            pr = tmpl.pkgrel
+            tmplp = f"{tmpl.repository}/{tmpl.pkgname}/template.py"
             tmpl_source = pathlib.Path(tmplp).read_text()
             with open(tmplp + ".tmp", "w") as outf:
                 for ln in tmpl_source.splitlines():
