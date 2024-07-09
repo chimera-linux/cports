@@ -41,7 +41,6 @@ source = (
     f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
 )
 sha256 = "43865bb272dc0ab2585de3605434d81ba217578f0897bf700cd36c14ac40652a"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
 options = ["!check"]

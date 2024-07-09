@@ -18,7 +18,7 @@ license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcodecs/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcodecs-{pkgver}.tar.xz"
 sha256 = "6902531afc3d47d543feb971c2bc04901af265e6730a477af4400073b22ec6ec"
-# FIXME: at least a few tests fail
+# CFI: at least a few tests fail
 hardening = ["vis", "!cfi"]
 
 

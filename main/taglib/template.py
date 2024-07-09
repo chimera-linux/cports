@@ -14,7 +14,7 @@ license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://taglib.github.io"
 source = f"https://github.com/taglib/taglib/archive/v{pkgver}.tar.gz"
 sha256 = "08c0a27b96aa5c4e23060fe0b6f93102ee9091a9385257b9d0ddcf467de0d925"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 
 
 @subpackage("taglib-devel")

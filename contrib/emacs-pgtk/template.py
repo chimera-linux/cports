@@ -53,8 +53,8 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/emacs/emacs.html"
 source = f"https://ftp.gnu.org/gnu/emacs/emacs-{pkgver}.tar.xz"
 sha256 = "ba897946f94c36600a7e7bb3501d27aa4112d791bfe1445c61ed28550daca235"
-# FIXME cfi: breaks
-hardening = ["vis"]
+# CFI: breaks
+hardening = ["vis", "!cfi"]
 # no tests
 options = ["!check"]
 

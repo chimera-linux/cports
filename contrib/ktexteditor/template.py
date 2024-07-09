@@ -36,7 +36,7 @@ license = "LGPL-2.0-or-later AND (LGPL-2.0-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/ktexteditor/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktexteditor-{pkgver}.tar.xz"
 sha256 = "979dbffaeb0a0413b3745efa180aa0be6e1ed8bf8f5a938281499b931e283776"
-# FIXME: cfi breaks at least vast majority of tests
+# CFI: breaks at least vast majority of tests
 hardening = ["vis", "!cfi"]
 
 

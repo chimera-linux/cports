@@ -43,7 +43,6 @@ sha256 = [
     "79120e685a1836344b51b13b6a5661622486a84e4d4a35f6c8d01679a20fbc86",
     "5a629e1f18f037ad0016c41ead630ea471cccbcdf60239ed3466c491d8e7c908",
 ]
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

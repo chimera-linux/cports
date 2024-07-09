@@ -20,7 +20,6 @@ license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/d-spy"
 source = f"{url}/-/archive/{pkgver}/d-spy-{pkgver}.tar.gz"
 sha256 = "7e9a852a5f29572aee61b20f435f5b374902e22fe8c0a74ef29fb29850bf6090"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

@@ -18,7 +18,7 @@ url = "https://git.kernel.dk/cgit/liburing"
 source = f"{url}/snapshot/liburing-{pkgver}.tar.gz"
 sha256 = "1d3a780f842e1f077600a1c241b9ca71b5340b257620a73652f9aca155818314"
 # vis breaks symbols
-hardening = []
+hardening = ["!vis", "!cfi"]
 # FIXME: run into timeout
 options = ["!check", "linkundefver"]
 

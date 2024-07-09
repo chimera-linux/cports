@@ -25,7 +25,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/bluez-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/bluez-qt-{pkgver}.tar.xz"
 sha256 = "3b68b83fae1032d84213692b0c908f0fd57cafe57175c62b6ce5b89bc1d4a2dc"
-# FIXME: cfi breaks at least almost every test
+# CFI: breaks at least almost every test
 hardening = ["vis", "!cfi"]
 
 

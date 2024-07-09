@@ -22,7 +22,7 @@ url = "http://www.zstd.net"
 source = f"https://github.com/facebook/zstd/releases/download/v{pkgver}/zstd-{pkgver}.tar.gz"
 sha256 = "8c29e06cf42aacc1eafc4077ae2ec6c6fcb96a626157e0593d5e82a34fd403c1"
 compression = "deflate"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 
 
 def post_install(self):

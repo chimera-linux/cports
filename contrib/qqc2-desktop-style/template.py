@@ -29,7 +29,7 @@ license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/frameworks/qqc2-desktop-style/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/qqc2-desktop-style-{pkgver}.tar.xz"
 sha256 = "9e7e69bb7f3646d2fcc37a24364c55d7c974c83cf6e2d906a39a8a8e14f1bcb0"
-# FIXME: cfi makes kwin_wayland die top-left hotcorner and
+# CFI: makes kwin_wayland die top-left hotcorner and
 # kcmshell6 on konsole titlebar right-click -> More Actions -> Configure Special * Settings...
 hardening = ["vis", "!cfi"]
 

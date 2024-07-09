@@ -28,7 +28,7 @@ license = "GPL-3.0-or-later"
 url = "https://hluk.github.io/CopyQ"
 source = f"https://github.com/hluk/CopyQ/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "6f8cce371cda8edb87e2a8d2f9de27022720b7b8fae51f67ee7d69b73526f432"
-# FIXME: loading plugins fail with cfi enabled
+# CFI: loading plugins fail with cfi enabled
 hardening = ["vis", "!cfi"]
 # requires building project a second time in debug mode
 options = ["!check"]

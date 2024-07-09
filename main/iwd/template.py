@@ -27,7 +27,7 @@ sha256 = "9d0b934e51580316919796aa0357590971fc0df244b273fa10e154c268374f91"
 tool_flags = {
     "CFLAGS": ["-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"]
 }
-# FIXME cfi (tests fail)
+# CFI: tests fail
 hardening = ["vis", "!cfi"]
 
 

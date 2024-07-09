@@ -34,7 +34,7 @@ license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/breeze"
 source = f"$(KDE_SITE)/plasma/{pkgver}/breeze-{pkgver}.tar.xz"
 sha256 = "d456dc50d941c4940209e9aa5011d5e9202def5f65badc7ea8c6d4b2ac477dcf"
-# FIXME: cfi kills plasma-apply-lookandfeel in breeze6.so
+# CFI: kills plasma-apply-lookandfeel in breeze6.so
 hardening = ["vis", "!cfi"]
 # TODO: split qt6 theme?
 

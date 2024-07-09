@@ -13,7 +13,6 @@ source = (
     f"https://libopenraw.freedesktop.org/download/{pkgname}-{pkgver}.tar.bz2"
 )
 sha256 = "e9f9a3d42bff73b5eb0f77ec22cd0163c3e21949cc414ad1f19a0465dde41ffe"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

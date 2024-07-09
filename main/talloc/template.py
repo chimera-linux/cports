@@ -28,7 +28,6 @@ source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "85ecf9e465e20f98f9950a52e9a411e14320bc555fa257d87697b7e7a9b1d8a6"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 options = ["!cross", "linkundefver"]
 

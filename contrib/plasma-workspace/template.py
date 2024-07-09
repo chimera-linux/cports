@@ -124,7 +124,7 @@ license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-workspace-{pkgver}.tar.xz"
 sha256 = "47f019b92dca868e65e5507ffa83d0d974adf18e895caa136256108cc02a659a"
-# FIXME: cfi breaks at least 3 tests
+# CFI: breaks at least 3 tests
 hardening = ["vis", "!cfi"]
 
 

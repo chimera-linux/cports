@@ -20,8 +20,7 @@ license = "LGPL-2.0-only AND BSD-3-Clause"
 url = "https://7-zip.org"
 source = f"https://7-zip.org/a/7z{pkgver.replace('.', '')}-src.tar.xz"
 sha256 = "d1b0874a3f1c26df21c761a4a30691dc1213e8577f18ee78326c14ca4d683e2b"
-# FIXME cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 
 
 def init_build(self):

@@ -44,7 +44,7 @@ license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
 sha256 = "40e33c592934bc27484b922e3dab3c9fdbe078063fa5bcaf29d50d2cd8e8aab9"
-# FIXME: cfi breaks at least kwin testDontCrashUseractionsMenu
+# CFI: breaks at least kwin testDontCrashUseractionsMenu
 hardening = ["vis", "!cfi"]
 
 

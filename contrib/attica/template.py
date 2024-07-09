@@ -19,7 +19,7 @@ license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/attica/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/attica-{pkgver}.tar.xz"
 sha256 = "abaf3a113a002d5d8435a3a75020f98c574290d2c552a5f256291d0418cc59ed"
-# FIXME: cfi causes crash when pressing "Get New Plugins..." button in the
+# cfi causes crash when pressing "Get New Plugins..." button in the
 # "Wallpaper" section of Plasma's system settings app
 hardening = ["vis", "!cfi"]
 

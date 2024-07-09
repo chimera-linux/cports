@@ -35,5 +35,5 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://apps.kde.org/plasma-systemmonitor"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-systemmonitor-{pkgver}.tar.xz"
 sha256 = "ba87d6f7f4c3c9edfcb37574d12379849521a2286bcd16d75c584a901d4c62ec"
-# FIXME: cfi crash on launch
+# CFI: crash on launch
 hardening = ["vis", "!cfi"]

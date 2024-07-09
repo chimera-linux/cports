@@ -26,7 +26,7 @@ source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kauth-{pkgver}.tar.xz"
 )
 sha256 = "ebcf36816ff826a2cfb3ed0a0d3746d7da9a23f79901ec43b7a4e7b156af33b5"
-# FIXME: cfi kills systemsettings in libKF6AuthCore.so
+# CFI: kills systemsettings in libKF6AuthCore.so
 hardening = ["vis", "!cfi"]
 
 

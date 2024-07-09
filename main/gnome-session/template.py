@@ -35,7 +35,6 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-session"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c6e1624af6090bc4e1a191fe2268abfa7a8de07831ca7a57f217e679bf7b9a54"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

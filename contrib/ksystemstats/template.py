@@ -35,7 +35,7 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/ksystemstats-{pkgver}.tar.xz"
 sha256 = "31d4d4f79ed452c9cc6362722c1b621907ccf95242240e6d54021b398035693b"
 # silence some ~600 lines of spam...
 tool_flags = {"CXXFLAGS": ["-Wno-deprecated-declarations"]}
-# FIXME: cfi breaks at least ksystemstatstest in dbusApi() like https://paste.c-net.org/tnqlkafoixrz
+# CFI: breaks at least ksystemstatstest in dbusApi() like https://paste.c-net.org/tnqlkafoixrz
 hardening = ["vis", "!cfi"]
 
 

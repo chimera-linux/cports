@@ -20,7 +20,6 @@ license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/libbpf/libbpf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "d8be49641dd4c5caa27986a8291907176e3b6fd6fe650e4fee5b45f8093fc935"
-# FIXME: cfi
 hardening = ["vis", "!cfi"]
 # no tests
 options = ["!check"]

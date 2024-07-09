@@ -23,5 +23,4 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/action/show/Apps/DiskUsageAnalyzer"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ce4def5c82d05671a5009f7bebcf85ac98675d9d8160d28ad9181b269a72e37c"
-# FIXME cfi
 hardening = ["vis", "!cfi"]

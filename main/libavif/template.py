@@ -28,7 +28,7 @@ license = "BSD-2-Clause"
 url = "https://github.com/AOMediaCodec/libavif"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "dc56708c83a4b934a8af2b78f67f866ba2fb568605c7cf94312acf51ee57d146"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 
 
 def post_install(self):

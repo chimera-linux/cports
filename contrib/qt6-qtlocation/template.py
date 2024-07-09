@@ -19,8 +19,6 @@ license = (
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtlocation-everywhere-src-{pkgver}.tar.xz"
 sha256 = "f232da58bf1189b69f1f7029417ddfeffcfb801b275aedc720e38244f88a485d"
-# FIXME?
-# hardening = ["!int"]
 # cross: TODO
 options = ["!cross"]
 

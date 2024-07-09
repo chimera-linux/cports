@@ -11,7 +11,6 @@ license = "GPL-2.0-or-later"
 url = "https://www.five-ten-sg.com/libpst"
 source = f"{url}/packages/libpst-{pkgver}.tar.gz"
 sha256 = "3d291beebbdb48d2b934608bc06195b641da63d2a8f5e0d386f2e9d6d05a0b42"
-# TODO
 hardening = ["!vis", "!cfi"]
 
 

@@ -21,5 +21,4 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/Syllo/nvtop"
 source = f"https://github.com/Syllo/nvtop/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "9481c45c136163574f1f16d87789859430bc90a1dc62f181b269b5edd92f01f3"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]

@@ -15,7 +15,7 @@ license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/SPIRV-Tools"
 source = f"{url}/archive/vulkan-sdk-{pkgver}.tar.gz"
 sha256 = "5e2e5158bdd7442f9e01e13b5b33417b06cddff4965c9c19aab9763ab3603aae"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 
 # Note: only some tests are run, the others need subfolders of gtest and effcee
 # and some other stuff

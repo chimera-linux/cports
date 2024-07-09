@@ -12,7 +12,7 @@ license = "BSD-2-Clause"
 url = "https://www.openjpeg.org"
 source = f"https://github.com/uclouvain/openjpeg/archive/v{pkgver}.tar.gz"
 sha256 = "90e3896fed910c376aaf79cdd98bdfdaf98c6472efd8e1debf0a854938cbda6a"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 # missing test data
 options = ["!check"]
 

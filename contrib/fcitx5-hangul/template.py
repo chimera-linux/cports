@@ -22,5 +22,5 @@ source = (
     f"https://github.com/fcitx/fcitx5-hangul/archive/refs/tags/{pkgver}.tar.gz"
 )
 sha256 = "49404de5de38f4b182e487e7a51a4a68fdb5b8acef531d27ba328aca552b9009"
-# TODO cfi causes illegal instruction crashes
-hardening = ["vis"]
+# CFI: causes illegal instruction crashes
+hardening = ["vis", "!cfi"]

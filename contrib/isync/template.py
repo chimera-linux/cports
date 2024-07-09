@@ -21,8 +21,7 @@ source = (
     f"$(SOURCEFORGE_SITE)/isync/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 )
 sha256 = "7c3273894f22e98330a330051e9d942fd9ffbc02b91952c2f1896a5c37e700ff"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 # missing perl modules
 options = ["!check"]
 

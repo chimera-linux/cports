@@ -40,7 +40,7 @@ sha256 = [
     "9790905f7683d41759418e1ef3432828c31116654ff040e91356ff1c21c31ec0",
     "c541dfec33ba7dfec3fb85a4532fc9c7a72035316716e93074b2cfa030ca2d12",
 ]
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 
 
 def post_extract(self):

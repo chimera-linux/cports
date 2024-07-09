@@ -12,7 +12,6 @@ license = "ISC"
 url = "https://drobilla.net/category/zix"
 source = f"https://download.drobilla.net/zix-{pkgver}.tar.xz"
 sha256 = "0c071cc11ab030bdc668bea3b46781b6dafd47ddd03b6d0c2bc1ebe7177e488d"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

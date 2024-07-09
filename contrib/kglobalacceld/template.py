@@ -27,7 +27,7 @@ license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kglobalacceld"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
 sha256 = "27b39e674a6b66ba05b34e181b8b39ed084853bd87a072f3333ce4c423a668dc"
-# FIXME: cfi breaks at least 50+ kwin tests (together with kidletime)
+# CFI: breaks at least 50+ kwin tests (together with kidletime)
 hardening = ["vis", "!cfi"]
 
 

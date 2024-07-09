@@ -34,7 +34,7 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/kinfocenter-{pkgver}.tar.xz"
 sha256 = "61c02ba3451e3324dbf54af314cefc4f389b09c9d3e0ad66613fec239fdeb03c"
 # symlink to systemsettings, runtime dep provided
 broken_symlinks = ["usr/bin/kinfocenter"]
-# FIXME: cfi kills app on launch in kcm_about-distro.so
+# CFI: kills app on launch in kcm_about-distro.so
 hardening = ["vis", "!cfi"]
 
 

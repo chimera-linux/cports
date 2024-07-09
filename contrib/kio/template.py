@@ -53,7 +53,7 @@ source = (
 )
 sha256 = "39e1afb324069605609c60c1d4638da886debf6159179521167b5159d79a0448"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
-# FIXME: cfi breaks at least plasma-workspace's testrunnermodel
+# CFI: breaks at least plasma-workspace's testrunnermodel
 hardening = ["vis", "!cfi"]
 # >60% (40/62) tests fail, pain to get working in a limited enviroment due to expecting e.g. real disks
 options = ["!check"]

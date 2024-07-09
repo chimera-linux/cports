@@ -12,8 +12,8 @@ source = (
     f"https://github.com/varlink/libvarlink/archive/refs/tags/{pkgver}.tar.gz"
 )
 sha256 = "a5575e070e446e7c4486d424393950e6cb7a3b376ee20d517b0c13a876659a8d"
-# FIXME: cfi fails in tests
-hardening = ["vis"]
+# CFI: fails in tests
+hardening = ["vis", "!cfi"]
 
 
 @subpackage("varlink-devel")

@@ -11,7 +11,7 @@ license = "LGPL-3.0-or-later"
 url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/libde265/archive/v{pkgver}.tar.gz"
 sha256 = "d4e55706dfc5b2c5c9702940b675ce2d3e7511025c6894eaddcdbaf0b15fd3f3"
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 
 
 def post_install(self):

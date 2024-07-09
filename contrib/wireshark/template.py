@@ -69,8 +69,7 @@ file_xattrs = {
         "security.capability": "cap_net_raw,cap_net_admin+ep",
     },
 }
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 
 system_groups = ["_wireshark"]
 

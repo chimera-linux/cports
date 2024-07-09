@@ -10,7 +10,6 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/mtools"
 source = f"$(GNU_SITE)/mtools/mtools-{pkgver}.tar.bz2"
 sha256 = "37dc4df022533c3d4b2ec1c78973c27c7e8b585374c2d46ab64c6a3db31eddb8"
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 
 

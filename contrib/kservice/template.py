@@ -23,7 +23,7 @@ license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kservice/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kservice-{pkgver}.tar.xz"
 sha256 = "a0564d62c1e0f2293b0dcb39cf814c2856111242b8621b33f52a70fda1a8fe54"
-# FIXME: cfi breaks at least k{applicationtrader,mimeassociations}test
+# CFI: breaks at least k{applicationtrader,mimeassociations}test
 hardening = ["vis", "!cfi"]
 
 

@@ -21,8 +21,7 @@ license = "MIT"
 url = "https://github.com/ebiggers/libdeflate"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "ed1454166ced78913ff3809870a4005b7170a6fd30767dc478a09b96847b9c2a"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):

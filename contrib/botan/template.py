@@ -1,6 +1,6 @@
 pkgname = "botan"
 pkgver = "3.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_script = "./configure.py"
 configure_args = [
@@ -30,8 +30,7 @@ license = "BSD-2-Clause"
 url = "https://botan.randombit.net"
 source = f"{url}/releases/Botan-{pkgver}.tar.xz"
 sha256 = "67e8dae1ca2468d90de4e601c87d5f31ff492b38e8ab8bcbd02ddf7104ed8a9f"
-# FIXME: cfi
-hardening = ["vis"]
+hardening = ["vis", "!cfi"]
 # see below
 options = []
 

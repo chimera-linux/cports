@@ -32,7 +32,7 @@ source = (
     f"https://github.com/KhronosGroup/Vulkan-Tools/archive/v{pkgver}.tar.gz"
 )
 sha256 = "1b012a16e990d6290822b45925881be650e299f34727c40fc0e8cb8aaed148bb"
-# FIXME: vkcube etc fail
+# CFI: vkcube etc fail
 hardening = ["vis", "!cfi"]
 # no test suite
 options = ["!cross", "!check"]

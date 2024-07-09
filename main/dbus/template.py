@@ -30,7 +30,6 @@ source = (
 )
 sha256 = "ba1f21d2bd9d339da2d4aa8780c09df32fea87998b73da24f49ab9df1e36a50f"
 file_modes = {"usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
-# FIXME cfi
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]
 

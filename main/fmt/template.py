@@ -22,8 +22,8 @@ source = (
     f"https://github.com/fmtlib/fmt/releases/download/{pkgver}/fmt-{pkgver}.zip"
 )
 sha256 = "312151a2d13c8327f5c9c586ac6cf7cddc1658e8f53edae0ec56509c8fa516c9"
-# FIXME: cfi test failures
-hardening = ["vis"]
+# CFI: test failures
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):

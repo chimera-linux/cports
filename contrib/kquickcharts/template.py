@@ -18,7 +18,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kquickcharts/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kquickcharts-{pkgver}.tar.xz"
 sha256 = "250e522adfbf48b3f2763f4ec378a20337a1ca2e5b0e2cd8b3615d7a3fed8fc7"
-# FIXME: cfi crashes plasma-systemmonitor on launch in libQuickChartsControls.so
+# CFI: crashes plasma-systemmonitor on launch in libQuickChartsControls.so
 hardening = ["vis", "!cfi"]
 
 

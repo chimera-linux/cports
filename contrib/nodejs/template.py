@@ -41,7 +41,7 @@ url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
 sha256 = "b3051c3358c96d06dd17305c065cc6f5205c1f4d72dd42cb184f7ba79605f8a8"
 debug_level = 1  # allow LTO build to not run out of mem
-hardening = ["!cfi"]  # TODO
+hardening = ["!vis", "!cfi"]
 options = ["!cross"]
 
 match self.profile().arch:

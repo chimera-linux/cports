@@ -84,7 +84,6 @@ url = "https://mpv.io"
 source = f"https://github.com/mpv-player/mpv/archive/v{pkgver}.tar.gz"
 sha256 = "86d9ef40b6058732f67b46d0bbda24a074fae860b3eaae05bab3145041303066"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
-# FIXME cfi
 # FIXME: int causes haruna to crash when started up with some video files
 hardening = ["!int", "vis", "!cfi"]
 

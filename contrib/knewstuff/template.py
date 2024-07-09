@@ -29,8 +29,8 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
 sha256 = "a16d16b22e94cb5159a3b1a071c5785729e3052baf9e33f2ab020b9032d967d7"
-# FIXME: cfi causes crash when pressing "Get New Plugins..." button in the
-# "Wallpaper" section of Plasma's system settings app
+# CFI: causes crash when pressing "Get New Plugins..." button in the "Wallpaper"
+# section of Plasma's system settings app
 hardening = ["vis", "!cfi"]
 
 
