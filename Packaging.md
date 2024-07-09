@@ -2474,6 +2474,11 @@ The release number of the package. While provided as a template variable,
 this is inherited into subpackages as well, so it's considered a part of
 the base API.
 
+##### self.full_pkgver
+
+The full version in format `pkgver-rpkgrel`. It is available even on the
+top level after the respective package fields are set.
+
 ##### self.logger
 
 Represents an instance of a class with this API:

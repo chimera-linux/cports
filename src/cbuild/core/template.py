@@ -255,6 +255,7 @@ class Package:
         self.pkgname = None
         self.pkgver = None
         self.alternative = None
+        self._mod_handle = None
 
     def log(self, msg, end="\n"):
         self.logger.out(self._get_pv() + ": " + msg, end)
@@ -281,6 +282,20 @@ class Package:
         elif self.pkgname:
             return self.pkgname
         return "cbuild"
+
+    @property
+    def full_pkgver(self):
+        # if we are execing them odule, retrieve it as needed
+        if self._mod_handle:
+            pver = getattr(self._mod_handle, "pkgver", None)
+            prel = getattr(self._mod_handle, "pkgrel", None)
+            if not pver or not prel:
+                return None
+        else:
+            pver = self.pkgver
+            prel = self.pkgrel
+        # either way construct it
+        return f"{pver}-r{prel}"
 
     @contextlib.contextmanager
     def pushd(self, dirn, glob=False):
@@ -2509,7 +2524,9 @@ def read_mod(
         # cache
         _tmpl_dict[pkgname] = (modh, modspec)
 
+    ret._mod_handle = modh
     modspec.loader.exec_module(modh)
+    ret._mod_handle = None
 
     delattr(builtins, "self")
     delattr(builtins, "subpackage")
