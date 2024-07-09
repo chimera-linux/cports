@@ -1,12 +1,7 @@
 pkgname = "base-full"
 pkgver = "0.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
-depends = [
-    "base-bootstrap",
-    "dinit-chimera",
-    "turnstile",
-]
 provides = [f"base-core={pkgver}-r{pkgrel}"]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -22,7 +17,6 @@ def _console(self):
     # transitional
     self.provides = [f"base-core-console={pkgver}-r{pkgrel}"]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "console-setup",
         "dmesg",
         "kbd",
@@ -37,9 +31,12 @@ def _core(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provider_priority = 100
     self.depends = [
+        "base-bootstrap",
         "bsdtar",
         "chimera-install-scripts",
+        "dinit-chimera",
         "procps",
+        "turnstile",
     ]
     return []
 
@@ -50,7 +47,6 @@ def _fw(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provider_priority = 100
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "base-firmware-linux",
         "firmware-ipw2100",
         "firmware-ipw2200",
@@ -67,7 +63,6 @@ def _fonts(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "fontconfig"]
     self.provider_priority = 100
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "fonts-dejavu",
     ]
     return []
@@ -81,7 +76,6 @@ def _fs(self):
     # transitional
     self.provides = [f"base-core-fs={pkgver}-r{pkgrel}"]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "fdisk",
         "fstrim",
         "mkfs",
@@ -106,7 +100,6 @@ def _kern(self):
     # transitional
     self.provides = [f"base-core-kernel={pkgver}-r{pkgrel}"]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "base-kernel",
         "initramfs-tools",
     ]
@@ -119,7 +112,6 @@ def _locale(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provider_priority = 100
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "base-locale",
     ]
     return []
@@ -133,7 +125,6 @@ def _man(self):
     # transitional
     self.provides = [f"base-core-man={pkgver}-r{pkgrel}"]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "base-man",
         "man-pages",
     ]
@@ -148,7 +139,6 @@ def _misc(self):
     # transitional
     self.provides = [f"base-core-misc={pkgver}-r{pkgrel}"]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "bc-gh",
         "chimera-artwork",
         "chimerautils-extra",
@@ -174,7 +164,6 @@ def _net_tools(self):
     # transitional
     self.provides = [f"base-core-net={pkgver}-r{pkgrel}"]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "ethtool",
         "iputils",
         "iproute2",
@@ -191,7 +180,6 @@ def _net(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provider_priority = 100
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "dhcpcd",
         "iwd",
         "openssh",
@@ -205,7 +193,6 @@ def _session(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provider_priority = 100
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "elogind-meta",
         "dbus",
     ]
@@ -218,7 +205,6 @@ def _sound(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provider_priority = 100
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
         "pipewire",
     ]
     return []
