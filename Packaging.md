@@ -2479,6 +2479,10 @@ the base API.
 The full version in format `pkgver-rpkgrel`. It is available even on the
 top level after the respective package fields are set.
 
+##### self.pkgname_ver
+
+A string like `pkgname=full_pkgver`. Useful for exact dependencies.
+
 ##### self.logger
 
 Represents an instance of a class with this API:

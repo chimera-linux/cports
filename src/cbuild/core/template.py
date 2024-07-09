@@ -297,6 +297,10 @@ class Package:
         # either way construct it
         return f"{pver}-r{prel}"
 
+    @property
+    def pkgname_ver(self):
+        return f"{self.pkgname}={self.full_pkgver}"
+
     @contextlib.contextmanager
     def pushd(self, dirn, glob=False):
         old_path = self.rparent.cwd
