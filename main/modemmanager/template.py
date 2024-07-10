@@ -1,6 +1,6 @@
 pkgname = "modemmanager"
 pkgver = "1.22.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddbus_policy_dir=/usr/share/dbus-1/system.d",
@@ -45,6 +45,10 @@ license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/ModemManager"
 source = f"https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/archive/{pkgver}/ModemManager-{pkgver}.tar.gz"
 sha256 = "6c8f8720737a3788e394c700f36236278c9de09d76069a079e6f1daaf08b2768"
+
+
+def post_install(self):
+    self.install_service(self.files_path / "modemmanager")
 
 
 @subpackage("modemmanager-devel")
