@@ -1,6 +1,6 @@
 pkgname = "coturn"
 pkgver = "4.6.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--turndbdir=/var/lib/coturn"]
 configure_gen = []
