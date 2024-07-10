@@ -9,6 +9,7 @@ builtins = ['custom_target', 'self', 'subpackage']
 
 [tool.ruff.lint]
 # TODO: look at other categories that might be useful (needs flake8 plugins)
-select = ['E', 'F', 'W']
-ignore = ['E203', 'E501']
+select = ['E', 'F', 'W', 'RUF']
+# 005: maybe later
+ignore = ['E203', 'E501', 'RUF005']
 fixable = ['ALL']

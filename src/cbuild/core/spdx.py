@@ -33,14 +33,14 @@ class SPDXParser:
 
         def _license_parse(v):
             # ignore deprecated names, they should never pass
-            if "isDeprecatedLicenseId" in v and v["isDeprecatedLicenseId"]:
+            if v.get("isDeprecatedLicenseId"):
                 return
             if "licenseId" in v:
                 self.ldict[v["licenseId"]] = v
 
         def _exception_parse(v):
             # ditto
-            if "isDeprecatedLicenseId" in v and v["isDeprecatedLicenseId"]:
+            if v.get("isDeprecatedLicenseId"):
                 return
             if "licenseExceptionId" in v:
                 self.edict[v["licenseExceptionId"]] = v

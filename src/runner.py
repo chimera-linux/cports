@@ -1759,7 +1759,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         except template.SkipPackage:
             return False
         except errors.CbuildException as e:
-            log.out_red(f"cbuild: {str(e)}")
+            log.out_red(f"cbuild: {e!s}")
             if e.extra:
                 log.out_plain(e.extra)
             failed = True
@@ -2438,7 +2438,7 @@ def fire():
     except template.SkipPackage:
         pass
     except errors.CbuildException as e:
-        logger.get().out_red(f"cbuild: {str(e)}")
+        logger.get().out_red(f"cbuild: {e!s}")
         if e.extra:
             logger.get().out_plain(e.extra)
         sys.exit(1)
