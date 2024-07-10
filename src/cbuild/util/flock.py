@@ -12,7 +12,7 @@ def lock(path, pkg=None):
     while True:
         try:
             fcntl.lockf(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except (IOError, OSError):
+        except OSError:
             pass
         else:
             break
