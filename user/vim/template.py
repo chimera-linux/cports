@@ -1,6 +1,6 @@
 pkgname = "vim"
 pkgver = "9.1.0554"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -34,6 +34,7 @@ license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "27af58351ba09ac38a2f9b302af83b67fd3f2d38fca7a834986379ac2aaa9804"
+tool_flags = {"CFLAGS": ["-DSYS_VIRMRC_FILE=/etc/vim/vimrc"]}
 # FIXME int
 hardening = ["vis", "!cfi", "!int"]
 # TODO
@@ -41,7 +42,7 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.install_file(self.files_path / "vimrc", "etc")
+    self.install_file(self.files_path / "vimrc", "etc/vim")
     self.install_license("LICENSE")
     # chimerautils-extra ex/view conflict with these symlinks
     # TODO: just rename and update the code in main.c:parse_command_name
