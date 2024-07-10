@@ -8,15 +8,11 @@ APK_ARCH=$(uname -m)
 APK_FILE="apk-${APK_ARCH}-${APK_VER}.static"
 
 echo "=> Getting apk-tools..."
-
-wget "${APK_URL}/${APK_FILE}"
+curl --parallel -LO "${APK_URL}/${APK_FILE}" -LO "${APK_URL}/sha256sums.txt"
 chmod +x "${APK_FILE}"
 
 echo "=> Checking apk-tools..."
-
-wget "${APK_URL}/sha256sums.txt"
 grep "${APK_FILE}" sha256sums.txt|sha256sum --check
-
 rm -f sha256sums.txt || :
 
 echo "=> Setting up cbuild configuration..."
