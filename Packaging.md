@@ -2487,6 +2487,10 @@ top level after the respective package fields are set.
 
 A string like `pkgname=full_pkgver`. Useful for exact dependencies.
 
+##### def with_pkgver(self, name)
+
+Build a string like `{name}={self.full_pkgver}`.
+
 ##### self.logger
 
 Represents an instance of a class with this API:

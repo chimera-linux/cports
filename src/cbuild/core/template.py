@@ -301,6 +301,9 @@ class Package:
     def pkgname_ver(self):
         return f"{self.pkgname}={self.full_pkgver}"
 
+    def with_pkgver(self, name):
+        return f"{name}={self.full_pkgver}"
+
     @contextlib.contextmanager
     def pushd(self, dirn, glob=False):
         old_path = self.rparent.cwd

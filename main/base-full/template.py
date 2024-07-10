@@ -2,7 +2,7 @@ pkgname = "base-full"
 pkgver = "0.3"
 pkgrel = 2
 build_style = "meta"
-provides = [f"base-core={self.full_pkgver}"]
+provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
@@ -15,7 +15,7 @@ def _console(self):
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
-    self.provides = [f"base-core-console={self.full_pkgver}"]
+    self.provides = [self.with_pkgver("base-core-console")]
     self.depends = [
         "console-setup",
         "dmesg",
@@ -74,7 +74,7 @@ def _fs(self):
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
-    self.provides = [f"base-core-fs={self.full_pkgver}"]
+    self.provides = [self.with_pkgver("base-core-fs")]
     self.depends = [
         "fdisk",
         "fstrim",
@@ -98,7 +98,7 @@ def _kern(self):
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
-    self.provides = [f"base-core-kernel={self.full_pkgver}"]
+    self.provides = [self.with_pkgver("base-core-kernel")]
     self.depends = [
         "base-kernel",
         "initramfs-tools",
@@ -123,7 +123,7 @@ def _man(self):
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
-    self.provides = [f"base-core-man={self.full_pkgver}"]
+    self.provides = [self.with_pkgver("base-core-man")]
     self.depends = [
         "base-man",
         "man-pages",
@@ -137,7 +137,7 @@ def _misc(self):
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
-    self.provides = [f"base-core-misc={self.full_pkgver}"]
+    self.provides = [self.with_pkgver("base-core-misc")]
     self.depends = [
         "bc-gh",
         "chimera-artwork",
@@ -162,7 +162,7 @@ def _net_tools(self):
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
-    self.provides = [f"base-core-net={self.full_pkgver}"]
+    self.provides = [self.with_pkgver("base-core-net")]
     self.depends = [
         "ethtool",
         "iputils",
@@ -215,13 +215,13 @@ def _minimal(self):
     self.pkgdesc = f"{pkgdesc} (metapackage for small installations)"
     self.depends = [self.parent]
     self.provides = [
-        f"base-full-firmware={self.full_pkgver}",
-        f"base-full-fonts={self.full_pkgver}",
-        f"base-full-kernel={self.full_pkgver}",
-        f"base-full-misc={self.full_pkgver}",
-        f"base-full-net={self.full_pkgver}",
-        f"base-full-session={self.full_pkgver}",
-        f"base-full-sound={self.full_pkgver}",
+        self.with_pkgver("base-full-firmware"),
+        self.with_pkgver("base-full-fonts"),
+        self.with_pkgver("base-full-kernel"),
+        self.with_pkgver("base-full-misc"),
+        self.with_pkgver("base-full-net"),
+        self.with_pkgver("base-full-session"),
+        self.with_pkgver("base-full-sound"),
     ]
     self.provider_priority = 0
     return []
