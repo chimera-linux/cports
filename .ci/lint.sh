@@ -2,12 +2,17 @@
 
 RET=0
 
+invoke() {
+    printf "=> Running "
+    printf "%s " "$@"
+    printf "\n"
+    "$@"
+}
+
 if command -v ruff >/dev/null; then
-    echo "=> Running ruff check"
-    ruff check
+    invoke ruff check
 else
-    echo "=> Running flake8"
-    flake8 main contrib user src
+    invoke flake8 main contrib user src
 fi
 
 if [ $? -ne 0 ]; then
@@ -15,11 +20,9 @@ if [ $? -ne 0 ]; then
 fi
 
 if command -v ruff >/dev/null; then
-    echo "=> Running ruff format --diff"
-    ruff format --diff
+    invoke ruff format --diff
 else
-    echo "=> Running black --check"
-    find main contrib user src -name '*.py' -exec black --fast --check {} +
+    invoke find main contrib user src -name '*.py' -exec black --fast --check {} +
 fi
 
 if [ $? -ne 0 ]; then
