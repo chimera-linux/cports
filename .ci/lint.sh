@@ -25,4 +25,10 @@ else
     invoke find main contrib user src -name '*.py' -exec black --fast --check {} +
 fi
 
+# for local pre-push hooks that probably don't want to wait 10 seconds
+if [ -z "$CI_SKIP_EXPENSIVE" ]; then
+    invoke python3.11 cbuild relink-subpkgs && git diff --exit-code
+    invoke python3.11 cbuild cycle-check
+fi
+
 exit $RET

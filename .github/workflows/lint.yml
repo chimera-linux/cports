@@ -45,11 +45,5 @@ jobs:
       - name: Set up cbuild configuration
         run: sh .ci/setup-cbuild.sh
 
-      - name: Cycle check
-        run: python3.11 cbuild cycle-check
-
-      - name: Symlink check
-        run: python3.11 cbuild relink-subpkgs && git diff --exit-code
-
-      - name: Lint tree and check format
+      - name: Run checks and lints
         run: sh .ci/lint.sh
