@@ -1,6 +1,6 @@
 pkgname = "vim"
 pkgver = "9.1.0554"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -24,8 +24,8 @@ makedepends = [
     "libsodium-devel",
     "lua5.4-devel",
     "ncurses-devel",
-    "ruby-devel",
     "python-devel",
+    "ruby-devel",
 ]
 depends = [f"xxd={pkgver}-r{pkgrel}"]
 pkgdesc = "Vi-style text editor"
@@ -34,10 +34,9 @@ license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "27af58351ba09ac38a2f9b302af83b67fd3f2d38fca7a834986379ac2aaa9804"
-tool_flags = {"CFLAGS": ["-DSYS_VIRMRC_FILE=/etc/vim/vimrc"]}
-# FIXME int
-hardening = ["vis", "!cfi", "!int"]
-# TODO
+tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/etc/vim/vimrc"']}
+hardening = ["vis", "!cfi"]
+# require a million system-specific fixes
 options = ["!check"]
 
 
