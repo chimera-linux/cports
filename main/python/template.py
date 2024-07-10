@@ -2,7 +2,7 @@
 pkgname = "python"
 _majver = "3.12"
 pkgver = f"{_majver}.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -65,7 +65,6 @@ sha256 = "f6d419a6d8743ab26700801b4908d26d97e8b986e14f95de31b32de2b0e79554"
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being
 hardening = ["vis", "!cfi", "!int"]
-options = ["!framepointer"]
 
 env = {
     # emulate python's configure stuff but with -O2

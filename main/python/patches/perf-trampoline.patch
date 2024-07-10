@@ -1,0 +1,13 @@
+--- a/configure
++++ b/configure
+@@ -13027,6 +13027,10 @@
+     perf_trampoline=yes ;; #(
+   aarch64-linux-gnu) :
+     perf_trampoline=yes ;; #(
++  x86_64-linux-musl) :
++    perf_trampoline=yes ;; #(
++  aarch64-linux-musl) :
++    perf_trampoline=yes ;; #(
+   *) :
+     perf_trampoline=no
+  ;;
