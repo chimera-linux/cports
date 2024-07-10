@@ -63,17 +63,14 @@ def post_install(self):
         libp.chmod(0o755)
         self.install_link(f"usr/lib/lib{lib}.a", f"lib{lib}w.a")
 
-    self.uninstall("usr/lib/libncurses++.a", force=True)
     self.install_link("usr/lib/libncurses++.a", "libncurses++w.a")
 
     # some packages look for -lcurses during build
-    self.uninstall("usr/lib/libcursesw.so", force=True)
     with open(self.destdir / "usr/lib/libcursesw.so", "w") as f:
         f.write("INPUT(-lncursesw)\n")
     (self.destdir / "usr/lib/libcursesw.so").chmod(0o755)
 
     self.uninstall("usr/lib/libcurses.so")
-    self.uninstall("usr/lib/libcursesw.a", force=True)
     self.uninstall("usr/lib/libcurses.a")
 
     self.install_link("usr/lib/libcurses.so", "libncurses.so")
