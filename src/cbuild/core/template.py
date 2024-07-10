@@ -1927,8 +1927,11 @@ class Subpackage(Package):
         instif = None
 
         if not oldesc:
-            # strip the old suffix for non-automatic subpackages, if any
+            # strip the old suffix, if any
             oldesc = re.sub(r" \(.+\)$", "", self.pkgdesc)
+            auto = False
+        else:
+            auto = True
 
         # default suffixes
         if name.endswith("-devel"):
@@ -1947,7 +1950,11 @@ class Subpackage(Package):
                         instif = name
                     else:
                         instif = iif
-                    self.pkgdesc = oldesc + f" ({adesc})"
+                    # if not automatic, add the suffix
+                    if not auto:
+                        self.pkgdesc = oldesc + f" ({adesc})"
+                    else:
+                        self.pkgdesc = oldesc
 
         # by default some subpackages depend on their parent package
         if bdep:

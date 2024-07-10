@@ -137,7 +137,7 @@ def print_diff(head, pkg, over, oldl, newl):
             log.out_red(f"  -{v}")
 
 
-def genpkg(pkg, repo, arch, binpkg):
+def genpkg(pkg, repo, arch, binpkg, adesc=None):
     if not pkg.destdir.is_dir():
         pkg.log_warn("cannot find pkg destdir, skipping...")
         return
@@ -151,13 +151,18 @@ def genpkg(pkg, repo, arch, binpkg):
         # extract from the name instead
         origin = f"alt:{pkg.alternative}"
 
+    if adesc:
+        pdesc = f"{pkg.pkgdesc} ({adesc})"
+    else:
+        pdesc = pkg.pkgdesc
+
     pargs = [
         "--info",
         f"name:{pkg.pkgname}",
         "--info",
         f"version:{pkg.pkgver}-r{pkg.pkgrel}",
         "--info",
-        f"description:{pkg.pkgdesc}",
+        f"description:{pdesc}",
         "--info",
         f"arch:{arch}",
         "--info",
@@ -494,4 +499,4 @@ def invoke(pkg):
             if sn:
                 spkg.replaces.append(f"{sn}-{apkg}{sop}{sv}")
 
-        genpkg(spkg, srepo, arch, binpkg)
+        genpkg(spkg, srepo, arch, binpkg, adesc=adesc)
