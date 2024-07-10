@@ -38,7 +38,7 @@ the `.list` extension. Put something like this in there:
 /home/user/cports/packages/contrib
 ```
 
-This will give `apk` acccess to the `main` and `contrib` packages of your local
+This will give `apk` access to the `main` and `contrib` packages of your local
 repository. You might want to restrict this list to only the repositories that
 you have.
 
