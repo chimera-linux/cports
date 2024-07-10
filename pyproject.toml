@@ -5,9 +5,10 @@ target-version = ['py311']
 [tool.ruff]
 line-length = 80
 target-version = 'py311'
+builtins = ['custom_target', 'self', 'subpackage']
 
 [tool.ruff.lint]
 # TODO: look at other categories that might be useful (needs flake8 plugins)
 select = ['E', 'F', 'W']
-ignore = ['F821', 'E203', 'E501']
+ignore = ['E203', 'E501']
 fixable = ['ALL']

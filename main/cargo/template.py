@@ -61,9 +61,10 @@ def do_prepare(self):
 
 @custom_target("bootstrap", "build")
 def _boot(self):
+    binp = f"target/{self.profile().triplet}/release/cargo"
     bdirn = f"cargo-{pkgver}-{self.profile().triplet}"
     self.mkdir(bdirn)
-    self.cp(_binp, bdirn)
+    self.cp(binp, bdirn)
     self.cp("LICENSE-APACHE", bdirn)
     self.cp("LICENSE-MIT", bdirn)
     self.cp("LICENSE-THIRD-PARTY", bdirn)
@@ -72,9 +73,9 @@ def _boot(self):
 
 
 def do_install(self):
-    _binp = f"target/{self.profile().triplet}/release/cargo"
+    binp = f"target/{self.profile().triplet}/release/cargo"
 
-    self.install_bin(_binp)
+    self.install_bin(binp)
 
     for f in (self.cwd / "src/etc/man").glob("*.?"):
         self.install_man(f)
