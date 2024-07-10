@@ -17,13 +17,13 @@ index 198096b..0a126bb 100644
 +		RESTARTCMD='
 +			if /bin/dinitctl --quiet is-started $1
 +			then
-+				/bin/systemctl restart $1
++				/bin/dinitctl restart $1
 +			fi'
 +	elif [ -x /usr/bin/dinitctl ] && [ -S /run/dinitctl ]; then
 +		RESTARTCMD='
 +			if /usr/bin/dinitctl --quiet is-started $1
 +			then
-+				/usr/bin/systemctl restart $1
++				/usr/bin/dinitctl restart $1
 +			fi'
 +	elif [ -x /bin/systemctl ] && [ -S /run/systemd/private ]; then
  		RESTARTCMD='
