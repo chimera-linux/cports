@@ -13,8 +13,14 @@ invoke() {
     fi
 }
 
+ruff_output=""
+if [ -n "$GITHUB_ACTIONS" ]; then
+    # inline comment annotations
+    ruff_output="--output-format github"
+fi
+
 if command -v ruff >/dev/null; then
-    invoke ruff check
+    invoke ruff check $ruff_output
     invoke ruff format --diff
 else
     invoke flake8 main contrib user src
