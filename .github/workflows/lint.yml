@@ -31,16 +31,21 @@ jobs:
     name: Lint tree and check format
     runs-on: ubuntu-latest
     steps:
-      - name: Install apt dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends python3-pip ca-certificates python3.11 openssl git bubblewrap wget
+      - name: Checkout
+        uses: classabbyamp/treeless-checkout-action@v1
+
+      - name: Install python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Install ruff
         run: sudo pip3 install ruff
 
-      - name: Checkout
-        uses: classabbyamp/treeless-checkout-action@v1
+      - name: Install apt dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends ca-certificates openssl git bubblewrap wget
 
       - name: Set up cbuild configuration
         run: sh .ci/setup-cbuild.sh
