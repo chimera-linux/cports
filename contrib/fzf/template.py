@@ -1,6 +1,6 @@
 pkgname = "fzf"
-pkgver = "0.53.0"
-pkgrel = 1
+pkgver = "0.54.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["ncurses-devel"]
@@ -8,8 +8,8 @@ pkgdesc = "Command-line fuzzy finder"
 maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/junegunn/fzf"
-source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "d45abbfb64f21913c633d46818d9d3eb3d7ebc7e94bd16f45941958aa5480e1d"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "ce658b153254e25cf4244365d639cf3ac5b91230a20f76bd6845d88e1267a2db"
 # debug: fails to split on powerpc
 options = ["!debug"]
 
