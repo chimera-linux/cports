@@ -1,5 +1,5 @@
 pkgname = "snes9x"
-pkgver = "1.62.3"
+pkgver = "1.63"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,9 +27,9 @@ pkgdesc = "SNES emulator"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "custom:snes9x"
 url = "https://www.snes9x.com"
-_commit_spirv_cross = "4e2fdb25671c742a9fbe93a6034eb1542244c7e1"
-_commit_glslang = "6d41bb9c557c5a0eec61ffba1f775dc5f717a8f7"
-_commit_vkheaders = "a3dd2655a3a68c2a67c55a0f8b77dcb8b166ada2"
+_commit_spirv_cross = "bccaa94db814af33d8ef05c153e7c34d8bd4d685"
+_commit_glslang = "9c7fd1a33e5cecbe465e1cd70170167d5e40d398"
+_commit_vkheaders = "577baa05033cf1d9236b3d078ca4b3269ed87a2b"
 source = [
     f"https://github.com/snes9xgit/snes9x/archive/refs/tags/{pkgver}.tar.gz",
     f"https://github.com/KhronosGroup/SPIRV-Cross/archive/{_commit_spirv_cross}.tar.gz",
@@ -43,10 +43,10 @@ source_paths = [
     "external/vulkan-headers",
 ]
 sha256 = [
-    "6912c69290ae854ea22b1b2c917d885b1c4a1a95acbe73cd4243ccb2071600fe",
-    "775c3105effe232a8848f57cdab9baccb8c3ca00ac4363c35212fc5f087c2659",
-    "c2c8e72c8ae247da76e19ecbf7e688a201565dd297689fa80d18b137ac213d77",
-    "a43534974d6e4163da549abb073598b7461cbed13cc7acc52b8eeac3c88e5e32",
+    "84560ce38a734ac8299645883d8e0c0423b7da2430bde5f88276bba1be6d5330",
+    "b2455457ff31704c4a2ad22f58387fd57b76f0c342ddf9c50af94f13e241268f",
+    "a0aebec9795e41818f31cc3e2d3e0e320ba7e6686f16d069428c18437af573a4",
+    "82bb2262cfb72d2f6029533f757173b55b5fa866de224183cbaab17e179174b7",
 ]
 options = ["!cross"]
 
