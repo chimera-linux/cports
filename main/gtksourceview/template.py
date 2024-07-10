@@ -30,7 +30,9 @@ source = (
     f"$(GNOME_SITE)/gtksourceview/{pkgver[:-2]}/gtksourceview-{pkgver}.tar.xz"
 )
 sha256 = "84c82aad985c5aadae7cea7804904a76341ec82b268d46594c1a478f39b42c1f"
-# lto results in broken mouse scrolling in gnome-text-editor
+# FIXME: lto results in broken mouse scrolling in gnome-text-editor
+# also seems to have a weird pango interaction; the tests sigill if only both
+# have lto
 options = ["!cross", "!lto"]
 
 
