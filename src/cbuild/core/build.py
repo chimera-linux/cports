@@ -81,6 +81,7 @@ def _build(
     pkg.accept_checksums = accept_checksums
 
     pkg.build_lint()
+    pkg.resolve_depends()
 
     # always clean up before starting, unless exlpicitly requested not to
     # or unless bootstrapping stage 0 (as resumption is useful by default

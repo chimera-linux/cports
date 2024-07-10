@@ -990,6 +990,26 @@ class Template(Package):
         self.validate_order()
         self.validate_spdx()
 
+    def resolve_depends(self):
+        def _resolve_dep(depv):
+            if isinstance(depv, str):
+                return depv
+            elif hasattr(depv, "pkgname_ver"):
+                return depv.pkgname_ver
+            else:
+                self.error(f"invalid dependency value '{depv}'")
+
+        def _resolve_obj(pkg):
+            for i in range(len(pkg.depends)):
+                pkg.depends[i] = _resolve_dep(pkg.depends[i])
+            for i in range(len(pkg.install_if)):
+                pkg.install_if[i] = _resolve_dep(pkg.install_if[i])
+
+        _resolve_obj(self)
+
+        for sp in self.subpkg_list:
+            _resolve_obj(sp)
+
     def ensure_fields(self):
         for fl, dval, tp, mand, sp, inh in core_fields:
             # mandatory fields are all at the beginning

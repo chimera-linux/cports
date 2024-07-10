@@ -823,6 +823,8 @@ Keep in mind that default values may be overridden by build styles.
   be covered by the scanner. When using version constraints, any apk-style
   version pattern is allowed, such as `N<V`, `N<=V`, `N=V`, `N>V`, `N>=V`
   as well as fuzzy patterns `N~V` (e.g. `foo~3.0` will match `3.0.1`).
+  The list may also contain package or subpackage objects, which get resolved
+  to their fully versioned name, i.e. `pkg.pkgname_ver`.
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.
@@ -875,7 +877,9 @@ Keep in mind that default values may be overridden by build styles.
   must be satisfied in order for this package to auto-install (i.e. if
   all packages in this list are installed, this one will also be installed).
   This is basically the reverse of a "recommends" feature. You should always
-  include at least one versioned constraint.
+  include at least one versioned constraint. May contain actual package or
+  subpackage objects, which resolve to their full versioned name like in
+  the `depends` list.
 * `maintainer` *(str)* The maintainer of the package, in the same format as
   Git commits (i.e. `name <email>`). Orphaned packages should use the
   maintainer `Orphaned <orphaned@chimera-linux.org>`.
