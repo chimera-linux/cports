@@ -15,13 +15,9 @@ invoke() {
 
 if command -v ruff >/dev/null; then
     invoke ruff check
-else
-    invoke flake8 main contrib user src
-fi
-
-if command -v ruff >/dev/null; then
     invoke ruff format --diff
 else
+    invoke flake8 main contrib user src
     invoke find main contrib user src -name '*.py' -exec black --fast --check {} +
 fi
 
