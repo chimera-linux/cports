@@ -2,7 +2,7 @@ pkgname = "zlib-ng-compat"
 pkgver = "2.2.1"
 # compat version
 _cver = "1.3.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -28,6 +28,15 @@ tool_flags = {"CFLAGS": ["-fPIC"]}
 compression = "deflate"
 # sigh, carried over from zlib's old buildsystem
 options = ["bootstrap", "linkundefver"]
+
+
+@subpackage("zlib-ng-compat-devel-static")
+def _static(self):
+    self.pkgdesc = f"{pkgdesc} (development files) (static libraries)"
+    self.provides = [f"zlib-devel-static={_cver}-r99"]
+    self.replaces = [f"zlib-devel-static<{_cver}-r99"]
+
+    return ["usr/lib/*.a"]
 
 
 @subpackage("zlib-ng-compat-devel")
