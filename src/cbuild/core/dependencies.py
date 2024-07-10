@@ -60,6 +60,8 @@ def setup_depends(pkg, only_names=False):
     tdeps = []
     rdeps = []
 
+    pkg.resolve_depends()
+
     crdeps = [(pkg.pkgname, x) for x in pkg.depends]
 
     # also account for subpackages

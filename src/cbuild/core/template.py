@@ -808,6 +808,7 @@ class Template(Package):
         self.git_dirty = False
         self.current_sonames = {}
         self._license_install = False
+        self._depends_setup = False
 
     def get_build_deps(self):
         from cbuild.core import dependencies
@@ -991,6 +992,9 @@ class Template(Package):
         self.validate_spdx()
 
     def resolve_depends(self):
+        if self._depends_setup:
+            return
+
         def _resolve_dep(depv):
             if isinstance(depv, str):
                 return depv
@@ -1009,6 +1013,8 @@ class Template(Package):
 
         for sp in self.subpkg_list:
             _resolve_obj(sp)
+
+        self._depends_setup = True
 
     def ensure_fields(self):
         for fl, dval, tp, mand, sp, inh in core_fields:
