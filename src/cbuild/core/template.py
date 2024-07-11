@@ -1932,22 +1932,15 @@ class Subpackage(Package):
         bdep = None
         instif = None
 
-        if not oldesc:
-            # strip the old suffix, if any
-            oldesc = re.sub(r" \(.+\)$", "", self.pkgdesc)
-            auto = False
-        else:
-            auto = True
+        if oldesc:
+            self.pkgdesc = oldesc
 
         # default suffixes
         if name.endswith("-devel"):
-            self.pkgdesc = oldesc
             self.subdesc = "development files"
         elif name.endswith("-libs"):
-            self.pkgdesc = oldesc
             self.subdesc = "libraries"
         elif name.endswith("-progs"):
-            self.pkgdesc = oldesc
             self.subdesc = "programs"
         else:
             for apkg, adesc, iif, takef in autopkgs:
@@ -1960,11 +1953,10 @@ class Subpackage(Package):
                     else:
                         instif = iif
                     # if not automatic, add the suffix
-                    if not auto:
-                        self.subdesc = adesc
-                    else:
-                        self.pkgdesc = oldesc
+                    if oldsdesc:
                         self.subdesc = oldsdesc
+                    else:
+                        self.subdesc = adesc
 
         # by default some subpackages depend on their parent package
         if bdep:
