@@ -1,8 +1,8 @@
 pkgname = "fastfetch"
-pkgver = "2.18.0"
+pkgver = "2.18.1"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DBUILD_TESTS=ON"]
+configure_args = ["-DBUILD_TESTS=ON", "-DENABLE_SYSTEM_YYJSON=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "chafa-devel",
@@ -18,6 +18,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-devel",
     "xfconf-devel",
+    "yyjson-devel",
     "zlib-ng-compat-devel",
 ]
 depends = ["lscpu"]
@@ -26,7 +27,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://github.com/fastfetch-cli/fastfetch"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "7635b46941c774f0faeee904c36a33a5eef1e5aa959a73ad1a30efb23dcbf50a"
+sha256 = "53421de317bfc918e168751cf910e7faa51ebbd71f6f4de3b56d2cc74794365f"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 # CFI: dies immediately (ffPlatformPathAddHome at FFlist.c:31:12)
 hardening = ["vis", "!cfi"]
