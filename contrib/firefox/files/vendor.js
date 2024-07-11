@@ -21,3 +21,6 @@ pref("media.gmp-gmpopenh264.enabled", false);
 
 // Hangs sending pings on stop sometimes and prevents FF close
 pref("toolkit.telemetry.shutdownPingSender.enabled", false);
+
+// ad shit
+pref("dom.private-attribution.submission.enabled", true);
