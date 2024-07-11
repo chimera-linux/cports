@@ -1253,7 +1253,7 @@ def do_relink_subpkgs(tgt):
                 logger.get().out(f"Pruning bad contents: {el}")
                 el.unlink()
             else:
-                logger.get().warn("Bad contents encountered: {el}")
+                logger.get().warn(f"Bad contents encountered: {el}")
                 continue
 
     # recreate symlinks
