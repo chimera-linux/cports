@@ -1,0 +1,43 @@
+--- a/src/convar.h
++++ b/src/convar.h
+@@ -23,12 +23,35 @@
+     template <typename T>
+     inline std::optional<T> Parse( std::string_view chars )
+     {
++        std::optional<T> ret;
+         T obj;
+-        auto result = std::from_chars( chars.begin(), chars.end(), obj );
+-        if ( result.ec == std::errc{} )
+-            return obj;
+-        else
+-            return std::nullopt;
++        if constexpr (std::is_floating_point_v<T>) {
++            char *endp = nullptr;
++            /* we're asking for C locale which is preallocated, so no alloc here */
++            auto loc = newlocale(LC_ALL_MASK, "C", nullptr);
++
++            if constexpr (std::is_same_v<T, float>) {
++              obj = strtof_l(chars.data(), &endp, loc);
++            } else {
++              obj = strtod_l(chars.data(), &endp, loc);
++            }
++
++            /* we gotta "free" it anyway */
++            freelocale(loc);
++
++            if (endp && !*endp && (endp != chars.data()))
++                ret = obj;
++            else
++                ret = std::nullopt;
++        } else {
++            auto result = std::from_chars( chars.begin(), chars.end(), obj );
++            if ( result.ec == std::errc{} )
++                ret = obj;
++            else
++                ret = std::nullopt;
++        }
++
++        return ret;
+     }
+ 
+     template <>
