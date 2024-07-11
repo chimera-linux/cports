@@ -1,5 +1,5 @@
 pkgname = "gtk+3"
-pkgver = "3.24.42"
+pkgver = "3.24.43"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,37 +17,37 @@ configure_args = [
 ]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "gobject-introspection",
-    "perl",
-    "glib-devel",
+    "docbook-xsl-nons",
     "gettext-devel",
+    "glib-devel",
+    "gobject-introspection",
+    "meson",
+    "perl",
+    "pkgconf",
     "wayland-progs",
     "xsltproc",
-    "docbook-xsl-nons",
 ]
 makedepends = [
     "at-spi2-core-devel",
-    "gdk-pixbuf-devel",
-    "libepoxy-devel",
-    "pango-devel",
     "colord-devel",
-    "libxkbcommon-devel",
-    "wayland-devel",
-    "wayland-protocols",
-    "mesa-devel",
+    "cups-devel",
+    "gdk-pixbuf-devel",
+    "iso-codes",
+    "libcloudproviders-devel",
+    "libepoxy-devel",
+    "libxcomposite-devel",
     "libxcursor-devel",
     "libxdamage-devel",
     "libxext-devel",
-    "libxinerama-devel",
-    "libxrandr-devel",
-    "libxcomposite-devel",
     "libxi-devel",
-    "cups-devel",
+    "libxinerama-devel",
+    "libxkbcommon-devel",
+    "libxrandr-devel",
+    "mesa-devel",
+    "pango-devel",
     "tracker-devel",
-    "libcloudproviders-devel",
-    "iso-codes",
+    "wayland-devel",
+    "wayland-protocols",
 ]
 depends = [
     "adwaita-icon-theme",
@@ -68,7 +68,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
-sha256 = "50f89f615092d4dd01bbd759719f8bd380e5f149f6fd78a94725e2de112377e2"
+sha256 = "7e04f0648515034b806b74ae5d774d87cffb1a2a96c468cb5be476d51bf2f3c7"
 # FIXME int
 hardening = ["!int"]
 # gtk3 can't handle seatless wayland displays; also
