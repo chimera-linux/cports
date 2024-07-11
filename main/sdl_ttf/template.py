@@ -1,6 +1,6 @@
 pkgname = "sdl_ttf"
 pkgver = "2.22.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSDL2TTF_HARFBUZZ=ON",
