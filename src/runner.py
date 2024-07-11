@@ -1856,7 +1856,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             depg,
         )
 
-    rpkgs = sorted(list(rpkgs))
+    rpkgs = sorted(rpkgs)
 
     # parse out all the templates first and grab their build deps
     # in raw mode, we still generate the set, we need to parse the

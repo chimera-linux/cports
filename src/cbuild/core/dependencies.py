@@ -128,7 +128,7 @@ def setup_depends(pkg, only_names=False):
 
 def _install_virt(pkg, vlist, tgt=True):
     # unique items in the list
-    virtlist = sorted(list(set(vlist)))
+    virtlist = sorted(set(vlist))
     ret = None
     for vd in virtlist:
         ret = apki.call_chroot(
