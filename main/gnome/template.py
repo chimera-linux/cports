@@ -37,7 +37,8 @@ depends = [
 ]
 # backwards compat
 provides = [f"gnome-core={pkgver}-r{pkgrel}"]
-pkgdesc = "GNOME desktop environment (session)"
+pkgdesc = "GNOME desktop environment"
+subdesc = "session"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://www.gnome.org"
@@ -45,7 +46,7 @@ url = "https://www.gnome.org"
 
 @subpackage("gnome-apps")
 def _apps(self):
-    self.pkgdesc = "GNOME desktop environment (apps)"
+    self.subdesc = "apps"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "baobab",

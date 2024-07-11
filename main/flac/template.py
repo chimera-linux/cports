@@ -39,7 +39,7 @@ def post_install(self):
 
 @subpackage("libflac")
 def _lib(self):
-    self.pkgdesc = f"{pkgname} (runtime library)"
+    self.subdesc = "runtime library"
     return self.default_libs()
 
 

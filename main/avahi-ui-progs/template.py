@@ -139,7 +139,7 @@ def _pyprogs(self):
 
 @subpackage("avahi-glib-devel")
 def _gdevel(self):
-    self.pkgdesc = "Avahi glib libraries (development files)"
+    self.pkgdesc = "Avahi glib libraries"
     self.depends = [f"avahi-devel~{pkgver}"]
 
     return [
@@ -164,7 +164,7 @@ def _glibs(self):
 
 @subpackage("avahi-ui-devel")
 def _udevel(self):
-    self.pkgdesc = "Avahi UI libraries (development files)"
+    self.pkgdesc = "Avahi UI libraries"
     self.depends = [f"avahi-devel~{pkgver}"]
 
     return [
@@ -185,7 +185,7 @@ def _ulibs(self):
 
 @subpackage("avahi-libevent-devel")
 def _edevel(self):
-    self.pkgdesc = "Avahi libevent libraries (development files)"
+    self.pkgdesc = "Avahi libevent libraries"
     self.depends = [f"avahi-devel~{pkgver}"]
 
     return [

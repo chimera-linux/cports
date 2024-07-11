@@ -43,7 +43,7 @@ def _iptc(self):
 
 @subpackage("libiptc-devel")
 def _iptc_devel(self):
-    self.pkgdesc = "Netfilter libiptc library (development files)"
+    self.pkgdesc = "Netfilter libiptc library"
     return [
         "usr/include/libiptc",
         "usr/lib/libip[46]tc.so",
@@ -60,7 +60,7 @@ def _xtables(self):
 
 @subpackage("libxtables-devel")
 def _xtables_devel(self):
-    self.pkgdesc = "Netfilter xtables library (development files)"
+    self.pkgdesc = "Netfilter xtables library"
     return [
         "usr/include/xtables*.h",
         "usr/lib/libxtables.so",

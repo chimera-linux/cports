@@ -87,7 +87,7 @@ def _libcurl(self):
 @subpackage("libcurl-devel")
 def _devel(self):
     self.depends += makedepends
-    self.pkgdesc = "Multiprotocol file transfer library (development files)"
+    self.pkgdesc = "Multiprotocol file transfer library"
 
     return self.default_devel()
 

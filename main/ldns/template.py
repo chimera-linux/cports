@@ -43,7 +43,7 @@ def _lib(self):
 @subpackage("libldns-devel")
 def _devel(self):
     self.depends += ["openssl-devel"]
-    self.pkgdesc = "Modern DNS/DNSSEC library (development files)"
+    self.pkgdesc = "Modern DNS/DNSSEC library"
 
     return self.default_devel()
 

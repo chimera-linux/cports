@@ -32,7 +32,8 @@ provides = [
     "so:libgobject-2.0.so.0=0",
     "so:libgthread-2.0.so.0=0",
 ]
-pkgdesc = "GLib library of C routines (bootstrap)"
+pkgdesc = "GLib library of C routines"
+subdesc = "bootstrap"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"

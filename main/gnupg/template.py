@@ -21,7 +21,7 @@ makedepends = [
     "sqlite-devel",
 ]
 depends = ["pinentry"]
-pkgdesc = "GNU Privacy Guard (2.x)"
+pkgdesc = "GNU Privacy Guard 2.x"
 maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnupg.org"

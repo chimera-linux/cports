@@ -26,7 +26,7 @@ makedepends = [
     "libxslt-devel",
     "vala",
 ]
-pkgdesc = "GNOME crypto package (3.x)"
+pkgdesc = "GNOME crypto package 3.x"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gcr"

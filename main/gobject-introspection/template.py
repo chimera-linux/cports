@@ -44,7 +44,8 @@ def _girfdo(self):
 
 @subpackage("libgirepository")
 def _libgir(self):
-    self.pkgdesc = "Library for handling gir data (runtime library)"
+    self.pkgdesc = "Library for handling gir data"
+    self.subdesc = "runtime library"
     self.depends += [f"gir-freedesktop={pkgver}-r{pkgrel}"]
 
     return self.default_libs()
@@ -52,7 +53,7 @@ def _libgir(self):
 
 @subpackage("libgirepository-devel")
 def _devel(self):
-    self.pkgdesc = "Library for handling gir data (development files)"
+    self.pkgdesc = "Library for handling gir data"
     self.depends += ["cairo-devel", "libffi-devel"]
 
     return self.default_devel()

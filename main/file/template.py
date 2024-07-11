@@ -40,7 +40,7 @@ def _libmagic(self):
 @subpackage("file-devel")
 def _devel(self):
     self.depends += makedepends
-    self.pkgdesc = "File type identification library (development files)"
+    self.pkgdesc = "File type identification library"
 
     return self.default_devel()
 
