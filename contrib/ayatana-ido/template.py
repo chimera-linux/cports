@@ -1,5 +1,5 @@
 pkgname = "ayatana-ido"
-pkgver = "0.10.2"
+pkgver = "0.10.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTS=ON"]
@@ -24,7 +24,7 @@ license = (
 )
 url = "https://github.com/AyatanaIndicators/ayatana-ido"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0daf8a2e5bba51225bc3724c0e53c3b569269f28ac3a14f6bed9920b44ecc856"
+sha256 = "45580033e9b52185c41ce500c68281ae724e7e5a553425685c0b89ffcd9cda66"
 options = ["!cross"]
 
 
