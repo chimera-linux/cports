@@ -1,5 +1,5 @@
 pkgname = "rinutils"
-pkgver = "0.10.2"
+pkgver = "0.10.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DWITH_TEST_SUITE=ON"]
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/shlomif/rinutils"
 source = f"{url}/releases/download/{pkgver}/rinutils-{pkgver}.tar.xz"
-sha256 = "d87fe1199722b7fa9bd508e135383ff0788fbd7d655cbef9757c23212f8c217b"
+sha256 = "f9e527d37a6cc8c7b8870ada63caa24f32ab0d29fd1116df3ebb686583030955"
 # needs another 10 perl modules
 options = ["!check"]
 
