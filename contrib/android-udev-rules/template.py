@@ -1,9 +1,7 @@
 pkgname = "android-udev-rules"
 pkgver = "20240221"
 pkgrel = 0
-pkgdesc = (
-    "Android udev rules list aimed to be the most comprehensive on the net"
-)
+pkgdesc = "Comprehensive Android udev rules collection"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/M0Rf30/android-udev-rules"

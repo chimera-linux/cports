@@ -25,7 +25,7 @@ def post_install(self):
 
 @subpackage("libpkgconf")
 def _lib(self):
-    self.pkgdesc += " (runtime library)"
+    self.subdesc = "runtime library"
     return self.default_libs()
 
 

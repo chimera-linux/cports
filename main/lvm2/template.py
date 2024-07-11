@@ -91,9 +91,7 @@ def post_install(self):
 
 @subpackage("device-mapper-devel")
 def _dmdev(self):
-    self.pkgdesc = (
-        "Device Mapper userspace library and tools (development files)"
-    )
+    self.pkgdesc = "Device Mapper userspace library and tools"
     self.depends += makedepends
 
     return [

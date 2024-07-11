@@ -9,9 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-pynacl"]
-pkgdesc = (
-    "Library that adds cryptographic attestation to patches sent via email"
-)
+pkgdesc = "Library that adds cryptographic attestation to e-mail patches"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT-0"
 url = "https://git.kernel.org/pub/scm/utils/patatt/patatt.git"

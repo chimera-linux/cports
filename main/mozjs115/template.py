@@ -21,7 +21,7 @@ makedepends = [
     "rust-std",
     "linux-headers",
 ]
-pkgdesc = "Mozilla JavaScript interpreter and library (115.x)"
+pkgdesc = "Mozilla JavaScript interpreter and library, version 115.x"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"

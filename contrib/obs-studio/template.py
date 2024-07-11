@@ -54,9 +54,7 @@ makedepends = [
     "wayland-devel",
     "x264-devel",
 ]
-pkgdesc = (
-    "Free and open source software for live streaming and screen recording"
-)
+pkgdesc = "Live streaming and screen recording software"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://obsproject.com"

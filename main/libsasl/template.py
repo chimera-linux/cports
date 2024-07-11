@@ -21,7 +21,8 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "automake", "libtool"]
-pkgdesc = "Cyrus SASL (runtime library)"
+pkgdesc = "Cyrus SASL"
+subdesc = "runtime library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause-Attribution"
 url = "https://www.cyrusimap.org/sasl"

@@ -26,7 +26,7 @@ sha256 = "05487b5600f5d2f09e66a753cccd8f39c1bff9f148aea1b7774d505b9c8bca9b"
 
 @subpackage("libvala")
 def _lib(self):
-    self.pkgdesc = f"{pkgname} (shared library)"
+    self.subdesc = "runtime library"
 
     return ["usr/lib/libvala-*.so.*"]
 
@@ -43,7 +43,8 @@ def _valadoc(self):
 
 @subpackage("libvaladoc")
 def _libdoc(self):
-    self.pkgdesc = "Vala documentation tool (shared library)"
+    self.pkgdesc = "Vala documentation tool"
+    self.subdesc = "runtime library"
 
     return [
         "usr/lib/libvaladoc-*.so.*",
@@ -54,7 +55,8 @@ def _libdoc(self):
 
 @subpackage("valadoc-devel")
 def _develdoc(self):
-    self.pkgdesc = "Vala documentation tool (development files)"
+    self.pkgdesc = "Vala documentation tool"
+    self.subdesc = "development files"
 
     return [
         "usr/include/valadoc-*",

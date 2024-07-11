@@ -238,7 +238,8 @@ def post_install(self):
 
 @subpackage("libglapi")
 def _glapi(self):
-    self.pkgdesc = "Free implementation of the GL API (shared library)"
+    self.pkgdesc = "Free implementation of the GL API"
+    self.subdesc = "runtime library"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libglapi.so.*"]
@@ -246,14 +247,15 @@ def _glapi(self):
 
 @subpackage("libgbm")
 def _gbm(self):
-    self.pkgdesc = "Generic Buffer Management (shared library)"
+    self.pkgdesc = "Generic Buffer Management"
+    self.subdesc = "runtime library"
 
     return ["usr/lib/libgbm.so.*"]
 
 
 @subpackage("libgbm-devel")
 def _gbm_devel(self):
-    self.pkgdesc = "Generic Buffer Management (development files)"
+    self.pkgdesc = "Generic Buffer Management"
 
     return [
         "usr/include/gbm.h",
@@ -264,7 +266,8 @@ def _gbm_devel(self):
 
 @subpackage("libosmesa")
 def _osmesa(self):
-    self.pkgdesc = "Mesa off-screen interface (shared library)"
+    self.pkgdesc = "Mesa off-screen interface"
+    self.subdesc = "runtime library"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libOSMesa.so.*"]
@@ -272,7 +275,8 @@ def _osmesa(self):
 
 @subpackage("libgles1")
 def _gles1(self):
-    self.pkgdesc = "Free implementation of OpenGL ES 1.x API (shared library)"
+    self.pkgdesc = "Free implementation of OpenGL ES 1.x API"
+    self.subdesc = "runtime library"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libGLESv1_CM.so.*"]
@@ -280,7 +284,8 @@ def _gles1(self):
 
 @subpackage("libgles2")
 def _gles2(self):
-    self.pkgdesc = "Free implementation of OpenGL ES 2.x API (shared library)"
+    self.pkgdesc = "Free implementation of OpenGL ES 2.x API"
+    self.subdesc = "runtime library"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libGLESv2.so.*"]
@@ -288,7 +293,8 @@ def _gles2(self):
 
 @subpackage("libegl")
 def _egl(self):
-    self.pkgdesc = "Free implementation of the EGL API (shared library)"
+    self.pkgdesc = "Free implementation of the EGL API"
+    self.subdesc = "runtime library"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libEGL.so.*"]
@@ -296,7 +302,8 @@ def _egl(self):
 
 @subpackage("libgl")
 def _libgl(self):
-    self.pkgdesc = "Free implementation of the OpenGL API (shared library)"
+    self.pkgdesc = "Free implementation of the OpenGL API"
+    self.subdesc = "runtime library"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libGL.so.*"]
@@ -304,7 +311,8 @@ def _libgl(self):
 
 @subpackage("libxatracker", _have_vmware)
 def _xatracker(self):
-    self.pkgdesc = "X acceleration library (shared library)"
+    self.pkgdesc = "X acceleration library"
+    self.subdesc = "runtime library"
 
     return ["usr/lib/libxatracker*.so.*"]
 

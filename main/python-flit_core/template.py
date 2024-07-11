@@ -1,10 +1,10 @@
 pkgname = "python-flit_core"
 pkgver = "3.9.0"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["python"]
 checkdepends = ["python-pytest", "python-testpath"]
 depends = ["python"]
-pkgdesc = "Simplified packaging of Python modules (PEP 517 backend)"
+pkgdesc = "Simplified PEP 517 packaging backend"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://flit.pypa.io"

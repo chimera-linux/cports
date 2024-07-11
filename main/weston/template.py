@@ -63,7 +63,7 @@ def _x11(self):
 @subpackage("weston-xwayland")
 def _xwayland(self):
     self.depends = [f"weston={pkgver}-r{pkgrel}"]
-    self.pkgdecs = f"{pkgdesc} (XWayland plugin)"
+    self.subdesc = "Xwayland plugin"
 
     return ["usr/lib/libweston*/xwayland.so"]
 

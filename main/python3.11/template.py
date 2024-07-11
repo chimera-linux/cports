@@ -51,7 +51,7 @@ makedepends = [
 ]
 checkdepends = ["ca-certificates"]
 depends = ["ca-certificates"]
-pkgdesc = "Python programming language (3.11)"
+pkgdesc = "Python 3.11 programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"

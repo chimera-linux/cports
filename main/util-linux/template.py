@@ -219,7 +219,7 @@ def _mnt_lib(self):
 
 @subpackage("libmount-devel")
 def _mnt_devel(self):
-    self.pkgdesc = "Library for mount(8) (development files)"
+    self.pkgdesc = "Library for mount(8)"
 
     return [
         "usr/lib/libmount.*",
@@ -249,7 +249,7 @@ def _fdisk_lib(self):
 
 @subpackage("libfdisk-devel")
 def _fdisk_devel(self):
-    self.pkgdesc = "Library for fdisk(8) (development files)"
+    self.pkgdesc = "Library for fdisk(8)"
 
     return [
         "usr/lib/libfdisk.*",
@@ -426,7 +426,7 @@ def _libblkid(self):
 
 @subpackage("libblkid-devel")
 def _libblkid_devel(self):
-    self.pkgdesc = "Library to handle device identification (development files)"
+    self.pkgdesc = "Library to handle device identification"
     self.depends += [f"libuuid-devel={pkgver}-r{pkgrel}"]
 
     return [
@@ -447,7 +447,7 @@ def _libuuid(self):
 
 @subpackage("libuuid-devel")
 def _libuuid_devel(self):
-    self.pkgdesc = "UUID library from util-linux (development files)"
+    self.pkgdesc = "UUID library from util-linux"
     self.license = "BSD-3-Clause"
     self.options = ["!distlicense"]
 
@@ -484,7 +484,7 @@ def _libsmartcols(self):
 
 @subpackage("libsmartcols-devel")
 def _libsmartcols_devel(self):
-    self.pkgdesc = "Table or Tree library from util-linux (development files)"
+    self.pkgdesc = "Table or Tree library from util-linux"
 
     return [
         "usr/lib/libsmartcols.*",

@@ -36,7 +36,7 @@ def pre_configure(self):
 
 @subpackage("libltdl-devel")
 def _devel(self):
-    self.pkgdesc = "GNU libtool dlopen wrapper (development files)"
+    self.pkgdesc = "GNU libtool dlopen wrapper"
     # can't use default_devel, some aclocal stuff belongs in main package
     return [
         "usr/include",

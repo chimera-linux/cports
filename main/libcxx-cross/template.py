@@ -117,13 +117,15 @@ def _gen_crossp(an, at):
 
     @subpackage(f"libunwind-cross-{an}-static", cond)
     def _unwst(self):
-        self.pkgdesc = f"Cross-toolchain LLVM libunwind ({an} static library)"
+        self.pkgdesc = "Cross-toolchain LLVM libunwind"
+        self.subdesc = f"{an} static library"
         self.depends = [f"libunwind-cross-{an}={pkgver}-r{pkgrel}"]
         return [f"usr/{at}/usr/lib/libunwind.a"]
 
     @subpackage(f"libunwind-cross-{an}", cond)
     def _unw(self):
-        self.pkgdesc = f"Cross-toolchain LLVM libunwind ({an})"
+        self.pkgdesc = "Cross-toolchain LLVM libunwind"
+        self.subdesc = an
         self.depends = [f"musl-cross-{an}", f"libatomic-chimera-cross-{an}"]
         self.options = [
             "!scanshlibs",
@@ -141,13 +143,15 @@ def _gen_crossp(an, at):
 
     @subpackage(f"libcxxabi-cross-{an}-static", cond)
     def _abist(self):
-        self.pkgdesc = f"Cross-toolchain LLVM libc++abi ({an} static library)"
+        self.pkgdesc = "Cross-toolchain LLVM libc++abi"
+        self.subdesc = f"{an} static library"
         self.depends = [f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}"]
         return [f"usr/{at}/usr/lib/libc++abi.a"]
 
     @subpackage(f"libcxxabi-cross-{an}", cond)
     def _abi(self):
-        self.pkgdesc = f"Cross-toolchain LLVM libc++abi ({an})"
+        self.pkgdesc = "Cross-toolchain LLVM libc++abi"
+        self.subdesc = an
         self.depends = [f"libunwind-cross-{an}={pkgver}-r{pkgrel}"]
         self.options = [
             "!scanshlibs",
@@ -193,7 +197,7 @@ for _an in _targetlist:
 
 @subpackage("libunwind-cross-static")
 def _unw_static(self):
-    self.pkgdesc = "Cross-toolchain LLVM libunwind (static)"
+    self.pkgdesc = "Cross-toolchain LLVM libunwind"
     self.depends = []
     self.options = ["empty"]
     for an in _targets:
@@ -204,7 +208,7 @@ def _unw_static(self):
 
 @subpackage("libcxxabi-cross-static")
 def _abi_static(self):
-    self.pkgdesc = "Cross-toolchain LLVM libc++abi (static)"
+    self.pkgdesc = "Cross-toolchain LLVM libc++abi"
     self.depends = []
     self.options = ["empty"]
     for an in _targets:

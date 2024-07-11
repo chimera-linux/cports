@@ -28,6 +28,6 @@ def _libsensors(self):
 
 @subpackage("libsensors-devel")
 def _devel(self):
-    self.pkgdesc = "Sensor reading library (development files)"
+    self.pkgdesc = "Sensor reading library"
 
     return self.default_devel()

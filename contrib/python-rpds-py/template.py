@@ -16,9 +16,7 @@ checkdepends = [
     "python-pytest",
 ]
 depends = ["python"]
-pkgdesc = (
-    "Python bindings to the Rust rpds crate for persistent data structures"
-)
+pkgdesc = "Python bindings to the Rust rpds crate"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/crate-py/rpds"

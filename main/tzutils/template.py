@@ -41,7 +41,8 @@ def post_install(self):
 
 @subpackage("tzdata-right")
 def _tzdatar(self):
-    self.pkgdesc = "Time zone and daylight-saving time data (TAI)"
+    self.pkgdesc = "Time zone and daylight-saving time data"
+    self.subdesc = "TAI"
     self.options = ["hardlinks"]
     self.depends = [f"tzdata={pkgver}-r{pkgrel}"]
 

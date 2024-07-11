@@ -6,9 +6,7 @@ build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
-pkgdesc = (
-    "Tool that recursively searches the current directory for a regex pattern"
-)
+pkgdesc = "Recursive grep-like tool"
 maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT OR Unlicense"
 url = "https://github.com/BurntSushi/ripgrep"

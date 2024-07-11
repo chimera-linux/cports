@@ -258,7 +258,8 @@ def _boot(self):
 
 @subpackage("systemd-boot-efi", _have_sd_boot)
 def _efi(self):
-    self.pkgdesc = "UEFI boot manager (EFI binaries)"
+    self.pkgdesc = "UEFI boot manager"
+    self.subdesc = "EFI binaries"
 
     return [
         "usr/lib/systemd/boot/efi",

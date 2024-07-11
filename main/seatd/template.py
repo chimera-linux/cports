@@ -31,6 +31,6 @@ def _lib(self):
 
 @subpackage("libseat-devel")
 def _devel(self):
-    self.pkgdesc = "Universal seat management library (development files)"
+    self.pkgdesc = "Universal seat management library"
 
     return self.default_devel()

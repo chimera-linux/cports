@@ -52,7 +52,8 @@ makedepends = [
     "linux-headers",
 ]
 depends = ["fortify-headers", "libatomic-chimera-devel"]
-pkgdesc = "Low Level Virtual Machine (bootstrap)"
+pkgdesc = "Low Level Virtual Machine"
+subdesc = "bootstrap"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"

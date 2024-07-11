@@ -21,9 +21,7 @@ makedepends = [
     "qt6-qttools-devel",
     "syndication-devel",
 ]
-pkgdesc = (
-    "KDE Framework for downloading and sharing additional application data"
-)
+pkgdesc = "Framework for downloading/sharing additional app data"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
