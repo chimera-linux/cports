@@ -9,6 +9,7 @@ builtins = ['custom_target', 'self', 'subpackage']
 
 [tool.ruff.lint]
 select = [
+    'C4',
     'E',
     'F',
     'RUF',
@@ -16,6 +17,8 @@ select = [
     'W',
 ]
 ignore = [
+    # no
+    'C417',
     # black compat
     'E203',
     # long source lines

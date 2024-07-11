@@ -29,12 +29,12 @@ hardening_fields = {
 
 # only some are arch-specific, those are here
 supported_fields = {
-    "scp": set(["x86_64", "ppc64le", "ppc64"]),
-    "sst": set(["x86_64", "aarch64"]),
-    "cfi": set(["x86_64", "aarch64"]),
-    "cet": set(["x86_64"]),
-    "pac": set(["aarch64"]),
-    "bti": set(["aarch64"]),
+    "scp": {"x86_64", "ppc64le", "ppc64"},
+    "sst": {"x86_64", "aarch64"},
+    "cfi": {"x86_64", "aarch64"},
+    "cet": {"x86_64"},
+    "pac": {"aarch64"},
+    "bti": {"aarch64"},
 }
 
 
