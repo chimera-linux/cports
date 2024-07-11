@@ -20,7 +20,7 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 origin = "pinentry"
-pkgdesc = "PIN or passphrase entry dialogs for GnuPG (qt6 frontend)"
+pkgdesc = "Qt6 frontend for pinentry"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"

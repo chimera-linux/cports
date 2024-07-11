@@ -27,7 +27,8 @@ makedepends = [
 ]
 depends = [f"gst-plugins-good~{pkgver}"]
 origin = "gst-plugins-good"
-pkgdesc = "GStreamer good plugins (Qt6 plugin)"
+pkgdesc = "GStreamer good plugins"
+subdesc = "Qt6 plugin"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"

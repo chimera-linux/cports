@@ -15,7 +15,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = ["gtk+3-devel"]
-pkgdesc = "Library for registering global keyboard shortcuts (GTK+3)"
+pkgdesc = "Gtk+3 library for registering global keyboard shortcuts"
 maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://github.com/engla/keybinder"

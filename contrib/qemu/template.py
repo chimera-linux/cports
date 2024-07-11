@@ -214,7 +214,7 @@ def _firmware(self):
 def _spkg(sname):
     @subpackage(f"qemu-system-{sname}")
     def _system(self):
-        self.pkgdesc = f"{pkgname} (system-{sname})"
+        self.subdesc = f"system-{sname}"
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
         self.options = ["foreignelf"]
 

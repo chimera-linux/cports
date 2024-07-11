@@ -23,7 +23,7 @@ options = ["!check"]
 
 @subpackage("python-pyclip-wayland")
 def _wayland(self):
-    self.pkgdesc += " (Wayland support)"
+    self.subdesc = "Wayland support"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = ["wl-clipboard"]
     self.options = ["empty"]
@@ -32,7 +32,7 @@ def _wayland(self):
 
 @subpackage("python-pyclip-x11")
 def _x11(self):
-    self.pkgdesc += " (X11 support)"
+    self.subdesc = "X11 support"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = ["xclip"]
     self.options = ["empty"]

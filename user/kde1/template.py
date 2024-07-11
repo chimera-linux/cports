@@ -14,7 +14,7 @@ url = "https://kde.org"
 
 @subpackage("kde1-apps")
 def _apps(self):
-    self.pkgdesc = "KDE 1.x historical version (apps)"
+    self.subdesc = "apps"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         f"kde1-kdegames~{pkgver}",

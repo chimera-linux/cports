@@ -10,7 +10,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = ["gtk+3-devel", "json-glib-devel", "libsoup-devel"]
-pkgdesc = "GTK client for remote management of transmission (torrent client)"
+pkgdesc = "GTK client for remote management of Transmission torrent client"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/transmission-remote-gtk/transmission-remote-gtk"

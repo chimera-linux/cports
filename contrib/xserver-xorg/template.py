@@ -36,7 +36,8 @@ depends = [
     "xwininfo",
     "xwud",
 ]
-pkgdesc = "Default X.org metapackage (with common apps)"
+pkgdesc = "Default X.org metapackage"
+subdesc = "with common apps"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://xorg.freedesktop.org"

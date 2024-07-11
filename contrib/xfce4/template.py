@@ -15,7 +15,8 @@ depends = [
     "xfdesktop",
     "xfwm4",
 ]
-pkgdesc = "Xfce desktop environment (session)"
+pkgdesc = "Xfce desktop environment"
+subdesc = "session"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "custom:meta"
 url = "https://www.xfce.org"
@@ -23,7 +24,7 @@ url = "https://www.xfce.org"
 
 @subpackage("xfce4-apps")
 def _apps(self):
-    self.pkgdesc = "Xfce desktop environment (apps)"
+    self.subdesc = "apps"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "catfish",
@@ -49,7 +50,7 @@ def _apps(self):
 
 @subpackage("xfce4-panel-plugins")
 def _panel_plugins(self):
-    self.pkgdesc = "Xfce desktop environment (panel plugins)"
+    self.subdesc = "panel plugins"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "xfce4-clipman-plugin",

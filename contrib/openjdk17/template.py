@@ -250,7 +250,7 @@ def _jreh(self):
 
 @subpackage(f"openjdk{_majver}-jdk")
 def _jdk(self):
-    self.pgkdesc = f"{pkgdesc} (JDK)"
+    self.subdesc = "JDK"
     self.depends = [
         f"openjdk{_majver}-jre={pkgver}-r{pkgrel}",
         f"openjdk{_majver}-jmods={pkgver}-r{pkgrel}",

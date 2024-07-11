@@ -13,7 +13,7 @@ options = ["!check"]
 
 @subpackage("oci-runtime-runc")
 def _runc(self):
-    self.pkgdesc = "OCI runtime (runc)"
+    self.subdesc = "runc"
     self.depends = ["runc"]
     self.provides = [f"oci-runtime-provider={pkgver}-r{pkgrel}"]
     # default
@@ -24,7 +24,7 @@ def _runc(self):
 
 @subpackage("oci-runtime-crun")
 def _crun(self):
-    self.pkgdesc = "OCI runtime (crun)"
+    self.subdesc = "crun"
     self.depends = ["crun"]
     self.provides = [f"oci-runtime-provider={pkgver}-r{pkgrel}"]
 

@@ -31,7 +31,8 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 origin = "poppler"
-pkgdesc = "PDF rendering library (Qt integration)"
+pkgdesc = "PDF rendering library"
+subdesc = "Qt integration"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://poppler.freedesktop.org"
@@ -64,5 +65,6 @@ def do_install(self):
 
 @subpackage("poppler-qt-devel")
 def _devel(self):
+    self.subdesc = "Qt development files"
     self.depends += ["libpoppler-devel"]
     return self.default_devel()

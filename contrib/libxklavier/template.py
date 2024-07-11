@@ -25,7 +25,7 @@ makedepends = [
     "libxml2-devel",
 ]
 depends = ["iso-codes", "xkeyboard-config"]
-pkgdesc = "High-level API for X Keyboard Extension (deprecated)"
+pkgdesc = "Deprecated high-level API for X Keyboard Extension"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/LibXklavier"

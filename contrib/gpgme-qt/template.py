@@ -24,7 +24,7 @@ makedepends = [
 ]
 depends = ["gnupg"]
 origin = "gpgme"
-pkgdesc = "GnuPG Made Easy (Qt library)"
+pkgdesc = "Qt support for gpgme library"
 maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://gnupg.org/software/gpgme/index.html"

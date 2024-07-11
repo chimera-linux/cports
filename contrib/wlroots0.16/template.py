@@ -28,7 +28,7 @@ makedepends = [
     "xcb-util-renderutil-devel",
     "xcb-util-wm-devel",
 ]
-pkgdesc = "Modular Wayland compositor library (0.16.x)"
+pkgdesc = "Modular Wayland compositor library 0.16.x"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/wlroots/wlroots"
