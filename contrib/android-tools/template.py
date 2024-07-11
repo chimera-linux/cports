@@ -23,7 +23,7 @@ makedepends = [
     "zstd-devel",
 ]
 depends = ["android-udev-rules", "python"]
-pkgdesc = "Android platform tools (e.g. adb and fastboot)"
+pkgdesc = "Android platform tools, such as adb and fastboot"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "Apache-2.0 AND ISC AND GPL-2.0-only AND MIT"
 url = "https://github.com/nmeum/android-tools"

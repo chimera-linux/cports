@@ -29,7 +29,7 @@ def post_install(self):
 def _gensub(subn, subd, subc):
     @subpackage(f"{pkgname}-{subn}")
     def _sub(self):
-        self.pkgdesc = f"{pkgdesc} - {subd}"
+        self.subdesc = subd
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", f"!{pkgname}-{subc}"]
         if subn == "otf":
             self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -41,7 +41,7 @@ def _gensub(subn, subd, subc):
 
     @subpackage(f"{pkgname}-extra-{subn}")
     def _sub_extra(self):
-        self.pkgdesc = f"{pkgdesc} - {subd} (additional variants)"
+        self.subdesc = f"{subd} additional variants"
         self.depends = [
             f"{pkgname}-extra={pkgver}-r{pkgrel}",
             f"!{pkgname}-extra-{subc}",

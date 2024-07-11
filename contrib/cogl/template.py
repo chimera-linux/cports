@@ -30,7 +30,7 @@ makedepends = [
     "pango-devel",
 ]
 checkdepends = ["bash"]
-pkgdesc = "GL/GLES Abstraction/Utility Layer (deprecated)"
+pkgdesc = "Deprecated GL/GLES abstraction/utility layer"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT AND SGI-B-2.0 AND BSD-3-Clause AND custom:none"
 url = "https://gitlab.gnome.org/Archive/cogl"

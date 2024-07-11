@@ -33,7 +33,7 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 origin = "appstream"
-pkgdesc = "Tools and libraries to work with AppStream metadata (Qt library)"
+pkgdesc = "Qt library for appstream"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "http://www.freedesktop.org/wiki/Distributions/AppStream"

@@ -19,7 +19,8 @@ makedepends = [
     "woff2-devel",
     "zlib-ng-compat-devel",
 ]
-pkgdesc = "Create and modify PostScript, TrueType and SVG fonts (GUI version)"
+pkgdesc = "Create and modify PostScript, TrueType and SVG fonts"
+subdesc = "GUI version"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://fontforge.github.io/en-US"

@@ -6,7 +6,7 @@ configure_args = ["-Dboost-shared=true"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["cairo-devel", "libsigc++2-devel"]
 checkdepends = ["boost-devel", "fontconfig-devel", "fonts-dejavu-otf"]
-pkgdesc = "C++ bindings to Cairo graphics library (1.14)"
+pkgdesc = "C++ bindings to Cairo graphics library, API version 1.14"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://www.cairographics.org/cairomm"

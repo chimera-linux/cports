@@ -12,7 +12,8 @@ make_dir = "."
 hostmakedepends = ["automake", "gmake", "libtool"]
 makedepends = ["cups-devel"]
 depends = ["cups-filters"]
-pkgdesc = "Epson Inkjet Printer Driver (ESC/P-R)"
+pkgdesc = "Epson Inkjet Printer Driver"
+subdesc = "ESC/P-R"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://download.ebz.epson.net/dsc/search/01/search?OSC=LX&productName=B700"

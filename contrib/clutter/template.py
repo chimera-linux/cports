@@ -29,7 +29,7 @@ makedepends = [
     "mesa-devel",
     "pango-devel",
 ]
-pkgdesc = "Graphical user interface library (deprecated)"
+pkgdesc = "Deprecated graphical user interface library"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/Archive/clutter"

@@ -8,7 +8,7 @@ makedepends = [
     "glibmm2.4-devel",
     "libsigc++2-devel",
 ]
-pkgdesc = "C++ accessibility interface bindings (2.28)"
+pkgdesc = "C++ accessibility interface bindings, API version 1.6"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
