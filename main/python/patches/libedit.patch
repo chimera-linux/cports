@@ -9,14 +9,14 @@ Date:   Wed Jun 21 05:46:04 2023 +0200
 
 diff --git a/configure b/configure
 index a66a081..ddbdec5 100755
---- a/configure
-+++ b/configure
-@@ -25152,7 +25152,7 @@
- int
- main (void)
- {
--void *x = rl_completion_display_matches_hook
-+void *x = rl_completion_display_matches_hook_undef
-   ;
-   return 0;
- }
+--- a/configure.ac
++++ b/configure.ac
+@@ -6205,7 +6205,7 @@
+     # also in 4.0
+     AC_CACHE_CHECK([for rl_completion_display_matches_hook in -l$LIBREADLINE], [ac_cv_readline_rl_completion_display_matches_hook], [
+       AC_LINK_IFELSE(
+-        [AC_LANG_PROGRAM([readline_includes], [void *x = rl_completion_display_matches_hook])],
++        [AC_LANG_PROGRAM([readline_includes], [void *x = rl_completion_display_matches_hook_undef])],
+         [ac_cv_readline_rl_completion_display_matches_hook=yes], [ac_cv_readline_rl_completion_display_matches_hook=no]
+       )
+     ])

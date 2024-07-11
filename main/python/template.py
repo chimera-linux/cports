@@ -2,18 +2,17 @@
 pkgname = "python"
 _majver = "3.12"
 pkgver = f"{_majver}.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-shared",
     "--enable-ipv6",
     "--enable-loadable-sqlite-extensions",
+    "--enable-shared",
     "--with-computed-gotos",
-    "--with-system-expat",
     "--with-readline=editline",
+    "--with-system-expat",
     "--without-ensurepip",
 ]
-configure_gen = []
 # bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)
 make_cmd = "gmake"
 make_check_target = "quicktest"
@@ -38,7 +37,12 @@ make_check_args = [
     + "-i test_functools "  # ppc64le stack overflow
     + "-i test_isinstance "  # ppc64le stack overflow
 ]
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = [
+    "autoconf-archive",
+    "automake",
+    "pkgconf",
+    "gmake",
+]
 makedepends = [
     "bluez-headers",
     "bzip2-devel",
