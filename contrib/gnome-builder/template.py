@@ -1,5 +1,5 @@
 pkgname = "gnome-builder"
-pkgver = "46.2"
+pkgver = "46.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dnetwork_tests=false"]
@@ -54,7 +54,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Builder"
 source = f"$(GNOME_SITE)/gnome-builder/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-builder-{pkgver}.tar.xz"
-sha256 = "0c857b89003b24787f2b1d2aae12d275a074c6684b48803b48c00276d9371963"
+sha256 = "12f27c0e2a4a7316f9f7e21859df6bf1b77570d2966f957a43306f699ec54612"
 # gobject-introspection
 options = ["!cross"]
 
