@@ -1100,8 +1100,8 @@ class Template(Package):
         if len(dstr) > 72:
             self.error("pkgdesc should be no longer than 72 characters")
         # TODO: enable later when no subdesc in pkgdesc is used anymore
-        # if re.search(r" \(.+\)$", self.pkgdesc):
-        #     self.error("pkgdesc should not contain subdesc")
+        if re.search(r" \(.+\)$", self.pkgdesc):
+            self.error("pkgdesc should not contain a subdescription")
 
     def validate_maintainer(self):
         # do not validate if not linting

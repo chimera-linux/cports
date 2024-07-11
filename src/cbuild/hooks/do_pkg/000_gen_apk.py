@@ -1,7 +1,6 @@
 from cbuild.core import logger, paths, template, chroot
 from cbuild.apk import sign as asign, util as autil, cli as acli
 
-import re
 import shlex
 import pathlib
 import subprocess
@@ -153,11 +152,7 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
         origin = f"alt:{pkg.alternative}"
 
     if pkg.subdesc:
-        # remove once we enable the lint after refactoring it all out
-        if re.search(r" \(.+\)$", pkg.pkgdesc):
-            bpdesc = pkg.pkgdesc
-        else:
-            bpdesc = f"{pkg.pkgdesc} ({pkg.subdesc})"
+        bpdesc = f"{pkg.pkgdesc} ({pkg.subdesc})"
     else:
         bpdesc = pkg.pkgdesc
 
