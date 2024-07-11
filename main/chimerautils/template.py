@@ -69,7 +69,7 @@ def post_install(self):
 
 @subpackage("chimerautils-extra")
 def _full(self):
-    self.pkgdesc = f"{pkgdesc} (additional tools)"
+    self.subdesc = "additional tools"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [

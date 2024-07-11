@@ -99,7 +99,7 @@ def post_install(self):
 
 @subpackage("pipewire-bluetooth")
 def _bluez(self):
-    self.pkgdesc = f"{pkgdesc} (Bluetooth support)"
+    self.subdesc = "Bluetooth support"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
     self.provides = [f"libspa-bluez5={pkgver}-r{pkgrel}"]
@@ -109,7 +109,7 @@ def _bluez(self):
 
 @subpackage("pipewire-libs")
 def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
     self.provides = [f"libpipewire={pkgver}-r{pkgrel}"]
     self.replaces = ["libpipewire<1.0.7-r1"]
 
@@ -123,7 +123,7 @@ def _lib(self):
 
 @subpackage("pipewire-jack-devel")
 def _jack_devel(self):
-    self.pkgdesc = f"{pkgdesc} (JACK development files)"
+    self.subdesc = "JACK development files"
     self.provides = [f"jack-devel={pkgver}-r{pkgrel}"]
 
     return [
@@ -135,7 +135,7 @@ def _jack_devel(self):
 
 @subpackage("pipewire-jack")
 def _jack(self):
-    self.pkgdesc = f"{pkgdesc} (JACK support)"
+    self.subdesc = "JACK support"
     self.provides = [f"jack={pkgver}-r{pkgrel}"]
 
     return [
@@ -153,7 +153,7 @@ def _devel(self):
 
 @subpackage("gstreamer-pipewire")
 def _gst(self):
-    self.pkgdesc = f"{pkgdesc} (gstreamer plugin)"
+    self.subdesc = "gstreamer plugin"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gst-plugins-base"]
 
     return ["usr/lib/gstreamer-1.0"]
@@ -161,7 +161,7 @@ def _gst(self):
 
 @subpackage("alsa-pipewire")
 def _alsa(self):
-    self.pkgdesc = f"{pkgdesc} (ALSA client library)"
+    self.subdesc = "ALSA client library"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "alsa-lib"]
 
     return [
@@ -172,7 +172,7 @@ def _alsa(self):
 
 @subpackage("alsa-pipewire-default")
 def _alsadef(self):
-    self.pkgdesc = f"{pkgdesc} (use for ALSA by default)"
+    self.subdesc = "use for ALSA by default"
     self.install_if = [f"alsa-pipewire={pkgver}-r{pkgrel}"]
 
     return [
@@ -182,7 +182,7 @@ def _alsadef(self):
 
 @subpackage("pipewire-session-manager-none")
 def _wp(self):
-    self.pkgdesc = f"{pkgdesc} (no session manager)"
+    self.subdesc = "no session manager"
     self.provides = ["pipewire-session-manager=0"]
     self.options = ["empty"]
 

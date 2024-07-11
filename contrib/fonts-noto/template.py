@@ -62,7 +62,7 @@ for _subn, _subd, _subc in [
 
 @subpackage("fonts-noto-extra")
 def _extra(self):
-    self.pkgdesc = f"{pkgdesc} (additional variants)"
+    self.subdesc = "additional variants"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.options = ["empty"]
 

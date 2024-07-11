@@ -55,7 +55,7 @@ def post_install(self):
 @subpackage("weston-x11")
 def _x11(self):
     self.depends = [f"weston={pkgver}-r{pkgrel}"]
-    self.pkgdesc = f"{pkgdesc} (X11 backend)"
+    self.subdesc = "X11 backend"
 
     return ["usr/lib/libweston*/x11-backend.so"]
 

@@ -31,6 +31,6 @@ def do_install(self):
 
 @subpackage("virtiofsd-meta")
 def _meta(self):
-    self.pkgdesc = f"{pkgdesc} (recommends package)"
+    self.subdesc = "recommends package"
     self.options = ["empty"]
     return []

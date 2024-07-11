@@ -88,7 +88,7 @@ def do_install(self):
 
 @subpackage("jedit-doc")
 def _doc(self):
-    self.pkgdesc = f"{pkgdesc} (docs)"
+    self.subdesc = "docs"
 
     return [
         "usr/share/doc/jedit",

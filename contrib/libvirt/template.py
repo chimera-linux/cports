@@ -119,5 +119,5 @@ def _devel(self):
 def _firewalld(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "firewalld"]
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "iptables-nft"]
-    self.pkgdesc = f"{pkgdesc} (firewalld zones and policies)"
+    self.subdesc = "firewalld zones and policies"
     return ["usr/lib/firewalld"]

@@ -62,7 +62,7 @@ def post_install(self):
 
 @subpackage("dinit-chimera-x11")
 def _x11(self):
-    self.pkgdesc = f"{pkgdesc} (X11 support)"
+    self.subdesc = "X11 support"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xinit"]
     return [

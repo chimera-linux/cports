@@ -26,7 +26,7 @@ def do_install(self):
 
 @subpackage("base-firmware-sof")
 def _base(self):
-    self.pkgdesc = f"{pkgdesc} (base metapackage)"
+    self.subdesc = "base metapackage"
     self.options = ["empty"]
 
     return []

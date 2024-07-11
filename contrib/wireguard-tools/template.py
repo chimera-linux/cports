@@ -45,7 +45,7 @@ def _wgquick(self):
         "iproute2",
         "openresolv",
     ]
-    self.pkgdesc = f"{pkgdesc} (wg-quick script)"
+    self.subdesc = "wg-quick script"
 
     return [
         "etc/dinit.d/wg-quick-all",

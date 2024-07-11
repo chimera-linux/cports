@@ -69,7 +69,7 @@ def _devel(self):
 
 @subpackage("gvfs-afc")
 def _afc(self):
-    self.pkgdesc = f"{pkgdesc} (Apple mobile device backend)"
+    self.subdesc = "Apple mobile device backend"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -82,7 +82,7 @@ def _afc(self):
 
 @subpackage("gvfs-afp")
 def _afp(self):
-    self.pkgdesc = f"{pkgdesc} (Apple Filing Protocol backend)"
+    self.subdesc = "Apple Filing Protocol backend"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -93,7 +93,7 @@ def _afp(self):
 
 @subpackage("gvfs-cdda")
 def _cdda(self):
-    self.pkgdesc = f"{pkgdesc} (CD-ROM backend)"
+    self.subdesc = "CD-ROM backend"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -104,7 +104,7 @@ def _cdda(self):
 
 @subpackage("gvfs-goa")
 def _goa(self):
-    self.pkgdesc = f"{pkgdesc} (Gnome Online Accounts backend)"
+    self.subdesc = "Gnome Online Accounts backend"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -120,7 +120,7 @@ def _goa(self):
 
 @subpackage("gvfs-gphoto2")
 def _gphoto2(self):
-    self.pkgdesc = f"{pkgdesc} (gphoto2 backend)"
+    self.subdesc = "gphoto2 backend"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -132,7 +132,7 @@ def _gphoto2(self):
 
 @subpackage("gvfs-mtp")
 def _mtp(self):
-    self.pkgdesc = f"{pkgdesc} (MTP backend)"
+    self.subdesc = "MTP backend"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -145,7 +145,7 @@ def _mtp(self):
 
 @subpackage("gvfs-smb")
 def _smb(self):
-    self.pkgdesc = f"{pkgdesc} (SMB/CIFS backend)"
+    self.subdesc = "SMB/CIFS backend"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [

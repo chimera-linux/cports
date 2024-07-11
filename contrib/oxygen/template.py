@@ -40,7 +40,7 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("oxygen-cursors")
 def _cursors(self):
-    self.pkgdesc = f"{pkgdesc} (cursor themes)"
+    self.subdesc = "cursor themes"
     return [
         "usr/share/icons/Oxygen*",
         "usr/share/icons/KDE_Classic",

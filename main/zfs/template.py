@@ -99,7 +99,7 @@ def post_install(self):
 
 @subpackage("zfs-dracut")
 def _dracut(self):
-    self.pkgdesc = f"{pkgdesc} (dracut module)"
+    self.subdesc = "dracut module"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "dracut"]
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
@@ -113,7 +113,7 @@ def _devel(self):
 
 @subpackage("zfs-ckms")
 def _ckms(self):
-    self.pkgdesc = f"{pkgdesc} (kernel sources)"
+    self.subdesc = "kernel sources"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "ckms"]
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}",

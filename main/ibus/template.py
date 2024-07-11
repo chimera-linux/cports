@@ -74,14 +74,14 @@ def post_extract(self):
 
 @subpackage("libibus")
 def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("ibus-gtk3")
 def _gtk3(self):
-    self.pkgdesc = f"{pkgdesc} (Gtk+3 immodule)"
+    self.subdesc = "Gtk+3 immodule"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
 
     return ["usr/lib/gtk-3.0/3.0.0/immodules/im-ibus.so"]
@@ -89,7 +89,7 @@ def _gtk3(self):
 
 @subpackage("ibus-gtk4")
 def _gtk4(self):
-    self.pkgdesc = f"{pkgdesc} (Gtk4 immodule)"
+    self.subdesc = "Gtk4 immodule"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk4"]
 
     return ["usr/lib/gtk-4.0/4.0.0/immodules/libim-ibus.so"]
@@ -97,7 +97,7 @@ def _gtk4(self):
 
 @subpackage("ibus-wayland")
 def _wayland(self):
-    self.pkgdesc = f"{pkgdesc} (Wayland support)"
+    self.subdesc = "Wayland support"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "wayland"]
 
     return ["usr/libexec/ibus-wayland"]
@@ -105,7 +105,7 @@ def _wayland(self):
 
 @subpackage("ibus-x11")
 def _xorg(self):
-    self.pkgdesc = f"{pkgdesc} (X11 support)"
+    self.subdesc = "X11 support"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "libx11"]
 
     return ["usr/libexec/ibus-x11"]

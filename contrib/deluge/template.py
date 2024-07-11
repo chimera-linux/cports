@@ -52,7 +52,7 @@ def post_install(self):
 
 @subpackage("deluge-gtk")
 def _gtk(self):
-    self.pkgdesc = f"{pkgdesc} (Gtk+3 frontend)"
+    self.subdesc = "Gtk+3 frontend"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "python-gobject", "gtk+3"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
 
@@ -71,7 +71,7 @@ def _gtk(self):
 
 @subpackage("deluge-web")
 def _web(self):
-    self.pkgdesc = f"{pkgdesc} (Web frontend)"
+    self.subdesc = "Web frontend"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [

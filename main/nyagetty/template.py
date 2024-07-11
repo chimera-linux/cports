@@ -93,7 +93,7 @@ inittab-line    = {name}
 
 @subpackage("nyagetty-dinit")
 def _dinit(self):
-    self.pkgdesc = f"{pkgdesc} (service files)"
+    self.subdesc = "service files"
 
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "dinit-chimera"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "dinit-chimera"]

@@ -31,5 +31,5 @@ def _devel(self):
 
 @subpackage("granite-demo")
 def _demo(self):
-    self.pkgdesc = f"{pkgdesc} (demo application)"
+    self.subdesc = "demo application"
     return ["usr/bin", "usr/share"]

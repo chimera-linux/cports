@@ -52,7 +52,7 @@ def do_install(self):
 
 @subpackage("man-pages-devel")
 def _devel(self):
-    self.pkgdesc = f"{pkgdesc} (development pages)"
+    self.subdesc = "development pages"
     self.options = ["!autosplit"]
 
     return [

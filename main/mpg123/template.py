@@ -33,7 +33,7 @@ sha256 = "ccdd1d0abc31d73d8b435fc658c79049d0a905b30669b6a42a03ad169dc609e6"
 def _genlib(libn, descn, iif):
     @subpackage(f"mpg123-output-{libn}")
     def _out(self):
-        self.pkgdesc = f"{pkgdesc} ({descn} output plugin)"
+        self.subdesc = "{descn} output plugin"
         if iif:
             self.install_if = [f"{pkgname}-libs={pkgver}-r{pkgrel}", iif]
 

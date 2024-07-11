@@ -42,7 +42,7 @@ def _devel(self):
 
 @subpackage("libadwaita-demo")
 def _demo(self):
-    self.pkgdesc = f"{pkgdesc} (demo application)"
+    self.subdesc = "demo application"
     return [
         "usr/bin/adwaita-1-demo",
         "usr/share",

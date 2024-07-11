@@ -444,7 +444,7 @@ def _fmt(self):
 
 @subpackage("rust-std")
 def _std(self):
-    self.pkgdesc = f"{pkgdesc} (static rlibs)"
+    self.subdesc = "static rlibs"
     self.options = ["!strip"]
 
     return [
@@ -455,7 +455,7 @@ def _std(self):
 
 @subpackage("rust-src")
 def _src(self):
-    self.pkgdesc = f"{pkgdesc} (source)"
+    self.subdesc = "source"
 
     return [
         "usr/lib/rustlib/rustc-src",

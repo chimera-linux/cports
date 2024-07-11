@@ -27,7 +27,7 @@ def post_install(self):
 
 @subpackage("hiredis-ssl")
 def _ssl(self):
-    self.pkgdesc = f"{pkgdesc} (hiredis_ssl library)"
+    self.subdesc = "hiredis_ssl library"
 
     return ["usr/lib/libhiredis_ssl.so.*"]
 

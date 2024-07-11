@@ -309,7 +309,7 @@ def _add_lang(langc, langd, langs):
 
     @subpackage(f"{pkgname}-lang_{langc.lower()}")
     def _lang(self):
-        self.pkgdesc = f"{pkgdesc} ({langd} language pack)"
+        self.subdesc = f"{langd} language pack"
 
         # soft-install at least one langpack by default
         if langc == "en_US":
@@ -449,7 +449,7 @@ for _langc, _langd in [
 def _gensub(subn, subd):
     @subpackage(f"{pkgname}-{subn}")
     def _sub(self):
-        self.pkgdesc = f"{pkgdesc} ({subd})"
+        self.subdesc = "{subd}"
         if subn == "writer" or subn == "gnome":
             self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
         else:
@@ -484,7 +484,7 @@ for _subn, _subd in [
 
 @subpackage(f"{pkgname}-qt6")
 def _qt6(self):
-    self.pkgdesc = f"{pkgdesc} (Qt6 integration)"
+    self.subdesc = "Qt6 integration"
     self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
     # qt6 integration for those who already have qt
     self.install_if = [f"{pkgname}-common={pkgver}-r{pkgrel}", "qt6-qtbase-gui"]
@@ -494,7 +494,7 @@ def _qt6(self):
 
 @subpackage(f"{pkgname}-kf6")
 def _kf6(self):
-    self.pkgdesc = f"{pkgdesc} (KF6 integration)"
+    self.subdesc = "KF6 integration"
     self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
     # KDE integration for those with plasma
     # TODO: what package actually?
@@ -508,7 +508,7 @@ def _kf6(self):
 
 @subpackage(f"{pkgname}-common")
 def _common(self):
-    self.pkgdesc = f"{pkgdesc} (common files)"
+    self.subdesc = "common files"
 
     # we don't use the list, just take all remaining files at the end
     return ["usr"]

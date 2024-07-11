@@ -65,14 +65,14 @@ def _devel(self):
 
 @subpackage("elogind-meta")
 def _meta(self):
-    self.pkgdesc = f"{pkgdesc} (recommends package)"
+    self.subdesc = "recommends package"
     self.options = ["empty"]
     return []
 
 
 @subpackage("elogind-polkit")
 def _polkit(self):
-    self.pkgdesc = f"{pkgdesc} (polkit)"
+    self.subdesc = "polkit"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     # break cycle (polkit depends on elogind)
     self.depends = [f"virtual:polkit!{pkgname}"]
@@ -83,13 +83,13 @@ def _polkit(self):
 
 @subpackage("libelogind")
 def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (library)"
+    self.subdesc = "library"
     return self.default_libs()
 
 
 @subpackage("pam_elogind")
 def _pam(self):
-    self.pkgdesc = f"{pkgdesc} (PAM)"
+    self.subdesc = "PAM"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
     return [

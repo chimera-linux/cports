@@ -116,7 +116,7 @@ if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
 
 @subpackage("plasma-desktop-meta")
 def _meta(self):
-    self.pkgdesc = f"{pkgdesc} (recommends package)"
+    self.subdesc = "recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         # alternate older theme
@@ -162,7 +162,7 @@ def _meta(self):
 
 @subpackage("plasma-desktop-x11-meta")
 def _x11_meta(self):
-    self.pkgdesc = f"{pkgdesc} (X11 session recommends package)"
+    self.subdesc = "X11 session recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "xserver-xorg-input-libinput",  # general input
@@ -177,7 +177,7 @@ def _x11_meta(self):
 
 @subpackage("plasma-desktop-apps-meta")
 def _apps_meta(self):
-    self.pkgdesc = f"{pkgdesc} (apps recommends package)"
+    self.subdesc = "apps recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         # - core
@@ -253,7 +253,7 @@ def _apps_meta(self):
 
 @subpackage("plasma-desktop-multimedia-meta")
 def _multimedia_meta(self):
-    self.pkgdesc = f"{pkgdesc} (multimedia recommends package)"
+    self.subdesc = "multimedia recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "audiocd-kio",  # kio plugin for audio cds
@@ -272,7 +272,7 @@ def _multimedia_meta(self):
 
 @subpackage("plasma-desktop-devtools-meta")
 def _devtools_meta(self):
-    self.pkgdesc = f"{pkgdesc} (devtools recommends package)"
+    self.subdesc = "devtools recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "heaptrack",
@@ -285,7 +285,7 @@ def _devtools_meta(self):
 
 @subpackage("plasma-desktop-games-meta")
 def _games_meta(self):
-    self.pkgdesc = f"{pkgdesc} (games recommends package)"
+    self.subdesc = "games recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "kpat",
@@ -296,7 +296,7 @@ def _games_meta(self):
 
 @subpackage("plasma-desktop-accessibility-meta")
 def _accessibility_meta(self):
-    self.pkgdesc = f"{pkgdesc} (accessibility recommends package)"
+    self.subdesc = "accessibility recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "accessibility-inspector",  # accesibility tree inspector
@@ -312,7 +312,7 @@ def _accessibility_meta(self):
 @subpackage("plasma-desktop-kdepim-meta", _have_kdepim)
 def _kdepin_meta(self):
     # contact/calendar/etc
-    self.pkgdesc = f"{pkgdesc} (kdepim recommends package)"
+    self.subdesc = "kdepim recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "akonadi-calendar-tools",

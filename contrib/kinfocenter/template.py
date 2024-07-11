@@ -40,7 +40,7 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("kinfocenter-meta")
 def _meta(self):
-    self.pkgdesc = f"{pkgdesc} (recommends package)"
+    self.subdesc = "recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         # basic

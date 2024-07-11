@@ -38,7 +38,7 @@ def _devel(self):
 
 @subpackage("fcitx5-gtk3")
 def _gtk3(self):
-    self.pkgdesc = f"{pkgdesc} (GTK+3 variant)"
+    self.subdesc = "GTK+3 variant"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
 
     return [
@@ -49,7 +49,7 @@ def _gtk3(self):
 
 @subpackage("fcitx5-gtk4")
 def _gtk4(self):
-    self.pkgdesc = f"{pkgdesc} (GTK4 variant)"
+    self.subdesc = "GTK4 variant"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk4"]
 
     return [

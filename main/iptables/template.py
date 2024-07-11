@@ -91,7 +91,7 @@ def post_install(self):
 
 @subpackage("iptables-nft")
 def _nft(self):
-    self.pkgdesc = f"{pkgdesc} (use nftables)"
+    self.subdesc = "use nftables"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
 
     return [
@@ -106,7 +106,7 @@ def _nft(self):
 
 @subpackage("iptables-legacy")
 def _legacy(self):
-    self.pkgdesc = f"{pkgdesc} (use legacy)"
+    self.subdesc = "use legacy"
 
     return [
         "@usr/bin/iptables=>xtables-legacy-multi",

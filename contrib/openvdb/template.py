@@ -46,5 +46,5 @@ def _progs(self):
 
 @subpackage("python-pyopenvdb")
 def _python(self):
-    self.pkgdesc = f"{pkgdesc} (python bindings)"
+    self.subdesc = "python bindings"
     return ["usr/lib/python*"]

@@ -39,14 +39,14 @@ def post_install(self):
 
 @subpackage("sauerbraten-data")
 def _data(self):
-    self.pkgdesc = f"{pkgdesc} (data files)"
+    self.subdesc = "data files"
 
     return ["usr/share/sauerbraten"]
 
 
 @subpackage("sauerbraten-server")
 def _server(self):
-    self.pkgdesc = f"{pkgdesc} (dedicated server)"
+    self.subdesc = "dedicated server"
 
     return [
         "etc",

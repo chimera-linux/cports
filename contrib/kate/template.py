@@ -43,7 +43,7 @@ def _libs(self):
 
 @subpackage("kwrite")
 def _kwrite(self):
-    self.pkgdesc = f"{pkgdesc} (KWrite)"
+    self.subdesc = "KWrite"
     return [
         "usr/bin/kwrite",
         "usr/share/icons/hicolor/*/apps/kwrite.*",

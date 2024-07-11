@@ -20,7 +20,7 @@ def do_install(self):
 
 @subpackage("chimera-repo-contrib-debug")
 def _dbg(self):
-    self.pkgdesc = f"{pkgdesc} (debug packages)"
+    self.subdesc = "debug packages"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["etc/apk/repositories.d/*-debug.list"]

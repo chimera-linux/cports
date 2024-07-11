@@ -39,7 +39,7 @@ def init_configure(self):
 
 @subpackage("librtmp")
 def _libmagic(self):
-    self.pkgdesc = f"{pkgdesc} (shared library)"
+    self.subdesc = "shared library"
 
     return self.default_libs()
 

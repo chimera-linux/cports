@@ -20,21 +20,21 @@ def post_install(self):
 
 @subpackage("libwoff2common")
 def _libcommon(self):
-    self.pkgdesc = f"{pkgdesc} (common library)"
+    self.subdesc = "common library"
 
     return ["usr/lib/libwoff2common.so.*"]
 
 
 @subpackage("libwoff2dec")
 def _libdec(self):
-    self.pkgdesc = f"{pkgdesc} (decoder library)"
+    self.subdesc = "decoder library"
 
     return ["usr/lib/libwoff2dec.so.*"]
 
 
 @subpackage("libwoff2enc")
 def _libenc(self):
-    self.pkgdesc = f"{pkgdesc} (encoder library)"
+    self.subdesc = "encoder library"
 
     return ["usr/lib/libwoff2enc.so.*"]
 

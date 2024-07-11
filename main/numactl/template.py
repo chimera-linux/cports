@@ -22,7 +22,7 @@ def post_install(self):
 
 @subpackage("libnuma")
 def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
 
     return self.default_libs()
 

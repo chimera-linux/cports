@@ -284,7 +284,7 @@ def do_check(self):
 
 @subpackage("thunderbird-wayland")
 def _wl(self):
-    self.pkgdesc = f"{pkgdesc} (prefer Wayland)"
+    self.subdesc = "prefer Wayland"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
 
     return ["@usr/bin/thunderbird=>thunderbird-wayland"]
@@ -292,6 +292,6 @@ def _wl(self):
 
 @subpackage("thunderbird-default")
 def _x11(self):
-    self.pkgdesc = f"{pkgdesc} (no display server preference)"
+    self.subdesc = "no display server preference"
 
     return ["@usr/bin/thunderbird=>thunderbird-default"]

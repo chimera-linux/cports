@@ -36,23 +36,23 @@ def _devel(self):
 
 @subpackage("hwdata-usb")
 def _usb(self):
-    self.pkgdesc = f"{pkgdesc} (USB IDs)"
+    self.subdesc = "USB IDs"
     return ["usr/share/hwdata/usb.ids"]
 
 
 @subpackage("hwdata-pci")
 def _pci(self):
-    self.pkgdesc = f"{pkgdesc} (PCI IDs)"
+    self.subdesc = "PCI IDs"
     return ["usr/share/hwdata/pci.ids"]
 
 
 @subpackage("hwdata-net")
 def _net(self):
-    self.pkgdesc = f"{pkgdesc} (Networking OUIs)"
+    self.subdesc = "Networking OUIs"
     return ["usr/share/hwdata/oui.txt", "usr/share/hwdata/iab.txt"]
 
 
 @subpackage("hwdata-pnp")
 def _pnp(self):
-    self.pkgdesc = f"{pkgdesc} (PnP IDs)"
+    self.subdesc = "PnP IDs"
     return ["usr/share/hwdata/pnp.ids"]

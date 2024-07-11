@@ -195,7 +195,7 @@ def _progs(self):
 
 @subpackage("python-opencv")
 def _python(self):
-    self.pkgdesc = f"{pkgdesc} (python module)"
+    self.subdesc = "python module"
     self.depends += ["python-numpy"]
 
     return ["usr/lib/python*"]
@@ -204,7 +204,7 @@ def _python(self):
 def _gen_libpkg(libname):
     @subpackage(f"opencv-{libname}-libs")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({libname})"
+        self.subdesc = libname
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
         return [f"usr/lib/libopencv_{libname}.so.*"]
 

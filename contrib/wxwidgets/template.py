@@ -65,5 +65,5 @@ def _devel(self):
 
 @subpackage("wxwidgets-gtk3")
 def _gtk3(self):
-    self.pkgdesc = f"{pkgdesc} (GTK3 components)"
+    self.subdesc = "GTK3 components"
     return ["usr/lib/libwx_gtk3u*.so.*"]

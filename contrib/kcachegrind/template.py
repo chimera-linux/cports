@@ -39,7 +39,7 @@ def post_install(self):
 
 @subpackage("kcachegrind-scripts")
 def _scripts(self):
-    self.pkgdesc = f"{pkgdesc} (perl script utilities)"
+    self.subdesc = "perl script utilities"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends += ["perl"]
 

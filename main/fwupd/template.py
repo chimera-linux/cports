@@ -106,7 +106,7 @@ def _devel(self):
 
 @subpackage("fwupd-efi-dummy", _have_uefi_capsule)
 def _efi_dummy(self):
-    self.pkgdesc = f"{pkgdesc} (UEFI application dummy provider)"
+    self.subdesc = "UEFI application dummy provider"
     self.provides = ["fwupd-efi=0"]
     self.options = ["empty"]
 

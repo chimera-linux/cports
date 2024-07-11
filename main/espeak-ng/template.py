@@ -29,6 +29,6 @@ def _devel(self):
 
 @subpackage("espeak-ng-vim")
 def _vim(self):
-    self.pkgdesc = f"{pkgdesc} (vim syntax)"
+    self.subdesc = "vim syntax"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "vim"]
     return ["usr/share/vim"]

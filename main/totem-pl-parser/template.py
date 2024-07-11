@@ -39,6 +39,6 @@ def _devel(self):
 
 @subpackage("libtotem-plparser-mini")
 def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (totem-plparser-mini library)"
+    self.subdesc = "totem-plparser-mini library"
 
     return ["usr/lib/libtotem-plparser-mini.so.*"]

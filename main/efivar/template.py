@@ -20,7 +20,7 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-D_FILE_OFFSET_BITS=64"]}
 
 @subpackage("libefivar")
 def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
     return self.default_libs()
 
 

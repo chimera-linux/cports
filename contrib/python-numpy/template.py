@@ -100,7 +100,7 @@ def post_install(self):
 
 @subpackage("python-numpy-tests")
 def _tests(self):
-    self.pkgdesc = f"{pkgdesc} (tests)"
+    self.subdesc = "tests"
     self.depends += ["python"]
     return [
         "usr/lib/python*/site-packages/numpy/*/tests/",

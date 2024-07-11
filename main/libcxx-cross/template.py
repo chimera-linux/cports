@@ -164,7 +164,7 @@ def _gen_crossp(an, at):
 
     @subpackage(f"libcxx-cross-{an}-static", cond)
     def _subp_static(self):
-        self.pkgdesc = f"{pkgdesc} ({an} static library)"
+        self.subdesc = f"{an} static library"
         self.depends = [
             f"libcxx-cross-{an}={pkgver}-r{pkgrel}",
         ]
@@ -172,7 +172,7 @@ def _gen_crossp(an, at):
 
     @subpackage(f"libcxx-cross-{an}", cond)
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({an})"
+        self.subdesc = an
         self.depends = [f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}"]
         self.options = [
             "!scanshlibs",
@@ -215,7 +215,7 @@ def _abi_static(self):
 
 @subpackage("libcxx-cross-static")
 def _cxx_static(self):
-    self.pkgdesc = f"{pkgdesc} (static)"
+    self.subdesc = "static"
     self.depends = []
     self.options = ["empty"]
     for an in _targets:

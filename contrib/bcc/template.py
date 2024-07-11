@@ -66,12 +66,12 @@ def _devel(self):
 
 @subpackage("bcc-libs")
 def _libs(self):
-    self.pkgdesc = f"{pkgdesc} (runtime libraries)"
+    self.subdesc = "runtime libraries"
     return self.default_libs()
 
 
 @subpackage("python-bcc")
 def _python(self):
-    self.pkgdesc = f"{pkgdesc} (python module)"
+    self.subdesc = "python module"
     self.depends += [f"bcc-libs={pkgver}-r{pkgrel}"]
     return ["usr/lib/python*"]

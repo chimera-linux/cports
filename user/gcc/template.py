@@ -186,7 +186,7 @@ def post_install(self):
 
 @subpackage("gcc-fortran")
 def _fortran(self):
-    self.pkgdesc = f"{pkgdesc} (Fortran frontend)"
+    self.subdesc = "Fortran frontend"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.nopie_files = [
         "usr/bin/gfortran",
@@ -208,7 +208,7 @@ def _fortran(self):
 
 @subpackage("gcc-objc")
 def _objc(self):
-    self.pkgdesc = f"{pkgdesc} (Objective-C)"
+    self.subdesc = "Objective-C"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.nopie_files = [
         f"usr/lib/gcc/{_trip}/{_mnver}/cc1obj",
@@ -223,19 +223,19 @@ def _objc(self):
 
 @subpackage("libgfortran")
 def _libfortran(self):
-    self.pkgdesc = f"{pkgdesc} (Fortran runtime library)"
+    self.subdesc = "Fortran runtime library"
     return ["usr/lib/libgfortran.so.*"]
 
 
 @subpackage("libobjc")
 def _libobjc(self):
-    self.pkgdesc = f"{pkgdesc} (Objective-C runtime library)"
+    self.subdesc = "Objective-C runtime library"
     return ["usr/lib/libobjc.so.*"]
 
 
 @subpackage("libgomp-devel")
 def _gompdev(self):
-    self.pkgdesc = f"{pkgdesc} (OpenMP develpment files)"
+    self.subdesc = "OpenMP develpment files"
     return [
         f"usr/lib/gcc/{_trip}/{_mnver}/include/omp.h",
         "usr/lib/libgomp.so",
@@ -247,13 +247,13 @@ def _gompdev(self):
 
 @subpackage("libgomp")
 def _gomp(self):
-    self.pkgdesc = f"{pkgdesc} (OpenMP runtime)"
+    self.subdesc = "OpenMP runtime"
     return ["usr/lib/libgomp.so.*"]
 
 
 @subpackage("libitm-devel")
 def _itmdev(self):
-    self.pkgdesc = f"{pkgdesc} (transactional memory lib development files)"
+    self.subdesc = "transactional memory lib development files"
     return [
         "usr/lib/libitm.so",
         "usr/lib/libitm.a",
@@ -264,5 +264,5 @@ def _itmdev(self):
 
 @subpackage("libitm")
 def _itm(self):
-    self.pkgdesc = f"{pkgdesc} (transactional memory library)"
+    self.subdesc = "transactional memory library"
     return ["usr/lib/libitm.so.*"]

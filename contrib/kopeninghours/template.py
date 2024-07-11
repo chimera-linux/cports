@@ -39,5 +39,5 @@ def _devel(self):
 
 @subpackage("python-kopeninghours")
 def _python(self):
-    self.pkgdesc = f"{pkgdesc} (python module)"
+    self.subdesc = "python module"
     return ["usr/lib/python*"]

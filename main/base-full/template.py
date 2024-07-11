@@ -11,7 +11,7 @@ url = "https://chimera-linux.org"
 
 @subpackage("base-full-console")
 def _console(self):
-    self.pkgdesc = f"{pkgdesc} (console tools)"
+    self.subdesc = "console tools"
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
@@ -27,7 +27,7 @@ def _console(self):
 
 @subpackage("base-full-core")
 def _core(self):
-    self.pkgdesc = f"{pkgdesc} (core tools)"
+    self.subdesc = "core tools"
     self.install_if = [self.parent]
     self.provider_priority = 100
     self.depends = [
@@ -43,7 +43,7 @@ def _core(self):
 
 @subpackage("base-full-firmware")
 def _fw(self):
-    self.pkgdesc = f"{pkgdesc} (firmware)"
+    self.subdesc = "firmware"
     self.install_if = [self.parent]
     self.provider_priority = 100
     self.depends = [
@@ -59,7 +59,7 @@ def _fw(self):
 
 @subpackage("base-full-fonts")
 def _fonts(self):
-    self.pkgdesc = f"{pkgdesc} (fonts)"
+    self.subdesc = "fonts"
     self.install_if = [self.parent, "fontconfig"]
     self.provider_priority = 100
     self.depends = [
@@ -70,7 +70,7 @@ def _fonts(self):
 
 @subpackage("base-full-fs")
 def _fs(self):
-    self.pkgdesc = f"{pkgdesc} (filesystem tools)"
+    self.subdesc = "filesystem tools"
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
@@ -94,7 +94,7 @@ def _fs(self):
 
 @subpackage("base-full-kernel")
 def _kern(self):
-    self.pkgdesc = f"{pkgdesc} (kernel tooling)"
+    self.subdesc = "kernel tooling"
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
@@ -108,7 +108,7 @@ def _kern(self):
 
 @subpackage("base-full-locale")
 def _locale(self):
-    self.pkgdesc = f"{pkgdesc} (locale)"
+    self.subdesc = "locale"
     self.install_if = [self.parent]
     self.provider_priority = 100
     self.depends = [
@@ -119,7 +119,7 @@ def _locale(self):
 
 @subpackage("base-full-man")
 def _man(self):
-    self.pkgdesc = f"{pkgdesc} (manpages)"
+    self.subdesc = "manpages"
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
@@ -133,7 +133,7 @@ def _man(self):
 
 @subpackage("base-full-misc")
 def _misc(self):
-    self.pkgdesc = f"{pkgdesc} (miscellaneous)"
+    self.subdesc = "miscellaneous"
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
@@ -158,7 +158,7 @@ def _misc(self):
 
 @subpackage("base-full-net-tools")
 def _net_tools(self):
-    self.pkgdesc = f"{pkgdesc} (network tools)"
+    self.subdesc = "network tools"
     self.install_if = [self.parent]
     self.provider_priority = 100
     # transitional
@@ -176,7 +176,7 @@ def _net_tools(self):
 
 @subpackage("base-full-net")
 def _net(self):
-    self.pkgdesc = f"{pkgdesc} (network)"
+    self.subdesc = "network"
     self.install_if = [self.parent]
     self.provider_priority = 100
     self.depends = [
@@ -189,7 +189,7 @@ def _net(self):
 
 @subpackage("base-full-session")
 def _session(self):
-    self.pkgdesc = f"{pkgdesc} (session management)"
+    self.subdesc = "session management"
     self.install_if = [self.parent]
     self.provider_priority = 100
     self.depends = [
@@ -201,7 +201,7 @@ def _session(self):
 
 @subpackage("base-full-sound")
 def _sound(self):
-    self.pkgdesc = f"{pkgdesc} (sound)"
+    self.subdesc = "sound"
     self.install_if = [self.parent]
     self.provider_priority = 100
     self.depends = [
@@ -212,7 +212,7 @@ def _sound(self):
 
 @subpackage("base-minimal")
 def _minimal(self):
-    self.pkgdesc = f"{pkgdesc} (metapackage for small installations)"
+    self.subdesc = "metapackage for small installations"
     self.depends = [self.parent]
     self.provides = [
         self.with_pkgver("base-full-firmware"),

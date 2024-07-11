@@ -50,7 +50,7 @@ def do_check(self):
 def _genmod(pname, pdesc):
     @subpackage(f"dino-plugin-{pname}")
     def _plug(self):
-        self.pkgdesc = f"{pkgdesc} ({pdesc} plugin)"
+        self.subdesc = f"{pdesc} plugin"
         # this is not normally built with default settings
         if pname != "notification-sound":
             self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]

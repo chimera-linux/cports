@@ -78,13 +78,13 @@ def do_install(self):
 
 @subpackage("kitty-terminfo")
 def _terminfo(self):
-    self.pkgdesc = f"{pkgdesc} (terminfo data)"
+    self.subdesc = "terminfo data"
 
     return ["usr/share/terminfo"]
 
 
 @subpackage("kitty-kitten")
 def _kitten(self):
-    self.pkgdesc = f"{pkgdesc} (kitten client)"
+    self.subdesc = "kitten client"
 
     return ["usr/bin/kitten", "usr/share/man/man1/kitten*.1"]

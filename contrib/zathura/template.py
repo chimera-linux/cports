@@ -40,7 +40,7 @@ def _devel(self):
 
 @subpackage("zathura-backends")
 def _backends(self):
-    self.pkgdesc = f"{pkgdesc} (backends)"
+    self.subdesc = "backends"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "virtual:zathura-pdf-poppler!zathura",

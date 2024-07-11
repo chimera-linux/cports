@@ -38,7 +38,7 @@ def do_install(self):
 
 @subpackage("ladspa-sdk-plugins")
 def _plugins(self):
-    self.pkgdesc = f"{pkgdesc} (example plugins)"
+    self.subdesc = "example plugins"
 
     return ["usr/lib/ladspa"]
 

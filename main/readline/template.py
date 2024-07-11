@@ -31,7 +31,7 @@ def post_install(self):
 
 @subpackage("libhistory")
 def _history(self):
-    self.pkgdesc = f"{pkgdesc} (history library)"
+    self.subdesc = "history library"
 
     return ["usr/lib/libhistory.so.*"]
 

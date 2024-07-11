@@ -38,7 +38,7 @@ def post_install(self):
 
 @subpackage("libxkbcommon-x11")
 def _x11(self):
-    self.pkgdesc = f"{pkgdesc} (X11 support)"
+    self.subdesc = "X11 support"
 
     return ["usr/lib/*x11*.so.*"]
 

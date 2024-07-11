@@ -78,7 +78,7 @@ options = ["!cross", "!check"]
 
 @subpackage("gtk-update-icon-cache")
 def _uic(self):
-    self.pkgdesc = f"{pkgdesc} (icon cache update tool)"
+    self.subdesc = "icon cache update tool"
     self.triggers = ["/usr/share/icons/*"]
 
     return [
@@ -94,7 +94,7 @@ def _devel(self):
 
 @subpackage("gtk+3-demo")
 def _demo(self):
-    self.pkgdesc = f"{pkgdesc} (demo applications)"
+    self.subdesc = "demo applications"
 
     return [
         "usr/bin/gtk3-demo",
@@ -111,7 +111,7 @@ def _demo(self):
 
 @subpackage("gtk+3-cups")
 def _cups(self):
-    self.pkgdesc = f"{pkgdesc} (CUPS print backend)"
+    self.subdesc = "CUPS print backend"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
 
     return ["usr/lib/gtk-3.0/3.0.0/printbackends/libprintbackend-cups.so"]

@@ -107,7 +107,7 @@ def do_install(self):
 
 @subpackage("base-kernel-devel")
 def _baseloc(self):
-    self.pkgdesc = f"{pkgdesc} (development files)"
+    self.subdesc = "development files"
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}",
         # all the tooling one needs to use chimera-buildkernel

@@ -58,7 +58,7 @@ def _devel(self):
 
 @subpackage("cracklib-words")
 def _words(self):
-    self.pkgdesc = f"{pkgdesc} (large word list)"
+    self.subdesc = "large word list"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/share/cracklib/cracklib-words.gz"]

@@ -23,7 +23,7 @@ sha256 = "733726b8c3a6d39a4120d7e45ea8b41a434cdacde401cba500f14236c49b39dc"
 
 @subpackage("abseil-cpp-testing")
 def _test(self):
-    self.pkgdesc = f"{pkgdesc} (testing libraries)"
+    self.subdesc = "testing libraries"
 
     return [
         "usr/lib/libabsl_*_helper*.so.*",

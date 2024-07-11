@@ -51,6 +51,6 @@ def do_install(self):
 
 @subpackage("ucode-amd-full")
 def _full(self):
-    self.pkgdesc = f"{pkgdesc} (full cpio image)"
+    self.subdesc = "full cpio image"
 
     return ["boot"]

@@ -47,7 +47,7 @@ def post_install(self):
 
 @subpackage("libwget")
 def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (runtime libraries)"
+    self.subdesc = "runtime libraries"
     return self.default_libs()
 
 

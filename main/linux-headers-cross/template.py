@@ -72,7 +72,7 @@ def _crosshdr(an, arch):
 
     @subpackage(f"linux-headers-cross-{an}", _cond)
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({an} support)"
+        self.subdesc = f"{an} support"
         with self.rparent.profile(an) as pf:
             return [f"usr/{pf.triplet}"]
 

@@ -68,7 +68,7 @@ def _devel(self):
 
 @subpackage("apk-tools-static-bin", self.stage > 0)
 def _staticbin(self):
-    self.pkgdesc = f"{pkgdesc} (static binary)"
+    self.subdesc = "static binary"
     self.depends = []
 
     return ["usr/bin/apk.static"]
@@ -76,7 +76,7 @@ def _staticbin(self):
 
 @subpackage("apk-tools-cache", self.stage > 0)
 def _cache(self):
-    self.pkgdesc = f"{pkgdesc} (default cache)"
+    self.subdesc = "default cache"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.provides = [f"apk-tools-cache-link={pkgver}-r{pkgrel}"]
@@ -87,7 +87,7 @@ def _cache(self):
 
 @subpackage("apk-tools-interactive", self.stage > 0)
 def _interactive(self):
-    self.pkgdesc = f"{pkgdesc} (interactive)"
+    self.subdesc = "interactive"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
 

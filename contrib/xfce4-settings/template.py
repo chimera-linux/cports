@@ -48,7 +48,7 @@ sha256 = "d9a9051b6026edd6766c64bb403b51e9167e4d31e7f1c7f843d3aed19f667bfe"
 
 @subpackage("xfce4-settings-default-themes")
 def _default_themes(self):
-    self.pkgdesc = f"{pkgdesc} (default themes)"
+    self.subdesc = "default themes"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     # See patches/defaults.patch
     self.depends = ["adw-gtk3", "adwaita-icon-theme", "papirus-icon-theme"]

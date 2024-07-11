@@ -55,7 +55,7 @@ def post_install(self):
 
 @subpackage("syncthing-relaysrv")
 def _relaysrv(self):
-    self.pkgdesc = f"{pkgdesc} (relay server)"
+    self.subdesc = "relay server"
     self.license = "MIT"
 
     return [
@@ -67,6 +67,6 @@ def _relaysrv(self):
 
 @subpackage("syncthing-discosrv")
 def _discosrv(self):
-    self.pkgdesc = f"{pkgdesc} (discovery server)"
+    self.subdesc = "discovery server"
 
     return ["usr/bin/stdiscosrv", "usr/share/man/man1/stdiscosrv.1"]

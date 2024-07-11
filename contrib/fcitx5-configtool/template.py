@@ -54,7 +54,7 @@ options = ["!cross"]
 
 @subpackage("fcitx5-configtool-kde")
 def _kde(self):
-    self.pkgdesc = f"{pkgdesc} (KCM integration)"
+    self.subdesc = "KCM integration"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [

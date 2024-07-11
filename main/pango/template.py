@@ -32,14 +32,14 @@ sha256 = "8a9eed75021ee734d7fc0fdf3a65c3bba51dfefe4ae51a9b414a60c70b2d1ed8"
 
 @subpackage("pango-xft")
 def _xft(self):
-    self.pkgdesc = f"{pkgdesc} (X font rendering)"
+    self.subdesc = "X font rendering"
 
     return ["usr/lib/libpangoxft*.so.*"]
 
 
 @subpackage("pango-view")
 def _view(self):
-    self.pkgdesc = f"{pkgdesc} (utility to view pango files)"
+    self.subdesc = "utility to view pango files"
 
     return ["usr/bin/pango-view", "usr/share/man/man1/pango-view.1"]
 

@@ -51,7 +51,7 @@ def post_install(self):
 
 @subpackage("libcolord")
 def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (shared library)"
+    self.subdesc = "shared library"
 
     return self.default_libs()
 

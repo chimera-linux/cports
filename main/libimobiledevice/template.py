@@ -23,7 +23,7 @@ options = ["!cross"]
 
 @subpackage("libimobiledevice-python")
 def _python(self):
-    self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.subdesc = "Python bindings"
     self.depends += ["python"]
 
     return ["usr/lib/python3*"]

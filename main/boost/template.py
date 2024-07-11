@@ -162,7 +162,7 @@ def do_check(self):
 
 @subpackage("boost-build")
 def _jam(self):
-    self.pkgdesc = f"{pkgdesc} (Boost.Build framework)"
+    self.subdesc = "Boost.Build framework"
     self.depends = [f"boost={pkgver}-r{pkgrel}"]
     self.provides = [f"boost{pkgver[:-2]}-build={pkgver}-r{pkgrel}"]
 
@@ -180,7 +180,7 @@ def _devel(self):
 def _gen_libp(libname):
     @subpackage(f"boost-{libname}-libs")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({libname})"
+        self.subdesc = libname
         self.depends = [f"boost={pkgver}-r{pkgrel}"]
         self.provides = [f"libboost_{libname}={pkgver}-r{pkgrel}"]
 

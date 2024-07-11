@@ -65,7 +65,6 @@ def do_install(self):
 
 @subpackage("wasmtime-libs")
 def _libs(self):
-    self.pkgdesc = f"{pkgdesc} (libraries)"
     return ["usr/lib/libwasmtime.so"]
 
 

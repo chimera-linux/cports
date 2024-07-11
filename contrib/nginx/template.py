@@ -131,7 +131,7 @@ def do_check(self):
 def _module(modn, eiif):
     @subpackage(f"nginx-module-{modn}")
     def _mod(self):
-        self.pkgdesc = f"{pkgdesc} ({modn} module)"
+        self.subdesc = f"{modn} module"
 
         modso = f"modules/ngx_{modn}_module.so"
         ret = [f"usr/lib/nginx/{modso}"]

@@ -72,7 +72,7 @@ def _autoipd(self):
 @subpackage("avahi-compat-devel")
 def _compat_devel(self):
     self.depends += [f"avahi-devel={pkgver}-r{pkgrel}"]
-    self.pkgdesc = f"{pkgdesc} (compat development files)"
+    self.subdesc = "compat development files"
 
     return [
         "usr/include/avahi-compat*",
@@ -84,7 +84,7 @@ def _compat_devel(self):
 
 @subpackage("avahi-compat-libs")
 def _compat_libs(self):
-    self.pkgdesc = f"{pkgdesc} (compat libraries)"
+    self.subdesc = "compat libraries"
 
     return [
         "usr/lib/libhowl.so.*",

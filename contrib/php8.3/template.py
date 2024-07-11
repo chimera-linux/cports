@@ -286,7 +286,7 @@ def _default(self):
 def _extension(extn, iif):
     @subpackage(f"php{_majver}-{extn}")
     def _ext(self):
-        self.pkgdesc = f"{pkgdesc} ({extn} extension)"
+        self.subdesc = f"{extn} extension"
         self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
         if iif:

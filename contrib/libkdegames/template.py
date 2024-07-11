@@ -43,5 +43,5 @@ def _devel(self):
 
 @subpackage("libkdegames-carddecks")
 def _carddecks(self):
-    self.pkgdesc = f"{pkgdesc} (card decks for KDE card games)"
+    self.subdesc = "card decks for KDE card games"
     return ["usr/share/carddecks"]

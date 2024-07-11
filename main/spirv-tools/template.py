@@ -31,7 +31,7 @@ def _static(self):
 
 @subpackage("libspirv-tools-shared")
 def _shared(self):
-    self.pkgdesc = f"{pkgdesc} (shared library)"
+    self.subdesc = "shared library"
 
     return ["usr/lib/*.so"]
 

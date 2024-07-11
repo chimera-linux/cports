@@ -45,7 +45,7 @@ options = ["!cross"]
 
 @subpackage("xfce4-screenshooter-imgur")
 def _imgur(self):
-    self.pkgdesc = f"{pkgdesc} (Imgur upload support)"
+    self.subdesc = "Imgur upload support"
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}",
         "curl",

@@ -55,6 +55,6 @@ def post_install(self):
 
 @subpackage("gdb-common")
 def _common(self):
-    self.pkgdesc = f"{pkgdesc} (common files)"
+    self.subdesc = "common files"
 
     return ["usr/share"]

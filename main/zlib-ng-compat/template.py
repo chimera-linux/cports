@@ -48,7 +48,7 @@ def _devel(self):
 
 @subpackage("zlib-dbg")
 def _dbg(self):
-    self.pkgdesc = f"{pkgdesc} (transitional debug package)"
+    self.subdesc = "transitional debug package"
     # prevent cbuild from thinking it's a depcycle
     self.depends = [f"virtual:zlib-ng-compat-dbg={pkgver}-r{pkgrel}!base-files"]
     self.options = ["empty"]

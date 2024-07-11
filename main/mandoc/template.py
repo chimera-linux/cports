@@ -72,7 +72,7 @@ def _base(self):
 
 @subpackage("mandoc-apropos")
 def _apropos(self):
-    self.pkgdesc = f"{pkgdesc} (apropos trigger)"
+    self.subdesc = "apropos trigger"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.triggers = ["/usr/share/man"]
     self.options = ["empty"]

@@ -44,7 +44,7 @@ def _devel(self):
 
 @subpackage("lsp-plugins-xdg")
 def _xdg(self):
-    self.pkgdesc = f"{pkgdesc} (icons and .desktop files)"
+    self.subdesc = "icons and .desktop files"
     # these hundreds of .desktop files only really clutter launchers,
     # so place them separately
     return [
@@ -57,23 +57,23 @@ def _xdg(self):
 
 @subpackage("lsp-plugins-clap")
 def _clap(self):
-    self.pkgdesc = f"{pkgdesc} (clap plugins)"
+    self.subdesc = "clap plugins"
     return ["usr/lib/clap"]
 
 
 @subpackage("lsp-plugins-lv2")
 def _lv2(self):
-    self.pkgdesc = f"{pkgdesc} (lv2 plugins)"
+    self.subdesc = "lv2 plugins"
     return ["usr/lib/lv2"]
 
 
 @subpackage("lsp-plugins-vst2")
 def _vst2(self):
-    self.pkgdesc = f"{pkgdesc} (vst2 plugins)"
+    self.subdesc = "vst2 plugins"
     return ["usr/lib/vst"]
 
 
 @subpackage("lsp-plugins-ladspa")
 def _ladspa(self):
-    self.pkgdesc = f"{pkgdesc} (ladspa plugins)"
+    self.subdesc = "ladspa plugins"
     return ["usr/lib/ladspa"]

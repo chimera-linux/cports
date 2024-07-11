@@ -136,7 +136,7 @@ def _devel(self):
 
 @subpackage("vlc-qt")
 def _qt(self):
-    self.pkgdesc = f"{pkgdesc} (Qt frontend)"
+    self.subdesc = "Qt frontend"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     return [
         "usr/bin/qvlc",

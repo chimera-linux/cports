@@ -59,7 +59,7 @@ def post_install(self):
 
 @subpackage("qt6-qttools-qdbus")
 def _qdbus(self):
-    self.pkgdesc = f"{pkgdesc} (qdbus)"
+    self.subdesc = "qdbus"
 
     return [
         "usr/bin/qdbus*6",

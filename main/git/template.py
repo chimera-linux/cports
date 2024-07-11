@@ -135,7 +135,7 @@ def _gitk(self):
 @subpackage("git-gui")
 def _gui(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "tk"]
-    self.pkgdesc = f"{pkgdesc} (GUI tool)"
+    self.subdesc = "GUI tool"
     self.license = "GPL-2.0-or-later"
     return [
         "usr/libexec/git-core/git-gui*",
@@ -168,7 +168,7 @@ def _scalar(self):
 
 @subpackage("git-svn")
 def _svn(self):
-    self.pkgdesc = f"{pkgdesc} (Subversion support)"
+    self.subdesc = "Subversion support"
     self.depends += [
         f"{pkgname}={pkgver}-r{pkgrel}",
         # hack to work around cross-category dependency

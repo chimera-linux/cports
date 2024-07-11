@@ -36,5 +36,5 @@ def _devel(self):
 
 @subpackage("vectorscan-progs")
 def _subpkg(self):
-    self.pkgdesc = f"{pkgdesc} (command line tools)"
+    self.subdesc = "command line tools"
     return self.default_progs()

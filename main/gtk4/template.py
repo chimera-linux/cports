@@ -112,7 +112,7 @@ def _devel(self):
 
 @subpackage("gtk4-demo")
 def _demo(self):
-    self.pkgdesc = f"{pkgdesc} (demo applications)"
+    self.subdesc = "demo applications"
 
     return [
         "usr/bin/gtk4-demo",
@@ -148,7 +148,7 @@ def _demo(self):
 
 @subpackage("gtk4-cups")
 def _cups(self):
-    self.pkgdesc = f"{pkgdesc} (CUPS print backend)"
+    self.subdesc = "CUPS print backend"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
 
     return ["usr/lib/gtk-4.0/4.0.0/printbackends/libprintbackend-cups.so"]

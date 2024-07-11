@@ -38,7 +38,7 @@ def post_install(self):
 
 @subpackage("libomp-devel-static")
 def _devel_static(self):
-    self.pkgdesc = f"{pkgdesc} (static libraries)"
+    self.subdesc = "static libraries"
     self.depends = []
     self.install_if = []
 

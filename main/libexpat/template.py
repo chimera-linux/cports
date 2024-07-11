@@ -27,5 +27,5 @@ def _devel(self):
 
 @subpackage("xmlwf")
 def _xmlwf(self):
-    self.pkgdesc = f"{pkgdesc} (xmlwf utility)"
+    self.subdesc = "xmlwf utility"
     return self.default_progs()

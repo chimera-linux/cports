@@ -41,7 +41,7 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("breeze-cursors")
 def _cursors(self):
-    self.pkgdesc = f"{pkgdesc} (cursor themes)"
+    self.subdesc = "cursor themes"
     return [
         "usr/share/icons/breeze_cursors",
         "usr/share/icons/Breeze_Light",

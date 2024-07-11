@@ -35,7 +35,7 @@ sha256 = "96a96d60413e21f7e34eedd9d825ec5a05329ac1fac1de5bf00f05f08c150ef9"
 
 @subpackage("plasma-vault-gocryptfs")
 def _gocryptfs(self):
-    self.pkgdesc = f"{pkgdesc} (gocryptfs support)"
+    self.subdesc = "gocryptfs support"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends += ["gocryptfs"]
     self.options = ["empty"]

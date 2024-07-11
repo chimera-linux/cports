@@ -34,7 +34,7 @@ def post_install(self):
 
 @subpackage("libpcre2")
 def _libpcre2(self):
-    self.pkgdesc = f"{pkgdesc} (shared libraries)"
+    self.subdesc = "shared libraries"
     return self.default_libs()
 
 

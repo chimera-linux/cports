@@ -60,7 +60,7 @@ def post_install(self):
 
 @subpackage("debuginfod")
 def _dinfod(self):
-    self.pkgdesc = f"{pkgdesc} (debuginfod)"
+    self.subdesc = "debuginfod"
 
     return [
         "usr/bin/debuginfod*",
@@ -70,7 +70,7 @@ def _dinfod(self):
 
 @subpackage("debuginfod-libs")
 def _dinfod_libs(self):
-    self.pkgdesc = f"{pkgdesc} (debuginfod library)"
+    self.subdesc = "debuginfod library"
 
     return [
         "etc/profile.d",

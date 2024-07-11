@@ -48,7 +48,7 @@ def _progs(self):
 
 @subpackage("pam_cgroup")
 def _pam(self):
-    self.pkgdesc = f"{pkgdesc} (PAM)"
+    self.subdesc = "PAM"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
     return [

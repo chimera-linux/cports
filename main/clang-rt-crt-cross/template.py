@@ -158,7 +158,7 @@ def do_install(self):
 def _gen_subp(an):
     @subpackage(f"clang-rt-crt-cross-{an}", an in _targets)
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({an} support)"
+        self.subdesc = f"{an} support"
         self.depends = ["clang"]
         self.options = [
             "!scanshlibs",

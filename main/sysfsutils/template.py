@@ -20,7 +20,7 @@ sha256 = "f7f669d27c997d3eb3f3e014b4c0aa1aa4d07ce4d6f9e41fa835240f2bf38810"
 
 @subpackage("libsysfs")
 def _libmagic(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
 
     return self.default_libs()
 

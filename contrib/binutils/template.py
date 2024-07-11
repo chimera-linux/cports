@@ -233,7 +233,7 @@ def do_install(self):
 
 @subpackage("binutils-common")
 def _common(self):
-    self.pkgdesc = f"{pkgdesc} (common files)"
+    self.subdesc = "common files"
     self.options = ["!splitstatic"]
 
     return [
@@ -245,7 +245,7 @@ def _common(self):
 def _gen_subp(an, native):
     @subpackage(f"binutils-{an}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({an})"
+        self.subdesc = an
         self.depends = [f"binutils-common={pkgver}-r{pkgrel}"]
 
         if native:

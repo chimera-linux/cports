@@ -15,7 +15,7 @@ def post_install(self):
 
 @subpackage("resolvconf-symlink")
 def _symlink(self):
-    self.pkgdesc = f"{pkgdesc} (use symlink)"
+    self.subdesc = "use symlink"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cmd:resolvconf"]
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}",
@@ -26,7 +26,7 @@ def _symlink(self):
 
 @subpackage("resolvconf-openresolv")
 def _openresolv(self):
-    self.pkgdesc = f"{pkgdesc} (openresolv)"
+    self.subdesc = "openresolv"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
     self.provides = [f"resolvconf-any={pkgver}-r{pkgrel}"]
     self.depends = ["openresolv"]
@@ -40,6 +40,6 @@ def _openresolv(self):
 
 @subpackage("resolvconf-none")
 def _none(self):
-    self.pkgdesc = f"{pkgdesc} (do not use)"
+    self.subdesc = "do not use"
     self.provides = [f"resolvconf-any={pkgver}-r{pkgrel}"]
     return []

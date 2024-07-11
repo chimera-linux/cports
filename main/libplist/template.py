@@ -18,14 +18,14 @@ options = ["!cross"]
 
 @subpackage("libplist++")
 def _pp(self):
-    self.pkgdesc = f"{pkgdesc} (C++ runtime library)"
+    self.subdesc = "C++ runtime library"
 
     return ["usr/lib/libplist++*.so.*"]
 
 
 @subpackage("libplist-python")
 def _python(self):
-    self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.subdesc = "Python bindings"
     self.depends += ["python"]
 
     return ["usr/lib/python3*"]

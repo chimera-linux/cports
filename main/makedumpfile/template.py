@@ -49,6 +49,6 @@ def do_install(self):
 def _perl(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "perl"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "perl"]
-    self.pkgdesc = f"{pkgdesc} (Perl scripts)"
+    self.subdesc = "Perl scripts"
 
     return ["usr/bin/makedumpfile-R.pl"]

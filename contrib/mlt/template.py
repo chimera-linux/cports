@@ -64,7 +64,7 @@ def _devel(self):
 
 @subpackage("python-mlt")
 def _python(self):
-    self.pkgdesc = f"{pkgdesc} (python module)"
+    self.subdesc = "python module"
     self.depends += ["python"]
 
     return ["usr/lib/python*"]

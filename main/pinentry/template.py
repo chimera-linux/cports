@@ -40,7 +40,7 @@ def post_install(self):
 def _frontend(name):
     @subpackage(f"pinentry-{name}")
     def _name(self):
-        self.pkgdesc = f"{pkgdesc} ({name} frontend)"
+        self.subdesc = f"{name} frontend"
         return [f"usr/bin/pinentry-{name}"]
 
     @subpackage(f"pinentry-{name}-default")

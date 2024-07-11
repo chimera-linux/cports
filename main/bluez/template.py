@@ -54,7 +54,7 @@ def post_install(self):
 
 @subpackage("libbluetooth")
 def _libs(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
 
     return self.default_libs()
 

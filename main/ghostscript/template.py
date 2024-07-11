@@ -94,7 +94,7 @@ def post_install(self):
 
 @subpackage("libgs")
 def _libs(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
 
     return self.default_libs()
 

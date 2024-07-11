@@ -424,7 +424,7 @@ def post_install(self):
 
 @subpackage("firmware-linux-audio")
 def _audio(self):
-    self.pkgdesc = f"{pkgdesc} (audio)"
+    self.subdesc = "audio"
     self.options = ["empty"]
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
 
@@ -433,7 +433,7 @@ def _audio(self):
 
 @subpackage("firmware-linux-gpu")
 def _gpu(self):
-    self.pkgdesc = f"{pkgdesc} (graphics)"
+    self.subdesc = "graphics"
     self.options = ["empty"]
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
 
@@ -442,7 +442,7 @@ def _gpu(self):
 
 @subpackage("firmware-linux-network")
 def _net(self):
-    self.pkgdesc = f"{pkgdesc} (network devices)"
+    self.subdesc = "network devices"
     self.options = ["empty"]
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
 
@@ -451,7 +451,7 @@ def _net(self):
 
 @subpackage("firmware-linux-storage")
 def _storage(self):
-    self.pkgdesc = f"{pkgdesc} (storage devices)"
+    self.subdesc = "storage devices"
     self.options = ["empty"]
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
 
@@ -460,7 +460,7 @@ def _storage(self):
 
 @subpackage("firmware-linux-misc")
 def _misc(self):
-    self.pkgdesc = f"{pkgdesc} (misc)"
+    self.subdesc = "misc"
     self.options = ["empty"]
     self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
 
@@ -469,7 +469,7 @@ def _misc(self):
 
 @subpackage("firmware-linux-soc")
 def _soc(self):
-    self.pkgdesc = f"{pkgdesc} (systems on chip)"
+    self.subdesc = "systems on chip"
     self.options = ["empty"]
     self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
 
@@ -478,7 +478,7 @@ def _soc(self):
 
 @subpackage("base-firmware-linux")
 def _base(self):
-    self.pkgdesc = f"{pkgdesc} (base metapackage)"
+    self.subdesc = "base metapackage"
     self.options = ["empty"]
     self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
 
@@ -488,7 +488,7 @@ def _base(self):
 def _gen_pkg(name, desc, iifcond, iifpkg, cont):
     @subpackage(f"firmware-linux-{name}")
     def _sub(self):
-        self.pkgdesc = f"{pkgdesc} ({desc})"
+        self.subdesc = desc
         self.options = ["!strip", "foreignelf", "execstack"]
 
         if (iifcond is None or iifcond) and iifpkg:

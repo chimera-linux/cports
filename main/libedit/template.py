@@ -29,7 +29,7 @@ def post_install(self):
 
 @subpackage("libedit-readline-devel")
 def _rldevel(self):
-    self.pkgdesc = f"{pkgdesc} (readline compatibility)"
+    self.subdesc = "readline compatibility"
     self.depends = ["!readline-devel"]
     return [
         "usr/include/readline",

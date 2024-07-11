@@ -40,7 +40,7 @@ def post_install(self):
 
 @subpackage("foot-terminfo")
 def _tinfo(self):
-    self.pkgdesc = f"{pkgdesc} (extra terminfo data)"
+    self.subdesc = "extra terminfo data"
 
     return ["usr/share/terminfo"]
 
@@ -48,6 +48,6 @@ def _tinfo(self):
 @subpackage("foot-themes")
 def _themes(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.pkgdesc = f"{pkgdesc} (colour themes)"
+    self.subdesc = "colour themes"
 
     return ["usr/share/foot/themes"]

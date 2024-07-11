@@ -66,7 +66,7 @@ def _gen(an):
 
     @subpackage(f"base-cross-{an}", cond)
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({an} support)"
+        self.subdesc = f"{an} support"
         self.depends = [
             f"clang-rt-cross-{an}",
             f"musl-cross-{an}",

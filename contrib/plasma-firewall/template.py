@@ -30,7 +30,7 @@ sha256 = "f6ea09207d463dd1c60da31840bb26785066c1455ae7aa00b65df3583872594c"
 # TODO: it also supports firewalld but i did not test that
 @subpackage("plasma-firewall-ufw")
 def _ufw(self):
-    self.pkgdesc = f"{pkgdesc} (ufw support)"
+    self.subdesc = "ufw support"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends += ["ufw"]
     self.options = ["empty"]

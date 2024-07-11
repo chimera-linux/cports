@@ -57,7 +57,7 @@ def _libs(self):
 
 @subpackage("gettext-libintl")
 def _libintl(self):
-    self.pkgdesc = f"{pkgdesc} (libintl stub)"
+    self.subdesc = "libintl stub"
     self.options = ["!splitstatic", "ltostrip"]
 
     return ["usr/lib/libintl.a"]

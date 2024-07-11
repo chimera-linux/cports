@@ -40,7 +40,7 @@ def post_install(self):
 def _gen_subp(name, desc, iif):
     @subpackage(f"apr-util-{name}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({desc} module)"
+        self.subdesc = f"{desc} module"
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
         self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", iif]
 

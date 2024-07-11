@@ -25,7 +25,7 @@ sha256 = "0728e825f18ce1af0ec0090ae9892665e61590bb94910f12bf0810b874fdce7f"
 
 @subpackage("libsquashfs")
 def _libmagic(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
 
     return self.default_libs()
 

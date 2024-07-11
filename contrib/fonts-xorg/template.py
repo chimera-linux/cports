@@ -10,7 +10,7 @@ url = "https://xorg.freedesktop.org"
 
 @subpackage("fonts-xorg-100dpi")
 def _100dpi(self):
-    self.pkgdesc = f"{pkgdesc} (100dpi)"
+    self.subdesc = "100dpi"
     # don't install 100dpi by default
     self.depends = [
         "font-adobe-100dpi",
@@ -25,7 +25,7 @@ def _100dpi(self):
 
 @subpackage("fonts-xorg-75dpi")
 def _75dpi(self):
-    self.pkgdesc = f"{pkgdesc} (100dpi)"
+    self.subdesc = "100dpi"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "font-adobe-75dpi",
@@ -40,7 +40,7 @@ def _75dpi(self):
 
 @subpackage("fonts-xorg-cyrillic")
 def _cyrillic(self):
-    self.pkgdesc = f"{pkgdesc} (cyrillic)"
+    self.subdesc = "cyrillic"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "font-cronyx-cyrillic",
@@ -54,7 +54,7 @@ def _cyrillic(self):
 
 @subpackage("fonts-xorg-misc")
 def _misc(self):
-    self.pkgdesc = f"{pkgdesc} (misc)"
+    self.subdesc = "misc"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "font-arabic-misc",
@@ -78,7 +78,7 @@ def _misc(self):
 
 @subpackage("fonts-xorg-type1")
 def _type1(self):
-    self.pkgdesc = f"{pkgdesc} (type1)"
+    self.subdesc = "type1"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "font-adobe-utopia-type1",

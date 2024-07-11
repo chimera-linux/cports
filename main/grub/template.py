@@ -184,7 +184,7 @@ def post_install(self):
 
 @subpackage("grub-utils")
 def _utils(self):
-    self.pkgdesc = f"{pkgdesc} (additional utilities)"
+    self.subdesc = "additional utilities"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -197,7 +197,7 @@ def _utils(self):
 def _genplatform(arch, platform, desc):
     @subpackage(f"grub-{arch}-{platform}-dbg", arch in _archs)
     def _platdbg(self):
-        self.pkgdesc = f"{pkgdesc} ({desc} debug files)"
+        self.subdesc = f"{desc} debug files"
         self.depends = [f"grub-{arch}-{platform}={pkgver}-r{pkgrel}"]
         self.options = ["!strip", "foreignelf", "execstack"]
 
@@ -212,7 +212,7 @@ def _genplatform(arch, platform, desc):
 
     @subpackage(f"grub-{arch}-{platform}", arch in _archs)
     def _plat(self):
-        self.pkgdesc = f"{pkgdesc} ({desc} support)"
+        self.subdesc = f"{desc} support"
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
         self.options = ["!strip", "foreignelf", "execstack"]
 

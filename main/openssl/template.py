@@ -71,7 +71,7 @@ def init_check(self):
 
 @subpackage("libcrypto3")
 def _libcrypto(self):
-    self.pkgdesc = f"{pkgdesc} (crypto library)"
+    self.subdesc = "crypto library"
 
     return [
         "usr/lib/libcrypto.so.*",
@@ -82,14 +82,14 @@ def _libcrypto(self):
 
 @subpackage("libssl3")
 def _libssl(self):
-    self.pkgdesc = f"{pkgdesc} (SSL/TLS library)"
+    self.subdesc = "SSL/TLS library"
 
     return ["usr/lib/libssl.so.*"]
 
 
 @subpackage("openssl-c_rehash")
 def _crehash(self):
-    self.pkgdesc = f"{pkgdesc} (c_rehash utility)"
+    self.subdesc = "c_rehash utility"
     self.depends = ["openssl"]
 
     if self.stage > 0:

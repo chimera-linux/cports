@@ -31,7 +31,7 @@ def do_install(self):
 
 @subpackage("rustc-demangle-libs")
 def _libs(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.subdesc = "runtime library"
     # library without soname/version
     return ["usr/lib/librustc_demangle.so"]
 
