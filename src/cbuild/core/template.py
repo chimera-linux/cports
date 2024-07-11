@@ -1028,7 +1028,7 @@ class Template(Package):
             if not hasattr(self, fl) or not validate_type(
                 getattr(self, fl), tp
             ):
-                self.error("missing or invalid field: %s" % fl)
+                self.error(f"missing or invalid field: {fl}")
 
     def validate_spdx(self):
         # validate license if we need to
@@ -1039,7 +1039,7 @@ class Template(Package):
             except RuntimeError as e:
                 lerr = str(e)
             if lerr:
-                self.error("failed validating license: %s" % lerr)
+                self.error(f"failed validating license: {lerr}")
 
             for sp in self.subpkg_list:
                 if sp.license == self.license:
@@ -1051,9 +1051,7 @@ class Template(Package):
                 except RuntimeError as e:
                     lerr = str(e)
                 if lerr:
-                    self.error(
-                        "failed validating subpackage license: %s" % lerr
-                    )
+                    self.error(f"failed validating subpackage license: {lerr}")
 
     def validate_url(self):
         # do not validate if not linting
@@ -2194,7 +2192,7 @@ def from_module(m, ret):
         if hasattr(m, fl):
             flv = getattr(m, fl)
             if not validate_type(flv, tp):
-                ret.error("invalid field value: %s" % fl)
+                ret.error(f"invalid field value: {fl}")
             # validated, set
             setattr(ret, fl, flv)
 
@@ -2213,7 +2211,7 @@ def from_module(m, ret):
             if neg:
                 opt = opt[1:]
             if opt not in ropts:
-                ret.error("unknown option: %s" % opt)
+                ret.error(f"unknown option: {opt}")
             ropts[opt] = not neg
 
     ret.options = ropts
@@ -2338,7 +2336,7 @@ def from_module(m, ret):
                 continue
             flv = getattr(sp, fl)
             if not validate_type(flv, tp):
-                ret.error("invalid field value: %s" % fl)
+                ret.error(f"invalid field value: {fl}")
 
         # deal with options
         ropts = {}
@@ -2360,7 +2358,7 @@ def from_module(m, ret):
                 if neg:
                     opt = opt[1:]
                 if opt not in ropts:
-                    ret.error("unknown subpackage option: %s" % opt)
+                    ret.error(f"unknown subpackage option: {opt}")
                 ropts[opt] = not neg
 
         sp.options = ropts

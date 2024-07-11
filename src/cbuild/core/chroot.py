@@ -551,7 +551,7 @@ def update(pkg):
     chroot_check()
 
     logger.get().out(
-        "cbuild: updating software in %s container..." % str(paths.bldroot())
+        f"cbuild: updating software in {paths.bldroot()!s} container..."
     )
 
     paths.prepare()

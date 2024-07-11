@@ -8,8 +8,24 @@ target-version = 'py311'
 builtins = ['custom_target', 'self', 'subpackage']
 
 [tool.ruff.lint]
-# TODO: look at other categories that might be useful (needs flake8 plugins)
-select = ['E', 'F', 'W', 'RUF']
-# 005: maybe later
-ignore = ['E203', 'E501', 'F841', 'RUF005']
-fixable = ['ALL']
+select = [
+    'E',
+    'F',
+    'RUF',
+    'UP',
+    'W',
+]
+ignore = [
+    # black compat
+    'E203',
+    # long source lines
+    'E501',
+    # unused unpack sequences
+    'F841',
+    # maybe later
+    'RUF005',
+    # allow redundant open(, 'r')
+    'UP015',
+    # we check this intentionally
+    'UP036',
+]
