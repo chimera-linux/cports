@@ -71,7 +71,6 @@ def _devel(self):
 
 @subpackage("linux-rpi-dbg")
 def _dbg(self):
-    self.pkgdesc += " (debug files)"
     self.options = [
         "!scanrundeps",
         "!strip",

@@ -571,6 +571,7 @@ core_fields = [
     ("env", {}, dict, False, False, False),
     ("debug_level", -1, int, False, False, False),
     # packaging
+    ("subdesc", "", str, False, True, False),
     ("origin", None, str, False, True, True),
     ("triggers", [], list, False, True, False),
     ("scriptlets", {}, dict, False, True, False),
@@ -647,6 +648,7 @@ core_fields_priority = [
     ("scriptlets", True),
     ("origin", True),
     ("pkgdesc", True),
+    ("subdesc", True),
     ("maintainer", True),
     ("license", True),
     ("url", True),
@@ -857,6 +859,7 @@ class Template(Package):
             "pkgver": self.pkgver,
             "pkgrel": self.pkgrel,
             "pkgdesc": self.pkgdesc,
+            "subdesc": self.subdesc,
             "license": self.license,
             "maintainer": self.maintainer,
             "url": self.url,
@@ -1096,6 +1099,9 @@ class Template(Package):
             self.error("pkgdesc should start with an uppercase letter")
         if len(dstr) > 72:
             self.error("pkgdesc should be no longer than 72 characters")
+        # TODO: enable later when no subdesc in pkgdesc is used anymore
+        # if re.search(r" \(.+\)$", self.pkgdesc):
+        #     self.error("pkgdesc should not contain subdesc")
 
     def validate_maintainer(self):
         # do not validate if not linting
@@ -1891,7 +1897,9 @@ autopkgs = [
 
 
 class Subpackage(Package):
-    def __init__(self, name, parent, oldesc=None, alternative=None):
+    def __init__(
+        self, name, parent, oldesc=None, oldsdesc=None, alternative=None
+    ):
         super().__init__()
 
         self.pkgname = name
@@ -1933,11 +1941,14 @@ class Subpackage(Package):
 
         # default suffixes
         if name.endswith("-devel"):
-            self.pkgdesc = oldesc + " (development files)"
+            self.pkgdesc = oldesc
+            self.subdesc = "development files"
         elif name.endswith("-libs"):
-            self.pkgdesc = oldesc + " (libraries)"
+            self.pkgdesc = oldesc
+            self.subdesc = "libraries"
         elif name.endswith("-progs"):
-            self.pkgdesc = oldesc + " (programs)"
+            self.pkgdesc = oldesc
+            self.subdesc = "programs"
         else:
             for apkg, adesc, iif, takef in autopkgs:
                 sfx = f"-{apkg}"
@@ -1950,9 +1961,10 @@ class Subpackage(Package):
                         instif = iif
                     # if not automatic, add the suffix
                     if not auto:
-                        self.pkgdesc = oldesc + f" ({adesc})"
+                        self.subdesc = adesc
                     else:
                         self.pkgdesc = oldesc
+                        self.subdesc = oldsdesc
 
         # by default some subpackages depend on their parent package
         if bdep:

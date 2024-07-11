@@ -101,7 +101,7 @@ def _tinfo(self):
 
 @subpackage("ncurses-libtinfo-devel")
 def _tdevel(self):
-    self.pkgdesc = f"{pkgdesc} (libtinfo.so symlink) (development files)"
+    self.pkgdesc = f"{pkgdesc} (libtinfo.so development files)"
     self.depends += [f"ncurses-devel={pkgver}-r{pkgrel}"]
 
     return [

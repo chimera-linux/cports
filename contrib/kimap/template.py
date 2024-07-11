@@ -29,7 +29,6 @@ sha256 = "167bed276867fb9536e86f8ecac36911b51c90b3f13e167118b44a1d46eb96e0"
 
 @subpackage("kimap-devel-static")
 def _devel_static(self):
-    self.pkgdesc = f"{pkgdesc} (development files) (static libraries)"
     return ["usr/lib/*.a"]
 
 

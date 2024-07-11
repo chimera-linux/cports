@@ -67,7 +67,6 @@ def _devel(self):
 
 @subpackage("linux-steamdeck-dbg")
 def _dbg(self):
-    self.pkgdesc += " (debug files)"
     self.options = [
         "!scanrundeps",
         "!strip",

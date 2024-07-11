@@ -23,7 +23,7 @@ makedepends = [
     "python-gobject-devel",
 ]
 checkdepends = ["xwayland-run", "fonts-dejavu-ttf"]
-pkgdesc = "GObject application plugin library (2.x)"
+pkgdesc = "GObject application plugin library 2.x"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Libpeas"
@@ -40,7 +40,7 @@ def _devel(self):
 
 @subpackage("libpeas2-python")
 def _python(self):
-    self.pkgdesc = f"{pkgdesc} (python support)"
+    self.subdesc = "Python support"
     self.depends += ["python-gobject"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "python"]
     return ["usr/lib/libpeas-2/loaders/libpythonloader.so"]
@@ -48,7 +48,7 @@ def _python(self):
 
 @subpackage("libpeas2-lua")
 def _lua(self):
-    self.pkgdesc = f"{pkgdesc} (lua 5.1 support)"
+    self.subdesc = "Lua 5.1 support"
     self.depends += ["lua5.1-lgi"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "lua5.1"]
     return ["usr/lib/libpeas-2/loaders/liblua51loader.so"]
@@ -56,6 +56,6 @@ def _lua(self):
 
 @subpackage("libpeas2-gjs")
 def _gjs(self):
-    self.pkgdesc = f"{pkgdesc} (gjs support)"
+    self.subdesc = "GJS support"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gjs"]
     return ["usr/lib/libpeas-2/loaders/libgjsloader.so"]

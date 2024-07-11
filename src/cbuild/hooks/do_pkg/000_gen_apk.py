@@ -1,6 +1,7 @@
 from cbuild.core import logger, paths, template, chroot
 from cbuild.apk import sign as asign, util as autil, cli as acli
 
+import re
 import shlex
 import pathlib
 import subprocess
@@ -151,10 +152,19 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
         # extract from the name instead
         origin = f"alt:{pkg.alternative}"
 
-    if adesc:
-        pdesc = f"{pkg.pkgdesc} ({adesc})"
+    if pkg.subdesc:
+        # remove once we enable the lint after refactoring it all out
+        if re.search(r" \(.+\)$", pkg.pkgdesc):
+            bpdesc = pkg.pkgdesc
+        else:
+            bpdesc = f"{pkg.pkgdesc} ({pkg.subdesc})"
     else:
-        pdesc = pkg.pkgdesc
+        bpdesc = pkg.pkgdesc
+
+    if adesc:
+        pdesc = f"{bpdesc} ({adesc})"
+    else:
+        pdesc = bpdesc
 
     pargs = [
         "--info",
@@ -490,7 +500,7 @@ def invoke(pkg):
         # create a temporary subpkg instance
         # it's only complete enough to satisfy the generator
         spkg = template.Subpackage(
-            f"{pkg.pkgname}-{apkg}", pkg.rparent, pkg.pkgdesc
+            f"{pkg.pkgname}-{apkg}", pkg.rparent, pkg.pkgdesc, pkg.subdesc
         )
 
         # carry over replaces

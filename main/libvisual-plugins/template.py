@@ -27,7 +27,7 @@ makedepends = [
     "libvisual-devel",
 ]
 install_if = [f"libvisual-plugins-meta={pkgver}-r{pkgrel}"]
-pkgdesc = "Abstraction library for audio visualization plugins (plugins)"
+pkgdesc = "Plugins for libvisual"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "http://libvisual.org"
@@ -37,6 +37,6 @@ sha256 = "a1dd04eb3d311d68b4f43a5c707df7aba7a98a9cab820c58395a7f5d7d6d0157"
 
 @subpackage("libvisual-plugins-meta")
 def _meta(self):
-    self.pkgdesc = f"{pkgdesc} (recommends package)"
+    self.subdesc = "recommends package"
     self.options = ["empty"]
     return []

@@ -29,7 +29,7 @@ def post_install(self):
 
 @subpackage("protobuf-lite")
 def _lite(self):
-    self.pkgdesc = f"{pkgdesc} (lite version)"
+    self.subdesc = "lite version"
 
     return ["usr/lib/libprotobuf-lite.so.*"]
 
@@ -47,7 +47,6 @@ def _protoc(self):
 
 @subpackage("protobuf-devel-static")
 def _devel_static(self):
-    self.pkgdesc = f"{pkgdesc} (development files) (static libraries)"
     return ["usr/lib/*.a"]
 
 

@@ -32,7 +32,6 @@ options = ["bootstrap", "linkundefver"]
 
 @subpackage("zlib-ng-compat-devel-static")
 def _static(self):
-    self.pkgdesc = f"{pkgdesc} (development files) (static libraries)"
     self.provides = [f"zlib-devel-static={_cver}-r99"]
     self.replaces = [f"zlib-devel-static<{_cver}-r99"]
 

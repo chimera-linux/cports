@@ -757,10 +757,11 @@ These variables are mandatory:
   to a new version, it should be reset back to zero.
 * `pkgdesc` *(str)* A short, one line description of the package. Should
   be kept at 72 characters or shorter. In general, this should not begin
-  with an article, and should not end with a period. It should use American
-  English and not contain any mistakes. The description is inherited into
-  all subpackages, though certain subpackages gain some suffixes. See the
-  section about subpackages for more details.
+  with an article, and should not end with a period, and should not contain
+  any subdescription ` (foo)` as that should be done with `subdesc`. The
+  description is inherited into any subpackages, while `subdesc` may be
+  filled in separately. It should use American English. See the section
+  about subpackages for more details.
 * `url` *(str)* The homepage URL of the project being packaged. To pass
   lint, the URL must have either the `http` or `https` scheme, must parse
   correctly and not have a trailing slash in the path.
@@ -1019,6 +1020,8 @@ Keep in mind that default values may be overridden by build styles.
   string or `.` implies default behavior. Effectively all sources that have
   a path that is not the default will be extracted separately and then moved
   into place.
+* `subdesc` *(str)* The package sub-description which will be appended to
+  the main description as ` (subdesc)`.
 * `tools` *(dict)* This can be used to override default tools. Refer to the
   section about tools for more information.
 * `tool_flags` *(dict)* This can be used to override things such as `CFLAGS`
@@ -1449,20 +1452,19 @@ not affect the build) and its sole purpose is to be able to turn off the PIE
 check for subpackages (as projects may build a mixture of PIE and non-PIE
 files).
 
-The `pkgdesc` may gain a suffix if the subpackage name has a certain suffix:
+The subpackage may gain an implicit `subdesc` if its name has a certain suffix:
 
 * For `-devel`, it will be `(development files)`
 * For `-static`, it will be `(static libraries)`
 * For `-libs`, it will be `(libraries)`
 * For `-progs`, it will be `(programs)`
 
+You should never make suffixes a part of `pkgdesc`. The suffix is replaced on
+per subpackage basis.
+
 There are also automatic subpackages, which can be declared explicitly if
 needed, and those have their own descriptions as well. See the later section
 of this document for those.
-
-Any old suffix is removed first before an automatic suffix is appended. You
-should never use `(suffixes)` as a regular part of the package description.
-They are reserved for subpackages to describe the subpackage kind.
 
 In general, subpackage descriptions should have suffixes like that. You can
 choose the best suffix for packages not matching standardized names. Sometimes

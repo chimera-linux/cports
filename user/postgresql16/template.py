@@ -45,7 +45,7 @@ makedepends = [
 ]
 depends = ["postgresql-common", "tzdata"]
 provides = ["postgresql-runtime"]
-pkgdesc = f"Sophisticated object-relational DBMS ({_major}.x)"
+pkgdesc = f"Sophisticated object-relational DBMS, version {_major}.x"
 maintainer = "mia <mia@mia.jetzt>"
 license = "PostgreSQL"
 url = "https://www.postgresql.org"
@@ -200,7 +200,7 @@ def _contrib_pkg(pn):
     # build a subpackage for each contrib item
     @subpackage(f"{pkgname}-contrib-{pn}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} (contrib-{pn})"
+        self.subdesc = f"contrib-{pn}"
         self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
         # autoinstalls
         if pn != "":
@@ -267,7 +267,7 @@ def _default(self):
 def _contrib_alt(pn, pl):
     @subpackage(f"postgresql-{pkgname}-{pn}-default")
     def _sp(self):
-        self.pkgdesc = f"{pkgdesc} (default links for {pn})"
+        self.subdesc = f"default links for {pn}"
         self.depends = [f"postgresql-{pkgname}-default={pkgver}-r{pkgrel}"]
         self.install_if = [
             f"postgresql-{pkgname}-default={pkgver}-r{pkgrel}",
@@ -287,7 +287,7 @@ for _pn in _extra_cmds:
 
 @subpackage(f"{pkgname}-contrib")
 def _contrib(self):
-    self.pkgdesc = f"{pkgname} (contrib)"
+    self.subdesc = "contrib"
     self.options = ["empty"]
 
     return []
@@ -295,7 +295,7 @@ def _contrib(self):
 
 @subpackage("libpq", _default_ver)
 def _libpq(self):
-    self.pkgdesc = f"{pkgname} (client library)"
+    self.subdesc = "client library"
 
     return [
         "usr/lib/libpq.so.*",
@@ -304,7 +304,7 @@ def _libpq(self):
 
 @subpackage("libpq-devel", _default_ver)
 def _libpq_devel(self):
-    self.pkgdesc = f"{pkgname} (client library development files)"
+    self.subdesc = "client library development files"
 
     return [
         "usr/bin/pg_config",
@@ -322,14 +322,14 @@ def _libpq_devel(self):
 
 @subpackage("libecpg", _default_ver)
 def _libecpg(self):
-    self.pkgdesc = f"{pkgname} (embedded PostgreSQL for C)"
+    self.subdesc = "embedded PostgreSQL for C"
 
     return ["usr/lib/libecpg.so.*", "usr/lib/libpgtypes.so*"]
 
 
 @subpackage("libecpg-devel", _default_ver)
 def _libecpg_devel(self):
-    self.pkgdesc = f"{pkgname} (embedded PostgreSQL for C development files)"
+    self.subdesc = "embedded PostgreSQL for C development files"
 
     return [
         f"usr/libexec/{pkgname}/ecpg",
@@ -347,7 +347,7 @@ def _libecpg_devel(self):
 
 @subpackage(f"{pkgname}-pltcl")
 def _pltcl(self):
-    self.pkgdesc = f"{pkgdesc} (PL/Tcl)"
+    self.subdesc = "PL/Tcl"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -359,7 +359,7 @@ def _pltcl(self):
 
 @subpackage(f"{pkgname}-plperl")
 def _plperl(self):
-    self.pkgdesc = f"{pkgdesc} (PL/Perl)"
+    self.subdesc = "PL/Perl"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -370,7 +370,7 @@ def _plperl(self):
 
 @subpackage(f"{pkgname}-plpython")
 def _plpython(self):
-    self.pkgdesc = f"{pkgdesc} (PL/Python)"
+    self.subdesc = "PL/Python"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [

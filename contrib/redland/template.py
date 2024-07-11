@@ -16,7 +16,7 @@ makedepends = [
     "sqlite-devel",
     "unixodbc-devel",
 ]
-pkgdesc = "Redlang Resource Description Framework (RDF)"
+pkgdesc = "Redlang Resource Description Framework"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later OR LGPL-2.1-or-later OR Apache-2.0"
 url = "https://librdf.org"

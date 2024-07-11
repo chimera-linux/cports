@@ -76,7 +76,6 @@ def _devel(self):
 
 @subpackage("linux-stable-dbg")
 def _dbg(self):
-    self.pkgdesc += " (debug files)"
     self.options = [
         "!scanrundeps",
         "!strip",
