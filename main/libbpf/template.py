@@ -1,6 +1,6 @@
 pkgname = "libbpf"
-pkgver = "1.4.3"
-pkgrel = 1
+pkgver = "1.4.4"
+pkgrel = 0
 build_wrksrc = "src"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/libbpf/libbpf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d8be49641dd4c5caa27986a8291907176e3b6fd6fe650e4fee5b45f8093fc935"
+sha256 = "b4fe864ed96cf276e3370a4706bafbafde1eccd5894418c4d8eeb941f371eb8a"
 hardening = ["vis", "!cfi"]
 # no tests
 options = ["!check"]
