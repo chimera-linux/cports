@@ -11,5 +11,5 @@ builtins = ['custom_target', 'self', 'subpackage']
 # TODO: look at other categories that might be useful (needs flake8 plugins)
 select = ['E', 'F', 'W', 'RUF']
 # 005: maybe later
-ignore = ['E203', 'E501', 'RUF005']
+ignore = ['E203', 'E501', 'F841', 'RUF005']
 fixable = ['ALL']

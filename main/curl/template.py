@@ -74,7 +74,7 @@ def post_install(self):
 
 def init_check(self):
     # upstream recommends cpucores*7 as a good starting point
-    self.make_check_env["TFLAGS"] = f"-j{self.make_jobs*7}"
+    self.make_check_env["TFLAGS"] = f"-j{self.make_jobs * 7}"
 
 
 @subpackage("libcurl")
