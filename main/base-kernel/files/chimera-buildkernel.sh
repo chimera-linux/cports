@@ -358,9 +358,13 @@ do_install() {
 
     mkdir -p "${DESTDIR}/usr/lib"
     # needed for depmod
-    ln -sf usr/lib "${DESTDIR}/lib"
+    [ -e "${DESTDIR}/lib" -o -L "${DESTDIR}/lib" ] || \
+        ln -s usr/lib "${DESTDIR}/lib"
 
     [ -d "$DESTDIR" ] || die "Could not create destination directory."
+
+    # resolve absolute
+    DESTDIR=$(realpath "$DESTDIR")
 
     echo "=> Installing modules..."
 
@@ -423,7 +427,8 @@ do_install() {
             "${DESTDIR}/usr/lib/debug/boot/vmlinux-${kernver}"
     fi
 
-    rm -f "${DESTDIR}/lib"
+    # do not remove when installing to system
+    [ "$DESTDIR" = "/" ] || rm -f "${DESTDIR}/lib"
 
     cd "${DESTDIR}/usr/lib/modules/${kernver}" \
         || die "Could not change directory"
