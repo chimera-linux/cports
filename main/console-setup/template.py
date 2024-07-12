@@ -1,5 +1,5 @@
 pkgname = "console-setup"
-pkgver = "1.229"
+pkgver = "1.230"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND custom:console-setup"
 url = "https://salsa.debian.org/installer-team/console-setup"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "85a4b0f964df4f00b2e267d42d3ab05984a1d85d47f5910d2555ec74ce0e53f7"
+sha256 = "9615f3b75c24b6cd10a6fd87df4175447f51d0ce86c6b57185857c54295e259f"
 # no tests
 options = ["bootstrap", "!check"]
 
