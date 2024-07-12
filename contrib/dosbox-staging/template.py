@@ -19,7 +19,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Modern continuation of DOSBox"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.dosbox-staging.org"
 source = f"https://github.com/dosbox-staging/dosbox-staging/archive/refs/tags/v{pkgver}.tar.gz"

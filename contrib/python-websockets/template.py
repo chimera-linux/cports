@@ -12,7 +12,7 @@ makedepends = ["python-devel"]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Library for building WebSocket servers and clients in Python"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/python-websockets/websockets"
 # pypi tarball doesn't ship tests

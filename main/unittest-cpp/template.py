@@ -6,7 +6,7 @@ configure_args = ["-DUTPP_INCLUDE_TESTS_IN_BUILD=OFF"]
 make_check_target = "TestUnitTest++"
 makedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Unit testing framework for C++"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/unittest-cpp/unittest-cpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
