@@ -1,6 +1,6 @@
 pkgname = "thermald"
 pkgver = "2.5.7"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 # don't use autogen.sh, it generates files that force reconf in do_build
 build_style = "gnu_configure"
@@ -9,7 +9,6 @@ make_dir = "."
 hostmakedepends = [
     "autoconf-archive",
     "automake",
-    "dbus-glib",
     "gettext",
     "glib-devel",
     "gmake",
@@ -18,8 +17,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "dbus-devel",
-    "dbus-glib-devel",
     "glib-devel",
     "libevdev-devel",
     "libxml2-devel",
