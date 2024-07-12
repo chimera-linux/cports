@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "115.12.2"
+pkgver = "128.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -14,7 +14,7 @@ hostmakedepends = [
     "nasm",
     "nodejs",
     "pkgconf",
-    "python3.11",
+    "python",
     "rust",
     "wasi-sdk",
     "xserver-xorg-xvfb",
@@ -23,8 +23,6 @@ hostmakedepends = [
 makedepends = [
     "alsa-lib-devel",
     "dbus-devel",
-    # XXX: https://bugzilla.mozilla.org/show_bug.cgi?id=1532281
-    "dbus-glib-devel",
     "ffmpeg-devel",
     "freetype-devel",
     "glib-devel",
@@ -52,20 +50,23 @@ makedepends = [
     "rust-std",
     "zlib-ng-compat-devel",
 ]
-depends = ["virtual:cmd:thunderbird!thunderbird-wayland"]
+provides = [
+    # backwards-compatibility with old subpackages
+    f"thunderbird-default={pkgver}-r{pkgrel}",
+    f"thunderbird-wayland={pkgver}-r{pkgrel}",
+]
 pkgdesc = "Thunderbird mail client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
-source = f"$(MOZILLA_SITE)/{pkgname}/releases/{pkgver.replace('_beta', 'b')}/source/{pkgname}-{pkgver.replace('_beta', 'b')}.source.tar.xz"
-sha256 = "6378a0dbe8d785f58ab9778a507e36c33a5f869ae1a670638e27787b9864e638"
+source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}esr/source/thunderbird-{pkgver}esr.source.tar.xz"
+sha256 = "a07eac3cff7e0f7222b2db497452c72c8e7e9c9891f2d174f501052ae1f695d8"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
 }
 env = {
     "MAKE": "/usr/bin/gmake",
-    "PYTHON": "/usr/bin/python3.11",
     "SHELL": "/usr/bin/sh",
     "BUILD_OFFICIAL": "1",
     "MOZILLA_OFFICIAL": "1",
@@ -78,7 +79,8 @@ env = {
 }
 # FIXME: see firefox
 hardening = ["!int"]
-options = ["!cross"]
+# XXX: maybe someday
+options = ["!cross", "!check"]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."
@@ -97,7 +99,7 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in ["audio_thread_priority", "bindgen"]:
+    for crate in []:
         cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
@@ -118,49 +120,53 @@ def do_configure(self):
         "--libdir=/usr/lib",
         "--host=" + self.profile().triplet,
         "--target=" + self.profile().triplet,
-        "--enable-linker=lld",
-        "--enable-release",
-        "--enable-optimize",
         "--disable-install-strip",
         "--disable-strip",
+        "--enable-linker=lld",
+        "--enable-optimize",
+        "--enable-release",
         "--with-wasi-sysroot=/usr/wasm32-unknown-wasi",
+        # we have our own flags and better
+        "--disable-hardening",
         # system libs
-        "--with-system-pixman",
         "--with-system-ffi",
-        "--with-system-nspr",
-        "--with-system-nss",
+        "--with-system-icu",
         "--with-system-jpeg",
-        "--with-system-webp",
-        "--with-system-zlib",
         "--with-system-libevent",
         "--with-system-libvpx",
-        "--with-system-icu",
+        "--with-system-nspr",
+        "--with-system-nss",
+        "--with-system-pixman",
+        "--with-system-webp",
+        "--with-system-zlib",
         # no apng support
         "--without-system-png",
         # features
-        "--enable-dbus",
-        "--enable-jack",
-        "--enable-ffmpeg",
-        "--enable-pulseaudio",
-        "--enable-necko-wifi",
-        "--enable-default-toolkit=cairo-gtk3-wayland",
         "--enable-audio-backends=pulseaudio",
+        "--enable-dbus",
+        "--enable-default-toolkit=cairo-gtk3-wayland",
+        "--enable-ffmpeg",
+        "--enable-jack",
+        "--enable-necko-wifi",
+        "--enable-pulseaudio",
         # disabled features
-        "--disable-crashreporter",
-        "--disable-profiling",
+        "--disable-alsa",
         "--disable-jemalloc",
+        "--disable-profiling",
         "--disable-tests",
         "--disable-updater",
-        "--disable-alsa",
         # mail options
-        "--enable-official-branding",
-        "--enable-application=comm/mail",
         "--allow-addon-sideload",
+        "--enable-application=comm/mail",
+        "--enable-official-branding",
+        "--with-distribution-id=org.chimera-linux",
     ]
 
     match self.profile().arch:
         case "x86_64" | "aarch64":
-            conf_opts += ["--disable-elf-hack"]
+            # broken with rust 1.78 as it enables packed_simd feature that uses removed platform_intrinsics
+            # conf_opts += ["--enable-rust-simd"]
+            pass
 
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
@@ -173,7 +179,6 @@ def do_configure(self):
             s.check()
             self.log("configuring profile build...")
             self.do(
-                "python3.11",
                 "./mach",
                 "configure",
                 *conf_opts,
@@ -183,12 +188,12 @@ def do_configure(self):
         with self.stamp("profile_build") as s:
             s.check()
             self.log("building profile build...")
-            self.do("python3.11", "./mach", "build")
+            self.do("./mach", "build", "--priority", "normal")
         # package it
         with self.stamp("profile_package") as s:
             s.check()
             self.log("packaging profile build...")
-            self.do("python3.11", "./mach", "package")
+            self.do("./mach", "package")
         # generate the profile data
         with self.stamp("profile_generate") as s:
             s.check()
@@ -197,26 +202,25 @@ def do_configure(self):
                 ldp = self.chroot_cwd / d.name / "dist/thunderbird"
             self.do(
                 "xvfb-run",
-                "-w",
-                "10",
                 "-s",
                 "-screen 0 1920x1080x24",
-                "python3.11",
                 "./mach",
                 "python",
                 "./build/pgo/profileserver.py",
                 env={
                     "HOME": str(self.chroot_cwd),
-                    "LLVM_PROFDATA": "llvm-profdata",
                     "JARLOG_FILE": str(self.chroot_cwd / "jarlog"),
                     "LD_LIBRARY_PATH": ldp,
+                    "LIBGL_ALWAYS_SOFTWARE": "1",
+                    "LLVM_PROFDATA": "llvm-profdata",
+                    "XDG_RUNTIME_DIR": "/tmp",
                 },
             )
         # clean up build dir
         with self.stamp("profile_clobber") as s:
             s.check()
             self.log("cleaning up profile build...")
-            self.do("python3.11", "./mach", "clobber")
+            self.do("./mach", "clobber", "objdir")
         # and finally make use of this for real configure
         conf_opts += [
             "--enable-profile-use=cross",
@@ -225,16 +229,15 @@ def do_configure(self):
         ]
 
     self.log("configuring final thunderbird...")
-    self.do("python3.11", "./mach", "configure", *conf_opts)
+    self.do("./mach", "configure", *conf_opts)
 
 
 def do_build(self):
-    self.do("python3.11", "./mach", "build")
+    self.do("./mach", "build", "--priority", "normal")
 
 
 def do_install(self):
     self.do(
-        "python3.11",
         "./mach",
         "install",
         env={"DESTDIR": str(self.chroot_destdir)},
@@ -243,6 +246,10 @@ def do_install(self):
     self.install_file(
         self.files_path / "vendor.js",
         "usr/lib/thunderbird/defaults/preferences",
+    )
+    self.install_file(
+        self.files_path / "distribution.ini",
+        "usr/lib/thunderbird/distribution",
     )
     self.install_file(
         self.files_path / "thunderbird.desktop", "usr/share/applications"
@@ -259,39 +266,3 @@ def do_install(self):
     # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
     self.uninstall("usr/lib/thunderbird/thunderbird-bin")
     self.install_link("usr/lib/thunderbird/thunderbird-bin", "thunderbird")
-    # to be provided
-    self.uninstall("usr/bin/thunderbird")
-    # default launcher
-    self.install_link(
-        "usr/bin/thunderbird-default", "../lib/thunderbird/thunderbird"
-    )
-    # wayland launcher
-    self.install_file(
-        self.files_path / "thunderbird-wayland",
-        "usr/lib/thunderbird",
-        mode=0o755,
-    )
-    self.install_link(
-        "usr/bin/thunderbird-wayland",
-        "../lib/thunderbird/thunderbird-wayland",
-    )
-
-
-def do_check(self):
-    # XXX: maybe someday
-    pass
-
-
-@subpackage("thunderbird-wayland")
-def _wl(self):
-    self.subdesc = "prefer Wayland"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
-
-    return ["@usr/bin/thunderbird=>thunderbird-wayland"]
-
-
-@subpackage("thunderbird-default")
-def _x11(self):
-    self.subdesc = "no display server preference"
-
-    return ["@usr/bin/thunderbird=>thunderbird-default"]
