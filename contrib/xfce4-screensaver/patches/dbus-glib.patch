@@ -1,0 +1,51 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -94,7 +94,7 @@ PKG_CHECK_MODULES(XFCE_SCREENSAVER,
+         x11 >= $X11_REQUIRED_VERSION
+         xscrnsaver
+         gtk+-3.0 >= $GTK_REQUIRED_VERSION
+-        dbus-glib-1 >= $DBUS_REQUIRED_VERSION
++        dbus-1 >= $DBUS_REQUIRED_VERSION
+         gio-2.0 >= $GLIB_REQUIRED_VERSION
+         libxklavier >= $LIBXKLAVIER_REQUIRED
+         libxfconf-0 >= $LIBXFCONF_REQUIRED
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -196,6 +196,7 @@ xfce4_screensaver_SOURCES = \
+ 	xfce-desktop-utils.h        \
+ 	xfcekbd-indicator.c         \
+ 	xfcekbd-indicator.h         \
++	dbus-gmain.c                \
+ 	$(BUILT_SOURCES)            \
+ 	$(NULL)
+ 
+--- a/src/gs-listener-dbus.c
++++ b/src/gs-listener-dbus.c
+@@ -30,8 +30,7 @@
+ #include <unistd.h>
+ 
+ #include <dbus/dbus.h>
+-#include <dbus/dbus-glib.h>
+-#include <dbus/dbus-glib-lowlevel.h>
++#include <dbus-gmain/dbus-gmain.h>
+ 
+ #include <libxfce4util/libxfce4util.h>
+ 
+@@ -1704,7 +1703,7 @@ gs_listener_dbus_init (GSListener *listener) {
+             return FALSE;
+         }
+ 
+-        dbus_connection_setup_with_g_main (listener->priv->connection, NULL);
++        dbus_gmain_set_up_connection (listener->priv->connection, NULL);
+         dbus_connection_set_exit_on_disconnect (listener->priv->connection, FALSE);
+     }
+ 
+@@ -1719,7 +1718,7 @@ gs_listener_dbus_init (GSListener *listener) {
+             return FALSE;
+         }
+ 
+-        dbus_connection_setup_with_g_main (listener->priv->system_connection, NULL);
++        dbus_gmain_set_up_connection (listener->priv->system_connection, NULL);
+         dbus_connection_set_exit_on_disconnect (listener->priv->system_connection, FALSE);
+     }
+ 
