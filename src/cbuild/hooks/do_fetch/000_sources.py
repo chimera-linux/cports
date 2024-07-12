@@ -78,7 +78,7 @@ fstatus = []
 flens = []
 
 
-def fetch_stream(url, dfile, idx, ntry, rqf, rbuf):
+def fetch_stream(url, dfile, dhdrs, idx, ntry, rqf, rbuf):
     global fmtx, fstatus, flens
 
     # ensure the response if what we expect, otherwise error
@@ -148,20 +148,18 @@ def fetch_stream(url, dfile, idx, ntry, rqf, rbuf):
     # resume outside the mutex
     if dores:
         rqf.close()
-        return fetch_url(url, dfile, idx, ntry + 1, rbuf)
+        return fetch_url(url, dfile, dhdrs, idx, ntry + 1, rbuf)
     # rename and return
     pfile.rename(dfile)
     return None, None, None
 
 
-def fetch_url(url, dfile, idx, ntry, rbuf=None):
+def fetch_url(url, dfile, dhdrs, idx, ntry, rbuf=None):
     global fmtx, fstatus, flens
 
     try:
-        hdrs = {
-            "User-Agent": "cbuild-fetch/4.20.69",
-            "Accept": "*/*",
-        }
+        hdrs = dict(dhdrs)
+        print("HDRS", hdrs)
         if ntry > 0:
             with fmtx:
                 hdrs["Range"] = f"bytes={fstatus[idx]}-{flens[idx]}"
@@ -171,12 +169,12 @@ def fetch_url(url, dfile, idx, ntry, rbuf=None):
             headers=hdrs,
         )
         with request.urlopen(rq) as rqf:
-            return fetch_stream(url, dfile, idx, ntry, rqf, rbuf)
+            return fetch_stream(url, dfile, dhdrs, idx, ntry, rqf, rbuf)
     except Exception as e:
         if ntry > 3:
             return url, dfile, str(e)
         # try a few times on failures
-        return fetch_url(url, dfile, idx, ntry + 1, rbuf)
+        return fetch_url(url, dfile, dhdrs, idx, ntry + 1, rbuf)
 
 
 def invoke(pkg):
@@ -186,6 +184,18 @@ def invoke(pkg):
 
     dfgood = 0
     errors = 0
+
+    dhdrs = {
+        "User-Agent": "cbuild-fetch/4.20.69",
+        "Accept": "*/*",
+    }
+    ehdrs = os.getenv("CBUILD_FETCH_HEADERS")
+    if ehdrs:
+        for hdr in ehdrs.split("\n"):
+            hdrl = hdr.split(":")
+            if len(hdrl) != 2:
+                pkg.error(f"invalid request header: '{hdr}'")
+            dhdrs[hdrl[0].strip().title()] = hdrl[1].lstrip()
 
     if len(pkg.source) != len(pkg.sha256):
         pkg.error("sha256sums do not match sources")
@@ -238,7 +248,7 @@ def invoke(pkg):
 
     def do_fetch_url(mv):
         url, dfile, idx = mv
-        return fetch_url(url, dfile, idx, 0)
+        return fetch_url(url, dfile, dhdrs, idx, 0)
 
     # max 16 connections
     tpool = ThreadPool(16)
