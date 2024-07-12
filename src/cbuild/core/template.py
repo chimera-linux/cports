@@ -1028,10 +1028,15 @@ class Template(Package):
             if not mand:
                 break
             # basic validation of type
-            if not hasattr(self, fl) or not validate_type(
-                getattr(self, fl), tp
-            ):
-                self.error(f"missing or invalid field: {fl}")
+            flv = getattr(self, fl)
+            if flv is None:
+                self.error(f"missing field: {fl}")
+            if not validate_type(flv, tp):
+                fl_t = type(fl).__name__
+                flv_t = type(flv).__name__
+                self.error(
+                    f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
+                )
 
     def validate_spdx(self):
         # validate license if we need to
@@ -2196,7 +2201,11 @@ def from_module(m, ret):
         if hasattr(m, fl):
             flv = getattr(m, fl)
             if not validate_type(flv, tp):
-                ret.error(f"invalid field value: {fl}")
+                fl_t = type(fl).__name__
+                flv_t = type(flv).__name__
+                ret.error(
+                    f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
+                )
             # validated, set
             setattr(ret, fl, flv)
 
@@ -2340,7 +2349,11 @@ def from_module(m, ret):
                 continue
             flv = getattr(sp, fl)
             if not validate_type(flv, tp):
-                ret.error(f"invalid field value: {fl}")
+                fl_t = type(fl).__name__
+                flv_t = type(flv).__name__
+                ret.error(
+                    f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
+                )
 
         # deal with options
         ropts = {}
