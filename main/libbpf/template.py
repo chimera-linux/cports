@@ -1,5 +1,5 @@
 pkgname = "libbpf"
-pkgver = "1.4.4"
+pkgver = "1.4.5"
 pkgrel = 0
 build_wrksrc = "src"
 build_style = "makefile"
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/libbpf/libbpf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b4fe864ed96cf276e3370a4706bafbafde1eccd5894418c4d8eeb941f371eb8a"
+sha256 = "e225c1fe694b9540271b1f2f15eb882c21c34511ba7b8835b0a13003b3ebde8c"
 hardening = ["vis", "!cfi"]
 # no tests
 options = ["!check"]
