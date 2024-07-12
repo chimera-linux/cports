@@ -1,8 +1,8 @@
 pkgname = "gnome-keyring"
 # pam_gnome_keyring may be moved to libsecret later?
 # as of 46 it does not install it and distros don't use it
-pkgver = "46.1"
-pkgrel = 1
+pkgver = "46.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-pam-dir=/usr/lib/security",
@@ -44,4 +44,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-keyring"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b1d3ae9132ff2f8b3f25a190790892968e3d0acf952a487e40f644a8550ce3f6"
+sha256 = "bf26c966b8a8b7f3285ecc8bb3e467b9c20f9535b94dc451c9c559ddcff61925"
