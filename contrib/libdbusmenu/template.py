@@ -19,7 +19,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "atkmm-devel",
-    "dbus-glib-devel",
     "gettext-devel",
     "glib-devel",
     "gobject-introspection",
