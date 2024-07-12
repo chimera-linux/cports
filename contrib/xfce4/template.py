@@ -1,6 +1,6 @@
 pkgname = "xfce4"
 pkgver = "4.18"
-pkgrel = 2
+pkgrel = 3
 build_style = "meta"
 depends = [
     "thunar",
@@ -32,7 +32,7 @@ def _apps(self):
         "mousepad",
         "orage",
         "orca",
-        "parole",
+        # "parole", # dbus-glib
         "pavucontrol",
         "ristretto",
         "xfburn",
