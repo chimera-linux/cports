@@ -1,5 +1,5 @@
 pkgname = "python-sip"
-pkgver = "6.8.5"
+pkgver = "6.8.6"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "custom:sip"
 url = "https://github.com/Python-SIP/sip"
 source = f"$(PYPI_SITE)/s/sip/sip-{pkgver}.tar.gz"
-sha256 = "5dddd5966e9875d89ecde9d3e6ac63225f9972e4d25c09e20fa22f1819409c70"
+sha256 = "7fc959e48e6ec5d5af8bd026f69f5e24d08b3cb8abb342176f5ab8030cc07d7a"
 # no tests
 options = ["!check"]
 
