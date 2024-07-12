@@ -1,22 +1,20 @@
 pkgname = "pipewire"
-pkgver = "1.2.0"
+pkgver = "1.2.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
     "-Ddocs=enabled",
     "-Dman=enabled",
-    "-Dvulkan=disabled",
-    "-Dsdl2=disabled",
+    "-Dsdl2=disabled",  # examples
     "-Dsystemd=disabled",
     "-Dlibffado=disabled",
-    "-Droc=disabled",
+    "-Droc=disabled",  # TODO
     "-Dselinux=disabled",
     "-Dsnap=disabled",
     "-Dbluez5-codec-lc3plus=disabled",
-    "-Djack=disabled",  # spa plugin
-    "-Dpipewire-jack=enabled",  # jack server
-    "-Djack-devel=true",  # jack development files
+    "-Djack=disabled",  # spa plugin (to be a jackd client)
+    "-Djack-devel=true",  # jack development files (we don't ship jackd)
     "-Dlibjack-path=/usr/lib",
     "-Dlibv4l2-path=/usr/lib",
     "-Dudevrulesdir=/usr/lib/udev/rules.d",
@@ -77,9 +75,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "477eb1245a66a982345404b57fab1b9f402c12292047c4d9bea90d6445374653"
-# FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
-hardening = ["!int"]
+sha256 = "ee26d1e906a930b283d759628de978dc2514522d68f9566f89b1497b2b534f76"
 
 if self.profile().endian == "big":
     configure_args += [
