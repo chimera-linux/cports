@@ -159,7 +159,6 @@ def fetch_url(url, dfile, dhdrs, idx, ntry, rbuf=None):
 
     try:
         hdrs = dict(dhdrs)
-        print("HDRS", hdrs)
         if ntry > 0:
             with fmtx:
                 hdrs["Range"] = f"bytes={fstatus[idx]}-{flens[idx]}"
