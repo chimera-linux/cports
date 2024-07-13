@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.58.1"
+pkgver = "2.58.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/librsvg/{pkgver[:-2]}/librsvg-{pkgver}.tar.xz"
-sha256 = "3728596290a8576d305d06ec8afdf473516feee9dff22e03235eac433d56824e"
+sha256 = "18e9d70c08cf25f50d610d6d5af571561d67cf4179f962e04266475df6e2e224"
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check", "!cross"]
 
