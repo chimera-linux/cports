@@ -177,7 +177,7 @@ def _(self):
 @subpackage("plasma-desktop-apps-meta")
 def _(self):
     self.subdesc = "apps recommends package"
-    self.install_if = [self.parent]
+    self.install_if = [self.with_pkgver("plasma-desktop-meta")]
     self.depends = [
         # - core
         "discover",  # extra app management
@@ -253,7 +253,7 @@ def _(self):
 @subpackage("plasma-desktop-multimedia-meta")
 def _(self):
     self.subdesc = "multimedia recommends package"
-    self.install_if = [self.parent]
+    self.install_if = [self.with_pkgver("plasma-desktop-meta")]
     self.depends = [
         "audiocd-kio",  # kio plugin for audio cds
         "audiotube",  # youtube music client
@@ -272,7 +272,7 @@ def _(self):
 @subpackage("plasma-desktop-devtools-meta")
 def _(self):
     self.subdesc = "devtools recommends package"
-    self.install_if = [self.parent]
+    self.install_if = [self.with_pkgver("plasma-desktop-meta")]
     self.depends = [
         "heaptrack",
         "kcachegrind",
@@ -285,7 +285,7 @@ def _(self):
 @subpackage("plasma-desktop-games-meta")
 def _(self):
     self.subdesc = "games recommends package"
-    self.install_if = [self.parent]
+    self.install_if = [self.with_pkgver("plasma-desktop-meta")]
     self.depends = [
         "kpat",
     ]
@@ -296,7 +296,7 @@ def _(self):
 @subpackage("plasma-desktop-accessibility-meta")
 def _(self):
     self.subdesc = "accessibility recommends package"
-    self.install_if = [self.parent]
+    self.install_if = [self.with_pkgver("plasma-desktop-meta")]
     self.depends = [
         "accessibility-inspector",  # accesibility tree inspector
         # "kmag",  # magnifier TODO: broken?
@@ -313,7 +313,7 @@ def _(self):
 def _(self):
     # contact/calendar/etc
     self.subdesc = "kdepim recommends package"
-    self.install_if = [self.parent]
+    self.install_if = [self.with_pkgver("plasma-desktop-meta")]
     self.depends = [
         "akonadi-calendar-tools",
         "akonadi-import-wizard",
