@@ -1,6 +1,6 @@
 pkgname = "eventviews"
 pkgver = "24.05.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
@@ -42,5 +42,11 @@ sha256 = "bf68d5c11de56c15af143084e3f0a95a34658d11284bf56caff422881b6a134f"
 
 @subpackage("eventviews-devel")
 def _devel(self):
-    self.depends += []
+    self.depends += [
+        "akonadi-calendar-devel",
+        "akonadi-devel",
+        "calendarsupport-devel",
+        "kcalendarcore-devel",
+        "kcalutils-devel",
+    ]
     return self.default_devel()
