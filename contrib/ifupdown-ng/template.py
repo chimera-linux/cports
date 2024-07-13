@@ -5,10 +5,6 @@ build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "all"
 make_build_args = ["docs"]
-make_build_args = [
-    "CONFIG_FILE=/etc/whois.conf",
-    "HAVE_ICONV=1",
-]
 make_install_args = ["install_docs"]
 hostmakedepends = ["gmake", "scdoc"]
 checkdepends = ["atf", "kyua"]
