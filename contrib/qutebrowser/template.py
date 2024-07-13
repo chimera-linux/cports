@@ -1,6 +1,6 @@
 pkgname = "qutebrowser"
 pkgver = "3.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "asciidoc",
@@ -11,6 +11,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = [
+    "pdfjs",
     "python-adblock",
     "python-jinja2",
     "python-pygments",
