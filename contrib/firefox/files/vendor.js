@@ -23,4 +23,4 @@ pref("media.gmp-gmpopenh264.enabled", false);
 pref("toolkit.telemetry.shutdownPingSender.enabled", false);
 
 // ad shit
-pref("dom.private-attribution.submission.enabled", true);
+pref("dom.private-attribution.submission.enabled", false);
