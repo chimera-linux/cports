@@ -1,25 +1,25 @@
 pkgname = "mozjs115"
 pkgver = "115.13.0"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
-    "pkgconf",
-    "python3.11",
-    "perl",
-    "gm4",
-    "gawk",
-    "rust",
     "cargo",
+    "gawk",
+    "gm4",
+    "gmake",
+    "perl",
+    "pkgconf",
+    "python",
+    "rust",
 ]
 makedepends = [
     "icu-devel",
-    "libffi-devel",
-    "nspr-devel",
-    "zlib-ng-compat-devel",
     "libedit-devel",
-    "rust-std",
+    "libffi-devel",
     "linux-headers",
+    "nspr-devel",
+    "rust-std",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Mozilla JavaScript interpreter and library, version 115.x"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -27,12 +27,11 @@ license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
 sha256 = "3fa20d1897100684d2560a193a48d4a413f31e61f2ed134713d607c5f30d5d5c"
-debug_level = 1  # make the debug size not explode
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
     "RUST_TARGET": self.profile().triplet,
-    "PYTHON": "/usr/bin/python3.11",
+    "PYTHON": "/usr/bin/python3",
     "SHELL": "/usr/bin/sh",
     "MAKE": "gmake",
     "AWK": "gawk",
@@ -72,7 +71,7 @@ def do_configure(self):
         extra_opts += ["--enable-lto=cross"]
 
     self.do(
-        "python3.11",
+        "python3",
         self.chroot_cwd / "mach",
         "configure",
         "--prefix=/usr",
@@ -107,7 +106,14 @@ def do_configure(self):
 
 
 def do_build(self):
-    self.do("python3.11", self.chroot_cwd / "mach", "build", wrksrc="objdir")
+    self.do(
+        "python3",
+        self.chroot_cwd / "mach",
+        "build",
+        "--priority",
+        "normal",
+        wrksrc="objdir",
+    )
 
 
 def do_install(self):
