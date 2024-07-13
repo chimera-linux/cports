@@ -1,34 +1,33 @@
 pkgname = "rspamd"
-pkgver = "3.8.4"
-pkgrel = 1
+pkgver = "3.9.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCONFDIR=/etc/rspamd",
     "-DENABLE_FASTTEXT=ON",
-    "-DENABLE_LUAJIT=OFF",
     "-DENABLE_URI_INCLUDE=ON",
     "-DRSPAMD_GROUP=_rspamd",
     "-DRSPAMD_USER=_rspamd",
-    "-DSYSTEM_FMT=ON",
+    "-DSYSTEM_FMT=OFF",
     "-DSYSTEM_XXHASH=ON",
     "-DSYSTEM_ZSTD=ON",
     "-D_CAN_RUN=0",
     "-DHAVE_ATOMIC_BUILTINS_EXITCODE=0",
 ]
 make_build_args = ["--target", "all", "check"]
-# full tests require luajit
+# full tests have unknown failure
 make_check_args = ["-R", "rspamd-test-cxx"]
 hostmakedepends = ["cmake", "ninja", "perl", "pkgconf", "ragel"]
 makedepends = [
     "elfutils-devel",
     "fasttext-devel",
-    "fmt-devel",
     "glib-devel",
     "icu-devel",
+    "libarchive-devel",
     "libsodium-devel",
     "libunwind-devel",
     "linux-headers",
-    "lua5.4-devel",
+    "luajit-devel",
     "openssl-devel",
     "pcre2-devel",
     "snowball-devel",
@@ -41,7 +40,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND LGPL-3.0-only AND MIT AND Zlib"
 url = "https://rspamd.com/index.html"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ebea263f60a3d6036c153df0766b4aa03690e8caf59946d24ee54d8bb595c75d"
+sha256 = "e7e1ba150f8535ec0f25647d56448257098d4791bdbf3a572f197bf169d73b1f"
 
 
 match self.profile().arch:
