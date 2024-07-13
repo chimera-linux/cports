@@ -1,6 +1,6 @@
 pkgname = "libpeas2"
 pkgver = "2.0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dvapi=true"]
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -19,6 +19,7 @@ makedepends = [
     "gjs-devel",
     "gtk+3-devel",
     "lua5.1-devel",
+    "mozjs128-devel",
     "python-devel",
     "python-gobject-devel",
 ]
