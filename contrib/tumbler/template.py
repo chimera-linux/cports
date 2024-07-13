@@ -1,6 +1,6 @@
 pkgname = "tumbler"
 pkgver = "4.18.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
@@ -19,14 +19,16 @@ makedepends = [
     "gdk-pixbuf-devel",
     "glib-devel",
     "gst-plugins-base-devel",
+    "libcurl-devel",
     "libgsf-devel",
     "libjpeg-turbo-devel",
     "libopenraw-devel",
     "libpng-devel",
     "libpoppler-devel",
     "libxfce4util-devel",
-    # TODO: libgepub, cover-thumbnailer
+    # TODO: libgepub, if/when it moves off libsoup2
 ]
+depends = ["cover-thumbnailer"]
 pkgdesc = "Xfce implementation of the thumbnail management D-Bus spec"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
