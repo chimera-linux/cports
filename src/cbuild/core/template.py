@@ -11,6 +11,8 @@ import pty
 import sys
 import os
 import re
+import io
+import ast
 import termios
 import importlib
 import importlib.util
@@ -763,6 +765,41 @@ def pkg_profile(pkg, target):
     return profile.get_profile(target)
 
 
+class AstValidatorVisitor(ast.NodeVisitor):
+    def __init__(self, pkg):
+        self.pkg = pkg
+        super().__init__()
+
+    def generic_visit(self, node):
+        # skip non-assignments
+        if not isinstance(node, ast.Assign):
+            ast.NodeVisitor.generic_visit(self, node)
+            return
+        # skip not-dependencies
+        lname = node.targets[0].id
+        if lname not in [
+            "checkdepends",
+            "depends",
+            "hostmakedepends",
+            "makedepends",
+        ]:
+            ast.NodeVisitor.generic_visit(self, node)
+            return
+        # otherwise build the entry list and ensure it's sorted
+        unsorted = []
+        for e in node.value.elts:
+            # if the value is not 4-indented, it's a horizontal list so skip it
+            if e.col_offset > 4:
+                break
+            unsorted.append(e.value)
+        # and finally check
+        for i in range(len(unsorted) - 1):
+            if unsorted[i] > unsorted[i + 1]:
+                self.pkg.error(f"dependency list '{lname}' is not sorted")
+        # either way
+        ast.NodeVisitor.generic_visit(self, node)
+
+
 class Template(Package):
     def __init__(self, pkgname, origin):
         super().__init__()
@@ -990,12 +1027,18 @@ class Template(Package):
         if not cli.check_version(f"{self.pkgver}-r{self.pkgrel}"):
             self.error("pkgver has an invalid format")
 
+        self.validate_spdx()
+
         # validate other stuff
+        if not self.options["lint"]:
+            return
+
         self.validate_pkgdesc()
         self.validate_maintainer()
         self.validate_url()
-        self.validate_order()
-        self.validate_spdx()
+        self.validate_vars()
+        with open(self.template_path / "template.py") as f:
+            self.validate_ast(self.validate_order(f.read()))
 
     def resolve_depends(self):
         if self._depends_setup:
@@ -1062,10 +1105,6 @@ class Template(Package):
                     self.error(f"failed validating subpackage license: {lerr}")
 
     def validate_url(self):
-        # do not validate if not linting
-        if not self.options["lint"]:
-            return
-
         from urllib.parse import urlparse
 
         succ = True
@@ -1085,10 +1124,6 @@ class Template(Package):
             self.error("url path must not end with a slash")
 
     def validate_pkgdesc(self):
-        # do not validate if not linting
-        if not self.options["lint"]:
-            return
-
         dstr = self.pkgdesc
         if re.search(r"\.$", dstr):
             self.error("pkgdesc should not end with a period")
@@ -1109,10 +1144,6 @@ class Template(Package):
             self.error("pkgdesc should not contain a subdescription")
 
     def validate_maintainer(self):
-        # do not validate if not linting
-        if not self.options["lint"]:
-            return
-
         m = re.fullmatch(r"^(.+) <([^>]+)>$", self.maintainer)
         if not m:
             self.error("maintainer has an invalid format")
@@ -1127,12 +1158,8 @@ class Template(Package):
         if not re.fullmatch(addrp, grp[1]):
             self.error("maintainer email has an invalid format")
 
-    def validate_order(self):
+    def _get_fieldmap(self):
         global core_fields_map
-        # do not validate if not linting
-        if not self.options["lint"]:
-            return
-        # otherwise we need a mapping of var names to indexes
         if not core_fields_map:
             core_fields_map = {}
             # initialize the priority mapping if not done already
@@ -1141,60 +1168,74 @@ class Template(Package):
                 if pinc:
                     idx += 1
                 core_fields_map[n] = idx
+        return core_fields_map
+
+    def validate_ast(self, contents):
+        # templates are not ready for now
+        # AstValidatorVisitor(self).visit(ast.parse(contents))
+        pass
+
+    def validate_order(self, contents):
+        fmap = self._get_fieldmap()
         # by default assume success
         succ = True
         precomment = False
-        # we must read and parse the file
-        with open(self.template_path / "template.py") as f:
-            midx = 0
-            midx_line = None
-            msg = None
-            for ln in f:
-                # an empty line aborts the lint
-                if ln == "\n":
-                    break
-                sln = ln.strip()
-                # non-empty or commented line skips the line
-                if len(sln) == 0:
-                    continue
-                if sln.startswith("#"):
-                    precomment = True
-                    continue
-                # a non-assignment skips the line
-                ass = ln.find("=")
-                if ass < 0:
-                    continue
-                # get the assigned name
-                vnm = ln[0:ass].strip()
-                # not an actual name or it starts with underscore, so skip it
-                if not vnm.isidentifier() or vnm.startswith("_"):
-                    continue
-                # if options has check disabled, a reason must be given
-                if vnm == "options":
-                    if not self.options["check"] and not precomment:
-                        self.error(
-                            "lint failed: check disabled but no reason given"
-                        )
-                # reset comment presence
-                precomment = False
-                # unknown variables must go last, so they get a fallback index
-                cidx = core_fields_map.get(vnm, len(core_fields_priority))
-                if cidx < midx:
-                    msg = f"'{midx_line}' should go after '{vnm}'"
-                elif cidx > midx:
-                    midx = cidx
-                    midx_line = vnm
-                    if msg:
-                        succ = False
-                        self.log_red(msg)
-                        msg = None
-            # we have reached the end, print the message if any
-            if msg:
-                succ = False
-                self.log_red(msg)
+        midx = 0
+        midx_line = None
+        msg = None
+        mblock = 0
+        for ln in io.StringIO(contents):
+            # an empty line aborts the lint
+            if ln == "\n":
+                break
+            mblock += len(ln)
+            sln = ln.strip()
+            # non-empty or commented line skips the line
+            if len(sln) == 0:
+                continue
+            if sln.startswith("#"):
+                precomment = True
+                continue
+            # a non-assignment skips the line
+            ass = ln.find("=")
+            if ass < 0:
+                continue
+            # get the assigned name
+            vnm = ln[0:ass].strip()
+            # not an actual name or it starts with underscore, so skip it
+            if not vnm.isidentifier() or vnm.startswith("_"):
+                continue
+            # if options has check disabled, a reason must be given
+            if vnm == "options":
+                if not self.options["check"] and not precomment:
+                    self.error(
+                        "lint failed: check disabled but no reason given"
+                    )
+            # reset comment presence
+            precomment = False
+            # unknown variables must go last, so they get a fallback index
+            cidx = fmap.get(vnm, len(core_fields_priority))
+            if cidx < midx:
+                msg = f"'{midx_line}' should go after '{vnm}'"
+            elif cidx > midx:
+                midx = cidx
+                midx_line = vnm
+                if msg:
+                    succ = False
+                    self.log_red(msg)
+                    msg = None
+        # we have reached the end, print the message if any
+        if msg:
+            succ = False
+            self.log_red(msg)
         # if failed, error out
         if not succ:
             self.error("lint failed: incorrect variable order")
+        return contents[0:mblock]
+
+    def validate_vars(self):
+        succ = True
+        fmap = self._get_fieldmap()
         # validate vars
         for varn in vars(self._raw_mod):
             # custom vars should be underscored
@@ -1210,7 +1251,7 @@ class Template(Package):
                     succ = False
             else:
                 # skip if it's non-function and in fields
-                if varn in core_fields_map:
+                if varn in fmap:
                     continue
                 else:
                     self.log_red(f"unknown variable: {varn}")
