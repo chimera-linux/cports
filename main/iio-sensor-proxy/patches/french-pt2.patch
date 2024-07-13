@@ -1,0 +1,15 @@
+Patch-Source: https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/merge_requests/385
+--- a/tests/integration-test.py
++++ b/tests/integration-test.py
+@@ -98,8 +98,10 @@ class Tests(dbusmock.DBusTestCase):
+         # so check if that's available
+         try:
+             old_loc = locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
+-            cls.has_fr = True
+             locale.setlocale(locale.LC_ALL, old_loc)
++	    # We need to make sure the decimal point is correct as on musl libc the above
++	    # succeeds yet the tests just fail due to the output being in unexpected format
++            cls.has_fr = locale.localeconv()["decimal_point"] == ","
+         except:
+             cls.has_fr = False
+ 

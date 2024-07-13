@@ -1,0 +1,5 @@
+# iio-sensor-proxy service
+
+type = process
+command = /usr/libexec/iio-sensor-proxy
+depends-on = dbus
