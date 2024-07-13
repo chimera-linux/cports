@@ -1,5 +1,5 @@
 pkgname = "vulkan-headers"
-pkgver = "1.3.289"
+pkgver = "1.3.290"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja"]
@@ -10,6 +10,6 @@ url = "https://www.khronos.org/vulkan"
 source = (
     f"https://github.com/KhronosGroup/Vulkan-Headers/archive/v{pkgver}.tar.gz"
 )
-sha256 = "fc66db6de66a6e3527c110ff1db77a86ae97804fe7f019725e8d25acdc875c6f"
+sha256 = "c4606a201e8704d75bb974657f08604013d073a862cc127f9f31760213f3afa0"
 # no test suite
 options = ["!check"]
