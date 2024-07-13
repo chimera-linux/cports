@@ -1,0 +1,10 @@
+--- a/data/80-iio-sensor-proxy.rules
++++ b/data/80-iio-sensor-proxy.rules
+@@ -20,6 +20,6 @@ SUBSYSTEM=="input", ENV{ID_INPUT_ACCELEROMETER}=="1", ENV{IIO_SENSOR_PROXY_TYPE}
+ ENV{IIO_SENSOR_PROXY_TYPE}=="", GOTO="iio_sensor_proxy_end"
+ 
+ # We got here because we have a sensor type, which means we need the service
+-TAG+="systemd", ENV{SYSTEMD_WANTS}+="iio-sensor-proxy.service"
++RUN+="/usr/bin/dinitctl start iio-sensor-proxy"
+ 
+ LABEL="iio_sensor_proxy_end"
