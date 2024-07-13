@@ -1,5 +1,5 @@
 pkgname = "prison"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://api.kde.org/frameworks/prison/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/prison-{pkgver}.tar.xz"
-sha256 = "769807725787051e5e9a2f41eb7f791a9ce11be775a7eeff8d525f2a78b4bc46"
+sha256 = "dd6eb0b640e02636a876e69f8e2dba4043c8e444a6630eb20488754f5f57ea8d"
 hardening = ["vis", "!cfi"]
 
 

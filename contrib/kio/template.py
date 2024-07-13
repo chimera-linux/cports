@@ -1,5 +1,5 @@
 pkgname = "kio"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky
@@ -51,7 +51,7 @@ url = "https://api.kde.org/frameworks/kio/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kio-{pkgver}.tar.xz"
 )
-sha256 = "39e1afb324069605609c60c1d4638da886debf6159179521167b5159d79a0448"
+sha256 = "5fa031f3b97e96ed228b7c42c9625e9f3e5477e4ca2d5a6ba2ff1d2d8d74075d"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # CFI: breaks at least plasma-workspace's testrunnermodel
 hardening = ["vis", "!cfi"]
@@ -73,4 +73,4 @@ def _devel(self):
         "solid-devel",
     ]
 
-    return self.default_devel()
+    return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])

@@ -1,5 +1,5 @@
 pkgname = "kcmutils"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcmutils/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcmutils-{pkgver}.tar.xz"
-sha256 = "9998b08ce423c9e59cdcc126a7475359a0c4fbe6b0400f44410c8a5cb6928e40"
+sha256 = "59b1293ffe67134ceba30fb7ce741889c54f85ad0c90d155688bdd0dfc8f31be"
 # CFI: crashes systemsettings (when entering almost any page) in libkcmutilsqmlplugin.so
 hardening = ["vis", "!cfi"]
 

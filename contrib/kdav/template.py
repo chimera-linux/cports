@@ -1,5 +1,5 @@
 pkgname = "kdav"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -24,7 +24,7 @@ url = "https://api.kde.org/frameworks/kdav/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdav-{pkgver}.tar.xz"
 )
-sha256 = "b092a919e82553999578db1028f68ebfe6cb5f1da129722f2c6a662d0db729b9"
+sha256 = "cf428935158984443fc0736252cf2e717065b76a72e6a42864c0dbe7581038ec"
 
 
 @subpackage("kdav-devel")

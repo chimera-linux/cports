@@ -1,5 +1,5 @@
 pkgname = "kded"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -23,7 +23,7 @@ url = "https://api.kde.org/frameworks/kded/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kded-{pkgver}.tar.xz"
 )
-sha256 = "d4b3e55cba11b6ba12df7a3ab958e637130499a34fcc3b918a1cab7de6235e48"
+sha256 = "be5ae21cf9b436eafe49ca8be750259899dc803501c47ee436d8dad6d33bfb9c"
 hardening = ["vis", "!cfi"]
 
 

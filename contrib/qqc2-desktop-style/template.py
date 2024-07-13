@@ -1,5 +1,5 @@
 pkgname = "qqc2-desktop-style"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 # testAnimationSpeedModifier_kconfig() write not going through? 'longDurationSpy.wait()' returned FALSE
@@ -28,7 +28,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/frameworks/qqc2-desktop-style/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/qqc2-desktop-style-{pkgver}.tar.xz"
-sha256 = "9e7e69bb7f3646d2fcc37a24364c55d7c974c83cf6e2d906a39a8a8e14f1bcb0"
+sha256 = "9b133056638a11b998883edff0d9078e868c09725868bdaee8e733fde308f0fb"
 # CFI: makes kwin_wayland die top-left hotcorner and
 # kcmshell6 on konsole titlebar right-click -> More Actions -> Configure Special * Settings...
 hardening = ["vis", "!cfi"]

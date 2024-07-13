@@ -1,5 +1,5 @@
 pkgname = "attica"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 # requires network access and passes in cbuild chroot
@@ -18,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/attica/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/attica-{pkgver}.tar.xz"
-sha256 = "abaf3a113a002d5d8435a3a75020f98c574290d2c552a5f256291d0418cc59ed"
+sha256 = "c3f66e2c02ef313fa240f5aabfbcad3969fdfc788c9604d1cf7e4e0893fb5740"
 # cfi causes crash when pressing "Get New Plugins..." button in the
 # "Wallpaper" section of Plasma's system settings app
 hardening = ["vis", "!cfi"]

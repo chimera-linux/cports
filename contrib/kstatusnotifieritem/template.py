@@ -1,11 +1,12 @@
 pkgname = "kstatusnotifieritem"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "ninja",
+    "pkgconf",
 ]
 makedepends = [
     "kwindowsystem-devel",
@@ -17,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/frameworks/kstatusnotifieritem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kstatusnotifieritem-{pkgver}.tar.xz"
-sha256 = "ce1f2e33d0dbe81a48f0040977b7b7aa7234f6a003173e395b3de5d783398cd8"
+sha256 = "32790111741482844ae1901c37db568346efc2ae68f712cecc6b9a5c1cba81b9"
 hardening = ["vis", "!cfi"]
 
 

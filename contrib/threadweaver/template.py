@@ -1,5 +1,5 @@
 pkgname = "threadweaver"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/threadweaver/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/threadweaver-{pkgver}.tar.xz"
-sha256 = "81201f8f9918d6967b76a5c8c468481289e5bf56351b3e140cce532821f7d913"
+sha256 = "a317ad5b4e0ae8dee7fd95026a3df3f5fc1c2e53aec6d5ccbadddfc753c29598"
 # CFI: fails most tests
 hardening = ["vis", "!cfi"]
 

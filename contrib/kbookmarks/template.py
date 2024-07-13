@@ -1,5 +1,5 @@
 pkgname = "kbookmarks"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -21,7 +21,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kbookmarks/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kbookmarks-{pkgver}.tar.xz"
-sha256 = "f0789daaab86b0c2451a91e21327f20bf1d200491cf7744af93c262aa76cfea1"
+sha256 = "13c72b0c47e333ada60a4665af7829910f5c83dd6ed57789fa3229ca68ad3280"
 hardening = ["vis", "!cfi"]
 
 

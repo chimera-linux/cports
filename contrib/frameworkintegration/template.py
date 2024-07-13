@@ -1,5 +1,5 @@
 pkgname = "frameworkintegration"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -26,7 +26,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/frameworkintegration/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/frameworkintegration-{pkgver}.tar.xz"
-sha256 = "94700551b3373f792b27ea6ca3013c7bda8f6b63260b918b3c1eec0d83ad4c7f"
+sha256 = "4682d15c3a2e49785eda8f6c309e5f30d82ff6a5bcc39228544374c64199ef71"
 hardening = ["vis", "!cfi"]
 
 

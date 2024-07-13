@@ -1,5 +1,5 @@
 pkgname = "kservice"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky tests when parallel
@@ -22,7 +22,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kservice/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kservice-{pkgver}.tar.xz"
-sha256 = "a0564d62c1e0f2293b0dcb39cf814c2856111242b8621b33f52a70fda1a8fe54"
+sha256 = "cdb9d7e3c6ffa3f7da8ff33a7b3ecb95ef8451bdefb97bcb79452fa03e7d8a1f"
 # CFI: breaks at least k{applicationtrader,mimeassociations}test
 hardening = ["vis", "!cfi"]
 

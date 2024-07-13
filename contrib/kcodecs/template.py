@@ -1,5 +1,5 @@
 pkgname = "kcodecs"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcodecs/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcodecs-{pkgver}.tar.xz"
-sha256 = "6902531afc3d47d543feb971c2bc04901af265e6730a477af4400073b22ec6ec"
+sha256 = "2ca3e70634e8116dd32601c551e092cf9941ea1d19ae501eed9e5477e298bfd4"
 # CFI: at least a few tests fail
 hardening = ["vis", "!cfi"]
 

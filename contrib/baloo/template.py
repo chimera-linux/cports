@@ -1,5 +1,5 @@
 pkgname = "baloo"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: "not connected to dbus server"
@@ -33,7 +33,7 @@ url = "https://api.kde.org/frameworks/baloo/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/baloo-{pkgver}.tar.xz"
 )
-sha256 = "87af96e58d9303479e628b7c801665631b6e5698e1ba9526f415cf6f3755a064"
+sha256 = "07474aea2c407a4fb01cd2640589a93e8baadb04f8ba19ae6d8f40293c4c4699"
 # CFI: test
 hardening = ["vis", "!cfi"]
 

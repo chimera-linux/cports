@@ -1,5 +1,5 @@
 pkgname = "kcompletion"
-pkgver = "6.3.0"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -20,7 +20,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcompletion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcompletion-{pkgver}.tar.xz"
-sha256 = "3f027ac6bd285d040a5038c31b10e306bd2cb099d396e88536cd149e88ee712e"
+sha256 = "f08e2af5046a7ba5a324e475a9f107294b3b83e45e14d70e422f99dda1459d51"
 # CFI: crashes kio kurl*test & e.g. kwrite save file dialog upon first char of filename in libKF6Completion.so
 hardening = ["vis", "!cfi"]
 
