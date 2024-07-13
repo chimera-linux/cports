@@ -1,6 +1,6 @@
 pkgname = "pipx"
 pkgver = "1.6.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,6 +14,7 @@ checkdepends = [
 depends = [
     "python-argcomplete",
     "python-packaging",
+    "python-pip",
     "python-platformdirs",
     "python-userpath",
 ]
