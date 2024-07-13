@@ -1,0 +1,31 @@
+From 94a5064990fdc83d95a37c3bed525bf428ae9d03 Mon Sep 17 00:00:00 2001
+From: Jami Kettunen <jami.kettunen@protonmail.com>
+Date: Thu, 18 Jul 2024 19:40:58 +0300
+Subject: [PATCH] tests: Skip fr_FR locale requiring tests properly for musl
+
+Despite locale.setlocale() succeeding the decimal_point never changes
+on musl libc (even with musl-locales setup) and the tests previously
+remained broken.
+---
+ tests/integration-test.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/tests/integration-test.py b/tests/integration-test.py
+index 4ccabb3..51d90e8 100755
+--- a/tests/integration-test.py
++++ b/tests/integration-test.py
+@@ -98,8 +98,10 @@ class Tests(dbusmock.DBusTestCase):
+         # so check if that's available
+         try:
+             old_loc = locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
+-            cls.has_fr = True
+             locale.setlocale(locale.LC_ALL, old_loc)
++	    # We need to make sure the decimal point is correct as on musl libc the above
++	    # succeeds yet the tests just fail due to the output being in unexpected format
++            cls.has_fr = locale.localeconv()["decimal_point"] == ","
+         except:
+             cls.has_fr = False
+ 
+-- 
+GitLab
+
