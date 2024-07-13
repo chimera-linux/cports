@@ -1,0 +1,28 @@
+--- a/dynamic_mod.h
++++ b/dynamic_mod.h
+@@ -30,11 +30,11 @@
+ 	void (*MikMod_Exit)(void);
+ 	CHAR* (*MikMod_InfoDriver)(void);
+ 	CHAR* (*MikMod_InfoLoader)(void);
+-	BOOL (*MikMod_Init)(CHAR*);
++	BOOL (*MikMod_Init)(const CHAR*);
+ 	void (*MikMod_RegisterAllLoaders)(void);
+ 	void (*MikMod_RegisterDriver)(struct MDRIVER*);
+ 	int* MikMod_errno;
+-	char* (*MikMod_strerror)(int);
++	const char* (*MikMod_strerror)(int);
+ 	BOOL (*Player_Active)(void);
+ 	void (*Player_Free)(MODULE*);
+ 	MODULE* (*Player_LoadGeneric)(MREADER*,int,BOOL);
+
+--- a/dynamic_ogg.h
++++ b/dynamic_ogg.h
+@@ -31,7 +31,7 @@
+ 	void *handle;
+ 	int (*ov_clear)(OggVorbis_File *vf);
+ 	vorbis_info *(*ov_info)(OggVorbis_File *vf,int link);
+-	int (*ov_open_callbacks)(void *datasource, OggVorbis_File *vf, char *initial, long ibytes, ov_callbacks callbacks);
++	int (*ov_open_callbacks)(void *datasource, OggVorbis_File *vf, const char *initial, long ibytes, ov_callbacks callbacks);
+ 	ogg_int64_t (*ov_pcm_total)(OggVorbis_File *vf,int i);
+ #ifdef OGG_USE_TREMOR
+ 	long (*ov_read)(OggVorbis_File *vf,char *buffer,int length, int *bitstream);
