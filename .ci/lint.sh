@@ -29,8 +29,9 @@ fi
 
 # for local pre-push hooks that probably don't want to wait 10 seconds
 if [ -z "$CI_SKIP_EXPENSIVE" ]; then
-    invoke python3.11 cbuild relink-subpkgs && git diff --exit-code
-    invoke python3.11 cbuild cycle-check
+    invoke python3 cbuild relink-subpkgs
+    invoke git diff --exit-code
+    invoke python3 cbuild cycle-check
 fi
 
 exit $RET
