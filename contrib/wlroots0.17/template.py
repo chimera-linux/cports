@@ -1,6 +1,6 @@
 pkgname = "wlroots0.17"
 pkgver = "0.17.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     # all auto features are needed,
@@ -36,7 +36,6 @@ makedepends = [
     "xcb-util-renderutil-devel",
     "xcb-util-wm-devel",
 ]
-provides = [f"wlroots={pkgver}-r{pkgrel}"]
 pkgdesc = "Modular Wayland compositor library 0.17.x"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
@@ -51,5 +50,4 @@ def post_install(self):
 
 @subpackage("wlroots0.17-devel")
 def _devel(self):
-    self.provides = [f"wlroots-devel={pkgver}-r{pkgrel}"]
     return self.default_devel()
