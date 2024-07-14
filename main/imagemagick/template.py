@@ -1,6 +1,6 @@
 pkgname = "imagemagick"
-pkgver = "7.1.1.34"
-pkgrel = 1
+pkgver = "7.1.1.35"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -36,9 +36,6 @@ configure_args = [
     # TODO later
     # "--with-raqm",
     # "--with-wmf",
-    # clang 16 implicit decls
-    "ac_cv_have_decl_strlcpy=yes",
-    "ac_cv_func_strchr=yes",
 ]
 configure_gen = []
 make_cmd = "gmake"
@@ -46,33 +43,33 @@ make_cmd = "gmake"
 make_install_args = ["MAKE=gmake"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "gmake", "perl"]
 makedepends = [
+    "bzip2-devel",
+    "djvulibre-devel",
     "djvulibre-devel",
     "fftw-devel",
-    "libgs-devel",
-    "libomp-devel",
-    "librsvg-devel",
-    "lcms2-devel",
-    "libheif-devel",
-    "libpng-devel",
-    "libtiff-devel",
-    "libwebp-devel",
-    "openexr-devel",
-    "openjpeg-devel",
-    "zlib-ng-compat-devel",
-    "bzip2-devel",
-    "zstd-devel",
-    "graphviz-devel",
-    "djvulibre-devel",
     "fontconfig-devel",
     "freetype-devel",
+    "graphviz-devel",
+    "jbigkit-devel",
+    "lcms2-devel",
+    "libgs-devel",
+    "libheif-devel",
     "libjpeg-turbo-devel",
     "libjxl-devel",
+    "libltdl-devel",
+    "libomp-devel",
+    "libpng-devel",
     "libpng-devel",
     "libraw-devel",
-    "jbigkit-devel",
-    "pango-devel",
+    "librsvg-devel",
+    "libtiff-devel",
+    "libwebp-devel",
     "libxml2-devel",
-    "libltdl-devel",
+    "openexr-devel",
+    "openjpeg-devel",
+    "pango-devel",
+    "zlib-ng-compat-devel",
+    "zstd-devel",
 ]
 checkdepends = ["ghostscript"]
 pkgdesc = "Create, edit, compose, or convert digital images"
@@ -80,7 +77,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ImageMagick"
 url = "https://www.imagemagick.org"
 source = f"https://github.com/ImageMagick/ImageMagick/archive/{'-'.join(pkgver.rsplit('.', 1))}.tar.gz"
-sha256 = "19f4303774b56be182c576b266c34bc824fcaef1d1d243192344d015adb0ec28"
+sha256 = "438db932abbf4f08d57e89dfbfdb82403b2ced8568ded5cd0f879d8e6fb7eaf4"
 # runs out of file descriptors
 options = ["!cross", "!check"]
 
