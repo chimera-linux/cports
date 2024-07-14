@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
-pkgver = "14.0.7"
-pkgrel = 3
+pkgver = "14.1.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e6af4876242128036faa51ae129c3eb2e8042a684e4e86339ab3a747cbcf0317"
+sha256 = "c5e77adb252620949da2e58827d12537ec4ae98f0b9ae8f71b8a30b1127882ee"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
@@ -81,7 +81,7 @@ def _full(self):
         "usr/bin/ex",
         "usr/bin/fetch",
         "usr/bin/gencat",
-        "usr/bin/locate",
+        "usr/bin/locate*",
         "usr/bin/m4",
         "usr/bin/nc",
         "usr/bin/ncal",
