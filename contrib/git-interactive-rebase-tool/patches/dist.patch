@@ -1,0 +1,34 @@
+diff --git a/src/version.rs b/src/version.rs
+index 86d51fc..e0e8f88 100644
+--- a/src/version.rs
++++ b/src/version.rs
+@@ -6,15 +6,7 @@ pub(crate) const VERSION: &str = env!("CARGO_PKG_VERSION");
+ pub(crate) const VERSION: &str = concat!(env!("CARGO_PKG_VERSION"), "-dev");
+ 
+ fn build_version() -> String {
+-	let mut parts = vec![];
+-
+-	if let Some(hash) = option_env!("GIRT_BUILD_GIT_HASH") {
+-		parts.push(String::from(hash));
+-	}
+-
+-	parts.push(String::from(env!("GIRT_BUILD_DATE")));
+-
+-	format!("interactive-rebase-tool {VERSION} ({})", parts.join(" "))
++	format!("interactive-rebase-tool {VERSION}")
+ }
+ 
+ pub(crate) fn run() -> Exit {
+@@ -44,12 +36,4 @@ mod tests {
+ 		assert!(version.starts_with("interactive-rebase-tool"));
+ 	}
+ 
+-	#[test]
+-	#[serial_test::serial]
+-	fn build_version_with_env() {
+-		let version = build_version();
+-		let expected_meta = format!("({} {})", env!("GIRT_BUILD_GIT_HASH"), env!("GIRT_BUILD_DATE"));
+-		assert!(version.starts_with("interactive-rebase-tool"));
+-		assert!(version.ends_with(expected_meta.as_str()));
+-	}
+ }
