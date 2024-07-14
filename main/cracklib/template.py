@@ -1,7 +1,6 @@
 pkgname = "cracklib"
-pkgver = "2.9.11"
-pkgrel = 1
-build_wrksrc = f"{pkgname}"
+pkgver = "2.10.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 make_cmd = "gmake"
@@ -20,22 +19,21 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/cracklib/cracklib"
 source = [
-    f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz",
-    f"{url}/releases/download/v{pkgver}/{pkgname}-words-{pkgver}.gz",
+    f"{url}/releases/download/v{pkgver}/cracklib-{pkgver}.tar.gz",
+    f"{url}/releases/download/v{pkgver}/cracklib-words-{pkgver}.gz",
 ]
+source_paths = [".", "words"]
 sha256 = [
-    "6213b986a5209fc0d4ca93734e349b8f66b36bfe9a3fae6eead14a15d82a68dc",
-    "a68a711a3135739d7b67e9f360b33f0d4eccf9bd7fac4d17c0d5e456a91c517a",
+    "3451f0f28676268a0c6d8b0d5deff090d675a7cfe97825829785bcd9c25caf57",
+    "2432e8fdb48b2228c2d83525fbc43bd388b6ce0c397312fab7af30bee8af3e96",
 ]
-
-
-def post_extract(self):
-    self.mv(f"{pkgname}-{pkgver}", f"{pkgname}")
+# working release por favor
+options = ["!check"]
 
 
 def post_install(self):
     self.install_file(
-        f"../{pkgname}-words-{pkgver}",
+        f"./words/cracklib-words-{pkgver}",
         "usr/share/cracklib",
         name="cracklib-words",
     )
@@ -59,6 +57,6 @@ def _devel(self):
 @subpackage("cracklib-words")
 def _words(self):
     self.subdesc = "large word list"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return ["usr/share/cracklib/cracklib-words.gz"]
