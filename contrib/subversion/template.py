@@ -79,6 +79,8 @@ def post_install(self):
         f"PERL_INSTALL_ROOT={self.chroot_destdir}",
     )
     self.rename("usr/share/pkgconfig", "usr/lib/pkgconfig", relative=False)
+    # bash completions
+    self.install_completion("tools/client-side/bash_completion", "bash")
     for f in [
         "svn",
         "svnadmin",
