@@ -27,7 +27,6 @@ makedepends = [
     "libsodium-devel",
     "libunwind-devel",
     "linux-headers",
-    "luajit-devel",
     "openssl-devel",
     "pcre2-devel",
     "snowball-devel",
@@ -46,7 +45,10 @@ sha256 = "e7e1ba150f8535ec0f25647d56448257098d4791bdbf3a572f197bf169d73b1f"
 match self.profile().arch:
     case "aarch64" | "ppc64le" | "x86_64":
         configure_args += ["-DENABLE_HYPERSCAN=ON"]
-        makedepends += ["vectorscan-devel"]
+        makedepends += ["luajit-devel", "vectorscan-devel"]
+    case "riscv64":
+        configure_args += ["-DENABLE_LUAJIT=OFF"]
+        makedepends += ["lua5.4-devel"]
 
 
 def post_install(self):
