@@ -18,7 +18,8 @@ depends = [
 ]
 checkdepends = [
     "python-pytest-xdist",
-] + depends
+    *depends,
+]
 pkgdesc = "Implementation of the JSON Schema specification for Python"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"

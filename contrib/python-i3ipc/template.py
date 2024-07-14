@@ -12,7 +12,8 @@ depends = ["python-xlib"]
 checkdepends = [
     "python-pytest",
     "python-pytest-asyncio",
-] + depends
+    *depends,
+]
 pkgdesc = "Python library to control i3wm and sway"
 maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "BSD-3-Clause"

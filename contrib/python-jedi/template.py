@@ -11,7 +11,8 @@ depends = ["python-parso"]
 checkdepends = [
     "python-attrs",
     "python-pytest-xdist",
-] + depends
+    *depends,
+]
 pkgdesc = "Autocompletion and analysis library for Python"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

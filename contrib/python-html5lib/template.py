@@ -16,7 +16,8 @@ checkdepends = [
     "python-mock",
     "python-pytest",
     "python-pytest-expect",
-] + depends
+    *depends,
+]
 pkgdesc = "Python html parser"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

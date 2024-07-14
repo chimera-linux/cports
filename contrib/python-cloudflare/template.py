@@ -16,7 +16,8 @@ depends = [
 checkdepends = [
     "python-pytest",
     "python-pytz",
-] + depends
+    *depends,
+]
 pkgdesc = "Python wrapper for the Cloudflare v4 API"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"

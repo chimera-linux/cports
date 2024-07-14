@@ -22,7 +22,8 @@ checkdepends = [
     "python-blinker",
     "python-pytest",
     "python-semantic_version",
-] + depends
+    *depends,
+]
 pkgdesc = "Flask user session management"
 maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"

@@ -16,7 +16,8 @@ checkdepends = [
     "mandoc",
     "python-pytest",
     "zsh",
-] + depends
+    *depends,
+]
 pkgdesc = "Python port of expect(1) for child process handling"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "ISC"

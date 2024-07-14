@@ -17,7 +17,8 @@ depends = [
 checkdepends = [
     "python-pyhamcrest",
     "python-pytest",
-] + depends
+    *depends,
+]
 pkgdesc = "Language server protocol types for Python"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

@@ -17,7 +17,8 @@ depends = [
 checkdepends = [
     "python-flaky",
     "python-pytest-xdist",
-] + depends
+    *depends,
+]
 pkgdesc = "Python LSP server"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

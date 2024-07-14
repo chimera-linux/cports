@@ -11,7 +11,8 @@ hostmakedepends = [
 depends = ["python-dateutil"]
 checkdepends = [
     "python-pytest",
-] + depends
+    *depends,
+]
 pkgdesc = "Let your python tests travel through time"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"

@@ -20,7 +20,8 @@ checkdepends = [
     "python-pytest-xdist",
     "python-pytz",
     "python-typing_extensions",
-] + depends
+    *depends,
+]
 pkgdesc = "Python library for property-based testing"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MPL-2.0"

@@ -13,7 +13,8 @@ checkdepends = [
     "python-pretend",
     "python-pytest",
     "python-pytest-rerunfailures",
-] + depends
+    *depends,
+]
 pkgdesc = "Python interface to OpenSSL"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"

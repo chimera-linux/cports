@@ -13,7 +13,8 @@ checkdepends = [
     "python-hypothesis",
     "python-pytest-benchmark",
     "python-pytest-xdist",
-] + depends
+    *depends,
+]
 pkgdesc = "Python module for data structuring and unstructuring"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
