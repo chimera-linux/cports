@@ -50,7 +50,7 @@ def do_check(self):
 
 def do_install(self):
     destp = "usr/lib/u-boot/" + self.pkgname.removeprefix("u-boot-")
-    for f in ["u-boot.bin", ".config"] + self.env["U_BOOT_TARGETS"].split():
+    for f in ["u-boot.bin", ".config", *self.env["U_BOOT_TARGETS"].split()]:
         self.install_file(f, destp)
     # flasher
     if (self.files_path / "flash.sh").is_file():

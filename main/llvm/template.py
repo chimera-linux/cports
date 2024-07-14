@@ -213,8 +213,8 @@ exec /usr/bin/ccache /usr/lib/llvm-bootstrap/bin/{f} "$@"
         self,
         "build",
         self.cmake_dir,
-        self.configure_args
-        + [
+        [
+            *self.configure_args,
             "-DLLVM_TARGET_ARCH=" + _arch,
             "-DLLVM_HOST_TRIPLE=" + trip,
             "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,

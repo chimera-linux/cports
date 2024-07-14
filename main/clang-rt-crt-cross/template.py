@@ -115,8 +115,8 @@ def do_configure(self):
                     self,
                     f"build-{an}",
                     self.cmake_dir,
-                    configure_args
-                    + [
+                    [
+                        *configure_args,
                         "-DCMAKE_SYSROOT="
                         + str(self.chroot_cwd / f"musl-{an}"),
                         f"-DCMAKE_ASM_COMPILER_TARGET={at}",

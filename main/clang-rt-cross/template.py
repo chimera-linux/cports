@@ -89,8 +89,8 @@ def do_configure(self):
                     self,
                     f"build-{an}",
                     self.cmake_dir,
-                    configure_args
-                    + [
+                    [
+                        *configure_args,
                         f"-DCMAKE_SYSROOT=/usr/{at}",
                         f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                         f"-DCMAKE_CXX_COMPILER_TARGET={at}",

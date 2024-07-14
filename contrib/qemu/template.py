@@ -275,7 +275,7 @@ def _spkg(sname):
         # never strip them
         self.nostrip_files = extras
 
-        return [f"usr/bin/qemu-system-{sname}"] + extras
+        return [f"usr/bin/qemu-system-{sname}", *extras]
 
 
 for _sys in [

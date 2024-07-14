@@ -40,7 +40,7 @@ def do_configure(self):
     cmake.configure(
         self,
         build_dir="build-nox",
-        extra_args=self.configure_args + ["-DGUI=OFF"],
+        extra_args=[*self.configure_args, "-DGUI=OFF"],
     )
 
 

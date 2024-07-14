@@ -4,7 +4,7 @@ pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["EXTRA=py-smbus"]
-make_install_args = ["sbindir=/usr/bin"] + make_build_args
+make_install_args = ["sbindir=/usr/bin", *make_build_args]
 hostmakedepends = ["gmake", "python", "python-setuptools"]
 makedepends = ["linux-headers", "python-devel"]
 depends = ["perl"]

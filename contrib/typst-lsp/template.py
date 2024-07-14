@@ -6,7 +6,8 @@ make_build_args = [
     "--no-default-features",
     "--features=remote-packages,fontconfig,native-tls",
 ]
-make_check_args = make_build_args + [
+make_check_args = [
+    *make_build_args,
     "--",
     "--skip=workspace::package::external::remote_repo::test::full_download",
 ]

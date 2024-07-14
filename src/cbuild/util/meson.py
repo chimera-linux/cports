@@ -122,7 +122,7 @@ def install(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
     renv = {"DESTDIR": str(pkg.chroot_destdir)}
     renv.update(env)
     invoke(
-        pkg, "install", build_dir, ["--no-rebuild"] + extra_args, renv, wrapper
+        pkg, "install", build_dir, ["--no-rebuild", *extra_args], renv, wrapper
     )
 
 
@@ -136,8 +136,8 @@ def test(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
             "--print-errorlogs",
             "--num-processes",
             str(pkg.make_jobs),
-        ]
-        + extra_args,
+            *extra_args,
+        ],
         env,
         wrapper,
     )

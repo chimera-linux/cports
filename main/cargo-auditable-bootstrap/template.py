@@ -4,7 +4,8 @@ pkgver = "0.6.4"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["-p", "cargo-auditable"]
-make_check_args = make_build_args + [
+make_check_args = [
+    *make_build_args,
     "--",
     "--skip",
     # probably fails because we have slightly older cargo

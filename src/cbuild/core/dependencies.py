@@ -179,7 +179,7 @@ def _install_from_repo(pkg, pkglist, cross=False):
     if pkg.stage == 0:
         ret = apki.call(
             "add",
-            ["--usermode", "--no-scripts"] + pkglist,
+            ["--usermode", "--no-scripts", *pkglist],
             pkg,
             capture_output=True,
             allow_untrusted=not signkey,
@@ -191,8 +191,8 @@ def _install_from_repo(pkg, pkglist, cross=False):
                 "--root",
                 str(pkg.profile().sysroot),
                 "--no-scripts",
-            ]
-            + pkglist,
+                *pkglist,
+            ],
             pkg,
             capture_output=True,
             arch=pkg.profile().arch,
@@ -227,7 +227,7 @@ def _get_vers(pkgs, pkg, sysp, arch):
     with flock.lock(flock.apklock(arch if arch else chroot.host_cpu())):
         out, crepos = apki.call(
             "search",
-            ["--from", "none", "-e", "-a"] + plist,
+            ["--from", "none", "-e", "-a", *plist],
             pkg,
             root=sysp,
             capture_output=True,

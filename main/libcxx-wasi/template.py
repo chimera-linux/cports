@@ -92,8 +92,8 @@ def do_configure(self):
                 self,
                 f"build-{tgt[0]}",
                 self.cmake_dir,
-                configure_args
-                + [
+                [
+                    *configure_args,
                     f"-DCMAKE_ASM_COMPILER_TARGET={tgt[0]}",
                     f"-DCMAKE_C_COMPILER_TARGET={tgt[0]}",
                     f"-DCMAKE_CXX_COMPILER_TARGET={tgt[0]}",

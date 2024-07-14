@@ -39,8 +39,8 @@ def do_configure(self):
     cmake.configure(
         self,
         build_dir="build-12",
-        extra_args=self.configure_args
-        + [
+        extra_args=[
+            *self.configure_args,
             # doesn't work with non-byte pixel value
             "-DENABLE_ALTIVEC=OFF",
             "-DENABLE_CLI=OFF",
@@ -53,8 +53,8 @@ def do_configure(self):
     cmake.configure(
         self,
         build_dir="build-10",
-        extra_args=self.configure_args
-        + [
+        extra_args=[
+            *self.configure_args,
             # doesn't work with non-byte pixel value
             "-DENABLE_ALTIVEC=OFF",
             "-DENABLE_SHARED=OFF",
@@ -67,8 +67,8 @@ def do_configure(self):
     cmake.configure(
         self,
         build_dir="build",
-        extra_args=self.configure_args
-        + [
+        extra_args=[
+            *self.configure_args,
             "-DEXTRA_LIB=x265_main10.a;x265_main12.a",
             "-DEXTRA_LINK_FLAGS=-L.",
             "-DLINKED_10BIT=TRUE",

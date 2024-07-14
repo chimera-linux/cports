@@ -61,7 +61,7 @@ class Golang:
             jobs = self.template.make_jobs
 
         if command != "mod":
-            args = ["-p", str(jobs)] + args
+            args = ["-p", str(jobs), *args]
 
         self.template.log(f"golang: go {command} {' '.join(args)}")
 

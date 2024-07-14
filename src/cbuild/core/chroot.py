@@ -54,7 +54,7 @@ def chroot_check(force=False, error=True):
 def set_extras(elist):
     global _extra_pkgs
 
-    _extra_pkgs = ["base-cbuild"] + elist
+    _extra_pkgs = ["base-cbuild", *elist]
 
 
 def _subst_in(pat, rep, src, dest=None):
@@ -278,7 +278,7 @@ def install():
     with flock.lock(lkp):
         irun = apki.call(
             "add",
-            ["--usermode", "--no-scripts"] + _extra_pkgs,
+            ["--usermode", "--no-scripts", *_extra_pkgs],
             template.get_cats(),
             arch=host_cpu(),
         )

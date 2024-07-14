@@ -7,7 +7,8 @@ make_build_args = [
     "--features=openssl",
 ]
 make_install_args = [*make_build_args]
-make_check_args = make_build_args + [
+make_check_args = [
+    *make_build_args,
     "--",
     "--test-threads=1",
     # both make remote requests to wikimedia

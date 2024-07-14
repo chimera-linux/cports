@@ -195,7 +195,7 @@ class Cargo:
         tmpl = self.template
         return self._invoke(
             "build",
-            ["--release"] + tmpl.make_build_args + args,
+            ["--release", *tmpl.make_build_args, *args],
             jobs,
             True,
             tmpl.make_build_env,
@@ -215,9 +215,9 @@ class Cargo:
                 "--path",
                 ".",
                 "--no-track",
-            ]
-            + tmpl.make_install_args
-            + args,
+                *tmpl.make_install_args,
+                *args,
+            ],
             jobs,
             True,
             tmpl.make_install_env,

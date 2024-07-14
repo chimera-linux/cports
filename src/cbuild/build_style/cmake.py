@@ -38,9 +38,11 @@ def do_check(self):
         cmake.build(
             self,
             self.make_dir,
-            ["--target"]
-            + self.make_check_target.split()
-            + self.make_check_args,
+            [
+                "--target",
+                *self.make_check_target.split(),
+                *self.make_check_args,
+            ],
             renv,
             self.make_wrapper + self.make_check_wrapper,
         )

@@ -113,7 +113,7 @@ def _upkg(uname):
             case "i386":
                 extra = ["usr/lib/binfmt.d/qemu-i486.conf"]
 
-        return [f"usr/lib/binfmt.d/qemu-{uname}.conf"] + extra
+        return [f"usr/lib/binfmt.d/qemu-{uname}.conf", *extra]
 
 
 for _u in [

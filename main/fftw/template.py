@@ -38,12 +38,12 @@ def do_configure(self):
     gnu_configure.configure(
         self,
         build_dir="build-long-double",
-        extra_args=eargs + ["--enable-long-double"],
+        extra_args=[*eargs, "--enable-long-double"],
     )
     gnu_configure.configure(
         self,
         build_dir="build-float",
-        extra_args=eargs + ["--enable-float"] + sseargs,
+        extra_args=[*eargs, "--enable-float", *sseargs],
     )
 
 

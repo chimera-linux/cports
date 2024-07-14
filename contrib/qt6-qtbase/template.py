@@ -235,7 +235,7 @@ def _libpkg(name, libname, desc, extra=[]):
     @subpackage(f"qt6-qtbase-{name}")
     def _sp(self):
         self.subdesc = desc
-        return [f"usr/lib/libQt6{libname}.so.*"] + extra
+        return [f"usr/lib/libQt6{libname}.so.*", *extra]
 
 
 for _sp in [
