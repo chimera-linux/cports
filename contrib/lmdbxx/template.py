@@ -8,7 +8,7 @@ make_cmd = "gmake"
 make_check_args = ["LDFLAGS=", "CXXFLAGS="]
 hostmakedepends = ["gmake"]
 makedepends = ["lmdb-devel"]
-depends = list(makedepends)
+depends = [*makedepends]
 pkgdesc = "Header-only C++ wrapper for LMDB"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Unlicense"

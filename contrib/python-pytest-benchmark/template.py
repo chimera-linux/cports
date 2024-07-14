@@ -12,7 +12,7 @@ depends = [
     "python-py-cpuinfo",
     "python-pytest",
 ]
-checkdepends = list(depends)
+checkdepends = [*depends]
 pkgdesc = "Pytest fixture for benchmarking"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"

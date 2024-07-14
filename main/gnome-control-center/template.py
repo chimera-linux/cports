@@ -61,7 +61,7 @@ depends = [
     "tecla",
     "udisks",
 ]
-checkdepends = ["python-dbusmock", "xwayland-run"] + depends
+checkdepends = ["python-dbusmock", "xwayland-run", *depends]
 pkgdesc = "GNOME control center"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

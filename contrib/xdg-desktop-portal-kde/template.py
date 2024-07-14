@@ -37,7 +37,8 @@ depends = [
 checkdepends = [
     "dbus",
     "python-gobject",
-] + depends
+    *depends,
+]
 pkgdesc = "Backend implementation for xdg-desktop-portal using Qt/KF6"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"

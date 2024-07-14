@@ -15,7 +15,8 @@ checkdepends = [
     "python-pytest-xdist",
     "python-requests",
     "python-websockets",
-] + depends
+    *depends,
+]
 pkgdesc = "CLI program to download videos from YouTube and other sites"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unlicense"

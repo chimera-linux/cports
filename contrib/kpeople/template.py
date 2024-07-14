@@ -18,7 +18,7 @@ makedepends = [
 ]
 # qt sqlite use at runtime
 depends = ["qt6-qtbase-sql"]
-checkdepends = list(depends)
+checkdepends = [*depends]
 pkgdesc = "KDE contact api"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"

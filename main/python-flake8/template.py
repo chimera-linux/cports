@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-pycodestyle", "python-pyflakes", "python-mccabe"]
-checkdepends = ["python-pytest", "python-mock"] + depends
+checkdepends = ["python-pytest", "python-mock", *depends]
 pkgdesc = "Python tool for style guide enforcement"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

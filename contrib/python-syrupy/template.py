@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-poetry-core",
 ]
 depends = ["python-pytest"]
-checkdepends = list(depends)
+checkdepends = [*depends]
 pkgdesc = "Pytest snapshot plugin"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"

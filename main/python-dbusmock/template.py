@@ -11,7 +11,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-dbus"]
-checkdepends = ["python-gobject", "python-pytest"] + depends
+checkdepends = ["python-gobject", "python-pytest", *depends]
 pkgdesc = "D-Bus object mocks for python"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"

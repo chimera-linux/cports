@@ -7,7 +7,7 @@ make_install_args = ["WITH_ALLCOMP=yes"]
 make_check_target = "test"
 hostmakedepends = ["gmake"]
 depends = ["bash", "git", "gnupg", "tree", "ugetopt"]
-checkdepends = list(depends)
+checkdepends = [*depends]
 pkgdesc = "Console-based password manager"
 maintainer = "eater <=@eater.me>"
 license = "GPL-2.0-or-later"

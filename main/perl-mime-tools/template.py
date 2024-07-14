@@ -10,7 +10,7 @@ makedepends = [
     "perl-mailtools",
 ]
 checkdepends = ["perl-test-deep"]
-depends = list(makedepends)
+depends = [*makedepends]
 pkgdesc = "Parses streams to create MIME entities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"

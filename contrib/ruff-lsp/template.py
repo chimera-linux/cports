@@ -16,7 +16,8 @@ depends = [
 checkdepends = [
     "python-lsp-jsonrpc",
     "python-pytest-asyncio",
-] + depends
+    *depends,
+]
 pkgdesc = "LSP server for ruff"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

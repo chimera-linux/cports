@@ -13,7 +13,8 @@ hostmakedepends = [
     "gettext",
     "ninja",
     "pkgconf",
-] + _deps
+    *_deps,
+]
 makedepends = [
     "futuresql-devel",
     "kcoreaddons-devel",
@@ -29,7 +30,7 @@ makedepends = [
     "qt6-qtmultimedia-devel",
     "qt6-qtsvg-devel",
 ]
-depends = list(_deps)
+depends = [*_deps]
 pkgdesc = "KDE Youtube Music player"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"

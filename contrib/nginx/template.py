@@ -67,7 +67,7 @@ hostmakedepends = [
     "perl",
     "zlib-ng-compat-devel",
 ]
-makedepends = list(hostmakedepends)
+makedepends = [*hostmakedepends]
 checkdepends = [
     "ca-certificates",
     "ffmpeg",

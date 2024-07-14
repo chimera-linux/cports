@@ -15,8 +15,9 @@ hostmakedepends = [
     "python-setuptools_scm",
     "python-sphinx",
     "python-wheel",
-] + _deps
-depends = list(_deps)
+    *_deps,
+]
+depends = [*_deps]
 pkgdesc = "Python unit testing framework"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

@@ -19,10 +19,8 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]
-depends = [
-    "sonnet",
-]
-checkdepends = list(depends)
+depends = ["sonnet"]
+checkdepends = [*depends]
 pkgdesc = "Style for Qt Quick Controls 2 to follow your KDE desktop theme"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"

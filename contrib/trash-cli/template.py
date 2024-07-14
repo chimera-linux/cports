@@ -20,7 +20,8 @@ checkdepends = [
     "python-mock",
     "python-parameterized",
     "python-pytest",
-] + depends
+    *depends,
+]
 pkgdesc = "Command line interface to the freedesktop.org trashcan"
 maintainer = "Hugo Machet <mail@hmachet.com>"
 license = "GPL-2.0-or-later"

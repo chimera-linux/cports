@@ -13,7 +13,7 @@ depends = [
     "perl-sub-quote",
     "perl-role-tiny",
 ]
-checkdepends = list(depends)
+checkdepends = [*depends]
 pkgdesc = "Moose-compatible object oriented library for perl"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"

@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-hatch_vcs",
 ]
 depends = ["python-pytest"]
-checkdepends = list(depends)
+checkdepends = [*depends]
 pkgdesc = "Pytest plugin for adding environment variables"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"

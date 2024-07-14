@@ -12,7 +12,7 @@ makedepends = [
     "libxml2-devel",
 ]
 depends = ["python-libevdev", "python-pyudev"]
-checkdepends = ["bash", "python-pytest"] + depends
+checkdepends = ["bash", "python-pytest", *depends]
 pkgdesc = "Library to handle Wacom tablets"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

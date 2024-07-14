@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-hpack", "python-hyperframe"]
-checkdepends = ["python-pytest", "python-hypothesis"] + depends
+checkdepends = ["python-pytest", "python-hypothesis", *depends]
 pkgdesc = "Python implementation of HTTP/2 state machine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

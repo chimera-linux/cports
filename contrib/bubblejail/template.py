@@ -21,7 +21,7 @@ depends = [
     "python-tomli-w",
     "xdg-dbus-proxy",
 ]
-checkdepends = list(depends)
+checkdepends = [*depends]
 pkgdesc = "Bubblewrap based sandboxing for desktop applications"
 maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"

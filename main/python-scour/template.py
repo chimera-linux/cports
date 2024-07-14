@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-six"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python SVG scrubber"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"

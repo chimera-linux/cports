@@ -54,7 +54,7 @@ depends = [
     "spice-gtk",
     "vte-gtk3",
 ]
-checkdepends = ["python-pytest"] + _deps
+checkdepends = ["python-pytest", *_deps]
 pkgdesc = "GUI for managing virtual machines"
 maintainer = "cesorious <cesorious@gmail.com>"
 license = "GPL-2.0-or-later"
@@ -73,7 +73,7 @@ def post_install(self):
 
 @subpackage("virt-manager-progs")
 def _tools(self):
-    self.depends = list(_deps)
+    self.depends = [*_deps]
     self.pkgdesc = "Programs to create and clone virtual machines"
 
     return [

@@ -36,7 +36,7 @@ depends = [
     "gst-plugins-good",
     "gst-plugins-good-qt6",
 ]
-checkdepends = list(depends)
+checkdepends = [*depends]
 pkgdesc = "Qt-based matrix client"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"

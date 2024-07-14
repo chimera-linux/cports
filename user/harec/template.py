@@ -7,7 +7,7 @@ make_env = {"VERSION": pkgver, "LOCALVER": "chimera"}
 make_build_args = [f"ARCH={self.profile().arch}"]
 make_check_args = list(make_build_args)
 depends = ["qbe"]
-checkdepends = ["binutils"] + depends
+checkdepends = ["binutils", *depends]
 pkgdesc = "Hare compiler"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-only"
