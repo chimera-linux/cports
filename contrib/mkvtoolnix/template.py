@@ -1,5 +1,5 @@
 pkgname = "mkvtoolnix"
-pkgver = "85.0"
+pkgver = "86.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -45,7 +45,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://mkvtoolnix.download/index.html"
 source = f"https://mkvtoolnix.download/sources/mkvtoolnix-{pkgver}.tar.xz"
-sha256 = "702442c80706c7c770ac04f7b4eed7a57e9e03ead6c5e6e90b9655dd84c8d829"
+sha256 = "29a9155fbba99f9074de2abcfbdc4e966ea38c16d9f6f547cf2d8d9a48152c97"
 
 
 @subpackage("mkvtoolnix-gui")
