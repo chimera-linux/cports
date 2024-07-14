@@ -13,7 +13,7 @@ make_build_args = [
     "prefix=/usr",
     "sbindir=/usr/bin",
 ]
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 make_use_env = True
 hostmakedepends = [
     "gmake",

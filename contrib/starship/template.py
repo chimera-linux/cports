@@ -6,7 +6,7 @@ make_build_args = [
     "--no-default-features",
     "--features=battery,notify,gix-faster",
 ]
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 make_check_args = make_build_args + [
     # /tmp is home of the cbuild user so tests that check for /tmp/dir get ~/dir as exact path
     "--",

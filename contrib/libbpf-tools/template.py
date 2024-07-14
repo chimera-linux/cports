@@ -6,7 +6,7 @@ build_wrksrc = "libbpf-tools"
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["prefix=/usr", "V=1", "APP_PREFIX=bpf-"]
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 hostmakedepends = [
     "bpftool",
     "gmake",

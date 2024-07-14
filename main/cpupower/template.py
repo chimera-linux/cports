@@ -22,7 +22,7 @@ make_build_args = [
     "sbindir=/usr/bin",
 ]
 make_install_target = "cpupower_install"
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 make_use_env = True
 hostmakedepends = ["gmake"]
 makedepends = [

@@ -8,7 +8,7 @@ make_build_args = [
     "LUAPATH=/usr/share/lua/5.4",
     "LUACPATH=/usr/lib/lua/5.4",
 ]
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 make_use_env = True
 hostmakedepends = ["gmake"]
 makedepends = ["lua5.4-devel", "openssl-devel"]

@@ -7,7 +7,7 @@ make_build_args = [
     "--features",
     "dbus,dinit,xdp-gnome-screencast",
 ]
-make_check_args = list(make_build_args)
+make_check_args = [*make_build_args]
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",

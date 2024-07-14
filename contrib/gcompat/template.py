@@ -50,7 +50,7 @@ make_build_args = [
     "LIBGCOMPAT_PATH=/usr/lib/libgcompat.so.0",
     "WITH_LIBUCONTEXT=1",
 ]
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 
 
 def pre_install(self):

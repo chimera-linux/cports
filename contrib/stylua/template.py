@@ -6,8 +6,8 @@ make_build_args = [
     "--features",
     "lua54,luau,fromstr,serialize",
 ]
-make_install_args = list(make_build_args)
-make_check_args = list(make_build_args)
+make_install_args = [*make_build_args]
+make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Lua formatter"

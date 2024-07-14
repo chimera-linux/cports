@@ -12,7 +12,7 @@ make_build_args = [
     "D_USE_BZ2=-DUSE_BZIP2",
     "L_BZ2=-lbz2",
 ]
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 make_check_target = "test"
 make_check_args = ["-f", "unix/Makefile"]
 make_use_env = True

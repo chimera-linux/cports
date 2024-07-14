@@ -7,8 +7,8 @@ build_style = "cargo"
 prepare_after_patch = True
 # disable llvm_backend (needs LLVM 12), unstable and use-jemalloc features
 make_build_args = ["--no-default-features", "--features=allow_avx2"]
-make_install_args = list(make_build_args)
-make_check_args = list(make_build_args)
+make_install_args = [*make_build_args]
+make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Awk-like language"

@@ -6,8 +6,8 @@ make_build_args = [
     "--no-default-features",
     "--features=icu_calendar,maildir,notmuch,pipewire,pulseaudio",
 ]
-make_install_args = list(make_build_args)
-make_check_args = list(make_build_args)
+make_install_args = [*make_build_args]
+make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "dbus-devel",

@@ -9,7 +9,7 @@ make_build_args = [
     "unix/Makefile",
     "prefix=/usr",
 ]
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 make_use_env = True
 hostmakedepends = ["gmake"]
 depends = ["unzip"]  # zip -T

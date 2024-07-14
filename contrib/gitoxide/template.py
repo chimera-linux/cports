@@ -6,8 +6,8 @@ make_build_args = [
     "--no-default-features",
     "--features=max-control,gix-features/zlib-stock,gitoxide-core-blocking-client,http-client-curl",
 ]
-make_install_args = list(make_build_args)
-make_check_args = list(make_install_args)
+make_install_args = [*make_build_args]
+make_check_args = [*make_install_args]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libcurl-devel",

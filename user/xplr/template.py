@@ -3,7 +3,7 @@ pkgver = "0.21.9"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features"]
-make_install_args = list(make_build_args)
+make_install_args = [*make_build_args]
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",

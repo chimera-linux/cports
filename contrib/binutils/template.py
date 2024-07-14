@@ -67,7 +67,7 @@ def post_extract(self):
 
 # configure for one target
 def _configure_tgt(self, tgt):
-    cargs = list(self.configure_args)
+    cargs = [*self.configure_args]
 
     htgt = self.profile()
 

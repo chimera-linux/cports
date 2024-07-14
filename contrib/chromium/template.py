@@ -222,7 +222,7 @@ def do_configure(self):
     )
     self.do("./third_party/libaddressinput/chromium/tools/update-strings.py")
 
-    _confargs = list(self.configure_args)
+    _confargs = [*self.configure_args]
 
     _vaapi = "true"
     # sqlite3BtreeOpen crash

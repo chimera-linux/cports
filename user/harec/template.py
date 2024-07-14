@@ -5,7 +5,7 @@ archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
 make_env = {"VERSION": pkgver, "LOCALVER": "chimera"}
 make_build_args = [f"ARCH={self.profile().arch}"]
-make_check_args = list(make_build_args)
+make_check_args = [*make_build_args]
 depends = ["qbe"]
 checkdepends = ["binutils", *depends]
 pkgdesc = "Hare compiler"
