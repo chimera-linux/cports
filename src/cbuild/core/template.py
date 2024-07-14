@@ -785,17 +785,33 @@ class AstValidatorVisitor(ast.NodeVisitor):
         ]:
             ast.NodeVisitor.generic_visit(self, node)
             return
+        # ensure it's a list literal
+        if not isinstance(node.value, ast.List):
+            self.pkg.error(f"dependency list '{lname}' is not a list literal")
         # otherwise build the entry list and ensure it's sorted
         unsorted = []
+        sortcheck = True
         for e in node.value.elts:
-            # if the value is not 4-indented, it's a horizontal list so skip it
+            # horizontal lists are not sort-checked
+            # however, we still verify value validity, so go over them
             if e.col_offset > 4:
-                break
-            unsorted.append(e.value)
+                sortcheck = False
+            # otherwise we always verify the contents though
+            if isinstance(e, ast.Starred):
+                unsorted.append(f"*{e.value.id}")
+                continue
+            elif isinstance(e, ast.Constant) and isinstance(e.value, str):
+                # force literals to sort before list expansions
+                unsorted.append(f"!{e.value}")
+                continue
+            self.pkg.error(
+                f"dependency list '{lname}' contains an invalid value (must be a string or a list expansion)"
+            )
         # and finally check
-        for i in range(len(unsorted) - 1):
-            if unsorted[i] > unsorted[i + 1]:
-                self.pkg.error(f"dependency list '{lname}' is not sorted")
+        if sortcheck:
+            for i in range(len(unsorted) - 1):
+                if unsorted[i] > unsorted[i + 1]:
+                    self.pkg.error(f"dependency list '{lname}' is not sorted")
         # either way
         ast.NodeVisitor.generic_visit(self, node)
 
