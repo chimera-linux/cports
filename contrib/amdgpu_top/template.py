@@ -1,6 +1,6 @@
 pkgname = "amdgpu_top"
 pkgver = "0.8.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=package"]
 hostmakedepends = [
@@ -23,4 +23,5 @@ options = ["!check"]
 
 def do_install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/amdgpu_top")
+    self.install_file("assets/amdgpu_top.desktop", "usr/share/applications")
     self.install_license("LICENSE")
