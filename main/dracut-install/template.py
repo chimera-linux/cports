@@ -1,5 +1,5 @@
 pkgname = "dracut-install"
-pkgver = "102"
+pkgver = "103"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/dracut-ng/dracut-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "601b175cbf4d2ee902bb7bda3af8826ae2ca060c1af880f6da5a833413f4ec70"
+sha256 = "9a92b4f0643926a65162171d68b9525fc93e6e82f455a4b3938db385a841bda8"
 hardening = ["vis", "cfi"]
 # assumes rw filesystem
 options = ["!check"]
