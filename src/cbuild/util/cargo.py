@@ -98,11 +98,12 @@ directory = "{vendor_path}"
 
 
 class Cargo:
-    def __init__(self, tmpl, jobs=None, env={}, wrksrc=None):
+    def __init__(self, tmpl, jobs=None, env={}, wrksrc=None, cargo_c=False):
         self.template = tmpl
         self.wrksrc = wrksrc
         self.env = env
         self.jobs = jobs
+        self.cargo_c = cargo_c
 
     def _invoke(
         self,
@@ -193,9 +194,21 @@ class Cargo:
 
     def build(self, args=[], jobs=None, env={}, wrksrc=None, wrapper=[]):
         tmpl = self.template
+        command = "build"
+        bargs = []
+        if self.cargo_c:
+            command = "cbuild"
+            bargs += [
+                "--prefix",
+                "/usr",
+                "--library-type",
+                "cdylib",
+                "--library-type",
+                "staticlib",
+            ]
         return self._invoke(
-            "build",
-            ["--release"] + tmpl.make_build_args + args,
+            command,
+            ["--release"] + bargs + tmpl.make_build_args + args,
             jobs,
             True,
             tmpl.make_build_env,
@@ -207,17 +220,29 @@ class Cargo:
 
     def install(self, args=[], jobs=None, env={}, wrksrc=None, wrapper=[]):
         tmpl = self.template
-        retv = self._invoke(
-            "install",
-            [
-                "--root",
-                str(tmpl.chroot_destdir / "usr"),
-                "--path",
-                ".",
-                "--no-track",
+        command = "install"
+        bargs = [
+            "--root",
+            str(tmpl.chroot_destdir / "usr"),
+            "--path",
+            ".",
+            "--no-track",
+        ]
+        if self.cargo_c:
+            command = "cinstall"
+            bargs = [
+                "--prefix",
+                "/usr",
+                "--library-type",
+                "cdylib",
+                "--library-type",
+                "staticlib",
+                "--destdir",
+                str(tmpl.chroot_destdir),
             ]
-            + tmpl.make_install_args
-            + args,
+        return self._invoke(
+            command,
+            bargs + tmpl.make_install_args + args,
             jobs,
             True,
             tmpl.make_install_env,
@@ -226,12 +251,11 @@ class Cargo:
             tmpl.make_install_wrapper,
             wrapper,
         )
-        return retv
 
     def check(self, args=[], jobs=None, env={}, wrksrc=None, wrapper=[]):
         tmpl = self.template
         return self._invoke(
-            "test",
+            "ctest" if self.cargo_c else "test",
             tmpl.make_check_args + args,
             jobs,
             True,
