@@ -29,7 +29,8 @@ depends = ["bolt"]
 checkdepends = [
     "dbus",
     "xwayland-run",
-] + depends
+    *depends,
+]
 pkgdesc = "KDE integration for controlling Thunderbolt devices"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"

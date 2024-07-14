@@ -117,7 +117,8 @@ checkdepends = [
     "dbus",
     "python-gobject",
     "xwayland-run",
-] + depends
+    *depends,
+]
 pkgdesc = "KDE Plasma Workspace"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"

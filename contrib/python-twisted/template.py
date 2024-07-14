@@ -32,7 +32,8 @@ checkdepends = [
     "python-appdirs",
     "python-hypothesis",
     "git",
-] + depends
+    *depends,
+]
 pkgdesc = "Asynchronous framework for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 depends = ["python"]
 depends = ["libmagic"]
-checkdepends = depends + ["python-pytest"]
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python wrapper for libmagic"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

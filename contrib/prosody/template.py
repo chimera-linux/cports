@@ -21,7 +21,7 @@ depends = [
     "lua5.4-luasocket",
     "lua5.4-luaunbound",
 ]
-checkdepends = depends + ["lua5.4-busted"]
+checkdepends = ["lua5.4-busted", *depends]
 pkgdesc = "Modern xmpp communication server"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"

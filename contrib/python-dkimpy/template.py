@@ -14,7 +14,7 @@ depends = [
     "python-dnspython",
     "python-pynacl",
 ]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python library that implements DKIM email signing and verification"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"

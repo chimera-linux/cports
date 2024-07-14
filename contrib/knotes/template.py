@@ -45,7 +45,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 depends = ["kdepim-runtime"]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE sticky notes"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(LGPL-2.1-only OR LGPL-3.0-only) AND GPL-2.0-or-later"

@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-attrs", "tzdata"]
-checkdepends = depends + ["python-pytest", "python-pytest-subtests"]
+checkdepends = ["python-pytest", "python-pytest-subtests", *depends]
 pkgdesc = "Python package wrapping the IANA time zone database"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"

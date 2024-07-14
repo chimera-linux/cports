@@ -11,7 +11,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["git", "python"]
-checkdepends = ["bash", "rsync"] + depends
+checkdepends = ["bash", "rsync", *depends]
 pkgdesc = "Tool for rewriting git history"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"

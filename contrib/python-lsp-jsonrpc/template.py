@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-setuptools_scm",
 ]
 depends = ["python-ujson"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python implementation of the JSON RPC 2.0 protocol"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

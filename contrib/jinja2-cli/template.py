@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-jinja2"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "CLI for Jinja2"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"

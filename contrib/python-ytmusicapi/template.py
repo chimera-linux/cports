@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-setuptools_scm",
 ]
 depends = ["python-requests"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python library for the Youtube Music API"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

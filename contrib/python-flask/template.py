@@ -15,7 +15,7 @@ depends = [
     "python-jinja2",
     "python-werkzeug",
 ]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python micro framework for building web applications"
 maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"

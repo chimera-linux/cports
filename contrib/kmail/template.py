@@ -67,7 +67,7 @@ depends = [
     "kdepim-runtime",
     "kmail-account-wizard",
 ]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE Mail Client"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-only"

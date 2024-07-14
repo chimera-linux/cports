@@ -50,7 +50,7 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 depends = ["kdepim-runtime"]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE Kontact calendar scheduler"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"

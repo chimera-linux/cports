@@ -13,7 +13,7 @@ depends = [
     "python-jmespath",
     "python-urllib3",
 ]
-checkdepends = depends + ["python-pytest"]
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Core module supporting boto3 and aws cli"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"

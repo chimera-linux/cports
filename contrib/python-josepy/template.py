@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-poetry-core",
 ]
 depends = ["python-cryptography", "python-openssl"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "JOSE protocol implementation in Python"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"

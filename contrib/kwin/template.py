@@ -84,7 +84,8 @@ checkdepends = [
     "dbus",
     "mesa-utils",
     "xwayland-run",
-] + depends
+    *depends,
+]
 pkgdesc = "KDE Window Manager and Wayland Compositor"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (

@@ -67,7 +67,7 @@ makedepends = [
     "syntax-highlighting-devel",
 ]
 depends = ["kirigami-addons"]
-checkdepends = ["dbus", "xwayland-run"] + depends
+checkdepends = ["dbus", "xwayland-run", *depends]
 pkgdesc = "KDE PIM application addons"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"

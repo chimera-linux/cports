@@ -46,7 +46,7 @@ depends = [
     "ffmpeg",
     "frei0r",
 ]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE video editor"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"

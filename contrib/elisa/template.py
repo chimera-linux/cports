@@ -35,7 +35,7 @@ makedepends = [
     # "vlc-devel",
 ]
 depends = ["kirigami-addons"]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE music player"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"

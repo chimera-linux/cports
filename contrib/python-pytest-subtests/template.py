@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-attrs", "python-pytest"]
-checkdepends = ["python-pytest-xdist"] + depends
+checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "Unittest subTest() and subtests fixture"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"

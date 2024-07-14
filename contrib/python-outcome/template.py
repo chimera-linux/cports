@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-attrs"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Capture the outcome of Python calls"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 OR MIT"

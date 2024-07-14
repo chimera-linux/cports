@@ -16,7 +16,7 @@ depends = [
     "python-jsonpickle",
     "python-requests",
 ]
-checkdepends = depends + ["python-pytest", "python-responses"]
+checkdepends = ["python-pytest", "python-responses", *depends]
 pkgdesc = "Python module to manage DigitalOcean droplets"
 maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-3.0-or-later"

@@ -10,7 +10,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-dateutil"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python library for mocking the current time"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"

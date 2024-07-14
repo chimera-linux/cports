@@ -48,7 +48,8 @@ depends = [
 checkdepends = [
     "dbus",
     "xwayland-run",
-] + depends
+    *depends,
+]
 pkgdesc = "Developer-oriented editor for GNOME"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"

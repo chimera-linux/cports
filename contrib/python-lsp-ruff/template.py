@@ -13,7 +13,7 @@ depends = [
     "python-lsprotocol",
     "ruff",
 ]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Ruff plugin for python-lsp-server"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

@@ -12,7 +12,7 @@ depends = [
     "libadwaita",
     "python-gobject",
 ]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "Markup language compiler for GTK user interfaces"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"

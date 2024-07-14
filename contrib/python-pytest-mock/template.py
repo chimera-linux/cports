@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-mock", "python-pytest"]
-checkdepends = ["python-pytest-asyncio"] + depends
+checkdepends = ["python-pytest-asyncio", *depends]
 pkgdesc = "Thin-wrapper around the mock package for easier use with pytest"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"

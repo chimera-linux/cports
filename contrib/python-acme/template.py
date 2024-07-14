@@ -17,9 +17,7 @@ depends = [
     "python-pytz",
     "python-requests",
 ]
-checkdepends = [
-    "python-pytest-xdist",
-] + depends
+checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "ACME protocol implementation"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"

@@ -44,7 +44,8 @@ checkdepends = [
     "python-dateutil",
     "python-pytest-benchmark",
     "python-pytest-xdist",
-] + depends
+    *depends,
+]
 pkgdesc = "Deduplicating backup program"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"

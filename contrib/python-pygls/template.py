@@ -14,7 +14,8 @@ depends = [
 checkdepends = [
     "python-pytest-asyncio",
     "python-pytest-xdist",
-] + depends
+    *depends,
+]
 pkgdesc = "Language server protocol framework for Python"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"

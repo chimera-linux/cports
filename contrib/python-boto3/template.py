@@ -20,7 +20,7 @@ depends = [
     "python-jmespath",
     "python-s3transfer",
 ]
-checkdepends = depends + ["python-pytest-xdist"]
+checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "Python AWS SDK"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"

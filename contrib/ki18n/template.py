@@ -16,7 +16,8 @@ makedepends = [
 depends = ["iso-codes"]
 checkdepends = [
     "iso-codes-locale",
-] + depends
+    *depends,
+]
 pkgdesc = "KDE Gettext-based UI text internationalization"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-or-later)"

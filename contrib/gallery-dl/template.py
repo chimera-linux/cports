@@ -14,7 +14,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-requests"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "CLI program to download image galleries/collections"
 maintainer = "Nasado <hi@nasado.name>"
 license = "GPL-2.0-or-later"

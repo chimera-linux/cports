@@ -49,7 +49,7 @@ makedepends = [
     "xz-devel",
 ]
 depends = ["qt6-qtbase-sql"]
-checkdepends = ["dbus", "xwayland-run"] + depends
+checkdepends = ["dbus", "xwayland-run", *depends]
 pkgdesc = "KDE storage service for PIM data"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"

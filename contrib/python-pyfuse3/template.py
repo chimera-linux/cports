@@ -11,7 +11,7 @@ hostmakedepends = [
 ]
 makedepends = ["fuse-devel", "python-devel", "linux-headers"]
 depends = ["python-trio"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python bindings for libfuse"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.0-or-later"

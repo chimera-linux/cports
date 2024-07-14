@@ -31,7 +31,7 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 depends = ["libkdegames-carddecks"]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE solitaire collection"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"

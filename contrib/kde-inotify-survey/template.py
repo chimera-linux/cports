@@ -18,7 +18,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 depends = ["kirigami-addons"]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE inotify limit monitor"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only OR GPL-3.0-only"

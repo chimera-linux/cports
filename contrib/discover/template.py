@@ -51,7 +51,8 @@ depends = [
 checkdepends = [
     "dbus",
     "xwayland-run",
-] + depends
+    *depends,
+]
 pkgdesc = "KDE application manager"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"

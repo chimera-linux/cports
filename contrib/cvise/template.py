@@ -19,8 +19,9 @@ depends = [
     "python-psutil",
     "unifdef",
 ]
-checkdepends = depends + [
+checkdepends = [
     "python-pytest",
+    *depends,
 ]
 pkgdesc = "Python port of C-Reduce, for program testcase minimisation"
 maintainer = "psykose <alice@ayaya.dev>"

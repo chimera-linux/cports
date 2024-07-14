@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-dateutil"]
-checkdepends = ["cmake", "ninja"] + depends
+checkdepends = ["cmake", "ninja", *depends]
 pkgdesc = "Testing tool for command line utilities"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"

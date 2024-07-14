@@ -26,7 +26,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 depends = ["accounts-qml-module"]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE purpose-specific integrations"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"

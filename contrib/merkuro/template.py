@@ -47,7 +47,7 @@ depends = [
     "qt6-qt5compat",
     "qt6-qtlocation",
 ]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE calendar with cloud sync"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND GPL-3.0-or-later"

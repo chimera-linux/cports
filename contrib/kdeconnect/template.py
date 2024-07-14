@@ -44,7 +44,7 @@ depends = [
     "kirigami-addons",
     "sshfs",
 ]
-checkdepends = ["xwayland-run"] + depends
+checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE plugin for communicating with a smartphone device"
 maintainer = "psykose <alice@ayaya.dev>"
 license = " GPL-2.0-only OR GPL-3.0-only"

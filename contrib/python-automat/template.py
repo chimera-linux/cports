@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-setuptools", "python-attrs", "python-six"]
-checkdepends = ["python-pytest-benchmark"] + depends
+checkdepends = ["python-pytest-benchmark", *depends]
 pkgdesc = "Finite state machines for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

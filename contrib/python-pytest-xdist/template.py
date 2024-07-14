@@ -13,7 +13,7 @@ depends = [
     "python-execnet",
     "python-pytest",
 ]
-checkdepends = ["python-filelock", "python-pexpect", "python-psutil"] + depends
+checkdepends = ["python-filelock", "python-pexpect", "python-psutil", *depends]
 pkgdesc = "Pytest plugin for testing parallelisation"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

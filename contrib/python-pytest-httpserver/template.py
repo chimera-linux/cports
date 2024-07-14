@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-poetry-core",
 ]
 depends = ["python-werkzeug"]
-checkdepends = depends + ["python-pytest", "python-requests"]
+checkdepends = ["python-pytest", "python-requests", *depends]
 pkgdesc = "Pytest http server extension"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"

@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-attrs"]
-checkdepends = ["python-pytest-xdist"] + depends
+checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "Python library to simplify working with jsonlines and ndjson data"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"

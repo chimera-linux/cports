@@ -18,7 +18,7 @@ depends = [
     "python-docopt",
     "python-ruamel.yaml",
 ]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "YAML/JSON schema validation for python"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

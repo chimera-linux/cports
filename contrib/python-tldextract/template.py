@@ -13,7 +13,7 @@ depends = [
     "python-idna",
     "python-requests-file",
 ]
-checkdepends = depends + [
+checkdepends = [
     "python-pytest",
     "python-pytest-httpserver",
     "python-pytest-mock",
@@ -22,6 +22,7 @@ checkdepends = depends + [
     "python-syrupy",
     "python-twisted",
     "python-werkzeug",
+    *depends,
 ]
 pkgdesc = "Separates url's subdomain, domain, and public suffix"
 maintainer = "ttyyls <contact@behri.org>"

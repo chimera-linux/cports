@@ -9,9 +9,10 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-requests"]
-checkdepends = depends + [
+checkdepends = [
     "python-pytest",
     "python-pytest-mock",
+    *depends,
 ]
 pkgdesc = "File transport adapter for python-requests"
 maintainer = "ttyyls <contact@behri.org>"

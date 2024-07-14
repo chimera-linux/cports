@@ -41,7 +41,7 @@ _plugindeps = [
     "python-digitalocean",
     "python-dnspython",
 ]
-checkdepends = ["python-pytest-xdist"] + depends + _plugindeps
+checkdepends = ["python-pytest-xdist", *depends, *_plugindeps]
 pkgdesc = "Tool to obtain certs from Let's Encrypt"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0 AND MIT"

@@ -12,7 +12,7 @@ depends = [
     "python-random2",
     "python-six",
 ]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python module for dealing cards like various solitaire games"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

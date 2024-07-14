@@ -27,7 +27,8 @@ checkdepends = [
     "dbus",
     "python-pytest",
     "xwayland-run",
-] + depends
+    *depends,
+]
 pkgdesc = "Graphical client for the Soulseek network"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"

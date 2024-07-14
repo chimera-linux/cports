@@ -24,7 +24,7 @@ depends = [
     "python-pyyaml",
     "python-requests",
 ]
-checkdepends = ["python-pytest-xdist"] + depends
+checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "CLI media library management"
 maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "MIT"

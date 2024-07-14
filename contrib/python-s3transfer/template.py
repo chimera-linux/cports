@@ -13,7 +13,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-botocore"]
-checkdepends = depends + ["python-pytest-xdist"]
+checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "Amazon S3 transfer manager for python"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"

@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-six"]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "Extensions for python datetime"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
