@@ -1,6 +1,6 @@
 pkgname = "bottom"
 pkgver = "0.9.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
@@ -29,6 +29,6 @@ def post_install(self):
     self.install_license("LICENSE")
     self.do("gunzip", self.chroot_cwd / "man/btm.1.gz")
     self.install_man("man/btm.1")
-    self.install_completion("completions/btm.bash", "bash")
-    self.install_completion("completions/btm.fish", "fish")
-    self.install_completion("completions/_btm", "zsh")
+    self.install_completion("completions/btm.bash", "bash", "btm")
+    self.install_completion("completions/btm.fish", "fish", "btm")
+    self.install_completion("completions/_btm", "zsh", "btm")

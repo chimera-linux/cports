@@ -1,6 +1,6 @@
 pkgname = "docker-cli"
 pkgver = "27.0.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 _commit = "7d4bcd863a4c863e650eed02a550dfeb98560b83"
 make_cmd = "gmake"
@@ -49,9 +49,11 @@ def do_install(self):
     dbin = (self.cwd / "build/docker").resolve().name
     self.install_bin(f"build/{dbin}", name="docker")
 
-    self.install_completion("contrib/completion/bash/docker", "bash")
-    self.install_completion("contrib/completion/fish/docker.fish", "fish")
-    self.install_completion("contrib/completion/zsh/_docker", "zsh")
+    self.install_completion("contrib/completion/bash/docker", "bash", "docker")
+    self.install_completion(
+        "contrib/completion/fish/docker.fish", "fish", "docker"
+    )
+    self.install_completion("contrib/completion/zsh/_docker", "zsh", "docker")
 
     self.install_man("man/man1/docker.1")
     self.install_man("man/man1/docker-build.1")

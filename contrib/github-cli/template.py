@@ -1,6 +1,6 @@
 pkgname = "github-cli"
 pkgver = "2.52.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/cli/cli/v2/internal/build.Version=v{pkgver}",
@@ -36,6 +36,6 @@ def do_install(self):
     self.install_license("LICENSE")
     self.install_man("man/*.1", glob=True)
 
-    self.install_completion("gh.bash", "bash")
-    self.install_completion("gh.fish", "fish")
-    self.install_completion("gh.zsh", "zsh")
+    self.install_completion("gh.bash", "bash", "gh")
+    self.install_completion("gh.fish", "fish", "gh")
+    self.install_completion("gh.zsh", "zsh", "gh")
