@@ -34,7 +34,7 @@ def _devel(self):
 def _subpkg(sname, sdesc):
     @subpackage(f"bemenu-{sname}")
     def _spkg(self):
-        self.subdesc = "{sdesc} backend"
+        self.subdesc = f"{sdesc} backend"
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
         self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
 

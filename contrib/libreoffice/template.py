@@ -449,7 +449,7 @@ for _langc, _langd in [
 def _gensub(subn, subd):
     @subpackage(f"{pkgname}-{subn}")
     def _sub(self):
-        self.subdesc = "{subd}"
+        self.subdesc = f"{subd}"
         if subn == "writer" or subn == "gnome":
             self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
         else:
