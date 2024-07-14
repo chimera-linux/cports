@@ -27,6 +27,6 @@ sha256 = [
 def post_install(self):
     self.install_license("LICENSE-MIT")
     self.install_man("extra/fd.1")
-    self.install_completion("extra/autocomplete/fd.bash", "bash", "fd")
-    self.install_completion("extra/autocomplete/fd.fish", "fish", "fd")
-    self.install_completion("extra/autocomplete/_fd", "zsh", "fd")
+    self.install_completion("extra/autocomplete/fd.bash", "bash")
+    self.install_completion("extra/autocomplete/fd.fish", "fish")
+    self.install_completion("extra/autocomplete/_fd", "zsh")
