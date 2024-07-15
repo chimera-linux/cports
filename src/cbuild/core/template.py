@@ -1803,6 +1803,10 @@ class Template(Package):
                     "usr/share/fish/vendor_completions.d",
                     name=f"{name}.fish",
                 )
+            case "nushell":
+                self.install_file(
+                    src, "usr/share/nushell/vendor/autoload", name=f"{name}.nu"
+                )
             case _:
                 self.error(f"unknown shell: {shell}")
 
@@ -1952,6 +1956,12 @@ autopkgs = [
         "fish completions",
         "fish-shell",
         _split_fishcomp,
+    ),
+    (
+        "nucomp",
+        "nu completions",
+        "nushell",
+        lambda p: p.take("usr/share/nushell/vendor/autoload", missing_ok=True),
     ),
     (
         "locale",
@@ -2146,6 +2156,7 @@ class Subpackage(Package):
         self.take("usr/share/zsh", missing_ok=True)
         self.take("usr/share/fish/completions", missing_ok=True)
         self.take("usr/share/fish/vendor_completions.d", missing_ok=True)
+        self.take("usr/share/nushell/vendor/autoload", missing_ok=True)
         if man:
             self.take(f"usr/share/man/man[{man}]", missing_ok=True)
 
