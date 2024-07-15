@@ -1,13 +1,13 @@
 diff --git a/Makefile b/Makefile
-index 2482be1f..3ebcd1e8 100644
+index 43c4227a..9861571e 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -55,7 +55,7 @@ $(BINOUT)/harec2: $(BINOUT)/hare
- $(BINOUT)/haredoc: $(BINOUT)/hare
+@@ -52,7 +52,7 @@ $(BINOUT)/haredoc: $(BINOUT)/hare
  	@mkdir -p $(BINOUT)
  	@printf 'HARE\t%s\n' "$@"
--	@env HAREPATH=. HAREC="$(HAREC)" QBE="$(QBE)" $(BINOUT)/hare build \
-+	@env HAREPATH=. HAREC="$(HAREC)" QBE="$(QBE)" $(HARE) build -a$(ARCH) \
- 		$(HARE_DEFINES) -o $(BINOUT)/haredoc ./cmd/haredoc
+ 	@env $(HARE_BUILD_ENV) \
+-		$(BINOUT)/hare build $(HARE_DEFINES) -o $(BINOUT)/haredoc ./cmd/haredoc
++		$(HARE) build -a$(ARCH) $(HARE_DEFINES) -o $(BINOUT)/haredoc ./cmd/haredoc
  
  docs/html: $(BINOUT)/haredoc
+ 	mkdir -p docs/html

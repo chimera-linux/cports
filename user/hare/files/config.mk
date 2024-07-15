@@ -8,7 +8,7 @@ STDLIB = $(SRCDIR)/hare/stdlib
 # variables used during build
 PLATFORM = linux
 ARCH = $(CBUILD_TARGET_MACHINE)
-HAREFLAGS =
+HAREFLAGS = -a$(ARCH)
 HARECFLAGS = -a$(ARCH)
 QBEFLAGS =
 ASFLAGS =

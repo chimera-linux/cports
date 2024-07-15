@@ -1,9 +1,9 @@
 pkgname = "hare"
-pkgver = "0.24.0"
-pkgrel = 1
+pkgver = "0.24.2"
+pkgrel = 0
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
-make_env = {"VERSION": pkgver, "LOCALVER": "chimera"}
+make_env = {"LOCALVER": "chimera"}
 make_build_args = [
     f"ARCH={self.profile().arch}",
     f"{self.profile().arch.upper()}_CC=cc",
@@ -17,7 +17,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0 AND GPL-3.0-only"
 url = "https://harelang.org"
 source = f"https://git.sr.ht/~sircmpwn/hare/archive/{pkgver}.tar.gz"
-sha256 = "7061dad3c79cca51a1662a71b1c6f8ec001f52ef3053dd3c2dbb95ae9beff7bc"
+sha256 = "afba69fd537a63442da53d115d9b50f525918159b395843ede2a5473323e0776"
 tools = {"AS": f"{self.profile().triplet}-as"}
 # see below
 options = []
