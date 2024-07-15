@@ -1,5 +1,5 @@
 pkgname = "c-ares"
-pkgver = "1.32.1"
+pkgver = "1.32.2"
 pkgrel = 0
 build_style = "gnu_configure"
 # circular gtest
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://c-ares.haxx.se"
 source = f"https://github.com/c-ares/c-ares/releases/download/v{pkgver}/c-ares-{pkgver}.tar.gz"
-sha256 = "63be2c4ee121faa47e9766f735b4cde750fff2c563f81c11e572d3dc6401e5e7"
+sha256 = "072ff6b30b9682d965b87eb9b77851dc1cd8e6d8090f6821a56bd8fa89595061"
 hardening = ["vis", "!cfi"]
 # does not like the sandbox
 options = ["!check"]
