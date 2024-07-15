@@ -1,5 +1,5 @@
 pkgname = "libnftnl"
-pkgver = "1.2.6"
+pkgver = "1.2.7"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -10,8 +10,8 @@ pkgdesc = "Low-level netlink API to nf_tables"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.netfilter.org/projects/libnftnl"
-source = f"{url}/files/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ceeaea2cd92147da19f13a35a7f1a4bc2767ff897e838e4b479cf54b59c777f4"
+source = f"{url}/files/libnftnl-{pkgver}.tar.xz"
+sha256 = "9122774f968093d5c0bacddd67de480f31fa4073405a7fc058a34b0f387aecb3"
 # CFI: verify function pointers
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]
