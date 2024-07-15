@@ -12,7 +12,7 @@ pkgdesc = "Library for color text mode, widget based user interfaces"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-only"
 url = "https://pagure.io/newt"
-source = f"https://pagure.io/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://releases.pagure.org/newt/newt-{pkgver}.tar.gz"
 sha256 = "5ded7e221f85f642521c49b1826c8de19845aa372baf5d630a51774b544fbdbb"
 # no proper check target
 options = ["!check"]
