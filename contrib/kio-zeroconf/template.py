@@ -25,4 +25,4 @@ source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kio-zeroconf-{pkgver}.tar.xz"
 )
 sha256 = "8b939e1a6d22ac78afed596b2fba49472cf46056f84a2c2b628b227dec191c15"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]

@@ -42,8 +42,7 @@ license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/plasma/libplasma/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libplasma-{pkgver}.tar.xz"
 sha256 = "5a2b6b7c539b6d171a9c2b743d554a74dcf3e57512a0423b46fce92fa2a545de"
-# CFI: kills plasmashell (on launch of startplasma-wayland) in liborg_kde_plasmacomponents3.so
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("libplasma-devel")

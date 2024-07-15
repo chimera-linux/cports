@@ -22,7 +22,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kbookmarks/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kbookmarks-{pkgver}.tar.xz"
 sha256 = "13c72b0c47e333ada60a4665af7829910f5c83dd6ed57789fa3229ca68ad3280"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kbookmarks-devel")

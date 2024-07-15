@@ -25,7 +25,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/ktextwidgets/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktextwidgets-{pkgver}.tar.xz"
 sha256 = "08bc69461ade9944d35e5055f7bddd5313774d7a6c6727f12a68e58d1d3fce70"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("ktextwidgets-devel")

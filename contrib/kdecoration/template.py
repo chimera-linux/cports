@@ -19,8 +19,7 @@ license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/plasma/kdecoration/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdecoration-{pkgver}.tar.xz"
 sha256 = "15dd479f42eb4ab6752694d3129aa42164aec9954db5be04b7c3bb7c811b0dfb"
-# CFI: breaks at least 20+ kwin tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kdecoration-devel")

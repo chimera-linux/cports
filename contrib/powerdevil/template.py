@@ -1,6 +1,6 @@
 pkgname = "powerdevil"
 pkgver = "6.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: all tests broken like on alpine, migrateconfig_test*
 make_check_args = [
@@ -62,7 +62,7 @@ file_xattrs = {
         "security.capability": "cap_wake_alarm+ep",
     },
 }
-hardening = ["vis", "cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

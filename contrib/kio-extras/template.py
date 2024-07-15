@@ -53,8 +53,7 @@ license = "LGPL-3.0-or-later"
 url = "https://invent.kde.org/network/kio-extras"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-extras-{pkgver}.tar.xz"
 sha256 = "19e9c6d3625511a7f9f7c0e5c9e9e6b0ca365aeed4914c7781a937fd1807e240"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # TODO
 options = ["!cross"]
 

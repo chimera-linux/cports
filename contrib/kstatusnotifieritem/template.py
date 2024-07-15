@@ -19,7 +19,7 @@ license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/frameworks/kstatusnotifieritem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kstatusnotifieritem-{pkgver}.tar.xz"
 sha256 = "32790111741482844ae1901c37db568346efc2ae68f712cecc6b9a5c1cba81b9"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kstatusnotifieritem-devel")

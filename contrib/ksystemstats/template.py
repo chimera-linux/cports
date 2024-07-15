@@ -35,8 +35,7 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/ksystemstats-{pkgver}.tar.xz"
 sha256 = "c9fdb5cc47cc4f3f66d92a6c492ca8125b03f03475516decfb4c887bbb034e85"
 # silence some ~600 lines of spam...
 tool_flags = {"CXXFLAGS": ["-Wno-deprecated-declarations"]}
-# CFI: breaks at least ksystemstatstest in dbusApi() like https://paste.c-net.org/tnqlkafoixrz
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

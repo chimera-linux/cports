@@ -24,7 +24,7 @@ license = "LGPL-2.1-only"
 url = "https://develop.kde.org/docs/features/spellchecking"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/sonnet-{pkgver}.tar.xz"
 sha256 = "954205989da5d3443bfc256f8b31e05e23effb836f1810894d6fb9cc9d0cdda9"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("sonnet-devel")

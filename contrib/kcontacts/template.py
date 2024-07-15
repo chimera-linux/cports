@@ -25,7 +25,7 @@ license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kcontacts/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcontacts-{pkgver}.tar.xz"
 sha256 = "b9b72d3bd1a64c0016b7122e79e657358226d239faf31699d6700d95e52bd59d"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kcontacts-devel")

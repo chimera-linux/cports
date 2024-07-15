@@ -27,8 +27,7 @@ license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kglobalacceld"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
 sha256 = "359155f3454948f2717ae6785ed1e6dc2dc8c281e6526cb06852cf4aa1a2a062"
-# CFI: breaks at least 50+ kwin tests (together with kidletime)
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

@@ -50,8 +50,7 @@ license = "LGPL-3.0-only AND GPL-2.0-or-later"
 url = "https://apps.kde.org/konqueror"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konqueror-{pkgver}.tar.xz"
 sha256 = "8a61ebc08d814e710cafc14ee45fc2d04ad3b35247c5856f08e37814ec7834fa"
-# CFI: crashes tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("konqueror-devel")

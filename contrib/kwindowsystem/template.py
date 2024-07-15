@@ -44,8 +44,7 @@ license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
 sha256 = "c4e8742cbdd294d56a689d66a73b03a660702037ac46242f17cc01b24f014a59"
-# CFI: breaks at least kwin testDontCrashUseractionsMenu
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

@@ -17,8 +17,7 @@ license = "LGPL-2.0-or-later AND BSD-2-Clause"
 url = "https://api.kde.org/frameworks/syndication/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/syndication-{pkgver}.tar.xz"
 sha256 = "d5637eaf255c4d3e110765d2ed5aba06c994560801e4e6c4b0698acc53954dcb"
-# CFI: breaks 2/3 tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

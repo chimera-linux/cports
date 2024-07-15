@@ -22,5 +22,4 @@ source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/markdownpart-{pkgver}.tar.xz"
 )
 sha256 = "5d6d7f32904b559b430634889547fd1689855aa86fa8b08b0f86dcd36c287514"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]

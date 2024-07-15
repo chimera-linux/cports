@@ -29,5 +29,4 @@ source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/dolphin-plugins-{pkgver}.tar.xz"
 )
 sha256 = "39fe5034edffc4209ee416f6e0b65f44f948082b46e64e18b3086436b994be23"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]

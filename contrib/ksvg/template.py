@@ -26,7 +26,7 @@ source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ksvg-{pkgver}.tar.xz"
 )
 sha256 = "3391c74fc31526e7ff2659622d00e93b5cd8667397611d5676062e4b32d86530"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("ksvg-devel")

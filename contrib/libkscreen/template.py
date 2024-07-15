@@ -32,8 +32,7 @@ license = (
 url = "https://invent.kde.org/plasma/libkscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
 sha256 = "9988f3736ec3d917f7b8bf1759c11c155a8ec57fcfd7876420e4bb9718b3b293"
-# CFI: breaks almost all tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

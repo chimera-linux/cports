@@ -31,8 +31,7 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreen-{pkgver}.tar.xz"
 sha256 = "300919305a79f1d425141e8d368de3b0e35e8b4ff4c5fa40e4df07017ae6056b"
-# CFI: breaks both tests like https://paste.c-net.org/zfdjtfn6ssy6
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

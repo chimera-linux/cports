@@ -30,7 +30,7 @@ license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/kconfigwidgets"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kconfigwidgets-{pkgver}.tar.xz"
 sha256 = "98f7e9e11557d2d1db59711052a3b4cb4f8572316eff6421459b90b5d4393983"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kconfigwidgets-devel")

@@ -22,7 +22,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kdeclarative/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdeclarative-{pkgver}.tar.xz"
 sha256 = "bb47b521a4c843f6b3de78d46fe430de15886598c6d89d39bd91c767f40f6a85"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kdeclarative-devel")

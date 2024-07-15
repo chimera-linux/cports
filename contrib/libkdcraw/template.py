@@ -24,8 +24,7 @@ license = "GPL-2.0-or-later"
 url = "https://api.kde.org/libkdcraw/html/index.html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdcraw-{pkgver}.tar.xz"
 sha256 = "59ebc1634eccfc5b9a10c92ec2ab9f3e49245c2044692c6cfb717239a28b8a28"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("libkdcraw-devel")

@@ -21,7 +21,7 @@ license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/frameworks/kcolorscheme"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcolorscheme-{pkgver}.tar.xz"
 sha256 = "5c74af476b36fc99b246d17fa30f8c9b9480f79277fa077908e75a8fc171828c"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kcolorscheme-devel")

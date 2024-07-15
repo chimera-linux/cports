@@ -21,8 +21,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcompletion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcompletion-{pkgver}.tar.xz"
 sha256 = "f08e2af5046a7ba5a324e475a9f107294b3b83e45e14d70e422f99dda1459d51"
-# CFI: crashes kio kurl*test & e.g. kwrite save file dialog upon first char of filename in libKF6Completion.so
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kcompletion-devel")

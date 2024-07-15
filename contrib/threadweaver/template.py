@@ -14,8 +14,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/threadweaver/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/threadweaver-{pkgver}.tar.xz"
 sha256 = "a317ad5b4e0ae8dee7fd95026a3df3f5fc1c2e53aec6d5ccbadddfc753c29598"
-# CFI: fails most tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("threadweaver-devel")

@@ -32,8 +32,7 @@ license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/network/kaccounts-integration"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kaccounts-integration-{pkgver}.tar.xz"
 sha256 = "d1855ac6067378ffdf6af999a6b5bf3a0fc5ab3b7ed6cfa87c19606cb60f7b35"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

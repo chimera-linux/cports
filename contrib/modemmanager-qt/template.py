@@ -25,7 +25,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/modemmanager-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/modemmanager-qt-{pkgver}.tar.xz"
 sha256 = "f2bc2aa916bce3ea58c38def984c35fada25e8756add400131782bfc62deee9d"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("modemmanager-qt-devel")

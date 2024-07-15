@@ -28,8 +28,7 @@ license = "GPL-2.0-only"
 url = "https://apps.kde.org/kcachegrind"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcachegrind-{pkgver}.tar.xz"
 sha256 = "29b01c69da246cb884ae0ce246b58dec1a026acb503190091f2b08f7a24611c8"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

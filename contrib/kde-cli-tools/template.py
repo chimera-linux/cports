@@ -30,5 +30,4 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kde-cli-tools"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kde-cli-tools-{pkgver}.tar.xz"
 sha256 = "d969051e2832ca6eb00ebc22234834e46a2f3cbfc6c3d4ee8a962058b14bc87a"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]

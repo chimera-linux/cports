@@ -19,8 +19,7 @@ license = "LGPL-2.0-only"
 url = "https://develop.kde.org/frameworks/kirigami"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kirigami-{pkgver}.tar.xz"
 sha256 = "eca20cd9ce72d0eeb57bd5fba394f20d83bb4612ac4a4c23fb8ca74a93188c37"
-# CFI: breaks at least kcmutils' kcmloadtest
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kirigami-devel")

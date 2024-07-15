@@ -55,9 +55,8 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenlive-{pkgver}.tar.xz"
 sha256 = "057f12c28b5eec9716383b5093f7ca0a345cc9066dd5c7614fe3d9188429a708"
 # avoid crashes
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
-# CFI: crashes most tests
 # INT: crashes spacertest/trimmingtest
-hardening = ["vis", "!cfi", "!int"]
+hardening = ["vis", "!int"]
 # TODO
 options = ["!cross"]
 

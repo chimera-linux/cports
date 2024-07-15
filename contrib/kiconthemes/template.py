@@ -28,7 +28,7 @@ license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kiconthemes/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kiconthemes-{pkgver}.tar.xz"
 sha256 = "d5a52c338ec3f7a91ed8c552830dd688bdf040651ad2c4a794c18eee4b161f47"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kiconthemes-devel")

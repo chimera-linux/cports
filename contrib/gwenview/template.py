@@ -54,7 +54,6 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/gwenview-{pkgver}.tar.xz"
 sha256 = "2f01edc994d2b96999242c73dbaa90dae5d4c6674c07c4517b0ab6c284ca7a79"
 # avoid crash in raw thumbnailer
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
-# CFI: crashes on start
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # TODO
 options = ["!cross"]

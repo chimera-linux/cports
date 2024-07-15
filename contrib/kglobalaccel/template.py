@@ -17,7 +17,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kglobalaccel/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kglobalaccel-{pkgver}.tar.xz"
 sha256 = "0d6a274be3891b9cadf65e3c1fc7c9575b6e68b5373888f54f9d89df91cda8a6"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kglobalaccel-devel")

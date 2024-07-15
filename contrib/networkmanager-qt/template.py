@@ -27,7 +27,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/networkmanager-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/networkmanager-qt-{pkgver}.tar.xz"
 sha256 = "3d2c905dd9c7445c44023ecf0646dd1b6fcdc83968f56dfa762296b0d15e9498"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("networkmanager-qt-devel")

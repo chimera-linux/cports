@@ -20,7 +20,7 @@ license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kitemviews/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kitemviews-{pkgver}.tar.xz"
 sha256 = "4280b9bcdc527979b364ed122d152e75951ff78fd801d46ccce2de6608d56440"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # fails
 options = ["!cross"]
 

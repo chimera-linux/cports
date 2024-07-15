@@ -25,7 +25,7 @@ source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/solid-{pkgver}.tar.xz"
 )
 sha256 = "56793b71d4fb9f4af8ec8af9293b777eccafdc1af757f5962429f0b1f93595c3"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("solid-devel")

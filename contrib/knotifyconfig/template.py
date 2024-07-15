@@ -25,7 +25,7 @@ license = "LGPL-2.0-only"
 url = "https://api.kde.org/frameworks/knotifyconfig/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knotifyconfig-{pkgver}.tar.xz"
 sha256 = "d8ef414b68c09a649f2f89d42d142b07967ce597b66fbb3f85dd02223c3cf278"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("knotifyconfig-devel")

@@ -37,5 +37,4 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-nm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-nm-{pkgver}.tar.xz"
 sha256 = "5b5102ad7c808eb2fa4b036ef485d6586d2575f0789076dedefc1300ab90117c"
-# CFI: kills systemsettings (upon apply of change and clicking another NIC) in libplasmanm_editor.so
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]

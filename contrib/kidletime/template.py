@@ -21,8 +21,7 @@ license = "LGPL-2.0-only"
 url = "https://api.kde.org/frameworks/kidletime/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kidletime-{pkgver}.tar.xz"
 sha256 = "4e2e0455a803ded2bee74d573701d2d95359eaed2f7964f230a40e3058a84c2c"
-# CFI: breaks at least 50+ kwin tests (together with kglobalacceld)
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kidletime-devel")

@@ -34,8 +34,7 @@ license = "GPL-2.0-or-later"  # FIXME
 url = "https://invent.kde.org/plasma/oxygen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/oxygen-{pkgver}.tar.xz"
 sha256 = "b2e781f5dc4f111e17485a34299700f48fe6bf668494b3a00857b842b8caeda1"
-# CFI: test
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("oxygen-cursors")

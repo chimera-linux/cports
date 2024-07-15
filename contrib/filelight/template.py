@@ -28,5 +28,4 @@ license = " GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/filelight"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/filelight-{pkgver}.tar.xz"
 sha256 = "33d3b61f7d9332f2506b58b3fa5ac0b2a0308e2f2e21be818e8b9da5207e2b56"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]

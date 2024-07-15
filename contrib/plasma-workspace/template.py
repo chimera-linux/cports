@@ -125,8 +125,7 @@ license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-workspace-{pkgver}.tar.xz"
 sha256 = "799cdefb52856db7273bb49a205c6e057165e77baec484c7c622ee6882c4d5ca"
-# CFI: breaks at least 3 tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

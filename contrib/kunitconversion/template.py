@@ -20,7 +20,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kunitconversion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kunitconversion-{pkgver}.tar.xz"
 sha256 = "30e969467cb6f20c97e263e5381371ead458517758128022141d52272a660474"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kunitconversion-devel")

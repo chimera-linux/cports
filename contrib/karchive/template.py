@@ -21,7 +21,7 @@ license = "LGPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/karchive"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/karchive-{pkgver}.tar.xz"
 sha256 = "bce4d06384960c6c7c18c86908b2d74c18d8600816c6f15c2920303a4806dabb"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("karchive-devel")

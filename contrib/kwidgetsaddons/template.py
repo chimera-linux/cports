@@ -22,9 +22,7 @@ license = "GPL-2.0-only AND LGPL-2.1-only AND Unicode-DFS-2016"
 url = "https://api.kde.org/frameworks/kwidgetsaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwidgetsaddons-{pkgver}.tar.xz"
 sha256 = "fda7e2e813a2dcf3a391652994499079c0b222c01f62778979287c602a3f0dbf"
-# CFI: kills systemsettings/kwrite etc upon "save unsaved changes?" dialog in
-# https://invent.kde.org/frameworks/kwidgetsaddons/-/blob/v6.2.2/src/kmessagedialog.cpp#L496
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # fails
 options = ["!cross"]
 

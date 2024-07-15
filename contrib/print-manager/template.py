@@ -30,5 +30,4 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0
 url = "https://invent.kde.org/plasma/print-manager"
 source = f"$(KDE_SITE)/plasma/{pkgver}/print-manager-{pkgver}.tar.xz"
 sha256 = "9505469e86e20363e4beddc6948d9d9e07a8373aedb7af99928cb98101ddbb04"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
