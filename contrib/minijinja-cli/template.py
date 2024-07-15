@@ -1,5 +1,5 @@
 pkgname = "minijinja-cli"
-pkgver = "2.0.1"
+pkgver = "2.0.3"
 pkgrel = 0
 build_wrksrc = "minijinja-cli"
 build_style = "cargo"
@@ -15,7 +15,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://github.com/mitsuhiko/minijinja"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9ba95d52c7d5addcd9cc0f52ba03b9bb9298c2f9650154e1f12c36c4f9e46213"
+sha256 = "34c0726bf1ef54ed6069c66258a786e69ed1ca47e14220fee8f6216ac710e4c9"
 
 
 def post_install(self):
@@ -23,3 +23,4 @@ def post_install(self):
     self.install_completion("assets/completions/minijinja-cli.bash", "bash")
     self.install_completion("assets/completions/minijinja-cli.fish", "fish")
     self.install_completion("assets/completions/_minijinja-cli", "zsh")
+    self.install_completion("assets/completions/minijinja-cli.nu", "nushell")
