@@ -161,6 +161,10 @@ def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
         hdrs = dict(dhdrs)
         if ehdrs:
             hdrs.update(ehdrs)
+        # delete none values in case we have them
+        for k in hdrs:
+            if hdrs[k] is None:
+                del hdrs[k]
         if ntry > 0:
             with fmtx:
                 hdrs["Range"] = f"bytes={fstatus[idx]}-{flens[idx]}"
