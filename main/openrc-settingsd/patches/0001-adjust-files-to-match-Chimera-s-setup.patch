@@ -54,7 +54,7 @@ index ed07dba..1618a0f 100644
      x11_gentoo_file = g_file_new_for_path (SYSCONFDIR "/X11/xorg.conf.d/30-keyboard.conf");
      x11_systemd_file = g_file_new_for_path (SYSCONFDIR "/X11/xorg.conf.d/00-keyboard.conf");
 +#else
-+    kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/openrc-settingsd/kbd-model-map");
++    kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/kbd-model-map");
 +    locale_file = g_file_new_for_path (SYSCONFDIR "/locale.conf");
 +    keymaps_file = g_file_new_for_path (SYSCONFDIR "/default/keyboard");
 +    /* Use systemd-style always */

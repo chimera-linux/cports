@@ -1,6 +1,6 @@
 pkgname = "openrc-settingsd"
 pkgver = "1.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dopenrc=disabled", "-Denv-update="]
 hostmakedepends = ["meson", "pkgconf"]
