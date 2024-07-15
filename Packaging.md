@@ -1499,6 +1499,7 @@ These are (with their package description suffixes):
 * `bashcomp` - `(bash completions)`
 * `zshcomp` - `(zsh completions)`
 * `fishcomp` - `(fish completions)`
+* `nucomp` - `(nushell completions)`
 * `locale` - `(locale data)`
 * `static` - `(static libraries)`
 * `pycache` - `(Python bytecode)`
@@ -1527,6 +1528,7 @@ the package they were split off needs to be installed, plus the following:
 * `bash-completion` for `-bashcomp` packages
 * `zsh` for `-zshcomp` packages
 * `fish-shell` for `-fishcomp` packages
+* `nushell` for `-nucomp` packages
 * `python-pycache` for `-pycache` packages (except `python-pycache` itself)
 
 Development packages may be automatically installed if `base-devel` is
@@ -3073,7 +3075,7 @@ Equivalent to `self.install_file(src, "usr/share/licenses/" + pkgname, 0o644, na
 Install a shell completion `src`. If not given, `name` will be expanded
 to the package name. The `name` is the root of the completion file name
 that will be adjusted according to the shell. The `shell` must be one of
-`bash`, `zsh`, `fish`.
+`bash`, `zsh`, `fish`, `nushell`.
 
 When `name` is not given, `self.pkgname` is used.
 
