@@ -1,9 +1,10 @@
 pkgname = "base-vpsfree"
-pkgver = "0.1"
+pkgver = "0.2"
 pkgrel = 0
 archs = ["x86_64"]
 depends = [
     "!base-full-kernel",  # we don't care about kernel at all
+    "!base-full-session",  # we don't care about elogind here by default
     "!chrony-dinit-links",  # we don't want ntp to come up
     "!nyagetty-dinit-links",  # don't want default ttys
     "!udev-dinit-links",  # don't want udev to run
