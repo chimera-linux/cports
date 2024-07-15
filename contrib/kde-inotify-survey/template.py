@@ -25,7 +25,6 @@ license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/system/kde-inotify-survey"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kde-inotify-survey-{pkgver}.tar.xz"
 sha256 = "d185ae82e31764617b209686169185d52e3c2b51e85f43643a922cccb862ec20"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # TODO
 options = ["!cross"]

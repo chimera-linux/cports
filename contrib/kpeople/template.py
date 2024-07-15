@@ -25,7 +25,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpeople/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kpeople-{pkgver}.tar.xz"
 sha256 = "4a1385b7fca2fa804ed7a0111f9c6c5a25ba98c7bf811e75c1bf1dd3fb472964"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kpeople-devel")

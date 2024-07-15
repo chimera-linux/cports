@@ -26,7 +26,7 @@ license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpmcore-{pkgver}.tar.xz"
 sha256 = "8e8646bfe990834acbbe56149015aaecd3099cc2e9115ac7426a2d88747735db"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kpmcore-devel")

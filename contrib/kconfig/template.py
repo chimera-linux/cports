@@ -25,8 +25,7 @@ license = "LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kconfig/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kconfig-{pkgver}.tar.xz"
 sha256 = "fbb3d06fde4ea19955cfdbcbcec03de78a46f8c228f41d4e7aa6ceb88dc116dd"
-# CFI: breaks at least 5 tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kconfig-devel")

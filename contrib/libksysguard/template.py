@@ -48,8 +48,7 @@ file_xattrs = {
         "security.capability": "cap_net_raw+ep",
     },
 }
-# CFI: crashes plasma-systemmonitor on launch in libKSysGuardSensors.so
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("libksysguard-devel")

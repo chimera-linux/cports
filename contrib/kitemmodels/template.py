@@ -17,7 +17,7 @@ license = "LGPL-2.0-only AND LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kitemmodels/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kitemmodels-{pkgver}.tar.xz"
 sha256 = "9608312c5564279b624c4965fbe198bfb2d26804a915cf51a468e31bb9982d61"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kitemmodels-devel")

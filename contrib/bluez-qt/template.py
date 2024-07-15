@@ -25,8 +25,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/bluez-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/bluez-qt-{pkgver}.tar.xz"
 sha256 = "d2d0aee9f42b501c00711565c2ebe87c608ae4c0786d901386fc55c65039b16b"
-# CFI: breaks at least almost every test
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("bluez-qt-devel")

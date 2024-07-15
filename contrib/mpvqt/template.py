@@ -17,7 +17,7 @@ license = " LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries/mpvqt"
 source = f"$(KDE_SITE)/mpvqt/mpvqt-{pkgver}.tar.xz"
 sha256 = "9131d2a925e5f33e19b9d081dfd5f30d576abd87464d67c70bef41a486f54eb9"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("mpvqt-devel")

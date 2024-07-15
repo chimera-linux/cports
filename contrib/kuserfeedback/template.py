@@ -25,8 +25,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kuserfeedback/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kuserfeedback-{pkgver}.tar.xz"
 sha256 = "4cc42c4433c80441aec21883899816e812518e8f2c8c10c8d8add9e774538257"
-# CFI: makes openglinfosourcetest fail
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kuserfeedback-devel")

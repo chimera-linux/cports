@@ -33,8 +33,7 @@ license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/krunner/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/krunner-{pkgver}.tar.xz"
 sha256 = "aac498f1d313bfc1a8388ff47617e68c50413da15a744a38a05c473378316fbc"
-# CFI: breaks at least a bunch of tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("krunner-devel")

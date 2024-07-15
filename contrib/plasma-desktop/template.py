@@ -105,8 +105,7 @@ license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
 sha256 = "362f64fa1af1c295d7fdade146bf5751176256c19fd41dd1850fff3603c21fad"
-# CFI: kills systemsettings (when entering "Date & Time") in kcm_clock.so
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 # most kdepim stuff depends on messagelib which depends on qtwebengine
 _have_kdepim = False

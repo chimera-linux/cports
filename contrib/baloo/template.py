@@ -34,8 +34,7 @@ source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/baloo-{pkgver}.tar.xz"
 )
 sha256 = "07474aea2c407a4fb01cd2640589a93e8baadb04f8ba19ae6d8f40293c4c4699"
-# CFI: test
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

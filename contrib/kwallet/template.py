@@ -30,8 +30,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kwallet/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwallet-{pkgver}.tar.xz"
 sha256 = "b2885a088e5f70754511cc1ddb0a434c1a6d7939d9c77ffc36e95483491f9e40"
-# CFI: kills kwalletd6 (on launch of e.g. chromium) in libKF6WalletBackend.so
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kwallet-devel")

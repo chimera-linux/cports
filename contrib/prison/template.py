@@ -20,7 +20,7 @@ license = "MIT"
 url = "https://api.kde.org/frameworks/prison/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/prison-{pkgver}.tar.xz"
 sha256 = "dd6eb0b640e02636a876e69f8e2dba4043c8e444a6630eb20488754f5f57ea8d"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

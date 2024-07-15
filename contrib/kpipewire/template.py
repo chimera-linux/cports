@@ -27,7 +27,7 @@ url = "https://invent.kde.org/plasma/kpipewire"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kpipewire-{pkgver}.tar.xz"
 sha256 = "eb2217024e3bf3a4777548b9a0bda88ca0b97912d20336b03f5942b28b1baef9"
 # CFI: breaks at least mediamonitortest (further) and xwaylandvideobridge upon screen share
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # only available test needs running pipewire
 options = ["!check"]
 

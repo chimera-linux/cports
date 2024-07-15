@@ -20,7 +20,7 @@ license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/frameworks/kguiaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kguiaddons-{pkgver}.tar.xz"
 sha256 = "e1c25df0b8095be2497d2041e71cc843eaf75a6707f65b1cd74386fe3262cf11"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kguiaddons-devel")

@@ -19,8 +19,7 @@ license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/layer-shell-qt/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/layer-shell-qt-{pkgver}.tar.xz"
 sha256 = "a201bd3c867130e96cae75dcfec07f82af74dc2e8074d8d1bd9b0ae2645bf802"
-# CFI: kills plasmashell (on desktop/panel right click) in libLayerShellQtInterface.so
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("layer-shell-qt-devel")

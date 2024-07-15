@@ -25,8 +25,7 @@ license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcmutils/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcmutils-{pkgver}.tar.xz"
 sha256 = "59b1293ffe67134ceba30fb7ce741889c54f85ad0c90d155688bdd0dfc8f31be"
-# CFI: crashes systemsettings (when entering almost any page) in libkcmutilsqmlplugin.so
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kcmutils-devel")

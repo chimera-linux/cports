@@ -15,8 +15,7 @@ license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/libraries/kdsoap-ws-discovery-client"
 source = f"$(KDE_SITE)/kdsoap-ws-discovery-client/kdsoap-ws-discovery-client-{pkgver}.tar.xz"
 sha256 = "2cd247c013e75f410659bac372aff93d22d71c5a54c059e137b9444af8b3427a"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # FIXME: needs network?
 options = ["!check"]
 

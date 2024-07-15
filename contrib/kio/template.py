@@ -53,8 +53,7 @@ source = (
 )
 sha256 = "5fa031f3b97e96ed228b7c42c9625e9f3e5477e4ca2d5a6ba2ff1d2d8d74075d"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
-# CFI: breaks at least plasma-workspace's testrunnermodel
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # >60% (40/62) tests fail, pain to get working in a limited enviroment due to expecting e.g. real disks
 options = ["!check"]
 

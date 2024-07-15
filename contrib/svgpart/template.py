@@ -24,5 +24,4 @@ license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/svgpart"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/svgpart-{pkgver}.tar.xz"
 sha256 = "5d3bd75183f96d2c42cdd5484f0c526a4b262822c15959c4211d1bfab822b79a"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]

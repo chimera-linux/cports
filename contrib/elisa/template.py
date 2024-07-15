@@ -42,7 +42,6 @@ license = "LGPL-3.0-or-later"
 url = "https://apps.kde.org/elisa"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/elisa-{pkgver}.tar.xz"
 sha256 = "c0177ef091800dc36815bfcc7f268addbd65d3bc5a1c5c385f124c42899d1b0e"
-# CFI: crashes on start
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # TODO
 options = ["!cross"]

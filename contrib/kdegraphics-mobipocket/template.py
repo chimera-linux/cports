@@ -21,8 +21,7 @@ license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/graphics/kdegraphics-mobipocket"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdegraphics-mobipocket-{pkgver}.tar.xz"
 sha256 = "0408ec55e3df317b29763f56662bf3ca0844ca538ab4471f316832c197a58fc1"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kdegraphics-mobipocket-devel")

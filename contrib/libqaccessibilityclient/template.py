@@ -21,8 +21,7 @@ license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries/libqaccessibilityclient"
 source = f"$(KDE_SITE)/libqaccessibilityclient/libqaccessibilityclient-{pkgver}.tar.xz"
 sha256 = "4c50c448622dc9c5041ed10da7d87b3e4e71ccb49d4831a849211d423c5f5d33"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("libqaccessibilityclient-devel")

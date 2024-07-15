@@ -33,8 +33,7 @@ license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/purpose/html/index.html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/purpose-{pkgver}.tar.xz"
 sha256 = "318169f201548eaa3c8a76e6eb00d9b10f51872d7f91c7f9749fcb518699e50e"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("purpose-devel")

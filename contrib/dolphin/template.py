@@ -53,8 +53,7 @@ source = f"$(KDE_SITE)/release-service/{pkgver}/src/dolphin-{pkgver}.tar.xz"
 sha256 = "5f850a4fd7f463f93e05c1b162be55f7d4360cca2189b446fa296ceef35f3567"
 # fixes copy/pasting file segfault in kio_file.so (KIO::WorkerThread) https://bugs.kde.org/show_bug.cgi?id=470763
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
-# CFI: breaks at least dolphinmainwindowtest in libdolphinprivate
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

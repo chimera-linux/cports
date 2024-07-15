@@ -24,5 +24,4 @@ source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/ffmpegthumbs-{pkgver}.tar.xz"
 )
 sha256 = "7c11ebd5897a6ab087ec4b349c3822a79cf02c460bac21d334afe47aac54f2ac"
-# CFI: test
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]

@@ -22,8 +22,7 @@ license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/system/kio-fuse"
 source = f"$(KDE_SITE)/kio-fuse/kio-fuse-{pkgver}.tar.xz"
 sha256 = "7d104581227d5a19b424b33f4168d181556b1015d6df2218e01a88d64449e94b"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # needs real fuse mounted
 options = ["!check"]
 

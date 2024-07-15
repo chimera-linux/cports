@@ -29,7 +29,7 @@ broken_symlinks = [
     # broken symbolic link to fingerprint.svg
     "usr/share/icons/breeze/actions/24/fingerprint-symbolic.svg",
 ]
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("breeze-icons-devel")

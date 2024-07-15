@@ -31,8 +31,7 @@ license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kfilemetadata/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kfilemetadata-{pkgver}.tar.xz"
 sha256 = "45ff433054be4c5ef14a2aa842373c0679d632aacfdb78dfba989f7388c4c5ed"
-# CFI: breaks at least indexextractortest/dump_fulltext
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # TODO
 options = ["!cross"]
 

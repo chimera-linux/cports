@@ -18,8 +18,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcrash/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcrash-{pkgver}.tar.xz"
 sha256 = "011215bc952a430c1d093b0bf5cdad7057c9a9098d86116e69c6dd1000567697"
-# CFI: least "./test_crasher ES" is broken
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kcrash-devel")

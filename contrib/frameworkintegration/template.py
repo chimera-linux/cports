@@ -27,7 +27,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/frameworkintegration/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/frameworkintegration-{pkgver}.tar.xz"
 sha256 = "4682d15c3a2e49785eda8f6c309e5f30d82ff6a5bcc39228544374c64199ef71"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("frameworkintegration-devel")

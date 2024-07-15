@@ -21,7 +21,7 @@ source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kpty-{pkgver}.tar.xz"
 )
 sha256 = "68626789dcb79d9fd1b3a4c55016747260085ba4c68f7b408a5f1d190cca4623"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kpty-devel")

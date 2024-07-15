@@ -24,7 +24,7 @@ source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kded-{pkgver}.tar.xz"
 )
 sha256 = "be5ae21cf9b436eafe49ca8be750259899dc803501c47ee436d8dad6d33bfb9c"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

@@ -38,8 +38,7 @@ license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/spectacle"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/spectacle-{pkgver}.tar.xz"
 sha256 = "14c1435fb057aa3d088529e28b6407b9f4f89d5f5399d58859044c2b75476d82"
-# CFI: kills app on launch
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

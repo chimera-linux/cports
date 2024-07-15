@@ -102,8 +102,7 @@ file_xattrs = {
         "security.capability": "cap_sys_nice+ep",
     },
 }
-# CFI: breaks lots of tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

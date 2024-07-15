@@ -23,7 +23,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpackage/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kpackage-{pkgver}.tar.xz"
 sha256 = "ba4a16abb7bd527c42d12c57631e5178b8fd0ffbf01ccf7758a0eb6ab1adc008"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kpackage-devel")

@@ -1,6 +1,6 @@
 pkgname = "kactivitymanagerd"
 pkgver = "6.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -25,7 +25,7 @@ license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/kactivitymanagerd"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kactivitymanagerd-{pkgver}.tar.xz"
 sha256 = "40c498e65afe7039c464cfbaa442a9e3a56140cbd45b63b6957267260c537460"
-hardening = ["vis", "cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):

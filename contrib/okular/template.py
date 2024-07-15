@@ -60,8 +60,7 @@ url = "https://apps.kde.org/okular"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/okular-{pkgver}.tar.xz"
 sha256 = "e718d4884b46fbf430033c2ed0e80cb50e6d476e76ccfda4a2c71d840051034e"
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
-# CFI: crashes tests
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 # TODO
 options = ["!cross"]
 

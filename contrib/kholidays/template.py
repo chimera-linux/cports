@@ -17,7 +17,7 @@ license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kholidays/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kholidays-{pkgver}.tar.xz"
 sha256 = "1200fab6bd1546f016688597eef6c10c948f999d4eeab1e8eaaca345ccd2adcd"
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
 
 
 @subpackage("kholidays-devel")

@@ -28,5 +28,4 @@ license = "GPL-2.0-only"
 url = "https://invent.kde.org/plasma/kmenuedit"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kmenuedit-{pkgver}.tar.xz"
 sha256 = "9006fb0e55cad0fad48f9db662c8145f89e4550f108aa74efb27467328fc4d85"
-# CFI: check
-hardening = ["vis", "!cfi"]
+hardening = ["vis"]
