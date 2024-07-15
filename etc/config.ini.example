@@ -82,3 +82,8 @@ RUSTFLAGS =
 [signing]
 # signing key name (in etc/keys) or path (absolute or relative to cports)
 key = your_private_key.rsa
+
+# custom global stuff that can be read by templates
+# you can put things like personal auth tokens etc. here
+# [data]
+# keyname = valuename

@@ -2853,6 +2853,13 @@ The `python_version` is a string (e.g. `3.12`) while the other two are integers
 
 Similar to Python above, but for Ruby.
 
+##### def get_data(self, key, default = None)
+
+Get a value assigned to a key from the global configuration's data section.
+This is useful if you have e.g. some personal authentication token needed
+to fetch particular sources, and you do not want to paste the token directly
+to the template.
+
 ##### def do(self, cmd, *args, env = None, wrksrc = None, capture_output = False, stdout = None, stderr = None, input = None, check = True, allow_network = False, path = None)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,

@@ -870,6 +870,9 @@ class Template(Package):
         self._license_install = False
         self._depends_setup = False
 
+    def get_data(self, key, default=None):
+        return self._data.get(key, default)
+
     def get_build_deps(self):
         from cbuild.core import dependencies
 
@@ -2522,6 +2525,7 @@ def read_mod(
     stage=3,
     bulk_mode=False,
     allow_restricted=True,
+    data=None,
 ):
     global _tmpl_dict
 
@@ -2590,6 +2594,7 @@ def read_mod(
     ret.current_target = target
     ret._force_check = force_check
     ret._allow_restricted = allow_restricted
+    ret._data = data if data else {}
 
     if pkgarch:
         ret._current_profile = profile.get_profile(pkgarch)
@@ -2669,6 +2674,7 @@ def read_pkg(
     stage=3,
     bulk_mode=False,
     allow_restricted=True,
+    data=None,
 ):
     modh, ret = read_mod(
         pkgname,
@@ -2687,6 +2693,7 @@ def read_pkg(
         stage,
         bulk_mode,
         allow_restricted,
+        data,
     )
     return from_module(modh, ret)
 

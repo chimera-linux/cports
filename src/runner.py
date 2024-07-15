@@ -52,6 +52,7 @@ opt_restricted = False
 opt_updatecheck = False
 opt_acceptsum = False
 opt_maint = "unknown <cports@local>"
+opt_tdata = {}
 
 #
 # INITIALIZATION ROUTINES
@@ -110,7 +111,7 @@ def handle_options():
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
-    global opt_acceptsum, opt_comp, opt_maint, opt_epkgs
+    global opt_acceptsum, opt_comp, opt_maint, opt_epkgs, opt_tdata
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -372,6 +373,9 @@ def handle_options():
         signcfg = global_cfg["signing"]
 
         opt_signkey = signcfg.get("key", fallback=opt_signkey)
+
+    if "data" in global_cfg:
+        opt_tdata = dict(global_cfg["data"])
 
     # command line args override config file
 
@@ -669,6 +673,7 @@ def bootstrap(tgt):
                 False,
                 None,
                 stage=0,
+                data=opt_tdata,
             )
         except template.SkipPackage:
             pass
@@ -1660,6 +1665,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             force_check=opt_forcecheck,
             stage=bstage,
             allow_restricted=opt_restricted,
+            data=opt_tdata,
         )
         if pkgn
         else None
@@ -1867,6 +1873,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                 force_check=opt_forcecheck,
                 bulk_mode=True,
                 allow_restricted=opt_restricted,
+                data=opt_tdata,
             )
         )
         if not tp:
@@ -2159,6 +2166,7 @@ def do_prepare_upgrade(tgt):
         False,
         None,
         target="fetch",
+        data=opt_tdata,
     )
     oldsha = list(tmpl.sha256)
 
