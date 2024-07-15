@@ -1,0 +1,20 @@
+diff --git a/src/initramfs-tools/hooks/clevis.in b/src/initramfs-tools/hooks/clevis.in
+index 3d4eb67..7312d7a 100755
+--- a/src/initramfs-tools/hooks/clevis.in
++++ b/src/initramfs-tools/hooks/clevis.in
+@@ -92,9 +92,15 @@ copy_exec @bindir@/clevis || die 1 "@bindir@/clevis not found"
+ curl_bin=$(find_binary "curl")
+ awk_bin=$(find_binary "awk")
+ bash_bin=$(find_binary "bash")
++ps_bin=$(find_binary "ps")
++ip_bin=$(find_binary "ip")
++mktemp_bin=$(find_binary "mktemp")
+ copy_exec "${curl_bin}" || die 2 "Unable to copy ${curl_bin} to initrd image"
+ copy_exec "${awk_bin}" || die 2 "Unable to copy ${awk_bin} to initrd image"
+ copy_exec "${bash_bin}" || die 2 "Unable to copy ${bash_bin} to initrd image"
++copy_exec "${ps_bin}" || die 2 "Unable to copy ${ps_bin} to initrd image"
++copy_exec "${ip_bin}" || die 2 "Unable to copy ${ip_bin} to initrd image"
++copy_exec "${mktemp_bin}" || die 2 "Unable to copy ${mktemp_bin} to initrd image"
+ 
+ # Copy latest versions of shared objects needed for DNS resolution
+ for so in $(ldconfig -p | sed -nr 's/^\s*libnss_files\.so\.[0-9]+\s.*=>\s*//p'); do

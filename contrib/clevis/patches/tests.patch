@@ -1,0 +1,13 @@
+diff --git a/src/pins/tang/tests/tang-common-test-functions.in b/src/pins/tang/tests/tang-common-test-functions.in
+index 5ddb680..0c7d977 100644
+--- a/src/pins/tang/tests/tang-common-test-functions.in
++++ b/src/pins/tang/tests/tang-common-test-functions.in
+@@ -59,7 +59,7 @@ tang_create_adv() {
+ # Get a random port to be used with a test tang server.
+ tang_new_random_port() {
+     tang_sanity_check
+-    shuf -i 1024-65535 -n 1
++    jot -r 1 1024 65536
+ }
+ 
+ # Removes tang rotated keys from the test server.
