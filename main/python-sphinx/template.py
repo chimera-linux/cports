@@ -1,25 +1,24 @@
 pkgname = "python-sphinx"
-pkgver = "7.3.7"
+pkgver = "7.4.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
-    "python-setuptools",
-    "python-flit_core",
     "python-build",
+    "python-flit_core",
     "python-installer",
 ]
 checkdepends = ["python-pytest", "python-markupsafe"]
 depends = [
     "python",
-    "python-jinja2",
-    "python-docutils",
-    "python-pygments",
-    "python-snowballstemmer",
-    "python-babel",
     "python-alabaster",
+    "python-babel",
+    "python-docutils",
     "python-imagesize",
-    "python-requests",
+    "python-jinja2",
     "python-packaging",
+    "python-pygments",
+    "python-requests",
+    "python-snowballstemmer",
     "python-sphinxcontrib-applehelp",
     "python-sphinxcontrib-devhelp",
     "python-sphinxcontrib-htmlhelp",
@@ -32,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.sphinx-doc.org/en/master"
 source = f"$(PYPI_SITE)/s/sphinx/sphinx-{pkgver}.tar.gz"
-sha256 = "a4a7db75ed37531c05002d56ed6948d4c42f473a36f46e1382b0bd76ca9627bc"
+sha256 = "bd846bcb09fd2b6e94ce3e1ad50f4618bccf03cc7c17d0f3fa87393c0bd9178b"
 # dependency of pytest, missing other checkdepends
 options = ["!check"]
 
