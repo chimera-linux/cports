@@ -1,0 +1,228 @@
+From f241110005006f10e16c6080ebab7abec6f3e5ce Mon Sep 17 00:00:00 2001
+From: Darren Schroeder <343840+fdncred@users.noreply.github.com>
+Date: Tue, 25 Jun 2024 20:31:54 -0500
+Subject: [PATCH] implement autoloading (#13217)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+# Description
+
+This PR implements script or module autoloading. It does this by finding
+the `$nu.vendor-autoload-dir`, lists the contents and sorts them by file
+name. These files are evaluated in that order.
+
+To see what's going on, you can use `--log-level warn`
+```
+❯ cargo r -- --log-level warn
+    Finished dev [unoptimized + debuginfo] target(s) in 0.58s
+     Running `target\debug\nu.exe --log-level warn`
+2024-06-24 09:23:20.494 PM [WARN ] nu::config_files: set_config_path() cwd: "C:\\Users\\fdncred\\source\\repos\\nushell", default_config: config.nu, key: config-path, config_file_specified: None
+2024-06-24 09:23:20.495 PM [WARN ] nu::config_files: set_config_path() cwd: "C:\\Users\\fdncred\\source\\repos\\nushell", default_config: env.nu, key: env-path, config_file_specified: None
+2024-06-24 09:23:20.629 PM [WARN ] nu::config_files: setup_config() config_file_specified: None, env_file_specified: None, login: false
+2024-06-24 09:23:20.660 PM [WARN ] nu::config_files: read_config_file() config_file_specified: None, is_env_config: true
+Hello, from env.nu
+2024-06-24 09:23:20.679 PM [WARN ] nu::config_files: read_config_file() config_file_specified: None, is_env_config: false
+Hello, from config.nu
+Hello, from defs.nu
+Activating Microsoft Visual Studio environment.
+2024-06-24 09:23:21.398 PM [WARN ] nu::config_files: read_vendor_autoload_files() src\config_files.rs:234:9
+2024-06-24 09:23:21.399 PM [WARN ] nu::config_files: read_vendor_autoload_files: C:\ProgramData\nushell\vendor\autoload
+2024-06-24 09:23:21.399 PM [WARN ] nu::config_files: AutoLoading: "C:\\ProgramData\\nushell\\vendor\\autoload\\01_get-weather.nu"
+2024-06-24 09:23:21.675 PM [WARN ] nu::config_files: AutoLoading: "C:\\ProgramData\\nushell\\vendor\\autoload\\02_temp.nu"
+2024-06-24 09:23:21.817 PM [WARN ] nu_cli::repl: Terminal doesn't support use_kitty_protocol config
+```
+
+# User-Facing Changes
+<!-- List of all changes that impact the user experience here. This
+helps us keep track of breaking changes. -->
+
+# Tests + Formatting
+<!--
+Don't forget to add tests that cover your changes.
+
+Make sure you've run and fixed any issues with these commands:
+
+- `cargo fmt --all -- --check` to check standard code formatting (`cargo
+fmt --all` applies these changes)
+- `cargo clippy --workspace -- -D warnings -D clippy::unwrap_used` to
+check that you're using the standard code style
+- `cargo test --workspace` to check that all tests pass (on Windows make
+sure to [enable developer
+mode](https://learn.microsoft.com/en-us/windows/apps/get-started/developer-mode-features-and-debugging))
+- `cargo run -- -c "use toolkit.nu; toolkit test stdlib"` to run the
+tests for the standard library
+
+> **Note**
+> from `nushell` you can also use the `toolkit` as follows
+> ```bash
+> use toolkit.nu # or use an `env_change` hook to activate it
+automatically
+> toolkit check pr
+> ```
+-->
+
+# After Submitting
+<!-- If your PR had any user-facing changes, update [the
+documentation](https://github.com/nushell/nushell.github.io) after the
+PR is merged, if necessary. This will help us keep the docs up to date.
+-->
+---
+ crates/nu-protocol/src/eval_const.rs | 65 +++++++++++++++++-----------
+ src/config_files.rs                  | 45 ++++++++++++++++++-
+ 2 files changed, 84 insertions(+), 26 deletions(-)
+
+diff --git a/crates/nu-protocol/src/eval_const.rs b/crates/nu-protocol/src/eval_const.rs
+index 8f6382ae4436..87913e4ee3c0 100644
+--- a/crates/nu-protocol/src/eval_const.rs
++++ b/crates/nu-protocol/src/eval_const.rs
+@@ -194,31 +194,11 @@ pub(crate) fn create_nu_constant(engine_state: &EngineState, span: Span) -> Valu
+         // if not, use the default /usr/share/nushell/vendor/autoload
+ 
+         // check to see if NU_VENDOR_AUTOLOAD_DIR env var is set, if not, use the default
+-        Value::string(
+-            option_env!("NU_VENDOR_AUTOLOAD_DIR")
+-                .map(String::from)
+-                .unwrap_or_else(|| {
+-                    if cfg!(windows) {
+-                        let all_user_profile = match engine_state.get_env_var("ALLUSERPROFILE") {
+-                            Some(v) => format!(
+-                                "{}\\nushell\\vendor\\autoload",
+-                                v.coerce_string().unwrap_or("C:\\ProgramData".into())
+-                            ),
+-                            None => "C:\\ProgramData\\nushell\\vendor\\autoload".into(),
+-                        };
+-                        all_user_profile
+-                    } else {
+-                        // In non-Windows environments, if NU_VENDOR_AUTOLOAD_DIR is not set
+-                        // check to see if PREFIX env var is set, and use it as PREFIX/nushell/vendor/autoload
+-                        // otherwise default to /usr/share/nushell/vendor/autoload
+-                        option_env!("PREFIX").map(String::from).map_or_else(
+-                            || "/usr/local/share/nushell/vendor/autoload".into(),
+-                            |prefix| format!("{}/share/nushell/vendor/autoload", prefix),
+-                        )
+-                    }
+-                }),
+-            span,
+-        ),
++        if let Some(path) = get_vendor_autoload_dir(engine_state) {
++            Value::string(path.to_string_lossy(), span)
++        } else {
++            Value::error(ShellError::ConfigDirNotFound { span: Some(span) }, span)
++        },
+     );
+ 
+     record.push("temp-path", {
+@@ -275,6 +255,41 @@ pub(crate) fn create_nu_constant(engine_state: &EngineState, span: Span) -> Valu
+     Value::record(record, span)
+ }
+ 
++pub fn get_vendor_autoload_dir(engine_state: &EngineState) -> Option<PathBuf> {
++    // pseudo code
++    // if env var NU_VENDOR_AUTOLOAD_DIR is set, in any platform, use it
++    // if not, if windows, use ALLUSERPROFILE\nushell\vendor\autoload
++    // if not, if non-windows, if env var PREFIX is set, use PREFIX/share/nushell/vendor/autoload
++    // if not, use the default /usr/share/nushell/vendor/autoload
++
++    // check to see if NU_VENDOR_AUTOLOAD_DIR env var is set, if not, use the default
++    Some(
++        option_env!("NU_VENDOR_AUTOLOAD_DIR")
++            .map(String::from)
++            .unwrap_or_else(|| {
++                if cfg!(windows) {
++                    let all_user_profile = match engine_state.get_env_var("ALLUSERPROFILE") {
++                        Some(v) => format!(
++                            "{}\\nushell\\vendor\\autoload",
++                            v.coerce_string().unwrap_or("C:\\ProgramData".into())
++                        ),
++                        None => "C:\\ProgramData\\nushell\\vendor\\autoload".into(),
++                    };
++                    all_user_profile
++                } else {
++                    // In non-Windows environments, if NU_VENDOR_AUTOLOAD_DIR is not set
++                    // check to see if PREFIX env var is set, and use it as PREFIX/nushell/vendor/autoload
++                    // otherwise default to /usr/share/nushell/vendor/autoload
++                    option_env!("PREFIX").map(String::from).map_or_else(
++                        || "/usr/local/share/nushell/vendor/autoload".into(),
++                        |prefix| format!("{}/share/nushell/vendor/autoload", prefix),
++                    )
++                }
++            })
++            .into(),
++    )
++}
++
+ fn eval_const_call(
+     working_set: &StateWorkingSet,
+     call: &Call,
+diff --git a/src/config_files.rs b/src/config_files.rs
+index ec4511860f04..30977a6d0e7e 100644
+--- a/src/config_files.rs
++++ b/src/config_files.rs
+@@ -9,8 +9,9 @@ use nu_protocol::{
+ };
+ use nu_utils::{get_default_config, get_default_env};
+ use std::{
++    fs,
+     fs::File,
+-    io::Write,
++    io::{Result, Write},
+     panic::{catch_unwind, AssertUnwindSafe},
+     path::Path,
+     sync::Arc,
+@@ -176,6 +177,46 @@ pub(crate) fn read_default_env_file(engine_state: &mut EngineState, stack: &mut
+     }
+ }
+ 
++fn read_and_sort_directory(path: &Path) -> Result<Vec<String>> {
++    let mut entries = Vec::new();
++
++    for entry in fs::read_dir(path)? {
++        let entry = entry?;
++        let file_name = entry.file_name();
++        let file_name_str = file_name.into_string().unwrap_or_default();
++        entries.push(file_name_str);
++    }
++
++    entries.sort();
++
++    Ok(entries)
++}
++
++pub(crate) fn read_vendor_autoload_files(engine_state: &mut EngineState, stack: &mut Stack) {
++    warn!(
++        "read_vendor_autoload_files() {}:{}:{}",
++        file!(),
++        line!(),
++        column!()
++    );
++
++    // read and source vendor_autoload_files file if exists
++    if let Some(autoload_dir) = nu_protocol::eval_const::get_vendor_autoload_dir(engine_state) {
++        warn!("read_vendor_autoload_files: {}", autoload_dir.display());
++
++        if autoload_dir.exists() {
++            let entries = read_and_sort_directory(&autoload_dir);
++            if let Ok(entries) = entries {
++                for entry in entries {
++                    let path = autoload_dir.join(entry);
++                    warn!("AutoLoading: {:?}", path);
++                    eval_config_contents(path, engine_state, stack);
++                }
++            }
++        }
++    }
++}
++
+ fn eval_default_config(
+     engine_state: &mut EngineState,
+     stack: &mut Stack,
+@@ -236,6 +277,8 @@ pub(crate) fn setup_config(
+         if is_login_shell {
+             read_loginshell_file(engine_state, stack);
+         }
++        // read and auto load vendor autoload files
++        read_vendor_autoload_files(engine_state, stack);
+     }));
+     if result.is_err() {
+         eprintln!(
