@@ -523,6 +523,7 @@ core_fields = [
     # sources
     ("sha256", [], (list, str), False, False, False),
     ("source", [], (list, str), False, False, False),
+    ("source_headers", None, (list, dict), False, False, False),
     ("source_paths", None, list, False, False, False),
     # target support
     ("archs", None, list, False, False, False),
@@ -655,6 +656,7 @@ core_fields_priority = [
     ("license", True),
     ("url", True),
     ("source", True),
+    ("source_headers", True),
     ("source_paths", True),
     ("sha256", True),
     ("debug_level", True),
@@ -2488,6 +2490,8 @@ def from_module(m, ret):
     # ensure sources and checksums are a list
     if not isinstance(ret.source, list):
         ret.source = [ret.source]
+    if ret.source_headers and not isinstance(ret.source_headers, list):
+        ret.source_headers = [ret.source_headers]
     if isinstance(ret.sha256, str):
         ret.sha256 = [ret.sha256]
 

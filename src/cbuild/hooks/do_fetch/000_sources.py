@@ -78,7 +78,7 @@ fstatus = []
 flens = []
 
 
-def fetch_stream(url, dfile, dhdrs, idx, ntry, rqf, rbuf):
+def fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf):
     global fmtx, fstatus, flens
 
     # ensure the response if what we expect, otherwise error
@@ -148,17 +148,19 @@ def fetch_stream(url, dfile, dhdrs, idx, ntry, rqf, rbuf):
     # resume outside the mutex
     if dores:
         rqf.close()
-        return fetch_url(url, dfile, dhdrs, idx, ntry + 1, rbuf)
+        return fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry + 1, rbuf)
     # rename and return
     pfile.rename(dfile)
     return None, None, None
 
 
-def fetch_url(url, dfile, dhdrs, idx, ntry, rbuf=None):
+def fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry, rbuf=None):
     global fmtx, fstatus, flens
 
     try:
         hdrs = dict(dhdrs)
+        if ehdrs:
+            hdrs.update(ehdrs)
         if ntry > 0:
             with fmtx:
                 hdrs["Range"] = f"bytes={fstatus[idx]}-{flens[idx]}"
@@ -168,12 +170,12 @@ def fetch_url(url, dfile, dhdrs, idx, ntry, rbuf=None):
             headers=hdrs,
         )
         with request.urlopen(rq) as rqf:
-            return fetch_stream(url, dfile, dhdrs, idx, ntry, rqf, rbuf)
+            return fetch_stream(url, dfile, dhdrs, ehdrs, idx, ntry, rqf, rbuf)
     except Exception as e:
         if ntry > 3:
             return url, dfile, str(e)
         # try a few times on failures
-        return fetch_url(url, dfile, dhdrs, idx, ntry + 1, rbuf)
+        return fetch_url(url, dfile, dhdrs, ehdrs, idx, ntry + 1, rbuf)
 
 
 def invoke(pkg):
@@ -198,6 +200,14 @@ def invoke(pkg):
 
     if len(pkg.source) != len(pkg.sha256):
         pkg.error("sha256sums do not match sources")
+
+    if not pkg.source_headers:
+        shdrs = [None] * len(pkg.source)
+    else:
+        shdrs = pkg.source_headers
+
+    if len(pkg.source) != len(shdrs):
+        pkg.error("source_headers must match sources")
 
     if not srcdir.is_dir():
         try:
@@ -231,8 +241,8 @@ def invoke(pkg):
     fstatus = []
     flens = []
 
-    for dc in zip(pkg.source, pkg.sha256):
-        d, ck = dc
+    for dc in zip(pkg.source, shdrs, pkg.sha256):
+        d, hdrs, ck = dc
         url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
         dfiles.append((dfile, ck))
@@ -240,14 +250,14 @@ def invoke(pkg):
             link_cksum(dfile, ck, pkg)
         if not dfile.is_file():
             idx = len(tofetch)
-            tofetch.append((url, dfile, idx))
+            tofetch.append((url, dfile, hdrs, idx))
             fstatus.append(0)
             flens.append(-1)
             pkg.log(f"fetching source '{fname}'...")
 
     def do_fetch_url(mv):
-        url, dfile, idx = mv
-        return fetch_url(url, dfile, dhdrs, idx, 0)
+        url, dfile, hdrs, idx = mv
+        return fetch_url(url, dfile, dhdrs, hdrs, idx, 0)
 
     # max 16 connections
     tpool = ThreadPool(16)
@@ -267,7 +277,7 @@ def invoke(pkg):
                 pkg.logger.out_raw("\033[A")
         # take a lock and make up status array for all sources
         with fmtx:
-            for url, dfile, idx in tofetch:
+            for url, dfile, hdrs, idx in tofetch:
                 dled = fstatus[idx]
                 clen = flens[idx]
                 # compute percetnage if we can (known content-length)

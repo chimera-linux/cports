@@ -1014,6 +1014,11 @@ Keep in mind that default values may be overridden by build styles.
   the `>` with the filename is stripped from the URL before download. This
   can be useful in cases where the URL does not have an obvious filename,
   or when the filename is ambiguous.
+* `source_headers` *(list)* This must be a list that has as many entries as
+  there are sources. Each item is a dict specifying name-value mappings of
+  extra request headers to use when fetching. When it's not a list, it must
+  be a dict; this is a shorthand when there is only one source (i.e. a dict
+  is equivalent to a list of 1 dict).
 * `source_paths` *(list)* This must be a list that has as many entries as
   there are sources. Each item is a string specifying a path within the
   `wrksrc` that the source's extracted result will have. Specifying an empty
