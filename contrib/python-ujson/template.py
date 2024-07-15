@@ -1,6 +1,6 @@
 pkgname = "python-ujson"
 pkgver = "5.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-installer",
     "python-setuptools_scm",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Native json encoder for Python"
 maintainer = "psykose <alice@ayaya.dev>"

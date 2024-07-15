@@ -1,12 +1,13 @@
 pkgname = "python-parso"
 pkgver = "0.8.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest-xdist"]
 pkgdesc = "Python module for parsing the Python language"
 maintainer = "psykose <alice@ayaya.dev>"

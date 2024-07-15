@@ -1,6 +1,6 @@
 pkgname = "python-pyhamcrest"
 pkgver = "2.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 hostmakedepends = [
@@ -9,6 +9,7 @@ hostmakedepends = [
     "python-hatchling",
     "python-installer",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python framework for writing matcher objects"
 maintainer = "psykose <alice@ayaya.dev>"

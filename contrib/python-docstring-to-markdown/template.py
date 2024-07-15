@@ -1,12 +1,13 @@
 pkgname = "python-docstring-to-markdown"
 pkgver = "0.15"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
 ]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python module for converting docstrings to markdown"
 maintainer = "psykose <alice@ayaya.dev>"

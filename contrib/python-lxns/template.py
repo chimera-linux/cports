@@ -1,6 +1,6 @@
 pkgname = "python-lxns"
 pkgver = "0.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-installer",
 ]
 makedepends = ["linux-headers", "python-devel"]
+depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library to control Linux kernel namespaces"
 maintainer = "ttyyls <contact@behri.org>"
