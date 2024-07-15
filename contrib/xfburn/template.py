@@ -1,5 +1,5 @@
 pkgname = "xfburn"
-pkgver = "0.7.0"
+pkgver = "0.7.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -8,7 +8,6 @@ hostmakedepends = [
     "automake",
     "gettext-devel",
     "gmake",
-    "intltool",
     "libtool",
     "pkgconf",
     "xfce4-dev-tools",
@@ -29,4 +28,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfburn/start"
 source = f"$(XFCE_SITE)/apps/xfburn/{pkgver[:-2]}/xfburn-{pkgver}.tar.bz2"
-sha256 = "ba960ea79a044b93e513f7c32bca1a599472d687ed0e0184bde8c84aeebb1f45"
+sha256 = "7ca161b2c9c558e5161f02f69d0418a37eba15eab4d3a8651f6c97d3a9d5dc16"
