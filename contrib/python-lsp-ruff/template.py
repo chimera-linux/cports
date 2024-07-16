@@ -1,5 +1,5 @@
 pkgname = "python-lsp-ruff"
-pkgver = "2.2.1"
+pkgver = "2.2.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/python-lsp/python-lsp-ruff"
 source = f"$(PYPI_SITE)/p/python-lsp-ruff/python_lsp_ruff-{pkgver}.tar.gz"
-sha256 = "0bb3a227bc136e8ab8c66e91733f2673dc15df6f7fc9eb99d4267d0991b327a5"
+sha256 = "3f80bdb0b4a8ee24624596a1cff60b28cc37771773730f9bf7d946ddff9f0cac"
 # for some reason from inside venv ruff python module can't find the bin
 options = ["!check"]
 
