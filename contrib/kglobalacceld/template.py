@@ -1,5 +1,5 @@
 pkgname = "kglobalacceld"
-pkgver = "6.1.2"
+pkgver = "6.1.3"
 pkgrel = 0
 build_style = "cmake"
 # needs full init of kglobalaccel
@@ -26,7 +26,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kglobalacceld"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
-sha256 = "27b39e674a6b66ba05b34e181b8b39ed084853bd87a072f3333ce4c423a668dc"
+sha256 = "359155f3454948f2717ae6785ed1e6dc2dc8c281e6526cb06852cf4aa1a2a062"
 # CFI: breaks at least 50+ kwin tests (together with kidletime)
 hardening = ["vis", "!cfi"]
 

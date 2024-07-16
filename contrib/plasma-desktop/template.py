@@ -1,5 +1,5 @@
 pkgname = "plasma-desktop"
-pkgver = "6.1.2"
+pkgver = "6.1.3"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
@@ -104,7 +104,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
-sha256 = "29e4047c49274ade6996240695cbdabe78c184181708079404debf6dad87e2d8"
+sha256 = "362f64fa1af1c295d7fdade146bf5751176256c19fd41dd1850fff3603c21fad"
 # CFI: kills systemsettings (when entering "Date & Time") in kcm_clock.so
 hardening = ["vis", "!cfi"]
 
@@ -219,7 +219,6 @@ def _apps_meta(self):
         "yakuake",  # drop-down terminal
         # "neochat",  # local WIP, matrix client
         # - still qt5
-        # "digikam",  # photo management
         # "kamoso",  # camera
         # "kipi-plugins",  # image export
         # "kmymoney",  # finance manager
@@ -230,6 +229,7 @@ def _apps_meta(self):
     if self.rparent.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
         self.depends += [
             "akregator",  # rss feeds
+            "digikam",  # photo manager
             "ghostwriter",  # markdown editor
             "khelpcenter",  # documentation viewer
             "konqueror",  # web browser

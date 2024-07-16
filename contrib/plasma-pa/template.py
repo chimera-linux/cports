@@ -1,5 +1,5 @@
 pkgname = "plasma-pa"
-pkgver = "6.1.2"
+pkgver = "6.1.3"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: only test, needs selenium-webdriver-at-spi-run
@@ -38,6 +38,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-pa"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-pa-{pkgver}.tar.xz"
-sha256 = "fd84e0336bfdcc13fadee91582fa0a858dc36a155f3e1e5691ddc6ff9c6b4466"
+sha256 = "4211b05f036d80e455a4c2a32184266017fe5dcd01fb7532760ac81d886aadf7"
 # CFI: kills systemsettings (when leaving "Sound" page) in libplasma-volume-declarative.so
 hardening = ["vis", "!cfi"]

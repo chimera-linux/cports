@@ -1,5 +1,5 @@
 pkgname = "libplasma"
-pkgver = "6.1.2"
+pkgver = "6.1.3"
 pkgrel = 0
 build_style = "cmake"
 # DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
@@ -41,7 +41,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/plasma/libplasma/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libplasma-{pkgver}.tar.xz"
-sha256 = "80614164e4f8c0ef005e5d3157bca4a7f421925d16a36a1ea6841c665163214a"
+sha256 = "5a2b6b7c539b6d171a9c2b743d554a74dcf3e57512a0423b46fce92fa2a545de"
 # CFI: kills plasmashell (on launch of startplasma-wayland) in liborg_kde_plasmacomponents3.so
 hardening = ["vis", "!cfi"]
 

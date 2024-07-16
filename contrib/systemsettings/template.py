@@ -1,5 +1,5 @@
 pkgname = "systemsettings"
-pkgver = "6.1.2"
+pkgver = "6.1.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -7,6 +7,7 @@ hostmakedepends = [
     "extra-cmake-modules",
     "gettext",
     "ninja",
+    "pkgconf",
 ]
 makedepends = [
     "kauth-devel",
@@ -34,7 +35,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://userbase.kde.org/System_Settings"
 source = f"$(KDE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"
-sha256 = "907addec0baf4026d7741a0db3380d388f5cf69984dac07c0fa05e11058b46b6"
+sha256 = "65ba04f22ab4dbfeb8c9a06b540b2ea9d56fe7e9ba295344a5c7e6b63f182131"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 # CFI: crash on launch
 hardening = ["vis", "!cfi"]

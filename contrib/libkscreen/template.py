@@ -1,5 +1,5 @@
 pkgname = "libkscreen"
-pkgver = "6.1.2"
+pkgver = "6.1.3"
 pkgrel = 0
 build_style = "cmake"
 # testbackendloader testEnv(xrandr 1.1) 'preferred.fileName().startsWith(backend)' returned FALSE, flaky tests when parallel
@@ -31,7 +31,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/libkscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
-sha256 = "36dc01b9f4308aec1b70994cf1554daf2a77f950db15cd285fced8b4125897b8"
+sha256 = "9988f3736ec3d917f7b8bf1759c11c155a8ec57fcfd7876420e4bb9718b3b293"
 # CFI: breaks almost all tests
 hardening = ["vis", "!cfi"]
 
