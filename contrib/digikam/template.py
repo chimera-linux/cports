@@ -17,6 +17,7 @@ make_check_args = [
     + "|loadsavethread|dimg"
     + "|setiptcpreview|timestampupdate|raw2dng)",
 ]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "bison",
     "cmake",
