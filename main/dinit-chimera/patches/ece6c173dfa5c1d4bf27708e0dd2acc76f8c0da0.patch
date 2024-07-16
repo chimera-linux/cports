@@ -1,0 +1,38 @@
+From ece6c173dfa5c1d4bf27708e0dd2acc76f8c0da0 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 14 Jul 2024 20:50:14 +0200
+Subject: [PATCH] allow hostname service to run in container environments
+
+---
+ early/scripts/hostname.sh | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/early/scripts/hostname.sh b/early/scripts/hostname.sh
+index ff5e600..ea94817 100644
+--- a/early/scripts/hostname.sh
++++ b/early/scripts/hostname.sh
+@@ -1,11 +1,22 @@
+ #!/bin/sh
+ 
+ DINIT_SERVICE=hostname
+-DINIT_NO_CONTAINER=1
+ 
+ . ./early/scripts/common.sh
+ 
+ [ -r /etc/hostname ] && read -r HOSTNAME < /etc/hostname
+ [ -z "$HOSTNAME"   ] && HOSTNAME=chimera
+ 
+-printf "%s" "$HOSTNAME" > /proc/sys/kernel/hostname
++set_hostname() {
++    # some container envs allow setting hostname via syscall,
++    # but not via procfs; so default to using a command, falling
++    # back to procfs when available and when the command is not
++    if command -v hostname > /dev/null 2>&1; then
++        hostname "$1"
++    elif [ -e /proc/sys/kernel/hostname ]; then
++        printf "%s" "$1" > /proc/sys/kernel/hostname
++    fi
++}
++
++# in some environments this may fail
++set_hostname "$HOSTNAME" > /dev/null 2>&1 || :
