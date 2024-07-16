@@ -1,5 +1,5 @@
 pkgname = "fdupes"
-pkgver = "2.3.1"
+pkgver = "2.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -9,7 +9,7 @@ maintainer = "autumnontape <autumn@cyfox.net>"
 license = "MIT"
 url = "https://github.com/adrianlopezroche/fdupes"
 source = f"{url}/releases/download/v{pkgver}/fdupes-{pkgver}.tar.gz"
-sha256 = "2482b4b8c931bd17cea21f4c27fa4747b877523029d57f794a2b48e6c378db17"
+sha256 = "808d8decbe7fa41cab407ae4b7c14bfc27b8cb62227540c3dcb6caf980592ac7"
 hardening = ["vis", "cfi"]
 
 
