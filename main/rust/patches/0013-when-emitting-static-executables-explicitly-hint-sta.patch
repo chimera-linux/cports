@@ -1,0 +1,47 @@
+From e7529b412d402f50cd2df4a584ee88e20a8742fc Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Tue, 16 Jul 2024 15:04:38 +0200
+Subject: [PATCH] when emitting static executables, explicitly hint static
+ first
+
+This is important as rustc is not always in charge of what it is
+linking (due to some targets not necessarily passing -nodefaultlibs)
+and it assumes that resetting to dynamic is always the default.
+
+This would result in executables that have no interpreter but
+are still dynamically linked (despite static being requested).
+
+By explicitly hinting static again before passing the -static
+or -static-pie, we tell the linker to always link whatever
+implicit libs statically as expected.
+---
+ compiler/rustc_codegen_ssa/src/back/linker.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/compiler/rustc_codegen_ssa/src/back/linker.rs b/compiler/rustc_codegen_ssa/src/back/linker.rs
+index 85fcc4f..08afd03 100644
+--- a/compiler/rustc_codegen_ssa/src/back/linker.rs
++++ b/compiler/rustc_codegen_ssa/src/back/linker.rs
+@@ -386,6 +386,10 @@ impl<'a> Linker for GccLinker<'a> {
+                 }
+             }
+             LinkOutputKind::StaticNoPicExe => {
++                // Hint static again, as we would otherwise emit
++                // a dynamically linked executable with no interp
++                // (due to libc/builtins wrongly being linked dynamically)
++                self.hint_static();
+                 // `-static` works for both gcc wrapper and ld.
+                 self.cmd.arg("-static");
+                 if !self.is_ld && self.is_gnu {
+@@ -393,6 +397,8 @@ impl<'a> Linker for GccLinker<'a> {
+                 }
+             }
+             LinkOutputKind::StaticPicExe => {
++                // See the StaticNoPicExe case above
++                self.hint_static();
+                 if !self.is_ld {
+                     // Note that combination `-static -pie` doesn't work as expected
+                     // for the gcc wrapper, `-static` in that case suppresses `-pie`.
+-- 
+2.45.2
+
