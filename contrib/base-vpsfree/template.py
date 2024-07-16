@@ -1,8 +1,9 @@
 pkgname = "base-vpsfree"
 pkgver = "0.2"
-pkgrel = 1
+pkgrel = 2
 archs = ["x86_64"]
 depends = [
+    "!base-full-firmware",  # we're not loading a kernel, so...
     "!base-full-kernel",  # we don't care about kernel at all
     "!base-full-session",  # we don't care about elogind here by default
     "!base-full-sound",  # no sound on a vps
