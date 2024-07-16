@@ -1,6 +1,6 @@
 # nb: requires CXX14+ to use it
 pkgname = "gtest"
-pkgver = "1.14.0"
+pkgver = "1.15.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -17,7 +17,7 @@ url = "https://github.com/google/googletest"
 source = (
     f"https://github.com/google/googletest/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7"
+sha256 = "7315acb6bf10e99f332c8a43f00d5fbb1ee6ca48c52f6b936991b216c586aaad"
 
 
 def post_install(self):
