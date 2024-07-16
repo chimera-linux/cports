@@ -1,6 +1,6 @@
 pkgname = "wasm-component-ld"
 pkgver = "0.5.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo"]
 makedepends = ["rust-std"]
