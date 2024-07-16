@@ -1,13 +1,17 @@
 pkgname = "base-vpsfree"
 pkgver = "0.2"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 depends = [
     "!base-full-kernel",  # we don't care about kernel at all
     "!base-full-session",  # we don't care about elogind here by default
+    "!base-full-sound",  # no sound on a vps
     "!chrony-dinit-links",  # we don't want ntp to come up
+    "!elogind-dinit-links",  # not necessary by default (and may not work)
     "!nyagetty-dinit-links",  # don't want default ttys
+    "!pipewire-dinit-links",  # no sound on a vps
     "!udev-dinit-links",  # don't want udev to run
+    "!wireplumber-dinit-links",  # no sound on a vps
     "resolvconf-none",  # resolv.conf is managed externally
 ]
 replaces = ["dinit-chimera"]
