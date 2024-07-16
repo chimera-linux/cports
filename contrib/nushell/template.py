@@ -2,6 +2,8 @@ pkgname = "nushell"
 pkgver = "0.95.0"
 pkgrel = 0
 build_style = "cargo"
+# We patch Cargo.toml and Cargo.lock
+prepare_after_patch = True
 make_env = {
     "PREFIX": "/usr",
 }
