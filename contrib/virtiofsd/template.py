@@ -1,6 +1,6 @@
 pkgname = "virtiofsd"
 pkgver = "1.11.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = [
@@ -23,7 +23,7 @@ def do_install(self):
         mode=0o755,
     )
     self.install_license("LICENSE-BSD-3-Clause")
-    self.install_file("50-virtiofsd.json", "usr/share/qemu/vhost-user")
+    self.install_file("50-virtiofsd.json", "usr/lib/qemu/vhost-user")
     # old qemu compat link; used to be shipped with qemu
     self.install_dir("usr/lib/qemu")
     self.install_link("usr/lib/qemu/virtiofsd", "../../libexec/virtiofsd")
