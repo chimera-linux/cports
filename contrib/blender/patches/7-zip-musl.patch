@@ -36,6 +36,17 @@
    // ret2 =
 --- a/extern/lzma/Threads.h
 +++ b/extern/lzma/Threads.h
+@@ -4,6 +4,10 @@
+ #ifndef ZIP7_INC_THREADS_H
+ #define ZIP7_INC_THREADS_H
+ 
++#ifndef _GNU_SOURCE
++#define _GNU_SOURCE
++#endif
++
+ #ifdef _WIN32
+ #include "7zWindows.h"
+ 
 @@ -20,6 +20,7 @@
  #endif
  
