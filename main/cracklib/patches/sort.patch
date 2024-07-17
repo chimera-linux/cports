@@ -1,0 +1,26 @@
+Use python if we can as it's much faster than our current sort(1).
+
+--- a/util/cracklib-format
++++ b/util/cracklib-format
+@@ -12,10 +12,20 @@
+ #
+ LC_ALL=C
+ export LC_ALL
++
++do_sort() {
++    if command -v python3 > /dev/null 2>&1; then
++        python3 -c "import sys
++for ln in sorted(set(ln for ln in sys.stdin)): print(ln.strip())"
++    else
++        sort -u
++    fi
++}
++
+ gzip -cdf "$@" |
+     grep -a -v '^#' |
+     tr '[A-Z]' '[a-z]' |
+     tr -cd '\012[a-z][0-9]' |
+     cut -c 1-1022 |
+     grep -v '^$' |
+-    sort -u
++    do_sort
