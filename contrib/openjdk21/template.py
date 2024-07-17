@@ -1,9 +1,9 @@
 pkgname = "openjdk21"
-_majver = "21"
-_fver = f"{_majver}.0.3"
-_bver = "9"
-pkgver = f"{_fver}_p{_bver}"
+pkgver = "21.0.4_p7"
 pkgrel = 0
+_majver = pkgver.split(".")[0]
+_fver = pkgver.split("_")[0]
+_bver = pkgver.split("_p")[-1]
 # we don't attempt zero, it's a waste of time
 # riscv64 ftbfs: java.lang.InternalError: unknown error in checkDeflateStatus
 archs = ["aarch64", "ppc64", "ppc64le", "x86_64"]
@@ -68,7 +68,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"
-sha256 = "b7a78e596b272d958843eab0c0412fd7ee874a3b6fff577584ebeed39dfef7ee"
+sha256 = "b8b37fa6fcc284d91e7458c703ca4c893a1dd5a6e0f6b9e198e7d13cd8efd24d"
 # FIXME: SIGILL in jvm
 hardening = ["!int"]
 # TODO later
