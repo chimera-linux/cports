@@ -1,6 +1,6 @@
 pkgname = "helix"
-pkgver = "24.03"
-pkgrel = 1
+pkgver = "24.07"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "git"]
 makedepends = ["rust-std"]
@@ -9,7 +9,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MPL-2.0"
 url = "https://github.com/helix-editor/helix"
 source = f"{url}/releases/download/{pkgver}/helix-{pkgver}-source.tar.xz"
-sha256 = "c59a5988f066c2ab90132e03a0e6b35b3dd89f48d3d78bf0ec81bd7d88c7677e"
+sha256 = "44d9eb113a54a80a2891ac6374c74bcd2bce63d317f1e1c69c286a6fc919922c"
 
 
 def do_install(self):
