@@ -1,0 +1,10 @@
+--- a/source/blender/blenlib/intern/filereader_zstd.c
++++ b/source/blender/blenlib/intern/filereader_zstd.c
+@@ -11,6 +11,7 @@
+ 
+ #include "BLI_filereader.h"
+ #include "BLI_math_base.h"
++#include "BLI_endian_switch.h"
+ 
+ #include "MEM_guardedalloc.h"
+ 
