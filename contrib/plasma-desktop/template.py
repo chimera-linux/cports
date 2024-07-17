@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -329,6 +329,20 @@ def _kdepin_meta(self):
         "korganizer",
         "merkuro",
         "zanshin",
+    ]
+    self.options = ["empty"]
+
+    return []
+
+
+@subpackage("plasma-desktop-sddm-meta")
+def _sddm_meta(self):
+    # contact/calendar/etc
+    self.subdesc = "SDDM recommends package"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        "sddm",
+        "sddm-kcm",
     ]
     self.options = ["empty"]
 
