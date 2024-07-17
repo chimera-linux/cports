@@ -1,0 +1,96 @@
+From e951dba48a6330aca9c161c50189f6974e6877f0 Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Tue, 28 May 2024 11:56:41 -0400
+Subject: [PATCH] Linux 6.10: work harder to avoid kmem_cache_alloc reuse
+
+Linux 6.10 change kmem_cache_alloc to be a macro, rather than a
+function, such that the old #undef for it in spl-kmem-cache.c would
+remove its definition completely, breaking the build.
+
+This inverts the model used before. Rather than always defining the
+kmem_cache_* macro, then undefining then inside spl-kmem-cache.c,
+instead we make a special tag to indicate we're currently inside
+spl-kmem-cache.c, and not defining those in macros in the first place,
+so we can use the kernel-supplied kmem_cache_* functions to implement
+spl_kmem_cache_*, as we expect.
+
+For all other callers, we create the macros as normal and remove access
+to the kernel's own conflicting names.
+
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+Sponsored-by: https://despairlabs.com/sponsor/
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+---
+ include/os/linux/spl/sys/kmem_cache.h | 19 +++++++++++--------
+ module/os/linux/spl/spl-kmem-cache.c  | 12 ++----------
+ 2 files changed, 13 insertions(+), 18 deletions(-)
+
+diff --git a/include/os/linux/spl/sys/kmem_cache.h b/include/os/linux/spl/sys/kmem_cache.h
+index b159bb52d111..905ff57a1434 100644
+--- a/include/os/linux/spl/sys/kmem_cache.h
++++ b/include/os/linux/spl/sys/kmem_cache.h
+@@ -192,22 +192,25 @@ extern void spl_kmem_reap(void);
+ extern uint64_t spl_kmem_cache_inuse(kmem_cache_t *cache);
+ extern uint64_t spl_kmem_cache_entry_size(kmem_cache_t *cache);
+ 
++#ifndef	SPL_KMEM_CACHE_IMPLEMENTING
++/*
++ * Macros for the kmem_cache_* API expected by ZFS and SPL clients. We don't
++ * define them inside spl-kmem-cache.c, as that uses the kernel's incompatible
++ * kmem_cache_* facilities to implement ours.
++ */
++
++/* Avoid conflicts with kernel names that might be implemented as macros. */
++#undef	kmem_cache_alloc
++
+ #define	kmem_cache_create(name, size, align, ctor, dtor, rclm, priv, vmp, fl) \
+     spl_kmem_cache_create(name, size, align, ctor, dtor, rclm, priv, vmp, fl)
+ #define	kmem_cache_set_move(skc, move)	spl_kmem_cache_set_move(skc, move)
+ #define	kmem_cache_destroy(skc)		spl_kmem_cache_destroy(skc)
+-/*
+- * This is necessary to be compatible with other kernel modules
+- * or in-tree filesystem that may define kmem_cache_alloc,
+- * like bcachefs does it now.
+- */
+-#ifdef kmem_cache_alloc
+-#undef kmem_cache_alloc
+-#endif
+ #define	kmem_cache_alloc(skc, flags)	spl_kmem_cache_alloc(skc, flags)
+ #define	kmem_cache_free(skc, obj)	spl_kmem_cache_free(skc, obj)
+ #define	kmem_cache_reap_now(skc)	spl_kmem_cache_reap_now(skc)
+ #define	kmem_reap()			spl_kmem_reap()
++#endif
+ 
+ /*
+  * The following functions are only available for internal use.
+diff --git a/module/os/linux/spl/spl-kmem-cache.c b/module/os/linux/spl/spl-kmem-cache.c
+index 42821ad60256..737c2e063f71 100644
+--- a/module/os/linux/spl/spl-kmem-cache.c
++++ b/module/os/linux/spl/spl-kmem-cache.c
+@@ -21,6 +21,8 @@
+  *  with the SPL.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#define	SPL_KMEM_CACHE_IMPLEMENTING
++
+ #include <linux/percpu_compat.h>
+ #include <sys/kmem.h>
+ #include <sys/kmem_cache.h>
+@@ -33,16 +35,6 @@
+ #include <linux/swap.h>
+ #include <linux/prefetch.h>
+ 
+-/*
+- * Within the scope of spl-kmem.c file the kmem_cache_* definitions
+- * are removed to allow access to the real Linux slab allocator.
+- */
+-#undef kmem_cache_destroy
+-#undef kmem_cache_create
+-#undef kmem_cache_alloc
+-#undef kmem_cache_free
+-
+-
+ /*
+  * Linux 3.16 replaced smp_mb__{before,after}_{atomic,clear}_{dec,inc,bit}()
+  * with smp_mb__{before,after}_atomic() because they were redundant. This is

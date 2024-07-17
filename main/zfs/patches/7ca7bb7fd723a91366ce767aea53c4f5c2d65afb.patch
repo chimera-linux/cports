@@ -1,0 +1,124 @@
+From 7ca7bb7fd723a91366ce767aea53c4f5c2d65afb Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Tue, 28 May 2024 16:16:28 -0400
+Subject: [PATCH] Linux 5.16: use bdev_nr_bytes() to get device capacity
+
+This helper was introduced long ago, in 5.16. Since 6.10, bd_inode no
+longer exists, but the helper has been updated, so detect it and use it
+in all versions where it is available.
+
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+Sponsored-by: https://despairlabs.com/sponsor/
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+---
+ config/kernel-blkdev.m4         | 26 ++++++++++++++++++++++++++
+ module/os/linux/zfs/vdev_disk.c | 14 +++++++++-----
+ 2 files changed, 35 insertions(+), 5 deletions(-)
+
+diff --git a/config/kernel-blkdev.m4 b/config/kernel-blkdev.m4
+index b6ce1e1cf083..4f60f96acb56 100644
+--- a/config/kernel-blkdev.m4
++++ b/config/kernel-blkdev.m4
+@@ -534,6 +534,30 @@ AC_DEFUN([ZFS_AC_KERNEL_BLKDEV_BDEV_WHOLE], [
+ 	])
+ ])
+ 
++dnl #
++dnl # 5.16 API change
++dnl # Added bdev_nr_bytes() helper.
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_BLKDEV_BDEV_NR_BYTES], [
++	ZFS_LINUX_TEST_SRC([bdev_nr_bytes], [
++		#include <linux/blkdev.h>
++	],[
++		struct block_device *bdev = NULL;
++		loff_t nr_bytes __attribute__ ((unused)) = 0;
++		nr_bytes = bdev_nr_bytes(bdev);
++	])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_BLKDEV_BDEV_NR_BYTES], [
++	AC_MSG_CHECKING([whether bdev_nr_bytes() is available])
++	ZFS_LINUX_TEST_RESULT([bdev_nr_bytes], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_BDEV_NR_BYTES, 1, [bdev_nr_bytes() is available])
++	],[
++		AC_MSG_RESULT(no)
++	])
++])
++
+ dnl #
+ dnl # 5.20 API change,
+ dnl # Removed bdevname(), snprintf(.., %pg) should be used.
+@@ -747,6 +771,7 @@ AC_DEFUN([ZFS_AC_KERNEL_SRC_BLKDEV], [
+ 	ZFS_AC_KERNEL_SRC_BLKDEV_CHECK_DISK_CHANGE
+ 	ZFS_AC_KERNEL_SRC_BLKDEV_BDEV_CHECK_MEDIA_CHANGE
+ 	ZFS_AC_KERNEL_SRC_BLKDEV_BDEV_WHOLE
++	ZFS_AC_KERNEL_SRC_BLKDEV_BDEV_NR_BYTES
+ 	ZFS_AC_KERNEL_SRC_BLKDEV_BDEVNAME
+ 	ZFS_AC_KERNEL_SRC_BLKDEV_ISSUE_DISCARD
+ 	ZFS_AC_KERNEL_SRC_BLKDEV_BDEV_KOBJ
+@@ -767,6 +792,7 @@ AC_DEFUN([ZFS_AC_KERNEL_BLKDEV], [
+ 	ZFS_AC_KERNEL_BLKDEV_CHECK_DISK_CHANGE
+ 	ZFS_AC_KERNEL_BLKDEV_BDEV_CHECK_MEDIA_CHANGE
+ 	ZFS_AC_KERNEL_BLKDEV_BDEV_WHOLE
++	ZFS_AC_KERNEL_BLKDEV_BDEV_NR_BYTES
+ 	ZFS_AC_KERNEL_BLKDEV_BDEVNAME
+ 	ZFS_AC_KERNEL_BLKDEV_GET_ERESTARTSYS
+ 	ZFS_AC_KERNEL_BLKDEV_ISSUE_DISCARD
+diff --git a/module/os/linux/zfs/vdev_disk.c b/module/os/linux/zfs/vdev_disk.c
+index 7284b922b3bf..e69c5f3841ec 100644
+--- a/module/os/linux/zfs/vdev_disk.c
++++ b/module/os/linux/zfs/vdev_disk.c
+@@ -150,7 +150,11 @@ vdev_bdev_mode(spa_mode_t smode)
+ static uint64_t
+ bdev_capacity(struct block_device *bdev)
+ {
++#ifdef HAVE_BDEV_NR_BYTES
++	return (bdev_nr_bytes(bdev));
++#else
+ 	return (i_size_read(bdev->bd_inode));
++#endif
+ }
+ 
+ #if !defined(HAVE_BDEV_WHOLE)
+@@ -209,7 +213,7 @@ bdev_max_capacity(struct block_device *bdev, uint64_t wholedisk)
+ 		 * "reserved" EFI partition: in such cases return the device
+ 		 * usable capacity.
+ 		 */
+-		available = i_size_read(bdev_whole(bdev)->bd_inode) -
++		available = bdev_capacity(bdev_whole(bdev)) -
+ 		    ((EFI_MIN_RESV_SIZE + NEW_START_BLOCK +
+ 		    PARTITION_END_ALIGNMENT) << SECTOR_BITS);
+ 		psize = MAX(available, bdev_capacity(bdev));
+@@ -925,12 +929,12 @@ vdev_disk_io_rw(zio_t *zio)
+ 	/*
+ 	 * Accessing outside the block device is never allowed.
+ 	 */
+-	if (zio->io_offset + zio->io_size > bdev->bd_inode->i_size) {
++	if (zio->io_offset + zio->io_size > bdev_capacity(bdev)) {
+ 		vdev_dbgmsg(zio->io_vd,
+ 		    "Illegal access %llu size %llu, device size %llu",
+ 		    (u_longlong_t)zio->io_offset,
+ 		    (u_longlong_t)zio->io_size,
+-		    (u_longlong_t)i_size_read(bdev->bd_inode));
++		    (u_longlong_t)bdev_capacity(bdev));
+ 		return (SET_ERROR(EIO));
+ 	}
+ 
+@@ -1123,12 +1127,12 @@ vdev_classic_physio(zio_t *zio)
+ 	/*
+ 	 * Accessing outside the block device is never allowed.
+ 	 */
+-	if (io_offset + io_size > bdev->bd_inode->i_size) {
++	if (io_offset + io_size > bdev_capacity(bdev)) {
+ 		vdev_dbgmsg(zio->io_vd,
+ 		    "Illegal access %llu size %llu, device size %llu",
+ 		    (u_longlong_t)io_offset,
+ 		    (u_longlong_t)io_size,
+-		    (u_longlong_t)i_size_read(bdev->bd_inode));
++		    (u_longlong_t)bdev_capacity(bdev));
+ 		return (SET_ERROR(EIO));
+ 	}
+ 
