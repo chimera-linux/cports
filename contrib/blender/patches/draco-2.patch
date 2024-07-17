@@ -2,8 +2,8 @@ Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/blender/
 --
 diff --git a/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py b/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py
 index e7518ac4..c0d78564 100644
---- a/scripts/addons/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py
-+++ b/scripts/addons/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py
+--- a/scripts/addons_core/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py
++++ b/scripts/addons_core/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py
 @@ -13,6 +13,7 @@
  # limitations under the License.
  
