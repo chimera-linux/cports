@@ -337,7 +337,6 @@ def _kdepin_meta(self):
 
 @subpackage("plasma-desktop-sddm-meta")
 def _sddm_meta(self):
-    # contact/calendar/etc
     self.subdesc = "SDDM recommends package"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
