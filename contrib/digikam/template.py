@@ -1,6 +1,6 @@
 pkgname = "digikam"
 pkgver = "8.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_TESTING=ON",
@@ -14,7 +14,7 @@ make_check_args = [
     # hang
     + "databasesqliteinit|databaseswitch|haariface"
     # fail on ppc64le
-    + "|(*pgf*)"
+    + "|(.*pgf.*)"
     # crashes/"not a qt plugin"
     + "|loadsavethread|dimg"
     + "|setiptcpreview|timestampupdate|raw2dng)",
@@ -55,7 +55,6 @@ makedepends = [
     "libmagick-devel",
     "libomp-devel",
     "libpng-devel",
-    "libraw-devel",
     "libtiff-devel",
     "libxml2-devel",
     "libxslt-devel",
