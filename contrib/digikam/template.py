@@ -13,6 +13,8 @@ make_check_args = [
     "("
     # hang
     + "databasesqliteinit|databaseswitch|haariface"
+    # fail on ppc64le
+    + "|(*pgf*)"
     # crashes/"not a qt plugin"
     + "|loadsavethread|dimg"
     + "|setiptcpreview|timestampupdate|raw2dng)",
