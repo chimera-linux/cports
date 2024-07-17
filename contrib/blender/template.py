@@ -74,7 +74,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://www.blender.org"
 source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"
-sha256 = "6d53f48708295384ac31ae2f1cc6af5987be875a45e4158e0e63d86658f4abbb"
+sha256 = "30515eafbac3301bf33af859945315d209cac4f8ee1dc0e312b4fbce50a85be2"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
     # guilty until proven innocent
