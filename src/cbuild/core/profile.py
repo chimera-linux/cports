@@ -59,6 +59,8 @@ def get_hardening(prof, tmpl, hlist=None):
             raise errors.CbuildException("CFI requires LTO")
         if not hdict["vis"]:
             raise errors.CbuildException("CFI requires hidden visibility")
+    else:
+        hdict["cfi-icall"] = False
 
     # ensure unsupported hardenings are never used
     for k in supported_fields:
