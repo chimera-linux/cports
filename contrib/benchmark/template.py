@@ -1,5 +1,5 @@
 pkgname = "benchmark"
-pkgver = "1.8.4"
+pkgver = "1.8.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,8 +19,8 @@ pkgdesc = "Microbenchmark support library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/benchmark"
-source = f"https://github.com/google/benchmark/archive/v{pkgver}.tar.gz"
-sha256 = "3e7059b6b11fb1bbe28e33e02519398ca94c1818874ebed18e504dc6f709be45"
+source = f"{url}/archive/v{pkgver}.tar.gz"
+sha256 = "d26789a2b46d8808a48a4556ee58ccc7c497fcd4c0af9b90197674a81e04798a"
 
 
 @subpackage("benchmark-devel")
