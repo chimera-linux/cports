@@ -1,5 +1,5 @@
 pkgname = "ivykis"
-pkgver = "0.43.1"
+pkgver = "0.43.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "http://libivykis.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libivykis/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "c7d2b18bd9342e7edfd13e0e38a68dbfeaa6d31e92e3e6772baa39429dfebb9f"
+sha256 = "93e3e9b237695437cd63d4aa48a8d9dfd8b39bc28a192a5770d113c4fe9099ef"
 
 
 @subpackage("ivykis-devel")
