@@ -26,6 +26,10 @@ sha256 = [
 options = ["!check", "!cross"]
 
 
+if self.profile().arch == "riscv64":
+    broken = "npx stuck forever in build env"
+
+
 def do_prepare(self):
     from cbuild.util import golang
 
