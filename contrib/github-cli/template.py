@@ -1,6 +1,6 @@
 pkgname = "github-cli"
-pkgver = "2.52.0"
-pkgrel = 2
+pkgver = "2.53.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/cli/cli/v2/internal/build.Version=v{pkgver}",
@@ -15,11 +15,10 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://cli.github.com"
 source = f"https://github.com/cli/cli/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "41de39d0f1bcacb454d9b8a46e5b97ff8b8e803cd26d284e553e45bf025325d9"
+sha256 = "5e47d567216b1f63a4939e634f9067c9b60b0852625edf8ad10e1b9be5033cff"
 # cross: uses native binary to generate completions
-# debug: fails to split on powerpc
 # check: needs network access
-options = ["!cross", "!debug", "!check"]
+options = ["!cross", "!check"]
 
 
 def post_build(self):
