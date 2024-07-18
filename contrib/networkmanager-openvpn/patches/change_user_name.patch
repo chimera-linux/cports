@@ -1,0 +1,14 @@
+diff --color -ruN networkmanager-openvpn-1.12.0/shared/nm-service-defines.h networkmanager-openvpn-1.12.0-patched/shared/nm-service-defines.h
+--- networkmanager-openvpn-1.12.0/shared/nm-service-defines.h	2024-06-20 14:56:40.000000000 +0000
++++ networkmanager-openvpn-1.12.0-patched/shared/nm-service-defines.h	2024-07-18 17:13:49.389411410 +0000
+@@ -138,8 +138,8 @@
+ #define NM_OPENVPN_VERIFY_X509_NAME_TYPE_SUBJECT     "subject"
+ 
+ /* User name and group to run nm-openvpn-service under */
+-#define NM_OPENVPN_USER   "nm-openvpn"
+-#define NM_OPENVPN_GROUP  "nm-openvpn"
++#define NM_OPENVPN_USER   "_nm_openvpn"
++#define NM_OPENVPN_GROUP  "_nm_openvpn"
+ #define NM_OPENVPN_CHROOT LOCALSTATEDIR "/lib/openvpn/chroot"
+ 
+ #endif /* __NM_SERVICE_DEFINES_H__ */
