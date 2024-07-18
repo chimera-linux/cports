@@ -1,5 +1,5 @@
 pkgname = "wireshark"
-pkgver = "4.2.6"
+pkgver = "4.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -33,9 +33,9 @@ makedepends = [
     "libpcap-devel",
     "libssh-devel",
     "libxml2-devel",
-    "lua5.1-devel",
+    "lua5.4-devel",
     "lz4-devel",
-    "minizip-devel",
+    "minizip-ng-devel",
     "nghttp2-devel",
     "nghttp3-devel",
     "opus-devel",
@@ -50,7 +50,7 @@ makedepends = [
     "snappy-devel",
     "spandsp-devel",
     "speexdsp-devel",
-    "zlib-ng-compat-devel",
+    "zlib-ng-devel",
     "zstd-devel",
 ]
 checkdepends = ["python-pytest-xdist"]
@@ -59,7 +59,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://www.wireshark.org"
 source = f"https://www.wireshark.org/download/src/wireshark-{pkgver}.tar.xz"
-sha256 = "5ec6028df29068d889c98489bf194a884b00831106fea1e921fea3c65f2003f5"
+sha256 = "c4d25e2f14a34790f5bc76a1067c43a4ef20e7813b3928c360cbe2ba43c666a9"
 # forbid non-wireshark-group users from reading all network packets
 file_modes = {
     "usr/bin/dumpcap": ("root", "_wireshark", 0o750),
