@@ -1,6 +1,6 @@
 pkgname = "orc"
-pkgver = "0.4.39"
-pkgrel = 0
+pkgver = "0.4.38"
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dexamples=disabled",
@@ -16,11 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "33ed2387f49b825fa1b9c3b0072e05f259141b895474ad085ae51143d3040cc0"
-
-if self.profile().arch == "ppc64le":
-    # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/71
-    options = ["!check"]
+sha256 = "a55a98d4772567aa3faed8fb84d540c3db77eaba16d3e2e10b044fbc9228668d"
 
 
 def post_install(self):
