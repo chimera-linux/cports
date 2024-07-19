@@ -1,0 +1,25 @@
+From dd5adf54c9a2edd452ff828277d85b1d18431d75 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Sat, 6 Jul 2024 20:24:19 +0200
+Subject: [PATCH] Undeprecate xmlKeepBlanksDefault
+
+---
+ include/libxml/parser.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/libxml/parser.h b/include/libxml/parser.h
+index ad8ca4d58..78d29cada 100644
+--- a/include/libxml/parser.h
++++ b/include/libxml/parser.h
+@@ -948,7 +948,7 @@ XML_DEPRECATED XMLPUBFUN int
+ 		xmlSubstituteEntitiesDefault(int val);
+ XML_DEPRECATED XMLPUBFUN int
+                 xmlThrDefSubstituteEntitiesDefaultValue(int v);
+-XML_DEPRECATED XMLPUBFUN int
++XMLPUBFUN int
+ 		xmlKeepBlanksDefault	(int val);
+ XML_DEPRECATED XMLPUBFUN int
+ 		xmlThrDefKeepBlanksDefaultValue(int v);
+-- 
+GitLab
+

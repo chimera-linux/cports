@@ -1,0 +1,32 @@
+From 8699ba234b5a1328f0f30ca739b8f1dbc90ccf5e Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Thu, 18 Jul 2024 01:54:22 +0200
+Subject: [PATCH] io: Don't call getcwd in xmlParserGetDirectory
+
+The "directory" value isn't used internally. Calling getcwd is
+unnecessary and can cause problems in sandboxed environments.
+
+Fixes #770.
+---
+ xmlIO.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/xmlIO.c b/xmlIO.c
+index 5bac7130d..421e12593 100644
+--- a/xmlIO.c
++++ b/xmlIO.c
+@@ -2904,10 +2904,7 @@ xmlParserGetDirectory(const char *filename) {
+ 	else *cur = 0;
+ 	ret = xmlMemStrdup(dir);
+     } else {
+-        if (getcwd(dir, 1024) != NULL) {
+-	    dir[1023] = 0;
+-	    ret = xmlMemStrdup(dir);
+-	}
++        ret = xmlMemStrdup(".");
+     }
+     return(ret);
+ #undef IS_XMLPGD_SEP
+-- 
+GitLab
+
