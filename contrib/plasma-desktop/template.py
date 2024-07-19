@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.1.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -140,7 +140,6 @@ def _meta(self):
         # "krdp",  # (requires systemd): remote desktop server kcm for Plasma 6.2
         "ksshaskpass",  # graphical askpass
         "markdownpart",  # markdown renderer kpart plugin
-        "orca",  # screen reader
         "plasma-browser-integration",  # browser integration with plasma
         "plasma-disks",  # smart monitoring
         "plasma-firewall",  # firewall configuration
@@ -303,6 +302,7 @@ def _accessibility_meta(self):
         # "kmousetool",  # mouse clicker TODO: broken?
         # "kmouth",  # speech synthesizer TODO: hangs forever on init until speechd killed, orca works better
         "kontrast",  # contrast checker
+        "orca",  # screen reader
     ]
     self.options = ["empty"]
     return []
