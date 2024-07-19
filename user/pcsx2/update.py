@@ -1,2 +1,2 @@
-# every merge is a tag so it's always out of date
+# 2.1.X is still just every commit tagged
 ignore = True
