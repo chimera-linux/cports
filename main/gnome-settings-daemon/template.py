@@ -1,6 +1,6 @@
 pkgname = "gnome-settings-daemon"
 pkgver = "47.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
@@ -53,6 +53,7 @@ checkdepends = [
     "udev",
     "umockdev",
 ]
+depends = ["iio-sensor-proxy-meta"]
 pkgdesc = "GNOME settings daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
