@@ -27,4 +27,4 @@ hardening = ["vis"]
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
-    makedepends += ["qt6-qtwebenigne-devel"]
+    makedepends += ["qt6-qtwebengine-devel"]
