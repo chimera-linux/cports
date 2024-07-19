@@ -162,7 +162,6 @@ def _meta(self):
 @subpackage("plasma-desktop-x11-meta")
 def _x11_meta(self):
     self.subdesc = "X11 session recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "xserver-xorg-input-libinput",  # general input
         # "xserver-xorg-input-evdev",  # TODO: used by mouse KCM? page loads even without it at least
