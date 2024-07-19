@@ -1,6 +1,6 @@
 pkgname = "nmap"
 pkgver = "7.95"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-openssl=yes",
@@ -29,6 +29,7 @@ makedepends = [
     "pcre2-devel",
     "zlib-ng-compat-devel",
 ]
+depends = [self.with_pkgver("nmap-ncat")]
 pkgdesc = "Utility for network discovery and security auditing"
 maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "custom:Nmap"
@@ -40,3 +41,9 @@ exec_wrappers = [("/usr/bin/gmake", "make")]
 
 def post_install(self):
     self.install_license("LICENSE")
+
+
+@subpackage("nmap-ncat")
+def _ncat(self):
+    self.subdesc = "Netcat tool"
+    return ["usr/bin/ncat"]
