@@ -99,7 +99,7 @@ def configure(
         eenv["MAKE"] += " LIBTOOL=rlibtool"
         eenv["LIBTOOLIZE"] = "slibtoolize"
         eenv["LIBTOOL"] = "rlibtool"
-        eenv["ACLOCAL"] = "aclocal -I /usr/share/slibtool"
+        eenv["ACLOCAL"] = "aclocal --aclocal-path=/usr/share/slibtool"
 
     # caches taken from openembedded
     cachedir = paths.cbuild() / "misc/autoconf_cache"
