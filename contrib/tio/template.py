@@ -1,5 +1,5 @@
 pkgname = "tio"
-pkgver = "3.5"
+pkgver = "3.6"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -17,4 +17,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/tio/tio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c9a4f1f71c8ef701f32daa82068f1cd1cae3e505a4b585fdcfd318717e66bff9"
+sha256 = "7f4006ab51ec3e92a74cad602718ac6a46c4e0dccd070502c788e1bb2ea2d8c8"
