@@ -18,6 +18,10 @@ url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "33ed2387f49b825fa1b9c3b0072e05f259141b895474ad085ae51143d3040cc0"
 
+if self.profile().arch == "ppc64le":
+    # https://gitlab.freedesktop.org/gstreamer/orc/-/issues/71
+    options = ["!check"]
+
 
 def post_install(self):
     self.install_license("COPYING")
