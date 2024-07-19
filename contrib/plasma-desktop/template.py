@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.1.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -128,6 +128,7 @@ def _meta(self):
         "colord-kde",  # color profile management
         # "drkonqi",  # TODO: figure out what crash handler to use (also is quite useless without coredumpd)
         "flatpak-kcm",  # flatpak permission settings
+        "kaccounts-providers",  # online account providers
         "kde-cli-tools",  # e.g. mount & open external media
         "kde-inotify-survey",  # inotify limit monitor
         "kdegraphics-thumbnailers",  # various thumbnailers
@@ -136,7 +137,7 @@ def _meta(self):
         "kdialog",  # scripted message boxes
         "kio-gdrive",  # kio plugin for gdrive
         "kmenuedit",
-        # "krdp",  # TODO: remote desktop server kcm for Plasma 6.2
+        # "krdp",  # (requires systemd): remote desktop server kcm for Plasma 6.2
         "ksshaskpass",  # graphical askpass
         "markdownpart",  # markdown renderer kpart plugin
         "orca",  # screen reader
