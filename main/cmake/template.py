@@ -34,8 +34,8 @@ tool_flags = {
     "LDFLAGS": ["-luv"],
 }
 hardening = ["vis"]
-# checkdepends are missing
-options = ["!check"]
+# checkdepends are missing, cross would need cmake build-style
+options = ["!check", "!cross"]
 
 # need to use bundled jsoncpp (i.e. --system-jsoncpp is not possible) as
 # the two build systems that offers are meson and cmake - cmake cannot be
