@@ -1,0 +1,198 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 9305357..0f49f5b 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -754,15 +754,6 @@ version = "0.7.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "98cc8fbded0c607b7ba9dd60cd98df59af97e84d24e49c8557331cfc26d301ce"
+ 
+-[[package]]
+-name = "cmake"
+-version = "0.1.50"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a31c789563b815f77f4250caee12365734369f942439b7defd71e18a48197130"
+-dependencies = [
+- "cc",
+-]
+-
+ [[package]]
+ name = "codspeed"
+ version = "2.6.0"
+@@ -1241,7 +1232,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "5f54427cfd1c7829e2a139fcefea601bf088ebca651d2bf53ebc600eac295dae"
+ dependencies = [
+  "crc32fast",
+- "libz-ng-sys",
++ "libz-sys",
+  "miniz_oxide",
+ ]
+ 
+@@ -2007,13 +1998,14 @@ dependencies = [
+ ]
+ 
+ [[package]]
+-name = "libz-ng-sys"
+-version = "1.1.15"
++name = "libz-sys"
++version = "1.1.18"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c6409efc61b12687963e602df8ecf70e8ddacf95bc6576bcf16e3ac6328083c5"
++checksum = "c15da26e5af7e25c90b37a2d75cdbf940cf4a55316de9d84c679c9b8bfabf82e"
+ dependencies = [
+- "cmake",
+- "libc",
++ "cc",
++ "pkg-config",
++ "vcpkg",
+ ]
+ 
+ [[package]]
+@@ -3341,9 +3333,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "rustls-native-certs"
+-version = "0.7.0"
++version = "0.7.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8f1fb85efa936c42c6d5fc28d2629bb51e4b2f4b8a5211e297d599cc5a093792"
++checksum = "a88d6d420651b496bdd98684116959239430022a115c1240e6c3993be0b15fba"
+ dependencies = [
+  "openssl-probe",
+  "rustls-pemfile",
+@@ -3928,26 +3920,6 @@ dependencies = [
+  "once_cell",
+ ]
+ 
+-[[package]]
+-name = "tikv-jemalloc-sys"
+-version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "cd3c60906412afa9c2b5b5a48ca6a5abe5736aec9eb48ad05037a677e52e4e2d"
+-dependencies = [
+- "cc",
+- "libc",
+-]
+-
+-[[package]]
+-name = "tikv-jemallocator"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4cec5ff18518d81584f477e9bfdf957f5bb0979b0bac3af4ca30b5b3ae2d2865"
+-dependencies = [
+- "libc",
+- "tikv-jemalloc-sys",
+-]
+-
+ [[package]]
+ name = "tiny-skia"
+ version = "0.8.4"
+@@ -4468,7 +4440,6 @@ dependencies = [
+  "serde_json",
+  "textwrap",
+  "thiserror",
+- "tikv-jemallocator",
+  "tokio",
+  "toml",
+  "tracing",
+@@ -4697,7 +4668,6 @@ dependencies = [
+  "serde_json",
+  "tagu",
+  "textwrap",
+- "tikv-jemallocator",
+  "tokio",
+  "tracing",
+  "tracing-durations-export",
+@@ -5198,6 +5168,12 @@ version = "0.1.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
+ 
++[[package]]
++name = "vcpkg"
++version = "0.2.15"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
++
+ [[package]]
+ name = "version_check"
+ version = "0.9.4"
+diff --git a/crates/uv-dev/Cargo.toml b/crates/uv-dev/Cargo.toml
+index 71f3134..abb58d5 100644
+--- a/crates/uv-dev/Cargo.toml
++++ b/crates/uv-dev/Cargo.toml
+@@ -62,9 +62,6 @@ walkdir = { workspace = true }
+ [target.'cfg(target_os = "windows")'.dependencies]
+ mimalloc = { version = "0.1.39" }
+ 
+-[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
+-tikv-jemallocator = { version = "0.6.0" }
+-
+ [features]
+ default = []
+ render = ["poloto", "resvg", "tagu"]
+diff --git a/crates/uv-dev/src/main.rs b/crates/uv-dev/src/main.rs
+index b138bab..49e7a7e 100644
+--- a/crates/uv-dev/src/main.rs
++++ b/crates/uv-dev/src/main.rs
+@@ -30,17 +30,6 @@ use crate::wheel_metadata::WheelMetadataArgs;
+ #[global_allocator]
+ static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+ 
+-#[cfg(all(
+-    not(target_os = "windows"),
+-    not(target_os = "openbsd"),
+-    any(
+-        target_arch = "x86_64",
+-        target_arch = "aarch64",
+-        target_arch = "powerpc64"
+-    )
+-))]
+-#[global_allocator]
+-static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
+ 
+ mod build;
+ mod clear_compile;
+diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
+index 164caf6..38d0f64 100644
+--- a/crates/uv/Cargo.toml
++++ b/crates/uv/Cargo.toml
+@@ -77,9 +77,6 @@ which = { workspace = true }
+ [target.'cfg(target_os = "windows")'.dependencies]
+ mimalloc = { version = "0.1.39" }
+ 
+-[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
+-tikv-jemallocator = { version = "0.6.0" }
+-
+ [dev-dependencies]
+ assert_cmd = { version = "2.0.14" }
+ assert_fs = { version = "1.1.0" }
+@@ -97,7 +94,7 @@ reqwest = { workspace = true, features = ["blocking"], default-features = false
+ ignored = ["flate2"]
+ 
+ [features]
+-default = ["flate2/zlib-ng", "python", "pypi", "git"]
++default = ["flate2/zlib", "python", "pypi", "git"]
+ # Introduces a dependency on a local Python installation.
+ python = []
+ # Introduces a dependency on a local Python installation with specific patch versions.
+diff --git a/crates/uv/src/lib.rs b/crates/uv/src/lib.rs
+index 23a1340..003e14c 100644
+--- a/crates/uv/src/lib.rs
++++ b/crates/uv/src/lib.rs
+@@ -37,17 +37,6 @@ use crate::settings::{
+ #[global_allocator]
+ static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+ 
+-#[cfg(all(
+-    not(target_os = "windows"),
+-    not(target_os = "openbsd"),
+-    any(
+-        target_arch = "x86_64",
+-        target_arch = "aarch64",
+-        target_arch = "powerpc64"
+-    )
+-))]
+-#[global_allocator]
+-static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
+ 
+ pub(crate) mod commands;
+ pub(crate) mod logging;
