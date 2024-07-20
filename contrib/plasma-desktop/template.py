@@ -168,6 +168,7 @@ def _x11_meta(self):
         "setxkbmap",  # configure non-us layout
         "qt6-qtvirtualkeyboard",  # lockscreen virtual keyboard, any alternative that's also usable on wayland side (too?) -> maliit
     ]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xserver-xorg-core"]
     self.options = ["empty"]
 
     return []
