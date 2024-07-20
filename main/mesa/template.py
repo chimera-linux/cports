@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "24.1.6"
-pkgrel = 1
+pkgver = "24.2.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -29,6 +29,7 @@ hostmakedepends = [
     "python-mako",
     "python-ply",
     "python-pycparser",
+    "python-pyyaml",
     "wayland-progs",
     "wayland-protocols",
 ]
@@ -68,38 +69,47 @@ pkgdesc = "Mesa 3D Graphics Library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
-_paste = "1.0.14"
-_proc_macro2 = "1.0.70"
-_quote = "1.0.33"
-_syn = "2.0.39"
-_unicode_ident = "1.0.12"
+# so we don't also download vendored system libs, just rlib names
 _subproject_list = [
+    "equivalent",
+    "hashbrown",
+    "indexmap",
+    "once-cell",
     "paste",
+    "pest",
+    "pest_derive",
+    "pest_generator",
+    "pest_meta",
     "proc-macro2",
     "quote",
+    "roxmltree",
     "syn",
+    "ucd-trie",
     "unicode-ident",
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "da94c0908d5662467369b69ed8236da1e1577141a6e7d25171a9bf56383b34e8"
+sha256 = "fc9a495f3a9af906838be89367564e10ef335e058f88965ad49ccc3e9a3b420b"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
 options = ["!cross", "linkundefver"]
 
+_gallium_drivers = []
+_vulkan_drivers = []
 _have_llvm = False
 
 # llvmpipe only properly supports a few archs
 match self.profile().arch:
-    case "x86_64" | "aarch64" | "ppc64le":
+    case "x86_64" | "aarch64" | "ppc64le" | "riscv64":
         _have_llvm = True
     case _:
         configure_args += ["-Ddraw-use-llvm=false"]
-
-_gallium_drivers = ["swrast"]
-_vulkan_drivers = []
+        # llvmpipe is strictly better so only bring this in where it isn't
+        _gallium_drivers += ["softpipe"]
 
 if _have_llvm:
+    configure_args += ["-Dllvm-orcjit=true"]
+    _gallium_drivers += ["llvmpipe"]
     _vulkan_drivers += ["swrast"]
 
 # these are good assumptions on all targets we support for now
@@ -218,7 +228,7 @@ configure_args += ["-Dgallium-drivers=" + ",".join(_gallium_drivers)]
 configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
 
 
-def post_extract(self):
+def post_patch(self):
     self.do(
         "meson",
         "subprojects",
@@ -348,6 +358,12 @@ def _(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
     return ["usr/lib/dri/*_drv_video.so"]
+
+
+@subpackage("mesa-libgallium")
+def _(self):
+    self.pkgdesc = "Mesa gallium loader"
+    return ["usr/lib/libgallium-*.so"]
 
 
 @subpackage("mesa-dri")
