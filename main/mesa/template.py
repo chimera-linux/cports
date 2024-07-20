@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "24.1.5"
-pkgrel = 1
+pkgver = "24.2.0_rc4"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -29,6 +29,7 @@ hostmakedepends = [
     "python-mako",
     "python-ply",
     "python-pycparser",
+    "python-pyyaml",
     "wayland-progs",
     "wayland-protocols",
 ]
@@ -68,20 +69,26 @@ pkgdesc = "Mesa 3D Graphics Library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
-_paste = "1.0.14"
-_proc_macro2 = "1.0.70"
-_quote = "1.0.33"
-_syn = "2.0.39"
-_unicode_ident = "1.0.12"
+# so we don't also download vendored system libs, just rlib names
 _subproject_list = [
+    "equivalent",
+    "hashbrown",
+    "indexmap",
+    "once-cell",
     "paste",
+    "pest",
+    "pest_derive",
+    "pest_generator",
+    "pest_meta",
     "proc-macro2",
     "quote",
+    "roxmltree",
     "syn",
+    "ucd-trie",
     "unicode-ident",
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "02761ffd965dd64b95421ebfca1191d73724aba00f30034009237564f34cf976"
+sha256 = "19d54ebd59b2a1af75393769cbe36cf69b0ce05b2f15f9d89b79551fabcf4b18"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -91,15 +98,17 @@ _have_llvm = False
 
 # llvmpipe only properly supports a few archs
 match self.profile().arch:
-    case "x86_64" | "aarch64" | "ppc64le":
+    case "x86_64" | "aarch64" | "ppc64le" | "riscv64":
         _have_llvm = True
     case _:
         configure_args += ["-Ddraw-use-llvm=false"]
 
-_gallium_drivers = ["swrast"]
+_gallium_drivers = ["softpipe"]
 _vulkan_drivers = []
 
 if _have_llvm:
+    configure_args += ["-Dllvm-orcjit=true"]
+    _gallium_drivers += ["llvmpipe"]
     _vulkan_drivers += ["swrast"]
 
 # these are good assumptions on all targets we support for now
@@ -342,6 +351,12 @@ def _vaapi(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
     return ["usr/lib/dri/*_drv_video.so"]
+
+
+@subpackage("mesa-libgallium")
+def _libgallium(self):
+    self.pkgdesc = "Mesa gallium loader"
+    return ["usr/lib/libgallium-*.so"]
 
 
 @subpackage("mesa-dri")
