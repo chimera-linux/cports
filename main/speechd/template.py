@@ -1,6 +1,6 @@
 pkgname = "speechd"
 pkgver = "0.11.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
