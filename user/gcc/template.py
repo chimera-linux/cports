@@ -39,6 +39,7 @@ configure_args = [
     # more languages later
     "--enable-languages=c,c++,objc,fortran",
     "--enable-linker-build-id",
+    "--with-matchpd-partitions=32",
     "--enable-plugins",
     "--enable-shared",
     "--enable-threads",
@@ -52,6 +53,7 @@ configure_args = [
     "--with-mpc",
     "--with-mpfr",
     "--with-system-zlib",
+    "--with-system-zstd",
     "--with-linker-hash-style=gnu",
     f"--with-gxx-include-dir=/usr/include/c++/{_bver}",
     "--with-gxx-libcxx-include-dir=/usr/include/c++/v1",
@@ -60,23 +62,24 @@ configure_args = [
 configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
-    f"binutils-{self.profile().arch}",
     "bison",
     "flex",
     "gawk",
+    "gmake",
     "perl",
     "texinfo",
+    f"binutils-{self.profile().arch}",
 ]
 makedepends = [
-    "isl-devel",
     "gmp-devel",
+    "isl-devel",
     "libcxx-devel-static",
     "libucontext-devel",
     "libunwind-devel-static",
-    "mpfr-devel",
     "mpc-devel",
+    "mpfr-devel",
     "zlib-ng-compat-devel",
+    "zstd-devel",
 ]
 depends = [
     f"binutils-{self.profile().arch}",
