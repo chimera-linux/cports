@@ -1,10 +1,11 @@
 # rebuild on major clang version updates
 pkgname = "gcc"
 _clangver = "18"
-_mver = "13"
-_mnver = f"{_mver}.2"
+_mver = "14"
+_mnver = f"{_mver}.1"
 _bver = f"{_mnver}.1"
-_datever = "20231014"
+_datever = "20240720"
+_commit = "94e4661fee27c5b1362e02690c5047e0b543fc9a"
 pkgver = f"{_bver}_git{_datever}"
 pkgrel = 0
 build_style = "gnu_configure"
@@ -86,8 +87,8 @@ pkgdesc = "GNU Compiler Collection"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
-source = f"https://dev.alpinelinux.org/archive/gcc/{_mver}-{_datever}/gcc-{_mver}-{_datever}.tar.xz"
-sha256 = "40bf42e54cefefa4a8f35c48e0f290c9ef8118eee9a72800296a0e620dfb0240"
+source = f"https://github.com/gcc-mirror/gcc/archive/{_commit}.tar.gz"
+sha256 = "9cb2bcffa015c663cc9a23a57381739eb8226d0e6c069b1e79f6681d698dd390"
 hardening = ["!int", "!format", "!var-init"]
 # no tests to run
 options = ["!check", "!lto", "!relr", "!cross", "!scanshlibs"]
@@ -157,7 +158,7 @@ def post_install(self):
     )
     self.uninstall(f"usr/lib/gcc/{_trip}/{_mnver}/libgcc*.a", glob=True)
     # nuke libstdc++; this build is not compatible with chimera
-    self.uninstall(self.destdir / "usr/include/c++")
+    self.uninstall("usr/include/c++")
     self.uninstall("usr/lib/libstdc++*", glob=True)
     self.uninstall("usr/lib/libsupc++.*", glob=True)
     self.uninstall("usr/share/gcc-*/python/libstdcxx", glob=True)
