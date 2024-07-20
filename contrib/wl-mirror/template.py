@@ -1,5 +1,5 @@
 pkgname = "wl-mirror"
-pkgver = "0.16.4"
+pkgver = "0.16.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,6 +13,6 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/Ferdi265/wl-mirror"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "afae4d3d1b61cc72f56a0c2460fe47ccb9809e8ab580b305b8c4344941896c42"
+sha256 = "ea7aab751de2a176c115af75fd3594c3a461efe2ffbfd2ffac085ff3f5b9c65c"
 # no tests defined
 options = ["!check"]
