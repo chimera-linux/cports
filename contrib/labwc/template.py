@@ -1,5 +1,5 @@
 pkgname = "labwc"
-pkgver = "0.7.3"
+pkgver = "0.7.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://github.com/labwc/labwc"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "72352250b2a9758a24d5766030a7c3f62c658df7b94552f3701ea86e557d0f2a"
+sha256 = "2afa1ef483863fc6217803a540b9afab6939d2324e9bb4dcf4a028281b731fb9"
 
 
 def post_install(self):
