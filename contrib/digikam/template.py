@@ -16,8 +16,7 @@ make_check_args = [
     # fail on ppc64le
     + "|(.*pgf.*)"
     # crashes/"not a qt plugin"
-    + "|loadsavethread|dimg"
-    + "|setiptcpreview|timestampupdate|raw2dng)",
+    + "|loadsavethread|dimg|setiptcpreview|timestampupdate|raw2dng)",
 ]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
