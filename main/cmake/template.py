@@ -34,8 +34,8 @@ tool_flags = {
     "LDFLAGS": ["-luv"],
 }
 hardening = ["vis"]
-# checkdepends are missing, cross would need cmake build-style
-options = ["!check", "!cross"]
+# checkdepends are missing
+options = ["!check"]
 
 # need to use bundled jsoncpp (i.e. --system-jsoncpp is not possible) as
 # the two build systems that offers are meson and cmake - cmake cannot be
@@ -65,6 +65,26 @@ if self.stage >= 2:
         "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
         "-DCMAKE_NM=/usr/bin/llvm-nm",
     ]
+
+
+# if cross compiling, use host cmake outright
+if self.profile().cross:
+    build_style = "cmake"
+    configure_args = [
+        "-DCMAKE_MAN_DIR=/share/man",
+        "-DCMAKE_DOC_DIR=/share/doc/cmake",
+        "-DCMAKE_USE_SYSTEM_LIBARCHIVE=ON",
+        "-DCMAKE_USE_SYSTEM_ZLIB=ON",
+        "-DCMAKE_USE_SYSTEM_BZIP2=ON",
+        "-DCMAKE_USE_SYSTEM_LIBLZMA=ON",
+        "-DCMAKE_USE_SYSTEM_ZSTD=ON",
+        "-DCMAKE_USE_SYSTEM_CURL=ON",
+        "-DCMAKE_USE_SYSTEM_NGHTTP2=ON",
+        "-DCMAKE_USE_SYSTEM_EXPAT=ON",
+        "-DCMAKE_USE_SYSTEM_LIBUV=ON",
+        "-DCMAKE_USE_SYSTEM_LIBRHASH=ON",
+    ]
+    hostmakedepends += ["cmake"]
 
 
 def post_install(self):
