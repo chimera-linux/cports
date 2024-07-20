@@ -1,6 +1,6 @@
 pkgname = "qt6-qtspeech"
 pkgver = "6.7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -23,8 +23,7 @@ sha256 = "cc8c769404e3e49713be304a73f936890a1ef2f88d590732785f34692a4814ce"
 # FIXME?
 hardening = ["!int"]
 # cross: TODO
-# check: with speechd support the tests hang..
-options = ["!cross", "!check"]
+options = ["!cross"]
 
 
 def init_check(self):
