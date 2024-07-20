@@ -55,7 +55,7 @@ the Linux kernel you are running.
 
 The userland dependencies are the following:
 
-* Python 3.10 or newer
+* Python 3.12 or newer
 * `apk` (from `apk-tools`, static binaries can be obtained [here](https://repo.chimera-linux.org/apk))
 * `openssl` (key generation only; not needed otherwise)
 * `git` (optional; required for reproducibility)

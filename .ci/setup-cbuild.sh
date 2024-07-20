@@ -27,7 +27,7 @@ timing = yes
 EOF
 
 echo "=> Generating cbuild key..."
-python3.11 cbuild keygen
+python3.12 cbuild keygen
 
 echo "=> Setting up ccache configuration..."
 mkdir -p cbuild_cache/ccache

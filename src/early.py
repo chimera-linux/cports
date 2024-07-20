@@ -7,8 +7,8 @@ import shutil
 
 def fire():
     # we need structural pattern matching in templates and cbuild itself
-    if sys.version_info < (3, 10):
-        sys.exit("Python 3.10 or newer is required")
+    if sys.version_info < (3, 12):
+        sys.exit("Python 3.12 or newer is required")
 
     # required programs in the system
     for prog in ["git"]:

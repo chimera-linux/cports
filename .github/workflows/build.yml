@@ -20,7 +20,7 @@ env:
 jobs:
   build:
     name: Build packages
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
 
     env:
@@ -39,7 +39,7 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -64,4 +64,4 @@ jobs:
         run: sh .ci/setup-cbuild.sh
 
       - name: Build and test packages
-        run: python3.11 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
+        run: python3.12 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
