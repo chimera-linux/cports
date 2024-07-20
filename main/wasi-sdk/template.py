@@ -1,6 +1,6 @@
 pkgname = "wasi-sdk"
-pkgver = "22"
-pkgrel = 3
+pkgver = "23"
+pkgrel = 0
 build_style = "meta"
 depends = [
     "clang-rt-crt-wasi",
