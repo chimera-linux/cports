@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-ugly"
 pkgver = "1.24.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
