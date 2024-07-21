@@ -1,5 +1,5 @@
 pkgname = "bemenu"
-pkgver = "0.6.22"
+pkgver = "0.6.23"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -20,7 +20,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "GPL-3.0-only AND LGPL-3.0-only"
 url = "https://github.com/Cloudef/bemenu"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "2bd579c37986797bb1bcc8f475cae4cd4c7d59eec479fdb1ae680493fdd34abb"
+sha256 = "7cd336fb827b50a12c398a5daf6d2e6a07e291217116e725e7f1e021d9e0cdd9"
 hardening = ["vis", "!cfi"]
 # no check target defined
 options = ["!check"]
