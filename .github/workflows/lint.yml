@@ -40,7 +40,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install ruff
-        run: sudo pip3 install ruff
+        run: sudo pip3 install ruff --break-system-packages
 
       - name: Install apt dependencies
         run: |
