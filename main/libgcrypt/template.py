@@ -7,7 +7,6 @@ configure_args = [
     "--without-capabilities",
     "ac_cv_sys_symbol_underscore=no",
 ]
-configure_gen = ["./autogen.sh"]
 hostmakedepends = [
     "automake",
     "libgpg-error-devel",  # for gpg-error.m4

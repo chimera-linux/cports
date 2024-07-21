@@ -8,7 +8,6 @@ configure_args = [
     "--enable-libsecret",
     "--disable-ncurses",
 ]
-configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 hostmakedepends = ["automake", "gettext", "gmake", "libtool", "pkgconf"]
 makedepends = [

@@ -11,7 +11,6 @@ configure_args = [
     "--enable-libsecret",
     "--enable-ncurses",
 ]
-configure_gen = ["./autogen.sh"]
 hostmakedepends = ["automake", "gettext", "libtool", "pkgconf"]
 makedepends = [
     "gcr-devel",
