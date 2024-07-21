@@ -2,7 +2,6 @@ pkgname = "jbigkit"
 pkgver = "2.2"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_gen = ["./bootstrap.sh"]
 make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 checkdepends = ["check-devel"]
