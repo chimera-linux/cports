@@ -1,0 +1,14 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,10 +1,9 @@
+ AC_PREREQ(2.60)
+ AC_INIT([libxdg-basedir], [1.2.3], mark.nevill@gmail.com)
+-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
++AM_INIT_AUTOMAKE([-Wall foreign])
+ # Checks for programs.
+ AC_PROG_CC
+ AC_PROG_INSTALL
+-AM_PROG_AR
+ AC_PROG_LIBTOOL
+ # Configure Doxygen
+ DX_HTML_FEATURE(ON)
