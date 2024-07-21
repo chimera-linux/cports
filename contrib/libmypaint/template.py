@@ -4,11 +4,11 @@ pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
-    "pkgconf",
-    "gmake",
-    "intltool",
     "glib-devel",
+    "gmake",
     "gobject-introspection",
+    "intltool",
+    "pkgconf",
 ]
 makedepends = ["glib-devel", "json-glib-devel", "json-c-devel", "gegl-devel"]
 pkgdesc = "MyPaint brush engine library"

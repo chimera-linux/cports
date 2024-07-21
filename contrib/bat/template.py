@@ -5,9 +5,9 @@ build_style = "cargo"
 make_build_env = {"BAT_ASSETS_GEN_DIR": "gen"}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
-    "rust-std",
-    "oniguruma-devel",
     "libgit2-devel",
+    "oniguruma-devel",
+    "rust-std",
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["bash"]

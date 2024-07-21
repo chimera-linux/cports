@@ -17,8 +17,8 @@ makedepends = [
     "blake3-devel",
     "doctest",
     "xxhash-devel",
-    "zstd-devel",
     "zlib-ng-compat-devel",
+    "zstd-devel",
 ]
 checkdepends = ["bash", "elfutils"]
 pkgdesc = "Fast C/C++ compiler cache"

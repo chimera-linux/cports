@@ -10,13 +10,13 @@ configure_args = [
     "-Ddocs=false",
 ]
 hostmakedepends = [
+    "docbook-xsl",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
     "vala-devel",
-    "glib-devel",
     "xsltproc",
-    "docbook-xsl",
 ]
 makedepends = ["colord-devel", "gtk4-devel", "gtk+3-devel"]
 pkgdesc = "Gtk+ support library for colord"

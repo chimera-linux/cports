@@ -9,23 +9,23 @@ configure_args = [
     "-Dwith-system-data-files=true",
 ]
 hostmakedepends = [
-    "pkgconf",
-    "meson",
-    "wayland-protocols",
-    "wayland-progs",
     "glslang-progs",
+    "meson",
+    "pkgconf",
+    "wayland-progs",
+    "wayland-protocols",
 ]
 makedepends = [
-    "mesa-devel",
-    "glew-devel",
     "freeglut-devel",
-    "wayland-devel",
-    "vulkan-headers",
-    "vulkan-loader-devel",
-    "libxkbcommon-devel",
+    "glew-devel",
+    "libdecor-devel",
     "libx11-devel",
     "libxext-devel",
-    "libdecor-devel",
+    "libxkbcommon-devel",
+    "mesa-devel",
+    "vulkan-headers",
+    "vulkan-loader-devel",
+    "wayland-devel",
 ]
 depends = [f"mesa-utils={pkgver}-r{pkgrel}"]
 pkgdesc = "Collection of OpenGL and Mesa demos and test programs"

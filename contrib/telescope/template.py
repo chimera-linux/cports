@@ -9,8 +9,8 @@ hostmakedepends = ["automake", "bison", "gmake", "pkgconf"]
 makedepends = [
     "libgrapheme-devel",
     "libretls-devel",
-    "openssl-devel",
     "ncurses-devel",
+    "openssl-devel",
 ]
 pkgdesc = "Terminal browser for gemini/gopher/finger"
 maintainer = "ttyyls <contact@behri.org>"

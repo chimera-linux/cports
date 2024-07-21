@@ -4,9 +4,9 @@ pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
-    "python-installer",
     "python-hatch_vcs",
     "python-hatchling",
+    "python-installer",
 ]
 depends = ["python"]
 checkdepends = [

@@ -6,11 +6,11 @@ configure_args = ["-Dbuild-demos=false", "-Dbuild-tests=true"]
 make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = ["meson", "pkgconf", "glib-devel"]
 makedepends = [
-    "gtk+3-devel",
-    "cairomm1.0-devel",
-    "pangomm1.4-devel",
     "atkmm1.6-devel",
+    "cairomm1.0-devel",
     "gdk-pixbuf-devel",
+    "gtk+3-devel",
+    "pangomm1.4-devel",
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "C++ bindings for Gtk+3"

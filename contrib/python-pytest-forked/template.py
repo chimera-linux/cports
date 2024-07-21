@@ -12,7 +12,7 @@ hostmakedepends = [
 depends = [
     "python-pytest",
 ]
-checkdepends = depends
+checkdepends = [*depends]
 pkgdesc = "Pytest plugin for testing parallelisation"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

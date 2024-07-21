@@ -65,8 +65,8 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 depends = [
-    "iso-codes",
     "gjs",
+    "iso-codes",
     "mypaint-brushes",
     # prevent scripts from crashing (which prints annoying messages)
     "python-gobject",

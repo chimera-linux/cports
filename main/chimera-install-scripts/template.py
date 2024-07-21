@@ -4,14 +4,14 @@ pkgrel = 0
 _commit = "d64bd12ee54a2abb00c587bd3e0b83a47b165be2"
 build_style = "makefile"
 depends = [
+    "virtual:cmd:apk!apk-tools",
     "virtual:cmd:chroot!chimerautils",
-    "virtual:cmd:id!chimerautils",
-    "virtual:cmd:realpath!chimerautils",
     "virtual:cmd:findmnt!mount",
+    "virtual:cmd:id!chimerautils",
     "virtual:cmd:mount!mount",
     "virtual:cmd:mountpoint!mount",
+    "virtual:cmd:realpath!chimerautils",
     "virtual:cmd:tar!bsdtar",
-    "virtual:cmd:apk!apk-tools",
 ]
 pkgdesc = "Scripts to aid Chimera system installation"
 maintainer = "q66 <q66@chimera-linux.org>"

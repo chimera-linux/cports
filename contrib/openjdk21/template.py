@@ -42,8 +42,8 @@ hostmakedepends = [
     "linux-headers",
     "openssl",
     "pkgconf",
-    "zlib-ng-compat-devel",
     "zip",
+    "zlib-ng-compat-devel",
 ]
 makedepends = [
     "alsa-lib-devel",
@@ -60,8 +60,8 @@ makedepends = [
     "linux-headers",
 ]
 depends = [
-    f"{pkgname}-jdk={pkgver}-r{pkgrel}",
     f"{pkgname}-demos={pkgver}-r{pkgrel}",
+    f"{pkgname}-jdk={pkgver}-r{pkgrel}",
 ]
 pkgdesc = f"Oracle OpenJDK {_majver}"
 maintainer = "q66 <q66@chimera-linux.org>"

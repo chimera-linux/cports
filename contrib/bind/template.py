@@ -19,10 +19,10 @@ hostmakedepends = [
 makedepends = [
     "cmocka-devel",
     "heimdal-devel",
+    "json-c-devel",
     "libcap-devel",
     "libuv-devel",
     "libxml2-devel",
-    "json-c-devel",
     "nghttp2-devel",
     "openssl-devel",
 ]

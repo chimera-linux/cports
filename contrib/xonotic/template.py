@@ -6,16 +6,16 @@ make_cmd = "gmake"
 make_use_env = True
 hostmakedepends = ["gmake"]
 makedepends = [
+    "alsa-lib-devel",
     "gmp-devel",
-    "mesa-devel",
-    "sdl-devel",
     "libcurl-devel",
+    "libjpeg-turbo-devel",
     "libmodplug-devel",
     "libvorbis-devel",
     "libxpm-devel",
     "libxxf86vm-devel",
-    "libjpeg-turbo-devel",
-    "alsa-lib-devel",
+    "mesa-devel",
+    "sdl-devel",
 ]
 depends = [f"xonotic-data~{pkgver}"]
 pkgdesc = "Free, fast-paced cross-platform first-person shooter"

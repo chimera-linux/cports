@@ -3,13 +3,13 @@ pkgver = "2024.01"
 pkgrel = 0
 build_style = "u_boot"
 hostmakedepends = [
-    "gmake",
-    "gcc-riscv64-unknown-elf",
-    "flex",
     "bison",
     "dtc",
-    "python-setuptools",
+    "flex",
+    "gcc-riscv64-unknown-elf",
+    "gmake",
     "openssl-devel",
+    "python-setuptools",
 ]
 pkgdesc = "U-Boot for qemu-riscv64"
 maintainer = "q66 <q66@chimera-linux.org>"

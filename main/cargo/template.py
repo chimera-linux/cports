@@ -8,10 +8,10 @@ build_style = "cargo"
 make_build_wrapper = ["env", "-u", "PKG_CONFIG"]
 hostmakedepends = [
     "cargo-bootstrap",
-    "python",
-    "curl",
     "cmake",
+    "curl",
     "pkgconf",
+    "python",
     "zlib-ng-compat-devel",
 ]
 makedepends = ["libcurl-devel", "openssl-devel", "sqlite-devel"]

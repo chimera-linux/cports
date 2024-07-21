@@ -8,18 +8,18 @@ configure_args = [
     "-Drpm=false",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "glib-devel",
-    "vala",
     "gobject-introspection",
+    "gperf",
     "libcurl-devel",
     "libyaml-devel",
-    "gperf",
+    "meson",
+    "pkgconf",
+    "vala",
 ]
 makedepends = [
-    "glib-devel",
     "gcab-devel",
+    "glib-devel",
     "gtk+3-devel",
     "json-glib-devel",
     "libarchive-devel",

@@ -5,12 +5,12 @@ build_style = "meson"
 configure_args = ["-Dman=true", "-Dsystemd=false"]
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
     "asciidoc",
     "bash",
+    "glib-devel",
     "libxml2-progs",
+    "meson",
+    "pkgconf",
 ]
 makedepends = ["udev-devel", "glib-devel", "polkit-devel"]
 checkdepends = ["dbus"]

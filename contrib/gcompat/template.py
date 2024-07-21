@@ -6,9 +6,9 @@ make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = [
     "libatomic-chimera-devel-static",
+    "libucontext-devel",
     "libunwind-devel-static",
     "musl-devel-static",
-    "libucontext-devel",
 ]
 pkgdesc = "Glibc compatibility shim for musl"
 maintainer = "eater <=@eater.me>"

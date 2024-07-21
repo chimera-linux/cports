@@ -27,11 +27,11 @@ depends = [
     "python-zope.interface",
 ]
 checkdepends = [
-    "python-bcrypt",
-    "python-pyhamcrest",
-    "python-appdirs",
-    "python-hypothesis",
     "git",
+    "python-appdirs",
+    "python-bcrypt",
+    "python-hypothesis",
+    "python-pyhamcrest",
     *depends,
 ]
 pkgdesc = "Asynchronous framework for Python"

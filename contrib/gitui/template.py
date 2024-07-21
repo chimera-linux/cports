@@ -11,8 +11,8 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
-    "openssl-devel",
     "oniguruma-devel",
+    "openssl-devel",
     "rust-std",
 ]
 pkgdesc = "Terminal ui for git"

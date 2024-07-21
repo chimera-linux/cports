@@ -12,8 +12,8 @@ hostmakedepends = [
     "qt6-qtbase",
 ]
 makedepends = [
-    "cmark-devel",
     "cmark",  # cmake detection
+    "cmark-devel",
     "qt6-qt5compat-devel",
     "qt6-qtbase-devel",
     "qt6-qtsvg-devel",

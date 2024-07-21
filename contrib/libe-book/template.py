@@ -6,10 +6,10 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "gperf"]
 makedepends = [
-    "librevenge-devel",
     "boost-devel",
-    "libxml2-devel",
     "liblangtag-devel",
+    "librevenge-devel",
+    "libxml2-devel",
 ]
 checkdepends = ["cppunit-devel"]
 pkgdesc = "Import reflowable e-book formats"

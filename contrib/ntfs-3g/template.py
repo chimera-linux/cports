@@ -15,8 +15,8 @@ configure_args = [
 ]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = [
-    "libgcrypt-devel",
     "gnutls-devel",
+    "libgcrypt-devel",
     "libuuid-devel",
     "linux-headers",
 ]

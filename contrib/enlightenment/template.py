@@ -8,30 +8,30 @@ configure_args = [
     "-Dsystemd=false",
 ]
 hostmakedepends = [
+    "efl",
+    "gettext",
     "meson",
     "pkgconf",
-    "gettext",
-    "efl",
     "wayland-progs",
 ]
 makedepends = [
-    "gettext-devel",
+    "bluez-devel",
     "efl-devel",
+    "gettext-devel",
+    "libexif-devel",
+    "libxkbcommon-devel",
+    "linux-pam-devel",
     "mesa-devel",
     "wayland-devel",
     "wayland-protocols",
-    "libxkbcommon-devel",
-    "linux-pam-devel",
-    "libexif-devel",
-    "bluez-devel",
     "xkeyboard-config",
     "xwayland-devel",
 ]
 depends = [
     "desktop-file-utils",
+    "elogind",
     "hicolor-icon-theme",
     "xkeyboard-config",
-    "elogind",
 ]
 pkgdesc = "Enlightenment desktop shell"
 maintainer = "q66 <q66@chimera-linux.org>"

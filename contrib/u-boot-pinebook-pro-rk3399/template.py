@@ -10,16 +10,16 @@ make_build_args = [
     ),
 ]
 hostmakedepends = [
-    "gmake",
-    "gcc-aarch64-none-elf",
-    "flex",
     "bison",
     "dtc",
-    "swig",
-    "python-devel",
+    "flex",
+    "gcc-aarch64-none-elf",
+    "gmake",
     "openssl-devel",
-    "python-setuptools",
+    "python-devel",
     "python-pyelftools",
+    "python-setuptools",
+    "swig",
 ]
 makedepends = ["atf-rk3399-bl31"]
 pkgdesc = "U-Boot for Pinebook Pro"

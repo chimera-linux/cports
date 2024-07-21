@@ -3,17 +3,17 @@ pkgver = "46.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "desktop-file-utils",
+    "gettext",
+    "glib-devel",
+    "itstool",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
     "vala",
-    "itstool",
-    "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel",
     "glib-devel",
+    "gtk4-devel",
     "libadwaita-devel",
 ]
 depends = ["gsettings-desktop-schemas"]

@@ -30,7 +30,13 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_install_args = ["tooldir=/usr"]
-hostmakedepends = ["bison", "flex", "gmake", "pkgconf", "texinfo"]
+hostmakedepends = [
+    "bison",
+    "flex",
+    "gmake",
+    "pkgconf",
+    "texinfo",
+]
 makedepends = [
     "jansson-devel",
     "linux-headers",

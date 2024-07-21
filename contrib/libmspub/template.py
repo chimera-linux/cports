@@ -4,11 +4,16 @@ pkgrel = 5
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
-    "librevenge-devel",
     "boost-devel",
     "icu-devel",
+    "librevenge-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for mspub format"

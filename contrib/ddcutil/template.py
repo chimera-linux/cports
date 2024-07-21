@@ -7,8 +7,8 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "libtool",
     "gmake",
+    "libtool",
     "pkgconf",
 ]
 makedepends = [

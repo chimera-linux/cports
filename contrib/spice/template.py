@@ -13,21 +13,21 @@ configure_args = [
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake", "python"]
 makedepends = [
-    "spice-protocol",
-    "pixman-devel",
-    "libjpeg-turbo-devel",
-    "zlib-ng-compat-devel",
-    "libsasl-devel",
-    "libcacard-devel",
-    "opus-devel",
+    "gdk-pixbuf-devel",
+    "gnutls-devel",
+    "gst-plugins-base-devel",
     "gstreamer-devel",
+    "gstreamer-devel",
+    "libcacard-devel",
+    "libjpeg-turbo-devel",
+    "libsasl-devel",
     "lz4-devel",
     "openssl-devel",
-    "gnutls-devel",
-    "gdk-pixbuf-devel",
-    "gstreamer-devel",
-    "gst-plugins-base-devel",
     "opus-devel",
+    "opus-devel",
+    "pixman-devel",
+    "spice-protocol",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["glib-networking"]
 pkgdesc = "Simple Protocol for Independent Computing Environments"

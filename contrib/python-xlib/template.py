@@ -11,9 +11,9 @@ hostmakedepends = [
 ]
 depends = ["python-six"]
 checkdepends = [
-    "python-six",
-    "python-pytest-xdist",
     "python-mock",
+    "python-pytest-xdist",
+    "python-six",
     "xserver-xorg-xvfb",
 ]
 pkgdesc = "Xlib in pure Python"

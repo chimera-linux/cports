@@ -9,11 +9,11 @@ make_check_args = ["LUA=lua5.4"]
 make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = ["pkgconf", "gobject-introspection"]
 makedepends = [
-    "gmake",
+    "gir-freedesktop",
     "glib-devel",
+    "gmake",
     "libffi-devel",
     "lua5.4-devel",
-    "gir-freedesktop",
 ]
 depends = ["gir-freedesktop"]
 checkdepends = ["xwayland-run", "dbus", "lua5.4", "gtk+3"]

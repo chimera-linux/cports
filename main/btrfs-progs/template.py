@@ -27,8 +27,8 @@ makedepends = [
     "libuuid-devel",
     "linux-headers",
     "lzo-devel",
-    "udev-devel",
     "python-devel",
+    "udev-devel",
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]

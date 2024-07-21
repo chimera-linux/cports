@@ -8,14 +8,14 @@ configure_args = [
 ]
 hostmakedepends = [
     "cmake",
+    "gettext",
+    "gperf",
+    "lua5.1-bitop",
+    "lua5.1-libluv",
+    "lua5.1-lpeg",
+    "lua5.1-mpack",
     "ninja",
     "pkgconf",
-    "gperf",
-    "gettext",
-    "lua5.1-bitop",
-    "lua5.1-lpeg",
-    "lua5.1-libluv",
-    "lua5.1-mpack",
 ]
 makedepends = [
     "libuv-devel",

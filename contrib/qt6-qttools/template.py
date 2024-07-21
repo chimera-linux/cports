@@ -11,20 +11,20 @@ configure_args = [
     "-DQT_FEATURE_distancefieldgenerator=ON",
 ]
 hostmakedepends = [
+    "clang-tools-extra",
     "cmake",
     "ninja",
-    "pkgconf",
     "perl",
+    "pkgconf",
     "qt6-qtbase",
-    "clang-tools-extra",
     "qt6-qtdeclarative-devel",
 ]
 makedepends = [
-    "qt6-qtbase-devel",
-    "qt6-qtdeclarative-devel",
-    "llvm-devel",
     "clang-devel",
     "clang-tools-extra",
+    "llvm-devel",
+    "qt6-qtbase-devel",
+    "qt6-qtdeclarative-devel",
 ]
 depends = [f"qt6-qttools-qdbus={pkgver}-r{pkgrel}"]
 pkgdesc = "Qt6 tools"

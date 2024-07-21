@@ -10,8 +10,8 @@ hostmakedepends = [
     "go",
     "go-md2man",
     "mandoc",
-    "python",
     "pkgconf",
+    "python",
 ]
 makedepends = [
     "device-mapper-devel",

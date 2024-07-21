@@ -7,19 +7,19 @@ makedepends = ["linux-headers"]
 depends = [
     "dinit",
     "tzdata",
-    "virtual:cmd:mkdir!chimerautils",
-    "virtual:cmd:grep!chimerautils",
-    "virtual:cmd:sed!chimerautils",
-    "virtual:cmd:install!chimerautils",
     "virtual:cmd:awk!chimerautils",
-    "virtual:cmd:modprobe!kmod",
     "virtual:cmd:fsck!mount",
+    "virtual:cmd:grep!chimerautils",
+    "virtual:cmd:install!chimerautils",
+    "virtual:cmd:mkdir!chimerautils",
+    "virtual:cmd:modprobe!kmod",
     "virtual:cmd:mount!mount",
-    "virtual:cmd:sulogin!shadow",
-    "virtual:cmd:udevadm!udev",
-    "virtual:cmd:snooze!snooze",
     "virtual:cmd:sd-tmpfiles!sd-tools",
+    "virtual:cmd:sed!chimerautils",
+    "virtual:cmd:snooze!snooze",
+    "virtual:cmd:sulogin!shadow",
     "virtual:cmd:systemd-tmpfiles!sd-tools",
+    "virtual:cmd:udevadm!udev",
 ]
 replaces = ["systemd-utils<255"]
 triggers = [

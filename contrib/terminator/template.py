@@ -12,25 +12,25 @@ hostmakedepends = [
     "python-wheel",
 ]
 checkdepends = [
-    "python-pytest",
-    "python-cairo",
-    "python-gobject",
-    "xserver-xorg-xvfb",
     "gobject-introspection",
-    "vte-gtk3",
+    "python-cairo",
     "python-configobj",
+    "python-gobject",
     "python-psutil",
+    "python-pytest",
+    "vte-gtk3",
+    "xserver-xorg-xvfb",
 ]
 depends = [
-    "python-psutil",
-    "python-gobject",
     "gsettings-desktop-schemas",
     "libkeybinder3",
     "libnotify",
-    "python-dbus",
-    "python-configobj",
-    "vte-gtk3",
     "pango",
+    "python-configobj",
+    "python-dbus",
+    "python-gobject",
+    "python-psutil",
+    "vte-gtk3",
 ]
 pkgdesc = "Tiling terminal emulator application"
 maintainer = "yopito <pierre.bourgin@free.fr>"

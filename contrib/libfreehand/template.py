@@ -4,13 +4,19 @@ pkgrel = 3
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "gperf"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "gperf",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
-    "lcms2-devel",
-    "icu-devel",
-    "librevenge-devel",
     "boost-devel",
+    "icu-devel",
     "lcms2-devel",
+    "lcms2-devel",
+    "librevenge-devel",
 ]
 pkgdesc = "Parser for Aldus/Macromedia/Adobe FreeHand documents"
 maintainer = "q66 <q66@chimera-linux.org>"

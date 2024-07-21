@@ -19,8 +19,8 @@ makedepends = [
     "libxext-devel",
     "libxrender-devel",
     "lzo-devel",
-    "zlib-ng-compat-devel",
     "pixman-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["ghostscript", "libpoppler-devel", "librsvg-devel"]
 pkgdesc = "Vector graphics library with cross-device output support"

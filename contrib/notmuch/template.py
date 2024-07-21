@@ -10,8 +10,8 @@ hostmakedepends = [
     "python-sphinx",
 ]
 makedepends = [
-    "linux-headers",
     "gmime-devel",
+    "linux-headers",
     "talloc-devel",
     "xapian-core-devel",
     "zlib-ng-compat-devel",

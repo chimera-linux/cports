@@ -10,11 +10,20 @@ configure_args = [
     "-DICESOUND=alsa",
     "-DXTERMCMD=urxvt",
 ]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext", "asciidoc", "perl"]
+hostmakedepends = [
+    "asciidoc",
+    "cmake",
+    "gettext",
+    "ninja",
+    "perl",
+    "pkgconf",
+]
 makedepends = [
     "alsa-lib-devel",
     "fontconfig-devel",
+    "fribidi-devel",
     "gdk-pixbuf-devel",
+    "imlib2-devel",
     "librsvg-devel",
     "libsm-devel",
     "libsndfile-devel",
@@ -26,8 +35,6 @@ makedepends = [
     "libxpm-devel",
     "libxrandr-devel",
     "libxrender-devel",
-    "fribidi-devel",
-    "imlib2-devel",
 ]
 depends = ["shared-mime-info"]
 pkgdesc = "Window manager for X11"

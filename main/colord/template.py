@@ -13,22 +13,22 @@ configure_args = [
     "-Dvapi=true",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "gettext",
     "glib-devel",
     "gobject-introspection",
+    "meson",
+    "pkgconf",
     "vala",
 ]
 makedepends = [
     "bash-completion",
+    "dbus-devel",
     "lcms2-devel",
     "libgudev-devel",
     "libgusb-devel",
     "polkit-devel",
-    "sqlite-devel",
-    "dbus-devel",
     "sane-backends-devel",
+    "sqlite-devel",
 ]
 pkgdesc = "Color management daemon"
 maintainer = "q66 <q66@chimera-linux.org>"

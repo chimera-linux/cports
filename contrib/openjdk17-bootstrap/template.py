@@ -3,15 +3,15 @@ pkgver = "17.0.7_p5"
 pkgrel = 0
 # satisfy revdeps
 makedepends = [
-    "libxrender-devel",
-    "libxtst-devel",
-    "libxt-devel",
-    "libxrandr-devel",
-    "giflib-devel",
-    "libjpeg-turbo-devel",
-    "freetype-devel",
-    "lcms2-devel",
     "alsa-lib-devel",
+    "freetype-devel",
+    "giflib-devel",
+    "lcms2-devel",
+    "libjpeg-turbo-devel",
+    "libxrandr-devel",
+    "libxrender-devel",
+    "libxt-devel",
+    "libxtst-devel",
 ]
 depends = ["!openjdk17"]
 pkgdesc = "Bootstrap binaries of OpenJDK 17"

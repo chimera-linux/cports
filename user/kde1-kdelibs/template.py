@@ -13,8 +13,8 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libtiff-devel",
-    "libxext-devel",
     "libx11-devel",
+    "libxext-devel",
     "qt1-devel",
 ]
 pkgdesc = "KDE1 libraries"

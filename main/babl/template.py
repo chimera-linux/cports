@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-gir=true", "-Dwith-docs=false"]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "glib-devel",
     "gobject-introspection",
+    "meson",
+    "pkgconf",
     "vala-devel",
 ]
 makedepends = ["glib-devel", "lcms2-devel", "vala-devel"]

@@ -25,27 +25,19 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    # core deps
     "cjson-devel",
+    "enchant-devel",  # spell plugin
     "gnutls-devel",
     "libcurl-devel",
     "libgcrypt-devel",
+    "lua5.4-devel",  # lua plugin
     "ncurses-devel",
+    "perl",  # perl plugin
+    "python-devel",  # python plugin
+    "ruby-devel",  # ruby plugin
+    "tcl-devel",  # tcl plugin
+    "zlib-ng-compat-devel",  # relay plugin
     "zstd-devel",
-    # perl plugin
-    "perl",
-    # lua plugin
-    "lua5.4-devel",
-    # pyhton plugin
-    "python-devel",
-    # relay plugin
-    "zlib-ng-compat-devel",
-    # ruby plugin
-    "ruby-devel",
-    # spell plugin
-    "enchant-devel",
-    # tcl plugin
-    "tcl-devel",
 ]
 pkgdesc = "Extensible chat client"
 maintainer = "eater <=@eater.me>"

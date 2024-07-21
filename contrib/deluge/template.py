@@ -11,7 +11,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = [
-    "python-setuptools",
+    "libtorrent-rasterbar-python",
     "python-chardet",
     "python-mako",
     "python-openssl",
@@ -20,10 +20,10 @@ depends = [
     "python-pyxdg",
     "python-rencode",
     "python-setproctitle",
+    "python-setuptools",
     "python-six",
     "python-twisted",
     "python-zope.interface",
-    "libtorrent-rasterbar-python",
 ]
 pkgdesc = "Portable BitTorrent client"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -42,8 +42,8 @@ makedepends = [
     "udev-devel",
     "xxhash-devel",
     "xz-devel",
-    "zlib-ng-devel",
     "zlib-ng-compat-devel",
+    "zlib-ng-devel",
     "zstd-devel",
 ]
 pkgdesc = "GameCube and Wii emulator"

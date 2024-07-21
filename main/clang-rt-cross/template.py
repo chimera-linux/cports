@@ -33,18 +33,18 @@ configure_args = [
 ]
 make_cmd = "make"
 hostmakedepends = [
+    "clang-tools-extra",
     "cmake",
     "gmake",
-    "python",
     "llvm-devel",
-    "clang-tools-extra",
+    "python",
 ]
 makedepends = [
-    "zlib-ng-compat-devel",
-    "libffi-devel",
     "clang-rt-crt-cross",
     "libcxx-cross",
+    "libffi-devel",
     "linux-headers-cross",
+    "zlib-ng-compat-devel",
 ]
 depends = ["clang-rt-crt-cross", "libcxx-cross"]
 pkgdesc = "Cross-compiling runtime for LLVM"

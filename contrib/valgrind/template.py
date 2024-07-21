@@ -8,12 +8,12 @@ configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 make_dir = "."  # junk in main dir prevents reliable out of tree build
 hostmakedepends = [
+    "automake",
     "gmake",
     "gsed",
-    "pkgconf",
-    "perl",
-    "automake",
     "libtool",
+    "perl",
+    "pkgconf",
 ]
 makedepends = ["libomp-devel", "linux-headers"]
 depends = ["perl", "python"]

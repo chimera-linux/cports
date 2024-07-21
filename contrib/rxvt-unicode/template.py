@@ -21,15 +21,15 @@ configure_args = [
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "xorgproto",
-    "libxrender-devel",
-    "libxft-devel",
-    "libxt-devel",
-    "libsm-devel",
-    "libptytty-devel",
     "fontconfig-devel",
     "gdk-pixbuf-devel",
+    "libptytty-devel",
+    "libsm-devel",
+    "libxft-devel",
+    "libxrender-devel",
+    "libxt-devel",
     "startup-notification-devel",
+    "xorgproto",
 ]
 depends = [f"rxvt-unicode-terminfo={pkgver}-r{pkgrel}"]
 pkgdesc = "Terminal emulator supporting Xft fonts and Unicode"

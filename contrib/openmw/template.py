@@ -8,18 +8,24 @@ configure_args = [
     "-DOPENMW_USE_SYSTEM_BULLET=OFF",
     "-DOPENMW_LTO_BUILD=ON",
 ]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qttools", "qt6-qtbase"]
+hostmakedepends = [
+    "cmake",
+    "ninja",
+    "pkgconf",
+    "qt6-qtbase",
+    "qt6-qttools",
+]
 makedepends = [
-    "sdl-devel",
     "boost-devel",
     "ffmpeg-devel",
-    "mygui-devel",
-    "lz4-devel",
-    "openscenegraph-devel",
-    "unshield-devel",
-    "openal-soft-devel",
-    "qt6-qtbase-devel",
     "libxt-devel",
+    "lz4-devel",
+    "mygui-devel",
+    "openal-soft-devel",
+    "openscenegraph-devel",
+    "qt6-qtbase-devel",
+    "sdl-devel",
+    "unshield-devel",
 ]
 pkgdesc = "Open implementation of Morrowind's engine"
 maintainer = "q66 <q66@chimera-linux.org>"

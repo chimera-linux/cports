@@ -6,8 +6,8 @@ configure_args = ["-DQT_BUILD_TESTS=ON"]
 hostmakedepends = [
     "cmake",
     "ninja",
-    "pkgconf",
     "perl",
+    "pkgconf",
     "python",
     "qt6-qtbase",
     "qt6-qtshadertools",

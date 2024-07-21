@@ -5,10 +5,10 @@ _gitrev = "6052bfef57a81d82451b4cad86f78a2d01959767"
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
 hostmakedepends = [
-    "pkgconf",
-    "meson",
     "lua5.4",
     "lua5.4-zlib",
+    "meson",
+    "pkgconf",
     "scdoc",
 ]
 makedepends = [

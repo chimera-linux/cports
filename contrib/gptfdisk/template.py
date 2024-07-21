@@ -7,8 +7,8 @@ make_dir = "."
 make_check_target = "test"
 hostmakedepends = ["gmake"]
 makedepends = [
-    "linux-headers",
     "libuuid-devel",
+    "linux-headers",
     "ncurses-devel",
     "popt-devel",
 ]

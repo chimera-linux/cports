@@ -21,8 +21,8 @@ makedepends = [
     "libwebp-devel",
     "mpg123-devel",
     "openssl-devel",
-    "sdl-devel",
     "pcre2-devel",
+    "sdl-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Beautiful gemini client"

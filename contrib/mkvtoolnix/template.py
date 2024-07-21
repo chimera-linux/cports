@@ -15,9 +15,9 @@ hostmakedepends = [
     "automake",
     "docbook-xsl",
     "gettext",
-    "ruby",
-    "qt6-qtbase",
     "pkgconf",
+    "qt6-qtbase",
+    "ruby",
     "xsltproc",
 ]
 makedepends = [

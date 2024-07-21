@@ -18,9 +18,9 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "libidn2-devel",
     "glib-devel",
     "gpgme-devel",
+    "libidn2-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "C/C++ MIME creation and parser library"

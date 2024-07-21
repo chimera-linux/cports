@@ -17,21 +17,21 @@ configure_args = [
 make_cmd = "gmake"
 make_check_target = "test-only"
 hostmakedepends = [
-    "pkgconf",
-    "ninja",
-    "python",
     "gmake",
+    "ninja",
+    "pkgconf",
+    "python",
     "python-jinja2",
 ]
 makedepends = [
-    "zlib-ng-compat-devel",
-    "icu-devel",
-    "openssl-devel",
-    "libuv-devel",
-    "nghttp2-devel",
-    "c-ares-devel",
     "brotli-devel",
+    "c-ares-devel",
+    "icu-devel",
+    "libuv-devel",
     "linux-headers",
+    "nghttp2-devel",
+    "openssl-devel",
+    "zlib-ng-compat-devel",
 ]
 checkdepends = ["procps"]
 pkgdesc = "JavaScript runtime based on V8"

@@ -16,11 +16,18 @@ configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 make_dir = "."
 make_check_args = ["-j1"]
-hostmakedepends = ["automake", "pkgconf", "libtool", "gmake", "xmlto", "perl"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "libtool",
+    "perl",
+    "pkgconf",
+    "xmlto",
+]
 makedepends = [
-    "openssl-devel",
-    "libproxy-devel",
     "libexpat-devel",
+    "libproxy-devel",
+    "openssl-devel",
     "zlib-ng-compat-devel",
 ]
 depends = ["ca-certificates"]

@@ -6,11 +6,11 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
 makedepends = [
-    "librevenge-devel",
     "boost-devel",
-    "libxml2-devel",
-    "liblangtag-devel",
     "glm",
+    "liblangtag-devel",
+    "librevenge-devel",
+    "libxml2-devel",
     "mdds",
 ]
 checkdepends = ["cppunit-devel"]

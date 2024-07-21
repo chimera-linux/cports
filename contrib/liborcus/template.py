@@ -7,9 +7,9 @@ hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "python"]
 makedepends = [
     "boost-devel",
     "ixion-devel",
+    "mdds",
     "python-devel",
     "zlib-ng-compat-devel",
-    "mdds",
 ]
 pkgdesc = "Library for processing spreadsheets"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -3,13 +3,13 @@ pkgver = "3.52.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "docbook-xsl-nons",
+    "gettext",
+    "glib-devel",
+    "itstool",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
     "xsltproc",
-    "docbook-xsl-nons",
-    "itstool",
 ]
 makedepends = [
     "glib-devel",

@@ -4,9 +4,9 @@ pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
-    "rust-std",
     "lcms2-devel",
     "libpng-devel",
+    "rust-std",
 ]
 pkgdesc = "Lossy PNG compressor"
 maintainer = "psykose <alice@ayaya.dev>"

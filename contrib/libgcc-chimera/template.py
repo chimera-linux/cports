@@ -25,12 +25,12 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "python", "perl", "clang-tools-extra"]
 makedepends = [
-    "llvm-devel",
-    "zlib-ng-compat-devel",
     "libffi-devel",
-    "ncurses-devel",
     "libunwind-devel",
     "linux-headers",
+    "llvm-devel",
+    "ncurses-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "Chimera shim for libgcc runtime compatibility"
 maintainer = "q66 <q66@chimera-linux.org>"

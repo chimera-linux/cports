@@ -9,8 +9,8 @@ hostmakedepends = [
     "python-installer",
 ]
 checkdepends = [
-    "python-referencing",
     "python-pytest",
+    "python-referencing",
 ]
 depends = ["python-referencing"]
 pkgdesc = "Json Schema meta-schemas and vocabularies, exposed as a Registry"

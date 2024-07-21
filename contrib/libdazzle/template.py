@@ -8,10 +8,10 @@ configure_args = [
     "-Dwith_introspection=true",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "glib-devel",
     "gobject-introspection",
+    "meson",
+    "pkgconf",
     "vala",
 ]
 makedepends = ["gtk+3-devel", "glib-devel"]

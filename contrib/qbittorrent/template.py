@@ -17,8 +17,8 @@ makedepends = [
     "libtorrent-rasterbar-devel",
     "openssl-devel",
     "qt6-qtbase-devel",
-    "qt6-qttools-devel",
     "qt6-qtsvg-devel",
+    "qt6-qttools-devel",
 ]
 depends = ["qt6-qtsvg"]
 pkgdesc = "QT-based torrent client"

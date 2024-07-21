@@ -7,9 +7,9 @@ configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 hostmakedepends = [
     "automake",
+    "gettext",
     "gettext-devel",
     "glib-devel",
-    "gettext",
     "gmake",
     "libtool",
     "pkgconf",

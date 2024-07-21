@@ -9,11 +9,11 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "doxygen"]
 makedepends = [
-    "libx11-devel",
     "boost-devel",
     "freetype-devel",
-    "sdl-devel",
+    "libx11-devel",
     "mesa-devel",
+    "sdl-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast, flexible and simple GUI"

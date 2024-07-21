@@ -6,11 +6,18 @@ configure_args = ["--disable-static"]
 configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["automake", "gmake", "libtool", "texinfo", "flex", "bison"]
+hostmakedepends = [
+    "automake",
+    "bison",
+    "flex",
+    "gmake",
+    "libtool",
+    "texinfo",
+]
 makedepends = [
+    "libfl-devel-static",
     "linux-headers",
     "ncurses-devel",
-    "libfl-devel-static",
 ]
 depends = ["cmd:pgrep!procps"]
 pkgdesc = "Mouse server for the console"

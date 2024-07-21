@@ -16,8 +16,8 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "gettext-devel",
+    "gmake",
     "libtool",
 ]
 makedepends = [

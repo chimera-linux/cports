@@ -8,8 +8,8 @@ make_check_env = {"QT_QPA_PLATFORM": "offscreen", "XDG_RUNTIME_DIR": "/tmp"}
 hostmakedepends = [
     "cmake",
     "ninja",
-    "pkgconf",
     "perl",
+    "pkgconf",
     "qt6-qtbase",
     "qt6-qtdeclarative-devel",
 ]

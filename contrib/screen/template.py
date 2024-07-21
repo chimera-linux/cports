@@ -20,9 +20,9 @@ hostmakedepends = [
     "libtool",
 ]
 makedepends = [
-    "ncurses-devel",
-    "linux-pam-devel",
     "linux-headers",
+    "linux-pam-devel",
+    "ncurses-devel",
 ]
 pkgdesc = "GNU screen"
 maintainer = "q66 <q66@chimera-linux.org>"

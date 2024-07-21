@@ -8,12 +8,12 @@ configure_args = [
     "-Delogind=true",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
     "polkit",
-    "gettext",
     "vala",
 ]
 makedepends = ["polkit-devel", "elogind-devel", "dbus-devel"]

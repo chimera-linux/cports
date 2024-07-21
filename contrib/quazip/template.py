@@ -12,8 +12,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "qt6-qtbase-devel",
     "qt6-qt5compat-devel",
+    "qt6-qtbase-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Qt wrapper for minizip"
