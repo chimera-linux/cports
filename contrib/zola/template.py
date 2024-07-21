@@ -1,5 +1,5 @@
 pkgname = "zola"
-pkgver = "0.18.0"
+pkgver = "0.19.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -7,9 +7,9 @@ makedepends = ["rust-std", "openssl-devel", "oniguruma-devel"]
 pkgdesc = "Static site generator"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
-url = "https://github.com/getzola/zola"
-source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c0e1711a68bc005c2e0ecc76a468f3459739c9e54af34850cb725d04391e19b5"
+url = "https://www.getzola.org"
+source = f"https://github.com/getzola/zola/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "9926c3e7c64ee20a48dc292785c5a29f387c1fab639005ced894982f9c3d7258"
 # generates completions with host bins
 options = ["!cross"]
 
@@ -25,7 +25,8 @@ def post_build(self):
             )
 
 
-def post_install(self):
+def do_install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/zola")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"zola.{shell}", shell)
     self.install_license("LICENSE")
