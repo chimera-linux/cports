@@ -1,5 +1,5 @@
 pkgname = "python-cryptography"
-pkgver = "42.0.8"
+pkgver = "43.0.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -8,8 +8,8 @@ hostmakedepends = [
     "python-build",
     "python-cffi",
     "python-installer",
-    "python-setuptools-rust",
-    "python-wheel",
+    "python-maturin",
+    "python-setuptools",
 ]
 makedepends = ["python-devel", "openssl-devel", "rust-std"]
 depends = ["python-cffi"]
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause OR Apache-2.0"
 url = "https://github.com/pyca/cryptography"
 source = f"$(PYPI_SITE)/c/cryptography/cryptography-{pkgver}.tar.gz"
-sha256 = "8d09d05439ce7baa8e9e95b07ec5b6c886f548deb7e0f69ef25f64b3bce842f2"
+sha256 = "b88075ada2d51aa9f18283532c9f60e72170041bba88d7f37e49cbb10275299e"
 
 
 def do_prepare(self):
