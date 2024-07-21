@@ -1,5 +1,5 @@
 pkgname = "ostree"
-pkgver = "2024.6"
+pkgver = "2024.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.0-or-later"
 url = "https://ostreedev.github.io/ostree"
 source = f"https://github.com/ostreedev/ostree/releases/download/v{pkgver}/libostree-{pkgver}.tar.xz"
-sha256 = "8b61c856697aa412f2f1724322ada40bdd7b1bf9e7783e2c594faa7a594f868f"
+sha256 = "72451efffe5a10acb4cfdd6eb849db97fa9e61a81e4113fc656eece77eb93355"
 # failing on their test harness, i will find motivation Soon
 options = ["!check"]
 
