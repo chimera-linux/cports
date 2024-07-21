@@ -1,5 +1,5 @@
 pkgname = "chimera-repo-main"
-pkgver = "0.1"
+pkgver = "0.2"
 pkgrel = 0
 build_style = "meta"
 depends = ["apk-tools", "!base-cbuild"]
@@ -10,6 +10,12 @@ url = "https://chimera-linux.org"
 
 
 def do_install(self):
+    self.install_file(
+        *self.find(
+            self.files_path, f"{self.profile().arch}@chimera-linux.org-*.pub"
+        ),
+        "etc/apk/keys",
+    )
     self.install_file(
         self.files_path / "q66@chimera-linux.org-61a1913b.rsa.pub",
         "etc/apk/keys",
