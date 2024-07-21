@@ -1,6 +1,8 @@
 pkgname = "delve"
 pkgver = "1.23.0"
 pkgrel = 0
+# supported archs
+archs = ["aarch64", "x86_64"]
 build_style = "go"
 make_build_args = ["./cmd/dlv/..."]
 make_check_args = [*make_build_args]
