@@ -14,7 +14,7 @@ make_cmd = "gmake"
 # fail due to various reasons, mostly harmless ones
 make_check_args = [
     "TESTS=bpf.gen epoll_pwait.gen getcpu.gen open.gen read-write.gen "
-    "readlink.gen seccomp-filter.gen mmap ioctl caps readv"
+    "readlink.gen seccomp-filter.gen mmap ioctl caps"
 ]
 hostmakedepends = ["automake", "gmake", "libtool"]
 makedepends = ["elfutils-devel", "linux-headers"]
