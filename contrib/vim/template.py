@@ -1,6 +1,6 @@
 pkgname = "vim"
-pkgver = "9.1.0554"
-pkgrel = 2
+pkgver = "9.1.0608"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -33,7 +33,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "27af58351ba09ac38a2f9b302af83b67fd3f2d38fca7a834986379ac2aaa9804"
+sha256 = "f4f5ecdf791075fef68cb8ded82c579c9a0bde5f91431b7d5767903de2adecdc"
 tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/etc/vim/vimrc"']}
 hardening = ["vis", "!cfi"]
 # require a million system-specific fixes
