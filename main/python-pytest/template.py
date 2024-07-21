@@ -1,12 +1,11 @@
 pkgname = "python-pytest"
-pkgver = "8.2.2"
+pkgver = "8.3.1"
 pkgrel = 0
 build_style = "python_pep517"
 _deps = [
     "python-iniconfig",
     "python-packaging",
     "python-pluggy",
-    "python-py",
 ]
 hostmakedepends = [
     "gmake",
@@ -14,7 +13,6 @@ hostmakedepends = [
     "python-installer",
     "python-setuptools_scm",
     "python-sphinx",
-    "python-wheel",
     *_deps,
 ]
 depends = [*_deps]
@@ -23,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://docs.pytest.org/en/latest"
 source = f"$(PYPI_SITE)/p/pytest/pytest-{pkgver}.tar.gz"
-sha256 = "de4bb8104e201939ccdc688b27a89a7be2079b22e2bd2b07f806b6ba71117977"
+sha256 = "7e8e5c5abd6e93cb1cc151f23e57adc31fcf8cfd2a3ff2da63e23f732de35db6"
 # missing checkdepends
 options = ["!check"]
 
