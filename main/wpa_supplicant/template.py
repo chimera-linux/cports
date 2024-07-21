@@ -1,6 +1,6 @@
 pkgname = "wpa_supplicant"
-pkgver = "2.10"
-pkgrel = 5
+pkgver = "2.11"
+pkgrel = 0
 build_wrksrc = pkgname
 build_style = "makefile"
 make_cmd = "gmake"
@@ -13,13 +13,14 @@ makedepends = [
     "libnl-devel",
     "linux-headers",
     "openssl-devel",
+    "pcsc-lite-devel",
 ]
 pkgdesc = "WPA/WPA2/IEEE 802.1X Supplicant"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://w1.fi/wpa_supplicant"
 source = f"http://w1.fi/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "20df7ae5154b3830355f8ab4269123a87affdea59fe74fe9292a91d0d7e17b2f"
+sha256 = "912ea06f74e30a8e36fbb68064d6cdff218d8d591db0fc5d75dee6c81ac7fc0a"
 # no test suite?
 options = ["!check"]
 
