@@ -765,11 +765,10 @@ def do_keygen(tgt):
         keyn, keysize = None, 2048
 
     if not keyn or len(keyn) == 0:
-        keyn = opt_signkey
+        keyn = None
+        sign.register_key(opt_signkey)
 
-    sign.register_key(keyn)
-
-    sign.keygen(keysize, global_cfg, os.path.expanduser(cmdline.config))
+    sign.keygen(keysize, keyn, global_cfg, os.path.expanduser(cmdline.config))
 
 
 def do_clean(tgt):

@@ -547,14 +547,13 @@ The following commands are recognized:
 * `invoke-custom` Takes a target name and a package. Invokes a custom-defined
   template-specific target function. Typically used to handle logic for
   generation of bootstrap bindists, kernel config refresh, and the likes.
-* `keygen [KEYPATH [KEYSIZE]]` Generate your signing key. You can optionally
-  specify the key name (if not a path, will be stored in the default location
-  of `etc/keys`), key path, and key size (2048 by default). The configuration
-  file will automatically be updated. You can also pre-specify the key path
-  or name in the configuration file ahead of time, in which case it will use
-  those, unless overridden on the command line. The system will not overwrite
-  keys that already exist (i.e. if a valid key is specified in configuration,
-  this will fail).
+* `keygen [PREFIX [KEYSIZE]]` Generate your signing key. You can optionally
+  specify the prefix (typically an email) and key size (2048 by default).
+  The configuration file will automatically be updated if no existing setting
+  is present. If an existing setting is present and you don't specify anything
+  on command line and there is no pre-existing key, it will be generated. The
+  system will not overwrite keys that already exist (i.e. if a valid key is
+  specified in configuration, this will fail).
 * `lint` Read and parse the template, and do lint checks on it. Do nothing
   else. Error on failures.
 * `list-outdated` Sort of like `print-outdated`, but separate the outputs by

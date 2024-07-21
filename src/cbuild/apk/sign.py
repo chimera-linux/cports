@@ -35,23 +35,24 @@ def get_keypath():
     return _keypath
 
 
-def keygen(size, cfgfile, cfgpath):
+def keygen(size, eaddr, cfgfile, cfgpath):
     if not shutil.which("openssl"):
         raise errors.CbuildException("openssl is missing")
 
     keypath = get_keypath()
 
-    if not keypath:
+    if not keypath or eaddr:
         # does not have to succeed, e.g. there may not even be git at all
-        eaddr = subprocess.run(
-            ["git", "config", "--get", "user.email"], capture_output=True
-        )
-        if eaddr.returncode == 0:
-            eaddr = eaddr.stdout.strip().decode()
-            if len(eaddr) == 0:
+        if not eaddr:
+            eaddr = subprocess.run(
+                ["git", "config", "--get", "user.email"], capture_output=True
+            )
+            if eaddr.returncode == 0:
+                eaddr = eaddr.stdout.strip().decode()
+                if len(eaddr) == 0:
+                    eaddr = None
+            else:
                 eaddr = None
-        else:
-            eaddr = None
         if not eaddr:
             keyn = getpass.getuser()
         else:
