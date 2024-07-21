@@ -1,11 +1,11 @@
---- a/configure
-+++ b/configure
-@@ -590,7 +590,7 @@ MAKEFLAGS=
- # Identity of this package.
- PACKAGE_NAME='libcdio-paranoia'
- PACKAGE_TARNAME='libcdio-paranoia'
--PACKAGE_VERSION='10.2+2.0.1'
-+PACKAGE_VERSION='10.2.2.0.1'
- PACKAGE_STRING='libcdio-paranoia 10.2+2.0.1'
- PACKAGE_BUGREPORT='libcdio-help@gnu.org'
- PACKAGE_URL=''
+--- a/configure.ac
++++ b/configure.ac
+@@ -16,7 +16,7 @@
+ 
+ define(RELEASE_NUM, 2.0.2)
+ define(PARANOIA_VERSION, 10.2)
+-define(LIBCDIO_PARANOIA_VERSION_STR, $1+$2)
++define(LIBCDIO_PARANOIA_VERSION_STR, $1.$2)
+ 
+ AC_DEFINE([PACKAGE], [libcdio-paranoia], [cdparanoia using libcdio])
+ 
