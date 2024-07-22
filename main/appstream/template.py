@@ -1,10 +1,11 @@
 pkgname = "appstream"
 # match to contrib/appstream-qt
 pkgver = "1.0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dapidocs=false",
+    "-Dcompose=true",
     "-Dstemming=false",
     "-Dsystemd=false",
 ]
@@ -19,11 +20,17 @@ hostmakedepends = [
     "xsltproc",
 ]
 makedepends = [
+    "cairo-devel",
+    "fontconfig-devel",
+    "freetype-devel",
+    "gdk-pixbuf-devel",
     "glib-devel",
     "libcurl-devel",
+    "librsvg-devel",
     "libxml2-devel",
     "libxmlb-devel",
     "libyaml-devel",
+    "pango-devel",
 ]
 depends = ["shared-mime-info"]
 pkgdesc = "Tools and libraries to work with AppStream metadata"
