@@ -1,6 +1,6 @@
 pkgname = "python-setuptools"
 pkgver = "73.0.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["python-devel"]
 depends = ["python", "python-wheel"]
 pkgdesc = "Easily build and distribute Python packages"
