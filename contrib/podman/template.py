@@ -46,6 +46,7 @@ license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
 sha256 = "0e1c4202d25dc270b996583cff97d806eab88682beb9586a6813431559273fc9"
+# nah
 options = ["!check"]
 
 
