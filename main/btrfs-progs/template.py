@@ -41,8 +41,7 @@ source = f"$(KERNEL_SITE)/kernel/people/kdave/btrfs-progs/btrfs-progs-v{pkgver}.
 sha256 = "25684696bc5b5d07c98f19d4bf7a48b53ab94870ca4c468a68af3df9e2c8a35e"
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
-# libbtrfsutils/python broken on cross
-options = ["!check", "!cross"]
+options = ["!check"]
 
 
 def post_install(self):
