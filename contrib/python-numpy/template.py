@@ -1,6 +1,6 @@
 pkgname = "python-numpy"
-pkgver = "2.0.0"
-pkgrel = 1
+pkgver = "2.0.1"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_args = []
 hostmakedepends = [
@@ -21,7 +21,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
-sha256 = "cf5d1c9e6837f8af9f92b6bd3e86d513cdc11f60fd62185cc49ec7d1aba34864"
+sha256 = "485b87235796410c3519a699cfe1faab097e509e90ebb05dcd098db2ae87e7b3"
 hardening = ["!int"]
 
 if self.profile().arch == "aarch64":
