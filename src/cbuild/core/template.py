@@ -291,7 +291,7 @@ class Package:
         if self._mod_handle:
             pver = getattr(self._mod_handle, "pkgver", None)
             prel = getattr(self._mod_handle, "pkgrel", None)
-            if not pver or not prel:
+            if not pver or prel is None:
                 return None
         else:
             pver = self.pkgver
