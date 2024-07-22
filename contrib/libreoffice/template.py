@@ -307,7 +307,7 @@ def _take_list(self, listn):
 def _add_lang(langc, langd, langs):
     _langs.append(langc.replace("_", "-"))
 
-    @subpackage(f"{pkgname}-lang_{langc.lower()}")
+    @subpackage(f"libreoffice-lang_{langc.lower()}")
     def _lang(self):
         self.subdesc = f"{langd} language pack"
 
@@ -447,7 +447,7 @@ for _langc, _langd in [
 
 
 def _gensub(subn, subd):
-    @subpackage(f"{pkgname}-{subn}")
+    @subpackage(f"libreoffice-{subn}")
     def _sub(self):
         self.subdesc = f"{subd}"
         if subn == "writer" or subn == "gnome":
@@ -482,7 +482,7 @@ for _subn, _subd in [
     _gensub(_subn, _subd)
 
 
-@subpackage(f"{pkgname}-qt6")
+@subpackage(f"libreoffice-qt6")
 def _qt6(self):
     self.subdesc = "Qt6 integration"
     self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
@@ -492,7 +492,7 @@ def _qt6(self):
     return ["usr/lib/libreoffice/program/libvclplug_qt6lo.so"]
 
 
-@subpackage(f"{pkgname}-kf6")
+@subpackage(f"libreoffice-kf6")
 def _kf6(self):
     self.subdesc = "KF6 integration"
     self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
@@ -506,7 +506,7 @@ def _kf6(self):
     return ["usr/lib/libreoffice/program/libvclplug_kf6lo.so"]
 
 
-@subpackage(f"{pkgname}-common")
+@subpackage(f"libreoffice-common")
 def _common(self):
     self.subdesc = "common files"
 

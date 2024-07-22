@@ -198,7 +198,7 @@ def _take_list(self, pn):
 
 def _contrib_pkg(pn):
     # build a subpackage for each contrib item
-    @subpackage(f"{pkgname}-contrib-{pn}")
+    @subpackage(f"postgresql16-contrib-{pn}")
     def _subp(self):
         self.subdesc = f"contrib-{pn}"
         self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -265,7 +265,7 @@ def _default(self):
 # these are provided by contribs, can't put them in the default alt
 # nor should we make them actual alternatives (autoinstall instead)
 def _contrib_alt(pn, pl):
-    @subpackage(f"postgresql-{pkgname}-{pn}-default")
+    @subpackage(f"postgresql-postgresql16-{pn}-default")
     def _sp(self):
         self.subdesc = f"default links for {pn}"
         self.depends = [f"postgresql-{pkgname}-default={pkgver}-r{pkgrel}"]
@@ -285,7 +285,7 @@ for _pn in _extra_cmds:
     _contrib_alt(_pn, _extra_cmds[_pn])
 
 
-@subpackage(f"{pkgname}-contrib")
+@subpackage(f"postgresql16-contrib")
 def _contrib(self):
     self.subdesc = "contrib"
     self.options = ["empty"]
@@ -345,7 +345,7 @@ def _libecpg_devel(self):
     ]
 
 
-@subpackage(f"{pkgname}-pltcl")
+@subpackage(f"postgresql16-pltcl")
 def _pltcl(self):
     self.subdesc = "PL/Tcl"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -357,7 +357,7 @@ def _pltcl(self):
     ]
 
 
-@subpackage(f"{pkgname}-plperl")
+@subpackage(f"postgresql16-plperl")
 def _plperl(self):
     self.subdesc = "PL/Perl"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -368,7 +368,7 @@ def _plperl(self):
     ]
 
 
-@subpackage(f"{pkgname}-plpython")
+@subpackage(f"postgresql16-plpython")
 def _plpython(self):
     self.subdesc = "PL/Python"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -379,6 +379,6 @@ def _plpython(self):
     ]
 
 
-@subpackage(f"{pkgname}-devel")
+@subpackage(f"postgresql16-devel")
 def _devel(self):
     return self.default_devel(extra=[f"usr/lib/{pkgname}/pgxs"])

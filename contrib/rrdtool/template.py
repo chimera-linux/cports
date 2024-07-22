@@ -24,12 +24,12 @@ def post_install(self):
     self.install_license("COPYRIGHT")
 
 
-@subpackage(f"{pkgname}-devel")
+@subpackage(f"rrdtool-devel")
 def _devel(self):
     return self.default_devel()
 
 
-@subpackage(f"{pkgname}-python")
+@subpackage(f"rrdtool-python")
 def _python(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]

@@ -31,7 +31,7 @@ def post_install(self):
 
 
 def _gensub(subn, subd, subc, sube):
-    @subpackage(f"{pkgname}-{subn}")
+    @subpackage(f"fonts-noto-sans-cjk-{subn}")
     def _sub(self):
         self.subdesc = subd
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", f"!{pkgname}-{subc}"]
@@ -43,7 +43,7 @@ def _gensub(subn, subd, subc, sube):
             f"usr/share/fonts/noto/Noto*-Regular.{sube}",
         ]
 
-    @subpackage(f"{pkgname}-extra-{subn}")
+    @subpackage(f"fonts-noto-sans-cjk-extra-{subn}")
     def _sub_extra(self):
         self.subdesc = f"{subd} (additional variants"
         self.depends = [
