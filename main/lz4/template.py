@@ -1,6 +1,6 @@
 pkgname = "lz4"
-pkgver = "1.9.4"
-pkgrel = 2
+pkgver = "1.10.0"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_args = ["-j1"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND GPL-2.0-or-later"
 url = "https://lz4.github.io/lz4"
 source = f"https://github.com/lz4/lz4/archive/v{pkgver}.tar.gz"
-sha256 = "0b0e3aa07c8c063ddf40b082bdf7e37a1562bda40a0ff5272957f3e987e0e54b"
+sha256 = "537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b"
 hardening = ["vis", "cfi"]
 options = ["bootstrap"]
 
