@@ -1,6 +1,6 @@
 pkgname = "llvm"
 pkgver = "18.1.8"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -515,6 +515,7 @@ def _libmlir(self):
 @subpackage("libunwind")
 def _libunwind(self):
     self.subdesc = "libunwind"
+    self.compression = "deflate"
 
     return ["usr/lib/libunwind.so.*"]
 
@@ -541,6 +542,7 @@ def _libunwind_devel(self):
 @subpackage("libcxx")
 def _libcxx(self):
     self.subdesc = "C++ standard library"
+    self.compression = "deflate"
 
     return ["usr/lib/libc++.so.*"]
 
@@ -583,6 +585,7 @@ def _libcxx_devel(self):
 def _libcxxabi(self):
     self.subdesc = "low level C++ runtime"
     self.depends = [f"libunwind={pkgver}-r{pkgrel}"]
+    self.compression = "deflate"
 
     return ["usr/lib/libc++abi.so.*"]
 
