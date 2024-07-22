@@ -1,8 +1,9 @@
 pkgname = "hugo"
 pkgver = "0.129.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
+go_build_tags = ["extended"]
 pkgdesc = "Static site generator"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
