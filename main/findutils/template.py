@@ -8,6 +8,7 @@ hostmakedepends = [
     "gettext-devel",
     "texinfo",
 ]
+checkdepends = ["musl-bsd-headers"]
 pkgdesc = "GNU find utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
