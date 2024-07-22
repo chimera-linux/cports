@@ -1,5 +1,5 @@
 pkgname = "python-pytest-httpserver"
-pkgver = "1.0.10"
+pkgver = "1.0.12"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/csernazs/pytest-httpserver"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "dc9e22b54184a9683a57eb18527dae4411fed3c5b421c52521043c192d058c9b"
+sha256 = "a265290e659458bd187952fd8f3ce66520ca08146a0ce062bc390d18bc5e3174"
 
 
 def post_install(self):
