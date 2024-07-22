@@ -1,6 +1,6 @@
 pkgname = "docker-cli"
 pkgver = "27.0.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 _commit = "7d4bcd863a4c863e650eed02a550dfeb98560b83"
 make_cmd = "gmake"
@@ -25,8 +25,7 @@ env = {
     "VERSION": pkgver,
     "DISABLE_WARN_OUTSIDE_CONTAINER": "1",
 }
-# objcopy fails to split on ppc
-options = ["!debug", "!check"]
+options = ["!check"]
 
 
 def init_build(self):

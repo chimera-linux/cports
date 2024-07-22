@@ -1,6 +1,6 @@
 pkgname = "chezmoi"
 pkgver = "2.51.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X 'main.builtBy=Chimera Linux'",
@@ -14,8 +14,6 @@ license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
 sha256 = "70c0c7887a42bcd77fe33faa7ba546b7eb4e933bc68065b0028de4146738ebce"
-# debug: fails to split on powerpc
-options = ["!debug"]
 
 
 def do_check(self):

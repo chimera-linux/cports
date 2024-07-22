@@ -1,6 +1,6 @@
 pkgname = "aerc"
 pkgver = "0.18.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "tests"
@@ -23,8 +23,6 @@ url = "https://sr.ht/~rjarry/aerc"
 source = f"https://git.sr.ht/~rjarry/aerc/archive/{pkgver}.tar.gz"
 sha256 = "f8a2923b1749b1b0eaa9ce221121536d13974297143b597f812b11ebbef0c1bf"
 tool_flags = {"GOFLAGS": ["-tags=notmuch", "-buildmode=pie"]}
-# ppc64le objcopy
-options = ["!debug"]
 
 
 def post_prepare(self):

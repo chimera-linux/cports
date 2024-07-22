@@ -1,6 +1,6 @@
 pkgname = "containerd"
 pkgver = "1.7.20"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = [
@@ -32,9 +32,8 @@ license = "Apache-2.0"
 url = "https://github.com/containerd/containerd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "c4268561e514a2e8322bc8cdd39113d5e164fb31c2cef76f479d683395ea9bd6"
-# objcopy fails to split on ppc
 # can't run tests inside namespaces
-options = ["!debug", "!check"]
+options = ["!check"]
 
 
 if self.profile().arch == "riscv64":
