@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libetonyek"
 source = (
-    f"https://dev-www.libreoffice.org/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+    f"https://dev-www.libreoffice.org/src/libetonyek/libetonyek-{pkgver}.tar.xz"
 )
 sha256 = "b430435a6e8487888b761dc848b7981626eb814884963ffe25eb26a139301e9a"
 

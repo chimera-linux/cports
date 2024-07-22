@@ -22,7 +22,9 @@ pkgdesc = "GLib library for geocoding and reverse geocoding"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://developer.gnome.org/geocode-glib"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = (
+    f"$(GNOME_SITE)/geocode-glib/{pkgver[:-2]}/geocode-glib-{pkgver}.tar.xz"
+)
 sha256 = "2d9a6826d158470449a173871221596da0f83ebdcff98b90c7049089056a37aa"
 
 

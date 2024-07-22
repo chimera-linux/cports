@@ -23,7 +23,7 @@ pkgdesc = "Library and tools for reading and writing TIFF data files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "libtiff"
 url = "http://libtiff.maptools.org"
-source = f"http://download.osgeo.org/{pkgname}/tiff-{pkgver}.tar.gz"
+source = f"http://download.osgeo.org/libtiff/tiff-{pkgver}.tar.gz"
 sha256 = "88b3979e6d5c7e32b50d7ec72fb15af724f6ab2cbf7e10880c360a77e4b5d99a"
 
 

@@ -15,7 +15,7 @@ pkgdesc = "Library for processing spreadsheets"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://gitlab.com/orcus/orcus"
-source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/-/archive/{pkgver}/liborcus-{pkgver}.tar.gz"
 sha256 = "f4668f050f4f3f28fac5b821a4580929d130ffa1fcd5d74bb8ce06db63480270"
 
 

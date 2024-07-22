@@ -13,7 +13,7 @@ pkgdesc = "GNU find utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/findutils"
-source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNU_SITE)/findutils/findutils-{pkgver}.tar.xz"
 sha256 = "1387e0b67ff247d2abde998f90dfbf70c1491391a59ddfecb8ae698789f0a4f5"
 hardening = ["vis", "cfi"]
 

@@ -8,7 +8,7 @@ pkgdesc = "Library to support hangul input and character classification"
 maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libhangul/libhangul"
-source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/archive/libhangul-{pkgver}.tar.gz"
 sha256 = "e2a81ef159ed098d3cc1a20377dba6204821b7ce2bc24cfb2f2543adf3bc5830"
 hardening = ["!vis", "!cfi"]
 

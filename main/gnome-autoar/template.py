@@ -22,7 +22,9 @@ pkgdesc = "Archiving functions and widgets for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-autoar"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = (
+    f"$(GNOME_SITE)/gnome-autoar/{pkgver[:-2]}/gnome-autoar-{pkgver}.tar.xz"
+)
 sha256 = "c0afbe333bcf3cb1441a1f574cc8ec7b1b8197779145d4edeee2896fdacfc3c2"
 options = ["!cross"]
 

@@ -27,7 +27,7 @@ pkgdesc = "Steel Bank Common Lisp"
 maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:sbcl"
 url = "https://www.sbcl.org"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}-source.tar.bz2"
+source = f"$(SOURCEFORGE_SITE)/sbcl/sbcl-{pkgver}-source.tar.bz2"
 sha256 = "a489907842dae09a1726d62985bf7a56670aaea2f3eca1fb7023bca67c3f3091"
 # notably not pie on ppc64le due to asm stuff
 nopie_files = ["usr/bin/sbcl"]

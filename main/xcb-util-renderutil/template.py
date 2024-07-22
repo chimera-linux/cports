@@ -8,7 +8,7 @@ pkgdesc = "XCB utilities library - Render extension convenience functions"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
-source = f"{url}/dist/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/dist/xcb-util-renderutil-{pkgver}.tar.gz"
 sha256 = "e04143c48e1644c5e074243fa293d88f99005b3c50d1d54358954404e635128a"
 
 

@@ -14,7 +14,7 @@ subdesc = "poppler backend"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-pdf-poppler"
-source = f"{url}/download/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/download/zathura-pdf-poppler-{pkgver}.tar.xz"
 sha256 = "71abeed51cd1d188cef3dbd4c164758e3c371604756967b23ad176ae53453011"
 
 

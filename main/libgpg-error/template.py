@@ -8,7 +8,7 @@ pkgdesc = "Library for error values used by GnuPG components"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
-source = f"{url}/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
+source = f"{url}/ftp/gcrypt/libgpg-error/libgpg-error-{pkgver}.tar.bz2"
 sha256 = "69405349e0a633e444a28c5b35ce8f14484684518a508dc48a089992fe93e20a"
 
 

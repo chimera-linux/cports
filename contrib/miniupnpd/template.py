@@ -32,7 +32,7 @@ pkgdesc = "UPnP IGD and PCP/NAT-PMP daemon for gateway router"
 maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/miniupnp/miniupnp"
-source = f"{url}/archive/refs/tags/{pkgname}_{pkgver.replace('.', '_')}.tar.gz"
+source = f"{url}/archive/refs/tags/miniupnpd_{pkgver.replace('.', '_')}.tar.gz"
 sha256 = "6e5ee2239030486675f558cc840d154e5e2db9517efc96c5b0ab2b2c34c1a128"
 
 

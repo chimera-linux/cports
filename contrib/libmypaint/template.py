@@ -15,7 +15,7 @@ pkgdesc = "MyPaint brush engine library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://github.com/mypaint/libmypaint"
-source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/download/v{pkgver}/libmypaint-{pkgver}.tar.xz"
 sha256 = "741754f293f6b7668f941506da07cd7725629a793108bb31633fb6c3eae5315f"
 
 

@@ -16,7 +16,7 @@ pkgdesc = "OpenSSL-based libtls implementation"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://git.causal.agency/libretls"
-source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/snapshot/libretls-{pkgver}.tar.gz"
 sha256 = "4a705c9c079dc70383ccc08432b93fbb61f9ec5873a92883e01e0940b8eaf3de"
 # vis breaks symbols
 hardening = []

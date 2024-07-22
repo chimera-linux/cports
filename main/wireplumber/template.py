@@ -23,7 +23,7 @@ pkgdesc = "Session and policy manager implementation for PipeWire"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.pages.freedesktop.org/wireplumber"
-source = f"https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/{pkgver}/wireplumber-{pkgver}.tar.gz"
 sha256 = "49075cd5c2f4820839a9e69d4a22386bc280c62b92c153af9be39ca439d45a09"
 
 

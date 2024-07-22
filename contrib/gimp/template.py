@@ -76,7 +76,9 @@ pkgdesc = "GNU Image Manipulation Program"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://www.gimp.org"
-source = f"https://download.gimp.org/pub/{pkgname}/v{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
+source = (
+    f"https://download.gimp.org/pub/gimp/v{pkgver[:-3]}/gimp-{pkgver}.tar.xz"
+)
 sha256 = "8c1bb7a94ac0d4d0cde4d701d8b356387c2ecd87abbd35bbf7d222d40f6ddb6e"
 # FIXME: it worksish but crashes often/early
 hardening = ["!int"]

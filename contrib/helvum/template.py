@@ -15,7 +15,7 @@ pkgdesc = "GTK patchbay for PipeWire"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-only"
 url = "https://gitlab.freedesktop.org/pipewire/helvum"
-source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
+source = f"{url}/-/archive/{pkgver}/helvum-{pkgver}.tar.bz2"
 sha256 = "d4f5cc0c3a70a91edfc816f12a10426dadd9ca74ea82662e2df5e6c4eb31d8ca"
 
 

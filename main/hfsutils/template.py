@@ -8,7 +8,7 @@ pkgdesc = "HFS filesystem utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.mars.org/home/rob/proj/hfs"
-source = f"ftp://ftp.mars.org/pub/hfs/{pkgname}-{pkgver}.tar.gz"
+source = f"ftp://ftp.mars.org/pub/hfs/hfsutils-{pkgver}.tar.gz"
 sha256 = "bc9d22d6d252b920ec9cdf18e00b7655a6189b3f34f42e58d5bb152957289840"
 # Self-tests only available if configured --with-tcl
 options = ["!check"]

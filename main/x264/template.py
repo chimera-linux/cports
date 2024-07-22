@@ -11,9 +11,7 @@ pkgdesc = "Free library for encoding H264/AVC video streams"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.videolan.org/developers/x264.html"
-source = (
-    f"https://code.videolan.org/videolan/{pkgname}/-/archive/{_commit}.tar.gz"
-)
+source = f"https://code.videolan.org/videolan/x264/-/archive/{_commit}.tar.gz"
 sha256 = "8515baba9f82c723e07252747e9b0e166a16091ba72f2017387641724baec02d"
 # guilty until proven wrong
 hardening = ["!int"]

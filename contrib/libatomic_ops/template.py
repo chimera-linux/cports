@@ -8,7 +8,7 @@ pkgdesc = "Library for atomic operations"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-2.0-or-later"
 url = "https://github.com/ivmai/libatomic_ops"
-source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/v{pkgver}/libatomic_ops-{pkgver}.tar.gz"
 sha256 = "d305207fe207f2b3fb5cb4c019da12b44ce3fcbc593dfd5080d867b1a2419b51"
 
 

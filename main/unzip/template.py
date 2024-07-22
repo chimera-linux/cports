@@ -22,7 +22,7 @@ pkgdesc = "List, test and extract compressed files in a ZIP archive"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Info-ZIP"
 url = "http://infozip.sf.net"
-source = f"$(SOURCEFORGE_SITE)/infozip/{pkgname}60.tar.gz"
+source = "$(SOURCEFORGE_SITE)/infozip/unzip60.tar.gz"
 sha256 = "036d96991646d0449ed0aa952e4fbe21b476ce994abc276e49d30e686708bd37"
 tool_flags = {
     "CFLAGS": [

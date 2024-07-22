@@ -9,7 +9,7 @@ pkgdesc = "XML-XCB (X C Bindings) protocol descriptions"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
-source = f"https://gitlab.freedesktop.org/xorg/proto/xcbproto/-/archive/xcb-proto-{pkgver}/{pkgname}-xcb-proto-{pkgver}.tar.gz"
+source = f"https://gitlab.freedesktop.org/xorg/proto/xcbproto/-/archive/xcb-proto-{pkgver}/xcbproto-xcb-proto-{pkgver}.tar.gz"
 sha256 = "479447448281cfb6585ad780f23bd75311af20daf344fb9209c8a87ea77e296a"
 
 

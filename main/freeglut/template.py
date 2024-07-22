@@ -8,7 +8,7 @@ pkgdesc = "Open source implementation of the OpenGL Utility Toolkit library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://freeglut.sourceforge.net"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/freeglut/freeglut-{pkgver}.tar.gz"
 sha256 = "9c3d4d6516fbfa0280edc93c77698fb7303e443c1aaaf37d269e3288a6c3ea52"
 # no tests
 options = ["!check"]

@@ -10,7 +10,7 @@ pkgdesc = "Library for importing WordPerfect documents"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://libwpd.sourceforge.net"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(SOURCEFORGE_SITE)/libwpd/libwpd-{pkgver}.tar.xz"
 sha256 = "2465b0b662fdc5d4e3bebcdc9a79027713fb629ca2bff04a3c9251fdec42dd09"
 
 

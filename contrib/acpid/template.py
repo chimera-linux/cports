@@ -9,7 +9,7 @@ pkgdesc = "ACPI Daemon (acpid) With Netlink Support"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/acpid2"
-source = f"https://downloads.sourceforge.net/sourceforge/acpid2/{pkgname}-{pkgver}.tar.xz"
+source = f"https://downloads.sourceforge.net/sourceforge/acpid2/acpid-{pkgver}.tar.xz"
 sha256 = "2d095c8cfcbc847caec746d62cdc8d0bff1ec1bc72ef7c674c721e04da6ab333"
 hardening = ["vis", "cfi"]
 

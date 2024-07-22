@@ -64,7 +64,7 @@ pkgdesc = "GNOME display manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/gdm/{pkgver[:-2]}/gdm-{pkgver}.tar.xz"
 sha256 = "4ee345422a16537150cd842450cda52b2ca86984bc51ee20cdc025dcf4bd268b"
 
 

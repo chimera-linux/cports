@@ -19,7 +19,7 @@ pkgdesc = "X.org bitstream type1 font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-bitstream-type1-{pkgver}.tar.gz"
 sha256 = "3827eef5d8482e956c9cbe412aab03c067f844bff50470add52bdac298f0e4c7"
 
 

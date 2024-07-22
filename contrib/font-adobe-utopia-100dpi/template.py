@@ -19,7 +19,7 @@ pkgdesc = "X.org adobe-utopia 100dpi font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-adobe-utopia-100dpi-{pkgver}.tar.gz"
 sha256 = "1a67e926dc13e46181ad6106dc0cdc4d1767500865444709dc28e9262a640f4f"
 
 

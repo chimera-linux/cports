@@ -16,7 +16,7 @@ pkgdesc = "C library for NVMe on Linux"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/linux-nvme/libnvme"
-source = f"{url}/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
+source = f"{url}/archive/v{pkgver}/libnvme-v{pkgver}.tar.gz"
 sha256 = "455867060d2b7563eab59fe21779dff469d98465028997178c7efbe4b8763206"
 options = ["linkundefver"]
 

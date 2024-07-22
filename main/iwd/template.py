@@ -22,7 +22,7 @@ pkgdesc = "Wireless daemon that replaces wpa_supplicant"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://iwd.wiki.kernel.org"
-source = f"$(KERNEL_SITE)/network/wireless/{pkgname}-{pkgver}.tar.xz"
+source = f"$(KERNEL_SITE)/network/wireless/iwd-{pkgver}.tar.xz"
 sha256 = "9d0b934e51580316919796aa0357590971fc0df244b273fa10e154c268374f91"
 tool_flags = {
     "CFLAGS": ["-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"]

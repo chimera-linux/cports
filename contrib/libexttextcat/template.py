@@ -10,9 +10,7 @@ pkgdesc = "N-Gram-Based Text Categorization library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://wiki.documentfoundation.org/Libexttextcat"
-source = (
-    f"https://dev-www.libreoffice.org/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-)
+source = f"https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-{pkgver}.tar.xz"
 sha256 = "6d77eace20e9ea106c1330e268ede70c9a4a89744ddc25715682754eca3368df"
 
 

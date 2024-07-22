@@ -15,7 +15,7 @@ pkgdesc = "X.org font utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-util-{pkgver}.tar.gz"
 sha256 = "f029ae80cdd75d89bee7f7af61c21e07982adfb9f72344a158b99f91f77ef5ed"
 hardening = ["vis", "cfi"]
 

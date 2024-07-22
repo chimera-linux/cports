@@ -13,7 +13,7 @@ pkgdesc = "Reference implementation of the JPEG-2000 codec"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "JasPer-2.0"
 url = "https://ece.engr.uvic.ca/~frodo/jasper"
-source = f"https://github.com/jasper-software/jasper/releases/download/version-{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://github.com/jasper-software/jasper/releases/download/version-{pkgver}/jasper-{pkgver}.tar.gz"
 sha256 = "6a597613d8d84c500b5b83bf0eec06cd3707c23d19957f70354ac2394c9914e7"
 
 

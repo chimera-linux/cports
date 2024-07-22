@@ -60,7 +60,7 @@ pkgdesc = "Next generation logging daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.syslog-ng.com/products/open-source-log-management"
-source = f"https://github.com/syslog-ng/syslog-ng/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://github.com/syslog-ng/syslog-ng/releases/download/syslog-ng-{pkgver}/syslog-ng-{pkgver}.tar.gz"
 sha256 = "5477189a2d12325aa4faebfcf59f5bdd9084234732f0c3ec16dd253847dacf1c"
 # tests need https://github.com/Snaipe/Criterion
 options = ["!check"]

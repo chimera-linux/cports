@@ -17,9 +17,7 @@ pkgdesc = "IMAP and MailDir mailbox synchronizer"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later WITH custom:LicenseRef-isync-GPL-exception"
 url = "https://isync.sourceforge.io"
-source = (
-    f"$(SOURCEFORGE_SITE)/isync/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-)
+source = f"$(SOURCEFORGE_SITE)/isync/isync/{pkgver}/isync-{pkgver}.tar.gz"
 sha256 = "7c3273894f22e98330a330051e9d942fd9ffbc02b91952c2f1896a5c37e700ff"
 hardening = ["vis", "!cfi"]
 # missing perl modules

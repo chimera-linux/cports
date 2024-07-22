@@ -19,7 +19,7 @@ pkgdesc = "TCL scripting language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}{pkgver}-src.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/tcl/tcl{pkgver}-src.tar.gz"
 sha256 = "5880225babf7954c58d4fb0f5cf6279104ce1cd6aa9b71e9a6322540e1c4de66"
 # no check target
 options = ["!check", "!lto", "!splitstatic"]

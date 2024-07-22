@@ -19,7 +19,7 @@ pkgdesc = "X.org xfree86 type1 font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-xfree86-type1-{pkgver}.tar.gz"
 sha256 = "3072e56d3901e3e575250251721755985ee5db2001abd67de538e3ac984ff315"
 
 

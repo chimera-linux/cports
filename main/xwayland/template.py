@@ -39,7 +39,7 @@ pkgdesc = "Xwayland X server"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/{pkgname}-{pkgver}/xserver-{pkgname}-{pkgver}.tar.gz"
+source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/xwayland-{pkgver}/xserver-xwayland-{pkgver}.tar.gz"
 sha256 = "29c1735db51c6965998ba1419e076dd88177e3c5b345f31f4284726e218ce817"
 hardening = ["!vis", "!cfi"]
 # needs xtest repository

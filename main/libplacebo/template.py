@@ -32,7 +32,7 @@ license = "LGPL-2.1-or-later"
 url = "https://code.videolan.org/videolan/libplacebo"
 _fast_float = "v6.1.0"
 source = [
-    f"{url}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz",
+    f"{url}/-/archive/v{pkgver}/libplacebo-v{pkgver}.tar.gz",
     f"https://github.com/fastfloat/fast_float/archive/{_fast_float}.tar.gz",
 ]
 source_paths = [

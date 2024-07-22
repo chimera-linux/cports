@@ -19,7 +19,7 @@ pkgdesc = "X.org schumacher misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-schumacher-misc-{pkgver}.tar.gz"
 sha256 = "0a330ec905ef083af1b740a355b548aef75997f29d3169ef9dba76514b196893"
 
 

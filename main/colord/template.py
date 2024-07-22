@@ -34,7 +34,7 @@ pkgdesc = "Color management daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.freedesktop.org/software/colord"
-source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/colord-{pkgver}.tar.xz"
 sha256 = "de02d9910634ae159547585cec414e450f711c27235453b4f9b38a9f2361a653"
 # FIXME int
 hardening = ["!int"]

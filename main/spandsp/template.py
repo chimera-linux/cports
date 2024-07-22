@@ -9,7 +9,7 @@ pkgdesc = "Low-level signal processing library for telephony"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.soft-switch.org"
-source = f"$(DEBIAN_SITE)/main/s/{pkgname}/{pkgname}_{pkgver}+dfsg.orig.tar.xz"
+source = f"$(DEBIAN_SITE)/main/s/spandsp/spandsp_{pkgver}+dfsg.orig.tar.xz"
 sha256 = "3dcdc611b8a119f1f26540d05e6279c4c1e5cd576271f6d45df431359fc190f9"
 hardening = ["!vis", "!cfi"]
 

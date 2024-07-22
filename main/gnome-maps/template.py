@@ -44,8 +44,6 @@ pkgdesc = "GNOME maps"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0"
 url = "https://apps.gnome.org/Maps"
-source = (
-    f"$(GNOME_SITE)/{pkgname}/{pkgver.split('.')[0]}/{pkgname}-{pkgver}.tar.xz"
-)
+source = f"$(GNOME_SITE)/gnome-maps/{pkgver.split('.')[0]}/gnome-maps-{pkgver}.tar.xz"
 sha256 = "940b41b9740b0813325e3916758716cf8fa0ee4e0c9191f260cec06d92135835"
 options = ["!cross"]

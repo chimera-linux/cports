@@ -7,7 +7,7 @@ pkgdesc = "Fraunhofer FDK AAC library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:FDK-AAC"
 url = "http://www.iis.fraunhofer.de/en/ff/amm/impl/fdkaaccodec.html"
-source = f"$(SOURCEFORGE_SITE)/opencore-amr/{pkgname}-{pkgver}.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/opencore-amr/fdk-aac-{pkgver}.tar.gz"
 sha256 = "829b6b89eef382409cda6857fd82af84fabb63417b08ede9ea7a553f811cb79e"
 
 

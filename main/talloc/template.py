@@ -24,7 +24,7 @@ pkgdesc = "Hierarchical pool based memory allocator with destructors"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://talloc.samba.org"
-source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://download.samba.org/pub/talloc/talloc-{pkgver}.tar.gz"
 sha256 = "85ecf9e465e20f98f9950a52e9a411e14320bc555fa257d87697b7e7a9b1d8a6"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}

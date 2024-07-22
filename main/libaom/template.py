@@ -21,9 +21,7 @@ pkgdesc = "Reference implementation of the AV1 codec"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://aomedia.org"
-source = [
-    f"https://storage.googleapis.com/aom-releases/{pkgname}-{pkgver}.tar.gz"
-]
+source = [f"https://storage.googleapis.com/aom-releases/libaom-{pkgver}.tar.gz"]
 sha256 = ["dba99fc1c28aaade28dda59821166b2fa91c06162d1bc99fde0ddaad7cecc50e"]
 # requires a testdata download, tests take long
 options = ["!check"]

@@ -17,7 +17,7 @@ pkgdesc = "Create/update ZIP files compatible with pkzip"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Info-ZIP"
 url = "http://infozip.sf.net"
-source = f"$(SOURCEFORGE_SITE)/infozip/{pkgname}30.tar.gz"
+source = "$(SOURCEFORGE_SITE)/infozip/zip30.tar.gz"
 sha256 = "f0e8bb1f9b7eb0b01285495a2699df3a4b766784c1765a8f1aeedf63c0806369"
 tool_flags = {"CFLAGS": ["-DLARGE_FILE_SUPPORT"]}
 # no test suite

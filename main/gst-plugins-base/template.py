@@ -60,7 +60,7 @@ pkgdesc = "GStreamer base plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
-source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/src/gst-plugins-base/gst-plugins-base-{pkgver}.tar.xz"
 sha256 = "0e33ec9b59eef5ef3a6a53bbd55c44340e681d0000910caca12541a73db38a7d"
 # FIXME int
 hardening = ["!int"]

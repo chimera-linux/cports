@@ -15,7 +15,7 @@ pkgdesc = "Comic book support for zathura"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-cb"
-source = f"{url}/download/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/download/zathura-cb-{pkgver}.tar.xz"
 sha256 = "89b0ca17a80cba1ea9fd1b3b72f3a7173f0aad3a06a8c364d865c4999c18bbc8"
 
 

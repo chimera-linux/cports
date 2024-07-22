@@ -22,7 +22,7 @@ pkgdesc = "GObject library for XPS documents"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/libgxps"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/libgxps/{pkgver[:-2]}/libgxps-{pkgver}.tar.xz"
 sha256 = "6d27867256a35ccf9b69253eb2a88a32baca3b97d5f4ef7f82e3667fa435251c"
 
 

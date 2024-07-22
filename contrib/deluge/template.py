@@ -29,7 +29,7 @@ pkgdesc = "Portable BitTorrent client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://deluge-torrent.org"
-source = f"https://ftp.osuosl.org/pub/{pkgname}/source/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://ftp.osuosl.org/pub/deluge/source/{pkgver[:-2]}/deluge-{pkgver}.tar.xz"
 sha256 = "768dd319802e42437ab3794ebe75b497142e08ed5b0fb2503bad62cef442dff7"
 # unpackaged checkdepends
 options = ["!check"]

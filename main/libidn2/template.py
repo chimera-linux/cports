@@ -16,7 +16,7 @@ pkgdesc = "Internationalized string handling library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libidn#libidn2"
-source = f"$(GNU_SITE)/libidn/{pkgname}-{pkgver}.tar.gz"
+source = f"$(GNU_SITE)/libidn/libidn2-{pkgver}.tar.gz"
 sha256 = "4c21a791b610b9519b9d0e12b8097bf2f359b12f8dd92647611a929e6bfd7d64"
 hardening = ["vis", "cfi"]
 

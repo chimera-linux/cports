@@ -38,7 +38,9 @@ pkgdesc = "GNOME desktop management utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-desktop"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = (
+    f"$(GNOME_SITE)/gnome-desktop/{pkgver[:-2]}/gnome-desktop-{pkgver}.tar.xz"
+)
 sha256 = "42c773745d84ba14bc1cf1c4c6f4606148803a5cd337941c63964795f3c59d42"
 # needs graphical environment
 options = ["!check", "!cross"]

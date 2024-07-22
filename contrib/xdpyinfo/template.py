@@ -17,7 +17,7 @@ pkgdesc = "X display information utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xdpyinfo-{pkgver}.tar.gz"
 sha256 = "fbd1e18885f67332b330fecd83592af25ad42d21457aaabfbd31a5a97388652a"
 hardening = ["vis", "cfi"]
 

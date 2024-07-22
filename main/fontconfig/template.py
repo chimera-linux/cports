@@ -23,7 +23,7 @@ pkgdesc = "Library for configuring and customizing font access"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.fontconfig.org"
-source = f"$(FREEDESKTOP_SITE)/{pkgname}/release/{pkgname}-{pkgver}.tar.gz"
+source = f"$(FREEDESKTOP_SITE)/fontconfig/release/fontconfig-{pkgver}.tar.gz"
 sha256 = "f5f359d6332861bd497570848fcb42520964a9e83d5e3abe397b6b6db9bcaaf4"
 
 

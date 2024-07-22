@@ -33,7 +33,7 @@ pkgdesc = "LDAP-like database"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://www.samba.org/ldb"
-source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://download.samba.org/pub/ldb/ldb-{pkgver}.tar.gz"
 sha256 = "c95e4dc32dea8864b79899ee340c9fdf28b486f464bbc38ba99151a08b493f9b"
 env = {"PYTHONHASHSEED": "1"}
 # check sometimes hangs

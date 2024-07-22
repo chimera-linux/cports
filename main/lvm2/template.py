@@ -50,7 +50,9 @@ pkgdesc = "Logical Volume Manager 2 utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
-source = f"https://mirrors.kernel.org/sourceware/{pkgname}/releases/LVM2.{pkgver}.tgz"
+source = (
+    f"https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.{pkgver}.tgz"
+)
 sha256 = "4bea6fd2e5af9cdb3e27b48b4efa8d89210d9bfa13df900e092e404720a59b1d"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]

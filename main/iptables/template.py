@@ -31,7 +31,7 @@ pkgdesc = "Linux packet filtering system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.netfilter.org/projects/iptables"
-source = f"{url}/files/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/files/iptables-{pkgver}.tar.xz"
 sha256 = "5cc255c189356e317d070755ce9371eb63a1b783c34498fb8c30264f3cc59c9c"
 
 

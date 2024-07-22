@@ -9,7 +9,7 @@ pkgdesc = "Apple Partition Map utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://packages.debian.org/sid/mac-fdisk"
-source = f"http://deb.debian.org/debian/pool/main/m/{pkgname}/{pkgname}_{pkgver}.orig.tar.gz"
+source = f"http://deb.debian.org/debian/pool/main/m/mac-fdisk/mac-fdisk_{pkgver}.orig.tar.gz"
 sha256 = "7059fc4ba41ca2ef857e1092e9c56e910f27693d407b5c3d78f7102ad0c56a66"
 # no tests
 options = ["!check"]

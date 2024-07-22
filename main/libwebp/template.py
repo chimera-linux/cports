@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = (
-    f"http://downloads.webmproject.org/releases/webp/{pkgname}-{pkgver}.tar.gz"
+    f"http://downloads.webmproject.org/releases/webp/libwebp-{pkgver}.tar.gz"
 )
 sha256 = "61f873ec69e3be1b99535634340d5bde750b2e4447caa1db9f61be3fd49ab1e5"
 hardening = ["vis"]

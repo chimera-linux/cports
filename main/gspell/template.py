@@ -23,7 +23,7 @@ pkgdesc = "Spell-checking library for Gtk+"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gspell"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/gspell/{pkgver[:-2]}/gspell-{pkgver}.tar.xz"
 sha256 = "b4e993bd827e4ceb6a770b1b5e8950fce3be9c8b2b0cbeb22fdf992808dd2139"
 # needs graphical env
 options = ["!check"]

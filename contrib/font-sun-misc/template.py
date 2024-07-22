@@ -19,7 +19,7 @@ pkgdesc = "X.org sun misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-sun-misc-{pkgver}.tar.gz"
 sha256 = "fbf389adc00731a4a59ecb626c4290a66a03a6ffa81cae8af1fadd97ba85fa20"
 
 

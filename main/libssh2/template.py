@@ -14,7 +14,7 @@ pkgdesc = "Library implementing the SSH2 protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.libssh2.org"
-source = f"https://www.libssh2.org/download/{pkgname}-{pkgver}.tar.gz"
+source = f"https://www.libssh2.org/download/libssh2-{pkgver}.tar.gz"
 sha256 = "3736161e41e2693324deb38c26cfdc3efe6209d634ba4258db1cecff6a5ad461"
 
 

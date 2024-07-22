@@ -22,7 +22,7 @@ pkgdesc = "Free, fast-paced cross-platform first-person shooter"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND BSD-3-Clause"
 url = "https://xonotic.org"
-source = f"https://dl.xonotic.org/{pkgname}-{pkgver}-source.zip"
+source = f"https://dl.xonotic.org/xonotic-{pkgver}-source.zip"
 sha256 = "8b92ac781cff4ae89c121a23eacd7dec05a2aabedaccc23a19d1a0958b4012a8"
 hardening = ["!int"]
 # no tests

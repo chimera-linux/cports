@@ -11,7 +11,7 @@ pkgdesc = "Command-line network traffic analysis tool"
 maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
-source = f"https://www.tcpdump.org/release/{pkgname}-{pkgver}.tar.gz"
+source = f"https://www.tcpdump.org/release/tcpdump-{pkgver}.tar.gz"
 sha256 = "0232231bb2f29d6bf2426e70a08a7e0c63a0d59a9b44863b7f5e2357a6e49fea"
 
 

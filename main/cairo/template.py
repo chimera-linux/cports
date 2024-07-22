@@ -27,7 +27,7 @@ pkgdesc = "Vector graphics library with cross-device output support"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://cairographics.org"
-source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/cairo-{pkgver}.tar.xz"
 sha256 = "243a0736b978a33dee29f9cca7521733b78a65b5418206fef7bd1c3d4cf10b64"
 # FIXME int (causes random failures elsewhere)
 hardening = ["!int"]

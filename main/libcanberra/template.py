@@ -35,7 +35,7 @@ pkgdesc = "Portable sound event API"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://0pointer.de/lennart/projects/libcanberra"
-source = f"{url}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/libcanberra-{pkgver}.tar.xz"
 sha256 = "c2b671e67e0c288a69fc33dc1b6f1b534d07882c2aceed37004bf48c601afa72"
 
 

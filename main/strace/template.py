@@ -22,6 +22,6 @@ pkgdesc = "System call tracer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://strace.io"
-source = f"https://github.com/strace/strace/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://github.com/strace/strace/releases/download/v{pkgver}/strace-{pkgver}.tar.xz"
 sha256 = "765ec71aa1de2fe37363c1e40c7b7669fc1d40c44bb5d38ba8e8cd82c4edcf07"
 hardening = ["vis", "cfi"]

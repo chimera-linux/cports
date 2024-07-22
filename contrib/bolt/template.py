@@ -18,7 +18,7 @@ pkgdesc = "Thunderbolt device manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/bolt/bolt"
-source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/-/archive/{pkgver}/bolt-{pkgver}.tar.gz"
 sha256 = "5a4306aa21ee398e1e9f2a5072748c9469c9360bf5edc7dcec2f12fc17be122e"
 
 

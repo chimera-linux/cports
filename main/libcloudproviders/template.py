@@ -15,7 +15,7 @@ pkgdesc = "DBus API for cloud storage sync clients to expose their services"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/libcloudproviders"
-source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/-/archive/{pkgver}/libcloudproviders-{pkgver}.tar.gz"
 sha256 = "fa25bdc2e415a717999f3d0bac8756dc0dcfe40e3ada864fadc26df0746a7116"
 
 

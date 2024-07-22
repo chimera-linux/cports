@@ -9,9 +9,7 @@ pkgdesc = "Mesa OpenGL utility library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "SGI-B-2.0"
 url = "https://gitlab.freedesktop.org/mesa/glu"
-source = (
-    f"https://mesa.freedesktop.org/archive/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-)
+source = f"https://mesa.freedesktop.org/archive/glu/glu-{pkgver}.tar.xz"
 sha256 = "bd43fe12f374b1192eb15fe20e45ff456b9bc26ab57f0eee919f96ca0f8a330f"
 
 

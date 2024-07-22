@@ -37,7 +37,7 @@ pkgdesc = "Enlightenment desktop shell"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org"
-source = f"http://download.enlightenment.org/rel/apps/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"http://download.enlightenment.org/rel/apps/enlightenment/enlightenment-{pkgver}.tar.xz"
 sha256 = "11b6ef0671be5fead688bf554c30a2a1c683493ad10c5fe3115ffb4655424e84"
 file_modes = {
     "usr/lib/enlightenment/utils/enlightenment_ckpasswd": (

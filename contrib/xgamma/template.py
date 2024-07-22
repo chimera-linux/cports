@@ -8,7 +8,7 @@ pkgdesc = "X gamma utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xgamma-{pkgver}.tar.gz"
 sha256 = "61f5ef02883d65ab464678ad3d8c5445a0ff727fe6255af90b1b842ddf77370d"
 hardening = ["vis", "cfi"]
 

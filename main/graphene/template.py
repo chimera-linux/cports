@@ -13,7 +13,7 @@ pkgdesc = "Thin layer of graphic data types"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ebassi/graphene"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/graphene/{pkgver[:-2]}/graphene-{pkgver}.tar.xz"
 sha256 = "a37bb0e78a419dcbeaa9c7027bcff52f5ec2367c25ec859da31dfde2928f279a"
 
 match self.profile().arch:

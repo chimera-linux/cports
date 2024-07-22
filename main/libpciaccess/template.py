@@ -7,7 +7,7 @@ pkgdesc = "X11 PCI access library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.xz"
+source = f"$(XORG_SITE)/lib/libpciaccess-{pkgver}.tar.xz"
 sha256 = "4af43444b38adb5545d0ed1c2ce46d9608cc47b31c2387fc5181656765a6fa76"
 
 

@@ -7,7 +7,9 @@ pkgdesc = "Library of Unicode names and annotation data"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/fontforge/libuninameslist"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-dist-{pkgver}.tar.gz"
+source = (
+    f"{url}/releases/download/{pkgver}/libuninameslist-dist-{pkgver}.tar.gz"
+)
 sha256 = "cb69d6b0b1bf896c98cd00497d3078be2d22b896b0dc7cba2bb3d6bc3172dac5"
 hardening = ["vis", "cfi"]
 

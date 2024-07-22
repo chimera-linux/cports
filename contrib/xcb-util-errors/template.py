@@ -13,7 +13,7 @@ pkgdesc = "XCB errors library"
 maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
-source = f"{url}/dist/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/dist/xcb-util-errors-{pkgver}.tar.gz"
 sha256 = "cfbd3b022bdb27a6921a4abd6b41f4071b4e4960447598abd30955d3454f4d99"
 
 

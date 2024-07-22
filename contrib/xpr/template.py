@@ -8,7 +8,7 @@ pkgdesc = "Print an X window dump"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xpr-{pkgver}.tar.gz"
 sha256 = "4c37dd062c8f61618ed5fad7be907d7f9b219c2c91aa9a312f4ff4cc3494c476"
 hardening = ["vis", "cfi"]
 

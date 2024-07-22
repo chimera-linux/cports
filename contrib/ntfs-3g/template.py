@@ -25,7 +25,7 @@ pkgdesc = "NTFS FUSE driver and tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/tuxera/ntfs-3g"
-source = f"https://tuxera.com/opensource/{pkgname}_ntfsprogs-{pkgver}.tgz"
+source = f"https://tuxera.com/opensource/ntfs-3g_ntfsprogs-{pkgver}.tgz"
 sha256 = "f20e36ee68074b845e3629e6bced4706ad053804cbaf062fbae60738f854170c"
 
 

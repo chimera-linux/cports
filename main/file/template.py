@@ -14,7 +14,7 @@ pkgdesc = "File type identification utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.darwinsys.com/file"
-source = f"https://astron.com/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://astron.com/pub/file/file-{pkgver}.tar.gz"
 sha256 = "fc97f51029bb0e2c9f4e3bffefdaf678f0e039ee872b9de5c002a6d09c784d82"
 
 if self.profile().cross:

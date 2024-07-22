@@ -17,7 +17,7 @@ pkgdesc = "Library of low-level pixel manipulation routines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pixman.org"
-source = f"https://www.cairographics.org/releases/{pkgname}-{pkgver}.tar.gz"
+source = f"https://www.cairographics.org/releases/pixman-{pkgver}.tar.gz"
 sha256 = "a0624db90180c7ddb79fc7a9151093dc37c646d8c38d3f232f767cf64b85a226"
 # needs a lot larger stack than musl default
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}

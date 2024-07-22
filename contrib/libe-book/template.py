@@ -16,7 +16,7 @@ pkgdesc = "Import reflowable e-book formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://sourceforge.net/projects/libebook"
-source = f"$(SOURCEFORGE_SITE)/project/libebook/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(SOURCEFORGE_SITE)/project/libebook/libe-book-{pkgver}/libe-book-{pkgver}.tar.xz"
 sha256 = "7e8d8ff34f27831aca3bc6f9cc532c2f90d2057c778963b884ff3d1e34dfe1f9"
 
 

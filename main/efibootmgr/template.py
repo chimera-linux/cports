@@ -10,7 +10,7 @@ pkgdesc = "Tool to modify the UEFI Boot Manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rhboot/efibootmgr"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
+source = f"{url}/releases/download/{pkgver}/efibootmgr-{pkgver}.tar.bz2"
 sha256 = "2b195f912aa353f0d11f21f207684c91460fbc37f9a4f2673e63e5e32d108b10"
 hardening = ["vis", "cfi"]
 # no tests

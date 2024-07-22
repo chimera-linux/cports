@@ -35,7 +35,7 @@ pkgdesc = "GNOME service to access online accounts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-2]}/gnome-online-accounts-{pkgver}.tar.xz"
 sha256 = "e714a67d171c57144361eb74ee82a17b15d0a82228ff188cf92704f5626ca294"
 options = ["!cross"]
 

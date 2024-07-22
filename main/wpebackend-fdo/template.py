@@ -8,7 +8,7 @@ pkgdesc = "Wayland backend for WPE WebKit"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
-source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/wpebackend-fdo-{pkgver}.tar.xz"
 sha256 = "93c9766ae9864eeaeaee2b0a74f22cbca08df42c1a1bdb55b086f2528e380d38"
 
 

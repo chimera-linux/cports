@@ -27,7 +27,9 @@ pkgdesc = "GNOME calendar"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Calendar"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = (
+    f"$(GNOME_SITE)/gnome-calendar/{pkgver[:-2]}/gnome-calendar-{pkgver}.tar.xz"
+)
 sha256 = "9861ff7b8abd5b7b20690ba55eb7542c7ec534b566269e29b5b1e858c1610897"
 # FIXME
 hardening = ["!int"]

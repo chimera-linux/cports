@@ -24,7 +24,7 @@ pkgdesc = "GNOME image viewer"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Loupe"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/loupe/{pkgver[:-2]}/loupe-{pkgver}.tar.xz"
 sha256 = "3a15a3f9cf8f889a7e642e3902299f79218a9001c08c56374e05914ffef5ab30"
 # Runs `cargo test` but doesn't actually have any rust tests for that to execute
 options = ["!check"]

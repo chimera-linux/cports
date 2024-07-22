@@ -28,7 +28,7 @@ pkgdesc = "Framework for media discovery"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Grilo"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/grilo/{pkgver[:-3]}/grilo-{pkgver}.tar.xz"
 sha256 = "884580e8c5ece280df23aa63ff5234b7d48988a404df7d6bfccd1e77b473bd96"
 
 

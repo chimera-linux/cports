@@ -14,7 +14,7 @@ pkgdesc = "Wayland compositor infrastructure"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
-source = f"https://gitlab.freedesktop.org/wayland/wayland/-/releases/{pkgver}/downloads/{pkgname}-{pkgver}.tar.xz"
+source = f"https://gitlab.freedesktop.org/wayland/wayland/-/releases/{pkgver}/downloads/wayland-{pkgver}.tar.xz"
 sha256 = "05b3e1574d3e67626b5974f862f36b5b427c7ceeb965cb36a4e6c2d342e45ab2"
 
 if self.profile().cross:

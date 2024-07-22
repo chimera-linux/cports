@@ -10,7 +10,7 @@ pkgdesc = "Library for reading and converting MS Visio diagrams"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libvisio"
-source = f"http://dev-www.libreoffice.org/src/{pkgname}-{pkgver}.tar.xz"
+source = f"http://dev-www.libreoffice.org/src/libvisio-{pkgver}.tar.xz"
 sha256 = "8faf8df870cb27b09a787a1959d6c646faa44d0d8ab151883df408b7166bea4c"
 
 

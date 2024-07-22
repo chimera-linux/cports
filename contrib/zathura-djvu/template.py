@@ -15,7 +15,7 @@ pkgdesc = "Djvu support for zathura"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-djvu"
-source = f"{url}/download/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/download/zathura-djvu-{pkgver}.tar.xz"
 sha256 = "96e6f8a6ee53231073b2f7003264872f84501e63c3da7bf0598d046286b0c200"
 
 

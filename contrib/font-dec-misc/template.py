@@ -19,7 +19,7 @@ pkgdesc = "X.org dec misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-dec-misc-{pkgver}.tar.gz"
 sha256 = "a2273c3a06df0b6a61b56a82a06cd86a5721ac26251dab2e3f4173a4ce954729"
 
 

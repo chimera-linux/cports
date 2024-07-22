@@ -41,7 +41,7 @@ pkgdesc = "Validating, recursive, and caching DNS resolver"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
-source = f"https://nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
 sha256 = "56b4ceed33639522000fd96775576ddf8782bb3617610715d7f1e777c5ec1dbf"
 
 

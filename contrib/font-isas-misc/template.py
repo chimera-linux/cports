@@ -19,7 +19,7 @@ pkgdesc = "X.org isas misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-isas-misc-{pkgver}.tar.gz"
 sha256 = "711a648206f0d7f4a8c3fa61b4b4703e789f37603937b488a6edd7c71182f7d5"
 
 

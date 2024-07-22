@@ -11,7 +11,7 @@ pkgdesc = "Secure Boot key manager"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/Foxboron/sbctl"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/{pkgver}/sbctl-{pkgver}.tar.gz"
 sha256 = "88ccdf3a87151c1b639be4e43999f4984f238eebffebe1d17d9f30e7039bf6e8"
 options = ["!cross"]
 

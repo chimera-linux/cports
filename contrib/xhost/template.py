@@ -8,7 +8,7 @@ pkgdesc = "X server access control program"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xhost-{pkgver}.tar.gz"
 sha256 = "ca850367593fcddc4bff16de7ea1598aa4f6817daf5a803a1258dff5e337f7c3"
 hardening = ["vis", "cfi"]
 

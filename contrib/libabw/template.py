@@ -10,9 +10,7 @@ pkgdesc = "Library for AbiWord document format"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libabw"
-source = (
-    f"https://dev-www.libreoffice.org/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-)
+source = f"https://dev-www.libreoffice.org/src/libabw/libabw-{pkgver}.tar.xz"
 sha256 = "e763a9dc21c3d2667402d66e202e3f8ef4db51b34b79ef41f56cacb86dcd6eed"
 
 

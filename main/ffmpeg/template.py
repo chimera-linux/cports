@@ -144,7 +144,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 # we use --enable-gpl; it enables useful filters
 license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"
-source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/ffmpeg-{pkgver}.tar.xz"
 sha256 = "bce9eeb0f17ef8982390b1f37711a61b4290dc8c2a0c1a37b5857e85bfb0e4ff"
 # seems to need rpath?
 options = ["!check"]

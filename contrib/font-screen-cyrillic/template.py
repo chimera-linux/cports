@@ -19,7 +19,7 @@ pkgdesc = "X.org screen cyrillic font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-screen-cyrillic-{pkgver}.tar.gz"
 sha256 = "c37615f4969b11d1c6f3cf4d78e0fc67d42d5fb5be30e0fe22a45f044ac8f62e"
 
 

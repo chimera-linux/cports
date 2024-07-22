@@ -25,7 +25,7 @@ pkgdesc = "NTP client and server"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://chrony-project.org"
-source = f"https://chrony-project.org/releases/{pkgname}-{pkgver}.tar.gz"
+source = f"https://chrony-project.org/releases/chrony-{pkgver}.tar.gz"
 sha256 = "19fe1d9f4664d445a69a96c71e8fdb60bcd8df24c73d1386e02287f7366ad422"
 
 

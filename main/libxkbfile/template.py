@@ -8,7 +8,7 @@ pkgdesc = "Xkbfile library from X.org"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.xz"
+source = f"$(XORG_SITE)/lib/libxkbfile-{pkgver}.tar.xz"
 sha256 = "a9b63eea997abb9ee6a8b4fbb515831c841f471af845a09de443b28003874bec"
 
 

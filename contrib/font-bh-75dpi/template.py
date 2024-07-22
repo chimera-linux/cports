@@ -19,7 +19,7 @@ pkgdesc = "X.org bh 75dpi font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-bh-75dpi-{pkgver}.tar.gz"
 sha256 = "1d1be5cfe1a929d440acc6132fd50312d982815ba284cd6504d8cf457ef853b6"
 
 

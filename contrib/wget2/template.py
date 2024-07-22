@@ -31,7 +31,7 @@ pkgdesc = "GNU downloader"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/gnuwget/wget2"
-source = f"$(GNU_SITE)/wget/{pkgname}-{pkgver}.tar.gz"
+source = f"$(GNU_SITE)/wget/wget2-{pkgver}.tar.gz"
 sha256 = "a05dc5191c6bad9313fd6db2777a78f5527ba4774f665d5d69f5a7461b49e2e7"
 
 

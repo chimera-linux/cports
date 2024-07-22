@@ -15,7 +15,7 @@ pkgdesc = "Advanced Linux Sound Architecture library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
-source = f"{url}/files/pub/lib/{pkgname}-{pkgver}.tar.bz2"
+source = f"{url}/files/pub/lib/alsa-lib-{pkgver}.tar.bz2"
 sha256 = "4868cd908627279da5a634f468701625be8cc251d84262c7e5b6a218391ad0d2"
 
 

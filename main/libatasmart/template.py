@@ -9,7 +9,7 @@ pkgdesc = "ATA S.M.A.R.T. reading and parsing library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://0pointer.de/blog/projects/being-smart.html"
-source = f"https://0pointer.de/public/{pkgname}-{pkgver}.tar.xz"
+source = f"https://0pointer.de/public/libatasmart-{pkgver}.tar.xz"
 sha256 = "61f0ea345f63d28ab2ff0dc352c22271661b66bf09642db3a4049ac9dbdb0f8d"
 
 

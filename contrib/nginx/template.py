@@ -81,7 +81,7 @@ license = "BSD-2-Clause"
 url = "https://nginx.org"
 _test_hash = "0b5ec15c62ed"
 source = [
-    f"https://nginx.org/download/{pkgname}-{pkgver}.tar.gz",
+    f"https://nginx.org/download/nginx-{pkgver}.tar.gz",
     f"https://hg.nginx.org/nginx-tests/archive/{_test_hash}.tar.gz",
 ]
 source_paths = [".", "nginx-tests"]

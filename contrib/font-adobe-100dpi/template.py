@@ -19,7 +19,7 @@ pkgdesc = "X.org adobe 100dpi font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-adobe-100dpi-{pkgver}.tar.gz"
 sha256 = "f11f4776f53fa9663dce71b71978f3fde07a1fc87c6995623e30bf3c5d05a2a1"
 
 

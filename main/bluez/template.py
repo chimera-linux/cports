@@ -39,7 +39,7 @@ pkgdesc = "Linux Bluetooth stack"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://www.bluez.org"
-source = f"$(KERNEL_SITE)/bluetooth/{pkgname}-{pkgver}.tar.xz"
+source = f"$(KERNEL_SITE)/bluetooth/bluez-{pkgver}.tar.xz"
 sha256 = "5d032fdc1d4a085813554f57591e2e1fb0ceb2b3616ee56f689bc00e1d150812"
 tool_flags = {
     "CFLAGS": ["-Wno-deprecated-declarations"],

@@ -8,7 +8,7 @@ pkgdesc = "TUI monitor of system resources"
 maintainer = "mia <mia@mia.jetzt>"
 license = "Apache-2.0"
 url = "https://github.com/aristocratos/btop"
-source = f"{url}/archive/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/archive/v{pkgver}/btop-{pkgver}.tar.gz"
 sha256 = "331d18488b1dc7f06cfa12cff909230816a24c57790ba3e8224b117e3f0ae03e"
 hardening = ["cfi", "vis"]
 

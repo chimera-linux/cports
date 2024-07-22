@@ -19,7 +19,7 @@ pkgdesc = "X.org bh type1 font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-bh-type1-{pkgver}.tar.gz"
 sha256 = "2ec07192aa73197958d65900c7048e8abd8fd00b187ea3d4871121a5c76aee99"
 
 

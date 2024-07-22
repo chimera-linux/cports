@@ -40,7 +40,7 @@ maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "OLDAP-2.8"
 url = "https://www.openldap.org"
 source = (
-    f"{url}/software/download/OpenLDAP/openldap-release/{pkgname}-{pkgver}.tgz"
+    f"{url}/software/download/OpenLDAP/openldap-release/openldap-{pkgver}.tgz"
 )
 sha256 = "48969323e94e3be3b03c6a132942dcba7ef8d545f2ad35401709019f696c3c4e"
 

@@ -147,7 +147,7 @@ pkgdesc = "Music player daemon"
 maintainer = "nullobsi <nullobsi@unix.dog>"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://www.musicpd.org"
-source = f"{url}/download/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/download/mpd/{pkgver[:-3]}/mpd-{pkgver}.tar.xz"
 sha256 = "550132239ad1acf82ccf8905b56cc13dc2c81a4489b96fba7731b3049907661a"
 
 

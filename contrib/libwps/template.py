@@ -11,7 +11,7 @@ pkgdesc = "Library for importing Microsoft Works documents"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://sourceforge.net/p/libwps/wiki/Home"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(SOURCEFORGE_SITE)/libwps/libwps-{pkgver}.tar.xz"
 sha256 = "365b968e270e85a8469c6b160aa6af5619a4e6c995dbb04c1ecc1b4dd13e80de"
 
 
