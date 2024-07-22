@@ -16,5 +16,6 @@ license = "Apache-2.0"
 url = "https://cython.org"
 source = f"$(PYPI_SITE)/C/Cython/Cython-{pkgver}.tar.gz"
 sha256 = "dcc96739331fb854dcf503f94607576cfe8488066c61ca50dfd55836f132de99"
-# flaky tests
-options = ["!check"]
+# check: flaky tests
+# cross: build_ext from python-setuptools only understands host sysconfig
+options = ["!check", "!cross"]
