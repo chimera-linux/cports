@@ -17,5 +17,4 @@ url = "https://cython.org"
 source = f"$(PYPI_SITE)/c/cython/cython-{pkgver}.tar.gz"
 sha256 = "7146dd2af8682b4ca61331851e6aebce9fe5158e75300343f80c07ca80b1faff"
 # check: flaky tests
-# cross: build_ext from python-setuptools only understands host sysconfig
-options = ["!check", "!cross"]
+options = ["!check"]
