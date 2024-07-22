@@ -285,7 +285,7 @@ for _pn in _extra_cmds:
     _contrib_alt(_pn, _extra_cmds[_pn])
 
 
-@subpackage(f"postgresql16-contrib")
+@subpackage("postgresql16-contrib")
 def _contrib(self):
     self.subdesc = "contrib"
     self.options = ["empty"]
@@ -345,7 +345,7 @@ def _libecpg_devel(self):
     ]
 
 
-@subpackage(f"postgresql16-pltcl")
+@subpackage("postgresql16-pltcl")
 def _pltcl(self):
     self.subdesc = "PL/Tcl"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -357,7 +357,7 @@ def _pltcl(self):
     ]
 
 
-@subpackage(f"postgresql16-plperl")
+@subpackage("postgresql16-plperl")
 def _plperl(self):
     self.subdesc = "PL/Perl"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -368,7 +368,7 @@ def _plperl(self):
     ]
 
 
-@subpackage(f"postgresql16-plpython")
+@subpackage("postgresql16-plpython")
 def _plpython(self):
     self.subdesc = "PL/Python"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -379,6 +379,6 @@ def _plpython(self):
     ]
 
 
-@subpackage(f"postgresql16-devel")
+@subpackage("postgresql16-devel")
 def _devel(self):
     return self.default_devel(extra=[f"usr/lib/{pkgname}/pgxs"])
