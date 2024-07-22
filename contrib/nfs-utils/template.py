@@ -76,7 +76,7 @@ def post_install(self):
 @subpackage("nfs-server")
 def _server(self):
     self.pkgdesc = f"{pkgdesc} (server components)"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         "etc/dinit.d/fsidd",

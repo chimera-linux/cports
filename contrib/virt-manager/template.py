@@ -47,7 +47,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = [
-    f"virt-manager-progs={pkgver}-r{pkgrel}",
+    self.with_pkgver("virt-manager-progs"),
     "gtk-vnc",
     "gtksourceview4",
     "libvirt-glib",

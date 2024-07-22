@@ -127,7 +127,7 @@ def _gen_crossp(an, at):
     @subpackage(f"musl-cross-{an}-static", cond)
     def _ssubp(self):
         self.subdesc = f"static {an} support"
-        self.depends = [f"musl-cross-{an}={pkgver}-r{pkgrel}"]
+        self.depends = [self.with_pkgver(f"musl-cross-{an}")]
         return [f"usr/{at}/usr/lib/libc.a"]
 
     @subpackage(f"musl-cross-{an}", cond)
@@ -157,6 +157,6 @@ def _static(self):
     self.subdesc = "static"
     self.depends = []
     for an in _targets:
-        self.depends.append(f"musl-cross-{an}-static={pkgver}-r{pkgrel}")
+        self.depends.append(self.with_pkgver(f"musl-cross-{an}-static"))
 
     return []

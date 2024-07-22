@@ -65,6 +65,6 @@ def _devel(self):
 
 @subpackage("ruby-ri")
 def _ri(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return ["usr/bin/ri"]

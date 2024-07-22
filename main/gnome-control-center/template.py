@@ -72,6 +72,6 @@ sha256 = "97dc6c7d1dee195914f3cbc845b68164b7611480d893beb411006c15eae46cb9"
 
 @subpackage("gnome-control-center-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return self.default_devel()

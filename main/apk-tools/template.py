@@ -77,9 +77,9 @@ def _staticbin(self):
 @subpackage("apk-tools-cache", self.stage > 0)
 def _cache(self):
     self.subdesc = "default cache"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.provides = [f"apk-tools-cache-link={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
+    self.install_if = [self.parent]
+    self.provides = [self.with_pkgver("apk-tools-cache-link")]
     self.options = ["brokenlinks"]
 
     return ["etc/apk/cache"]
@@ -88,7 +88,7 @@ def _cache(self):
 @subpackage("apk-tools-interactive", self.stage > 0)
 def _interactive(self):
     self.subdesc = "interactive"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
+    self.install_if = [self.parent]
 
     return ["etc/apk/interactive"]

@@ -21,7 +21,7 @@ makedepends = [
     "pipewire-jack-devel",
     "sdl-devel",
 ]
-depends = [f"mpg123-output-dummy={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("mpg123-output-dummy")]
 pkgdesc = "MPEG 1.0/2.0/2.5 audio player"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
@@ -35,7 +35,7 @@ def _genlib(libn, descn, iif):
     def _out(self):
         self.subdesc = f"{descn} output plugin"
         if iif:
-            self.install_if = [f"{pkgname}-libs={pkgver}-r{pkgrel}", iif]
+            self.install_if = [self.with_pkgver(f"{pkgname}-libs"), iif]
 
         return [f"usr/lib/mpg123/output_{libn}.so"]
 
@@ -52,7 +52,7 @@ for _libn, _descn, _iif in [
 
 @subpackage("mpg123-libs")
 def _libs(self):
-    self.depends = [f"mpg123-output-dummy={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("mpg123-output-dummy")]
 
     return self.default_libs()
 

@@ -33,7 +33,7 @@ makedepends = [
     "wxwidgets-devel",
     "zlib-ng-compat-devel",
 ]
-depends = [f"gnuplot-common={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("gnuplot-common")]
 pkgdesc = "Command-line-driven graphing utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "gnuplot"
@@ -132,7 +132,7 @@ def do_install(self):
 @subpackage("gnuplot-common-x11")
 def _x11(self):
     self.subdesc = "X11 common files"
-    self.depends += [f"gnuplot-common={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("gnuplot-common")]
 
     return ["usr/libexec/gnuplot/*/gnuplot_x11"]
 
@@ -140,7 +140,7 @@ def _x11(self):
 @subpackage("gnuplot-qt")
 def _qt(self):
     self.subdesc = "Qt frontend"
-    self.depends += [f"gnuplot-common-x11={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("gnuplot-common-x11")]
 
     return [
         "usr/bin/gnuplot-qt",
@@ -152,7 +152,7 @@ def _qt(self):
 @subpackage("gnuplot-wx")
 def _wx(self):
     self.subdesc = "wxWidgets frontend"
-    self.depends += [f"gnuplot-common-x11={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("gnuplot-common-x11")]
 
     return ["usr/bin/gnuplot-wx"]
 

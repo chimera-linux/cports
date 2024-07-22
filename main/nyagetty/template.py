@@ -95,7 +95,7 @@ inittab-line    = {name}
 def _dinit(self):
     self.subdesc = "service files"
 
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "dinit-chimera"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "dinit-chimera"]
+    self.depends = [self.parent, "dinit-chimera"]
+    self.install_if = [self.parent, "dinit-chimera"]
 
     return ["etc/dinit.d/agetty*", "usr/libexec/dinit-agetty"]

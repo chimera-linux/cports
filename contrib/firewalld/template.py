@@ -49,7 +49,7 @@ def post_install(self):
 @subpackage("firewall-config")
 def _config(self):
     self.pkgdesc = "GTK-based configuration utility for firewalld"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
+    self.depends = [self.parent, "gtk+3"]
     return [
         "usr/bin/firewall-config",
         "usr/share/applications",

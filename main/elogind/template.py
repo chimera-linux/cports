@@ -36,7 +36,7 @@ makedepends = [
 ]
 checkdepends = ["bash", "python-lxml"]
 depends = ["dbus", "turnstile"]
-install_if = [f"elogind-meta={pkgver}-r{pkgrel}"]
+install_if = [self.with_pkgver("elogind-meta")]
 pkgdesc = "Standalone version of logind"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
@@ -73,7 +73,7 @@ def _meta(self):
 @subpackage("elogind-polkit")
 def _polkit(self):
     self.subdesc = "polkit"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     # break cycle (polkit depends on elogind)
     self.depends = [f"virtual:polkit!{pkgname}"]
     self.options = ["empty"]
@@ -90,8 +90,8 @@ def _lib(self):
 @subpackage("pam_elogind")
 def _pam(self):
     self.subdesc = "PAM"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
+    self.depends = [self.parent, "linux-pam"]
+    self.install_if = [self.parent, "linux-pam"]
     return [
         "usr/lib/pam.d",
         "usr/lib/security",

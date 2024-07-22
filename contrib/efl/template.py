@@ -129,7 +129,7 @@ def post_install(self):
 @subpackage("efl-ibus")
 def _ibus(self):
     self.subdesc = "IBus support"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "ibus"]
+    self.install_if = [self.parent, "ibus"]
 
     return ["usr/lib/ecore_imf/modules/ibus"]
 

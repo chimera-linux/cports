@@ -4,7 +4,7 @@ pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = []
-provides = [f"liblzma={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("liblzma")]
 pkgdesc = "XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
@@ -43,6 +43,6 @@ def post_install(self):
 
 @subpackage("xz-devel")
 def _devel(self):
-    self.provides = [f"liblzma-devel={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("liblzma-devel")]
 
     return self.default_devel()

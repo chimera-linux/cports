@@ -52,8 +52,8 @@ makedepends = [
 ]
 provides = [
     # backwards-compatibility with old subpackages
-    f"thunderbird-default={pkgver}-r{pkgrel}",
-    f"thunderbird-wayland={pkgver}-r{pkgrel}",
+    self.with_pkgver("thunderbird-default"),
+    self.with_pkgver("thunderbird-wayland"),
 ]
 pkgdesc = "Thunderbird mail client"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -21,7 +21,7 @@ def post_install(self):
 
 @subpackage("python-dbus-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "python-devel"]
+    self.depends += [self.parent, "python-devel"]
 
     return self.default_devel()
 

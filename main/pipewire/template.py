@@ -58,17 +58,17 @@ depends = [
     "rtkit",
 ]
 provides = [
-    f"libspa-aec={pkgver}-r{pkgrel}",
-    f"libspa-alsa={pkgver}-r{pkgrel}",
-    f"libspa-audioconvert={pkgver}-r{pkgrel}",
-    f"libspa-audiomixer={pkgver}-r{pkgrel}",
-    f"libspa-audiotestsrc={pkgver}-r{pkgrel}",
-    f"libspa-avb={pkgver}-r{pkgrel}",
-    f"libspa-control={pkgver}-r{pkgrel}",
-    f"libspa-support={pkgver}-r{pkgrel}",
-    f"libspa-v4l2={pkgver}-r{pkgrel}",
-    f"libspa-videoconvert={pkgver}-r{pkgrel}",
-    f"libspa-videotestsrc={pkgver}-r{pkgrel}",
+    self.with_pkgver("libspa-aec"),
+    self.with_pkgver("libspa-alsa"),
+    self.with_pkgver("libspa-audioconvert"),
+    self.with_pkgver("libspa-audiomixer"),
+    self.with_pkgver("libspa-audiotestsrc"),
+    self.with_pkgver("libspa-avb"),
+    self.with_pkgver("libspa-control"),
+    self.with_pkgver("libspa-support"),
+    self.with_pkgver("libspa-v4l2"),
+    self.with_pkgver("libspa-videoconvert"),
+    self.with_pkgver("libspa-videotestsrc"),
 ]
 pkgdesc = "Server and user space API to deal with multimedia pipelines"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -96,9 +96,9 @@ def post_install(self):
 @subpackage("pipewire-bluetooth")
 def _bluez(self):
     self.subdesc = "Bluetooth support"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
-    self.provides = [f"libspa-bluez5={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent, "bluez"]
+    self.install_if = [self.parent, "bluez"]
+    self.provides = [self.with_pkgver("libspa-bluez5")]
 
     return ["usr/lib/spa-0.2/bluez5"]
 
@@ -106,7 +106,7 @@ def _bluez(self):
 @subpackage("pipewire-libs")
 def _lib(self):
     self.subdesc = "runtime library"
-    self.provides = [f"libpipewire={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("libpipewire")]
     self.replaces = ["libpipewire<1.0.7-r1"]
 
     return [
@@ -120,7 +120,7 @@ def _lib(self):
 @subpackage("pipewire-jack-devel")
 def _jack_devel(self):
     self.subdesc = "JACK development files"
-    self.provides = [f"jack-devel={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("jack-devel")]
 
     return [
         "usr/include/jack",
@@ -132,7 +132,7 @@ def _jack_devel(self):
 @subpackage("pipewire-jack")
 def _jack(self):
     self.subdesc = "JACK support"
-    self.provides = [f"jack={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("jack")]
 
     return [
         "usr/bin/pw-jack",
@@ -150,7 +150,7 @@ def _devel(self):
 @subpackage("gstreamer-pipewire")
 def _gst(self):
     self.subdesc = "gstreamer plugin"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gst-plugins-base"]
+    self.install_if = [self.parent, "gst-plugins-base"]
 
     return ["usr/lib/gstreamer-1.0"]
 
@@ -158,7 +158,7 @@ def _gst(self):
 @subpackage("alsa-pipewire")
 def _alsa(self):
     self.subdesc = "ALSA client library"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "alsa-lib"]
+    self.install_if = [self.parent, "alsa-lib"]
 
     return [
         "usr/lib/alsa-lib",
@@ -169,7 +169,7 @@ def _alsa(self):
 @subpackage("alsa-pipewire-default")
 def _alsadef(self):
     self.subdesc = "use for ALSA by default"
-    self.install_if = [f"alsa-pipewire={pkgver}-r{pkgrel}"]
+    self.install_if = [self.with_pkgver("alsa-pipewire")]
 
     return [
         "@etc/alsa/conf.d/99-pipewire-default.conf=>../../../usr/share/alsa/alsa.conf.d/99-pipewire-default.conf"

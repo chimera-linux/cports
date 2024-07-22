@@ -36,7 +36,7 @@ depends = [
     "yelp",
 ]
 # backwards compat
-provides = [f"gnome-core={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("gnome-core")]
 pkgdesc = "GNOME desktop environment"
 subdesc = "session"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -47,7 +47,7 @@ url = "https://www.gnome.org"
 @subpackage("gnome-apps")
 def _apps(self):
     self.subdesc = "apps"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "baobab",
         "eog",

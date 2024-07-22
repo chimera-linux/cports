@@ -36,7 +36,7 @@ makedepends = [
     "xcb-util-renderutil-devel",
     "xcb-util-wm-devel",
 ]
-provides = [f"wlroots={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("wlroots")]
 pkgdesc = "Modular Wayland compositor library 0.18.x"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
@@ -51,5 +51,5 @@ def post_install(self):
 
 @subpackage("wlroots0.18-devel")
 def _devel(self):
-    self.provides = [f"wlroots-devel={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("wlroots-devel")]
     return self.default_devel()

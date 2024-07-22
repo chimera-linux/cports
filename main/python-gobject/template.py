@@ -36,7 +36,7 @@ options = ["!check"]
 @subpackage("python-gobject-devel")
 def _devel(self):
     self.depends += [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "python-cairo-devel",
         "libgirepository-devel",
     ]

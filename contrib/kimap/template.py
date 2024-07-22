@@ -36,7 +36,7 @@ def _devel_static(self):
 def _devel(self):
     self.depends += [
         # for cmake detection.. static-only test lib
-        f"kimap-devel-static={pkgver}-r{pkgrel}",
+        self.with_pkgver("kimap-devel-static"),
         "kcoreaddons-devel",
         "kmime-devel",
     ]

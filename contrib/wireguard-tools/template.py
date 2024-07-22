@@ -40,7 +40,7 @@ def post_install(self):
 @subpackage("wireguard-tools-wg-quick")
 def _wgquick(self):
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "bash",
         "iproute2",
         "openresolv",

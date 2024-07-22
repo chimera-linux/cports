@@ -55,7 +55,7 @@ options = ["!cross"]
 @subpackage("fcitx5-configtool-kde")
 def _kde(self):
     self.subdesc = "KCM integration"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return [
         "usr/bin/fcitx5-plasma-theme-generator",

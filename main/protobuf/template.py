@@ -37,7 +37,7 @@ def _lite(self):
 @subpackage("protoc")
 def _protoc(self):
     self.pkgdesc = "Protocol buffers compiler and its library"
-    self.depends = [f"protobuf-devel={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("protobuf-devel")]
 
     return [
         "usr/bin",
@@ -52,5 +52,5 @@ def _devel_static(self):
 
 @subpackage("protobuf-devel")
 def _devel(self):
-    self.depends = [f"protobuf-devel-static={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("protobuf-devel-static")]
     return self.default_devel()

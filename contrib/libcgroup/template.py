@@ -49,8 +49,8 @@ def _progs(self):
 @subpackage("pam_cgroup")
 def _pam(self):
     self.subdesc = "PAM"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
+    self.depends = [self.parent, "linux-pam"]
+    self.install_if = [self.parent, "linux-pam"]
     return [
         "usr/lib/security",
     ]

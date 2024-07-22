@@ -45,6 +45,6 @@ def post_install(self):
 @subpackage("sway-backgrounds")
 def _backgrounds(self):
     self.subdesc = "backgrounds"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
 
     return ["usr/share/backgrounds"]

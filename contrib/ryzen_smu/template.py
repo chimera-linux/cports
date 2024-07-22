@@ -34,9 +34,9 @@ def do_install(self):
 @subpackage("ryzen_smu-ckms")
 def _ckms(self):
     self.subdesc = "kernel sources"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "ckms"]
+    self.install_if = [self.parent, "ckms"]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "ckms",
         "gmake",
     ]

@@ -97,7 +97,7 @@ def _clang_static(self):
 def _devel(self):
     self.depends += [
         # from 6.7 cmake finding of this fails without libQt6QmlBuiltins.a
-        f"qt6-qtdeclarative-devel-static={pkgver}-r{pkgrel}",
+        self.with_pkgver("qt6-qtdeclarative-devel-static"),
         f"qt6-qtshadertools-devel~{pkgver[:-2]}",
         f"qt6-qtbase-devel~{pkgver[:-2]}",
     ]

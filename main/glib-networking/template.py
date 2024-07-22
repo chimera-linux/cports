@@ -35,7 +35,7 @@ def post_install(self):
 def _openssl(self):
     self.subdesc = "OpenSSL backend"
     # autoinstall if openssl is installed
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "openssl"]
+    self.install_if = [self.parent, "openssl"]
 
     return ["usr/lib/gio/modules/libgioopenssl.so"]
 
@@ -44,6 +44,6 @@ def _openssl(self):
 def _gnutls(self):
     self.subdesc = "GnuTLS backend"
     # autoinstall if gnutls is installed
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gnutls"]
+    self.install_if = [self.parent, "gnutls"]
 
     return ["usr/lib/gio/modules/libgiognutls.so"]

@@ -28,7 +28,7 @@ makedepends = [
     "libsndfile-devel",
 ]
 depends = ["python-pyxdg"]
-install_if = [f"speechd-meta={pkgver}-r{pkgrel}"]
+install_if = [self.with_pkgver("speechd-meta")]
 pkgdesc = "High level interface to speech synthesis"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"

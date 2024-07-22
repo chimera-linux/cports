@@ -62,7 +62,7 @@ sha256 = "54908f4e10b5f1c231e90330c8c15b7f21f2bb610f194c034b338e379c508e3c"
 
 @subpackage("gvfs-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return self.default_devel()
 
@@ -70,7 +70,7 @@ def _devel(self):
 @subpackage("gvfs-afc")
 def _afc(self):
     self.subdesc = "Apple mobile device backend"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return [
         "usr/libexec/gvfsd-afc*",
@@ -83,7 +83,7 @@ def _afc(self):
 @subpackage("gvfs-afp")
 def _afp(self):
     self.subdesc = "Apple Filing Protocol backend"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return [
         "usr/libexec/gvfsd-afp*",
@@ -94,7 +94,7 @@ def _afp(self):
 @subpackage("gvfs-cdda")
 def _cdda(self):
     self.subdesc = "CD-ROM backend"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return [
         "usr/libexec/gvfsd-cd*",
@@ -105,7 +105,7 @@ def _cdda(self):
 @subpackage("gvfs-goa")
 def _goa(self):
     self.subdesc = "Gnome Online Accounts backend"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return [
         "usr/libexec/gvfs-goa*",
@@ -121,7 +121,7 @@ def _goa(self):
 @subpackage("gvfs-gphoto2")
 def _gphoto2(self):
     self.subdesc = "gphoto2 backend"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return [
         "usr/libexec/gvfs*-gphoto*",
@@ -133,7 +133,7 @@ def _gphoto2(self):
 @subpackage("gvfs-mtp")
 def _mtp(self):
     self.subdesc = "MTP backend"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return [
         "usr/libexec/gvfs*-mtp*",
@@ -146,7 +146,7 @@ def _mtp(self):
 @subpackage("gvfs-smb")
 def _smb(self):
     self.subdesc = "SMB/CIFS backend"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return [
         "usr/libexec/gvfs*-smb*",

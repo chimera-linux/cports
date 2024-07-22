@@ -87,8 +87,8 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 self.depends = [
-    f"samba-common={pkgver}-r{pkgrel}",
-    f"samba-libs={pkgver}-r{pkgrel}",
+    self.with_pkgver("samba-common"),
+    self.with_pkgver("samba-libs"),
     "tdb-progs",
 ]
 pkgdesc = "SMB/CIFS file, print, and login server for Unix"
@@ -137,7 +137,7 @@ def post_install(self):
 @subpackage("samba-common")
 def _common(self):
     self.subdesc = "common files and programs"
-    self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("samba-libs")]
 
     return [
         "usr/lib/pam.d",
@@ -168,7 +168,7 @@ def _common(self):
 @subpackage("samba-registry-progs")
 def _registry(self):
     self.pkgdesc = "Tools for viewing and manipulating the Windows registry"
-    self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("samba-libs")]
 
     return [
         "usr/bin/reg*",
@@ -179,7 +179,7 @@ def _registry(self):
 @subpackage("libsmbclient")
 def _clib(self):
     self.subdesc = "client library"
-    self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("samba-libs")]
 
     return [
         "usr/lib/libsmbclient.so.*",
@@ -201,7 +201,7 @@ def _clib_dev(self):
 @subpackage("libwbclient")
 def _wlib(self):
     self.subdesc = "winbind client library"
-    self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("samba-libs")]
 
     return ["usr/lib/libwbclient.so.*"]
 
@@ -222,9 +222,9 @@ def _wlib_dev(self):
 def _winbind(self):
     self.pkgdesc = "Windows user and group information service"
     self.depends = [
-        f"samba-libs={pkgver}-r{pkgrel}",
-        f"samba-common={pkgver}-r{pkgrel}",
-        f"libwbclient={pkgver}-r{pkgrel}",
+        self.with_pkgver("samba-libs"),
+        self.with_pkgver("samba-common"),
+        self.with_pkgver("libwbclient"),
     ]
     return [
         "usr/bin/ntlm_auth",
@@ -246,8 +246,8 @@ def _winbind(self):
 @subpackage("pam_winbind")
 def _pam_winbind(self):
     self.pkgdesc = "Windows domain authentication integration plugin"
-    self.depends = [f"samba-winbind={pkgver}-r{pkgrel}"]
-    self.install_if = [f"libnss_winbind={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("samba-winbind")]
+    self.install_if = [self.with_pkgver("libnss_winbind")]
 
     return [
         "usr/lib/security/pam_winbind.so",
@@ -259,7 +259,7 @@ def _pam_winbind(self):
 @subpackage("libnss_winbind")
 def _nss_winbind(self):
     self.pkgdesc = "Samba nameservice integration plugins"
-    self.depends = [f"samba-winbind={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("samba-winbind")]
 
     return ["usr/lib/libnss_win*.so.*"]
 
@@ -268,8 +268,8 @@ def _nss_winbind(self):
 def _smbclient(self):
     self.subdesc = "client utilities"
     self.depends = [
-        f"samba-libs={pkgver}-r{pkgrel}",
-        f"samba-common={pkgver}-r{pkgrel}",
+        self.with_pkgver("samba-libs"),
+        self.with_pkgver("samba-common"),
     ]
 
     return [
@@ -303,8 +303,8 @@ def _smbclient(self):
 @subpackage("samba-vfs-modules")
 def _vfs(self):
     self.subdesc = "virtual filesystem plugins"
-    self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
-    self.install_if = [f"samba={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("samba-libs")]
+    self.install_if = [self.parent]
 
     return [
         "usr/lib/samba/vfs",
@@ -316,9 +316,9 @@ def _vfs(self):
 def _test(self):
     self.subdesc = "test suite"
     self.depends = [
-        f"samba-libs={pkgver}-r{pkgrel}",
-        f"samba-common={pkgver}-r{pkgrel}",
-        f"samba-python={pkgver}-r{pkgrel}",
+        self.with_pkgver("samba-libs"),
+        self.with_pkgver("samba-common"),
+        self.with_pkgver("samba-python"),
     ]
 
     return [
@@ -341,7 +341,7 @@ def _test(self):
 def _ctdb(self):
     self.subdesc = "clustered TDB support"
     self.depends = [
-        f"samba-libs={pkgver}-r{pkgrel}",
+        self.with_pkgver("samba-libs"),
         "tdb-progs",
         "iproute2",
     ]
@@ -373,7 +373,7 @@ def _devel(self):
 @subpackage("samba-python")
 def _python(self):
     self.subdesc = "Python bindings"
-    self.depends = ["python", f"samba-libs={pkgver}-r{pkgrel}"]
+    self.depends = ["python", self.with_pkgver("samba-libs")]
 
     return ["usr/lib/python3*"]
 

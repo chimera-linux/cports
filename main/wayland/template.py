@@ -38,5 +38,5 @@ def _progs(self):
 
 @subpackage("wayland-devel")
 def _devel(self):
-    self.depends += [f"wayland-progs={pkgver}-r{pkgrel}", "libffi-devel"]
+    self.depends += [self.with_pkgver("wayland-progs"), "libffi-devel"]
     return self.default_devel(extra=["usr/share/wayland"])

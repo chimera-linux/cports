@@ -138,7 +138,7 @@ makedepends = [
     "zimg-devel",
     "zlib-ng-compat-devel",
 ]
-depends = [f"ffplay={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("ffplay")]
 pkgdesc = "Decoding, encoding and streaming software"
 maintainer = "q66 <q66@chimera-linux.org>"
 # we use --enable-gpl; it enables useful filters

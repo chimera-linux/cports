@@ -39,8 +39,8 @@ def post_install(self):
 @subpackage("nautilus-gnome-terminal-extension")
 def _nautilus_extension(self):
     self.pkgdesc = "GNOME terminal extension for Nautilus"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "nautilus"]
+    self.depends += [self.parent]
+    self.install_if = [self.parent, "nautilus"]
 
     return [
         "usr/lib/nautilus",

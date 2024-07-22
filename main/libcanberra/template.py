@@ -47,9 +47,9 @@ def _devel(self):
 @subpackage("libcanberra-gtk3")
 def _gtk3(self):
     self.subdesc = "Gtk+3 support"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
+    self.install_if = [self.parent, "gtk+3"]
     # compat
-    self.provides = [f"libcanberra-progs={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("libcanberra-progs")]
 
     return [
         "usr/bin/canberra-gtk-play",
@@ -61,7 +61,7 @@ def _gtk3(self):
 @subpackage("libcanberra-pulse")
 def _pulse(self):
     self.subdesc = "PulseAudio support"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "libpulse"]
+    self.install_if = [self.parent, "libpulse"]
 
     return ["usr/lib/libcanberra-*/libcanberra-pulse.so"]
 
@@ -69,7 +69,7 @@ def _pulse(self):
 @subpackage("libcanberra-gstreamer")
 def _gst(self):
     self.subdesc = "GStreamer support"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gstreamer"]
+    self.install_if = [self.parent, "gstreamer"]
 
     return ["usr/lib/libcanberra-*/libcanberra-gstreamer.so"]
 
@@ -77,8 +77,8 @@ def _gst(self):
 @subpackage("libcanberra-gnome")
 def _gnome(self):
     self.subdesc = "GNOME support"
-    self.depends += [f"libcanberra-gtk3={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gnome"]
+    self.depends += [self.with_pkgver("libcanberra-gtk3")]
+    self.install_if = [self.parent, "gnome"]
 
     return [
         "usr/lib/gnome*",

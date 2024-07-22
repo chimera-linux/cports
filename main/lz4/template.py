@@ -6,7 +6,7 @@ make_cmd = "gmake"
 make_check_args = ["-j1"]
 make_use_env = True
 hostmakedepends = ["pkgconf", "gmake"]
-provides = [f"liblz4={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("liblz4")]
 pkgdesc = "LZ4 compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND GPL-2.0-or-later"
@@ -30,6 +30,6 @@ def post_install(self):
 
 @subpackage("lz4-devel")
 def _devel(self):
-    self.provides = [f"liblz4-devel={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("liblz4-devel")]
 
     return self.default_devel()

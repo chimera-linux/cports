@@ -101,7 +101,7 @@ def _crehash(self):
 @subpackage("openssl-devel")
 def _devel(self):
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
     ]
 
     return self.default_devel()

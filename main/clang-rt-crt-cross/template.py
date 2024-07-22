@@ -170,7 +170,7 @@ def _gen_subp(an):
             ]
 
     if an in _targets:
-        depends.append(f"clang-rt-crt-cross-{an}={pkgver}-r{pkgrel}")
+        depends.append(self.with_pkgver(f"clang-rt-crt-cross-{an}"))
 
 
 for _an in _targetlist:

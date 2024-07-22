@@ -44,7 +44,7 @@ sha256 = "3a8f8b8330eb1ce1511cee8c12dd8225c4ef1ad72a7649e40e0ddc574cf70ee0"
 @subpackage("ark-computils")
 def _computils(self):
     self.subdesc = "default de/compression utilities"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "7zip",
         # TODO: missing deps

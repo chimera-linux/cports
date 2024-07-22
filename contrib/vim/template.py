@@ -27,7 +27,7 @@ makedepends = [
     "python-devel",
     "ruby-devel",
 ]
-depends = [f"xxd={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("xxd")]
 pkgdesc = "Vi-style text editor"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Vim"

@@ -16,9 +16,9 @@ def post_install(self):
 @subpackage("resolvconf-symlink")
 def _symlink(self):
     self.subdesc = "use symlink"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cmd:resolvconf"]
+    self.install_if = [self.parent, "cmd:resolvconf"]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "virtual:cmd:resolvconf!resolvconf",
     ]
     return ["usr/lib/tmpfiles.d"]
@@ -27,8 +27,8 @@ def _symlink(self):
 @subpackage("resolvconf-openresolv")
 def _openresolv(self):
     self.subdesc = "openresolv"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
-    self.provides = [f"resolvconf-any={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]  # prefer
+    self.provides = [self.with_pkgver("resolvconf-any")]
     self.depends = ["openresolv"]
     self.options = ["brokenlinks"]
 
@@ -41,5 +41,5 @@ def _openresolv(self):
 @subpackage("resolvconf-none")
 def _none(self):
     self.subdesc = "do not use"
-    self.provides = [f"resolvconf-any={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("resolvconf-any")]
     return []

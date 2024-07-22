@@ -24,7 +24,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 depends = [
-    f"oxygen-cursors={pkgver}-r{pkgrel}",
+    self.with_pkgver("oxygen-cursors"),
     "oxygen-icons",
     "frameworkintegration",
 ]

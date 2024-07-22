@@ -36,5 +36,5 @@ def post_install(self):
 
 @subpackage("libbsd-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "libmd-devel"]
+    self.depends = [self.parent, "libmd-devel"]
     return self.default_devel()

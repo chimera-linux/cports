@@ -38,5 +38,5 @@ def _libs(self):
 
 @subpackage("rustc-demangle-devel")
 def _devel(self):
-    self.depends += [f"rustc-demangle-libs={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("rustc-demangle-libs")]
     return self.default_devel()

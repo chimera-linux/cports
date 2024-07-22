@@ -26,7 +26,7 @@ makedepends = [
     "qt6-qtbase-devel",
     "qt6-qtdeclarative-devel",
 ]
-depends = [f"qt6-qttools-qdbus={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("qt6-qttools-qdbus")]
 pkgdesc = "Qt6 tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = (
@@ -74,7 +74,7 @@ def _libs(self):
 
 @subpackage("qt6-qttools-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
     return self.default_devel(
         extra=[
             "usr/lib/qt6/metatypes",

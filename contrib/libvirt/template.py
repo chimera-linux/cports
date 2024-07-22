@@ -117,7 +117,7 @@ def _devel(self):
 
 @subpackage("libvirt-firewalld")
 def _firewalld(self):
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "firewalld"]
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "iptables-nft"]
+    self.install_if = [self.parent, "firewalld"]
+    self.depends = [self.parent, "iptables-nft"]
     self.subdesc = "firewalld zones and policies"
     return ["usr/lib/firewalld"]

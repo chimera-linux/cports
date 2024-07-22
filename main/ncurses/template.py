@@ -25,9 +25,9 @@ configure_env = {"PKG_CONFIG_LIBDIR": "/usr/lib/pkgconfig"}
 configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]
-depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("ncurses-base")]
 # we generally want this in a proper system as a soft dep
-install_if = [f"ncurses-libs={pkgver}-r{pkgrel}", "chimerautils"]
+install_if = [self.with_pkgver("ncurses-libs"), "chimerautils"]
 pkgdesc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -102,7 +102,7 @@ def _tinfo(self):
 @subpackage("ncurses-libtinfo-devel")
 def _tdevel(self):
     self.subdesc = "libtinfo.so development files"
-    self.depends += [f"ncurses-devel={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("ncurses-devel")]
 
     return [
         "usr/lib/libtinfo.so",
@@ -143,7 +143,7 @@ def _base(self):
 @subpackage("ncurses-term")
 def _term(self):
     self.subdesc = "full terminal descriptions"
-    self.depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("ncurses-base")]
     self.options = ["hardlinks"]
 
     return [

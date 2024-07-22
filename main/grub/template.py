@@ -185,7 +185,7 @@ def post_install(self):
 @subpackage("grub-utils")
 def _utils(self):
     self.subdesc = "additional utilities"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         "usr/bin/grub-menulst2cfg",
@@ -198,7 +198,7 @@ def _genplatform(arch, platform, desc):
     @subpackage(f"grub-{arch}-{platform}-dbg", arch in _archs)
     def _platdbg(self):
         self.subdesc = f"{desc} debug files"
-        self.depends = [f"grub-{arch}-{platform}={pkgver}-r{pkgrel}"]
+        self.depends = [self.with_pkgver(f"grub-{arch}-{platform}")]
         self.options = ["!strip", "foreignelf", "execstack"]
 
         def _install():
@@ -213,7 +213,7 @@ def _genplatform(arch, platform, desc):
     @subpackage(f"grub-{arch}-{platform}", arch in _archs)
     def _plat(self):
         self.subdesc = f"{desc} support"
-        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.depends = [self.parent]
         self.options = ["!strip", "foreignelf", "execstack"]
 
         if platform == "efi":

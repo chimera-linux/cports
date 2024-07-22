@@ -41,8 +41,8 @@ def _gen_subp(name, desc, iif):
     @subpackage(f"apr-util-{name}")
     def _subp(self):
         self.subdesc = f"{desc} module"
-        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-        self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", iif]
+        self.depends = [self.parent]
+        self.install_if = [self.parent, iif]
 
         return [f"usr/lib/apr-util-1/*{name}*"]
 

@@ -80,8 +80,8 @@ def post_install(self):
 @subpackage("dinit-chimera-x11")
 def _x11(self):
     self.subdesc = "X11 support"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xinit"]
+    self.depends = [self.parent]
+    self.install_if = [self.parent, "xinit"]
     return [
         "etc/X11/Xsession.d",
     ]

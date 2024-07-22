@@ -20,7 +20,7 @@ makedepends = [
     "upower-devel",
 ]
 depends = ["!tlp", "python-gobject"]
-install_if = [f"power-profiles-daemon-meta={pkgver}-r{pkgrel}"]
+install_if = [self.with_pkgver("power-profiles-daemon-meta")]
 pkgdesc = "D-Bus daemon for power management control"
 maintainer = "Val Packett <val@packett.cool>"
 license = "GPL-3.0-or-later"

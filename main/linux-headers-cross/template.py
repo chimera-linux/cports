@@ -77,7 +77,7 @@ def _crosshdr(an, arch):
             return [f"usr/{pf.triplet}"]
 
     if _cond:
-        depends.append(f"linux-headers-cross-{an}={pkgver}-r{pkgrel}")
+        depends.append(self.with_pkgver(f"linux-headers-cross-{an}"))
 
 
 for _an, _arch in _targetlist:

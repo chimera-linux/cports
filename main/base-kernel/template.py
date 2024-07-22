@@ -90,7 +90,7 @@ def do_install(self):
 def _baseloc(self):
     self.subdesc = "development files"
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         # all the tooling one needs to use chimera-buildkernel
         "bash",
         "gmake",

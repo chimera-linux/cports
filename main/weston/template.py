@@ -54,7 +54,7 @@ def post_install(self):
 
 @subpackage("weston-x11")
 def _x11(self):
-    self.depends = [f"weston={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     self.subdesc = "X11 backend"
 
     return ["usr/lib/libweston*/x11-backend.so"]
@@ -62,7 +62,7 @@ def _x11(self):
 
 @subpackage("weston-xwayland")
 def _xwayland(self):
-    self.depends = [f"weston={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     self.subdesc = "Xwayland plugin"
 
     return ["usr/lib/libweston*/xwayland.so"]

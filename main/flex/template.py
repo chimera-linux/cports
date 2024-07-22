@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
 hostmakedepends = ["byacc"]
 makedepends = ["byacc"]
-depends = ["byacc", f"libfl-devel-static={pkgver}-r{pkgrel}"]
+depends = ["byacc", self.with_pkgver("libfl-devel-static")]
 pkgdesc = "Fast Lexical Analyzer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:flex"
@@ -32,7 +32,7 @@ def post_install(self):
 def _static(self):
     self.depends = []
     self.install_if = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "base-devel",
         "base-devel-static",
     ]

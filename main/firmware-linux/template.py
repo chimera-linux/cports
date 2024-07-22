@@ -426,7 +426,7 @@ def post_install(self):
 def _audio(self):
     self.subdesc = "audio"
     self.options = ["empty"]
-    self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
+    self.install_if = [self.with_pkgver("base-firmware-linux")]
 
     return []
 
@@ -435,7 +435,7 @@ def _audio(self):
 def _gpu(self):
     self.subdesc = "graphics"
     self.options = ["empty"]
-    self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
+    self.install_if = [self.with_pkgver("base-firmware-linux")]
 
     return []
 
@@ -444,7 +444,7 @@ def _gpu(self):
 def _net(self):
     self.subdesc = "network devices"
     self.options = ["empty"]
-    self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
+    self.install_if = [self.with_pkgver("base-firmware-linux")]
 
     return []
 
@@ -453,7 +453,7 @@ def _net(self):
 def _storage(self):
     self.subdesc = "storage devices"
     self.options = ["empty"]
-    self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
+    self.install_if = [self.with_pkgver("base-firmware-linux")]
 
     return []
 
@@ -462,7 +462,7 @@ def _storage(self):
 def _misc(self):
     self.subdesc = "misc"
     self.options = ["empty"]
-    self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
 
     return []
 
@@ -471,7 +471,7 @@ def _misc(self):
 def _soc(self):
     self.subdesc = "systems on chip"
     self.options = ["empty"]
-    self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
 
     return []
 
@@ -480,7 +480,7 @@ def _soc(self):
 def _base(self):
     self.subdesc = "base metapackage"
     self.options = ["empty"]
-    self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
 
     return []
 
@@ -492,7 +492,7 @@ def _gen_pkg(name, desc, iifcond, iifpkg, cont):
         self.options = ["!strip", "foreignelf", "execstack"]
 
         if (iifcond is None or iifcond) and iifpkg:
-            self.install_if = [f"firmware-linux-{iifpkg}={pkgver}-r{pkgrel}"]
+            self.install_if = [self.with_pkgver(f"firmware-linux-{iifpkg}")]
 
         return list(map(lambda p: f"usr/lib/firmware/{p}", cont))
 

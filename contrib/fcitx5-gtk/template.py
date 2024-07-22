@@ -39,7 +39,7 @@ def _devel(self):
 @subpackage("fcitx5-gtk3")
 def _gtk3(self):
     self.subdesc = "GTK+3 variant"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
+    self.install_if = [self.parent, "gtk+3"]
 
     return [
         "usr/bin/fcitx5-gtk3-immodule-probing",
@@ -50,7 +50,7 @@ def _gtk3(self):
 @subpackage("fcitx5-gtk4")
 def _gtk4(self):
     self.subdesc = "GTK4 variant"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk4"]
+    self.install_if = [self.parent, "gtk4"]
 
     return [
         "usr/bin/fcitx5-gtk4-immodule-probing",

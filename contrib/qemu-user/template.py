@@ -84,7 +84,7 @@ def _upkg(uname):
     @subpackage(f"qemu-user-{uname}")
     def _u(self):
         self.subdesc = uname
-        self.install_if = [f"qemu-user={pkgver}-r{pkgrel}"]
+        self.install_if = [self.parent]
 
         return [f"usr/bin/qemu-{uname}"]
 
@@ -104,8 +104,8 @@ def _upkg(uname):
     @subpackage(f"qemu-user-{uname}-binfmt", do_pkg)
     def _binfmt(self):
         self.subdesc = f"{uname} binfmt"
-        self.install_if = [f"qemu-user-{uname}={pkgver}-r{pkgrel}"]
-        self.depends = [f"qemu-user-{uname}={pkgver}-r{pkgrel}"]
+        self.install_if = [self.with_pkgver(f"qemu-user-{uname}")]
+        self.depends = [self.with_pkgver(f"qemu-user-{uname}")]
 
         extra = []
 

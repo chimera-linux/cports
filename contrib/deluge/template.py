@@ -53,8 +53,8 @@ def post_install(self):
 @subpackage("deluge-gtk")
 def _gtk(self):
     self.subdesc = "Gtk+3 frontend"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "python-gobject", "gtk+3"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
+    self.depends = [self.parent, "python-gobject", "gtk+3"]
+    self.install_if = [self.parent, "gtk+3"]
 
     return [
         "usr/bin/deluge",
@@ -72,7 +72,7 @@ def _gtk(self):
 @subpackage("deluge-web")
 def _web(self):
     self.subdesc = "Web frontend"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         "etc/dinit.d/deluge-web",

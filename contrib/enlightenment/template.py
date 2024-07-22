@@ -62,6 +62,6 @@ def post_install(self):
 
 @subpackage("enlightenment-devel")
 def _devel(self):
-    self.depends += [f"enlightenment={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return self.default_devel()

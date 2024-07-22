@@ -40,7 +40,7 @@ hardening = ["vis"]
 @subpackage("kinfocenter-meta")
 def _meta(self):
     self.subdesc = "recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         # basic
         "plasma-systemmonitor",

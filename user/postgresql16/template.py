@@ -201,20 +201,20 @@ def _contrib_pkg(pn):
     @subpackage(f"postgresql16-contrib-{pn}")
     def _subp(self):
         self.subdesc = f"contrib-{pn}"
-        self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.depends += [self.parent]
         # autoinstalls
         if pn != "":
-            self.install_if = [f"{pkgname}-contrib={pkgver}-r{pkgrel}"]
+            self.install_if = [self.with_pkgver(f"{pkgname}-contrib")]
             # plperl, plpython, pltcl is special (more conditions)
             if pn.endswith("_plperl"):
-                self.depends += [f"{pkgname}-plperl={pkgver}-r{pkgrel}"]
-                self.install_if += [f"{pkgname}-plperl={pkgver}-r{pkgrel}"]
+                self.depends += [self.with_pkgver(f"{pkgname}-plperl")]
+                self.install_if += [self.with_pkgver(f"{pkgname}-plperl")]
             elif pn.endswith("_plpython"):
-                self.depends += [f"{pkgname}-plpython={pkgver}-r{pkgrel}"]
-                self.install_if += [f"{pkgname}-plpython={pkgver}-r{pkgrel}"]
+                self.depends += [self.with_pkgver(f"{pkgname}-plpython")]
+                self.install_if += [self.with_pkgver(f"{pkgname}-plpython")]
             elif pn.endswith("_pltcl"):
-                self.depends += [f"{pkgname}-pltcl={pkgver}-r{pkgrel}"]
-                self.install_if += [f"{pkgname}-pltcl={pkgver}-r{pkgrel}"]
+                self.depends += [self.with_pkgver(f"{pkgname}-pltcl")]
+                self.install_if += [self.with_pkgver(f"{pkgname}-pltcl")]
 
         # contents are read from the file
         def inst():
@@ -268,10 +268,10 @@ def _contrib_alt(pn, pl):
     @subpackage(f"postgresql-postgresql16-{pn}-default")
     def _sp(self):
         self.subdesc = f"default links for {pn}"
-        self.depends = [f"postgresql-{pkgname}-default={pkgver}-r{pkgrel}"]
+        self.depends = [self.with_pkgver(f"postgresql-{pkgname}-default")]
         self.install_if = [
-            f"postgresql-{pkgname}-default={pkgver}-r{pkgrel}",
-            f"{pkgname}-contrib-{pn}={pkgver}-r{pkgrel}",
+            self.with_pkgver(f"postgresql-{pkgname}-default"),
+            self.with_pkgver(f"{pkgname}-contrib-{pn}"),
         ]
 
         def inst():
@@ -348,7 +348,7 @@ def _libecpg_devel(self):
 @subpackage("postgresql16-pltcl")
 def _pltcl(self):
     self.subdesc = "PL/Tcl"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         f"usr/lib/{pkgname}/pltcl.so",
@@ -360,7 +360,7 @@ def _pltcl(self):
 @subpackage("postgresql16-plperl")
 def _plperl(self):
     self.subdesc = "PL/Perl"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         f"usr/lib/{pkgname}/plperl.so",
@@ -371,7 +371,7 @@ def _plperl(self):
 @subpackage("postgresql16-plpython")
 def _plpython(self):
     self.subdesc = "PL/Python"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         f"usr/lib/{pkgname}/plpython3.so",

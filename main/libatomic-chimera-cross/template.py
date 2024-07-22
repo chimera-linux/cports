@@ -75,7 +75,7 @@ def _gen_crossp(an, at):
     @subpackage(f"libatomic-chimera-cross-{an}-static", cond)
     def _subp_static(self):
         self.subdesc = f"static {an} support"
-        self.depends = [f"libatomic-chimera-cross-{an}={pkgver}-r{pkgrel}"]
+        self.depends = [self.with_pkgver(f"libatomic-chimera-cross-{an}")]
         return [f"usr/{at}/usr/lib/libatomic.a"]
 
     @subpackage(f"libatomic-chimera-cross-{an}", cond)
@@ -106,7 +106,7 @@ def _static(self):
     self.depends = []
     for an in _targets:
         self.depends.append(
-            f"libatomic-chimera-cross-{an}-static={pkgver}-r{pkgrel}"
+            self.with_pkgver(f"libatomic-chimera-cross-{an}-static")
         )
 
     return []

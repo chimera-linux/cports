@@ -20,7 +20,7 @@ makedepends = [
     "linux-pam-devel",
     "polkit-devel",
 ]
-install_if = [f"fprintd-meta={pkgver}-r{pkgrel}"]
+install_if = [self.with_pkgver("fprintd-meta")]
 pkgdesc = "Fingerprint scanning daemon"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"

@@ -56,7 +56,7 @@ def _plugin(name):
     @subpackage(f"weechat-{name}")
     def _plg(self):
         self.subdesc = f"{name.capitalize()} plugin"
-        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.depends = [self.parent]
 
         return [f"usr/lib/weechat/plugins/{name}.so"]
 

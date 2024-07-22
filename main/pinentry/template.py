@@ -44,10 +44,10 @@ def _frontend(name):
 
     @subpackage(f"pinentry-{name}-default")
     def _default(self):
-        self.depends = [f"pinentry-{name}={pkgver}-r{pkgrel}"]
+        self.depends = [self.with_pkgver(f"pinentry-{name}")]
         self.provides = ["pinentry-default=0"]
         if name == "curses":
-            self.install_if = [f"pinentry-{name}={pkgver}-r{pkgrel}"]
+            self.install_if = [self.with_pkgver(f"pinentry-{name}")]
             # highest priority provider is curses
             self.provider_priority = 100
 

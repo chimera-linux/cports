@@ -126,7 +126,7 @@ def do_install(self):
 
 @subpackage("gitk")
 def _gitk(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "tk"]
+    self.depends += [self.parent, "tk"]
     self.pkgdesc = "Git repository browser"
     self.license = "GPL-2.0-or-later"
     return ["usr/bin/gitk", "usr/share/gitk", "usr/share/man/man1/gitk.1"]
@@ -134,7 +134,7 @@ def _gitk(self):
 
 @subpackage("git-gui")
 def _gui(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "tk"]
+    self.depends += [self.parent, "tk"]
     self.subdesc = "GUI tool"
     self.license = "GPL-2.0-or-later"
     return [
@@ -148,8 +148,8 @@ def _gui(self):
 
 @subpackage("git-credential-libsecret")
 def _libsecret(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "libsecret"]
+    self.depends += [self.parent]
+    self.install_if = [self.parent, "libsecret"]
     self.pkgdesc = "Git libsecret credential helper"
 
     return ["usr/libexec/git-core/git-credential-libsecret"]
@@ -157,7 +157,7 @@ def _libsecret(self):
 
 @subpackage("git-scalar")
 def _scalar(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
     self.pkgdesc = "Git scalar monorepo tool"
 
     return [
@@ -170,13 +170,13 @@ def _scalar(self):
 def _svn(self):
     self.subdesc = "Subversion support"
     self.depends += [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         # hack to work around cross-category dependency
         # won't be installable without contrib enabled (that's fine)
         "virtual:subversion-perl!base-files",
         "perl-termreadkey",
     ]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "subversion"]
+    self.install_if = [self.parent, "subversion"]
 
     return [
         "usr/share/perl5/vendor_perl/Git/SVN*",

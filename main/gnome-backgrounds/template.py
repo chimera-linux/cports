@@ -15,7 +15,7 @@ sha256 = "4ddd3ac439a4a067876805921bb75f4d3c8b85a218d47c276dddde8928443c2e"
 def _gnome(self):
     self.subdesc = "GNOME integration"
     self.depends += [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "gdk-pixbuf",
         "libjxl",
         "librsvg",

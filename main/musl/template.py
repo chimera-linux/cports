@@ -8,7 +8,7 @@ configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
-depends = [f"musl-progs={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("musl-progs")]
 provides = ["so:libc.so=0"]
 provider_priority = 999
 replaces = [f"musl-mallocng~{pkgver}"]

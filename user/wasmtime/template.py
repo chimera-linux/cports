@@ -70,5 +70,5 @@ def _libs(self):
 
 @subpackage("wasmtime-devel")
 def _devel(self):
-    self.depends = [f"wasmtime-libs={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("wasmtime-libs")]
     return self.default_devel()

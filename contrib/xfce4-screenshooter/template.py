@@ -45,12 +45,12 @@ options = ["!cross"]
 def _imgur(self):
     self.subdesc = "Imgur upload support"
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "curl",
         "jq",
         "xclip",
         "zenity",
     ]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
 
     return ["usr/libexec/xfce4/screenshooter/scripts/imgur-upload.sh"]

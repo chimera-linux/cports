@@ -30,8 +30,8 @@ def post_install(self):
 
 @subpackage("tlp-rdw")
 def _rdw(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "networkmanager"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "networkmanager"]
+    self.depends = [self.parent, "networkmanager"]
+    self.install_if = [self.parent, "networkmanager"]
     return [
         "usr/bin/tlp-rdw",
         "usr/lib/NetworkManager",

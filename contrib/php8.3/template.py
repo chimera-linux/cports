@@ -287,10 +287,10 @@ def _extension(extn, iif):
     @subpackage(f"php{_majver}-{extn}")
     def _ext(self):
         self.subdesc = f"{extn} extension"
-        self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.depends += [self.parent]
 
         if iif:
-            self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+            self.install_if = [self.parent]
 
         return [
             f"etc/php{_majver}/conf.d/{extn}.ini",
@@ -351,8 +351,8 @@ for _extn, _iif in [
 @subpackage(f"php{_majver}-pear")
 def _pear(self):
     self.pkgdesc = f"PHP{_majver} Extension and Application Repository"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", f"{pkgname}-xml"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent, f"{pkgname}-xml"]
+    self.install_if = [self.parent]
 
     return [
         f"etc/php{_majver}/pear.conf",
@@ -365,7 +365,7 @@ def _pear(self):
 
 @subpackage(f"php{_majver}-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     return self.default_devel(
         extra=[

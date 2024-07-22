@@ -116,7 +116,7 @@ if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
 @subpackage("plasma-desktop-meta")
 def _meta(self):
     self.subdesc = "recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         # alternate older theme
         "oxygen",
@@ -168,7 +168,7 @@ def _x11_meta(self):
         "setxkbmap",  # configure non-us layout
         "qt6-qtvirtualkeyboard",  # lockscreen virtual keyboard, any alternative that's also usable on wayland side (too?) -> maliit
     ]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xserver-xorg-core"]
+    self.install_if = [self.parent, "xserver-xorg-core"]
     self.options = ["empty"]
 
     return []
@@ -177,7 +177,7 @@ def _x11_meta(self):
 @subpackage("plasma-desktop-apps-meta")
 def _apps_meta(self):
     self.subdesc = "apps recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         # - core
         "discover",  # extra app management
@@ -253,7 +253,7 @@ def _apps_meta(self):
 @subpackage("plasma-desktop-multimedia-meta")
 def _multimedia_meta(self):
     self.subdesc = "multimedia recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "audiocd-kio",  # kio plugin for audio cds
         "audiotube",  # youtube music client
@@ -272,7 +272,7 @@ def _multimedia_meta(self):
 @subpackage("plasma-desktop-devtools-meta")
 def _devtools_meta(self):
     self.subdesc = "devtools recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "heaptrack",
         "kcachegrind",
@@ -285,7 +285,7 @@ def _devtools_meta(self):
 @subpackage("plasma-desktop-games-meta")
 def _games_meta(self):
     self.subdesc = "games recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "kpat",
     ]
@@ -296,7 +296,7 @@ def _games_meta(self):
 @subpackage("plasma-desktop-accessibility-meta")
 def _accessibility_meta(self):
     self.subdesc = "accessibility recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "accessibility-inspector",  # accesibility tree inspector
         # "kmag",  # magnifier TODO: broken?
@@ -313,7 +313,7 @@ def _accessibility_meta(self):
 def _kdepin_meta(self):
     # contact/calendar/etc
     self.subdesc = "kdepim recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "akonadi-calendar-tools",
         "akonadi-import-wizard",
@@ -338,7 +338,7 @@ def _kdepin_meta(self):
 @subpackage("plasma-desktop-sddm-meta")
 def _sddm_meta(self):
     self.subdesc = "SDDM recommends package"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "sddm",
         "sddm-kcm",

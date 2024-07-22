@@ -205,7 +205,7 @@ def _gen_libpkg(libname):
     @subpackage(f"opencv-{libname}-libs")
     def _subp(self):
         self.subdesc = libname
-        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.depends = [self.parent]
         return [f"usr/lib/libopencv_{libname}.so.*"]
 
 

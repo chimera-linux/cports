@@ -13,10 +13,10 @@ make_check_env = {"NO_DOCKER": "1"}
 hostmakedepends = ["gmake", "pkgconf"]
 checkdepends = ["pciutils", "python", "bash"]
 depends = [
-    f"hwdata-usb={pkgver}-r{pkgrel}",
-    f"hwdata-pci={pkgver}-r{pkgrel}",
-    f"hwdata-net={pkgver}-r{pkgrel}",
-    f"hwdata-pnp={pkgver}-r{pkgrel}",
+    self.with_pkgver("hwdata-usb"),
+    self.with_pkgver("hwdata-pci"),
+    self.with_pkgver("hwdata-net"),
+    self.with_pkgver("hwdata-pnp"),
 ]
 pkgdesc = "Hardware identification databases"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -30,7 +30,7 @@ options = ["!check", "empty"]
 
 @subpackage("hwdata-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     return self.default_devel()
 
 
