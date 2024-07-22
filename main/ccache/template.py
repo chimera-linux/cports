@@ -1,6 +1,6 @@
 pkgname = "ccache"
-pkgver = "4.10.1"
-pkgrel = 1
+pkgver = "4.10.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DENABLE_TESTING=ON",
@@ -25,8 +25,8 @@ pkgdesc = "Fast C/C++ compiler cache"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://ccache.dev"
-source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "3a43442ce3916ea48bb6ccf6f850891cbff01d1feddff7cd4bbd49c5cf1188f6"
+source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/ccache-{pkgver}.tar.xz"
+sha256 = "c0b85ddfc1a3e77b105ec9ada2d24aad617fa0b447c6a94d55890972810f0f5a"
 # cfi crashes in fmt template expansion
 hardening = ["vis", "!cfi"]
 
