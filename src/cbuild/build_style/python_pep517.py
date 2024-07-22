@@ -4,6 +4,17 @@ from cbuild.core import chroot
 def do_build(self):
     (self.cwd / self.make_dir).mkdir(parents=True, exist_ok=True)
 
+    # we patch main/python-setuptools so these environment variables
+    # override whatever the sysconfig module says. this is essential if
+    # we're cross building a python extension, since sysconfig will
+    # point to the wrong paths in the host system.
+    env = {
+        "PYTHON_CROSS_LIBDIR": self.profile().sysroot / "usr/lib",
+        "PYTHON_CROSS_INCDIR": self.profile().sysroot
+        / f"usr/include/python{self.python_version}",
+    }
+    env.update(self.make_build_env)
+
     self.do(
         *self.make_wrapper,
         *self.make_build_wrapper,
@@ -14,7 +25,7 @@ def do_build(self):
         "--no-isolation",
         *self.make_build_args,
         self.make_build_target,
-        env=self.make_build_env,
+        env=env,
     )
 
 
