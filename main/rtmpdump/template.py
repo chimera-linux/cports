@@ -11,7 +11,7 @@ pkgdesc = "Toolkit for RTMP streams"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://rtmpdump.mplayerhq.hu"
-source = f"https://repo.chimera-linux.org/distfiles/{pkgname}-{pkgver}.tar.xz"
+source = f"https://repo.chimera-linux.org/distfiles/rtmpdump-{pkgver}.tar.xz"
 sha256 = "705b7a99af575e07613c436bc58829cb04d924776949cb243d03091335747139"
 tool_flags = {
     "CFLAGS": [

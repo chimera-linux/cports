@@ -19,7 +19,7 @@ pkgdesc = "X.org misc misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-misc-misc-{pkgver}.tar.gz"
 sha256 = "bece4a9482b3cb6f7fad2164fd3b394d22dfe1ad2f96f60030a703bcff30f5a5"
 
 

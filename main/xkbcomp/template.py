@@ -8,7 +8,7 @@ pkgdesc = "XKBD keymap compiler"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xkbcomp-{pkgver}.tar.gz"
 sha256 = "00cecc490fcbe2f789cf13c408c459673c2c33ab758d802677321cffcda35373"
 hardening = ["vis", "cfi"]
 

@@ -30,7 +30,7 @@ pkgdesc = "AppStream metadata library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://people.freedesktop.org/~hughsient/appstream-glib"
-source = f"https://people.freedesktop.org/~hughsient/{pkgname}/releases/{pkgname}-{pkgver}.tar.xz"
+source = f"https://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-{pkgver}.tar.xz"
 sha256 = "84754064c560fca6e1ab151dc64354fc235a5798f016b91b38c9617253a8cf11"
 options = ["!cross"]
 

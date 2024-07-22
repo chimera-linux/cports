@@ -10,7 +10,7 @@ pkgdesc = "X init program"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xinit-{pkgver}.tar.gz"
 sha256 = "9121c9162f6dedab1229a8c4ed4021c4d605699cb0da580ac2ee1b0c96b3f60e"
 hardening = ["vis", "cfi"]
 

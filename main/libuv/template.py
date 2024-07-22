@@ -8,9 +8,7 @@ pkgdesc = "Multi-platform support library with focus on asynchronous I/O"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libuv.org"
-source = (
-    f"https://dist.libuv.org/dist/v{pkgver}/{pkgname}-v{pkgver}-dist.tar.gz"
-)
+source = f"https://dist.libuv.org/dist/v{pkgver}/libuv-v{pkgver}-dist.tar.gz"
 sha256 = "c593139feb9061699fdd2f7fde47bb6c1ca77761ae9ec04f052083f1ef46c13b"
 hardening = ["vis", "!cfi"]
 

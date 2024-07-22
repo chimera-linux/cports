@@ -142,7 +142,7 @@ pkgdesc = "GStreamer bad plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
-source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/src/gst-plugins-bad/gst-plugins-bad-{pkgver}.tar.xz"
 sha256 = "3029bfd7265314d609dc8eab503675a344ea46e8274fd73ab34566c8442dc847"
 # FIXME int
 hardening = ["!int"]

@@ -16,7 +16,7 @@ pkgdesc = "PPP (Point-to-Point Protocol) daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://ppp.samba.org"
-source = f"https://ftp.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://ftp.samba.org/pub/ppp/ppp-{pkgver}.tar.gz"
 sha256 = "5cae0e8075f8a1755f16ca290eb44e6b3545d3f292af4da65ecffe897de636ff"
 # no check target
 options = ["!check"]

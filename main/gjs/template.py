@@ -28,7 +28,7 @@ pkgdesc = "JavaScript bindings for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gjs"
-source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/-/archive/{pkgver}/gjs-{pkgver}.tar.gz"
 sha256 = "2f67250f94b4d6b103c869f0588952a13d6b7c983acd942bd8dd83474721a1e6"
 options = ["!cross"]
 

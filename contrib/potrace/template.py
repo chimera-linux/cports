@@ -9,7 +9,7 @@ pkgdesc = "Bitmap to vector tracer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://potrace.sourceforge.net"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/potrace/potrace-{pkgver}.tar.gz"
 sha256 = "be8248a17dedd6ccbaab2fcc45835bb0502d062e40fbded3bc56028ce5eb7acc"
 
 

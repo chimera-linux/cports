@@ -23,7 +23,7 @@ pkgdesc = "Text web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://lynx.invisible-island.net"
-source = f"https://invisible-mirror.net/archives/{pkgname}/tarballs/{pkgname}{pkgver.replace('_pre', 'dev.')}.tar.bz2"
+source = f"https://invisible-mirror.net/archives/lynx/tarballs/lynx{pkgver.replace('_pre', 'dev.')}.tar.bz2"
 sha256 = "7374b89936d991669e101f4e97f2c9592036e1e8cdaa7bafc259a77ab6fb07ce"
 # CFI: crashes in UCPutUtf8_charstring via magic function pointer stuff
 # when -display_charset utf-8 on any website

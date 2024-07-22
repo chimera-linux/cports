@@ -23,7 +23,7 @@ pkgdesc = "Gtk+ support library for colord"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/colord-gtk"
-source = f"$(FREEDESKTOP_SITE)/colord/releases/{pkgname}-{pkgver}.tar.xz"
+source = f"$(FREEDESKTOP_SITE)/colord/releases/colord-gtk-{pkgver}.tar.xz"
 sha256 = "c176b889b75630a17f4e3d7ef24c09a3e12368e633496087459c8b53ac3a122d"
 options = ["!cross"]
 

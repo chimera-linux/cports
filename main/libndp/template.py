@@ -11,7 +11,7 @@ pkgdesc = "Library for Neighbor Discovery Protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libndp.org"
-source = f"{url}/files/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/files/libndp-{pkgver}.tar.gz"
 sha256 = "a8ab214e01dc3a9b615276905395637f391298c84d77651f0cbf0b1082dd2dd4"
 hardening = ["vis", "!cfi"]
 

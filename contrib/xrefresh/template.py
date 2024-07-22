@@ -8,7 +8,7 @@ pkgdesc = "Refresh all or a part of an X screen"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xrefresh-{pkgver}.tar.gz"
 sha256 = "cbf0d3ed80f03188841a96ceb20e615b40a006e3928be2e179d9d5a0ded639b2"
 hardening = ["vis", "cfi"]
 

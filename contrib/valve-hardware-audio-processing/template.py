@@ -15,7 +15,9 @@ pkgdesc = "Steam Deck audio processing"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/evlaV/valve-hardware-audio-processing"
-source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = (
+    f"{url}/-/archive/{pkgver}/valve-hardware-audio-processing-{pkgver}.tar.gz"
+)
 sha256 = "be4582c7e3030fcd918026ca6de422e31a93f113e244594ae4c4a30b46d05376"
 # no tests
 options = ["!cross", "!check"]

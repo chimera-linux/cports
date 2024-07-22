@@ -15,7 +15,9 @@ pkgdesc = "Common CA certificates for SSL/TLS"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND MPL-2.0"
 url = "https://tracker.debian.org/pkg/ca-certificates"
-source = f"$(DEBIAN_SITE)/main/c/{pkgname}/{pkgname}_{pkgver}.tar.xz"
+source = (
+    f"$(DEBIAN_SITE)/main/c/ca-certificates/ca-certificates_{pkgver}.tar.xz"
+)
 sha256 = "3286d3fc42c4d11b7086711a85f865b44065ce05cf1fb5376b2abed07622a9c6"
 compression = "deflate"
 # no tests

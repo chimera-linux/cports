@@ -18,7 +18,7 @@ pkgdesc = "Text search engine written in C++"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later OR Apache-2.0"
 url = "https://clucene.sourceforge.net"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-core-{pkgver}.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/clucene/clucene-core-{pkgver}.tar.gz"
 sha256 = "ddfdc433dd8ad31b5c5819cc4404a8d2127472a3b720d3e744e8c51d79732eab"
 # TODO fails multiple tests
 hardening = ["!int"]

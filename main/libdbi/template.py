@@ -7,7 +7,9 @@ pkgdesc = "Database-independent abstraction layer for C"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "http://libdbi.sourceforge.net"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = (
+    f"$(SOURCEFORGE_SITE)/libdbi/libdbi/libdbi-{pkgver}/libdbi-{pkgver}.tar.gz"
+)
 sha256 = "dafb6cdca524c628df832b6dd0bf8fabceb103248edb21762c02d3068fca4503"
 
 

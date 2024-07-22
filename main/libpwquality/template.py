@@ -24,9 +24,7 @@ pkgdesc = "Library for password quality checking"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause OR GPL-2.0-or-later"
 url = "https://github.com/libpwquality/libpwquality"
-source = (
-    f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-)
+source = f"{url}/releases/download/libpwquality-{pkgver}/libpwquality-{pkgver}.tar.bz2"
 sha256 = "6fcf18b75d305d99d04d2e42982ed5b787a081af2842220ed63287a2d6a10988"
 options = ["!cross"]
 

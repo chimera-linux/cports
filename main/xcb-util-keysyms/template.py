@@ -8,7 +8,7 @@ pkgdesc = "XCB utilities library - key constants and keycode conversion"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
-source = f"{url}/dist/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/dist/xcb-util-keysyms-{pkgver}.tar.gz"
 sha256 = "1fa21c0cea3060caee7612b6577c1730da470b88cbdf846fa4e3e0ff78948e54"
 
 

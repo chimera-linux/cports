@@ -13,6 +13,6 @@ pkgdesc = "GNU Documentation System"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/texinfo"
-source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNU_SITE)/texinfo/texinfo-{pkgver}.tar.xz"
 sha256 = "deeec9f19f159e046fdf8ad22231981806dac332cc372f1c763504ad82b30953"
 hardening = ["vis", "!cfi"]

@@ -24,7 +24,7 @@ pkgdesc = "TK graphical user interface toolkit for TCL"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
-source = f"$(SOURCEFORGE_SITE)/tcl/{pkgname}{pkgver}-src.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/tcl/tk{pkgver}-src.tar.gz"
 sha256 = "8ffdb720f47a6ca6107eac2dd877e30b0ef7fac14f3a84ebbd0b3612cee41a94"
 # no check target
 options = ["!check", "!cross", "!lto"]

@@ -19,7 +19,7 @@ pkgdesc = "Dynamic menu library and client program inspired by dmenu"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "GPL-3.0-only AND LGPL-3.0-only"
 url = "https://github.com/Cloudef/bemenu"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/{pkgver}/bemenu-{pkgver}.tar.gz"
 sha256 = "7cd336fb827b50a12c398a5daf6d2e6a07e291217116e725e7f1e021d9e0cdd9"
 hardening = ["vis", "!cfi"]
 # no check target defined

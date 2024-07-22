@@ -16,7 +16,7 @@ pkgdesc = "Free FPS game, successor to Cube"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "http://sauerbraten.org"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}_{pkgver.replace('.', '_')}_linux.tar.bz2"
+source = f"$(SOURCEFORGE_SITE)/sauerbraten/sauerbraten_{pkgver.replace('.', '_')}_linux.tar.bz2"
 sha256 = "cdba7c4a47cefd30d0afdd6a912199a1384319cf1619923cb7189e72e468be70"
 hardening = ["!int"]
 # no tests

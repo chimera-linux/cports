@@ -38,7 +38,7 @@ pkgdesc = "GLib library of C routines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/glib/{pkgver[:-2]}/glib-{pkgver}.tar.xz"
 sha256 = "24e029c5dfc9b44e4573697adf33078a9827c48938555004b3b9096fa4ea034f"
 # FIXME int - strfuncs failure
 hardening = ["!int"]

@@ -21,7 +21,7 @@ pkgdesc = "Simple database API similar to gdbm"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://tdb.samba.org"
-source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://download.samba.org/pub/tdb/tdb-{pkgver}.tar.gz"
 sha256 = "02338e33c16c21c9e29571cef523e76b2b708636254f6f30c6cf195d48c62daf"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}

@@ -14,7 +14,7 @@ pkgdesc = "Type-safe callback system for C++"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://libsigcplusplus.github.io/libsigcplusplus"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/libsigc++/{pkgver[:-2]}/libsigc++-{pkgver}.tar.xz"
 sha256 = "c3d23b37dfd6e39f2e09f091b77b1541fbfa17c4f0b6bf5c89baef7229080e17"
 
 

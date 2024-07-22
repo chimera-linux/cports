@@ -5,7 +5,7 @@ pkgdesc = "Utility to detect other OSes on a set of drives"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/os-prober"
-source = f"$(DEBIAN_SITE)/main/o/{pkgname}/{pkgname}_{pkgver}.tar.xz"
+source = f"$(DEBIAN_SITE)/main/o/os-prober/os-prober_{pkgver}.tar.xz"
 sha256 = "3244125405c44f038b5299312f52dcf826a0d531e1ab97ec749a656d2886cf6e"
 
 # only x86 and aarch64 hooks are useful to us

@@ -8,7 +8,7 @@ pkgdesc = "Modern and easy-to-use crypto library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://libsodium.org"
-source = f"https://download.libsodium.org/{pkgname}/releases/{pkgname}-{pkgver}.tar.gz"
+source = f"https://download.libsodium.org/libsodium/releases/libsodium-{pkgver}.tar.gz"
 sha256 = "ebb65ef6ca439333c2bb41a0c1990587288da07f6c7fd07cb3a18cc18d30ce19"
 hardening = ["vis", "!cfi"]
 

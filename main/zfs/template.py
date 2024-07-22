@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 source = [
-    f"https://github.com/openzfs/zfs/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz",
+    f"https://github.com/openzfs/zfs/releases/download/zfs-{pkgver}/zfs-{pkgver}.tar.gz",
     # not shipped in tarballs? why
     f"!https://raw.githubusercontent.com/openzfs/zfs/zfs-{pkgver}/contrib/debian/tree/zfs-initramfs/usr/share/initramfs-tools/hooks/zdev>zdev-{pkgver}",
 ]

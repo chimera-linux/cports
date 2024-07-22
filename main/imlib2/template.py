@@ -24,9 +24,7 @@ pkgdesc = "Image manipulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Imlib2"
 url = "https://www.enlightenment.org"
-source = (
-    f"$(SOURCEFORGE_SITE)/enlightenment/{pkgname}-src/{pkgname}-{pkgver}.tar.gz"
-)
+source = f"$(SOURCEFORGE_SITE)/enlightenment/imlib2-src/imlib2-{pkgver}.tar.gz"
 sha256 = "544f789c7dfefbc81b5e82cd74dcd2be3847ae8ce253d402852f19a82f25186b"
 hardening = ["!cfi"]  # investigate
 

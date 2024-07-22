@@ -15,7 +15,7 @@ pkgdesc = "Terminal IRC client"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://git.causal.agency/catgirl"
-source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/snapshot/catgirl-{pkgver}.tar.gz"
 sha256 = "c6d760aaee134e052586def7a9103543f7281fde6531fbcb41086470794297c2"
 hardening = ["vis", "!cfi"]
 # no tests

@@ -19,7 +19,7 @@ pkgdesc = "Input abstraction library for Wayland and X"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libinput"
-source = f"https://gitlab.freedesktop.org/libinput/libinput/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://gitlab.freedesktop.org/libinput/libinput/-/archive/{pkgver}/libinput-{pkgver}.tar.gz"
 sha256 = "84fdd16ba0bd3a9adf6c1ffe4292b7a644b0d70f57f81f8239fd499a801189fb"
 
 

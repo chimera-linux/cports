@@ -8,7 +8,7 @@ pkgdesc = "Portable lossless data compression library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://www.oberhumer.com/opensource/lzo"
-source = f"{url}/download/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/download/lzo-{pkgver}.tar.gz"
 sha256 = "c0f892943208266f9b6543b3ae308fab6284c5c90e627931446fb49b4221a072"
 
 

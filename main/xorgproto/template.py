@@ -8,7 +8,7 @@ pkgdesc = "Combined X.Org X11 protocol headers"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/proto/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/proto/xorgproto-{pkgver}.tar.gz"
 sha256 = "4f6b9b4faf91e5df8265b71843a91fc73dc895be6210c84117a996545df296ce"
 # we don't want dependencies on all the pkg-config stuff
 options = ["!scanrundeps"]

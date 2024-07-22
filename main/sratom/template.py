@@ -8,7 +8,7 @@ pkgdesc = "Library for serializing LV2 atoms to/from RDF"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/sratom.html"
-source = f"https://download.drobilla.net/{pkgname}-{pkgver}.tar.xz"
+source = f"https://download.drobilla.net/sratom-{pkgver}.tar.xz"
 sha256 = "71c157991183e53d0555393bb4271c75c9b5f5dab74a5ef22f208bb22de322c4"
 hardening = ["vis", "!cfi"]
 

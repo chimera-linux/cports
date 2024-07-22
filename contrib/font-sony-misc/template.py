@@ -19,7 +19,7 @@ pkgdesc = "X.org sony misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-sony-misc-{pkgver}.tar.gz"
 sha256 = "36db8b4c9d9edbc973137a31242772a55986fcdf2ab184a595eed413a5e5be95"
 
 

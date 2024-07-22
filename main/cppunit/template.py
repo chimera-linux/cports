@@ -9,7 +9,7 @@ pkgdesc = "C++ unit testing framework"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://cppunit.sourceforge.net"
-source = f"https://dev-www.libreoffice.org/src/{pkgname}-{pkgver}.tar.gz"
+source = f"https://dev-www.libreoffice.org/src/cppunit-{pkgver}.tar.gz"
 sha256 = "89c5c6665337f56fd2db36bc3805a5619709d51fb136e51937072f63fcc717a7"
 
 

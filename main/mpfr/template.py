@@ -10,7 +10,7 @@ pkgdesc = "Library for multiple-precision floating-point computations"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://www.mpfr.org"
-source = f"{url}/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/mpfr-{pkgver}/mpfr-{pkgver}.tar.xz"
 sha256 = "277807353a6726978996945af13e52829e3abd7a9a5b7fb2793894e18f1fcbb2"
 
 

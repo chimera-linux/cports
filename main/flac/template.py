@@ -17,7 +17,7 @@ pkgdesc = "Free Lossless Audio Codec"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "http://flac.sourceforge.net"
-source = f"https://downloads.xiph.org/releases/flac/{pkgname}-{pkgver}.tar.xz"
+source = f"https://downloads.xiph.org/releases/flac/flac-{pkgver}.tar.xz"
 sha256 = "6c58e69cd22348f441b861092b825e591d0b822e106de6eb0ee4d05d27205b70"
 # FIXME cfi int: test failures with both
 hardening = ["vis", "!cfi", "!int"]

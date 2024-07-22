@@ -58,7 +58,7 @@ pkgdesc = "Intelligent Input Bus"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/{pkgver}/ibus-{pkgver}.tar.gz"
 sha256 = "05b84d4a45139face161596e5ade8e6c5da55cfaf6f194861da66516190f5b96"
 # gtk3 can't handle seatless wayland displays
 options = ["!cross", "!check"]

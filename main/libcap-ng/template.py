@@ -9,7 +9,7 @@ pkgdesc = "Alternate POSIX capabilities library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://people.redhat.com/sgrubb/libcap-ng"
-source = f"{url}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/libcap-ng-{pkgver}.tar.gz"
 sha256 = "3ba5294d1cbdfa98afaacfbc00b6af9ed2b83e8a21817185dfd844cc8c7ac6ff"
 
 

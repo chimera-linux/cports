@@ -19,7 +19,7 @@ pkgdesc = "GNU parted"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/parted"
-source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNU_SITE)/parted/parted-{pkgver}.tar.xz"
 sha256 = "3b43dbe33cca0f9a18601ebab56b7852b128ec1a3df3a9b30ccde5e73359e612"
 # a bunch of environment-based stuff
 options = ["!check"]

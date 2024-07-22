@@ -47,7 +47,7 @@ pkgdesc = "Command line tool for transferring data with URL syntax"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://curl.haxx.se"
-source = f"{url}/download/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/download/curl-{pkgver}.tar.xz"
 sha256 = "0f58bb95fc330c8a46eeb3df5701b0d90c9d9bfcc42bd1cd08791d12551d4400"
 hardening = ["vis", "!cfi"]
 # workaround for test 1119

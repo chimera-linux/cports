@@ -16,7 +16,7 @@ pkgdesc = "Cross-platform 3D audio API"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://openal-soft.org"
-source = f"{url}/openal-releases/{pkgname}-{pkgver}.tar.bz2"
+source = f"{url}/openal-releases/openal-soft-{pkgver}.tar.bz2"
 sha256 = "796f4b89134c4e57270b7f0d755f0fa3435b90da437b745160a49bd41c845b21"
 # no test target
 options = ["!check"]

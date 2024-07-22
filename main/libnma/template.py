@@ -27,7 +27,7 @@ pkgdesc = "NetworkManager GNOME applet runtime library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libnma"
-source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/-/archive/{pkgver}/libnma-{pkgver}.tar.gz"
 sha256 = "c88fd3408c4ff166b06179b5ce5186e08a57b64eb8c9b22e055ca0dbc5e8002b"
 options = ["!cross"]
 

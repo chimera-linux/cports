@@ -28,7 +28,7 @@ pkgdesc = "GNOME Weather information access library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/LibGWeather"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/libgweather/{pkgver[:-2]}/libgweather-{pkgver}.tar.xz"
 sha256 = "a6e427b4770ada48945f3aa906af710fc833cff0d42df91f1828302740d794ec"
 # needs network access
 options = ["!check"]

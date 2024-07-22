@@ -27,7 +27,7 @@ pkgdesc = "Library for manipulating block devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libblockdev"
-source = f"{url}/releases/download/{pkgver}-1/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/{pkgver}-1/libblockdev-{pkgver}.tar.gz"
 sha256 = "a5cb33a53ff5969067982704f45399d02555fdb2313ed0c56eac9555397dc2db"
 
 tool_flags = {

@@ -74,7 +74,7 @@ pkgdesc = "Server and user space API to deal with multimedia pipelines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
-source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
 sha256 = "ee26d1e906a930b283d759628de978dc2514522d68f9566f89b1497b2b534f76"
 
 if self.profile().endian == "big":

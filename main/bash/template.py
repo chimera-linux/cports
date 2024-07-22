@@ -18,7 +18,7 @@ pkgdesc = "GNU Bourne Again Shell"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
-source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"$(GNU_SITE)/bash/bash-{pkgver}.tar.gz"
 sha256 = "c8e31bdc59b69aaffc5b36509905ba3e5cbb12747091d27b4b977f078560d5b8"
 tool_flags = {
     "CFLAGS": [

@@ -15,7 +15,9 @@ pkgdesc = "Dynamic pixel format translation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://gegl.org/babl"
-source = f"https://download.gimp.org/pub/{pkgname}/{pkgver[:-4]}/{pkgname}-{pkgver}.tar.xz"
+source = (
+    f"https://download.gimp.org/pub/babl/{pkgver[:-4]}/babl-{pkgver}.tar.xz"
+)
 sha256 = "26defe9deaab7ac4d0e076cab49c2a0d6ebd0df0c31fd209925a5f07edee1475"
 # FIXME all tests fail
 hardening = ["!int"]

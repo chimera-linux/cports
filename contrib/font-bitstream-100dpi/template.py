@@ -19,7 +19,7 @@ pkgdesc = "X.org bitstream 100dpi font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-bitstream-100dpi-{pkgver}.tar.gz"
 sha256 = "1d4b38aaf700b13c17c5d7c7816a1abe7edf8fcfd5b584fc619d42b13a10e751"
 
 

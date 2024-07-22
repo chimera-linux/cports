@@ -19,7 +19,7 @@ pkgdesc = "X.org arabic misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-arabic-misc-{pkgver}.tar.gz"
 sha256 = "ea2c69a5e3e9210eca2c12a48f74f5ea24d9c0d9ba7d46bbd30b0a1a338e37e5"
 
 

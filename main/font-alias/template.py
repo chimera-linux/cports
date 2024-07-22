@@ -7,7 +7,7 @@ pkgdesc = "Standard aliases for X11 PCF fonts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-alias-{pkgver}.tar.gz"
 sha256 = "f8e0ca6537003f11fcaf36c598f7de9c0428f8ed587388a8a37ff18ccc597730"
 hardening = ["vis", "cfi"]
 

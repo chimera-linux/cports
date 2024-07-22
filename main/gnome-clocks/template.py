@@ -29,5 +29,7 @@ pkgdesc = "GNOME clock application"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Clocks"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = (
+    f"$(GNOME_SITE)/gnome-clocks/{pkgver[:-2]}/gnome-clocks-{pkgver}.tar.xz"
+)
 sha256 = "eaa3c578cdcef9754e668b5626709b73f3526710235f4b72076d2ff49a4f99c7"

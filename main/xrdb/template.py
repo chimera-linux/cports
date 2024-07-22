@@ -9,7 +9,7 @@ pkgdesc = "X server resource database utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xrdb-{pkgver}.tar.gz"
 sha256 = "db2d774a35ae2f7e7ac61cc2de0dcae27fc2aa14399c35721f8300e63ea73549"
 hardening = ["vis", "cfi"]
 

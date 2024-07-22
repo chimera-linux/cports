@@ -7,7 +7,7 @@ pkgdesc = "NFS client library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/sahlberg/libnfs"
-source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/archive/libnfs-{pkgver}.tar.gz"
 sha256 = "d945cb4f4c8f82ee1f3640893a168810f794a28e1010bb007ec5add345e9df3e"
 
 

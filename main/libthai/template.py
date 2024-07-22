@@ -10,7 +10,7 @@ pkgdesc = "Thai language support routines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://linux.thai.net/projects/libthai"
-source = f"https://linux.thai.net/pub/ThaiLinux/software/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://linux.thai.net/pub/ThaiLinux/software/libthai/libthai-{pkgver}.tar.xz"
 sha256 = "fc80cc7dcb50e11302b417cebd24f2d30a8b987292e77e003267b9100d0f4bcd"
 
 if self.profile().cross:

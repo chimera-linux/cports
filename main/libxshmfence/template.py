@@ -9,7 +9,7 @@ pkgdesc = "X SyncFence synchronization primitive"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/lib/libxshmfence-{pkgver}.tar.gz"
 sha256 = "e93a85099604beb244ee756dcaf70e18b08701c1ca84c4de0126cd71bd6c8181"
 
 

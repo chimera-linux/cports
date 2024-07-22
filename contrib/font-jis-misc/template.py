@@ -19,7 +19,7 @@ pkgdesc = "X.org jis misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-jis-misc-{pkgver}.tar.gz"
 sha256 = "7ab270255b27061003058ccbfc775d0813d17dca7aa8e07bdccb728f1b713984"
 
 

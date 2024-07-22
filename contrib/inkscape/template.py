@@ -55,7 +55,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://inkscape.org"
 source = (
-    f"https://media.inkscape.org/dl/resources/file/{pkgname}-{pkgver}.tar.xz"
+    f"https://media.inkscape.org/dl/resources/file/inkscape-{pkgver}.tar.xz"
 )
 sha256 = "dbd1844dc443fe5e10d3e9a887144e5fb7223852fff191cfb5ef7adeab0e086b"
 # TODO

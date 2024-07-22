@@ -6,7 +6,7 @@ pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
-source = f"$(KERNEL_SITE)/docs/man-pages/{pkgname}-{pkgver}.tar.xz"
+source = f"$(KERNEL_SITE)/docs/man-pages/man-pages-{pkgver}.tar.xz"
 sha256 = "e23cbac29f110ba571f0da8523e79d373691466ed7f2a31301721817d34530bd"
 options = ["!autosplit"]
 

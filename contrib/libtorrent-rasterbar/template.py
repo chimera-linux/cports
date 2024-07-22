@@ -24,7 +24,7 @@ pkgdesc = "C++ BitTorrent library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libtorrent.org"
-source = f"https://github.com/arvidn/libtorrent/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://github.com/arvidn/libtorrent/releases/download/v{pkgver}/libtorrent-rasterbar-{pkgver}.tar.gz"
 sha256 = "fc935b8c1daca5c0a4d304bff59e64e532be16bb877c012aea4bda73d9ca885d"
 
 # loud build

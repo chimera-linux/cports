@@ -10,7 +10,7 @@ pkgdesc = "Filesystem in USErspace"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/libfuse/libfuse"
-source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/fuse-{pkgver}/fuse-{pkgver}.tar.gz"
 sha256 = "f797055d9296b275e981f5f62d4e32e089614fc253d1ef2985851025b8a0ce87"
 file_modes = {"usr/bin/fusermount3": ("root", "root", 0o4755)}
 # ld: error: default version symbol fuse_loop_mt@@FUSE_3.2 must be defined

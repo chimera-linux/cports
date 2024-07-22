@@ -50,7 +50,7 @@ pkgdesc = "Common Unix Printing System"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/OpenPrinting/cups"
-source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}-source.tar.gz"
+source = f"{url}/releases/download/v{pkgver}/cups-{pkgver}-source.tar.gz"
 sha256 = "d75757c2bc0f7a28b02ee4d52ca9e4b1aa1ba2affe16b985854f5336940e5ad7"
 # build system is bad
 tool_flags = {

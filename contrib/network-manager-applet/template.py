@@ -21,6 +21,6 @@ pkgdesc = "Network manager tray applet"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/network-manager-applet"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/network-manager-applet/{pkgver[:-2]}/network-manager-applet-{pkgver}.tar.xz"
 sha256 = "a84704487ea3afe1485c47fb2ab598b8f779f540ae0dcbf0a1c5f85e64a7e253"
 options = ["linkundefver"]

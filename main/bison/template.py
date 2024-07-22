@@ -12,7 +12,7 @@ pkgdesc = "GNU yacc(1) replacement"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bison"
-source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNU_SITE)/bison/bison-{pkgver}.tar.xz"
 sha256 = "9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2"
 hardening = ["vis", "!cfi"]
 

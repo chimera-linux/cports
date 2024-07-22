@@ -8,7 +8,7 @@ pkgdesc = "Dump an image of an X window"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xwd-{pkgver}.tar.gz"
 sha256 = "5fa984e1f7799a7e23ea4e795b3b61483e28df6d0284bae11062f6256c30a9c1"
 hardening = ["vis", "!cfi"]
 

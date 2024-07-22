@@ -13,7 +13,7 @@ pkgdesc = "80x86 assembler designed for portability and modularity"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://www.nasm.us"
-source = f"{url}/pub/{pkgname}/releasebuilds/{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/pub/nasm/releasebuilds/{pkgver}/nasm-{pkgver}.tar.xz"
 sha256 = "1412a1c760bbd05db026b6c0d1657affd6631cd0a63cddb6f73cc6d4aa616148"
 hardening = ["vis", "cfi"]
 

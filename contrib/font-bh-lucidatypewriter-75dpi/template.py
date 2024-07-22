@@ -19,7 +19,7 @@ pkgdesc = "X.org bh-lucidatypewriter 75dpi font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-bh-lucidatypewriter-75dpi-{pkgver}.tar.gz"
 sha256 = "8e502a1a7e81c1b95f08725f40e7e137d4d06700794d006b327d54b7c8d07f88"
 
 

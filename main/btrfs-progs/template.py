@@ -37,9 +37,7 @@ pkgdesc = "Btrfs file system utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://btrfs.readthedocs.io/en/latest"
-source = (
-    f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
-)
+source = f"$(KERNEL_SITE)/kernel/people/kdave/btrfs-progs/btrfs-progs-v{pkgver}.tar.xz"
 sha256 = "43865bb272dc0ab2585de3605434d81ba217578f0897bf700cd36c14ac40652a"
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME

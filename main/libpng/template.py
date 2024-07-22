@@ -9,7 +9,7 @@ pkgdesc = "Library for manipulating PNG images"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Libpng"
 url = "http://www.libpng.org/pub/png/libpng.html"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(SOURCEFORGE_SITE)/libpng/libpng-{pkgver}.tar.xz"
 sha256 = "6a5ca0652392a2d7c9db2ae5b40210843c0bbc081cbd410825ab00cc59f14a6c"
 
 

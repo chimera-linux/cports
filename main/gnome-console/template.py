@@ -23,5 +23,7 @@ pkgdesc = "GNOME console"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/console"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = (
+    f"$(GNOME_SITE)/gnome-console/{pkgver[:-2]}/gnome-console-{pkgver}.tar.xz"
+)
 sha256 = "1619ce701773b2c0c903718f54768c192ea5074514d55a1774a92c97231d6c3e"

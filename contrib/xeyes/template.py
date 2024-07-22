@@ -8,7 +8,7 @@ pkgdesc = "Follow the mouse"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/app/xeyes-{pkgver}.tar.gz"
 sha256 = "e2f0ab2fd48d12444e42e537e235dc6141bb1750f2206140fe380fda6d7e1196"
 hardening = ["vis", "cfi"]
 

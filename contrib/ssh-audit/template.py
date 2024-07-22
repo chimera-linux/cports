@@ -14,7 +14,7 @@ pkgdesc = "SSH server & client configuration auditor"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jtesta/ssh-audit"
-source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/v{pkgver}/ssh-audit-{pkgver}.tar.gz"
 sha256 = "db21007cb84ac95fa899bdb8f35bb4102a9fd28fc8225c5d16ced4ab8aa0413b"
 
 

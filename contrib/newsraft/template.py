@@ -18,7 +18,7 @@ pkgdesc = "Feed reader for terminal"
 maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://codeberg.org/newsraft/newsraft"
-source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/archive/newsraft-{pkgver}.tar.gz"
 sha256 = "99e587c8dcd22addd1dbd1f6f3a823af234a941009f016abbbf325ab5a6c44a0"
 hardening = ["vis", "cfi"]
 

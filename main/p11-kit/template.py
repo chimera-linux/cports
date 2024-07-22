@@ -26,7 +26,7 @@ pkgdesc = "Provides a way to load and enumerate PKCS#11 modules"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/p11-glue/p11-kit"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/download/{pkgver}/p11-kit-{pkgver}.tar.xz"
 sha256 = "04d0a86450cdb1be018f26af6699857171a188ac6d5b8c90786a60854e1198e5"
 
 

@@ -12,7 +12,7 @@ pkgdesc = "C implementation of the OAuth protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/liboauth"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/liboauth/liboauth-{pkgver}.tar.gz"
 sha256 = "0df60157b052f0e774ade8a8bac59d6e8d4b464058cc55f9208d72e41156811f"
 
 

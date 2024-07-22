@@ -10,9 +10,7 @@ pkgdesc = "Library for Aldus/Adobe PageMaker format"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libpagemaker"
-source = (
-    f"https://dev-www.libreoffice.org/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-)
+source = f"https://dev-www.libreoffice.org/src/libpagemaker/libpagemaker-{pkgver}.tar.xz"
 sha256 = "66adacd705a7d19895e08eac46d1e851332adf2e736c566bef1164e7a442519d"
 
 

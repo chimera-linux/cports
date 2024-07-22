@@ -19,7 +19,7 @@ pkgdesc = "X.org daewoo misc font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-daewoo-misc-{pkgver}.tar.gz"
 sha256 = "54d9c3778a676f1ad4e467d6cc6e4c596147a85ac2dd4cfee2ba0e893a6eaf59"
 
 

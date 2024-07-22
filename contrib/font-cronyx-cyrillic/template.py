@@ -19,7 +19,7 @@ pkgdesc = "X.org cronyx cyrillic font"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
+source = f"$(XORG_SITE)/font/font-cronyx-cyrillic-{pkgver}.tar.gz"
 sha256 = "726090ba4062b2f6812d2affaa819ee6f56fe751e14a46bc67dc819685fd6129"
 
 

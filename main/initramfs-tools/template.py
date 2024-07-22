@@ -20,7 +20,7 @@ pkgdesc = "Generic modular initramfs generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/kernel-team/initramfs-tools"
-source = f"{url}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
+source = f"{url}/-/archive/v{pkgver}/initramfs-tools-v{pkgver}.tar.gz"
 sha256 = "5d3091b0393c4246bcdae499cfd5ba490c78194d7eede01d951f4124ff2f9895"
 # no tests
 options = ["!check"]

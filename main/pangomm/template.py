@@ -8,7 +8,7 @@ pkgdesc = "C++ bindings for Pango"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/pangomm/{pkgver[:-2]}/pangomm-{pkgver}.tar.xz"
 sha256 = "34a134126a6484ff12f774358c36ecc44d0e9df094e1b83796d9774bb7d24947"
 
 

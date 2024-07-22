@@ -7,7 +7,7 @@ pkgdesc = "ASN.1 structure parser library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnu.org/software/libtasn1"
-source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"$(GNU_SITE)/libtasn1/libtasn1-{pkgver}.tar.gz"
 sha256 = "1613f0ac1cf484d6ec0ce3b8c06d56263cc7242f1c23b30d82d23de345a63f7a"
 hardening = ["vis", "cfi"]
 

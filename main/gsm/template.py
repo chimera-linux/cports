@@ -10,7 +10,7 @@ pkgdesc = "GSM 06.10 lossy speech compression"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "TU-Berlin-2.0"
 url = "http://www.quut.com/gsm"
-source = f"{url}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/gsm-{pkgver}.tar.gz"
 sha256 = "f0072e91f6bb85a878b2f6dbf4a0b7c850c4deb8049d554c65340b3bf69df0ac"
 # racey mess of a build system
 options = ["!parallel", "!lto"]

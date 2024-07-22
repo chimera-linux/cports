@@ -18,7 +18,7 @@ pkgdesc = "Wallpaper tool for Wayland compositors"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/swaywm/swaybg"
-source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/v{pkgver}/swaybg-{pkgver}.tar.gz"
 sha256 = "6af1fdf0e57b1cc5345febed786b761fea0e170943a82639f94cfaed7df84f8f"
 hardening = ["vis", "cfi"]
 

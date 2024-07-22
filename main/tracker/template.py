@@ -37,7 +37,7 @@ pkgdesc = "Search engine and triplestore for desktop, embedded and mobile"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tracker"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/tracker/{pkgver[:-2]}/tracker-{pkgver}.tar.xz"
 sha256 = "ab3d4a50937e04c5ed7846f6dbb999e2909819402f389ca592ee6b77dd28d1f9"
 options = ["!cross"]
 

@@ -55,7 +55,7 @@ pkgdesc = "Modular status panel for X11 and Wayland"
 maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/yambar"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/{pkgver}/yambar-{pkgver}.tar.gz"
 sha256 = "9859ef16ba16069c3442283d76607712c0b7bc602b6fadf41b2c3d97a754d5f9"
 
 

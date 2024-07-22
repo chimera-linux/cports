@@ -98,7 +98,7 @@ pkgdesc = "Enlightenment Foundation Libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
-source = f"https://download.enlightenment.org/rel/libs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://download.enlightenment.org/rel/libs/efl/efl-{pkgver}.tar.xz"
 sha256 = "3dfb99fbcc268c0bc797e2f83e8c503ef9de66284f40b381bb597a08185c00f4"
 tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE", "-D__USE_MISC"]}
 # FIXME int: janky codebase

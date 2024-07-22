@@ -17,7 +17,7 @@ pkgdesc = "GObject-based library for accessing the Secret Service API"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libsecret"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/libsecret/{pkgver[:-2]}/libsecret-{pkgver}.tar.xz"
 sha256 = "163d08d783be6d4ab9a979ceb5a4fecbc1d9660d3c34168c581301cd53912b20"
 # does not work in container
 options = ["!check", "!cross"]

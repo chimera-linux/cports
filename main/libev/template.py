@@ -6,7 +6,7 @@ pkgdesc = "High-performance event loop loosely modelled after libevent"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause OR GPL-2.0-or-later"
 url = "http://software.schmorp.de/pkg/libev.html"
-source = f"http://dist.schmorp.de/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"http://dist.schmorp.de/libev/libev-{pkgver}.tar.gz"
 sha256 = "507eb7b8d1015fbec5b935f34ebed15bf346bed04a11ab82b8eee848c4205aea"
 
 

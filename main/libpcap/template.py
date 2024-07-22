@@ -14,7 +14,7 @@ pkgdesc = "System-independent interface for user-level packet capture"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
-source = f"{url}/release/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/release/libpcap-{pkgver}.tar.gz"
 sha256 = "ed19a0383fad72e3ad435fd239d7cd80d64916b87269550159d20e47160ebe5f"
 hardening = ["!vis", "!cfi"]
 # no check target

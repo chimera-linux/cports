@@ -44,7 +44,7 @@ pkgdesc = "GNU Transport Layer Security library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
-source = f"https://www.gnupg.org/ftp/gcrypt/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://www.gnupg.org/ftp/gcrypt/gnutls/v{pkgver[:-2]}/gnutls-{pkgver}.tar.xz"
 sha256 = "2e1588aae53cb32d43937f1f4eca28febd9c0c7aa1734fc5dd61a7e81e0ebcdd"
 
 

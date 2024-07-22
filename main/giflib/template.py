@@ -8,7 +8,7 @@ pkgdesc = "Library to handle, display and manipulate GIFs"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/giflib"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/giflib/giflib-{pkgver}.tar.gz"
 sha256 = "be7ffbd057cadebe2aa144542fd90c6838c6a083b5e8a9048b8ee3b66b29d5fb"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 

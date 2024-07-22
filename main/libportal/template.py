@@ -19,7 +19,7 @@ pkgdesc = "Flatpak portal library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://github.com/flatpak/libportal"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/download/{pkgver}/libportal-{pkgver}.tar.xz"
 sha256 = "297b90b263fad22190a26b8c7e8ea938fe6b18fb936265e588927179920d3805"
 
 

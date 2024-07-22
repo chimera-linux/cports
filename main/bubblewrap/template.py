@@ -9,6 +9,6 @@ pkgdesc = "Unprivileged sandboxing tool"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://github.com/containers/bubblewrap"
-source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"{url}/releases/download/v{pkgver}/bubblewrap-{pkgver}.tar.xz"
 sha256 = "c6347eaced49ac0141996f46bba3b089e5e6ea4408bc1c43bab9f2d05dd094e1"
 hardening = ["vis", "cfi"]

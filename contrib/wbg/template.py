@@ -20,7 +20,7 @@ pkgdesc = "Wallpaper application for Wayland compositors"
 maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/wbg"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/{pkgver}/wbg-{pkgver}.tar.gz"
 sha256 = "a176576f3ca8d0494a5ce60a06970c093dcb46020ca678e5a327034ad8477a5e"
 
 

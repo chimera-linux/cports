@@ -9,9 +9,7 @@ pkgdesc = "S-Lang programming library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.jedsoft.org/slang"
-source = (
-    f"https://www.jedsoft.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-)
+source = f"https://www.jedsoft.org/releases/slang/slang-{pkgver}.tar.bz2"
 sha256 = "f9145054ae131973c61208ea82486d5dd10e3c5cdad23b7c4a0617743c8f5a18"
 # racey; FIXME: rand module fails (likely integer overflow) but we delete that
 options = ["!parallel", "!check", "linkundefver"]
