@@ -56,8 +56,8 @@ depends = [
 ]
 provides = [
     # backwards-compatibility with old subpackages
-    f"firefox-default={pkgver}-r{pkgrel}",
-    f"firefox-wayland={pkgver}-r{pkgrel}",
+    self.with_pkgver("firefox-default"),
+    self.with_pkgver("firefox-wayland"),
 ]
 pkgdesc = "Mozilla Firefox web browser"
 maintainer = "q66 <q66@chimera-linux.org>"

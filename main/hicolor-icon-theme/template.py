@@ -13,5 +13,5 @@ sha256 = "db0e50a80aa3bf64bb45cbca5cf9f75efd9348cf2ac690b907435238c3cf81d7"
 
 @subpackage("hicolor-icon-theme-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
     return self.default_devel()

@@ -47,7 +47,7 @@ def _tinfo(self):
 
 @subpackage("foot-themes")
 def _themes(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     self.subdesc = "colour themes"
 
     return ["usr/share/foot/themes"]

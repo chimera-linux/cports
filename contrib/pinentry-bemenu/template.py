@@ -19,7 +19,7 @@ sha256 = "a1296ed087335d68df65442b222bcdd34c9b51132623a8141d5a8cca8e735a1c"
 
 @subpackage("pinentry-bemenu-default")
 def _def(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     self.provides = ["pinentry-default=0"]
     self.origin = "pinentry"
 

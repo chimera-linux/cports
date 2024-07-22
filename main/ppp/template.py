@@ -65,7 +65,7 @@ def post_install(self):
 
 @subpackage("ppp-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "libpcap-devel"]
+    self.depends += [self.parent, "libpcap-devel"]
 
     return self.default_devel()
 

@@ -37,7 +37,7 @@ def _devel(self):
 @subpackage("heif-thumbnailer")
 def _thumbnailer(self):
     self.subdesc = "thumbnailer"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     return [
         "usr/bin/heif-thumbnailer",
         "usr/share/man/man1/heif-thumbnailer.1",

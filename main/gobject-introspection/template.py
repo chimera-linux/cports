@@ -46,7 +46,7 @@ def _girfdo(self):
 def _libgir(self):
     self.pkgdesc = "Library for handling gir data"
     self.subdesc = "runtime library"
-    self.depends += [f"gir-freedesktop={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("gir-freedesktop")]
 
     return self.default_libs()
 

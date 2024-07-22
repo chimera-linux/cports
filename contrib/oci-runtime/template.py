@@ -15,9 +15,9 @@ options = ["!check"]
 def _runc(self):
     self.subdesc = "runc"
     self.depends = ["runc"]
-    self.provides = [f"oci-runtime-provider={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("oci-runtime-provider")]
     # default
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
 
     return []
 
@@ -26,6 +26,6 @@ def _runc(self):
 def _crun(self):
     self.subdesc = "crun"
     self.depends = ["crun"]
-    self.provides = [f"oci-runtime-provider={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("oci-runtime-provider")]
 
     return []

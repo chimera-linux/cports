@@ -92,7 +92,7 @@ def post_install(self):
 @subpackage("iptables-nft")
 def _nft(self):
     self.subdesc = "use nftables"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
+    self.install_if = [self.parent]  # prefer
 
     return [
         "@usr/bin/iptables=>xtables-nft-multi",

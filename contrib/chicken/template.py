@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
-depends = [f"chicken-devel={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("chicken-devel")]
 pkgdesc = "Practical and portable Scheme system"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"

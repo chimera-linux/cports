@@ -70,7 +70,7 @@ def post_install(self):
 @subpackage("chimerautils-extra")
 def _full(self):
     self.subdesc = "additional tools"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         "etc/locate.rc",

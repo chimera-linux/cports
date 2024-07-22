@@ -27,7 +27,7 @@ def post_install(self):
 def _x11(self):
     self.subdesc = "X11 integration"
     self.options = ["empty"]
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "xset"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xserver-xorg-core"]
+    self.depends = [self.parent, "xset"]
+    self.install_if = [self.parent, "xserver-xorg-core"]
 
     return []

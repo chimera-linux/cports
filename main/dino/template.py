@@ -53,7 +53,7 @@ def _genmod(pname, pdesc):
         self.subdesc = f"{pdesc} plugin"
         # this is not normally built with default settings
         if pname != "notification-sound":
-            self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+            self.install_if = [self.parent]
         return [f"usr/lib/dino/plugins/{pname}.so"]
 
 

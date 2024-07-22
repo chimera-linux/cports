@@ -32,7 +32,7 @@ makedepends = [
     "rust-std",
     "vala-devel",
 ]
-provides = [f"gdk-pixbuf-loader-svg={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("gdk-pixbuf-loader-svg")]
 pkgdesc = "SVG library for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"

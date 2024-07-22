@@ -112,6 +112,6 @@ def _demo(self):
 @subpackage("gtk+3-cups")
 def _cups(self):
     self.subdesc = "CUPS print backend"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
+    self.install_if = [self.parent, "cups"]
 
     return ["usr/lib/gtk-3.0/3.0.0/printbackends/libprintbackend-cups.so"]

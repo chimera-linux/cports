@@ -26,7 +26,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-provides = [f"wget={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("wget")]
 pkgdesc = "GNU downloader"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

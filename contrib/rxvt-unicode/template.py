@@ -31,7 +31,7 @@ makedepends = [
     "startup-notification-devel",
     "xorgproto",
 ]
-depends = [f"rxvt-unicode-terminfo={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("rxvt-unicode-terminfo")]
 pkgdesc = "Terminal emulator supporting Xft fonts and Unicode"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

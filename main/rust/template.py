@@ -24,7 +24,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-depends = [f"rust-std={pkgver}-r{pkgrel}", "clang", "musl-devel"]
+depends = [self.with_pkgver("rust-std"), "clang", "musl-devel"]
 pkgdesc = "Rust programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
@@ -416,7 +416,7 @@ def do_install(self):
 @subpackage("rust-wasm")
 def _wasm(self):
     self.pkgdesc = "WebAssembly targets"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "lld", "wasi-libc"]
+    self.depends = [self.parent, "lld", "wasi-libc"]
     self.options = ["!strip"]
 
     return ["usr/lib/rustlib/wasm32-*"]
@@ -425,7 +425,7 @@ def _wasm(self):
 @subpackage("rust-clippy")
 def _clippy(self):
     self.pkgdesc = "Lints to catch common mistakes"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         "usr/bin/cargo-clippy",
@@ -436,7 +436,7 @@ def _clippy(self):
 @subpackage("rustfmt")
 def _fmt(self):
     self.pkgdesc = "Rust code formatter"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     return [
         "usr/bin/rustfmt",

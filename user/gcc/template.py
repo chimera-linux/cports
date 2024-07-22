@@ -191,7 +191,7 @@ def post_install(self):
 @subpackage("gcc-fortran")
 def _fortran(self):
     self.subdesc = "Fortran frontend"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     self.nopie_files = [
         "usr/bin/gfortran",
         f"usr/lib/gcc/{_trip}/{_mnver}/f951",
@@ -213,7 +213,7 @@ def _fortran(self):
 @subpackage("gcc-objc")
 def _objc(self):
     self.subdesc = "Objective-C"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     self.nopie_files = [
         f"usr/lib/gcc/{_trip}/{_mnver}/cc1obj",
     ]

@@ -18,7 +18,7 @@ def post_install(self):
 
 @subpackage("wpebackend-fdo-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
     # does not include the .so file; it's dlopened by things at runtime
     return [
         "usr/include",

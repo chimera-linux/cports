@@ -71,7 +71,7 @@ def _autoipd(self):
 
 @subpackage("avahi-compat-devel")
 def _compat_devel(self):
-    self.depends += [f"avahi-devel={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("avahi-devel")]
     self.subdesc = "compat development files"
 
     return [

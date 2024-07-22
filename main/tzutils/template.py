@@ -44,7 +44,7 @@ def _tzdatar(self):
     self.pkgdesc = "Time zone and daylight-saving time data"
     self.subdesc = "TAI"
     self.options = ["hardlinks"]
-    self.depends = [f"tzdata={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("tzdata")]
 
     return ["usr/share/zoneinfo/right"]
 

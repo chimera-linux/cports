@@ -27,7 +27,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-devel",
 ]
-depends = [f"mesa-utils={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("mesa-utils")]
 pkgdesc = "Collection of OpenGL and Mesa demos and test programs"
 maintainer = "eater <=@eater.me>"
 license = "MIT"

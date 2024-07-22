@@ -99,7 +99,7 @@ def post_install(self):
 @subpackage("subversion-gnome-keyring")
 def _gkeyring(self):
     self.subdesc = "GNOME keyring integration"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gnome-keyring"]
+    self.install_if = [self.parent, "gnome-keyring"]
 
     return ["usr/lib/libsvn_auth_gnome_keyring*.so.*"]
 

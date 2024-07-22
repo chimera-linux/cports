@@ -3,7 +3,7 @@ pkgname = "bzip2"
 pkgver = "1.0.8"
 pkgrel = 3
 hostmakedepends = ["pkgconf"]
-provides = [f"libbz2={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("libbz2")]
 pkgdesc = "Freely available, patent free, high-quality data compressor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:bzip2"
@@ -58,6 +58,6 @@ def do_install(self):
 
 @subpackage("bzip2-devel")
 def _devel(self):
-    self.provides = [f"libbz2-devel={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("libbz2-devel")]
 
     return self.default_devel()

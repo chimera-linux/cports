@@ -14,7 +14,7 @@ make_dir = "mbuild"
 meson_dir = "build/meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["lz4-devel", "xz-devel", "zlib-ng-compat-devel"]
-provides = [f"libzstd={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("libzstd")]
 pkgdesc = "Zstd compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -34,13 +34,13 @@ def post_install(self):
 
 @subpackage("zstd-progs")
 def _progs(self):
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
 
     return self.default_progs()
 
 
 @subpackage("zstd-devel")
 def _devel(self):
-    self.provides = [f"libzstd-devel={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("libzstd-devel")]
 
     return self.default_devel()

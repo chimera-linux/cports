@@ -11,7 +11,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-provides = [f"boost{pkgver[:-2]}={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver(f"boost{pkgver[:-2]}")]
 pkgdesc = "Free peer-reviewed portable C++ source libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSL-1.0"
@@ -172,16 +172,16 @@ def do_check(self):
 @subpackage("boost-build")
 def _jam(self):
     self.subdesc = "Boost.Build framework"
-    self.depends = [f"boost={pkgver}-r{pkgrel}"]
-    self.provides = [f"boost{pkgver[:-2]}-build={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
+    self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-build")]
 
     return ["usr/bin/b2", "etc/site-config.jam", "usr/share/b2"]
 
 
 @subpackage("boost-devel")
 def _devel(self):
-    self.depends = [f"boost={pkgver}-r{pkgrel}", *makedepends]
-    self.provides = [f"boost{pkgver[:-2]}-devel={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent, *makedepends]
+    self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-devel")]
 
     return self.default_devel()
 
@@ -190,8 +190,8 @@ def _gen_libp(libname):
     @subpackage(f"boost-{libname}-libs")
     def _subp(self):
         self.subdesc = libname
-        self.depends = [f"boost={pkgver}-r{pkgrel}"]
-        self.provides = [f"libboost_{libname}={pkgver}-r{pkgrel}"]
+        self.depends = [self.parent]
+        self.provides = [self.with_pkgver(f"libboost_{libname}")]
 
         return [f"usr/lib/libboost_{libname}*.so.*"]
 

@@ -70,7 +70,7 @@ def _develdoc(self):
 
 @subpackage("vala-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
 
     # do not pick up vapigen.pc etc
     return [

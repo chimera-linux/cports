@@ -12,9 +12,9 @@ url = "https://chimera-linux.org"
 @subpackage("base-desktop-gnome")
 def _gnome(self):
     self.subdesc = "GNOME"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "gnome",
     ]
     return []

@@ -6,7 +6,7 @@ configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "qt6-qtbase"]
 makedepends = ["qt6-qtbase-devel"]
-depends = [f"qt6-qtshadertools-libs={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("qt6-qtshadertools-libs")]
 pkgdesc = "Qt6 shader tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = (
@@ -29,7 +29,7 @@ def _libs(self):
 @subpackage("qt6-qtshadertools-devel")
 def _devel(self):
     self.depends += [
-        f"{pkgname}={pkgver}-r{pkgrel}",
+        self.parent,
         "spirv-tools",
     ]
     return self.default_devel(

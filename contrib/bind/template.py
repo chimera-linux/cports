@@ -32,7 +32,7 @@ makedepends = [
     "userspace-rcu-devel",
 ]
 checkdepends = ["python-pytest", "python-dnspython"]
-depends = [f"bind-progs={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("bind-progs")]
 pkgdesc = "ISC DNS server"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MPL-2.0"

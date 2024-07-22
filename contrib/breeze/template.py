@@ -24,7 +24,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 depends = [
-    f"breeze-cursors={pkgver}-r{pkgrel}",
+    self.with_pkgver("breeze-cursors"),
     "breeze-icons",
     "frameworkintegration",
 ]

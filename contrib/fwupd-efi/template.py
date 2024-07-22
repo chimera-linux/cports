@@ -38,11 +38,11 @@ if _sbat:
         "-Defi_sbat_distro_summary=Chimera Linux",
         "-Defi_sbat_distro_pkgname=fwupd-efi",
         "-Defi_sbat_distro_url=https://chimera-linux.org",
-        f"-Defi_sbat_distro_version={pkgver}-r{pkgrel}",
+        f"-Defi_sbat_distro_version={self.full_pkgver}",
     ]
 
 
 @subpackage("fwupd-efi-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
     return self.default_devel()

@@ -29,7 +29,7 @@ makedepends = [
     "sqlite-devel",
     "zstd-devel",
 ]
-depends = [f"minetest-common={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("minetest-common")]
 pkgdesc = "Voxel game creation platform"
 maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
@@ -65,6 +65,6 @@ def _common(self):
 @subpackage("minetest-server")
 def _server(self):
     self.subdesc = "server"
-    self.depends = [f"minetest-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("minetest-common")]
 
     return ["usr/bin/minetestserver"]

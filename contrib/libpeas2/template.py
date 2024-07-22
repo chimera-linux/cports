@@ -43,7 +43,7 @@ def _devel(self):
 def _python(self):
     self.subdesc = "Python support"
     self.depends += ["python-gobject"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "python"]
+    self.install_if = [self.parent, "python"]
     return ["usr/lib/libpeas-2/loaders/libpythonloader.so"]
 
 
@@ -51,12 +51,12 @@ def _python(self):
 def _lua(self):
     self.subdesc = "Lua 5.1 support"
     self.depends += ["lua5.1-lgi"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "lua5.1"]
+    self.install_if = [self.parent, "lua5.1"]
     return ["usr/lib/libpeas-2/loaders/liblua51loader.so"]
 
 
 @subpackage("libpeas2-gjs")
 def _gjs(self):
     self.subdesc = "GJS support"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gjs"]
+    self.install_if = [self.parent, "gjs"]
     return ["usr/lib/libpeas-2/loaders/libgjsloader.so"]

@@ -4,7 +4,7 @@ pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
-provides = [f"spng={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("spng")]
 replaces = ["spng<0.7.5"]
 pkgdesc = "Simple PNG library"
 maintainer = "Erica Z <zerica@callcc.eu>"
@@ -22,6 +22,6 @@ def post_install(self):
 
 @subpackage("libspng-devel")
 def _devel(self):
-    self.provides = [f"spng-devel={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("spng-devel")]
     self.replaces = ["spng-devel<0.7.5"]
     return self.default_devel()

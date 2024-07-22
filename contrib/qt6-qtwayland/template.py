@@ -15,7 +15,7 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-devel", "qt6-qtdeclarative-devel"]
 checkdepends = ["mesa-dri"]
-install_if = [f"qt6-qtbase-gui={pkgver}-r{pkgrel}", "wayland"]
+install_if = [self.with_pkgver("qt6-qtbase-gui"), "wayland"]
 pkgdesc = "Qt6 Wayland component"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = (

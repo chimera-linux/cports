@@ -46,7 +46,7 @@ def post_install(self):
 @subpackage("gstreamer-libcamera")
 def _gst(self):
     self.subdesc = "GStreamer support"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gstreamer"]
+    self.install_if = [self.parent, "gstreamer"]
     return ["usr/lib/gstreamer-1.0"]
 
 

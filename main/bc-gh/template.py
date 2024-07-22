@@ -39,6 +39,6 @@ def post_install(self):
 @subpackage("bc-gh-man")
 def _man(self):
     self.replaces = ["chimerautils-extra-man<=14.0.1-r0"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "base-man"]
+    self.install_if = [self.parent, "base-man"]
 
     return ["usr/share/man"]

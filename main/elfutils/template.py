@@ -35,7 +35,7 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 # transitional
-provides = [f"elftoolchain={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("elftoolchain")]
 pkgdesc = "Utilities and libraries to handle ELF files and DWARF data"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)"
@@ -86,7 +86,7 @@ def _libs(self):
     # prevent upgrades from elftoolchain (which had 1)
     pv = pkgver[2:]
     self.provides = [
-        f"libelf={pkgver}-r{pkgrel}",  # transitional
+        self.with_pkgver("libelf"),  # transitional
         f"so:libasm.so.1={pv}",  # allow for upgrade
         f"so:libdw.so.1={pv}",
         f"so:libelf.so.1={pv}",
@@ -98,6 +98,6 @@ def _libs(self):
 @subpackage("elfutils-devel")
 def _devel(self):
     # transitional
-    self.provides = [f"elftoolchain-devel={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver("elftoolchain-devel")]
 
     return self.default_devel()

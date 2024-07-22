@@ -19,7 +19,7 @@ depends = [
     "bmake",
     "bsdtar",
     "fakeroot-core",
-    f"base-cbuild-progs={pkgver}-r{pkgrel}",
+    self.with_pkgver("base-cbuild-progs"),
 ]
 provides = ["apk-tools-cache-link=9999-r0"]
 

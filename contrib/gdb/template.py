@@ -28,7 +28,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-depends = [f"gdb-common={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("gdb-common")]
 pkgdesc = "GNU debugger"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

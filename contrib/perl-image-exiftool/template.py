@@ -18,5 +18,5 @@ sha256 = "7f6a8090f1831783d4b3045847d9c13a229393dd6366e0eab46c44a400b86914"
 
 @subpackage("exiftool")
 def _exiftool(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
     return ["usr/bin"]

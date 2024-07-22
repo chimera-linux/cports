@@ -39,9 +39,9 @@ def _shared(self):
 @subpackage("spirv-tools-devel")
 def _devel(self):
     self.depends += [
-        f"{pkgname}={pkgver}-r{pkgrel}",
-        f"{pkgname}-devel-static={pkgver}-r{pkgrel}",
-        f"lib{pkgname}-shared={pkgver}-r{pkgrel}",
+        self.parent,
+        self.with_pkgver(f"{pkgname}-devel-static"),
+        self.with_pkgver(f"lib{pkgname}-shared"),
     ]
 
     return self.default_devel()

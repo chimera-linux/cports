@@ -34,9 +34,9 @@ def _gensub(subn, subd, subc, sube):
     @subpackage(f"fonts-noto-serif-cjk-{subn}")
     def _sub(self):
         self.subdesc = subd
-        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", f"!{pkgname}-{subc}"]
+        self.depends = [self.parent, f"!{pkgname}-{subc}"]
         if subn == "otf":
-            self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+            self.install_if = [self.parent]
 
         return [
             f"usr/share/fonts/noto/Noto*-Bold.{sube}",
@@ -47,12 +47,12 @@ def _gensub(subn, subd, subc, sube):
     def _sub_extra(self):
         self.subdesc = f"{subd} additional variants"
         self.depends = [
-            f"{pkgname}-extra={pkgver}-r{pkgrel}",
+            self.with_pkgver(f"{pkgname}-extra"),
             f"!{pkgname}-extra-{subc}",
             f"!{pkgname}-{subc}",
         ]
         if subn == "otf":
-            self.install_if = [f"{pkgname}-extra={pkgver}-r{pkgrel}"]
+            self.install_if = [self.with_pkgver(f"{pkgname}-extra")]
 
         return [f"usr/share/fonts/noto/*.{sube}"]
 
@@ -67,7 +67,7 @@ for _subn, _subd, _subc, _sube in [
 @subpackage("fonts-noto-serif-cjk-extra")
 def _extra(self):
     self.subdesc = "additional variants"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     self.options = ["empty"]
 
     return []

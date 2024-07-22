@@ -45,7 +45,7 @@ makedepends = [
     "zstd-devel",
 ]
 # binutils is a metapackage pointing to the current target binutils
-depends = [f"binutils-{self.profile().arch}={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver(f"binutils-{self.profile().arch}")]
 pkgdesc = "GNU binutils"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
@@ -252,7 +252,7 @@ def _gen_subp(an, native):
     @subpackage(f"binutils-{an}")
     def _subp(self):
         self.subdesc = an
-        self.depends = [f"binutils-common={pkgver}-r{pkgrel}"]
+        self.depends = [self.with_pkgver("binutils-common")]
 
         if native:
             # native binutils is last and takes all

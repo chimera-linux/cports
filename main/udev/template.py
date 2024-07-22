@@ -143,7 +143,7 @@ if _have_sd_boot:
         "-Dsbat-distro-summary=Chimera Linux",
         "-Dsbat-distro-pkgname=systemd-boot",
         "-Dsbat-distro-url=https://chimera-linux.org",
-        f"-Dsbat-distro-version={pkgver}-r{pkgrel}",
+        f"-Dsbat-distro-version={self.full_pkgver}",
     ]
     hostmakedepends += ["python-pyelftools"]
 
@@ -239,7 +239,7 @@ def _libs(self):
 @subpackage("systemd-boot", _have_sd_boot)
 def _boot(self):
     self.pkgdesc = "UEFI boot manager"
-    self.depends += [f"systemd-boot-efi={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("systemd-boot-efi")]
 
     return [
         "etc/default/systemd-boot",
@@ -272,8 +272,8 @@ def _efi(self):
 @subpackage("base-udev")
 def _base(self):
     self.pkgdesc = "Base package for udev configs"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
+    self.install_if = [self.parent]
     self.options = ["empty"]
 
     return []

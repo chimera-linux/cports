@@ -35,8 +35,8 @@ def _subpkg(sname, sdesc):
     @subpackage(f"bemenu-{sname}")
     def _spkg(self):
         self.subdesc = f"{sdesc} backend"
-        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-        self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.depends = [self.parent]
+        self.install_if = [self.parent]
 
         return [f"usr/lib/bemenu/bemenu-renderer-{sname}.so"]
 

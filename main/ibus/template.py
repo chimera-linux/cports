@@ -82,7 +82,7 @@ def _lib(self):
 @subpackage("ibus-gtk3")
 def _gtk3(self):
     self.subdesc = "Gtk+3 immodule"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
+    self.install_if = [self.parent, "gtk+3"]
 
     return ["usr/lib/gtk-3.0/3.0.0/immodules/im-ibus.so"]
 
@@ -90,7 +90,7 @@ def _gtk3(self):
 @subpackage("ibus-gtk4")
 def _gtk4(self):
     self.subdesc = "Gtk4 immodule"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk4"]
+    self.install_if = [self.parent, "gtk4"]
 
     return ["usr/lib/gtk-4.0/4.0.0/immodules/libim-ibus.so"]
 
@@ -98,7 +98,7 @@ def _gtk4(self):
 @subpackage("ibus-wayland")
 def _wayland(self):
     self.subdesc = "Wayland support"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "wayland"]
+    self.install_if = [self.parent, "wayland"]
 
     return ["usr/libexec/ibus-wayland"]
 
@@ -106,7 +106,7 @@ def _wayland(self):
 @subpackage("ibus-x11")
 def _xorg(self):
     self.subdesc = "X11 support"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "libx11"]
+    self.install_if = [self.parent, "libx11"]
 
     return ["usr/libexec/ibus-x11"]
 

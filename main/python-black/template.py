@@ -18,7 +18,7 @@ checkdepends = [
     "python-tokenize_rt",
     *depends,
 ]
-provides = [f"black={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("black")]
 pkgdesc = "Python formatting tool"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

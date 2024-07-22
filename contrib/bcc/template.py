@@ -32,7 +32,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 depends = [
-    f"python-bcc={pkgver}-r{pkgrel}",
+    self.with_pkgver("python-bcc"),
     # dep of half the programs in /usr/share/bcc/tools
     "bash",
 ]
@@ -73,5 +73,5 @@ def _libs(self):
 @subpackage("python-bcc")
 def _python(self):
     self.subdesc = "python module"
-    self.depends += [f"bcc-libs={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("bcc-libs")]
     return ["usr/lib/python*"]

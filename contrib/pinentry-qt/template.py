@@ -34,7 +34,7 @@ def post_install(self):
 
 @subpackage("pinentry-qt-default")
 def _default(self):
-    self.depends = [f"pinentry-qt={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     self.provides = ["pinentry-default=0"]
 
     return ["@usr/bin/pinentry=>pinentry-qt"]

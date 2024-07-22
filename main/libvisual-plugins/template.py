@@ -26,7 +26,7 @@ makedepends = [
     "libpulse-devel",
     "libvisual-devel",
 ]
-install_if = [f"libvisual-plugins-meta={pkgver}-r{pkgrel}"]
+install_if = [self.with_pkgver("libvisual-plugins-meta")]
 pkgdesc = "Plugins for libvisual"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"

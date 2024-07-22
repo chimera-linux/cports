@@ -83,7 +83,7 @@ def _gen(an):
             ]
 
     if an in _targets:
-        depends.append(f"base-cross-{an}={pkgver}-r{pkgrel}")
+        depends.append(self.with_pkgver(f"base-cross-{an}"))
 
 
 for _an in _targetlist:

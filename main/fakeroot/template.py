@@ -8,7 +8,7 @@ make_check_env = {"VERBOSE": "x"}
 hostmakedepends = ["automake", "gmake", "libtool"]
 makedepends = ["acl-devel"]
 checkdepends = ["ugetopt"]
-depends = [f"fakeroot-core={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("fakeroot-core")]
 pkgdesc = "Tool for simulating superuser privileges"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

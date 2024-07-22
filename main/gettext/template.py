@@ -66,8 +66,8 @@ def _libintl(self):
 @subpackage("gettext-devel")
 def _devel(self):
     self.depends += [
-        f"{pkgname}={pkgver}-r{pkgrel}",
-        f"{pkgname}-libintl={pkgver}-r{pkgrel}",
+        self.parent,
+        self.with_pkgver(f"{pkgname}-libintl"),
         "cmd:tar!bsdtar",
         "cmd:xz!xz",
     ]

@@ -18,7 +18,7 @@ hostmakedepends = [
 makedepends = ["pipewire-devel", "glib-devel", "lua5.4-devel"]
 checkdepends = ["pipewire", "dbus"]
 depends = ["pipewire"]
-provides = [f"pipewire-session-manager={pkgver}-r{pkgrel}"]
+provides = [self.with_pkgver("pipewire-session-manager")]
 pkgdesc = "Session and policy manager implementation for PipeWire"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

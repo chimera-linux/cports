@@ -53,7 +53,7 @@ tool_flags = {
 @subpackage("vte-gtk3")
 def _gtk3(self):
     self.subdesc = "Gtk+3"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     return [
         "usr/bin/vte-2.91",
         "usr/lib/libvte-2.91.so.*",
@@ -64,7 +64,7 @@ def _gtk3(self):
 @subpackage("vte-gtk4")
 def _gtk4(self):
     self.subdesc = "Gtk4"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
     return [
         "usr/bin/vte-2.91-gtk4",
         "usr/lib/libvte-2.91-gtk4.so.*",

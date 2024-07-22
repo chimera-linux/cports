@@ -215,18 +215,18 @@ def _spkg(sname):
     @subpackage(f"qemu-system-{sname}")
     def _system(self):
         self.subdesc = f"system-{sname}"
-        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.depends = [self.parent]
         self.options = ["foreignelf"]
 
         extras = []
 
         match sname:
             case "aarch64":
-                self.depends += [f"qemu-edk2-firmware={pkgver}-r{pkgrel}"]
+                self.depends += [self.with_pkgver("qemu-edk2-firmware")]
             case "alpha":
                 extras = ["usr/lib/qemu/palcode-clipper"]
             case "arm":
-                self.depends += [f"qemu-edk2-firmware={pkgver}-r{pkgrel}"]
+                self.depends += [self.with_pkgver("qemu-edk2-firmware")]
                 extras = [
                     "usr/lib/qemu/npcm7xx_bootrom.bin",
                 ]
@@ -237,7 +237,7 @@ def _spkg(sname):
                 ]
                 self.options += ["execstack"]
             case "i386":
-                self.depends += [f"qemu-edk2-firmware={pkgver}-r{pkgrel}"]
+                self.depends += [self.with_pkgver("qemu-edk2-firmware")]
             case "ppc":
                 extras = [
                     "usr/lib/qemu/openbios-ppc",
@@ -270,7 +270,7 @@ def _spkg(sname):
                 ]
                 self.options += ["execstack"]
             case "x86_64":
-                self.depends += [f"qemu-edk2-firmware={pkgver}-r{pkgrel}"]
+                self.depends += [self.with_pkgver("qemu-edk2-firmware")]
 
         # never strip them
         self.nostrip_files = extras

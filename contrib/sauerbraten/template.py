@@ -11,7 +11,7 @@ makedepends = [
     "sdl_mixer-devel",
     "zlib-ng-compat-devel",
 ]
-depends = [f"sauerbraten-data={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("sauerbraten-data")]
 pkgdesc = "Free FPS game, successor to Cube"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"

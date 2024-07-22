@@ -26,7 +26,7 @@ def _100dpi(self):
 @subpackage("fonts-xorg-75dpi")
 def _75dpi(self):
     self.subdesc = "100dpi"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "font-adobe-75dpi",
         "font-adobe-utopia-75dpi",
@@ -41,7 +41,7 @@ def _75dpi(self):
 @subpackage("fonts-xorg-cyrillic")
 def _cyrillic(self):
     self.subdesc = "cyrillic"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "font-cronyx-cyrillic",
         "font-misc-cyrillic",
@@ -55,7 +55,7 @@ def _cyrillic(self):
 @subpackage("fonts-xorg-misc")
 def _misc(self):
     self.subdesc = "misc"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "font-arabic-misc",
         "font-cursor-misc",
@@ -79,7 +79,7 @@ def _misc(self):
 @subpackage("fonts-xorg-type1")
 def _type1(self):
     self.subdesc = "type1"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [self.parent]
     self.depends = [
         "font-adobe-utopia-type1",
         "font-bh-type1",

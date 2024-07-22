@@ -88,7 +88,7 @@ def _genmod(pname, pdesc):
     @subpackage(f"certbot-{pname}")
     def _plug(self):
         self.pkgdesc = f"{pdesc} plugin for certbot"
-        self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.depends += [self.parent]
         match pname:
             case "dns-cloudflare":
                 self.depends += ["python-cloudflare"]
@@ -100,7 +100,7 @@ def _genmod(pname, pdesc):
                 self.depends += ["python-boto3", "python-botocore"]
             case "nginx":
                 self.depends += ["python-openssl", "python-pyparsing"]
-                self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "nginx"]
+                self.install_if = [self.parent, "nginx"]
 
         return [
             f"usr/lib/python*/site-packages/certbot_{pname.replace('-', '_')}*"

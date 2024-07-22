@@ -39,14 +39,14 @@ match self.profile().arch:
 @subpackage("lddtree")
 def _lddtree(self):
     self.depends += ["python-pyelftools"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "python"]
+    self.install_if = [self.parent, "python"]
     self.pkgdesc = "Print ELF dependency trees"
     return ["usr/bin/lddtree"]
 
 
 @subpackage("symtree")
 def _symtree(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "bash"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "bash"]
+    self.depends += [self.parent, "bash"]
+    self.install_if = [self.parent, "bash"]
     self.pkgdesc = "Display libraries that satisfy undefined symbols"
     return ["usr/bin/symtree"]

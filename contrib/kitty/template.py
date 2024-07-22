@@ -29,8 +29,8 @@ makedepends = [
     "xxhash-devel",
 ]
 depends = [
-    f"kitty-kitten={pkgver}-r{pkgrel}",
-    f"kitty-terminfo={pkgver}-r{pkgrel}",
+    self.with_pkgver("kitty-kitten"),
+    self.with_pkgver("kitty-terminfo"),
 ]
 pkgdesc = "Accelerated terminal emulator"
 maintainer = "q66 <q66@chimera-linux.org>"

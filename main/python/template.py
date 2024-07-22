@@ -56,9 +56,9 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["ca-certificates"]
-depends = [f"base-python{_majver}={pkgver}-r{pkgrel}", "ca-certificates"]
-provides = [f"python{_majver}={pkgver}-r{pkgrel}"]
-install_if = [f"base-python{_majver}={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver(f"base-python{_majver}"), "ca-certificates"]
+provides = [self.with_pkgver(f"python{_majver}")]
+install_if = [self.with_pkgver(f"base-python{_majver}")]
 pkgdesc = "Python programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
@@ -132,7 +132,7 @@ def do_install(self):
 
 @subpackage("python-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent]
 
     def install():
         import os

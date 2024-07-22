@@ -47,8 +47,8 @@ def post_install(self):
 @subpackage("fonts-dejavu-otf")
 def _otf(self):
     self.subdesc = "OpenType"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "!fonts-dejavu-ttf"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [self.parent, "!fonts-dejavu-ttf"]
+    self.install_if = [self.parent]
 
     return ["usr/share/fonts/dejavu/*.otf"]
 
@@ -56,6 +56,6 @@ def _otf(self):
 @subpackage("fonts-dejavu-ttf")
 def _ttf(self):
     self.subdesc = "TrueType"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "!fonts-dejavu-otf"]
+    self.depends = [self.parent, "!fonts-dejavu-otf"]
 
     return ["usr/share/fonts/dejavu/*.ttf"]

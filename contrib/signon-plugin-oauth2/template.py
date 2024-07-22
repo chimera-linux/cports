@@ -47,5 +47,5 @@ def post_install(self):
 
 @subpackage("signon-plugin-oauth2-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += [self.parent]
     return self.default_devel()

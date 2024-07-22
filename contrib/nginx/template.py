@@ -137,7 +137,7 @@ def _module(modn, eiif):
         ret = [f"usr/lib/nginx/{modso}"]
 
         if eiif is not False:
-            iif = [f"{pkgname}={pkgver}-r{pkgrel}"]
+            iif = [self.parent]
             if eiif:
                 iif += [eiif]
             self.install_if = iif

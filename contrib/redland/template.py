@@ -27,7 +27,7 @@ sha256 = "de1847f7b59021c16bdc72abb4d8e2d9187cd6124d69156f3326dd34ee043681"
 @subpackage("redland-storage-virtuoso")
 def _virtuoso(self):
     self.subdesc = "virtuoso storage backend"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "unixodbc-libs"]
+    self.install_if = [self.parent, "unixodbc-libs"]
 
     return ["usr/lib/redland/librdf_storage_virtuoso.so"]
 
@@ -35,7 +35,7 @@ def _virtuoso(self):
 @subpackage("redland-storage-sqlite")
 def _sqlite(self):
     self.subdesc = "SQLite storage backend"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "sqlite"]
+    self.install_if = [self.parent, "sqlite"]
 
     return ["usr/lib/redland/librdf_storage_sqlite.so"]
 

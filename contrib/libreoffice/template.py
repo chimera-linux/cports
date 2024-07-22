@@ -313,7 +313,7 @@ def _add_lang(langc, langd, langs):
 
         # soft-install at least one langpack by default
         if langc == "en_US":
-            self.install_if = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
+            self.install_if = [self.with_pkgver(f"{pkgname}-common")]
 
         def inst():
             _take_list(self, f"lang_{langc}")
@@ -451,18 +451,18 @@ def _gensub(subn, subd):
     def _sub(self):
         self.subdesc = f"{subd}"
         if subn == "writer" or subn == "gnome":
-            self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
+            self.depends = [self.with_pkgver(f"{pkgname}-common")]
         else:
             # the other apps can't launch without writer being present
-            self.depends = [f"{pkgname}-writer={pkgver}-r{pkgrel}"]
+            self.depends = [self.with_pkgver(f"{pkgname}-writer")]
 
         # we install gtk integration always by default, to give people
         # a decent UI out of box, but make it a softdep (removable)
         # other stuff is soft-installed by the full metapackage
         if subn == "gnome":
-            self.install_if = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
+            self.install_if = [self.with_pkgver(f"{pkgname}-common")]
         else:
-            self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+            self.install_if = [self.parent]
 
         def inst():
             _take_list(self, subn)
@@ -485,9 +485,9 @@ for _subn, _subd in [
 @subpackage("libreoffice-qt6")
 def _qt6(self):
     self.subdesc = "Qt6 integration"
-    self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver(f"{pkgname}-common")]
     # qt6 integration for those who already have qt
-    self.install_if = [f"{pkgname}-common={pkgver}-r{pkgrel}", "qt6-qtbase-gui"]
+    self.install_if = [self.with_pkgver(f"{pkgname}-common"), "qt6-qtbase-gui"]
 
     return ["usr/lib/libreoffice/program/libvclplug_qt6lo.so"]
 
@@ -495,11 +495,11 @@ def _qt6(self):
 @subpackage("libreoffice-kf6")
 def _kf6(self):
     self.subdesc = "KF6 integration"
-    self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver(f"{pkgname}-common")]
     # KDE integration for those with plasma
     # TODO: what package actually?
     self.install_if = [
-        f"{pkgname}-common={pkgver}-r{pkgrel}",
+        self.with_pkgver(f"{pkgname}-common"),
         "plasma-workspace",
     ]
 

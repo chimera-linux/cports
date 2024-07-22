@@ -2,7 +2,7 @@ pkgname = "firmware-sof"
 pkgver = "2024.06"
 pkgrel = 0
 archs = ["x86_64"]
-install_if = [f"base-firmware-sof={pkgver}-r{pkgrel}"]
+install_if = [self.with_pkgver("base-firmware-sof")]
 pkgdesc = "Sound Open Firmware"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

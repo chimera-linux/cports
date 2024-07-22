@@ -59,8 +59,8 @@ makedepends = [
     "linux-headers",
 ]
 depends = [
-    f"{pkgname}-jdk={pkgver}-r{pkgrel}",
-    f"{pkgname}-demos={pkgver}-r{pkgrel}",
+    self.with_pkgver(f"{pkgname}-jdk"),
+    self.with_pkgver(f"{pkgname}-demos"),
 ]
 pkgdesc = f"Oracle OpenJDK {_majver}"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -193,7 +193,7 @@ def _jmods(self):
 @subpackage(f"openjdk{_majver}-src")
 def _src(self):
     self.subdesc = "sources"
-    self.depends = [f"openjdk{_majver}-jre-headless={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver(f"openjdk{_majver}-jre-headless")]
 
     return [f"{_java_home}/lib/src.zip"]
 
@@ -201,7 +201,7 @@ def _src(self):
 @subpackage(f"openjdk{_majver}-jre")
 def _jre(self):
     self.subdesc = "runtime"
-    self.depends = [f"openjdk{_majver}-jre-headless={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver(f"openjdk{_majver}-jre-headless")]
 
     return [
         f"{_java_home}/lib/libawt_xawt.so",
@@ -252,8 +252,8 @@ def _jreh(self):
 def _jdk(self):
     self.subdesc = "JDK"
     self.depends = [
-        f"openjdk{_majver}-jre={pkgver}-r{pkgrel}",
-        f"openjdk{_majver}-jmods={pkgver}-r{pkgrel}",
+        self.with_pkgver(f"openjdk{_majver}-jre"),
+        self.with_pkgver(f"openjdk{_majver}-jmods"),
     ]
 
     return [
@@ -269,9 +269,7 @@ def _jrehdef(self):
     # default version
     self.provider_priority = 100
     # compat
-    self.provides = [
-        f"openjdk{_majver}-jre-headless-default={pkgver}-r{pkgrel}"
-    ]
+    self.provides = [self.with_pkgver(f"openjdk{_majver}-jre-headless-default")]
     return [
         "usr/bin/java",
         "usr/bin/jfr",
@@ -292,11 +290,11 @@ def _jredef(self):
     # default version
     self.provider_priority = 100
     # compat
-    self.provides = [f"openjdk{_majver}-jre-default={pkgver}-r{pkgrel}"]
+    self.provides = [self.with_pkgver(f"openjdk{_majver}-jre-default")]
     # requires
     self.depends += [
-        f"java-jre-headless-openjdk{_majver}-default={pkgver}-r{pkgrel}",
-        f"openjdk{_majver}-jre={pkgver}-r{pkgrel}",
+        self.with_pkgver(f"java-jre-headless-openjdk{_majver}-default"),
+        self.with_pkgver(f"openjdk{_majver}-jre"),
     ]
     # empty
     self.options = ["empty"]
@@ -309,11 +307,11 @@ def _jdkdef(self):
     self.provider_priority = 100
     # compat
     self.provides = [
-        f"openjdk{_majver}-jdk-default={pkgver}-r{pkgrel}",
-        f"openjdk{_majver}-default={pkgver}-r{pkgrel}",
+        self.with_pkgver(f"openjdk{_majver}-jdk-default"),
+        self.with_pkgver(f"openjdk{_majver}-default"),
     ]
     # requires the stuff
-    self.depends += [f"java-jre-openjdk{_majver}-default={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver(f"java-jre-openjdk{_majver}-default")]
     return [
         "usr/bin",
         "usr/share/man",

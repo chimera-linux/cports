@@ -58,7 +58,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["xz", "iproute2", "socat", "procps"]
-depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+depends = [self.with_pkgver("util-linux-common")]
 pkgdesc = "Miscellaneous Linux utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -148,7 +148,7 @@ def _common(self):
 @subpackage("dmesg")
 def _dmesg(self):
     self.pkgdesc = "Utility for kernel ring buffer manipulation"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/dmesg",
@@ -160,7 +160,7 @@ def _dmesg(self):
 @subpackage("mount")
 def _mnt(self):
     self.pkgdesc = "The mount(8) program and related utilities"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
     self.file_modes = {
         "usr/bin/mount": ("root", "root", 0o4755),
         "usr/bin/umount": ("root", "root", 0o4755),
@@ -231,7 +231,7 @@ def _mnt_devel(self):
 @subpackage("fdisk")
 def _fdisk(self):
     self.pkgdesc = "The fdisk(8) program and related utilities"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/*fdisk",
@@ -261,7 +261,7 @@ def _fdisk_devel(self):
 @subpackage("mkfs")
 def _mkfs(self):
     self.pkgdesc = "Utilities for filesystem manipulation"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/mkfs*",
@@ -282,7 +282,7 @@ def _mkfs(self):
 @subpackage("fstrim")
 def _fstrim(self):
     self.pkgdesc = "SSD trimming utilities"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/fstrim",
@@ -297,7 +297,7 @@ def _fstrim(self):
 @subpackage("rfkill")
 def _rfkill(self):
     self.pkgdesc = "Tool for enabling and disabling wireless devices"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/rfkill",
@@ -309,7 +309,7 @@ def _rfkill(self):
 @subpackage("irqtop")
 def _irqtop(self):
     self.pkgdesc = "Utility to display kernel interrupt information"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/irqtop",
@@ -321,7 +321,7 @@ def _irqtop(self):
 @subpackage("lscpu")
 def _lscpu(self):
     self.pkgdesc = "Utility to display CPU information"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/lscpu",
@@ -333,7 +333,7 @@ def _lscpu(self):
 @subpackage("rename")
 def _rename(self):
     self.pkgdesc = "Bulk rename utility"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/rename",
@@ -345,7 +345,7 @@ def _rename(self):
 @subpackage("runuser")
 def _runuser(self):
     self.pkgdesc = "Utilities to run commands with different privileges"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/runuser",
@@ -360,7 +360,7 @@ def _runuser(self):
 @subpackage("zramctl")
 def _zramctl(self):
     self.pkgdesc = "Set up and control zram devices"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/zramctl",
@@ -372,7 +372,7 @@ def _zramctl(self):
 @subpackage("util-linux-ns")
 def _ns(self):
     self.pkgdesc = "Namespace-related utilities"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/lsns",
@@ -390,7 +390,7 @@ def _ns(self):
 @subpackage("util-linux-ipc")
 def _ipc(self):
     self.pkgdesc = "IPC-related utilities"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/*ipc*",
@@ -402,7 +402,7 @@ def _ipc(self):
 @subpackage("util-linux-utmp")
 def _utmp(self):
     self.pkgdesc = "UTMP-related utilities"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
         "usr/bin/last*",
@@ -427,7 +427,7 @@ def _libblkid(self):
 @subpackage("libblkid-devel")
 def _libblkid_devel(self):
     self.pkgdesc = "Library to handle device identification"
-    self.depends += [f"libuuid-devel={pkgver}-r{pkgrel}"]
+    self.depends += [self.with_pkgver("libuuid-devel")]
 
     return [
         "usr/lib/libblkid.*",
@@ -462,8 +462,8 @@ def _libuuid_devel(self):
 @subpackage("libuuid-progs")
 def _uuid(self):
     self.pkgdecs = "Runtime components for the UUID library"
-    self.depends = [f"util-linux-common={pkgver}-r{pkgrel}", "shadow"]
-    self.install_if = [f"libuuid={pkgver}-r{pkgrel}"]
+    self.depends = [self.with_pkgver("util-linux-common"), "shadow"]
+    self.install_if = [self.with_pkgver("libuuid")]
 
     return [
         "etc/dinit.d",
