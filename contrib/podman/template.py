@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "5.1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
 hostmakedepends = [
@@ -46,8 +46,7 @@ license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
 sha256 = "0e1c4202d25dc270b996583cff97d806eab88682beb9586a6813431559273fc9"
-# objcopy fails to split on ppc
-options = ["!debug", "!check"]
+options = ["!check"]
 
 
 def post_build(self):

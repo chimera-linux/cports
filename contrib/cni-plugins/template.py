@@ -1,6 +1,6 @@
 pkgname = "cni-plugins"
 pkgver = "1.5.1"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["bash", "go"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standard CNI plugins for containers"
@@ -9,9 +9,8 @@ license = "Apache-2.0"
 url = "https://www.cni.dev"
 source = f"https://github.com/containernetworking/plugins/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "a2eff5f064f809ee41f8f49ef8aed1f0a4093c0c772f2ce2caaee4e6f395050a"
-# objcopy fails on ppc
 # can't run tests inside namespaces
-options = ["!debug", "!check"]
+options = ["!check"]
 
 
 def post_prepare(self):

@@ -1,6 +1,6 @@
 pkgname = "gopls"
 pkgver = "0.16.1"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "gopls"
 build_style = "go"
 hostmakedepends = ["go"]
@@ -13,9 +13,8 @@ source = (
     f"https://github.com/golang/tools/archive/refs/tags/gopls/v{pkgver}.tar.gz"
 )
 sha256 = "0805bb9d3bfa51334b4d45a3182daea3e77ecbe27f4ddc672841ec72f63ed20a"
-# debug: fails to split on powerpc
-# check: regtest/marker fails with go1.22
-options = ["!debug", "!check"]
+# regtest/marker fails with go1.22
+options = ["!check"]
 
 
 def do_prepare(self):

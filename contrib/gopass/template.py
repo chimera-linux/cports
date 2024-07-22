@@ -1,6 +1,6 @@
 pkgname = "gopass"
 pkgver = "1.15.13"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["git", "gnupg"]
@@ -12,9 +12,8 @@ source = (
     f"https://github.com/gopasspw/gopass/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "8f7ee347f517bf66a7d0760e7a5ed6c948d66737559bd04fa8da594801ed9b4f"
-# debug: fails to split on powerpc
-# check: needs initialising git config
-options = ["!debug", "!check"]
+# needs initialising git config
+options = ["!check"]
 
 
 def post_install(self):

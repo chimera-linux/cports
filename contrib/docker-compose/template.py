@@ -1,6 +1,6 @@
 pkgname = "docker-compose"
 pkgver = "2.29.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags",
@@ -15,8 +15,7 @@ license = "Apache-2.0"
 url = "https://docs.docker.com/compose"
 source = f"https://github.com/docker/compose/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "0e34f4822e6e1076e94cff203b50c0f4a624b7a2673531ec97b04d5859c9dac2"
-# need a running docker daemon
-options = ["!debug", "!check"]
+options = ["!check"]
 
 
 def do_install(self):

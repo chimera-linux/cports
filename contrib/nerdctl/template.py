@@ -1,6 +1,6 @@
 pkgname = "nerdctl"
 pkgver = "1.7.6"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = ["./cmd/nerdctl"]
 hostmakedepends = ["go"]
@@ -11,10 +11,9 @@ license = "Apache-2.0"
 url = "https://github.com/containerd/nerdctl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "9a204b15ab4a0c260a9615a0254fb91ec2ccd9815be85b0890130ef1f3920717"
-# objcopy fails to split on ppc
 # can't run tests inside namespaces
 # cross: generates completions with host binary
-options = ["!debug", "!check", "!cross"]
+options = ["!check", "!cross"]
 
 
 def post_build(self):

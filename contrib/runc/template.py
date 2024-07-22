@@ -1,6 +1,6 @@
 pkgname = "runc"
 pkgver = "1.1.13"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["all", "man", f"COMMIT=chimera-r{pkgrel}"]
@@ -22,9 +22,8 @@ license = "Apache-2.0"
 url = "https://github.com/opencontainers/runc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "789d5749a08ef1fbe5d1999b67883206a68a4e58e6ca0151c411d678f3480b25"
-# objcopy fails on ppc
 # tests create namespaces and fail because no perms
-options = ["!debug", "!check"]
+options = ["!check"]
 
 
 def post_extract(self):
