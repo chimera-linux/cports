@@ -1,0 +1,11 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1692,7 +1692,7 @@
+ 	src/daemon/utils_llist.c \
+ 	src/daemon/configfile.c \
+ 	src/daemon/types_list.c
+-test_plugin_pcie_errors_CPPFLAGS = $(AM_CPPFLAGS)
++test_plugin_pcie_errors_CPPFLAGS = $(AM_CPPFLAGS) -U_FORTIFY_SOURCE
+ test_plugin_pcie_errors_LDFLAGS = $(PLUGIN_LDFLAGS)
+ test_plugin_pcie_errors_LDADD = liboconfig.la libplugin_mock.la
+ check_PROGRAMS += test_plugin_pcie_errors
