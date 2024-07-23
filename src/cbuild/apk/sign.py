@@ -43,7 +43,7 @@ def keygen(size, eaddr, cfgfile, cfgpath):
 
     if not keypath or eaddr:
         # does not have to succeed, e.g. there may not even be git at all
-        if not eaddr:
+        if not eaddr and shutil.which("git"):
             eaddr = subprocess.run(
                 ["git", "config", "--get", "user.email"], capture_output=True
             )

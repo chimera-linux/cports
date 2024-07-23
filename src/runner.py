@@ -2067,6 +2067,7 @@ def _collect_status(inf):
 
 def _collect_blist(pkgs):
     import sys
+    import shutil
 
     rpkgs = []
     for pkg in pkgs:
@@ -2075,6 +2076,8 @@ def _collect_blist(pkgs):
             continue
         # git expressions
         if pkg.startswith("git:"):
+            if not shutil.which("git"):
+                raise errors.CbuildException("git is needed for git bulk")
             rpkgs += _collect_git(pkg.removeprefix("git:"))
             continue
         # status files

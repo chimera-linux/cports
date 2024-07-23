@@ -965,15 +965,26 @@ class Template(Package):
             # no git, not reproducible
             return
 
-        if (
-            subprocess.run(
-                ["git", "rev-parse", "--show-toplevel"],
-                capture_output=True,
-                cwd=self.template_path,
-            ).returncode
-            != 0
-        ):
-            # not in a git repository
+        # skip for shallow clones or non-repos
+        shal = subprocess.run(
+            ["git", "rev-parse", "--is-shallow-repository"],
+            capture_output=True,
+            cwd=self.template_path,
+        )
+        if shal.returncode != 0:
+            # not a git repository
+            return
+        if shal.stdout.strip() == b"true":
+            # shallow clone
+            return
+
+        # also skip for treeless checkouts
+        tless = subprocess.run(
+            ["git", "config", "remote.origin.promisor"],
+            capture_output=True,
+            cwd=self.template_path,
+        )
+        if tless.stdout.strip() == "true":
             return
 
         # find whether the template dir has local modifications

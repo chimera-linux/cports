@@ -10,11 +10,6 @@ def fire():
     if sys.version_info < (3, 12):
         sys.exit("Python 3.12 or newer is required")
 
-    # required programs in the system
-    for prog in ["git"]:
-        if not shutil.which(prog):
-            sys.exit(f"Required program not found: {prog}")
-
     # running as root interferes with the sandbox functionality
     if os.geteuid() == 0:
         sys.exit("Please don't run cbuild as root")
