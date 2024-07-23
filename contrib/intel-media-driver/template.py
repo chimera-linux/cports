@@ -1,6 +1,6 @@
 pkgname = "intel-media-driver"
-pkgver = "24.2.5"
-pkgrel = 1
+pkgver = "24.3.0"
+pkgrel = 0
 # doesn't build elsewhere
 archs = ["x86_64"]
 build_style = "cmake"
@@ -25,7 +25,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/intel/media-driver"
 source = f"{url}/archive/refs/tags/intel-media-{pkgver}.tar.gz"
-sha256 = "dec2210c1f824a721e4ea6f66f5899e300801b3e7fae232d3f8a94db38c2edd1"
+sha256 = "b6728607e4d05739bce27124605993011b468781043ce34bb1a51919196f2d15"
 # INT: crashes during certain vaapi decode (twitch.tv?)
 hardening = ["vis", "!cfi", "!int"]
 # no tests
