@@ -1975,7 +1975,13 @@ autopkgs = [
 
 class Subpackage(Package):
     def __init__(
-        self, name, parent, oldesc=None, oldsdesc=None, alternative=None
+        self,
+        name,
+        parent,
+        oldesc=None,
+        oldsdesc=None,
+        alternative=None,
+        auto=False,
     ):
         super().__init__()
 
@@ -2030,7 +2036,7 @@ class Subpackage(Package):
                     else:
                         instif = iif
                     # if not automatic, add the suffix
-                    if oldsdesc:
+                    if auto:
                         self.subdesc = oldsdesc
                     else:
                         self.subdesc = adesc

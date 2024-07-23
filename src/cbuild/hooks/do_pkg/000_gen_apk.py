@@ -495,7 +495,11 @@ def invoke(pkg):
         # create a temporary subpkg instance
         # it's only complete enough to satisfy the generator
         spkg = template.Subpackage(
-            f"{pkg.pkgname}-{apkg}", pkg.rparent, pkg.pkgdesc, pkg.subdesc
+            f"{pkg.pkgname}-{apkg}",
+            pkg.rparent,
+            pkg.pkgdesc,
+            pkg.subdesc,
+            auto=True,
         )
 
         # carry over replaces
