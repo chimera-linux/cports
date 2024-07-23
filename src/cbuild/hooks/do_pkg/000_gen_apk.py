@@ -152,14 +152,11 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
         origin = f"alt:{pkg.alternative}"
 
     if pkg.subdesc:
-        bpdesc = f"{pkg.pkgdesc} ({pkg.subdesc})"
+        pdesc = f"{pkg.pkgdesc} ({pkg.subdesc})"
+    elif adesc:
+        pdesc = f"{pkg.pkgdesc} ({adesc})"
     else:
-        bpdesc = pkg.pkgdesc
-
-    if adesc:
-        pdesc = f"{bpdesc} ({adesc})"
-    else:
-        pdesc = bpdesc
+        pdesc = pkg.pkgdesc
 
     pargs = [
         "--info",
