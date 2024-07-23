@@ -1,5 +1,5 @@
 pkgname = "papirus-icon-theme"
-pkgver = "20240201"
+pkgver = "20240501"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -9,6 +9,6 @@ maintainer = "avgwst <avgwst@tutanota.de>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PapirusDevelopmentTeam/papirus-icon-theme"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "8ff3caded7862e5e6f531dbae54b213ff1cd3666d26f23357c6183173856f380"
+sha256 = "c12a64963639afffc5c5425c4d8fd09e9d5510bbc4c408a1fec9a1d617c5089b"
 # makes no sense since it's just icons
 options = ["!check"]
