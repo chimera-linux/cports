@@ -984,7 +984,7 @@ class Template(Package):
             capture_output=True,
             cwd=self.template_path,
         )
-        if tless.stdout.strip() == "true":
+        if tless.stdout.strip() == b"true":
             return
 
         # find whether the template dir has local modifications
