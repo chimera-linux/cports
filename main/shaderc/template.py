@@ -1,6 +1,6 @@
 pkgname = "shaderc"
 pkgver = "2024.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DSHADERC_SKIP_TESTS=ON",
