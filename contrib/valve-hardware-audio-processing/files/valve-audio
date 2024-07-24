@@ -1,0 +1,4 @@
+type = scripted
+command = /usr/bin/valve-init-audio
+depends-on = local.target
+before = login.target

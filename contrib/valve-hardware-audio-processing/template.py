@@ -1,6 +1,6 @@
 pkgname = "valve-hardware-audio-processing"
 pkgver = "0.55"
-pkgrel = 0
+pkgrel = 1
 # steamdeck only
 archs = ["x86_64"]
 build_style = "makefile"
@@ -10,7 +10,7 @@ make_install_args = ["SHELL=/usr/bin/bash"]
 make_use_env = True
 hostmakedepends = ["gmake", "bash", "faust"]
 makedepends = ["boost-devel", "lv2"]
-depends = ["pipewire", "noise-suppression-for-voice"]
+depends = ["bash", "dmidecode", "pipewire", "noise-suppression-for-voice"]
 pkgdesc = "Steam Deck audio processing"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -30,3 +30,5 @@ def init_configure(self):
 def post_install(self):
     # glibc bin from sof-bin
     self.uninstall("usr/lib/firmware/amd/sof/sof-logger")
+    self.install_bin(self.files_path / "valve-init-audio-config")
+    self.install_service(self.files_path / "valve-audio")

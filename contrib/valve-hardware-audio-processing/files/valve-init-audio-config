@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -e
+
+/usr/share/pipewire/hardware-profiles/pipewire-hwconfig
+/usr/share/wireplumber/hardware-profiles/wireplumber-hwconfig
