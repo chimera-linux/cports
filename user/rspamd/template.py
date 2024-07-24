@@ -46,7 +46,7 @@ match self.profile().arch:
     case "aarch64" | "ppc64le" | "x86_64":
         configure_args += ["-DENABLE_HYPERSCAN=ON"]
         makedepends += ["luajit-devel", "vectorscan-devel"]
-    case "riscv64":
+    case _:
         configure_args += ["-DENABLE_LUAJIT=OFF"]
         makedepends += ["lua5.4-devel"]
 
