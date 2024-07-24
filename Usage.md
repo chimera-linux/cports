@@ -598,7 +598,8 @@ The following commands are recognized:
   build root.
 * `unstage` Attempt unstaging the repositories if possible. If conflicts
   prevent it from doing so (i.e. missing rebuilds and so on) you will get
-  a warning instead, and nothing will happen.
+  a warning instead, and nothing will happen. Warnings will result in
+  return code 32, success is 0, other values are a failure.
 * `unstage-check-remote` Treating the local repository as a stage, check
   if the local packages would unstage cleanly in the remote repo. This is
   useful to check if you've missed some rebuilds locally when rebuilding

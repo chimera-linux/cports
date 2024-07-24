@@ -291,7 +291,7 @@ def check_stage(arch, force=False, remote=False):
     for d in checkdeps:
         print(f" rebuild: {', '.join(checkdeps[d])} ({d})")
 
-    return []
+    return None
 
 
 def _do_clear(arch, force):
@@ -306,7 +306,7 @@ def _do_clear(arch, force):
     # FIXME: compute from git if possible
     epoch = int(time.time())
 
-    for d in unstage:
+    for d in unstage or []:
         d = d / arch
         ad = repop / d.relative_to(stagep)
         try:
@@ -336,8 +336,10 @@ def _do_clear(arch, force):
         log.out(f"Rebuilding index for {ad}...")
         cli.build_index(ad, epoch)
 
+    return unstage is not None
+
 
 def clear(arch, force=False):
     with flock.lock(flock.repolock(arch)):
         with flock.lock(flock.stagelock(arch)):
-            _do_clear(arch, force)
+            return _do_clear(arch, force)

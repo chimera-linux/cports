@@ -604,7 +604,10 @@ def do_unstage(tgt, force=False):
     if opt_arch and opt_arch != chroot.host_cpu():
         stage.clear(opt_arch, force)
 
-    stage.clear(chroot.host_cpu(), force)
+    if stage.clear(chroot.host_cpu(), force):
+        return 0
+    else:
+        return 32
 
 
 def check_unstage(tgt):
@@ -2412,6 +2415,7 @@ def fire():
 
     template.register_hooks()
     template.register_cats(opt_allowcat.strip().split())
+    retcode = None
 
     try:
         cmd = cmdline.command[0]
@@ -2422,7 +2426,7 @@ def fire():
             cmdline.command[1] = cmd
             cmd = ncmd
         if cmd in command_handlers:
-            command_handlers[cmd][0](cmd)
+            retcode = command_handlers[cmd][0](cmd)
         else:
             logger.get().out_red(f"cbuild: invalid target {cmd}")
             sys.exit(1)
@@ -2450,3 +2454,5 @@ def fire():
     finally:
         if opt_mdirtemp and not opt_keeptemp:
             shutil.rmtree(paths.bldroot())
+        if retcode:
+            sys.exit(retcode)
