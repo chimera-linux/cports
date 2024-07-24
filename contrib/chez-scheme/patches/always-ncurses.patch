@@ -1,0 +1,13 @@
+required since missing when in pb-only
+--
+--- a/configure
++++ b/configure
+@@ -827,6 +827,8 @@
+     iconvLib="-liconv"
+ fi
+ 
++LIBS="${LIBS} ${ncursesLib}"
++
+ # Add automatic linking flags, unless suppressed by --disable-auto-flags
+ if [ "$addflags" = "yes" ] ; then
+   case "${flagsm}" in
