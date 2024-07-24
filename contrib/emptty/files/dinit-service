@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/emptty -d
+smooth-recovery = true
+depends-on = login.target
