@@ -10,8 +10,10 @@ subdesc = "bl31"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://developer.trustedfirmware.org/dashboard/view/6"
-source = f"https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+archive/refs/tags/lts-v{pkgver}.tar.gz"
-sha256 = "ab6e373518c3d71c04dfbbb41f3813b109ff57364574ccccd8254f0b8429632d"
+# unstable tarball checksum
+# source = f"https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+archive/refs/tags/lts-v{pkgver}.tar.gz"
+source = f"https://ftp.octaforge.org/q66/random/lts-v{pkgver}.tar.gz"
+sha256 = "5a765b5d2afad94562ffb7334f8a5a86f09d01f16fdee11b27705a63a1bb25ce"
 hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug", "execstack"]
