@@ -29,6 +29,10 @@ match self.profile().arch:
         _machine = "tarm32le"
     case "ppc":
         _machine = "tppc32le"
+    case "ppc64le":
+        _machine = "tppc64le"
+    case "ppc64":
+        _machine = "tppc64be"
     case "riscv64":
         _machine = "trv64le"
     case "x86_64":
