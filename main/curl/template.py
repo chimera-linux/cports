@@ -1,6 +1,6 @@
 pkgname = "curl"
-pkgver = "8.8.0"
-pkgrel = 3
+pkgver = "8.9.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimize",
@@ -48,7 +48,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://curl.haxx.se"
 source = f"{url}/download/curl-{pkgver}.tar.xz"
-sha256 = "0f58bb95fc330c8a46eeb3df5701b0d90c9d9bfcc42bd1cd08791d12551d4400"
+sha256 = "ff09b2791ca56d25fd5c3f3a4927dce7c8a9dc4182200c487ca889fba1fdd412"
 hardening = ["vis", "!cfi"]
 # workaround for test 1119
 exec_wrappers = [("/usr/bin/clang-cpp", "cpp")]
