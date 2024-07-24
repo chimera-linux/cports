@@ -1,7 +1,8 @@
 pkgname = "bind"
-pkgver = "9.18.27"
+pkgver = "9.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_args = ["--with-libidn2"]
 make_cmd = "gmake"
 make_dir = "."
 # FIXME: in tests/isc netmgr_test can fail in either tls_noresponse or one other
@@ -19,12 +20,16 @@ hostmakedepends = [
 makedepends = [
     "cmocka-devel",
     "heimdal-devel",
+    "jemalloc-devel",
     "json-c-devel",
     "libcap-devel",
+    "libidn2-devel",
     "libuv-devel",
     "libxml2-devel",
+    "lmdb-devel",
     "nghttp2-devel",
     "openssl-devel",
+    "userspace-rcu-devel",
 ]
 checkdepends = ["python-pytest", "python-dnspython"]
 depends = [f"bind-progs={pkgver}-r{pkgrel}"]
@@ -33,7 +38,9 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MPL-2.0"
 url = "https://www.isc.org/bind"
 source = f"https://downloads.isc.org/isc/bind9/{pkgver}/bind-{pkgver}.tar.xz"
-sha256 = "ea3f3d8cfa2f6ae78c8722751d008f54bc17a3aed2be3f7399eb7bf5f4cda8f1"
+sha256 = "cc580998017b51f273964058e8cb3aa5482bc785243dea71e5556ec565a13347"
+# lto: some udp tests fail otherwise
+options = ["!lto"]
 
 
 def post_install(self):
@@ -64,6 +71,7 @@ def _progs(self):
             "dnssec-importkey",
             "dnssec-keyfromlabel",
             "dnssec-keygen",
+            "dnssec-ksr",
             "dnssec-revoke",
             "dnssec-settime",
             "dnssec-signzone",
@@ -74,6 +82,7 @@ def _progs(self):
             "named-checkzone",
             "named-compilezone",
             "named-journalprint",
+            "named-nzd2nzf",
             "named-rrchecker",
             "nsec3hash",
             "nslookup",
