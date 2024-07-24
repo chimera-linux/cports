@@ -20,8 +20,6 @@ source = f"$(XORG_SITE)/lib/libX11-{pkgver}.tar.gz"
 sha256 = "57ca5f07d263788ad661a86f4139412e8b699662e6b60c20f1f028c25a935e48"
 # FIXME int (_XkbReadGetIndicatorMapReply)
 hardening = ["!int"]
-# broken for now
-options = ["!cross"]
 
 
 def post_install(self):
