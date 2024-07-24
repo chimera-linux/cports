@@ -3100,10 +3100,6 @@ is used as it is without changes.
 
 If `enable` is `True`, the service will be implicitly enabled as system service.
 
-##### def install_svscript(self, src, name = None)
-
-Equivalent to `self.install_file(src, "etc/dinit.d/scripts", 0o755, name)`.
-
 ##### def install_tmpfiles(self, src, name = None)
 
 Install a configuration file in `/usr/lib/tmpfiles.d`. By default, take the
