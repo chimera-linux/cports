@@ -1,7 +1,7 @@
 pkgname = "boost"
 pkgver = "1.85.0"
 pkgrel = 3
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["pkgconf", "python"]
 makedepends = [
     "bzip2-devel",
     "icu-devel",
@@ -20,7 +20,7 @@ source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/bo
 sha256 = "be0d91732d5b0cc6fbb275c7939974457e79b54d6f07ce2e3dfdd68bef883b0b"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
 # FIXME: odd failures, but seems test-related
-options = ["!check", "!cross", "empty"]  # i don't dare touch this yet
+options = ["!check", "empty"]  # i don't dare touch this yet
 
 # libs have semi-auto-generated subpkgs using this array
 # needs to be updated with new libs regularly
@@ -112,11 +112,21 @@ def do_build(self):
         cf.write(
             f"""
 using clang : : {self.get_tool("CXX")} : <cxxflags>"{self.get_cxxflags(shell=True)}" <linkflags>"{self.get_ldflags(shell=True)}" <warnings-as-errors>"off" ;
-using python : {self.python_version} : /usr/bin/python3 : /usr/include/python{self.python_version} : /usr/lib/python{self.python_version} ;
+using python : {self.python_version} : /usr/bin/python3 : {self.profile().sysroot}/usr/include/python{self.python_version} : {self.profile().sysroot}/usr/lib/python{self.python_version} ;
 """
         )
 
     _call_b2(self)
+
+    if self.profile().cross:
+        # build b2 again, this time for the target system
+        self.do(
+            self.chroot_cwd / "tools/build/src/engine/build.sh",
+            "--cxx=" + self.get_tool("CXX"),
+            "--cxxflags=" + self.get_cxxflags(shell=True),
+            "clang",
+            env={"B2_DONT_EMBED_MANIFEST": "1"},
+        )
 
 
 def do_install(self):
