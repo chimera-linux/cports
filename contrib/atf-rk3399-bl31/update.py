@@ -1,2 +1,2 @@
-url = "https://github.com/ARM-software/arm-trusted-firmware/tags"
-pattern = r"lts-v([\d.]+)\.tar\.gz"
+url = "https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/+refs"
+pattern = r"lts-v([\d.]+)"
