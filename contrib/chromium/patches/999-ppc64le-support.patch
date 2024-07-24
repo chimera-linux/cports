@@ -21,12 +21,12 @@ diff --git a/base/allocator/partition_allocator/src/partition_alloc/page_allocat
 index cb6116c438..ba3d8c1c58 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
-@@ -82,7 +82,7 @@ PageAllocationGranularity();
+@@ -86,7 +86,7 @@
  
  PA_ALWAYS_INLINE PAGE_ALLOCATOR_CONSTANTS_DECLARE_CONSTEXPR size_t
  PageAllocationGranularityShift() {
--#if BUILDFLAG(IS_WIN) || defined(ARCH_CPU_PPC64)
-+#if BUILDFLAG(IS_WIN)
+-#if PA_BUILDFLAG(IS_WIN) || PA_BUILDFLAG(PA_ARCH_CPU_PPC64)
++#if PA_BUILDFLAG(IS_WIN)
    // Modern ppc64 systems support 4kB (shift = 12) and 64kB (shift = 16) page
    // sizes.  Since 64kB is the de facto standard on the platform and binaries
    // compiled for 64kB are likely to work on 4kB systems, 64kB is a good choice
@@ -34,17 +34,17 @@ diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_al
 index cddebf7f8e..d687ad6155 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h
-@@ -101,11 +101,6 @@ PA_ALWAYS_INLINE PAGE_ALLOCATOR_CONSTANTS_DECLARE_CONSTEXPR size_t
+@@ -105,11 +105,6 @@
  PartitionPageShift() {
    return 16;  // 64 KiB
  }
--#elif defined(ARCH_CPU_PPC64)
+-#elif PA_BUILDFLAG(PA_ARCH_CPU_PPC64)
 -PA_ALWAYS_INLINE PAGE_ALLOCATOR_CONSTANTS_DECLARE_CONSTEXPR size_t
 -PartitionPageShift() {
 -  return 18;  // 256 KiB
 -}
- #elif (BUILDFLAG(IS_APPLE) && defined(ARCH_CPU_64_BITS)) || \
-     (BUILDFLAG(IS_LINUX) && defined(ARCH_CPU_ARM64))
+ #elif (PA_BUILDFLAG(IS_APPLE) && PA_BUILDFLAG(PA_ARCH_CPU_64_BITS)) || \
+     defined(PARTITION_ALLOCATOR_CONSTANTS_POSIX_NONCONST_PAGE_SIZE)
  PA_ALWAYS_INLINE PAGE_ALLOCATOR_CONSTANTS_DECLARE_CONSTEXPR size_t
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
 index 508780930b..e79ab777f7 100644

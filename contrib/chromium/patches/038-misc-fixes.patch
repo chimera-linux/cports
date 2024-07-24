@@ -174,19 +174,6 @@ index 4f15c50e..7c2428b1 100644
    return result;
  }
  
-diff --git a/third_party/maldoca/src/maldoca/ole/oss_utils.h b/third_party/maldoca/src/maldoca/ole/oss_utils.h
-index 607aa9aa..7fd8fa8e 100644
---- a/third_party/maldoca/src/maldoca/ole/oss_utils.h
-+++ b/third_party/maldoca/src/maldoca/ole/oss_utils.h
-@@ -43,7 +43,7 @@ namespace utils {
- // Custom libXML deleters so that we can wrap xml object or z_stream object
- // pointers to std::unique_ptr.
- struct XmlCharDeleter {
--  void operator()(xmlChar* data) { xmlFree(data); }
-+  void operator()(xmlChar* data) { free(data); }
- };
- struct XmlDocDeleter {
-   void operator()(xmlDocPtr doc) { xmlFreeDoc(doc); }
 diff --git a/tools/generate_shim_headers/generate_shim_headers.py b/tools/generate_shim_headers/generate_shim_headers.py
 index 8df3f146..1b7a4b46 100755
 --- a/tools/generate_shim_headers/generate_shim_headers.py

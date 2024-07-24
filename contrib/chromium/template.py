@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "126.0.6478.182"
+pkgver = "127.0.6533.72"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -30,6 +30,7 @@ configure_args = [
     "regenerate_x11_protos=true",
     "rtc_link_pipewire=true",
     "rtc_use_pipewire=true",
+    'rust_bindgen_root="/usr"',
     'rust_sysroot_absolute="/usr"',
     # anything works
     'rustc_version="0"',
@@ -37,7 +38,6 @@ configure_args = [
     "treat_warnings_as_errors=false",
     "use_custom_libcxx=false",
     "use_dwarf5=true",
-    "use_gold=false",
     "use_lld=true",
     "use_pulseaudio=true",
     "use_qt=true",  # qt5 manually patched out
@@ -65,6 +65,7 @@ hostmakedepends = [
     "pkgconf",
     "python",
     "rust",
+    "rust-bindgen",
 ]
 makedepends = [
     "alsa-lib-devel",
@@ -138,7 +139,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
-sha256 = "3939f5b3116ebd3cb15ff8c7059888f6b00f4cfa8a77bde983ee4ce5d0eea427"
+sha256 = "7f21f1bfc89e1a2c474463ef950b72e6401d1375cf3c17d907bf3d346720efbe"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
@@ -165,14 +166,10 @@ match self.profile().arch:
         # also crashes on riscv64
         hardening += ["!int"]
 
-match self.profile().arch:
-    case "aarch64" | "ppc64le":
-        broken = "for now"
-
 
 def post_patch(self):
-    self.mkdir("third_party/node/linux/node-linux-x64/bin", parents=True)
-    self.ln_s("/usr/bin/node", "third_party/node/linux/node-linux-x64/bin")
+    self.rm("third_party/node/linux/node-linux-x64/bin/node")
+    self.ln_s("/usr/bin/node", "third_party/node/linux/node-linux-x64/bin/node")
 
     self.cp(self.files_path / "unbundle.sh", ".")
     self.cp(self.files_path / "pp-data.sh", ".")
@@ -271,7 +268,11 @@ def do_build(self):
         "chrome_sandbox",
         "chromedriver.unstripped",
         "chrome_crashpad_handler",
-        env={"CCACHE_SLOPPINESS": "include_file_mtime"},
+        env={
+            "CCACHE_SLOPPINESS": "include_file_mtime",
+            # rather than disable working rustc -Z flags, permit them
+            "RUSTC_BOOTSTRAP": "1",
+        },
     )
 
 
