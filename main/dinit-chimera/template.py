@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.7"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
@@ -21,7 +21,7 @@ depends = [
     "virtual:cmd:systemd-tmpfiles!sd-tools",
     "virtual:cmd:udevadm!udev",
 ]
-replaces = ["systemd-utils<255"]
+replaces = ["systemd-utils<255", "base-kernel<0.2"]
 triggers = [
     "/usr/lib/binfmt.d",
     "/usr/lib/modprobe.d",
@@ -57,6 +57,23 @@ def post_install(self):
     self.install_dir("etc/X11/Xsession.d")
     self.install_file(
         self.files_path / "01dinit-env", "etc/X11/Xsession.d", mode=0o755
+    )
+    # sysctl additional distro files
+    self.install_tmpfiles(self.files_path / "sysctl.conf", name="sysctl")
+    self.install_file(
+        self.files_path / "sysctl.d/sysctl.conf",
+        "usr/lib/sysctl.d",
+        name="10-chimera.conf",
+    )
+    self.install_file(
+        self.files_path / "sysctl.d/sysctl-user.conf",
+        "usr/lib/sysctl.d",
+        name="10-chimera-user.conf",
+    )
+    self.install_file(
+        self.files_path / "sysctl.d/bpf.conf",
+        "usr/lib/sysctl.d",
+        name="20-bpf.conf",
     )
 
 
