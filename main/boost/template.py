@@ -1,6 +1,6 @@
 pkgname = "boost"
 pkgver = "1.85.0"
-pkgrel = 3
+pkgrel = 4
 hostmakedepends = ["pkgconf", "python"]
 makedepends = [
     "bzip2-devel",
@@ -19,8 +19,7 @@ url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
 sha256 = "be0d91732d5b0cc6fbb275c7939974457e79b54d6f07ce2e3dfdd68bef883b0b"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
-# FIXME: odd failures, but seems test-related
-options = ["!check", "empty"]  # i don't dare touch this yet
+options = ["empty"]
 
 # libs have semi-auto-generated subpkgs using this array
 # needs to be updated with new libs regularly
