@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
-pkgver = "0.1"
-pkgrel = 13
+pkgver = "0.2"
+pkgrel = 0
 depends = [
     "kmod",
     "procps",
@@ -50,25 +50,6 @@ def do_install(self):
     )
     self.install_file(
         self.files_path / "modprobe.d/blacklist.conf", "usr/lib/modprobe.d"
-    )
-
-    # sysctl(8) files
-    self.install_dir("usr/lib/sysctl.d")
-
-    self.install_file(
-        self.files_path / "sysctl.d/sysctl.conf",
-        "usr/lib/sysctl.d",
-        name="10-chimera.conf",
-    )
-    self.install_file(
-        self.files_path / "sysctl.d/sysctl-user.conf",
-        "usr/lib/sysctl.d",
-        name="10-chimera-user.conf",
-    )
-    self.install_file(
-        self.files_path / "sysctl.d/bpf.conf",
-        "usr/lib/sysctl.d",
-        name="20-bpf.conf",
     )
 
     # udev rules
