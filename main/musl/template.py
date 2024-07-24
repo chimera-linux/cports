@@ -1,7 +1,7 @@
 pkgname = "musl"
-pkgver = "1.2.5_git20240622"
-pkgrel = 2
-_commit = "ab31e9d6a0fa7c5c408856c89df2dfb12c344039"
+pkgver = "1.2.5_git20240705"
+pkgrel = 0
+_commit = "dd1e63c3638d5f9afb857fccf6ce1415ca5f1b8b"
 _scudo_ver = "18.1.8"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
@@ -22,7 +22,7 @@ source = [
 ]
 source_paths = [".", "compiler-rt"]
 sha256 = [
-    "18c73238e9678e7480de830701925baac0fa6cd0160bf6807b30e949196e538b",
+    "a6886a65387d2547aae10c1ba31a35529a5c4bbe4205b2a9255c774d5da77329",
     "e054e99a9c9240720616e927cb52363abbc8b4f1ef0286bad3df79ec8fdf892f",
 ]
 compression = "deflate"
