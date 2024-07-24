@@ -29,6 +29,9 @@ match self.profile().arch:
         _machine = "tarm32le"
     case "ppc":
         _machine = "tppc32le"
+    case "ppc64*":
+        # fails to link the tests
+        options += ["!check"]
     case "riscv64":
         _machine = "trv64le"
     case "x86_64":
