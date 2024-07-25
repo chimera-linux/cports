@@ -1,5 +1,5 @@
 pkgname = "libtracefs"
-pkgver = "1.8.0"
+pkgver = "1.8.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -26,7 +26,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/about"
 source = f"https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/snapshot/libtracefs-{pkgver}.tar.gz"
-sha256 = "f92475d5c4cb509983697fb359ee615bef4f08ed8bdc9c690f6118ba68886de0"
+sha256 = "d295aa20d711c313a9e229dbd15ba14026f0c1a50d57ae8b0823cc561b23745f"
 # vis breaks symbols
 hardening = ["!vis"]
 
