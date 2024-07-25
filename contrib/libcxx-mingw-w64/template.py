@@ -32,7 +32,7 @@ configure_args = [
     "-DLIBCXXABI_HAS_C_LIB=OFF",
 ]
 cmake_dir = "runtimes"
-hostmakedepends = ["cmake", "python"]
+hostmakedepends = ["base-cross", "cmake", "python"]
 depends = [
     self.with_pkgver("libcxxabi-mingw-w64"),
     "mingw-w64-headers",
@@ -62,30 +62,25 @@ def do_configure(self):
 
     for an in _targets:
         at = an + "-w64-mingw32"
-        # configure libcxx
-        with self.stamp(f"{an}_configure") as s:
-            s.check()
-            cmake.configure(
-                self,
-                f"build-{an}",
-                self.cmake_dir,
-                [
-                    *self.configure_args,
-                    f"-DCMAKE_SYSROOT=/usr/{at}",
-                    # don't let llvm come up with its own triple
-                    f"-DLLVM_DEFAULT_TARGET_TRIPLE={at}",
-                    f"-DCMAKE_ASM_COMPILER_TARGET={at}",
-                    f"-DCMAKE_CXX_COMPILER_TARGET={at}",
-                    f"-DCMAKE_C_COMPILER_TARGET={at}",
-                ],
-                cross_build=False,
-                generator="Unix Makefiles",
-                env={
-                    "CFLAGS": "",
-                    "CXXFLAGS": "",
-                    "LDFLAGS": "",
-                },
-            )
+        with self.profile(an if an != "i686" else "x86_64"):
+            with self.stamp(f"{an}_configure") as s:
+                s.check()
+                cmake.configure(
+                    self,
+                    f"build-{an}",
+                    self.cmake_dir,
+                    [
+                        *self.configure_args,
+                        f"-DCMAKE_SYSROOT=/usr/{at}",
+                        # don't let llvm come up with its own triple
+                        f"-DLLVM_DEFAULT_TARGET_TRIPLE={at}",
+                        f"-DCMAKE_ASM_COMPILER_TARGET={at}",
+                        f"-DCMAKE_CXX_COMPILER_TARGET={at}",
+                        f"-DCMAKE_C_COMPILER_TARGET={at}",
+                    ],
+                    cross_build=False,
+                    generator="Unix Makefiles",
+                )
 
 
 def do_build(self):
