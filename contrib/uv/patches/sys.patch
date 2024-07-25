@@ -1,10 +1,10 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 9305357..0f49f5b 100644
+index b4dc0df..cd6c57c 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -754,15 +754,6 @@ version = "0.7.0"
+@@ -753,15 +753,6 @@ version = "0.7.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
- checksum = "98cc8fbded0c607b7ba9dd60cd98df59af97e84d24e49c8557331cfc26d301ce"
+ checksum = "4b82cf0babdbd58558212896d1a4272303a57bdb245c2bf1147185fb45640e70"
  
 -[[package]]
 -name = "cmake"
@@ -18,7 +18,7 @@ index 9305357..0f49f5b 100644
  [[package]]
  name = "codspeed"
  version = "2.6.0"
-@@ -1241,7 +1232,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -1240,7 +1231,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "5f54427cfd1c7829e2a139fcefea601bf088ebca651d2bf53ebc600eac295dae"
  dependencies = [
   "crc32fast",
@@ -27,7 +27,7 @@ index 9305357..0f49f5b 100644
   "miniz_oxide",
  ]
  
-@@ -2007,13 +1998,14 @@ dependencies = [
+@@ -2006,13 +1997,14 @@ dependencies = [
  ]
  
  [[package]]
@@ -47,19 +47,7 @@ index 9305357..0f49f5b 100644
  ]
  
  [[package]]
-@@ -3341,9 +3333,9 @@ dependencies = [
- 
- [[package]]
- name = "rustls-native-certs"
--version = "0.7.0"
-+version = "0.7.1"
- source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "8f1fb85efa936c42c6d5fc28d2629bb51e4b2f4b8a5211e297d599cc5a093792"
-+checksum = "a88d6d420651b496bdd98684116959239430022a115c1240e6c3993be0b15fba"
- dependencies = [
-  "openssl-probe",
-  "rustls-pemfile",
-@@ -3928,26 +3920,6 @@ dependencies = [
+@@ -3927,26 +3919,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -86,7 +74,7 @@ index 9305357..0f49f5b 100644
  [[package]]
  name = "tiny-skia"
  version = "0.8.4"
-@@ -4468,7 +4440,6 @@ dependencies = [
+@@ -4466,7 +4438,6 @@ dependencies = [
   "serde_json",
   "textwrap",
   "thiserror",
@@ -94,7 +82,7 @@ index 9305357..0f49f5b 100644
   "tokio",
   "toml",
   "tracing",
-@@ -4697,7 +4668,6 @@ dependencies = [
+@@ -4696,7 +4667,6 @@ dependencies = [
   "serde_json",
   "tagu",
   "textwrap",
@@ -102,7 +90,7 @@ index 9305357..0f49f5b 100644
   "tokio",
   "tracing",
   "tracing-durations-export",
-@@ -5198,6 +5168,12 @@ version = "0.1.0"
+@@ -5219,6 +5189,12 @@ version = "0.1.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
  
@@ -116,7 +104,7 @@ index 9305357..0f49f5b 100644
  name = "version_check"
  version = "0.9.4"
 diff --git a/crates/uv-dev/Cargo.toml b/crates/uv-dev/Cargo.toml
-index 71f3134..abb58d5 100644
+index 02b5331..79a7c14 100644
 --- a/crates/uv-dev/Cargo.toml
 +++ b/crates/uv-dev/Cargo.toml
 @@ -62,9 +62,6 @@ walkdir = { workspace = true }
@@ -152,10 +140,10 @@ index b138bab..49e7a7e 100644
  mod build;
  mod clear_compile;
 diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
-index 164caf6..38d0f64 100644
+index e7d3389..1eaab72 100644
 --- a/crates/uv/Cargo.toml
 +++ b/crates/uv/Cargo.toml
-@@ -77,9 +77,6 @@ which = { workspace = true }
+@@ -78,9 +78,6 @@ which = { workspace = true }
  [target.'cfg(target_os = "windows")'.dependencies]
  mimalloc = { version = "0.1.39" }
  
@@ -165,7 +153,7 @@ index 164caf6..38d0f64 100644
  [dev-dependencies]
  assert_cmd = { version = "2.0.14" }
  assert_fs = { version = "1.1.0" }
-@@ -97,7 +94,7 @@ reqwest = { workspace = true, features = ["blocking"], default-features = false
+@@ -98,7 +95,7 @@ reqwest = { workspace = true, features = ["blocking"], default-features = false
  ignored = ["flate2"]
  
  [features]
@@ -175,10 +163,10 @@ index 164caf6..38d0f64 100644
  python = []
  # Introduces a dependency on a local Python installation with specific patch versions.
 diff --git a/crates/uv/src/lib.rs b/crates/uv/src/lib.rs
-index 23a1340..003e14c 100644
+index 0f32eca..cd52527 100644
 --- a/crates/uv/src/lib.rs
 +++ b/crates/uv/src/lib.rs
-@@ -37,17 +37,6 @@ use crate::settings::{
+@@ -36,17 +36,6 @@ use crate::settings::{
  #[global_allocator]
  static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
  
