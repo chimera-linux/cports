@@ -1,5 +1,5 @@
 pkgname = "python-rpds-py"
-pkgver = "0.19.0"
+pkgver = "0.19.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -21,7 +21,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/crate-py/rpds"
 source = f"$(PYPI_SITE)/r/rpds-py/rpds_py-{pkgver}.tar.gz"
-sha256 = "4fdc9afadbeb393b4bbbad75481e0ea78e4469f2e1d713a90811700830b553a9"
+sha256 = "31dd5794837f00b46f4096aa8ccaa5972f73a938982e32ed817bb520c465e520"
 
 
 def post_patch(self):
