@@ -25,8 +25,7 @@ configure_args = [
     "-DLIBCXX_HARDENING_MODE=fast",
     "-DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx",
 ]
-make_cmd = "make"
-hostmakedepends = ["cmake", "python"]
+hostmakedepends = ["cmake", "ninja", "python"]
 makedepends = [
     "clang-rt-crt-cross",
     "libatomic-chimera-cross",
@@ -85,7 +84,6 @@ def do_configure(self):
                         f"-DLIBCXX_CXX_ABI_LIBRARY_PATH=/usr/{at}/usr/lib",
                     ],
                     cross_build=False,
-                    generator="Unix Makefiles",
                 )
 
 
