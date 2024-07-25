@@ -5,7 +5,7 @@ build_wrksrc = "mingw-w64-libraries/winpthreads"
 build_style = "gnu_configure"
 configure_args = ["--disable-dependency-tracking"]
 make_cmd = "gmake"
-hostmakedepends = ["autoconf", "automake", "libtool", "gmake"]
+hostmakedepends = ["automake", "libtool", "gmake"]
 depends = []
 checkdepends = []
 pkgdesc = "POSIX threading APIs for Windows development"
@@ -49,30 +49,22 @@ def do_configure(self):
 
 def do_build(self):
     for an in _targets:
-        with self.stamp(f"{an}_build") as s:
-            s.check()
-            self.make.build(wrksrc=f"build-{an}")
+        self.make.build(wrksrc=f"build-{an}")
 
 
 def do_check(self):
     for an in _targets:
-        with self.stamp(f"{an}_check") as s:
-            s.check()
-            self.make.check(wrksrc=f"build-{an}")
+        self.make.check(wrksrc=f"build-{an}")
 
 
 def do_install(self):
     for an in _targets:
-        with self.stamp(f"{an}_install") as s:
-            at = an + "-w64-mingw32"
-            s.check()
-            self.make.install(
-                wrksrc=f"build-{an}",
-            )
+        at = an + "-w64-mingw32"
+        self.make.install(wrksrc=f"build-{an}")
 
-            # don't step on mingw-w64-headers
-            for hdr in ["signal", "time", "unistd"]:
-                self.uninstall(f"usr/{at}/include/pthread_{hdr}.h")
+        # don't step on mingw-w64-headers
+        for hdr in ["signal", "time", "unistd"]:
+            self.uninstall(f"usr/{at}/include/pthread_{hdr}.h")
 
 
 def _gen(an, at):
