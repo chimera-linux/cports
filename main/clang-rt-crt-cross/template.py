@@ -30,11 +30,10 @@ configure_args = [
     # use multiarch style paths
     "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
 ]
-make_cmd = "make"
 hostmakedepends = [
     "clang-tools-extra",
     "cmake",
-    "gmake",
+    "ninja",
     "llvm-devel",
     "python",
 ]
@@ -133,7 +132,6 @@ def do_configure(self):
                         ),
                     ],
                     cross_build=False,
-                    generator="Unix Makefiles",
                 )
 
 
