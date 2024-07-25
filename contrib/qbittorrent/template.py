@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
 pkgver = "4.6.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DQT6=ON",

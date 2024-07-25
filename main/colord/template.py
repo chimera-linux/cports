@@ -1,6 +1,6 @@
 pkgname = "colord"
 pkgver = "1.4.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 # manpages fail to generate
 configure_args = [

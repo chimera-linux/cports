@@ -1,6 +1,6 @@
 pkgname = "nyagetty"
 pkgver = "2.38.99"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]

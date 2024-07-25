@@ -1,8 +1,5 @@
-# pipewire-pulse user service
-
-type            = process
-command         = /usr/bin/pipewire-pulse
-log-type        = buffer
-depends-on      = pipewire
-restart         = true
+type = process
+command = /usr/bin/pipewire-pulse
+log-type = buffer
+depends-on = pipewire
 smooth-recovery = true

@@ -1,6 +1,6 @@
 pkgname = "networkmanager"
 pkgver = "1.48.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd_journal=false",

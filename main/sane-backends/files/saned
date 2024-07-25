@@ -1,8 +1,5 @@
-# saned daemon service
 # TODO: configuration
-
-type               = process
-command            = /usr/bin/saned -l -u _saned
-depends-on         = local.target
-restart            = true
-smooth-recovery    = true
+type = process
+command = /usr/bin/saned -l -u _saned
+depends-on = local.target
+smooth-recovery = true

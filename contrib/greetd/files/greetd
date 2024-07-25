@@ -1,7 +1,4 @@
-# greetd service
-
-type            = process
-command         = /usr/bin/greetd
-depends-on      = login.target
-restart         = true
+type = process
+command = /usr/bin/greetd
+depends-on = login.target
 smooth-recovery = true

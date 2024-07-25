@@ -1,6 +1,6 @@
 pkgname = "greetd"
 pkgver = "0.10.3"
-pkgrel = 5
+pkgrel = 6
 build_style = "cargo"
 hostmakedepends = [
     "cargo-auditable",

@@ -1,6 +1,6 @@
 pkgname = "gdm"
 pkgver = "46.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 # TODO: plymouth
 configure_args = [

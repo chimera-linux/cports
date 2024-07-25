@@ -1,6 +1,6 @@
 pkgname = "iwd"
 pkgver = "2.19"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     # junk cflags that redefine FORTIFY

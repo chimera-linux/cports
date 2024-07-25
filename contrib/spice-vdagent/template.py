@@ -1,6 +1,6 @@
 pkgname = "spice-vdagent"
 pkgver = "0.22.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--with-session-info=none"]
 hostmakedepends = ["automake", "pkgconf"]

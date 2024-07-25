@@ -1,7 +1,7 @@
 # TODO: improve services
 pkgname = "deluge"
 pkgver = "2.1.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 hostmakedepends = [
     "intltool",

@@ -1,6 +1,6 @@
 pkgname = "nsd"
 pkgver = "4.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-user=_nsd"]
 # simdzone fails to load its own includes if we don't do this

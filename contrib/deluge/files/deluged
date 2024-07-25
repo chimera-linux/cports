@@ -1,8 +1,5 @@
-# deluged service
-
-type            = process
-command         = /usr/bin/deluged -d -U _deluge -g _deluge -c /var/lib/deluge/.config/deluge
-depends-on      = login.target
-depends-on      = network.target
-restart         = true
+type = process
+command = /usr/bin/deluged -d -U _deluge -g _deluge -c /var/lib/deluge/.config/deluge
+depends-on = login.target
+depends-on = network.target
 smooth-recovery = true

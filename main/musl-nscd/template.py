@@ -1,6 +1,6 @@
 pkgname = "musl-nscd"
 pkgver = "1.1.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_env = {"YACC": "bison"}
 make_cmd = "gmake"

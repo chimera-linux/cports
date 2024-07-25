@@ -1,7 +1,7 @@
 # this must be synchronized with avahi-ui-progs
 pkgname = "avahi"
 pkgver = "0.8"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",

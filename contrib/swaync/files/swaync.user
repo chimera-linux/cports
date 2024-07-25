@@ -1,5 +1,3 @@
-# swaync user service
-
-type       = process
-command    = /usr/bin/swaync
+type = process
+command = /usr/bin/swaync
 depends-on = dbus

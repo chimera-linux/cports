@@ -1,7 +1,5 @@
-# ip6tables service
-
-type         = scripted
-command      = /usr/libexec/iptables-start -6
+type = scripted
+command = /usr/libexec/iptables-start -6
 stop-command = /usr/libexec/iptables-flush -6
-before       = pre-network.target
-depends-on   = pre-local.target
+before = pre-network.target
+depends-on = pre-local.target

@@ -1,6 +1,6 @@
 pkgname = "util-linux"
 pkgver = "2.40.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "--auto-feature=enabled",

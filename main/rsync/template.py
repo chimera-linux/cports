@@ -1,6 +1,6 @@
 pkgname = "rsync"
 pkgver = "3.3.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-rrsync",

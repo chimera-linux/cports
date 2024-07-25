@@ -1,8 +1,5 @@
-# tailscaled service
-
-type            = process
-command         = /usr/bin/tailscaled
-depends-on      = network.target
-depends-on      = local.target
-restart         = true
+type = process
+command = /usr/bin/tailscaled
+depends-on = network.target
+depends-on = local.target
 smooth-recovery = true

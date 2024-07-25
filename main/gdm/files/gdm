@@ -1,10 +1,7 @@
-# gdm service
-
-type            = process
-command         = /usr/bin/gdm
-depends-on      = login.target
-depends-on      = dbus
-depends-ms      = elogind
-depends-ms      = openrc-settingsd
-restart         = true
+type = process
+command = /usr/bin/gdm
+depends-on = login.target
+depends-on = dbus
+depends-ms = elogind
+depends-ms = openrc-settingsd
 smooth-recovery = true

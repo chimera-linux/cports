@@ -1,8 +1,5 @@
-# wireplumber user service
-
-type            = process
-command         = /usr/bin/wireplumber
-log-type        = buffer
-depends-on      = pipewire
-restart         = true
+type = process
+command = /usr/bin/wireplumber
+log-type = buffer
+depends-on = pipewire
 smooth-recovery = true

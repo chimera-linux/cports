@@ -1,6 +1,6 @@
 pkgname = "pcsc-lite"
 pkgver = "2.2.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dlibsystemd=false",

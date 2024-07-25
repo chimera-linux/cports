@@ -1,7 +1,7 @@
 # update main/python-nftables alongside this
 pkgname = "nftables"
 pkgver = "1.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-cli=editline",

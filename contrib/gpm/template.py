@@ -1,6 +1,6 @@
 pkgname = "gpm"
 pkgver = "1.20.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 configure_gen = ["./autogen.sh"]

@@ -1,8 +1,5 @@
-# udev daemon service
-
-type               = process
-command            = /usr/libexec/udevd.wrapper
-before             = pre-local.target
-depends-on         = early-devices.target
-restart            = true
-smooth-recovery    = true
+type = process
+command = /usr/libexec/udevd.wrapper
+before = pre-local.target
+depends-on = early-devices.target
+smooth-recovery = true

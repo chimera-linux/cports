@@ -1,6 +1,6 @@
 pkgname = "polkit"
 pkgver = "124"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsession_tracking=libelogind",

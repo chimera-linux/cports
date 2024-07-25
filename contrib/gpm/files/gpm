@@ -1,7 +1,4 @@
-# gpm service
-
-type               = process
-command            = /usr/bin/gpm -D -m /dev/input/mice -t imps2
-depends-on         = local.target
-restart            = true
-smooth-recovery    = true
+type = process
+command = /usr/bin/gpm -D -m /dev/input/mice -t imps2
+depends-on = local.target
+smooth-recovery = true

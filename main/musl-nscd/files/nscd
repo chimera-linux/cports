@@ -1,7 +1,4 @@
-# nscd service
-
-type            = process
-command         = /usr/bin/nscd
-depends-on      = local.target
-restart         = true
+type = process
+command = /usr/bin/nscd
+depends-on = local.target
 smooth-recovery = true

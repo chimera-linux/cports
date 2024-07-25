@@ -4,7 +4,6 @@ type = process
 command = /usr/bin/qbittorrent-nox
 load-options = export-passwd-vars
 log-type = buffer
-restart = true
 # qbittorrent usually can open a few thousand files depending on seeding
 rlimit-nofile = 10000
 run-as = _qbittorrent

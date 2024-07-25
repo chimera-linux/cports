@@ -1,6 +1,6 @@
 pkgname = "containerd"
 pkgver = "1.7.20"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = [

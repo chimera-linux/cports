@@ -1,7 +1,5 @@
-# rsyncd service
-
-type            = process
-command         = /usr/libexec/rsyncd
-depends-on      = local.target
-depends-on      = network.target
+type = process
+command = /usr/libexec/rsyncd
+depends-on = local.target
+depends-on = network.target
 smooth-recovery = true
