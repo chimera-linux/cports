@@ -1,5 +1,5 @@
 pkgname = "kirigami-addons"
-pkgver = "1.3.0"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -15,9 +15,13 @@ hostmakedepends = [
     "extra-cmake-modules",
     "gettext",
     "ninja",
+    "pkgconf",
 ]
 makedepends = [
     "kconfig-devel",
+    "kcoreaddons-devel",
+    "kglobalaccel-devel",
+    "kguiaddons-devel",
     "ki18n-devel",
     "kirigami-devel",
     "qt6-qtdeclarative-devel",
@@ -35,7 +39,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kirigami-addons/html"
 source = f"$(KDE_SITE)/kirigami-addons/kirigami-addons-{pkgver}.tar.xz"
-sha256 = "f5e44d7a7d7dfd866c529bb004f7204013609a16c9757091fcdb2c6c5be00ff3"
+sha256 = "56e3ceb52055b5603320ea08b27d3673d32a391a8d58646d998227d8b51f0a93"
 hardening = ["vis"]
 
 
