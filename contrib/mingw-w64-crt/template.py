@@ -5,7 +5,7 @@ build_wrksrc = "mingw-w64-crt"
 build_style = "gnu_configure"
 configure_args = ["--disable-dependency-tracking"]
 make_cmd = "gmake"
-hostmakedepends = ["autoconf", "automake", "libtool", "gmake"]
+hostmakedepends = ["automake", "libtool", "gmake"]
 depends = []
 pkgdesc = "C runtime for Windows development"
 maintainer = "Erica Z <zerica@callcc.eu>"
@@ -54,25 +54,17 @@ def do_configure(self):
 
 def do_build(self):
     for an in _targets:
-        with self.stamp(f"{an}_build") as s:
-            s.check()
-            self.make.build(wrksrc=f"build-{an}")
+        self.make.build(wrksrc=f"build-{an}")
 
 
 def do_check(self):
     for an in _targets:
-        with self.stamp(f"{an}_check") as s:
-            s.check()
-            self.make.check(wrksrc=f"build-{an}")
+        self.make.check(wrksrc=f"build-{an}")
 
 
 def do_install(self):
     for an in _targets:
-        with self.stamp(f"{an}_install") as s:
-            s.check()
-            self.make.install(
-                wrksrc=f"build-{an}",
-            )
+        self.make.install(wrksrc=f"build-{an}")
 
 
 def _gen(an, at):
