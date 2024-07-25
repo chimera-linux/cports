@@ -32,7 +32,7 @@ configure_args = [
     "-DLIBCXXABI_HAS_C_LIB=OFF",
 ]
 cmake_dir = "runtimes"
-hostmakedepends = ["base-cross", "cmake", "python"]
+hostmakedepends = ["base-cross", "cmake", "ninja", "python"]
 depends = [
     self.with_pkgver("libcxxabi-mingw-w64"),
     "mingw-w64-headers",
@@ -63,55 +63,46 @@ def do_configure(self):
     for an in _targets:
         at = an + "-w64-mingw32"
         with self.profile(an if an != "i686" else "x86_64"):
-            with self.stamp(f"{an}_configure") as s:
-                s.check()
-                cmake.configure(
-                    self,
-                    f"build-{an}",
-                    self.cmake_dir,
-                    [
-                        *self.configure_args,
-                        f"-DCMAKE_SYSROOT=/usr/{at}",
-                        # don't let llvm come up with its own triple
-                        f"-DLLVM_DEFAULT_TARGET_TRIPLE={at}",
-                        f"-DCMAKE_ASM_COMPILER_TARGET={at}",
-                        f"-DCMAKE_CXX_COMPILER_TARGET={at}",
-                        f"-DCMAKE_C_COMPILER_TARGET={at}",
-                    ],
-                    cross_build=False,
-                    generator="Unix Makefiles",
-                )
+            cmake.configure(
+                self,
+                f"build-{an}",
+                self.cmake_dir,
+                [
+                    *self.configure_args,
+                    f"-DCMAKE_SYSROOT=/usr/{at}",
+                    # don't let llvm come up with its own triple
+                    f"-DLLVM_DEFAULT_TARGET_TRIPLE={at}",
+                    f"-DCMAKE_ASM_COMPILER_TARGET={at}",
+                    f"-DCMAKE_CXX_COMPILER_TARGET={at}",
+                    f"-DCMAKE_C_COMPILER_TARGET={at}",
+                ],
+                cross_build=False,
+            )
 
 
 def do_build(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.stamp(f"{an}_build") as s:
-            s.check()
-            cmake.build(self, f"build-{an}", ["--verbose"])
+        cmake.build(self, f"build-{an}", ["--verbose"])
 
 
 def do_install(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.stamp(f"{an}_install") as s:
-            s.check()
-            cmake.install(
-                self,
-                f"build-{an}",
-            )
+        cmake.install(
+            self,
+            f"build-{an}",
+        )
 
-            # move target-specific paths to sysroot so clang can find them later
-            at = an + "-w64-mingw32"
-            self.rename(
-                f"usr/include/{at}", f"usr/{at}/include", relative=False
-            )
-            self.rename(f"usr/lib/{at}", f"usr/{at}/lib", relative=False)
+        # move target-specific paths to sysroot so clang can find them later
+        at = an + "-w64-mingw32"
+        self.rename(f"usr/include/{at}", f"usr/{at}/include", relative=False)
+        self.rename(f"usr/lib/{at}", f"usr/{at}/lib", relative=False)
 
-            # why are dlls installed to a target-agnostic path anyway????
-            self.rename("usr/bin", f"usr/{at}/bin", relative=False)
+        # why are dlls installed to a target-agnostic path anyway????
+        self.rename("usr/bin", f"usr/{at}/bin", relative=False)
 
     # yoink remaining (target-agnostic) files
     self.uninstall("usr/include")
