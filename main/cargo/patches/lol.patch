@@ -4,6 +4,15 @@ forever but for now it makes it work.
 
 --- a/Cargo.lock
 +++ b/Cargo.lock
+@@ -14,7 +14,7 @@ version = "0.8.11"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "e89da841a80418a9b391ebaea17f5c112ffaaa96f621d2c285b5174da76b9011"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "once_cell",
+  "version_check",
+  "zerocopy",
 @@ -71,15 +71,6 @@ version = "1.0.6"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "8901269c6307e8d93993578286ac0edf7f195079ffff5ebdeea6a59ffb7e36bc"
@@ -44,10 +53,10 @@ forever but for now it makes it work.
  
  [[package]]
  name = "anyhow"
--version = "1.0.81"
+-version = "1.0.82"
 +version = "1.0.75"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "0952808a6c2afd1aa8947271f3a60f1a6763c7b912d210184c5149b5cf147247"
+-checksum = "f538837af36e6f6a9be0faa67f9a314f8119e4e4b5867c6ab40ed60360142519"
 +checksum = "a4668cab20f66d8d020e1fbc0ebe47217433c1b6c8f2040faf858554e394ace6"
  
  [[package]]
@@ -61,7 +70,20 @@ forever but for now it makes it work.
   "http-auth",
   "humantime",
   "ignore",
-@@ -538,18 +516,18 @@ dependencies = [
+@@ -504,6 +482,12 @@ dependencies = [
+  "libc",
+ ]
+ 
++[[package]]
++name = "cfg-if"
++version = "0.1.10"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
++
+ [[package]]
+ name = "cfg-if"
+ version = "1.0.0"
+@@ -539,18 +523,18 @@ dependencies = [
  
  [[package]]
  name = "clap"
@@ -84,7 +106,7 @@ forever but for now it makes it work.
  dependencies = [
   "anstream",
   "anstyle",
-@@ -560,9 +538,9 @@ dependencies = [
+@@ -561,9 +545,9 @@ dependencies = [
  
  [[package]]
  name = "clap_lex"
@@ -96,7 +118,63 @@ forever but for now it makes it work.
  
  [[package]]
  name = "clru"
-@@ -910,9 +888,9 @@ checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
+@@ -656,7 +640,7 @@ version = "1.4.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "b3855a8a784b474f333699ef2bbca9db2c4a1f6d9088a90a2d25b1eb53111eaa"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+ ]
+ 
+ [[package]]
+@@ -701,7 +685,7 @@ version = "0.5.12"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "ab3db02a9c5b5121e1e42fbdb1aeb65f5e02624cc58c43f2884c6ccac0b82f95"
+ dependencies = [
+- "crossbeam-utils",
++ "crossbeam-utils 0.8.19",
+ ]
+ 
+ [[package]]
+@@ -711,7 +695,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "613f8cc01fe9cf1a3eb3d7f488fd2fa8388403e97039e2f73692932e291a770d"
+ dependencies = [
+  "crossbeam-epoch",
+- "crossbeam-utils",
++ "crossbeam-utils 0.8.19",
+ ]
+ 
+ [[package]]
+@@ -720,7 +704,18 @@ version = "0.9.18"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "5b82ac4a3c2ca9c3460964f020e1402edd5753411d7737aa39c3714ad1b5420e"
+ dependencies = [
+- "crossbeam-utils",
++ "crossbeam-utils 0.8.19",
++]
++
++[[package]]
++name = "crossbeam-utils"
++version = "0.7.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c3c7c73a2d1e9fc0886a08b93e98eb643461230d5f1925e4036204d5f2e261a8"
++dependencies = [
++ "autocfg",
++ "cfg-if 0.1.10",
++ "lazy_static",
+ ]
+ 
+ [[package]]
+@@ -900,7 +895,7 @@ version = "0.8.33"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "7268b386296a025e474d5140678f75d6de9493ae55a5d709eeb9dd08149945e1"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+ ]
+ 
+ [[package]]
+@@ -911,9 +906,9 @@ checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
  
  [[package]]
  name = "erased-serde"
@@ -108,7 +186,7 @@ forever but for now it makes it work.
  dependencies = [
   "serde",
  ]
-@@ -981,14 +959,14 @@ checksum = "c007b1ae3abe1cb6f85a16305acd418b7ca6343b953633fee2b76d8f108b830f"
+@@ -982,14 +977,14 @@ checksum = "c007b1ae3abe1cb6f85a16305acd418b7ca6343b953633fee2b76d8f108b830f"
  
  [[package]]
  name = "filetime"
@@ -118,7 +196,8 @@ forever but for now it makes it work.
 -checksum = "1ee447700ac8aa0b2f2bd7bc4462ad686ba06baa6727ac149a2d6277f0d240fd"
 +checksum = "d4029edd3e734da6fe05b6cd7bd2960760a616bd2ddd0d59a0124746d6272af0"
  dependencies = [
-  "cfg-if",
+- "cfg-if",
++ "cfg-if 1.0.0",
   "libc",
 - "redox_syscall",
 - "windows-sys 0.52.0",
@@ -127,7 +206,16 @@ forever but for now it makes it work.
  ]
  
  [[package]]
-@@ -1581,7 +1559,7 @@ checksum = "23623cf0f475691a6d943f898c4d0b89f5c1a2a64d0f92bce0e0322ee6528783"
+@@ -1050,7 +1045,7 @@ version = "0.2.12"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "190092ea657667030ac6a35e305e62fc4dd69fd98ac98631e5d3a2b1575a12b5"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "js-sys",
+  "libc",
+  "wasi",
+@@ -1582,7 +1577,7 @@ checksum = "23623cf0f475691a6d943f898c4d0b89f5c1a2a64d0f92bce0e0322ee6528783"
  dependencies = [
   "bstr",
   "gix-trace",
@@ -136,7 +224,7 @@ forever but for now it makes it work.
   "once_cell",
   "thiserror",
  ]
-@@ -1801,7 +1779,7 @@ dependencies = [
+@@ -1802,7 +1797,7 @@ dependencies = [
   "bstr",
   "gix-features",
   "gix-path",
@@ -145,7 +233,16 @@ forever but for now it makes it work.
   "thiserror",
   "url",
  ]
-@@ -1952,11 +1930,11 @@ dependencies = [
+@@ -1883,7 +1878,7 @@ version = "2.4.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "b5eceaaeec696539ddaf7b333340f1af35a5aa87ae3e4f3ead0532f72affab2e"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "crunchy",
+ ]
+ 
+@@ -1953,11 +1948,11 @@ dependencies = [
  
  [[package]]
  name = "home"
@@ -160,7 +257,7 @@ forever but for now it makes it work.
  ]
  
  [[package]]
-@@ -1966,20 +1944,11 @@ dependencies = [
+@@ -1967,20 +1962,11 @@ dependencies = [
   "windows-sys 0.52.0",
  ]
  
@@ -183,28 +280,60 @@ forever but for now it makes it work.
  dependencies = [
   "memchr",
  ]
-@@ -2002,9 +1971,9 @@ dependencies = [
+@@ -2003,16 +1989,18 @@ dependencies = [
  
  [[package]]
  name = "ignore"
 -version = "0.4.22"
-+version = "0.4.21"
++version = "0.4.15"
  source = "registry+https://github.com/rust-lang/crates.io-index"
 -checksum = "b46810df39e66e925525d6e38ce1e7f6e1d208f72dc39757880fcb66e2c58af1"
-+checksum = "747ad1b4ae841a78e8aba0d63adbfbeaea26b517b63705d47856b73015d27060"
++checksum = "128b9e89d15a3faa642ee164c998fd4fae3d89d054463cddb2c25a7baad3a352"
  dependencies = [
-  "crossbeam-deque",
+- "crossbeam-deque",
++ "crossbeam-utils 0.7.2",
   "globset",
-@@ -2517,7 +2486,7 @@ checksum = "4c42a9226546d68acdd9c0a280d17ce19bfe27a46bf68784e4066115788d008e"
++ "lazy_static",
+  "log",
+  "memchr",
+- "regex-automata 0.4.6",
++ "regex",
+  "same-file",
++ "thread_local",
+  "walkdir",
+  "winapi-util",
+ ]
+@@ -2163,7 +2151,7 @@ version = "0.8.3"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "0c2a198fb6b0eada2a8df47933734e6d35d350665a33a3593d7164fa52c75c19"
  dependencies = [
-  "cfg-if",
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "windows-targets 0.52.4",
+ ]
+ 
+@@ -2405,7 +2393,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "bac25ee399abb46215765b1cb35bc0212377e58a061560d8b29b024fd0430e7c"
+ dependencies = [
+  "bitflags 2.5.0",
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "foreign-types",
+  "libc",
+  "once_cell",
+@@ -2516,9 +2504,9 @@ version = "0.9.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "4c42a9226546d68acdd9c0a280d17ce19bfe27a46bf68784e4066115788d008e"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
   "libc",
 - "redox_syscall",
 + "redox_syscall 0.4.1",
   "smallvec",
   "windows-targets 0.48.5",
  ]
-@@ -2544,9 +2513,9 @@ dependencies = [
+@@ -2545,9 +2533,9 @@ dependencies = [
  
  [[package]]
  name = "pasetors"
@@ -216,7 +345,7 @@ forever but for now it makes it work.
  dependencies = [
   "ct-codecs",
   "ed25519-compact",
-@@ -2647,9 +2616,9 @@ dependencies = [
+@@ -2648,9 +2636,9 @@ dependencies = [
  
  [[package]]
  name = "pkg-config"
@@ -228,10 +357,14 @@ forever but for now it makes it work.
  
  [[package]]
  name = "plotters"
-@@ -2839,6 +2808,15 @@ dependencies = [
-  "crossbeam-utils",
- ]
- 
+@@ -2837,7 +2825,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "1465873a3dfdaa8ae7cb14b4383657caab0b3e8a0aa9ae8e04b044854c8dfce2"
+ dependencies = [
+  "crossbeam-deque",
+- "crossbeam-utils",
++ "crossbeam-utils 0.8.19",
++]
++
 +[[package]]
 +name = "redox_syscall"
 +version = "0.3.5"
@@ -239,12 +372,22 @@ forever but for now it makes it work.
 +checksum = "567664f262709473930a4bf9e51bf2ebf3348f2e748ccc50dea20646858f8f29"
 +dependencies = [
 + "bitflags 1.3.2",
-+]
-+
+ ]
+ 
  [[package]]
- name = "redox_syscall"
- version = "0.4.1"
-@@ -3042,9 +3020,9 @@ dependencies = [
+@@ -2851,9 +2848,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "regex"
+-version = "1.10.4"
++version = "1.10.3"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c117dbdfde9c8308975b6a18d71f3f385c89461f7b3fb054288ecf2a2058ba4c"
++checksum = "b62dbe01f0b06f9d8dc7d49e05a0785f153b00b2c227856282f671e0318c9b15"
+ dependencies = [
+  "aho-corasick",
+  "memchr",
+@@ -3043,9 +3040,9 @@ dependencies = [
  
  [[package]]
  name = "semver"
@@ -256,7 +399,7 @@ forever but for now it makes it work.
  dependencies = [
   "serde",
  ]
-@@ -3067,9 +3045,9 @@ dependencies = [
+@@ -3068,9 +3065,9 @@ dependencies = [
  
  [[package]]
  name = "serde-untagged"
@@ -268,7 +411,7 @@ forever but for now it makes it work.
  dependencies = [
   "erased-serde",
   "serde",
-@@ -3098,18 +3076,18 @@ dependencies = [
+@@ -3099,18 +3096,18 @@ dependencies = [
  
  [[package]]
  name = "serde_ignored"
@@ -283,23 +426,41 @@ forever but for now it makes it work.
  
  [[package]]
  name = "serde_json"
--version = "1.0.115"
+-version = "1.0.116"
 +version = "1.0.108"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "12dc5c46daa8e9fdf4f5e71b6cf9a53f2487da0e86e55808e2d35539666497dd"
+-checksum = "3e17db7126d17feb94eb3fad46bf1a96b034e8aacbc2e775fe81505f8b0b2813"
 +checksum = "3d1c7e3eac408d115102c4c24ad393e0821bb3a5df4d506a80f85f7a742a526b"
  dependencies = [
   "itoa 1.0.11",
   "ryu",
-@@ -3208,19 +3186,17 @@ checksum = "3c5e1a9a646d36c3599cd173a41282daf47c44583ad367b8e6837255952e5c67"
+@@ -3132,7 +3129,7 @@ version = "0.10.6"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "e3bf829a2d51ab4a5ddf1352d8470c140cadc8301b2ae1789db023f01cedd6ba"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "cpufeatures",
+  "digest",
+ ]
+@@ -3149,7 +3146,7 @@ version = "0.10.8"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "793db75ad2bcafc3ffa7c68b215fee268f537982cd901d132f89c6343f3a3dc8"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "cpufeatures",
+  "digest",
+ ]
+@@ -3209,20 +3206,17 @@ checksum = "3c5e1a9a646d36c3599cd173a41282daf47c44583ad367b8e6837255952e5c67"
  
  [[package]]
  name = "snapbox"
--version = "0.5.9"
-+version = "0.4.14"
+-version = "0.6.7"
++version = "0.4.17"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "8ac441e1ecf678f68423d47f376d53fabce1afba92c8f68e31508eb27df8562a"
-+checksum = "4b377c0b6e4715c116473d8e40d51e3fa5b0a2297ca9b2a931ba800667b259ed"
+-checksum = "94204b12a4d3550420babdb4148c6639692e4e3e61060866929c5107f208aeb6"
++checksum = "4b831b6e80fbcd2889efa75b185d24005f85981431495f995292b25836519d84"
  dependencies = [
   "anstream",
   "anstyle",
@@ -309,11 +470,12 @@ forever but for now it makes it work.
   "escargot",
   "filetime",
   "normalize-line-endings",
+- "regex",
 - "serde_json",
   "similar",
   "snapbox-macros",
   "tempfile",
-@@ -3264,9 +3240,9 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
+@@ -3266,9 +3260,9 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
  
  [[package]]
  name = "strsim"
@@ -325,14 +487,23 @@ forever but for now it makes it work.
  
  [[package]]
  name = "subtle"
-@@ -3354,18 +3330,18 @@ dependencies = [
+@@ -3338,7 +3332,7 @@ version = "3.10.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "85b77fafb263dd9d05cbeac119526425676db3784113aa9295c88498cbf8bff1"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "fastrand",
+  "rustix",
+  "windows-sys 0.52.0",
+@@ -3356,18 +3350,18 @@ dependencies = [
  
  [[package]]
  name = "thiserror"
--version = "1.0.58"
+-version = "1.0.59"
 +version = "1.0.50"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "03468839009160513471e86a034bb2c5c0e4baae3b43f79ffc55c4a5427b3297"
+-checksum = "f0126ad08bff79f29fc3ae6a55cc72352056dfff61e3ff8bb7129476d44b23aa"
 +checksum = "f9a7210f5c9a7156bb50aa36aed4c95afb51df0df00713949448cf9e97d382d2"
  dependencies = [
   "thiserror-impl",
@@ -340,15 +511,24 @@ forever but for now it makes it work.
  
  [[package]]
  name = "thiserror-impl"
--version = "1.0.58"
+-version = "1.0.59"
 +version = "1.0.50"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "c61f3ba182994efc43764a46c018c347bc492c79f024e705f46567b418f6d4f7"
+-checksum = "d1cd413b5d558b4c5bf3680e324a6fa5014e7b7c067a51e69dbdf47eb7148b66"
 +checksum = "266b2e40bc00e5a6c09c3584011e08b06f123c00362c92b975ba9843aaaa14b8"
  dependencies = [
   "proc-macro2",
   "quote",
-@@ -3498,9 +3474,9 @@ dependencies = [
+@@ -3380,7 +3374,7 @@ version = "1.1.8"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "8b9ef9bad013ada3808854ceac7b46812a6465ba368859a37e2100283d2d719c"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "once_cell",
+ ]
+ 
+@@ -3500,9 +3494,9 @@ dependencies = [
  
  [[package]]
  name = "tracing-chrome"
@@ -360,7 +540,7 @@ forever but for now it makes it work.
  dependencies = [
   "serde_json",
   "tracing-core",
-@@ -3623,12 +3599,6 @@ dependencies = [
+@@ -3625,12 +3619,6 @@ dependencies = [
   "percent-encoding",
  ]
  
@@ -373,24 +553,33 @@ forever but for now it makes it work.
  [[package]]
  name = "utf8parse"
  version = "0.2.1"
+@@ -3773,7 +3761,7 @@ version = "0.2.92"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "4be2531df63900aeb2bca0daaaddec08491ee64ceecbee5076636a3b026795a8"
+ dependencies = [
+- "cfg-if",
++ "cfg-if 1.0.0",
+  "wasm-bindgen-macro",
+ ]
+ 
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -21,7 +21,7 @@ repository = "https://github.com/rust-lang/cargo"
- annotate-snippets = "0.11.1"
+ annotate-snippets = "0.11.2"
  anstream = "0.6.13"
  anstyle = "1.0.6"
--anyhow = "1.0.81"
+-anyhow = "1.0.82"
 +anyhow = "1.0.75"
- base64 = "0.22.0"
+ base64 = "0.22.1"
  bytesize = "1.3"
  cargo = { path = "" }
 @@ -35,14 +35,14 @@ cargo-test-support = { version = "0.2.0", path = "crates/cargo-test-support" }
  cargo-util = { version = "0.2.9", path = "crates/cargo-util" }
- cargo-util-schemas = { version = "0.3.0", path = "crates/cargo-util-schemas" }
+ cargo-util-schemas = { version = "0.4.0", path = "crates/cargo-util-schemas" }
  cargo_metadata = "0.18.1"
 -clap = "4.5.4"
 +clap = "4.4.10"
- color-print = "0.3.5"
+ color-print = "0.3.6"
  core-foundation = { version = "0.9.4", features = ["mac_os_10_7_support"] }
  crates-io = { version = "0.40.0", path = "crates/crates-io" }
  criterion = { version = "0.5.1", features = ["html_reports"] }
@@ -398,7 +587,7 @@ forever but for now it makes it work.
  curl-sys = "0.4.72"
 -filetime = "0.2.23"
 +filetime = "0.2.22"
- flate2 = { version = "1.0.28", default-features = false, features = ["zlib"] }
+ flate2 = { version = "1.0.30", default-features = false, features = ["zlib"] }
  git2 = "0.18.3"
  git2-curl = "0.19.0"
 @@ -51,10 +51,10 @@ glob = "0.3.1"
@@ -413,14 +602,14 @@ forever but for now it makes it work.
 -ignore = "0.4.22"
 +ignore = "0.4.15"
  im-rc = "15.1.0"
- indexmap = "2"
+ indexmap = "2.2.6"
  itertools = "0.12.1"
-@@ -63,16 +63,16 @@ lazycell = "1.3.0"
- libc = "0.2.153"
+@@ -63,43 +63,43 @@ lazycell = "1.3.0"
+ libc = "0.2.154"
  libgit2-sys = "0.16.2"
  libloading = "0.8.3"
 -memchr = "2.7.2"
-+memchr = "2.5.0"
++memchr = "2.6.0"
  miow = "0.6.0"
  opener = "0.7.0"
  openssl = "0.10.57"
@@ -428,43 +617,45 @@ forever but for now it makes it work.
  os_info = { version = "3.8.2", default-features = false }
 -pasetors = { version = "0.6.8", features = ["v3", "paserk", "std", "serde"] }
 +pasetors = { version = "0.6.7", features = ["v3", "paserk", "std", "serde"] }
- pathdiff = "0.2"
- percent-encoding = "2.3"
+ pathdiff = "0.2.1"
+ percent-encoding = "2.3.1"
 -pkg-config = "0.3.30"
 +pkg-config = "0.3.27"
  proptest = "1.4.0"
- pulldown-cmark = { version = "0.10.2", default-features = false, features = ["html"] }
+ pulldown-cmark = { version = "0.10.3", default-features = false, features = ["html"] }
  rand = "0.8.5"
-@@ -81,25 +81,25 @@ rusqlite = { version = "0.31.0", features = ["bundled"] }
+-regex = "1.10.4"
++regex = "1.10.3"
+ rusqlite = { version = "0.31.0", features = ["bundled"] }
  rustfix = { version = "0.8.2", path = "crates/rustfix" }
  same-file = "1.0.6"
  security-framework = "2.10.0"
 -semver = { version = "1.0.22", features = ["serde"] }
 +semver = { version = "1.0.20", features = ["serde"] }
- serde = "1.0.197"
+ serde = "1.0.199"
 -serde-untagged = "0.1.5"
 +serde-untagged = "0.1.1"
  serde-value = "0.7.0"
 -serde_ignored = "0.1.10"
--serde_json = "1.0.115"
+-serde_json = "1.0.116"
 +serde_ignored = "0.1.9"
 +serde_json = "1.0.108"
  sha1 = "0.10.6"
  sha2 = "0.10.8"
  shell-escape = "0.1.5"
  supports-hyperlinks = "3.0.0"
--snapbox = { version = "0.5.9", features = ["diff", "path", "term-svg"] }
+-snapbox = { version = "0.6.7", features = ["diff", "dir", "term-svg", "regex"] }
 +snapbox = { version = "0.4.14", features = ["diff", "path"] }
  tar = { version = "0.4.40", default-features = false }
  tempfile = "3.10.1"
--thiserror = "1.0.58"
+-thiserror = "1.0.59"
 +thiserror = "1.0.50"
  time = { version = "0.3.36", features = ["parsing", "formatting", "serde"] }
- toml = "0.8.12"
- toml_edit = { version = "0.22.11", features = ["serde"] }
+ toml = "0.8.14"
+ toml_edit = { version = "0.22.14", features = ["serde"] }
  tracing = "0.1.40" # be compatible with rustc_log: https://github.com/rust-lang/rust/blob/e51e98dde6a/compiler/rustc_log/Cargo.toml#L9
 -tracing-chrome = "0.7.2"
 +tracing-chrome = "0.7.1"
  tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
  unicase = "2.7.0"
- unicode-width = "0.1.11"
+ unicode-width = "0.1.12"

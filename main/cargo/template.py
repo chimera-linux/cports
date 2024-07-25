@@ -1,5 +1,5 @@
 pkgname = "cargo"
-pkgver = "1.79.0"
+pkgver = "1.80.0"
 _cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
 pkgrel = 0
 build_style = "cargo"
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://github.com/rust-lang/cargo/archive/{_cargover}.tar.gz"
-sha256 = "542efc5daa159e2942d454eb2815247a96589363977429bd473f8cac8a55636e"
+sha256 = "5d2ea954f1a8bf03389fe2cefc5603de180a0c0010aa66628a325007216ef862"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
