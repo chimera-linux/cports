@@ -1,5 +1,5 @@
 pkgname = "firewalld"
-pkgver = "2.2.0"
+pkgver = "2.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
@@ -26,11 +26,11 @@ depends = [
     "python-nftables",
 ]
 pkgdesc = "Stateful zone-based firewall daemon with D-Bus interface"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://firewalld.org"
 source = f"https://github.com/firewalld/firewalld/releases/download/v{pkgver}/firewalld-{pkgver}.tar.bz2"
-sha256 = "045e867db606017a0ab700e62c73b6fb2944b45bbf7dc6f14985ee69995362e7"
+sha256 = "5215ba30236ee1e3df2c2292465a9ff605b9c445dcab2e37da4961cb27c7f36e"
 # tests don't work in our build env
 options = ["!check"]
 
