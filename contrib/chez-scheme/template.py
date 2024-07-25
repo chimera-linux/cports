@@ -20,6 +20,7 @@ url = "https://cisco.github.io/ChezScheme"
 source = f"https://github.com/cisco/ChezScheme/releases/download/v{pkgver}/csv{pkgver}.tar.gz"
 sha256 = "d37199012b5ed1985c4069d6a87ff18e5e1f5a2df27e402991faf45dc4f2232c"
 hardening = ["!int"]
+# below
 options = ["!cross"]
 
 match self.profile().arch:
