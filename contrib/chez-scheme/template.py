@@ -29,9 +29,6 @@ match self.profile().arch:
         _machine = "tarm32le"
     case "ppc":
         _machine = "tppc32le"
-    case "ppc64*":
-        # fails to link the tests
-        options += ["!check"]
     case "riscv64":
         _machine = "trv64le"
     case "x86_64":
@@ -39,6 +36,8 @@ match self.profile().arch:
     case _:
         # portable bytecode
         _machine = f"tpb{self.profile().wordsize}{self.profile().endian[0]}"
+        # also fails to link the tests
+        options += ["!check"]
 
 configure_args += [f"--machine={_machine}"]
 
