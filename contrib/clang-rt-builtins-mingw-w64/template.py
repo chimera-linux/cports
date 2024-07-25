@@ -27,6 +27,7 @@ configure_args = [
 ]
 cmake_dir = "compiler-rt"
 hostmakedepends = [
+    "base-cross",
     "clang-tools-extra",
     "cmake",
     "python",
