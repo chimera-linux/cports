@@ -1,7 +1,7 @@
-From 3016828cd467d5ff22a3b5235915d5790717b767 Mon Sep 17 00:00:00 2001
+From f8c2d69004fa0206c6bddf6dec1fec844c9b5c6d Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 16 Jun 2024 13:33:14 +0200
-Subject: [PATCH 02/12] remove a bunch of unused junk
+Subject: [PATCH 02/13] remove a bunch of unused junk
 
 ---
  compiler/rustc_target/src/spec/crt_objects.rs | 22 ----------
@@ -92,7 +92,7 @@ index 768aac912..b4f1e5a40 100755
    "rootfs in qemu testing, you probably don't want to use this")
  v("qemu-aarch64-rootfs", "target.aarch64-unknown-linux-gnu.qemu-rootfs",
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index 1d46a158f..7fae5b7d0 100644
+index b16f3e5bd..9d2011974 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
 @@ -360,40 +360,7 @@ fn copy_self_contained_objects(
@@ -154,19 +154,19 @@ index 1d46a158f..7fae5b7d0 100644
              if let Some(dir) = builder.wasi_libdir(target) {
                  let root = format!("native={}", dir.to_str().unwrap());
 diff --git a/src/bootstrap/src/core/config/config.rs b/src/bootstrap/src/core/config/config.rs
-index 149a62f88..92457c414 100644
+index 17e37c1ec..014d7daa1 100644
 --- a/src/bootstrap/src/core/config/config.rs
 +++ b/src/bootstrap/src/core/config/config.rs
-@@ -316,8 +316,6 @@ pub struct Config {
+@@ -313,8 +313,6 @@ pub struct Config {
+     pub print_step_timings: bool,
      pub print_step_rusage: bool,
-     pub missing_tools: bool, // FIXME: Deprecated field. Remove it at 2024.
  
 -    // Fallback musl-root for all targets
 -    pub musl_root: Option<PathBuf>,
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -588,8 +586,6 @@ pub struct Target {
+@@ -558,8 +556,6 @@ pub struct Target {
      pub profiler: Option<StringOrBool>,
      pub rpath: Option<bool>,
      pub crt_static: Option<bool>,
@@ -175,7 +175,7 @@ index 149a62f88..92457c414 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub runner: Option<String>,
-@@ -1097,7 +1093,6 @@ define_config! {
+@@ -1080,7 +1076,6 @@ define_config! {
          default_linker: Option<String> = "default-linker",
          channel: Option<String> = "channel",
          description: Option<String> = "description",
@@ -183,7 +183,7 @@ index 149a62f88..92457c414 100644
          rpath: Option<bool> = "rpath",
          strip: Option<bool> = "strip",
          frame_pointers: Option<bool> = "frame-pointers",
-@@ -1151,8 +1146,6 @@ define_config! {
+@@ -1134,8 +1129,6 @@ define_config! {
          profiler: Option<StringOrBool> = "profiler",
          rpath: Option<bool> = "rpath",
          crt_static: Option<bool> = "crt-static",
@@ -192,7 +192,7 @@ index 149a62f88..92457c414 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1582,7 +1575,6 @@ impl Config {
+@@ -1570,7 +1563,6 @@ impl Config {
                  default_linker,
                  channel,
                  description,
@@ -200,7 +200,7 @@ index 149a62f88..92457c414 100644
                  rpath,
                  verbose_tests,
                  optimize_tests,
-@@ -1695,7 +1687,6 @@ impl Config {
+@@ -1673,7 +1665,6 @@ impl Config {
              config.rustc_parallel =
                  parallel_compiler.unwrap_or(config.channel == "dev" || config.channel == "nightly");
              config.rustc_default_linker = default_linker;
@@ -208,7 +208,7 @@ index 149a62f88..92457c414 100644
              config.save_toolstates = save_toolstates.map(PathBuf::from);
              set(
                  &mut config.deny_warnings,
-@@ -1894,8 +1885,6 @@ impl Config {
+@@ -1876,8 +1867,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -218,10 +218,10 @@ index 149a62f88..92457c414 100644
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
                  target.runner = cfg.runner;
 diff --git a/src/bootstrap/src/core/sanity.rs b/src/bootstrap/src/core/sanity.rs
-index e03b1e179..06cb70854 100644
+index e3556cb16..7a034882a 100644
 --- a/src/bootstrap/src/core/sanity.rs
 +++ b/src/bootstrap/src/core/sanity.rs
-@@ -220,28 +220,6 @@ than building it.
+@@ -323,28 +323,6 @@ than building it.
              continue;
          }
  
@@ -251,10 +251,10 @@ index e03b1e179..06cb70854 100644
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
 diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index 663a2d8e1..d2345a54f 100644
+index cde090637..b41ef16e9 100644
 --- a/src/bootstrap/src/lib.rs
 +++ b/src/bootstrap/src/lib.rs
-@@ -1355,25 +1355,6 @@ impl Build {
+@@ -1365,25 +1365,6 @@ impl Build {
          }
      }
  

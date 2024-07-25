@@ -1,7 +1,7 @@
-From 2470382cbdc417ccad3f6a707a6662f875f8d96f Mon Sep 17 00:00:00 2001
+From 0352662582a641e2b88b2e2128977761840567d7 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:08:06 +0100
-Subject: [PATCH 08/12] link stage 2 tools dynamically to libstd
+Subject: [PATCH 08/13] link stage 2 tools dynamically to libstd
 
 stage 2 tools are the ones that are distributed, and we distribute
 them together with the rust libs so there is no need to worry
@@ -11,10 +11,10 @@ about unstable ABI
  1 file changed, 2 insertions(+)
 
 diff --git a/src/bootstrap/src/core/builder.rs b/src/bootstrap/src/core/builder.rs
-index d0d9b1c4a..77f216b6a 100644
+index b3d8465cd..04dd48a51 100644
 --- a/src/bootstrap/src/core/builder.rs
 +++ b/src/bootstrap/src/core/builder.rs
-@@ -2093,6 +2093,8 @@ impl<'a> Builder<'a> {
+@@ -2098,6 +2098,8 @@ impl<'a> Builder<'a> {
          // linking all deps statically into the dylib.
          if matches!(mode, Mode::Std | Mode::Rustc) {
              rustflags.arg("-Cprefer-dynamic");

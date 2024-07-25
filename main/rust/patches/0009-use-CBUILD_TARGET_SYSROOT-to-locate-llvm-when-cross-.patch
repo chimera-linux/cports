@@ -1,7 +1,7 @@
-From 1ef9f20609c48845133691ff9ee2679dbf0be0e3 Mon Sep 17 00:00:00 2001
+From ce55a3266aed358af25a7958816ff0d94b870b7f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 20 Dec 2021 01:56:48 +0100
-Subject: [PATCH 09/12] use CBUILD_TARGET_SYSROOT to locate llvm when
+Subject: [PATCH 09/13] use CBUILD_TARGET_SYSROOT to locate llvm when
  cross-compiling
 
 ---

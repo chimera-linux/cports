@@ -1,7 +1,7 @@
-From f413f016323891279a8d2ca278b590fbbe129191 Mon Sep 17 00:00:00 2001
+From 9d71345385cf948ba4a0cad8a4343650e5ae960e Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:07:23 +0100
-Subject: [PATCH 07/12] fix rustdoc when cross-compiling
+Subject: [PATCH 07/13] fix rustdoc when cross-compiling
 
 ---
  src/bootstrap/src/bin/rustdoc.rs | 7 ++-----

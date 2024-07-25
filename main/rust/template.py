@@ -1,6 +1,6 @@
 pkgname = "rust"
-pkgver = "1.79.0"
-pkgrel = 3
+pkgver = "1.80.0"
+pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
     "cmake",
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "ab826e84b8d48ec6eda3370065034dea8c006f6a946d78a9ba12bcb50e6d3c7a"
+sha256 = "0b9ca1e2e45b8a5f0b58db140af0dc92f8311faeb0ad883c5b71a72c02dc6e80"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -69,9 +69,11 @@ def post_patch(self):
     from cbuild.util import cargo
 
     # we are patching these
+    cargo.clear_vendor_checksums(self, "libc-0.2.140")
     cargo.clear_vendor_checksums(self, "libc-0.2.150")
-    cargo.clear_vendor_checksums(self, "libc-0.2.151")
     cargo.clear_vendor_checksums(self, "libc-0.2.153")
+    cargo.clear_vendor_checksums(self, "libc-0.2.154")
+    cargo.clear_vendor_checksums(self, "libc-0.2.155")
 
 
 def do_configure(self):
@@ -155,7 +157,7 @@ extern {}
     with open(self.cwd / "config.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 123711
+change-id = 125535
 
 [llvm]
 ninja = false

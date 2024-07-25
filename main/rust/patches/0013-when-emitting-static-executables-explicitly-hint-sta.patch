@@ -1,8 +1,8 @@
-From e7529b412d402f50cd2df4a584ee88e20a8742fc Mon Sep 17 00:00:00 2001
+From 2b6c1d41aff2ce412212b10fb58949f6b5fa8d84 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 16 Jul 2024 15:04:38 +0200
-Subject: [PATCH] when emitting static executables, explicitly hint static
- first
+Subject: [PATCH 13/13] when emitting static executables, explicitly hint
+ static first
 
 This is important as rustc is not always in charge of what it is
 linking (due to some targets not necessarily passing -nodefaultlibs)
@@ -19,10 +19,10 @@ implicit libs statically as expected.
  1 file changed, 6 insertions(+)
 
 diff --git a/compiler/rustc_codegen_ssa/src/back/linker.rs b/compiler/rustc_codegen_ssa/src/back/linker.rs
-index 85fcc4f..08afd03 100644
+index a82478900..45823da9a 100644
 --- a/compiler/rustc_codegen_ssa/src/back/linker.rs
 +++ b/compiler/rustc_codegen_ssa/src/back/linker.rs
-@@ -386,6 +386,10 @@ impl<'a> Linker for GccLinker<'a> {
+@@ -388,6 +388,10 @@ impl<'a> Linker for GccLinker<'a> {
                  }
              }
              LinkOutputKind::StaticNoPicExe => {
@@ -33,7 +33,7 @@ index 85fcc4f..08afd03 100644
                  // `-static` works for both gcc wrapper and ld.
                  self.cmd.arg("-static");
                  if !self.is_ld && self.is_gnu {
-@@ -393,6 +397,8 @@ impl<'a> Linker for GccLinker<'a> {
+@@ -395,6 +399,8 @@ impl<'a> Linker for GccLinker<'a> {
                  }
              }
              LinkOutputKind::StaticPicExe => {
