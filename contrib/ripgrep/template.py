@@ -1,11 +1,13 @@
 pkgname = "ripgrep"
 pkgver = "14.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 # we patch lockfile
 prepare_after_patch = True
-hostmakedepends = ["cargo-auditable"]
-makedepends = ["rust-std"]
+make_build_args = ["--features", "pcre2"]
+make_check_args = [*make_build_args]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
+makedepends = ["rust-std", "pcre2-devel"]
 pkgdesc = "Recursive grep-like tool"
 maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT OR Unlicense"
@@ -21,7 +23,8 @@ sha256 = [
 ]
 
 
-def post_install(self):
+def do_install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/rg")
     self.install_license("LICENSE-MIT")
     self.install_man("docs-prebuilt/doc/rg.1")
     self.install_completion("docs-prebuilt/complete/rg.bash", "bash", "rg")
