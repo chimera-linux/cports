@@ -3,7 +3,7 @@ pkgver = "12.0.0"
 pkgrel = 0
 build_wrksrc = "mingw-w64-headers"
 build_style = "gnu_configure"
-hostmakedepends = ["autoconf", "automake", "libtool"]
+hostmakedepends = ["automake", "libtool"]
 depends = []
 pkgdesc = "Header files for Windows development"
 maintainer = "Erica Z <zerica@callcc.eu>"
@@ -24,39 +24,31 @@ def do_configure(self):
 
     for an in _targets:
         at = an + "-w64-mingw32"
-        with self.stamp(f"{an}_configure") as s:
-            s.check()
-            gnu_configure.configure(
-                self,
-                configure_args=[
-                    f"--host={at}",
-                    f"--prefix=/usr/{at}",
-                ],
-                build_dir=f"build-{an}",
-            )
+        gnu_configure.configure(
+            self,
+            configure_args=[
+                f"--host={at}",
+                f"--prefix=/usr/{at}",
+            ],
+            build_dir=f"build-{an}",
+        )
 
 
 def do_build(self):
     for an in _targets:
-        with self.stamp(f"{an}_build") as s:
-            s.check()
-            self.make.build(wrksrc=f"build-{an}")
+        self.make.build(wrksrc=f"build-{an}")
 
 
 def do_check(self):
     for an in _targets:
-        with self.stamp(f"{an}_check") as s:
-            s.check()
-            self.make.check(wrksrc=f"build-{an}")
+        self.make.check(wrksrc=f"build-{an}")
 
 
 def do_install(self):
     for an in _targets:
-        with self.stamp(f"{an}_install") as s:
-            s.check()
-            self.make.install(
-                wrksrc=f"build-{an}",
-            )
+        self.make.install(
+            wrksrc=f"build-{an}",
+        )
 
 
 def _gen(an, at):
