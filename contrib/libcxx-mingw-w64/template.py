@@ -44,7 +44,7 @@ url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
 # crosstoolchain
-options = ["!check", "empty"]
+options = ["!check", "empty", "!relr"]
 
 _targets = ["x86_64", "i686", "aarch64", "armv7"]
 
