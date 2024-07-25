@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86_64 6.6.41 Kernel Configuration
+# Linux/x86_64 6.6.42 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 18.1.8"
 CONFIG_GCC_VERSION=0
@@ -11053,7 +11053,6 @@ CONFIG_SWIOTLB=y
 CONFIG_SGL_ALLOC=y
 CONFIG_IOMMU_HELPER=y
 CONFIG_CHECK_SIGNATURE=y
-# CONFIG_FORCE_NR_CPUS is not set
 CONFIG_CPU_RMAP=y
 CONFIG_DQL=y
 CONFIG_GLOB=y
