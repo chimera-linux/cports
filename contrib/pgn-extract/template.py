@@ -1,5 +1,5 @@
 pkgname = "pgn-extract"
-pkgver = "24.10"
+pkgver = "24.11"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -13,7 +13,7 @@ maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.cs.kent.ac.uk/people/staff/djb/pgn-extract"
 source = f"{url}/pgn-extract-{pkgver.replace('.', '-')}.tgz"
-sha256 = "f15ab628218111e048b6d9313ea519f03125edd6edf2c860811246d5da921279"
+sha256 = "e9a32aca95666fca86e563a2df4843bf6c0f6508d777aad2d7438ad6b88c7ff5"
 
 
 def init_build(self):
