@@ -10,3 +10,11 @@ index 41c56da..b8f8bf3 100644
      -Wextra
      -Wvla
      -Wswitch
+--- a/libobs/cmake/linux/libobs.pc.in
++++ b/libobs/cmake/linux/libobs.pc.in
+@@ -10,4 +10,4 @@
+ Requires:
+ Libs: -L${libdir} -lobs
+ Libs.private: -pthread -lm
+-Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd -Werror
++Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd
