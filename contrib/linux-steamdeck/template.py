@@ -1,4 +1,3 @@
-# update linux-steamdeck-zfs-bin when bumping
 # also bump update.py
 pkgname = "linux-steamdeck"
 pkgver = "6.5.0"
