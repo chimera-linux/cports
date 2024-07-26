@@ -18,3 +18,11 @@ index 41c56da..b8f8bf3 100644
  Libs.private: -pthread -lm
 -Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd -Werror
 +Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd
+--- a/UI/obs-frontend-api/cmake/linux/obs-frontend-api.pc.in
++++ b/UI/obs-frontend-api/cmake/linux/obs-frontend-api.pc.in
+@@ -10,4 +10,4 @@
+ Requires:
+ Libs: -L${libdir} -lobs-frontend-api -lobs
+ Libs.private: -lobs -lm -pthread
+-Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd -Werror
++Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd
