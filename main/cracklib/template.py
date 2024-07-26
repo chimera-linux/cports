@@ -1,6 +1,6 @@
 pkgname = "cracklib"
-pkgver = "2.10.0"
-pkgrel = 1
+pkgver = "2.10.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 make_cmd = "gmake"
@@ -24,11 +24,9 @@ source = [
 ]
 source_paths = [".", "words"]
 sha256 = [
-    "3451f0f28676268a0c6d8b0d5deff090d675a7cfe97825829785bcd9c25caf57",
-    "2432e8fdb48b2228c2d83525fbc43bd388b6ce0c397312fab7af30bee8af3e96",
+    "9d5052e32625d65f2c3a9f9e3087d2edf6f592d40367b6eb3cae135d84ca064d",
+    "530f24c9ca0e3b35a5c7ea4f281ca02b90813773db060681f56bb1559c5883be",
 ]
-# working release por favor
-options = ["!check"]
 
 
 def post_install(self):
@@ -42,6 +40,7 @@ def post_install(self):
         with open(f.with_name(f.name + ".gz"), "wb") as cf:
             self.do(
                 "gzip",
+                "-9n",
                 "-c",
                 self.chroot_destdir / f.relative_to(self.destdir),
                 stdout=cf,

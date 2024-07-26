@@ -19,7 +19,7 @@ Use python if we can as it's much faster than our current sort(1).
  gzip -cdf "$@" |
      grep -a -v '^#' |
      tr '[A-Z]' '[a-z]' |
-     tr -cd '\012[a-z][0-9]' |
+     tr -cd '\n[:graph:]' |
      cut -c 1-1022 |
      grep -v '^$' |
 -    sort -u
