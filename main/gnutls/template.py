@@ -1,12 +1,12 @@
 pkgname = "gnutls"
 pkgver = "3.8.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
     "--disable-static",
     "--disable-valgrind-tests",
-    "--enable-afalg",
+    "--disable-afalg",  # broken outside x86_64
     "--enable-ktls",
     "--with-brotli",
     "--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt",
@@ -26,7 +26,6 @@ makedepends = [
     "brotli-devel",
     "gmp-devel",
     "libidn2-devel",
-    "libkcapi-devel",
     "libtasn1-devel",
     "libunistring-devel",
     "linux-headers",
