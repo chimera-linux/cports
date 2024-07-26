@@ -378,9 +378,13 @@ do_install() {
         strip_arg="--strip-module=${DESTDIR}/usr/lib/debug"
     fi
 
+    # compress modules a bit more by default when using zstd
+    # (the default is 3 and we can reasonably do 9 just about anywhere)
+    export ZSTD_CLEVEL=9
     call_make modules_install INSTALL_MOD_PATH="$DESTDIR" \
         "MODLIB=${DESTDIR}/usr/lib/modules/${kernver}" \
         "STRIP=$strip_exe" "INSTALL_MOD_STRIP=$strip_arg"
+    unset ZSTD_CLEVEL
 
     # can be renamed later
     hdrdest="${DESTDIR}/usr/src/linux-headers-${kernver}"
