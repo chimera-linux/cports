@@ -1,9 +1,9 @@
 pkgname = "libatasmart"
 pkgver = "0.19"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["udev-devel", "linux-headers"]
 pkgdesc = "ATA S.M.A.R.T. reading and parsing library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -21,6 +21,3 @@ def _devel(self):
 @subpackage("libatasmart-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
