@@ -8,8 +8,7 @@ depends = ["perl"]
 pkgdesc = "Permits access from Perl to the gettext() family of functions"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
-url = "https://metacpan.org/release/gettext"
-# source = f"$(CPAN_SITE)/Locale/gettext-{pkgver}.tar.gz"
+url = "https://metacpan.org/pod/Locale::gettext"
 source = (
     f"https://cpan.metacpan.org/authors/id/P/PV/PVANDRY/gettext-{pkgver}.tar.gz"
 )

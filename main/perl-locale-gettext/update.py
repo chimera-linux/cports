@@ -1,3 +1,1 @@
-pkgname = "gettext"
-# yanked
-ignore = True
+pkgname = "Locale-gettext"
