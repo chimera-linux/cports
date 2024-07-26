@@ -1,6 +1,6 @@
 pkgname = "libzip"
 pkgver = "1.10.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_EXAMPLES=OFF",
@@ -11,6 +11,7 @@ configure_args = [
 ]
 hostmakedepends = [
     "cmake",
+    "mandoc",
     "ninja",
     "pkgconf",
 ]
