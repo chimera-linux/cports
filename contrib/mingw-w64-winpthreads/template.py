@@ -1,6 +1,6 @@
 pkgname = "mingw-w64-winpthreads"
 pkgver = "12.0.0"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "mingw-w64-libraries/winpthreads"
 build_style = "gnu_configure"
 configure_args = ["--disable-dependency-tracking"]
@@ -15,7 +15,7 @@ url = "https://www.mingw-w64.org"
 source = f"$(SOURCEFORGE_SITE)/mingw-w64/mingw-w64-v{pkgver}.tar.bz2"
 sha256 = "cc41898aac4b6e8dd5cffd7331b9d9515b912df4420a3a612b5ea2955bbeed2f"
 # check requires libunwind
-options = ["empty", "!check"]
+options = ["empty", "!check", "!lto"]
 
 _targets = ["x86_64", "i686", "aarch64", "armv7"]
 
@@ -72,6 +72,8 @@ def _gen(an, at):
     def _subp(self):
         self.subdesc = an
         self.depends = [f"mingw-w64-crt-{an}"]
+        # coff
+        self.options = ["!strip"]
 
         return [f"usr/{at}"]
 
