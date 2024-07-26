@@ -1,6 +1,6 @@
 pkgname = "bind"
 pkgver = "9.20.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-libidn2"]
 make_cmd = "gmake"
@@ -55,6 +55,14 @@ def post_install(self):
 @subpackage("bind-devel")
 def _devel(self):
     return self.default_devel()
+
+
+@subpackage("bind-libs")
+def _libs(self):
+    self.subdesc = "libraries"
+    # bind has libfoo.so as the symlink,
+    # and libfoo-version.so as the main lib
+    return ["usr/lib/lib*-*.so"]
 
 
 @subpackage("bind-progs")
