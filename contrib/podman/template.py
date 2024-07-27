@@ -2,7 +2,14 @@ pkgname = "podman"
 pkgver = "5.1.2"
 pkgrel = 2
 build_style = "go"
-make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
+# for install.bin compat
+make_dir = "bin"
+make_build_args = [
+    "-mod",
+    "vendor",
+    "./cmd/podman",
+    "./cmd/rootlessport",
+]
 hostmakedepends = [
     "bash",
     "ggrep",
@@ -19,6 +26,7 @@ makedepends = [
     "libassuan-devel",
     "libbtrfs-devel",
     "libseccomp-devel",
+    "linux-headers",
     "sqlite-devel",
 ]
 depends = [
@@ -54,7 +62,15 @@ def post_build(self):
     self.do("gmake", "docs", "GREP=ggrep", "GOMD2MAN=/usr/bin/go-md2man")
 
 
-def post_install(self):
+def do_install(self):
+    self.do(
+        "gmake",
+        "install.bin",
+        "install.completions",
+        "install.man",
+        "PREFIX=/usr",
+        f"DESTDIR={self.chroot_destdir}",
+    )
     self.install_service(self.files_path / "podman")
     self.install_service(self.files_path / "podman-docker")
     self.install_service(self.files_path / "podman-restart")
@@ -63,19 +79,4 @@ def post_install(self):
         "usr/libexec",
         name="podman-docker",
         mode=0o755,
-    )
-    self.rename(
-        "usr/bin/rootlessport",
-        "usr/libexec/podman/rootlessport",
-        relative=False,
-    )
-    self.install_link("usr/bin/podmansh", "podman")
-    self.do(
-        "gmake", "install.man", "PREFIX=/usr", f"DESTDIR={self.chroot_destdir}"
-    )
-    self.do(
-        "gmake",
-        "install.completions",
-        "PREFIX=/usr",
-        f"DESTDIR={self.chroot_destdir}",
     )
