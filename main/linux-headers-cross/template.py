@@ -1,5 +1,5 @@
 pkgname = "linux-headers-cross"
-pkgver = "6.10.1"
+pkgver = "6.10.2"
 pkgrel = 0
 hostmakedepends = ["gmake", "perl"]
 depends = []
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "70109dfd1cd1c5f8a58eb1cb37122b9bf93f9c6a6280bf91019263c7339cf76b"
+sha256 = "73d8520dd9cba5acfc5e7208e76b35d9740b8aae38210a9224e32ec4c0d29b70"
 # nothing to test
 options = ["!cross", "!check", "empty"]
 
