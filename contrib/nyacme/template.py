@@ -1,5 +1,5 @@
 pkgname = "nyacme"
-pkgver = "0.1.14"
+pkgver = "0.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://git.ddd.rip/ptrcnull/nyacme"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "4a7125ec4d02ab64bea58e6d28d81a829ad50b4bd81c188e57d6735e8f5156d2"
+sha256 = "41cb2814ce1bd2f466a91743f550f455cd31be8de9c9127845d86c67c799b598"
 # tests do not exist
 options = ["!check"]
 
