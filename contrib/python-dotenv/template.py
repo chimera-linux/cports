@@ -1,6 +1,6 @@
 pkgname = "python-dotenv"
 pkgver = "1.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -12,6 +12,7 @@ checkdepends = [
     "python-pytest",
     "python-sh",
 ]
+depends = ["python"]
 pkgdesc = "Python module that reads env vars from a .env file"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
