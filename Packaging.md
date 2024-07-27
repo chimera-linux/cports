@@ -1897,7 +1897,7 @@ like `aarch64-linux-musl-foo`.
 
 Additionally, these tools are also exported into the environment with
 their host values, as `BUILD_CC`, `BUILD_LD` and so on, as well as GNU-style
-`CC_FOR_BUILD. and the likes This is to ensure that project build systems
+`CC_FOR_BUILD` and the likes. This is to ensure that project build systems
 can utilize both host and target toolchains where appropriate.
 
 Tool flags have a bit more elaborate handling. Similarly to tools they
