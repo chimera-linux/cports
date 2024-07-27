@@ -1,6 +1,6 @@
 pkgname = "bottom"
-pkgver = "0.9.6"
-pkgrel = 1
+pkgver = "0.9.7"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
@@ -19,9 +19,9 @@ source_paths = [
     "man",
 ]
 sha256 = [
-    "202130e0d7c362d0d0cf211f6a13e31be3a02f13f998f88571e59a7735d60667",
-    "74a525a17f56e3553bc179ab803d2568a9fe4b5599586f017edcf1d43913daa5",
-    "a22799302ae15ac0b6ed037f35b6f857e264d78e06446b638bc5464846dd5046",
+    "29c3f75323ae0245576ea23268bb0956757352bf3b16d05f511357655b9cc71e",
+    "721b3921157cbc3f31f20f0aaaea468a235b3d0fa8f876cbf9d3867578db8203",
+    "e828123c48bfaec804db06dd211c7e4bb2c9899100c9a68522607832789a3ddb",
 ]
 
 
