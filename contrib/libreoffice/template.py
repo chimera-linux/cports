@@ -171,10 +171,10 @@ _aurl = "!https://dev-www.libreoffice.org/src"
 _eurl = "!https://dev-www.libreoffice.org/extern"
 
 source = [
-    f"{_surl}/{pkgname}-{pkgver}.tar.xz",
-    f"{_surl}/{pkgname}-dictionaries-{pkgver}.tar.xz",
-    f"{_surl}/{pkgname}-help-{pkgver}.tar.xz",
-    f"{_surl}/{pkgname}-translations-{pkgver}.tar.xz",
+    f"{_surl}/libreoffice-{pkgver}.tar.xz",
+    f"{_surl}/libreoffice-dictionaries-{pkgver}.tar.xz",
+    f"{_surl}/libreoffice-help-{pkgver}.tar.xz",
+    f"{_surl}/libreoffice-translations-{pkgver}.tar.xz",
     f"{_aurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip",
     f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip",
     f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip",
