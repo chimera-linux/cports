@@ -1,7 +1,8 @@
 pkgname = "iproute2"
 pkgver = "6.10.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
+configure_args = ["--color", "auto"]
 configure_env = {"CC": "clang"}
 make_cmd = "gmake"
 make_install_args = ["SBINDIR=/usr/bin"]
@@ -14,6 +15,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "libcap-devel",
     "libfl-devel-static",
     "libmnl-devel",
     "libxtables-devel",
