@@ -1,6 +1,6 @@
 pkgname = "basu"
 pkgver = "0.2.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 hostmakedepends = [
     "gperf",
@@ -8,7 +8,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "libcap",
+    # "audit-devel",
+    "libcap-devel",
 ]
 pkgdesc = "Standalone sd-bus library and busctl extracted from systemd"
 maintainer = "Umar Getagazov <umar@handlerug.me>"
