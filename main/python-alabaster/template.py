@@ -1,5 +1,5 @@
 pkgname = "python-alabaster"
-pkgver = "0.7.16"
+pkgver = "1.0.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://alabaster.readthedocs.io"
 source = f"$(PYPI_SITE)/a/alabaster/alabaster-{pkgver}.tar.gz"
-sha256 = "75a8b99c28a5dad50dd7f8ccdd447a121ddb3892da9e53d1ca5cca3106d58d65"
+sha256 = "c00dca57bca26fa62a6d7d0a9fcce65f3e026e9bfe33e9c538fd3fbb2144fd9e"
 # no tests
 options = ["!check"]
 
