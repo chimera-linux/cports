@@ -1,5 +1,5 @@
 pkgname = "cargo-edit"
-pkgver = "0.12.2"
+pkgver = "0.12.3"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/killercup/cargo-edit"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "10c86ca7585852ce288a44608ef87c827f4b733a94eb847ab15735b823b30560"
+sha256 = "5ee14b3f16caa2f36d1e6d41f768043f134e552bec8dbe9d3afe00621b2d0020"
 # Checks don't work with our cargo config overrides
 options = ["!check"]
 
