@@ -1,6 +1,6 @@
 pkgname = "aerc"
 pkgver = "0.18.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "tests"
@@ -16,7 +16,7 @@ checkdepends = [
     "gnupg",
     "gpgme",
 ]
-pkgdesc = "Pretty Good email client"
+pkgdesc = "Terminal email client"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://sr.ht/~rjarry/aerc"
