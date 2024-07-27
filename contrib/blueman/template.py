@@ -1,5 +1,5 @@
 pkgname = "blueman"
-pkgver = "2.4.2"
+pkgver = "2.4.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Druntime_deps_check=false"]
@@ -32,8 +32,8 @@ pkgdesc = "GTK Bluetooth Manager"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://blueman-project.github.io/blueman"
-source = f"https://github.com/blueman-project/blueman/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "01acfb0ab717ecc803ee10de4adacb161af998b69f12633e1885bea2ebd5fcd1"
+source = f"https://github.com/blueman-project/blueman/releases/download/{pkgver}/blueman-{pkgver}.tar.xz"
+sha256 = "bdfc49909742cb79288f8a11d6f666b75c2713b91c085e6d0dd329434793fe85"
 # TODO
 options = ["!check"]
 
