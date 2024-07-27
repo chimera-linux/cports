@@ -10,10 +10,10 @@ Subject: [PATCH] Use openssl
  2 files changed, 93 insertions(+), 34 deletions(-)
 
 diff --git a/Cargo.lock b/Cargo.lock
-index e2630a1a..5e5f1f91 100644
+index 4db1dc98..65f75ad0 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1247,6 +1247,21 @@ version = "1.0.7"
+@@ -1341,6 +1341,21 @@ version = "1.0.7"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
  
@@ -35,41 +35,57 @@ index e2630a1a..5e5f1f91 100644
  [[package]]
  name = "form_urlencoded"
  version = "1.2.1"
-@@ -1652,17 +1667,16 @@ dependencies = [
+@@ -1751,20 +1766,6 @@ dependencies = [
+  "tokio",
  ]
  
- [[package]]
+-[[package]]
 -name = "hyper-rustls"
 -version = "0.24.2"
-+name = "hyper-tls"
-+version = "0.5.0"
- source = "registry+https://github.com/rust-lang/crates.io-index"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
 -checksum = "ec3efd23720e2049821a693cbc7e65ea87c72f1c58ff2f9522ff332b1491e590"
-+checksum = "d6183ddfa99b85da61a140bea0efc93fdf56ceaa041b37d553518030827f9905"
- dependencies = [
+-dependencies = [
 - "futures-util",
 - "http 0.2.12",
-+ "bytes",
-  "hyper 0.14.28",
+- "hyper 0.14.29",
 - "rustls",
-+ "native-tls",
-  "tokio",
+- "tokio",
 - "tokio-rustls",
-+ "tokio-native-tls",
- ]
- 
+-]
+-
  [[package]]
-@@ -2092,6 +2106,24 @@ dependencies = [
-  "windows-sys 0.48.0",
+ name = "hyper-timeout"
+ version = "0.4.1"
+@@ -1777,6 +1778,19 @@ dependencies = [
+  "tokio-io-timeout",
  ]
  
 +[[package]]
-+name = "native-tls"
-+version = "0.2.11"
++name = "hyper-tls"
++version = "0.5.0"
 +source = "registry+https://github.com/rust-lang/crates.io-index"
-+checksum = "07226173c32f2926027b63cce4bcd8076c3552846cbe7925f3aaffeac0a3b92e"
++checksum = "d6183ddfa99b85da61a140bea0efc93fdf56ceaa041b37d553518030827f9905"
 +dependencies = [
-+ "lazy_static",
++ "bytes",
++ "hyper 0.14.29",
++ "native-tls",
++ "tokio",
++ "tokio-native-tls",
++]
++
+ [[package]]
+ name = "hyper-util"
+ version = "0.1.5"
+@@ -2220,6 +2234,23 @@ version = "0.10.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "defc4c55412d89136f966bbb339008b474350e5e6e78d2714439c386b3137a03"
+ 
++[[package]]
++name = "native-tls"
++version = "0.2.12"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "a8614eb2c83d59d1c8cc974dd3f920198647674a0a035e1af1fa58707e317466"
++dependencies = [
 + "libc",
 + "log",
 + "openssl",
@@ -84,7 +100,7 @@ index e2630a1a..5e5f1f91 100644
  [[package]]
  name = "nix"
  version = "0.24.3"
-@@ -2329,12 +2361,50 @@ version = "0.3.1"
+@@ -2398,12 +2429,50 @@ version = "0.3.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "c08d65885ee38876c4f86fa503fb49d7b507c2b62552df7c70b2fce627e06381"
  
@@ -94,7 +110,7 @@ index e2630a1a..5e5f1f91 100644
 +source = "registry+https://github.com/rust-lang/crates.io-index"
 +checksum = "95a0481286a310808298130d22dd1fef0fa571e05a8f44ec801801e84b216b1f"
 +dependencies = [
-+ "bitflags 2.4.2",
++ "bitflags 2.5.0",
 + "cfg-if",
 + "foreign-types",
 + "libc",
@@ -111,7 +127,7 @@ index e2630a1a..5e5f1f91 100644
 +dependencies = [
 + "proc-macro2",
 + "quote",
-+ "syn 2.0.52",
++ "syn 2.0.66",
 +]
 +
  [[package]]
@@ -122,9 +138,9 @@ index e2630a1a..5e5f1f91 100644
  
 +[[package]]
 +name = "openssl-sys"
-+version = "0.9.101"
++version = "0.9.102"
 +source = "registry+https://github.com/rust-lang/crates.io-index"
-+checksum = "dda2b0f344e78efc2facf7d195d098df0dd72151b26ab98da807afc26c198dff"
++checksum = "c597637d56fbc83893a35eb0dd04b2b8e7a50c91e64e9493e398b5df4fb45fa2"
 +dependencies = [
 + "cc",
 + "libc",
@@ -135,10 +151,10 @@ index e2630a1a..5e5f1f91 100644
  [[package]]
  name = "option-ext"
  version = "0.2.0"
-@@ -2743,16 +2813,15 @@ dependencies = [
+@@ -2874,16 +2943,15 @@ dependencies = [
   "http 0.2.12",
   "http-body 0.4.6",
-  "hyper 0.14.28",
+  "hyper 0.14.29",
 - "hyper-rustls",
 + "hyper-tls",
   "ipnet",
@@ -154,8 +170,8 @@ index e2630a1a..5e5f1f91 100644
   "rustls-pemfile 1.0.4",
   "serde",
   "serde_json",
-@@ -2760,7 +2829,7 @@ dependencies = [
-  "sync_wrapper",
+@@ -2891,7 +2959,7 @@ dependencies = [
+  "sync_wrapper 0.1.2",
   "system-configuration",
   "tokio",
 - "tokio-rustls",
@@ -163,7 +179,7 @@ index e2630a1a..5e5f1f91 100644
   "tower-service",
   "url",
   "wasm-bindgen",
-@@ -2891,18 +2960,6 @@ dependencies = [
+@@ -3022,18 +3090,6 @@ dependencies = [
   "sct",
  ]
  
@@ -182,8 +198,8 @@ index e2630a1a..5e5f1f91 100644
  [[package]]
  name = "rustls-pemfile"
  version = "1.0.4"
-@@ -3355,11 +3412,10 @@ dependencies = [
-  "indexmap 2.2.5",
+@@ -3474,11 +3530,10 @@ dependencies = [
+  "indexmap 2.2.6",
   "log",
   "memchr",
 + "native-tls",
@@ -195,7 +211,7 @@ index e2630a1a..5e5f1f91 100644
   "serde",
   "serde_json",
   "sha2",
-@@ -3372,7 +3428,6 @@ dependencies = [
+@@ -3491,7 +3546,6 @@ dependencies = [
   "tracing",
   "url",
   "uuid",
@@ -203,8 +219,8 @@ index e2630a1a..5e5f1f91 100644
  ]
  
  [[package]]
-@@ -3796,6 +3851,16 @@ dependencies = [
-  "syn 2.0.52",
+@@ -3929,6 +3983,16 @@ dependencies = [
+  "syn 2.0.66",
  ]
  
 +[[package]]
@@ -220,7 +236,7 @@ index e2630a1a..5e5f1f91 100644
  [[package]]
  name = "tokio-rustls"
  version = "0.24.1"
-@@ -4272,12 +4337,6 @@ dependencies = [
+@@ -4471,12 +4535,6 @@ dependencies = [
   "wasm-bindgen",
  ]
  
@@ -232,12 +248,12 @@ index e2630a1a..5e5f1f91 100644
 -
  [[package]]
  name = "whoami"
- version = "1.5.0"
+ version = "1.5.1"
 diff --git a/Cargo.toml b/Cargo.toml
-index a3a8fd12..a6dcade4 100644
+index 8c3df8ba..881c26a8 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -50,9 +50,9 @@ rustix = {version = "0.38.30", features=["process", "fs"]}
+@@ -49,12 +49,12 @@ features = ["ansi", "fmt", "registry", "env-filter"]
  
  [workspace.dependencies.reqwest]
  version = "0.11"
@@ -246,9 +262,9 @@ index a3a8fd12..a6dcade4 100644
  default-features = false
  
  [workspace.dependencies.sqlx]
- version = "0.7.3"
+ version = "0.7"
 -features = ["runtime-tokio-rustls", "time", "postgres", "uuid"]
 +features = ["runtime-tokio-native-tls", "time", "postgres", "uuid"]
--- 
-2.44.0
-
+ 
+ # Config for 'cargo dist'
+ [workspace.metadata.dist]

@@ -1,5 +1,5 @@
 pkgname = "atuin"
-pkgver = "18.2.0"
+pkgver = "18.3.0"
 pkgrel = 0
 build_style = "cargo"
 # we patch Cargo.toml and Cargo.lock
@@ -8,14 +8,14 @@ make_build_args = [
     "--no-default-features",
     "--features=client,server,sync,clipboard",
 ]
-hostmakedepends = ["cargo-auditable", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "protoc", "pkgconf"]
 makedepends = ["sqlite-devel", "openssl-devel"]
 pkgdesc = "Sync, search and backup tool for shell history"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/atuinsh/atuin"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7fb87902ce09af2d29459e9158bc83c18519690d555259709cab40d9ee75b024"
+sha256 = "d05d978d1f1b6a633ac24a9ac9bde3b1dfb7416165b053ef54240fff898aded3"
 # A bunch of failures yet to be investigated
 # generates completions using host binary
 options = ["!check", "!cross"]
