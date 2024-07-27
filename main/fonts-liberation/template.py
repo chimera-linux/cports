@@ -1,11 +1,11 @@
 pkgname = "fonts-liberation"
 pkgver = "2.1.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "fontforge-cli", "python-fonttools"]
 depends = ["mkfontscale"]
-pkgdesc = "Liberation family of fonts - OpenType"
+pkgdesc = "Liberation family of fonts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OFL-1.1"
 url = "https://github.com/liberationfonts/liberation-fonts"
@@ -36,7 +36,7 @@ def do_install(self):
 
 @subpackage("fonts-liberation-otf")
 def _otf(self):
-    self.pkgdesc = "Liberation family of fonts - OpenType"
+    self.subdesc = "OpenType"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "!fonts-liberation-ttf"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
@@ -45,7 +45,7 @@ def _otf(self):
 
 @subpackage("fonts-liberation-ttf")
 def _ttf(self):
-    self.pkgdesc = "Liberation family of fonts - TrueType"
+    self.subdesc = "TrueType"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "!fonts-liberation-otf"]
 
     return ["usr/share/fonts/liberation/*.ttf"]

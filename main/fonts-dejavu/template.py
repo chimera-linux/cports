@@ -1,6 +1,6 @@
 pkgname = "fonts-dejavu"
 pkgver = "2.37"
-pkgrel = 3
+pkgrel = 4
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "full-otf"
@@ -46,7 +46,7 @@ def post_install(self):
 
 @subpackage("fonts-dejavu-otf")
 def _otf(self):
-    self.pkgdesc = "DejaVu family of fonts - OpenType"
+    self.subdesc = "OpenType"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "!fonts-dejavu-ttf"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
@@ -55,7 +55,7 @@ def _otf(self):
 
 @subpackage("fonts-dejavu-ttf")
 def _ttf(self):
-    self.pkgdesc = "DejaVu family of fonts - TrueType"
+    self.subdesc = "TrueType"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "!fonts-dejavu-otf"]
 
     return ["usr/share/fonts/dejavu/*.ttf"]

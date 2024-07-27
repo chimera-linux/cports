@@ -1,8 +1,9 @@
 pkgname = "font-unifont-bdf"
 pkgver = "15.1.05"
-pkgrel = 0
+pkgrel = 1
 depends = ["font-util"]
-pkgdesc = "GNU Unifont Glyphs - BDF"
+pkgdesc = "GNU Unifont Glyphs"
+subdesc = "BDF"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://unifoundry.com/unifont/index.html"
