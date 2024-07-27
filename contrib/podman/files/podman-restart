@@ -4,4 +4,5 @@
 type = scripted
 command = /usr/bin/podman start --all --filter restart-policy=always
 after = podman
+depends-on = local.target
 depends-on = network.target
