@@ -1,0 +1,9 @@
+fixes empty version in produced pc file
+--- a/libpamtest.pc.cmake	2024-07-23 06:37:40.000000000 +0100
++++ b/libpamtest.pc.cmake	2024-07-27 15:04:48.004560336 +0100
+@@ -1,4 +1,4 @@
+ Name: libpamtest
+ Description: A helper library for PAM testing
+-Version: @APPLICATION_VERSION@
++Version: @PROJECT_VERSION@
+ Libs: @CMAKE_INSTALL_FULL_LIBDIR@/libpamtest.so
