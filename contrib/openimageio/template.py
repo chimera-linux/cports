@@ -1,6 +1,6 @@
 pkgname = "openimageio"
 pkgver = "2.5.13.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # disabled below
@@ -59,6 +59,9 @@ def _progs(self):
 
 @subpackage("openimageio-devel")
 def _devel(self):
+    # referenced by cmake
+    self.depends = ["opencv-devel"]
+
     return self.default_devel()
 
 
