@@ -1,12 +1,12 @@
 pkgname = "pdfjs"
-pkgver = "4.4.168"
+pkgver = "4.5.136"
 pkgrel = 0
 pkgdesc = "Platform for parsing and rendering PDFs"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/mozilla/pdf.js"
 source = f"{url}/releases/download/v{pkgver}/pdfjs-{pkgver}-dist.zip"
-sha256 = "69ce8f314bdc0035e3bca922e5f9260d8815f85ae693d1394f361ed075fb696c"
+sha256 = "f5ca73a73d85b1dd9db9ee20188d4562d5852a859d1af0e414d0167c86e9ff64"
 # no tests defined
 options = ["!check"]
 
