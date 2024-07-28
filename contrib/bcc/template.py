@@ -1,6 +1,6 @@
 pkgname = "bcc"
 # keep in sync with contrib/libbpf-tools
-pkgver = "0.30.0"
+pkgver = "0.31.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/iovisor/bcc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d113f842965fd84f8bf2f3e9dda73a2cae59a4d27bec3fa87d0b57ee99b58273"
+sha256 = "ca091ec1cc55c2a2b39f153ac722a04fae0a2fb6abc571250af945ceaf9a5583"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
