@@ -1,6 +1,6 @@
 pkgname = "kde1-kdelibs"
 pkgver = "1.1.2"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "eec7a2b34bf3aa14f775be132a9ff9c7767c5f62"
 build_style = "cmake"
 hostmakedepends = [
