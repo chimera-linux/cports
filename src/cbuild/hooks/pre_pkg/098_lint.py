@@ -26,6 +26,8 @@ def invoke(pkg):
         "lib32",
         "lib64",
         "sbin",
+        "usr/build-1",
+        "usr/cgi-bin",
         "usr/etc",
         "usr/sbin",
         "usr/lib32",
@@ -48,6 +50,7 @@ def invoke(pkg):
         "usr/share/mime/treemagic",
         "usr/share/mime/types",
         "usr/share/mime/version",
+        "usr/tests",
     ]:
         if (pkg.destdir / d).exists():
             pkg.log_red(f"forbidden path '{d}'")
