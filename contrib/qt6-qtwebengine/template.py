@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwebengine"
 pkgver = "6.7.2"
-pkgrel = 3
+pkgrel = 4
 # latest from https://github.com/qt/qtwebengine-chromium/commits/118-based
 # check CHROMIUM_VERSION on qt majors
 _qtwebengine_gitrev = "ed229a1a323261bab9ac4482b75f8d28c939d279"
@@ -121,6 +121,7 @@ def post_extract(self):
 
 def post_install(self):
     self.uninstall("usr/lib/qt6/bin/testbrowser")
+    self.uninstall("usr/tests")
 
 
 @subpackage("qt6-qtwebengine-devel")
