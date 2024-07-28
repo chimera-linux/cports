@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.3"
-pkgrel = 3
+pkgrel = 4
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -95,7 +95,7 @@ def _fs(self):
 @subpackage("base-full-kernel")
 def _kern(self):
     self.subdesc = "kernel tooling"
-    self.install_if = [self.parent]
+    self.install_if = [self.parent, "linux"]
     self.provider_priority = 100
     # transitional
     self.provides = [self.with_pkgver("base-core-kernel")]
