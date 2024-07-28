@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -44,7 +44,7 @@ def _core(self):
 @subpackage("base-full-firmware")
 def _fw(self):
     self.subdesc = "firmware"
-    self.install_if = [self.parent]
+    self.install_if = [self.parent, "linux"]
     self.provider_priority = 100
     self.depends = [
         "base-firmware-linux",
