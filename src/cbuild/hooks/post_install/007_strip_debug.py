@@ -1,5 +1,7 @@
+from cbuild.core import chroot
 from cbuild.util import strip
 
+import pathlib
 import shutil
 import stat
 
@@ -158,6 +160,64 @@ def invoke(pkg):
         break
     else:
         (pkg.destdir / "usr/lib").rmdir()
+
+    # now collect the referenced debug sources
+    debug_files = [
+        f"/{v.relative_to(pkg.rparent.bldroot_path)}"
+        for v in ddest.rglob("*")
+        if not v.is_dir()
+    ]
+    pkg.log("locating referenced source files...")
+    source_files = (
+        chroot.enter(
+            "llvm-dwarfdump",
+            "--show-sources",
+            *debug_files,
+            capture_output=True,
+            check=True,
+            ro_root=True,
+            ro_build=True,
+            unshare_all=True,
+        )
+        .stdout.strip()
+        .splitlines()
+    )
+    # deduplicate
+    source_files = set(source_files)
+    for source_file in source_files:
+        source_file = pathlib.Path(source_file.strip().decode())
+
+        # don't have access to these!
+        if source_file.name in ["<stdin>"]:
+            continue
+
+        # /usr sourcefiles like /usr/include headers are already provided by -devel packages
+        if source_file.is_relative_to("/usr"):
+            continue
+
+        if source_file.is_absolute():
+            pkg.log_warn(f"unknown debug source file: {source_file}")
+            continue
+
+        src = pkg.rparent.srcdir / source_file
+
+        if not src.exists():
+            # silence warning for crt object
+            if source_file.name not in [
+                "Scrt1.c",
+                "crt1.c",
+                "crtbegin.c",
+            ]:
+                pkg.log_warn(f"missing debug source file: {source_file}")
+            continue
+
+        dst = (
+            ddest
+            / f"usr/src/debug/{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}"
+            / source_file
+        )
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(src, dst)
 
     # done!
     return
