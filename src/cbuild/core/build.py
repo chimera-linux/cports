@@ -81,6 +81,7 @@ def _build(
     pkg.accept_checksums = accept_checksums
 
     pkg.setup_paths()
+    pkg.setup_vars()
     pkg.build_lint()
     pkg.resolve_depends()
 

@@ -1011,6 +1011,50 @@ class Template(Package):
         for sp in self.subpkg_list:
             sp.setup_paths()
 
+    def setup_vars(self):
+        # the real job count
+        if not self.options["parallel"]:
+            self.make_jobs = 1
+        else:
+            self.make_jobs = self.conf_jobs
+
+        if not self.options["linkparallel"]:
+            self.link_threads = 1
+        else:
+            self.link_threads = self.conf_link_threads
+
+        # fill the remaining toolflag lists so it's complete
+        for tf in self.profile()._get_supported_tool_flags():
+            if tf not in self.tool_flags:
+                self.tool_flags[tf] = []
+
+        if "CC" not in self.tools:
+            self.tools["CC"] = "clang"
+        if "CXX" not in self.tools:
+            self.tools["CXX"] = "clang++"
+        if "CPP" not in self.tools:
+            self.tools["CPP"] = "clang-cpp"
+        if "LD" not in self.tools:
+            self.tools["LD"] = "ld.lld"
+        if "PKG_CONFIG" not in self.tools:
+            self.tools["PKG_CONFIG"] = "pkg-config"
+        if "NM" not in self.tools:
+            self.tools["NM"] = "nm"
+        if "AR" not in self.tools:
+            self.tools["AR"] = "ar"
+        if "AS" not in self.tools:
+            self.tools["AS"] = "clang"
+        if "RANLIB" not in self.tools:
+            self.tools["RANLIB"] = "ranlib"
+        if "STRIP" not in self.tools:
+            self.tools["STRIP"] = "strip"
+        if "OBJDUMP" not in self.tools:
+            self.tools["OBJDUMP"] = "objdump"
+        if "OBJCOPY" not in self.tools:
+            self.tools["OBJCOPY"] = "objcopy"
+        if "READELF" not in self.tools:
+            self.tools["READELF"] = "readelf"
+
     def setup_reproducible(self):
         if self.source_date_epoch:
             return
@@ -1097,17 +1141,6 @@ class Template(Package):
 
         if not hasattr(self, "do_install"):
             self.error("do_install is missing")
-
-        # the real job count
-        if not self.options["parallel"]:
-            self.make_jobs = 1
-        else:
-            self.make_jobs = self.conf_jobs
-
-        if not self.options["linkparallel"]:
-            self.link_threads = 1
-        else:
-            self.link_threads = self.conf_link_threads
 
         if self.provider_priority < 0:
             self.error("provider_priority must be positive")
@@ -2510,38 +2543,6 @@ def from_module(m, ret):
 
     # if archs is present, validate it, it may mark the package broken
     ret.validate_arch()
-
-    # fill the remaining toolflag lists so it's complete
-    for tf in ret.profile()._get_supported_tool_flags():
-        if tf not in ret.tool_flags:
-            ret.tool_flags[tf] = []
-
-    if "CC" not in ret.tools:
-        ret.tools["CC"] = "clang"
-    if "CXX" not in ret.tools:
-        ret.tools["CXX"] = "clang++"
-    if "CPP" not in ret.tools:
-        ret.tools["CPP"] = "clang-cpp"
-    if "LD" not in ret.tools:
-        ret.tools["LD"] = "ld.lld"
-    if "PKG_CONFIG" not in ret.tools:
-        ret.tools["PKG_CONFIG"] = "pkg-config"
-    if "NM" not in ret.tools:
-        ret.tools["NM"] = "nm"
-    if "AR" not in ret.tools:
-        ret.tools["AR"] = "ar"
-    if "AS" not in ret.tools:
-        ret.tools["AS"] = "clang"
-    if "RANLIB" not in ret.tools:
-        ret.tools["RANLIB"] = "ranlib"
-    if "STRIP" not in ret.tools:
-        ret.tools["STRIP"] = "strip"
-    if "OBJDUMP" not in ret.tools:
-        ret.tools["OBJDUMP"] = "objdump"
-    if "OBJCOPY" not in ret.tools:
-        ret.tools["OBJCOPY"] = "objcopy"
-    if "READELF" not in ret.tools:
-        ret.tools["READELF"] = "readelf"
 
     # ensure sources and checksums are a list
     if not isinstance(ret.source, list):
