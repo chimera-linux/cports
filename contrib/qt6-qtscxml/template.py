@@ -1,6 +1,6 @@
 pkgname = "qt6-qtscxml"
 pkgver = "6.7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_args = [
@@ -36,6 +36,10 @@ def init_check(self):
         ),
         "QT_QPA_PLATFORM": "offscreen",
     }
+
+
+def post_install(self):
+    self.uninstall("usr/tests")
 
 
 @subpackage("qt6-qtscxml-devel")
