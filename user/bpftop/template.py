@@ -1,6 +1,6 @@
 pkgname = "bpftop"
 pkgver = "0.5.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = [
@@ -15,8 +15,8 @@ pkgdesc = "TUI view for running BPF programs"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/Netflix/bpftop"
-source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d8e1faa10ad8e60a92e8ae93f65037dec976bcd1c40a4a33d3f176bf41390393"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz>bpftop-asfkashdgkjhsbdgnskdjfgn.tar.gz"
+sha256 = "d941314d8716f22d009a031de30edc92586cd434646bf2d2eb14c0a42e94bc95"
 
 
 def do_install(self):
