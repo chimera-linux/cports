@@ -21,6 +21,63 @@ def _invoke_subpkg(pkg):
     pkg.take(f"usr/share/licenses/{pkg.pkgname}", missing_ok=True)
 
 
+def _clean_empty(pkg, dpath, auto):
+    empty = True
+
+    for f in dpath.iterdir():
+        if f.is_dir() and not f.is_symlink():
+            if not _clean_empty(pkg, f, auto):
+                empty = False
+        else:
+            empty = False
+
+    if empty and (auto or dpath != pkg.destdir):
+        if not auto:
+            pr = dpath.relative_to(pkg.destdir)
+            pkg.log_warn(f"removed empty directory: {pr}")
+        dpath.rmdir()
+        return True
+
+    return False
+
+
+def _split_auto(pkg):
+    if not pkg.options["autosplit"]:
+        return
+
+    for apkg, adesc, iif, takef in template.autopkgs:
+        if apkg == "static" and not pkg.options["splitstatic"]:
+            continue
+        if apkg == "udev" and not pkg.options["splitudev"]:
+            continue
+        if apkg == "doc" and not pkg.options["splitdoc"]:
+            continue
+        if apkg.startswith("dinit") and not pkg.options["splitdinit"]:
+            continue
+        if not takef:
+            continue
+        if pkg.pkgname == iif:
+            continue
+        if apkg == "dinit-links" and pkg.rparent.pkgname == "dinit-chimera":
+            continue
+        if pkg.pkgname.endswith(f"-{apkg}"):
+            continue
+
+        foundpkg = False
+        for sp in pkg.rparent.subpkg_list:
+            if sp.pkgname == f"{pkg.pkgname}-{apkg}":
+                foundpkg = True
+                break
+        if foundpkg:
+            continue
+
+        sp = template.Subpackage(f"{pkg.pkgname}-{apkg}", pkg)
+        sp.destdir.mkdir(parents=True, exist_ok=True)
+        takef(sp)
+        # remove if empty
+        _clean_empty(sp, sp.destdir, True)
+
+
 def invoke(pkg, step):
     p = pkg.profile()
     crossb = p.arch if p.cross else ""
@@ -51,8 +108,13 @@ def invoke(pkg, step):
         _invoke_subpkg(sp)
         scanelf.scan(sp, pkg.current_elfs)
         template.call_pkg_hooks(sp, "post_install")
+        _split_auto(sp)
+        if not sp.options["keepempty"]:
+            _clean_empty(sp, sp.destdir, False)
 
     scanelf.scan(pkg, pkg.current_elfs)
     template.call_pkg_hooks(pkg, "post_install")
+    _split_auto(pkg)
+    _clean_empty(pkg, pkg.destdir, False)
 
     install_done.touch()
