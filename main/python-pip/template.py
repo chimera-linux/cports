@@ -1,12 +1,11 @@
 pkgname = "python-pip"
-pkgver = "24.1.2"
+pkgver = "24.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 depends = ["python", "python-setuptools"]
 pkgdesc = "Python package manager"
@@ -14,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pip.pypa.io"
 source = f"$(PYPI_SITE)/p/pip/pip-{pkgver}.tar.gz"
-sha256 = "e5458a0b89f2755e0ee8c0c77613fe5273e05f337907874d64f13171a898a7ff"
+sha256 = "5b5e490b5e9cb275c879595064adce9ebd31b854e3e803740b72f9ccf34a45b8"
 # unpackaged dependencies
 options = ["!check"]
 
