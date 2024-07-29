@@ -1,5 +1,5 @@
 pkgname = "python-sphinxcontrib-qthelp"
-pkgver = "1.0.8"
+pkgver = "2.0.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-flit_core", "python-installer"]
@@ -12,10 +12,10 @@ url = "https://www.sphinx-doc.org"
 source = (
     f"$(PYPI_SITE)/s/sphinxcontrib-qthelp/sphinxcontrib_qthelp-{pkgver}.tar.gz"
 )
-sha256 = "db3f8fa10789c7a8e76d173c23364bdf0ebcd9449969a9e6a3dd31b8b7469f03"
+sha256 = "4fe7d0ac8fc171045be623aba3e2a8f613f8682731f9153bb2e40ece16b9bbab"
 # circular checkdepends
 options = ["!check"]
 
 
 def post_install(self):
-    self.install_license("LICENSE")
+    self.install_license("LICENCE.rst")
