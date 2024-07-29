@@ -157,7 +157,12 @@ def invoke(pkg):
             pkg.log_red(f"forbidden directory '{rf}'")
             lintfail = True
 
-    if dirempty and pkg.build_style != "meta" and not pkg.options["empty"]:
+    if (
+        dirempty
+        and pkg.build_style != "meta"
+        and not pkg.options["empty"]
+        and not pkg.autopkg
+    ):
         pkg.log_red("empty non-meta packages must be marked as such")
         lintfail = True
     elif not dirempty and pkg.options["empty"]:

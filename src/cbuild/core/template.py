@@ -956,6 +956,61 @@ class Template(Package):
 
         return dumped
 
+    def setup_paths(self):
+        bdirbase = paths.builddir() / "builddir"
+        cbdirbase = pathlib.Path("/builddir")
+
+        # paths that can be used by template methods
+        self.files_path = self.template_path / "files"
+        self.patches_path = self.template_path / "patches"
+        self.sources_path = paths.sources() / f"{self.pkgname}-{self.pkgver}"
+        self.bldroot_path = paths.bldroot()
+        self.statedir = bdirbase / (".cbuild-" + self.pkgname)
+        self.wrapperdir = self.statedir / "wrappers"
+
+        if self.profile().cross:
+            self.destdir_base = (
+                paths.builddir() / "destdir" / self.profile().triplet
+            )
+        else:
+            self.destdir_base = paths.builddir() / "destdir"
+
+        self.destdir = self.destdir_base / f"{self.pkgname}-{self.pkgver}"
+
+        self.srcdir = bdirbase / f"{self.pkgname}-{self.pkgver}"
+        self.cwd = self.srcdir / self.build_wrksrc
+
+        if self.stage == 0:
+            self.chroot_cwd = self.cwd
+            self.chroot_srcdir = self.srcdir
+            self.chroot_statedir = self.statedir
+            self.chroot_destdir_base = self.destdir_base
+            self.chroot_sources_path = self.sources_path
+        else:
+            self.chroot_cwd = cbdirbase / self.cwd.relative_to(bdirbase)
+            self.chroot_srcdir = cbdirbase / self.srcdir.relative_to(bdirbase)
+            self.chroot_statedir = cbdirbase / self.statedir.relative_to(
+                bdirbase
+            )
+            self.chroot_destdir_base = pathlib.Path("/destdir")
+            self.chroot_sources_path = (
+                pathlib.Path("/sources") / f"{self.pkgname}-{self.pkgver}"
+            )
+            if self.profile().cross:
+                self.chroot_destdir_base = (
+                    self.chroot_destdir_base / self.profile().triplet
+                )
+
+        self.chroot_destdir = (
+            self.chroot_destdir_base / f"{self.pkgname}-{self.pkgver}"
+        )
+
+        self.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + self.pkgname
+
+        # now do it for all known subpackages
+        for sp in self.subpkg_list:
+            sp.setup_paths()
+
     def setup_reproducible(self):
         if self.source_date_epoch:
             return
@@ -1991,13 +2046,14 @@ class Subpackage(Package):
         oldsdesc=None,
         alternative=None,
         auto=False,
+        install=False,
     ):
         super().__init__()
 
         self.pkgname = name
         self.autopkg = auto
 
-        if auto:
+        if auto and not install:
             self.parent = parent.rparent
             self.rparent = parent.rparent
         else:
@@ -2009,16 +2065,8 @@ class Subpackage(Package):
 
         self.pkgver = parent.pkgver
         self.pkgrel = parent.pkgrel
-        self.statedir = parent.statedir
         self.build_style = parent.build_style
         self.alternative = alternative
-
-        self.destdir = (
-            parent.rparent.destdir_base / f"{self.pkgname}-{self.pkgver}"
-        )
-        self.chroot_destdir = (
-            parent.rparent.chroot_destdir_base / f"{self.pkgname}-{self.pkgver}"
-        )
 
         # default subpackage fields
         for fl, dval, tp, mand, sp, inh in core_fields:
@@ -2029,9 +2077,10 @@ class Subpackage(Package):
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
-        # override options if automatic
+        # override options if automatic, also setup paths
         if auto:
             self.options = popts
+            self.setup_paths()
 
         ddeps = []
         bdep = None
@@ -2094,6 +2143,15 @@ class Subpackage(Package):
         self.force_mode = parent.rparent.force_mode
         self.stage = parent.rparent.stage
         self._license_install = False
+
+    def setup_paths(self):
+        parent = self.parent.rparent
+
+        self.statedir = parent.statedir
+        self.destdir = parent.destdir_base / f"{self.pkgname}-{self.pkgver}"
+        self.chroot_destdir = (
+            parent.chroot_destdir_base / f"{self.pkgname}-{self.pkgver}"
+        )
 
     def take(self, p, missing_ok=False):
         p = pathlib.Path(p)
@@ -2381,50 +2439,6 @@ def from_module(m, ret):
             setattr(ret, "do_" + phase, getattr(m, "do_" + phase))
         if hasattr(m, "post_" + phase):
             setattr(ret, "post_" + phase, getattr(m, "post_" + phase))
-
-    bdirbase = paths.builddir() / "builddir"
-    cbdirbase = pathlib.Path("/builddir")
-
-    # paths that can be used by template methods
-    ret.files_path = ret.template_path / "files"
-    ret.patches_path = ret.template_path / "patches"
-    ret.sources_path = paths.sources() / f"{ret.pkgname}-{ret.pkgver}"
-    ret.bldroot_path = paths.bldroot()
-    ret.statedir = bdirbase / (".cbuild-" + ret.pkgname)
-    ret.wrapperdir = ret.statedir / "wrappers"
-
-    if ret.profile().cross:
-        ret.destdir_base = paths.builddir() / "destdir" / ret.profile().triplet
-    else:
-        ret.destdir_base = paths.builddir() / "destdir"
-
-    ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.pkgver}"
-
-    ret.srcdir = bdirbase / f"{ret.pkgname}-{ret.pkgver}"
-    ret.cwd = ret.srcdir / ret.build_wrksrc
-
-    if ret.stage == 0:
-        ret.chroot_cwd = ret.cwd
-        ret.chroot_srcdir = ret.srcdir
-        ret.chroot_statedir = ret.statedir
-        ret.chroot_destdir_base = ret.destdir_base
-        ret.chroot_sources_path = ret.sources_path
-    else:
-        ret.chroot_cwd = cbdirbase / ret.cwd.relative_to(bdirbase)
-        ret.chroot_srcdir = cbdirbase / ret.srcdir.relative_to(bdirbase)
-        ret.chroot_statedir = cbdirbase / ret.statedir.relative_to(bdirbase)
-        ret.chroot_destdir_base = pathlib.Path("/destdir")
-        ret.chroot_sources_path = (
-            pathlib.Path("/sources") / f"{ret.pkgname}-{ret.pkgver}"
-        )
-        if ret.profile().cross:
-            ret.chroot_destdir_base = (
-                ret.chroot_destdir_base / ret.profile().triplet
-            )
-
-    ret.chroot_destdir = ret.chroot_destdir_base / f"{ret.pkgname}-{ret.pkgver}"
-
-    ret.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + ret.pkgname
 
     spdupes = {}
     # link subpackages and fill in their fields

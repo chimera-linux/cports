@@ -71,7 +71,9 @@ def _split_auto(pkg):
         if foundpkg:
             continue
 
-        sp = template.Subpackage(f"{pkg.pkgname}-{apkg}", pkg)
+        sp = template.Subpackage(
+            f"{pkg.pkgname}-{apkg}", pkg, auto=True, install=True
+        )
         sp.destdir.mkdir(parents=True, exist_ok=True)
         takef(sp)
         # remove if empty

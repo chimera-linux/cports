@@ -80,6 +80,7 @@ def _build(
     pkg.update_check = update_check
     pkg.accept_checksums = accept_checksums
 
+    pkg.setup_paths()
     pkg.build_lint()
     pkg.resolve_depends()
 
