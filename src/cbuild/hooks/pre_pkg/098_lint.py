@@ -16,6 +16,27 @@ def _lint_static(pkg):
     return True
 
 
+def _lint_license(pkg):
+    if not pkg._license_install or not pkg.options["distlicense"]:
+        return
+
+    has_license = False
+    lpath = pkg.destdir / "usr/share/licenses"
+    if not lpath.is_dir():
+        # the license may have been split into docpkg
+        lpath = (
+            pkg.destdir.parent
+            / f"{pkg.pkgname}-doc-{pkg.pkgver}/usr/share/licenses"
+        )
+    if lpath.is_dir():
+        for f in lpath.iterdir():
+            has_license = True
+            break
+
+    if not has_license:
+        pkg.error("license installation necessary but no license installed")
+
+
 def _lint_devel(pkg):
     # lint for LTOed static stuff first, regardless of -devel
     if pkg.options["lintstatic"] and not _lint_static(pkg):
@@ -62,6 +83,7 @@ def _lint_devel(pkg):
 
 def invoke(pkg):
     _lint_devel(pkg)
+    _lint_license(pkg)
 
     # does not apply
     if pkg.pkgname == "base-files" or pkg.pkgname == "base-kernel":
