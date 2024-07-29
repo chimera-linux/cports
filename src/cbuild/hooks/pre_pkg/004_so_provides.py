@@ -21,7 +21,7 @@ def _matches_lib(soname, root):
 
 
 def invoke(pkg):
-    if not pkg.options["scanshlibs"]:
+    if not pkg.options["scanshlibs"] or pkg.autopkg:
         return
 
     asonames = []

@@ -860,6 +860,7 @@ class Template(Package):
         # other fields
         self.parent = None
         self.rparent = self
+        self.autopkg = False
         self.subpackages = []
         self.all_subpackages = []
         self.subpkg_list = []
@@ -1994,8 +1995,17 @@ class Subpackage(Package):
         super().__init__()
 
         self.pkgname = name
-        self.parent = parent
-        self.rparent = parent
+        self.autopkg = auto
+
+        if auto:
+            self.parent = parent.rparent
+            self.rparent = parent.rparent
+        else:
+            self.parent = parent
+            self.rparent = parent
+
+        popts = parent.options
+        parent = self.parent
 
         self.pkgver = parent.pkgver
         self.pkgrel = parent.pkgrel
@@ -2018,6 +2028,10 @@ class Subpackage(Package):
                 setattr(self, fl, copy_of_dval(getattr(parent.rparent, fl)))
             else:
                 setattr(self, fl, copy_of_dval(dval))
+
+        # override options if automatic
+        if auto:
+            self.options = popts
 
         ddeps = []
         bdep = None

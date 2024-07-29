@@ -2,7 +2,7 @@ def invoke(pkg):
     bpkg = pkg.rparent
 
     # subpackages only
-    if bpkg == pkg:
+    if bpkg == pkg or pkg.autopkg:
         return
 
     # we let packages define their own

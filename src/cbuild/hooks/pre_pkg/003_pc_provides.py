@@ -5,7 +5,7 @@ import re
 
 
 def invoke(pkg):
-    if not pkg.options["scanpkgconf"] or pkg.stage == 0:
+    if not pkg.options["scanpkgconf"] or pkg.stage == 0 or pkg.autopkg:
         return
 
     pcs = {}

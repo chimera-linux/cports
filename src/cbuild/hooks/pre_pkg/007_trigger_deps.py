@@ -14,7 +14,7 @@ _trigdeps = {
 
 
 def invoke(pkg):
-    if not pkg.options["scantrigdeps"]:
+    if not pkg.options["scantrigdeps"] or pkg.autopkg:
         return
 
     deps = []

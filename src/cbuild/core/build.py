@@ -1,7 +1,7 @@
 from cbuild.step import fetch, extract, prepare, patch, configure
 from cbuild.step import build as buildm, check, install, prepkg, pkg as pkgsm
 from cbuild.core import chroot, logger, dependencies, profile
-from cbuild.core import template, pkg as pkgm, errors
+from cbuild.core import pkg as pkgm, errors
 from cbuild.util import flock
 from cbuild.apk import cli as apk
 
@@ -228,11 +228,6 @@ def _build(
         return
 
     pkg.current_phase = "pkg"
-    template.call_pkg_hooks(pkg, "init_pkg")
-
-    for sp in pkg.subpkg_list:
-        prepkg.invoke(sp)
-
     prepkg.invoke(pkg)
 
     pkg._stage = {}

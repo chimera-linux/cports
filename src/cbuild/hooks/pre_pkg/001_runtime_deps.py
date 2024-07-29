@@ -344,7 +344,7 @@ def _scan_symlinks(pkg):
 
 
 def invoke(pkg):
-    if not pkg.options["scanrundeps"]:
+    if not pkg.options["scanrundeps"] or pkg.autopkg:
         return
 
     with flock.lock(flock.apklock(pkg.rparent.profile().arch)):

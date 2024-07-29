@@ -2,7 +2,7 @@
 
 
 def invoke(pkg):
-    if pkg.rparent.pkgname == "python":
+    if pkg.rparent.pkgname == "python" or pkg.autopkg:
         return
 
     pyver = None

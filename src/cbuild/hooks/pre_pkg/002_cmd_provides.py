@@ -2,7 +2,7 @@ from cbuild.core import logger
 
 
 def invoke(pkg):
-    if not pkg.options["scancmd"] or pkg.stage == 0:
+    if not pkg.options["scancmd"] or pkg.stage == 0 or pkg.autopkg:
         return
 
     cmds = []
