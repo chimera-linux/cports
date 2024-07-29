@@ -1,6 +1,6 @@
 pkgname = "onetbb"
 pkgver = "2021.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DTBB4PY_BUILD=OFF",
@@ -13,6 +13,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "hwloc-devel",
     "libucontext-devel",
     "linux-headers",
 ]
