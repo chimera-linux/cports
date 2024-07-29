@@ -1098,6 +1098,22 @@ class Template(Package):
         if not hasattr(self, "do_install"):
             self.error("do_install is missing")
 
+        # the real job count
+        if not self.options["parallel"]:
+            self.make_jobs = 1
+        else:
+            self.make_jobs = self.conf_jobs
+
+        if not self.options["linkparallel"]:
+            self.link_threads = 1
+        else:
+            self.link_threads = self.conf_link_threads
+
+        if self.provider_priority < 0:
+            self.error("provider_priority must be positive")
+        if self.replaces_priority < 0:
+            self.error("replaces_priority must be positive")
+
         # ensure subpackages have correct style and symlinks
         repo = self.repository
         bpn = self.pkgname
@@ -1120,6 +1136,10 @@ class Template(Package):
         # validate other stuff
         if not self.options["lint"]:
             return
+
+        # ensure pkgname is lowercase
+        if self.pkgname.lower() != self.pkgname:
+            self.error("package name must be lowercase")
 
         self.validate_pkgdesc()
         self.validate_maintainer()
@@ -2335,10 +2355,6 @@ def from_module(m, ret):
     if ret.pkgname != prevpkg:
         ret.error(f"pkgname does not match template ({prevpkg})")
 
-    # ensure pkgname is lowercase
-    if ret.pkgname.lower() != ret.pkgname:
-        ret.error("package name must be lowercase")
-
     # ensure origin is filled
     ret.origin = ret.pkgname
 
@@ -2387,22 +2403,6 @@ def from_module(m, ret):
             ropts[opt] = not neg
 
     ret.options = ropts
-
-    if ret.provider_priority < 0:
-        ret.error("provider_priority must be positive")
-    if ret.replaces_priority < 0:
-        ret.error("replaces_priority must be positive")
-
-    # the real job count
-    if not ret.options["parallel"]:
-        ret.make_jobs = 1
-    else:
-        ret.make_jobs = ret.conf_jobs
-
-    if not ret.options["linkparallel"]:
-        ret.link_threads = 1
-    else:
-        ret.link_threads = ret.conf_link_threads
 
     ret.build_style_defaults = []
 
