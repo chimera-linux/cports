@@ -1,6 +1,6 @@
 pkgname = "rust"
 pkgver = "1.80.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "cargo-bootstrap",
     "cmake",
@@ -31,6 +31,12 @@ license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
 sha256 = "0b9ca1e2e45b8a5f0b58db140af0dc92f8311faeb0ad883c5b71a72c02dc6e80"
+tool_flags = {
+    "RUSTFLAGS": [
+        # make the std debugging symbols point to rust-src
+        "--remap-path-prefix=library=/usr/lib/rustlib/src/rust/library",
+    ]
+}
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
