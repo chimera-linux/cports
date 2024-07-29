@@ -1,6 +1,6 @@
 pkgname = "pkgconf"
 pkgver = "2.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 checkdepends = ["kyua"]
