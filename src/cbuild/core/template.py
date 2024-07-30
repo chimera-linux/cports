@@ -837,6 +837,7 @@ class Template(Package):
         force_check,
         allow_restricted,
         data,
+        init=True,
     ):
         super().__init__()
 
@@ -916,9 +917,9 @@ class Template(Package):
             # append and repeat
             self.source_repositories.append(crepo)
 
-        self.exec_module()
+        self.exec_module(init)
 
-    def exec_module(self):
+    def exec_module(self, init):
         def subpkg_deco(spkgname, cond=True, alternative=None):
             def deco(f):
                 if alternative:
@@ -967,6 +968,9 @@ class Template(Package):
         delattr(builtins, "subpackage")
 
         self._raw_mod = modh
+
+        if init:
+            self.init_from_mod()
 
     def init_from_mod(self):
         m = self._raw_mod
@@ -2719,7 +2723,7 @@ def read_pkg(
     data=None,
     init=True,
 ):
-    ret = Template(
+    return Template(
         tmplp,
         pkgarch,
         origin,
@@ -2734,12 +2738,8 @@ def read_pkg(
         force_check,
         allow_restricted,
         data,
+        init
     )
-
-    if init:
-        ret.init_from_mod()
-
-    return ret
 
 
 def register_cats(cats):
