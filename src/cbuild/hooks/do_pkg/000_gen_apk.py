@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths, template, chroot
+from cbuild.core import logger, paths, chroot
 from cbuild.apk import sign as asign, util as autil, cli as acli
 
 import shlex
@@ -463,49 +463,4 @@ def invoke(pkg):
     else:
         repo = repobase / arch
 
-    genpkg(pkg, repo, arch, binpkg)
-
-    for apkg, adesc, iif, takef in template.autopkgs:
-        binpkg = f"{pkg.pkgname}-{apkg}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
-
-        # is an explicit package, do not autosplit that
-        if pkg.pkgname.endswith(f"-{apkg}"):
-            continue
-
-        # explicitly defined, so do not try autosplit
-        foundpkg = False
-        for sp in pkg.rparent.subpkg_list:
-            if sp.pkgname == f"{pkg.pkgname}-{apkg}":
-                foundpkg = True
-                break
-        if foundpkg:
-            continue
-
-        ddest = pkg.rparent.destdir_base / f"{pkg.pkgname}-{apkg}-{pkg.pkgver}"
-
-        # destdir does not exist, so skip
-        if not ddest.is_dir():
-            continue
-
-        # subpkg repository
-        srepo = repo
-        if apkg == "dbg":
-            srepo = repobase / "debug" / arch
-
-        # create a temporary subpkg instance
-        # it's only complete enough to satisfy the generator
-        spkg = template.Subpackage(
-            f"{pkg.pkgname}-{apkg}",
-            pkg,
-            pkg.pkgdesc,
-            pkg.subdesc,
-            auto=True,
-        )
-
-        # carry over replaces
-        for rep in pkg.replaces:
-            sn, sv, sop = autil.split_pkg_name(rep)
-            if sn:
-                spkg.replaces.append(f"{sn}-{apkg}{sop}{sv}")
-
-        genpkg(spkg, srepo, arch, binpkg, adesc=adesc)
+    genpkg(pkg, repo, arch, binpkg, adesc=pkg.autopkg)

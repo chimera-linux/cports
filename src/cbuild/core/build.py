@@ -239,6 +239,9 @@ def _build(
         # generate packages for subpackages
         for sp in pkg.subpkg_list:
             pkgsm.invoke(sp)
+        # generate packages for autopackages
+        for sp in pkg.subpkg_auto:
+            pkgsm.invoke(sp)
         # generate primary packages
         pkgsm.invoke(pkg)
         pkg.current_phase = "index"

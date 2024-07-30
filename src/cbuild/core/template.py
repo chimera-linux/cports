@@ -24,7 +24,7 @@ import stat
 
 from cbuild.core import logger, chroot, paths, profile, spdx, errors
 from cbuild.util import compiler, flock
-from cbuild.apk import cli
+from cbuild.apk import cli, util as autil
 
 
 class SkipPackage(Exception):
@@ -858,7 +858,7 @@ class Template(Package):
         # other fields
         self.parent = None
         self.rparent = self
-        self.autopkg = False
+        self.autopkg = None
         self.subpackages = []
         self.all_subpackages = []
         self.subpkg_list = []
@@ -2389,7 +2389,7 @@ class Subpackage(Package):
         oldesc=None,
         oldsdesc=None,
         alternative=None,
-        auto=False,
+        auto=None,
     ):
         super().__init__()
 
@@ -2413,9 +2413,16 @@ class Subpackage(Package):
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
-        # override options if automatic, also setup paths
+        # set up options/replaces if automatic, also setup paths
+        # basically for each parent replace, we also replace matching
+        # autopkg, e.g. foo replaces bar == foo-man replaces bar-man
         if auto:
             self.options = parent.options
+            for rep in parent.replaces:
+                sn, sv, sop = autil.split_pkg_name(rep)
+                if sn:
+                    asfx = self.pkgname.removeprefix(parent.pkgname)
+                    self.replaces.append(f"{sn}{asfx}{sop}{sv}")
             self.setup_paths()
 
         ddeps = []

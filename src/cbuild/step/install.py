@@ -41,11 +41,10 @@ def _clean_empty(pkg, dpath, auto):
     return False
 
 
-def _split_auto(pkg):
-    if not pkg.options["autosplit"]:
-        return
-
+def _split_auto(pkg, done):
     for apkg, adesc, iif, takef in template.autopkgs:
+        if takef and not pkg.options["autosplit"]:
+            continue
         if apkg == "static" and not pkg.options["splitstatic"]:
             continue
         if apkg == "udev" and not pkg.options["splitudev"]:
@@ -53,8 +52,6 @@ def _split_auto(pkg):
         if apkg == "doc" and not pkg.options["splitdoc"]:
             continue
         if apkg.startswith("dinit") and not pkg.options["splitdinit"]:
-            continue
-        if not takef:
             continue
         if pkg.pkgname == iif:
             continue
@@ -71,11 +68,20 @@ def _split_auto(pkg):
         if foundpkg:
             continue
 
-        sp = template.Subpackage(f"{pkg.pkgname}-{apkg}", pkg, auto=True)
-        sp.destdir.mkdir(parents=True, exist_ok=True)
-        takef(sp)
-        # remove if empty
-        _clean_empty(sp, sp.destdir, True)
+        sp = template.Subpackage(
+            f"{pkg.pkgname}-{apkg}", pkg, pkg.pkgdesc, pkg.subdesc, auto=adesc
+        )
+
+        # only take if we're not repeating
+        if not done and takef:
+            sp.destdir.mkdir(parents=True, exist_ok=True)
+            takef(sp)
+            # remove if empty
+            _clean_empty(sp, sp.destdir, True)
+
+        # now save it only if the destdir still exists
+        if sp.destdir.is_dir():
+            pkg.rparent.subpkg_auto.append(sp)
 
 
 def invoke(pkg, step):
@@ -87,6 +93,9 @@ def invoke(pkg, step):
     # but before post_install hooks (done by the install step)
     pkg.current_elfs = {}
 
+    # to be populated with Subpackages for current and later use
+    pkg.subpkg_auto = []
+
     template.call_pkg_hooks(pkg, "init_install")
     template.run_pkg_func(pkg, "init_install")
 
@@ -94,7 +103,9 @@ def invoke(pkg, step):
         # when repeating, ensure to at least scan the ELF info...
         for sp in pkg.subpkg_list:
             scanelf.scan(sp, pkg.current_elfs)
+            _split_auto(sp, True)
         scanelf.scan(pkg, pkg.current_elfs)
+        _split_auto(pkg, True)
         return
 
     if pkg.destdir.is_dir():
@@ -108,13 +119,16 @@ def invoke(pkg, step):
         _invoke_subpkg(sp)
         scanelf.scan(sp, pkg.current_elfs)
         template.call_pkg_hooks(sp, "post_install")
-        _split_auto(sp)
         if not sp.options["keepempty"]:
             _clean_empty(sp, sp.destdir, False)
 
     scanelf.scan(pkg, pkg.current_elfs)
     template.call_pkg_hooks(pkg, "post_install")
-    _split_auto(pkg)
     _clean_empty(pkg, pkg.destdir, False)
+
+    # do the splitting at the end to respect e.g. dbg packages
+    for sp in pkg.subpkg_list:
+        _split_auto(sp, False)
+    _split_auto(pkg, False)
 
     install_done.touch()
