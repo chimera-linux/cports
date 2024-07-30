@@ -1,0 +1,36 @@
+The USE_LIBSQLITE3 case is broken upstream.
+
+Since sqlite3-binding.h is guarded against USE_LIBSQLITE3,
+cgo will fail to locate various names as the real sqlite
+header is not included, and will fail with a cryptic message.
+
+-- q66
+
+--- a/go-sqlite3-patched/sqlite3_opt_unlock_notify.c
++++ b/go-sqlite3-patched/sqlite3_opt_unlock_notify.c
+@@ -5,7 +5,11 @@
+ 
+ #ifdef SQLITE_ENABLE_UNLOCK_NOTIFY
+ #include <stdio.h>
++#ifndef USE_LIBSQLITE3
+ #include "sqlite3-binding.h"
++#else
++#include <sqlite3.h>
++#endif
+ 
+ extern int unlock_notify_wait(sqlite3 *db);
+ 
+--- a/go-sqlite3-patched/sqlite3_opt_unlock_notify.go
++++ b/go-sqlite3-patched/sqlite3_opt_unlock_notify.go
+@@ -12,7 +12,11 @@ package sqlite3
+ #cgo CFLAGS: -DSQLITE_ENABLE_UNLOCK_NOTIFY
+ 
+ #include <stdlib.h>
++#ifndef USE_LIBSQLITE3
+ #include "sqlite3-binding.h"
++#else
++#include <sqlite3.h>
++#endif
+ 
+ extern void unlock_notify_callback(void *arg, int argc);
+ */

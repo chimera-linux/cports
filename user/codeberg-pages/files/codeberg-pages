@@ -1,0 +1,8 @@
+# codeberg-pages service
+type = process
+command = /usr/bin/codeberg-pages
+env-file = /etc/default/codeberg-pages
+working-dir = /var/lib/codeberg-pages/
+logfile = /var/log/codeberg-pages.log
+depends-on: network.target
+depends-on: local.target
