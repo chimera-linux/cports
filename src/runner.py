@@ -1373,9 +1373,8 @@ def _get_unbuilt(outdated=False):
     mods = {}
 
     for pn in tmpls:
-        modn = template.sanitize_pkgname(pn)
-        modv, tmplv = template.read_mod(
-            modn,
+        tmpl = template.read_pkg(
+            template.sanitize_pkgname(pn),
             tarch,
             True,
             False,
@@ -1383,8 +1382,10 @@ def _get_unbuilt(outdated=False):
             False,
             False,
             None,
+            init=False,
         )
-        mods[pn] = (tmplv, modv)
+        mods[pn] = tmpl
+        modv = tmpl._raw_mod
         # if something is wrong, mark it unbuilt, error on build later
         if (
             not hasattr(modv, "pkgname")
@@ -1418,8 +1419,8 @@ def _get_unbuilt(outdated=False):
 
     def _get_tmpl(pn):
         try:
-            tmpl, modh = mods[pn]
-            tmpl.init_from(modh)
+            tmpl = mods[pn]
+            tmpl.init_from_mod()
             tmpls[pn] = tmpl
             tvers[pn] = f"{tmpl.pkgver}-r{tmpl.pkgrel}"
             # sentinel

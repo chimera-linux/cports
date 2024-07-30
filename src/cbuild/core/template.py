@@ -871,7 +871,8 @@ class Template(Package):
         self._license_install = False
         self._depends_setup = False
 
-    def init_from(self, m):
+    def init_from_mod(self):
+        m = self._raw_mod
         prevpkg = self.pkgname
 
         # fill in mandatory fields
@@ -2607,7 +2608,7 @@ def resolve_pkgname(pkgname, resolve, ignore_missing):
     return tmplpath.resolve().parent
 
 
-def read_mod(
+def read_pkg(
     tmplp,
     pkgarch,
     force_mode,
@@ -2622,11 +2623,12 @@ def read_mod(
     bulk_mode=False,
     allow_restricted=True,
     data=None,
+    init=True,
 ):
     global _tmpl_dict
 
     if not tmplp:
-        return None, None
+        return None
 
     # construct pkgname from the path
     pkgname = f"{tmplp.parent.name}/{tmplp.name}"
@@ -2706,43 +2708,9 @@ def read_mod(
 
     ret._raw_mod = modh
 
-    return modh, ret
+    if init:
+        ret.init_from_mod()
 
-
-def read_pkg(
-    pkgname,
-    pkgarch,
-    force_mode,
-    run_check,
-    jobs,
-    build_dbg,
-    caches,
-    origin,
-    target=None,
-    force_check=False,
-    stage=3,
-    bulk_mode=False,
-    allow_restricted=True,
-    data=None,
-):
-    modh, ret = read_mod(
-        pkgname,
-        pkgarch,
-        force_mode,
-        run_check,
-        jobs,
-        build_dbg,
-        caches,
-        origin,
-        target,
-        force_check,
-        stage,
-        bulk_mode,
-        allow_restricted,
-        data,
-    )
-    if ret:
-        ret.init_from(modh)
     return ret
 
 
