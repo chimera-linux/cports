@@ -821,7 +821,23 @@ class AstValidatorVisitor(ast.NodeVisitor):
 class Template(Package):
     _tmpl_dict = {}
 
-    def __init__(self, tmplp, origin, force_mode, bulk_mode):
+    def __init__(
+        self,
+        tmplp,
+        pkgarch,
+        origin,
+        stage,
+        target,
+        force_mode,
+        bulk_mode,
+        build_dbg,
+        caches,
+        jobs,
+        run_check,
+        force_check,
+        allow_restricted,
+        data,
+    ):
         super().__init__()
 
         if origin:
@@ -838,10 +854,45 @@ class Template(Package):
         self.repository = tmplp.parent.name
         self.full_pkgname = f"{self.repository}/{self.pkgname}"
 
-        # assorted stuff
+        # other fields
+        self.parent = None
+        self.rparent = self
+        self.autopkg = False
+        self.subpackages = []
+        self.all_subpackages = []
+        self.subpkg_list = []
+        self.source_date_epoch = None
+        self.git_revision = None
+        self.git_dirty = False
+        self.current_sonames = {}
+        self._license_install = False
+        self._depends_setup = False
+
+        # assorted inputs
         self.template_path = tmplp
+        self.stage = stage
+        self._custom_targets = {}
+        self.current_target = target
         self.force_mode = force_mode
         self.bulk_mode = bulk_mode
+        self.build_dbg = build_dbg
+        self.use_ccache = caches[0] if caches else None
+        self.use_sccache = caches[1] if caches else None
+        self.use_ltocache = caches[2] if caches else None
+        self.conf_jobs = jobs[0]
+        self.conf_link_threads = jobs[1]
+        self._force_check = force_check
+        self._allow_restricted = allow_restricted
+        self._data = data if data else {}
+
+        if pkgarch:
+            self._current_profile = profile.get_profile(pkgarch)
+        else:
+            self._current_profile = profile.get_profile("bootstrap")
+
+        self._target_profile = self._current_profile
+
+        self.run_check = run_check and not self._current_profile.cross
 
         # resolve all source repos available to this package
         self.source_repositories = [self.repository]
@@ -865,19 +916,7 @@ class Template(Package):
             # append and repeat
             self.source_repositories.append(crepo)
 
-        # other fields
-        self.parent = None
-        self.rparent = self
-        self.autopkg = False
-        self.subpackages = []
-        self.all_subpackages = []
-        self.subpkg_list = []
-        self.source_date_epoch = None
-        self.git_revision = None
-        self.git_dirty = False
-        self.current_sonames = {}
-        self._license_install = False
-        self._depends_setup = False
+        self.exec_module()
 
     def exec_module(self):
         def subpkg_deco(spkgname, cond=True, alternative=None):
@@ -927,7 +966,7 @@ class Template(Package):
         delattr(builtins, "self")
         delattr(builtins, "subpackage")
 
-        return modh
+        self._raw_mod = modh
 
     def init_from_mod(self):
         m = self._raw_mod
@@ -2683,30 +2722,22 @@ def read_pkg(
     if not tmplp:
         return None
 
-    ret = Template(tmplp, origin, force_mode, bulk_mode)
-    ret.build_dbg = build_dbg
-    ret.use_ccache = caches[0] if caches else None
-    ret.use_sccache = caches[1] if caches else None
-    ret.use_ltocache = caches[2] if caches else None
-    ret.conf_jobs = jobs[0]
-    ret.conf_link_threads = jobs[1]
-    ret.stage = stage
-    ret._custom_targets = {}
-    ret.current_target = target
-    ret._force_check = force_check
-    ret._allow_restricted = allow_restricted
-    ret._data = data if data else {}
-
-    if pkgarch:
-        ret._current_profile = profile.get_profile(pkgarch)
-    else:
-        ret._current_profile = profile.get_profile("bootstrap")
-
-    ret.run_check = run_check and not ret._current_profile.cross
-
-    ret._target_profile = ret._current_profile
-
-    ret._raw_mod = ret.exec_module()
+    ret = Template(
+        tmplp,
+        pkgarch,
+        origin,
+        stage,
+        target,
+        force_mode,
+        bulk_mode,
+        build_dbg,
+        caches,
+        jobs,
+        run_check,
+        force_check,
+        allow_restricted,
+        data,
+    )
 
     if init:
         ret.init_from_mod()
