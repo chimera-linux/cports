@@ -29,4 +29,6 @@ ignore = [
     'UP015',
     # we check this intentionally
     'UP036',
+    # edontcare
+    'RUF012',
 ]
