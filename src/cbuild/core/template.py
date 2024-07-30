@@ -819,7 +819,9 @@ class AstValidatorVisitor(ast.NodeVisitor):
 
 
 class Template(Package):
-    def __init__(self, pkgname, origin):
+    _tmpl_dict = {}
+
+    def __init__(self, tmplp, origin, force_mode, bulk_mode):
         super().__init__()
 
         if origin:
@@ -832,8 +834,14 @@ class Template(Package):
             setattr(self, fl, copy_of_dval(dval))
 
         # make this available early
-        self.repository, self.pkgname = pkgname.split("/")
-        self.full_pkgname = pkgname
+        self.pkgname = tmplp.name
+        self.repository = tmplp.parent.name
+        self.full_pkgname = f"{self.repository}/{self.pkgname}"
+
+        # assorted stuff
+        self.template_path = tmplp
+        self.force_mode = force_mode
+        self.bulk_mode = bulk_mode
 
         # resolve all source repos available to this package
         self.source_repositories = [self.repository]
@@ -870,6 +878,56 @@ class Template(Package):
         self.current_sonames = {}
         self._license_install = False
         self._depends_setup = False
+
+    def exec_module(self):
+        def subpkg_deco(spkgname, cond=True, alternative=None):
+            def deco(f):
+                if alternative:
+                    pn = f"{alternative}-{spkgname}-default"
+                else:
+                    pn = spkgname
+                self.all_subpackages.append(pn)
+                if cond:
+                    self.subpackages.append((spkgname, f, alternative))
+
+            return deco
+
+        def target_deco(tname, tdep):
+            def deco(f):
+                self._custom_targets[tname] = (f, tdep)
+
+            return deco
+
+        setattr(builtins, "subpackage", subpkg_deco)
+        setattr(builtins, "custom_target", target_deco)
+        setattr(builtins, "self", self)
+
+        modh, modspec = Template._tmpl_dict.get(self.full_pkgname, (None, None))
+        if modh:
+            # found in cache, gonna need to clear the module handle
+            # and then reexec it to populate it with fresh contents
+            for fld in dir(modh):
+                # don't mess with the internals
+                if fld.startswith("__") and fld.endswith("__"):
+                    continue
+                delattr(modh, fld)
+        else:
+            # never loaded, build a fresh spec and handle
+            modspec = importlib.util.spec_from_file_location(
+                self.full_pkgname, self.template_path / "template.py"
+            )
+            modh = importlib.util.module_from_spec(modspec)
+            # cache
+            Template._tmpl_dict[self.full_pkgname] = (modh, modspec)
+
+        self._mod_handle = modh
+        modspec.loader.exec_module(modh)
+        self._mod_handle = None
+
+        delattr(builtins, "self")
+        delattr(builtins, "subpackage")
+
+        return modh
 
     def init_from_mod(self):
         m = self._raw_mod
@@ -2556,9 +2614,6 @@ def _interp_url(pkg, url):
     return re.sub(r"\$\((\w+)\)", matchf, url)
 
 
-_tmpl_dict = {}
-
-
 def sanitize_pkgname(pkgname):
     # if a valid path to template.py, try translating to pkgname
     tmplp = pathlib.Path(pkgname).resolve()
@@ -2625,18 +2680,10 @@ def read_pkg(
     data=None,
     init=True,
 ):
-    global _tmpl_dict
-
     if not tmplp:
         return None
 
-    # construct pkgname from the path
-    pkgname = f"{tmplp.parent.name}/{tmplp.name}"
-
-    ret = Template(pkgname, origin)
-    ret.template_path = tmplp
-    ret.force_mode = force_mode
-    ret.bulk_mode = bulk_mode
+    ret = Template(tmplp, origin, force_mode, bulk_mode)
     ret.build_dbg = build_dbg
     ret.use_ccache = caches[0] if caches else None
     ret.use_sccache = caches[1] if caches else None
@@ -2659,54 +2706,7 @@ def read_pkg(
 
     ret._target_profile = ret._current_profile
 
-    def subpkg_deco(spkgname, cond=True, alternative=None):
-        def deco(f):
-            if alternative:
-                pn = f"{alternative}-{spkgname}-default"
-            else:
-                pn = spkgname
-            ret.all_subpackages.append(pn)
-            if cond:
-                ret.subpackages.append((spkgname, f, alternative))
-
-        return deco
-
-    def target_deco(tname, tdep):
-        def deco(f):
-            ret._custom_targets[tname] = (f, tdep)
-
-        return deco
-
-    setattr(builtins, "subpackage", subpkg_deco)
-    setattr(builtins, "custom_target", target_deco)
-    setattr(builtins, "self", ret)
-
-    modh, modspec = _tmpl_dict.get(pkgname, (None, None))
-    if modh:
-        # found in cache, gonna need to clear the module handle
-        # and then reexec it to populate it with fresh contents
-        for fld in dir(modh):
-            # don't mess with the internals
-            if fld.startswith("__") and fld.endswith("__"):
-                continue
-            delattr(modh, fld)
-    else:
-        # never loaded, build a fresh spec and handle
-        modspec = importlib.util.spec_from_file_location(
-            pkgname, paths.distdir() / pkgname / "template.py"
-        )
-        modh = importlib.util.module_from_spec(modspec)
-        # cache
-        _tmpl_dict[pkgname] = (modh, modspec)
-
-    ret._mod_handle = modh
-    modspec.loader.exec_module(modh)
-    ret._mod_handle = None
-
-    delattr(builtins, "self")
-    delattr(builtins, "subpackage")
-
-    ret._raw_mod = modh
+    ret._raw_mod = ret.exec_module()
 
     if init:
         ret.init_from_mod()
