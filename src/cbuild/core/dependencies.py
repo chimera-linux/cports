@@ -13,8 +13,12 @@ def _srcpkg_ver(pkgn, pkgb):
     if pkgn in _tcache:
         return _tcache[pkgn]
 
+    pkgp = template.resolve_pkgname(pkgn, pkgb, True)
+    if not pkgp:
+        return None
+
     tmplv = template.read_pkg(
-        template.resolve_pkgname(pkgn, pkgb, True),
+        pkgp,
         pkgb.profile().arch,
         True,
         False,
@@ -24,8 +28,7 @@ def _srcpkg_ver(pkgn, pkgb):
         None,
         init=False,
     )
-    if not tmplv:
-        return None
+
     modv = tmplv._raw_mod
     if not hasattr(modv, "pkgver") or not hasattr(modv, "pkgrel"):
         return None

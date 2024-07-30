@@ -2719,9 +2719,6 @@ def read_pkg(
     data=None,
     init=True,
 ):
-    if not tmplp:
-        return None
-
     ret = Template(
         tmplp,
         pkgarch,
