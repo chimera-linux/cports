@@ -42,6 +42,8 @@ def _clean_empty(pkg, dpath, auto):
 
 
 def _split_auto(pkg, done):
+    pkg.rparent.subpkg_all.append(pkg)
+
     for apkg, adesc, iif, takef in template.autopkgs:
         if takef and not pkg.options["autosplit"]:
             continue
@@ -81,7 +83,7 @@ def _split_auto(pkg, done):
 
         # now save it only if the destdir still exists
         if sp.destdir.is_dir():
-            pkg.rparent.subpkg_auto.append(sp)
+            pkg.rparent.subpkg_all.append(sp)
 
 
 def invoke(pkg, step):
@@ -94,7 +96,7 @@ def invoke(pkg, step):
     pkg.current_elfs = {}
 
     # to be populated with Subpackages for current and later use
-    pkg.subpkg_auto = []
+    pkg.subpkg_all = []
 
     template.call_pkg_hooks(pkg, "init_install")
     template.run_pkg_func(pkg, "init_install")

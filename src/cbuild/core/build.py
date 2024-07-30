@@ -236,11 +236,8 @@ def _build(
 
     # package gen + staging is a part of the same lock
     with flock.lock(flock.stagelock(pkg), pkg):
-        # generate packages for subpackages
-        for sp in pkg.subpkg_list:
-            pkgsm.invoke(sp)
-        # generate packages for autopackages
-        for sp in pkg.subpkg_auto:
+        # generate packages for all packages (includes the main one)
+        for sp in pkg.subpkg_all:
             pkgsm.invoke(sp)
         # generate primary packages
         pkgsm.invoke(pkg)
