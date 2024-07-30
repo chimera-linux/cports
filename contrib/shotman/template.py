@@ -1,5 +1,5 @@
 pkgname = "shotman"
-pkgver = "0.4.6"
+pkgver = "0.4.7"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf", "scdoc"]
@@ -10,7 +10,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "ISC"
 url = "https://sr.ht/~whynothugo/shotman"
 source = f"https://git.sr.ht/~whynothugo/shotman/archive/v{pkgver}.tar.gz"
-sha256 = "a664dc014850fa15298216dc66cecb99a16de5e3aafe7a5fb347c8fc83d30a6d"
+sha256 = "8a2239b37bababcc10db787d931f5d83c3eb254a0f1b30fa5e2d4dd31eff4cc5"
 env = {
     "SHOTMAN_VERSION": f"v{pkgver}",
 }
