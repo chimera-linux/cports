@@ -2572,20 +2572,21 @@ def sanitize_pkgname(pkgname):
             f"template name '{pkgname}' has an invalid format"
         )
     pkgname = "/".join(pnl)
-    if not (paths.distdir() / pkgname / "template.py").is_file():
+    tmplpath = paths.distdir() / pkgname / "template.py"
+    if not tmplpath.is_file():
         raise errors.CbuildException(f"missing template for '{pkgname}'")
-    return pkgname
+    return tmplpath.resolve().parent
 
 
 def resolve_pkgname(pkgname, resolve, ignore_missing):
-    resolved = False
+    tmplpath = None
     for r in resolve.source_repositories:
-        rpath = paths.distdir() / r
-        if (rpath / pkgname / "template.py").is_file():
-            pkgname = f"{r}/{pkgname}"
-            resolved = True
+        tmplpath = paths.distdir() / r / pkgname / "template.py"
+        if tmplpath.is_file():
             break
-    if not resolved:
+        else:
+            tmplpath = None
+    if not tmplpath:
         altname = None
         for apkg, adesc, iif, takef in autopkgs:
             if pkgname.endswith(f"-{apkg}"):
@@ -2594,19 +2595,20 @@ def resolve_pkgname(pkgname, resolve, ignore_missing):
         if altname:
             for r in resolve.source_repositories:
                 rpath = paths.distdir() / r
-                if (rpath / altname / "template.py").is_file():
-                    pkgname = f"{r}/{altname}"
-                    resolved = True
+                tmplpath = rpath / altname / "template.py"
+                if tmplpath.is_file():
                     break
-    if not resolved:
+                else:
+                    tmplpath = None
+    if not tmplpath:
         if ignore_missing:
-            return False
+            return None
         raise errors.CbuildException(f"missing template for '{pkgname}'")
-    return pkgname
+    return tmplpath.resolve().parent
 
 
 def read_mod(
-    pkgname,
+    tmplp,
     pkgarch,
     force_mode,
     run_check,
@@ -2623,15 +2625,11 @@ def read_mod(
 ):
     global _tmpl_dict
 
-    # missing were to be ignored
-    if pkgname is False:
-        return None
+    if not tmplp:
+        return None, None
 
-    if not isinstance(pkgname, str):
-        raise errors.CbuildException("missing package name")
-
-    tmplp = (paths.distdir() / pkgname).resolve()
-    pkgname = str(tmplp.relative_to(paths.distdir()))
+    # construct pkgname from the path
+    pkgname = f"{tmplp.parent.name}/{tmplp.name}"
 
     ret = Template(pkgname, origin)
     ret.template_path = tmplp

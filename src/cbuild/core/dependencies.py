@@ -13,9 +13,8 @@ def _srcpkg_ver(pkgn, pkgb):
     if pkgn in _tcache:
         return _tcache[pkgn]
 
-    modn = template.resolve_pkgname(pkgn, pkgb, True)
     modv, tmplv = template.read_mod(
-        modn,
+        template.resolve_pkgname(pkgn, pkgb, True),
         pkgb.profile().arch,
         True,
         False,
