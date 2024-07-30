@@ -496,7 +496,7 @@ def invoke(pkg):
         # it's only complete enough to satisfy the generator
         spkg = template.Subpackage(
             f"{pkg.pkgname}-{apkg}",
-            pkg.rparent,
+            pkg,
             pkg.pkgdesc,
             pkg.subdesc,
             auto=True,

@@ -2390,22 +2390,14 @@ class Subpackage(Package):
         oldsdesc=None,
         alternative=None,
         auto=False,
-        install=False,
     ):
         super().__init__()
 
         self.pkgname = name
         self.autopkg = auto
 
-        if auto and not install:
-            self.parent = parent.rparent
-            self.rparent = parent.rparent
-        else:
-            self.parent = parent
-            self.rparent = parent
-
-        popts = parent.options
-        parent = self.parent
+        self.parent = parent
+        self.rparent = parent.rparent
 
         self.pkgver = parent.pkgver
         self.pkgrel = parent.pkgrel
@@ -2423,7 +2415,7 @@ class Subpackage(Package):
 
         # override options if automatic, also setup paths
         if auto:
-            self.options = popts
+            self.options = parent.options
             self.setup_paths()
 
         ddeps = []
