@@ -871,6 +871,195 @@ class Template(Package):
         self._license_install = False
         self._depends_setup = False
 
+    def init_from(self, m):
+        prevpkg = self.pkgname
+
+        # fill in mandatory fields
+        for fl, dval, tp, mand, sp, inh in core_fields:
+            # mandatory fields are all at the beginning
+            if not mand:
+                break
+            # no validation for now, that is done later
+            if hasattr(m, fl):
+                setattr(self, fl, getattr(m, fl))
+
+        # basic validation
+        self.ensure_fields()
+
+        # ensure pkgname is the same
+        if self.pkgname != prevpkg:
+            self.error(f"pkgname does not match template ({prevpkg})")
+
+        # ensure origin is filled
+        self.origin = self.pkgname
+
+        # possibly skip very early once we have the bare minimum info
+        if (
+            not self.force_mode
+            and not self.bulk_mode
+            and not self.current_target
+            and self.is_built()
+        ):
+            raise SkipPackage()
+
+        # fill in core non-mandatory fields
+        for fl, dval, tp, mand, sp, inh in core_fields:
+            # already set
+            if mand:
+                continue
+            # also perform type validation
+            if hasattr(m, fl):
+                flv = getattr(m, fl)
+                if not validate_type(flv, tp):
+                    fl_t = type(fl).__name__
+                    flv_t = type(flv).__name__
+                    self.error(
+                        f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
+                    )
+                # validated, set
+                setattr(self, fl, flv)
+
+        # transform options
+        ropts = {}
+
+        for dopt, dtup in default_options.items():
+            ropts[dopt] = dtup[0]
+
+        if self.pkgname.endswith("-devel"):
+            ropts["splitstatic"] = True
+
+        if self.options:
+            for opt in self.options:
+                neg = opt.startswith("!")
+                if neg:
+                    opt = opt[1:]
+                if opt not in ropts:
+                    self.error(f"unknown option: {opt}")
+                ropts[opt] = not neg
+
+        self.options = ropts
+
+        self.build_style_defaults = []
+
+        if self.build_style:
+            importlib.import_module(
+                f"cbuild.build_style.{self.build_style}"
+            ).use(self)
+
+        # perform initialization
+        if hasattr(m, "init"):
+            m.init(self)
+
+        # set default fields for build_style if not set by template
+        for fl, dval in self.build_style_defaults:
+            if not hasattr(m, fl):
+                setattr(self, fl, copy_of_dval(dval))
+
+        # add our own methods
+        for phase in [
+            "fetch",
+            "extract",
+            "prepare",
+            "patch",
+            "configure",
+            "build",
+            "check",
+            "install",
+        ]:
+            if hasattr(m, "init_" + phase):
+                setattr(self, "init_" + phase, getattr(m, "init_" + phase))
+            if hasattr(m, "pre_" + phase):
+                setattr(self, "pre_" + phase, getattr(m, "pre_" + phase))
+            if hasattr(m, "do_" + phase):
+                setattr(self, "do_" + phase, getattr(m, "do_" + phase))
+            if hasattr(m, "post_" + phase):
+                setattr(self, "post_" + phase, getattr(m, "post_" + phase))
+
+        spdupes = {}
+        # link subpackages and fill in their fields
+        for spn, spf, spa in self.subpackages:
+            if spa:
+                spn = f"{spa}-{spn}-default"
+            if spn in spdupes:
+                self.error(f"subpackage '{spn}' already exists")
+            if spn.lower() != spn:
+                self.error(f"subpackage '{spn}' must be lowercase")
+            spdupes[spn] = True
+            sp = Subpackage(spn, self, alternative=spa)
+            pinst = spf(sp)
+            if isinstance(pinst, list):
+                sp.pkg_install = _subpkg_install_list(sp, pinst)
+            elif callable(pinst):
+                sp.pkg_install = pinst
+            else:
+                self.error(f"invalid return for subpackage '{spn}'")
+            # validate fields
+            for fl, dval, tp, mand, asp, inh in core_fields:
+                if not asp:
+                    continue
+                flv = getattr(sp, fl)
+                if not validate_type(flv, tp):
+                    fl_t = type(fl).__name__
+                    flv_t = type(flv).__name__
+                    self.error(
+                        f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
+                    )
+
+            # deal with options
+            ropts = {}
+
+            for dopt, dtup in default_options.items():
+                if dtup[1]:
+                    # global opt: inherit value
+                    ropts[dopt] = self.options[dopt]
+                else:
+                    # per-package opt: set default
+                    ropts[dopt] = dtup[0]
+
+            if sp.pkgname.endswith("-devel"):
+                ropts["splitstatic"] = True
+
+            if sp.options:
+                for opt in sp.options:
+                    neg = opt.startswith("!")
+                    if neg:
+                        opt = opt[1:]
+                    if opt not in ropts:
+                        self.error(f"unknown subpackage option: {opt}")
+                    ropts[opt] = not neg
+
+            sp.options = ropts
+
+            # go
+            self.subpkg_list.append(sp)
+
+        # sometimes things need to know if a package is buildable
+        if self.broken:
+            self.broken = (
+                f"cannot be built, it's currently broken: {self.broken}"
+            )
+        elif self.restricted and not self._allow_restricted:
+            self.broken = f"cannot be built, it's restricted: {self.restricted}"
+        elif self.repository not in _allow_cats:
+            self.broken = f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})"
+        elif self.profile().cross and not self.options["cross"]:
+            self.broken = f"cannot be cross-compiled for {self.profile().arch}"
+
+        # if archs is present, validate it, it may mark the package broken
+        self.validate_arch()
+
+        # ensure sources and checksums are a list
+        if not isinstance(self.source, list):
+            self.source = [self.source]
+        if self.source_headers and not isinstance(self.source_headers, list):
+            self.source_headers = [self.source_headers]
+        if isinstance(self.sha256, str):
+            self.sha256 = [self.sha256]
+
+        # expand source
+        for i in range(len(self.source)):
+            self.source[i] = _interp_url(self, self.source[i])
+
     def get_data(self, key, default=None):
         return self._data.get(key, default)
 
@@ -2366,199 +2555,6 @@ def _interp_url(pkg, url):
     return re.sub(r"\$\((\w+)\)", matchf, url)
 
 
-def from_module(m, ret):
-    if not m:
-        return None
-
-    prevpkg = ret.pkgname
-
-    # fill in mandatory fields
-    for fl, dval, tp, mand, sp, inh in core_fields:
-        # mandatory fields are all at the beginning
-        if not mand:
-            break
-        # no validation for now, that is done later
-        if hasattr(m, fl):
-            setattr(ret, fl, getattr(m, fl))
-
-    # basic validation
-    ret.ensure_fields()
-
-    # ensure pkgname is the same
-    if ret.pkgname != prevpkg:
-        ret.error(f"pkgname does not match template ({prevpkg})")
-
-    # ensure origin is filled
-    ret.origin = ret.pkgname
-
-    # possibly skip very early once we have the bare minimum info
-    if (
-        not ret.force_mode
-        and not ret.bulk_mode
-        and not ret.current_target
-        and ret.is_built()
-    ):
-        raise SkipPackage()
-
-    # fill in core non-mandatory fields
-    for fl, dval, tp, mand, sp, inh in core_fields:
-        # already set
-        if mand:
-            continue
-        # also perform type validation
-        if hasattr(m, fl):
-            flv = getattr(m, fl)
-            if not validate_type(flv, tp):
-                fl_t = type(fl).__name__
-                flv_t = type(flv).__name__
-                ret.error(
-                    f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
-                )
-            # validated, set
-            setattr(ret, fl, flv)
-
-    # transform options
-    ropts = {}
-
-    for dopt, dtup in default_options.items():
-        ropts[dopt] = dtup[0]
-
-    if ret.pkgname.endswith("-devel"):
-        ropts["splitstatic"] = True
-
-    if ret.options:
-        for opt in ret.options:
-            neg = opt.startswith("!")
-            if neg:
-                opt = opt[1:]
-            if opt not in ropts:
-                ret.error(f"unknown option: {opt}")
-            ropts[opt] = not neg
-
-    ret.options = ropts
-
-    ret.build_style_defaults = []
-
-    if ret.build_style:
-        importlib.import_module(f"cbuild.build_style.{ret.build_style}").use(
-            ret
-        )
-
-    # perform initialization
-    if hasattr(m, "init"):
-        m.init(ret)
-
-    # set default fields for build_style if not set by template
-    for fl, dval in ret.build_style_defaults:
-        if not hasattr(m, fl):
-            setattr(ret, fl, copy_of_dval(dval))
-
-    # add our own methods
-    for phase in [
-        "fetch",
-        "extract",
-        "prepare",
-        "patch",
-        "configure",
-        "build",
-        "check",
-        "install",
-    ]:
-        if hasattr(m, "init_" + phase):
-            setattr(ret, "init_" + phase, getattr(m, "init_" + phase))
-        if hasattr(m, "pre_" + phase):
-            setattr(ret, "pre_" + phase, getattr(m, "pre_" + phase))
-        if hasattr(m, "do_" + phase):
-            setattr(ret, "do_" + phase, getattr(m, "do_" + phase))
-        if hasattr(m, "post_" + phase):
-            setattr(ret, "post_" + phase, getattr(m, "post_" + phase))
-
-    spdupes = {}
-    # link subpackages and fill in their fields
-    for spn, spf, spa in ret.subpackages:
-        if spa:
-            spn = f"{spa}-{spn}-default"
-        if spn in spdupes:
-            ret.error(f"subpackage '{spn}' already exists")
-        if spn.lower() != spn:
-            ret.error(f"subpackage '{spn}' must be lowercase")
-        spdupes[spn] = True
-        sp = Subpackage(spn, ret, alternative=spa)
-        pinst = spf(sp)
-        if isinstance(pinst, list):
-            sp.pkg_install = _subpkg_install_list(sp, pinst)
-        elif callable(pinst):
-            sp.pkg_install = pinst
-        else:
-            ret.error(f"invalid return for subpackage '{spn}'")
-        # validate fields
-        for fl, dval, tp, mand, asp, inh in core_fields:
-            if not asp:
-                continue
-            flv = getattr(sp, fl)
-            if not validate_type(flv, tp):
-                fl_t = type(fl).__name__
-                flv_t = type(flv).__name__
-                ret.error(
-                    f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
-                )
-
-        # deal with options
-        ropts = {}
-
-        for dopt, dtup in default_options.items():
-            if dtup[1]:
-                # global opt: inherit value
-                ropts[dopt] = ret.options[dopt]
-            else:
-                # per-package opt: set default
-                ropts[dopt] = dtup[0]
-
-        if sp.pkgname.endswith("-devel"):
-            ropts["splitstatic"] = True
-
-        if sp.options:
-            for opt in sp.options:
-                neg = opt.startswith("!")
-                if neg:
-                    opt = opt[1:]
-                if opt not in ropts:
-                    ret.error(f"unknown subpackage option: {opt}")
-                ropts[opt] = not neg
-
-        sp.options = ropts
-
-        # go
-        ret.subpkg_list.append(sp)
-
-    # sometimes things need to know if a package is buildable
-    if ret.broken:
-        ret.broken = f"cannot be built, it's currently broken: {ret.broken}"
-    elif ret.restricted and not ret._allow_restricted:
-        ret.broken = f"cannot be built, it's restricted: {ret.restricted}"
-    elif ret.repository not in _allow_cats:
-        ret.broken = f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})"
-    elif ret.profile().cross and not ret.options["cross"]:
-        ret.broken = f"cannot be cross-compiled for {ret.profile().arch}"
-
-    # if archs is present, validate it, it may mark the package broken
-    ret.validate_arch()
-
-    # ensure sources and checksums are a list
-    if not isinstance(ret.source, list):
-        ret.source = [ret.source]
-    if ret.source_headers and not isinstance(ret.source_headers, list):
-        ret.source_headers = [ret.source_headers]
-    if isinstance(ret.sha256, str):
-        ret.sha256 = [ret.sha256]
-
-    # expand source
-    for i in range(len(ret.source)):
-        ret.source[i] = _interp_url(ret, ret.source[i])
-
-    return ret
-
-
 _tmpl_dict = {}
 
 
@@ -2749,7 +2745,9 @@ def read_pkg(
         allow_restricted,
         data,
     )
-    return from_module(modh, ret)
+    if ret:
+        ret.init_from(modh)
+    return ret
 
 
 def register_cats(cats):

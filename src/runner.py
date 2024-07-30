@@ -1383,7 +1383,7 @@ def _get_unbuilt(outdated=False):
             False,
             None,
         )
-        mods[pn] = (modv, tmplv)
+        mods[pn] = (tmplv, modv)
         # if something is wrong, mark it unbuilt, error on build later
         if (
             not hasattr(modv, "pkgname")
@@ -1417,14 +1417,15 @@ def _get_unbuilt(outdated=False):
 
     def _get_tmpl(pn):
         try:
-            tmpl = template.from_module(*mods[pn])
+            tmpl, modh = mods[pn]
+            tmpl.init_from(modh)
             tmpls[pn] = tmpl
             tvers[pn] = f"{tmpl.pkgver}-r{tmpl.pkgrel}"
             # sentinel
             if tmpls[pn].broken:
                 tmpls[pn] = True
                 return True
-        except Exception:
+        except Exception as e:
             tmpls[pn] = False
         return False
 
