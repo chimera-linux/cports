@@ -2558,6 +2558,53 @@ def _interp_url(pkg, url):
 _tmpl_dict = {}
 
 
+def sanitize_pkgname(pkgname):
+    # if a valid path to template.py, try translating to pkgname
+    tmplp = pathlib.Path(pkgname).resolve()
+    if tmplp.name == "template.py" and tmplp.is_file():
+        pkgname = f"{tmplp.parent.parent.name}/{tmplp.parent.name}"
+    # otherwise validate the format
+    pnl = pkgname.split("/")
+    if len(pnl) == 3 and pnl[2] == "":
+        pnl = pnl[:-1]
+    if len(pnl) != 2:
+        raise errors.CbuildException(
+            f"template name '{pkgname}' has an invalid format"
+        )
+    pkgname = "/".join(pnl)
+    if not (paths.distdir() / pkgname / "template.py").is_file():
+        raise errors.CbuildException(f"missing template for '{pkgname}'")
+    return pkgname
+
+
+def resolve_pkgname(pkgname, resolve, ignore_missing):
+    resolved = False
+    for r in resolve.source_repositories:
+        rpath = paths.distdir() / r
+        if (rpath / pkgname / "template.py").is_file():
+            pkgname = f"{r}/{pkgname}"
+            resolved = True
+            break
+    if not resolved:
+        altname = None
+        for apkg, adesc, iif, takef in autopkgs:
+            if pkgname.endswith(f"-{apkg}"):
+                altname = pkgname.removesuffix(f"-{apkg}")
+                break
+        if altname:
+            for r in resolve.source_repositories:
+                rpath = paths.distdir() / r
+                if (rpath / altname / "template.py").is_file():
+                    pkgname = f"{r}/{altname}"
+                    resolved = True
+                    break
+    if not resolved:
+        if ignore_missing:
+            return False
+        raise errors.CbuildException(f"missing template for '{pkgname}'")
+    return pkgname
+
+
 def read_mod(
     pkgname,
     pkgarch,
@@ -2567,11 +2614,8 @@ def read_mod(
     build_dbg,
     caches,
     origin,
-    resolve=None,
-    ignore_missing=False,
     target=None,
     force_check=False,
-    autopkg=False,
     stage=3,
     bulk_mode=False,
     allow_restricted=True,
@@ -2579,52 +2623,12 @@ def read_mod(
 ):
     global _tmpl_dict
 
+    # missing were to be ignored
+    if pkgname is False:
+        return None
+
     if not isinstance(pkgname, str):
         raise errors.CbuildException("missing package name")
-
-    if resolve:
-        resolved = False
-        for r in resolve.source_repositories:
-            rpath = paths.distdir() / r
-            if (rpath / pkgname / "template.py").is_file():
-                pkgname = f"{r}/{pkgname}"
-                resolved = True
-                break
-        if not resolved and autopkg:
-            altname = None
-            for apkg, adesc, iif, takef in autopkgs:
-                if pkgname.endswith(f"-{apkg}"):
-                    altname = pkgname.removesuffix(f"-{apkg}")
-                    break
-            if altname:
-                for r in resolve.source_repositories:
-                    rpath = paths.distdir() / r
-                    if (rpath / altname / "template.py").is_file():
-                        pkgname = f"{r}/{altname}"
-                        resolved = True
-                        break
-        if not resolved:
-            if ignore_missing:
-                return None, None
-            raise errors.CbuildException(f"missing template for '{pkgname}'")
-    else:
-        # if a valid path to template.py, try translating to pkgname
-        tmplp = pathlib.Path(pkgname).resolve()
-        if tmplp.name == "template.py" and tmplp.is_file():
-            pkgname = f"{tmplp.parent.parent.name}/{tmplp.parent.name}"
-        # otherwise validate the format
-        pnl = pkgname.split("/")
-        if len(pnl) == 3 and pnl[2] == "":
-            pnl = pnl[:-1]
-        if len(pnl) != 2 and not ignore_missing:
-            raise errors.CbuildException(
-                f"template name '{pkgname}' has an invalid format"
-            )
-        pkgname = "/".join(pnl)
-        if not (paths.distdir() / pkgname / "template.py").is_file():
-            if ignore_missing:
-                return None, None
-            raise errors.CbuildException(f"missing template for '{pkgname}'")
 
     tmplp = (paths.distdir() / pkgname).resolve()
     pkgname = str(tmplp.relative_to(paths.distdir()))
@@ -2716,11 +2720,8 @@ def read_pkg(
     build_dbg,
     caches,
     origin,
-    resolve=None,
-    ignore_missing=False,
     target=None,
     force_check=False,
-    autopkg=False,
     stage=3,
     bulk_mode=False,
     allow_restricted=True,
@@ -2735,11 +2736,8 @@ def read_pkg(
         build_dbg,
         caches,
         origin,
-        resolve,
-        ignore_missing,
         target,
         force_check,
-        autopkg,
         stage,
         bulk_mode,
         allow_restricted,

@@ -13,8 +13,9 @@ def _srcpkg_ver(pkgn, pkgb):
     if pkgn in _tcache:
         return _tcache[pkgn]
 
+    modn = template.resolve_pkgname(pkgn, pkgb, True)
     modv, tmplv = template.read_mod(
-        pkgn,
+        modn,
         pkgb.profile().arch,
         True,
         False,
@@ -22,9 +23,6 @@ def _srcpkg_ver(pkgn, pkgb):
         False,
         False,
         None,
-        resolve=pkgb,
-        ignore_missing=True,
-        autopkg=True,
     )
     if not modv or not hasattr(modv, "pkgver") or not hasattr(modv, "pkgrel"):
         return None
@@ -447,7 +445,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             build.build(
                 step,
                 template.read_pkg(
-                    pn,
+                    template.resolve_pkgname(pn, pkg, False),
                     chost if pkg.stage > 0 else None,
                     False,
                     pkg.run_check,
@@ -455,10 +453,8 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                     pkg.build_dbg,
                     (pkg.use_ccache, pkg.use_sccache, pkg.use_ltocache),
                     pkg,
-                    resolve=pkg,
                     force_check=pkg._force_check,
                     stage=pkg.stage,
-                    autopkg=True,
                     allow_restricted=pkg._allow_restricted,
                     data=pkg._data,
                 ),
@@ -480,7 +476,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             build.build(
                 step,
                 template.read_pkg(
-                    pn,
+                    template.resolve_pkgname(pn, pkg, False),
                     tarch if pkg.stage > 0 else None,
                     False,
                     pkg.run_check,
@@ -488,10 +484,8 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                     pkg.build_dbg,
                     (pkg.use_ccache, pkg.use_sccache, pkg.use_ltocache),
                     pkg,
-                    resolve=pkg,
                     force_check=pkg._force_check,
                     stage=pkg.stage,
-                    autopkg=True,
                     allow_restricted=pkg._allow_restricted,
                     data=pkg._data,
                 ),
@@ -522,7 +516,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             build.build(
                 step,
                 template.read_pkg(
-                    rd,
+                    template.resolve_pkgname(rd, pkg, False),
                     tarch if pkg.stage > 0 else None,
                     False,
                     pkg.run_check,
@@ -530,10 +524,8 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                     pkg.build_dbg,
                     (pkg.use_ccache, pkg.use_sccache, pkg.use_ltocache),
                     pkg,
-                    resolve=pkg,
                     force_check=pkg._force_check,
                     stage=pkg.stage,
-                    autopkg=True,
                     allow_restricted=pkg._allow_restricted,
                     data=pkg._data,
                 ),

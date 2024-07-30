@@ -334,7 +334,7 @@ def _setup_dummy(rootp, archn):
 
     def _get_ver(pkgn):
         tobj = template.read_pkg(
-            f"main/{pkgn}",
+            template.sanitize_pkgname(f"main/{pkgn}"),
             archn,
             True,
             False,
@@ -342,7 +342,6 @@ def _setup_dummy(rootp, archn):
             False,
             False,
             None,
-            ignore_missing=True,
         )
         return f"{tobj.pkgver}-r{tobj.pkgrel}"
 

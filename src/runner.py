@@ -667,7 +667,7 @@ def bootstrap(tgt):
         rp = None
         try:
             rp = template.read_pkg(
-                "main/base-cbuild",
+                template.sanitize_pkgname("main/base-cbuild"),
                 None,
                 False,
                 False,
@@ -981,7 +981,7 @@ def do_lint(tgt):
     # just read it and do nothing else
     # don't let the skip logic kick in
     template.read_pkg(
-        pkgn,
+        template.sanitize_pkgname(pkgn),
         opt_arch if opt_arch else chroot.host_cpu(),
         True,
         False,
@@ -1054,7 +1054,7 @@ def _graph_prepare():
             return rtmpls[pkgn]
         try:
             tp = template.read_pkg(
-                pkgn,
+                template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
                 False,
@@ -1096,7 +1096,7 @@ def do_prune_sources(tgt):
     def _read_pkg(pkgn):
         try:
             tp = template.read_pkg(
-                pkgn,
+                template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
                 False,
@@ -1184,7 +1184,7 @@ def do_relink_subpkgs(tgt):
     def _read_pkg(pkgn):
         try:
             tp = template.read_pkg(
-                pkgn,
+                template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
                 False,
@@ -1283,7 +1283,7 @@ def do_print_build_graph(tgt):
             return rtmpls[pkgn]
         try:
             tp = template.read_pkg(
-                pkgn,
+                template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
                 False,
@@ -1373,8 +1373,9 @@ def _get_unbuilt(outdated=False):
     mods = {}
 
     for pn in tmpls:
+        modn = template.sanitize_pkgname(pn)
         modv, tmplv = template.read_mod(
-            pn,
+            modn,
             tarch,
             True,
             False,
@@ -1425,7 +1426,7 @@ def _get_unbuilt(outdated=False):
             if tmpls[pn].broken:
                 tmpls[pn] = True
                 return True
-        except Exception as e:
+        except Exception:
             tmpls[pn] = False
         return False
 
@@ -1500,7 +1501,7 @@ def do_update_check(tgt):
         nonlocal namelen, verlen
 
         tmpl = template.read_pkg(
-            pkgn,
+            template.sanitize_pkgname(pkgn),
             chroot.host_cpu(),
             True,
             False,
@@ -1604,7 +1605,7 @@ def do_dump(tgt):
     def _read_pkg(pkgn):
         try:
             return template.read_pkg(
-                pkgn,
+                template.sanitize_pkgname(pkgn),
                 opt_arch if opt_arch else chroot.host_cpu(),
                 True,
                 False,
@@ -1652,7 +1653,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             pkgn = cmdline.command[1]
     rp = (
         template.read_pkg(
-            pkgn,
+            template.sanitize_pkgname(pkgn),
             opt_arch if opt_arch else chroot.host_cpu(),
             force,
             check,
@@ -1832,7 +1833,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             pvisit,
             lambda d: _do_with_exc(
                 lambda: template.read_pkg(
-                    d,
+                    template.sanitize_pkgname(d),
                     tarch,
                     True,
                     False,
@@ -1861,7 +1862,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         failed = False
         tp = _do_with_exc(
             lambda: template.read_pkg(
-                pn,
+                template.sanitize_pkgname(pn),
                 tarch,
                 opt_force,
                 opt_check,
@@ -2164,7 +2165,7 @@ def do_prepare_upgrade(tgt):
     chroot.chroot_check()
 
     tmpl = template.read_pkg(
-        pkgn,
+        template.sanitize_pkgname(pkgn),
         opt_arch if opt_arch else chroot.host_cpu(),
         True,
         False,
@@ -2233,7 +2234,7 @@ def do_bump_pkgrel(tgt):
     for pkgn in cmdline.command[1:]:
         try:
             tmpl = template.read_pkg(
-                pkgn,
+                template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
                 False,
