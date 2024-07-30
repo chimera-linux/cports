@@ -1,6 +1,6 @@
 pkgname = "rustypaste"
-pkgver = "0.15.0"
-pkgrel = 1
+pkgver = "0.15.1"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
@@ -26,7 +26,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/orhun/rustypaste"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d2f23fa70f389dc0e57606799e780ba7bcfc648514e72de55154ccf5571fc6cf"
+sha256 = "a1f1afe2154ec5cc78da02dbb98c6069331b149cdfaf8975ffb73ac8fdf8d60d"
 
 
 def post_install(self):
