@@ -333,7 +333,7 @@ def _setup_dummy(rootp, archn):
     from cbuild.core import template
 
     def _get_ver(pkgn):
-        tobj = template.read_pkg(
+        tobj = template.Template(
             template.sanitize_pkgname(f"main/{pkgn}"),
             archn,
             True,

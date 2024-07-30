@@ -825,18 +825,18 @@ class Template(Package):
         self,
         tmplp,
         pkgarch,
-        origin,
-        stage,
-        target,
         force_mode,
-        bulk_mode,
+        run_check,
+        jobs,
         build_dbg,
         caches,
-        jobs,
-        run_check,
-        force_check,
-        allow_restricted,
-        data,
+        origin,
+        target=None,
+        force_check=False,
+        stage=3,
+        bulk_mode=False,
+        allow_restricted=True,
+        data=None,
         init=True,
     ):
         super().__init__()
@@ -2704,42 +2704,6 @@ def resolve_pkgname(pkgname, resolve, ignore_missing):
             return None
         raise errors.CbuildException(f"missing template for '{pkgname}'")
     return tmplpath.resolve().parent
-
-
-def read_pkg(
-    tmplp,
-    pkgarch,
-    force_mode,
-    run_check,
-    jobs,
-    build_dbg,
-    caches,
-    origin,
-    target=None,
-    force_check=False,
-    stage=3,
-    bulk_mode=False,
-    allow_restricted=True,
-    data=None,
-    init=True,
-):
-    return Template(
-        tmplp,
-        pkgarch,
-        origin,
-        stage,
-        target,
-        force_mode,
-        bulk_mode,
-        build_dbg,
-        caches,
-        jobs,
-        run_check,
-        force_check,
-        allow_restricted,
-        data,
-        init
-    )
 
 
 def register_cats(cats):

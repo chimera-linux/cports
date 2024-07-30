@@ -666,7 +666,7 @@ def bootstrap(tgt):
 
         rp = None
         try:
-            rp = template.read_pkg(
+            rp = template.Template(
                 template.sanitize_pkgname("main/base-cbuild"),
                 None,
                 False,
@@ -980,7 +980,7 @@ def do_lint(tgt):
     pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
     # just read it and do nothing else
     # don't let the skip logic kick in
-    template.read_pkg(
+    template.Template(
         template.sanitize_pkgname(pkgn),
         opt_arch if opt_arch else chroot.host_cpu(),
         True,
@@ -1053,7 +1053,7 @@ def _graph_prepare():
         if pkgn in rtmpls:
             return rtmpls[pkgn]
         try:
-            tp = template.read_pkg(
+            tp = template.Template(
                 template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
@@ -1095,7 +1095,7 @@ def do_prune_sources(tgt):
 
     def _read_pkg(pkgn):
         try:
-            tp = template.read_pkg(
+            tp = template.Template(
                 template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
@@ -1183,7 +1183,7 @@ def do_relink_subpkgs(tgt):
 
     def _read_pkg(pkgn):
         try:
-            tp = template.read_pkg(
+            tp = template.Template(
                 template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
@@ -1282,7 +1282,7 @@ def do_print_build_graph(tgt):
         if pkgn in rtmpls:
             return rtmpls[pkgn]
         try:
-            tp = template.read_pkg(
+            tp = template.Template(
                 template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,
@@ -1373,7 +1373,7 @@ def _get_unbuilt(outdated=False):
     mods = {}
 
     for pn in tmpls:
-        tmpl = template.read_pkg(
+        tmpl = template.Template(
             template.sanitize_pkgname(pn),
             tarch,
             True,
@@ -1501,7 +1501,7 @@ def do_update_check(tgt):
     def _do_readpkg(pkgn):
         nonlocal namelen, verlen
 
-        tmpl = template.read_pkg(
+        tmpl = template.Template(
             template.sanitize_pkgname(pkgn),
             chroot.host_cpu(),
             True,
@@ -1605,7 +1605,7 @@ def do_dump(tgt):
 
     def _read_pkg(pkgn):
         try:
-            return template.read_pkg(
+            return template.Template(
                 template.sanitize_pkgname(pkgn),
                 opt_arch if opt_arch else chroot.host_cpu(),
                 True,
@@ -1653,7 +1653,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         if len(cmdline.command) > 1:
             pkgn = cmdline.command[1]
     rp = (
-        template.read_pkg(
+        template.Template(
             template.sanitize_pkgname(pkgn),
             opt_arch if opt_arch else chroot.host_cpu(),
             force,
@@ -1833,7 +1833,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             tp,
             pvisit,
             lambda d: _do_with_exc(
-                lambda: template.read_pkg(
+                lambda: template.Template(
                     template.sanitize_pkgname(d),
                     tarch,
                     True,
@@ -1862,7 +1862,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         ofailed = failed
         failed = False
         tp = _do_with_exc(
-            lambda: template.read_pkg(
+            lambda: template.Template(
                 template.sanitize_pkgname(pn),
                 tarch,
                 opt_force,
@@ -2165,7 +2165,7 @@ def do_prepare_upgrade(tgt):
 
     chroot.chroot_check()
 
-    tmpl = template.read_pkg(
+    tmpl = template.Template(
         template.sanitize_pkgname(pkgn),
         opt_arch if opt_arch else chroot.host_cpu(),
         True,
@@ -2234,7 +2234,7 @@ def do_bump_pkgrel(tgt):
 
     for pkgn in cmdline.command[1:]:
         try:
-            tmpl = template.read_pkg(
+            tmpl = template.Template(
                 template.sanitize_pkgname(pkgn),
                 chroot.host_cpu(),
                 True,

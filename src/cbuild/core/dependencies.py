@@ -17,7 +17,7 @@ def _srcpkg_ver(pkgn, pkgb):
     if not pkgp:
         return None
 
-    tmplv = template.read_pkg(
+    tmplv = template.Template(
         pkgp,
         pkgb.profile().arch,
         True,
@@ -450,7 +450,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         try:
             build.build(
                 step,
-                template.read_pkg(
+                template.Template(
                     template.resolve_pkgname(pn, pkg, False),
                     chost if pkg.stage > 0 else None,
                     False,
@@ -481,7 +481,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         try:
             build.build(
                 step,
-                template.read_pkg(
+                template.Template(
                     template.resolve_pkgname(pn, pkg, False),
                     tarch if pkg.stage > 0 else None,
                     False,
@@ -521,7 +521,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         try:
             build.build(
                 step,
-                template.read_pkg(
+                template.Template(
                     template.resolve_pkgname(rd, pkg, False),
                     tarch if pkg.stage > 0 else None,
                     False,
