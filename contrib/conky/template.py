@@ -1,6 +1,6 @@
 pkgname = "conky"
 pkgver = "1.21.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_CURL=ON",
@@ -52,12 +52,12 @@ license = "GPL-3.0-or-later"
 url = "https://conky.cc"
 source = [
     f"https://github.com/brndnmtthws/conky/archive/refs/tags/v{pkgver}.tar.gz",
-    f"https://github.com/brndnmtthws/conky/releases/download/v{pkgver}/conky.1.gz",
+    f"https://github.com/brndnmtthws/conky/releases/download/v{pkgver}/conky.1.gz>conky-{pkgver}.1.gz",
 ]
 source_paths = [".", "manpage"]
 sha256 = [
     "b0cd6a9197de1db527953f24635b4e4f19d8ab1258854c4adbfdd6e0f1588341",
-    "bfe01aaac2c6cf20f544ce247afc261ae853d9bec182fef6562626f36ac84f94",
+    "41c14d80a5ee6074ddcb1c3f05805f3f3bb0e65d13c164e619dd7ecbbba314eb",
 ]
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 # needs host tolua++
@@ -65,4 +65,4 @@ options = ["!cross"]
 
 
 def post_install(self):
-    self.install_man("manpage/conky.1")
+    self.install_man(f"manpage/conky-{pkgver}.1", name="conky")
