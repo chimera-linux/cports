@@ -44,6 +44,7 @@ url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "ef83beb381064516c29290f0fedcbbe36de052f313d72d120eade69ab26b82fe"
 # crashes in find_suitable_hibernation_device_full -> btrfs_get_file_physical_offset_fd
+# when logging into plasma from gdm
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}
 
 
