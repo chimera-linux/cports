@@ -1,5 +1,5 @@
 pkgname = "taplo"
-pkgver = "0.9.2"
+pkgver = "0.9.3"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -23,7 +23,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://taplo.tamasfe.dev"
 source = f"https://github.com/tamasfe/taplo/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0debff1ceede3ca57b0eed98b2dbfd3b2f32abb74a3e5942acb1357c2f249314"
+sha256 = "65510664071252541e66f603dc9aa04016c38d62299061419c95d3bffaa73125"
 
 
 def do_install(self):
