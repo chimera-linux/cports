@@ -1,5 +1,5 @@
 pkgname = "uv"
-pkgver = "0.2.30"
+pkgver = "0.2.32"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/astral-sh/uv"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f9f765afeb08bbe8367b8f6d8391fb49d2c1211dfd3b01b1feae92a621835ee5"
+sha256 = "2c7ba90fb6c1f021886f1887ed07dcc7113278a82d38692da49a8a52711f08d6"
 # too many of them need net
 options = ["!check"]
 
@@ -48,9 +48,9 @@ replace-with = "vendored-sources"
 git = "https://github.com/astral-sh/reqwest-middleware"
 rev = "21ceec9a5fd2e8d6f71c3ea2999078fecbd13cbe"
 replace-with = "vendored-sources"
-[source."git+https://github.com/charliermarsh/rs-async-zip?rev=1dcb40cfe1bf5325a6fd4bfcf9894db40241f585"]
+[source."git+https://github.com/charliermarsh/rs-async-zip?rev=011b24604fa7bc223daaad7712c0694bac8f0a87"]
 git = "https://github.com/charliermarsh/rs-async-zip"
-rev = "1dcb40cfe1bf5325a6fd4bfcf9894db40241f585"
+rev = "011b24604fa7bc223daaad7712c0694bac8f0a87"
 replace-with = "vendored-sources"
 """
         )
