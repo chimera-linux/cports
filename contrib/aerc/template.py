@@ -1,6 +1,6 @@
 pkgname = "aerc"
-pkgver = "0.18.1"
-pkgrel = 2
+pkgver = "0.18.2"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "tests"
@@ -21,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://sr.ht/~rjarry/aerc"
 source = f"https://git.sr.ht/~rjarry/aerc/archive/{pkgver}.tar.gz"
-sha256 = "f8a2923b1749b1b0eaa9ce221121536d13974297143b597f812b11ebbef0c1bf"
+sha256 = "78408b3fe7a4991a6097c961c348fb7583af52dff80cbfcd99808415cf3d7586"
 tool_flags = {"GOFLAGS": ["-tags=notmuch", "-buildmode=pie"]}
 
 
