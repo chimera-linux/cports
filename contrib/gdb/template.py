@@ -1,6 +1,6 @@
 pkgname = "gdb"
 pkgver = "15.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-werror",
@@ -49,6 +49,7 @@ def post_install(self):
     # may conflict with binutils
     self.uninstall("usr/share/info/bfd.info")
     self.uninstall("usr/share/info/ctf-spec.info")
+    self.uninstall("usr/share/info/sframe-spec.info")
 
     python.precompile(self, "usr/share/gdb/python")
 
