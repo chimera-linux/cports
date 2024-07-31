@@ -1,5 +1,5 @@
 pkgname = "fonts-noto-serif-cjk"
-pkgver = "2.002"
+pkgver = "2.003"
 pkgrel = 0
 pkgdesc = "Google Noto Serif CJK fonts"
 maintainer = "GeopJr <evan@geopjr.dev>"
@@ -11,8 +11,8 @@ source = [
     f"{url}/releases/download/Serif{pkgver}/05_NotoSerifCJKOTF.zip",
 ]
 sha256 = [
-    "941985d9fd860492d15640b53edc9668d568877140c524ccd83deb3d9b7a2950",
-    "f3c53999f0c65eae5ad73c7db34217ded4d823fb67c9f3902a4b552734e3fba0",
+    "c76ed8fd491ce98182ec6430238b90a1eabea8857c7db64e9037efa38e198a31",
+    "9a8475c8272209e3e98fa8818b802d80f6b3016b3df77eb7d0893c0c7ae54245",
 ]
 
 
