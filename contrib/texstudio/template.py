@@ -19,3 +19,5 @@ license = "GPL-3.0-or-later"
 url = "https://www.texstudio.org"
 source = f"https://github.com/texstudio-org/texstudio/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "351a8111506bfb9cd79a6284f7b92d7c5a1da5ac22c25f6788040ce3b9b1080a"
+
+broken = "meme"
