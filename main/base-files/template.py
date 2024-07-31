@@ -1,5 +1,5 @@
 pkgname = "base-files"
-_iana_ver = "20240723"
+_iana_ver = "20240729"
 pkgver = f"0.1.{_iana_ver}"
 pkgrel = 0
 # highest priority dir owner
