@@ -75,18 +75,8 @@ def post_install(self):
     self.install_service(self.files_path / "lvmetad")
     self.install_tmpfiles(self.files_path / "lvm2.conf")
 
-    self.install_file(
-        self.files_path / "dmsetup.hook",
-        "usr/share/initramfs-tools/hooks",
-        name="dmsetup",
-        mode=0o755,
-    )
-    self.install_file(
-        self.files_path / "lvm2.hook",
-        "usr/share/initramfs-tools/hooks",
-        name="lvm2",
-        mode=0o755,
-    )
+    self.install_initramfs(self.files_path / "dmsetup.hook", name="dmsetup")
+    self.install_initramfs(self.files_path / "lvm2.hook", name="lvm2")
 
     self.uninstall("usr/sbin")
 

@@ -33,9 +33,6 @@ def post_install(self):
         )
 
     # hook for core userland
-    self.install_file(
-        self.files_path / "chimerautils.initramfs-tools",
-        "usr/share/initramfs-tools/hooks",
-        mode=0o755,
-        name="chimerautils",
+    self.install_initramfs(
+        self.files_path / "chimerautils.initramfs-tools", name="chimerautils"
     )

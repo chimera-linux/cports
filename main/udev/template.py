@@ -186,24 +186,9 @@ def post_install(self):
     )
 
     # initramfs-tools
-    self.install_file(
-        self.files_path / "udev.hook",
-        "usr/share/initramfs-tools/hooks",
-        mode=0o755,
-        name="udev",
-    )
-    self.install_file(
-        self.files_path / "udev.init-top",
-        "usr/share/initramfs-tools/scripts/init-top",
-        mode=0o755,
-        name="udev",
-    )
-    self.install_file(
-        self.files_path / "udev.init-bottom",
-        "usr/share/initramfs-tools/scripts/init-bottom",
-        mode=0o755,
-        name="udev",
-    )
+    self.install_initramfs(self.files_path / "udev.hook")
+    self.install_initramfs(self.files_path / "udev.init-top", "init-top")
+    self.install_initramfs(self.files_path / "udev.init-bottom", "init-bottom")
     # services
     self.install_dir("usr/libexec")
     self.install_link("usr/libexec/udevd", "../bin/udevadm")

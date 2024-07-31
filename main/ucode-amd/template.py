@@ -40,12 +40,7 @@ def do_build(self):
 def do_install(self):
     self.install_file("amd-ucode.img", "boot")
     self.install_file("amd-ucode.img", "usr/lib/firmware")
-    # initramfs
-    self.install_file(
-        self.files_path / "ucode_amd",
-        "usr/share/initramfs-tools/hooks",
-        mode=0o755,
-    )
+    self.install_initramfs(self.files_path / "ucode_amd", name="ucode_amd")
     self.install_file(self.files_path / "ucode-amd", "etc/default")
 
 

@@ -26,12 +26,7 @@ def do_install(self):
     self.install_files("intel-ucode", "usr/lib/firmware")
     self.install_file("intel-ucode.img", "boot")
     self.install_license("license")
-    # initramfs
-    self.install_file(
-        self.files_path / "ucode_intel",
-        "usr/share/initramfs-tools/hooks",
-        mode=0o755,
-    )
+    self.install_initramfs(self.files_path / "ucode_intel", name="ucode_intel")
     self.install_file(self.files_path / "ucode-intel", "etc/default")
 
 

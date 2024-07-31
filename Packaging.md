@@ -3112,6 +3112,14 @@ Install a configuration file in `/usr/lib/sysusers.d`. By default, take the
 base name (plus `.conf` extension) from the package name, but that can be
 overridden.
 
+##### def install_initramfs(self, src, stype = None, name = None)
+
+Install an `initramfs-tools` hook or script. By default it installs a hook.
+The hook/script will by default take the name of the package unless `name`
+is explicitly provided. If `stype` (which should not be a named argument)
+is unset or `hook`, it will be a hook; otherwise it will be installed under
+the specified category in `scripts`, e.g. `init-top`.
+
 ##### def install_link(self, dest, tgt, absolute=False)
 
 Creates a symbolic link at `dest`, pointing to `tgt`. The `tgt` should be

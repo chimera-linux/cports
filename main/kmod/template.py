@@ -35,12 +35,7 @@ def post_install(self):
     self.install_dir("usr/lib/modprobe.d", empty=True)
 
     # initramfs-tools
-    self.install_file(
-        self.files_path / "kmod.initramfs-tools",
-        "usr/share/initramfs-tools/hooks",
-        mode=0o755,
-        name="kmod",
-    )
+    self.install_initramfs(self.files_path / "kmod.initramfs-tools")
 
 
 @subpackage("libkmod-devel")

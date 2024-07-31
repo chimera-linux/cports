@@ -2248,6 +2248,14 @@ class Template(Package):
         svname = name or self.pkgname
         self.install_file(src, "usr/lib/sysusers.d", name=f"{svname}.conf")
 
+    def install_initramfs(self, src, stype=None, name=None):
+        scname = name or self.pkgname
+        if stype == "hook" or not stype:
+            dstp = "usr/share/initramfs-tools/hooks"
+        else:
+            dstp = f"usr/share/initramfs-tools/scripts/{stype}"
+        self.install_file(src, dstp, mode=0o755, name=scname)
+
     def install_link(self, dest, tgt, absolute=False):
         dest = pathlib.Path(dest)
         if dest.is_absolute():

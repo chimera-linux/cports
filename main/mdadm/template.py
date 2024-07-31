@@ -41,23 +41,8 @@ def post_install(self):
         name="mdadm.conf",
     )
     self.install_service(self.files_path / "mdadm")
-    # the initramfs infra requires multipath-tools which
-    # we don't have yet but maybe eventually we will
-    self.install_file(
-        self.files_path / "mdadm.hook",
-        "usr/share/initramfs-tools/hooks",
-        mode=0o755,
-        name="mdadm",
-    )
-    self.install_file(
-        self.files_path / "mdadm.local-block",
-        "usr/share/initramfs-tools/scripts/local-block",
-        mode=0o755,
-        name="mdadm",
-    )
-    self.install_file(
-        self.files_path / "mdadm.local-bottom",
-        "usr/share/initramfs-tools/scripts/local-bottom",
-        mode=0o755,
-        name="mdadm",
+    self.install_initramfs(self.files_path / "mdadm.hook")
+    self.install_initramfs(self.files_path / "mdadm.local-block", "local-block")
+    self.install_initramfs(
+        self.files_path / "mdadm.local-bottom", "local-bottom"
     )

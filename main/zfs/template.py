@@ -76,12 +76,7 @@ def post_install(self):
     self.uninstall("usr/share/man/man8/zfs-mount-generator.8")
 
     # install the zdev hook for udev rules (also handles enc keys)
-    self.install_file(
-        f"zdev-{pkgver}",
-        "usr/share/initramfs-tools/hooks",
-        name="zdev",
-        mode=0o755,
-    )
+    self.install_initramfs(f"zdev-{pkgver}", name="zdev")
 
     # install ckms source tree
     srcp = f"usr/src/{pkgname}-{pkgver}"
