@@ -4,7 +4,7 @@ pkgrel = 2
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/libexec/elogind",
-    "-Dman=true",
+    "-Dman=enabled",
     "-Dpamconfdir=/usr/lib/pam.d",
     "-Dpamlibdir=/usr/lib/security",
     "-Dhalt-path=/usr/bin/halt",
@@ -13,7 +13,7 @@ configure_args = [
     "-Ddefault-hierarchy=unified",
     "-Ddefault-kill-user-processes=false",
     "-Dutmp=false",
-    "-Dpolkit=true",
+    "-Dpolkit=enabled",
 ]
 hostmakedepends = [
     "meson",
