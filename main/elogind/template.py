@@ -1,6 +1,6 @@
 pkgname = "elogind"
 pkgver = "255.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/libexec/elogind",
@@ -16,23 +16,23 @@ configure_args = [
     "-Dpolkit=enabled",
 ]
 hostmakedepends = [
-    "meson",
     "docbook-xsl-nons",
     "gettext",
     "gperf",
-    "xsltproc",
+    "meson",
     "pkgconf",
-    "shadow",
     "python-jinja2",
+    "shadow",
+    "xsltproc",
 ]
 makedepends = [
     "acl-devel",
-    "udev-devel",
     "gettext-devel",
     "libcap-devel",
+    "libmount-devel",
     "libseccomp-devel",
     "linux-pam-devel",
-    "libmount-devel",
+    "udev-devel",
 ]
 checkdepends = ["bash", "python-lxml"]
 depends = ["dbus", "turnstile"]
@@ -43,6 +43,8 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "ef83beb381064516c29290f0fedcbbe36de052f313d72d120eade69ab26b82fe"
+# crashes in find_suitable_hibernation_device_full -> btrfs_get_file_physical_offset_fd
+tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}
 
 
 def post_install(self):
