@@ -1,7 +1,7 @@
 _trip = "arm-none-eabi"
 pkgname = f"binutils-{_trip}"
 pkgver = "2.42"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     f"--target={_trip}",
@@ -61,3 +61,5 @@ def post_install(self):
     self.install_link(f"usr/{_trip}/bin/ld", "ld.bfd")
     # remove unnecessary dupe
     self.uninstall("usr/lib")
+    # collides with binutils proper
+    self.uninstall("usr/share/info")
