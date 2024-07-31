@@ -1,5 +1,5 @@
 pkgname = "python-incremental"
-pkgver = "24.7.1"
+pkgver = "24.7.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/twisted/incremental"
 source = f"$(PYPI_SITE)/i/incremental/incremental-{pkgver}.tar.gz"
-sha256 = "a3717c20534499835555ba727b32ee087945ba9daaf23851471dfe3d1e3d1698"
+sha256 = "fb4f1d47ee60efe87d4f6f0ebb5f70b9760db2b2574c59c8e8912be4ebd464c9"
 # circular with twisted
 options = ["!check"]
 
