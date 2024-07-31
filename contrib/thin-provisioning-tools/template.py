@@ -1,15 +1,26 @@
 pkgname = "thin-provisioning-tools"
-pkgver = "1.0.13"
+pkgver = "1.0.14"
 pkgrel = 0
 build_style = "cargo"
-hostmakedepends = ["cargo-auditable", "gmake", "gawk", "pkgconf"]
-makedepends = ["rust-std", "zstd-devel"]
+hostmakedepends = [
+    "cargo-auditable",
+    "gawk",
+    "gmake",
+    "pkgconf",
+]
+makedepends = [
+    "device-mapper-devel",
+    "linux-headers",
+    "rust-std",
+    "udev-devel",
+    "zstd-devel",
+]
 pkgdesc = "Tools for manipulating the metadata of dm-thin targets"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/jthornber/thin-provisioning-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "48444caefd00c23f5240dd01f8b2a51cfded952f078b2a5318929137e00fbd3f"
+sha256 = "5abe8a23b077596dc9134396aa4bd0a288bf6fd63d455715d5a41a325b3ec2e6"
 # too long
 options = ["!check"]
 
