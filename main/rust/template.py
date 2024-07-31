@@ -469,5 +469,3 @@ def _src(self):
         "usr/lib/rustlib/rustc-src",
         "usr/lib/rustlib/src",
     ]
-
-broken = "meme"

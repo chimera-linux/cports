@@ -334,5 +334,3 @@ def do_install(self):
     self.install_file("chromium.desktop", "usr/share/applications")
     self.install_file("chromium.appdata.xml", "usr/share/metainfo")
     self.install_man("chromium.1")
-
-broken = "meme"

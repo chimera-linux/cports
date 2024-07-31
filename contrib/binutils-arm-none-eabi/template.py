@@ -63,5 +63,3 @@ def post_install(self):
     self.uninstall("usr/lib")
     # collides with binutils proper
     self.uninstall("usr/share/info")
-
-broken = "meme"
