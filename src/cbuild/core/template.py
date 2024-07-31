@@ -2293,10 +2293,16 @@ def _split_pycache(pkg):
     for f in pkg.parent.destdir.rglob("__pycache__"):
         if not f.is_dir():
             continue
-        for ff in f.glob(f"*.cpython-{pyver}.*pyc"):
-            pkg.take(str(ff.relative_to(pkg.parent.destdir)))
-        for ff in f.glob("*.py[co]"):
-            pkg.error(f"illegal pycache: {ff.name}")
+
+        valid_pycache = set(f.glob(f"*.cpython-{pyver}.*pyc"))
+        # anything that matches .pyc but doesn't match the above
+        illegal_pycache = set(f.glob("*.py[co]")) - valid_pycache
+
+        if len(illegal_pycache) > 0:
+            pkg.error(f"illegal pycache: {illegal_pycache}")
+
+        # yoink the whole dir since the contents are valid
+        pkg.take(f.relative_to(pkg.parent.destdir))
 
 
 def _split_dlinks(pkg):
