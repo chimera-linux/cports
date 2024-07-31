@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "2.1.30"
+pkgver = "2.1.46"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -48,7 +48,7 @@ depends = ["virtual:cmd:gst-play-1.0!gst-plugins-base"]
 checkdepends = ["perl"]
 pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
-license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
+license = "GPL-3.0-or-later"
 url = "https://pcsx2.net"
 _patches = "efd872286d9b2ae77530b82fbc56a3110caad960"
 source = [
@@ -60,7 +60,7 @@ source_paths = [
     "patches",
 ]
 sha256 = [
-    "5d1246a539bbe9d233eb6dd58fd0f2026214d1d3bc67565f5b596e2f189b7c06",
+    "f123604f84576329ae298bdb1726154ee45ef3fbde20b19f3727b204f589c621",
     "1671aac2a840c3e9b0d298c7ab46667c18be9191256802cfc7c5cb1696c82d35",
 ]
 # FIXME: cfi, int
