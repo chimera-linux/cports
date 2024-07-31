@@ -84,8 +84,7 @@ if [ -e /sys/firmware/efi ]; then
 fi
 
 # copy config
-mkdir -p "${DESTDIR}/etc/mdadm"
-cp -p "$CONFIG" "${DESTDIR}/etc/mdadm"
+cp -p "$CONFIG" "$DESTMDADMCONF"
 sed -i '' '/^CREATE/s/^/#/' "$DESTMDADMCONF"
 
 # make sure the configuration file knows about all running devices

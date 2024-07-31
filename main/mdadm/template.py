@@ -1,6 +1,6 @@
 pkgname = "mdadm"
 pkgver = "4.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["CWFLAGS=", "BINDIR=/usr/bin"]
@@ -46,15 +46,18 @@ def post_install(self):
     self.install_file(
         self.files_path / "mdadm.hook",
         "usr/share/initramfs-tools/hooks",
+        mode=0o755,
         name="mdadm",
     )
     self.install_file(
         self.files_path / "mdadm.local-block",
         "usr/share/initramfs-tools/scripts/local-block",
+        mode=0o755,
         name="mdadm",
     )
     self.install_file(
         self.files_path / "mdadm.local-bottom",
         "usr/share/initramfs-tools/scripts/local-bottom",
+        mode=0o755,
         name="mdadm",
     )
