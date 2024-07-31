@@ -1,5 +1,5 @@
 pkgname = "conky"
-pkgver = "1.21.5"
+pkgver = "1.21.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -56,7 +56,7 @@ source = [
 ]
 source_paths = [".", "manpage"]
 sha256 = [
-    "8e365cdab3dfe0194d1375ae940ee3d61373d7eeacee6950184a6136836b2d55",
+    "b0cd6a9197de1db527953f24635b4e4f19d8ab1258854c4adbfdd6e0f1588341",
     "bfe01aaac2c6cf20f544ce247afc261ae853d9bec182fef6562626f36ac84f94",
 ]
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
