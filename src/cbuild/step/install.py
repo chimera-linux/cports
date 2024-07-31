@@ -85,6 +85,10 @@ def _split_auto(pkg, done):
         if sp.destdir.is_dir():
             pkg.rparent.subpkg_all.append(sp)
 
+    # finally clean up empty if needed
+    if not done and not pkg.options["keepempty"]:
+        _clean_empty(pkg, pkg.destdir, False)
+
 
 def invoke(pkg, step):
     p = pkg.profile()
@@ -121,14 +125,12 @@ def invoke(pkg, step):
         _invoke_subpkg(sp)
         scanelf.scan(sp, pkg.current_elfs)
         template.call_pkg_hooks(sp, "post_install")
-        if not sp.options["keepempty"]:
-            _clean_empty(sp, sp.destdir, False)
 
     scanelf.scan(pkg, pkg.current_elfs)
     template.call_pkg_hooks(pkg, "post_install")
-    _clean_empty(pkg, pkg.destdir, False)
 
     # do the splitting at the end to respect e.g. dbg packages
+    # empty dir cleaning must be done *after* splitting!
     for sp in pkg.subpkg_list:
         _split_auto(sp, False)
     _split_auto(pkg, False)
