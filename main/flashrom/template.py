@@ -1,9 +1,9 @@
 pkgname = "flashrom"
 pkgver = "1.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Duse_internal_dmi=false"]
-hostmakedepends = ["meson", "pkgconf"]
+hostmakedepends = ["meson", "pkgconf", "python-sphinx"]
 makedepends = [
     "libftdi1-devel",
     "libusb-devel",
