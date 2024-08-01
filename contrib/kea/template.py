@@ -1,5 +1,5 @@
 pkgname = "kea"
-pkgver = "2.6.0"
+pkgver = "2.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "MPL-2.0"
 url = "https://kea.isc.org"
 source = f"https://downloads.isc.org/isc/kea/cur/{pkgver[:pkgver.rfind('.')]}/kea-{pkgver}.tar.gz"
-sha256 = "207ceae33eb3b81ec4e6ac5605249a85b93779333b62aadf39e489f11dbcdc8d"
+sha256 = "d2ce14a91c2e248ad2876e29152d647bcc5e433bc68dafad0ee96ec166fcfad1"
 
 
 def post_install(self):
