@@ -15,7 +15,6 @@ hostmakedepends = [
     "gmake",
     "python",
 ]
-makedepends = ["freetype-devel"]
 pkgdesc = "Monospace bitmap font"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "OFL-1.1"
