@@ -1,5 +1,5 @@
 pkgname = "wabt"
-pkgver = "1.0.35"
+pkgver = "1.0.36"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,8 +24,8 @@ source = [
     "https://github.com/WebAssembly/wasm-c-api/archive/b6dd1fb658a282c64b029867845bc50ae59e1497.tar.gz",
     "https://github.com/okdshin/PicoSHA2/archive/27fcf6979298949e8a462e16d09a0351c18fcaf2.tar.gz",
     # test deps
-    "https://github.com/simd-everywhere/simde/archive/54b8c8f83968dc30bd233e2b1050596eed7d8f7d.tar.gz",
-    "https://github.com/WebAssembly/testsuite/archive/0a394e3cc9e08e0bcc3fc550916ccc9b1c71f981.tar.gz",
+    "https://github.com/simd-everywhere/simde/archive/71fd833d9666141edcd1d3c109a80e228303d8d7.tar.gz",
+    "https://github.com/WebAssembly/testsuite/archive/f3f048661dc1686d556a27d522df901cb747ab4a.tar.gz",
     "https://github.com/nodejs/uvwasi/archive/55eff19f4c7e69ec151424a037f951e0ad006ed6.tar.gz",
 ]
 source_paths = [
@@ -37,11 +37,11 @@ source_paths = [
     "third_party/uvwasi",
 ]
 sha256 = [
-    "c55bb2083de3afafa011ac1ab4aa14bab9fe51c2a90d24ba38f66f6b3bde0b09",
+    "e07ceeecfc682c12157ff2738b8a4633d7d19da18c1ecf16daae700397ecce2c",
     "2f2cca48d7c093a680461fc80e7ef812f383cdf6e421a718a5292fd42438960b",
     "18d82bb79c021ccf4ce58125b64691accef54237ba5194462740bacf8b39d8a9",
-    "a8e4289abf3a03ac6ea643525f8d126f06eab2cddaf799983b4e2381dd04d4f8",
-    "28052e33f10ec462ea2993a9731bc65ed7e781ebece1694d94034f96374cc846",
+    "72b2c14a487560b7eb203795f2c2fead5c7499662e639944cca2a9bb19f09029",
+    "052dbb79eeaedbaa7af068b7b85e1125d187719b597e2242fb2cfabf51226e73",
     "34010745593cfb395fd483a0f65688dcd61e3f16de574edb5d43ea2cfbd57131",
 ]
 
