@@ -1,6 +1,6 @@
 pkgname = "wasm-component-ld"
-pkgver = "0.5.5"
-pkgrel = 1
+pkgver = "0.5.6"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo"]
 makedepends = ["rust-std"]
@@ -11,7 +11,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"
 url = "https://github.com/bytecodealliance/wasm-component-ld"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e604fd428e039c44f47735892c6a22c1e7f5dea98d31ea77cd1ab36a42cc87f9"
+sha256 = "9bb1d09d315a3412c2cb0d5533c03490bf9d96af709ee93a4901137f5292265a"
 
 
 def post_install(self):
