@@ -19,15 +19,11 @@ url = "https://harelang.org"
 source = f"https://git.sr.ht/~sircmpwn/hare/archive/{pkgver}.tar.gz"
 sha256 = "afba69fd537a63442da53d115d9b50f525918159b395843ede2a5473323e0776"
 tools = {"AS": f"{self.profile().triplet}-as"}
-# see below
-options = []
 
 match self.profile().arch:
     case "x86_64":
         make_build_args += ["QBEFLAGS=-tamd64_sysv"]
     case "aarch64":
-        # FIXME: bunch of weird failures
-        options += ["!check"]
         make_build_args += ["QBEFLAGS=-tarm64"]
     case "riscv64":
         make_build_args += ["QBEFLAGS=-trv64"]
