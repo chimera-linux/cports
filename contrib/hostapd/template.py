@@ -1,5 +1,5 @@
 pkgname = "hostapd"
-pkgver = "2.10"
+pkgver = "2.11"
 pkgrel = 0
 build_wrksrc = "hostapd"
 build_style = "makefile"
@@ -13,7 +13,7 @@ maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"
 url = "https://w1.fi/hostapd"
 source = f"https://w1.fi/releases/hostapd-{pkgver}.tar.gz"
-sha256 = "206e7c799b678572c2e3d12030238784bc4a9f82323b0156b4c9466f1498915d"
+sha256 = "2b3facb632fd4f65e32f4bf82a76b4b72c501f995a4f62e330219fe7aed1747a"
 # No tests available
 options = ["!check"]
 
