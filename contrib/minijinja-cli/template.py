@@ -1,5 +1,5 @@
 pkgname = "minijinja-cli"
-pkgver = "2.1.0"
+pkgver = "2.1.1"
 pkgrel = 0
 build_wrksrc = "minijinja-cli"
 build_style = "cargo"
@@ -10,17 +10,18 @@ make_build_env = {
 }
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "zstd-devel"]
-pkgdesc = "Minimal jinja implementation"
+pkgdesc = "Jinja implementation"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://github.com/mitsuhiko/minijinja"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "7f7bf0b62d9a2de7796e92550a3f121aa472bbc595790c3e433746ac732138e0"
+sha256 = "d896e709c9848c68164fcb237ee2eb55d6334ed57974b7a0611b90f316cfc634"
 
 
 def post_install(self):
     self.install_man("assets/man/minijinja-cli.1")
-    self.install_completion("assets/completions/minijinja-cli.bash", "bash")
-    self.install_completion("assets/completions/minijinja-cli.fish", "fish")
-    self.install_completion("assets/completions/_minijinja-cli", "zsh")
-    self.install_completion("assets/completions/minijinja-cli.nu", "nushell")
+    with self.pushd("assets/completions"):
+        self.install_completion("minijinja-cli.bash", "bash")
+        self.install_completion("minijinja-cli.fish", "fish")
+        self.install_completion("_minijinja-cli", "zsh")
+        self.install_completion("minijinja-cli.nu", "nushell")
