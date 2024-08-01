@@ -1,5 +1,4 @@
-breaks hare tests on aarch64 (with clang optimizations, it causes qbe to
-generate incorrect instructions in certain cases)
+breaks hare tests on aarch64
 diff --git a/arm64/isel.c b/arm64/isel.c
 index 062beb3..9ce6adc 100644
 --- a/arm64/isel.c
