@@ -1,6 +1,6 @@
 pkgname = "font-terminus"
 pkgver = "4.49.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -23,3 +23,9 @@ source = f"$(SOURCEFORGE_SITE)/terminus-font/terminus-font-{pkgver}.tar.gz"
 sha256 = "d961c1b781627bf417f9b340693d64fc219e0113ad3a3af1a3424c7aa373ef79"
 # no tests
 options = ["!check"]
+
+
+def post_install(self):
+    self.install_file(
+        "./75-yes-terminus.conf", "usr/share/fontconfig/conf.avail"
+    )
