@@ -1879,7 +1879,11 @@ class Template(Package):
             wdir = wdir / wrksrc
 
         fakeroot = False
-        if self.current_phase == "install" and self.options["installroot"]:
+        if (
+            self.current_phase == "install"
+            and self.options["installroot"]
+            and not self.install_done
+        ):
             fakeroot = True
         elif self.current_phase == "check" and self.options["checkroot"]:
             fakeroot = True
