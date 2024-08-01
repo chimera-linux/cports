@@ -1,5 +1,5 @@
 pkgname = "miniupnpd"
-pkgver = "2.3.6"
+pkgver = "2.3.7"
 pkgrel = 0
 build_wrksrc = "miniupnpd"
 build_style = "configure"
@@ -14,6 +14,7 @@ configure_args = [
     "--vendorcfg",
 ]
 make_cmd = "gmake"
+make_env = {"SBININSTALLDIR": "/usr/bin"}
 hostmakedepends = [
     "gmake",
     "musl-bsd-headers",
@@ -33,7 +34,7 @@ maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/miniupnp/miniupnp"
 source = f"{url}/archive/refs/tags/miniupnpd_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "6e5ee2239030486675f558cc840d154e5e2db9517efc96c5b0ab2b2c34c1a128"
+sha256 = "bbcada94edb0ae6340533cac4633f7a36a515c81bd2815ec0c4e97164c577e8b"
 
 
 def post_install(self):
