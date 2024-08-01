@@ -215,7 +215,8 @@ def post_patch(self):
 
 def init_check(self):
     # injected via patch
-    self.make_check_args += [f"PHP_RUN_TESTS_ARGS=-j{self.make_jobs}"]
+    # also seem to hang sometimes with too many jobs
+    self.make_check_args += [f"PHP_RUN_TESTS_ARGS=-j{min(4, self.make_jobs)}"]
 
 
 def init_install(self):
