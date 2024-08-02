@@ -27,6 +27,12 @@ def invoke(pkg):
     elfs = pkg.rparent.current_elfs
     have_pie = pkg.rparent.has_hardening("pie")
 
+    strip_list = []
+    strip_slist = []
+
+    pkg.log("locating files to strip...")
+    log = pkg.logger
+
     for v in pkg.destdir.rglob("*"):
         # already stripped debug symbols
         if v.is_relative_to(dbgdir):
@@ -65,8 +71,8 @@ def invoke(pkg):
         if not vt:
             v.chmod(0o644)
             if not pkg.rparent.has_lto() or pkg.options["ltostrip"]:
-                sp = strip.strip(pkg, v)
-                print(f"   Stripped static library: {sp}")
+                log.out_plain(f"  static library: {vr}")
+                strip_list.append(vr)
             # in any case continue
             continue
 
@@ -75,8 +81,8 @@ def invoke(pkg):
         # strip static executable
         if static:
             _sanitize_exemode(pkg, v, str(vr))
-            sp = strip.strip(pkg, v)
-            print(f"   Stripped static executable: {sp}")
+            log.out_plain(f"  static executable: {vr}")
+            strip_list.append(vr)
             continue
 
         # pie or nopie?
@@ -108,16 +114,27 @@ def invoke(pkg):
             if not allow_nopie:
                 pkg.error(f"non-PIE executable found in PIE build: {vr}")
 
-            sp = strip.strip_attach(pkg, v)
-            print(f"   Stripped executable: {sp}")
+            strip_list.append(vr)
+            strip_slist.append(vr)
+            log.out_plain(f"  executable: {vr}")
             continue
 
         # strip pie executable or shared library
-        sp = strip.strip_attach(pkg, v)
+        strip_list.append(vr)
+        strip_slist.append(vr)
         if interp:
-            print(f"   Stripped position-independent executable: {sp}")
+            log.out_plain(f"  pie executable: {vr}")
         else:
-            print(f"   Stripped library: {sp}")
+            log.out_plain(f"  library: {vr}")
+
+    pkg.log("splitting debug info...")
+    strip.split_debug(pkg, *strip_slist)
+
+    pkg.log("stripping files...")
+    strip.strip(pkg, *strip_list)
+
+    pkg.log("attaching debug links...")
+    strip.attach_debug(pkg, *strip_slist)
 
     # prepare debug package
     if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:

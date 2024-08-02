@@ -33,13 +33,14 @@ def post_install(self):
     from cbuild.util import strip
 
     for f in (self.destdir / "usr/lib/libcamera").glob("ipa*.so"):
-        print(f"   Stripping and signing: {f.name}")
-        strip.strip_attach(self, f)
+        fr = f.relative_to(self.destdir)
+        print(f"   Stripping and signing: {fr.name}")
+        strip.strip_attach(self, fr)
         self.do(
             "src/ipa/ipa-sign.sh",
             "build/src/ipa-priv-key.pem",
-            self.chroot_destdir / f.relative_to(self.destdir),
-            f"{self.chroot_destdir / f.relative_to(self.destdir)}.sign",
+            self.chroot_destdir / fr,
+            f"{self.chroot_destdir / fr}.sign",
         )
 
 

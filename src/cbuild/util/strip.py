@@ -1,8 +1,8 @@
-def strip(pkg, path):
+def strip(pkg, *args):
     strip_path = "/usr/bin/" + pkg.rparent.get_tool("STRIP")
 
-    relp = path.relative_to(pkg.destdir)
-    cfile = str(pkg.chroot_destdir / relp)
+    if len(args) == 0:
+        return
 
     try:
         pkg.rparent.do(
@@ -10,56 +10,51 @@ def strip(pkg, path):
             "--strip-unneeded",
             "--remove-section=.comment",
             "--keep-section=.gnu_debuglink",
-            cfile,
+            *map(lambda v: pkg.chroot_destdir / v, args),
         )
     except Exception:
-        pkg.error(f"failed to strip {relp}")
-
-    return relp
+        pkg.error("failed to strip one of inputs")
 
 
-def split_debug(pkg, path):
+def split_debug(pkg, *args):
     if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
         return
 
-    relp = path.relative_to(pkg.destdir)
+    for path in args:
+        dfile = pkg.destdir / "usr/lib/debug" / path
+        cfile = pkg.chroot_destdir / "usr/lib/debug" / path
 
-    dfile = pkg.destdir / "usr/lib/debug" / relp
-    cfile = pkg.chroot_destdir / "usr/lib/debug" / relp
+        dfile.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            pkg.rparent.do(
+                pkg.rparent.get_tool("OBJCOPY"),
+                "--only-keep-debug",
+                pkg.chroot_destdir / path,
+                cfile,
+            )
+        except Exception:
+            pkg.error(f"failed to create dbg file for {path}")
 
-    dfile.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        pkg.rparent.do(
-            pkg.rparent.get_tool("OBJCOPY"),
-            "--only-keep-debug",
-            pkg.chroot_destdir / relp,
-            cfile,
-        )
-    except Exception:
-        pkg.error(f"failed to create dbg file for {relp}")
-
-    dfile.chmod(0o644)
+        dfile.chmod(0o644)
 
 
-def attach_debug(pkg, path):
+def attach_debug(pkg, *args):
     if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
         return
 
-    relp = path.relative_to(pkg.destdir)
+    for path in args:
+        cfile = pkg.chroot_destdir / "usr/lib/debug" / path
+        try:
+            pkg.rparent.do(
+                pkg.rparent.get_tool("OBJCOPY"),
+                f"--add-gnu-debuglink={cfile}",
+                pkg.chroot_destdir / path,
+            )
+        except Exception:
+            pkg.error(f"failed to attach debug link to {path}")
 
-    cfile = pkg.chroot_destdir / "usr/lib/debug" / relp
-    try:
-        pkg.rparent.do(
-            pkg.rparent.get_tool("OBJCOPY"),
-            f"--add-gnu-debuglink={cfile}",
-            pkg.chroot_destdir / relp,
-        )
-    except Exception:
-        pkg.error(f"failed to attach debug link to {relp}")
 
-
-def strip_attach(pkg, path):
-    split_debug(pkg, path)
-    rv = strip(pkg, path)
-    attach_debug(pkg, path)
-    return rv
+def strip_attach(pkg, *args):
+    split_debug(pkg, *args)
+    strip(pkg, *args)
+    attach_debug(pkg, *args)
