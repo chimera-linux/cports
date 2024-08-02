@@ -1,5 +1,5 @@
 pkgname = "uv"
-pkgver = "0.2.32"
+pkgver = "0.2.33"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/astral-sh/uv"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2c7ba90fb6c1f021886f1887ed07dcc7113278a82d38692da49a8a52711f08d6"
+sha256 = "64d2ed203e9b189eb9afdecc220e30a40ab0ba07a291f1b96b7b1b9e6ab5a8c1"
 # too many of them need net
 options = ["!check"]
 
@@ -40,9 +40,9 @@ def post_patch(self):
     with open(f"{self.cwd}/.cargo/config.toml", "a") as f:
         f.write(
             """
-[source."git+https://github.com/astral-sh/pubgrub?rev=3f0ba760951ab0deeac874b98bb18fc90103fcf7"]
+[source."git+https://github.com/astral-sh/pubgrub?rev=2fac39371a47e7cb821e510aaa4de25405413d29"]
 git = "https://github.com/astral-sh/pubgrub"
-rev = "3f0ba760951ab0deeac874b98bb18fc90103fcf7"
+rev = "2fac39371a47e7cb821e510aaa4de25405413d29"
 replace-with = "vendored-sources"
 [source."git+https://github.com/astral-sh/reqwest-middleware?rev=21ceec9a5fd2e8d6f71c3ea2999078fecbd13cbe"]
 git = "https://github.com/astral-sh/reqwest-middleware"
