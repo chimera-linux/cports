@@ -27,6 +27,7 @@ match self.profile().arch:
         make_build_args += ["QBEFLAGS=-tarm64"]
     case "riscv64":
         make_build_args += ["QBEFLAGS=-trv64"]
+        broken = "function not implemented when running hare on builder"
     case _:
         broken = f"unknown architecture {self.profile().arch}"
 
