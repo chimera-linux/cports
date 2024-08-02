@@ -1,13 +1,12 @@
 pkgname = "python-jellyfish"
-pkgver = "1.0.4"
-pkgrel = 1
+pkgver = "1.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
     "python-build",
     "python-installer",
     "python-maturin",
-    "python-wheel",
 ]
 depends = ["python"]
 checkdepends = ["python-pytest"]
@@ -16,7 +15,7 @@ maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "BSD-2-Clause"
 url = "https://jamesturk.github.io/jellyfish"
 source = f"$(PYPI_SITE)/j/jellyfish/jellyfish-{pkgver}.tar.gz"
-sha256 = "72aabb3bedd513cdd20712242fd51173b59972c0b146b7a0b9c6f32f1656293f"
+sha256 = "2a2eec494c81dc1eb23dfef543110dad1873538eccaffabea8520bdac8aecbc1"
 
 
 def init_build(self):
