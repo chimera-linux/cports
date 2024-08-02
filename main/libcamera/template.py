@@ -1,6 +1,6 @@
 pkgname = "libcamera"
 pkgver = "0.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dtest=true"]
 hostmakedepends = [
