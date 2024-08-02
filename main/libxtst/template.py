@@ -1,15 +1,24 @@
 pkgname = "libxtst"
-pkgver = "1.2.4"
+pkgver = "1.2.5"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
-makedepends = ["xorgproto", "libxext-devel", "libxi-devel"]
+hostmakedepends = [
+    "automake",
+    "libtool",
+    "pkgconf",
+    "xorg-util-macros",
+]
+makedepends = [
+    "libxext-devel",
+    "libxi-devel",
+    "xorgproto",
+]
 pkgdesc = "X Tst library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXtst-{pkgver}.tar.gz"
-sha256 = "01366506aeb033f6dffca5326af85f670746b0cabbfd092aabefb046cf48c445"
+source = f"$(XORG_SITE)/lib/libXtst-{pkgver}.tar.xz"
+sha256 = "b50d4c25b97009a744706c1039c598f4d8e64910c9fde381994e1cae235d9242"
 
 
 def post_install(self):
@@ -19,6 +28,3 @@ def post_install(self):
 @subpackage("libxtst-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
