@@ -1,6 +1,6 @@
 pkgname = "python-maturin"
 pkgver = "1.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {
     "MATURIN_SETUP_ARGS": "--features=full,native-tls,password-storage"
@@ -33,6 +33,13 @@ def do_prepare(self):
     self.cargo = cargo.Cargo(self)
     self.cargo.vendor()
     cargo.setup_vendor(self)
+
+
+def init_build(self):
+    from cbuild.util import cargo
+
+    renv = cargo.get_environment(self)
+    self.make_env.update(renv)
 
 
 def post_install(self):
