@@ -165,7 +165,7 @@ def invoke(pkg):
     ):
         pkg.log_red("empty non-meta packages must be marked as such")
         lintfail = True
-    elif not dirempty and pkg.options["empty"]:
+    elif not dirempty and pkg.options["empty"] and not pkg.autopkg:
         pkg.log_red("package marked empty but not actually empty")
         lintfail = True
 
