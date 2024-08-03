@@ -1,5 +1,5 @@
 pkgname = "rpcbind"
-pkgver = "1.2.6"
+pkgver = "1.2.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://linux-nfs.org"
 source = f"https://sourceforge.net/projects/rpcbind/files/rpcbind/{pkgver}/rpcbind-{pkgver}.tar.bz2"
-sha256 = "5613746489cae5ae23a443bb85c05a11741a5f12c8f55d2bb5e83b9defeee8de"
+sha256 = "f6edf8cdf562aedd5d53b8bf93962d61623292bfc4d47eedd3f427d84d06f37e"
 hardening = ["!cfi", "vis"]
 # no tests
 options = ["!check"]
