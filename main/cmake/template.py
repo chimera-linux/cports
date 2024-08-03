@@ -1,5 +1,5 @@
 pkgname = "cmake"
-pkgver = "3.30.1"
+pkgver = "3.30.2"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -26,12 +26,10 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
 source = f"https://www.cmake.org/files/v{pkgver[:-2]}/cmake-{pkgver}.tar.gz"
-sha256 = "df9b3c53e3ce84c3c1b7c253e5ceff7d8d1f084ff0673d048f260e04ccb346e1"
+sha256 = "46074c781eccebc433e98f0bbfa265ca3fd4381f245ca3b140e7711531d60db2"
 # prevent cmake self-bootstrap false positive nonsense
 tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
-    # FIXME: in 3.30 this is missing from the bootstrap link with --bootstrap-system-libuv
-    "LDFLAGS": ["-luv"],
 }
 hardening = ["vis"]
 # checkdepends are missing
