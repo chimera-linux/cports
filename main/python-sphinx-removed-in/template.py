@@ -1,12 +1,11 @@
 pkgname = "python-sphinx-removed-in"
-pkgver = "0.2.2"
-pkgrel = 1
+pkgver = "0.2.3"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 checkdepends = ["python-sphinx"]
 depends = ["python-sphinx"]
@@ -15,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/MrSenko/sphinx-removed-in"
 source = f"$(PYPI_SITE)/s/sphinx-removed-in/sphinx-removed-in-{pkgver}.tar.gz"
-sha256 = "851ca7ea449d0597da548068c0fc7ca076d84483b2e873a26aa64f24cfd8cd0d"
+sha256 = "a62dfeaa7962c5b6760b55de65ef3ed2ea83afa1a7c3416ac0bb7d3dec8fd2a6"
 # dependency of pytest
 options = ["!check"]
 
