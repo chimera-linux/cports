@@ -125,7 +125,7 @@ of this container.
 
 This container is made up of a minimal collection of Chimera packages, which
 provide the initial environment. We call it the *build root*. It is essentially
-a sandbox with different restrictions depending on the phase of the build.
+a sandbox with different restrictions depending on the *phase* of the build.
 
 Most of the time, the build root is:
 
@@ -135,7 +135,7 @@ Most of the time, the build root is:
   to access the network from within. This enforces the policy of having to fetch
   all of their files ahead of time. Checksums are enforced for those files.
 * Isolated - the sandbox does not have access to the outside file system.
-* Unprivileged - after the fetch stage, all namespace types are unshared.
+* Unprivileged - after the `fetch` phase, all namespace types are unshared.
 
 When building a package, the following happens, in simplified terms:
 
@@ -150,7 +150,7 @@ When building a package, the following happens, in simplified terms:
 * Files are installed in a special `destdir`. Outside of this, the directory
   where files are extracted, the `/tmp` directory in the sandbox and potential
   cache directories (e.g. for `ccache`), the entire sandbox is read only during
-  all steps after installing dependencies.
+  all phases other than `deps` (i.e., after installing dependencies).
 * Packages are created in the local repository and signed.
 
 If you are familiar with `xbps-src`, these are the main conceptual differences:
