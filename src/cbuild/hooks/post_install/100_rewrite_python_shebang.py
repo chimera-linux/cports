@@ -53,4 +53,4 @@ def invoke(pkg):
                 # set mode to whatever it was
                 v.chmod(mode)
             # we're done
-            print(f"   Shebang converted to '{shebang.decode()}': {bfile}")
+            print(f"  Shebang converted to '{shebang.decode()}': {bfile}")

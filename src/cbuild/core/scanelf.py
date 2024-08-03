@@ -325,23 +325,23 @@ def scan(pkg, somap):
     if len(elf_usrshare) > 0:
         pkg.log_red("ELF files in /usr/share:")
         for f in elf_usrshare:
-            print(f"   {f}")
+            print(f"  {f}")
         pkg.error(None)
 
     if len(elf_textrels) > 0:
         pkg.log_red("found textrels:")
         for f in elf_textrels:
-            print(f"   {f}")
+            print(f"  {f}")
         pkg.error(None)
 
     if len(elf_xstack) > 0:
         pkg.log_red("found executable stack:")
         for f in elf_xstack:
-            print(f"   {f}")
+            print(f"  {f}")
         pkg.error(None)
 
     if len(elf_foreign) > 0:
         pkg.log_red("found foreign-machine ELF files:")
         for f in elf_foreign:
-            print(f"   {f}")
+            print(f"  {f}")
         pkg.error(None)

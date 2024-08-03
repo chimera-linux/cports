@@ -40,7 +40,7 @@ def invoke(pkg):
         sfx = soname[eq + 1 :]
         soname = soname[:eq]
         soset[soname] = True
-        logger.get().out_plain(f"   SONAME {soname}={sfx} (explicit)")
+        logger.get().out_plain(f"  SONAME {soname}={sfx} (explicit)")
 
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
@@ -72,10 +72,10 @@ def invoke(pkg):
                 asonames.append(
                     (soname, autosfx if not pkg.alternative else "0")
                 )
-                logger.get().out_plain(f"   SONAME {soname} from {fp.parent}")
+                logger.get().out_plain(f"  SONAME {soname} from {fp.parent}")
             else:
                 logger.get().out_plain(
-                    f"   SONAME {soname} from {fp.parent} (skipped)"
+                    f"  SONAME {soname} from {fp.parent} (skipped)"
                 )
 
     pkg.aso_provides = asonames

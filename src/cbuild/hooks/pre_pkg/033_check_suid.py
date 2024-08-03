@@ -34,5 +34,5 @@ def invoke(pkg):
     if len(badbins) > 0:
         pkg.log_red("forbidden setuid/setgid files:")
         for f in badbins:
-            print(f"   {f}")
+            print(f"  {f}")
         pkg.error("cannot proceed")

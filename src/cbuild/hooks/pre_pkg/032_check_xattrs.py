@@ -28,5 +28,5 @@ def invoke(pkg):
     if len(badattrs) > 0:
         pkg.log_red("undeclared xattrs found for:")
         for f in badattrs:
-            print(f"   {f}")
+            print(f"  {f}")
         pkg.error("cannot proceed")

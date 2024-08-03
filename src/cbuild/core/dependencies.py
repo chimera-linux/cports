@@ -365,17 +365,17 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         # check if available in repository
         aver = _is_available(pkgn, "=", sver, pkg, hvers, hrepos, hsys, None)
         if aver:
-            log.out_plain(f"   [host] {pkgn}: found ({aver})")
+            log.out_plain(f"  [host] {pkgn}: found ({aver})")
             host_binpkg_deps.append(f"{pkgn}={aver}")
             if pkgn.endswith("-bootstrap"):
                 virt_deps.append("bootstrap:" + pkgn.removesuffix("-bootstrap"))
             continue
         # dep finder did not previously resolve a template
         if not sver:
-            log.out_plain(f"   [host] {pkgn}: unresolved build dependency")
+            log.out_plain(f"  [host] {pkgn}: unresolved build dependency")
             pkg.error(f"host dependency '{pkgn}' does not exist")
         # not found
-        log.out_plain(f"   [host] {pkgn}: not found")
+        log.out_plain(f"  [host] {pkgn}: not found")
         # check for loops
         if not pprof.cross and (pkgn == origpkg or pkgn == pkg.pkgname):
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
@@ -386,17 +386,17 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         # check if available in repository
         aver = _is_available(pkgn, "=", sver, pkg, tvers, trepos, tsys, tarch)
         if aver:
-            log.out_plain(f"   [target] {pkgn}: found ({aver})")
+            log.out_plain(f"  [target] {pkgn}: found ({aver})")
             binpkg_deps.append(f"{pkgn}={aver}")
             if pkgn.endswith("-bootstrap"):
                 virt_deps.append("bootstrap:" + pkgn.removesuffix("-bootstrap"))
             continue
         # dep finder did not previously resolve a template
         if not sver:
-            log.out_plain(f"   [target] {pkgn}: unresolved build dependency")
+            log.out_plain(f"  [target] {pkgn}: unresolved build dependency")
             pkg.error(f"target dependency '{pkgn}' does not exist")
         # not found
-        log.out_plain(f"   [target] {pkgn}: not found")
+        log.out_plain(f"  [target] {pkgn}: not found")
         # check for loops
         if pkgn == origpkg or pkgn == pkg.pkgname:
             pkg.error(f"[target] build loop detected: {pkgn} <-> {origpkg}")
@@ -412,7 +412,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         if pkgn != origin:
             # subpackage depending on parent
             if pkgn == pkg.pkgname:
-                log.out_plain(f"   [runtime] {dep}: subpackage (ignored)")
+                log.out_plain(f"  [runtime] {dep}: subpackage (ignored)")
                 continue
             # parent or another subpackage depending on subpackage
             is_subpkg = False
@@ -421,7 +421,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                     is_subpkg = True
                     break
             if is_subpkg:
-                log.out_plain(f"   [runtime] {dep}: subpackage (ignored)")
+                log.out_plain(f"  [runtime] {dep}: subpackage (ignored)")
                 continue
         else:
             # if package and its origin are the same, it depends on itself
@@ -432,10 +432,10 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         # check the repository
         aver = _is_available(pkgn, pkgop, pkgv, pkg, rvers, rrepos, tsys, tarch)
         if aver:
-            log.out_plain(f"   [runtime] {dep}: found ({aver})")
+            log.out_plain(f"  [runtime] {dep}: found ({aver})")
             continue
         # not found
-        log.out_plain(f"   [runtime] {dep}: not found")
+        log.out_plain(f"  [runtime] {dep}: not found")
         # consider missing
         missing_rdeps.append((pkgn, pkgop, pkgv))
 
