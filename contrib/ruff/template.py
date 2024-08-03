@@ -1,5 +1,5 @@
 pkgname = "ruff"
-pkgver = "0.5.5"
+pkgver = "0.5.6"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
 source = f"https://github.com/astral-sh/ruff/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "b0f710015cc27c58f3b7236d493f62d4141efaa37b49abdbd79f21c63d58ab41"
+sha256 = "f774651e684e21f155b43e6738336f2eb53b44cd42444e72a73ee6eb1f6ee079"
 # generates completions with host bin
 options = ["!cross"]
 
@@ -39,13 +39,14 @@ def post_patch(self):
     with open(f"{self.cwd}/.cargo/config.toml", "a") as f:
         f.write(
             """
+[source."git+https://github.com/MichaReiser/salsa.git?rev=0cae5c52a3240172ef0be5c9d19e63448c53397c"]
+git = "https://github.com/MichaReiser/salsa.git"
+rev = "0cae5c52a3240172ef0be5c9d19e63448c53397c"
+replace-with = "vendored-sources"
+
 [source."git+https://github.com/astral-sh/lsp-types.git?rev=3512a9f"]
 git = "https://github.com/astral-sh/lsp-types.git"
 rev = "3512a9f"
-replace-with = "vendored-sources"
-[source."git+https://github.com/salsa-rs/salsa.git?rev=a1bf3a613f451af7fc0a59411c56abc47fe8e8e1"]
-git = "https://github.com/salsa-rs/salsa.git"
-rev = "a1bf3a613f451af7fc0a59411c56abc47fe8e8e1"
 replace-with = "vendored-sources"
 """
         )
