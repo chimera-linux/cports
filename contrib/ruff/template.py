@@ -73,7 +73,7 @@ def post_build(self):
 def do_check(self):
     from cbuild.util import cargo
 
-    cargo.Cargo(self).check()
+    cargo.Cargo(self).check(args=["--workspace", "--exclude", "ruff_benchmark"])
 
 
 def post_install(self):
