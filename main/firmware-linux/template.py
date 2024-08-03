@@ -1,7 +1,7 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
 pkgver = "20240709"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -384,6 +384,10 @@ def do_install(self):
         "--zstd",
         "-v",
         str(self.chroot_destdir / "usr/lib/firmware"),
+        env={
+            "ZSTD_CLEVEL": "9",
+            "ZSTD_NBTHREADS": str(min(4, self.make_jobs)),
+        },
     )
 
     self.install_license("WHENCE")
