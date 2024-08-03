@@ -1,6 +1,6 @@
 pkgname = "bash"
-pkgver = "5.2.21"
-pkgrel = 1
+pkgver = "5.2.32"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--without-bash-malloc",
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/bash/bash-{pkgver}.tar.gz"
-sha256 = "c8e31bdc59b69aaffc5b36509905ba3e5cbb12747091d27b4b977f078560d5b8"
+sha256 = "d3ef80d2b67d8cbbe4d3265c63a72c46f9b278ead6e0e06d61801b58f23f50b5"
 tool_flags = {
     "CFLAGS": [
         '-DSYS_BASHRC="/etc/bash/bashrc"',
