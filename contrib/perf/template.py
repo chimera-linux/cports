@@ -1,5 +1,5 @@
 pkgname = "perf"
-pkgver = "6.10.2"
+pkgver = "6.10.3"
 pkgrel = 0
 build_wrksrc = "tools/perf"
 build_style = "makefile"
@@ -21,7 +21,10 @@ make_build_args = [
     "prefix=/usr",
     "sbindir=/usr/bin",
 ]
-make_install_args = [*make_build_args]
+make_install_args = [
+    "install-python_ext",
+    *make_build_args,
+]
 make_use_env = True
 hostmakedepends = [
     "asciidoc",
@@ -53,7 +56,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://perf.wiki.kernel.org/index.php/Main_Page"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[:pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"
-sha256 = "73d8520dd9cba5acfc5e7208e76b35d9740b8aae38210a9224e32ec4c0d29b70"
+sha256 = "fa5f22fd67dd05812d39dca579320c493048e26c4a556048a12385e7ae6fc698"
 # nope
 # docs are a single tips file that gets displayed in the TUI
 options = ["!check", "!splitdoc"]
