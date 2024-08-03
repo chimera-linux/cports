@@ -2,7 +2,7 @@
 pkgname = "python"
 _majver = "3.12"
 pkgver = f"{_majver}.4"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",
@@ -110,7 +110,6 @@ def do_install(self):
     self.uninstall(f"{lbase}/idlelib")
     self.uninstall(f"{lbase}/tkinter")
     self.uninstall(f"{lbase}/turtledemo")
-    self.uninstall(f"{lbase}/test")
     self.uninstall(f"{lbase}/turtle.py")
 
     self.rename(
@@ -149,6 +148,14 @@ def _devel(self):
         )
 
     return install
+
+
+@subpackage("python-tests")
+def _devel(self):
+    self.depends = [self.parent]
+    self.subdesc = "test module"
+
+    return ["usr/lib/python*/test"]
 
 
 @subpackage(f"base-python{_majver}")
