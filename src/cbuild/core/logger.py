@@ -17,7 +17,12 @@ class Logger:
     def _out_arrow(self, stream):
         if self.timing:
             ntime = datetime.datetime.now()
-            stream.write(f"{ntime - self.time} ")
+            tdiff = ntime - self.time
+            msec = tdiff.microseconds
+            ntdiff = datetime.timedelta(
+                tdiff.days, tdiff.seconds, round(msec / 1000) * 1000
+            )
+            stream.write(f"{str(ntdiff)[:-3]} ")
         stream.write("=> ")
 
     def out_plain(self, msg, end="\n"):
