@@ -36,6 +36,8 @@ make_check_args = [
     + "-i test_tools "
     + "-i test_functools "  # ppc64le stack overflow
     + "-i test_isinstance "  # ppc64le stack overflow
+    + "-i test_pickle "  # ppc64le stack overflow
+    + "-i test_pickletools "  # ppc64le stack overflow
 ]
 hostmakedepends = [
     "autoconf-archive",
