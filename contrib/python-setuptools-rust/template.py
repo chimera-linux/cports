@@ -1,5 +1,5 @@
 pkgname = "python-setuptools-rust"
-pkgver = "1.9.0"
+pkgver = "1.10.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,8 +16,8 @@ pkgdesc = "Setuptools plugin for Rust support"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/PyO3/setuptools-rust"
-source = f"$(PYPI_SITE)/s/setuptools-rust/setuptools-rust-{pkgver}.tar.gz"
-sha256 = "704df0948f2e4cc60c2596ad6e840ea679f4f43e58ed4ad0c1857807240eab96"
+source = f"$(PYPI_SITE)/s/setuptools-rust/setuptools_rust-{pkgver}.tar.gz"
+sha256 = "70a1ca82e2eb9517594585fb4c197e1d39cdee45fe653919fb886c147473cf35"
 # unpackaged checkdepends
 options = ["!check"]
 
