@@ -40,7 +40,7 @@ def do_prepare(self):
     cargo.setup_vendor(self, wrksrc="src/rust")
 
 
-def init_configure(self):
+def init_build(self):
     from cbuild.util import cargo
 
     self.env.update(cargo.get_environment(self))
