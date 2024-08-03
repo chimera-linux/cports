@@ -3,7 +3,6 @@ pkgver = "1.1.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
-    "pkgconf",
     "python-build",
     "python-installer",
     "python-setuptools",
