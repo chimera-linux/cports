@@ -1,5 +1,5 @@
 pkgname = "tdb"
-pkgver = "1.4.10"
+pkgver = "1.4.11"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://tdb.samba.org"
 source = f"https://download.samba.org/pub/tdb/tdb-{pkgver}.tar.gz"
-sha256 = "02338e33c16c21c9e29571cef523e76b2b708636254f6f30c6cf195d48c62daf"
+sha256 = "4e8ba6d93f383565bbd061be4deee15318232d1bbcca7212f18e17f56bb975a8"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 hardening = ["vis", "!cfi"]
