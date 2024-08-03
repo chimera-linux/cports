@@ -1,6 +1,6 @@
 pkgname = "fnott"
-pkgver = "1.6.0"
-pkgrel = 1
+pkgver = "1.7.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -22,7 +22,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fnott"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "fc8a0a9b75995a10afeaf3a670fb30986b21a4f48bd67a7018802de10debc83f"
+sha256 = "40013d64423332a53aa943b7d9366f25e8cdd3313345f7a74b53c5d33eb49c80"
 hardening = ["vis", "cfi"]
 # has no tests
 options = ["!check"]
