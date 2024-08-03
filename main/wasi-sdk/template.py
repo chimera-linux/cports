@@ -1,5 +1,5 @@
 pkgname = "wasi-sdk"
-pkgver = "23"
+pkgver = "24"
 pkgrel = 0
 build_style = "meta"
 depends = [
