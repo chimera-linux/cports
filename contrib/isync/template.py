@@ -1,5 +1,5 @@
 pkgname = "isync"
-pkgver = "1.4.4"
+pkgver = "1.5.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later WITH custom:LicenseRef-isync-GPL-exception"
 url = "https://isync.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/isync/isync/{pkgver}/isync-{pkgver}.tar.gz"
-sha256 = "7c3273894f22e98330a330051e9d942fd9ffbc02b91952c2f1896a5c37e700ff"
+sha256 = "a0c81e109387bf279da161453103399e77946afecf5c51f9413c5e773557f78d"
 hardening = ["vis", "!cfi"]
 # missing perl modules
 options = ["!check"]
