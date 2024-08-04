@@ -21,7 +21,7 @@ fi
 
 if command -v ruff >/dev/null; then
     invoke ruff check $ruff_output
-    invoke ruff format --diff
+    invoke ruff format --diff --quiet
 else
     invoke flake8 main contrib user src
     invoke find main contrib user src -name '*.py' -exec black --fast --check {} +
