@@ -8,13 +8,14 @@ target-version = 'py312'
 builtins = ['custom_target', 'self', 'subpackage']
 
 [tool.ruff.lint]
-select = [
+extend-select = [
     'C4',
     'E',
-    'F',
     'RUF',
     'UP',
     'W',
+    'ISC001',
+    'ISC002',
 ]
 ignore = [
     # no
