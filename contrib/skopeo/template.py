@@ -5,8 +5,6 @@ build_style = "go"
 # for compatibility with Makefile targets
 make_dir = "bin"
 make_build_args = [
-    "-mod",
-    "vendor",
     "./cmd/skopeo",
 ]
 hostmakedepends = [
