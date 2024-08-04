@@ -55,7 +55,8 @@ def do_install(self):
         "benchmarks",
         "demo",
         "examples",
-        "script" "test",
+        "script",
+        "test",
         "tests",
     ]:
         self.rm(self.destdir / idir / f, recursive=True, force=True)
