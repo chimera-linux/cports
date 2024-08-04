@@ -1,6 +1,6 @@
 pkgname = "prismlauncher"
 pkgver = "8.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
 hostmakedepends = [
