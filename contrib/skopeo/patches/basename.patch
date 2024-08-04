@@ -1,0 +1,11 @@
+--- a/vendor/github.com/containers/storage/pkg/unshare/unshare.c
++++ b/vendor/github.com/containers/storage/pkg/unshare/unshare.c
+@@ -19,6 +19,8 @@
+ #include <sys/mount.h>
+ #include <linux/limits.h>
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ /* Open Source projects like conda-forge, want to package podman and are based
+    off of centos:6, Conda-force has minimal libc requirements and is lacking
+    the memfd.h file, so we use mmam.h
