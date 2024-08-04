@@ -33,8 +33,8 @@ of templates and they depend on each other, order your commits properly.
 
 Using a correct commit message is also important:
 
-* New packages should use `category/pkgname: new package (<version>)`. For
-  example, `main/bsdutils: new package (0.10.0)`.
+* New packages should use `category/pkgname: new package`. For
+  example, `main/coolproject: new package`.
 * Updates should similarly use `category/pkgname: update to <version>`.
 * Non-update changes to templates should use `category/pkgname: custom message`.
 * Removals should use `category/pkgname: remove`.
