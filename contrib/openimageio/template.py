@@ -1,6 +1,6 @@
 pkgname = "openimageio"
-pkgver = "2.5.13.1"
-pkgrel = 1
+pkgver = "2.5.14.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # disabled below
@@ -48,7 +48,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://github.com/AcademySoftwareFoundation/OpenImageIO"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0fbaec6c15215e11cf4545128c4d64eaa97b461cb9b5fb8a76f9a7d35c99e3df"
+sha256 = "0e74372c658f083820872311d126867f10d59b526a856672746de7b2c772034d"
 hardening = ["!int"]
 
 
