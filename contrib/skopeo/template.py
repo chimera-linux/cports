@@ -1,6 +1,6 @@
 pkgname = "skopeo"
 pkgver = "1.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 # for compatibility with Makefile targets
 make_dir = "bin"
@@ -18,9 +18,13 @@ makedepends = [
     "gpgme-devel",
     "libbtrfs-devel",
     "linux-headers",
+    "sqlite-devel",
 ]
 depends = [
     "containers-common",
+]
+go_build_tags = [
+    "libsqlite3",
 ]
 pkgdesc = "OCI image and repo manipulation tool"
 maintainer = "Radosław Piliszek <radek@piliszek.it>"
