@@ -1,5 +1,5 @@
 pkgname = "bottom"
-pkgver = "0.9.7"
+pkgver = "0.10.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -19,9 +19,9 @@ source_paths = [
     "man",
 ]
 sha256 = [
-    "29c3f75323ae0245576ea23268bb0956757352bf3b16d05f511357655b9cc71e",
-    "721b3921157cbc3f31f20f0aaaea468a235b3d0fa8f876cbf9d3867578db8203",
-    "e828123c48bfaec804db06dd211c7e4bb2c9899100c9a68522607832789a3ddb",
+    "c0e507cc3a5246e65521e91391410efc605840abe3b40194c5769265051fa1cc",
+    "87a722518bbed7012214ff77425aa69b582c8ab1d50817f427b1c920da420710",
+    "a320f028f728fbdbdea1d309840544a1da15243f158477a537bb8eeab05259f7",
 ]
 
 
@@ -32,3 +32,4 @@ def post_install(self):
     self.install_completion("completions/btm.bash", "bash", "btm")
     self.install_completion("completions/btm.fish", "fish", "btm")
     self.install_completion("completions/_btm", "zsh", "btm")
+    self.install_file("desktop/bottom.desktop", "usr/share/applications")
