@@ -1,7 +1,7 @@
 pkgname = "binutils"
-pkgver = "2.42"
+pkgver = "2.43"
 _llvmver = "18.1.8"
-pkgrel = 1
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -55,7 +55,7 @@ source = [
     f"!https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-{_llvmver}/llvm/tools/gold/gold-plugin.cpp>gold-plugin-{_llvmver}.cpp",
 ]
 sha256 = [
-    "f6e4d41fd5fc778b06b7891457b3620da5ecea1006c6a4a41ae998109f85a800",
+    "b53606f443ac8f01d1d5fc9c39497f2af322d99e14cea5c0b4b124d630379365",
     "08789507047c04c02c2556d888a62215bbeb6d00aa1e67fa8006b1d8c4a160a7",
 ]
 # resistance is futile
@@ -144,27 +144,24 @@ def do_install(self):
         # native target is handled separately
         if not tgtp.cross:
             continue
-        # stamp it for resuming
-        with self.stamp(f"{tgtn}_install") as s:
-            s.check()
-            self.make.install(wrksrc=f"build-{tgtn}")
-            # clean up stuff we don't want
-            self.uninstall("usr/lib/bfd-plugins")
-            # remove non-prefix binaries
-            for f in (self.destdir / "usr/bin").glob("*"):
-                if f.name.find("-") > 0:
-                    continue
-                f.unlink()
-            # remove non-prefix manpages
-            for f in (self.destdir / "usr/share/man/man1").glob("*"):
-                if f.name.find("-") > 0:
-                    continue
-                f.unlink()
-            # temporary
-            self.rename(
-                "usr/lib/ldscripts",
-                f"ldscripts-{tgtp.arch}",
-            )
+        self.make.install(wrksrc=f"build-{tgtn}")
+        # clean up stuff we don't want
+        self.uninstall("usr/lib/bfd-plugins")
+        # remove non-prefix binaries
+        for f in (self.destdir / "usr/bin").glob("*"):
+            if f.name.find("-") > 0:
+                continue
+            f.unlink()
+        # remove non-prefix manpages
+        for f in (self.destdir / "usr/share/man/man1").glob("*"):
+            if f.name.find("-") > 0:
+                continue
+            f.unlink()
+        # temporary
+        self.rename(
+            "usr/lib/ldscripts",
+            f"ldscripts-{tgtp.arch}",
+        )
 
     self.make.install(wrksrc=f"build-{self.profile().arch}")
 
@@ -172,7 +169,7 @@ def do_install(self):
     self.install_file("LLVMgold.so", "usr/lib", mode=0o755)
     self.install_link("usr/lib/bfd-plugins/LLVMgold.so", "../LLVMgold.so")
 
-    for m in ["dlltool", "nlmconv", "windres", "windmc"]:
+    for m in ["dlltool", "windres", "windmc"]:
         self.uninstall(f"usr/share/man/man1/{m}.1")
 
     # provided as ld.bfd, hardlink so it's safe to remove
@@ -217,7 +214,7 @@ def do_install(self):
                 f.symlink_to(tf.name)
         # rename native version
         self.rename(f"usr/bin/{p}", f"g{p}")
-        self.mv(f"usr/share/man/man1/{p}.1" f"g{p}.1")
+        self.rename(f"usr/share/man/man1/{p}.1", f"g{p}.1")
 
     # gas can be symlinked to as though, as nothing else provides it
     self.install_link("usr/bin/as", "gas")
@@ -264,9 +261,9 @@ def _gen_subp(an, native):
         def takef():
             self.take(f"usr/bin/{at}-*")
             self.take(f"usr/lib/ldscripts-{an}")
-            self.rename(
-                f"usr/lib/ldscripts-{an}",
-                "ldscripts",
+            self.mv(
+                self.destdir / f"usr/lib/ldscripts-{an}",
+                self.destdir / "usr/lib/ldscripts",
             )
 
         return takef
