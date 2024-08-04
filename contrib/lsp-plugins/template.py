@@ -1,5 +1,5 @@
 pkgname = "lsp-plugins"
-pkgver = "1.2.16"
+pkgver = "1.2.17"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -10,6 +10,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "cairo-devel",
+    "gst-plugins-base-devel",
     "ladspa-sdk",
     "libsndfile-devel",
     "libxrandr-devel",
@@ -21,8 +22,8 @@ pkgdesc = "Collection of free audio plugins"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"
 url = "https://lsp-plug.in"
-source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.tar.gz"
-sha256 = "c36054205e38cfbf2cc8bae8424d9ab155c0e5bb7d3fd3ce8aec31a6796473ca"
+source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.7z"
+sha256 = "f07dff42c4ca83366fd4576cd18bcbb82c68979b4e7655dc6fc1809881da4a73"
 hardening = ["vis", "!cfi"]
 # no tests
 # cross broken because of dumb uname arch detection
@@ -71,6 +72,21 @@ def _lv2(self):
 def _vst2(self):
     self.subdesc = "vst2 plugins"
     return ["usr/lib/vst"]
+
+
+@subpackage("lsp-plugins-vst3")
+def _vst3(self):
+    self.subdesc = "vst3 plugins"
+    return ["usr/lib/vst3"]
+
+
+@subpackage("lsp-plugins-gstreamer")
+def _gstreamer(self):
+    self.subdesc = "gstreamer plugins"
+    return [
+        "usr/lib/gstreamer-1.0",
+        "usr/lib/lsp-plugins/liblsp-plugins-gstreamer-*.so",
+    ]
 
 
 @subpackage("lsp-plugins-ladspa")
