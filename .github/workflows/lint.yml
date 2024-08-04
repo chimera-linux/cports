@@ -44,6 +44,7 @@ jobs:
 
       - name: Install apt dependencies
         run: |
+          sudo rm -f /var/lib/man-db/auto-update
           sudo apt-get update
           sudo apt-get install --no-install-recommends ca-certificates openssl git bubblewrap wget
 
