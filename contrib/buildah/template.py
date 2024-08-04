@@ -1,6 +1,6 @@
 pkgname = "buildah"
 pkgver = "1.37.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = [
@@ -21,7 +21,10 @@ depends = [
     "oci-runtime",
     "slirp4netns",
 ]
-go_build_tags = ["libsqlite3"]
+go_build_tags = [
+    "libsqlite3",
+    "seccomp",
+]
 pkgdesc = "OCI image building tool"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
