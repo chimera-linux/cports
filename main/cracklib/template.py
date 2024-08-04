@@ -1,5 +1,5 @@
 pkgname = "cracklib"
-pkgver = "2.10.1"
+pkgver = "2.10.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
@@ -24,8 +24,8 @@ source = [
 ]
 source_paths = [".", "words"]
 sha256 = [
-    "9d5052e32625d65f2c3a9f9e3087d2edf6f592d40367b6eb3cae135d84ca064d",
-    "530f24c9ca0e3b35a5c7ea4f281ca02b90813773db060681f56bb1559c5883be",
+    "2689cd4a3a8df2bbe033aba56bedd1becfa82235505109ca45b4d2a5f652aef6",
+    "02b52483c812462fbbc183ab2976ce077e1af0f6c55303e0a0ff1306b0c9c7df",
 ]
 
 
