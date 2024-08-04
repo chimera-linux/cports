@@ -1,6 +1,6 @@
 pkgname = "rrdtool"
-pkgver = "1.8.0"
-pkgrel = 1
+pkgver = "1.9.0"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "yanchan09 <yan@omg.lol>"
 license = "GPL-2.0-or-later AND custom:FLOSS-License-Exception"
 url = "https://oss.oetiker.ch/rrdtool"
 source = f"https://github.com/oetiker/rrdtool-1.x/releases/download/v{pkgver}/rrdtool-{pkgver}.tar.gz"
-sha256 = "bd37614137d7a8dc523359648eb2a81631a34fd91a82ed5581916a52c08433f4"
+sha256 = "5e65385e51f4a7c4b42aa09566396c20e7e1a0a30c272d569ed029a81656e56b"
 
 
 def post_install(self):
