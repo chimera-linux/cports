@@ -1,6 +1,6 @@
 pkgname = "zathura-cb"
-pkgver = "0.1.10"
-pkgrel = 1
+pkgver = "0.1.11"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -16,7 +16,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-cb"
 source = f"{url}/download/zathura-cb-{pkgver}.tar.xz"
-sha256 = "89b0ca17a80cba1ea9fd1b3b72f3a7173f0aad3a06a8c364d865c4999c18bbc8"
+sha256 = "4e201ea54cdc20a93258c43556f6389441af99740de7dca6ca1ff524172fbd47"
 
 
 def post_install(self):
