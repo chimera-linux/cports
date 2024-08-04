@@ -1,6 +1,6 @@
 pkgname = "pcsc-lite"
-pkgver = "2.2.3"
-pkgrel = 2
+pkgver = "2.3.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dlibsystemd=false",
@@ -15,7 +15,7 @@ maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://pcsclite.apdu.fr"
 source = f"https://pcsclite.apdu.fr/files/pcsc-lite-{pkgver}.tar.xz"
-sha256 = "cab1e62755713f62ce1b567954dbb0e9a7e668ffbc3bbad3ce85c53f8f4e00a4"
+sha256 = "1acca22d2891d43ffe6d782740d32e78150d4fcc99e8a3cc763abaf546060d3d"
 
 
 def post_install(self):
