@@ -5,8 +5,6 @@ build_style = "go"
 # for install.bin compat
 make_dir = "bin"
 make_build_args = [
-    "-mod",
-    "vendor",
     "./cmd/podman",
     "./cmd/rootlessport",
 ]
