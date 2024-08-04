@@ -1,0 +1,13 @@
+pkgname = "unrar-free"
+pkgver = "0.3.0"
+pkgrel = 0
+build_style = "gnu_configure"
+make_cmd = "gmake"
+hostmakedepends = ["automake", "gmake", "pkgconf"]
+makedepends = ["argp-standalone", "libarchive-devel"]
+pkgdesc = "Freely licensed unrar ported to libarchive"
+maintainer = "ttyyls <contact@behri.org>"
+license = "GPL-2.0-or-later"
+url = "https://gitlab.com/bgermann/unrar-free"
+source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "028630ee2a1a6c2b0dd1b498a6072d887230571d55d555488e04d546d925de56"

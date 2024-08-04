@@ -1,0 +1,35 @@
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 09adadd..c35bd9d 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -1,4 +1,4 @@
+ bin_PROGRAMS=unrar-free
+ unrar_free_SOURCES=unrar.c opts.c opts.h
+ unrar_free_CFLAGS = @LIBARCHIVE_CFLAGS@ -fno-strict-aliasing
+-unrar_free_LDADD  = @LIBARCHIVE_LIBS@
++unrar_free_LDADD  = @LIBARCHIVE_LIBS@ -largp
+diff --git a/src/opts.h b/src/opts.h
+index fb55ac0..291b498 100644
+--- a/src/opts.h
++++ b/src/opts.h
+@@ -46,7 +46,7 @@ struct unrar_arguments_t
+   int extract_newer;
+   char *destination_dir;
+   char *archive_filename;
+-  const char **multivolume_filenames;
++  char **multivolume_filenames;
+   int verbose;
+   char *password;
+   FILE *outfile;
+diff --git a/src/unrar.c b/src/unrar.c
+index 55c8a77..2235198 100644
+--- a/src/unrar.c
++++ b/src/unrar.c
+@@ -28,6 +28,7 @@
+ #include <string.h>
+ #include <errno.h>
+ #include <glob.h>
++#include <libgen.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+ #include <fcntl.h>
