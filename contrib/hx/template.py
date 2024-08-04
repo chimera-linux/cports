@@ -1,5 +1,5 @@
 pkgname = "hx"
-pkgver = "1.0.14"
+pkgver = "1.0.15"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -11,7 +11,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/krpors/hx"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7b7c494df149535f768b3aa449159928aec92b468a17f9eedebcea3dd21343d1"
+sha256 = "d4d1f4b65034cd16dd4119f064eae17fe56b39ba4813a958d493e5bfb0a91529"
 hardening = ["vis", "cfi"]
 # no tests defined
 options = ["!check"]
