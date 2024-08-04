@@ -1,5 +1,5 @@
 pkgname = "cmark"
-pkgver = "0.31.0"
+pkgver = "0.31.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://github.com/commonmark/cmark"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "bbcb8f8c03b5af33fcfcf11a74e9499f20a9043200b8552f78a6e8ba76e04d11"
+sha256 = "3da93db5469c30588cfeb283d9d62edfc6ded9eb0edc10a4f5bbfb7d722ea802"
 # defaults to Release which sets this, and the tests crash in an assert without it..
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 
