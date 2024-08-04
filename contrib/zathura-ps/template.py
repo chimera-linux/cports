@@ -1,6 +1,6 @@
 pkgname = "zathura-ps"
-pkgver = "0.2.7"
-pkgrel = 1
+pkgver = "0.2.8"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -14,6 +14,6 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-ps"
 source = f"{url}/download/zathura-ps-{pkgver}.tar.xz"
-sha256 = "5897f9204cf5f978b9413be7ce7febde843157af48e351938edf07dbf9308e46"
+sha256 = "07ca594f7277f9876d0038048418343ea2964028e93c90f9569eff36a8932e4a"
 # no tests defined
 options = ["!check"]
