@@ -1,5 +1,5 @@
 pkgname = "zathura"
-pkgver = "0.5.6"
+pkgver = "0.5.8"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -26,7 +26,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura"
 source = f"{url}/download/zathura-{pkgver}.tar.xz"
-sha256 = "b478e35e87cce57d651b4112dc8193c4b744a07f121b7b6465229a8f386f10da"
+sha256 = "f2bf8dcb2edff10a8e11f1f981bf8f6a42b997b4f851ab00bfd33a706ad43af8"
 
 
 def post_install(self):
