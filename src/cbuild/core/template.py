@@ -1571,9 +1571,10 @@ class Template(Package):
             self.error("pkgdesc should start with an uppercase letter")
         if len(dstr) > 72:
             self.error("pkgdesc should be no longer than 72 characters")
-        # TODO: enable later when no subdesc in pkgdesc is used anymore
         if re.search(r" \(.+\)$", self.pkgdesc):
-            self.error("pkgdesc should not contain a subdescription")
+            self.error(
+                "pkgdesc should not contain a (subdescription), use subdesc"
+            )
 
     def validate_maintainer(self):
         m = re.fullmatch(r"^(.+) <([^>]+)>$", self.maintainer)
