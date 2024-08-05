@@ -1358,8 +1358,8 @@ Default values:
 
 Sets `do_build`, `do_check`, `do_install`.
 
-The `do_build` builds a wheel with `pip`. The `do_install` will install the
-contents of the wheel. The `do_check` will run `pytest` or fail.
+The `do_build` builds a wheel with `python -m build`. The `do_install` will
+install the contents of the wheel. The `do_check` will run `pytest` or fail.
 
 The `make_install_target` is used as a glob pattern to match built wheels.
 
