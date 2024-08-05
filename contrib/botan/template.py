@@ -12,7 +12,6 @@ configure_args = [
     "--with-sqlite3",
     "--with-zlib",
 ]
-configure_gen = []
 hostmakedepends = [
     "pkgconf",
     "python",
