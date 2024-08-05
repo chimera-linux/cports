@@ -1,6 +1,6 @@
 pkgname = "fonts-noto"
 pkgver = "24.8.1"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Google Noto fonts"
 maintainer = "GeopJr <evan@geopjr.dev>"
 license = "OFL-1.1"
