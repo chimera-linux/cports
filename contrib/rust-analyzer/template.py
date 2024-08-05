@@ -1,5 +1,5 @@
 pkgname = "rust-analyzer"
-pkgver = "2024.07.29"
+pkgver = "2024.08.05"
 pkgrel = 0
 build_style = "cargo"
 make_env = {"CARGO_PROFILE_RELEASE_PANIC": "unwind"}
@@ -10,7 +10,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/rust-lang/rust-analyzer"
 source = f"{url}/archive/refs/tags/{pkgver.replace('.', '-')}.tar.gz"
-sha256 = "2eb5f361ce88ff3dd6154396f4afeedb937932b18e2166c88f0fe51f532b3b8e"
+sha256 = "cf42237fc0e747710cf3801e54b9fdd5ae50daee928fa12236df0912e45c4839"
 # invokes rustfmt via rustup arg, also take longer to build than the actual
 # build..
 options = ["!check"]
