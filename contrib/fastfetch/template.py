@@ -1,5 +1,5 @@
 pkgname = "fastfetch"
-pkgver = "2.20.0"
+pkgver = "2.21.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTS=ON", "-DENABLE_SYSTEM_YYJSON=ON"]
@@ -12,7 +12,6 @@ makedepends = [
     "libmagick-devel",
     "libpulse-devel",
     "libxrandr-devel",
-    "networkmanager-devel",
     "ocl-icd-devel",
     "vulkan-headers",
     "vulkan-loader-devel",
@@ -27,7 +26,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://github.com/fastfetch-cli/fastfetch"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "461f64bda6ab4a33085b1b75afd01e72a7d0556b678852b95fbea4916ceec2a8"
+sha256 = "21d085a612b6bd9ab0f4e7bffe2632e313e6f67d432251cfd5a7f877b7194733"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 # CFI: dies immediately (ffPlatformPathAddHome at FFlist.c:31:12)
 hardening = ["vis", "!cfi"]
