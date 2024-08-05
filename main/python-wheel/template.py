@@ -1,5 +1,5 @@
 pkgname = "python-wheel"
-pkgver = "0.43.0"
+pkgver = "0.44.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pypa/wheel"
 source = f"$(PYPI_SITE)/w/wheel/wheel-{pkgver}.tar.gz"
-sha256 = "465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85"
+sha256 = "a29c3f2817e95ab89aa4660681ad547c0e9547f20e75b0562fe7723c9a2a9d49"
 # cylic
 options = ["!check"]
 
