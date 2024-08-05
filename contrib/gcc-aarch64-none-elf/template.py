@@ -1,6 +1,6 @@
 _trip = "aarch64-none-elf"
 pkgname = f"gcc-{_trip}"
-pkgver = "14.1.0"
+pkgver = "14.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -63,7 +63,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
-sha256 = "e283c654987afe3de9d8080bc0bd79534b5ca0d681a73a11ff2b5d3767426840"
+sha256 = "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9"
 env = {
     "CFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
     "CXXFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
