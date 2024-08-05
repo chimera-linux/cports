@@ -1,5 +1,5 @@
 pkgname = "libdeflate"
-pkgver = "1.20"
+pkgver = "1.21"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ebiggers/libdeflate"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ed1454166ced78913ff3809870a4005b7170a6fd30767dc478a09b96847b9c2a"
+sha256 = "50827d312c0413fbd41b0628590cd54d9ad7ebf88360cba7c0e70027942dbd01"
 hardening = ["vis", "!cfi"]
 
 
