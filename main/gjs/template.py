@@ -1,6 +1,6 @@
 pkgname = "gjs"
 pkgver = "1.80.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 # disable tests that need X/dbus
 configure_args = [
