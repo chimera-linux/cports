@@ -3,94 +3,18 @@ From: q66 <q66@chimera-linux.org>
 Date: Fri, 17 Mar 2023 04:39:15 +0100
 Subject: [PATCH] tests portability
 
----
- tests/meson.build |   1 -
- tests/test-run.sh | 116 +++++++++++++++++++---------------------------
- 2 files changed, 48 insertions(+), 69 deletions(-)
-
-diff --git a/tests/meson.build b/tests/meson.build
-index 87bf709..c44f159 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -17,7 +17,6 @@ executable(
- 
- test_scripts = [
-   'test-run.sh',
--  'test-seccomp.py',
-   'test-specifying-pidns.sh',
-   'test-specifying-userns.sh',
- ]
 diff --git a/tests/test-run.sh b/tests/test-run.sh
 index 6151f1a..aa8bba8 100755
 --- a/tests/test-run.sh
 +++ b/tests/test-run.sh
-@@ -109,15 +109,6 @@ assert_file_has_content json-status.json '"child-pid": [0-9]'
+@@ -109,7 +109,7 @@ assert_file_has_content json-status.json '"child-pid": [0-9]'
  assert_file_has_content_literal json-status.json '"exit-code": 42'
  ok "info and json-status fd"
  
 -DATA=$($RUN --proc /proc --unshare-all --info-fd 42 --json-status-fd 43 -- bash -c 'stat -L --format "%n %i" /proc/self/ns/*' 42>info.json 43>json-status.json 2>err.txt)
--
--for NS in "ipc" "mnt" "net" "pid" "uts"; do
--
--    want=$(echo "$DATA" | grep "/proc/self/ns/$NS" | awk '{print $2}')
--    assert_file_has_content info.json "$want"
--    assert_file_has_content json-status.json "$want"
--done
--
- ok "namespace id info in info and json-status fd"
++DATA=$($RUN --proc /proc --unshare-all --info-fd 42 --json-status-fd 43 -- bash -c 'stat -L -f "%N %i" /proc/self/ns/*' 42>info.json 43>json-status.json 2>err.txt)
  
- if ! command -v strace >/dev/null || ! strace -h | grep -v -e default | grep -e fault >/dev/null; then
-@@ -146,8 +137,9 @@ else
-     assert_file_has_content recursive_proc.txt "hello"
-     ok "can mount /proc recursively"
- 
--    $BWRAP_RECURSE -- /proc/self/exe --unshare-all ${BWRAP_RO_HOST_ARGS} findmnt > recursive-newroot.txt
--    assert_file_has_content recursive-newroot.txt "/usr"
-+    # no findmnt in test environment
-+    #$BWRAP_RECURSE -- /proc/self/exe --unshare-all ${BWRAP_RO_HOST_ARGS} findmnt > recursive-newroot.txt
-+    #assert_file_has_content recursive-newroot.txt "/usr"
-     ok "can pivot to new rootfs recursively"
- 
-     $BWRAP --dev-bind / / -- true
-@@ -237,25 +229,25 @@ for die_with_parent_argv in "--die-with-parent" "--die-with-parent --unshare-pid
-     # We have to loop here, because bwrap doesn't wait for the lock if
-     # another process is holding it. If we're unlucky, lockf-n.py will
-     # be holding it.
--    bash -c "while true; do $RUN ${die_with_parent_argv} --lock-file $(pwd)/lock sleep 1h; done" &
--    childshellpid=$!
-+    #bash -c "while true; do $RUN ${die_with_parent_argv} --lock-file $(pwd)/lock sleep 1h; done" &
-+    #childshellpid=$!
- 
-     # Wait for lock to be taken (yes hacky)
--    for x in $(seq 10); do
--        if ./lockf-n.py ./lock nowait; then
--            sleep 1
--        else
--            break
--        fi
--    done
--    if ./lockf-n.py ./lock nowait; then
--        assert_not_reached "timed out waiting for lock"
--    fi
-+    #for x in $(seq 10); do
-+    #    if ./lockf-n.py ./lock nowait; then
-+    #        sleep 1
-+    #    else
-+    #        break
-+    #    fi
-+    #done
-+    #if ./lockf-n.py ./lock nowait; then
-+    #    assert_not_reached "timed out waiting for lock"
-+    #fi
- 
-     # Kill the shell, which should kill bwrap (and the sleep)
--    kill -9 ${childshellpid}
-+    #kill -9 ${childshellpid}
-     # Lock file should be unlocked
--    ./lockf-n.py ./lock wait
-+    #./lockf-n.py ./lock wait
-     ok "die with parent ${die_with_parent_argv}"
- done
+ for NS in "ipc" "mnt" "net" "pid" "uts"; do
  
 @@ -339,9 +331,9 @@ $RUN \
      --bind "$(pwd -P)/some-dir" "$(pwd -P)/new-dir-mountpoint" \
