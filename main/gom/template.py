@@ -1,5 +1,5 @@
 pkgname = "gom"
-pkgver = "0.5.2"
+pkgver = "0.5.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gom"
 source = f"$(GNOME_SITE)/gom/{pkgver[:-2]}/gom-{pkgver}.tar.xz"
-sha256 = "4cde83adf6f826836ed575d420f987ad1f559606b218224b69bf559f2ed7e205"
+sha256 = "069d0909fbdc6b4d27edf7a879366194e3ab508b03548bf5b89ff63546d20177"
 options = ["!cross"]
 
 
