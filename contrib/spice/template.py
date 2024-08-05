@@ -1,6 +1,6 @@
 pkgname = "spice"
 pkgver = "0.15.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-opengl",
@@ -36,6 +36,7 @@ license = "LGPL-2.1-or-later"
 url = "https://www.spice-space.org"
 source = f"https://www.spice-space.org/download/releases/spice-{pkgver}.tar.bz2"
 sha256 = "6d9eb6117f03917471c4bc10004abecff48a79fb85eb85a1c45f023377015b81"
+hardening = ["!int"]
 
 if self.profile().endian == "big":
     broken = "only supports little-endian"
