@@ -1,6 +1,6 @@
 pkgname = "less"
 pkgver = "661"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-regex=posix"]
 make_cmd = "gmake"
@@ -10,12 +10,10 @@ checkdepends = ["perl"]
 pkgdesc = "Pager program similar to more(1)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:less OR GPL-3.0-or-later"
-url = "http://www.greenwoodsoftware.com/less"
-source = f"http://www.greenwoodsoftware.com/less/less-{pkgver}.tar.gz"
+url = "https://www.greenwoodsoftware.com/less"
+source = f"https://www.greenwoodsoftware.com/less/less-{pkgver}.tar.gz"
 sha256 = "2b5f0167216e3ef0ffcb0c31c374e287eb035e4e223d5dae315c2783b6e738ed"
 hardening = ["vis", "cfi"]
-# less -> perl -> less cycle
-options = ["!check"]
 
 
 def post_install(self):
