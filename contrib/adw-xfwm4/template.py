@@ -15,5 +15,4 @@ def do_install(self):
     self.install_files("pixmaps", "usr/share")
 
     # No idea why these are there
-    for f in self.find(self.destdir, "themerc~"):
-        self.rm(f)
+    self.uninstall("**/themerc~", glob=True)
