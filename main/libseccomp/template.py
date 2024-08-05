@@ -1,3 +1,4 @@
+# update python-libseccomp alongside this
 pkgname = "libseccomp"
 pkgver = "2.5.5"
 pkgrel = 0
