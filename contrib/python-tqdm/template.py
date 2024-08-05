@@ -1,5 +1,5 @@
 pkgname = "python-tqdm"
-pkgver = "4.66.4"
+pkgver = "4.66.5"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT AND MPL-2.0"
 url = "https://tqdm.github.io"
 source = f"$(PYPI_SITE)/t/tqdm/tqdm-{pkgver}.tar.gz"
-sha256 = "e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb"
+sha256 = "e1020aef2e5096702d8a025ac7d16b1577279c9d63f8375b63083e9a5f0fcbad"
 
 
 def init_check(self):
