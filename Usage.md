@@ -171,9 +171,9 @@ If you are familiar with `xbps-src`, these are the main conceptual differences:
   and a custom `suid` binary. This would prevent us from sandboxing properly.
   However, this functionality is not needed, since we guarantee consistency of
   the sandbox at all times. For parallel building of several packages at once,
-  the `-t` flag still exists. Instead of using an overlay, it will simply
-  bootstrap a fresh temporary root. Unlike with `xbps-src`, this does not
-  create a performance problem, as everything is much faster.
+  the `-t` flag still exists. Instead of using an overlay, it will bootstrap
+  a fresh temporary root. Unlike with `xbps-src`, this does not create a
+  performance problem, as everything is much faster.
 * Created packages are automatically signed. With `xbps-src` this would be a
   potential security hazard, but `cbuild` can guarantee no malicious process
   can get access to your signing keys. That means repositories generated with
@@ -434,7 +434,7 @@ only have an effect with specific commands.
   use. By default uses the number of CPUs the cbuild run is restricted to (which
   is usually the number of CPU threads you have). If you have insufficient RAM
   (at least 2GB per thread is recommended), you will want to lower this. Setting
-  to 0 just uses the default.
+  to 0 uses the default.
 * `-K`, `--keep-temporary` Keep temporary build files after a successful build,
   this includes the `builddir` and `destdir`. If using a temporary build root,
   it will not be removed.
@@ -651,10 +651,10 @@ once they are set up they should never get corrupt.
 The builds will transparently use `ccache` to speed things up if enabled. This
 does not apply to `bootstrap`, which never uses the cache.
 
-You can enable this in your `config.ini`, simply by setting `ccache = yes` in
-the `build` section. The cache will be stored in the `ccache` subdirectory of
-the cbuild caches path (by default `cbuild_cache`, see `config.ini.example`
-for how to change it).
+You can enable this in your `config.ini` by setting `ccache = yes` in the
+`build` section. The cache will be stored in the `ccache` subdirectory of the
+cbuild caches path (by default `cbuild_cache`, see `config.ini.example` for how
+to change it).
 
 <a id="help"></a>
 ## Help
