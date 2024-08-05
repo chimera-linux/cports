@@ -432,13 +432,14 @@ you can install the `-dbg` package, don't forget about `musl-dbg` as well)
 and a debugger (`lldb`). Then you can run your program in the debugger, or
 you can capture a core dump and open it in the debugger.
 
-On architectures where `SIGILL` is emitted, it is possible to tell what kind
-of sanitizer violation has happened. The instruction on which the program
-aborts encodes this information. You just need to get the current assembly
-instruction in the debugger and you might see something like this (example
+On architectures where `SIGILL` is emitted, it is usually possible to tell what
+kind of sanitizer violation has happened. The instruction on which the program
+aborts encodes this information. You need to get the current assembly
+instruction in the debugger, and you might see something like this (example
 on the `x86_64` architecture):
 
 ```
+(lldb) x/1i $pc
 ->  0x5555555b0dc6 <+297814>: ud1l   0xc(%eax), %eax
 ```
 
@@ -658,13 +659,13 @@ be necessary) and so on.
 ## Filesystem Structure
 
 Programs meant to be executed directly by the user always go in `/usr/bin`.
-The `/usr/sbin`, `/bin` and `/sbin` paths are just symbolic links to the
+The `/usr/sbin`, `/bin` and `/sbin` paths are symbolic links to the
 primary `/usr/bin` path and should never be present in packages.
 
 Libraries go in `/usr/lib`. Do not use `/usr/lib64` or `/usr/lib32`,
-these should never be present in packages. Same goes for the toplevel
+these should never be present in packages. The same goes for the toplevel
 `/lib` or `/lib64` or `/lib32` paths. In general, compatibility symlinks
-are present in the system and they all point to just `/usr/lib`.
+are present in the system and they all point to `/usr/lib`.
 
 Executable programs that are internal and not meant to be run by the
 user go in `/usr/libexec` (unless the software does not allow this).
@@ -864,7 +865,7 @@ Keep in mind that default values may be overridden by build styles.
   declared, see above.
 * `hardening` *(list)* Hardening options to be enabled or disabled for the
   template. Refer to the hardening section for more information. This is
-  a simple list of strings that works similarly to `options`, with `!`
+  a list of strings that works similarly to `options`, with `!`
   disabling the hardening options. Any enabled hardening option that is
   not supported by the target will be ignored.
 * `hostmakedepends` *(list)* A list of strings specifying package names to
@@ -934,7 +935,7 @@ Keep in mind that default values may be overridden by build styles.
 * `makedepends` *(list)* A list of strings specifying package names to be
   installed in the build container. When cross compiling, these are installed
   into the target architecture sysroot. When not cross compiling, this is
-  simply concatenated with `hostmakedepends`.
+  concatenated with `hostmakedepends`.
 * `nopie_files` *(list)* A list of glob patterns (strings). By default,
   the system will reject non-PIE executables when PIE is enabled, but
   if the file's path matches any of the patterns in this list, it will
@@ -991,7 +992,7 @@ Keep in mind that default values may be overridden by build styles.
 * `replaces` *(list)* A list of packages we are replacing, in the same
   constraint format as `provides`. This allows the current package to
   replace files of the listed packages, without complaining about file
-  conflicts. The files from the current package will simply take over the
+  conflicts. The files from the current package will take over the
   conflicting files. This is primarily useful for moving files from one
   package to another, or together with `replaces_priority`, for "policy
   packages".
@@ -1167,7 +1168,7 @@ logic with a single line.
 build_style = "meson"
 ```
 
-Simply with this, you declare that this template uses the Meson build
+With this, you declare that this template uses the Meson build
 system. What actually happens is that the build style will create some
 of the necessary functions (`do_build` etc) implicitly.
 
@@ -1199,7 +1200,7 @@ while the build style can set any functions it wants. It can also define
 new template variables, as well as override default values for any
 template variable.
 
-In general, build styles are simply small wrappers over the `cbuild.util`
+In general, build styles are small wrappers over the `cbuild.util`
 namespace APIs. That allows you to use the APIs when you need logic that
 cannot be declared with just a simple variable, and keep templates simple
 where that is sufficient.
@@ -1257,7 +1258,7 @@ invocations do not receive them.
 
 #### configure
 
-A simple style that simply runs `self.configure_script` within `self.chroot_cwd`
+A simple style that runs `self.configure_script` within `self.chroot_cwd`
 with `self.configure_args` for `do_configure` and uses a simple `Make` from
 `cbuild.util` to build.
 
@@ -1294,17 +1295,17 @@ and other things, while `configure` can't.
 
 #### makefile
 
-A simple wrapper around `cbuild.util.make`.
+A wrapper around `cbuild.util.make`.
 
 Variables:
 
 * `make_use_env` A boolean (defaults to `False`) specifying whether some of the
-  core variables will be provided solely via the environment. If unset, they
-  are provided on the command line. These variables are `OBJCOPY`, `RANLIB`,
+  core variables will be provided solely via the environment. If false, they
+  are also provided on the command line. These variables are `OBJCOPY`, `RANLIB`,
   `CXX`, `CPP`, `CC`, `LD`, `AR`, `AS`, `CFLAGS`, `FFLAGS`, `LDFLAGS`, `CXXFLAGS`
   and `OBJDUMP` (the last one only when not bootstrapping) during `do_build`.
   All of these inherently exist in the environment, so if this is `True`, they
-  will simply not be passed on the command line arguments.
+  will not be passed on the command line arguments.
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
 
@@ -1366,7 +1367,7 @@ The `make_install_target` is used as a glob pattern to match built wheels.
 <a id="subpackages"></a>
 ### Subpackages
 
-The `cbuild` system has support for subpackages. Subpackages are just
+The `cbuild` system has support for subpackages. Subpackages are
 regular packages repository-wise, except they are built as a part of
 some main package's process, and are created from its files.
 
@@ -1617,7 +1618,7 @@ Once dependencies are scanned, the package is scanned for provides, so
 that other packages can depend on it.
 
 ELF files with a suffix starting with `.so` are considered for `so:`
-provides. Files with just `.so` suffix participate in this if they exist
+provides. Files with just a `.so` suffix participate in this if they exist
 directly in `usr/lib` (as otherwise they may be e.g. plugins and we do
 not want to handle those). Versioned files (e.g. `.so.1`) can be located
 anywhere. If the version contains anything that is not a number, it is
@@ -1927,7 +1928,7 @@ environment, but those are documented elsewhere.
 
 The packaging system lets you provide custom hooks as well as triggers.
 
-Hooks are scriptlets (simple shell scripts) that will run at specified
+Hooks are scriptlets (shell scripts) that will run at specified
 times during the package installation or removal. Triggers are scriptlets
 that run if something modifies a monitored directory.
 
@@ -2330,7 +2331,7 @@ The second argument specifies which regular packaging steps have to run before
 running this.
 
 Custom targets do not emit/capture log files so they can be used for things
-that require interactivity. The primary purpose is to provide simple logic
+that require interactivity. The primary purpose is to provide logic
 for things like bindist generation for toolchain bootstrapping and so on.
 
 You can query the current target at template toplevel, e.g. to add extra
@@ -2926,7 +2927,7 @@ stamp file already exists. The script will proceed after the context.
 
 ##### def profile(self, target = None)
 
-If `target` is not given, simply returns the current profile, otherwise
+If `target` is not given, returns the current profile, otherwise only
 to be used as a context manager. Temporarily overrides the current build
 profile to the given `target`, which can be a specific profile name (for
 example `aarch64`) or the special aliases `host` and `target`, which refer
@@ -3716,7 +3717,7 @@ If you pass an extra argument with any value, it will be verbose, printing
 extra messages along the way.
 
 The update checking can be tweaked by creating the file `update.py` in the
-same directory with the template. This file is a Python source file just
+same directory with the template. This file is a Python source file
 like the template itself, and likewise it can contain variables and hooks.
 
 It can also reference the update check object via `self` at the global
@@ -3770,13 +3771,13 @@ You can define some functions:
 
 * `collect_sources` A function taking the update check object, which is
   supposed to collect the initial list of source URLs to be considered.
-  The default simply returns `self.collect_sources()`, which uses either
+  The default returns `self.collect_sources()`, which uses either
   `self.url` or `self.template.url` plus `self.template.source`.
 * `expand_source` A function taking the update check object plus a URL
   (one for each returned from `collect_sources`). It is a filter function
   that returns a list (containing the input URL if it does not wish to
   expand or filter anything, and empty if it wishes to skip the URL). The
-  default behavior is to simply return `self.expand_source(input)`, which
+  default behavior is to return `self.expand_source(input)`, which
   returns the input when `single_directory` is set to `True` and does the
   parent directory expansion otherwise.
 * `fetch_versions` A function taking a single URL and returning a list
