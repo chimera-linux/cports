@@ -1,6 +1,6 @@
 pkgname = "mozjs128"
-pkgver = "128.0"
-pkgrel = 1
+pkgver = "128.1.0"
+pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
     "cargo",
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "c5ba7dcfbaf8600667766891eca9069392b659e18255d91d742ac69f224c697c"
+sha256 = "ccdab622a395622abc6d80040a11715ad81a614f601db6672c05b98ac91fd9b5"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
@@ -42,10 +42,6 @@ env = {
 hardening = ["!int"]
 # dependencies are not crossable for now and it's probably tricky
 options = ["!cross"]
-
-
-def post_patch(self):
-    self.mv("js/src/gc/SweepingAPI.h", "js/public/SweepingAPI.h")
 
 
 def init_configure(self):
