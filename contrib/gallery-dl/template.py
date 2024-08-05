@@ -11,7 +11,6 @@ hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 depends = ["python-requests"]
 checkdepends = ["python-pytest", *depends]
