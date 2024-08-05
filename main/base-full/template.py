@@ -1,6 +1,6 @@
 pkgname = "base-full"
-pkgver = "0.3"
-pkgrel = 4
+pkgver = "0.4"
+pkgrel = 0
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -64,6 +64,8 @@ def _fonts(self):
     self.provider_priority = 100
     self.depends = [
         "fonts-dejavu",
+        "fonts-noto",
+        "fonts-noto-emoji-ttf",
     ]
     return []
 
