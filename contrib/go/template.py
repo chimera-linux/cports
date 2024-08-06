@@ -1,6 +1,6 @@
 pkgname = "go"
-pkgver = "1.22.5"
-pkgrel = 1
+pkgver = "1.22.6"
+pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
     "libatomic-chimera-devel-static",
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "ac9c723f224969aee624bc34fd34c9e13f2a212d75c71c807de644bb46e112f6"
+sha256 = "9e48d99d519882579917d8189c17e98c373ce25abaebb98772e2927088992a51"
 env = {}
 # see below
 options = [
