@@ -1,1 +1,1 @@
-pkgname = "pyOpenSSL"
+pkgname = "pyopenssl"
