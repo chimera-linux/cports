@@ -1682,7 +1682,8 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
     if tgt == "chroot":
         paths.prepare()
         chroot.shell_update(not opt_nonet)
-        rp.setup_paths()
+        if rp:
+            rp.setup_paths()
         if rp and rp.srcdir.is_dir():
             curwrk = rp.chroot_srcdir
         elif rp and rp.srcdir.parent.is_dir():
