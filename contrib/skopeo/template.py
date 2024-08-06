@@ -4,9 +4,7 @@ pkgrel = 1
 build_style = "go"
 # for compatibility with Makefile targets
 make_dir = "bin"
-make_build_args = [
-    "./cmd/skopeo",
-]
+make_build_args = ["./cmd/skopeo"]
 hostmakedepends = [
     "bash",
     "gmake",
@@ -20,12 +18,8 @@ makedepends = [
     "linux-headers",
     "sqlite-devel",
 ]
-depends = [
-    "containers-common",
-]
-go_build_tags = [
-    "libsqlite3",
-]
+depends = ["containers-common"]
+go_build_tags = ["libsqlite3"]
 pkgdesc = "OCI image and repo manipulation tool"
 maintainer = "Radosław Piliszek <radek@piliszek.it>"
 license = "Apache-2.0"
