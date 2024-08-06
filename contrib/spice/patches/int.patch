@@ -1,14 +1,5 @@
 --- a/subprojects/spice-common/common/lz_compress_tmpl.c
 +++ b/subprojects/spice-common/common/lz_compress_tmpl.c
-@@ -43,7 +43,7 @@
- #include <config.h>
- 
- #define DJB2_START 5381
--#define DJB2_HASH(hash, c) (hash = ((hash << 5) + hash) ^ (c)) //|{hash = ((hash << 5) + hash) + c;}
-+#define DJB2_HASH(hash, c) (hash = ((unsigned)(hash << 5) + hash) ^ (c)) //|{hash = ((unsigned)(hash << 5) + hash) + c;}
- 
- /*
-     For each pixel type the following macros are defined:
 @@ -159,14 +159,14 @@
  // TODO: check times
  
@@ -29,15 +20,6 @@
          encode_copy_count(encoder, MAX_COPY - 1);
 --- a/server/glz-encode.tmpl.c
 +++ b/server/glz-encode.tmpl.c
-@@ -17,7 +17,7 @@
- #include <config.h>
- 
- #define DJB2_START 5381
--#define DJB2_HASH(hash, c) (hash = ((hash << 5) + hash) ^ (c)) //|{hash = ((hash << 5) + hash) + c;}
-+#define DJB2_HASH(hash, c) (hash = ((unsigned)(hash << 5) + hash) ^ (c)) //|{hash = ((unsigned)(hash << 5) + hash) + c;}
- 
- /*
-     For each pixel type the following macros are defined:
 @@ -230,14 +230,14 @@ static inline size_t FNAME(do_match)(SharedDictionary *dict,
     In order to encode a match, we use pixels resolution when we encode RGB image,
     and bytes count when we encode PLT.
