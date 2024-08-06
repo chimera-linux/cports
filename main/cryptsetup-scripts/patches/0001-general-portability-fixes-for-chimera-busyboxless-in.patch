@@ -219,8 +219,8 @@ index dd5c798..adf8d25 100644
 -if [ "$BUSYBOX" = n ] || [ -z "$BUSYBOXDIR" ]; then
 -    copy_exec /bin/sed
 -fi
-+# chimera: already provided via chimerautils-tiny by default
-+#copy_exec /bin/sed
++# chimera: copy stuff that'd be provided by bussybox
++copy_exec /bin/awk
  
  # detect whether the host CPU has AES-NI support
  if grep -Eq '^flags\s*:(.*\s)?aes(\s.*)?$' /proc/cpuinfo; then
