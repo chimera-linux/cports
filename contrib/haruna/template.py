@@ -1,6 +1,6 @@
 pkgname = "haruna"
 pkgver = "1.1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "extra-cmake-modules",
@@ -25,7 +25,7 @@ makedepends = [
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
 ]
-depends = ["yt-dlp"]
+depends = ["kdeclarative", "yt-dlp"]
 pkgdesc = "Qt/libmpv based video player"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
