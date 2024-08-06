@@ -1,6 +1,6 @@
 pkgname = "spice"
 pkgver = "0.15.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-opengl",

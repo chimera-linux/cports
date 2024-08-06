@@ -1,0 +1,22 @@
+--- a/subprojects/spice-common/common/lz_compress_tmpl.c
++++ b/subprojects/spice-common/common/lz_compress_tmpl.c
+@@ -43,7 +43,7 @@
+ #include <config.h>
+ 
+ #define DJB2_START 5381
+-#define DJB2_HASH(hash, c) (hash = ((hash << 5) + hash) ^ (c)) //|{hash = ((hash << 5) + hash) + c;}
++#define DJB2_HASH(hash, c) (hash = ((unsigned)(hash << 5) + hash) ^ (c)) //|{hash = ((unsigned)(hash << 5) + hash) + c;}
+ 
+ /*
+     For each pixel type the following macros are defined:
+--- a/server/glz-encode.tmpl.c
++++ b/server/glz-encode.tmpl.c
+@@ -17,7 +17,7 @@
+ #include <config.h>
+ 
+ #define DJB2_START 5381
+-#define DJB2_HASH(hash, c) (hash = ((hash << 5) + hash) ^ (c)) //|{hash = ((hash << 5) + hash) + c;}
++#define DJB2_HASH(hash, c) (hash = ((unsigned)(hash << 5) + hash) ^ (c)) //|{hash = ((unsigned)(hash << 5) + hash) + c;}
+ 
+ /*
+     For each pixel type the following macros are defined:
