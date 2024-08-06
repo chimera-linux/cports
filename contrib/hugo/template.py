@@ -16,16 +16,11 @@ options = ["!check", "!cross"]
 
 
 def post_build(self):
-    self.do(self.make_dir + "/hugo", "gen", "man")
+    self.do(f"{self.make_dir}/hugo", "gen", "man")
 
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"hugo.{shell}", "w") as f:
-            self.do(
-                self.make_dir + "/hugo",
-                "completion",
-                shell,
-                stdout=f,
-            )
+            self.do(f"{self.make_dir}/hugo", "completion", shell, stdout=f)
 
 
 def post_install(self):

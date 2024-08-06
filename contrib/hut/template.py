@@ -18,12 +18,7 @@ def post_build(self):
 
     for s in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"hut.{s}", "w") as cf:
-            self.do(
-                self.make_dir + "/hut",
-                "completion",
-                s,
-                stdout=cf,
-            )
+            self.do(f"{self.make_dir}/hut", "completion", s, stdout=cf)
 
 
 def post_install(self):

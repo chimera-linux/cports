@@ -19,12 +19,7 @@ options = ["!check", "!cross"]
 def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"nerdctl.{shell}", "w") as f:
-            self.do(
-                self.chroot_cwd / self.make_dir / "nerdctl",
-                "completion",
-                shell,
-                stdout=f,
-            )
+            self.do(f"{self.make_dir}/nerdctl", "completion", shell, stdout=f)
 
 
 def post_install(self):

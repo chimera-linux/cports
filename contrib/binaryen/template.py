@@ -35,7 +35,7 @@ def do_check(self):
         "check.py",
         "--no-torture",
         "--binaryen-bin",
-        f"{self.chroot_cwd}/{self.make_dir}/bin",
+        f"{self.make_dir}/bin",
     )
 
 

@@ -13,7 +13,7 @@ sha256 = "b0a4c7c077ede56967deef6ab7e7696c0f46124b0b3360fd05564ec5a536f11f"
 
 def post_build(self):
     self.do(
-        self.chroot_cwd / self.make_dir / "go-md2man",
+        f"{self.make_dir}/go-md2man",
         "-in",
         "go-md2man.1.md",
         "-out",

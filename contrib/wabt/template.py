@@ -51,11 +51,11 @@ def do_check(self):
         "python",
         "test/run-tests.py",
         "--bindir",
-        f"{self.chroot_cwd}/{self.make_dir}",
+        self.make_dir,
         "--timeout",
         "600",
         "--jobs",
-        f"{self.make_jobs}",
+        str(self.make_jobs),
         "--exclude-dir",
         # these fail on ppc64le due to differing output values from golder
         "spec",
