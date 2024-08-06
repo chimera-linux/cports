@@ -1,5 +1,5 @@
 pkgname = "qqc2-breeze-style"
-pkgver = "6.1.3"
+pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/qqc2-breeze-style"
 source = f"$(KDE_SITE)/plasma/{pkgver}/qqc2-breeze-style-{pkgver}.tar.xz"
-sha256 = "4947312e1e7282923dfabfe6c6db60e90c3cf4c329092cb7d077f7184551be68"
+sha256 = "8fb9bc4156f9dc920c63b0d8afaa4aacb72eb650e907c06dacde38bfd55d5168"
 hardening = ["vis"]
 
 

@@ -1,9 +1,9 @@
 pkgname = "discover"
-pkgver = "6.1.3"
+pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
-# fails in chroot env
-make_check_args = ["-E", "flatpaktest"]
+# fails in chroot env, needs some testdata
+make_check_args = ["-E", "flatpaktest|CategoriesTest"]
 make_check_wrapper = [
     "dbus-run-session",
     "--",
@@ -58,7 +58,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://userbase.kde.org/Discover"
 source = f"$(KDE_SITE)/plasma/{pkgver}/discover-{pkgver}.tar.xz"
-sha256 = "45a297dfcb9070aabc8dda0bbe78da9a300b27073b31756e8a4e81a5f9885183"
+sha256 = "64e73e990bebe13a2614245f03beb51c5027c285fc793309a2cff79e6156d284"
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

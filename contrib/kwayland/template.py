@@ -1,5 +1,5 @@
 pkgname = "kwayland"
-pkgver = "6.1.3"
+pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/frameworks/kwayland"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwayland-{pkgver}.tar.xz"
-sha256 = "69674a6656d042d96a3a13ab1d7076ab0551c40bc387ad33d693a4d077ea9abc"
+sha256 = "8691c06e65ac2c739de4842c0d1219579efb4ae1864b8614dc74a4645dd59774"
 
 
 @subpackage("kwayland-devel")

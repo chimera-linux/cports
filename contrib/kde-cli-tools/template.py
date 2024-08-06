@@ -1,5 +1,5 @@
 pkgname = "kde-cli-tools"
-pkgver = "6.1.3"
+pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: only test fails on initTestCase() 'fakeApplicationService' returned FALSE
@@ -29,5 +29,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kde-cli-tools"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kde-cli-tools-{pkgver}.tar.xz"
-sha256 = "d969051e2832ca6eb00ebc22234834e46a2f3cbfc6c3d4ee8a962058b14bc87a"
+sha256 = "d6d84afc71bab6bec45ca87333b261694920cc2246345b363cc469edadae1ae2"
 hardening = ["vis"]

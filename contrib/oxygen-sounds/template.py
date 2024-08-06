@@ -1,5 +1,5 @@
 pkgname = "oxygen-sounds"
-pkgver = "6.1.3"
+pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,4 +16,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "CC-BY-SA-4.0"
 url = "https://invent.kde.org/plasma/oxygen-sounds"
 source = f"$(KDE_SITE)/plasma/{pkgver}/oxygen-sounds-{pkgver}.tar.xz"
-sha256 = "7f277169be69ec99d6b923536a3335224a71c1b27d4410627aacb1173ba3bad4"
+sha256 = "6875e9984ce19c79ec199f6e8eed1fd85a088a78669710a88f612b582aa341c9"

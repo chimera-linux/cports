@@ -1,8 +1,14 @@
 pkgname = "plasma-integration"
-pkgver = "6.1.3"
+pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DBUILD_QT5=OFF"]
+configure_args = [
+    "-DBUILD_QT5=OFF",
+    "-CMAKE_DISABLE_FIND_PACKAGE_FontHack=ON",
+    "-CMAKE_DISABLE_FIND_PACKAGE_FontNotoColorEmoji=ON",
+    "-CMAKE_DISABLE_FIND_PACKAGE_FontNotoSans=ON",
+    "-CMAKE_DISABLE_FIND_PACKAGE_XDGDesktopPortalKDE=ON",
+]
 make_check_args = [
     "-E",
     "(kdeplatformtheme|"  # 5/9 failing subtests due to differing values, kdeplatformtheme_unittest.cpp:(127,167,221,230,295)
@@ -43,5 +49,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-integration"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-integration-{pkgver}.tar.xz"
-sha256 = "a3ef73795b5f7d4d4b3c562645c0fdc31c3034499cc6ad61cd48ccfb3fe3e55b"
+sha256 = "08a12823fd78e7be04e23f1dd1f5ee6eb1535cab561237d6efd4b0d032dcaa74"
 hardening = ["vis"]

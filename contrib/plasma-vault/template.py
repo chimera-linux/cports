@@ -1,5 +1,5 @@
 pkgname = "plasma-vault"
-pkgver = "6.1.3"
+pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only AND LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/plasma-vault"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-vault-{pkgver}.tar.xz"
-sha256 = "d014f20f02ce6c6289f5412db685996c3ccfa704a1e6c7b22e5b342ea0441b70"
+sha256 = "34a4ff4c5b9bf6fe75c4eab0225daea21c25129179defc89b0b92ecb1a7bc8df"
 
 
 @subpackage("plasma-vault-gocryptfs")

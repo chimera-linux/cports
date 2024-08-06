@@ -1,5 +1,5 @@
 pkgname = "oxygen"
-pkgver = "6.1.3"
+pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
@@ -33,7 +33,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"  # FIXME
 url = "https://invent.kde.org/plasma/oxygen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/oxygen-{pkgver}.tar.xz"
-sha256 = "b2e781f5dc4f111e17485a34299700f48fe6bf668494b3a00857b842b8caeda1"
+sha256 = "036017d9fdf72764cb4bb078972a5d95c61d62f865100c56ef5a811e31aba9d5"
 hardening = ["vis"]
 
 
