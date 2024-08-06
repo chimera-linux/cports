@@ -1,6 +1,6 @@
 pkgname = "hugo"
 pkgver = "0.131.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 go_build_tags = ["extended"]

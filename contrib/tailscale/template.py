@@ -1,6 +1,6 @@
 pkgname = "tailscale"
 pkgver = "1.70.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = [
     "-ldflags="
