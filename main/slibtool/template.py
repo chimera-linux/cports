@@ -1,6 +1,6 @@
 pkgname = "slibtool"
 pkgver = "0.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 make_cmd = "gmake"
