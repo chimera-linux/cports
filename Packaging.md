@@ -2872,7 +2872,9 @@ environment section). The provided env vars override whatever builtin ones
 the system sets up.
 
 The `wrksrc` is relative to current `cwd` of the template. If not given, the
-working directory will be the current `cwd` of the template itself.
+working directory will be the current `cwd` of the template itself. Note that
+working directories are viewed from inside the sandbox, so when passing absolute
+paths, you should use the `chroot_`-prefixed bases.
 
 The level of sandboxing used depends on the current build phase. In all cases,
 the root filesystem will be mounted read only, the `builddir` will be mutable
