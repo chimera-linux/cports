@@ -47,7 +47,7 @@ def post_extract(self):
 def post_install(self):
     self.install_license("COPYING")
     # test programs (installed with tests enabled)
-    self.uninstall("usr/libexec/libunwind")
+    # self.uninstall("usr/libexec/libunwind")
 
 
 @subpackage("libunwind-nongnu-devel")
