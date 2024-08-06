@@ -39,9 +39,7 @@ def post_build(self):
 
 
 def do_check(self):
-    # NOTE(yoctozepto): Run only unit tests for now.
-    # Higher-level tests make extra assumptions such as: awk being gawk,
-    # bats being available and docker daemon running with network access.
+    # only unit tests; others assume docker daemon, gawk, network access, etc.
     self.do("gmake", "test-unit-local")
 
 
