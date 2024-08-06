@@ -1,12 +1,11 @@
 pkgname = "python-zope.interface"
-pkgver = "6.4"
+pkgver = "7.0.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 makedepends = ["python-devel"]
 depends = ["python-setuptools"]
@@ -14,8 +13,8 @@ pkgdesc = "Zope interfaces for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ZPL-2.1"
 url = "https://github.com/zopefoundation/zope.interface"
-source = f"$(PYPI_SITE)/z/zope.interface/zope_interface-{pkgver}.tar.gz"
-sha256 = "b11f2b67ccc990a1522fa8cd3f5d185a068459f944ab2d0e7a1b15d31bcb4af4"
+source = f"$(PYPI_SITE)/z/zope.interface/zope.interface-{pkgver}.tar.gz"
+sha256 = "f0f5fda7cbf890371a59ab1d06512da4f2c89a6ea194e595808123c863c38eff"
 # not functional yet
 options = ["!check"]
 
