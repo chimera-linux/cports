@@ -1,5 +1,5 @@
 pkgname = "python-trio"
-pkgver = "0.26.0"
+pkgver = "0.26.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -28,7 +28,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/python-trio/trio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "829f759ce36332ddf2762ecf1bd5a083e127767f0b88b5813075d27cb796404d"
+sha256 = "463cc8cc437cdfd01bdff576519d753d2c35cd5cfb4b657b614ba4eabbab3bb2"
 
 
 def post_install(self):
