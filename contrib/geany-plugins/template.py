@@ -1,6 +1,6 @@
 pkgname = "geany-plugins"
 pkgver = "2.0.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-all-plugins",
@@ -10,12 +10,12 @@ configure_args = [
 make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "glib-devel",
     "gettext-devel",
+    "glib-devel",
     "gmake",
     "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = [
     "ctpl-devel",
@@ -35,10 +35,3 @@ license = "GPL-2.0-or-later"
 url = "https://geany.org"
 source = f"https://github.com/geany/geany-plugins/releases/download/{pkgver}/geany-plugins-{pkgver[:-2]}.tar.gz"
 sha256 = "cd7d27f00aef4afe2040d7e5246a863234c340c8520ef698be9a15005ed8f57e"
-
-if self.profile().arch == "aarch64":
-    # work around builtins not being linked properly
-    tool_flags = {
-        "CXXFLAGS": ["-mno-outline-atomics"],
-        "CFLAGS": ["-mno-outline-atomics"],
-    }
