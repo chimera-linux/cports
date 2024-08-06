@@ -2,13 +2,7 @@ pkgname = "plasma-integration"
 pkgver = "6.1.4"
 pkgrel = 0
 build_style = "cmake"
-configure_args = [
-    "-DBUILD_QT5=OFF",
-    "-CMAKE_DISABLE_FIND_PACKAGE_FontHack=ON",
-    "-CMAKE_DISABLE_FIND_PACKAGE_FontNotoColorEmoji=ON",
-    "-CMAKE_DISABLE_FIND_PACKAGE_FontNotoSans=ON",
-    "-CMAKE_DISABLE_FIND_PACKAGE_XDGDesktopPortalKDE=ON",
-]
+configure_args = ["-DBUILD_QT5=OFF"]
 make_check_args = [
     "-E",
     "(kdeplatformtheme|"  # 5/9 failing subtests due to differing values, kdeplatformtheme_unittest.cpp:(127,167,221,230,295)
