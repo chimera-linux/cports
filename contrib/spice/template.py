@@ -1,29 +1,34 @@
 pkgname = "spice"
 pkgver = "0.15.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-opengl",
-    "--enable-smartcard",
-    "--with-sasl",
     "--disable-static",
-    "--enable-xinerama",
+    "--enable-opengl",
     "--enable-opus",
+    "--enable-smartcard",
+    "--enable-xinerama",
+    "--with-sasl",
 ]
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake", "python"]
+hostmakedepends = [
+    "autoconf-archive",
+    "automake",
+    "libtool",
+    "gmake",
+    "pkgconf",
+    "python",
+]
 makedepends = [
     "gdk-pixbuf-devel",
     "gnutls-devel",
     "gst-plugins-base-devel",
-    "gstreamer-devel",
     "gstreamer-devel",
     "libcacard-devel",
     "libjpeg-turbo-devel",
     "libsasl-devel",
     "lz4-devel",
     "openssl-devel",
-    "opus-devel",
     "opus-devel",
     "pixman-devel",
     "spice-protocol",
@@ -44,6 +49,3 @@ if self.profile().endian == "big":
 @subpackage("spice-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
