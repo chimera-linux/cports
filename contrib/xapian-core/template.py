@@ -1,11 +1,11 @@
 pkgname = "xapian-core"
 pkgver = "1.4.26"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
-    "libtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = [
     "zlib-ng-compat-devel",
