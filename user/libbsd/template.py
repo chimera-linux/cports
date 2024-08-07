@@ -22,8 +22,6 @@ license = "BSD-3-Clause"
 url = "https://libbsd.freedesktop.org"
 source = f"{url}/releases/libbsd-{pkgver}.tar.xz"
 sha256 = "b88cc9163d0c652aaf39a99991d974ddba1c3a9711db8f1b5838af2a14731014"
-# FIXME: ld.lld version 16 and up regressions, needs linkundefver to work around it
-# https://lists.freedesktop.org/archives/libbsd/2024-January/000381.html
 # lto deletes symbols needed for <nlist.h> tests
 options = ["linkundefver", "!lto"]
 # format.ld needs gnu syntax
