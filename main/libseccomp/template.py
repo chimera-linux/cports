@@ -1,7 +1,7 @@
 # update python-libseccomp alongside this
 pkgname = "libseccomp"
 pkgver = "2.5.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
@@ -9,7 +9,7 @@ hostmakedepends = [
     "gsed",
     "gmake",
     "automake",
-    "libtool",
+    "slibtool",
     "gperf",
     "pkgconf",
 ]
