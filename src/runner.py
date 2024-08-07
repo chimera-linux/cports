@@ -51,6 +51,7 @@ opt_allowcat = "main contrib user"
 opt_restricted = False
 opt_updatecheck = False
 opt_acceptsum = False
+opt_maintby = None
 opt_maint = "unknown <cports@local>"
 opt_tdata = {}
 
@@ -111,7 +112,7 @@ def handle_options():
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
-    global opt_acceptsum, opt_comp, opt_maint, opt_epkgs, opt_tdata
+    global opt_acceptsum, opt_maintby, opt_comp, opt_maint, opt_epkgs, opt_tdata
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -301,6 +302,11 @@ def handle_options():
         help="Accept mismatched checksums when fetching.",
     )
     parser.add_argument(
+        "--maintained-by",
+        default=None,
+        help="Maintainer whose templates to run update checks for.",
+    )
+    parser.add_argument(
         "command",
         nargs="+",
         help="The command to issue. See Commands in Usage.md.",
@@ -462,6 +468,9 @@ def handle_options():
 
     if cmdline.accept_checksums:
         opt_acceptsum = True
+
+    if cmdline.maintained_by:
+        opt_maintby = cmdline.maintained_by
 
     ncores = len(os.sched_getaffinity(0))
 
@@ -1544,7 +1553,9 @@ def do_update_check(tgt):
 
     tmpls = []
     for pkg in pkgs:
-        tmpls.append(_do_readpkg(pkg))
+        tmpl = _do_readpkg(pkg)
+        if opt_maintby is None or opt_maintby in tmpl.maintainer:
+            tmpls.append(tmpl)
 
     if len(tmpls) == 1:
         cv = update_check.update_check(tmpls[0], verbose)
