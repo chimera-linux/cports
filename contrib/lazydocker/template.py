@@ -1,7 +1,10 @@
 pkgname = "lazydocker"
 pkgver = "0.23.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
+make_build_args = [
+    f"-ldflags= -X main.version={pkgver} -X main.buildSource=release",
+]
 hostmakedepends = ["go"]
 pkgdesc = "TUI for docker resource visualization and management"
 maintainer = "ttyyls <contact@behri.org>"
