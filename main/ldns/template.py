@@ -1,6 +1,6 @@
 pkgname = "ldns"
 pkgver = "1.8.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-drill",
@@ -11,12 +11,13 @@ configure_args = [
 hostmakedepends = [
     "automake",
     "dnssec-anchors",
-    "libtool",
     "perl",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = ["libpcap-devel", "openssl-devel", "dnssec-anchors"]
-pkgdesc = "Modern DNS/DNSSEC library - utilities"
+pkgdesc = "Modern DNS/DNSSEC library"
+subdesc = "utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.nlnetlabs.nl/projects/ldns"
@@ -27,7 +28,7 @@ options = ["!check"]
 
 
 def init_configure(self):
-    self.configure_args += ["--with-ssl=" + str(self.profile().sysroot / "usr")]
+    self.configure_args += [f"--with-ssl={self.profile().sysroot / 'usr'}"]
 
 
 def post_install(self):
@@ -37,7 +38,6 @@ def post_install(self):
 @subpackage("libldns")
 def _lib(self):
     self.depends = ["dnssec-anchors"]
-    self.pkgdesc = "Modern DNS/DNSSEC library"
 
     return self.default_libs()
 
@@ -45,6 +45,5 @@ def _lib(self):
 @subpackage("libldns-devel")
 def _devel(self):
     self.depends += ["openssl-devel"]
-    self.pkgdesc = "Modern DNS/DNSSEC library"
 
     return self.default_devel()
