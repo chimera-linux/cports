@@ -117,6 +117,7 @@ def extract_deb(pkg, fname, dfile, edir, sfx):
         ):
             return False
 
+        # make sure stuff's committed to disk first before using from chroot
         outf.close()
 
         if (
@@ -133,18 +134,7 @@ def extract_deb(pkg, fname, dfile, edir, sfx):
         ):
             return False
 
-        (pkg.statedir / edir.name / "data").unlink()
-
     return True
-
-
-def extract_rpm(pkg, fname, dfile, edir, sfx):
-    return (
-        chroot.enter(
-            "rpmextract", dfile, ro_root=True, unshare_all=True, wrkdir=edir
-        ).returncode
-        == 0
-    )
 
 
 def extract_txt(pkg, fname, dfile, edir, sfx):
@@ -252,10 +242,8 @@ def invoke(pkg):
                     exf = extract_tar
                 case "gz" | "bz2" | "xz":
                     exf = extract_notar
-                case "zip" | "7z":
+                case "zip" | "7z" | "rpm":
                     exf = extract_alsotar
-                case "rpm":
-                    exf = extract_rpm
                 case "deb":
                     exf = extract_deb
                 case "txt":
