@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "5.2.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 # for install.bin compat
 make_dir = "bin"
@@ -70,6 +70,7 @@ def do_install(self):
         f"DESTDIR={self.chroot_destdir}",
     )
     self.install_service(self.files_path / "podman")
+    self.install_service(self.files_path / "podman.user")
     self.install_service(self.files_path / "podman-docker")
     self.install_service(self.files_path / "podman-restart")
     self.install_file(

@@ -1,5 +1,3 @@
-# podman-docker service
-
 type = scripted
 command = /usr/libexec/podman-docker start
 stop-command = /usr/libexec/podman-docker stop
