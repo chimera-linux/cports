@@ -1,6 +1,6 @@
 pkgname = "pkgconf"
-pkgver = "2.2.0"
-pkgrel = 1
+pkgver = "2.3.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 checkdepends = ["kyua"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
-sha256 = "b06ff63a83536aa8c2f6422fa80ad45e4833f590266feb14eaddfe1d4c853c69"
+sha256 = "3a9080ac51d03615e7c1910a0a2a8df08424892b5f13b0628a204d3fcce0ea8b"
 hardening = ["!vis", "!cfi"]
 # checkdepends not available yet
 options = ["bootstrap", "!check"]
