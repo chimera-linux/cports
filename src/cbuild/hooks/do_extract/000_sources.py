@@ -22,6 +22,7 @@ suffixes = {
     "*.tar": "tar",
     "*.zip": "zip",
     "*.rpm": "rpm",
+    "*.deb": "deb",
     "*.patch": "txt",
     "*.diff": "txt",
     "*.txt": "txt",
@@ -95,6 +96,46 @@ def extract_alsotar(pkg, fname, dfile, edir, sfx):
         ).returncode
         == 0
     )
+
+
+def extract_deb(pkg, fname, dfile, edir, sfx):
+    with open(pkg.statedir / edir.name / "data", "wb") as outf:
+        if (
+            chroot.enter(
+                "tar",
+                "-xf",
+                dfile,
+                "-C",
+                edir,
+                "-O",
+                "data.tar.*",
+                ro_root=True,
+                unshare_all=True,
+                stdout=outf,
+            ).returncode
+            != 0
+        ):
+            return False
+
+        outf.close()
+
+        if (
+            chroot.enter(
+                "tar",
+                "-xf",
+                edir / "data",
+                "-C",
+                edir,
+                ro_root=True,
+                unshare_all=True,
+            ).returncode
+            != 0
+        ):
+            return False
+
+        (pkg.statedir / edir.name / "data").unlink()
+
+    return True
 
 
 def extract_rpm(pkg, fname, dfile, edir, sfx):
@@ -215,6 +256,8 @@ def invoke(pkg):
                     exf = extract_alsotar
                 case "rpm":
                     exf = extract_rpm
+                case "deb":
+                    exf = extract_deb
                 case "txt":
                     exf = extract_txt
                 case _:
