@@ -1293,6 +1293,10 @@ for the template, with `build` `wrksrc`, and `env` retrieved using the
 All of this means that `gnu_configure` can implicitly deal with cross-compiling
 and other things, while `configure` can't.
 
+Autodetects `slibtool` and makes it used via `rlibtool` and `slibtoolize`.
+It is recommended to include `slibtool` in `hostmakedepends` instead of
+`libtool` if the build process does not break due to it.
+
 #### makefile
 
 A wrapper around `cbuild.util.make`.
