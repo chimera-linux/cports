@@ -1,0 +1,111 @@
+Patch-Source: https://github.com/maliit/framework/pull/128 @ 41fcc8e
+
+Excludes cmake/*Find*.cmake changes which would otherwise bloat the diff massively
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3a92fc7..ff02227 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -24,6 +24,9 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+ # Install paths
+ include(GNUInstallDirs)
+ 
++# Extra find-modules
++find_package(ECM QUIET REQUIRED NO_MODULE)
++list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+ 
+ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+@@ -111,8 +114,8 @@ if(enable-wayland)
+          connection/waylandinputmethodconnection.cpp
+          connection/waylandinputmethodconnection.h)
+ 
+-    ecm_add_qtwayland_client_protocol(CONNECTION_SOURCES PROTOCOL ${WAYLANDPROTOCOLS_PATH}/unstable/input-method/input-method-unstable-v1.xml BASENAME input-method-unstable-v1)
+-    ecm_add_qtwayland_client_protocol(CONNECTION_SOURCES PROTOCOL ${WAYLANDPROTOCOLS_PATH}/unstable/text-input/text-input-unstable-v1.xml BASENAME text-input-unstable-v1)
++    ecm_add_qtwayland_client_protocol(CONNECTION_SOURCES PROTOCOL ${WaylandProtocols_DATADIR}/unstable/input-method/input-method-unstable-v1.xml BASENAME input-method-unstable-v1)
++    ecm_add_qtwayland_client_protocol(CONNECTION_SOURCES PROTOCOL ${WaylandProtocols_DATADIR}/unstable/text-input/text-input-unstable-v1.xml BASENAME text-input-unstable-v1)
+ 
+     add_definitions(-DHAVE_WAYLAND)
+ endif()
+@@ -221,7 +224,7 @@ if(enable-xcb)
+     list(APPEND PLUGINS_SOURCES
+          src/xcbplatform.cpp
+          src/xcbplatform.h)
+-    find_package(XCB REQUIRED xfixes)
++    find_package(XCB REQUIRED XFIXES)
+     list(APPEND PLUGINS_INCLUDE_DIRS ${XCB_INCLUDE_DIRS})
+     list(APPEND PLUGINS_LIBRARIES ${XCB_LIBRARIES})
+     add_definitions(-DHAVE_XCB)
+@@ -340,7 +343,7 @@ if(enable-wayland)
+             src/qt/plugins/shellintegration/qwaylandinputpanelshellintegration.cpp
+             src/qt/plugins/shellintegration/qwaylandinputpanelshellintegration.h src/qt/plugins/shellintegration/qwaylandinputpanelsurface.cpp src/qt/plugins/shellintegration/qwaylandinputpanelsurface.h)
+ 
+-    ecm_add_qtwayland_client_protocol(INPUT_PANEL_SHELL_SOURCES PROTOCOL ${WAYLANDPROTOCOLS_PATH}/unstable/input-method/input-method-unstable-v1.xml BASENAME input-method-unstable-v1)
++    ecm_add_qtwayland_client_protocol(INPUT_PANEL_SHELL_SOURCES PROTOCOL ${WaylandProtocols_DATADIR}/unstable/input-method/input-method-unstable-v1.xml BASENAME input-method-unstable-v1)
+ 
+     add_library(inputpanel-shell MODULE ${INPUT_PANEL_SHELL_SOURCES})
+     target_link_libraries(inputpanel-shell Qt${QT_VERSION_MAJOR}::WaylandClient PkgConfig::XKBCOMMON Wayland::Client)
+diff --git a/src/mimonscreenplugins.cpp b/src/mimonscreenplugins.cpp
+index cd500f2..aa8f418 100644
+--- a/src/mimonscreenplugins.cpp
++++ b/src/mimonscreenplugins.cpp
+@@ -19,9 +19,9 @@
+ #include <QDebug>
+ 
+ #include <algorithm>
+-#include <tr1/functional>
++#include <functional>
+ 
+-using namespace std::tr1::placeholders;
++using namespace std::placeholders;
+ 
+ namespace
+ {
+@@ -116,10 +116,10 @@ bool MImOnScreenPlugins::isEnabled(const QString &plugin) const
+ 
+     std::remove_copy_if(mEnabledSubViews.begin(), mEnabledSubViews.end(),
+                         std::back_inserter(mEnabledAndAvailableSubViews),
+-                        std::tr1::bind(&MImOnScreenPlugins::isSubViewUnavailable, this, _1));
++                        std::bind(&MImOnScreenPlugins::isSubViewUnavailable, this, _1));
+ 
+     return std::find_if(mEnabledAndAvailableSubViews.begin(), mEnabledAndAvailableSubViews.end(),
+-                        std::tr1::bind(equalPlugin, _1, plugin)) != mEnabledAndAvailableSubViews.end();
++                        std::bind(equalPlugin, _1, plugin)) != mEnabledAndAvailableSubViews.end();
+ }
+ 
+ bool MImOnScreenPlugins::isSubViewEnabled(const SubView &subView) const
+@@ -136,7 +136,7 @@ QList<MImOnScreenPlugins::SubView> MImOnScreenPlugins::enabledSubViews(const QSt
+ {
+     QList<MImOnScreenPlugins::SubView> result;
+     std::remove_copy_if(mEnabledSubViews.begin(), mEnabledSubViews.end(),
+-                        std::back_inserter(result), std::tr1::bind(notEqualPlugin, _1, plugin));
++                        std::back_inserter(result), std::bind(notEqualPlugin, _1, plugin));
+     return result;
+ }
+ 
+diff --git a/tests/ut_mimpluginmanagerconfig/ut_mimpluginmanagerconfig.cpp b/tests/ut_mimpluginmanagerconfig/ut_mimpluginmanagerconfig.cpp
+index 28a2ef2..252ab58 100644
+--- a/tests/ut_mimpluginmanagerconfig/ut_mimpluginmanagerconfig.cpp
++++ b/tests/ut_mimpluginmanagerconfig/ut_mimpluginmanagerconfig.cpp
+@@ -32,8 +32,6 @@
+ #include "mattributeextensionmanager.h"
+ #include "msharedattributeextensionmanager.h"
+ 
+-using namespace std::tr1;
+-
+ typedef QSet<Maliit::HandlerState> HandlerStates;
+ Q_DECLARE_METATYPE(HandlerStates);
+ Q_DECLARE_METATYPE(Maliit::HandlerState);
+diff --git a/tests/ut_mimpluginmanagerconfig/ut_mimpluginmanagerconfig.h b/tests/ut_mimpluginmanagerconfig/ut_mimpluginmanagerconfig.h
+index c313967..3ce2376 100644
+--- a/tests/ut_mimpluginmanagerconfig/ut_mimpluginmanagerconfig.h
++++ b/tests/ut_mimpluginmanagerconfig/ut_mimpluginmanagerconfig.h
+@@ -15,7 +15,7 @@
+ 
+ #include "mimserveroptions.h"
+ #include "mimsettingsqsettings.h"
+-#include <tr1/memory>
++#include <memory>
+ 
+ #include <QtTest/QtTest>
+ #include <QObject>
