@@ -1,8 +1,8 @@
 # update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
 _majver = "3.12"
-pkgver = f"{_majver}.4"
-pkgrel = 3
+pkgver = f"{_majver}.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",
@@ -66,7 +66,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "f6d419a6d8743ab26700801b4908d26d97e8b986e14f95de31b32de2b0e79554"
+sha256 = "fa8a2e12c5e620b09f53e65bcd87550d2e5a1e2e04bf8ba991dcc55113876397"
 # FIXME int cfi; cfi ftbfs, int fails ctypes test
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being
