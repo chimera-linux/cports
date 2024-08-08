@@ -1,5 +1,5 @@
 pkgname = "ruff"
-pkgver = "0.5.6"
+pkgver = "0.5.7"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
 source = f"https://github.com/astral-sh/ruff/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f774651e684e21f155b43e6738336f2eb53b44cd42444e72a73ee6eb1f6ee079"
+sha256 = "7ac2fd49222dc31aac0f97a40ea5d1d74dee9a1228ff5d62d603359713d8e0d1"
 # generates completions with host bin
 options = ["!cross"]
 
@@ -39,9 +39,9 @@ def post_patch(self):
     with open(f"{self.cwd}/.cargo/config.toml", "a") as f:
         f.write(
             """
-[source."git+https://github.com/MichaReiser/salsa.git?rev=0cae5c52a3240172ef0be5c9d19e63448c53397c"]
+[source."git+https://github.com/MichaReiser/salsa.git?tag=red-knot-0.0.1"]
 git = "https://github.com/MichaReiser/salsa.git"
-rev = "0cae5c52a3240172ef0be5c9d19e63448c53397c"
+tag = "red-knot-0.0.1"
 replace-with = "vendored-sources"
 
 [source."git+https://github.com/astral-sh/lsp-types.git?rev=3512a9f"]
