@@ -1,6 +1,6 @@
 pkgname = "libucontext"
 pkgver = "1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "ninja", "pkgconf", "scdoc"]
 pkgdesc = "Implementation of ucontext featuring glibc-compatible ABI"
@@ -11,6 +11,7 @@ source = (
     f"https://github.com/kaniini/libucontext/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "2657e087c493263e7bbbde152a5bc08ce22dc5a7970887ac4fd251b90b58401f"
+options = ["!framepointer"]
 
 
 @subpackage("libucontext-devel")
