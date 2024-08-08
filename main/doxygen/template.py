@@ -1,5 +1,5 @@
 pkgname = "doxygen"
-pkgver = "1.11.0"
+pkgver = "1.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "perl", "python", "flex", "bison"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://doxygen.nl"
 source = f"{url}/files/doxygen-{pkgver}.src.tar.gz"
-sha256 = "c9edfdf8c5f3e8bee0c4c967850caead27099883ee7ff8b11044e6d63faf3607"
+sha256 = "a3a3dba2018ef409d83d81a2fc42a0d19bdbe087252ef342bf214b51b8b01634"
 hardening = ["vis", "cfi"]
 
 
