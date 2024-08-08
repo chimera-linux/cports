@@ -14,6 +14,10 @@ sha256 = "2657e087c493263e7bbbde152a5bc08ce22dc5a7970887ac4fd251b90b58401f"
 options = ["!framepointer"]
 
 
+def post_install(self):
+    self.install_license("LICENSE")
+
+
 @subpackage("libucontext-devel")
 def _devel(self):
     return self.default_devel()
