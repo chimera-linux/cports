@@ -1,0 +1,34 @@
+From 2f28ff37efe90ba3d059644837950e7f58deb2b5 Mon Sep 17 00:00:00 2001
+From: Rodney Dawes <dobey.pwns@gmail.com>
+Date: Sun, 10 Mar 2024 18:10:58 -0400
+Subject: [PATCH] Remove ancient unused GraphicalEffects imports
+
+---
+ qml/Keyboard.qml                  | 1 -
+ qml/keys/ActionsToolbarButton.qml | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/qml/Keyboard.qml b/qml/Keyboard.qml
+index 9498bddf..bdcf0d69 100644
+--- a/qml/Keyboard.qml
++++ b/qml/Keyboard.qml
+@@ -30,7 +30,6 @@
+ 
+ import QtQuick 2.4
+ import QtQuick.Controls 2.4
+-import QtGraphicalEffects 1.0
+ 
+ import MaliitKeyboard 2.0
+ 
+diff --git a/qml/keys/ActionsToolbarButton.qml b/qml/keys/ActionsToolbarButton.qml
+index dbec6d03..abebc1f4 100644
+--- a/qml/keys/ActionsToolbarButton.qml
++++ b/qml/keys/ActionsToolbarButton.qml
+@@ -1,6 +1,5 @@
+ import QtQuick 2.9
+ import QtQuick.Controls 2.9
+-import QtGraphicalEffects 1.0
+ 
+ import MaliitKeyboard 2.0
+ 
+

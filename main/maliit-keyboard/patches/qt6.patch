@@ -1,0 +1,432 @@
+Patch-Source: https://github.com/maliit/keyboard/pull/235 @ 6f2548e
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 36a4e8f6..cc325b97 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,6 +2,28 @@ cmake_minimum_required(VERSION 3.9)
+ 
+ project(maliit-keyboard VERSION 2.3.1)
+ 
++option(BUILD_WITH_QT6 "Enable build with Qt6" OFF)
++set(MALIIT_SUFFIX "")
++if(BUILD_WITH_QT6)
++  find_package(Qt6 6.0 REQUIRED COMPONENTS Core Core5Compat QuickControls2)
++  find_package(Qt6DBus)
++  find_package(Qt6Multimedia)
++  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
++endif()
++
++if(Qt6_FOUND)
++  set(QT_VERSION_MAJOR 6)
++  set(MALIIT_SUFFIX "6")
++  message(STATUS "Building with Qt6")
++else()
++  find_package(Qt5 5.14 REQUIRED COMPONENTS Core QuickControls2)
++  find_package(Qt5DBus)
++  find_package(Qt5Multimedia)
++  find_package(Qt5Feedback)
++  set(QT_VERSION_MAJOR 5)
++  message(STATUS "Building with Qt5")
++endif()
++
+ option(enable-presage "Use presage to calculate word candidates (maliit-keyboard-plugin only)" ON)
+ option(enable-hunspell "Use hunspell for error correction (maliit-keyboard-plugin only)" ON)
+ option(enable-tests "Build tests" ON)
+@@ -9,31 +31,21 @@ option(enable-tests "Build tests" ON)
+ # Install paths
+ include(GNUInstallDirs)
+ 
+-if(NOT DEFINED QT5_QML_INSTALL_DIR)
+-    set(QT5_QML_INSTALL_DIR "${LIB_INSTALL_DIR}/qt5/qml" CACHE PATH
+-            "Installation directory for Qt 5 QML plugins [LIB_INSTALL_DIR/qt5/qml]")
+-endif()
+-
+ set(HUNSPELL_DICT_PATH "/usr/share/hunspell" CACHE PATH "Directory containing hunspell dictionary files")
+-set(MALIIT_KEYBOARD_QML_DIR "${CMAKE_INSTALL_LIBDIR}/maliit/keyboard2/qml" CACHE PATH "Directory containing maliit-keyboard QML files")
+-set(MALIIT_KEYBOARD_DATA_DIR "${CMAKE_INSTALL_DATADIR}/maliit/keyboard2" CACHE PATH "Directory containing maliit-keyboard data files")
+-set(MALIIT_KEYBOARD_LANGUAGES_DIR "${CMAKE_INSTALL_LIBDIR}/maliit/keyboard2/languages" CACHE PATH "Directory containing maliit-keyboard data")
++set(MALIIT_KEYBOARD_QML_DIR "${CMAKE_INSTALL_LIBDIR}/maliit${MALIIT_SUFFIX}/keyboard2/qml" CACHE PATH "Directory containing maliit-keyboard QML files")
++set(MALIIT_KEYBOARD_DATA_DIR "${CMAKE_INSTALL_DATADIR}/maliit${MALIIT_SUFFIX}/keyboard2" CACHE PATH "Directory containing maliit-keyboard data files")
++set(MALIIT_KEYBOARD_LANGUAGES_DIR "${CMAKE_INSTALL_LIBDIR}/maliit${MALIIT_SUFFIX}/keyboard2/languages" CACHE PATH "Directory containing maliit-keyboard data")
+ 
+-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
++list(PREPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+ 
+ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ set(CMAKE_AUTOMOC ON)
+ 
+-find_package(MaliitPlugins 0.99.1 REQUIRED)
++find_package(Maliit${MALIIT_SUFFIX}Plugins 0.99.1 REQUIRED)
+ 
+ find_package(GLib2 REQUIRED)
+ find_package(GIO REQUIRED)
+ 
+-find_package(Qt5DBus)
+-
+-find_package(Qt5QuickControls2 REQUIRED)
+-find_package(Qt5Multimedia)
+-find_package(Qt5Feedback)
+ find_package(Intl REQUIRED)
+ 
+ find_package(AnthyUnicode)
+@@ -86,7 +98,7 @@ set(WESTERNSUPPORT_SOURCES
+ 
+ # TODO install logic/languageplugininterface.h and logic/abstractplugininterface.h as HEADERS
+ 
+-set(maliit-keyboard-libraries Qt5::Core)
++set(maliit-keyboard-libraries Qt${QT_VERSION_MAJOR}::Core)
+ set(maliit-keyboard-definitions HUNSPELL_DICT_PATH="${HUNSPELL_DICT_PATH}"
+         MALIIT_GETTEXT_PACKAGE="${PROJECT_NAME}"
+         MALIIT_LOCALE_DIR="${CMAKE_INSTALL_LOCALEDIR}/locale"
+@@ -122,7 +134,7 @@ if(enable-hunspell)
+ endif()
+ 
+ add_library(maliit-keyboard-lib STATIC ${MALIIT_KEYBOARD_LIB_SOURCES})
+-target_link_libraries(maliit-keyboard-lib Qt5::Core Maliit::Plugins)
++target_link_libraries(maliit-keyboard-lib Qt${QT_VERSION_MAJOR}::Core Maliit::Plugins)
+ target_include_directories(maliit-keyboard-lib PUBLIC src/lib)
+ target_compile_definitions(maliit-keyboard-lib PRIVATE ${maliit-keyboard-definitions})
+ 
+@@ -146,7 +158,7 @@ set(QGSETTINGS_SOURCES
+         src/3rdparty/QGSettings/util.h)
+ 
+ add_library(gsettings-qt STATIC ${QGSETTINGS_SOURCES})
+-target_link_libraries(gsettings-qt Qt5::Core ${GIO_LIBRARIES})
++target_link_libraries(gsettings-qt Qt${QT_VERSION_MAJOR}::Core ${GIO_LIBRARIES})
+ target_include_directories(gsettings-qt PUBLIC ${GIO_INCLUDE_DIRS} src/3rdparty)
+ target_compile_definitions(gsettings-qt PRIVATE -DQT_NO_KEYWORDS)
+ 
+@@ -170,7 +182,10 @@ set(MALIIT_KEYBOARD_COMMON_SOURCES
+         src/plugin/device.h)
+ 
+ add_library(maliit-keyboard-common STATIC ${MALIIT_KEYBOARD_COMMON_SOURCES})
+-target_link_libraries(maliit-keyboard-common Qt5::DBus Qt5::QuickControls2 Maliit::Plugins maliit-keyboard-lib maliit-keyboard-view gsettings-qt Qt5::Multimedia ${Intl_LIBRARIES})
++target_link_libraries(maliit-keyboard-common Qt${QT_VERSION_MAJOR}::DBus Qt${QT_VERSION_MAJOR}::QuickControls2 Maliit::Plugins maliit-keyboard-lib maliit-keyboard-view gsettings-qt Qt${QT_VERSION_MAJOR}::Multimedia ${Intl_LIBRARIES})
++if (BUILD_WITH_QT6)
++    target_link_libraries(maliit-keyboard-common Qt6::Core5Compat)
++endif()
+ if (Qt5Feedback_FOUND)
+     target_link_libraries(maliit-keyboard-common Qt5::Feedback)
+     target_compile_definitions(maliit-keyboard-common PUBLIC HAVE_QT5_FEEDBACK)
+@@ -200,6 +215,9 @@ target_compile_definitions(maliit-keyboard PRIVATE ${maliit-keyboard-definitions
+ 
+ add_library(westernsupport STATIC ${WESTERNSUPPORT_SOURCES})
+ target_link_libraries(westernsupport ${maliit-keyboard-libraries} Maliit::Plugins)
++if (BUILD_WITH_QT6)
++    target_link_libraries(westernsupport Qt6::Core5Compat)
++endif()
+ target_include_directories(westernsupport PUBLIC src/lib/logic plugins/westernsupport ${maliit-keyboard-include-dirs})
+ target_compile_definitions(westernsupport PRIVATE ${maliit-keyboard-definitions})
+ 
+@@ -285,7 +303,7 @@ function(abstract_language_plugin _language _full_language)
+     endif()
+     add_library(${_target}plugin MODULE ${PLUGIN_SOURCES})
+     set_target_properties(${_target}plugin PROPERTIES OUTPUT_NAME ${_language}plugin)
+-    target_link_libraries(${_target}plugin Qt5::Core Maliit::Plugins maliit-keyboard-common ${abstract_language_plugin_LIBRARIES})
++    target_link_libraries(${_target}plugin Qt${QT_VERSION_MAJOR}::Core Maliit::Plugins maliit-keyboard-common ${abstract_language_plugin_LIBRARIES})
+     target_include_directories(${_target}plugin PRIVATE src/lib/logic ${abstract_language_plugin_INCLUDE_DIRS})
+     target_compile_definitions(${_target}plugin PRIVATE ${abstract_language_plugin_DEFINITIONS})
+     install(TARGETS ${_target}plugin
+@@ -395,7 +413,7 @@ install(FILES COPYING COPYING.BSD README.md
+         DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/maliit-keyboard)
+ 
+ install(TARGETS maliit-keyboard-plugin maliit-keyboard
+-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/maliit/plugins
++        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/maliit${MALIIT_SUFFIX}/plugins
+         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+ 
+ install(DIRECTORY qml/keys qml/languages
+@@ -420,7 +438,7 @@ add_subdirectory(po)
+ if(enable-tests)
+     enable_testing()
+ 
+-    find_package(Qt5Test)
++    find_package(Qt${QT_VERSION_MAJOR}Test)
+ 
+     add_library(test-utils STATIC
+             tests/unittests/common/inputmethodhostprobe.cpp
+@@ -428,7 +446,7 @@ if(enable-tests)
+             tests/unittests/common/utils.cpp
+             tests/unittests/common/utils.h)
+ 
+-    target_link_libraries(test-utils PUBLIC Maliit::Plugins Qt5::Core Qt5::Gui Qt5::Test westernsupport)
++    target_link_libraries(test-utils PUBLIC Maliit::Plugins Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Test westernsupport)
+     target_include_directories(test-utils PUBLIC tests/unittests tests/unittests/common src src/lib)
+ 
+     function(create_test name)
+diff --git a/plugins/pinyin/src/pinyinadapter.cpp b/plugins/pinyin/src/pinyinadapter.cpp
+index f31a00c8..ac81ba0d 100644
+--- a/plugins/pinyin/src/pinyinadapter.cpp
++++ b/plugins/pinyin/src/pinyinadapter.cpp
+@@ -25,10 +25,9 @@
+ #include <string>
+ #include <string.h>
+ 
++#include <QCoreApplication>
+ #include <QDebug>
+ #include <QLoggingCategory>
+-#include <QCoreApplication>
+-#include <QRegExp>
+ 
+ #define MAX_SUGGESTIONS 100
+ 
+diff --git a/plugins/westernsupport/spellchecker.cpp b/plugins/westernsupport/spellchecker.cpp
+index d55eeb35..54dd8cc1 100644
+--- a/plugins/westernsupport/spellchecker.cpp
++++ b/plugins/westernsupport/spellchecker.cpp
+@@ -304,7 +304,7 @@ bool SpellChecker::setLanguage(const QString &language)
+ 
+     d->aff_file = dictPath() + QDir::separator() + affMatches[0];
+     d->dic_file = dictPath() + QDir::separator() + dicMatches[0];
+-    d->user_dictionary_file = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QDir::separator() + language + "_userDictionary.dic";
++    d->user_dictionary_file = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QDir::separator() + language + "_userDictionary.dic";
+ 
+     qDebug() << "spellechecker.cpp in setLanguage() aff_file=" << d->aff_file << "dic_file=" << d->dic_file << "user dictionary=" << d->user_dictionary_file;
+ 
+diff --git a/plugins/westernsupport/spellpredictworker.cpp b/plugins/westernsupport/spellpredictworker.cpp
+index e1ea311a..1051f824 100644
+--- a/plugins/westernsupport/spellpredictworker.cpp
++++ b/plugins/westernsupport/spellpredictworker.cpp
+@@ -88,7 +88,7 @@ void SpellPredictWorker::setLanguage(QString locale, QString pluginPath)
+ {
+     // locale for secondary layouts I.E., dvorak will be formatted as locale@layout, swiss keyboard as "fr-ch"
+     // in this case we want to drop the layout portion
+-    QStringList tmpLocales = locale.split(QRegExp("(@|\\-)"));
++    QStringList tmpLocales = locale.split(QRegularExpression("(@|\\-)"));
+     QString baseLocale;
+     if (tmpLocales.size() > 1) {
+         baseLocale = tmpLocales[0];
+diff --git a/src/lib/models/key.h b/src/lib/models/key.h
+index 5695cc1c..1f4380ba 100644
+--- a/src/lib/models/key.h
++++ b/src/lib/models/key.h
+@@ -94,7 +94,7 @@ private:
+     QString m_command_sequence;
+ 
+ public:
+-    explicit Key();
++    Key();
+ 
+     // read-only properties:
+     bool valid() const;
+diff --git a/src/plugin/keyboardsettings.cpp b/src/plugin/keyboardsettings.cpp
+index f64af95f..756c5b86 100644
+--- a/src/plugin/keyboardsettings.cpp
++++ b/src/plugin/keyboardsettings.cpp
+@@ -30,6 +30,7 @@
+ #include "keyboardsettings.h"
+ 
+ #include <QDebug>
++#include <QVariant>
+ #include <QGSettings/QGSettings>
+ 
+ using namespace MaliitKeyboard;
+diff --git a/src/view/abstracttexteditor.cpp b/src/view/abstracttexteditor.cpp
+index bf7a69e1..e3db6441 100644
+--- a/src/view/abstracttexteditor.cpp
++++ b/src/view/abstracttexteditor.cpp
+@@ -34,6 +34,7 @@
+ #include "logic/abstractlanguagefeatures.h"
+ 
+ #include <QElapsedTimer>
++#include <QRegularExpression>
+ 
+ namespace MaliitKeyboard {
+ 
+@@ -392,7 +393,7 @@ void AbstractTextEditor::onKeyReleased(const Key &key)
+ 
+         if (d->preedit_enabled) {
+             if (!enablePreeditAtInsertion &&
+-                    (d->text->surroundingRight().left(1).contains(QRegExp(R"([\w])")) || email_detected)) {
++                    (d->text->surroundingRight().left(1).contains(QRegularExpression(R"([\w])")) || email_detected)) {
+                 // We're editing in the middle of a word or entering an email address, so just insert characters directly
+                 d->text->appendToPreedit(text);
+                 commitPreedit();
+@@ -536,14 +537,14 @@ void AbstractTextEditor::onKeyReleased(const Key &key)
+         // a separator, and there isn't a separator immediately prior to a ')'
+         else if (look_for_a_double_space
+                  && not stopSequence.isEmpty()
+-                 && textOnLeft.count() >= 2
+-                 && textOnLeft.at(textOnLeft.count() - 1).isSpace()
+-                 && !textOnLeft.at(textOnLeft.count() - 2).isSpace()
+-                 && textOnLeftTrimmed.count() > 0
+-                 && !d->word_engine->languageFeature()->isSeparator(textOnLeftTrimmed.at(textOnLeftTrimmed.count() - 1))
++                 && textOnLeft.size() >= 2
++                 && textOnLeft.at(textOnLeft.size() - 1).isSpace()
++                 && !textOnLeft.at(textOnLeft.size() - 2).isSpace()
++                 && textOnLeftTrimmed.size() > 0
++                 && !d->word_engine->languageFeature()->isSeparator(textOnLeftTrimmed.at(textOnLeftTrimmed.size() - 1))
+                  && !(textOnLeftTrimmed.endsWith(QLatin1String(")"))
+-                      && textOnLeftTrimmed.count() > 1
+-                      && d->word_engine->languageFeature()->isSeparator(textOnLeftTrimmed.at(textOnLeftTrimmed.count() - 2)))) {
++                      && textOnLeftTrimmed.size() > 1
++                      && d->word_engine->languageFeature()->isSeparator(textOnLeftTrimmed.at(textOnLeftTrimmed.size() - 2)))) {
+             removeTrailingWhitespaces();
+             if (!d->word_engine->languageFeature()->commitOnSpace()) {
+                 // Commit when inserting a fullstop if we don't insert on spaces
+@@ -1180,7 +1181,7 @@ void AbstractTextEditor::sendKeySequence(const QString &action, const QKeySequen
+         const int modifiers = actionSequence[i] & AllModifiers;
+         QString text("");
+         if (modifiers == Qt::NoModifier || modifiers == Qt::ShiftModifier) {
+-            text = QString(key);
++            text = QString::number(key);
+         }
+         sendKeyPressAndReleaseEvents(key, static_cast<Qt::KeyboardModifiers>(modifiers), text);
+     }
+@@ -1240,15 +1241,16 @@ void AbstractTextEditor::checkPreeditReentry(bool uncommittedDelete)
+         } else {
+             lastChar = text()->surrounding().at(currentOffset-1);
+         }
+-        if(!QRegExp(R"(\W+)").exactMatch(lastChar) && !d->word_engine->languageFeature()->isSymbol(lastChar)) {
+-            QStringList leftWords = text()->surroundingLeft().trimmed().split(QRegExp(R"([\s\d]+)"));
++        if (!QRegularExpression(R"(\W+)").match(lastChar).hasMatch() &&
++            !d->word_engine->languageFeature()->isSymbol(lastChar)) {
++            QStringList leftWords = text()->surroundingLeft().trimmed().split(QRegularExpression (R"([\s\d]+)"));
+             int trimDiff = text()->surroundingLeft().size() - text()->surroundingLeft().trimmed().size();
+             if(leftWords.last().isEmpty()) {
+                 // If removed char was punctuation trimming will result in an empty entry
+                 leftWords.removeLast();
+                 trimDiff += 1;
+             }
+-            if(d->text->surroundingRight().left(1).contains(QRegExp(R"([\w])"))) {
++            if(d->text->surroundingRight().left(1).contains(QRegularExpression (R"([\w])"))) {
+                 // Don't enter pre-edit in the middle of a word
+                 return;
+             }
+diff --git a/tests/unittests/common/inputmethodhostprobe.cpp b/tests/unittests/common/inputmethodhostprobe.cpp
+index 35dec941..ecae1140 100644
+--- a/tests/unittests/common/inputmethodhostprobe.cpp
++++ b/tests/unittests/common/inputmethodhostprobe.cpp
+@@ -100,7 +100,7 @@ void InputMethodHostProbe::sendPreeditString(const QString &string,
+     m_last_cursor_pos = cursor_pos;
+ }
+ 
+-QKeyEvent InputMethodHostProbe::lastKeyEvent() const
++const KeyEvent & InputMethodHostProbe::lastKeyEvent() const
+ {
+     return m_last_key_event;
+ }
+@@ -112,9 +112,11 @@ int InputMethodHostProbe::keyEventCount() const
+ 
+ void InputMethodHostProbe::sendKeyEvent(const QKeyEvent& event, Maliit::EventRequestType)
+ {
+-    m_last_key_event = event;
++    m_last_key_event.m_type = event.type();
++    m_last_key_event.m_key = event.key();
++    m_last_key_event.m_modifiers = event.modifiers();
+     ++m_key_event_count;
+-    Q_EMIT keyEventSent(m_last_key_event);
++    Q_EMIT keyEventSent(m_last_key_event.m_type, m_last_key_event.m_key, m_last_key_event.m_modifiers);
+ }
+ 
+ QList<Maliit::PreeditTextFormat> InputMethodHostProbe::lastPreeditTextFormatList() const
+diff --git a/tests/unittests/common/inputmethodhostprobe.h b/tests/unittests/common/inputmethodhostprobe.h
+index 9828f360..4733d717 100644
+--- a/tests/unittests/common/inputmethodhostprobe.h
++++ b/tests/unittests/common/inputmethodhostprobe.h
+@@ -37,6 +37,32 @@
+ 
+ #include <QKeyEvent>
+ 
++class KeyEvent {
++public:
++    KeyEvent(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers)
++    : m_type(type)
++    , m_key(key)
++    , m_modifiers(modifiers)
++    {
++    }
++    const inline QEvent::Type type() const {
++        return m_type;
++    }
++    const inline int key() const {
++        return m_key;
++    }
++    const inline Qt::KeyboardModifiers modifiers() const {
++        return m_modifiers;
++    }
++
++private:
++    QEvent::Type m_type;
++    int m_key;
++    Qt::KeyboardModifiers m_modifiers;
++
++    friend class InputMethodHostProbe;
++};
++
+ class InputMethodHostProbe
+     : public MAbstractInputMethodHost
+ {
+@@ -45,7 +71,7 @@ class InputMethodHostProbe
+ private:
+     QString m_commit_string_history;
+     QString m_last_preedit_string;
+-    QKeyEvent m_last_key_event;
++    KeyEvent m_last_key_event;
+     int m_key_event_count;
+     QList<Maliit::PreeditTextFormat> m_last_preedit_text_format_list;
+     int m_last_replace_start;
+@@ -60,7 +86,7 @@ public:
+     void sendCommitString(const QString &string,
+                           int replace_start,
+                           int replace_length,
+-                          int cursor_pos);
++                          int cursor_pos) override;
+ 
+     QString lastPreeditString() const;
+     int lastReplaceStart() const;
+@@ -71,14 +97,14 @@ public:
+                            const QList<Maliit::PreeditTextFormat> &format,
+                            int replace_start, 
+                            int replace_length,
+-                           int cursor_pos);
++                           int cursor_pos) override;
+ 
+-    QKeyEvent lastKeyEvent() const;
++    const KeyEvent & lastKeyEvent() const;
+     int keyEventCount() const;
+-    void sendKeyEvent(const QKeyEvent& event, Maliit::EventRequestType);
++    void sendKeyEvent(const QKeyEvent& event, Maliit::EventRequestType) override;
+     QList<Maliit::PreeditTextFormat> lastPreeditTextFormatList() const;
+ 
+-    Q_SIGNAL void keyEventSent(QKeyEvent ev);
++    Q_SIGNAL void keyEventSent(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers);
+ 
+     // unused reimpl
+     int contentType(bool&) override {return 0;}
+diff --git a/tests/unittests/ut_repeat-backspace/ut_repeat-backspace.cpp b/tests/unittests/ut_repeat-backspace/ut_repeat-backspace.cpp
+index c51384af..d83dd952 100644
+--- a/tests/unittests/ut_repeat-backspace/ut_repeat-backspace.cpp
++++ b/tests/unittests/ut_repeat-backspace/ut_repeat-backspace.cpp
+@@ -190,15 +190,21 @@ private:
+ 
+         QCOMPARE(host->keyEventCount(), 0);
+ 
+-        TestUtils::waitForSignal(host.data(), SIGNAL(keyEventSent(QKeyEvent)));
+-        QCOMPARE(host->keyEventCount(), 2);
+-        QCOMPARE(host->lastKeyEvent().type(), QEvent::KeyRelease);
+-        QCOMPARE(host->lastKeyEvent().key(), int(Qt::Key_Backspace));
+-
+-        TestUtils::waitForSignal(host.data(), SIGNAL(keyEventSent(QKeyEvent)));
+-        QCOMPARE(host->keyEventCount(), 4);
+-        QCOMPARE(host->lastKeyEvent().type(), QEvent::KeyRelease);
+-        QCOMPARE(host->lastKeyEvent().key(), int(Qt::Key_Backspace));
++        {
++            QSignalSpy spy(host.data(), &InputMethodHostProbe::keyEventSent);
++            QTRY_VERIFY(spy.count() > 0);
++            QCOMPARE(host->keyEventCount(), 2);
++            QCOMPARE(host->lastKeyEvent().type(), QEvent::KeyRelease);
++            QCOMPARE(host->lastKeyEvent().key(), int(Qt::Key_Backspace));
++        }
++
++        {
++            QSignalSpy spy(host.data(), &InputMethodHostProbe::keyEventSent);
++            QTRY_VERIFY(spy.count() > 0);
++            QCOMPARE(host->keyEventCount(), 4);
++            QCOMPARE(host->lastKeyEvent().type(), QEvent::KeyRelease);
++            QCOMPARE(host->lastKeyEvent().key(), int(Qt::Key_Backspace));
++        }
+ 
+         (editor.data()->*finalize)(backspace);
+ 
