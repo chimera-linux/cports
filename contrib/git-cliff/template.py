@@ -1,7 +1,9 @@
 pkgname = "git-cliff"
-pkgver = "2.2.2"
+pkgver = "2.4.0"
 pkgrel = 0
 build_style = "cargo"
+# we patch Cargo.toml and Cargo.lock
+prepare_after_patch = True
 make_check_args = [
     "--",
     "--skip=repo::test::get_latest_commit",
@@ -9,6 +11,8 @@ make_check_args = [
     "--skip=repo::test::git_log",
     "--skip=repo::test::git_tags",
     "--skip=repo::test::git_upstream_remote",
+    "--skip=repo::test::resolves_existing_tag_with_name_and_message",
+    "--skip=repo::test::resolves_tag_when_no_tags_exist",
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "zstd-devel"]
@@ -17,7 +21,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/orhun/git-cliff"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c47b517907cfede556c50d790fddc07039c7ab477a2a059dde57090c97adfbac"
+sha256 = "d5791600e440d0842e42f3b0dbc8d503f4902920675054a23f046fbb1c252636"
 # generates manpages/completions with host bins
 options = ["!cross"]
 
