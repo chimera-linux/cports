@@ -1,5 +1,5 @@
 pkgname = "libei"
-pkgver = "1.2.1"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -28,12 +28,9 @@ source = [
 ]
 source_paths = [".", "subprojects/munit"]
 sha256 = [
-    "3ea3580fc309c38e064084a0ab4a00dbfa10632efc777dfe1cff007e6082d1dd",
+    "167692196e735e6141dd7027e294fd9f99a4ce7cf0c797b5051764ffe147ec80",
     "d0c8bf80b9804d4df5301bd428702352fe7e14f84f22027c3a2c084a0d9f69a7",
 ]
-hardening = []
-# breaks symbols of munit
-options = ["!lto"]
 
 
 def post_install(self):
