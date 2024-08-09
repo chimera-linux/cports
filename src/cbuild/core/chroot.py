@@ -33,6 +33,15 @@ def _chroot_check(error):
     return _chroot_ready
 
 
+# wrong place lol put it somewhere else later
+def host_path_to_chroot(path: pathlib.Path):
+    spath = str(path)
+    bdir = str(paths.builddir())
+    idx = spath.find(bdir)
+    chroot_path = spath[idx + len(bdir) :]
+    return pathlib.Path(chroot_path)
+
+
 def chroot_check(force=False, error=True):
     global _chroot_checked, _chroot_ready
 
