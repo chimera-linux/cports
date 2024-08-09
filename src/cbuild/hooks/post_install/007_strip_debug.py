@@ -1,5 +1,7 @@
+from cbuild.core import chroot
 from cbuild.util import strip
 
+import pathlib
 import shutil
 import stat
 
@@ -158,6 +160,61 @@ def invoke(pkg):
         break
     else:
         (pkg.destdir / "usr/lib").rmdir()
+
+    # now collect the referenced debug sources
+    for v in ddest.rglob("*"):
+        if v.is_dir():
+            continue
+
+        for source_file in (
+            chroot.enter(
+                "llvm-dwarfdump",
+                "--show-sources",
+                f"/{v.relative_to(pkg.rparent.bldroot_path)}",
+                capture_output=True,
+                check=True,
+                ro_root=True,
+                ro_build=True,
+                unshare_all=True,
+            )
+            .stdout.strip()
+            .splitlines()
+        ):
+            source_file = pathlib.Path(source_file.strip().decode())
+
+            # don't have access to these!
+            if source_file.name in ["<stdin>"]:
+                continue
+
+            # /usr sourcefiles like /usr/include headers are already provided by -devel packages
+            if source_file.is_relative_to("/usr"):
+                continue
+
+            if not source_file.is_absolute():
+                src = pkg.rparent.srcdir / source_file
+
+                if not src.exists():
+                    # silence warning for crt objects
+                    if source_file.name not in [
+                        "Scrt1.c",
+                        "crt1.c",
+                        "crtbegin.c",
+                    ]:
+                        pkg.log_warn(
+                            f"missing debug source file: {source_file}"
+                        )
+                else:
+                    dst = (
+                        pkg.rparent.destdir_base
+                        / f"{pkg.pkgname}-dbg-src-{pkg.pkgver}"
+                        / f"usr/src/debug/{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}"
+                        / source_file
+                    )
+                    dst.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(src, dst)
+            else:
+                pkg.log_warn(f"unknown debug source file: {source_file}")
+                continue
 
     # done!
     return

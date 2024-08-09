@@ -2337,6 +2337,7 @@ def _split_locale(pkg):
 autopkgs = [
     # dbg is handled by its own hook
     ("dbg", "debug files", None, None),
+    ("dbg-src", "debug source files", None, None),
     # static is kinda special
     ("static", "static libraries", "base-devel-static", _split_static),
     ("doc", "documentation", "base-doc", lambda p: p.take_doc()),

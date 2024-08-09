@@ -458,7 +458,7 @@ def invoke(pkg):
     stagebase = paths.stage_repository()
     repobase = stagebase / pkg.rparent.repository
 
-    if pkg.pkgname.endswith("-dbg"):
+    if pkg.pkgname.endswith("-dbg") or pkg.pkgname.endswith("-dbg-src"):
         repo = repobase / "debug" / arch
     else:
         repo = repobase / arch
