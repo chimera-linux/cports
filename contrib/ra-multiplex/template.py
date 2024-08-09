@@ -1,5 +1,5 @@
 pkgname = "ra-multiplex"
-pkgver = "0.2.4"
+pkgver = "0.2.5"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/pr2502/ra-multiplex"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a6e52a26d2e707341b8b2440190b94d9f6b57040496fb7c859da0bb5f34ccbb2"
+sha256 = "c24a7e277adce9bbfb86641905d75f166e46459cf4e5b5f3aaa7456b052392dc"
 
 
 def post_install(self):
