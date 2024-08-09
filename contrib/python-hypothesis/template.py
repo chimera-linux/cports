@@ -1,5 +1,5 @@
 pkgname = "python-hypothesis"
-pkgver = "6.108.8"
+pkgver = "6.110.1"
 pkgrel = 0
 build_wrksrc = "hypothesis-python"
 build_style = "python_pep517"
@@ -7,7 +7,6 @@ hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 depends = ["python-attrs", "python-sortedcontainers"]
 checkdepends = [
@@ -27,7 +26,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MPL-2.0"
 url = "https://hypothesis.works/index.html"
 source = f"https://github.com/HypothesisWorks/hypothesis/archive/refs/tags/hypothesis-python-{pkgver}.tar.gz"
-sha256 = "e08e889bcee1a4de336608b797400d87bddc6b49aa5f1d72aab3988d72aac384"
+sha256 = "c6bfc1d60e5f2bd0f7b2194ab3ebdfd520576171963604d1cfffec518831439f"
 
 
 def init_check(self):
