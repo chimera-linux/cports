@@ -1,4 +1,4 @@
-From dd72175e95265140e0fda42c8ca68964f5f10ae0 Mon Sep 17 00:00:00 2001
+From ea4dc68f3e88537c02a11c46697f22b296fef9f7 Mon Sep 17 00:00:00 2001
 From: psykose <alice@ayaya.dev>
 Date: Sun, 31 Mar 2024 20:37:10 +0000
 Subject: [PATCH 2/3] unvendor sqlite
