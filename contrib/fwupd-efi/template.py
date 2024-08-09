@@ -1,10 +1,12 @@
 pkgname = "fwupd-efi"
-pkgver = "1.4"
-pkgrel = 2
-# riscv64 not supported yet
-archs = ["aarch64", "x86_64"]
+pkgver = "1.6"
+pkgrel = 0
+archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "meson"
-configure_args = []
+configure_args = [
+    # path to /usr/lib/gnuefi, fails detection with -print-multi-os-directory
+    "-Defi-libdir=/usr/lib",
+]
 hostmakedepends = [
     "meson",
     "efivar",
@@ -21,9 +23,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd-efi"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "b1f5fe72e16d4e2f4c616da416dc93bd79331057336208465da37bafe8f8f83d"
-tools = {"LD": "ld.bfd", "OBJCOPY": "gobjcopy"}
-tool_flags = {"LDFLAGS": ["-fuse-ld=bfd"]}
+sha256 = "59f90974efb29e17445e62d537c9402992fbf9f83f130317defed659222ca909"
+tools = {"OBJCOPY": "gobjcopy"}
 options = ["!cross"]
 
 _sbat = False
