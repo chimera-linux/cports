@@ -1,5 +1,5 @@
 pkgname = "erofs-utils"
-pkgver = "1.8"
+pkgver = "1.8.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-fuse"]
@@ -22,4 +22,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 AND GPL-2.0-or-later"
 url = "https://github.com/erofs/erofs-utils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "117f9e5d9411e8188abb6bf77d9fa967291f60a9ee65f3dcb8e9f88e5307afdf"
+sha256 = "5dbf7b492f7682462b97a77121d43ca7609cd90e65f8c96931aefc820a6f0da3"
