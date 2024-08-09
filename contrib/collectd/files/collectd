@@ -1,0 +1,6 @@
+# collectd service
+
+type = process
+command = /usr/bin/collectd -f
+depends-on = local.target
+depends-on = network.target
