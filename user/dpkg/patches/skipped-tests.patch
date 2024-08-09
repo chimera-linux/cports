@@ -1,0 +1,15 @@
+fails with:
+```
+gzip: unrecognized option: rsyncable
+```
+
+--- a/scripts/Makefile.am
++++ b/scripts/Makefile.am
+@@ -264,7 +264,6 @@
+ 	t/Dpkg_Index.t \
+ 	t/Dpkg_Substvars.t \
+ 	t/Dpkg_IPC.t \
+-	t/Dpkg_Compression.t \
+ 	t/Dpkg_Source_Functions.t \
+ 	t/Dpkg_Source_Patch.t \
+ 	t/Dpkg_Source_Quilt.t \
