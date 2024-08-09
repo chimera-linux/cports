@@ -4,14 +4,14 @@ Date: Sat, 10 Dec 2022 17:24:17 +0100
 Subject: [PATCH 3/3] do not rely on system headers for cpu info
 
 ---
- src/malloc/scudo/checksum.cpp | 32 +++++++++++++++++++++++---------
- src/malloc/scudo/checksum.h   | 26 ++++++++++++++++----------
+ lib/scudo/standalone/checksum.cpp | 32 +++++++++++++++++++++++---------
+ lib/scudo/standalone/checksum.h   | 26 ++++++++++++++++----------
  2 files changed, 39 insertions(+), 19 deletions(-)
 
-diff --git a/src/malloc/scudo/checksum.cpp b/src/malloc/scudo/checksum.cpp
+diff --git a/lib/scudo/standalone/checksum.cpp b/lib/scudo/standalone/checksum.cpp
 index 2c27739..49270ec 100644
---- a/src/malloc/scudo/checksum.cpp
-+++ b/src/malloc/scudo/checksum.cpp
+--- a/lib/scudo/standalone/checksum.cpp
++++ b/lib/scudo/standalone/checksum.cpp
 @@ -10,9 +10,7 @@
  #include "atomic_helpers.h"
  #include "chunk.h"
@@ -62,10 +62,10 @@ index 2c27739..49270ec 100644
  
  bool hasHardwareCRC32() {
    u32 Eax, Ebx = 0, Ecx = 0, Edx = 0;
-diff --git a/src/malloc/scudo/checksum.h b/src/malloc/scudo/checksum.h
+diff --git a/lib/scudo/standalone/checksum.h b/lib/scudo/standalone/checksum.h
 index d61b6d8..8e73873 100644
---- a/src/malloc/scudo/checksum.h
-+++ b/src/malloc/scudo/checksum.h
+--- a/lib/scudo/standalone/checksum.h
++++ b/lib/scudo/standalone/checksum.h
 @@ -17,18 +17,24 @@
  // An additional check must be performed at runtime as well to make sure the
  // emitted instructions are valid on the target host.

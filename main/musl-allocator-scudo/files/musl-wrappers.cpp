@@ -2,13 +2,21 @@
 #include <stdio.h>
 #include <errno.h>
 
-extern "C" {
-#include "pthread_impl.h"
-}
-
 #include "platform.h"
 #include "allocator_config.h"
 #include "stats.h"
+
+extern "C" {
+__attribute__((visibility("hidden"))) void __malloc_tls_teardown(void *p);
+__attribute__((visibility("hidden"))) void **__malloc_tls_get();
+}
+
+struct pthread {
+    struct pthread *self;
+    void *dtv;
+    struct pthread *prev, *next;
+    uintptr_t sysinfo;
+};
 
 /* we don't use standard lib so define a placement-new */
 inline void *operator new (size_t, void *p) { return p; }
@@ -258,8 +266,7 @@ struct TSDRegistry {
     }
 
     void drainCaches(A *inst) {
-        auto *self = get_self();
-        inst->drainCache(static_cast<tsd_t *>(self->scudo_tsd));
+        inst->drainCache(static_cast<tsd_t *>(*__malloc_tls_get()));
         p_fallback->lock();
         inst->drainCache(p_fallback);
         p_fallback->unlock();
@@ -271,21 +278,21 @@ struct TSDRegistry {
     }
 
     ALWAYS_INLINE void initThreadMaybe(A *inst, bool minimal) {
-        auto *self = get_self();
-        if (LIKELY(self->scudo_tsd)) {
+        auto **tls = __malloc_tls_get();
+        if (LIKELY(*tls)) {
             return;
         }
-        init_thread(inst, self);
+        init_thread(inst, tls);
     }
 
     ALWAYS_INLINE tsd_t *getTSDAndLock(bool *unlock) {
-        auto *self = get_self();
+        auto *self = *__malloc_tls_get();
         if (LIKELY(
-            self->scudo_tsd &&
+            self &&
             !scudo::atomic_load(&p_disabled, scudo::memory_order_acquire)
         )) {
             *unlock = false;
-            return static_cast<tsd_t *>(self->scudo_tsd);
+            return static_cast<tsd_t *>(self);
         }
         p_fallback->lock();
         *unlock = true;
@@ -293,7 +300,7 @@ struct TSDRegistry {
     }
 
 private:
-    friend void ::__malloc_tsd_teardown(void *p);
+    friend void ::__malloc_tls_teardown(void *p);
 
     /* return it to the allocator */
     void dispose(A *inst, tsd_t *tsd) {
@@ -317,7 +324,7 @@ private:
         p_init = true;
     }
 
-    void init_thread(A *inst, struct pthread *self) {
+    void init_thread(A *inst, void **tls) {
         tsd_t *tsd;
         {
             scudo::ScopedLock L{p_mtx};
@@ -325,15 +332,8 @@ private:
             tsd = p_talloc.request();
         }
         tsd->init(inst);
-        self->scudo_tsd = tsd;
+        *tls = tsd;
         inst->callPostInitCallback();
-    }
-
-    static struct pthread *get_self() {
-        struct pthread *p;
-        pthread_t s = __pthread_self();
-        memcpy(&p, &s, sizeof(struct pthread *));
-        return p;
     }
 
     bool p_init = false;
@@ -433,7 +433,7 @@ void __malloc_atfork(int who) {
     }
 }
 
-void __malloc_tsd_teardown(void *p) {
+void __malloc_tls_teardown(void *p) {
     using T = scudo::TSD<decltype(o_alloc)>;
     auto *tsdp = static_cast<T **>(p);
     auto *tsd = *tsdp;
