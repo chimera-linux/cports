@@ -44,6 +44,7 @@ def _wgquick(self):
         "bash",
         "iproute2",
         "openresolv",
+        "nftables",
     ]
     self.subdesc = "wg-quick script"
 
