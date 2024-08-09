@@ -2,6 +2,7 @@ pkgname = "taskwarrior"
 pkgver = "3.1.0"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DSYSTEM_CORROSION=ON"]
 make_dir = "."
 hostmakedepends = ["cmake", "ninja", "cargo", "corrosion"]
 makedepends = ["libuuid-devel", "sqlite-devel"]
