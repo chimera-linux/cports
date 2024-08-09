@@ -1,0 +1,7 @@
+# tangd service
+
+type       = process
+command    = /usr/libexec/tangd /var/lib/tang
+depends-on = network.target
+depends-on = local.target
+run-as     = _tang

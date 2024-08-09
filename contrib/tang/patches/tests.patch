@@ -1,0 +1,35 @@
+diff --git a/tests/helpers b/tests/helpers
+index 5ce3daf..98ae004 100755
+--- a/tests/helpers
++++ b/tests/helpers
+@@ -27,16 +27,7 @@ ver() {
+ }
+ 
+ random_port() {
+-    if [ -n "${TANG_BSD}" ]; then
+-        jot -r 1 1024 65536
+-    else
+-        if test -f /dev/urandom;
+-        then
+-            shuf -i 1024-65535 -n 1 --random-file=/dev/urandom
+-        else
+-            shuf -i 1024-65535 -n 1
+-        fi
+-    fi
++    jot -r 1 1024 65536
+ }
+ 
+ check_if_port_listening() {
+@@ -121,11 +112,7 @@ die() {
+ }
+ 
+ valid_key_perm() {
+-    if [ -n "${TANG_BSD}" ]; then
+-        _perm="$(stat -f %Lp "${1}")"
+-    else
+-        _perm="$(stat -c %a "${1}")"
+-    fi
++    _perm="$(stat -f %Lp "${1}")"
+     [ "${_perm}" = "440" ]
+ }
+ 
