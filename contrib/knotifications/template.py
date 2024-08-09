@@ -1,5 +1,5 @@
 pkgname = "knotifications"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/knotifications/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knotifications-{pkgver}.tar.xz"
-sha256 = "77e9b680066dc49c8d5e23ac6291fbba05328dda327d5c34ca3141e1ffeb25dc"
+sha256 = "3d73dc682176138cba995b6954eeafdd4507097313f1b2102a4d5ed905a3eee6"
 hardening = ["vis"]
 
 

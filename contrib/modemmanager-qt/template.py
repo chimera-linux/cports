@@ -1,5 +1,5 @@
 pkgname = "modemmanager-qt"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/modemmanager-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/modemmanager-qt-{pkgver}.tar.xz"
-sha256 = "f2bc2aa916bce3ea58c38def984c35fada25e8756add400131782bfc62deee9d"
+sha256 = "76c2b18c9c5c5d9c360282a031feaae966029322f19de050d91d39207cd5717b"
 hardening = ["vis"]
 
 

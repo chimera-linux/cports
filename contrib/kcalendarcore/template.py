@@ -1,5 +1,5 @@
 pkgname = "kcalendarcore"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -23,7 +23,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kcalendarcore/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcalendarcore-{pkgver}.tar.xz"
-sha256 = "60359b1ed3316113ff0398c3fffc844939807597f7d1ab3317b634b985bdaa57"
+sha256 = "6da599f5ed15f6ce54c2f928026ee2f64edd2fe0d5203b4f50bbf89a8b21f522"
 # a ton of failures due to different sort order and whatnot
 options = ["!check"]
 

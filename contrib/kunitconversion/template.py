@@ -1,5 +1,5 @@
 pkgname = "kunitconversion"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 # most tests require network access, pass in cbuild chroot
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kunitconversion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kunitconversion-{pkgver}.tar.xz"
-sha256 = "30e969467cb6f20c97e263e5381371ead458517758128022141d52272a660474"
+sha256 = "c7d521423c7443d305803e2f606e8dff58fa9e1c7c73b09bce8dd3862e992fe4"
 hardening = ["vis"]
 
 

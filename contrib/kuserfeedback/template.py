@@ -1,5 +1,5 @@
 pkgname = "kuserfeedback"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kuserfeedback/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kuserfeedback-{pkgver}.tar.xz"
-sha256 = "4cc42c4433c80441aec21883899816e812518e8f2c8c10c8d8add9e774538257"
+sha256 = "3348d2f29b92e655249b750fd77fb56bc4511ba3ba74399bd3fb2440821a292a"
 hardening = ["vis"]
 
 

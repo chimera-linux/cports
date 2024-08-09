@@ -1,5 +1,5 @@
 pkgname = "kcrash"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -17,7 +17,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcrash/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcrash-{pkgver}.tar.xz"
-sha256 = "011215bc952a430c1d093b0bf5cdad7057c9a9098d86116e69c6dd1000567697"
+sha256 = "870c6ce15132cc3040bc593447125ed3c256b698ba233b758430f4e725319bf3"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "purpose"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 # ??
@@ -32,7 +32,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/purpose/html/index.html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/purpose-{pkgver}.tar.xz"
-sha256 = "318169f201548eaa3c8a76e6eb00d9b10f51872d7f91c7f9749fcb518699e50e"
+sha256 = "40f80a04a737f5b79d9980baabdca54c820456bb30add04479257291c62ac274"
 hardening = ["vis"]
 
 

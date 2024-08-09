@@ -1,5 +1,5 @@
 pkgname = "kcmutils"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcmutils/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcmutils-{pkgver}.tar.xz"
-sha256 = "59b1293ffe67134ceba30fb7ce741889c54f85ad0c90d155688bdd0dfc8f31be"
+sha256 = "eb8474ec5ae620e361e6ef971e3ec14ac6807be2df8e02d27e7d8ae9badca993"
 hardening = ["vis"]
 
 

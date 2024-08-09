@@ -1,5 +1,5 @@
 pkgname = "kitemviews"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kitemviews/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kitemviews-{pkgver}.tar.xz"
-sha256 = "4280b9bcdc527979b364ed122d152e75951ff78fd801d46ccce2de6608d56440"
+sha256 = "07f3b3880597995a9bbc3c9bc47dba2bcd924ec503b423ed8566e7e805cbb69c"
 hardening = ["vis"]
 # fails
 options = ["!cross"]

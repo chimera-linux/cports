@@ -1,5 +1,5 @@
 pkgname = "kguiaddons"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/frameworks/kguiaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kguiaddons-{pkgver}.tar.xz"
-sha256 = "e1c25df0b8095be2497d2041e71cc843eaf75a6707f65b1cd74386fe3262cf11"
+sha256 = "7193fa930b85fa6e7fda3a85f1e52f362ecd3e110e80055d9084eeafaeac4807"
 hardening = ["vis"]
 
 

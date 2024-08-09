@@ -1,5 +1,5 @@
 pkgname = "kwindowsystem"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -43,7 +43,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
-sha256 = "c4e8742cbdd294d56a689d66a73b03a660702037ac46242f17cc01b24f014a59"
+sha256 = "caae86e16bf26e91a722fdf8eb5888224f7c76ce870743da4a59bc700d873bc6"
 hardening = ["vis"]
 
 

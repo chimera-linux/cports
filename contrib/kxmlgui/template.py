@@ -1,5 +1,5 @@
 pkgname = "kxmlgui"
-pkgver = "6.4.0"
+pkgver = "6.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -31,7 +31,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kxmlgui/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kxmlgui-{pkgver}.tar.xz"
-sha256 = "04952bc7f9eaefc7a55c762d77e65888a2a71e638d3fc7126576dfe645564b0b"
+sha256 = "75549dd54ae7b3e0bf01c6d82ebe2dcc797195ade223b6986dde9d688c5cd903"
 hardening = ["vis"]
 
 
