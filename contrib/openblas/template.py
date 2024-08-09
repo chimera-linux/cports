@@ -1,5 +1,5 @@
 pkgname = "openblas"
-pkgver = "0.3.27"
+pkgver = "0.3.28"
 pkgrel = 0
 archs = ["aarch64", "ppc", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -12,7 +12,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://www.openblas.net"
 source = f"https://github.com/OpenMathLib/OpenBLAS/releases/download/v{pkgver}/OpenBLAS-{pkgver}.tar.gz"
-sha256 = "aa2d68b1564fe2b13bc292672608e9cdeeeb6dc34995512e65c3b10f4599e897"
+sha256 = "f1003466ad074e9b0c8d421a204121100b0751c96fc6fcf3d1456bd12f8a00a1"
 
 match self.profile().arch:
     case "aarch64":
