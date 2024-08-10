@@ -1,0 +1,292 @@
+From 5927806fa1131d3e62f0bdc0f2f4bf0798c61ca4 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 4 Aug 2024 00:42:35 +0200
+Subject: [PATCH] plumb in support for externally provided allocator libraries
+
+The external static library can provide the following symbols:
+
+* __malloc_init
+* __malloc_atfork
+* __malloc_donate
+* __malloc_tls_teardown
+* __malloc_tls_default
+* __libc_calloc
+* __libc_free
+* __libc_malloc_impl
+* __libc_realloc
+* aligned_alloc
+* malloc_usable_size
+
+It can access the following variables via extern:
+
+* __aligned_alloc_replaced
+* __malloc_replaced
+---
+ Makefile                    | 18 ++++++++++++++----
+ ldso/dynlink.c              |  4 ++--
+ src/env/__init_tls.c        |  8 ++++++--
+ src/internal/pthread_impl.h | 15 ++++++++++++++-
+ src/malloc/calloc.c         |  4 ++++
+ src/malloc/external/empty.h |  1 +
+ src/malloc/libc_calloc.c    |  4 ++++
+ src/thread/pthread_create.c |  7 +++++++
+ 8 files changed, 52 insertions(+), 9 deletions(-)
+ create mode 100644 src/malloc/external/empty.h
+
+diff --git a/Makefile b/Makefile
+index e8cc443..27e388f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -23,6 +23,7 @@ BASE_GLOBS = $(addsuffix /*.c,$(SRC_DIRS))
+ ARCH_GLOBS = $(addsuffix /$(ARCH)/*.[csS],$(SRC_DIRS))
+ BASE_SRCS = $(sort $(wildcard $(BASE_GLOBS)))
+ ARCH_SRCS = $(sort $(wildcard $(ARCH_GLOBS)))
++MALLOC_OBJS = $(sort $(wildcard $(srcdir)/src/malloc/$(MALLOC_DIR)/*.o))
+ BASE_OBJS = $(patsubst $(srcdir)/%,%.o,$(basename $(BASE_SRCS)))
+ ARCH_OBJS = $(patsubst $(srcdir)/%,%.o,$(basename $(ARCH_SRCS)))
+ REPLACED_OBJS = $(sort $(subst /$(ARCH)/,/,$(ARCH_OBJS)))
+@@ -32,8 +33,8 @@ LIBC_OBJS = $(filter obj/src/%,$(ALL_OBJS)) $(filter obj/compat/%,$(ALL_OBJS))
+ LDSO_OBJS = $(filter obj/ldso/%,$(ALL_OBJS:%.o=%.lo))
+ CRT_OBJS = $(filter obj/crt/%,$(ALL_OBJS))
+ 
+-AOBJS = $(LIBC_OBJS)
+-LOBJS = $(LIBC_OBJS:.o=.lo)
++AOBJS = $(LIBC_OBJS) $(MALLOC_OBJS)
++LOBJS = $(LIBC_OBJS:.o=.lo) $(MALLOC_OBJS)
+ GENH = obj/include/bits/alltypes.h obj/include/bits/syscall.h
+ GENH_INT = obj/src/internal/version.h
+ IMPH = $(addprefix $(srcdir)/, src/internal/stdio_impl.h src/internal/pthread_impl.h src/internal/locale_impl.h src/internal/libc.h)
+@@ -131,6 +132,11 @@ $(CRT_OBJS): CFLAGS_ALL += -DCRT
+ 
+ $(LOBJS) $(LDSO_OBJS): CFLAGS_ALL += -fPIC
+ 
++ifneq (mallocng,$(MALLOC_DIR))
++obj/src/malloc/calloc.lo: CFLAGS_ALL += -DLIBC_CALLOC_EXTERNAL
++obj/src/malloc/libc_calloc.lo: CFLAGS_ALL += -DLIBC_CALLOC_EXTERNAL
++endif
++
+ CC_CMD = $(CC) $(CFLAGS_ALL) -c -o $@ $<
+ 
+ # Choose invocation of assembler to be used
+@@ -140,6 +146,10 @@ else
+ 	AS_CMD = $(CC_CMD)
+ endif
+ 
++$(EXTRA_OBJ): $(GENH) $(IMPH)
++	$(CC) -I$(srcdir)/mimalloc/include $(CFLAGS_ALL) -std=gnu11 -fPIC -O3 -DNDEBUG -fvisibility=hidden -isystem `$(CC) -print-resource-dir`/include -c -o $(EXTRA_OBJ) $(srcdir)/mimalloc/src/mimalloc.c
++	sh $(srcdir)/mimalloc-verify-syms.sh $(EXTRA_OBJ)
++
+ obj/%.o: $(srcdir)/%.s
+ 	$(AS_CMD)
+ 
+@@ -158,11 +168,11 @@ obj/%.lo: $(srcdir)/%.S
+ obj/%.lo: $(srcdir)/%.c $(GENH) $(IMPH)
+ 	$(CC_CMD)
+ 
+-lib/libc.so: $(LOBJS) $(LDSO_OBJS)
++lib/libc.so: $(LOBJS) $(LDSO_OBJS) $(EXTRA_OBJ)
+ 	$(CC) $(CFLAGS_ALL) $(LDFLAGS_ALL) -nostdlib -shared \
+ 	-Wl,-e,_dlstart -o $@ $(LOBJS) $(LDSO_OBJS) $(LIBCC)
+ 
+-lib/libc.a: $(AOBJS)
++lib/libc.a: $(AOBJS) $(EXTRA_OBJ)
+ 	rm -f $@
+ 	$(AR) rc $@ $(AOBJS)
+ 	$(RANLIB) $@
+diff --git a/ldso/dynlink.c b/ldso/dynlink.c
+index 3b57c07..144a587 100644
+--- a/ldso/dynlink.c
++++ b/ldso/dynlink.c
+@@ -1825,6 +1825,9 @@ void __dls3(size_t *sp, size_t *auxv)
+ 	/* Activate error handler function */
+ 	error = error_impl;
+ 
++	/* Here we can initialize the allocator */
++	__malloc_init(__pthread_self());
++
+ 	/* If the main program was already loaded by the kernel,
+ 	 * AT_PHDR will point to some location other than the dynamic
+ 	 * linker's program headers. */
+@@ -2028,9 +2031,12 @@ void __dls3(size_t *sp, size_t *auxv)
+ 	/* Actual copying to new TLS needs to happen after relocations,
+ 	 * since the TLS images might have contained relocated addresses. */
+ 	if (initial_tls != builtin_tls) {
+-		if (__init_tp(__copy_tls(initial_tls)) < 0) {
++		void *mtls = __pthread_self()->malloc_tls;
++		pthread_t ns = __copy_tls(initial_tls);
++		if (__init_tp(ns) < 0) {
+ 			a_crash();
+ 		}
++		ns->malloc_tls = mtls;
+ 	} else {
+ 		size_t tmp_tls_size = libc.tls_size;
+ 		pthread_t self = __pthread_self();
+diff --git a/src/env/__init_tls.c b/src/env/__init_tls.c
+index a93141e..bafa393 100644
+--- a/src/env/__init_tls.c
++++ b/src/env/__init_tls.c
+@@ -24,6 +24,7 @@ int __init_tp(void *p)
+ 	td->robust_list.head = &td->robust_list.head;
+ 	td->sysinfo = __sysinfo;
+ 	td->next = td->prev = td;
++	td->malloc_tls = __malloc_tls_default;
+ 	return 0;
+ }
+ 
+@@ -86,6 +87,7 @@ static void static_init_tls(size_t *aux)
+ 	Phdr *phdr, *tls_phdr=0;
+ 	size_t base = 0;
+ 	void *mem;
++	pthread_t self;
+ 
+ 	for (p=(void *)aux[AT_PHDR],n=aux[AT_PHNUM]; n; n--,p+=aux[AT_PHENT]) {
+ 		phdr = (void *)p;
+@@ -146,8 +148,12 @@ static void static_init_tls(size_t *aux)
+ 	}
+ 
+ 	/* Failure to initialize thread pointer is always fatal. */
+-	if (__init_tp(__copy_tls(mem)) < 0)
++	self = __copy_tls(mem);
++	if (__init_tp(self) < 0)
+ 		a_crash();
++
++	/* Initialize malloc. */
++	__malloc_init(self);
+ }
+ 
+ weak_alias(static_init_tls, __init_tls);
+diff --git a/src/internal/pthread_impl.h b/src/internal/pthread_impl.h
+index de2b9d8..f8cf1e6 100644
+--- a/src/internal/pthread_impl.h
++++ b/src/internal/pthread_impl.h
+@@ -6,10 +6,15 @@
+ #include <errno.h>
+ #include <limits.h>
+ #include <sys/mman.h>
++#ifndef MI_LIBC_BUILD
+ #include "libc.h"
+ #include "syscall.h"
+ #include "atomic.h"
+ #include "futex.h"
++#else
++/* restricted version for MI_LIBC_BUILD; need struct pthread + __pthread_self */
++#include <stdint.h>
++#endif
+ 
+ #include "pthread_arch.h"
+ 
+@@ -58,6 +63,7 @@ struct pthread {
+ 	volatile int killlock[1];
+ 	char *dlerror_buf;
+ 	void *stdio_locks;
++	void *malloc_tls;
+ 
+ 	/* Part 3 -- the positions of these fields relative to
+ 	 * the end of the structure is external and internal ABI. */
+@@ -122,6 +128,7 @@ enum {
+ #define __pthread_self() ((pthread_t)__get_tp())
+ #endif
+ 
++#ifndef MI_LIBC_BUILD
+ #ifndef tls_mod_off_t
+ #define tls_mod_off_t size_t
+ #endif
+@@ -187,6 +194,11 @@ hidden void __tl_lock(void);
+ hidden void __tl_unlock(void);
+ hidden void __tl_sync(pthread_t);
+ 
++extern hidden void * const __malloc_tls_default;
++
++hidden void __malloc_init(pthread_t);
++hidden void __malloc_tls_teardown(pthread_t);
++
+ extern hidden volatile int __thread_list_lock;
+ 
+ extern hidden volatile int __abort_lock[1];
+@@ -201,5 +213,6 @@ extern hidden unsigned __default_guardsize;
+ #define DEFAULT_GUARD_MAX (1<<20)
+ 
+ #define __ATTRP_C11_THREAD ((void*)(uintptr_t)-1)
++#endif
+ 
+ #endif
+diff --git a/src/malloc/calloc.c b/src/malloc/calloc.c
+index bf6bddc..6aa482c 100644
+--- a/src/malloc/calloc.c
++++ b/src/malloc/calloc.c
+@@ -32,6 +32,10 @@ weak_alias(allzerop, __malloc_allzerop);
+ 
+ void *calloc(size_t m, size_t n)
+ {
++#ifdef LIBC_CALLOC_EXTERNAL
++	if (!__malloc_replaced)
++		return __libc_calloc(m, n);
++#endif
+ 	if (n && m > (size_t)-1/n) {
+ 		errno = ENOMEM;
+ 		return 0;
+diff --git a/src/malloc/external/empty.h b/src/malloc/external/empty.h
+new file mode 100644
+index 0000000..40a8c17
+--- /dev/null
++++ b/src/malloc/external/empty.h
+@@ -0,0 +1 @@
++/* empty */
+diff --git a/src/malloc/libc_calloc.c b/src/malloc/libc_calloc.c
+index d25eabe..3895c8c 100644
+--- a/src/malloc/libc_calloc.c
++++ b/src/malloc/libc_calloc.c
+@@ -1,4 +1,8 @@
++#ifndef LIBC_CALLOC_EXTERNAL
++
+ #define calloc __libc_calloc
+ #define malloc __libc_malloc
+ 
+ #include "calloc.c"
++
++#endif
+diff --git a/src/malloc/mallocng/malloc.c b/src/malloc/mallocng/malloc.c
+index d695ab8..f70466d 100644
+--- a/src/malloc/mallocng/malloc.c
++++ b/src/malloc/mallocng/malloc.c
+@@ -7,6 +7,8 @@
+ 
+ #include "meta.h"
+ 
++hidden void * const __malloc_tls_default = NULL;
++
+ LOCK_OBJ_DEF;
+ 
+ const uint16_t size_classes[] = {
+diff --git a/src/thread/pthread_create.c b/src/thread/pthread_create.c
+index 087f620..1810e01 100644
+--- a/src/thread/pthread_create.c
++++ b/src/thread/pthread_create.c
+@@ -68,6 +68,7 @@ _Noreturn void __pthread_exit(void *result)
+ 	}
+ 
+ 	__pthread_tsd_run_dtors();
++	__malloc_tls_teardown(self);
+ 
+ 	__block_app_sigs(&set);
+ 
+@@ -319,6 +320,7 @@ int __pthread_create(pthread_t *restrict res, const pthread_attr_t *restrict att
+ 	new->self = new;
+ 	new->tsd = (void *)tsd;
+ 	new->locale = &libc.global_locale;
++	new->malloc_tls = __malloc_tls_default;
+ 	if (attr._a_detach) {
+ 		new->detach_state = DT_DETACHED;
+ 	} else {
+@@ -395,3 +397,8 @@ fail:
+ 
+ weak_alias(__pthread_exit, pthread_exit);
+ weak_alias(__pthread_create, pthread_create);
++
++static void mdummy(pthread_t p) {}
++
++weak_alias(mdummy, __malloc_init);
++weak_alias(mdummy, __malloc_tls_teardown);
+-- 
+2.46.0
+

@@ -1,0 +1,21 @@
+Attempt to use small arenas by default to reduce virt mem usage.
+
+Alongside the associated smaller regions change (which is done
+in our mimalloc.c by defining a macro), this brings a very minor
+performance regression but also some significant rss reduction
+in some benchmarks and minor growth in others.
+
+--- a/mimalloc/src/options.c
++++ b/mimalloc/src/options.c
+@@ -84,9 +84,9 @@ static mi_option_desc_t options[_mi_option_last] =
+   { 10,  UNINIT, MI_OPTION(max_segment_reclaim)},       // max. percentage of the abandoned segments to be reclaimed per try.
+   { 0,   UNINIT, MI_OPTION(destroy_on_exit)},           // release all OS memory on process exit; careful with dangling pointer or after-exit frees!
+   #if (MI_INTPTR_SIZE>4)
+-  { 1024L*1024L, UNINIT, MI_OPTION(arena_reserve) },    // reserve memory N KiB at a time (=1GiB) (use `option_get_size`)
++  { 64L*1024L, UNINIT, MI_OPTION(arena_reserve) },    // 64M arenas always
+   #else
+-  {  128L*1024L, UNINIT, MI_OPTION(arena_reserve) },    // =128MiB on 32-bit
++  { 64L*1024L, UNINIT, MI_OPTION(arena_reserve) },    // ditto
+   #endif
+   { 10,  UNINIT, MI_OPTION(arena_purge_mult) },        // purge delay multiplier for arena's
+   { 1,   UNINIT, MI_OPTION_LEGACY(purge_extend_delay, decommit_extend_delay) },
