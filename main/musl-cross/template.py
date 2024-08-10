@@ -1,8 +1,8 @@
 pkgname = "musl-cross"
 pkgver = "1.2.5_git20240705"
-pkgrel = 0
+pkgrel = 1
 _commit = "dd1e63c3638d5f9afb857fccf6ce1415ca5f1b8b"
-_scudo_ver = "18.1.8"
+_mimalloc_ver = "2.1.7"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
@@ -16,11 +16,12 @@ license = "MIT"
 url = "http://www.musl-libc.org"
 source = [
     f"https://git.musl-libc.org/cgit/musl/snapshot/musl-{_commit}.tar.gz",
-    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz",
+    f"https://github.com/microsoft/mimalloc/archive/refs/tags/v{_mimalloc_ver}.tar.gz",
 ]
+source_paths = [".", "mimalloc"]
 sha256 = [
     "a6886a65387d2547aae10c1ba31a35529a5c4bbe4205b2a9255c774d5da77329",
-    "e054e99a9c9240720616e927cb52363abbc8b4f1ef0286bad3df79ec8fdf892f",
+    "0eed39319f139afde8515010ff59baf24de9e47ea316a315398e8027d198202d",
 ]
 # mirrors musl
 hardening = ["!scp"]
@@ -41,25 +42,12 @@ _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 
 def post_extract(self):
-    # move musl where it should be
-    for f in (self.cwd / f"musl-{_commit}").iterdir():
-        self.mv(f, ".")
-    # prepare scudo subdir
-    self.mkdir("src/malloc/scudo/scudo", parents=True)
-    # move compiler-rt stuff in there
-    scpath = self.cwd / f"compiler-rt-{_scudo_ver}.src/lib/scudo/standalone"
-    for f in scpath.glob("*.cpp"):
-        self.cp(f, "src/malloc/scudo")
-    for f in scpath.glob("*.h"):
-        self.cp(f, "src/malloc/scudo")
-    for f in scpath.glob("*.inc"):
-        self.cp(f, "src/malloc/scudo")
-    self.cp(scpath / "include/scudo/interface.h", "src/malloc/scudo/scudo")
-    # remove wrappers
-    for f in (self.cwd / "src/malloc/scudo").glob("wrappers_*"):
-        f.unlink()
-    # copy in our own wrappers
-    self.cp(self.files_path / "wrappers.cpp", "src/malloc/scudo")
+    # reported in libc.so --version
+    with open(self.cwd / "VERSION", "w") as f:
+        f.write(pkgver)
+    # copy in our mimalloc unified source
+    self.cp(self.files_path / "mimalloc-verify-syms.sh", ".")
+    self.cp(self.files_path / "mimalloc.c", "mimalloc/src")
     # now we're ready to get patched
     # but also remove musl's x86_64 asm memcpy as it's actually
     # noticeably slower than the c implementation
@@ -72,14 +60,13 @@ def do_configure(self):
             at = pf.triplet
             # musl build dir
             self.mkdir(f"build-{an}", parents=True)
+            self.mkdir(f"src/malloc/external-{pf.arch}", parents=True)
             # configure musl
             eargs = []
             if pf.wordsize == 32:
-                # scudo needs 64-bit atomics
                 eargs += ["--with-malloc=mallocng"]
-            if an == "aarch64":
-                # disable aarch64 memory tagging in scudo, as it fucks up qemu-user
-                self.tool_flags["CXXFLAGS"] = ["-DSCUDO_DISABLE_TBI"]
+            else:
+                eargs += [f"--with-malloc=external-{pf.arch}"]
             with self.stamp(f"{an}_configure") as s:
                 s.check()
                 self.do(
@@ -98,11 +85,15 @@ def do_configure(self):
 
 def do_build(self):
     for an in _targets:
-        with self.profile(an):
-            self.mkdir(f"build-{an}", parents=True)
+        with self.profile(an) as pf:
+            eargs = []
+            if pf.wordsize != 32:
+                eargs += [
+                    f"EXTRA_OBJ=$(srcdir)/src/malloc/external-{pf.arch}/mimalloc.o"
+                ]
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                self.make.build(wrksrc=self.chroot_cwd / f"build-{an}")
+                self.make.build(eargs, wrksrc=self.chroot_cwd / f"build-{an}")
 
 
 def do_install(self):
