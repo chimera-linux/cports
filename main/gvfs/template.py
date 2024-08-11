@@ -1,6 +1,6 @@
 pkgname = "gvfs"
 pkgver = "1.54.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no",
@@ -71,6 +71,7 @@ def _devel(self):
 def _afc(self):
     self.subdesc = "Apple mobile device backend"
     self.depends += [self.parent]
+    self.install_if = [self.parent]
 
     return [
         "usr/libexec/gvfsd-afc*",
@@ -84,6 +85,7 @@ def _afc(self):
 def _afp(self):
     self.subdesc = "Apple Filing Protocol backend"
     self.depends += [self.parent]
+    self.install_if = [self.parent]
 
     return [
         "usr/libexec/gvfsd-afp*",
@@ -95,6 +97,7 @@ def _afp(self):
 def _cdda(self):
     self.subdesc = "CD-ROM backend"
     self.depends += [self.parent]
+    self.install_if = [self.parent]
 
     return [
         "usr/libexec/gvfsd-cd*",
@@ -106,6 +109,7 @@ def _cdda(self):
 def _goa(self):
     self.subdesc = "Gnome Online Accounts backend"
     self.depends += [self.parent]
+    self.install_if = [self.parent]
 
     return [
         "usr/libexec/gvfs-goa*",
@@ -122,6 +126,7 @@ def _goa(self):
 def _gphoto2(self):
     self.subdesc = "gphoto2 backend"
     self.depends += [self.parent]
+    self.install_if = [self.parent]
 
     return [
         "usr/libexec/gvfs*-gphoto*",
@@ -134,6 +139,7 @@ def _gphoto2(self):
 def _mtp(self):
     self.subdesc = "MTP backend"
     self.depends += [self.parent]
+    self.install_if = [self.parent]
 
     return [
         "usr/libexec/gvfs*-mtp*",
@@ -147,6 +153,7 @@ def _mtp(self):
 def _smb(self):
     self.subdesc = "SMB/CIFS backend"
     self.depends += [self.parent]
+    self.install_if = [self.parent]
 
     return [
         "usr/libexec/gvfs*-smb*",
