@@ -1,5 +1,5 @@
 pkgname = "python-cython"
-pkgver = "3.0.10"
+pkgver = "3.0.11"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,8 +14,8 @@ pkgdesc = "C extensions for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://cython.org"
-source = f"$(PYPI_SITE)/C/Cython/Cython-{pkgver}.tar.gz"
-sha256 = "dcc96739331fb854dcf503f94607576cfe8488066c61ca50dfd55836f132de99"
+source = f"$(PYPI_SITE)/c/cython/cython-{pkgver}.tar.gz"
+sha256 = "7146dd2af8682b4ca61331851e6aebce9fe5158e75300343f80c07ca80b1faff"
 # check: flaky tests
 # cross: build_ext from python-setuptools only understands host sysconfig
 options = ["!check", "!cross"]

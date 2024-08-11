@@ -1,2 +1,2 @@
-pkgname = "Cython"
+pkgname = "cython"
 ignore = ["*[A-Za-z]*"]
