@@ -1,9 +1,10 @@
 pkgname = "libvips"
-pkgver = "8.15.2"
-pkgrel = 1
+pkgver = "8.15.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Db_ndebug=true"]
 hostmakedepends = [
+    "gettext",
     "glib-devel",
     "gobject-introspection",
     "meson",
@@ -20,12 +21,12 @@ makedepends = [
     "libheif-devel",
     "libjpeg-turbo-devel",
     "libjxl-devel",
+    "libpoppler-devel",
     "libpng-devel",
     "librsvg-devel",
     "libtiff-devel",
     "libwebp-devel",
     "openexr-devel",
-    "orc-devel",
     "pango-devel",
     "zlib-ng-compat-devel",
 ]
@@ -34,7 +35,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libvips/libvips"
 source = f"https://github.com/libvips/libvips/releases/download/v{pkgver}/vips-{pkgver}.tar.xz"
-sha256 = "a2ab15946776ca7721d11cae3215f20f1f097b370ff580cd44fc0f19387aee84"
+sha256 = "3e27d9f536eafad64013958fe9e8a1964c90b564c731d49db7c1a1c11b1052a0"
 # broken
 options = ["!cross"]
 
