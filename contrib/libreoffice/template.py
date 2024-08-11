@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "24.8.0.2"
-pkgrel = 1
+pkgver = "24.8.0.3"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -207,10 +207,10 @@ source = [
     f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "8b695698994153fdeed1b73ea27c678b93b336e5af29742bebf7148e323afa00",
-    "d0add8f1cc30c0240f69814914d12c39f7c8a0f933d69d0b7a9c660808ad3512",
-    "d34b71e51e921dd707517d8fe10c12fcc4a344c1154360278b9d2cfe0ce87e15",
-    "43e832e03333f04ad6c6cb8ecdf94a3495867a7719a39f8bec14b30850d12e2f",
+    "5b11468cd1b68c05c33b151fcd7d044eea0c7e1dbf4bda028b490e18df7d78c1",
+    "b4e9a20e94b96179e46648dc565bde1b80511c15ad8f95287574058bbd97bb9a",
+    "7653e34fa2139fa6818d644208a0fc9e4e43be18d669c020f38c8dab161671ed",
+    "5e2706a6b0339b3424a3fb75c83b73817603722baf8fa11a9b84dc9a65ece55c",
     "bf4d2d0c5ff8889fd494486db09291cb7965f0bf2f93ef005d3b08070a5a4f5c",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
