@@ -1,5 +1,5 @@
 pkgname = "racket"
-pkgver = "8.13"
+pkgver = "8.14"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_wrksrc = "src"
@@ -18,7 +18,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT OR Apache-2.0"
 url = "https://racket-lang.org"
 source = f"https://download.racket-lang.org/installers/{pkgver}/racket-{pkgver}-src-builtpkgs.tgz"
-sha256 = "e24008a428a4a62019c5f27763404e99ed103f02d9a71336145bd62626aa2f1f"
+sha256 = "63c144ad5cc8da0241636e0739e587cf45d028448b86c456aedaff7872ef8bb0"
 # no tests, cross requires external chezscheme
 options = ["!check", "!cross"]
 
