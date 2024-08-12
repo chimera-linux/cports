@@ -16,6 +16,11 @@ def invoke(pkg):
         found_bad = False
         # go through attrs on the file and track undeclared ones
         for attr in xl:
+            # skip selinux-injected attributes, apk should not record them
+            # (as we recreate everything from scratch in a fakeroot env)
+            if attr == "security.selinux":
+                continue
+            # otherwise it's bad if undeclared
             if attr not in attrs:
                 found_bad = True
                 break
