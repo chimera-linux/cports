@@ -1,6 +1,6 @@
 pkgname = "foot"
 pkgver = "1.18.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dterminfo-base-name=foot-extra"]
 hostmakedepends = [
@@ -21,7 +21,8 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
 ]
-pkgdesc = "Fast, lightweight and minimalistic Wayland terminal emulator"
+provides = [self.with_pkgver("foot-themes")]
+pkgdesc = "Wayland terminal emulator"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/foot"
@@ -43,11 +44,3 @@ def _tinfo(self):
     self.subdesc = "extra terminfo data"
 
     return ["usr/share/terminfo"]
-
-
-@subpackage("foot-themes")
-def _themes(self):
-    self.depends = [self.parent]
-    self.subdesc = "colour themes"
-
-    return ["usr/share/foot/themes"]
