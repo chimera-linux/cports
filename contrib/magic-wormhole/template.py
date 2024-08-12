@@ -1,5 +1,5 @@
 pkgname = "magic-wormhole"
-pkgver = "0.14.0"
+pkgver = "0.15.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -33,7 +33,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://magic-wormhole.readthedocs.io"
 source = f"$(PYPI_SITE)/m/magic-wormhole/magic-wormhole-{pkgver}.tar.gz"
-sha256 = "006d239f88bff7c37bc2eff60a004e263faf9258f7279192d06ba0c9ced6b080"
+sha256 = "be2563b5c5547ba333bc6608f048004c8f36d556139bf2ffe3d9f41da2797006"
 
 
 def init_check(self):
