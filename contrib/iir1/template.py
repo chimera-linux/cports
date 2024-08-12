@@ -1,5 +1,5 @@
 pkgname = "iir1"
-pkgver = "1.9.4"
+pkgver = "1.9.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DIIR1_BUILD_DEMO=OFF", "-DIIR1_INSTALL_STATIC=OFF"]
@@ -13,8 +13,8 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://berndporr.github.io/iir1"
 source = f"https://github.com/berndporr/iir1/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "67d0982356f33fd37522e4711cda12f70a981a9c83de332386f89de3d7601d2b"
-# FIXME: vis breaks symbols
+sha256 = "beb16142e08e5f68010c6e5014dea2276ea49b71a258439eff09c5ee3f781d88"
+# vis breaks symbols
 hardening = ["!vis"]
 
 
