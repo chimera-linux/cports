@@ -1,10 +1,11 @@
+our tooling relies on versioning matching the pkgver
 --- a/Makefile
 +++ b/Makefile
 @@ -2,7 +2,7 @@
  VERSION = 6
  PATCHLEVEL = 5
  SUBLEVEL = 0
--EXTRAVERSION =-valve15
+-EXTRAVERSION =-valve16
 +EXTRAVERSION =
  NAME = Hurr durr I'ma ninja sloth
  
