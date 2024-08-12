@@ -13,6 +13,7 @@ hostmakedepends = [
     "xmlto",
 ]
 makedepends = [
+    "audit-devel",
     "libtraceevent-devel",
     "libtracefs-devel",
     "linux-headers",
