@@ -693,7 +693,7 @@ cross_tools = {
 
 sites = {
     "sourceforge": "https://downloads.sourceforge.net/sourceforge",
-    "freedesktop": "https://freedesktop.org/software",
+    "freedesktop": "https://distributions.freedesktop.org/software",
     "mozilla": "https://ftp.mozilla.org/pub",
     "debian": "http://ftp.debian.org/debian/pool",
     "ubuntu": "http://archive.ubuntu.com/ubuntu/pool",
