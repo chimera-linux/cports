@@ -1,6 +1,6 @@
 pkgname = "trace-cmd"
 pkgver = "3.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [f"-Dversion-tag={pkgver}"]
 make_build_args = ["all", "docs"]
@@ -9,6 +9,7 @@ hostmakedepends = [
     "bash",
     "meson",
     "pkgconf",
+    "source-highlight",
     "xmlto",
 ]
 makedepends = [
