@@ -12,7 +12,7 @@ url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
 sha256 = "3a9080ac51d03615e7c1910a0a2a8df08424892b5f13b0628a204d3fcce0ea8b"
 hardening = ["!vis", "!cfi"]
-# checkdepends not available yet
+# check: cycle
 options = ["bootstrap", "!check"]
 
 
