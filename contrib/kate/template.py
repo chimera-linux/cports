@@ -1,6 +1,6 @@
 pkgname = "kate"
 pkgver = "24.05.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -25,6 +25,7 @@ makedepends = [
     "kwallet-devel",
     "qt6-qtdeclarative-devel",
 ]
+depends = ["konsole"]
 pkgdesc = "KDE Advanced Text Editor"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
