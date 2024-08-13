@@ -1,0 +1,6 @@
+# openvpn server service
+
+type = process
+command = /usr/bin/openvpn --status /var/log/openvpn-server-status.log --status-version 2 --suppress-timestamps --syslog openvpn-server --config /etc/openvpn/server/$1.conf
+depends-on = network.target
+smooth-recovery = true

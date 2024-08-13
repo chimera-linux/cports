@@ -1,6 +1,6 @@
 pkgname = "openvpn"
 pkgver = "2.6.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-systemd",
@@ -13,7 +13,7 @@ make_dir = "."
 hostmakedepends = [
     "automake",
     "iproute2",
-    "libtool",
+    "slibtool",
     "pkgconf",
     "python",
 ]
@@ -41,5 +41,10 @@ def post_install(self):
     self.install_file(
         self.files_path / "update-resolv-conf", "etc/openvpn", mode=0o744
     )
+    self.install_dir("etc/openvpn/client")
+    self.install_dir("etc/openvpn/server")
+
+    self.install_service(self.files_path / "openvpn-client")
+    self.install_service(self.files_path / "openvpn-server")
 
     self.install_license("COPYING")
