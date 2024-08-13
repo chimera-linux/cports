@@ -1,6 +1,6 @@
 pkgname = "syslog-ng"
 pkgver = "4.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--sysconfdir=/etc/syslog-ng",
@@ -56,6 +56,7 @@ makedepends = [
     "json-c-devel",
     "rabbitmq-c-devel",
 ]
+depends = ["virtual:cmd:ugetopt!ugetopt"]
 pkgdesc = "Next generation logging daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"

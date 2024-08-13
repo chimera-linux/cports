@@ -1,0 +1,13 @@
+diff --git a/scripts/syslog-ng-update-virtualenv.in b/scripts/syslog-ng-update-virtualenv.in
+index 2188d350e..f8a64cb98 100755
+--- a/scripts/syslog-ng-update-virtualenv.in
++++ b/scripts/syslog-ng-update-virtualenv.in
+@@ -31,7 +31,7 @@ python_moduledir=@python_moduledir@
+ 
+ 
+ # read the options
+-TEMP=`getopt -n $0 -o yh --long ,help -- "$@"`
++TEMP=`ugetopt -n $0 -o yh --long ,help -- "$@"`
+ eval set -- "$TEMP"
+ 
+ # extract options and their arguments into variables.
