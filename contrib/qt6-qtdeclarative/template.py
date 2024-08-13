@@ -85,7 +85,7 @@ def post_install(self):
 
 
 @subpackage("qt6-qtdeclarative-devel-static")
-def _clang_static(self):
+def _devel_static(self):
     self.depends = []
     self.install_if = []
 
