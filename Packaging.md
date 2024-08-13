@@ -512,7 +512,7 @@ All build phases are run in either `self.srcdir` (all phases), or in
 is created automatically.
 
 * `setup` The build system prepares the environment. This means creating
-  the necessary files and directories for the syndbox and installing the
+  the necessary files and directories for the sandbox and installing the
   build dependencies. When cross-compiling, the cross target environment
   is prepared and target dependencies are installed in it. When the template
   defines a `do_fetch` function, this is run first, as the function may
