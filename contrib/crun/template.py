@@ -1,5 +1,5 @@
 pkgname = "crun"
-pkgver = "1.16"
+pkgver = "1.16.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
@@ -27,7 +27,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/containers/crun"
 source = f"{url}/releases/download/{pkgver}/crun-{pkgver}.tar.zst"
-sha256 = "e35ef1894cd865905e6241e023a6e006de5266bf387bcc981bd890948a6a04ae"
+sha256 = "473968be42b35eaf9477a11855b1deaa3e1072b0604a5c20a470e2f108280afb"
 
 
 def post_install(self):
