@@ -59,7 +59,6 @@ def _devel(self):
 
 @subpackage("bind-libs")
 def _libs(self):
-    self.subdesc = "libraries"
     # bind has libfoo.so as the symlink,
     # and libfoo-version.so as the main lib
     return ["usr/lib/lib*-*.so"]

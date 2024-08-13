@@ -58,7 +58,6 @@ def _libdoc(self):
 @subpackage("valadoc-devel")
 def _develdoc(self):
     self.pkgdesc = "Vala documentation tool"
-    self.subdesc = "development files"
 
     return [
         "usr/include/valadoc-*",

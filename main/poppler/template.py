@@ -63,8 +63,6 @@ def _lib(self):
 
 @subpackage("libpoppler-devel")
 def _devel(self):
-    self.subdesc = "development files"
-
     return self.default_devel()
 
 
