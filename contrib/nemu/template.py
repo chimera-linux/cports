@@ -1,6 +1,6 @@
 pkgname = "nemu"
 pkgver = "3.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DNM_WITH_DBUS=ON",
@@ -25,7 +25,6 @@ makedepends = [
     "ncurses-devel",
     "sqlite-devel",
 ]
-depends = ["qemu"]
 pkgdesc = "Ncurses UI for QEMU"
 maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-2-Clause"
