@@ -1,4 +1,4 @@
-From 5927806fa1131d3e62f0bdc0f2f4bf0798c61ca4 Mon Sep 17 00:00:00 2001
+From d3d090667afed9a9669ef1cec96faee0bc194ad7 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 4 Aug 2024 00:42:35 +0200
 Subject: [PATCH] plumb in support for externally provided allocator libraries
@@ -22,19 +22,21 @@ It can access the following variables via extern:
 * __aligned_alloc_replaced
 * __malloc_replaced
 ---
- Makefile                    | 18 ++++++++++++++----
- ldso/dynlink.c              |  4 ++--
- src/env/__init_tls.c        |  8 ++++++--
- src/internal/pthread_impl.h | 15 ++++++++++++++-
- src/malloc/calloc.c         |  4 ++++
- src/malloc/external/empty.h |  1 +
- src/malloc/libc_calloc.c    |  4 ++++
- src/thread/pthread_create.c |  7 +++++++
- 8 files changed, 52 insertions(+), 9 deletions(-)
+ Makefile                     | 18 ++++++++++++++----
+ ldso/dynlink.c               |  9 ++++++++-
+ src/env/__init_tls.c         |  8 +++++++-
+ src/exit/exit.c              |  2 ++
+ src/internal/pthread_impl.h  | 13 +++++++++++++
+ src/malloc/calloc.c          |  4 ++++
+ src/malloc/external/empty.h  |  1 +
+ src/malloc/libc_calloc.c     |  4 ++++
+ src/malloc/mallocng/malloc.c |  2 ++
+ src/thread/pthread_create.c  |  7 +++++++
+ 10 files changed, 62 insertions(+), 6 deletions(-)
  create mode 100644 src/malloc/external/empty.h
 
 diff --git a/Makefile b/Makefile
-index e8cc443..27e388f 100644
+index e8cc443..dac39ca 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -23,6 +23,7 @@ BASE_GLOBS = $(addsuffix /*.c,$(SRC_DIRS))
@@ -94,10 +96,18 @@ index e8cc443..27e388f 100644
  	$(AR) rc $@ $(AOBJS)
  	$(RANLIB) $@
 diff --git a/ldso/dynlink.c b/ldso/dynlink.c
-index 3b57c07..144a587 100644
+index 3b57c07..a488768 100644
 --- a/ldso/dynlink.c
 +++ b/ldso/dynlink.c
-@@ -1825,6 +1825,9 @@ void __dls3(size_t *sp, size_t *auxv)
+@@ -1491,6 +1491,7 @@ void __libc_exit_fini()
+ 			fpaddr(p, dyn[DT_FINI])();
+ #endif
+ 	}
++	__malloc_tls_teardown(self);
+ }
+ 
+ void __ldso_atfork(int who)
+@@ -1825,6 +1826,9 @@ void __dls3(size_t *sp, size_t *auxv)
  	/* Activate error handler function */
  	error = error_impl;
  
@@ -107,7 +117,7 @@ index 3b57c07..144a587 100644
  	/* If the main program was already loaded by the kernel,
  	 * AT_PHDR will point to some location other than the dynamic
  	 * linker's program headers. */
-@@ -2028,9 +2031,12 @@ void __dls3(size_t *sp, size_t *auxv)
+@@ -2028,9 +2032,12 @@ void __dls3(size_t *sp, size_t *auxv)
  	/* Actual copying to new TLS needs to happen after relocations,
  	 * since the TLS images might have contained relocated addresses. */
  	if (initial_tls != builtin_tls) {
@@ -155,6 +165,26 @@ index a93141e..bafa393 100644
  }
  
  weak_alias(static_init_tls, __init_tls);
+diff --git a/src/exit/exit.c b/src/exit/exit.c
+index a6869b3..6a0b78f 100644
+--- a/src/exit/exit.c
++++ b/src/exit/exit.c
+@@ -1,6 +1,7 @@
+ #include <stdlib.h>
+ #include <stdint.h>
+ #include "libc.h"
++#include "pthread_impl.h"
+ 
+ static void dummy()
+ {
+@@ -20,6 +21,7 @@ static void libc_exit_fini(void)
+ 	for (; a>(uintptr_t)&__fini_array_start; a-=sizeof(void(*)()))
+ 		(*(void (**)())(a-sizeof(void(*)())))();
+ 	_fini();
++	__malloc_tls_teardown(__pthread_self());
+ }
+ 
+ weak_alias(libc_exit_fini, __libc_exit_fini);
 diff --git a/src/internal/pthread_impl.h b/src/internal/pthread_impl.h
 index de2b9d8..f8cf1e6 100644
 --- a/src/internal/pthread_impl.h
