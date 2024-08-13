@@ -1,9 +1,9 @@
 pkgname = "polkit"
-pkgver = "124"
-pkgrel = 1
+pkgver = "125"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dsession_tracking=libelogind",
+    "-Dsession_tracking=elogind",
     "-Dsystemdsystemunitdir=",
     "-Dpolkitd_user=_polkitd",
     "-Djs_engine=duktape",
@@ -33,7 +33,7 @@ url = "https://www.freedesktop.org/wiki/Software/polkit"
 source = (
     f"https://github.com/polkit-org/polkit/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "72457d96a0538fd03a3ca96a6bf9b7faf82184d4d67c793eb759168e4fd49e20"
+sha256 = "ea5cd6e6e2afa6bad938ee770bf0c2cd9317910f37956faeba2869adcf3747d1"
 file_modes = {
     "usr/lib/polkit-1/polkit-agent-helper-1": ("root", "root", 0o4755),
     "usr/bin/pkexec": ("root", "root", 0o4755),
@@ -43,7 +43,11 @@ options = ["!check", "!cross"]
 
 
 def post_install(self):
+    # use our own
     self.uninstall("usr/lib/pam.d/polkit-1")
+    self.uninstall("usr/lib/sysusers.d")
+    self.uninstall("usr/lib/tmpfiles.d")
+    self.uninstall("usr/lib/systemd/system")
     self.install_file(
         self.files_path / "polkit-1.pam", "usr/lib/pam.d", name="polkit-1"
     )
