@@ -1,5 +1,5 @@
 pkgname = "go"
-pkgver = "1.22.6"
+pkgver = "1.23.0"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "9e48d99d519882579917d8189c17e98c373ce25abaebb98772e2927088992a51"
+sha256 = "42b7a8e80d805daa03022ed3fde4321d4c3bf2c990a144165d01eeecd6f699c6"
 env = {}
 # see below
 options = [
@@ -32,12 +32,6 @@ match self.profile().arch:
     case "ppc64le":
         # assume gnu as
         options += ["!check"]
-
-if self.current_target == "custom:bootstrap":
-    options += ["!check"]
-    env["GOROOT_FINAL"] = "/usr/lib/go-bootstrap"
-else:
-    env["GOROOT_FINAL"] = "/usr/lib/go"
 
 if self.profile().cross:
     hostmakedepends += ["go"]
@@ -84,7 +78,7 @@ def _get_binpath(self):
 def _clear_pkg(self, arch, ppath):
     if arch:
         self.rm(ppath / f"pkg/tool/linux_{arch}", recursive=True)
-        self.rm(ppath / f"pkg/linux_{arch}", recursive=True)
+        self.rm(ppath / f"pkg/linux_{arch}", force=True, recursive=True)
     for f in (ppath / "pkg/tool").iterdir():
         self.rm(f / "api", force=True)
 
@@ -105,8 +99,16 @@ def _boot(self):
     self.cp("src", bdirn, recursive=True)
     self.cp("pkg", bdirn, recursive=True)
     self.cp("LICENSE", bdirn)
-    _clear_pkg(self, _hostarch, self.cwd / bdirn / "pkg")
-    self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
+    _clear_pkg(self, _hostarch, self.cwd / bdirn)
+    self.do(
+        "tar",
+        "cvf",
+        f"{bdirn}.tar.zst",
+        "--zstd",
+        "--options",
+        f"zstd:compression-level=19,zstd:threads={self.make_jobs}",
+        bdirn,
+    )
     self.rm(bdirn, recursive=True)
 
 
