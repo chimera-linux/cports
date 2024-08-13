@@ -1464,10 +1464,10 @@ files).
 
 The subpackage may gain an implicit `subdesc` if its name has a certain suffix:
 
-* For `-devel`, it will be `(development files)`
-* For `-static`, it will be `(static libraries)`
-* For `-libs`, it will be `(libraries)`
-* For `-progs`, it will be `(programs)`
+* For `-devel`, it will be `development files`
+* For `-static`, it will be `static libraries`
+* For `-libs`, it will be `libraries`
+* For `-progs`, it will be `programs`
 
 You should never make suffixes a part of `pkgdesc`. The suffix is replaced on
 per subpackage basis.
