@@ -1,6 +1,6 @@
 pkgname = "shadow"
 pkgver = "4.16.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
