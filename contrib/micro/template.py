@@ -1,6 +1,6 @@
 pkgname = "micro"
 pkgver = "2.0.13"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/zyedidia/micro/v2/internal/util.Version={pkgver}",

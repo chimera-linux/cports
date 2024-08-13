@@ -1,6 +1,6 @@
 pkgname = "forgejo"
 pkgver = "8.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "all"

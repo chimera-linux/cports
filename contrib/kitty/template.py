@@ -1,6 +1,6 @@
 pkgname = "kitty"
 pkgver = "0.35.2"
-pkgrel = 3
+pkgrel = 4
 hostmakedepends = [
     "go",
     "pkgconf",
