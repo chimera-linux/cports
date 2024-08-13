@@ -1,6 +1,6 @@
 pkgname = "containers-common"
-pkgver = "0.60.0"
-pkgrel = 1
+pkgver = "0.60.1"
+pkgrel = 0
 make_cmd = "gmake"
 make_build_args = ["-C", "docs"]
 make_install_args = [*make_build_args]
@@ -12,7 +12,7 @@ url = "https://github.com/containers/common"
 _base_url = url.removesuffix("/common")
 _common_ver = pkgver
 _storage_ver = "1.55.0"
-_image_ver = "5.32.0"
+_image_ver = "5.32.1"
 _shortnames_ver = "2023.02.20"
 source = [
     f"{_base_url}/common/archive/v{_common_ver}.tar.gz",
@@ -27,9 +27,9 @@ source_paths = [
     "shortnames",
 ]
 sha256 = [
-    "c9f9a2ba78c69234b78d4b168bb2f70e3459e66d7931e68fde449af9b52e0062",
+    "7a91aa6e700d289d27086f9b7282e97701f1af2e8910f15d7b8dbdcf51978b0d",
     "d6c2d3af9e0f674c248477d521d0f8fc5eac050c65e2fd3f823cc42502b22847",
-    "f7582d2b4fed4967921ff154752cc33e8f319a232b561710a3e2872ba754945d",
+    "5ae123fcf4f018a79f16ecc3d92493805e5da2b2337315269133a62358727f37",
     "336ba679d4e510d2eb59cb11321bf16a36ef2dba58024e79dd76b89ffee539e6",
 ]
 # no tests
