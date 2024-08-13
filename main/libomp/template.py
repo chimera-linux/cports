@@ -5,14 +5,15 @@ build_style = "cmake"
 configure_args = [
     "-DLIBOMP_ENABLE_SHARED=YES",
     "-DLIBOMP_INSTALL_ALIASES=YES",
+    "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
 ]
-hostmakedepends = ["cmake", "ninja", "python", "perl", "clang-tools-extra"]
+hostmakedepends = ["clang-tools-extra", "cmake", "ninja", "perl", "python"]
 makedepends = [
-    "llvm-devel",
     "libffi-devel",
-    "zlib-ng-compat-devel",
-    "ncurses-devel",
     "linux-headers",
+    "llvm-devel",
+    "ncurses-devel",
+    "zlib-ng-compat-devel",
 ]
 pkgdesc = "LLVM OpenMP runtime"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -24,11 +25,6 @@ sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
 options = ["!check"]
 
 cmake_dir = "openmp"
-
-tool_flags = {
-    "CFLAGS": ["-fPIC"],
-    "CXXFLAGS": ["-fPIC"],
-}
 
 
 def post_install(self):
