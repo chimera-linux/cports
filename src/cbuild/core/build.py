@@ -133,7 +133,7 @@ def _build(
             return True
 
         if cdep and cdep == stepn:
-            pkg.log(f"running custom target '{stepn}'...")
+            pkg.log(f"running custom target '{npstep}'...")
             cfunc(pkg)
             return True
 
