@@ -56,7 +56,7 @@ makedepends = [
     "json-c-devel",
     "rabbitmq-c-devel",
 ]
-depends = ["virtual:cmd:ugetopt!ugetopt"]
+depends = ["cmd:ugetopt!ugetopt"]
 pkgdesc = "Next generation logging daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"

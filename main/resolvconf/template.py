@@ -19,7 +19,7 @@ def _symlink(self):
     self.install_if = [self.parent, "cmd:resolvconf"]
     self.depends = [
         self.parent,
-        "virtual:cmd:resolvconf!resolvconf",
+        "cmd:resolvconf!resolvconf",
     ]
     return ["usr/lib/tmpfiles.d"]
 

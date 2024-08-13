@@ -19,12 +19,12 @@ makedepends = [
     "linux-headers",
 ]
 depends = [
-    "virtual:cmd:iptables!iptables-nft",
-    "virtual:cmd:iptables-save!iptables-nft",
-    "virtual:cmd:iptables-restore!iptables-nft",
-    "virtual:cmd:ip6tables!iptables-nft",
-    "virtual:cmd:ip6tables-save!iptables-nft",
-    "virtual:cmd:ip6tables-restore!iptables-nft",
+    "cmd:iptables!iptables-nft",
+    "cmd:iptables-save!iptables-nft",
+    "cmd:iptables-restore!iptables-nft",
+    "cmd:ip6tables!iptables-nft",
+    "cmd:ip6tables-save!iptables-nft",
+    "cmd:ip6tables-restore!iptables-nft",
 ]
 checkdepends = ["python", "bash"]
 pkgdesc = "Linux packet filtering system"

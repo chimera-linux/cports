@@ -44,7 +44,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-depends = ["virtual:cmd:gst-play-1.0!gst-plugins-base"]
+depends = ["cmd:gst-play-1.0!gst-plugins-base"]
 checkdepends = ["perl"]
 pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"

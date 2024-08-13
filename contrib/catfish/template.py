@@ -16,7 +16,7 @@ depends = [
     "python-dbus",
     "python-gobject",
     "python-pexpect",
-    "virtual:cmd:locate!chimerautils-extra",
+    "cmd:locate!chimerautils-extra",
     "xfconf",
 ]
 pkgdesc = "Xfce file search tool"

@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
-depends = ["python", "virtual:so:libudev.so.1!udev-libs"]
+depends = ["python", "so:libudev.so.1!udev-libs"]
 checkdepends = ["python-pytest", "udev-libs"]
 pkgdesc = "Python bindings to libudev"
 maintainer = "q66 <q66@chimera-linux.org>"

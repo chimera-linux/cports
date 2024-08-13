@@ -4,7 +4,7 @@ pkgrel = 2
 depends = [
     "kmod",
     "procps",
-    "virtual:cmd:findmnt!mount",
+    "cmd:findmnt!mount",
 ]
 triggers = ["/usr/lib/modules"]
 pkgdesc = "Common data and scripts for Linux kernels in Chimera"

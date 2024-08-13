@@ -32,9 +32,9 @@ makedepends = [
 checkdepends = ["xserver-xorg-xvfb", "mesa-dri"]
 depends = [
     # dlopen
-    "virtual:so:libva-drm.so.2!libva",
-    "virtual:so:libva-x11.so.2!libva",
-    "virtual:so:libva.so.2!libva",
+    "so:libva-drm.so.2!libva",
+    "so:libva-x11.so.2!libva",
+    "so:libva.so.2!libva",
 ]
 pkgdesc = "Qt6 Multimedia component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"

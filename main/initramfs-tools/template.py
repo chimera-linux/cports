@@ -7,14 +7,14 @@ depends = [
     "dracut-install",
     "klibc-kinit-standalone",
     "klibc-utils-standalone",
-    "virtual:cmd:ischroot!debianutils",
-    "virtual:cmd:run-parts!debianutils",
-    "virtual:cmd:zstd!zstd",
-    "virtual:cmd:cpio!bsdtar",
-    "virtual:cmd:ugetopt!ugetopt",
-    "virtual:cmd:setupcon!console-setup",
-    "virtual:cmd:awk!chimerautils",
-    "virtual:cmd:logsave!e2fsprogs",
+    "cmd:ischroot!debianutils",
+    "cmd:run-parts!debianutils",
+    "cmd:zstd!zstd",
+    "cmd:cpio!bsdtar",
+    "cmd:ugetopt!ugetopt",
+    "cmd:setupcon!console-setup",
+    "cmd:awk!chimerautils",
+    "cmd:logsave!e2fsprogs",
 ]
 pkgdesc = "Generic modular initramfs generator"
 maintainer = "q66 <q66@chimera-linux.org>"

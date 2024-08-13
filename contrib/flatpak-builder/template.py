@@ -26,7 +26,7 @@ depends = [
     "flatpak",
     "git",
     "llvm-binutils",
-    "virtual:cmd:patch!chimerautils-extra",
+    "cmd:patch!chimerautils-extra",
 ]
 pkgdesc = "Tool to build flatpaks from source"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"

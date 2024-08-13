@@ -13,8 +13,8 @@ hostmakedepends = [
 depends = [
     "iptables",
     "python",
-    "virtual:cmd:modprobe!kmod",
-    "virtual:cmd:sysctl!procps",
+    "cmd:modprobe!kmod",
+    "cmd:sysctl!procps",
 ]
 pkgdesc = "Uncomplicated Firewall"
 maintainer = "q66 <q66@chimera-linux.org>"

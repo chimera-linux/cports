@@ -18,7 +18,7 @@ makedepends = [
     "zstd-devel",
 ]
 depends = [
-    "virtual:cmd:ugetopt!ugetopt",
+    "cmd:ugetopt!ugetopt",
 ]
 pkgdesc = "Distributed compiler"
 maintainer = "Erica Z <zerica@callcc.eu>"
