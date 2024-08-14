@@ -1,6 +1,6 @@
 pkgname = "espeak-ng"
 pkgver = "1.51.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
@@ -12,6 +12,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = ["pcaudiolib-devel"]
+provides = [self.with_pkgver("espeak-ng-vim")]
 pkgdesc = "Multilingual software speech synthesizer"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
@@ -25,10 +26,3 @@ options = ["!check"]
 @subpackage("espeak-ng-devel")
 def _devel(self):
     return self.default_devel()
-
-
-@subpackage("espeak-ng-vim")
-def _vim(self):
-    self.subdesc = "vim syntax"
-    self.install_if = [self.parent, "vim"]
-    return ["usr/share/vim"]
