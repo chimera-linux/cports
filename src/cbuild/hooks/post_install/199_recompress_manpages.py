@@ -32,7 +32,7 @@ def invoke(pkg):
         # keep to avoid tripping the hardlink detector
         chroot.enter(
             "gzip",
-            "-9nk",
+            "-9nfk",
             pkg.chroot_destdir / rp,
             check=True,
             ro_root=True,
