@@ -5,7 +5,7 @@
  		freebsd)    bashcompletiondir=$sysconfdir/bash_completion.d;;
  		gentoo)     bashcompletiondir=/usr/share/bash-completion/completions   ;;
 -		*)          bashcompletiondir=/etc/bash_completion.d   ;;
-+		*)          bashcompletiondir=/usr/share/bash_completion/completions   ;;
++		*)          bashcompletiondir=/usr/share/bash-completion/completions   ;;
  	esac
  	AC_MSG_RESULT([$bashcompletiondir])
  	AC_SUBST(bashcompletiondir)

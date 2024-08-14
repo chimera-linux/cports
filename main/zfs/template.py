@@ -2,7 +2,7 @@
 # also update linux-*-zfs-bin
 pkgname = "zfs"
 pkgver = "2.2.4"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 configure_args = [
     "--with-config=user",
@@ -90,6 +90,7 @@ def post_install(self):
     self.install_file(self.files_path / "ckms.ini", srcp)
 
     self.install_service(self.files_path / "zed")
+    self.install_link("usr/share/bash-completion/completions/zpool", "zfs")
 
 
 @subpackage("zfs-dracut")
