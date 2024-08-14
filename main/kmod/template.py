@@ -1,6 +1,6 @@
 pkgname = "kmod"
-pkgver = "32"
-pkgrel = 3
+pkgver = "33"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-zlib",
@@ -9,7 +9,13 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_check_args = ["-j1"]
-hostmakedepends = ["automake", "gmake", "libtool", "pkgconf"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "pkgconf",
+    "scdoc",
+    "slibtool",
+]
 makedepends = ["zlib-ng-compat-devel", "zstd-devel"]
 checkdepends = ["bash"]
 pkgdesc = "Linux kenrel module handling"
@@ -17,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git"
 source = f"$(KERNEL_SITE)/utils/kernel/kmod/kmod-{pkgver}.tar.gz"
-sha256 = "415ed9997376ea58ccea64bf86b1d63acd31524a6baab09a9c11de6bed667a05"
+sha256 = "d7c59c76bb3dd0eeeecdb1302365cf4bd5cb54e977be43a00efa2c96c519c1dc"
 # broken testsuite build system
 options = ["!check"]
 
