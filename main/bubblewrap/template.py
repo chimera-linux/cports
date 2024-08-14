@@ -1,5 +1,5 @@
 pkgname = "bubblewrap"
-pkgver = "0.9.0"
+pkgver = "0.10.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "xsltproc", "docbook-xsl-nons"]
@@ -10,5 +10,5 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://github.com/containers/bubblewrap"
 source = f"{url}/releases/download/v{pkgver}/bubblewrap-{pkgver}.tar.xz"
-sha256 = "c6347eaced49ac0141996f46bba3b089e5e6ea4408bc1c43bab9f2d05dd094e1"
+sha256 = "65d92cf44a63a51e1b7771f70c05013dce5bd6b0b2841c4b4be54b0c45565471"
 hardening = ["vis", "cfi"]
