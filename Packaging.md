@@ -833,7 +833,7 @@ Keep in mind that default values may be overridden by build styles.
 * `exec_wrappers` *(list)* A list of 2-tuples specifying extra wrappers to
   set up for the build. The first element of the tuple is the full path to
   the program to wrap, while the second element is the wrapper name. You
-  can use this to e.g. use `sed` as `sed` by wrapping `/usr/bin/gsed`, in
+  can use this to e.g. use `gsed` as `sed` by wrapping `/usr/bin/gsed`, in
   case it is too much trouble to patch the build system.
 * `file_modes` *(dict)* A dictionary of strings to 3-tuples or 4-tuples,
   where the string keys are file paths (relative to the package, e.g.
