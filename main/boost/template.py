@@ -1,6 +1,6 @@
 pkgname = "boost"
-pkgver = "1.85.0"
-pkgrel = 4
+pkgver = "1.86.0"
+pkgrel = 0
 hostmakedepends = ["pkgconf", "python"]
 makedepends = [
     "bzip2-devel",
@@ -17,8 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "be0d91732d5b0cc6fbb275c7939974457e79b54d6f07ce2e3dfdd68bef883b0b"
-tool_flags = {"CXXFLAGS": ["-std=c++14"]}
+sha256 = "2575e74ffc3ef1cd0babac2c1ee8bdb5782a0ee672b1912da40e5b4b591ca01f"
 options = ["empty"]
 
 # libs have semi-auto-generated subpkgs using this array
@@ -43,6 +42,7 @@ _libs = [
     "math",
     "nowide",
     "prg_exec_monitor",
+    "process",
     "program_options",
     "python",
     "random",
@@ -50,6 +50,7 @@ _libs = [
     "serialization",
     "stacktrace_addr2line",
     "stacktrace_basic",
+    "stacktrace_from_exception",
     "stacktrace_noop",
     "system",
     "thread",
@@ -128,6 +129,16 @@ using python : {self.python_version} : /usr/bin/python3 : {self.profile().sysroo
         )
 
 
+def do_check(self):
+    self.do(
+        "python",
+        "test_all.py",
+        "--default-bjam",
+        wrksrc="tools/build/test",
+        env={"PATH": f"{self.chroot_cwd}/tools/build/src/engine:/usr/bin"},
+    )
+
+
 def do_install(self):
     # install b2 globally
     self.install_bin("tools/build/src/engine/b2")
@@ -157,16 +168,6 @@ using clang ;
         )
 
     self.install_license("LICENSE_1_0.txt")
-
-
-def do_check(self):
-    self.do(
-        "python",
-        "test_all.py",
-        "--default-bjam",
-        wrksrc="tools/build/test",
-        env={"PATH": f"{self.chroot_cwd}/tools/build/src/engine:/usr/bin"},
-    )
 
 
 @subpackage("boost-build")
