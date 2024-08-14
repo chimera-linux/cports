@@ -99,7 +99,7 @@ The result will be a local repository containing the binary packages.
 <a id="categories"></a>
 ## Categories
 
-The Chimera packaging collection provides four categories in which templates
+The Chimera packaging collection provides three categories in which templates
 can go. These currently are:
 
 * `main`
