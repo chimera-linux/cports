@@ -1,8 +1,11 @@
 pkgname = "xfconf"
 pkgver = "4.18.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
-configure_args = ["--enable-gsettings-backend"]
+configure_args = [
+    "--with-helper-path-prefix=/usr/libexec",
+    "--enable-gsettings-backend",
+]
 make_cmd = "gmake"
 make_dir = "."
 make_check_wrapper = [

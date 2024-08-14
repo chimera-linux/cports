@@ -1,8 +1,12 @@
 pkgname = "xfwm4"
 pkgver = "4.18.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-configure_args = ["--enable-poswin", "--enable-xi2"]
+configure_args = [
+    "--with-helper-path-prefix=/usr/libexec",
+    "--enable-poswin",
+    "--enable-xi2",
+]
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [

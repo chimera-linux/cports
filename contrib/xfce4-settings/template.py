@@ -1,8 +1,9 @@
 pkgname = "xfce4-settings"
 pkgver = "4.18.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
+    "--with-helper-path-prefix=/usr/libexec",
     "--enable-pluggable-dialogs",
     "--enable-sound-settings",
     "--enable-upower-glib",
