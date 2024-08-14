@@ -153,7 +153,7 @@ def _devel(self):
 
 
 @subpackage("python-tests")
-def _devel(self):
+def _tests(self):
     self.depends = [self.parent]
     self.subdesc = "test module"
 
