@@ -1,18 +1,13 @@
 pkgname = "xfce4-notifyd"
-pkgver = "0.9.4"
-pkgrel = 1
-build_style = "gnu_configure"
-configure_args = ["--disable-systemd"]
-make_cmd = "gmake"
-make_dir = "."
+pkgver = "0.9.5"
+pkgrel = 0
+build_style = "meson"
+configure_args = ["-Dhelper-path-prefix=/usr/libexec", "-Dsystemd=disabled"]
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
     "glib-devel",
-    "gmake",
-    "libtool",
+    "meson",
     "pkgconf",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "dbus-devel",
@@ -33,5 +28,6 @@ pkgdesc = "Xfce notification daemon"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/apps/xfce4-notifyd/start"
-source = f"$(XFCE_SITE)/apps/xfce4-notifyd/{pkgver[:-2]}/xfce4-notifyd-{pkgver}.tar.bz2"
-sha256 = "ae6c128c055c44bd07202f73ae69ad833c5e4754f3530696965136e4d9ea7818"
+# source = f"$(XFCE_SITE)/apps/xfce4-notifyd/{pkgver[:-2]}/xfce4-notifyd-{pkgver}.tar.bz2"
+source = f"https://gitlab.xfce.org/apps/xfce4-notifyd/-/archive/xfce4-notifyd-{pkgver}/xfce4-notifyd-xfce4-notifyd-{pkgver}.tar.gz"
+sha256 = "55ac912851bf9c3cd7815c17e8b03537424272eda6ccf83fa6e30be546a64bd5"
