@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/gotify-server -f /etc/gotify/config.yml
+working-dir = /var/lib/gotify
+logfile = /var/log/gotify.log
+run-as = _gotify
+depends-on = network.target
+depends-on = local.target
+smooth-recovery = true
