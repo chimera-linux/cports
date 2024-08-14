@@ -777,6 +777,16 @@ diff --git a/src/prim/unix/prim.c b/src/prim/unix/prim.c
 index dd665d3d..9b50a78c 100644
 --- a/mimalloc/src/prim/unix/prim.c
 +++ b/mimalloc/src/prim/unix/prim.c
+@@ -211,7 +211,8 @@ static void* unix_mmap_prim(void* addr, size_t size, size_t try_alignment, int p
+     // fall back to regular mmap
+   }
+   #endif
+-  #if (MI_INTPTR_SIZE >= 8) && !defined(MAP_ALIGNED)
++  // we cannot do this for our libc allocator as it results in early map with range that conflicts with asan
++  #if (MI_INTPTR_SIZE >= 8) && !defined(MAP_ALIGNED) && !defined(MI_LIBC_BUILD)
+   // on 64-bit systems, use the virtual address area after 2TiB for 4MiB aligned allocations
+   if (addr == NULL) {
+     void* hint = _mi_os_get_aligned_hint(try_alignment, size);
 @@ -832,7 +832,7 @@ bool _mi_prim_random_buf(void* buf, size_t buf_len) {
  // Thread init/done
  //----------------------------------------------------------------
