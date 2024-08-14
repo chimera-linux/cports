@@ -1,5 +1,5 @@
 pkgname = "python-lark-parser"
-pkgver = "1.2.1"
+pkgver = "1.2.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/lark-parser/lark"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "6e74e07b35829809e846e5d2b1e5b806394b35a8ad2569e1df45dd8d49b71681"
+sha256 = "472a686b2cf8034938e9fd5df98afd09ae8781e837bfd74abb18d161cc504a82"
 
 
 def post_install(self):
