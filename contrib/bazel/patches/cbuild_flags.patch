@@ -1,0 +1,53 @@
+diff --color -ruN bazel-7.3.0/tools/cpp/unix_cc_toolchain_config.bzl bazel-7.3.0-patched/tools/cpp/unix_cc_toolchain_config.bzl
+--- bazel-7.3.0/tools/cpp/unix_cc_toolchain_config.bzl	1980-01-01 00:00:00.000000000 +0000
++++ bazel-7.3.0-patched/tools/cpp/unix_cc_toolchain_config.bzl	2024-08-14 13:56:00.985516135 +0000
+@@ -1426,6 +1426,41 @@
+         ],
+     )
+ 
++    cbuild_flags_feature = feature(
++        name = "cbuild_flags",
++        enabled = True,
++        flag_sets = [
++            flag_set(
++                actions = all_compile_actions,
++                flag_groups = [flag_group(flags = [
++                    "-D_LARGEFILE64_SOURCE",
++                    "-Wno-gnu-offsetof-extensions",
++                    "-ffile-prefix-map=/builddir/bazel-7.2.1=.",
++                    "-Wformat",
++                    "-Werror=format-security",
++                    "-fstack-clash-protection",
++                    "-ftrivial-auto-var-init=zero",
++                    "-fstack-clash-protection",
++                    "-fvisibility=hidden",
++                    "-fsanitize=signed-integer-overflow,integer-divide-by-zero",
++                    "-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero",
++                    "-fno-sanitize-recover",
++                ])],
++            ),
++            flag_set(
++                actions = all_link_actions,
++                flag_groups = [flag_group(flags = [
++                    "-Wl,-z,pack-relative-relocs",
++                    "-Wl,-O2",
++                    "-fvisibility=hidden",
++                    "-fsanitize=signed-integer-overflow,integer-divide-by-zero",
++                    "-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero",
++                    "-fno-sanitize-recover",
++                ])],
++            ),
++        ],
++    )
++
+     # TODO(#8303): Mac crosstool should also declare every feature.
+     if is_linux:
+         # Linux artifact name patterns are the default.
+@@ -1486,6 +1521,7 @@
+             unfiltered_compile_flags_feature,
+             treat_warnings_as_errors_feature,
+             archive_param_file_feature,
++            cbuild_flags_feature,
+         ] + layering_check_features(ctx.attr.compiler, ctx.attr.extra_flags_per_feature, is_macos = False)
+     else:
+         # macOS artifact name patterns differ from the defaults only for dynamic
