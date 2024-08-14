@@ -31,6 +31,11 @@ source = f"https://github.com/libgit2/libgit2/archive/v{pkgver}.tar.gz"
 sha256 = "de384e29d7efc9330c6cdb126ebf88342b5025d920dcb7c645defad85195ea7f"
 
 
+def post_extract(self):
+    # zlib-ng deflate generates different data
+    self.rm("tests/libgit2/pack/packbuilder.c")
+
+
 def post_install(self):
     self.install_license("COPYING")
 
