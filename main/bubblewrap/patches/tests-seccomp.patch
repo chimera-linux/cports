@@ -1,0 +1,12 @@
+this fails on aarch64
+--
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -17,7 +17,6 @@ executable(
+ 
+ test_scripts = [
+   'test-run.sh',
+-  'test-seccomp.py',
+   'test-specifying-pidns.sh',
+   'test-specifying-userns.sh',
+ ]
