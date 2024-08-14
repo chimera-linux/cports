@@ -1,6 +1,6 @@
 pkgname = "highlight"
 pkgver = "4.13"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]

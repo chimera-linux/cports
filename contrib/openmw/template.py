@@ -1,6 +1,6 @@
 pkgname = "openmw"
 pkgver = "0.47.0"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = [
     # enable once we have proper qt6 support (0.49)
@@ -36,8 +36,13 @@ _recast_hash = "e75adf86f91eb3082220085e42dda62679f9a3ea"
 _bullet_hash = "3.17"
 source = [
     f"https://gitlab.com/OpenMW/openmw/-/archive/openmw-{pkgver}/openmw-openmw-{pkgver}.tar.gz",
-    f"!https://github.com/recastnavigation/recastnavigation/archive/{_recast_hash}.zip",
-    f"!https://github.com/bulletphysics/bullet3/archive/refs/tags/{_bullet_hash}.tar.gz",
+    f"https://github.com/recastnavigation/recastnavigation/archive/{_recast_hash}.zip",
+    f"https://github.com/bulletphysics/bullet3/archive/refs/tags/{_bullet_hash}.tar.gz",
+]
+source_paths = [
+    ".",
+    "build/extern/fetched/recastnavigation",
+    "build/extern/fetched/bullet",
 ]
 sha256 = [
     "bd7f77e1527c2180e9b0dfcbe401d6fb48f24dbb37701dac7747697873d6edb4",
@@ -49,11 +54,6 @@ options = ["!check"]
 
 if self.profile().endian == "big":
     broken = "esm loader is not ready etc."
-
-
-def post_extract(self):
-    self.cp(self.sources_path / f"{_recast_hash}.zip", ".")
-    self.cp(self.sources_path / f"{_bullet_hash}.tar.gz", ".")
 
 
 @subpackage("esmtool")

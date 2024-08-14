@@ -1,8 +1,14 @@
 pkgname = "ixion"
 pkgver = "0.19.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "python"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "pkgconf",
+    "python",
+    "slibtool",
+]
 makedepends = ["boost-devel", "python-devel", "mdds"]
 checkdepends = ["bash"]
 pkgdesc = "General-purpose formula parser and interpreter"

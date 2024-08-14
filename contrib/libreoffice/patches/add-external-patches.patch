@@ -10,11 +10,12 @@
  
 --- a/external/libcmis/UnpackedTarball_libcmis.mk
 +++ b/external/libcmis/UnpackedTarball_libcmis.mk
-@@ -25,6 +25,7 @@
+@@ -25,6 +25,8 @@
  	external/libcmis/0001-cppcheck-operatorEqVarError-in-src-libcmis-http-sess.patch \
  	external/libcmis/0001-Take-into-account-m_CurlInitProtocolsFunction-in-cop.patch \
  	external/libcmis/initprotocols.patch.1 \
 +	external/libcmis/libcmis-libxml2.patch.1 \
++	external/libcmis/libcmis-boost-1.86.patch.1 \
  ))
  
  # vim: set noet sw=4 ts=4:

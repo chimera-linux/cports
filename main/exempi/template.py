@@ -1,9 +1,9 @@
 pkgname = "exempi"
 pkgver = "2.6.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "gmake", "automake", "slibtool"]
 makedepends = ["boost-devel", "libexpat-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Library for easy parsing of XMP metadata"
 maintainer = "q66 <q66@chimera-linux.org>"

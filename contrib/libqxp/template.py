@@ -1,10 +1,10 @@
 pkgname = "libqxp"
 pkgver = "0.0.2"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "gmake", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel", "icu-devel"]
 pkgdesc = "Library for QuarkXPress format"
 maintainer = "q66 <q66@chimera-linux.org>"

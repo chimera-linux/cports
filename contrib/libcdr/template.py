@@ -1,11 +1,11 @@
 pkgname = "libcdr"
 pkgver = "0.1.7"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 configure_args = ["--disable-debug"]
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "gmake", "automake", "slibtool"]
 makedepends = ["lcms2-devel", "icu-devel", "librevenge-devel", "boost-devel"]
 pkgdesc = "Corel Draw format importer library"
 maintainer = "q66 <q66@chimera-linux.org>"

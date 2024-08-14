@@ -1,10 +1,10 @@
 pkgname = "libwpg"
 pkgver = "0.3.4"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "gmake", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel", "libwpd-devel"]
 pkgdesc = "Library for importing WordPerfect graphics"
 maintainer = "q66 <q66@chimera-linux.org>"

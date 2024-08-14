@@ -1,12 +1,12 @@
 pkgname = "protobuf-c"
 pkgver = "1.5.0"
-pkgrel = 12
+pkgrel = 13
 build_style = "gnu_configure"
 configure_args = [
     "--enable-protoc",
 ]
 make_cmd = "gmake"
-hostmakedepends = ["automake", "gmake", "libtool", "pkgconf", "protoc"]
+hostmakedepends = ["automake", "gmake", "slibtool", "pkgconf", "protoc"]
 makedepends = ["boost-devel", "protobuf-devel"]
 pkgdesc = "Protobuf implementation in C"
 maintainer = "q66 <q66@chimera-linux.org>"

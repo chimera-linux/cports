@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
 pkgver = "24.8.0.3"
-pkgrel = 0
+pkgrel = 1
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -241,7 +241,6 @@ sha256 = [
     "f7c7075750e8fceeac081e9ef01944f221b36d9725beac8681cbd2838d26be45",
     "77d6c6ecb35952a8d8ce7f736b7a2bf466275c48210e309b73782d6b7e84dffd",
 ]
-
 tool_flags = {
     "CXXFLAGS": ["-DGLM_ENABLE_EXPERIMENTAL", "-DU_USING_ICU_NAMESPACE=1"]
 }
@@ -260,6 +259,7 @@ def post_extract(self):
     # copy over patches
     self.cp(self.files_path / "ppc-skia-musttail.patch.1", "external/skia")
     self.cp(self.files_path / "libcmis-libxml2.patch.1", "external/libcmis")
+    self.cp(self.files_path / "libcmis-boost-1.86.patch.1", "external/libcmis")
 
 
 def init_configure(self):

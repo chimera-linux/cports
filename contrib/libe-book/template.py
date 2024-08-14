@@ -1,10 +1,16 @@
 pkgname = "libe-book"
 pkgver = "0.1.3"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "gperf"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "gperf",
+    "pkgconf",
+    "slibtool",
+]
 makedepends = [
     "boost-devel",
     "liblangtag-devel",

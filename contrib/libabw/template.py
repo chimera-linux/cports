@@ -1,10 +1,17 @@
 pkgname = "libabw"
 pkgver = "0.1.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "gperf", "perl"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "gperf",
+    "perl",
+    "pkgconf",
+    "slibtool",
+]
 makedepends = ["librevenge-devel", "boost-devel", "libxml2-devel"]
 pkgdesc = "Library for AbiWord document format"
 maintainer = "q66 <q66@chimera-linux.org>"

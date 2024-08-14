@@ -1,10 +1,10 @@
 pkgname = "libmwaw"
 pkgver = "0.3.22"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "gmake", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Library for importing legacy Mac documents"
 maintainer = "q66 <q66@chimera-linux.org>"

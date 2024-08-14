@@ -1,10 +1,15 @@
 pkgname = "libwpd"
 pkgver = "0.10.3"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "pkgconf",
+    "slibtool",
+]
 makedepends = ["librevenge-devel", "boost-devel"]
 pkgdesc = "Library for importing WordPerfect documents"
 maintainer = "q66 <q66@chimera-linux.org>"

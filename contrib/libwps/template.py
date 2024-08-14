@@ -1,11 +1,11 @@
 pkgname = "libwps"
 pkgver = "0.4.14"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = ["--disable-werror"]
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "gmake", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel"]
 pkgdesc = "Library for importing Microsoft Works documents"
 maintainer = "q66 <q66@chimera-linux.org>"

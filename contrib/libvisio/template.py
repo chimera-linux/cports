@@ -1,11 +1,23 @@
 pkgname = "libvisio"
 pkgver = "0.1.7"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "perl", "gperf"]
-makedepends = ["libxml2-devel", "icu-devel", "librevenge-devel", "boost-devel"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "gperf",
+    "perl",
+    "pkgconf",
+    "slibtool",
+]
+makedepends = [
+    "boost-devel",
+    "icu-devel",
+    "librevenge-devel",
+    "libxml2-devel",
+]
 pkgdesc = "Library for reading and converting MS Visio diagrams"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"

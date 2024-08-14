@@ -1,6 +1,6 @@
 pkgname = "inkscape"
 pkgver = "1.3.2"
-pkgrel = 11
+pkgrel = 12
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -25,6 +25,7 @@ makedepends = [
     "gspell-devel",
     "gtk+3-devel",
     "gtkmm3.0-devel",
+    "gtksourceview4-devel",
     "lcms2-devel",
     "lib2geom-devel",
     "libcdr-devel",

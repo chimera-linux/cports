@@ -1,12 +1,12 @@
 pkgname = "source-highlight"
 pkgver = "3.1.9"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 configure_args = [
     "--with-bash-completion=/usr/share/bash-completion/completions"
 ]
 make_check_args = ["-j1"]
-hostmakedepends = ["pkgconf", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["boost-devel"]
 pkgdesc = "Convert source code to syntax highlighted document"
 maintainer = "q66 <q66@chimera-linux.org>"

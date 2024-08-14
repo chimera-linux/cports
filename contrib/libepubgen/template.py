@@ -1,10 +1,10 @@
 pkgname = "libepubgen"
 pkgver = "0.1.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "gmake", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel", "libxml2-devel"]
 checkdepends = ["cppunit-devel"]
 pkgdesc = "EPUB generator for librevenge"
