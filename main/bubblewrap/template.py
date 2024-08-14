@@ -13,6 +13,6 @@ source = f"{url}/releases/download/v{pkgver}/bubblewrap-{pkgver}.tar.xz"
 sha256 = "65d92cf44a63a51e1b7771f70c05013dce5bd6b0b2841c4b4be54b0c45565471"
 hardening = ["vis", "cfi"]
 
-# seccomp tests fail on aarch64
+# seccomp tests fail on aarch64 with efault instead of econnrefused for various assertions
 if self.profile().arch != "aarch64":
     checkdepends += ["python-libseccomp"]
