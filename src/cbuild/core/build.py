@@ -239,8 +239,6 @@ def _build(
         # generate packages for all packages (includes the main one)
         for sp in pkg.subpkg_all:
             pkgsm.invoke(sp)
-        # generate primary packages
-        pkgsm.invoke(pkg)
         pkg.current_phase = "index"
         # stage binary packages
         for repo in pkg._stage:
