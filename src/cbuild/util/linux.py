@@ -85,7 +85,7 @@ def update_configs(pkg, archs, flavor):
                     f"{pkg.make_dir}-{a}/.config",
                     pkg.files_path / f"config-{a}.{flavor}",
                 )
-    pkg.error("kernel configs have been updated")
+    pkg.log_green("SUCCESS: kernel configs have been updated")
 
 
 def build(pkg, flavor, env=None):
