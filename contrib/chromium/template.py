@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "127.0.6533.99"
+pkgver = "127.0.6533.119"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -139,7 +139,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
-sha256 = "e33a57b0cab75f2fb8bd128be24da0ee18d4a0052e4cd99ad37fcb8dfc9c5875"
+sha256 = "acc9e3f9fd2d180b8831865a1ac4f5cdd9ffe6211f47f467296d9ee1be2a577e"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
