@@ -1,6 +1,6 @@
 pkgname = "entr"
 pkgver = "5.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 make_install_args = ["PREFIX=/usr"]
 checkdepends = [
@@ -9,15 +9,17 @@ checkdepends = [
     "git",
     "procps",
     "tmux",
+    "vim",
 ]
 pkgdesc = "Run arbitrary commands when files change"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "ISC"
 url = "https://eradman.com/entrproject"
-source = f"https://eradman.com/entrproject/code/entr-{pkgver}.tar.gz"
+source = f"{url}/code/entr-{pkgver}.tar.gz"
 sha256 = "0222b8df928d3b5a3b5194d63e7de098533e04190d9d9a154b926c6c1f9dd14e"
 hardening = ["vis", "cfi"]
-# need `vim'
+# check fails:
+# "entr: unable to get terminal attributes, use '-n' to run non-interactively"
 options = ["!check"]
 
 
