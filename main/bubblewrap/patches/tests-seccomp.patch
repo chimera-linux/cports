@@ -1,4 +1,4 @@
-this fails on aarch64
+this fails on aarch64 with efault instead of econnrefused for various assertions
 --
 --- a/tests/meson.build
 +++ b/tests/meson.build
