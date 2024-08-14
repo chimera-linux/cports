@@ -239,7 +239,7 @@ def _scan_one(fpath):
     inf.close()
 
     # sanitize
-    if soname and len(soname) == 0:
+    if soname is not None and len(soname) == 0:
         soname = None
 
     return (
