@@ -82,9 +82,6 @@ env = {
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
 
-# set to True to generate a bootstrap tarball
-_bootstrap = False
-
 # we want this on BE too, and on LE the buildsystem skips it for clang
 # skipping it means generating code for ELFv1 ABI and that does not work
 if self.profile().arch == "ppc64" or self.profile().arch == "ppc64le":
@@ -127,26 +124,35 @@ def do_configure(self):
     gnu_configure.configure(self, sysroot=False)
 
 
-def do_install(self):
-    _jdkp = self.cwd / "build/images/jdk"
-    if _bootstrap:
-        # first make a copy
-        bdirn = f"openjdk-bootstrap-{pkgver}-{self.profile().arch}"
-        self.mkdir(bdirn)
-        for f in _jdkp.iterdir():
-            self.cp(f, bdirn, recursive=True)
-        # remove src, we don't need it
-        self.rm(self.cwd / bdirn / "lib/src.zip")
-        # strip libs
-        for f in (self.cwd / bdirn).rglob("*.so"):
-            print("STRIP", f.relative_to(self.cwd))
-            self.do("llvm-strip", f.relative_to(self.cwd))
-        # make an archive
-        self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
-        self.error("build done, collect your tarball in builddir")
+@custom_target("bootstrap", "build")
+def _bootstrap(self):
+    # first make a copy
+    bdirn = f"openjdk-bootstrap-{pkgver}-{self.profile().arch}"
+    self.mkdir(bdirn)
+    for f in (self.cwd / "build/images/jdk").iterdir():
+        self.cp(f, bdirn, recursive=True)
+    # remove src, we don't need it
+    self.rm(self.cwd / bdirn / "lib/src.zip")
+    # strip libs
+    for f in (self.cwd / bdirn).rglob("*.so"):
+        print("STRIP", f.relative_to(self.cwd))
+        self.do("llvm-strip", f.relative_to(self.cwd))
+    # make an archive
+    self.do(
+        "tar",
+        "cvf",
+        f"{bdirn}.tar.zst",
+        "--zstd",
+        "--options",
+        f"zstd:compression-level=19,zstd:threads={self.make_jobs}",
+        bdirn,
+    )
+    self.log_green("SUCCESS: build done, collect your tarball in builddir")
 
+
+def do_install(self):
     # install the stuff
-    for f in _jdkp.iterdir():
+    for f in (self.cwd / "build/images/jdk").iterdir():
         self.install_files(f, _java_home)
 
     # extras
