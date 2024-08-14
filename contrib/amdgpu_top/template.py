@@ -1,5 +1,5 @@
 pkgname = "amdgpu_top"
-pkgver = "0.9.0"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=package"]
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/Umio-Yasuno/amdgpu_top"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5eb1d51f137fd9488bf83505d83380957c6321dacda014cd826a72313a13ac1d"
+sha256 = "44217dce208fce20f86421630b3d0728d914e6f2bf9b63f5628931949622d108"
 # no tests
 options = ["!check"]
 
