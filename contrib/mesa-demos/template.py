@@ -1,6 +1,6 @@
 pkgname = "mesa-demos"
 pkgver = "9.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dlibdrm=enabled",
@@ -34,6 +34,11 @@ license = "MIT"
 url = "https://gitlab.freedesktop.org/mesa/demos"
 source = f"{url}/-/archive/mesa-demos-{pkgver}/demos-mesa-demos-{pkgver}.tar.gz"
 sha256 = "f8884ea0e130c12f752a039dfa96c2f714201e28753077878df6879f89f46680"
+
+
+def post_install(self):
+    # conflicts with util-linux
+    self.uninstall("usr/bin/line")
 
 
 @subpackage("mesa-utils")
