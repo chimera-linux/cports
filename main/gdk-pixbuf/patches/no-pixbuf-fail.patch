@@ -1,0 +1,14 @@
+this just grows rss with mimalloc until oom; it's normally
+expected to fail to alloc eventually, which however never
+happens (and kill is not expected)
+
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -70,7 +70,6 @@ installed_tests = {
+     'needs_resources': true,
+     'skip': no_resources or not enabled_loaders.contains('bmp'),
+   },
+-  'pixbuf-fail': { 'suites': ['conform', 'slow'], },
+   'pixbuf-icon-serialize': { 'suites': ['conform'], },
+   'pixbuf-randomly-modified': { 'suites': ['slow'], },
+   'pixbuf-threads': { 'suites': ['io'], },
