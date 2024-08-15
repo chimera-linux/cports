@@ -1,6 +1,6 @@
 pkgname = "libcloudproviders"
 pkgver = "0.3.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dintrospection=true", "-Dvapigen=true"]
 hostmakedepends = [
