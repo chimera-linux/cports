@@ -1,6 +1,6 @@
 pkgname = "gnutls"
-pkgver = "3.8.6"
-pkgrel = 1
+pkgver = "3.8.7.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
@@ -18,8 +18,8 @@ hostmakedepends = [
     "automake",
     "gettext-devel",
     "gtk-doc-tools",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "trousers-devel",
 ]
 makedepends = [
@@ -43,8 +43,8 @@ pkgdesc = "GNU Transport Layer Security library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
-source = f"https://www.gnupg.org/ftp/gcrypt/gnutls/v{pkgver[:-2]}/gnutls-{pkgver}.tar.xz"
-sha256 = "2e1588aae53cb32d43937f1f4eca28febd9c0c7aa1734fc5dd61a7e81e0ebcdd"
+source = f"https://www.gnupg.org/ftp/gcrypt/gnutls/v{".".join(pkgver.split(".")[0:2])}/gnutls-{pkgver}.tar.xz"
+sha256 = "9ca0ddaccce28a74fa18d738744190afb3b0daebef74e6ad686bf7bef99abd60"
 
 
 def post_install(self):
