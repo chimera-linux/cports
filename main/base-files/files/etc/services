@@ -9641,6 +9641,7 @@ aries-kfinder    7570/tcp
 aries-kfinder    7570/udp
 coherence        7574/tcp
 coherence-disc   7574/udp
+wtmi-panel       7575/tcp
 sun-lm           7588/tcp
 sun-lm           7588/udp
 mipi-debug       7606/tcp
