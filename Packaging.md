@@ -219,11 +219,15 @@ not realistically possible (e.g. most rust/go software and so on).
 <a id="correct_style"></a>
 ### Correct Style
 
-The `cbuild` system as well as the templates are formatted with
-[Black](https://black.readthedocs.io/en/stable/). Therefore, when writing
-either template or `cbuild` code, make sure the result remains unchanged
-after re-formatting. They should also pass [flake8](https://flake8.pycqa.org/en/latest)
-with our configuration.
+The `cbuild` system as well as the templates are formatted with the
+[Black](https://black.readthedocs.io/en/stable/) Python style. When writing
+either template or `cbuild` code, make sure to run it through an automated
+formatter too. Both `black` and `ruff format` are supported.
+
+They should also pass [ruff check](https://astral.sh/ruff) and
+[flake8](https://flake8.pycqa.org/en/latest) with our configuration, though
+running the former is preferred, as ruff contains more checks than flake8 and is
+what gets ran in CI.
 
 <a id="correct_templates"></a>
 ### Writing Correct Templates
