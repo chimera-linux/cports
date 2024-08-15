@@ -285,7 +285,7 @@ all environments `cbuild` may be run in.
 When writing new templates, care should be taken to use proper hardening
 tags. While most hardening options that one should use are implicitly set
 by default and there is no need to worry about them, there are hardening
-options that cannot be default but should be set of possible anyway.
+options that cannot be default but should be set if possible anyway.
 
 Hardening tags are specified using the `hardening` list metadata. Just like
 the `options` list metadata, they can be enabled (e.g. like `foo`) or
