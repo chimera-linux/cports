@@ -1,6 +1,6 @@
 pkgname = "libedit"
 pkgver = "20240711"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "b1ed32d99f36fa751595473e151b7388786c0d6b"
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
@@ -16,6 +16,8 @@ options = ["bootstrap"]
 
 def post_install(self):
     self.install_license("COPYING")
+    # conflicts with readline-devel-man
+    self.uninstall("usr/share/man/man3/history.3")
     # readline compat
     self.install_file(self.files_path / "readline.h", "usr/include/readline")
     self.install_file(self.files_path / "history.h", "usr/include/readline")
