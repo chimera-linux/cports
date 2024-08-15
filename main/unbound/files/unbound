@@ -1,5 +1,3 @@
-# unbound daemon service
-
 type = process
 command = /usr/bin/unbound -dp
 before = network.target

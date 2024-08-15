@@ -1,6 +1,6 @@
 pkgname = "unbound"
-pkgver = "1.20.0"
-pkgrel = 1
+pkgver = "1.21.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-cachedb",
@@ -21,11 +21,12 @@ configure_args = [
     f"--with-protobuf-c={self.profile().sysroot / 'usr'}",
     f"--with-ssl={self.profile().sysroot / 'usr'}",
 ]
-configure_gen = []
 make_dir = "."  # fails to build otherwise
 hostmakedepends = [
+    "automake",
     "pkgconf",
     "protobuf-c-devel",
+    "slibtool",
 ]
 makedepends = [
     "hiredis-devel",
@@ -42,7 +43,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
-sha256 = "56b4ceed33639522000fd96775576ddf8782bb3617610715d7f1e777c5ec1dbf"
+sha256 = "e7dca7d6b0f81bdfa6fa64ebf1053b5a999a5ae9278a87ef182425067ea14521"
 
 
 def post_install(self):
