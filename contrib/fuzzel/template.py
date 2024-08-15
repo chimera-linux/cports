@@ -1,6 +1,6 @@
 pkgname = "fuzzel"
 pkgver = "1.10.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -8,9 +8,11 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
+    "cairo-devel",
     "fcft-devel",
     "fontconfig-devel",
     "freetype-devel",
+    "librsvg-devel",
     "libxkbcommon-devel",
     "pixman-devel",
     "tllist",
