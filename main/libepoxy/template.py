@@ -1,6 +1,6 @@
 pkgname = "libepoxy"
 pkgver = "1.5.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "xorg-util-macros"]
 makedepends = ["mesa-devel"]
