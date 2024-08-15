@@ -1,5 +1,5 @@
 pkgname = "xfce4-notifyd"
-pkgver = "0.9.5"
+pkgver = "0.9.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dhelper-path-prefix=/usr/libexec", "-Dsystemd=disabled"]
@@ -30,4 +30,4 @@ license = "GPL-2.0-only"
 url = "https://docs.xfce.org/apps/xfce4-notifyd/start"
 # source = f"$(XFCE_SITE)/apps/xfce4-notifyd/{pkgver[:-2]}/xfce4-notifyd-{pkgver}.tar.bz2"
 source = f"https://gitlab.xfce.org/apps/xfce4-notifyd/-/archive/xfce4-notifyd-{pkgver}/xfce4-notifyd-xfce4-notifyd-{pkgver}.tar.gz"
-sha256 = "55ac912851bf9c3cd7815c17e8b03537424272eda6ccf83fa6e30be546a64bd5"
+sha256 = "5650ab00b1bb9119d6990af53a9a798cdfc18193965c5c5c9fbf7f0bfed82525"
