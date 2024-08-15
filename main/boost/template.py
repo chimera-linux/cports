@@ -50,7 +50,6 @@ _libs = [
     "serialization",
     "stacktrace_addr2line",
     "stacktrace_basic",
-    "stacktrace_from_exception",
     "stacktrace_noop",
     "system",
     "thread",
@@ -69,6 +68,7 @@ match self.profile().arch:
         _arch, _abi = "arm", "aapcs"
     case "x86_64":
         _arch, _abi = "x86", "sysv"
+        _libs.append("stacktrace_from_exception")
     case "riscv64":
         _arch, _abi = "riscv", "sysv"
     case _:
