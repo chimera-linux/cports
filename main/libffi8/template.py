@@ -1,6 +1,6 @@
 pkgname = "libffi8"
 pkgver = "3.4.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--includedir=/usr/include",
@@ -11,7 +11,7 @@ configure_args = [
     # libffi incorrectly, prevent them from being broken for now
     "--disable-exec-static-tramp",
 ]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 # actually only on x86 and arm (tramp.c code) but it does not hurt
 makedepends = ["linux-headers"]
 checkdepends = ["dejagnu"]
@@ -33,6 +33,3 @@ def post_install(self):
 @subpackage("libffi-devel")
 def _devel(self):
     return self.default_devel(extra=["usr/share/info"])
-
-
-configure_gen = []
