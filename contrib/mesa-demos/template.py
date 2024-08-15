@@ -34,6 +34,7 @@ license = "MIT"
 url = "https://gitlab.freedesktop.org/mesa/demos"
 source = f"{url}/-/archive/mesa-demos-{pkgver}/demos-mesa-demos-{pkgver}.tar.gz"
 sha256 = "f8884ea0e130c12f752a039dfa96c2f714201e28753077878df6879f89f46680"
+options = ["!distlicense"]
 
 
 def post_install(self):
