@@ -14,6 +14,12 @@ sha256 = "828f390c2a552cadbc8c8ad5fde6eeaee398dc8d59d706559158330f3629ce35"
 hardening = ["vis", "cfi"]
 
 
+def post_extract(self):
+    # same as gdk-pixbuf pixbuf-fail; with mimalloc this never gets an alloc
+    # failure with linux overcommit and eats memory until it gets oom killed
+    self.rm("tests/bc/errors/33.txt")
+
+
 def do_configure(self):
     self.do(
         self.chroot_cwd / "configure.sh",
