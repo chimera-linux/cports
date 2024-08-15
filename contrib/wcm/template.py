@@ -1,21 +1,22 @@
 pkgname = "wcm"
 pkgver = "0.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
+configure_args = ["-Denable_wdisplays=false"]
 hostmakedepends = [
-    "glib-devel",
     "meson",
     "pkgconf",
     "wayland-progs",
 ]
 makedepends = [
-    "gtk+3-devel",
     "gtkmm3.0-devel",
+    "libxkbcommon-devel",
     "libxml2-devel",
     "wayfire-devel",
     "wayland-protocols",
     "wf-config-devel",
 ]
+depends = ["cmd:wdisplays!wdisplays"]
 pkgdesc = "Wayfire Config Manager"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
