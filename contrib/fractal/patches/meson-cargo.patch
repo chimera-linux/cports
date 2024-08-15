@@ -1,0 +1,41 @@
+--- a/src/meson.build	2024-08-01 08:49:42.000000000 +0100
++++ b/src/meson.build	2024-08-14 23:52:37.271725354 +0100
+@@ -39,12 +39,6 @@
+   message('Building in release mode')
+ endif
+ 
+-if get_option('sandboxed')
+-  # This is the path used by flatpak-cargo-generator in flatpak-builder-tools
+-  cargo_env = [ 'CARGO_HOME=' + meson.project_source_root() / 'cargo' ]
+-else
+-  cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+-endif
+ 
+ custom_target(
+   'cargo-build',
+@@ -52,16 +46,11 @@
+   build_always_stale: true,
+   output: meson.project_name(),
+   console: true,
+-  install: true,
+   install_dir: bindir,
+   depends: [resources, ui_resources],
+   command: [
+-    'env',
+-    cargo_env,
+     cargo, 'build',
+     cargo_options,
+-    '&&',
+-    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
+   ]
+ )
+ 
+@@ -101,7 +90,7 @@
+     output: 'doc',
+     console: true,
+     command: [
+-      'env', cargo_env + doc_env,
++      'env', doc_env,
+       cargo, 'doc',
+       cargo_options + doc_deps + ['--no-deps', '-Zrustdoc-map'] ,
+     ],
