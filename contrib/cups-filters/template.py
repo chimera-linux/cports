@@ -1,5 +1,5 @@
 pkgname = "cups-filters"
-pkgver = "2.0.0"
+pkgver = "2.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -11,8 +11,8 @@ make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "libtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = [
     "avahi-devel",
@@ -27,7 +27,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 AND custom:gpl-exception"
 url = "https://github.com/OpenPrinting/cups-filters"
 source = f"https://github.com/OpenPrinting/cups-filters/releases/download/{pkgver}/cups-filters-{pkgver}.tar.xz"
-sha256 = "b5152e3dd148ed73835827ac2f219df7cf5808dbf9dbaec2aa0127b44de800d8"
+sha256 = "39e71de3ce06762b342749f1dc7cba6817738f7bf4d322c1bb9ab10b8569ab80"
 hardening = ["vis", "cfi"]
 
 
