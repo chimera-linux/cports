@@ -1,6 +1,6 @@
 pkgname = "gamescope"
 pkgver = "3.14.24"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=static",
@@ -94,5 +94,3 @@ tool_flags = {"CXXFLAGS": ["-DRTLD_DEEPBIND=0"]}
 
 def post_install(self):
     self.install_license("LICENSE")
-    # already installed
-    self.uninstall("usr/share/licenses/gamescope/LICENSE")
