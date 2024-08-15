@@ -33,5 +33,5 @@ def use(tmpl):
     tmpl.make = make.Make(tmpl, env=gnu_configure.get_make_env())
     tmpl.build_style_defaults = [
         ("make_dir", "build"),
-        ("configure_gen", ["autoreconf", "-if"]),
+        ("configure_gen", ["autoreconf", "-if", "-W", "none"]),
     ]
