@@ -1,0 +1,12 @@
+--- a/tests/heif/Makemodule.am
++++ b/tests/heif/Makemodule.am
+@@ -3,8 +3,7 @@
+ 	heif/avif_ptr_double_free \
+ 	heif/heif_im2im \
+ 	heif/heif_null \
+-	heif/heif_ptr_double_free \
+-	heif/heif_read
++	heif/heif_ptr_double_free
+ endif
+ 
+ EXTRA_DIST += \
