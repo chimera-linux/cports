@@ -1,15 +1,18 @@
 pkgname = "rsync"
 pkgver = "3.3.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--with-rrsync",
     "--with-included-popt=no",
     "--with-included-zlib=no",
+    "--disable-md2man",
 ]
 # breaks when regened
 configure_gen = []
-hostmakedepends = ["perl", "python-commonmark"]
+# otherwise manpages don't get installed
+make_dir = "."
+hostmakedepends = ["perl"]
 makedepends = [
     "acl-devel",
     "lz4-devel",
