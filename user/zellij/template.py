@@ -1,6 +1,7 @@
 pkgname = "zellij"
 pkgver = "0.40.1"
 pkgrel = 0
+archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
 # check fails because of wasm target
 # https://github.com/zellij-org/zellij/blob/c25166c30af05a39f189c7520e3ab0e6a50905be/zellij-utils/src/consts.rs#L96
