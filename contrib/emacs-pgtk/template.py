@@ -1,6 +1,6 @@
 pkgname = "emacs-pgtk"
 pkgver = "29.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",
@@ -14,7 +14,6 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "autoconf",
     "automake",
     "gawk",
     "gmake",
@@ -68,3 +67,7 @@ def post_install(self):
     ).chmod(0o755)
 
     self.uninstall("usr/lib/systemd/user")
+
+    # conflicts with ctags
+    self.rename("usr/bin/ctags", "ctags.emacs")
+    self.rename("usr/share/man/man1/ctags.1.gz", "ctags.emacs.1.gz")
