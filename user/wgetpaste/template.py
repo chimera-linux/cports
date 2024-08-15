@@ -1,6 +1,6 @@
 pkgname = "wgetpaste"
 pkgver = "2.34"
-pkgrel = 0
+pkgrel = 1
 depends = ["bash", "wget2"]
 pkgdesc = "Command-line interface to various paste-bins"
 maintainer = "jabuxas <lucasbarbieri.c@gmail.com>"
