@@ -1,6 +1,6 @@
 pkgname = "python-pybind11"
-pkgver = "2.13.1"
-pkgrel = 1
+pkgver = "2.13.3"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_args = ["--skip-dependency-check"]
 make_check_args = [
@@ -38,7 +38,7 @@ url = "https://pybind11.readthedocs.io/en/stable/index.html"
 source = (
     f"https://github.com/pybind/pybind11/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "51631e88960a8856f9c497027f55c9f2f9115cafb08c0005439838a05ba17bfc"
+sha256 = "6e7a84ec241544f2f5e30c7a82c09c81f0541dd14e9d9ef61051e07105f9c445"
 
 
 def post_build(self):
