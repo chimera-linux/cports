@@ -30,30 +30,30 @@ configure_args = [
     "--enable-http",
     "--enable-sql",
 ]
-configure_gen = []
 make_cmd = "gmake"
 make_install_args = ["-j1"]
 hostmakedepends = [
-    "pkgconf",
-    "gmake",
-    "flex",
+    "automake",
     "bison",
     "file",
-    "python-setuptools",
+    "flex",
     "glib-devel",
+    "gmake",
+    "libtool",
+    "pkgconf",
+    "python-setuptools",
 ]
 makedepends = [
-    "linux-headers",
-    "libcurl-devel",
-    "python-devel",
-    "libdbi-devel",
-    "openssl-devel",
-    "eventlog-devel",
     "glib-devel",
-    "pcre2-devel",
     "hiredis-devel",
     "ivykis-devel",
     "json-c-devel",
+    "libcurl-devel",
+    "libdbi-devel",
+    "linux-headers",
+    "openssl-devel",
+    "pcre2-devel",
+    "python-devel",
     "rabbitmq-c-devel",
 ]
 depends = ["cmd:ugetopt!ugetopt"]
