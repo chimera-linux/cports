@@ -1,5 +1,5 @@
 pkgname = "btrfs-progs"
-pkgver = "6.10"
+pkgver = "6.10.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--enable-python"]
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://btrfs.readthedocs.io/en/latest"
 source = f"$(KERNEL_SITE)/kernel/people/kdave/btrfs-progs/btrfs-progs-v{pkgver}.tar.xz"
-sha256 = "3382a84e3fcfe1ffdea07a61ab3f4e86665d38fa35f1f34548d5df867423e0df"
+sha256 = "25684696bc5b5d07c98f19d4bf7a48b53ab94870ca4c468a68af3df9e2c8a35e"
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
 # libbtrfsutils/python broken on cross
