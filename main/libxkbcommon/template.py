@@ -1,6 +1,6 @@
 pkgname = "libxkbcommon"
 pkgver = "1.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Denable-x11=true",
