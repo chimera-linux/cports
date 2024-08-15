@@ -26,15 +26,12 @@ license = "MIT"
 url = "https://github.com/ziglang/zig"
 source = f"https://ziglang.org/download/{pkgver}/zig-{pkgver}.tar.xz"
 sha256 = "06c73596beeccb71cc073805bdb9c0e05764128f16478fa53bf17dfabc1d4318"
-# lighten up the build, only applies to bootstrap
-hardening = ["!int", "!scp", "!var-init"]
-# lto only gets applied to the C bootstrap and slows down the build (doesn't
-# affect the zig output)
-options = ["!lto"]
-restricted = "work in progress"
-
-# ditto
+# lighten up the build, only applies to bootstrap and just slows down the build
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}
+hardening = ["!int", "!scp", "!ssp", "!var-init"]
+options = ["!lto"]
+
+restricted = "work in progress (needs to either not need llvm or for us to multiversion llvm)"
 
 match self.profile().arch:
     case "x86_64" | "aarch64":
