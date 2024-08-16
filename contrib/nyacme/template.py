@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://git.ddd.rip/ptrcnull/nyacme"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "647dc66e6b87b8dbdb4dc15979b90076cd2cdc40ba733e7d7cb5ed2edd07b4d6"
+sha256 = "07e0e33c3d6fc166474c5120790140fac2ecddcf94394228e969e5c7cc05442c"
 # tests do not exist
 options = ["!check"]
 
