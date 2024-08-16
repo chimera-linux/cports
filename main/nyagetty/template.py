@@ -1,6 +1,6 @@
 pkgname = "nyagetty"
 pkgver = "2.38.99"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
@@ -31,6 +31,7 @@ _ttys = [
     ("ttyS1", True),
     ("ttyS2", True),
     ("ttyS3", True),
+    ("ttyS4", True),
     # usb serial
     ("ttyUSB0", True),
     ("ttyUSB1", True),
