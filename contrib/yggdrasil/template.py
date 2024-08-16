@@ -20,7 +20,7 @@ sha256 = "035122cc840443a1ed9cb7f066fe5bd6d2ff879a7026be449c0a24436b04f4c8"
 
 
 def pre_build(self):
-    self.do("rm", "build")
+    self.rm("build")
 
 
 def post_install(self):

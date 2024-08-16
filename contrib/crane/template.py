@@ -14,7 +14,7 @@ sha256 = "4bae53f34011e35ef874a60123b8ae70a5e992d804decb030479dbb888afe6d1"
 
 def post_extract(self):
     # marked broken on arm64/darwin; apparently also on musl in general
-    self.do("rm", "pkg/v1/google/auth_test.go")
+    self.rm("pkg/v1/google/auth_test.go")
 
 
 # docs are present but they do not render properly as manpages
