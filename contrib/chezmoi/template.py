@@ -1,6 +1,6 @@
 pkgname = "chezmoi"
-pkgver = "2.52.0"
-pkgrel = 1
+pkgver = "2.52.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X 'main.builtBy=Chimera Linux'",
@@ -13,7 +13,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
-sha256 = "dd0a739825a0d194fec3bedced5969ad02880f72abb00e6ea834f250fe4eda09"
+sha256 = "622974a9653f07874d9c6a627af130163bf3cde7eb0f1b89baa2f3a7fa76b8a4"
 
 
 def do_check(self):
