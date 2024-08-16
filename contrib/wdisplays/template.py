@@ -1,6 +1,6 @@
 pkgname = "wdisplays"
 pkgver = "1.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "glib-devel",
@@ -14,6 +14,8 @@ makedepends = [
     "libepoxy-devel",
     "wayland-protocols",
 ]
+# dependency of wcm=0.8.0-r1, provides same file as 0.8.0-r0
+replaces = ["wcm<0.8.0-r1"]
 pkgdesc = "GUI display configuration tool for wlroots compositors"
 maintainer = "dhruv22592 <dhruv22592@protonmail.com>"
 license = "GPL-3.0-or-later"
