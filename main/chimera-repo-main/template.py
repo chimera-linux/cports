@@ -10,12 +10,10 @@ url = "https://chimera-linux.org"
 
 
 def do_install(self):
-    self.install_file(
-        *self.find(
-            self.files_path, f"{self.profile().arch}@chimera-linux.org-*.pub"
-        ),
-        "etc/apk/keys",
-    )
+    for arch_key in self.find(
+        self.files_path, f"{self.profile().arch}@chimera-linux.org-*.pub"
+    ):
+        self.install_file(arch_key, "etc/apk/keys")
     self.install_file(
         self.files_path / "q66@chimera-linux.org-61a1913b.rsa.pub",
         "etc/apk/keys",
