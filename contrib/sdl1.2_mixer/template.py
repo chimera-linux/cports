@@ -1,12 +1,13 @@
 pkgname = "sdl1.2_mixer"
 pkgver = "1.2.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # make sure they're pulled as runtime deps
 configure_args = [
-    "--disable-music-mod-shared",
-    "--disable-music-ogg-shared",
     "--disable-music-flac-shared",
+    "--disable-music-mod-shared",
+    "--disable-music-mp3-shared",
+    "--disable-music-ogg-shared",
 ]
 configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
@@ -16,6 +17,7 @@ makedepends = [
     "libmikmod-devel",
     "libvorbis-devel",
     "sdl12-compat-devel",
+    "smpeg0-devel",
 ]
 pkgdesc = "SDL 1.2 audio mixer library"
 maintainer = "Erica Z <zerica@callcc.eu>"
