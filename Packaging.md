@@ -3790,8 +3790,9 @@ You can define some functions:
   default behavior is to return `self.expand_source(input)`, which
   returns the input when `single_directory` is set to `True` and does the
   parent directory expansion otherwise.
-* `fetch_versions` A function taking a single URL and returning a list
-  of version numbers. By default `self.fetch_versions(url)`.
+* `fetch_versions` A function taking the update check object plus a single
+  URL and returning a list of version numbers. By default
+  `self.fetch_versions(url)`.
 
 These functions take the update check object. It has the following
 properties:
