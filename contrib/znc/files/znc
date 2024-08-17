@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/znc --datadir /var/lib/znc --foreground
+run-as = _znc
+log-type = file
+logfile = /var/log/znc.log
+depends-on = network.target
+depends-on = local.target
