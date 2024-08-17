@@ -1,0 +1,2 @@
+# legacy version
+ignore = True
