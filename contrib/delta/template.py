@@ -1,9 +1,7 @@
 pkgname = "delta"
-pkgver = "0.17.0"
-pkgrel = 1
+pkgver = "0.18.0"
+pkgrel = 0
 build_style = "cargo"
-# we patch Cargo.toml and Cargo.lock
-prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
@@ -16,7 +14,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/dandavison/delta"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1abd21587bcc1f2ef0cd342784ce990da9978bc345578e45506419e0952de714"
+sha256 = "1cdd61373b34cd6d20a0184efc9e445939f743d92b2b89a83ec787b4cf93f5a4"
 # generates completions with host binary
 options = ["!cross"]
 
