@@ -1,0 +1,80 @@
+diff -ru a/configure.ac b/configure.ac
+--- a/configure.ac	2022-12-31 23:49:20.000000000 +0800
++++ b/configure.ac	2024-08-17 09:15:48.421459824 +0800
+@@ -196,7 +196,7 @@
+                   sigc++-2.0
+                   pango
+                   pangocairo
+-                  libpcre
++                  libpcre2-8
+                   )
+ AC_SUBST(NUX_CFLAGS)
+ AC_SUBST(NUX_LIBS)
+diff -ru a/Nux/Validator.h b/Nux/Validator.h
+--- a/Nux/Validator.h	2022-12-31 23:49:20.000000000 +0800
++++ b/Nux/Validator.h	2024-08-17 10:27:15.782757224 +0800
+@@ -26,7 +26,8 @@
+ #if defined(NUX_OS_WINDOWS)
+   #include <regex>
+ #else
+-  #include <pcre.h>
++  #define PCRE2_CODE_UNIT_WIDTH 8
++  #include <pcre2.h>
+ #endif
+ 
+ namespace nux
+@@ -57,7 +58,7 @@
+ #if defined(NUX_OS_WINDOWS)
+     std::regex regex_;
+ #else
+-    pcre *_regexp;
++    pcre2_code *_regexp;
+ #endif
+   };
+ }
+diff -ru a/Nux/Validator.cpp b/Nux/Validator.cpp
+--- a/Nux/Validator.cpp	2022-12-31 23:49:20.000000000 +0800
++++ b/Nux/Validator.cpp	2024-08-17 11:43:36.506757224 +0800
+@@ -41,14 +41,15 @@
+     regex_ = _regexp_str.c_str();
+     return true;
+ #else
+-    const char *error;
+-    int   erroffset;
+-    _regexp = pcre_compile(
+-      _regexp_str.c_str(),    /* the pattern */
+-      PCRE_MULTILINE,
+-      &error,         /* for error message */
++    int error;
++    PCRE2_SIZE erroffset;
++    _regexp = pcre2_compile(
++      (PCRE2_SPTR)_regexp_str.c_str(),    /* the pattern */
++      PCRE2_ZERO_TERMINATED,
++      PCRE2_MULTILINE,
++      &error,         /* for error code */
+       &erroffset,     /* for error offset */
+-      0);             /* use default character tables */
++      NULL);
+ 
+     if (!_regexp)
+     {
+@@ -75,16 +76,13 @@
+     if (_regexp == 0)
+       return Validator::Invalid;
+ 
+-    int out_vector [10];
++    pcre2_match_data *match_data = pcre2_match_data_create(10, NULL);
+     unsigned int offset = 0;
+     int len = (int) strlen(str);
+ 
+-    // See the "PCRE DISCUSSION OF STACK USAGE" and why it maybe necessary to limit the stack usage.
+-    pcre_extra extra;
+-    extra.flags = PCRE_EXTRA_MATCH_LIMIT_RECURSION;
+-    extra.match_limit_recursion = 2000; 
+ 
+-    int rc = pcre_exec(_regexp, &extra, str, len, offset, 0, out_vector, 10);
++    int rc = pcre2_match(_regexp, (PCRE2_SPTR)str, (PCRE2_SIZE)len, (PCRE2_SIZE)offset, 0, match_data, NULL);
++    pcre2_match_data_free(match_data);
+     if (rc <= -1)
+     {
+       return Validator::Invalid;

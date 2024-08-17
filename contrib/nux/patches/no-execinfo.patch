@@ -1,0 +1,53 @@
+diff -ru a/NuxCore/Logger.cpp b/NuxCore/Logger.cpp
+--- a/NuxCore/Logger.cpp	2022-12-31 23:49:20.000000000 +0800
++++ b/NuxCore/Logger.cpp	2024-08-17 10:39:25.658459824 +0800
+@@ -30,9 +30,6 @@
+ #include "LoggerPrivate.h"
+ #include "LoggingWriter.h"
+ 
+-#if defined(NUX_OS_LINUX)
+-#  include <execinfo.h>
+-#endif
+ 
+ #include <sstream>
+ #include <vector>
+@@ -354,39 +351,10 @@
+   return Warning;
+ }
+ 
+-#if defined(NUX_OS_LINUX)
+-std::string Backtrace(int levels)
+-{
+-  std::ostringstream sout;
+-  void* trace[256];
+-  int n = ::backtrace(trace, 256);
+-  if (!n) {
+-    return sout.str();
+-  }
+-
+-  char** strings = ::backtrace_symbols(trace, n);
+-
+-  if (levels != -1) {
+-    n = std::min(n, levels);
+-  }
+-
+-  // Skip outputting the first string as it is:
+-  // nux::logging::backtrace
+-  for (int i = 1; i < n; ++i) {
+-    sout << i << ": " << strings[i] << '\n';
+-  }
+-  if (strings) {
+-    free (strings);
+-  }
+-
+-  return sout.str();
+-}
+-#else
+ std::string Backtrace(int /*levels*/)
+ {
+   return "Backtrace not supported on this platform.\n";
+ }
+-#endif
+ 
+ BlockTracer::BlockTracer(Logger const& logger,
+                          Level level,

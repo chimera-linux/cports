@@ -1,0 +1,22 @@
+diff -ru a/NuxCore/Character/NUni.cpp b/NuxCore/Character/NUni.cpp
+--- a/NuxCore/Character/NUni.cpp	2022-12-31 23:49:20.000000000 +0800
++++ b/NuxCore/Character/NUni.cpp	2024-08-17 10:31:49.797459824 +0800
+@@ -464,7 +464,6 @@
+         if (*source >= 0x80 && *source < 0xC2)
+           return false;
+ 
+-      [[gnu::fallthrough]];
+     }
+ 
+     if (*source > 0xF4) return false;
+diff -ru a/Nux/TextEntry.cpp b/Nux/TextEntry.cpp
+--- a/Nux/TextEntry.cpp	2022-12-31 23:49:20.000000000 +0800
++++ b/Nux/TextEntry.cpp	2024-08-17 10:33:56.984757224 +0800
+@@ -2670,7 +2670,6 @@
+       if (ch >= 0x80 && ch < 0xC2)
+         return false;
+ 
+-      [[gnu::fallthrough]];
+     }
+ 
+     if (ch > 0xF4) return false;
