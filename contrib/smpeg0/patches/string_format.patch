@@ -1,0 +1,12 @@
+diff -ruN a/plaympeg.c b/plaympeg.c
+--- a/plaympeg.c	2013-02-18 00:57:48.000000000 +0100
++++ b/plaympeg.c	2024-08-17 12:04:54.650625472 +0200
+@@ -263,7 +263,7 @@
+       answer[i] = c;
+     }
+     answer[i] = 0;
+-    fprintf(stderr, answer + 4);
++    fprintf(stderr, "%s", answer + 4);
+   }
+   while(answer[3] == '-');
+ 
