@@ -1,18 +1,16 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.7"
-pkgrel = 5
+pkgver = "0.99.8"
+pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["meson"]
-makedepends = ["linux-headers"]
+hostmakedepends = ["meson", "pkgconf"]
+makedepends = ["libkmod-devel", "linux-headers"]
 depends = [
     "dinit",
     "tzdata",
     "cmd:awk!chimerautils",
     "cmd:fsck!mount",
     "cmd:grep!chimerautils",
-    "cmd:install!chimerautils",
     "cmd:mkdir!chimerautils",
-    "cmd:modprobe!kmod",
     "cmd:mount!mount",
     "cmd:sd-tmpfiles!sd-tools",
     "cmd:sed!chimerautils",
@@ -33,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "b157be01907daa8413b408f30b7a53022e69a9cf9eed17204c52c91c0f7e9572"
+sha256 = "343d12442c19c907f438577d68b5cea16e1ab727c552a0cf2a8e523c0c2a7127"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
