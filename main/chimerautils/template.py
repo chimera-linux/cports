@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
-pkgver = "14.1.0"
-pkgrel = 1
+pkgver = "14.1.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c5e77adb252620949da2e58827d12537ec4ae98f0b9ae8f71b8a30b1127882ee"
+sha256 = "e92f590216c3a43d6f6ae7ae63f73ffd9147068e33a76e995d644d721434e7e2"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
@@ -78,6 +78,7 @@ def _full(self):
         "usr/bin/cal",
         "usr/bin/compress",
         "usr/bin/cu",
+        "usr/bin/ee",
         "usr/bin/ex",
         "usr/bin/fetch",
         "usr/bin/gencat",
@@ -90,6 +91,7 @@ def _full(self):
         "usr/bin/nview",
         "usr/bin/patch",
         "usr/bin/telnet",
+        "usr/bin/tip",
         "usr/bin/uncompress",
         "usr/bin/vi",
         "usr/bin/view",
@@ -98,6 +100,7 @@ def _full(self):
         "usr/share/man/man1/cal.1",
         "usr/share/man/man1/compress.1",
         "usr/share/man/man1/cu.1",
+        "usr/share/man/man1/ee.1",
         "usr/share/man/man1/ex.1",
         "usr/share/man/man1/fetch.1",
         "usr/share/man/man1/gencat.1",
@@ -111,8 +114,10 @@ def _full(self):
         "usr/share/man/man1/patch.1",
         "usr/share/man/man1/telnet.1",
         "usr/share/man/man1/uncompress.1",
+        "usr/share/man/man1/tip.1",
         "usr/share/man/man1/vi.1",
         "usr/share/man/man1/view.1",
+        "usr/share/man/man5/remote.5",
         "usr/share/man/man8/locate.updatedb.8",
         "usr/share/man/man8/updatedb.8",
         "usr/share/vi",
