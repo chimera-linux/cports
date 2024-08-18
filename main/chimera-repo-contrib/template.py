@@ -1,6 +1,7 @@
 pkgname = "chimera-repo-contrib"
 pkgver = "0.1"
 pkgrel = 0
+archs = ["aarch64", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "meta"
 depends = ["chimera-repo-main"]
 pkgdesc = "Chimera contrib repository"
