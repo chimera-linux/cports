@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "24.1.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -226,6 +226,12 @@ def post_extract(self):
         *_subproject_list,
         allow_network=True,
     )
+
+
+def init_configure(self):
+    ljobs = 4 if self.make_jobs >= 4 else self.make_jobs
+    # mesa links a lot of big .so's at once so ensure there is not more than four
+    self.configure_args += [f"-Dbackend_max_links={ljobs}"]
 
 
 def post_install(self):
