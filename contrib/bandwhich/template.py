@@ -1,5 +1,5 @@
 pkgname = "bandwhich"
-pkgver = "0.22.2"
+pkgver = "0.23.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/imsnif/bandwhich"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4c41719549e05dbaac1bc84828269e59b2f2032e76ae646da9b9e3b87e5a5fd1"
+sha256 = "58b94588ec919fd802fc25cd209084ecc9acdfd99d5478d5ec76670774ff5886"
 
 if self.profile().arch == "ppc64le":
     # tests compare snapshot output which is different on ppc64le on the builder
