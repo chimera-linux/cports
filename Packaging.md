@@ -752,6 +752,10 @@ These variables are mandatory:
   is inherited into all subpackages, and subpackages are allowed to set
   it themselves. License exceptions can be from the standard list or they
   can be custom as well, e.g. `GPL-2.0-or-later WITH custom:foo-exception`.
+* `maintainer` *(str)* The maintainer of the package, in the same format as
+  Git commits (i.e. `name <email>`). Orphaned packages should use the
+  maintainer `Orphaned <orphaned@chimera-linux.org>`. Note that this is
+  not recorded in the package and exists only for informational purposes.
 * `pkgname` *(str)* The primary package name, must match template name.
   It must be lowercase, likewise for subpackages.
 * `pkgver` *(str)* The package version, applies to all subpackages. Must
@@ -886,9 +890,6 @@ Keep in mind that default values may be overridden by build styles.
   include at least one versioned constraint. May contain actual package or
   subpackage objects, which resolve to their full versioned name like in
   the `depends` list.
-* `maintainer` *(str)* The maintainer of the package, in the same format as
-  Git commits (i.e. `name <email>`). Orphaned packages should use the
-  maintainer `Orphaned <orphaned@chimera-linux.org>`.
 * `make_cmd` *(str)* The name of the program used for building. May not
   apply to all templates or build styles. By default this is `bmake` (the
   default Make implementation in Chimera).
