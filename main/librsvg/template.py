@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.58.2"
+pkgver = "2.58.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,10 +16,10 @@ hostmakedepends = [
     "glib-devel",
     "gmake",
     "gobject-introspection",
-    "libtool",
     "pkgconf",
     "python",
     "python-docutils",
+    "slibtool",
     "vala",
 ]
 makedepends = [
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/librsvg/{pkgver[:-2]}/librsvg-{pkgver}.tar.xz"
-sha256 = "18e9d70c08cf25f50d610d6d5af571561d67cf4179f962e04266475df6e2e224"
+sha256 = "49f29a0a92f4c2d19a2cb41e96ab2fce7eb5bde41850c8a914fcf655e3110944"
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check", "!cross"]
 
