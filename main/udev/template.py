@@ -1,6 +1,6 @@
 pkgname = "udev"
-pkgver = "256.4"
-pkgrel = 1
+pkgver = "256.5"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dacl=enabled",
@@ -123,7 +123,7 @@ url = "https://github.com/systemd/systemd"
 source = (
     f"https://github.com/systemd/systemd/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "7861d544190f938cac1b242624d78c96fe2ebbc7b72f86166e88b50451c6fa58"
+sha256 = "41bb91861ab9f2f2b6cadad558ea1f8764d701452b018852146d642a850c8a8b"
 # the tests that can run are mostly useless
 options = ["!splitudev", "!check"]
 
