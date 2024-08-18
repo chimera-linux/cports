@@ -25,7 +25,7 @@ index 591514a..c54f8d0 100755
 @@ -6,11 +6,3 @@
  
  mkdir -p $destination_dir
- cp -r wireplumber/{*.d,scripts,hardware-profiles} $destination_dir
+-cp -r wireplumber/{*.d,scripts,hardware-profiles} $destination_dir
 -
 -mkdir -p $systemd_dir
 -cp -a wireplumber/systemd/system/* $systemd_dir
@@ -34,6 +34,7 @@ index 591514a..c54f8d0 100755
 -cd $DEST_DIR/etc && ln -s /run/wireplumber wireplumber
 -echo "wireplumber setup complete. reboot your machine."
 -
++cp -r wireplumber/{scripts,hardware-profiles} $destination_dir
 --- a/scripts/setup_pipewire.sh
 +++ b/scripts/setup_pipewire.sh
 @@ -7,7 +7,3 @@

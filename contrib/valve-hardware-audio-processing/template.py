@@ -1,6 +1,6 @@
 pkgname = "valve-hardware-audio-processing"
-pkgver = "0.55"
-pkgrel = 3
+pkgver = "0.56"
+pkgrel = 0
 # steamdeck only
 archs = ["x86_64"]
 build_style = "makefile"
@@ -18,7 +18,7 @@ url = "https://gitlab.com/evlaV/valve-hardware-audio-processing"
 source = (
     f"{url}/-/archive/{pkgver}/valve-hardware-audio-processing-{pkgver}.tar.gz"
 )
-sha256 = "be4582c7e3030fcd918026ca6de422e31a93f113e244594ae4c4a30b46d05376"
+sha256 = "d1b9e681cdcd9c75fda45d65a97d853449f863aff3d567a04ad320ed53a5debc"
 # no tests
 options = ["!cross", "!check"]
 
