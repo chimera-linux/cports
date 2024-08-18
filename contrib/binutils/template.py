@@ -1,5 +1,5 @@
 pkgname = "binutils"
-pkgver = "2.43"
+pkgver = "2.43.1"
 _llvmver = "18.1.8"
 pkgrel = 0
 build_style = "gnu_configure"
@@ -55,7 +55,7 @@ source = [
     f"!https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-{_llvmver}/llvm/tools/gold/gold-plugin.cpp>gold-plugin-{_llvmver}.cpp",
 ]
 sha256 = [
-    "b53606f443ac8f01d1d5fc9c39497f2af322d99e14cea5c0b4b124d630379365",
+    "13f74202a3c4c51118b797a39ea4200d3f6cfbe224da6d1d95bb938480132dfd",
     "08789507047c04c02c2556d888a62215bbeb6d00aa1e67fa8006b1d8c4a160a7",
 ]
 # resistance is futile
