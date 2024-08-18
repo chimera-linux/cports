@@ -1,6 +1,6 @@
 pkgname = "libsasl"
 pkgver = "2.1.28"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-cram",
@@ -32,10 +32,9 @@ options = ["!cross"]
 
 
 def post_install(self):
-    # we only want libsasl
+    # we only want libsasl and plugins
     self.uninstall("usr/bin")
     self.uninstall("usr/share")
-    self.uninstall("usr/lib/sasl2")
     self.install_license("COPYING")
 
 
