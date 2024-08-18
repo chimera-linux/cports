@@ -1,5 +1,5 @@
 pkgname = "graphicsmagick"
-pkgver = "1.3.43"
+pkgver = "1.3.44"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -25,7 +25,12 @@ configure_args = [
     "--with-zlib",
     "--with-zstd",
 ]
-hostmakedepends = ["automake", "libtool", "perl", "pkgconf"]
+hostmakedepends = [
+    "automake",
+    "perl",
+    "pkgconf",
+    "slibtool",
+]
 makedepends = [
     "bzip2-devel",
     "freetype-devel",
@@ -49,7 +54,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.graphicsmagick.org"
 source = f"$(SOURCEFORGE_SITE)/graphicsmagick/GraphicsMagick-{pkgver}.tar.xz"
-sha256 = "2b88580732cd7e409d9e22c6116238bef4ae06fcda11451bf33d259f9cbf399f"
+sha256 = "6ac28470d2fbd3d5f60859dd43f3cee2585e955e32896f892b4dc61dda101ea0"
 
 
 def post_install(self):
