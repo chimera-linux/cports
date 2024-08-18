@@ -1,5 +1,5 @@
 pkgname = "vulkan-tools"
-pkgver = "1.3.292"
+pkgver = "1.3.293"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -31,7 +31,7 @@ url = "https://www.khronos.org/vulkan"
 source = (
     f"https://github.com/KhronosGroup/Vulkan-Tools/archive/v{pkgver}.tar.gz"
 )
-sha256 = "8aafb6da480ea45a1ef660f3a74a8c831e3a8e71b52016bf214609e9a5a4cf64"
+sha256 = "1b1215888fef99a7e071b3b92fa91fbadb4986f92b7abea4a12749dc3617eb62"
 # CFI: vkcube etc fail
 hardening = ["vis", "!cfi"]
 # no test suite
