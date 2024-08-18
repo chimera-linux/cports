@@ -30,7 +30,6 @@ configure_args = [
     "--with-sqlite3",
 ]
 hostmakedepends = [
-    "autoconf",
     "automake",
     "gettext-devel",
     "libtool",

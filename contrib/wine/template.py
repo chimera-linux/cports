@@ -14,7 +14,6 @@ make_install_args = [
     "STRIPPROG=true",
 ]
 hostmakedepends = [
-    "autoconf",
     "automake",
     "gmake",
     "pkgconf",

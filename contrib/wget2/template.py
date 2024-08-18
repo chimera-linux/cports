@@ -7,7 +7,6 @@ configure_args = [
     "--with-bzip2",
 ]
 hostmakedepends = [
-    "autoconf",
     "automake",
     "gettext-devel",
     "libtool",

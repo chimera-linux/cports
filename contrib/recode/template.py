@@ -3,7 +3,6 @@ pkgver = "3.7.14"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
-    "autoconf",
     "automake",
     "bison",
     "flex",

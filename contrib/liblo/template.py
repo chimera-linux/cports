@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
-    "autoconf",
     "automake",
     "libtool",
     "pkgconf",

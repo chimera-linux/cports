@@ -10,7 +10,6 @@ make_cmd = "gmake"
 # default build/ dir exists and so builds from wrong dir
 make_dir = "."
 hostmakedepends = [
-    "autoconf",
     "automake",
     "gmake",
     "gtk-doc-tools",

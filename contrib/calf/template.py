@@ -7,7 +7,6 @@ configure_args = [
     "--disable-static",
 ]
 hostmakedepends = [
-    "autoconf",
     "automake",
     "libtool",
     "pkgconf",

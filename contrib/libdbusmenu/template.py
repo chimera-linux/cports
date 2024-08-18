@@ -10,7 +10,6 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "autoconf",
     "automake",
     "gmake",
     "intltool",

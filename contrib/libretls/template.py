@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 hostmakedepends = [
-    "autoconf",
     "automake",
     "libtool",
     "pkgconf",

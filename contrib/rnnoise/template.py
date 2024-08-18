@@ -3,7 +3,6 @@ pkgver = "0.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
-    "autoconf",
     "automake",
     "libtool",
     "pkgconf",

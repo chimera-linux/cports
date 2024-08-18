@@ -4,7 +4,11 @@ pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-nls"]
 configure_gen = ["./autogen.sh"]
-hostmakedepends = ["autoconf", "automake", "libtool", "pkgconf"]
+hostmakedepends = [
+    "automake",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
     "autoconf-archive",
     "gettext-devel",

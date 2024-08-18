@@ -11,7 +11,6 @@ configure_args = [
 configure_gen = ["./autogen.sh"]
 make_dir = "."
 hostmakedepends = [
-    "autoconf",
     "autoconf-archive",
     "automake",
     "libtool",

@@ -7,7 +7,6 @@ configure_args = [
     "--disable-systemd",
 ]
 hostmakedepends = [
-    "autoconf",
     "automake",
     "flex",
     "libtool",

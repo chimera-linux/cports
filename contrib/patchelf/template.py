@@ -2,10 +2,7 @@ pkgname = "patchelf"
 pkgver = "0.18.0"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = [
-    "autoconf",
-    "automake",
-]
+hostmakedepends = ["automake"]
 pkgdesc = "Utility tomodify the dynamic linker and RPATH of ELF executables"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
