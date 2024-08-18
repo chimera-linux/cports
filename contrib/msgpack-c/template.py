@@ -1,5 +1,5 @@
 pkgname = "msgpack-c"
-pkgver = "6.0.2"
+pkgver = "6.1.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "Apache-2.0"
 url = "https://msgpack.org"
 source = f"https://github.com/msgpack/msgpack-c/archive/c-{pkgver}.tar.gz"
-sha256 = "f5b031d7b2f6639936826baeea4d3080e7db5db76838c7230089ec3d1f97e6a2"
+sha256 = "c23c4070dbe01f46044bf70c5349f29453d655935b6dc710714c008bca0825a7"
 
 
 @subpackage("msgpack-c-devel")
