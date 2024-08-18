@@ -1,6 +1,6 @@
 pkgname = "kmod"
 pkgver = "33"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-zlib",
@@ -18,7 +18,7 @@ hostmakedepends = [
 ]
 makedepends = ["zlib-ng-compat-devel", "zstd-devel"]
 checkdepends = ["bash"]
-pkgdesc = "Linux kenrel module handling"
+pkgdesc = "Linux kernel module handling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git"
