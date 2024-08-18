@@ -1035,6 +1035,17 @@ Keep in mind that default values may be overridden by build styles.
   the main description as ` (subdesc)`.
 * `tools` *(dict)* This can be used to override default tools. Refer to the
   section about tools for more information.
+* `system_users` *(list)* A list of users for cbuild. A user can take two
+  forms. It can either be a string (in the format `username` or `username:uid`)
+  for the simple case, or a `dict` containing at least the fields `name` and
+  `uid` (an integer) and optionally `desc`, `shell`, `groups`, `pgroup` and
+  `home`. Note that this does not affect the generated packages anyhow; the
+  only use is when something during the build expects these to exist, or
+  when the package is to contain entries owned by that user. You will always
+  need to couple it with a `sysusers` configuration file for the package.
+* `system_groups` *(list)* A list of groups to create. It contains strings,
+  which can be in the format `gname` or `gname:gid`. The above information
+  applies identically here.
 * `tool_flags` *(dict)* This can be used to override things such as `CFLAGS`
   or `LDFLAGS`. Refer to the section about tools and tool flags for more
   information.
@@ -1042,16 +1053,6 @@ Keep in mind that default values may be overridden by build styles.
   on. That is, if any package changes these monitored directories, the
   trigger script for this package should run. This can include wildcards
   (`foo/*` will fire on any directory inside `foo`).
-
-These variables generate scriptlets:
-
-* `system_users` *(list)* A list of users to create. A user can take two
-  forms. It can either be a string (in the format `username` or `username:uid`)
-  for the simple case, or a `dict` containing at least the fields `name` and
-  `uid` (an integer) and optionally `desc`, `shell`, `groups`, `pgroup` and
-  `home`.
-* `system_groups` *(list)* A list of groups to create. It contains strings,
-  which can be in the format `gname` or `gname:gid`.
 
 Additionally, there is a variety of variables that are not generic but rather
 are used by specific build styles. They are listed and described in each
