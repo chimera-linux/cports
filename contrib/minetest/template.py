@@ -1,14 +1,22 @@
 pkgname = "minetest"
-pkgver = "5.8.0"
-_irrlichtver = "1.9.0mt13"
-pkgrel = 1
+pkgver = "5.9.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SERVER=TRUE",
+    # passed manually
+    "-DENABLE_LTO=OFF",
     "-DENABLE_PROMETHEUS=ON",
-    "-DENABLE_UPDATE_CHECKER=FALSE",
+    "-DENABLE_UPDATE_CHECKER=OFF",
 ]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext-devel"]
+hostmakedepends = [
+    "cmake",
+    "doxygen",
+    "gettext-devel",
+    "graphviz",
+    "ninja",
+    "pkgconf",
+]
 makedepends = [
     "bzip2-devel",
     "freetype-devel",
@@ -24,9 +32,10 @@ makedepends = [
     "libxi-devel",
     "luajit-devel",
     "mesa-devel",
+    "ncurses-devel",
     "openal-soft-devel",
     "openssl-devel",
-    "prometheus-cpp",
+    "prometheus-cpp-devel",
     "sqlite-devel",
     "zstd-devel",
 ]
@@ -35,17 +44,17 @@ pkgdesc = "Voxel game creation platform"
 maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.minetest.net"
-source = [
-    f"https://github.com/minetest/minetest/archive/refs/tags/{pkgver}.tar.gz",
-    f"https://github.com/minetest/irrlicht/archive/refs/tags/{_irrlichtver}.tar.gz",
-]
-source_paths = [".", "lib/irrlichtmt"]
-sha256 = [
-    "610c85a24d77acdc3043a69d777bed9e6c00169406ca09df22ad490fe0d68c0c",
-    "2fde8e27144988210b9c0ff1e202905834d9d25aaa63ce452763fd7171096adc",
-]
-tool_flags = {"CXXFLAGS": ["-Wno-deprecated-declarations"]}
+source = (
+    f"https://github.com/minetest/minetest/archive/refs/tags/{pkgver}.tar.gz"
+)
+sha256 = "070bc292a0b7fc60d7ff0a14b364c8229c5cbe38296a80f948ea2c2591545a5c"
+tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
+
+
+def check(self):
+    self.do("bin/minetest", "--run-unittests")
+    self.do("bin/minetestserver", "--run-unittests")
 
 
 def post_install(self):
@@ -54,13 +63,15 @@ def post_install(self):
         "etc/minetest",
         name="minetest.conf",
     )
+    # dead symlink
+    self.uninstall("usr/share/minetest/client/shaders/Irrlicht")
 
 
 @subpackage("minetest-common")
 def _(self):
     self.subdesc = "common files"
 
-    return ["usr/share/minetest"]
+    return ["usr/share/minetest/builtin"]
 
 
 @subpackage("minetest-server")
