@@ -1,6 +1,6 @@
 pkgname = "powerpc-utils"
-pkgver = "1.3.11"
-pkgrel = 1
+pkgver = "1.3.12"
+pkgrel = 0
 archs = ["ppc*"]
 build_style = "gnu_configure"
 configure_args = [
@@ -22,6 +22,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/ibm-power-utilities/powerpc-utils"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "6bb16078068d8b889afdd78927d2f061702ef155e57fc548ae573e2b0b90ca13"
+sha256 = "c3f62f63fb856bbd70eee997ecd3d870eca2220103fbf00d8e3d7ee414f5c7e7"
 # too many places that use PATH_MAX without limits.h include
 tool_flags = {"CFLAGS": ["-DPATH_MAX=4096"]}
