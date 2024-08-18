@@ -222,6 +222,10 @@ just done a source bootstrap, there is a chance you don't need to run this as
 the source bootstrap does it for you as the last step. You will need to do this
 if you ever need to re-create it.
 
+If your system has `openssl.cnf` in a non-standard path (i.e. not `/etc/ssl/openssl.cnf`)
+and you are using static host `apk`, you can export the `OPENSSL_CONF` envvar
+with the actual path if you are getting certificate errors.
+
 <a id="building_package"></a>
 ### Building a Package
 
@@ -362,6 +366,8 @@ This is done by pre-bootstrapping a stage 0 environment from binaries:
 ```
 $ ./cbuild -b bldroot-stage0 binary-bootstrap
 ```
+
+Also see the note about certificates in the "Build Root Setup" section.
 
 After that, you can run the `bootstrap` command as usual. The stage 0 will be
 skipped (but it's largely unnecessary due to the environment already being
