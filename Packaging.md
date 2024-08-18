@@ -1988,23 +1988,6 @@ is relevant.
 Triggers are passed the directory paths that resulted in the trigger
 being invoked.
 
-#### Automatic hooks
-
-There are certain things that result in a hook being generated
-automatically, without providing an explicit scriptlet for it. If that
-happens, the potential user script is run after the automatic one.
-
-##### User and group hooks
-
-There are automatic hooks for user and group registration. These are
-controlled by the `system_users` and `system_groups` variables that
-you can specify. See the documentation for those.
-
-These hooks will automatically take care of creating necessary users
-and groups as well as deactivating them when needed. The creation is
-done in `pre-install` and `pre-upgrade`, while the deactivation is
-done in `post-deinstall`.
-
 <a id="build_profiles"></a>
 ## Build Profiles
 
