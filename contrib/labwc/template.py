@@ -1,5 +1,5 @@
 pkgname = "labwc"
-pkgver = "0.7.4"
+pkgver = "0.8.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -22,7 +22,7 @@ makedepends = [
     "pango-devel",
     "wayland-devel",
     "wayland-protocols",
-    "wlroots0.17-devel",
+    "wlroots0.18-devel",
     "xwayland-devel",
 ]
 depends = ["xwayland"]
@@ -31,7 +31,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://github.com/labwc/labwc"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2afa1ef483863fc6217803a540b9afab6939d2324e9bb4dcf4a028281b731fb9"
+sha256 = "1bfe5791c6002c1355821046623fa64231afd42e4d2ec1f6a9af44ef3b24f780"
 
 
 def post_install(self):
