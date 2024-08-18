@@ -1,5 +1,6 @@
 pkgname = "puzzles"
 pkgver = "20240802"
+_gitrev = "1c1899e"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DNAME_PREFIX=puzzles-"]
@@ -18,8 +19,8 @@ pkgdesc = "Collection of small programs which implement one-player puzzle games"
 maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "MIT"
 url = "https://www.chiark.greenend.org.uk/~sgtatham/puzzles"
-source = f"{url}/puzzles-{pkgver}.1c1899e.tar.gz"
-sha256 = "f72e9ea630011ba0acdf59b74fff24f0e4f33ae6271ff8312c5122b517d1c249"
+source = f"https://git.tartarus.org/?p=simon/puzzles.git;a=snapshot;h={_gitrev};sf=tgz>puzzles-{pkgver}.tar.gz"
+sha256 = "c535455313033520b7043d1e18058057fb09966bc3f855baf9256e24cbde208c"
 hardening = ["vis", "cfi"]
 # No tests
 options = ["!check"]
