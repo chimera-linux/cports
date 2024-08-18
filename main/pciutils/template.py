@@ -1,6 +1,6 @@
 pkgname = "pciutils"
 pkgver = "3.13.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_dir = "."
@@ -10,12 +10,14 @@ make_build_args = [
     "SHARED=yes",
     "SHAREDIR=/usr/share/hwdata",
     "MANDIR=/usr/share/man",
+    "PREFIX=/usr",
 ]
 make_install_args = [
     "SHARED=yes",
     "SHAREDIR=/usr/share/hwdata",
     "SBINDIR=/usr/bin",
     "MANDIR=/usr/share/man",
+    "PREFIX=/usr",
 ]
 make_use_env = True
 hostmakedepends = ["gmake", "pkgconf"]
@@ -46,7 +48,7 @@ def pre_build(self):
 
 
 def do_install(self):
-    self.make.install(["install-lib", "PREFIX=/usr", "STRIP="])
+    self.make.install(["install-lib", "STRIP="])
     # static lib
     self.install_file("libpci_a", "usr/lib", name="libpci.a")
     # provided by hwdata-pci
