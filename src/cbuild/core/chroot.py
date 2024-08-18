@@ -2,6 +2,7 @@ import subprocess
 import os
 import re
 import time
+import errno
 import shutil
 import pathlib
 import binascii
@@ -711,8 +712,16 @@ def enter(
             cwd=os.path.abspath(wrkdir) if wrkdir else None,
         )
 
+    # we need to resolve it externally to not get
+    # affected by the PATH we set for sandbox usage
+    bwrap = shutil.which(paths.bwrap())
+    if not bwrap:
+        raise FileNotFoundError(
+            errno.ENOENT, os.strerror(errno.ENOENT), paths.bwrap()
+        )
+
     bcmd = [
-        paths.bwrap(),
+        bwrap,
         "--unshare-all",
         "--hostname",
         "cbuild",
