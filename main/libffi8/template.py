@@ -1,6 +1,6 @@
 pkgname = "libffi8"
 pkgver = "3.4.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--includedir=/usr/include",
@@ -11,7 +11,19 @@ configure_args = [
     # libffi incorrectly, prevent them from being broken for now
     "--disable-exec-static-tramp",
 ]
-hostmakedepends = ["automake", "pkgconf", "slibtool"]
+# regen causes lost symvers which is a build abi break
+#
+# correct:
+#
+# $ nm -D /usr/lib/libffi.so.8.1.4|grep ffi_type_double
+# 0000000000001558 R ffi_type_double@@LIBFFI_BASE_8.0
+#
+# bad:
+#
+# 0000000000001568 R ffi_type_double
+#
+configure_gen = []
+hostmakedepends = ["pkgconf"]
 # actually only on x86 and arm (tramp.c code) but it does not hurt
 makedepends = ["linux-headers"]
 checkdepends = ["dejagnu"]
