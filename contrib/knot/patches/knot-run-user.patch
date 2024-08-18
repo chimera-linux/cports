@@ -1,0 +1,13 @@
+diff --git a/samples/knot.sample.conf.in b/samples/knot.sample.conf.in2
+index be3f2ecc9..4f6e61fd8 100644
+--- a/samples/knot.sample.conf.in
++++ b/samples/knot.sample.conf.in
+@@ -3,7 +3,7 @@
+ 
+ server:
+     rundir: "@run_dir@"
+-    user: knot:knot
++    user: _knot:_knot
+     automatic-acl: on
+ #    listen: [ 127.0.0.1@53, ::1@53 ]
+ 
