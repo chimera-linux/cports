@@ -9,4 +9,13 @@ def precompile(pkg, path):
 
     apath = pkg.chroot_destdir / path
 
-    pkg.do("python3", "-m", "compileall", "-f", "-q", apath)
+    pkg.do(
+        "python3",
+        "-m",
+        "compileall",
+        "-f",
+        "-q",
+        "-j",
+        str(pkg.make_jobs),
+        apath,
+    )
