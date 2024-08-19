@@ -4,4 +4,4 @@ https://github.com/spdx/license-list-data
 
 Revision:
 
-v3.23
+v3.25
