@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"WITH_CYTHON": "true"}
 hostmakedepends = [
+    "pkgconf",
     "python-build",
     "python-cython",
     "python-installer",
@@ -17,8 +18,9 @@ license = "BSD-3-Clause AND custom:ElementTree"
 url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
 sha256 = "eb22f7ceb319c29247cfa398435d00e6286d19a32b4870b67a8e9a38d72f2ebd"
-# missing checkdepends
-options = ["!check"]
+# check: missing checkdepends
+# cross: python-setuptools
+options = ["!check", "!cross"]
 
 
 def post_install(self):
