@@ -709,6 +709,8 @@ def bootstrap(tgt):
             pass
         # go back to stage 1
         paths.reinit_buildroot(oldmdir, 1)
+        # now do it again to allow it to install
+        chroot.chroot_check(True, False)
         chroot.install()
 
     if max_stage == 1:
@@ -730,6 +732,7 @@ def bootstrap(tgt):
             pass
         # go back to stage 2
         paths.reinit_buildroot(oldmdir, 2)
+        chroot.chroot_check(True, False)
         chroot.install()
 
     # change binary repo path
@@ -748,6 +751,7 @@ def bootstrap(tgt):
             pass
         # go back to stage 3
         paths.reinit_buildroot(oldmdir, 3)
+        chroot.chroot_check(True, False)
         chroot.install()
 
 
