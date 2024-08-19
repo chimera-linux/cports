@@ -1,6 +1,6 @@
 pkgname = "man-pages"
 pkgver = "6.9.1"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["gmake", "gsed", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -22,6 +22,7 @@ def do_install(self):
     )
 
     # remove duplicate manpages
+    # also ldconfig as that's glibc-specific
     with self.pushd(self.destdir / "usr/share/man"):
         self.rm("man1/time.1")
         self.rm("man1/getent.1")
@@ -33,6 +34,7 @@ def do_install(self):
         self.rm("man8/tzselect.8")
         self.rm("man8/zdump.8")
         self.rm("man8/zic.8")
+        self.rm("man8/ldconfig.8")
 
     # dead links due to getspnam.3 (provided by shadow)
     with self.pushd(self.destdir / "usr/share/man/man3"):
