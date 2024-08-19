@@ -1,7 +1,8 @@
 pkgname = "tmux"
 pkgver = "3.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
+configure_args = ["--enable-sixel"]
 hostmakedepends = ["automake", "byacc", "pkgconf"]
 makedepends = ["libevent-devel", "ncurses-devel"]
 pkgdesc = "Terminal multiplexer"
