@@ -1,0 +1,26 @@
+From 5b6977835ce43eb27ee9e5a083c9c32121065170 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Mon, 19 Aug 2024 15:00:00 +0200
+Subject: [PATCH] disable xwayland core dumps
+
+If somebody wants them they can set the ulimit for mutter.
+We don't want xwayland to dump cores anywhere by default.
+---
+ src/wayland/meta-xwayland.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/wayland/meta-xwayland.c b/src/wayland/meta-xwayland.c
+index 7f2915c..8ebc7bd 100644
+--- a/src/wayland/meta-xwayland.c
++++ b/src/wayland/meta-xwayland.c
+@@ -869,7 +869,6 @@ meta_xwayland_start_xserver (MetaXWaylandManager *manager,
+   args[i++] = "-rootless";
+   args[i++] = "-noreset";
+   args[i++] = "-accessx";
+-  args[i++] = "-core";
+   args[i++] = "-auth";
+   args[i++] = manager->auth_file;
+   args[i++] = XWAYLAND_LISTENFD;
+-- 
+2.46.0
+
