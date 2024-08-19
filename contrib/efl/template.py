@@ -1,6 +1,6 @@
 pkgname = "efl"
 pkgver = "1.27.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dbuild-tests=false",  # enable if enabling tests
@@ -100,7 +100,10 @@ license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/efl/efl-{pkgver}.tar.xz"
 sha256 = "3dfb99fbcc268c0bc797e2f83e8c503ef9de66284f40b381bb597a08185c00f4"
-tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE", "-D__USE_MISC"]}
+tool_flags = {
+    "CFLAGS": ["-D_LARGEFILE64_SOURCE", "-D__USE_MISC"],
+    "LDFLAGS": ["-Wl,-z,stack-size=0x200000"],
+}
 # FIXME int: janky codebase
 hardening = ["!int"]
 # some suites are in a bad shape
