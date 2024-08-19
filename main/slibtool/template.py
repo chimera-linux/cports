@@ -15,5 +15,12 @@ sha256 = "10b0a12c074b10fa1fec6fe74937b4812c3a7b37f7cc45d0dca68495c2b45e6a"
 options = ["!check"]
 
 
+# custom configure does not understand --sysroot
+def do_configure(self):
+    from cbuild.util import gnu_configure
+
+    gnu_configure.configure(self, sysroot=False)
+
+
 def post_install(self):
     self.install_license("COPYING.SLIBTOOL")
