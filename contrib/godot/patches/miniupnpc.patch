@@ -1,0 +1,16 @@
+API changed in miniupnpc 2.2.8
+
+Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/8dd3d8861eff2b4b5171d861e9cde50a92adb93b/testing/godot/miniupnpc.patch
+
+diff -ruN a/modules/upnp/upnp.cpp b/modules/upnp/upnp.cpp
+--- a/modules/upnp/upnp.cpp	2024-08-15 01:00:16.000000000 +0200
++++ b/modules/upnp/upnp.cpp	2024-08-22 17:11:17.746893768 +0200
+@@ -131,7 +131,7 @@
+ 	GetUPNPUrls(&urls, &data, dev->get_description_url().utf8().get_data(), 0);
+ 
+ 	char addr[16];
+-	int i = UPNP_GetValidIGD(devlist, &urls, &data, (char *)&addr, 16);
++	int i = UPNP_GetValidIGD(devlist, &urls, &data, (char *)&addr, 16, nullptr, 0);
+ 
+ 	if (i != 1) {
+ 		FreeUPNPUrls(&urls);
