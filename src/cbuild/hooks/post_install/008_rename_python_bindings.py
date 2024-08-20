@@ -1,3 +1,9 @@
+# this removes arch suffix from native python modules; while for normal
+# builds this makes no difference, this hook exists mainly to deal with
+# crossbuilds as any native modules that are crossbuilt are built with
+# the crosscompiler but sitll get a host arch suffix, which will then
+# fail to load in the target environment
+
 import stat
 
 
@@ -10,5 +16,4 @@ def invoke(pkg):
             continue
         oldname = v.name
         newname = oldname[: -len("".join(v.suffixes))]
-        pkg.log_warn(f"renamed '{oldname}' to '{newname}.so'")
         v.rename(v.parent / (newname + ".so"))
