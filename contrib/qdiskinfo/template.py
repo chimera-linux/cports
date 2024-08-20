@@ -1,6 +1,6 @@
 pkgname = "qdiskinfo"
 pkgver = "0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -11,7 +11,7 @@ depends = [
     "qt6-qtsvg",
     "smartmontools",
 ]
-pkgdesc = "Frontend for smartctl do display SMART data"
+pkgdesc = "Frontend for smartctl to display SMART data"
 maintainer = "cassiofb-dev <contact@cassiofernando.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/edisionnano/QDiskInfo"
