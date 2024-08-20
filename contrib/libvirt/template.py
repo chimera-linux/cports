@@ -111,12 +111,12 @@ def post_install(self):
 
 
 @subpackage("libvirt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libvirt-firewalld")
-def _firewalld(self):
+def _(self):
     self.install_if = [self.parent, "firewalld"]
     self.depends = [self.parent, "iptables-nft"]
     self.subdesc = "firewalld zones and policies"

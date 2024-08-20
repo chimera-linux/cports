@@ -30,5 +30,5 @@ sha256 = "ee8f3ef946156ad3406fdf45feedbdcd932dbd211ab4f16f75eba4f36fb2f6c0"
 
 
 @subpackage("libnotify-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -37,5 +37,5 @@ options = ["!check", "!cross"]
 
 
 @subpackage("gtksourceview4-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

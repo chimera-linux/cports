@@ -19,6 +19,6 @@ def post_install(self):
 
 
 @subpackage("musl-rpmatch-devel")
-def _devel(self):
+def _(self):
     self.options = ["!splitstatic"]
     return self.default_devel()

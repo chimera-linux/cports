@@ -22,7 +22,7 @@ sha256 = "f50e5ac311a81382da7fa75b97310e4b9006474f9560ac46f54a9967f07d4ae3"
 
 
 @subpackage("abseil-cpp-testing")
-def _test(self):
+def _(self):
     self.subdesc = "testing libraries"
 
     return [
@@ -36,5 +36,5 @@ def _test(self):
 
 
 @subpackage("abseil-cpp-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

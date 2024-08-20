@@ -59,7 +59,7 @@ def post_install(self):
 
 
 @subpackage("debuginfod")
-def _dinfod(self):
+def _(self):
     self.subdesc = "debuginfod"
 
     return [
@@ -69,7 +69,7 @@ def _dinfod(self):
 
 
 @subpackage("debuginfod-libs")
-def _dinfod_libs(self):
+def _(self):
     self.subdesc = "debuginfod library"
 
     return [
@@ -80,7 +80,7 @@ def _dinfod_libs(self):
 
 
 @subpackage("elfutils-libs")
-def _libs(self):
+def _(self):
     # since the resolved (after symlinks) filename of the .so is without
     # a suffix, the automatic virtual version would be 0, which would
     # prevent upgrades from elftoolchain (which had 1)
@@ -96,7 +96,7 @@ def _libs(self):
 
 
 @subpackage("elfutils-devel")
-def _devel(self):
+def _(self):
     # transitional
     self.provides = [self.with_pkgver("elftoolchain-devel")]
 

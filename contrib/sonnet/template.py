@@ -28,5 +28,5 @@ hardening = ["vis"]
 
 
 @subpackage("sonnet-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])

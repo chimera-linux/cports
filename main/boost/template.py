@@ -171,7 +171,7 @@ using clang ;
 
 
 @subpackage("boost-build")
-def _jam(self):
+def _(self):
     self.subdesc = "Boost.Build framework"
     self.depends = [self.parent]
     self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-build")]
@@ -180,7 +180,7 @@ def _jam(self):
 
 
 @subpackage("boost-devel")
-def _devel(self):
+def _(self):
     self.depends = [self.parent, *makedepends]
     self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-devel")]
 
@@ -189,7 +189,7 @@ def _devel(self):
 
 def _gen_libp(libname):
     @subpackage(f"boost-{libname}-libs")
-    def _subp(self):
+    def _(self):
         self.subdesc = libname
         self.depends = [self.parent]
         self.provides = [self.with_pkgver(f"libboost_{libname}")]

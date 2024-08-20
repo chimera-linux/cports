@@ -34,7 +34,7 @@ options = ["!check"]
 
 
 @subpackage("python-gobject-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         self.parent,
         "python-cairo-devel",

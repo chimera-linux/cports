@@ -26,6 +26,6 @@ sha256 = "a7f4db24a65ffe6cfc706f16b51fa9600fc86c8f9e0924393f7db426cecf0018"
 
 
 @subpackage("khealthcertificate-devel")
-def _devel(self):
+def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

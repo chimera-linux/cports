@@ -35,6 +35,6 @@ sha256 = "40be4b71d50155d585b143655da92c14bb201290e62203da16ce576dfad75e80"
 
 
 @subpackage("libkleo-devel")
-def _devel(self):
+def _(self):
     self.depends += ["gpgme-qt-devel"]
     return self.default_devel()

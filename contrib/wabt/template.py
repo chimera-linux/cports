@@ -63,5 +63,5 @@ def do_check(self):
 
 
 @subpackage("wabt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

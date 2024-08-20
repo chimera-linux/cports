@@ -35,12 +35,12 @@ options = ["!cross"]
 
 
 @subpackage("libpeas2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libpeas2-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python support"
     self.depends += ["python-gobject"]
     self.install_if = [self.parent, "python"]
@@ -48,7 +48,7 @@ def _python(self):
 
 
 @subpackage("libpeas2-lua")
-def _lua(self):
+def _(self):
     self.subdesc = "Lua 5.1 support"
     self.depends += ["lua5.1-lgi"]
     self.install_if = [self.parent, "lua5.1"]
@@ -56,7 +56,7 @@ def _lua(self):
 
 
 @subpackage("libpeas2-gjs")
-def _gjs(self):
+def _(self):
     self.subdesc = "GJS support"
     self.install_if = [self.parent, "gjs"]
     return ["usr/lib/libpeas-2/loaders/libgjsloader.so"]

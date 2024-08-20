@@ -27,7 +27,7 @@ else:
 
 
 @subpackage("fakeroot-core")
-def _core(self):
+def _(self):
     self.subdesc = "core"
 
     return ["usr/bin/faked", "usr/lib"]

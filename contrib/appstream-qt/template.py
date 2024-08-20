@@ -59,6 +59,6 @@ def post_install(self):
 
 
 @subpackage("appstream-qt-devel")
-def _devel(self):
+def _(self):
     self.depends += ["appstream-devel"]
     return self.default_devel()

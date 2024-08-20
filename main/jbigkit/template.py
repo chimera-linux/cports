@@ -21,10 +21,10 @@ def post_install(self):
 
 
 @subpackage("jbigkit-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("jbigkit-libs")
-def _progs(self):
+def _(self):
     return self.default_libs()

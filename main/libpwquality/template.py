@@ -41,12 +41,12 @@ def post_install(self):
 
 
 @subpackage("libpwquality-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libpwquality-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python", "cracklib-devel"]
 

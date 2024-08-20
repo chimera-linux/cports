@@ -43,11 +43,11 @@ def post_install(self):
 
 
 @subpackage("sysprof-devel-static")
-def _static(self):
+def _(self):
     return ["usr/lib/*.a"]
 
 
 @subpackage("sysprof-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.with_pkgver("sysprof-devel-static")]
     return self.default_devel()

@@ -27,5 +27,5 @@ file_modes = {
 
 
 @subpackage("libgtop-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

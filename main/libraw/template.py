@@ -22,10 +22,10 @@ def post_install(self):
 
 
 @subpackage("libraw-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libraw-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

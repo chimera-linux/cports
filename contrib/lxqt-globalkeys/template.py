@@ -24,5 +24,5 @@ sha256 = "13e7a72686890a40b65d8ae13c79ed287eb971fbc0285769c40c8b97e7af43f7"
 
 
 @subpackage("lxqt-globalkeys-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

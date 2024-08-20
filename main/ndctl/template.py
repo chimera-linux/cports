@@ -39,10 +39,10 @@ options = ["!distlicense"]
 
 
 @subpackage("ndctl-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("ndctl-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

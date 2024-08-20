@@ -23,12 +23,12 @@ def post_install(self):
 
 
 @subpackage("lcms2-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
 
     return self.default_devel()
 
 
 @subpackage("lcms2-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

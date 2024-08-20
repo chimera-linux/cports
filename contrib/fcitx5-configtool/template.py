@@ -53,7 +53,7 @@ options = ["!cross"]
 
 
 @subpackage("fcitx5-configtool-kde")
-def _kde(self):
+def _(self):
     self.subdesc = "KCM integration"
     self.depends += [self.parent]
 

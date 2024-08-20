@@ -46,6 +46,6 @@ sha256 = "673c85afe5ac672d372fe498084bac2d84e4ea3ce4b5eb91f08bfa4c3d414cff"
 
 
 @subpackage("libksieve-devel")
-def _devel(self):
+def _(self):
     self.depends += ["syntax-highlighting-devel"]
     return self.default_devel()

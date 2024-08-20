@@ -32,7 +32,7 @@ def post_install(self):
 
 def _gensub(subn, subd, subc, sube):
     @subpackage(f"fonts-noto-serif-cjk-{subn}")
-    def _sub(self):
+    def _(self):
         self.subdesc = subd
         self.depends = [self.parent, f"!{pkgname}-{subc}"]
         if subn == "otf":
@@ -44,7 +44,7 @@ def _gensub(subn, subd, subc, sube):
         ]
 
     @subpackage(f"fonts-noto-serif-cjk-extra-{subn}")
-    def _sub_extra(self):
+    def _(self):
         self.subdesc = f"{subd} additional variants"
         self.depends = [
             self.with_pkgver(f"{pkgname}-extra"),
@@ -65,7 +65,7 @@ for _subn, _subd, _subc, _sube in [
 
 
 @subpackage("fonts-noto-serif-cjk-extra")
-def _extra(self):
+def _(self):
     self.subdesc = "additional variants"
     self.depends = [self.parent]
     self.options = ["empty"]

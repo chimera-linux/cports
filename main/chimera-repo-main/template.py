@@ -30,7 +30,7 @@ def do_install(self):
 
 
 @subpackage("chimera-repo-main-debug")
-def _dbg(self):
+def _(self):
     self.subdesc = "debug packages"
     self.depends = [self.parent]
 

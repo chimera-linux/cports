@@ -120,7 +120,7 @@ def do_install(self):
 
 
 @subpackage("base-devel")
-def _basedev(self):
+def _(self):
     self.pkgdesc = "Base package for development packages"
     self.depends = []
     self.options = ["empty"]
@@ -129,7 +129,7 @@ def _basedev(self):
 
 
 @subpackage("base-devel-static")
-def _basedevs(self):
+def _(self):
     self.pkgdesc = "Base package for static development packages"
     self.depends = []
     self.install_if = []
@@ -139,7 +139,7 @@ def _basedevs(self):
 
 
 @subpackage("base-doc")
-def _basedoc(self):
+def _(self):
     self.pkgdesc = "Base package for documentation"
     self.depends = []
     self.options = ["empty"]

@@ -34,5 +34,5 @@ sha256 = "c54ca17da967f317791922d5632bd39aa0a1a140eeeb53d087099f1108b8749d"
 
 
 @subpackage("chafa-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -29,10 +29,10 @@ tool_flags = {"CXXFLAGS": ["-D_HAS_AUTO_PTR_ETC=0"]}
 
 
 @subpackage("libmspub-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libmspub-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -86,7 +86,7 @@ def post_install(self):
 
 def _genmod(pname, pdesc):
     @subpackage(f"certbot-{pname}")
-    def _plug(self):
+    def _(self):
         self.pkgdesc = f"{pdesc} plugin for certbot"
         self.depends += [self.parent]
         match pname:

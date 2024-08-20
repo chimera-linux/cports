@@ -27,5 +27,5 @@ sha256 = "0b90722984561004de84847744d566809dbb9daf732a9e503b91a1b5a84e5699"
 
 
 @subpackage("sdl1.2_image-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

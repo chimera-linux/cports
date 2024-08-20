@@ -63,12 +63,12 @@ def post_install(self):
 
 
 @subpackage("libsane")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("sane-backends-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

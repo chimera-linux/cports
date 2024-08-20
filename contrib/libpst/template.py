@@ -15,10 +15,10 @@ hardening = ["!vis", "!cfi"]
 
 
 @subpackage("libpst-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libpst-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

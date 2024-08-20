@@ -90,7 +90,7 @@ def post_install(self):
 
 
 @subpackage("libmagick")
-def _lib(self):
+def _(self):
     self.pkgdesc = "ImageMagick library"
 
     return [
@@ -101,7 +101,7 @@ def _lib(self):
 
 
 @subpackage("libmagick-perl")
-def _perl(self):
+def _(self):
     return [
         "usr/lib/perl5",
         "usr/share/man/man3/Image::Magick*",
@@ -109,7 +109,7 @@ def _perl(self):
 
 
 @subpackage("libmagick-devel")
-def _devel(self):
+def _(self):
     # buildsystem is stupid and does not emit deps
     self.depends += makedepends
 

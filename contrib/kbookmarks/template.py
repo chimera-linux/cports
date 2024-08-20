@@ -26,7 +26,7 @@ hardening = ["vis"]
 
 
 @subpackage("kbookmarks-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kwidgetsaddons-devel"]
 
     return self.default_devel()

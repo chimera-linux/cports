@@ -27,6 +27,6 @@ sha256 = "52063cf8a87e301d2d837759d85fb90332019a258b567bdaaec4a7876d9de8bc"
 
 
 @subpackage("kpublictransport-devel")
-def _devel(self):
+def _(self):
     self.depends += ["qt6-qtbase-devel", "zlib-ng-compat-devel"]
     return self.default_devel()

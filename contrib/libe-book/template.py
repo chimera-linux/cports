@@ -27,10 +27,10 @@ sha256 = "7e8d8ff34f27831aca3bc6f9cc532c2f90d2057c778963b884ff3d1e34dfe1f9"
 
 
 @subpackage("libe-book-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libe-book-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

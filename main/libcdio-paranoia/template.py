@@ -19,10 +19,10 @@ sha256 = "186892539dedd661276014d71318c8c8f97ecb1250a86625256abd4defbf0d0c"
 
 
 @subpackage("libcdio-paranoia-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libcdio-paranoia-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

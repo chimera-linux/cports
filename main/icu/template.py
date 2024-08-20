@@ -82,10 +82,10 @@ def post_install(self):
 
 
 @subpackage("icu-libs")
-def _libs(self):
+def _(self):
     return self.default_libs(extra=[f"usr/share/icu/{pkgver}/icudt*.dat"])
 
 
 @subpackage("icu-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/icu", "usr/lib/icu"])

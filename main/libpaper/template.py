@@ -18,10 +18,10 @@ def post_install(self):
 
 
 @subpackage("libpaper-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libpaper-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

@@ -59,7 +59,7 @@ options = ["!check"]
 
 
 @subpackage("kio-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kbookmarks-devel",
         "kcompletion-devel",

@@ -34,7 +34,7 @@ def post_install(self):
 
 
 @subpackage("libquotient-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "olm-devel",
         "openssl-devel",

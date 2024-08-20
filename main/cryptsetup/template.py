@@ -41,19 +41,19 @@ if self.profile().arch == "riscv64":
 
 
 @subpackage("cryptsetup-static-bin")
-def _sbin(self):
+def _(self):
     self.subdesc = "static binaries"
 
     return ["usr/bin/*.static"]
 
 
 @subpackage("libcryptsetup")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("cryptsetup-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

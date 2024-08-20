@@ -22,11 +22,11 @@ def post_install(self):
 
 
 @subpackage("libevdev-devel")
-def _devel(self):
+def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
 
 
 @subpackage("libevdev-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

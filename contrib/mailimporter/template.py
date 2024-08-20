@@ -34,6 +34,6 @@ sha256 = "4f941e35c7d08cab4740b0e71abbc6ec2a06eb61df2ac110357109edc1f95c42"
 
 
 @subpackage("mailimporter-devel")
-def _devel(self):
+def _(self):
     self.depends += ["karchive-devel"]
     return self.default_devel()

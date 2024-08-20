@@ -125,7 +125,7 @@ def post_install(self):
 
 
 @subpackage("qt6-qtwebengine-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/qt6/metatypes",

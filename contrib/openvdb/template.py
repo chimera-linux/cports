@@ -35,16 +35,16 @@ if self.profile().arch != "x86_64":
 
 
 @subpackage("openvdb-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("openvdb-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("python-pyopenvdb")
-def _python(self):
+def _(self):
     self.subdesc = "python bindings"
     return ["usr/lib/python*"]

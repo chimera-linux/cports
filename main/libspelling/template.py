@@ -26,5 +26,5 @@ sha256 = "413b22a358e77f2302d15a8fbd3ed4ad8fdecea38dfd5c687af4c567c6b3e15a"
 
 
 @subpackage("libspelling-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

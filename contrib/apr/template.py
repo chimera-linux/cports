@@ -18,7 +18,7 @@ options = ["!cross"]
 
 
 @subpackage("apr-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libuuid-devel"]
 
     return self.default_devel()

@@ -87,7 +87,7 @@ def do_install(self):
 
 
 @subpackage("jedit-doc")
-def _doc(self):
+def _(self):
     self.subdesc = "docs"
 
     return [

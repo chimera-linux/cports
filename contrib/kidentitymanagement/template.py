@@ -32,7 +32,7 @@ sha256 = "04407562ba9c9d900e6ed99f606ece4756660464c97d3acf48805e6de409d108"
 
 
 @subpackage("kidentitymanagement-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kcoreaddons-devel",
         "kpimtextedit-devel",

@@ -63,7 +63,7 @@ def do_install(self):
 
 
 @subpackage("qbittorrent-nox")
-def _nox(self):
+def _(self):
     self.subdesc = "headless daemon"
 
     return [

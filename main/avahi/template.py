@@ -59,7 +59,7 @@ def post_install(self):
 
 
 @subpackage("avahi-autoipd")
-def _autoipd(self):
+def _(self):
     self.pkgdesc = "Avahi IPv4LL network address configuration daemon"
 
     return [
@@ -70,7 +70,7 @@ def _autoipd(self):
 
 
 @subpackage("avahi-compat-devel")
-def _compat_devel(self):
+def _(self):
     self.depends += [self.with_pkgver("avahi-devel")]
     self.subdesc = "compat development files"
 
@@ -83,7 +83,7 @@ def _compat_devel(self):
 
 
 @subpackage("avahi-compat-libs")
-def _compat_libs(self):
+def _(self):
     self.subdesc = "compat libraries"
 
     return [
@@ -93,19 +93,19 @@ def _compat_libs(self):
 
 
 @subpackage("avahi-devel")
-def _devel(self):
+def _(self):
     self.depends += ["dbus-devel"]
 
     return self.default_devel()
 
 
 @subpackage("avahi-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("avahi-progs")
-def _progs(self):
+def _(self):
     # do not take daemon
     return [
         "usr/bin/avahi-browse*",

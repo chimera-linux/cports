@@ -43,6 +43,6 @@ def post_install(self):
 
 
 @subpackage("gpgme-qt-devel")
-def _devel(self):
+def _(self):
     self.depends += ["gpgme-devel"]
     return self.default_devel()

@@ -24,10 +24,10 @@ def post_install(self):
 
 
 @subpackage("dav1d-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("dav1d-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

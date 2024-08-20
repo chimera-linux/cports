@@ -43,10 +43,10 @@ def post_install(self):
 
 
 @subpackage("hdf5-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("hdf5-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

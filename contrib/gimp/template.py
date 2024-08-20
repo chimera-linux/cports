@@ -86,10 +86,10 @@ options = ["!cross"]
 
 
 @subpackage("gimp-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("gimp-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

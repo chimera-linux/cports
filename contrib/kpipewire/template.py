@@ -32,7 +32,7 @@ options = ["!check"]
 
 
 @subpackage("kpipewire-devel")
-def _devel(self):
+def _(self):
     self.depends += ["pipewire-devel"]
 
     return self.default_devel()

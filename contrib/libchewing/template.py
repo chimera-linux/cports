@@ -36,5 +36,5 @@ def init_build(self):
 
 
 @subpackage("libchewing-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

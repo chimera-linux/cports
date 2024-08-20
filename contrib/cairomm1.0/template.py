@@ -15,7 +15,7 @@ sha256 = "70136203540c884e89ce1c9edfb6369b9953937f6cd596d97c78c9758a5d48db"
 
 
 @subpackage("cairomm1.0-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/cairomm-1.0",

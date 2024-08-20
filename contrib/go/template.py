@@ -90,7 +90,7 @@ def _clear_pkg(self, arch, ppath):
 
 
 @custom_target("bootstrap", "build")
-def _boot(self):
+def _(self):
     _binpath, _hostarch = _get_binpath(self)
 
     bdirn = f"go-bootstrap-{pkgver}-{self.profile().goarch}"

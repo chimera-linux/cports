@@ -25,11 +25,11 @@ sha256 = "067d31445da9808a802fca523630c3e4b84d2d7c78ae547ced017cb7f3b9c6b5"
 
 
 @subpackage("granite-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("granite-demo")
-def _demo(self):
+def _(self):
     self.subdesc = "demo application"
     return ["usr/bin", "usr/share"]

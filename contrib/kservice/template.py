@@ -27,7 +27,7 @@ hardening = ["vis"]
 
 
 @subpackage("kservice-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kconfig-devel", "kcoreaddons-devel"]
 
     return self.default_devel()

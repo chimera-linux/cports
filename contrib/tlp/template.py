@@ -29,7 +29,7 @@ def post_install(self):
 
 
 @subpackage("tlp-rdw")
-def _rdw(self):
+def _(self):
     self.depends = [self.parent, "networkmanager"]
     self.install_if = [self.parent, "networkmanager"]
     return [

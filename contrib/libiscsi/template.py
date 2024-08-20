@@ -17,5 +17,5 @@ tool_flags = {"CFLAGS": ["-Wno-strict-prototypes"]}
 
 
 @subpackage("libiscsi-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

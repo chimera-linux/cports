@@ -25,10 +25,10 @@ def post_install(self):
 
 
 @subpackage("rabbitmq-c-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("rabbitmq-c-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

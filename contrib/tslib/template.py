@@ -13,10 +13,10 @@ sha256 = "9b489a54d48006201f2fe955a88c3f857535ac93b6cf8e5a16c7b166c8991dac"
 
 
 @subpackage("tslib-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("tslib-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

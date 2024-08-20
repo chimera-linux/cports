@@ -54,7 +54,7 @@ def init_configure(self):
 
 
 @subpackage("libpoppler")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
     self.depends = ["poppler-data"]
 
@@ -62,19 +62,19 @@ def _lib(self):
 
 
 @subpackage("libpoppler-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libpoppler-cpp")
-def _cpp_lib(self):
+def _(self):
     self.subdesc = "C++ binding"
 
     return ["usr/lib/libpoppler-cpp.so.*"]
 
 
 @subpackage("libpoppler-glib")
-def _glib(self):
+def _(self):
     self.subdesc = "GLib binding"
 
     return ["usr/lib/libpoppler-glib.so.*", "usr/lib/girepository-1.0"]

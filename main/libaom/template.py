@@ -45,10 +45,10 @@ def post_install(self):
 
 
 @subpackage("libaom-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libaom-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

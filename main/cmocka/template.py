@@ -13,5 +13,5 @@ sha256 = "810570eb0b8d64804331f82b29ff47c790ce9cd6b163e98d47a4807047ecad82"
 
 
 @subpackage("cmocka-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

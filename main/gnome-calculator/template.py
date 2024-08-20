@@ -33,5 +33,5 @@ sha256 = "2d36750a73890086122cf3f0c83e68517891585615165306fa1596a918668247"
 
 
 @subpackage("gnome-calculator-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

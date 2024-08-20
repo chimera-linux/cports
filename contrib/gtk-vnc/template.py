@@ -37,5 +37,5 @@ sha256 = "512763ac4e0559d0158b6682ca5dd1a3bd633f082f5e4349d7158e6b5f80f1ce"
 
 
 @subpackage("gtk-vnc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

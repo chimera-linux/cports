@@ -36,5 +36,5 @@ def init_install(self):
 
 
 @subpackage("signond-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

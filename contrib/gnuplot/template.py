@@ -130,7 +130,7 @@ def do_install(self):
 
 
 @subpackage("gnuplot-common-x11")
-def _x11(self):
+def _(self):
     self.subdesc = "X11 common files"
     self.depends += [self.with_pkgver("gnuplot-common")]
 
@@ -138,7 +138,7 @@ def _x11(self):
 
 
 @subpackage("gnuplot-qt")
-def _qt(self):
+def _(self):
     self.subdesc = "Qt frontend"
     self.depends += [self.with_pkgver("gnuplot-common-x11")]
 
@@ -150,7 +150,7 @@ def _qt(self):
 
 
 @subpackage("gnuplot-wx")
-def _wx(self):
+def _(self):
     self.subdesc = "wxWidgets frontend"
     self.depends += [self.with_pkgver("gnuplot-common-x11")]
 
@@ -158,7 +158,7 @@ def _wx(self):
 
 
 @subpackage("gnuplot-common")
-def _common(self):
+def _(self):
     self.subdesc = "common files"
 
     return ["usr/share"]

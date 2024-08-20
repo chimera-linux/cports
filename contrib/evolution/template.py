@@ -53,5 +53,5 @@ sha256 = "f57929801d6e401a611d6521ef59224d81b30500357a4b9e3e46245ec9461819"
 
 
 @subpackage("evolution-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

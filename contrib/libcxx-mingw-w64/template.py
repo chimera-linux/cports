@@ -111,7 +111,7 @@ def do_install(self):
 
 def _gen(an, at):
     @subpackage(f"libunwind-mingw-w64-{an}")
-    def _unw(self):
+    def _(self):
         self.pkgdesc = "LLVM libunwind for Windows development"
         self.subdesc = an
         self.depends = [f"mingw-w64-crt-{an}"]
@@ -123,7 +123,7 @@ def _gen(an, at):
         ]
 
     @subpackage(f"libcxxabi-mingw-w64-{an}")
-    def _abi(self):
+    def _(self):
         self.pkgdesc = "LLVM libc++abi for Windows development"
         self.subdesc = an
         self.depends = [self.with_pkgver(f"libunwind-mingw-w64-{an}")]
@@ -134,7 +134,7 @@ def _gen(an, at):
         ]
 
     @subpackage(f"libcxx-mingw-w64-{an}")
-    def _subp(self):
+    def _(self):
         self.subdesc = an
         self.depends = [
             self.with_pkgver(f"libcxxabi-mingw-w64-{an}"),
@@ -156,7 +156,7 @@ for _an in _targets:
 
 
 @subpackage("libunwind-mingw-w64")
-def _unw(self):
+def _(self):
     self.pkgdesc = "LLVM libunwind for Windows development"
     self.depends = ["mingw-w64-crt"]
     self.options = ["empty"]
@@ -167,7 +167,7 @@ def _unw(self):
 
 
 @subpackage("libcxxabi-mingw-w64")
-def _abi(self):
+def _(self):
     self.pkgdesc = "LLVM libc++abi for Windows development"
     self.depends = [self.with_pkgver("libunwind-mingw-w64")]
     self.options = ["empty"]

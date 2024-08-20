@@ -100,12 +100,12 @@ def post_install(self):
 
 
 @subpackage("fwupd-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("fwupd-efi-dummy", _have_uefi_capsule)
-def _efi_dummy(self):
+def _(self):
     self.subdesc = "UEFI application dummy provider"
     self.provides = ["fwupd-efi=0"]
     self.options = ["empty"]

@@ -17,5 +17,5 @@ sha256 = "a82d77375034b0f27e6e08b5c7ad9c19ee88e8d7bb699ee0423a5a0e781fb291"
 
 
 @subpackage("libdbusmenu-lxqt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

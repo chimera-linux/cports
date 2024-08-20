@@ -39,12 +39,12 @@ def post_install(self):
 
 
 @subpackage("libtorrent-rasterbar-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libtorrent-rasterbar-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 

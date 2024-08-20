@@ -43,7 +43,7 @@ def post_install(self):
 
 
 @subpackage("tk-devel")
-def _devel(self):
+def _(self):
     self.options = ["!splitstatic"]
     return self.default_devel(
         extra=[

@@ -17,5 +17,5 @@ sha256 = "d282fa6481a5b85f71e36e8bad4cfa938cc8eaac4c42ffa27f9203ac634813f4"
 
 
 @subpackage("libfakekey-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -22,7 +22,7 @@ sha256 = "089db78d7ac982354bdbf39d973baf09581e6904ac4c92a98c5caadb3de44680"
 
 
 @subpackage("raptor-devel")
-def _devel(self):
+def _(self):
     # Requires are not listed
     self.depends += makedepends
 
@@ -30,7 +30,7 @@ def _devel(self):
 
 
 @subpackage("raptor-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 

@@ -31,6 +31,6 @@ sha256 = "36310f6401524c3f247fcb62e5a5996ae4363ec05a52905524ccca511d83532c"
 
 
 @subpackage("libkcddb-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kconfig-devel"]
     return self.default_devel()

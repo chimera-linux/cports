@@ -38,14 +38,14 @@ def init_configure(self):
 
 
 @subpackage("librtmp")
-def _libmagic(self):
+def _(self):
     self.subdesc = "shared library"
 
     return self.default_libs()
 
 
 @subpackage("librtmp-devel")
-def _devel(self):
+def _(self):
     self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()

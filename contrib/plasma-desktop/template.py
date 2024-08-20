@@ -114,7 +114,7 @@ if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
 
 
 @subpackage("plasma-desktop-meta")
-def _meta(self):
+def _(self):
     self.subdesc = "recommends package"
     self.install_if = [self.parent]
     self.depends = [
@@ -160,7 +160,7 @@ def _meta(self):
 
 
 @subpackage("plasma-desktop-x11-meta")
-def _x11_meta(self):
+def _(self):
     self.subdesc = "X11 session recommends package"
     self.depends = [
         "xserver-xorg-input-libinput",  # general input
@@ -175,7 +175,7 @@ def _x11_meta(self):
 
 
 @subpackage("plasma-desktop-apps-meta")
-def _apps_meta(self):
+def _(self):
     self.subdesc = "apps recommends package"
     self.install_if = [self.parent]
     self.depends = [
@@ -251,7 +251,7 @@ def _apps_meta(self):
 
 
 @subpackage("plasma-desktop-multimedia-meta")
-def _multimedia_meta(self):
+def _(self):
     self.subdesc = "multimedia recommends package"
     self.install_if = [self.parent]
     self.depends = [
@@ -270,7 +270,7 @@ def _multimedia_meta(self):
 
 
 @subpackage("plasma-desktop-devtools-meta")
-def _devtools_meta(self):
+def _(self):
     self.subdesc = "devtools recommends package"
     self.install_if = [self.parent]
     self.depends = [
@@ -283,7 +283,7 @@ def _devtools_meta(self):
 
 
 @subpackage("plasma-desktop-games-meta")
-def _games_meta(self):
+def _(self):
     self.subdesc = "games recommends package"
     self.install_if = [self.parent]
     self.depends = [
@@ -294,7 +294,7 @@ def _games_meta(self):
 
 
 @subpackage("plasma-desktop-accessibility-meta")
-def _accessibility_meta(self):
+def _(self):
     self.subdesc = "accessibility recommends package"
     self.install_if = [self.parent]
     self.depends = [
@@ -310,7 +310,7 @@ def _accessibility_meta(self):
 
 
 @subpackage("plasma-desktop-kdepim-meta", _have_kdepim)
-def _kdepin_meta(self):
+def _(self):
     # contact/calendar/etc
     self.subdesc = "kdepim recommends package"
     self.install_if = [self.parent]
@@ -336,7 +336,7 @@ def _kdepin_meta(self):
 
 
 @subpackage("plasma-desktop-sddm-meta")
-def _sddm_meta(self):
+def _(self):
     self.subdesc = "SDDM recommends package"
     self.install_if = [self.parent]
     self.depends = [

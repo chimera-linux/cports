@@ -70,7 +70,7 @@ def init_check(self):
 
 
 @subpackage("libcrypto3")
-def _libcrypto(self):
+def _(self):
     self.subdesc = "crypto library"
 
     return [
@@ -81,14 +81,14 @@ def _libcrypto(self):
 
 
 @subpackage("libssl3")
-def _libssl(self):
+def _(self):
     self.subdesc = "SSL/TLS library"
 
     return ["usr/lib/libssl.so.*"]
 
 
 @subpackage("openssl-c_rehash")
-def _crehash(self):
+def _(self):
     self.subdesc = "c_rehash utility"
     self.depends = ["openssl"]
 
@@ -99,7 +99,7 @@ def _crehash(self):
 
 
 @subpackage("openssl-devel")
-def _devel(self):
+def _(self):
     self.depends = [
         self.parent,
     ]

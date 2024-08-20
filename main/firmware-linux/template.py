@@ -427,7 +427,7 @@ def post_install(self):
 
 
 @subpackage("firmware-linux-audio")
-def _audio(self):
+def _(self):
     self.subdesc = "audio"
     self.options = ["empty"]
     self.install_if = [self.with_pkgver("base-firmware-linux")]
@@ -436,7 +436,7 @@ def _audio(self):
 
 
 @subpackage("firmware-linux-gpu")
-def _gpu(self):
+def _(self):
     self.subdesc = "graphics"
     self.options = ["empty"]
     self.install_if = [self.with_pkgver("base-firmware-linux")]
@@ -445,7 +445,7 @@ def _gpu(self):
 
 
 @subpackage("firmware-linux-network")
-def _net(self):
+def _(self):
     self.subdesc = "network devices"
     self.options = ["empty"]
     self.install_if = [self.with_pkgver("base-firmware-linux")]
@@ -454,7 +454,7 @@ def _net(self):
 
 
 @subpackage("firmware-linux-storage")
-def _storage(self):
+def _(self):
     self.subdesc = "storage devices"
     self.options = ["empty"]
     self.install_if = [self.with_pkgver("base-firmware-linux")]
@@ -463,7 +463,7 @@ def _storage(self):
 
 
 @subpackage("firmware-linux-misc")
-def _misc(self):
+def _(self):
     self.subdesc = "misc"
     self.options = ["empty"]
     self.install_if = [self.parent]
@@ -472,7 +472,7 @@ def _misc(self):
 
 
 @subpackage("firmware-linux-soc")
-def _soc(self):
+def _(self):
     self.subdesc = "systems on chip"
     self.options = ["empty"]
     self.install_if = [self.parent]
@@ -481,7 +481,7 @@ def _soc(self):
 
 
 @subpackage("base-firmware-linux")
-def _base(self):
+def _(self):
     self.subdesc = "base metapackage"
     self.options = ["empty"]
     self.install_if = [self.parent]
@@ -491,7 +491,7 @@ def _base(self):
 
 def _gen_pkg(name, desc, iifcond, iifpkg, cont):
     @subpackage(f"firmware-linux-{name}")
-    def _sub(self):
+    def _(self):
         self.subdesc = desc
         self.options = ["!strip", "foreignelf", "execstack"]
 

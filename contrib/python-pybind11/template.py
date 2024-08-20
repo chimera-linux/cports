@@ -80,5 +80,5 @@ def post_install(self):
 
 
 @subpackage("python-pybind11-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -22,7 +22,7 @@ hardening = ["!vis", "!cfi"]
 
 
 @subpackage("spirv-tools-devel-static")
-def _static(self):
+def _(self):
     self.depends = []
     self.install_if = []
 
@@ -30,14 +30,14 @@ def _static(self):
 
 
 @subpackage("libspirv-tools-shared")
-def _shared(self):
+def _(self):
     self.subdesc = "shared library"
 
     return ["usr/lib/*.so"]
 
 
 @subpackage("spirv-tools-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         self.parent,
         self.with_pkgver(f"{pkgname}-devel-static"),

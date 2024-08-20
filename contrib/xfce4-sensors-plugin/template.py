@@ -31,5 +31,5 @@ sha256 = "6c1605a738e5df40e084d08ac93f962cd445093396de1e9bfadc7ab4588c36b6"
 
 
 @subpackage("xfce4-sensors-plugin-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

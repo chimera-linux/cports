@@ -25,12 +25,12 @@ def post_install(self):
 
 
 @subpackage("rrdtool-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("rrdtool-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 

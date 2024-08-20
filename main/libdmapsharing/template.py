@@ -38,5 +38,5 @@ exec_wrappers = [("/usr/bin/gmake", "make")]
 
 
 @subpackage("libdmapsharing-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

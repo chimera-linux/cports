@@ -34,10 +34,10 @@ def post_install(self):
 
 
 @subpackage("libfido2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libfido2-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

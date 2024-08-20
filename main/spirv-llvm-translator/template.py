@@ -36,5 +36,5 @@ def post_install(self):
 
 
 @subpackage("spirv-llvm-translator-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

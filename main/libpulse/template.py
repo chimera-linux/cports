@@ -39,11 +39,11 @@ options = ["linkundefver"]
 
 
 @subpackage("libpulse-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libpulse-progs")
-def _progs(self):
+def _(self):
     self.pkgdesc = "PulseAudio utilities"
     return self.default_progs()

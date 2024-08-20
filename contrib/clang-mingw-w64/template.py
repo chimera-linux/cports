@@ -46,7 +46,7 @@ def _gen(an):
     at = an + "-w64-mingw32"
 
     @subpackage(f"clang-mingw-w64-{an}")
-    def _subp(self):
+    def _(self):
         self.subdesc = f"{an} support"
         self.depends = [
             "clang",

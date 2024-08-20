@@ -29,7 +29,7 @@ def post_install(self):
 
 
 @subpackage("lz4-devel")
-def _devel(self):
+def _(self):
     self.provides = [self.with_pkgver("liblz4-devel")]
 
     return self.default_devel()

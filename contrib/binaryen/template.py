@@ -44,6 +44,6 @@ def post_install(self):
 
 
 @subpackage("binaryen-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent]
     return self.default_devel()

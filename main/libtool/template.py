@@ -35,7 +35,7 @@ def pre_configure(self):
 
 
 @subpackage("libltdl-devel")
-def _devel(self):
+def _(self):
     self.pkgdesc = "GNU libtool dlopen wrapper"
     # can't use default_devel, some aclocal stuff belongs in main package
     return [
@@ -48,7 +48,7 @@ def _devel(self):
 
 
 @subpackage("libltdl")
-def _ltdl(self):
+def _(self):
     self.pkgdesc = "GNU libtool dlopen wrapper"
     return self.default_libs()
 

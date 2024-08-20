@@ -36,14 +36,14 @@ def post_install(self):
 
 
 @subpackage("libldns")
-def _lib(self):
+def _(self):
     self.depends = ["dnssec-anchors"]
 
     return self.default_libs()
 
 
 @subpackage("libldns-devel")
-def _devel(self):
+def _(self):
     self.depends += ["openssl-devel"]
 
     return self.default_devel()

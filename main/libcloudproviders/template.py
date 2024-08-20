@@ -20,5 +20,5 @@ sha256 = "fa25bdc2e415a717999f3d0bac8756dc0dcfe40e3ada864fadc26df0746a7116"
 
 
 @subpackage("libcloudproviders-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

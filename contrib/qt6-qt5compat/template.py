@@ -21,7 +21,7 @@ def post_install(self):
 
 
 @subpackage("qt6-qt5compat-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent]
     return self.default_devel(
         extra=[

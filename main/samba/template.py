@@ -135,7 +135,7 @@ def post_install(self):
 
 
 @subpackage("samba-common")
-def _common(self):
+def _(self):
     self.subdesc = "common files and programs"
     self.depends = [self.with_pkgver("samba-libs")]
 
@@ -166,7 +166,7 @@ def _common(self):
 
 
 @subpackage("samba-registry-progs")
-def _registry(self):
+def _(self):
     self.pkgdesc = "Tools for viewing and manipulating the Windows registry"
     self.depends = [self.with_pkgver("samba-libs")]
 
@@ -177,7 +177,7 @@ def _registry(self):
 
 
 @subpackage("libsmbclient")
-def _clib(self):
+def _(self):
     self.subdesc = "client library"
     self.depends = [self.with_pkgver("samba-libs")]
 
@@ -188,7 +188,7 @@ def _clib(self):
 
 
 @subpackage("libsmbclient-devel")
-def _clib_dev(self):
+def _(self):
     self.subdesc = "client library development files"
 
     return [
@@ -199,7 +199,7 @@ def _clib_dev(self):
 
 
 @subpackage("libwbclient")
-def _wlib(self):
+def _(self):
     self.subdesc = "winbind client library"
     self.depends = [self.with_pkgver("samba-libs")]
 
@@ -207,7 +207,7 @@ def _wlib(self):
 
 
 @subpackage("libwbclient-devel")
-def _wlib_dev(self):
+def _(self):
     self.subdesc = "winbind library development files"
 
     return [
@@ -219,7 +219,7 @@ def _wlib_dev(self):
 
 
 @subpackage("samba-winbind")
-def _winbind(self):
+def _(self):
     self.pkgdesc = "Windows user and group information service"
     self.depends = [
         self.with_pkgver("samba-libs"),
@@ -244,7 +244,7 @@ def _winbind(self):
 
 
 @subpackage("pam_winbind")
-def _pam_winbind(self):
+def _(self):
     self.pkgdesc = "Windows domain authentication integration plugin"
     self.depends = [self.with_pkgver("samba-winbind")]
     self.install_if = [self.with_pkgver("libnss_winbind")]
@@ -257,7 +257,7 @@ def _pam_winbind(self):
 
 
 @subpackage("libnss_winbind")
-def _nss_winbind(self):
+def _(self):
     self.pkgdesc = "Samba nameservice integration plugins"
     self.depends = [self.with_pkgver("samba-winbind")]
 
@@ -265,7 +265,7 @@ def _nss_winbind(self):
 
 
 @subpackage("samba-client")
-def _smbclient(self):
+def _(self):
     self.subdesc = "client utilities"
     self.depends = [
         self.with_pkgver("samba-libs"),
@@ -301,7 +301,7 @@ def _smbclient(self):
 
 
 @subpackage("samba-vfs-modules")
-def _vfs(self):
+def _(self):
     self.subdesc = "virtual filesystem plugins"
     self.depends = [self.with_pkgver("samba-libs")]
     self.install_if = [self.parent]
@@ -313,7 +313,7 @@ def _vfs(self):
 
 
 @subpackage("samba-testsuite")
-def _test(self):
+def _(self):
     self.subdesc = "test suite"
     self.depends = [
         self.with_pkgver("samba-libs"),
@@ -338,7 +338,7 @@ def _test(self):
 
 
 @subpackage("samba-ctdb")
-def _ctdb(self):
+def _(self):
     self.subdesc = "clustered TDB support"
     self.depends = [
         self.with_pkgver("samba-libs"),
@@ -366,12 +366,12 @@ def _ctdb(self):
 
 
 @subpackage("samba-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("samba-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends = ["python", self.with_pkgver("samba-libs")]
 
@@ -379,5 +379,5 @@ def _python(self):
 
 
 @subpackage("samba-libs")
-def _libs(self):
+def _(self):
     return ["usr/lib"]

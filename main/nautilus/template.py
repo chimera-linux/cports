@@ -37,10 +37,10 @@ options = ["!cross"]
 
 
 @subpackage("nautilus-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("nautilus-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

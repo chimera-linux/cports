@@ -28,6 +28,6 @@ sha256 = "900fbb8b632d946cd35e826e64f50507346151f1b5fb40137890abc2896eefcf"
 
 
 @subpackage("kdav-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kcoreaddons-devel"]
     return self.default_devel()

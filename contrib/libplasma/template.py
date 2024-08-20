@@ -46,7 +46,7 @@ hardening = ["vis"]
 
 
 @subpackage("libplasma-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kpackage-devel"]
 
     return self.default_devel()

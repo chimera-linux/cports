@@ -17,5 +17,5 @@ sha256 = "96ec4eb2b1e217392149eafb2b5c3cd3e7110200f0e2bb5003c37d3ead7244ef"
 
 
 @subpackage("libimobiledevice-glue-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

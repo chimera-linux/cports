@@ -34,6 +34,6 @@ options = ["!lto"]
 
 
 @subpackage("guile-devel")
-def _devel(self):
+def _(self):
     self.depends += ["gc-devel", "gmp-devel"]
     return self.default_devel()

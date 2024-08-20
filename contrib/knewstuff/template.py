@@ -31,7 +31,7 @@ hardening = ["vis"]
 
 
 @subpackage("knewstuff-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "attica-devel",
         "kcoreaddons-devel",

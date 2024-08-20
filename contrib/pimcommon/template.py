@@ -48,7 +48,7 @@ sha256 = "d0bf4de3756033bb0eecc0db57385585b54f2b366da8a44e4a69b416fa54ff4c"
 
 
 @subpackage("pimcommon-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "akonadi-contacts-devel",
         "akonadi-devel",

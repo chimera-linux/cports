@@ -19,11 +19,11 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-D_FILE_OFFSET_BITS=64"]}
 
 
 @subpackage("libefivar")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
     return self.default_libs()
 
 
 @subpackage("efivar-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

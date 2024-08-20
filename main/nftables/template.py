@@ -37,12 +37,12 @@ def post_install(self):
 
 
 @subpackage("libnftables")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("nftables-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

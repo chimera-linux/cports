@@ -27,6 +27,6 @@ hardening = ["vis"]
 
 
 @subpackage("kdesu-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kpty-devel"]
     return self.default_devel()

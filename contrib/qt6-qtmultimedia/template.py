@@ -69,7 +69,7 @@ def post_install(self):
 
 
 @subpackage("qt6-qtmultimedia-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         f"qt6-qtbase-devel~{pkgver[:-2]}",
         f"qt6-qtdeclarative-devel~{pkgver[:-2]}",

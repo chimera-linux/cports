@@ -43,7 +43,7 @@ def post_install(self):
 
 
 @subpackage("baloo-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "qt6-qtbase-devel",
         "kcoreaddons-devel",

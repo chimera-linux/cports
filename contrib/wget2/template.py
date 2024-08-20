@@ -45,11 +45,11 @@ def post_install(self):
 
 
 @subpackage("libwget")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime libraries"
     return self.default_libs()
 
 
 @subpackage("libwget-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

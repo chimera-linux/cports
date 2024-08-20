@@ -49,7 +49,7 @@ options = ["!cross"]
 
 
 @subpackage("gstreamer-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=["usr/share/gdb", "usr/share/gstreamer-1.0"]
     )

@@ -35,7 +35,7 @@ sha256 = "519a3abcf16d2f56fd2a21f14c8c77d39420196454badf608abeaa600b6aedb0"
 
 
 @subpackage("kitinerary-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kcalendarcore-devel",
         "kcontacts-devel",

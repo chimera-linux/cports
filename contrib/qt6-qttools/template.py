@@ -58,7 +58,7 @@ def post_install(self):
 
 
 @subpackage("qt6-qttools-qdbus")
-def _qdbus(self):
+def _(self):
     self.subdesc = "qdbus"
 
     return [
@@ -68,12 +68,12 @@ def _qdbus(self):
 
 
 @subpackage("qt6-qttools-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("qt6-qttools-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent]
     return self.default_devel(
         extra=[

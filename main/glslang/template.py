@@ -25,10 +25,10 @@ def post_install(self):
 
 
 @subpackage("glslang-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("glslang-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

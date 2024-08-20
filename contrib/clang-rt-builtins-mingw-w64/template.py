@@ -89,7 +89,7 @@ def do_install(self):
 
 def _gen(an, at):
     @subpackage(f"clang-rt-builtins-mingw-w64-{an}")
-    def _subp(self):
+    def _(self):
         match an:
             case "aarch64" | "x86_64":
                 suffix = an

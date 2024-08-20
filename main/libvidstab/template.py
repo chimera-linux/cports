@@ -19,7 +19,7 @@ match self.profile().arch:
 
 
 @subpackage("libvidstab-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libomp-devel"]
 
     return self.default_devel()

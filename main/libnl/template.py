@@ -15,12 +15,12 @@ sha256 = "49b3e2235fdb58f5910bbb3ed0de8143b71ffc220571540502eb6c2471f204f5"
 
 
 @subpackage("libnl-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libnl-progs")
-def _progs(self):
+def _(self):
     return self.default_progs(
         man="18",
         extra=[

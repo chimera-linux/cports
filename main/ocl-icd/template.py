@@ -28,7 +28,7 @@ def post_install(self):
 
 
 @subpackage("ocl-icd-devel")
-def _devel(self):
+def _(self):
     self.depends += ["opencl-headers"]
 
     return self.default_devel(extra=["usr/share/doc"])

@@ -71,7 +71,7 @@ sha256 = "59bd30583977bfa28e54227eee211ea86f487fcd6d3915ed21f59324267101e0"
 
 
 @subpackage("gnome-control-center-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent]
 
     return self.default_devel()

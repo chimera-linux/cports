@@ -16,7 +16,7 @@ sha256 = "106d0c44bb6408b1348b9e0465666fa83b816177665a22cd017e886c1aaeeb34"
 
 
 @subpackage("librevenge-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
 
     return self.default_devel()

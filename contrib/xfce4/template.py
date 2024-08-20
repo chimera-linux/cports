@@ -25,7 +25,7 @@ url = "https://www.xfce.org"
 
 
 @subpackage("xfce4-apps")
-def _apps(self):
+def _(self):
     self.subdesc = "apps"
     self.install_if = [self.parent]
     self.depends = [
@@ -51,7 +51,7 @@ def _apps(self):
 
 
 @subpackage("xfce4-panel-plugins")
-def _panel_plugins(self):
+def _(self):
     self.subdesc = "panel plugins"
     self.install_if = [self.parent]
     self.depends = [

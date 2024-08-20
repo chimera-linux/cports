@@ -27,10 +27,10 @@ sha256 = "8faf8df870cb27b09a787a1959d6c646faa44d0d8ab151883df408b7166bea4c"
 
 
 @subpackage("libvisio-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libvisio-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

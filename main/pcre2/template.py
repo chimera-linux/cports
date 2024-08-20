@@ -33,12 +33,12 @@ def post_install(self):
 
 
 @subpackage("libpcre2")
-def _libpcre2(self):
+def _(self):
     self.subdesc = "shared libraries"
     return self.default_libs()
 
 
 @subpackage("pcre2-devel")
-def _devel(self):
+def _(self):
     self.depends += ["zlib-ng-compat-devel", "bzip2-devel"]
     return self.default_devel(extra=["usr/share/doc"])

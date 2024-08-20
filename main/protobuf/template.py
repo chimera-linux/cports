@@ -28,14 +28,14 @@ def post_install(self):
 
 
 @subpackage("protobuf-lite")
-def _lite(self):
+def _(self):
     self.subdesc = "lite version"
 
     return ["usr/lib/libprotobuf-lite.so.*"]
 
 
 @subpackage("protoc")
-def _protoc(self):
+def _(self):
     self.pkgdesc = "Protocol buffers compiler and its library"
     self.depends = [self.with_pkgver("protobuf-devel")]
 
@@ -46,11 +46,11 @@ def _protoc(self):
 
 
 @subpackage("protobuf-devel-static")
-def _devel_static(self):
+def _(self):
     return ["usr/lib/*.a"]
 
 
 @subpackage("protobuf-devel")
-def _devel(self):
+def _(self):
     self.depends = [self.with_pkgver("protobuf-devel-static")]
     return self.default_devel()

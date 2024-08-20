@@ -32,7 +32,7 @@ def post_install(self):
 
 
 @subpackage("qcoro-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "qt6-qtdeclarative-devel",
         "qt6-qtwebsockets-devel",

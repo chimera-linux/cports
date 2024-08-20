@@ -42,5 +42,5 @@ options = ["!cross"]
 
 
 @subpackage("xfce4-panel-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

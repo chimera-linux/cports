@@ -33,6 +33,6 @@ sha256 = "9f2023cb20c33385f6969ea25dda58fbdfc2efd1d73a671253605ef543ae6632"
 
 
 @subpackage("kmailtransport-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kconfig-devel"]
     return self.default_devel()

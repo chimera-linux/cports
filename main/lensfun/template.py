@@ -16,5 +16,5 @@ sha256 = "dafb39c08ef24a0e2abd00d05d7341b1bf1f0c38bfcd5a4c69cf5f0ecb6db112"
 
 
 @subpackage("lensfun-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

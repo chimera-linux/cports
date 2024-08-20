@@ -212,17 +212,17 @@ def post_install(self):
 
 
 @subpackage("udev-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("udev-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("systemd-boot", _have_sd_boot)
-def _boot(self):
+def _(self):
     self.pkgdesc = "UEFI boot manager"
     self.depends += [self.with_pkgver("systemd-boot-efi")]
 
@@ -242,7 +242,7 @@ def _boot(self):
 
 
 @subpackage("systemd-boot-efi", _have_sd_boot)
-def _efi(self):
+def _(self):
     self.pkgdesc = "UEFI boot manager"
     self.subdesc = "EFI binaries"
 
@@ -255,7 +255,7 @@ def _efi(self):
 
 
 @subpackage("base-udev")
-def _base(self):
+def _(self):
     self.pkgdesc = "Base package for udev configs"
     self.depends = [self.parent]
     self.install_if = [self.parent]

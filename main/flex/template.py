@@ -29,7 +29,7 @@ def post_install(self):
 
 
 @subpackage("libfl-devel-static")
-def _static(self):
+def _(self):
     self.depends = []
     self.install_if = [
         self.parent,

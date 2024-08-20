@@ -14,5 +14,5 @@ sha256 = "97ef5eb92ca811039ad50a65f06633f1aae64792789307be7170795d8b319454"
 
 
 @subpackage("json-glib-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

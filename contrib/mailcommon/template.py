@@ -54,7 +54,7 @@ sha256 = "d92dfd41e88b5a76b7a1ae59cd99b766f5a4d97f78767edb0ea1db8211784368"
 
 
 @subpackage("mailcommon-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "akonadi-devel",
         "akonadi-mime-devel",

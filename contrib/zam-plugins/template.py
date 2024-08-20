@@ -46,25 +46,25 @@ options = ["!check", "linkundefver"]
 
 
 @subpackage("zam-plugins-clap")
-def _clap(self):
+def _(self):
     return ["usr/lib/clap"]
 
 
 @subpackage("zam-plugins-ladspa")
-def _ladspa(self):
+def _(self):
     return ["usr/lib/ladspa"]
 
 
 @subpackage("zam-plugins-lv2")
-def _lv2(self):
+def _(self):
     return ["usr/lib/lv2"]
 
 
 @subpackage("zam-plugins-vst2")
-def _vst2(self):
+def _(self):
     return ["usr/lib/vst"]
 
 
 @subpackage("zam-plugins-vst3")
-def _vst3(self):
+def _(self):
     return ["usr/lib/vst3"]

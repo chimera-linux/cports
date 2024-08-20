@@ -49,25 +49,25 @@ def post_install(self):
 
 
 @subpackage("libbtrfs")
-def _libbtrfs(self):
+def _(self):
     self.subdesc = "btrfs library"
     return ["usr/lib/libbtrfs.so.*"]
 
 
 @subpackage("libbtrfs-devel")
-def _libbtrfs_devel(self):
+def _(self):
     self.subdesc = "libbtrfs development files"
     return ["usr/include/btrfs", "usr/lib/libbtrfs.*"]
 
 
 @subpackage("libbtrfsutil")
-def _libbtrfsutil(self):
+def _(self):
     self.subdesc = "btrfsutil library"
     return ["usr/lib/libbtrfsutil.so.*"]
 
 
 @subpackage("libbtrfsutil-devel")
-def _libbtrfsutil_devel(self):
+def _(self):
     self.subdesc = "libbtrfsutil development files"
     return [
         "usr/include/btrfsutil.h",
@@ -77,7 +77,7 @@ def _libbtrfsutil_devel(self):
 
 
 @subpackage("python-btrfsutil")
-def _python(self):
+def _(self):
     self.subdesc = "python module"
     self.depends += ["python"]
     return ["usr/lib/python*"]

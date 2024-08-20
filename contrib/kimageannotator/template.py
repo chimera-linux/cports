@@ -41,6 +41,6 @@ def do_check(self):
 
 
 @subpackage("kimageannotator-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kcolorpicker-devel"]
     return self.default_devel()

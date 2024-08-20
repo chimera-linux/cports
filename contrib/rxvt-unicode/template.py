@@ -64,7 +64,7 @@ def post_install(self):
 
 
 @subpackage("rxvt-unicode-terminfo")
-def _tinfo(self):
+def _(self):
     self.subdesc = "terminfo data"
 
     return ["usr/share/terminfo"]

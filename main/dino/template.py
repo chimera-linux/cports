@@ -49,7 +49,7 @@ def do_check(self):
 
 def _genmod(pname, pdesc):
     @subpackage(f"dino-plugin-{pname}")
-    def _plug(self):
+    def _(self):
         self.subdesc = f"{pdesc} plugin"
         # this is not normally built with default settings
         if pname != "notification-sound":
@@ -69,5 +69,5 @@ for _plugin, _desc in [
 
 
 @subpackage("dino-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

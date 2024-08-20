@@ -23,5 +23,5 @@ options = ["!check"]
 
 
 @subpackage("lua5.1-libluv-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

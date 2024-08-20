@@ -20,5 +20,5 @@ sha256 = "61266ab1afc9d73dbc60a8b2af73e99d2fdff47d99544d085760e4fa667b5dd1"
 
 
 @subpackage("libgudev-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

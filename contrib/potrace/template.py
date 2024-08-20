@@ -14,7 +14,7 @@ sha256 = "be8248a17dedd6ccbaab2fcc45835bb0502d062e40fbded3bc56028ce5eb7acc"
 
 
 @subpackage("potrace-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 

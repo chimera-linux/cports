@@ -27,6 +27,6 @@ sha256 = "15bf9433f7f0b3e23698c103fd42ab9e44b23eeedc2681cfb29b72ac8add06d2"
 
 
 @subpackage("libkcompactdisc-devel")
-def _devel(self):
+def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

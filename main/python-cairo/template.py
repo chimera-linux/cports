@@ -18,7 +18,7 @@ sha256 = "a11b999ce55b798dbf13516ab038e0ce8b6ec299b208d7c4e767a6f7e68e8430"
 
 
 @subpackage("python-cairo-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent, "python-devel"]
 
     return self.default_devel()

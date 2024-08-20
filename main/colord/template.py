@@ -50,12 +50,12 @@ def post_install(self):
 
 
 @subpackage("libcolord")
-def _lib(self):
+def _(self):
     self.subdesc = "shared library"
 
     return self.default_libs()
 
 
 @subpackage("colord-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

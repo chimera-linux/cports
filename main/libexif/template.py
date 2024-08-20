@@ -13,5 +13,5 @@ sha256 = "d3fb7c47829ec4d2def39aa38f4c35a0891763448a05dbf216a329a12bf198f9"
 
 
 @subpackage("libexif-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

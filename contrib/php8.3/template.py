@@ -266,7 +266,7 @@ def post_install(self):
 
 
 @subpackage(pkgname, alternative="php")
-def _default(self):
+def _(self):
     # this is the default version
     self.provider_priority = 100
     return [
@@ -286,7 +286,7 @@ def _default(self):
 
 def _extension(extn, iif):
     @subpackage(f"php{_majver}-{extn}")
-    def _ext(self):
+    def _(self):
         self.subdesc = f"{extn} extension"
         self.depends += [self.parent]
 
@@ -350,7 +350,7 @@ for _extn, _iif in [
 
 
 @subpackage(f"php{_majver}-pear")
-def _pear(self):
+def _(self):
     self.pkgdesc = f"PHP{_majver} Extension and Application Repository"
     self.depends = [self.parent, f"{pkgname}-xml"]
     self.install_if = [self.parent]
@@ -365,7 +365,7 @@ def _pear(self):
 
 
 @subpackage(f"php{_majver}-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent]
 
     return self.default_devel(

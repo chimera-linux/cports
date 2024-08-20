@@ -32,12 +32,12 @@ sha256 = "648ecd8b22b4f0909674ce3a991f73167e6648b8ae35e689f816d1b0f583518c"
 
 
 @subpackage("kopeninghours-devel")
-def _devel(self):
+def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()
 
 
 @subpackage("python-kopeninghours")
-def _python(self):
+def _(self):
     self.subdesc = "python module"
     return ["usr/lib/python*"]

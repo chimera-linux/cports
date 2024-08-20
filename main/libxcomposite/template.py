@@ -17,7 +17,7 @@ def post_install(self):
 
 
 @subpackage("libxcomposite-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 

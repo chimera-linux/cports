@@ -65,10 +65,10 @@ def post_install(self):
 
 
 @subpackage("libjxl-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libjxl-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

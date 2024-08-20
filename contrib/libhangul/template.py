@@ -14,10 +14,10 @@ hardening = ["!vis", "!cfi"]
 
 
 @subpackage("libhangul-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libhangul-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

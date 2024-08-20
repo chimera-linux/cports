@@ -78,14 +78,14 @@ def init_check(self):
 
 
 @subpackage("libcurl")
-def _libcurl(self):
+def _(self):
     self.pkgdesc = "Multiprotocol file transfer library"
 
     return self.default_libs()
 
 
 @subpackage("libcurl-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
     self.pkgdesc = "Multiprotocol file transfer library"
 

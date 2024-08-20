@@ -17,5 +17,5 @@ sha256 = "4971640b0592da29c2d426f303e137a9b0b3d07e1b81d069c1e56a2f49ab221b"
 
 
 @subpackage("libebml-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

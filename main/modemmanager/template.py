@@ -52,10 +52,10 @@ def post_install(self):
 
 
 @subpackage("modemmanager-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("modemmanager-libs")
-def _lib(self):
+def _(self):
     return self.default_libs()

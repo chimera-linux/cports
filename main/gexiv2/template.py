@@ -21,5 +21,5 @@ sha256 = "21e64d2c56e9b333d44fef3f2a4b25653d922c419acd972fa96fab695217e2c8"
 
 
 @subpackage("gexiv2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -28,12 +28,12 @@ hardening = ["vis", "cfi"]
 
 
 @subpackage("libfluidsynth")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("fluidsynth-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

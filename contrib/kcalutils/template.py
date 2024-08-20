@@ -34,7 +34,7 @@ sha256 = "7803884fbc9f4bf64c9c1a9dad39a0a81aa05552df2876cfd7b8dac4e17e3ec2"
 
 
 @subpackage("kcalutils-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kcalendarcore-devel",
         "kconfig-devel",

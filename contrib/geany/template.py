@@ -26,5 +26,5 @@ sha256 = "50d28a45ac9b9695e9529c73fe7ed149edb512093c119db109cea6424114847f"
 
 
 @subpackage("geany-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

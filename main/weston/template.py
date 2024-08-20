@@ -53,7 +53,7 @@ def post_install(self):
 
 
 @subpackage("weston-x11")
-def _x11(self):
+def _(self):
     self.depends = [self.parent]
     self.subdesc = "X11 backend"
 
@@ -61,7 +61,7 @@ def _x11(self):
 
 
 @subpackage("weston-xwayland")
-def _xwayland(self):
+def _(self):
     self.depends = [self.parent]
     self.subdesc = "Xwayland plugin"
 
@@ -69,10 +69,10 @@ def _xwayland(self):
 
 
 @subpackage("weston-libs")
-def _lib(self):
+def _(self):
     return self.default_libs(extra=[f"usr/lib/libweston-{pkgver[0:2]}"])
 
 
 @subpackage("weston-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

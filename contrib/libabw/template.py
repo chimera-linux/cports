@@ -22,10 +22,10 @@ sha256 = "e763a9dc21c3d2667402d66e202e3f8ef4db51b34b79ef41f56cacb86dcd6eed"
 
 
 @subpackage("libabw-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libabw-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

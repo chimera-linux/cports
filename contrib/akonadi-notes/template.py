@@ -25,6 +25,6 @@ sha256 = "aaf37d4a840a4a3a25e955eb7b60e650d2b7f2ab30bf77c48774744de5b26131"
 
 
 @subpackage("akonadi-notes-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kmime-devel"]
     return self.default_devel()

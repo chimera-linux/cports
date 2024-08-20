@@ -250,7 +250,7 @@ def post_install(self):
 
 
 @subpackage("clang-tools-extra-static")
-def _tools_extra_static(self):
+def _(self):
     self.subdesc = "extra Clang tools static libraries"
     self.depends = []
     self.install_if = []
@@ -263,7 +263,7 @@ def _tools_extra_static(self):
 
 
 @subpackage("clang-tools-extra")
-def _tools_extra(self):
+def _(self):
     self.subdesc = "extra Clang tools"
     self.depends = [
         self.with_pkgver("clang"),
@@ -290,7 +290,7 @@ def _tools_extra(self):
 
 
 @subpackage("llvm-binutils")
-def _binutils(self):
+def _(self):
     self.subdesc = "binary manipulation tools"
     # prevent file conflict errors, we're dropping this
     self.replaces = ["elftoolchain<0.7.1_svn20230501"]
@@ -333,7 +333,7 @@ def _binutils(self):
 
 
 @subpackage("clang")
-def _clang(self):
+def _(self):
     self.subdesc = "C language family frontend"
     self.depends = [
         self.with_pkgver("libcxx-devel"),
@@ -357,7 +357,7 @@ def _clang(self):
 
 
 @subpackage("clang-rt-devel")
-def _clang_rt_devel(self):
+def _(self):
     self.subdesc = "Clang runtime development files"
     self.options = ["ltostrip", "!splitstatic"]  # these are explicitly -fno-lto
 
@@ -365,7 +365,7 @@ def _clang_rt_devel(self):
 
 
 @subpackage("clang-devel-static")
-def _clang_static(self):
+def _(self):
     self.subdesc = "Clang static libraries"
     self.depends = []
     self.install_if = []
@@ -374,7 +374,7 @@ def _clang_static(self):
 
 
 @subpackage("clang-devel")
-def _clang_devel(self):
+def _(self):
     self.subdesc = "Clang development files"
     # unfortunately cmake files reference the static libs and force their
     # installation onto the target system, nothing much we can do about that
@@ -394,7 +394,7 @@ def _clang_devel(self):
 
 
 @subpackage("clang-analyzer")
-def _clang_analyzer(self):
+def _(self):
     self.subdesc = "source code analysis"
     self.depends = [self.with_pkgver("clang")]
     if self.stage > 0:
@@ -415,7 +415,7 @@ def _clang_analyzer(self):
 
 
 @subpackage("clang-libs")
-def _libclang(self):
+def _(self):
     self.subdesc = "Clang runtime library"
     self.provides = [self.with_pkgver("libclang")]
 
@@ -423,7 +423,7 @@ def _libclang(self):
 
 
 @subpackage("clang-cpp-libs")
-def _libclang_cpp(self):
+def _(self):
     self.subdesc = "Clang C++ runtime library"
     self.provides = [self.with_pkgver("libclang-cpp")]
 
@@ -431,7 +431,7 @@ def _libclang_cpp(self):
 
 
 @subpackage("flang", _enable_flang)
-def _flang(self):
+def _(self):
     self.subdesc = "Fortran frontend"
     self.depends = [
         self.with_pkgver("clang"),
@@ -448,7 +448,7 @@ def _flang(self):
 
 
 @subpackage("flang-devel-static", _enable_flang)
-def _flang_devel_static(self):
+def _(self):
     self.subdesc = "Flang static libraries"
     self.depends = []
     self.install_if = []
@@ -462,7 +462,7 @@ def _flang_devel_static(self):
 
 
 @subpackage("flang-devel", _enable_flang)
-def _flang_devel(self):
+def _(self):
     self.subdesc = "Flang development files"
     self.depends = [self.with_pkgver("flang-devel-static")]
 
@@ -473,14 +473,14 @@ def _flang_devel(self):
 
 
 @subpackage("mlir", _enable_mlir)
-def _mlir(self):
+def _(self):
     self.subdesc = "MLIR"
 
     return ["usr/bin/mlir*"]
 
 
 @subpackage("mlir-devel-static", _enable_mlir)
-def _mlir_static(self):
+def _(self):
     self.subdesc = "MLIR static libraries"
     self.depends = []
     self.install_if = []
@@ -489,7 +489,7 @@ def _mlir_static(self):
 
 
 @subpackage("mlir-devel", _enable_mlir)
-def _mlir_devel(self):
+def _(self):
     self.subdesc = "MLIR development files"
     self.depends = [self.with_pkgver("mlir-devel-static")]
 
@@ -502,7 +502,7 @@ def _mlir_devel(self):
 
 
 @subpackage("mlir-libs", _enable_mlir)
-def _libmlir(self):
+def _(self):
     self.subdesc = "MLIR runtime libraries"
     self.provides = [self.with_pkgver("libmlir")]
 
@@ -513,7 +513,7 @@ def _libmlir(self):
 
 
 @subpackage("libunwind")
-def _libunwind(self):
+def _(self):
     self.subdesc = "libunwind"
     self.compression = "deflate"
 
@@ -521,7 +521,7 @@ def _libunwind(self):
 
 
 @subpackage("libunwind-devel-static")
-def _libunwind_static(self):
+def _(self):
     self.subdesc = "libunwind static library"
     self.options = ["ltostrip"]
 
@@ -529,7 +529,7 @@ def _libunwind_static(self):
 
 
 @subpackage("libunwind-devel")
-def _libunwind_devel(self):
+def _(self):
     self.subdesc = "libunwind development files"
 
     return [
@@ -540,7 +540,7 @@ def _libunwind_devel(self):
 
 
 @subpackage("libcxx")
-def _libcxx(self):
+def _(self):
     self.subdesc = "C++ standard library"
     self.compression = "deflate"
 
@@ -548,7 +548,7 @@ def _libcxx(self):
 
 
 @subpackage("libcxx-devel-static")
-def _libcxx_static(self):
+def _(self):
     self.subdesc = "C++ standard library static library"
     self.depends += [self.with_pkgver("libcxxabi-devel-static")]
     self.options = ["ltostrip"]
@@ -557,7 +557,7 @@ def _libcxx_static(self):
 
 
 @subpackage("libcxxabi-devel")
-def _libcxxabi_devel(self):
+def _(self):
     self.subdesc = "low level C++ runtime development files"
     self.depends = [self.with_pkgver("libunwind-devel")]
 
@@ -569,7 +569,7 @@ def _libcxxabi_devel(self):
 
 
 @subpackage("libcxx-devel")
-def _libcxx_devel(self):
+def _(self):
     self.subdesc = "C++ standard library development files"
     self.depends = [self.with_pkgver("libcxxabi-devel")]
     self.options = ["ltostrip", "!splitstatic"]
@@ -582,7 +582,7 @@ def _libcxx_devel(self):
 
 
 @subpackage("libcxxabi")
-def _libcxxabi(self):
+def _(self):
     self.subdesc = "low level C++ runtime"
     self.depends = [self.with_pkgver("libunwind")]
     self.compression = "deflate"
@@ -591,7 +591,7 @@ def _libcxxabi(self):
 
 
 @subpackage("libcxxabi-devel-static")
-def _libcxxabi_static(self):
+def _(self):
     self.subdesc = "low level C++ runtime static library"
     self.depends += [self.with_pkgver("libunwind-devel-static")]
     self.options = ["ltostrip"]
@@ -600,14 +600,14 @@ def _libcxxabi_static(self):
 
 
 @subpackage("llvm-libs")
-def _libllvm(self):
+def _(self):
     self.provides = [self.with_pkgver("libllvm")]
 
     return ["usr/lib/libLLVM.so.*", f"usr/lib/libLLVM-{_llvmgen}*.so"]
 
 
 @subpackage("lld")
-def _lld(self):
+def _(self):
     self.subdesc = "linker"
     self.install_if = [self.with_pkgver("clang")]
 
@@ -621,7 +621,7 @@ def _lld(self):
 
 
 @subpackage("lld-devel-static")
-def _lld_devel_static(self):
+def _(self):
     self.subdesc = "linker static libraries"
     self.depends = []
     self.install_if = []
@@ -630,7 +630,7 @@ def _lld_devel_static(self):
 
 
 @subpackage("lld-devel")
-def _lld_devel(self):
+def _(self):
     self.subdesc = "linker development files"
     self.depends = [
         self.with_pkgver("lld"),
@@ -644,14 +644,14 @@ def _lld_devel(self):
 
 
 @subpackage("llvm-linker-tools")
-def _llvm_linker_tools(self):
+def _(self):
     self.subdesc = "linker plugins"
 
     return ["usr/lib/libLTO.so.*"]
 
 
 @subpackage("llvm-devel-static")
-def _llvm_static(self):
+def _(self):
     self.depends = []
     self.install_if = []
 
@@ -659,7 +659,7 @@ def _llvm_static(self):
 
 
 @subpackage("llvm-devel")
-def _llvm_devel(self):
+def _(self):
     # unfortunately cmake files reference the static libs and force their
     # installation onto the target system, nothing much we can do about that
     self.depends = [
@@ -683,7 +683,7 @@ def _llvm_devel(self):
 
 
 @subpackage("llvm-tools")
-def _llvm_tools(self):
+def _(self):
     self.subdesc = "testing tools"
 
     return [
@@ -697,7 +697,7 @@ def _llvm_tools(self):
 
 
 @subpackage("llvm-runtime")
-def _llvm_runtime(self):
+def _(self):
     self.subdesc = "runtime"
 
     return [

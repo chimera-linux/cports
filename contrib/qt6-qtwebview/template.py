@@ -32,7 +32,7 @@ def init_check(self):
 
 
 @subpackage("qt6-qtwebview-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         f"qt6-qtbase-devel~{pkgver[:-2]}",
         f"qt6-qtwebengine-devel~{pkgver[:-2]}",

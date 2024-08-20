@@ -39,7 +39,7 @@ hardening = ["vis"]
 
 
 @subpackage("breeze-cursors")
-def _cursors(self):
+def _(self):
     self.subdesc = "cursor themes"
     return [
         "usr/share/icons/breeze_cursors",
@@ -48,5 +48,5 @@ def _cursors(self):
 
 
 @subpackage("breeze-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -36,7 +36,7 @@ sha256 = "a1dd04eb3d311d68b4f43a5c707df7aba7a98a9cab820c58395a7f5d7d6d0157"
 
 
 @subpackage("libvisual-plugins-meta")
-def _meta(self):
+def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]
     return []

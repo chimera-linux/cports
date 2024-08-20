@@ -33,5 +33,5 @@ sha256 = "884580e8c5ece280df23aa63ff5234b7d48988a404df7d6bfccd1e77b473bd96"
 
 
 @subpackage("grilo-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

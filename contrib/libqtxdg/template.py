@@ -22,5 +22,5 @@ sha256 = "8c1b250de914b2e1fb451c213ee6f249b7b5729c85ac3283fd75615a47a66b62"
 
 
 @subpackage("libqtxdg-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

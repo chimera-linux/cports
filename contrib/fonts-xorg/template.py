@@ -9,7 +9,7 @@ url = "https://xorg.freedesktop.org"
 
 
 @subpackage("fonts-xorg-100dpi")
-def _100dpi(self):
+def _(self):
     self.subdesc = "100dpi"
     # don't install 100dpi by default
     self.depends = [
@@ -24,7 +24,7 @@ def _100dpi(self):
 
 
 @subpackage("fonts-xorg-75dpi")
-def _75dpi(self):
+def _(self):
     self.subdesc = "100dpi"
     self.install_if = [self.parent]
     self.depends = [
@@ -39,7 +39,7 @@ def _75dpi(self):
 
 
 @subpackage("fonts-xorg-cyrillic")
-def _cyrillic(self):
+def _(self):
     self.subdesc = "cyrillic"
     self.install_if = [self.parent]
     self.depends = [
@@ -53,7 +53,7 @@ def _cyrillic(self):
 
 
 @subpackage("fonts-xorg-misc")
-def _misc(self):
+def _(self):
     self.subdesc = "misc"
     self.install_if = [self.parent]
     self.depends = [
@@ -77,7 +77,7 @@ def _misc(self):
 
 
 @subpackage("fonts-xorg-type1")
-def _type1(self):
+def _(self):
     self.subdesc = "type1"
     self.install_if = [self.parent]
     self.depends = [

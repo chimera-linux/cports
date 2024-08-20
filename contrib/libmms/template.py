@@ -13,5 +13,5 @@ sha256 = "3c05e05aebcbfcc044d9e8c2d4646cd8359be39a3f0ba8ce4e72a9094bee704f"
 
 
 @subpackage("libmms-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

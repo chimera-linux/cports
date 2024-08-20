@@ -199,7 +199,7 @@ def _take_list(self, pn):
 def _contrib_pkg(pn):
     # build a subpackage for each contrib item
     @subpackage(f"postgresql16-contrib-{pn}")
-    def _subp(self):
+    def _(self):
         self.subdesc = f"contrib-{pn}"
         self.depends += [self.parent]
         # autoinstalls
@@ -230,7 +230,7 @@ for _cont in _contrib_list:
 
 
 @subpackage(pkgname, alternative="postgresql")
-def _default(self):
+def _(self):
     # the default version
     if _default_ver:
         self.provider_priority = 100
@@ -266,7 +266,7 @@ def _default(self):
 # nor should we make them actual alternatives (autoinstall instead)
 def _contrib_alt(pn, pl):
     @subpackage(f"postgresql-postgresql16-{pn}-default")
-    def _sp(self):
+    def _(self):
         self.subdesc = f"default links for {pn}"
         self.depends = [self.with_pkgver(f"postgresql-{pkgname}-default")]
         self.install_if = [
@@ -286,7 +286,7 @@ for _pn in _extra_cmds:
 
 
 @subpackage("postgresql16-contrib")
-def _contrib(self):
+def _(self):
     self.subdesc = "contrib"
     self.options = ["empty"]
 
@@ -294,7 +294,7 @@ def _contrib(self):
 
 
 @subpackage("libpq", _default_ver)
-def _libpq(self):
+def _(self):
     self.subdesc = "client library"
 
     return [
@@ -303,7 +303,7 @@ def _libpq(self):
 
 
 @subpackage("libpq-devel", _default_ver)
-def _libpq_devel(self):
+def _(self):
     self.subdesc = "client library development files"
 
     return [
@@ -321,14 +321,14 @@ def _libpq_devel(self):
 
 
 @subpackage("libecpg", _default_ver)
-def _libecpg(self):
+def _(self):
     self.subdesc = "embedded PostgreSQL for C"
 
     return ["usr/lib/libecpg.so.*", "usr/lib/libpgtypes.so*"]
 
 
 @subpackage("libecpg-devel", _default_ver)
-def _libecpg_devel(self):
+def _(self):
     self.subdesc = "embedded PostgreSQL for C development files"
 
     return [
@@ -346,7 +346,7 @@ def _libecpg_devel(self):
 
 
 @subpackage("postgresql16-pltcl")
-def _pltcl(self):
+def _(self):
     self.subdesc = "PL/Tcl"
     self.depends = [self.parent]
 
@@ -358,7 +358,7 @@ def _pltcl(self):
 
 
 @subpackage("postgresql16-plperl")
-def _plperl(self):
+def _(self):
     self.subdesc = "PL/Perl"
     self.depends = [self.parent]
 
@@ -369,7 +369,7 @@ def _plperl(self):
 
 
 @subpackage("postgresql16-plpython")
-def _plpython(self):
+def _(self):
     self.subdesc = "PL/Python"
     self.depends = [self.parent]
 
@@ -380,5 +380,5 @@ def _plpython(self):
 
 
 @subpackage("postgresql16-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=[f"usr/lib/{pkgname}/pgxs"])

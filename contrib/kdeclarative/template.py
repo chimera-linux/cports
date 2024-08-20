@@ -26,7 +26,7 @@ hardening = ["vis"]
 
 
 @subpackage("kdeclarative-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kconfig-devel", "qt6-qtdeclarative-devel"]
 
     return self.default_devel()

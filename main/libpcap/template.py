@@ -39,7 +39,7 @@ def post_install(self):
 
 
 @subpackage("libpcap-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libnl-devel"]
 
     return self.default_devel(man="357")

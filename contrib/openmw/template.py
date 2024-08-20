@@ -57,14 +57,14 @@ if self.profile().endian == "big":
 
 
 @subpackage("esmtool")
-def _esmtool(self):
+def _(self):
     self.pkgdesc = "Tool for inspecting and extracitng Morrowind ESM files"
 
     return ["usr/bin/esmtool"]
 
 
 @subpackage("bsatool")
-def _bsatool(self):
+def _(self):
     self.pkgdesc = "Tool for inspecting Bethesda BSA archives"
 
     return ["usr/bin/bsatool"]

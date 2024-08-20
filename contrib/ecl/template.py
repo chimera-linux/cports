@@ -43,7 +43,7 @@ def post_install(self):
 
 
 @subpackage("ecl-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             f"usr/lib/ecl-{pkgver}/*.a",
@@ -55,7 +55,7 @@ def _devel(self):
 
 
 @subpackage("ecl-libs")
-def _libs(self):
+def _(self):
     return self.default_libs(
         extra=[
             f"usr/lib/ecl-{pkgver}/*.asd",

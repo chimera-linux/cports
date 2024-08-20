@@ -37,5 +37,5 @@ hardening = ["vis"]
 
 
 @subpackage("purpose-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -23,5 +23,5 @@ sha256 = "cbd5421df85ba58228ea373cc452ca677e0e2ec61b59944d7e514234633057d9"
 
 
 @subpackage("vapoursynth-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -14,11 +14,11 @@ sha256 = "3ba5294d1cbdfa98afaacfbc00b6af9ed2b83e8a21817185dfd844cc8c7ac6ff"
 
 
 @subpackage("libcap-ng-devel")
-def _devel(self):
+def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
 
 
 @subpackage("libcap-ng-progs")
-def _progs(self):
+def _(self):
     return self.default_progs(man="178")

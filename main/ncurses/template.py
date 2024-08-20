@@ -242,14 +242,14 @@ def post_install(self):
 
 
 @subpackage("ncurses-libtinfo-libs")
-def _tinfo(self):
+def _(self):
     self.subdesc = "libtinfo.so symlink"
 
     return ["usr/lib/libtinfo*.so.*"]
 
 
 @subpackage("ncurses-libtinfo-devel")
-def _tdevel(self):
+def _(self):
     self.subdesc = "libtinfo.so development files"
     self.depends += [self.with_pkgver("ncurses-devel")]
 
@@ -260,17 +260,17 @@ def _tdevel(self):
 
 
 @subpackage("ncurses-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("ncurses-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("ncurses-base")
-def _base(self):
+def _(self):
     self.subdesc = "base terminfo files"
     self.replaces = [
         # these used to ship their own, compat for upgrade
@@ -285,7 +285,7 @@ def _base(self):
 
 
 @subpackage("ncurses-term")
-def _term(self):
+def _(self):
     self.subdesc = "full terminal descriptions"
     self.depends = [self.with_pkgver("ncurses-base")]
     self.options = ["hardlinks"]

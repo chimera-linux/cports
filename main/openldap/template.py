@@ -50,11 +50,11 @@ def post_install(self):
 
 
 @subpackage("openldap-libs")
-def _lib(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("openldap-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libsasl-devel"]
     return self.default_devel()

@@ -45,7 +45,7 @@ sha256 = "804ca7ad85d31d2950a159b4e1f1bf7d6c74a66d933c51daec549625a0c998cf"
 
 
 @subpackage("incidenceeditor-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "akonadi-mime-devel",
         "calendarsupport-devel",

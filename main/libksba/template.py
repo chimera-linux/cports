@@ -14,5 +14,5 @@ sha256 = "cf72510b8ebb4eb6693eef765749d83677a03c79291a311040a5bfd79baab763"
 
 
 @subpackage("libksba-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

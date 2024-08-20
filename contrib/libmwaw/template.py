@@ -15,10 +15,10 @@ sha256 = "a1a39ffcea3ff2a7a7aae0c23877ddf4918b554bf82b0de5d7ce8e7f61ea8e32"
 
 
 @subpackage("libmwaw-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libmwaw-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

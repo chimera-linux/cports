@@ -14,5 +14,5 @@ sha256 = "a89e09fc9b4de34dde19f4fcb4faaa1ce10299b9908db1132bbfa1de47882b94"
 
 
 @subpackage("libmicrohttpd-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

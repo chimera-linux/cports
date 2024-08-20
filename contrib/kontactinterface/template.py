@@ -28,6 +28,6 @@ sha256 = "6c854ae5cbc937f49bc6389ad2e783bce0ab63db0af67acd28bfc49b04afe915"
 
 
 @subpackage("kontactinterface-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kparts-devel"]
     return self.default_devel()

@@ -53,10 +53,10 @@ sha256 = "945c20a6f23839b0d5332729171458e90680da8264e99c6f9f41c219c7eeee7c"
 
 
 @subpackage("evince-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("evince-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

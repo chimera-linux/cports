@@ -12,7 +12,7 @@ sha256 = "79f63b8ce71ee45cefd34efbb66e39a22101443f4060809b8fc29c5eebdcee0e"
 
 
 @subpackage("libiptcdata-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/gtk-doc"])
 
 

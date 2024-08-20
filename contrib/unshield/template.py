@@ -19,10 +19,10 @@ def post_install(self):
 
 
 @subpackage("unshield-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("unshield-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

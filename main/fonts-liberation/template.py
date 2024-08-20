@@ -35,7 +35,7 @@ def do_install(self):
 
 
 @subpackage("fonts-liberation-otf")
-def _otf(self):
+def _(self):
     self.subdesc = "OpenType"
     self.depends = [self.parent, "!fonts-liberation-ttf"]
     self.install_if = [self.parent]
@@ -44,7 +44,7 @@ def _otf(self):
 
 
 @subpackage("fonts-liberation-ttf")
-def _ttf(self):
+def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent, "!fonts-liberation-otf"]
 

@@ -37,10 +37,10 @@ sha256 = "bebfd61ab6657a4f4ff27845fb66a167d00395783bfbd253254d87447ed1d879"
 
 
 @subpackage("opensubdiv-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("opensubdiv-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

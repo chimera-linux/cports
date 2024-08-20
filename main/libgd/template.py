@@ -31,12 +31,12 @@ def post_install(self):
 
 
 @subpackage("libgd-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libgd-progs")
-def _xmlwf(self):
+def _(self):
     self.depends += ["perl"]
 
     return self.default_progs()

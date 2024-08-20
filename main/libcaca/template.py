@@ -30,12 +30,12 @@ def post_install(self):
 
 
 @subpackage("libcaca-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libcaca-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 

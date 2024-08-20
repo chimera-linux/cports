@@ -64,11 +64,11 @@ def do_install(self):
 
 
 @subpackage("wasmtime-libs")
-def _libs(self):
+def _(self):
     return ["usr/lib/libwasmtime.so"]
 
 
 @subpackage("wasmtime-devel")
-def _devel(self):
+def _(self):
     self.depends = [self.with_pkgver("wasmtime-libs")]
     return self.default_devel()

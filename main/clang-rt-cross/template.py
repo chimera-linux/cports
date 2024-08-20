@@ -132,7 +132,7 @@ def do_install(self):
 
 def _gen_subp(an):
     @subpackage(f"clang-rt-cross-{an}", an in _targets)
-    def _subp(self):
+    def _(self):
         self.subdesc = f"{an} support"
         self.depends = [
             f"clang-rt-crt-cross-{an}",

@@ -36,7 +36,7 @@ if self.profile().cross:
 
 
 @custom_target("generate-configs", "patch")
-def _genconf(self):
+def _(self):
     from cbuild.util import linux
 
     linux.update_configs(self, archs, _flavor)
@@ -68,14 +68,14 @@ def do_install(self):
 
 
 @subpackage("linux-lts-devel")
-def _devel(self):
+def _(self):
     self.depends += ["clang"]
     self.options = ["foreignelf", "execstack", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 
 
 @subpackage("linux-lts-dbg")
-def _dbg(self):
+def _(self):
     self.options = [
         "!scanrundeps",
         "!strip",

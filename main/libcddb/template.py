@@ -14,12 +14,12 @@ options = ["!check"]
 
 
 @subpackage("libcddb-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libcddb-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 

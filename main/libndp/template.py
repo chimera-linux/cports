@@ -17,10 +17,10 @@ hardening = ["vis", "!cfi"]
 
 
 @subpackage("libndp-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libndp-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

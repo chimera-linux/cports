@@ -22,12 +22,12 @@ def post_install(self):
 
 
 @subpackage("vamp-plugin-sdk-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("vamp-plugin-sdk-progs")
-def _xmlwf(self):
+def _(self):
     return self.default_progs()
 
 

@@ -22,5 +22,5 @@ sha256 = "5ed6bcd4ae3f3c05c912e62f216cd1a44123846147f729a49fb5668da51e030e"
 
 
 @subpackage("liblangtag-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

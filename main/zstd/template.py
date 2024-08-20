@@ -33,14 +33,14 @@ def post_install(self):
 
 
 @subpackage("zstd-progs")
-def _progs(self):
+def _(self):
     self.install_if = [self.parent]
 
     return self.default_progs()
 
 
 @subpackage("zstd-devel")
-def _devel(self):
+def _(self):
     self.provides = [self.with_pkgver("libzstd-devel")]
 
     return self.default_devel()

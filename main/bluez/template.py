@@ -53,19 +53,19 @@ def post_install(self):
 
 
 @subpackage("libbluetooth")
-def _libs(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("bluez-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("bluez-cups")
-def _cups(self):
+def _(self):
     self.pkgdesc = "CUPS printer backend for Bluetooth printers"
     self.install_if = [self.parent, "cups"]
 

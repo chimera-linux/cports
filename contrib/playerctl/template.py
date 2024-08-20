@@ -18,10 +18,10 @@ sha256 = "75957ad5071956f563542c7557af16a57e40b4a7f66bc9b6373d022ec5eef548"
 
 
 @subpackage("playerctl-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("playerctl-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

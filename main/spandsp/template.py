@@ -15,7 +15,7 @@ hardening = ["!vis", "!cfi"]
 
 
 @subpackage("spandsp-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libtiff-devel"]
 
     return self.default_devel()

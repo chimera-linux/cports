@@ -29,10 +29,10 @@ sha256 = "8f19535adb5577b83b00e02f330fe9b9eb40dd21f19e2899636fc4d3a7696375"
 
 
 @subpackage("enchant-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("enchant-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

@@ -28,7 +28,7 @@ def post_install(self):
 
 def _gensub(subn, subd, subc):
     @subpackage(f"fonts-noto-{subn}")
-    def _sub(self):
+    def _(self):
         self.subdesc = subd
         self.depends = [self.parent, f"!{pkgname}-{subc}"]
         if subn == "otf":
@@ -40,7 +40,7 @@ def _gensub(subn, subd, subc):
         ]
 
     @subpackage(f"fonts-noto-extra-{subn}")
-    def _sub_extra(self):
+    def _(self):
         self.subdesc = f"{subd} additional variants"
         self.depends = [
             self.with_pkgver(f"{pkgname}-extra"),
@@ -61,7 +61,7 @@ for _subn, _subd, _subc in [
 
 
 @subpackage("fonts-noto-extra")
-def _extra(self):
+def _(self):
     self.subdesc = "additional variants"
     self.depends = [self.parent]
     self.options = ["empty"]

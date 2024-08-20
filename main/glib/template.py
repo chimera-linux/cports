@@ -59,7 +59,7 @@ def post_install(self):
 
 
 @subpackage("glib-devel")
-def _devel(self):
+def _(self):
     self.depends += ["python-packaging"]
     self.replaces = ["libgirepository-devel<1.80"]
     self.provider_priority = 100

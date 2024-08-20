@@ -17,5 +17,5 @@ sha256 = "ca4a4b67f8e07ad6bc892f8ce15bd8ecdfb29c04563170f6256e7269e62afce6"
 
 
 @subpackage("metee-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

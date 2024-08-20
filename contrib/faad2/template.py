@@ -17,5 +17,5 @@ sha256 = "72dbc0494de9ee38d240f670eccf2b10ef715fd0508c305532ca3def3225bb06"
 
 
 @subpackage("faad2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

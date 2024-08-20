@@ -40,7 +40,7 @@ def post_install(self):
 
 
 @subpackage("foot-terminfo")
-def _tinfo(self):
+def _(self):
     self.subdesc = "extra terminfo data"
 
     return ["usr/share/terminfo"]

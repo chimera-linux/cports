@@ -44,5 +44,5 @@ sha256 = "b08c94f736aaa8c0826895ae155230b9a25c5f40306caeada5a4523a889e8977"
 
 
 @subpackage("krdc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

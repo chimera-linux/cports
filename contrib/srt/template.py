@@ -29,10 +29,10 @@ options = ["!check"]
 
 
 @subpackage("srt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("srt-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

@@ -22,7 +22,7 @@ def post_install(self):
 
 
 @subpackage("openjpeg-devel")
-def _devel(self):
+def _(self):
     # because cmake is dumb and references binaries in the find file
     self.depends += [self.with_pkgver("openjpeg-progs")]
 
@@ -30,5 +30,5 @@ def _devel(self):
 
 
 @subpackage("openjpeg-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

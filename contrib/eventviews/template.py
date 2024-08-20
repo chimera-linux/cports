@@ -41,7 +41,7 @@ sha256 = "bf68d5c11de56c15af143084e3f0a95a34658d11284bf56caff422881b6a134f"
 
 
 @subpackage("eventviews-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "akonadi-calendar-devel",
         "akonadi-devel",

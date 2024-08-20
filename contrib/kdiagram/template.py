@@ -26,7 +26,7 @@ sha256 = "4659b0c2cd9db18143f5abd9c806091c3aab6abc1a956bbf82815ab3d3189c6d"
 
 
 @subpackage("kdiagram-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "qt6-qtbase-devel",
         "qt6-qtsvg-devel",

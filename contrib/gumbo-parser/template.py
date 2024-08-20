@@ -21,5 +21,5 @@ sha256 = "c0bb5354e46539680724d638dbea07296b797229a7e965b13305c930ddc10d82"
 
 
 @subpackage("gumbo-parser-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

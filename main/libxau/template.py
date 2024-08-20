@@ -17,7 +17,7 @@ def post_install(self):
 
 
 @subpackage("libxau-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 

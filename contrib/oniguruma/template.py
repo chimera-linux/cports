@@ -17,5 +17,5 @@ def post_install(self):
 
 
 @subpackage("oniguruma-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

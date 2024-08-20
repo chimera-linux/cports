@@ -25,6 +25,6 @@ sha256 = "08154a15224f63c8a313596ddd5e702fd48bcc43350730698cc66a0ba31b21ec"
 
 
 @subpackage("ktnef-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kcalendarcore-devel"]
     return self.default_devel()

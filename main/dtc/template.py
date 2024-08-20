@@ -14,5 +14,5 @@ sha256 = "9871d96b26c495561b64256bef17a749856ab1fb78b1d5e99a27ba9fe6d7bfb0"
 
 
 @subpackage("dtc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

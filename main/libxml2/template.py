@@ -41,19 +41,19 @@ def post_install(self):
 
 
 @subpackage("libxml2-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends = ["python"]
     return ["usr/lib/python*"]
 
 
 @subpackage("libxml2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=["usr/share/gtk-doc", "usr/share/doc/libxml2"]
     )
 
 
 @subpackage("libxml2-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

@@ -22,7 +22,7 @@ sha256 = "30d5bfe404571ce566a8e938c8bac17576420eb508f1e257837da63f14ad44ce"
 
 
 @subpackage("gtkmm3.0-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/gtkmm-3.0",

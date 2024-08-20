@@ -40,7 +40,7 @@ sha256 = "ef9268190c25877e22a9ff5aa31cc8ede120239cb0dfca080c174e7eed4ff756"
 
 
 @subpackage("xfce4-backgrounds")
-def _backgrounds(self):
+def _(self):
     self.pkgdesc = "Backgrounds for the Xfce desktop"
     self.install_if = [self.parent]
     # TODO: https://gitlab.xfce.org/xfce/xfdesktop/-/issues/298

@@ -59,7 +59,7 @@ def do_install(self):
 
 
 @subpackage("base-cbuild-progs")
-def _cprogs(self):
+def _(self):
     # make sure to use our wrapper symlinks
     self.replaces = ["lld"]
     self.replaces_priority = 100

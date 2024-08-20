@@ -29,7 +29,7 @@ hardening = ["vis"]
 
 
 @subpackage("kcmutils-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kconfigwidgets-devel",
         "kcoreaddons-devel",

@@ -31,7 +31,7 @@ hardening = ["vis"]
 
 
 @subpackage("networkmanager-qt-devel")
-def _devel(self):
+def _(self):
     self.depends += ["networkmanager-devel"]
 
     return self.default_devel()

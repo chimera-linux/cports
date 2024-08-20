@@ -26,7 +26,7 @@ def post_install(self):
 
 
 @subpackage("wayland-progs")
-def _progs(self):
+def _(self):
     return self.default_progs(
         extra=[
             "usr/share/aclocal/wayland-scanner.m4",
@@ -37,6 +37,6 @@ def _progs(self):
 
 
 @subpackage("wayland-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.with_pkgver("wayland-progs"), "libffi-devel"]
     return self.default_devel(extra=["usr/share/wayland"])

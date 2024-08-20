@@ -19,5 +19,5 @@ tool_flags = {"CFLAGS": ["-Wno-ignored-optimization-argument"]}
 
 
 @subpackage("gavl-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -29,7 +29,7 @@ hardening = ["vis"]
 
 
 @subpackage("bluez-qt-devel")
-def _devel(self):
+def _(self):
     self.depends += ["qt6-qtdeclarative-devel"]
 
     return self.default_devel()

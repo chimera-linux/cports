@@ -31,10 +31,10 @@ def post_install(self):
 
 
 @subpackage("ispc-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("ispc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

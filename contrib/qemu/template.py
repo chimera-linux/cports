@@ -143,7 +143,7 @@ def post_install(self):
 
 
 @subpackage("qemu-guest-agent")
-def _guest_agent(self):
+def _(self):
     self.pkgdesc = "QEMU guest agent"
     self.depends = []
 
@@ -154,7 +154,7 @@ def _guest_agent(self):
 
 
 @subpackage("qemu-img")
-def _img(self):
+def _(self):
     self.pkgdesc = "QEMU command line tools for manipulating disk images"
     self.depends = []
 
@@ -167,7 +167,7 @@ def _img(self):
 
 
 @subpackage("qemu-tools")
-def _tools(self):
+def _(self):
     self.pkgdesc = "QEMU support tools"
     self.depends = []
 
@@ -179,7 +179,7 @@ def _tools(self):
 
 
 @subpackage("qemu-pr-helper")
-def _pr_helper(self):
+def _(self):
     self.pkgdesc = "QEMU pr helper utility"
     self.depends = []
 
@@ -190,7 +190,7 @@ def _pr_helper(self):
 
 
 @subpackage("qemu-vhost-user-gpu")
-def _vhost_user_gpu(self):
+def _(self):
     self.pkgdesc = "QEMU vhost user GPU device"
     self.depends = []
 
@@ -201,7 +201,7 @@ def _vhost_user_gpu(self):
 
 
 @subpackage("qemu-edk2-firmware")
-def _firmware(self):
+def _(self):
     self.pkgdesc = "QEMU edk2 firmware files"
     self.depends = []
 
@@ -213,7 +213,7 @@ def _firmware(self):
 
 def _spkg(sname):
     @subpackage(f"qemu-system-{sname}")
-    def _system(self):
+    def _(self):
         self.subdesc = f"system-{sname}"
         self.depends = [self.parent]
         self.options = ["foreignelf"]

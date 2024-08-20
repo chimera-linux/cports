@@ -23,5 +23,5 @@ sha256 = "8691c06e65ac2c739de4842c0d1219579efb4ae1864b8614dc74a4645dd59774"
 
 
 @subpackage("kwayland-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -50,10 +50,10 @@ def post_install(self):
 
 
 @subpackage("udisks-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("udisks-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

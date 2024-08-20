@@ -40,7 +40,7 @@ hardening = ["vis"]
 
 
 @subpackage("ktexteditor-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kparts-devel", "syntax-highlighting-devel"]
 
     return self.default_devel()

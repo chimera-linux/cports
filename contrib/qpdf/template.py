@@ -30,10 +30,10 @@ options = ["!check"]
 
 
 @subpackage("libqpdf-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libqpdf-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

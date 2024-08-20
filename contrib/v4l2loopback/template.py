@@ -33,12 +33,12 @@ def post_install(self):
 
 
 @subpackage("v4l2loopback-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("v4l2loopback-ckms")
-def _ckms(self):
+def _(self):
     self.subdesc = "kernel sources"
     self.install_if = [self.parent, "ckms"]
     self.depends = [

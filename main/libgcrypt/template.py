@@ -29,10 +29,10 @@ def post_extract(self):
 
 
 @subpackage("libgcrypt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/info"])
 
 
 @subpackage("libgcrypt-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

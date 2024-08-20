@@ -19,12 +19,12 @@ options = ["bootstrap", "!check"]
 
 
 @subpackage("acl-devel")
-def _devel(self):
+def _(self):
     self.depends += ["attr-devel"]
 
     return self.default_devel(man="5")
 
 
 @subpackage("acl-progs")
-def _progs(self):
+def _(self):
     return self.default_progs(extra=["usr/share"])

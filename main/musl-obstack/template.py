@@ -13,5 +13,5 @@ sha256 = "9ffb3479b15df0170eba4480e51723c3961dbe0b461ec289744622db03a69395"
 
 
 @subpackage("musl-obstack-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

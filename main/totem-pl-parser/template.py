@@ -33,12 +33,12 @@ options = ["!check", "linkundefver"]
 
 
 @subpackage("totem-pl-parser-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libtotem-plparser-mini")
-def _lib(self):
+def _(self):
     self.subdesc = "totem-plparser-mini library"
 
     return ["usr/lib/libtotem-plparser-mini.so.*"]

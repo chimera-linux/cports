@@ -14,14 +14,14 @@ sha256 = "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
 
 
 @subpackage("gmpxx")
-def _cxx(self):
+def _(self):
     self.subdesc = "C++ support"
 
     return ["usr/lib/libgmpxx.so.*"]
 
 
 @subpackage("gmpxx-devel")
-def _cxxdevel(self):
+def _(self):
     self.subdesc = "C++ development files"
 
     return [
@@ -32,7 +32,7 @@ def _cxxdevel(self):
 
 
 @subpackage("gmp-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 

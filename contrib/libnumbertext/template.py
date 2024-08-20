@@ -16,5 +16,5 @@ sha256 = "5dcb4db3b2340f81f601ce86d8d76b69e34d70f84f804192c901e4b7f84d5fb0"
 
 
 @subpackage("libnumbertext-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

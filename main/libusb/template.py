@@ -13,6 +13,6 @@ sha256 = "ffaa41d741a8a3bee244ac8e54a72ea05bf2879663c098c82fc5757853441575"
 
 
 @subpackage("libusb-devel")
-def _devel(self):
+def _(self):
     self.depends = ["pc:libudev!udev-devel"]
     return self.default_devel()

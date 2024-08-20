@@ -125,7 +125,7 @@ def do_install(self):
 
 
 @subpackage("gitk")
-def _gitk(self):
+def _(self):
     self.depends += [self.parent, "tk"]
     self.pkgdesc = "Git repository browser"
     self.license = "GPL-2.0-or-later"
@@ -133,7 +133,7 @@ def _gitk(self):
 
 
 @subpackage("git-gui")
-def _gui(self):
+def _(self):
     self.depends += [self.parent, "tk"]
     self.subdesc = "GUI tool"
     self.license = "GPL-2.0-or-later"
@@ -147,7 +147,7 @@ def _gui(self):
 
 
 @subpackage("git-credential-libsecret")
-def _libsecret(self):
+def _(self):
     self.depends += [self.parent]
     self.install_if = [self.parent, "libsecret"]
     self.pkgdesc = "Git libsecret credential helper"
@@ -156,7 +156,7 @@ def _libsecret(self):
 
 
 @subpackage("git-scalar")
-def _scalar(self):
+def _(self):
     self.depends += [self.parent]
     self.pkgdesc = "Git scalar monorepo tool"
 
@@ -167,7 +167,7 @@ def _scalar(self):
 
 
 @subpackage("git-svn")
-def _svn(self):
+def _(self):
     self.subdesc = "Subversion support"
     self.depends += [
         self.parent,

@@ -51,5 +51,5 @@ options = ["!check"]
 
 
 @subpackage("gnome-software-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

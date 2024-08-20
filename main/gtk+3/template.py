@@ -77,7 +77,7 @@ options = ["!cross", "!check"]
 
 
 @subpackage("gtk-update-icon-cache")
-def _uic(self):
+def _(self):
     self.subdesc = "icon cache update tool"
     self.triggers = ["/usr/share/icons/*"]
 
@@ -88,12 +88,12 @@ def _uic(self):
 
 
 @subpackage("gtk+3-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("gtk+3-demo")
-def _demo(self):
+def _(self):
     self.subdesc = "demo applications"
 
     return [
@@ -110,7 +110,7 @@ def _demo(self):
 
 
 @subpackage("gtk+3-cups")
-def _cups(self):
+def _(self):
     self.subdesc = "CUPS print backend"
     self.install_if = [self.parent, "cups"]
 

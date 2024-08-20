@@ -186,7 +186,7 @@ def do_install(self):
 
 def _font_subpackage(package, name, folder, spdx):
     @subpackage(f"fonts-nerd-{package}")
-    def _spkg(self):
+    def _(self):
         self.pkgdesc = f"{name} with Nerd Font patches"
         self.license = spdx
         self.install_if = [self.parent]

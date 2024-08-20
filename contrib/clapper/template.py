@@ -36,5 +36,5 @@ options = ["!cross"]
 
 
 @subpackage("clapper-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

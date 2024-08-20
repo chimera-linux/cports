@@ -20,5 +20,5 @@ sha256 = "572a3033b8d93d48a6a858e514abce4b2f7a946fe1f02cbfeca39bfd703018b3"
 
 
 @subpackage("libmatroska-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -33,7 +33,7 @@ def post_install(self):
 
 
 @subpackage("pinentry-qt-default")
-def _default(self):
+def _(self):
     self.depends = [self.parent]
     self.provides = ["pinentry-default=0"]
 

@@ -80,7 +80,7 @@ def post_install(self):
 
 
 @subpackage("musl-mallocng-devel-static")
-def _static(self):
+def _(self):
     self.depends = [f"musl-devel~{pkgver}"]
 
     return ["usr/lib/libc.a"]

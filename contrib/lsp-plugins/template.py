@@ -39,12 +39,12 @@ def do_configure(self):
 
 
 @subpackage("lsp-plugins-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("lsp-plugins-xdg")
-def _xdg(self):
+def _(self):
     self.subdesc = "icons and .desktop files"
     # these hundreds of .desktop files only really clutter launchers,
     # so place them separately
@@ -57,31 +57,31 @@ def _xdg(self):
 
 
 @subpackage("lsp-plugins-clap")
-def _clap(self):
+def _(self):
     self.subdesc = "clap plugins"
     return ["usr/lib/clap"]
 
 
 @subpackage("lsp-plugins-lv2")
-def _lv2(self):
+def _(self):
     self.subdesc = "lv2 plugins"
     return ["usr/lib/lv2"]
 
 
 @subpackage("lsp-plugins-vst2")
-def _vst2(self):
+def _(self):
     self.subdesc = "vst2 plugins"
     return ["usr/lib/vst"]
 
 
 @subpackage("lsp-plugins-vst3")
-def _vst3(self):
+def _(self):
     self.subdesc = "vst3 plugins"
     return ["usr/lib/vst3"]
 
 
 @subpackage("lsp-plugins-gstreamer")
-def _gstreamer(self):
+def _(self):
     self.subdesc = "gstreamer plugins"
     return [
         "usr/lib/gstreamer-1.0",
@@ -90,6 +90,6 @@ def _gstreamer(self):
 
 
 @subpackage("lsp-plugins-ladspa")
-def _ladspa(self):
+def _(self):
     self.subdesc = "ladspa plugins"
     return ["usr/lib/ladspa"]

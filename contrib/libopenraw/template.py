@@ -55,5 +55,5 @@ def init_build(self):
 
 
 @subpackage("libopenraw-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

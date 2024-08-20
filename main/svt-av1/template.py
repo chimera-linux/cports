@@ -32,10 +32,10 @@ def post_install(self):
 
 
 @subpackage("svt-av1-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("svt-av1-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

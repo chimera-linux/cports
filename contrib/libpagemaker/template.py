@@ -15,10 +15,10 @@ sha256 = "66adacd705a7d19895e08eac46d1e851332adf2e736c566bef1164e7a442519d"
 
 
 @subpackage("libpagemaker-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libpagemaker-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

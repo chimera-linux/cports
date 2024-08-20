@@ -50,6 +50,6 @@ def post_install(self):
 
 
 @subpackage("wlroots0.18-devel")
-def _devel(self):
+def _(self):
     self.provides = [self.with_pkgver("wlroots-devel")]
     return self.default_devel()

@@ -19,12 +19,12 @@ options = ["!check"]
 
 
 @subpackage("newt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("newt-python")
-def _progs(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 

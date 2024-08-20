@@ -23,10 +23,10 @@ def post_install(self):
 
 
 @subpackage("capstone-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("capstone-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

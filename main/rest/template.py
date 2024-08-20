@@ -32,5 +32,5 @@ sha256 = "9266a5c10ece383e193dfb7ffb07b509cc1f51521ab8dad76af96ed14212c2e3"
 
 
 @subpackage("rest-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

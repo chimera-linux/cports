@@ -243,7 +243,7 @@ def post_install(self):
 
 
 @subpackage("libglapi")
-def _glapi(self):
+def _(self):
     self.pkgdesc = "Free implementation of the GL API"
     self.subdesc = "runtime library"
     self.depends += [self.parent]
@@ -252,7 +252,7 @@ def _glapi(self):
 
 
 @subpackage("libgbm")
-def _gbm(self):
+def _(self):
     self.pkgdesc = "Generic Buffer Management"
     self.subdesc = "runtime library"
 
@@ -260,7 +260,7 @@ def _gbm(self):
 
 
 @subpackage("libgbm-devel")
-def _gbm_devel(self):
+def _(self):
     self.pkgdesc = "Generic Buffer Management"
 
     return [
@@ -271,7 +271,7 @@ def _gbm_devel(self):
 
 
 @subpackage("libosmesa")
-def _osmesa(self):
+def _(self):
     self.pkgdesc = "Mesa off-screen interface"
     self.subdesc = "runtime library"
     self.depends += [self.parent]
@@ -280,7 +280,7 @@ def _osmesa(self):
 
 
 @subpackage("libgles1")
-def _gles1(self):
+def _(self):
     self.pkgdesc = "Free implementation of OpenGL ES 1.x API"
     self.subdesc = "runtime library"
     self.depends += [self.parent]
@@ -289,7 +289,7 @@ def _gles1(self):
 
 
 @subpackage("libgles2")
-def _gles2(self):
+def _(self):
     self.pkgdesc = "Free implementation of OpenGL ES 2.x API"
     self.subdesc = "runtime library"
     self.depends += [self.parent]
@@ -298,7 +298,7 @@ def _gles2(self):
 
 
 @subpackage("libegl")
-def _egl(self):
+def _(self):
     self.pkgdesc = "Free implementation of the EGL API"
     self.subdesc = "runtime library"
     self.depends += [self.parent]
@@ -307,7 +307,7 @@ def _egl(self):
 
 
 @subpackage("libgl")
-def _libgl(self):
+def _(self):
     self.pkgdesc = "Free implementation of the OpenGL API"
     self.subdesc = "runtime library"
     self.depends += [self.parent]
@@ -316,7 +316,7 @@ def _libgl(self):
 
 
 @subpackage("libxatracker", _have_vmware)
-def _xatracker(self):
+def _(self):
     self.pkgdesc = "X acceleration library"
     self.subdesc = "runtime library"
 
@@ -324,14 +324,14 @@ def _xatracker(self):
 
 
 @subpackage("mesa-gallium-nine", _have_nine)
-def _gallium_nine(self):
+def _(self):
     self.pkgdesc = "Mesa implementation of D3D9"
 
     return ["usr/lib/d3d"]
 
 
 @subpackage("mesa-opencl", _have_opencl)
-def _opencl(self):
+def _(self):
     self.pkgdesc = "Mesa implementation of OpenCL"
     self.depends += ["libclc"]
 
@@ -344,14 +344,14 @@ def _opencl(self):
 
 
 @subpackage("mesa-vaapi", _have_hwdec)
-def _vaapi(self):
+def _(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
     return ["usr/lib/dri/*_drv_video.so"]
 
 
 @subpackage("mesa-dri")
-def _dri(self):
+def _(self):
     self.pkgdesc = "Mesa DRI drivers"
     self.install_if = [self.parent]
 
@@ -359,7 +359,7 @@ def _dri(self):
 
 
 @subpackage("mesa-vulkan", _have_vulkan)
-def _vulkan(self):
+def _(self):
     self.pkgdesc = "Mesa Vulkan drivers"
     self.install_if = [self.with_pkgver("mesa-dri"), "vulkan-loader"]
 
@@ -375,7 +375,7 @@ def _vulkan(self):
 
 
 @subpackage("mesa-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libgbm-devel"]
 
     return self.default_devel()

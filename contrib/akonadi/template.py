@@ -65,7 +65,7 @@ tool_flags = {
 
 
 @subpackage("akonadi-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kconfig-devel",
         "kconfigwidgets-devel",

@@ -27,10 +27,10 @@ hardening = ["!int"]
 
 
 @subpackage("openimagedenoise-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("openimagedenoise-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

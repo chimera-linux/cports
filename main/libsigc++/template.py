@@ -19,7 +19,7 @@ sha256 = "c3d23b37dfd6e39f2e09f091b77b1541fbfa17c4f0b6bf5c89baef7229080e17"
 
 
 @subpackage("libsigc++-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/sigc++-3.0",

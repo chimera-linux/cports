@@ -21,7 +21,7 @@ def post_install(self):
 
 
 @subpackage("libspng-devel")
-def _devel(self):
+def _(self):
     self.provides = [self.with_pkgver("spng-devel")]
     self.replaces = ["spng-devel<0.7.5"]
     return self.default_devel()

@@ -73,13 +73,13 @@ def _gen_crossp(an, at):
     cond = an in _targets
 
     @subpackage(f"libatomic-chimera-cross-{an}-static", cond)
-    def _subp_static(self):
+    def _(self):
         self.subdesc = f"static {an} support"
         self.depends = [self.with_pkgver(f"libatomic-chimera-cross-{an}")]
         return [f"usr/{at}/usr/lib/libatomic.a"]
 
     @subpackage(f"libatomic-chimera-cross-{an}", cond)
-    def _subp(self):
+    def _(self):
         self.subdesc = f"{an} support"
         self.depends = [f"clang-rt-crt-cross-{an}"]
         self.options = [
@@ -100,7 +100,7 @@ for _an in _targetlist:
 
 
 @subpackage("libatomic-chimera-cross-static")
-def _static(self):
+def _(self):
     self.options = ["empty"]
     self.subdesc = "static"
     self.depends = []

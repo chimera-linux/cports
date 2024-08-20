@@ -129,13 +129,13 @@ def post_extract(self):
 
 
 @subpackage("vlc-devel")
-def _devel(self):
+def _(self):
     # FIXME: maybe shouldn't even be installed?
     return self.default_devel(extra=["usr/lib/vlc/libcompat.a"])
 
 
 @subpackage("vlc-qt")
-def _qt(self):
+def _(self):
     self.subdesc = "Qt frontend"
     self.depends = [self.parent]
     return [
@@ -148,6 +148,6 @@ def _qt(self):
 
 
 @subpackage("vlc-libs")
-def _libs(self):
+def _(self):
     self.triggers = ["/usr/lib/vlc/plugins"]
     return self.default_libs(extra=["usr/libexec/vlc/vlc-cache-gen"])

@@ -14,7 +14,7 @@ def post_install(self):
 
 
 @subpackage("resolvconf-symlink")
-def _symlink(self):
+def _(self):
     self.subdesc = "use symlink"
     self.install_if = [self.parent, "cmd:resolvconf"]
     self.depends = [
@@ -25,7 +25,7 @@ def _symlink(self):
 
 
 @subpackage("resolvconf-openresolv")
-def _openresolv(self):
+def _(self):
     self.subdesc = "openresolv"
     self.install_if = [self.parent]  # prefer
     self.provides = [self.with_pkgver("resolvconf-any")]
@@ -39,7 +39,7 @@ def _openresolv(self):
 
 
 @subpackage("resolvconf-none")
-def _none(self):
+def _(self):
     self.subdesc = "do not use"
     self.provides = [self.with_pkgver("resolvconf-any")]
     return []

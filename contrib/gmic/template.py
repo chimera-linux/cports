@@ -50,12 +50,12 @@ def post_install(self):
 
 
 @subpackage("gmic-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("gmic-qt")
-def _qt(self):
+def _(self):
     self.pkgdesc = "Qt GUI for GMIC"
     return [
         "usr/bin/gmic_qt",

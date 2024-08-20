@@ -25,7 +25,7 @@ def post_install(self):
 
 
 @subpackage("libtheora-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/doc"])
 
 

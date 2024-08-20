@@ -26,10 +26,10 @@ if self.profile().arch == "ppc64":
 
 
 @subpackage("xapian-core-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("xapian-core-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

@@ -41,10 +41,10 @@ options = ["!check"]
 
 
 @subpackage("gcr3-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("gcr3-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

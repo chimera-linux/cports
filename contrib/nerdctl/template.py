@@ -32,7 +32,7 @@ def post_install(self):
 
 
 @subpackage("containerd-rootless")
-def _rless(self):
+def _(self):
     self.pkgdesc = "Rootless containerd support"
     self.depends = [
         "containerd",

@@ -35,12 +35,12 @@ options = ["!cross", "!check", "linkundefver"]
 
 
 @subpackage("tevent-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("tevent-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 

@@ -82,7 +82,7 @@ def post_install(self):
 
 
 @subpackage("device-mapper-devel")
-def _dmdev(self):
+def _(self):
     self.pkgdesc = "Device Mapper userspace library and tools"
     self.depends += makedepends
 
@@ -99,7 +99,7 @@ def _dmdev(self):
 
 
 @subpackage("device-mapper")
-def _dm(self):
+def _(self):
     self.pkgdesc = "Device Mapper userspace library and tools"
 
     return [
@@ -117,7 +117,7 @@ def _dm(self):
 
 
 @subpackage("lvm2-extra")
-def _extra(self):
+def _(self):
     self.subdesc = "extra utilities"
     self.depends = [self.parent, "bash", "ugetopt"]
     return [

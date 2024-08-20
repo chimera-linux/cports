@@ -36,6 +36,6 @@ sha256 = "157f8841ad5b3238c9e52571edcc936e2ff5c176b95c865238ef1cefe428d0f8"
 
 
 @subpackage("akonadi-mime-devel")
-def _devel(self):
+def _(self):
     self.depends += ["akonadi-devel"]
     return self.default_devel()

@@ -24,12 +24,12 @@ sha256 = "0728e825f18ce1af0ec0090ae9892665e61590bb94910f12bf0810b874fdce7f"
 
 
 @subpackage("libsquashfs")
-def _libmagic(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("squashfs-tools-ng-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

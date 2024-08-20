@@ -42,19 +42,19 @@ def do_configure(self):
 
 
 @subpackage("talloc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libpytalloc-util")
-def _util(self):
+def _(self):
     self.subdesc = "Python utility library"
 
     return ["usr/lib/libpytalloc-util.so.*"]
 
 
 @subpackage("talloc-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
 
     return ["usr/lib/python*"]

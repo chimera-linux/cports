@@ -21,7 +21,7 @@ sha256 = "add9efa968e8341459fcaa2d96f2594a6f871e1fb3f57c02ce1c8ba5424f3960"
 
 
 @subpackage("libnvme-python")
-def _py(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 
@@ -29,5 +29,5 @@ def _py(self):
 
 
 @subpackage("libnvme-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

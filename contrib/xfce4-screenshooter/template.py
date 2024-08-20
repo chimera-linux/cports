@@ -41,7 +41,7 @@ options = ["!cross"]
 
 
 @subpackage("xfce4-screenshooter-imgur")
-def _imgur(self):
+def _(self):
     self.subdesc = "Imgur upload support"
     self.depends = [
         self.parent,

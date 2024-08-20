@@ -32,5 +32,5 @@ def post_install(self):
 
 
 @subpackage("libopenmpt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

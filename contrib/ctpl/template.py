@@ -22,5 +22,5 @@ sha256 = "21108fc7567ed216deea4591adbfece8e88b1f4bb1ca77c37400920644d756be"
 
 
 @subpackage("ctpl-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

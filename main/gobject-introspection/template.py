@@ -36,14 +36,14 @@ def post_install(self):
 
 
 @subpackage("gir-freedesktop")
-def _girfdo(self):
+def _(self):
     self.pkgdesc = "Introspection data for some freedesktop components"
 
     return ["usr/lib/girepository-1.0"]
 
 
 @subpackage("libgirepository")
-def _libgir(self):
+def _(self):
     self.pkgdesc = "Library for handling gir data"
     self.subdesc = "runtime library"
     self.depends += [self.with_pkgver("gir-freedesktop")]
@@ -52,7 +52,7 @@ def _libgir(self):
 
 
 @subpackage("libgirepository-devel")
-def _devel(self):
+def _(self):
     self.pkgdesc = "Library for handling gir data"
     self.depends += ["cairo-devel", "libffi-devel"]
 

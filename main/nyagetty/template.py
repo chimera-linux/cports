@@ -93,7 +93,7 @@ inittab-line    = {name}
 
 
 @subpackage("nyagetty-dinit")
-def _dinit(self):
+def _(self):
     self.subdesc = "service files"
 
     self.depends = [self.parent, "dinit-chimera"]

@@ -109,21 +109,21 @@ def post_install(self):
 
 
 @subpackage("xserver-xorg-xnest")
-def _xnest(self):
+def _(self):
     self.pkgdesc = "Nested X server that runs as an X application"
 
     return ["usr/bin/Xnest", "usr/share/man/man1/Xnest.1"]
 
 
 @subpackage("xserver-xorg-xephyr")
-def _xephyr(self):
+def _(self):
     self.pkgdesc = "X server outputting to a window on a pre-existing display"
 
     return ["usr/bin/Xephyr", "usr/share/man/man1/Xephyr.1"]
 
 
 @subpackage("xserver-xorg-xvfb")
-def _xvfb(self):
+def _(self):
     self.pkgdesc = "Virtual framebuffer X server"
     self.depends += ["xkeyboard-config", "xauth", "ugetopt"]
 
@@ -136,7 +136,7 @@ def _xvfb(self):
 
 
 @subpackage("xserver-xorg-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "xorgproto",
         "xtrans",

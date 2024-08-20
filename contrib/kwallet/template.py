@@ -34,5 +34,5 @@ hardening = ["vis"]
 
 
 @subpackage("kwallet-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

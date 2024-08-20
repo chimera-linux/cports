@@ -160,7 +160,7 @@ else:
 
 
 @subpackage("gst-plugins-bad-devel")
-def _devel(self):
+def _(self):
     self.depends += [f"gst-plugins-base-devel~{pkgver}"]
 
     return self.default_devel()

@@ -35,11 +35,11 @@ def post_install(self):
 
 
 @subpackage("assimp-devel")
-def _devel(self):
+def _(self):
     self.depends += ["minizip-devel", "zlib-ng-compat-devel"]
     return self.default_devel()
 
 
 @subpackage("assimp-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

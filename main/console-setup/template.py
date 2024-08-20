@@ -47,7 +47,7 @@ def post_install(self):
 
 
 @subpackage("console-setup-xkb")
-def _xkb(self):
+def _(self):
     self.subdesc = "optional XKB keymap support"
     self.depends = [self.parent, "xkeyboard-config", "perl"]
     self.install_if = [

@@ -99,7 +99,7 @@ def post_install(self):
 
 
 @subpackage("python-numpy-tests")
-def _tests(self):
+def _(self):
     self.subdesc = "tests"
     self.depends += ["python"]
     return [

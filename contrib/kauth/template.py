@@ -30,7 +30,7 @@ hardening = ["vis"]
 
 
 @subpackage("kauth-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kcoreaddons-devel"]
 
     return self.default_devel()

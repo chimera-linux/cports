@@ -19,5 +19,5 @@ sha256 = "cddd5c02a131072c19c6cde6f2cb2cd57eae7dacb50d14c337efd980baa51a51"
 
 
 @subpackage("libmanette-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

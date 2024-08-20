@@ -37,10 +37,10 @@ def post_install(self):
 
 
 @subpackage("linux-pam-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/doc"])
 
 
 @subpackage("linux-pam-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

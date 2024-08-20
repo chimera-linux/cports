@@ -45,12 +45,12 @@ def post_install(self):
 
 
 @subpackage("gstreamer-libcamera")
-def _gst(self):
+def _(self):
     self.subdesc = "GStreamer support"
     self.install_if = [self.parent, "gstreamer"]
     return ["usr/lib/gstreamer-1.0"]
 
 
 @subpackage("libcamera-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/bin/lc-compliance"])

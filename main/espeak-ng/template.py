@@ -24,5 +24,5 @@ options = ["!check"]
 
 
 @subpackage("espeak-ng-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

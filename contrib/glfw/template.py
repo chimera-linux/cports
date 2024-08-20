@@ -34,6 +34,6 @@ sha256 = "b5ec004b2712fd08e8861dc271428f048775200a2df719ccf575143ba749a3e9"
 
 
 @subpackage("glfw-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libxrandr-devel", "mesa-devel"]
     return self.default_devel()

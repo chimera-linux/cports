@@ -68,7 +68,7 @@ def post_install(self):
 
 
 @subpackage("chimerautils-extra")
-def _full(self):
+def _(self):
     self.subdesc = "additional tools"
     self.depends = [self.parent]
 

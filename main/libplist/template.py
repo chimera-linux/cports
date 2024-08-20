@@ -17,14 +17,14 @@ options = ["!cross"]
 
 
 @subpackage("libplist++")
-def _pp(self):
+def _(self):
     self.subdesc = "C++ runtime library"
 
     return ["usr/lib/libplist++*.so.*"]
 
 
 @subpackage("libplist-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 
@@ -32,10 +32,10 @@ def _python(self):
 
 
 @subpackage("libplist-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libplist-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

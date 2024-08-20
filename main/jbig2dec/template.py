@@ -22,10 +22,10 @@ def post_install(self):
 
 
 @subpackage("jbig2dec-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("jbig2dec-progs")
-def _xmlwf(self):
+def _(self):
     return self.default_progs()

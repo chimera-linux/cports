@@ -53,19 +53,19 @@ def post_install(self):
 
 
 @subpackage("bind-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("bind-libs")
-def _libs(self):
+def _(self):
     # bind has libfoo.so as the symlink,
     # and libfoo-version.so as the main lib
     return ["usr/lib/lib*-*.so"]
 
 
 @subpackage("bind-progs")
-def _progs(self):
+def _(self):
     # "cli" utilities that can be used standalone,
     # the rest of the progs are for running bind itself
     def func():

@@ -35,6 +35,6 @@ def post_install(self):
 
 
 @subpackage("glog-devel")
-def _devel(self):
+def _(self):
     self.depends += ["gflags-devel-static"]
     return self.default_devel()

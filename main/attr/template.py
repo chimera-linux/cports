@@ -18,10 +18,10 @@ options = ["bootstrap"]
 
 
 @subpackage("attr-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/doc"])
 
 
 @subpackage("attr-progs")
-def _progs(self):
+def _(self):
     return self.default_progs(extra=["usr/share"])

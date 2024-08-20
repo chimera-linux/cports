@@ -94,7 +94,7 @@ def post_install(self):
 
 
 @subpackage("zfs-dracut")
-def _dracut(self):
+def _(self):
     self.subdesc = "dracut module"
     self.install_if = [self.parent, "dracut"]
     self.depends = [self.parent]
@@ -103,12 +103,12 @@ def _dracut(self):
 
 
 @subpackage("zfs-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("zfs-ckms")
-def _ckms(self):
+def _(self):
     self.subdesc = "kernel sources"
     self.install_if = [self.parent, "ckms"]
     self.depends = [

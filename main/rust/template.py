@@ -370,7 +370,7 @@ def _untar(self, name, has_triple=True):
 
 
 @custom_target("bootstrap", "build")
-def _boot(self):
+def _(self):
     # already done
     pass
 
@@ -420,7 +420,7 @@ def do_install(self):
 
 
 @subpackage("rust-wasm")
-def _wasm(self):
+def _(self):
     self.pkgdesc = "WebAssembly targets"
     self.depends = [self.parent, "lld", "wasi-libc"]
     self.options = ["!strip"]
@@ -429,7 +429,7 @@ def _wasm(self):
 
 
 @subpackage("rust-clippy")
-def _clippy(self):
+def _(self):
     self.pkgdesc = "Lints to catch common mistakes"
     self.depends = [self.parent]
 
@@ -440,7 +440,7 @@ def _clippy(self):
 
 
 @subpackage("rustfmt")
-def _fmt(self):
+def _(self):
     self.pkgdesc = "Rust code formatter"
     self.depends = [self.parent]
 
@@ -451,7 +451,7 @@ def _fmt(self):
 
 
 @subpackage("rust-std")
-def _std(self):
+def _(self):
     self.subdesc = "static rlibs"
     self.options = ["!strip"]
 
@@ -462,7 +462,7 @@ def _std(self):
 
 
 @subpackage("rust-src")
-def _src(self):
+def _(self):
     self.subdesc = "source"
 
     return [

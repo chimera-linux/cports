@@ -28,5 +28,5 @@ sha256 = "df5796950e68a06166fbf3001f8f45fcece3a7c7aa3c294d0a151377200a19da"
 
 
 @subpackage("kldap-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

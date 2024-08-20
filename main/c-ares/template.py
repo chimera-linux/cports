@@ -29,10 +29,10 @@ def post_install(self):
 
 
 @subpackage("c-ares-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("c-ares-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

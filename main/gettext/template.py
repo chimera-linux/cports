@@ -46,7 +46,7 @@ def post_install(self):
 
 
 @subpackage("gettext-libs")
-def _libs(self):
+def _(self):
     return self.default_libs(
         extra=[
             f"usr/lib/libgettextlib-{pkgver}.so",
@@ -56,7 +56,7 @@ def _libs(self):
 
 
 @subpackage("gettext-libintl")
-def _libintl(self):
+def _(self):
     self.subdesc = "libintl stub"
     self.options = ["!splitstatic", "ltostrip"]
 
@@ -64,7 +64,7 @@ def _libintl(self):
 
 
 @subpackage("gettext-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         self.parent,
         self.with_pkgver(f"{pkgname}-libintl"),

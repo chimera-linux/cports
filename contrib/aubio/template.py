@@ -40,10 +40,10 @@ def post_extract(self):
 
 
 @subpackage("aubio-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("aubio-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

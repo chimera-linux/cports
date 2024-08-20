@@ -20,13 +20,13 @@ options = ["!check"]
 
 # LGPL-2.1-or-later
 @subpackage("i2c-tools-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 # GPL-2.0-only
 @subpackage("python-smbus")
-def _python(self):
+def _(self):
     self.pkgdesc = "Python bindings for Linux SMBus access through i2c-dev"
     self.depends += ["python"]
     return ["usr/lib/python3*"]

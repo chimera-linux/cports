@@ -16,7 +16,7 @@ options = ["!check"]
 
 
 @subpackage("startup-notification-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 

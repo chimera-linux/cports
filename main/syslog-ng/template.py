@@ -87,14 +87,14 @@ def post_install(self):
 
 
 @subpackage("syslog-ng-scl")
-def _scl(self):
+def _(self):
     self.subdesc = "configuration library"
 
     return ["usr/share/syslog-ng/include/scl"]
 
 
 @subpackage("syslog-ng-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/share/syslog-ng/tools",
@@ -104,7 +104,7 @@ def _devel(self):
 
 
 @subpackage("syslog-ng-python")
-def _python(self):
+def _(self):
     self.subdesc = "python module"
 
     return [
@@ -116,7 +116,7 @@ def _python(self):
 
 def _genmod(modn, modl):
     @subpackage(f"syslog-ng-{modn}_module")
-    def _mod(self):
+    def _(self):
         nonlocal modn, modl
 
         self.subdesc = f"{modn} module"

@@ -37,11 +37,11 @@ sha256 = "eaf216b7933332a0d3e0553fd759882fed22d59b3980676e5f6e976515a410eb"
 
 
 @subpackage("libkdegames-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libkdegames-carddecks")
-def _carddecks(self):
+def _(self):
     self.subdesc = "card decks for KDE card games"
     return ["usr/share/carddecks"]

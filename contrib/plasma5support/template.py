@@ -32,7 +32,7 @@ hardening = ["vis"]
 
 
 @subpackage("plasma5support-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kcoreaddons-devel", "kservice-devel"]
 
     return self.default_devel()

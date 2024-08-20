@@ -24,7 +24,7 @@ def post_install(self):
 
 
 @subpackage("xdg-utils-x11")
-def _x11(self):
+def _(self):
     self.subdesc = "X11 integration"
     self.options = ["empty"]
     self.depends = [self.parent, "xset"]

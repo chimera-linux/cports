@@ -52,7 +52,7 @@ def post_install(self):
 
 
 @subpackage("dbus-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libexpat-devel"]
     return self.default_devel(
         extra=[
@@ -63,12 +63,12 @@ def _devel(self):
 
 
 @subpackage("dbus-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("dbus-x11")
-def _x11(self):
+def _(self):
     self.subdesc = "X11 support"
     self.depends = [self.parent]
     self.install_if = [self.parent, "xinit"]

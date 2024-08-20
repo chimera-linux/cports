@@ -14,7 +14,7 @@ sha256 = "539b0a29e15a96676c4f0594541250566c5ca44da5d4d87a3732fa2d07909e4a"
 
 
 @subpackage("glibmm-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/glibmm-2.68",

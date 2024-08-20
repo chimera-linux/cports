@@ -38,7 +38,7 @@ def post_install(self):
 
 
 @subpackage("tcl-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent]
     self.options = ["!splitstatic"]
     return self.default_devel(extra=["usr/lib/*.sh"])

@@ -45,19 +45,19 @@ if self.profile().arch == "ppc64":
 
 
 @subpackage("ldb-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libpyldb-util")
-def _util(self):
+def _(self):
     self.subdesc = "Python utility library"
 
     return ["usr/lib/libpyldb-util.so.*"]
 
 
 @subpackage("ldb-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 
@@ -65,5 +65,5 @@ def _python(self):
 
 
 @subpackage("ldb-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

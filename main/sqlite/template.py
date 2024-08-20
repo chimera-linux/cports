@@ -45,5 +45,5 @@ tool_flags = {"CFLAGS": _cflags}
 
 
 @subpackage("sqlite-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

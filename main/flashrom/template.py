@@ -23,10 +23,10 @@ options = ["!check", "linkundefver"]
 
 
 @subpackage("flashrom-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("flashrom-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

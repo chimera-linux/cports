@@ -100,7 +100,7 @@ def post_install(self):
 
 
 @subpackage("cups-libs")
-def _libs(self):
+def _(self):
     self.file_modes = {"etc/cups/client.conf": ("root", "lp", 0o644)}
 
     return self.default_libs(
@@ -112,7 +112,7 @@ def _libs(self):
 
 
 @subpackage("cups-devel")
-def _devel(self):
+def _(self):
     self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()

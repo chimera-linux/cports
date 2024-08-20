@@ -25,5 +25,5 @@ hardening = ["vis"]
 
 
 @subpackage("kdbusaddons-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

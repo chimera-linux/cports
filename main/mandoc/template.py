@@ -62,7 +62,7 @@ manpath /usr/share/man
 
 
 @subpackage("base-man")
-def _base(self):
+def _(self):
     self.pkgdesc = "Base package for manpages"
     self.depends = [self.parent]
     self.options = ["empty"]
@@ -71,7 +71,7 @@ def _base(self):
 
 
 @subpackage("mandoc-apropos")
-def _apropos(self):
+def _(self):
     self.subdesc = "apropos trigger"
     self.install_if = [self.parent]
     self.triggers = ["/usr/share/man"]

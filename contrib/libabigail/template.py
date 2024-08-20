@@ -64,10 +64,10 @@ def post_install(self):
 
 
 @subpackage("libabigail-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libabigail-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

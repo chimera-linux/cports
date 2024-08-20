@@ -24,10 +24,10 @@ options = ["!check", "!cross"]
 
 
 @subpackage("libsecret-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libsecret-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

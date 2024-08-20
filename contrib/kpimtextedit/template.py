@@ -37,5 +37,5 @@ sha256 = "4a081cf196317ac5bb9d1d1fd95ca79765ecd56374d7bd3c3051ea19a58521d5"
 
 
 @subpackage("kpimtextedit-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

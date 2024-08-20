@@ -16,7 +16,7 @@ options = ["!cross"]
 
 
 @subpackage("libmtp-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libgcrypt-devel"]
 
     return self.default_devel()

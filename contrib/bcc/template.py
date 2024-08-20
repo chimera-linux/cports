@@ -60,18 +60,18 @@ def post_install(self):
 
 
 @subpackage("bcc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("bcc-libs")
-def _libs(self):
+def _(self):
     self.subdesc = "runtime libraries"
     return self.default_libs()
 
 
 @subpackage("python-bcc")
-def _python(self):
+def _(self):
     self.subdesc = "python module"
     self.depends += [self.with_pkgver("bcc-libs")]
     return ["usr/lib/python*"]

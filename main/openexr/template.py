@@ -37,11 +37,11 @@ def post_install(self):
 
 
 @subpackage("openexr-devel")
-def _devel(self):
+def _(self):
     self.depends += ["imath-devel"]
     return self.default_devel()
 
 
 @subpackage("openexr-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

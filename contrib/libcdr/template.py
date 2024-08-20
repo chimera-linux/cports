@@ -16,12 +16,12 @@ sha256 = "ae613caeb7e0e539cbc1b08ea5169bddaed8d2021d25ef66b39ddc0aa72c2902"
 
 
 @subpackage("libcdr-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libcdr-devel")
-def _devel(self):
+def _(self):
     self.depends += ["boost-devel"]
 
     return self.default_devel()

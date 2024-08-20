@@ -94,7 +94,7 @@ def post_install(self):
 
 
 @subpackage("wine-devel")
-def _devel(self):
+def _(self):
     # llvm-strip/objcopy cannot handle windows .a's
     self.nostrip_files = [
         "usr/lib/wine/i386-windows/*.a",

@@ -27,5 +27,5 @@ sha256 = "6d27867256a35ccf9b69253eb2a88a32baca3b97d5f4ef7f82e3667fa435251c"
 
 
 @subpackage("libgxps-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

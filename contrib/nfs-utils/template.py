@@ -74,7 +74,7 @@ def post_install(self):
 
 
 @subpackage("nfs-server")
-def _server(self):
+def _(self):
     self.pkgdesc = f"{pkgdesc} (server components)"
     self.depends = [self.parent]
 
@@ -113,12 +113,12 @@ def _server(self):
 
 
 @subpackage("nfs-utils-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("nfs-utils-libs")
-def _lib(self):
+def _(self):
     self.pkgdesc = f"{pkgdesc} (libraries)"
 
     return ["usr/lib/libnfsidmap.so.*", "usr/lib/libnfsidmap"]

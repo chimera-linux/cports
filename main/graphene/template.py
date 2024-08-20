@@ -28,5 +28,5 @@ def post_install(self):
 
 
 @subpackage("graphene-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/lib/graphene-1.0"])

@@ -42,7 +42,7 @@ def post_install(self):
 
 
 @subpackage("xz-devel")
-def _devel(self):
+def _(self):
     self.provides = [self.with_pkgver("liblzma-devel")]
 
     return self.default_devel()

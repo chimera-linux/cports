@@ -13,5 +13,5 @@ sha256 = "7295491b4be5eeac5e7a3fb2067e236e2955ffdc6bbd45f546466edee321644b"
 
 
 @subpackage("libburn-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

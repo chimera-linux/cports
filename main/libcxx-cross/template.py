@@ -114,14 +114,14 @@ def _gen_crossp(an, at):
     cond = an in _targets
 
     @subpackage(f"libunwind-cross-{an}-static", cond)
-    def _unwst(self):
+    def _(self):
         self.pkgdesc = "Cross-toolchain LLVM libunwind"
         self.subdesc = f"{an} static library"
         self.depends = [self.with_pkgver(f"libunwind-cross-{an}")]
         return [f"usr/{at}/usr/lib/libunwind.a"]
 
     @subpackage(f"libunwind-cross-{an}", cond)
-    def _unw(self):
+    def _(self):
         self.pkgdesc = "Cross-toolchain LLVM libunwind"
         self.subdesc = an
         self.depends = [f"musl-cross-{an}", f"libatomic-chimera-cross-{an}"]
@@ -140,14 +140,14 @@ def _gen_crossp(an, at):
     # libc++abi subpackages
 
     @subpackage(f"libcxxabi-cross-{an}-static", cond)
-    def _abist(self):
+    def _(self):
         self.pkgdesc = "Cross-toolchain LLVM libc++abi"
         self.subdesc = f"{an} static library"
         self.depends = [self.with_pkgver(f"libcxxabi-cross-{an}")]
         return [f"usr/{at}/usr/lib/libc++abi.a"]
 
     @subpackage(f"libcxxabi-cross-{an}", cond)
-    def _abi(self):
+    def _(self):
         self.pkgdesc = "Cross-toolchain LLVM libc++abi"
         self.subdesc = an
         self.depends = [self.with_pkgver(f"libunwind-cross-{an}")]
@@ -165,7 +165,7 @@ def _gen_crossp(an, at):
     # libc++ subpackages
 
     @subpackage(f"libcxx-cross-{an}-static", cond)
-    def _subp_static(self):
+    def _(self):
         self.subdesc = f"{an} static library"
         self.depends = [
             self.with_pkgver(f"libcxx-cross-{an}"),
@@ -173,7 +173,7 @@ def _gen_crossp(an, at):
         return [f"usr/{at}/usr/lib/libc++.a"]
 
     @subpackage(f"libcxx-cross-{an}", cond)
-    def _subp(self):
+    def _(self):
         self.subdesc = an
         self.depends = [self.with_pkgver(f"libcxxabi-cross-{an}")]
         self.options = [
@@ -194,7 +194,7 @@ for _an in _targetlist:
 
 
 @subpackage("libunwind-cross-static")
-def _unw_static(self):
+def _(self):
     self.pkgdesc = "Cross-toolchain LLVM libunwind"
     self.depends = []
     self.options = ["empty"]
@@ -205,7 +205,7 @@ def _unw_static(self):
 
 
 @subpackage("libcxxabi-cross-static")
-def _abi_static(self):
+def _(self):
     self.pkgdesc = "Cross-toolchain LLVM libc++abi"
     self.depends = []
     self.options = ["empty"]
@@ -216,7 +216,7 @@ def _abi_static(self):
 
 
 @subpackage("libcxx-cross-static")
-def _cxx_static(self):
+def _(self):
     self.subdesc = "static"
     self.depends = []
     self.options = ["empty"]
@@ -227,7 +227,7 @@ def _cxx_static(self):
 
 
 @subpackage("libunwind-cross")
-def _unw_cross(self):
+def _(self):
     self.pkgdesc = "Cross-toolchain LLVM libunwind"
     self.depends = ["musl-cross", "libatomic-chimera-cross"]
     self.options = ["empty"]
@@ -238,7 +238,7 @@ def _unw_cross(self):
 
 
 @subpackage("libcxxabi-cross")
-def _cxxabi_cross(self):
+def _(self):
     self.pkgdesc = "Cross-toolchain LLVM libcxxabi"
     self.depends = [self.with_pkgver("libunwind-cross")]
     self.options = ["empty"]

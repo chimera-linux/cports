@@ -54,5 +54,5 @@ def post_extract(self):
 
 
 @subpackage("fcitx5-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

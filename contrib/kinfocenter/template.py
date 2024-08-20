@@ -38,7 +38,7 @@ hardening = ["vis"]
 
 
 @subpackage("kinfocenter-meta")
-def _meta(self):
+def _(self):
     self.subdesc = "recommends package"
     self.install_if = [self.parent]
     self.depends = [

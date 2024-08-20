@@ -26,10 +26,10 @@ def post_install(self):
 
 
 @subpackage("jq-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("jq-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

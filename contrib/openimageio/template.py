@@ -53,12 +53,12 @@ hardening = ["!int"]
 
 
 @subpackage("openimageio-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("openimageio-devel")
-def _devel(self):
+def _(self):
     # referenced by cmake
     self.depends = ["opencv-devel"]
 
@@ -66,7 +66,7 @@ def _devel(self):
 
 
 @subpackage("python-openimageio")
-def _python(self):
+def _(self):
     self.pkgdesc = "Python bindings for openimageio"
     self.depends += ["python"]
     return ["usr/lib/python*"]

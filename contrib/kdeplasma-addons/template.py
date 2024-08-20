@@ -57,5 +57,5 @@ if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
 
 
 @subpackage("kdeplasma-addons-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

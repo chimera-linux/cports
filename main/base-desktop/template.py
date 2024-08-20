@@ -10,7 +10,7 @@ url = "https://chimera-linux.org"
 
 
 @subpackage("base-desktop-gnome")
-def _gnome(self):
+def _(self):
     self.subdesc = "GNOME"
     self.install_if = [self.parent]
     self.depends = [

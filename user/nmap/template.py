@@ -44,6 +44,6 @@ def post_install(self):
 
 
 @subpackage("nmap-ncat")
-def _ncat(self):
+def _(self):
     self.subdesc = "Netcat tool"
     return ["usr/bin/ncat"]

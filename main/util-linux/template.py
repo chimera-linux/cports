@@ -138,7 +138,7 @@ def post_install(self):
 
 
 @subpackage("util-linux-common")
-def _common(self):
+def _(self):
     self.pkgdesc = "Common data for util-linux"
     self.options = ["empty"]
 
@@ -146,7 +146,7 @@ def _common(self):
 
 
 @subpackage("dmesg")
-def _dmesg(self):
+def _(self):
     self.pkgdesc = "Utility for kernel ring buffer manipulation"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -158,7 +158,7 @@ def _dmesg(self):
 
 
 @subpackage("mount")
-def _mnt(self):
+def _(self):
     self.pkgdesc = "The mount(8) program and related utilities"
     self.depends = [self.with_pkgver("util-linux-common")]
     self.file_modes = {
@@ -211,14 +211,14 @@ def _mnt(self):
 
 
 @subpackage("libmount")
-def _mnt_lib(self):
+def _(self):
     self.pkgdesc = "Library for mount(8)"
 
     return ["usr/lib/libmount.so.*"]
 
 
 @subpackage("libmount-devel")
-def _mnt_devel(self):
+def _(self):
     self.pkgdesc = "Library for mount(8)"
 
     return [
@@ -229,7 +229,7 @@ def _mnt_devel(self):
 
 
 @subpackage("fdisk")
-def _fdisk(self):
+def _(self):
     self.pkgdesc = "The fdisk(8) program and related utilities"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -241,14 +241,14 @@ def _fdisk(self):
 
 
 @subpackage("libfdisk")
-def _fdisk_lib(self):
+def _(self):
     self.pkgdesc = "Library for fdisk(8)"
 
     return ["usr/lib/libfdisk.so.*"]
 
 
 @subpackage("libfdisk-devel")
-def _fdisk_devel(self):
+def _(self):
     self.pkgdesc = "Library for fdisk(8)"
 
     return [
@@ -259,7 +259,7 @@ def _fdisk_devel(self):
 
 
 @subpackage("mkfs")
-def _mkfs(self):
+def _(self):
     self.pkgdesc = "Utilities for filesystem manipulation"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -280,7 +280,7 @@ def _mkfs(self):
 
 
 @subpackage("fstrim")
-def _fstrim(self):
+def _(self):
     self.pkgdesc = "SSD trimming utilities"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -295,7 +295,7 @@ def _fstrim(self):
 
 
 @subpackage("rfkill")
-def _rfkill(self):
+def _(self):
     self.pkgdesc = "Tool for enabling and disabling wireless devices"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -307,7 +307,7 @@ def _rfkill(self):
 
 
 @subpackage("irqtop")
-def _irqtop(self):
+def _(self):
     self.pkgdesc = "Utility to display kernel interrupt information"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -319,7 +319,7 @@ def _irqtop(self):
 
 
 @subpackage("lscpu")
-def _lscpu(self):
+def _(self):
     self.pkgdesc = "Utility to display CPU information"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -331,7 +331,7 @@ def _lscpu(self):
 
 
 @subpackage("rename")
-def _rename(self):
+def _(self):
     self.pkgdesc = "Bulk rename utility"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -343,7 +343,7 @@ def _rename(self):
 
 
 @subpackage("runuser")
-def _runuser(self):
+def _(self):
     self.pkgdesc = "Utilities to run commands with different privileges"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -358,7 +358,7 @@ def _runuser(self):
 
 
 @subpackage("zramctl")
-def _zramctl(self):
+def _(self):
     self.pkgdesc = "Set up and control zram devices"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -370,7 +370,7 @@ def _zramctl(self):
 
 
 @subpackage("util-linux-ns")
-def _ns(self):
+def _(self):
     self.pkgdesc = "Namespace-related utilities"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -388,7 +388,7 @@ def _ns(self):
 
 
 @subpackage("util-linux-ipc")
-def _ipc(self):
+def _(self):
     self.pkgdesc = "IPC-related utilities"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -400,7 +400,7 @@ def _ipc(self):
 
 
 @subpackage("util-linux-utmp")
-def _utmp(self):
+def _(self):
     self.pkgdesc = "UTMP-related utilities"
     self.depends = [self.with_pkgver("util-linux-common")]
 
@@ -418,14 +418,14 @@ def _utmp(self):
 
 
 @subpackage("libblkid")
-def _libblkid(self):
+def _(self):
     self.pkgdesc = "Library to handle device identification"
 
     return ["usr/lib/libblkid.so.*"]
 
 
 @subpackage("libblkid-devel")
-def _libblkid_devel(self):
+def _(self):
     self.pkgdesc = "Library to handle device identification"
     self.depends += [self.with_pkgver("libuuid-devel")]
 
@@ -438,7 +438,7 @@ def _libblkid_devel(self):
 
 
 @subpackage("libuuid")
-def _libuuid(self):
+def _(self):
     self.pkgdesc = "UUID library from util-linux"
     self.license = "BSD-3-Clause"
 
@@ -446,7 +446,7 @@ def _libuuid(self):
 
 
 @subpackage("libuuid-devel")
-def _libuuid_devel(self):
+def _(self):
     self.pkgdesc = "UUID library from util-linux"
     self.license = "BSD-3-Clause"
     self.options = ["!distlicense"]
@@ -460,7 +460,7 @@ def _libuuid_devel(self):
 
 
 @subpackage("libuuid-progs")
-def _uuid(self):
+def _(self):
     self.pkgdecs = "Runtime components for the UUID library"
     self.depends = [self.with_pkgver("util-linux-common"), "shadow"]
     self.install_if = [self.with_pkgver("libuuid")]
@@ -476,14 +476,14 @@ def _uuid(self):
 
 
 @subpackage("libsmartcols")
-def _libsmartcols(self):
+def _(self):
     self.pkgdesc = "Table or Tree library from util-linux"
 
     return ["usr/lib/libsmartcols.so.*"]
 
 
 @subpackage("libsmartcols-devel")
-def _libsmartcols_devel(self):
+def _(self):
     self.pkgdesc = "Table or Tree library from util-linux"
 
     return [

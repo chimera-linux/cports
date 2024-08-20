@@ -32,6 +32,6 @@ sha256 = "956e7df11e28957866c9ee4de0d08b6a59ecf769862799e95cd424683782ccc6"
 
 
 @subpackage("kosmindoormap-devel")
-def _devel(self):
+def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

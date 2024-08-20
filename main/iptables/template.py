@@ -36,13 +36,13 @@ sha256 = "5cc255c189356e317d070755ce9371eb63a1b783c34498fb8c30264f3cc59c9c"
 
 
 @subpackage("libiptc")
-def _iptc(self):
+def _(self):
     self.pkgdesc = "Netfilter libiptc library"
     return ["usr/lib/libip[46]tc.so.*"]
 
 
 @subpackage("libiptc-devel")
-def _iptc_devel(self):
+def _(self):
     self.pkgdesc = "Netfilter libiptc library"
     return [
         "usr/include/libiptc",
@@ -53,13 +53,13 @@ def _iptc_devel(self):
 
 
 @subpackage("libxtables")
-def _xtables(self):
+def _(self):
     self.pkgdesc = "Netfilter xtables library"
     return ["usr/lib/libxtables.so.*"]
 
 
 @subpackage("libxtables-devel")
-def _xtables_devel(self):
+def _(self):
     self.pkgdesc = "Netfilter xtables library"
     return [
         "usr/include/xtables*.h",
@@ -90,7 +90,7 @@ def post_install(self):
 
 
 @subpackage("iptables-nft")
-def _nft(self):
+def _(self):
     self.subdesc = "use nftables"
     self.install_if = [self.parent]  # prefer
 
@@ -105,7 +105,7 @@ def _nft(self):
 
 
 @subpackage("iptables-legacy")
-def _legacy(self):
+def _(self):
     self.subdesc = "use legacy"
 
     return [

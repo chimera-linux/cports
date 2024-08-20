@@ -21,5 +21,5 @@ sha256 = "5688aa4a685547d7174a8a373ea9d8ee927e766e3cc302bdee34523c2c5d6c11"
 
 
 @subpackage("libstatgrab-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

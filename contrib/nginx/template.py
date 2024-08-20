@@ -134,7 +134,7 @@ def post_install(self):
 
 def _module(modn, eiif):
     @subpackage(f"nginx-module-{modn}")
-    def _mod(self):
+    def _(self):
         self.subdesc = f"{modn} module"
 
         modso = f"modules/ngx_{modn}_module.so"

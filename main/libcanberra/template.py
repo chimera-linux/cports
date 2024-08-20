@@ -40,12 +40,12 @@ sha256 = "c2b671e67e0c288a69fc33dc1b6f1b534d07882c2aceed37004bf48c601afa72"
 
 
 @subpackage("libcanberra-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libcanberra-gtk3")
-def _gtk3(self):
+def _(self):
     self.subdesc = "Gtk+3 support"
     self.install_if = [self.parent, "gtk+3"]
     # compat
@@ -59,7 +59,7 @@ def _gtk3(self):
 
 
 @subpackage("libcanberra-pulse")
-def _pulse(self):
+def _(self):
     self.subdesc = "PulseAudio support"
     self.install_if = [self.parent, "libpulse"]
 
@@ -67,7 +67,7 @@ def _pulse(self):
 
 
 @subpackage("libcanberra-gstreamer")
-def _gst(self):
+def _(self):
     self.subdesc = "GStreamer support"
     self.install_if = [self.parent, "gstreamer"]
 
@@ -75,7 +75,7 @@ def _gst(self):
 
 
 @subpackage("libcanberra-gnome")
-def _gnome(self):
+def _(self):
     self.subdesc = "GNOME support"
     self.depends += [self.with_pkgver("libcanberra-gtk3")]
     self.install_if = [self.parent, "gnome"]

@@ -13,5 +13,5 @@ sha256 = "c3880d7dbb90c7db54e1d6b88aa0a34dd9e2d828fd389be0d2cbb2632b0885dd"
 
 
 @subpackage("freealut-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

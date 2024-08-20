@@ -40,7 +40,7 @@ def do_install(self):
 
 
 @subpackage("base-vpsfree-meta")
-def _meta(self):
+def _(self):
     self.subdesc = "optional dependencies"
     self.depends = [
         "ifupdown-ng",  # needed for default networking

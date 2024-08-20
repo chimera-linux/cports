@@ -20,12 +20,12 @@ sha256 = "b5b67ea7fc631a0fda4fff3123f0cc2e3831849bdd8fbae8443be0766a77f243"
 
 
 @subpackage("ixion-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("ixion-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 
@@ -33,5 +33,5 @@ def _python(self):
 
 
 @subpackage("ixion-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

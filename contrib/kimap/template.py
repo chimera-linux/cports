@@ -28,12 +28,12 @@ sha256 = "167bed276867fb9536e86f8ecac36911b51c90b3f13e167118b44a1d46eb96e0"
 
 
 @subpackage("kimap-devel-static")
-def _devel_static(self):
+def _(self):
     return ["usr/lib/*.a"]
 
 
 @subpackage("kimap-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         # for cmake detection.. static-only test lib
         self.with_pkgver("kimap-devel-static"),

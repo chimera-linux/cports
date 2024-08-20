@@ -18,10 +18,10 @@ def post_install(self):
 
 
 @subpackage("sord-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("sord-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

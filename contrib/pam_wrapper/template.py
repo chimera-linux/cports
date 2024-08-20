@@ -15,7 +15,7 @@ sha256 = "d1c93e2b687d08834df0e09026dd63d2ce4f577701d406a013e9a8afe469bde1"
 
 
 @subpackage("pam_wrapper-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 
@@ -23,5 +23,5 @@ def _python(self):
 
 
 @subpackage("pam_wrapper-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

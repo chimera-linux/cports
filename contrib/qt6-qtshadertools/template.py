@@ -22,12 +22,12 @@ options = ["!cross"]
 
 
 @subpackage("qt6-qtshadertools-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("qt6-qtshadertools-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         self.parent,
         "spirv-tools",

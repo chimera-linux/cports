@@ -21,7 +21,7 @@ options = ["!check"]
 
 
 @subpackage("kdsoap-ws-discover-client-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kdsoap-devel",
         "qt6-qtbase-devel",

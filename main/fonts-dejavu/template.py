@@ -45,7 +45,7 @@ def post_install(self):
 
 
 @subpackage("fonts-dejavu-otf")
-def _otf(self):
+def _(self):
     self.subdesc = "OpenType"
     self.depends = [self.parent, "!fonts-dejavu-ttf"]
     self.install_if = [self.parent]
@@ -54,7 +54,7 @@ def _otf(self):
 
 
 @subpackage("fonts-dejavu-ttf")
-def _ttf(self):
+def _(self):
     self.subdesc = "TrueType"
     self.depends = [self.parent, "!fonts-dejavu-otf"]
 

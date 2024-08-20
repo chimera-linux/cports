@@ -59,7 +59,7 @@ def init_build(self):
 
 
 @subpackage("akonadi-search-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "akonadi-devel",
         "akonadi-mime-devel",

@@ -21,5 +21,5 @@ sha256 = "a18d3c682e29afd77db24366f8475b26bda22b0e16ff569a2ec71cd6eb4eac95"
 
 
 @subpackage("libayatana-indicator-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

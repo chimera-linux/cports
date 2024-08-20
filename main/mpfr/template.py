@@ -15,7 +15,7 @@ sha256 = "277807353a6726978996945af13e52829e3abd7a9a5b7fb2793894e18f1fcbb2"
 
 
 @subpackage("mpfr-devel")
-def _devel(self):
+def _(self):
     self.depends += ["gmp-devel"]
 
     return self.default_devel()

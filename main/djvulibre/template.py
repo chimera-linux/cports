@@ -14,14 +14,14 @@ sha256 = "fcd009ea7654fde5a83600eb80757bd3a76998e47d13c66b54c8db849f8f2edc"
 
 
 @subpackage("libdjvulibre")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("djvulibre-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libjpeg-turbo-devel"]
 
     return self.default_devel()

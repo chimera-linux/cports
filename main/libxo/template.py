@@ -43,10 +43,10 @@ def post_install(self):
 
 
 @subpackage("libxo-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libxo-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

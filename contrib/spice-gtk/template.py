@@ -72,5 +72,5 @@ options = ["linkundefver"]
 
 
 @subpackage("spice-gtk-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

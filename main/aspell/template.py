@@ -18,10 +18,10 @@ sha256 = "d6da12b34d42d457fa604e435ad484a74b2effcd120ff40acd6bb3fb2887d21b"
 
 
 @subpackage("aspell-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("aspell-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -13,7 +13,7 @@ url = "https://kde.org"
 
 
 @subpackage("kde1-apps")
-def _apps(self):
+def _(self):
     self.subdesc = "apps"
     self.install_if = [self.parent]
     self.depends = [

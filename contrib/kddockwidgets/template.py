@@ -25,5 +25,5 @@ sha256 = "cf3242b8fde8988b2661366b6a9597bcb67164074c4f31d03ec2999b475a25d7"
 
 
 @subpackage("kddockwidgets-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

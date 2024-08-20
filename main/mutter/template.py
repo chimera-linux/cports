@@ -77,5 +77,5 @@ options = ["!check", "!cross"]
 
 
 @subpackage("mutter-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/lib/mutter-14/*.gir"])

@@ -62,19 +62,19 @@ def post_install(self):
 
 
 @subpackage("apk-tools-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("apk-tools-static-bin", self.stage > 0)
-def _staticbin(self):
+def _(self):
     self.subdesc = "static binary"
 
     return ["usr/bin/apk.static"]
 
 
 @subpackage("apk-tools-cache", self.stage > 0)
-def _cache(self):
+def _(self):
     self.subdesc = "default cache"
     self.depends = [self.parent]
     self.install_if = [self.parent]
@@ -85,7 +85,7 @@ def _cache(self):
 
 
 @subpackage("apk-tools-interactive", self.stage > 0)
-def _interactive(self):
+def _(self):
     self.subdesc = "interactive"
     self.depends = [self.parent]
     self.install_if = [self.parent]

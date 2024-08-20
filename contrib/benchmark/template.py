@@ -24,5 +24,5 @@ sha256 = "35a77f46cc782b16fac8d3b107fbfbb37dcd645f7c28eee19f3b8e0758b48994"
 
 
 @subpackage("benchmark-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

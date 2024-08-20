@@ -38,7 +38,7 @@ hardening = ["vis"]
 
 
 @subpackage("oxygen-cursors")
-def _cursors(self):
+def _(self):
     self.subdesc = "cursor themes"
     return [
         "usr/share/icons/Oxygen*",

@@ -184,17 +184,17 @@ def init_configure(self):
 
 
 @subpackage("opencv-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("opencv-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("python-opencv")
-def _python(self):
+def _(self):
     self.subdesc = "python module"
     self.depends += ["python-numpy"]
 
@@ -203,7 +203,7 @@ def _python(self):
 
 def _gen_libpkg(libname):
     @subpackage(f"opencv-{libname}-libs")
-    def _subp(self):
+    def _(self):
         self.subdesc = libname
         self.depends = [self.parent]
         return [f"usr/lib/libopencv_{libname}.so.*"]

@@ -22,5 +22,5 @@ sha256 = "cfc729d23b9bf699b23a7ef2f5d732d6eff96234e31fed36b778771a6e3d3ee5"
 
 
 @subpackage("libmbim-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

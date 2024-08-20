@@ -13,7 +13,7 @@ sha256 = "fd23eb5f6f986dcc7e708307355ba3289abe03cc381fc47a80bca4a50aa6b834"
 
 
 @subpackage("libdaemon-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 

@@ -59,11 +59,11 @@ def post_install(self):
 
 
 @subpackage("wxwidgets-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("wxwidgets-gtk3")
-def _gtk3(self):
+def _(self):
     self.subdesc = "GTK3 components"
     return ["usr/lib/libwx_gtk3u*.so.*"]

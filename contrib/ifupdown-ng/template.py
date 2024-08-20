@@ -29,7 +29,7 @@ def post_install(self):
 
 
 @subpackage("ifupdown-ng-batman")
-def _nananana(self):
+def _(self):
     self.subdesc = "batman integration"
     # self.depends = ["batctl"]
     # self.install_if = [self.parent, "batctl"]
@@ -40,7 +40,7 @@ def _nananana(self):
 
 
 @subpackage("ifupdown-ng-ethtool")
-def _ethtool(self):
+def _(self):
     self.subdesc = "ethtool integration"
     self.depends = ["ethtool"]
     self.install_if = [self.parent, "ethtool"]
@@ -51,7 +51,7 @@ def _ethtool(self):
 
 
 @subpackage("ifupdown-ng-iproute2")
-def _iproute2(self):
+def _(self):
     self.subdesc = "iproute2 integration"
     self.depends = ["iproute2"]
     self.install_if = [self.parent, "iproute2"]
@@ -65,7 +65,7 @@ def _iproute2(self):
 
 
 @subpackage("ifupdown-ng-ppp")
-def _ppp(self):
+def _(self):
     self.subdesc = "ppp integration"
     self.depends = ["ppp"]
     self.install_if = [self.parent, "ppp"]
@@ -76,7 +76,7 @@ def _ppp(self):
 
 
 @subpackage("ifupdown-ng-wifi")
-def _wifi(self):
+def _(self):
     self.subdesc = "wifi integration"
     self.depends = ["wpa_supplicant"]
     self.install_if = [self.parent, "wpa_supplicant"]
@@ -87,7 +87,7 @@ def _wifi(self):
 
 
 @subpackage("ifupdown-ng-wireguard")
-def _wg(self):
+def _(self):
     self.subdesc = "wireguard integration"
     self.depends = ["wireguard-tools"]
     self.install_if = [self.parent, "wireguard-tools"]
@@ -98,7 +98,7 @@ def _wg(self):
 
 
 @subpackage("ifupdown-ng-wireguard-quick")
-def _wgq(self):
+def _(self):
     self.subdesc = "wg-quick integration"
     self.depends = ["wireguard-tools-wg-quick"]
     self.install_if = [self.parent, "wireguard-tools-wg-quick"]

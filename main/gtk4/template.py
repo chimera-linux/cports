@@ -95,7 +95,7 @@ def post_install(self):
 
 
 @subpackage("gtk4-devel")
-def _devel(self):
+def _(self):
     self.depends += ["vulkan-headers"]
 
     return self.default_devel(
@@ -112,7 +112,7 @@ def _devel(self):
 
 
 @subpackage("gtk4-demo")
-def _demo(self):
+def _(self):
     self.subdesc = "demo applications"
 
     return [
@@ -148,7 +148,7 @@ def _demo(self):
 
 
 @subpackage("gtk4-cups")
-def _cups(self):
+def _(self):
     self.subdesc = "CUPS print backend"
     self.install_if = [self.parent, "cups"]
 

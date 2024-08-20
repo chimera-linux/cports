@@ -22,12 +22,12 @@ def post_install(self):
 
 
 @subpackage("libtspi")
-def _tspi(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("trousers-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

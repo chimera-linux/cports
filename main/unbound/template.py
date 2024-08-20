@@ -58,14 +58,14 @@ def post_install(self):
 
 
 @subpackage("libunbound")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("unbound-devel")
-def _devel(self):
+def _(self):
     self.depends += ["openssl-devel", "libsodium-devel"]
 
     return self.default_devel()

@@ -55,7 +55,7 @@ def post_install(self):
 
 
 @subpackage("e2fsprogs-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
 
     return self.default_devel(
@@ -71,12 +71,12 @@ def _devel(self):
 
 
 @subpackage("e2fsprogs-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("fuse2fs")
-def _fuse2fs(self):
+def _(self):
     self.pkgdesc = "Ext2/3/4 FUSE driver"
     self.depends += ["fuse"]
 

@@ -13,5 +13,5 @@ sha256 = "b65e38943708529efd04a87dd1a9f16a9856ed6199d082b18e7d42fb5c59486e"
 
 
 @subpackage("liblc3-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -21,12 +21,12 @@ sha256 = "29565cf02a213143d60e6f5c0c992eb80ce6a08874e4cc90456072c8dbcba581"
 
 
 @subpackage("mt32emu-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("mt32emu-qt")
-def _qt(self):
+def _(self):
     self.pkgdesc = "Software synthesiser emulating pre-GM MIDI devices"
 
     return [

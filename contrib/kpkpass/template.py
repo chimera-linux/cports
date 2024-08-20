@@ -23,6 +23,6 @@ sha256 = "9d036f631313bff0c4c78b2b8b6870eed3d4f99e3387e517fb16153b9eaa17b3"
 
 
 @subpackage("kpkpass-devel")
-def _devel(self):
+def _(self):
     self.depends += ["karchive-devel"]
     return self.default_devel()

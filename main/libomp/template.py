@@ -33,7 +33,7 @@ def post_install(self):
 
 
 @subpackage("libomp-devel-static")
-def _devel_static(self):
+def _(self):
     self.depends = []
     self.install_if = []
 
@@ -41,7 +41,7 @@ def _devel_static(self):
 
 
 @subpackage("libomp-devel")
-def _devel(self):
+def _(self):
     self.depends = [self.with_pkgver("libomp-devel-static")]
 
     # keep libomptarget symlinks in main

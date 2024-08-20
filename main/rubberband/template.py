@@ -23,10 +23,10 @@ sha256 = "d9ef89e2b8ef9f85b13ac3c2faec30e20acf2c9f3a9c8c45ce637f2bc95e576c"
 
 
 @subpackage("rubberband-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("rubberband-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

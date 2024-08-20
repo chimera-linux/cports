@@ -195,7 +195,7 @@ def init_configure(self):
 
 def _genlib(lname, ldesc):
     @subpackage(f"lib{lname}")
-    def _lib(self):
+    def _(self):
         self.pkgdesc = f"FFmpeg {ldesc} library"
         return [f"usr/lib/lib{lname}.so.*"]
 
@@ -214,7 +214,7 @@ for _lname, _ldesc in [
 
 
 @subpackage("ffmpeg-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/share/ffmpeg/examples",
@@ -223,7 +223,7 @@ def _devel(self):
 
 
 @subpackage("ffplay")
-def _ffplay(self):
+def _(self):
     self.pkgdesc = "Simple video player using FFmpeg and SDL"
 
     return ["usr/bin/ffplay", "usr/share/man/man1/ffplay*"]

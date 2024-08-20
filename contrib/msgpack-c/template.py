@@ -14,5 +14,5 @@ sha256 = "c23c4070dbe01f46044bf70c5349f29453d655935b6dc710714c008bca0825a7"
 
 
 @subpackage("msgpack-c-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

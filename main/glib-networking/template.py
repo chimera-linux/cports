@@ -32,7 +32,7 @@ def post_install(self):
 
 
 @subpackage("glib-networking-openssl")
-def _openssl(self):
+def _(self):
     self.subdesc = "OpenSSL backend"
     # autoinstall if openssl is installed
     self.install_if = [self.parent, "openssl"]
@@ -41,7 +41,7 @@ def _openssl(self):
 
 
 @subpackage("glib-networking-gnutls")
-def _gnutls(self):
+def _(self):
     self.subdesc = "GnuTLS backend"
     # autoinstall if gnutls is installed
     self.install_if = [self.parent, "gnutls"]

@@ -16,5 +16,5 @@ sha256 = "93e3e9b237695437cd63d4aa48a8d9dfd8b39bc28a192a5770d113c4fe9099ef"
 
 
 @subpackage("ivykis-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

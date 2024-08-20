@@ -17,5 +17,5 @@ sha256 = "9499e8b1f33cccb6815527a1bc16049d35a6198a6c5fae0185f2bd561bce5224"
 
 
 @subpackage("gpgme-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

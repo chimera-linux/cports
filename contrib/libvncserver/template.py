@@ -30,5 +30,5 @@ sha256 = "83104e4f7e28b02f8bf6b010d69b626fae591f887e949816305daebae527c9a5"
 
 
 @subpackage("libvncserver-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

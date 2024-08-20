@@ -35,10 +35,10 @@ def init_configure(self):
 
 
 @subpackage("libetonyek-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libetonyek-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

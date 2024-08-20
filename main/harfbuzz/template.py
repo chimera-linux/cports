@@ -42,10 +42,10 @@ def post_install(self):
 
 
 @subpackage("harfbuzz-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("harfbuzz-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

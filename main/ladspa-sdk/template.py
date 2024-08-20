@@ -37,12 +37,12 @@ def do_install(self):
 
 
 @subpackage("ladspa-sdk-plugins")
-def _plugins(self):
+def _(self):
     self.subdesc = "example plugins"
 
     return ["usr/lib/ladspa"]
 
 
 @subpackage("ladspa-sdk-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

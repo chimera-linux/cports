@@ -32,10 +32,10 @@ def pre_configure(self):
 
 
 @subpackage("mbedtls-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("mbedtls-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

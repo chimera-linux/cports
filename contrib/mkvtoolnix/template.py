@@ -48,7 +48,7 @@ sha256 = "29a9155fbba99f9074de2abcfbdc4e966ea38c16d9f6f547cf2d8d9a48152c97"
 
 
 @subpackage("mkvtoolnix-gui")
-def _gui(self):
+def _(self):
     self.depends += [
         self.parent,
         "qt6-qtsvg",

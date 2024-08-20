@@ -17,5 +17,5 @@ sha256 = "296272d93435991308eb73607600c034b558807a07e829e751142e65ccfa9d08"
 
 
 @subpackage("libtommath-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -20,6 +20,6 @@ def post_install(self):
 
 
 @subpackage("libxcb-devel")
-def _devel(self):
+def _(self):
     self.depends += ["xcbproto"]
     return self.default_devel(extra=["usr/share/doc"])

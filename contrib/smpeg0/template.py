@@ -15,12 +15,12 @@ tool_flags = {"CFLAGS": ["-Dregister=", "-fPIC"]}
 
 
 @subpackage("smpeg0-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 # so cmd:plaympeg doesn't conflict with smpeg proper
 # below -devel so it doesn't pick up smpeg-config
 @subpackage("smpeg0-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

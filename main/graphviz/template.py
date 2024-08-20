@@ -57,10 +57,10 @@ def post_install(self):
 
 
 @subpackage("graphviz-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("graphviz-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

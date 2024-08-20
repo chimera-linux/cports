@@ -28,7 +28,7 @@ options = ["!check"]
 
 
 @subpackage("libkgapi-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kcontacts-devel",
         "kcalendarcore-devel",

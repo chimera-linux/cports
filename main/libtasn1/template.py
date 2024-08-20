@@ -13,12 +13,12 @@ hardening = ["vis", "cfi"]
 
 
 @subpackage("libtasn1-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/info"])
 
 
 @subpackage("libtasn1-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 

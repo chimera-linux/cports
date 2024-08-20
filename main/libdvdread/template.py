@@ -14,5 +14,5 @@ sha256 = "ce35454997a208cbe50e91232f0e73fb1ac3471965813a13b8730a8f18a15369"
 
 
 @subpackage("libdvdread-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

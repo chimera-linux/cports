@@ -20,14 +20,14 @@ options = ["!check"]
 
 
 @subpackage("libsensors")
-def _libsensors(self):
+def _(self):
     self.pkgdesc = "Sensor reading library"
 
     return self.default_libs()
 
 
 @subpackage("libsensors-devel")
-def _devel(self):
+def _(self):
     self.pkgdesc = "Sensor reading library"
 
     return self.default_devel()

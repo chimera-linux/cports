@@ -29,30 +29,30 @@ options = ["!check", "empty"]
 
 
 @subpackage("hwdata-devel")
-def _devel(self):
+def _(self):
     self.depends = [self.parent]
     return self.default_devel()
 
 
 @subpackage("hwdata-usb")
-def _usb(self):
+def _(self):
     self.subdesc = "USB IDs"
     return ["usr/share/hwdata/usb.ids"]
 
 
 @subpackage("hwdata-pci")
-def _pci(self):
+def _(self):
     self.subdesc = "PCI IDs"
     return ["usr/share/hwdata/pci.ids"]
 
 
 @subpackage("hwdata-net")
-def _net(self):
+def _(self):
     self.subdesc = "Networking OUIs"
     return ["usr/share/hwdata/oui.txt", "usr/share/hwdata/iab.txt"]
 
 
 @subpackage("hwdata-pnp")
-def _pnp(self):
+def _(self):
     self.subdesc = "PnP IDs"
     return ["usr/share/hwdata/pnp.ids"]

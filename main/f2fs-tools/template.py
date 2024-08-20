@@ -19,10 +19,10 @@ sha256 = "208c7a07e95383fbd7b466b5681590789dcb41f41bf197369c41a95383b57c5e"
 
 
 @subpackage("f2fs-tools-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("f2fs-tools-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

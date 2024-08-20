@@ -29,10 +29,10 @@ def post_install(self):
 
 
 @subpackage("libde265-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libde265-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

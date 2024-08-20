@@ -40,12 +40,12 @@ def post_install(self):
 
 
 @subpackage("libntfs-3g")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("libntfs-3g-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

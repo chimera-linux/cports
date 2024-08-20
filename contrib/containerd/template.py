@@ -63,14 +63,14 @@ def post_install(self):
 
 
 @subpackage("containerd-stress")
-def _stress(self):
+def _(self):
     self.pkgdesc = "Containerd benchmarking utility"
 
     return ["usr/bin/containerd-stress"]
 
 
 @subpackage("containerd-ctr")
-def _ctr(self):
+def _(self):
     self.pkgdesc = "Debug / admin client for containerd"
 
     return ["usr/bin/ctr"]

@@ -21,10 +21,10 @@ hardening = ["cfi", "vis"]
 
 
 @subpackage("libaacs-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libaacs-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

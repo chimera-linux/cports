@@ -21,10 +21,10 @@ hardening = ["!vis", "!cfi"]
 
 
 @subpackage("shaderc-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("shaderc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

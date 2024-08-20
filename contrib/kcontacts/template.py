@@ -29,7 +29,7 @@ hardening = ["vis"]
 
 
 @subpackage("kcontacts-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kcodecs-devel",
         "kconfig-devel",

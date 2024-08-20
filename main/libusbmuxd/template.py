@@ -18,10 +18,10 @@ hardening = ["vis", "cfi"]
 
 
 @subpackage("libusbmuxd-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libusbmuxd-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

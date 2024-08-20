@@ -34,7 +34,7 @@ def post_install(self):
 
 
 @subpackage("qt6-qtnetworkauth-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         f"qt6-qtbase-devel~{pkgver[:-2]}",
     ]

@@ -19,12 +19,12 @@ options = ["!cross"]
 
 
 @subpackage("gom-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("gom-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python-gobject"]
 

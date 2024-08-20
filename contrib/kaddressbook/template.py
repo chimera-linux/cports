@@ -37,5 +37,5 @@ sha256 = "68494e62c91c2fdb9e3f436b395aa37f16723d4a695f8f04ce58b653c79bb8bc"
 
 
 @subpackage("kaddressbook-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

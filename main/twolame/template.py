@@ -14,7 +14,7 @@ sha256 = "cc35424f6019a88c6f52570b63e1baf50f62963a3eac52a03a800bb070d7c87d"
 
 
 @subpackage("twolame-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/doc"])
 
 

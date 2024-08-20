@@ -31,7 +31,7 @@ options = ["!cross"]
 
 
 @subpackage("qt6-qtwayland-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/qt6/libexec",

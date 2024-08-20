@@ -21,12 +21,12 @@ sha256 = "3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e"
 
 
 @subpackage("libsndfile-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libsndfile-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/doc"])
 
 

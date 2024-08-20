@@ -64,7 +64,7 @@ def do_install(self):
 
 
 @subpackage("poppler-qt-devel")
-def _devel(self):
+def _(self):
     self.subdesc = "Qt development files"
     self.depends += ["libpoppler-devel"]
     return self.default_devel()

@@ -29,7 +29,7 @@ hardening = ["vis"]
 
 
 @subpackage("kparts-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kio-devel",
         "kservice-devel",

@@ -29,7 +29,7 @@ hardening = ["vis"]
 
 
 @subpackage("modemmanager-qt-devel")
-def _devel(self):
+def _(self):
     self.depends += ["modemmanager-devel"]
 
     return self.default_devel()

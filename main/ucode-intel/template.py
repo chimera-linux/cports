@@ -31,7 +31,7 @@ def do_install(self):
 
 
 @subpackage("ucode-intel-full")
-def _full(self):
+def _(self):
     self.subdesc = "full cpio image"
 
     return ["boot"]

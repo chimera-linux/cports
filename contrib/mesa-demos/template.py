@@ -43,7 +43,7 @@ def post_install(self):
 
 
 @subpackage("mesa-utils")
-def _utils(self):
+def _(self):
     self.pkgdesc = "Common Mesa utilities"
 
     return [

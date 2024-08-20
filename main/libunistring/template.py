@@ -12,5 +12,5 @@ sha256 = "fd6d5662fa706487c48349a758b57bc149ce94ec6c30624ec9fdc473ceabbc8e"
 
 
 @subpackage("libunistring-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share"])

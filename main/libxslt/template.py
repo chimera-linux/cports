@@ -24,11 +24,11 @@ def post_install(self):
 
 
 @subpackage("libxslt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/lib/xsltConf.sh"])
 
 
 @subpackage("xsltproc")
-def _xsltproc(self):
+def _(self):
     self.pkgdesc = "XSLT 1.0 command line processor"
     return self.default_progs()

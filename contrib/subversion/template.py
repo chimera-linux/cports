@@ -97,7 +97,7 @@ def post_install(self):
 
 
 @subpackage("subversion-gnome-keyring")
-def _gkeyring(self):
+def _(self):
     self.subdesc = "GNOME keyring integration"
     self.install_if = [self.parent, "gnome-keyring"]
 
@@ -105,7 +105,7 @@ def _gkeyring(self):
 
 
 @subpackage("subversion-tools")
-def _tools(self):
+def _(self):
     self.subdesc = "extra tools"
 
     return [
@@ -120,7 +120,7 @@ def _tools(self):
 
 
 @subpackage("subversion-perl")
-def _perl(self):
+def _(self):
     self.subdesc = "Perl bindings"
     self.depends += ["perl"]
 
@@ -132,10 +132,10 @@ def _perl(self):
 
 
 @subpackage("subversion-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("subversion-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -48,13 +48,13 @@ sha256 = "8c8abda3790dfe784c315d0256c80d99dc0e65bd6be701f9b3787f96b7576255"
 
 
 @subpackage("weechat-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 def _plugin(name):
     @subpackage(f"weechat-{name}")
-    def _plg(self):
+    def _(self):
         self.subdesc = f"{name.capitalize()} plugin"
         self.depends = [self.parent]
 

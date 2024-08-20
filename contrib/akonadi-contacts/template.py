@@ -42,7 +42,7 @@ sha256 = "d60520304113d9073d3311ce9bbbc03e57b3b6e75e4c37de58c4974ce36b0788"
 
 
 @subpackage("akonadi-contacts-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "akonadi-devel",
         "grantleetheme-devel",

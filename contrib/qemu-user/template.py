@@ -82,7 +82,7 @@ _skip_32bit = {
 
 def _upkg(uname):
     @subpackage(f"qemu-user-{uname}")
-    def _u(self):
+    def _(self):
         self.subdesc = uname
         self.install_if = [self.parent]
 
@@ -102,7 +102,7 @@ def _upkg(uname):
 
     # binfmt package is not generated for current arch
     @subpackage(f"qemu-user-{uname}-binfmt", do_pkg)
-    def _binfmt(self):
+    def _(self):
         self.subdesc = f"{uname} binfmt"
         self.install_if = [self.with_pkgver(f"qemu-user-{uname}")]
         self.depends = [self.with_pkgver(f"qemu-user-{uname}")]

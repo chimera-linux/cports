@@ -60,5 +60,5 @@ def post_install(self):
 
 
 @subpackage("deadbeef-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -39,7 +39,7 @@ sha256 = "d86720e0bcb01afea3cba78bd1d6302e2bb0f3d73e2d1c1b30284010d02d3062"
 
 
 @subpackage("calendarsupport-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "akonadi-calendar-devel",
         "kidentitymanagement-devel",

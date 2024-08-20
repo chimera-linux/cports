@@ -14,10 +14,10 @@ sha256 = "e455d9732f8041cf5b9c388e345a641fd15707860f928e94507b1961256a6923"
 
 
 @subpackage("qrencode-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("qrencode-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

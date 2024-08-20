@@ -22,7 +22,7 @@ hardening = ["vis", "cfi"]
 
 
 @subpackage("libidn2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/share/info",
@@ -31,5 +31,5 @@ def _devel(self):
 
 
 @subpackage("libidn2-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

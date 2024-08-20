@@ -66,17 +66,17 @@ def post_install(self):
 
 
 @subpackage("openshadinglanguage-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("openshadinglanguage-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("python-openshadinglanguage")
-def _py(self):
+def _(self):
     self.subdesc = "Python modules"
     self.depends = ["python-openimageio"]
 

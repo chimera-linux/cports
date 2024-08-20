@@ -25,7 +25,7 @@ sha256 = "d82f38dcf97c6491c6b7367db8b18a65acb594d7eb752543dc23c65d4abab6a5"
 
 
 @subpackage("kmime-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kcodecs-devel",
         "qt6-qtbase-devel",

@@ -24,11 +24,11 @@ def post_install(self):
 
 
 @subpackage("source-highlight-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("source-highlight-devel")
-def _devel(self):
+def _(self):
     self.depends += ["boost-devel"]
     return self.default_devel()

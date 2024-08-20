@@ -27,11 +27,11 @@ def post_install(self):
 
 
 @subpackage("libwebp-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
     return self.default_devel()
 
 
 @subpackage("libwebp-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

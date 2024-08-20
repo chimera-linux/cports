@@ -61,7 +61,7 @@ def post_install(self):
 
 
 @subpackage("dolphin-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kio-devel",
         "qt6-qtbase-devel",

@@ -36,17 +36,17 @@ def post_install(self):
 
 
 @subpackage("libcgroup-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libcgroup-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("pam_cgroup")
-def _pam(self):
+def _(self):
     self.subdesc = "PAM"
     self.depends = [self.parent, "linux-pam"]
     self.install_if = [self.parent, "linux-pam"]

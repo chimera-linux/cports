@@ -27,6 +27,6 @@ sha256 = "8b404b6a1465ad4f0d738958b792dbd5b659e301738e248e8daf1c176255f3ec"
 
 
 @subpackage("ksmtp-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kcoreaddons-devel"]
     return self.default_devel()

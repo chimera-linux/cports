@@ -68,7 +68,7 @@ def post_install(self):
 
 
 @subpackage("sdl-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
 
     return self.default_devel()

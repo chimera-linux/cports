@@ -24,5 +24,5 @@ sha256 = "1315e17d454bf4da3cc0edb857b1d2c143670f3485b537d0f946d9ed31d87b70"
 
 
 @subpackage("exiv2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -22,10 +22,10 @@ def post_install(self):
 
 
 @subpackage("marisa-trie-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("marisa-trie-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

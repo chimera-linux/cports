@@ -21,11 +21,11 @@ def post_install(self):
 
 
 @subpackage("libexpat-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("xmlwf")
-def _xmlwf(self):
+def _(self):
     self.subdesc = "xmlwf utility"
     return self.default_progs()

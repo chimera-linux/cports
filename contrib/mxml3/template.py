@@ -21,5 +21,5 @@ def init_install(self):
 
 
 @subpackage("mxml3-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

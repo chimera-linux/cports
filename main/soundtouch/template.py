@@ -16,5 +16,5 @@ sha256 = "43b23dfac2f64a3aff55d64be096ffc7b73842c3f5665caff44975633a975a99"
 
 
 @subpackage("soundtouch-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

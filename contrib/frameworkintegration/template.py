@@ -31,7 +31,7 @@ hardening = ["vis"]
 
 
 @subpackage("frameworkintegration-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kcolorscheme-devel",
         "kiconthemes-devel",

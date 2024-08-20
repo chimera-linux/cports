@@ -127,6 +127,6 @@ def do_check(self):
 
 
 @subpackage("mozjs128-devel")
-def _devel(self):
+def _(self):
     # include the interactive interpreter
     return self.default_devel(extra=["usr/bin"])

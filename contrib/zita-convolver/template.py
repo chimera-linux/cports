@@ -19,5 +19,5 @@ options = ["!check"]
 
 
 @subpackage("zita-convolver-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

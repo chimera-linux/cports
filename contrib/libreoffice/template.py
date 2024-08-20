@@ -307,7 +307,7 @@ def _add_lang(langc, langd, langs):
     _langs.append(langc.replace("_", "-"))
 
     @subpackage(f"libreoffice-lang_{langc.lower()}")
-    def _lang(self):
+    def _(self):
         self.subdesc = f"{langd} language pack"
 
         # soft-install at least one langpack by default
@@ -447,7 +447,7 @@ for _langc, _langd in [
 
 def _gensub(subn, subd):
     @subpackage(f"libreoffice-{subn}")
-    def _sub(self):
+    def _(self):
         self.subdesc = f"{subd}"
         if subn == "writer" or subn == "gnome":
             self.depends = [self.with_pkgver(f"{pkgname}-common")]
@@ -482,7 +482,7 @@ for _subn, _subd in [
 
 
 @subpackage("libreoffice-qt6")
-def _qt6(self):
+def _(self):
     self.subdesc = "Qt6 integration"
     self.depends = [self.with_pkgver(f"{pkgname}-common")]
     # qt6 integration for those who already have qt
@@ -492,7 +492,7 @@ def _qt6(self):
 
 
 @subpackage("libreoffice-kf6")
-def _kf6(self):
+def _(self):
     self.subdesc = "KF6 integration"
     self.depends = [self.with_pkgver(f"{pkgname}-common")]
     # KDE integration for those with plasma
@@ -506,7 +506,7 @@ def _kf6(self):
 
 
 @subpackage("libreoffice-common")
-def _common(self):
+def _(self):
     self.subdesc = "common files"
 
     # we don't use the list, just take all remaining files at the end

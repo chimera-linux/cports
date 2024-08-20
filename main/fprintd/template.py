@@ -33,7 +33,7 @@ options = ["!check"]
 
 
 @subpackage("fprintd-meta")
-def _meta(self):
+def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]
     return []

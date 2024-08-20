@@ -52,7 +52,7 @@ def post_install(self):
 
 
 @subpackage("xxd")
-def _xxd(self):
+def _(self):
     self.pkgdesc = "Tool for viewing/editing hex dumps"
     return [
         "usr/bin/xxd",

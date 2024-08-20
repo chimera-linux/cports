@@ -40,12 +40,12 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 
 
 @subpackage("speechd-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("speechd-meta")
-def _meta(self):
+def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]
     return []

@@ -63,10 +63,10 @@ tool_flags = {
 
 
 @subpackage("freerdp-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("freerdp-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()

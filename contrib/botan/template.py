@@ -45,5 +45,5 @@ def post_install(self):
 
 
 @subpackage("botan-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

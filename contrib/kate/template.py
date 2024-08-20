@@ -37,12 +37,12 @@ hardening = ["vis"]
 
 # for kwrite to not pull in kate
 @subpackage("kate-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("kwrite")
-def _kwrite(self):
+def _(self):
     self.subdesc = "KWrite"
     return [
         "usr/bin/kwrite",

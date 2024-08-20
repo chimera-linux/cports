@@ -132,7 +132,7 @@ def do_install(self):
 
 
 @subpackage("python-devel")
-def _devel(self):
+def _(self):
     self.depends = [self.parent]
 
     def install():
@@ -153,7 +153,7 @@ def _devel(self):
 
 
 @subpackage("python-tests")
-def _tests(self):
+def _(self):
     self.depends = [self.parent]
     self.subdesc = "test module"
 
@@ -161,7 +161,7 @@ def _tests(self):
 
 
 @subpackage(f"base-python{_majver}")
-def _ver(self):
+def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]
 

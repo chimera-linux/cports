@@ -27,14 +27,14 @@ sha256 = "05487b5600f5d2f09e66a753cccd8f39c1bff9f148aea1b7774d505b9c8bca9b"
 
 
 @subpackage("libvala")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return ["usr/lib/libvala-*.so.*"]
 
 
 @subpackage("valadoc")
-def _valadoc(self):
+def _(self):
     self.pkgdesc = "Vala documentation tool"
 
     return [
@@ -44,7 +44,7 @@ def _valadoc(self):
 
 
 @subpackage("libvaladoc")
-def _libdoc(self):
+def _(self):
     self.pkgdesc = "Vala documentation tool"
     self.subdesc = "runtime library"
 
@@ -56,7 +56,7 @@ def _libdoc(self):
 
 
 @subpackage("valadoc-devel")
-def _develdoc(self):
+def _(self):
     self.pkgdesc = "Vala documentation tool"
 
     return [
@@ -68,7 +68,7 @@ def _develdoc(self):
 
 
 @subpackage("vala-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent]
 
     # do not pick up vapigen.pc etc

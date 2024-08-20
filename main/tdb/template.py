@@ -30,17 +30,17 @@ options = ["!cross", "linkundefver"]
 
 
 @subpackage("tdb-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("tdb-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("tdb-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 

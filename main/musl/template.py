@@ -121,7 +121,7 @@ def post_install(self):
 
 
 @subpackage("musl-progs")
-def _progs(self):
+def _(self):
     # we can't have a versioned symlink dep on musl
     self.options = ["brokenlinks", "!scanrundeps"]
     self.depends = ["so:libc.so!musl"]
@@ -129,12 +129,12 @@ def _progs(self):
 
 
 @subpackage("musl-devel-static")
-def _static(self):
+def _(self):
     return ["usr/lib/libc.a"]
 
 
 @subpackage("musl-devel")
-def _devel(self):
+def _(self):
     # empty depends so libc.so can be switched with alternatives
     # the libc itself installs as a solib dep of everything anyway
     self.depends = []

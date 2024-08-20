@@ -25,7 +25,7 @@ hardening = ["vis"]
 
 
 @subpackage("kcolorscheme-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kconfig-devel"]
 
     return self.default_devel()

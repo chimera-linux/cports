@@ -63,10 +63,10 @@ def do_check(self):
 
 
 @subpackage("fftw-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("fftw-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/info"])

@@ -21,7 +21,7 @@ hardening = ["vis"]
 
 
 @subpackage("mpvqt-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "mpv-devel",
         "qt6-qtdeclarative-devel",

@@ -42,7 +42,7 @@ sha256 = "92cd1b889bb25cb4bc06c1c6736c238d96e79c1e706b9f77fad0a89d6e5fc13f"
 
 
 @subpackage("xfwm4-default-themes")
-def _default_themes(self):
+def _(self):
     self.subdesc = "default themes"
     self.install_if = [self.parent]
     # See patches/default-theme.patch

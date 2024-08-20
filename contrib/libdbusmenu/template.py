@@ -36,7 +36,7 @@ sha256 = "b9cc4a2acd74509435892823607d966d424bd9ad5d0b00938f27240a1bfa878a"
 
 
 @subpackage("libdbusmenu-gtk3")
-def _gtk3(self):
+def _(self):
     self.subdesc = "GTK+3"
     return [
         "usr/lib/girepository-1.0/DbusmenuGtk3-0.4.typelib",
@@ -45,5 +45,5 @@ def _gtk3(self):
 
 
 @subpackage("libdbusmenu-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

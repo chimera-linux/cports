@@ -36,14 +36,14 @@ options = ["!cross"]
 
 
 @subpackage("font-manager-nautilus")
-def _nautilus(self):
+def _(self):
     self.subdesc = "nautilus plugin"
     self.install_if = [self.parent, "nautilus"]
     return ["usr/lib/nautilus"]
 
 
 @subpackage("font-manager-thunar")
-def _thunar(self):
+def _(self):
     self.subdesc = "thunar plugin"
     self.install_if = [self.parent, "thunar"]
     return ["usr/lib/thunarx-3"]

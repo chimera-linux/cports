@@ -35,11 +35,11 @@ def init_configure(self):
 
 
 @subpackage("libcap-devel")
-def _devel(self):
+def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
 
 
 @subpackage("libcap-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

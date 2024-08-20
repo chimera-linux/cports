@@ -20,6 +20,6 @@ sha256 = "4868cd908627279da5a634f468701625be8cc251d84262c7e5b6a218391ad0d2"
 
 
 @subpackage("alsa-lib-devel")
-def _devel(self):
+def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()

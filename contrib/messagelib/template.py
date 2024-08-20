@@ -65,7 +65,7 @@ options = ["!check"]
 
 
 @subpackage("messagelib-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "akonadi-devel",
         "akonadi-mime-devel",

@@ -36,12 +36,12 @@ options = ["!cross"]
 
 
 @subpackage("libadwaita-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libadwaita-demo")
-def _demo(self):
+def _(self):
     self.subdesc = "demo application"
     return [
         "usr/bin/adwaita-1-demo",

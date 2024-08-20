@@ -25,5 +25,5 @@ sha256 = "61092556146b769dc9bab328550f3f157e618a1a09ae1e052db61fc0db07b3e4"
 
 
 @subpackage("liblxqt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

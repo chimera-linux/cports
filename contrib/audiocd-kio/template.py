@@ -33,7 +33,7 @@ sha256 = "e48dc6ec0e9f3f964d2fb9d0e0d25ae684ae90348c0295189950134f7928bcd1"
 
 
 @subpackage("audiocd-kio-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kio-devel",
         "libkcddb-devel",

@@ -34,6 +34,6 @@ sha256 = "5ec8e0c38034fac97ed3a4c7a2435a3e8151cd29e639faf02850408e9249573b"
 
 
 @subpackage("grantleetheme-devel")
-def _devel(self):
+def _(self):
     self.depends += ["ktexttemplate-devel"]
     return self.default_devel()

@@ -22,12 +22,12 @@ def post_install(self):
 
 
 @subpackage("jasper-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libjpeg-turbo-devel"]
 
     return self.default_devel()
 
 
 @subpackage("jasper-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

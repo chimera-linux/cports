@@ -85,7 +85,7 @@ def post_install(self):
 
 
 @subpackage("qt6-qtdeclarative-devel-static")
-def _devel_static(self):
+def _(self):
     self.depends = []
     self.install_if = []
 
@@ -93,7 +93,7 @@ def _devel_static(self):
 
 
 @subpackage("qt6-qtdeclarative-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         # from 6.7 cmake finding of this fails without libQt6QmlBuiltins.a
         self.with_pkgver("qt6-qtdeclarative-devel-static"),

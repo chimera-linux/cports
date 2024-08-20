@@ -30,6 +30,6 @@ def post_install(self):
 
 
 @subpackage("collada-dom-devel")
-def _devel(self):
+def _(self):
     self.depends += ["boost-devel"]
     return self.default_devel()

@@ -17,10 +17,10 @@ hardening = ["vis", "cfi"]
 
 
 @subpackage("libbzip3")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("libbzip3-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -89,10 +89,10 @@ hardening = ["!int", "vis", "!cfi"]
 
 
 @subpackage("mpv-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("mpv-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -21,5 +21,5 @@ options = ["!cross"]
 
 
 @subpackage("template-glib-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

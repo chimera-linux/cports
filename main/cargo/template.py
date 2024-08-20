@@ -60,7 +60,7 @@ def do_prepare(self):
 
 
 @custom_target("bootstrap", "build")
-def _boot(self):
+def _(self):
     binp = f"target/{self.profile().triplet}/release/cargo"
     bdirn = f"cargo-{pkgver}-{self.profile().triplet}"
     self.mkdir(bdirn)

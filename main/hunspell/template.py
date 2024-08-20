@@ -15,10 +15,10 @@ sha256 = "11ddfa39afe28c28539fe65fc4f1592d410c1e9b6dd7d8a91ca25d85e9ec65b8"
 
 
 @subpackage("hunspell-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("hunspell-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

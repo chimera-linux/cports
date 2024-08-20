@@ -17,7 +17,7 @@ sha256 = "0a142a8128f83c001efb8014ee463e9a766054ef84686af953135e04d28fdab3"
 
 
 @subpackage("atkmm1.6-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/atkmm-1.6",

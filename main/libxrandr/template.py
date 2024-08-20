@@ -18,5 +18,5 @@ def post_install(self):
 
 
 @subpackage("libxrandr-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

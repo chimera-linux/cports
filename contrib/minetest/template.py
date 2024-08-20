@@ -56,14 +56,14 @@ def post_install(self):
 
 
 @subpackage("minetest-common")
-def _common(self):
+def _(self):
     self.subdesc = "common files"
 
     return ["usr/share/minetest"]
 
 
 @subpackage("minetest-server")
-def _server(self):
+def _(self):
     self.subdesc = "server"
     self.depends = [self.with_pkgver("minetest-common")]
 

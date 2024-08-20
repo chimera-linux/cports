@@ -35,5 +35,5 @@ def post_install(self):
 
 
 @subpackage("at-spi2-core-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

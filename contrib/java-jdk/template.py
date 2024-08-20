@@ -12,14 +12,14 @@ options = ["!check"]
 
 
 @subpackage("java-jre-headless")
-def _jreh(self):
+def _(self):
     self.subdesc = "headless JRE"
     self.depends = ["alt:java-jre-headless!openjdk17"]
     return []
 
 
 @subpackage("java-jre")
-def _jre(self):
+def _(self):
     self.subdesc = "JRE"
     self.depends = ["alt:java-jre!openjdk17"]
     return []

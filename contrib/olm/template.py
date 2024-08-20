@@ -17,5 +17,5 @@ sha256 = "f77032dbdc9a2040879bcc21c3e62cb6656b62e9550a1bb8da5a5b38ba21352a"
 
 
 @subpackage("olm-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

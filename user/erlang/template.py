@@ -41,7 +41,7 @@ def do_check(self):
 
 
 @subpackage("erlang-wx")
-def _wx(self):
+def _(self):
     self.subdesc = "wxWidgets binding"
     self.depends = [self.parent]
 

@@ -13,7 +13,7 @@ sha256 = "4a5b1fd1b7c47a1af45277ea82b5abeaca8e08fb10a27daa6394cf88d74e7acf"
 
 
 @subpackage("pangomm-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/pangomm-2.48",

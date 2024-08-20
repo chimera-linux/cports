@@ -34,7 +34,7 @@ sha256 = "892957157b76b090d45c36204b0ddf79de4aa6223c2d7ce75eb62b8a15a75a8c"
 
 
 @subpackage("mimetreeparser-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "ki18n-devel",
         "ki18n-devel",

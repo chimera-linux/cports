@@ -21,5 +21,5 @@ sha256 = "e657553ebe3dbb7196012bd9a234382f9053522c377651400268ce45b2a9e43a"
 
 
 @subpackage("igsc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -45,10 +45,10 @@ def do_install(self):
 
 
 @subpackage("rav1e-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("rav1e-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

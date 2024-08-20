@@ -19,6 +19,6 @@ def post_install(self):
 
 
 @subpackage("freeglut-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
     return self.default_devel()

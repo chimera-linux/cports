@@ -15,10 +15,10 @@ sha256 = "b55fda9440d1e070630eb2487d8b8697cf412c214a27caee9df69cec7c004de3"
 
 
 @subpackage("libwpg-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libwpg-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

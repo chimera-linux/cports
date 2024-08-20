@@ -69,7 +69,7 @@ def do_install(self):
 
 def _gen(an, at):
     @subpackage(f"mingw-w64-crt-{an}")
-    def _subp(self):
+    def _(self):
         self.subdesc = an
         self.depends = [f"mingw-w64-headers-{an}"]
         # coff

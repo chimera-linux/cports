@@ -38,7 +38,7 @@ def post_install(self):
 
 
 @subpackage("wireguard-tools-wg-quick")
-def _wgquick(self):
+def _(self):
     self.depends = [
         self.parent,
         "bash",
@@ -57,7 +57,7 @@ def _wgquick(self):
 
 
 @subpackage("wireguard-tools-wg-quick-nftables")
-def _wnft(self):
+def _(self):
     self.depends = ["nftables"]
     self.subdesc = "wg-quick nftables recommends package"
     self.options = ["empty"]

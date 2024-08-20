@@ -36,5 +36,5 @@ sha256 = "a2bedce3aa4dfe75e36e407e48e8e8bc91d46def5335ac9564fbf91bd4b2413e"
 
 
 @subpackage("openconnect-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -27,13 +27,13 @@ options = ["!check"]
 
 
 @subpackage("bemenu-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 def _subpkg(sname, sdesc):
     @subpackage(f"bemenu-{sname}")
-    def _spkg(self):
+    def _(self):
         self.subdesc = f"{sdesc} backend"
         self.depends = [self.parent]
         self.install_if = [self.parent]

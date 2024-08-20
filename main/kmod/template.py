@@ -45,12 +45,12 @@ def post_install(self):
 
 
 @subpackage("libkmod-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
     return self.default_devel()
 
 
 @subpackage("libkmod")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
     return self.default_libs()

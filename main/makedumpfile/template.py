@@ -46,7 +46,7 @@ def do_install(self):
 
 
 @subpackage("makedumpfile-perl")
-def _perl(self):
+def _(self):
     self.depends = [self.parent, "perl"]
     self.install_if = [self.parent, "perl"]
     self.subdesc = "Perl scripts"

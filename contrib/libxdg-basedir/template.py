@@ -16,5 +16,5 @@ def post_install(self):
 
 
 @subpackage("libxdg-basedir-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

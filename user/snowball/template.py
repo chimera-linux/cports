@@ -33,11 +33,11 @@ def do_install(self):
 
 
 @subpackage("snowball-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("snowball-progs")
-def _subpkg(self):
+def _(self):
     self.subdesc = "command line tools"
     return self.default_progs()

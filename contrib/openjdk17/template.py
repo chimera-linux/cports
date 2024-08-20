@@ -124,7 +124,7 @@ def do_configure(self):
 
 
 @custom_target("bootstrap", "build")
-def _bootstrap(self):
+def _(self):
     # first make a copy
     bdirn = f"openjdk-bootstrap-{pkgver}-{self.profile().arch}"
     self.mkdir(bdirn)
@@ -183,21 +183,21 @@ def do_install(self):
 
 
 @subpackage(f"openjdk{_majver}-demos")
-def _demos(self):
+def _(self):
     self.subdesc = "demos"
 
     return [f"{_java_home}/demo"]
 
 
 @subpackage(f"openjdk{_majver}-jmods")
-def _jmods(self):
+def _(self):
     self.subdesc = "jmods"
 
     return [f"{_java_home}/jmods"]
 
 
 @subpackage(f"openjdk{_majver}-src")
-def _src(self):
+def _(self):
     self.subdesc = "sources"
     self.depends = [self.with_pkgver(f"openjdk{_majver}-jre-headless")]
 
@@ -205,7 +205,7 @@ def _src(self):
 
 
 @subpackage(f"openjdk{_majver}-jre")
-def _jre(self):
+def _(self):
     self.subdesc = "runtime"
     self.depends = [self.with_pkgver(f"openjdk{_majver}-jre-headless")]
 
@@ -221,7 +221,7 @@ def _jre(self):
 
 
 @subpackage(f"openjdk{_majver}-jre-headless")
-def _jreh(self):
+def _(self):
     self.subdesc = "headless runtime"
     self.depends = ["java-cacerts", "java-common"]
     self.options = ["brokenlinks"]
@@ -255,7 +255,7 @@ def _jreh(self):
 
 
 @subpackage(f"openjdk{_majver}-jdk")
-def _jdk(self):
+def _(self):
     self.subdesc = "JDK"
     self.depends = [
         self.with_pkgver(f"openjdk{_majver}-jre"),
@@ -271,7 +271,7 @@ def _jdk(self):
 
 
 @subpackage(pkgname, alternative="java-jre-headless")
-def _jrehdef(self):
+def _(self):
     # default version
     self.provider_priority = 100
     # compat
@@ -292,7 +292,7 @@ def _jrehdef(self):
 
 
 @subpackage(pkgname, alternative="java-jre")
-def _jredef(self):
+def _(self):
     # default version
     self.provider_priority = 100
     # compat
@@ -308,7 +308,7 @@ def _jredef(self):
 
 
 @subpackage(pkgname, alternative="java-jdk")
-def _jdkdef(self):
+def _(self):
     # default version
     self.provider_priority = 100
     # compat

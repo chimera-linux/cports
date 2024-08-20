@@ -61,14 +61,14 @@ def do_install(self):
 
 
 @subpackage("linux-rpi-devel")
-def _devel(self):
+def _(self):
     self.depends += ["clang"]
     self.options = ["foreignelf", "execstack", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 
 
 @subpackage("linux-rpi-dbg")
-def _dbg(self):
+def _(self):
     self.options = [
         "!scanrundeps",
         "!strip",

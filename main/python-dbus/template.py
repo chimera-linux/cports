@@ -20,7 +20,7 @@ def post_install(self):
 
 
 @subpackage("python-dbus-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent, "python-devel"]
 
     return self.default_devel()

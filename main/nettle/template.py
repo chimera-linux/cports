@@ -14,12 +14,12 @@ sha256 = "b4c518adb174e484cb4acea54118f02380c7133771e7e9beb98a0787194ee47c"
 
 
 @subpackage("nettle-devel")
-def _devel(self):
+def _(self):
     self.depends += ["gmp-devel"]
 
     return self.default_devel(extra=["usr/share/info"])
 
 
 @subpackage("nettle-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

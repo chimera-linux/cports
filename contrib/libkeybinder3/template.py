@@ -30,7 +30,7 @@ def post_install(self):
 
 
 @subpackage("libkeybinder3-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/girepository-1.0",

@@ -45,7 +45,7 @@ url = "https://www.gnome.org"
 
 
 @subpackage("gnome-apps")
-def _apps(self):
+def _(self):
     self.subdesc = "apps"
     self.install_if = [self.parent]
     self.depends = [

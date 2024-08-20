@@ -73,14 +73,14 @@ def post_extract(self):
 
 
 @subpackage("libibus")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("ibus-gtk3")
-def _gtk3(self):
+def _(self):
     self.subdesc = "Gtk+3 immodule"
     self.install_if = [self.parent, "gtk+3"]
 
@@ -88,7 +88,7 @@ def _gtk3(self):
 
 
 @subpackage("ibus-gtk4")
-def _gtk4(self):
+def _(self):
     self.subdesc = "Gtk4 immodule"
     self.install_if = [self.parent, "gtk4"]
 
@@ -96,7 +96,7 @@ def _gtk4(self):
 
 
 @subpackage("ibus-wayland")
-def _wayland(self):
+def _(self):
     self.subdesc = "Wayland support"
     self.install_if = [self.parent, "wayland"]
 
@@ -104,7 +104,7 @@ def _wayland(self):
 
 
 @subpackage("ibus-x11")
-def _xorg(self):
+def _(self):
     self.subdesc = "X11 support"
     self.install_if = [self.parent, "libx11"]
 
@@ -112,5 +112,5 @@ def _xorg(self):
 
 
 @subpackage("ibus-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/gtk-doc"])

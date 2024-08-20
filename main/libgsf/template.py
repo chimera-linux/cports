@@ -25,5 +25,5 @@ sha256 = "9181c914b9fac0e05d6bcaa34c7b552fe5fc0961d3c9f8c01ccc381fb084bcf0"
 
 
 @subpackage("libgsf-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -18,7 +18,7 @@ hardening = ["!vis", "!cfi"]
 
 
 @subpackage("taglib-devel")
-def _devel(self):
+def _(self):
     self.depends += ["zlib-ng-compat-devel"]
 
     return self.default_devel()

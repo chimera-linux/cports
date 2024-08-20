@@ -30,12 +30,12 @@ def post_install(self):
 
 
 @subpackage("libhistory")
-def _history(self):
+def _(self):
     self.subdesc = "history library"
 
     return ["usr/lib/libhistory.so.*"]
 
 
 @subpackage("readline-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=["usr/share/info"])

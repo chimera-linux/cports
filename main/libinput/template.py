@@ -28,6 +28,6 @@ def post_install(self):
 
 
 @subpackage("libinput-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
     return self.default_devel()

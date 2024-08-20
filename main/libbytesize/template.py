@@ -21,14 +21,14 @@ sha256 = "1f6ce157750ed1201ce83edd3c23d997a615c7da30f9a0e5bb44635f66768d81"
 
 
 @subpackage("libbytesize-devel")
-def _devel(self):
+def _(self):
     self.depends += ["gmp-devel", "mpfr-devel"]
 
     return self.default_devel()
 
 
 @subpackage("libbytesize-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 

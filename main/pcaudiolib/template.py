@@ -23,5 +23,5 @@ sha256 = "44b9d509b9eac40a0c61585f756d76a7b555f732e8b8ae4a501c8819c59c6619"
 
 
 @subpackage("pcaudiolib-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

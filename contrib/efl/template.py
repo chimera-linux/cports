@@ -130,7 +130,7 @@ def post_install(self):
 
 
 @subpackage("efl-ibus")
-def _ibus(self):
+def _(self):
     self.subdesc = "IBus support"
     self.install_if = [self.parent, "ibus"]
 
@@ -138,5 +138,5 @@ def _ibus(self):
 
 
 @subpackage("efl-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -38,12 +38,12 @@ def post_install(self):
 
 def _frontend(name):
     @subpackage(f"pinentry-{name}")
-    def _name(self):
+    def _(self):
         self.subdesc = f"{name} frontend"
         return [f"usr/bin/pinentry-{name}"]
 
     @subpackage(f"pinentry-{name}-default")
-    def _default(self):
+    def _(self):
         self.depends = [self.with_pkgver(f"pinentry-{name}")]
         self.provides = ["pinentry-default=0"]
         if name == "curses":

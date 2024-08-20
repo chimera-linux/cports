@@ -37,24 +37,24 @@ def post_install(self):
 
 
 @subpackage("libxkbcommon-x11")
-def _x11(self):
+def _(self):
     self.subdesc = "X11 support"
 
     return ["usr/lib/*x11*.so.*"]
 
 
 @subpackage("libxkbregistry")
-def _registry(self):
+def _(self):
     self.pkgdesc = "XKB API to query keyboard descriptions"
 
     return ["usr/lib/libxkbregistry.so.*"]
 
 
 @subpackage("libxkbcommon-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libxkbcommon-progs")
-def _progs(self):
+def _(self):
     return self.default_progs(extra=["usr/libexec"])

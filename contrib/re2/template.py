@@ -34,5 +34,5 @@ def post_install(self):
 
 
 @subpackage("re2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

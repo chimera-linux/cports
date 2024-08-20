@@ -21,7 +21,7 @@ sha256 = "9350a0444b744ca3dc69586ebd1b6707520922b6d9f4f232103ce603a271ecda"
 
 
 @subpackage("gtkmm-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(
         extra=[
             "usr/lib/gtkmm-4.0",

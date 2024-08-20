@@ -32,12 +32,12 @@ options = ["!cross"]
 
 
 @subpackage("fcitx5-gtk-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("fcitx5-gtk3")
-def _gtk3(self):
+def _(self):
     self.subdesc = "GTK+3 variant"
     self.install_if = [self.parent, "gtk+3"]
 
@@ -48,7 +48,7 @@ def _gtk3(self):
 
 
 @subpackage("fcitx5-gtk4")
-def _gtk4(self):
+def _(self):
     self.subdesc = "GTK4 variant"
     self.install_if = [self.parent, "gtk4"]
 

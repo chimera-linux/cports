@@ -24,6 +24,6 @@ sha256 = "39f754555e49aaab9dfa7baeb75bbe0bc2b62f34bf26b39d8db19e61017a573c"
 
 
 @subpackage("kmbox-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kmime-devel"]
     return self.default_devel()

@@ -31,5 +31,5 @@ sha256 = "9e6f854f7eb464ea76abfe78860778d226c1e038c47408c44505c26673886676"
 
 
 @subpackage("libgravatar-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

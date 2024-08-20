@@ -13,5 +13,5 @@ sha256 = "6749259e89bbb273f3f5ad7acdffb7c47a2cf8fcaeab4c4695484cef5f4c6b46"
 
 
 @subpackage("libmusicbrainz-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

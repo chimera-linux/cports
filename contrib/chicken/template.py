@@ -32,10 +32,10 @@ def post_install(self):
 
 
 @subpackage("chicken-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("chicken-libs")
-def _libs(self):
+def _(self):
     return self.default_libs(extra=["usr/lib/chicken"])

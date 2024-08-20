@@ -34,12 +34,12 @@ def post_install(self):
 
 
 @subpackage("zathura-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("zathura-backends")
-def _backends(self):
+def _(self):
     self.subdesc = "backends"
     self.install_if = [self.parent]
     self.depends = [

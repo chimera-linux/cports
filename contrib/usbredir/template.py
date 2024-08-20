@@ -15,5 +15,5 @@ sha256 = "924dfb5c78328fae45a4c93a01bc83bb72c1310abeed119109255627a8baa332"
 
 
 @subpackage("usbredir-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

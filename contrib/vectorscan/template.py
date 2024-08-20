@@ -30,11 +30,11 @@ def post_install(self):
 
 
 @subpackage("vectorscan-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("vectorscan-progs")
-def _subpkg(self):
+def _(self):
     self.subdesc = "command line tools"
     return self.default_progs()

@@ -39,7 +39,7 @@ def post_install(self):
 
 def _gen_subp(name, desc, iif):
     @subpackage(f"apr-util-{name}")
-    def _subp(self):
+    def _(self):
         self.subdesc = f"{desc} module"
         self.depends = [self.parent]
         self.install_if = [self.parent, iif]
@@ -55,7 +55,7 @@ for _pname, _pdesc, _piif in [
 
 
 @subpackage("apr-util-devel")
-def _devel(self):
+def _(self):
     self.depends += ["libexpat-devel"]
 
     return self.default_devel()

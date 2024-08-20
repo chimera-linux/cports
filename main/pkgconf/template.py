@@ -24,13 +24,13 @@ def post_install(self):
 
 
 @subpackage("libpkgconf")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
     return self.default_libs()
 
 
 @subpackage("pkgconf-devel")
-def _devel(self):
+def _(self):
     self.options = ["!scanpkgconf"]
     # pkg.m4 must remain in main package
     return [

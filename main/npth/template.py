@@ -12,5 +12,5 @@ sha256 = "8589f56937b75ce33b28d312fccbf302b3b71ec3f3945fde6aaa74027914ad05"
 
 
 @subpackage("npth-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

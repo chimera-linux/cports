@@ -12,12 +12,12 @@ sha256 = "340f03f495884611209e9c0bc943fad06ce920e8c79655aa228d5ca7418dc360"
 
 
 @subpackage("ytnef-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("ytnef-progs")
-def _progs(self):
+def _(self):
     self.depends += ["perl-mailtools", "perl-mime-tools"]
 
     return self.default_progs()

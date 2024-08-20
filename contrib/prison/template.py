@@ -28,6 +28,6 @@ def post_install(self):
 
 
 @subpackage("prison-devel")
-def _devel(self):
+def _(self):
     self.depends += ["qt6-qtbase-devel"]
     return self.default_devel()

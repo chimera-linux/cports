@@ -15,10 +15,10 @@ sha256 = "e137b6b110120a52c98edd02ebdc4095ee08d0d5295a94316a981750095a945c"
 
 
 @subpackage("libqxp-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libqxp-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -17,5 +17,5 @@ if self.profile().endian == "big":
 
 
 @subpackage("ldacbt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

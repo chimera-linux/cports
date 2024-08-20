@@ -20,12 +20,12 @@ sha256 = "f4668f050f4f3f28fac5b821a4580929d130ffa1fcd5d74bb8ce06db63480270"
 
 
 @subpackage("liborcus-progs")
-def _libs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("liborcus-python")
-def _python(self):
+def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 
@@ -33,5 +33,5 @@ def _python(self):
 
 
 @subpackage("liborcus-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

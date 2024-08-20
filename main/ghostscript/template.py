@@ -93,12 +93,12 @@ def post_install(self):
 
 
 @subpackage("libgs")
-def _libs(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("libgs-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

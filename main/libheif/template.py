@@ -28,12 +28,12 @@ hardening = ["!vis", "!cfi"]
 
 
 @subpackage("libheif-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("heif-thumbnailer")
-def _thumbnailer(self):
+def _(self):
     self.subdesc = "thumbnailer"
     self.install_if = [self.parent]
     return [
@@ -44,5 +44,5 @@ def _thumbnailer(self):
 
 
 @subpackage("libheif-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

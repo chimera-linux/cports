@@ -26,7 +26,7 @@ def post_install(self):
 
 
 @subpackage("libmagic")
-def _libmagic(self):
+def _(self):
     self.pkgdesc = "File type identification library"
 
     return self.default_libs(
@@ -38,7 +38,7 @@ def _libmagic(self):
 
 
 @subpackage("file-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
     self.pkgdesc = "File type identification library"
 

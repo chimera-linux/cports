@@ -38,5 +38,5 @@ sha256 = "a5284343e5ce09722f98d3b578588b36923e1ae5649754aa906980fdcdef48a5"
 
 
 @subpackage("xfdashboard-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

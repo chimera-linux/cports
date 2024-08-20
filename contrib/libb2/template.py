@@ -12,5 +12,5 @@ sha256 = "10053dbc2fa342516b780a6bbf6e7b2a2360b8d49c5ac426936bf3df82526732"
 
 
 @subpackage("libb2-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

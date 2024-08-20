@@ -52,14 +52,14 @@ def post_install(self):
 
 
 @subpackage("bsdtar")
-def _bsdtar(self):
+def _(self):
     self.pkgdesc = "BSD utilities using libarchive"
 
     return self.default_progs(man="15")
 
 
 @subpackage("libarchive-devel")
-def _devel(self):
+def _(self):
     self.depends += makedepends
 
     return self.default_devel()

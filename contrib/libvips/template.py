@@ -45,10 +45,10 @@ if self.profile().arch == "riscv64":
 
 
 @subpackage("libvips-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libvips-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

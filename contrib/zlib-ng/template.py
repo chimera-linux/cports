@@ -17,5 +17,5 @@ sha256 = "ec6a76169d4214e2e8b737e0850ba4acb806c69eeace6240ed4481b9f5c57cdf"
 
 
 @subpackage("zlib-ng-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

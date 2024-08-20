@@ -40,7 +40,7 @@ def post_install(self):
 
 
 @subpackage("tzdata-right")
-def _tzdatar(self):
+def _(self):
     self.pkgdesc = "Time zone and daylight-saving time data"
     self.subdesc = "TAI"
     self.options = ["hardlinks"]
@@ -50,7 +50,7 @@ def _tzdatar(self):
 
 
 @subpackage("tzdata")
-def _tzdata(self):
+def _(self):
     self.pkgdesc = "Time zone and daylight-saving time data"
     # cannot be symlinks; some software does not like it
     self.options = ["hardlinks"]

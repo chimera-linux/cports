@@ -22,7 +22,7 @@ def post_install(self):
 
 
 @subpackage("lutok-devel")
-def _devel(self):
+def _(self):
     self.depends += ["lua5.4-devel"]
 
     return self.default_devel()

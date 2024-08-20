@@ -20,12 +20,12 @@ options = ["!check", "!parallel"]
 
 
 @subpackage("libcdparanoia")
-def _lib(self):
+def _(self):
     self.subdesc = "runtime library"
 
     return self.default_libs()
 
 
 @subpackage("cdparanoia-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

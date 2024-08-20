@@ -210,7 +210,7 @@ def post_install(self):
 
 
 @subpackage("qt6-qtbase-gui")
-def _gui(self):
+def _(self):
     self.depends += ["hicolor-icon-theme"]
     self.subdesc = "GUI"
 
@@ -233,7 +233,7 @@ def _gui(self):
 
 def _libpkg(name, libname, desc, extra=[]):
     @subpackage(f"qt6-qtbase-{name}")
-    def _sp(self):
+    def _(self):
         self.subdesc = desc
         return [f"usr/lib/libQt6{libname}.so.*", *extra]
 
@@ -274,7 +274,7 @@ for _sp in [
 
 
 @subpackage("qt6-qtbase-devel")
-def _devel(self):
+def _(self):
     self.depends += [self.parent, *makedepends]
     return self.default_devel(
         extra=[

@@ -59,12 +59,12 @@ def post_install(self):
 
 
 @subpackage("ruby-devel")
-def _devel(self):
+def _(self):
     return self.default_devel(extra=[f"usr/lib/ruby/{pkgver[:-2]}.0/mkmf.rb"])
 
 
 @subpackage("ruby-ri")
-def _ri(self):
+def _(self):
     self.depends += [self.parent]
 
     return ["usr/bin/ri"]

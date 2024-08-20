@@ -41,17 +41,17 @@ def post_install(self):
 
 
 @subpackage("knot-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("knot-libs")
-def _libs(self):
+def _(self):
     return self.default_libs()
 
 
 @subpackage("knot-progs")
-def _progs(self):
+def _(self):
     def func():
         for prog in ["kdig", "khost", "knsupdate"]:
             self.take(f"usr/bin/{prog}")

@@ -14,5 +14,5 @@ sha256 = "ac1fd338d641744ca1fb1567917188b79bc8c2506832dd56885fec98656b9f25"
 
 
 @subpackage("libisofs-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

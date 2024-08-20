@@ -29,7 +29,7 @@ hardening = ["vis"]
 
 
 @subpackage("ktextwidgets-devel")
-def _devel(self):
+def _(self):
     self.depends += ["sonnet-devel", "ki18n-devel"]
 
     return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])

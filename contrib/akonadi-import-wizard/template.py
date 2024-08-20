@@ -37,6 +37,6 @@ sha256 = "4c456913aeac06ed78f11dff4e7176b68538ec35ba4a5cf60c476149ba78466d"
 
 
 @subpackage("akonadi-import-wizard-devel")
-def _devel(self):
+def _(self):
     self.depends += ["kmailtransport-devel"]
     return self.default_devel()

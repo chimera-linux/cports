@@ -34,7 +34,7 @@ def init_check(self):
 
 
 @subpackage("qt6-qtimageformats-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         self.parent,
         f"qt6-qtbase-devel~{pkgver[:-2]}",

@@ -26,10 +26,10 @@ options = ["!check"]
 
 
 @subpackage("parted-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("parted-libs")
-def _progs(self):
+def _(self):
     return self.default_libs()

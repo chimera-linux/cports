@@ -23,14 +23,14 @@ def post_install(self):
 
 
 @subpackage("libseat")
-def _lib(self):
+def _(self):
     self.pkgdesc = "Universal seat management library"
 
     return self.default_libs()
 
 
 @subpackage("libseat-devel")
-def _devel(self):
+def _(self):
     self.pkgdesc = "Universal seat management library"
 
     return self.default_devel()

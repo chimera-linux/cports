@@ -20,5 +20,5 @@ hardening = ["vis", "!cfi"]
 
 
 @subpackage("appmenu-gtk-module-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

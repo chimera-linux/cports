@@ -37,7 +37,7 @@ match self.profile().arch:
 
 
 @subpackage("lddtree")
-def _lddtree(self):
+def _(self):
     self.depends += ["python-pyelftools"]
     self.install_if = [self.parent, "python"]
     self.pkgdesc = "Print ELF dependency trees"
@@ -45,7 +45,7 @@ def _lddtree(self):
 
 
 @subpackage("symtree")
-def _symtree(self):
+def _(self):
     self.depends += [self.parent, "bash"]
     self.install_if = [self.parent, "bash"]
     self.pkgdesc = "Display libraries that satisfy undefined symbols"

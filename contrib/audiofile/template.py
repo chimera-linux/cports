@@ -23,5 +23,5 @@ def pre_build(self):
 
 
 @subpackage("audiofile-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

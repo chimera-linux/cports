@@ -47,5 +47,5 @@ if self.profile().endian == "big":
 
 
 @subpackage("spice-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

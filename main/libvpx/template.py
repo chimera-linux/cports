@@ -85,10 +85,10 @@ def init_check(self):
 
 
 @subpackage("libvpx-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("libvpx-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()

@@ -19,5 +19,5 @@ sha256 = "02078ae15f19f9d423a441f205b1d1bee32349ddda7467e2c84e8f08876f8635"
 
 
 @subpackage("zxing-cpp-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -29,7 +29,7 @@ sha256 = "a4df9059559df2e410ddf933e05fe4bffaa01631c6eeb55e63af4a2d0d719726"
 
 
 @subpackage("prismlauncher-natives")
-def _natives(self):
+def _(self):
     self.subdesc = "native default libs"
     self.install_if = [self.parent]
     self.depends += [

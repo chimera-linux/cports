@@ -61,14 +61,14 @@ sha256 = "54908f4e10b5f1c231e90330c8c15b7f21f2bb610f194c034b338e379c508e3c"
 
 
 @subpackage("gvfs-devel")
-def _devel(self):
+def _(self):
     self.depends = [self.parent]
 
     return self.default_devel()
 
 
 @subpackage("gvfs-afc")
-def _afc(self):
+def _(self):
     self.subdesc = "Apple mobile device backend"
     self.depends += [self.parent]
     self.install_if = [self.parent]
@@ -82,7 +82,7 @@ def _afc(self):
 
 
 @subpackage("gvfs-afp")
-def _afp(self):
+def _(self):
     self.subdesc = "Apple Filing Protocol backend"
     self.depends += [self.parent]
     self.install_if = [self.parent]
@@ -94,7 +94,7 @@ def _afp(self):
 
 
 @subpackage("gvfs-cdda")
-def _cdda(self):
+def _(self):
     self.subdesc = "CD-ROM backend"
     self.depends += [self.parent]
     self.install_if = [self.parent]
@@ -106,7 +106,7 @@ def _cdda(self):
 
 
 @subpackage("gvfs-goa")
-def _goa(self):
+def _(self):
     self.subdesc = "Gnome Online Accounts backend"
     self.depends += [self.parent]
     self.install_if = [self.parent]
@@ -123,7 +123,7 @@ def _goa(self):
 
 
 @subpackage("gvfs-gphoto2")
-def _gphoto2(self):
+def _(self):
     self.subdesc = "gphoto2 backend"
     self.depends += [self.parent]
     self.install_if = [self.parent]
@@ -136,7 +136,7 @@ def _gphoto2(self):
 
 
 @subpackage("gvfs-mtp")
-def _mtp(self):
+def _(self):
     self.subdesc = "MTP backend"
     self.depends += [self.parent]
     self.install_if = [self.parent]
@@ -150,7 +150,7 @@ def _mtp(self):
 
 
 @subpackage("gvfs-smb")
-def _smb(self):
+def _(self):
     self.subdesc = "SMB/CIFS backend"
     self.depends += [self.parent]
     self.install_if = [self.parent]

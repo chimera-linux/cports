@@ -89,7 +89,7 @@ def post_install(self):
 
 def _genlib(pkgn, desc):
     @subpackage(f"lib{pkgn}")
-    def _lib(self):
+    def _(self):
         self.pkgdesc = f"{desc} library from Heimdal Kerberos"
 
         return [f"usr/lib/lib{pkgn}.so.*"]
@@ -117,14 +117,14 @@ for _libn, _ldesc in [
 
 # TODO: add service
 @subpackage("heimdal-kcm")
-def _kcm(self):
+def _(self):
     self.pkgdesc = "Heimdal KCM daemon"
 
     return ["usr/libexec/kcm", "usr/share/man/man8/kcm.8"]
 
 
 @subpackage("heimdal-kdc")
-def _kdc(self):
+def _(self):
     self.pkgdesc = "Heimdal Key Distribution Center"
 
     return [
@@ -150,7 +150,7 @@ def _kdc(self):
 
 
 @subpackage("heimdal-clients")
-def _client(self):
+def _(self):
     self.subdesc = "clients"
     self.file_modes = {"usr/bin/ksu": ("root", "root", 0o4755)}
 
@@ -186,7 +186,7 @@ def _client(self):
 
 
 @subpackage("heimdal-devel")
-def _devel(self):
+def _(self):
     # provides com_err
     self.depends += ["e2fsprogs-devel"]
     # lots of small files as hardlinks in man3, too much to resolve all

@@ -51,7 +51,7 @@ tool_flags = {
 
 
 @subpackage("vte-gtk3")
-def _gtk3(self):
+def _(self):
     self.subdesc = "Gtk+3"
     self.depends = [self.parent]
     return [
@@ -62,7 +62,7 @@ def _gtk3(self):
 
 
 @subpackage("vte-gtk4")
-def _gtk4(self):
+def _(self):
     self.subdesc = "Gtk4"
     self.depends = [self.parent]
     return [
@@ -73,7 +73,7 @@ def _gtk4(self):
 
 
 @subpackage("vte-gtk3-devel")
-def _gtk3_devel(self):
+def _(self):
     self.subdesc = "Gtk+3 development files"
     return [
         "usr/include/vte-2.91/vte",
@@ -85,7 +85,7 @@ def _gtk3_devel(self):
 
 
 @subpackage("vte-gtk4-devel")
-def _devel(self):
+def _(self):
     self.subdesc = "Gtk4 development files"
     return [
         "usr/include/vte-2.91-gtk4/vte",

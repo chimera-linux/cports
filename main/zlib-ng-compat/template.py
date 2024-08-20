@@ -31,7 +31,7 @@ options = ["bootstrap", "linkundefver"]
 
 
 @subpackage("zlib-ng-compat-devel-static")
-def _static(self):
+def _(self):
     self.provides = [f"zlib-devel-static={_cver}-r99"]
     self.replaces = [f"zlib-devel-static<{_cver}-r99"]
 
@@ -39,7 +39,7 @@ def _static(self):
 
 
 @subpackage("zlib-ng-compat-devel")
-def _devel(self):
+def _(self):
     self.provides = [f"zlib-devel={_cver}-r99"]
     self.replaces = [f"zlib-devel<{_cver}-r99"]
 
@@ -47,7 +47,7 @@ def _devel(self):
 
 
 @subpackage("zlib-dbg")
-def _dbg(self):
+def _(self):
     self.subdesc = "transitional debug package"
     # prevent cbuild from thinking it's a depcycle
     self.depends = [f"virtual:zlib-ng-compat-dbg={self.full_pkgver}!base-files"]

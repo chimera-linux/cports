@@ -72,7 +72,7 @@ def post_install(self):
 
 
 @subpackage("virt-manager-progs")
-def _tools(self):
+def _(self):
     self.depends = [*_deps]
     self.pkgdesc = "Programs to create and clone virtual machines"
 

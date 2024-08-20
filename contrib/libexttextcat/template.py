@@ -19,10 +19,10 @@ def post_install(self):
 
 
 @subpackage("libexttextcat-progs")
-def _progs(self):
+def _(self):
     return self.default_progs()
 
 
 @subpackage("libexttextcat-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -26,12 +26,12 @@ def post_install(self):
 
 
 @subpackage("hiredis-ssl")
-def _ssl(self):
+def _(self):
     self.subdesc = "hiredis_ssl library"
 
     return ["usr/lib/libhiredis_ssl.so.*"]
 
 
 @subpackage("hiredis-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

@@ -66,7 +66,7 @@ options = ["!cross"]
 
 
 @subpackage("okular-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "kconfig-devel",
         "kcoreaddons-devel",

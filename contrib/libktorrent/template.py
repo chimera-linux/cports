@@ -34,7 +34,7 @@ sha256 = "28fdc47f348fee51c7716ac832563b305acbec52c9d29be16eb37c99c00e23bf"
 
 
 @subpackage("libktorrent-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "boost-devel",
         "gmp-devel",

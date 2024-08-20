@@ -30,5 +30,5 @@ options = ["!check"]
 
 
 @subpackage("sdl1.2_mixer-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

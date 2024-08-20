@@ -21,5 +21,5 @@ def post_install(self):
 
 
 @subpackage("utf8proc-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

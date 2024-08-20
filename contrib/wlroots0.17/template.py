@@ -49,5 +49,5 @@ def post_install(self):
 
 
 @subpackage("wlroots0.17-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

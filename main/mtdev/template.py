@@ -17,6 +17,6 @@ def post_install(self):
 
 
 @subpackage("mtdev-devel")
-def _devel(self):
+def _(self):
     self.depends += ["linux-headers"]
     return self.default_devel()

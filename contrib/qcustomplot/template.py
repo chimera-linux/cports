@@ -50,5 +50,5 @@ def do_install(self):
 
 
 @subpackage("qcustomplot-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()

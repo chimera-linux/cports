@@ -30,7 +30,7 @@ sha256 = "bf5389a66aa065eac62f1220b2f0f8a9848ba339ea12df3f9357abd9fddcbed0"
 
 
 @subpackage("libphonenumber-devel")
-def _devel(self):
+def _(self):
     self.depends += [
         "abseil-cpp-devel",
         "protobuf-devel",

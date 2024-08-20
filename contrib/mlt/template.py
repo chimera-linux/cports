@@ -58,12 +58,12 @@ options = ["linkundefver"]
 
 
 @subpackage("mlt-devel")
-def _devel(self):
+def _(self):
     return self.default_devel()
 
 
 @subpackage("python-mlt")
-def _python(self):
+def _(self):
     self.subdesc = "python module"
     self.depends += ["python"]
 
