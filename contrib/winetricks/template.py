@@ -3,16 +3,16 @@ pkgver = "20240105"
 pkgrel = 0
 build_style = "makefile"
 depends = [
-    "virtual:cmd:7z!7zip",
-    "virtual:cmd:ar!llvm-binutils",
-    "virtual:cmd:cabextract!cabextract",
-    "virtual:cmd:curl!curl",
-    "virtual:cmd:sha256sum!chimerautils",
-    "virtual:cmd:unzip!unzip",
-    "virtual:cmd:wine!wine",
-    "virtual:cmd:xdg-open!xdg-utils",
-    "virtual:cmd:zenity!zenity",
-    "virtual:cmd:xz!xz",
+    "cmd:7z!7zip",
+    "cmd:ar!llvm-binutils",
+    "cmd:cabextract!cabextract",
+    "cmd:curl!curl",
+    "cmd:sha256sum!chimerautils",
+    "cmd:unzip!unzip",
+    "cmd:wine!wine",
+    "cmd:xdg-open!xdg-utils",
+    "cmd:zenity!zenity",
+    "cmd:xz!xz",
 ]
 pkgdesc = "Helper script for Wine"
 maintainer = "Erica Z <zerica@callcc.eu>"

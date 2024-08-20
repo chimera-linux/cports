@@ -4,13 +4,13 @@ pkgrel = 0
 build_style = "makefile"
 depends = [
     "debian-archive-keyring",
-    "virtual:cmd:ar!llvm-binutils",
-    "virtual:cmd:gpgv!gnupg",
-    "virtual:cmd:mount!mount",
-    "virtual:cmd:umount!mount",
-    "virtual:cmd:wget!wget2",
-    "virtual:cmd:xzcat!xz",
-    "virtual:cmd:zstdcat!zstd-progs",
+    "cmd:ar!llvm-binutils",
+    "cmd:gpgv!gnupg",
+    "cmd:mount!mount",
+    "cmd:umount!mount",
+    "cmd:wget!wget2",
+    "cmd:xzcat!xz",
+    "cmd:zstdcat!zstd-progs",
 ]
 pkgdesc = "Debian bootstrapping tool"
 maintainer = "Erica Z <zerica@callcc.eu>"
