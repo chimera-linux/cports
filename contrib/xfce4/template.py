@@ -1,11 +1,13 @@
 pkgname = "xfce4"
 pkgver = "4.18"
-pkgrel = 3
+pkgrel = 4
 build_style = "meta"
 depends = [
+    "gvfs",
     "thunar",
     "thunar-volman",
     "tumbler",
+    "udisks",
     "xfce4-appfinder",
     "xfce4-panel",
     "xfce4-power-manager",
