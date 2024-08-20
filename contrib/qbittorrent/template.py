@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
 pkgver = "4.6.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DQT6=ON",
@@ -64,7 +64,8 @@ def do_install(self):
 
 @subpackage("qbittorrent-nox")
 def _nox(self):
-    self.depends = []
+    self.subdesc = "headless daemon"
+
     return [
         "etc/dinit.d",
         "usr/bin/qbittorrent-nox",
