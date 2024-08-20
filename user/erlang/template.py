@@ -3,7 +3,6 @@ pkgname = "erlang"
 pkgver = "27.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = []
 configure_gen = []
 make_cmd = "gmake"
 make_dir = "."
