@@ -69,7 +69,6 @@ def _devel(self):
 @subpackage("apk-tools-static-bin", self.stage > 0)
 def _staticbin(self):
     self.subdesc = "static binary"
-    self.depends = []
 
     return ["usr/bin/apk.static"]
 
