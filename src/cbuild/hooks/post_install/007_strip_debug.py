@@ -1,4 +1,4 @@
-from cbuild.core import chroot
+from cbuild.core import chroot, paths
 from cbuild.util import strip
 
 import pathlib
@@ -199,9 +199,25 @@ def invoke(pkg):
             pkg.log_warn(f"unknown debug source file: {source_file}")
             continue
 
-        src = pkg.rparent.srcdir / source_file
+        # look for the source file in different locations
+        srcs = [
+            # relative to srcdir
+            pkg.rparent.srcdir / source_file,
+            # downloaded go source
+            paths.cbuild_cache() / "golang/pkg/mod" / source_file,
+        ]
+        dst = (
+            ddest
+            / f"usr/src/debug/{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}"
+            / source_file
+        )
 
-        if not src.exists():
+        for src in srcs:
+            if src.exists():
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy(src, dst)
+                break
+        else:
             # silence warning for crt object
             if source_file.name not in [
                 "Scrt1.c",
@@ -209,15 +225,6 @@ def invoke(pkg):
                 "crtbegin.c",
             ]:
                 pkg.log_warn(f"missing debug source file: {source_file}")
-            continue
-
-        dst = (
-            ddest
-            / f"usr/src/debug/{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}"
-            / source_file
-        )
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy(src, dst)
 
     # done!
     return
