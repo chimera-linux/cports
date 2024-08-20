@@ -207,6 +207,8 @@ def invoke(pkg):
         srcs = [
             # relative to srcdir
             pkg.rparent.srcdir / source_file,
+            # relative to cbuild cache
+            paths.cbuild_cache() / source_file,
             # go standard library
             pkg.rparent.bldroot_path / "usr/lib/go/src" / source_file,
             # downloaded go source
