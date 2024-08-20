@@ -1,6 +1,6 @@
 pkgname = "libplacebo"
 pkgver = "7.349.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dshaderc=enabled",
@@ -20,6 +20,7 @@ hostmakedepends = [
 makedepends = [
     "glslang-devel",
     "lcms2-devel",
+    "libdovi-devel",
     "mesa-devel",
     "shaderc-devel",
     "vulkan-headers",
