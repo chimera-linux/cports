@@ -1,6 +1,41 @@
 import sys
 import os
+import re
 import datetime
+
+_colorstr = {
+    "bold": "1",
+    "black": "30",
+    "red": "31",
+    "green": "32",
+    "orange": "33",
+    "blue": "34",
+    "purple": "35",
+    "cyan": "36",
+    "white": "37",
+}
+
+
+def _replf(m):
+    mstr = m.group(1)
+    if len(mstr) == 0:
+        cols = []
+    else:
+        cols = [*map(lambda v: _colorstr[v], mstr.split(","))]
+    return f"\033[{';'.join(cols)}m"
+
+
+# just strip the escape
+def _replf_nocolor(m):
+    return ""
+
+
+def write_color(stream, use_colors, msg):
+    stream.write(
+        re.sub(
+            "\f\\[([a-z,]*)\\]", _replf if use_colors else _replf_nocolor, msg
+        )
+    )
 
 
 class Logger:
@@ -14,6 +49,9 @@ class Logger:
     def out_raw(self, msg):
         os.write(self.fileno, msg.encode())
 
+    def out_stream(self, msg):
+        write_color(self.ostream, self.use_colors, msg)
+
     def _out_arrow(self, stream):
         if self.timing:
             ntime = datetime.datetime.now()
@@ -22,51 +60,39 @@ class Logger:
             ntdiff = datetime.timedelta(
                 tdiff.days, tdiff.seconds, round(msec / 1000) * 1000
             )
-            stream.write(f"{str(ntdiff)[:-3]} ")
-        stream.write("=> ")
+            self.out_stream(f"{str(ntdiff)[:-3]} ")
+        self.out_stream("=> ")
 
     def out_plain(self, msg, end="\n"):
-        self.ostream.write(msg)
-        self.ostream.write(end)
+        self.out_stream(msg)
+        self.out_stream(end)
 
     def out(self, msg, end="\n"):
-        if self.use_colors:
-            self.ostream.write("\033[1m")
+        self.out_stream("\f[bold]")
         self._out_arrow(self.ostream)
-        self.ostream.write(msg)
-        if self.use_colors:
-            self.ostream.write("\033[m")
-        self.ostream.write(end)
+        self.out_stream(msg)
+        self.out_stream(f"\f[]{end}")
 
     def out_orange(self, msg, end="\n"):
-        if self.use_colors:
-            self.ostream.write("\033[1m\033[33m")
+        self.out_stream("\f[bold,orange]")
         self._out_arrow(self.ostream)
-        self.ostream.write(msg)
-        if self.use_colors:
-            self.ostream.write("\033[m")
-        self.ostream.write(end)
+        self.out_stream(msg)
+        self.out_stream(f"\f[]{end}")
 
     def warn(self, msg, end="\n"):
         self.out_orange(f"WARNING: {msg}", end)
 
     def out_red(self, msg, end="\n"):
-        if self.use_colors:
-            self.ostream.write("\033[1m\033[31m")
+        self.out_stream("\f[bold,red]")
         self._out_arrow(self.ostream)
-        self.ostream.write(msg)
-        if self.use_colors:
-            self.ostream.write("\033[m")
-        self.ostream.write(end)
+        self.out_stream(msg)
+        self.out_stream(f"\f[]{end}")
 
     def out_green(self, msg, end="\n"):
-        if self.use_colors:
-            self.ostream.write("\033[1m\033[32m")
+        self.out_stream("\f[bold,green]")
         self._out_arrow(self.ostream)
-        self.ostream.write(msg)
-        if self.use_colors:
-            self.ostream.write("\033[m")
-        self.ostream.write(end)
+        self.out_stream(msg)
+        self.out_stream(f"\f[]{end}")
 
 
 def init(colors, timing):
