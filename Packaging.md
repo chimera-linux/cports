@@ -1392,13 +1392,13 @@ during the time a package is initialized. The syntax works like this:
 
 ```
 @subpackage("mysubpackage")
-def _subpkg(self):
+def _(self):
     ...
 ```
 
-The function name is up to you, it does not matter. The subpackage name follows
-the same conventions as the main package (notably, it must be lowercase).
-In order to cover more cases, the subpackage definition can also be conditional:
+The function name must be a single underscore. The subpackage name follows the
+same conventions as the main package (notably, it must be lowercase). In order
+to cover more cases, the subpackage definition can also be conditional:
 
 ```
 @subpackage("mysubpackage", foo == bar)
@@ -1417,7 +1417,7 @@ The subpackage body function can look like this:
 
 ```
 @subpackage("foo-devel")
-def _devel(self):
+def _(self):
     self.depends = [...]
     self.options = ["textrels"]
 
@@ -2315,7 +2315,7 @@ It is possible to define custom target functions like so:
 
 ```
 @custom_target("my-target", "configure")
-def _dostuff(self):
+def _(self):
     ...
 ```
 
@@ -3184,11 +3184,11 @@ You will want to use this if you return a function from the subpackage
 function. The following are equivalent:
 
 ```
-def _subpkg(self):
+def _(self):
     ...
     return ["usr/include", "usr/lib/*.a", "usr/lib/*.so"]
 
-def _subpkg(self):
+def _(self):
     ...
     def install():
         self.take("usr/include")
