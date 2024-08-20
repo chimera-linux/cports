@@ -203,6 +203,8 @@ def invoke(pkg):
         srcs = [
             # relative to srcdir
             pkg.rparent.srcdir / source_file,
+            # go standard library
+            pkg.rparent.bldroot_path / "usr/lib/go/src" / source_file,
             # downloaded go source
             paths.cbuild_cache() / "golang/pkg/mod" / source_file,
         ]
@@ -213,7 +215,7 @@ def invoke(pkg):
         )
 
         for src in srcs:
-            if src.exists():
+            if src.exists() and not src.is_dir():
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy(src, dst)
                 break
