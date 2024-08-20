@@ -191,10 +191,18 @@ class Cargo:
             "vendor", args, 1, False, None, env, wrksrc, [], wrapper
         )
 
-    def build(self, args=[], jobs=None, env={}, wrksrc=None, wrapper=[]):
+    def build(
+        self,
+        args=[],
+        command="build",
+        jobs=None,
+        env={},
+        wrksrc=None,
+        wrapper=[],
+    ):
         tmpl = self.template
         return self._invoke(
-            "build",
+            command,
             ["--release", *tmpl.make_build_args, *args],
             jobs,
             True,
@@ -205,10 +213,44 @@ class Cargo:
             wrapper,
         )
 
-    def install(self, args=[], jobs=None, env={}, wrksrc=None, wrapper=[]):
+    def cbuild(
+        self,
+        args=[],
+        command="cbuild",
+        jobs=None,
+        env={},
+        wrksrc=None,
+        wrapper=[],
+    ):
+        return self.build(
+            [
+                "--prefix",
+                "/usr",
+                "--library-type",
+                "cdylib",
+                "--library-type",
+                "staticlib",
+                *args,
+            ],
+            command,
+            jobs,
+            env,
+            wrksrc,
+            wrapper,
+        )
+
+    def install(
+        self,
+        args=[],
+        command="install",
+        jobs=None,
+        env={},
+        wrksrc=None,
+        wrapper=[],
+    ):
         tmpl = self.template
         retv = self._invoke(
-            "install",
+            command,
             [
                 "--root",
                 str(tmpl.chroot_destdir / "usr"),
@@ -228,10 +270,52 @@ class Cargo:
         )
         return retv
 
-    def check(self, args=[], jobs=None, env={}, wrksrc=None, wrapper=[]):
+    def cinstall(
+        self,
+        args=[],
+        command="cinstall",
+        jobs=None,
+        env={},
+        wrksrc=None,
+        wrapper=[],
+    ):
+        tmpl = self.template
+        retv = self._invoke(
+            command,
+            [
+                "--prefix",
+                "/usr",
+                "--library-type",
+                "cdylib",
+                "--library-type",
+                "staticlib",
+                "--destdir",
+                str(tmpl.chroot_destdir),
+                *tmpl.make_install_args,
+                *args,
+            ],
+            jobs,
+            True,
+            tmpl.make_install_env,
+            env,
+            wrksrc,
+            tmpl.make_install_wrapper,
+            wrapper,
+        )
+        return retv
+
+    def check(
+        self,
+        args=[],
+        command="test",
+        jobs=None,
+        env={},
+        wrksrc=None,
+        wrapper=[],
+    ):
         tmpl = self.template
         return self._invoke(
-            "test",
+            command,
             tmpl.make_check_args + args,
             jobs,
             True,
