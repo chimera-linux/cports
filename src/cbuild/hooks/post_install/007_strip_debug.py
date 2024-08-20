@@ -224,12 +224,18 @@ def invoke(pkg):
                 shutil.copy(src, dst)
                 break
         else:
-            # silence warning for crt object
-            if source_file.name not in [
-                "Scrt1.c",
-                "crt1.c",
-                "crtbegin.c",
-            ]:
+            if (
+                # silence warning for crt object
+                source_file.name
+                not in [
+                    "Scrt1.c",
+                    "crt1.c",
+                    "crtbegin.c",
+                ]
+            ) and (
+                # lex/yacc sources often unavailable
+                source_file.suffix not in ["l", "y"]
+            ):
                 pkg.log_warn(f"missing debug source file: {source_file}")
 
     # done!
