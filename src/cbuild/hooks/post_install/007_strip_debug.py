@@ -195,6 +195,10 @@ def invoke(pkg):
         if source_file.is_relative_to("/usr"):
             continue
 
+        # golang weirdness
+        if source_file.is_relative_to("/_/GOROOT"):
+            continue
+
         if source_file.is_absolute():
             pkg.log_warn(f"unknown debug source file: {source_file}")
             continue
