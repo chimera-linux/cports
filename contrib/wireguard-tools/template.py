@@ -1,6 +1,6 @@
 pkgname = "wireguard-tools"
 pkgver = "1.0.20210914"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_cmd = "gmake"
 make_dir = "src"
@@ -54,3 +54,13 @@ def _wgquick(self):
         "usr/share/bash-completion/**/wg-quick",
         "usr/share/man/man?/wg-quick.?",
     ]
+
+
+@subpackage("wireguard-tools-wg-quick-nftables")
+def _wnft(self):
+    self.depends = ["nftables"]
+    self.subdesc = "wg-quick nftables recommends package"
+    self.options = ["empty"]
+    self.install_if = [self.with_pkgver("wireguard-tools-wg-quick")]
+
+    return []
