@@ -10,30 +10,35 @@ configure_args = [
     "-Dgtk-doc=false",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
+    "docbook-xsl-nons",
     "gettext-devel",
     "glib-devel",
     "gobject-introspection",
-    "docbook-xsl-nons",
+    "meson",
+    "pkgconf",
     "xsltproc",
 ]
 makedepends = [
-    "libusb-devel",
-    "libgudev-devel",
     "glib-devel",
+    "libgudev-devel",
     "libimobiledevice-devel",
+    "libusb-devel",
     "linux-headers",
 ]
-checkdepends = ["python-packaging", "python-dbus", "python-gobject"]
+checkdepends = [
+    "python-dbus",
+    "python-dbusmock",
+    "python-gobject",
+    "python-packaging",
+    "umockdev",
+]
 pkgdesc = "Abstraction for enumerating power devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/upower/upower/-/archive/v{pkgver}/upower-v{pkgver}.tar.gz"
 sha256 = "cd194dd278bd8d058b4728efd1d0a91cdf017378f025b558beb6f60a86af4781"
-# unpackaged umockdev
-options = ["!check"]
+options = ["!cross"]
 
 
 @subpackage("upower-devel")
