@@ -1,0 +1,95 @@
+The line count may overflow. It's a signed integer in public api
+so there is nothing that can be done but at least the usage should
+be harmless since it's just a line number.
+
+--- a/parser.c
++++ b/parser.c
+@@ -2323,7 +2323,7 @@ static int spacePop(xmlParserCtxtPtr ctxt) {
+     int skipl;								\
+     for(skipl=0; skipl<val; skipl++) {					\
+ 	if (*(ctxt->input->cur) == '\n') {				\
+-	ctxt->input->line++; ctxt->input->col = 1;			\
++	ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1; \
+ 	} else ctxt->input->col++;					\
+ 	ctxt->input->cur++;						\
+     }									\
+@@ -2357,7 +2357,7 @@ static int spacePop(xmlParserCtxtPtr ctxt) {
+ 
+ #define NEXTL(l) do {							\
+     if (*(ctxt->input->cur) == '\n') {					\
+-	ctxt->input->line++; ctxt->input->col = 1;			\
++	ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1; \
+     } else ctxt->input->col++;						\
+     ctxt->input->cur += l;				\
+   } while (0)
+@@ -2391,7 +2391,7 @@ xmlSkipBlankChars(xmlParserCtxtPtr ctxt) {
+     cur = ctxt->input->cur;
+     while (IS_BLANK_CH(*cur)) {
+         if (*cur == '\n') {
+-            ctxt->input->line++; ctxt->input->col = 1;
++            ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1;
+         } else {
+             ctxt->input->col++;
+         }
+@@ -4790,7 +4790,7 @@ get_more_space:
+         while (*in == 0x20) { in++; ctxt->input->col++; }
+         if (*in == 0xA) {
+             do {
+-                ctxt->input->line++; ctxt->input->col = 1;
++                ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1;
+                 in++;
+             } while (*in == 0xA);
+             goto get_more_space;
+@@ -4835,7 +4835,7 @@ get_more:
+         ctxt->input->col = ccol;
+         if (*in == 0xA) {
+             do {
+-                ctxt->input->line++; ctxt->input->col = 1;
++                ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1;
+                 in++;
+             } while (*in == 0xA);
+             goto get_more;
+@@ -4888,7 +4888,7 @@ get_more:
+             if (*in == 0xA) {
+                 ctxt->input->cur = in;
+                 in++;
+-                ctxt->input->line++; ctxt->input->col = 1;
++                ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1;
+                 continue; /* while */
+             }
+             in--;
+@@ -5251,7 +5251,7 @@ xmlParseComment(xmlParserCtxtPtr ctxt) {
+     do {
+ 	if (*in == 0xA) {
+ 	    do {
+-		ctxt->input->line++; ctxt->input->col = 1;
++		ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1;
+ 		in++;
+ 	    } while (*in == 0xA);
+ 	}
+@@ -5266,7 +5266,7 @@ get_more:
+ 	ctxt->input->col = ccol;
+ 	if (*in == 0xA) {
+ 	    do {
+-		ctxt->input->line++; ctxt->input->col = 1;
++		ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1;
+ 		in++;
+ 	    } while (*in == 0xA);
+ 	    goto get_more;
+@@ -5311,14 +5311,14 @@ get_more:
+ 	ctxt->input->cur = in;
+ 	if (*in == 0xA) {
+ 	    in++;
+-	    ctxt->input->line++; ctxt->input->col = 1;
++	    ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1;
+ 	}
+ 	if (*in == 0xD) {
+ 	    in++;
+ 	    if (*in == 0xA) {
+ 		ctxt->input->cur = in;
+ 		in++;
+-		ctxt->input->line++; ctxt->input->col = 1;
++		ctxt->input->line = ((unsigned)ctxt->input->line) + 1; ctxt->input->col = 1;
+ 		goto get_more;
+ 	    }
+ 	    in--;
