@@ -19,8 +19,7 @@ url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
 sha256 = "eb22f7ceb319c29247cfa398435d00e6286d19a32b4870b67a8e9a38d72f2ebd"
 # check: missing checkdepends
-# cross: python-setuptools
-options = ["!check", "!cross"]
+options = ["!check"]
 
 
 def post_install(self):
