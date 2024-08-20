@@ -1,6 +1,6 @@
 pkgname = "umockdev"
 pkgver = "0.18.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "gobject-introspection",
