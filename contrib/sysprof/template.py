@@ -1,6 +1,6 @@
 pkgname = "sysprof"
 pkgver = "46.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     # creates static separately itself
@@ -42,6 +42,12 @@ def post_install(self):
     self.uninstall("usr/systemd")
 
 
+@subpackage("sysprof-devel-static")
+def _static(self):
+    return ["usr/lib/*.a"]
+
+
 @subpackage("sysprof-devel")
 def _devel(self):
+    self.depends += [self.with_pkgver("sysprof-devel-static")]
     return self.default_devel()
