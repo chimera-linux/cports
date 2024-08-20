@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "256.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dacl=enabled",
