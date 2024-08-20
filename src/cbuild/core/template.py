@@ -926,6 +926,10 @@ class Template(Package):
                     pn = f"{alternative}-{spkgname}-default"
                 else:
                     pn = spkgname
+                if f.__name__ != "_":
+                    self.error(
+                        f"subpackage function '{f.__name__}' must be called '_'"
+                    )
                 self.all_subpackages.append(pn)
                 if cond:
                     self.subpackages.append((spkgname, f, alternative))
@@ -934,6 +938,10 @@ class Template(Package):
 
         def target_deco(tname, tdep):
             def deco(f):
+                if f.__name__ != "_":
+                    self.error(
+                        f"custom target function '{f.__name__}' must be called '_'"
+                    )
                 self._custom_targets[tname] = (f, tdep)
 
             return deco
