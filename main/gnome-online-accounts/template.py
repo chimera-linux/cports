@@ -1,13 +1,12 @@
 pkgname = "gnome-online-accounts"
 pkgver = "3.50.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-# TODO: figure out if we can make it work with heimdal
 configure_args = [
     "-Dintrospection=true",
     "-Dvapi=true",
     "-Dman=true",
-    "-Dkerberos=false",
+    "-Dkerberos=true",
 ]
 hostmakedepends = [
     "meson",
@@ -22,7 +21,9 @@ hostmakedepends = [
 makedepends = [
     "glib-devel",
     "dbus-devel",
+    "gcr-devel",
     "gtk4-devel",
+    "heimdal-devel",
     "webkitgtk-devel",
     "json-glib-devel",
     "libadwaita-devel",
