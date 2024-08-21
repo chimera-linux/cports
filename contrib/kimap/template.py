@@ -1,9 +1,9 @@
 pkgname = "kimap"
 pkgver = "24.05.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # no valid mechs
-make_check_args = ["-E", "loginjobtest"]
+# make_check_args = ["-E", "loginjobtest"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
