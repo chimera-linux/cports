@@ -8,7 +8,6 @@ target-version = 'py312'
 builtins = ['custom_target', 'self', 'subpackage']
 
 [tool.ruff.lint]
-dummy-variable-rgx = "^_$"
 extend-select = [
     'C4',
     'E',
