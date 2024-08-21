@@ -1820,10 +1820,12 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             statusf.write(f"{pn} invalid\n")
             log.out_red(f"cbuild: invalid package '{pn}'")
             failed = True
+            continue
         if not pp.is_dir() or not (pp / "template.py").is_file():
             statusf.write(f"{pn} missing\n")
             log.out_red(f"cbuild: missing package '{pn}'")
             failed = True
+            continue
         # finally add to set
         rpkgs.add(pn)
 
