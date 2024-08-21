@@ -2534,14 +2534,13 @@ class Subpackage(Package):
         for fullp in got:
             # relative path to the file/dir in original destdir
             pdest = self.parent.destdir
-            self.log(f"moving: {fullp} -> {self.destdir}")
-            _submove(
-                pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
-            )
+            relp = pathlib.Path(fullp).relative_to(pdest)
+            self.log(f"taking {relp}...")
+            _submove(relp, self.destdir, pdest)
 
     def make_link(self, path, tgt):
         dstp = self.destdir / path
-        self.log(f"symlink: {dstp} -> {tgt}")
+        self.log(f"symlink: {path} -> {tgt}")
         self.mkdir(dstp.parent, parents=True)
         self.ln_s(tgt, dstp)
 
