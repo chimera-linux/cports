@@ -1,7 +1,7 @@
 pkgname = "man-pages-posix"
 _pver = "2017-a"
 pkgver = f"{_pver.replace('-', '')}"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "POSIX man pages"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "custom:posix"
