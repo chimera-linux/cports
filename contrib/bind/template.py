@@ -1,6 +1,6 @@
 pkgname = "bind"
-pkgver = "9.20.0"
-pkgrel = 1
+pkgver = "9.20.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-libidn2"]
 make_cmd = "gmake"
@@ -38,7 +38,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MPL-2.0"
 url = "https://www.isc.org/bind"
 source = f"https://downloads.isc.org/isc/bind9/{pkgver}/bind-{pkgver}.tar.xz"
-sha256 = "cc580998017b51f273964058e8cb3aa5482bc785243dea71e5556ec565a13347"
+sha256 = "fe6ddff74921410d33b62b5723ac23912e8d50138ef66d7a30dc2c421129aeb0"
 # lto: some udp tests fail otherwise
 options = ["!lto"]
 
