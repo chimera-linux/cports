@@ -37,7 +37,6 @@ else:
     configure_args += [
         "-Dhelp=disabled",
         "-Ddocs=disabled",
-        "-Dstatic_apk=false",
         "-Dzstd=false",
     ]
 
@@ -57,6 +56,8 @@ def init_configure(self):
 
 
 def post_configure(self):
+    if self.stage > 0:
+        return
     from cbuild.util import meson
 
     meson.configure(
@@ -73,15 +74,16 @@ def post_configure(self):
 
 
 def post_build(self):
+    if self.stage > 0:
+        return
     self.do("ninja", f"-j{self.make_jobs}", "-C", "build-static")
 
 
 def post_install(self):
-    self.install_bin("build-static/src/apk", name="apk.static")
-
     if self.stage == 0:
         return
 
+    self.install_bin("build-static/src/apk", name="apk.static")
     self.install_dir("etc/apk")
     self.ln_s("../../var/cache/apk", self.destdir / "etc/apk/cache")
     (self.destdir / "etc/apk/interactive").touch()
