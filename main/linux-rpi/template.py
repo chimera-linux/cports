@@ -35,6 +35,13 @@ if self.profile().cross:
     broken = "linux-devel does not come out right"
 
 
+@custom_target("generate-configs", "patch")
+def _(self):
+    from cbuild.util import linux
+
+    linux.update_configs(self, archs, _flavor)
+
+
 def init_configure(self):
     # generate scriptlets for packaging, just hooking to base-kernel helpers
     from cbuild.util import linux
