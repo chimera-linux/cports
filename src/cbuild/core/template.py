@@ -806,6 +806,16 @@ class AstValidatorVisitor(ast.NodeVisitor):
                 # force literals to sort before list expansions
                 unsorted.append(f"!{e.value}")
                 continue
+            elif isinstance(e, ast.JoinedStr):
+                if len(e.values) == 0:
+                    unsorted.append("!")
+                elif isinstance(e.values[0], ast.Constant):
+                    # consider the initial constant part of the string
+                    unsorted.append(f"!{e.values[0].value}")
+                else:
+                    # best-effort, consider the brace
+                    unsorted.append("!{")
+                continue
             self.pkg.error(
                 f"dependency list '{lname}' contains an invalid value (must be a string or a list expansion)"
             )

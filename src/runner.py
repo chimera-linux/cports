@@ -1734,7 +1734,6 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
 
 
 def _bulkpkg(pkgs, statusf, do_build, do_raw):
-    import pathlib
     import graphlib
 
     from cbuild.core import logger, template, chroot, errors, build
@@ -1786,8 +1785,6 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         return True
 
     tarch = opt_arch if opt_arch else chroot.host_cpu()
-
-    pcw = pathlib.Path.cwd()
 
     # resolve every package first
     # the result is a set of unambiguous, basic template names
