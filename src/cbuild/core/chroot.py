@@ -194,7 +194,7 @@ def repo_init():
     return rfile, cfile
 
 
-def shell_update(rnet):
+def shell_update(rnet, dirty):
     hcpu = host_cpu()
     rfile, cfile = repo_init()
     with rfile.open("w") as rfh:
@@ -229,6 +229,9 @@ def shell_update(rnet):
     # ensure any local apk commands can write into cache
     (paths.cbuild_cache() / "apk" / hcpu).mkdir(parents=True, exist_ok=True)
     cfile.symlink_to(f"/cbuild_cache/apk/{hcpu}")
+
+    if dirty:
+        return
 
     with flock.lock(flock.apklock(hcpu)):
         if (

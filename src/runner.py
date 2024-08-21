@@ -1689,8 +1689,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         chroot.chroot_check()
     if tgt == "chroot":
         paths.prepare()
-        if not opt_dirty:
-            chroot.shell_update(not opt_nonet)
+        chroot.shell_update(not opt_nonet, opt_dirty)
         if rp:
             rp.setup_paths()
         if rp and rp.srcdir.is_dir():
