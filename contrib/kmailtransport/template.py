@@ -1,6 +1,6 @@
 pkgname = "kmailtransport"
 pkgver = "24.05.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # no worthy sasl mechs
 make_check_args = ["-E", "smtpjobtest"]
