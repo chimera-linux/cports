@@ -317,6 +317,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
 
     pprof = pkg.profile()
     tarch = pprof.arch
+    cross = not not pprof.cross
 
     if pkg.pkgname != origpkg:
         pkg.log(f"building{style} (dependency of {origpkg}) for {tarch}...")
@@ -335,7 +336,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
     ihdeps, itdeps, irdeps = setup_depends(pkg)
 
     # ensure cross-toolchain is included in hostdeps
-    if pprof.cross:
+    if cross:
         ihdeps.append((None, f"base-cross-{pprof.arch}"))
 
     if len(ihdeps) == 0 and len(itdeps) == 0 and len(irdeps) == 0:
@@ -343,7 +344,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
 
     hsys = paths.bldroot()
     tsys = hsys
-    if pprof.cross:
+    if cross:
         tsys = tsys / pprof.sysroot.relative_to("/")
 
     hvers, hrepos = _get_vers(map(lambda v: v[1], ihdeps), pkg, hsys, None)
@@ -377,7 +378,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         # not found
         log.out_plain(f"  [host] {pkgn}: not found")
         # check for loops
-        if not pprof.cross and (pkgn == origpkg or pkgn == pkg.pkgname):
+        if not cross and (pkgn == origpkg or pkgn == pkg.pkgname):
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
         host_missing_deps.append((pkgn, sver))
@@ -465,7 +466,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                     data=pkg._data,
                 ),
                 depmap,
-                chost=hostdep or not not pprof.cross,
+                chost=hostdep or cross,
                 no_update=not missing,
                 update_check=update_check,
                 maintainer=pkg._maintainer,
@@ -548,12 +549,16 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
     if len(virt_deps) > 0:
         _install_virt(pkg, virt_deps, len(binpkg_deps) > 0)
 
-    if len(host_binpkg_deps) > 0:
-        pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
+    if len(host_binpkg_deps) > 0 or (len(binpkg_deps) > 0 and not cross):
+        tdeps = sorted(
+            set(host_binpkg_deps + (binpkg_deps if not cross else []))
+        )
+        dept = "host" if cross else "build"
+        pkg.log(f"installing {dept} dependencies: {', '.join(tdeps)}")
         with flock.lock(flock.apklock(chost)):
-            _install_from_repo(pkg, host_binpkg_deps)
+            _install_from_repo(pkg, tdeps)
 
-    if len(binpkg_deps) > 0:
+    if len(binpkg_deps) > 0 and cross:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
         with flock.lock(flock.apklock(tarch)):
             _install_from_repo(pkg, binpkg_deps, True)
