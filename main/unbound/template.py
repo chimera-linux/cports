@@ -1,6 +1,6 @@
 pkgname = "unbound"
 pkgver = "1.21.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-cachedb",
@@ -11,7 +11,7 @@ configure_args = [
     "--enable-tfo-client",
     "--enable-tfo-server",
     "--with-username=_unbound",
-    "--with-rootkey-file=/etc/dns/root.key",
+    "--with-rootkey-file=/usr/share/dns/root.key",
     "--with-conf-file=/etc/unbound/unbound.conf",
     "--with-pidfile=/run/unbound.pid",
     f"--with-libevent={self.profile().sysroot / 'usr'}",
@@ -37,7 +37,7 @@ makedepends = [
     "openssl-devel",
     "protobuf-c-devel",
 ]
-depends = ["dnssec-anchors"]
+depends = ["dns-root-data"]
 pkgdesc = "Validating, recursive, and caching DNS resolver"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
