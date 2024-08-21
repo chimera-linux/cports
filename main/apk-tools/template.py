@@ -57,6 +57,8 @@ def init_configure(self):
 
 
 def post_configure(self):
+    if self.stage > 0:
+        return
     from cbuild.util import meson
 
     meson.configure(
@@ -73,6 +75,8 @@ def post_configure(self):
 
 
 def post_build(self):
+    if self.stage > 0:
+        return
     self.do("ninja", f"-j{self.make_jobs}", "-C", "build-static")
 
 
