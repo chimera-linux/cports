@@ -1219,6 +1219,32 @@ A metapackage `build_style`. It merely defines empty `do_fetch` as well
 as `do_install`. Packages with this build-style are allowed to be empty
 by default, others need to use the `empty` option.
 
+#### cargo
+
+You generally use this one for Rust projects.
+
+**NOTE:** this build style will be subject to major changes in the future.
+
+Sets `do_prepare`, `do_build`, `do_check`, `do_install`. They are wrappers
+around the `cargo` utility module API.
+
+By default, environment will be updated for all invocations to set up
+the Cargo environment variables for the current target as well as various
+common environment variables to devendor system libraries.
+
+The `self.make_dir` variable is used as the working source directory. Other
+variables of interest are `self.make_build_args`, `self.make_build_env`,
+`self.make_build_wrapper`, and equivalents for other build phases, as those
+are used to pass things to Cargo.
+
+The `prepare` step is run with network access and pre-vendors all crates
+into the tree. That allows for easy patching (vendor checksums need to be
+cleared afterwards using the utility API). The rest of the build is run
+with network access disabled.
+
+When `cargo-auditable` is available, all commands will implicitly be run
+through the `auditable` wrapper.
+
 #### cmake
 
 You can generally use this for CMake-using projects.
@@ -1302,6 +1328,45 @@ and other things, while `configure` can't.
 Autodetects `slibtool` and makes it used via `rlibtool` and `slibtoolize`.
 It is recommended to include `slibtool` in `hostmakedepends` instead of
 `libtool` if the build process does not break due to it.
+
+#### go
+
+You generally use this one for Go projects.
+
+**NOTE:** this build style will be subject to major changes in the future.
+
+Variables:
+
+* `go_mod_dl` (`mod`) May be set to `mod` or `off` to control module downloads.
+* `go_build_tags` Optional list of tags to use for build.
+* `go_check_tags` Optional list of tags to use for check.
+
+Default values:
+
+* `make_dir` = `build`
+
+Sets `do_prepare`, `do_build`, `do_check`, `do_install`. They are wrappers
+around the `golang` utility module API.
+
+By default, environment will be updated for all invocations to set up
+the Go environment variables for the current target. These include
+`GOMODCACHE` (to save files in the cbuild cache), `GOARCH` (and maybe
+`GOARM`) and `CGO_CFLAGS`, `CGO_CXXFLAGS`, and `CGO_LDFLAGS`.
+
+The `prepare` step is run with network access and caches the module swith
+`go mod download` by default, unless `vendor` directory already exists.
+If it exists, it may be forced by setting `go_mod_dl`.
+
+The build is performed with `go build`. By default, `-o {make_dir}/` is passed
+to it alongside any `make_build_args`. The `-trimpath` argument is used by
+default as well.
+
+For installation, the `go` command is not used. Instead, `make_dir` is globbed
+for `**/*` and found files are installed as binaries. Some projects will
+want to override this.
+
+Check has `./...` passed unless `make_check_args` is provided. The `go test`
+command is used.
 
 #### makefile
 
