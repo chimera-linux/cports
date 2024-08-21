@@ -1794,40 +1794,36 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     rpkgs = set()
     badpkgs = set()
     for pn in pkgs:
-        # skip what's already handled
+        # early-skip what's already handled
         if pn in rpkgs or pn in badpkgs:
             continue
-        # skip if previously failed
-        if failed and not opt_bulkcont:
-            statusf.write(f"{pn} skipped\n")
-            log.out_red(f"cbuild: skipping template '{pn}'")
-            continue
-        pp = pathlib.Path(pn)
-        # resolve
-        if pp.is_symlink():
-            badpkgs.add(pn)
-            ln = pp.resolve().relative_to(pcw)
-            if ln.is_absolute() or ln.is_symlink() or not ln.is_dir():
+        # try resolving it
+        pns = template.sanitize_pkgname(pn, False)
+        if not pns:
+            if pns is None:
+                badpkgs.add(pn)
+                statusf.write(f"{pn} missing\n")
+                log.out_red(f"cbuild: missing package '{pn}'")
+                failed = True
+                continue
+            else:
+                badpkgs.add(pn)
                 statusf.write(f"{pn} invalid\n")
                 log.out_red(f"cbuild: invalid package '{pn}'")
                 failed = True
                 continue
-            pp = ln
-            pn = str(ln)
-        # validate
-        pl = pp.parts
-        if len(pl) != 2 or len(pl[0]) == 0 or len(pl[1]) == 0:
-            statusf.write(f"{pn} invalid\n")
-            log.out_red(f"cbuild: invalid package '{pn}'")
-            failed = True
+        # now replace with sanitized name
+        npn = f"{pns.parent.name}/{pns.name}"
+        # now do a second pass skip if it differs
+        if npn != pn and npn in rpkgs or npn in badpkgs:
             continue
-        if not pp.is_dir() or not (pp / "template.py").is_file():
-            statusf.write(f"{pn} missing\n")
-            log.out_red(f"cbuild: missing package '{pn}'")
-            failed = True
+        # skip if previously failed
+        if failed and not opt_bulkcont:
+            statusf.write(f"{npn} skipped\n")
+            log.out_red(f"cbuild: skipping template '{npn}'")
             continue
         # finally add to set
-        rpkgs.add(pn)
+        rpkgs.add(npn)
 
     # visited "intermediate" templates, includes stuff that is "to be done"
     #

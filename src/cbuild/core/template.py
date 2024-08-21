@@ -2682,7 +2682,7 @@ def _interp_url(pkg, url):
     return re.sub(r"\$\((\w+)\)", matchf, url)
 
 
-def sanitize_pkgname(pkgname):
+def sanitize_pkgname(pkgname, error=True):
     # if a valid path to template.py, try translating to pkgname
     tmplp = pathlib.Path(pkgname).resolve()
     if tmplp.name == "template.py" and tmplp.is_file():
@@ -2692,12 +2692,16 @@ def sanitize_pkgname(pkgname):
     if len(pnl) == 3 and pnl[2] == "":
         pnl = pnl[:-1]
     if len(pnl) != 2:
+        if not error:
+            return False
         raise errors.CbuildException(
             f"template name '{pkgname}' has an invalid format"
         )
     pkgname = "/".join(pnl)
     tmplpath = paths.distdir() / pkgname / "template.py"
     if not tmplpath.is_file():
+        if not error:
+            return None
         raise errors.CbuildException(f"missing template for '{pkgname}'")
     return tmplpath.resolve().parent
 
