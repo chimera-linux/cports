@@ -1,9 +1,12 @@
 pkgname = "apk-tools"
-pkgver = "3.0.0_pre6"
-pkgrel = 1
-_gitrev = "6052bfef57a81d82451b4cad86f78a2d01959767"
+pkgver = "3.0.0_pre7"
+pkgrel = 0
+_gitrev = "05359b7c233acbc4ae511da85d7fbd30ab407c48"
 build_style = "meson"
-configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
+configure_args = [
+    "-Dlua=disabled",
+    "-Dlua_version=5.4",
+]
 hostmakedepends = [
     "lua5.4",
     "lua5.4-zlib",
@@ -22,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"https://gitlab.alpinelinux.org/alpine/apk-tools/-/archive/{_gitrev}.tar.gz"
-sha256 = "252876eb71fa891195ec53d17ca8b0585a753a152e3f96f10147b3a68a010a9b"
+sha256 = "dc666c4b3b6354e192c1d451ff6ace4ff47a3e0fe1079fc95aca7b622050bb8a"
 compression = "deflate"
 options = ["bootstrap"]
 
@@ -53,9 +56,31 @@ def init_configure(self):
     self.env["PKG_CONFIG_LIBSSL_LIBDIR"] = ldir
 
 
+def post_configure(self):
+    from cbuild.util import meson
+
+    meson.configure(
+        self,
+        "build-static",
+        extra_args=[
+            "-Dc_link_args=-static-pie",
+            "-Ddefault_library=static",
+            "-Dprefer_static=true",
+            "-Ddocs=disabled",
+            *configure_args,
+        ],
+    )
+
+
+def post_build(self):
+    self.do("ninja", f"-j{self.make_jobs}", "-C", "build-static")
+
+
 def post_install(self):
     if self.stage == 0:
         return
+
+    self.install_bin("build-static/src/apk", name="apk.static")
     self.install_dir("etc/apk")
     self.ln_s("../../var/cache/apk", self.destdir / "etc/apk/cache")
     (self.destdir / "etc/apk/interactive").touch()
