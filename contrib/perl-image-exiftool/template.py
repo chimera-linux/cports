@@ -1,5 +1,5 @@
 pkgname = "perl-image-exiftool"
-pkgver = "12.86"
+pkgver = "12.93"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://exiftool.org"
 source = f"https://exiftool.org/Image-ExifTool-{pkgver}.tar.gz"
-sha256 = "7f6a8090f1831783d4b3045847d9c13a229393dd6366e0eab46c44a400b86914"
+sha256 = "92522be7dd08020b5f105a527e31feb9754dc0a6851c157c461a3e234e0e64c2"
 
 
 @subpackage("exiftool")
