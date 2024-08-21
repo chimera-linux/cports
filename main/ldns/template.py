@@ -1,21 +1,21 @@
 pkgname = "ldns"
 pkgver = "1.8.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-drill",
     "--with-examples",
     "--disable-dane-ta-usage",
-    "--with-trust-anchor=/etc/dns/root.key",
+    "--with-trust-anchor=/usr/share/dns/root.key",
 ]
 hostmakedepends = [
     "automake",
-    "dnssec-anchors",
+    "dns-root-data",
     "perl",
     "pkgconf",
     "slibtool",
 ]
-makedepends = ["libpcap-devel", "openssl-devel", "dnssec-anchors"]
+makedepends = ["libpcap-devel", "openssl-devel", "dns-root-data"]
 pkgdesc = "Modern DNS/DNSSEC library"
 subdesc = "utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -37,7 +37,7 @@ def post_install(self):
 
 @subpackage("libldns")
 def _(self):
-    self.depends = ["dnssec-anchors"]
+    self.depends = ["dns-root-data"]
 
     return self.default_libs()
 
