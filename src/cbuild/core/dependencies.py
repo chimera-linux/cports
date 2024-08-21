@@ -548,14 +548,26 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
     if len(virt_deps) > 0:
         _install_virt(pkg, virt_deps, len(binpkg_deps) > 0)
 
-    if len(host_binpkg_deps) > 0:
-        pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
+    if (
+        not pkg.profile().cross
+        and (all_deps := host_binpkg_deps + binpkg_deps) != []
+    ):
+        pkg.log(
+            f"installing host and target dependencies: {', '.join(all_deps)}"
+        )
         with flock.lock(flock.apklock(chost)):
-            _install_from_repo(pkg, host_binpkg_deps)
+            _install_from_repo(pkg, all_deps)
+    else:
+        if len(host_binpkg_deps) > 0:
+            pkg.log(
+                f"installing host dependencies: {', '.join(host_binpkg_deps)}"
+            )
+            with flock.lock(flock.apklock(chost)):
+                _install_from_repo(pkg, host_binpkg_deps)
 
-    if len(binpkg_deps) > 0:
-        pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
-        with flock.lock(flock.apklock(tarch)):
-            _install_from_repo(pkg, binpkg_deps, True)
+        if len(binpkg_deps) > 0:
+            pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
+            with flock.lock(flock.apklock(tarch)):
+                _install_from_repo(pkg, binpkg_deps, True)
 
     return missing
