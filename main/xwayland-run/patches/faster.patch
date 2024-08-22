@@ -1,0 +1,19 @@
+no idea if this should be upstreamed but it annoys me
+--
+--- a/src/wlheadless/wlheadless_common.py
++++ b/src/wlheadless/wlheadless_common.py
+@@ -108,12 +108,12 @@
+ 
+     def wait_compositor(self):
+         """ Waits for the compositor to start """
+-        for _ in range(0, 3):
++        for _ in range(0, 30):
+             try:
+                 self.__try_connect()
+                 return 0
+             except Exception:
+-                sleep(1)
++                sleep(0.1)
+         print('Failed to connect to the compositor!\n')
+         return -1
+ 

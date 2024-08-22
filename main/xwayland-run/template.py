@@ -1,6 +1,6 @@
 pkgname = "xwayland-run"
 pkgver = "0.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dcompositor=weston"]
 hostmakedepends = ["meson"]
