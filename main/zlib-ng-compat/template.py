@@ -2,7 +2,7 @@ pkgname = "zlib-ng-compat"
 pkgver = "2.2.1"
 # compat version
 _cver = "1.3.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
