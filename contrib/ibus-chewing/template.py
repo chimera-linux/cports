@@ -1,5 +1,5 @@
 pkgname = "ibus-chewing"
-pkgver = "2.1.0"
+pkgver = "2.1.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = [
@@ -31,7 +31,7 @@ url = "https://github.com/chewing/ibus-chewing"
 source = (
     f"{url}/releases/download/v{pkgver}/ibus-chewing-{pkgver}-Source.tar.xz"
 )
-sha256 = "65f1f044750c2a2245fe68ef38ccdc9463a983f20c9bebcf3794b019719057ae"
+sha256 = "26383667f79286ad3d5d00cccb90fe9fefe7eb4652841d7a2a3cc261f8d1e623"
 
 
 def pre_check(self):
