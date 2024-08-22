@@ -6,7 +6,6 @@ configure_args = [
     "--with-helper-path-prefix=/usr/libexec",
     "--enable-gsettings-backend",
 ]
-make_cmd = "gmake"
 make_dir = "."
 make_check_wrapper = [
     "dbus-run-session",
@@ -17,7 +16,6 @@ make_check_wrapper = [
 hostmakedepends = [
     "automake",
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "intltool",

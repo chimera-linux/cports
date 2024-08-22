@@ -2,8 +2,7 @@ pkgname = "gcompat"
 pkgver = "1.1.0"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "libatomic-chimera-devel-static",
     "libucontext-devel",

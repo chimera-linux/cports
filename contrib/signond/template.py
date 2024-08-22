@@ -2,11 +2,9 @@ pkgname = "signond"
 pkgver = "8.61"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_use_env = True
 hostmakedepends = [
     "doxygen",
-    "gmake",
     "pkgconf",
     "qt6-qtbase",
 ]

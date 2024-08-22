@@ -4,8 +4,7 @@ pkgver = "1.23.2"
 pkgrel = 3
 build_style = "gnu_configure"
 # otherwise cmake files are broken
-make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake", "gnupg", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "gnupg", "automake", "libtool"]
 makedepends = ["libgpg-error-devel", "libassuan-devel", "glib-devel"]
 depends = ["gnupg"]
 pkgdesc = "GnuPG Made Easy"

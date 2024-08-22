@@ -4,11 +4,9 @@ pkgrel = 0
 build_style = "gnu_configure"
 # old and doesn't reconf
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

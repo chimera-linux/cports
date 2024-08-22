@@ -3,11 +3,9 @@ pkgver = "2.7"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--mandir=/usr/share/man", "--use-libc"]
-make_cmd = "gmake"
 make_check_target = "runtests"
 hostmakedepends = [
     "bash",
-    "gmake",
     "pkgconf",
 ]
 makedepends = ["linux-headers", "musl-bsd-headers"]

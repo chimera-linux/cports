@@ -2,10 +2,8 @@ pkgname = "gptfdisk"
 pkgver = "1.0.10"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_dir = "."
 make_check_target = "test"
-hostmakedepends = ["gmake"]
 makedepends = [
     "libuuid-devel",
     "linux-headers",

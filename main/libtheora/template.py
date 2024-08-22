@@ -7,8 +7,7 @@ configure_args = [
     "--disable-vorbistest",
     "--disable-sdltest",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["libogg-devel"]
 pkgdesc = "Theora video compression codec"
 maintainer = "q66 <q66@chimera-linux.org>"

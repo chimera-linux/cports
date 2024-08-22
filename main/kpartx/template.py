@@ -3,13 +3,12 @@ pkgver = "0.9.9"
 pkgrel = 0
 build_wrksrc = "kpartx"
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = [
     "prefix=/usr",
     "libudevdir=/usr/lib/udev",
     "bindir=/usr/bin",
 ]
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["device-mapper-devel"]
 pkgdesc = "Create device maps from partition tables"
 maintainer = "q66 <q66@chimera-linux.org>"

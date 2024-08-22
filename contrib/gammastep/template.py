@@ -2,11 +2,9 @@ pkgname = "gammastep"
 pkgver = "2.0.9"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "intltool",
     "pkgconf",
     "python",

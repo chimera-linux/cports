@@ -12,11 +12,9 @@ configure_args = [
     "--with-x-toolkit=gtk3",
     "--without-tiff",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gawk",
-    "gmake",
     "pkgconf",
     "texinfo",
 ]

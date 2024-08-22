@@ -2,10 +2,8 @@ pkgname = "libbsd"
 pkgver = "0.12.2"
 pkgrel = 1
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "gsed",
     "libtool",
     "pkgconf",

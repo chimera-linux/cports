@@ -2,7 +2,6 @@ pkgname = "haproxy"
 pkgver = "3.0.3"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "EXTRA=admin/halog/halog",
     "TARGET=linux-musl",
@@ -26,7 +25,6 @@ make_install_args = [
 ]
 make_check_target = "reg-tests"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

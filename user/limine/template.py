@@ -5,8 +5,7 @@ pkgrel = 0
 archs = ["aarch64", "x86_64", "riscv64"]
 build_style = "gnu_configure"
 configure_args = ["--enable-all", "TOOLCHAIN_FOR_TARGET=llvm"]
-make_cmd = "gmake"
-hostmakedepends = ["automake", "gmake", "mtools", "nasm"]
+hostmakedepends = ["automake", "mtools", "nasm"]
 pkgdesc = "Multiprotocol EFI bootloader"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause AND 0BSD"

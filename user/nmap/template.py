@@ -12,12 +12,10 @@ configure_args = [
     "--without-zenmap",
     "CPP=",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "libtool",
 ]
 makedepends = [
@@ -36,7 +34,6 @@ license = "custom:Nmap"
 url = "https://nmap.org"
 source = f"https://nmap.org/dist/nmap-{pkgver}.tar.bz2"
 sha256 = "e14ab530e47b5afd88f1c8a2bac7f89cd8fe6b478e22d255c5b9bddb7a1c5778"
-exec_wrappers = [("/usr/bin/gmake", "make")]
 
 
 def post_install(self):

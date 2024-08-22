@@ -2,12 +2,11 @@ pkgname = "duktape"
 pkgver = "2.7.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["-f", "Makefile.sharedlibrary"]
 make_install_args = ["-f", "Makefile.sharedlibrary", "INSTALL_PREFIX=/usr"]
 make_check_target = ""
 make_check_args = ["-f", "Makefile.cmdline"]
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 pkgdesc = "Embeddeable JavaScript engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

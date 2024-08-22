@@ -7,10 +7,8 @@ configure_args = [
     "--enable-pam",
     "--with-securedir=/usr/lib/security",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "automake",
     "libtool",

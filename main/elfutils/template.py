@@ -11,11 +11,9 @@ configure_args = [
 ]
 # autoreconf generates junk configure
 configure_gen = []
-make_cmd = "gmake"
 hostmakedepends = [
     "bison",
     "flex",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

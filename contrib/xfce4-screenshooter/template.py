@@ -2,14 +2,12 @@ pkgname = "xfce4-screenshooter"
 pkgver = "1.11.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 # check target fails without this
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "help2man",
     "libtool",
     "pkgconf",

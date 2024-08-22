@@ -2,11 +2,10 @@ pkgname = "cdparanoia"
 pkgver = "10.2"
 pkgrel = 1
 build_style = "gnu_configure"
-make_cmd = "gmake"
 # messy build system
 make_dir = "."
 make_check_target = "test"
-hostmakedepends = ["gmake", "pkgconf", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["linux-headers"]
 pkgdesc = "CDDA reading utility with extra data verification features"
 maintainer = "q66 <q66@chimera-linux.org>"

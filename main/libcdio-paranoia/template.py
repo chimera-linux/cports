@@ -5,10 +5,9 @@ pkgver = f"{_v1}.{_v2}"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-example-progs", "--enable-cpp-progs"]
-make_cmd = "gmake"
 # out of tree build is broken
 make_dir = "."
-hostmakedepends = ["automake", "libtool", "gmake", "pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["libcdio-devel", "linux-headers"]
 pkgdesc = "CD paranoia utility/libraries from libcdio"
 maintainer = "q66 <q66@chimera-linux.org>"

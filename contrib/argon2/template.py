@@ -2,12 +2,11 @@ pkgname = "argon2"
 pkgver = "20190702"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["OPTTARGET=none", "ARGON2_VERSION=" + pkgver]
 make_install_args = ["OPTTARGET=none"]
 make_check_target = "test"
 make_use_env = True
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 pkgdesc = "Argon2 password-hashing function"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 OR CC0-1.0"

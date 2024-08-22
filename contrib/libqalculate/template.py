@@ -3,11 +3,9 @@ pkgname = "libqalculate"
 pkgver = "5.2.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

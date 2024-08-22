@@ -2,10 +2,8 @@ pkgname = "kakoune"
 pkgver = "2024.05.18"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["gzip_man=no"]
 make_use_env = True
-hostmakedepends = ["gmake"]
 checkdepends = ["git"]
 pkgdesc = "Modal code editor inspired by vim"
 maintainer = "superwhiskers <whiskerdev@protonmail.com>"

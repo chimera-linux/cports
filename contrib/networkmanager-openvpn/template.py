@@ -6,13 +6,11 @@ configure_args = [
     "--disable-static",
     "--with-gtk4",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "file",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

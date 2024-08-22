@@ -6,7 +6,6 @@ make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X 'main.builtBy=Chimera Linux'",
 ]
 hostmakedepends = ["go"]
-checkdepends = ["gmake"]
 go_build_tags = ["noembeddocs", "noupgrade"]
 pkgdesc = "Dotfiles manager"
 maintainer = "triallax <triallax@tutanota.com>"
@@ -19,7 +18,7 @@ sha256 = "622974a9653f07874d9c6a627af130163bf3cde7eb0f1b89baa2f3a7fa76b8a4"
 def do_check(self):
     from cbuild.util import golang
 
-    self.do("gmake", "test", env=golang.get_go_env(self))
+    self.do("make", "test", env=golang.get_go_env(self))
 
 
 def post_install(self):

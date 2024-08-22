@@ -3,7 +3,6 @@ pkgver = "1.3294"
 pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = [
-    "gmake",
     "perl",
     "perl-extutils-depends",
     "perl-extutils-pkgconfig",

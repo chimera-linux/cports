@@ -8,12 +8,10 @@ configure_args = [
     "--with-metapost",
     "--with-metafont",
 ]
-make_cmd = "gmake"
 make_check_args = ["-j1"]
 make_check_env = {"GNUTERM": "dumb"}
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "lua5.1",
     "pkgconf",
@@ -85,20 +83,20 @@ def do_configure(self):
 def do_build(self):
     with self.stamp("build-nox") as s:
         s.check()
-        self.do("gmake", "-C", "build", f"-j{self.make_jobs}")
+        self.do("make", "-C", "build", f"-j{self.make_jobs}")
 
     with self.stamp("build-wx") as s:
         s.check()
-        self.do("gmake", "-C", "build-wx", f"-j{self.make_jobs}")
+        self.do("make", "-C", "build-wx", f"-j{self.make_jobs}")
 
     with self.stamp("build-qt") as s:
         s.check()
-        self.do("gmake", "-C", "build-qt", f"-j{self.make_jobs}")
+        self.do("make", "-C", "build-qt", f"-j{self.make_jobs}")
 
 
 def do_install(self):
     self.do(
-        "gmake",
+        "make",
         "-C",
         "build-qt",
         f"-j{self.make_jobs}",
@@ -108,7 +106,7 @@ def do_install(self):
     self.rename("usr/bin/gnuplot", "gnuplot-qt")
 
     self.do(
-        "gmake",
+        "make",
         "-C",
         "build-wx",
         f"-j{self.make_jobs}",
@@ -118,7 +116,7 @@ def do_install(self):
     self.rename("usr/bin/gnuplot", "usr/bin/gnuplot-wx")
 
     self.do(
-        "gmake",
+        "make",
         "-C",
         "build",
         f"-j{self.make_jobs}",

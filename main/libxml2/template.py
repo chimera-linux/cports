@@ -10,10 +10,8 @@ configure_args = [
     "--with-legacy",
     "--with-threads",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
     "python-devel",

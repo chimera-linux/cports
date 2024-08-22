@@ -32,9 +32,8 @@ configure_args = [
     "--with-default-run-dir=/run/lvm",
     "--with-default-locking-dir=/run/lock/lvm",
 ]
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["gmake", "gsed", "pkgconf", "bash"]
+hostmakedepends = ["gsed", "pkgconf", "bash"]
 makedepends = [
     "udev-devel-static",
     "libblkid-devel-static",

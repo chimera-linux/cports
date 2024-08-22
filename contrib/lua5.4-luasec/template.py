@@ -2,7 +2,6 @@ pkgname = "lua5.4-luasec"
 pkgver = "1.3.2"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "linux"
 make_build_args = [
     "LUAPATH=/usr/share/lua/5.4",
@@ -10,7 +9,6 @@ make_build_args = [
 ]
 make_install_args = [*make_build_args]
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = ["lua5.4-devel", "openssl-devel"]
 pkgdesc = "Bindings to openssl for lua"
 maintainer = "ttyyls <contact@behri.org>"

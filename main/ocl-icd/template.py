@@ -3,9 +3,7 @@ pkgver = "2.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./bootstrap"]
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "ruby",
     "asciidoc",

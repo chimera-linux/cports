@@ -4,11 +4,10 @@ pkgrel = 0
 # steamdeck only
 archs = ["x86_64"]
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["FAUST_COMPILER=clang++"]
 make_install_args = ["SHELL=/usr/bin/bash"]
 make_use_env = True
-hostmakedepends = ["gmake", "bash", "faust"]
+hostmakedepends = ["bash", "faust"]
 makedepends = ["boost-devel", "lv2"]
 depends = ["bash", "dmidecode", "pipewire", "noise-suppression-for-voice"]
 pkgdesc = "Steam Deck audio processing"

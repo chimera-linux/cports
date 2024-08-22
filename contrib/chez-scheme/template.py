@@ -3,9 +3,7 @@ pkgver = "10.0.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--enable-libffi", "LZ4=-llz4", "ZLIB=-lz"]
-make_cmd = "gmake"
 make_check_target = "test-some-fast"
-hostmakedepends = ["gmake"]
 makedepends = [
     "libffi-devel",
     "libx11-devel",

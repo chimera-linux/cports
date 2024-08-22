@@ -2,13 +2,11 @@ pkgname = "system-config-printer"
 pkgver = "1.5.18"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "autoconf-archive",
     "automake",
     "desktop-file-utils",
     "gettext-devel",
-    "gmake",
     "libxml2-progs",
     "pkgconf",
     "python-build",

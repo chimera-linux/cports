@@ -2,10 +2,8 @@ pkgname = "tree-sitter-lua"
 pkgver = "0.1.0"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
-    "gmake",
     "tree-sitter-cli",
     "pkgconf",
 ]

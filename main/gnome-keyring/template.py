@@ -10,7 +10,6 @@ configure_args = [
     # TODO replace with gcr + user service
     "--enable-ssh-agent",
 ]
-make_cmd = "gmake"
 make_check_args = ["-j1"]
 make_check_wrapper = [
     "wlheadless-run",
@@ -23,7 +22,6 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "libtasn1-progs",
     "libtool",
     "openssh",

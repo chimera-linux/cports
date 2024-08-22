@@ -23,11 +23,10 @@ configure_env = {
     "CCAUX": "cc",
 }
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."  # bad build system
 make_build_args = ["all", "so"]
 make_install_args = ["install", "install-so"]
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "cups-devel",
     "dbus-devel",

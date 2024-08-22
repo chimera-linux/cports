@@ -2,7 +2,6 @@ pkgname = "keyutils"
 pkgver = "1.6.3"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "NO_ARLIB=1",
     "LIBDIR=/usr/lib",
@@ -17,7 +16,7 @@ make_install_args = [
     "LIBDIR=/usr/lib",
     "USRLIBDIR=/usr/lib",
 ]
-hostmakedepends = ["gmake", "file", "pkgconf"]
+hostmakedepends = ["file", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Linux key management utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

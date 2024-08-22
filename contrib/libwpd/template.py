@@ -2,11 +2,9 @@ pkgname = "libwpd"
 pkgver = "0.10.3"
 pkgrel = 4
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "pkgconf",
     "slibtool",
 ]

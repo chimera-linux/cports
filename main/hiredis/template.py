@@ -2,10 +2,9 @@ pkgname = "hiredis"
 pkgver = "1.2.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["USE_SSL=1"]
 make_install_args = ["USE_SSL=1"]
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["openssl-devel"]
 pkgdesc = "Minimalistic C client library for Redis"
 maintainer = "q66 <q66@chimera-linux.org>"

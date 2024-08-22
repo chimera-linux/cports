@@ -7,7 +7,6 @@ make_dir = "bin"
 make_build_args = ["./cmd/skopeo"]
 hostmakedepends = [
     "bash",
-    "gmake",
     "go",
     "go-md2man",
     "pkgconf",
@@ -29,17 +28,17 @@ sha256 = "fed91fd067605460ef33431163227471b1e85c8768203fc393345d6ffd645448"
 
 
 def post_build(self):
-    self.do("gmake", "docs")
+    self.do("make", "docs")
 
 
 def do_check(self):
     # only unit tests; others assume docker daemon, gawk, network access, etc.
-    self.do("gmake", "test-unit-local")
+    self.do("make", "test-unit-local")
 
 
 def post_install(self):
     self.do(
-        "gmake",
+        "make",
         "install-docs",
         "install-completions",
         "PREFIX=/usr",

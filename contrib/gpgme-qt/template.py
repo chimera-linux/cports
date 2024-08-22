@@ -7,10 +7,8 @@ configure_args = [
     "--enable-languages=cpp qt6",
 ]
 # otherwise cmake files are broken
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "gnupg",
     "libtool",
     "pkgconf",

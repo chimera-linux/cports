@@ -60,12 +60,10 @@ configure_args = [
     "libat_cv_have_ifunc=no",
 ]
 configure_gen = []
-make_cmd = "gmake"
 hostmakedepends = [
     "bison",
     "flex",
     "gawk",
-    "gmake",
     "perl",
     "texinfo",
     f"binutils-{self.profile().arch}",

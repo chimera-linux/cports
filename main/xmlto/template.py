@@ -3,12 +3,10 @@ pkgver = "0.0.29"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_env = {"GETOPT": "ugetopt"}
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "bash",
     "docbook-xsl-nons",
-    "gmake",
     "flex",
     "libtool",
     "ugetopt",

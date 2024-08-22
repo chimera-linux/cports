@@ -13,8 +13,7 @@ configure_args = [
 ]
 # needs autoconf 2.69
 configure_gen = []
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "gsed", "pkgconf", "texinfo", "python-devel"]
+hostmakedepends = ["gsed", "pkgconf", "texinfo", "python-devel"]
 makedepends = [
     "elfutils-devel",
     "gettext-devel",

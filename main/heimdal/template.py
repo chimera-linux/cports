@@ -14,7 +14,6 @@ configure_args = [
     f"--with-libintl={self.profile().sysroot / 'usr'}",
     f"--with-openldap={self.profile().sysroot / 'usr'}",
 ]
-make_cmd = "gmake"
 # install and check are racey
 make_install_args = ["-j1"]
 make_check_args = ["-j1"]
@@ -24,7 +23,6 @@ hostmakedepends = [
     "e2fsprogs-devel",  # for compile_et
     "flex",
     "gettext",
-    "gmake",
     "libtool",
     "mandoc",
     "perl",

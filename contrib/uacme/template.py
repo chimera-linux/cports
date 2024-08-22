@@ -3,12 +3,10 @@ pkgver = "1.7.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-openssl"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "asciidoc",
     "automake",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

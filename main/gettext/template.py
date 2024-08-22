@@ -8,9 +8,8 @@ configure_args = [
     "--disable-libasprintf",
     "--enable-threads=posix",
 ]
-make_cmd = "gmake"
 make_check_args = ["-j1"]
-hostmakedepends = ["gmake", "automake", "libtool", "xz"]
+hostmakedepends = ["automake", "libtool", "xz"]
 makedepends = ["libunistring-devel", "libxml2-devel", "ncurses-devel"]
 checkdepends = ["perl", "bash"]
 pkgdesc = "GNU internationalization utilities"
@@ -21,8 +20,6 @@ source = f"$(GNU_SITE)/gettext/gettext-{pkgver}.tar.gz"
 sha256 = "ec1705b1e969b83a9f073144ec806151db88127f5e40fe5a94cb6c8fa48996a0"
 # most tests fail to find an adequate shell ???
 options = ["!check"]
-# broken ass autotools
-exec_wrappers = [("/usr/bin/gmake", "make")]
 
 
 def post_extract(self):

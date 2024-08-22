@@ -10,12 +10,10 @@ configure_args = [
     "--enable-xinerama",
     "--with-sasl",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "autoconf-archive",
     "automake",
     "libtool",
-    "gmake",
     "pkgconf",
     "python",
 ]

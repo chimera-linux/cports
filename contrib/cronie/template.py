@@ -8,8 +8,7 @@ configure_args = [
     "--with-pam",
     "--without-selinux",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["automake", "libtool", "gmake"]
+hostmakedepends = ["automake", "libtool"]
 makedepends = ["linux-pam-devel", "musl-obstack-devel"]
 depends = ["cmd:run-parts!debianutils"]
 pkgdesc = "Cron daemon"

@@ -2,9 +2,8 @@ pkgname = "utf8proc"
 pkgver = "2.9.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["prefix=/usr"]
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 pkgdesc = "Clean C library for processing UTF-8 Unicode data"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"

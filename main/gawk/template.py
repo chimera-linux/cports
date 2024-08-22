@@ -4,8 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-readline", "--disable-pma"]
 # makes another test pass
-make_cmd = "gmake"
-hostmakedepends = ["automake", "gettext-devel", "gmake", "libtool"]
+hostmakedepends = ["automake", "gettext-devel", "libtool"]
 makedepends = ["libedit-readline-devel"]
 pkgdesc = "GNU awk utility"
 maintainer = "q66 <q66@chimera-linux.org>"

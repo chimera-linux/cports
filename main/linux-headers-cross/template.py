@@ -1,7 +1,7 @@
 pkgname = "linux-headers-cross"
 pkgver = "6.10.6"
 pkgrel = 0
-hostmakedepends = ["gmake", "perl"]
+hostmakedepends = ["perl"]
 depends = []
 pkgdesc = "Linux API headers for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -32,7 +32,7 @@ def do_build(self):
             continue
 
         self.do(
-            "gmake",
+            "make",
             "ARCH=" + arch,
             "CC=clang",
             "HOSTCC=clang",

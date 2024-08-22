@@ -2,7 +2,6 @@ pkgname = "tlp"
 pkgver = "1.6.1"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = [
     "-j1",
     "TLP_SBIN=/usr/bin",
@@ -12,7 +11,6 @@ make_install_args = [
     "TLP_WITH_ELOGIND=1",
     "TLP_WITH_SYSTEMD=0",
 ]
-hostmakedepends = ["gmake"]
 depends = ["perl", "ethtool", "hdparm"]
 pkgdesc = "Battery life optimization utility"
 maintainer = "Subhaditya Nath <sn03.general@gmail.com>"

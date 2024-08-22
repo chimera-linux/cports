@@ -7,7 +7,6 @@ make_check_args = [
     "--deselect=test/test_results.py",
 ]
 hostmakedepends = [
-    "gmake",
     "python-build",
     "python-installer",
     "python-setuptools",
@@ -23,7 +22,7 @@ sha256 = "230986ed8957d8e65ea9b453df50b9bbd3fb86d0ee4b2c7ea9487db7c47aa1c7"
 
 
 def pre_build(self):
-    self.do("gmake", "man", "completion")
+    self.do("make", "man", "completion")
 
 
 def post_install(self):

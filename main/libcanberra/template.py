@@ -13,11 +13,9 @@ configure_args = [
     "--disable-lynx",
     "--with-builtin=dso",
 ]
-make_cmd = "gmake"
 make_install_args = ["-j1"]  # racey install
 hostmakedepends = [
     "automake",
-    "gmake",
     "gtk-doc-tools",
     "libtool",
     "pkgconf",

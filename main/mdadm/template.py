@@ -2,10 +2,9 @@ pkgname = "mdadm"
 pkgver = "4.3"
 pkgrel = 2
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["CWFLAGS=", "BINDIR=/usr/bin"]
 make_install_args = ["STRIP=", "BINDIR=/usr/bin"]
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["linux-headers", "udev-devel"]
 checkdepends = ["bash", "e2fsprogs", "udev"]
 pkgdesc = "Tool for handling Linux md arrays"

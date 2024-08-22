@@ -15,7 +15,6 @@ configure_args = [
     "AWK=gawk",
 ]
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "flex",
     "bison",
@@ -98,7 +97,6 @@ def do_configure(self):
         "--with-platform=none",
         *configure_args,
         wrksrc="build",
-        env={"MAKE": "gmake"},
     )
     # platforms build
     for arch, platform, ecfl, ldfl, desc in _platforms:
@@ -127,21 +125,19 @@ def do_configure(self):
                 "TARGET_RANLIB": "llvm-ranlib",
                 "TARGET_STRIP": "llvm-strip",
                 "TARGET_NM": "llvm-nm",
-                "MAKE": "gmake",
+                "MAKE": "make",
             },
         )
 
 
 def do_build(self):
     # primary build
-    self.do("gmake", "-C", "build", f"-j{self.make_jobs}")
+    self.do("make", "-C", "build", f"-j{self.make_jobs}")
     # extra targets
     for arch, platform, cfl, ldfl, desc in _platforms:
         if arch not in _archs:
             continue
-        self.do(
-            "gmake", "-C", f"build_{arch}_{platform}", f"-j{self.make_jobs}"
-        )
+        self.do("make", "-C", f"build_{arch}_{platform}", f"-j{self.make_jobs}")
 
 
 def do_install(self):
@@ -152,12 +148,12 @@ def do_install(self):
             continue
         bdir = f"build_{arch}_{platform}"
         # full install
-        self.do("gmake", "-C", bdir, "install", f"DESTDIR={ddir}")
+        self.do("make", "-C", bdir, "install", f"DESTDIR={ddir}")
         # remove stuff that is not platform specific
         for d in ["etc", "usr/share", "usr/bin"]:
             self.uninstall(d)
     # install tools last
-    self.do("gmake", "-C", "build", "install", f"DESTDIR={ddir}")
+    self.do("make", "-C", "build", "install", f"DESTDIR={ddir}")
 
 
 def post_install(self):

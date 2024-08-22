@@ -1,7 +1,7 @@
 pkgname = "linux-headers"
 pkgver = "6.10.6"
 pkgrel = 0
-hostmakedepends = ["gmake", "perl"]
+hostmakedepends = ["perl"]
 pkgdesc = "Linux API headers for userland development"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
@@ -28,7 +28,7 @@ match self.profile().arch:
 
 def do_build(self):
     self.do(
-        "gmake",
+        "make",
         "ARCH=" + _arch,
         "CC=clang",
         "HOSTCC=clang",

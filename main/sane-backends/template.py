@@ -10,13 +10,11 @@ configure_args = [
     "--docdir=/usr/share/doc/sane",
     "ac_cv_func_mmap_fixed_mapped=yes",
 ]
-make_cmd = "gmake"
 make_dir = "."  # bad build system
 hostmakedepends = [
     "autoconf-archive",
     "automake",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
     "python",

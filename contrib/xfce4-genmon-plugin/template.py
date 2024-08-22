@@ -2,12 +2,10 @@ pkgname = "xfce4-genmon-plugin"
 pkgver = "4.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

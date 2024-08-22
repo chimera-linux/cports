@@ -2,10 +2,8 @@ pkgname = "tree-sitter-markdown"
 pkgver = "0.2.3"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
-    "gmake",
     "nodejs",
     "pkgconf",
     "tree-sitter-cli",

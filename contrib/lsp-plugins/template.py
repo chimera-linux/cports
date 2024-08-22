@@ -2,10 +2,8 @@ pkgname = "lsp-plugins"
 pkgver = "1.2.17"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_use_env = True
 hostmakedepends = [
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

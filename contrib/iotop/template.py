@@ -2,9 +2,7 @@ pkgname = "iotop"
 pkgver = "1.26"
 pkgrel = 2
 build_style = "makefile"
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

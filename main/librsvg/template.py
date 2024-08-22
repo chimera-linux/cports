@@ -8,13 +8,11 @@ configure_args = [
     "--disable-static",
     "--disable-gtk-doc",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "cargo",
     "gdk-pixbuf-devel",
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "pkgconf",
     "python",

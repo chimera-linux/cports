@@ -3,11 +3,9 @@ pkgver = "3.9.13"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-tests"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",
@@ -33,8 +31,6 @@ tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
 # FIXME: two tests fail
 options = ["!check", "!cross"]
 # FIXME: Otherwise tests fail with
-# make[4]: argument 'observer-auth=fifo:/tmp/GMfifo2' to option '-j' must be a positive number
-exec_wrappers = [("/usr/bin/gmake", "make")]
 
 
 @subpackage("libdmapsharing-devel")

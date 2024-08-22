@@ -10,8 +10,6 @@ configure_args = [
     "--with-malloc=mallocng",
 ]
 configure_gen = []
-make_cmd = "gmake"
-hostmakedepends = ["gmake"]
 depends = [
     f"musl-progs~{pkgver}",
     "base-files",

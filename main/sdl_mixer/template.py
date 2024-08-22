@@ -22,11 +22,9 @@ configure_args = [
     "--disable-music-opus-shared",
     "--disable-music-wavpack-shared",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "autoconf-archive",
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

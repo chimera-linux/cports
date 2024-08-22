@@ -2,8 +2,7 @@ pkgname = "stress-ng"
 pkgver = "0.18.02"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "acl-devel",
     "libjpeg-turbo-devel",

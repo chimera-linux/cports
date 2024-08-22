@@ -2,12 +2,11 @@ pkgname = "git-extras"
 pkgver = "7.2.0"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = [
     "COMPL_DIR=$(DESTDIR)/usr/share/bash-completion/completions"
 ]
 make_check_target = "test"
-hostmakedepends = ["bash", "gmake"]
+hostmakedepends = ["bash"]
 depends = ["bash", "git"]
 checkdepends = ["git", "python-gitpython", "python-pytest", "python-testpath"]
 pkgdesc = "Extra Git utilities"

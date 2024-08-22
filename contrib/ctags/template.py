@@ -9,9 +9,8 @@ configure_args = [
     "--enable-xml",
     "--enable-yaml",
 ]
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["automake", "gmake", "libtool", "pkgconf", "python-docutils"]
+hostmakedepends = ["automake", "libtool", "pkgconf", "python-docutils"]
 makedepends = ["jansson-devel", "libxml2-devel", "libyaml-devel", "pcre2-devel"]
 checkdepends = ["python"]
 pkgdesc = "Fork of Exuberant Ctags to generate index/tag files"

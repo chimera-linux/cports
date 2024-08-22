@@ -19,8 +19,7 @@ configure_args = [
     "--with-devrandom=/dev/random",
     "--with-dblib=none",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "Cyrus SASL"
 subdesc = "runtime library"
 maintainer = "q66 <q66@chimera-linux.org>"

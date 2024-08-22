@@ -2,12 +2,10 @@ pkgname = "xfce4-terminal"
 pkgver = "1.1.3"
 pkgrel = 1
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gtk-doc-tools",
     "intltool",
     "libtool",

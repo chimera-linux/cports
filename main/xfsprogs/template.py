@@ -8,12 +8,11 @@ configure_args = [
 ]
 # regenerated configure breaks the build
 configure_gen = []
-make_cmd = "gmake"
 # build system assumptions that . is the root right off the bat
 make_dir = "."
 # libxfs-install-dev shits itself when run in parallel
 make_install_args = ["-j1", "install-dev"]
-hostmakedepends = ["gettext", "libuuid-devel", "pkgconf", "gmake"]
+hostmakedepends = ["gettext", "libuuid-devel", "pkgconf"]
 makedepends = [
     "gettext-devel",
     "libblkid-devel",

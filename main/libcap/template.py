@@ -2,7 +2,6 @@ pkgname = "libcap"
 pkgver = "2.70"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["GOLANG=no"]
 make_install_args = [
     "PKGCONFIGDIR=/usr/lib/pkgconfig",
@@ -13,7 +12,7 @@ make_install_args = [
 ]
 make_check_target = "test"
 make_use_env = True
-hostmakedepends = ["pkgconf", "gmake", "perl"]
+hostmakedepends = ["pkgconf", "perl"]
 makedepends = ["attr-devel", "linux-headers"]
 pkgdesc = "POSIX.1e capabilities suite"
 maintainer = "q66 <q66@chimera-linux.org>"

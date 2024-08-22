@@ -23,12 +23,8 @@ configure_args = [
     "--with-system-tzdata=/usr/share/zoneinfo",
 ]
 configure_gen = []
-make_cmd = "gmake"
 make_build_target = "world"
-hostmakedepends = [
-    "gmake",
-    "pkgconf",
-]
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "e2fsprogs-devel",
     "icu-devel",
@@ -152,7 +148,7 @@ def post_install(self):
         clist.remove(cont)
         # install to a separate location to make up the file list
         self.do(
-            "gmake",
+            "make",
             "-C",
             f"build/contrib/{cont}",
             f"DESTDIR={self.chroot_cwd}/tmp-contrib-{cont}",
@@ -169,7 +165,7 @@ def post_install(self):
         self.rm(self.cwd / f"tmp-contrib-{cont}", recursive=True)
     # install all contrib in the destdir
     self.do(
-        "gmake",
+        "make",
         "-C",
         "build/contrib",
         f"DESTDIR={self.chroot_destdir}",

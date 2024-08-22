@@ -2,13 +2,11 @@ pkgname = "xfce4-dict"
 pkgver = "0.8.6"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

@@ -6,12 +6,10 @@ configure_args = [
     "--exec-prefix=/usr",
     "--with-gitwrapper-git-libexec=/usr/libexec/git-core",
 ]
-make_cmd = "gmake"
 make_check_target = "tests"
 hostmakedepends = [
     "automake",
     "bison",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

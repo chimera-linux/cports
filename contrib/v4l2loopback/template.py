@@ -1,12 +1,11 @@
 # remember to update files/ckms.ini
 pkgname = "v4l2loopback"
 pkgver = "0.13.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "utils"
 make_install_target = "install-extra"
-hostmakedepends = ["gmake", "help2man"]
+hostmakedepends = ["help2man"]
 makedepends = ["linux-headers"]
 pkgdesc = "Kernel module to create V4L2 loopback devices"
 maintainer = "Subhaditya Nath <sn03.general@gmail.com>"

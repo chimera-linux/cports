@@ -3,7 +3,7 @@ pkgver = "0.3.0"
 pkgrel = 8
 build_style = "go"
 make_build_args = ["./cmd/senpai"]
-hostmakedepends = ["gmake", "go", "scdoc"]
+hostmakedepends = ["go", "scdoc"]
 pkgdesc = "IRC client that works best with bouncers"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "ISC"
@@ -13,7 +13,7 @@ sha256 = "c02f63a7d76ae13ed888fc0de17fa9fd5117dcb3c9edc5670341bf2bf3b88718"
 
 
 def post_build(self):
-    self.do("gmake", "doc")
+    self.do("make", "doc")
 
 
 def post_install(self):

@@ -13,10 +13,8 @@ configure_args = [
     "--with-sys-screenrc=/etc/screenrc",
 ]
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
 ]
 makedepends = [

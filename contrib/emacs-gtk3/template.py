@@ -13,11 +13,9 @@ configure_args = [
     "--without-tiff",
     "--without-toolkit-scroll-bars",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gawk",
-    "gmake",
     "pkgconf",
     "texinfo",
 ]

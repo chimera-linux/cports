@@ -8,10 +8,8 @@ configure_args = [
     "--enable-quic",
     "--with-rundir=/run/knot",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

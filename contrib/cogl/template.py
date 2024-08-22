@@ -3,12 +3,10 @@ pkgver = "1.22.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-kms-egl-platform", "--enable-gles2"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

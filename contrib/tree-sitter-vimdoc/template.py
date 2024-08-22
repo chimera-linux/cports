@@ -2,10 +2,8 @@ pkgname = "tree-sitter-vimdoc"
 pkgver = "3.0.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
-    "gmake",
     "tree-sitter-cli",
     "pkgconf",
 ]

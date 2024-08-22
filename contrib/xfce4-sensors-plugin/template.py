@@ -3,12 +3,10 @@ pkgver = "1.4.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-procapi", "--enable-sysfsacpi"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

@@ -4,11 +4,10 @@ pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "x86_64"]
 _tests_rev = "a3a5deb5d97d57fb4da567017a621ae73ee7305e"
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "amalg"
 make_build_args = ["PREFIX=/usr", "Q=", "E=@:"]
 make_use_env = True
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 checkdepends = [
     "perl",
     "sqlite-devel",
@@ -61,7 +60,7 @@ def init_build(self):
 
 def do_check(self):
     pfx = str(self.chroot_cwd / "test-suite/target")
-    self.do("gmake", "install", "PREFIX=" + pfx)
+    self.do("make", "install", "PREFIX=" + pfx)
     self.do(
         "./run-tests",
         pfx,

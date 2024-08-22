@@ -2,8 +2,7 @@ pkgname = "bemenu"
 pkgver = "0.6.23"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
-hostmakedepends = ["scdoc", "gmake", "pkgconf", "wayland-progs"]
+hostmakedepends = ["scdoc", "pkgconf", "wayland-progs"]
 makedepends = [
     "cairo-devel",
     "libx11-devel",

@@ -28,12 +28,10 @@ configure_args = [
     "--enable-plugins",
     "--enable-relro",
 ]
-make_cmd = "gmake"
 make_install_args = ["tooldir=/usr"]
 hostmakedepends = [
     "bison",
     "flex",
-    "gmake",
     "pkgconf",
     "texinfo",
 ]

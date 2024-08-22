@@ -3,13 +3,8 @@ _commit = "f11139d4c918802a87730bc14d094670ee4ce572"
 pkgver = "0_git20240703"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_env = {"CONF": "linux"}
-hostmakedepends = [
-    "gmake",
-    "pkgconf",
-    "wayland-progs",
-]
+hostmakedepends = ["pkgconf", "wayland-progs"]
 makedepends = [
     "libxkbcommon-devel",
     "linux-headers",

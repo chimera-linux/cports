@@ -3,14 +3,12 @@ pkgver = "4.18.6"
 pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--with-helper-path-prefix=/usr/libexec"]
-make_cmd = "gmake"
 # check target fails without this
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "intltool",

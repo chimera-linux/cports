@@ -2,8 +2,6 @@ pkgname = "wasi-libc"
 pkgver = "0.20240724"
 pkgrel = 0
 _gitrev = "b9ef79d7dbd47c6c5bafdae760823467c2f60b70"
-make_cmd = "gmake"
-hostmakedepends = ["gmake"]
 pkgdesc = "WebAssembly libc implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND CC0-1.0 AND BSD-2-Clause"
@@ -23,7 +21,7 @@ _targets = [
 def do_build(self):
     for tgt in _targets:
         self.do(
-            "gmake",
+            "make",
             f"-j{self.make_jobs}",
             "CC=clang",
             f"TARGET_TRIPLE={tgt[0]}",
@@ -33,7 +31,7 @@ def do_build(self):
 
 def do_install(self):
     self.do(
-        "gmake",
+        "make",
         "install",
         f"INSTALL_DIR={self.chroot_destdir / 'usr/wasm32-unknown-wasi'}",
     )

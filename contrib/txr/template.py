@@ -4,9 +4,8 @@ pkgrel = 0
 archs = ["aarch64", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "configure"
 configure_args = ["--parallelmake", "--prefix=/usr"]
-make_cmd = "gmake"
 make_check_target = "tests"
-hostmakedepends = ["bash", "gmake"]
+hostmakedepends = ["bash"]
 makedepends = ["libffi-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Data munging language"
 maintainer = "Paul A. Patience <paul@apatience.com>"

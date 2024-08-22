@@ -2,13 +2,12 @@ pkgname = "bcachefs-tools"
 pkgver = "1.11.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = [
     "ROOT_SBINDIR=/usr/bin",
     "TRIPLET=" + self.profile().triplet,
 ]
 make_use_env = True
-hostmakedepends = ["cargo", "gmake", "pkgconf"]
+hostmakedepends = ["cargo", "pkgconf"]
 makedepends = [
     "clang-devel",
     "keyutils-devel",

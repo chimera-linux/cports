@@ -2,11 +2,10 @@ pkgname = "snowball"
 pkgver = "2.2.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 # check_utf8 check_iso_8859_1 check_iso_8859_2 check_koi8r
 # all have missing sub-targets
 make_check_target = "check_stemtest"
-hostmakedepends = ["gmake", "perl"]
+hostmakedepends = ["perl"]
 pkgdesc = "Snowball rule-based stemming algorithms"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "BSD-3-Clause"

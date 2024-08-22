@@ -2,10 +2,9 @@ pkgname = "iw"
 pkgver = "6.9"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["SBINDIR=/usr/bin"]
 make_use_env = True
-hostmakedepends = ["gmake", "gsed", "pkgconf", "libnl-devel"]
+hostmakedepends = ["gsed", "pkgconf", "libnl-devel"]
 makedepends = ["libnl-devel", "linux-headers"]
 pkgdesc = "Utility for nl80211 based CLI configuration of wireless devices"
 maintainer = "q66 <q66@chimera-linux.org>"

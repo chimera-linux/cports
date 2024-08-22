@@ -11,8 +11,7 @@ configure_args = [
     "--without-berkeley-db",
 ]
 configure_gen = []  # stupid broken autotools
-make_cmd = "gmake"
-hostmakedepends = ["apr-devel", "gmake", "libtool", "pkgconf"]
+hostmakedepends = ["apr-devel", "libtool", "pkgconf"]
 makedepends = [
     "apr-devel",
     "libexpat-devel",

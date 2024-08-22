@@ -7,11 +7,9 @@ configure_args = [
     "--with-zstd",
     "--disable-test-modules",
 ]
-make_cmd = "gmake"
 make_check_args = ["-j1"]
 hostmakedepends = [
     "automake",
-    "gmake",
     "pkgconf",
     "scdoc",
     "slibtool",

@@ -2,11 +2,10 @@ pkgname = "xdotool"
 pkgver = "3.20211022.1"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["INSTALLMAN=/usr/share/man"]
 make_check_target = "test"
 make_check_args = ["-j1"]
-hostmakedepends = ["gmake", "perl", "pkgconf"]
+hostmakedepends = ["perl", "pkgconf"]
 makedepends = ["libxinerama-devel", "libxkbcommon-devel", "libxtst-devel"]
 checkdepends = [
     "bash",

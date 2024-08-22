@@ -7,11 +7,9 @@ configure_args = [
     "--with-data-packaging=archive",
     "--enable-static",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "autoconf-archive",
     "automake",
-    "gmake",
     "pkgconf",
 ]
 checkdepends = ["python"]

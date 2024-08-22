@@ -8,8 +8,7 @@ configure_args = [
     "--enable-cplusplus",
     "--with-libatomic-ops=none",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["linux-headers"]
 pkgdesc = "Boehm garbage collector for C/C++"
 maintainer = "q66 <q66@chimera-linux.org>"

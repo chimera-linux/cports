@@ -2,12 +2,9 @@ pkgname = "perl-template-toolkit"
 pkgver = "3.102"
 pkgrel = 1
 build_style = "perl_module"
-make_cmd = "gmake"
-make_build_args = ["MAKE=gmake"]
 make_install_args = [*make_build_args]
 make_check_args = [*make_build_args]
 hostmakedepends = [
-    "gmake",
     "perl",
 ]
 makedepends = ["perl"]

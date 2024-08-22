@@ -2,10 +2,8 @@ pkgname = "xserver-xorg-input-wacom"
 pkgver = "1.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
     "xorg-util-macros",

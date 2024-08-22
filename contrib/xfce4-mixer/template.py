@@ -2,13 +2,11 @@ pkgname = "xfce4-mixer"
 pkgver = "4.18.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

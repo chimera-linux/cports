@@ -3,11 +3,9 @@ pkgver = "1.26.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-examples", "--disable-wayland-backend"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

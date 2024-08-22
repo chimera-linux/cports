@@ -2,7 +2,6 @@ pkgname = "osinfo-db-tools"
 pkgver = "1.11.0"
 pkgrel = 0
 build_style = "meson"
-make_check_env = {"MAKE": "gmake"}
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = [
     "glib-devel",
@@ -12,7 +11,7 @@ makedepends = [
     "libxslt-devel",
     "libsoup-devel",
 ]
-checkdepends = ["gmake", "python-pytest", "python-requests"]
+checkdepends = ["python-pytest", "python-requests"]
 pkgdesc = "Tools for managing osinfo database files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

@@ -3,11 +3,9 @@ pkgver = "2.41.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-libgtop-smp", "--enable-introspection"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

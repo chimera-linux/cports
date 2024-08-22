@@ -14,10 +14,8 @@ configure_args = [
     "--shared-zlib",
     "--with-intl=system-icu",
 ]
-make_cmd = "gmake"
 make_check_target = "test-only"
 hostmakedepends = [
-    "gmake",
     "ninja",
     "pkgconf",
     "python",

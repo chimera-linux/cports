@@ -3,7 +3,6 @@ pkgver = "0.36.2"
 pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
-    "gmake",
     "iptables",
     "python-build",
     "python-installer",

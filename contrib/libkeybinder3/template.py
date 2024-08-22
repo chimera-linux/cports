@@ -4,10 +4,8 @@ pkgrel = 1
 build_style = "gnu_configure"
 configure_env = {"NOCONFIGURE": "1"}
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 hostmakedepends = [
     "gettext",
-    "gmake",
     "gnome-common",
     "gobject-introspection",
     "gtk-doc-tools",

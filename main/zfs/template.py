@@ -2,7 +2,7 @@
 # also update linux-*-zfs-bin
 pkgname = "zfs"
 pkgver = "2.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-config=user",
@@ -14,8 +14,7 @@ configure_args = [
 ]
 # we generate, then create tarball, then configure, so do that manually
 configure_gen = []
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "automake", "libtool", "python"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "python"]
 makedepends = [
     "libuuid-devel",
     "libblkid-devel",

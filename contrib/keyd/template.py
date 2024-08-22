@@ -2,10 +2,8 @@ pkgname = "keyd"
 pkgver = "2.5.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_target = "test"
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = ["linux-headers"]
 pkgdesc = "Key remapping daemon for linux"
 maintainer = "feurry <=feurry@gmail.com>"

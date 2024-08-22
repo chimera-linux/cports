@@ -2,11 +2,10 @@ pkgname = "lua5.4-luaunbound"
 pkgver = "1.0.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["LUA_VERSION=5.4"]
 make_install_args = [*make_build_args]
 make_use_env = True
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "lua5.4-devel",
     "unbound-devel",

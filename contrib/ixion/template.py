@@ -4,7 +4,6 @@ pkgrel = 4
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
-    "gmake",
     "pkgconf",
     "python",
     "slibtool",

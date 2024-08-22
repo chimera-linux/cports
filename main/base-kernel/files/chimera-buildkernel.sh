@@ -31,7 +31,7 @@ Prepare options and their default values:
     LLVM=1               Use LLVM.
     LLVM_IAS=1           Use Clang integrated assembler.
     LD=lld               The linker to use.
-    MAKE=gmake           The make to use.
+    MAKE=make            The make to use.
     OBJDUMP=llvm-objdump The objdump binary to use.
     LOCALVERSION=        The CONFIG_LOCALVERSION to use.
     OBJDIR=build         The directory to build in.
@@ -78,7 +78,7 @@ HOSTCFLAGS=
 LLVM=1
 LLVM_IAS=1
 LD=lld
-MAKE=gmake
+MAKE=make
 OBJDUMP=llvm-objdump
 LOCALVERSION=
 OBJDIR=build

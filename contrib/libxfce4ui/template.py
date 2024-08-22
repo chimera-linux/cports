@@ -7,13 +7,11 @@ configure_args = [
     "--disable-static",
     "--with-vendor-info=Chimera Linux",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "intltool",

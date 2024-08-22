@@ -3,7 +3,7 @@ pkgver = "1.1.2"
 pkgrel = 1
 build_style = "go"
 make_build_args = ["-ldflags", f"-X main.Version={pkgver}"]
-hostmakedepends = ["gmake", "go", "scdoc"]
+hostmakedepends = ["go", "scdoc"]
 depends = ["jq"]
 pkgdesc = "Interactive jq repl to preview filters"
 maintainer = "ttyyls <contact@behri.org>"
@@ -14,7 +14,7 @@ sha256 = "dd5055e7a740c54a32043b744f061b1a00a4d2f97f6c6214c2109fd22491b9f3"
 
 
 def post_build(self):
-    self.do("gmake", "docs")
+    self.do("make", "docs")
 
 
 def post_install(self):

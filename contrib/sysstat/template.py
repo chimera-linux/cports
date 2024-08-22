@@ -3,11 +3,9 @@ pkgver = "12.7.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-compress-manpg"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Linux performance monitoring tools"

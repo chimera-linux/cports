@@ -6,12 +6,10 @@ configure_args = [
     "--disable-gtk-doc",
     "--disable-static",
 ]
-make_cmd = "gmake"
 # default build/ dir exists and so builds from wrong dir
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "gtk-doc-tools",
     "libtool",
     "pkgconf",

@@ -3,13 +3,11 @@ pkgver = "0.9.33"
 pkgrel = 0
 build_wrksrc = "libraries/liblmdb"
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["prefix=/usr"]
 make_check_target = "test"
 make_check_env = {"LD_LIBRARY_PATH": "."}
 make_use_env = True
 hostmakedepends = [
-    "gmake",
     "pkgconf",
 ]
 pkgdesc = "Lightning Memory-Mapped Database Manager"

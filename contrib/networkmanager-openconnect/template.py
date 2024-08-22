@@ -3,7 +3,6 @@ pkgver = "1.2.10"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-gtk4=yes", "--disable-static"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
@@ -11,7 +10,6 @@ hostmakedepends = [
     "gcr-progs",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

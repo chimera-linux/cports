@@ -13,12 +13,10 @@ configure_args = [
     "--disable-nls",
 ]
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 make_dir = "."
 make_check_args = ["-j1"]
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "perl",
     "pkgconf",

@@ -2,10 +2,8 @@ pkgname = "nbfc-linux"
 pkgver = "0.2.7"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["confdir=/etc"]
 make_install_args = ["confdir=/etc"]
-hostmakedepends = ["gmake"]
 pkgdesc = "NoteBook FanControl for Linux"
 maintainer = "Sid Pranjale <mail@sidonthe.net>"
 license = "GPL-3.0-or-later"

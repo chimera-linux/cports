@@ -2,10 +2,9 @@ pkgname = "nss"
 pkgver = "3.103"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "all"
 make_build_args = []
-hostmakedepends = ["gmake", "pkgconf", "perl"]
+hostmakedepends = ["pkgconf", "perl"]
 makedepends = [
     "linux-headers",
     "nspr-devel",
@@ -21,7 +20,6 @@ source = f"$(MOZILLA_SITE)/security/nss/releases/NSS_{pkgver.replace('.', '_')}_
 sha256 = "7b4ab657f772dc7520c46e8d481940b292dcfc6a4c90150a7c26672384cee962"
 tool_flags = {"CFLAGS": []}
 env = {
-    "MAKE": "gmake",
     "LIBRUNPATH": "",
     "BUILD_OPT": "1",
     "NSS_USE_SYSTEM_SQLITE": "1",

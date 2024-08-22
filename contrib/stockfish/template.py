@@ -3,10 +3,8 @@ pkgver = "16.1"
 pkgrel = 0
 build_wrksrc = "src"
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "build"
 make_build_args = ["optimize=no", "SUPPORTED_ARCH=true", "arch=any"]
-hostmakedepends = ["gmake"]
 pkgdesc = "Free UCI chess engine derived from Glaurung"
 maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "GPL-3.0-or-later"

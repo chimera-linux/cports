@@ -3,12 +3,10 @@ pkgver = "4.18.4"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-helper-path-prefix=/usr/libexec"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "iceauth",
     "intltool",
     "libtool",

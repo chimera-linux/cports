@@ -2,7 +2,6 @@ pkgname = "whois"
 pkgver = "5.5.23"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "CONFIG_FILE=/etc/whois.conf",
     "HAVE_ICONV=1",
@@ -11,7 +10,6 @@ make_install_target = "install-whois"
 make_install_args = ["install-mkpasswd"]
 hostmakedepends = [
     "gettext",
-    "gmake",
     "perl",
     "pkgconf",
 ]

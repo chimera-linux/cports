@@ -8,8 +8,7 @@ configure_args = [
     "--prefix=/usr",
     "--pamdir=/usr/lib/pam.d",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["byacc", "gmake"]
+hostmakedepends = ["byacc"]
 makedepends = ["linux-pam-devel"]
 pkgdesc = "Portable OpenBSD doas to execute commands as another user"
 maintainer = "q66 <q66@chimera-linux.org>"

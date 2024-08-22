@@ -6,7 +6,6 @@ hostmakedepends = [
     "cbindgen",
     "gawk",
     "gm4",
-    "gmake",
     "perl",
     "pkgconf",
     "python",
@@ -31,7 +30,6 @@ env = {
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
     "RUST_TARGET": self.profile().triplet,
     "SHELL": "/usr/bin/sh",
-    "MAKE": "gmake",
     "AWK": "gawk",
     "M4": "gm4",
     # firefox checks for it by calling --help
@@ -109,9 +107,7 @@ def do_build(self):
 
 
 def do_install(self):
-    self.do(
-        "gmake", "-C", "objdir", "install", f"DESTDIR={self.chroot_destdir}"
-    )
+    self.do("make", "-C", "objdir", "install", f"DESTDIR={self.chroot_destdir}")
 
 
 def post_install(self):

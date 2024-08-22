@@ -2,11 +2,9 @@ pkgname = "libfreehand"
 pkgver = "0.1.2"
 pkgrel = 4
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "gperf",
     "pkgconf",
     "slibtool",

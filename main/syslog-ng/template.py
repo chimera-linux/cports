@@ -30,7 +30,6 @@ configure_args = [
     "--enable-http",
     "--enable-sql",
 ]
-make_cmd = "gmake"
 make_install_args = ["-j1"]
 hostmakedepends = [
     "automake",
@@ -38,7 +37,6 @@ hostmakedepends = [
     "file",
     "flex",
     "glib-devel",
-    "gmake",
     "libtool",
     "pkgconf",
     "python-setuptools",

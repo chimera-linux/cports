@@ -47,9 +47,7 @@ configure_args = [
     f"--with-headers=/usr/{_trip}/include",
 ]
 configure_gen = []
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     f"binutils-{_trip}",
     "bison",
     "flex",

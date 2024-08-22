@@ -12,10 +12,8 @@ configure_args = [
     "--enable-lvmcache",
     "--enable-introspection",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "pkgconf",
-    "gmake",
     "bash",
     "gobject-introspection",
     "docbook-xsl-nons",

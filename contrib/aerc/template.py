@@ -2,10 +2,8 @@ pkgname = "aerc"
 pkgver = "0.18.2"
 pkgrel = 2
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_target = "tests"
 hostmakedepends = [
-    "gmake",
     "go",
     "scdoc",
 ]

@@ -23,8 +23,7 @@ configure_args = [
 configure_env = {"PKG_CONFIG_LIBDIR": "/usr/lib/pkgconfig"}
 # reconf is broken
 configure_gen = []
-make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = ["pkgconf"]
 depends = [self.with_pkgver("ncurses-base")]
 # we generally want this in a proper system as a soft dep
 install_if = [self.with_pkgver("ncurses-libs"), "chimerautils"]

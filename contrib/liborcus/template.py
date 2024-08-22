@@ -2,8 +2,7 @@ pkgname = "liborcus"
 pkgver = "0.19.2"
 pkgrel = 4
 build_style = "gnu_configure"
-make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "python"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "python"]
 makedepends = [
     "boost-devel",
     "ixion-devel",

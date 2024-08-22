@@ -2,7 +2,6 @@ pkgname = "toxic"
 pkgver = "0.15.1"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "DISABLE_GAMES=1",
     "PREFIX=/usr",
@@ -13,7 +12,6 @@ make_install_args = [
 make_use_env = True
 hostmakedepends = [
     "asciidoc",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

@@ -7,12 +7,10 @@ configure_args = [
     "--x11dir=/usr/share/fonts/misc",
     "--otbdir=/usr/share/fonts/misc",
 ]
-make_cmd = "gmake"
 make_build_args = ["all", "otb"]
 make_install_args = ["install-otb"]
 hostmakedepends = [
     "bdftopcf",
-    "gmake",
     "python",
 ]
 pkgdesc = "Monospace bitmap font"

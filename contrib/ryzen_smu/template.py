@@ -1,13 +1,11 @@
 # remember to update files/ckms.ini
 pkgname = "ryzen_smu"
 pkgver = "0.1.5"
-pkgrel = 2
+pkgrel = 3
 # only for ryzen cpus
 archs = ["x86_64"]
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["-C", "userspace"]
-hostmakedepends = ["gmake"]
 pkgdesc = "Kernel module for access to AMD Ryzen System Management Units"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"

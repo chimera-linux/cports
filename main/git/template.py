@@ -4,7 +4,6 @@ pkgrel = 0
 hostmakedepends = [
     "asciidoc",
     "gettext",
-    "gmake",
     "perl",
     "pkgconf",
     "tk",
@@ -61,7 +60,7 @@ export GIT_SKIP_TESTS=t4201 t4301 t7008 t7003
 
 
 def do_build(self):
-    cmd = ["gmake", f"-j{self.make_jobs}"]
+    cmd = ["make", f"-j{self.make_jobs}"]
     self.do(*cmd)
     self.do(*cmd, "-C", "Documentation", "man")
     self.do(*cmd, "-C", "contrib/contacts", "all", "git-contacts.1")
@@ -71,16 +70,16 @@ def do_build(self):
 
 
 def do_check(self):
-    self.do("gmake", "test")
-    self.do("gmake", "-C", "contrib/diff-highlight", "test")
-    self.do("gmake", "-C", "contrib/subtree", "test")
+    self.do("make", "test")
+    self.do("make", "-C", "contrib/diff-highlight", "test")
+    self.do("make", "-C", "contrib/subtree", "test")
 
 
 def do_install(self):
     ddir = f"DESTDIR={self.chroot_destdir}"
-    self.do("gmake", "install", "install-doc", ddir)
-    self.do("gmake", "-C", "contrib/contacts", "install", "install-man", ddir)
-    self.do("gmake", "-C", "contrib/subtree", "install", "install-man", ddir)
+    self.do("make", "install", "install-doc", ddir)
+    self.do("make", "-C", "contrib/contacts", "install", "install-man", ddir)
+    self.do("make", "-C", "contrib/subtree", "install", "install-man", ddir)
     # no install target
     self.install_file(
         "contrib/credential/libsecret/git-credential-libsecret",

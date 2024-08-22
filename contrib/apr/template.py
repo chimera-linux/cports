@@ -3,9 +3,8 @@ pkgver = "1.7.4"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-installbuilddir=/usr/lib/apr/build-1"]
-make_cmd = "gmake"
 make_check_args = ["-j1"]
-hostmakedepends = ["automake", "gmake", "libtool", "pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["libexpat-devel", "libuuid-devel", "linux-headers"]
 pkgdesc = "Apache Portable Runtime"
 maintainer = "q66 <q66@chimera-linux.org>"

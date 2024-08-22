@@ -9,7 +9,6 @@ hostmakedepends = [
     "dtc",
     "flex",
     "gcc-riscv64-unknown-elf",
-    "gmake",
     "opensbi",
     "openssl-devel",
     "python-devel",

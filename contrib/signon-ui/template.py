@@ -4,10 +4,8 @@ pkgver = "0.17_git20231016"
 pkgrel = 1
 _gitrev = "eef943f0edf3beee8ecb85d4a9dae3656002fc24"
 build_style = "makefile"
-make_cmd = "gmake"
 make_use_env = True
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "qt6-qtbase",
 ]

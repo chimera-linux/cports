@@ -2,10 +2,8 @@ pkgname = "hwloc"
 pkgver = "2.11.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

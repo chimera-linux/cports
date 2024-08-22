@@ -17,10 +17,8 @@ configure_args = [
     "--disable-account-tools-setuid",
 ]
 configure_gen = []
-make_cmd = "gmake"
 # out of tree is broken with libsubid
 make_dir = "."
-hostmakedepends = ["gmake"]
 makedepends = ["acl-devel", "linux-pam-devel", "linux-headers"]
 depends = ["linux-pam", "base-shells"]
 triggers = ["/var/lib/shadow"]

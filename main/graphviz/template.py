@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-lefty"]
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 # otherwise y.tab.h is not located
 make_dir = "."
 make_install_args = ["-j1"]
@@ -12,7 +11,6 @@ hostmakedepends = [
     "automake",
     "bison",
     "flex",
-    "gmake",
     "libltdl-devel",
     "libtool",
     "perl",

@@ -3,7 +3,6 @@ pkgver = "12.93"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = [
-    "gmake",
     "perl",
 ]
 makedepends = ["perl"]

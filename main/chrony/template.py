@@ -9,9 +9,8 @@ configure_args = [
     "--enable-scfilter",
 ]
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "gnutls-devel",
     "libcap-devel",

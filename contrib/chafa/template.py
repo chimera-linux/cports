@@ -5,12 +5,10 @@ build_style = "gnu_configure"
 configure_args = ["--enable-man"]
 configure_env = {"NOCONFIGURE": "1"}
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "docbook-xsl-nons",
     "gm4",
-    "gmake",
     "libtool",
     "libxml2-progs",
     "pkgconf",

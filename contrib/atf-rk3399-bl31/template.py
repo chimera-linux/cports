@@ -3,8 +3,7 @@ pkgver = "2.10.5"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "makefile"
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "gcc-aarch64-none-elf", "gcc-arm-none-eabi"]
+hostmakedepends = ["gcc-aarch64-none-elf", "gcc-arm-none-eabi"]
 pkgdesc = "ARM Trusted Firmware for Rockchip rk3399 boards"
 subdesc = "bl31"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -33,7 +32,7 @@ def do_build(self):
         "-u",
         "CXXFLAGS",
         "--",
-        "gmake",
+        "make",
         f"-j{self.make_jobs}",
         "PLAT=rk3399",
         "bl31",

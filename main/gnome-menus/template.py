@@ -3,12 +3,10 @@ pkgver = "3.36.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "libtool",
     "pkgconf",

@@ -6,11 +6,9 @@ configure_args = [
     "--disable-static",
     "--with-xkb-bin-base=/usr/bin",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

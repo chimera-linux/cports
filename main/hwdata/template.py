@@ -8,9 +8,8 @@ configure_args = [
     "--datadir=/usr/share",
     "--disable-blacklist",
 ]
-make_cmd = "gmake"
 make_check_env = {"NO_DOCKER": "1"}
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 checkdepends = ["pciutils", "python", "bash"]
 depends = [
     self.with_pkgver("hwdata-usb"),

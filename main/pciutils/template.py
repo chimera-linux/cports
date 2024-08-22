@@ -2,7 +2,6 @@ pkgname = "pciutils"
 pkgver = "3.13.0"
 pkgrel = 2
 build_style = "makefile"
-make_cmd = "gmake"
 make_dir = "."
 make_build_args = [
     f"HOST={self.profile().arch}-linux",
@@ -20,7 +19,7 @@ make_install_args = [
     "PREFIX=/usr",
 ]
 make_use_env = True
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "libkmod-devel", "linux-headers"]
 depends = ["hwdata-pci"]
 pkgdesc = "PCI bus utilities"

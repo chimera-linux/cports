@@ -2,10 +2,8 @@ pkgname = "makedumpfile"
 pkgver = "1.7.5"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["LINKTYPE=dynamic", "USELZO=on", "USEZSTD=on"]
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = [
     "elfutils-devel",
     "bzip2-devel",

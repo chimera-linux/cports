@@ -14,14 +14,12 @@ configure_args = [
     "--with-priv-mode=none",
     "--with-dbus-config-dir=/usr/share/dbus-1/system.d",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "bison",
     "bubblewrap",
     "docbook-xml",
     "gettext-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

@@ -2,9 +2,7 @@ pkgname = "perl-moo"
 pkgver = "2.005005"
 pkgrel = 0
 build_style = "perl_module"
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "perl",
 ]
 makedepends = ["perl"]

@@ -2,8 +2,6 @@ pkgname = "clinfo"
 pkgver = "3.0.23.01.25"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
-hostmakedepends = ["gmake"]
 makedepends = ["ocl-icd-devel"]
 pkgdesc = "OpenCL info dumper"
 maintainer = "eater <=@eater.me>"

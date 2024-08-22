@@ -5,9 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--with-arith"]
 # weird missing templates for configure.in
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["gmake"]
 makedepends = ["libjpeg-turbo-devel"]
 pkgdesc = "Utility for optimising jpeg files"
 maintainer = "psykose <alice@ayaya.dev>"

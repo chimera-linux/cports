@@ -3,9 +3,8 @@ pkgver = "1.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-libxml-prefix=/usr", "--with-libxslt-prefix=/usr"]
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "xsltproc"]
+hostmakedepends = ["pkgconf", "xsltproc"]
 makedepends = ["libxslt-devel", "libxml2-devel"]
 pkgdesc = "Command line utilities for XML manipulation"
 maintainer = "q66 <q66@chimera-linux.org>"

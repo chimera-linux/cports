@@ -3,9 +3,8 @@ pkgver = "24.5.10"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["autoreconf", "-if", "src"]
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["automake", "gmake"]
+hostmakedepends = ["automake"]
 makedepends = [
     "gc-devel",
     "gmp-devel",

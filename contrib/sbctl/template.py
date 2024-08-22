@@ -3,7 +3,7 @@ pkgver = "0.14"
 pkgrel = 3
 build_style = "go"
 make_build_args = ["./cmd/sbctl"]
-hostmakedepends = ["go", "asciidoc", "gmake"]
+hostmakedepends = ["go", "asciidoc"]
 depends = [
     "llvm-binutils",  # required to generate EFI bundles
 ]
@@ -17,8 +17,7 @@ options = ["!cross"]
 
 
 def post_build(self):
-    # Generate man page, bmake doesn't work
-    self.do("gmake", "man")
+    self.do("make", "man")
     # Generate completions
     for shell in ["bash", "zsh", "fish"]:
         with open(self.cwd / f"sbctl.{shell}", "w") as cf:

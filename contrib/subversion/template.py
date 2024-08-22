@@ -12,7 +12,6 @@ configure_args = [
     "--disable-static",
 ]
 configure_gen = ["./autogen.sh", "--release"]
-make_cmd = "gmake"
 make_dir = "."
 make_build_target = "all"
 make_build_args = ["swig-pl-lib", "tools"]
@@ -25,7 +24,6 @@ make_install_args = [
 hostmakedepends = [
     "automake",
     "gettext",
-    "gmake",
     "libtool",
     "nasm",
     "perl",
@@ -61,7 +59,7 @@ def post_build(self):
         "perl", "Makefile.PL", wrksrc="subversion/bindings/swig/perl/native"
     )
     self.do(
-        "gmake",
+        "make",
         "-j1",
         "-C",
         "subversion/bindings/swig/perl/native",
@@ -72,7 +70,7 @@ def post_build(self):
 
 def post_install(self):
     self.do(
-        "gmake",
+        "make",
         "pure_vendor_install",
         "-C",
         "subversion/bindings/swig/perl/native",

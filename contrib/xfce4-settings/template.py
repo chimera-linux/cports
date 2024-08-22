@@ -8,12 +8,10 @@ configure_args = [
     "--enable-sound-settings",
     "--enable-upower-glib",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

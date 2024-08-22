@@ -3,8 +3,6 @@ pkgver = "2020.12.29"
 pkgrel = 1
 build_wrksrc = "src"
 build_style = "makefile"
-make_cmd = "gmake"
-hostmakedepends = ["gmake"]
 makedepends = [
     "sdl-devel",
     "sdl_image-devel",

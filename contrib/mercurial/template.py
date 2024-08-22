@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "gettext-devel",
-    "gmake",
     "python-build",
     "python-docutils",
     "python-installer",
@@ -29,13 +28,13 @@ def do_check(self):
 
 
 def post_build(self):
-    self.do("gmake", "-C", "doc", "man")
-    self.do("gmake", "-C", "contrib/chg")
+    self.do("make", "-C", "doc", "man")
+    self.do("make", "-C", "contrib/chg")
 
 
 def post_install(self):
     self.do(
-        "gmake",
+        "make",
         "-C",
         "doc",
         "install",
@@ -43,7 +42,7 @@ def post_install(self):
         "PREFIX=/usr",
     )
     self.do(
-        "gmake",
+        "make",
         "-C",
         "contrib/chg",
         "install",

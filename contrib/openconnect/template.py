@@ -3,11 +3,9 @@ pkgver = "9.12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-vpnc-script=/usr/libexec/vpnc-script"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

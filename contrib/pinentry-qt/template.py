@@ -8,8 +8,7 @@ configure_args = [
     "--enable-libsecret",
     "--disable-ncurses",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["automake", "gettext", "gmake", "libtool", "pkgconf"]
+hostmakedepends = ["automake", "gettext", "libtool", "pkgconf"]
 makedepends = [
     "gettext-devel",
     "kwindowsystem-devel",

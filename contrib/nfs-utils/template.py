@@ -9,11 +9,9 @@ configure_args = [
     "--enable-libmount-mount",
     "--enable-svcgss",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
     "rpcsvc-proto",

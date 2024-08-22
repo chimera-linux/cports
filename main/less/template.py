@@ -3,8 +3,7 @@ pkgver = "661"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-regex=posix"]
-make_cmd = "gmake"
-hostmakedepends = ["automake", "gmake"]
+hostmakedepends = ["automake"]
 makedepends = ["ncurses-devel"]
 checkdepends = ["perl"]
 pkgdesc = "Pager program similar to more(1)"

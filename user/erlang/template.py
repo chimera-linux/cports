@@ -4,10 +4,9 @@ pkgver = "27.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
 make_install_args = ["install-docs", "DOC_TARGETS=chunks"]
-hostmakedepends = ["gmake", "perl", "pkgconf", "xsltproc"]
+hostmakedepends = ["perl", "pkgconf", "xsltproc"]
 makedepends = [
     "glu-devel",
     "linux-headers",
@@ -28,12 +27,12 @@ options = ["!cross", "!lto"]
 
 
 def post_build(self):
-    self.do("gmake", f"-j{self.make_jobs}", "DOC_TARGETS=chunks", "docs")
+    self.do("make", f"-j{self.make_jobs}", "DOC_TARGETS=chunks", "docs")
 
 
 def do_check(self):
     self.do(
-        "gmake",
+        "make",
         f"-j{self.make_jobs}",
         "release_tests",
         env={"ERL_TOP": self.chroot_cwd},

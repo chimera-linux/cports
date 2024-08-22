@@ -4,7 +4,6 @@ pkgrel = 0
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_wrksrc = "libbpf-tools"
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "prefix=/usr",
     "V=1",
@@ -14,7 +13,6 @@ make_build_args = [
 make_install_args = [*make_build_args]
 hostmakedepends = [
     "bpftool",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

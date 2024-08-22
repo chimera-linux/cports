@@ -2,11 +2,9 @@ pkgname = "pcsc-tools"
 pkgver = "1.7.2"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "autoconf-archive",
     "automake",
-    "gmake",
     "pkgconf",
 ]
 makedepends = ["pcsc-lite-devel"]

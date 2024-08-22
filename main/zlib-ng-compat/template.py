@@ -9,8 +9,7 @@ configure_args = [
     "--shared",
     "--zlib-compat",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 # we need to explicitly provide higher ver or apk won't upgrade it,
 # even with provider_priority set which is strange but it is how it is
 provides = [

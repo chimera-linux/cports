@@ -2,9 +2,7 @@ pkgname = "perl-role-tiny"
 pkgver = "2.002004"
 pkgrel = 0
 build_style = "perl_module"
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "perl",
 ]
 makedepends = ["perl"]

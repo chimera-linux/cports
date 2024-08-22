@@ -3,9 +3,7 @@ pkgver = "0.38.3"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--prefix=/usr"]
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "python-sphinx",
 ]

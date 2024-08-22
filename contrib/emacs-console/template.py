@@ -10,11 +10,9 @@ configure_args = [
     "--without-sound",
     "--without-x",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gawk",
-    "gmake",
     "pkgconf",
     "texinfo",
 ]

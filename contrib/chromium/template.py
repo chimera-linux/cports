@@ -55,7 +55,6 @@ hostmakedepends = [
     "bash",
     "bison",
     "git",
-    "gmake",
     "gn",
     "gperf",
     "hwdata",

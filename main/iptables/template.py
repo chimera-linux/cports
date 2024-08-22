@@ -7,8 +7,7 @@ configure_args = [
     "--enable-shared",
     "--enable-bpf-compiler",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake", "flex"]
+hostmakedepends = ["pkgconf", "flex"]
 makedepends = [
     "libfl-devel-static",
     "libpcap-devel",

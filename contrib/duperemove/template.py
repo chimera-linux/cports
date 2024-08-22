@@ -2,13 +2,12 @@ pkgname = "duperemove"
 pkgver = "0.14.1"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_env = {
     "VERSION": f"v{pkgver}",
     "IS_RELEASE": "1",
 }
 make_install_args = ["SBINDIR=/usr/bin"]
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["glib-devel", "sqlite-devel", "linux-headers"]
 pkgdesc = "Tools for deduplicating extents in filesystems like Btrfs"
 maintainer = "autumnontape <autumn@cyfox.net>"

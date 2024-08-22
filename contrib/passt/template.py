@@ -4,11 +4,9 @@ _pkgver = "2024_08_21.1d6142f"
 pkgver = _pkgver.split(".")[0].replace("_", ".")
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [f"VERSION={pkgver}"]
 make_install_args = ["prefix=/usr"]
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = ["linux-headers"]
 pkgdesc = "User-mode network translation layer between Layer 2 and 4"
 maintainer = "psykose <alice@ayaya.dev>"

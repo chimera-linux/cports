@@ -3,11 +3,9 @@ pkgver = "5.40.0"
 pkgrel = 1
 _perl_cross_ver = "1.5.3"
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 make_check_target = "test"
 make_check_env = {"PERL_BUILD_PACKAGING": "1"}
-hostmakedepends = ["gmake"]
 makedepends = ["zlib-ng-compat-devel", "bzip2-devel"]
 checkdepends = ["perl-AnyEvent", "perl-Test-Pod", "procps"]
 pkgdesc = "Practical Extraction and Report Language"
@@ -33,7 +31,6 @@ tool_flags = {
 }
 env = {
     "HOSTCFLAGS": "-D_GNU_SOURCE",
-    "MAKE": "gmake",
 }
 # FIXME int; available ubsan patch does not help (e.g. automake fails to run)
 hardening = ["!int"]

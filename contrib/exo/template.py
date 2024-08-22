@@ -3,13 +3,11 @@ pkgver = "4.18.0"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "gtk-doc-tools",
     "intltool",
     "libtool",

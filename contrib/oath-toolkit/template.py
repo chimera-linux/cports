@@ -2,11 +2,9 @@ pkgname = "oath-toolkit"
 pkgver = "2.6.11"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "gtk-doc-tools",
     "libtool",
     "libxml2-progs",

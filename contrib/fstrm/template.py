@@ -2,10 +2,8 @@ pkgname = "fstrm"
 pkgver = "0.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "pkgconf",
     "slibtool",
 ]

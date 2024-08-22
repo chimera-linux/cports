@@ -3,10 +3,8 @@ pkgver = "1.4.5"
 pkgrel = 0
 build_wrksrc = "src"
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["LIBSUBDIR=lib"]
 hostmakedepends = [
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

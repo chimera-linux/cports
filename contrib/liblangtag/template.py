@@ -2,11 +2,9 @@ pkgname = "liblangtag"
 pkgver = "0.6.7"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "autoconf-archive",
     "automake",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

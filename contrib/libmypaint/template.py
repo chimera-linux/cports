@@ -2,10 +2,8 @@ pkgname = "libmypaint"
 pkgver = "1.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "intltool",
     "pkgconf",

@@ -3,10 +3,8 @@ pkgver = "2.8.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-relocatable", "--disable-static"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
     "vala",

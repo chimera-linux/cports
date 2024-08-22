@@ -2,7 +2,6 @@ pkgname = "unzip"
 pkgver = "6.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "unzips"
 make_build_args = [
     "-f",
@@ -16,7 +15,6 @@ make_install_args = [*make_build_args]
 make_check_target = "test"
 make_check_args = ["-f", "unix/Makefile"]
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = ["bzip2-devel"]
 pkgdesc = "List, test and extract compressed files in a ZIP archive"
 maintainer = "q66 <q66@chimera-linux.org>"

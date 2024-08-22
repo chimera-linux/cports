@@ -2,14 +2,13 @@ pkgname = "wireguard-tools"
 pkgver = "1.0.20210914"
 pkgrel = 3
 build_style = "makefile"
-make_cmd = "gmake"
 make_dir = "src"
 make_install_args = [
     "WITH_BASHCOMPLETION=yes",
     "WITH_WGQUICK=yes",
     "WITH_SYSTEMDUNITS=no",
 ]
-hostmakedepends = ["gmake", "pkgconf", "bash"]
+hostmakedepends = ["pkgconf", "bash"]
 makedepends = ["linux-headers"]
 checkdepends = ["clang-analyzer", "perl"]
 pkgdesc = "Next generation secure network tunnel - tools for configuration"

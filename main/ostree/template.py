@@ -11,12 +11,10 @@ configure_args = [
     "--with-soup=no",
     "--disable-gtk-doc",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "bison",
     "docbook-xsl-nons",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

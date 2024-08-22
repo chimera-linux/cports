@@ -4,12 +4,10 @@ pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 # icons won't install unless we do this...
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "gtk-doc-tools",
     "intltool",
     "libxml2-progs",

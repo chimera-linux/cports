@@ -2,10 +2,8 @@ pkgname = "tree-sitter-c"
 pkgver = "0.21.3"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "tree-sitter-cli",
 ]

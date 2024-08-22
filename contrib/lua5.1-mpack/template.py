@@ -2,10 +2,9 @@ pkgname = "lua5.1-mpack"
 pkgver = "1.0.12"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["USE_SYSTEM_MPACK=1"]
 make_check_target = "test"
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["lua5.1-devel", "libmpack-devel"]
 pkgdesc = "Simple implementation of MessagePack for Lua"
 maintainer = "yopito <pierre.bourgin@free.fr>"

@@ -4,7 +4,6 @@ pkgrel = 6
 build_style = "cargo"
 hostmakedepends = [
     "cargo-auditable",
-    "gmake",
     "pkgconf",
     "scdoc",
 ]
@@ -21,7 +20,7 @@ sha256 = "ee5cb70e0add4ca9c9fe57e47581ab0002d44c07743fb5492469f3b570db640b"
 
 
 def post_build(self):
-    self.do("gmake", "-C", "man", "all")
+    self.do("make", "-C", "man", "all")
 
 
 def do_install(self):
@@ -30,7 +29,7 @@ def do_install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/greetd")
 
     self.do(
-        "gmake",
+        "make",
         "-C",
         "man",
         "install",

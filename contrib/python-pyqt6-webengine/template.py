@@ -2,11 +2,9 @@ pkgname = "python-pyqt6-webengine"
 pkgver = "6.7.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_dir = "build"
 make_use_env = True
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "python",
     "python-pyqt-builder",

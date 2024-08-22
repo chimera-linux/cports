@@ -3,7 +3,6 @@ pkgver = "6.10.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--enable-python"]
-make_cmd = "gmake"
 # build system assumes . is the root right off the bat
 make_dir = "."
 make_install_args = ["install_python"]
@@ -11,7 +10,6 @@ make_check_target = "test"
 hostmakedepends = [
     "asciidoc",
     "automake",
-    "gmake",
     "libxml2-progs",
     "pkgconf",
     "python-devel",

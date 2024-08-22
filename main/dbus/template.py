@@ -17,8 +17,7 @@ configure_args = [
     "--with-system-pid-file=/run/dbus/pid",
 ]
 configure_gen = []
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "gperf", "pkgconf", "xmlto"]
+hostmakedepends = ["gperf", "pkgconf", "xmlto"]
 makedepends = ["libexpat-devel", "libx11-devel", "libcap-devel"]
 triggers = ["/usr/share/dbus-1/system.d"]
 pkgdesc = "Message bus system"

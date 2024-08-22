@@ -7,13 +7,11 @@ configure_args = [
     "--enable-poswin",
     "--enable-xi2",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "libtool",
     "gettext-devel",
-    "gmake",
     "intltool",
     "pkgconf",
     "xfce4-dev-tools",

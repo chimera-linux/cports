@@ -3,9 +3,7 @@ pkgver = "46.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "gettext",
     "itstool",

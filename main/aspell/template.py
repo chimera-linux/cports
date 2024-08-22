@@ -2,11 +2,9 @@ pkgname = "aspell"
 pkgver = "0.60.8.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "libtool",
 ]
 pkgdesc = "Spell checker with good multi-language support"

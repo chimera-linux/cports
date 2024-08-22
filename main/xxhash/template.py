@@ -2,12 +2,11 @@ pkgname = "xxhash"
 pkgver = "0.8.2"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_target = "test"
 # sporadically breaks in parallel
 make_check_args = ["-j1"]
 make_use_env = True
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 pkgdesc = "Fast non-cryptographic hashing algorithm"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"

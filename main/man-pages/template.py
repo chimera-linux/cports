@@ -1,7 +1,7 @@
 pkgname = "man-pages"
 pkgver = "6.9.1"
 pkgrel = 2
-hostmakedepends = ["gmake", "gsed", "bash"]
+hostmakedepends = ["gsed", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -13,7 +13,7 @@ options = ["!autosplit"]
 
 def do_install(self):
     self.do(
-        "gmake",
+        "make",
         "install",
         "SED=gsed",
         "VERBOSE=1",

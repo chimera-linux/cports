@@ -3,11 +3,9 @@ pkgver = "1.6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-libparted-dmraid"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "itstool",
     "libtool",
     "libxml2-progs",

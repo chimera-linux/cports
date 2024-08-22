@@ -50,7 +50,6 @@ configure_args = [
 ]
 configure_env = {"NOCONFIGURE": "1", "QT6DIR": "/usr/lib/qt6"}
 configure_gen = ["perl", "autogen.sh"]
-make_cmd = "gmake"
 make_dir = "."
 make_build_target = "build"
 make_use_env = True
@@ -61,7 +60,6 @@ hostmakedepends = [
     "flex",
     "fontforge-cli",
     "gettext",
-    "gmake",
     "gnupg",
     "gobject-introspection",
     "gperf",

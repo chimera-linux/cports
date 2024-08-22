@@ -3,10 +3,9 @@ pkgver = "2.11"
 pkgrel = 1
 build_wrksrc = pkgname
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["V=1"]
 make_use_env = True
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "dbus-devel",
     "libedit-readline-devel",

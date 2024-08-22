@@ -2,11 +2,9 @@ pkgname = "exfatprogs"
 pkgver = "1.2.5"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "slibtool",
 ]
 makedepends = ["linux-headers"]

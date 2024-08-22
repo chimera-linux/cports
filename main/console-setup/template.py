@@ -2,14 +2,12 @@ pkgname = "console-setup"
 pkgver = "1.230"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "build-linux"
 make_install_target = "install-linux"
 hostmakedepends = [
     "bdfresize",
     "font-unifont-bdf",
     "fonts-dejavu-otf",
-    "gmake",
     "mandoc",
     "otf2bdf",
     "perl",

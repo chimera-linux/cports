@@ -3,11 +3,9 @@ pkgname = "libseccomp"
 pkgver = "2.5.5"
 pkgrel = 1
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "bash",
     "gsed",
-    "gmake",
     "automake",
     "slibtool",
     "gperf",

@@ -2,10 +2,8 @@ pkgname = "prosody"
 pkgver = "0.12.4"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_target = "test"
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = [
     "icu-devel",
     "libidn2-devel",

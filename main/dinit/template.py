@@ -4,10 +4,8 @@ pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--syscontrolsocket=/run/dinitctl"]
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
 make_check_args = ["check-igr"]  # additional target
-hostmakedepends = ["gmake"]
 pkgdesc = "Service manager and init system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"

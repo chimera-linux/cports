@@ -4,14 +4,12 @@ pkgrel = 0
 archs = ["x86_64"]
 # don't use autogen.sh, it generates files that force reconf in do_build
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "autoconf-archive",
     "automake",
     "gettext",
     "glib-devel",
-    "gmake",
     "gtk-doc-tools",
     "pkgconf",
 ]

@@ -7,9 +7,7 @@ configure_args = [
     "--disable-static",
 ]
 configure_gen = []
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "glib-devel",
     "pkgconf",
     "gettext",

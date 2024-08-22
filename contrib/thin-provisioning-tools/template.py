@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = [
     "cargo-auditable",
     "gawk",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [
@@ -27,7 +26,7 @@ options = ["!check"]
 
 def do_install(self):
     self.do(
-        "gmake",
+        "make",
         "DESTDIR=" + str(self.chroot_destdir),
         "RUST_TARGET=" + self.profile().triplet,
         "install",

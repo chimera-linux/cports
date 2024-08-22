@@ -20,7 +20,6 @@ configure_args = [
     "--disable-schemas-compile",
     "--disable-systemd-services",
 ]
-make_cmd = "gmake"
 make_dir = "."  # tests assume this
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
@@ -28,7 +27,6 @@ hostmakedepends = [
     "dconf",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

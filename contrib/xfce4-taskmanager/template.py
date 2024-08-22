@@ -2,12 +2,10 @@ pkgname = "xfce4-taskmanager"
 pkgver = "1.5.7"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

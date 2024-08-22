@@ -6,8 +6,6 @@ _mimalloc_ver = "2.1.7"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
-make_cmd = "gmake"
-hostmakedepends = ["gmake"]
 makedepends = ["clang-rt-crt-cross"]
 depends = ["clang-rt-crt-cross"]
 pkgdesc = "Musl C library for cross-compiling"

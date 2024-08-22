@@ -10,13 +10,11 @@ configure_args = [
     "--enable-merge-ffmpeg",
     "--enable-skins2",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "bison",
     "flex",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
     "protoc",
@@ -112,8 +110,6 @@ hardening = ["!int"]
 exec_wrappers = [
     # put it in path
     ("/usr/lib/qt6/bin/qtpaths6", "qtpaths6"),
-    # hardcoded make calls in configure
-    ("/usr/bin/gmake", "make"),
 ]
 restricted = "does not work well yet"
 

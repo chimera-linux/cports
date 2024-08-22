@@ -30,8 +30,7 @@ configure_args = [
 ]
 # requires specific version of autoconf
 configure_gen = []
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "flex", "texinfo"]
+hostmakedepends = ["flex", "texinfo"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "GNU binutils for RISC-V embedded targets"
 maintainer = "q66 <q66@chimera-linux.org>"

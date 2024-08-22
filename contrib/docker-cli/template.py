@@ -3,11 +3,9 @@ pkgver = "27.1.2"
 pkgrel = 1
 build_style = "makefile"
 _commit = "d01f264bccd8bed2e3c038054a04b99533478ab8"
-make_cmd = "gmake"
 make_build_target = "dynbinary"
 hostmakedepends = [
     "bash",
-    "gmake",
     "go",
     "go-md2man",
     "pkgconf",
@@ -31,7 +29,7 @@ options = ["!check"]
 
 def do_prepare(self):
     # figure out why this doesn't work otherwise anymore without net
-    self.do("gmake", "manpages", allow_network=True)
+    self.do("make", "manpages", allow_network=True)
 
 
 def init_build(self):

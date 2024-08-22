@@ -8,7 +8,6 @@ _deps = [
     "python-pluggy",
 ]
 hostmakedepends = [
-    "gmake",
     "python-build",
     "python-installer",
     "python-setuptools_scm",
@@ -28,7 +27,7 @@ options = ["!check"]
 
 def post_build(self):
     self.do(
-        "gmake",
+        "make",
         "-C",
         "doc/en",
         "man",

@@ -6,13 +6,11 @@ configure_args = [
     "--with-libtirpc",
     "--with-mapdir=/etc/autofs",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "bison",
     "flex",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

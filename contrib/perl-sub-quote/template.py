@@ -2,9 +2,7 @@ pkgname = "perl-sub-quote"
 pkgver = "2.006008"
 pkgrel = 0
 build_style = "perl_module"
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "perl",
 ]
 makedepends = ["perl"]

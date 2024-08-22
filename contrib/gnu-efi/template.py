@@ -4,9 +4,8 @@ pkgrel = 0
 # riscv64 does not build but also nothing needs it there
 archs = ["x86_64", "aarch64"]
 build_style = "makefile"
-make_cmd = "gmake"
 make_use_env = True
-hostmakedepends = ["gmake", "pkgconf", f"binutils-{self.profile().arch}"]
+hostmakedepends = ["pkgconf", f"binutils-{self.profile().arch}"]
 pkgdesc = "Development libraries for EFI"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

@@ -2,11 +2,9 @@ pkgname = "libetonyek"
 pkgver = "0.1.10"
 pkgrel = 5
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "pkgconf",
     "slibtool",
 ]

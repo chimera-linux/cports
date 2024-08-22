@@ -2,7 +2,6 @@ pkgname = "lua5.1-lgi"
 pkgver = "0.9.2"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["LUA_VERSION=5.1", "LUA_CFLAGS=-I/usr/include/lua5.1"]
 make_check_args = ["LUA=lua5.1"]
 make_check_wrapper = ["xwfb-run", "--"]
@@ -10,7 +9,6 @@ hostmakedepends = ["pkgconf", "gobject-introspection"]
 makedepends = [
     "gir-freedesktop",
     "glib-devel",
-    "gmake",
     "libffi-devel",
     "lua5.1-devel",
 ]

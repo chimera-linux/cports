@@ -8,9 +8,8 @@ configure_args = [
     "--with-logfile-dir=/var/log/ppp",
     "--with-runtime-dir=/run/pppd",
 ]
-make_cmd = "gmake"
 make_build_args = ["CBCP=y"]
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["libpcap-devel", "openssl-devel", "linux-headers"]
 pkgdesc = "PPP (Point-to-Point Protocol) daemon"
 maintainer = "q66 <q66@chimera-linux.org>"

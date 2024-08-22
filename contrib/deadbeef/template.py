@@ -13,12 +13,10 @@ configure_args = [
     "--disable-pulse",
     "--disable-static",
 ]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gtk+3-devel",
     "intltool",
     "libtool",

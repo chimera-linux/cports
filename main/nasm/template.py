@@ -4,10 +4,9 @@ pkgrel = 0
 build_style = "gnu_configure"
 # fails to regen
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
 make_check_target = "test"
-hostmakedepends = ["asciidoc", "gmake"]
+hostmakedepends = ["asciidoc"]
 checkdepends = ["perl"]
 pkgdesc = "80x86 assembler designed for portability and modularity"
 maintainer = "q66 <q66@chimera-linux.org>"

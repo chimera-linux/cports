@@ -6,9 +6,7 @@ _mimalloc_ver = "2.1.7"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
-make_cmd = "gmake"
 make_build_args = []
-hostmakedepends = ["gmake"]
 depends = [self.with_pkgver("musl-progs")]
 provides = ["so:libc.so=0"]
 provider_priority = 999

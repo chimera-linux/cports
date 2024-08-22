@@ -4,12 +4,10 @@ pkgname = "ibus-kkc"
 pkgver = "1.5.22_git20220104"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

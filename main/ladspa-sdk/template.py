@@ -1,7 +1,6 @@
 pkgname = "ladspa-sdk"
 pkgver = "1.17"
 pkgrel = 1
-hostmakedepends = ["gmake"]
 makedepends = ["libsndfile-devel"]
 pkgdesc = "Linux Audio Developer's Simple Plugin API"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -12,12 +11,12 @@ sha256 = "27d24f279e4b81bd17ecbdcc38e4c42991bb388826c0b200067ce0eb59d3da5b"
 
 
 def do_build(self):
-    self.do("gmake", "-C", "src")
+    self.do("make", "-C", "src")
     self.rm("doc/ladspa.h.txt", force=True)
 
 
 def do_check(self):
-    self.do("gmake", "-C", "src", "test")
+    self.do("make", "-C", "src", "test")
 
 
 def do_install(self):

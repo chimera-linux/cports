@@ -2,12 +2,10 @@ pkgname = "libxfce4util"
 pkgver = "4.18.2"
 pkgrel = 1
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "intltool",

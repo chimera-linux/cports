@@ -5,11 +5,9 @@ build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
 # broken presently
 configure_gen = []
-make_cmd = "gmake"
 # full testsuite fails in netns
 make_check_target = "tests/tests_libcrun_errors.log"
 hostmakedepends = [
-    "gmake",
     "go-md2man",
     "pkgconf",
     "python",

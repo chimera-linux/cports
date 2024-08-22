@@ -14,11 +14,9 @@ configure_args = [
     "--enable-threads",
     "--with-udevdir=/usr/lib/udev",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "flex",
-    "gmake",
     "libtool",
     "pkgconf",
     "python-docutils",

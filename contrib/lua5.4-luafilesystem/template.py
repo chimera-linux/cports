@@ -2,10 +2,8 @@ pkgname = "lua5.4-luafilesystem"
 pkgver = "1.8.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["LUA_VERSION=5.4"]
 make_install_args = ["LUA_VERSION=5.4"]
-hostmakedepends = ["gmake"]
 makedepends = ["lua5.4-devel"]
 pkgdesc = "File system library for lua"
 maintainer = "ttyyls <contact@behri.org>"

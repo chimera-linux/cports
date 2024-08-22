@@ -2,9 +2,7 @@ pkgname = "sslscan"
 pkgver = "2.1.4"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [f"GIT_VERSION={pkgver}"]
-hostmakedepends = ["gmake"]
 makedepends = ["openssl-devel"]
 pkgdesc = "List supported ciphers in TLS servers"
 maintainer = "psykose <alice@ayaya.dev>"

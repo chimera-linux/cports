@@ -3,8 +3,7 @@ pkgver = "1.1.1"
 pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--without-systemd"]
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = [
     "libimobiledevice-devel",
     "libusb-devel",

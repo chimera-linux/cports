@@ -2,12 +2,10 @@ pkgname = "runc"
 pkgver = "1.1.13"
 pkgrel = 4
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["all", "man", f"COMMIT=chimera-r{pkgrel}"]
 make_check_target = "localunittest"
 hostmakedepends = [
     "bash",
-    "gmake",
     "go",
     "go-md2man",
     "pkgconf",

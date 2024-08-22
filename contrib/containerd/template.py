@@ -2,7 +2,6 @@ pkgname = "containerd"
 pkgver = "1.7.20"
 pkgrel = 4
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "all",
     "man",
@@ -13,7 +12,6 @@ make_install_args = ["install-man"]
 make_check_target = "test"
 make_check_args = ["TESTFLAGS_RACE="]
 hostmakedepends = [
-    "gmake",
     "go",
     "go-md2man",
 ]

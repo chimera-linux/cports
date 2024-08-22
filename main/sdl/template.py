@@ -25,8 +25,7 @@ configure_args = [
     "--enable-video-wayland",
     "--enable-clock_gettime",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "nasm", "wayland-progs"]
+hostmakedepends = ["pkgconf", "nasm", "wayland-progs"]
 makedepends = [
     "dbus-devel",
     "udev-devel",

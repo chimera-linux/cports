@@ -3,12 +3,10 @@ pkgver = "7.22"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-kmod=no"]
-make_cmd = "gmake"
 make_dir = "."
 make_check_target = "tests"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libltdl-devel",
     "libtool",
     "pkgconf",

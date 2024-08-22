@@ -2,12 +2,10 @@ pkgname = "tumbler"
 pkgver = "4.18.2"
 pkgrel = 4
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gtk-doc-tools",
     "intltool",
     "libtool",

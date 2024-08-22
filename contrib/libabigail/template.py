@@ -16,11 +16,9 @@ configure_args = [
     "--enable-python3",  # test stuff
     "--enable-tar",
 ]
-make_cmd = "gmake"
 make_build_args = ["man"]
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
     "python",
@@ -52,7 +50,7 @@ options = ["!check"]
 
 def post_install(self):
     self.do(
-        "gmake",
+        "make",
         "-C",
         f"{self.make_dir}/doc/manuals",
         f"DESTDIR={self.chroot_destdir}",

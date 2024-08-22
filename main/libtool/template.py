@@ -2,9 +2,7 @@ pkgname = "libtool"
 pkgver = "2.4.7"
 pkgrel = 2
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "gm4",
     "perl",
     "automake",
@@ -22,12 +20,10 @@ sha256 = "04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8"
 # also keep libtool static compat intact
 # tests interminable and endless
 options = ["!cross", "!lto", "!check"]
-# because this build system sucks
-exec_wrappers = [("/usr/bin/gmake", "make")]
 
 
 def pre_configure(self):
-    self.do(self.chroot_cwd / "bootstrap", "--force", env={"MAKE": "gmake"})
+    self.do(self.chroot_cwd / "bootstrap", "--force")
     # prevent missing from re-running autotools
     for f in ["aclocal.m4", "Makefile.am", "Makefile.in"]:
         (self.cwd / f).touch()

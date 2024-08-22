@@ -7,7 +7,6 @@ hostmakedepends = [
     "cbindgen",
     "clang-devel",
     "gettext",
-    "gmake",
     "libtool",
     "llvm-devel",
     "nasm",
@@ -65,7 +64,6 @@ tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
 }
 env = {
-    "MAKE": "/usr/bin/gmake",
     "SHELL": "/usr/bin/sh",
     "BUILD_OFFICIAL": "1",
     "MOZILLA_OFFICIAL": "1",

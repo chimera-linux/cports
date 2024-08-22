@@ -9,9 +9,8 @@ configure_args = [
     "--disable-thorough-tests",
 ]
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "nasm", "gmake"]
+hostmakedepends = ["pkgconf", "nasm"]
 makedepends = ["libogg-devel"]
 pkgdesc = "Free Lossless Audio Codec"
 maintainer = "q66 <q66@chimera-linux.org>"

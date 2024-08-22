@@ -2,11 +2,9 @@ pkgname = "lmdbxx"
 pkgver = "1.0.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 # makefile build style doesn't set these for check so it enables sanitizers for
 # the test
 make_check_args = ["LDFLAGS=", "CXXFLAGS="]
-hostmakedepends = ["gmake"]
 makedepends = ["lmdb-devel"]
 depends = [*makedepends]
 pkgdesc = "Header-only C++ wrapper for LMDB"

@@ -3,9 +3,7 @@ pkgver = "2.6.4"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-tests"]  # tests force autom4te
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "automake",
     "libtool",

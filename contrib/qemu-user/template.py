@@ -15,13 +15,11 @@ configure_args = [
     "--disable-system",
     "--static",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "bash",
     "bison",
     "bzip2",
     "flex",
-    "gmake",
     "meson",
     "ninja",
     "perl",

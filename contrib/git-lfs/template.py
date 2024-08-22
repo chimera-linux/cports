@@ -7,7 +7,7 @@ make_build_args = [
     "-ldflags=-X github.com/git-lfs/git-lfs/v3/config.Vendor=ChimeraLinux"
 ]
 hostmakedepends = ["asciidoctor", "go"]
-checkdepends = ["bash", "curl", "git", "gmake", "perl"]
+checkdepends = ["bash", "curl", "git", "perl"]
 depends = ["git"]
 pkgdesc = "Git extension for versioning large files"
 maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
@@ -36,7 +36,7 @@ def do_check(self):
     from cbuild.util import golang
 
     self.golang.check()
-    self.do("gmake", "test", "-C", "t", env=golang.get_go_env(self))
+    self.do("make", "test", "-C", "t", env=golang.get_go_env(self))
 
 
 def do_install(self):

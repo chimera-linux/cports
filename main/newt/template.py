@@ -4,9 +4,8 @@ pkgrel = 1
 build_style = "gnu_configure"
 # reconf breaks library soname stuff (???)
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["gmake", "pkgconf", "python-devel"]
+hostmakedepends = ["pkgconf", "python-devel"]
 makedepends = ["python-devel", "slang-devel", "popt-devel"]
 pkgdesc = "Library for color text mode, widget based user interfaces"
 maintainer = "q66 <q66@chimera-linux.org>"

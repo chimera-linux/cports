@@ -2,10 +2,8 @@ pkgname = "portaudio"
 pkgver = "19.7.0"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

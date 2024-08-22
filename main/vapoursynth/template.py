@@ -3,11 +3,9 @@ pkgver = "69"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "nasm",
     "pkgconf",

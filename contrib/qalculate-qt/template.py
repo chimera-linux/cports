@@ -3,10 +3,8 @@ pkgname = "qalculate-qt"
 pkgver = "5.2.0.1"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_use_env = True
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "qt6-qtbase-devel",
     "qt6-qttools",

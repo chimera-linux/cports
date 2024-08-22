@@ -2,7 +2,6 @@ pkgname = "cpupower"
 pkgver = "6.10.6"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "cpupower"
 make_build_args = [
     "-C",
@@ -24,7 +23,6 @@ make_build_args = [
 make_install_target = "cpupower_install"
 make_install_args = [*make_build_args]
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = [
     "libcap-devel",
     "libnl-devel",

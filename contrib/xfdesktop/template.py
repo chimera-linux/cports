@@ -2,14 +2,12 @@ pkgname = "xfdesktop"
 pkgver = "4.18.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 # check target fails without this
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext",
     "gettext-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

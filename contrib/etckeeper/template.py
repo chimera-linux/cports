@@ -2,13 +2,11 @@ pkgname = "etckeeper"
 pkgver = "1.18.21"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = [
     "PYTHON=/bin/false",
     "zshcompletiondir=${prefix}/share/zsh/site-functions",
 ]
 make_check_target = "test"
-hostmakedepends = ["gmake"]
 checkdepends = ["bats", "fakeroot", "git"]
 depends = ["git"]
 pkgdesc = "Store /etc in git"

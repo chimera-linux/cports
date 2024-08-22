@@ -8,14 +8,12 @@ configure_args = [
     "--enable-archs=x86_64,i386",
     "--enable-win64",
 ]
-make_cmd = "gmake"
 make_install_args = [
     "STRIP=true",
     "STRIPPROG=true",
 ]
 hostmakedepends = [
     "automake",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

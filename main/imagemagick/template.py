@@ -38,10 +38,7 @@ configure_args = [
     # "--with-wmf",
 ]
 configure_gen = []
-make_cmd = "gmake"
-# otherwise perl fails
-make_install_args = ["MAKE=gmake"]
-hostmakedepends = ["pkgconf", "automake", "libtool", "gmake", "perl"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "perl"]
 makedepends = [
     "bzip2-devel",
     "djvulibre-devel",

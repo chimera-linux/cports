@@ -6,8 +6,7 @@ configure_args = [
     # TODO: volume_key
     "--without-escrow",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "bash", "pkgconf", "python", "automake", "libtool"]
+hostmakedepends = ["bash", "pkgconf", "python", "automake", "libtool"]
 makedepends = [
     "cryptsetup-devel",
     "device-mapper-devel",

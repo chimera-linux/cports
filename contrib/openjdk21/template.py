@@ -31,13 +31,11 @@ configure_args = [
     "--with-vendor-vm-bug-url=https://github.com/chimera-linux/cports/issues",
 ]
 configure_gen = []
-make_cmd = "gmake"
 make_build_args = ["jdk-image"]
 hostmakedepends = [
     "automake",
     "bash",
     "file",
-    "gmake",
     "libtool",
     "linux-headers",
     "openssl",

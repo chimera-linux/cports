@@ -2,10 +2,8 @@ pkgname = "password-store"
 pkgver = "1.7.4"
 pkgrel = 2
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["WITH_ALLCOMP=yes"]
 make_check_target = "test"
-hostmakedepends = ["gmake"]
 depends = ["bash", "git", "gnupg", "tree", "ugetopt"]
 checkdepends = [*depends]
 pkgdesc = "Console-based password manager"

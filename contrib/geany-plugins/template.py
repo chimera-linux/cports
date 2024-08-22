@@ -7,12 +7,10 @@ configure_args = [
     "--disable-geniuspaste",  # libsoup 2.x
     "--disable-updatechecker",  # libsoup 2.x
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "intltool",
     "pkgconf",
     "slibtool",

@@ -8,11 +8,9 @@ configure_args = [
     "--with-openssl",
     "--with-modules",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

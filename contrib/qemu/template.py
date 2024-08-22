@@ -44,14 +44,12 @@ configure_args = [
     "--disable-xen",
     "--audio-drv-list=pa,pipewire,jack,sdl",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "bash",
     "bison",
     "bzip2",
     "flex",
     "gettext",
-    "gmake",
     "meson",
     "ninja",
     "perl",

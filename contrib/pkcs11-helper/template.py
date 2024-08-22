@@ -6,8 +6,7 @@ configure_args = [
     "--enable-slotevent",
     "--enable-threading",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["automake", "pkgconf", "libtool", "gmake"]
+hostmakedepends = ["automake", "pkgconf", "libtool"]
 makedepends = ["openssl-devel"]
 pkgdesc = "Helper library for multiple PKCS#11 providers"
 maintainer = "Dmitriy Vakhrushev <dvakhrushev@netgate.com>"

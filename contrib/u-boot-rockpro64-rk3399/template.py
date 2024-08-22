@@ -15,7 +15,6 @@ hostmakedepends = [
     "dtc",
     "flex",
     "gcc-aarch64-none-elf",
-    "gmake",
     "openssl-devel",
     "python-devel",
     "python-pyelftools",

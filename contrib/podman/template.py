@@ -11,7 +11,6 @@ make_build_args = [
 hostmakedepends = [
     "bash",
     "ggrep",
-    "gmake",
     "go",
     "go-md2man",
     "mandoc",
@@ -57,12 +56,12 @@ options = ["!check"]
 
 
 def post_build(self):
-    self.do("gmake", "docs", "GREP=ggrep", "GOMD2MAN=/usr/bin/go-md2man")
+    self.do("make", "docs", "GREP=ggrep", "GOMD2MAN=/usr/bin/go-md2man")
 
 
 def do_install(self):
     self.do(
-        "gmake",
+        "make",
         "install.bin",
         "install.completions",
         "install.man",

@@ -2,12 +2,10 @@ pkgname = "libaccounts-qt"
 pkgver = "1.17"
 pkgrel = 2
 build_style = "makefile"
-make_cmd = "gmake"
 make_check_wrapper = ["dbus-run-session", "--"]
 make_use_env = True
 hostmakedepends = [
     "doxygen",
-    "gmake",
     "pkgconf",
     "qt6-qtbase",
 ]

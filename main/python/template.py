@@ -13,8 +13,6 @@ configure_args = [
     "--with-system-expat",
     "--without-ensurepip",
 ]
-# bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)
-make_cmd = "gmake"
 make_check_target = "quicktest"
 # disable tests that disagree with our build environment or musl
 make_check_args = [
@@ -43,7 +41,6 @@ hostmakedepends = [
     "autoconf-archive",
     "automake",
     "pkgconf",
-    "gmake",
 ]
 makedepends = [
     "bluez-headers",

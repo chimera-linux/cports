@@ -3,9 +3,8 @@ pkgver = "0.10.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-default-editor=vi"]
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["automake", "bison", "gmake", "pkgconf"]
+hostmakedepends = ["automake", "bison", "pkgconf"]
 makedepends = [
     "libgrapheme-devel",
     "libretls-devel",

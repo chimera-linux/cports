@@ -4,12 +4,10 @@ pkgrel = 2
 build_style = "configure"
 configure_args = ["--color", "auto"]
 configure_env = {"CC": "clang"}
-make_cmd = "gmake"
 make_install_args = ["SBINDIR=/usr/bin"]
 hostmakedepends = [
     "bison",
     "flex",
-    "gmake",
     "linux-headers",
     "perl",
     "pkgconf",

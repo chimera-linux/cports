@@ -2,10 +2,8 @@ pkgname = "qcustomplot"
 pkgver = "2.1.1"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_use_env = True
 hostmakedepends = [
-    "gmake",
     "qt6-qtbase-devel",
 ]
 makedepends = ["qt6-qtbase-devel"]

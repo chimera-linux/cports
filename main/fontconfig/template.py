@@ -7,11 +7,9 @@ configure_args = [
     "--enable-docs",
     f"--with-cache-dir=/var/cache/{pkgname}",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gperf",
     "libtool",
     "pkgconf",

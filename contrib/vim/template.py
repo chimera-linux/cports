@@ -15,10 +15,8 @@ configure_args = [
 ]
 # completely broken reconf for some reason
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
 make_check_target = "test"
-hostmakedepends = ["gmake"]
 makedepends = [
     "acl-devel",
     "libsodium-devel",

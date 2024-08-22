@@ -3,13 +3,11 @@ pkgname = "libkkc"
 pkgver = "0.3.5_git20210928"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 # otherwise doesn't find .vapi from inside build
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gobject-introspection",
     "intltool",
     "libtool",

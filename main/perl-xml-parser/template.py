@@ -2,10 +2,7 @@ pkgname = "perl-xml-parser"
 pkgver = "2.47"
 pkgrel = 1
 build_style = "perl_module"
-make_build_args = ["MAKE=gmake"]
-make_install_args = ["MAKE=gmake"]
-make_check_args = ["MAKE=gmake"]
-hostmakedepends = ["gmake", "perl"]
+hostmakedepends = ["perl"]
 makedepends = ["perl", "libexpat-devel"]
 depends = ["perl"]
 pkgdesc = "Perl interface to libexpat"

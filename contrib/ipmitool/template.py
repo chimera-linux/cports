@@ -10,9 +10,8 @@ configure_args = [
     "--enable-intf-usb",
     "--enable-ipmishell",
 ]
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["automake", "gmake", "libtool"]
+hostmakedepends = ["automake", "libtool"]
 makedepends = [
     "linux-headers",
     "openssl-devel",

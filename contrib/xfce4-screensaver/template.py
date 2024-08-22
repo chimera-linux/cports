@@ -5,13 +5,11 @@ pkgrel = 1
 _dbus_gmain_rev = "93e8fced640e29bd6fbcc066a6c854a8dd74f8ab"
 build_style = "gnu_configure"
 configure_args = ["--with-xf86gamma-ext"]
-make_cmd = "gmake"
 # check target fails without this
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

@@ -71,11 +71,9 @@ configure_args = [
     "--enable-vapoursynth",
     "--enable-vulkan",
 ]
-make_cmd = "gmake"
 make_install_args = ["install-man"]
 make_check_args = ["-j1"]
 hostmakedepends = [
-    "gmake",
     "nasm",
     "perl",
     "pkgconf",

@@ -8,10 +8,8 @@ configure_args = [
     "--enable-gtk",
     "--enable-tests",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "intltool",
     "libtool",
     "pkgconf",

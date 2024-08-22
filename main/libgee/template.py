@@ -3,10 +3,8 @@ pkgver = "0.20.6"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "gobject-introspection",
     "libtool",
     "pkgconf",

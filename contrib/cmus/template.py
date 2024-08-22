@@ -19,8 +19,7 @@ configure_args = [
     "CONFIG_JACK=y",
     "CONFIG_WAVPACK=y",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "bash"]
+hostmakedepends = ["pkgconf", "bash"]
 makedepends = [
     "elogind-devel",
     "ffmpeg-devel",

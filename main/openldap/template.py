@@ -20,10 +20,8 @@ configure_args = [
     "--with-cyrus-sasl",
     "--with-tls=openssl",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "mandoc",
     "pkgconf",

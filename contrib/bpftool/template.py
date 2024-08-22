@@ -3,7 +3,6 @@ pkgver = "7.4.0"
 pkgrel = 0
 build_wrksrc = "src"
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "LLVM=1",
     "STRIP=/bin/true",
@@ -16,7 +15,6 @@ make_build_args = [
 make_install_args = [*make_build_args]
 make_use_env = True
 hostmakedepends = [
-    "gmake",
     "python",
 ]
 makedepends = [

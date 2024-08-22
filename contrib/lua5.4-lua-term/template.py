@@ -2,11 +2,9 @@ pkgname = "lua5.4-lua-term"
 pkgver = "0.08"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["LUA_VER=5.4"]
 make_install_args = ["LUA_VER=5.4"]
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = ["lua5.4-devel"]
 pkgdesc = "Terminal operations for Lua"
 maintainer = "ttyyls <contact@behri.org>"

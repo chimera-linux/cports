@@ -3,10 +3,9 @@ pkgver = "1.1.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--prefix=/usr"]
-make_cmd = "gmake"
 make_dir = "."
 make_check_target = "test"
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Virtual machine for x86-64 Linux programs"
 maintainer = "Erica Z <zerica@callcc.eu>"

@@ -2,7 +2,7 @@ pkgname = "perl-mime-tools"
 pkgver = "5.515"
 pkgrel = 0
 build_style = "perl_module"
-hostmakedepends = ["gmake", "perl"]
+hostmakedepends = ["perl"]
 makedepends = [
     "perl",
     "perl-convert-binhex",

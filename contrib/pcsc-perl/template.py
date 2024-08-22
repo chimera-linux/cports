@@ -2,18 +2,10 @@ pkgname = "pcsc-perl"
 pkgver = "1.4.16"
 pkgrel = 1
 build_style = "perl_module"
-make_build_args = ["MAKE=gmake"]
 make_install_args = [*make_build_args]
 make_check_args = [*make_build_args]
-hostmakedepends = [
-    "gmake",
-    "perl",
-    "pkgconf",
-]
-makedepends = [
-    "pcsc-lite-devel",
-    "perl",
-]
+hostmakedepends = ["perl", "pkgconf"]
+makedepends = ["pcsc-lite-devel", "perl"]
 pkgdesc = "Perl module for PCSC"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"

@@ -4,7 +4,6 @@ pkgrel = 0
 # Alone2: CLI with all format support
 build_wrksrc = "CPP/7zip/Bundles/Alone2"
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     # nonfree rar sdk; uncompressed rar technically still supported
     "DISABLE_RAR_COMPRESS=1",
@@ -13,7 +12,6 @@ make_build_args = [
     "CFLAGS_WARN=",
 ]
 make_use_env = True
-hostmakedepends = ["gmake"]
 pkgdesc = "File archiver with a high compression ratio"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.0-only AND BSD-3-Clause"

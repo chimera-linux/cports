@@ -9,11 +9,9 @@ configure_args = [
     "--with-tctidefaultmodule=device",
     "--with-tctidefaultconfig=/dev/tpmrm0",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "cmocka",
-    "gmake",
     "libltdl-devel",  # ltdl.m4
     "libtool",
     "perl",

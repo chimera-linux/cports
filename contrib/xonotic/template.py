@@ -2,9 +2,7 @@ pkgname = "xonotic"
 pkgver = "0.8.6"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_use_env = True
-hostmakedepends = ["gmake"]
 makedepends = [
     "alsa-lib-devel",
     "gmp-devel",

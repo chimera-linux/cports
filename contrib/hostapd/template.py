@@ -3,10 +3,9 @@ pkgver = "2.11"
 pkgrel = 0
 build_wrksrc = "hostapd"
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["BINDIR=/usr/bin"]
 make_use_env = True
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["libnl-devel", "linux-headers", "openssl-devel"]
 pkgdesc = "IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator"
 maintainer = "Renato Botelho do Couto <renato@netgate.com>"

@@ -3,11 +3,9 @@ pkgver = "1.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-shared"]
-make_cmd = "gmake"
 hostmakedepends = [
     "asciidoc",
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

@@ -3,11 +3,9 @@ pkgver = "2.1.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-x11"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

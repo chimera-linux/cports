@@ -2,12 +2,10 @@ pkgname = "mousepad"
 pkgver = "0.6.2"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
     "xfce4-dev-tools",

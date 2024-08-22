@@ -7,11 +7,9 @@ configure_args = [
     "--enable-introspection",
     "--enable-vala",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gobject-introspection",
     "gtk-doc-tools",
     "libtool",

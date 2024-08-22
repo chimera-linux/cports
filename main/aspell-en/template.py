@@ -2,10 +2,8 @@ pkgname = "aspell-en"
 pkgver = "2020.12.07"
 pkgrel = 1
 build_style = "configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "aspell",
-    "gmake",
 ]
 depends = ["aspell"]
 pkgdesc = "English dictionary for aspell"

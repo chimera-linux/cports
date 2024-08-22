@@ -13,10 +13,8 @@ configure_args = [
     "--portinuse",
     "--vendorcfg",
 ]
-make_cmd = "gmake"
 make_env = {"SBININSTALLDIR": "/usr/bin"}
 hostmakedepends = [
-    "gmake",
     "musl-bsd-headers",
     "pkgconf",
 ]

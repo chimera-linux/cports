@@ -3,12 +3,10 @@ pkgver = "2.10.2"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "bash",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

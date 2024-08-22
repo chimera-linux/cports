@@ -8,11 +8,9 @@ configure_args = [
     "--disable-modern-top",
     "--without-systemd",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

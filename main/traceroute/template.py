@@ -2,10 +2,8 @@ pkgname = "traceroute"
 pkgver = "2.1.5"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["prefix=/usr"]
 make_install_args = ["prefix=/usr"]
-hostmakedepends = ["gmake"]
 makedepends = ["linux-headers"]
 pkgdesc = "Traces the route taken by packets over an IPv4/IPv6 network"
 maintainer = "q66 <q66@chimera-linux.org>"

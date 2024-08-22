@@ -3,10 +3,8 @@ pkgver = "2024.07.21"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
-    "gmake",
     "gsed",
     "pkgconf",
 ]

@@ -2,9 +2,8 @@ pkgname = "faust"
 pkgver = "2.74.6"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["GENERATOR=Ninja"]
-hostmakedepends = ["cmake", "gmake", "ninja", "pkgconf"]
+hostmakedepends = ["cmake", "ninja", "pkgconf"]
 depends = ["bash"]
 pkgdesc = "Functional programming language for real-time signal processing"
 maintainer = "q66 <q66@chimera-linux.org>"

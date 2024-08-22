@@ -3,9 +3,8 @@ pkgver = "1.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["automake", "libtool", "gmake", "pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers", "libgcrypt-devel"]
 pkgdesc = "ISCSI client library and utilities"
 maintainer = "eater <=@eater.me>"

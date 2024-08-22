@@ -2,9 +2,7 @@ pkgname = "hdparm"
 pkgver = "9.65"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["-j1", "binprefix=/usr", "sbindir=/usr/bin"]
-hostmakedepends = ["gmake"]
 makedepends = ["linux-headers"]
 pkgdesc = "Command-line interface to hard disk drive parameters"
 maintainer = "Subhaditya Nath <sn03.general@gmail.com>"

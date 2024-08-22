@@ -4,9 +4,8 @@ pkgrel = 0
 # smbios/dmi support
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["prefix=/usr", "sbindir=/usr/bin"]
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["bash-completion"]
 pkgdesc = "Utility for reporting system hardware"
 maintainer = "psykose <alice@ayaya.dev>"

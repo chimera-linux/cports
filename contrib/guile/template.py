@@ -6,11 +6,9 @@ configure_args = [
     "--disable-error-on-warning",
     "--disable-static",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "gperf",
     "libtool",
     "pkgconf",

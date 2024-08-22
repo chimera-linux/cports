@@ -7,9 +7,8 @@ configure_args = [
     "--with-gtk",
     "--verbose",
 ]
-make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "perl"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "perl"]
 makedepends = [
     "alsa-lib-devel",
     "audiofile-devel",

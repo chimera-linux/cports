@@ -2,7 +2,6 @@ pkgname = "gmic"
 pkgver = "3.4.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "QMAKE=qmake6",
     "OPT_CFLAGS=",
@@ -11,7 +10,6 @@ make_use_env = True
 hostmakedepends = [
     "bash",
     "gimp",
-    "gmake",
     "pkgconf",
     "qt6-qtbase",
 ]

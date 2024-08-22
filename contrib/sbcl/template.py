@@ -14,7 +14,6 @@ hostmakedepends = [
     "ecl",
     "ecl-devel",
     "gc-devel",
-    "gmake",
     "gmp-devel",
     "libatomic_ops-devel",
     "libffi-devel",
@@ -33,8 +32,6 @@ sha256 = "68544d2503635acd015d534ccc9b2ae9f68996d429b5a9063fd22ff0925011d2"
 nopie_files = ["usr/bin/sbcl"]
 # tests are unreliable
 options = ["!cross", "!lto", "!check"]
-# GNUMAKE disregarded in tests
-exec_wrappers = [("/usr/bin/gmake", "make")]
 
 
 def init_configure(self):
@@ -52,7 +49,7 @@ def init_configure(self):
 
 def do_build(self):
     self.do("sh", "make.sh", "ecl", *self.configure_args)
-    self.do("gmake", "info", wrksrc="doc/manual")
+    self.do("make", "info", wrksrc="doc/manual")
 
 
 def do_check(self):

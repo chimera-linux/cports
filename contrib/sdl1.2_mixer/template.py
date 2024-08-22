@@ -10,8 +10,7 @@ configure_args = [
     "--disable-music-ogg-shared",
 ]
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
-hostmakedepends = ["automake", "gmake", "pkgconf"]
+hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "flac-devel",
     "libmikmod-devel",

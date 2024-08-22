@@ -2,7 +2,6 @@ pkgname = "u-boot-tools"
 pkgver = "2024.04"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "tools-all"
 make_build_args = [
     "tools-only",
@@ -12,7 +11,6 @@ make_build_args = [
     "NO_SDL=1",
 ]
 hostmakedepends = [
-    "gmake",
     "bison",
     "flex",
     "python",

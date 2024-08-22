@@ -2,12 +2,11 @@ pkgname = "glew"
 pkgver = "2.2.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["SYSTEM=linux-clang"]
 make_install_target = "install.all"
 make_install_args = ["SYSTEM=linux-clang"]
 make_use_env = True
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["libxext-devel", "libxmu-devel", "libxi-devel", "glu-devel"]
 pkgdesc = "OpenGL Extension Wrangler Library"
 maintainer = "eater <=@eater.me>"

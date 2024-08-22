@@ -11,11 +11,9 @@ configure_args = [
     "--without-kali",
     "--without-voxin",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
     "python",

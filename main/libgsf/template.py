@@ -3,9 +3,7 @@ pkgver = "1.14.52"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-introspection"]
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "gettext-devel",
     "glib-devel",

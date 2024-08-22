@@ -17,8 +17,7 @@ configure_args = [
     "--disable-static",
     "--disable-install-srcs",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "perl", "nasm"]
+hostmakedepends = ["pkgconf", "perl", "nasm"]
 makedepends = ["linux-headers"]
 pkgdesc = "VP8 and VP9 codec implementation"
 maintainer = "q66 <q66@chimera-linux.org>"

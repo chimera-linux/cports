@@ -2,9 +2,7 @@ pkgname = "perl-class-method-modifiers"
 pkgver = "2.15"
 pkgrel = 0
 build_style = "perl_module"
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "perl",
 ]
 makedepends = ["perl"]

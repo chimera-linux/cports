@@ -34,12 +34,10 @@ configure_args = [
     "--without-systemdsystemunitdir",
     "ssp_cv_lib=no",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "libtool",
     "pkgconf",

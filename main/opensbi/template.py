@@ -2,7 +2,6 @@ pkgname = "opensbi"
 pkgver = "1.4"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [
     "PLATFORM=generic",
     "FW_PAYLOAD=n",
@@ -10,7 +9,7 @@ make_build_args = [
     "LLVM=1",
 ]
 make_use_env = True
-hostmakedepends = ["gmake", "bash", "python"]
+hostmakedepends = ["bash", "python"]
 pkgdesc = "RISC-V Open Source Supervisor Binary Interface"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"

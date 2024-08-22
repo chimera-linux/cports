@@ -6,11 +6,9 @@ configure_args = [
     "--disable-native",
     "--prefix=/usr",
 ]
-make_cmd = "gmake"
 make_install_args = ["mandir=/usr/share/man"]
 make_check_target = "test"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

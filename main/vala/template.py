@@ -2,13 +2,11 @@ pkgname = "vala"
 pkgver = "0.56.16"
 pkgrel = 1
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "bison",
     "docbook-xml",
     "flex",
-    "gmake",
     "pkgconf",
     "slibtool",
     "xsltproc",

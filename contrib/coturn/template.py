@@ -4,10 +4,9 @@ pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--turndbdir=/var/lib/coturn"]
 configure_gen = []
-make_cmd = "gmake"
 make_dir = "."
 make_check_target = "test"
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "hiredis-devel",
     "libevent-devel",

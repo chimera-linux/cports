@@ -9,14 +9,11 @@ configure_args = [
     "ac_cv_func_isnan=yes",
     "ac_cv_func_isinf=yes",
 ]
-make_cmd = "gmake"
 make_build_args = ["all", "capi"]
-make_install_env = {"MAKE": "gmake"}
 hostmakedepends = [
     "automake",
     "bison",
     "flex",
-    "gmake",
     "mandoc",
     "pkgconf",
 ]

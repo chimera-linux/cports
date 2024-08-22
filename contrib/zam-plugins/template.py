@@ -2,11 +2,9 @@ pkgname = "zam-plugins"
 pkgver = "4.3"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = ["CLANG=true"]
 hostmakedepends = [
     "bash",
-    "gmake",
     "pkgconf",
 ]
 makedepends = [

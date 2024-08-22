@@ -4,13 +4,11 @@ pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "bison",
     "flex",
-    "gmake",
     "libtool",
     "texinfo",
 ]

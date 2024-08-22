@@ -7,8 +7,7 @@ configure_args = [
     "--sysconfdir=/etc",
     "--enable-tests",
 ]
-make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["libarchive-devel", "openssl-devel", "zlib-ng-compat-devel"]
 depends = ["ca-certificates"]
 checkdepends = ["kyua", "atf-devel"]

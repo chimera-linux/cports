@@ -1,10 +1,9 @@
 pkgname = "containers-common"
 pkgver = "0.60.2"
 pkgrel = 0
-make_cmd = "gmake"
 make_build_args = ["-C", "docs"]
 make_install_args = [*make_build_args]
-hostmakedepends = ["gmake", "go-md2man"]
+hostmakedepends = ["go-md2man"]
 pkgdesc = "Shared docs and configs for Containers"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
@@ -37,9 +36,9 @@ options = ["!check"]
 
 
 def do_build(self):
-    self.do("gmake", wrksrc="common/docs")
-    self.do("gmake", wrksrc="storage/docs")
-    self.do("gmake", "docs", wrksrc="image")
+    self.do("make", wrksrc="common/docs")
+    self.do("make", wrksrc="storage/docs")
+    self.do("make", "docs", wrksrc="image")
 
 
 def do_install(self):
@@ -53,7 +52,7 @@ def do_install(self):
         self.install_file("pkg/seccomp/seccomp.json", "etc/containers")
         self.install_file("pkg/seccomp/seccomp.json", "usr/share/containers")
         self.do(
-            "gmake",
+            "make",
             "install",
             "PREFIX=/usr",
             f"DESTDIR={self.chroot_destdir}",
@@ -64,12 +63,12 @@ def do_install(self):
         self.install_file("storage.conf", "etc/containers")
         self.install_file("storage.conf", "usr/share/containers")
         self.do(
-            "gmake", "install", f"DESTDIR={self.chroot_destdir}", wrksrc="docs"
+            "make", "install", f"DESTDIR={self.chroot_destdir}", wrksrc="docs"
         )
 
     with self.pushd("image"):
         self.install_file("registries.conf", "etc/containers")
-        self.do("gmake", "install", f"DESTDIR={self.chroot_destdir}")
+        self.do("make", "install", f"DESTDIR={self.chroot_destdir}")
 
     with self.pushd("shortnames"):
         self.install_file(

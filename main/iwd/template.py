@@ -10,9 +10,8 @@ configure_args = [
     "--enable-wired",
     "--enable-pie",
 ]
-make_cmd = "gmake"
 make_check_wrapper = ["dbus-run-session"]
-hostmakedepends = ["gmake", "pkgconf", "python-docutils", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "python-docutils", "automake", "libtool"]
 # TODO: look into porting to libedit later
 # iwd's usage of readline is very fucky and we don't wanna break it
 makedepends = ["readline-devel", "dbus-devel", "linux-headers"]

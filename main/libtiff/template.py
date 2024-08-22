@@ -3,12 +3,10 @@ pkgver = "4.6.0"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx", "--without-x"]
-make_cmd = "gmake"
 # otherwise it builds nothing
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

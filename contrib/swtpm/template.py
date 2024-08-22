@@ -7,13 +7,11 @@ configure_args = [
     "--with-tss-user=tss",
     "--with-tss-group=tss",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "bash",
     "expect",
     "gawk",
-    "gmake",
     "gnutls-progs",
     "libtool",
     "pkgconf",

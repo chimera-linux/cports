@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "asciidoc",
-    "gmake",
     "python-build",
     "python-installer",
     "python-setuptools",
@@ -37,7 +36,7 @@ options = ["!check"]
 
 def post_install(self):
     self.do(
-        "gmake",
+        "make",
         "-f",
         "misc/Makefile",
         f"DESTDIR={self.chroot_destdir}",

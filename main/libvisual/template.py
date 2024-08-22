@@ -3,14 +3,12 @@ pkgver = "0.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-examples", "--disable-lv-tool"]
-make_cmd = "gmake"
 # must be used to overwrite generated junk that messes up build
 make_dir = "."
 hostmakedepends = [
     "autoconf-archive",
     "automake",
     "gettext-devel",
-    "gmake",
     "libtool",
     "pkgconf",
 ]

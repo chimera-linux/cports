@@ -16,7 +16,6 @@ depends = [
     "ncurses",
     "chimerautils-extra",
     "apk-tools",
-    "gmake",
     "bsdtar",
     "fakeroot-core",
     self.with_pkgver("base-cbuild-progs"),

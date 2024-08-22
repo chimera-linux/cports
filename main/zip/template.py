@@ -2,7 +2,6 @@ pkgname = "zip"
 pkgver = "3.0"
 pkgrel = 2
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_target = "zips"
 make_build_args = [
     "-f",
@@ -11,7 +10,6 @@ make_build_args = [
 ]
 make_install_args = [*make_build_args]
 make_use_env = True
-hostmakedepends = ["gmake"]
 depends = ["unzip"]  # zip -T
 pkgdesc = "Create/update ZIP files compatible with pkzip"
 maintainer = "q66 <q66@chimera-linux.org>"

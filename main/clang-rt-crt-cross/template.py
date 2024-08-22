@@ -33,7 +33,6 @@ configure_args = [
 hostmakedepends = [
     "clang-tools-extra",
     "cmake",
-    "gmake",
     "ninja",
     "llvm-devel",
     "python",
@@ -102,7 +101,7 @@ def do_configure(self):
             with self.stamp(f"{an}_musl_install") as s:
                 s.check()
                 self.do(
-                    "gmake",
+                    "make",
                     "-C",
                     f"musl/build-{an}",
                     "install-headers",

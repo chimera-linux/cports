@@ -2,10 +2,9 @@ pkgname = "lm-sensors"
 pkgver = "3.6.0"
 pkgrel = 1
 build_style = "makefile"
-make_cmd = "gmake"
 make_build_args = [f"MACHINE={self.profile().arch}"]
 make_install_args = ["SBINDIR=/usr/bin", "MANDIR=/usr/share/man"]
-hostmakedepends = ["gmake", "flex", "bison", "perl"]
+hostmakedepends = ["flex", "bison", "perl"]
 depends = ["perl"]
 pkgdesc = "Sensor reading utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

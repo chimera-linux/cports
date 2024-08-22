@@ -2,9 +2,7 @@ pkgname = "wireless-regdb"
 pkgver = "2024.07.04"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 make_install_args = ["FIRMWARE_PATH=/usr/lib/firmware"]
-hostmakedepends = ["gmake"]
 pkgdesc = "Wireless CRDA database"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "ISC"

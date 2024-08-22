@@ -6,7 +6,6 @@ pkgrel = 1
 build_wrksrc = "bindings/python"
 build_style = "python_pep517"
 hostmakedepends = [
-    "gmake",
     "python-build",
     "python-devel",
     "python-installer",
@@ -27,7 +26,7 @@ options = ["!check"]
 
 
 def pre_build(self):
-    self.do("gmake", "-C", "..", "swig-python")
+    self.do("make", "-C", "..", "swig-python")
 
 
 def post_install(self):
