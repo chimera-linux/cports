@@ -1,0 +1,41 @@
+From c95d87da86cfbdee6558a8d542d8960367ee61a2 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 22 Aug 2024 08:51:23 +0200
+Subject: [PATCH] fix nodemask allocation size for get_mempolicy
+
+This prevents buffer corrpution which manifests as firefox
+failing to play videos with mimalloc in hardened mode (as the
+get_mempolicy will corrupt the metadata).
+
+The documentation for get_mempolicy specifies the following:
+
+```
+unsigned long nodemask[(.maxnode + ULONG_WIDTH - 1)
+                       / ULONG_WIDTH]
+```
+
+where maxnode is the following argument. Since we are calling
+get_mempolicy with `nodemask_sz + 1`, that means the size
+will be `(nodemask_sz + 1 + ULONG_WIDTH - 1) / ULONG_WIDTH)`
+i.e. `(nodemask_sz + ULONG_WIDTH) / ULONG_WIDTH` or just
+`nodemask_sz`.
+---
+ libnuma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libnuma.c b/libnuma.c
+index 5340261..cc7cc74 100644
+--- a/libnuma.c
++++ b/libnuma.c
+@@ -427,7 +427,7 @@ done:
+ 		nodemask_sz = 16;
+ 		do {
+ 			nodemask_sz <<= 1;
+-			mask = realloc(mask, nodemask_sz / 8);
++			mask = realloc(mask, nodemask_sz);
+ 			if (!mask)
+ 				return;
+ 		} while (get_mempolicy(&pol, mask, nodemask_sz + 1, 0, 0) < 0 && errno == EINVAL &&
+-- 
+2.46.0
+
