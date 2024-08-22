@@ -52,7 +52,7 @@ class Logger:
     def out_stream(self, msg):
         write_color(self.ostream, self.use_colors, msg)
 
-    def _out_arrow(self, stream):
+    def _out_arrow(self, stream, color="\f[]"):
         if self.timing:
             ntime = datetime.datetime.now()
             tdiff = ntime - self.time
@@ -60,22 +60,20 @@ class Logger:
             ntdiff = datetime.timedelta(
                 tdiff.days, tdiff.seconds, round(msec / 1000) * 1000
             )
-            self.out_stream(f"{str(ntdiff)[:-3]} ")
-        self.out_stream("=> ")
+            self.out_stream(f"\f[purple]{str(ntdiff)[:-3]} ")
+        self.out_stream(f"{color}\f[bold]=> ")
 
     def out_plain(self, msg, end="\n"):
         self.out_stream(msg)
         self.out_stream(end)
 
     def out(self, msg, end="\n"):
-        self.out_stream("\f[bold]")
         self._out_arrow(self.ostream)
         self.out_stream(msg)
         self.out_stream(f"\f[]{end}")
 
     def out_orange(self, msg, end="\n"):
-        self.out_stream("\f[bold,orange]")
-        self._out_arrow(self.ostream)
+        self._out_arrow(self.ostream, "\f[orange]")
         self.out_stream(msg)
         self.out_stream(f"\f[]{end}")
 
@@ -83,14 +81,12 @@ class Logger:
         self.out_orange(f"WARNING: {msg}", end)
 
     def out_red(self, msg, end="\n"):
-        self.out_stream("\f[bold,red]")
-        self._out_arrow(self.ostream)
+        self._out_arrow(self.ostream, "\f[red]")
         self.out_stream(msg)
         self.out_stream(f"\f[]{end}")
 
     def out_green(self, msg, end="\n"):
-        self.out_stream("\f[bold,green]")
-        self._out_arrow(self.ostream)
+        self._out_arrow(self.ostream, "\f[green]")
         self.out_stream(msg)
         self.out_stream(f"\f[]{end}")
 
