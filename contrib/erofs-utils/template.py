@@ -1,8 +1,15 @@
 pkgname = "erofs-utils"
 pkgver = "1.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-configure_args = ["--enable-fuse"]
+configure_args = [
+    "--enable-fuse",
+    "--enable-multithreading",
+    "--with-libdeflate",
+    "--with-libzstd",
+    "--with-uuid",
+    "--with-zlib",
+]
 hostmakedepends = [
     "automake",
     "pkgconf",
@@ -10,6 +17,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "fuse-devel",
+    "libdeflate-devel",
     "libuuid-devel",
     "linux-headers",
     "lz4-devel",
