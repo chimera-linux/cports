@@ -1,0 +1,11 @@
+--- a/t/ephemeral-x.sh
++++ b/t/ephemeral-x.sh
+@@ -103,7 +103,7 @@ if ! which "$XSERVERNAME" > /dev/null 2>&1 ; then
+ fi
+ 
+ while true; do 
+-  num=$(expr $num + 1)
++  num=$(($num + 1))
+   xsocket=/tmp/.X11-unix/X$num
+   quiet || echo "Trying :$num"
+   test_x_available $xsocket || continue
