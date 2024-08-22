@@ -1,7 +1,6 @@
 pkgname = "mozjs128"
 pkgver = "128.1.0"
 pkgrel = 1
-make_cmd = "gmake"
 hostmakedepends = [
     "cargo",
     "cbindgen",
