@@ -41,8 +41,6 @@ sha256 = [
 ]
 hardening = ["!vis", "!cfi"]
 
-broken = "tmp"
-
 
 def post_extract(self):
     self.cp(self.sources_path / f"zdev-{pkgver}", ".")
