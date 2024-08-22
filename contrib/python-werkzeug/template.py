@@ -1,5 +1,5 @@
 pkgname = "python-werkzeug"
-pkgver = "3.0.3"
+pkgver = "3.0.4"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -26,7 +26,7 @@ maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"
 url = "https://werkzeug.palletsprojects.com"
 source = f"$(PYPI_SITE)/w/werkzeug/werkzeug-{pkgver}.tar.gz"
-sha256 = "097e5bfda9f0aba8da6b8545146def481d06aa7d3266e7448e2cccf67dd8bd18"
+sha256 = "34f2371506b250df4d4f84bfe7b0921e4762525762bbd936614909fe25cd7306"
 
 
 def post_install(self):
