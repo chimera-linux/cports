@@ -3,7 +3,6 @@ from cbuild.util import cargo
 
 def do_prepare(self):
     self.cargo.vendor()
-    cargo.setup_vendor(self)
 
 
 def do_build(self):
