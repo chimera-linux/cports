@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "2.1.89"
+pkgver = "2.1.104"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -61,7 +61,7 @@ source_paths = [
     "patches",
 ]
 sha256 = [
-    "0b5fff7919669f7c7a71cb77c78d5a85957331a792ceb76107213511c9ac2628",
+    "39f1f9da562f95fdab8d361d913776694c4f6056caa50f2c3c62bdd4b5c1246d",
     "d9df69bc7248f97eb3ec8feee7db95b02d3a82a2f7ff6ef739a5083f0c321cb3",
 ]
 # FIXME: cfi, int
