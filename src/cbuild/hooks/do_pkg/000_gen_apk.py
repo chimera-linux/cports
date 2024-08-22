@@ -394,7 +394,10 @@ set -e
         pargs += ["--compression", autil.get_compression()]
 
     try:
-        logger.get().out(f"Creating {binpkg} in repository {repo}...")
+        repon = repo.parent.relative_to(paths.stage_repository())
+        logger.get().out_plain(
+            f"  \f[green]apk:\f[] \f[orange]{binpkg}\f[] in {repon}\f[]"
+        )
 
         # in stage 0 we need to use the host apk, avoid fakeroot while at it
         # we just use bwrap to pretend we're root and that's all we need

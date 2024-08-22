@@ -39,7 +39,9 @@ def _scan_so(pkg):
     # FIXME: also emit dependencies for proper version constraints
     for dep in verify_deps:
         if dep in pkg.ignore_shlibs:
-            log.out_plain(f"  SONAME: {dep} (ignored, explicit)")
+            log.out_plain(
+                f"  \f[cyan]SONAME:\f[] {dep} (\f[orange]ignored\f[], \f[green]explicit\f[])"
+            )
             continue
         # current package or a subpackage
         if dep in curso:
@@ -47,11 +49,11 @@ def _scan_so(pkg):
             if depn == pkg.pkgname:
                 # current package: ignore
                 log.out_plain(
-                    f"  SONAME: {dep} (provider: {depn}, ignored, same package)"
+                    f"  \f[cyan]SONAME:\f[] {dep} (provider: {depn}, \f[orange]ignored\f[], same package)"
                 )
             else:
                 # subpackage: add
-                log.out_plain(f"  SONAME: {dep} (provider: {depn})")
+                log.out_plain(f"  \f[cyan]SONAME:\f[] {dep} (provider: {depn})")
                 subpkg_deps[depn] = True
             continue
         # otherwise, check if it came from an installed dependency
@@ -109,7 +111,7 @@ def _scan_so(pkg):
             broken = True
             continue
         # we found a package
-        log.out_plain(f"  SONAME: {dep} (provider: {sdep})")
+        log.out_plain(f"  \f[cyan]SONAME:\f[] {dep} (provider: {sdep})")
         pkg.so_requires.append(dep)
 
     for k in subpkg_deps:
@@ -255,7 +257,7 @@ def _scan_pc(pkg):
             if not prov:
                 pkg.error(f"  pc: {k} (unknown provider)")
             else:
-                log.out_plain(f"  pc: {k} (provider: {prov})")
+                log.out_plain(f"  \f[cyan]pc:\f[] {k} (provider: {prov})")
             # warn about redundancy
             if prov in pkg.depends:
                 pkg.log_warn(f"redundant runtime dependency '{prov}'")
@@ -303,7 +305,7 @@ def _scan_symlinks(pkg):
             np = sp.destdir / sdest
             if _exists_link(np):
                 log.out_plain(
-                    f"  symlink: {ssrc} (points to: {sdest}, provider: {sp.pkgname})"
+                    f"  \f[cyan]symlink:\f[] {ssrc} (points to: {sdest}, provider: {sp.pkgname})"
                 )
                 subpkg_deps[sp.pkgname] = True
                 break
@@ -311,7 +313,7 @@ def _scan_symlinks(pkg):
             # could be a main package too
             if _exists_link(pkg.rparent.destdir / sdest):
                 log.out_plain(
-                    f"  symlink: {ssrc} (points to: {sdest}, provider: {pkg.rparent.pkgname})"
+                    f"  \f[cyan]symlink:\f[] {ssrc} (points to: {sdest}, provider: {pkg.rparent.pkgname})"
                 )
                 subpkg_deps[pkg.rparent.pkgname] = True
             else:

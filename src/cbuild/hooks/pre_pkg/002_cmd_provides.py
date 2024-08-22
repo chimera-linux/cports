@@ -17,7 +17,9 @@ def invoke(pkg):
             cmdset[cmdname[:versep]] = True
         else:
             cmdset[cmdname] = True
-        logger.get().out_plain(f"  cmd: {cmdname} (explicit)")
+        logger.get().out_plain(
+            f"  \f[cyan]cmd:\f[] {cmdname} \f[green](explicit)\f[]"
+        )
 
     for f in pkg.destdir.glob("usr/bin/*"):
         if f.name in cmdset:
@@ -25,7 +27,7 @@ def invoke(pkg):
         # forbidden characters
         if any(v in f.name for v in "[]=<>~"):
             continue
-        logger.get().out_plain(f"  cmd: {f.name} from usr/bin")
+        logger.get().out_plain(f"  \f[cyan]cmd:\f[] {f.name} from usr/bin")
         if pkg.alternative:
             cmds.append(f.name + "=0")
         else:

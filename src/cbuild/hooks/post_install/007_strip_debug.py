@@ -71,7 +71,7 @@ def invoke(pkg):
         if not vt:
             v.chmod(0o644)
             if not pkg.rparent.has_lto() or pkg.options["ltostrip"]:
-                log.out_plain(f"  static library: {vr}")
+                log.out_plain(f"  \f[purple]static library:\f[] {vr}")
                 strip_list.append(vr)
             # in any case continue
             continue
@@ -81,7 +81,7 @@ def invoke(pkg):
         # strip static executable
         if static:
             _sanitize_exemode(pkg, v, str(vr))
-            log.out_plain(f"  static executable: {vr}")
+            log.out_plain(f"  \f[green]static executable:\f[] {vr}")
             strip_list.append(vr)
             continue
 
@@ -116,16 +116,16 @@ def invoke(pkg):
 
             strip_list.append(vr)
             strip_slist.append(vr)
-            log.out_plain(f"  executable: {vr}")
+            log.out_plain(f"  \f[green]executable:\f[] {vr}")
             continue
 
         # strip pie executable or shared library
         strip_list.append(vr)
         strip_slist.append(vr)
         if interp:
-            log.out_plain(f"  pie executable: {vr}")
+            log.out_plain(f"  \f[green]pie executable:\f[] {vr}")
         else:
-            log.out_plain(f"  library: {vr}")
+            log.out_plain(f"  \f[cyan]library:\f[] {vr}")
 
     pkg.log("splitting debug info...")
     strip.split_debug(pkg, *strip_slist)

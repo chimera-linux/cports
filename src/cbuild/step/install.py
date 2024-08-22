@@ -34,7 +34,7 @@ def _clean_empty(pkg, dpath, auto):
     if empty and (auto or dpath != pkg.destdir):
         if not auto:
             pr = dpath.relative_to(pkg.destdir)
-            pkg.log_warn(f"removed empty directory: {pr}")
+            pkg.logger.out_plain(f"  \f[orange]clean empty:\f[] {pr}")
         dpath.rmdir()
         return True
 
@@ -43,6 +43,8 @@ def _clean_empty(pkg, dpath, auto):
 
 def _split_auto(pkg, done):
     pkg.rparent.subpkg_all.append(pkg)
+
+    pkg.log("\f[cyan]splitting\f[]\f[bold] autopackages...")
 
     for apkg, adesc, iif, takef in template.autopkgs:
         if takef and not pkg.options["autosplit"]:

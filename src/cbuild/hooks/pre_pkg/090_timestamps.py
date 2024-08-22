@@ -11,7 +11,7 @@ def invoke(pkg):
     ts = pkg.rparent.source_date_epoch
     dt = datetime.fromtimestamp(ts).ctime()
 
-    pkg.log(f"setting mtimes to {dt}")
+    pkg.logger.out_plain(f"  \f[blue]mtime:\f[] {dt}")
 
     for root, dirs, files in os.walk(pkg.destdir):
         for d in dirs:

@@ -32,7 +32,7 @@ def invoke(pkg):
 
     depset = set()
     for path, dep in depl:
-        log.out_plain(f"  TRIGGER DEPENDENCY: {path} -> {dep}")
+        log.out_plain(f"  \f[cyan]TRIGGER DEPENDENCY:\f[] {path} -> {dep}")
         # add it only once in case several paths add the same dep
         if dep not in depset:
             pkg.depends.append(dep)

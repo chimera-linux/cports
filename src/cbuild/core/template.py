@@ -2550,12 +2550,12 @@ class Subpackage(Package):
             # relative path to the file/dir in original destdir
             pdest = self.parent.destdir
             relp = pathlib.Path(fullp).relative_to(pdest)
-            self.log(f"taking {relp}...")
+            self.logger.out_plain(f"  \f[green]take:\f[] {relp}")
             _submove(relp, self.destdir, pdest)
 
     def make_link(self, path, tgt):
         dstp = self.destdir / path
-        self.log(f"symlink: {path} -> {tgt}")
+        self.logger.out_plain(f"  \f[cyan]symlink:\f[] {path} -> {tgt}")
         self.mkdir(dstp.parent, parents=True)
         self.ln_s(tgt, dstp)
 
