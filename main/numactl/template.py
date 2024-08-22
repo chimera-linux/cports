@@ -1,6 +1,6 @@
 pkgname = "numactl"
 pkgver = "2.0.18"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["automake", "libtool", "pkgconf", "gmake"]
