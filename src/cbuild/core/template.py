@@ -234,7 +234,12 @@ def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
 
 def call_pkg_hooks(pkg, stepn):
     for f in hooks[stepn]:
-        run_pkg_func(pkg, f[0], f"{stepn}_{f[1]}", f"{stepn}\f[]\f[bold] hook: \f[orange]{f[1]}")
+        run_pkg_func(
+            pkg,
+            f[0],
+            f"{stepn}_{f[1]}",
+            f"{stepn}\f[]\f[bold] hook: \f[orange]{f[1]}",
+        )
 
 
 def _pglob_path(oldp, patp):
