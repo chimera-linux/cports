@@ -1,5 +1,5 @@
 pkgname = "gwenview"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -51,7 +51,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/gwenview"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/gwenview-{pkgver}.tar.xz"
-sha256 = "2f01edc994d2b96999242c73dbaa90dae5d4c6674c07c4517b0ab6c284ca7a79"
+sha256 = "18d10edb4f7492105a28cb1de114331b7cebf129ce626b8779e1fd75199e7476"
 # avoid crash in raw thumbnailer
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["vis"]

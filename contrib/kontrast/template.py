@@ -1,5 +1,5 @@
 pkgname = "kontrast"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -15,6 +15,7 @@ makedepends = [
     "kdoctools-devel",
     "ki18n-devel",
     "kirigami-devel",
+    "kirigami-addons-devel",
     "qcoro-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
@@ -24,4 +25,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kontrast"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kontrast-{pkgver}.tar.xz"
-sha256 = "94b750197f28720afd8d435f47de4b14e4841add3fbc663a1ce734830cb7c766"
+sha256 = "d163d403ad78e0f42da096b99adbbe0f290953c17032cd0c170e6d8f5afdd747"

@@ -1,7 +1,8 @@
 pkgname = "akregator"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -17,12 +18,14 @@ makedepends = [
     "kcrash-devel",
     "kdoctools-devel",
     "ki18n-devel",
+    "kiconthemes-devel",
     "knotifications-devel",
     "knotifyconfig-devel",
     "kontactinterface-devel",
     "kparts-devel",
     "kstatusnotifieritem-devel",
     "ktextaddons-devel",
+    "ktexttemplate-devel",
     "ktextwidgets-devel",
     "kuserfeedback-devel",
     "kxmlgui-devel",
@@ -33,11 +36,12 @@ makedepends = [
     "qt6-qtwebengine-devel",
     "syndication-devel",
 ]
+checkdepends = ["xwayland-run"]
 pkgdesc = "KDE RSS feed reader"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/akregator"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akregator-{pkgver}.tar.xz"
-sha256 = "381cfb63e76b4e9f8ab8714d789280e005d7a3a6e0267158e0a9df13cc60d41d"
+sha256 = "b7035b4b644fda7e95417ed5706e44a7331a7728bd506d99650ba1bfb23072d0"
 # INT: probably a shift overflow in remap.cpp:CalcHash
 hardening = ["!int"]

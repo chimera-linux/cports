@@ -1,5 +1,5 @@
 pkgname = "kdeconnect"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 # needs more setup
@@ -16,6 +16,7 @@ hostmakedepends = [
 makedepends = [
     "kcmutils-devel",
     "kconfigwidgets-devel",
+    "kcrash-devel",
     "kdbusaddons-devel",
     "kdoctools-devel",
     "kguiaddons-devel",
@@ -34,6 +35,7 @@ makedepends = [
     "modemmanager-qt-devel",
     "pulseaudio-qt-devel",
     "qqc2-desktop-style-devel",
+    "qt6-qtconnectivity-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qtwayland-devel",
@@ -52,7 +54,7 @@ url = "https://community.kde.org/KDEConnect"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
-sha256 = "03d827abed7b0552b536298920ce5815e321f9101b020bfcebf5bcaa4ccf054a"
+sha256 = "cbd102cf3083d2c043e875cc4ef1ac3a33837484f440b2e7377bc9c0bd3212ae"
 
 
 def post_install(self):

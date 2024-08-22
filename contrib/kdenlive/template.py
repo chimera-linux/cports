@@ -1,5 +1,5 @@
 pkgname = "kdenlive"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -41,6 +41,7 @@ makedepends = [
     "qt6-qtnetworkauth-devel",
     "qt6-qtsvg-devel",
     "solid-devel",
+    "v4l-utils-devel",
 ]
 depends = [
     "ffmpeg",
@@ -52,7 +53,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenlive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenlive-{pkgver}.tar.xz"
-sha256 = "057f12c28b5eec9716383b5093f7ca0a345cc9066dd5c7614fe3d9188429a708"
+sha256 = "e4306a2aa5a7535cea50aeff493ea9de8b7292d499d7204c41780cb044752f96"
 # avoid crashes
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # INT: crashes spacertest/trimmingtest
@@ -63,7 +64,7 @@ options = ["!cross"]
 
 def init_configure(self):
     ljobs = 3 if self.make_jobs >= 3 else self.make_jobs
-    # test links are extremely spicy so ensure there is not more than two
+    # test links are extremely spicy so ensure there is not more than three
     self.configure_args += [
         f"-DCMAKE_JOB_POOLS=nyanya={ljobs}",
         "-DCMAKE_JOB_POOL_LINK=nyanya",

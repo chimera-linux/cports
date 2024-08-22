@@ -1,5 +1,5 @@
 pkgname = "ksanecore"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -21,7 +21,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries-ksanecore"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ksanecore-{pkgver}.tar.xz"
-sha256 = "a9439b6f686363fa32c6f4a5287e8c5df86547015e64b88587691d64492ec95d"
+sha256 = "8d37b81ee5adce4350d6ce51c045b25dfdee5fe45056fd99e9f2b21d53c0472d"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

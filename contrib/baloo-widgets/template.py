@@ -1,6 +1,6 @@
 pkgname = "baloo-widgets"
-pkgver = "24.05.2"
-pkgrel = 1
+pkgver = "24.08.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
 # FIXME: 'not connected to dbus server'
@@ -28,5 +28,5 @@ url = "https://api.kde.org/baloo-widgets/html/index.html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/baloo-widgets-{pkgver}.tar.xz"
 )
-sha256 = "b7c4680fbda02f337c775e8dde91ad6f065bcdf361ce77d5422110b2b6444318"
+sha256 = "a047d911605abe7dbd1c747443be413b99f95633b23e80dbd5b702295577332b"
 hardening = ["vis"]

@@ -1,5 +1,5 @@
 pkgname = "kcharselect"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -15,6 +15,7 @@ makedepends = [
     "kcrash-devel",
     "kdoctools-devel",
     "ki18n-devel",
+    "kiconthemes-devel",
     "kwidgetsaddons-devel",
     "kxmlgui-devel",
     "qt6-qtdeclarative-devel",
@@ -24,4 +25,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kcharselect"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcharselect-{pkgver}.tar.xz"
-sha256 = "110e68ae7ee1c5b324812129be4197b87348d10b9275cd621e11cfceb01cfc7b"
+sha256 = "6dd6ee8f11b076485a9417320c0d34951896b58d107ca2151b62db4c15453c5e"

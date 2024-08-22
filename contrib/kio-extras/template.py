@@ -1,5 +1,5 @@
 pkgname = "kio-extras"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 # thumbnail: fails for some reason
@@ -52,7 +52,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-or-later"
 url = "https://invent.kde.org/network/kio-extras"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-extras-{pkgver}.tar.xz"
-sha256 = "19e9c6d3625511a7f9f7c0e5c9e9e6b0ca365aeed4914c7781a937fd1807e240"
+sha256 = "7590f4897962388149c0fec25e7eb8b691597dacfd4aedf3343bbeeb4b98445c"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

@@ -1,5 +1,5 @@
 pkgname = "spectacle"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,11 +21,13 @@ makedepends = [
     "kirigami-devel",
     "knotifications-devel",
     "kpipewire-devel",
+    "kstatusnotifieritem-devel",
     "kwidgetsaddons-devel",
     "kxmlgui-devel",
     "layer-shell-qt-devel",
     "opencv-devel",
     "plasma-wayland-protocols",
+    "prison-devel",
     "purpose-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qtwayland-devel",
@@ -37,7 +39,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/spectacle"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/spectacle-{pkgver}.tar.xz"
-sha256 = "14c1435fb057aa3d088529e28b6407b9f4f89d5f5399d58859044c2b75476d82"
+sha256 = "8d37135c6edd62f09f5e6004bef947331466cf20fded79450500dc802dd1ad8c"
 hardening = ["vis"]
 
 

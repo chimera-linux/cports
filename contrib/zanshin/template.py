@@ -1,10 +1,10 @@
 pkgname = "zanshin"
-pkgver = "24.05.2"
-pkgrel = 1
+pkgver = "24.08.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
-    "(akonadi-akonadi.*|editingtaskfeature|inboxpagemodeltest|alltaskspagemodeltest|migrationtest)",
+    "(akonadi-akonadi.*|editingtaskfeature|inboxpagemodeltest|alltaskspagemodeltest|migrationtest|pageviewtest)",
     "-j1",
 ]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -37,4 +37,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://zanshin.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/zanshin-{pkgver}.tar.xz"
-sha256 = "97a25eadac865122dd0032cb3c1b282da935fa0d679391506482d175232b5960"
+sha256 = "9a2dc6609d4e933a63eaeb08af40752cc14a8ec6579a7fe0dd5d988118c948b7"

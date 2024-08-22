@@ -1,5 +1,5 @@
 pkgname = "kcachegrind"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,7 +27,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only"
 url = "https://apps.kde.org/kcachegrind"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcachegrind-{pkgver}.tar.xz"
-sha256 = "29b01c69da246cb884ae0ce246b58dec1a026acb503190091f2b08f7a24611c8"
+sha256 = "3378ee7e6722172044176ca1c0f07b850bb1cece9a1564ac48ecb4f3dbfa7170"
 hardening = ["vis"]
 
 

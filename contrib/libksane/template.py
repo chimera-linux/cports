@@ -1,5 +1,5 @@
 pkgname = "libksane"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -24,7 +24,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/graphics/libksane"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libksane-{pkgver}.tar.xz"
-sha256 = "6fdcf6d8c38963dc46c60c68ece4f07226fd5d5a0ee1644c908baf797ab54ad9"
+sha256 = "4bfbc56289b18fc020809d5cb89185094783370728e02b7cdd2a3832b609bb3d"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

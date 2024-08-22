@@ -1,5 +1,5 @@
 pkgname = "kdepim-runtime"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-j1", "-E", "(akonadi-sqlite-.*)"]
@@ -59,4 +59,4 @@ url = "https://invent.kde.org/pim/kdepim-runtime"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdepim-runtime-{pkgver}.tar.xz"
 )
-sha256 = "f470f2565aa6b3ea9866e59e4a19799470c4a7b9ba0ce41cc388fa8563ddd5cb"
+sha256 = "e2028d748b417426e9e0282492c37ee318b532cd6ca256f6dcf4d38e7697dc77"

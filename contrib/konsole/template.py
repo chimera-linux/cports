@@ -1,7 +1,8 @@
 pkgname = "konsole"
-pkgver = "24.05.2"
-pkgrel = 1
+pkgver = "24.08.0"
+pkgrel = 0
 build_style = "cmake"
+make_check_args = ["-E", "TerminalInterfaceTest"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
@@ -37,5 +38,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/konsole"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konsole-{pkgver}.tar.xz"
-sha256 = "1d05ef1bfa531e41f9625acb95eeb18ef5409fa5160d4b976ce6997759518994"
+sha256 = "0095f1afc4e4a4cd36a12a2927e090e62fb0d016d38914bc858af568b7416101"
 hardening = ["vis"]

@@ -1,5 +1,5 @@
 pkgname = "keditbookmarks"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -33,4 +33,4 @@ url = "https://github.com/KDE/keditbookmarks"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/keditbookmarks-{pkgver}.tar.xz"
 )
-sha256 = "594394aa47e69ce097796417a9f8e4022cc5579c8fa0ca2ffb56dc5cdc4cd94f"
+sha256 = "ae640633a1e385f5709bdfc1ec349de6f537b0808aea7ccb837c0fc8b68bf15d"

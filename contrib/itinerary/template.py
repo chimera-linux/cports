@@ -1,5 +1,5 @@
 pkgname = "itinerary"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 # fails with no output
@@ -56,4 +56,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://apps.kde.org/itinerary"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/itinerary-{pkgver}.tar.xz"
-sha256 = "ab2ea4dc4c4a5a7a872847feee5ee3865d7bf41316a9596d3124de1872da05dc"
+sha256 = "166864fb078f4e83739b3672a824efba50b87e08e366f7c4edf94555f54d0435"

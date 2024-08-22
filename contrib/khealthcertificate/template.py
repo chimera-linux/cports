@@ -1,5 +1,5 @@
 pkgname = "khealthcertificate"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,7 +22,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/pim/khealthcertificate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/khealthcertificate-{pkgver}.tar.xz"
-sha256 = "a7f4db24a65ffe6cfc706f16b51fa9600fc86c8f9e0924393f7db426cecf0018"
+sha256 = "4975da85764d4e361af96fb5cd5fa0f5c5c5c985c5ff6866acaff8066f4645f6"
 
 
 @subpackage("khealthcertificate-devel")

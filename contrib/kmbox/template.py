@@ -1,5 +1,5 @@
 pkgname = "kmbox"
-pkgver = "24.05.2"
+pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -20,7 +20,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kmbox/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kmbox-{pkgver}.tar.xz"
-sha256 = "39f754555e49aaab9dfa7baeb75bbe0bc2b62f34bf26b39d8db19e61017a573c"
+sha256 = "5023414d70111305957879d9657eda6c79eaa6bdd0f48995bbb1f489334102e3"
 
 
 @subpackage("kmbox-devel")
