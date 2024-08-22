@@ -553,7 +553,7 @@ core_fields = [
     ("configure_script", "configure", str, False, False, False),
     ("configure_env", {}, dict, False, False, False),
     ("configure_gen", [], list, False, False, False),
-    ("make_cmd", "bmake", str, False, False, False),
+    ("make_cmd", "make", str, False, False, False),
     ("make_dir", ".", str, False, False, False),
     ("make_env", {}, dict, False, False, False),
     ("make_wrapper", [], list, False, False, False),

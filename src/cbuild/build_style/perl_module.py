@@ -98,6 +98,5 @@ def use(tmpl):
     tmpl.make = make.Make(tmpl)
 
     tmpl.build_style_defaults = [
-        ("make_cmd", "gmake"),
         ("make_check_target", "test"),
     ]

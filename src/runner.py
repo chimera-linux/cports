@@ -661,9 +661,6 @@ def bootstrap(tgt):
             if not shutil.which(prog):
                 sys.exit(f"Required bootstrap program not found: {prog}")
 
-        if not shutil.which("gmake") and not shutil.which("bmake"):
-            sys.exit("Required bootstrap program not found: gmake/bmake")
-
         rp = None
         try:
             rp = template.Template(

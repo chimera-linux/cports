@@ -93,7 +93,7 @@ def configure(
 
     # autoconf cache
     eenv = dict(benv)
-    eenv["MAKE"] = make.Make(pkg).get_command()
+    eenv["MAKE"] = make.Make(pkg).command
     # libtoolize
     if (pkg.bldroot_path / "usr/bin/slibtoolize").exists():
         eenv["MAKE"] += " LIBTOOL=rlibtool"

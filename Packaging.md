@@ -891,8 +891,7 @@ Keep in mind that default values may be overridden by build styles.
   subpackage objects, which resolve to their full versioned name like in
   the `depends` list.
 * `make_cmd` *(str)* The name of the program used for building. May not
-  apply to all templates or build styles. By default this is `bmake` (the
-  default Make implementation in Chimera).
+  apply to all templates or build styles. By default this is `make`.
 * `make_env` *(dict)* Environment variables to be exported when running
   some build stage. For `make`, the call site `env` is most significant,
   followed by phase-specific `make` environment, followed by this, followed
@@ -3588,32 +3587,7 @@ A wrapper around Make and Make-style tools.
 Initializes the Make. The arguments can provide default values for various
 settings, which can further be overridden in sub-invocations.
 
-The `command` is the default `make` command (which is not necessarily
-the actual command used). The `wrksrc` is relative to `cwd`.
-
-###### def get_command(self)
-
-The the actual command used. If `command` was provided via constructor,
-that is considered the base, otherwise `self.template.make_cmd` is.
-
-If not bootstrapping, that is then returned as-is. When bootstrapping,
-more logic is taken to accommodate standard Linux host environments:
-
-* If the command is `gmake` and the `gmake` command is not available,
-  we fall back to `make`.
-* If the command is `make` and the `bmake` command is available, we
-  use `bmake` instead.
-
-The reason this is done is that we use `make` by default for most
-projects, but `make` on Chimera is NetBSD `bmake`, while on most
-Linux systems this is GNU `make`. Meanwhile, if a template specifies
-`gmake` as the command, we want GNU `make` to be used (which is
-called `gmake` in Chimera) but `gmake` may not exist on regular
-Linux distributions (where it's called just `make`).
-
-This makes it compatible with both Chimera and regular Linux systems
-as the `bmake` alias exists in both and `gmake` is still used when
-requested and exists.
+The `command` is the default `make` command. The `wrksrc` is relative to `cwd`.
 
 ###### def invoke(self, targets = [], args = [], jobs = None, env = {}, wrksrc = None, wrapper = [])
 

@@ -1,33 +1,10 @@
-import shutil
-
-
 class Make:
     def __init__(self, tmpl, jobs=None, command=None, env={}, wrksrc=None):
         self.template = tmpl
-        self.command = command
+        self.command = command or tmpl.make_cmd
         self.wrksrc = wrksrc
         self.env = env
         self.jobs = jobs
-
-    def get_command(self):
-        if self.command:
-            return self.command
-
-        self.command = self.template.make_cmd
-
-        if self.template.stage == 0:
-            # since usual Linux systems have make point to GNU make and bmake
-            # point to BSD make, we need to make some adjustments for that:
-            if self.command == "gmake":
-                # if gmake was forced and does not exist, fall back to make
-                if not shutil.which("gmake"):
-                    self.command = "make"
-            elif self.command == "make":
-                # normal make means bmake for us; if it exists, use it
-                if shutil.which("bmake"):
-                    self.command = "bmake"
-
-        return self.command
 
     def _invoke(
         self, targets, args, jobs, base_env, env, wrksrc, ewrapper, wrapper
@@ -63,7 +40,7 @@ class Make:
             *wrapper,
             *ewrapper,
             *self.template.make_wrapper,
-            self.get_command(),
+            self.command,
             *argsbase,
             env=renv,
             wrksrc=wrksrc,
@@ -101,7 +78,7 @@ class Make:
         argsbase = []
 
         if default_args:
-            if self.get_command() == "ninja":
+            if self.command == "ninja":
                 args_use_env = True
             if not args_use_env:
                 argsbase.append("DESTDIR=" + str(pkg.chroot_destdir))
