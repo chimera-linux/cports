@@ -1812,7 +1812,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         # now replace with sanitized name
         npn = f"{pns.parent.name}/{pns.name}"
         # now do a second pass skip if it differs
-        if (npn != pn and npn in rpkgs) or npn in badpkgs:
+        if npn != pn and (npn in rpkgs or npn in badpkgs):
             continue
         # skip if previously failed
         if failed and not opt_bulkcont:
