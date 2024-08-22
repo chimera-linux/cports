@@ -1,6 +1,6 @@
 pkgname = "base-cbuild-bootstrap"
 pkgver = "0.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "meta"
 depends = [
     "base-cbuild-host",  # all the host tools for cbuild itself
@@ -18,6 +18,7 @@ depends = [
     "libtool",
     "cmake",
     "meson",
+    "gmake",
     "ninja",
 ]
 pkgdesc = "Everything one needs to build Chimera from source"
