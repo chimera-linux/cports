@@ -44,6 +44,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: lol
+        run: command -v uv && echo 123 || echo 124
+
       - name: Install ruff
         run: python -m pip install ruff --break-system-packages
 
