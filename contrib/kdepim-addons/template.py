@@ -84,7 +84,6 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc="plugins/webengineurlinterceptor/adblock").vendor()
-    cargo.setup_vendor(self, wrksrc="plugins/webengineurlinterceptor/adblock")
 
 
 def init_build(self):

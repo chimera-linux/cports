@@ -38,9 +38,7 @@ options = ["!check", "!debug"]
 def post_patch(self):
     from cbuild.util import cargo
 
-    self.cargo = cargo.Cargo(self, wrksrc=".")
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
+    cargo.Cargo(self, wrksrc=".").vendor()
 
 
 def init_build(self):

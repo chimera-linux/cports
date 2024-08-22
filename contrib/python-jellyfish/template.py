@@ -28,9 +28,7 @@ def init_build(self):
 def do_prepare(self):
     from cbuild.util import cargo
 
-    self.cargo = cargo.Cargo(self)
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
+    cargo.Cargo(self).vendor()
 
 
 def post_install(self):

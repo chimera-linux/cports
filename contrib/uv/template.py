@@ -32,7 +32,6 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor()
-    cargo.setup_vendor(self)
 
     # TODO: our cargo vendor does not take into account custom source entries
     # (this is spat out by `cargo vendor`)

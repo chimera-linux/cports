@@ -32,24 +32,6 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor()
-    cargo.setup_vendor(self)
-
-    # TODO: our cargo vendor does not take into account custom source entries
-    # (this is spat out by `cargo vendor`)
-    with open(f"{self.cwd}/.cargo/config.toml", "a") as f:
-        f.write(
-            """
-[source."git+https://github.com/MichaReiser/salsa.git?tag=red-knot-0.0.1"]
-git = "https://github.com/MichaReiser/salsa.git"
-tag = "red-knot-0.0.1"
-replace-with = "vendored-sources"
-
-[source."git+https://github.com/astral-sh/lsp-types.git?rev=3512a9f"]
-git = "https://github.com/astral-sh/lsp-types.git"
-rev = "3512a9f"
-replace-with = "vendored-sources"
-"""
-        )
 
 
 def init_build(self):

@@ -48,7 +48,6 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc="agent/rs/htmlparser").vendor()
-    cargo.setup_vendor(self, wrksrc="agent/rs/htmlparser")
 
 
 def init_build(self):

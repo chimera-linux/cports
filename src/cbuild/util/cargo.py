@@ -76,27 +76,6 @@ def get_environment(pkg, jobs=None):
     return env
 
 
-# Configure cargo to use vendored sources
-def setup_vendor(pkg, vendor_path="vendor", wrksrc=None):
-    dirn = pkg.cwd
-    if wrksrc is not None:
-        dirn = dirn / wrksrc
-
-    # Make sure to append in case a config is already present;
-    # `parents` ensures the directory is allowed to exist already
-    pkg.mkdir(dirn / ".cargo", parents=True)
-    with open(dirn / ".cargo/config.toml", "a") as cf:
-        cf.write(
-            f"""
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "{vendor_path}"
-"""
-        )
-
-
 class Cargo:
     def __init__(self, tmpl, jobs=None, env={}, wrksrc=None):
         self.template = tmpl
@@ -115,6 +94,7 @@ class Cargo:
         wrksrc,
         ewrapper,
         wrapper,
+        stdout=None,
     ):
         tmpl = self.template
 
@@ -170,6 +150,7 @@ class Cargo:
             env=renv,
             wrksrc=wrksrc,
             allow_network=not offline,
+            stdout=stdout,
         )
 
     def invoke(
@@ -187,9 +168,33 @@ class Cargo:
         )
 
     def vendor(self, args=[], env={}, wrksrc=None, wrapper=[]):
-        return self._invoke(
-            "vendor", args, 1, False, None, env, wrksrc, [], wrapper
-        )
+        dirn = self.template.cwd
+        if wrksrc is not None:
+            dirn = dirn / wrksrc
+
+        # Make sure to append in case a config is already present;
+        # `parents` ensures the directory is allowed to exist already
+        self.template.mkdir(dirn / ".cargo", parents=True)
+
+        cfgp = dirn / ".cargo/config.toml"
+        write_nl = cfgp.exists()
+
+        with open(dirn / ".cargo/config.toml", "a") as outf:
+            if write_nl:
+                outf.write("\n")
+
+            return self._invoke(
+                "vendor",
+                args,
+                1,
+                False,
+                None,
+                env,
+                wrksrc,
+                [],
+                wrapper,
+                stdout=outf,
+            )
 
     def build(
         self,

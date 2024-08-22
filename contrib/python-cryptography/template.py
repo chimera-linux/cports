@@ -37,7 +37,6 @@ def do_prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor(wrksrc="src/rust")
-    cargo.setup_vendor(self, wrksrc="src/rust")
 
 
 def init_build(self):

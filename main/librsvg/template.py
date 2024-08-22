@@ -47,7 +47,6 @@ def do_prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor(wrksrc=".")
-    cargo.setup_vendor(self)
 
 
 def post_patch(self):

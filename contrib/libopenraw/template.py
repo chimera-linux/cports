@@ -42,7 +42,6 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc="lib/mp4").vendor()
-    cargo.setup_vendor(self, wrksrc="lib/mp4")
 
 
 def init_build(self):

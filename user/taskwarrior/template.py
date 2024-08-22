@@ -18,7 +18,6 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor()
-    cargo.setup_vendor(self)
 
 
 def init_build(self):
