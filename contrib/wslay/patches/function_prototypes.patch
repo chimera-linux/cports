@@ -1,0 +1,24 @@
+diff -ruN a/lib/wslay_stack.c b/lib/wslay_stack.c
+--- a/lib/wslay_stack.c	2020-06-20 08:51:51.000000000 +0200
++++ b/lib/wslay_stack.c	2024-08-22 16:28:59.745994125 +0200
+@@ -27,7 +27,7 @@
+ #include <string.h>
+ #include <assert.h>
+ 
+-struct wslay_stack* wslay_stack_new()
++struct wslay_stack* wslay_stack_new(void)
+ {
+   struct wslay_stack *stack = (struct wslay_stack*)malloc
+     (sizeof(struct wslay_stack));
+diff -ruN a/lib/wslay_stack.h b/lib/wslay_stack.h
+--- a/lib/wslay_stack.h	2020-06-20 08:51:51.000000000 +0200
++++ b/lib/wslay_stack.h	2024-08-22 16:28:53.917030770 +0200
+@@ -40,7 +40,7 @@
+   struct wslay_stack_cell *top;
+ };
+ 
+-struct wslay_stack* wslay_stack_new();
++struct wslay_stack* wslay_stack_new(void);
+ void wslay_stack_free(struct wslay_stack *stack);
+ int wslay_stack_push(struct wslay_stack *stack, void *data);
+ void wslay_stack_pop(struct wslay_stack *stack);
