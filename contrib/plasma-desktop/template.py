@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
@@ -324,7 +324,6 @@ def _(self):
         "kdepim-addons",
         #  "kleopatra", TODO: crashes in certificate search in std::sort
         "kmail",
-        "knotes",
         "kontact",
         "korganizer",
         "merkuro",
