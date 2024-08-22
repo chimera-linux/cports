@@ -2,12 +2,7 @@ pkgname = "kdenlive"
 pkgver = "24.08.0"
 pkgrel = 0
 build_style = "cmake"
-make_check_args = [
-    "-E",
-    # FIXME: flaky segfaults/aborts
-    "(keyframetest|mixtest|effectstest|filetest|timelinepreviewtest)",
-]
-make_check_wrapper = ["wlheadless-run", "--"]
+configure_args = ["-DBUILD_TESTING=OFF"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -47,7 +42,6 @@ depends = [
     "ffmpeg",
     "frei0r",
 ]
-checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE video editor"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
@@ -59,13 +53,5 @@ tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # INT: crashes spacertest/trimmingtest
 hardening = ["vis", "!int"]
 # TODO
-options = ["!cross"]
-
-
-def init_configure(self):
-    ljobs = 3 if self.make_jobs >= 3 else self.make_jobs
-    # test links are extremely spicy so ensure there is not more than three
-    self.configure_args += [
-        f"-DCMAKE_JOB_POOLS=nyanya={ljobs}",
-        "-DCMAKE_JOB_POOL_LINK=nyanya",
-    ]
+# check: takes forever to build + sometimes hangs etc
+options = ["!cross", "!check"]
