@@ -1,21 +1,18 @@
 pkgname = "weechat"
-pkgver = "4.4.0"
+pkgver = "4.4.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    # no guile available
-    "-DENABLE_GUILE=False",
-    # no php available
-    "-DENABLE_PHP=False",
-    # no v8 available
-    "-DENABLE_JAVASCRIPT=False",
-    # no, aspell available
-    "-DENABLE_ENCHANT=True",
+    "-DENABLE_ENCHANT=ON",
+    # no system v8 available (lol)
+    "-DENABLE_JAVASCRIPT=OFF",
+    # who uses this
+    "-DENABLE_PHP=OFF",
+    "-DENABLE_DOC=ON",
+    "-DENABLE_DOC_INCOMPLETE=ON",
+    "-DENABLE_MAN=ON",
     # missing dependency (cpputest); tests seem kinda half broken
-    "-DENABLE_TESTS=False",
-    "-DENABLE_MAN=True",
-    "-DENABLE_DOC=True",
-    "-DENABLE_DOC_INCOMPLETE=True",
+    "-DENABLE_TESTS=OFF",
 ]
 hostmakedepends = [
     "asciidoctor",
@@ -28,6 +25,7 @@ makedepends = [
     "cjson-devel",
     "enchant-devel",  # spell plugin
     "gnutls-devel",
+    "guile-devel",
     "libcurl-devel",
     "libgcrypt-devel",
     "lua5.4-devel",  # lua plugin
@@ -44,7 +42,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://weechat.org"
 source = f"https://weechat.org/files/src/weechat-{pkgver}.tar.gz"
-sha256 = "8c8abda3790dfe784c315d0256c80d99dc0e65bd6be701f9b3787f96b7576255"
+sha256 = "3426c856425614d3737e152fc4e79f61b944563cb27988e28f6d81b6396293b6"
 
 
 @subpackage("weechat-devel")
@@ -61,5 +59,12 @@ def _plugin(name):
         return [f"usr/lib/weechat/plugins/{name}.so"]
 
 
-for _p in ["lua", "python", "ruby", "tcl", "perl"]:
+for _p in [
+    "guile",
+    "lua",
+    "perl",
+    "python",
+    "ruby",
+    "tcl",
+]:
     _plugin(_p)
