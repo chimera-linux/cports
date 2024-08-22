@@ -6,14 +6,10 @@
 #define MI_NO_GETENV 1
 /* this is a hardened build */
 #define MI_SECURE 4
-/* this seems to break some things? notably firefox
- * it also breaks with stock secure preload build, so...
- */
-#define MI_PADDING_CHECK 0
-/* while at it also disable padding entirely as it makes
- * various things ~2.5x slower (e.g. sort(1))
- * coincidentally this also disables the above, but
- * keep it around for clarity
+/* this would be nice to have, but unfortunately it
+ * makes some things a lot slower (e.g. sort(1) becomes
+ * roughly 2.5x slower) so disable unless we figure out
+ * some way to make it acceptable...
  */
 #define MI_PADDING 0
 
