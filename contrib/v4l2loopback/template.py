@@ -16,8 +16,6 @@ sha256 = "1e57e1e382d7451aa2a88d63cc9f146eab1f425b90e76104d4c3d73127e34771"
 # no testsuite
 options = ["!check"]
 
-broken = "tmp"
-
 
 def post_install(self):
     # install ckms source tree
