@@ -41,7 +41,7 @@ def invoke(pkg):
         soname = soname[:eq]
         soset[soname] = True
         logger.get().out_plain(
-            f"  \f[cyan]SONAME:\f[] {soname}={sfx} \f[green](explicit)\f[]"
+            f"  \f[cyan]SONAME: \f[orange]{soname}={sfx} \f[green](explicit)\f[]"
         )
 
     for fp, finfo in curelf.items():
@@ -75,11 +75,11 @@ def invoke(pkg):
                     (soname, autosfx if not pkg.alternative else "0")
                 )
                 logger.get().out_plain(
-                    f"  \f[cyan]SONAME:\f[] {soname} from {fp.parent}"
+                    f"  \f[cyan]SONAME: \f[orange]{soname}\f[] from \f[green]{fp.parent}\f[]"
                 )
             else:
                 logger.get().out_plain(
-                    f"  \f[cyan]SONAME:\f[] {soname} from {fp.parent} \f[orange](skipped)\f[]"
+                    f"  \f[cyan]SONAME: \f[orange]{soname}\f[] from \f[green]{fp.parent} \f[orange](skipped)\f[]"
                 )
 
     pkg.aso_provides = asonames

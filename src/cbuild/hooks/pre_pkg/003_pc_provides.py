@@ -22,7 +22,7 @@ def invoke(pkg):
         sfx = pcname[eq + 1 :]
         pcset[pcname] = True
         logger.get().out_plain(
-            f"  \f[cyan]pc:\f[] {pcname}={sfx} \f[green](explicit)\f[]"
+            f"  \f[cyan]pc: \f[orange]{pcname}={sfx}\f[] \f[green](explicit)\f[]"
         )
 
     def scan_pc(v):
@@ -70,12 +70,12 @@ def invoke(pkg):
                 pkg.error(f"invalid pkgconf version {mver}")
             if pname in pcset:
                 logger.get().out_plain(
-                    f"  \f[cyan]pc:\f[] {pname}={mver} from {rlp} \f[purple](skipped)\f[]"
+                    f"  \f[cyan]pc: \f[orange]{pname}={mver}\f[] from \f[green]{rlp} \f[purple](skipped)\f[]"
                 )
             else:
                 pcs[pname] = f"{pname}={mver}"
                 logger.get().out_plain(
-                    f"  \f[cyan]pc:\f[] {pname}={mver} from {rlp}"
+                    f"  \f[cyan]pc: \f[orange]{pname}={mver}\f[] from \f[green]{rlp}\f[]"
                 )
 
     for f in pkg.destdir.glob("usr/lib/pkgconfig/*.pc"):

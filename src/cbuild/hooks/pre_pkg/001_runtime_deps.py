@@ -40,7 +40,7 @@ def _scan_so(pkg):
     for dep in verify_deps:
         if dep in pkg.ignore_shlibs:
             log.out_plain(
-                f"  \f[cyan]SONAME:\f[] {dep} (\f[orange]ignored\f[], \f[green]explicit\f[])"
+                f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (\f[orange]ignored\f[], \f[green]explicit\f[])"
             )
             continue
         # current package or a subpackage
@@ -49,11 +49,13 @@ def _scan_so(pkg):
             if depn == pkg.pkgname:
                 # current package: ignore
                 log.out_plain(
-                    f"  \f[cyan]SONAME:\f[] {dep} (provider: {depn}, \f[orange]ignored\f[], same package)"
+                    f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{depn}\f[], \f[orange]ignored\f[], same package)"
                 )
             else:
                 # subpackage: add
-                log.out_plain(f"  \f[cyan]SONAME:\f[] {dep} (provider: {depn})")
+                log.out_plain(
+                    f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{depn}\f[])"
+                )
                 subpkg_deps[depn] = True
             continue
         # otherwise, check if it came from an installed dependency
@@ -111,7 +113,9 @@ def _scan_so(pkg):
             broken = True
             continue
         # we found a package
-        log.out_plain(f"  \f[cyan]SONAME:\f[] {dep} (provider: {sdep})")
+        log.out_plain(
+            f"  \f[cyan]SONAME: \f[orange]{dep}\f[] (provider: \f[green]{sdep}\f[])"
+        )
         pkg.so_requires.append(dep)
 
     for k in subpkg_deps:
@@ -257,7 +261,9 @@ def _scan_pc(pkg):
             if not prov:
                 pkg.error(f"  pc: {k} (unknown provider)")
             else:
-                log.out_plain(f"  \f[cyan]pc:\f[] {k} (provider: {prov})")
+                log.out_plain(
+                    f"  \f[cyan]pc: \f[orange]{k}\f[] (provider: \f[green]{prov}\f[])"
+                )
             # warn about redundancy
             if prov in pkg.depends:
                 pkg.log_warn(f"redundant runtime dependency '{prov}'")
@@ -288,12 +294,12 @@ def _scan_symlinks(pkg):
         if not f.is_symlink():
             continue
         # resolve
-        sdest = f.readlink()
+        starg = f.readlink()
         # normalize to absolute path within destdir
-        if sdest.is_absolute():
-            sdest = pkg.destdir / sdest.relative_to("/")
+        if starg.is_absolute():
+            sdest = pkg.destdir / starg.relative_to("/")
         else:
-            sdest = f.parent / sdest
+            sdest = f.parent / starg
         # if it resolves, it exists within the package, so skip
         if _exists_link(sdest):
             continue
@@ -305,7 +311,7 @@ def _scan_symlinks(pkg):
             np = sp.destdir / sdest
             if _exists_link(np):
                 log.out_plain(
-                    f"  \f[cyan]symlink:\f[] {ssrc} (points to: {sdest}, provider: {sp.pkgname})"
+                    f"  \f[cyan]symlink: \f[orange]{ssrc}\f[] (points to: \f[orange]{starg}\f[], provider: {sp.pkgname})"
                 )
                 subpkg_deps[sp.pkgname] = True
                 break
@@ -313,7 +319,7 @@ def _scan_symlinks(pkg):
             # could be a main package too
             if _exists_link(pkg.rparent.destdir / sdest):
                 log.out_plain(
-                    f"  \f[cyan]symlink:\f[] {ssrc} (points to: {sdest}, provider: {pkg.rparent.pkgname})"
+                    f"  \f[cyan]symlink: \f[orange]{ssrc}\f[] (points to: \f[orange]{starg}\f[], provider: {pkg.rparent.pkgname})"
                 )
                 subpkg_deps[pkg.rparent.pkgname] = True
             else:
@@ -330,7 +336,7 @@ def _scan_symlinks(pkg):
                 if allow_brokenlink:
                     continue
                 pkg.error(
-                    f"  symlink: {ssrc} (points to: {sdest}, unknown provider)"
+                    f"  symlink: {ssrc} (points to: {starg}, unknown provider)"
                 )
 
     for k in subpkg_deps:
