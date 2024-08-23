@@ -1289,7 +1289,7 @@ def do_print_build_graph(tgt):
         try:
             tp = template.Template(
                 template.sanitize_pkgname(pkgn),
-                chroot.host_cpu(),
+                opt_arch or chroot.host_cpu(),
                 True,
                 False,
                 (1, 1),
