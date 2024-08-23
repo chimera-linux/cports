@@ -28,15 +28,8 @@ diff --git a/third_party/dawn/src/dawn/common/Platform.h b/third_party/dawn/src/
 index 39d5eb41..2011367d 100644
 --- a/third_party/dawn/src/dawn/common/Platform.h
 +++ b/third_party/dawn/src/dawn/common/Platform.h
-@@ -124,15 +124,15 @@
- #define DAWN_PLATFORM_IS_MIPS64 1
- #endif
- 
--#elif defiend(__s390__)
-+#elif defined(__s390__)
- #define DAWN_PLATFORM_IS_S390 1
--#elif defiend(__s390x__)
-+#elif defined(__s390x__)
+@@ -158,10 +158,10 @@
+ #elif defined(__s390x__)
  #define DAWN_PLATFORM_IS_S390X 1
  
 -#elif defined(__PPC__)

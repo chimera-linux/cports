@@ -38,12 +38,11 @@ diff --git a/ui/ozone/platform/wayland/gpu/wayland_surface_factory.cc b/ui/ozone
 index b6e99324c02b..7602a6b8e693 100644
 --- a/ui/ozone/platform/wayland/gpu/wayland_surface_factory.cc
 +++ b/ui/ozone/platform/wayland/gpu/wayland_surface_factory.cc
-@@ -214,6 +214,7 @@ WaylandSurfaceFactory::GetAllowedGLImplementations() {
+@@ -213,6 +213,7 @@
      impls.emplace_back(gl::ANGLEImplementation::kOpenGL);
      impls.emplace_back(gl::ANGLEImplementation::kOpenGLES);
      impls.emplace_back(gl::ANGLEImplementation::kSwiftShader);
 +    impls.emplace_back(gl::ANGLEImplementation::kVulkan);
-     impls.emplace_back(gl::kGLImplementationEGLGLES2);
    }
    return impls;
-
+ }

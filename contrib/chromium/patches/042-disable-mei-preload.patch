@@ -7,33 +7,25 @@
 
 --- a/chrome/BUILD.gn
 +++ b/chrome/BUILD.gn
-@@ -384,7 +384,6 @@ if (!is_android && !is_mac) {
+@@ -382,7 +382,6 @@
        }
  
        data_deps += [
 -        "//chrome/browser/resources/media/mei_preload:component",
+         "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
          "//third_party/widevine/cdm",
        ]
-       if (invoker.collect_inputs_only) {
-@@ -1258,7 +1257,6 @@ if (is_win) {
-       ":optimization_guide_library",
-       ":swiftshader_library",
-       ":widevine_cdm_library",
--      "//chrome/browser/resources/media/mei_preload:component_bundle",
-     ]
- 
-     if (enable_ml_internal) {
 --- a/chrome/installer/linux/BUILD.gn
 +++ b/chrome/installer/linux/BUILD.gn
-@@ -96,8 +96,6 @@ packaging_files = packaging_files_binaries + [
+@@ -68,8 +68,6 @@
                      "$root_out_dir/xdg-mime",
                      "$root_out_dir/xdg-settings",
                      "$root_out_dir/locales/en-US.pak",
 -                    "$root_out_dir/MEIPreload/manifest.json",
 -                    "$root_out_dir/MEIPreload/preloaded_data.pb",
+                     "$root_out_dir/PrivacySandboxAttestationsPreloaded/manifest.json",
+                     "$root_out_dir/PrivacySandboxAttestationsPreloaded/privacy-sandbox-attestations.dat",
                    ]
- if (enable_swiftshader) {
-   packaging_files += [ "$root_out_dir/vk_swiftshader_icd.json" ]
 @@ -401,7 +399,6 @@ group("installer_deps") {
      "//chrome",
      "//chrome:packed_resources",
