@@ -20,3 +20,14 @@ lol musl
          return posix_error();
      Py_RETURN_NONE;
  }
+--- a/Lib/test/test_posix.py
++++ b/Lib/test/test_posix.py
+@@ -39,6 +39,8 @@ requires_32b = unittest.skipUnless(
+ )
+ 
+ def _supports_sched():
++    return False
++
+     if not hasattr(posix, 'sched_getscheduler'):
+         return False
+     try:
