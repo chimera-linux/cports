@@ -30,7 +30,6 @@ def invoke(pkg):
     strip_list = []
     strip_slist = []
 
-    pkg.log("locating files to strip...")
     log = pkg.logger
 
     for v in pkg.destdir.rglob("*"):
@@ -127,13 +126,8 @@ def invoke(pkg):
         else:
             log.out_plain(f"  \f[cyan]library:\f[] {vr}")
 
-    pkg.log("splitting debug info...")
     strip.split_debug(pkg, *strip_slist)
-
-    pkg.log("stripping files...")
     strip.strip(pkg, *strip_list)
-
-    pkg.log("attaching debug links...")
     strip.attach_debug(pkg, *strip_slist)
 
     # prepare debug package

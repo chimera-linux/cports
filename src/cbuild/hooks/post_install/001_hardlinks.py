@@ -11,8 +11,6 @@ def invoke(pkg):
     if pkg.options["hardlinks"]:
         return
 
-    pkg.log("detecting hardlinks")
-
     # mappings from inode to full path
     hards = {}
     harderr = False
