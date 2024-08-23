@@ -73,6 +73,15 @@ diff --git a/base/compiler_specific.h b/base/compiler_specific.h
 index 5caeab5fa2..739187c1d8 100644
 --- a/base/compiler_specific.h
 +++ b/base/compiler_specific.h
+@@ -88,7 +88,7 @@
+ // Can be used only on return statements, even for functions returning void.
+ // Caller and callee must have the same number of arguments and its types must
+ // be "similar".
+-#if defined(__clang__) && HAS_ATTRIBUTE(musttail)
++#if defined(__clang__) && HAS_ATTRIBUTE(musttail) && !defined(__powerpc__)
+ #define MUSTTAIL [[clang::musttail]]
+ #else
+ #define MUSTTAIL
 @@ -446,7 +446,7 @@
  // Clang only supports preserve_most on X86-64 and AArch64 for now.
  // See https://clang.llvm.org/docs/AttributeReference.html#preserve-most for
