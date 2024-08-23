@@ -1,7 +1,7 @@
 pkgname = "apk-tools"
-pkgver = "3.0.0_pre7"
+pkgver = "3.0.0_pre8"
 pkgrel = 0
-_gitrev = "05359b7c233acbc4ae511da85d7fbd30ab407c48"
+_gitrev = "33dda1d8dcb63d2fb41aea70e42fa2b9b19e716b"
 build_style = "meson"
 configure_args = [
     "-Dlua=disabled",
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"https://gitlab.alpinelinux.org/alpine/apk-tools/-/archive/{_gitrev}.tar.gz"
-sha256 = "dc666c4b3b6354e192c1d451ff6ace4ff47a3e0fe1079fc95aca7b622050bb8a"
+sha256 = "8a44b58eec7886b923c832599037930c0875c1d175528ccb2067bc4ee8ba9aef"
 compression = "deflate"
 options = ["bootstrap"]
 
@@ -56,7 +56,7 @@ def init_configure(self):
 
 
 def post_configure(self):
-    if self.stage > 0:
+    if self.stage == 0:
         return
     from cbuild.util import meson
 
@@ -74,7 +74,7 @@ def post_configure(self):
 
 
 def post_build(self):
-    if self.stage > 0:
+    if self.stage == 0:
         return
     self.do("ninja", f"-j{self.make_jobs}", "-C", "build-static")
 
