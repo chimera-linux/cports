@@ -1,8 +1,8 @@
 pkgname = "vlc"
 # git because no release of 4 yet (qt6, ffmpeg etc)
-pkgver = "3.0.20_git20240801"
+pkgver = "3.0.20_git20240822"
 pkgrel = 0
-_gitrev = "967e3744601ad518bf5cd5d4dd55cc322e5d5174"
+_gitrev = "7bd96dc6eee7cb2486cd3d6b9b140573e11b2c30"
 build_style = "gnu_configure"
 configure_args = [
     # TODO: explicitly pick stuff (nicer in meson...)
@@ -102,7 +102,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://www.videolan.org"
 source = f"https://code.videolan.org/videolan/vlc/-/archive/{_gitrev}.tar.gz"
-sha256 = "7cad21fe7f1b1a6305bb58408f51d55249e2bfc85753912cbf3f424891f027d4"
+sha256 = "570ba921cf16d4cc225d69a7c412238345b9e5ce52fd3f75f4ae76e4a02fbbfb"
 # v4l2
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
 # crashes in test_src_input_decoder
