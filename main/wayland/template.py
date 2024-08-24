@@ -1,6 +1,6 @@
 pkgname = "wayland"
-pkgver = "1.23.0"
-pkgrel = 1
+pkgver = "1.23.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocumentation=false"]
 hostmakedepends = ["meson", "pkgconf", "flex"]
@@ -14,8 +14,10 @@ pkgdesc = "Wayland compositor infrastructure"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
-source = f"https://gitlab.freedesktop.org/wayland/wayland/-/releases/{pkgver}/downloads/wayland-{pkgver}.tar.xz"
-sha256 = "05b3e1574d3e67626b5974f862f36b5b427c7ceeb965cb36a4e6c2d342e45ab2"
+source = (
+    f"https://gitlab.freedesktop.org/wayland/wayland/-/archive/{pkgver}.tar.gz"
+)
+sha256 = "a7e4678a71cfdbf095673c894362accaebd0c4ba0618b5f4f6ce04acc13275b0"
 
 if self.profile().cross:
     hostmakedepends += ["wayland-progs"]
