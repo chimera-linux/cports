@@ -1,6 +1,6 @@
 pkgname = "tailspin"
 pkgver = "3.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_check_args = ["--bins"]  # disable integration tests
 hostmakedepends = ["cargo-auditable"]
@@ -17,4 +17,4 @@ def post_install(self):
     self.install_license("LICENCE")
     self.install_man("man/tspin.1")
     for shell in ["bash", "zsh", "fish"]:
-        self.install_completion(f"completions/tspin.{shell}", shell)
+        self.install_completion(f"completions/tspin.{shell}", shell, "tspin")
