@@ -2679,7 +2679,7 @@ to.
 
 If `srcp` is a directory, `recursive` must be `True` else the function
 will error. This includes the case when `srcp` is a symbolic link to a
-directory. In the latter case, `srcp` is copied as-is to `dest` like
+directory. In the latter case, `srcp` is copied as-is to `destp` like
 if it was a file, and `symlinks` is ignored. The meaning of `symlinks`
 is the opposite for directories with `recursive`, if it is `True`, all
 symlinks are preserved, otherwise they are resolved.
@@ -2725,7 +2725,7 @@ Mimics the behavior of the Unix `rm` tool, `recursive` is like `-r` and
 
 ##### def ln_s(self, srcp, destp, relative = False)
 
-Creates a symlink at `destp` pointing to `srcp`. The `dest` is considered
+Creates a symlink at `destp` pointing to `srcp`. The `destp` is considered
 potentially relative to `cwd`. If `destp` resolves to a directory, the
 symlink is created inside that directory (including if it is a symlink
 to a directory). In that case, the symlink's name will be the name
