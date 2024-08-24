@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemdsystemunitdir=",
-    "-Dtests=false",
     "-Dzshcomp=/usr/share/zsh/site-functions",
 ]
 hostmakedepends = [
@@ -20,6 +19,7 @@ makedepends = [
     "upower-devel",
 ]
 depends = ["!tlp", "python-gobject"]
+checkdepends = ["python-dbusmock", "umockdev"]
 install_if = [self.with_pkgver("power-profiles-daemon-meta")]
 pkgdesc = "D-Bus daemon for power management control"
 maintainer = "Val Packett <val@packett.cool>"
@@ -28,8 +28,6 @@ url = "https://gitlab.freedesktop.org/upower/power-profiles-daemon"
 source = f"{url}/-/archive/{pkgver}/power-profiles-daemon-{pkgver}.tar.bz2"
 sha256 = "c61a2350e58d51d4d6e58a61cf2aaa9b307ce42f16c40c4ece0bf1ed6d020506"
 hardening = ["vis"]
-# TODO: fix checks
-options = ["!check"]
 
 
 def post_install(self):
