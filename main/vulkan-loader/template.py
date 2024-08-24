@@ -1,6 +1,6 @@
 pkgname = "vulkan-loader"
 pkgver = "1.3.294"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     f"-DVULKAN_HEADERS_INSTALL_DIR={self.profile().sysroot / 'usr'}",

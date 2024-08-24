@@ -1,6 +1,6 @@
 pkgname = "svt-av1"
 pkgver = "2.2.1"
-pkgrel = 0
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_STYLE=Release",

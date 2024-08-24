@@ -1,6 +1,6 @@
 pkgname = "mc"
 pkgver = "4.8.32"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-screen=ncurses", "--without-x"]
 configure_gen = []  # broken m4
