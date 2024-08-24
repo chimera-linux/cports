@@ -1,6 +1,6 @@
 pkgname = "wayfire"
-pkgver = "0.8.1"
-pkgrel = 1
+pkgver = "0.9.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Duse_system_wfconfig=enabled",
@@ -15,6 +15,7 @@ hostmakedepends = [
 makedepends = [
     "cairo-devel",
     "glm",
+    "libomp-devel",
     "libxml2-devel",
     "nlohmann-json",
     "pango-devel",
@@ -27,7 +28,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wayfire/releases/download/v{pkgver}/wayfire-{pkgver}.tar.xz"
-sha256 = "8ac1947b688a9ec6c4d9ee2d77311bb357a8ead25665b8000eda96952328290d"
+sha256 = "dd0c9c08b8a72a2d8c3317c8be6c42b17a493c25abab1d02ac09c24eaa95229d"
 # vis breaks symbols
 hardening = ["!vis"]
 # FIXME: crashes in signal-provider.hpp::provider_t::emit from libblur
