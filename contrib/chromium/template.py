@@ -158,7 +158,6 @@ file_modes = {
 hardening = ["!scp"]
 # lol
 options = ["!cross", "!check", "!scanshlibs"]
-exec_wrappers = [("/usr/bin/gmake", "make")]
 
 match self.profile().arch:
     case "ppc64le" | "riscv64":
