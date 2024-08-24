@@ -1,6 +1,6 @@
 pkgname = "socat"
-pkgver = "1.8.0.0"
-pkgrel = 1
+pkgver = "1.8.0.1"
+pkgrel = 0
 build_style = "gnu_configure"
 # broken
 configure_gen = []
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "http://www.dest-unreach.org/socat"
 source = f"{url}/download/socat-{pkgver}.tar.gz"
-sha256 = "6010f4f311e5ebe0e63c77f78613d264253680006ac8979f52b0711a9a231e82"
+sha256 = "dc350411e03da657269e529c4d49fe23ba7b4610b0b225c020df4cf9b46e6982"
 hardening = ["vis", "cfi"]
 # tests have heisenbugs
 options = ["!check"]
