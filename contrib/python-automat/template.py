@@ -1,21 +1,26 @@
 pkgname = "python-automat"
-pkgver = "22.10.0"
-pkgrel = 1
+pkgver = "24.8.1"
+pkgrel = 0
 build_style = "python_pep517"
+make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools_scm",
     "python-wheel",
 ]
-depends = ["python-setuptools", "python-attrs", "python-six"]
-checkdepends = ["python-pytest-benchmark", *depends]
+depends = ["python"]
+checkdepends = ["python-pytest"]
 pkgdesc = "Finite state machines for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/glyph/Automat"
-source = f"$(PYPI_SITE)/A/Automat/Automat-{pkgver}.tar.gz"
-sha256 = "e56beb84edad19dcc11d30e8d9b895f75deeb5ef5e96b84a467066b3b84bb04e"
+source = f"$(PYPI_SITE)/A/Automat/automat-{pkgver}.tar.gz"
+sha256 = "b34227cf63f6325b8ad2399ede780675083e439b20c323d376373d8ee6306d88"
+
+
+def do_check(self):
+    self.do("pytest", "src/automat/_test")
 
 
 def post_install(self):
