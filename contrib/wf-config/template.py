@@ -1,6 +1,6 @@
 pkgname = "wf-config"
-pkgver = "0.8.0"
-pkgrel = 1
+pkgver = "0.9.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wf-config/releases/download/v{pkgver}/wf-config-{pkgver}.tar.xz"
-sha256 = "16988f63fd054b446d4feac024aafd4cc962193d6d6dfde90e6d6169c23443af"
+sha256 = "f681fe028aa9026e0c6894d7b94c544230b8285078f176076a3d964fd1dfc37b"
 # vis breaks syumbols
 hardening = ["!vis"]
 # missing doctest
