@@ -1,5 +1,5 @@
 pkgname = "blueprint-compiler"
-pkgver = "0.12.0"
+pkgver = "0.14.0"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -18,4 +18,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"
 url = "https://jwestman.pages.gitlab.gnome.org/blueprint-compiler"
 source = f"https://gitlab.gnome.org/jwestman/blueprint-compiler/-/archive/v{pkgver}/blueprint-compiler-v{pkgver}.tar.gz"
-sha256 = "6dbb4ea851cec164030abded5949ea77ff92032e23527e1c0597d7efe0c36a81"
+sha256 = "05faf3810cb76d4e2d2382c6a7e6c8096af27e144e2260635c97f6a173d67234"
