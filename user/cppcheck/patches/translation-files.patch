@@ -1,0 +1,42 @@
+From 47403d3b7e355c69dcf391ed4cfdcf4c895a7fdd Mon Sep 17 00:00:00 2001
+From: xunil-cloud <freed602om@gmail.com>
+Date: Fri, 23 Aug 2024 22:55:27 +0800
+Subject: [PATCH] translation files
+
+---
+ gui/CMakeLists.txt         | 2 +-
+ gui/translationhandler.cpp | 4 +++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/gui/CMakeLists.txt b/gui/CMakeLists.txt
+index 31fe62eaf..4656be53a 100644
+--- a/gui/CMakeLists.txt
++++ b/gui/CMakeLists.txt
+@@ -72,7 +72,7 @@ CheckOptions:
+     endif()
+ 
+     install(TARGETS cppcheck-gui RUNTIME DESTINATION ${CMAKE_INSTALL_FULL_BINDIR} COMPONENT applications)
+-    install(FILES ${qms} DESTINATION ${CMAKE_INSTALL_FULL_BINDIR} COMPONENT applications)
++    install(FILES ${qms} DESTINATION ${CMAKE_INSTALL_DATADIR}/cppcheck/translations COMPONENT applications)
+ 
+     install(FILES cppcheck-gui.desktop DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications)
+ 
+diff --git a/gui/translationhandler.cpp b/gui/translationhandler.cpp
+index aae7e2608..6cbcfab71 100644
+--- a/gui/translationhandler.cpp
++++ b/gui/translationhandler.cpp
+@@ -102,8 +102,10 @@ bool TranslationHandler::setLanguage(const QString &code)
+         else if (QFile::exists(datadir + "/" + mTranslations[index].mFilename + ".qm"))
+             translationFile = datadir + "/" + mTranslations[index].mFilename + ".qm";
+ 
+-        else
++        else if (QFile::exists(appPath + "/" + mTranslations[index].mFilename + ".qm"))
+             translationFile = appPath + "/" + mTranslations[index].mFilename + ".qm";
++        else
++            translationFile = "/usr/share/cppcheck/translations/" + mTranslations[index].mFilename + ".qm";
+ 
+         if (!mTranslator->load(translationFile)) {
+             failure = true;
+-- 
+2.46.0
+
