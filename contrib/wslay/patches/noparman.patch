@@ -1,0 +1,12 @@
+invokes sphinx multiple times which is broke
+--
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -64,6 +64,7 @@
+ EXTRA_DIST = $(MANPAGES) $(SPHINX_FILES)
+ 
+ if HAVE_SPHINX_BUILD
++.NOTPARALLEL:
+ $(MANPAGES_WITH_SRC): $(SPHINX_MANPAGES_SRC)
+ 	echo $(MANPAGES_DST)
+ 	@SPHINX_BUILD@ -b man $(SPHINX_DIR) man
