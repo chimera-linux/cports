@@ -1,5 +1,5 @@
 pkgname = "python-ytmusicapi"
-pkgver = "1.8.0"
+pkgver = "1.8.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/sigma67/ytmusicapi"
 source = f"$(PYPI_SITE)/y/ytmusicapi/ytmusicapi-{pkgver}.tar.gz"
-sha256 = "8b2bec6a4615f5144fc5f2daaeaab3cd059b602d916f323ef72b7d71b1e21f95"
+sha256 = "1bd4a85f81efe824a4eaec26502b9d27887792f590d80bbdf3c9c5943ec5fd6e"
 # like all tests need net
 options = ["!check"]
 
