@@ -1,6 +1,6 @@
 pkgname = "seatd"
 pkgver = "0.8.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dexamples=disabled",
@@ -11,7 +11,7 @@ makedepends = ["elogind-devel", "linux-headers"]
 pkgdesc = "Seat management daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
-url = "https://kl.wtf/projects/seatd"
+url = "https://sr.ht/~kennylevinsen/seatd"
 source = f"https://git.sr.ht/~kennylevinsen/seatd/archive/{pkgver}.tar.gz"
 sha256 = "a562a44ee33ccb20954a1c1ec9a90ecb2db7a07ad6b18d0ac904328efbcf65a0"
 
