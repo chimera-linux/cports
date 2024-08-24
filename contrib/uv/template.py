@@ -1,5 +1,5 @@
 pkgname = "uv"
-pkgver = "0.3.2"
+pkgver = "0.3.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/astral-sh/uv"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f81ecd38dbaad3664084549a7f2152b6042a1984e2cee3b0d5f90751a8dc9ad3"
+sha256 = "2300fdb5e463bd1a342e301a74cfcdcdc9745bd6d6a11c49f7d75fdd5ef5d20a"
 # too many of them need net
 options = ["!check"]
 
@@ -34,17 +34,17 @@ def post_patch(self):
     cargo.Cargo(self).vendor()
 
 
-def do_check(self):
-    from cbuild.util import cargo
-
-    cargo.Cargo(self).check()
-
-
 def init_build(self):
     from cbuild.util import cargo
 
     renv = cargo.get_environment(self)
     self.make_env.update(renv)
+
+
+def do_check(self):
+    from cbuild.util import cargo
+
+    cargo.Cargo(self).check()
 
 
 def post_install(self):
