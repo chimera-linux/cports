@@ -273,8 +273,7 @@ The system must contain an initial toolchain. It consists of these:
 * `meson`
 * `patch`
 * `pkg-config` (`pkgconf` or the regular one)
-* GNU `make` (called `gmake` or `make`)
-* NetBSD `make` (called `bmake` or `make`)
+* GNU `make` (called `make`)
 * `ninja`
 * `strip`
 * `byacc` or `bison` (either with `yacc` symlink)
