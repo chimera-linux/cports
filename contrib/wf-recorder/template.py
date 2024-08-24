@@ -1,10 +1,9 @@
 pkgname = "wf-recorder"
-pkgver = "0.4.1"
-pkgrel = 1
+pkgver = "0.5.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
-    "ninja",
     "pkgconf",
     "wayland-progs",
 ]
@@ -19,8 +18,8 @@ pkgdesc = "Screen recorder for wlroots-based compositors"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ammen99/wf-recorder"
-source = f"https://github.com/ammen99/wf-recorder/releases/download/v{pkgver}/wf-recorder-{pkgver}.tar.xz"
-sha256 = "502ba54db8aaf5ebd280738f065c73409694a1440b9a660ef5c4e398714c51f7"
+source = f"{url}/releases/download/v{pkgver}/wf-recorder-{pkgver}.tar.xz"
+sha256 = "50b30569f9ecf4f6ba5ba76c422b7af652b4fbc7cae86c25e19ecbe669fca327"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
