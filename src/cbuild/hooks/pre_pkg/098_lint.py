@@ -199,6 +199,15 @@ def invoke(pkg):
             pkg.log_red(f"{d} should go in /usr/share, not /etc")
             lintfail = True
 
+    if (
+        pkg.pkgname != "fish-shell"
+        and (pkg.destdir / "usr/share/fish/completions").exists()
+    ):
+        pkg.log_red(
+            "fish completions should go in usr/share/fish/vendor_completions.d, not usr/share/fish/completions"
+        )
+        lintfail = True
+
     # stuff in /usr that should go in /usr/share
     for d in ["man", "doc", "dict"]:
         if (pkg.destdir / "usr" / d).exists():

@@ -2346,11 +2346,6 @@ def _split_dlinks(pkg):
     pkg.take("usr/lib/dinit.d/user/boot.d", missing_ok=True)
 
 
-def _split_fishcomp(pkg):
-    pkg.take("usr/share/fish/completions", missing_ok=True)
-    pkg.take("usr/share/fish/vendor_completions.d", missing_ok=True)
-
-
 def _split_locale(pkg):
     pkg.take("usr/share/locale", missing_ok=True)
     # lxqt uses its own special dir since it uses a .qm format
@@ -2405,7 +2400,9 @@ autopkgs = [
         "fishcomp",
         "fish completions",
         "fish-shell",
-        _split_fishcomp,
+        lambda p: p.take(
+            "usr/share/fish/vendor_completions.d", missing_ok=True
+        ),
     ),
     (
         "nucomp",
@@ -2624,7 +2621,6 @@ class Subpackage(Package):
         self.take("usr/bin/*")
         self.take("usr/share/bash-completion", missing_ok=True)
         self.take("usr/share/zsh", missing_ok=True)
-        self.take("usr/share/fish/completions", missing_ok=True)
         self.take("usr/share/fish/vendor_completions.d", missing_ok=True)
         self.take("usr/share/nushell/vendor/autoload", missing_ok=True)
         if man:
