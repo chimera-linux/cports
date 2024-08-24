@@ -1,6 +1,6 @@
 pkgname = "wcm"
-pkgver = "0.8.0"
-pkgrel = 1
+pkgver = "0.9.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable_wdisplays=false"]
 hostmakedepends = [
@@ -22,7 +22,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wcm/releases/download/v{pkgver}/wcm-{pkgver}.tar.xz"
-sha256 = "61aef3ceab7f5c16966462c42d98bd0580d45b346a86d029df3e625b9bc13bba"
+sha256 = "8c8605ccb720fb24e58f16c2e2727cd07b6754bd441c9a3f0e715548b4e7c4ae"
 # vis breaks symbols
 hardening = ["!vis"]
 
