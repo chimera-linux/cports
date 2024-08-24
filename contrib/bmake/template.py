@@ -8,7 +8,6 @@ url = "https://www.crufty.net/help/sjg/bmake.html"
 source = f"https://www.crufty.net/ftp/pub/sjg/bmake-{pkgver}.tar.gz"
 sha256 = "b59189251b483decd4492f1f74387b2a584c03d5aa4637cd48b38ec62b9c0848"
 hardening = ["vis", "cfi"]
-options = ["bootstrap"]
 
 
 if self.profile().cross:
