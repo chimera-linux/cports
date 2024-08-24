@@ -1222,6 +1222,10 @@ def do_relink_subpkgs(tgt):
             tp = _read_pkg(tmpln)
             if tp:
                 cats[tp.repository] = True
+            else:
+                logger.get().warn(
+                    f"template '{tmpln}' failed to parse (ignoring)"
+                )
 
     # erase all symlinks first if parsing all
     for d in cats:
