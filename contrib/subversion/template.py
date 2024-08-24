@@ -1,7 +1,7 @@
 # TODO: service
 pkgname = "subversion"
 pkgver = "1.14.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--config-cache",
@@ -78,18 +78,15 @@ def post_install(self):
     )
     self.rename("usr/share/pkgconfig", "usr/lib/pkgconfig", relative=False)
     # bash completions
-    self.install_completion("tools/client-side/bash_completion", "bash")
+    self.install_completion("tools/client-side/bash_completion", "bash", "svn")
     for f in [
-        "svn",
         "svnadmin",
-        "svndupfilter",
+        "svndumpfilter",
         "svnlook",
         "svnsync",
         "svnversion",
     ]:
-        self.install_link(
-            f"usr/share/bash-completion/completions/{f}", "subversion"
-        )
+        self.install_link(f"usr/share/bash-completion/completions/{f}", "svn")
     # remove these, conflicts
     self.uninstall("usr/bin/diff*", glob=True)
 
