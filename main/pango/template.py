@@ -1,6 +1,6 @@
 pkgname = "pango"
 pkgver = "1.54.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled"]
 hostmakedepends = [
@@ -30,6 +30,8 @@ source = (
     f"$(GNOME_SITE)/pango/{pkgver[:pkgver.rfind('.')]}/pango-{pkgver}.tar.xz"
 )
 sha256 = "8a9eed75021ee734d7fc0fdf3a65c3bba51dfefe4ae51a9b414a60c70b2d1ed8"
+# subtly breaks various things
+hardening = ["!int"]
 
 
 @subpackage("pango-xft")
