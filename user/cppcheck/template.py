@@ -14,7 +14,6 @@ configure_args = [
 hostmakedepends = [
     "cmake",
     "docbook-xsl-nons",
-    "gmake",
     "ninja",
     "pkgconf",
     "xsltproc",
