@@ -1,0 +1,2 @@
+type = process
+command = /usr/bin/foot --server
