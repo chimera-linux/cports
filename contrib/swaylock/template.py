@@ -1,6 +1,6 @@
 pkgname = "swaylock"
-pkgver = "1.7.2"
-pkgrel = 1
+pkgver = "1.8.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -20,7 +20,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/swaywm/swaylock"
 source = f"{url}/releases/download/v{pkgver}/swaylock-{pkgver}.tar.gz"
-sha256 = "bf965d47fb6fc1402f854d4679d21a9459713fc0f330bc607c9585db097b4304"
+sha256 = "6a1175442380b87b2d2868c4a5366ee3592163158d02e3a7fbf3a0bfe07d8b00"
 hardening = ["vis", "cfi"]
 
 
