@@ -1,0 +1,1540 @@
+From 8e6f7709d4c7dc8ca11eb0c4738b20c61f05397e Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Thu, 18 Jul 2024 12:24:36 -0700
+Subject: [PATCH 01/10] maint: Release notes for SpiderMonkey 128
+
+---
+ NEWS | 41 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+
+diff --git a/NEWS b/NEWS
+index ade53ac25..23bfc8c9a 100644
+--- a/NEWS
++++ b/NEWS
+@@ -1,3 +1,44 @@
++NEXT
++----
++
++- New JavaScript features! This version of GJS is based on SpiderMonkey 128, an
++  upgrade from the previous ESR (Extended Support Release) of SpiderMonkey 115.
++  Here are the highlights of the new JavaScript features.
++  For more information, look them up on MDN or devdocs.io.
++
++  * New APIs
++    + The new `Object.groupBy()` and `Map.groupBy()` static methods group the
++      elements of an iterable according to the return value of a key function.
++    + The new `Promise.withResolvers()` static method returns a Promise as well
++      as its resolve and reject functions, shorthand for a common pattern used
++      when promisifying event-based APIs.
++    + Strings have gained the `isWellFormed()` and `toWellFormed()` methods
++      which help when interoperating with strings that may have unpaired
++      Unicode surrogates. This usually does not come up in the GNOME platform.
++    + ArrayBuffers have gained the `transfer()` and `transferToFixedLength()`
++      methods, which transfer ownership of a data buffer to a new ArrayBuffer
++      object, without copying it, and invalidating ("detaching") any existing
++      references to the buffer. There is also a new property, `detached`, which
++      allows checking whether an ArrayBuffer is in the detached state.
++    + The new `Intl.Segmenter` class allows splitting a string into graphemes,
++      words, or sentences, in a locale-aware way.
++    + `Intl.NumberFormat` has gained `formatRange()` and `formatRangeToParts()`
++      methods, which allow formatting number ranges, like "3–5".
++    + `Intl.PluralRules` has gained a `selectRange()` method, which allows
++      selecting the proper plural form based on a range of numbers, like
++      "30–50 feral hogs".
++
++  * New behaviour
++    + The `Intl.NumberFormat` and `Intl.PluralRules` constructors support new
++      options: `roundingIncrement`, `roundingMode`, `roundingPriority`, and
++      `trailingZeroDisplay`.
++    + The `Intl.NumberFormat` constructor also supports the new option
++      `useGrouping`.
++  
++  * Backwards-incompatible changes
++    + The behaviour of `Date.parse()` has been changed to be more consistent
++      with other JavaScript engines. (But don't use `Date.parse()`.)
++
+ Version 1.81.1
+ --------------
+ 
+-- 
+GitLab
+
+
+From 44b2e2378b5d5125cdafe7c34da4c1d0f0851878 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 21 Jul 2024 22:16:42 -0700
+Subject: [PATCH 02/10] js: Use new API for column numbers
+
+This counts column numbers from 1 instead of from 0. We could subtract 1
+for backwards compatibility, but counting from 1 is actually better,
+because it corresponds to what users of debugging tools expect.
+---
+ gi/gerror.cpp                                 |  9 ++++--
+ cjs/gjs_pch.hh                                |  1 +
+ cjs/jsapi-util-error.cpp                      |  7 ++--
+ .../debugger/backtrace.debugger.output        | 28 ++++++++--------
+ .../debugger/breakpoint.debugger.output       | 12 +++----
+ .../debugger/continue.debugger.output         |  4 +--
+ .../debugger/delete.debugger.output           | 16 +++++-----
+ .../debugger/down-up.debugger.output          | 18 +++++------
+ .../debugger/finish.debugger.output           | 12 +++----
+ .../debugger/frame.debugger.output            |  6 ++--
+ installed-tests/debugger/keys.debugger.output |  2 +-
+ .../debugger/lastvalues.debugger.output       |  2 +-
+ installed-tests/debugger/list.debugger.output |  4 +--
+ installed-tests/debugger/next.debugger.output | 20 ++++++------
+ .../debugger/print.debugger.output            |  2 +-
+ .../debugger/return.debugger.output           | 16 +++++-----
+ installed-tests/debugger/set.debugger.output  |  2 +-
+ installed-tests/debugger/step.debugger.output | 32 +++++++++----------
+ .../debugger/throw-ignored.debugger.output    |  2 +-
+ .../debugger/throw.debugger.output            | 12 +++----
+ .../debugger/until.debugger.output            | 10 +++---
+ installed-tests/scripts/testWarnings.sh       |  2 +-
+ 22 files changed, 113 insertions(+), 106 deletions(-)
+
+diff --git a/gi/gerror.cpp b/gi/gerror.cpp
+index b3900291e..ec78a76d2 100644
+--- a/gi/gerror.cpp
++++ b/gi/gerror.cpp
+@@ -12,6 +12,7 @@
+ #include <js/CallAndConstruct.h>
+ #include <js/CallArgs.h>
+ #include <js/Class.h>
++#include <js/ColumnNumber.h>
+ #include <js/Exception.h>
+ #include <js/PropertyAndElement.h>
+ #include <js/PropertyDescriptor.h>  // for JSPROP_ENUMERATE
+@@ -278,7 +279,8 @@ bool gjs_define_error_properties(JSContext* cx, JS::HandleObject obj) {
+     JS::RootedObject frame(cx);
+     JS::RootedString stack(cx);
+     JS::RootedString source(cx);
+-    uint32_t line, column;
++    uint32_t line;
++    JS::TaggedColumnNumberOneOrigin tagged_column;
+ 
+     if (!JS::CaptureCurrentStack(cx, &frame) ||
+         !JS::BuildStackString(cx, nullptr, frame, &stack))
+@@ -287,7 +289,7 @@ bool gjs_define_error_properties(JSContext* cx, JS::HandleObject obj) {
+     auto ok = JS::SavedFrameResult::Ok;
+     if (JS::GetSavedFrameSource(cx, nullptr, frame, &source) != ok ||
+         JS::GetSavedFrameLine(cx, nullptr, frame, &line) != ok ||
+-        JS::GetSavedFrameColumn(cx, nullptr, frame, &column) != ok) {
++        JS::GetSavedFrameColumn(cx, nullptr, frame, &tagged_column) != ok) {
+         gjs_throw(cx, "Error getting saved frame information");
+         return false;
+     }
+@@ -299,7 +301,8 @@ bool gjs_define_error_properties(JSContext* cx, JS::HandleObject obj) {
+                                  JSPROP_ENUMERATE) &&
+            JS_DefinePropertyById(cx, obj, atoms.line_number(), line,
+                                  JSPROP_ENUMERATE) &&
+-           JS_DefinePropertyById(cx, obj, atoms.column_number(), column,
++           JS_DefinePropertyById(cx, obj, atoms.column_number(),
++                                 tagged_column.oneOriginValue(),
+                                  JSPROP_ENUMERATE);
+ }
+ 
+diff --git a/cjs/gjs_pch.hh b/cjs/gjs_pch.hh
+index 032342b33..8239b945f 100644
+--- a/cjs/gjs_pch.hh
++++ b/cjs/gjs_pch.hh
+@@ -58,6 +58,7 @@
+ #include <js/CallArgs.h>
+ #include <js/CharacterEncoding.h>
+ #include <js/Class.h>
++#include <js/ColumnNumber.h>
+ #include <js/ComparisonOperators.h>
+ #include <js/CompilationAndEvaluation.h>
+ #include <js/CompileOptions.h>
+diff --git a/cjs/jsapi-util-error.cpp b/cjs/jsapi-util-error.cpp
+index 3f40d4661..d0634f12f 100644
+--- a/cjs/jsapi-util-error.cpp
++++ b/cjs/jsapi-util-error.cpp
+@@ -12,6 +12,7 @@
+ 
+ #include <js/AllocPolicy.h>
+ #include <js/CharacterEncoding.h>
++#include <js/ColumnNumber.h>
+ #include <js/ErrorReport.h>
+ #include <js/Exception.h>
+ #include <js/GCHashTable.h>  // for GCHashSet
+@@ -113,8 +114,10 @@ static bool append_new_cause(JSContext* cx, JS::HandleValue thrown,
+                             &source_string);
+     uint32_t line_num;
+     JS::GetSavedFrameLine(cx, nullptr, saved_frame, &line_num);
+-    uint32_t column_num;
+-    JS::GetSavedFrameColumn(cx, nullptr, saved_frame, &column_num);
++    JS::TaggedColumnNumberOneOrigin tagged_column;
++    JS::GetSavedFrameColumn(cx, nullptr, saved_frame, &tagged_column);
++    JS::ColumnNumberOneOrigin column_num{tagged_column.toLimitedColumnNumber()};
++    // asserts that this isn't a WASM frame
+ 
+     JS::RootedValue v_exc{cx};
+     if (!JS::CreateError(cx, error_kind, saved_frame, source_string, line_num,
+diff --git a/installed-tests/debugger/backtrace.debugger.output b/installed-tests/debugger/backtrace.debugger.output
+index 2f2bb4c90..1602e7958 100644
+--- a/installed-tests/debugger/backtrace.debugger.output
++++ b/installed-tests/debugger/backtrace.debugger.output
+@@ -2,40 +2,40 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> backtrace
+-#0    toplevel at backtrace.debugger.js:3:0
++#0    toplevel at backtrace.debugger.js:3:1
+ db> c
+-Debugger statement, toplevel at backtrace.debugger.js:3:0
++Debugger statement, toplevel at backtrace.debugger.js:3:1
+ db> bt
+-#0    toplevel at backtrace.debugger.js:3:0
++#0    toplevel at backtrace.debugger.js:3:1
+ db> c
+-Debugger statement, <anonymous>([object Array], 0, [object Array]) at backtrace.debugger.js:5:4
++Debugger statement, <anonymous>([object Array], 0, [object Array]) at backtrace.debugger.js:5:5
+ db> backtrace full
+-#0    <anonymous>([object Array], 0, [object Array]) at backtrace.debugger.js:5:4
++#0    <anonymous>([object Array], 0, [object Array]) at backtrace.debugger.js:5:5
+ arguments = [object Arguments]
+ array = [object Array]
+-#1    toplevel at backtrace.debugger.js:4:36
++#1    toplevel at backtrace.debugger.js:4:37
+ db> bt full
+-#0    <anonymous>([object Array], 0, [object Array]) at backtrace.debugger.js:5:4
++#0    <anonymous>([object Array], 0, [object Array]) at backtrace.debugger.js:5:5
+ arguments = [object Arguments]
+ array = [object Array]
+-#1    toplevel at backtrace.debugger.js:4:36
++#1    toplevel at backtrace.debugger.js:4:37
+ db> where
+-#0    <anonymous>([object Array], 0, [object Array]) at backtrace.debugger.js:5:4
+-#1    toplevel at backtrace.debugger.js:4:36
++#0    <anonymous>([object Array], 0, [object Array]) at backtrace.debugger.js:5:5
++#1    toplevel at backtrace.debugger.js:4:37
+ db> c
+-Debugger statement, <anonymous>(1, 0, [object Array]) at backtrace.debugger.js:7:8
++Debugger statement, <anonymous>(1, 0, [object Array]) at backtrace.debugger.js:7:9
+ db> # test printing locals when exception is thrown before initialization of a value
+ db> c
+ 1
+ Unwinding due to exception. (Type 'c' to continue unwinding.)
+-#0    mistake([object Array]) at backtrace.debugger.js:14:33
++#0    mistake([object Array]) at backtrace.debugger.js:14:34
+    14	    let {uninitialized_} = array.shift();
+ Exception value is:
+ $1 = [object TypeError]
+ TypeError: array.shift() is undefined
+ db> bt full
+-#0    mistake([object Array]) at backtrace.debugger.js:14:33
++#0    mistake([object Array]) at backtrace.debugger.js:14:34
+ uninitialized_ = <uninitialized>
+-#1    toplevel at backtrace.debugger.js:16:7
++#1    toplevel at backtrace.debugger.js:16:8
+ db> q
+ Program exited with code 0
+diff --git a/installed-tests/debugger/breakpoint.debugger.output b/installed-tests/debugger/breakpoint.debugger.output
+index 6ba35fb57..9802391e6 100644
+--- a/installed-tests/debugger/breakpoint.debugger.output
++++ b/installed-tests/debugger/breakpoint.debugger.output
+@@ -2,20 +2,20 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> breakpoint 4
+-Breakpoint 1 at breakpoint.debugger.js:4:0
++Breakpoint 1 at breakpoint.debugger.js:4:1
+ db> break 6
+-Breakpoint 2 at breakpoint.debugger.js:6:4
++Breakpoint 2 at breakpoint.debugger.js:6:5
+ db> b 8
+-Breakpoint 3 at breakpoint.debugger.js:8:0
++Breakpoint 3 at breakpoint.debugger.js:8:1
+ db> c
+ 1
+-Breakpoint 1, toplevel at breakpoint.debugger.js:4:0
++Breakpoint 1, toplevel at breakpoint.debugger.js:4:1
+ db> c
+ 2
+-Breakpoint 3, toplevel at breakpoint.debugger.js:8:0
++Breakpoint 3, toplevel at breakpoint.debugger.js:8:1
+ db> c
+ 3
+-Breakpoint 2, foo() at breakpoint.debugger.js:6:4
++Breakpoint 2, foo() at breakpoint.debugger.js:6:5
+ db> c
+ Function foo
+ Program exited with code 0
+diff --git a/installed-tests/debugger/continue.debugger.output b/installed-tests/debugger/continue.debugger.output
+index 93d0bc0fb..8326b8122 100644
+--- a/installed-tests/debugger/continue.debugger.output
++++ b/installed-tests/debugger/continue.debugger.output
+@@ -2,8 +2,8 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> continue
+-Debugger statement, toplevel at continue.debugger.js:3:0
++Debugger statement, toplevel at continue.debugger.js:3:1
+ db> cont
+-Debugger statement, toplevel at continue.debugger.js:4:0
++Debugger statement, toplevel at continue.debugger.js:4:1
+ db> c
+ Program exited with code 0
+diff --git a/installed-tests/debugger/delete.debugger.output b/installed-tests/debugger/delete.debugger.output
+index 7b9f98f88..a6e7b4f53 100644
+--- a/installed-tests/debugger/delete.debugger.output
++++ b/installed-tests/debugger/delete.debugger.output
+@@ -2,26 +2,26 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> b 4
+-Breakpoint 1 at delete.debugger.js:4:0
++Breakpoint 1 at delete.debugger.js:4:1
+ db> b 5
+-Breakpoint 2 at delete.debugger.js:5:0
++Breakpoint 2 at delete.debugger.js:5:1
+ db> b 6
+-Breakpoint 3 at delete.debugger.js:6:0
++Breakpoint 3 at delete.debugger.js:6:1
+ db> b 7
+-Breakpoint 4 at delete.debugger.js:7:0
++Breakpoint 4 at delete.debugger.js:7:1
+ db> # Check that breakpoint 4 still remains after deleting 1-3
+ db> delete 1
+-Breakpoint 1 at delete.debugger.js:4:0 deleted
++Breakpoint 1 at delete.debugger.js:4:1 deleted
+ db> del 2
+-Breakpoint 2 at delete.debugger.js:5:0 deleted
++Breakpoint 2 at delete.debugger.js:5:1 deleted
+ db> d 3
+-Breakpoint 3 at delete.debugger.js:6:0 deleted
++Breakpoint 3 at delete.debugger.js:6:1 deleted
+ db> c
+ 1
+ 2
+ 3
+ 4
+-Breakpoint 4, toplevel at delete.debugger.js:7:0
++Breakpoint 4, toplevel at delete.debugger.js:7:1
+ db> c
+ 5
+ Program exited with code 0
+diff --git a/installed-tests/debugger/down-up.debugger.output b/installed-tests/debugger/down-up.debugger.output
+index c8b1a3bad..0c0a7f024 100644
+--- a/installed-tests/debugger/down-up.debugger.output
++++ b/installed-tests/debugger/down-up.debugger.output
+@@ -2,34 +2,34 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> c
+-Debugger statement, d() at down-up.debugger.js:16:4
++Debugger statement, d() at down-up.debugger.js:16:5
+ db> down
+ Youngest frame selected; you cannot go down.
+ db> up
+-#1    c() at down-up.debugger.js:12:4
++#1    c() at down-up.debugger.js:12:5
+    12	    d();
+ db> up
+-#2    b() at down-up.debugger.js:8:4
++#2    b() at down-up.debugger.js:8:5
+    8	    c();
+ db> up
+-#3    a() at down-up.debugger.js:4:4
++#3    a() at down-up.debugger.js:4:5
+    4	    b();
+ db> up
+-#4    toplevel at down-up.debugger.js:19:0
++#4    toplevel at down-up.debugger.js:19:1
+    19	a();
+ db> up
+ Initial frame selected; you cannot go up.
+ db> down
+-#3    a() at down-up.debugger.js:4:4
++#3    a() at down-up.debugger.js:4:5
+    4	    b();
+ db> dn
+-#2    b() at down-up.debugger.js:8:4
++#2    b() at down-up.debugger.js:8:5
+    8	    c();
+ db> dn
+-#1    c() at down-up.debugger.js:12:4
++#1    c() at down-up.debugger.js:12:5
+    12	    d();
+ db> dn
+-#0    d() at down-up.debugger.js:16:4
++#0    d() at down-up.debugger.js:16:5
+    16	    debugger;
+ db> c
+ Program exited with code 0
+diff --git a/installed-tests/debugger/finish.debugger.output b/installed-tests/debugger/finish.debugger.output
+index c33532ab7..8f612f50b 100644
+--- a/installed-tests/debugger/finish.debugger.output
++++ b/installed-tests/debugger/finish.debugger.output
+@@ -3,21 +3,21 @@ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> c
+ Print me
+-Debugger statement, foo() at finish.debugger.js:5:4
++Debugger statement, foo() at finish.debugger.js:5:5
+ db> finish
+-Run till exit from foo() at finish.debugger.js:5:4
++Run till exit from foo() at finish.debugger.js:5:5
+ Print me also
+ No value returned.
+-toplevel at finish.debugger.js:16:0
++toplevel at finish.debugger.js:16:1
+ db> c
+ Print me
+-Debugger statement, bar() at finish.debugger.js:11:4
++Debugger statement, bar() at finish.debugger.js:11:5
+ db> fin
+-Run till exit from bar() at finish.debugger.js:11:4
++Run till exit from bar() at finish.debugger.js:11:5
+ Print me also
+ Value returned is:
+ $1 = 5
+-toplevel at finish.debugger.js:17:0
++toplevel at finish.debugger.js:17:1
+ db> c
+ Print me at the end
+ Program exited with code 0
+diff --git a/installed-tests/debugger/frame.debugger.output b/installed-tests/debugger/frame.debugger.output
+index 9e456cda2..f40e1362f 100644
+--- a/installed-tests/debugger/frame.debugger.output
++++ b/installed-tests/debugger/frame.debugger.output
+@@ -2,12 +2,12 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> c
+-Debugger statement, b() at frame.debugger.js:8:4
++Debugger statement, b() at frame.debugger.js:8:5
+ db> frame 2
+-#2    toplevel at frame.debugger.js:11:0
++#2    toplevel at frame.debugger.js:11:1
+    11	a();
+ db> f 1
+-#1    a() at frame.debugger.js:4:4
++#1    a() at frame.debugger.js:4:5
+    4	    b();
+ db> c
+ Program exited with code 0
+diff --git a/installed-tests/debugger/keys.debugger.output b/installed-tests/debugger/keys.debugger.output
+index e689ddade..4784c7e67 100644
+--- a/installed-tests/debugger/keys.debugger.output
++++ b/installed-tests/debugger/keys.debugger.output
+@@ -2,7 +2,7 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> c
+-Debugger statement, toplevel at keys.debugger.js:9:0
++Debugger statement, toplevel at keys.debugger.js:9:1
+ db> keys a
+ "foo", "bar", "tres", Symbol("s")
+ db> k a
+diff --git a/installed-tests/debugger/lastvalues.debugger.output b/installed-tests/debugger/lastvalues.debugger.output
+index 3d509f08c..6aa6a53b4 100644
+--- a/installed-tests/debugger/lastvalues.debugger.output
++++ b/installed-tests/debugger/lastvalues.debugger.output
+@@ -2,7 +2,7 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2020 Philip Chimento <philip.chimento@gmail.com>
+ db> c
+-Debugger statement, toplevel at lastvalues.debugger.js:6:0
++Debugger statement, toplevel at lastvalues.debugger.js:6:1
+ db> p a
+ $1 = undefined
+ db> p b
+diff --git a/installed-tests/debugger/list.debugger.output b/installed-tests/debugger/list.debugger.output
+index ce7857ab4..eaa483e2d 100644
+--- a/installed-tests/debugger/list.debugger.output
++++ b/installed-tests/debugger/list.debugger.output
+@@ -41,9 +41,9 @@ db> list 0
+ db> list divide
+ Unknown option
+ db> break 4
+-Breakpoint 1 at list.debugger.js:4:8
++Breakpoint 1 at list.debugger.js:4:9
+ db> c
+-Breakpoint 1, divide() at list.debugger.js:4:8
++Breakpoint 1, divide() at list.debugger.js:4:9
+ db> list
+    1	// SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+    2	// SPDX-FileCopyrightText: 2021 Mantoh Nasah Kuma <nasahnash20@gmail.com>
+diff --git a/installed-tests/debugger/next.debugger.output b/installed-tests/debugger/next.debugger.output
+index 7b8836db8..ab60091be 100644
+--- a/installed-tests/debugger/next.debugger.output
++++ b/installed-tests/debugger/next.debugger.output
+@@ -2,26 +2,26 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> c
+-Debugger statement, a() at next.debugger.js:4:4
++Debugger statement, a() at next.debugger.js:4:5
+ db> next
+-a() at next.debugger.js:4:4
++a() at next.debugger.js:4:5
+ db> n
+-a() at next.debugger.js:5:4
++a() at next.debugger.js:5:5
+ A line in b
+ db> n
+-a() at next.debugger.js:6:4
++a() at next.debugger.js:6:5
+ A line in a
+ db> n
+-a() at next.debugger.js:7:0
++a() at next.debugger.js:7:1
+ No value returned.
+ db> n
+-a() at next.debugger.js:7:0
+-toplevel at next.debugger.js:13:0
++a() at next.debugger.js:7:1
++toplevel at next.debugger.js:13:1
+ db> n
+-toplevel at next.debugger.js:13:0
++toplevel at next.debugger.js:13:1
+ db> n
+-toplevel at next.debugger.js:14:0
++toplevel at next.debugger.js:14:1
+ No value returned.
+ db> n
+-toplevel at next.debugger.js:14:0
++toplevel at next.debugger.js:14:1
+ Program exited with code 0
+diff --git a/installed-tests/debugger/print.debugger.output b/installed-tests/debugger/print.debugger.output
+index 3c65b0d58..90c80f877 100644
+--- a/installed-tests/debugger/print.debugger.output
++++ b/installed-tests/debugger/print.debugger.output
+@@ -2,7 +2,7 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> c
+-Debugger statement, toplevel at print.debugger.js:19:0
++Debugger statement, toplevel at print.debugger.js:19:1
+ db> # Simple types
+ db> print a
+ $1 = undefined
+diff --git a/installed-tests/debugger/return.debugger.output b/installed-tests/debugger/return.debugger.output
+index 91af7ae92..7ba8bfe1e 100644
+--- a/installed-tests/debugger/return.debugger.output
++++ b/installed-tests/debugger/return.debugger.output
+@@ -2,27 +2,27 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> b 4
+-Breakpoint 1 at return.debugger.js:4:4
++Breakpoint 1 at return.debugger.js:4:5
+ db> b 8
+-Breakpoint 2 at return.debugger.js:8:4
++Breakpoint 2 at return.debugger.js:8:5
+ db> b 12
+-Breakpoint 3 at return.debugger.js:12:4
++Breakpoint 3 at return.debugger.js:12:5
+ db> c
+-Breakpoint 1, func1() at return.debugger.js:4:4
++Breakpoint 1, func1() at return.debugger.js:4:5
+ db> f 1
+-#1    toplevel at return.debugger.js:15:6
++#1    toplevel at return.debugger.js:15:7
+    15	print(func1());
+ db> return
+ To return, you must select the newest frame (use 'frame 0')
+ db> f 0
+-#0    func1() at return.debugger.js:4:4
++#0    func1() at return.debugger.js:4:5
+    4	    return 1;
+ db> return
+ undefined
+-Breakpoint 2, func2() at return.debugger.js:8:4
++Breakpoint 2, func2() at return.debugger.js:8:5
+ db> ret 5
+ 5
+-Breakpoint 3, func3() at return.debugger.js:12:4
++Breakpoint 3, func3() at return.debugger.js:12:5
+ db> ret foo
+ Exception caught while evaluating foo: [object ReferenceError]
+ db> p 2
+diff --git a/installed-tests/debugger/set.debugger.output b/installed-tests/debugger/set.debugger.output
+index 613071d17..a85fe1052 100644
+--- a/installed-tests/debugger/set.debugger.output
++++ b/installed-tests/debugger/set.debugger.output
+@@ -4,7 +4,7 @@ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> # Currently the only option is "pretty" for pretty-printing. Set doesn't yet
+ db> # allow setting variables in the program.
+ db> c
+-Debugger statement, toplevel at set.debugger.js:4:0
++Debugger statement, toplevel at set.debugger.js:4:1
+ db> p a
+ $1 = [object Object]
+ {}
+diff --git a/installed-tests/debugger/step.debugger.output b/installed-tests/debugger/step.debugger.output
+index 47da89652..592e584c9 100644
+--- a/installed-tests/debugger/step.debugger.output
++++ b/installed-tests/debugger/step.debugger.output
+@@ -2,36 +2,36 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> s
+-toplevel at step.debugger.js:12:0
+-entered frame: a() at step.debugger.js:4:4
++toplevel at step.debugger.js:12:1
++entered frame: a() at step.debugger.js:4:5
+ db> s
+-a() at step.debugger.js:4:4
+-entered frame: b() at step.debugger.js:9:4
++a() at step.debugger.js:4:5
++entered frame: b() at step.debugger.js:9:5
+ db> s
+-b() at step.debugger.js:9:4
++b() at step.debugger.js:9:5
+ A line in b
+ db> s
+-b() at step.debugger.js:10:0
++b() at step.debugger.js:10:1
+ No value returned.
+ db> s
+-b() at step.debugger.js:10:0
+-a() at step.debugger.js:4:4
++b() at step.debugger.js:10:1
++a() at step.debugger.js:4:5
+ db> s
+-a() at step.debugger.js:4:4
++a() at step.debugger.js:4:5
+ db> s
+-a() at step.debugger.js:5:4
++a() at step.debugger.js:5:5
+ A line in a
+ db> s
+-a() at step.debugger.js:6:0
++a() at step.debugger.js:6:1
+ No value returned.
+ db> s
+-a() at step.debugger.js:6:0
+-toplevel at step.debugger.js:12:0
++a() at step.debugger.js:6:1
++toplevel at step.debugger.js:12:1
+ db> s
+-toplevel at step.debugger.js:12:0
++toplevel at step.debugger.js:12:1
+ db> s
+-toplevel at step.debugger.js:13:0
++toplevel at step.debugger.js:13:1
+ No value returned.
+ db> s
+-toplevel at step.debugger.js:13:0
++toplevel at step.debugger.js:13:1
+ Program exited with code 0
+diff --git a/installed-tests/debugger/throw-ignored.debugger.output b/installed-tests/debugger/throw-ignored.debugger.output
+index a2ac43d17..2e6bfb3e1 100644
+--- a/installed-tests/debugger/throw-ignored.debugger.output
++++ b/installed-tests/debugger/throw-ignored.debugger.output
+@@ -4,7 +4,7 @@ db> # SPDX-FileCopyrightText: 2021 Florian Müllner <fmuellner@gnome.org>
+ db> c
+ Caught exception: Error: Exception nº 1
+ Unwinding due to exception. (Type 'c' to continue unwinding.)
+-#0    a() at throw-ignored.debugger.js:7:10
++#0    a() at throw-ignored.debugger.js:7:11
+    7	    throw new Error(`Exception nº ${++count}`);
+ Exception value is:
+ $1 = [object Error]
+diff --git a/installed-tests/debugger/throw.debugger.output b/installed-tests/debugger/throw.debugger.output
+index 03da24ee2..99876a96c 100644
+--- a/installed-tests/debugger/throw.debugger.output
++++ b/installed-tests/debugger/throw.debugger.output
+@@ -3,30 +3,30 @@ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> set ignoreCaughtExceptions false
+ db> c
+-Debugger statement, a() at throw.debugger.js:4:4
++Debugger statement, a() at throw.debugger.js:4:5
+ db> f 1
+-#1    toplevel at throw.debugger.js:9:4
++#1    toplevel at throw.debugger.js:9:5
+    9	    a();
+ db> throw {}
+ To throw, you must select the newest frame (use 'frame 0')
+ db> f 0
+-#0    a() at throw.debugger.js:4:4
++#0    a() at throw.debugger.js:4:5
+    4	    debugger;
+ db> p 3.14
+ $1 = 3.14
+ db> throw 'foobar' + $1
+ Unwinding due to exception. (Type 'c' to continue unwinding.)
+-#0    a() at throw.debugger.js:4:4
++#0    a() at throw.debugger.js:4:5
+    4	    debugger;
+ Exception value is:
+ $2 = "foobar3.14"
+ db> fin
+-Run till exit from a() at throw.debugger.js:4:4
++Run till exit from a() at throw.debugger.js:4:5
+ Frame terminated by exception:
+ $3 = "foobar3.14"
+ (To rethrow it, type 'throw'.)
+ Unwinding due to exception. (Type 'c' to continue unwinding.)
+-#0    toplevel at throw.debugger.js:9:4
++#0    toplevel at throw.debugger.js:9:5
+    9	    a();
+ Exception value is:
+ $4 = "foobar3.14"
+diff --git a/installed-tests/debugger/until.debugger.output b/installed-tests/debugger/until.debugger.output
+index 811362ae7..55dda3578 100644
+--- a/installed-tests/debugger/until.debugger.output
++++ b/installed-tests/debugger/until.debugger.output
+@@ -2,18 +2,18 @@ GJS debugger. Type "help" for help
+ db> # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> until 5
+-toplevel at until.debugger.js:3:0
++toplevel at until.debugger.js:3:1
+ 1
+ 2
+ db> upto 7
+-toplevel at until.debugger.js:5:0
++toplevel at until.debugger.js:5:1
+ 3
+-entered frame: <anonymous>() at until.debugger.js:7:4
++entered frame: <anonymous>() at until.debugger.js:7:5
+ db> u 9
+-<anonymous>() at until.debugger.js:7:4
++<anonymous>() at until.debugger.js:7:5
+ 4
+ No value returned.
+-toplevel at until.debugger.js:9:0
++toplevel at until.debugger.js:9:1
+ db> c
+ 5
+ Program exited with code 0
+diff --git a/installed-tests/scripts/testWarnings.sh b/installed-tests/scripts/testWarnings.sh
+index 5dbf1c008..de471ffd0 100755
+--- a/installed-tests/scripts/testWarnings.sh
++++ b/installed-tests/scripts/testWarnings.sh
+@@ -29,7 +29,7 @@ $gjs -c 'imports.gi.GLib.get_home_dir("foobar")' 2>&1 | \
+ report "passing too many arguments to a GI function should warn"
+ 
+ $gjs -c '**' 2>&1 | \
+-    grep -q 'SyntaxError.*@ <command line>:1:0'
++    grep -q 'SyntaxError.*@ <command line>:1:1'
+ report "file and line number are logged for syntax errors"
+ 
+ echo "1..$total"
+-- 
+GitLab
+
+
+From 32f99b220a5bf06f22ea330b293022b2cedfc6c2 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 21 Jul 2024 22:18:52 -0700
+Subject: [PATCH 03/10] js: Update JS_GetFunctionId() calls
+
+Either JS_GetFunctionId() needs to take a JSContext, or we need to use
+JS_GetMaybePartialFunctionId(). Replace the existing calls to
+JS_GetFunctionId() with the appropriate alternative.
+---
+ gi/object.cpp             | 7 +++++--
+ cjs/jsapi-util-string.cpp | 4 ++--
+ 2 files changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/gi/object.cpp b/gi/object.cpp
+index 6c5b4ff5f..ff3f799ea 100644
+--- a/gi/object.cpp
++++ b/gi/object.cpp
+@@ -677,8 +677,11 @@ static bool interface_getter(JSContext* cx, unsigned argc, JS::Value* vp) {
+     g_assert(v_prototype.isObject() && "prototype must be an object");
+ 
+     JS::RootedObject prototype(cx, &v_prototype.toObject());
+-    JS::RootedId id(cx, JS::PropertyKey::NonIntAtom(JS_GetFunctionId(
+-                            JS_GetObjectFunction(&args.callee()))));
++    JS::RootedFunction fn_obj{cx, JS_GetObjectFunction(&args.callee())};
++    JS::RootedString fn_name{cx};
++    if (!JS_GetFunctionId(cx, fn_obj, &fn_name))
++        return false;
++    JS::RootedId id{cx, JS::PropertyKey::NonIntAtom(fn_name)};
+     return JS_GetPropertyById(cx, prototype, id, args.rval());
+ }
+ 
+diff --git a/cjs/jsapi-util-string.cpp b/cjs/jsapi-util-string.cpp
+index 3465f15fe..9395e34e7 100644
+--- a/cjs/jsapi-util-string.cpp
++++ b/cjs/jsapi-util-string.cpp
+@@ -590,7 +590,7 @@ gjs_debug_object(JSObject * const obj)
+ 
+     if (js::IsFunctionObject(obj)) {
+         JSFunction* fun = JS_GetObjectFunction(obj);
+-        JSString* display_name = JS_GetFunctionDisplayId(fun);
++        JSString* display_name = JS_GetMaybePartialFunctionDisplayId(fun);
+         if (display_name && JS_GetStringLength(display_name))
+             out << "<function " << gjs_debug_string(display_name);
+         else
+@@ -624,7 +624,7 @@ gjs_debug_object(JSObject * const obj)
+ 
+ std::string gjs_debug_callable(JSObject* callable) {
+     if (JSFunction* fn = JS_GetObjectFunction(callable)) {
+-        if (JSString* display_id = JS_GetFunctionDisplayId(fn))
++        if (JSString* display_id = JS_GetMaybePartialFunctionDisplayId(fn))
+             return {"function " + gjs_debug_string(display_id)};
+         return {"unnamed function"};
+     }
+-- 
+GitLab
+
+
+From 1f44489bc16cf45667dbd5bdb8e902e5457fe752 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 21 Jul 2024 22:23:48 -0700
+Subject: [PATCH 04/10] js: Move UniquePtr into external ArrayBuffers
+
+ArrayBuffers now take a unique pointer instead of a raw pointer. For
+JS::NewExternalArrayBuffer(), the free callback is part of
+JS::BufferContentsDeleter. For JS::NewArrayBufferWithContents, the free
+function was always JS_free(); in our _gjs_memdup2() case, it was already
+incorrect to use that function, so use JS::NewExternalArrayBuffer()
+instead.
+---
+ cjs/byteArray.cpp     | 26 ++++++++++++++++----------
+ cjs/gjs_pch.hh        |  1 -
+ cjs/text-encoding.cpp | 17 +++++++----------
+ 3 files changed, 23 insertions(+), 21 deletions(-)
+
+diff --git a/cjs/byteArray.cpp b/cjs/byteArray.cpp
+index e0b7a03b8..ed80ad38a 100644
+--- a/cjs/byteArray.cpp
++++ b/cjs/byteArray.cpp
+@@ -6,6 +6,8 @@
+ 
+ #include <stdint.h>
+ 
++#include <utility>  // for move
++
+ #include <glib-object.h>
+ #include <glib.h>
+ 
+@@ -18,6 +20,7 @@
+ #include <js/Utility.h>   // for UniqueChars
+ #include <js/experimental/TypedData.h>
+ #include <jsapi.h>  // for JS_NewPlainObject
++#include <mozilla/UniquePtr.h>
+ 
+ #include "gi/boxed.h"
+ #include "cjs/atoms.h"
+@@ -145,12 +148,11 @@ from_gbytes_func(JSContext *context,
+         return true;
+     }
+ 
+-    JS::RootedObject array_buffer(
+-        context,
+-        JS::NewExternalArrayBuffer(
+-            context, len,
+-            const_cast<void*>(data),  // the ArrayBuffer won't modify the data
+-            bytes_unref_arraybuffer, gbytes));
++    mozilla::UniquePtr<void, JS::BufferContentsDeleter> contents{
++        const_cast<void*>(data),  // the ArrayBuffer won't modify the data
++        {bytes_unref_arraybuffer, gbytes}};
++    JS::RootedObject array_buffer{
++        context, JS::NewExternalArrayBuffer(context, len, std::move(contents))};
+     if (!array_buffer)
+         return false;
+     g_bytes_ref(gbytes);  // now owned by both ArrayBuffer and BoxedBase
+@@ -167,11 +169,15 @@ from_gbytes_func(JSContext *context,
+ JSObject* gjs_byte_array_from_data(JSContext* cx, size_t nbytes, void* data) {
+     JS::RootedObject array_buffer(cx);
+     // a null data pointer takes precedence over whatever `nbytes` says
+-    if (data)
+-        array_buffer = JS::NewArrayBufferWithContents(
+-            cx, nbytes, _gjs_memdup2(data, nbytes));
+-    else
++    if (data) {
++        mozilla::UniquePtr<void, JS::BufferContentsDeleter> data_copy{
++            _gjs_memdup2(data, nbytes),
++            {[](void* contents, void*) { g_free(contents); }}};
++        array_buffer =
++            JS::NewExternalArrayBuffer(cx, nbytes, std::move(data_copy));
++    } else {
+         array_buffer = JS::NewArrayBuffer(cx, 0);
++    }
+     if (!array_buffer)
+         return nullptr;
+ 
+diff --git a/cjs/gjs_pch.hh b/cjs/gjs_pch.hh
+index 8239b945f..7fbfc355a 100644
+--- a/cjs/gjs_pch.hh
++++ b/cjs/gjs_pch.hh
+@@ -127,7 +127,6 @@
+ #include <mozilla/ScopeExit.h>
+ #include <mozilla/Span.h>
+ #include <mozilla/UniquePtr.h>
+-#include <mozilla/Unused.h>
+ #ifdef HAVE_READLINE_READLINE_H
+ #include <readline/history.h>
+ #include <readline/readline.h>
+diff --git a/cjs/text-encoding.cpp b/cjs/text-encoding.cpp
+index e2a4e8cf4..5b980626c 100644
+--- a/cjs/text-encoding.cpp
++++ b/cjs/text-encoding.cpp
+@@ -16,6 +16,7 @@
+ #include <memory>    // for unique_ptr
+ #include <string>    // for u16string
+ #include <tuple>     // for tuple
++#include <utility>   // for move
+ 
+ #include <gio/gio.h>
+ #include <glib-object.h>
+@@ -40,7 +41,7 @@
+ #include <jspubtd.h>      // for JSProto_InternalError
+ #include <mozilla/Maybe.h>
+ #include <mozilla/Span.h>
+-#include <mozilla/Unused.h>
++#include <mozilla/UniquePtr.h>
+ 
+ #include "cjs/jsapi-util-args.h"
+ #include "cjs/jsapi-util.h"
+@@ -398,13 +399,8 @@ JSObject* gjs_encode_to_uint8array(JSContext* cx, JS::HandleString str,
+             utf8_len = strlen(utf8.get());
+         }
+ 
+-        array_buffer = JS::NewArrayBufferWithContents(cx, utf8_len, utf8.get());
+-
+-        // array_buffer only assumes ownership if the call succeeded,
+-        // if array_buffer assumes ownership we must release our ownership
+-        // without freeing the data.
+-        if (array_buffer)
+-            mozilla::Unused << utf8.release();
++        array_buffer =
++            JS::NewArrayBufferWithContents(cx, utf8_len, std::move(utf8));
+     } else {
+         GjsAutoError error;
+         GjsAutoChar encoded = nullptr;
+@@ -453,9 +449,10 @@ JSObject* gjs_encode_to_uint8array(JSContext* cx, JS::HandleString str,
+         if (bytes_written == 0)
+             return JS_NewUint8Array(cx, 0);
+ 
++        mozilla::UniquePtr<void, JS::BufferContentsDeleter> contents{
++            encoded.release(), gfree_arraybuffer_contents};
+         array_buffer =
+-            JS::NewExternalArrayBuffer(cx, bytes_written, encoded.release(),
+-                                       gfree_arraybuffer_contents, nullptr);
++            JS::NewExternalArrayBuffer(cx, bytes_written, std::move(contents));
+     }
+ 
+     if (!array_buffer)
+-- 
+GitLab
+
+
+From 22dd727718455a54ab80bbe33b7074f60d51c60c Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 21 Jul 2024 22:25:29 -0700
+Subject: [PATCH 05/10] context: Implement JS::JobQueue::isDrainingStopped()
+
+This method is now required to be implemented by subclasses of JobQueue.
+---
+ cjs/context-private.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/cjs/context-private.h b/cjs/context-private.h
+index 06cf6cf14..76bcb21fd 100644
+--- a/cjs/context-private.h
++++ b/cjs/context-private.h
+@@ -259,6 +259,9 @@ class GjsContextPrivate : public JS::JobQueue {
+                            JS::HandleObject incumbent_global) override;
+     void runJobs(JSContext* cx) override;
+     [[nodiscard]] bool empty() const override { return m_job_queue.empty(); }
++    [[nodiscard]] bool isDrainingStopped() const override {
++        return !m_draining_job_queue;
++    }
+     js::UniquePtr<JS::JobQueue::SavedJobQueue> saveJobQueue(
+         JSContext* cx) override;
+ 
+-- 
+GitLab
+
+
+From 69c346dad2c87a526346ca97dd9fb6bf023aee38 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 21 Jul 2024 22:26:17 -0700
+Subject: [PATCH 06/10] js: Remove realm creation options for unconditional
+ features
+
+WeakRefs and copying Array methods are not optional anymore, so remove the
+options that enable them.
+---
+ cjs/global.cpp | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/cjs/global.cpp b/cjs/global.cpp
+index 6c3fd684f..898c49e2c 100644
+--- a/cjs/global.cpp
++++ b/cjs/global.cpp
+@@ -48,12 +48,6 @@ class GjsBaseGlobal {
+ class GjsBaseGlobal {
+     static JSObject* base(JSContext* cx, const JSClass* clasp,
+                           JS::RealmCreationOptions options) {
+-        // Enable WeakRef without the cleanupSome specification
+-        // Re-evaluate if cleanupSome is standardized
+-        // See: https://github.com/tc39/proposal-cleanup-some
+-        options.setWeakRefsEnabled(
+-            JS::WeakRefSpecifier::EnabledWithoutCleanupSome);
+-
+         JS::RealmBehaviors behaviors;
+         JS::RealmOptions compartment_options(options, behaviors);
+ 
+-- 
+GitLab
+
+
+From e23bb5d378a0a597961f4519bc11cb9f61cbe0fc Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 21 Jul 2024 22:26:47 -0700
+Subject: [PATCH 07/10] js: Adapt to JS::ErrorReport::filename type change
+
+---
+ cjs/jsapi-util-error.cpp | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/cjs/jsapi-util-error.cpp b/cjs/jsapi-util-error.cpp
+index d0634f12f..643266484 100644
+--- a/cjs/jsapi-util-error.cpp
++++ b/cjs/jsapi-util-error.cpp
+@@ -254,8 +254,7 @@ void gjs_warning_reporter(JSContext*, JSErrorReport* report) {
+     if (gjs_environment_variable_is_set("GJS_ABORT_ON_OOM") &&
+         !report->isWarning() && report->errorNumber == 137) {
+         /* 137, JSMSG_OUT_OF_MEMORY */
+-        g_error("GJS ran out of memory at %s: %i.",
+-                report->filename,
++        g_error("GJS ran out of memory at %s: %i.", report->filename.c_str(),
+                 report->lineno);
+     }
+ 
+@@ -277,6 +276,6 @@ void gjs_warning_reporter(JSContext*, JSErrorReport* report) {
+         level = G_LOG_LEVEL_WARNING;
+     }
+ 
+-    g_log(G_LOG_DOMAIN, level, "JS %s: [%s %d]: %s", warning, report->filename,
+-          report->lineno, report->message().c_str());
++    g_log(G_LOG_DOMAIN, level, "JS %s: [%s %d]: %s", warning,
++          report->filename.c_str(), report->lineno, report->message().c_str());
+ }
+-- 
+GitLab
+
+
+From 7fb4fd2916428334f47c3ebde22daccbf9d24143 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sat, 27 Jul 2024 12:55:38 -0700
+Subject: [PATCH 08/10] js: Heap can no longer be stored in WeakCache
+
+We used to be able to store JS::Heap<T> in JS::WeakCache, but that is no
+longer possible because JS::GCPolicy<JS::Heap> does not implement
+needsSweep().
+
+Add a class Gjs::WeakPtr<T> that behaves the same as JS::Heap<T> but has
+the appropriately defined GCPolicy to be able to be stored in WeakCache.
+---
+ cjs/context-private.h |  5 +++--
+ cjs/jsapi-util-root.h | 34 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 2 deletions(-)
+
+diff --git a/cjs/context-private.h b/cjs/context-private.h
+index 76bcb21fd..071d8b2be 100644
+--- a/cjs/context-private.h
++++ b/cjs/context-private.h
+@@ -39,6 +39,7 @@
+ #include "gi/closure.h"
+ #include "cjs/context.h"
+ #include "cjs/jsapi-util.h"
++#include "cjs/jsapi-util-root.h"
+ #include "cjs/macros.h"
+ #include "cjs/mainloop.h"
+ #include "cjs/profiler.h"
+@@ -52,10 +53,10 @@ using JobQueueStorage =
+ using ObjectInitList =
+     JS::GCVector<JS::Heap<JSObject*>, 0, js::SystemAllocPolicy>;
+ using FundamentalTable =
+-    JS::GCHashMap<void*, JS::Heap<JSObject*>, js::DefaultHasher<void*>,
++    JS::GCHashMap<void*, Gjs::WeakPtr<JSObject*>, js::DefaultHasher<void*>,
+                   js::SystemAllocPolicy>;
+ using GTypeTable =
+-    JS::GCHashMap<GType, JS::Heap<JSObject*>, js::DefaultHasher<GType>,
++    JS::GCHashMap<GType, Gjs::WeakPtr<JSObject*>, js::DefaultHasher<GType>,
+                   js::SystemAllocPolicy>;
+ using FunctionVector = JS::GCVector<JSFunction*, 0, js::SystemAllocPolicy>;
+ 
+diff --git a/cjs/jsapi-util-root.h b/cjs/jsapi-util-root.h
+index 0676dabab..e2fdda12e 100644
+--- a/cjs/jsapi-util-root.h
++++ b/cjs/jsapi-util-root.h
+@@ -23,6 +23,8 @@
+ 
+ #include "util/log.h"
+ 
++namespace JS { template <typename T> struct GCPolicy; }
++
+ /* jsapi-util-root.h - Utilities for dealing with the lifetime and ownership of
+  * JS Objects and other things that can be collected by the garbage collector
+  * (collectively called "GC things.")
+@@ -221,4 +223,36 @@ class GjsMaybeOwned {
+     [[nodiscard]] bool rooted() const { return m_root != nullptr; }
+ };
+ 
++namespace Gjs {
++
++template <typename T>
++class WeakPtr : public JS::Heap<T> {
++ public:
++    using JS::Heap<T>::Heap;
++    using JS::Heap<T>::operator=;
++};
++
++}  // namespace Gjs
++
++namespace JS {
++
++template <typename T>
++struct GCPolicy<Gjs::WeakPtr<T>> {
++    static void trace(JSTracer* trc, Gjs::WeakPtr<T>* thingp,
++                      const char* name) {
++        return JS::TraceEdge(trc, thingp, name);
++    }
++
++    static bool traceWeak(JSTracer* trc, Gjs::WeakPtr<T>* thingp) {
++        return js::gc::TraceWeakEdge(trc, thingp);
++    }
++
++    static bool needsSweep(JSTracer* trc, const Gjs::WeakPtr<T>* thingp) {
++        Gjs::WeakPtr<T> thing{*thingp};
++        return !js::gc::TraceWeakEdge(trc, &thing);
++    }
++};
++
++}  // namespace JS
++
+ #endif  // GJS_JSAPI_UTIL_ROOT_H_
+-- 
+GitLab
+
+
+From a6283f98f8659fb4e2c3d70ba9e30ac4eb993e22 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 21 Jul 2024 22:26:57 -0700
+Subject: [PATCH 09/10] build: Build with SpiderMonkey 128
+
+Update build documentation as well.
+---
+ .gitlab-ci.yml    | 30 +++++++++++++++---------------
+ README.MSVC.md    | 24 ++++++++++++------------
+ doc/Hacking.md    | 16 ++++++++--------
+ meson.build       |  4 ++--
+ tools/run_iwyu.sh |  2 +-
+ 5 files changed, 38 insertions(+), 38 deletions(-)
+
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+index 44f63e4be..df005b745 100644
+--- a/.gitlab-ci.yml
++++ b/.gitlab-ci.yml
+@@ -31,7 +31,7 @@ build-alpine-image:
+         --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+ 
+ .coverage: &coverage
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     coverage: '/^  lines.*(\d+\.\d+\%)/'
+   script:
+@@ -74,7 +74,7 @@ build-alpine-image:
+ build_recommended:
+   <<: *build
+   stage: source_check
+-  image: registry.gitlab.gnome.org/gnome/gjs:job-3012153_fedora.mozjs115-debug  # pinned on purpose
++  image: registry.gitlab.gnome.org/gnome/gjs:job-4161430_fedora.mozjs128-debug  # pinned on purpose
+   variables:
+     TEST_OPTS: --verbose --no-stdsplit --print-errorlogs --setup=verbose
+   except:
+@@ -91,7 +91,7 @@ sanitizer_gcc:
+   stage: test
+   tags:
+     - asan # LSAN needs CAP_SYS_PTRACE
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     CONFIG_OPTS: -Db_sanitize=address,undefined
+     TEST_OPTS: --timeout-multiplier=3
+@@ -108,7 +108,7 @@ sanitizer_thread_gcc:
+   allow_failure: true
+   tags:
+     - asan # TSAN needs CAP_SYS_PTRACE
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     CONFIG_OPTS: -Db_sanitize=thread
+     TEST_OPTS: --timeout-multiplier=3 --setup=verbose
+@@ -122,7 +122,7 @@ sanitizer_thread_gcc:
+ build_maximal:
+   when: on_success
+   stage: test
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     CC: clang
+     CXX: clang++
+@@ -149,7 +149,7 @@ build_maximal:
+ build_minimal:
+   <<: *build
+   stage: test
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128
+   variables:
+     CONFIG_OPTS: -Dbuildtype=release -Dreadline=disabled -Dprofiler=disabled
+     TEST_OPTS: --setup=verbose
+@@ -159,7 +159,7 @@ build_minimal:
+ build_unity:
+   <<: *build
+   stage: test
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128
+   variables:
+     # unity-size here is forced to use an high number to check whether we can
+     # join all the sources together, but should not be used in real world to
+@@ -304,7 +304,7 @@ headers_check:
+ iwyu:
+   when: on_success
+   stage: source_check
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   script:
+     - test/test-ci.sh UPSTREAM_BASE
+     - meson setup _build -Db_pch=false
+@@ -362,7 +362,7 @@ coverage:
+ iwyu-full:
+   when: manual
+   stage: manual
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   script:
+     - meson setup _build
+     - ./tools/run_iwyu.sh
+@@ -374,7 +374,7 @@ sanitizer_clang:
+   stage: manual
+   tags:
+     - asan # LSAN needs CAP_SYS_PTRACE
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     CC: clang
+     CXX: clang++
+@@ -390,7 +390,7 @@ sanitizer_clang:
+ installed_tests:
+   <<: *build
+   stage: manual
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     CONFIG_OPTS: -Dinstalled_tests=true -Dprefix=/usr
+     TEST: skip
+@@ -406,7 +406,7 @@ installed_tests:
+ valgrind:
+   <<: *build
+   stage: manual
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     USE_UNSTABLE_GNOME_PREFIX: 'true'
+     TEST_OPTS: --setup=valgrind
+@@ -419,7 +419,7 @@ valgrind:
+ zeal_2:
+   <<: *build
+   stage: manual
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     TEST_OPTS: --setup=extra_gc
+   when: manual
+@@ -429,7 +429,7 @@ zeal_2:
+ zeal_4:
+   <<: *build
+   stage: manual
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     TEST_OPTS: --setup=pre_verify
+   when: manual
+@@ -439,7 +439,7 @@ zeal_4:
+ zeal_11:
+   <<: *build
+   stage: manual
+-  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs115-debug
++  image: registry.gitlab.gnome.org/gnome/gjs:fedora.mozjs128-debug
+   variables:
+     TEST_OPTS: --setup=post_verify
+   when: manual
+diff --git a/doc/Hacking.md b/doc/Hacking.md
+index 79eeec5dc..b490fec90 100644
+--- a/doc/Hacking.md
++++ b/doc/Hacking.md
+@@ -37,7 +37,7 @@ You can also skip this step if you are not writing any C++ code.)
+ ## Dependencies
+ 
+ GJS requires five other libraries to be installed: GLib, libffi,
+-gobject-introspection, SpiderMonkey (also called "mozjs115" on some
++gobject-introspection, SpiderMonkey (also called "mozjs128" on some
+ systems.) and the build tool Meson.
+ The readline library is not required, but strongly recommended.
+ We recommend installing your system's development packages for GLib,
+@@ -66,19 +66,19 @@ will help catch mistakes in the API that could otherwise go unnoticed
+ and cause crashes in gnome-shell later on.
+ 
+ If you aren't writing any C++ code, and your system provides it (for
+-example, Fedora 36 or Ubuntu 22.04 and later versions), then you don't
++example, Fedora 41 or Ubuntu 24.10 and later versions), then you don't
+ need to build it yourself.
+ Install SpiderMonkey using your system's package manager instead:
+ 
+-<!--Ubuntu does not currently ship a build of libmozjs-115-->
++<!--Ubuntu does not currently ship a build of libmozjs-128-->
+ <!-- <details>
+     <summary>Ubuntu</summary>
+-    <code>sudo apt-get install libmozjs-115-dev</code>
++    <code>sudo apt-get install libmozjs-128-dev</code>
+ </details> -->
+ 
+ <details>
+     <summary>Fedora</summary>
+-    <code>sudo dnf install mozjs115-devel</code>
++    <code>sudo dnf install mozjs128-devel</code>
+ </details>
+ 
+ If you _are_ writing C++ code, then please build SpiderMonkey yourself
+@@ -86,7 +86,7 @@ with the debugging features enabled.
+ This can save you time later when you submit your merge request, because
+ the code will be checked using the debugging features.
+ 
+-To build SpiderMonkey, follow the instructions on [this page](https://github.com/mozilla-spidermonkey/spidermonkey-embedding-examples/blob/esr115/docs/Building%20SpiderMonkey.md) to download the source code and build the library.
++To build SpiderMonkey, follow the instructions on [this page](https://github.com/mozilla-spidermonkey/spidermonkey-embedding-examples/blob/esr128/docs/Building%20SpiderMonkey.md) to download the source code and build the library.
+ If you are using `-Dprefix` to build GJS into a different path, then
+ make sure to use the same build prefix for SpiderMonkey with `--prefix`.
+ 
+@@ -167,7 +167,7 @@ more likely to show up.
+ 
+ To see which GC zeal options are available:
+ ```sh
+-JS_GC_ZEAL=-1 js115
++JS_GC_ZEAL=-1 js128
+ ```
+ 
+ We include three test setups, `extra_gc`, `pre_verify`, and
+@@ -231,7 +231,7 @@ This will build GJS into a separate build directory with code coverage
+ instrumentation enabled, run the test suite to collect the coverage
+ data, and open the generated HTML report.
+ 
+-[embedder](https://github.com/spidermonkey-embedders/spidermonkey-embedding-examples/blob/esr115/docs/Building%20SpiderMonkey.md)
++[embedder](https://github.com/spidermonkey-embedders/spidermonkey-embedding-examples/blob/esr128/docs/Building%20SpiderMonkey.md)
+ 
+ ## Troubleshooting
+ 
+diff --git a/meson.build b/meson.build
+index 83dce9327..b1c6151f6 100644
+--- a/meson.build
++++ b/meson.build
+@@ -48,7 +48,7 @@ if cc.get_id() == 'msvc'
+     add_project_arguments(cxx.get_supported_arguments([
+         '-utf-8',  # Use UTF-8 mode
+         '/Zc:externConstexpr',  # Required for 'extern constexpr' on MSVC
+-        '/Zc:preprocessor',     # Required to consume the mozjs-115 headers on MSVC
++        '/Zc:preprocessor',     # Required to consume the mozjs-128 headers on MSVC
+ 
+         # Ignore spurious compiler warnings for things that GLib and SpiderMonkey
+         # header files commonly do
+@@ -141,7 +141,7 @@ cairo = dependency('cairo', fallback: ['cairo', 'libcairo_dep'])
+ ffi = dependency('libffi', fallback: ['libffi', 'ffi_dep'])
+ gi = dependency('gobject-introspection-1.0', version: '>= 1.66.0',
+     fallback: ['gobject-introspection', 'girepo_dep'])
+-spidermonkey = dependency('mozjs-115')
++spidermonkey = dependency('mozjs-128')
+
+ # We might need to look for the headers and lib's for Cairo
+ # manually on MSVC/clang-cl builds...
+diff --git a/tools/run_iwyu.sh b/tools/run_iwyu.sh
+index 6ff7e9719..b0292293a 100755
+--- a/tools/run_iwyu.sh
++++ b/tools/run_iwyu.sh
+@@ -47,7 +47,7 @@ IWYU="python3 $(which iwyu_tool || which iwyu-tool || which iwyu_tool.py) -p ."
+ IWYU_TOOL_ARGS="-I../gjs"
+ IWYU_ARGS="-Wno-pragma-once-outside-header"
+ IWYU_RAW="include-what-you-use -xc++ -std=c++17 -Xiwyu --keep=config.h $IWYU_ARGS"
+-IWYU_RAW_INC="-I. -I.. $(pkg-config --cflags gobject-introspection-1.0 mozjs-115)"
++IWYU_RAW_INC="-I. -I.. $(pkg-config --cflags gobject-introspection-1.0 mozjs-128)"
+ PRIVATE_MAPPING="-Xiwyu --mapping_file=$SRCDIR/tools/gjs-private-iwyu.imp -Xiwyu --keep=config.h"
+ PUBLIC_MAPPING="-Xiwyu --mapping_file=$SRCDIR/tools/gjs-public-iwyu.imp"
+ POSTPROCESS="python3 $SRCDIR/tools/process_iwyu.py"
+-- 
+GitLab
+
+
+From 52740db8b6e4db51f700510a9f360abf65c3ced5 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Wed, 7 Aug 2024 16:23:03 -0700
+Subject: [PATCH 10/10] byteArray: Copy GBytes data in ByteArray.fromGBytes()
+
+We previously used the GBytes' data pointer as the backing store for the
+ArrayBuffer. This is wrong for two reasons. One, the data pointer may not
+meet the alignment requirements of ArrayBuffer. Two, the data pointer may
+point to immutable memory. Just always copy the data and have the
+ArrayBuffer own it.
+---
+ cjs/byteArray.cpp                             | 26 +++++++-------
+ .../js/libgjstesttools/gjs-test-tools.cpp     | 34 +++++++++++++++++++
+ .../js/libgjstesttools/gjs-test-tools.h       |  6 ++++
+ installed-tests/js/testLegacyByteArray.js     | 16 ++++++++-
+ 4 files changed, 67 insertions(+), 15 deletions(-)
+
+diff --git a/cjs/byteArray.cpp b/cjs/byteArray.cpp
+index ed80ad38a..a5b6ff51a 100644
+--- a/cjs/byteArray.cpp
++++ b/cjs/byteArray.cpp
+@@ -6,6 +6,7 @@
+ 
+ #include <stdint.h>
+ 
++#include <algorithm>  // for copy_n
+ #include <utility>  // for move
+ 
+ #include <glib-object.h>
+@@ -13,6 +14,7 @@
+ 
+ #include <js/ArrayBuffer.h>
+ #include <js/CallArgs.h>
++#include <js/GCAPI.h>
+ #include <js/PropertyAndElement.h>
+ #include <js/PropertySpec.h>
+ #include <js/RootingAPI.h>
+@@ -33,14 +35,6 @@
+ #include "cjs/text-encoding.h"
+ #include "util/misc.h"  // for _gjs_memdup2
+ 
+-// Callback to use with JS::NewExternalArrayBuffer()
+-
+-static void bytes_unref_arraybuffer(void* contents [[maybe_unused]],
+-                                    void* user_data) {
+-    auto* gbytes = static_cast<GBytes*>(user_data);
+-    g_bytes_unref(gbytes);
+-}
+-
+ GJS_JSAPI_RETURN_CONVENTION
+ static bool to_string_func(JSContext* cx, unsigned argc, JS::Value* vp) {
+     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+@@ -148,14 +142,18 @@ from_gbytes_func(JSContext *context,
+         return true;
+     }
+ 
+-    mozilla::UniquePtr<void, JS::BufferContentsDeleter> contents{
+-        const_cast<void*>(data),  // the ArrayBuffer won't modify the data
+-        {bytes_unref_arraybuffer, gbytes}};
+-    JS::RootedObject array_buffer{
+-        context, JS::NewExternalArrayBuffer(context, len, std::move(contents))};
++    JS::RootedObject array_buffer{context, JS::NewArrayBuffer(context, len)};
+     if (!array_buffer)
+         return false;
+-    g_bytes_ref(gbytes);  // now owned by both ArrayBuffer and BoxedBase
++
++    // Copy the data into the ArrayBuffer so that the copy is aligned, and
++    // because the GBytes data pointer may point into immutable memory.
++    {
++        JS::AutoCheckCannotGC nogc;
++        bool unused;
++        uint8_t* storage = JS::GetArrayBufferData(array_buffer, &unused, nogc);
++        std::copy_n(static_cast<const uint8_t*>(data), len, storage);
++    }
+ 
+     JS::RootedObject obj(
+         context, JS_NewUint8ArrayWithBuffer(context, array_buffer, 0, -1));
+diff --git a/installed-tests/js/libgjstesttools/gjs-test-tools.cpp b/installed-tests/js/libgjstesttools/gjs-test-tools.cpp
+index d14fc751d..7ff381e5e 100644
+--- a/installed-tests/js/libgjstesttools/gjs-test-tools.cpp
++++ b/installed-tests/js/libgjstesttools/gjs-test-tools.cpp
+@@ -355,3 +355,37 @@ int gjs_test_tools_open_bytes(GBytes* bytes, GError** error) {
+     g_error("%s is currently supported on UNIX only", __func__);
+ #endif
+ }
++
++/**
++ * gjs_test_tools_new_unaligned_bytes:
++ * @len: Length of buffer to allocate
++ *
++ * Creates a data buffer at a location 1 byte away from an 8-byte alignment
++ * boundary, to make sure that tests fail when SpiderMonkey enforces an
++ * alignment restriction on embedder data.
++ *
++ * The buffer is filled with repeated 0x00-0x07 bytes containing the least
++ * significant 3 bits of that byte's address.
++ *
++ * Returns: (transfer full): a #GBytes
++ */
++GBytes* gjs_test_tools_new_unaligned_bytes(size_t len) {
++    auto* buffer = static_cast<char*>(g_aligned_alloc0(1, len + 1, 8));
++    for (size_t ix = 0; ix < len + 1; ix++) {
++        buffer[ix] = reinterpret_cast<uintptr_t>(buffer + ix) & 0x07;
++    }
++    return g_bytes_new_with_free_func(buffer + 1, len, g_aligned_free, buffer);
++}
++
++alignas(8) static const char static_bytes[] = "hello";
++
++/**
++ * gjs_test_tools_new_static_bytes:
++ *
++ * Returns a buffer that lives in static storage.
++ *
++ * Returns: (transfer full): a #GBytes
++ */
++GBytes* gjs_test_tools_new_static_bytes() {
++    return g_bytes_new_static(static_bytes, 6);
++}
+diff --git a/installed-tests/js/libgjstesttools/gjs-test-tools.h b/installed-tests/js/libgjstesttools/gjs-test-tools.h
+index 32f54d322..722eee4fc 100644
+--- a/installed-tests/js/libgjstesttools/gjs-test-tools.h
++++ b/installed-tests/js/libgjstesttools/gjs-test-tools.h
+@@ -94,4 +94,10 @@ GObject* gjs_test_tools_get_disposed(GObject* object);
+ _GJS_TEST_TOOL_EXTERN
+ int gjs_test_tools_open_bytes(GBytes* bytes, GError** error);
+ 
++_GJS_TEST_TOOL_EXTERN
++GBytes* gjs_test_tools_new_unaligned_bytes(size_t len);
++
++_GJS_TEST_TOOL_EXTERN
++GBytes* gjs_test_tools_new_static_bytes();
++
+ G_END_DECLS
+diff --git a/installed-tests/js/testLegacyByteArray.js b/installed-tests/js/testLegacyByteArray.js
+index 25936df20..03ef41374 100644
+--- a/installed-tests/js/testLegacyByteArray.js
++++ b/installed-tests/js/testLegacyByteArray.js
+@@ -3,7 +3,7 @@
+ // SPDX-FileCopyrightText: 2017 Philip Chimento <philip.chimento@gmail.com>
+ 
+ const ByteArray = imports.byteArray;
+-const {GIMarshallingTests, GLib} = imports.gi;
++const {GIMarshallingTests, GjsTestTools, GLib} = imports.gi;
+ 
+ describe('Uint8Array with legacy ByteArray functions', function () {
+     it('can be created from a string', function () {
+@@ -73,6 +73,20 @@ describe('Uint8Array with legacy ByteArray functions', function () {
+         expect(ByteArray.fromGBytes(noBytes).length).toEqual(0);
+     });
+ 
++    it('deals gracefully with a non-aligned GBytes', function () {
++        const unalignedBytes = GjsTestTools.new_unaligned_bytes(48);
++        const arr = ByteArray.fromGBytes(unalignedBytes);
++        expect(arr.length).toEqual(48);
++        expect(Array.prototype.slice.call(arr, 0, 4)).toEqual([1, 2, 3, 4]);
++    });
++
++    it('deals gracefully with a GBytes in static storage', function () {
++        const staticBytes = GjsTestTools.new_static_bytes();
++        const arr = ByteArray.fromGBytes(staticBytes);
++        arr[2] = 42;
++        expect(Array.from(arr)).toEqual([104, 101, 42, 108, 111, 0]);
++    });
++
+     it('deals gracefully with a 0-length string', function () {
+         expect(ByteArray.fromString('').length).toEqual(0);
+         expect(ByteArray.fromString('', 'LATIN1').length).toEqual(0);
+-- 
+GitLab
+

@@ -1,0 +1,3613 @@
+From f4d5b6855489373488a3751f74de117c8a2d542c Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Wed, 20 Mar 2024 20:40:30 -0700
+Subject: [PATCH 01/16] maint: Remove dependency on G_GINT64_MODIFIER
+
+Surprisingly, depending on what types g(u)int64 and (u)int64_t are aliased
+to, it may not work interchangeably. Since we are using the stdint.h types
+we need to use the inttypes.h macros, as well.
+---
+ gi/arg-cache.cpp   |  3 +--
+ gi/arg.cpp         | 23 ++++++++++++-----------
+ gi/enumeration.cpp |  4 +++-
+ 3 files changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/gi/arg-cache.cpp b/gi/arg-cache.cpp
+index 1ce16257d..a6a300e04 100644
+--- a/gi/arg-cache.cpp
++++ b/gi/arg-cache.cpp
+@@ -1248,8 +1248,7 @@ bool FlagsIn::in(JSContext* cx, GjsFunctionCallState*, GIArgument* arg,
+ 
+     if ((uint64_t(number) & m_mask) != uint64_t(number)) {
+         gjs_throw(cx,
+-                  "0x%" G_GINT64_MODIFIER
+-                  "x is not a valid value for flags argument %s",
++                  "0x%" PRId64 " is not a valid value for flags argument %s",
+                   number, m_arg_name);
+         return false;
+     }
+diff --git a/gi/arg.cpp b/gi/arg.cpp
+index 69b008fc1..1ce7126fc 100644
+--- a/gi/arg.cpp
++++ b/gi/arg.cpp
+@@ -5,6 +5,7 @@
+ 
+ #include <config.h>
+ 
++#include <inttypes.h>
+ #include <stdint.h>
+ #include <string.h>  // for strcmp, strlen, memcpy
+ 
+@@ -65,7 +66,7 @@ static void throw_invalid_argument(JSContext* cx, JS::HandleValue value,
+                                    GITypeInfo* arginfo, const char* arg_name,
+                                    GjsArgumentType arg_type);
+ 
+-bool _gjs_flags_value_is_valid(JSContext* context, GType gtype, int64_t value) {
++bool _gjs_flags_value_is_valid(JSContext* cx, GType gtype, int64_t value) {
+     /* Do proper value check for flags with GType's */
+     if (gtype != G_TYPE_NONE) {
+         GjsAutoTypeClass<GFlagsClass> gflags_class(gtype);
+@@ -73,9 +74,8 @@ bool _gjs_flags_value_is_valid(JSContext* context, GType gtype, int64_t value) {
+ 
+         /* check all bits are valid bits for the flag and is a 32 bit flag*/
+         if ((tmpval &= gflags_class->mask) != value) { /* Not a guint32 with invalid mask values*/
+-            gjs_throw(context,
+-                    "0x%" G_GINT64_MODIFIER "x is not a valid value for flags %s",
+-                    value, g_type_name(gtype));
++            gjs_throw(cx, "0x%" PRIx64 " is not a valid value for flags %s",
++                      value, g_type_name(gtype));
+             return false;
+         }
+     }
+@@ -84,7 +84,7 @@ bool _gjs_flags_value_is_valid(JSContext* context, GType gtype, int64_t value) {
+ }
+ 
+ GJS_JSAPI_RETURN_CONVENTION
+-static bool _gjs_enum_value_is_valid(JSContext* context, GIEnumInfo* enum_info,
++static bool _gjs_enum_value_is_valid(JSContext* cx, GIEnumInfo* enum_info,
+                                      int64_t value) {
+     bool found;
+     int n_values;
+@@ -104,9 +104,8 @@ static bool _gjs_enum_value_is_valid(JSContext* context, GIEnumInfo* enum_info,
+     }
+ 
+     if (!found) {
+-        gjs_throw(context,
+-                  "%" G_GINT64_MODIFIER "d is not a valid value for enumeration %s",
+-                  value, g_base_info_get_name((GIBaseInfo *)enum_info));
++        gjs_throw(cx, "%" PRId64 " is not a valid value for enumeration %s",
++                  value, g_base_info_get_name(enum_info));
+     }
+ 
+     return found;
+@@ -2613,10 +2612,12 @@ bool gjs_value_from_gi_argument(JSContext* context,
+ 
+                 if (gtype != G_TYPE_NONE) {
+                     /* check make sure 32 bit flag */
+-                   if (static_cast<uint32_t>(value_int64) != value_int64) { /* Not a guint32 */
++                    if (static_cast<uint32_t>(value_int64) != value_int64) {
++                        // Not a 32-bit integer
+                         gjs_throw(context,
+-                                "0x%" G_GINT64_MODIFIER "x is not a valid value for flags %s",
+-                                value_int64, g_type_name(gtype));
++                                  "0x%" PRIx64
++                                  " is not a valid value for flags %s",
++                                  value_int64, g_type_name(gtype));
+                         return false;
+                     }
+ 
+diff --git a/gi/enumeration.cpp b/gi/enumeration.cpp
+index 09c29701f..2f018fbac 100644
+--- a/gi/enumeration.cpp
++++ b/gi/enumeration.cpp
+@@ -4,6 +4,8 @@
+ 
+ #include <config.h>
+ 
++#include <inttypes.h>
++
+ #include <girepository.h>
+ #include <glib-object.h>
+ #include <glib.h>
+@@ -46,7 +48,7 @@ gjs_define_enum_value(JSContext       *context,
+     }
+ 
+     gjs_debug(GJS_DEBUG_GENUM,
+-              "Defining enum value %s (fixed from %s) %" G_GINT64_MODIFIER "d",
++              "Defining enum value %s (fixed from %s) %" PRId64,
+               fixed_name.get(), value_name, value_val);
+ 
+     if (!JS_DefineProperty(context, in_object,
+-- 
+GitLab
+
+
+From 65786b9c5c77aa84b53cd17a2330eeef7f51c41e Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Tue, 12 Mar 2024 22:16:06 -0700
+Subject: [PATCH 02/16] jsapi-util-root: De-templateify GjsMaybeOwned
+
+We never used GjsMaybeOwned<JS::Value> anymore, except in tests. There's
+only GjsMaybeOwned<JSObject*>, so we don't have to have the extra
+complication of a template parameter.
+
+Oddly, there are some consts and constexprs that have to be removed even
+though GCC accepted them when it was a template.
+---
+ gi/closure.cpp            |   4 +-
+ gi/closure.h              |   5 +-
+ gi/object.cpp             |   2 +-
+ gi/object.h               |   4 +-
+ cjs/jsapi-util-root.h     | 133 +++++++++++++++-----------------------
+ test/gjs-test-rooting.cpp |  32 ++++-----
+ 6 files changed, 75 insertions(+), 105 deletions(-)
+
+diff --git a/gi/closure.cpp b/gi/closure.cpp
+index bc5142662..0b3a4ba3d 100644
+--- a/gi/closure.cpp
++++ b/gi/closure.cpp
+@@ -171,7 +171,7 @@ bool Closure::invoke(JS::HandleObject this_obj,
+         return false;
+     }
+ 
+-    JSAutoRealm ar(m_cx, m_callable);
++    JSAutoRealm ar{m_cx, m_callable.get()};
+ 
+     if (gjs_log_exception(m_cx)) {
+         gjs_debug_closure(
+@@ -180,7 +180,7 @@ bool Closure::invoke(JS::HandleObject this_obj,
+             this);
+     }
+ 
+-    JS::RootedValue v_callable(m_cx, JS::ObjectValue(*m_callable));
++    JS::RootedValue v_callable{m_cx, JS::ObjectValue(*m_callable.get())};
+     bool ok = JS::Call(m_cx, this_obj, v_callable, args, retval);
+     GjsContextPrivate* gjs = GjsContextPrivate::from_cx(m_cx);
+ 
+diff --git a/gi/closure.h b/gi/closure.h
+index 8df4f8e97..0c90c6f29 100644
+--- a/gi/closure.h
++++ b/gi/closure.h
+@@ -88,7 +88,8 @@ class Closure : public GClosure {
+         return self;
+     }
+ 
+-    constexpr JSObject* callable() const { return m_callable; }
++    // COMPAT: constexpr in C++23
++    JSObject* callable() const { return m_callable.get(); }
+     [[nodiscard]] constexpr JSContext* context() const { return m_cx; }
+     [[nodiscard]] constexpr bool is_valid() const { return !!m_cx; }
+     GJS_JSAPI_RETURN_CONVENTION bool invoke(JS::HandleObject,
+@@ -129,7 +130,7 @@ class Closure : public GClosure {
+     //  The context could be attached to the default context of the runtime
+     //  using if we wanted the closure to survive the context that created it.
+     JSContext* m_cx;
+-    GjsMaybeOwned<JSObject*> m_callable;
++    GjsMaybeOwned m_callable;
+ };
+ 
+ }  // namespace Gjs
+diff --git a/gi/object.cpp b/gi/object.cpp
+index 0427c2ce6..a5cf2975a 100644
+--- a/gi/object.cpp
++++ b/gi/object.cpp
+@@ -1852,7 +1852,7 @@ bool ObjectInstance::init_impl(JSContext* context, const JS::CallArgs& args,
+             toggle_ref_added = m_uses_toggle_ref;
+         }
+ 
+-        args.rval().setObject(*other_priv->m_wrapper);
++        args.rval().setObject(*other_priv->m_wrapper.get());
+ 
+         if (toggle_ref_added)
+             g_clear_object(&gobj); /* We already own a reference */
+diff --git a/gi/object.h b/gi/object.h
+index 6c8ffd0b0..6b7577882 100644
+--- a/gi/object.h
++++ b/gi/object.h
+@@ -295,7 +295,7 @@ class ObjectInstance : public GIWrapperInstance<ObjectBase, ObjectPrototype,
+ 
+     // GIWrapperInstance::m_ptr may be null in ObjectInstance.
+ 
+-    GjsMaybeOwned<JSObject*> m_wrapper;
++    GjsMaybeOwned m_wrapper;
+     // a list of all GClosures installed on this object (from signal connections
+     // and scope-notify callbacks passed to methods), used when tracing
+     std::vector<GClosure*> m_closures;
+@@ -331,7 +331,7 @@ class ObjectInstance : public GIWrapperInstance<ObjectBase, ObjectPrototype,
+     [[nodiscard]] bool has_wrapper() const { return !!m_wrapper; }
+ 
+  public:
+-    [[nodiscard]] JSObject* wrapper() const { return m_wrapper; }
++    [[nodiscard]] JSObject* wrapper() const { return m_wrapper.get(); }
+ 
+     /* Methods to manipulate the JS object wrapper */
+ 
+diff --git a/cjs/jsapi-util-root.h b/cjs/jsapi-util-root.h
+index acc5c0105..0676dabab 100644
+--- a/cjs/jsapi-util-root.h
++++ b/cjs/jsapi-util-root.h
+@@ -11,10 +11,10 @@
+ #include <cstddef>  // for nullptr_t
+ #include <memory>
+ #include <new>
+-#include <type_traits>  // for enable_if_t, is_pointer
+ 
+ #include <glib.h>
+ 
++#include <js/ComparisonOperators.h>
+ #include <js/GCAPI.h>
+ #include <js/HeapAPI.h>     // for ExposeObjectToActiveJS, GetGCThingZone
+ #include <js/RootingAPI.h>  // for SafelyInitialized
+@@ -27,70 +27,39 @@
+  * JS Objects and other things that can be collected by the garbage collector
+  * (collectively called "GC things.")
+  *
+- * GjsMaybeOwned<T> is a multi-purpose wrapper for a GC thing of type T. You can
++ * GjsMaybeOwned is a multi-purpose wrapper for a JSObject. You can
+  * wrap a thing in one of three ways:
+  *
+- * - trace the thing (tie it to the lifetime of another GC thing),
+- * - root the thing (keep it alive as long as the wrapper is in existence),
+- * - maintain a weak pointer to the thing (not keep it alive at all and have it
++ * - trace the object (tie it to the lifetime of another GC thing),
++ * - root the object (keep it alive as long as the wrapper is in existence),
++ * - maintain a weak pointer to the object (not keep it alive at all and have it
+  *   possibly be finalized out from under you).
+  *
+- * To trace or maintain a weak pointer, simply assign a thing of type T to the
++ * To trace or maintain a weak pointer, simply assign an object to the
+  * GjsMaybeOwned wrapper. For tracing, you must call the trace() method when
+  * your other GC thing is traced.
+  *
+  * Rooting requires a JSContext so can't just assign a thing of type T. Instead
+  * you need to call the root() method to set up rooting.
+  *
+- * If the thing is rooted, it will be unrooted either when the GjsMaybeOwned is
+- * destroyed, or when the JSContext is destroyed. In the latter case, you can
+- * get an optional notification by registering a callback in the PrivateContext.
++ * If the thing is rooted, it will be unrooted when the GjsMaybeOwned is
++ * destroyed.
+  *
+  * To switch between one of the three modes, you must first call reset(). This
+- * drops all references to any GC thing and leaves the GjsMaybeOwned in the
++ * drops all references to any object and leaves the GjsMaybeOwned in the
+  * same state as if it had just been constructed.
+  */
+ 
+-/* This struct contains operations that must be implemented differently
+- * depending on the type of the GC thing. Add more types as necessary. If an
+- * implementation is never used, it's OK to leave it out. The compiler will
+- * complain if it's used somewhere but not instantiated here.
+- */
+-template<typename T>
+-struct GjsHeapOperation {
+-    [[nodiscard]] static bool update_after_gc(JS::Heap<T>* location);
+-    static void expose_to_js(JS::Heap<T>& thing);
+-};
+-
+-template<>
+-struct GjsHeapOperation<JSObject *> {
+-    [[nodiscard]] static bool update_after_gc(JSTracer* trc,
+-                                              JS::Heap<JSObject*>* location) {
+-        JS_UpdateWeakPointerAfterGC(trc, location);
+-        return (location->unbarrieredGet() == nullptr);
+-    }
+-
+-    static void expose_to_js(JS::Heap<JSObject *>& thing) {
+-        JSObject *obj = thing.unbarrieredGet();
+-        /* If the object has been swept already, then the zone is nullptr */
+-        if (!obj || !JS::GetGCThingZone(JS::GCCellPtr(obj)))
+-            return;
+-        if (!JS::RuntimeHeapIsCollecting())
+-            JS::ExposeObjectToActiveJS(obj);
+-    }
+-};
+-
+ /* GjsMaybeOwned is intended for use as a member of classes that are allocated
+  * on the heap. Do not allocate GjsMaybeOwned on the stack, and do not allocate
+  * any instances of classes that have it as a member on the stack either. */
+-template<typename T>
+ class GjsMaybeOwned {
+  private:
+     /* m_root value controls which of these members we can access. When switching
+      * from one to the other, be careful to call the constructor and destructor
+      * of JS::Heap, since they use post barriers. */
+-    JS::Heap<T> m_heap;
+-    std::unique_ptr<JS::PersistentRooted<T>> m_root;
++    JS::Heap<JSObject*> m_heap;
++    std::unique_ptr<JS::PersistentRootedObject> m_root;
+ 
+     /* No-op unless GJS_VERBOSE_ENABLE_LIFECYCLE is defined to 1. */
+     inline void debug(const char* what GJS_USED_VERBOSE_LIFECYCLE) {
+@@ -106,7 +75,7 @@ class GjsMaybeOwned {
+ 
+         m_root.reset();
+ 
+-        new (&m_heap) JS::Heap<T>();
++        new (&m_heap) JS::Heap<JSObject*>();
+     }
+ 
+  public:
+@@ -118,68 +87,61 @@ class GjsMaybeOwned {
+         debug("destroyed");
+     }
+ 
+-    /* To access the GC thing, call get(). In many cases you can just use the
+-     * GjsMaybeOwned wrapper in place of the GC thing itself due to the implicit
+-     * cast operator. But if you want to call methods on the GC thing, for
+-     * example if it's a JS::Value, you have to use get(). */
+-    [[nodiscard]] constexpr const T get() const {
++    // COMPAT: constexpr in C++23
++    [[nodiscard]] JSObject* get() const {
+         return m_root ? m_root->get() : m_heap.get();
+     }
+-    constexpr operator const T() const { return get(); }
+ 
+-    /* Use debug_addr() only for debug logging, because it is unbarriered. */
+-    template <typename U = T>
+-    [[nodiscard]] constexpr const void* debug_addr(
+-        std::enable_if_t<std::is_pointer_v<U>>* = nullptr) const {
++    // Use debug_addr() only for debug logging, because it is unbarriered.
++    // COMPAT: constexpr in C++23
++    [[nodiscard]] const void* debug_addr() const {
+         return m_root ? m_root->get() : m_heap.unbarrieredGet();
+     }
+ 
+-    constexpr bool operator==(const T& other) const {
++    // COMPAT: constexpr in C++23
++    bool operator==(JSObject* other) const {
+         if (m_root)
+             return m_root->get() == other;
+         return m_heap == other;
+     }
+-    constexpr bool operator!=(const T& other) const {
+-        return !(*this == other);
+-    }
++    bool operator!=(JSObject* other) const { return !(*this == other); }
+ 
+-    /* We can access the pointer without a read barrier if the only thing we
+-     * are doing with it is comparing it to nullptr. */
+-    constexpr bool operator==(std::nullptr_t) const {
++    // We can access the pointer without a read barrier if the only thing we are
++    // are doing with it is comparing it to nullptr.
++    // COMPAT: constexpr in C++23
++    bool operator==(std::nullptr_t) const {
+         if (m_root)
+             return m_root->get() == nullptr;
+         return m_heap.unbarrieredGet() == nullptr;
+     }
+-    constexpr bool operator!=(std::nullptr_t) const {
+-        return !(*this == nullptr);
+-    }
++    bool operator!=(std::nullptr_t) const { return !(*this == nullptr); }
+ 
+-    /* Likewise the truth value does not require a read barrier */
+-    constexpr explicit operator bool() const { return *this != nullptr; }
++    // Likewise the truth value does not require a read barrier
++    // COMPAT: constexpr in C++23
++    explicit operator bool() const { return *this != nullptr; }
+ 
+-    /* You can get a Handle<T> if the thing is rooted, so that you can use this
+-     * wrapper with stack rooting. However, you must not do this if the
+-     * JSContext can be destroyed while the Handle is live. */
+-    [[nodiscard]] constexpr JS::Handle<T> handle() {
++    // You can get a Handle<T> if the thing is rooted, so that you can use this
++    // wrapper with stack rooting. However, you must not do this if the
++    // JSContext can be destroyed while the Handle is live. */
++    // COMPAT: constexpr in C++23
++    [[nodiscard]] JS::HandleObject handle() {
+         g_assert(m_root);
+         return *m_root;
+     }
+ 
+     /* Roots the GC thing. You must not use this if you're already using the
+      * wrapper to store a non-rooted GC thing. */
+-    void root(JSContext* cx, const T& thing) {
++    void root(JSContext* cx, JSObject* thing) {
+         debug("root()");
+         g_assert(!m_root);
+-        g_assert(m_heap.get() == JS::SafelyInitialized<T>::create());
++        g_assert(!m_heap);
+         m_heap.~Heap();
+-        m_root = std::make_unique<JS::PersistentRooted<T>>(cx, thing);
++        m_root = std::make_unique<JS::PersistentRootedObject>(cx, thing);
+     }
+ 
+     /* You can only assign directly to the GjsMaybeOwned wrapper in the
+      * non-rooted case. */
+-    void
+-    operator=(const T& thing)
+-    {
++    void operator=(JSObject* thing) {
+         g_assert(!m_root);
+         m_heap = thing;
+     }
+@@ -190,13 +152,18 @@ class GjsMaybeOwned {
+     void prevent_collection() {
+         debug("prevent_collection()");
+         g_assert(!m_root);
+-        GjsHeapOperation<T>::expose_to_js(m_heap);
++        JSObject* obj = m_heap.unbarrieredGet();
++        // If the object has been swept already, then the zone is nullptr
++        if (!obj || !JS::GetGCThingZone(JS::GCCellPtr(obj)))
++            return;
++        if (!JS::RuntimeHeapIsCollecting())
++            JS::ExposeObjectToActiveJS(obj);
+     }
+ 
+     void reset() {
+         debug("reset()");
+         if (!m_root) {
+-            m_heap = JS::SafelyInitialized<T>::create();
++            m_heap = nullptr;
+             return;
+         }
+ 
+@@ -209,7 +176,7 @@ class GjsMaybeOwned {
+ 
+         /* Prevent the thing from being garbage collected while it is in neither
+          * m_heap nor m_root */
+-        JS::Rooted<T> thing(cx, m_heap);
++        JS::RootedObject thing{cx, m_heap};
+ 
+         reset();
+         root(cx, thing);
+@@ -222,7 +189,7 @@ class GjsMaybeOwned {
+ 
+         /* Prevent the thing from being garbage collected while it is in neither
+          * m_heap nor m_root */
+-        JS::Rooted<T> thing(cx, *m_root);
++        JS::RootedObject thing{cx, *m_root};
+ 
+         reset();
+         m_heap = thing;
+@@ -237,7 +204,7 @@ class GjsMaybeOwned {
+     {
+         debug("trace()");
+         g_assert(!m_root);
+-        JS::TraceEdge<T>(tracer, &m_heap, name);
++        JS::TraceEdge(tracer, &m_heap, name);
+     }
+ 
+     /* If not tracing, then you must call this method during GC in order to
+@@ -246,10 +213,12 @@ class GjsMaybeOwned {
+     bool update_after_gc(JSTracer* trc) {
+         debug("update_after_gc()");
+         g_assert(!m_root);
+-        return GjsHeapOperation<T>::update_after_gc(trc, &m_heap);
++        JS_UpdateWeakPointerAfterGC(trc, &m_heap);
++        return !m_heap;
+     }
+ 
+-    [[nodiscard]] constexpr bool rooted() const { return m_root != nullptr; }
++    // COMPAT: constexpr in C++23
++    [[nodiscard]] bool rooted() const { return m_root != nullptr; }
+ };
+ 
+ #endif  // GJS_JSAPI_UTIL_ROOT_H_
+diff --git a/test/gjs-test-rooting.cpp b/test/gjs-test-rooting.cpp
+index 7a96ba1ed..1aae28f65 100644
+--- a/test/gjs-test-rooting.cpp
++++ b/test/gjs-test-rooting.cpp
+@@ -40,7 +40,7 @@ struct GjsRootingFixture {
+     bool finalized;
+     bool notify_called;
+ 
+-    GjsMaybeOwned<JSObject *> *obj;  /* only used in callback test cases */
++    GjsMaybeOwned* obj;  // only used in callback test cases
+ };
+ 
+ static void test_obj_finalize(JS::GCContext*, JSObject* obj) {
+@@ -111,23 +111,23 @@ wait_for_gc(GjsRootingFixture *fx)
+ 
+ static void test_maybe_owned_rooted_flag_set_when_rooted(GjsRootingFixture* fx,
+                                                          const void*) {
+-    auto obj = new GjsMaybeOwned<JS::Value>();
+-    obj->root(PARENT(fx)->cx, JS::TrueValue());
++    auto* obj = new GjsMaybeOwned();
++    obj->root(PARENT(fx)->cx, JS_NewPlainObject(PARENT(fx)->cx));
+     g_assert_true(obj->rooted());
+     delete obj;
+ }
+ 
+ static void test_maybe_owned_rooted_flag_not_set_when_not_rooted(
+-    GjsRootingFixture*, const void*) {
+-    auto obj = new GjsMaybeOwned<JS::Value>();
+-    *obj = JS::TrueValue();
++    GjsRootingFixture* fx, const void*) {
++    auto* obj = new GjsMaybeOwned();
++    *obj = JS_NewPlainObject(PARENT(fx)->cx);
+     g_assert_false(obj->rooted());
+     delete obj;
+ }
+ 
+ static void test_maybe_owned_rooted_keeps_alive_across_gc(GjsRootingFixture* fx,
+                                                           const void*) {
+-    auto obj = new GjsMaybeOwned<JSObject *>();
++    auto* obj = new GjsMaybeOwned();
+     obj->root(PARENT(fx)->cx, test_obj_new(fx));
+ 
+     wait_for_gc(fx);
+@@ -140,7 +140,7 @@ static void test_maybe_owned_rooted_keeps_alive_across_gc(GjsRootingFixture* fx,
+ 
+ static void test_maybe_owned_rooted_is_collected_after_reset(
+     GjsRootingFixture* fx, const void*) {
+-    auto obj = new GjsMaybeOwned<JSObject *>();
++    auto* obj = new GjsMaybeOwned();
+     obj->root(PARENT(fx)->cx, test_obj_new(fx));
+     obj->reset();
+ 
+@@ -150,14 +150,14 @@ static void test_maybe_owned_rooted_is_collected_after_reset(
+ }
+ 
+ static void update_weak_pointer(JSTracer* trc, JS::Compartment*, void* data) {
+-    auto* obj = static_cast<GjsMaybeOwned<JSObject*>*>(data);
++    auto* obj = static_cast<GjsMaybeOwned*>(data);
+     if (*obj)
+         obj->update_after_gc(trc);
+ }
+ 
+ static void test_maybe_owned_weak_pointer_is_collected_by_gc(
+     GjsRootingFixture* fx, const void*) {
+-    auto obj = new GjsMaybeOwned<JSObject *>();
++    auto* obj = new GjsMaybeOwned();
+     *obj = test_obj_new(fx);
+ 
+     JS_AddWeakPointerCompartmentCallback(PARENT(fx)->cx, &update_weak_pointer,
+@@ -171,7 +171,7 @@ static void test_maybe_owned_weak_pointer_is_collected_by_gc(
+ 
+ static void test_maybe_owned_heap_rooted_keeps_alive_across_gc(
+     GjsRootingFixture* fx, const void*) {
+-    auto obj = new GjsMaybeOwned<JSObject *>();
++    auto* obj = new GjsMaybeOwned();
+     obj->root(PARENT(fx)->cx, test_obj_new(fx));
+ 
+     wait_for_gc(fx);
+@@ -185,7 +185,7 @@ static void test_maybe_owned_heap_rooted_keeps_alive_across_gc(
+ static void test_maybe_owned_switching_mode_keeps_same_value(
+     GjsRootingFixture* fx, const void*) {
+     JSObject *test_obj = test_obj_new(fx);
+-    auto obj = new GjsMaybeOwned<JSObject *>();
++    auto* obj = new GjsMaybeOwned();
+ 
+     *obj = test_obj;
+     g_assert_true(*obj == test_obj);
+@@ -203,7 +203,7 @@ static void test_maybe_owned_switching_mode_keeps_same_value(
+ 
+ static void test_maybe_owned_switch_to_rooted_prevents_collection(
+     GjsRootingFixture* fx, const void*) {
+-    auto obj = new GjsMaybeOwned<JSObject *>();
++    auto* obj = new GjsMaybeOwned();
+     *obj = test_obj_new(fx);
+ 
+     obj->switch_to_rooted(PARENT(fx)->cx);
+@@ -215,7 +215,7 @@ static void test_maybe_owned_switch_to_rooted_prevents_collection(
+ 
+ static void test_maybe_owned_switch_to_unrooted_allows_collection(
+     GjsRootingFixture* fx, const void*) {
+-    auto obj = new GjsMaybeOwned<JSObject *>();
++    auto* obj = new GjsMaybeOwned();
+     obj->root(PARENT(fx)->cx, test_obj_new(fx));
+ 
+     obj->switch_to_unrooted(PARENT(fx)->cx);
+@@ -240,7 +240,7 @@ static void context_destroyed(JSContext*, void* data) {
+ static void test_maybe_owned_notify_callback_called_on_context_destroy(
+     GjsRootingFixture* fx, const void*) {
+     auto* gjs = GjsContextPrivate::from_cx(PARENT(fx)->cx);
+-    fx->obj = new GjsMaybeOwned<JSObject *>();
++    fx->obj = new GjsMaybeOwned();
+     fx->obj->root(PARENT(fx)->cx, test_obj_new(fx));
+     gjs->register_notifier(context_destroyed, fx);
+ 
+@@ -252,7 +252,7 @@ static void test_maybe_owned_notify_callback_called_on_context_destroy(
+ static void test_maybe_owned_object_destroyed_after_notify(
+     GjsRootingFixture* fx, const void*) {
+     auto* gjs = GjsContextPrivate::from_cx(PARENT(fx)->cx);
+-    fx->obj = new GjsMaybeOwned<JSObject *>();
++    fx->obj = new GjsMaybeOwned();
+     fx->obj->root(PARENT(fx)->cx, test_obj_new(fx));
+     gjs->register_notifier(context_destroyed, fx);
+ 
+-- 
+GitLab
+
+
+From c54808ef2a5847ee2031a78ac8bc4ab92ff32ac8 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Fri, 15 Mar 2024 19:57:04 -0700
+Subject: [PATCH 03/16] maint: Update eslint and eslint-plugin-jsdoc
+
+Updates to the latest versions. eslint-plugin-jsdoc dropped the
+newline-after-description rule in favour of the more comprehensive
+tag-lines rule.
+---
+ .eslintrc.yml           |    6 +-
+ tools/package-lock.json | 1266 +++++++--------------------------------
+ tools/package.json      |    4 +-
+ 3 files changed, 226 insertions(+), 1050 deletions(-)
+
+diff --git a/.eslintrc.yml b/.eslintrc.yml
+index 37d523e17..aabe6e193 100644
+--- a/.eslintrc.yml
++++ b/.eslintrc.yml
+@@ -69,12 +69,16 @@ rules:
+   jsdoc/check-tag-names: error
+   jsdoc/check-types: error
+   jsdoc/implements-on-classes: error
+-  jsdoc/newline-after-description: error
+   jsdoc/require-jsdoc: error
+   jsdoc/require-param: error
+   jsdoc/require-param-description: error
+   jsdoc/require-param-name: error
+   jsdoc/require-param-type: error
++  jsdoc/tag-lines:
++    - error
++    - always
++    - count: 0
++      startLines: 1
+   key-spacing:
+     - error
+     - beforeColon: false
+diff --git a/tools/package-lock.json b/tools/package-lock.json
+index 0d0d7fb43..27e486c11 100644
+--- a/tools/package-lock.json
++++ b/tools/package-lock.json
+@@ -1,7 +1,7 @@
+ {
+   "name": "gjs-development-scripts",
+   "version": "0.0.0",
+-  "lockfileVersion": 2,
++  "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+@@ -9,34 +9,67 @@
+       "version": "0.0.0",
+       "license": "MIT OR LGPL-2.0-or-later",
+       "devDependencies": {
+-        "eslint": "^8.26.0",
+-        "eslint-plugin-jsdoc": "^39.4.0"
++        "eslint": "^8.57.0",
++        "eslint-plugin-jsdoc": "^48.2.1"
++      }
++    },
++    "node_modules/@aashutoshrathi/word-wrap": {
++      "version": "1.2.6",
++      "resolved": "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz",
++      "integrity": "sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==",
++      "dev": true,
++      "engines": {
++        "node": ">=0.10.0"
+       }
+     },
+     "node_modules/@es-joy/jsdoccomment": {
+-      "version": "0.33.4",
+-      "resolved": "https://registry.npmjs.org/@es-joy/jsdoccomment/-/jsdoccomment-0.33.4.tgz",
+-      "integrity": "sha512-02XyYuvR/Gn+3BT6idHVNQ4SSQlA1X1FeEfeKm2ypv8ANB6Lt9KRFZ2S7y5xjwR+EPQ/Rzb0XFaD+xKyqe4ALw==",
++      "version": "0.42.0",
++      "resolved": "https://registry.npmjs.org/@es-joy/jsdoccomment/-/jsdoccomment-0.42.0.tgz",
++      "integrity": "sha512-R1w57YlVA6+YE01wch3GPYn6bCsrOV3YW/5oGGE2tmX6JcL9Nr+b5IikrjMPF+v9CV3ay+obImEdsDhovhJrzw==",
++      "dev": true,
++      "dependencies": {
++        "comment-parser": "1.4.1",
++        "esquery": "^1.5.0",
++        "jsdoc-type-pratt-parser": "~4.0.0"
++      },
++      "engines": {
++        "node": ">=16"
++      }
++    },
++    "node_modules/@eslint-community/eslint-utils": {
++      "version": "4.4.0",
++      "resolved": "https://registry.npmjs.org/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz",
++      "integrity": "sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==",
+       "dev": true,
+       "dependencies": {
+-        "comment-parser": "1.3.1",
+-        "esquery": "^1.4.0",
+-        "jsdoc-type-pratt-parser": "~3.1.0"
++        "eslint-visitor-keys": "^3.3.0"
+       },
+       "engines": {
+-        "node": "^14 || ^16 || ^17 || ^18 || ^19"
++        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
++      },
++      "peerDependencies": {
++        "eslint": "^6.0.0 || ^7.0.0 || >=8.0.0"
++      }
++    },
++    "node_modules/@eslint-community/regexpp": {
++      "version": "4.10.0",
++      "resolved": "https://registry.npmjs.org/@eslint-community/regexpp/-/regexpp-4.10.0.tgz",
++      "integrity": "sha512-Cu96Sd2By9mCNTx2iyKOmq10v22jUVQv0lQnlGNy16oE9589yE+QADPbrMGCkA51cKZSg3Pu/aTJVTGfL/qjUA==",
++      "dev": true,
++      "engines": {
++        "node": "^12.0.0 || ^14.0.0 || >=16.0.0"
+       }
+     },
+     "node_modules/@eslint/eslintrc": {
+-      "version": "1.3.3",
+-      "resolved": "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.3.tgz",
+-      "integrity": "sha512-uj3pT6Mg+3t39fvLrj8iuCIJ38zKO9FpGtJ4BBJebJhEwjoT+KLVNCcHT5QC9NGRIEi7fZ0ZR8YRb884auB4Lg==",
++      "version": "2.1.4",
++      "resolved": "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-2.1.4.tgz",
++      "integrity": "sha512-269Z39MS6wVJtsoUl10L60WdkhJVdPG24Q4eZTH3nnF6lpvSShEK3wQjDX9JRWAUPvPh7COouPpU9IrqaZFvtQ==",
+       "dev": true,
+       "dependencies": {
+         "ajv": "^6.12.4",
+         "debug": "^4.3.2",
+-        "espree": "^9.4.0",
+-        "globals": "^13.15.0",
++        "espree": "^9.6.0",
++        "globals": "^13.19.0",
+         "ignore": "^5.2.0",
+         "import-fresh": "^3.2.1",
+         "js-yaml": "^4.1.0",
+@@ -50,14 +83,23 @@
+         "url": "https://opencollective.com/eslint"
+       }
+     },
++    "node_modules/@eslint/js": {
++      "version": "8.57.0",
++      "resolved": "https://registry.npmjs.org/@eslint/js/-/js-8.57.0.tgz",
++      "integrity": "sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==",
++      "dev": true,
++      "engines": {
++        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
++      }
++    },
+     "node_modules/@humanwhocodes/config-array": {
+-      "version": "0.11.7",
+-      "resolved": "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.7.tgz",
+-      "integrity": "sha512-kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==",
++      "version": "0.11.14",
++      "resolved": "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.14.tgz",
++      "integrity": "sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==",
+       "dev": true,
+       "dependencies": {
+-        "@humanwhocodes/object-schema": "^1.2.1",
+-        "debug": "^4.1.1",
++        "@humanwhocodes/object-schema": "^2.0.2",
++        "debug": "^4.3.1",
+         "minimatch": "^3.0.5"
+       },
+       "engines": {
+@@ -78,9 +120,9 @@
+       }
+     },
+     "node_modules/@humanwhocodes/object-schema": {
+-      "version": "1.2.1",
+-      "resolved": "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz",
+-      "integrity": "sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==",
++      "version": "2.0.2",
++      "resolved": "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-2.0.2.tgz",
++      "integrity": "sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==",
+       "dev": true
+     },
+     "node_modules/@nodelib/fs.scandir": {
+@@ -118,10 +160,16 @@
+         "node": ">= 8"
+       }
+     },
++    "node_modules/@ungap/structured-clone": {
++      "version": "1.2.0",
++      "resolved": "https://registry.npmjs.org/@ungap/structured-clone/-/structured-clone-1.2.0.tgz",
++      "integrity": "sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==",
++      "dev": true
++    },
+     "node_modules/acorn": {
+-      "version": "8.8.1",
+-      "resolved": "https://registry.npmjs.org/acorn/-/acorn-8.8.1.tgz",
+-      "integrity": "sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==",
++      "version": "8.11.3",
++      "resolved": "https://registry.npmjs.org/acorn/-/acorn-8.11.3.tgz",
++      "integrity": "sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==",
+       "dev": true,
+       "bin": {
+         "acorn": "bin/acorn"
+@@ -179,6 +227,15 @@
+         "url": "https://github.com/chalk/ansi-styles?sponsor=1"
+       }
+     },
++    "node_modules/are-docs-informative": {
++      "version": "0.0.2",
++      "resolved": "https://registry.npmjs.org/are-docs-informative/-/are-docs-informative-0.0.2.tgz",
++      "integrity": "sha512-ixiS0nLNNG5jNQzgZJNoUpBKdo9yTYZMGJ+QgT2jmjR7G7+QHRCc4v6LQ3NgE7EBJq+o0ams3waJwkrlBom8Ig==",
++      "dev": true,
++      "engines": {
++        "node": ">=14"
++      }
++    },
+     "node_modules/argparse": {
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz",
+@@ -201,6 +258,18 @@
+         "concat-map": "0.0.1"
+       }
+     },
++    "node_modules/builtin-modules": {
++      "version": "3.3.0",
++      "resolved": "https://registry.npmjs.org/builtin-modules/-/builtin-modules-3.3.0.tgz",
++      "integrity": "sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==",
++      "dev": true,
++      "engines": {
++        "node": ">=6"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/sindresorhus"
++      }
++    },
+     "node_modules/callsites": {
+       "version": "3.1.0",
+       "resolved": "https://registry.npmjs.org/callsites/-/callsites-3.1.0.tgz",
+@@ -245,9 +314,9 @@
+       "dev": true
+     },
+     "node_modules/comment-parser": {
+-      "version": "1.3.1",
+-      "resolved": "https://registry.npmjs.org/comment-parser/-/comment-parser-1.3.1.tgz",
+-      "integrity": "sha512-B52sN2VNghyq5ofvUsqZjmk6YkihBX5vMSChmSK9v4ShjKf3Vk5Xcmgpw4o+iIgtrnM/u5FiMpz9VKb8lpBveA==",
++      "version": "1.4.1",
++      "resolved": "https://registry.npmjs.org/comment-parser/-/comment-parser-1.4.1.tgz",
++      "integrity": "sha512-buhp5kePrmda3vhc5B9t7pUQXAb2Tnd0qgpkIhPhkHXxJpiPJ11H0ZEU0oBpJ2QztSbzG/ZxMj/CHsYJqRHmyg==",
+       "dev": true,
+       "engines": {
+         "node": ">= 12.0.0"
+@@ -321,49 +390,48 @@
+       }
+     },
+     "node_modules/eslint": {
+-      "version": "8.26.0",
+-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-8.26.0.tgz",
+-      "integrity": "sha512-kzJkpaw1Bfwheq4VXUezFriD1GxszX6dUekM7Z3aC2o4hju+tsR/XyTC3RcoSD7jmy9VkPU3+N6YjVU2e96Oyg==",
++      "version": "8.57.0",
++      "resolved": "https://registry.npmjs.org/eslint/-/eslint-8.57.0.tgz",
++      "integrity": "sha512-dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==",
+       "dev": true,
+       "dependencies": {
+-        "@eslint/eslintrc": "^1.3.3",
+-        "@humanwhocodes/config-array": "^0.11.6",
++        "@eslint-community/eslint-utils": "^4.2.0",
++        "@eslint-community/regexpp": "^4.6.1",
++        "@eslint/eslintrc": "^2.1.4",
++        "@eslint/js": "8.57.0",
++        "@humanwhocodes/config-array": "^0.11.14",
+         "@humanwhocodes/module-importer": "^1.0.1",
+         "@nodelib/fs.walk": "^1.2.8",
+-        "ajv": "^6.10.0",
++        "@ungap/structured-clone": "^1.2.0",
++        "ajv": "^6.12.4",
+         "chalk": "^4.0.0",
+         "cross-spawn": "^7.0.2",
+         "debug": "^4.3.2",
+         "doctrine": "^3.0.0",
+         "escape-string-regexp": "^4.0.0",
+-        "eslint-scope": "^7.1.1",
+-        "eslint-utils": "^3.0.0",
+-        "eslint-visitor-keys": "^3.3.0",
+-        "espree": "^9.4.0",
+-        "esquery": "^1.4.0",
++        "eslint-scope": "^7.2.2",
++        "eslint-visitor-keys": "^3.4.3",
++        "espree": "^9.6.1",
++        "esquery": "^1.4.2",
+         "esutils": "^2.0.2",
+         "fast-deep-equal": "^3.1.3",
+         "file-entry-cache": "^6.0.1",
+         "find-up": "^5.0.0",
+         "glob-parent": "^6.0.2",
+-        "globals": "^13.15.0",
+-        "grapheme-splitter": "^1.0.4",
++        "globals": "^13.19.0",
++        "graphemer": "^1.4.0",
+         "ignore": "^5.2.0",
+-        "import-fresh": "^3.0.0",
+         "imurmurhash": "^0.1.4",
+         "is-glob": "^4.0.0",
+         "is-path-inside": "^3.0.3",
+-        "js-sdsl": "^4.1.4",
+         "js-yaml": "^4.1.0",
+         "json-stable-stringify-without-jsonify": "^1.0.1",
+         "levn": "^0.4.1",
+         "lodash.merge": "^4.6.2",
+         "minimatch": "^3.1.2",
+         "natural-compare": "^1.4.0",
+-        "optionator": "^0.9.1",
+-        "regexpp": "^3.2.0",
++        "optionator": "^0.9.3",
+         "strip-ansi": "^6.0.1",
+-        "strip-json-comments": "^3.1.0",
+         "text-table": "^0.2.0"
+       },
+       "bin": {
+@@ -377,30 +445,32 @@
+       }
+     },
+     "node_modules/eslint-plugin-jsdoc": {
+-      "version": "39.4.0",
+-      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-39.4.0.tgz",
+-      "integrity": "sha512-2FXAmh8lpO22aqZgu6NLB6berVnYgwbZx95BmjIIQjbRNwLIAwY0dtvSJDUZVW5nflv58c1gSWQjIJ8yLZ/+fw==",
++      "version": "48.2.1",
++      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-48.2.1.tgz",
++      "integrity": "sha512-iUvbcyDZSO/9xSuRv2HQBw++8VkV/pt3UWtX9cpPH0l7GKPq78QC/6+PmyQHHvNZaTjAce6QVciEbnc6J/zH5g==",
+       "dev": true,
+       "dependencies": {
+-        "@es-joy/jsdoccomment": "~0.33.4",
+-        "comment-parser": "1.3.1",
++        "@es-joy/jsdoccomment": "~0.42.0",
++        "are-docs-informative": "^0.0.2",
++        "comment-parser": "1.4.1",
+         "debug": "^4.3.4",
+         "escape-string-regexp": "^4.0.0",
+-        "esquery": "^1.4.0",
+-        "semver": "^7.3.8",
+-        "spdx-expression-parse": "^3.0.1"
++        "esquery": "^1.5.0",
++        "is-builtin-module": "^3.2.1",
++        "semver": "^7.6.0",
++        "spdx-expression-parse": "^4.0.0"
+       },
+       "engines": {
+-        "node": "^14 || ^16 || ^17 || ^18 || ^19"
++        "node": ">=18"
+       },
+       "peerDependencies": {
+-        "eslint": "^7.0.0 || ^8.0.0"
++        "eslint": "^7.0.0 || ^8.0.0 || ^9.0.0"
+       }
+     },
+     "node_modules/eslint-scope": {
+-      "version": "7.1.1",
+-      "resolved": "https://registry.npmjs.org/eslint-scope/-/eslint-scope-7.1.1.tgz",
+-      "integrity": "sha512-QKQM/UXpIiHcLqJ5AOyIW7XZmzjkzQXYE54n1++wb0u9V/abW3l9uQnxX8Z5Xd18xyKIMTUAyQ0k1e8pz6LUrw==",
++      "version": "7.2.2",
++      "resolved": "https://registry.npmjs.org/eslint-scope/-/eslint-scope-7.2.2.tgz",
++      "integrity": "sha512-dOt21O7lTMhDM+X9mB4GX+DZrZtCUJPL/wlcTqxyrx5IvO0IYtILdtrQGQp+8n5S0gwSVmOf9NQrjMOgfQZlIg==",
+       "dev": true,
+       "dependencies": {
+         "esrecurse": "^4.3.0",
+@@ -408,53 +478,32 @@
+       },
+       "engines": {
+         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+-      }
+-    },
+-    "node_modules/eslint-utils": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/eslint-utils/-/eslint-utils-3.0.0.tgz",
+-      "integrity": "sha512-uuQC43IGctw68pJA1RgbQS8/NP7rch6Cwd4j3ZBtgo4/8Flj4eGE7ZYSZRN3iq5pVUv6GPdW5Z1RFleo84uLDA==",
+-      "dev": true,
+-      "dependencies": {
+-        "eslint-visitor-keys": "^2.0.0"
+-      },
+-      "engines": {
+-        "node": "^10.0.0 || ^12.0.0 || >= 14.0.0"
+       },
+       "funding": {
+-        "url": "https://github.com/sponsors/mysticatea"
+-      },
+-      "peerDependencies": {
+-        "eslint": ">=5"
+-      }
+-    },
+-    "node_modules/eslint-utils/node_modules/eslint-visitor-keys": {
+-      "version": "2.1.0",
+-      "resolved": "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz",
+-      "integrity": "sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==",
+-      "dev": true,
+-      "engines": {
+-        "node": ">=10"
++        "url": "https://opencollective.com/eslint"
+       }
+     },
+     "node_modules/eslint-visitor-keys": {
+-      "version": "3.3.0",
+-      "resolved": "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.3.0.tgz",
+-      "integrity": "sha512-mQ+suqKJVyeuwGYHAdjMFqjCyfl8+Ldnxuyp3ldiMBFKkvytrXUZWaiPCEav8qDHKty44bD+qV1IP4T+w+xXRA==",
++      "version": "3.4.3",
++      "resolved": "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.3.tgz",
++      "integrity": "sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag==",
+       "dev": true,
+       "engines": {
+         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
++      },
++      "funding": {
++        "url": "https://opencollective.com/eslint"
+       }
+     },
+     "node_modules/espree": {
+-      "version": "9.4.0",
+-      "resolved": "https://registry.npmjs.org/espree/-/espree-9.4.0.tgz",
+-      "integrity": "sha512-DQmnRpLj7f6TgN/NYb0MTzJXL+vJF9h3pHy4JhCIs3zwcgez8xmGg3sXHcEO97BrmO2OSvCwMdfdlyl+E9KjOw==",
++      "version": "9.6.1",
++      "resolved": "https://registry.npmjs.org/espree/-/espree-9.6.1.tgz",
++      "integrity": "sha512-oruZaFkjorTpF32kDSI5/75ViwGeZginGGy2NoOSg3Q9bnwlnmDm4HLnkl0RE3n+njDXR037aY1+x58Z/zFdwQ==",
+       "dev": true,
+       "dependencies": {
+-        "acorn": "^8.8.0",
++        "acorn": "^8.9.0",
+         "acorn-jsx": "^5.3.2",
+-        "eslint-visitor-keys": "^3.3.0"
++        "eslint-visitor-keys": "^3.4.1"
+       },
+       "engines": {
+         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+@@ -464,9 +513,9 @@
+       }
+     },
+     "node_modules/esquery": {
+-      "version": "1.4.0",
+-      "resolved": "https://registry.npmjs.org/esquery/-/esquery-1.4.0.tgz",
+-      "integrity": "sha512-cCDispWt5vHHtwMY2YrAQ4ibFkAL8RbH5YGBnZBc90MolvvfkkQcJro/aZiAQUlQ3qgrYS6D6v8Gc5G5CQsc9w==",
++      "version": "1.5.0",
++      "resolved": "https://registry.npmjs.org/esquery/-/esquery-1.5.0.tgz",
++      "integrity": "sha512-YQLXUplAwJgCydQ78IMJywZCceoqk1oH01OERdSAJc/7U2AylwjhSCLDEtqwg811idIS/9fIU5GjG73IgjKMVg==",
+       "dev": true,
+       "dependencies": {
+         "estraverse": "^5.1.0"
+@@ -524,9 +573,9 @@
+       "dev": true
+     },
+     "node_modules/fastq": {
+-      "version": "1.13.0",
+-      "resolved": "https://registry.npmjs.org/fastq/-/fastq-1.13.0.tgz",
+-      "integrity": "sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==",
++      "version": "1.17.1",
++      "resolved": "https://registry.npmjs.org/fastq/-/fastq-1.17.1.tgz",
++      "integrity": "sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==",
+       "dev": true,
+       "dependencies": {
+         "reusify": "^1.0.4"
+@@ -561,12 +610,13 @@
+       }
+     },
+     "node_modules/flat-cache": {
+-      "version": "3.0.4",
+-      "resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-3.0.4.tgz",
+-      "integrity": "sha512-dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==",
++      "version": "3.2.0",
++      "resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-3.2.0.tgz",
++      "integrity": "sha512-CYcENa+FtcUKLmhhqyctpclsq7QF38pKjZHsGNiSQF5r4FtoKDWabFDl3hzaEQMvT1LHEysw5twgLvpYYb4vbw==",
+       "dev": true,
+       "dependencies": {
+-        "flatted": "^3.1.0",
++        "flatted": "^3.2.9",
++        "keyv": "^4.5.3",
+         "rimraf": "^3.0.2"
+       },
+       "engines": {
+@@ -574,9 +624,9 @@
+       }
+     },
+     "node_modules/flatted": {
+-      "version": "3.2.7",
+-      "resolved": "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz",
+-      "integrity": "sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==",
++      "version": "3.3.1",
++      "resolved": "https://registry.npmjs.org/flatted/-/flatted-3.3.1.tgz",
++      "integrity": "sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==",
+       "dev": true
+     },
+     "node_modules/fs.realpath": {
+@@ -618,9 +668,9 @@
+       }
+     },
+     "node_modules/globals": {
+-      "version": "13.17.0",
+-      "resolved": "https://registry.npmjs.org/globals/-/globals-13.17.0.tgz",
+-      "integrity": "sha512-1C+6nQRb1GwGMKm2dH/E7enFAMxGTmGI7/dEdhy/DNelv85w9B72t3uc5frtMNXIbzrarJJ/lTCjcaZwbLJmyw==",
++      "version": "13.24.0",
++      "resolved": "https://registry.npmjs.org/globals/-/globals-13.24.0.tgz",
++      "integrity": "sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==",
+       "dev": true,
+       "dependencies": {
+         "type-fest": "^0.20.2"
+@@ -632,10 +682,10 @@
+         "url": "https://github.com/sponsors/sindresorhus"
+       }
+     },
+-    "node_modules/grapheme-splitter": {
+-      "version": "1.0.4",
+-      "resolved": "https://registry.npmjs.org/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz",
+-      "integrity": "sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==",
++    "node_modules/graphemer": {
++      "version": "1.4.0",
++      "resolved": "https://registry.npmjs.org/graphemer/-/graphemer-1.4.0.tgz",
++      "integrity": "sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==",
+       "dev": true
+     },
+     "node_modules/has-flag": {
+@@ -648,9 +698,9 @@
+       }
+     },
+     "node_modules/ignore": {
+-      "version": "5.2.0",
+-      "resolved": "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz",
+-      "integrity": "sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==",
++      "version": "5.3.1",
++      "resolved": "https://registry.npmjs.org/ignore/-/ignore-5.3.1.tgz",
++      "integrity": "sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==",
+       "dev": true,
+       "engines": {
+         "node": ">= 4"
+@@ -697,6 +747,21 @@
+       "integrity": "sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==",
+       "dev": true
+     },
++    "node_modules/is-builtin-module": {
++      "version": "3.2.1",
++      "resolved": "https://registry.npmjs.org/is-builtin-module/-/is-builtin-module-3.2.1.tgz",
++      "integrity": "sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==",
++      "dev": true,
++      "dependencies": {
++        "builtin-modules": "^3.3.0"
++      },
++      "engines": {
++        "node": ">=6"
++      },
++      "funding": {
++        "url": "https://github.com/sponsors/sindresorhus"
++      }
++    },
+     "node_modules/is-extglob": {
+       "version": "2.1.1",
+       "resolved": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
+@@ -733,12 +798,6 @@
+       "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==",
+       "dev": true
+     },
+-    "node_modules/js-sdsl": {
+-      "version": "4.1.4",
+-      "resolved": "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.1.4.tgz",
+-      "integrity": "sha512-Y2/yD55y5jteOAmY50JbUZYwk3CP3wnLPEZnlR1w9oKhITrBEtAxwuWKebFf8hMrPMgbYwFoWK/lH2sBkErELw==",
+-      "dev": true
+-    },
+     "node_modules/js-yaml": {
+       "version": "4.1.0",
+       "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.0.tgz",
+@@ -752,14 +811,20 @@
+       }
+     },
+     "node_modules/jsdoc-type-pratt-parser": {
+-      "version": "3.1.0",
+-      "resolved": "https://registry.npmjs.org/jsdoc-type-pratt-parser/-/jsdoc-type-pratt-parser-3.1.0.tgz",
+-      "integrity": "sha512-MgtD0ZiCDk9B+eI73BextfRrVQl0oyzRG8B2BjORts6jbunj4ScKPcyXGTbB6eXL4y9TzxCm6hyeLq/2ASzNdw==",
++      "version": "4.0.0",
++      "resolved": "https://registry.npmjs.org/jsdoc-type-pratt-parser/-/jsdoc-type-pratt-parser-4.0.0.tgz",
++      "integrity": "sha512-YtOli5Cmzy3q4dP26GraSOeAhqecewG04hoO8DY56CH4KJ9Fvv5qKWUCCo3HZob7esJQHCv6/+bnTy72xZZaVQ==",
+       "dev": true,
+       "engines": {
+         "node": ">=12.0.0"
+       }
+     },
++    "node_modules/json-buffer": {
++      "version": "3.0.1",
++      "resolved": "https://registry.npmjs.org/json-buffer/-/json-buffer-3.0.1.tgz",
++      "integrity": "sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==",
++      "dev": true
++    },
+     "node_modules/json-schema-traverse": {
+       "version": "0.4.1",
+       "resolved": "https://registry.npmjs.org/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz",
+@@ -772,6 +837,15 @@
+       "integrity": "sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==",
+       "dev": true
+     },
++    "node_modules/keyv": {
++      "version": "4.5.4",
++      "resolved": "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz",
++      "integrity": "sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==",
++      "dev": true,
++      "dependencies": {
++        "json-buffer": "3.0.1"
++      }
++    },
+     "node_modules/levn": {
+       "version": "0.4.1",
+       "resolved": "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz",
+@@ -852,17 +926,17 @@
+       }
+     },
+     "node_modules/optionator": {
+-      "version": "0.9.1",
+-      "resolved": "https://registry.npmjs.org/optionator/-/optionator-0.9.1.tgz",
+-      "integrity": "sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw==",
++      "version": "0.9.3",
++      "resolved": "https://registry.npmjs.org/optionator/-/optionator-0.9.3.tgz",
++      "integrity": "sha512-JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==",
+       "dev": true,
+       "dependencies": {
++        "@aashutoshrathi/word-wrap": "^1.2.3",
+         "deep-is": "^0.1.3",
+         "fast-levenshtein": "^2.0.6",
+         "levn": "^0.4.1",
+         "prelude-ls": "^1.2.1",
+-        "type-check": "^0.4.0",
+-        "word-wrap": "^1.2.3"
++        "type-check": "^0.4.0"
+       },
+       "engines": {
+         "node": ">= 0.8.0"
+@@ -947,9 +1021,9 @@
+       }
+     },
+     "node_modules/punycode": {
+-      "version": "2.1.1",
+-      "resolved": "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz",
+-      "integrity": "sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==",
++      "version": "2.3.1",
++      "resolved": "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz",
++      "integrity": "sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==",
+       "dev": true,
+       "engines": {
+         "node": ">=6"
+@@ -975,18 +1049,6 @@
+         }
+       ]
+     },
+-    "node_modules/regexpp": {
+-      "version": "3.2.0",
+-      "resolved": "https://registry.npmjs.org/regexpp/-/regexpp-3.2.0.tgz",
+-      "integrity": "sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==",
+-      "dev": true,
+-      "engines": {
+-        "node": ">=8"
+-      },
+-      "funding": {
+-        "url": "https://github.com/sponsors/mysticatea"
+-      }
+-    },
+     "node_modules/resolve-from": {
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/resolve-from/-/resolve-from-4.0.0.tgz",
+@@ -1045,9 +1107,9 @@
+       }
+     },
+     "node_modules/semver": {
+-      "version": "7.5.4",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz",
+-      "integrity": "sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==",
++      "version": "7.6.0",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.6.0.tgz",
++      "integrity": "sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==",
+       "dev": true,
+       "dependencies": {
+         "lru-cache": "^6.0.0"
+@@ -1081,15 +1143,15 @@
+       }
+     },
+     "node_modules/spdx-exceptions": {
+-      "version": "2.3.0",
+-      "resolved": "https://registry.npmjs.org/spdx-exceptions/-/spdx-exceptions-2.3.0.tgz",
+-      "integrity": "sha512-/tTrYOC7PPI1nUAgx34hUpqXuyJG+DTHJTnIULG4rDygi4xu/tfgmq1e1cIRwRzwZgo4NLySi+ricLkZkw4i5A==",
++      "version": "2.5.0",
++      "resolved": "https://registry.npmjs.org/spdx-exceptions/-/spdx-exceptions-2.5.0.tgz",
++      "integrity": "sha512-PiU42r+xO4UbUS1buo3LPJkjlO7430Xn5SVAhdpzzsPHsjbYVflnnFdATgabnLude+Cqu25p6N+g2lw/PFsa4w==",
+       "dev": true
+     },
+     "node_modules/spdx-expression-parse": {
+-      "version": "3.0.1",
+-      "resolved": "https://registry.npmjs.org/spdx-expression-parse/-/spdx-expression-parse-3.0.1.tgz",
+-      "integrity": "sha512-cbqHunsQWnJNE6KhVSMsMeH5H/L9EpymbzqTQ3uLwNCLZ1Q481oWaofqH7nO6V07xlXwY6PhQdQ2IedWx/ZK4Q==",
++      "version": "4.0.0",
++      "resolved": "https://registry.npmjs.org/spdx-expression-parse/-/spdx-expression-parse-4.0.0.tgz",
++      "integrity": "sha512-Clya5JIij/7C6bRR22+tnGXbc4VKlibKSVj2iHvVeX5iMW7s1SIQlqu699JkODJJIhh/pUu8L0/VLh8xflD+LQ==",
+       "dev": true,
+       "dependencies": {
+         "spdx-exceptions": "^2.1.0",
+@@ -1097,9 +1159,9 @@
+       }
+     },
+     "node_modules/spdx-license-ids": {
+-      "version": "3.0.12",
+-      "resolved": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.12.tgz",
+-      "integrity": "sha512-rr+VVSXtRhO4OHbXUiAF7xW3Bo9DuuF6C5jH+q/x15j2jniycgKbxU09Hr0WqlSLUs4i4ltHGXqTe7VHclYWyA==",
++      "version": "3.0.17",
++      "resolved": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.17.tgz",
++      "integrity": "sha512-sh8PWc/ftMqAAdFiBu6Fy6JUOYjqDJBJvIhpfDMyHrr0Rbp5liZqd4TjtQ/RgfLjKFZb+LMx5hpml5qOWy0qvg==",
+       "dev": true
+     },
+     "node_modules/strip-ansi": {
+@@ -1192,15 +1254,6 @@
+         "node": ">= 8"
+       }
+     },
+-    "node_modules/word-wrap": {
+-      "version": "1.2.5",
+-      "resolved": "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.5.tgz",
+-      "integrity": "sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==",
+-      "dev": true,
+-      "engines": {
+-        "node": ">=0.10.0"
+-      }
+-    },
+     "node_modules/wrappy": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",
+@@ -1225,886 +1278,5 @@
+         "url": "https://github.com/sponsors/sindresorhus"
+       }
+     }
+-  },
+-  "dependencies": {
+-    "@es-joy/jsdoccomment": {
+-      "version": "0.33.4",
+-      "resolved": "https://registry.npmjs.org/@es-joy/jsdoccomment/-/jsdoccomment-0.33.4.tgz",
+-      "integrity": "sha512-02XyYuvR/Gn+3BT6idHVNQ4SSQlA1X1FeEfeKm2ypv8ANB6Lt9KRFZ2S7y5xjwR+EPQ/Rzb0XFaD+xKyqe4ALw==",
+-      "dev": true,
+-      "requires": {
+-        "comment-parser": "1.3.1",
+-        "esquery": "^1.4.0",
+-        "jsdoc-type-pratt-parser": "~3.1.0"
+-      }
+-    },
+-    "@eslint/eslintrc": {
+-      "version": "1.3.3",
+-      "resolved": "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.3.tgz",
+-      "integrity": "sha512-uj3pT6Mg+3t39fvLrj8iuCIJ38zKO9FpGtJ4BBJebJhEwjoT+KLVNCcHT5QC9NGRIEi7fZ0ZR8YRb884auB4Lg==",
+-      "dev": true,
+-      "requires": {
+-        "ajv": "^6.12.4",
+-        "debug": "^4.3.2",
+-        "espree": "^9.4.0",
+-        "globals": "^13.15.0",
+-        "ignore": "^5.2.0",
+-        "import-fresh": "^3.2.1",
+-        "js-yaml": "^4.1.0",
+-        "minimatch": "^3.1.2",
+-        "strip-json-comments": "^3.1.1"
+-      }
+-    },
+-    "@humanwhocodes/config-array": {
+-      "version": "0.11.7",
+-      "resolved": "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.7.tgz",
+-      "integrity": "sha512-kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==",
+-      "dev": true,
+-      "requires": {
+-        "@humanwhocodes/object-schema": "^1.2.1",
+-        "debug": "^4.1.1",
+-        "minimatch": "^3.0.5"
+-      }
+-    },
+-    "@humanwhocodes/module-importer": {
+-      "version": "1.0.1",
+-      "resolved": "https://registry.npmjs.org/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz",
+-      "integrity": "sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==",
+-      "dev": true
+-    },
+-    "@humanwhocodes/object-schema": {
+-      "version": "1.2.1",
+-      "resolved": "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz",
+-      "integrity": "sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==",
+-      "dev": true
+-    },
+-    "@nodelib/fs.scandir": {
+-      "version": "2.1.5",
+-      "resolved": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz",
+-      "integrity": "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==",
+-      "dev": true,
+-      "requires": {
+-        "@nodelib/fs.stat": "2.0.5",
+-        "run-parallel": "^1.1.9"
+-      }
+-    },
+-    "@nodelib/fs.stat": {
+-      "version": "2.0.5",
+-      "resolved": "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz",
+-      "integrity": "sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==",
+-      "dev": true
+-    },
+-    "@nodelib/fs.walk": {
+-      "version": "1.2.8",
+-      "resolved": "https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz",
+-      "integrity": "sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==",
+-      "dev": true,
+-      "requires": {
+-        "@nodelib/fs.scandir": "2.1.5",
+-        "fastq": "^1.6.0"
+-      }
+-    },
+-    "acorn": {
+-      "version": "8.8.1",
+-      "resolved": "https://registry.npmjs.org/acorn/-/acorn-8.8.1.tgz",
+-      "integrity": "sha512-7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==",
+-      "dev": true
+-    },
+-    "acorn-jsx": {
+-      "version": "5.3.2",
+-      "resolved": "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz",
+-      "integrity": "sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==",
+-      "dev": true,
+-      "requires": {}
+-    },
+-    "ajv": {
+-      "version": "6.12.6",
+-      "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.12.6.tgz",
+-      "integrity": "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==",
+-      "dev": true,
+-      "requires": {
+-        "fast-deep-equal": "^3.1.1",
+-        "fast-json-stable-stringify": "^2.0.0",
+-        "json-schema-traverse": "^0.4.1",
+-        "uri-js": "^4.2.2"
+-      }
+-    },
+-    "ansi-regex": {
+-      "version": "5.0.1",
+-      "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
+-      "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
+-      "dev": true
+-    },
+-    "ansi-styles": {
+-      "version": "4.3.0",
+-      "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz",
+-      "integrity": "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==",
+-      "dev": true,
+-      "requires": {
+-        "color-convert": "^2.0.1"
+-      }
+-    },
+-    "argparse": {
+-      "version": "2.0.1",
+-      "resolved": "https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz",
+-      "integrity": "sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==",
+-      "dev": true
+-    },
+-    "balanced-match": {
+-      "version": "1.0.2",
+-      "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",
+-      "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==",
+-      "dev": true
+-    },
+-    "brace-expansion": {
+-      "version": "1.1.11",
+-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+-      "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
+-      "dev": true,
+-      "requires": {
+-        "balanced-match": "^1.0.0",
+-        "concat-map": "0.0.1"
+-      }
+-    },
+-    "callsites": {
+-      "version": "3.1.0",
+-      "resolved": "https://registry.npmjs.org/callsites/-/callsites-3.1.0.tgz",
+-      "integrity": "sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==",
+-      "dev": true
+-    },
+-    "chalk": {
+-      "version": "4.1.2",
+-      "resolved": "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz",
+-      "integrity": "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==",
+-      "dev": true,
+-      "requires": {
+-        "ansi-styles": "^4.1.0",
+-        "supports-color": "^7.1.0"
+-      }
+-    },
+-    "color-convert": {
+-      "version": "2.0.1",
+-      "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",
+-      "integrity": "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==",
+-      "dev": true,
+-      "requires": {
+-        "color-name": "~1.1.4"
+-      }
+-    },
+-    "color-name": {
+-      "version": "1.1.4",
+-      "resolved": "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz",
+-      "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",
+-      "dev": true
+-    },
+-    "comment-parser": {
+-      "version": "1.3.1",
+-      "resolved": "https://registry.npmjs.org/comment-parser/-/comment-parser-1.3.1.tgz",
+-      "integrity": "sha512-B52sN2VNghyq5ofvUsqZjmk6YkihBX5vMSChmSK9v4ShjKf3Vk5Xcmgpw4o+iIgtrnM/u5FiMpz9VKb8lpBveA==",
+-      "dev": true
+-    },
+-    "concat-map": {
+-      "version": "0.0.1",
+-      "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
+-      "integrity": "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==",
+-      "dev": true
+-    },
+-    "cross-spawn": {
+-      "version": "7.0.3",
+-      "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz",
+-      "integrity": "sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==",
+-      "dev": true,
+-      "requires": {
+-        "path-key": "^3.1.0",
+-        "shebang-command": "^2.0.0",
+-        "which": "^2.0.1"
+-      }
+-    },
+-    "debug": {
+-      "version": "4.3.4",
+-      "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz",
+-      "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",
+-      "dev": true,
+-      "requires": {
+-        "ms": "2.1.2"
+-      }
+-    },
+-    "deep-is": {
+-      "version": "0.1.4",
+-      "resolved": "https://registry.npmjs.org/deep-is/-/deep-is-0.1.4.tgz",
+-      "integrity": "sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==",
+-      "dev": true
+-    },
+-    "doctrine": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/doctrine/-/doctrine-3.0.0.tgz",
+-      "integrity": "sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==",
+-      "dev": true,
+-      "requires": {
+-        "esutils": "^2.0.2"
+-      }
+-    },
+-    "escape-string-regexp": {
+-      "version": "4.0.0",
+-      "resolved": "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz",
+-      "integrity": "sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==",
+-      "dev": true
+-    },
+-    "eslint": {
+-      "version": "8.26.0",
+-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-8.26.0.tgz",
+-      "integrity": "sha512-kzJkpaw1Bfwheq4VXUezFriD1GxszX6dUekM7Z3aC2o4hju+tsR/XyTC3RcoSD7jmy9VkPU3+N6YjVU2e96Oyg==",
+-      "dev": true,
+-      "requires": {
+-        "@eslint/eslintrc": "^1.3.3",
+-        "@humanwhocodes/config-array": "^0.11.6",
+-        "@humanwhocodes/module-importer": "^1.0.1",
+-        "@nodelib/fs.walk": "^1.2.8",
+-        "ajv": "^6.10.0",
+-        "chalk": "^4.0.0",
+-        "cross-spawn": "^7.0.2",
+-        "debug": "^4.3.2",
+-        "doctrine": "^3.0.0",
+-        "escape-string-regexp": "^4.0.0",
+-        "eslint-scope": "^7.1.1",
+-        "eslint-utils": "^3.0.0",
+-        "eslint-visitor-keys": "^3.3.0",
+-        "espree": "^9.4.0",
+-        "esquery": "^1.4.0",
+-        "esutils": "^2.0.2",
+-        "fast-deep-equal": "^3.1.3",
+-        "file-entry-cache": "^6.0.1",
+-        "find-up": "^5.0.0",
+-        "glob-parent": "^6.0.2",
+-        "globals": "^13.15.0",
+-        "grapheme-splitter": "^1.0.4",
+-        "ignore": "^5.2.0",
+-        "import-fresh": "^3.0.0",
+-        "imurmurhash": "^0.1.4",
+-        "is-glob": "^4.0.0",
+-        "is-path-inside": "^3.0.3",
+-        "js-sdsl": "^4.1.4",
+-        "js-yaml": "^4.1.0",
+-        "json-stable-stringify-without-jsonify": "^1.0.1",
+-        "levn": "^0.4.1",
+-        "lodash.merge": "^4.6.2",
+-        "minimatch": "^3.1.2",
+-        "natural-compare": "^1.4.0",
+-        "optionator": "^0.9.1",
+-        "regexpp": "^3.2.0",
+-        "strip-ansi": "^6.0.1",
+-        "strip-json-comments": "^3.1.0",
+-        "text-table": "^0.2.0"
+-      }
+-    },
+-    "eslint-plugin-jsdoc": {
+-      "version": "39.4.0",
+-      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-39.4.0.tgz",
+-      "integrity": "sha512-2FXAmh8lpO22aqZgu6NLB6berVnYgwbZx95BmjIIQjbRNwLIAwY0dtvSJDUZVW5nflv58c1gSWQjIJ8yLZ/+fw==",
+-      "dev": true,
+-      "requires": {
+-        "@es-joy/jsdoccomment": "~0.33.4",
+-        "comment-parser": "1.3.1",
+-        "debug": "^4.3.4",
+-        "escape-string-regexp": "^4.0.0",
+-        "esquery": "^1.4.0",
+-        "semver": "^7.3.8",
+-        "spdx-expression-parse": "^3.0.1"
+-      }
+-    },
+-    "eslint-scope": {
+-      "version": "7.1.1",
+-      "resolved": "https://registry.npmjs.org/eslint-scope/-/eslint-scope-7.1.1.tgz",
+-      "integrity": "sha512-QKQM/UXpIiHcLqJ5AOyIW7XZmzjkzQXYE54n1++wb0u9V/abW3l9uQnxX8Z5Xd18xyKIMTUAyQ0k1e8pz6LUrw==",
+-      "dev": true,
+-      "requires": {
+-        "esrecurse": "^4.3.0",
+-        "estraverse": "^5.2.0"
+-      }
+-    },
+-    "eslint-utils": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/eslint-utils/-/eslint-utils-3.0.0.tgz",
+-      "integrity": "sha512-uuQC43IGctw68pJA1RgbQS8/NP7rch6Cwd4j3ZBtgo4/8Flj4eGE7ZYSZRN3iq5pVUv6GPdW5Z1RFleo84uLDA==",
+-      "dev": true,
+-      "requires": {
+-        "eslint-visitor-keys": "^2.0.0"
+-      },
+-      "dependencies": {
+-        "eslint-visitor-keys": {
+-          "version": "2.1.0",
+-          "resolved": "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz",
+-          "integrity": "sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==",
+-          "dev": true
+-        }
+-      }
+-    },
+-    "eslint-visitor-keys": {
+-      "version": "3.3.0",
+-      "resolved": "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.3.0.tgz",
+-      "integrity": "sha512-mQ+suqKJVyeuwGYHAdjMFqjCyfl8+Ldnxuyp3ldiMBFKkvytrXUZWaiPCEav8qDHKty44bD+qV1IP4T+w+xXRA==",
+-      "dev": true
+-    },
+-    "espree": {
+-      "version": "9.4.0",
+-      "resolved": "https://registry.npmjs.org/espree/-/espree-9.4.0.tgz",
+-      "integrity": "sha512-DQmnRpLj7f6TgN/NYb0MTzJXL+vJF9h3pHy4JhCIs3zwcgez8xmGg3sXHcEO97BrmO2OSvCwMdfdlyl+E9KjOw==",
+-      "dev": true,
+-      "requires": {
+-        "acorn": "^8.8.0",
+-        "acorn-jsx": "^5.3.2",
+-        "eslint-visitor-keys": "^3.3.0"
+-      }
+-    },
+-    "esquery": {
+-      "version": "1.4.0",
+-      "resolved": "https://registry.npmjs.org/esquery/-/esquery-1.4.0.tgz",
+-      "integrity": "sha512-cCDispWt5vHHtwMY2YrAQ4ibFkAL8RbH5YGBnZBc90MolvvfkkQcJro/aZiAQUlQ3qgrYS6D6v8Gc5G5CQsc9w==",
+-      "dev": true,
+-      "requires": {
+-        "estraverse": "^5.1.0"
+-      }
+-    },
+-    "esrecurse": {
+-      "version": "4.3.0",
+-      "resolved": "https://registry.npmjs.org/esrecurse/-/esrecurse-4.3.0.tgz",
+-      "integrity": "sha512-KmfKL3b6G+RXvP8N1vr3Tq1kL/oCFgn2NYXEtqP8/L3pKapUA4G8cFVaoF3SU323CD4XypR/ffioHmkti6/Tag==",
+-      "dev": true,
+-      "requires": {
+-        "estraverse": "^5.2.0"
+-      }
+-    },
+-    "estraverse": {
+-      "version": "5.3.0",
+-      "resolved": "https://registry.npmjs.org/estraverse/-/estraverse-5.3.0.tgz",
+-      "integrity": "sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==",
+-      "dev": true
+-    },
+-    "esutils": {
+-      "version": "2.0.3",
+-      "resolved": "https://registry.npmjs.org/esutils/-/esutils-2.0.3.tgz",
+-      "integrity": "sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==",
+-      "dev": true
+-    },
+-    "fast-deep-equal": {
+-      "version": "3.1.3",
+-      "resolved": "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz",
+-      "integrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==",
+-      "dev": true
+-    },
+-    "fast-json-stable-stringify": {
+-      "version": "2.1.0",
+-      "resolved": "https://registry.npmjs.org/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz",
+-      "integrity": "sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==",
+-      "dev": true
+-    },
+-    "fast-levenshtein": {
+-      "version": "2.0.6",
+-      "resolved": "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz",
+-      "integrity": "sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==",
+-      "dev": true
+-    },
+-    "fastq": {
+-      "version": "1.13.0",
+-      "resolved": "https://registry.npmjs.org/fastq/-/fastq-1.13.0.tgz",
+-      "integrity": "sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==",
+-      "dev": true,
+-      "requires": {
+-        "reusify": "^1.0.4"
+-      }
+-    },
+-    "file-entry-cache": {
+-      "version": "6.0.1",
+-      "resolved": "https://registry.npmjs.org/file-entry-cache/-/file-entry-cache-6.0.1.tgz",
+-      "integrity": "sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==",
+-      "dev": true,
+-      "requires": {
+-        "flat-cache": "^3.0.4"
+-      }
+-    },
+-    "find-up": {
+-      "version": "5.0.0",
+-      "resolved": "https://registry.npmjs.org/find-up/-/find-up-5.0.0.tgz",
+-      "integrity": "sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==",
+-      "dev": true,
+-      "requires": {
+-        "locate-path": "^6.0.0",
+-        "path-exists": "^4.0.0"
+-      }
+-    },
+-    "flat-cache": {
+-      "version": "3.0.4",
+-      "resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-3.0.4.tgz",
+-      "integrity": "sha512-dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==",
+-      "dev": true,
+-      "requires": {
+-        "flatted": "^3.1.0",
+-        "rimraf": "^3.0.2"
+-      }
+-    },
+-    "flatted": {
+-      "version": "3.2.7",
+-      "resolved": "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz",
+-      "integrity": "sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==",
+-      "dev": true
+-    },
+-    "fs.realpath": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz",
+-      "integrity": "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==",
+-      "dev": true
+-    },
+-    "glob": {
+-      "version": "7.2.3",
+-      "resolved": "https://registry.npmjs.org/glob/-/glob-7.2.3.tgz",
+-      "integrity": "sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==",
+-      "dev": true,
+-      "requires": {
+-        "fs.realpath": "^1.0.0",
+-        "inflight": "^1.0.4",
+-        "inherits": "2",
+-        "minimatch": "^3.1.1",
+-        "once": "^1.3.0",
+-        "path-is-absolute": "^1.0.0"
+-      }
+-    },
+-    "glob-parent": {
+-      "version": "6.0.2",
+-      "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-6.0.2.tgz",
+-      "integrity": "sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==",
+-      "dev": true,
+-      "requires": {
+-        "is-glob": "^4.0.3"
+-      }
+-    },
+-    "globals": {
+-      "version": "13.17.0",
+-      "resolved": "https://registry.npmjs.org/globals/-/globals-13.17.0.tgz",
+-      "integrity": "sha512-1C+6nQRb1GwGMKm2dH/E7enFAMxGTmGI7/dEdhy/DNelv85w9B72t3uc5frtMNXIbzrarJJ/lTCjcaZwbLJmyw==",
+-      "dev": true,
+-      "requires": {
+-        "type-fest": "^0.20.2"
+-      }
+-    },
+-    "grapheme-splitter": {
+-      "version": "1.0.4",
+-      "resolved": "https://registry.npmjs.org/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz",
+-      "integrity": "sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==",
+-      "dev": true
+-    },
+-    "has-flag": {
+-      "version": "4.0.0",
+-      "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz",
+-      "integrity": "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==",
+-      "dev": true
+-    },
+-    "ignore": {
+-      "version": "5.2.0",
+-      "resolved": "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz",
+-      "integrity": "sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==",
+-      "dev": true
+-    },
+-    "import-fresh": {
+-      "version": "3.3.0",
+-      "resolved": "https://registry.npmjs.org/import-fresh/-/import-fresh-3.3.0.tgz",
+-      "integrity": "sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==",
+-      "dev": true,
+-      "requires": {
+-        "parent-module": "^1.0.0",
+-        "resolve-from": "^4.0.0"
+-      }
+-    },
+-    "imurmurhash": {
+-      "version": "0.1.4",
+-      "resolved": "https://registry.npmjs.org/imurmurhash/-/imurmurhash-0.1.4.tgz",
+-      "integrity": "sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==",
+-      "dev": true
+-    },
+-    "inflight": {
+-      "version": "1.0.6",
+-      "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.6.tgz",
+-      "integrity": "sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==",
+-      "dev": true,
+-      "requires": {
+-        "once": "^1.3.0",
+-        "wrappy": "1"
+-      }
+-    },
+-    "inherits": {
+-      "version": "2.0.4",
+-      "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz",
+-      "integrity": "sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==",
+-      "dev": true
+-    },
+-    "is-extglob": {
+-      "version": "2.1.1",
+-      "resolved": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
+-      "integrity": "sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==",
+-      "dev": true
+-    },
+-    "is-glob": {
+-      "version": "4.0.3",
+-      "resolved": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",
+-      "integrity": "sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==",
+-      "dev": true,
+-      "requires": {
+-        "is-extglob": "^2.1.1"
+-      }
+-    },
+-    "is-path-inside": {
+-      "version": "3.0.3",
+-      "resolved": "https://registry.npmjs.org/is-path-inside/-/is-path-inside-3.0.3.tgz",
+-      "integrity": "sha512-Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ==",
+-      "dev": true
+-    },
+-    "isexe": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
+-      "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==",
+-      "dev": true
+-    },
+-    "js-sdsl": {
+-      "version": "4.1.4",
+-      "resolved": "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.1.4.tgz",
+-      "integrity": "sha512-Y2/yD55y5jteOAmY50JbUZYwk3CP3wnLPEZnlR1w9oKhITrBEtAxwuWKebFf8hMrPMgbYwFoWK/lH2sBkErELw==",
+-      "dev": true
+-    },
+-    "js-yaml": {
+-      "version": "4.1.0",
+-      "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.0.tgz",
+-      "integrity": "sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==",
+-      "dev": true,
+-      "requires": {
+-        "argparse": "^2.0.1"
+-      }
+-    },
+-    "jsdoc-type-pratt-parser": {
+-      "version": "3.1.0",
+-      "resolved": "https://registry.npmjs.org/jsdoc-type-pratt-parser/-/jsdoc-type-pratt-parser-3.1.0.tgz",
+-      "integrity": "sha512-MgtD0ZiCDk9B+eI73BextfRrVQl0oyzRG8B2BjORts6jbunj4ScKPcyXGTbB6eXL4y9TzxCm6hyeLq/2ASzNdw==",
+-      "dev": true
+-    },
+-    "json-schema-traverse": {
+-      "version": "0.4.1",
+-      "resolved": "https://registry.npmjs.org/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz",
+-      "integrity": "sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==",
+-      "dev": true
+-    },
+-    "json-stable-stringify-without-jsonify": {
+-      "version": "1.0.1",
+-      "resolved": "https://registry.npmjs.org/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz",
+-      "integrity": "sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==",
+-      "dev": true
+-    },
+-    "levn": {
+-      "version": "0.4.1",
+-      "resolved": "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz",
+-      "integrity": "sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==",
+-      "dev": true,
+-      "requires": {
+-        "prelude-ls": "^1.2.1",
+-        "type-check": "~0.4.0"
+-      }
+-    },
+-    "locate-path": {
+-      "version": "6.0.0",
+-      "resolved": "https://registry.npmjs.org/locate-path/-/locate-path-6.0.0.tgz",
+-      "integrity": "sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==",
+-      "dev": true,
+-      "requires": {
+-        "p-locate": "^5.0.0"
+-      }
+-    },
+-    "lodash.merge": {
+-      "version": "4.6.2",
+-      "resolved": "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz",
+-      "integrity": "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==",
+-      "dev": true
+-    },
+-    "lru-cache": {
+-      "version": "6.0.0",
+-      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz",
+-      "integrity": "sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==",
+-      "dev": true,
+-      "requires": {
+-        "yallist": "^4.0.0"
+-      }
+-    },
+-    "minimatch": {
+-      "version": "3.1.2",
+-      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",
+-      "integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",
+-      "dev": true,
+-      "requires": {
+-        "brace-expansion": "^1.1.7"
+-      }
+-    },
+-    "ms": {
+-      "version": "2.1.2",
+-      "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz",
+-      "integrity": "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==",
+-      "dev": true
+-    },
+-    "natural-compare": {
+-      "version": "1.4.0",
+-      "resolved": "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz",
+-      "integrity": "sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==",
+-      "dev": true
+-    },
+-    "once": {
+-      "version": "1.4.0",
+-      "resolved": "https://registry.npmjs.org/once/-/once-1.4.0.tgz",
+-      "integrity": "sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==",
+-      "dev": true,
+-      "requires": {
+-        "wrappy": "1"
+-      }
+-    },
+-    "optionator": {
+-      "version": "0.9.1",
+-      "resolved": "https://registry.npmjs.org/optionator/-/optionator-0.9.1.tgz",
+-      "integrity": "sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw==",
+-      "dev": true,
+-      "requires": {
+-        "deep-is": "^0.1.3",
+-        "fast-levenshtein": "^2.0.6",
+-        "levn": "^0.4.1",
+-        "prelude-ls": "^1.2.1",
+-        "type-check": "^0.4.0",
+-        "word-wrap": "^1.2.3"
+-      }
+-    },
+-    "p-limit": {
+-      "version": "3.1.0",
+-      "resolved": "https://registry.npmjs.org/p-limit/-/p-limit-3.1.0.tgz",
+-      "integrity": "sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==",
+-      "dev": true,
+-      "requires": {
+-        "yocto-queue": "^0.1.0"
+-      }
+-    },
+-    "p-locate": {
+-      "version": "5.0.0",
+-      "resolved": "https://registry.npmjs.org/p-locate/-/p-locate-5.0.0.tgz",
+-      "integrity": "sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==",
+-      "dev": true,
+-      "requires": {
+-        "p-limit": "^3.0.2"
+-      }
+-    },
+-    "parent-module": {
+-      "version": "1.0.1",
+-      "resolved": "https://registry.npmjs.org/parent-module/-/parent-module-1.0.1.tgz",
+-      "integrity": "sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==",
+-      "dev": true,
+-      "requires": {
+-        "callsites": "^3.0.0"
+-      }
+-    },
+-    "path-exists": {
+-      "version": "4.0.0",
+-      "resolved": "https://registry.npmjs.org/path-exists/-/path-exists-4.0.0.tgz",
+-      "integrity": "sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==",
+-      "dev": true
+-    },
+-    "path-is-absolute": {
+-      "version": "1.0.1",
+-      "resolved": "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz",
+-      "integrity": "sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==",
+-      "dev": true
+-    },
+-    "path-key": {
+-      "version": "3.1.1",
+-      "resolved": "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz",
+-      "integrity": "sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==",
+-      "dev": true
+-    },
+-    "prelude-ls": {
+-      "version": "1.2.1",
+-      "resolved": "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz",
+-      "integrity": "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==",
+-      "dev": true
+-    },
+-    "punycode": {
+-      "version": "2.1.1",
+-      "resolved": "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz",
+-      "integrity": "sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==",
+-      "dev": true
+-    },
+-    "queue-microtask": {
+-      "version": "1.2.3",
+-      "resolved": "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz",
+-      "integrity": "sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==",
+-      "dev": true
+-    },
+-    "regexpp": {
+-      "version": "3.2.0",
+-      "resolved": "https://registry.npmjs.org/regexpp/-/regexpp-3.2.0.tgz",
+-      "integrity": "sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==",
+-      "dev": true
+-    },
+-    "resolve-from": {
+-      "version": "4.0.0",
+-      "resolved": "https://registry.npmjs.org/resolve-from/-/resolve-from-4.0.0.tgz",
+-      "integrity": "sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==",
+-      "dev": true
+-    },
+-    "reusify": {
+-      "version": "1.0.4",
+-      "resolved": "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz",
+-      "integrity": "sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==",
+-      "dev": true
+-    },
+-    "rimraf": {
+-      "version": "3.0.2",
+-      "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-3.0.2.tgz",
+-      "integrity": "sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==",
+-      "dev": true,
+-      "requires": {
+-        "glob": "^7.1.3"
+-      }
+-    },
+-    "run-parallel": {
+-      "version": "1.2.0",
+-      "resolved": "https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz",
+-      "integrity": "sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==",
+-      "dev": true,
+-      "requires": {
+-        "queue-microtask": "^1.2.2"
+-      }
+-    },
+-    "semver": {
+-      "version": "7.5.4",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz",
+-      "integrity": "sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==",
+-      "dev": true,
+-      "requires": {
+-        "lru-cache": "^6.0.0"
+-      }
+-    },
+-    "shebang-command": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+-      "integrity": "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==",
+-      "dev": true,
+-      "requires": {
+-        "shebang-regex": "^3.0.0"
+-      }
+-    },
+-    "shebang-regex": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz",
+-      "integrity": "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==",
+-      "dev": true
+-    },
+-    "spdx-exceptions": {
+-      "version": "2.3.0",
+-      "resolved": "https://registry.npmjs.org/spdx-exceptions/-/spdx-exceptions-2.3.0.tgz",
+-      "integrity": "sha512-/tTrYOC7PPI1nUAgx34hUpqXuyJG+DTHJTnIULG4rDygi4xu/tfgmq1e1cIRwRzwZgo4NLySi+ricLkZkw4i5A==",
+-      "dev": true
+-    },
+-    "spdx-expression-parse": {
+-      "version": "3.0.1",
+-      "resolved": "https://registry.npmjs.org/spdx-expression-parse/-/spdx-expression-parse-3.0.1.tgz",
+-      "integrity": "sha512-cbqHunsQWnJNE6KhVSMsMeH5H/L9EpymbzqTQ3uLwNCLZ1Q481oWaofqH7nO6V07xlXwY6PhQdQ2IedWx/ZK4Q==",
+-      "dev": true,
+-      "requires": {
+-        "spdx-exceptions": "^2.1.0",
+-        "spdx-license-ids": "^3.0.0"
+-      }
+-    },
+-    "spdx-license-ids": {
+-      "version": "3.0.12",
+-      "resolved": "https://registry.npmjs.org/spdx-license-ids/-/spdx-license-ids-3.0.12.tgz",
+-      "integrity": "sha512-rr+VVSXtRhO4OHbXUiAF7xW3Bo9DuuF6C5jH+q/x15j2jniycgKbxU09Hr0WqlSLUs4i4ltHGXqTe7VHclYWyA==",
+-      "dev": true
+-    },
+-    "strip-ansi": {
+-      "version": "6.0.1",
+-      "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
+-      "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
+-      "dev": true,
+-      "requires": {
+-        "ansi-regex": "^5.0.1"
+-      }
+-    },
+-    "strip-json-comments": {
+-      "version": "3.1.1",
+-      "resolved": "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz",
+-      "integrity": "sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==",
+-      "dev": true
+-    },
+-    "supports-color": {
+-      "version": "7.2.0",
+-      "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-7.2.0.tgz",
+-      "integrity": "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==",
+-      "dev": true,
+-      "requires": {
+-        "has-flag": "^4.0.0"
+-      }
+-    },
+-    "text-table": {
+-      "version": "0.2.0",
+-      "resolved": "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz",
+-      "integrity": "sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==",
+-      "dev": true
+-    },
+-    "type-check": {
+-      "version": "0.4.0",
+-      "resolved": "https://registry.npmjs.org/type-check/-/type-check-0.4.0.tgz",
+-      "integrity": "sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==",
+-      "dev": true,
+-      "requires": {
+-        "prelude-ls": "^1.2.1"
+-      }
+-    },
+-    "type-fest": {
+-      "version": "0.20.2",
+-      "resolved": "https://registry.npmjs.org/type-fest/-/type-fest-0.20.2.tgz",
+-      "integrity": "sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==",
+-      "dev": true
+-    },
+-    "uri-js": {
+-      "version": "4.4.1",
+-      "resolved": "https://registry.npmjs.org/uri-js/-/uri-js-4.4.1.tgz",
+-      "integrity": "sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==",
+-      "dev": true,
+-      "requires": {
+-        "punycode": "^2.1.0"
+-      }
+-    },
+-    "which": {
+-      "version": "2.0.2",
+-      "resolved": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",
+-      "integrity": "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==",
+-      "dev": true,
+-      "requires": {
+-        "isexe": "^2.0.0"
+-      }
+-    },
+-    "word-wrap": {
+-      "version": "1.2.5",
+-      "resolved": "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.5.tgz",
+-      "integrity": "sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==",
+-      "dev": true
+-    },
+-    "wrappy": {
+-      "version": "1.0.2",
+-      "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",
+-      "integrity": "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==",
+-      "dev": true
+-    },
+-    "yallist": {
+-      "version": "4.0.0",
+-      "resolved": "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz",
+-      "integrity": "sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==",
+-      "dev": true
+-    },
+-    "yocto-queue": {
+-      "version": "0.1.0",
+-      "resolved": "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz",
+-      "integrity": "sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==",
+-      "dev": true
+-    }
+   }
+ }
+diff --git a/tools/package.json b/tools/package.json
+index 200438edc..0713d818d 100644
+--- a/tools/package.json
++++ b/tools/package.json
+@@ -9,7 +9,7 @@
+     "fix": "npm run lint --fix"
+   },
+   "devDependencies": {
+-    "eslint": "^8.26.0",
+-    "eslint-plugin-jsdoc": "^39.4.0"
++    "eslint": "^8.57.0",
++    "eslint-plugin-jsdoc": "^48.2.1"
+   }
+ }
+-- 
+GitLab
+
+
+From 94e61872bf097ec2c7132cb8d6096e833a36420b Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Fri, 15 Mar 2024 21:49:07 -0700
+Subject: [PATCH 04/16] repo: Shorten error checking
+
+Consecutive conditions that check for JS errors can be collapsed.
+---
+ gi/repo.cpp | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
+
+diff --git a/gi/repo.cpp b/gi/repo.cpp
+index d8933ee2c..8e94a5ae0 100644
+--- a/gi/repo.cpp
++++ b/gi/repo.cpp
+@@ -143,12 +143,10 @@ static bool resolve_namespace_object(JSContext* context,
+                                   gjs_create_ns(context, ns_name.get()));
+ 
+     JS::RootedValue override(context);
+-    if (!lookup_override_function(context, ns_id, &override))
+-        return false;
+-
+-    /* Define the property early, to avoid reentrancy issues if
+-       the override module looks for namespaces that import this */
+-    if (!JS_DefinePropertyById(context, repo_obj, ns_id, gi_namespace,
++    if (!lookup_override_function(context, ns_id, &override) ||
++        // Define the property early, to avoid reentrancy issues if the override
++        // module looks for namespaces that import this
++        !JS_DefinePropertyById(context, repo_obj, ns_id, gi_namespace,
+                                GJS_MODULE_PROP_FLAGS))
+         return false;
+ 
+@@ -237,12 +235,10 @@ repo_new(JSContext *context)
+      */
+     JS::RootedString two_point_oh(context, JS_NewStringCopyZ(context, "2.0"));
+     if (!JS_DefinePropertyById(context, versions, atoms.glib(), two_point_oh,
+-                               JSPROP_PERMANENT))
+-        return nullptr;
+-    if (!JS_DefinePropertyById(context, versions, atoms.gobject(), two_point_oh,
+-                               JSPROP_PERMANENT))
+-        return nullptr;
+-    if (!JS_DefinePropertyById(context, versions, atoms.gio(), two_point_oh,
++                               JSPROP_PERMANENT) ||
++        !JS_DefinePropertyById(context, versions, atoms.gobject(), two_point_oh,
++                               JSPROP_PERMANENT) ||
++        !JS_DefinePropertyById(context, versions, atoms.gio(), two_point_oh,
+                                JSPROP_PERMANENT))
+         return nullptr;
+ 
+-- 
+GitLab
+
+
+From 8813f0fb558e2ec316af87c4d969f5fd4b9f9394 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Tue, 19 Mar 2024 19:58:07 -0700
+Subject: [PATCH 05/16] debugger: Remove extra semicolon from debugger test
+
+The throw command should test throwing an expression, not a statement.
+---
+ installed-tests/debugger/throw.debugger        | 2 +-
+ installed-tests/debugger/throw.debugger.output | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/installed-tests/debugger/throw.debugger b/installed-tests/debugger/throw.debugger
+index b5e6dfb48..14ba080fb 100644
+--- a/installed-tests/debugger/throw.debugger
++++ b/installed-tests/debugger/throw.debugger
+@@ -2,6 +2,6 @@
+ # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ set ignoreCaughtExceptions false
+ c
+-throw 'foobar' + 3.14;
++throw 'foobar' + 3.14
+ fin
+ throw
+diff --git a/installed-tests/debugger/throw.debugger.output b/installed-tests/debugger/throw.debugger.output
+index f3d4b1a4a..40183c661 100644
+--- a/installed-tests/debugger/throw.debugger.output
++++ b/installed-tests/debugger/throw.debugger.output
+@@ -4,7 +4,7 @@ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> set ignoreCaughtExceptions false
+ db> c
+ Debugger statement, a() at throw.debugger.js:4:4
+-db> throw 'foobar' + 3.14;
++db> throw 'foobar' + 3.14
+ Unwinding due to exception. (Type 'c' to continue unwinding.)
+ #0    a() at throw.debugger.js:4:4
+    4	    debugger;
+-- 
+GitLab
+
+
+From 71955dba95d4201273669092bdf759b25dc817f7 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Tue, 19 Mar 2024 20:09:03 -0700
+Subject: [PATCH 06/16] debugger: Fix message when throwing or returning from
+ an older frame
+
+To use the throw or return commands, you have to be in the newest frame.
+The error message would previously reference throwing, even when using the
+return command. Fix the message and add tests.
+---
+ installed-tests/debugger/return.debugger        | 3 +++
+ installed-tests/debugger/return.debugger.output | 8 ++++++++
+ installed-tests/debugger/throw.debugger         | 3 +++
+ installed-tests/debugger/throw.debugger.output  | 8 ++++++++
+ modules/script/_bootstrap/debugger.js           | 2 +-
+ 5 files changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/installed-tests/debugger/return.debugger b/installed-tests/debugger/return.debugger
+index 162e4d1ff..d26e22bc8 100644
+--- a/installed-tests/debugger/return.debugger
++++ b/installed-tests/debugger/return.debugger
+@@ -4,6 +4,9 @@ b 4
+ b 8
+ b 12
+ c
++f 1
++return
++f 0
+ return
+ ret 5
+ ret `${4 * 10 + 2} is the answer`
+diff --git a/installed-tests/debugger/return.debugger.output b/installed-tests/debugger/return.debugger.output
+index 0b0e6ba3d..07e36c0a9 100644
+--- a/installed-tests/debugger/return.debugger.output
++++ b/installed-tests/debugger/return.debugger.output
+@@ -9,6 +9,14 @@ db> b 12
+ Breakpoint 3 at return.debugger.js:12:4
+ db> c
+ Breakpoint 1, func1() at return.debugger.js:4:4
++db> f 1
++#1    toplevel at return.debugger.js:15:6
++   15	print(func1());
++db> return
++To return, you must select the newest frame (use 'frame 0')
++db> f 0
++#0    func1() at return.debugger.js:4:4
++   4	    return 1;
+ db> return
+ undefined
+ Breakpoint 2, func2() at return.debugger.js:8:4
+diff --git a/installed-tests/debugger/throw.debugger b/installed-tests/debugger/throw.debugger
+index 14ba080fb..4cd3d003b 100644
+--- a/installed-tests/debugger/throw.debugger
++++ b/installed-tests/debugger/throw.debugger
+@@ -2,6 +2,9 @@
+ # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ set ignoreCaughtExceptions false
+ c
++f 1
++throw {}
++f 0
+ throw 'foobar' + 3.14
+ fin
+ throw
+diff --git a/installed-tests/debugger/throw.debugger.output b/installed-tests/debugger/throw.debugger.output
+index 40183c661..c86c82a27 100644
+--- a/installed-tests/debugger/throw.debugger.output
++++ b/installed-tests/debugger/throw.debugger.output
+@@ -4,6 +4,14 @@ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> set ignoreCaughtExceptions false
+ db> c
+ Debugger statement, a() at throw.debugger.js:4:4
++db> f 1
++#1    toplevel at throw.debugger.js:9:4
++   9	    a();
++db> throw {}
++To throw, you must select the newest frame (use 'frame 0')
++db> f 0
++#0    a() at throw.debugger.js:4:4
++   4	    debugger;
+ db> throw 'foobar' + 3.14
+ Unwinding due to exception. (Type 'c' to continue unwinding.)
+ #0    a() at throw.debugger.js:4:4
+diff --git a/modules/script/_bootstrap/debugger.js b/modules/script/_bootstrap/debugger.js
+index 3ee7060a4..7eecc590b 100644
+--- a/modules/script/_bootstrap/debugger.js
++++ b/modules/script/_bootstrap/debugger.js
+@@ -380,7 +380,7 @@ continueCommand.helpText = `USAGE
+ 
+ function throwOrReturn(rest, action, defaultCompletion) {
+     if (focusedFrame !== topFrame) {
+-        print("To throw, you must select the newest frame (use 'frame 0').");
++        print(`To ${action}, you must select the newest frame (use 'frame 0')`);
+         return;
+     }
+     if (focusedFrame === null) {
+-- 
+GitLab
+
+
+From 6276e4b9d9fd9162320fef368f462afb0e18269d Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Tue, 19 Mar 2024 20:26:53 -0700
+Subject: [PATCH 07/16] debugger: Refactor throwOrReturn to deal with
+ exceptions from eval
+
+Usually if we are evaluating an expression inline for it to be used in a
+command, we don't want an exception occurring from the evaluation to
+interfere with the control flow of the program. We just want to print and
+swallow the exception.
+
+This adds a new function evalInFrame() which evaluates the given
+expression inside the current frame, with debugger bindings. Refactor
+throwOrReturn() to use this function.
+
+Aside from dealing nicely with exceptions, this adds the feature of being
+able to use debugger bindings with the return and throw commands, like
+'return $3'. Add tests for these new features.
+---
+ installed-tests/debugger/return.debugger      |  4 +-
+ .../debugger/return.debugger.output           |  6 ++-
+ installed-tests/debugger/throw.debugger       |  4 +-
+ .../debugger/throw.debugger.output            | 12 +++--
+ modules/script/_bootstrap/debugger.js         | 50 ++++++++++++++-----
+ 5 files changed, 56 insertions(+), 20 deletions(-)
+
+diff --git a/installed-tests/debugger/return.debugger b/installed-tests/debugger/return.debugger
+index d26e22bc8..4ed260623 100644
+--- a/installed-tests/debugger/return.debugger
++++ b/installed-tests/debugger/return.debugger
+@@ -9,5 +9,7 @@ return
+ f 0
+ return
+ ret 5
+-ret `${4 * 10 + 2} is the answer`
++ret foo
++p 2
++ret `${4 * 10 + $1} is the answer`
+ c
+diff --git a/installed-tests/debugger/return.debugger.output b/installed-tests/debugger/return.debugger.output
+index 07e36c0a9..91af7ae92 100644
+--- a/installed-tests/debugger/return.debugger.output
++++ b/installed-tests/debugger/return.debugger.output
+@@ -23,6 +23,10 @@ Breakpoint 2, func2() at return.debugger.js:8:4
+ db> ret 5
+ 5
+ Breakpoint 3, func3() at return.debugger.js:12:4
+-db> ret `${4 * 10 + 2} is the answer`
++db> ret foo
++Exception caught while evaluating foo: [object ReferenceError]
++db> p 2
++$1 = 2
++db> ret `${4 * 10 + $1} is the answer`
+ 42 is the answer
+ Program exited with code 0
+diff --git a/installed-tests/debugger/throw.debugger b/installed-tests/debugger/throw.debugger
+index 4cd3d003b..a3f9be397 100644
+--- a/installed-tests/debugger/throw.debugger
++++ b/installed-tests/debugger/throw.debugger
+@@ -5,6 +5,8 @@ c
+ f 1
+ throw {}
+ f 0
+-throw 'foobar' + 3.14
++p 3.14
++throw 'foobar' + $1
+ fin
++throw foo
+ throw
+diff --git a/installed-tests/debugger/throw.debugger.output b/installed-tests/debugger/throw.debugger.output
+index c86c82a27..03da24ee2 100644
+--- a/installed-tests/debugger/throw.debugger.output
++++ b/installed-tests/debugger/throw.debugger.output
+@@ -12,22 +12,26 @@ To throw, you must select the newest frame (use 'frame 0')
+ db> f 0
+ #0    a() at throw.debugger.js:4:4
+    4	    debugger;
+-db> throw 'foobar' + 3.14
++db> p 3.14
++$1 = 3.14
++db> throw 'foobar' + $1
+ Unwinding due to exception. (Type 'c' to continue unwinding.)
+ #0    a() at throw.debugger.js:4:4
+    4	    debugger;
+ Exception value is:
+-$1 = "foobar3.14"
++$2 = "foobar3.14"
+ db> fin
+ Run till exit from a() at throw.debugger.js:4:4
+ Frame terminated by exception:
+-$2 = "foobar3.14"
++$3 = "foobar3.14"
+ (To rethrow it, type 'throw'.)
+ Unwinding due to exception. (Type 'c' to continue unwinding.)
+ #0    toplevel at throw.debugger.js:9:4
+    9	    a();
+ Exception value is:
+-$3 = "foobar3.14"
++$4 = "foobar3.14"
++db> throw foo
++Exception caught while evaluating foo: [object ReferenceError]
+ db> throw
+ Exception: foobar3.14
+ Program exited with code 0
+diff --git a/modules/script/_bootstrap/debugger.js b/modules/script/_bootstrap/debugger.js
+index 7eecc590b..3d300375e 100644
+--- a/modules/script/_bootstrap/debugger.js
++++ b/modules/script/_bootstrap/debugger.js
+@@ -23,6 +23,7 @@ var nextDebuggeeValueIndex = 1;
+ var lastExc = null;
+ var options = {pretty: true, colors: true, ignoreCaughtExceptions: true};
+ var breakpoints = [undefined];  // Breakpoint numbers start at 1
++var skipUnwindHandler = false;
+ 
+ // Cleanup functions to run when we next re-enter the repl.
+ var replCleanups = [];
+@@ -183,6 +184,36 @@ function saveExcursion(fn) {
+     }
+ }
+ 
++// Evaluate @expr in the current frame, logging and suppressing any exceptions
++function evalInFrame(expr) {
++    if (!focusedFrame) {
++        print('No stack');
++        return;
++    }
++
++    skipUnwindHandler = true;
++    let cv;
++    try {
++        cv = saveExcursion(
++            () => focusedFrame.evalWithBindings(`(${expr})`, debuggeeValues));
++    } finally {
++        skipUnwindHandler = false;
++    }
++
++    if (cv === null) {
++        print(`Debuggee died while evaluating ${expr}`);
++        return;
++    }
++
++    const {throw: exc, return: dv} = cv;
++    if (exc) {
++        print(`Exception caught while evaluating ${expr}: ${dvToString(exc)}`);
++        return;
++    }
++
++    return {value: dv};
++}
++
+ // Accept debugger commands starting with '#' so that scripting the debugger
+ // can be annotated
+ function commentCommand(comment) {
+@@ -383,22 +414,12 @@ function throwOrReturn(rest, action, defaultCompletion) {
+         print(`To ${action}, you must select the newest frame (use 'frame 0')`);
+         return;
+     }
+-    if (focusedFrame === null) {
+-        print('No stack.');
+-        return;
+-    }
+     if (rest === '')
+         return [defaultCompletion];
+ 
+-    const cv = saveExcursion(() => focusedFrame.eval(rest));
+-    if (cv === null) {
+-        print(`Debuggee died while determining what to ${action}. Stopped.`);
+-        return;
+-    }
+-    if ('return' in cv)
+-        return [{[action]: cv['return']}];
+-    print(`Exception determining what to ${action}. Stopped.`);
+-    showDebuggeeValue(cv.throw);
++    const result = evalInFrame(rest);
++    if (result)
++        return [{[action]: result.value}];
+ }
+ 
+ function throwCommand(rest) {
+@@ -927,6 +948,9 @@ dbg.onDebuggerStatement = function (frame) {
+     });
+ };
+ dbg.onExceptionUnwind = function (frame, value) {
++    if (skipUnwindHandler)
++        return undefined;
++
+     const willBeCaught = currentFrame => {
+         while (currentFrame) {
+             if (currentFrame.script.isInCatchScope(currentFrame.offset))
+-- 
+GitLab
+
+
+From 16f25abd6c1d3b3c28433dd6824a73938f346136 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Tue, 19 Mar 2024 20:32:17 -0700
+Subject: [PATCH 08/16] debugger: Improve keys command
+
+Use the new evalInFrame() function to improve the keys command to handle
+exceptions raised while printing the expression's keys. Print the result
+directly, rather than calling into the debuggee to print it.
+
+Also handle the cases gracefully where the argument isn't an object, or
+doesn't have any own properties.
+
+Change 'keys' to 'own properties' in the description, in case the user is
+looking up help for the keys command because they don't know what keys
+are...
+---
+ installed-tests/debugger/keys.debugger        |  5 +++
+ installed-tests/debugger/keys.debugger.output | 16 +++++++---
+ modules/script/_bootstrap/debugger.js         | 31 +++++++++++++++----
+ 3 files changed, 42 insertions(+), 10 deletions(-)
+
+diff --git a/installed-tests/debugger/keys.debugger b/installed-tests/debugger/keys.debugger
+index 57559a888..595ae715b 100644
+--- a/installed-tests/debugger/keys.debugger
++++ b/installed-tests/debugger/keys.debugger
+@@ -3,4 +3,9 @@
+ c
+ keys a
+ k a
++keys a.foo
++keys {}
++keys bar
++keys ['a', 'b', 'c']
++keys
+ c
+diff --git a/installed-tests/debugger/keys.debugger.output b/installed-tests/debugger/keys.debugger.output
+index 3a00736cd..e689ddade 100644
+--- a/installed-tests/debugger/keys.debugger.output
++++ b/installed-tests/debugger/keys.debugger.output
+@@ -4,10 +4,18 @@ db> # SPDX-FileCopyrightText: 2018 Philip Chimento <philip.chimento@gmail.com>
+ db> c
+ Debugger statement, toplevel at keys.debugger.js:9:0
+ db> keys a
+-$1 = [object Array]
+-["foo", "bar", "tres", Symbol("s")]
++"foo", "bar", "tres", Symbol("s")
+ db> k a
+-$2 = [object Array]
+-["foo", "bar", "tres", Symbol("s")]
++"foo", "bar", "tres", Symbol("s")
++db> keys a.foo
++a.foo is 1, not an object
++db> keys {}
++No own properties
++db> keys bar
++Exception caught while evaluating bar: [object ReferenceError]
++db> keys ['a', 'b', 'c']
++"0", "1", "2", "length"
++db> keys
++Missing argument. See 'help keys'
+ db> c
+ Program exited with code 0
+diff --git a/modules/script/_bootstrap/debugger.js b/modules/script/_bootstrap/debugger.js
+index 3d300375e..27de4857a 100644
+--- a/modules/script/_bootstrap/debugger.js
++++ b/modules/script/_bootstrap/debugger.js
+@@ -377,13 +377,32 @@ expr may also reference the variables $1, $2, ... for already printed
+ expressions, or $$ for the most recently printed expression.`;
+ 
+ function keysCommand(rest) {
+-    return doPrint(`
+-        (o => Object.getOwnPropertyNames(o)
+-            .concat(Object.getOwnPropertySymbols(o)))
+-            (${rest})
+-    `);
++    if (!rest) {
++        print("Missing argument. See 'help keys'");
++        return;
++    }
++
++    const result = evalInFrame(rest);
++    if (!result)
++        return;
++
++    const dv = result.value;
++    if (!(dv instanceof Debugger.Object)) {
++        print(`${rest} is ${dvToString(dv)}, not an object`);
++        return;
++    }
++    const names = dv.getOwnPropertyNames();
++    const symbols = dv.getOwnPropertySymbols();
++    const keys = [
++        ...names.map(s => `"${s}"`),
++        ...symbols.map(s => `Symbol("${s.description}")`),
++    ];
++    if (keys.length === 0)
++        print('No own properties');
++    else
++        print(keys.join(', '));
+ }
+-keysCommand.summary = 'Prints keys of the given object';
++keysCommand.summary = 'Prints own properties of the given object';
+ keysCommand.helpText = `USAGE
+     keys <obj>
+ 
+-- 
+GitLab
+
+
+From c4629146b9617fed6f3b9d2b294a59da8d661874 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Wed, 20 Mar 2024 17:44:52 -0700
+Subject: [PATCH 09/16] debugger: Minor improvements from upstream jorendb
+
+https://hg.mozilla.org/mozilla-central/rev/254ebcb5c068379eb153add958bffc95d8d7a11e
+https://hg.mozilla.org/mozilla-central/rev/8c0cf85100bda151fc311c939f0c7230700318b1
+https://hg.mozilla.org/mozilla-central/rev/be67f9cc5dc8425851c47f7ed0654b908a07aa59
+---
+ modules/script/_bootstrap/debugger.js | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/modules/script/_bootstrap/debugger.js b/modules/script/_bootstrap/debugger.js
+index 27de4857a..84fd8d7f0 100644
+--- a/modules/script/_bootstrap/debugger.js
++++ b/modules/script/_bootstrap/debugger.js
+@@ -32,9 +32,12 @@ var replCleanups = [];
+ function dvToString(v) {
+     if (typeof v === 'undefined')
+         return 'undefined';  // uneval(undefined) === '(void 0)', confusing
+-    if (v === null)
+-        return 'null';  // typeof null === 'object', so avoid that case
+-    return typeof v !== 'object' || v === null ? uneval(v) : `[object ${v.class}]`;
++    if (typeof v === 'object' && v !== null)
++        return `[object ${v.class}]`;
++    const s = uneval(v);
++    if (s.length > 400)
++        return `${s.substr(0, 400)}...<${s.length - 400} more bytes>...`;
++    return s;
+ }
+ 
+ function debuggeeValueToString(dv, style = {pretty: options.pretty}) {
+@@ -51,21 +54,20 @@ function debuggeeValueToString(dv, style = {pretty: options.pretty}) {
+     }
+ 
+     const dvrepr = dvToString(dv);
+-    if (!style.pretty || dv === null || typeof dv !== 'object')
++    if (!style.pretty || (typeof dv !== 'object') || (dv === null))
+         return [dvrepr, undefined];
+ 
++    const exec = debuggeeGlobalWrapper.executeInGlobalWithBindings.bind(debuggeeGlobalWrapper);
++
+     if (['TypeError', 'Error', 'GIRespositoryNamespace', 'GObject_Object'].includes(dv.class)) {
+-        const errval = debuggeeGlobalWrapper.executeInGlobalWithBindings(
+-            'v.toString()', {v: dv});
++        const errval = exec('v.toString()', {v: dv});
+         return [dvrepr, errval['return']];
+     }
+ 
+     if (style.brief)
+         return [dvrepr, dvrepr];
+ 
+-    const str = debuggeeGlobalWrapper.executeInGlobalWithBindings(
+-        'imports._print.getPrettyPrintFunction(globalThis)(v)', {v: dv});
+-
++    const str = exec('imports._print.getPrettyPrintFunction(globalThis)(v)', {v: dv});
+     if ('throw' in str) {
+         if (style.noerror)
+             return [dvrepr, undefined];
+-- 
+GitLab
+
+
+From e9dca80bef9db172b3cde5b2989ea355128dfcbb Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Thu, 21 Mar 2024 19:31:15 -0700
+Subject: [PATCH 10/16] arg: Remove rooting in a few places
+
+In all these places, we are creating a JSObject and almost immediately
+storing it in a MutableHandleValue. If there's no operation that can
+potentially GC in between creation and storage, then there's no need to
+root the object.
+---
+ gi/arg.cpp | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/gi/arg.cpp b/gi/arg.cpp
+index 1ce7126fc..eebfd6095 100644
+--- a/gi/arg.cpp
++++ b/gi/arg.cpp
+@@ -639,7 +639,7 @@ gjs_array_from_strv(JSContext             *context,
+             return false;
+     }
+ 
+-    JS::RootedObject obj(context, JS::NewArrayObject(context, elems));
++    JSObject* obj = JS::NewArrayObject(context, elems);
+     if (!obj)
+         return false;
+ 
+@@ -1917,7 +1917,7 @@ GJS_JSAPI_RETURN_CONVENTION static bool gjs_array_from_g_list(
+             return false;
+     }
+ 
+-    JS::RootedObject obj(cx, JS::NewArrayObject(cx, elems));
++    JSObject* obj = JS::NewArrayObject(cx, elems);
+     if (!obj)
+         return false;
+ 
+@@ -2112,7 +2112,7 @@ static bool gjs_array_from_carray_internal(
+           return false;
+     }
+ 
+-    JS::RootedObject obj(context, JS::NewArrayObject(context, elems));
++    JSObject* obj = JS::NewArrayObject(context, elems);
+     if (!obj)
+         return false;
+ 
+@@ -2379,7 +2379,7 @@ static bool gjs_array_from_zero_terminated_c_array(
+           return false;
+     }
+ 
+-    JS::RootedObject obj(context, JS::NewArrayObject(context, elems));
++    JSObject* obj = JS::NewArrayObject(context, elems);
+     if (!obj)
+         return false;
+ 
+@@ -2517,7 +2517,7 @@ bool gjs_value_from_gi_argument(JSContext* context,
+             return true;
+         }
+ 
+-        JS::RootedObject obj(context, gjs_gtype_create_gtype_wrapper(context, gtype));
++        JSObject* obj = gjs_gtype_create_gtype_wrapper(context, gtype);
+         if (!obj)
+             return false;
+ 
+-- 
+GitLab
+
+
+From d33d48ae772c937781832f447b918e7cee22c8a4 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Mon, 25 Mar 2024 21:47:40 -0700
+Subject: [PATCH 11/16] interface: Don't call g_type_interfaces() in interface
+ enumeration
+
+g_type_interfaces() on an interface GType is always going to return an
+empty list. Interfaces can have prerequisite interfaces (fetched by
+g_type_interface_prerequisites()) but we should not enumerate their
+properties in this function.
+---
+ gi/interface.cpp | 39 ++++++++-------------------------------
+ 1 file changed, 8 insertions(+), 31 deletions(-)
+
+diff --git a/gi/interface.cpp b/gi/interface.cpp
+index 26a7476e5..ac9571821 100644
+--- a/gi/interface.cpp
++++ b/gi/interface.cpp
+@@ -35,18 +35,20 @@ InterfacePrototype::~InterfacePrototype(void) {
+     GJS_DEC_COUNTER(interface);
+ }
+ 
+-static bool append_inferface_properties(JSContext* cx,
+-                                        JS::MutableHandleIdVector properties,
+-                                        GIInterfaceInfo* iface_info) {
+-    int n_methods = g_interface_info_get_n_methods(iface_info);
++bool InterfacePrototype::new_enumerate_impl(
++    JSContext* cx, JS::HandleObject, JS::MutableHandleIdVector properties,
++    bool only_enumerable [[maybe_unused]]) {
++    if (!info())
++        return true;
++
++    int n_methods = g_interface_info_get_n_methods(info());
+     if (!properties.reserve(properties.length() + n_methods)) {
+         JS_ReportOutOfMemory(cx);
+         return false;
+     }
+ 
+     for (int i = 0; i < n_methods; i++) {
+-        GjsAutoFunctionInfo meth_info =
+-            g_interface_info_get_method(iface_info, i);
++        GjsAutoFunctionInfo meth_info = g_interface_info_get_method(info(), i);
+         GIFunctionInfoFlags flags = g_function_info_get_flags(meth_info);
+ 
+         if (flags & GI_FUNCTION_IS_METHOD) {
+@@ -61,31 +63,6 @@ static bool append_inferface_properties(JSContext* cx,
+     return true;
+ }
+ 
+-bool InterfacePrototype::new_enumerate_impl(
+-    JSContext* cx, JS::HandleObject obj [[maybe_unused]],
+-    JS::MutableHandleIdVector properties,
+-    bool only_enumerable [[maybe_unused]]) {
+-    unsigned n_interfaces;
+-    GjsAutoPointer<GType, void, &g_free> interfaces =
+-        g_type_interfaces(gtype(), &n_interfaces);
+-
+-    for (unsigned k = 0; k < n_interfaces; k++) {
+-        GjsAutoInterfaceInfo iface_info =
+-            g_irepository_find_by_gtype(nullptr, interfaces[k]);
+-
+-        if (!iface_info)
+-            continue;
+-
+-        if (!append_inferface_properties(cx, properties, iface_info))
+-            return false;
+-    }
+-
+-    if (!info())
+-        return true;
+-
+-    return append_inferface_properties(cx, properties, info());
+-}
+-
+ // See GIWrapperBase::resolve().
+ bool InterfacePrototype::resolve_impl(JSContext* context, JS::HandleObject obj,
+                                       JS::HandleId id, bool* resolved) {
+-- 
+GitLab
+
+
+From 5b91ce32d60d0113d9f381334658f99fa52a3bbc Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sat, 30 Mar 2024 22:59:10 -0700
+Subject: [PATCH 12/16] CI: Fix branch regex
+
+We don't want the IWYU job running on previous stable branches. The
+stable branches were selected with a regex that was written in the
+'gnome-3-38' days, so doesn't match the names of more recent stable
+branches, like gnome-46. Fix the regex so it matches both.
+---
+ .gitlab-ci.yml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+index 311c15d5b..6ceb2b8c2 100644
+--- a/.gitlab-ci.yml
++++ b/.gitlab-ci.yml
+@@ -302,7 +302,7 @@ iwyu:
+       - branches
+   except:
+     - schedules
+-    - /^gnome-\d+-\d+$/
++    - /^gnome-[-\d]+$/
+ 
+ codespell:
+   when: on_success
+-- 
+GitLab
+
+
+From 101b8f849a5f3b03f391fdeff9716f761d2935b7 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sat, 30 Mar 2024 23:26:45 -0700
+Subject: [PATCH 13/16] build: Use DYLD_LIBRARY_PATH instead of
+ DYLD_FALLBACK_LIBRARY_PATH
+
+I had previously thought that this was sufficient on macOS; if a library
+isn't found in the default path, we fall back to the build directory.
+However, this causes hard-to-track-down errors when running tests while
+there is also an earlier version of GJS installed to the default library
+path.
+
+So, better to just have the same behaviour as on other Unix.
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index f3bee916e..db31fb8d8 100644
+--- a/meson.build
++++ b/meson.build
+@@ -649,7 +649,7 @@ tests_environment.prepend('GI_TYPELIB_PATH', meson.current_build_dir(),
+     js_tests_builddir, libgjs_test_tools_builddir)
+ tests_environment.prepend('LD_LIBRARY_PATH', meson.current_build_dir(),
+     js_tests_builddir, libgjs_test_tools_builddir)
+-tests_environment.prepend('DYLD_FALLBACK_LIBRARY_PATH', meson.current_build_dir(),
++tests_environment.prepend('DYLD_LIBRARY_PATH', meson.current_build_dir(),
+     js_tests_builddir, libgjs_test_tools_builddir)
+ tests_environment.set('G_FILENAME_ENCODING', 'latin1')
+ # Workaround for https://github.com/google/sanitizers/issues/1322
+-- 
+GitLab
+
+
+From 2eb4340f04ad6781d07e3260ed24f8c0e6549966 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sat, 30 Mar 2024 23:59:35 -0700
+Subject: [PATCH 14/16] tests: Remove obsolete test for ByteArray
+
+This is now just testing assignment to a Uint8Array, not a special
+ByteArray object that is backed by a GByteArray. There's no need to test
+this, since it's just part of JS.
+---
+ installed-tests/js/testGIMarshalling.js | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/installed-tests/js/testGIMarshalling.js b/installed-tests/js/testGIMarshalling.js
+index f6840f314..c1323a0f1 100644
+--- a/installed-tests/js/testGIMarshalling.js
++++ b/installed-tests/js/testGIMarshalling.js
+@@ -760,18 +760,6 @@ describe('GBytes', function () {
+             .not.toThrow();
+     });
+ 
+-    it('turns into a GByteArray on assignment', function () {
+-        let bytes = GIMarshallingTests.gbytes_full_return();
+-        let array = bytes.toArray();  // Array should just be holding a ref, not a copy
+-        expect(array[1]).toEqual(49);
+-        array[1] = 42;  // Assignment should force to GByteArray
+-        expect(array[1]).toEqual(42);
+-        array[1] = 49;  // Flip the value back
+-        // Now convert back to GBytes
+-        expect(() => GIMarshallingTests.gbytes_none_in(ByteArray.toGBytes(array)))
+-            .not.toThrow();
+-    });
+-
+     it('cannot be passed to a function expecting a byte array', function () {
+         let bytes = GLib.Bytes.new([97, 98, 99, 100]);
+         expect(() => GIMarshallingTests.array_uint8_in(bytes.toArray())).not.toThrow();
+-- 
+GitLab
+
+
+From c53ff8b055fb5190cffa27acec3ec27beb890fc6 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 31 Mar 2024 00:04:44 -0700
+Subject: [PATCH 15/16] byteArray: Remove usage of ByteArray module within GJS
+
+These can all be replaced by TextEncoder/TextDecoder. In the case of
+ByteArray.fromGBytes(), call .toArray() instead on the GBytes instance.
+---
+ installed-tests/js/testGDBus.js         | 16 ++--------------
+ installed-tests/js/testGIMarshalling.js |  7 +++----
+ installed-tests/js/testGLib.js          | 11 +++++------
+ installed-tests/js/testGtk3.js          |  5 ++---
+ installed-tests/js/testGtk4.js          |  5 ++---
+ installed-tests/js/testLegacyGtk.js     |  5 ++---
+ modules/core/overrides/GLib.js          |  8 ++------
+ 7 files changed, 18 insertions(+), 39 deletions(-)
+
+diff --git a/installed-tests/js/testGDBus.js b/installed-tests/js/testGDBus.js
+index 3c8edbbdc..e3f2a1ae3 100644
+--- a/installed-tests/js/testGDBus.js
++++ b/installed-tests/js/testGDBus.js
+@@ -1,7 +1,6 @@
+ // SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ // SPDX-FileCopyrightText: 2008 litl, LLC
+ 
+-const ByteArray = imports.byteArray;
+ const {Gio, GjsTestTools, GLib} = imports.gi;
+ 
+ // Adapter for compatibility with pre-GLib-2.80
+@@ -284,6 +283,7 @@ describe('Exported DBus object', function () {
+     var test;
+     var proxy;
+     let loop;
++    const expectedBytes = new TextEncoder().encode('some bytes');
+ 
+     function waitForServerProperty(property, value = undefined, timeout = 500) {
+         let waitId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, timeout, () => {
+@@ -693,7 +693,6 @@ describe('Exported DBus object', function () {
+     });
+ 
+     it('can call a remote method with a Unix FD', function (done) {
+-        const expectedBytes = ByteArray.fromString('some bytes');
+         const fd = GjsTestTools.open_bytes(expectedBytes);
+         const fdList = Gio.UnixFDList.new_from_array([fd]);
+         proxy.fdInRemote(0, fdList, ([bytes], exc, outFdList) => {
+@@ -705,8 +704,6 @@ describe('Exported DBus object', function () {
+     });
+ 
+     it('can call an async/await method with a Unix FD', async function () {
+-        const encoder = new TextEncoder();
+-        const expectedBytes = encoder.encode('some bytes');
+         const fd = GjsTestTools.open_bytes(expectedBytes);
+         const fdList = Gio.UnixFDList.new_from_array([fd]);
+         const [bytes, outFdList] = await proxy.fdInAsync(0, fdList);
+@@ -715,7 +712,6 @@ describe('Exported DBus object', function () {
+     });
+ 
+     it('can call an asynchronously implemented remote method with a Unix FD', function (done) {
+-        const expectedBytes = ByteArray.fromString('some bytes');
+         const fd = GjsTestTools.open_bytes(expectedBytes);
+         const fdList = Gio.UnixFDList.new_from_array([fd]);
+         proxy.fdIn2Remote(0, fdList, ([bytes], exc, outFdList) => {
+@@ -727,8 +723,6 @@ describe('Exported DBus object', function () {
+     });
+ 
+     it('can call an asynchronously implemented async/await method with a Unix FD', async function () {
+-        const encoder = new TextEncoder();
+-        const expectedBytes = encoder.encode('some bytes');
+         const fd = GjsTestTools.open_bytes(expectedBytes);
+         const fdList = Gio.UnixFDList.new_from_array([fd]);
+         const [bytes, outFdList] = await proxy.fdIn2Async(0, fdList);
+@@ -739,11 +733,10 @@ describe('Exported DBus object', function () {
+     function readBytesFromFdSync(fd) {
+         const stream = new GioUnix.InputStream({fd, closeFd: true});
+         const bytes = stream.read_bytes(4096, null);
+-        return ByteArray.fromGBytes(bytes);
++        return bytes.toArray();
+     }
+ 
+     it('can call a remote method that returns a Unix FD', function (done) {
+-        const expectedBytes = ByteArray.fromString('some bytes');
+         proxy.fdOutRemote(expectedBytes, ([fdIndex], exc, outFdList) => {
+             expect(exc).toBeNull();
+             const bytes = readBytesFromFdSync(outFdList.get(fdIndex));
+@@ -753,15 +746,12 @@ describe('Exported DBus object', function () {
+     });
+ 
+     it('can call an async/await method that returns a Unix FD', async function () {
+-        const encoder = new TextEncoder();
+-        const expectedBytes = encoder.encode('some bytes');
+         const [fdIndex, outFdList] = await proxy.fdOutAsync(expectedBytes);
+         const bytes = readBytesFromFdSync(outFdList.get(fdIndex));
+         expect(bytes).toEqual(expectedBytes);
+     });
+ 
+     it('can call an asynchronously implemented remote method that returns a Unix FD', function (done) {
+-        const expectedBytes = ByteArray.fromString('some bytes');
+         proxy.fdOut2Remote(expectedBytes, ([fdIndex], exc, outFdList) => {
+             expect(exc).toBeNull();
+             const bytes = readBytesFromFdSync(outFdList.get(fdIndex));
+@@ -771,8 +761,6 @@ describe('Exported DBus object', function () {
+     });
+ 
+     it('can call an asynchronously implemented asyc/await method that returns a Unix FD', async function () {
+-        const encoder = new TextEncoder();
+-        const expectedBytes = encoder.encode('some bytes');
+         const [fdIndex, outFdList] = await proxy.fdOut2Async(expectedBytes);
+         const bytes = readBytesFromFdSync(outFdList.get(fdIndex));
+         expect(bytes).toEqual(expectedBytes);
+diff --git a/installed-tests/js/testGIMarshalling.js b/installed-tests/js/testGIMarshalling.js
+index c1323a0f1..157ae0364 100644
+--- a/installed-tests/js/testGIMarshalling.js
++++ b/installed-tests/js/testGIMarshalling.js
+@@ -9,7 +9,6 @@
+ // Load overrides for GIMarshallingTests
+ imports.overrides.searchPath.unshift('resource:///org/gjs/jsunit/modules/overrides');
+ 
+-const ByteArray = imports.byteArray;
+ const GIMarshallingTests = imports.gi.GIMarshallingTests;
+ 
+ // We use Gio and GLib to have some objects that we know exist
+@@ -458,7 +457,7 @@ describe('C array with length', function () {
+     it('marshals a byte array as an in parameter', function () {
+         expect(() => GIMarshallingTests.array_uint8_in('abcd')).not.toThrow();
+         expect(() => GIMarshallingTests.array_uint8_in([97, 98, 99, 100])).not.toThrow();
+-        expect(() => GIMarshallingTests.array_uint8_in(ByteArray.fromString('abcd')))
++        expect(() => GIMarshallingTests.array_uint8_in(new TextEncoder().encode('abcd')))
+             .not.toThrow();
+     });
+ 
+@@ -749,7 +748,7 @@ describe('GBytes', function () {
+         expect(bytes.toArray()).toEqual(refByteArray);
+     });
+ 
+-    it('can be implicitly converted from a ByteArray', function () {
++    it('can be implicitly converted from a Uint8Array', function () {
+         expect(() => GIMarshallingTests.gbytes_none_in(refByteArray))
+             .not.toThrow();
+     });
+@@ -2073,7 +2073,7 @@ describe('GObject properties', function () {
+     testPropertyGetSet('enum', GIMarshallingTests.GEnum.VALUE2,
+         GIMarshallingTests.GEnum.VALUE3);
+     testPropertyGetSet('byte_array', Uint8Array.of(1, 2, 3),
+-        ByteArray.fromString('👾'));
++        new TextEncoder().encode('👾'));
+ 
+     it('gets a read-only property', function () {
+         expect(obj.some_readonly).toEqual(42);
+diff --git a/installed-tests/js/testGLib.js b/installed-tests/js/testGLib.js
+index f68b09c3b..084c7980f 100644
+--- a/installed-tests/js/testGLib.js
++++ b/installed-tests/js/testGLib.js
+@@ -2,7 +2,6 @@
+ // SPDX-FileCopyrightText: 2011 Giovanni Campagna <gcampagna@src.gnome.org>
+ // SPDX-FileCopyrightText: 2019, 2023 Philip Chimento <philip.chimento@gmail.com>
+ 
+-const ByteArray = imports.byteArray;
+ const GLib = imports.gi.GLib;
+ 
+ describe('GVariant constructor', function () {
+@@ -47,16 +46,16 @@ describe('GVariant constructor', function () {
+     });
+ 
+     it('constructs a byte array variant', function () {
+-        const byteArray = Uint8Array.from('pizza', c => c.charCodeAt(0));
++        const byteArray = new TextEncoder().encode('pizza');
+         const byteArrayVariant = new GLib.Variant('ay', byteArray);
+-        expect(ByteArray.toString(byteArrayVariant.deepUnpack()))
++        expect(new TextDecoder().decode(byteArrayVariant.deepUnpack()))
+             .toEqual('pizza');
+     });
+ 
+     it('constructs a byte array variant from a string', function () {
+         const byteArrayVariant = new GLib.Variant('ay', 'pizza');
+-        expect(ByteArray.toString(byteArrayVariant.deepUnpack()))
+-            .toEqual('pizza');
++        expect(new TextDecoder().decode(byteArrayVariant.deepUnpack()))
++            .toEqual('pizza\0');
+     });
+ 
+     it('0-terminates a byte array variant constructed from a string', function () {
+@@ -67,7 +66,7 @@ describe('GVariant constructor', function () {
+     });
+ 
+     it('does not 0-terminate a byte array variant constructed from a Uint8Array', function () {
+-        const byteArray = Uint8Array.from('pizza', c => c.charCodeAt(0));
++        const byteArray = new TextEncoder().encode('pizza');
+         const byteArrayVariant = new GLib.Variant('ay', byteArray);
+         const a = byteArrayVariant.deepUnpack();
+         [112, 105, 122, 122, 97].forEach((val, ix) =>
+diff --git a/installed-tests/js/testGtk3.js b/installed-tests/js/testGtk3.js
+index 5725c3df7..1298fc78f 100644
+--- a/installed-tests/js/testGtk3.js
++++ b/installed-tests/js/testGtk3.js
+@@ -3,7 +3,6 @@
+
+ imports.gi.versions.Gtk = '3.0';
+ 
+-const ByteArray = imports.byteArray;
+ const {GLib, Gio, GjsTestTools, GObject, Gtk} = imports.gi;
+ const System = imports.system;
+ 
+@@ -42,7 +41,7 @@ function createTemplate(className) {
+ }
+ 
+ const MyComplexGtkSubclass = GObject.registerClass({
+-    Template: ByteArray.fromString(createTemplate('Gjs_MyComplexGtkSubclass')),
++    Template: new TextEncoder().encode(createTemplate('Gjs_MyComplexGtkSubclass')),
+     Children: ['label-child', 'label-child2'],
+     InternalChildren: ['internal-label-child'],
+     CssName: 'complex-subclass',
+@@ -316,7 +315,7 @@ describe('Gtk overrides', function () {
+ 
+     it('does not leak instance when connecting template signal', async function () {
+         const LeakTestWidget = GObject.registerClass({
+-            Template: ByteArray.fromString(`
++            Template: new TextEncoder().encode(`
+                 <interface>
+                     <template class="Gjs_LeakTestWidget" parent="GtkButton">
+                         <signal name="clicked" handler="buttonClicked"/>
+diff --git a/installed-tests/js/testGtk4.js b/installed-tests/js/testGtk4.js
+index 7d90fa460..fc5bae0ee 100644
+--- a/installed-tests/js/testGtk4.js
++++ b/installed-tests/js/testGtk4.js
+@@ -4,7 +4,6 @@
+ imports.gi.versions.Gdk = '4.0';
+ imports.gi.versions.Gtk = '4.0';
+ 
+-const ByteArray = imports.byteArray;
+ const {Gdk, Gio, GObject, Gtk, GLib, GjsTestTools} = imports.gi;
+ const System = imports.system;
+ 
+@@ -44,7 +43,7 @@ function createTemplate(className) {
+ }
+ 
+ const MyComplexGtkSubclass = GObject.registerClass({
+-    Template: ByteArray.fromString(createTemplate('Gjs_MyComplexGtkSubclass')),
++    Template: new TextEncoder().encode(createTemplate('Gjs_MyComplexGtkSubclass')),
+     Children: ['label-child', 'label-child2'],
+     InternalChildren: ['internal-label-child'],
+     CssName: 'complex-subclass',
+@@ -333,7 +332,7 @@ class LeakTestWidget extends Gtk.Button {
+ }
+ 
+ GObject.registerClass({
+-    Template: ByteArray.fromString(`
++    Template: new TextEncoder().encode(`
+ <interface>
+     <template class="Gjs_LeakTestWidget" parent="GtkButton">
+         <signal name="clicked" handler="buttonClicked"/>
+diff --git a/installed-tests/js/testLegacyGtk.js b/installed-tests/js/testLegacyGtk.js
+index ececd7cab..149c24612 100644
+--- a/installed-tests/js/testLegacyGtk.js
++++ b/installed-tests/js/testLegacyGtk.js
+@@ -5,7 +5,6 @@
+ 
+ imports.gi.versions.Gtk = '3.0';
+ 
+-const ByteArray = imports.byteArray;
+ const {GjsTestTools, Gtk} = imports.gi;
+ const Lang = imports.lang;
+ const System = imports.system;
+@@ -42,7 +41,7 @@ const template = `
+ const MyComplexGtkSubclass = new Lang.Class({
+     Name: 'MyComplexGtkSubclass',
+     Extends: Gtk.Grid,
+-    Template: ByteArray.fromString(template),
++    Template: new TextEncoder().encode(template),
+     Children: ['label-child', 'label-child2'],
+     InternalChildren: ['internal-label-child'],
+     CssName: 'complex-subclass',
+@@ -127,7 +126,7 @@ describe('Legacy Gtk overrides', function () {
+         const LeakTestWidget = new Lang.Class({
+             Name: 'LeakTestWidget',
+             Extends: Gtk.Button,
+-            Template: ByteArray.fromString(`
++            Template: new TextEncoder().encode(`
+                 <interface>
+                     <template class="Gjs_LeakTestWidget" parent="GtkButton">
+                         <signal name="clicked" handler="buttonClicked"/>
+diff --git a/modules/core/overrides/GLib.js b/modules/core/overrides/GLib.js
+index 3cdbea356..0c69e6e52 100644
+--- a/modules/core/overrides/GLib.js
++++ b/modules/core/overrides/GLib.js
+@@ -2,7 +2,6 @@
+ // SPDX-FileCopyrightText: 2011 Giovanni Campagna
+ // SPDX-FileCopyrightText: 2023 Philip Chimento <philip.chimento@gmail.com>
+ 
+-const ByteArray = imports._byteArrayNative;
+ const {setMainLoopHook} = imports._promiseNative;
+ 
+ let GLib;
+@@ -101,11 +100,8 @@ function _packVariant(signature, value) {
+         }
+         if (arrayType[0] === 'y') {
+             // special case for array of bytes
+-            if (typeof value === 'string') {
+-                value = ByteArray.fromString(value);
+-                if (value[value.length - 1] !== 0)
+-                    value = Uint8Array.of(...value, 0);
+-            }
++            if (typeof value === 'string')
++                value = Uint8Array.of(...new TextEncoder().encode(value), 0);
+             const bytes = new GLib.Bytes(value);
+             return GLib.Variant.new_from_bytes(new GLib.VariantType('ay'),
+                 bytes, true);
+-- 
+GitLab
+
+
+From 9d883b58eccfb7d57cfc38fda7f95f243ea91122 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 31 Mar 2024 00:09:43 -0700
+Subject: [PATCH 16/16] tests: Move testByteArray into testLegacyByteArray
+
+Now that we have TextEncoder and TextDecoder, not only the old ByteArray
+object is legacy, but also the whole ByteArray module is legacy. So move
+its tests into testLegacyByteArray and delete the testByteArray file.
+---
+ installed-tests/js/meson.build            |   1 -
+ installed-tests/js/testByteArray.js       | 108 ----------------------
+ installed-tests/js/testLegacyByteArray.js | 108 +++++++++++++++++++++-
+ 3 files changed, 106 insertions(+), 111 deletions(-)
+ delete mode 100644 installed-tests/js/testByteArray.js
+
+diff --git a/installed-tests/js/meson.build b/installed-tests/js/meson.build
+index 077596904..7bdc45415 100644
+--- a/installed-tests/js/meson.build
++++ b/installed-tests/js/meson.build
+@@ -108,7 +108,6 @@ subdir('libgjstesttools')
+ 
+ jasmine_tests = [
+     'self',
+-    'ByteArray',
+     'Exceptions',
+     'Format',
+     'Fundamental',
+diff --git a/installed-tests/js/testByteArray.js b/installed-tests/js/testByteArray.js
+deleted file mode 100644
+index 4dd1ec912..000000000
+--- a/installed-tests/js/testByteArray.js
++++ /dev/null
+@@ -1,108 +0,0 @@
+-// SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+-// SPDX-FileCopyrightText: 2010 litl, LLC
+-// SPDX-FileCopyrightText: 2017 Philip Chimento <philip.chimento@gmail.com>
+-
+-const ByteArray = imports.byteArray;
+-const {GIMarshallingTests, GLib} = imports.gi;
+-
+-describe('Byte array', function () {
+-    it('can be created from a string', function () {
+-        let a = ByteArray.fromString('abcd');
+-        expect(a.length).toEqual(4);
+-        [97, 98, 99, 100].forEach((val, ix) => expect(a[ix]).toEqual(val));
+-    });
+-
+-    it('can be encoded from a string', function () {
+-        // Pick a string likely to be stored internally as Latin1
+-        let a = ByteArray.fromString('äbcd', 'LATIN1');
+-        expect(a.length).toEqual(4);
+-        [228, 98, 99, 100].forEach((val, ix) => expect(a[ix]).toEqual(val));
+-
+-        // Try again with a string not likely to be Latin1 internally
+-        a = ByteArray.fromString('⅜', 'UTF-8');
+-        expect(a.length).toEqual(3);
+-        [0xe2, 0x85, 0x9c].forEach((val, ix) => expect(a[ix]).toEqual(val));
+-    });
+-
+-    it('encodes as UTF-8 by default', function () {
+-        let a = ByteArray.fromString('⅜');
+-        expect(a.length).toEqual(3);
+-        [0xe2, 0x85, 0x9c].forEach((val, ix) => expect(a[ix]).toEqual(val));
+-    });
+-
+-    it('can be converted to a string of ASCII characters', function () {
+-        let a = new Uint8Array(4);
+-        a[0] = 97;
+-        a[1] = 98;
+-        a[2] = 99;
+-        a[3] = 100;
+-        let s = ByteArray.toString(a);
+-        expect(s.length).toEqual(4);
+-        expect(s).toEqual('abcd');
+-    });
+-
+-    it('can be converted to a string of UTF-8 characters even if it ends with a 0', function () {
+-        const a = Uint8Array.of(97, 98, 99, 100, 0);
+-        const s = ByteArray.toString(a);
+-        expect(s.length).toEqual(4);
+-        expect(s).toEqual('abcd');
+-    });
+-
+-    it('can be converted to a string of encoded characters even with a 0 byte', function () {
+-        const a = Uint8Array.of(97, 98, 99, 100, 0);
+-        const s = ByteArray.toString(a, 'LATIN1');
+-        expect(s.length).toEqual(4);
+-        expect(s).toEqual('abcd');
+-    });
+-
+-    it('stops converting to a string at an embedded 0 byte', function () {
+-        const a = Uint8Array.of(97, 98, 0, 99, 100);
+-        const s = ByteArray.toString(a);
+-        expect(s.length).toEqual(2);
+-        expect(s).toEqual('ab');
+-    });
+-
+-    it('deals gracefully with a 0-length array', function () {
+-        const a = new Uint8Array(0);
+-        expect(ByteArray.toString(a)).toEqual('');
+-        expect(ByteArray.toGBytes(a).get_size()).toEqual(0);
+-    });
+-
+-    it('deals gracefully with a 0-length GLib.Bytes', function () {
+-        const noBytes = ByteArray.toGBytes(new Uint8Array(0));
+-        expect(ByteArray.fromGBytes(noBytes).length).toEqual(0);
+-    });
+-
+-    it('deals gracefully with a 0-length string', function () {
+-        expect(ByteArray.fromString('').length).toEqual(0);
+-        expect(ByteArray.fromString('', 'LATIN1').length).toEqual(0);
+-    });
+-
+-    it('deals gracefully with a non Uint8Array', function () {
+-        const a = [97, 98, 99, 100, 0];
+-        expect(() => ByteArray.toString(a)).toThrow();
+-        expect(() => ByteArray.toGBytes(a)).toThrow();
+-    });
+-
+-    describe('legacy toString() behavior', function () {
+-        beforeEach(function () {
+-            GLib.test_expect_message('Gjs', GLib.LogLevelFlags.LEVEL_WARNING,
+-                'Some code called array.toString()*');
+-        });
+-
+-        it('is preserved when created from a string', function () {
+-            let a = ByteArray.fromString('⅜');
+-            expect(a.toString()).toEqual('⅜');
+-        });
+-
+-        it('is preserved when marshalled from GI', function () {
+-            let a = GIMarshallingTests.bytearray_full_return();
+-            expect(a.toString()).toEqual('');
+-        });
+-
+-        afterEach(function () {
+-            GLib.test_assert_expected_messages_internal('Gjs',
+-                'testByteArray.js', 0, 'testToStringCompatibility');
+-        });
+-    });
+-});
+diff --git a/installed-tests/js/testLegacyByteArray.js b/installed-tests/js/testLegacyByteArray.js
+index e13ff3688..25936df20 100644
+--- a/installed-tests/js/testLegacyByteArray.js
++++ b/installed-tests/js/testLegacyByteArray.js
+@@ -1,10 +1,114 @@
+ // SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ // SPDX-FileCopyrightText: 2010 litl, LLC
++// SPDX-FileCopyrightText: 2017 Philip Chimento <philip.chimento@gmail.com>
+ 
+ const ByteArray = imports.byteArray;
+-const GIMarshallingTests = imports.gi.GIMarshallingTests;
++const {GIMarshallingTests, GLib} = imports.gi;
+ 
+-describe('Legacy byte array', function () {
++describe('Uint8Array with legacy ByteArray functions', function () {
++    it('can be created from a string', function () {
++        let a = ByteArray.fromString('abcd');
++        expect(a.length).toEqual(4);
++        [97, 98, 99, 100].forEach((val, ix) => expect(a[ix]).toEqual(val));
++    });
++
++    it('can be encoded from a string', function () {
++        // Pick a string likely to be stored internally as Latin1
++        let a = ByteArray.fromString('äbcd', 'LATIN1');
++        expect(a.length).toEqual(4);
++        [228, 98, 99, 100].forEach((val, ix) => expect(a[ix]).toEqual(val));
++
++        // Try again with a string not likely to be Latin1 internally
++        a = ByteArray.fromString('⅜', 'UTF-8');
++        expect(a.length).toEqual(3);
++        [0xe2, 0x85, 0x9c].forEach((val, ix) => expect(a[ix]).toEqual(val));
++    });
++
++    it('encodes as UTF-8 by default', function () {
++        let a = ByteArray.fromString('⅜');
++        expect(a.length).toEqual(3);
++        [0xe2, 0x85, 0x9c].forEach((val, ix) => expect(a[ix]).toEqual(val));
++    });
++
++    it('can be converted to a string of ASCII characters', function () {
++        let a = new Uint8Array(4);
++        a[0] = 97;
++        a[1] = 98;
++        a[2] = 99;
++        a[3] = 100;
++        let s = ByteArray.toString(a);
++        expect(s.length).toEqual(4);
++        expect(s).toEqual('abcd');
++    });
++
++    it('can be converted to a string of UTF-8 characters even if it ends with a 0', function () {
++        const a = Uint8Array.of(97, 98, 99, 100, 0);
++        const s = ByteArray.toString(a);
++        expect(s.length).toEqual(4);
++        expect(s).toEqual('abcd');
++    });
++
++    it('can be converted to a string of encoded characters even with a 0 byte', function () {
++        const a = Uint8Array.of(97, 98, 99, 100, 0);
++        const s = ByteArray.toString(a, 'LATIN1');
++        expect(s.length).toEqual(4);
++        expect(s).toEqual('abcd');
++    });
++
++    it('stops converting to a string at an embedded 0 byte', function () {
++        const a = Uint8Array.of(97, 98, 0, 99, 100);
++        const s = ByteArray.toString(a);
++        expect(s.length).toEqual(2);
++        expect(s).toEqual('ab');
++    });
++
++    it('deals gracefully with a 0-length array', function () {
++        const a = new Uint8Array(0);
++        expect(ByteArray.toString(a)).toEqual('');
++        expect(ByteArray.toGBytes(a).get_size()).toEqual(0);
++    });
++
++    it('deals gracefully with a 0-length GLib.Bytes', function () {
++        const noBytes = ByteArray.toGBytes(new Uint8Array(0));
++        expect(ByteArray.fromGBytes(noBytes).length).toEqual(0);
++    });
++
++    it('deals gracefully with a 0-length string', function () {
++        expect(ByteArray.fromString('').length).toEqual(0);
++        expect(ByteArray.fromString('', 'LATIN1').length).toEqual(0);
++    });
++
++    it('deals gracefully with a non Uint8Array', function () {
++        const a = [97, 98, 99, 100, 0];
++        expect(() => ByteArray.toString(a)).toThrow();
++        expect(() => ByteArray.toGBytes(a)).toThrow();
++    });
++
++    describe('legacy toString() behavior', function () {
++        beforeEach(function () {
++            GLib.test_expect_message('Gjs', GLib.LogLevelFlags.LEVEL_WARNING,
++                'Some code called array.toString()*');
++        });
++
++        it('is preserved when created from a string', function () {
++            let a = ByteArray.fromString('⅜');
++            expect(a.toString()).toEqual('⅜');
++        });
++
++        it('is preserved when marshalled from GI', function () {
++            let a = GIMarshallingTests.bytearray_full_return();
++            expect(a.toString()).toEqual('');
++        });
++
++        afterEach(function () {
++            GLib.test_assert_expected_messages_internal('Gjs',
++                'testByteArray.js', 0, 'testToStringCompatibility');
++        });
++    });
++});
++
++
++describe('Legacy byte array object', function () {
+     it('has length 0 for empty array', function () {
+         let a = new ByteArray.ByteArray();
+         expect(a.length).toEqual(0);
+-- 
+GitLab
+

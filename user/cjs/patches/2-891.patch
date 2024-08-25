@@ -1,0 +1,542 @@
+From 60d3e4a06760d845fabbb5f8d8fa451f97bc8a9e Mon Sep 17 00:00:00 2001
+From: James Westman <james@jwestman.net>
+Date: Fri, 8 Sep 2023 11:19:26 -0500
+Subject: [PATCH 1/6] gi: Allow boxed closures to be passed to GI
+
+Normally, when passing a closure to a GI function or returning one from
+a vfunc, you want to return a JavaScript function. However, there are
+cases where JS code may need to deal with boxed GClosures instead.
+
+Previously, if you tried to pass a boxed closure, GJS would assume it's
+a callable object and wrap it in a GJS closure. Then, when that closure
+is called, it would try to invoke the boxed wrapper as a JS function
+instead of invoking the closure it wraps.
+
+Now, the translation code detects when you pass a boxed closure to a
+closure argument, and passes the boxed closure directly through.
+---
+ gi/arg.cpp | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/gi/arg.cpp b/gi/arg.cpp
+index 176de98c5..0ddbcb1ff 100644
+--- a/gi/arg.cpp
++++ b/gi/arg.cpp
+@@ -1368,6 +1368,13 @@ static bool value_to_interface_gi_argument(
+ 
+             } else if (g_type_is_a(gtype, G_TYPE_BOXED)) {
+                 if (g_type_is_a(gtype, G_TYPE_CLOSURE)) {
++                    if (BoxedBase::typecheck(cx, obj, interface_info, gtype,
++                                             GjsTypecheckNoThrow())) {
++                        return BoxedBase::transfer_to_gi_argument(
++                            cx, obj, arg, GI_DIRECTION_IN, transfer, gtype,
++                            interface_info);
++                    }
++
+                     GClosure* closure =
+                         Gjs::Closure::create_marshaled(cx, obj, "boxed");
+                     // GI doesn't know about floating GClosure references. We
+-- 
+GitLab
+
+
+From 3181161f2fde7bb69c1e9da87316dfd2d37cc1c2 Mon Sep 17 00:00:00 2001
+From: James Westman <james@jwestman.net>
+Date: Fri, 8 Sep 2023 11:34:37 -0500
+Subject: [PATCH 2/6] gi/private: Add associateClosure() function
+
+This function takes a GObject and a JavaScript function, creates a
+GClosure, and associates that GClosure with the object using
+ObjectInstance->associate_closure(). It returns the GClosure as a boxed
+instance.
+
+Normally, when you pass a function to a GI method, it is wrapped in a
+GJS-provided implementation of GClosure. This closure keeps the
+JavaScript function alive until the closure is invalidated. If the
+closure is never invalidated, the function stays alive indefinitely.
+
+This behavior is correct. Imagine connecting a signal to the function
+`() => console.log("Hello, world!")`. One would expect the signal to
+print "Hello, world!" whenever it is emitted until it is disconnected
+and the closure disposed.
+
+Now imagine connecting a signal to another function:
+
+    let obj = new MyGObject();
+    otherObj.connect("some-event", () => obj.printHelloWorld());
+
+One would still expect the signal handler to remain until it is
+disconnected or otherObj is destroyed. The code does nothing to indicate
+that it should be disconnected, so the function must be kept alive, and
+because it refers to `obj`, that must be kept alive as well.
+
+However, while this behavior is *correct,* it is not always *intended.*
+There are many cases where we want the signal to remain connected only
+for the lifetime of a given object. This was not previously possible for
+two reasons:
+
+1. You can't override vfunc_dispose() and disconnect signal handlers
+there, because dispose might run during GC.
+
+2. It can cause a reference cycle. Imagine connecting a signal like
+this:
+
+    let obj = new MyGObject();
+    obj.connect("some-event", () => obj.printHelloWorld());
+
+Like before, this code does nothing to indicate that the signal handler
+should be disconnected. Because it is not disconnected, the function
+stays alive, and because the function refers to obj, obj stays alive,
+keeping the signal connected indefinitely. The GC cannot detect this
+loop because the JS function is rooted until the closure is disposed,
+which will not happen because it is referred to by the object, which is
+referred to by the rooted function.
+
+What is needed, then, is a way to explicitly tell GJS which object to
+tie the closure's lifetime to. This is what associateClosure() does. It
+uses some existing code that traces the JS function through an object
+wrapper. That way, it doesn't have to be rooted to stay alive, and can
+be garbage collected with the object. Now instead of the closure keeping
+the function alive, the object invalidates the closure (through C code)
+when it is disposed.
+---
+ gi/closure.h   |  5 +++--
+ gi/private.cpp | 31 +++++++++++++++++++++++++++++++
+ 2 files changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/gi/closure.h b/gi/closure.h
+index bf074c67d..220d5f9e1 100644
+--- a/gi/closure.h
++++ b/gi/closure.h
+@@ -68,8 +68,9 @@ class Closure : public GClosure {
+ 
+     [[nodiscard]] static Closure* create_marshaled(JSContext* cx,
+                                                    JSObject* callable,
+-                                                   const char* description) {
+-        auto* self = new Closure(cx, callable, true /* root */, description);
++                                                   const char* description,
++                                                   bool root = true) {
++        auto* self = new Closure(cx, callable, root, description);
+         self->add_finalize_notifier<Closure>();
+         g_closure_set_marshal(self, marshal_cb);
+         return self;
+diff --git a/gi/private.cpp b/gi/private.cpp
+index 048435db8..26590c4d7 100644
+--- a/gi/private.cpp
++++ b/gi/private.cpp
+@@ -21,6 +21,7 @@
+ #include <js/ValueArray.h>
+ #include <jsapi.h>  // for JS_NewPlainObject
+ 
++#include "gi/closure.h"
+ #include "gi/gobject.h"
+ #include "gi/gtype.h"
+ #include "gi/interface.h"
+@@ -28,6 +29,7 @@
+ #include "gi/param.h"
+ #include "gi/private.h"
+ #include "gi/repo.h"
++#include "gi/value.h"
+ #include "cjs/atoms.h"
+ #include "cjs/context-private.h"
+ #include "cjs/jsapi-util-args.h"
+@@ -554,6 +556,34 @@ GJS_JSAPI_RETURN_CONVENTION static bool symbol_getter(JSContext* cx,
+     return true;
+ }
+ 
++GJS_JSAPI_RETURN_CONVENTION
++static bool gjs_associate_closure(JSContext* context, unsigned argc,
++                                  JS::Value* vp) {
++    JS::CallArgs argv = JS::CallArgsFromVp(argc, vp);
++    JS::RootedObject func_obj(context);
++    JS::RootedObject target_obj(context);
++    Gjs::Closure::Ptr closure;
++    Gjs::AutoGValue value(G_TYPE_CLOSURE);
++    ObjectInstance* obj;
++
++    if (!gjs_parse_call_args(context, "associateClosure", argv, "oo", "object",
++                             &target_obj, "func", &func_obj))
++        return false;
++
++    obj = ObjectInstance::for_js(context, target_obj);
++    if (!obj)
++        return false;
++
++    closure =
++        Gjs::Closure::create_marshaled(context, func_obj, "wrapped", false);
++
++    if (!obj->associate_closure(context, closure))
++        return false;
++
++    g_value_set_boxed(&value, closure);
++    return gjs_value_from_g_value(context, argv.rval(), &value);
++}
++
+ static JSFunctionSpec private_module_funcs[] = {
+     JS_FN("override_property", gjs_override_property, 2, GJS_MODULE_PROP_FLAGS),
+     JS_FN("register_interface", gjs_register_interface, 3,
+@@ -565,6 +595,7 @@ static JSFunctionSpec private_module_funcs[] = {
+           GJS_MODULE_PROP_FLAGS),
+     JS_FN("signal_new", gjs_signal_new, 6, GJS_MODULE_PROP_FLAGS),
+     JS_FN("lookupConstructor", gjs_lookup_constructor, 1, 0),
++    JS_FN("associateClosure", gjs_associate_closure, 2, GJS_MODULE_PROP_FLAGS),
+     JS_FS_END,
+ };
+ 
+-- 
+GitLab
+
+
+From ec417698dba570113faa8d708803b02cda88aabc Mon Sep 17 00:00:00 2001
+From: James Westman <james@jwestman.net>
+Date: Fri, 8 Sep 2023 13:13:20 -0500
+Subject: [PATCH 3/6] gi: Add Object.connect_object()
+
+Similar to the last commit, this allows JavaScript code to connect a
+signal handler to an object while limiting the lifetime of the handler
+function to that of a GObject.
+
+This method is analogous to the C g_signal_connect_object().
+---
+ gi/object.cpp                          | 59 ++++++++++++++++++++------
+ gi/object.h                            |  5 ++-
+ installed-tests/js/testGObjectClass.js | 22 ++++++++++
+ 3 files changed, 72 insertions(+), 14 deletions(-)
+
+diff --git a/gi/object.cpp b/gi/object.cpp
+index 5350e6af6..34aadc2b0 100644
+--- a/gi/object.cpp
++++ b/gi/object.cpp
+@@ -2148,14 +2148,22 @@ bool ObjectBase::connect_after(JSContext* cx, unsigned argc, JS::Value* vp) {
+     return priv->to_instance()->connect_impl(cx, args, true);
+ }
+ 
+-bool
+-ObjectInstance::connect_impl(JSContext          *context,
+-                             const JS::CallArgs& args,
+-                             bool                after)
+-{
++bool ObjectBase::connect_object(JSContext* cx, unsigned argc, JS::Value* vp) {
++    GJS_CHECK_WRAPPER_PRIV(cx, argc, vp, args, obj, ObjectBase, priv);
++    if (!priv->check_is_instance(cx, "connect to signals"))
++        return false;
++
++    return priv->to_instance()->connect_impl(cx, args, false, true);
++}
++
++bool ObjectInstance::connect_impl(JSContext* context, const JS::CallArgs& args,
++                                  bool after, bool object) {
+     gulong id;
+     guint signal_id;
+     GQuark signal_detail;
++    const char* func_name = object  ? "connect_object"
++                            : after ? "connect_after"
++                                    : "connect";
+ 
+     gjs_debug_gsignal("connect obj %p priv %p", m_wrapper.get(), this);
+ 
+@@ -2166,14 +2174,29 @@ ObjectInstance::connect_impl(JSContext          *context,
+ 
+     JS::UniqueChars signal_name;
+     JS::RootedObject callback(context);
+-    if (!gjs_parse_call_args(context, after ? "connect_after" : "connect", args, "so",
+-                             "signal name", &signal_name,
+-                             "callback", &callback))
+-        return false;
++    JS::RootedObject associate_obj(context);
++    GConnectFlags flags;
++    if (object) {
++        if (!gjs_parse_call_args(context, func_name, args, "sooi",
++                                 "signal name", &signal_name, "callback",
++                                 &callback, "gobject", &associate_obj,
++                                 "connect_flags", &flags))
++            return false;
+ 
+-    std::string dynamicString = format_name() + '.' +
+-                                (after ? "connect_after" : "connect") + "('" +
+-                                signal_name.get() + "')";
++        if (flags & G_CONNECT_SWAPPED) {
++            gjs_throw(context, "Unsupported connect flag G_CONNECT_SWAPPED");
++            return false;
++        }
++
++        after = flags & G_CONNECT_AFTER;
++    } else {
++        if (!gjs_parse_call_args(context, func_name, args, "so", "signal name",
++                                 &signal_name, "callback", &callback))
++            return false;
++    }
++
++    std::string dynamicString =
++        format_name() + '.' + func_name + "('" + signal_name.get() + "')";
+     AutoProfilerLabel label(context, "", dynamicString.c_str());
+ 
+     if (!JS::IsCallable(callback)) {
+@@ -2192,8 +2215,17 @@ ObjectInstance::connect_impl(JSContext          *context,
+         context, callback, "signal callback", signal_id);
+     if (closure == NULL)
+         return false;
+-    if (!associate_closure(context, closure))
++
++    if (associate_obj.get() != nullptr) {
++        ObjectInstance* obj = ObjectInstance::for_js(context, associate_obj);
++        if (!obj)
++            return false;
++
++        if (!obj->associate_closure(context, closure))
++            return false;
++    } else if (!associate_closure(context, closure)) {
+         return false;
++    }
+ 
+     id = g_signal_connect_closure_by_id(m_ptr, signal_id, signal_detail,
+                                         closure, after);
+@@ -2555,6 +2587,7 @@ JSFunctionSpec ObjectBase::proto_methods[] = {
+     JS_FN("_init", &ObjectBase::init_gobject, 0, 0),
+     JS_FN("connect", &ObjectBase::connect, 0, 0),
+     JS_FN("connect_after", &ObjectBase::connect_after, 0, 0),
++    JS_FN("connect_object", &ObjectBase::connect_object, 0, 0),
+     JS_FN("emit", &ObjectBase::emit, 0, 0),
+     JS_FS_END
+ };
+diff --git a/gi/object.h b/gi/object.h
+index 1ef680ebd..46d65a4cd 100644
+--- a/gi/object.h
++++ b/gi/object.h
+@@ -141,6 +141,8 @@ class ObjectBase
+     GJS_JSAPI_RETURN_CONVENTION
+     static bool connect_after(JSContext* cx, unsigned argc, JS::Value* vp);
+     GJS_JSAPI_RETURN_CONVENTION
++    static bool connect_object(JSContext* cx, unsigned argc, JS::Value* vp);
++    GJS_JSAPI_RETURN_CONVENTION
+     static bool emit(JSContext* cx, unsigned argc, JS::Value* vp);
+     GJS_JSAPI_RETURN_CONVENTION
+     static bool signal_find(JSContext* cx, unsigned argc, JS::Value* vp);
+@@ -451,7 +453,8 @@ class ObjectInstance : public GIWrapperInstance<ObjectBase, ObjectPrototype,
+ 
+  private:
+     GJS_JSAPI_RETURN_CONVENTION
+-    bool connect_impl(JSContext* cx, const JS::CallArgs& args, bool after);
++    bool connect_impl(JSContext* cx, const JS::CallArgs& args, bool after,
++                      bool object = false);
+     GJS_JSAPI_RETURN_CONVENTION
+     bool emit_impl(JSContext* cx, const JS::CallArgs& args);
+     GJS_JSAPI_RETURN_CONVENTION
+diff --git a/installed-tests/js/testGObjectClass.js b/installed-tests/js/testGObjectClass.js
+index 1e95e3a67..d264d67c8 100644
+--- a/installed-tests/js/testGObjectClass.js
++++ b/installed-tests/js/testGObjectClass.js
+@@ -7,6 +7,7 @@ const System = imports.system;
+ imports.gi.versions.Gtk = '3.0';
+ 
+ const Gio = imports.gi.Gio;
++const GjsTestTools = imports.gi.GjsTestTools;
+ const GLib = imports.gi.GLib;
+ const GObject = imports.gi.GObject;
+ const Gtk = imports.gi.Gtk;
+@@ -352,6 +353,27 @@ describe('GObject class with decorator', function () {
+         expect(notifySpy).toHaveBeenCalledTimes(2);
+     });
+ 
++    it('disconnects connect_object signals on destruction', function () {
++        let callback = jasmine.createSpy('callback');
++        callback.myInstance = myInstance;
++        const instance2 = new MyObject();
++        instance2.connect_object('empty', callback, myInstance, 0);
++
++        instance2.emitEmpty();
++        instance2.emitEmpty();
++
++        expect(callback).toHaveBeenCalledTimes(2);
++
++        GjsTestTools.save_weak(myInstance);
++        myInstance = null;
++        callback = null;
++
++        System.gc();
++        System.gc();
++
++        expect(GjsTestTools.get_weak()).toBeNull();
++    });
++
+     it('can define its own signals', function () {
+         let emptySpy = jasmine.createSpy('emptySpy');
+         myInstance.connect('empty', emptySpy);
+-- 
+GitLab
+
+
+From 7e068e4293351f61afb49cb9e924656e4f469f6c Mon Sep 17 00:00:00 2001
+From: James Westman <james@jwestman.net>
+Date: Wed, 13 Sep 2023 09:57:49 -0500
+Subject: [PATCH 4/6] docs: Add Object.connect_object docs
+
+---
+ doc/Overrides.md | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+diff --git a/doc/Overrides.md b/doc/Overrides.md
+index 445a6e06a..510093560 100644
+--- a/doc/Overrides.md
++++ b/doc/Overrides.md
+@@ -619,6 +619,35 @@ signal.
+ 
+ [gobject-signals-tutorial]: https://gjs.guide/guides/gobject/basics.html#signals
+ 
++### GObject.Object.connect_object(name, callback, gobject, flags)
++
++> See also: [GObject Signals Tutorial][gobject-signals-tutorial]
++
++Parameters:
++* name (`String`) — A detailed signal name
++* callback (`Function`) — A callback function
++* gobject (`GObject.Object`) — A [`GObject.Object`][gobject] instance
++* flags (`GObject.ConnectFlags`) — Flags
++
++Returns:
++* (`Number`) — A signal handler ID
++
++Connects a callback function to a signal for a particular object.
++
++The `gobject` parameter is used to limit the lifetime of the connection. When the
++object is destroyed, the callback will be disconnected automatically. The
++`gobject` parameter is not otherwise used.
++
++The first argument of the callback will be the object emitting the signal, while
++the remaining arguments are the signal parameters.
++
++If `GObject.ConnectFlags.AFTER` is specified in `flags`, the handler will be
++called after the default handler of the signal. Otherwise, it will be called
++before. `GObject.ConnectFlags.SWAPPED` is not supported and its use will
++throw an exception.
++
++[gobject-signals-tutorial]: https://gjs.guide/guides/gobject/basics.html#signals
++
+ ### GObject.Object.disconnect(id)
+ 
+ > See also: [GObject Signals Tutorial][gobject-signals-tutorial]
+-- 
+GitLab
+
+
+From 106a474a1a044bf0ad8e64ebd4910760fb550729 Mon Sep 17 00:00:00 2001
+From: James Westman <james@jwestman.net>
+Date: Fri, 8 Sep 2023 13:15:54 -0500
+Subject: [PATCH 5/6] modules: gtk: Limit lifetime of signal handlers
+
+When connecting template signals, limit the lifetime of the handler
+function to that of the current object, using the mechanisms added in
+the previous commits.
+
+This matches the behavior of GtkCBuilderScope, which uses
+g_cclosure_new_object() which disconnects the signal handler when the
+template object is disposed. Without this behavior, as explained in
+previous commit messages, the handler and template object are leaked via
+reference cycle.
+---
+ modules/core/overrides/Gtk.js | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/modules/core/overrides/Gtk.js b/modules/core/overrides/Gtk.js
+index e28b5936d..e3420701b 100644
+--- a/modules/core/overrides/Gtk.js
++++ b/modules/core/overrides/Gtk.js
+@@ -5,6 +5,7 @@
+ const Legacy = imports._legacy;
+ const {Gio, GjsPrivate, GLib, GObject} = imports.gi;
+ const {_registerType} = imports._common;
++const Gi = imports._gi;
+ 
+ let Gtk;
+ let BuilderScope;
+@@ -156,16 +157,18 @@ function _init() {
+         }, class extends GObject.Object {
+             vfunc_create_closure(builder, handlerName, flags, connectObject) {
+                 const swapped = flags & Gtk.BuilderClosureFlags.SWAPPED;
+-                return _createClosure(
+-                    builder, builder.get_current_object(),
+-                    handlerName, swapped, connectObject);
++                const thisArg = builder.get_current_object();
++                return Gi.associateClosure(
++                    connectObject ?? thisArg,
++                    _createClosure(builder, thisArg, handlerName, swapped, connectObject)
++                );
+             }
+         });
+     }
+ }
+ 
+ function _createClosure(builder, thisArg, handlerName, swapped, connectObject) {
+-    connectObject = connectObject || thisArg;
++    connectObject = connectObject ?? thisArg;
+ 
+     if (swapped) {
+         throw new Error('Unsupported template signal flag "swapped"');
+-- 
+GitLab
+
+
+From b8ef00d436acf9c217bde327fad5a15d7c6aced7 Mon Sep 17 00:00:00 2001
+From: James Westman <james@jwestman.net>
+Date: Fri, 8 Sep 2023 15:35:46 -0500
+Subject: [PATCH 6/6] tests: Add test for the fixed memory leak
+
+There is still a leak in the Gtk 3 version of the test, so I omitted it.
+---
+ installed-tests/js/testGtk4.js | 36 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 1 deletion(-)
+
+diff --git a/installed-tests/js/testGtk4.js b/installed-tests/js/testGtk4.js
+index a4e990f9c..0999a6823 100644
+--- a/installed-tests/js/testGtk4.js
++++ b/installed-tests/js/testGtk4.js
+@@ -5,7 +5,8 @@ imports.gi.versions.Gdk = '4.0';
+ imports.gi.versions.Gtk = '4.0';
+ 
+ const ByteArray = imports.byteArray;
+-const {Gdk, Gio, GObject, Gtk} = imports.gi;
++const {Gdk, Gio, GObject, Gtk, GLib, GjsTestTools} = imports.gi;
++const System = imports.system;
+ 
+ // This is ugly here, but usually it would be in a resource
+ function createTemplate(className) {
+@@ -270,3 +271,36 @@ describe('Gtk 4 regressions', function () {
+         expect(result).toEqual([0, GLib.MAXUINT32]);
+     });
+ });
++
++class LeakTestWidget extends Gtk.Button {
++    buttonClicked() {}
++}
++
++GObject.registerClass({
++    Template: ByteArray.fromString(`
++<interface>
++    <template class="Gjs_LeakTestWidget" parent="GtkButton">
++        <signal name="clicked" handler="buttonClicked"/>
++    </template>
++</interface>`),
++}, LeakTestWidget);
++
++
++describe('Gtk template signal', function () {
++    beforeAll(function () {
++        Gtk.init();
++    });
++
++    it('does not leak', function () {
++        let widget = new LeakTestWidget();
++        GjsTestTools.save_weak(widget);
++        widget = null;
++
++        // It takes two GC cycles to free the widget, because of the tardy sweep
++        // problem (https://gitlab.gnome.org/GNOME/gjs/-/issues/217)
++        System.gc();
++        System.gc();
++
++        expect(GjsTestTools.get_weak()).toBeNull();
++    });
++});
+-- 
+GitLab
+

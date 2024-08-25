@@ -1,0 +1,67 @@
+diff -ru a/installed-tests/js/modules/encodings.json b/installed-tests/js/modules/encodings.json
+--- a/installed-tests/js/modules/encodings.json	2024-06-11 22:27:18.000000000 +0800
++++ b/installed-tests/js/modules/encodings.json	2024-08-23 23:50:26.541549828 +0800
+@@ -19,15 +19,6 @@
+       "encodings": [
+         {
+           "labels": [
+-            "866",
+-            "cp866",
+-            "csibm866",
+-            "ibm866"
+-          ],
+-          "name": "IBM866"
+-        },
+-        {
+-          "labels": [
+             "csisolatin2",
+             "iso-8859-2",
+             "iso-ir-101",
+@@ -205,26 +196,6 @@
+         },
+         {
+           "labels": [
+-            "csmacintosh",
+-            "mac",
+-            "macintosh",
+-            "x-mac-roman"
+-          ],
+-          "name": "macintosh"
+-        },
+-        {
+-          "labels": [
+-            "dos-874",
+-            "iso-8859-11",
+-            "iso8859-11",
+-            "iso885911",
+-            "tis-620",
+-            "windows-874"
+-          ],
+-          "name": "windows-874"
+-        },
+-        {
+-          "labels": [
+             "cp1250",
+             "windows-1250",
+             "x-cp1250"
+@@ -317,13 +288,6 @@
+             "x-cp1258"
+           ],
+           "name": "windows-1258"
+-        },
+-        {
+-          "labels": [
+-            "x-mac-cyrillic",
+-            "x-mac-ukrainian"
+-          ],
+-          "name": "x-mac-cyrillic"
+         }
+       ],
+       "heading": "Legacy single-byte encodings"
+@@ -463,4 +427,4 @@
+       "heading": "Legacy miscellaneous encodings"
+     }
+   ]
+-  
+\ No newline at end of file
++  

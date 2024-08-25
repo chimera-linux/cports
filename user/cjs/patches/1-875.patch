@@ -1,0 +1,843 @@
+From 42eb928552ff27666948f36b7ad88b070311d7f6 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Fri, 16 Jun 2023 01:06:23 +0200
+Subject: [PATCH 01/11] build: Disable C++ exceptions by default
+
+This theoretically can improve performance. It makes exceptions from the
+C++ standard library uncatchable, aborting on allocation failures.
+However, this is what GLib already does, so it seems like we aren't losing
+anything by changing the default.
+---
+ meson.build | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index ea4337384..1731f686f 100644
+--- a/meson.build
++++ b/meson.build
+@@ -9,7 +9,7 @@
+ version : '6.4.0',
+ license : ['MIT', 'LGPL2+'],
+ meson_version : '>=0.56.0',
+-default_options : ['cpp_std=c++17', 'cpp_rtti=false', 'c_std=c99', 'warning_level=2', 'b_pch=true']
++default_options : ['cpp_std=c++17', 'cpp_rtti=false', 'cpp_eh=none', 'c_std=c99', 'warning_level=2', 'b_pch=true']
+ )
+ 
+ # cpp_rtti: SpiderMonkey can be compiled with or without runtime type
+-- 
+GitLab
+
+
+From 6b5c3a8ecd31ebc78cf8c8639fe1188f52656b59 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sat, 29 Jul 2023 11:21:24 +0300
+Subject: [PATCH 02/11] test: Relax test for iconv error message
+
+This error message doesn't originate from GJS, so may be translated.
+Running the test on a system with non-English locale may fail.
+---
+ installed-tests/js/testEncoding.js | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/installed-tests/js/testEncoding.js b/installed-tests/js/testEncoding.js
+index 55d65581e..d383b14d5 100644
+--- a/installed-tests/js/testEncoding.js
++++ b/installed-tests/js/testEncoding.js
+@@ -363,10 +363,7 @@ describe('Text Encoding', function () {
+ 
+                 expect(() => {
+                     decoder.decode(new Uint8Array([161, 200, 200]));
+-                }).toThrowError(
+-                    TypeError,
+-                    'Invalid byte sequence in conversion input'
+-                );
++                }).toThrowError(TypeError);
+             });
+ 
+             it('can decode ASCII', function () {
+-- 
+GitLab
+
+
+From f721bc76110aee75cdf8f2c7845d179a2098f0b2 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 21 May 2023 21:11:21 -0700
+Subject: [PATCH 03/11] stack: Drop open_memstream requirement
+
+In https://bugzilla.mozilla.org/show_bug.cgi?id=1826290 SpiderMonkey
+gained an API which allows us to print a stack trace to a string without
+the open_memstream workaround, which was not available on all platforms.
+---
+ cjs/gjs_pch.hh |  1 +
+ cjs/stack.cpp  | 45 +++++++++++++++------------------------------
+ meson.build    |  3 ---
+ 3 files changed, 16 insertions(+), 33 deletions(-)
+
+diff --git a/cjs/gjs_pch.hh b/cjs/gjs_pch.hh
+index ef146e5a2..82476ba7b 100644
+--- a/cjs/gjs_pch.hh
++++ b/cjs/gjs_pch.hh
+@@ -80,6 +80,7 @@
+ #include <js/MemoryFunctions.h>
+ #include <js/Modules.h>
+ #include <js/Object.h>
++#include <js/Printer.h>
+ #include <js/ProfilingCategory.h>
+ #include <js/ProfilingStack.h>
+ #include <js/Promise.h>
+diff --git a/cjs/stack.cpp b/cjs/stack.cpp
+index 9e22b4aff..00600b903 100644
+--- a/cjs/stack.cpp
++++ b/cjs/stack.cpp
+@@ -4,7 +4,7 @@
+ 
+ #include <config.h>
+ 
+-#include <stdio.h>  // for stderr, open_memstream
++#include <stdio.h>  // for stderr
+ 
+ #include <sstream>
+ #include <string>
+@@ -12,7 +12,9 @@
+ #include <glib-object.h>
+ #include <glib.h>
+ 
++#include <js/Printer.h>
+ #include <js/TypeDecls.h>
++#include <js/Utility.h>  // for UniqueChars
+ #include <js/friend/DumpFunctions.h>
+ 
+ #include "cjs/context-private.h"
+@@ -40,48 +42,31 @@ gjs_dumpstack(void)
+     }
+ }
+ 
+-#ifdef HAVE_OPEN_MEMSTREAM
+-static std::string
+-stack_trace_string(GjsContext *context) {
+-    JSContext *cx = static_cast<JSContext *>(gjs_context_get_native_context(context));
+-    std::ostringstream out;
+-    FILE *stream;
+-    GjsAutoChar buf;
+-    size_t len;
+-
+-    stream = open_memstream(buf.out(), &len);
+-    if (!stream) {
+-        out << "No stack trace for context " << context << ": "
+-               "open_memstream() failed\n\n";
+-        return out.str();
+-    }
+-    js::DumpBacktrace(cx, stream);
+-    fclose(stream);
+-    out << "== Stack trace for context " << context << " ==\n"
+-        << buf.get() << "\n";
+-    return out.str();
+-}
+-#endif
+-
+ std::string
+ gjs_dumpstack_string() {
+     std::string out;
+     std::ostringstream all_traces;
+ 
+-#ifdef HAVE_OPEN_MEMSTREAM
+     GjsSmartPointer<GList> contexts = gjs_context_get_all();
++    js::Sprinter printer;
+     GList *iter;
+ 
+     for (iter = contexts; iter; iter = iter->next) {
+         GjsAutoUnref<GjsContext> context(GJS_CONTEXT(iter->data));
+-        all_traces << stack_trace_string(context);
++        if (!printer.init()) {
++            all_traces << "No stack trace for context " << context.get()
++                       << ": out of memory\n\n";
++            break;
++        }
++        auto* cx =
++            static_cast<JSContext*>(gjs_context_get_native_context(context));
++        js::DumpBacktrace(cx, printer);
++        JS::UniqueChars trace = printer.release();
++        all_traces << "== Stack trace for context " << context.get() << " ==\n"
++                   << trace.get() << "\n";
+     }
+     out = all_traces.str();
+     out.resize(MAX(out.size() - 2, 0));
+-#else
+-    out = "No stack trace: no open_memstream() support. "
+-          "See https://bugzilla.mozilla.org/show_bug.cgi?id=1826290";
+-#endif
+ 
+     return out;
+ }
+diff --git a/meson.build b/meson.build
+index 1731f686f..e8521bb6d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -330,9 +330,6 @@ header_conf.set('HAVE_DTRACE', get_option('dtrace'),
+     description: 'Using dtrace probes')
+ header_conf.set('HAVE_PRINTF_ALTERNATIVE_INT', have_printf_alternative_int,
+     description: 'printf() accepts "%Id" for alternative integer output')
+-header_conf.set('HAVE_OPEN_MEMSTREAM',
+-    cxx.has_function('open_memstream', prefix : '#include <stdio.h>'),
+-    description: 'open_memstream() is available')
+ if build_readline
+     header_conf.set('HAVE_READLINE_READLINE_H',
+         cxx.check_header('readline/readline.h', prefix: '#include <cstdio>',
+-- 
+GitLab
+
+
+From 0dcee08f624893ac47a5dcd2db4cf49637dce7d2 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 6 Aug 2023 14:29:19 +0200
+Subject: [PATCH 04/11] function: Make GI Function prototype a plain object
+
+The prototype object of GI functions does not need to have the same exotic
+JSClass behaviour as the instances. SpiderMonkey used to do this with
+JS_InitClass(), but does not do it anymore.
+---
+ gi/function.cpp | 20 +++-----------------
+ 1 file changed, 3 insertions(+), 17 deletions(-)
+
+diff --git a/gi/function.cpp b/gi/function.cpp
+index c9ff4b702..70968c9e0 100644
+--- a/gi/function.cpp
++++ b/gi/function.cpp
+@@ -30,7 +30,6 @@
+ #include <js/PropertySpec.h>
+ #include <js/Realm.h>  // for GetRealmFunctionPrototype
+ #include <js/RootingAPI.h>
+-#include <js/String.h>
+ #include <js/TypeDecls.h>
+ #include <js/Value.h>
+ #include <js/ValueArray.h>
+@@ -132,8 +131,7 @@ class Function : public CWrapper<Function> {
+     static JSObject* inherit_builtin_function(JSContext* cx, JSProtoKey) {
+         JS::RootedObject builtin_function_proto(
+             cx, JS::GetRealmFunctionPrototype(cx));
+-        return JS_NewObjectWithGivenProto(cx, &Function::klass,
+-                                          builtin_function_proto);
++        return JS_NewObjectWithGivenProto(cx, nullptr, builtin_function_proto);
+     }
+ 
+     static const JSClassOps class_ops;
+@@ -1234,9 +1232,7 @@ bool Function::call(JSContext* context, unsigned js_argc, JS::Value* vp) {
+     gjs_debug_marshal(GJS_DEBUG_GFUNCTION, "Call callee %p priv %p",
+                       callee.get(), priv);
+ 
+-    if (priv == NULL)
+-        return true;  // we are the prototype
+-
++    g_assert(priv);
+     return priv->invoke(context, js_argv);
+ }
+ 
+@@ -1246,8 +1242,7 @@ Function::~Function() {
+ }
+ 
+ void Function::finalize_impl(JS::GCContext*, Function* priv) {
+-    if (priv == NULL)
+-        return; /* we are the prototype, not a real instance, so constructor never called */
++    g_assert(priv);
+     delete priv;
+ }
+ 
+@@ -1262,15 +1257,6 @@ bool Function::get_length(JSContext* cx, unsigned argc, JS::Value* vp) {
+ 
+ bool Function::to_string(JSContext* context, unsigned argc, JS::Value* vp) {
+     GJS_CHECK_WRAPPER_PRIV(context, argc, vp, rec, this_obj, Function, priv);
+-
+-    if (priv == NULL) {
+-        JSString* retval = JS_NewStringCopyZ(context, "function () {\n}");
+-        if (!retval)
+-            return false;
+-        rec.rval().setString(retval);
+-        return true;
+-    }
+-
+     return priv->to_string_impl(context, rec.rval());
+ }
+ 
+-- 
+GitLab
+
+
+From 625f89aa65b8ab7d5b5d5e399d13ddc18df54074 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 6 Aug 2023 14:59:04 +0200
+Subject: [PATCH 05/11] boxed: Fix outdated comment
+
+This comment was written before we always had to allocate 1 reserved slot
+for the private struct. Now it could be confusing because we are
+allocating 2 reserved slots.
+---
+ gi/boxed.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gi/boxed.cpp b/gi/boxed.cpp
+index ee2ed0377..31319a401 100644
+--- a/gi/boxed.cpp
++++ b/gi/boxed.cpp
+@@ -768,7 +768,7 @@ const struct JSClassOps BoxedBase::class_ops = {
+     &BoxedBase::trace
+ };
+ 
+-/* We allocate 1 reserved slot; this is typically unused, but if the
++/* We allocate 1 extra reserved slot; this is typically unused, but if the
+  * boxed is for a nested structure inside a parent structure, the
+  * reserved slot is used to hold onto the parent Javascript object and
+  * make sure it doesn't get freed.
+-- 
+GitLab
+
+
+From d6fc780d44e60d70924bbe0f8442ea40270fe116 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 6 Aug 2023 16:13:20 +0200
+Subject: [PATCH 06/11] context: Register native legacy modules all in one
+ place
+
+This was split into two different functions for what are probably
+historical reasons. Keep it all in the same place instead.
+
+Also removes a variable that was global for no reason.
+---
+ cjs/context.cpp     | 18 +++++++++++++-----
+ meson.build         |  1 -
+ modules/modules.cpp | 25 -------------------------
+ modules/modules.h   | 10 ----------
+ 4 files changed, 13 insertions(+), 41 deletions(-)
+ delete mode 100644 modules/modules.cpp
+ delete mode 100644 modules/modules.h
+
+diff --git a/cjs/context.cpp b/cjs/context.cpp
+index f69957a12..a5316b4f8 100644
+--- a/cjs/context.cpp
++++ b/cjs/context.cpp
+@@ -93,8 +93,13 @@
+ #include "cjs/profiler.h"
+ #include "cjs/promise.h"
+ #include "cjs/text-encoding.h"
+-#include "modules/modules.h"
++#include "modules/console.h"
++#include "modules/print.h"
++#include "modules/system.h"
+ #include "util/log.h"
++#ifdef ENABLE_CAIRO
++#    include "modules/cairo-module.h"
++#endif
+ 
+ namespace mozilla {
+ union Utf8Unit;
+@@ -127,8 +132,6 @@ struct _GjsContext {
+ 
+ G_DEFINE_TYPE_WITH_PRIVATE(GjsContext, gjs_context, G_TYPE_OBJECT);
+ 
+-Gjs::NativeModuleRegistry& registry = Gjs::NativeModuleRegistry::get();
+-
+ GjsContextPrivate* GjsContextPrivate::from_object(GObject* js_context) {
+     g_return_val_if_fail(GJS_IS_CONTEXT(js_context), nullptr);
+     return static_cast<GjsContextPrivate*>(
+@@ -336,13 +339,18 @@ gjs_context_class_init(GjsContextClass *klass)
+ #endif
+         g_irepository_prepend_search_path(priv_typelib_dir);
+     }
++    Gjs::NativeModuleRegistry& registry = Gjs::NativeModuleRegistry::get();
+     registry.add("_promiseNative", gjs_define_native_promise_stuff);
+     registry.add("_byteArrayNative", gjs_define_byte_array_stuff);
+     registry.add("_encodingNative", gjs_define_text_encoding_stuff);
+     registry.add("_gi", gjs_define_private_gi_stuff);
+     registry.add("gi", gjs_define_repo);
+-
+-    gjs_register_static_modules();
++#ifdef ENABLE_CAIRO
++    registry.add("cairoNative", gjs_js_define_cairo_stuff);
++#endif
++    registry.add("system", gjs_js_define_system_stuff);
++    registry.add("console", gjs_define_console_stuff);
++    registry.add("_print", gjs_define_print_stuff);
+ }
+ 
+ void GjsContextPrivate::trace(JSTracer* trc, void* data) {
+diff --git a/meson.build b/meson.build
+index e8521bb6d..09490bf04 100644
+--- a/meson.build
++++ b/meson.build
+@@ -442,7 +442,6 @@ libgjs_sources = [
+     'cjs/promise.cpp', 'cjs/promise.h',
+     'cjs/stack.cpp',
+     'modules/console.cpp', 'modules/console.h',
+-    'modules/modules.cpp', 'modules/modules.h',
+     'modules/print.cpp', 'modules/print.h',
+     'modules/system.cpp', 'modules/system.h',
+ ]
+diff --git a/modules/modules.cpp b/modules/modules.cpp
+deleted file mode 100644
+index 987aa51fb..000000000
+--- a/modules/modules.cpp
++++ /dev/null
+@@ -1,25 +0,0 @@
+-/* -*- mode: C++; c-basic-offset: 4; indent-tabs-mode: nil; -*- */
+-// SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+-// SPDX-FileCopyrightText: 2013 Red Hat, Inc.
+-
+-#include <config.h>  // for ENABLE_CAIRO
+-
+-#include "cjs/native.h"
+-#include "modules/console.h"
+-#include "modules/modules.h"
+-#include "modules/print.h"
+-#include "modules/system.h"
+-
+-#ifdef ENABLE_CAIRO
+-#    include "modules/cairo-module.h"
+-#endif
+-
+-void gjs_register_static_modules(void) {
+-    Gjs::NativeModuleRegistry& registry = Gjs::NativeModuleRegistry::get();
+-#ifdef ENABLE_CAIRO
+-    registry.add("cairoNative", gjs_js_define_cairo_stuff);
+-#endif
+-    registry.add("system", gjs_js_define_system_stuff);
+-    registry.add("console", gjs_define_console_stuff);
+-    registry.add("_print", gjs_define_print_stuff);
+-}
+diff --git a/modules/modules.h b/modules/modules.h
+deleted file mode 100644
+index bb2a38e9a..000000000
+--- a/modules/modules.h
++++ /dev/null
+@@ -1,10 +0,0 @@
+-/* -*- mode: C++; c-basic-offset: 4; indent-tabs-mode: nil; -*- */
+-// SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+-// SPDX-FileCopyrightText: 2013 Red Hat, Inc.
+-
+-#ifndef MODULES_MODULES_H_
+-#define MODULES_MODULES_H_
+-
+-void gjs_register_static_modules (void);
+-
+-#endif  // MODULES_MODULES_H_
+-- 
+GitLab
+
+
+From 931bfd6c2f95a6441be64cefd1c6eead463cf8b6 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 6 Aug 2023 16:35:03 +0200
+Subject: [PATCH 07/11] native: Remove confusing 'parse name' terminology
+
+For native legacy modules, there is no parse name - they are just defined
+with an ID. Reflect this in the argument names.
+---
+ cjs/importer.cpp | 23 +++++++++--------------
+ cjs/native.cpp   | 14 +++++---------
+ 2 files changed, 14 insertions(+), 23 deletions(-)
+
+diff --git a/cjs/importer.cpp b/cjs/importer.cpp
+index 4c30b88b4..99e75d036 100644
+--- a/cjs/importer.cpp
++++ b/cjs/importer.cpp
+@@ -265,26 +265,21 @@ cancel_import(JSContext       *context,
+  * gjs_import_native_module:
+  * @cx: the #JSContext
+  * @importer: the root importer
+- * @parse_name: Name under which the module was registered with
+- *  add(), should be in the format as returned by
+- *  g_file_get_parse_name()
++ * @id_str: Name under which the module was registered with add()
+  *
+  * Imports a builtin native-code module so that it is available to JS code as
+- * `imports[parse_name]`.
++ * `imports[id_str]`.
+  *
+  * Returns: true on success, false if an exception was thrown.
+  */
+-bool
+-gjs_import_native_module(JSContext       *cx,
+-                         JS::HandleObject importer,
+-                         const char      *parse_name)
+-{
+-    gjs_debug(GJS_DEBUG_IMPORTER, "Importing '%s'", parse_name);
++bool gjs_import_native_module(JSContext* cx, JS::HandleObject importer,
++                              const char* id_str) {
++    gjs_debug(GJS_DEBUG_IMPORTER, "Importing '%s'", id_str);
+ 
+     JS::RootedObject native_registry(
+         cx, gjs_get_native_registry(JS::CurrentGlobalOrNull(cx)));
+ 
+-    JS::RootedId id(cx, gjs_intern_string_to_id(cx, parse_name));
++    JS::RootedId id(cx, gjs_intern_string_to_id(cx, id_str));
+     if (id.isVoid())
+         return false;
+ 
+@@ -293,12 +288,12 @@ gjs_import_native_module(JSContext       *cx,
+         return false;
+ 
+     if (!module &&
+-        (!Gjs::NativeModuleRegistry::get().load(cx, parse_name, &module) ||
++        (!Gjs::NativeModuleRegistry::get().load(cx, id_str, &module) ||
+          !gjs_global_registry_set(cx, native_registry, id, module)))
+         return false;
+ 
+-    return define_meta_properties(cx, module, nullptr, parse_name, importer) &&
+-           JS_DefineProperty(cx, importer, parse_name, module,
++    return define_meta_properties(cx, module, nullptr, id_str, importer) &&
++           JS_DefineProperty(cx, importer, id_str, module,
+                              GJS_MODULE_PROP_FLAGS);
+ }
+ 
+diff --git a/cjs/native.cpp b/cjs/native.cpp
+index d62302321..f3f518ea2 100644
+--- a/cjs/native.cpp
++++ b/cjs/native.cpp
+@@ -48,25 +48,21 @@ bool Gjs::NativeModuleRegistry::is_registered(const char* name) const {
+ /**
+  * gjs_load:
+  * @context: the #JSContext
+- * @parse_name: Name under which the module was registered with
+- *  add(), should be in the format as returned by
+- *  g_file_get_parse_name()
++ * @id: Name under which the module was registered with add()
+  * @module_out: Return location for a #JSObject
+  *
+  * Loads a builtin native-code module called @name into @module_out.
+  *
+  * Returns: true on success, false if an exception was thrown.
+  */
+-bool Gjs::NativeModuleRegistry::load(JSContext* context, const char* parse_name,
++bool Gjs::NativeModuleRegistry::load(JSContext* context, const char* id,
+                                      JS::MutableHandleObject module_out) {
+-    gjs_debug(GJS_DEBUG_NATIVE, "Defining native module '%s'", parse_name);
++    gjs_debug(GJS_DEBUG_NATIVE, "Defining native module '%s'", id);
+ 
+-    const auto& iter = m_modules.find(parse_name);
++    const auto& iter = m_modules.find(id);
+ 
+     if (iter == m_modules.end()) {
+-        gjs_throw(context,
+-                  "No native module '%s' has registered itself",
+-                  parse_name);
++        gjs_throw(context, "No native module '%s' has registered itself", id);
+         return false;
+     }
+ 
+-- 
+GitLab
+
+
+From 822f1ad430a6821a16374e2ed0a372f66062d152 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 6 Aug 2023 16:42:16 +0200
+Subject: [PATCH 08/11] =?UTF-8?q?native:=20Rename=20NativeModuleRegistry?=
+ =?UTF-8?q?=20=E2=86=92=20NativeModuleDefineFuncs?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+We have another object elsewhere called "native module registry" which is
+confusing. This one doesn't actually keep the module objects, it stores a
+pointer to a function which will define all the module's properties on an
+object. So, call it NativeModuleDefineFuncs and rename its load() method
+to define().
+---
+ cjs/context.cpp  |  2 +-
+ cjs/global.cpp   |  4 ++--
+ cjs/importer.cpp |  4 ++--
+ cjs/module.cpp   |  3 ++-
+ cjs/native.cpp   | 15 ++++++++-------
+ cjs/native.h     | 12 ++++++------
+ 6 files changed, 21 insertions(+), 19 deletions(-)
+
+diff --git a/cjs/context.cpp b/cjs/context.cpp
+index a5316b4f8..b1440d4f1 100644
+--- a/cjs/context.cpp
++++ b/cjs/context.cpp
+@@ -339,7 +339,7 @@ gjs_context_class_init(GjsContextClass *klass)
+ #endif
+         g_irepository_prepend_search_path(priv_typelib_dir);
+     }
+-    Gjs::NativeModuleRegistry& registry = Gjs::NativeModuleRegistry::get();
++    auto& registry = Gjs::NativeModuleDefineFuncs::get();
+     registry.add("_promiseNative", gjs_define_native_promise_stuff);
+     registry.add("_byteArrayNative", gjs_define_byte_array_stuff);
+     registry.add("_encodingNative", gjs_define_text_encoding_stuff);
+diff --git a/cjs/global.cpp b/cjs/global.cpp
+index 3ff45336b..3545b9664 100644
+--- a/cjs/global.cpp
++++ b/cjs/global.cpp
+@@ -132,8 +132,8 @@ class GjsBaseGlobal {
+ 
+         JS::RootedObject native_obj(m_cx);
+ 
+-        if (!Gjs::NativeModuleRegistry::get().load(m_cx, id.get(),
+-                                                   &native_obj)) {
++        if (!Gjs::NativeModuleDefineFuncs::get().define(m_cx, id.get(),
++                                                        &native_obj)) {
+             gjs_throw(m_cx, "Failed to load native module: %s", id.get());
+             return false;
+         }
+diff --git a/cjs/importer.cpp b/cjs/importer.cpp
+index 99e75d036..320208145 100644
+--- a/cjs/importer.cpp
++++ b/cjs/importer.cpp
+@@ -288,7 +288,7 @@ bool gjs_import_native_module(JSContext* cx, JS::HandleObject importer,
+         return false;
+ 
+     if (!module &&
+-        (!Gjs::NativeModuleRegistry::get().load(cx, id_str, &module) ||
++        (!Gjs::NativeModuleDefineFuncs::get().define(cx, id_str, &module) ||
+          !gjs_global_registry_set(cx, native_registry, id, module)))
+         return false;
+ 
+@@ -491,7 +491,7 @@ static bool do_import(JSContext* context, JS::HandleObject obj,
+ 
+     /* First try importing an internal module like gi */
+     if (parent.isNull() &&
+-        Gjs::NativeModuleRegistry::get().is_registered(name.get())) {
++        Gjs::NativeModuleDefineFuncs::get().is_registered(name.get())) {
+         if (!gjs_import_native_module(context, obj, name.get()))
+             return false;
+ 
+diff --git a/cjs/module.cpp b/cjs/module.cpp
+index 17eed36b3..f66bb1536 100644
+--- a/cjs/module.cpp
++++ b/cjs/module.cpp
+@@ -438,7 +438,8 @@ static bool import_native_module_sync(JSContext* cx, unsigned argc,
+     }
+ 
+     JS::RootedObject native_obj(cx);
+-    if (!Gjs::NativeModuleRegistry::get().load(cx, id.get(), &native_obj)) {
++    if (!Gjs::NativeModuleDefineFuncs::get().define(cx, id.get(),
++                                                    &native_obj)) {
+         gjs_throw(cx, "Failed to load native module: %s", id.get());
+         return false;
+     }
+diff --git a/cjs/native.cpp b/cjs/native.cpp
+index f3f518ea2..716f70f85 100644
+--- a/cjs/native.cpp
++++ b/cjs/native.cpp
+@@ -18,8 +18,8 @@
+ #include "cjs/native.h"
+ #include "util/log.h"
+ 
+-void Gjs::NativeModuleRegistry::add(const char* module_id,
+-                                    GjsDefineModuleFunc func) {
++void Gjs::NativeModuleDefineFuncs::add(const char* module_id,
++                                       GjsDefineModuleFunc func) {
+     bool inserted;
+     std::tie(std::ignore, inserted) = m_modules.insert({module_id, func});
+     if (!inserted) {
+@@ -41,22 +41,23 @@ void Gjs::NativeModuleRegistry::add(const char* module_id,
+  * been registered. This is used to check to see if a name is a
+  * builtin module without starting to try and load it.
+  */
+-bool Gjs::NativeModuleRegistry::is_registered(const char* name) const {
++bool Gjs::NativeModuleDefineFuncs::is_registered(const char* name) const {
+     return m_modules.count(name) > 0;
+ }
+ 
+ /**
+- * gjs_load:
++ * define:
+  * @context: the #JSContext
+  * @id: Name under which the module was registered with add()
+  * @module_out: Return location for a #JSObject
+  *
+- * Loads a builtin native-code module called @name into @module_out.
++ * Loads a builtin native-code module called @name into @module_out by calling
++ * the function to define it.
+  *
+  * Returns: true on success, false if an exception was thrown.
+  */
+-bool Gjs::NativeModuleRegistry::load(JSContext* context, const char* id,
+-                                     JS::MutableHandleObject module_out) {
++bool Gjs::NativeModuleDefineFuncs::define(JSContext* context, const char* id,
++                                          JS::MutableHandleObject module_out) {
+     gjs_debug(GJS_DEBUG_NATIVE, "Defining native module '%s'", id);
+ 
+     const auto& iter = m_modules.find(id);
+diff --git a/cjs/native.h b/cjs/native.h
+index 8943547f2..d437133e6 100644
+--- a/cjs/native.h
++++ b/cjs/native.h
+@@ -15,16 +15,16 @@
+ #include "cjs/macros.h"
+ 
+ namespace Gjs {
+-class NativeModuleRegistry {
+-    NativeModuleRegistry() {}
++class NativeModuleDefineFuncs {
++    NativeModuleDefineFuncs() {}
+     typedef bool (*GjsDefineModuleFunc)(JSContext* context,
+                                         JS::MutableHandleObject module_out);
+ 
+     std::unordered_map<std::string, GjsDefineModuleFunc> m_modules;
+ 
+  public:
+-    static NativeModuleRegistry& get() {
+-        static NativeModuleRegistry the_singleton;
++    static NativeModuleDefineFuncs& get() {
++        static NativeModuleDefineFuncs the_singleton;
+         return the_singleton;
+     }
+ 
+@@ -36,8 +36,8 @@ class NativeModuleRegistry {
+ 
+     /* called by importer.cpp to load a statically linked native module */
+     GJS_JSAPI_RETURN_CONVENTION
+-    bool load(JSContext* cx, const char* name,
+-              JS::MutableHandleObject module_out);
++    bool define(JSContext* cx, const char* name,
++                JS::MutableHandleObject module_out);
+ };
+ };  // namespace Gjs
+ 
+-- 
+GitLab
+
+
+From 87c03ad858185219741b7ee7fa9a5132f64902c1 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 6 Aug 2023 16:42:48 +0200
+Subject: [PATCH 09/11] native: Fix outdated comments
+
+---
+ cjs/native.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cjs/native.h b/cjs/native.h
+index d437133e6..fe3d082c8 100644
+--- a/cjs/native.h
++++ b/cjs/native.h
+@@ -31,10 +31,10 @@ class NativeModuleDefineFuncs {
+     /* called on context init */
+     void add(const char* module_id, GjsDefineModuleFunc func);
+ 
+-    /* called by importer.c to to check for already loaded modules */
++    // called by importer.cpp to to check for already loaded modules
+     [[nodiscard]] bool is_registered(const char* name) const;
+ 
+-    /* called by importer.cpp to load a statically linked native module */
++    // called by importer.cpp to load a built-in native module
+     GJS_JSAPI_RETURN_CONVENTION
+     bool define(JSContext* cx, const char* name,
+                 JS::MutableHandleObject module_out);
+-- 
+GitLab
+
+
+From 6cc35ee96cb11eb5a6fa82279bc794553ca092e8 Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Sun, 6 Aug 2023 16:43:59 +0200
+Subject: [PATCH 10/11] native: Make define() const
+
+It doesn't modify the registry, so it can be const.
+---
+ cjs/native.cpp | 5 +++--
+ cjs/native.h   | 2 +-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/cjs/native.cpp b/cjs/native.cpp
+index 716f70f85..a2ae46a74 100644
+--- a/cjs/native.cpp
++++ b/cjs/native.cpp
+@@ -56,8 +56,9 @@ bool Gjs::NativeModuleDefineFuncs::is_registered(const char* name) const {
+  *
+  * Returns: true on success, false if an exception was thrown.
+  */
+-bool Gjs::NativeModuleDefineFuncs::define(JSContext* context, const char* id,
+-                                          JS::MutableHandleObject module_out) {
++bool Gjs::NativeModuleDefineFuncs::define(
++    JSContext* context, const char* id,
++    JS::MutableHandleObject module_out) const {
+     gjs_debug(GJS_DEBUG_NATIVE, "Defining native module '%s'", id);
+ 
+     const auto& iter = m_modules.find(id);
+diff --git a/cjs/native.h b/cjs/native.h
+index fe3d082c8..5b7c1535f 100644
+--- a/cjs/native.h
++++ b/cjs/native.h
+@@ -37,7 +37,7 @@ class NativeModuleDefineFuncs {
+     // called by importer.cpp to load a built-in native module
+     GJS_JSAPI_RETURN_CONVENTION
+     bool define(JSContext* cx, const char* name,
+-                JS::MutableHandleObject module_out);
++                JS::MutableHandleObject module_out) const;
+ };
+ };  // namespace Gjs
+ 
+-- 
+GitLab
+
+
+From 8872b6a1d1d5ea523d79ab1b7a09278aa3f5684d Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Tue, 8 Aug 2023 18:49:46 +0200
+Subject: [PATCH 11/11] maint: Bump node modules with CVEs
+
+word-wrap v1.2.3 needed to be upgraded to 1.2.4 or later. Done with
+`npm audit fix`.
+---
+ tools/package-lock.json | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/tools/package-lock.json b/tools/package-lock.json
+index f812d4a2f..0d0d7fb43 100644
+--- a/tools/package-lock.json
++++ b/tools/package-lock.json
+@@ -1045,9 +1045,9 @@
+       }
+     },
+     "node_modules/semver": {
+-      "version": "7.3.8",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.3.8.tgz",
+-      "integrity": "sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==",
++      "version": "7.5.4",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz",
++      "integrity": "sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==",
+       "dev": true,
+       "dependencies": {
+         "lru-cache": "^6.0.0"
+@@ -1193,9 +1193,9 @@
+       }
+     },
+     "node_modules/word-wrap": {
+-      "version": "1.2.3",
+-      "resolved": "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.3.tgz",
+-      "integrity": "sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==",
++      "version": "1.2.5",
++      "resolved": "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.5.tgz",
++      "integrity": "sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==",
+       "dev": true,
+       "engines": {
+         "node": ">=0.10.0"
+@@ -1974,9 +1974,9 @@
+       }
+     },
+     "semver": {
+-      "version": "7.3.8",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.3.8.tgz",
+-      "integrity": "sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==",
++      "version": "7.5.4",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz",
++      "integrity": "sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==",
+       "dev": true,
+       "requires": {
+         "lru-cache": "^6.0.0"
+@@ -2083,9 +2083,9 @@
+       }
+     },
+     "word-wrap": {
+-      "version": "1.2.3",
+-      "resolved": "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.3.tgz",
+-      "integrity": "sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==",
++      "version": "1.2.5",
++      "resolved": "https://registry.npmjs.org/word-wrap/-/word-wrap-1.2.5.tgz",
++      "integrity": "sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==",
+       "dev": true
+     },
+     "wrappy": {
+-- 
+GitLab
+
