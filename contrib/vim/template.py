@@ -1,5 +1,5 @@
 pkgname = "vim"
-pkgver = "9.1.0689"
+pkgver = "9.1.0697"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "480331301e72cf2841da0ee2c228bba2b0208e763450465d9fd32dc0e7528fd3"
+sha256 = "7bd36aa7120cbd003cfa07295dface39054c08893a4578a3307b1a226a27539d"
 tool_flags = {"CFLAGS": ['-DSYS_VIMRC_FILE="/etc/vim/vimrc"']}
 hardening = ["vis", "!cfi"]
 # require a million system-specific fixes
