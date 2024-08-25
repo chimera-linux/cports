@@ -1,0 +1,29 @@
+diff -ru a/setup.py b/setup.py
+--- a/setup.py	2024-01-07 02:49:15.000000000 +0800
++++ b/setup.py	2024-08-26 04:17:25.495660652 +0800
+@@ -29,14 +29,14 @@
+ elif platform.system() == 'Darwin':
+     extra_compile_args = FLAGS_CLANG + MACOS_FLAG
+     extra_link_args = LFLAGS_CLANG + MACOS_FLAG
+-elif platform.system() in {'FreeBSD', 'OpenBSD'}:
++elif True:
+     extra_compile_args = FLAGS_CLANG
+     extra_link_args = LFLAGS_CLANG
+ else:
+     extra_compile_args = FLAGS_POSIX
+     extra_link_args = LFLAGS_POSIX
+ 
+-if platform.system() in {'Darwin', 'FreeBSD', 'OpenBSD'}:
++if True:
+     os.environ.setdefault('CC', 'clang')
+     os.environ.setdefault('CXX', 'clang++')
+     orig_customize_compiler = distutils.sysconfig.customize_compiler
+@@ -115,7 +115,7 @@
+         if get_build_version() < 14.0:
+             msvc9compiler.get_build_version = lambda: 14.0
+             msvc9compiler.VERSION = 14.0
+-    elif platform.system() in {'Darwin', 'FreeBSD', 'OpenBSD'}:
++    elif True:
+         # Dirty workaround to avoid link error...
+         # Python distutils doesn't provide any way
+         # to configure different flags for each cc and c++.
