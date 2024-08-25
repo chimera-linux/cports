@@ -1,6 +1,6 @@
 pkgname = "xfce4"
 pkgver = "4.18"
-pkgrel = 4
+pkgrel = 5
 build_style = "meta"
 depends = [
     "gvfs",
@@ -78,6 +78,7 @@ def _(self):
         "xfce4-timer-plugin",
         "xfce4-verve-plugin",
         "xfce4-wavelan-plugin",
+        "xfce4-weather-plugin",
         "xfce4-whiskermenu-plugin",
         "xfce4-windowck-plugin",
         "xfce4-xkb-plugin",
