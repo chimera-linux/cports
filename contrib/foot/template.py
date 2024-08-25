@@ -1,6 +1,6 @@
 pkgname = "foot"
 pkgver = "1.18.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dterminfo-base-name=foot-extra"]
 hostmakedepends = [
@@ -37,6 +37,7 @@ def post_install(self):
         f"usr/share/licenses/{pkgname}/LICENSE",
         relative=False,
     )
+    self.install_service(self.files_path / "foot.user")
 
 
 @subpackage("foot-terminfo")
