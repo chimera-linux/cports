@@ -1,0 +1,10 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -87,7 +87,6 @@
+   -Wdate-time \
+   -Wnested-externs \
+   -Wconversion \
+-  -Werror \
+ ])
+ # To enable:
+ #
