@@ -1,0 +1,13 @@
+passes args not in bsdtar
+--
+--- a/shared/archive/archive.go
++++ b/shared/archive/archive.go
+@@ -140,7 +140,7 @@ func Unpack(file string, path string, blockBackend bool, maxMemory int64, tracke
+ 	var allowedCmds []string
+ 	var reader io.Reader
+ 	if strings.HasPrefix(extension, ".tar") {
+-		command = "tar"
++		command = "gtar"
+ 		// We can't create char/block devices in unpriv containers so avoid extracting them.
+ 		args = append(args, "--anchored")
+ 		args = append(args, "--wildcards")
