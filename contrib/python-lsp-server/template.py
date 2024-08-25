@@ -1,5 +1,5 @@
 pkgname = "python-lsp-server"
-pkgver = "1.11.0"
+pkgver = "1.12.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -23,8 +23,8 @@ pkgdesc = "Python LSP server"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/python-lsp/python-lsp-server"
-source = f"$(PYPI_SITE)/p/python-lsp-server/python-lsp-server-{pkgver}.tar.gz"
-sha256 = "89edd6fb3f7852e4bf5a3d1d95ea41484d1a28fa94b6e3cbff12b9db123b8e86"
+source = f"$(PYPI_SITE)/p/python-lsp-server/python_lsp_server-{pkgver}.tar.gz"
+sha256 = "b6a336f128da03bd9bac1e61c3acca6e84242b8b31055a1ccf49d83df9dc053b"
 
 
 def init_check(self):
