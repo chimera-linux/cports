@@ -1,6 +1,6 @@
 pkgname = "merkuro"
 pkgver = "24.08.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
 make_check_wrapper = ["wlheadless-run", "--"]
