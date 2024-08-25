@@ -2,13 +2,8 @@ pkgname = "tiramisu"
 pkgver = "2.0.20240610"
 pkgrel = 0
 build_style = "makefile"
-hostmakedepends = [
-    "pkgconf",
-    "vala",
-]
-makedepends = [
-    "glib-devel",
-]
+hostmakedepends = ["pkgconf", "vala"]
+makedepends = ["glib-devel"]
 pkgdesc = "Notification daemon that writes notifications to stdout"
 maintainer = "leath-dub <fierceinbattle@gmail.com>"
 license = "MIT"
