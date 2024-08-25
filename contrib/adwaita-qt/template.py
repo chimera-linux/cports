@@ -11,8 +11,6 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/FedoraQt/adwaita-qt"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "cd5fd71c46271d70c08ad44562e57c34e787d6a8650071db115910999a335ba8"
-# no tests
-options = ["!check"]
 
 
 @subpackage("adwaita-qt-devel")

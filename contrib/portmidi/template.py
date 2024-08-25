@@ -20,8 +20,6 @@ source = (
 sha256 = "64893e823ae146cabd3ad7f9a9a9c5332746abe7847c557b99b2577afa8a607c"
 # vis breaks symbols
 hardening = []
-# no tests
-options = ["!check"]
 
 
 def post_install(self):

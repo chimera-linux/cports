@@ -28,8 +28,6 @@ source = f"{url}/archive/refs/tags/intel-media-{pkgver}.tar.gz"
 sha256 = "98702b946edb24454a3b780f8dd5b3091c6c795478467c1c00fe4d16c4371291"
 # INT: crashes during certain vaapi decode (twitch.tv?)
 hardening = ["vis", "!cfi", "!int"]
-# no tests
-options = ["!check"]
 
 
 def post_install(self):

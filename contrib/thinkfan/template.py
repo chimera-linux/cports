@@ -11,8 +11,6 @@ url = "https://github.com/vmatare/thinkfan"
 source = f"https://github.com/vmatare/thinkfan/archive/{pkgver}.tar.gz"
 sha256 = "9466c8c82b7c4333b280fa66445ab26185ffbb4aada6bcb4a164eed742f8d78c"
 hardening = ["vis"]
-# no tests
-options = ["!check"]
 
 
 def post_install(self):

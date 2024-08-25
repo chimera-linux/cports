@@ -69,8 +69,6 @@ license = "GPL-3.0-or-later"
 url = "https://www.darktable.org"
 source = f"https://github.com/darktable-org/darktable/releases/download/release-{pkgver}/darktable-{pkgver}.tar.xz"
 sha256 = "901b0e2caed36fb8619fdf4c60edfb8d31134b947d3054b5c66fd55c38af5991"
-# no tests in release tarball
-options = ["!check"]
 
 # with lto: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6')
 # without lto: ICE: fatal error: error in backend: Cannot select: 0x3fff9b420de0: ...

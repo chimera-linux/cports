@@ -30,8 +30,6 @@ tool_flags = {
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
     "CXXFLAGS": ["-I/usr/include/bpf/uapi"],
 }
-# no tests
-options = ["!check"]
 
 
 @subpackage("pahole-devel")

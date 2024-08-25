@@ -11,8 +11,6 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "260107caf318650a57a8caa593550e39bca6943e93f970c80d6c17e59d62cd92"
 # vis breaks symbols
 hardening = ["!vis"]
-# no tests
-options = ["!check"]
 
 
 def post_install(self):

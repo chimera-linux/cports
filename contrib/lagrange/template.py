@@ -32,8 +32,6 @@ url = "https://gmi.skyjake.fi/lagrange"
 source = f"https://github.com/skyjake/lagrange/releases/download/v{pkgver}/lagrange-{pkgver}.tar.gz"
 sha256 = "b9d0982617fec495565ac9c09fb788a0be207d6fdf2324edc390e5cac8b1523b"
 hardening = ["vis", "!cfi"]
-# no tests
-options = ["!check"]
 
 
 def post_install(self):

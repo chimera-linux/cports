@@ -24,5 +24,3 @@ url = "https://github.com/tsujan/Kvantum"
 source = f"{url}/releases/download/V{pkgver}/Kvantum-{pkgver}.tar.xz"
 sha256 = "6d3ce7f535d7d08ffe59b04dd3f04a8ab83fe35024fe34cf56995b94f40d12a2"
 hardening = ["vis", "cfi"]
-# no tests
-options = ["!check"]

@@ -33,8 +33,7 @@ url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
 sha256 = "336814afb6b9bfb70b6e759e8b9f1073704ad03442d076194abefae24c9b556f"
 hardening = ["vis", "cfi"]
-# no tests
-options = ["!check", "brokenlinks"]
+options = ["brokenlinks"]
 
 
 def post_install(self):

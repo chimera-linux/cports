@@ -21,8 +21,6 @@ url = "https://github.com/ammen99/wf-recorder"
 source = f"{url}/releases/download/v{pkgver}/wf-recorder-{pkgver}.tar.xz"
 sha256 = "50b30569f9ecf4f6ba5ba76c422b7af652b4fbc7cae86c25e19ecbe669fca327"
 hardening = ["vis", "cfi"]
-# no tests
-options = ["!check"]
 
 
 def post_install(self):

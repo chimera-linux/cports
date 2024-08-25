@@ -18,8 +18,6 @@ license = "Apache-2.0"
 url = "https://github.com/luvit/luv"
 source = f"https://github.com/luvit/luv/releases/download/{_distver}/luv-{_distver}.tar.gz"
 sha256 = "2c3a1ddfebb4f6550293a40ee789f7122e97647eede51511f57203de48c03b7a"
-# no tests provided by upstream
-options = ["!check"]
 
 
 @subpackage("lua5.1-libluv-devel")

@@ -26,8 +26,6 @@ url = "https://codeberg.org/dnkl/fuzzel"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "5362175f301af3f27c23138ac339294ce33dff61720ffc7eb13e78ec56f60a8b"
 hardening = ["vis", "cfi"]
-# no tests
-options = ["!check"]
 
 
 def post_install(self):

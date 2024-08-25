@@ -15,5 +15,3 @@ license = "Zlib"
 url = "https://pwmt.org/projects/zathura-ps"
 source = f"{url}/download/zathura-ps-{pkgver}.tar.xz"
 sha256 = "07ca594f7277f9876d0038048418343ea2964028e93c90f9569eff36a8932e4a"
-# no tests defined
-options = ["!check"]

@@ -22,5 +22,3 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/artizirk/wdisplays"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "2df2c56db494c8450b1c7746b0ed2af11bf637fe2838f7412146fcc5cc1a2605"
-# no tests
-options = ["!check"]

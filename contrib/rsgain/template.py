@@ -24,8 +24,6 @@ license = "BSD-2-Clause"
 url = "https://github.com/complexlogic/rsgain"
 source = f"{url}/releases/download/v{pkgver}/rsgain-{pkgver}-source.tar.xz"
 sha256 = "4f701521fd270b60f536a12aeb64e09bb87f24c30d576231d2fda3b6cc8c697e"
-# no tests
-options = ["!check"]
 
 
 def post_install(self):
