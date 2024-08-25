@@ -128,6 +128,14 @@ things that are a public work in progress that may be tested but should not
 be packaged). Anything that is anyhow controversial must go here. In some cases,
 some templates may be moved into `contrib` later. Least stringent rules apply.
 
+If you are a new contributor, your templates should usually go in `user`.
+An exception for this is when the template is a dependency of something in
+a stricter category, or when a committer determines that it should go in
+a stricter category (particularly for software that is useful to many people
+and likely to be well tested). Trusted contributors active in the community
+for a longer time may submit theirs in `contrib`. Random leaf packages that
+contain shell scripts, themes, fonts, and so on should usually go in `user`.
+
 <a id="targets"></a>
 ## Targets and Tiers
 
