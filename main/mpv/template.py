@@ -1,6 +1,6 @@
 pkgname = "mpv"
 pkgver = "0.38.0"
-pkgrel = 6
+pkgrel = 7
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -22,6 +22,7 @@ configure_args = [
     "-Dmanpage-build=enabled",
     "-Dpipewire=enabled",
     "-Drubberband=enabled",
+    "-Dsixel=enabled",
     "-Duchardet=enabled",
     "-Dvapoursynth=enabled",
     "-Dvaapi=enabled",
@@ -55,6 +56,7 @@ makedepends = [
     "libcdio-paranoia-devel",
     "libdvdnav-devel",
     "libplacebo-devel",
+    "libsixel-devel",
     "libuuid-devel",
     "libva-devel",
     "libxinerama-devel",
