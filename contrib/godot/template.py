@@ -1,6 +1,6 @@
 pkgname = "godot"
 pkgver = "4.3"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "gettext",
     "pkgconf",
@@ -115,17 +115,19 @@ if self.profile().arch in ["aarch64", "x86_64"]:
 
 
 def do_build(self):
-    self.do(
-        "scons",
-        f"-j{self.make_jobs}",
-        *_scons_flags,
-        "cflags=" + self.get_cflags(shell=True),
-        "cxxflags=" + self.get_cxxflags(shell=True),
-        "linkflags=" + self.get_ldflags(shell=True),
-        env={
-            "BUILD_NAME": "chimera_linux",
-        },
-    )
+    for target in ["editor", "template_debug", "template_release"]:
+        self.do(
+            "scons",
+            f"-j{self.make_jobs}",
+            "target=" + target,
+            *_scons_flags,
+            "cflags=" + self.get_cflags(shell=True),
+            "cxxflags=" + self.get_cxxflags(shell=True),
+            "linkflags=" + self.get_ldflags(shell=True),
+            env={
+                "BUILD_NAME": "chimera_linux",
+            },
+        )
 
 
 def do_install(self):
@@ -151,3 +153,19 @@ def do_install(self):
     self.install_bin(
         f"bin/godot.linuxbsd.editor.{_godot_arch}.llvm", name="godot"
     )
+    # same naming as alpine
+    self.install_bin(
+        f"bin/godot.linuxbsd.template_debug.{_godot_arch}.llvm",
+        name="godot-template-debug",
+    )
+    self.install_bin(
+        f"bin/godot.linuxbsd.template_release.{_godot_arch}.llvm",
+        name="godot-template-release",
+    )
+
+
+@subpackage("godot-export-templates")
+def _(self):
+    self.subdesc = "export templates"
+
+    return ["usr/bin/godot-template-*"]
