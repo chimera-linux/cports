@@ -10,7 +10,7 @@ configure_args = [
     "-Dgbm=enabled",
     "-Dgles1=enabled",
     "-Dgles2=enabled",
-    "-Dglvnd=disabled",
+    "-Dglvnd=enabled",
     "-Dglx=dri",
     "-Dllvm=enabled",
     "-Dlmsensors=enabled",
@@ -55,6 +55,7 @@ makedepends = [
     "libarchive-devel",
     "libexpat-devel",
     "libffi-devel",
+    "libglvnd-devel",
     "libsensors-devel",
     "libxml2-devel",
     "lua5.4-devel",
@@ -277,42 +278,6 @@ def _(self):
     self.depends += [self.parent]
 
     return ["usr/lib/libOSMesa.so.*"]
-
-
-@subpackage("libgles1")
-def _(self):
-    self.pkgdesc = "Free implementation of OpenGL ES 1.x API"
-    self.subdesc = "runtime library"
-    self.depends += [self.parent]
-
-    return ["usr/lib/libGLESv1_CM.so.*"]
-
-
-@subpackage("libgles2")
-def _(self):
-    self.pkgdesc = "Free implementation of OpenGL ES 2.x API"
-    self.subdesc = "runtime library"
-    self.depends += [self.parent]
-
-    return ["usr/lib/libGLESv2.so.*"]
-
-
-@subpackage("libegl")
-def _(self):
-    self.pkgdesc = "Free implementation of the EGL API"
-    self.subdesc = "runtime library"
-    self.depends += [self.parent]
-
-    return ["usr/lib/libEGL.so.*"]
-
-
-@subpackage("libgl")
-def _(self):
-    self.pkgdesc = "Free implementation of the OpenGL API"
-    self.subdesc = "runtime library"
-    self.depends += [self.parent]
-
-    return ["usr/lib/libGL.so.*"]
 
 
 @subpackage("libxatracker", _have_vmware)
