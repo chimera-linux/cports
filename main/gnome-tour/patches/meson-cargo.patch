@@ -1,0 +1,29 @@
+diff --git a/src/meson.build b/src/meson.build
+index 7a5224c..d43fcd2 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -31,24 +31,17 @@ else
+   message('Building in debug mode')
+ endif
+ 
+-cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+-
+ cargo_build = custom_target(
+   'cargo-build',
+   build_by_default: true,
+   build_always_stale: true,
+   output: meson.project_name(),
+   console: true,
+-  install: true,
+   install_dir: bindir,
+   depends: resources,
+   command: [
+-    'env',
+-    cargo_env,
+     cargo, 'build',
+     cargo_options,
+-    '&&',
+-    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
+   ]
+ )
+ 
