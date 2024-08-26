@@ -1,7 +1,7 @@
 # update linux-lts-zfs-bin when bumping
 pkgname = "linux-lts"
 pkgver = "6.6.47"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
