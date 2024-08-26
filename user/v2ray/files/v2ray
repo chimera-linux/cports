@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/v2ray run -config /etc/v2ray/config.json
+depends-on = network.target
+depends-on = local.target
