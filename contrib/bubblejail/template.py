@@ -1,5 +1,5 @@
 pkgname = "bubblejail"
-pkgver = "0.9.0"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -27,4 +27,4 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/igo95862/bubblejail"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "58e77add41f16b4275e4e8ede9eff647cb90f2a3f8eadd177cf6e7ee81483b39"
+sha256 = "c12f518ce6a4256c89e532b4c62cdfaf66bf500f4ec7a2c626c7fdf0c3e472cc"
