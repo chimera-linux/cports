@@ -1,6 +1,6 @@
 pkgname = "gcompat"
 pkgver = "1.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = [
