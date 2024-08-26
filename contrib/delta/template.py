@@ -1,5 +1,5 @@
 pkgname = "delta"
-pkgver = "0.18.0"
+pkgver = "0.18.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -14,7 +14,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/dandavison/delta"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1cdd61373b34cd6d20a0184efc9e445939f743d92b2b89a83ec787b4cf93f5a4"
+sha256 = "ef558e0ee4c9a10046f2f8e2e59cf1bedbb18c2871306b772d3d9b8e3b242b9c"
 # generates completions with host binary
 options = ["!cross"]
 
