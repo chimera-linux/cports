@@ -1,0 +1,14 @@
+acos(2) can return -NaN
+
+diff -ruN a/test/parser.fnl b/test/parser.fnl
+--- a/test/parser.fnl	2024-08-25 03:34:54.000000000 +0200
++++ b/test/parser.fnl	2024-08-26 21:04:10.335300822 +0200
+@@ -49,8 +49,6 @@
+   (t.= "-.inf"
+        (fennel.view (fennel.eval "-.inf")))
+   (t.= ".nan"
+-       (fennel.view (fennel.eval "(math.acos 2)")))
+-  (t.= ".nan"
+        (fennel.view (fennel.eval ".nan")))
+   ;; ensure we consistently treat nan as symbol even on 5.1
+   (t.= :not-really (fennel.eval "(let [nan :not-really] nan)"))
