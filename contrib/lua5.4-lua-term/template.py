@@ -1,5 +1,5 @@
 pkgname = "lua5.4-lua-term"
-pkgver = "0.08"
+pkgver = "0.8"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["LUA_VER=5.4"]
@@ -11,7 +11,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/hoelzro/lua-term"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "8ff94f390ea9d98c734699373ca3b0ce500d651b2ab1cb8d7d2336fc5b79cded"
+sha256 = "0cb270be22dfc262beec2f4ffc66b878ccaf236f537d693fa36c8f578fc51aa6"
 # no tests
 options = ["!check"]
 
