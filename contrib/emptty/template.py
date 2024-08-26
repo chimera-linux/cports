@@ -1,6 +1,6 @@
 pkgname = "emptty"
-pkgver = "0.12.1"
-pkgrel = 2
+pkgver = "0.13.0"
+pkgrel = 0
 build_style = "go"
 make_env = {"CGO_ENABLED": "1"}
 hostmakedepends = ["go"]
@@ -10,7 +10,7 @@ maintainer = "Michal Tvrznik <emporeor@gmail.com>"
 license = "MIT"
 url = "https://github.com/tvrzna/emptty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0220230cdee3dedd7ccd6f2d81c57b29e2169159c8e28263d58abaf20093ce23"
+sha256 = "87e9e1ea10177043605912c4ff8019a4c0072c8cb704f6a0e5a38d5d3bf01053"
 
 
 def post_install(self):
