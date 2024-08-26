@@ -1,5 +1,5 @@
 pkgname = "fennel"
-pkgver = "1.5.0"
+pkgver = "1.5.1"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -10,7 +10,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://fennel-lang.org"
 source = f"https://git.sr.ht/~technomancy/fennel/archive/{pkgver}.tar.gz"
-sha256 = "96c8cb1ed78597dd3c58b969dda7273fda30bb707b337394fe806d285883b3c3"
+sha256 = "78c457c5e11dd78b5818f74fd49789acfed374e0a8d7a1f3ef71e166030b2905"
 
 
 def post_install(self):
