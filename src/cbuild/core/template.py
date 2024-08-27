@@ -2347,6 +2347,7 @@ def _split_dlinks(pkg):
 
 
 def _split_fishcomp(pkg):
+    # this is forbidden, but the linter catches it later in the fish path
     pkg.take("usr/share/fish/completions", missing_ok=True)
     pkg.take("usr/share/fish/vendor_completions.d", missing_ok=True)
 

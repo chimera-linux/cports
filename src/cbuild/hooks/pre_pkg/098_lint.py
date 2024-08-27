@@ -37,6 +37,52 @@ def _lint_license(pkg):
         pkg.error("license installation necessary but no license installed")
 
 
+def _lint_bashcomp(pkg):
+    for p in (pkg.destdir / "usr/share/bash-completion/completions").iterdir():
+        if not (pkg.parent.destdir / "usr/bin" / p.name).exists():
+            pkg.error(f"bash completion '{p.name}' has no matching command")
+
+
+def _lint_zshcomp(pkg):
+    for p in (pkg.destdir / "usr/share/zsh/site-functions").iterdir():
+        if not p.name.startswith("_"):
+            continue
+        if not (
+            pkg.parent.destdir / "usr/bin" / p.name.removeprefix("_")
+        ).exists():
+            pkg.error(f"zsh completion '{p.name}' has no matching command")
+
+
+def _lint_fishcomp(pkg):
+    if (pkg.destdir / "usr/share/fish/completions").exists():
+        pkg.error(
+            "fish completions need to go in usr/share/fish/vendor_completions.d, not usr/share/fish/completions"
+        )
+
+    for p in (pkg.destdir / "usr/share/fish/vendor_completions.d").iterdir():
+        if not (
+            pkg.parent.destdir / "usr/bin" / p.name.removesuffix(".fish")
+        ).exists():
+            pkg.error(f"fish completion '{p.name}' has no matching command")
+
+
+def _lint_nucomp(pkg):
+    # we cannot lint command existence here because the nushell path is
+    # more generic (it does not contain just per-command completions)
+    pass
+
+
+def _lint_comp(pkg):
+    if pkg.pkgname.endswith("-bashcomp"):
+        _lint_bashcomp(pkg)
+    elif pkg.pkgname.endswith("-zshcomp"):
+        _lint_zshcomp(pkg)
+    elif pkg.pkgname.endswith("-fishcomp"):
+        _lint_fishcomp(pkg)
+    elif pkg.pkgname.endswith("-nucomp"):
+        _lint_nucomp(pkg)
+
+
 def _lint_devel(pkg):
     # lint for LTOed static stuff first, regardless of -devel
     if pkg.options["lintstatic"] and not _lint_static(pkg):
@@ -84,6 +130,7 @@ def _lint_devel(pkg):
 def invoke(pkg):
     _lint_devel(pkg)
     _lint_license(pkg)
+    _lint_comp(pkg)
 
     # does not apply
     if pkg.pkgname == "base-files" or pkg.pkgname == "base-kernel":
