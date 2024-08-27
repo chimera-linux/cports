@@ -1,0 +1,12 @@
+pkgname = "cmatrix"
+pkgver = "2.0"
+pkgrel = 0
+build_style = "cmake"
+hostmakedepends = ["cmake", "ninja"]
+makedepends = ["ncurses-devel"]
+pkgdesc = "Terminal-based 'The Matrix'-style text"
+maintainer = "Nova <froggo8311@proton.me>"
+license = "GPL-3.0-only"
+url = "https://github.com/abishekvashok/cmatrix"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "ad93ba39acd383696ab6a9ebbed1259ecf2d3cf9f49d6b97038c66f80749e99a"
