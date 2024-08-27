@@ -3252,6 +3252,11 @@ package.
 If `missing_ok` is `True`, the function will not error if the path does
 not exist. In general you should not set this.
 
+This additionally supports prefix-style shorthand values, e.g. instead
+of `usr/bin/foo*` you can write `cmd:foo*`. The currently supported
+prefixes are `cmd:`, `lib:` and `man:`; `man:` automatically resolves
+the category, e.g. `man:foo.1` will take `usr/share/man/man1/foo.1`.
+
 You will want to use this if you return a function from the subpackage
 function. The following are equivalent:
 

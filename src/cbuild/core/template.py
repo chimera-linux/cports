@@ -2539,6 +2539,19 @@ class Subpackage(Package):
         )
 
     def take(self, p, missing_ok=False):
+        # handle prefix syntax
+        if isinstance(p, str):
+            col = p.find(":")
+            if col > 0:
+                match p[0:col]:
+                    case "cmd":
+                        p = f"usr/bin/{p[col + 1:]}"
+                    case "lib":
+                        p = f"usr/lib/{p[col + 1:]}"
+                    case "man":
+                        mname = p[col + 1 :]
+                        dot = mname.rfind(".")
+                        p = f"usr/share/man/man{mname[dot + 1:]}/{mname}"
         p = pathlib.Path(p)
         if p.is_absolute():
             self.error(f"take(): path '{p}' must not be absolute")
