@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/touchegg --daemon
+depends-on = local.target
+run-as = _touchegg
