@@ -3287,6 +3287,11 @@ If `man` is a non-empty string, it represents the manpage categories to take.
 This function will `take` everything that should usually belong in a
 `-static` package. This is all static libraries in `usr/lib`.
 
+##### def take_bin(self, b)
+
+This function will `take` an executable in `usr/bin`. If a manpage with the
+same name exits in sections 1 or 8, it is also taken.
+
 ##### def take_doc(self)
 
 This function will `take` everything that should usually belong in a

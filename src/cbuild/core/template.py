@@ -2606,6 +2606,11 @@ class Subpackage(Package):
                     self.take(f"usr/share/man/man1/{f.name}")
             self.take(f"usr/share/man/man[{man}]", missing_ok=True)
 
+    def take_bin(self, b):
+        self.take(f"usr/bin/{b}")
+        self.take(f"usr/share/man/man1/{b}.1", missing_ok=True)
+        self.take(f"usr/share/man/man8/{b}.8", missing_ok=True)
+
     def take_doc(self):
         self.take("usr/share/doc", missing_ok=True)
         self.take("usr/share/info", missing_ok=True)
