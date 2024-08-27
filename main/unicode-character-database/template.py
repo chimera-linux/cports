@@ -1,5 +1,5 @@
 pkgname = "unicode-character-database"
-pkgver = "15.1.0"
+pkgver = "16.0.0"
 pkgrel = 0
 pkgdesc = "Unicode Character Database"
 maintainer = "q66 <q66@chimera-linux.org>"
