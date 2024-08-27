@@ -1,6 +1,6 @@
 pkgname = "lua5.4-luasystem"
 pkgver = "0.4.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_use_env = True
 makedepends = ["lua5.4-devel"]
