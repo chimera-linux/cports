@@ -1,5 +1,5 @@
 pkgname = "unicode-emoji"
-pkgver = "15.1"
+pkgver = "16.0"
 pkgrel = 0
 pkgdesc = "Unicode Emoji data files"
 maintainer = "q66 <q66@chimera-linux.org>"
