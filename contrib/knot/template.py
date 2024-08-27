@@ -52,7 +52,6 @@ def _(self):
 def _(self):
     def func():
         for prog in ["kdig", "khost", "knsupdate"]:
-            self.take(f"usr/bin/{prog}")
-            self.take(f"usr/share/man/man1/{prog}.1")
+            self.take_bin(prog)
 
     return func

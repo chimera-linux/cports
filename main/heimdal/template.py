@@ -177,8 +177,7 @@ def _(self):
             "string2key",
             "verify_krb5_conf",
         ]:
-            self.take(f"usr/bin/{cl}")
-            self.take(f"usr/share/man/man*/{cl}.*", missing_ok=True)
+            self.take_bin(cl)
 
     return _install
 
