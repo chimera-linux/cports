@@ -1,10 +1,10 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index b4dc0df..cd6c57c 100644
+index d6df45f..3c9f306 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -753,15 +753,6 @@ version = "0.7.1"
+@@ -765,15 +765,6 @@ version = "0.7.2"
  source = "registry+https://github.com/rust-lang/crates.io-index"
- checksum = "4b82cf0babdbd58558212896d1a4272303a57bdb245c2bf1147185fb45640e70"
+ checksum = "1462739cb27611015575c0c11df5df7601141071f07518d56fcc1be504cbec97"
  
 -[[package]]
 -name = "cmake"
@@ -18,26 +18,26 @@ index b4dc0df..cd6c57c 100644
  [[package]]
  name = "codspeed"
  version = "2.6.0"
-@@ -1240,7 +1231,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
- checksum = "5f54427cfd1c7829e2a139fcefea601bf088ebca651d2bf53ebc600eac295dae"
+@@ -1263,7 +1254,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "324a1be68054ef05ad64b861cc9eaf1d623d2d8cb25b4bf2cb9cdd902b4bf253"
  dependencies = [
   "crc32fast",
 - "libz-ng-sys",
 + "libz-sys",
-  "miniz_oxide",
+  "miniz_oxide 0.8.0",
  ]
  
-@@ -2006,13 +1997,14 @@ dependencies = [
+@@ -2055,13 +2046,14 @@ dependencies = [
  ]
  
  [[package]]
 -name = "libz-ng-sys"
--version = "1.1.15"
+-version = "1.1.16"
 +name = "libz-sys"
-+version = "1.1.18"
++version = "1.1.20"
  source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "c6409efc61b12687963e602df8ecf70e8ddacf95bc6576bcf16e3ac6328083c5"
-+checksum = "c15da26e5af7e25c90b37a2d75cdbf940cf4a55316de9d84c679c9b8bfabf82e"
+-checksum = "4436751a01da56f1277f323c80d584ffad94a3d14aecd959dd0dff75aa73a438"
++checksum = "d2d16453e800a8cf6dd2fc3eb4bc99b786a9b90c663b8559a5b1a041bf89e472"
  dependencies = [
 - "cmake",
 - "libc",
@@ -47,7 +47,7 @@ index b4dc0df..cd6c57c 100644
  ]
  
  [[package]]
-@@ -3927,26 +3919,6 @@ dependencies = [
+@@ -3994,26 +3986,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -74,15 +74,15 @@ index b4dc0df..cd6c57c 100644
  [[package]]
  name = "tiny-skia"
  version = "0.8.4"
-@@ -4466,7 +4438,6 @@ dependencies = [
-  "serde_json",
+@@ -4535,7 +4507,6 @@ dependencies = [
+  "tempfile",
   "textwrap",
   "thiserror",
 - "tikv-jemallocator",
   "tokio",
   "toml",
   "tracing",
-@@ -4696,7 +4667,6 @@ dependencies = [
+@@ -4768,7 +4739,6 @@ dependencies = [
   "serde_json",
   "tagu",
   "textwrap",
@@ -90,7 +90,7 @@ index b4dc0df..cd6c57c 100644
   "tokio",
   "tracing",
   "tracing-durations-export",
-@@ -5219,6 +5189,12 @@ version = "0.1.0"
+@@ -5304,6 +5274,12 @@ version = "0.1.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
  
@@ -102,26 +102,25 @@ index b4dc0df..cd6c57c 100644
 +
  [[package]]
  name = "version_check"
- version = "0.9.4"
+ version = "0.9.5"
 diff --git a/crates/uv-dev/Cargo.toml b/crates/uv-dev/Cargo.toml
-index 02b5331..79a7c14 100644
+index 3549bdb..105056e 100644
 --- a/crates/uv-dev/Cargo.toml
 +++ b/crates/uv-dev/Cargo.toml
-@@ -62,9 +62,6 @@ walkdir = { workspace = true }
+@@ -64,8 +64,6 @@ walkdir = { workspace = true }
  [target.'cfg(target_os = "windows")'.dependencies]
  mimalloc = { version = "0.1.39" }
  
 -[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
 -tikv-jemallocator = { version = "0.6.0" }
--
+ 
  [features]
  default = []
- render = ["poloto", "resvg", "tagu"]
 diff --git a/crates/uv-dev/src/main.rs b/crates/uv-dev/src/main.rs
-index b138bab..49e7a7e 100644
+index 7530167..37ec98e 100644
 --- a/crates/uv-dev/src/main.rs
 +++ b/crates/uv-dev/src/main.rs
-@@ -30,17 +30,6 @@ use crate::wheel_metadata::WheelMetadataArgs;
+@@ -31,18 +31,6 @@ use crate::wheel_metadata::WheelMetadataArgs;
  #[global_allocator]
  static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
  
@@ -136,24 +135,24 @@ index b138bab..49e7a7e 100644
 -))]
 -#[global_allocator]
 -static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
- 
+-
  mod build;
  mod clear_compile;
+ mod compile;
 diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
-index e7d3389..1eaab72 100644
+index 84f5459..f004d22 100644
 --- a/crates/uv/Cargo.toml
 +++ b/crates/uv/Cargo.toml
-@@ -78,9 +78,6 @@ which = { workspace = true }
+@@ -78,8 +78,6 @@ which = { workspace = true }
  [target.'cfg(target_os = "windows")'.dependencies]
  mimalloc = { version = "0.1.39" }
  
 -[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
 -tikv-jemallocator = { version = "0.6.0" }
--
+ 
  [dev-dependencies]
  assert_cmd = { version = "2.0.14" }
- assert_fs = { version = "1.1.0" }
-@@ -98,7 +95,7 @@ reqwest = { workspace = true, features = ["blocking"], default-features = false
+@@ -102,7 +100,7 @@ zip = { workspace = true }
  ignored = ["flate2"]
  
  [features]
@@ -163,10 +162,10 @@ index e7d3389..1eaab72 100644
  python = []
  # Introduces a dependency on a local Python installation with specific patch versions.
 diff --git a/crates/uv/src/lib.rs b/crates/uv/src/lib.rs
-index 0f32eca..cd52527 100644
+index 606e621..7b61387 100644
 --- a/crates/uv/src/lib.rs
 +++ b/crates/uv/src/lib.rs
-@@ -36,17 +36,6 @@ use crate::settings::{
+@@ -38,18 +38,6 @@ use crate::settings::{
  #[global_allocator]
  static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
  
@@ -181,6 +180,7 @@ index 0f32eca..cd52527 100644
 -))]
 -#[global_allocator]
 -static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
- 
+-
  pub(crate) mod commands;
  pub(crate) mod logging;
+ pub(crate) mod printer;
