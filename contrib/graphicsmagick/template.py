@@ -1,5 +1,5 @@
 pkgname = "graphicsmagick"
-pkgver = "1.3.44"
+pkgver = "1.3.45"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -54,7 +54,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.graphicsmagick.org"
 source = f"$(SOURCEFORGE_SITE)/graphicsmagick/GraphicsMagick-{pkgver}.tar.xz"
-sha256 = "6ac28470d2fbd3d5f60859dd43f3cee2585e955e32896f892b4dc61dda101ea0"
+sha256 = "dcea5167414f7c805557de2d7a47a9b3147bcbf617b91f5f0f4afe5e6543026b"
 
 
 def post_install(self):
