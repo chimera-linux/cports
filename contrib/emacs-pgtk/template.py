@@ -1,6 +1,6 @@
 pkgname = "emacs-pgtk"
 pkgver = "29.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",
