@@ -1,0 +1,6 @@
+# touchegg service
+type = process
+command = /usr/bin/touchegg --daemon
+depends-on = local.target
+restart = on-failure
+restart-delay = 5
