@@ -1,5 +1,5 @@
 pkgname = "tuba"
-pkgver = "0.8.2"
+pkgver = "0.8.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,4 +30,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://tuba.geopjr.dev"
 source = f"https://github.com/GeopJr/Tuba/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b5791df008bc8ae7e1947cbd509b3bb905c4957c6dd65747676f85a4a2d3c3fe"
+sha256 = "6c2fce949ac4d102f07ebcb94eb39ebb85309032c07f9eda88386dc8e10f9636"
