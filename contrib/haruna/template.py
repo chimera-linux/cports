@@ -1,6 +1,6 @@
 pkgname = "haruna"
-pkgver = "1.1.2"
-pkgrel = 1
+pkgver = "1.2.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "extra-cmake-modules",
@@ -31,4 +31,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/haruna"
 source = f"$(KDE_SITE)/haruna/{pkgver}/haruna-{pkgver}.tar.xz"
-sha256 = "cb01323f1195a3d8994121e66492c29d27c021fb2a5784b78ce5c06c0bb88683"
+sha256 = "4a9fd360d66e00d0f8d7a11e73dd9bfc55e486c0135e8d133de8abeb2ca09d88"
