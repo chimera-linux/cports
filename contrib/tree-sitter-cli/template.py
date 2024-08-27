@@ -1,18 +1,18 @@
 pkgname = "tree-sitter-cli"
 # match to tree-sitter
-pkgver = "0.22.6"
+pkgver = "0.23.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["-p", "tree-sitter-cli"]
 make_check_args = [*make_build_args]
-hostmakedepends = ["cargo-auditable"]
+hostmakedepends = ["cargo-auditable", "cmake"]
 makedepends = ["rust-std"]
 pkgdesc = "Parser generator tool for tree-sitter bindings"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://tree-sitter.github.io/tree-sitter"
 source = f"https://github.com/tree-sitter/tree-sitter/archive/v{pkgver}.tar.gz"
-sha256 = "e2b687f74358ab6404730b7fb1a1ced7ddb3780202d37595ecd7b20a8f41861f"
+sha256 = "6403b361b0014999e96f61b9c84d6950d42f0c7d6e806be79382e0232e48a11b"
 # requires fetching fixtures
 options = ["!check"]
 
