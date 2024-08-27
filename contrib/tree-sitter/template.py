@@ -1,7 +1,7 @@
 pkgname = "tree-sitter"
 # match to tree-sitter-cli
-pkgver = "0.22.6"
-pkgrel = 1
+pkgver = "0.23.0"
+pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Incremental parsing library for language grammars"
@@ -9,7 +9,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://tree-sitter.github.io/tree-sitter"
 source = f"https://github.com/tree-sitter/tree-sitter/archive/v{pkgver}.tar.gz"
-sha256 = "e2b687f74358ab6404730b7fb1a1ced7ddb3780202d37595ecd7b20a8f41861f"
+sha256 = "6403b361b0014999e96f61b9c84d6950d42f0c7d6e806be79382e0232e48a11b"
 # check requires cargo/fixture stuff (from remote repositories)
 options = ["!check"]
 
