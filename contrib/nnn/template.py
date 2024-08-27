@@ -1,6 +1,6 @@
 pkgname = "nnn"
-pkgver = "4.9"
-pkgrel = 2
+pkgver = "5.0"
+pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["musl-fts-devel", "libedit-readline-devel"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/jarun/nnn"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9e25465a856d3ba626d6163046669c0d4010d520f2fb848b0d611e1ec6af1b22"
+sha256 = "31e8fd85f3dd7ab2bf0525c3c0926269a1e6d35a5343a6714315642370d8605a"
 tool_flags = {"LDFLAGS": ["-lfts"]}
 hardening = ["vis", "cfi"]
 # it does not have any tests
