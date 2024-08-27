@@ -1,7 +1,7 @@
 pkgname = "libedit"
 pkgver = "20240711"
-pkgrel = 0
-_gitrev = "b1ed32d99f36fa751595473e151b7388786c0d6b"
+pkgrel = 1
+_gitrev = "e75a2de6592b919b5da2384509cd3b9a5c501fe4"
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["ncurses-devel"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/libedit-chimera"
 source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "4bb266fbe756593e9c6ae699c89a8c02e6e40636bb87a0f83f16525211905826"
+sha256 = "a631168496d232ad7170cc99d9ece95f3d9202c31cdf74bd4e99c5143cd8760e"
 options = ["bootstrap"]
 
 
