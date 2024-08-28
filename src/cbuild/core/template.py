@@ -182,18 +182,16 @@ hooks = {
     "pkg": [],
 }
 
-tmpl_hooks = set(
-    [
-        "fetch",
-        "extract",
-        "prepare",
-        "patch",
-        "configure",
-        "build",
-        "check",
-        "install",
-    ]
-)
+tmpl_hooks = {
+    "fetch",
+    "extract",
+    "prepare",
+    "patch",
+    "configure",
+    "build",
+    "check",
+    "install",
+}
 
 
 def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
