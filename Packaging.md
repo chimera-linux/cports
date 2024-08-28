@@ -2312,7 +2312,7 @@ The following hook types are allowed:
 * `pkg` (final state preparation + lint, may no longer change destdir)
 
 Hooks are stamp-checked, except `setup`, which is run always. They are
-typically called tohether with the corresponding phase functions, but not
+typically called together with the corresponding phase functions, but not
 always. Every hook defined in the section directory is invoked, in sorted
 order, so they use numerical prefixes to ensure sorting.
 
