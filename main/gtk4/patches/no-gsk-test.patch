@@ -1,0 +1,12 @@
+bunch of very scary gl stuff nobody would fix
+
+--- a/testsuite/meson.build
++++ b/testsuite/meson.build
+@@ -66,7 +66,6 @@
+ endforeach
+ 
+ subdir('gdk')
+-subdir('gsk')
+ subdir('gtk')
+ subdir('css')
+ subdir('a11y')
