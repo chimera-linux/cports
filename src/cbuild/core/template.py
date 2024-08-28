@@ -1684,7 +1684,7 @@ class Template(Package):
                 # skip if it's a function and in hooks
                 if varn.startswith("pre_"):
                     cvarn = varn[4:]
-                elif varn.startswith("post_"):
+                elif varn.startswith("post_") or varn.startswith("init_"):
                     cvarn = varn[5:]
                 else:
                     cvarn = varn
