@@ -2539,20 +2539,7 @@ class Subpackage(Package):
             parent.chroot_destdir_base / f"{self.pkgname}-{self.pkgver}"
         )
 
-    def take(self, p, missing_ok=False):
-        # handle prefix syntax
-        if isinstance(p, str):
-            col = p.find(":")
-            if col > 0:
-                match p[0:col]:
-                    case "cmd":
-                        p = f"usr/bin/{p[col + 1:]}"
-                    case "lib":
-                        p = f"usr/lib/{p[col + 1:]}"
-                    case "man":
-                        mname = p[col + 1 :]
-                        dot = mname.rfind(".")
-                        p = f"usr/share/man/man{mname[dot + 1:]}/{mname}"
+    def _take_impl(self, p, missing_ok, func=None):
         p = pathlib.Path(p)
         if p.is_absolute():
             self.error(f"take(): path '{p}' must not be absolute")
@@ -2565,7 +2552,43 @@ class Subpackage(Package):
             pdest = self.parent.destdir
             relp = pathlib.Path(fullp).relative_to(pdest)
             self.logger.out_plain(f"  \f[green]take:\f[] {relp}")
+            if func:
+                func(relp)
             _submove(relp, self.destdir, pdest)
+
+    def take(self, p, missing_ok=False):
+        # handle prefix syntax
+        if isinstance(p, str):
+            col = p.find(":")
+            if col > 0:
+                sfx = p[col + 1 :]
+                match p[0:col]:
+                    case "cmd":
+                        # take potential manpages for that command
+                        # only take manpages for commands that were globbed,
+                        # as using the original wildcard would potentially
+                        # match false positives
+                        def _take_mancmd(p):
+                            self._take_impl(
+                                f"usr/share/man/man1/{p.name}.1", True
+                            )
+                            self._take_impl(
+                                f"usr/share/man/man1/{p.name}.8", True
+                            )
+
+                        # and then take the command itself
+                        return self._take_impl(
+                            f"usr/bin/{sfx}", missing_ok, _take_mancmd
+                        )
+                    case "lib":
+                        return self._take_impl(f"usr/lib/{sfx}", missing_ok)
+                    case "man":
+                        dot = sfx.rfind(".")
+                        return self._take_impl(
+                            f"usr/share/man/man{sfx[dot + 1:]}/{sfx}",
+                            missing_ok,
+                        )
+        return self._take_impl(p, missing_ok)
 
     def make_link(self, path, tgt):
         dstp = self.destdir / path
