@@ -135,9 +135,9 @@ def _(self):
     def install():
         import os
 
-        self.take("usr/bin/python*-config")
+        self.take("cmd:python*-config")
+        self.take("lib:*.a")
         self.take("usr/lib/pkgconfig")
-        self.take("usr/lib/*.a")
         self.take("usr/include")
         pypath = "usr/include/python" + _majver
         os.makedirs(self.parent.destdir / pypath)

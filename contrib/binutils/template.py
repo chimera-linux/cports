@@ -257,7 +257,7 @@ def _gen_subp(an, native):
             at = pf.triplet
 
         def takef():
-            self.take(f"usr/bin/{at}-*")
+            self.take(f"cmd:{at}-*")
             self.take(f"usr/lib/ldscripts-{an}")
             self.mv(
                 self.destdir / f"usr/lib/ldscripts-{an}",

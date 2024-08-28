@@ -93,7 +93,6 @@ def _(self):
             "nslookup",
             "nsupdate",
         ]:
-            self.take(f"usr/bin/{prog}")
-            self.take(f"usr/share/man/man1/{prog}.1")
+            self.take(f"cmd:{prog}")
 
     return func

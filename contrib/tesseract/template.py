@@ -55,8 +55,7 @@ def _(self):
             "unicharset_extractor",
             "wordlist2dawg",
         ]:
-            self.take(f"usr/bin/{tool}")
-            self.take(f"usr/share/man/man1/{tool}.1")
+            self.take(f"cmd:{tool}")
 
     return install
 
