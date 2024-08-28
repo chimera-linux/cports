@@ -1,5 +1,5 @@
 pkgname = "gmic"
-pkgver = "3.4.0"
+pkgver = "3.4.1"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -28,7 +28,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "CECILL-2.1"
 url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"
-sha256 = "4fc0c79eed360c4f804d8110d7955bc8e0db9a14fba9483fe494f02c3640be69"
+sha256 = "97c9fc976e2b59a16e0257a5190d9fc3d08b64b12774781cb14ed0327c48d94f"
 # vis broken
 # FIXME int: gmic_qt PreviewWidget::updateOriginalImagePosition
 hardening = ["!int"]
@@ -41,10 +41,6 @@ def do_build(self):
     # targets, rest can be parallel (and so this is faster than -j1)
     self.make.build(["lib"])
     self.make.build(["cli_shared", "gmic_qt_shared"])
-
-
-def post_install(self):
-    self.rename("plug-ins", "usr/share/gmic")
 
 
 @subpackage("gmic-devel")
