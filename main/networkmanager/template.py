@@ -1,5 +1,5 @@
 pkgname = "networkmanager"
-pkgver = "1.48.8"
+pkgver = "1.48.10"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -37,59 +37,58 @@ configure_args = [
     "-Ddocs=true",
     "-Dcrypto=nss",
     "-Dreadline=libedit",
+    "-Dtests=no",  # not ran
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "gobject-introspection",
-    "vala",
-    "glib-devel",
-    "gettext",
-    "xsltproc",
-    "docbook-xsl-nons",
-    "gtk-doc-tools",
-    "python-gobject",
-    "jansson-devel",
-    "perl",
     "bash",
+    "docbook-xsl-nons",
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
+    "gtk-doc-tools",
+    "jansson-devel",
+    "meson",
+    "perl",
+    "pkgconf",
+    "python-gobject",
+    "vala",
+    "xsltproc",
 ]
 makedepends = [
-    "libuuid-devel",
-    "nss-devel",
     "dbus-devel",
-    "libgudev-devel",
-    "libnl-devel",
-    "polkit-devel",
+    "elogind-devel",
+    "jansson-devel",
     "libcurl-devel",
     "libedit-devel",
-    "jansson-devel",
-    "libpsl-devel",
-    "udev-devel",
-    "elogind-devel",
     "libgirepository-devel",
+    "libgudev-devel",
     "libndp-devel",
-    "newt-devel",
-    "python-gobject",
+    "libnl-devel",
+    "libpsl-devel",
+    "libuuid-devel",
     "linux-headers",
-    "modemmanager-devel",
-    "ppp-devel",
     "mobile-broadband-provider-info",
+    "modemmanager-devel",
+    "newt-devel",
+    "nss-devel",
+    "polkit-devel",
+    "ppp-devel",
+    "python-gobject",
+    "udev-devel",
 ]
 depends = [
-    "wpa_supplicant",
-    "resolvconf",
     "iproute2",
     "mobile-broadband-provider-info",
+    "resolvconf",
+    "wpa_supplicant",
 ]
 checkdepends = ["python-dbus"]
 pkgdesc = "Network management daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/NetworkManager"
-source = (
-    f"$(GNOME_SITE)/NetworkManager/{pkgver[:-2]}/NetworkManager-{pkgver}.tar.xz"
-)
-sha256 = "6200eac8f1d3fe6a3ea1f2c4158b3c95b3b9f91e74cd704e97b0b051b5a54878"
+source = f"https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/{pkgver}.tar.gz"
+sha256 = "771ff4da24eab12bb45f0ce94b63667586e8dcfb5f9ae17f5d0bbd691e0ce15c"
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["!check", "!cross", "linkundefver"]
 
