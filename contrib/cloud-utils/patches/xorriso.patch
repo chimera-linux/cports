@@ -1,0 +1,25 @@
+--- a/bin/cloud-localds
++++ b/bin/cloud-localds
+@@ -146,8 +146,8 @@ case "$filesystem" in
+ 			fail "missing 'mcopy'. Required for --filesystem=vfat."
+ 		;;
+ 	iso9660)
+-		has_cmd genisoimage ||
+-			fail "missing 'genisoimage'.  Required for --filesystem=iso9660."
++		has_cmd xorrisofs ||
++			fail "missing 'xorrisofs'.  Required for --filesystem=iso9660."
+ 		;;
+ 	*) fail "unknown filesystem $filesystem";;
+ esac
+@@ -232,9 +232,9 @@ case "$filesystem" in
+ 			fail "failed to create tarball with $path"
+ 		;;
+ 	iso9660)
+-		genisoimage -output "$img" -volid cidata \
++		xorrisofs -output "$img" -volid cidata \
+ 			-joliet -rock "${files[@]}" > "$TEMP_D/err" 2>&1 ||
+-			{ cat "$TEMP_D/err" 1>&2; fail "failed to genisoimage"; }
++			{ cat "$TEMP_D/err" 1>&2; fail "failed to xorrisofs"; }
+ 		;;
+ 	vfat)
+ 		truncate -s 128K "$img" || fail "failed truncate image"
