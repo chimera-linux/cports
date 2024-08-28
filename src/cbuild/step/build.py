@@ -6,12 +6,13 @@ def invoke(pkg, step):
     crossb = p.arch if p.cross else ""
     build_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_build_done"
 
-    template.call_pkg_hooks(pkg, "init_build")
     template.run_pkg_func(pkg, "init_build")
 
     if build_done.is_file() and (not pkg.force_mode or step != "build"):
         return
 
-    pkg.run_step("build", optional=True)
+    template.run_pkg_func(pkg, "pre_build")
+    template.run_pkg_func(pkg, "build")
+    template.run_pkg_func(pkg, "post_build")
 
     build_done.touch()

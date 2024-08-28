@@ -16,14 +16,15 @@ def invoke(pkg, step, allow_fail):
 
     check_done = pkg.statedir / f"{pkg.pkgname}__check_done"
 
-    template.call_pkg_hooks(pkg, "init_check")
     template.run_pkg_func(pkg, "init_check")
 
     if check_done.is_file() and (not pkg.force_mode or step != "check"):
         return
 
     try:
-        pkg.run_step("check", optional=True)
+        template.run_pkg_func(pkg, "pre_check")
+        template.run_pkg_func(pkg, "check")
+        template.run_pkg_func(pkg, "post_check")
     except Exception as e:
         if allow_fail:
             pkg.log("check failed, but proceed anyway:")

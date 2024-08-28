@@ -3,7 +3,6 @@ from cbuild.util import flock
 
 
 def _invoke(pkg):
-    template.call_pkg_hooks(pkg, "init_fetch")
     template.run_pkg_func(pkg, "init_fetch")
 
     p = pkg.profile()
@@ -12,7 +11,6 @@ def _invoke(pkg):
     if fetch_done.is_file():
         return
 
-    template.call_pkg_hooks(pkg, "pre_fetch")
     template.run_pkg_func(pkg, "pre_fetch")
 
     if hasattr(pkg, "fetch"):
@@ -22,7 +20,6 @@ def _invoke(pkg):
         template.call_pkg_hooks(pkg, "fetch")
 
     template.run_pkg_func(pkg, "post_fetch")
-    template.call_pkg_hooks(pkg, "post_fetch")
 
     fetch_done.touch()
 

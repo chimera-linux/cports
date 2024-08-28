@@ -547,3 +547,15 @@ def update_check(pkg, verbose=False, error=False):
             checkvers.append((pkg.pkgver, v))
 
     return checkvers
+
+
+def check_pkg(pkg):
+    cv = update_check(pkg, False, True)
+    if cv is None:
+        pkg.error("no versions found, broken update-check?")
+
+    for pv, nv in cv:
+        pkg.log_warn(f"update available: {pv} -> {nv}")
+
+    if cv:
+        pkg.error("updates found, aborting")

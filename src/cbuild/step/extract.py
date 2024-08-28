@@ -2,7 +2,6 @@ from cbuild.core import template
 
 
 def invoke(pkg):
-    template.call_pkg_hooks(pkg, "init_extract")
     template.run_pkg_func(pkg, "init_extract")
 
     p = pkg.profile()
@@ -11,7 +10,6 @@ def invoke(pkg):
     if extract_done.is_file():
         return
 
-    template.call_pkg_hooks(pkg, "pre_extract")
     template.run_pkg_func(pkg, "pre_extract")
 
     if hasattr(pkg, "extract"):
@@ -22,6 +20,5 @@ def invoke(pkg):
     pkg.srcdir.mkdir(parents=True, exist_ok=True)
 
     template.run_pkg_func(pkg, "post_extract")
-    template.call_pkg_hooks(pkg, "post_extract")
 
     extract_done.touch()

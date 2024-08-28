@@ -1,7 +1,7 @@
 from cbuild.step import fetch, extract, prepare, patch, configure
 from cbuild.step import build as buildm, check, install, prepkg
 from cbuild.core import chroot, logger, dependencies, profile
-from cbuild.core import pkg as pkgm, errors
+from cbuild.core import template, update_check as uc, pkg as pkgm, errors
 from cbuild.util import flock
 from cbuild.apk import cli as apk, generate as apkgen
 
@@ -77,7 +77,6 @@ def _build(
 
     pkg.install_done = False
     pkg.current_phase = "setup"
-    pkg.update_check = update_check
     pkg.accept_checksums = accept_checksums
 
     pkg.setup_paths()
@@ -138,6 +137,9 @@ def _build(
             return True
 
         return False
+
+    if update_check:
+        uc.check_pkg(pkg)
 
     if not hasattr(pkg, "fetch"):
         pkg.current_phase = "fetch"
@@ -200,6 +202,8 @@ def _build(
 
     pkg.cwd = oldcwd
     pkg.chroot_cwd = oldchd
+
+    template.call_pkg_hooks(pkg, "setup")
 
     pkg.current_phase = "configure"
     configure.invoke(pkg, step)

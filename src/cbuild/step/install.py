@@ -15,7 +15,6 @@ def _invoke_subpkg(pkg):
         shutil.rmtree(pkg.destdir, onerror=_remove_ro)
     pkg.destdir.mkdir(parents=True, exist_ok=True)
     if pkg.pkg_install:
-        template.call_pkg_hooks(pkg, "pre_install")
         template.run_pkg_func(pkg, "pkg_install", on_subpkg=True)
     # get own licenses by default
     pkg.take(f"usr/share/licenses/{pkg.pkgname}", missing_ok=True)
@@ -104,7 +103,6 @@ def invoke(pkg, step):
     # to be populated with Subpackages for current and later use
     pkg.subpkg_all = []
 
-    template.call_pkg_hooks(pkg, "init_install")
     template.run_pkg_func(pkg, "init_install")
 
     if install_done.is_file() and (not pkg.force_mode or step != "install"):
@@ -119,17 +117,20 @@ def invoke(pkg, step):
     if pkg.destdir.is_dir():
         shutil.rmtree(pkg.destdir, onerror=_remove_ro)
     pkg.destdir.mkdir(parents=True, exist_ok=True)
-    pkg.run_step("install", skip_post=True)
+
+    template.run_pkg_func(pkg, "pre_install")
+    template.run_pkg_func(pkg, "install")
+    template.run_pkg_func(pkg, "post_install")
 
     pkg.install_done = True
 
     for sp in pkg.subpkg_list:
         _invoke_subpkg(sp)
         scanelf.scan(sp, pkg.current_elfs)
-        template.call_pkg_hooks(sp, "post_install")
+        template.call_pkg_hooks(sp, "destdir")
 
     scanelf.scan(pkg, pkg.current_elfs)
-    template.call_pkg_hooks(pkg, "post_install")
+    template.call_pkg_hooks(pkg, "destdir")
 
     # do the splitting at the end to respect e.g. dbg packages
     # empty dir cleaning must be done *after* splitting!

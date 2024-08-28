@@ -9,13 +9,13 @@ def _invoke_prepkg(pkg):
     if prepkg_done.is_file() and not pkg.rparent.force_mode:
         return
 
-    template.call_pkg_hooks(pkg, "pre_pkg")
+    template.call_pkg_hooks(pkg, "pkg")
 
     prepkg_done.touch()
 
 
 def invoke(pkg):
-    template.call_pkg_hooks(pkg, "init_pkg")
+    template.call_pkg_hooks(pkg, "pkg")
 
     for sp in pkg.subpkg_all:
         _invoke_prepkg(sp)

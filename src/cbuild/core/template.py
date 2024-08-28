@@ -173,41 +173,27 @@ def _submove(src, dest, root):
 
 
 hooks = {
-    "init_fetch": [],
-    "pre_fetch": [],
+    "setup": [],
     "fetch": [],
-    "post_fetch": [],
-    "init_extract": [],
-    "pre_extract": [],
     "extract": [],
-    "post_extract": [],
-    "init_prepare": [],
-    "pre_prepare": [],
     "prepare": [],
-    "post_prepare": [],
-    "init_patch": [],
-    "pre_patch": [],
     "patch": [],
-    "post_patch": [],
-    "init_configure": [],
-    "pre_configure": [],
-    "configure": [],
-    "post_configure": [],
-    "init_build": [],
-    "pre_build": [],
-    "build": [],
-    "post_build": [],
-    "init_check": [],
-    "pre_check": [],
-    "check": [],
-    "post_check": [],
-    "init_install": [],
-    "pre_install": [],
-    "install": [],
-    "post_install": [],
-    "init_pkg": [],
-    "pre_pkg": [],
+    "destdir": [],
+    "pkg": [],
 }
+
+tmpl_hooks = set(
+    [
+        "fetch",
+        "extract",
+        "prepare",
+        "patch",
+        "configure",
+        "build",
+        "check",
+        "install",
+    ]
+)
 
 
 def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
@@ -1698,7 +1684,13 @@ class Template(Package):
             # if it's a known hook/var, skip
             if callable(getattr(self._raw_mod, varn)):
                 # skip if it's a function and in hooks
-                if varn in hooks:
+                if varn.startswith("pre_"):
+                    cvarn = varn[4:]
+                elif varn.startswith("post_"):
+                    cvarn = varn[5:]
+                else:
+                    cvarn = varn
+                if cvarn in tmpl_hooks:
                     continue
                 else:
                     self.log_red(f"unknown hook: {varn}")
@@ -1957,23 +1949,6 @@ class Template(Package):
     def stamp(self, name):
         return StampCheck(self, name)
 
-    def run_step(self, stepn, optional=False, skip_post=False):
-        call_pkg_hooks(self, "pre_" + stepn)
-
-        # run pre_* phase
-        run_pkg_func(self, "pre_" + stepn)
-
-        # run phase
-        if not run_pkg_func(self, stepn) and not optional:
-            self.error(f"cannot find {stepn}")
-
-        call_pkg_hooks(self, stepn)
-
-        # run post_* phase
-        run_pkg_func(self, "post_" + stepn)
-
-        if not skip_post:
-            call_pkg_hooks(self, "post_" + stepn)
 
     def get_tool_flags(
         self, name, extra_flags=[], hardening=[], shell=False, target=None
@@ -2797,31 +2772,19 @@ def get_cats():
 
 
 def register_hooks():
-    for step in [
-        "fetch",
-        "extract",
-        "prepare",
-        "patch",
-        "configure",
-        "build",
-        "check",
-        "install",
-        "pkg",
-    ]:
-        for sstep in ["init", "pre", None, "post"]:
-            stepn = f"{sstep}_{step}" if sstep else step
-            dirn = paths.cbuild() / "hooks" / stepn
-            if dirn.is_dir():
-                for f in dirn.glob("*.py"):
-                    # this must be skipped
-                    if f.name == "__init__.py":
-                        continue
-                    modn = "cbuild.hooks." + stepn + "." + f.stem
-                    modh = importlib.import_module(modn)
-                    if not hasattr(modh, "invoke"):
-                        logger.get().out_red(
-                            f"Hook '{stepn}/{f.stem}' does not have an entry point."
-                        )
-                        raise Exception()
-                    hooks[stepn].append((modh.invoke, f.stem))
-                hooks[stepn].sort(key=lambda v: v[1])
+    for stepn in hooks:
+        dirn = paths.cbuild() / "hooks" / stepn
+        if dirn.is_dir():
+            for f in dirn.glob("*.py"):
+                # this must be skipped
+                if f.name == "__init__.py":
+                    continue
+                modn = "cbuild.hooks." + stepn + "." + f.stem
+                modh = importlib.import_module(modn)
+                if not hasattr(modh, "invoke"):
+                    logger.get().out_red(
+                        f"Hook '{stepn}/{f.stem}' does not have an entry point."
+                    )
+                    raise Exception()
+                hooks[stepn].append((modh.invoke, f.stem))
+            hooks[stepn].sort(key=lambda v: v[1])

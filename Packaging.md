@@ -527,15 +527,15 @@ is created automatically.
   the necessary files and directories for the sandbox and installing the
   build dependencies. When cross-compiling, the cross target environment
   is prepared and target dependencies are installed in it. When the template
-  defines a `do_fetch` function, this is run first, as the function may
+  defines a `fetch` function, this is run first, as the function may
   depend on the sandbox being set up. Otherwise, it is run second. The `deps`
   sub-phase can be invoked separately if needed.
 
 * `fetch` During `fetch`, required files are downloaded as defined by the
-  `source` template variable by default (or the `do_fetch` function of
+  `source` template variable by default (or the `fetch` function of
   the template in rare cases). The builtin download behavior runs outside
   of the sandbox as pure Python code, which is typically run before `setup`.
-  When overridden with `do_fetch`, it also overlaps with the `extract` stage
+  When overridden with `fetch`, it also overlaps with the `extract` stage
   as the function is supposed to prepare the `builddir` like `extract` would,
   and runs after `setup`.
 
@@ -583,7 +583,7 @@ is created automatically.
 * `install` Install the files into `destdir`. If the template defines
   subpackages, they can define which files they are supposed to contain;
   this is done by "taking" files from the initial populated `destdir`
-  after the template-defined `do_install` finishes. At the time the
+  after the template-defined `install` finishes. At the time the
   subpackages are populated, `builddir` is read-only in the sandbox.
   Ideally it would also be read-only during `install`, but that is
   not actually possible to ensure (since build systems like to touch
@@ -1110,9 +1110,9 @@ scope; you can finish any initialization that you haven't done globally
 here, before other things are checked.
 
 Assuming the build proceeds, phase functions are called. Every phase may
-use up to 4 functions - `init_PHASE`, `pre_PHASE`, `do_PHASE` and `post_PHASE`.
+use up to 4 functions - `init_PHASE`, `pre_PHASE`, `PHASE` and `post_PHASE`.
 They are called in that order. The `pre_` and `post_` functions exist so that
-the template can specify additional logic for when the `do_` function is
+the template can specify additional logic for when the main function is
 already defined by a `build_style`.
 
 The `init_` prefixed function is, unlike the other 3, not subject to stamp
@@ -1183,25 +1183,25 @@ build_style = "meson"
 
 With this, you declare that this template uses the Meson build
 system. What actually happens is that the build style will create some
-of the necessary functions (`do_build` etc) implicitly.
+of the necessary functions (`build` etc) implicitly.
 
 A build style is a Python file in `cbuild/build_style` and looks like
 this:
 
 ```
-def do_configure(self):
+def configure(self):
     pass
 
-def do_build(self):
+def build(self):
     pass
 
-def do_install(self):
+def install(self):
     pass
 
 def use(tmpl):
-    tmpl.do_configure = do_configure
-    tmpl.do_build = do_build
-    tmpl.do_install = do_install
+    tmpl.configure = configure
+    tmpl.build = build
+    tmpl.install = install
 
     tmpl.build_style_defaults = [
         ("make_cmd", "mything")
@@ -1222,8 +1222,8 @@ There are currently a few build styles available.
 
 #### meta
 
-A metapackage `build_style`. It merely defines empty `do_fetch` as well
-as `do_install`. Packages with this build-style are allowed to be empty
+A metapackage `build_style`. It merely defines empty `fetch` as well
+as `install`. Packages with this build-style are allowed to be empty
 by default, others need to use the `empty` option.
 
 #### cargo
@@ -1232,7 +1232,7 @@ You generally use this one for Rust projects.
 
 **NOTE:** this build style will be subject to major changes in the future.
 
-Sets `do_prepare`, `do_build`, `do_check`, `do_install`. They are wrappers
+Sets `prepare`, `build`, `check`, `install`. They are wrappers
 around the `cargo` utility module API.
 
 By default, environment will be updated for all invocations to set up
@@ -1268,7 +1268,7 @@ Default values:
 * `make_check_target` = ``
 * `make_dir` = `build`
 
-Sets `do_configure`, `do_build`, `do_check`, `do_install`. They are wrappers
+Sets `configure`, `build`, `check`, `install`. They are wrappers
 around the `cmake` utility module API `configure`, `build`, `install`,
 and `ctest` respectively.
 
@@ -1298,10 +1298,10 @@ invocations do not receive them.
 #### configure
 
 A simple style that runs `self.configure_script` within `self.chroot_cwd`
-with `self.configure_args` for `do_configure` and uses a simple `Make` from
+with `self.configure_args` for `configure` and uses a simple `Make` from
 `cbuild.util` to build.
 
-Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+Sets `configure`, `build`, `check`, `install`.
 
 You are expected to supply all other logic yourself. This build style works
 best when you need a simple, unassuming wrapper for projects using custom
@@ -1320,9 +1320,9 @@ Default values:
 * `make_dir` = `build`
 * `configure_gen` = `["autoreconf", "-if"]`
 
-Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+Sets `configure`, `build`, `check`, `install`.
 
-During `do_configure`, `gnu_configure.replace_guess` is called first, followed
+During `configure`, `gnu_configure.replace_guess` is called first, followed
 by `gnu_configure.configure`. The `configure` script is run inside `self.make_dir`.
 
 Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
@@ -1352,7 +1352,7 @@ Default values:
 
 * `make_dir` = `build`
 
-Sets `do_prepare`, `do_build`, `do_check`, `do_install`. They are wrappers
+Sets `prepare`, `build`, `check`, `install`. They are wrappers
 around the `golang` utility module API.
 
 By default, environment will be updated for all invocations to set up
@@ -1385,11 +1385,11 @@ Variables:
   core variables will be provided solely via the environment. If false, they
   are also provided on the command line. These variables are `OBJCOPY`, `RANLIB`,
   `CXX`, `CPP`, `CC`, `LD`, `AR`, `AS`, `CFLAGS`, `FFLAGS`, `LDFLAGS`, `CXXFLAGS`
-  and `OBJDUMP` (the last one only when not bootstrapping) during `do_build`.
+  and `OBJDUMP` (the last one only when not bootstrapping) during `build`.
   All of these inherently exist in the environment, so if this is `True`, they
   will not be passed on the command line arguments.
 
-Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+Sets `configure`, `build`, `check`, `install`.
 
 The `install` target is always called with `STRIP=true` and `PREFIX=/usr`.
 
@@ -1411,9 +1411,9 @@ Default values:
 * `make_dir` = `build`
 * `make_cmd` = `ninja`
 
-Sets `do_configure`, `do_build`, `do_check`, `do_install`. They are wrappers
+Sets `configure`, `build`, `check`, `install`. They are wrappers
 around the `meson` utility module API `configure`, `install`, and `test`, except
-`do_build`, which calls `self.make_cmd` (with the right number of jobs).
+`build`, which calls `self.make_cmd` (with the right number of jobs).
 
 The `self.make_dir` value is passed as `build_dir`. The `self.configure_args`,
 `self.make_build_args`, `self.make_check_args`, `self.make_install_args` values
@@ -1439,10 +1439,10 @@ Default values:
 * `make_check_target` =
 * `make_install_target` = `dist/*.whl`
 
-Sets `do_build`, `do_check`, `do_install`.
+Sets `build`, `check`, `install`.
 
-The `do_build` builds a wheel with `python -m build`. The `do_install` will
-install the contents of the wheel. The `do_check` will run `pytest` or fail.
+The `build` builds a wheel with `python -m build`. The `install` will
+install the contents of the wheel. The `check` will run `pytest` or fail.
 
 The `make_install_target` is used as a glob pattern to match built wheels.
 
@@ -2298,18 +2298,23 @@ access within the sandbox at this point.
 
 The `cbuild` system is largely driven by hooks. A hook is a Python source
 file present in `cbuild/hooks/<section>`. Hooks take care of things such
-as sources handling, environment setup, linting, cleanups, and even
-package generation and repo registration.
+as sources handling, environment setup, linting, cleanups, and so on. Some
+things are hardcoded within `cbuild` and not done by hooks.
 
-The section consists of the `init_`, `pre_`, `do_` or `post_` prefix plus
-the phase name (`fetch`, `extract`, `prepare`, `patch`, `configure`, `build`,
-`check`, `install` and `pkg`).
+The following hook types are allowed:
 
-Hooks are stamp-checked, except the `init_` hooks which are run always.
-They are called together with the corresponding phase functions (if such
-phase function exists) defined in the template. Every hook defined in the
-section directory is invoked, in sorted order. They use a numerical prefix
-to ensure proper sorting.
+* `fetch` (default fetch code)
+* `extract` (default extract code)
+* `prepare` (bldroot tree preparation)
+* `setup` (build environment preparation)
+* `patch` (default patch code)
+* `destdir` (final tree preparation per-subpackage, may change it)
+* `pkg` (final state preparation + lint, may no longer change destdir)
+
+Hooks are stamp-checked, except `setup`, which is run always. They are
+typically called tohether with the corresponding phase functions, but not
+always. Every hook defined in the section directory is invoked, in sorted
+order, so they use numerical prefixes to ensure sorting.
 
 A hook looks like this:
 
@@ -2321,64 +2326,36 @@ def invoke(pkg):
 It takes a package (sometimes this may be a subpackage) and does not return
 a value, though it may error.
 
-This is the entire call chain of a template build. The `init:` and `pre:`
-invocations mean `init_` or `pre_` hooks plus template function if available.
+This is the overall call order of hooks and phases:
 
-For `post:`, the order is reversed, with the function called first and the
-hooks called afterwards. For `do_fetch` and `do_extract`, either the hooks
-or the function are called but not both; the function overrides the hooks.
-This allows templates to define custom behavior if needed, but fall back
-to the defaults that are useful for most.
+* `init_fetch` (template, always)
+* `pre_fetch` (template)
+* `fetch` (template if defined, otherwise hooks)
+* `post_fetch` (template)
+* `init_extract` (template, always)
+* `pre_extract` (template)
+* `extract` (template if defined, otherwise hooks)
+* `post_extract` (template)
+* `init_patch` (template, always)
+* `pre_patch` (template)
+* `patch` (template if defined, otherwise hooks)
+* `post_patch` (template)
+* `init_prepare` (template, always)
+* `pre_prepare`, `prepare`, `post_prepare` (template)
+* `setup` (hooks, always)
+* `init_configure` (template, always)
+* `pre_configure`, `configure`, `post_configure` (template)
+* `init_build` (template, always)
+* `pre_build`, `build`, `post_build` (template)
+* `init_check` (template, always)
+* `pre_check`, `check`, `post_check` (template)
+* `init_install` (template, always)
+* `pre_install`, `install`, `post_install` (template)
+* `pkg_install` (subpackage, each) and `destdir` (hooks, each subpackage)
+* `destdir` (hooks, for main package)
+* `pkg` (hooks, for each subpackage)
 
-When `step:` is written, it means `init_` hooks and function called always,
-followed by `pre_` hooks and function, followed by `do_` function and hooks,
-followed by `post_` function and hooks. All steps have their `do_` function
-optional (i.e. template does not have to define it) except `install`, which
-always has to have it defined in the template.
-
-1) `init`
-2) init: `fetch`
-3) pre: `fetch`
-4) `do_fetch` OR `do_fetch` hooks
-5) post: `fetch`
-6) init: `extract`
-7) `do_extract` OR `do_extract` hooks
-8) post: `extract`
-9) step: `prepare` (if before patch)
-10) step: `patch`
-11) step: `prepare` (if after patch)
-12) step: `configure`
-13) step: `build`
-14) step: `check`
-15) step: `install`
-
-The `install` step is also special in that it does not call `post_install`
-hooks yet (`post_install` function is called though).
-
-After this, subpackage installation is performed. For each subpackage, the
-following is run:
-
-1) subpackage is checked for `pkg_install`
-2) if defined, `pre_install` hooks are called, followed by `pkg_install`
-3) `post_install` hooks are called always
-
-Finally, `post_install` hooks are called for the main package.
-
-For both subpackages and main package, the system scans for shared libraries
-in the package, before `post_install` hooks are called.
-
-The whole `install` step is treated atomically, i.e. if anything in it fails
-and the build is restarted, it runs again from `install`.
-
-Once done, `init_pkg` hooks are called for the main package. Then, for each
-subpackage and finally for the main package, `pre_pkg` hooks are called.
-
-The `pre_pkg` hooks should not alter anything in the resulting `destdir`.
-From this point onwards, it should be considered read only.
-
-Finally, `do_pkg` and `post_pkg` hooks are called first for each subpackage
-and then for the main package. After this, the build system rebuilds repo
-indexes, removes automatic dependencies, and performs cleanup.
+After the `pkg` hooks, packages are generated and registered.
 
 <a id="custom_targets"></a>
 ### Custom Targets
