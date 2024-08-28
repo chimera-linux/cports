@@ -169,7 +169,6 @@ if _have_nvidia:
 
 if _have_arm:
     _gallium_drivers += [
-        "kmsro",
         "v3d",
         "vc4",
         "freedreno",
