@@ -2186,9 +2186,11 @@ class Template(Package):
     def install_lib(self, src, mode=0o755, name=None, glob=False):
         self.install_file(src, "usr/lib", mode, name, glob)
 
-    def install_man(self, src, name=None, cat=None, glob=False):
+    def install_man(self, src, name=None, cat=None, glob=False, lang=None):
         self.install_dir("usr/share/man")
         manbase = self.destdir / "usr/share/man"
+        if lang:
+            manbase = manbase / lang
         if not glob:
             srcs = [self.cwd / src]
         else:
@@ -2544,7 +2546,7 @@ class Subpackage(Package):
         if p.is_absolute():
             self.error(f"take(): path '{p}' must not be absolute")
         origp = self.parent.destdir / p
-        got = glob.glob(str(origp))
+        got = glob.glob(str(origp), recursive=True)
         if len(got) == 0 and not missing_ok:
             self.error(f"take(): path '{p}' did not match anything")
         for fullp in got:
@@ -2570,10 +2572,10 @@ class Subpackage(Package):
                         # match false positives
                         def _take_mancmd(p):
                             self._take_impl(
-                                f"usr/share/man/man1/{p.name}.1", True
+                                f"usr/share/man/**/man1/{p.name}.1", True
                             )
                             self._take_impl(
-                                f"usr/share/man/man1/{p.name}.8", True
+                                f"usr/share/man/**/man8/{p.name}.8", True
                             )
 
                         # and then take the command itself
@@ -2585,7 +2587,7 @@ class Subpackage(Package):
                     case "man":
                         dot = sfx.rfind(".")
                         return self._take_impl(
-                            f"usr/share/man/man{sfx[dot + 1:]}/{sfx}",
+                            f"usr/share/man/**/man{sfx[dot + 1:]}/{sfx}",
                             missing_ok,
                         )
         return self._take_impl(p, missing_ok)
@@ -2640,8 +2642,8 @@ class Subpackage(Package):
             mpath = self.parent.destdir / "usr/share/man/man1"
             for f in mpath.glob("*-config.1"):
                 if f.stem != "pkg-config":
-                    self.take(f"usr/share/man/man1/{f.name}")
-            self.take(f"usr/share/man/man[{man}]", missing_ok=True)
+                    self.take(f"usr/share/man/**/man1/{f.name}")
+            self.take(f"usr/share/man/**/man[{man}]", missing_ok=True)
 
     def take_doc(self):
         self.take("usr/share/doc", missing_ok=True)
@@ -2665,7 +2667,7 @@ class Subpackage(Package):
         self.take("usr/share/fish/vendor_completions.d", missing_ok=True)
         self.take("usr/share/nushell/vendor/autoload", missing_ok=True)
         if man:
-            self.take(f"usr/share/man/man[{man}]", missing_ok=True)
+            self.take(f"usr/share/man/**/man[{man}]", missing_ok=True)
 
     def default_devel(self, man="23", extra=None):
         def func():

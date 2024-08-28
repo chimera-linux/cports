@@ -3134,14 +3134,15 @@ Equivalent to `self.install_file(src, "usr/bin", 0o755, name, glob)`.
 
 Equivalent to `self.install_file(src, "usr/lib", 0o755, name, glob)`.
 
-##### def install_man(self, src, name = None, cat = None, glob = False)
+##### def install_man(self, src, name = None, cat = None, glob = False, lang = None)
 
-Install a manpage `src`. That means installing into `usr/share/man` into
-the right category (e.g. `man1`), this is determined from the filename by
-default, but you can specify it as `cat` (e.g. the integer `1`). The manpage
-will retain its name, except when `name` is specified. This name should not
-include the category (it is automatically appended, either as previously
-determined from the filename, or as specified by `cat`).
+Install a manpage `src`. That means installing the manpage into the right path
+(`usr/share/man/manN` or when `lang` is specified, `usr/share/man/manN/{lang}`),
+the category is automatically determined from the filename by default, but you
+can specify it as `cat` (e.g. the integer `1`). The manpage will retain its
+name, except when `name` is specified. This name should not include the
+category (it is automatically appended, either as previously determined
+from the filename, or as specified by `cat`).
 
 The permissions will be `644`. All paths are created as necessary. The
 `glob` argument is equivalent to `install_file`.
