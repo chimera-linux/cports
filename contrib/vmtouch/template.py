@@ -16,7 +16,7 @@ hardening = ["vis", "cfi"]
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("vmtouch")
     self.install_man("vmtouch.8")
     self.install_license("LICENSE")

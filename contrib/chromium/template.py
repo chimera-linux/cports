@@ -174,7 +174,7 @@ def post_patch(self):
     self.cp(self.files_path / "pp-data.sh", ".")
 
 
-def do_configure(self):
+def configure(self):
     # where we mess with libvpx configuration, regen the files
     if self.profile().arch == "ppc64le":
         self.do(
@@ -257,7 +257,7 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     self.do(
         "ninja",
         "-C",
@@ -275,7 +275,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     srcp = "out/Release"
     dstp = "usr/lib/chromium"
 

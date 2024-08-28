@@ -14,7 +14,7 @@ sha256 = "e933c27c68102b32cc0e4cb0ea69d8c95cc29d3efe486c4dd78e8af5a13520ad"
 options = ["!strip", "foreignelf"]
 
 
-def do_install(self):
+def install(self):
     destp = "usr/lib/firmware/brcm"
     self.install_file("BCM4345C5.hcd", destp)
     self.install_file(

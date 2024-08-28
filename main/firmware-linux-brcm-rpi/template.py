@@ -22,7 +22,7 @@ sha256 = [
 options = ["!strip", "foreignelf", "execstack"]
 
 
-def do_install(self):
+def install(self):
     bfw = f"bluez-firmware-{_bt_rev}/debian/firmware"
     wfw = f"firmware-nonfree-{_fw_rev}/debian/config/brcm80211"
 

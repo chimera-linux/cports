@@ -43,7 +43,7 @@ hardening = ["!int"]
 options = ["!cross"]
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import gnu_configure
 
     gnu_configure.replace_guess(self)
@@ -80,7 +80,7 @@ def do_configure(self):
         )
 
 
-def do_build(self):
+def build(self):
     with self.stamp("build-nox") as s:
         s.check()
         self.do("make", "-C", "build", f"-j{self.make_jobs}")
@@ -94,7 +94,7 @@ def do_build(self):
         self.do("make", "-C", "build-qt", f"-j{self.make_jobs}")
 
 
-def do_install(self):
+def install(self):
     self.do(
         "make",
         "-C",

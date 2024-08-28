@@ -53,7 +53,7 @@ def init_prepare(self):
         self.make_env["OPENSSL_DIR"] = str(self.profile().sysroot / "usr")
 
 
-def do_prepare(self):
+def prepare(self):
     # we patch the lockfile so vendor after patch
     pass
 
@@ -71,7 +71,7 @@ def _(self):
     self.rm(bdirn, recursive=True)
 
 
-def do_install(self):
+def install(self):
     binp = f"target/{self.profile().triplet}/release/cargo"
 
     self.install_bin(binp)

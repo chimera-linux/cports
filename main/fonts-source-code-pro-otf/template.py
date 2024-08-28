@@ -11,6 +11,6 @@ source = f"https://github.com/adobe-fonts/source-code-pro/releases/download/{pkg
 sha256 = "754a2e3ebb945ae905d720ac5896b3b34acc9546dd6551ef9536869788629dae"
 
 
-def do_install(self):
+def install(self):
     for f in self.cwd.glob("*.otf"):
         self.install_file(f, "usr/share/fonts/source-code-pro")

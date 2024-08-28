@@ -9,6 +9,6 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 
-def do_install(self):
+def install(self):
     for f in self.files_path.glob("*.pub"):
         self.install_file(f, "usr/share/chimera-image-keys")

@@ -12,15 +12,15 @@ sha256 = "821bdff48a3f683bc4bb3b6f0b5fe7b2d647cf65d52aeb63328c91a6c6df285a"
 options = ["!check"]
 
 
-def do_configure(self):
+def configure(self):
     self.do("python", "configure.py", "--bootstrap")
 
 
-def do_build(self):
+def build(self):
     self.do("python", "configure.py")
 
 
-def do_install(self):
+def install(self):
     self.install_bin("ninja")
     self.install_file(
         "misc/bash-completion",

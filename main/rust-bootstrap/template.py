@@ -46,7 +46,7 @@ match self.profile().arch:
         broken = f"not yet built for {self.profile().arch}"
 
 
-def do_install(self):
+def install(self):
     for d in self.cwd.iterdir():
         self.do(
             self.chroot_cwd / d.name / "install.sh",

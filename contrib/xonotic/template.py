@@ -31,7 +31,7 @@ tool_flags = {
 }
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import gnu_configure
 
     with self.pushd("source/d0_blind_id"):
@@ -39,7 +39,7 @@ def do_configure(self):
         gnu_configure.configure(self, configure_args=["--disable-rijndael"])
 
 
-def do_build(self):
+def build(self):
     cfl = self.get_cflags(shell=True)
     ldfl = self.get_ldflags(shell=True)
 
@@ -61,7 +61,7 @@ def do_build(self):
     self.make.build(wrksrc="source/d0_blind_id")
 
 
-def do_install(self):
+def install(self):
     self.install_bin(
         "source/darkplaces/darkplaces-dedicated", name="xonotic-dedicated"
     )

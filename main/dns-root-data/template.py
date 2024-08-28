@@ -12,5 +12,5 @@ source = f"$(DEBIAN_SITE)/main/d/dns-root-data/dns-root-data_{pkgver}_all.deb"
 sha256 = "1c60b5794e508681d7d4f61c16eebb959d90f0a6619367947059154be6e1a135"
 
 
-def do_install(self):
+def install(self):
     self.install_files("usr/share/dns", "usr/share")

@@ -15,7 +15,7 @@ sha256 = [
 ]
 
 
-def do_install(self):
+def install(self):
     self.install_dir("usr/share/unicode/ucd")
 
     for f in self.cwd.iterdir():

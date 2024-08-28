@@ -12,7 +12,7 @@ sha256 = "581ca3285bb56837a8954953f629ebddce644152b673ecd4bbfae1504306d7d6"
 options = ["!strip", "foreignelf"]
 
 
-def do_install(self):
+def install(self):
     for folder in ["sof", "sof-ace-tplg", "sof-ipc4", "sof-tplg"]:
         self.install_files(
             folder, "usr/lib/firmware/intel", name=f"{folder}-v{pkgver}"

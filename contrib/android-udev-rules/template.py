@@ -10,6 +10,6 @@ sha256 = "9ed9f34b07082c9bb609c09a922dfd1e2df7cee7ccee0584bfc95da18c88eafe"
 options = ["!splitudev"]
 
 
-def do_install(self):
+def install(self):
     self.install_sysusers(self.files_path / "adbusers.conf", name="adbusers")
     self.install_file("51-android.rules", "usr/lib/udev/rules.d")

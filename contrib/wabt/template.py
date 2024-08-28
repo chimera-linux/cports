@@ -46,7 +46,7 @@ sha256 = [
 ]
 
 
-def do_check(self):
+def check(self):
     self.do(
         "python",
         "test/run-tests.py",

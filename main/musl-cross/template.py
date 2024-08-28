@@ -52,7 +52,7 @@ def post_extract(self):
     self.rm("src/string/x86_64/memcpy.s")
 
 
-def do_configure(self):
+def configure(self):
     for an in _targets:
         with self.profile(an) as pf:
             at = pf.triplet
@@ -81,7 +81,7 @@ def do_configure(self):
             self.tool_flags["CXXFLAGS"] = []
 
 
-def do_build(self):
+def build(self):
     for an in _targets:
         with self.profile(an) as pf:
             eargs = []
@@ -94,7 +94,7 @@ def do_build(self):
                 self.make.build(eargs, wrksrc=self.chroot_cwd / f"build-{an}")
 
 
-def do_install(self):
+def install(self):
     self.install_license("COPYRIGHT")
 
     for an in _targets:

@@ -10,7 +10,7 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "c5fb508748995ce4c08a21d8bcda686ad680116ccf00a5318bbccf147f4c33ad"
 
 
-def do_install(self):
+def install(self):
     self.install_bin("yadm")
     self.install_man("yadm.1")
     with self.pushd("completion"):

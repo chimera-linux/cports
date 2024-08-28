@@ -19,7 +19,7 @@ for _an in _targets:
     depends += [self.with_pkgver(f"mingw-w64-headers-{_an}")]
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import gnu_configure
 
     for an in _targets:
@@ -34,17 +34,17 @@ def do_configure(self):
         )
 
 
-def do_build(self):
+def build(self):
     for an in _targets:
         self.make.build(wrksrc=f"build-{an}")
 
 
-def do_check(self):
+def check(self):
     for an in _targets:
         self.make.check(wrksrc=f"build-{an}")
 
 
-def do_install(self):
+def install(self):
     for an in _targets:
         self.make.install(
             wrksrc=f"build-{an}",

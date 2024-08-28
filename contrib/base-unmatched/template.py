@@ -9,7 +9,7 @@ license = "custom:none"
 url = "https://chimera-linux.org"
 
 
-def do_install(self):
+def install(self):
     self.install_file(self.files_path / "agetty", "etc/default")
     # u-boot-menu
     self.install_file(self.files_path / "u-boot-device", "etc/default")

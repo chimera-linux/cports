@@ -139,7 +139,7 @@ def _build(
 
         return False
 
-    if not hasattr(pkg, "do_fetch"):
+    if not hasattr(pkg, "fetch"):
         pkg.current_phase = "fetch"
         fetch.invoke(pkg)
         pkg.current_phase = "setup"
@@ -169,7 +169,7 @@ def _build(
     if _step_sentinel("deps"):
         return
 
-    if hasattr(pkg, "do_fetch"):
+    if hasattr(pkg, "fetch"):
         pkg.current_phase = "fetch"
         fetch.invoke(pkg)
 

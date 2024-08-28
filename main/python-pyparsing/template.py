@@ -17,7 +17,7 @@ sha256 = "9655507e4583fa20d2b6909ce4bf7fee71a9976ea94c734dd857fa9ae7c9c7dd"
 options = ["!check"]
 
 
-def do_build(self):
+def build(self):
     self.do("python", "-m", "flit_core.wheel")
 
 

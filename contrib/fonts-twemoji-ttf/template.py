@@ -9,7 +9,7 @@ source = f"{url}/releases/download/v{pkgver}/TwitterColorEmoji-SVGinOT-Linux-{pk
 sha256 = "6826e21ea08dc5df26c887ae4e56046987e0f4909df8c02c73de05714a0353c1"
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         "fontconfig/46-twemoji-color.conf", "usr/share/fontconfig/conf.avail"
     )

@@ -97,7 +97,7 @@ def _call_b2(self, *args):
     )
 
 
-def do_build(self):
+def build(self):
     self.do(
         self.chroot_cwd / "bootstrap.sh",
         f"--prefix={self.chroot_destdir}/usr",
@@ -129,7 +129,7 @@ using python : {self.python_version} : /usr/bin/python3 : {self.profile().sysroo
         )
 
 
-def do_check(self):
+def check(self):
     self.do(
         "python",
         "test_all.py",
@@ -139,7 +139,7 @@ def do_check(self):
     )
 
 
-def do_install(self):
+def install(self):
     # install b2 globally
     self.install_bin("tools/build/src/engine/b2")
 

@@ -13,6 +13,6 @@ tool_flags = {"CFLAGS": ["-fPIC"]}
 options = ["!lto", "!splitstatic"]
 
 
-def do_install(self):
+def install(self):
     self.install_file("build/libargp.a", "usr/lib")
     self.install_file("argp.h", "usr/include")

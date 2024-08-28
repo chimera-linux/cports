@@ -19,7 +19,7 @@ sha256 = "02bb02c6f018c1332b462a6140e0c1c1301cc86158d76c9cab84d7fa29254bc1"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         f"{self.make_dir}/cmd",
         "usr/libexec/docker/cli-plugins",

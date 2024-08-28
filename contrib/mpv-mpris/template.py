@@ -26,6 +26,6 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "71008aa181bccf4bc7b2b5b9673e9993b1d1f5b7e2c189dc3724ab23ef1f6ebb"
 
 
-def do_install(self):
+def install(self):
     self.install_file("mpris.so", "etc/mpv/scripts", 0o755)
     self.install_license("LICENSE")

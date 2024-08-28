@@ -38,7 +38,7 @@ if self.stage > 1:
     depends += ["ccache"]
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import compiler
 
     self.cp(self.files_path / "cbuild-cross-cc.c", ".")
@@ -49,7 +49,7 @@ def do_build(self):
     cc.invoke(["cbuild-lld-wrapper.c"], "cbuild-lld-wrapper")
 
 
-def do_install(self):
+def install(self):
     self.install_bin("cbuild-cross-cc")
     self.install_bin("cbuild-lld-wrapper")
 

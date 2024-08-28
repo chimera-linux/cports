@@ -11,7 +11,7 @@ source = f"http://unifoundry.com/pub/unifont/unifont-{pkgver}/font-builds/unifon
 sha256 = "8ea5b5a14d71e3353d1fea373f5d88d198ad1e285cedd8294655926ee11fd91d"
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         f"unifont-{pkgver}.bdf", "usr/share/fonts/misc", name="unifont.bdf"
     )

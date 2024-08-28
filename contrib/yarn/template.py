@@ -10,7 +10,7 @@ source = f"https://github.com/yarnpkg/yarn/releases/download/v{pkgver}/yarn-v{pk
 sha256 = "88268464199d1611fcf73ce9c0a6c4d44c7d5363682720d8506f6508addf36a0"
 
 
-def do_install(self):
+def install(self):
     self.install_file("lib/v8-compile-cache.js", "usr/lib/yarn")
     self.install_file("lib/cli.js", "usr/lib/yarn")
     self.install_bin("bin/yarn.js", name="yarn")

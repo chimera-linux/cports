@@ -2,7 +2,7 @@ import pathlib
 from cbuild.core import chroot
 
 
-def do_extract(self):
+def extract(self):
     self.cp(
         self.sources_path
         / f"{self.pkgname.removeprefix('ruby-')}-{self.pkgver}.gem",
@@ -10,7 +10,7 @@ def do_extract(self):
     )
 
 
-def do_install(self):
+def install(self):
     gemdir = pathlib.Path(
         chroot.enter(
             "gem",
@@ -100,5 +100,5 @@ def do_install(self):
 
 
 def use(tmpl):
-    tmpl.do_extract = do_extract
-    tmpl.do_install = do_install
+    tmpl.extract = extract
+    tmpl.install = install

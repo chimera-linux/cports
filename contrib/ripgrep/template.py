@@ -23,7 +23,7 @@ sha256 = [
 ]
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/rg")
     self.install_license("LICENSE-MIT")
     self.install_man("docs-prebuilt/doc/rg.1")

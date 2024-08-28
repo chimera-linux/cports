@@ -21,6 +21,6 @@ if self.profile().arch in ["aarch64", "x86_64"]:
     make_check_args += ["--features", "wasm"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/tree-sitter")
     self.install_license("LICENSE")

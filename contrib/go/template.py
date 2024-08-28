@@ -51,7 +51,7 @@ def post_extract(self):
     self.rm("src/cmd/link/internal/ld/fallocate_test.go")
 
 
-def do_build(self):
+def build(self):
     self.do(
         "bash",
         "make.bash",
@@ -112,7 +112,7 @@ def _(self):
     self.rm(bdirn, recursive=True)
 
 
-def do_check(self):
+def check(self):
     self.do(
         self.chroot_cwd / "bin/go",
         "tool",
@@ -126,7 +126,7 @@ def do_check(self):
     )
 
 
-def do_install(self):
+def install(self):
     _binpath, _hostarch = _get_binpath(self)
 
     self.install_files(_binpath, "usr/lib/go", name="bin")

@@ -32,7 +32,7 @@ hardening = ["vis", "!cfi"]
 options = ["!cross", "linkundefver"]
 
 
-def do_configure(self):
+def configure(self):
     self.do(
         self.chroot_cwd / "configure",
         "--prefix=/usr",

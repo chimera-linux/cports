@@ -9,7 +9,7 @@ source = f"https://github.com/FortAwesome/Font-Awesome/releases/download/{pkgver
 sha256 = "8cde9bf442f218ee330844263ee35403ff466a1afbbd11ab170523f3cd09067c"
 
 
-def do_install(self):
+def install(self):
     for f in (self.cwd / "otfs").glob("*.otf"):
         self.install_file(
             f, "usr/share/fonts/font-awesome", name=f.name.replace(" ", "")

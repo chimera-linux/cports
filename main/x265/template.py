@@ -33,7 +33,7 @@ match self.profile().arch:
         configure_args += ["-DENABLE_ASSEMBLY=ON"]
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import cmake
 
     cmake.configure(
@@ -77,7 +77,7 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import cmake
 
     cmake.build(self, "build-12")

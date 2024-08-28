@@ -13,7 +13,7 @@ sha256 = "f46cfe1d8be8d3c2c5a0fb63fc4d48c7dd1444f34346f0e42ad92c706cb90e79"
 options = ["!strip", "foreignelf"]
 
 
-def do_build(self):
+def build(self):
     self.do(
         "iucode_tool",
         "--write-earlyfw",
@@ -22,7 +22,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.install_files("intel-ucode", "usr/lib/firmware")
     self.install_file("intel-ucode.img", "boot")
     self.install_license("license")

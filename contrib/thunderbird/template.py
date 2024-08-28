@@ -111,7 +111,7 @@ def init_configure(self):
     self.env.update(cargo.get_environment(self))
 
 
-def do_configure(self):
+def configure(self):
     conf_opts = [
         "--prefix=/usr",
         "--libdir=/usr/lib",
@@ -229,11 +229,11 @@ def do_configure(self):
     self.do("./mach", "configure", *conf_opts)
 
 
-def do_build(self):
+def build(self):
     self.do("./mach", "build", "--priority", "normal")
 
 
-def do_install(self):
+def install(self):
     self.do(
         "./mach",
         "install",

@@ -41,7 +41,7 @@ def init_build(self):
     self.make_env.update(golang.get_go_env(self))
 
 
-def do_install(self):
+def install(self):
     # rather than patch -D, just copy the files
     self.install_file("runc", "usr/bin")
     self.install_files("man/man8", "usr/share/man")

@@ -52,7 +52,7 @@ def post_build(self):
             )
 
 
-def do_check(self):
+def check(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).check(args=["--workspace", "--exclude", "ruff_benchmark"])

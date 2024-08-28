@@ -21,7 +21,7 @@ sha256 = "44217dce208fce20f86421630b3d0728d914e6f2bf9b63f5628931949622d108"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/amdgpu_top")
     self.install_file("assets/amdgpu_top.desktop", "usr/share/applications")
     self.install_license("LICENSE")

@@ -16,7 +16,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "4909d6023643f1afc3ab219585d4035b7403f3a17849782ab803c5f73c8a31d5"
 
 
-def do_configure(self):
+def configure(self):
     for x in ("tree-sitter-markdown", "tree-sitter-markdown-inline"):
         with self.pushd(x):
             self.do(

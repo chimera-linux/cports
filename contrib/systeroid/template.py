@@ -16,7 +16,7 @@ sha256 = "b638d1167227a30cf793847a08fee42a5810bfb6a493ea0289e29c8260ef916c"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE-MIT")
     self.install_bin(f"target/{self.profile().triplet}/release/systeroid")
     self.install_bin(f"target/{self.profile().triplet}/release/systeroid-tui")

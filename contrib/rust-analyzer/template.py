@@ -16,6 +16,6 @@ sha256 = "5cdf46b1ced491546653bb80745259f8cfc8b2a62b656e9d1c0d0ec53d03431d"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.cargo.install(wrksrc="crates/rust-analyzer")
     self.install_license("LICENSE-MIT")

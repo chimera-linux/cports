@@ -21,6 +21,6 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "860d56653b719402736b00ac9bc09e5e418dea2577cead30644252e85ab5d1a1"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/typst-lsp")
     self.install_license("LICENSE-MIT.txt")

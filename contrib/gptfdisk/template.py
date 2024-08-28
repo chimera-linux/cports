@@ -19,14 +19,14 @@ sha256 = "2abed61bc6d2b9ec498973c0440b8b804b7a72d7144069b5a9209b2ad693a282"
 hardening = ["vis", "cfi"]
 
 
-def do_check(self):
+def check(self):
     self.do(
         "sh",
         "gdisk_test.sh",
     )
 
 
-def do_install(self):
+def install(self):
     self.install_bin("cgdisk")
     self.install_bin("fixparts")
     self.install_bin("gdisk")

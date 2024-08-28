@@ -17,7 +17,7 @@ sha256 = "0805bb9d3bfa51334b4d45a3182daea3e77ecbe27f4ddc672841ec72f63ed20a"
 options = ["!check"]
 
 
-def do_prepare(self):
+def prepare(self):
     self.golang.mod_download(wrksrc=build_wrksrc)
 
 

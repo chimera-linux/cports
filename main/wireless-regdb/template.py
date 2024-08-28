@@ -13,7 +13,7 @@ sha256 = "9832a14e1be24abff7be30dee3c9a1afb5fdfcf475a0d91aafef039f8d85f5eb"
 options = ["!check"]
 
 
-def do_build(self):
+def build(self):
     pass
 
 

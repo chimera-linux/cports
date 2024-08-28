@@ -54,7 +54,7 @@ def init_configure(self):
     self.tools["LD"] = self.tools["CC"]
 
 
-def do_configure(self):
+def configure(self):
     cargs = [
         "--prefix=/usr",
         "-Dusethreads",

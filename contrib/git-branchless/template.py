@@ -19,7 +19,7 @@ def init_check(self):
     self.env["TEST_GIT_EXEC_PATH"] = "/usr/libexec/git-core"
 
 
-def do_install(self):
+def install(self):
     self.cargo.install(wrksrc="git-branchless")
     self.install_license("LICENSE-MIT")
     self.do(

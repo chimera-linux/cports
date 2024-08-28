@@ -29,7 +29,7 @@ hardening = ["!int"]
 options = ["!check"]
 
 
-def do_check(self):
+def check(self):
     self.do(
         "python",
         "check.py",

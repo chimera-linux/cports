@@ -24,7 +24,7 @@ sha256 = "8f240c6252d7a72bfc0a1273fdca658c28195081fd83b56562928917703ef60c"
 
 
 # this is identical to the default do_check, but without pytest
-def do_check(self):
+def check(self):
     whl = list(
         map(
             lambda p: str(p.relative_to(self.cwd)),

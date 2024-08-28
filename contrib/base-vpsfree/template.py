@@ -24,7 +24,7 @@ broken_symlinks = ["usr/lib/dinit.d/boot.d/*"]
 options = ["!autosplit"]
 
 
-def do_install(self):
+def install(self):
     self.install_dir("usr/lib/dinit.d/boot.d")
     # replace dinit-chimera cgroups init
     self.install_file(

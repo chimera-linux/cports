@@ -74,7 +74,7 @@ hardening = ["vis", "!cfi"]
 system_groups = ["_wireshark"]
 
 
-def do_check(self):
+def check(self):
     # extcaps can't work in our container
     self.do(
         "pytest",

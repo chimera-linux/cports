@@ -10,7 +10,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         *self.find(
             self.files_path, f"{self.profile().arch}@chimera-linux.org-*.pub"

@@ -31,7 +31,7 @@ def post_build(self):
     self.do("make", "docs")
 
 
-def do_check(self):
+def check(self):
     # only unit tests; others assume docker daemon, gawk, network access, etc.
     self.do("make", "test-unit-local")
 

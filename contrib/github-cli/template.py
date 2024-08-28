@@ -29,7 +29,7 @@ def post_build(self):
             self.do("build/gh", "completion", f"-s={shell}", stdout=cf)
 
 
-def do_install(self):
+def install(self):
     # Don't use go build style install because it would also install gen-docs
     self.install_bin("build/gh")
     self.install_license("LICENSE")

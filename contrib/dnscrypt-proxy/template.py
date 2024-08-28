@@ -18,7 +18,7 @@ def post_extract(self):
     self.rm("vendor", recursive=True)
 
 
-def do_build(self):
+def build(self):
     self.golang.build(wrksrc="dnscrypt-proxy")
 
 

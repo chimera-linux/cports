@@ -1,7 +1,7 @@
 from cbuild.util import make
 
 
-def do_configure(self):
+def configure(self):
     self.do(
         self.chroot_cwd / self.configure_script,
         *self.configure_args,
@@ -9,22 +9,22 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     self.make.build()
 
 
-def do_check(self):
+def check(self):
     self.make.check()
 
 
-def do_install(self):
+def install(self):
     self.make.install()
 
 
 def use(tmpl):
-    tmpl.do_configure = do_configure
-    tmpl.do_build = do_build
-    tmpl.do_check = do_check
-    tmpl.do_install = do_install
+    tmpl.configure = configure
+    tmpl.build = build
+    tmpl.check = check
+    tmpl.install = install
 
     tmpl.make = make.Make(tmpl)

@@ -35,13 +35,13 @@ sha256 = [
 options = ["!check"]
 
 
-def do_build(self):
+def build(self):
     self.do("make", wrksrc="common/docs")
     self.do("make", wrksrc="storage/docs")
     self.do("make", "docs", wrksrc="image")
 
 
-def do_install(self):
+def install(self):
     self.install_dir("etc/containers/certs.d")
     self.install_dir("etc/containers/oci/hooks.d")
     self.install_dir("var/lib/containers/sigstore", empty=True)

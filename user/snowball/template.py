@@ -19,7 +19,7 @@ env = {"LD_LIBRARY_PATH": "./"}
 options = ["!cross"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("snowball")
     self.install_bin("stemwords")
     self.install_lib(f"libstemmer.so.{pkgver}")

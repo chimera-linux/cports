@@ -75,7 +75,7 @@ _targetlist = [
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import cmake
 
     for an in _targets:
@@ -99,7 +99,7 @@ def do_configure(self):
                 )
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import cmake
 
     for an in _targets:
@@ -109,7 +109,7 @@ def do_build(self):
                 cmake.build(self, f"build-{an}")
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import cmake
 
     for an in _targets:

@@ -33,7 +33,7 @@ sha256 = "3672a82ccd3a62e99ab200a13903421e2928e399fda25ced98d140313ad59cb9"
 options = ["!cross"]
 
 
-def do_configure(self):
+def configure(self):
     self.do(
         "sip-build",
         "--confirm-license",

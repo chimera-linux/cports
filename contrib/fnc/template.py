@@ -18,7 +18,7 @@ sha256 = "9ebfe3e9ecaa764ebc1ed488857c0a18b0f51e57a66f73620ee692587e5bf6da"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("src/fnc")
     self.install_man("src/fnc.1")
     self.install_license("LICENSE")

@@ -95,7 +95,7 @@ def init_configure(self):
     self.python_version = _majver
 
 
-def do_install(self):
+def install(self):
     self.make.invoke(
         ["install", "maninstall"], ["DESTDIR=" + str(self.chroot_destdir)]
     )

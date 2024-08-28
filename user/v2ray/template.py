@@ -16,7 +16,7 @@ sha256 = "e6798d1a29f6a52a3c0cc7176803b73e292427bc7858d534d0529a278936b8b0"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("build/main", name="v2ray")
     self.install_license("LICENSE")
     self.install_service(self.files_path / "v2ray")

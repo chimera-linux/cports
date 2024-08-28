@@ -26,6 +26,6 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "3b460f6adebee4ca49890ec4ebc50d42fe4b544aac7ec12ba5e4de971a06859a"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/i3status-rs")
     self.install_files("files", "usr/share", name="i3status-rust")

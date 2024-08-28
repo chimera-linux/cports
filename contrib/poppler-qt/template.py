@@ -56,7 +56,7 @@ def init_configure(self):
     self.configure_args.append(f"-DTESTDATADIR={self.chroot_srcdir}/testdata")
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import cmake
 
     cmake.install(self, f"{self.make_dir}/qt6")

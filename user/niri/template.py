@@ -35,7 +35,7 @@ sha256 = "070d6991d863161c85f28522924b3118b58a53d8882913a412148bb32206209e"
 # TODO: dinit graphical user session service, --notify-fd, etc
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/niri")
     self.install_file("resources/niri.desktop", "usr/share/wayland-sessions")
     self.install_file(

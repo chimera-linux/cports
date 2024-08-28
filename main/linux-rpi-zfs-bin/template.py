@@ -22,19 +22,19 @@ def init_configure(self):
     linux.generate_scriptlets_ckms(self, "zfs", self._linux_version)
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import linux
 
     linux.ckms_configure(self, "zfs", _zfsver, self._linux_version)
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import linux
 
     linux.ckms_build(self, "zfs", _zfsver, self._linux_version)
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import linux
 
     linux.ckms_install(self, "zfs", _zfsver, self._linux_version)

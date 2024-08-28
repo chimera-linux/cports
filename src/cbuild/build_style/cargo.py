@@ -1,26 +1,26 @@
 from cbuild.util import cargo
 
 
-def do_prepare(self):
+def prepare(self):
     self.cargo.vendor()
 
 
-def do_build(self):
+def build(self):
     self.cargo.build()
 
 
-def do_check(self):
+def check(self):
     self.cargo.check()
 
 
-def do_install(self):
+def install(self):
     self.cargo.install()
 
 
 def use(tmpl):
-    tmpl.do_prepare = do_prepare
-    tmpl.do_build = do_build
-    tmpl.do_check = do_check
-    tmpl.do_install = do_install
+    tmpl.prepare = prepare
+    tmpl.build = build
+    tmpl.check = check
+    tmpl.install = install
 
     tmpl.cargo = cargo.Cargo(tmpl)

@@ -11,7 +11,7 @@ sha256 = "e23cbac29f110ba571f0da8523e79d373691466ed7f2a31301721817d34530bd"
 options = ["!autosplit"]
 
 
-def do_install(self):
+def install(self):
     self.do(
         "make",
         "install",

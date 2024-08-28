@@ -34,7 +34,7 @@ def init_build(self):
         self.make_build_args += [f"HOSTCC={self.get_tool('CC')}"]
 
 
-def do_check(self):
+def check(self):
     self.make.invoke(None, ["-C", "testsuite"])
 
 

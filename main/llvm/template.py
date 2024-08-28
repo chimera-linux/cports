@@ -189,7 +189,7 @@ def init_configure(self):
     ]
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import cmake
 
     # when bootstrapping, this will check the actual profile

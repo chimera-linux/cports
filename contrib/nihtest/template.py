@@ -18,7 +18,7 @@ source = f"{url}/releases/download/v{pkgver}/nihtest-{pkgver}.tar.gz"
 sha256 = "6843b6769bddfae51f5b68bc62eb34b444087365dd6f4003d528eaedf8184087"
 
 
-def do_check(self):
+def check(self):
     from cbuild.util import cmake
 
     for func in [cmake.configure, cmake.build, cmake.ctest]:

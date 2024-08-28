@@ -32,7 +32,7 @@ sha256 = "7f123462a28b7ca3ebe2607485f7168554c2b10dfc155c7ec46300666ac27f95"
 hardening = ["!vis", "!cfi"]
 
 
-def do_configure(self):
+def configure(self):
     with open(self.cwd / "config.mak", "w") as cf:
         cf.write(
             f"""
@@ -59,7 +59,7 @@ export GIT_SKIP_TESTS=t4201 t4301 t7008 t7003
         )
 
 
-def do_build(self):
+def build(self):
     cmd = ["make", f"-j{self.make_jobs}"]
     self.do(*cmd)
     self.do(*cmd, "-C", "Documentation", "man")
@@ -69,13 +69,13 @@ def do_build(self):
     self.do(*cmd, "-C", "contrib/credential/libsecret", "all")
 
 
-def do_check(self):
+def check(self):
     self.do("make", "test")
     self.do("make", "-C", "contrib/diff-highlight", "test")
     self.do("make", "-C", "contrib/subtree", "test")
 
 
-def do_install(self):
+def install(self):
     ddir = f"DESTDIR={self.chroot_destdir}"
     self.do("make", "install", "install-doc", ddir)
     self.do("make", "-C", "contrib/contacts", "install", "install-man", ddir)

@@ -37,7 +37,7 @@ def post_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/git-cliff")
     self.install_man("git-cliff.1")
     self.install_completion("git-cliff.bash", "bash")

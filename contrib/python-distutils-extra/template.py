@@ -18,5 +18,5 @@ source = f"https://salsa.debian.org/python-team/modules/python-distutils-extra/-
 sha256 = "ee1a6a3f97fd87db6d94007324239da58d9b4860f11f05dd66614565de2e6123"
 
 
-def do_check(self):
+def check(self):
     self.do("python", "setup.py", "test")

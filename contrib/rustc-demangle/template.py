@@ -14,7 +14,7 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "0a130040b74af0f1764b82fa55a8510d7d9284847206c32037f5660596060888"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(
         f"target/{self.profile().triplet}/release/demangle",
         name="rust-demangle",

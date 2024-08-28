@@ -18,7 +18,7 @@ _targets = [
 ]
 
 
-def do_build(self):
+def build(self):
     for tgt in _targets:
         self.do(
             "make",
@@ -29,7 +29,7 @@ def do_build(self):
         )
 
 
-def do_install(self):
+def install(self):
     self.do(
         "make",
         "install",

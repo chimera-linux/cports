@@ -20,7 +20,7 @@ sha256 = "491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6"
 options = ["brokenlinks"]
 
 
-def do_check(self):
+def check(self):
     self.do("python", "-m", "pytest")
 
 

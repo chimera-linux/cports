@@ -11,7 +11,7 @@ sha256 = "b4fda8c0455c41b13a2bfabcad4d937f818547bf8ed4258f5d37cf5e350a9850"
 options = ["!distlicense"]
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         "src/mediator.lua",
         "usr/share/lua/5.4",

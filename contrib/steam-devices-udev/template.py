@@ -10,6 +10,6 @@ source = f"{url}/archive/{_commit}.tar.gz"
 sha256 = "2e508acb093d1428f32c3f6b0bc836cc4a20ceef4afc92b6cdb7cf631400fd36"
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE")
     self.install_file("*.rules", "usr/lib/udev/rules.d", glob=True)

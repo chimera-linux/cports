@@ -18,7 +18,7 @@ sha256 = "526263f4870c26f26c433545579475377b2b7588b6f1eac76a001e873ae3e19d"
 options = ["!check"]
 
 
-def do_build(self):
+def build(self):
     self.do(
         "python",
         "-m",
@@ -30,7 +30,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import python
 
     self.do(

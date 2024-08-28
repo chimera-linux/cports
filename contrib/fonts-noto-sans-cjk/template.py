@@ -16,7 +16,7 @@ sha256 = [
 ]
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         self.files_path / "70-noto-sans-cjk.conf",
         "usr/share/fontconfig/conf.avail",

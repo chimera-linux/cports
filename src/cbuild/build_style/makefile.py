@@ -1,7 +1,7 @@
 from cbuild.util import make
 
 
-def do_build(self):
+def build(self):
     if self.make_use_env:
         self.make.build()
         return
@@ -32,17 +32,17 @@ def do_build(self):
     self.make.build(tool_args)
 
 
-def do_check(self):
+def check(self):
     self.make.check()
 
 
-def do_install(self):
+def install(self):
     self.make.install(["STRIP=true", "PREFIX=/usr"])
 
 
 def use(tmpl):
-    tmpl.do_build = do_build
-    tmpl.do_check = do_check
-    tmpl.do_install = do_install
+    tmpl.build = build
+    tmpl.check = check
+    tmpl.install = install
 
     tmpl.make = make.Make(tmpl)

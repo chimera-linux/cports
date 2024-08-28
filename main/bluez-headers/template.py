@@ -11,7 +11,7 @@ source = f"$(KERNEL_SITE)/bluetooth/bluez-{pkgver}.tar.xz"
 sha256 = "5d032fdc1d4a085813554f57591e2e1fb0ceb2b3616ee56f689bc00e1d150812"
 
 
-def do_install(self):
+def install(self):
     for f in [
         "bluetooth",
         "bnep",

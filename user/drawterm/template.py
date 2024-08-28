@@ -35,7 +35,7 @@ def init_build(self):
     ]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("drawterm")
     self.install_man("drawterm.1")
     self.install_license("LICENSE")

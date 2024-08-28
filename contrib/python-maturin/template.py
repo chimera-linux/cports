@@ -27,7 +27,7 @@ sha256 = "40259109a3d941237db3dff2f34c5e953904de86410e516c098f824d6160109b"
 options = ["!check"]
 
 
-def do_prepare(self):
+def prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor()

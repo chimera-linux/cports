@@ -12,7 +12,7 @@ sha256 = "50850f8d800e7499722f6ea61e478e96464a375494b5a24da93aa0598cbe964d"
 options = ["!check", "!cross"]
 
 
-def do_install(self):
+def install(self):
     self.install_dir("usr/share/xonotic")
     self.install_files("data", "usr/share/xonotic")
     self.install_file("key_0.d0pk", "usr/share/xonotic")

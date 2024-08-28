@@ -12,5 +12,5 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "ad72171dd267fd73ecc6a05f9ff3cc068e77a3b82f986305ab455aeade841294"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/texlab")

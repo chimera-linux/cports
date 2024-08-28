@@ -15,7 +15,7 @@ tool_flags = {"CFLAGS": ["-Wno-deprecated-non-prototype"]}
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("xearth")
     self.install_man("xearth.man", name="xearth", cat=1)
     self.install_license("README")

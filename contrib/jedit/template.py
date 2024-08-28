@@ -40,7 +40,7 @@ def post_extract(self):
     self.cp(self.sources_path / f"asm-util-{_asm_ver}.jar", ".")
 
 
-def do_prepare(self):
+def prepare(self):
     # fetch dependencies separately while we have network
     self.do(
         "ant",
@@ -51,12 +51,12 @@ def do_prepare(self):
     )
 
 
-def do_build(self):
+def build(self):
     self.do("ant", "-propertyfile", "build.properties", "build")
     self.do("ant", "-propertyfile", "build.properties", "docs-html")
 
 
-def do_install(self):
+def install(self):
     self.install_file("build/jedit.jar", "usr/share/jedit")
 
     for f in [

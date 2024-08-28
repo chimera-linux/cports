@@ -10,7 +10,7 @@ source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "8d51102bbfa6a7e7784c760629b85196626621573fa6642a7b985c96728b0f55"
 
 
-def do_install(self):
+def install(self):
     self.install_files("themes", "usr/share")
     self.install_files("pixmaps", "usr/share")
 

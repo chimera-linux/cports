@@ -30,7 +30,7 @@ sha256 = "2335c5be15a5dde34c3333c10a6339da114e2232e4c4642dea1793e491e09677"
 hardening = ["vis", "!cfi"]
 
 
-def do_check(self):
+def check(self):
     from cbuild.util import cmake
 
     cmake.ctest(

@@ -14,7 +14,7 @@ sha256 = "47419d585f533f7b903d7dc85b66b88a72bc7f8bf788d9e2093a981acc7379a6"
 hardening = ["vis", "cfi"]
 
 
-def do_configure(self):
+def configure(self):
     self.do(
         "python",
         "./build/gen.py",
@@ -25,14 +25,14 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     self.do("ninja", f"-j{self.make_jobs}", "-C", "out")
 
 
-def do_check(self):
+def check(self):
     self.do("./out/gn_unittests")
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE")
     self.install_bin("out/gn")

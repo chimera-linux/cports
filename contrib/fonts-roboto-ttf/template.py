@@ -9,5 +9,5 @@ source = f"{url}/releases/download/v{pkgver}/roboto-android.zip"
 sha256 = "c825453253f590cfe62557733e7173f9a421fff103b00f57d33c4ad28ae53baf"
 
 
-def do_install(self):
+def install(self):
     self.install_file("*.ttf", "usr/share/fonts/roboto", glob=True)

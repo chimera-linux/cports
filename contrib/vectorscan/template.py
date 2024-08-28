@@ -19,7 +19,7 @@ source = f"https://github.com/vectorcamp/vectorscan/archive/refs/tags/vectorscan
 sha256 = "905f76ad1fa9e4ae0eb28232cac98afdb96c479666202c5a4c27871fb30a2711"
 
 
-def do_check(self):
+def check(self):
     self.do("build/bin/unit-hyperscan")
 
 

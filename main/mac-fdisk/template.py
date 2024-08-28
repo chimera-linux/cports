@@ -16,7 +16,7 @@ options = ["!check"]
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 
 
-def do_install(self):
+def install(self):
     self.install_bin("pdisk", name="mac-fdisk")
     self.install_bin("fdisk", name="pmac-fdisk")
 

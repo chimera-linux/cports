@@ -14,15 +14,15 @@ sha256 = "72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba"
 options = ["!check"]
 
 
-def do_build(self):
+def build(self):
     self.do("python", "-m", "flit_core.wheel")
 
 
-def do_check(self):
+def check(self):
     self.do("python", "-m", "pytest", "flit_core/tests")
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import python
 
     self.do(

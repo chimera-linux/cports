@@ -19,7 +19,7 @@ def pre_configure(self):
     self.do("autoreconf", "-if")
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import gnu_configure
 
     gnu_configure.replace_guess(self)
@@ -47,17 +47,17 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     for f in ["double", "long-double", "float"]:
         self.make.build(wrksrc=f"build-{f}")
 
 
-def do_install(self):
+def install(self):
     for f in ["double", "long-double", "float"]:
         self.make.install(wrksrc=f"build-{f}")
 
 
-def do_check(self):
+def check(self):
     for f in ["double", "long-double", "float"]:
         self.make.check(wrksrc=f"build-{f}")
 

@@ -43,7 +43,7 @@ if self.profile().cross:
     ]
 
 
-def do_configure(self):
+def configure(self):
     tcfl = self.get_cflags(shell=True)
     tlfl = self.get_ldflags(shell=True)
     tcc = self.get_tool("CC")
@@ -65,7 +65,7 @@ def do_configure(self):
     )
 
 
-def do_install(self):
+def install(self):
     for t in [
         "dumpimage",
         "fdtgrep",

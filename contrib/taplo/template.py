@@ -26,6 +26,6 @@ source = f"https://github.com/tamasfe/taplo/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "65510664071252541e66f603dc9aa04016c38d62299061419c95d3bffaa73125"
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE.md")
     self.install_bin(f"target/{self.profile().triplet}/release/taplo")

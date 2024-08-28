@@ -14,7 +14,7 @@ sha256 = "630ece56d9eb3a55524af0aec3aade7854360eba949172a6cfb4768cb8fbe42e"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     # makefile uses gnu install syntax
     self.install_bin("src/fatsort")
     self.install_man("man/fatsort.1")

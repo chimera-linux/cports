@@ -38,7 +38,7 @@ def post_build(self):
     self.cargo.cbuild()
 
 
-def do_install(self):
+def install(self):
     self.cargo.cinstall()
     self.install_bin(f"target/{self.profile().triplet}/release/rav1e")
     self.install_license("LICENSE")

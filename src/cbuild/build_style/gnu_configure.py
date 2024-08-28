@@ -7,28 +7,28 @@ def _get_libtool(self):
     return []
 
 
-def do_configure(self):
+def configure(self):
     gnu_configure.replace_guess(self)
     gnu_configure.configure(self)
 
 
-def do_build(self):
+def build(self):
     self.make.build(_get_libtool(self))
 
 
-def do_check(self):
+def check(self):
     self.make.check(_get_libtool(self))
 
 
-def do_install(self):
+def install(self):
     self.make.install(_get_libtool(self))
 
 
 def use(tmpl):
-    tmpl.do_configure = do_configure
-    tmpl.do_build = do_build
-    tmpl.do_check = do_check
-    tmpl.do_install = do_install
+    tmpl.configure = configure
+    tmpl.build = build
+    tmpl.check = check
+    tmpl.install = install
 
     tmpl.make = make.Make(tmpl, env=gnu_configure.get_make_env())
     tmpl.build_style_defaults = [

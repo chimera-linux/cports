@@ -16,7 +16,7 @@ def post_build(self):
     self.do("./doc/gen.sh")
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/swww")
     self.install_bin(f"target/{self.profile().triplet}/release/swww-daemon")
     self.install_man("doc/generated/*", glob=True)

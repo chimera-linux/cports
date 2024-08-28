@@ -11,7 +11,7 @@ source = f"https://github.com/lunarmodules/Penlight/archive/refs/tags/{pkgver}.t
 sha256 = "2387431c0e83c4189cccb35b989141a3280d735cb5d42bacf3451af9869bebf7"
 
 
-def do_install(self):
+def install(self):
     self.install_dir("usr/share/lua/5.4")
     self.install_files("lua/pl", "usr/share/lua/5.4")
     self.install_license("LICENSE.md")

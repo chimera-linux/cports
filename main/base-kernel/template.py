@@ -15,7 +15,7 @@ url = "https://chimera-linux.org"
 options = ["!check", "keepempty"]
 
 
-def do_install(self):
+def install(self):
     # kernel.d helpers
     self.install_dir("usr/libexec/base-kernel")
 

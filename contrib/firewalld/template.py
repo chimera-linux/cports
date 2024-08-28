@@ -33,7 +33,7 @@ sha256 = "5215ba30236ee1e3df2c2292465a9ff605b9c445dcab2e37da4961cb27c7f36e"
 options = ["!check"]
 
 
-def do_prepare(self):
+def prepare(self):
     self.rm("src/icons/*/*/firewall-applet*", recursive=True, glob=True)
 
 

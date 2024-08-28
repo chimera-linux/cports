@@ -16,7 +16,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "c5defaf6357e2ab8dc7b0e3f3e9e2012b79590b0af6cf16dd65ef0eabfb7c73a"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/rpaste")
     self.install_license("LICENSE")
     self.install_man("man/rpaste.1")

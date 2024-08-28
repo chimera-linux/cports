@@ -25,7 +25,7 @@ _targetlist = [
 _targets = list(filter(lambda p: p[0] != self.profile().arch, _targetlist))
 
 
-def do_build(self):
+def build(self):
     for an, arch in _targets:
         # already done
         if (self.cwd / ("inc_" + an)).exists():
@@ -55,7 +55,7 @@ def do_build(self):
         self.mv("Makefile.usr_include", "usr/include/Makefile")
 
 
-def do_install(self):
+def install(self):
     for an, arch in _targets:
         with self.profile(an) as pf:
             at = pf.triplet

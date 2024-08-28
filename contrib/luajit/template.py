@@ -58,7 +58,7 @@ def init_build(self):
     ]
 
 
-def do_check(self):
+def check(self):
     pfx = str(self.chroot_cwd / "test-suite/target")
     self.do("make", "install", "PREFIX=" + pfx)
     self.do(

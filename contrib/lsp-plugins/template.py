@@ -28,7 +28,7 @@ hardening = ["vis", "!cfi"]
 options = ["!check", "!cross"]
 
 
-def do_configure(self):
+def configure(self):
     # disabling docs makes it not require php
     self.make.invoke(
         "config",

@@ -12,7 +12,7 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "557d275c9d7c2367b2d330c14717a36b6046d58eb7288adeebc88a285ad0ede8"
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         f"target/{self.profile().triplet}/release/aardvark-dns",
         "usr/libexec/podman",

@@ -15,11 +15,11 @@ def _invoke(pkg):
     template.call_pkg_hooks(pkg, "pre_fetch")
     template.run_pkg_func(pkg, "pre_fetch")
 
-    if hasattr(pkg, "do_fetch"):
+    if hasattr(pkg, "fetch"):
         pkg.cwd.mkdir(parents=True, exist_ok=True)
-        template.run_pkg_func(pkg, "do_fetch")
+        template.run_pkg_func(pkg, "fetch")
     else:
-        template.call_pkg_hooks(pkg, "do_fetch")
+        template.call_pkg_hooks(pkg, "fetch")
 
     template.run_pkg_func(pkg, "post_fetch")
     template.call_pkg_hooks(pkg, "post_fetch")

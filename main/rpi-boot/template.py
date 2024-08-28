@@ -13,7 +13,7 @@ sha256 = "369074ba1a574e6f1c84c780cf77908b3778ed588643fcaae1a39b8a3d555334"
 options = ["!strip", "foreignelf", "execstack"]
 
 
-def do_install(self):
+def install(self):
     self.install_license("boot/LICENCE.broadcom")
 
     for f in (self.cwd / "boot").glob("*.bin"):

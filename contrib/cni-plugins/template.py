@@ -25,7 +25,7 @@ def init_build(self):
     self.make_env.update(golang.get_go_env(self))
 
 
-def do_build(self):
+def build(self):
     self.do(
         "bash",
         "build_linux.sh",
@@ -34,5 +34,5 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.install_file("bin/*", "usr/libexec/cni", glob=True)

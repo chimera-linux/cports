@@ -14,5 +14,5 @@ hardening = ["cfi", "vis"]
 
 
 # no tests, just make sure binary runs
-def do_check(self):
+def check(self):
     self.do("./build/btop", "--version")

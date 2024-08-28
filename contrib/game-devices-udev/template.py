@@ -9,6 +9,6 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "9eb09eea9b66692cbe076e74a649957a091ae4b8ae07ea51fe08693ecb48b521"
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE")
     self.install_file("*.rules", "usr/lib/udev/rules.d", glob=True)

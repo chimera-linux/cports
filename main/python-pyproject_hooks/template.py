@@ -21,15 +21,15 @@ sha256 = "4b37730834edbd6bd37f26ece6b44802fb1c1ee2ece0e54ddff8bfc06db86965"
 options = ["!check", "!distlicense"]
 
 
-def do_build(self):
+def build(self):
     self.do("python", "-m", "flit_core.wheel")
 
 
-def do_check(self):
+def check(self):
     self.do("python", "-m", "pytest", "tests", env={"PYTHONPATH": "src"})
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import python
 
     self.do(

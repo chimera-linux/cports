@@ -17,19 +17,19 @@ sha256 = "4cd7a4c418fd8af1da13278ce7524c15b7fdf61e1fe53663aa291c68c5062777"
 options = ["!check"]
 
 
-def do_prepare(self):
+def prepare(self):
     self.cargo.vendor(args=["--manifest-path", "dolby_vision/Cargo.toml"])
 
 
-def do_build(self):
+def build(self):
     self.cargo.cbuild(args=["--manifest-path", "dolby_vision/Cargo.toml"])
 
 
-def do_check(self):
+def check(self):
     self.cargo.check(args=["--manifest-path", "dolby_vision/Cargo.toml"])
 
 
-def do_install(self):
+def install(self):
     self.cargo.cinstall(wrksrc="dolby_vision")
     self.install_license("LICENSE")
 

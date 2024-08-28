@@ -13,6 +13,6 @@ sha256 = "940f13ae1aa8b33677d8153db4af848233cb45dbb755320463dc3f980c73cced"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("clickclack")
     self.install_license("LICENSE")

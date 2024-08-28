@@ -20,7 +20,7 @@ sha256 = "3118784377da9254fbccf5fe85b7622aa6ed0054a4c9d977bc72ac817e2c1f96"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"./target/{self.profile().triplet}/release/satty")
     self.install_file("satty.desktop", "usr/share/applications")
     self.install_file(

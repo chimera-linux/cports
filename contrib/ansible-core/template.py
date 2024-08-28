@@ -31,7 +31,7 @@ source = f"$(PYPI_SITE)/a/ansible-core/ansible_core-{pkgver}.tar.gz"
 sha256 = "917557065339fe36e7078e9bea47eefab6d6877f3bd435fa5f0d766d04c58485"
 
 
-def do_check(self):
+def check(self):
     self.do(
         "./bin/ansible-test",
         "units",

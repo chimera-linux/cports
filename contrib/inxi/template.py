@@ -11,6 +11,6 @@ source = f"{url}/archive/{_pver}.tar.gz"
 sha256 = "08e43312bc60435d770607c3611f2fa35478ea0f48c60d5d5fd60ab2ee421f2e"
 
 
-def do_install(self):
+def install(self):
     self.install_bin("inxi")
     self.install_man("inxi.1")

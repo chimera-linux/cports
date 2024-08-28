@@ -156,7 +156,7 @@ _fonts = [
 ]
 
 
-def do_install(self):
+def install(self):
     for package, name, folder, spdx in _fonts:
         self.install_file(
             f"{folder}/*.*tf",

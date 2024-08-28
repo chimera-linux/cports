@@ -21,7 +21,7 @@ hardening = ["!int"]
 options = ["!check", "!lto", "!strip", "!debug", "foreignelf"]
 
 
-def do_install(self):
+def install(self):
     instp = "build/platform/generic/firmware"
     destp = "usr/lib/opensbi/generic"
     for f in ["dynamic", "jump"]:

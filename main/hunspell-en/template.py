@@ -19,7 +19,7 @@ sha256 = [
 ]
 
 
-def do_install(self):
+def install(self):
     self.install_license("README_en_CA.txt")
     self.install_license("README_en_GB-large.txt")
     self.install_license("README_en_US.txt")

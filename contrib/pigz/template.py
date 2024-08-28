@@ -13,7 +13,7 @@ sha256 = "eb872b4f0e1f0ebe59c9f7bd8c506c4204893ba6a8492de31df416f0d5170fd0"
 hardening = ["vis", "cfi"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("pigz")
     self.install_bin("unpigz")
     self.install_man("pigz.1")

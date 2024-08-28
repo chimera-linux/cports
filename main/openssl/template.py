@@ -60,7 +60,7 @@ def pre_configure(self):
     self.configure_args += self.get_ldflags()
 
 
-def do_build(self):
+def build(self):
     self.make.invoke("depend")
     self.make.build(["MAKEDEPPROG=" + self.get_tool("CC")])
 

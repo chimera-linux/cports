@@ -18,7 +18,7 @@ options = ["!cross"]
 _pfx = "usr/share/apache-ant"
 
 
-def do_prepare(self):
+def prepare(self):
     self.do("./bootstrap.sh")
     self.do(
         "./bootstrap/bin/ant",
@@ -29,7 +29,7 @@ def do_prepare(self):
     )
 
 
-def do_build(self):
+def build(self):
     self.do(
         "./bootstrap/bin/ant",
         f"-Ddist.dir={self.chroot_destdir / _pfx}",
@@ -37,7 +37,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.do(
         "./bootstrap/bin/ant",
         f"-Ddist.dir={self.chroot_destdir / _pfx}",

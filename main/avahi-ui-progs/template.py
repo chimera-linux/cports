@@ -64,7 +64,7 @@ sha256 = "060309d7a333d38d951bc27598c677af1796934dbd98e1024e7ad8de798fedda"
 options = ["!cross"]
 
 
-def do_install(self):
+def install(self):
     if (self.cwd / "tinst").is_dir():
         self.rm("tinst", recursive=True)
     self.mkdir("tinst")

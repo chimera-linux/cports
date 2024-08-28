@@ -101,7 +101,7 @@ def _configure_tgt(self, tgt):
 
 # need to override this as we do not want to supply the default
 # arguments gnu_configure supplies, especially in cross builds
-def do_configure(self):
+def configure(self):
     for tgtn in _targets:
         tgtp = None
         with self.profile(tgtn) as tgt:
@@ -112,7 +112,7 @@ def do_configure(self):
             _configure_tgt(self, tgtp)
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import compiler
 
     for tgtn in _targets:
@@ -134,7 +134,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     for tgtn in _targets:
         tgtp = None
         with self.profile(tgtn) as tgt:

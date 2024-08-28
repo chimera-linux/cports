@@ -16,7 +16,7 @@ sha256 = "ede71cb23343d193bfda44ff277c8c1109fb6e30508dcc2c0fb4a6f596ce37d4"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("userspace/monitor_cpu")
     self.install_dir(f"usr/src/{pkgname}-{pkgver}")
     for file in [

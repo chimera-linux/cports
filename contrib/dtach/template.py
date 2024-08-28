@@ -13,6 +13,6 @@ sha256 = "32e9fd6923c553c443fab4ec9c1f95d83fa47b771e6e1dafb018c567291492f3"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("build/dtach")
     self.install_man("dtach.1")

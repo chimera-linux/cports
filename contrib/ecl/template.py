@@ -20,7 +20,7 @@ sha256 = "7d21ac3bd99132cfb1bb2d73d31d602a536f3a31dac6b982007a8291372dd0bf"
 options = ["!cross", "!lto"]
 
 
-def do_check(self):
+def check(self):
     build = self.chroot_cwd / "build"
     ecl = build / "bin/ecl"
     self.make.check(

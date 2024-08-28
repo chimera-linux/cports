@@ -20,7 +20,7 @@ sha256 = "8460943461ec506e5bc73aac0671d6d7c6332fc3d686d10afcbcab8c08f85642"
 options = ["!cross", "!lintstatic"]
 
 
-def do_configure(self):
+def configure(self):
     with open(self.cwd / "LOCAL.config", "w") as config:
         config.write("CC9=" + self.get_tool("CC") + "\n")
         config.write(
@@ -32,11 +32,11 @@ def do_configure(self):
         )
 
 
-def do_build(self):
+def build(self):
     self.do("./INSTALL", "-b", env={"NPROC": str(self.make_jobs)})
 
 
-def do_install(self):
+def install(self):
     self.do("./INSTALL", "-c", env={"PLAN9_TARGET": "/usr/lib/plan9"})
 
     self.install_license("LICENSE")

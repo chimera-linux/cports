@@ -11,7 +11,7 @@ source = (
 sha256 = "3c6f1a20e86744077e83c9bacf879a5b13f659f1c07e9c5c57d6efc3cbe66c07"
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         "config/fontconfig/45-Hack.conf", "usr/share/fontconfig/conf.avail"
     )

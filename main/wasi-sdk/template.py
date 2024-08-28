@@ -15,7 +15,7 @@ url = "https://github.com/WebAssembly/wasi-sdk"
 options = ["brokenlinks"]
 
 
-def do_install(self):
+def install(self):
     for at in [
         "wasm32-unknown-wasip1",
         "wasm32-unknown-wasip1-threads",

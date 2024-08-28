@@ -13,7 +13,7 @@ sha256 = "be81ef08baa2516ecda76a77adf7def7bc3227eeb578b9a33b45f7b41dc064e6"
 options = ["!cross"]
 
 
-def do_build(self):
+def build(self):
     self.do(
         "scons",
         "CFLAGS=" + self.get_cflags(shell=True),
@@ -22,7 +22,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.do("scons", "install", f"--install-sandbox={self.chroot_destdir}")
 
 

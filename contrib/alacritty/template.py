@@ -17,7 +17,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "e9a54aabc92bbdc25ab1659c2e5a1e9b76f27d101342c8219cc98a730fd46d90"
 
 
-def do_install(self):
+def install(self):
     self.cargo.install(wrksrc="alacritty")
 
     for man in [

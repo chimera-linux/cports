@@ -14,10 +14,10 @@ def invoke(pkg):
     template.call_pkg_hooks(pkg, "pre_extract")
     template.run_pkg_func(pkg, "pre_extract")
 
-    if hasattr(pkg, "do_extract"):
-        template.run_pkg_func(pkg, "do_extract")
+    if hasattr(pkg, "extract"):
+        template.run_pkg_func(pkg, "extract")
     else:
-        template.call_pkg_hooks(pkg, "do_extract")
+        template.call_pkg_hooks(pkg, "extract")
 
     pkg.srcdir.mkdir(parents=True, exist_ok=True)
 

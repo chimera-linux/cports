@@ -53,7 +53,7 @@ def init_configure(self):
     self.env.update(cargo.get_environment(self))
 
 
-def do_configure(self):
+def configure(self):
     self.rm("objdir", recursive=True, force=True)
     self.mkdir("objdir")
 
@@ -96,7 +96,7 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     self.do(
         self.chroot_cwd / "mach",
         "build",
@@ -106,7 +106,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.do("make", "-C", "objdir", "install", f"DESTDIR={self.chroot_destdir}")
 
 
@@ -117,7 +117,7 @@ def post_install(self):
     self.install_link("usr/lib/libmozjs-128.so", "libmozjs-128.so.0")
 
 
-def do_check(self):
+def check(self):
     self.do("objdir/dist/bin/jsapi-tests")
 
 

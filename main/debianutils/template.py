@@ -11,7 +11,7 @@ compression = "deflate"
 hardening = ["vis", "cfi"]
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import compiler
 
     cfl = [
@@ -26,7 +26,7 @@ def do_build(self):
     cc.invoke(["run-parts.c"], "run-parts", flags=cfl)
 
 
-def do_install(self):
+def install(self):
     self.install_bin("ischroot")
     self.install_man("ischroot.1")
     self.install_bin("run-parts")

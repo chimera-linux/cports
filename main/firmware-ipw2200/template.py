@@ -10,7 +10,7 @@ sha256 = "c6818c11c18cc030d55ff83f64b2bad8feef485e7742f84f94a61d811a6258bd"
 options = ["!strip", "foreignelf"]
 
 
-def do_install(self):
+def install(self):
     for f in self.cwd.glob("*.fw"):
         self.install_file(f, "usr/lib/firmware")
 

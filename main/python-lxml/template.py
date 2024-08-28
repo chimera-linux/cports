@@ -21,7 +21,7 @@ source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
 sha256 = "eb22f7ceb319c29247cfa398435d00e6286d19a32b4870b67a8e9a38d72f2ebd"
 
 
-def do_check(self):
+def check(self):
     self.do("make", "test")
 
 

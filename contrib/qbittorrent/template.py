@@ -33,7 +33,7 @@ hardening = ["vis", "!cfi"]
 options = ["!check"]
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import cmake
 
     cmake.configure(self, build_dir="build-gui", extra_args=self.configure_args)
@@ -44,14 +44,14 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import cmake
 
     cmake.build(self, "build-gui")
     cmake.build(self, "build-nox")
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import cmake
 
     cmake.install(self, "build-gui")

@@ -276,7 +276,7 @@ def post_build(self):
     self.make.invoke(["-C", "libreofficekit"])
 
 
-def do_install(self):
+def install(self):
     self.make.invoke(
         [
             f"DESTDIR={self.chroot_destdir / 'all'}",

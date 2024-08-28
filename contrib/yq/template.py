@@ -14,7 +14,7 @@ sha256 = "ea950f5622480fc0ff3708c52589426a737cd4ec887a52922a74efa1be8f2fbf"
 options = ["!cross"]
 
 
-def do_check(self):
+def check(self):
     self.cp("build/yq", "yq")
     self.do("scripts/acceptance.sh")
 

@@ -23,7 +23,7 @@ def post_build(self):
     self.do("make", "-C", "man", "all")
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/agreety")
     self.install_bin(f"target/{self.profile().triplet}/release/fakegreet")
     self.install_bin(f"target/{self.profile().triplet}/release/greetd")

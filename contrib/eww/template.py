@@ -28,7 +28,7 @@ def post_build(self):
             )
 
 
-def do_install(self):
+def install(self):
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"eww.{shell}", shell)
     self.install_bin(f"./target/{self.profile().triplet}/release/eww")

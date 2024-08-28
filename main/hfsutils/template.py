@@ -14,7 +14,7 @@ sha256 = "bc9d22d6d252b920ec9cdf18e00b7655a6189b3f34f42e58d5bb152957289840"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     for f in [
         "hattrib",
         "hcd",

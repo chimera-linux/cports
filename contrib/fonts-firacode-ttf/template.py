@@ -9,7 +9,7 @@ source = f"{url}/releases/download/{pkgver}/Fira_Code_v{pkgver}.zip"
 sha256 = "0949915ba8eb24d89fd93d10a7ff623f42830d7c5ffc3ecbf960e4ecad3e3e79"
 
 
-def do_install(self):
+def install(self):
     for f in (self.cwd / "ttf").glob("*.ttf"):
         self.install_file(f, "usr/share/fonts/firacode")
 

@@ -18,7 +18,7 @@ def pre_build(self):
     self.make.invoke("versionupdate")
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         f"liberation-fonts-otf-{pkgver}/*.otf",
         "usr/share/fonts/liberation",

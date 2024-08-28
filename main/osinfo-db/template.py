@@ -11,7 +11,7 @@ sha256 = "1d7381a72f0c45f473befa4a92fa010a37fc4f7b2bb5d1f68e06da440ef6905d"
 options = ["!cross"]
 
 
-def do_install(self):
+def install(self):
     self.do(
         "osinfo-db-import",
         "--root",

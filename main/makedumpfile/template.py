@@ -35,7 +35,7 @@ match self.profile().arch:
         broken = f"Unknown architecture {self.profile().arch}"
 
 
-def do_install(self):
+def install(self):
     self.install_bin("makedumpfile")
     self.install_bin("makedumpfile-R.pl")
     self.install_man("makedumpfile.8")

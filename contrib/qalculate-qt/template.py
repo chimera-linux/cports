@@ -22,7 +22,7 @@ source = f"https://github.com/Qalculate/qalculate-qt/archive/refs/tags/v{pkgver}
 sha256 = "c9dd4b7b3c6a9f857db9f04b469b2becd4047a0782bdf507469b0491152bbf07"
 
 
-def do_configure(self):
+def configure(self):
     # TODO: build style these
     self.do(
         "qmake6",

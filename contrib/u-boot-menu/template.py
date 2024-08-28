@@ -10,7 +10,7 @@ url = "https://chimera-linux.org"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     # generator itself
     self.install_bin(self.files_path / "update-u-boot.sh", name="update-u-boot")
     # installer

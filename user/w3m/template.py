@@ -20,7 +20,7 @@ sha256 = "fdc7d55d3c0104db26aa9759db34f37e5eee03f44c868796e3bbfb8935c96e39"
 hardening = ["vis", "!cfi"]
 
 
-def do_check(self):
+def check(self):
     self.do("sh", "run_tests", wrksrc="tests")
 
 

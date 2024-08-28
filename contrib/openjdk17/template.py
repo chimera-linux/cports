@@ -114,7 +114,7 @@ def init_configure(self):
         self.env["CXX"] = "/usr/bin/" + self.get_tool("CXX")
 
 
-def do_configure(self):
+def configure(self):
     from cbuild.util import gnu_configure
 
     gnu_configure.replace_guess(self)
@@ -147,7 +147,7 @@ def _(self):
     self.log_green("SUCCESS: build done, collect your tarball in builddir")
 
 
-def do_install(self):
+def install(self):
     # install the stuff
     for f in (self.cwd / "build/images/jdk").iterdir():
         self.install_files(f, _java_home)

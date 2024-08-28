@@ -18,6 +18,6 @@ sha256 = "243ed50f99c00ae8c18d50429a1278b6fd37dff94df46df38f2733745362c014"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"./target/{self.profile().triplet}/release/bindgen")
     self.install_license("LICENSE")

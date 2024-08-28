@@ -114,7 +114,7 @@ if self.profile().arch in ["aarch64", "x86_64"]:
     _scons_flags += ["builtin_embree=false"]
 
 
-def do_build(self):
+def build(self):
     for target in ["editor", "template_debug", "template_release"]:
         self.do(
             "scons",
@@ -130,7 +130,7 @@ def do_build(self):
         )
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE.txt")
     self.install_file(
         "misc/dist/linux/org.godotengine.Godot.desktop",

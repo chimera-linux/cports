@@ -18,7 +18,7 @@ source = f"{url}/-/archive/VERSION_{pkgver}/signond-VERSION_{pkgver}.tar.gz"
 sha256 = "3dd57c25e1bf1583b2cb857f96831e38e73d40264ff66ca43e63bb7233f76828"
 
 
-def do_configure(self):
+def configure(self):
     # TODO: build style these
     self.do(
         "qmake6",

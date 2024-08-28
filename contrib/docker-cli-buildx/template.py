@@ -20,7 +20,7 @@ sha256 = "f314635765f3dc5efe089244280cd24a577e83d339fec1970fed16977bf28382"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         "build/buildx",
         "usr/libexec/docker/cli-plugins",

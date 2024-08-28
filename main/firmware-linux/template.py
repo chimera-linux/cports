@@ -377,7 +377,7 @@ _pkgs = [
 ]
 
 
-def do_install(self):
+def install(self):
     self.install_dir("usr/lib/firmware")
     self.do(
         "./copy-firmware.sh",

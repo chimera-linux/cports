@@ -17,7 +17,7 @@ env = {
 options = ["!check"]
 
 
-def do_build(self):
+def build(self):
     self.do(
         "python3",
         "setup.py",
@@ -25,7 +25,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import python
 
     self.do(

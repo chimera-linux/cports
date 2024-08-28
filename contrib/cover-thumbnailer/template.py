@@ -11,5 +11,5 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "3b5fd373554376a74ea88bb42ad21f0d109b456ed660fe9703468523e1eda279"
 
 
-def do_install(self):
+def install(self):
     self.do("./install.sh", "--package", self.chroot_destdir)

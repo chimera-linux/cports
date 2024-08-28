@@ -9,5 +9,5 @@ source = f"https://www.gust.org.pl/projects/e-foundry/tex-gyre/whole/tg{pkgver.r
 sha256 = "d7f8be5317bec4e644cf16c5abf876abeeb83c43dbec0ccb4eee4516b73b1bbe"
 
 
-def do_install(self):
+def install(self):
     self.install_file("*.otf", "usr/share/fonts/tex-gyre", glob=True)

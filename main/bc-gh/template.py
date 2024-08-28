@@ -20,7 +20,7 @@ def post_extract(self):
     self.rm("tests/bc/errors/33.txt")
 
 
-def do_configure(self):
+def configure(self):
     self.do(
         self.chroot_cwd / "configure.sh",
         "-GM",

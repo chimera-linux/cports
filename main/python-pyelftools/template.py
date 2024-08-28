@@ -17,7 +17,7 @@ source = f"$(PYPI_SITE)/p/pyelftools/pyelftools-{pkgver}.tar.gz"
 sha256 = "c774416b10310156879443b81187d182d8d9ee499660380e645918b50bc88f99"
 
 
-def do_check(self):
+def check(self):
     # we simply can't run the dwarfdump and readelf tests; they depend on a
     # dwarfdump and readelf built targeting glibc and x86_64. we could
     # force the tests to use our own stuff, but that kinda defeats the

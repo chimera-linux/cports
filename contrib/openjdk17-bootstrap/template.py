@@ -42,7 +42,7 @@ match self.profile().arch:
         broken = f"not yet built for {self.profile().arch}"
 
 
-def do_install(self):
+def install(self):
     self.install_dir("usr/lib/jvm/java-17-openjdk")
     for f in self.cwd.iterdir():
         self.install_files(f, "usr/lib/jvm/java-17-openjdk")

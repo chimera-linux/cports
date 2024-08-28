@@ -17,7 +17,7 @@ source = f"https://github.com/typst/typst/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "b1ba054e821073daafd90675c4822bcd8166f33fe2e3acba87ba1451a0d1fc56"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"../../target/{self.profile().triplet}/release/typst")
     self.install_man("generated/typst*.1", glob=True)
     self.install_completion("generated/typst.bash", "bash")

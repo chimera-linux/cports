@@ -16,7 +16,7 @@ sha256 = "eeec007e689d8934a466b33546830e4751445cec2d857d81581b3aa8d76b3294"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("linux/*", glob=True)
     self.install_file("GTUltra.pdf", "usr/share/doc/gtultra")
     self.install_file(

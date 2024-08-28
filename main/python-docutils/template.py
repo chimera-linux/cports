@@ -17,7 +17,7 @@ source = f"$(PYPI_SITE)/d/docutils/docutils-{pkgver}.tar.gz"
 sha256 = "3a6b18732edf182daa3cd12775bbb338cf5691468f91eeeb109deff6ebfa986f"
 
 
-def do_check(self):
+def check(self):
     self.do("python", "alltests.py", wrksrc="test")
 
 

@@ -11,6 +11,6 @@ source = (
 sha256 = "e10382ab75518bad8319eb922ad04f907cb20cccb451a3aa980c9d005e661acc"
 
 
-def do_install(self):
+def install(self):
     self.install_files("src", "usr", name="include")
     self.install_license("LICENSE")

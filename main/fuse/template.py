@@ -18,7 +18,7 @@ file_modes = {"usr/bin/fusermount3": ("root", "root", 0o4755)}
 options = ["!lto", "!check"]
 
 
-def do_check(self):
+def check(self):
     self.do("python", "-m", "pytest", "test/", wrksrc=self.make_dir)
 
 

@@ -19,7 +19,7 @@ url = "https://chimera-linux.org"
 _targets = ["x86_64", "i686", "armv7", "aarch64"]
 
 
-def do_install(self):
+def install(self):
     self.install_dir("usr/bin")
     self.install_dir("usr/lib/ccache/bin")
     for an in _targets:

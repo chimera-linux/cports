@@ -47,16 +47,16 @@ def init_configure(self):
         self.configure_args += ["--with-sb-linkable-runtime"]
 
 
-def do_build(self):
+def build(self):
     self.do("sh", "make.sh", "ecl", *self.configure_args)
     self.do("make", "info", wrksrc="doc/manual")
 
 
-def do_check(self):
+def check(self):
     self.do("sh", "run-tests.sh", wrksrc="tests")
 
 
-def do_install(self):
+def install(self):
     # on ppc64le it installs this and fails because missing dir? why
     self.install_dir("usr/tlsf-bsd/tlsf")
     self.do(

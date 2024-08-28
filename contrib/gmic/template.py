@@ -36,7 +36,7 @@ hardening = ["!int"]
 options = ["!check"]
 
 
-def do_build(self):
+def build(self):
     # lib has to come first to not be built multiple times for all subsequent
     # targets, rest can be parallel (and so this is faster than -j1)
     self.make.build(["lib"])

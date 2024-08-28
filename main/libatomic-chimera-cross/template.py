@@ -34,7 +34,7 @@ def post_extract(self):
         self.cp(f, "build")
 
 
-def do_build(self):
+def build(self):
     for an in _targets:
         with self.profile(an) as pf:
             at = pf.triplet
@@ -53,7 +53,7 @@ def do_build(self):
                 )
 
 
-def do_install(self):
+def install(self):
     for an in _targets:
         with self.profile(an) as pf:
             at = pf.triplet

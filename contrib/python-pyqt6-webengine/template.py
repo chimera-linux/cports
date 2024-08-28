@@ -28,7 +28,7 @@ source = f"$(PYPI_SITE)/P/PyQt6_WebEngine/PyQt6_WebEngine-{pkgver}.tar.gz"
 sha256 = "68edc7adb6d9e275f5de956881e79cca0d71fad439abeaa10d823bff5ac55001"
 
 
-def do_configure(self):
+def configure(self):
     self.do(
         "sip-build",
         "--no-make",

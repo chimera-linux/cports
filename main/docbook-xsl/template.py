@@ -10,7 +10,7 @@ source = f"https://github.com/docbook/xslt10-stylesheets/releases/download/relea
 sha256 = "316524ea444e53208a2fb90eeb676af755da96e1417835ba5f5eb719c81fa371"
 
 
-def do_install(self):
+def install(self):
     self.install_license("COPYING")
 
     self.install_file(

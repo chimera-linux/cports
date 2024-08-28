@@ -12,5 +12,5 @@ sha256 = "c754fba1e7857151626216a837e4c83d254826f89bd4d73bc857e0dd2a9adda0"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_file("SKK-JISYO.*", "usr/share/skk", glob=True)

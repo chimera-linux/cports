@@ -18,7 +18,7 @@ source = f"$(PYPI_SITE)/M/Markdown/markdown-{pkgver}.tar.gz"
 sha256 = "2ae2471477cfd02dbbf038d5d9bc226d40def84b4fe2986e49b59b6b472bbed2"
 
 
-def do_check(self):
+def check(self):
     self.do("python", "-m", "unittest", "discover")
 
 

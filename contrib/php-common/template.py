@@ -13,5 +13,5 @@ url = "https://chimera-linux.org"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_sysusers(self.files_path / "sysusers.conf", name="php-fpm")

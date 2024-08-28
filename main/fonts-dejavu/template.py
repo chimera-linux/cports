@@ -20,7 +20,7 @@ def post_patch(self):
     (self.cwd / "scripts/ogenerate.pe").chmod(0o755)
 
 
-def do_install(self):
+def install(self):
     for f in (self.cwd / "build").glob("*.otf"):
         self.install_file(f, "usr/share/fonts/dejavu")
 

@@ -17,6 +17,6 @@ options = ["!check"]
 # the makefile's install rule has problems with trying to
 # use directories that don't exist, and these are the only
 # two files it installs anyway, so we do it ourselves
-def do_install(self):
+def install(self):
     self.install_bin("compsize")
     self.install_man("compsize.8")

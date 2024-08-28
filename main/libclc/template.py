@@ -28,7 +28,7 @@ options = ["!check"]
 
 
 # configure with host toolchain
-def do_configure(self):
+def configure(self):
     from cbuild.util import cmake
 
     with self.profile("host"):

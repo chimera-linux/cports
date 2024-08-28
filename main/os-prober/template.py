@@ -18,13 +18,13 @@ match self.profile().arch:
         _arch = None
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import compiler
 
     compiler.C(self).invoke(["newns.c"], "newns")
 
 
-def do_install(self):
+def install(self):
     self.install_bin("linux-boot-prober")
     self.install_bin("os-prober")
 

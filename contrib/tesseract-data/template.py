@@ -11,7 +11,7 @@ sha256 = "d0e3bb6f3b4e75748680524a1d116f2bfb145618f8ceed55b279d15098a530f9"
 options = ["empty"]
 
 
-def do_install(self):
+def install(self):
     self.install_file("*.traineddata", "usr/share/tessdata", glob=True)
     self.install_files("script", "usr/share/tessdata")
 

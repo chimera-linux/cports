@@ -25,7 +25,7 @@ def init_build(self):
     self.make_env.update(renv)
 
 
-def do_prepare(self):
+def prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor()

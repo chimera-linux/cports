@@ -30,7 +30,7 @@ def post_build(self):
     self.do("make", f"-j{self.make_jobs}", "DOC_TARGETS=chunks", "docs")
 
 
-def do_check(self):
+def check(self):
     self.do(
         "make",
         f"-j{self.make_jobs}",

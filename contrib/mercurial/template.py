@@ -23,7 +23,7 @@ sha256 = "030e8a7a6d590e4eaeb403ee25675615cd80d236f3ab8a0b56dcc84181158b05"
 options = ["!check"]
 
 
-def do_check(self):
+def check(self):
     self.do("python", "run-tests.py", wrksrc="tests")
 
 

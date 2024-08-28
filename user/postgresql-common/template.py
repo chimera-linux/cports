@@ -11,6 +11,6 @@ license = "custom:none"
 url = "https://chimera-linux.org"
 
 
-def do_install(self):
+def install(self):
     self.install_sysusers(self.files_path / "sysusers.conf", name="postgresql")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="postgresql")

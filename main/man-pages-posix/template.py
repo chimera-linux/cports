@@ -11,7 +11,7 @@ sha256 = "ce67bb25b5048b20dad772e405a83f4bc70faf051afa289361c81f9660318bc3"
 options = ["!autosplit"]
 
 
-def do_install(self):
+def install(self):
     self.install_license("POSIX-COPYRIGHT")
     for cat in ["0p", "1p", "3p"]:
         self.install_man(f"man{cat}/*.{cat}", cat=cat, glob=True)

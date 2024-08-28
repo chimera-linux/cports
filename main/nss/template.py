@@ -61,7 +61,7 @@ match self.profile().arch:
         broken = f"OS_TEST unknown for {self.profile().arch}"
 
 
-def do_build(self):
+def build(self):
     self.make.build(
         [
             "-C",
@@ -77,7 +77,7 @@ def do_build(self):
     )
 
 
-def do_check(self):
+def check(self):
     self.do(
         self.chroot_cwd / "nss/tests/all.sh",
         env={
@@ -92,7 +92,7 @@ def do_check(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.do(
         self.chroot_cwd / "install.sh",
         env={

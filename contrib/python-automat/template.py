@@ -19,7 +19,7 @@ source = f"$(PYPI_SITE)/A/Automat/automat-{pkgver}.tar.gz"
 sha256 = "b34227cf63f6325b8ad2399ede780675083e439b20c323d376373d8ee6306d88"
 
 
-def do_check(self):
+def check(self):
     self.do("pytest", "src/automat/_test")
 
 

@@ -41,7 +41,7 @@ def init_build(self):
     self.make_env.update(renv)
 
 
-def do_check(self):
+def check(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).check()

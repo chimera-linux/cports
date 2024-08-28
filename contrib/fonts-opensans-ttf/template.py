@@ -10,5 +10,5 @@ source = f"https://github.com/googlefonts/opensans/archive/{_commit}.tar.gz"
 sha256 = "a1b16d859522daa826fb093d791ee252a1627274ef1b90f2773d670eb73a2a92"
 
 
-def do_install(self):
+def install(self):
     self.install_file("fonts/ttf/*.ttf", "usr/share/fonts/opensans", glob=True)

@@ -1,7 +1,7 @@
 # FIXME: cross support, check
 
 
-def do_configure(self):
+def configure(self):
     env = {"PKGCONFIG": self.get_tool("PKG_CONFIG")}
     env.update(self.configure_env)
 
@@ -16,7 +16,7 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     self.do(
         "python3",
         self.configure_script,
@@ -27,7 +27,7 @@ def do_build(self):
     )
 
 
-def do_check(self):
+def check(self):
     self.do(
         "python3",
         self.configure_script,
@@ -38,7 +38,7 @@ def do_check(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.do(
         "python3",
         self.configure_script,
@@ -50,10 +50,10 @@ def do_install(self):
 
 
 def use(tmpl):
-    tmpl.do_configure = do_configure
-    tmpl.do_build = do_build
-    tmpl.do_check = do_check
-    tmpl.do_install = do_install
+    tmpl.configure = configure
+    tmpl.build = build
+    tmpl.check = check
+    tmpl.install = install
 
     tmpl.build_style_defaults = [
         ("configure_script", "waf"),

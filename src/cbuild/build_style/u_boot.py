@@ -1,7 +1,7 @@
 # we need the undefs to avoid confusing the toolchain
 
 
-def do_configure(self):
+def configure(self):
     cfgname = self.pkgname.removeprefix("u-boot-")
     self.do(
         "env",
@@ -22,7 +22,7 @@ def do_configure(self):
     )
 
 
-def do_build(self):
+def build(self):
     self.do(
         "env",
         "-u",
@@ -44,11 +44,11 @@ def do_build(self):
     )
 
 
-def do_check(self):
+def check(self):
     pass
 
 
-def do_install(self):
+def install(self):
     destp = "usr/lib/u-boot/" + self.pkgname.removeprefix("u-boot-")
     for f in ["u-boot.bin", ".config", *self.env["U_BOOT_TARGETS"].split()]:
         self.install_file(f, destp)
@@ -61,7 +61,7 @@ def do_install(self):
 
 
 def use(tmpl):
-    tmpl.do_configure = do_configure
-    tmpl.do_build = do_build
-    tmpl.do_check = do_check
-    tmpl.do_install = do_install
+    tmpl.configure = configure
+    tmpl.build = build
+    tmpl.check = check
+    tmpl.install = install

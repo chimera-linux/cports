@@ -14,5 +14,5 @@ sha256 = "af74dd0452ace58895088048873a765fffacc3ad55eea00c0f2999cc4bcf9b5d"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"./target/{self.profile().triplet}/release/cbindgen")

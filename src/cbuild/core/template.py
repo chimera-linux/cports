@@ -175,35 +175,35 @@ def _submove(src, dest, root):
 hooks = {
     "init_fetch": [],
     "pre_fetch": [],
-    "do_fetch": [],
+    "fetch": [],
     "post_fetch": [],
     "init_extract": [],
     "pre_extract": [],
-    "do_extract": [],
+    "extract": [],
     "post_extract": [],
     "init_prepare": [],
     "pre_prepare": [],
-    "do_prepare": [],
+    "prepare": [],
     "post_prepare": [],
     "init_patch": [],
     "pre_patch": [],
-    "do_patch": [],
+    "patch": [],
     "post_patch": [],
     "init_configure": [],
     "pre_configure": [],
-    "do_configure": [],
+    "configure": [],
     "post_configure": [],
     "init_build": [],
     "pre_build": [],
-    "do_build": [],
+    "build": [],
     "post_build": [],
     "init_check": [],
     "pre_check": [],
-    "do_check": [],
+    "check": [],
     "post_check": [],
     "init_install": [],
     "pre_install": [],
-    "do_install": [],
+    "install": [],
     "post_install": [],
     "init_pkg": [],
     "pre_pkg": [],
@@ -1093,8 +1093,8 @@ class Template(Package):
                 setattr(self, "init_" + phase, getattr(m, "init_" + phase))
             if hasattr(m, "pre_" + phase):
                 setattr(self, "pre_" + phase, getattr(m, "pre_" + phase))
-            if hasattr(m, "do_" + phase):
-                setattr(self, "do_" + phase, getattr(m, "do_" + phase))
+            if hasattr(m, phase):
+                setattr(self, phase, getattr(m, phase))
             if hasattr(m, "post_" + phase):
                 setattr(self, "post_" + phase, getattr(m, "post_" + phase))
 
@@ -1451,8 +1451,8 @@ class Template(Package):
         if self.stage == 0 and not self.options["bootstrap"]:
             self.error("attempt to bootstrap a non-bootstrap package")
 
-        if not hasattr(self, "do_install"):
-            self.error("do_install is missing")
+        if not hasattr(self, "install"):
+            self.error("template install() function is missing")
 
         if self.provider_priority < 0:
             self.error("provider_priority must be positive")
@@ -1963,11 +1963,11 @@ class Template(Package):
         # run pre_* phase
         run_pkg_func(self, "pre_" + stepn)
 
-        # run do_* phase
-        if not run_pkg_func(self, "do_" + stepn) and not optional:
-            self.error(f"cannot find do_{stepn}")
+        # run phase
+        if not run_pkg_func(self, stepn) and not optional:
+            self.error(f"cannot find {stepn}")
 
-        call_pkg_hooks(self, "do_" + stepn)
+        call_pkg_hooks(self, stepn)
 
         # run post_* phase
         run_pkg_func(self, "post_" + stepn)
@@ -2808,8 +2808,8 @@ def register_hooks():
         "install",
         "pkg",
     ]:
-        for sstep in ["init", "pre", "do", "post"]:
-            stepn = f"{sstep}_{step}"
+        for sstep in ["init", "pre", None, "post"]:
+            stepn = f"{sstep}_{step}" if sstep else step
             dirn = paths.cbuild() / "hooks" / stepn
             if dirn.is_dir():
                 for f in dirn.glob("*.py"):

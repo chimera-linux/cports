@@ -32,14 +32,14 @@ def post_build(self):
         )
 
 
-def do_check(self):
+def check(self):
     from cbuild.util import golang
 
     self.golang.check()
     self.do("make", "test", "-C", "t", env=golang.get_go_env(self))
 
 
-def do_install(self):
+def install(self):
     self.install_bin("bin/git-lfs")
     self.install_license("LICENSE.md")
     self.install_man("man/*", glob=True)

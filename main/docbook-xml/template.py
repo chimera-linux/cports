@@ -22,11 +22,11 @@ sha256 = [
 options = ["!distlicense"]
 
 
-def do_extract(self):
+def extract(self):
     pass
 
 
-def do_install(self):
+def install(self):
     vers = ["4.2", "4.3", "4.4", "4.5"]
 
     self.install_file(

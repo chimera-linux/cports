@@ -46,7 +46,7 @@ def pre_build(self):
     self.make.invoke("clean")
 
 
-def do_install(self):
+def install(self):
     self.make.install(["install-lib", "STRIP="])
     # static lib
     self.install_file("libpci_a", "usr/lib", name="libpci.a")

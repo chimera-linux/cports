@@ -24,7 +24,7 @@ sha256 = "fef778119046e6057aabcc087685aafefe62eb3a65febba639482e72c85a59ed"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.do(
         "make",
         "DESTDIR=" + str(self.chroot_destdir),

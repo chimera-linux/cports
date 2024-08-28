@@ -13,7 +13,7 @@ sha256 = "44d9eb113a54a80a2891ac6374c74bcd2bce63d317f1e1c69c286a6fc919922c"
 env = {"HELIX_DEFAULT_RUNTIME": "/usr/lib/helix/runtime"}
 
 
-def do_install(self):
+def install(self):
     self.cargo.install(wrksrc="helix-term")
     runtime_dir = "usr/lib/helix/runtime"
     self.install_dir(runtime_dir)

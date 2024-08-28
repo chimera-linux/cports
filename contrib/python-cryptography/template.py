@@ -33,7 +33,7 @@ source = f"$(PYPI_SITE)/c/cryptography/cryptography-{pkgver}.tar.gz"
 sha256 = "b88075ada2d51aa9f18283532c9f60e72170041bba88d7f37e49cbb10275299e"
 
 
-def do_prepare(self):
+def prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor(wrksrc="src/rust")

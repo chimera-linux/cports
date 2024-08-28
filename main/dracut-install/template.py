@@ -19,5 +19,5 @@ hardening = ["vis", "cfi"]
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_file("dracut-install", "usr/lib/dracut", mode=0o755)

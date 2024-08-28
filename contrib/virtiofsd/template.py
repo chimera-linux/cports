@@ -16,7 +16,7 @@ source = f"{url}/-/archive/v{pkgver}.tar.gz"
 sha256 = "20bab95e5c67034c1b73b9e1380a3373ff7cfc65dd9f237d5eeb78529aa00265"
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         f"target/{self.profile().triplet}/release/virtiofsd",
         "usr/libexec",

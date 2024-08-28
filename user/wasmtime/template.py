@@ -56,7 +56,7 @@ def post_build(self):
     cmake.build(self, "build-capi")
 
 
-def do_install(self):
+def install(self):
     from cbuild.util import cmake
 
     cmake.install(self, "build-capi")

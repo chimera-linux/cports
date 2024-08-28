@@ -29,7 +29,7 @@ if self.profile().arch == "riscv64":
     broken = "npx stuck forever in build env"
 
 
-def do_prepare(self):
+def prepare(self):
     from cbuild.util import golang
 
     golang.Golang(self).mod_download()
@@ -63,7 +63,7 @@ def init_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.install_bin("gitea", name="forgejo")
     self.install_license("LICENSE")
 

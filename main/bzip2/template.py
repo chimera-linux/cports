@@ -14,7 +14,7 @@ tool_flags = {"CFLAGS": ["-fPIC"]}
 options = ["bootstrap"]
 
 
-def do_build(self):
+def build(self):
     cmd = ["make", f"-j{self.make_jobs}"]
     eargs = [
         "CFLAGS=" + self.get_cflags(shell=True),
@@ -24,11 +24,11 @@ def do_build(self):
     self.do(*cmd, "bzip2recover", "libbz2.a", *eargs)
 
 
-def do_check(self):
+def check(self):
     self.do("make", "check")
 
 
-def do_install(self):
+def install(self):
     self.cp("bzip2-shared", "bzip2")
 
     self.install_bin("bzip2")

@@ -9,7 +9,7 @@ source = f"https://github.com/ful1e5/Bibata_Cursor/releases/download/v{pkgver}/B
 sha256 = "172e33c4ae415278384dcecc7d1a9b7a024266bc944bc751fd86532be1cc6251"
 
 
-def do_install(self):
+def install(self):
     themes = [
         "Bibata-Modern-Amber",
         "Bibata-Modern-Amber-Right",

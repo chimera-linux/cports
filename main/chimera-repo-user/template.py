@@ -10,7 +10,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         self.files_path / "01-repo-user.list", "etc/apk/repositories.d"
     )

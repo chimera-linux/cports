@@ -22,7 +22,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "3e3f4134d81b47277d34c44bc1169c9b0356612977651f8e98e2ba1a470b69a2"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(
         f"./target/{self.profile().triplet}/release/cargo-auditable"
     )

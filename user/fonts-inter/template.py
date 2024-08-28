@@ -10,7 +10,7 @@ sha256 = "ff970a5d4561a04f102a7cb781adbd6ac4e9b6c460914c7a101f15acb7f7d1a4"
 options = ["empty"]
 
 
-def do_install(self):
+def install(self):
     self.install_file("*.ttf", "usr/share/fonts/inter", glob=True)
     self.install_file("extras/ttf/*.ttf", "usr/share/fonts/inter", glob=True)
     self.install_file("extras/otf/*.otf", "usr/share/fonts/inter", glob=True)

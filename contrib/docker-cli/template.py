@@ -27,7 +27,7 @@ env = {
 options = ["!check"]
 
 
-def do_prepare(self):
+def prepare(self):
     # figure out why this doesn't work otherwise anymore without net
     self.do("make", "manpages", allow_network=True)
 
@@ -46,7 +46,7 @@ def pre_build(self):
     self.ln_s(self.chroot_cwd, self.cwd / "src/github.com/docker/cli")
 
 
-def do_install(self):
+def install(self):
     dbin = (self.cwd / "build/docker").resolve().name
     self.install_bin(f"build/{dbin}", name="docker")
 

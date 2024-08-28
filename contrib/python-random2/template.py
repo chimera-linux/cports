@@ -17,5 +17,5 @@ source = f"$(PYPI_SITE)/r/random2/random2-{pkgver}.tar.gz"
 sha256 = "3754fcef48267567cd5705fa7da6bbc3809cb3f808740313e6705acc3c057e77"
 
 
-def do_check(self):
+def check(self):
     self.do("python", "src/tests.py")

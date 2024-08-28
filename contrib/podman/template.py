@@ -59,7 +59,7 @@ def post_build(self):
     self.do("make", "docs", "GREP=ggrep", "GOMD2MAN=/usr/bin/go-md2man")
 
 
-def do_install(self):
+def install(self):
     self.do(
         "make",
         "install.bin",

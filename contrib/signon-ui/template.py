@@ -25,7 +25,7 @@ source = f"{url}/-/archive/{_gitrev}.tar.gz"
 sha256 = "0906a1adee88e331e9dcf1f2d5978c24f8564fb734f5c114c88bddb63196d3d4"
 
 
-def do_configure(self):
+def configure(self):
     # TODO: build style these
     self.do(
         "qmake6",

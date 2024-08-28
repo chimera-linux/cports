@@ -41,7 +41,7 @@ match self.profile().arch:
         options += ["!check"]
 
 
-def do_check(self):
+def check(self):
     self.do(
         self.make_dir + "/stage3/bin/zig",
         "build",

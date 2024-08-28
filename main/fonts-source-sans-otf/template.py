@@ -9,6 +9,6 @@ source = f"https://github.com/adobe-fonts/source-sans/releases/download/{pkgver}
 sha256 = "a4ebbdea20b08ccbd7bf3665a9462454eefdd01d9a6307129d3b3d4672981074"
 
 
-def do_install(self):
+def install(self):
     for f in (self.cwd / "OTF").glob("*.otf"):
         self.install_file(f, "usr/share/fonts/source-sans")

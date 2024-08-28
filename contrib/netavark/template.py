@@ -12,7 +12,7 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "d1e5a7e65b825724fd084b0162084d9b61db8cda1dad26de8a07be1bd6891dbc"
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         f"target/{self.profile().triplet}/release/netavark",
         "usr/libexec/podman",

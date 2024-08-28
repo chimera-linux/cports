@@ -8,7 +8,7 @@ url = "https://chimera-linux.org"
 options = ["bootstrap"]
 
 
-def do_install(self):
+def install(self):
     for f in ["cdefs", "queue", "tree"]:
         self.install_file(self.files_path / f"{f}.h", "usr/include/sys")
 

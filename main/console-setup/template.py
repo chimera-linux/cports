@@ -28,7 +28,7 @@ def pre_build(self):
     self.make.invoke("maintainer-clean")
 
 
-def do_install(self):
+def install(self):
     self.install_dir("usr/bin")
     self.install_link("bin", "usr/bin")
     self.make.install(

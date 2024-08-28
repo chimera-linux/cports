@@ -9,6 +9,6 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "ad8dd8d79bda54f9d28b095ce9dfa009de9970daf7b57dda86216a4e4977fe4e"
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE")
     self.install_files("ucm2", "usr/share/alsa")

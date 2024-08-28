@@ -19,5 +19,5 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz>bpftop-asfkashdgkjhsbdgnskdj
 sha256 = "d941314d8716f22d009a031de30edc92586cd434646bf2d2eb14c0a42e94bc95"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/bpftop")

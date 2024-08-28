@@ -28,7 +28,7 @@ source = f"https://prosody.im/downloads/source/prosody-{pkgver}.tar.gz"
 sha256 = "47d712273c2f29558c412f6cdaec073260bbc26b7dda243db580330183d65856"
 
 
-def do_configure(self):
+def configure(self):
     self.do(
         "./configure",
         f"--c-compiler={self.get_tool('CC')}",

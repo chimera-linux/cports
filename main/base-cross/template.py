@@ -28,7 +28,7 @@ _targetlist = [
 _targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 
-def do_install(self):
+def install(self):
     for an in _targets:
         with self.profile(an) as pf:
             at = pf.triplet

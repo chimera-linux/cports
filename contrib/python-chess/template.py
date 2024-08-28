@@ -18,5 +18,5 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "832fa7d589ffe916f5e84f08ece0d634dfb50568867932e525edcebb573041df"
 
 
-def do_check(self):
+def check(self):
     self.do("python", "setup.py", "test")

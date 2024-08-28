@@ -42,7 +42,7 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "29f37dc3a54fb123f223964d01de76fcea038ca6d134aa35b75c62b07acb9d03"
 
 
-def do_check(self):
+def check(self):
     for test in ["libdino", "signal-protocol-vala", "xmpp-vala"]:
         self.do(f"./build/{test}-test")
 

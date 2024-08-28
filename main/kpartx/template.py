@@ -21,5 +21,5 @@ hardening = ["vis", "cfi"]
 options = ["!check"]
 
 
-def do_configure(self):
+def configure(self):
     self.make.invoke(None, ["-C", "..", "config.mk"])

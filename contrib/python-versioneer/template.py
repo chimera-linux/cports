@@ -18,6 +18,6 @@ source = f"$(PYPI_SITE)/v/versioneer/versioneer-{pkgver}.tar.gz"
 sha256 = "5ab283b9857211d61b53318b7c792cf68e798e765ee17c27ade9f6c924235731"
 
 
-def do_check(self):
+def check(self):
     self.do("python", "setup.py", "make_versioneer")
     self.do("python", "-m", "unittest", "discover", "test")

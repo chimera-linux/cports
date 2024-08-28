@@ -86,7 +86,7 @@ match self.profile().arch:
         broken = f"Unsupported platform ({self.profile().arch})"
 
 
-def do_configure(self):
+def configure(self):
     # reconfigure the autotools
     self.do("autoreconf", "-if")
     # configure tools build
@@ -130,7 +130,7 @@ def do_configure(self):
         )
 
 
-def do_build(self):
+def build(self):
     # primary build
     self.do("make", "-C", "build", f"-j{self.make_jobs}")
     # extra targets
@@ -140,7 +140,7 @@ def do_build(self):
         self.do("make", "-C", f"build_{arch}_{platform}", f"-j{self.make_jobs}")
 
 
-def do_install(self):
+def install(self):
     ddir = self.chroot_destdir
     # populate extra targets first
     for arch, platform, cfl, ldfl, desc in _platforms:

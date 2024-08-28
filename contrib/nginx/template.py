@@ -97,7 +97,7 @@ def post_extract(self):
     self.rm("nginx-tests/xslt.t")
 
 
-def do_check(self):
+def check(self):
     with self.pushd("nginx-tests"):
         self.do(
             "prove",

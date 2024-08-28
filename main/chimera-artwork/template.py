@@ -9,7 +9,7 @@ source = f"https://github.com/chimera-linux/chimera-artwork/archive/refs/tags/v{
 sha256 = "45ada21998df2c45a1d638119eaf450ee31da8a123911e4d15a8f9db9ffdc2c6"
 
 
-def do_install(self):
+def install(self):
     for f in ["png", "svg"]:
         self.install_file(f"chimera-logo.{f}", "usr/share/chimera-artwork")
     for s in [16, 22, 32, 48, 64, 128, 256, 512, 1024]:

@@ -10,7 +10,7 @@ license = "custom:none"
 url = "https://chimera-linux.org"
 
 
-def do_install(self):
+def install(self):
     # config
     self.install_file(self.files_path / "agetty", "etc/default")
     self.install_file(self.files_path / "rpi-cmdline.txt", "etc/default")

@@ -17,7 +17,7 @@ sha256 = [
 ]
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         f"emoji-sequences-{pkgver}.txt",
         "usr/share/unicode/emoji",

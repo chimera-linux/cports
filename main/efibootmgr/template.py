@@ -39,7 +39,7 @@ def init_configure(self):
         self.make_build_args += [f"CROSS_COMPILE={self.profile().triplet}-"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("src/efibootdump")
     self.install_man("src/efibootdump.8")
     self.install_bin("src/efibootmgr")

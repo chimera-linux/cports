@@ -1,7 +1,7 @@
 from cbuild.core import chroot
 
 
-def do_build(self):
+def build(self):
     (self.cwd / self.make_dir).mkdir(parents=True, exist_ok=True)
 
     # we patch main/python-setuptools so these environment variables
@@ -29,7 +29,7 @@ def do_build(self):
     )
 
 
-def do_check(self):
+def check(self):
     if (
         chroot.enter(
             "python3",
@@ -90,7 +90,7 @@ def do_check(self):
     )
 
 
-def do_install(self):
+def install(self):
     (self.cwd / self.make_dir).mkdir(parents=True, exist_ok=True)
 
     whl = list(
@@ -116,9 +116,9 @@ def do_install(self):
 
 
 def use(tmpl):
-    tmpl.do_build = do_build
-    tmpl.do_check = do_check
-    tmpl.do_install = do_install
+    tmpl.build = build
+    tmpl.check = check
+    tmpl.install = install
 
     tmpl.build_style_defaults = [
         ("make_build_target", "."),

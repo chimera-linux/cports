@@ -22,7 +22,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-def do_check(self):
+def check(self):
     self.do(
         "pytest",
         "-v",

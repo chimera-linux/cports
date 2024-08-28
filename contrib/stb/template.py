@@ -11,7 +11,7 @@ source = f"{url}/archive/{_commit}.tar.gz"
 sha256 = "d00921d49b06af62aa6bfb97c1b136bec661dd11dd4eecbcb0da1f6da7cedb4c"
 
 
-def do_install(self):
+def install(self):
     self.install_file("stb_*", "usr/include", glob=True)
     self.install_file("docs/*", "usr/share/doc/stb", glob=True)
     self.install_license("LICENSE")

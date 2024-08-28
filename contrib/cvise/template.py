@@ -31,7 +31,7 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "ee9bdfce6f139d0317c98d9c9b51cc68bcaead059de97aac2cf81d71f2215f54"
 
 
-def do_check(self):
+def check(self):
     # this one test fails but everything else is fine
     self.do("pytest", "-k", "not test_simple_reduction", wrksrc=self.make_dir)
 

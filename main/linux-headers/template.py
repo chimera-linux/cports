@@ -26,7 +26,7 @@ match self.profile().arch:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 
-def do_build(self):
+def build(self):
     self.do(
         "make",
         "ARCH=" + _arch,
@@ -44,5 +44,5 @@ def do_build(self):
     self.rm("usr/include/drm", recursive=True)
 
 
-def do_install(self):
+def install(self):
     self.install_files("usr/include", "usr")

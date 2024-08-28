@@ -11,7 +11,7 @@ url = "https://www.kernel.org"
 options = ["!strip", "foreignelf", "!distlicense"]
 
 
-def do_build(self):
+def build(self):
     self.rm("kernel", recursive=True, force=True)
     self.mkdir("kernel/x86/microcode", parents=True)
     for f in sorted(
@@ -37,7 +37,7 @@ def do_build(self):
         )
 
 
-def do_install(self):
+def install(self):
     self.install_file("amd-ucode.img", "boot")
     self.install_file("amd-ucode.img", "usr/lib/firmware")
     self.install_initramfs(self.files_path / "ucode_amd", name="ucode_amd")

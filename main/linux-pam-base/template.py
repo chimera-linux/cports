@@ -9,7 +9,7 @@ url = "https://chimera-linux.org"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     for f in self.files_path.glob("*"):
         if f.name == "README.md":
             continue

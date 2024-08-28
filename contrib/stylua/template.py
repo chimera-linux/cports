@@ -18,5 +18,5 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "f4a27b12669953d2edf55b89cc80381f97a2dfa735f53f95c6ae6015c8c35ffb"
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/stylua")

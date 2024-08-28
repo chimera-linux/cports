@@ -16,6 +16,6 @@ sha256 = "26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     self.install_license("README")
     self.install_file("zlib.so", "usr/lib/lua/5.4", mode=0o755)

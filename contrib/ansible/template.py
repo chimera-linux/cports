@@ -26,7 +26,7 @@ sha256 = "6144fb4bc785f917f86b1b0b6eadc9b894e9751ff9e9a7875afcfa2f74581ffd"
 options = ["!check"]
 
 
-def do_check(self):
+def check(self):
     for collection_dir in self.find("ansible_collections", "*/*/tests/unit"):
         collection_dir = collection_dir.parent.parent
         print(f"checking {collection_dir}")

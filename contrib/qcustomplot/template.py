@@ -23,7 +23,7 @@ sha256 = [
 hardening = ["vis"]
 
 
-def do_configure(self):
+def configure(self):
     # TODO: build style these
     self.do(
         "qmake6",
@@ -35,7 +35,7 @@ def do_configure(self):
     )
 
 
-def do_install(self):
+def install(self):
     # no actual install in the qt .pro...
     # installing symlink files derefs the symlink so it doesn't work, relink manually
     self.install_lib(f"libqcustomplot.so.{pkgver}")

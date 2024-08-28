@@ -21,7 +21,7 @@ sha256 = "5c12733969f55ff0bb250c681552ebbc2e34e202c5401033ef73cab040022a2e"
 options = ["!cross"]
 
 
-def do_install(self):
+def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/sq")
     self.install_man("assets/man-pages/*.1", glob=True)
 

@@ -23,7 +23,7 @@ hardening = ["vis", "!cfi"]
 options = ["!check"]
 
 
-def do_check(self):
+def check(self):
     self.do("perl", "src/run-tests.pl")
 
 

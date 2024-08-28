@@ -34,7 +34,7 @@ def post_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.install_bin("build/rclone")
     self.install_link("usr/bin/mount.rclone", "rclone")
     self.install_link("usr/bin/rclonefs", "rclone")

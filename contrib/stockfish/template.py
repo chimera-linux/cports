@@ -31,5 +31,5 @@ def post_extract(self):
     self.cp(self.sources_path / _net_file_small, self.build_wrksrc)
 
 
-def do_install(self):
+def install(self):
     self.install_bin("stockfish")

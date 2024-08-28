@@ -10,7 +10,7 @@ source = f"https://gitlab.com/openconnect/vpnc-scripts/-/archive/{_commit}/vpnc-
 sha256 = "82eb6b28236988bf7b64863ed8698e9204ff99610c73775aa3d67b1a63aab33e"
 
 
-def do_install(self):
+def install(self):
     self.install_file("vpnc-script", "usr/libexec", 0o755)
     self.install_file("vpnc-script-ptrtd", "usr/libexec", 0o755)
     self.install_file("vpnc-script-sshd", "usr/libexec", 0o755)

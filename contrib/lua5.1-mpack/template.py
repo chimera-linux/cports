@@ -23,7 +23,7 @@ def init_configure(self):
     ]
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE-MIT")
     self.install_dir("usr/lib/lua/5.1")
     self.install_file("mpack.so", "usr/lib/lua/5.1", mode=0o755)

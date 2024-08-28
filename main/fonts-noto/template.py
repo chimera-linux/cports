@@ -9,7 +9,7 @@ source = f"{url}/archive/refs/tags/noto-monthly-release-{pkgver}.zip"
 sha256 = "6eff68e142d68ea2258180f441f2c6045bb08955f42d6f7270a229dfc9d88044"
 
 
-def do_install(self):
+def install(self):
     for f in self.files_path.glob("*.conf"):
         self.install_file(f, "usr/share/fontconfig/conf.avail")
 

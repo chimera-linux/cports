@@ -49,13 +49,13 @@ tool_flags = {
 }
 
 
-def do_prepare(self):
+def prepare(self):
     from cbuild.util import golang
 
     golang.Golang(self).mod_download()
 
 
-def do_build(self):
+def build(self):
     from cbuild.util import golang
 
     self.do(
@@ -69,7 +69,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     # nuke pointless optimized pycache
     for f in (self.cwd / "linux-package").rglob("*.opt-*.pyc"):
         f.unlink()

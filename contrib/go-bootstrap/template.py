@@ -32,7 +32,7 @@ match self.profile().goarch:
 source = f"https://repo.chimera-linux.org/distfiles/go-bootstrap-{pkgver}-{self.profile().goarch or ''}.tar.xz"
 
 
-def do_install(self):
+def install(self):
     self.install_license("LICENSE")
     self.install_files("bin", "usr/lib/go-bootstrap")
     self.install_files("src", "usr/lib/go-bootstrap")

@@ -14,7 +14,7 @@ if self.profile().cross:
     hostmakedepends = ["bmake"]
 
 
-def do_build(self):
+def build(self):
     self.mkdir("build", parents=True)
     eargs = []
     if self.profile().cross:
@@ -28,7 +28,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     eargs = []
     if self.profile().cross:
         eargs = ["BMAKE=bmake"]
@@ -45,7 +45,7 @@ def do_install(self):
     self.install_license("LICENSE")
 
 
-def do_check(self):
+def check(self):
     self.do(
         self.chroot_cwd / "boot-strap",
         "--prefix=/usr",

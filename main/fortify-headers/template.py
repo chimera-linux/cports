@@ -15,5 +15,5 @@ tool_flags = {"CFLAGS": ["-Wno-macro-redefined"]}
 options = ["bootstrap"]
 
 
-def do_build(self):
+def build(self):
     pass

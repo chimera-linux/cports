@@ -18,7 +18,7 @@ def init_build(self):
     self.make_build_args += ["ORIGCFLAGS=" + self.get_cflags(shell=True)]
 
 
-def do_install(self):
+def install(self):
     self.install_bin("pgn-extract")
     self.install_man("pgn-extract.man", "pgn-extract", 1)
     self.install_file("help.html", "usr/share/doc/pgn-extract")

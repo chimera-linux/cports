@@ -18,7 +18,7 @@ hardening = ["!int"]
 options = ["!strip", "!check", "!lto", "!debug", "execstack"]
 
 
-def do_build(self):
+def build(self):
     # we undef all the stuff cbuild automatically sets,
     # and always "cross compile" with our bare metal toolchain
     self.do(
@@ -41,7 +41,7 @@ def do_build(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.install_file(
         "build/rk3399/release/bl31/bl31.elf",
         "usr/lib/trusted-firmware-a/rk3399",

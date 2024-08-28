@@ -13,7 +13,7 @@ sha256 = "87a4f144e5ee34d2533e811c9429b2dcb059f8437a4dc77f52030c57c729e3a9"
 options = ["!strip", "foreignelf", "execstack"]
 
 
-def do_install(self):
+def install(self):
     # wifi
     self.install_file(
         "ath11k/QCA206X/hw2.1/*",

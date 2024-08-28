@@ -15,7 +15,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "3c152ec83dd0615cc62d7f92164fabad361d853f3796db22c79c20fa060e26b4"
 
 
-def do_install(self):
+def install(self):
     self.cargo.install(wrksrc="numbat-cli")
     self.install_license("LICENSE-MIT")
     self.install_files("numbat/modules", "usr/share/numbat")

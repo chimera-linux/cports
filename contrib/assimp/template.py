@@ -26,7 +26,7 @@ sha256 = "7414861a7b038e407b510e8b8c9e58d5bf8ca76c9dfe07a01d20af388ec5086a"
 hardening = ["vis", "!cfi"]
 
 
-def do_check(self):
+def check(self):
     self.do(f"{self.make_dir}/bin/unit")
 
 

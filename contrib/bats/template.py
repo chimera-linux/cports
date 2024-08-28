@@ -12,7 +12,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "aeff09fdc8b0c88b3087c99de00cf549356d7a2f6a69e3fcec5e0e861d2f9063"
 
 
-def do_check(self):
+def check(self):
     self.do(
         "./bin/bats",
         "--tap",
@@ -21,7 +21,7 @@ def do_check(self):
     )
 
 
-def do_install(self):
+def install(self):
     self.do(
         "./install.sh",
         self.chroot_destdir / "usr",

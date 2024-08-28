@@ -10,16 +10,16 @@ source = f"{url}/download/ladspa_sdk_{pkgver}.tgz"
 sha256 = "27d24f279e4b81bd17ecbdcc38e4c42991bb388826c0b200067ce0eb59d3da5b"
 
 
-def do_build(self):
+def build(self):
     self.do("make", "-C", "src")
     self.rm("doc/ladspa.h.txt", force=True)
 
 
-def do_check(self):
+def check(self):
     self.do("make", "-C", "src", "test")
 
 
-def do_install(self):
+def install(self):
     # header
     self.install_file("src/ladspa.h", "usr/include")
     # plugins

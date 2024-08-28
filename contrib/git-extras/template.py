@@ -17,7 +17,7 @@ source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "f570f19b9e3407e909cb98d0536c6e0b54987404a0a053903a54b81680c347f1"
 
 
-def do_build(self):
+def build(self):
     pass
 
 

@@ -19,7 +19,7 @@ source = f"$(PYPI_SITE)/P/PyYAML/PyYAML-{pkgver}.tar.gz"
 sha256 = "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
 
 
-def do_check(self):
+def check(self):
     self.do("python", "setup.py", "test")
 
 

@@ -38,7 +38,7 @@ match self.profile().arch:
         broken = f"not yet built for {self.profile().arch}"
 
 
-def do_install(self):
+def install(self):
     self.install_bin("cargo")
     self.install_license("LICENSE-MIT")
     self.install_license("LICENSE-THIRD-PARTY")

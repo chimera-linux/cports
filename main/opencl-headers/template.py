@@ -11,6 +11,6 @@ sha256 = "3c3dd236d35f4960028f4f58ce8d963fb63f3d50251d1e9854b76f1caab9a309"
 options = ["!check"]
 
 
-def do_install(self):
+def install(self):
     for f in (self.cwd / "CL").glob("*.h"):
         self.install_file(f, "usr/include/CL")

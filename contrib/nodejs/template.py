@@ -73,7 +73,7 @@ def post_install(self):
 
 
 # real test suite requires network acccess
-def do_check(self):
+def check(self):
     npath = self.chroot_cwd / "out/Release"
     nexe = npath / "node"
     self.do(nexe, "-e", "console.log('test')", wrksrc="out/Release")

@@ -16,6 +16,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "64b3431970cd4c27f3c4e665913218f44a0f44be7e22401eea34d52d8f3745a9"
 
 
-def do_install(self):
+def install(self):
     self.cargo.install(wrksrc="jaq")
     self.install_license("LICENSE-MIT")

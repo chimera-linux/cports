@@ -12,7 +12,7 @@ url = "https://chimera-linux.org"
 options = ["!check", "bootstrap", "keepempty", "brokenlinks"]
 
 
-def do_install(self):
+def install(self):
     # base root dirs
     for d in [
         "boot",

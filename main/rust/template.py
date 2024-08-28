@@ -82,7 +82,7 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.155")
 
 
-def do_configure(self):
+def configure(self):
     _tools = ["rustdoc"]
     if self.current_target == "custom:bootstrap":
         _llvm_shared = "false"
@@ -289,7 +289,7 @@ wasi-root = '/usr/wasm32-unknown-wasi'
             )
 
 
-def do_build(self):
+def build(self):
     benv = {}
     benv["CARGO_HOME"] = str(self.chroot_cwd / ".cargo")
     # we don't want the default cross sysroot here
@@ -328,7 +328,7 @@ def do_build(self):
     )
 
 
-def do_check(self):
+def check(self):
     self.do(
         "python",
         "x.py",
@@ -375,7 +375,7 @@ def _(self):
     pass
 
 
-def do_install(self):
+def install(self):
     self.install_license("COPYRIGHT")
     self.install_license("LICENSE-APACHE")
     self.install_license("LICENSE-MIT")

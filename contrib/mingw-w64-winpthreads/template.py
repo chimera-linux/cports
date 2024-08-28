@@ -23,7 +23,7 @@ for _an in _targets:
     checkdepends += [f"mingw-w64-crt-{_an}"]
 
 
-def do_configure(self):
+def configure(self):
     for an in _targets:
         at = an + "-w64-mingw32"
         eargs = [
@@ -46,17 +46,17 @@ def do_configure(self):
             )
 
 
-def do_build(self):
+def build(self):
     for an in _targets:
         self.make.build(wrksrc=f"build-{an}")
 
 
-def do_check(self):
+def check(self):
     for an in _targets:
         self.make.check(wrksrc=f"build-{an}")
 
 
-def do_install(self):
+def install(self):
     for an in _targets:
         at = an + "-w64-mingw32"
         self.make.install(wrksrc=f"build-{an}")
