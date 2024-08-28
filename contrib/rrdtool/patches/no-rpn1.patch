@@ -1,0 +1,11 @@
+flake fails ~50% of the time
+--
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -1,5 +1,5 @@
+ TESTS = modify1 modify2 modify3 modify4 modify5 \
+-	tune1 tune2 graph1 graph2 rpn1 rpn2 \
++	tune1 tune2 graph1 graph2 rpn2 \
+ 	rrdcreate \
+ 	compat-cloexec \
+ 	dump-restore \
