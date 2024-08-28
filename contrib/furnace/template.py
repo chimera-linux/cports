@@ -1,6 +1,6 @@
 pkgname = "furnace"
-pkgver = "0.6.5"
-pkgrel = 1
+pkgver = "0.6.6"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSYSTEM_FFTW=ON",
@@ -37,6 +37,6 @@ source = [
 ]
 source_paths = [".", "extern/adpcm"]
 sha256 = [
-    "37f03cde1ae5f4543a5bec67d2e1bb6ebfce53be7fa05e3e46a2ef44da8cdea6",
+    "4d87d134e3cfb5fba98d510c131c14df60130d7fd5621b92caf26b1f5194eb46",
     "46da29342d2968ff222ba00e07c646e038b76af2e6c86de037c653059a056251",
 ]
