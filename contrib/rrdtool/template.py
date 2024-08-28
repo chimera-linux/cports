@@ -22,6 +22,7 @@ sha256 = "5e65385e51f4a7c4b42aa09566396c20e7e1a0a30c272d569ed029a81656e56b"
 
 def post_install(self):
     self.install_license("COPYRIGHT")
+    self.install_service(self.files_path / "rrdcached")
 
 
 @subpackage("rrdtool-devel")
