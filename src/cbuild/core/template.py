@@ -1949,7 +1949,6 @@ class Template(Package):
     def stamp(self, name):
         return StampCheck(self, name)
 
-
     def get_tool_flags(
         self, name, extra_flags=[], hardening=[], shell=False, target=None
     ):
