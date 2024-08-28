@@ -454,7 +454,7 @@ set -e
         pkg.rparent._stage[repo] = True
 
 
-def invoke(pkg):
+def generate(pkg):
     arch = pkg.rparent.profile().arch
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 

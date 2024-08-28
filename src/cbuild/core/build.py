@@ -1,9 +1,9 @@
 from cbuild.step import fetch, extract, prepare, patch, configure
-from cbuild.step import build as buildm, check, install, prepkg, pkg as pkgsm
+from cbuild.step import build as buildm, check, install, prepkg
 from cbuild.core import chroot, logger, dependencies, profile
 from cbuild.core import pkg as pkgm, errors
 from cbuild.util import flock
-from cbuild.apk import cli as apk
+from cbuild.apk import cli as apk, generate as apkgen
 
 
 def build(
@@ -238,7 +238,7 @@ def _build(
     with flock.lock(flock.stagelock(pkg), pkg):
         # generate packages for all packages (includes the main one)
         for sp in pkg.subpkg_all:
-            pkgsm.invoke(sp)
+            apkgen.generate(sp)
         pkg.current_phase = "index"
         # stage binary packages
         for repo in pkg._stage:

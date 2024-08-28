@@ -207,8 +207,6 @@ hooks = {
     "post_install": [],
     "init_pkg": [],
     "pre_pkg": [],
-    "do_pkg": [],
-    "post_pkg": [],
 }
 
 
