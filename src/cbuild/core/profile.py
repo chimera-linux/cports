@@ -234,7 +234,11 @@ def _get_ldflags(self, tmpl, name, extra_flags, debug, hardening, shell):
 
 
 def _get_rustflags(self, tmpl, name, extra_flags, debug, hardening, shell):
-    bflags = [f"--remap-path-prefix={tmpl.chroot_srcdir}=."]
+    bflags = [
+        f"--remap-path-prefix={tmpl.chroot_srcdir}=.",
+        # cargo places some sources here
+        f"--remap-path-prefix={paths.cbuild_cache()}=.",
+    ]
 
     if self.cross:
         bflags += [
