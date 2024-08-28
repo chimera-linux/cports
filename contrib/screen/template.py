@@ -1,6 +1,6 @@
 pkgname = "screen"
-pkgver = "4.9.1"
-pkgrel = 3
+pkgver = "5.0.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pam",
@@ -9,14 +9,12 @@ configure_args = [
     "--enable-telnet",
     "--enable-use-locale",
     "--with-pty-group=5",
-    "--with-socket-dir=/run/screens",
-    "--with-sys-screenrc=/etc/screenrc",
+    "--enable-socket-dir=/run/screens",
+    "--with-system_screenrc=/etc/screenrc",
 ]
 configure_gen = ["./autogen.sh"]
-hostmakedepends = [
-    "automake",
-    "libtool",
-]
+make_dir = "."
+hostmakedepends = ["automake"]
 makedepends = [
     "linux-headers",
     "linux-pam-devel",
@@ -27,10 +25,10 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/screen"
 source = f"$(GNU_SITE)/screen/screen-{pkgver}.tar.gz"
-sha256 = "26cef3e3c42571c0d484ad6faf110c5c15091fbf872b06fa7aa4766c7405ac69"
+sha256 = "f04a39d00a0e5c7c86a55338808903082ad5df4d73df1a2fd3425976aed94971"
 hardening = ["vis", "cfi"]
-
-tool_flags = {"CFLAGS": ["-Wno-deprecated-non-prototype"]}
+# don't build due to type errors
+options = ["!check"]
 
 
 def post_install(self):
