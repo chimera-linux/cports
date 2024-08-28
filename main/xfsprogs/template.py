@@ -1,5 +1,5 @@
 pkgname = "xfsprogs"
-pkgver = "6.9.0"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -14,6 +14,8 @@ make_dir = "."
 make_install_args = ["-j1", "install-dev"]
 hostmakedepends = ["gettext", "libuuid-devel", "pkgconf"]
 makedepends = [
+    "attr-devel",
+    "device-mapper-devel",
     "gettext-devel",
     "libblkid-devel",
     "libedit-devel",
@@ -26,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/xfsprogs/xfsprogs-{pkgver}.tar.xz"
-sha256 = "975284783fb3fbc4e1ae640bd804d788e4237a86b07582acee86b6e48f6521b7"
+sha256 = "a16e7caa5d8fea1c9652f1a45c8e5f2acc13fc632cf2066fe364ab13bd9df82d"
 # no check target
 options = ["!check"]
 
