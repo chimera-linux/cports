@@ -203,9 +203,17 @@ def _install_from_repo(pkg, pkglist, cross=False):
             allow_untrusted=not signkey,
         )
     else:
+        # write world file and fix instead of adding to account for previous
+        # world being potentially dirty and having a different package set
+        with open(paths.bldroot() / "etc/apk/world", "w") as wf:
+            for pkgn in chroot.get_world_base():
+                wf.write(f"{pkgn}\n")
+            for pkgn in pkglist:
+                wf.write(f"{pkgn}\n")
+        # and then perform the transaction
         ret = apki.call_chroot(
-            "add",
-            pkglist,
+            "fix",
+            [],
             pkg,
             capture_output=True,
             allow_untrusted=not signkey,

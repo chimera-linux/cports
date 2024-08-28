@@ -58,6 +58,10 @@ def set_extras(elist):
     _extra_pkgs = ["base-cbuild", *elist]
 
 
+def get_world_base():
+    return _extra_pkgs
+
+
 def _subst_in(pat, rep, src, dest=None):
     inf = open(src, "r")
     if dest:
@@ -470,7 +474,7 @@ def prepare_arch(arch, dirty):
     _prepare_arch(prof, dirty)
 
 
-def cleanup_world(bootstrapping, prof=None):
+def cleanup_world(bootstrapping, prof=None, perform=True):
     from cbuild.core import template
 
     if bootstrapping is None:
@@ -497,6 +501,10 @@ def cleanup_world(bootstrapping, prof=None):
         return
 
     paths.prepare()
+
+    # in some cases we want to bail early without dealing with world at all
+    if not perform:
+        return
 
     # clean world
     old_world = set()
