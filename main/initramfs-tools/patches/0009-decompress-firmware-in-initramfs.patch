@@ -1,14 +1,17 @@
-commit 01ced56fb38e7a118b08b12df34b2ca9979de0a8
-Author: q66 <q66@chimera-linux.org>
-Date:   Mon Jul 8 20:26:46 2024 +0200
+From 776a5d670eae227a5a5aa888ef5bbeb177623e63 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 28 Aug 2024 14:02:29 +0200
+Subject: [PATCH 9/9] decompress firmware in initramfs
 
-    decompress firmware in initramfs
+---
+ mkinitramfs | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
 diff --git a/mkinitramfs b/mkinitramfs
-index 9e7f670..ef25a41 100755
+index 6e2df7e..a712a84 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
-@@ -457,6 +457,39 @@ find "${DESTDIR}/${MODULESDIR}" -name '*.ko.*' | while read -r ko; do
+@@ -463,6 +463,39 @@ find "${DESTDIR}/${MODULESDIR}" -name '*.ko.*' | while read -r ko; do
  	esac
  done
  
@@ -48,3 +51,6 @@ index 9e7f670..ef25a41 100755
  # generate module deps
  depmod -a -b "${DESTDIR}" "${version}"
  rm -f "${DESTDIR}/lib/modules/${version}"/modules.*map
+-- 
+2.46.0
+

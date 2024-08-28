@@ -1,7 +1,7 @@
-From dc2fe64a86ce0ab3f793034858eb6b90e9010d01 Mon Sep 17 00:00:00 2001
+From b57e0e94d24835920a777ce605d4cb9629fb5210 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Wed, 20 Jul 2022 04:06:22 +0200
-Subject: [PATCH 7/8] use fstype from klibc-kinit-standalone
+Date: Wed, 28 Aug 2024 14:01:17 +0200
+Subject: [PATCH 7/9] use fstype from klibc-kinit-standalone
 
 ---
  hook-functions | 2 +-
@@ -9,10 +9,10 @@ Subject: [PATCH 7/8] use fstype from klibc-kinit-standalone
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index e221f95..1cf0e41 100644
+index 55ad3c8..f6a49ca 100644
 --- a/hook-functions
 +++ b/hook-functions
-@@ -520,7 +520,7 @@ dep_add_modules_mount()
+@@ -535,7 +535,7 @@ dep_add_modules_mount()
  	fi
  
  	# do not trust mount, check superblock
@@ -22,18 +22,18 @@ index e221f95..1cf0e41 100644
  	# check that fstype fs recognition
  	if [ "${FSTYPE}" = "unknown" ]; then
 diff --git a/hooks/fsck b/hooks/fsck
-index 012c97e..26a50d5 100755
+index 3479dfc..2f219d2 100755
 --- a/hooks/fsck
 +++ b/hooks/fsck
-@@ -53,7 +53,7 @@ get_fsck_type_fstab () {
+@@ -54,7 +54,7 @@ get_fsck_type_fstab () {
  		if [ "${MNT_DIR}" = "/" ] || [ "${MNT_TYPE}" = "auto" ]; then
- 			MNT_FSNAME="$(resolve_device "${MNT_FSNAME}")"
+ 			device="$(resolve_device "${MNT_FSNAME}")"
  			# shellcheck disable=SC2317
 -			fstype() { "/usr/lib/klibc/bin/fstype" "$@"; }
 +			fstype() { "/usr/libexec/kinit-standalone/fstype" "$@"; }
- 			if ! get_fstype "${MNT_FSNAME}"; then
- 				echo "W: Couldn't identify type of $2 file system for fsck hook" >&2
+ 			if ! get_fstype "${device}"; then
+ 				echo "W: Couldn't identify type of $2 file system '$MNT_FSNAME' for fsck hook" >&2
  			fi
 -- 
-2.45.2
+2.46.0
 

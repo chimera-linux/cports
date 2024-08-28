@@ -1,5 +1,5 @@
 pkgname = "initramfs-tools"
-pkgver = "0.143.1"
+pkgver = "0.145"
 pkgrel = 0
 build_style = "makefile"
 depends = [
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/kernel-team/initramfs-tools"
 source = f"{url}/-/archive/v{pkgver}/initramfs-tools-v{pkgver}.tar.gz"
-sha256 = "3b8d89dfdf3c341a9513c03fe7c8c2a1c8de747a35bec74b4b133aeae912eda9"
+sha256 = "e2c2db8f096e0a71e0e55362c74e48b621ce8a2f455f309eefca8d113f31e0ff"
 # no tests
 options = ["!check"]
 

@@ -1,7 +1,7 @@
-From 1ab05745c8e865c68a8fc8a1038349d7cda3dd94 Mon Sep 17 00:00:00 2001
+From af840c25f83daf5bac93c2a5a3ce12f22861a78d Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 3 Jun 2024 16:41:14 +0200
-Subject: [PATCH 3/8] remove all references to busybox
+Subject: [PATCH 3/9] remove all references to busybox
 
 ---
  conf/initramfs.conf | 10 ----------
@@ -90,7 +90,7 @@ index 76e4010..aff04c0 100644
  \fB KEYMAP
  If set to 'y', the console keymap will be loaded during the initramfs stage.
 diff --git a/mkinitramfs b/mkinitramfs
-index b07ecb7..4691faa 100755
+index 8dce5fb..72d694f 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -7,9 +7,6 @@ export PATH='/usr/bin:/sbin:/bin'
@@ -103,7 +103,7 @@ index b07ecb7..4691faa 100755
  
  usage()
  {
-@@ -129,8 +126,8 @@ for i in /usr/share/initramfs-tools/conf-hooks.d/*; do
+@@ -134,8 +131,8 @@ for i in /usr/share/initramfs-tools/conf-hooks.d/*; do
  done
  
  # Check busybox dependency
@@ -114,7 +114,7 @@ index b07ecb7..4691faa 100755
  	exit 1
  fi
  
-@@ -310,7 +307,6 @@ export MACHINE_ARCH
+@@ -316,7 +313,6 @@ export MACHINE_ARCH
  export verbose
  export KEYMAP
  export MODULES
@@ -123,5 +123,5 @@ index b07ecb7..4691faa 100755
  export FSTYPE
  
 -- 
-2.45.2
+2.46.0
 

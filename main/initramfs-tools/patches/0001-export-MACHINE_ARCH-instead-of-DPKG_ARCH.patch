@@ -1,7 +1,7 @@
-From d729db5d5497e395598246d3605b631d773f3b7d Mon Sep 17 00:00:00 2001
+From d7273eb68bc6cccdb30eb580573d8305b3fec326 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 3 Jun 2024 16:39:26 +0200
-Subject: [PATCH 1/8] export MACHINE_ARCH instead of DPKG_ARCH
+Subject: [PATCH 1/9] export MACHINE_ARCH instead of DPKG_ARCH
 
 ---
  hooks/thermal     | 4 ++--
@@ -73,10 +73,10 @@ index 2d5d2d2..6d1bde2 100644
  .TP
  \fB\fI blacklist, panic, quiet, resume, noresume, resume_offset
 diff --git a/mkinitramfs b/mkinitramfs
-index 40e0fd1..7b931a4 100755
+index e14251f..58b072e 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
-@@ -298,7 +298,7 @@ __TMPMAINCPIO="$(mktemp "${TMPDIR:-/var/tmp}/mkinitramfs-MAIN_XXXXXX")" || exit
+@@ -304,7 +304,7 @@ __TMPCPIOGZ="$(mktemp "${TMPDIR:-/var/tmp}/mkinitramfs-OL_XXXXXX")" || exit 1
  __TMPEARLYCPIO="$(mktemp "${TMPDIR:-/var/tmp}/mkinitramfs-FW_XXXXXX")" || exit 1
  __MODULES_TO_ADD="$(mktemp "${TMPDIR:-/var/tmp}/modules_XXXXXX")" || exit 1
  
@@ -85,7 +85,7 @@ index 40e0fd1..7b931a4 100755
  
  # Export environment for hook scripts.
  #
-@@ -306,7 +306,7 @@ export MODULESDIR
+@@ -312,7 +312,7 @@ export MODULESDIR
  export version
  export CONFDIR
  export DESTDIR
@@ -94,7 +94,7 @@ index 40e0fd1..7b931a4 100755
  export verbose
  export KEYMAP
  export MODULES
-@@ -393,7 +393,7 @@ for b in $(cd "${CONFDIR}/scripts" && find . -maxdepth 2 -name '.?*' -prune -o \
+@@ -399,7 +399,7 @@ for b in $(cd "${CONFDIR}/scripts" && find . -maxdepth 2 -name '.?*' -prune -o \
  	cp -p "${CONFDIR}/scripts/${b}" "${DESTDIR}/scripts/$(dirname "${b}")/"
  done
  
@@ -104,5 +104,5 @@ index 40e0fd1..7b931a4 100755
  for i in ${EXTRA_CONF}; do
  	copy_file config "${i}" /conf/conf.d
 -- 
-2.45.2
+2.46.0
 

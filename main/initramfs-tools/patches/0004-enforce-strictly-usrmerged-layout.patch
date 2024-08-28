@@ -1,23 +1,23 @@
-From b07543c3ff7302e27ff0cd7d1b1da329ce8831e1 Mon Sep 17 00:00:00 2001
+From 073b61923e33935507a49bec27ac3b06c74ae2f9 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 22 Oct 2021 02:56:25 +0200
-Subject: [PATCH 4/8] enforce strictly usrmerged layout
+Date: Wed, 28 Aug 2024 13:59:58 +0200
+Subject: [PATCH 4/9] enforce strictly usrmerged layout
 
 ---
  docs/framebuffer                 |  6 +++---
- hook-functions                   | 29 +++++++++++++++++++++--------
+ hook-functions                   | 35 +++++++++++++++++++++++---------
  hooks/fsck                       |  8 ++++----
  hooks/keymap                     |  2 +-
- init                             | 15 ++++-----------
- initramfs-tools.7                | 12 ++++++------
- mkinitramfs                      | 24 +++++++++++++++---------
+ init                             | 15 ++++----------
+ initramfs-tools.7                | 12 +++++------
+ mkinitramfs                      | 24 ++++++++++++++--------
  scripts/functions                |  6 +++---
  scripts/init-top/all_generic_ide |  4 ++--
  scripts/init-top/keymap          |  4 ++--
  scripts/local                    |  2 +-
  scripts/local-premount/resume    |  4 ++--
  scripts/nfs                      |  4 ++--
- 13 files changed, 66 insertions(+), 54 deletions(-)
+ 13 files changed, 70 insertions(+), 56 deletions(-)
 
 diff --git a/docs/framebuffer b/docs/framebuffer
 index 453ac8f..5c75e23 100644
@@ -45,10 +45,10 @@ index 453ac8f..5c75e23 100644
  
  if [ -e /proc/fb ]; then
 diff --git a/hook-functions b/hook-functions
-index 7fccf0e..d30ff25 100644
+index d3f7a32..ca5e1e2 100644
 --- a/hook-functions
 +++ b/hook-functions
-@@ -149,6 +149,23 @@ add_builtin_firmware()
+@@ -150,6 +150,23 @@ add_builtin_firmware()
  	done
  }
  
@@ -56,10 +56,10 @@ index 7fccf0e..d30ff25 100644
 +	local target
 +	target=$*
 +	case "${target}" in
-+	/bin/*) target="/usr/${target}" ;;
++	/bin/*) target="/usr${target}" ;;
 +	/sbin/*) target="/usr/bin/${target#/sbin/}" ;;
 +	/usr/sbin/*) target="/usr/bin/${target#/usr/sbin/}" ;;
-+	/lib/*) target="/usr/${target}" ;;
++	/lib/*) target="/usr${target}" ;;
 +	/lib32/*) target="/usr/lib/${target#/lib32/}" ;;
 +	/lib64/*) target="/usr/lib/${target#/lib64/}" ;;
 +	/usr/lib32/*) target="/usr/lib/${target#/usr/lib32/}" ;;
@@ -72,20 +72,29 @@ index 7fccf0e..d30ff25 100644
  # $1 = file type (for logging)
  # $2 = file to copy to initramfs
  # $3 (optional) Name for the file on the initramfs
-@@ -168,10 +185,8 @@ copy_file() {
+@@ -169,15 +186,15 @@ copy_file() {
  		target="${target}/${src##*/}"
  	fi
  
+-	# Canonicalise target to be absolute, so the comparisons below
+-	# will work
+-	target="$(realpath -ms "/${target}")" || return 2
+-
 -	# Canonicalise usr-merged target directories
--	case "${target}" in
++	# Make sure the target is absolute for checks below
+ 	case "${target}" in
 -	/bin/* | /lib* | /sbin/*) target="/usr${target}" ;;
--	esac
++		/*) ;;
++		*) target="/${target}" ;;
+ 	esac
+ 
 +	# Sanitize target directories
 +	target="$(_sanitize_target ${target})"
- 
++
  	# check if already copied
  	[ -e "${DESTDIR}/${target}" ] && return 1
-@@ -186,10 +201,8 @@ copy_file() {
+ 
+@@ -192,10 +209,8 @@ copy_file() {
  		# Update source for the copy
  		src="${link_target}"
  
@@ -99,10 +108,10 @@ index 7fccf0e..d30ff25 100644
  		if [ "${link_target}" != "${target}" ]; then
  			[ "${verbose?}" = "y" ] && echo "Adding ${type}-link ${target}"
 diff --git a/hooks/fsck b/hooks/fsck
-index 9e84a5b..012c97e 100755
+index 53e03ed..3479dfc 100755
 --- a/hooks/fsck
 +++ b/hooks/fsck
-@@ -86,7 +86,7 @@ prereqs)
+@@ -87,7 +87,7 @@ prereqs)
  	;;
  esac
  
@@ -111,7 +120,7 @@ index 9e84a5b..012c97e 100755
  	exit 0
  fi
  
-@@ -99,13 +99,13 @@ if [ -z "$fsck_types" ]; then
+@@ -100,13 +100,13 @@ if [ -z "$fsck_types" ]; then
  	exit 0
  fi
  
@@ -243,7 +252,7 @@ index d3ac64f..eac47ca 100644
  \fB\fI readonly
  is the default for mounting the root corresponds to the ro bootarg.
 diff --git a/mkinitramfs b/mkinitramfs
-index 4691faa..2c60ee0 100755
+index 72d694f..efb3f78 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -1,7 +1,7 @@
@@ -255,7 +264,7 @@ index 4691faa..2c60ee0 100755
  
  # Defaults
  keep="n"
-@@ -319,12 +319,18 @@ export __TMPEARLYCPIO
+@@ -325,12 +325,18 @@ export __TMPEARLYCPIO
  # Private, used by 'manual_add_modules'.
  export __MODULES_TO_ADD
  
@@ -280,7 +289,7 @@ index 4691faa..2c60ee0 100755
  for d in conf/conf.d etc run scripts ${MODULESDIR}; do
  	mkdir -p "${DESTDIR}/${d}"
  done
-@@ -410,8 +416,8 @@ touch "${DESTDIR}/etc/fstab"
+@@ -416,8 +422,8 @@ touch "${DESTDIR}/etc/fstab"
  ln -s /proc/mounts "${DESTDIR}/etc/mtab"
  
  # module-init-tools
@@ -292,10 +301,10 @@ index 4691faa..2c60ee0 100755
  for file in /etc/modprobe.d/*.conf /lib/modprobe.d/*.conf ; do
  	if test -e "$file" || test -L "$file" ; then
 diff --git a/scripts/functions b/scripts/functions
-index 60f9195..325ff81 100644
+index 3d95f04..3878015 100644
 --- a/scripts/functions
 +++ b/scripts/functions
-@@ -99,13 +99,13 @@ maybe_break()
+@@ -100,13 +100,13 @@ maybe_break()
  			else
  				opts="-v"
  			fi
@@ -311,7 +320,7 @@ index 60f9195..325ff81 100644
  				fi
  			done
  		fi
-@@ -139,7 +139,7 @@ load_modules()
+@@ -140,7 +140,7 @@ load_modules()
  				continue
  			fi
  			# shellcheck disable=SC2086
@@ -352,10 +361,10 @@ index 1c6b2dc..160cb61 100755
 +	/usr/bin/setupcon
  fi
 diff --git a/scripts/local b/scripts/local
-index 8f9597f..8e45206 100644
+index 78653af..c31a2b2 100644
 --- a/scripts/local
 +++ b/scripts/local
-@@ -56,7 +56,7 @@ local_device_setup()
+@@ -57,7 +57,7 @@ local_device_setup()
  	# Load ubi with the correct MTD partition and return since fstype
  	# doesn't work with a char device like ubi.
  	if [ -n "$UBIMTD" ]; then
@@ -379,10 +388,10 @@ index 63dcc49..b92e3de 100755
 +	/usr/bin/resume "${DEV}"
  fi
 diff --git a/scripts/nfs b/scripts/nfs
-index 26a969b..4608cd7 100644
+index f7dc89f..ea08f82 100644
 --- a/scripts/nfs
 +++ b/scripts/nfs
-@@ -81,7 +81,7 @@ nfs_mount_root()
+@@ -82,7 +82,7 @@ nfs_mount_root()
  	nfs_top
  
  	# For DHCP
@@ -391,7 +400,7 @@ index 26a969b..4608cd7 100644
  
  	wait_for_udev 10
  
-@@ -130,7 +130,7 @@ nfs_mount_fs()
+@@ -131,7 +131,7 @@ nfs_mount_fs()
  	nfs_top
  
  	# For DHCP
@@ -401,5 +410,5 @@ index 26a969b..4608cd7 100644
  	wait_for_udev 10
  
 -- 
-2.45.2
+2.46.0
 

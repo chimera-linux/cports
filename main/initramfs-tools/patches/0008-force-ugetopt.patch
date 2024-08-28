@@ -1,7 +1,7 @@
-From 9ea6f4fd8e88ef55981d179f2f03cd9e1dfd5129 Mon Sep 17 00:00:00 2001
+From 8a169faa7954b26aa23387541e641251e3c9b707 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 29 Jul 2022 14:16:30 +0200
-Subject: [PATCH 8/8] force ugetopt
+Date: Wed, 28 Aug 2024 14:02:04 +0200
+Subject: [PATCH 8/9] force ugetopt
 
 ---
  lsinitramfs      | 2 +-
@@ -24,15 +24,15 @@ index 8d2a967..0e75019 100755
  eval set -- "$OPTIONS"
  
 diff --git a/mkinitramfs b/mkinitramfs
-index 459b421..9e7f670 100755
+index c15833c..6e2df7e 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
-@@ -33,7 +33,7 @@ usage_error()
+@@ -34,7 +34,7 @@ usage_error()
  	exit 2
  }
  
--OPTIONS=$(getopt -o c:d:hl:ko:r:v --long help -n "$0" -- "$@") || usage_error
-+OPTIONS=$(ugetopt -o c:d:hl:ko:r:v --long help -n "$0" -- "$@") || usage_error
+-OPTIONS=$(getopt -o c:d:hl:m:ko:r:v --long help -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o c:d:hl:m:ko:r:v --long help -n "$0" -- "$@") || usage_error
  
  eval set -- "$OPTIONS"
  
@@ -63,5 +63,5 @@ index f45169e..ae98df4 100755
  eval set -- "$OPTIONS"
  
 -- 
-2.45.2
+2.46.0
 
