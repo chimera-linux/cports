@@ -1,6 +1,6 @@
 pkgname = "gtk4"
-pkgver = "4.14.6"
-pkgrel = 0
+pkgver = "4.14.5"
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -79,13 +79,12 @@ pkgdesc = "Gimp Toolkit version 4"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
-source = f"https://gitlab.gnome.org/GNOME/gtk/-/archive/{pkgver}.tar.gz"
-sha256 = "65080dd8b694c63b36422cca81f2c9ad03e7983aee12acfcaf95e4239d4c10f7"
+source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
+sha256 = "5547f2b9f006b133993e070b87c17804e051efda3913feaca1108fa2be41e24d"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]
-# check: lol
-options = ["!cross", "!check"]
+options = ["!cross"]
 
 
 def post_install(self):
