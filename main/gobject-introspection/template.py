@@ -1,6 +1,6 @@
 pkgname = "gobject-introspection"
 pkgver = "1.80.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "flex", "bison"]
 makedepends = [
@@ -10,7 +10,12 @@ makedepends = [
     "python-mako",
     "python-markdown",
 ]
-depends = ["libgirepository-devel", "python-mako", "python-markdown"]
+depends = [
+    "libgirepository-devel",
+    "python-mako",
+    "python-markdown",
+    "python-setuptools",
+]
 pkgdesc = "Introspection system for GObject-based libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
