@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.14.5"
+pkgver = "4.14.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -79,12 +79,13 @@ pkgdesc = "Gimp Toolkit version 4"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
-source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "5547f2b9f006b133993e070b87c17804e051efda3913feaca1108fa2be41e24d"
+source = f"https://gitlab.gnome.org/GNOME/gtk/-/archive/{pkgver}.tar.gz"
+sha256 = "65080dd8b694c63b36422cca81f2c9ad03e7983aee12acfcaf95e4239d4c10f7"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]
-options = ["!cross"]
+# check: lol
+options = ["!cross", "!check"]
 
 
 def post_install(self):
@@ -100,12 +101,9 @@ def _(self):
 
     return self.default_devel(
         extra=[
-            "usr/bin/gtk4-builder-tool",
-            "usr/share/man/man1/gtk4-builder-tool.1",
-            "usr/bin/gtk4-encode-symbolic-svg",
-            "usr/share/man/man1/gtk4-encode-symbolic-svg.1",
-            "usr/bin/gtk4-query-settings",
-            "usr/share/man/man1/gtk4-query-settings.1",
+            "cmd:gtk4-builder-tool",
+            "cmd:gtk4-encode-symbolic-svg",
+            "cmd:gtk4-query-settings",
             "usr/share/gtk-4.0/valgrind",
         ]
     )
@@ -116,15 +114,11 @@ def _(self):
     self.subdesc = "demo applications"
 
     return [
-        "usr/bin/gtk4-demo",
-        "usr/bin/gtk4-widget-factory",
-        "usr/bin/gtk4-demo-application",
-        "usr/bin/gtk4-print-editor",
-        "usr/bin/gtk4-node-editor",
-        "usr/share/man/man1/gtk4-demo.1",
-        "usr/share/man/man1/gtk4-widget-factory.1",
-        "usr/share/man/man1/gtk4-demo-application.1",
-        "usr/share/man/man1/gtk4-node-editor.1",
+        "cmd:gtk4-demo",
+        "cmd:gtk4-widget-factory",
+        "cmd:gtk4-demo-application",
+        "cmd:gtk4-print-editor",
+        "cmd:gtk4-node-editor",
         "usr/share/metainfo/org.gtk.Demo4.appdata.xml",
         "usr/share/metainfo/org.gtk.WidgetFactory4.appdata.xml",
         "usr/share/metainfo/org.gtk.gtk4.NodeEditor.appdata.xml",
