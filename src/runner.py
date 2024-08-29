@@ -601,6 +601,34 @@ def pkg_error(e, log):
         short_traceback(e, log)
 
 
+def pkg_run_exc(f, log):
+    from cbuild.core import template, errors
+
+    try:
+        retv = f()
+        if retv:
+            return retv
+    except template.SkipPackage:
+        return False, False
+    except errors.CbuildException as e:
+        log.out_red(f"cbuild: {e!s}")
+        if e.extra:
+            log.out_plain(e.extra)
+        return False, True
+    except errors.TracebackException as e:
+        log.out_red(str(e))
+        short_traceback(e, log)
+        return False, True
+    except errors.PackageException as e:
+        pkg_error(e, log)
+        return False, True
+    except Exception as e:
+        log.out_red("A failure has occurred!")
+        short_traceback(e, log)
+        return False, True
+    return True, False
+
+
 def binary_bootstrap(tgt):
     from cbuild.core import chroot, paths
 
@@ -1763,34 +1791,10 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     def _do_with_exc(f):
         # we are setting this
         nonlocal failed
-        try:
-            retv = f()
-            if retv:
-                return retv
-        except template.SkipPackage:
-            return False
-        except errors.CbuildException as e:
-            log.out_red(f"cbuild: {e!s}")
-            if e.extra:
-                log.out_plain(e.extra)
+        retv, fail = pkg_run_exc(f, log)
+        if fail:
             failed = True
-            return False
-        except errors.TracebackException as e:
-            log.out_red(str(e))
-            short_traceback(e, log)
-            failed = True
-            return False
-        except errors.PackageException as e:
-            pkg_error(e, log)
-            failed = True
-            return False
-        except Exception as e:
-            logger.get().out_red("A failure has occurred!")
-            short_traceback(e, log)
-            failed = True
-            return False
-        # signal we're continuing
-        return True
+        return retv
 
     tarch = opt_arch if opt_arch else chroot.host_cpu()
 
@@ -2372,7 +2376,7 @@ def fire():
     import subprocess
 
     from cbuild.core import chroot, logger, template, profile
-    from cbuild.core import paths, errors
+    from cbuild.core import paths
     from cbuild.apk import cli
 
     logger.init(not opt_nocolor, opt_timing)
@@ -2433,7 +2437,8 @@ def fire():
     template.register_cats(opt_allowcat.strip().split())
     retcode = None
 
-    try:
+    def bodyf():
+        nonlocal retcode
         cmd = cmdline.command[0]
         if "/" in cmd and len(cmdline.command) >= 2:
             # allow reverse order for commands taking package names
@@ -2446,26 +2451,12 @@ def fire():
         else:
             logger.get().out_red(f"cbuild: invalid target {cmd}")
             sys.exit(1)
-    except template.SkipPackage:
-        pass
-    except errors.CbuildException as e:
-        logger.get().out_red(f"cbuild: {e!s}")
-        if e.extra:
-            logger.get().out_plain(e.extra)
+        return None
+
+    ret, failed = pkg_run_exc(bodyf, logger.get())
+
+    if opt_mdirtemp and not opt_keeptemp:
+        shutil.rmtree(paths.bldroot())
+
+    if failed:
         sys.exit(1)
-    except errors.TracebackException as e:
-        logger.get().out_red(str(e))
-        short_traceback(e, logger.get())
-        sys.exit(1)
-    except errors.PackageException as e:
-        pkg_error(e, logger.get())
-        sys.exit(1)
-    except Exception as e:
-        logger.get().out_red("A failure has occurred!")
-        short_traceback(e, logger.get())
-        sys.exit(1)
-    finally:
-        if opt_mdirtemp and not opt_keeptemp:
-            shutil.rmtree(paths.bldroot())
-        if retcode:
-            sys.exit(retcode)
