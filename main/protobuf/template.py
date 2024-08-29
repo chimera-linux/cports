@@ -1,5 +1,5 @@
 pkgname = "protobuf"
-pkgver = "27.4"
+pkgver = "28.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"https://github.com/protocolbuffers/protobuf/archive/v{pkgver}.tar.gz"
-sha256 = "023e2bb164b234af644c5049c6dac1d9c9f6dd2acb133b960d9009105b4226bd"
+sha256 = "13e7749c30bc24af6ee93e092422f9dc08491c7097efa69461f88eb5f61805ce"
 # FIXME vis breaks linking lite-test, cfi makes protoc not compile any tests
 hardening = ["!vis", "!cfi"]
 
@@ -25,6 +25,13 @@ if self.profile().cross:
 
 def post_install(self):
     self.install_license("LICENSE")
+
+
+@subpackage("protobuf-utf8range")
+def _(self):
+    self.subdesc = "internal utf8range library"
+
+    return ["usr/lib/libutf8_*"]
 
 
 @subpackage("protobuf-lite")
