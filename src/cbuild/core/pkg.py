@@ -1,4 +1,4 @@
-from cbuild.core import template, paths
+from cbuild.core import template
 import os
 import shutil
 import stat
@@ -43,14 +43,6 @@ def remove_pkg_wrksrc(pkg):
 def remove_pkg_statedir(pkg):
     if pkg.statedir.is_dir():
         shutil.rmtree(pkg.statedir, onerror=_remove_ro)
-
-
-def remove_builddir():
-    pb = paths.builddir()
-    shutil.rmtree(pb / "builddir", onerror=_remove_ro)
-    shutil.rmtree(pb / "destdir", onerror=_remove_ro)
-    (pb / "builddir").mkdir(parents=True)
-    (pb / "destdir").mkdir(parents=True)
 
 
 def remove_pkg(pkg):

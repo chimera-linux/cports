@@ -88,14 +88,10 @@ def _build(
     # or unless bootstrapping stage 0 (as resumption is useful by default
     # in there) but not any other stage
     if not dirty and pkg.stage > 0:
-        # if this is an initial build, clear the whole builddir/destdir
-        # if not, just clean up the per-package state just in case
-        if not no_update:
-            pkgm.remove_builddir()
-        else:
-            pkgm.remove_pkg_wrksrc(pkg)
-            pkgm.remove_pkg(pkg)
-            pkgm.remove_pkg_statedir(pkg)
+        # clean up old state
+        pkgm.remove_pkg_wrksrc(pkg)
+        pkgm.remove_pkg(pkg)
+        pkgm.remove_pkg_statedir(pkg)
 
     pkg.statedir.mkdir(parents=True, exist_ok=True)
     pkg.wrapperdir.mkdir(parents=True, exist_ok=True)
