@@ -1,7 +1,7 @@
 pkgname = "jedit"
 # update version in patches on updates
-pkgver = "5.6.0"
-pkgrel = 3
+pkgver = "5.7.0"
+pkgrel = 0
 prepare_after_patch = True
 hostmakedepends = ["apache-ant", "docbook-xsl-nons", "openjdk17-jdk"]
 depends = ["virtual:java-jre!openjdk17-jre"]
@@ -9,23 +9,8 @@ pkgdesc = "Programming text editor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://jedit.org"
-# build.xml executes javascript and java 15 removed nashorn, so it's separate
-_nashorn_ver = "15.4"
-_asm_ver = "9.7"
-source = [
-    f"$(SOURCEFORGE_SITE)/jedit/{pkgver}/jedit{pkgver}source.tar.bz2",
-    f"!https://repo1.maven.org/maven2/org/openjdk/nashorn/nashorn-core/{_nashorn_ver}/nashorn-core-{_nashorn_ver}.jar",
-    f"!https://repo1.maven.org/maven2/org/ow2/asm/asm/{_asm_ver}/asm-{_asm_ver}.jar",
-    f"!https://repo1.maven.org/maven2/org/ow2/asm/asm-commons/{_asm_ver}/asm-commons-{_asm_ver}.jar",
-    f"!https://repo1.maven.org/maven2/org/ow2/asm/asm-util/{_asm_ver}/asm-util-{_asm_ver}.jar",
-]
-sha256 = [
-    "76c16ae0168d9b64ecddd8bf08aa49ab352adb2c9687191bc71895a96a8dfe1d",
-    "6f816e84dfd63a81d4eaa7829c08337bbaff3ec683ff3bf6bbd90d017a00dc6f",
-    "adf46d5e34940bdf148ecdd26a9ee8eea94496a72034ff7141066b3eea5c4e9d",
-    "389bc247958e049fc9a0408d398c92c6d370c18035120395d4cba1d9d9304b7a",
-    "37a6414d36641973f1af104937c95d6d921b2ddb4d612c66c5a9f2b13fc14211",
-]
+source = f"$(SOURCEFORGE_SITE)/jedit/{pkgver}/jedit{pkgver}source.tar.bz2"
+sha256 = "8e71e9fbd5e535e6164d57545f7490d3b351eac7cec6041bee14b4fc3baffdc5"
 env = {
     "ANT_HOME": "/usr/share/apache-ant",
     "JAVA_HOME": "/usr/lib/jvm/java-17-openjdk",
@@ -34,10 +19,6 @@ env = {
 
 def post_extract(self):
     self.cp(self.files_path / "build.properties", ".")
-    self.cp(self.sources_path / f"nashorn-core-{_nashorn_ver}.jar", ".")
-    self.cp(self.sources_path / f"asm-{_asm_ver}.jar", ".")
-    self.cp(self.sources_path / f"asm-commons-{_asm_ver}.jar", ".")
-    self.cp(self.sources_path / f"asm-util-{_asm_ver}.jar", ".")
 
 
 def prepare(self):

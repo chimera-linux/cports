@@ -13,6 +13,15 @@ again in do_build. It seems ant has no way to do this.
  		<taskdef resource="net/sf/antcontrib/antlib.xml"
  			 uri="antlib:net.sf.antcontrib">
  			<classpath>
+@@ -219,7 +219,7 @@
+ 	</target>
+ 
+ 	<target name="compile"
+-		depends="init,retrieve">
++		depends="init">
+ 		<mkdir dir="${classes.dir}/core"/>
+ 		<depend srcDir="${basedir}"
+ 			destDir="${classes.dir}/core"
 @@ -288,7 +287,7 @@
  	</target>
  
@@ -22,6 +31,15 @@ again in do_build. It seems ant has no way to do this.
  		<mkdir dir="${classes.dir}/test"/>
  		<depend srcDir="${basedir}/test"
  			destDir="${classes.dir}/test"
+@@ -417,7 +417,7 @@
+ 	</target>
+ 
+ 	<target name="compile-textArea"
+-		depends="init,retrieve,prepare-textArea">
++		depends="init,prepare-textArea">
+ 		<mkdir dir="${textAreaPackage}/build"/>
+ 		<javac srcdir="${textAreaPackage}/src"
+ 		       destdir="${textAreaPackage}/build"
 @@ -473,7 +472,7 @@
  	</target>
  
