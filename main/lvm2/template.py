@@ -1,6 +1,6 @@
 pkgname = "lvm2"
-pkgver = "2.03.25"
-pkgrel = 1
+pkgver = "2.03.26"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline",
@@ -52,7 +52,7 @@ url = "https://sourceware.org/lvm2"
 source = (
     f"https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.{pkgver}.tgz"
 )
-sha256 = "4bea6fd2e5af9cdb3e27b48b4efa8d89210d9bfa13df900e092e404720a59b1d"
+sha256 = "72ea8b4f0e1610de5d119296b15ef2a2203431089541dcbebc66361f65fb35f5"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]
 # otherwise we're in for a world of pain
