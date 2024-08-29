@@ -42,7 +42,10 @@ def check(self):
         ).returncode
         != 0
     ):
-        self.error("pytest not found")
+        self.error(
+            "pytest not found",
+            hint="put 'python-pytest' in checkdepends",
+        )
 
     whl = list(
         map(
