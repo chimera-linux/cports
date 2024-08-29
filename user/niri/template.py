@@ -1,6 +1,6 @@
 pkgname = "niri"
 pkgver = "0.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
@@ -24,6 +24,9 @@ makedepends = [
     "pixman-devel",
     "rust-std",
     "udev-devel",
+]
+depends = [
+    "so:libEGL.so.1!libegl",
 ]
 pkgdesc = "Scrollable-tiling wayland compositor"
 maintainer = "psykose <alice@ayaya.dev>"
