@@ -601,13 +601,14 @@ def pkg_error(e, log):
         short_traceback(e, log)
 
 
-def pkg_run_exc(f, log):
-    from cbuild.core import template, errors
+def pkg_run_exc(f):
+    from cbuild.core import template, errors, logger
 
+    log = logger.get()
     try:
         retv = f()
         if retv:
-            return retv
+            return retv, True
     except template.SkipPackage:
         return False, False
     except errors.CbuildException as e:
@@ -1791,7 +1792,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     def _do_with_exc(f):
         # we are setting this
         nonlocal failed
-        retv, fail = pkg_run_exc(f, log)
+        retv, fail = pkg_run_exc(f)
         if fail:
             failed = True
         return retv
@@ -2453,10 +2454,12 @@ def fire():
             sys.exit(1)
         return None
 
-    ret, failed = pkg_run_exc(bodyf, logger.get())
+    ret, failed = pkg_run_exc(bodyf)
 
     if opt_mdirtemp and not opt_keeptemp:
         shutil.rmtree(paths.bldroot())
 
     if failed:
         sys.exit(1)
+    elif retcode:
+        sys.exit(retcode)
