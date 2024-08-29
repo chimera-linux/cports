@@ -32,7 +32,7 @@ def invoke(pkg):
             # now we need to go over each possible subpackage and check...
             # this is very slow but we only do it after filtering things
             # so it will almost never actually happen
-            for sp in [*pkg.rparent.subpkg_list, pkg.rparent]:
+            for sp in pkg.rparent.subpkg_list + [pkg.rparent]:
                 spf = (
                     sp.destdir
                     / "usr/share/man"
