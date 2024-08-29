@@ -1,5 +1,5 @@
 pkgname = "linux-headers"
-pkgver = "6.10.6"
+pkgver = "6.10.7"
 pkgrel = 0
 hostmakedepends = ["perl"]
 pkgdesc = "Linux API headers for userland development"
@@ -7,7 +7,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "e0d50d5b74f8599375660e79f187af7493864dba5ff6671b14983376a070b3d1"
+sha256 = "900d567ff01824708ce24c3b37faaef03e6f6145411dd447a6ff2edc8c5db3a9"
 # nothing to test
 options = ["!check"]
 
