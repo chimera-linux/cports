@@ -1,5 +1,5 @@
 pkgname = "apache-ant"
-pkgver = "1.10.14"
+pkgver = "1.10.15"
 pkgrel = 0
 hostmakedepends = ["openjdk17-jdk"]
 # FIXME: depends on unversioned providers are somewhat broken in apk
@@ -11,7 +11,7 @@ url = "https://ant.apache.org"
 source = (
     f"https://archive.apache.org/dist/ant/source/apache-ant-{pkgver}-src.tar.xz"
 )
-sha256 = "9eea3cd8a793574a07fde2f87b203dc86339492baeb539367d5aa5be497aea24"
+sha256 = "6c6e4c15233cb7b9851283051f99a9f04aa0e3291375138ea50399717d489878"
 env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
 options = ["!cross"]
 
