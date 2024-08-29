@@ -608,7 +608,7 @@ def pkg_run_exc(f):
     try:
         retv = f()
         if retv:
-            return retv, True
+            return retv, False
     except template.SkipPackage:
         return False, False
     except errors.CbuildException as e:
