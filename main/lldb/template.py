@@ -1,6 +1,6 @@
 pkgname = "lldb"
 pkgver = "18.1.8"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
