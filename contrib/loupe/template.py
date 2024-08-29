@@ -7,6 +7,7 @@ hostmakedepends = [
     "desktop-file-utils",
     "gettext",
     "glib",
+    "gtk-update-icon-cache",
     "itstool",
     "meson",
     "pkgconf",
