@@ -1,5 +1,5 @@
 pkgname = "glib"
-pkgver = "2.80.5"
+pkgver = "2.82.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -8,6 +8,7 @@ configure_args = [
     "-Dman-pages=enabled",
     "-Dselinux=disabled",
 ]
+make_check_args = ["--timeout-multiplier", "5"]
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
     "gettext",
@@ -39,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/glib/{pkgver[:-2]}/glib-{pkgver}.tar.xz"
-sha256 = "9f23a9de803c695bbfde7e37d6626b18b9a83869689dd79019bf3ae66c3e6771"
+sha256 = "f4c82ada51366bddace49d7ba54b33b4e4d6067afa3008e4847f41cb9b5c38d3"
 # FIXME int - strfuncs failure
 hardening = ["!int"]
 
