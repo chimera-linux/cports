@@ -1,6 +1,6 @@
 pkgname = "xfsprogs"
 pkgver = "6.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline=yes",
@@ -43,6 +43,8 @@ def init_configure(self):
 
 def post_install(self):
     self.uninstall("usr/share/doc")
+    # prevents udisks automount
+    self.uninstall("usr/lib/udev/rules.d/64-xfs.rules")
 
 
 @subpackage("xfsprogs-devel")
