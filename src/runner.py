@@ -591,6 +591,16 @@ def short_traceback(e, log):
             )
 
 
+def pkg_error(e, log):
+    if e.quiet:
+        return
+    e.pkg.log_red(f"ERROR: {e}", e.end)
+    if e.hint:
+        e.pkg.logger.out_plain(f"  \f[bold,green]hint:\f[] \f[bold]{e.hint}")
+    if e.bt:
+        short_traceback(e, log)
+
+
 def binary_bootstrap(tgt):
     from cbuild.core import chroot, paths
 
@@ -1771,10 +1781,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             failed = True
             return False
         except errors.PackageException as e:
-            if not e.quiet:
-                e.pkg.log_red(f"ERROR: {e}", e.end)
-                if e.bt:
-                    short_traceback(e, log)
+            pkg_error(e, log)
             failed = True
             return False
         except Exception as e:
@@ -2451,10 +2458,7 @@ def fire():
         short_traceback(e, logger.get())
         sys.exit(1)
     except errors.PackageException as e:
-        if not e.quiet:
-            e.pkg.log_red(f"ERROR: {e}", e.end)
-            if e.bt:
-                short_traceback(e, logger.get())
+        pkg_error(e, logger.get())
         sys.exit(1)
     except Exception as e:
         logger.get().out_red("A failure has occurred!")

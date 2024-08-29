@@ -258,12 +258,12 @@ class Package:
     def log_warn(self, msg, end="\n"):
         self.logger.warn(self._get_pv() + ": " + msg, end)
 
-    def error(self, msg, end="\n", bt=False):
+    def error(self, msg, end="\n", bt=False, hint=None):
         quiet = False
         if not msg:
             msg = ""
             quiet = True
-        raise errors.PackageException(msg, end, self, bt, quiet)
+        raise errors.PackageException(msg, end, self, bt, quiet, hint)
 
     def _get_pv(self):
         if self.pkgname and self.pkgver:
@@ -1453,7 +1453,10 @@ class Template(Package):
             tlink = f"{repo}/{sp.pkgname}"
             tpath = paths.distdir() / tlink
             if not tpath.is_symlink():
-                self.error(f"subpackage '{sp.pkgname}' is missing a symlink")
+                self.error(
+                    f"subpackage '{sp.pkgname}' is missing a symlink",
+                    hint="run 'cbuild relink-subpkgs' to rebuild them",
+                )
             if str(tpath.readlink()) != bpn:
                 self.error(f"subpackage '{sp.pkgname}' has incorrect symlink")
 
