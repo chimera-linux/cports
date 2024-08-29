@@ -1,38 +1,40 @@
 pkgname = "flatpak"
-pkgver = "1.14.10"
+pkgver = "1.15.10"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 configure_args = [
-    "--with-system-bubblewrap",
-    "--with-system-dbus-proxy",
-    "--with-system-helper-user=_flatpak",
-    "--enable-selinux-module=no",
-    "--enable-gdm-env-file",
-    "--disable-static",
-    "--disable-documentation",
-    "--with-curl",
-    "--with-priv-mode=none",
-    "--with-dbus-config-dir=/usr/share/dbus-1/system.d",
+    "-Ddconf=enabled",
+    "-Ddbus_config_dir=/usr/share/dbus-1/system.d",
+    "-Dgdm_env_file=true",
+    "-Dhttp_backend=curl",
+    "-Dlibzstd=enabled",
+    "-Dselinux_module=disabled",
+    "-Dsystem_bubblewrap=/usr/bin/bwrap",
+    "-Dsystem_dbus_proxy=/usr/bin/xdg-dbus-proxy",
+    "-Dsystem_fusermount=/usr/bin/fusermount3",
+    "-Dsystem_helper_user=_flatpak",
+    "-Dsystemd=disabled",
+    "-Dtests=false",
+    "-Dwayland_security_context=enabled",
 ]
 hostmakedepends = [
-    "automake",
+    "meson",
     "bison",
     "bubblewrap",
     "docbook-xml",
     "gettext-devel",
     "gobject-introspection",
     "gtk-doc-tools",
-    "libtool",
     "libxml2-progs",
     "pkgconf",
     "python-pyparsing",
     "xdg-dbus-proxy",
     "xmlto",
-    "xsltproc",
 ]
 makedepends = [
     "appstream-devel",
     "appstream-glib-devel",
+    "dconf-devel",
     "fuse-devel",
     "gcab-devel",
     "gdk-pixbuf-devel",
@@ -47,6 +49,8 @@ makedepends = [
     "libxml2-devel",
     "ostree-devel",
     "polkit-devel",
+    "wayland-devel",
+    "wayland-protocols",
     "zstd-devel",
 ]
 checkdepends = ["bash", "dbus", "socat"]
@@ -54,7 +58,6 @@ depends = [
     "bubblewrap",
     "desktop-file-utils",
     "gtk-update-icon-cache",
-    "kmod",
     "shared-mime-info",
     "xdg-dbus-proxy",
 ]
@@ -65,7 +68,7 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://flatpak.org"
 source = f"https://github.com/flatpak/flatpak/releases/download/{pkgver}/flatpak-{pkgver}.tar.xz"
-sha256 = "6bbdc7908127350ad85a4a47d70292ca2f4c46e977b32b1fd231c2a719d821cd"
+sha256 = "6aa67ca29b4f4da74654888446710b16c9fcfe640c324a51c5025087eecbf42f"
 # test runner expects a different env (possible FIXME?)
 options = ["!check", "!cross"]
 
