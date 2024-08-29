@@ -1,8 +1,8 @@
 pkgname = "libpng"
 pkgver = "1.6.43"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
-hostmakedepends = ["automake", "pkgconf", "slibtool"]
+hostmakedepends = ["automake", "pkgconf", "libtool"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Library for manipulating PNG images"
 maintainer = "q66 <q66@chimera-linux.org>"
