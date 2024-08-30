@@ -34,7 +34,10 @@ def _lint_license(pkg):
             break
 
     if not has_license:
-        pkg.error("license installation necessary but no license installed")
+        pkg.error(
+            "license installation necessary but no license installed",
+            hint="install it using self.install_license in the install phase",
+        )
 
 
 def _lint_bashcomp(pkg):
