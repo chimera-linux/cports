@@ -1,6 +1,6 @@
 pkgname = "yggdrasil"
-pkgver = "0.5.7"
-pkgrel = 1
+pkgver = "0.5.8"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags="
@@ -16,7 +16,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "LGPL-3.0-only"
 url = "https://yggdrasil-network.github.io"
 source = f"https://github.com/yggdrasil-network/yggdrasil-go/archive/v{pkgver}.tar.gz"
-sha256 = "035122cc840443a1ed9cb7f066fe5bd6d2ff879a7026be449c0a24436b04f4c8"
+sha256 = "34845eff314d971e56c12186ef15ce52efdf78d787d17381ea4cefaf4b853df3"
 
 
 def pre_build(self):
