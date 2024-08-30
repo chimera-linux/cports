@@ -530,9 +530,9 @@ def cleanup_world(bootstrapping, prof=None, perform=True):
             addlist.append(x)
 
     if len(remlist) > 0:
-        log.out_red("  " + " ".join(map(lambda x: f"-{x}", remlist)))
+        log.out("\f[red]  " + " ".join(map(lambda x: f"-{x}", remlist)))
     if len(addlist) > 0:
-        log.out_green("  " + " ".join(map(lambda x: f"+{x}", addlist)))
+        log.out("\f[green]  " + " ".join(map(lambda x: f"+{x}", addlist)))
 
     with open(paths.bldroot() / "etc/apk/world", "w") as outf:
         for ep in new_wlist:

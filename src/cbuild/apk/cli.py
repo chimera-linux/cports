@@ -301,7 +301,9 @@ def summarize_repo(repopath, olist, quiet=False):
             rd = pf.rfind("-", 0, rd)
         if rd < 0:
             if not quiet:
-                logger.get().warn(f"Malformed file name found, skipping: {fn}")
+                logger.get().out(
+                    f"\f[orange]WARNING: Malformed file name found, skipping: {fn}"
+                )
             continue
         pn = pf[0:rd]
         mt = f.stat().st_mtime
@@ -333,8 +335,8 @@ def summarize_repo(repopath, olist, quiet=False):
                     obsolete.append(f.name)
 
             if compare_version(tov, fromv, False) < 0 and not quiet:
-                logger.get().warn(
-                    f"Using lower version ({fromf} => {tof}): newer timestamp..."
+                logger.get().out(
+                    f"\f[orange]WARNING: Using lower version ({fromf} => {tof}): newer timestamp..."
                 )
 
     for k, v in rtimes.items():
@@ -400,7 +402,7 @@ def build_index(repopath, epoch, allow_untrusted=False):
         allow_untrusted=not keypath,
     )
     if signr.returncode != 0:
-        logger.get().out_red("Indexing failed!")
+        logger.get().out("\f[red]Indexing failed!")
         return False
 
     return True

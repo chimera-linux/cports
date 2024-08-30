@@ -582,12 +582,12 @@ def short_traceback(e, log):
     curpkg = pkgm.failed()
     if curpkg:
         if hasattr(curpkg, "current_phase"):
-            log.out_orange(
-                f"Phase '{curpkg.current_phase}' failed for package '{curpkg.pkgname}'."
+            log.out(
+                f"\f[orange]Phase '{curpkg.current_phase}' failed for package '{curpkg.pkgname}'."
             )
         else:
-            log.out_orange(
-                f"Failure during build of package '{curpkg.pkgname}'."
+            log.out(
+                f"\f[orange]Failure during build of package '{curpkg.pkgname}'."
             )
 
 
@@ -612,19 +612,19 @@ def pkg_run_exc(f):
     except template.SkipPackage:
         return False, False
     except errors.CbuildException as e:
-        log.out_red(f"cbuild: {e!s}")
+        log.out(f"\f[red]cbuild: {e!s}")
         if e.extra:
             log.out_plain(e.extra)
         return False, True
     except errors.TracebackException as e:
-        log.out_red(str(e))
+        log.out("\f[red]" + str(e))
         short_traceback(e, log)
         return False, True
     except errors.PackageException as e:
         pkg_error(e, log)
         return False, True
     except Exception as e:
-        log.out_red("A failure has occurred!")
+        log.out("\f[red]A failure has occurred!")
         short_traceback(e, log)
         return False, True
     return True, False
@@ -906,8 +906,8 @@ def do_prune_removed(tgt):
             if rd > 0:
                 rd = pkgn.rfind("-", 0, rd)
             if rd < 0:
-                logger.get().warn(
-                    f"Malformed file name found, skipping: {pkg.name}"
+                logger.get().out(
+                    f"\f[orange]WARNING: Malformed file name found, skipping: {pkg.name}"
                 )
                 continue
             pkgn = pkgn[0:rd]
@@ -940,7 +940,9 @@ def do_prune_removed(tgt):
             except FileNotFoundError:
                 broken = False
             if broken:
-                logger.get().warn(f"Broken symlink for package '{pkgn}'")
+                logger.get().out(
+                    f"\f[orange]WARNING: Broken symlink for package '{pkgn}'"
+                )
             logger.get().out(f"Pruning package: {pkg.name}")
             if not opt_dryrun:
                 touched = True
@@ -1262,8 +1264,8 @@ def do_relink_subpkgs(tgt):
             if tp:
                 cats[tp.repository] = True
             else:
-                logger.get().warn(
-                    f"template '{tmpln}' failed to parse (ignoring)"
+                logger.get().out(
+                    f"\f[orange]WARNING: template '{tmpln}' failed to parse (ignoring)"
                 )
 
     # erase all symlinks first if parsing all
@@ -1282,13 +1284,17 @@ def do_relink_subpkgs(tgt):
                         logger.get().out(f"Pruning bad directory: {el}")
                         shutil.rmtree(el)
                     else:
-                        logger.get().warn(f"Bad directory encountered: {el}")
+                        logger.get().out(
+                            f"\f[orange]WARNING: Bad directory encountered: {el}"
+                        )
                 continue
             elif prune_bad:
                 logger.get().out(f"Pruning bad contents: {el}")
                 el.unlink()
             else:
-                logger.get().warn(f"Bad contents encountered: {el}")
+                logger.get().out(
+                    f"\f[orange]WARNING: Bad contents encountered: {el}"
+                )
                 continue
 
     # recreate symlinks
@@ -1298,7 +1304,9 @@ def do_relink_subpkgs(tgt):
             fp = ddir / repo / sn
             if fp.exists():
                 if not fp.is_symlink():
-                    logger.get().warn(f"Non-symlink encountered: {fp}")
+                    logger.get().out(
+                        f"\f[orange]WARNING: Non-symlink encountered: {fp}"
+                    )
                 fp.unlink()
             fp.symlink_to(jpn)
 
@@ -1813,13 +1821,13 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             if pns is None:
                 badpkgs.add(pn)
                 statusf.write(f"{pn} missing\n")
-                log.out_red(f"cbuild: missing package '{pn}'")
+                log.out(f"\f[red]cbuild: missing package '{pn}'")
                 failed = True
                 continue
             else:
                 badpkgs.add(pn)
                 statusf.write(f"{pn} invalid\n")
-                log.out_red(f"cbuild: invalid package '{pn}'")
+                log.out(f"\f[red]cbuild: invalid package '{pn}'")
                 failed = True
                 continue
         # now replace with sanitized name
@@ -1830,7 +1838,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         # skip if previously failed
         if failed and not opt_bulkcont:
             statusf.write(f"{npn} skipped\n")
-            log.out_red(f"cbuild: skipping template '{npn}'")
+            log.out(f"\f[red]cbuild: skipping template '{npn}'")
             continue
         # finally add to set
         rpkgs.add(npn)
@@ -1874,7 +1882,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         # skip if previously failed and set that way
         if failed and not opt_bulkcont:
             statusf.write(f"{pn} skipped\n")
-            log.out_red(f"cbuild: skipping template '{pn}'")
+            log.out(f"\f[red]cbuild: skipping template '{pn}'")
             continue
         # parse, handle any exceptions so that we can march on
         ofailed = failed
@@ -1960,7 +1968,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                 if failed and not opt_bulkcont:
                     statusf.write(f"{pn} skipped\n")
                     if do_build:
-                        log.out_red(f"cbuild: skipping template '{pn}'")
+                        log.out(f"\f[red]cbuild: skipping template '{pn}'")
                     continue
                 # ensure to write the status
                 if _do_with_exc(
@@ -2277,7 +2285,9 @@ def do_bump_pkgrel(tgt):
             pathlib.Path(tmplp + ".tmp").rename(tmplp)
             logger.get().out(f"Bumped pkgrel: {pkgn}")
         except Exception:
-            logger.get().warn(f"Failed to bump pkgrel: {pkgn}")
+            logger.get().out(
+                f"\f[orange]WARNING: Failed to bump pkgrel: {pkgn}"
+            )
 
 
 #
@@ -2396,7 +2406,7 @@ def fire():
 
     # ensure we've got a signing key
     if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
-        logger.get().out_red("cbuild: no signing key set")
+        logger.get().out("\f[red]cbuild: no signing key set")
         sys.exit(1)
 
     # initialize profiles
@@ -2407,8 +2417,8 @@ def fire():
         try:
             profile.get_profile(opt_arch)
         except Exception:
-            logger.get().out_red(
-                f"cbuild: unknown target architecture '{opt_arch}'"
+            logger.get().out(
+                f"\f[red]cbuild: unknown target architecture '{opt_arch}'"
             )
             sys.exit(1)
     # let apk know if we're using network
@@ -2417,20 +2427,20 @@ def fire():
     try:
         aret = subprocess.run([paths.apk(), "--version"], capture_output=True)
     except FileNotFoundError:
-        logger.get().out_red(
-            f"cbuild: apk not found (expected path: {paths.apk()})"
+        logger.get().out(
+            f"\f[red]cbuild: apk not found (expected path: {paths.apk()})"
         )
         sys.exit(1)
 
     if not aret.stdout.startswith(b"apk-tools 3"):
-        logger.get().out_red("cbuild: apk-tools 3.x is required")
+        logger.get().out("\f[red]cbuild: apk-tools 3.x is required")
         sys.exit(1)
 
     try:
         subprocess.run([paths.bwrap(), "--version"], capture_output=True)
     except FileNotFoundError:
-        logger.get().out_red(
-            f"cbuild: bwrap not found (expected path: {paths.bwrap()})"
+        logger.get().out(
+            f"\f[red]cbuild: bwrap not found (expected path: {paths.bwrap()})"
         )
         sys.exit(1)
 
@@ -2450,7 +2460,7 @@ def fire():
         if cmd in command_handlers:
             retcode = command_handlers[cmd][0](cmd)
         else:
-            logger.get().out_red(f"cbuild: invalid target {cmd}")
+            logger.get().out(f"\f[red]cbuild: invalid target {cmd}")
             sys.exit(1)
         return None
 

@@ -120,8 +120,8 @@ def _build(
     hneg.sort()
 
     pkg.log(f"start build (target: {step}), available hardening:")
-    pkg.logger.out_green("  " + " ".join(hpos))
-    pkg.logger.out_red("  " + " ".join(hneg))
+    pkg.logger.out("\f[green]  " + " ".join(hpos))
+    pkg.logger.out("\f[red]  " + " ".join(hneg))
 
     # ensure the wrksrc exists; it will be populated later
     pkg.cwd.mkdir(exist_ok=True, parents=True)

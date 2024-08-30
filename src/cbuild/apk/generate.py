@@ -132,9 +132,9 @@ def print_diff(head, pkg, over, oldl, newl):
     pkg.log(f"changed {head}:")
     for v, isadd in ldiff:
         if isadd:
-            log.out_green(f"  +{v}")
+            log.out(f"\f[green]  +{v}")
         else:
-            log.out_red(f"  -{v}")
+            log.out(f"\f[red]  -{v}")
 
 
 def genpkg(pkg, repo, arch, binpkg, adesc=None):

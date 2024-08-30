@@ -59,7 +59,9 @@ def keygen(size, eaddr, cfgfile, cfgpath):
             keyn = eaddr
         register_key(keyn + "-" + hex(int(time.time()))[2:] + ".rsa")
         keypath = get_keypath()
-        logger.get().warn(f"No key path provided, using '{keypath}'")
+        logger.get().out(
+            f"\f[orange]WARNING: No key path provided, using '{keypath}'"
+        )
 
     keypath.parent.mkdir(parents=True, exist_ok=True)
 

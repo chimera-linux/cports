@@ -247,16 +247,20 @@ class Package:
         self._mod_handle = None
 
     def log(self, msg, end="\n"):
-        self.logger.out(self._get_pv() + ": " + msg, end)
+        self.logger.out(
+            "\f[cyan]" + self._get_pv() + ": \f[]\f[bold]" + msg, end
+        )
 
     def log_red(self, msg, end="\n"):
-        self.logger.out_red(self._get_pv() + ": " + msg, end)
+        self.logger.out("\f[red]" + self._get_pv() + ": " + msg, end)
 
     def log_green(self, msg, end="\n"):
-        self.logger.out_green(self._get_pv() + ": " + msg, end)
+        self.logger.out("\f[green]" + self._get_pv() + ": " + msg, end)
 
     def log_warn(self, msg, end="\n"):
-        self.logger.warn(self._get_pv() + ": " + msg, end)
+        self.logger.out(
+            "\f[orange]" + self._get_pv() + ": WARNING: " + msg, end
+        )
 
     def error(self, msg, end="\n", bt=False, hint=None):
         quiet = False
@@ -2782,8 +2786,8 @@ def register_hooks():
                 modn = "cbuild.hooks." + stepn + "." + f.stem
                 modh = importlib.import_module(modn)
                 if not hasattr(modh, "invoke"):
-                    logger.get().out_red(
-                        f"Hook '{stepn}/{f.stem}' does not have an entry point."
+                    logger.get().out(
+                        f"\f[red]Hook '{stepn}/{f.stem}' does not have an entry point."
                     )
                     raise Exception()
                 hooks[stepn].append((modh.invoke, f.stem))

@@ -89,7 +89,7 @@ def _scan_so(pkg):
 
         # either of the commands failed
         if info.returncode != 0:
-            log.out_red(f"  SONAME: {dep} (unknown provider)")
+            log.out(f"  \f[red]SONAME: {dep} (unknown provider)")
             broken = True
             continue
 
@@ -109,7 +109,7 @@ def _scan_so(pkg):
 
         if not sdep or len(sdep) == 0:
             # this should never happen though
-            log.out_red(f"  SONAME: {dep} (unknown provider)")
+            log.out(f"  \f[red]SONAME: {dep} (unknown provider)")
             broken = True
             continue
         # we found a package
