@@ -1,0 +1,13 @@
+this uses git commits of this so pass it that
+--
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -106,7 +106,7 @@
+ 
+ find_package(VulkanUtilityLibraries CONFIG QUIET)
+ 
+-find_package(SPIRV-Headers CONFIG QUIET)
++add_subdirectory(spirv-headers EXCLUDE_FROM_ALL)
+ 
+ find_package(SPIRV-Tools-opt CONFIG QUIET)
+ 
