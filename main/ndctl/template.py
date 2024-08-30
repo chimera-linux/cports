@@ -1,20 +1,17 @@
 pkgname = "ndctl"
 pkgver = "79"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
-    # use this instead of asciidoc+xmlto when added
-    "-Dasciidoctor=disabled",
     "-Dmodprobedatadir=/usr/lib/modprobe.d",
     "-Dsystemd=disabled",
     f"-Dversion-tag={pkgver}",
 ]
 hostmakedepends = [
-    "asciidoc",
+    "asciidoctor",
     "bash-completion",
     "meson",
     "pkgconf",
-    "xmlto",
 ]
 makedepends = [
     "iniparser-devel",
