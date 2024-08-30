@@ -1,5 +1,5 @@
 pkgname = "base-full"
-pkgver = "0.4"
+pkgver = "0.5"
 pkgrel = 0
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
@@ -64,7 +64,9 @@ def _(self):
     self.provider_priority = 100
     self.depends = [
         "fonts-dejavu",
+        "fonts-liberation",
         "fonts-noto",
+        "fonts-noto-sans-cjk",
         "fonts-noto-emoji-ttf",
     ]
     return []
