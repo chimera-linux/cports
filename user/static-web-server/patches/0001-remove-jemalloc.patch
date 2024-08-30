@@ -1,0 +1,83 @@
+From 8090649470800b5059e9b7cfa3086c7a69d12da2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Fri, 30 Aug 2024 08:44:42 +0200
+Subject: [PATCH 1/2] remove jemalloc
+
+---
+ Cargo.lock        | 21 ---------------------
+ Cargo.toml        |  3 ---
+ src/bin/server.rs |  4 ----
+ 3 files changed, 28 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index c0017a0..5826ac7 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1386,7 +1386,6 @@ dependencies = [
+  "shadow-rs",
+  "signal-hook",
+  "signal-hook-tokio",
+- "tikv-jemallocator",
+  "tokio",
+  "tokio-metrics-collector",
+  "tokio-rustls",
+@@ -1450,26 +1449,6 @@ dependencies = [
+  "once_cell",
+ ]
+ 
+-[[package]]
+-name = "tikv-jemalloc-sys"
+-version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "cd3c60906412afa9c2b5b5a48ca6a5abe5736aec9eb48ad05037a677e52e4e2d"
+-dependencies = [
+- "cc",
+- "libc",
+-]
+-
+-[[package]]
+-name = "tikv-jemallocator"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4cec5ff18518d81584f477e9bfdf957f5bb0979b0bac3af4ca30b5b3ae2d2865"
+-dependencies = [
+- "libc",
+- "tikv-jemalloc-sys",
+-]
+-
+ [[package]]
+ name = "time"
+ version = "0.3.36"
+diff --git a/Cargo.toml b/Cargo.toml
+index 0529b59..c8f1972 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -94,9 +94,6 @@ tracing = { version = "0.1", default-features = false, features = ["std"] }
+ tracing-subscriber = { version = "0.3", default-features = false, features = ["smallvec", "registry", "parking_lot", "fmt", "ansi", "tracing-log"] }
+ shadow-rs = "0.29"
+ 
+-[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.tikv-jemallocator]
+-version = "0.6"
+-
+ [target.'cfg(unix)'.dependencies]
+ signal-hook = { version = "0.3", features = ["extended-siginfo"] }
+ signal-hook-tokio = { version = "0.3", features = ["futures-v0_3"], default-features = false }
+diff --git a/src/bin/server.rs b/src/bin/server.rs
+index 15e4e73..434265c 100644
+--- a/src/bin/server.rs
++++ b/src/bin/server.rs
+@@ -8,10 +8,6 @@
+ #![deny(rust_2018_idioms)]
+ #![deny(dead_code)]
+ 
+-#[cfg(all(target_env = "musl", target_pointer_width = "64"))]
+-#[global_allocator]
+-static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
+-
+ use static_web_server::{Result, Settings};
+ 
+ fn main() -> Result {
+-- 
+2.46.0
+
