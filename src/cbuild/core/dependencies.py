@@ -350,7 +350,12 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
     if cross:
         ihdeps.append((None, f"base-cross-{pprof.arch}"))
 
+    chost = chroot.host_cpu()
+
     if len(ihdeps) == 0 and len(itdeps) == 0 and len(irdeps) == 0:
+        # clear the world
+        with flock.lock(flock.apklock(chost)):
+            _install_from_repo(pkg, [])
         return False
 
     hsys = paths.bldroot()
@@ -452,8 +457,6 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         missing_rdeps.append((pkgn, pkgop, pkgv))
 
     from cbuild.core import build
-
-    chost = chroot.host_cpu()
 
     # if this triggers any build of its own, it will return true
     missing = False
@@ -568,6 +571,10 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         pkg.log(f"installing {dept} dependencies: {', '.join(tdeps)}")
         with flock.lock(flock.apklock(chost)):
             _install_from_repo(pkg, tdeps)
+    else:
+        # clear the world
+        with flock.lock(flock.apklock(chost)):
+            _install_from_repo(pkg, [])
 
     if len(binpkg_deps) > 0 and cross:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
