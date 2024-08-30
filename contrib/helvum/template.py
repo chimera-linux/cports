@@ -3,7 +3,14 @@ pkgver = "0.5.1"
 pkgrel = 1
 build_style = "meson"
 configure_args = ["--buildtype=release"]
-hostmakedepends = ["meson", "ninja", "cargo", "pkgconf", "desktop-file-utils"]
+hostmakedepends = [
+    "cargo",
+    "desktop-file-utils",
+    "gtk-update-icon-cache",
+    "meson",
+    "ninja",
+    "pkgconf",
+]
 makedepends = [
     "glib-devel",
     "gtk4-devel",
