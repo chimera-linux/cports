@@ -9,7 +9,7 @@
 # Copyright 2022 q66 <q66@chimera-linux.org>
 #
 
-ERRBASE="${XDG_DATA_HOME:=$HOME/.local/share}/xorg"
+ERRBASE="${XDG_DATA_HOME:-$HOME/.local/share}/xorg"
 ERRFILE="${ERRBASE}/xsession-errors"
 
 if (umask 077 && mkdir -p "$ERRBASE" && touch "$ERRFILE") 2> /dev/null && \

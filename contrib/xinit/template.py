@@ -1,6 +1,6 @@
 pkgname = "xinit"
 pkgver = "1.4.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = ["--with-xinitdir=/etc/X11/xinit"]
 hostmakedepends = ["pkgconf"]
