@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
 pkgver = "14.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
