@@ -1,5 +1,5 @@
 pkgname = "mbedtls"
-pkgver = "3.6.0"
+pkgver = "3.6.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,8 +19,8 @@ pkgdesc = "Light-weight cryptographic and SSL/TLS library"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 OR GPL-2.0-or-later"
 url = "https://www.trustedfirmware.org/projects/mbed-tls"
-source = f"https://github.com/Mbed-TLS/mbedtls/releases/download/v{pkgver}/mbedtls-{pkgver}.tar.bz2"
-sha256 = "3ecf94fcfdaacafb757786a01b7538a61750ebd85c4b024f56ff8ba1490fcd38"
+source = f"https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-{pkgver}/mbedtls-{pkgver}.tar.bz2"
+sha256 = "fc8bef0991b43629b7e5319de6f34f13359011105e08e3e16eed3a9fe6ffd3a3"
 # vis breaks symbols
 hardening = []
 
