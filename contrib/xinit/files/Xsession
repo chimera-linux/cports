@@ -9,8 +9,14 @@
 # Copyright 2022 q66 <q66@chimera-linux.org>
 #
 
-if [ ! -d /etc/X11/Xsession.d ]; then
-    exec "$@"
+ERRBASE="${XDG_DATA_HOME:=$HOME/.local/share}/xorg"
+ERRFILE="${ERRBASE}/xsession-errors"
+
+if (umask 077 && mkdir -p "$ERRBASE" && touch "$ERRFILE") 2> /dev/null && \
+  [ -w "$ERRFILE" ] && [ ! -L "$ERRFILE" ]; then
+    chmod 600 "$ERRFILE"
+    # conditionally redirect if we have access
+    exec >>"$ERRFILE" 2>&1
 fi
 
 for f in /etc/X11/Xsession.d/*; do

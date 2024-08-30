@@ -1,6 +1,6 @@
 pkgname = "xinit"
 pkgver = "1.4.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--with-xinitdir=/etc/X11/xinit"]
 hostmakedepends = ["pkgconf"]
@@ -22,7 +22,7 @@ def post_install(self):
     # also TODO: write a manpage for new startx
     self.uninstall("usr/bin/startx")
     self.uninstall("usr/share/man/man1/startx.1")
-    self.uninstall("etc/X11/xinit", recursive=True)
+    self.uninstall("etc/X11/xinit")
 
     self.install_file(self.files_path / "startx", "usr/bin", mode=0o755)
     self.install_file(self.files_path / "Xsession", "etc/X11", mode=0o755)
