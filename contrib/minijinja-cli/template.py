@@ -1,5 +1,5 @@
 pkgname = "minijinja-cli"
-pkgver = "2.1.1"
+pkgver = "2.2.0"
 pkgrel = 0
 build_wrksrc = "minijinja-cli"
 build_style = "cargo"
@@ -15,7 +15,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://github.com/mitsuhiko/minijinja"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "d896e709c9848c68164fcb237ee2eb55d6334ed57974b7a0611b90f316cfc634"
+sha256 = "fcf800a574a864f62e197e11d509bae29ef409877c59214bbd6c42b215012677"
 
 
 def post_install(self):
