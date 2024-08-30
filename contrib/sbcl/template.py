@@ -1,5 +1,5 @@
 pkgname = "sbcl"
-pkgver = "2.4.7"
+pkgver = "2.4.8"
 pkgrel = 0
 # riscv64 FIXME
 archs = ["aarch64", "ppc", "ppc64le", "x86_64"]
@@ -27,7 +27,7 @@ maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:sbcl AND LOOP"
 url = "https://www.sbcl.org"
 source = f"$(SOURCEFORGE_SITE)/sbcl/sbcl-{pkgver}-source.tar.bz2"
-sha256 = "68544d2503635acd015d534ccc9b2ae9f68996d429b5a9063fd22ff0925011d2"
+sha256 = "fc6ecdcc538e80a14a998d530ccc384a41790f4f4fc6cd7ffe8cb126a677694c"
 # notably not pie on ppc64le due to asm stuff
 nopie_files = ["usr/bin/sbcl"]
 # tests are unreliable
