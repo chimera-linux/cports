@@ -68,7 +68,7 @@ def extract_notar(pkg, fname, dfile, edir, sfx):
     elif sfx == "zst":
         cmd = "unzstd"
     else:
-        pkg.error(f"unknown suffix '{sfx}'")
+        pkg.error(f"unknown source suffix '{sfx}'")
 
     ofn = pathlib.Path(fname).stem
     opath = pkg.statedir / edir.name / ofn
@@ -204,7 +204,7 @@ def invoke(pkg):
         if not pkg.source_paths:
             edirs = [("", None, extractdir)] * len(pkg.source)
         elif len(pkg.source_paths) != len(pkg.source):
-            pkg.error("source_paths must match sources")
+            pkg.error("source_paths length must match sources")
         else:
             edirs = []
             for sp in pkg.source_paths:
@@ -262,7 +262,10 @@ def invoke(pkg):
                 pkg.chroot_statedir / sp[2].name,
                 suffix,
             ):
-                pkg.error(f"extracting '{fname}' failed (missing program?)")
+                pkg.error(
+                    f"extracting '{fname}' failed",
+                    hint="perhaps an extraction program is missing",
+                )
         # handle the tempdir
         rename_edir(extractdir, wpath)
     # all done; re-create the wrksrc in case nothing was extracted

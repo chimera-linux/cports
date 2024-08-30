@@ -291,7 +291,10 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
     for t in pkg.triggers:
         p = pathlib.Path(t)
         if not p or not p.is_absolute():
-            pkg.error(f"invalid trigger path: {t}")
+            pkg.error(
+                f"invalid trigger path: {t}",
+                hint="trigger declarations require absolute paths",
+            )
         pargs += ["--trigger", t]
 
     # signing key

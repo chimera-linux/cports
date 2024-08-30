@@ -129,7 +129,10 @@ class Cargo:
         legacy = self.template.cwd / ".cargo/config"
 
         if legacy.is_file():
-            self.template.error("cargo: found legacy .cargo/config")
+            self.template.error(
+                "cargo: found legacy .cargo/config",
+                hint="ensure .cargo/config.toml is used instead",
+            )
 
         auditable = (
             self.template.bldroot_path / "usr/bin/cargo-auditable"

@@ -200,7 +200,10 @@ def _scan_pc(pkg):
             env=penv,
         )
         if pcc.returncode != 0:
-            pkg.error("failed scanning .pc files (missing pkgconf?)")
+            pkg.error(
+                "failed scanning .pc files",
+                hint="maybe you need to put 'pkgconf' in 'hostmakedepends'",
+            )
         # parse the output
         for ln in pcc.stdout.strip().splitlines():
             ln = ln.strip().decode()
@@ -257,7 +260,7 @@ def _scan_pc(pkg):
                     prov = cli.get_provider("pc:" + k, pkg)
             else:
                 prov = in_subpkg
-            # this should never happen
+            # this should never happen in practice since it's already checked
             if not prov:
                 pkg.error(f"  pc: {k} (unknown provider)")
             else:
@@ -269,7 +272,10 @@ def _scan_pc(pkg):
                 pkg.log_warn(f"redundant runtime dependency '{prov}'")
             continue
         # no provider found
-        pkg.error(f"  pc: {k} (unknown provider)")
+        pkg.error(
+            f"  pc: {k} (unknown provider)",
+            hint=f"add package providing '{k}' to 'makedepends'",
+        )
 
 
 def _scan_symlinks(pkg):
@@ -336,7 +342,8 @@ def _scan_symlinks(pkg):
                 if allow_brokenlink:
                     continue
                 pkg.error(
-                    f"  symlink: {ssrc} (points to: {starg}, unknown provider)"
+                    f"  symlink: {ssrc} (points to: {starg}, unknown provider)",
+                    hint="your symlink probably points to a foreign package",
                 )
 
     for k in subpkg_deps:

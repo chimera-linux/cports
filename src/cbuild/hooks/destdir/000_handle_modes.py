@@ -14,7 +14,10 @@ def invoke(pkg):
             continue
         for xa in pkg.file_xattrs[k]:
             if xa.startswith("security."):
-                pkg.error(f"security xattr without an explicit mode: {k}")
+                pkg.error(
+                    f"security xattr without an explicit mode: {k}",
+                    hint="specify mode for the file in 'file_modes'",
+                )
 
     for k in pkg.file_modes:
         p = pkg.destdir / k
@@ -22,8 +25,12 @@ def invoke(pkg):
         if not p.exists():
             pkg.error(f"non-existent file in file_modes: {k}")
 
-        if len(pkg.file_modes[k]) != 3:
-            pkg.error(f"invalid file_modes value for {k}")
+        fml = len(pkg.file_modes[k])
+        if fml != 3 and fml != 4:
+            pkg.error(
+                f"invalid file_modes value for {k}",
+                hint="it must be a 3-tuple or a 4-tuple",
+            )
 
         recursive = False
         if len(pkg.file_modes[k]) == 4:

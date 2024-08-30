@@ -85,7 +85,10 @@ def setup_depends(pkg, only_names=False):
             # locate the provider
             ppos = dep.find("!")
             if ppos < 0:
-                pkg.error(f"virtual dependency {dep} has no specified provider")
+                pkg.error(
+                    f"virtual dependency '{dep}' has no specified provider",
+                    hint="specify one by appending '!provider'",
+                )
             # alternatives need special resolution
             if dep.startswith("alt:"):
                 dep = f"{dep[4:ppos]}-{dep[ppos + 1 :]}-default"

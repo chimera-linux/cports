@@ -51,13 +51,16 @@ def invoke(pkg):
             },
         )
         if pcc.returncode != 0:
-            pkg.error("failed scanning .pc files (missing pkgconf?)")
+            pkg.error(
+                "failed scanning .pc files",
+                hint="maybe 'pkgconf' is missing from 'hostmakedepends'",
+            )
         # parse the output
         for ln in pcc.stdout.strip().splitlines():
             plist = ln.decode().split(" = ")
             if len(plist) != 2:
                 pkg.error(
-                    f"failed scanning .pc files (invalid provider '{ln}' in '{sn}'"
+                    f"failed scanning .pc files (invalid provider '{ln}' in '{sn}')"
                 )
             pname, mver = plist
             # sanitize version for apk
@@ -67,7 +70,10 @@ def invoke(pkg):
                 mver = "0"
             elif not cli.check_version(mver):
                 # test with apk
-                pkg.error(f"invalid pkgconf version {mver}")
+                pkg.error(
+                    f"invalid pkgconf version {mver}",
+                    hint="the version in the .pc file must be compatible with apk format",
+                )
             if pname in pcset:
                 logger.get().out_plain(
                     f"  \f[cyan]pc: \f[orange]{pname}={mver}\f[] from \f[green]{rlp} \f[purple](skipped)\f[]"

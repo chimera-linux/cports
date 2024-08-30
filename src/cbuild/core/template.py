@@ -808,7 +808,8 @@ class AstValidatorVisitor(ast.NodeVisitor):
                     unsorted.append("!{")
                 continue
             self.pkg.error(
-                f"dependency list '{lname}' contains an invalid value (must be a string or a list expansion)"
+                f"dependency list '{lname}' contains an invalid value",
+                hint="it must be a string or a list expansion",
             )
         # and finally check
         if sortcheck:
@@ -999,7 +1000,7 @@ class Template(Package):
 
         # ensure pkgname is the same
         if self.pkgname != prevpkg:
-            self.error(f"pkgname does not match template ({prevpkg})")
+            self.error(f"declared pkgname does not match template ({prevpkg})")
 
         # ensure origin is filled
         self.origin = self.pkgname
@@ -1025,7 +1026,8 @@ class Template(Package):
                     fl_t = type(fl).__name__
                     flv_t = type(flv).__name__
                     self.error(
-                        f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
+                        f"invalid value for field {fl}",
+                        hint=f"expected '{fl_t}' but got '{flv_t}'",
                     )
                 # validated, set
                 setattr(self, fl, flv)
@@ -1103,7 +1105,10 @@ class Template(Package):
             elif callable(pinst):
                 sp.pkg_install = pinst
             else:
-                self.error(f"invalid return for subpackage '{spn}'")
+                self.error(
+                    f"invalid return for subpackage '{spn}'",
+                    hint="must return a function or a list",
+                )
             # validate fields
             for fl, dval, tp, mand, asp, inh in core_fields:
                 if not asp:
@@ -1113,7 +1118,8 @@ class Template(Package):
                     fl_t = type(fl).__name__
                     flv_t = type(flv).__name__
                     self.error(
-                        f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
+                        f"invalid value for field {fl}",
+                        hint=f"expected '{fl_t}' but got '{flv_t}'",
                     )
 
             # deal with options
@@ -1462,7 +1468,10 @@ class Template(Package):
                     hint="run 'cbuild relink-subpkgs' to rebuild them",
                 )
             if str(tpath.readlink()) != bpn:
-                self.error(f"subpackage '{sp.pkgname}' has incorrect symlink")
+                self.error(
+                    f"subpackage '{sp.pkgname}' has incorrect symlink",
+                    hint="run 'cbuild relink-subpkgs' to rebuild them",
+                )
 
         if not cli.check_version(f"{self.pkgver}-r{self.pkgrel}"):
             self.error("pkgver has an invalid format")
@@ -1517,12 +1526,13 @@ class Template(Package):
             # basic validation of type
             flv = getattr(self, fl)
             if flv is None:
-                self.error(f"missing field: {fl}")
+                self.error(f"mandatory template field not declared: {fl}")
             if not validate_type(flv, tp):
                 fl_t = type(fl).__name__
                 flv_t = type(flv).__name__
                 self.error(
-                    f"invalid value for field {fl}: expected '{fl_t}' but got '{flv_t}'"
+                    f"invalid value for field {fl}",
+                    hint=f"expected '{fl_t}' but got '{flv_t}'",
                 )
 
     def validate_spdx(self):
@@ -1585,13 +1595,17 @@ class Template(Package):
             self.error("pkgdesc should be no longer than 72 characters")
         if re.search(r" \(.+\)$", self.pkgdesc):
             self.error(
-                "pkgdesc should not contain a (subdescription), use subdesc"
+                "pkgdesc should not contain a (subdescription)",
+                hint="use the 'subdesc' field instead",
             )
 
     def validate_maintainer(self):
         m = re.fullmatch(r"^(.+) <([^>]+)>$", self.maintainer)
         if not m:
-            self.error("maintainer has an invalid format")
+            self.error(
+                "maintainer has an invalid format",
+                hint="must follow the 'name <email>' format",
+            )
 
         grp = m.groups()
 
@@ -1654,7 +1668,8 @@ class Template(Package):
             if vnm == "options":
                 if not self.options["check"] and not precomment:
                     self.error(
-                        "lint failed: check disabled but no reason given"
+                        "lint failed: check disabled but no reason given",
+                        hint="put a comment above the 'options' field",
                     )
             # reset comment presence
             precomment = False
