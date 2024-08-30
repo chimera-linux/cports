@@ -33,9 +33,9 @@ sha256 = [
     "0e4d865b99b8ab399950511f51a250a827f7b837008434bd74070def3e91c1db",  # wlroots
     "7f9a04254e62daa795377181ae741cab31090a2393ee5e1a93b190ea0c39707d",  # xkbcommon
 ]
-restricted = "work in progress (needs proper zig integration)"
 # same as restricted
 options = ["!check", "!cross"]
+restricted = "work in progress (needs proper zig integration)"
 
 
 def prepare(self):
