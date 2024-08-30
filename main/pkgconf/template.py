@@ -1,10 +1,9 @@
 pkgname = "pkgconf"
 pkgver = "2.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 checkdepends = ["kyua"]
-provides = [f"pc:libpkgconf={pkgver}"]
 pkgdesc = "Provides compiler and linker configuration"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -32,6 +31,7 @@ def _(self):
 @subpackage("pkgconf-devel")
 def _(self):
     self.options = ["!scanpkgconf"]
+    self.provides = [f"pc:libpkgconf={pkgver}"]
     # pkg.m4 must remain in main package
     return [
         "usr/include",
