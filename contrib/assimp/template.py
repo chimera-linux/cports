@@ -1,5 +1,5 @@
 pkgname = "assimp"
-pkgver = "5.4.2"
+pkgver = "5.4.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://www.assimp.org"
 source = f"https://github.com/assimp/assimp/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7414861a7b038e407b510e8b8c9e58d5bf8ca76c9dfe07a01d20af388ec5086a"
+sha256 = "66dfbaee288f2bc43172440a55d0235dfc7bf885dda6435c038e8000e79582cb"
 hardening = ["vis", "!cfi"]
 
 
