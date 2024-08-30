@@ -332,4 +332,7 @@ def invoke(pkg):
             errors += 1
     # error if something failed to verify
     if errors > 0:
-        pkg.error(f"failed to verify {errors} sources")
+        pkg.error(
+            f"failed to verify {errors} sources",
+            hint="use 'cbuild prepare-upgrade' to update checksums",
+        )
