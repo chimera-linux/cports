@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -13,7 +13,6 @@ url = "https://chimera-linux.org"
 def _(self):
     self.subdesc = "console tools"
     self.install_if = [self.parent]
-    self.provider_priority = 100
     # transitional
     self.provides = [self.with_pkgver("base-core-console")]
     self.depends = [
@@ -29,7 +28,6 @@ def _(self):
 def _(self):
     self.subdesc = "core tools"
     self.install_if = [self.parent]
-    self.provider_priority = 100
     self.depends = [
         "base-bootstrap",
         "bsdtar",
@@ -44,8 +42,7 @@ def _(self):
 @subpackage("base-full-firmware")
 def _(self):
     self.subdesc = "firmware"
-    self.install_if = [self.parent, "linux"]
-    self.provider_priority = 100
+    self.install_if = [self.parent, "linux", self.with_pkgver("!base-minimal")]
     self.depends = [
         "base-firmware-linux",
         "firmware-ipw2100",
@@ -60,8 +57,11 @@ def _(self):
 @subpackage("base-full-fonts")
 def _(self):
     self.subdesc = "fonts"
-    self.install_if = [self.parent, "fontconfig"]
-    self.provider_priority = 100
+    self.install_if = [
+        self.parent,
+        "fontconfig",
+        self.with_pkgver("!base-minimal"),
+    ]
     self.depends = [
         "fonts-dejavu",
         "fonts-noto",
@@ -74,7 +74,6 @@ def _(self):
 def _(self):
     self.subdesc = "filesystem tools"
     self.install_if = [self.parent]
-    self.provider_priority = 100
     # transitional
     self.provides = [self.with_pkgver("base-core-fs")]
     self.depends = [
@@ -97,8 +96,7 @@ def _(self):
 @subpackage("base-full-kernel")
 def _(self):
     self.subdesc = "kernel tooling"
-    self.install_if = [self.parent, "linux"]
-    self.provider_priority = 100
+    self.install_if = [self.parent, "linux", self.with_pkgver("!base-minimal")]
     # transitional
     self.provides = [self.with_pkgver("base-core-kernel")]
     self.depends = [
@@ -112,7 +110,6 @@ def _(self):
 def _(self):
     self.subdesc = "locale"
     self.install_if = [self.parent]
-    self.provider_priority = 100
     self.depends = [
         "base-locale",
     ]
@@ -123,7 +120,6 @@ def _(self):
 def _(self):
     self.subdesc = "manpages"
     self.install_if = [self.parent]
-    self.provider_priority = 100
     # transitional
     self.provides = [self.with_pkgver("base-core-man")]
     self.depends = [
@@ -136,8 +132,7 @@ def _(self):
 @subpackage("base-full-misc")
 def _(self):
     self.subdesc = "miscellaneous"
-    self.install_if = [self.parent]
-    self.provider_priority = 100
+    self.install_if = [self.parent, self.with_pkgver("!base-minimal")]
     # transitional
     self.provides = [self.with_pkgver("base-core-misc")]
     self.depends = [
@@ -162,7 +157,6 @@ def _(self):
 def _(self):
     self.subdesc = "network tools"
     self.install_if = [self.parent]
-    self.provider_priority = 100
     # transitional
     self.provides = [self.with_pkgver("base-core-net")]
     self.depends = [
@@ -179,8 +173,7 @@ def _(self):
 @subpackage("base-full-net")
 def _(self):
     self.subdesc = "network"
-    self.install_if = [self.parent]
-    self.provider_priority = 100
+    self.install_if = [self.parent, self.with_pkgver("!base-minimal")]
     self.depends = [
         "dhcpcd",
         "iwd",
@@ -192,8 +185,7 @@ def _(self):
 @subpackage("base-full-session")
 def _(self):
     self.subdesc = "session management"
-    self.install_if = [self.parent]
-    self.provider_priority = 100
+    self.install_if = [self.parent, self.with_pkgver("!base-minimal")]
     self.depends = [
         "elogind-meta",
         "dbus",
@@ -204,8 +196,7 @@ def _(self):
 @subpackage("base-full-sound")
 def _(self):
     self.subdesc = "sound"
-    self.install_if = [self.parent]
-    self.provider_priority = 100
+    self.install_if = [self.parent, self.with_pkgver("!base-minimal")]
     self.depends = [
         "pipewire",
     ]
@@ -216,14 +207,4 @@ def _(self):
 def _(self):
     self.subdesc = "metapackage for small installations"
     self.depends = [self.parent]
-    self.provides = [
-        self.with_pkgver("base-full-firmware"),
-        self.with_pkgver("base-full-fonts"),
-        self.with_pkgver("base-full-kernel"),
-        self.with_pkgver("base-full-misc"),
-        self.with_pkgver("base-full-net"),
-        self.with_pkgver("base-full-session"),
-        self.with_pkgver("base-full-sound"),
-    ]
-    self.provider_priority = 0
     return []
