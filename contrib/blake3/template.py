@@ -1,6 +1,6 @@
 pkgname = "blake3"
 pkgver = "1.5.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 cmake_dir = "c"
