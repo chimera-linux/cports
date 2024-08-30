@@ -1,6 +1,6 @@
 pkgname = "fonts-noto-sans-cjk"
 pkgver = "2.004"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Google Noto Sans CJK fonts"
 maintainer = "GeopJr <evan@geopjr.dev>"
 license = "OFL-1.1"
