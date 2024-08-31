@@ -187,6 +187,9 @@ class Cargo:
         with open(dirn / ".cargo/config.toml", "a") as outf:
             if write_nl:
                 outf.write("\n")
+                # we need to flush before passing to subprocess
+                # or the newline does not get written properly
+                outf.flush()
 
             return self._invoke(
                 "vendor",
