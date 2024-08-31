@@ -1,5 +1,5 @@
 pkgname = "libpcap"
-pkgver = "1.10.4"
+pkgver = "1.10.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
 source = f"{url}/release/libpcap-{pkgver}.tar.gz"
-sha256 = "ed19a0383fad72e3ad435fd239d7cd80d64916b87269550159d20e47160ebe5f"
+sha256 = "37ced90a19a302a7f32e458224a00c365c117905c2cd35ac544b6880a81488f0"
 hardening = ["!vis", "!cfi"]
 # no check target
 options = ["!check"]
