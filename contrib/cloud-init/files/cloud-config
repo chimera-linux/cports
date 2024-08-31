@@ -1,0 +1,3 @@
+type = scripted
+command = /usr/libexec/cloud-init.wrapper modules --mode config
+depends-on = cloud-init

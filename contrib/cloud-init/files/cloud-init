@@ -1,0 +1,5 @@
+type = scripted
+command = /usr/libexec/cloud-init.wrapper init
+depends-on = cloud-init-local
+depends-on = local.target
+depends-on = network.target

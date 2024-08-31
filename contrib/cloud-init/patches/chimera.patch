@@ -1,0 +1,1134 @@
+This is a basic implementation for Chimera. It is not
+entirely complete and may require additional fixes,
+and likely configuration schema breakages (as we currently
+override the alpine stuff for apk handling as the cloud-init
+apk handling lacks proper abstraction and assumes all apk is
+always alpine, which is wrong).
+
+We will need to coordinate with upstream how to resolve these
+kinds of things.
+
+-- q66
+
+diff --git a/cloudinit/config/cc_apk_configure.py b/cloudinit/config/cc_apk_configure.py
+index fcfbe05..aee58ba 100644
+--- a/cloudinit/config/cc_apk_configure.py
++++ b/cloudinit/config/cc_apk_configure.py
+@@ -18,7 +18,7 @@ LOG = logging.getLogger(__name__)
+ 
+ 
+ # If no mirror is specified then use this one
+-DEFAULT_MIRROR = "https://alpine.global.ssl.fastly.net/alpine"
++DEFAULT_MIRROR = "https://repo.chimera-linux.org"
+ 
+ 
+ REPOSITORIES_TEMPLATE = """\
+@@ -29,31 +29,24 @@ REPOSITORIES_TEMPLATE = """\
+ # This file is written on first boot of an instance
+ #
+ 
+-{{ alpine_baseurl }}/{{ alpine_version }}/main
+-{% if community_enabled -%}
+-{{ alpine_baseurl }}/{{ alpine_version }}/community
++{{ apk_baseurl }}/{{ apk_version }}/main
++{{ apk_baseurl }}/{{ apk_version }}/contrib
++{% if user_enabled -%}
++{{ apk_baseurl }}/{{ apk_version }}/user
+ {% endif -%}
+-{% if testing_enabled -%}
+-{% if alpine_version != 'edge' %}
+-#
+-# Testing - using with non-Edge installation may cause problems!
+-#
+-{% endif %}
+-{{ alpine_baseurl }}/edge/testing
+-{% endif %}
+ {% if local_repo != '' %}
+ 
+ #
+ # Local repo
+ #
+-{{ local_repo }}/{{ alpine_version }}
++{{ local_repo }}/{{ apk_version }}
+ {% endif %}
+ 
+ """
+ 
+ meta: MetaSchema = {
+     "id": "cc_apk_configure",
+-    "distros": ["alpine"],
++    "distros": ["alpine", "chimera"],
+     "frequency": PER_INSTANCE,
+     "activate_by_schema_keys": ["apk_repos"],
+ }  # type: ignore
+@@ -87,49 +80,48 @@ def handle(name: str, cfg: Config, cloud: Cloud, args: list) -> None:
+         )
+         return
+ 
+-    # If there is no "alpine_repo" subsection of "apk_repos" present in the
++    # If there is no "apk_repo" subsection of "apk_repos" present in the
+     # configuration then do nothing, as at least "version" is required to
+     # create valid repositories entries.
+-    alpine_repo = apk_section.get("alpine_repo")
+-    if not alpine_repo:
++    apk_repo = apk_section.get("apk_repo")
++    if not apk_repo:
+         LOG.debug(
+-            "Skipping module named %s, no 'alpine_repo' configuration found",
++            "Skipping module named %s, no 'apk_repo' configuration found",
+             name,
+         )
+         return
+ 
+     # If there is no "version" value present in configuration then do nothing.
+-    alpine_version = alpine_repo.get("version")
+-    if not alpine_version:
++    apk_version = apk_repo.get("version")
++    if not apk_version:
+         LOG.debug(
+-            "Skipping module named %s, 'version' not specified in alpine_repo",
++            "Skipping module named %s, 'version' not specified in apk_repo",
+             name,
+         )
+         return
+ 
+     local_repo = apk_section.get("local_repo_base_url", "")
+ 
+-    _write_repositories_file(alpine_repo, alpine_version, local_repo)
++    _write_repositories_file(apk_repo, apk_version, local_repo)
+ 
+ 
+-def _write_repositories_file(alpine_repo, alpine_version, local_repo):
++def _write_repositories_file(apk_repo, apk_version, local_repo):
+     """
+     Write the /etc/apk/repositories file with the specified entries.
+ 
+-    @param alpine_repo: A nested dict of the alpine_repo configuration.
+-    @param alpine_version: A string of the Alpine version to use.
++    @param apk_repo: A nested dict of the apk_repo configuration.
++    @param apk_version: A string of the apk repo version to use.
+     @param local_repo: A string containing the base URL of a local repo.
+     """
+ 
+     repo_file = "/etc/apk/repositories"
+ 
+-    alpine_baseurl = alpine_repo.get("base_url", DEFAULT_MIRROR)
++    apk_baseurl = apk_repo.get("base_url", DEFAULT_MIRROR)
+ 
+     params = {
+-        "alpine_baseurl": alpine_baseurl,
+-        "alpine_version": alpine_version,
+-        "community_enabled": alpine_repo.get("community_enabled"),
+-        "testing_enabled": alpine_repo.get("testing_enabled"),
++        "apk_baseurl": apk_baseurl,
++        "apk_version": apk_version,
++        "user_enabled": apk_repo.get("user_enabled"),
+         "local_repo": local_repo,
+     }
+ 
+@@ -137,7 +129,7 @@ def _write_repositories_file(alpine_repo, alpine_version, local_repo):
+     template_fn = tfile[1]  # Filepath is second item in tuple
+     util.write_file(template_fn, content=REPOSITORIES_TEMPLATE)
+ 
+-    LOG.debug("Generating Alpine repository configuration file: %s", repo_file)
++    LOG.debug("Generating apk repository configuration file: %s", repo_file)
+     templater.render_to_file(template_fn, repo_file, params)
+     # Clean up temporary template
+     util.del_file(template_fn)
+diff --git a/cloudinit/config/cc_ca_certs.py b/cloudinit/config/cc_ca_certs.py
+index 61345fc..2cc28ea 100644
+--- a/cloudinit/config/cc_ca_certs.py
++++ b/cloudinit/config/cc_ca_certs.py
+@@ -73,6 +73,7 @@ distros = [
+     "almalinux",
+     "cloudlinux",
+     "alpine",
++    "chimera",
+     "debian",
+     "fedora",
+     "rhel",
+@@ -140,8 +141,8 @@ def add_ca_certs(distro_cfg, certs):
+ 
+ def disable_default_ca_certs(distro_name, distro_cfg):
+     """
+-    Disables all default trusted CA certificates. For Alpine, Debian and
+-    Ubuntu to actually apply the changes you must also call
++    Disables all default trusted CA certificates. For Alpine, Chimera, Debian
++    and Ubuntu to actually apply the changes you must also call
+     L{update_ca_certs}.
+ 
+     @param distro_name: String providing the distro class name.
+@@ -149,7 +150,7 @@ def disable_default_ca_certs(distro_name, distro_cfg):
+     """
+     if distro_name in ["rhel", "photon"]:
+         remove_default_ca_certs(distro_cfg)
+-    elif distro_name in ["alpine", "debian", "ubuntu"]:
++    elif distro_name in ["alpine", "chimera", "debian", "ubuntu"]:
+         disable_system_ca_certs(distro_cfg)
+ 
+         if distro_name in ["debian", "ubuntu"]:
+diff --git a/cloudinit/config/cc_keyboard.py b/cloudinit/config/cc_keyboard.py
+index e6e7749..5a6f27b 100644
+--- a/cloudinit/config/cc_keyboard.py
++++ b/cloudinit/config/cc_keyboard.py
+@@ -21,7 +21,7 @@ from cloudinit.settings import PER_INSTANCE
+ DEFAULT_KEYBOARD_MODEL = "pc105"
+ 
+ supported_distros = distros.Distro.expand_osfamily(
+-    ["alpine", "arch", "debian", "redhat", "suse"]
++    ["alpine", "arch", "chimera", "debian", "redhat", "suse"]
+ )
+ 
+ meta: MetaSchema = {
+diff --git a/cloudinit/config/cc_ntp.py b/cloudinit/config/cc_ntp.py
+index 3d65952..f6e6c1d 100644
+--- a/cloudinit/config/cc_ntp.py
++++ b/cloudinit/config/cc_ntp.py
+@@ -26,6 +26,7 @@ distros = [
+     "alpine",
+     "azurelinux",
+     "centos",
++    "chimera",
+     "cloudlinux",
+     "cos",
+     "debian",
+@@ -126,6 +127,11 @@ DISTRO_CLIENT_CONFIG = {
+             "service_name": "chronyd",
+         },
+     },
++    "chimera": {
++        "chrony": {
++            "service_name": "chrony",
++        },
++    },
+     "cos": {
+         "chrony": {
+             "service_name": "chronyd",
+diff --git a/cloudinit/config/cc_resolv_conf.py b/cloudinit/config/cc_resolv_conf.py
+index 408bbbc..2e9e5fd 100644
+--- a/cloudinit/config/cc_resolv_conf.py
++++ b/cloudinit/config/cc_resolv_conf.py
+@@ -28,6 +28,7 @@ meta: MetaSchema = {
+     "distros": [
+         "alpine",
+         "azurelinux",
++        "chimera",
+         "fedora",
+         "mariner",
+         "opensuse",
+diff --git a/cloudinit/config/schemas/schema-cloud-config-v1.json b/cloudinit/config/schemas/schema-cloud-config-v1.json
+index f5609c5..730140a 100644
+--- a/cloudinit/config/schemas/schema-cloud-config-v1.json
++++ b/cloudinit/config/schemas/schema-cloud-config-v1.json
+@@ -963,7 +963,7 @@
+               "default": false,
+               "description": "By default, cloud-init will generate a new repositories file ``/etc/apk/repositories`` based on any valid configuration settings specified within a apk_repos section of cloud config. To disable this behavior and preserve the repositories file from the pristine image, set ``preserve_repositories`` to ``true``.\nThe ``preserve_repositories`` option overrides all other config keys that would alter ``/etc/apk/repositories``."
+             },
+-            "alpine_repo": {
++            "apk_repo": {
+               "type": [
+                 "object",
+                 "null"
+@@ -972,22 +972,17 @@
+               "properties": {
+                 "base_url": {
+                   "type": "string",
+-                  "default": "https://alpine.global.ssl.fastly.net/alpine",
+-                  "description": "The base URL of an Alpine repository, or mirror, to download official packages from. If not specified then it defaults to ``https://alpine.global.ssl.fastly.net/alpine``"
++                  "default": "https://repo.chimera-linux.org",
++                  "description": "The base URL of a Chimera repository"
+                 },
+-                "community_enabled": {
++                "user_enabled": {
+                   "type": "boolean",
+                   "default": false,
+-                  "description": "Whether to add the Community repo to the repositories file. By default the Community repo is not included."
+-                },
+-                "testing_enabled": {
+-                  "type": "boolean",
+-                  "default": false,
+-                  "description": "Whether to add the Testing repo to the repositories file. By default the Testing repo is not included. It is only recommended to use the Testing repo on a machine running the ``Edge`` version of Alpine as packages installed from Testing may have dependencies that conflict with those in non-Edge Main or Community repos."
++                  "description": "Whether to add the user repo to the repositories file. By default the user repo is not included."
+                 },
+                 "version": {
+                   "type": "string",
+-                  "description": "The Alpine version to use (e.g. ``v3.12`` or ``edge``)"
++                  "description": "The Chimera version to use (usually ``current``)"
+                 }
+               },
+               "required": [
+@@ -997,7 +992,7 @@
+             },
+             "local_repo_base_url": {
+               "type": "string",
+-              "description": "The base URL of an Alpine repository containing unofficial packages"
++              "description": "The base URL of a Chimera repository containing unofficial packages"
+             }
+           }
+         }
+diff --git a/cloudinit/distros/__init__.py b/cloudinit/distros/__init__.py
+index 4557d43..3def1c1 100644
+--- a/cloudinit/distros/__init__.py
++++ b/cloudinit/distros/__init__.py
+@@ -61,6 +61,7 @@ ALL_DISTROS = "all"
+ OSFAMILIES = {
+     "alpine": ["alpine"],
+     "arch": ["arch"],
++    "chimera": ["chimera"],
+     "debian": ["debian", "ubuntu"],
+     "freebsd": ["freebsd", "dragonfly"],
+     "gentoo": ["gentoo", "cos"],
+diff --git a/cloudinit/distros/chimera.py b/cloudinit/distros/chimera.py
+index a1d0d90..7297698 100644
+--- a/cloudinit/distros/chimera.py
++++ b/cloudinit/distros/chimera.py
+@@ -1,5 +1,6 @@
+ # Copyright (C) 2016 Matt Dainty
+ # Copyright (C) 2020 Dermot Bradley
++# Copyright (C) 2024 q66
+ #
+ # Author: Matt Dainty <matt@bodgit-n-scarper.com>
+ # Author: Dermot Bradley <dermot_bradley@yahoo.com>
+@@ -8,10 +9,7 @@
+ 
+ import logging
+ import os
+-import re
+-import stat
+-from datetime import datetime
+-from typing import Any, Dict, Optional
++from typing import Optional
+ 
+ from cloudinit import distros, helpers, subp, util
+ from cloudinit.distros.parsers.hostname import HostnameConf
+@@ -30,18 +28,12 @@ NETWORK_FILE_HEADER = """\
+ 
+ 
+ class Distro(distros.Distro):
+-    pip_package_name = "py3-pip"
+-    keymap_path = "/usr/share/bkeymaps/"
+-    locale_conf_fn = "/etc/profile.d/50-cloud-init-locale.sh"
++    pip_package_name = "python-pip"
++    locale_conf_fn = "/etc/locale.conf"
+     network_conf_fn = "/etc/network/interfaces"
+-    shadow_fn = "/etc/shadow"
+     renderer_configs = {
+         "eni": {"eni_path": network_conf_fn, "eni_header": NETWORK_FILE_HEADER}
+     }
+-    # Alpine stores dhclient leases at following location:
+-    # /var/lib/dhcp/dhclient.leases
+-    dhclient_lease_directory = "/var/lib/dhcp"
+-    dhclient_lease_file_regex = r"dhclient\.leases"
+ 
+     def __init__(self, name, cfg, paths):
+         distros.Distro.__init__(self, name, cfg, paths)
+@@ -50,17 +42,17 @@ class Distro(distros.Distro):
+         # should only happen say once per instance...)
+         self._runner = helpers.Runners(paths)
+         self.default_locale = "C.UTF-8"
+-        self.osfamily = "alpine"
++        self.osfamily = "chimera"
+         cfg["ssh_svcname"] = "sshd"
+ 
+     def get_locale(self):
+-        """The default locale for Alpine Linux is different than
++        """The default locale for Chimera Linux is different than
+         cloud-init's DataSource default.
+         """
+         return self.default_locale
+ 
+     def apply_locale(self, locale, out_fn=None):
+-        # Alpine has limited locale support due to musl library limitations
++        # Chimera has limited locale support due to musl library limitations
+ 
+         if not locale:
+             locale = self.default_locale
+@@ -124,42 +116,18 @@ class Distro(distros.Distro):
+             return default
+         return hostname
+ 
+-    def _get_localhost_ip(self):
+-        return "127.0.1.1"
+-
+     def set_keymap(self, layout: str, model: str, variant: str, options: str):
+-        if not layout:
+-            msg = "Keyboard layout not specified."
+-            LOG.error(msg)
+-            raise RuntimeError(msg)
+-        keymap_layout_path = os.path.join(self.keymap_path, layout)
+-        if not os.path.isdir(keymap_layout_path):
+-            msg = (
+-                "Keyboard layout directory %s does not exist."
+-                % keymap_layout_path
+-            )
+-            LOG.error(msg)
+-            raise RuntimeError(msg)
+-        if not variant:
+-            msg = "Keyboard variant not specified."
+-            LOG.error(msg)
+-            raise RuntimeError(msg)
+-        keymap_variant_path = os.path.join(
+-            keymap_layout_path, "%s.bmap.gz" % variant
++        # use localectl, we have it (despite no systemd) and it's easier
++        subp.subp(
++            [
++                "localectl",
++                "set-x11-keymap",
++                layout,
++                model,
++                variant,
++                options,
++            ]
+         )
+-        if not os.path.isfile(keymap_variant_path):
+-            msg = (
+-                "Keyboard variant file %s does not exist."
+-                % keymap_variant_path
+-            )
+-            LOG.error(msg)
+-            raise RuntimeError(msg)
+-        if model:
+-            LOG.warning("Keyboard model is ignored for Alpine Linux.")
+-        if options:
+-            LOG.warning("Keyboard options are ignored for Alpine Linux.")
+-
+-        subp.subp(["setup-keymap", layout, variant])
+ 
+     def set_timezone(self, tz):
+         distros.set_etc_timezone(tz=tz, tz_file=self._find_tz_file(tz))
+@@ -201,373 +169,32 @@ class Distro(distros.Distro):
+     def preferred_ntp_clients(self):
+         """Allow distro to determine the preferred ntp client list"""
+         if not self._preferred_ntp_clients:
+-            self._preferred_ntp_clients = ["chrony", "ntp"]
++            self._preferred_ntp_clients = ["chrony"]
+ 
+         return self._preferred_ntp_clients
+ 
+     def add_user(self, name, **kwargs):
+         """
+         Add a user to the system using standard tools
+-
+-        On Alpine this may use either 'useradd' or 'adduser' depending
+-        on whether the 'shadow' package is installed.
+         """
+         if util.is_user(name):
+             LOG.info("User %s already exists, skipping.", name)
+             return
+ 
+         if "selinux_user" in kwargs:
+-            LOG.warning("Ignoring selinux_user parameter for Alpine Linux")
++            LOG.warning("Ignoring selinux_user parameter for Chimera Linux")
+             del kwargs["selinux_user"]
+ 
+-        # If 'useradd' is available then use the generic
+-        # add_user function from __init__.py instead.
+-        if subp.which("useradd"):
+-            return super().add_user(name, **kwargs)
+-
+-        create_groups = kwargs.pop("create_groups", True)
+-
+-        adduser_cmd = ["adduser", "-D"]
+-
+-        # Since we are creating users, we want to carefully validate
+-        # the inputs. If something goes wrong, we can end up with a
+-        # system that nobody can login to.
+-        adduser_opts = {
+-            "gecos": "-g",
+-            "homedir": "-h",
+-            "primary_group": "-G",
+-            "shell": "-s",
+-            "uid": "-u",
+-        }
+-
+-        adduser_flags = {"system": "-S"}
+-
+-        # support kwargs having groups=[list] or groups="g1,g2"
+-        groups = kwargs.get("groups")
+-        if groups:
+-            if isinstance(groups, str):
+-                groups = groups.split(",")
+-            elif isinstance(groups, dict):
+-                util.deprecate(
+-                    deprecated=f"The user {name} has a 'groups' config value "
+-                    "of type dict",
+-                    deprecated_version="22.3",
+-                    extra_message="Use a comma-delimited string or "
+-                    "array instead: group1,group2.",
+-                )
+-
+-            # remove any white spaces in group names, most likely
+-            # that came in as a string like: groups: group1, group2
+-            groups = [g.strip() for g in groups]
+-
+-            # kwargs.items loop below wants a comma delimited string
+-            # that can go right through to the command.
+-            kwargs["groups"] = ",".join(groups)
+-
+-            if kwargs.get("primary_group"):
+-                groups.append(kwargs["primary_group"])
+-
+-        if create_groups and groups:
+-            for group in groups:
+-                if not util.is_group(group):
+-                    self.create_group(group)
+-                    LOG.debug("created group '%s' for user '%s'", group, name)
+-        if "uid" in kwargs:
+-            kwargs["uid"] = str(kwargs["uid"])
+-
+-        unsupported_busybox_values: Dict[str, Any] = {
+-            "groups": [],
+-            "expiredate": None,
+-            "inactive": None,
+-            "passwd": None,
+-        }
+-
+-        # Check the values and create the command
+-        for key, val in sorted(kwargs.items()):
+-            if key in adduser_opts and val and isinstance(val, str):
+-                adduser_cmd.extend([adduser_opts[key], val])
+-            elif (
+-                key in unsupported_busybox_values
+-                and val
+-                and isinstance(val, str)
+-            ):
+-                # Busybox's 'adduser' does not support specifying these
+-                # options so store them for use via alternative means.
+-                if key == "groups":
+-                    unsupported_busybox_values[key] = val.split(",")
+-                else:
+-                    unsupported_busybox_values[key] = val
+-            elif key in adduser_flags and val:
+-                adduser_cmd.append(adduser_flags[key])
+-
+-        # Don't create the home directory if directed so
+-        # or if the user is a system user
+-        if kwargs.get("no_create_home") or kwargs.get("system"):
+-            adduser_cmd.append("-H")
+-
+-        # Busybox's 'adduser' puts username at end of command
+-        adduser_cmd.append(name)
+-
+-        # Run the command
+-        LOG.debug("Adding user %s", name)
+-        try:
+-            subp.subp(adduser_cmd)
+-        except subp.ProcessExecutionError as e:
+-            LOG.warning("Failed to create user %s", name)
+-            raise e
+-
+-        # Process remaining options that Busybox's 'adduser' does not support
+-
+-        # Separately add user to each additional group as Busybox's
+-        # 'adduser' does not support specifying additional groups.
+-        for addn_group in unsupported_busybox_values[
+-            "groups"
+-        ]:  # pylint: disable=E1133
+-            LOG.debug("Adding user to group %s", addn_group)
+-            try:
+-                subp.subp(["addgroup", name, addn_group])
+-            except subp.ProcessExecutionError as e:
+-                util.logexc(
+-                    LOG, "Failed to add user %s to group %s", name, addn_group
+-                )
+-                raise e
+-
+-        if unsupported_busybox_values["passwd"]:
+-            # Separately set password as Busybox's 'adduser' does
+-            # not support passing password as CLI option.
+-            super().set_passwd(
+-                name, unsupported_busybox_values["passwd"], hashed=True
+-            )
+-
+-        # Busybox's 'adduser' is hardcoded to always set the following field
+-        # values (numbered from "0") in /etc/shadow unlike 'useradd':
+-        #
+-        # Field                          Value set
+-        #
+-        #   3    minimum password age    0 (no min age)
+-        #   4    maximum password age    99999 (days)
+-        #   5    warning period          7 (warn days before max age)
+-        #
+-        # so modify these fields to be empty.
+-        #
+-        # Also set expiredate (field '7') and/or inactive (field '6')
+-        # values directly in /etc/shadow file as Busybox's 'adduser'
+-        # does not support passing these as CLI options.
+-
+-        expiredate = unsupported_busybox_values["expiredate"]
+-        inactive = unsupported_busybox_values["inactive"]
+-
+-        shadow_contents = None
+-        shadow_file = self.shadow_fn
+-        try:
+-            shadow_contents = util.load_text_file(shadow_file)
+-        except FileNotFoundError as e:
+-            LOG.warning("Failed to read %s file, file not found", shadow_file)
+-            raise e
+-
+-        # Find the line in /etc/shadow for the user
+-        original_line = None
+-        for line in shadow_contents.splitlines():
+-            new_line_parts = line.split(":")
+-            if new_line_parts[0] == name:
+-                original_line = line
+-                break
+-
+-        if original_line:
+-            # Modify field(s) in copy of user's shadow file entry
+-            update_type = ""
+-
+-            # Minimum password age
+-            new_line_parts[3] = ""
+-            # Maximum password age
+-            new_line_parts[4] = ""
+-            # Password warning period
+-            new_line_parts[5] = ""
+-            update_type = "password aging"
+-
+-            if expiredate is not None:
+-                # Convert date into number of days since 1st Jan 1970
+-                days = (
+-                    datetime.fromisoformat(expiredate)
+-                    - datetime.fromisoformat("1970-01-01")
+-                ).days
+-                new_line_parts[7] = str(days)
+-                if update_type != "":
+-                    update_type = update_type + " & "
+-                update_type = update_type + "acct expiration date"
+-            if inactive is not None:
+-                new_line_parts[6] = inactive
+-                if update_type != "":
+-                    update_type = update_type + " & "
+-                update_type = update_type + "inactivity period"
+-
+-            # Replace existing line for user with modified line
+-            shadow_contents = shadow_contents.replace(
+-                original_line, ":".join(new_line_parts)
+-            )
+-            LOG.debug("Updating %s for user %s", update_type, name)
+-            try:
+-                util.write_file(
+-                    shadow_file, shadow_contents, omode="w", preserve_mode=True
+-                )
+-            except IOError as e:
+-                util.logexc(LOG, "Failed to update %s file", shadow_file)
+-                raise e
+-        else:
+-            util.logexc(
+-                LOG, "Failed to update %s for user %s", shadow_file, name
+-            )
+-
+-    def lock_passwd(self, name):
+-        """
+-        Lock the password of a user, i.e., disable password logins
+-        """
+-
+-        # Check whether Shadow's or Busybox's version of 'passwd'.
+-        # If Shadow's 'passwd' is available then use the generic
+-        # lock_passwd function from __init__.py instead.
+-        if not os.path.islink(
+-            "/usr/bin/passwd"
+-        ) or "bbsuid" not in os.readlink("/usr/bin/passwd"):
+-            return super().lock_passwd(name)
+-
+-        cmd = ["passwd", "-l", name]
+-        # Busybox's 'passwd', unlike Shadow's 'passwd', errors
+-        # if password is already locked:
+-        #
+-        #   "passwd: password for user2 is already locked"
+-        #
+-        # with exit code 1
+-        try:
+-            (_out, err) = subp.subp(cmd, rcs=[0, 1])
+-            if re.search(r"is already locked", err):
+-                return True
+-        except subp.ProcessExecutionError as e:
+-            util.logexc(LOG, "Failed to disable password for user %s", name)
+-            raise e
+-
+-    def expire_passwd(self, user):
+-        # Check whether Shadow's or Busybox's version of 'passwd'.
+-        # If Shadow's 'passwd' is available then use the generic
+-        # expire_passwd function from __init__.py instead.
+-        if not os.path.islink(
+-            "/usr/bin/passwd"
+-        ) or "bbsuid" not in os.readlink("/usr/bin/passwd"):
+-            return super().expire_passwd(user)
+-
+-        # Busybox's 'passwd' does not provide an expire option
+-        # so have to manipulate the shadow file directly.
+-        shadow_contents = None
+-        shadow_file = self.shadow_fn
+-        try:
+-            shadow_contents = util.load_text_file(shadow_file)
+-        except FileNotFoundError as e:
+-            LOG.warning("Failed to read %s file, file not found", shadow_file)
+-            raise e
+-
+-        # Find the line in /etc/shadow for the user
+-        original_line = None
+-        for line in shadow_contents.splitlines():
+-            new_line_parts = line.split(":")
+-            if new_line_parts[0] == user:
+-                LOG.debug("Found /etc/shadow line matching user %s", user)
+-                original_line = line
+-                break
+-
+-        if original_line:
+-            # Replace existing line for user with modified line
+-            #
+-            # Field '2' (numbered from '0') in /etc/shadow
+-            # is the "date of last password change".
+-            if new_line_parts[2] != "0":
+-                # Busybox's 'adduser' always expires password so only
+-                # need to expire it now if this is not a new user.
+-                new_line_parts[2] = "0"
+-                shadow_contents = shadow_contents.replace(
+-                    original_line, ":".join(new_line_parts), 1
+-                )
+-
+-                LOG.debug("Expiring password for user %s", user)
+-                try:
+-                    util.write_file(
+-                        shadow_file,
+-                        shadow_contents,
+-                        omode="w",
+-                        preserve_mode=True,
+-                    )
+-                except IOError as e:
+-                    util.logexc(LOG, "Failed to update %s file", shadow_file)
+-                    raise e
+-            else:
+-                LOG.debug("Password for user %s is already expired", user)
+-        else:
+-            util.logexc(LOG, "Failed to set 'expire' for %s", user)
+-
+-    def create_group(self, name, members=None):
+-        # If 'groupadd' is available then use the generic
+-        # create_group function from __init__.py instead.
+-        if subp.which("groupadd"):
+-            return super().create_group(name, members)
+-
+-        group_add_cmd = ["addgroup", name]
+-        if not members:
+-            members = []
+-
+-        # Check if group exists, and then add if it doesn't
+-        if util.is_group(name):
+-            LOG.warning("Skipping creation of existing group '%s'", name)
+-        else:
+-            try:
+-                subp.subp(group_add_cmd)
+-                LOG.info("Created new group %s", name)
+-            except subp.ProcessExecutionError:
+-                util.logexc(LOG, "Failed to create group %s", name)
+-
+-        # Add members to the group, if so defined
+-        if len(members) > 0:
+-            for member in members:
+-                if not util.is_user(member):
+-                    LOG.warning(
+-                        "Unable to add group member '%s' to group '%s'"
+-                        "; user does not exist.",
+-                        member,
+-                        name,
+-                    )
+-                    continue
+-
+-                subp.subp(["addgroup", member, name])
+-                LOG.info("Added user '%s' to group '%s'", member, name)
++        return super().add_user(name, **kwargs)
+ 
+     def shutdown_command(self, mode="poweroff", delay="now", message=None):
+-        # called from cc_power_state_change.load_power_state
+-        # Alpine has halt/poweroff/reboot, with the following specifics:
+-        # - we use them rather than the generic "shutdown"
+-        # - delay is given with "-d [integer]"
+-        # - the integer is in seconds, cannot be "now", and takes no "+"
+-        # - no message is supported (argument ignored, here)
+-
+-        command = [mode, "-d"]
+-
+-        # Convert delay from minutes to seconds, as Alpine's
+-        # halt/poweroff/reboot commands take seconds rather than minutes.
+-        if delay == "now":
+-            # Alpine's commands do not understand "now".
+-            command += ["0"]
+-        else:
+-            try:
+-                command.append(str(int(delay) * 60))
+-            except ValueError as e:
+-                raise TypeError(
+-                    "power_state[delay] must be 'now' or '+m' (minutes)."
+-                    " found '%s'." % (delay,)
+-                ) from e
+-
+-        return command
++        # rudimentary, the dinit wrappers don't support delay or message
++        return [mode]
+ 
+     @staticmethod
+     def uses_systemd():
+         """
+-        Alpine uses OpenRC, not systemd
++        Chimera uses dinit, not systemd
+         """
+         return False
+ 
+@@ -576,25 +203,20 @@ class Distro(distros.Distro):
+         self, action: str, service: str, *extra_args: str, rcs=None
+     ):
+         """
+-        Perform the requested action on a service. This handles OpenRC
++        Perform the requested action on a service. This handles dinit
+         specific implementation details.
+-
+-        OpenRC has two distinct commands relating to services,
+-        'rc-service' and 'rc-update' and the order of their argument
+-        lists differ.
+         May raise ProcessExecutionError
+         """
+-        init_cmd = ["rc-service", "--nocolor"]
+-        update_cmd = ["rc-update", "--nocolor"]
++        ctl_cmd = ["dinitctl"]
+         cmds = {
+-            "stop": list(init_cmd) + [service, "stop"],
+-            "start": list(init_cmd) + [service, "start"],
+-            "disable": list(update_cmd) + ["del", service],
+-            "enable": list(update_cmd) + ["add", service],
+-            "restart": list(init_cmd) + [service, "restart"],
+-            "reload": list(init_cmd) + [service, "restart"],
+-            "try-reload": list(init_cmd) + [service, "restart"],
+-            "status": list(init_cmd) + [service, "status"],
++            "stop": ctl_cmd + ["stop", service],
++            "start": ctl_cmd + ["start", service],
++            "disable": ctl_cmd + ["disable", service],
++            "enable": ctl_cmd + ["enable", service],
++            "restart": ctl_cmd + ["restart", service],
++            "reload": ctl_cmd + ["restart", service],
++            "try-reload": ctl_cmd + ["restart", service],
++            "status": ctl_cmd + ["status", service],
+         }
+         cmd = list(cmds[action])
+         return subp.subp(cmd, capture=True, rcs=rcs)
+@@ -611,30 +233,6 @@ class Distro(distros.Distro):
+         """
+         realpath = os.path.realpath(blockdev)
+ 
+-        if blockdev.startswith("/dev/mapper"):
+-            # For Alpine systems a /dev/mapper/ entry is *not* a
+-            # symlink to the related /dev/dm-X block device,
+-            # rather it is a  block device itself.
+-
+-            # Get the major/minor of the /dev/mapper block device
+-            major = os.major(os.stat(blockdev).st_rdev)
+-            minor = os.minor(os.stat(blockdev).st_rdev)
+-
+-            # Find the /dev/dm-X device with the same major/minor
+-            with os.scandir("/dev/") as it:
+-                for deventry in it:
+-                    if deventry.name.startswith("dm-"):
+-                        res = os.lstat(deventry.path)
+-                        if stat.S_ISBLK(res.st_mode):
+-                            if (
+-                                os.major(os.stat(deventry.path).st_rdev)
+-                                == major
+-                                and os.minor(os.stat(deventry.path).st_rdev)
+-                                == minor
+-                            ):
+-                                realpath = os.path.realpath(deventry.path)
+-                                break
+-
+         if realpath.startswith("/dev/dm-"):
+             LOG.debug(
+                 "%s is a mapped device pointing to %s", blockdev, realpath
+diff --git a/cloudinit/util.py b/cloudinit/util.py
+index 98dd66d..a9f944f 100644
+--- a/cloudinit/util.py
++++ b/cloudinit/util.py
+@@ -607,7 +607,7 @@ def get_linux_distro():
+             # which will include both version codename and architecture
+             # on all distributions.
+             flavor = platform.machine()
+-        elif distro_name == "alpine" or distro_name == "photon":
++        elif distro_name == "alpine" or distro_name == "chimera" or distro_name == "photon":
+             flavor = os_release.get("PRETTY_NAME", "")
+         elif distro_name == "virtuozzo" and not os_release_rhel:
+             # Only use this if the redhat file is not parsed
+@@ -659,6 +659,7 @@ def _get_variant(info):
+             "arch",
+             "azurelinux",
+             "centos",
++            "chimera",
+             "cloudlinux",
+             "debian",
+             "eurolinux",
+diff --git a/config/cloud.cfg.tmpl b/config/cloud.cfg.tmpl
+index 68175cd..96ad5b7 100644
+--- a/config/cloud.cfg.tmpl
++++ b/config/cloud.cfg.tmpl
+@@ -12,7 +12,7 @@
+                  "openmandriva": "OpenMandriva admin", "photon": "PhotonOS",
+                  "ubuntu": "Ubuntu", "unknown": "Ubuntu"}) %}
+ {% set groups = ({"alpine": "adm, wheel", "arch": "wheel, users",
+-                  "azurelinux": "wheel",
++                  "azurelinux": "wheel", "chimera": "wheel",
+                   "debian": "adm, audio, cdrom, dialout, dip, floppy, netdev, plugdev, sudo, video",
+                   "gentoo": "users, wheel", "mariner": "wheel",
+                   "photon": "wheel",
+@@ -20,7 +20,7 @@
+                   "suse": "cdrom, users",
+                   "ubuntu": "adm, cdrom, dip, lxd, sudo",
+                   "unknown": "adm, cdrom, dip, lxd, sudo"}) %}
+-{% set shells = ({"alpine": "/bin/ash", "dragonfly": "/bin/sh",
++{% set shells = ({"alpine": "/bin/ash", "chimera": "/bin/sh", "dragonfly": "/bin/sh",
+                   "freebsd": "/bin/tcsh", "netbsd": "/bin/sh",
+                   "openbsd": "/bin/ksh"}) %}
+ {% set usernames = ({"amazon": "ec2-user", "centos": "cloud-user",
+@@ -58,7 +58,7 @@ disable_root: false
+ disable_root: true
+ {% endif %}
+ 
+-{%- if variant in ["alpine", "amazon", "fedora", "OpenCloudOS", "openeuler",
++{%- if variant in ["alpine", "amazon", "chimera", "fedora", "OpenCloudOS", "openeuler",
+                    "openmandriva", "photon", "TencentOS"] or is_rhel %}
+ 
+ {% if is_rhel %}
+@@ -128,7 +128,7 @@ cloud_init_modules:
+   - set_hostname
+   - update_hostname
+   - update_etc_hosts
+-{% if variant in ["alpine", "photon"] %}
++{% if variant in ["alpine", "chimera", "photon"] %}
+   - resolv_conf
+ {% endif %}
+ {% if not is_bsd or variant not in ["photon"] %}
+@@ -157,7 +157,7 @@ cloud_config_modules:
+ {% endif %}
+   - locale
+ {% endif %}
+-{% if variant == "alpine" %}
++{% if variant in ["alpine", "chimera"] %}
+   - apk_configure
+ {% elif variant in ["debian", "ubuntu", "unknown"] %}
+   - grub_dpkg
+@@ -220,7 +220,7 @@ cloud_final_modules:
+ # (not accessible to handlers/transforms)
+ system_info:
+   # This will affect which distro class gets used
+-{% if variant in ["alpine", "amazon", "arch", "azurelinux", "debian", "fedora",
++{% if variant in ["alpine", "amazon", "arch", "azurelinux", "chimera", "debian", "fedora",
+                   "freebsd", "gentoo", "mariner", "netbsd", "openbsd",
+                   "OpenCloudOS", "openeuler", "openmandriva", "photon", "suse",
+                   "TencentOS", "ubuntu"] or is_rhel %}
+@@ -238,7 +238,7 @@ system_info:
+ {% else %}
+     name: {{ variant }}
+ {% endif %}
+-{% if variant in ["alpine", "amazon", "arch", "azurelinux", "debian", "fedora",
++{% if variant in ["alpine", "amazon", "arch", "azurelinux", "chimera", "debian", "fedora",
+                   "gentoo", "mariner", "OpenCloudOS", "openeuler",
+                   "openmandriva", "photon", "suse", "TencentOS", "ubuntu",
+                   "unknown"]
+@@ -263,7 +263,7 @@ system_info:
+     primary_group: users
+     no_user_group: true
+ {% endif %}
+-{% if variant in ["alpine", "freebsd", "openbsd"] %}
++{% if variant in ["alpine", "chimera", "freebsd", "openbsd"] %}
+ {% if variant in usernames %}
+     doas:
+       - permit nopass usernames[{{ variant }}]
+@@ -278,7 +278,7 @@ system_info:
+ {% else %}
+     shell: /bin/bash
+ {% endif %}
+-{% if variant == "alpine" %}
++{% if variant in ["alpine", "chimera"] %}
+   network:
+     renderers: ['eni']
+ {% elif variant == "debian" %}
+@@ -320,7 +320,7 @@ system_info:
+   # Automatically discover the best ntp_client
+   ntp_client: auto
+ {% endif %}
+-{% if variant in ["alpine", "amazon", "arch", "azurelinux", "debian", "fedora",
++{% if variant in ["alpine", "amazon", "arch", "azurelinux", "chimera", "debian", "fedora",
+                   "gentoo", "mariner", "OpenCloudOS", "openeuler",
+                   "openmandriva", "photon", "suse", "TencentOS", "ubuntu",
+                   "unknown"]
+@@ -368,7 +368,7 @@ system_info:
+ {% endif %}
+ {% if variant in ["debian", "ubuntu", "unknown"] %}
+   ssh_svcname: ssh
+-{% elif variant in ["alpine", "amazon", "arch", "azurelinux", "fedora",
++{% elif variant in ["alpine", "amazon", "arch", "azurelinux", "chimera", "fedora",
+                     "gentoo", "mariner", "OpenCloudOS", "openeuler",
+                     "openmandriva", "photon", "suse", "TencentOS"]
+                    or is_rhel %}
+diff --git a/pyproject.toml b/pyproject.toml
+index 7408488..afd2f7c 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -61,6 +61,7 @@ module = [
+     "cloudinit.distros.alpine",
+     "cloudinit.distros.azurelinux",
+     "cloudinit.distros.bsd",
++    "cloudinit.distros.chimera",
+     "cloudinit.distros.opensuse",
+     "cloudinit.distros.parsers.hostname",
+     "cloudinit.distros.parsers.hosts",
+@@ -171,6 +172,7 @@ module = [
+     "tests.unittests.config.test_schema",
+     "tests.unittests.conftest",
+     "tests.unittests.distros.test_alpine",
++    "tests.unittests.distros.test_chimera",
+     "tests.unittests.distros.test_hosts",
+     "tests.unittests.distros.test_ifconfig",
+     "tests.unittests.distros.test_netbsd",
+diff --git a/templates/chrony.conf.chimera.tmpl b/templates/chrony.conf.chimera.tmpl
+index 4a748f5..550189f 100644
+--- a/templates/chrony.conf.chimera.tmpl
++++ b/templates/chrony.conf.chimera.tmpl
+@@ -20,11 +20,11 @@ allow {{a}}
+ 
+ # This directive specifies the location of the file containing ID/key pairs for
+ # NTP authentication.
+-keyfile /etc/chrony/chrony.keys
++#keyfile /etc/chrony.keys
+ 
+ # This directive specifies the file into which chronyd will store the rate
+ # information.
+-driftfile /var/lib/chrony/chrony.drift
++driftfile /var/lib/chrony/drift
+ 
+ # Uncomment the following line to turn logging on.
+ #log tracking measurements statistics
+@@ -32,9 +32,6 @@ driftfile /var/lib/chrony/chrony.drift
+ # Log files location.
+ logdir /var/log/chrony
+ 
+-# Stop bad estimates upsetting machine clock.
+-maxupdateskew 100.0
+-
+ # This directive enables kernel synchronisation (every 11 minutes) of the
+ # real-time clock. Note that it can’t be used along with the 'rtcfile' directive.
+ rtcsync
+diff --git a/templates/hosts.chimera.tmpl b/templates/hosts.chimera.tmpl
+index 9177b36..56893d5 100644
+--- a/templates/hosts.chimera.tmpl
++++ b/templates/hosts.chimera.tmpl
+@@ -1,6 +1,6 @@
+ ## template:jinja
+ {#
+-This file /etc/cloud/templates/hosts.alpine.tmpl is only utilized
++This file /etc/cloud/templates/hosts.chimera.tmpl is only utilized
+ if enabled in cloud-config.  Specifically, in order to enable it
+ you need to add the following to config:
+   manage_etc_hosts: True
+@@ -8,17 +8,13 @@ you need to add the following to config:
+ # Your system has configured 'manage_etc_hosts' as True.
+ # As a result, if you wish for changes to this file to persist
+ # then you will need to either
+-# a.) make changes to the master file in /etc/cloud/templates/hosts.alpine.tmpl
++# a.) make changes to the master file in /etc/cloud/templates/hosts.chimera.tmpl
+ # b.) change or remove the value of 'manage_etc_hosts' in
+ #     /etc/cloud/cloud.cfg or cloud-config from user-data
+ #
+-# The following lines are desirable for IPv4 capable hosts
++
++127.0.0.1 {{fqdn}} {{hostname}}
+ 127.0.0.1 localhost.localdomain localhost
+-127.0.0.1 localhost4.localdomain4 localhost4
+-127.0.1.1 {{fqdn}} {{hostname}}
+ 
+-# The following lines are desirable for IPv6 capable hosts
++::1 {{fqdn}} {{hostname}}
+ ::1 localhost6.localdomain6 localhost6
+-
+-ff02::1 ip6-allnodes
+-ff02::2 ip6-allrouters
+diff --git a/tests/unittests/distros/test_chimera.py b/tests/unittests/distros/test_chimera.py
+index 2c8daae..da6365a 100644
+--- a/tests/unittests/distros/test_chimera.py
++++ b/tests/unittests/distros/test_chimera.py
+@@ -1,78 +1 @@
+ # This file is part of cloud-init. See LICENSE file for license information.
+-
+-from unittest import mock
+-
+-import pytest
+-
+-from cloudinit import distros, util
+-from tests.unittests.helpers import TestCase
+-
+-
+-class TestAlpineBusyboxUserGroup:
+-    @mock.patch("cloudinit.distros.alpine.subp.subp")
+-    @mock.patch("cloudinit.distros.subp.which", return_value=False)
+-    def test_busybox_add_group(self, m_which, m_subp):
+-        distro = distros.fetch("alpine")("alpine", {}, None)
+-
+-        group = "mygroup"
+-
+-        distro.create_group(group)
+-
+-        m_subp.assert_called_with(["addgroup", group])
+-
+-    @pytest.mark.usefixtures("fake_filesystem")
+-    @mock.patch("cloudinit.distros.alpine.subp.subp")
+-    @mock.patch("cloudinit.distros.subp.which", return_value=False)
+-    def test_busybox_add_user(self, m_which, m_subp, tmpdir):
+-        distro = distros.fetch("alpine")("alpine", {}, None)
+-
+-        shadow_file = tmpdir.join("/etc/shadow")
+-        shadow_file.dirpath().mkdir()
+-
+-        user = "me2"
+-
+-        # Need to place entry for user in /etc/shadow as
+-        # "adduser" is stubbed and so will not create it.
+-        root_entry = "root::19848:0:::::"
+-        shadow_file.write(
+-            root_entry + "\n" + user + ":!:19848:0:99999:7:::" + "\n"
+-        )
+-
+-        distro.shadow_fn = shadow_file
+-
+-        distro.add_user(user, lock_passwd=True)
+-
+-        m_subp.assert_called_with(["adduser", "-D", user])
+-
+-        contents = util.load_text_file(shadow_file)
+-        expected = root_entry + "\n" + user + ":!:19848::::::" + "\n"
+-
+-        assert contents == expected
+-
+-
+-class TestAlpineShadowUserGroup(TestCase):
+-    distro = distros.fetch("alpine")("alpine", {}, None)
+-
+-    @mock.patch("cloudinit.distros.alpine.subp.subp")
+-    @mock.patch(
+-        "cloudinit.distros.subp.which", return_value=("/usr/sbin/groupadd")
+-    )
+-    def test_shadow_add_group(self, m_which, m_subp):
+-        group = "mygroup"
+-
+-        self.distro.create_group(group)
+-
+-        m_subp.assert_called_with(["groupadd", group])
+-
+-    @mock.patch("cloudinit.distros.alpine.subp.subp")
+-    @mock.patch(
+-        "cloudinit.distros.subp.which", return_value=("/usr/sbin/useradd")
+-    )
+-    def test_shadow_add_user(self, m_which, m_subp):
+-        user = "me2"
+-
+-        self.distro.add_user(user)
+-
+-        m_subp.assert_called_with(
+-            ["useradd", user, "-m"], logstring=["useradd", user, "-m"]
+-        )

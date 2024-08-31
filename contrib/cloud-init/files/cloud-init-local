@@ -1,0 +1,4 @@
+type = scripted
+command = /usr/libexec/cloud-init.wrapper init --local
+depends-on = pre-local.target
+before = pre-network.target
