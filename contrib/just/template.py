@@ -1,5 +1,5 @@
 pkgname = "just"
-pkgver = "1.34.0"
+pkgver = "1.35.0"
 pkgrel = 0
 build_style = "cargo"
 # skip tests that fail when run outside of git repo
@@ -17,8 +17,8 @@ source = [
 ]
 source_paths = [".", "docs-prebuilt"]
 sha256 = [
-    "e9f16d28156e1a906f19b267b9fc7c8e47e8f9347c39a7095f0495d4034ce96e",
-    "42df46f7ce727bdb2c3b5357017d885bd2033e8dbb154ca8e8f229e75093aeca",
+    "f1ce3fe46c57cba0096227f8c9251d3b476e54e8a620eb39707d0ab3e16b8f55",
+    "c4172306e241bd175c07316156a610593fa2b687ac49418520a375605d7cead4",
 ]
 
 
