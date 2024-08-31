@@ -1,5 +1,5 @@
 pkgname = "wayland-protocols"
-pkgver = "1.36"
+pkgver = "1.37"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/wayland/wayland-protocols/-/archive/{pkgver}/wayland-protocols-{pkgver}.tar.gz"
-sha256 = "c839dd4325565fd59a93d6cde17335357328f66983c2e1fb03c33e92d6918b17"
+sha256 = "c3b215084eb4cf318415533554c2c2714e58ed75847d7c3a8e50923215ffbbf3"
 
 
 def post_install(self):
