@@ -26,7 +26,7 @@ makedepends = [
     "zlib-ng-devel",
 ]
 pkgdesc = "IRC bouncer with module support"
-maintainer = "jabuxas <lucasbarbieri.c@gmail.com>"
+maintainer = "jabuxas <jabuxas@proton.me>"
 license = "Apache-2.0"
 url = "https://znc.in"
 source = f"{url}/releases/znc-{pkgver}.tar.gz"
