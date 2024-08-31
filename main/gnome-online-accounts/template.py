@@ -1,6 +1,6 @@
 pkgname = "gnome-online-accounts"
 pkgver = "3.50.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dintrospection=true",
