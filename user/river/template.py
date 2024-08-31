@@ -1,7 +1,7 @@
 pkgname = "river"
 pkgver = "0.3.5"
 pkgrel = 0
-hostmakedepends = ["zig", "pkgconf"]
+hostmakedepends = ["zig", "pkgconf", "scdoc"]
 makedepends = [
     "wayland-devel",
     "wayland-protocols",
@@ -14,10 +14,10 @@ license = "GPL-3.0-or-later"
 url = "https://codeberg.org/river/river"
 source = [
     f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz",
-    f"https://codeberg.org/ifreund/zig-pixman/archive/v0.2.0.tar.gz > {pkgname}-{pkgver}-pixman.tar.gz",
-    f"https://codeberg.org/ifreund/zig-wayland/archive/v0.2.0.tar.gz > {pkgname}-{pkgver}-wayland.tar.gz",
-    f"https://codeberg.org/ifreund/zig-wlroots/archive/v0.18.0.tar.gz > {pkgname}-{pkgver}-wlroots.tar.gz",
-    f"https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.2.0.tar.gz > {pkgname}-{pkgver}-xkbcommon.tar.gz",
+    f"https://codeberg.org/ifreund/zig-pixman/archive/v0.2.0.tar.gz > {pkgname}-pixman-0.2.0.tar.gz",
+    f"https://codeberg.org/ifreund/zig-wayland/archive/v0.2.0.tar.gz > {pkgname}-wayland-0.2.0.tar.gz",
+    f"https://codeberg.org/ifreund/zig-wlroots/archive/v0.18.0.tar.gz > {pkgname}-wlroots-0.18.0.tar.gz",
+    f"https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.2.0.tar.gz > {pkgname}-xkbcommon-0.2.0.tar.gz",
 ]
 source_paths = [
     ".",
@@ -58,17 +58,30 @@ def build(self):
         "-Dpie",
         "-Doptimize=ReleaseSafe",
         "-Dxwayland",
+        "-Dman-pages",
         "--prefix",
         "zig_output",
     )
 
 
 def install(self):
-    self.install_bin("zig_output/bin/river")
-    self.install_bin("zig_output/bin/riverctl")
-    self.install_bin("zig_output/bin/rivertile")
+    from pathlib import Path
+
+    out = Path("zig_output")
+    out_bin = out / "bin"
+    out_share = out / "share"
+    for bin in ["river", "riverctl", "rivertile"]:
+        self.install_bin(out_bin / bin)
+        self.install_man(out_share / f"man/man1/{bin}.1")
     self.install_license("LICENSE")
     self.install_file(
-        "zig_output/share/river-protocols/river-layout-v3.xml",
+        out_share / "river-protocols/river-layout-v3.xml",
         dest="usr/share/river-protocols",
+    )
+    self.install_completion(out_share / "zsh/site-functions/_riverctl", "zsh")
+    self.install_completion(
+        out_share / "bash-completion/completions/riverctl", "bash"
+    )
+    self.install_completion(
+        out_share / "fish/vendor_completions.d/riverctl.fish", "fish"
     )
