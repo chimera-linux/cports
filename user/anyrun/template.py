@@ -1,5 +1,5 @@
 pkgname = "anyrun"
-pkgver = "0.0.0"
+pkgver = "0_git20240716"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
