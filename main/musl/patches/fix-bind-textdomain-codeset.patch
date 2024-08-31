@@ -1,0 +1,18 @@
+https://inbox.vuxu.org/musl/20161230222237.GR1555@brightrain.aerifal.cx/
+--
+diff --git a/src/locale/bind_textdomain_codeset.c b/src/locale/bind_textdomain_codeset.c
+index 5ebfd5e..240e83e 100644
+--- a/src/locale/bind_textdomain_codeset.c
++++ b/src/locale/bind_textdomain_codeset.c
+@@ -5,7 +5,9 @@
+ 
+ char *bind_textdomain_codeset(const char *domainname, const char *codeset)
+ {
+-	if (codeset && strcasecmp(codeset, "UTF-8"))
++	if (codeset && strcasecmp(codeset, "UTF-8")) {
+ 		errno = EINVAL;
+-	return NULL;
++		return 0;
++	}
++	return "UTF-8";
+ }
