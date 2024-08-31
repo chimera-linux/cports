@@ -22,7 +22,7 @@ makedepends = [
 ]
 depends = ["gtk+3", "libayatana-appindicator", "python-gobject", "python-pyxdg"]
 pkgdesc = "Adjusts the color temperature of the screen"
-maintainer = "jabuxas <lucasbarbieri.c@gmail.com>"
+maintainer = "jabuxas <jabuxas@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/chinstrap/gammastep"
 source = f"{url}/-/archive/v{pkgver}/gammastep-v{pkgver}.tar.gz"
