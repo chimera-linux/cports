@@ -1,6 +1,6 @@
 pkgname = "libplasma"
 pkgver = "6.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
 make_check_args = ["-E", "(bug485688test|dialognativetest)"]
@@ -47,6 +47,10 @@ hardening = ["vis"]
 
 @subpackage("libplasma-devel")
 def _(self):
-    self.depends += ["kpackage-devel"]
+    self.depends += [
+        "kpackage-devel",
+        "kwindowsystem-devel",
+        "qt6-qtdeclarative-devel",
+    ]
 
     return self.default_devel()
