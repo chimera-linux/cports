@@ -2715,7 +2715,7 @@ def _subpkg_install_list(self, lst):
 
 
 def _interp_url(pkg, url):
-    if not url.startswith("$("):
+    if not url.startswith("$(") and not url.startswith("!$("):
         return url
 
     import re
