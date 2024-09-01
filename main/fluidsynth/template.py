@@ -1,6 +1,6 @@
 pkgname = "fluidsynth"
 pkgver = "2.3.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DLIB_SUFFIX=",
@@ -24,13 +24,13 @@ license = "LGPL-2.1-or-later"
 url = "https://www.fluidsynth.org"
 source = f"https://github.com/FluidSynth/fluidsynth/archive/v{pkgver}.tar.gz"
 sha256 = "3340d73286b28fe6e5150fbe12648d4640e86c64c228878b572773bd08cac531"
-hardening = ["vis", "cfi"]
+# CFI: doesn't work (run drumstick-vpiano)
+hardening = ["vis", "!cfi"]
 
 
-@subpackage("libfluidsynth")
+@subpackage("fluidsynth-libs")
 def _(self):
-    self.subdesc = "runtime library"
-
+    self.provides = [self.with_pkgver("libfluidsynth")]
     return self.default_libs()
 
 
