@@ -63,4 +63,4 @@ def _(self):
         "pimcommon-devel",
         "kcompletion-devel",
     ]
-    return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])
+    return self.default_devel()

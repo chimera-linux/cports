@@ -29,4 +29,4 @@ sha256 = "36b77351b98bdd12cb2a703eb3f4c87b56a47f81bce12418c4d67412465ecbca"
 
 @subpackage("libkdepim-devel")
 def _(self):
-    return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])
+    return self.default_devel()

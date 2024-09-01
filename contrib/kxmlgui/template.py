@@ -39,4 +39,4 @@ hardening = ["vis"]
 def _(self):
     self.depends += ["kconfig-devel", "kconfigwidgets-devel"]
 
-    return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])
+    return self.default_devel()

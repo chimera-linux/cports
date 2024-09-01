@@ -46,4 +46,4 @@ sha256 = "64b80602e84b25e9164620af3f6341fa865b85e826ab8f5e02061ae24a277b20"
 @subpackage("ktextaddons-devel")
 def _(self):
     self.depends += ["kconfigwidgets-devel"]
-    return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])
+    return self.default_devel()

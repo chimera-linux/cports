@@ -24,4 +24,4 @@ sha256 = "021697c4d42002fad49db0d283552a2b40e81f968763d87b3ad47ec3f580d943"
 @subpackage("kplotting-devel")
 def _(self):
     self.depends += ["qt6-qtbase-devel"]
-    return self.default_devel(extra=["usr/lib/qt6/plugins/designer"])
+    return self.default_devel()
