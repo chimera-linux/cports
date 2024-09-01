@@ -1,0 +1,11 @@
+--- a/library/rt-backends/eassynth/filewrapper.h
++++ b/library/rt-backends/eassynth/filewrapper.h
+@@ -36,7 +36,7 @@
+ 
+ private:
+     bool m_ok;
+-    off64_t m_Base;
++    off_t m_Base;
+     int64_t  m_Length;
+     EAS_FILE m_easFile;
+     QFile m_file;
