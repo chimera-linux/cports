@@ -1,16 +1,16 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index d6df45f..3c9f306 100644
+index 11f640b..8bc7aa1 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -765,15 +765,6 @@ version = "0.7.2"
+@@ -701,15 +701,6 @@ version = "0.7.2"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "1462739cb27611015575c0c11df5df7601141071f07518d56fcc1be504cbec97"
  
 -[[package]]
 -name = "cmake"
--version = "0.1.50"
+-version = "0.1.51"
 -source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "a31c789563b815f77f4250caee12365734369f942439b7defd71e18a48197130"
+-checksum = "fb1e43aa7fd152b1f968787f7dbcdeb306d1867ff373c69955211876c053f91a"
 -dependencies = [
 - "cc",
 -]
@@ -18,7 +18,7 @@ index d6df45f..3c9f306 100644
  [[package]]
  name = "codspeed"
  version = "2.6.0"
-@@ -1263,7 +1254,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -1199,7 +1190,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "324a1be68054ef05ad64b861cc9eaf1d623d2d8cb25b4bf2cb9cdd902b4bf253"
  dependencies = [
   "crc32fast",
@@ -27,7 +27,7 @@ index d6df45f..3c9f306 100644
   "miniz_oxide 0.8.0",
  ]
  
-@@ -2055,13 +2046,14 @@ dependencies = [
+@@ -1983,13 +1974,14 @@ dependencies = [
  ]
  
  [[package]]
@@ -47,7 +47,7 @@ index d6df45f..3c9f306 100644
  ]
  
  [[package]]
-@@ -3994,26 +3986,6 @@ dependencies = [
+@@ -3954,26 +3946,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -74,7 +74,7 @@ index d6df45f..3c9f306 100644
  [[package]]
  name = "tiny-skia"
  version = "0.8.4"
-@@ -4535,7 +4507,6 @@ dependencies = [
+@@ -4495,7 +4467,6 @@ dependencies = [
   "tempfile",
   "textwrap",
   "thiserror",
@@ -82,7 +82,7 @@ index d6df45f..3c9f306 100644
   "tokio",
   "toml",
   "tracing",
-@@ -4768,7 +4739,6 @@ dependencies = [
+@@ -4731,7 +4702,6 @@ dependencies = [
   "serde_json",
   "tagu",
   "textwrap",
@@ -90,7 +90,7 @@ index d6df45f..3c9f306 100644
   "tokio",
   "tracing",
   "tracing-durations-export",
-@@ -5304,6 +5274,12 @@ version = "0.1.0"
+@@ -5272,6 +5242,12 @@ version = "0.1.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
  
@@ -104,18 +104,19 @@ index d6df45f..3c9f306 100644
  name = "version_check"
  version = "0.9.5"
 diff --git a/crates/uv-dev/Cargo.toml b/crates/uv-dev/Cargo.toml
-index 3549bdb..105056e 100644
+index a7a740a..b549c47 100644
 --- a/crates/uv-dev/Cargo.toml
 +++ b/crates/uv-dev/Cargo.toml
-@@ -64,8 +64,6 @@ walkdir = { workspace = true }
+@@ -64,9 +64,6 @@ walkdir = { workspace = true }
  [target.'cfg(target_os = "windows")'.dependencies]
  mimalloc = { version = "0.1.39" }
  
 -[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
 -tikv-jemallocator = { version = "0.6.0" }
- 
- [features]
- default = []
+-
+ [[bin]]
+ name = "uv-dev"
+ # We don't want to build the dev CLI by default, so we skip it by requiring an off-by-default feature
 diff --git a/crates/uv-dev/src/main.rs b/crates/uv-dev/src/main.rs
 index 7530167..37ec98e 100644
 --- a/crates/uv-dev/src/main.rs
@@ -140,19 +141,20 @@ index 7530167..37ec98e 100644
  mod clear_compile;
  mod compile;
 diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
-index 84f5459..f004d22 100644
+index f4f2f7d..bd4c288 100644
 --- a/crates/uv/Cargo.toml
 +++ b/crates/uv/Cargo.toml
-@@ -78,8 +78,6 @@ which = { workspace = true }
+@@ -78,9 +78,6 @@ which = { workspace = true }
  [target.'cfg(target_os = "windows")'.dependencies]
  mimalloc = { version = "0.1.39" }
  
 -[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
 -tikv-jemallocator = { version = "0.6.0" }
- 
+-
  [dev-dependencies]
  assert_cmd = { version = "2.0.14" }
-@@ -102,7 +100,7 @@ zip = { workspace = true }
+ assert_fs = { version = "1.1.0" }
+@@ -102,7 +99,7 @@ zip = { workspace = true }
  ignored = ["flate2"]
  
  [features]
@@ -162,7 +164,7 @@ index 84f5459..f004d22 100644
  python = []
  # Introduces a dependency on a local Python installation with specific patch versions.
 diff --git a/crates/uv/src/lib.rs b/crates/uv/src/lib.rs
-index 606e621..7b61387 100644
+index e9535db..ad8e40d 100644
 --- a/crates/uv/src/lib.rs
 +++ b/crates/uv/src/lib.rs
 @@ -38,18 +38,6 @@ use crate::settings::{
