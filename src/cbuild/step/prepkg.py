@@ -15,7 +15,5 @@ def _invoke_prepkg(pkg):
 
 
 def invoke(pkg):
-    template.call_pkg_hooks(pkg, "pkg")
-
     for sp in pkg.subpkg_all:
         _invoke_prepkg(sp)
