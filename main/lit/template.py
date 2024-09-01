@@ -1,4 +1,4 @@
-pkgname = "python-lit"
+pkgname = "lit"
 pkgver = "18.1.8"
 pkgrel = 0
 build_style = "python_pep517"
@@ -10,6 +10,7 @@ hostmakedepends = [
 depends = [
     "cmd:FileCheck!llvm-tools",
     "cmd:not!llvm-tools",
+    "python",
 ]
 pkgdesc = "Software testing tool from LLVM"
 maintainer = "psykose <alice@ayaya.dev>"
