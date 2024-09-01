@@ -1,6 +1,6 @@
 pkgname = "wpaperd"
 pkgver = "1.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = [
     "cargo-auditable",
@@ -25,7 +25,15 @@ def post_build(self):
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/wpaperd")
-    self.install_bin(f"target/{self.profile().triplet}/release/wpaperctl")
     self.install_license("LICENSE.md")
     self.install_man("wpaperd-output.5")
+    with self.pushd(f"target/{self.profile().triplet}/release"):
+        self.install_bin("wpaperd")
+        self.install_bin("wpaperctl")
+        with self.pushd("completions"):
+            self.install_completion("wpaperd.bash", "bash")
+            self.install_completion("wpaperd.fish", "fish")
+            self.install_completion("_wpaperd", "zsh")
+            self.install_completion("wpaperctl.bash", "bash", "wpaperctl")
+            self.install_completion("_wpaperctl", "zsh", "wpaperctl")
+            self.install_completion("wpaperctl.fish", "fish", "wpaperctl")
