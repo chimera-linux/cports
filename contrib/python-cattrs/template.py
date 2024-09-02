@@ -1,5 +1,5 @@
 pkgname = "python-cattrs"
-pkgver = "23.2.3"
+pkgver = "24.1.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -20,7 +20,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://catt.rs/en/stable"
 source = f"$(PYPI_SITE)/c/cattrs/cattrs-{pkgver}.tar.gz"
-sha256 = "a934090d95abaa9e911dac357e3a8699e0b4b14f8529bcc7d2b1ad9d51672b9f"
+sha256 = "8274f18b253bf7674a43da851e3096370d67088165d23138b04a1c04c8eaf48e"
 
 
 def init_check(self):
@@ -29,9 +29,13 @@ def init_check(self):
         "--benchmark-skip",
         "--dist=worksteal",
         # python-immutables
+        "--ignore=tests/test_cols.py",
         "--ignore=tests/test_unstructure_collections.py",
+        # python-msgspec
+        "--ignore=tests/preconf/test_msgspec_cpython.py",
         # python-bson
         "--ignore=tests/test_preconf.py",
+        "--ignore=tests/preconf/test_pyyaml.py",
     ]
 
 
