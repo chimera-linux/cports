@@ -1,6 +1,6 @@
 pkgname = "inkscape"
 pkgver = "1.3.2"
-pkgrel = 12
+pkgrel = 13
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
