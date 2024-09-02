@@ -1,7 +1,7 @@
 pkgname = "poppler-qt"
-pkgver = "24.08.0"
+pkgver = "24.09.0"
 _test_commit = "ff3133cdb6cb496ee1d2c3231bfa35006a5e8410"
-pkgrel = 1
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DENABLE_CPP=OFF",
@@ -45,7 +45,7 @@ source_paths = [
     "testdata",
 ]
 sha256 = [
-    "97453fbddf0c9a9eafa0ea45ac710d3d49bcf23a62e864585385d3c0b4403174",
+    "ebd857987e2395608c69fdc44009692d5906f13b612c5280beff65a0b75dc255",
     "98a06e7dd7619fe20bfd99505a31993dbe40517678d81278e6395a30a40f03bf",
 ]
 # check_qt6_goostring crashes
