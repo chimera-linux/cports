@@ -506,6 +506,7 @@ def _(self):
 @subpackage("libreoffice-common")
 def _(self):
     self.subdesc = "common files"
+    self.options = ["!lintcomp"]
 
     # we don't use the list, just take all remaining files at the end
     return ["usr"]
