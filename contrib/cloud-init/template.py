@@ -171,7 +171,7 @@ def post_install(self):
     self.uninstall("lib/systemd")
 
     # move udev rules that get put in wrong place
-    self.mv(self.destdir / "lib/udev", self.destdir / "usr/lib")
+    self.rename("lib/udev", "usr/lib/udev", relative=False)
 
     # irrelevant modules
     for mod in [
