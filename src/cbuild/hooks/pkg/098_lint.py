@@ -76,6 +76,8 @@ def _lint_nucomp(pkg):
 
 
 def _lint_comp(pkg):
+    if not pkg.options["lintcomp"]:
+        return
     if pkg.pkgname.endswith("-bashcomp"):
         _lint_bashcomp(pkg)
     elif pkg.pkgname.endswith("-zshcomp"):

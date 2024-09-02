@@ -1842,6 +1842,8 @@ for subpackages separately if needed:
   pattern list to restrict the set.
 * `hardlinks` *(false)* Normally, multiple hardlinks are detected and errored
   on. By enabling this, you allow packages with hardlinks to build.
+* `lintcomp` *(true)* If enabled, shell completion commands get checked to see
+  if they resolve to a matching command.
 * `lintstatic` *(true)* Normally, static libraries are not allowed to be in
   the main package. In specific rare cases, this may be overridden.
 * `scantrigdeps` *(true)* This specifies whether trigger dependencies should

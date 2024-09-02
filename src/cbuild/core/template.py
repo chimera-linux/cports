@@ -462,6 +462,7 @@ default_options = {
     "brokenlinks": (False, False),
     "hardlinks": (False, False),
     "autosplit": (True, False),
+    "lintcomp": (True, False),
     "lintstatic": (True, False),
     "distlicense": (True, False),
     "empty": (False, False),
