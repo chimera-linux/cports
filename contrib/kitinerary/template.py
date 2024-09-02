@@ -2,8 +2,9 @@ pkgname = "kitinerary"
 pkgver = "24.08.0"
 pkgrel = 1
 build_style = "cmake"
-# difference in AT/österreich key
-make_check_args = ["-E", "extractortest"]
+# extractortest: difference in AT/österreich key
+# knowledgedbtest: flaky SIBBUS crash in ki18n IsoCodesCache::subdivisionCount from accessing cache (weird pointer stuff)
+make_check_args = ["-E", "(extractortest|knowledgedbtest)"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
