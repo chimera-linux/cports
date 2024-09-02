@@ -1,6 +1,6 @@
 pkgname = "openssh"
 pkgver = "9.8_p1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--datadir=/usr/share/openssh",
@@ -13,6 +13,7 @@ configure_args = [
     "--with-mantype=doc",
     "--with-pam",
     "--with-libedit",
+    "--with-kerberos5",
     "--with-pid-dir=/run",
     "--with-privsep-user=nobody",
     "--with-privsep-path=/var/chroot/ssh",
@@ -29,6 +30,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "heimdal-devel",
     "libedit-devel",
     "libfido2-devel",
     "libldns-devel",
