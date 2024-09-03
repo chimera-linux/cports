@@ -1,5 +1,5 @@
 pkgname = "lua5.4-luasystem"
-pkgver = "0.4.2"
+pkgver = "0.4.4"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "http://lunarmodules.github.io/luasystem"
 source = f"https://github.com/lunarmodules/luasystem/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cb332a755f478609d679f112e1e97f0685ff8b046d83fcb4081b63fc65518188"
+sha256 = "d20786035f5d5a9ab3555813a3e495516efeba32909007ca0155a73d7695ee4a"
 # no tests
 options = ["!check"]
 
