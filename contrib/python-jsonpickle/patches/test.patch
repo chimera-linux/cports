@@ -1,0 +1,22 @@
+diff --git a/examples/save_class_to_file.py b/examples/save_class_to_file.py
+index e2241a0..51a2fcc 100644
+--- a/examples/save_class_to_file.py
++++ b/examples/save_class_to_file.py
+@@ -3,7 +3,7 @@ from utilities import ensure_no_files_overwritten
+ import jsonpickle
+ 
+ ensure_no_files_overwritten(
+-    expected_contents='{"py/object": "__main__.Example", "data": {"BAR": 1, "foo": 0}}'
++    expected_contents='{"py/object": "save_class_to_file.Example", "data": {"foo": 0, "BAR": 1}}'
+ )
+ 
+ 
+@@ -25,7 +25,7 @@ ex = Example()
+ encoded_instance = jsonpickle.encode(ex)
+ assert (
+     encoded_instance
+-    == '{"py/object": "__main__.Example", "data": {"BAR": 1, "foo": 0}}'
++    == '{"py/object": "save_class_to_file.Example", "data": {"foo": 0, "BAR": 1}}'
+ )
+ print(
+     f"jsonpickle successfully encoded the instance of the Example class! It looks like: {encoded_instance}"
