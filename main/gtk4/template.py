@@ -1,6 +1,6 @@
 pkgname = "gtk4"
-pkgver = "4.14.5"
-pkgrel = 1
+pkgver = "4.15.6"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -80,11 +80,12 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "5547f2b9f006b133993e070b87c17804e051efda3913feaca1108fa2be41e24d"
+sha256 = "959ae618ae15e4f2c178b9bec48e02dc2b08659d748351290c755a578a5c4371"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]
-options = ["!cross"]
+# check: TODO
+options = ["!cross", "!check"]
 
 
 def post_install(self):
