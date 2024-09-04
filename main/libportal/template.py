@@ -1,3 +1,4 @@
+# update contrib/libportal-qt6 too
 pkgname = "libportal"
 pkgver = "0.8.0"
 pkgrel = 0
