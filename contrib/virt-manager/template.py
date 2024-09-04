@@ -52,6 +52,7 @@ depends = [
     "gtksourceview4",
     "libvirt-glib",
     "spice-gtk",
+    "virglrenderer",
     "vte-gtk3",
 ]
 checkdepends = ["python-pytest", *_deps]
