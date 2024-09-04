@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-installer",
     "python-wheel",
 ]
-depends = ["python-certifi"]
+depends = ["mutagen", "python-certifi"]
 checkdepends = [
     "python-brotli",
     "python-pytest-xdist",
