@@ -1,0 +1,10 @@
+--- a/meson.build
++++ b/meson.build
+@@ -1,6 +1,6 @@
+ project(
+   'eog', 'c',
+-  version: '47.beta',
++  version: '47.0',
+   license: 'GPL2+',
+   default_options: 'buildtype=debugoptimized',
+   meson_version: '>= 0.58.0',

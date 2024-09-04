@@ -1,5 +1,5 @@
 pkgname = "eog"
-pkgver = "45.4"
+pkgver = "47_beta"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true"]
@@ -31,8 +31,8 @@ pkgdesc = "GNOME image viewer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/EyeOfGnome"
-source = f"$(GNOME_SITE)/eog/{pkgver[:-2]}/eog-{pkgver}.tar.xz"
-sha256 = "b50f321c70ac64af7bcaa5b4460dc675b3ca60fdad385616f3ac7b770e0666fe"
+source = f"$(GNOME_SITE)/eog/{pkgver[:2]}/eog-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "5ce2f230032497e9c4bd1ec05a6f5f18c61567b58cc8033b1a7e48b09a8a0e27"
 options = ["!cross"]
 
 
