@@ -1,0 +1,11 @@
+diff --git a/meson.build b/meson.build
+index df3fc06..c33c471 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('libadwaita', 'c',
+-          version: '1.6.rc',
++          version: '1.6.0',
+           license: 'LGPL-2.1-or-later',
+     meson_version: '>= 0.59.0',
+   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],
