@@ -1,5 +1,5 @@
 pkgname = "python-numpy"
-pkgver = "2.1.0"
+pkgver = "2.1.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_args = []
@@ -21,7 +21,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
-sha256 = "7dc90da0081f7e1da49ec4e398ede6a8e9cc4f5ebe5f9e06b443ed889ee9aaa2"
+sha256 = "d0cf7d55b1051387807405b3898efafa862997b4cba8aa5dbe657be794afeafd"
 hardening = ["!int"]
 
 if self.profile().arch == "aarch64":
