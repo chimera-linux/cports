@@ -1,6 +1,6 @@
 pkgname = "ruff"
 pkgver = "0.6.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
