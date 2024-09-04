@@ -1,6 +1,6 @@
 pkgname = "gnome-console"
 pkgver = "46.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
     "meson",
