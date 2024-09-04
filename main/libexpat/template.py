@@ -1,5 +1,5 @@
 pkgname = "libexpat"
-pkgver = "2.6.2"
+pkgver = "2.6.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-examples"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/libexpat/libexpat/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"
-sha256 = "ee14b4c5d8908b1bec37ad937607eab183d4d9806a08adee472c3c3121d27364"
+sha256 = "274db254a6979bde5aad404763a704956940e465843f2a9bd9ed7af22e2c0efc"
 # CFI: crash reproducible e.g. with graphene build
 hardening = ["vis", "!cfi"]
 
