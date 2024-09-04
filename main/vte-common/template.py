@@ -1,5 +1,5 @@
 pkgname = "vte-common"
-pkgver = "0.77.92"
+pkgver = "0.76.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -37,9 +37,10 @@ subdesc = "common files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal/VTE"
-#f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
-source = f"$(GNOME_SITE)/vte/{pkgver[:4]}/vte-{pkgver}.tar.xz"
-sha256 = "fc90138274afb3ddda3cdad12d9c59a3384206999df54eb0e2011f0eb07f6b0f"
+source = (
+    f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
+)
+sha256 = "88979af0b02bac3c6d0bc95fcbeaf0ee025a7fc7a5b127155188b90718af0e78"
 # assert in meson
 options = ["!lto", "!cross"]
 
