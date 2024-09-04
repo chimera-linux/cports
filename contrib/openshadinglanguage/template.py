@@ -1,6 +1,6 @@
 pkgname = "openshadinglanguage"
-pkgver = "1.13.10.0"
-pkgrel = 3
+pkgver = "1.13.11.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_CXX_STANDARD=17",
@@ -48,7 +48,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "302f573d21c700d859fb36497d377656cb51213309d95bebda941bb0993a7f42"
+sha256 = "e448f983049038bb5a611c4fb902d839296c22d3ef221b38e53a14b40ce187a7"
 # set in rel
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 # CFI: instantly crashes
