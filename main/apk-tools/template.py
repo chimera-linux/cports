@@ -76,7 +76,7 @@ def post_configure(self):
 def post_build(self):
     if self.stage == 0:
         return
-    self.do("ninja", f"-j{self.make_jobs}", "-C", "build-static")
+    self.do("ninja", f"-j{self.make_jobs}", "-C", "build-static", "src/apk")
 
 
 def post_install(self):
