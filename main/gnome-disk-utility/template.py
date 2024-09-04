@@ -1,29 +1,29 @@
 pkgname = "gnome-disk-utility"
-pkgver = "46.0"
+pkgver = "46.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlogind=libelogind"]
 hostmakedepends = [
+    "desktop-file-utils",
+    "docbook-xsl-nons",
+    "gettext",
+    "glib-devel",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
     "xsltproc",
-    "docbook-xsl-nons",
-    "desktop-file-utils",
 ]
 makedepends = [
-    "libdvdread-devel",
+    "elogind-devel",
     "glib-devel",
     "gtk+3-devel",
+    "libcanberra-devel",
+    "libdvdread-devel",
     "libhandy-devel",
-    "xz-devel",
     "libnotify-devel",
+    "libpwquality-devel",
     "libsecret-devel",
     "udisks-devel",
-    "libpwquality-devel",
-    "elogind-devel",
-    "libcanberra-devel",
+    "xz-devel",
 ]
 depends = ["udisks"]
 pkgdesc = "GNOME disk drive and media management"
@@ -31,4 +31,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Disks"
 source = f"$(GNOME_SITE)/gnome-disk-utility/{pkgver[:-2]}/gnome-disk-utility-{pkgver}.tar.xz"
-sha256 = "464649148c6d6771f1ac2ebfe43a4e519205b11c2d914a09f2a001821d06957d"
+sha256 = "c24e9439a04d70bcfae349ca134c7005435fe2b6f452114df878bff0b89bbffe"
