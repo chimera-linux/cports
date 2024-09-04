@@ -30,7 +30,7 @@ depends = [
     "mutter",
     "nautilus",
     "tinysparql",
-    "tracker-miners",
+    "localsearch",
     "xdg-desktop-portal-gnome",
     "xdg-user-dirs-gtk",
     "yelp",

@@ -1,11 +1,10 @@
-pkgname = "tracker-miners"
-pkgver = "3.7.3"
-pkgrel = 3
+pkgname = "localsearch"
+pkgver = "3.8_rc"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
     "-Ddefault_library=shared",
-    "-Dtracker_core=system",
     "-Dextract=true",
     "-Dfunctional_tests=false",
     "-Dman=true",
@@ -29,6 +28,7 @@ configure_args = [
     "-Diso=enabled",
 ]
 hostmakedepends = [
+    "gobject-introspection",
     "meson",
     "pkgconf",
     "glib-devel",
@@ -62,14 +62,14 @@ makedepends = [
     "libiptcdata-devel",
     "libosinfo-devel",
 ]
-pkgdesc = "Data miners for tracker"
+# transitional
+provides = [self.with_pkgver("tracker-miners")]
+pkgdesc = "Data miners for GNOME LocalSearch"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
-url = "https://gnome.pages.gitlab.gnome.org/tracker"
-source = (
-    f"$(GNOME_SITE)/tracker-miners/{pkgver[:-2]}/tracker-miners-{pkgver}.tar.xz"
-)
-sha256 = "e74388154b5c197b4b7ee42f0dce8c5fbbddd4d361093ef88d4fb303e33da5fe"
+url = "https://gnome.pages.gitlab.gnome.org/localsearch"
+source = f"$(GNOME_SITE)/localsearch/{pkgver[:3]}/localsearch-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "d859df53024f6a26db888d92cccf12b973e1a2cf1d106dd737b253650a4306a4"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]
