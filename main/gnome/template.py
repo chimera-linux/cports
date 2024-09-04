@@ -29,7 +29,7 @@ depends = [
     "gvfs",
     "mutter",
     "nautilus",
-    "tracker",
+    "tinysparql",
     "tracker-miners",
     "xdg-desktop-portal-gnome",
     "xdg-user-dirs-gtk",

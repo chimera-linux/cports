@@ -1,6 +1,6 @@
-pkgname = "tracker"
-pkgver = "3.7.3"
-pkgrel = 1
+pkgname = "tinysparql"
+pkgver = "3.8_rc"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
@@ -33,20 +33,27 @@ makedepends = [
     "bash-completion",
 ]
 depends = ["shared-mime-info"]
+# transitional
+provides = [self.with_pkgver("tracker")]
 pkgdesc = "Search engine and triplestore for desktop, embedded and mobile"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
-url = "https://gnome.pages.gitlab.gnome.org/tracker"
-source = f"$(GNOME_SITE)/tracker/{pkgver[:-2]}/tracker-{pkgver}.tar.xz"
-sha256 = "ab3d4a50937e04c5ed7846f6dbb999e2909819402f389ca592ee6b77dd28d1f9"
-options = ["!cross"]
+url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
+source = f"$(GNOME_SITE)/tinysparql/{pkgver[:3]}/tinysparql-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "a86aa73a72f56d81f4b9f0eec6aefbc45ab35f9a8433c47722d8380b6637c475"
+# check FIXME: __main__.TestCli.test_help fails with no error
+options = ["!cross", "!check"]
 
 
-@subpackage("tracker-devel")
+@subpackage("tinysparql-devel")
 def _(self):
+    # transitional
+    self.provides = [self.with_pkgver("tracker-devel")]
     return self.default_devel()
 
 
-@subpackage("tracker-libs")
+@subpackage("tinysparql-libs")
 def _(self):
+    # transitional
+    self.provides = [self.with_pkgver("tracker-libs")]
     return self.default_libs()

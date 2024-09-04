@@ -1,6 +1,6 @@
 pkgname = "grilo-plugins"
 pkgver = "0.3.16"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     # TODO: libgdata if/when it moves off libsoup2
@@ -32,7 +32,7 @@ makedepends = [
     "lua5.4-devel",
     "sqlite-devel",
     "totem-pl-parser-devel",
-    "tracker-devel",
+    "tinysparql-devel",
 ]
 checkdepends = ["gst-plugins-good"]
 pkgdesc = "Collection of plugins for Grilo"

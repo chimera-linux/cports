@@ -1,0 +1,11 @@
+diff --git a/meson.build b/meson.build
+index 41c00fa..0f7db75 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('tinysparql', 'c',
+-        version: '3.8.rc',
++        version: '3.8.0',
+         meson_version: '>=0.62',
+         default_options: [
+           'c_std=c99',

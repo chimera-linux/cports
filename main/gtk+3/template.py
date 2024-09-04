@@ -1,6 +1,6 @@
 pkgname = "gtk+3"
 pkgver = "3.24.43"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dbroadway_backend=true",
@@ -45,7 +45,7 @@ makedepends = [
     "libxrandr-devel",
     "mesa-devel",
     "pango-devel",
-    "tracker-devel",
+    "tinysparql-devel",
     "wayland-devel",
     "wayland-protocols",
 ]

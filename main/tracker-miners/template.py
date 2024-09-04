@@ -37,7 +37,7 @@ hostmakedepends = [
     "xsltproc",
 ]
 makedepends = [
-    "tracker-devel",
+    "tinysparql-devel",
     "glib-devel",
     "dbus-devel",
     "gstreamer-devel",
