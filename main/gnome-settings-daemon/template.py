@@ -1,6 +1,6 @@
 pkgname = "gnome-settings-daemon"
-pkgver = "46.0"
-pkgrel = 1
+pkgver = "47_rc"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
@@ -57,8 +57,8 @@ pkgdesc = "GNOME settings daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
-source = f"$(GNOME_SITE)/gnome-settings-daemon/{pkgver[:-2]}/gnome-settings-daemon-{pkgver}.tar.xz"
-sha256 = "0b9a0f64fa18a8e7e09b4c95a3f754fa033c2cdbd2dc35701f0618572c1cb3d7"
+source = f"$(GNOME_SITE)/gnome-settings-daemon/{pkgver[:2]}/gnome-settings-daemon-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "0da62fd81ac0a2555811f9ac918a18dc675ca9271a0f063dbd350779ca55fc98"
 tool_flags = {"CFLAGS": ["-UG_DISABLE_ASSERT"]}
 # wants xvfb
 options = ["!check"]

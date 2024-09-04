@@ -1,0 +1,108 @@
+From e7d890ea53b994d80ae14f41a9db01eaad3621bc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@gmail.com>
+Date: Thu, 5 Sep 2024 09:53:33 +0200
+Subject: [PATCH] power/backlight: Make backlight backend explicit
+
+Mutter changes the backlight property on VT switches and monitor
+reconfigurations, to tell us both whether there are any controllable
+backlight, or if there is any backlight to potentially control from
+somewhere else. If we control the backlight via e.g. sysfs/udev,
+such a signal emission would inadvertently reset the backlight because
+we'd think we went from having controllable backlight to not having it,
+which isn't true if that backlight was controlled via sysfs.
+
+Handle this by making the backend in control of the backlight explicit,
+and only attempt to reset the backlight fields on mutter signal
+notifications, if the mutter backlight backend is used.
+
+Closes: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/818
+Patch-Source: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/merge_requests/382
+---
+ plugins/power/gsd-backlight.c | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/plugins/power/gsd-backlight.c b/plugins/power/gsd-backlight.c
+index e80537550..874875365 100644
+--- a/plugins/power/gsd-backlight.c
++++ b/plugins/power/gsd-backlight.c
+@@ -31,6 +31,13 @@
+ #include <gudev/gudev.h>
+ #endif /* __linux__ */
+ 
++typedef enum
++{
++        BACKLIGHT_BACKEND_NONE = 0,
++        BACKLIGHT_BACKEND_UDEV,
++        BACKLIGHT_BACKEND_MUTTER,
++} BacklightBackend;
++
+ struct _GsdBacklight
+ {
+         GObject object;
+@@ -44,6 +51,8 @@ struct _GsdBacklight
+         uint32_t backlight_serial;
+         char *backlight_connector;
+ 
++        BacklightBackend backend;
++
+ #ifdef __linux__
+         GDBusProxy *logind_proxy;
+ 
+@@ -264,6 +273,8 @@ gsd_backlight_udev_init (GsdBacklight *backlight)
+                                  G_CALLBACK (gsd_backlight_udev_uevent),
+                                  backlight, 0);
+ 
++        backlight->backend = BACKLIGHT_BACKEND_UDEV;
++
+         return TRUE;
+ }
+ 
+@@ -463,7 +474,7 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
+         task = g_task_new (backlight, cancellable, callback, user_data);
+ 
+ #ifdef __linux__
+-        if (backlight->udev_device != NULL) {
++        if (backlight->backend == BACKLIGHT_BACKEND_UDEV) {
+                 BacklightHelperData *task_data;
+ 
+                 if (backlight->logind_proxy) {
+@@ -496,6 +507,8 @@ gsd_backlight_set_brightness_val_async (GsdBacklight *backlight,
+ #endif /* __linux__ */
+ 
+         /* Fallback to setting via DisplayConfig (mutter) */
++        g_assert (backlight->backend == BACKLIGHT_BACKEND_MUTTER);
++
+         monitor = gsd_backlight_mutter_find_monitor (backlight, TRUE);
+         if (monitor) {
+                 GsdDisplayConfig *display_config =
+@@ -784,10 +797,11 @@ update_mutter_backlight (GsdBacklight *backlight)
+                         g_variant_lookup (monitor, "min", "i", &backlight->brightness_min);
+                         g_variant_lookup (monitor, "max", "i", &backlight->brightness_max);
+                         have_backlight = TRUE;
++                        backlight->backend = BACKLIGHT_BACKEND_MUTTER;
+                 }
+         }
+ 
+-        if (!have_backlight) {
++        if (!have_backlight && backlight->backend == BACKLIGHT_BACKEND_MUTTER) {
+                 backlight->brightness_val = -1;
+                 backlight->brightness_min = -1;
+                 backlight->brightness_max = -1;
+@@ -876,11 +890,13 @@ gsd_backlight_initable_init (GInitable       *initable,
+         }
+ 
+         /* Try finding a udev device. */
+-        if (gsd_backlight_udev_init (backlight))
++        if (gsd_backlight_udev_init (backlight)) {
++                g_assert (backlight->backend == BACKLIGHT_BACKEND_UDEV);
+                 goto found;
++        }
+ #endif /* __linux__ */
+ 
+-        if (backlight->backlight_connector) {
++        if (backlight->backend == BACKLIGHT_BACKEND_MUTTER) {
+                 g_debug ("Using DisplayConfig (mutter) for backlight.");
+                 goto found;
+         }
+-- 
+GitLab
