@@ -1,12 +1,13 @@
 pkgname = "gnome-online-accounts"
-pkgver = "3.50.4"
-pkgrel = 2
+pkgver = "3.51.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dintrospection=true",
     "-Dvapi=true",
     "-Dman=true",
     "-Dkerberos=true",
+    "-Ddocumentation=false",
 ]
 hostmakedepends = [
     "meson",
@@ -24,6 +25,7 @@ makedepends = [
     "gcr-devel",
     "gtk4-devel",
     "heimdal-devel",
+    "keyutils-devel",
     "webkitgtk-devel",
     "json-glib-devel",
     "libadwaita-devel",
@@ -37,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
 source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-2]}/gnome-online-accounts-{pkgver}.tar.xz"
-sha256 = "30ca13038cd7a69d5b6b2d53643fba6548d1712b925f0c216f3133c36cbf7773"
+sha256 = "5cc9e557b74694bb55c53a33570e146450b6cef3d1c9a414de3a0c7070a90bf5"
 options = ["!cross"]
 
 
