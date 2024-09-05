@@ -1,0 +1,11 @@
+diff --git a/meson.build b/meson.build
+index a5478e4..12cc01d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('gnome-calculator', ['c', 'vala'],
+-  version: '47.rc',
++  version: '47.0',
+   meson_version: '>= 0.57.0',
+   license: 'GPLv3+',
+ )
