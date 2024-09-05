@@ -1,0 +1,25 @@
+--- a/src/meson.build	2024-07-29 18:41:10.000000000 -0300
++++ b/src/meson.build	2024-09-05 12:47:17.284826436 -0300
+@@ -31,7 +31,6 @@
+   message('Building in debug mode')
+ endif
+ 
+-cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+ 
+ cargo_build = custom_target(
+   'cargo-build',
+@@ -39,14 +38,8 @@
+   build_always_stale: true,
+   output: base_id,
+   console: true,
+-  install: true,
+-  install_dir: bindir,
+   command: [
+-    'env',
+-    cargo_env,
+     cargo, 'build',
+     cargo_options,
+-    '&&',
+-    'cp', 'src' / rust_target / 'news_flash_gtk', '@OUTPUT@',
+   ]
+ )
