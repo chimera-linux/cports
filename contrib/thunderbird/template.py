@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "128.1.1"
+pkgver = "128.2.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -58,7 +58,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}esr/source/thunderbird-{pkgver}esr.source.tar.xz"
-sha256 = "178eb13d4841e842a542870589e7c13c388431892c110374aa41176079884632"
+sha256 = "ca67c2b8648527548788848b94c80227be681f6262ca518114f787fb2180f6e1"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
