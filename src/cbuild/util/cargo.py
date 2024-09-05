@@ -31,9 +31,7 @@ def get_environment(pkg, jobs=None):
         # libssh2-sys
         "LIBSSH2_SYS_USE_PKG_CONFIG": "1",
         # sodium-sys
-        "SODIUM_LIB_DIR": str(sroot / "usr/lib"),
-        "SODIUM_INC_DIR": str(sroot / "usr/include"),
-        "SODIUM_SHARED": "1",
+        "SODIUM_USE_PKG_CONFIG": "1",
         # openssl-sys
         "OPENSSL_NO_VENDOR": "1",
         # pcre2-sys
