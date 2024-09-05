@@ -1,12 +1,12 @@
 pkgname = "gnome-shell-extensions"
-pkgver = "46.2"
-pkgrel = 1
+pkgver = "47_rc"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
-depends = [f"gnome-shell~{pkgver[:-2]}", "nautilus", "gnome-menus"]
+depends = [f"gnome-shell~{pkgver[:2]}", "nautilus", "gnome-menus"]
 pkgdesc = "Optional extensions for GNOME shell"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell/Extensions"
-source = f"$(GNOME_SITE)/gnome-shell-extensions/{pkgver[:-2]}/gnome-shell-extensions-{pkgver}.tar.xz"
-sha256 = "d442e9d26925125ff215a5c134290495655380741daafbb37a3a99d6f0c7d86f"
+source = f"$(GNOME_SITE)/gnome-shell-extensions/{pkgver[:2]}/gnome-shell-extensions-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "3bbadd2b208b46f9486c3f9e1e46a72f0c69a4eae160195c29dc1adf3e6497e3"
