@@ -1,0 +1,21 @@
+revert of https://github.com/torvalds/linux/commit/08d08e2e9f0ad1af0044e4747723f66677c35ee9
+
+
+ERROR: modpost: "tpm2_sessions_init" [drivers/char/tpm/tpm_ibmvtpm.ko] undefined!
+make[3]: *** [../scripts/Makefile.modpost:145: Module.symvers] Error 1
+
+just wait for the working fix
+--
+--- a/drivers/char/tpm/tpm_ibmvtpm.c
++++ b/drivers/char/tpm/tpm_ibmvtpm.c
+@@ -698,10 +698,6 @@
+ 		rc = tpm2_get_cc_attrs_tbl(chip);
+ 		if (rc)
+ 			goto init_irq_cleanup;
+-
+-		rc = tpm2_sessions_init(chip);
+-		if (rc)
+-			goto init_irq_cleanup;
+ 	}
+ 
+ 	return tpm_chip_register(chip);
