@@ -32,6 +32,19 @@ sha256 = [
 options = ["!check"]
 
 
+def pre_prepare(self):
+    # newer rustix broken on ppc
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "rustix",
+        "--precise",
+        "0.38.35",
+        allow_network=True,
+    )
+
+
 def post_extract(self):
     self.cp(self.sources_path / f"Cargo.lock.{pkgver}", "Cargo.lock")
 
