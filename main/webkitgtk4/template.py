@@ -1,6 +1,6 @@
 # mirrors the gtk3 webkitgtk template
 pkgname = "webkitgtk4"
-pkgver = "2.44.3"
+pkgver = "2.45.92"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,6 +13,7 @@ configure_args = [
     "-DUSE_LIBBACKTRACE=OFF",
     "-DUSE_SOUP2=OFF",
     "-DUSE_WOFF2=ON",
+    "-DUSE_SYSTEM_SYSPROF_CAPTURE=NO",
     # -DENABLE_*
     "-DENABLE_BUBBLEWRAP_SANDBOX=ON",
     "-DENABLE_DOCUMENTATION=OFF",
@@ -97,7 +98,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/webkitgtk-{pkgver}.tar.xz"
-sha256 = "dc82d042ecaca981a4852357c06e5235743319cf10a94cd36ad41b97883a0b54"
+sha256 = "753f6c638c72633f22305a606dbd6c825b8fde3a7d01184a8f18f740493ca79f"
 debug_level = 1  # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
