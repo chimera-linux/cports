@@ -1,6 +1,6 @@
 pkgname = "qemu"
-pkgver = "9.0.2"
-pkgrel = 1
+pkgver = "9.1.0"
+pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
@@ -44,6 +44,8 @@ configure_args = [
     "--disable-xen",
     "--audio-drv-list=pa,pipewire,jack,sdl",
 ]
+# actually meson
+configure_gen = []
 hostmakedepends = [
     "bash",
     "bison",
@@ -104,7 +106,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "a8c3f596aece96da3b00cafb74baafa0d14515eafb8ed1ee3f7f5c2d0ebf02b6"
+sha256 = "816b7022a8ba7c2ac30e2e0cf973e826f6bcc8505339603212c5ede8e94d7834"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
@@ -124,6 +126,12 @@ if self.profile().endian == "little":
     makedepends += ["spice-devel", "spice-protocol"]
 else:
     configure_args += ["--disable-spice"]
+
+
+def init_configure(self):
+    ljobs = 4 if self.make_jobs >= 4 else self.make_jobs
+    # qemu links a lot of big exes at once so ensure there is not more than four
+    self.configure_args += [f"-Dbackend_max_links={ljobs}"]
 
 
 def post_install(self):
@@ -292,7 +300,6 @@ for _sys in [
     "mips64",
     "mips64el",
     "mipsel",
-    "nios2",
     "or1k",
     "ppc",
     "ppc64",
@@ -310,5 +317,3 @@ for _sys in [
     "xtensaeb",
 ]:
     _spkg(_sys)
-
-configure_gen = []
