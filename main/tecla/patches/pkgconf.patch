@@ -1,0 +1,11 @@
+diff --git a/meson.build b/meson.build
+index 201852e..1feef4a 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('tecla', 'c',
+-    version: '47.rc',
++    version: '47.0',
+     meson_version: '>=0.54',
+     default_options: [
+         'c_std=c99',
