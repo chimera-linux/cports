@@ -1,5 +1,5 @@
 pkgname = "hwdata"
-pkgver = "0.386"
+pkgver = "0.387"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/vcrhonek/hwdata"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6473dc3ac9ba94195afea6dafa68e9dd2127af270f83e3e035186d38669f7144"
+sha256 = "8c6be8f0863a8ff5c83b2c46aa525b503b30d42792ed57891c40849de543e1ee"
 # cycle with pciutils, etc.
 options = ["!check", "empty"]
 
