@@ -1,0 +1,10 @@
+https://inbox.vuxu.org/musl/20230811080752.GC3448312@port70.net/
+http://nsz.repo.hu/git/?p=musl;a=commit;h=f5841481090219c6d15ad801cd655161f45d6331
+--
+--- a/arch/riscv64/bits/syscall.h.in
++++ b/arch/riscv64/bits/syscall.h.in
+@@ -307,3 +307,4 @@
+ 
+ #define __NR_sysriscv __NR_arch_specific_syscall
+ #define __NR_riscv_flush_icache (__NR_sysriscv + 15)
++#define __NR_riscv_hwprobe (__NR_sysriscv + 14)
