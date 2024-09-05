@@ -1,0 +1,12 @@
+diff --git a/meson.build b/meson.build
+index 6c104aa..17413ed 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,6 +1,6 @@
+ project('sysprof', 'c', 'cpp',
+           license: 'GPL-3.0-or-later',
+-          version: '47.beta',
++          version: '47.0',
+     meson_version: '>= 1.0.0',
+   default_options: [ 'c_std=gnu17',
+                      'cpp_std=gnu++17',
