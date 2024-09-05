@@ -1,0 +1,11 @@
+diff --git a/meson.build b/meson.build
+index 25b4995..8a59a78 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('gnome-software', 'c',
+-  version : '47.rc',
++  version : '47.0',
+   license : 'GPL-2.0-or-later',
+   default_options : ['warning_level=2', 'c_std=c11'],
+   meson_version : '>=0.58.0'

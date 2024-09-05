@@ -1,5 +1,5 @@
 pkgname = "gnome-software"
-pkgver = "46.4"
+pkgver = "47_rc"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -18,6 +18,7 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "gettext",
     "glib-devel",
+    "itstool",
     "meson",
     "pkgconf",
     "xsltproc",
@@ -42,10 +43,8 @@ pkgdesc = "GNOME software center"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-software"
-source = (
-    f"$(GNOME_SITE)/gnome-software/{pkgver[:-2]}/gnome-software-{pkgver}.tar.xz"
-)
-sha256 = "6554d1de07e7c6352da8b06384fea13da6499d71c05b5ad000d8e21cb153f5af"
+source = f"$(GNOME_SITE)/gnome-software/{pkgver[:2]}/gnome-software-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "9bcd466c7e7c22d36015b78c80b6674269139d736b494a0c78e6ddf49814e580"
 # Most tests need system dbus
 options = ["!check"]
 
