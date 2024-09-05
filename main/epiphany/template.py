@@ -1,5 +1,5 @@
 pkgname = "epiphany"
-pkgver = "46.3"
+pkgver = "47_rc"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dunit_tests=disabled"]
@@ -37,5 +37,5 @@ pkgdesc = "GNOME web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Web"
-source = f"$(GNOME_SITE)/epiphany/{pkgver[:-2]}/epiphany-{pkgver}.tar.xz"
-sha256 = "a9e1ad206449117fc5ebe4d0177c1d7a2ff503d6b55019072a068ff2ab278656"
+source = f"$(GNOME_SITE)/epiphany/{pkgver[:2]}/epiphany-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "3ea44cca89bef638281ca6fbf9fcea292f298aa80a2aee3e7d11ffcbfe63502c"
