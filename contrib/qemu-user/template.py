@@ -1,5 +1,5 @@
 pkgname = "qemu-user"
-pkgver = "9.0.2"
+pkgver = "9.1.0"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde libssh capstone
@@ -15,6 +15,8 @@ configure_args = [
     "--disable-system",
     "--static",
 ]
+# actually meson
+configure_gen = []
 hostmakedepends = [
     "bash",
     "bison",
@@ -42,10 +44,16 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "a8c3f596aece96da3b00cafb74baafa0d14515eafb8ed1ee3f7f5c2d0ebf02b6"
+sha256 = "816b7022a8ba7c2ac30e2e0cf973e826f6bcc8505339603212c5ede8e94d7834"
 # maybe someday
 options = ["!cross", "!check", "empty"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
+
+
+def init_configure(self):
+    ljobs = 4 if self.make_jobs >= 4 else self.make_jobs
+    # qemu links a lot of big exes at once so ensure there is not more than four
+    self.configure_args += [f"-Dbackend_max_links={ljobs}"]
 
 
 def post_install(self):
@@ -87,7 +95,7 @@ def _upkg(uname):
         return [f"usr/bin/qemu-{uname}"]
 
     match uname:
-        case "cris" | "nios2":
+        case "cris":
             # no binfmt support
             return
 
@@ -134,7 +142,6 @@ for _u in [
     "mipsel",
     "mipsn32",
     "mipsn32el",
-    "nios2",
     "or1k",
     "ppc",
     "ppc64",
@@ -152,5 +159,3 @@ for _u in [
     "xtensaeb",
 ]:
     _upkg(_u)
-
-configure_gen = []
