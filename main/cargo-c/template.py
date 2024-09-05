@@ -1,8 +1,7 @@
 pkgname = "cargo-c"
-pkgver = "0.10.3"
-pkgrel = 1
+pkgver = "0.10.4"
+pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 # no tests in others
 make_check_args = ["--lib"]
 hostmakedepends = [
@@ -25,8 +24,8 @@ source = [
     f"!{url}/releases/download/v{pkgver}/Cargo.lock>Cargo.lock.{pkgver}",
 ]
 sha256 = [
-    "922171afb3ceaf6553ff3916ae4663d3743ba22f80725f2300a26b76eb6eb94f",
-    "6c099fe28666e4c6b5da41b65d00de35c9c60ab336c625d845f28055a0e90a7d",
+    "3382f6c3eca404695885e79babfce6448124a481a77cec11c3bfeb5830f677c1",
+    "9faed81831966f6569ecb8778443199de4126523c063c2b1257b39fe3d48691f",
 ]
 # mfs be like rebuild literally everything and then run
 # test_semver_one_zero_zero and test_semver_zero_zero_zero
