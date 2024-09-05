@@ -1,5 +1,5 @@
 pkgname = "nano"
-pkgver = "8.1"
+pkgver = "8.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-utf8"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.nano-editor.org"
 source = f"https://www.nano-editor.org/dist/v{pkgver[0]}/nano-{pkgver}.tar.xz"
-sha256 = "93b3e3e9155ae389fe9ccf9cb7ab380eac29602835ba3077b22f64d0f0cbe8cb"
+sha256 = "d5ad07dd862facae03051c54c6535e54c7ed7407318783fcad1ad2d7076fffeb"
 hardening = ["vis", "cfi"]
 
 
