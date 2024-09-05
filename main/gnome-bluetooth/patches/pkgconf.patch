@@ -1,0 +1,12 @@
+diff --git a/meson.build b/meson.build
+index 13956ee..faa1be5 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,6 +1,6 @@
+ project(
+   'gnome-bluetooth', 'c',
+-  version: '47.rc',
++  version: '47.0',
+   license: 'GPL2+',
+   default_options: 'buildtype=debugoptimized',
+   meson_version: '>= 0.58.0',

@@ -1,5 +1,5 @@
 pkgname = "gnome-bluetooth"
-pkgver = "46.1"
+pkgver = "47_rc"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,8 +29,8 @@ pkgdesc = "GNOME Bluetooth widgets"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeBluetooth"
-source = f"$(GNOME_SITE)/gnome-bluetooth/{pkgver[:-2]}/gnome-bluetooth-{pkgver}.tar.xz"
-sha256 = "56c44a17034598e9607458afae1be75f3de5efdf0e62355f09ba58fc7bc312ac"
+source = f"$(GNOME_SITE)/gnome-bluetooth/{pkgver[:2]}/gnome-bluetooth-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "a805f205c05c4512a3994c6da3e9517c9573047b359f1e9f012faab799af7328"
 options = ["!cross"]
 
 
