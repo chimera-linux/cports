@@ -1,6 +1,6 @@
 pkgname = "gnome"
-pkgver = "46.3"
-pkgrel = 1
+pkgver = "47_rc"
+pkgrel = 0
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
 # some of them are here anyway, for clarity but no other purpose
@@ -8,7 +8,7 @@ depends = [
     "adwaita-icon-theme",
     "dconf",
     "desktop-file-utils",
-    "fonts-cantarell-otf",
+    "fonts-inter-otf",
     "fonts-source-code-pro-otf",
     "gdm",
     "gjs",
