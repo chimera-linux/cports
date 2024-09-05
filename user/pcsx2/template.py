@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "2.1.120"
+pkgver = "2.1.126"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -60,11 +60,10 @@ source_paths = [
     "patches",
 ]
 sha256 = [
-    "c4960ae92f119643433f98009a1e5164b6aab9f34b4ecc9ddfd736327ea802ad",
+    "b3bdaa473025b7a4418cdcaaff243b7d6ceca11cd6d07672611637de2835202d",
     "a83fe869ee4108b8539454038403cda5c93143ed773668ff8bac6973d154285b",
 ]
-# FIXME: cfi, int
-# but it's an emulator so..
+# int crashes, but it's an emulator so..
 hardening = ["vis", "!int"]
 
 # shut up about PAGE_SIZE on internal emulator stuff,
@@ -93,3 +92,13 @@ def post_install(self):
         self.files_path / "PCSX2.desktop", "usr/share/applications"
     )
     self.install_file("./patches.zip", "usr/share/PCSX2/resources")
+    self.install_file(
+        "bin/resources/icons/AppIconLarge.png",
+        "usr/share/icons/hicolor/512x512/apps",
+        name="PCSX2.png",
+    )
+    self.install_file(
+        "pcsx2-qt/resources/icons/AppIcon64.png",
+        "usr/share/icons/hicolor/64x64/apps",
+        name="PCSX2.png",
+    )
