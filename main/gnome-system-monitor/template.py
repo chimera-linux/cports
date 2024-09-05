@@ -1,5 +1,5 @@
 pkgname = "gnome-system-monitor"
-pkgver = "46.0"
+pkgver = "47_rc"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -26,6 +26,6 @@ pkgdesc = "GNOME system monitor"
 maintainer = "GeopJr <evan@geopjr.dev>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/SystemMonitor"
-source = f"$(GNOME_SITE)/gnome-system-monitor/{pkgver[0:pkgver.find('.')]}/gnome-system-monitor-{pkgver}.tar.xz"
-sha256 = "5376248158c686c308255472e8c2a9e4c17255642c149fc7198c6d034e547599"
+source = f"$(GNOME_SITE)/gnome-system-monitor/{pkgver[:2]}/gnome-system-monitor-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "fd01dc2b1b674ccbf3d9a17b5c1a299562824922139803e903c5db8a73ee7855"
 tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"]}
