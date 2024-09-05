@@ -1,5 +1,5 @@
 pkgname = "gnome-shell"
-pkgver = "46.4"
+pkgver = "47_rc"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -9,7 +9,6 @@ configure_args = [
 ]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
-    "asciidoc",
     "gettext",
     "gjs-devel",
     "glib-devel",
@@ -17,6 +16,7 @@ hostmakedepends = [
     "meson",
     "perl",
     "pkgconf",
+    "python-docutils",
     "sassc",
     "xsltproc",
 ]
@@ -52,7 +52,7 @@ pkgdesc = "Core user interface for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell"
-source = f"$(GNOME_SITE)/gnome-shell/{pkgver.split('.')[0]}/gnome-shell-{pkgver}.tar.xz"
-sha256 = "188468fe72e90ac4b234e9d4d0707d607feaf39a13d25bd3aa3eb75e55a3e052"
+source = f"$(GNOME_SITE)/gnome-shell/{pkgver[:2]}/gnome-shell-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "bfeff82dcf208c021ba02387c3e0a69bfe47ae80083b8ae23aa01cd415e99004"
 # tests need libmutter-test
 options = ["!check", "!cross"]
