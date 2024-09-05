@@ -1,5 +1,5 @@
 pkgname = "libxi"
-pkgver = "1.8.1"
+pkgver = "1.8.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -15,8 +15,8 @@ pkgdesc = "X Input extension library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXi-{pkgver}.tar.gz"
-sha256 = "3b5f47c223e4b63d7f7fe758886b8bf665b20a7edb6962c423892fd150e326ea"
+source = f"$(XORG_SITE)/lib/libXi-{pkgver}.tar.xz"
+sha256 = "d0e0555e53d6e2114eabfa44226ba162d2708501a25e18d99cfb35c094c6c104"
 
 
 def post_install(self):
