@@ -1,0 +1,11 @@
+diff --git a/meson.build b/meson.build
+index 565e3729f..f342d8525 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('mutter', 'c',
+-  version: '47.rc',
++  version: '47.0',
+   meson_version: '>= 1.3.0',
+   license: 'GPLv2+'
+ )
