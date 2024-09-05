@@ -26,6 +26,7 @@ makedepends = [
     "mesa-devel",
     "openal-soft-devel",
     "openssl-devel",
+    "prometheus-cpp",
     "sqlite-devel",
     "zstd-devel",
 ]
