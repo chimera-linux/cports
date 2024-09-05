@@ -1,0 +1,104 @@
+From e4e6a5fae28fe0fadc01450e1a5f27efd36b528f Mon Sep 17 00:00:00 2001
+From: Christian Hergert <chergert@redhat.com>
+Date: Wed, 4 Sep 2024 09:49:10 -0700
+Subject: [PATCH] engine: protect against miss-configured systems
+
+Related: GNOME/gnome-text-editor#707
+---
+ lib/spelling-engine.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/lib/spelling-engine.c b/lib/spelling-engine.c
+index 734c617..3edc521 100644
+--- a/lib/spelling-engine.c
++++ b/lib/spelling-engine.c
+@@ -168,6 +168,8 @@ spelling_engine_add_range (SpellingEngine *self,
+   gsize ret;
+ 
+   g_assert (SPELLING_IS_ENGINE (self));
++  g_assert (self->active != NULL);
++  g_assert (SPELLING_IS_JOB (self->active));
+   g_assert (begin <= end);
+   g_assert (all != NULL);
+   g_assert (bitset != NULL);
+@@ -301,6 +303,8 @@ spelling_engine_tick (gpointer data)
+   g_autoptr(GtkBitset) bitset = NULL;
+   g_autoptr(GtkBitset) all = NULL;
+   const CjhTextRegionRun *run;
++  SpellingDictionary *dictionary;
++  PangoLanguage *language;
+   CollectRanges collect;
+   gsize real_offset;
+   guint cursor;
+@@ -308,12 +312,21 @@ spelling_engine_tick (gpointer data)
+   g_assert (SPELLING_IS_ENGINE (self));
+   g_assert (self->active == NULL);
+ 
++  dictionary = self->adapter.get_dictionary (self->instance);
++  language = self->adapter.get_language (self->instance);
++
++  /* Be safe against bad dictionary installations */
++  if (dictionary == NULL || language == NULL)
++    {
++      g_clear_handle_id (&self->queued_update_handler, g_source_remove);
++      return G_SOURCE_REMOVE;
++    }
++
++  self->active = spelling_job_new (dictionary, language);
++
+   bitset = gtk_bitset_new_empty ();
+   all = gtk_bitset_new_empty ();
+ 
+-  self->active = spelling_job_new (self->adapter.get_dictionary (self->instance),
+-                                   self->adapter.get_language (self->instance));
+-
+   /* Always check the cursor location so that spellcheck feels snappy */
+   cursor = self->adapter.get_cursor (self->instance);
+   run = _cjh_text_region_get_run_at_offset (self->region, cursor, &real_offset);
+-- 
+GitLab
+
+
+From 67f5203257da7b2199d3892930c6483e44fa2cc7 Mon Sep 17 00:00:00 2001
+From: Christian Hergert <chergert@redhat.com>
+Date: Wed, 4 Sep 2024 17:52:16 -0700
+Subject: [PATCH] job: be more defensive around chars with start and stop bit
+
+Fixes: #12
+---
+ lib/spelling-job.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/lib/spelling-job.c b/lib/spelling-job.c
+index 1bf252c..c3e4fc2 100644
+--- a/lib/spelling-job.c
++++ b/lib/spelling-job.c
+@@ -357,6 +357,7 @@ spelling_job_check (GTask        *task,
+       for (gsize count = 0; TRUE; count++)
+         {
+           SpellingBoundary boundary;
++          const char *before = p;
+ 
+           /* Occasionally check to break out of large runs */
+           if ((count & 0xFF) == 0 && g_atomic_int_get (&fragment->must_discard))
+@@ -369,7 +370,17 @@ spelling_job_check (GTask        *task,
+           boundary.byte_offset = p - text;
+           boundary.offset = i;
+ 
+-          find_word_end (&p, &i, attrs, attrslen-1, self->extra_word_chars);
++          /* Ensure we've moved at least one character as find_word_end() may stop
++           * on the current character it is on.
++           */
++          if (p == before)
++            {
++              p = g_utf8_next_char (p);
++              i++;
++            }
++
++          if (!find_word_end (&p, &i, attrs, attrslen-1, self->extra_word_chars))
++            break;
+ 
+           boundary.length = i - boundary.offset;
+           boundary.byte_length = p - text - boundary.byte_offset;
+-- 
+GitLab
