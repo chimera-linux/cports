@@ -1,37 +1,34 @@
---- a/src/meson.build	2024-04-03 00:42:31.000000000 +0100
-+++ b/src/meson.build	2024-04-06 00:55:30.950497993 +0100
-@@ -35,34 +35,16 @@
-   cargo_options += [ '--features', 'disable-glycin-sandbox' ]
+--- a/src/meson.build   2024-04-03 00:42:31.000000000 +0100
++++ b/src/meson.build   2024-04-06 00:55:30.950497993 +0100
+@@ -27,7 +27,6 @@ if gtk4_x11.found()
+   cargo_options += ['--features', 'x11']
  endif
  
--cargo_env = { 'CARGO_HOME': build_root / 'cargo-home' }
--
+-cargo_env = {'CARGO_HOME': build_root / 'cargo-home'}
+ 
  cargo_build = custom_target(
    'cargo-build',
-   build_by_default: true,
+@@ -35,7 +34,6 @@ cargo_build = custom_target(
    build_always_stale: true,
    output: 'src',
    console: true,
 -  env: cargo_env,
    command: [
-     cargo, 'build',
-     cargo_options,
-   ]
--)
--
--copy_binary = custom_target(
--  'cp-binary',
--  depends: cargo_build,
--  build_by_default: true,
--  build_always_stale: true,
--  install: true,
--  install_dir: get_option('bindir'),
--  output: meson.project_name(),
--  command: [
--    'cp',
--    'src' / rust_target / meson.project_name(),
--    '@OUTPUT@',
--  ],
+     cargo,
+     'build',
+@@ -43,6 +41,7 @@ cargo_build = custom_target(
+   ],
  )
  
- cargo_doc = custom_target(
++'''
+ custom_target(
+   'cp-binary',
+   depends: cargo_build,
+@@ -57,6 +56,7 @@ custom_target(
+     '@OUTPUT@',
+   ],
+ )
++'''
+ 
+ custom_target(
+   'cargo-doc',
