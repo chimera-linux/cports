@@ -11,6 +11,8 @@ configure_args = [
     "-DBUILD_TESTS=ON",
     "-DUSE_BUNDLED_TINYXML2=OFF",
 ]
+# racy in parallel
+make_check_args = ["-j1"]
 hostmakedepends = [
     "cmake",
     "docbook-xsl-nons",
