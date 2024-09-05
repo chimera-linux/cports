@@ -1,0 +1,34 @@
+From 5f3109fc645614d15e730e1dc2018397cf3c2653 Mon Sep 17 00:00:00 2001
+From: Jami Kettunen <jami.kettunen@protonmail.com>
+Date: Thu, 5 Sep 2024 03:52:41 +0300
+Subject: [PATCH] files-view: Fix sometimes-uninitialized warning under Clang
+
+Patch-Source: https://gitlab.gnome.org/GNOME/nautilus/-/merge_requests/1613
+---
+ src/nautilus-files-view.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/nautilus-files-view.c b/src/nautilus-files-view.c
+index 33e9a28e4..c3364868a 100644
+--- a/src/nautilus-files-view.c
++++ b/src/nautilus-files-view.c
+@@ -8177,6 +8177,7 @@ update_selection_menu (NautilusFilesView *view,
+     show_start = (selection != NULL && selection_count == 1);
+     show_stop = (selection != NULL && selection_count == 1);
+     show_detect_media = (selection != NULL && selection_count == 1);
++    item_opens_in_view = selection_count != 0;
+     start_stop_type = G_DRIVE_START_STOP_TYPE_UNKNOWN;
+ 
+     if (mode == NAUTILUS_MODE_BROWSE)
+@@ -8193,7 +8194,7 @@ update_selection_menu (NautilusFilesView *view,
+         g_free (item_label);
+ 
+         /* Open With <App> menu item */
+-        show_extract = show_app = show_run = item_opens_in_view = selection_count != 0;
++        show_extract = show_app = show_run = item_opens_in_view;
+         for (l = selection; l != NULL; l = l->next)
+         {
+             NautilusFile *file;
+-- 
+2.46.0
+

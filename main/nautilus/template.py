@@ -1,5 +1,5 @@
 pkgname = "nautilus"
-pkgver = "46.2"
+pkgver = "47_rc"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtests=headless"]
@@ -31,8 +31,8 @@ pkgdesc = "GNOME file manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
-source = f"$(GNOME_SITE)/nautilus/{pkgver[:pkgver.find('.')]}/nautilus-{pkgver}.tar.xz"
-sha256 = "6ee8c99019b9e3447f6918d68232a20deca89e5525c05805432b7d8840ca71fa"
+source = f"$(GNOME_SITE)/nautilus/{pkgver[:2]}/nautilus-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "18d96f0ace33a5545b2f371afbeeaf00baea87ed9a72f7e26f300a59ba5df44a"
 options = ["!cross"]
 
 
