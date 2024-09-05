@@ -97,9 +97,9 @@ index 54a47bb..8b86ca5 100644
 +  /* keep the object alive during async reads  */
 +  g_set_object (&self, user_data);
 +
-   mimes = gdk_content_formats_get_mime_types (formats, NULL);
+   self->active = FALSE;
+   g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_ACTIVE]);
  
-   if (G_LIKELY (g_strv_contains (mimes, PORTAL)) || g_strv_contains (mimes, PORTAL_OLD)) {
 @@ -357,11 +364,11 @@ drop (GtkDropTargetAsync *target,
                                 DROP_PRIORITY,
                                 NULL,

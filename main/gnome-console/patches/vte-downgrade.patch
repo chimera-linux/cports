@@ -1,0 +1,197 @@
+From 2f3736f0bbf9f810a439595b4e770dd2685a901e Mon Sep 17 00:00:00 2001
+From: Jami Kettunen <jami.kettunen@protonmail.com>
+Date: Thu, 5 Sep 2024 05:17:10 +0300
+Subject: [PATCH] Revert "terminal: enable a11y support"
+
+This reverts commit 5a04ac93d400b0e9e63599465563d18286dd4c86.
+---
+ meson.build         | 2 +-
+ src/kgx-terminal.ui | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index baa1348..a6c3f62 100644
+--- a/meson.build
++++ b/meson.build
+@@ -146,7 +146,7 @@ gio_dep = dependency('gio-2.0', version: '>= @0@'.format(glib_min_ver))
+ gio_unix_dep = dependency('gio-unix-2.0', version: '>= @0@'.format(glib_min_ver))
+ pango_dep = dependency('pango', version: '>= 1.51.2')
+ adw_dep = dependency('libadwaita-1', version: '>= @0@'.format(adw_min_ver))
+-vte_dep = dependency('vte-2.91-gtk4', version: '>= 0.77.0')
++vte_dep = dependency('vte-2.91-gtk4', version: '>= 0.75.1')
+ gtk_dep = dependency('gtk4', version: '>= @0@'.format(gtk_min_ver))
+ gtop_dep = dependency('libgtop-2.0')
+ pcre_dep = dependency('libpcre2-8', version: '>= 10.32')
+diff --git a/src/kgx-terminal.ui b/src/kgx-terminal.ui
+index 732f57d..74d86cd 100644
+--- a/src/kgx-terminal.ui
++++ b/src/kgx-terminal.ui
+@@ -45,7 +45,6 @@
+     <property name="has-tooltip">True</property>
+     <property name="scroll-unit-is-pixels">True</property>
+     <property name="context-menu-model">context_model</property>
+-    <property name="enable-a11y">True</property>
+     <binding name="font-desc">
+       <lookup name="font">
+         <lookup name="settings">KgxTerminal</lookup>
+-- 
+2.46.0
+
+From 60ed709a169da517cc5391b66925b552e57cf097 Mon Sep 17 00:00:00 2001
+From: Jami Kettunen <jami.kettunen@protonmail.com>
+Date: Thu, 5 Sep 2024 05:23:27 +0300
+Subject: [PATCH] Revert "terminal: port to termprop uris"
+
+This reverts commit 1b7bee49d0a00df7028baffdd7d4bf49765404a0.
+---
+ src/kgx-terminal.c  | 78 ++++++++++-----------------------------------
+ src/kgx-terminal.ui |  4 +--
+ 2 files changed, 18 insertions(+), 64 deletions(-)
+
+diff --git a/src/kgx-terminal.c b/src/kgx-terminal.c
+index 17dcda2..5bd24f6 100644
+--- a/src/kgx-terminal.c
++++ b/src/kgx-terminal.c
+@@ -185,60 +185,6 @@ kgx_terminal_set_property (GObject      *object,
+ }
+ 
+ 
+-static inline char *
+-get_uri_prop (VteTerminal *terminal, const char *prop)
+-{
+-  g_autoptr (GUri) uri = NULL;
+-
+-  uri = vte_terminal_ref_termprop_uri (terminal, prop);
+-  if (!uri) {
+-    return NULL;
+-  }
+-
+-  return g_uri_to_string (uri);
+-}
+-
+-
+-static inline char *
+-get_file_uri_prop (VteTerminal *terminal)
+-{
+-  return get_uri_prop (terminal, VTE_TERMPROP_CURRENT_FILE_URI);
+-}
+-
+-
+-static inline char *
+-get_directory_uri_prop (VteTerminal *terminal)
+-{
+-  return get_uri_prop (terminal, VTE_TERMPROP_CURRENT_DIRECTORY_URI);
+-}
+-
+-
+-static inline char *
+-get_either_uri_prop (VteTerminal *terminal)
+-{
+-  char *res = get_file_uri_prop (terminal);
+-
+-  if (res) {
+-    return res;
+-  }
+-
+-  return get_directory_uri_prop (terminal);
+-}
+-
+-
+-static inline GFile *
+-get_location (VteTerminal *terminal)
+-{
+-  g_autofree char *uri = get_either_uri_prop (terminal);
+-
+-  if (!uri) {
+-    return NULL;
+-  }
+-
+-  return g_file_new_for_uri (uri);
+-}
+-
+-
+ static void
+ kgx_terminal_get_property (GObject    *object,
+                            guint       property_id,
+@@ -246,6 +192,8 @@ kgx_terminal_get_property (GObject    *object,
+                            GParamSpec *pspec)
+ {
+   KgxTerminal *self = KGX_TERMINAL (object);
++  const char *uri;
++  g_autoptr (GFile) path = NULL;
+ 
+   switch (property_id) {
+     case PROP_SETTINGS:
+@@ -255,7 +203,12 @@ kgx_terminal_get_property (GObject    *object,
+       g_value_set_object (value, self->cancellable);
+       break;
+     case PROP_PATH:
+-      g_value_take_object (value, get_location (VTE_TERMINAL (self)));
++      if ((uri = vte_terminal_get_current_file_uri (VTE_TERMINAL (self)))) {
++        path = g_file_new_for_uri (uri);
++      } else if ((uri = vte_terminal_get_current_directory_uri (VTE_TERMINAL (self)))) {
++        path = g_file_new_for_uri (uri);
++      }
++      g_value_set_object (value, path);
+       break;
+     case PROP_PALETTE:
+       g_value_set_boxed (value, self->palette);
+@@ -434,12 +387,12 @@ did_show_folder (GObject *source, GAsyncResult *res, gpointer user_data)
+ static void
+ show_in_files_activated (KgxTerminal *self)
+ {
+-  g_autofree char *uri = NULL;
++  const char *uri = NULL;
+   GtkWindow *parent = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (self)));
+ 
+   ensure_despatcher (self);
+ 
+-  uri = get_file_uri_prop (VTE_TERMINAL (self));
++  uri = vte_terminal_get_current_file_uri (VTE_TERMINAL (self));
+ 
+   if (G_UNLIKELY (uri)) {
+     kgx_despatcher_show_item (self->despatcher,
+@@ -451,7 +404,7 @@ show_in_files_activated (KgxTerminal *self)
+     return;
+   }
+ 
+-  uri = get_directory_uri_prop (VTE_TERMINAL (self));
++  uri = vte_terminal_get_current_directory_uri (VTE_TERMINAL (self));
+ 
+   if (G_UNLIKELY (!uri)) {
+     g_warning ("term.show-in-files: no file");
+@@ -555,11 +508,12 @@ enum_is (KgxTerminal *self, int a, int b)
+ static void
+ location_changed (KgxTerminal *self)
+ {
+-  g_autofree char *uri = get_either_uri_prop (VTE_TERMINAL (self));
++  gboolean value;
++
++  value = vte_terminal_get_current_file_uri (VTE_TERMINAL (self)) ||
++            vte_terminal_get_current_directory_uri (VTE_TERMINAL (self));
+ 
+-  gtk_widget_action_set_enabled (GTK_WIDGET (self),
+-                                 "term.show-in-files",
+-                                 uri != NULL);
++  gtk_widget_action_set_enabled (GTK_WIDGET (self), "term.show-in-files", value);
+ 
+   g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_PATH]);
+ }
+diff --git a/src/kgx-terminal.ui b/src/kgx-terminal.ui
+index 74d86cd..7b5ca7b 100644
+--- a/src/kgx-terminal.ui
++++ b/src/kgx-terminal.ui
+@@ -83,8 +83,8 @@
+         </lookup>
+       </closure>
+     </binding>
+-    <signal name="termprop-changed::vte.cwf" handler="location_changed" />
+-    <signal name="termprop-changed::vte.cwd" handler="location_changed" />
++    <signal name="current-directory-uri-changed" handler="location_changed" />
++    <signal name="current-file-uri-changed" handler="location_changed" />
+     <signal name="setup-context-menu" handler="setup_context_menu" />
+     <child>
+       <object class="GtkShortcutController">
+-- 
+2.46.0
+

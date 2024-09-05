@@ -1,6 +1,6 @@
 pkgname = "gnome-console"
-pkgver = "46.0"
-pkgrel = 2
+pkgver = "47_rc"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -23,7 +23,5 @@ pkgdesc = "GNOME console"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/console"
-source = (
-    f"$(GNOME_SITE)/gnome-console/{pkgver[:-2]}/gnome-console-{pkgver}.tar.xz"
-)
-sha256 = "1619ce701773b2c0c903718f54768c192ea5074514d55a1774a92c97231d6c3e"
+source = f"$(GNOME_SITE)/gnome-console/{pkgver[:2]}/gnome-console-{pkgver.replace('_', '.')}.tar.xz"
+sha256 = "6635ee73edef14f2f2cda3d818d84cf673ee3ca06ea554995a9c44c299f2dd6c"

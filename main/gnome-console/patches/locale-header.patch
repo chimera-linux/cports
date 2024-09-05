@@ -1,0 +1,12 @@
+diff --git a/src/main.c b/src/main.c
+index af9c5a5..3c7bb48 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -16,6 +16,7 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#include <locale.h>
+ #include <glib/gi18n.h>
+ 
+ #include <kgx.h>
