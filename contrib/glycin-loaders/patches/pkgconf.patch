@@ -1,0 +1,13 @@
+diff --git a/meson.build b/meson.build
+index e5d9e3e..9420706 100644
+--- a/meson.build
++++ b/meson.build
+@@ -4,7 +4,7 @@ project(
+   'c',
+   # This is a global version that's neither related to the glycin-loaders version
+   # nor the libglycin version
+-  version: '1.1.beta',
++  version: '1.1.0',
+   meson_version: '>=1.2',
+ )
+ 

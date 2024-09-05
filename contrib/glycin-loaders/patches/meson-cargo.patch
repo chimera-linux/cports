@@ -1,22 +1,60 @@
+diff --git a/libglycin/meson.build b/libglycin/meson.build
+index 3192e06..69dcb71 100644
+--- a/libglycin/meson.build
++++ b/libglycin/meson.build
+@@ -20,9 +20,6 @@ cargo_options = [
+ 
+ pkg_uninstalled_path = {'PKG_CONFIG_PATH': meson.project_build_root() / 'meson-uninstalled'}
+ 
+-cargo_env = {
+-    'CARGO_HOME': cargo_home,
+-} + pkg_uninstalled_path
+ 
+ packages = [
+     {
+@@ -66,7 +63,7 @@ foreach package : packages
+         depends: link_with,
+         output: f'Meson-does-not-support-sub-dir-output@suffix@',
+         console: true,
+-        env: cargo_env,
++        env: pkg_uninstalled_path,
+         command: [cargo_bin, 'build', cargo_options, '-p', f'libglycin@suffix@'],
+     )
+ 
+@@ -206,4 +203,4 @@ endforeach
+ 
+ if get_option('python_tests')
+     test('libglycin-python3', find_program('../tests/libglycin.py'))
+-endif
++endif
+\ No newline at end of file
 diff --git a/loaders/meson.build b/loaders/meson.build
-index 7913b58..7375f28 100644
+index 2e53ccd..21b3f71 100644
 --- a/loaders/meson.build
 +++ b/loaders/meson.build
-@@ -26,17 +26,8 @@ cargo_options = [
- ]
+@@ -53,12 +53,11 @@ cargo_options = [
  
  cargo_env = {
--  # Don't use $HOME/.cargo/ for this
--  'CARGO_HOME': meson.project_build_root() / 'cargo',
+   # Don't use $HOME/.cargo/ for this
+-  'CARGO_HOME': cargo_home,
    # Gettext translation
    'LOCALEDIR': get_option('prefix') / get_option('localedir'),
--  # Git commit for debugging
--  'GIT_DESCRIBE': run_command(
--      'git',
--      '-C', meson.project_source_root(),
--      'rev-parse', '--short', 'HEAD',
--      check: false
--    ).stdout().strip(),
- }
+   # Git commit for debugging
+   'GIT_DESCRIBE': run_command(
+-    'git',
++    'false',
+     '-C', meson.project_source_root(),
+     'rev-parse',
+     '--short', 'HEAD',
+diff --git a/meson.build b/meson.build
+index e5d9e3e..1228a62 100644
+--- a/meson.build
++++ b/meson.build
+@@ -20,7 +20,6 @@ libdir = get_option('prefix') / get_option('libdir')
+ includedir = get_option('prefix') / get_option('includedir')
  
- test_args = []
+ cargo_target_dir = meson.project_build_root() / 'cargo-target'
+-cargo_home = meson.project_build_root() / 'cargo-home'
+ cargo_bin = find_program('cargo')
+ 
+ if get_option('profile') == 'release'
