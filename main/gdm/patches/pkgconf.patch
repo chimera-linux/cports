@@ -1,0 +1,11 @@
+diff --git a/meson.build b/meson.build
+index c43c7c6..056f976 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('gdm', 'c',
+-  version: '47.alpha',
++  version: '47.0',
+   license: 'GPL2+',
+   meson_version: '>= 0.57',
+ )
