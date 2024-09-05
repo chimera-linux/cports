@@ -1,6 +1,6 @@
 # update contrib/libportal-qt6 too
 pkgname = "libportal"
-pkgver = "0.8.0"
+pkgver = "0.8.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://github.com/flatpak/libportal"
 source = f"{url}/releases/download/{pkgver}/libportal-{pkgver}.tar.xz"
-sha256 = "ca38cd186e98388e4e92859506c9ecbd01db650ef871838b357b117d147f1541"
+sha256 = "281e54e4f8561125a65d20658f1462ab932b2b1258c376fed2137718441825ac"
 
 
 @subpackage("libportal-gtk3")
