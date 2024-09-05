@@ -1,0 +1,12 @@
+diff --git a/meson.build b/meson.build
+index fdb7550..ca1210e 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,6 +1,6 @@
+ project('gnome-builder', 'c',
+           license: 'GPL3+',
+-          version: '47.rc',
++          version: '47.0',
+     meson_version: '>= 0.60',
+   default_options: [ 'c_std=gnu11',
+                      'cpp_std=gnu++2a',
