@@ -1,6 +1,6 @@
 pkgname = "cargo-crev"
 pkgver = "0.25.9"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "cargo-crev"
 build_style = "cargo"
 # remove this once updated to new cargo crate that has new libgit2
