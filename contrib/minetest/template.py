@@ -50,6 +50,12 @@ source = (
 sha256 = "070bc292a0b7fc60d7ff0a14b364c8229c5cbe38296a80f948ea2c2591545a5c"
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
+# see below
+options = []
+
+if self.profile().arch == "ppc64le":
+    # FIXME: testLuaDestructors fails since luajit seems to not unwind destructors on ppc64le
+    options += ["!check"]
 
 
 def check(self):
