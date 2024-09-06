@@ -1,6 +1,6 @@
 pkgname = "python-cython"
 pkgver = "3.0.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 makedepends = ["python-devel"]
-depends = ["python", "python-setuptools"]
+depends = ["python"]
 pkgdesc = "C extensions for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
