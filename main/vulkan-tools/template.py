@@ -1,6 +1,6 @@
 pkgname = "vulkan-tools"
 pkgver = "1.3.295"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DVULKAN_HEADERS_INSTALL_DIR=/usr",
