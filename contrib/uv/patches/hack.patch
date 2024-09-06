@@ -9,7 +9,7 @@ just hack around it for now until maybe maturin gets changed
  strip = true
 -lto = "fat"
 +lto = "thin"
-+codegen_units = 1
++codegen-units = 1
 +panic = "abort"
  
  # This profile disables LTO and is used for ppc64le musl cross builds which fail otherwise
