@@ -3,7 +3,14 @@ pkgver = "2.6.0"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
-hostmakedepends = ["pkgconf", "automake", "libtool", "python", "python-cython"]
+hostmakedepends = [
+    "automake",
+    "libtool",
+    "pkgconf",
+    "python-cython",
+    # distutils in configure
+    "python-setuptools",
+]
 makedepends = ["python-devel", "glib-devel", "libxml2-devel"]
 pkgdesc = "Apple Property List library"
 maintainer = "q66 <q66@chimera-linux.org>"
