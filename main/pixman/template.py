@@ -1,6 +1,6 @@
 pkgname = "pixman"
 pkgver = "0.43.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dgnu-inline-asm=enabled",
