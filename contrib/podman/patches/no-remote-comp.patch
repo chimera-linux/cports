@@ -1,0 +1,18 @@
+we don't build this
+--
+--- a/Makefile
++++ b/Makefile
+@@ -911,13 +911,10 @@
+ install.completions:
+ 	install ${SELINUXOPT} -d -m 755 $(DESTDIR)${BASHINSTALLDIR}
+ 	install ${SELINUXOPT} -m 644 completions/bash/podman $(DESTDIR)${BASHINSTALLDIR}
+-	install ${SELINUXOPT} -m 644 completions/bash/podman-remote $(DESTDIR)${BASHINSTALLDIR}
+ 	install ${SELINUXOPT} -d -m 755 $(DESTDIR)${ZSHINSTALLDIR}
+ 	install ${SELINUXOPT} -m 644 completions/zsh/_podman $(DESTDIR)${ZSHINSTALLDIR}
+-	install ${SELINUXOPT} -m 644 completions/zsh/_podman-remote $(DESTDIR)${ZSHINSTALLDIR}
+ 	install ${SELINUXOPT} -d -m 755 $(DESTDIR)${FISHINSTALLDIR}
+ 	install ${SELINUXOPT} -m 644 completions/fish/podman.fish $(DESTDIR)${FISHINSTALLDIR}
+-	install ${SELINUXOPT} -m 644 completions/fish/podman-remote.fish $(DESTDIR)${FISHINSTALLDIR}
+ 	# There is no common location for powershell files so do not install them. Users have to source the file from their powershell profile.
+ 
+ .PHONY: install.docker
