@@ -1,6 +1,6 @@
 pkgname = "mkvtoolnix"
-pkgver = "86.0"
-pkgrel = 3
+pkgver = "87.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimization",
@@ -44,7 +44,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://mkvtoolnix.download/index.html"
 source = f"https://mkvtoolnix.download/sources/mkvtoolnix-{pkgver}.tar.xz"
-sha256 = "29a9155fbba99f9074de2abcfbdc4e966ea38c16d9f6f547cf2d8d9a48152c97"
+sha256 = "01cdfcbe01d9a771da4d475ed44d882a97695d08b6939684cebf56231bdee820"
 
 
 @subpackage("mkvtoolnix-gui")
@@ -54,10 +54,9 @@ def _(self):
         "qt6-qtsvg",
     ]
     return [
-        "usr/bin/mkvtoolnix-gui",
+        "cmd:mkvtoolnix-gui",
         "usr/share/applications",
         "usr/share/icons",
-        "usr/share/man/man1/mkvtoolnix-gui.1",
         "usr/share/metainfo",
         "usr/share/mime",
         "usr/share/mkvtoolnix",
