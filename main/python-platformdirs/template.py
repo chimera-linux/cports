@@ -1,5 +1,5 @@
 pkgname = "python-platformdirs"
-pkgver = "4.2.2"
+pkgver = "4.3.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://platformdirs.readthedocs.io"
 source = f"$(PYPI_SITE)/p/platformdirs/platformdirs-{pkgver}.tar.gz"
-sha256 = "38b7b51f512eed9e84a22788b4bce1de17c0adb134d6becb09836e37d8654cd3"
+sha256 = "63b79589009fa8159973601dd4563143396b35c5f93a58b36f9049ff046949b1"
 # unpackaged checkdepends
 options = ["!check"]
 
