@@ -52,22 +52,29 @@ jobs:
           sudo apt-get update
           sudo apt-get install --no-install-recommends ca-certificates openssl git bubblewrap wget
 
-      - name: Cache cbuild data
+      - name: Restore cbuild cache
         id: cache-cbuild
-        uses: actions/cache@v4
-        env:
-          cache-name: cbuild-ci-cache
+        uses: actions/cache/restore@v4
         with:
-          save-always: true
           path: |
             ./cbuild_cache
             ./sources
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.run_id }}
+          key: ${{ runner.os }}-cbuild-ci-cache-${{ github.run_id }}
+          # checks prefix of cache stored below and grabs the one from the latest run_id that is
+          # always saved. we do this because things like source fetch / dependencies don't care
+          # about success.
           restore-keys: |
-            ${{ runner.os }}-${{ env.cache-name }}
+            ${{ runner.os }}-cbuild-ci-cache
 
       - name: Set up cbuild configuration
         run: sh .ci/setup-cbuild.sh
 
       - name: Build and test packages
         run: python3.12 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            ./cbuild_cache
+            ./sources
+          key: ${{ runner.os }}-cbuild-ci-cache-${{ github.run_id }}
