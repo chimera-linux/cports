@@ -1,6 +1,6 @@
 pkgname = "yq"
 pkgver = "4.44.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["bash", "tzdata"]

@@ -1,6 +1,6 @@
 pkgname = "runc"
 pkgver = "1.1.14"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = ["all", "man", f"COMMIT=chimera-r{pkgrel}"]
 make_check_target = "localunittest"

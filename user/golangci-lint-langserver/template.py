@@ -1,6 +1,6 @@
 pkgname = "golangci-lint-langserver"
 pkgver = "0.0.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["golangci-lint"]

@@ -1,6 +1,6 @@
 pkgname = "docker-cli-buildx"
 pkgver = "0.16.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/docker/buildx/version.Version=v{pkgver}",

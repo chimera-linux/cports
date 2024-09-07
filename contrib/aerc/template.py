@@ -1,6 +1,6 @@
 pkgname = "aerc"
 pkgver = "0.18.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_check_target = "tests"
 hostmakedepends = [

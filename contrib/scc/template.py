@@ -1,6 +1,6 @@
 pkgname = "scc"
 pkgver = "3.3.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Fast and accurate code counter"

@@ -1,6 +1,6 @@
 pkgname = "chathistorysync"
 pkgver = "0.2.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 hostmakedepends = [
     "go",

@@ -1,6 +1,6 @@
 pkgname = "v2ray"
 pkgver = "5.17.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./main"]
 hostmakedepends = ["go"]
