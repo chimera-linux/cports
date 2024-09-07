@@ -132,15 +132,10 @@ class Cargo:
                 hint="ensure .cargo/config.toml is used instead",
             )
 
-        auditable = (
-            self.template.bldroot_path / "usr/bin/cargo-auditable"
-        ).exists()
-
-        cargo = ["cargo", "auditable"] if auditable else ["cargo"]
         return self.template.do(
             *wrapper,
             *ewrapper,
-            *cargo,
+            "cargo",
             command,
             *bargs,
             *args,
