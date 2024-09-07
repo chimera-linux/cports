@@ -1,6 +1,6 @@
 pkgname = "swtpm"
 pkgver = "0.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-gnutls",
@@ -38,6 +38,7 @@ sha256 = "9679ca171e8aaa3c4e4053e8bc1d10c8dabf0220bd4b16aba78743511c25f731"
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
 @subpackage("swtpm-libs")
