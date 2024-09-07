@@ -29,4 +29,4 @@ def post_build(self):
 def post_install(self):
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "zsh"]:
-        self.install_completion(f"delve.{shell}", shell)
+        self.install_completion(f"delve.{shell}", shell, "dlv")
