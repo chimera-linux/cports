@@ -1,0 +1,35 @@
+Patch-Source: https://github.com/ueno/libskk/pull/90
+json-glib 1.10 is more strict and crashes
+--
+From 2382ebedc8dca88e745d223ad7badb8b73bbb0de Mon Sep 17 00:00:00 2001
+From: Mamoru TASAKA <mtasaka@fedoraproject.org>
+Date: Thu, 22 Aug 2024 00:53:12 +0900
+Subject: [PATCH] Fix invalid escape on json file
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Fix the following invalid escape on
+rules/default/rom-kana/default.json:
+
+/usr/share/libskk/rules/default/rom-kana/default.json:121:47: 解析エラー: unexpected
+character `,', expected string constant
+
+Fixes: #89
+---
+ rules/default/rom-kana/default.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/rules/default/rom-kana/default.json b/rules/default/rom-kana/default.json
+index 6ddfce6a..68dcff9b 100644
+--- a/rules/default/rom-kana/default.json
++++ b/rules/default/rom-kana/default.json
+@@ -108,7 +108,7 @@
+             "myi": ["", "みぃ" ],
+             "myo": ["", "みょ" ],
+             "myu": ["", "みゅ" ],
+-            "n\'": ["", "ん" ],
++            "n'": ["", "ん" ],
+             "na": ["", "な" ],
+             "ne": ["", "ね" ],
+             "ni": ["", "に" ],

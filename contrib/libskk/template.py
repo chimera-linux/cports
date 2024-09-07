@@ -1,6 +1,6 @@
 pkgname = "libskk"
 pkgver = "1.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # old and doesn't reconf
 configure_gen = []
