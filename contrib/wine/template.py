@@ -1,6 +1,6 @@
 pkgname = "wine"
-pkgver = "9.16"
-pkgrel = 1
+pkgver = "9.17"
+pkgrel = 0
 archs = ["x86_64"]
 build_style = "gnu_configure"
 configure_args = [
@@ -55,7 +55,7 @@ license = "LGPL-2.1-or-later"
 url = "https://www.winehq.org"
 # the url is .0 for .0 and .x for >0
 source = f"https://dl.winehq.org/wine/source/9.x/wine-{pkgver}.tar.xz"
-sha256 = "89042ae8c80b2333f8a7d18877fc4179c07d6357ab7f28ccbda6d06f3c330c50"
+sha256 = "3edb7eb6f31bb5c3f7378dd5623da9d95f7d4d6d7c8378afd89c8e3a30aa080c"
 # FIXME: int breaks wine
 # trivial-auto-var-init relies on memset() symbol existing during link for vars
 # which isn't the case for loader/preloader.o:(map_so_lib)
