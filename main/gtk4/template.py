@@ -1,6 +1,6 @@
 pkgname = "gtk4"
-pkgver = "4.14.5"
-pkgrel = 2
+pkgver = "4.16.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -13,6 +13,9 @@ configure_args = [
     "-Dvulkan=enabled",
     "-Dcloudproviders=enabled",
     "-Dtracker=enabled",
+    # disabled below
+    "-Dbuild-testsuite=false",
+    "-Dbuild-tests=false",
 ]
 make_check_args = ["--timeout-multiplier=4"]
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -70,7 +73,8 @@ checkdepends = [
     "bash",
     "dbus",
     "fonts-cantarell-otf",
-    "fonts-dejavu-otf",
+    "fonts-dejavu",
+    "fonts-noto",
     "librsvg",
     "python-gobject",
     "xwayland-run",
@@ -80,7 +84,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "5547f2b9f006b133993e070b87c17804e051efda3913feaca1108fa2be41e24d"
+sha256 = "926a1eabd481f9bfa25538f95016fdfcfaf963b2f90b40ae69e90def5499215c"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]
