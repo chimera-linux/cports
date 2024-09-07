@@ -20,7 +20,8 @@ index 7a5224c..d43fcd2 100644
    command: [
 -    'env',
 -    cargo_env,
-     cargo, 'build',
+-    cargo, 'build',
++    cargo, 'auditable', 'build',
      cargo_options,
 -    '&&',
 -    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
