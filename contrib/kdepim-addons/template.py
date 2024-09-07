@@ -1,6 +1,6 @@
 pkgname = "kdepim-addons"
 pkgver = "24.08.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_wrapper = [
     "dbus-run-session",
@@ -9,7 +9,7 @@ make_check_wrapper = [
     "--",
 ]
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "cmake",
     "corrosion",
     "extra-cmake-modules",
