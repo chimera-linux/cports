@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
-    "cargo-auditable",
+    "cargo",
     "desktop-file-utils",
     "gettext",
     "meson",

@@ -31,7 +31,7 @@ index 8a1af5a..d35c59d 100644
 -    'env',
 -    cargo_env,
 -    cargo, 'build',
-+    cargo, 'auditable', 'build',
++    cargo, 'build',
      cargo_options,
 -    '&&',
 -    'cp', 'target' / rust_target / meson.project_name(), '@OUTPUT@',
