@@ -1872,7 +1872,6 @@ class Template(Package):
         if self.use_ccache:
             cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
             cenv["CCACHE_DIR"] = "/cbuild_cache/ccache"
-            cenv["CCACHE_COMPRESS"] = "1"
             cenv["CCACHE_BASEDIR"] = str(self.chroot_cwd)
 
         if (
