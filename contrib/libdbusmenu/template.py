@@ -1,6 +1,6 @@
 pkgname = "libdbusmenu"
 pkgver = "16.04.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-dumper",
@@ -8,6 +8,7 @@ configure_args = [
     "--enable-gtk",
     "--enable-tests",
 ]
+make_check_wrapper = ["dbus-run-session", "--", "xvfb-run", "--"]
 hostmakedepends = [
     "automake",
     "intltool",
