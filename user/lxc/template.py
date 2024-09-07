@@ -6,7 +6,7 @@ configure_args = [
     "-Dapparmor=false",
     # needs docbook2x
     "-Dman=false",
-    "-Dinit-script=sysvinit",
+    "-Dinit-script=[]",
     "-Ddistrosysconfdir=default",
 ]
 hostmakedepends = ["meson", "pkgconf"]
@@ -38,9 +38,8 @@ options = ["!lintcomp"]
 
 
 def post_install(self):
-    # openrc scripts
+    # sysvinit config
     self.uninstall("etc/default/lxc")
-    self.uninstall("etc/init.d")
 
 
 @subpackage("lxc-devel")
