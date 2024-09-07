@@ -1873,6 +1873,7 @@ class Template(Package):
             cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
             cenv["CCACHE_DIR"] = "/cbuild_cache/ccache"
             cenv["CCACHE_BASEDIR"] = str(self.chroot_cwd)
+            cenv["CCACHE_TEMPDIR"] = "/tmp/ccache"
 
         if (
             self.use_sccache
