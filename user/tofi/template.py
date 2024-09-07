@@ -2,7 +2,13 @@ pkgname = "tofi"
 pkgver = "0.9.1"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["meson", "pkgconf", "scdoc"]
+hostmakedepends = [
+    "meson",
+    "pkgconf",
+    "scdoc",
+    "wayland-progs",
+    "wayland-protocols",
+]
 makedepends = [
     "cairo-devel",
     "freetype-devel",
