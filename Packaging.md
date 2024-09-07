@@ -2248,7 +2248,6 @@ Additionally, when using `ccache`, the following are also exported:
 
 * `CCACHEPATH` The path to `ccache` toolchain symlinks.
 * `CCACHE_DIR` The path to `ccache` data.
-* `CCACHE_COMPILERCHECK` Set to `content`.
 * `CCACHE_COMPRESS` Set to `1`.
 * `CCACHE_BASEDIR` Set to the `cbuild`-set current working directory.
 
