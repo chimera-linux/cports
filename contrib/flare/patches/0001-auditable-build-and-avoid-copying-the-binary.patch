@@ -1,0 +1,42 @@
+From f3f53a2e09a7f8a555c70e2766be99c5453844c8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Sat, 7 Sep 2024 17:25:46 +0200
+Subject: [PATCH] auditable build and avoid copying the binary
+
+---
+ src/meson.build | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/src/meson.build b/src/meson.build
+index 8a1af5a..d35c59d 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -46,23 +46,16 @@ if libspelling.found ()
+   message('Building with libspelling support')
+ endif
+ 
+-cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+-
+ cargo_build = custom_target(
+   'cargo-build',
+   build_by_default: true,
+   build_always_stale: true,
+   output: meson.project_name(),
+   console: true,
+-  install: true,
+   install_dir: bindir,
+   depends: resources,
+   command: [
+-    'env',
+-    cargo_env,
+-    cargo, 'build',
++    cargo, 'auditable', 'build',
+     cargo_options,
+-    '&&',
+-    'cp', 'target' / rust_target / meson.project_name(), '@OUTPUT@',
+   ]
+ )
+-- 
+2.46.0
+
