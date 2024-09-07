@@ -136,10 +136,6 @@ class Cargo:
             self.template.bldroot_path / "usr/bin/cargo-auditable"
         ).exists()
 
-        # fails to link
-        if tmpl.profile().arch == "riscv64":
-            auditable = False
-
         cargo = ["cargo", "auditable"] if auditable else ["cargo"]
         return self.template.do(
             *wrapper,
