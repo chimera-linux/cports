@@ -1,10 +1,10 @@
 pkgname = "snapshot"
 pkgver = "46.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
     "appstream",
-    "cargo",
+    "cargo-auditable",
     "desktop-file-utils",
     "gettext",
     "glib-devel",

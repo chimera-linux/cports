@@ -1,9 +1,9 @@
 pkgname = "key-rack"
 pkgver = "0.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "gettext",
     "meson",
     "pkgconf",

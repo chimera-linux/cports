@@ -1,10 +1,10 @@
 pkgname = "flare"
 pkgver = "0.15.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
-    "cargo",
+    "cargo-auditable",
     "desktop-file-utils",
     "gettext",
     "meson",

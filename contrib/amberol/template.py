@@ -1,9 +1,9 @@
 pkgname = "amberol"
 pkgver = "0.10.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "desktop-file-utils",
     "gettext",
     "meson",

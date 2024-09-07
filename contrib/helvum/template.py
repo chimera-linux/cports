@@ -1,10 +1,10 @@
 pkgname = "helvum"
 pkgver = "0.5.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["--buildtype=release"]
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "desktop-file-utils",
     "gtk-update-icon-cache",
     "meson",

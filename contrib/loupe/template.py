@@ -1,9 +1,9 @@
 pkgname = "loupe"
 pkgver = "46.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "desktop-file-utils",
     "gettext",
     "glib",
