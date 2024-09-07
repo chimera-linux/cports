@@ -1,5 +1,5 @@
 pkgname = "go"
-pkgver = "1.23.0"
+pkgver = "1.23.1"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "42b7a8e80d805daa03022ed3fde4321d4c3bf2c990a144165d01eeecd6f699c6"
+sha256 = "6ee44e298379d146a5e5aa6b1c5b5d5f5d0a3365eabdd70741e6e21340ec3b0d"
 env = {}
 # see below
 options = [
@@ -114,15 +114,15 @@ def _(self):
 
 def check(self):
     self.do(
-        self.chroot_cwd / "bin/go",
-        "tool",
-        "dist",
-        "test",
-        "-v",
+        "./run.bash",
+        "-no-rebuild",
         env={
             "GO_TEST_TIMEOUT_SCALE": "5",
-            "GO_TEST_SHARDS": str(self.make_jobs),
+            # each shard spawns its own jobs too, so cap this to half of the
+            # configured jobcount (but +1 so 1 ends up as 1)
+            "GO_TEST_SHARDS": str(int(self.make_jobs / 2) + 1),
         },
+        wrksrc="src",
     )
 
 
