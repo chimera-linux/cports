@@ -1,5 +1,5 @@
 pkgname = "python-filelock"
-pkgver = "3.15.4"
+pkgver = "3.16.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,6 +15,6 @@ maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "Unlicense"
 url = "https://github.com/tox-dev/filelock"
 source = f"$(PYPI_SITE)/f/filelock/filelock-{pkgver}.tar.gz"
-sha256 = "2207938cbc1844345cb01a5a95524dae30f0ce089eba5b00378295a17e3e90cb"
+sha256 = "81de9eb8453c769b63369f87f11131a7ab04e367f8d97ad39dc230daa07e3bec"
 # missing check dependencies
 options = ["!check"]
