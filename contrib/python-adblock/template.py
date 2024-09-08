@@ -1,6 +1,6 @@
 pkgname = "python-adblock"
 pkgver = "0.6.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
@@ -38,7 +38,3 @@ def init_build(self):
 
 def post_install(self):
     self.install_license("LICENSE-MIT")
-    self.install_link(
-        "usr/lib/libadblock.so",
-        f"python{self.python_version}/site-packages/adblock/adblock.abi3.so",
-    )
