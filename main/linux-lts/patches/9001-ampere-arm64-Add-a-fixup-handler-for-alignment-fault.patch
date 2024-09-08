@@ -23,13 +23,12 @@ index 60454256945b8..05f1ac75e315c 100644
  				   cache.o copypage.o flush.o \
  				   ioremap.o mmap.o pgd.o mmu.o \
  				   context.o proc.o pageattr.o fixmap.o
-@@ -13,5 +13,6 @@ obj-$(CONFIG_DEBUG_VIRTUAL)	+= physaddr.o
- obj-$(CONFIG_ARM64_MTE)		+= mteswap.o
- KASAN_SANITIZE_physaddr.o	+= n
+@@ -14,3 +14,5 @@ KASAN_SANITIZE_physaddr.o	+= n
  
-++CFLAGS_REMOVE_fault_neon.o += -mgeneral-regs-only
  obj-$(CONFIG_KASAN)		+= kasan_init.o
  KASAN_SANITIZE_kasan_init.o	:= n
++
++CFLAGS_REMOVE_fault_neon.o += -mgeneral-regs-only
 diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
 index 451ba7cbd5adb..744e7b1664b1c 100644
 --- a/arch/arm64/mm/fault.c
