@@ -8,12 +8,13 @@ def build(self):
     # override whatever the sysconfig module says. this is essential if
     # we're cross building a python extension, since sysconfig will
     # point to the wrong paths in the host system.
-    env = {
+    renv = {
         "PYTHON_CROSS_LIBDIR": self.profile().sysroot / "usr/lib",
         "PYTHON_CROSS_INCDIR": self.profile().sysroot
         / f"usr/include/python{self.python_version}",
     }
-    env.update(self.make_build_env)
+    renv.update(self.make_env)
+    renv.update(self.make_build_env)
 
     self.do(
         *self.make_wrapper,
@@ -25,11 +26,14 @@ def build(self):
         "--no-isolation",
         *self.make_build_args,
         self.make_build_target,
-        env=env,
+        env=renv,
     )
 
 
 def check(self):
+    renv = dict(self.make_env)
+    renv.update(self.make_check_env)
+
     if (
         chroot.enter(
             "python3",
@@ -88,12 +92,15 @@ def check(self):
         "pytest",
         *self.make_check_args,
         *ctgt,
-        env=self.make_check_env,
+        env=renv,
         path=[envpy.parent],
     )
 
 
 def install(self):
+    renv = dict(self.make_env)
+    renv.update(self.make_install_env)
+
     (self.cwd / self.make_dir).mkdir(parents=True, exist_ok=True)
 
     whl = list(
@@ -115,6 +122,7 @@ def install(self):
         str(self.chroot_destdir),
         *self.make_install_args,
         *whl,
+        env=renv,
     )
 
 
