@@ -1,0 +1,15 @@
+../src/piece_picker.cpp:3717:19: runtime error: signed integer overflow: 2145841215 + 4172709 cannot be represented in type 'int'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ../src/piece_picker.cpp:3717:19 
+when adding some really big sized torrents
+--
+--- a/src/piece_picker.cpp
++++ b/src/piece_picker.cpp
+@@ -3714,7 +3714,7 @@
+ 		TORRENT_ASSERT(bytes > 0);
+ 		TORRENT_ASSERT(bytes <= piece_size(piece));
+ 
+-		m_num_pad_bytes += bytes;
++		m_num_pad_bytes = (unsigned)m_num_pad_bytes + bytes;
+ 		m_pads_in_piece[piece] = bytes;
+ 
+ 		piece_pos& p = m_piece_map[piece];
