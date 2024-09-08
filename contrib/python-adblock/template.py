@@ -38,4 +38,7 @@ def init_build(self):
 
 def post_install(self):
     self.install_license("LICENSE-MIT")
-    self.install_file("target/release/libadblock.so", "usr/lib", mode=0o755)
+    self.install_link(
+        "usr/lib/libadblock.so",
+        f"python{self.python_version}/site-packages/adblock/adblock.abi3.so",
+    )
