@@ -1,6 +1,6 @@
 pkgname = "waydroid"
 pkgver = "1.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_install_args = ["USE_SYSTEMD=0", "USE_NFTABLES=1"]
 depends = [
