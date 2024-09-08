@@ -1,6 +1,6 @@
 pkgname = "python-maturin"
 pkgver = "1.7.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_build_env = {
     "MATURIN_SETUP_ARGS": "--features=full,native-tls,password-storage"

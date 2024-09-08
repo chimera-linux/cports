@@ -1,6 +1,6 @@
 pkgname = "uv"
 pkgver = "0.4.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo-auditable",
