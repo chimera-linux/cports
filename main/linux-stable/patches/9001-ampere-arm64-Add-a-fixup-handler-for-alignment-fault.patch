@@ -1,106 +1,62 @@
-Additional fixes by q66 to make it build with Clang.
+https://patchwork.kernel.org/project/linux-arm-kernel/cover/20240827130829.43632-1-alex.bennee@linaro.org/
 
-From 43154c8bc3ab56e5186ffaa669d3b2274c819ef4 Mon Sep 17 00:00:00 2001
-From: D Scott Phillips <scott@os.amperecomputing.com>
-Date: Tue, 13 Feb 2024 09:01:07 -0800
-Subject: [PATCH 1/2] ampere/arm64: Add a fixup handler for alignment faults in
- aarch64 code
-
-A later patch will hand out Device memory in some cases to code
-which expects a Normal memory type, as an errata workaround.
-Unaligned accesses to Device memory will fault though, so here we
-add a fixup handler to emulate faulting accesses, at a performance
-penalty.
-
-Not all instructions in the Loads and Stores group are supported.
-Unsupported instructions are:
-
- * Load/store memory tags
- * Load/store exclusive
- * LDAPR/STLR (unscaled immediate)
- * Load register (literal) [cannot Alignment fault]
- * Load/store register (unprivileged)
- * Atomic memory operations
- * Load/store register (pac)
-
-Instruction implementations are translated from the Exploration tools'
-ASL specifications.
-
-Signed-off-by: D Scott Phillips <scott@os.amperecomputing.com>
----
- arch/arm64/include/asm/exception.h |    1 +
- arch/arm64/kernel/Makefile         |    2 +-
- arch/arm64/kernel/alignment.c      | 1049 ++++++++++++++++++++++++++++
- arch/arm64/mm/fault.c              |    5 +-
- 4 files changed, 1054 insertions(+), 3 deletions(-)
- create mode 100644 arch/arm64/kernel/alignment.c
-
-diff --git a/arch/arm64/include/asm/exception.h b/arch/arm64/include/asm/exception.h
-index f296662..9b4e56c 100644
---- a/arch/arm64/include/asm/exception.h
-+++ b/arch/arm64/include/asm/exception.h
-@@ -67,6 +67,7 @@ void do_el0_sys(unsigned long esr, struct pt_regs *regs);
- void do_sp_pc_abort(unsigned long addr, unsigned long esr, struct pt_regs *regs);
- void bad_el0_sync(struct pt_regs *regs, int reason, unsigned long esr);
- void do_el0_cp15(unsigned long esr, struct pt_regs *regs);
-+int do_alignment_fixup(unsigned long addr, unsigned int esr, struct pt_regs *regs);
- int do_compat_alignment_fixup(unsigned long addr, struct pt_regs *regs);
- void do_el0_svc(struct pt_regs *regs);
- void do_el0_svc_compat(struct pt_regs *regs);
-diff --git a/arch/arm64/kernel/Makefile b/arch/arm64/kernel/Makefile
-index 7638249..3617d09 100644
---- a/arch/arm64/kernel/Makefile
-+++ b/arch/arm64/kernel/Makefile
-@@ -26,7 +26,7 @@ KCOV_INSTRUMENT_entry-common.o := n
- KCOV_INSTRUMENT_idle.o := n
+diff --git a/arch/arm64/include/asm/insn.h b/arch/arm64/include/asm/insn.h
+index 8c0a36f72d6fc..d6e926b5046c1 100644
+--- a/arch/arm64/include/asm/insn.h
++++ b/arch/arm64/include/asm/insn.h
+@@ -431,6 +431,7 @@ __AARCH64_INSN_FUNCS(clrex,	0xFFFFF0FF, 0xD503305F)
+ __AARCH64_INSN_FUNCS(ssbb,	0xFFFFFFFF, 0xD503309F)
+ __AARCH64_INSN_FUNCS(pssbb,	0xFFFFFFFF, 0xD503349F)
+ __AARCH64_INSN_FUNCS(bti,	0xFFFFFF3F, 0xD503241f)
++__AARCH64_INSN_FUNCS(dc_zva,	0xFFFFFFE0, 0xD50B7420)
  
- # Object file lists.
--obj-y			:= debug-monitors.o entry.o irq.o fpsimd.o		\
-+obj-y			:= alignment.o alignment_neon.o debug-monitors.o entry.o irq.o fpsimd.o	\
- 			   entry-common.o entry-fpsimd.o process.o ptrace.o	\
- 			   setup.o signal.o sys.o stacktrace.o time.o traps.o	\
- 			   io.o vdso.o hyp-stub.o psci.o cpu_ops.o		\
-@@ -84,5 +84,7 @@ ifeq ($(CONFIG_DEBUG_EFI),y)
- AFLAGS_head.o += -DVMLINUX_PATH="\"$(realpath $(objtree)/vmlinux)\""
- endif
+ #undef	__AARCH64_INSN_FUNCS
  
-+CFLAGS_REMOVE_alignment_neon.o += -mgeneral-regs-only
-+
- # for cleaning
- subdir- += vdso vdso32
-diff --git a/arch/arm64/kernel/alignment.c b/arch/arm64/kernel/alignment.c
-new file mode 100644
-index 0000000..590378e
---- /dev/null
-+++ b/arch/arm64/kernel/alignment.c
-@@ -0,0 +1,1007 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2023 Ampere Computing LLC
-+ */
-+
-+#include <linux/init.h>
-+#include <linux/io.h>
-+#include <linux/perf_event.h>
-+#include <linux/printk.h>
-+#include <linux/uaccess.h>
-+
-+#include <asm/exception.h>
-+#include <asm/insn.h>
+diff --git a/arch/arm64/mm/Makefile b/arch/arm64/mm/Makefile
+index 60454256945b8..05f1ac75e315c 100644
+--- a/arch/arm64/mm/Makefile
++++ b/arch/arm64/mm/Makefile
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+-obj-y				:= dma-mapping.o extable.o fault.o init.o \
++obj-y				:= dma-mapping.o extable.o fault.o fault_neon.o init.o \
+ 				   cache.o copypage.o flush.o \
+ 				   ioremap.o mmap.o pgd.o mmu.o \
+ 				   context.o proc.o pageattr.o fixmap.o
+@@ -13,5 +13,6 @@ obj-$(CONFIG_DEBUG_VIRTUAL)	+= physaddr.o
+ obj-$(CONFIG_ARM64_MTE)		+= mteswap.o
+ KASAN_SANITIZE_physaddr.o	+= n
+ 
+++CFLAGS_REMOVE_fault_neon.o += -mgeneral-regs-only
+ obj-$(CONFIG_KASAN)		+= kasan_init.o
+ KASAN_SANITIZE_kasan_init.o	:= n
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index 451ba7cbd5adb..744e7b1664b1c 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -5,6 +5,7 @@
+  * Copyright (C) 1995  Linus Torvalds
+  * Copyright (C) 1995-2004 Russell King
+  * Copyright (C) 2012 ARM Ltd.
++ * Copyright (C) 2020 Ampere Computing LLC
+  */
+ 
+ #include <linux/acpi.h>
+@@ -42,8 +43,10 @@
+ #include <asm/system_misc.h>
+ #include <asm/tlbflush.h>
+ #include <asm/traps.h>
 +#include <asm/patching.h>
-+#include <asm/ptrace.h>
-+#include <asm/traps.h>
-+
-+static __always_inline int __aarch64_insn_is_class_ldst(u32 insn)
-+{
-+	return (insn & 0x0A000000) == 0x08000000;
-+}
-+
-+static __always_inline int __aarch64_insn_is_dc_zva(u32 insn)
-+{
-+	return (insn & 0xFFFFFFE0) == 0xD50B7420;
-+}
-+
+ 
+ struct fault_info {
++	/* fault handler, return 0 on successful handling */
+ 	int	(*fn)(unsigned long far, unsigned long esr,
+ 		      struct pt_regs *regs);
+ 	int	sig;
+@@ -693,9 +696,727 @@ static int __kprobes do_translation_fault(unsigned long far,
+ 	return 0;
+ }
+ 
 +static int copy_from_user_io(void *to, const void __user *from, unsigned long n)
 +{
 +	const u8 __user *src = from;
@@ -205,7 +161,7 @@ index 0000000..590378e
 +				return 1;
 +		}
 +	} else
-+		memset_io((void __iomem *)addr, 0, sz);
++		memset_io((void *)addr, 0, sz);
 +	return 0;
 +}
 +
@@ -214,46 +170,6 @@ index 0000000..590378e
 +
 +#define get_vn_dt __arm64_get_vn_dt
 +#define set_vn_dt __arm64_set_vn_dt
-+
-+static u64 replicate64(u64 val, int bits)
-+{
-+	switch (bits) {
-+	case 8:
-+		val = (val << 8) | (val & 0xff);
-+		fallthrough;
-+	case 16:
-+		val = (val << 16) | (val & 0xffff);
-+		fallthrough;
-+	case 32:
-+		val = (val << 32) | (val & 0xffffffff);
-+		break;
-+	default:
-+		break;
-+	}
-+	return val;
-+}
-+
-+static u64 elem_get(u64 hi, u64 lo, int index, int esize)
-+{
-+	int shift = index * esize;
-+	u64 mask = GENMASK(esize - 1, 0);
-+
-+	if (shift < 64)
-+		return (lo >> shift) & mask;
-+	else
-+		return (hi >> (shift - 64)) & mask;
-+}
-+
-+static void elem_set(u64 *hi, u64 *lo, int index, int esize, u64 val)
-+{
-+	int shift = index * esize;
-+	u64 mask = GENMASK(esize - 1, 0);
-+
-+	if (shift < 64)
-+		*lo = (*lo & ~(mask << shift)) | ((val & mask) << shift);
-+	else
-+		*hi = (*hi & ~(mask << (shift - 64))) | ((val & mask) << (shift - 64));
-+}
 +
 +static int align_ldst_pair(u32 insn, struct pt_regs *regs)
 +{
@@ -445,18 +361,20 @@ index 0000000..590378e
 +			if ((opc & 0x1) == 0) {
 +				/* prefetch */
 +				return 0;
++			} else {
++				/* undefined */
++				return 1;
 +			}
-+			/* undefined */
-+			return 1;
++		} else {
++			/* sign-extending load */
++			is_store = false;
++			if (size == 0x2 && (opc & 0x1) == 0x1) {
++				/* undefined */
++				return 1;
++			}
++			regsize = (opc & 0x1) == 0x1 ? 32 : 64;
++			is_signed = true;
 +		}
-+		/* sign-extending load */
-+		is_store = false;
-+		if (size == 0x2 && (opc & 0x1) == 0x1) {
-+			/* undefined */
-+			return 1;
-+		}
-+		regsize = (opc & 0x1) == 0x1 ? 32 : 64;
-+		is_signed = true;
 +	}
 +
 +	datasize = 8 << scale;
@@ -503,27 +421,40 @@ index 0000000..590378e
 +	u32 opc = FIELD_GET(OPC, insn);
 +	u32 option = FIELD_GET(OPTION, insn);
 +	u32 s = FIELD_GET(S, insn);
-+	int scale = (opc & 0x2) << 1 | size;
++	/* this elides the 8/16 bit sign extensions */
 +	int extend_len = (option & 0x1) ? 64 : 32;
 +	bool extend_unsigned = !(option & 0x4);
-+	int shift = s ? scale : 0;
 +
 +	int n = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RN, insn);
 +	int t = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RT, insn);
 +	int m = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RM, insn);
 +	bool is_store = !(opc & BIT(0));
++	int scale;
++	int shift;
 +	int datasize;
 +	u64 offset;
 +	u64 address;
 +	u64 data_d0, data_d1;
 +
-+	if ((option & 0x2) == 0)
++	/* if option<1> == '0' then UNDEFINED; // sub-word index */
++	if ((option & 0x2) == 0) {
++		pr_warn("option<1> == 0 is UNDEFINED");
 +		return 1;
++	}
++
++	/* if opc<1> == '1' && size != '00' then UNDEFINED;*/
++	if ((opc & 0x2) && size != 0b00) {
++		pr_warn("opc<1> == '1' && size != '00' is UNDEFINED\n");
++		return 1;
++	}
++
++	/*
++	 * constant integer scale = if opc<1> == '1' then 4 else UInt(size);
++	 */
++	scale = opc & 0x2 ? 4 : size;
++	shift = s ? scale : 0;
 +
 +	datasize = 8 << scale;
-+
-+	if (n == t && n != 31)
-+		return 1;
 +
 +	offset = pt_regs_read_reg(regs, m);
 +	if (extend_len == 32) {
@@ -603,18 +534,20 @@ index 0000000..590378e
 +			if (FIELD_GET(GENMASK(11, 10), insn) == 0 && (opc & 0x1) == 0) {
 +				/* prefetch */
 +				return 0;
++			} else {
++				/* undefined */
++				return 1;
 +			}
-+			/* undefined */
-+			return 1;
++		} else {
++			/* sign-extending load */
++			is_store = false;
++			if (size == 0x2 && (opc & 0x1) == 0x1) {
++				/* undefined */
++				return 1;
++			}
++			regsize = (opc & 0x1) == 0x1 ? 32 : 64;
++			is_signed = true;
 +		}
-+		/* sign-extending load */
-+		is_store = false;
-+		if (size == 0x2 && (opc & 0x1) == 0x1) {
-+			/* undefined */
-+			return 1;
-+		}
-+		regsize = (opc & 0x1) == 0x1 ? 32 : 64;
-+		is_signed = true;
 +	}
 +
 +	datasize = 8 << scale;
@@ -669,7 +602,7 @@ index 0000000..590378e
 +
 +	int n = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RN, insn);
 +	int t = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RT, insn);
-+	bool is_store = !(opc & BIT(0));
++	bool is_store = !(opc & BIT(0)) ;
 +	int datasize;
 +	u64 address;
 +	u64 data_d0, data_d1;
@@ -730,234 +663,6 @@ index 0000000..590378e
 +	return 0;
 +}
 +
-+static int align_ldst_vector_multiple(u32 insn, struct pt_regs *regs)
-+{
-+	const u32 Q_MASK = BIT(30);
-+	const u32 L_MASK = BIT(22);
-+	const u32 OPCODE = GENMASK(15, 12);
-+	const u32 SIZE = GENMASK(11, 10);
-+
-+	u32 Q = FIELD_GET(Q_MASK, insn);
-+	u32 L = FIELD_GET(L_MASK, insn);
-+	u32 opcode = FIELD_GET(OPCODE, insn);
-+	u32 size = FIELD_GET(SIZE, insn);
-+
-+	int t = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RT, insn);
-+	int n = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RN, insn);
-+	int m = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RM, insn);
-+	bool wback = !!(insn & BIT(23));
-+
-+	int datasize = Q ? 128 : 64;
-+	int esize = 8 << size;
-+	int elements = datasize / esize;
-+	int rpt;
-+	int selem;
-+	u64 address;
-+	u64 offs;
-+	u64 rval_d0, rval_d1;
-+	int tt;
-+	int ebytes;
-+	int r;
-+	int e;
-+	int s;
-+	u64 data;
-+
-+	switch (opcode) {
-+	case 0: // LD/ST4 (4 registers)
-+		rpt = 1;
-+		selem = 4;
-+		break;
-+	case 2: // LD/ST1 (4 registers)
-+		rpt = 4;
-+		selem = 1;
-+		break;
-+	case 4: // LD/ST3 (3 registers)
-+		rpt = 1;
-+		selem = 3;
-+		break;
-+	case 6: // LD/ST1 (3 registers)
-+		rpt = 3;
-+		selem = 1;
-+		break;
-+	case 7: // LD/ST1 (1 register)
-+		rpt = 1;
-+		selem = 1;
-+		break;
-+	case 8: // LD/ST2 (2 registers)
-+		rpt = 1;
-+		selem = 2;
-+		break;
-+	case 10: // LD/ST1 (2 registers)
-+		rpt = 2;
-+		selem = 1;
-+		break;
-+	default:
-+		return 1;
-+	}
-+
-+	if (size == 3 && Q == 0 && selem != 1)
-+		return 1;
-+
-+	ebytes = esize / 8;
-+
-+	address = regs_get_register(regs, n << 3);
-+
-+	offs = 0;
-+
-+	for (r = 0; r < rpt; r++) {
-+		for (e = 0; e < elements; e++) {
-+			tt = (t + r) % 32;
-+			for (s = 0; s < selem; s++) {
-+				rval_d0 = get_vn_dt(tt, 0);
-+				rval_d1 = get_vn_dt(tt, 1);
-+				if (L) {
-+					if (align_load(address + offs, ebytes, &data))
-+						return 1;
-+					elem_set(&rval_d1, &rval_d0, e, esize, data);
-+					set_vn_dt(tt, 0, rval_d0);
-+					set_vn_dt(tt, 1, rval_d1);
-+				} else {
-+					data = elem_get(rval_d1, rval_d0, e, esize);
-+					if (align_store(address + offs, ebytes, data))
-+						return 1;
-+				}
-+				offs += ebytes;
-+				tt = (tt + 1) % 32;
-+			}
-+		}
-+	}
-+
-+	if (wback) {
-+		if (m != 31)
-+			offs = regs_get_register(regs, m << 3);
-+		if (n == 31)
-+			regs->sp = address + offs;
-+		else
-+			pt_regs_write_reg(regs, n, address + offs);
-+	}
-+
-+	return 0;
-+}
-+
-+static int align_ldst_vector_single(u32 insn, struct pt_regs *regs)
-+{
-+	const u32 Q_MASK = BIT(30);
-+	const u32 L_MASK = BIT(22);
-+	const u32 R_MASK = BIT(21);
-+	const u32 OPCODE = GENMASK(15, 13);
-+	const u32 S_MASK = BIT(12);
-+	const u32 SIZE = GENMASK(11, 10);
-+
-+	u32 Q = FIELD_GET(Q_MASK, insn);
-+	u32 L = FIELD_GET(L_MASK, insn);
-+	u32 R = FIELD_GET(R_MASK, insn);
-+	u32 opcode = FIELD_GET(OPCODE, insn);
-+	u32 S = FIELD_GET(S_MASK, insn);
-+	u32 size = FIELD_GET(SIZE, insn);
-+
-+	int t = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RT, insn);
-+	int n = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RN, insn);
-+	int m = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RM, insn);
-+	bool wback = !!(insn & BIT(23));
-+
-+	int init_scale = opcode >> 1;
-+	int scale = init_scale;
-+	int selem = (((opcode & 1) << 1) | R) + 1;
-+	bool replicate = false;
-+	int index;
-+	int datasize;
-+	int esize;
-+	u64 address;
-+	u64 offs;
-+	u64 rval_d0, rval_d1;
-+	u64 element;
-+	int ebytes;
-+	int s;
-+	u64 data;
-+
-+	switch (scale) {
-+	case 3:
-+		if (!L || S)
-+			return 1;
-+		scale = size;
-+		replicate = true;
-+		break;
-+	case 0:
-+		index = (Q << 3) | (S << 2) | size;
-+		break;
-+	case 1:
-+		if (size & 1)
-+			return 1;
-+		index = (Q << 2) | (S << 1) | (size >> 1);
-+		break;
-+	case 2:
-+		if (size & 2)
-+			return 1;
-+		if (!(size & 1))
-+			index = (Q << 1) | S;
-+		else {
-+			if (S)
-+				return 1;
-+			index = Q;
-+			scale = 3;
-+		}
-+		break;
-+	}
-+
-+	datasize = Q ? 128 : 64;
-+	esize = 8 << scale;
-+
-+	ebytes = esize / 8;
-+
-+	address = regs_get_register(regs, n << 3);
-+
-+	offs = 0;
-+
-+	if (replicate) {
-+		for (s = 0; s < selem; s++) {
-+			if (align_load(address + offs, ebytes, &element))
-+				return 1;
-+			data = replicate64(element, esize);
-+			set_vn_dt(t, 0, data);
-+			if (datasize == 128)
-+				set_vn_dt(t, 1, data);
-+			else
-+				set_vn_dt(t, 1, 0);
-+			offs += ebytes;
-+			t = (t + 1) & 31;
-+		}
-+	} else {
-+		for (s = 0; s < selem; s++) {
-+			rval_d0 = get_vn_dt(t, 0);
-+			rval_d1 = get_vn_dt(t, 1);
-+			if (L) {
-+				if (align_load(address + offs, ebytes, &data))
-+					return 1;
-+				elem_set(&rval_d1, &rval_d0, index, esize, data);
-+				set_vn_dt(t, 0, rval_d0);
-+				set_vn_dt(t, 1, rval_d1);
-+			} else {
-+				data = elem_get(rval_d1, rval_d0, index, esize);
-+				if (align_store(address + offs, ebytes, data))
-+					return 1;
-+			}
-+			offs += ebytes;
-+			t = (t + 1) & 31;
-+		}
-+	}
-+
-+	if (wback) {
-+		if (m != 31)
-+			offs = regs_get_register(regs, m << 3);
-+		if (n == 31)
-+			regs->sp = address + offs;
-+		else
-+			pt_regs_write_reg(regs, n, address + offs);
-+	}
-+
-+	return 0;
-+}
-+
 +static int align_ldst(u32 insn, struct pt_regs *regs)
 +{
 +	const u32 op0 = FIELD_GET(GENMASK(31, 28), insn);
@@ -981,29 +686,31 @@ index 0000000..590378e
 +		if (op1 == 0) { /* V == 0 */
 +			/* general */
 +			return align_ldst_pair(insn, regs);
++		} else {
++			/* simdfp */
++			return align_ldst_pair_simdfp(insn, regs);
 +		}
-+		/* simdfp */
-+		return align_ldst_pair_simdfp(insn, regs);
 +	} else if ((op0 & 0x3) == 0x3 &&
 +		   (((op2 & 0x2) == 0 && (op3 & 0x20) == 0 && op4 != 0x2) ||
 +		    ((op2 & 0x2) == 0x2))) {
 +		/*
-+		 * |------+-----+-----+--------+-----+---------------------------------------------|
-+		 * | op0  | op1 | op2 |    op3 | op4 | Decode group                                |
-+		 * |------+-----+-----+--------+-----+---------------------------------------------|
-+		 * | xx11 | -   |  0x | 0xxxxx |  00 | Load/store register (unscaled immediate)    |
-+		 * | xx11 | -   |  0x | 0xxxxx |  01 | Load/store register (immediate post-indexed |
-+		 * | xx11 | -   |  0x | 0xxxxx |  11 | Load/store register (immediate pre-indexed) |
-+		 * | xx11 | -   |  1x |      - |   - | Load/store register (unsigned immediate)    |
-+		 * |------+-----+-----+--------+-----+---------------------------------------------|
++		 * |------+-----+-----+--------+-----+----------------------------------------------|
++		 * | op0  | op1 | op2 |    op3 | op4 | Decode group                                 |
++		 * |------+-----+-----+--------+-----+----------------------------------------------|
++		 * | xx11 | -   |  0x | 0xxxxx |  00 | Load/store register (unscaled immediate)     |
++		 * | xx11 | -   |  0x | 0xxxxx |  01 | Load/store register (immediate post-indexed) |
++		 * | xx11 | -   |  0x | 0xxxxx |  11 | Load/store register (immediate pre-indexed)  |
++		 * | xx11 | -   |  1x |      - |   - | Load/store register (unsigned immediate)     |
++		 * |------+-----+-----+--------+-----+----------------------------------------------|
 +		 */
 +
 +		if (op1 == 0) {  /* V == 0 */
 +			/* general */
 +			return align_ldst_imm(insn, regs);
++		} else {
++			/* simdfp */
++			return align_ldst_imm_simdfp(insn, regs);
 +		}
-+		/* simdfp */
-+		return align_ldst_imm_simdfp(insn, regs);
 +	} else if ((op0 & 0x3) == 0x3 && (op2 & 0x2) == 0 &&
 +		   (op3 & 0x20) == 0x20 && op4 == 0x2) {
 +		/*
@@ -1016,39 +723,16 @@ index 0000000..590378e
 +		if (op1 == 0) { /* V == 0 */
 +			/* general */
 +			return align_ldst_regoff(insn, regs);
++		} else {
++			/* simdfp */
++			return align_ldst_regoff_simdfp(insn, regs);
 +		}
-+		/* simdfp */
-+		return align_ldst_regoff_simdfp(insn, regs);
-+	} else if ((op0 & 0xb) == 0 && op1 == 1 &&
-+		   ((op2 == 0 && op3 == 0) || (op2 == 1 && ((op3 & 0x20) == 0)))) {
-+		/*
-+		 * |------+-----+-----+--------+-----+---------------------------------------------|
-+		 * | op0  | op1 | op2 |    op3 | op4 |                                             |
-+		 * |------+-----+-----+--------+-----+---------------------------------------------|
-+		 * | 0x00 |   1 |  00 | 000000 |   - | Advanced SIMD load/store multiple structure |
-+		 * | 0x00 |   1 |  01 | 0xxxxx |   - | Advanced SIMD load/store multiple structure |
-+		 * |      |     |     |        |     |   (post-indexed)                            |
-+		 * |------+-----+-----+--------+-----+---------------------------------------------|
-+		 */
-+		return align_ldst_vector_multiple(insn, regs);
-+	} else if ((op0 & 0xb) == 0 && op1 == 1 &&
-+		   ((op2 == 2 && ((op3 & 0x1f) == 0)) || op2 == 3)) {
-+		/*
-+		 * |------+-----+-----+--------+-----+-------------------------------------------|
-+		 * | op0  | op1 | op2 |    op3 | op4 |                                           |
-+		 * |------+-----+-----+--------+-----+-------------------------------------------|
-+		 * | 0x00 |   1 |  10 | x00000 |   - | Advanced SIMD load/store single structure |
-+		 * | 0x00 |   1 |  11 |      - |   - | Advanced SIMD load/store single structure |
-+		 * |      |     |     |        |     |   (post-indexed)                          |
-+		 * |------+-----+-----+--------+-----+-------------------------------------------|
-+		 */
-+		return align_ldst_vector_single(insn, regs);
 +	} else
 +		return 1;
 +}
 +
-+int do_alignment_fixup(unsigned long addr, unsigned int esr,
-+		       struct pt_regs *regs)
++static int fixup_alignment(unsigned long addr, unsigned int esr,
++			   struct pt_regs *regs)
 +{
 +	u32 insn;
 +	int res;
@@ -1068,25 +752,41 @@ index 0000000..590378e
 +			return 1;
 +	}
 +
-+	if (__aarch64_insn_is_class_ldst(insn))
++	if (aarch64_insn_is_class_branch_sys(insn)) {
++		if (aarch64_insn_is_dc_zva(insn))
++			res = align_dc_zva(addr, regs);
++		else
++			res = 1;
++	} else if (((insn >> 25) & 0x5) == 0x4) {
 +		res = align_ldst(insn, regs);
-+	else if (__aarch64_insn_is_dc_zva(insn))
-+		res = align_dc_zva(addr, regs);
-+	else
++	} else {
 +		res = 1;
-+
-+	if (!res) {
-+		perf_sw_event(PERF_COUNT_SW_ALIGNMENT_FAULTS, 1, regs, regs->pc);
-+		arm64_skip_faulting_instruction(regs, AARCH64_INSN_SIZE);
 +	}
++
++	if (!res)
++		instruction_pointer_set(regs, instruction_pointer(regs) + 4);
++	else
++		pr_warn("%s: failed to fixup 0x%04x", __func__, insn);
++
 +	return res;
 +}
-diff --git a/arch/arm64/kernel/alignment_neon.c b/arch/arm64/kernel/alignment_neon.c
++
+ static int do_alignment_fault(unsigned long far, unsigned long esr,
+ 			      struct pt_regs *regs)
+ {
++#ifdef CONFIG_ALTRA_ERRATUM_82288
++	if (!fixup_alignment(far, esr, regs))
++		return 0;
++#endif
+ 	if (IS_ENABLED(CONFIG_COMPAT_ALIGNMENT_FIXUPS) &&
+ 	    compat_user_mode(regs))
+ 		return do_compat_alignment_fixup(far, regs);
+diff --git a/arch/arm64/mm/fault_neon.c b/arch/arm64/mm/fault_neon.c
 new file mode 100644
-index 0000000..df4dedd
+index 0000000000000..d5319ed07d89b
 --- /dev/null
-+++ b/arch/arm64/kernel/alignment_neon.c
-@@ -0,0 +1,63 @@
++++ b/arch/arm64/mm/fault_neon.c
+@@ -0,0 +1,59 @@
 +/*
 + * These functions require asimd, which is not accepted by Clang in normal
 + * kernel code, which is compiled with -mgeneral-regs-only. GCC will somehow
@@ -1103,8 +803,7 @@ index 0000000..df4dedd
 +
 +#include <linux/types.h>
 +
-+u64 __arm64_get_vn_dt(int n, int t)
-+{
++u64 __arm64_get_vn_dt(int n, int t) {
 +	u64 res;
 +
 +	switch (n) {
@@ -1115,10 +814,9 @@ index 0000000..df4dedd
 +		    "b 2f\n\t"				\
 +		    "1: mov %0, v"#n".d[1]\n\t"		\
 +		    "2:" : "=r" (res) : "r" (t));	\
-+		break					\
-+
-+	V(0);  V(1);  V(2);  V(3);  V(4);  V(5);  V(6);  V(7);
-+	V(8);  V(9);  V(10); V(11); V(12); V(13); V(14); V(15);
++		break
++	V( 0); V( 1); V( 2); V( 3); V( 4); V( 5); V( 6); V( 7);
++	V( 8); V( 9); V(10); V(11); V(12); V(13); V(14); V(15);
 +	V(16); V(17); V(18); V(19); V(20); V(21); V(22); V(23);
 +	V(24); V(25); V(26); V(27); V(28); V(29); V(30); V(31);
 +#undef V
@@ -1129,8 +827,7 @@ index 0000000..df4dedd
 +	return res;
 +}
 +
-+void __arm64_set_vn_dt(int n, int t, u64 val)
-+{
++void __arm64_set_vn_dt(int n, int t, u64 val) {
 +	switch (n) {
 +#define V(n)						\
 +	case n:						\
@@ -1139,10 +836,9 @@ index 0000000..df4dedd
 +		    "b 2f\n\t"				\
 +		    "1: mov v"#n".d[1], %0\n\t"		\
 +		    "2:" :: "r" (val), "r" (t));	\
-+		break					\
-+
-+	V(0);  V(1);  V(2);  V(3);  V(4);  V(5);  V(6);  V(7);
-+	V(8);  V(9);  V(10); V(11); V(12); V(13); V(14); V(15);
++		break
++	V( 0); V( 1); V( 2); V( 3); V( 4); V( 5); V( 6); V( 7);
++	V( 8); V( 9); V(10); V(11); V(12); V(13); V(14); V(15);
 +	V(16); V(17); V(18); V(19); V(20); V(21); V(22); V(23);
 +	V(24); V(25); V(26); V(27); V(28); V(29); V(30); V(31);
 +#undef Q
@@ -1150,22 +846,3 @@ index 0000000..df4dedd
 +		break;
 +	}
 +}
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index 55f6455a82843..e43e5b1c33f19 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -718,8 +718,9 @@ static int __kprobes do_translation_fault(unsigned long far,
- static int do_alignment_fault(unsigned long far, unsigned long esr,
- 			      struct pt_regs *regs)
- {
--	if (IS_ENABLED(CONFIG_COMPAT_ALIGNMENT_FIXUPS) &&
--	    compat_user_mode(regs))
-+	if (!compat_user_mode(regs))
-+		return do_alignment_fixup(far, esr, regs);
-+	else if (IS_ENABLED(CONFIG_COMPAT_ALIGNMENT_FIXUPS))
- 		return do_compat_alignment_fixup(far, regs);
- 	do_bad_area(far, esr, regs);
- 	return 0;
--- 
-2.43.0
-

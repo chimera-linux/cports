@@ -1,66 +1,10 @@
-From 4f2f42e136581fc18098ea1a659796445d1560f7 Mon Sep 17 00:00:00 2001
-From: q66 <q66@chimera-linux.org>
-Date: Fri, 26 May 2023 17:36:36 +0000
-Subject: [PATCH 1/2] ampere/arm64: Add a fixup handler for alignment faults in
- aarch64 code
-
-A later patch will hand out Device memory in some cases to code
-which expects a Normal memory type, as an errata workaround.
-Unaligned accesses to Device memory will fault though, so here we
-add a fixup handler to emulate faulting accesses, at a performance
-penalty.
-
-Many of the instructions in the Loads and Stores group are supported,
-but these groups are not handled here:
-
- * Advanced SIMD load/store multiple structures
- * Advanced SIMD load/store multiple structures (post-indexed)
- * Advanced SIMD load/store single structure
- * Advanced SIMD load/store single structure (post-indexed)
- * Load/store memory tags
- * Load/store exclusive
- * LDAPR/STLR (unscaled immediate)
- * Load register (literal) [cannot Alignment fault]
- * Load/store register (unprivileged)
- * Atomic memory operations
- * Load/store register (pac)
-
-Instruction implementations are translated from the Exploration tools'
-ASL specifications.
-
-Signed-off-by: D Scott Phillips <scott@os.amperecomputing.com>
-
-----
-
-Notes by q66 <q66@chimera-linux.org>:
-
-Original patch source: https://github.com/Tencent/TencentOS-kernel/commit/adb335972fcb7a6b59bb8034498b1ffddfb37c97
-
-I have rebased this patch on top of 6.1 kernel, adjusting things
-so that they still apply.
-
-The only difference here is the treatment of the asimd inline
-asm. GCC is capable of compiling files with inline assembly that
-touch asimd while still otherwise using -mgeneral-regs-only. Clang
-differs here, disallowing this. As we do want to compile most of
-this file with -mgeneral-regs-only (doing otherwise is a huge risk
-on aarch64, in kernel code), separate the functions that need it
-in their own translation unit where they can be harmless.
-
-Otherwise it's just a simple rebase.
----
- arch/arm64/include/asm/insn.h |   1 +
- arch/arm64/mm/Makefile        |   4 +-
- arch/arm64/mm/fault.c         | 704 ++++++++++++++++++++++++++++++++++
- arch/arm64/mm/fault_neon.c    |  59 +++
- 4 files changed, 767 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/mm/fault_neon.c
+https://patchwork.kernel.org/project/linux-arm-kernel/cover/20240827130829.43632-1-alex.bennee@linaro.org/
 
 diff --git a/arch/arm64/include/asm/insn.h b/arch/arm64/include/asm/insn.h
-index 139a88e4e..bf03695b3 100644
+index 8c0a36f72d6fc..d6e926b5046c1 100644
 --- a/arch/arm64/include/asm/insn.h
 +++ b/arch/arm64/include/asm/insn.h
-@@ -421,6 +421,7 @@ __AARCH64_INSN_FUNCS(clrex,	0xFFFFF0FF, 0xD503305F)
+@@ -431,6 +431,7 @@ __AARCH64_INSN_FUNCS(clrex,	0xFFFFF0FF, 0xD503305F)
  __AARCH64_INSN_FUNCS(ssbb,	0xFFFFFFFF, 0xD503309F)
  __AARCH64_INSN_FUNCS(pssbb,	0xFFFFFFFF, 0xD503349F)
  __AARCH64_INSN_FUNCS(bti,	0xFFFFFF3F, 0xD503241f)
@@ -69,7 +13,7 @@ index 139a88e4e..bf03695b3 100644
  #undef	__AARCH64_INSN_FUNCS
  
 diff --git a/arch/arm64/mm/Makefile b/arch/arm64/mm/Makefile
-index ff1e800ba..821bd13e1 100644
+index 60454256945b8..05f1ac75e315c 100644
 --- a/arch/arm64/mm/Makefile
 +++ b/arch/arm64/mm/Makefile
 @@ -1,5 +1,5 @@
@@ -78,15 +22,16 @@ index ff1e800ba..821bd13e1 100644
 +obj-y				:= dma-mapping.o extable.o fault.o fault_neon.o init.o \
  				   cache.o copypage.o flush.o \
  				   ioremap.o mmap.o pgd.o mmu.o \
- 				   context.o proc.o pageattr.o
-@@ -14,3 +14,5 @@ KASAN_SANITIZE_physaddr.o	+= n
+ 				   context.o proc.o pageattr.o fixmap.o
+@@ -13,5 +13,6 @@ obj-$(CONFIG_DEBUG_VIRTUAL)	+= physaddr.o
+ obj-$(CONFIG_ARM64_MTE)		+= mteswap.o
+ KASAN_SANITIZE_physaddr.o	+= n
  
+++CFLAGS_REMOVE_fault_neon.o += -mgeneral-regs-only
  obj-$(CONFIG_KASAN)		+= kasan_init.o
  KASAN_SANITIZE_kasan_init.o	:= n
-+
-+CFLAGS_REMOVE_fault_neon.o += -mgeneral-regs-only
 diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index f4cb0f85c..51ab66eea 100644
+index 451ba7cbd5adb..744e7b1664b1c 100644
 --- a/arch/arm64/mm/fault.c
 +++ b/arch/arm64/mm/fault.c
 @@ -5,6 +5,7 @@
@@ -97,15 +42,18 @@ index f4cb0f85c..51ab66eea 100644
   */
  
  #include <linux/acpi.h>
-@@ -42,6 +43,7 @@
+@@ -42,8 +43,10 @@
  #include <asm/system_misc.h>
  #include <asm/tlbflush.h>
  #include <asm/traps.h>
 +#include <asm/patching.h>
  
  struct fault_info {
++	/* fault handler, return 0 on successful handling */
  	int	(*fn)(unsigned long far, unsigned long esr,
-@@ -698,9 +700,711 @@ static int __kprobes do_translation_fault(unsigned long far,
+ 		      struct pt_regs *regs);
+ 	int	sig;
+@@ -693,9 +696,727 @@ static int __kprobes do_translation_fault(unsigned long far,
  	return 0;
  }
  
@@ -473,27 +421,40 @@ index f4cb0f85c..51ab66eea 100644
 +	u32 opc = FIELD_GET(OPC, insn);
 +	u32 option = FIELD_GET(OPTION, insn);
 +	u32 s = FIELD_GET(S, insn);
-+	int scale = (opc & 0x2) << 1 | size;
++	/* this elides the 8/16 bit sign extensions */
 +	int extend_len = (option & 0x1) ? 64 : 32;
 +	bool extend_unsigned = !(option & 0x4);
-+	int shift = s ? scale : 0;
 +
 +	int n = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RN, insn);
 +	int t = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RT, insn);
 +	int m = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RM, insn);
 +	bool is_store = !(opc & BIT(0));
++	int scale;
++	int shift;
 +	int datasize;
 +	u64 offset;
 +	u64 address;
 +	u64 data_d0, data_d1;
 +
-+	if ((opc & 0x2) == 0)
++	/* if option<1> == '0' then UNDEFINED; // sub-word index */
++	if ((option & 0x2) == 0) {
++		pr_warn("option<1> == 0 is UNDEFINED");
 +		return 1;
++	}
++
++	/* if opc<1> == '1' && size != '00' then UNDEFINED;*/
++	if ((opc & 0x2) && size != 0b00) {
++		pr_warn("opc<1> == '1' && size != '00' is UNDEFINED\n");
++		return 1;
++	}
++
++	/*
++	 * constant integer scale = if opc<1> == '1' then 4 else UInt(size);
++	 */
++	scale = opc & 0x2 ? 4 : size;
++	shift = s ? scale : 0;
 +
 +	datasize = 8 << scale;
-+
-+	if (n == t && n != 31)
-+		return 1;
 +
 +	offset = pt_regs_read_reg(regs, m);
 +	if (extend_len == 32) {
@@ -801,9 +762,12 @@ index f4cb0f85c..51ab66eea 100644
 +	} else {
 +		res = 1;
 +	}
-+	if (!res) {
++
++	if (!res)
 +		instruction_pointer_set(regs, instruction_pointer(regs) + 4);
-+	}
++	else
++		pr_warn("%s: failed to fixup 0x%04x", __func__, insn);
++
 +	return res;
 +}
 +
@@ -819,7 +783,7 @@ index f4cb0f85c..51ab66eea 100644
  		return do_compat_alignment_fixup(far, regs);
 diff --git a/arch/arm64/mm/fault_neon.c b/arch/arm64/mm/fault_neon.c
 new file mode 100644
-index 000000000..d5319ed07
+index 0000000000000..d5319ed07d89b
 --- /dev/null
 +++ b/arch/arm64/mm/fault_neon.c
 @@ -0,0 +1,59 @@
@@ -882,6 +846,3 @@ index 000000000..d5319ed07
 +		break;
 +	}
 +}
--- 
-2.39.0
-
