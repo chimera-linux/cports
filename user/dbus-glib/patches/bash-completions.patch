@@ -1,0 +1,24 @@
+--- a/dbus/Makefile.am  2019-07-23 07:32:01.000000000 -0300
++++ b/dbus/Makefile.am  2024-09-07 22:43:23.933920951 -0300
+@@ -93,7 +93,7 @@
+         $(GLIB_GENMARSHAL) --prefix=_dbus_g_marshal dbus-gmarshal.list --body >> dbus-gmarshal.c
+ 
+ 
+-completiondir = $(sysconfdir)/bash_completion.d
++completiondir = $(prefix)/share/bash_completion.d
+ if DBUS_BASH_COMPLETION
+ libexec_PROGRAMS=dbus-bash-completion-helper
+ completion_SCRIPTS=dbus-bash-completion.sh
+ 
+--- a/dbus/Makefile.in  2021-03-26 11:05:17.000000000 -0300
++++ b/dbus/Makefile.in  2024-09-07 22:44:59.930549427 -0300
+@@ -704,7 +704,7 @@
+        dbus-glib-tool.c
+                                                                                               
+ dbus_binding_tool_LDADD = $(builddir)/libdbus-gtool.la $(builddir)/libdbus-glib-1.la $(DBUS_LIBS) $(GLIB_LIBS) -lexpat
+-completiondir = $(sysconfdir)/bash_completion.d
++completiondir = $(prefix)/share/bash_completion.d
+ @DBUS_BASH_COMPLETION_TRUE@completion_SCRIPTS = dbus-bash-completion.sh
+ dbus_bash_completion_helper_SOURCES = \
+        dbus-bash-completion-helper.c
+ 
