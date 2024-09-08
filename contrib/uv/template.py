@@ -24,10 +24,6 @@ sha256 = "9a31cddc5338ae9eb39e6360c1d2f3610631debb0936dcaadf40d57678ab302a"
 options = ["!check"]
 
 
-if self.profile().arch == "riscv64":
-    broken = "stuck forever"
-
-
 def post_patch(self):
     from cbuild.util import cargo
 
