@@ -41,7 +41,7 @@ def post_build(self):
     for shell in ["bash", "fish", "zsh", "nushell"]:
         with open(self.cwd / f"ruff.{shell}", "w") as f:
             self.do(
-                "./target/release/ruff",
+                f"./target/{self.profile().triplet}/release/ruff",
                 "generate-shell-completion",
                 shell,
                 stdout=f,
