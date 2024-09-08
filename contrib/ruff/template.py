@@ -1,6 +1,6 @@
 pkgname = "ruff"
 pkgver = "0.6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
@@ -42,7 +42,7 @@ def init_build(self):
 
 
 def post_build(self):
-    for shell in ["bash", "fish", "zsh"]:
+    for shell in ["bash", "fish", "zsh", "nushell"]:
         with open(self.cwd / f"ruff.{shell}", "w") as f:
             self.do(
                 "./target/release/ruff",
@@ -59,6 +59,6 @@ def check(self):
 
 
 def post_install(self):
-    for shell in ["bash", "fish", "zsh"]:
+    for shell in ["bash", "fish", "zsh", "nushell"]:
         self.install_completion(f"ruff.{shell}", shell)
     self.install_license("LICENSE")
