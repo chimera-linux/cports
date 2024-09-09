@@ -1,5 +1,5 @@
 pkgname = "iwd"
-pkgver = "2.20"
+pkgver = "2.21"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://iwd.wiki.kernel.org"
 source = f"$(KERNEL_SITE)/network/wireless/iwd-{pkgver}.tar.xz"
-sha256 = "86827b97cb5b19ddecce36568c59378da2fae8cf37a0e2b9eacd1269f24c6f8e"
+sha256 = "d911398242cdae78a474fe712de7bd138ddc39122f52709b52c8c3bf03716392"
 tool_flags = {
     "CFLAGS": ["-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"]
 }
