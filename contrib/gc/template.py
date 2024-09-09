@@ -1,5 +1,5 @@
 pkgname = "gc"
-pkgver = "8.2.6"
+pkgver = "8.2.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,14 +8,14 @@ configure_args = [
     "--enable-cplusplus",
     "--with-libatomic-ops=none",
 ]
-hostmakedepends = ["pkgconf", "automake", "libtool"]
+hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["linux-headers"]
 pkgdesc = "Boehm garbage collector for C/C++"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.hboehm.info/gc"
 source = f"https://github.com/ivmai/bdwgc/releases/download/v{pkgver}/gc-{pkgver}.tar.gz"
-sha256 = "b9183fe49d4c44c7327992f626f8eaa1d8b14de140f243edb1c9dcff7719a7fc"
+sha256 = "7649020621cb26325e1fb5c8742590d92fb48ce5c259b502faf7d9fb5dabb160"
 
 tool_flags = {
     "CFLAGS": [
