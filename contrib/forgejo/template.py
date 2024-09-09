@@ -1,6 +1,6 @@
 pkgname = "forgejo"
-pkgver = "8.0.2"
-pkgrel = 1
+pkgver = "8.0.3"
+pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
 make_check_target = "test-backend"
@@ -14,12 +14,12 @@ license = "MIT"
 url = "https://forgejo.org"
 source = [
     f"https://codeberg.org/forgejo/forgejo/archive/v{pkgver}.tar.gz",
-    "https://github.com/mattn/go-sqlite3/archive/refs/tags/v1.14.22.tar.gz",
+    "https://github.com/mattn/go-sqlite3/archive/refs/tags/v1.14.23.tar.gz",
 ]
 source_paths = [".", "go-sqlite3-patched"]
 sha256 = [
-    "2bd18d187542983b55858e15f6b71fe40d894db112d2a5f373342a5de60d514d",
-    "5b1d74ec4359b1ae0fe373fab37ae8a661ed128cf2f89b27875ecbb18bbe1078",
+    "8f8d54f737e15333763773f1b3f86692abbc1bc17620419b093a25343ff595dd",
+    "a4c4db22554c97c41aacd20fdc6c76963d8cc38f2b3902d1f158cdb1ace0fb6e",
 ]
 # check takes quite a bit
 options = ["!check", "!cross"]
