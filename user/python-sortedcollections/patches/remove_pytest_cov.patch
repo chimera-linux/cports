@@ -1,0 +1,23 @@
+diff --color -ruN python-sortedcollections-2.1.0/tox.ini python-sortedcollections-2.1.0-patched/tox.ini
+--- python-sortedcollections-2.1.0/tox.ini	2021-01-18 22:01:45.000000000 +0000
++++ python-sortedcollections-2.1.0-patched/tox.ini	2024-09-09 05:03:14.848365734 +0000
+@@ -6,7 +6,6 @@
+ commands=pytest
+ deps=
+     pytest
+-    pytest-cov
+ 
+ [testenv:blue]
+ commands=blue {toxinidir}/setup.py {toxinidir}/sortedcollections {toxinidir}/tests
+@@ -64,11 +63,3 @@
+ use_parentheses = True
+ ensure_newline_before_comments = True
+ line_length = 79
+-
+-[pytest]
+-addopts=
+-    --cov-branch
+-    --cov-fail-under=100
+-    --cov-report=term-missing
+-    --cov=sortedcollections
+-    --doctest-glob="*.rst"
