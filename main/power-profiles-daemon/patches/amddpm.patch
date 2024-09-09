@@ -1,0 +1,65 @@
+Patch-Source: https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/commit/21b58819edcbbd87fc161474d1501debfd9b84b7
+--
+From 21b58819edcbbd87fc161474d1501debfd9b84b7 Mon Sep 17 00:00:00 2001
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Thu, 5 Sep 2024 18:53:50 -0500
+Subject: [PATCH] action-amdgpu-dpm: Don't override user settings for dpm if
+ set to `manual`
+
+---
+ src/ppd-action-amdgpu-dpm.c |  5 +++++
+ tests/integration_test.py   | 22 ++++++++++++++++++++++
+ 2 files changed, 27 insertions(+)
+
+diff --git a/src/ppd-action-amdgpu-dpm.c b/src/ppd-action-amdgpu-dpm.c
+index 7e141de..e8e34b9 100644
+--- a/src/ppd-action-amdgpu-dpm.c
++++ b/src/ppd-action-amdgpu-dpm.c
+@@ -99,6 +99,11 @@ ppd_action_amdgpu_dpm_update_target (PpdActionAmdgpuDpm *self, GError **error)
+       continue;
+     }
+ 
++    if (g_strcmp0 (value, "manual") == 0) {
++      g_info ("Device %s is in manual mode, not changing", g_udev_device_get_sysfs_path (dev));
++      continue;
++    }
++
+     g_info ("Setting device %s to %s", g_udev_device_get_sysfs_path (dev), target);
+     if (!ppd_utils_write_sysfs (dev, DPM_SYSFS_NAME, target, error))
+       return FALSE;
+diff --git a/tests/integration_test.py b/tests/integration_test.py
+index 30ae097..6c898fd 100644
+--- a/tests/integration_test.py
++++ b/tests/integration_test.py
+@@ -1646,6 +1646,28 @@ class Tests(dbusmock.DBusTestCase):
+         upowerd_obj.Set("org.freedesktop.UPower", "OnBattery", True)
+         self.assert_file_eventually_contains(energy_prefs, "balance_power")
+ 
++    def test_amdgpu_dpm_manual(self):
++        """Verify AMDGPU dpm power actions avoid manual"""
++        amdgpu_dpm = "device/power_dpm_force_performance_level"
++        card = self.testbed.add_device(
++            "drm",
++            "card0",
++            None,
++            [amdgpu_dpm, "manual\n"],
++            ["DEVTYPE", "drm_minor"],
++        )
++        self.create_amd_apu()
++
++        self.start_daemon()
++
++        self.assertIn("amdgpu_dpm", self.get_dbus_property("Actions"))
++
++        self.set_dbus_property("ActiveProfile", GLib.Variant.new_string("balanced"))
++        self.assert_sysfs_attr_eventually_is(card, amdgpu_dpm, "manual")
++
++        self.set_dbus_property("ActiveProfile", GLib.Variant.new_string("power-saver"))
++        self.assert_sysfs_attr_eventually_is(card, amdgpu_dpm, "manual")
++
+     def test_amdgpu_dpm(self):
+         """Verify AMDGPU dpm power actions"""
+         amdgpu_dpm = "device/power_dpm_force_performance_level"
+-- 
+GitLab
+
