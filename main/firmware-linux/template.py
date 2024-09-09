@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20240811"
+pkgver = "20240909"
 pkgrel = 0
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "b1c672868e36c19d51f943898d0fdb5534759dc649af72fe51b04be47663d153"
+sha256 = "93e9b6ae2240661639c874f5fc38f677d18afe365b17a13fee6b4fc4fba42c10"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -73,6 +73,7 @@ _pkgs = [
     ),
     ("cpia2", "STM CPIA2 cameras", None, "misc", ["cpia2"]),
     ("cs35l41", "Cirrus CS35L41 amplifier", None, "audio", ["cirrus/cs35l41*"]),
+    ("cs35l54", "Cirrus CS35L54 amplifier", None, "audio", ["cirrus/cs35l54*"]),
     ("cs35l56", "Cirrus CS35L56 amplifier", None, "audio", ["cirrus/cs35l56*"]),
     ("cs42l43", "Cirrus CS42L43 amplifier", None, "audio", ["cs42l43.bin*"]),
     ("cxgb3", "Chelsio T3 10Gb Ethernet", None, "network", ["cxgb3"]),
