@@ -1,6 +1,6 @@
 pkgname = "gc"
 pkgver = "8.2.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     # static breaks symbol visibility
