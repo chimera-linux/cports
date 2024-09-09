@@ -17,15 +17,6 @@ url = "https://www.hboehm.info/gc"
 source = f"https://github.com/ivmai/bdwgc/releases/download/v{pkgver}/gc-{pkgver}.tar.gz"
 sha256 = "7649020621cb26325e1fb5c8742590d92fb48ce5c259b502faf7d9fb5dabb160"
 
-tool_flags = {
-    "CFLAGS": [
-        "-D_GNU_SOURCE",
-        "-DNO_GETCONTEXT",
-        "-DUSE_MMAP",
-        "-DHAVE_DL_ITERATE_PHDR",
-    ]
-}
-
 
 def post_install(self):
     self.install_license("README.QUICK")
