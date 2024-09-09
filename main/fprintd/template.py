@@ -1,8 +1,8 @@
 pkgname = "fprintd"
-pkgver = "1.94.3"
+pkgver = "1.94.4"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dsystemd=false", "-Dpam_modules_dir=/usr/lib/security"]
+configure_args = ["-Dsystemd=false"]
 hostmakedepends = [
     "bash",
     "gettext",
@@ -26,7 +26,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://fprint.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/libfprint/fprintd/-/archive/v{pkgver}/fprintd-v{pkgver}.tar.gz"
-sha256 = "2413ec9c0be24f6852afde31baa275a2d7fe3a9ee03973af9362ddb97231aedd"
+sha256 = "f58355c4c40d351db0af99f37ae3eb9f901bd0fae3ea84ea5f731fe1ce235cbe"
 # TODO: Most tests fail with the daemon exiting with SIGABRT, couldn't figure
 # out how to fix that
 options = ["!check"]
