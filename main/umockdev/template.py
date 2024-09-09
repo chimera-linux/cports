@@ -1,6 +1,6 @@
 pkgname = "umockdev"
-pkgver = "0.18.3"
-pkgrel = 1
+pkgver = "0.18.4"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "gobject-introspection",
@@ -15,7 +15,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/martinpitt/umockdev"
 source = f"https://github.com/martinpitt/umockdev/releases/download/{pkgver}/umockdev-{pkgver}.tar.xz"
-sha256 = "aba95c323037c842f1617931260231b8557d119aa2891cbca8b811fcc559294a"
+sha256 = "115306f17be78f8c99e20652e2deccdd48df38736bf00eb4f43fefc3809a319c"
 # TODO
 options = ["!check", "!cross"]
 
