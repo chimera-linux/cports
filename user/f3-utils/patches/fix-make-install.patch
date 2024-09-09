@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -20,7 +20,7 @@
+ all: $(TARGETS)
+ extra: $(EXTRA_TARGETS)
+ 
+-install: all
++install:
+ 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin
+ 	$(INSTALL) -m755 $(TARGETS) $(DESTDIR)$(PREFIX)/bin
+ 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/man1
