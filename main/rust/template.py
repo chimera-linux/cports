@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.80.1"
+pkgver = "1.81.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "6ab79b70dc57737a1de378f212fcf8852d67fe6cf272d122a15b3ea13be77947"
+sha256 = "36217ef7e32f40a180e3d79bd666b4dfdaed49dd381023a5fb765fd12d0092ce"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -74,11 +74,15 @@ if self.current_target == "custom:bootstrap":
 def post_patch(self):
     from cbuild.util import cargo
 
-    # we are patching these
-    cargo.clear_vendor_checksums(self, "libc-0.2.140")
+    # nice fucking meme
+    cargo.clear_vendor_checksums(self, "libc-0.2.94")
+    cargo.clear_vendor_checksums(self, "libc-0.2.97")
+    cargo.clear_vendor_checksums(self, "libc-0.2.107")
+    cargo.clear_vendor_checksums(self, "libc-0.2.112")
+    cargo.clear_vendor_checksums(self, "libc-0.2.119")
+    cargo.clear_vendor_checksums(self, "libc-0.2.121")
+    cargo.clear_vendor_checksums(self, "libc-0.2.124")
     cargo.clear_vendor_checksums(self, "libc-0.2.150")
-    cargo.clear_vendor_checksums(self, "libc-0.2.153")
-    cargo.clear_vendor_checksums(self, "libc-0.2.154")
     cargo.clear_vendor_checksums(self, "libc-0.2.155")
 
 
@@ -100,7 +104,7 @@ def configure(self):
         # while we'd love to build cargo and rust in one build, this is
         # unfortunately not possible as rustbuild is junk and breaks rather
         # hard when trying that
-        _tools += ["clippy", "src", "rustfmt", "rust-demangler"]
+        _tools += ["clippy", "src", "rustfmt"]
         # for rust-analyzer, only builds on these archs
         match self.profile().arch:
             case "aarch64" | "ppc64" | "ppc64le" | "x86_64":
@@ -163,7 +167,7 @@ extern {}
     with open(self.cwd / "config.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 125535
+change-id = 127866
 
 [llvm]
 ninja = false
@@ -390,7 +394,6 @@ def install(self):
         "rustc-dev",
         "clippy",
         "rustfmt",
-        "rust-demangler",
     ]:
         self.log(f"unpacking {f}...")
         _untar(self, f)

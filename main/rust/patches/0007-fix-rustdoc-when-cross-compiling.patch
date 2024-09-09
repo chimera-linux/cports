@@ -1,6 +1,6 @@
-From 9d71345385cf948ba4a0cad8a4343650e5ae960e Mon Sep 17 00:00:00 2001
+From a85d20c762be4c1111b6df25044e2a5d1941ed83 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 4 Jan 2024 15:07:23 +0100
+Date: Mon, 9 Sep 2024 17:54:43 +0200
 Subject: [PATCH 07/13] fix rustdoc when cross-compiling
 
 ---
@@ -8,12 +8,12 @@ Subject: [PATCH 07/13] fix rustdoc when cross-compiling
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/src/bin/rustdoc.rs b/src/bootstrap/src/bin/rustdoc.rs
-index b4d141518..dcf0b6632 100644
+index ba6b0c2db..bb2c18599 100644
 --- a/src/bootstrap/src/bin/rustdoc.rs
 +++ b/src/bootstrap/src/bin/rustdoc.rs
 @@ -28,9 +28,6 @@ fn main() {
      // is passed (a bit janky...)
-     let target = args.windows(2).find(|w| &*w[0] == "--target").and_then(|w| w[1].to_str());
+     let target = parse_value_from_args(&args, "--target");
  
 -    let mut dylib_path = dylib_path();
 -    dylib_path.insert(0, PathBuf::from(libdir.clone()));
@@ -40,5 +40,5 @@ index b4d141518..dcf0b6632 100644
          );
          eprintln!("sysroot: {sysroot:?}");
 -- 
-2.45.2
+2.46.0
 

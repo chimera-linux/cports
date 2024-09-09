@@ -1,18 +1,18 @@
-From 6071ff2dde3966e5d7cc363c3cf83cc05882b8e7 Mon Sep 17 00:00:00 2001
+From 5474a828ff152558f40c0817c4c329950b30f4ba Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 29 Feb 2024 01:11:46 +0100
+Date: Mon, 9 Sep 2024 17:56:05 +0200
 Subject: [PATCH 11/13] drop -latomic on riscv and elsewhere
 
 ---
- compiler/rustc_llvm/build.rs               | 17 +----------------
- src/bootstrap/src/core/build_steps/llvm.rs | 16 ----------------
- 2 files changed, 1 insertion(+), 32 deletions(-)
+ compiler/rustc_llvm/build.rs               | 18 +-----------------
+ src/bootstrap/src/core/build_steps/llvm.rs | 19 -------------------
+ 2 files changed, 1 insertion(+), 36 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 1ec879de1..95d36a3e2 100644
+index a759bd089..306368142 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -230,14 +230,7 @@ fn main() {
+@@ -230,15 +230,7 @@ fn main() {
          println!("cargo:rustc-link-lib=kstat");
      }
  
@@ -20,6 +20,7 @@ index 1ec879de1..95d36a3e2 100644
 -        || target.starts_with("mips-")
 -        || target.starts_with("mipsel-")
 -        || target.starts_with("powerpc-")
+-        || target.starts_with("sparc-")
 -    {
 -        // 32-bit targets need to link libatomic.
 -        println!("cargo:rustc-link-lib=atomic");
@@ -28,7 +29,7 @@ index 1ec879de1..95d36a3e2 100644
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
      } else if target.contains("haiku")
-@@ -349,14 +342,6 @@ fn main() {
+@@ -350,14 +342,6 @@ fn main() {
          "stdc++"
      };
  
@@ -44,25 +45,28 @@ index 1ec879de1..95d36a3e2 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index 8ca7af2fe..f18bfc424 100644
+index f234b08f5..1d07b9856 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -406,22 +406,6 @@ impl Step for Llvm {
+@@ -400,25 +400,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  
--        if (target.starts_with("riscv") || target.starts_with("csky"))
+-        if (target.starts_with("csky")
+-            || target.starts_with("riscv")
+-            || target.starts_with("sparc-"))
 -            && !target.contains("freebsd")
 -            && !target.contains("openbsd")
 -            && !target.contains("netbsd")
 -        {
--            // RISC-V and CSKY GCC erroneously requires linking against
+-            // CSKY and RISC-V GCC erroneously requires linking against
 -            // `libatomic` when using 1-byte and 2-byte C++
 -            // atomics but the LLVM build system check cannot
 -            // detect this. Therefore it is set manually here.
 -            // Some BSD uses Clang as its system compiler and
 -            // provides no libatomic in its base system so does
--            // not want this.
+-            // not want this. 32-bit SPARC requires linking against
+-            // libatomic as well.
 -            ldflags.exe.push(" -latomic");
 -            ldflags.shared.push(" -latomic");
 -        }
@@ -71,5 +75,5 @@ index 8ca7af2fe..f18bfc424 100644
              // LLVM wants 64-bit atomics, while mipsel is 32-bit only, so needs -latomic
              ldflags.exe.push(" -latomic");
 -- 
-2.45.2
+2.46.0
 

@@ -1,8 +1,8 @@
-From 2b6c1d41aff2ce412212b10fb58949f6b5fa8d84 Mon Sep 17 00:00:00 2001
+From df2731225ba0c9e926cf29d958f99dab8ea284d6 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 16 Jul 2024 15:04:38 +0200
-Subject: [PATCH 13/13] when emitting static executables, explicitly hint
- static first
+Subject: [PATCH 13/13] linker: when emitting static executables, explicitly
+ hint static
 
 This is important as rustc is not always in charge of what it is
 linking (due to some targets not necessarily passing -nodefaultlibs)
@@ -15,14 +15,14 @@ By explicitly hinting static again before passing the -static
 or -static-pie, we tell the linker to always link whatever
 implicit libs statically as expected.
 ---
- compiler/rustc_codegen_ssa/src/back/linker.rs | 6 ++++++
- 1 file changed, 6 insertions(+)
+ compiler/rustc_codegen_ssa/src/back/linker.rs | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/compiler/rustc_codegen_ssa/src/back/linker.rs b/compiler/rustc_codegen_ssa/src/back/linker.rs
-index a82478900..45823da9a 100644
+index dd134ebbe..0fcea02e5 100644
 --- a/compiler/rustc_codegen_ssa/src/back/linker.rs
 +++ b/compiler/rustc_codegen_ssa/src/back/linker.rs
-@@ -388,6 +388,10 @@ impl<'a> Linker for GccLinker<'a> {
+@@ -481,6 +481,10 @@ impl<'a> Linker for GccLinker<'a> {
                  }
              }
              LinkOutputKind::StaticNoPicExe => {
@@ -31,9 +31,9 @@ index a82478900..45823da9a 100644
 +                // (due to libc/builtins wrongly being linked dynamically)
 +                self.hint_static();
                  // `-static` works for both gcc wrapper and ld.
-                 self.cmd.arg("-static");
+                 self.link_or_cc_arg("-static");
                  if !self.is_ld && self.is_gnu {
-@@ -395,6 +399,8 @@ impl<'a> Linker for GccLinker<'a> {
+@@ -488,6 +492,8 @@ impl<'a> Linker for GccLinker<'a> {
                  }
              }
              LinkOutputKind::StaticPicExe => {
@@ -42,6 +42,15 @@ index a82478900..45823da9a 100644
                  if !self.is_ld {
                      // Note that combination `-static -pie` doesn't work as expected
                      // for the gcc wrapper, `-static` in that case suppresses `-pie`.
+@@ -503,6 +509,8 @@ impl<'a> Linker for GccLinker<'a> {
+             }
+             LinkOutputKind::DynamicDylib => self.build_dylib(out_filename),
+             LinkOutputKind::StaticDylib => {
++                // Ditto
++                self.hint_static();
+                 self.link_or_cc_arg("-static");
+                 self.build_dylib(out_filename);
+             }
 -- 
-2.45.2
+2.46.0
 

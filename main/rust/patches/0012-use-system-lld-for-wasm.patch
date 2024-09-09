@@ -1,4 +1,4 @@
-From 1104ae253df28a5176fd7b21ad8cdc4eb094af7d Mon Sep 17 00:00:00 2001
+From e9218fe99e38adb5ce5f313232ec6b7e4d15e12b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:11:57 +0100
 Subject: [PATCH 12/13] use system lld for wasm
@@ -23,5 +23,5 @@ index f23739101..21465b856 100644
  
          pre_link_args,
 -- 
-2.45.2
+2.46.0
 
