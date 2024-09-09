@@ -1,6 +1,6 @@
 pkgname = "libvirt"
 pkgver = "10.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dattr=enabled",
