@@ -1,5 +1,5 @@
 pkgname = "puzzles"
-pkgver = "20240909"
+pkgver = "0_git20240909"
 _gitrev = "53ceb98"
 pkgrel = 0
 build_style = "cmake"
