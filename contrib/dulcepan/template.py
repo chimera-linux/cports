@@ -1,5 +1,5 @@
 pkgname = "dulcepan"
-pkgver = "1.0.1"
+pkgver = "1.0.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,5 +22,5 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-only"
 url = "https://codeberg.org/vyivel/dulcepan"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "39f9ed1334198a021dfbf0dbfbaf4992b99462ef563314bec11e3d27519ea75b"
+sha256 = "9d21d8cef45ea965a9a3039af3e3f887808c30d423c5dc3159c40aedab7da870"
 hardening = ["vis", "cfi"]
