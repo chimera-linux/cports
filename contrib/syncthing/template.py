@@ -1,6 +1,6 @@
 pkgname = "syncthing"
-pkgver = "1.27.10"
-pkgrel = 2
+pkgver = "1.27.12"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/syncthing/syncthing/lib/build.Version=v{pkgver}",
@@ -21,7 +21,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0"
 url = "https://syncthing.net"
 source = f"https://github.com/syncthing/syncthing/archive/v{pkgver}.tar.gz"
-sha256 = "e2cd7126a10fe317c2a0be52bb3bc359ad8f2974f746b6093a86e611390907da"
+sha256 = "c6d9a06ee223bad61b83b9212f089b960f495f7e84f3aae46ba207d5b808e1da"
 
 
 def pre_build(self):
