@@ -18,6 +18,19 @@ sha256 = "86117560a26a774c92dd37f52c8ed29204371eace2208c156cc32055de4092c9"
 options = ["!cross"]
 
 
+def pre_prepare(self):
+    # newer rustix broken on ppc
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "rustix",
+        "--precise",
+        "0.38.35",
+        allow_network=True,
+    )
+
+
 def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"rustic.{shell}", "w") as outf:
