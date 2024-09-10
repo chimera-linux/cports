@@ -1,8 +1,7 @@
 pkgname = "git-absorb"
-pkgver = "0.6.13"
-pkgrel = 2
+pkgver = "0.6.15"
+pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 hostmakedepends = ["asciidoc", "cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel"]
 pkgdesc = "Automatic git commit --fixup"
@@ -10,7 +9,7 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/tummychow/git-absorb"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "5646857dd764d0a486405e777b3ec4e919511abc96bd0e02e71ec9e94d151115"
+sha256 = "630e61a6edf1e244c38145bda98a522217c34d3ab70a3399af1f29f19e7ced26"
 # generates completions with host bin
 options = ["!cross"]
 
