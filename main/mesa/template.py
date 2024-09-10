@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "24.2.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -89,11 +89,10 @@ _subproject_list = [
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
 sha256 = "fd077d3104edbe459e2b8597d2757ec065f9bd2d620b8c0b9cc88c2bf9891d02"
-tool_flags = {"RUSTFLAGS": ["-Copt-level=3"]}
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
-options = ["!cross", "linkundefver"]
+options = ["!cross", "linkundefver", "fullrustflags"]
 
 _gallium_drivers = []
 _vulkan_drivers = []
