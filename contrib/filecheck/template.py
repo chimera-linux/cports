@@ -1,4 +1,4 @@
-pkgname = "python-filecheck"
+pkgname = "filecheck"
 pkgver = "1.0.1"
 pkgrel = 0
 build_style = "python_pep517"
