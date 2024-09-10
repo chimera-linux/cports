@@ -1,6 +1,6 @@
 pkgname = "flex"
 pkgver = "2.6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
 hostmakedepends = ["byacc"]
@@ -16,6 +16,8 @@ sha256 = "e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
 }
+# dfa.c:epsclosure int overflow for ADD_STATE on snort3 sources
+hardening = ["!int"]
 
 
 def post_patch(self):
