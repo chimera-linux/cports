@@ -1,6 +1,6 @@
 pkgname = "imath"
-pkgver = "3.1.11"
-pkgrel = 2
+pkgver = "3.1.12"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://imath.readthedocs.io/en/latest"
 source = f"https://github.com/AcademySoftwareFoundation/Imath/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9057849585e49b8b85abe7cc1e76e22963b01bfdc3b6d83eac90c499cd760063"
+sha256 = "8a1bc258f3149b5729c2f4f8ffd337c0e57f09096e4ba9784329f40c4a9035da"
 hardening = ["vis", "cfi"]
 
 
