@@ -1,1 +1,0 @@
-pkgname = "FileCheck.py"
