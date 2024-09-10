@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
 pkgver = "4.20.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -145,7 +145,7 @@ def _(self):
         "usr/bin/net",
         "usr/bin/nmblookup",
         "usr/bin/samba-regedit",
-        # "usr/bin/samba-tool", not present without AD
+        "usr/bin/samba-tool",
         "usr/bin/smbpasswd",
         "usr/bin/testparm",
         "usr/libexec/samba/rpcd_*",
