@@ -1,6 +1,6 @@
 pkgname = "containerd"
-pkgver = "1.7.21"
-pkgrel = 1
+pkgver = "1.7.22"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = [
     "all",
@@ -29,7 +29,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/containerd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "df6e942e2eeaadd77eda04d7df80fb68bd0dc186a9ab8cb2de25692557158303"
+sha256 = "8c5edde741b7596af63c021429a1212bd616350ed65a7b741eeffc47e27ee9a9"
 # can't run tests inside namespaces
 options = ["!check"]
 
