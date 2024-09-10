@@ -1,9 +1,10 @@
 pkgname = "thermald"
 pkgver = "2.5.8"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 # don't use autogen.sh, it generates files that force reconf in build phase
 build_style = "gnu_configure"
+configure_args = ["--with-dbus-power-group=_thermald"]
 make_dir = "."
 hostmakedepends = [
     "autoconf-archive",
@@ -42,3 +43,4 @@ def post_install(self):
     )
     self.install_license("COPYING")
     self.install_service(self.files_path / "thermald")
+    self.install_sysusers(self.files_path / "sysusers.conf")
