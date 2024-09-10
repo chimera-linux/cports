@@ -59,10 +59,8 @@ def _(self):
 
     return self.default_devel(
         extra=[
-            "usr/bin/compile_et",
-            "usr/bin/mk_cmds",
-            "usr/share/man/man1/compile_et.1",
-            "usr/share/man/man1/mk_cmds.1",
+            "cmd:compile_et",
+            "cmd:mk_cmds",
             "usr/share/et",
             "usr/share/ss",
         ]
@@ -79,7 +77,4 @@ def _(self):
     self.pkgdesc = "Ext2/3/4 FUSE driver"
     self.depends += ["fuse"]
 
-    return [
-        "usr/bin/fuse2fs",
-        "usr/share/man/man1/fuse2fs.1",
-    ]
+    return ["cmd:fuse2fs"]

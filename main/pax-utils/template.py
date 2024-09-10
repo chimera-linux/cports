@@ -41,7 +41,7 @@ def _(self):
     self.depends += ["python-pyelftools"]
     self.install_if = [self.parent, "python"]
     self.pkgdesc = "Print ELF dependency trees"
-    return ["usr/bin/lddtree"]
+    return ["cmd:lddtree"]
 
 
 @subpackage("symtree")
@@ -49,4 +49,4 @@ def _(self):
     self.depends += [self.parent, "bash"]
     self.install_if = [self.parent, "bash"]
     self.pkgdesc = "Display libraries that satisfy undefined symbols"
-    return ["usr/bin/symtree"]
+    return ["cmd:symtree"]

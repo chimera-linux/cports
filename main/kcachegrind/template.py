@@ -43,9 +43,9 @@ def _(self):
     self.depends += ["perl"]
 
     return [
-        "usr/bin/dprof2calltree",
-        "usr/bin/memprof2calltree",
-        "usr/bin/op2calltree",
+        "cmd:dprof2calltree",
+        "cmd:memprof2calltree",
+        "cmd:op2calltree",
         # technically the above is a lie and this is php, but it also needs a pear plugin for Console_Getopt, so whatever
-        "usr/bin/pprof2calltree",
+        "cmd:pprof2calltree",
     ]

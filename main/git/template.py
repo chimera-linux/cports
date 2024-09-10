@@ -128,7 +128,7 @@ def _(self):
     self.depends += [self.parent, "tk"]
     self.pkgdesc = "Git repository browser"
     self.license = "GPL-2.0-or-later"
-    return ["usr/bin/gitk", "usr/share/gitk", "usr/share/man/man1/gitk.1"]
+    return ["cmd:gitk", "usr/share/gitk"]
 
 
 @subpackage("git-gui")
@@ -139,8 +139,8 @@ def _(self):
     return [
         "usr/libexec/git-core/git-gui*",
         "usr/libexec/git-core/git-citool",
-        "usr/share/man/man1/git-gui.1",
-        "usr/share/man/man1/git-citool.1",
+        "man:git-gui.1",
+        "man:git-citool.1",
         "usr/share/git-gui",
     ]
 
@@ -160,7 +160,7 @@ def _(self):
     self.pkgdesc = "Git scalar monorepo tool"
 
     return [
-        "usr/bin/scalar",
+        "cmd:scalar",
         "usr/libexec/git-core/scalar",
     ]
 
@@ -174,5 +174,5 @@ def _(self):
     return [
         "usr/share/perl5/vendor_perl/Git/SVN*",
         "usr/libexec/git-core/git-svn",
-        "usr/share/man/man1/git-svn.1",
+        "man:git-svn.1",
     ]

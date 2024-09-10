@@ -50,7 +50,7 @@ def _(self):
     self.provides = [self.with_pkgver("libcanberra-progs")]
 
     return [
-        "usr/bin/canberra-gtk-play",
+        "cmd:canberra-gtk-play",
         "usr/lib/libcanberra-gtk3.so.*",
         "usr/lib/gtk-3.0",
     ]

@@ -379,7 +379,7 @@ def _(self):
     self.install_if = [self.with_pkgver("mesa-dri"), "vulkan-loader"]
 
     return [
-        "usr/bin/mesa-overlay-control.py",
+        "cmd:mesa-overlay-control.py",
         "usr/lib/libvulkan_*.so",
         "usr/lib/libVkLayer_*.so",
         "usr/share/drirc.d/00-radv-defaults.conf",

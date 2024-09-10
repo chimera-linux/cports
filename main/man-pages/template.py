@@ -59,6 +59,6 @@ def _(self):
 
     return [
         "usr/share/man/man[23]*",
-        "usr/share/man/man4/*ioctl*",
-        "usr/share/man/man7/sigevent.7",
+        "man:*ioctl*.4",
+        "man:sigevent.7",
     ]

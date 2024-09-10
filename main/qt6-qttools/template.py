@@ -62,7 +62,7 @@ def _(self):
     self.subdesc = "qdbus"
 
     return [
-        "usr/bin/qdbus*6",
+        "cmd:qdbus*6",
         "usr/lib/qt6/bin/qdbus*",
     ]
 

@@ -55,7 +55,7 @@ def _(self):
     self.subdesc = "Gtk+3"
     self.depends = [self.parent]
     return [
-        "usr/bin/vte-2.91",
+        "cmd:vte-2.91",
         "usr/lib/libvte-2.91.so.*",
         "usr/lib/girepository-1.0/Vte-2.91.typelib",
     ]
@@ -66,7 +66,7 @@ def _(self):
     self.subdesc = "Gtk4"
     self.depends = [self.parent]
     return [
-        "usr/bin/vte-2.91-gtk4",
+        "cmd:vte-2.91-gtk4",
         "usr/lib/libvte-2.91-gtk4.so.*",
         "usr/lib/girepository-1.0/Vte-3.91.typelib",
     ]

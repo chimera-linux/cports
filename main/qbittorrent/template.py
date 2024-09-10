@@ -68,8 +68,7 @@ def _(self):
 
     return [
         "etc/dinit.d",
-        "usr/bin/qbittorrent-nox",
+        "cmd:qbittorrent-nox",
         "usr/lib/sysusers.d",
         "usr/lib/tmpfiles.d",
-        "usr/share/man/man1/qbittorrent-nox.1",
     ]

@@ -136,10 +136,9 @@ def _(self):
     self.provides = [self.with_pkgver("jack")]
 
     return [
-        "usr/bin/pw-jack",
+        "cmd:pw-jack",
         "usr/lib/libjack*",
         "usr/share/pipewire/jack.conf",
-        "usr/share/man/man1/pw-jack.1",
     ]
 
 

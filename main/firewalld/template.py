@@ -49,11 +49,10 @@ def _(self):
     self.pkgdesc = "GTK-based configuration utility for firewalld"
     self.depends = [self.parent, "gtk+3"]
     return [
-        "usr/bin/firewall-config",
+        "cmd:firewall-config",
         "usr/share/applications",
         "usr/share/firewalld/gtk3_chooserbutton.py",
         "usr/share/firewalld/gtk3_niceexpander.py",
         "usr/share/icons",
-        "usr/share/man/man1/firewall-config.1",
         "usr/share/metainfo",
     ]

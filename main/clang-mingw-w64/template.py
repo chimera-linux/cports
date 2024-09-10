@@ -60,7 +60,7 @@ def _gen(an):
         self.options = ["brokenlinks"]
 
         return [
-            f"usr/bin/{at}-*",
+            f"cmd:{at}-*",
             f"usr/lib/ccache/bin/{at}-*",
         ]
 

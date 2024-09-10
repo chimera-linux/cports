@@ -85,4 +85,4 @@ def _(self):
     self.subdesc = "server"
     self.depends = [self.with_pkgver("minetest-common")]
 
-    return ["usr/bin/minetestserver"]
+    return ["cmd:minetestserver"]

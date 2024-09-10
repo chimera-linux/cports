@@ -112,14 +112,14 @@ def post_install(self):
 def _(self):
     self.pkgdesc = "Nested X server that runs as an X application"
 
-    return ["usr/bin/Xnest", "usr/share/man/man1/Xnest.1"]
+    return ["cmd:Xnest"]
 
 
 @subpackage("xserver-xorg-xephyr")
 def _(self):
     self.pkgdesc = "X server outputting to a window on a pre-existing display"
 
-    return ["usr/bin/Xephyr", "usr/share/man/man1/Xephyr.1"]
+    return ["cmd:Xephyr"]
 
 
 @subpackage("xserver-xorg-xvfb")
@@ -128,10 +128,8 @@ def _(self):
     self.depends += ["xkeyboard-config", "xauth", "ugetopt"]
 
     return [
-        "usr/bin/Xvfb",
-        "usr/bin/xvfb-run",
-        "usr/share/man/man1/Xvfb.1",
-        "usr/share/man/man1/xvfb-run.1",
+        "cmd:Xvfb",
+        "cmd:xvfb-run",
     ]
 
 

@@ -30,7 +30,7 @@ def _(self):
     self.pkgdesc = "Software synthesiser emulating pre-GM MIDI devices"
 
     return [
-        "usr/bin/mt32emu-qt",
+        "cmd:mt32emu-qt",
         "usr/share/applications/mt32emu-qt.desktop",
         "usr/share/doc/munt/mt32emu-qt",
         "usr/share/icons/hicolor/*/apps/munt.png",

@@ -138,27 +138,20 @@ def _(self):
 
     return [
         "usr/lib/pam.d",
-        "usr/bin/dbwrap_tool",
-        "usr/bin/net",
-        "usr/bin/nmblookup",
-        "usr/bin/samba-regedit",
-        "usr/bin/samba-tool",
-        "usr/bin/smbpasswd",
-        "usr/bin/testparm",
+        "cmd:dbwrap_tool",
+        "cmd:net",
+        "cmd:nmblookup",
+        "cmd:samba-regedit",
+        "cmd:samba-tool",
+        "cmd:smbpasswd",
+        "cmd:testparm",
         "usr/libexec/samba/rpcd_*",
         "usr/libexec/samba/samba-dcerpcd",
-        "usr/share/man/man1/dbwrap_tool.1",
-        "usr/share/man/man1/nmblookup.1",
-        "usr/share/man/man1/testparm.1",
-        "usr/share/man/man5/lmhosts.5",
-        "usr/share/man/man5/smb.conf.5",
-        "usr/share/man/man5/smbpasswd.5",
-        "usr/share/man/man7/samba.7",
-        "usr/share/man/man8/net.8",
-        "usr/share/man/man8/samba-dcerpcd.8",
-        "usr/share/man/man8/samba-regedit.8",
-        "usr/share/man/man8/samba-tool.8",
-        "usr/share/man/man8/smbpasswd.8",
+        "man:lmhosts.5",
+        "man:smb.conf.5",
+        "man:smbpasswd.5",
+        "man:samba.7",
+        "man:samba-dcerpcd.8",
     ]
 
 
@@ -167,10 +160,7 @@ def _(self):
     self.pkgdesc = "Tools for viewing and manipulating the Windows registry"
     self.depends = [self.with_pkgver("samba-libs")]
 
-    return [
-        "usr/bin/reg*",
-        "usr/share/man/man1/reg*.1",
-    ]
+    return ["cmd:reg*"]
 
 
 @subpackage("libsmbclient")
@@ -180,7 +170,7 @@ def _(self):
 
     return [
         "usr/lib/libsmbclient.so.*",
-        "usr/share/man/man7/libsmbclient.7",
+        "man:libsmbclient.7",
     ]
 
 
@@ -224,19 +214,16 @@ def _(self):
         self.with_pkgver("libwbclient"),
     ]
     return [
-        "usr/bin/ntlm_auth",
-        "usr/bin/wbinfo",
-        "usr/bin/winbindd",
+        "cmd:ntlm_auth",
+        "cmd:wbinfo",
+        "cmd:winbindd",
         "usr/lib/samba/idmap",
         "usr/lib/samba/krb5",
         "usr/lib/samba/nss_info",
         "usr/lib/libidmap-private-samba.so",
         "usr/lib/libnss-info-private-samba.so",
-        "usr/share/man/man1/ntlm_auth.1",
-        "usr/share/man/man1/wbinfo.1",
-        "usr/share/man/man8/idmap_*.8",
-        "usr/share/man/man8/winbind_krb5_locator.8",
-        "usr/share/man/man8/winbindd.8",
+        "man:idmap_*.8",
+        "man:winbind_krb5_locator.8",
     ]
 
 
@@ -248,8 +235,8 @@ def _(self):
 
     return [
         "usr/lib/security/pam_winbind.so",
-        "usr/share/man/man5/pam_winbind.conf.5",
-        "usr/share/man/man8/pam_winbind.8",
+        "man:bind.conf.5",
+        "man:pam_winbind.8",
     ]
 
 
@@ -270,30 +257,20 @@ def _(self):
     ]
 
     return [
-        "usr/bin/cifsdd",
-        "usr/bin/mdsearch",
-        "usr/bin/rpcclient",
-        "usr/bin/smbcacls",
-        "usr/bin/smbclient",
-        "usr/bin/smbcquotas",
-        "usr/bin/smbget",
-        "usr/bin/smbspool",
-        "usr/bin/smbtar",
-        "usr/bin/smbtree",
-        "usr/bin/wspsearch",
+        "cmd:cifsdd",
+        "cmd:mdsearch",
+        "cmd:rpcclient",
+        "cmd:smbcacls",
+        "cmd:smbclient",
+        "cmd:smbcquotas",
+        "cmd:smbget",
+        "cmd:smbspool",
+        "cmd:smbtar",
+        "cmd:smbtree",
+        "cmd:wspsearch",
         "usr/lib/cups/backend/smb",
         "usr/libexec/samba/smbspool_krb5_wrapper",
-        "usr/share/man/man1/mdsearch.1",
-        "usr/share/man/man1/rpcclient.1",
-        "usr/share/man/man1/smbcacls.1",
-        "usr/share/man/man1/smbclient.1",
-        "usr/share/man/man1/smbcquotas.1",
-        "usr/share/man/man1/smbget.1",
-        "usr/share/man/man1/smbtar.1",
-        "usr/share/man/man1/smbtree.1",
-        "usr/share/man/man8/cifsdd.8",
-        "usr/share/man/man8/smbspool.8",
-        "usr/share/man/man8/smbspool_krb5_wrapper.8",
+        "man:smbspool_krb5_wrapper.8",
     ]
 
 
@@ -305,7 +282,7 @@ def _(self):
 
     return [
         "usr/lib/samba/vfs",
-        "usr/share/man/man8/vfs_*.8",
+        "man:vfs_*.8",
     ]
 
 
@@ -319,18 +296,13 @@ def _(self):
     ]
 
     return [
-        "usr/bin/gentest",
-        "usr/bin/locktest",
-        "usr/bin/masktest",
-        "usr/bin/ndrdump",
-        "usr/bin/smbtorture",
+        "cmd:gentest",
+        "cmd:locktest",
+        "cmd:masktest",
+        "cmd:ndrdump",
+        "cmd:smbtorture",
         "usr/lib/libprinter-driver-private-samba.so",
         "usr/lib/libtorture-private-samba.so",
-        "usr/share/man/man1/gentest.1",
-        "usr/share/man/man1/locktest.1",
-        "usr/share/man/man1/masktest.1",
-        "usr/share/man/man1/ndrdump.1",
-        "usr/share/man/man1/smbtorture.1",
     ]
 
 
@@ -345,20 +317,16 @@ def _(self):
 
     return [
         "etc/ctdb",
-        "usr/bin/ctdb*",
-        "usr/bin/ltdbtool",
-        "usr/bin/onnode",
-        "usr/bin/ping_pong",
+        "cmd:ctdb*",
+        "cmd:ltdbtool",
+        "cmd:onnode",
+        "cmd:ping_pong",
         "usr/lib/libctdb-event-client-private-samba.so",
         "usr/lib/libtalloc-report-private-samba.so",
         "usr/libexec/ctdb",
         "usr/share/ctdb",
-        "usr/share/man/man1/ctdb*.1",
-        "usr/share/man/man1/ltdbtool.1",
-        "usr/share/man/man1/onnode.1",
-        "usr/share/man/man1/ping_pong.1",
-        "usr/share/man/man5/ctdb*.5",
-        "usr/share/man/man7/ctdb*.7",
+        "man:ctdb*.5",
+        "man:ctdb*.7",
     ]
 
 

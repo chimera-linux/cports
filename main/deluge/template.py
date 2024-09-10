@@ -57,15 +57,13 @@ def _(self):
     self.install_if = [self.parent, "gtk+3"]
 
     return [
-        "usr/bin/deluge",
-        "usr/bin/deluge-gtk",
+        "cmd:deluge",
+        "cmd:deluge-gtk",
         "usr/lib/python3*/site-packages/deluge/ui/gtk3",
         "usr/share/appdata",
         "usr/share/applications",
         "usr/share/icons",
         "usr/share/pixmaps",
-        "usr/share/man/man1/deluge.1",
-        "usr/share/man/man1/deluge-gtk.1",
     ]
 
 
@@ -76,7 +74,6 @@ def _(self):
 
     return [
         "etc/dinit.d/deluge-web",
-        "usr/bin/deluge-web",
+        "cmd:deluge-web",
         "usr/lib/python3*/site-packages/deluge/ui/web",
-        "usr/share/man/man1/deluge-web.1",
     ]

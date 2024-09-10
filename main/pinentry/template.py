@@ -45,12 +45,12 @@ def _frontend(name):
 
         if name == "qt":
             return [
-                "usr/bin/pinentry-qt",
+                "cmd:pinentry-qt",
                 "usr/share/applications/org.gnupg.pinentry-qt.desktop",
                 "usr/share/pixmaps/pinentry.png",
             ]
 
-        return [f"usr/bin/pinentry-{name}"]
+        return [f"cmd:pinentry-{name}"]
 
     @subpackage(f"pinentry-{name}-default")
     def _(self):

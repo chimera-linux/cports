@@ -58,7 +58,7 @@ def _(self):
     self.depends += [self.parent]
 
     return [
-        "usr/bin/fcitx5-plasma-theme-generator",
+        "cmd:fcitx5-plasma-theme-generator",
         "usr/share/applications/kcm_fcitx5.desktop",
         "usr/share/locale/*/*/kcm*",
     ]

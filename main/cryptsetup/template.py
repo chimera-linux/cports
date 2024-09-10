@@ -44,7 +44,7 @@ if self.profile().arch == "riscv64":
 def _(self):
     self.subdesc = "static binaries"
 
-    return ["usr/bin/*.static"]
+    return ["cmd:*.static"]
 
 
 @subpackage("libcryptsetup")

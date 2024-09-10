@@ -31,11 +31,10 @@ def _(self):
     self.depends = [self.parent, "networkmanager"]
     self.install_if = [self.parent, "networkmanager"]
     return [
-        "usr/bin/tlp-rdw",
+        "cmd:tlp-rdw",
         "usr/lib/NetworkManager",
         "usr/lib/udev/tlp-rdw-udev",
         "usr/lib/udev/rules.d/85-tlp-rdw.rules",
-        "usr/share/man/man8/tlp-rdw.8",
         "usr/share/zsh/site-functions/_tlp-rdw",
         "usr/share/bash-completion/completions/tlp-rdw",
     ]

@@ -103,7 +103,7 @@ def _(self):
 
     return [
         "etc/dinit.d/dmeventd",
-        "usr/bin/dm*",
+        "cmd:dm*",
         "usr/lib/libdevmapper*.so*",
         "usr/lib/liblvm2cmd.so.*",
         "usr/lib/device-mapper",
@@ -111,7 +111,6 @@ def _(self):
         "usr/lib/udev/rules.d/13-dm-disk.rules",
         "usr/lib/udev/rules.d/95-dm-notify.rules",
         "usr/share/initramfs-tools/hooks/dmsetup",
-        "usr/share/man/man8/dm*",
     ]
 
 
@@ -120,10 +119,10 @@ def _(self):
     self.subdesc = "extra utilities"
     self.depends = [self.parent, "bash", "ugetopt"]
     return [
-        "usr/bin/blkdeactivate",
-        "usr/bin/fsadm",
-        "usr/bin/lvm_import_vdo",
-        "usr/bin/lvmdump",
+        "cmd:blkdeactivate",
+        "cmd:fsadm",
+        "cmd:lvm_import_vdo",
+        "cmd:lvmdump",
     ]
 
 

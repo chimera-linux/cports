@@ -45,7 +45,7 @@ def _(self):
 def _(self):
     self.subdesc = "utility to view pango files"
 
-    return ["usr/bin/pango-view", "usr/share/man/man1/pango-view.1"]
+    return ["cmd:pango-view"]
 
 
 @subpackage("pango-devel")

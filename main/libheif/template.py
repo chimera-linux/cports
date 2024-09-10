@@ -37,8 +37,7 @@ def _(self):
     self.subdesc = "thumbnailer"
     self.install_if = [self.parent]
     return [
-        "usr/bin/heif-thumbnailer",
-        "usr/share/man/man1/heif-thumbnailer.1",
+        "cmd:heif-thumbnailer",
         "usr/share/thumbnailers",
     ]
 

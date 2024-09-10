@@ -52,7 +52,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "Qt GUI for GMIC"
     return [
-        "usr/bin/gmic_qt",
+        "cmd:gmic_qt",
         "usr/share/applications",
         "usr/share/icons",
     ]

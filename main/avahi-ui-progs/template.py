@@ -129,9 +129,8 @@ def _(self):
     self.depends = ["python", "python-dbus"]
 
     return [
-        "usr/bin/avahi-bookmarks",
+        "cmd:avahi-bookmarks",
         "usr/lib/python3*",
-        "usr/share/man/man1/avahi-bookmarks*",
     ]
 
 

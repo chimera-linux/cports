@@ -71,9 +71,7 @@ def _(self):
 
     return self.default_devel(
         extra=[
-            "usr/bin/autopoint",
-            "usr/bin/gettextize",
-            "usr/share/man/man1/autopoint.1",
-            "usr/share/man/man1/gettextize.1",
+            "cmd:autopoint",
+            "cmd:gettextize",
         ]
     )

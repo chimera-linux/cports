@@ -36,4 +36,4 @@ if _have_dist:
 @subpackage("sccache-dist", _have_dist)
 def _(self):
     self.subdesc = "distributed server"
-    return ["usr/bin/sccache-dist"]
+    return ["cmd:sccache-dist"]

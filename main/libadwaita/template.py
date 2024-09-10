@@ -44,6 +44,6 @@ def _(self):
 def _(self):
     self.subdesc = "demo application"
     return [
-        "usr/bin/adwaita-1-demo",
+        "cmd:adwaita-1-demo",
         "usr/share",
     ]

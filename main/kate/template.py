@@ -46,7 +46,7 @@ def _(self):
 def _(self):
     self.subdesc = "KWrite"
     return [
-        "usr/bin/kwrite",
+        "cmd:kwrite",
         "usr/share/icons/hicolor/*/apps/kwrite.*",
         "usr/share/applications/org.kde.kwrite.desktop",
         "usr/share/metainfo/org.kde.kwrite.appdata.xml",

@@ -106,7 +106,7 @@ def _(self):
     return self.default_libs(
         extra=[
             "etc/cups/client.conf",
-            "usr/share/man/man5/client.conf.5",
+            "man:client.conf.5",
         ]
     )
 

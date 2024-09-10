@@ -42,5 +42,5 @@ def _(self):
 
     return [
         "etc/dinit.d/user",
-        "usr/bin/containerd-rootless",
+        "cmd:containerd-rootless",
     ]

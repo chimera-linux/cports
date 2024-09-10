@@ -186,9 +186,9 @@ def _(self):
     self.depends = [self.parent]
 
     return [
-        "usr/bin/grub-menulst2cfg",
-        "usr/bin/grub-fstest",
-        "usr/bin/grub-mkfont",
+        "cmd:grub-menulst2cfg",
+        "cmd:grub-fstest",
+        "cmd:grub-mkfont",
     ]
 
 

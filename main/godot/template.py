@@ -168,4 +168,4 @@ def install(self):
 def _(self):
     self.subdesc = "export templates"
 
-    return ["usr/bin/godot-template-*"]
+    return ["cmd:godot-template-*"]

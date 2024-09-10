@@ -98,7 +98,7 @@ def _(self):
 def _(self):
     self.subdesc = "static binary"
 
-    return ["usr/bin/apk.static"]
+    return ["cmd:apk.static"]
 
 
 @subpackage("apk-tools-cache", self.stage > 0)

@@ -74,6 +74,5 @@ def _(self):
     self.install_if = [self.parent, "xinit"]
     return [
         "etc/X11/Xsession.d",
-        "usr/bin/dbus-launch",
-        "usr/share/man/man1/dbus-launch.1",
+        "cmd:dbus-launch",
     ]

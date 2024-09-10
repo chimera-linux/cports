@@ -195,8 +195,8 @@ def _(self):
         f"usr/lib/gcc/{_trip}/{_mnver}/f951",
     ]
     return [
-        "usr/bin/gfortran",
-        "usr/bin/*-gfortran",
+        "cmd:gfortran",
+        "cmd:*-gfortran",
         "usr/lib/libgfortran.spec",
         "usr/lib/libgfortran.a",
         "usr/lib/libgfortran.so",
@@ -204,7 +204,6 @@ def _(self):
         f"usr/lib/gcc/{_trip}/{_mnver}/libcaf_single.a",
         f"usr/lib/gcc/{_trip}/{_mnver}/finclude",
         "usr/share/info/gfortran.info",
-        "usr/share/man/man1/gfortran.1",
     ]
 
 

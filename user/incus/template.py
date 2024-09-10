@@ -68,4 +68,4 @@ def _(self):
     self.subdesc = "client only"
     self.depends = [self.parent]
 
-    return ["usr/bin/incus"]
+    return ["cmd:incus"]

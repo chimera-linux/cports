@@ -176,7 +176,7 @@ def _(self):
     self.depends = [self.parent]
     self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-build")]
 
-    return ["usr/bin/b2", "etc/site-config.jam", "usr/share/b2"]
+    return ["cmd:b2", "etc/site-config.jam", "usr/share/b2"]
 
 
 @subpackage("boost-devel")

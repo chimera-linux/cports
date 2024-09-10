@@ -48,6 +48,6 @@ def _(self):
 
     return [
         "etc",
-        "usr/bin/sauer_server",
-        "usr/bin/sauerbraten-server",
+        "cmd:sauer_server",
+        "cmd:sauerbraten-server",
     ]

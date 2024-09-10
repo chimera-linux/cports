@@ -49,4 +49,4 @@ def _(self):
     self.install_if = [self.parent, "perl"]
     self.subdesc = "Perl scripts"
 
-    return ["usr/bin/makedumpfile-R.pl"]
+    return ["cmd:makedumpfile-R.pl"]

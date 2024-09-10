@@ -229,16 +229,15 @@ def _(self):
 
     return [
         "etc/default/systemd-boot",
-        "usr/bin/bootctl",
-        "usr/bin/gen-systemd-boot",
+        "cmd:bootctl",
+        "cmd:gen-systemd-boot",
         "usr/lib/kernel.d/99-gen-systemd-boot.sh",
         "usr/libexec/systemd-bless-boot",
         "usr/share/bash-completion/completions/bootctl",
         "usr/share/zsh/site-functions/_bootctl",
-        "usr/share/man/man1/bootctl.1",
-        "usr/share/man/man5/loader.conf.5",
-        "usr/share/man/man7/sd-boot.7",
-        "usr/share/man/man7/systemd-boot.7",
+        "man:loader.conf.5",
+        "man:sd-boot.7",
+        "man:systemd-boot.7",
     ]
 
 
@@ -249,9 +248,9 @@ def _(self):
 
     return [
         "usr/lib/systemd/boot/efi",
-        "usr/share/man/man7/linux*.efi.stub.7",
-        "usr/share/man/man7/systemd-stub.7",
-        "usr/share/man/man7/sd-stub.7",
+        "man:linux*.efi.stub.7",
+        "man:systemd-stub.7",
+        "man:sd-stub.7",
     ]
 
 

@@ -60,10 +60,7 @@ def post_install(self):
 def _(self):
     self.subdesc = "debuginfod"
 
-    return [
-        "usr/bin/debuginfod*",
-        "usr/share/man/man[18]/debuginfod*",
-    ]
+    return ["cmd:debuginfod*", "man:debuginfod*"]
 
 
 @subpackage("debuginfod-libs")

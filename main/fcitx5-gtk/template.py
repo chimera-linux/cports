@@ -42,7 +42,7 @@ def _(self):
     self.install_if = [self.parent, "gtk+3"]
 
     return [
-        "usr/bin/fcitx5-gtk3-immodule-probing",
+        "cmd:fcitx5-gtk3-immodule-probing",
         "usr/lib/gtk-3.0",
     ]
 
@@ -53,6 +53,6 @@ def _(self):
     self.install_if = [self.parent, "gtk4"]
 
     return [
-        "usr/bin/fcitx5-gtk4-immodule-probing",
+        "cmd:fcitx5-gtk4-immodule-probing",
         "usr/lib/gtk-4.0",
     ]

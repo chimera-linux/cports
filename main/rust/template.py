@@ -436,8 +436,8 @@ def _(self):
     self.depends = [self.parent]
 
     return [
-        "usr/bin/cargo-clippy",
-        "usr/bin/clippy-driver",
+        "cmd:cargo-clippy",
+        "cmd:clippy-driver",
     ]
 
 
@@ -447,8 +447,8 @@ def _(self):
     self.depends = [self.parent]
 
     return [
-        "usr/bin/rustfmt",
-        "usr/bin/cargo-fmt",
+        "cmd:rustfmt",
+        "cmd:cargo-fmt",
     ]
 
 

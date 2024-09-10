@@ -81,10 +81,7 @@ def _(self):
     self.subdesc = "icon cache update tool"
     self.triggers = ["/usr/share/icons/*"]
 
-    return [
-        "usr/bin/gtk-update-icon-cache",
-        "usr/share/man/man1/gtk-update-icon-cache.1",
-    ]
+    return ["cmd:gtk-update-icon-cache"]
 
 
 @subpackage("gtk+3-devel")
@@ -97,10 +94,9 @@ def _(self):
     self.subdesc = "demo applications"
 
     return [
-        "usr/bin/gtk3-demo",
-        "usr/bin/gtk3-widget-factory",
-        "usr/bin/gtk3-demo-application",
-        "usr/share/man/man1/gtk3-widget-factory.1",
+        "cmd:gtk3-demo",
+        "cmd:gtk3-widget-factory",
+        "cmd:gtk3-demo-application",
         "usr/share/gtk-3.0/gtkbuilder.rng",
         "usr/share/glib-2.0/schemas/org.gtk.Demo.gschema.xml",
         "usr/share/applications/gtk3-widget-factory.desktop",

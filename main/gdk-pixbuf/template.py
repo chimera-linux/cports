@@ -35,9 +35,4 @@ options = ["!cross"]
 
 @subpackage("gdk-pixbuf-devel")
 def _(self):
-    return self.default_devel(
-        extra=[
-            "usr/bin/*csource*",
-            "usr/share/man/man1/*csource*",
-        ]
-    )
+    return self.default_devel(extra=["cmd:*csource*"])

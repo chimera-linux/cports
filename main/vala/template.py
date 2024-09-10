@@ -35,10 +35,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "Vala documentation tool"
 
-    return [
-        "usr/bin/valadoc*",
-        "usr/share/man/man1/valadoc.1",
-    ]
+    return ["cmd:valadoc*"]
 
 
 @subpackage("libvaladoc")

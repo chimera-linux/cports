@@ -59,9 +59,8 @@ def _(self):
     self.license = "MIT"
 
     return [
-        "usr/bin/strelaysrv",
+        "cmd:strelaysrv",
         "usr/share/licenses/syncthing-relaysrv",
-        "usr/share/man/man1/strelaysrv.1",
     ]
 
 
@@ -69,4 +68,4 @@ def _(self):
 def _(self):
     self.subdesc = "discovery server"
 
-    return ["usr/bin/stdiscosrv", "usr/share/man/man1/stdiscosrv.1"]
+    return ["cmd:stdiscosrv"]

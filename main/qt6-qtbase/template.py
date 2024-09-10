@@ -278,8 +278,8 @@ def _(self):
     self.depends += [self.parent, *makedepends]
     return self.default_devel(
         extra=[
-            "usr/bin/androiddeployqt6",
-            "usr/bin/qmake6",
+            "cmd:androiddeployqt6",
+            "cmd:qmake6",
             # named based on BUILD_TYPE
             "usr/lib/objects-*",
             "usr/lib/qt6/metatypes",

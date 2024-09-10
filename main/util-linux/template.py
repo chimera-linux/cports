@@ -151,9 +151,8 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/dmesg",
+        "cmd:dmesg",
         "usr/share/bash-completion/completions/dmesg",
-        "usr/share/man/man1/dmesg.1",
     ]
 
 
@@ -167,19 +166,19 @@ def _(self):
     }
 
     return [
-        "usr/bin/blkid",
-        "usr/bin/blockdev",
-        "usr/bin/eject",
-        "usr/bin/findfs",
-        "usr/bin/findmnt",
-        "usr/bin/fsck*",
-        "usr/bin/losetup",
-        "usr/bin/lsblk",
-        "usr/bin/mount*",
-        "usr/bin/partx",
-        "usr/bin/swapoff",
-        "usr/bin/swapon",
-        "usr/bin/umount",
+        "cmd:blkid",
+        "cmd:blockdev",
+        "cmd:eject",
+        "cmd:findfs",
+        "cmd:findmnt",
+        "cmd:fsck*",
+        "cmd:losetup",
+        "cmd:lsblk",
+        "cmd:mount*",
+        "cmd:partx",
+        "cmd:swapoff",
+        "cmd:swapon",
+        "cmd:umount",
         "usr/share/bash-completion/completions/blkid",
         "usr/share/bash-completion/completions/blockdev",
         "usr/share/bash-completion/completions/eject",
@@ -193,21 +192,7 @@ def _(self):
         "usr/share/bash-completion/completions/swapoff",
         "usr/share/bash-completion/completions/swapon",
         "usr/share/bash-completion/completions/umount",
-        "usr/share/man/man1/eject.1",
-        "usr/share/man/man1/mount*.1",
-        "usr/share/man/man5/fstab.5",
-        "usr/share/man/man8/blkid.8",
-        "usr/share/man/man8/blockdev.8",
-        "usr/share/man/man8/findfs.8",
-        "usr/share/man/man8/findmnt.8",
-        "usr/share/man/man8/fsck*.8",
-        "usr/share/man/man8/losetup.8",
-        "usr/share/man/man8/lsblk.8",
-        "usr/share/man/man8/mount*.8",
-        "usr/share/man/man8/partx.8",
-        "usr/share/man/man8/swapoff.8",
-        "usr/share/man/man8/swapon.8",
-        "usr/share/man/man8/umount.8",
+        "man:fstab.5",
     ]
 
 
@@ -235,9 +220,8 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/*fdisk",
+        "cmd:*fdisk",
         "usr/share/bash-completion/completions/*fdisk",
-        "usr/share/man/man8/*fdisk.8",
     ]
 
 
@@ -265,18 +249,14 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/mkfs*",
-        "usr/bin/mkswap",
-        "usr/bin/swaplabel",
-        "usr/bin/wipefs",
+        "cmd:mkfs*",
+        "cmd:mkswap",
+        "cmd:swaplabel",
+        "cmd:wipefs",
         "usr/share/bash-completion/completions/mkfs*",
         "usr/share/bash-completion/completions/mkswap",
         "usr/share/bash-completion/completions/swaplabel",
         "usr/share/bash-completion/completions/wipefs",
-        "usr/share/man/man8/mkfs*.8",
-        "usr/share/man/man8/mkswap.8",
-        "usr/share/man/man8/swaplabel.8",
-        "usr/share/man/man8/wipefs.8",
     ]
 
 
@@ -286,12 +266,10 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/fstrim",
-        "usr/bin/blkdiscard",
+        "cmd:fstrim",
+        "cmd:blkdiscard",
         "usr/share/bash-completion/completions/fstrim",
         "usr/share/bash-completion/completions/blkdiscard",
-        "usr/share/man/man8/fstrim.8",
-        "usr/share/man/man8/blkdiscard.8",
     ]
 
 
@@ -301,9 +279,8 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/rfkill",
+        "cmd:rfkill",
         "usr/share/bash-completion/completions/rfkill",
-        "usr/share/man/man8/rfkill.8",
     ]
 
 
@@ -313,9 +290,8 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/irqtop",
+        "cmd:irqtop",
         "usr/share/bash-completion/completions/irqtop",
-        "usr/share/man/man1/irqtop.1",
     ]
 
 
@@ -325,9 +301,8 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/lscpu",
+        "cmd:lscpu",
         "usr/share/bash-completion/completions/lscpu",
-        "usr/share/man/man1/lscpu.1",
     ]
 
 
@@ -337,9 +312,8 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/rename",
+        "cmd:rename",
         "usr/share/bash-completion/completions/rename",
-        "usr/share/man/man1/rename.1",
     ]
 
 
@@ -349,12 +323,10 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/runuser",
-        "usr/bin/setpriv",
+        "cmd:runuser",
+        "cmd:setpriv",
         # "usr/share/bash-completion/completions/runuser",
         "usr/share/bash-completion/completions/setpriv",
-        "usr/share/man/man1/runuser.1",
-        "usr/share/man/man1/setpriv.1",
     ]
 
 
@@ -364,9 +336,8 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/zramctl",
+        "cmd:zramctl",
         "usr/share/bash-completion/completions/zramctl",
-        "usr/share/man/man8/zramctl.8",
     ]
 
 
@@ -376,15 +347,12 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/lsns",
-        "usr/bin/nsenter",
-        "usr/bin/unshare",
+        "cmd:lsns",
+        "cmd:nsenter",
+        "cmd:unshare",
         "usr/share/bash-completion/completions/lsns",
         "usr/share/bash-completion/completions/nsenter",
         "usr/share/bash-completion/completions/unshare",
-        "usr/share/man/man1/nsenter.1",
-        "usr/share/man/man1/unshare.1",
-        "usr/share/man/man8/lsns.8",
     ]
 
 
@@ -394,9 +362,8 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/*ipc*",
+        "cmd:*ipc*",
         "usr/share/bash-completion/completions/*ipc*",
-        "usr/share/man/man1/*ipc*.1",
     ]
 
 
@@ -406,15 +373,12 @@ def _(self):
     self.depends = [self.with_pkgver("util-linux-common")]
 
     return [
-        "usr/bin/last*",
-        "usr/bin/lslogins",
-        "usr/bin/utmpdump",
+        "cmd:last*",
+        "cmd:lslogins",
+        "cmd:utmpdump",
         "usr/share/bash-completion/completions/last*",
         "usr/share/bash-completion/completions/lslogins",
         "usr/share/bash-completion/completions/utmpdump",
-        "usr/share/man/man1/last*.1",
-        "usr/share/man/man1/lslogins.1",
-        "usr/share/man/man1/utmpdump.1",
     ]
 
 
@@ -434,7 +398,7 @@ def _(self):
         "usr/lib/libblkid.*",
         "usr/lib/pkgconfig/*blkid*",
         "usr/include/blkid",
-        "usr/share/man/man3/libblkid.3",
+        "man:libblkid.3",
     ]
 
 
@@ -456,7 +420,7 @@ def _(self):
         "usr/lib/libuuid.*",
         "usr/lib/pkgconfig/*uuid*",
         "usr/include/uuid",
-        "usr/share/man/man3/uuid*",
+        "man:uuid*.3",
     ]
 
 
@@ -468,10 +432,9 @@ def _(self):
 
     return [
         "etc/dinit.d",
-        "usr/bin/uuid*",
+        "cmd:uuid*",
         "usr/lib/sysusers.d",
         "usr/lib/tmpfiles.d",
-        "usr/share/man/man[18]/uuid*",
         "usr/share/bash-completion/completions/uuid*",
     ]
 

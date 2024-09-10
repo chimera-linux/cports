@@ -77,12 +77,9 @@ def _(self):
     self.pkgdesc = "Programs to create and clone virtual machines"
 
     return [
-        "usr/bin/virt-clone",
-        "usr/bin/virt-install",
-        "usr/bin/virt-xml",
-        "usr/share/man/man1/virt-install.1",
-        "usr/share/man/man1/virt-clone.1",
-        "usr/share/man/man1/virt-xml.1",
+        "cmd:virt-clone",
+        "cmd:virt-install",
+        "cmd:virt-xml",
         "usr/share/virt-manager/virtinst",
         "usr/share/bash-completion/completions/virt-install",
         "usr/share/bash-completion/completions/virt-clone",

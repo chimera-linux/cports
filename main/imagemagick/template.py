@@ -101,7 +101,7 @@ def _(self):
 def _(self):
     return [
         "usr/lib/perl5",
-        "usr/share/man/man3/Image::Magick*",
+        "man:Image::Magick*.3",
     ]
 
 

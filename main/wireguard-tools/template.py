@@ -48,10 +48,9 @@ def _(self):
 
     return [
         "etc/dinit.d/wg-quick-all",
-        "usr/bin/wg-quick",
+        "cmd:wg-quick",
         "usr/libexec/wg-quick-all",
         "usr/share/bash-completion/**/wg-quick",
-        "usr/share/man/man?/wg-quick.?",
     ]
 
 

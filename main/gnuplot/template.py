@@ -141,7 +141,7 @@ def _(self):
     self.depends += [self.with_pkgver("gnuplot-common-x11")]
 
     return [
-        "usr/bin/gnuplot-qt",
+        "cmd:gnuplot-qt",
         "usr/libexec/gnuplot/*/gnuplot_qt",
         "usr/share/gnuplot/*/qt",
     ]
@@ -152,7 +152,7 @@ def _(self):
     self.subdesc = "wxWidgets frontend"
     self.depends += [self.with_pkgver("gnuplot-common-x11")]
 
-    return ["usr/bin/gnuplot-wx"]
+    return ["cmd:gnuplot-wx"]
 
 
 @subpackage("gnuplot-common")

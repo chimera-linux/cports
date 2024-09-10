@@ -27,4 +27,4 @@ else:
 def _(self):
     self.subdesc = "core"
 
-    return ["usr/bin/faked", "usr/lib"]
+    return ["cmd:faked", "usr/lib"]

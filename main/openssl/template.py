@@ -95,7 +95,7 @@ def _(self):
     if self.stage > 0:
         self.depends.append("perl")
 
-    return ["usr/bin/c_rehash"]
+    return ["cmd:c_rehash"]
 
 
 @subpackage("openssl-devel")

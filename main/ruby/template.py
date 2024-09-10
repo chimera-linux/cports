@@ -66,4 +66,4 @@ def _(self):
 def _(self):
     self.depends += [self.parent]
 
-    return ["usr/bin/ri"]
+    return ["cmd:ri"]

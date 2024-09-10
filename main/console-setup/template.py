@@ -56,4 +56,4 @@ def _(self):
         "xkeyboard-config",
         "perl",
     ]
-    return ["usr/bin/ckbcomp"]
+    return ["cmd:ckbcomp"]

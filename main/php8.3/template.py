@@ -357,9 +357,9 @@ def _(self):
 
     return [
         f"etc/php{_majver}/pear.conf",
-        f"usr/bin/pear{_majver}",
-        f"usr/bin/peardev{_majver}",
-        f"usr/bin/pecl{_majver}",
+        f"cmd:pear{_majver}",
+        f"cmd:peardev{_majver}",
+        f"cmd:pecl{_majver}",
         f"usr/share/php{_majver}/pear",
     ]
 
@@ -370,7 +370,7 @@ def _(self):
 
     return self.default_devel(
         extra=[
-            f"usr/bin/phpize{_majver}",
+            f"cmd:phpize{_majver}",
             f"usr/lib/php{_majver}/build",
         ]
     )

@@ -30,4 +30,4 @@ def _(self):
     self.subdesc = "Python bindings"
     self.depends += ["python"]
 
-    return ["usr/lib/python*", "usr/bin/bscalc", "usr/share/man/man1/bscalc.1"]
+    return ["usr/lib/python*", "cmd:bscalc"]

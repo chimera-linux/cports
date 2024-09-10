@@ -104,13 +104,13 @@ def _(self):
     self.subdesc = "extra tools"
 
     return [
-        "usr/bin/fsfs-*",
-        "usr/bin/svn-*",
-        "usr/bin/svnauthz*",
-        "usr/bin/svnconflict",
-        "usr/bin/svnmover",
-        "usr/bin/svnraisetreeconflict",
-        "usr/bin/x509-parser",
+        "cmd:fsfs-*",
+        "cmd:svn-*",
+        "cmd:svnauthz*",
+        "cmd:svnconflict",
+        "cmd:svnmover",
+        "cmd:svnraisetreeconflict",
+        "cmd:x509-parser",
     ]
 
 
@@ -122,7 +122,7 @@ def _(self):
     return [
         "usr/lib/libsvn_swig_perl-1.so.*",
         "usr/lib/perl5",
-        "usr/share/man/man3/SVN::*",
+        "man:SVN::*",
     ]
 
 

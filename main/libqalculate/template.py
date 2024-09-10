@@ -36,4 +36,4 @@ def _(self):
 @subpackage("qalc")
 def _(self):
     self.pkgdesc = "Command-line calculator"
-    return ["usr/bin/qalc", "usr/share/man/man1/qalc.1"]
+    return ["cmd:qalc"]

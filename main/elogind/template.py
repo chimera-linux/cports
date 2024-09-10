@@ -98,5 +98,5 @@ def _(self):
     return [
         "usr/lib/pam.d",
         "usr/lib/security",
-        "usr/share/man/man8/pam_elogind.8",
+        "man:pam_elogind.8",
     ]

@@ -111,4 +111,4 @@ def _(self):
         "zlib-ng-compat-devel",
     ]
 
-    return ["usr/bin/chimera-buildkernel", "usr/bin/chimera-stripko"]
+    return ["cmd:chimera-buildkernel", "cmd:chimera-stripko"]

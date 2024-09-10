@@ -88,4 +88,4 @@ def _(self):
 def _(self):
     self.subdesc = "kitten client"
 
-    return ["usr/bin/kitten", "usr/share/man/man1/kitten*.1"]
+    return ["cmd:kitten", "man:kitten*.1"]

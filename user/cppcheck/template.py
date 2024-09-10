@@ -53,7 +53,7 @@ def _(self):
     self.depends = [self.parent]
 
     return [
-        "usr/bin/cppcheck-gui",
+        "cmd:cppcheck-gui",
         "usr/share/applications",
         "usr/share/cppcheck/translations",
         "usr/share/icons",

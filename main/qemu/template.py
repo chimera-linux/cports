@@ -156,7 +156,7 @@ def _(self):
 
     return [
         "etc/dinit.d/qemu-ga",
-        "usr/bin/qemu-ga",
+        "cmd:qemu-ga",
     ]
 
 
@@ -166,10 +166,10 @@ def _(self):
     self.depends = []
 
     return [
-        "usr/bin/qemu-img",
-        "usr/bin/qemu-io",
-        "usr/bin/qemu-nbd",
-        "usr/bin/qemu-storage-daemon",
+        "cmd:qemu-img",
+        "cmd:qemu-io",
+        "cmd:qemu-nbd",
+        "cmd:qemu-storage-daemon",
     ]
 
 
@@ -179,9 +179,9 @@ def _(self):
     self.depends = []
 
     return [
-        "usr/bin/qemu-edid",
-        "usr/bin/qemu-keymap",
-        "usr/bin/elf2dmp",
+        "cmd:qemu-edid",
+        "cmd:qemu-keymap",
+        "cmd:elf2dmp",
     ]
 
 
@@ -190,10 +190,7 @@ def _(self):
     self.pkgdesc = "QEMU pr helper utility"
     self.depends = []
 
-    return [
-        "usr/bin/qemu-pr-helper",
-        "usr/share/man/man8/qemu-pr-helper.8",
-    ]
+    return ["cmd:qemu-pr-helper"]
 
 
 @subpackage("qemu-vhost-user-gpu")
@@ -282,7 +279,7 @@ def _spkg(sname):
         # never strip them
         self.nostrip_files = extras
 
-        return [f"usr/bin/qemu-system-{sname}", *extras]
+        return [f"cmd:qemu-system-{sname}", *extras]
 
 
 for _sys in [

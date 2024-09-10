@@ -274,19 +274,19 @@ def _(self):
 
     return [
         "usr/include/clang-tidy",
-        "usr/bin/clang-apply-replacements",
-        "usr/bin/clang-query",
-        "usr/bin/clang-pseudo-gen",
-        "usr/bin/clang-rename",
-        "usr/bin/clang-tidy",
-        "usr/bin/clang-tidy-confusable-chars-gen",
-        "usr/bin/diagtool",
-        "usr/bin/find-all-symbols",
-        "usr/bin/hmaptool",
-        "usr/bin/modularize",
-        "usr/bin/pp-trace",
-        "usr/bin/run-clang-tidy",
-        "usr/bin/sancov",
+        "cmd:clang-apply-replacements",
+        "cmd:clang-query",
+        "cmd:clang-pseudo-gen",
+        "cmd:clang-rename",
+        "cmd:clang-tidy",
+        "cmd:clang-tidy-confusable-chars-gen",
+        "cmd:diagtool",
+        "cmd:find-all-symbols",
+        "cmd:hmaptool",
+        "cmd:modularize",
+        "cmd:pp-trace",
+        "cmd:run-clang-tidy",
+        "cmd:sancov",
         "usr/share/clang/*tidy*",
     ]
 
@@ -298,39 +298,39 @@ def _(self):
     self.replaces = ["elftoolchain<0.7.1_svn20230501"]
 
     return [
-        "usr/bin/addr2line",
-        "usr/bin/ar",
-        "usr/bin/c++filt",
-        "usr/bin/dlltool",
-        "usr/bin/dwp",
-        "usr/bin/llvm-addr2line",
-        "usr/bin/llvm-ar",
-        "usr/bin/llvm-bitcode-strip",
-        "usr/bin/llvm-cxxfilt",
-        "usr/bin/llvm-dlltool",
-        "usr/bin/llvm-dwp",
-        "usr/bin/llvm-install-name-tool",
-        "usr/bin/llvm-lib",
-        "usr/bin/llvm-nm",
-        "usr/bin/llvm-objcopy",
-        "usr/bin/llvm-objdump",
-        "usr/bin/llvm-ranlib",
-        "usr/bin/llvm-rc",
-        "usr/bin/llvm-readelf",
-        "usr/bin/llvm-readobj",
-        "usr/bin/llvm-size",
-        "usr/bin/llvm-strings",
-        "usr/bin/llvm-strip",
-        "usr/bin/llvm-symbolizer",
-        "usr/bin/nm",
-        "usr/bin/objcopy",
-        "usr/bin/objdump",
-        "usr/bin/ranlib",
-        "usr/bin/readelf",
-        "usr/bin/size",
-        "usr/bin/strings",
-        "usr/bin/strip",
-        "usr/bin/windres",
+        "cmd:addr2line",
+        "cmd:ar",
+        "cmd:c++filt",
+        "cmd:dlltool",
+        "cmd:dwp",
+        "cmd:llvm-addr2line",
+        "cmd:llvm-ar",
+        "cmd:llvm-bitcode-strip",
+        "cmd:llvm-cxxfilt",
+        "cmd:llvm-dlltool",
+        "cmd:llvm-dwp",
+        "cmd:llvm-install-name-tool",
+        "cmd:llvm-lib",
+        "cmd:llvm-nm",
+        "cmd:llvm-objcopy",
+        "cmd:llvm-objdump",
+        "cmd:llvm-ranlib",
+        "cmd:llvm-rc",
+        "cmd:llvm-readelf",
+        "cmd:llvm-readobj",
+        "cmd:llvm-size",
+        "cmd:llvm-strings",
+        "cmd:llvm-strip",
+        "cmd:llvm-symbolizer",
+        "cmd:nm",
+        "cmd:objcopy",
+        "cmd:objdump",
+        "cmd:ranlib",
+        "cmd:readelf",
+        "cmd:size",
+        "cmd:strings",
+        "cmd:strip",
+        "cmd:windres",
     ]
 
 
@@ -347,12 +347,12 @@ def _(self):
     ]
 
     return [
-        "usr/bin/*clang*",
-        "usr/bin/c-index-test",
-        "usr/bin/cc",
-        "usr/bin/c89",
-        "usr/bin/c99",
-        "usr/bin/c++",
+        "cmd:*clang*",
+        "cmd:c-index-test",
+        "cmd:cc",
+        "cmd:c89",
+        "cmd:c99",
+        "cmd:c++",
         "usr/lib/cmake/clang",
         "usr/share/clang",
     ]
@@ -403,16 +403,15 @@ def _(self):
         self.depends += ["perl", "python"]
 
     return [
-        "usr/bin/analyze-build",
-        "usr/bin/intercept-build",
-        "usr/bin/scan-*",
+        "cmd:analyze-build",
+        "cmd:intercept-build",
+        "cmd:scan-*",
         "usr/lib/libear",
         "usr/lib/libscanbuild",
         "usr/libexec/analyze-*",
         "usr/libexec/*analyzer",
         "usr/libexec/intercept-*",
         "usr/share/scan-*",
-        "usr/share/man/man1/scan-build.1",
     ]
 
 
@@ -441,11 +440,11 @@ def _(self):
     ]
 
     return [
-        "usr/bin/bbc",
-        "usr/bin/f18*",
-        "usr/bin/fir*",
-        "usr/bin/flang*",
-        "usr/bin/tco",
+        "cmd:bbc",
+        "cmd:f18*",
+        "cmd:fir*",
+        "cmd:flang*",
+        "cmd:tco",
     ]
 
 
@@ -478,7 +477,7 @@ def _(self):
 def _(self):
     self.subdesc = "MLIR"
 
-    return ["usr/bin/mlir*"]
+    return ["cmd:mlir*"]
 
 
 @subpackage("mlir-devel-static", _enable_mlir)
@@ -614,11 +613,11 @@ def _(self):
     self.install_if = [self.with_pkgver("clang")]
 
     return [
-        "usr/bin/ld",
-        "usr/bin/lld*",
-        "usr/bin/wasm-ld",
-        "usr/bin/ld.lld*",
-        "usr/bin/ld64.lld*",
+        "cmd:ld",
+        "cmd:lld*",
+        "cmd:wasm-ld",
+        "cmd:ld.lld*",
+        "cmd:ld64.lld*",
     ]
 
 
@@ -689,11 +688,11 @@ def _(self):
     self.subdesc = "testing tools"
 
     return [
-        "usr/bin/FileCheck",
-        "usr/bin/count",
-        "usr/bin/not",
-        "usr/bin/split-file",
-        "usr/bin/yaml-bench",
+        "cmd:FileCheck",
+        "cmd:count",
+        "cmd:not",
+        "cmd:split-file",
+        "cmd:yaml-bench",
         "usr/share/opt-viewer",
     ]
 
@@ -703,5 +702,5 @@ def _(self):
     self.subdesc = "runtime"
 
     return [
-        "usr/bin/lli*",
+        "cmd:lli*",
     ]

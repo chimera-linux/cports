@@ -53,7 +53,6 @@ def post_install(self):
 def _(self):
     self.pkgdesc = "Tool for viewing/editing hex dumps"
     return [
-        "usr/bin/xxd",
-        "usr/share/man/man1/xxd.1",
+        "cmd:xxd",
         "usr/share/man/*/man1/xxd.1",
     ]

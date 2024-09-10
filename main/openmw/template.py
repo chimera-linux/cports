@@ -60,11 +60,11 @@ if self.profile().endian == "big":
 def _(self):
     self.pkgdesc = "Tool for inspecting and extracitng Morrowind ESM files"
 
-    return ["usr/bin/esmtool"]
+    return ["cmd:esmtool"]
 
 
 @subpackage("bsatool")
 def _(self):
     self.pkgdesc = "Tool for inspecting Bethesda BSA archives"
 
-    return ["usr/bin/bsatool"]
+    return ["cmd:bsatool"]

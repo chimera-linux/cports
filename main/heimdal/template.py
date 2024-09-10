@@ -118,7 +118,7 @@ for _libn, _ldesc in [
 def _(self):
     self.pkgdesc = "Heimdal KCM daemon"
 
-    return ["usr/libexec/kcm", "usr/share/man/man8/kcm.8"]
+    return ["usr/libexec/kcm", "man:kcm.8"]
 
 
 @subpackage("heimdal-kdc")
@@ -129,8 +129,8 @@ def _(self):
         "etc/dinit.d/heimdal-kadmind",
         "etc/dinit.d/heimdal-kdc",
         "etc/dinit.d/heimdal-kpasswdd",
-        "usr/bin/iprop-log",
-        "usr/bin/kstash",
+        "cmd:iprop-log",
+        "cmd:kstash",
         "usr/libexec/digest-service",
         "usr/libexec/hprop",
         "usr/libexec/hpropd",
@@ -138,12 +138,11 @@ def _(self):
         "usr/libexec/kadmind",
         "usr/libexec/kdc",
         "usr/libexec/kpasswdd",
-        "usr/share/man/man8/hprop*.8",
-        "usr/share/man/man8/iprop*.8",
-        "usr/share/man/man8/kadmind.8",
-        "usr/share/man/man8/kdc.8",
-        "usr/share/man/man8/kpasswdd.8",
-        "usr/share/man/man8/kstash.8",
+        "man:hprop*.8",
+        "man:iprop*.8",
+        "man:kadmind.8",
+        "man:kdc.8",
+        "man:kpasswdd.8",
     ]
 
 
@@ -155,8 +154,8 @@ def _(self):
     def _install():
         self.take("usr/libexec/kdigest")
         self.take("usr/libexec/kimpersonate")
-        self.take("usr/share/man/man8/kdigest.8")
-        self.take("usr/share/man/man8/kimpersonate.8")
+        self.take("man:kdigest.8")
+        self.take("man:kimpersonate.8")
 
         for cl in [
             "afslog",

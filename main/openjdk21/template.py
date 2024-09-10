@@ -274,17 +274,12 @@ def _(self):
     # default version
     self.provider_priority = 120
     return [
-        "usr/bin/java",
-        "usr/bin/jfr",
-        "usr/bin/jrunscript",
-        "usr/bin/keytool",
-        "usr/bin/rmiregistry",
+        "cmd:java",
+        "cmd:jfr",
+        "cmd:jrunscript",
+        "cmd:keytool",
+        "cmd:rmiregistry",
         f"{_java_base}/default",
-        "usr/share/man/man1/java.1",
-        "usr/share/man/man1/jfr.1",
-        "usr/share/man/man1/jrunscript.1",
-        "usr/share/man/man1/keytool.1",
-        "usr/share/man/man1/rmiregistry.1",
     ]
 
 

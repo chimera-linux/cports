@@ -92,7 +92,7 @@ def _upkg(uname):
         self.subdesc = uname
         self.install_if = [self.parent]
 
-        return [f"usr/bin/qemu-{uname}"]
+        return [f"cmd:qemu-{uname}"]
 
     match uname:
         case "cris":

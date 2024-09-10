@@ -303,7 +303,7 @@ def _(self):
     self.subdesc = "client library development files"
 
     return [
-        "usr/bin/pg_config",
+        "cmd:pg_config",
         "usr/include/postgresql/libpq-*.h",
         "usr/include/postgresql/libpq/*",
         "usr/include/postgresql/pg_config*.h",

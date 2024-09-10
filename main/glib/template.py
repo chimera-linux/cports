@@ -66,21 +66,14 @@ def _(self):
     self.provider_priority = 100
     return self.default_devel(
         extra=[
-            "usr/bin/glib-compile-resources",
-            "usr/bin/glib-genmarshal",
-            "usr/bin/glib-gettextize",
-            "usr/bin/glib-mkenums",
-            "usr/bin/gtester",
-            "usr/bin/gtester-report",
-            "usr/bin/gdbus-codegen",
+            "cmd:glib-compile-resources",
+            "cmd:glib-genmarshal",
+            "cmd:glib-gettextize",
+            "cmd:glib-mkenums",
+            "cmd:gtester",
+            "cmd:gtester-report",
+            "cmd:gdbus-codegen",
             "usr/lib/glib-2.0",
-            "usr/share/man/man1/glib-compile-resources.1",
-            "usr/share/man/man1/glib-genmarshal.1",
-            "usr/share/man/man1/glib-gettextize.1",
-            "usr/share/man/man1/glib-mkenums.1",
-            "usr/share/man/man1/gtester.1",
-            "usr/share/man/man1/gtester-report.1",
-            "usr/share/man/man1/gdbus-codegen.1",
             "usr/share/glib-2.0",
             "usr/share/gdb",
         ]

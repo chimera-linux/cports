@@ -47,12 +47,12 @@ def _(self):
     self.pkgdesc = "Common Mesa utilities"
 
     return [
-        "usr/bin/egl*",
-        "usr/bin/es2*",
-        "usr/bin/glx*",
-        "usr/bin/peglgears",
-        "usr/bin/vkgears",
-        "usr/bin/xeglgears",
-        "usr/bin/xeglthreads",
+        "cmd:egl*",
+        "cmd:es2*",
+        "cmd:glx*",
+        "cmd:peglgears",
+        "cmd:vkgears",
+        "cmd:xeglgears",
+        "cmd:xeglthreads",
         "usr/share/mesa-demos",
     ]

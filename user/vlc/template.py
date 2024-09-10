@@ -135,7 +135,7 @@ def _(self):
     self.subdesc = "Qt frontend"
     self.depends = [self.parent]
     return [
-        "usr/bin/qvlc",
+        "cmd:qvlc",
         "usr/share/applications",
         "usr/share/icons",
         "usr/share/metainfo",
