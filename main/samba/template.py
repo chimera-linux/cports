@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.20.4"
-pkgrel = 1
+pkgver = "4.21.0"
+pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -43,7 +43,6 @@ hostmakedepends = [
     "flex",
     "gettext-devel",
     "heimdal",
-    "ldb-python",
     "libtasn1-progs",
     "perl",
     "perl-parse-yapp",
@@ -70,7 +69,6 @@ makedepends = [
     "heimdal-devel",
     "icu-devel",
     "jansson-devel",
-    "ldb-devel",
     "libarchive-devel",
     "libedit-readline-devel",
     "libtirpc-devel",
@@ -96,7 +94,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/samba-{pkgver}.tar.gz"
-sha256 = "3a92e97eaeb345b6b32232f503e14d34f03a7aa64c451fe8c258a11bbda908e5"
+sha256 = "09bb56db4ce003cafdbebe9bad368c4f4ff1945f732d18077d52f36ab20cef88"
 tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"]}
 env = {"PYTHONHASHSEED": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
@@ -124,7 +122,6 @@ def post_install(self):
     self.install_file(
         self.files_path / "samba.pam", "usr/lib/pam.d", name="samba"
     )
-    self.uninstall("etc/sudoers.d")
     self.uninstall("usr/share/man/man7/traffic_learner.7")
     self.uninstall("usr/share/man/man7/traffic_replay.7")
     # symlink cups backend
@@ -368,6 +365,13 @@ def _(self):
 @subpackage("samba-devel")
 def _(self):
     return self.default_devel()
+
+
+@subpackage("ldb-progs")
+def _(self):
+    self.pkgdesc = "LDAP-like database"
+    self.subdesc = "programs"
+    return ["cmd:ldb*"]
 
 
 @subpackage("samba-python")
