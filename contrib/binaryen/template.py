@@ -14,7 +14,7 @@ hostmakedepends = [
 makedepends = ["gtest-devel"]
 checkdepends = [
     "nodejs",
-    "python-filecheck",
+    "filecheck",
 ]
 pkgdesc = "Optimizer and compiler/toolchain library for WebAssembly"
 maintainer = "psykose <alice@ayaya.dev>"
