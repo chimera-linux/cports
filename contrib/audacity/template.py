@@ -1,5 +1,5 @@
 pkgname = "audacity"
-pkgver = "3.6.2"
+pkgver = "3.6.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -60,7 +60,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://www.audacityteam.org"
 source = f"https://github.com/audacity/audacity/releases/download/Audacity-{pkgver}/audacity-sources-{pkgver}.tar.gz"
-sha256 = "d3601aadc1d315f32d9857ddbf1edc5c99b3997a798a32a5d3cd4c54b789babc"
+sha256 = "53c33ed875f4eb1501707d7989a6de253370a368c1c50a877e5cfa96c02bebdc"
 # vis breaks symbols
 hardening = []
 # check: dont care
