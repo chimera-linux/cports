@@ -24,10 +24,7 @@ def _lint_license(pkg):
     lpath = pkg.destdir / "usr/share/licenses"
     if not lpath.is_dir():
         # the license may have been split into docpkg
-        lpath = (
-            pkg.destdir.parent
-            / f"{pkg.pkgname}-doc-{pkg.pkgver}/usr/share/licenses"
-        )
+        lpath = pkg.destdir.parent / f"{pkg.pkgname}-doc/usr/share/licenses"
     if lpath.is_dir():
         for f in lpath.iterdir():
             has_license = True

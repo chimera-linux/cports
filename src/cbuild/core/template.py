@@ -1275,14 +1275,13 @@ class Template(Package):
         self.statedir = bdirbase / (".cbuild-" + self.pkgname)
         self.wrapperdir = self.statedir / "wrappers"
 
+        self.destdir_base = (
+            paths.builddir() / "destdir" / f"{self.pkgname}-{self.pkgver}"
+        )
         if self.profile().cross:
-            self.destdir_base = (
-                paths.builddir() / "destdir" / self.profile().triplet
-            )
-        else:
-            self.destdir_base = paths.builddir() / "destdir"
+            self.destdir_base = self.destdir_base / self.profile().arch
 
-        self.destdir = self.destdir_base / f"{self.pkgname}-{self.pkgver}"
+        self.destdir = self.destdir_base / self.pkgname
 
         self.srcdir = bdirbase / f"{self.pkgname}-{self.pkgver}"
         self.cwd = self.srcdir / self.build_wrksrc
@@ -1299,18 +1298,18 @@ class Template(Package):
             self.chroot_statedir = cbdirbase / self.statedir.relative_to(
                 bdirbase
             )
-            self.chroot_destdir_base = pathlib.Path("/destdir")
+            self.chroot_destdir_base = pathlib.Path(
+                f"/destdir/{self.pkgname}-{self.pkgver}"
+            )
             self.chroot_sources_path = (
                 pathlib.Path("/sources") / f"{self.pkgname}-{self.pkgver}"
             )
             if self.profile().cross:
                 self.chroot_destdir_base = (
-                    self.chroot_destdir_base / self.profile().triplet
+                    self.chroot_destdir_base / self.profile().arch
                 )
 
-        self.chroot_destdir = (
-            self.chroot_destdir_base / f"{self.pkgname}-{self.pkgver}"
-        )
+        self.chroot_destdir = self.chroot_destdir_base / self.pkgname
 
         self.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + self.pkgname
 
@@ -2528,10 +2527,8 @@ class Subpackage(Package):
         parent = self.parent.rparent
 
         self.statedir = parent.statedir
-        self.destdir = parent.destdir_base / f"{self.pkgname}-{self.pkgver}"
-        self.chroot_destdir = (
-            parent.chroot_destdir_base / f"{self.pkgname}-{self.pkgver}"
-        )
+        self.destdir = parent.destdir_base / self.pkgname
+        self.chroot_destdir = parent.chroot_destdir_base / self.pkgname
 
     def _take_impl(self, p, missing_ok, func=None):
         p = pathlib.Path(p)

@@ -138,7 +138,7 @@ def invoke(pkg):
     if not (pkg.destdir / "usr/lib/debug").is_dir():
         return
 
-    ddest = pkg.rparent.destdir_base / f"{pkg.pkgname}-dbg-{pkg.pkgver}"
+    ddest = pkg.rparent.destdir_base / f"{pkg.pkgname}-dbg"
     (ddest / "usr/lib").mkdir(parents=True, exist_ok=True)
 
     # move debug symbols
