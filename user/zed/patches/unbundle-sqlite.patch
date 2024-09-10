@@ -6,8 +6,8 @@ index 6f25ba9..dae8c33 100644
  collections.workspace = true
  futures.workspace = true
  indoc.workspace = true
--libsqlite3-sys = { version = "0.26", features = ["bundled"] }
-+libsqlite3-sys = { version = "0.26" }
+-libsqlite3-sys = { version = "0.28", features = ["bundled"] }
++libsqlite3-sys = { version = "0.28" }
  parking_lot.workspace = true
  smol.workspace = true
  thread_local = "1.1.4"
