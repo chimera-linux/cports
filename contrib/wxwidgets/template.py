@@ -1,5 +1,5 @@
 pkgname = "wxwidgets"
-pkgver = "3.2.5"
+pkgver = "3.2.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -17,6 +17,7 @@ configure_args = [
     "-DwxUSE_PRIVATE_FONTS=ON",
     "-DwxUSE_REGEX=sys",
     "-DwxUSE_ZLIB=sys",
+    "-DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so",
 ]
 hostmakedepends = [
     "cmake",
@@ -46,7 +47,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "custom:wxWidgets"
 url = "https://www.wxwidgets.org"
 source = f"https://github.com/wxWidgets/wxWidgets/releases/download/v{pkgver}/wxWidgets-{pkgver}.tar.bz2"
-sha256 = "0ad86a3ad3e2e519b6a705248fc9226e3a09bbf069c6c692a02acf7c2d1c6b51"
+sha256 = "939e5b77ddc5b6092d1d7d29491fe67010a2433cf9b9c0d841ee4d04acb9dce7"
 # fixme: int
 hardening = ["!int"]
 # fixme
