@@ -1,6 +1,6 @@
 pkgname = "power-profiles-daemon"
-pkgver = "0.22"
-pkgrel = 1
+pkgver = "0.23"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystemdsystemunitdir=",
@@ -26,7 +26,7 @@ maintainer = "Val Packett <val@packett.cool>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/upower/power-profiles-daemon"
 source = f"{url}/-/archive/{pkgver}/power-profiles-daemon-{pkgver}.tar.bz2"
-sha256 = "a030b25c4e86faab782a134cf7ac8e19d1e7edf2d2c0ed6f158750de10c1f8d5"
+sha256 = "a71f79e9cb1c184b7a8e25c3ae70d624ea4313edec3401495992c364b5f22599"
 hardening = ["vis"]
 
 
