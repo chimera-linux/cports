@@ -1,5 +1,5 @@
 pkgname = "weechat"
-pkgver = "4.4.1"
+pkgver = "4.4.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -42,7 +42,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://weechat.org"
 source = f"https://weechat.org/files/src/weechat-{pkgver}.tar.gz"
-sha256 = "3426c856425614d3737e152fc4e79f61b944563cb27988e28f6d81b6396293b6"
+sha256 = "8a7b06a9f82ee6c970ca80fd8d60d8d692a7f4552dde52073d43d85228acf16a"
 
 
 @subpackage("weechat-devel")
