@@ -248,6 +248,18 @@ def _get_rustflags(self, tmpl, name, extra_flags, debug, hardening, shell):
     if tmpl.options["relr"] and self._has_relr(tmpl.stage):
         bflags += ["-Clink-arg=-Wl,-z,pack-relative-relocs"]
 
+    # most rust things use cargo; when they do, we want to use the CARGO_*-set
+    # options for this in util/cargo instead, since those override project
+    # profile settings (and these don't).
+    # for things that don't use cargo, we instead want to set these options for
+    # e.g. meson as it will otherwise default to -Doptimization for opt-level,
+    # so without setting it (we use -Dbuildtype=plain) it will be 0.
+    if tmpl.options["fullrustflags"]:
+        # =3 is what cargo --release also defaults to.
+        bflags += ["-Copt-level=3", "-Ccodegen-units=1", "-Cpanic=abort"]
+        if debug > 0:
+            bflags += [f"-Cdebuginfo={debug}"]
+
     ret = self._flags["RUSTFLAGS"] + bflags + extra_flags
 
     return _flags_ret(map(lambda v: str(v), ret), shell)

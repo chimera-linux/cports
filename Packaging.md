@@ -1809,6 +1809,8 @@ the template including for subpackages:
   bypass version errors in affected packages.
 * `framepointer` *(true)* If enabled, frame pointers will be turned
   on to make profiling of resultant binaries easier.
+* `fullrustflags` *(false)* If enabled, RUSTFLAGS will also contain
+  the same optimisation flags that are normally set for cargo only.
 
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:

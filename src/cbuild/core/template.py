@@ -361,6 +361,7 @@ default_options = {
     "linkparallel": (True, True),
     "linkundefver": (False, False),
     "framepointer": (True, True),
+    "fullrustflags": (False, True),
 }
 
 core_fields = [
