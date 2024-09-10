@@ -1,6 +1,6 @@
 pkgname = "plasma-activities"
-pkgver = "6.1.4"
-pkgrel = 1
+pkgver = "6.1.5"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -20,7 +20,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/plasma-activities"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-activities-{pkgver}.tar.xz"
-sha256 = "ecb39579234bffeb8f518ab7d1964091b316f0f97c251c890992ee77b8f52286"
+sha256 = "b353fbe7ae30f6a04ef4f81d3e0250654a0f9859a9ef43214c89c78b924e284b"
 hardening = ["vis"]
 
 

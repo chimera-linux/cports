@@ -1,5 +1,5 @@
 pkgname = "kdeplasma-addons"
-pkgver = "6.1.4"
+pkgver = "6.1.5"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: failed tz comparison / scientific notation number e uppercase
@@ -50,7 +50,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only AND CC0-1.0 AND LGPL-3.0-or-later"
 url = "https://invent.kde.org/plasma/kdeplasma-addons"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdeplasma-addons-{pkgver}.tar.xz"
-sha256 = "8b339a7e50c6f9f3a3d14caf105d83e7f3a15bbc9674317e39d555fba1be9a12"
+sha256 = "36b6f9e1c03e52ea4e5d0409a0786117c8247166169f2d0a221f20f1aeab8863"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]

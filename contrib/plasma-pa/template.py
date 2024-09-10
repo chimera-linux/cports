@@ -1,5 +1,5 @@
 pkgname = "plasma-pa"
-pkgver = "6.1.4"
+pkgver = "6.1.5"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: only test, needs selenium-webdriver-at-spi-run
@@ -38,5 +38,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-pa"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-pa-{pkgver}.tar.xz"
-sha256 = "344bd460a8f6a9ff44ebf713f6459fb1dc5c3ab1c3eda5acf66fbc91f3e4734d"
+sha256 = "724c0591dbebde5f96c416316c900e88f4a66d748905ed1ca74e6152357a7591"
 hardening = ["vis"]

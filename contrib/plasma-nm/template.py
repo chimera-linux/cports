@@ -1,5 +1,5 @@
 pkgname = "plasma-nm"
-pkgver = "6.1.4"
+pkgver = "6.1.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -36,5 +36,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-nm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-nm-{pkgver}.tar.xz"
-sha256 = "14af47108cf32af68c00d0ce6fb3627f3b4a91e2e057a6ef5ba8fcfcb6f505e1"
+sha256 = "cb04ddaf00d728ea0b4b5d108b3389d462ce5078726f8b655f38de330eeb21f5"
 hardening = ["vis"]

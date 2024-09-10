@@ -1,5 +1,5 @@
 pkgname = "polkit-kde-agent-1"
-pkgver = "6.1.4"
+pkgver = "6.1.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -23,7 +23,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/polkit-kde-agent-1"
 source = f"$(KDE_SITE)/plasma/{pkgver}/polkit-kde-agent-1-{pkgver}.tar.xz"
-sha256 = "78fa994b712aabcdbefdef0c05fafda046ac3ce4e50657d81a3cc30fa25ddbbf"
+sha256 = "0965e5ffad432a3e6ee9e35540efcb7b4083200a48c69d91e525c09a47b920f6"
 hardening = ["vis"]
 
 
