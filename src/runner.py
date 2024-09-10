@@ -2386,7 +2386,7 @@ def fire():
     import shutil
     import subprocess
 
-    from cbuild.core import chroot, logger, template, profile
+    from cbuild.core import build, chroot, logger, template, profile
     from cbuild.core import paths
     from cbuild.apk import cli
 
@@ -2444,7 +2444,7 @@ def fire():
         )
         sys.exit(1)
 
-    template.register_hooks()
+    build.register_hooks()
     template.register_cats(opt_allowcat.strip().split())
     retcode = None
 

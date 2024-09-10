@@ -3,13 +3,167 @@ from cbuild.core import template, update_check as uc, pkg as pkgm, errors
 from cbuild.util import flock
 from cbuild.apk import cli as apk, generate as apkgen
 
+import importlib
 import os
+import pty
+import sys
 import shutil
 import stat
+import termios
+
+
+def unredir_log(pkg, fpid, oldout, olderr):
+    # restore
+    os.dup2(oldout, sys.stdout.fileno())
+    os.dup2(olderr, sys.stderr.fileno())
+    pkg.logger.fileno = sys.stdout.fileno()
+    # close the old duplicates
+    os.close(oldout)
+    os.close(olderr)
+    # wait for the logger process to finish
+    os.waitpid(fpid, 0)
+
+
+def sync_winsize(fd, is_pty):
+    if not is_pty:
+        return
+    try:
+        if os.isatty(sys.stdout.fileno()):
+            termios.tcsetwinsize(fd, termios.tcgetwinsize(sys.stdout))
+    except AttributeError:
+        # not supported by this version of python
+        pass
+
+
+def redir_log(pkg):
+    # save old descriptors
+    oldout = os.dup(sys.stdout.fileno())
+    olderr = os.dup(sys.stderr.fileno())
+    pkg.logger.fileno = oldout
+    # child will do the logging for us through a pipe or pty
+    prd, prw = None, None
+    colors = logger.get().use_colors
+    is_pty = False
+    try:
+        # use a pipe if colors are suppressed, no need for pty
+        if colors:
+            prd, prw = pty.openpty()
+            os.set_inheritable(prd, True)
+            os.set_inheritable(prw, True)
+            is_pty = True
+    except Exception:
+        pass
+    if not prd:
+        prd, prw = os.pipe()
+    # read end propagates into child through the fork
+    try:
+        fpid = os.fork()
+    except Exception:
+        os.close(prd)
+        os.close(prw)
+        unredir_log(pkg, fpid, oldout, olderr)
+        raise
+    # set initial window size
+    sync_winsize(prd, is_pty)
+    # child
+    if fpid == 0:
+        os.close(prw)
+        try:
+            rarr = [bytearray(8192)]
+            while True:
+                # do this on each loop as the terminal may resize
+                sync_winsize(prd, is_pty)
+                rlen = os.readv(prd, rarr)
+                if rlen == 0:
+                    break
+                os.write(1, rarr[0][0:rlen])
+        finally:
+            # raw exit (no exception) since we forked
+            # don't want to propagate back to the outside
+            #
+            # when this triggers in case of failure, the
+            # original streams should get restored in the
+            # unredir_log function, so we'll lose file logs
+            # but retain actual console output (hopefully)
+            os._exit(0)
+            return
+    try:
+        # in parent, close read end, we don't need it here
+        os.close(prd)
+        # everything goes into the pipe/pty
+        os.dup2(prw, sys.stdout.fileno())
+        os.dup2(prw, sys.stderr.fileno())
+        # close original write end too now that it's dup
+        os.close(prw)
+    except Exception:
+        unredir_log(pkg, fpid, oldout, olderr)
+        raise
+    # fire
+    return fpid, oldout, olderr
+
+
+hooks = {
+    "setup": [],
+    "fetch": [],
+    "extract": [],
+    "prepare": [],
+    "patch": [],
+    "destdir": [],
+    "pkg": [],
+}
+
+
+def register_hooks():
+    for stepn in hooks:
+        dirn = paths.cbuild() / "hooks" / stepn
+        if dirn.is_dir():
+            for f in dirn.glob("*.py"):
+                # this must be skipped
+                if f.name == "__init__.py":
+                    continue
+                modn = "cbuild.hooks." + stepn + "." + f.stem
+                modh = importlib.import_module(modn)
+                if not hasattr(modh, "invoke"):
+                    logger.get().out(
+                        f"\f[red]Hook '{stepn}/{f.stem}' does not have an entry point."
+                    )
+                    raise Exception()
+                hooks[stepn].append((modh.invoke, f.stem))
+            hooks[stepn].sort(key=lambda v: v[1])
+
+
+def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
+    if not funcn:
+        if not hasattr(pkg, func):
+            return False
+        funcn = func
+        func = getattr(pkg, funcn)
+    if not desc:
+        desc = funcn
+    pkg.log(f"running \f[cyan]{desc}\f[]\f[bold]...")
+    fpid, oldout, olderr = redir_log(pkg)
+    try:
+        if on_subpkg:
+            func()
+        else:
+            func(pkg)
+    finally:
+        unredir_log(pkg, fpid, oldout, olderr)
+    return True
+
+
+def call_pkg_hooks(pkg, stepn):
+    for f in hooks[stepn]:
+        run_pkg_func(
+            pkg,
+            f[0],
+            f"{stepn}_{f[1]}",
+            f"{stepn}\f[]\f[bold] hook: \f[orange]{f[1]}",
+        )
 
 
 def _invoke_fetch(pkg):
-    template.run_pkg_func(pkg, "init_fetch")
+    run_pkg_func(pkg, "init_fetch")
 
     p = pkg.profile()
     crossb = p.arch if p.cross else ""
@@ -17,15 +171,15 @@ def _invoke_fetch(pkg):
     if fetch_done.is_file():
         return
 
-    template.run_pkg_func(pkg, "pre_fetch")
+    run_pkg_func(pkg, "pre_fetch")
 
     if hasattr(pkg, "fetch"):
         pkg.cwd.mkdir(parents=True, exist_ok=True)
-        template.run_pkg_func(pkg, "fetch")
+        run_pkg_func(pkg, "fetch")
     else:
-        template.call_pkg_hooks(pkg, "fetch")
+        call_pkg_hooks(pkg, "fetch")
 
-    template.run_pkg_func(pkg, "post_fetch")
+    run_pkg_func(pkg, "post_fetch")
 
     fetch_done.touch()
 
@@ -43,7 +197,7 @@ def invoke_fetch(pkg):
 
 
 def invoke_extract(pkg):
-    template.run_pkg_func(pkg, "init_extract")
+    run_pkg_func(pkg, "init_extract")
 
     p = pkg.profile()
     crossb = p.arch if p.cross else ""
@@ -51,16 +205,16 @@ def invoke_extract(pkg):
     if extract_done.is_file():
         return
 
-    template.run_pkg_func(pkg, "pre_extract")
+    run_pkg_func(pkg, "pre_extract")
 
     if hasattr(pkg, "extract"):
-        template.run_pkg_func(pkg, "extract")
+        run_pkg_func(pkg, "extract")
     else:
-        template.call_pkg_hooks(pkg, "extract")
+        call_pkg_hooks(pkg, "extract")
 
     pkg.srcdir.mkdir(parents=True, exist_ok=True)
 
-    template.run_pkg_func(pkg, "post_extract")
+    run_pkg_func(pkg, "post_extract")
 
     extract_done.touch()
 
@@ -70,19 +224,19 @@ def invoke_prepare(pkg):
     crossb = p.arch if p.cross else ""
     prepare_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_prepare_done"
 
-    template.run_pkg_func(pkg, "init_prepare")
+    run_pkg_func(pkg, "init_prepare")
 
     if prepare_done.is_file():
         return
 
-    template.call_pkg_hooks(pkg, "prepare")
+    call_pkg_hooks(pkg, "prepare")
 
-    template.run_pkg_func(pkg, "pre_prepare")
+    run_pkg_func(pkg, "pre_prepare")
 
     if hasattr(pkg, "prepare"):
-        template.run_pkg_func(pkg, "prepare")
+        run_pkg_func(pkg, "prepare")
 
-    template.run_pkg_func(pkg, "post_prepare")
+    run_pkg_func(pkg, "post_prepare")
 
     prepare_done.touch()
 
@@ -92,19 +246,19 @@ def invoke_patch(pkg):
     crossb = p.arch if p.cross else ""
     patch_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_patch_done"
 
-    template.run_pkg_func(pkg, "init_patch")
+    run_pkg_func(pkg, "init_patch")
 
     if patch_done.is_file():
         return
 
-    template.run_pkg_func(pkg, "pre_patch")
+    run_pkg_func(pkg, "pre_patch")
 
     if hasattr(pkg, "patch"):
-        template.run_pkg_func(pkg, "patch")
+        run_pkg_func(pkg, "patch")
     else:
-        template.call_pkg_hooks(pkg, "patch")
+        call_pkg_hooks(pkg, "patch")
 
-    template.run_pkg_func(pkg, "post_patch")
+    run_pkg_func(pkg, "post_patch")
 
     patch_done.touch()
 
@@ -114,14 +268,14 @@ def invoke_configure(pkg, step):
     crossb = p.arch if p.cross else ""
     cfg_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_configure_done"
 
-    template.run_pkg_func(pkg, "init_configure")
+    run_pkg_func(pkg, "init_configure")
 
     if cfg_done.is_file() and (not pkg.force_mode or step != "configure"):
         return
 
-    template.run_pkg_func(pkg, "pre_configure")
-    template.run_pkg_func(pkg, "configure")
-    template.run_pkg_func(pkg, "post_configure")
+    run_pkg_func(pkg, "pre_configure")
+    run_pkg_func(pkg, "configure")
+    run_pkg_func(pkg, "post_configure")
 
     cfg_done.touch()
 
@@ -131,14 +285,14 @@ def invoke_build(pkg, step):
     crossb = p.arch if p.cross else ""
     build_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_build_done"
 
-    template.run_pkg_func(pkg, "init_build")
+    run_pkg_func(pkg, "init_build")
 
     if build_done.is_file() and (not pkg.force_mode or step != "build"):
         return
 
-    template.run_pkg_func(pkg, "pre_build")
-    template.run_pkg_func(pkg, "build")
-    template.run_pkg_func(pkg, "post_build")
+    run_pkg_func(pkg, "pre_build")
+    run_pkg_func(pkg, "build")
+    run_pkg_func(pkg, "post_build")
 
     build_done.touch()
 
@@ -158,15 +312,15 @@ def invoke_check(pkg, step, allow_fail):
 
     check_done = pkg.statedir / f"{pkg.pkgname}__check_done"
 
-    template.run_pkg_func(pkg, "init_check")
+    run_pkg_func(pkg, "init_check")
 
     if check_done.is_file() and (not pkg.force_mode or step != "check"):
         return
 
     try:
-        template.run_pkg_func(pkg, "pre_check")
-        template.run_pkg_func(pkg, "check")
-        template.run_pkg_func(pkg, "post_check")
+        run_pkg_func(pkg, "pre_check")
+        run_pkg_func(pkg, "check")
+        run_pkg_func(pkg, "post_check")
     except Exception as e:
         if allow_fail:
             pkg.log("check failed, but proceed anyway:")
@@ -187,7 +341,7 @@ def _invoke_subpkg(pkg):
         shutil.rmtree(pkg.destdir, onerror=_remove_ro)
     pkg.destdir.mkdir(parents=True, exist_ok=True)
     if pkg.pkg_install:
-        template.run_pkg_func(pkg, "pkg_install", on_subpkg=True)
+        run_pkg_func(pkg, "pkg_install", on_subpkg=True)
     # get own licenses by default
     pkg.take(f"usr/share/licenses/{pkg.pkgname}", missing_ok=True)
 
@@ -275,7 +429,7 @@ def invoke_install(pkg, step):
     # to be populated with Subpackages for current and later use
     pkg.subpkg_all = []
 
-    template.run_pkg_func(pkg, "init_install")
+    run_pkg_func(pkg, "init_install")
 
     if install_done.is_file() and (not pkg.force_mode or step != "install"):
         # when repeating, ensure to at least scan the ELF info...
@@ -290,19 +444,19 @@ def invoke_install(pkg, step):
         shutil.rmtree(pkg.destdir, onerror=_remove_ro)
     pkg.destdir.mkdir(parents=True, exist_ok=True)
 
-    template.run_pkg_func(pkg, "pre_install")
-    template.run_pkg_func(pkg, "install")
-    template.run_pkg_func(pkg, "post_install")
+    run_pkg_func(pkg, "pre_install")
+    run_pkg_func(pkg, "install")
+    run_pkg_func(pkg, "post_install")
 
     pkg.install_done = True
 
     for sp in pkg.subpkg_list:
         _invoke_subpkg(sp)
         scanelf.scan(sp, pkg.current_elfs)
-        template.call_pkg_hooks(sp, "destdir")
+        call_pkg_hooks(sp, "destdir")
 
     scanelf.scan(pkg, pkg.current_elfs)
-    template.call_pkg_hooks(pkg, "destdir")
+    call_pkg_hooks(pkg, "destdir")
 
     # do the splitting at the end to respect e.g. dbg packages
     # empty dir cleaning must be done *after* splitting!
@@ -321,7 +475,7 @@ def _invoke_prepkg(pkg):
     if prepkg_done.is_file() and not pkg.rparent.force_mode:
         return
 
-    template.call_pkg_hooks(pkg, "pkg")
+    call_pkg_hooks(pkg, "pkg")
 
     prepkg_done.touch()
 
@@ -528,7 +682,7 @@ def _build(
     pkg.cwd = oldcwd
     pkg.chroot_cwd = oldchd
 
-    template.call_pkg_hooks(pkg, "setup")
+    call_pkg_hooks(pkg, "setup")
 
     pkg.current_phase = "configure"
     invoke_configure(pkg, step)

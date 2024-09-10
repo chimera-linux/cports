@@ -7,13 +7,10 @@ import fnmatch
 import shutil
 import time
 import glob
-import pty
-import sys
 import os
 import re
 import io
 import ast
-import termios
 import importlib
 import importlib.util
 import pathlib
@@ -55,96 +52,6 @@ class StampCheck:
             raise StampException()
 
 
-def unredir_log(pkg, fpid, oldout, olderr):
-    # restore
-    os.dup2(oldout, sys.stdout.fileno())
-    os.dup2(olderr, sys.stderr.fileno())
-    pkg.logger.fileno = sys.stdout.fileno()
-    # close the old duplicates
-    os.close(oldout)
-    os.close(olderr)
-    # wait for the logger process to finish
-    os.waitpid(fpid, 0)
-
-
-def sync_winsize(fd, is_pty):
-    if not is_pty:
-        return
-    try:
-        if os.isatty(sys.stdout.fileno()):
-            termios.tcsetwinsize(fd, termios.tcgetwinsize(sys.stdout))
-    except AttributeError:
-        # not supported by this version of python
-        pass
-
-
-def redir_log(pkg):
-    # save old descriptors
-    oldout = os.dup(sys.stdout.fileno())
-    olderr = os.dup(sys.stderr.fileno())
-    pkg.logger.fileno = oldout
-    # child will do the logging for us through a pipe or pty
-    prd, prw = None, None
-    colors = logger.get().use_colors
-    is_pty = False
-    try:
-        # use a pipe if colors are suppressed, no need for pty
-        if colors:
-            prd, prw = pty.openpty()
-            os.set_inheritable(prd, True)
-            os.set_inheritable(prw, True)
-            is_pty = True
-    except Exception:
-        pass
-    if not prd:
-        prd, prw = os.pipe()
-    # read end propagates into child through the fork
-    try:
-        fpid = os.fork()
-    except Exception:
-        os.close(prd)
-        os.close(prw)
-        unredir_log(pkg, fpid, oldout, olderr)
-        raise
-    # set initial window size
-    sync_winsize(prd, is_pty)
-    # child
-    if fpid == 0:
-        os.close(prw)
-        try:
-            rarr = [bytearray(8192)]
-            while True:
-                # do this on each loop as the terminal may resize
-                sync_winsize(prd, is_pty)
-                rlen = os.readv(prd, rarr)
-                if rlen == 0:
-                    break
-                os.write(1, rarr[0][0:rlen])
-        finally:
-            # raw exit (no exception) since we forked
-            # don't want to propagate back to the outside
-            #
-            # when this triggers in case of failure, the
-            # original streams should get restored in the
-            # unredir_log function, so we'll lose file logs
-            # but retain actual console output (hopefully)
-            os._exit(0)
-            return
-    try:
-        # in parent, close read end, we don't need it here
-        os.close(prd)
-        # everything goes into the pipe/pty
-        os.dup2(prw, sys.stdout.fileno())
-        os.dup2(prw, sys.stderr.fileno())
-        # close original write end too now that it's dup
-        os.close(prw)
-    except Exception:
-        unredir_log(pkg, fpid, oldout, olderr)
-        raise
-    # fire
-    return fpid, oldout, olderr
-
-
 # relocate "src" from root "root" to root "dest"
 #
 # e.g. _submove("foo/bar", "/a", "/b") will move "/b/foo/bar" to "/a/foo/bar"
@@ -172,16 +79,6 @@ def _submove(src, dest, root):
             raise FileExistsError(f"'{fsrc}' and '{fdest}' overlap")
 
 
-hooks = {
-    "setup": [],
-    "fetch": [],
-    "extract": [],
-    "prepare": [],
-    "patch": [],
-    "destdir": [],
-    "pkg": [],
-}
-
 tmpl_hooks = {
     "fetch",
     "extract",
@@ -192,36 +89,6 @@ tmpl_hooks = {
     "check",
     "install",
 }
-
-
-def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
-    if not funcn:
-        if not hasattr(pkg, func):
-            return False
-        funcn = func
-        func = getattr(pkg, funcn)
-    if not desc:
-        desc = funcn
-    pkg.log(f"running \f[cyan]{desc}\f[]\f[bold]...")
-    fpid, oldout, olderr = redir_log(pkg)
-    try:
-        if on_subpkg:
-            func()
-        else:
-            func(pkg)
-    finally:
-        unredir_log(pkg, fpid, oldout, olderr)
-    return True
-
-
-def call_pkg_hooks(pkg, stepn):
-    for f in hooks[stepn]:
-        run_pkg_func(
-            pkg,
-            f[0],
-            f"{stepn}_{f[1]}",
-            f"{stepn}\f[]\f[bold] hook: \f[orange]{f[1]}",
-        )
 
 
 def _pglob_path(oldp, patp):
@@ -2786,22 +2653,3 @@ def register_cats(cats):
 
 def get_cats():
     return _allow_cats
-
-
-def register_hooks():
-    for stepn in hooks:
-        dirn = paths.cbuild() / "hooks" / stepn
-        if dirn.is_dir():
-            for f in dirn.glob("*.py"):
-                # this must be skipped
-                if f.name == "__init__.py":
-                    continue
-                modn = "cbuild.hooks." + stepn + "." + f.stem
-                modh = importlib.import_module(modn)
-                if not hasattr(modh, "invoke"):
-                    logger.get().out(
-                        f"\f[red]Hook '{stepn}/{f.stem}' does not have an entry point."
-                    )
-                    raise Exception()
-                hooks[stepn].append((modh.invoke, f.stem))
-            hooks[stepn].sort(key=lambda v: v[1])
