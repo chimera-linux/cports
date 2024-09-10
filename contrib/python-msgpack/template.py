@@ -1,6 +1,6 @@
 pkgname = "python-msgpack"
-pkgver = "1.0.8"
-pkgrel = 1
+pkgver = "1.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -17,4 +17,10 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://msgpack.org"
 source = f"https://github.com/msgpack/msgpack-python/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "481996e14606bc215a8aed396c773bd4c3ae8b5afeac6622a3e02a4b33981b02"
+sha256 = "336e342130db78a611f87cba9e551bc00507eb85c370549faec6109eaac7a77f"
+
+
+def pre_build(self):
+    # upstream seems to require manual cythonization
+    # https://github.com/msgpack/msgpack-python/commit/0b1c47b06b55d91c00c9f7153c4a9440ea878886
+    self.do("cython", "msgpack/_cmsgpack.pyx")
