@@ -28,7 +28,7 @@ sha256 = [
     "d48282ae4dab83b3dc94c16cf011bcb63835c1c02b515490e1883049c3d1f3da",
     "21199cd220ccf60434133e1fd2ab8c8e5217c3799199c82722543970dc8e38d5",
 ]
-# tests run in do_build
+# tests run in build phase
 options = ["!check"]
 
 

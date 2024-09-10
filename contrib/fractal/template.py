@@ -28,8 +28,7 @@ license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/fractal"
 source = f"{url}/-/archive/{pkgver}/fractal-{pkgver}.tar.gz"
 sha256 = "88c75438ffda8fd16bba5bdf3c1ffceedb8a707d0967b812421a107edb76af5f"
-# check: has few actual tests, not worth a time-consuming cargo rebuild in
-# do_check
+# check: has few actual tests, not worth a time-consuming cargo rebuild
 # debug: quite massive, CARGO_PROFILE_RELEASE_DEBUG=line-tables-only in
 # env makes it better but it's still ~260M
 options = ["!check", "!debug"]

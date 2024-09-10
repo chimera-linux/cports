@@ -34,7 +34,7 @@ if self.profile().arch == "aarch64":
     ]
 
 
-# this is identical to the default do_check, we just have to change cwd
+# this is identical to the default check, we just have to change cwd
 def check(self):
     whl = list(
         map(

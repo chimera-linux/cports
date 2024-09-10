@@ -1,5 +1,5 @@
 Remove the dependencies so we do not try fetching them
-again in do_build. It seems ant has no way to do this.
+again in the build phase. It seems ant has no way to do this.
 
 --- a/build.xml
 +++ b/build.xml

@@ -23,7 +23,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "8f240c6252d7a72bfc0a1273fdca658c28195081fd83b56562928917703ef60c"
 
 
-# this is identical to the default do_check, but without pytest
+# this is identical to the default check, but without pytest
 def check(self):
     whl = list(
         map(

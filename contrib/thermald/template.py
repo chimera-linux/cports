@@ -2,7 +2,7 @@ pkgname = "thermald"
 pkgver = "2.5.8"
 pkgrel = 0
 archs = ["x86_64"]
-# don't use autogen.sh, it generates files that force reconf in do_build
+# don't use autogen.sh, it generates files that force reconf in build phase
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
