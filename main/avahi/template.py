@@ -1,7 +1,7 @@
 # this must be synchronized with avahi-ui-progs
 pkgname = "avahi"
 pkgver = "0.8"
-pkgrel = 6
+pkgrel = 7
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",
@@ -50,8 +50,9 @@ options = ["!cross"]
 
 
 def post_install(self):
-    # will be in avahi-discover
+    # is in avahi-python
     self.uninstall("usr/lib/python*", glob=True)
+    self.uninstall("usr/share/man/man1/avahi-bookmarks.1")
     # service
     self.install_service(self.files_path / "avahi-daemon")
     self.install_sysusers(self.files_path / "sysusers.conf")
