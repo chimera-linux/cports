@@ -1,6 +1,6 @@
 --- a/test/Makefile.am
 +++ b/test/Makefile.am
-@@ -2,15 +2,12 @@ AUTOMAKE_OPTIONS=foreign
+@@ -2,8 +2,6 @@
  
  TESTS =						\
    t.chmod_dev					\
@@ -9,10 +9,11 @@
    t.echoarg					\
    t.falsereturn					\
    t.mknod					\
-   t.no_ld_preload				\
+@@ -11,7 +9,6 @@
    t.no_ld_preload_link				\
    t.option					\
+   t.perlstat					\
 -  t.tar						\
    t.touchinstall				\
-   t.truereturn \
+   t.truereturn					\
    t.xattr

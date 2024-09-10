@@ -1,5 +1,5 @@
 pkgname = "fakeroot"
-pkgver = "1.35"
+pkgver = "1.36"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
@@ -13,9 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"{url}/-/archive/upstream/{pkgver}/fakeroot-upstream-{pkgver}.tar.gz"
-sha256 = "544c403716e56c70e7e64390b5601f241feb41f0e710401a50ca7414d20cf1f7"
-# redefinition of id_t in libfakeroot
-tool_flags = {"CFLAGS": ["-D_ID_T"]}
+sha256 = "5128dd5df59955d60453aea1817d2f31c29ffb8b8addcc5d7e200460278a6b0a"
 options = ["bootstrap"]
 
 if self.stage > 0:
