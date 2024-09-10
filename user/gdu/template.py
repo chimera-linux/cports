@@ -1,12 +1,12 @@
 pkgname = "gdu"
 pkgver = "5.29.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/gdu"]
 # expects writing to /xyzxyz to give eperm instead of erofs (which happens in --ro bwrap)
 make_check_args = ["-skip", "TestOutputFileError", "./..."]
 hostmakedepends = ["go"]
-pkgdesc = "Disk usage analyzer written in Go"
+pkgdesc = "Disk usage analyzer"
 maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "MIT"
 url = "https://github.com/dundee/gdu"
