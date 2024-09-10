@@ -1,5 +1,5 @@
 pkgname = "gtk-layer-shell"
-pkgver = "0.8.2"
+pkgver = "0.9.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later AND MIT"
 url = "https://github.com/wmww/gtk-layer-shell"
 source = f"https://github.com/wmww/gtk-layer-shell/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "254dd246303127c5d5236ea640f01a82e35d2d652a48d139dd669c832a0f0dce"
+sha256 = "3809e5565d9ed02e44bb73787ff218523e8760fef65830afe60ea7322e22da1c"
 # vis breaks sumbols
 hardening = ["!vis"]
 # a few tests fail
