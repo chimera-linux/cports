@@ -1,0 +1,11 @@
+--- meson.build	2024-08-17 20:23:02.000000000 -0300
++++ meson.build.new	2024-09-11 10:39:51.973819293 -0300
+@@ -148,7 +148,7 @@
+ libpeas_version = '>= 2.0.0'
+ eds_version = '>= 3.34'
+ libadwaita_version = '>= 1.5'
+-libportal_version = ['>= 0.6', '<= 0.7.1']
++libportal_version = '>= 0.6'
+ tinysparql_version = '>= 3.0'
+ 
+ libm_dep = cc.find_library('m', required: true)
