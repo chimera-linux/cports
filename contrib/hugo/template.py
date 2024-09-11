@@ -1,6 +1,6 @@
 pkgname = "hugo"
-pkgver = "0.134.1"
-pkgrel = 1
+pkgver = "0.134.2"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags=-X github.com/gohugoio/hugo/common/hugo.vendorInfo=ChimeraLinux"
@@ -12,7 +12,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://gohugo.io"
 source = f"https://github.com/gohugoio/hugo/archive/v{pkgver}.tar.gz"
-sha256 = "80afac90325715aaafb95160b19c51b7a46a3f5892b4fea2f938dd7b734ff309"
+sha256 = "6052a0c059e6ef1ab867c8316988b260ce422138a7550829159b23d2296376e0"
 # tests require network access
 # manpages and completions are generated with the resulting binary so no cross
 options = ["!check", "!cross"]
