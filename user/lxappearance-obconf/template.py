@@ -6,6 +6,7 @@ configure_args = ["--enable-gtk3", "--disable-static"]
 hostmakedepends = [
     "automake",
     "gettext-devel",
+    "intltool",
     "libtool",
     "lxappearance",
     "openbox-devel",
