@@ -1,0 +1,24 @@
+--- a/shell-rs/src/meson.build	2024-09-11 00:07:27.984662989 -0300
++++ b/shell-rs/src/meson.build	2024-09-11 00:07:49.580379578 -0300
+@@ -51,21 +51,6 @@
+   ]
+ )
+ 
+-copy_binary = custom_target(
+-  'cp-binary',
+-  depends: cargo_build,
+-  build_by_default: true,
+-  build_always_stale: true,
+-  install: true,
+-  install_dir: get_option('bindir'),
+-  output: meson.project_name(),
+-  command: [
+-    'cp',
+-    meson.current_build_dir() / rust_target / meson.project_name(),
+-    '@OUTPUT@',
+-  ],
+-)
+-
+ cargo_doc = custom_target(
+   'cargo-doc',
+   build_by_default: false,
