@@ -1,0 +1,13 @@
+pkgname = "lxtask"
+pkgver = "0.1.11"
+pkgrel = 0
+build_style = "gnu_configure"
+configure_args = ["--enable-gtk3"]
+hostmakedepends = ["automake", "gettext-devel", "intltool", "pkgconf"]
+makedepends = ["gtk+3-devel"]
+pkgdesc = "LXDE task manager"
+maintainer = "jabuxas <jabuxas@proton.me>"
+license = "GPL-2.0-or-later"
+url = "https://github.com/lxde/lxtask"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "a28e1804f4d68e8698c012a4a7b30f5a18dfa4c3d54f4f667793af7d2ac27408"
