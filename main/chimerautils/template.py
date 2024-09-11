@@ -1,8 +1,8 @@
 pkgname = "chimerautils"
-pkgver = "14.1.1"
-pkgrel = 1
+pkgver = "14.1.2"
+pkgrel = 0
 build_style = "meson"
-configure_args = []
+configure_args = ["-Dchimera_realpath=enabled"]
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
 makedepends = [
     "acl-devel",
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e92f590216c3a43d6f6ae7ae63f73ffd9147068e33a76e995d644d721434e7e2"
+sha256 = "a01a6b004268e134cdc5285ef4e7daf2e9d2b2d402bd496425ffc17ad8ac25c0"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
