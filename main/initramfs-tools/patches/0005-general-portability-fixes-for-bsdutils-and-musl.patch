@@ -1,20 +1,20 @@
-From b433d207df2f1633b30be7f0f6ad79c0bacb3f42 Mon Sep 17 00:00:00 2001
+From 9ef7a46d8953b3a8cfbf34d5525cf323613177e8 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 3 Jun 2024 16:45:18 +0200
 Subject: [PATCH 5/9] general portability fixes for bsdutils and musl
 
 ---
- hook-functions | 56 +++++++++++++++++++++++---------------------------
- mkinitramfs    | 24 ++++++----------------
- unmkinitramfs  | 12 +++++------
- 3 files changed, 38 insertions(+), 54 deletions(-)
+ hook-functions | 53 +++++++++++++++++++++++---------------------------
+ mkinitramfs    | 24 ++++++-----------------
+ unmkinitramfs  | 12 ++++++------
+ 3 files changed, 36 insertions(+), 53 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index ca5e1e2..55ad3c8 100644
+index d3f7a32..a1224f4 100644
 --- a/hook-functions
 +++ b/hook-functions
-@@ -167,6 +167,19 @@ _sanitize_target() {
- 	printf "%s" "${target}"
+@@ -150,6 +150,19 @@ add_builtin_firmware()
+ 	done
  }
  
 +_relpath() {
@@ -33,26 +33,16 @@ index ca5e1e2..55ad3c8 100644
  # $1 = file type (for logging)
  # $2 = file to copy to initramfs
  # $3 (optional) Name for the file on the initramfs
-@@ -174,7 +187,7 @@ _sanitize_target() {
+@@ -157,7 +170,7 @@ add_builtin_firmware()
  # If the target exists, we leave it and return 1.
  # On any other error, we return >1.
  copy_file() {
 -	local type src target link_target
-+	local type src target link_target link_path relp
++	local type src target link_target relp
  
  	type="${1}"
  	src="${2}"
-@@ -205,7 +218,8 @@ copy_file() {
- 	# too.  We don't need to replicate a chain of links completely;
- 	# just link directly to the ultimate target.
- 	link_target="$(readlink -f "${src}")" || return $(($? + 1))
--	if [ "${link_target}" != "$(realpath -s "$src")" ]; then
-+	link_path=$(sh -c 'pv=$(dirname "$1"); pb=$(basename "$1"); cd "$pv"; echo "$(pwd)/$pb"' sh "$src")
-+	if [ "${link_target}" != "${link_path}" ]; then
- 		# Update source for the copy
- 		src="${link_target}"
- 
-@@ -217,7 +231,8 @@ copy_file() {
+@@ -202,7 +215,8 @@ copy_file() {
  
  			# Create a relative link so it always points
  			# to the right place
@@ -62,7 +52,7 @@ index ca5e1e2..55ad3c8 100644
  		fi
  
  		# Copy the link target if it doesn't already exist
-@@ -244,30 +259,10 @@ copy_exec() {
+@@ -229,30 +243,10 @@ copy_exec() {
  	copy_file binary "${src}" "${target}" || return $(($? - 1))
  
  	# Copy the dependant libraries
@@ -97,7 +87,7 @@ index ca5e1e2..55ad3c8 100644
  		copy_file binary "${x}" || {
  			ret=$?
  			[ ${ret} = 1 ] || return $((ret - 1))
-@@ -315,7 +310,8 @@ copy_modules_dir()
+@@ -300,7 +294,8 @@ copy_modules_dir()
  	done
  
  	# shellcheck disable=SC2044
@@ -107,7 +97,7 @@ index ca5e1e2..55ad3c8 100644
  		modules="$modules ${kmod%%.*}"
  	done
  	# shellcheck disable=SC2086
-@@ -411,8 +407,8 @@ block_dev_mod_add()
+@@ -396,8 +391,8 @@ block_dev_mod_add()
  	dev_node="$1"
  
  	# Look up device number and convert to decimal as it appears in sysfs

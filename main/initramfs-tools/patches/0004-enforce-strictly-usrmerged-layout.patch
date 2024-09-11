@@ -1,23 +1,22 @@
-From 073b61923e33935507a49bec27ac3b06c74ae2f9 Mon Sep 17 00:00:00 2001
+From 181a84db79d50f76821f86a250ef07dcf1223550 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Wed, 28 Aug 2024 13:59:58 +0200
 Subject: [PATCH 4/9] enforce strictly usrmerged layout
 
 ---
  docs/framebuffer                 |  6 +++---
- hook-functions                   | 35 +++++++++++++++++++++++---------
  hooks/fsck                       |  8 ++++----
  hooks/keymap                     |  2 +-
- init                             | 15 ++++----------
- initramfs-tools.7                | 12 +++++------
- mkinitramfs                      | 24 ++++++++++++++--------
+ init                             | 15 ++++-----------
+ initramfs-tools.7                | 12 ++++++------
+ mkinitramfs                      | 24 +++++++++++++++---------
  scripts/functions                |  6 +++---
  scripts/init-top/all_generic_ide |  4 ++--
  scripts/init-top/keymap          |  4 ++--
  scripts/local                    |  2 +-
  scripts/local-premount/resume    |  4 ++--
  scripts/nfs                      |  4 ++--
- 13 files changed, 70 insertions(+), 56 deletions(-)
+ 12 files changed, 45 insertions(+), 46 deletions(-)
 
 diff --git a/docs/framebuffer b/docs/framebuffer
 index 453ac8f..5c75e23 100644
@@ -44,69 +43,6 @@ index 453ac8f..5c75e23 100644
  fi
  
  if [ -e /proc/fb ]; then
-diff --git a/hook-functions b/hook-functions
-index d3f7a32..ca5e1e2 100644
---- a/hook-functions
-+++ b/hook-functions
-@@ -150,6 +150,23 @@ add_builtin_firmware()
- 	done
- }
- 
-+_sanitize_target() {
-+	local target
-+	target=$*
-+	case "${target}" in
-+	/bin/*) target="/usr${target}" ;;
-+	/sbin/*) target="/usr/bin/${target#/sbin/}" ;;
-+	/usr/sbin/*) target="/usr/bin/${target#/usr/sbin/}" ;;
-+	/lib/*) target="/usr${target}" ;;
-+	/lib32/*) target="/usr/lib/${target#/lib32/}" ;;
-+	/lib64/*) target="/usr/lib/${target#/lib64/}" ;;
-+	/usr/lib32/*) target="/usr/lib/${target#/usr/lib32/}" ;;
-+	/usr/lib64/*) target="/usr/lib/${target#/usr/lib64/}" ;;
-+	/lib*) target="/usr${target}" ;;
-+	esac
-+	printf "%s" "${target}"
-+}
-+
- # $1 = file type (for logging)
- # $2 = file to copy to initramfs
- # $3 (optional) Name for the file on the initramfs
-@@ -169,15 +186,15 @@ copy_file() {
- 		target="${target}/${src##*/}"
- 	fi
- 
--	# Canonicalise target to be absolute, so the comparisons below
--	# will work
--	target="$(realpath -ms "/${target}")" || return 2
--
--	# Canonicalise usr-merged target directories
-+	# Make sure the target is absolute for checks below
- 	case "${target}" in
--	/bin/* | /lib* | /sbin/*) target="/usr${target}" ;;
-+		/*) ;;
-+		*) target="/${target}" ;;
- 	esac
- 
-+	# Sanitize target directories
-+	target="$(_sanitize_target ${target})"
-+
- 	# check if already copied
- 	[ -e "${DESTDIR}/${target}" ] && return 1
- 
-@@ -192,10 +209,8 @@ copy_file() {
- 		# Update source for the copy
- 		src="${link_target}"
- 
--		# Canonicalise usr-merged target directories
--		case "${link_target}" in
--		/bin/* | /lib* | /sbin/*) link_target="/usr${link_target}" ;;
--		esac
-+		# Sanitize target directories
-+		link_target="$(_sanitize_target ${link_target})"
- 
- 		if [ "${link_target}" != "${target}" ]; then
- 			[ "${verbose?}" = "y" ] && echo "Adding ${type}-link ${target}"
 diff --git a/hooks/fsck b/hooks/fsck
 index 53e03ed..3479dfc 100755
 --- a/hooks/fsck
