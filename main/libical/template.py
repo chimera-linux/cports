@@ -3,10 +3,10 @@ pkgver = "3.0.18"
 pkgrel = 1
 build_style = "cmake"
 configure_args = [
-    "-DICAL_BUILD_DOCS=false",
-    "-DGOBJECT_INTROSPECTION=true",
-    "-DICAL_GLIB_VAPI=true",
-    "-DLIBICAL_BUILD_EXAMPLES=false",
+    "-DICAL_BUILD_DOCS=OFF",
+    "-DGOBJECT_INTROSPECTION=ON",
+    "-DICAL_GLIB_VAPI=ON",
+    "-DLIBICAL_BUILD_EXAMPLES=OFF",
 ]
 make_check_args = ["-E", "(icalrecurtest|icalrecurtest_r)"]
 hostmakedepends = [

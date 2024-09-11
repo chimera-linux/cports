@@ -2,7 +2,7 @@ pkgname = "mt32emu"
 pkgver = "2.7.0"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=YES"]
+configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "alsa-lib-devel",

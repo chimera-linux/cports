@@ -3,9 +3,9 @@ pkgver = "1.9.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DWANT_PERL=YES",
-    "-DWANT_PYTHON=YES",
-    "-DWANT_TCL=YES",
+    "-DWANT_PERL=ON",
+    "-DWANT_PYTHON=ON",
+    "-DWANT_TCL=ON",
 ]
 hostmakedepends = [
     "cmake",
