@@ -1,0 +1,13 @@
+diff --git a/Makefile.am b/Makefile.am
+index c0a33a0..ce6ab22 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -9,7 +9,7 @@ uninstall-hook:
+ 
+ install-data-hook:
+ 	$(mkdir_p) $(DESTDIR)$(datadir)/icons
+-	cp -raf --no-preserve=ownership nuoveXT2 $(DESTDIR)$(datadir)/icons
++	cp -rf ../nuoveXT2 $(DESTDIR)$(datadir)/icons
+ 	$(LN_S) -f user-desktop.png $(DESTDIR)$(datadir)/icons/nuoveXT2/48x48/places/desktop.png
+ 	$(LN_S) -f user-desktop.png $(DESTDIR)$(datadir)/icons/nuoveXT2/48x48/places/gnome-fs-desktop.png
+ 	$(LN_S) -f folder-saved-search.png $(DESTDIR)$(datadir)/icons/nuoveXT2/48x48/places/application-x-gnome-saved-search.png

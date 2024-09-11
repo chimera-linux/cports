@@ -1,0 +1,11 @@
+pkgname = "lxde-icon-theme"
+pkgver = "0.5.1"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["automake"]
+pkgdesc = "LXDE standard icon theme"
+maintainer = "jabuxas <jabuxas@proton.me>"
+license = "LGPL-3.0-or-later"
+url = "https://github.com/lxde/lxde-icon-theme"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "4298fecd363fbf03c0c40b427722537e0d9d21c930136f169eeb2901d16761a6"
