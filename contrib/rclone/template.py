@@ -1,6 +1,6 @@
 pkgname = "rclone"
-pkgver = "1.67.0"
-pkgrel = 4
+pkgver = "1.68.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Rsync for cloud storage"
@@ -8,30 +8,19 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://rclone.org"
 source = f"https://github.com/rclone/rclone/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4ecf2e99eb98c9bb678be5b0cd28550c4a2a2d63b5f2ed66962a4f4b9b36c402"
+sha256 = "6e0acbef1c9d21d7a4d53d876c374466de0966f2a1994a8ae448ea0c179ccc6a"
 # tests require network
 options = ["!check", "!cross"]
 
 
 def post_build(self):
-    self.do(
-        self.chroot_cwd / "build/rclone",
-        "genautocomplete",
-        "bash",
-        "rclone.bash",
-    )
-    self.do(
-        self.chroot_cwd / "build/rclone",
-        "genautocomplete",
-        "zsh",
-        "rclone.zsh",
-    )
-    self.do(
-        self.chroot_cwd / "build/rclone",
-        "genautocomplete",
-        "fish",
-        "rclone.fish",
-    )
+    for shell in ["bash", "fish", "zsh"]:
+        self.do(
+            self.chroot_cwd / "build/rclone",
+            "genautocomplete",
+            shell,
+            f"rclone.{shell}",
+        )
 
 
 def install(self):
@@ -44,8 +33,7 @@ def install(self):
     self.install_file("MANUAL.html", f"usr/share/doc/{pkgname}", 0o644)
     self.install_file("MANUAL.txt", f"usr/share/doc/{pkgname}", 0o644)
 
-    self.install_completion("rclone.bash", "bash")
-    self.install_completion("rclone.zsh", "zsh")
-    self.install_completion("rclone.fish", "fish")
+    for shell in ["bash", "fish", "zsh"]:
+        self.install_completion(f"rclone.{shell}", shell)
 
     self.install_license("COPYING")
