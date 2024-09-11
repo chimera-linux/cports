@@ -29,7 +29,8 @@ def post_build(self):
         )
 
 
-def post_install(self):
+def install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/topgrade")
     for shell in _supported_shells:
         self.install_completion(f"topgrade.{shell}", shell)
     self.install_man("topgrade.8")
