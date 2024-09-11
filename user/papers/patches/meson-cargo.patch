@@ -1,0 +1,10 @@
+--- a/shell-rs/src/meson.build	2024-09-10 23:40:49.752391214 -0300
++++ b/shell-rs/src/meson.build	2024-09-11 00:01:07.114783642 -0300
+@@ -25,7 +25,6 @@
+ 
+ cargo_env = environment()
+ # it seems that flatpak can't access network during install stage.
+-cargo_env.set('CARGO_HOME', build_root / 'cargo-home')
+ cargo_env.set('CODEGEN_BUILD_DIR', meson.current_build_dir())
+ # override library lookup, we should not use the system library.
+ cargo_env.set('SYSTEM_DEPS_PAPERS_SHELL_4_0_NO_PKG_CONFIG', '1')
