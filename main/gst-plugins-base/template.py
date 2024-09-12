@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-base"
 pkgver = "1.24.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
