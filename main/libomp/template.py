@@ -3,8 +3,8 @@ pkgver = "18.1.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DLIBOMP_ENABLE_SHARED=YES",
-    "-DLIBOMP_INSTALL_ALIASES=YES",
+    "-DLIBOMP_ENABLE_SHARED=ON",
+    "-DLIBOMP_INSTALL_ALIASES=ON",
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
 ]
 hostmakedepends = ["clang-tools-extra", "cmake", "ninja", "perl", "python"]

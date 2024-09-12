@@ -4,35 +4,35 @@ pkgrel = 6
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-DENABLE_LINKER_BUILD_ID=YES",
-    "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
+    "-DENABLE_LINKER_BUILD_ID=ON",
+    "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=ON",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
     # avoid execinfo
-    "-DCOMPILER_RT_BUILD_GWP_ASAN=NO",
+    "-DCOMPILER_RT_BUILD_GWP_ASAN=OFF",
     "-DLIBCXX_CXX_ABI=libcxxabi",
-    "-DLIBCXX_USE_COMPILER_RT=YES",
-    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=NO",
-    "-DLIBCXX_HAS_MUSL_LIBC=YES",
+    "-DLIBCXX_USE_COMPILER_RT=ON",
+    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=OFF",
+    "-DLIBCXX_HAS_MUSL_LIBC=ON",
     "-DLIBCXX_HARDENING_MODE=fast",
-    "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
-    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=NO",
-    "-DLIBCXXABI_USE_COMPILER_RT=YES",
-    "-DLLVM_INSTALL_BINUTILS_SYMLINKS=YES",
-    "-DLLVM_INSTALL_UTILS=YES",
-    "-DLLVM_BUILD_LLVM_DYLIB=YES",
-    "-DLLVM_LINK_LLVM_DYLIB=YES",
-    "-DLLVM_ENABLE_RTTI=YES",
-    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
+    "-DLIBCXXABI_USE_LLVM_UNWINDER=ON",
+    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=OFF",
+    "-DLIBCXXABI_USE_COMPILER_RT=ON",
+    "-DLLVM_INSTALL_BINUTILS_SYMLINKS=ON",
+    "-DLLVM_INSTALL_UTILS=ON",
+    "-DLLVM_BUILD_LLVM_DYLIB=ON",
+    "-DLLVM_LINK_LLVM_DYLIB=ON",
+    "-DLLVM_ENABLE_RTTI=ON",
+    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
     "-DCLANG_DEFAULT_RTLIB=compiler-rt",
     "-DCLANG_DEFAULT_UNWINDLIB=libunwind",
     "-DCLANG_DEFAULT_CXX_STDLIB=libc++",
     "-DCLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang",
-    "-DLLVM_ENABLE_LIBXML2=NO",
-    "-DLLVM_ENABLE_LLD=YES",
-    "-DLLVM_ENABLE_LIBCXX=YES",
+    "-DLLVM_ENABLE_LIBXML2=OFF",
+    "-DLLVM_ENABLE_LLD=ON",
+    "-DLLVM_ENABLE_LIBCXX=ON",
     "-DLIBUNWIND_ENABLE_ASSERTIONS=OFF",
-    "-DLIBUNWIND_USE_COMPILER_RT=YES",
+    "-DLIBUNWIND_USE_COMPILER_RT=ON",
     "-DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF",
 ]
 hostmakedepends = [
@@ -86,7 +86,7 @@ _enabled_projects = ["clang", "clang-tools-extra", "lld"]
 _enabled_runtimes = ["compiler-rt", "libcxx", "libcxxabi", "libunwind"]
 
 if self.stage > 0:
-    configure_args += ["-DLLVM_ENABLE_FFI=YES"]
+    configure_args += ["-DLLVM_ENABLE_FFI=ON"]
     hostmakedepends += ["libffi-devel"]
     makedepends += [
         "python-devel",
@@ -113,15 +113,15 @@ if self.stage > 0:
             hostmakedepends += ["llvm", "clang-tools-extra", "mlir"]
 else:
     configure_args += [
-        "-DLLVM_ENABLE_LIBEDIT=NO",
-        "-DLLVM_ENABLE_LIBPFM=NO",
-        "-DLLVM_ENABLE_TERMINFO=NO",
+        "-DLLVM_ENABLE_LIBEDIT=OFF",
+        "-DLLVM_ENABLE_LIBPFM=OFF",
+        "-DLLVM_ENABLE_TERMINFO=OFF",
         # for stage 0 bootstrap, avoid all the optional runtime
-        "-DCOMPILER_RT_BUILD_SANITIZERS=NO",
-        "-DCOMPILER_RT_BUILD_XRAY=NO",
-        "-DCOMPILER_RT_BUILD_LIBFUZZER=NO",
-        "-DCOMPILER_RT_BUILD_PROFILE=NO",
-        "-DCOMPILER_RT_BUILD_MEMPROF=NO",
+        "-DCOMPILER_RT_BUILD_SANITIZERS=OFF",
+        "-DCOMPILER_RT_BUILD_XRAY=OFF",
+        "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF",
+        "-DCOMPILER_RT_BUILD_PROFILE=OFF",
+        "-DCOMPILER_RT_BUILD_MEMPROF=OFF",
     ]
 
 _enable_flang = False

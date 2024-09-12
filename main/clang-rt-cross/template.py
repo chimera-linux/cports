@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
     f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0:pkgver.find('.')]}",
-    "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
+    "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=ON",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
     # disable execinfo
@@ -22,14 +22,14 @@ configure_args = [
     "-DCOMPILER_RT_BUILD_CRT=OFF",
     # we need these as an intermediate copy of libcxx is built in the process
     "-DLIBCXX_CXX_ABI=libcxxabi",
-    "-DLIBCXX_USE_COMPILER_RT=YES",
-    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
-    "-DLIBCXX_HAS_MUSL_LIBC=YES",
-    "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
-    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=YES",
-    "-DLIBCXXABI_USE_COMPILER_RT=YES",
+    "-DLIBCXX_USE_COMPILER_RT=ON",
+    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=ON",
+    "-DLIBCXX_HAS_MUSL_LIBC=ON",
+    "-DLIBCXXABI_USE_LLVM_UNWINDER=ON",
+    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=ON",
+    "-DLIBCXXABI_USE_COMPILER_RT=ON",
     # use multiarch style paths
-    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
+    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
 ]
 hostmakedepends = [
     "clang-tools-extra",

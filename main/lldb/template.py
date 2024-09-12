@@ -4,9 +4,9 @@ pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    "-DLLDB_ENABLE_LUA=NO",  # maybe later
-    "-DLLDB_ENABLE_PYTHON=YES",
-    "-DLLDB_ENABLE_LIBEDIT=YES",
+    "-DLLDB_ENABLE_LUA=OFF",  # maybe later
+    "-DLLDB_ENABLE_PYTHON=ON",
+    "-DLLDB_ENABLE_LIBEDIT=ON",
 ]
 hostmakedepends = [
     "clang-tools-extra",

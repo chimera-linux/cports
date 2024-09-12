@@ -28,7 +28,7 @@ configure_args = [
     "-DCOMPILER_RT_BUILD_XRAY=OFF",
     "-DCOMPILER_RT_BUILD_ORC=OFF",
     # use multiarch style paths
-    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
+    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
 ]
 hostmakedepends = [
     "clang-tools-extra",
