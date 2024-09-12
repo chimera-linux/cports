@@ -34,7 +34,7 @@ makedepends = [
 ]
 pkgdesc = "Chimera shim for libgcc runtime compatibility"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Apache-2.0"
+license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
@@ -81,4 +81,5 @@ def post_build(self):
 
 
 def install(self):
+    self.install_license("LICENSE.TXT")
     self.install_lib(f"build/{_soname}")

@@ -17,7 +17,7 @@ makedepends = [
 ]
 pkgdesc = "LLVM OpenMP runtime"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Apache-2.0"
+license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
@@ -30,6 +30,7 @@ cmake_dir = "openmp"
 def post_install(self):
     for f in (self.destdir / "usr/lib").glob("libomp.so.*"):
         self.install_link("usr/lib/libomp.so", f.name)
+    self.install_license("LICENSE.TXT")
 
 
 @subpackage("libomp-devel-static")

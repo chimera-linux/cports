@@ -40,7 +40,7 @@ hostmakedepends = [
 depends = ["wasi-libc"]
 pkgdesc = "Compiler runtime for WASI"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Apache-2.0"
+license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
@@ -63,6 +63,7 @@ def init_configure(self):
 
 
 def post_install(self):
+    self.install_license("LICENSE.TXT")
     self.uninstall(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include")
     self.install_link(
         f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/wasip1", "wasi"

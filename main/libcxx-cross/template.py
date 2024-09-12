@@ -35,7 +35,7 @@ makedepends = [
 depends = [self.with_pkgver("libcxxabi-cross")]
 pkgdesc = "Cross-toolchain LLVM libc++"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Apache-2.0"
+license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
@@ -107,6 +107,7 @@ def install(self):
                 f"build-{an}",
                 env={"DESTDIR": str(self.chroot_destdir / "usr" / pf.triplet)},
             )
+    self.install_license("LICENSE.TXT")
 
 
 def _gen_crossp(an, at):

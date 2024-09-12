@@ -52,7 +52,7 @@ depends = [
 ]
 pkgdesc = "Low Level Virtual Machine"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Apache-2.0"
+license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
@@ -234,6 +234,8 @@ def post_install(self):
     self.install_bin(self.files_path / "c99")
     # widely provided though not required anymore
     self.install_bin(self.files_path / "c89")
+
+    self.install_license("LICENSE.TXT")
 
     # we don't want debuginfod symlinks, these may be provided by actual
     # debuginfod from elfutils (and there is no need to alias them)

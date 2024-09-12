@@ -37,7 +37,7 @@ hostmakedepends = [
 depends = []
 pkgdesc = "Clang runtime builtins for Windows development"
 maintainer = "Erica Z <zerica@callcc.eu>"
-license = "Apache-2.0"
+license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
@@ -85,6 +85,7 @@ def install(self):
 
     for an in _targets:
         cmake.install(self, f"build-{an}")
+    self.install_license("LICENSE.TXT")
 
 
 def _gen(an, at):

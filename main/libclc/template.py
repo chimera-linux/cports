@@ -18,7 +18,7 @@ hostmakedepends = [
 ]
 pkgdesc = "Open implementation of the OpenCL C programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Apache-2.0"
+license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://libclc.llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/libclc-{pkgver}.src.tar.xz"
 sha256 = "905bd59e9f810d6bd0ae6874725a8f8a3c91cb416199c03f2b98b57437cfb32e"
@@ -33,3 +33,7 @@ def configure(self):
 
     with self.profile("host"):
         cmake.configure(self, "build", self.cmake_dir)
+
+
+def post_install(self):
+    self.install_license("LICENSE.TXT")

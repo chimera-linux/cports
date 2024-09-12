@@ -41,7 +41,7 @@ makedepends = ["zlib-ng-compat-devel", "libffi-devel"]
 depends = []
 pkgdesc = "Core cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Apache-2.0"
+license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = [
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz",
@@ -151,6 +151,7 @@ def install(self):
     for an in _targets:
         with self.profile(an):
             cmake.install(self, f"build-{an}")
+    self.install_license("LICENSE.TXT")
 
 
 def _gen_subp(an):
