@@ -7,7 +7,6 @@ depends = [
     "lxappearance",
     "lxappearance-obconf",
     "lxde-common",
-    "lxde-icon-theme",
     "lxinput",
     "lxlauncher",
     "lxpanel",
@@ -24,3 +23,11 @@ subdesc = "session"
 maintainer = "jabuxas <jabuxas@proton.me>"
 license = "custom:meta"
 url = "https://www.lxde.org"
+
+
+@subpackage("lxde-default-themes")
+def _(self):
+    self.subdesc = "default themes"
+    self.install_if = [self.parent]
+    self.depends = ["lxde-icon-theme"]
+    return []
