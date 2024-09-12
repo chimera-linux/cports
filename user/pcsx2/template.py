@@ -1,6 +1,6 @@
 pkgname = "pcsx2"
 pkgver = "2.1.126"
-pkgrel = 0
+pkgrel = 1
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
 build_style = "cmake"
