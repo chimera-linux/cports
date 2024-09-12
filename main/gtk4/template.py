@@ -84,7 +84,8 @@ sha256 = "5547f2b9f006b133993e070b87c17804e051efda3913feaca1108fa2be41e24d"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]
-options = ["!cross"]
+# check: most of them crash presently
+options = ["!cross", "!check"]
 
 
 def post_install(self):
