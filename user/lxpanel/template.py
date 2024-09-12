@@ -31,3 +31,8 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/lxde/lxpanel"
 source = f"https://downloads.sourceforge.net/lxde/{pkgname}-{pkgver}.tar.xz"
 sha256 = "1e318f57d7e36b61c23a504d03d2430c78dad142c1804451061f1b3ea5441ee8"
+
+
+@subpackage("lxpanel-devel")
+def _(self):
+    return self.default_devel()
