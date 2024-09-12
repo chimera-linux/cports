@@ -1,5 +1,5 @@
 pkgname = "kio-gdrive"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -26,4 +26,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kio_gdrive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-gdrive-{pkgver}.tar.xz"
-sha256 = "1f6148711f3d95acdbc6257be250ae50309ed95c39d7d8fbcda0029b4345afbe"
+sha256 = "3592d5821ce15c7cdd0fff3f8f55621e4374522143bc01b632aa49f460000483"

@@ -1,5 +1,5 @@
 pkgname = "konqueror"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -49,7 +49,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-only AND GPL-2.0-or-later"
 url = "https://apps.kde.org/konqueror"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konqueror-{pkgver}.tar.xz"
-sha256 = "d11c153db1a63d3850e050913556aa88f834ba4ddf7045a1a57699ec198b37e4"
+sha256 = "96916f2d1f2494f2ad1a45550f1cfb84b0ea30d9ee94aefc02179dcac5bc6a1d"
 hardening = ["vis"]
 
 

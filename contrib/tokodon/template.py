@@ -1,5 +1,5 @@
 pkgname = "tokodon"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -14,6 +14,7 @@ makedepends = [
     "kcolorscheme-devel",
     "kconfig-devel",
     "kcoreaddons-devel",
+    "kcrash-devel",
     "kdbusaddons-devel",
     "ki18n-devel",
     "kio-devel",
@@ -39,4 +40,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.0-or-later"
 url = "https://apps.kde.org/tokodon"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/tokodon-{pkgver}.tar.xz"
-sha256 = "24d42173986608608277f17f5687cc25f6c93968c0923945cca27da13ae4078a"
+sha256 = "62db86fb40a8c36f88421a09b0ddffecd8266a9c25204b9183715ddbcd74333b"

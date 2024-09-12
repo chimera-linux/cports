@@ -1,5 +1,5 @@
 pkgname = "kate"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -32,7 +32,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kate-{pkgver}.tar.xz"
-sha256 = "85b20215e3ccfdbb1e615108a70673f1e6443ceca1948290eee3841a061173e9"
+sha256 = "c10518b24386f1daf5f64723c25b3f4ed7e3446a70912abe5b6c965efd9b2dc6"
 hardening = ["vis"]
 
 

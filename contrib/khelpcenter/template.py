@@ -1,5 +1,5 @@
 pkgname = "khelpcenter"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -35,4 +35,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/khelpcenter"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/khelpcenter-{pkgver}.tar.xz"
-sha256 = "5d9f93b8f5b115c2bbb914f5a62db6f186fdc0d94a7e39c5d3218f6fd0f9c543"
+sha256 = "760fa25a57b942ba53265a56ffb12649ff9f594dcdfc67dadfd9bc51c1287e7c"

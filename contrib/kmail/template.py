@@ -1,9 +1,9 @@
 pkgname = "kmail"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
-make_check_wrapper = ["wlheadless-run", "--"]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -67,10 +67,10 @@ depends = [
     "kdepim-runtime",
     "kmail-account-wizard",
 ]
-checkdepends = ["xwayland-run", *depends]
+checkdepends = [*depends]
 pkgdesc = "KDE Mail Client"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-only"
 url = "https://apps.kde.org/kmail2"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kmail-{pkgver}.tar.xz"
-sha256 = "94dc89125572f81ac2a3fb387df3b20df2e09462d8af734386d6af5fcf9fc1d3"
+sha256 = "ab5abd0578f1996daf3a9fb674f39491544ce33e7efb3ca1fff15ef6f5731072"

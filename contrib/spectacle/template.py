@@ -1,5 +1,5 @@
 pkgname = "spectacle"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -39,7 +39,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/spectacle"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/spectacle-{pkgver}.tar.xz"
-sha256 = "8d37135c6edd62f09f5e6004bef947331466cf20fded79450500dc802dd1ad8c"
+sha256 = "e83518bb23c56294fc78606434137660e0273c1b7941a15bba09571354ccd4c8"
 hardening = ["vis"]
 
 

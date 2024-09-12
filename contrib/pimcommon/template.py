@@ -1,8 +1,8 @@
 pkgname = "pimcommon"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
-make_check_wrapper = ["wlheadless-run", "--"]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -38,13 +38,12 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]
-checkdepends = ["xwayland-run"]
 pkgdesc = "KDE PIM common library"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-3.0-only"
 url = "https://api.kde.org/kdepim/pimcommon/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/pimcommon-{pkgver}.tar.xz"
-sha256 = "ce8e85e45bfc4ef88f0c081719fcf8fad4743c9bc0b109a13a9c73662e1bd77d"
+sha256 = "315ed55892b3c54ea5143addc7e92ec08bdf6157129643c8fd9562dc36ec5a9d"
 
 
 @subpackage("pimcommon-devel")

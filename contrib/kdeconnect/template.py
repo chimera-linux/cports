@@ -1,5 +1,5 @@
 pkgname = "kdeconnect"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 # needs more setup
@@ -54,9 +54,11 @@ url = "https://community.kde.org/KDEConnect"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdeconnect-kde-{pkgver}.tar.xz"
 )
-sha256 = "cbd102cf3083d2c043e875cc4ef1ac3a33837484f440b2e7377bc9c0bd3212ae"
+sha256 = "f9d7b55d52ae8d07432922afd84af19cd373df07b45eb97d381bcd2db4d5d1e6"
 
 
 def post_install(self):
     # stray single static lib and nothing else (?)
     self.uninstall("usr/lib/libkdeconnectinterfaces.a")
+    # wrong name
+    self.rename("usr/share/zsh/site-functions/_kdeconnect", "_kdeconnect-cli")

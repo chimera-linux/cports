@@ -1,5 +1,5 @@
 pkgname = "audiocd-kio"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -29,7 +29,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kio_audiocd"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/audiocd-kio-{pkgver}.tar.xz"
-sha256 = "e7f2d9b34979ca95c01c4ca516b4f88e62b6c1bb91436fdb1aa1fc0d4f2b2e4b"
+sha256 = "8ab049c88d6f1d70a98facd020d758bfa6307b1803ab7cc5679d6e4c9ca48db1"
 
 
 @subpackage("audiocd-kio-devel")

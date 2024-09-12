@@ -1,5 +1,5 @@
 pkgname = "libkdcraw"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/libkdcraw/html/index.html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdcraw-{pkgver}.tar.xz"
-sha256 = "b64b7f094296be4e689f4846c8d3ac82f93dc30cbd92ccbf62b65596e88625c2"
+sha256 = "dceda2ebbf7479ba232e9108d1cf58d613df0fa76c990106ee59dbba8c9c32f6"
 hardening = ["vis"]
 
 

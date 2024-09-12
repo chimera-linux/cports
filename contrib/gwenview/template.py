@@ -1,15 +1,12 @@
 pkgname = "gwenview"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
     "(placetreemodeltest|urlutilstest|contextmanagertest)",
 ]
-make_check_wrapper = [
-    "wlheadless-run",
-    "--",
-]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -45,13 +42,12 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
 ]
-checkdepends = ["xwayland-run"]
 pkgdesc = "KDE image viewer"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/gwenview"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/gwenview-{pkgver}.tar.xz"
-sha256 = "18d10edb4f7492105a28cb1de114331b7cebf129ce626b8779e1fd75199e7476"
+sha256 = "4380c5d421747b51e60cc7d853ae0885e4755b9a8df4e8ca353466ceb6106d4e"
 # avoid crash in raw thumbnailer
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["vis"]

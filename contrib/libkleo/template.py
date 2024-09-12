@@ -1,5 +1,5 @@
 pkgname = "libkleo"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -31,7 +31,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/pim/libkleo"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkleo-{pkgver}.tar.xz"
-sha256 = "951657eb625686f13305fdae1d52e0c5e5a108e1f3ba03d1080239a0c0f531f1"
+sha256 = "c982580f8c1bcebf1a214625dc9fff8842be62e47e8951755ff1ca7e522e2d18"
 
 
 @subpackage("libkleo-devel")

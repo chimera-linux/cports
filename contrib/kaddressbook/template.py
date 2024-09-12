@@ -1,5 +1,5 @@
 pkgname = "kaddressbook"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -35,7 +35,7 @@ url = "https://apps.kde.org/kaddressbook"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kaddressbook-{pkgver}.tar.xz"
 )
-sha256 = "7e519f72b62d81b588dc51d3c8417eb26431347cd552ff44cdff711de723f559"
+sha256 = "535236de34bc862856ee52ab7abd8d46e163f96c956ef5d632b438c2b5897fad"
 
 
 @subpackage("kaddressbook-devel")

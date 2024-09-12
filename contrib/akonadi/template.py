@@ -1,5 +1,5 @@
 pkgname = "akonadi"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 # TODO: add mariadb since it's usually the default
@@ -56,7 +56,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://userbase.kde.org/Akonadi"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-{pkgver}.tar.xz"
-sha256 = "e140f6820aa596ea48ce623358bdf584942d6e2a08530b9b43de680801568945"
+sha256 = "d5a6f34f6f972d3e1c1f6058e40c2386cc04b02948373c4e12992a03e3d99501"
 tool_flags = {
     # disable debug mode
     "CXXFLAGS": ["-DNDEBUG"],

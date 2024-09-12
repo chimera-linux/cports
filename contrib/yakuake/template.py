@@ -1,5 +1,5 @@
 pkgname = "yakuake"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -36,4 +36,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/yakuake"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/yakuake-{pkgver}.tar.xz"
-sha256 = "f6156119a4be8b7d07a7ac9bf2427e4d6d8620225a7e0b21c5ddef71e462ce6d"
+sha256 = "b0b6a3a0fb4e168685540e3a1a8dd2a4d03cf59ddba6fd8fc058059f155ac61b"

@@ -1,6 +1,6 @@
 pkgname = "kdepim-addons"
-pkgver = "24.08.0"
-pkgrel = 1
+pkgver = "24.08.1"
+pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = [
     "dbus-run-session",
@@ -75,7 +75,7 @@ url = "https://invent.kde.org/pim/kdepim-addons"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdepim-addons-{pkgver}.tar.xz"
 )
-sha256 = "8d02955a603b705a6c22e70f9a0d066930693c0ff8652d48cdf2f27d261f4524"
+sha256 = "4657ed23212c0eee53e48c879f1736e55f57158693f87fac500e5d7f94ddf2dd"
 # date diffs, formatting diffs, cant find plugins, ...
 options = ["!check"]
 

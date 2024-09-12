@@ -1,5 +1,5 @@
 pkgname = "ghostwriter"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -29,4 +29,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/ghostwriter"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ghostwriter-{pkgver}.tar.xz"
-sha256 = "54a16a02f11398a962fd184327d238c31c86ca968ae7f10d7502a301cc1782b1"
+sha256 = "d0c1852124c52b4e3ead7a23d33a26c1d29d5e9a45188eba313c1a0bc509ea92"

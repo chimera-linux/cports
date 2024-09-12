@@ -1,5 +1,5 @@
 pkgname = "akonadi-import-wizard"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -34,7 +34,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://invent.kde.org/pim/akonadi-import-wizard"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-import-wizard-{pkgver}.tar.xz"
-sha256 = "06feaef071635a2e583330708a9f255afce9d4918997946a7d4c20ab138159aa"
+sha256 = "10e34286c88efda06f7e30b7208afe9ecb2ee4bd98ca675a59d709c0090f5481"
 
 
 @subpackage("akonadi-import-wizard-devel")

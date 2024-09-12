@@ -1,5 +1,5 @@
 pkgname = "kweather"
-pkgver = "24.08.0"
+pkgver = "24.08.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,4 +27,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kweather"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kweather-{pkgver}.tar.xz"
-sha256 = "6ab41961bf57bfeb42b679167f3a42e258af264b919654e70f780b814d1e0354"
+sha256 = "79f56697b4f3c897b6b602e8e869edabe2ddd15cbc9d3d956128390252d2d802"
