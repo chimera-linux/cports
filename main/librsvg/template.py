@@ -1,27 +1,33 @@
 pkgname = "librsvg"
-pkgver = "2.58.4"
+pkgver = "2.59.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 configure_args = [
-    "--enable-introspection",
-    "--enable-vala",
-    "--disable-static",
-    "--disable-gtk-doc",
+    f"-Dtriplet={self.profile().triplet}",
+    "-Davif=enabled",
+    "-Ddocs=disabled",
+    "-Dintrospection=enabled",
+    "-Dpixbuf=enabled",
+    "-Dpixbuf-loader=enabled",
+    "-Dvala=enabled",
+    # disabled below
+    "-Dtests=false",
 ]
 hostmakedepends = [
-    "automake",
-    "cargo",
+    "cargo-auditable",
+    "cargo-c",
     "gdk-pixbuf-devel",
     "glib-devel",
     "gobject-introspection",
+    "meson",
     "pkgconf",
     "python",
     "python-docutils",
-    "slibtool",
     "vala",
 ]
 makedepends = [
     "cairo-devel",
+    "dav1d-devel",
     "freetype-devel",
     "gdk-pixbuf-devel",
     "glib-devel",
@@ -36,21 +42,15 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/librsvg/{pkgver[:-2]}/librsvg-{pkgver}.tar.xz"
-sha256 = "296e3760d2347d0767c3e291dec962ab36baecd25c4898c6e8150a731f967c7b"
+sha256 = "370d6ada5cf0de91ceb70d849ed069523ce5de2b33b4c7e86bc640673ad65483"
 # sample files may differ based on pango/freetype/harfbuzz version
-options = ["!check", "!cross"]
+options = ["!check"]
 
 
 def prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self).vendor(wrksrc=".")
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    cargo.clear_vendor_checksums(self, "system-deps")
 
 
 def init_build(self):
