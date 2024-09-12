@@ -13,30 +13,3 @@
  PKG_CONFIG ?= pkg-config
  
  CFLAGS += $(EXTRA_CFLAGS)
-@@ -76,21 +76,21 @@
- 	echo CONFIG_DRIVER_WEXT=y >> .config
- 
- $(DESTDIR)$(BINDIR)/%: %
--	install -D $(<) $(@)
-+	install $(<) $(@)
- 
- install: $(addprefix $(DESTDIR)$(BINDIR)/,$(BINALL))
- 	$(MAKE) -C ../src install
- ifndef CONFIG_NO_WPA_PASSPHRASE
--	install -D wpa_passphrase $(DESTDIR)/$(BINDIR)/wpa_passphrase
-+	install wpa_passphrase $(DESTDIR)/$(BINDIR)/wpa_passphrase
- endif
- 
- ifdef CONFIG_BUILD_PASN_SO
--	install -m 0644 -D libpasn.so $(DESTDIR)/$(LIBDIR)/libpasn.so
-+	install -m 0644 libpasn.so $(DESTDIR)/$(LIBDIR)/libpasn.so
- endif
- 
- ifdef CONFIG_BUILD_WPA_CLIENT_SO
--	install -m 0644 -D libwpa_client.so $(DESTDIR)/$(LIBDIR)/libwpa_client.so
--	install -m 0644 -D ../src/common/wpa_ctrl.h $(DESTDIR)/$(INCDIR)/wpa_ctrl.h
-+	install -m 0644 libwpa_client.so $(DESTDIR)/$(LIBDIR)/libwpa_client.so
-+	install -m 0644 ../src/common/wpa_ctrl.h $(DESTDIR)/$(INCDIR)/wpa_ctrl.h
- endif
- 	if ls eap_*.so >/dev/null 2>&1; then \
- 		install -d $(DESTDIR)$(LIBDIR)/wpa_supplicant && \

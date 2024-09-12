@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -7,7 +7,7 @@ PACKAGE_NAME := ifupdown-ng
+ PACKAGE_VERSION := 0.12.1
+ PACKAGE_BUGREPORT := https://github.com/ifupdown-ng/ifupdown-ng/issues/new
+ 
+-SBINDIR := /sbin
++SBINDIR := /usr/bin
+ 
+ INTERFACES_FILE := /etc/network/interfaces
+ STATE_FILE := /run/ifstate

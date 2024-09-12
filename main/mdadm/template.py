@@ -3,7 +3,7 @@ pkgver = "4.3"
 pkgrel = 2
 build_style = "makefile"
 make_build_args = ["CWFLAGS=", "BINDIR=/usr/bin"]
-make_install_args = ["STRIP=", "BINDIR=/usr/bin"]
+make_install_args = ["STRIP=", "PREFIX=/usr", "BINDIR=/usr/bin"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["linux-headers", "udev-devel"]
 checkdepends = ["bash", "e2fsprogs", "udev"]
@@ -30,6 +30,11 @@ tool_flags = {
         "-DUSE_PTHREADS",
     ]
 }
+
+
+def install(self):
+    # do not pass STRIP
+    self.make.install()
 
 
 def post_install(self):

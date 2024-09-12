@@ -1,6 +1,6 @@
 pkgname = "nbfc-linux"
 pkgver = "0.2.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_args = ["confdir=/etc"]
 make_install_args = ["confdir=/etc"]
