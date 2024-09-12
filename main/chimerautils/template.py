@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
 pkgver = "14.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dchimera_realpath=enabled"]
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
