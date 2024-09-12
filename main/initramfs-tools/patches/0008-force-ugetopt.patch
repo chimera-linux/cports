@@ -1,4 +1,4 @@
-From 7eea28a22e6844b9cfc36547751e716237b895fb Mon Sep 17 00:00:00 2001
+From 077c2a8dc90189c3ffcdf1bc8451de3837fc2b82 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Wed, 28 Aug 2024 14:02:04 +0200
 Subject: [PATCH 8/9] force ugetopt

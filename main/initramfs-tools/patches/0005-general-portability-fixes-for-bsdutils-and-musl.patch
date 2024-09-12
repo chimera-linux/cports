@@ -1,58 +1,19 @@
-From 9ef7a46d8953b3a8cfbf34d5525cf323613177e8 Mon Sep 17 00:00:00 2001
+From e265129acd4f16ebdfa2560b356c3f7547e6ab20 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 3 Jun 2024 16:45:18 +0200
 Subject: [PATCH 5/9] general portability fixes for bsdutils and musl
 
 ---
- hook-functions | 53 +++++++++++++++++++++++---------------------------
- mkinitramfs    | 24 ++++++-----------------
+ hook-functions | 35 ++++++++---------------------------
+ mkinitramfs    | 24 ++++++------------------
  unmkinitramfs  | 12 ++++++------
- 3 files changed, 36 insertions(+), 53 deletions(-)
+ 3 files changed, 20 insertions(+), 51 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index d3f7a32..a1224f4 100644
+index d3f7a32..d301b6f 100644
 --- a/hook-functions
 +++ b/hook-functions
-@@ -150,6 +150,19 @@ add_builtin_firmware()
- 	done
- }
- 
-+_relpath() {
-+    local pos="$(dirname $1 | sed -e 's,//*,/,g')" ref="${2%%/}" down=''
-+
-+    while :; do
-+        test "$pos" = '/' && break
-+        case "$ref" in $pos/*) break;; esac
-+        down="../$down"
-+        pos=${pos%/*}
-+    done
-+
-+    echo "$down${ref##$pos/}"
-+}
-+
- # $1 = file type (for logging)
- # $2 = file to copy to initramfs
- # $3 (optional) Name for the file on the initramfs
-@@ -157,7 +170,7 @@ add_builtin_firmware()
- # If the target exists, we leave it and return 1.
- # On any other error, we return >1.
- copy_file() {
--	local type src target link_target
-+	local type src target link_target relp
- 
- 	type="${1}"
- 	src="${2}"
-@@ -202,7 +215,8 @@ copy_file() {
- 
- 			# Create a relative link so it always points
- 			# to the right place
--			ln -rs "${DESTDIR}/${link_target}" "${DESTDIR}/${target}"
-+			relp=$(_relpath "${target}" "${link_target}")
-+			ln -sf "${relp}" "${DESTDIR}/${target}"
- 		fi
- 
- 		# Copy the link target if it doesn't already exist
-@@ -229,30 +243,10 @@ copy_exec() {
+@@ -229,30 +229,10 @@ copy_exec() {
  	copy_file binary "${src}" "${target}" || return $(($? - 1))
  
  	# Copy the dependant libraries
@@ -87,7 +48,7 @@ index d3f7a32..a1224f4 100644
  		copy_file binary "${x}" || {
  			ret=$?
  			[ ${ret} = 1 ] || return $((ret - 1))
-@@ -300,7 +294,8 @@ copy_modules_dir()
+@@ -300,7 +280,8 @@ copy_modules_dir()
  	done
  
  	# shellcheck disable=SC2044
@@ -97,7 +58,7 @@ index d3f7a32..a1224f4 100644
  		modules="$modules ${kmod%%.*}"
  	done
  	# shellcheck disable=SC2086
-@@ -396,8 +391,8 @@ block_dev_mod_add()
+@@ -396,8 +377,8 @@ block_dev_mod_add()
  	dev_node="$1"
  
  	# Look up device number and convert to decimal as it appears in sysfs

@@ -1,4 +1,4 @@
-From c367139c151ee34ab4b122aa00b032af709134c6 Mon Sep 17 00:00:00 2001
+From 1363f54b2448ce2b96d1f697c5a9c4c12205e912 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Wed, 28 Aug 2024 14:01:17 +0200
 Subject: [PATCH 7/9] use fstype from klibc-kinit-standalone
@@ -9,10 +9,10 @@ Subject: [PATCH 7/9] use fstype from klibc-kinit-standalone
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index a1224f4..1913fb7 100644
+index d301b6f..1630027 100644
 --- a/hook-functions
 +++ b/hook-functions
-@@ -519,7 +519,7 @@ dep_add_modules_mount()
+@@ -505,7 +505,7 @@ dep_add_modules_mount()
  	fi
  
  	# do not trust mount, check superblock

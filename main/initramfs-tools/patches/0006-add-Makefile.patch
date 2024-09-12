@@ -1,4 +1,4 @@
-From 64062a43d7854639cc2bba4f293d48d51798af9b Mon Sep 17 00:00:00 2001
+From ba62f9cc37c84fb26ad69be70caa5030e29bf796 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 22 Oct 2021 02:59:12 +0200
 Subject: [PATCH 6/9] add Makefile

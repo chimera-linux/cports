@@ -1,4 +1,4 @@
-From 9b48476563fcc51b901e0139ec94308b12760392 Mon Sep 17 00:00:00 2001
+From 209a3224fdd9d443a2e8f860890c1f5174fa77d7 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Wed, 28 Aug 2024 14:02:29 +0200
 Subject: [PATCH 9/9] decompress firmware in initramfs
