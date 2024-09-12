@@ -1,5 +1,5 @@
 pkgname = "jsoncpp"
-pkgver = "1.9.5"
+pkgver = "1.9.6"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "avgwst <avgwst@tutanota.de>"
 license = "MIT"
 url = "https://github.com/open-source-parsers/jsoncpp"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f409856e5920c18d0c2fb85276e24ee607d2a09b5e7d5f0a371368903c275da2"
+sha256 = "f93b6dd7ce796b13d02c108bc9f79812245a82e577581c4c9aabe57075c90ea2"
 # vis breaks symbols
 hardening = ["!vis"]
 
