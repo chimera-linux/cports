@@ -381,7 +381,6 @@ def _(self):
 
 def install(self):
     self.install_license("COPYRIGHT")
-    self.install_license("LICENSE-APACHE")
     self.install_license("LICENSE-MIT")
 
     # used if we decide to ship src
