@@ -1,5 +1,5 @@
 pkgname = "got"
-pkgver = "0.102"
+pkgver = "0.103"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -20,6 +20,7 @@ makedepends = [
     "linux-headers",
     "musl-devel",
     "ncurses-devel",
+    "openssl-devel",
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["git"]
@@ -28,7 +29,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://gameoftrees.org"
 source = f"{url}/releases/portable/got-portable-{pkgver}.tar.gz"
-sha256 = "aacb50ea664b09d60be6e41ab8cb7b9c694474f90f9de19fbb7e916da6e83777"
+sha256 = "32405e93f353a54fabca5492e5a6c5425f159b7a614450909299c8dc83492878"
 env = {"GOT_RELEASE": "Yes"}
 hardening = ["vis", "cfi"]
 # tests require pre-installing got/tog in pre_check and running ssh locally
