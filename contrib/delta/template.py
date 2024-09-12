@@ -1,6 +1,6 @@
 pkgname = "delta"
-pkgver = "0.18.1"
-pkgrel = 1
+pkgver = "0.18.2"
+pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/dandavison/delta"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ef558e0ee4c9a10046f2f8e2e59cf1bedbb18c2871306b772d3d9b8e3b242b9c"
+sha256 = "64717c3b3335b44a252b8e99713e080cbf7944308b96252bc175317b10004f02"
 # generates completions with host binary
 options = ["!cross"]
 
@@ -31,7 +31,8 @@ def post_build(self):
             )
 
 
-def post_install(self):
+def install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/delta")
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"delta.{shell}", shell)
