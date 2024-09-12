@@ -43,8 +43,9 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/librsvg/{pkgver[:-2]}/librsvg-{pkgver}.tar.xz"
 sha256 = "370d6ada5cf0de91ceb70d849ed069523ce5de2b33b4c7e86bc640673ad65483"
-# sample files may differ based on pango/freetype/harfbuzz version
-options = ["!check"]
+# check: sample files may differ based on pango/freetype/harfbuzz version
+# cross: no introspection in cross
+options = ["!check", "!cross"]
 
 
 def prepare(self):
