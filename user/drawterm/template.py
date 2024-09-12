@@ -1,6 +1,6 @@
 pkgname = "drawterm"
-_commit = "877bce095a192ead0e9b6e0d5ce3071482cf0f6e"
-pkgver = "0_git20240908"
+_commit = "789b8fe40e156ad0252230b13dd4ada96f3eed8b"
+pkgver = "0_git20240909"
 pkgrel = 0
 build_style = "makefile"
 make_env = {"CONF": "linux"}
@@ -22,7 +22,7 @@ source = [
     f"!https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/raw/{_wlr_protocols_commit}/unstable/wlr-virtual-pointer-unstable-v1.xml>{_wlr_protocols_commit}.xml",
 ]
 sha256 = [
-    "04db646aac493605973dca6679af9ee04f783e49094d4a46d52a4433b5f5bf02",
+    "d5353af6d0557b345cb0df70141cdc9a443a747dc24d888f059750933ee2ad29",
     "3ff6d540be0bc5228195bf072bde42117ea17945a5c2061add5d3cf97d6bb524",
 ]
 # no tests
