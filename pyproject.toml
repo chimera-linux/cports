@@ -32,4 +32,5 @@ ignore = [
     'UP036',
     # edontcare
     'RUF012',
+    'RUF015',
 ]
