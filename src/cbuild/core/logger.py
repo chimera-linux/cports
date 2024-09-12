@@ -61,7 +61,12 @@ class Logger:
             ntdiff = datetime.timedelta(
                 tdiff.days, tdiff.seconds, round(msec / 1000) * 1000
             )
-            self.out_stream(f"{str(ntdiff)[:-3]} ")
+            # we can't :-3 because the input may be variable length
+            dstr = str(ntdiff)[0:11]
+            # pad with zeroes to make up full timestamp...
+            if len(dstr) < 11:
+                dstr += "0" * (11 - len(dstr))
+            self.out_stream(f"{dstr} ")
         self.out_stream("\f[bold]=> \f[]\f[bold]")
 
     def out_plain(self, msg, end="\n"):
