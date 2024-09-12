@@ -8,6 +8,7 @@ _opprec = {
 _license_inst = {
     "BSL-1.0": True,
     "ISC": True,
+    "NCSA": True,
     "X11": True,
     "X11-distribute-modifications-variant": True,
 }
