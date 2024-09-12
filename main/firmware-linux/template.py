@@ -2,7 +2,7 @@
 pkgname = "firmware-linux"
 pkgver = "20240909"
 pkgrel = 0
-hostmakedepends = ["python", "rdfind"]
+hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
