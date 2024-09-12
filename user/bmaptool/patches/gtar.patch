@@ -1,0 +1,88 @@
+Our tar is bsdtar and this generally makes assumptions
+about the tar behaving like gnu tar, so force it.
+
+--- a/bmaptool/TransRead.py
++++ b/bmaptool/TransRead.py
+@@ -365,7 +365,7 @@ class TransRead(object):
+             if is_gzip(self.name):
+                 args = "-d -c"
+             else:
+-                archiver = "tar"
++                archiver = "gtar"
+                 args = "-x -z -O"
+         elif is_tar_bz2(self.name) or is_bzip2(self.name):
+             self.compression_type = "bzip2"
+@@ -377,7 +377,7 @@ class TransRead(object):
+             if is_bzip2(self.name):
+                 args = "-d -c"
+             else:
+-                archiver = "tar"
++                archiver = "gtar"
+                 args = "-x -j -O"
+         elif is_tar_xz(self.name) or is_xz(self.name):
+             self.compression_type = "xz"
+@@ -385,7 +385,7 @@ class TransRead(object):
+             if is_xz(self.name):
+                 args = "-d -c"
+             else:
+-                archiver = "tar"
++                archiver = "gtar"
+                 args = "-x -J -O"
+         elif is_tar_lzo(self.name) or is_lzop(self.name):
+             self.compression_type = "lzo"
+@@ -393,7 +393,7 @@ class TransRead(object):
+             if is_lzop(self.name):
+                 args = "-d -c"
+             else:
+-                archiver = "tar"
++                archiver = "gtar"
+                 args = "-x --lzo -O"
+         elif self.name.endswith(".zip"):
+             self.compression_type = "zip"
+@@ -405,7 +405,7 @@ class TransRead(object):
+             if is_lz4(self.name):
+                 args = "-d -c"
+             else:
+-                archiver = "tar"
++                archiver = "gtar"
+                 args = "-x -Ilz4 -O"
+         elif is_tar_zst(self.name) or is_zst(self.name):
+             self.compression_type = "zst"
+@@ -413,14 +413,14 @@ class TransRead(object):
+             if is_zst(self.name):
+                 args = "-d"
+             else:
+-                archiver = "tar"
++                archiver = "gtar"
+                 args = "-x -Izstd -O"
+         else:
+             if not self.is_url:
+                 self.size = os.fstat(self._f_objs[-1].fileno()).st_size
+             return
+ 
+-        if archiver == "tar":
++        if archiver == "gtar":
+             # This will get rid of messages like:
+             #     tar: Removing leading `/' from member names'.
+             args += " -P -C /"
+--- a/tests/test_api_base.py
++++ b/tests/test_api_base.py
+@@ -98,12 +98,12 @@ def _generate_compressed_files(file_path, delete=True):
+         ("zstd", None, ".zst", "-c -k"),
+         # The "-P -C /" trick is used to avoid silly warnings:
+         # "tar: Removing leading `/' from member names"
+-        ("bzip2", "tar", ".tar.bz2", "-c -j -O -P -C /"),
+-        ("gzip", "tar", ".tar.gz", "-c -z -O -P -C /"),
+-        ("xz", "tar", ".tar.xz", "-c -J -O -P -C /"),
+-        ("lzop", "tar", ".tar.lzo", "-c --lzo -O -P -C /"),
+-        ("lz4", "tar", ".tar.lz4", "-c -Ilz4 -O -P -C /"),
+-        ("zstd", "tar", ".tar.zst", "-c -Izstd -O -P -C /"),
++        ("bzip2", "gtar", ".tar.bz2", "-c -j -O -P -C /"),
++        ("gzip", "gtar", ".tar.gz", "-c -z -O -P -C /"),
++        ("xz", "gtar", ".tar.xz", "-c -J -O -P -C /"),
++        ("lzop", "gtar", ".tar.lzo", "-c --lzo -O -P -C /"),
++        ("lz4", "gtar", ".tar.lz4", "-c -Ilz4 -O -P -C /"),
++        ("zstd", "gtar", ".tar.zst", "-c -Izstd -O -P -C /"),
+         ("zip", None, ".zip", "-q -j -"),
+     ]
+ 
