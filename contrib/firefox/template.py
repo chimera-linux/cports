@@ -1,6 +1,6 @@
 pkgname = "firefox"
 pkgver = "130.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "automake",
     "cargo",
@@ -50,6 +50,7 @@ makedepends = [
 ]
 depends = [
     "libavcodec",
+    "openh264-firefox-plugin-meta",
     "speechd-meta",
 ]
 provides = [
