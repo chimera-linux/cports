@@ -1,11 +1,12 @@
 pkgname = "perf"
 pkgver = "6.10.10"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "tools/perf"
 build_style = "makefile"
 make_build_args = [
     "-f",
     "Makefile.perf",
+    "LIBBPF_DYNAMIC=1",
     "LLVM=1",
     "NO_LIBAUDIT=1",
     "NO_LIBBABELTRACE=1",
@@ -35,8 +36,10 @@ hostmakedepends = [
     "xmlto",
 ]
 makedepends = [
+    "audit-devel",  # for archs without syscall_table like riscv
     "capstone-devel",
     "elfutils-devel",
+    "libbpf-devel",
     "libcap-devel",
     "libnuma-devel",
     "libtraceevent-devel",
