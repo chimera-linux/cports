@@ -576,12 +576,9 @@ def update(pkg):
     _prepare_etc()
 
     with flock.lock(flock.apklock(host_cpu())):
+        apki.call_chroot("update", ["-q"], pkg, check=True, use_stage=True)
         apki.call_chroot(
-            "upgrade",
-            ["--available", "--cache-max-age", "0"],
-            pkg,
-            check=True,
-            use_stage=True,
+            "upgrade", ["--available"], pkg, check=True, use_stage=True
         )
 
     # this is bootstrap-update
