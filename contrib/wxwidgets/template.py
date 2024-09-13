@@ -1,6 +1,6 @@
 pkgname = "wxwidgets"
 pkgver = "3.2.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DwxBUILD_PRECOMP=OFF",

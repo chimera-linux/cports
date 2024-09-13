@@ -1,6 +1,6 @@
 pkgname = "evolution"
 pkgver = "3.52.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

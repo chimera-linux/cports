@@ -1,6 +1,6 @@
 pkgname = "mousepad"
 pkgver = "0.6.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
