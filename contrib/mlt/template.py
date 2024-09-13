@@ -1,5 +1,5 @@
 pkgname = "mlt"
-pkgver = "7.26.0"
+pkgver = "7.28.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -50,7 +50,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-3.0-or-later"
 url = "https://www.mltframework.org"
 source = f"https://github.com/mltframework/mlt/releases/download/v{pkgver}/mlt-{pkgver}.tar.gz"
-sha256 = "4af8d6eeaf6bdb13d813abd9e7f220f6b2f1e0fd943cc92ac0cf22775e767343"
+sha256 = "bc425bf9602213f5f4855b78cfbbcd43eeb78097c508588bde44415963955aa1"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # suboverflow in find_first_pts for certain files
 hardening = ["!int"]
