@@ -1,0 +1,56 @@
+diff --color -ruN gdm-settings-4.4/gdms/gresource.py gdm-settings-4.4-patched/gdms/gresource.py
+--- gdm-settings-4.4/gdms/gresource.py	2024-05-08 19:34:15.000000000 +0000
++++ gdm-settings-4.4-patched/gdms/gresource.py	2024-09-13 06:37:41.786754404 +0000
+@@ -10,7 +10,7 @@
+ 
+ ThemesDir              = os.path.join(env.HOST_DATA_DIRS[0], 'themes')
+ CustomThemeIdentity    = 'custom-theme'
+-GdmUsername            = 'gdm'
++GdmUsername            = '_gdm'
+ ShellGresourceFile     = None
+ DefaultGresourceFile   = None
+ UbuntuGdmGresourceFile = None
+diff --color -ruN gdm-settings-4.4/gdms/settings.py gdm-settings-4.4-patched/gdms/settings.py
+--- gdm-settings-4.4/gdms/settings.py	2024-05-08 19:34:15.000000000 +0000
++++ gdm-settings-4.4-patched/gdms/settings.py	2024-09-13 06:37:47.517645530 +0000
+@@ -335,7 +335,7 @@
+ 
+     _commands.add(f"rm -rf {gresource.ThemesDir}/default-pure")
+     _commands.add(f"mkdir -p {gresource.ThemesDir}")
+-    _commands.add(f"cp -r {env.TEMP_DIR}/default-pure -t {gresource.ThemesDir}")
++    _commands.add(f"cp -r -t {gresource.ThemesDir} {env.TEMP_DIR}/default-pure")
+ 
+ 
+ def _gresource_apply():
+@@ -550,14 +550,14 @@
+ 
+         logo_temp = os.path.join(env.TEMP_DIR, 'logo.temp')
+         shutil.copy(logo_file, logo_temp)
+-        _commands.add(f"install -m644 '{logo_temp}' -T '{logo}'")
++        _commands.add(f"install -m644 -T '{logo_temp}' '{logo}'")
+ 
+     overriding_files = get_overriding_files()
+     if overriding_files:
+         _commands.add('rm', *overriding_files)
+ 
+-    _commands.add(f"install -Dm644 '{temp_conf_path}' -t '{gdm_conf_dir}'")
+-    _commands.add(f"install -Dm644 '{temp_profile_path}' -T '{gdm_profile_path}'")
++    _commands.add(f"install -Dm644 -t '{gdm_conf_dir}' '{temp_conf_path}'")
++    _commands.add(f"install -Dm644 -T '{temp_profile_path}' '{gdm_profile_path}'")
+     _commands.add("dconf update")
+ 
+ 
+@@ -605,10 +605,9 @@
+     shutil.copyfile(user_monitors_xml, temp_monitors_xml)
+     os.chmod(temp_monitors_xml, 0o644)
+ 
+-    _commands.add(['machinectl', 'shell', f'{gresource.GdmUsername}@', '/usr/bin/env',
+-                     'gsettings', 'set', 'org.gnome.mutter' 'experimental-features',
+-                     '"[\'scale-monitor-framebuffer\']"',
+-                     '&>/dev/null',
++    _commands.add(['su', f'{gresource.GdmUsername}',
++                  '-s', '/bin/sh',
++                  '-c', '"dbus-run-session gsettings set org.gnome.mutter experimental-features \\"[\'scale-monitor-framebuffer\']\\""'
+                    ])
+ 
+     _commands.add(['install', '-Dm644',
