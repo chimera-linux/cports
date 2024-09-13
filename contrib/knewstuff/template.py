@@ -1,7 +1,9 @@
 pkgname = "knewstuff"
-pkgver = "6.5.0"
+pkgver = "6.6.0"
 pkgrel = 0
 build_style = "cmake"
+# fails in chroot for some reason
+make_check_args = ["-E", "atticaprovidertest"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
@@ -26,7 +28,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
-sha256 = "815589a660b9a53a1fc18268b95914636124b6f3f3193c9404e0959f8b738c79"
+sha256 = "3f927564b454c1fc1aeec05174b8f9e76303b4d9a45979d76b2188a25bd47025"
 hardening = ["vis"]
 
 

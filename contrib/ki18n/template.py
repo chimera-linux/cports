@@ -1,5 +1,5 @@
 pkgname = "ki18n"
-pkgver = "6.5.0"
+pkgver = "6.6.0"
 pkgrel = 0
 build_style = "cmake"
 # similar tests broken as alpine
@@ -25,7 +25,7 @@ url = "https://api.kde.org/frameworks/ki18n/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ki18n-{pkgver}.tar.xz"
 )
-sha256 = "7873d36a8ae452745d58100e7cda067eae632c787c1fc5a3c63a7072aacfa7fc"
+sha256 = "582b4c58bb69803412322d3db656fd4f5fde154eac1ac89b2c6bc905c5b61e6e"
 hardening = ["vis"]
 
 

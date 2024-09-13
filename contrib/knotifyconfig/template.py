@@ -1,5 +1,5 @@
 pkgname = "knotifyconfig"
-pkgver = "6.5.0"
+pkgver = "6.6.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only"
 url = "https://api.kde.org/frameworks/knotifyconfig/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knotifyconfig-{pkgver}.tar.xz"
-sha256 = "fb2ad6bffb54e6a05fab4dc871897beaba03a46d42fa290b56ee1fcbb2ee0594"
+sha256 = "e032fc8ebd375cd406dfef3038ebd49d7c1d1de7c79b7cad4cccf00285006f1f"
 hardening = ["vis"]
 
 

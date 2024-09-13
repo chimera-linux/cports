@@ -1,5 +1,5 @@
 pkgname = "kcontacts"
-pkgver = "6.5.0"
+pkgver = "6.6.0"
 pkgrel = 0
 build_style = "cmake"
 # germania/germany difference
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kcontacts/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcontacts-{pkgver}.tar.xz"
-sha256 = "b711e098469a5821044bf99bd74d0a16b804731a347cf53609a4bd1b5fa5fdc4"
+sha256 = "99f0527d49bc6b3fbdc91c4b7edb67c86936e7a4c8cd881bd9da2eedf5666d6c"
 hardening = ["vis"]
 
 

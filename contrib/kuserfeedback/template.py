@@ -1,8 +1,10 @@
 pkgname = "kuserfeedback"
-pkgver = "6.5.0"
+pkgver = "6.6.0"
 pkgrel = 0
 build_style = "cmake"
-make_check_wrapper = ["wlheadless-run", "--"]
+# fails without gl
+make_check_args = ["-E", "openglinfosourcetest"]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "bison",
     "cmake",
@@ -18,13 +20,12 @@ makedepends = [
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
 ]
-checkdepends = ["xwayland-run"]
 pkgdesc = "KDE user feedback integration"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kuserfeedback/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kuserfeedback-{pkgver}.tar.xz"
-sha256 = "3348d2f29b92e655249b750fd77fb56bc4511ba3ba74399bd3fb2440821a292a"
+sha256 = "3bb42251679edd643ccdccbc9babcae790b9d51b9dfaef6ded9b4ac34ad2df55"
 hardening = ["vis"]
 
 

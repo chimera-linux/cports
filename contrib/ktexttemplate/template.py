@@ -1,5 +1,5 @@
 pkgname = "ktexttemplate"
-pkgver = "6.5.0"
+pkgver = "6.6.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/ktexttemplate/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktexttemplate-{pkgver}.tar.xz"
-sha256 = "295a3f87ff08af17f83496fd66b3f634917bcac6466c79be1f4cb6786ecb04c6"
+sha256 = "23611a7724d9ccb534cba22dc88885748cf2ec9037d3dccad5cc54a3d4bdb954"
 hardening = ["vis"]
 
 
