@@ -1,5 +1,5 @@
 pkgname = "fuzzel"
-pkgver = "1.11.0"
+pkgver = "1.11.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dsvg-backend=librsvg"]
@@ -26,7 +26,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fuzzel"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "4071728173dddac0df3d1b0af08ed92c4fdd4e86ff6bcf106d255a0acb67efdb"
+sha256 = "7b22fefdada10e4658ec1f914a7296ddde73a5d20a2a1ed3c02c50bf2e701d3b"
 hardening = ["vis", "cfi"]
 
 
