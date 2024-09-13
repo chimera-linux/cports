@@ -1,11 +1,14 @@
 pkgname = "libjxl"
-pkgver = "0.10.3"
+pkgver = "0.11.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
     "-DBUILD_TESTING=ON",
+    "-DJPEGXL_ENABLE_AVX512=ON",
+    "-DJPEGXL_ENABLE_AVX512_ZEN4=ON",
     "-DJPEGXL_ENABLE_BENCHMARK=OFF",
+    "-DJPEGXL_ENABLE_EXAMPLES=OFF",
     "-DJPEGXL_ENABLE_JPEGLI=OFF",
     "-DJPEGXL_ENABLE_PLUGINS=ON",
     "-DJPEGXL_ENABLE_PLUGIN_GIMP210=OFF",
@@ -47,9 +50,10 @@ source = [
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "e0191411cfcd927eebe5392d030fe4283fe27ba1685ab7265104936e0b4283a6",
+    "7ce4ec8bb37a435a73ac18c4c9ff56c2dc6c98892bf3f53a328e3eca42efb9cf",
     "9c45a108df32a002a69465df896d33acf77d97c88fb59dffa0dff5628370e96f",
 ]
+tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 # CFI: a bunch of test failures
 # vis also broken
 hardening = ["!vis", "!cfi"]
