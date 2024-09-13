@@ -1,6 +1,6 @@
 pkgname = "glycin-loaders"
 pkgver = "1.0.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 hostmakedepends = [
     "cargo-auditable",

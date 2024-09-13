@@ -1,6 +1,6 @@
 pkgname = "graphicsmagick"
 pkgver = "1.3.45"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
