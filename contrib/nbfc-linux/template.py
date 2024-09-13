@@ -16,5 +16,8 @@ tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 options = ["!check"]
 
 
+broken = "chimerautils rebuild"
+
+
 def post_install(self):
     self.install_service(self.files_path / "nbfc")
