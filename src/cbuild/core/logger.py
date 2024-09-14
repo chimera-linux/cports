@@ -66,7 +66,8 @@ class Logger:
             # pad with zeroes to make up full timestamp...
             if len(dstr) < 11:
                 dstr += "0" * (11 - len(dstr))
-            self.out_stream(f"{dstr} ")
+            # just in case lol
+            self.out_stream(f"{dstr[0:7]}.{dstr[8:]} ")
         self.out_stream("\f[bold]=> \f[]\f[bold]")
 
     def out_plain(self, msg, end="\n"):
