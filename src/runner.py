@@ -1067,19 +1067,21 @@ def _collect_tmpls(pkgn, catn=None):
     return tmpls
 
 
-def _add_deps_graph(pn, tp, pvisit, rpkg, depg):
+def _add_deps_graph(pn, tp, pvisit, cbvisit, rpkg, depg):
     bdl = tp.get_build_deps()
     depg.add(pn, *bdl)
     # recursively eval and add deps
     succ = True
     for d in bdl:
+        if cbvisit is not None:
+            cbvisit.add(d)
         if d in pvisit:
             continue
         # make sure that everything is parsed only once
         pvisit.add(d)
         dtp = rpkg(d)
         if dtp:
-            if not _add_deps_graph(d, dtp, pvisit, rpkg, depg):
+            if not _add_deps_graph(d, dtp, pvisit, cbvisit, rpkg, depg):
                 succ = False
         else:
             succ = False
@@ -1125,7 +1127,7 @@ def _graph_prepare():
         tp = _read_pkg(tmpln)
         if not tp:
             continue
-        _add_deps_graph(tmpln, tp, pvisit, _read_pkg, tg)
+        _add_deps_graph(tmpln, tp, pvisit, None, _read_pkg, tg)
 
     return tg
 
@@ -1850,14 +1852,24 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     # do not ignore missing tmpls because that is likely error in main tmpl
     pvisit = set(rpkgs)
 
-    def handle_recdeps(pn, tp):
+    # this is visited stuff in base-cbuild, we do checks against it later
+    # to figure out if to add the implicit base-cbuild "dep" in the topology
+    # as without checks we'd be creating random cycles
+    cbvisit = set()
+
+    def handle_recdeps(pn, tp, cbinit=False):
         # in raw mode we don't care about ordering, taking it as is
         if do_raw:
             return True
+        # add base-cbuild "dependency" for correct implicit sorting
+        if not cbinit and pn not in cbvisit:
+            depg.add(pn, "main/base-cbuild")
+        # now add the rest of the stuff
         return _add_deps_graph(
             pn,
             tp,
             pvisit,
+            cbvisit,
             lambda d: _do_with_exc(
                 lambda: template.Template(
                     template.sanitize_pkgname(d),
@@ -1872,6 +1884,23 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             ),
             depg,
         )
+
+    # first add base-cbuild, since that's an "implicit" dependency
+    # of whatever we add in the transaction (other than cycles)
+    handle_recdeps(
+        "main/base-cbuild",
+        template.Template(
+            template.sanitize_pkgname("main/base-cbuild"),
+            tarch,
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
+        ),
+        True,
+    )
 
     rpkgs = sorted(rpkgs)
 
