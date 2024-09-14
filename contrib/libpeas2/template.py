@@ -1,5 +1,5 @@
 pkgname = "libpeas2"
-pkgver = "2.0.4"
+pkgver = "2.0.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dvapi=true"]
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Libpeas"
 source = f"$(GNOME_SITE)/libpeas/{pkgver[:-2]}/libpeas-{pkgver}.tar.xz"
-sha256 = "d7a59de5e8d048073104d02a86d1b3c3b558b85f3f296c73d10c7df4b9a7624e"
+sha256 = "376f2f73d731b54e13ddbab1d91b6382cf6a980524def44df62add15489de6dd"
 # fails
 options = ["!cross"]
 
