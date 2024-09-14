@@ -1,6 +1,6 @@
 pkgname = "ffmpegthumbnailer"
-pkgver = "2.2.2"
-pkgrel = 1
+pkgver = "2.2.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_THUMBNAILER=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/dirkvdb/ffmpegthumbnailer"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "8c4c42ab68144a9e2349710d42c0248407a87e7dc0ba4366891905322b331f92"
+sha256 = "8c9b9057c6cc8bce9d11701af224c8139c940f734c439a595525e073b09d19b8"
 
 
 @subpackage("ffmpegthumbnailer-devel")
