@@ -1,5 +1,5 @@
 pkgname = "aisleriot"
-pkgver = "3.22.33"
+pkgver = "3.22.34"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,6 +25,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/aisleriot"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "9ec344a94207ec4b1c1118acc1cc014ecdc66bf247f643c3e2433303ead20b3e"
+sha256 = "b56063ea5714d410dc186d945177c99b994fd113b28f66b75dd9d78918584a5a"
 # not supported
 options = ["!lto"]
