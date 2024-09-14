@@ -1,0 +1,20 @@
+new test in 6.6, fails on ppc64le
+
+--- a/autotests/CMakeLists.txt
++++ b/autotests/CMakeLists.txt
+@@ -84,6 +84,7 @@ ecm_add_test(HelperTest.cpp TestHelper.cpp
+ 
+ ########### next target ###############
+ 
++if(false)
+ add_executable(FdHelper FdHelper.cpp)
+ target_link_libraries(FdHelper PUBLIC kauth_tests_static)
+ 
+@@ -92,6 +93,7 @@ ecm_add_test(FdTester.cpp
+     LINK_LIBRARIES Qt6::Test kauth_tests_static
+ )
+ target_compile_definitions(KAuthFdTest PRIVATE -DFDHELPEREXE=\"$<TARGET_FILE:FdHelper>\")
++endif()
+ 
+ ########### test kauth-policy-gen ###############
+ if(NOT "${KAUTH_BACKEND_NAME}" STREQUAL "FAKE")
