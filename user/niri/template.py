@@ -1,6 +1,6 @@
 pkgname = "niri"
-pkgver = "0.1.8"
-pkgrel = 1
+pkgver = "0.1.9"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
@@ -15,6 +15,7 @@ hostmakedepends = [
 makedepends = [
     "cairo-devel",
     "glib-devel",
+    "libdisplay-info-devel",
     "libinput-devel",
     "libseat-devel",
     "libxkbcommon-devel",
@@ -33,7 +34,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "070d6991d863161c85f28522924b3118b58a53d8882913a412148bb32206209e"
+sha256 = "70427efcde50a9d262c341befbd4df4e24557afd8311753bf912a4be1bf243a7"
 
 # TODO: dinit graphical user session service, --notify-fd, etc
 
