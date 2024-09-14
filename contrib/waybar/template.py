@@ -1,6 +1,6 @@
 pkgname = "waybar"
-pkgver = "0.10.4"
-pkgrel = 2
+pkgver = "0.11.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dcava=disabled",
@@ -57,7 +57,7 @@ maintainer = "avgwst <avgwst@tutanota.de>"
 license = "MIT"
 url = "https://github.com/Alexays/Waybar"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ad1ead64aec35bc589207ea1edce90e848620d578985967d44a850a66b5ef829"
+sha256 = "6a0e9f0f7f2eff503951958cbb16dc39041c0b67e86c35154e8507677c61be9d"
 options = ["!cross"]
 
 
