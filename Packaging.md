@@ -10,7 +10,7 @@ you should not rely on them or expect them to be stable.
 
 * [Introduction](#introduction)
 * [Categories](#categories)
-* [Targets and Tiers](#targets)
+* [Targets](#targets)
 * [Quality Requirements](#quality_requirements)
   * [Correct Style](#correct_style)
   * [Writing Correct Templates](#correct_templates)
@@ -99,100 +99,72 @@ The result will be a local repository containing the binary packages.
 <a id="categories"></a>
 ## Categories
 
-The Chimera packaging collection provides three categories in which templates
+The Chimera packaging collection provides two categories in which templates
 can go. These currently are:
 
 * `main`
-* `contrib`
 * `user`
 
 Each category has its own repository that is named the same as the category.
 
-The `main` category contains software curated and supported by the distro.
-In general, a system composed purely of `main` packages should be bootable,
-but may not contain all functionality required by users. Templates are
-evaluated for `main` based on various factors such as usefulness, quality of
-the software, licensing and others. Templates in `main` must not depend on
-templates in other categories.
+The `main` category contains packaging that is maintained and/or approved
+by committers and considered high quality. Most packaging in the distro
+goes here.
 
-The `contrib` category is a second-tier repository with looser requirements.
-In general, software here is not required to have a fully working system,
-outside of special devices with special kernels and bootloaders. Templates
-here still undergo the same review process as changes in `main`. The templates
-may depend on any `main` templates. Binary packages are usually built.
-
-Finally, the `user` category is a multi-purpose place, primarily a user repo;
-only some templates may be receiving binary packages, and software marked
-`restricted` can go here (for things that are non-redistributable, or for
-things that are a public work in progress that may be tested but should not
-be packaged). Anything that is anyhow controversial must go here. In some cases,
-some templates may be moved into `contrib` later. Least stringent rules apply.
+The `user` category is a multi-purpose place; user-submitted templates go
+here, as well as things of limited usefulness, things with incomplete
+packaging, and `restricted` templates (typically things that are not
+redistributable and do not have binary packages built). In some cases,
+templates from here may be moved to `main` later.
 
 If you are a new contributor, your templates should usually go in `user`.
 An exception for this is when the template is a dependency of something in
 a stricter category, or when a committer determines that it should go in
 a stricter category (particularly for software that is useful to many people
 and likely to be well tested). Trusted contributors active in the community
-for a longer time may submit theirs in `contrib`. Random leaf packages that
+for a longer time may submit theirs in `main`. Random leaf packages that
 contain shell scripts, themes, fonts, and so on should usually go in `user`.
 
 <a id="targets"></a>
-## Targets and Tiers
+## Targets
 
-Chimera target architecture support is tiered. The tiering affects whether
-software can get included in the repositories.
+Chimera comes with multiple target architectures, and they may be divided
+into roughly three categories:
 
-Tier 1 targets must be supported by all software receiving binary packages,
-i.e. those in `main` and `contrib` section; software unsupported on any
-tier 1 architecture must stay in `user`, except in cases where it does not
-make sense (e.g. a UEFI bootloader would only apply to UEFI-capable archs).
-We try to make sure all `main` software has passing test suites on all tier
-1 architectures, assuming the tests can be run and are not themselves broken.
+1) Well supported architectures with repos
+2) Worse supported architectures with repos
+3) Architectures without repos
 
-Tier 2 targets will receive packaging when possible. They must have a
-fully working `main`, but `contrib` packages may be missing in some cases.
-They are not required to fully pass tests in either category; tests are
-run but they may be disabled on per-template basis.
+In the first case, there are complete official repositories backed by
+reasonable build infrastructure, and we take care to run unit tests and
+so on by default on such architectures.
 
-Tier 3 is like tier 2, but it is not required to be complete in either
-`main` or `contrib`, and is not required to pass tests. Tests are still
-run for informational purposes, but their results are ignored (i.e.
-assuming a pass regardless of the actual outcome). Breakage in tier 3
-targets does not block updating packages, and support is entirely on
-community basis.
+In the second case, we still provide repos, but unit tests may or may
+not be run or their failure may not be considered an error, not all
+packages may be available, and their testing may not be on the same
+level.
 
-Tier 4 targets receive only `main` packages. All other targets receive
-all packages (`main`, `contrib`, `user`) as required or possible.
+In the third case, the architecture has a certain level of support in
+the packaging (i.e. there is a build profile, various templates and
+build styles account for it, etc.) but there are no repos and no
+official support.
 
-There may also be untiered targets. Those have profiles but do not have
-any packages at the moment. It typically means this target is not ready
-to be supported, either by us or by software we rely on. Some untiered
-targets may be promoted at a later point.
+Current architectures with best support:
 
-**Tier 1 targets:**
+* `aarch64` (generic)
+* `ppc64le` (POWER8+)
+* `x86_64` (generic)
 
-* `ppc64le`
-* `aarch64`
-* `x86_64`
+Other architectures with repositories:
 
-**Tier 2 targets:**
+* `ppc64` (ppc970+, unit tests only run for reference)
+* `riscv64` (rv64gc, no LTO + unit tests not run)
 
-* Currently none.
+Other possible targets:
 
-**Tier 3 targets:**
-
-* `ppc64`
-* `riscv64`
-
-**Tier 4 targets:**
-
-* Currently none.
-
-**Untiered targets:**
-
-* `armhf`
-* `armv7`
-* `ppc`
+* `armhf` (ARMv6 + VFP)
+* `armv7` (ARMv7 + VFP)
+* `ppc` (PowerPC 603+)
 
 <a id="quality_requirements"></a>
 ## Quality Requirements
@@ -203,26 +175,13 @@ must not violate the project community guidelines. At the time of introduction,
 it must satisfy the general style requirements and must be buildable, it will
 receive a review from a maintainer and will be merged at their convenience.
 
-For inclusion into `contrib`, the software must additionally be provided
-under a redistributable license and must be open source; when possible, it
-must be packaged from source code (there may be exceptions, but they are
-rare, such as bootstrap toolchains for languages that cannot be bootstrapped
-purely from source code).
-
-Software in `main` must not be vetoed by any core reviewer. In general,
-unless there is a good reason for inclusion into `main`, things shall
-remain in `contrib`.
-
-Templates seeking introduction into `contrib` or better should in general
-be packaged from stable versions. That means using proper release tarballs
-rather than arbitrary `git` or similar revisions. Exceptions to this may
-be made for `contrib` (such as when the software is high profile and the
-latest stable release is very old and provides worse user experience) but
-not for `main`. For `user`, there is no restriction.
-
-Templates to be included in `contrib` or better should generally do their
-best to eliminate vendoring of dependencies, except in cases where this is
-not realistically possible (e.g. most rust/go software and so on).
+For inclusion in `main`, it must be redistributable and must be open source,
+when possible, it must be packaged from source code (except for e.g. bootstrap
+toolchains), must be well maintained, and backed by an existing committer.
+In general, it should not be a VCS version, i.e. it should refer to some kind
+of stable tag, with some very rare exceptions. Vendoring of dependencies should
+be avoided if viable. Drive-by contributions will not be accepted in `main`
+directly in most cases. It must not be vetoed by anybody from core team.
 
 <a id="correct_style"></a>
 ### Correct Style
@@ -2084,7 +2043,7 @@ wordsize  = 64
 triplet   = riscv64-unknown-linux-musl
 machine   = riscv64
 goarch    = riscv64
-repos     = main contrib
+repos     = main
 [flags]
 CFLAGS    = -march=rv64gc -mabi=lp64d
 CXXFLAGS  = ${CFLAGS}
@@ -2098,7 +2057,7 @@ be the full triplet (`cbuild` will take care of building the short
 triplet from it if needed). The compiler flags are optional.
 
 The `repos` field specifies which categories are provided by remote
-repositories. As different architecture tiers may provide different
+repositories. As different architectures may provide different
 package sets and some architectures don't have remote repositories
 at all, this is specified in the profile as we have no way to check
 it (and assuming all repos exist would just lead to needless failures
@@ -2439,7 +2398,7 @@ following:
    provider is printed.
 
 This algorithm is not perfect and will not catch certain edge cases, such as
-when moving a provider from `main` to `contrib` but there still being packages
+when moving a provider from `main` to `user` but there still being packages
 that depend on it in `main`. This is an intended tradeoff to keep things
 reasonably simple. You are expected to be careful with such cases and deal
 with them properly.
