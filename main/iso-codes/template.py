@@ -1,12 +1,11 @@
 pkgname = "iso-codes"
-pkgver = "4.16.0"
+pkgver = "4.17.0"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_gen = []
-hostmakedepends = ["gettext", "python", "pkgconf"]
+hostmakedepends = ["automake", "gettext", "python", "pkgconf"]
 pkgdesc = "List of country, language and currency names"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://salsa.debian.org/iso-codes-team/iso-codes"
-source = f"$(DEBIAN_SITE)/main/i/iso-codes/iso-codes_{pkgver}.orig.tar.xz"
-sha256 = "d37ff1b2b76e63926e8043b42e0ff806bb4e41e2a57d93c9d4ec99c06b409530"
+source = f"https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/v{pkgver}.tar.gz"
+sha256 = "109e41510f4c3c4d1e3961315a36a0322c53e7ec69122c7307e2353c4c5382e1"
