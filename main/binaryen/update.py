@@ -1,1 +1,1 @@
-pattern = r"refs/tags/version_([\d\.]+).tar.gz"
+pattern = r"tag/version_([\d\.]+)\""

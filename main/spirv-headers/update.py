@@ -1,1 +1,1 @@
-pattern = r"sdk-([\d.]+)\.tar"
+pattern = r"tag/vulkan-sdk-([\d.]+)\""

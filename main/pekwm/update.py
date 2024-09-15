@@ -1,1 +1,1 @@
-pattern = r"release-([0-9.]+).tar.gz"
+pattern = r"release-([0-9.]+)\""

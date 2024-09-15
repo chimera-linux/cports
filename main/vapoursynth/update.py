@@ -1,1 +1,1 @@
-pattern = r"R(\d+)\.tar"
+pattern = r"tag/R(\d+)\""

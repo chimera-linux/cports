@@ -1,2 +1,2 @@
-pkgname = "xserver-xorg-server"
+pkgname = "xorg-server"
 ignore = ["*.99.*"]

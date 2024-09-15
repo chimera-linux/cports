@@ -1,1 +1,1 @@
-pattern = r"([\d\.]+)-1\.tar\.gz"
+pattern = r"([\d\.]+)-1\""

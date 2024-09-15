@@ -1,4 +1,4 @@
-pattern = r"libunibreak_([\d\_]+).tar.gz"
+pattern = r"libunibreak_([\d\_]+)\""
 
 
 def fetch_versions(self, src):

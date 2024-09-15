@@ -1,1 +1,1 @@
-pattern = r"/evtest-evtest-([\d\.]+).tar.gz"
+pattern = r"evtest-([\d\.]+)\""

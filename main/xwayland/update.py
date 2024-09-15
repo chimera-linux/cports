@@ -1,2 +1,2 @@
-pkgname = "xserver-xwayland"
+pkgname = "xwayland"
 ignore = ["*.99.*"]

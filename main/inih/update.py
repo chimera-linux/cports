@@ -1,1 +1,1 @@
-pattern = r"/archive/refs/tags/r([\d+]+).tar"
+pattern = r"tag/r([\d+]+)\""
