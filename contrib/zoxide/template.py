@@ -1,5 +1,5 @@
 pkgname = "zoxide"
-pkgver = "0.9.4"
+pkgver = "0.9.5"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "MIT"
 url = "https://github.com/ajeetdsouza/zoxide"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "ec002bdca37917130ae34e733eb29d4baa03b130c4b11456d630a01a938e0187"
+sha256 = "1278660e671d96c5421f0910fa7d79b9e0bb0bfacf7611ff63bf383f721d7a4f"
 
 
 def post_install(self):
