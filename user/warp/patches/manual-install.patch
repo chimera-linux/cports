@@ -1,0 +1,26 @@
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -34,7 +34,6 @@
+ endif
+ 
+ cargo_env = [
+-    'CARGO_HOME=' + meson.project_build_root() / 'cargo-home',
+     'LOCALEDIR=' + get_option('prefix') / get_option('localedir')
+ ]
+ 
+@@ -46,8 +45,6 @@
+   build_always_stale: true,
+   output: meson.project_name() + file_extension,
+   console: true,
+-  install: true,
+-  install_dir: bindir,
+   depends: appdata_gresource,
+   command: [
+     'env',
+@@ -55,6 +52,5 @@
+     cargo, 'build',
+     cargo_options,
+     # Replace with --out-dir once stable https://github.com/rust-lang/cargo/issues/6790#issuecomment-655728327=
+-    '&&', 'cp', 'src' / get_option('target') / rust_target / meson.project_name() + file_extension, '@OUTPUT@'
+   ]
+ )
