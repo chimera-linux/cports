@@ -14,7 +14,12 @@ license = "MIT"
 url = "https://github.com/Foxboron/sbctl"
 source = f"{url}/releases/download/{pkgver}/sbctl-{pkgver}.tar.gz"
 sha256 = "0435097f79fc30c9b3567a50a8beb8d7d71fcea6121533b5da543ca64241cfff"
+# fails
 options = ["!cross"]
+
+if self.profile().arch in ["ppc64", "ppc64le"]:
+    # not supported by go-tpm-tools simulator
+    options += ["!check"]
 
 
 def post_build(self):
