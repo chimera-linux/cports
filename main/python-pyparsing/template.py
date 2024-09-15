@@ -1,5 +1,5 @@
 pkgname = "python-pyparsing"
-pkgver = "3.1.2"
+pkgver = "3.1.4"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -11,8 +11,8 @@ pkgdesc = "Python parsing module"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pyparsing/pyparsing"
-source = f"{url}/archive/pyparsing_{pkgver}.tar.gz"
-sha256 = "9655507e4583fa20d2b6909ce4bf7fee71a9976ea94c734dd857fa9ae7c9c7dd"
+source = f"{url}/archive/{pkgver}.tar.gz"
+sha256 = "852644f146a0f90bb61f41ffb3572d4268d6f51a7242f8e2dac873cbc17963f4"
 # calls urlopen
 options = ["!check"]
 
