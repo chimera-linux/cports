@@ -1,24 +1,20 @@
 pkgname = "python-pysol_cards"
-pkgver = "0.16.0"
+pkgver = "0.18.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
-depends = [
-    "python-random2",
-    "python-six",
-]
-checkdepends = ["python-pytest", *depends]
+depends = ["python"]
+checkdepends = ["python-pytest"]
 pkgdesc = "Python module for dealing cards like various solitaire games"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/shlomif/pysol_cards"
 source = f"$(PYPI_SITE)/p/pysol_cards/pysol_cards-{pkgver}.tar.gz"
-sha256 = "0b87ca7b3f99155cccd3cfd739f739f7744d6f8198222c6d493a034a3d4570c3"
+sha256 = "29196eadd51a54a7bf853d0aecba168853903a24803b8554713e8c7fcc732c2c"
 
 
 def post_install(self):
