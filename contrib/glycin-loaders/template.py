@@ -30,7 +30,8 @@ url = "https://gitlab.gnome.org/sophie-h/glycin"
 source = f"$(GNOME_SITE)/glycin/{pkgver[:-2]}/glycin-{pkgver}.tar.xz"
 sha256 = "2ca8d6146f0d01e91aaa940b930d6527b73f4ce364a13aa3c3e68e3d59e990df"
 # gobject-introspection
-options = ["!cross"]
+# check: for some divine reason, it always passes locally and never on the builders (??)
+options = ["!cross", "!check"]
 
 
 def init_build(self):
