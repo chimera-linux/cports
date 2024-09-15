@@ -10,6 +10,8 @@ url = "https://github.com/topgrade-rs/topgrade"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "53c6521041a6ffddf1ccb13f404f131919a2ef48deb3974fc71dc3be08db6cd0"
 _supported_shells = ["bash", "fish", "zsh"]
+# generates completions with host binary
+options = ["!cross"]
 
 
 def post_build(self):
