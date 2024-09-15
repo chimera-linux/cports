@@ -1,0 +1,33 @@
+From 9b877733b2237ae8b09da7bd4749f5c39190d9cf Mon Sep 17 00:00:00 2001
+From: mizz1e <158266562+mizz1e@users.noreply.github.com>
+Date: Sun, 25 Aug 2024 14:14:03 +0800
+Subject: [PATCH] dladdr1 stub for libnvidia-glcore and libnvidia-eglcore
+
+---
+ libgcompat/dlfcn.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/libgcompat/dlfcn.c b/libgcompat/dlfcn.c
+index f2eaa45..be8600f 100644
+--- a/libgcompat/dlfcn.c
++++ b/libgcompat/dlfcn.c
+@@ -23,3 +23,16 @@ void *dlvsym(void *handle, char *symbol, char *version)
+ 
+ 	return dlsym(handle, symbol);
+ }
++
++int dladdr1(const void *addr, Dl_info *info, void **extra_info, int flags)
++{
++	(void)extra_info;
++
++	switch (flags) {
++		case 1:
++		case 2:
++			return 0;
++		default:
++			return dladdr(addr, info);
++	}
++}
+-- 
+2.46.0
+
