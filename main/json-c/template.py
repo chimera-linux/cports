@@ -1,5 +1,5 @@
 pkgname = "json-c"
-pkgver = "0.17"
+pkgver = "0.18"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -15,7 +15,7 @@ url = "https://json-c.github.io/json-c"
 source = (
     f"https://s3.amazonaws.com/json-c_releases/releases/json-c-{pkgver}.tar.gz"
 )
-sha256 = "7550914d58fb63b2c3546f3ccfbe11f1c094147bd31a69dcd23714d7956159e6"
+sha256 = "876ab046479166b869afc6896d288183bbc0e5843f141200c677b3e8dfb11724"
 tool_flags = {"CFLAGS": ["-Wno-error"]}
 options = ["linkundefver"]
 
