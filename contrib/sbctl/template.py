@@ -1,9 +1,10 @@
 pkgname = "sbctl"
-pkgver = "0.14"
-pkgrel = 4
+pkgver = "0.15.4"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/sbctl"]
-hostmakedepends = ["go", "asciidoc"]
+hostmakedepends = ["asciidoc", "go"]
+makedepends = ["openssl-devel"]
 depends = [
     "llvm-binutils",  # required to generate EFI bundles
 ]
@@ -12,7 +13,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/Foxboron/sbctl"
 source = f"{url}/releases/download/{pkgver}/sbctl-{pkgver}.tar.gz"
-sha256 = "88ccdf3a87151c1b639be4e43999f4984f238eebffebe1d17d9f30e7039bf6e8"
+sha256 = "0435097f79fc30c9b3567a50a8beb8d7d71fcea6121533b5da543ca64241cfff"
 options = ["!cross"]
 
 
