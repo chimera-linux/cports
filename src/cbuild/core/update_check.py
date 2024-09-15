@@ -289,21 +289,22 @@ class UpdateCheck:
                     pname = pname.removeprefix("perl-")
             elif "github.com" in url:
                 pn = "/".join(url.split("/")[3:5])
-                url = f"https://github.com/{pn}/tags"
+                url = f"https://github.com/{pn}/tags.atom"
                 rx = rf"""
-                    /archive/refs/tags/
-                    (v?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\.tar\.gz") # match
+                    /releases/tag/
+                    (v?|V?|{re.escape(pname)}-)?
+                    ([\d.]+)(?=") # match
                 """
                 rxg = 1
             elif "//gitlab." in url or "salsa.debian.org" in url:
                 pn = "/".join(url.split("/")[0:5])
-                url = f"{pn}/-/tags"
+                url = f"{pn}/-/tags?format=atom"
                 rx = rf"""
-                    /archive/[^/]+/
-                    {re.escape(pname)}-v?
-                    ([\d.]+)(?=\.tar\.gz) # match
+                    {re.escape(pn)}/-/tags/
+                    (v?|V?|{re.escape(pname)}-)?
+                    ([\d.]+)(?=\") # match
                 """
+                rxg = 1
             elif "bitbucket.org" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://bitbucket.org/{pn}/downloads"
@@ -322,11 +323,11 @@ class UpdateCheck:
                 url = f"https://download.gnome.org/sources/{pname}/cache.json"
             elif "archive.xfce.org" in url:
                 pn = "/".join(url.split("/")[4:6])
-                url = f"https://gitlab.xfce.org/{pn}/-/tags"
+                url = f"https://gitlab.xfce.org/{pn}/-/tags?format=atom"
                 rx = rf"""
-                    /archive/[^/]+/
-                    ({re.escape(pname)}-)?{re.escape(pname)}-v? # lol
-                    ([\d.]+)(?=\.tar\.gz) # match
+                    {re.escape(pn)}/-/tags/
+                    ({re.escape(pname)}-)?v? # lol
+                    ([\d.]+)(?=\") # match
                 """
                 rxg = 1
             elif "kernel.org/pub/linux/kernel/" in url:
@@ -335,10 +336,12 @@ class UpdateCheck:
             elif "codeberg.org" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://codeberg.org/{pn}/tags"
-                rx = r"""
+                rx = rf"""
                     /archive/
+                    (v?|V?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar\.gz) # match
                 """
+                rxg = 1
             elif "hg.sr.ht" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://hg.sr.ht/{pn}/tags"
@@ -353,7 +356,7 @@ class UpdateCheck:
                 url = f"https://git.sr.ht/{pn}/refs"
                 rx = rf"""
                     /archive/
-                    (v?|{re.escape(pname)}-)?
+                    (v?|V?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
                 rxg = 1
