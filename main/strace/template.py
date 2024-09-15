@@ -1,5 +1,5 @@
 pkgname = "strace"
-pkgver = "6.10"
+pkgver = "6.11"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -22,5 +22,5 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://strace.io"
 source = f"https://github.com/strace/strace/releases/download/v{pkgver}/strace-{pkgver}.tar.xz"
-sha256 = "765ec71aa1de2fe37363c1e40c7b7669fc1d40c44bb5d38ba8e8cd82c4edcf07"
+sha256 = "83262583a3529f02c3501aa8b8ac772b4cbc03dc934e98bab6e4883626e283a5"
 hardening = ["vis", "cfi"]
