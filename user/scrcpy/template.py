@@ -1,5 +1,5 @@
 pkgname = "scrcpy"
-pkgver = "2.6.1"
+pkgver = "2.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,8 +27,8 @@ source = [
     f"!{url}/releases/download/v{pkgver}/scrcpy-server-v{pkgver}",
 ]
 sha256 = [
-    "4948474f1494fdff852a0a7fa823a0b3c25d3ea0384acdaf46c322e34b13e449",
-    "ca7ab50b2e25a0e5af7599c30383e365983fa5b808e65ce2e1c1bba5bfe8dc3b",
+    "3ceea215f6eccb59535f68a16db6db2b05a8a1c91bdcb4a6e222d3093a9daf8c",
+    "a23c5659f36c260f105c022d27bcb3eafffa26070e7baa9eda66d01377a1adba",
 ]
 
 
