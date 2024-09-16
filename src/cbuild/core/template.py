@@ -580,36 +580,36 @@ def copy_of_dval(val):
 
 def validate_type(val, tp):
     if not tp:
-        return True
+        return True, None
     if tp == "comp":
         if val is None:
-            return True
+            return True, tp
         sv = val.split(":")
         if len(sv) < 0 or len(sv) > 2:
-            return False
+            return False, tp
         match sv[0]:
             case "deflate" | "zstd":
                 if len(sv) == 2:
                     try:
                         iv = int(sv[1])
                         if iv < 0 or iv > (9 if sv[0] == "deflate" else 22):
-                            return False
+                            return False, tp
                     except Exception:
-                        return False
+                        return False, tp
             case "none":
-                return len(sv) == 1
+                return len(sv) == 1, tp
             case _:
-                return False
+                return False, tp
         return True
     if isinstance(tp, tuple):
         for rt in tp:
             if isinstance(val, rt):
                 break
         else:
-            return False
+            return False, tp[0].__name__
     elif not isinstance(val, tp):
-        return False
-    return True
+        return False, tp.__name__
+    return True, None
 
 
 def pkg_profile(pkg, target):
@@ -891,8 +891,8 @@ class Template(Package):
             # also perform type validation
             if hasattr(m, fl):
                 flv = getattr(m, fl)
-                if not validate_type(flv, tp):
-                    fl_t = type(fl).__name__
+                vld, fl_t = validate_type(flv, tp)
+                if not vld:
                     flv_t = type(flv).__name__
                     self.error(
                         f"invalid value for field {fl}",
@@ -983,8 +983,8 @@ class Template(Package):
                 if not asp:
                     continue
                 flv = getattr(sp, fl)
-                if not validate_type(flv, tp):
-                    fl_t = type(fl).__name__
+                vld, fl_t = validate_type(flv, tp)
+                if not vld:
                     flv_t = type(flv).__name__
                     self.error(
                         f"invalid value for field {fl}",
@@ -1395,8 +1395,8 @@ class Template(Package):
             flv = getattr(self, fl)
             if flv is None:
                 self.error(f"mandatory template field not declared: {fl}")
-            if not validate_type(flv, tp):
-                fl_t = type(fl).__name__
+            vld, fl_t = validate_type(flv, tp)
+            if not vld:
                 flv_t = type(flv).__name__
                 self.error(
                     f"invalid value for field {fl}",
