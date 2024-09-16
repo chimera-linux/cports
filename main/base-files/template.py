@@ -1,7 +1,7 @@
 pkgname = "base-files"
 _iana_ver = "20240813"
 pkgver = f"0.1.{_iana_ver}"
-pkgrel = 1
+pkgrel = 2
 # highest priority dir owner
 replaces_priority = 65535
 pkgdesc = "Chimera Linux base system files"
@@ -95,12 +95,14 @@ def install(self):
     # Files that should usually not be changed
     for f in [
         "chimera-release",
-        "os-release",
         "profile.path",
         "protocols",
         "services",
     ]:
         self.install_file(self.files_path / "etc" / f, "etc")
+
+    self.install_file(self.files_path / "etc/os-release", "usr/lib")
+    self.install_link("etc/os-release", "../usr/lib/os-release")
 
     self.install_dir("etc/profile.d")
 
