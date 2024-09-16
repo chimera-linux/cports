@@ -1,5 +1,5 @@
 pkgname = "fnc"
-pkgver = "0.16"
+pkgver = "0.18"
 pkgrel = 0
 build_style = "makefile"
 makedepends = [
@@ -13,7 +13,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "ISC"
 url = "https://fnc.bsdbox.org"
 source = f"{url}/uv/dl/fnc-{pkgver}.tar.gz"
-sha256 = "9ebfe3e9ecaa764ebc1ed488857c0a18b0f51e57a66f73620ee692587e5bf6da"
+sha256 = "49f94c67e00213440d84f3b09bcf75850f9b6e8d8721856d68f4596c49cec780"
 # no tests
 options = ["!check"]
 
