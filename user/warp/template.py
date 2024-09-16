@@ -22,6 +22,9 @@ url = "https://gitlab.gnome.org/World/warp"
 source = f"{url}/-/archive/v{pkgver}/warp-{pkgver}.tar.gz"
 sha256 = "c832ddb2c619b1d1e3ebfd9bbe8c485871ab7759e9a854c324bcac41d9e02196"
 
+if self.profile().arch in ["ppc64", "ppc64le", "riscv64"]:
+    broken = "ancient ring, remove next update"
+
 
 def post_patch(self):
     from cbuild.util import cargo
