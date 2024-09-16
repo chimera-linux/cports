@@ -1,12 +1,13 @@
 pkgname = "pinentry"
 # Keep pkgver in sync with contrib/pinentry-qt
 pkgver = "1.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-tty",
     "--enable-pinentry-curses",
     "--enable-pinentry-gnome3",
+    "--enable-pinentry-qt",
     "--enable-fallback-curses",
     "--enable-libsecret",
     "--enable-ncurses",
@@ -20,6 +21,7 @@ makedepends = [
     "libgpg-error-devel",
     "libsecret-devel",
     "ncurses-devel",
+    "qt6-qtbase-devel",
 ]
 depends = ["virtual:pinentry-default!pinentry-curses-default"]
 pkgdesc = "PIN or passphrase entry dialogs for GnuPG"
@@ -40,6 +42,14 @@ def _frontend(name):
     @subpackage(f"pinentry-{name}")
     def _(self):
         self.subdesc = f"{name} frontend"
+
+        if name == "qt":
+            return [
+                "usr/bin/pinentry-qt",
+                "usr/share/applications/org.gnupg.pinentry-qt.desktop",
+                "usr/share/pixmaps/pinentry.png",
+            ]
+
         return [f"usr/bin/pinentry-{name}"]
 
     @subpackage(f"pinentry-{name}-default")
@@ -54,5 +64,5 @@ def _frontend(name):
         return [f"@usr/bin/pinentry=>pinentry-{name}"]
 
 
-for _fe in ["curses", "tty", "gnome3"]:
+for _fe in ["curses", "tty", "gnome3", "qt"]:
     _frontend(_fe)
