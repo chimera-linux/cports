@@ -1,6 +1,6 @@
 pkgname = "tcl"
-pkgver = "8.6.14"
-pkgrel = 1
+pkgver = "8.6.15"
+pkgrel = 0
 build_wrksrc = "unix"
 build_style = "gnu_configure"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/tcl/tcl{pkgver}-src.tar.gz"
-sha256 = "5880225babf7954c58d4fb0f5cf6279104ce1cd6aa9b71e9a6322540e1c4de66"
+sha256 = "861e159753f2e2fbd6ec1484103715b0be56be3357522b858d3cbb5f893ffef1"
 # no check target
 options = ["!check", "!lto", "!splitstatic"]
 
