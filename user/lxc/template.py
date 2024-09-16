@@ -1,5 +1,5 @@
 pkgname = "lxc"
-pkgver = "6.0.1"
+pkgver = "6.0.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "tj <tjheeta@gmail.com>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://linuxcontainers.org"
 source = f"{url}/downloads/lxc/lxc-{pkgver}.tar.gz"
-sha256 = "ccb38fbcdb86a82ee8192ccc85bba47edaf824439e9a7f12ab178d51ff1f77e0"
+sha256 = "1930aa10d892db8531d1353d15f7ebf5913e74a19e134423e4d074c07f2d6e8b"
 file_modes = {"usr/libexec/lxc/lxc-user-nic": ("root", "root", 0o4755)}
 # symlinks to _lxc
 options = ["!lintcomp"]
