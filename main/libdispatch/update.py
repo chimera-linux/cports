@@ -1,2 +1,2 @@
-url = "https://api.github.com/repos/apple/swift-corelibs-libdispatch/git/refs/tags"
-pattern = r"/refs/tags/swift-([\d\.]+)-RELEASE"
+url = "https://github.com/apple/swift-corelibs-libdispatch/info/refs?service=git-upload-pack"
+pattern = r"refs/tags/swift-([\d\.]+)-RELEASE"
