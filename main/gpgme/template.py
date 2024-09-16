@@ -1,7 +1,6 @@
 pkgname = "gpgme"
-# update contrib/gpgme-qt too
 pkgver = "1.23.2"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 make_dir = "."
 # otherwise cmake files are broken
@@ -21,6 +20,7 @@ makedepends = [
     "libassuan-devel",
     "libgpg-error-devel",
     "python-devel",
+    "qt6-qtbase-devel",
 ]
 depends = ["gnupg"]
 pkgdesc = "GnuPG Made Easy"
@@ -61,6 +61,26 @@ def post_install(self):
         self.chroot_destdir,
         whl,
     )
+
+
+@subpackage("gpgme-qt")
+def _(self):
+    self.subdesc = "Qt6 support"
+
+    return ["usr/lib/libqgpgme*.so.*"]
+
+
+@subpackage("gpgme-qt-devel")
+def _(self):
+    self.depends = [self.with_pkgver("gpgme-devel")]
+    self.subdesc = "Qt6 support development files"
+
+    return [
+        "usr/include/QGpgME",
+        "usr/include/qgpgme",
+        "usr/lib/libqgpgmeqt*.so",
+        "usr/lib/cmake/QGpgme*",
+    ]
 
 
 @subpackage("gpgme-devel")
