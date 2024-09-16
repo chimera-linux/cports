@@ -1,6 +1,6 @@
 pkgname = "game-devices-udev"
 pkgver = "0.23"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Miscellaneous udev rules for game devices"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
