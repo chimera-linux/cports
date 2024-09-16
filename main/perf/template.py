@@ -63,6 +63,10 @@ sha256 = "55d2c6c025ebc27810c748d66325dd5bc601e8d32f8581d9e77673529bdacb2e"
 options = ["!check", "!splitdoc"]
 
 
+if self.profile().arch == "riscv64":
+    broken = "ld.lld: error: target emulation unknown"
+
+
 def init_build(self):
     self.make_build_args += [f"EXTRA_CFLAGS={self.get_cflags(shell=True)}"]
     self.make_install_args += [f"EXTRA_CFLAGS={self.get_cflags(shell=True)}"]
