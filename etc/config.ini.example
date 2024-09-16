@@ -59,7 +59,7 @@ keep_stage = no
 # whether to attempt using remote repositories (if available)
 remote = yes
 # categories that are permitted to build; primarily for bulk builds
-categories = main contrib user
+categories = main user
 # whether restricted packages can be considered for building
 allow_restricted = no
 # maintainer field to use for packages, you can set it for personal repos
