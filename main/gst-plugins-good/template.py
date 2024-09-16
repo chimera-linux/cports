@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-good"
 pkgver = "1.24.7"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -22,7 +22,6 @@ configure_args = [
     "-Dosxaudio=disabled",
     "-Dosxvideo=disabled",
     "-Dqt5=disabled",  # no qt5
-    "-Dqt6=disabled",  # in contrib
     "-Drpicamsrc=disabled",  # proprietary
     "-Dshout2=disabled",  # libshout needs speex which we don't package
     "-Dspeex=disabled",  # obsolete, replaced by opus
@@ -39,6 +38,8 @@ hostmakedepends = [
     "nasm",
     "orc",
     "pkgconf",
+    "qt6-qtbase",
+    "qt6-qttools",
 ]
 makedepends = [
     "bzip2-devel",
@@ -58,6 +59,10 @@ makedepends = [
     "mpg123-devel",
     "orc-devel",
     "pipewire-jack-devel",
+    "qt6-qtbase-devel",
+    "qt6-qtdeclarative-devel",
+    "qt6-qttools-devel",
+    "qt6-qtwayland-devel",
     "taglib-devel",
     "twolame-devel",
     "wavpack-devel",
@@ -74,3 +79,10 @@ sha256 = "759acb11e6de8373ff8cbb5e7ab8eb9a38631be81cf24220267b001eb55593c1"
 # FIXME int (extra tests fail, look for SIGILL)
 # in 1.24.4, pipelines_effectv only
 hardening = ["!int"]
+
+
+@subpackage("gst-plugins-good-qt6")
+def _(self):
+    self.subdesc = "Qt6 plugin"
+
+    return ["usr/lib/gstreamer-1.0/libgstqml*.so"]

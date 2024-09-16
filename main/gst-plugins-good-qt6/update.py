@@ -1,1 +1,0 @@
-../../main/gst-plugins-good/update.py
