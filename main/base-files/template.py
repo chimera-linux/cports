@@ -1,7 +1,7 @@
 pkgname = "base-files"
-_iana_ver = "20240813"
+_iana_ver = "20240912"
 pkgver = f"0.1.{_iana_ver}"
-pkgrel = 2
+pkgrel = 0
 # highest priority dir owner
 replaces_priority = 65535
 pkgdesc = "Chimera Linux base system files"
