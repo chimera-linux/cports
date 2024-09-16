@@ -1,6 +1,6 @@
 pkgname = "minetest"
-pkgver = "5.9.0"
-pkgrel = 1
+pkgver = "5.9.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SERVER=TRUE",
@@ -47,7 +47,7 @@ url = "https://www.minetest.net"
 source = (
     f"https://github.com/minetest/minetest/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "070bc292a0b7fc60d7ff0a14b364c8229c5cbe38296a80f948ea2c2591545a5c"
+sha256 = "aa9a6ae57445b779f57dcba5a83b0704fabd24c5eca37c6c8611e885bdf09d7c"
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
 # see below
