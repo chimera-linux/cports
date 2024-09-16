@@ -1,11 +1,12 @@
 pkgname = "appstream"
-# match to contrib/appstream-qt
 pkgver = "1.0.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dapidocs=false",
     "-Dcompose=true",
+    "-Dqt=true",
+    "-Dqt-versions=6",
     "-Dstemming=false",
     "-Dsystemd=false",
 ]
@@ -31,6 +32,7 @@ makedepends = [
     "libxmlb-devel",
     "libyaml-devel",
     "pango-devel",
+    "qt6-qtbase-devel",
 ]
 depends = ["shared-mime-info"]
 pkgdesc = "Tools and libraries to work with AppStream metadata"
@@ -42,6 +44,27 @@ source = (
 )
 sha256 = "dd7222519b5d855124fa803ce82a7cbf090ac6b2e44a5bc515e729b1f20a63ae"
 options = ["!cross"]
+
+
+@subpackage("appstream-qt")
+def _(self):
+    self.subdesc = "Qt support"
+
+    return [
+        "usr/lib/libAppStreamQt.so.*",
+    ]
+
+
+@subpackage("appstream-qt-devel")
+def _(self):
+    self.depends = [self.with_pkgver("appstream-devel")]
+    self.subdesc = "Qt development files"
+
+    return [
+        "usr/include/AppStreamQt",
+        "usr/lib/libAppStreamQt.so",
+        "usr/lib/cmake/AppStreamQt",
+    ]
 
 
 @subpackage("appstream-devel")
