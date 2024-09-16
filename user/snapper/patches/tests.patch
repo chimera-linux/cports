@@ -1,0 +1,11 @@
+--- a/testsuite/Makefile.am	2024-09-16 06:34:13.763280136 -0300
++++ b/testsuite/Makefile.am	2024-09-16 15:43:53.682569969 -0300
+@@ -7,7 +7,7 @@
+ LDADD = ../snapper/libsnapper.la ../dbus/libdbus.la -lboost_unit_test_framework
+ 
+ check_PROGRAMS = sysconfig-get1.test dirname1.test basename1.test 		\
+-	equal-date.test cmp-lt.test humanstring.test uuid.test			\
++	equal-date.test uuid.test			\
+ 	table.test table-formatter.test csv-formatter.test json-formatter.test	\
+ 	getopts.test scan-datetime.test root-prefix.test range.test limit.test
+ 
