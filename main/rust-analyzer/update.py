@@ -1,4 +1,4 @@
-url = "https://api.github.com/repos/rust-lang/rust-analyzer/git/refs/tags"
+url = "https://github.com/rust-lang/rust-analyzer/info/refs?service=git-upload-pack"
 pattern = r"refs/tags/(\d+\-\d+\-\d+)"
 ignore = ["nightly"]
 
