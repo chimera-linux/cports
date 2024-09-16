@@ -1,12 +1,12 @@
-# update contrib/libportal-qt6 too
 pkgname = "libportal"
 pkgver = "0.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddocs=false",
     "-Dbackend-gtk3=enabled",
     "-Dbackend-gtk4=enabled",
+    "-Dbackend-qt6=enabled",
 ]
 hostmakedepends = [
     "glib-devel",
@@ -15,7 +15,7 @@ hostmakedepends = [
     "pkgconf",
     "vala",
 ]
-makedepends = ["glib-devel", "gtk+3-devel", "gtk4-devel"]
+makedepends = ["glib-devel", "gtk+3-devel", "gtk4-devel", "qt6-qtbase-devel"]
 pkgdesc = "Flatpak portal library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
@@ -36,6 +36,25 @@ def _(self):
     self.subdesc = "Gtk4 backend"
 
     return ["usr/lib/girepository-1.0/XdpGtk4*", "usr/lib/libportal-gtk4.so.*"]
+
+
+@subpackage("libportal-qt6")
+def _(self):
+    self.subdesc = "Qt6 backend"
+
+    return ["usr/lib/libportal-qt*.so.*"]
+
+
+@subpackage("libportal-qt6-devel")
+def _(self):
+    self.depends = [self.with_pkgver("libportal-devel")]
+    self.subdesc = "Qt6 development files"
+
+    return [
+        "usr/include/libportal-qt6",
+        "usr/lib/libportal-qt*.so",
+        "usr/lib/pkgconfig/libportal-qt6.pc",
+    ]
 
 
 @subpackage("libportal-devel")
