@@ -600,7 +600,7 @@ def validate_type(val, tp):
                 return len(sv) == 1, tp
             case _:
                 return False, tp
-        return True
+        return True, None
     if isinstance(tp, tuple):
         for rt in tp:
             if isinstance(val, rt):
