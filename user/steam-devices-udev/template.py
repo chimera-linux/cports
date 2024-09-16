@@ -1,6 +1,6 @@
 pkgname = "steam-devices-udev"
 pkgver = "1.0.0.61_git20230412"
-pkgrel = 0
+pkgrel = 1
 _commit = "13443480a64fe8f10676606bd57da6de89f8ccb1"
 pkgdesc = "Udev rules for use with the Steam flatpak"
 maintainer = "psykose <alice@ayaya.dev>"
