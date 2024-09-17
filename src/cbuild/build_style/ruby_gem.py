@@ -77,6 +77,10 @@ def install(self):
         if f.name == "mkmf.log" or f.name == "gem_make.out":
             f.unlink()
 
+    # until next ruby bundled bundler stops leaving around .lock files
+    for f in (self.destdir / "usr/bin").rglob("*.lock"):
+        f.unlink()
+
     # move manpages
     mdir = self.destdir / idir / "man"
     if mdir.is_dir():
