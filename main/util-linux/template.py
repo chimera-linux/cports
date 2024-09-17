@@ -1,6 +1,6 @@
 pkgname = "util-linux"
 pkgver = "2.40.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "--auto-feature=enabled",
@@ -184,6 +184,7 @@ def _(self):
         "usr/share/bash-completion/completions/blockdev",
         "usr/share/bash-completion/completions/eject",
         "usr/share/bash-completion/completions/findmnt",
+        "usr/share/bash-completion/completions/findfs",
         "usr/share/bash-completion/completions/fsck*",
         "usr/share/bash-completion/completions/losetup",
         "usr/share/bash-completion/completions/lsblk",
