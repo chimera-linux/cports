@@ -15,7 +15,5 @@ def precompile(pkg, path):
         "compileall",
         "-f",
         "-q",
-        "-j",
-        str(pkg.make_jobs),
         apath,
     )
