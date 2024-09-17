@@ -1,6 +1,6 @@
 pkgname = "ncurses"
 pkgver = "6.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-root-access",
@@ -240,15 +240,31 @@ def post_install(self):
     self.uninstall("usr/lib/terminfo")
 
 
+@subpackage("ncurses-libtinfo-libs")
+def _(self):
+    self.subdesc = "libtinfo.so symlink"
+
+    return ["usr/lib/libtinfo*.so.*"]
+
+
+@subpackage("ncurses-libtinfo-devel")
+def _(self):
+    self.subdesc = "libtinfo.so development files"
+    self.depends += [self.with_pkgver("ncurses-devel")]
+
+    return [
+        "usr/lib/libtinfo.so",
+        "usr/lib/pkgconfig/tinfo.pc",
+    ]
+
+
 @subpackage("ncurses-libs")
 def _(self):
-    self.provides += [self.with_pkgver("ncurses-libtinfo-libs")]
     return self.default_libs()
 
 
 @subpackage("ncurses-devel")
 def _(self):
-    self.provides += [self.with_pkgver("ncurses-libtinfo-devel")]
     return self.default_devel()
 
 
