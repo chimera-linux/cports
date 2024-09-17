@@ -24,7 +24,7 @@ def invoke(pkg):
         else:
             files.add(str(pkg.chroot_destdir / f.relative_to(pkg.destdir)))
     # now process links
-    for f in sorted(syms):
+    for f in syms:
         linktgt = f.readlink()
         # if it points outside mandir, also add it for processing
         linkfull = (f.parent / linktgt).resolve()
@@ -47,7 +47,7 @@ def invoke(pkg):
         f.unlink()
         f.with_suffix(f"{f.suffix}.gz").symlink_to(f"{linktgt}.gz")
     # and then files
-    for f in sorted(files):
+    for f in files:
         # keep to avoid tripping the hardlink detector
         chroot.enter(
             "gzip",
