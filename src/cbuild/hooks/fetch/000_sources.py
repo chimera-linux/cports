@@ -11,7 +11,16 @@ from multiprocessing.pool import ThreadPool
 
 
 def get_cksum(dfile, pkg):
-    return hashlib.sha256(dfile.read_bytes()).hexdigest()
+    hobj = hashlib.sha256()
+    # single 64k buffer (avoid many alloc+free)
+    rbuf = bytearray(65536)
+    with dfile.open("rb") as fn:
+        while True:
+            nread = fn.readinto(rbuf)
+            if nread == 0:
+                break
+            hobj.update(rbuf[0:nread])
+    return hobj.hexdigest()
 
 
 def make_link(dfile, cksum):
