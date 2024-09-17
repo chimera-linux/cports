@@ -1,6 +1,6 @@
 # we call it this because 'glycin' is for the rust crate, and -loaders is for the loaders
 pkgname = "glycin-loaders"
-pkgver = "1.1.0"
+pkgver = "1.1.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -28,7 +28,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/sophie-h/glycin"
 source = f"$(GNOME_SITE)/glycin/{pkgver[:-2]}/glycin-{pkgver}.tar.xz"
-sha256 = "2ca8d6146f0d01e91aaa940b930d6527b73f4ce364a13aa3c3e68e3d59e990df"
+sha256 = "560ee42167c1ed22826618e61d83e49140db5bf47a65a9ba8ece2cd73d2a4aa8"
 # gobject-introspection
 # check: for some divine reason, it always passes locally and never on the builders (??)
 options = ["!cross", "!check"]
