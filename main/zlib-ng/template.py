@@ -1,5 +1,5 @@
 pkgname = "zlib-ng"
-pkgver = "2.2.1"
+pkgver = "2.2.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Zlib"
 url = "https://github.com/zlib-ng/zlib-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ec6a76169d4214e2e8b737e0850ba4acb806c69eeace6240ed4481b9f5c57cdf"
+sha256 = "fcb41dd59a3f17002aeb1bb21f04696c9b721404890bb945c5ab39d2cb69654c"
 
 
 @subpackage("zlib-ng-devel")
