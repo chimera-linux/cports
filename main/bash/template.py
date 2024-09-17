@@ -1,6 +1,6 @@
 pkgname = "bash"
 pkgver = "5.2.32"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--without-bash-malloc",
@@ -28,11 +28,6 @@ tool_flags = {
 }
 # FIXME cfi, int: testsuite failures
 hardening = ["vis", "!cfi", "!int"]
-
-
-def init_configure(self):
-    tcap = self.profile().sysroot / "usr/lib/libncursesw.a"
-    self.make_build_args += [f"TERMCAP_LIB={tcap}"]
 
 
 def post_install(self):
