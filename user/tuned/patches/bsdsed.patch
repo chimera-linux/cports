@@ -1,0 +1,11 @@
+--- a/Makefile	2024-09-17 17:42:29.176715156 -0300
++++ b/Makefile	2024-09-17 17:47:13.423932661 -0300
+@@ -53,7 +53,7 @@
+ BASH_COMPLETIONS = $(DATADIR)/bash-completion/completions
+ 
+ copy_executable = install -Dm 0755 $(1) $(2)
+-rewrite_shebang = sed -i -r -e $(SHEBANG_REWRITE_REGEX) $(1)
++rewrite_shebang = sed -i "" -r -e $(SHEBANG_REWRITE_REGEX) $(1)
+ restore_timestamp = touch -r $(1) $(2)
+ install_python_script = $(call copy_executable,$(1),$(2)) \
+ 	&& $(call rewrite_shebang,$(2)) && $(call restore_timestamp,$(1),$(2));

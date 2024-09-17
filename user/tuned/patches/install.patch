@@ -1,0 +1,11 @@
+--- a/Makefile	2024-09-17 14:32:25.679368793 -0300
++++ b/Makefile	2024-09-17 14:33:07.494989958 -0300
+@@ -165,7 +165,7 @@
+ 	echo -n > $(DESTDIR)$(SYSCONFDIR)/tuned/profile_mode
+ 	echo -n > $(DESTDIR)$(SYSCONFDIR)/tuned/post_loaded_profile
+ 	install -Dpm 0644 bootcmdline $(DESTDIR)$(SYSCONFDIR)/tuned/bootcmdline
+-	install -Dpm 0644 modules.conf $(DESTDIR)$(SYSCONFDIR)/modprobe.d/tuned.conf
++	install -Dpm 0644 modules.conf $(DESTDIR)/usr/lib/modprobe.d/tuned.conf
+ 
+ 	# profiles & system config
+ 	cp -a profiles/* $(DESTDIR)$(TUNED_PROFILES_DIR)/
