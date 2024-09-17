@@ -11,7 +11,14 @@ from multiprocessing.pool import ThreadPool
 
 
 def get_cksum(dfile, pkg):
-    return hashlib.sha256(dfile.read_bytes()).hexdigest()
+    hash = hashlib.sha256()
+    with open(dfile, "rb") as f:
+        while True:
+            data = f.read(65536)  # 64 KiB chunks
+            if not data:
+                break
+            hash.update(data)
+    return hash.hexdigest()
 
 
 def make_link(dfile, cksum):
