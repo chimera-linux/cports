@@ -1,6 +1,6 @@
 pkgname = "headscale"
-pkgver = "0.22.3"
-pkgrel = 7
+pkgver = "0.23.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v{pkgver}",
@@ -12,7 +12,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/juanfont/headscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ee408065c879fc5148a10050d663f93148eccdd6bf59d3b953673a36eaad4070"
+sha256 = "6618733a6d9c6fef43e5e1c9a1e09047df139e4f3746c8763d79410730fc3b40"
 # generates completions with host binary
 options = ["!cross"]
 
