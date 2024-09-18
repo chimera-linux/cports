@@ -24,6 +24,8 @@ def _license_install(lic):
         return True
     if lic.startswith("MIT"):
         return True
+    if lic.startswith("OFL"):
+        return True
     return False
 
 
