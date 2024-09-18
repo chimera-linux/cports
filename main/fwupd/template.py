@@ -1,6 +1,6 @@
 pkgname = "fwupd"
 pkgver = "1.9.24"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
@@ -36,8 +36,8 @@ makedepends = [
     "libcbor-devel",
     "libcurl-devel",
     "libdrm-devel",
-    "libgusb-devel",
     "libgudev-devel",
+    "libgusb-devel",
     "libjcat-devel",
     "libmbim-devel",
     "libqmi-devel",
@@ -70,7 +70,7 @@ match self.profile().arch:
 if _have_uefi:
     makedepends += ["efivar-devel"]
     if self.profile().arch != "riscv64":
-        depends += ["virtual:fwupd-efi!fwupd-efi-dummy"]
+        depends += ["fwupd-efi"]
         _have_uefi_capsule = True
     else:
         configure_args += ["-Dplugin_uefi_capsule=disabled"]
@@ -102,12 +102,3 @@ def post_install(self):
 @subpackage("fwupd-devel")
 def _(self):
     return self.default_devel()
-
-
-@subpackage("fwupd-efi-dummy", _have_uefi_capsule)
-def _(self):
-    self.subdesc = "UEFI application dummy provider"
-    self.provides = ["fwupd-efi=0"]
-    self.options = ["empty"]
-
-    return []
