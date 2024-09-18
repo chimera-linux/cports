@@ -15,7 +15,7 @@ def invoke(pkg):
 
     for h in _avail:
         scp = scdir / f"{pkg.pkgname}.{h}"
-        up = pkg.rparent.template_path / f"{pkg.pkgname}.{h}"
+        up = pkg.rparent.template_path / f"scripts/{pkg.pkgname}.{h}"
 
         # scripts can be generated or can be files
         sr = pkg.scripts.get(h, None)
