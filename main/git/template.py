@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.46.1"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "asciidoc",
     "gettext",
@@ -168,13 +168,7 @@ def _(self):
 @subpackage("git-svn")
 def _(self):
     self.subdesc = "Subversion support"
-    self.depends += [
-        self.parent,
-        # hack to work around cross-category dependency
-        # won't be installable without contrib enabled (that's fine)
-        "virtual:subversion-perl!base-files",
-        "perl-termreadkey",
-    ]
+    self.depends += [self.parent, "subversion-perl", "perl-termreadkey"]
     self.install_if = [self.parent, "subversion"]
 
     return [
