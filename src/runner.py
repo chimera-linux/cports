@@ -1755,6 +1755,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             new_session=False,
             mount_binpkgs=True,
             mount_cbuild_cache=True,
+            ro_dest=False,
             env={
                 "HOME": "/tmp",
                 "CBUILD_SHELL": "1",
