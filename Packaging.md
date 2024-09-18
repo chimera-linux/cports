@@ -971,8 +971,8 @@ Keep in mind that default values may be overridden by build styles.
   are marked this way to be built. The value is the reason why it's marked
   like that. Often this will be e.g. non-redistributable clause in the
   terms of the package.
-* `scriptlets` *(dict)* A dictionary of strings that are the scriptlets for
-  this package. These take precedence over file scriptlets.
+* `scripts` *(dict)* A dictionary of strings that are the scripts for
+  this package. Having both these and file-based scripts is an error.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.
@@ -1973,9 +1973,9 @@ environment, but those are documented elsewhere.
 
 The packaging system lets you provide custom hooks as well as triggers.
 
-Hooks are scriptlets (shell scripts) that will run at specified
-times during the package installation or removal. Triggers are scriptlets
-that run if something modifies a monitored directory.
+Hooks are shell scripts that will run at specified times during the package
+installation or removal. Triggers are scripts that run if something modifies
+a monitored directory.
 
 The system supports `install`, `upgrade` and `deinstall` hooks, each
 having `pre` and `post` variants differentiating whether the hook is
@@ -1990,7 +1990,7 @@ counted.
 
 Overall, this makes 6 hooks such as `pre-install` and so on.
 
-Triggers are a different kind of scriptlet. Each package is allowed
+Triggers are a different kind of script. Each package is allowed
 to carry one trigger, and this trigger must have a list of directory
 patterns set up for it. These directory patterns are then monitored
 for changes, potentially by other packages. That means other packages
@@ -2000,22 +2000,17 @@ the trigger is not modified in any way.
 Triggers are fired when the affected directory is modified in any
 way, this includes uninstallation.
 
-The scriptlet is provided as a file in the template's directory,
+The script is provided as a file in the template's directory,
 named `pkgname.scriptname`, e.g. `foo.trigger` or `foo.post-install`.
-You can use symlinks if you want one scriptlet to be used for multiple
+You can use symlinks if you want one script to be used for multiple
 hooks.
 
 If a trigger script is provided, the `triggers` variable must be set
 appropriately.
 
-All scriptlets are run as if `set -e`. All scriptlets are run with the
-default shell interpreter (`#!/bin/sh`) regardless of their shebang.
-You should still provide a `#!/bin/sh` shebang, but this is just for
-style.
-
-Alternatively, scriptlets may be provided as a part of the template
-using the `scriptlets` field. If both file and in-template scriptlet
-are provided, the in-template one takes precedence.
+Alternatively, scripts may be provided as a part of the template
+using the `scripts` field. If both file and in-template scripts
+are provided, it is an error.
 
 Hooks get passed the new or current package version as the first
 argument, as well as the old version as a second argument where this
