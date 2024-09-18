@@ -7,6 +7,7 @@ checkdepends = [
     "libunwind-devel-static",
     "musl-devel-static",
 ]
+scripts = {"pre-upgrade": True}
 pkgdesc = "Go programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

@@ -101,6 +101,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
+scripts = {"pre-install": True, "pre-upgrade": True}
 pkgdesc = "Generic machine emulator and virtualizer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"

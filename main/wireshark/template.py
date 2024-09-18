@@ -54,6 +54,7 @@ makedepends = [
     "zstd-devel",
 ]
 checkdepends = ["python-pytest-xdist"]
+scripts = {"pre-install": True}
 pkgdesc = "Network protocol analyzer"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"

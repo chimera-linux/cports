@@ -22,16 +22,32 @@ def invoke(pkg):
         tp = "generated"
 
         if up.is_file():
-            if not sr:
-                sr = up.read_text()
-                tp = "file"
-            else:
-                pkg.error(f"generated/file script conflict for '{h}', pick one")
+            if sr is not True and h != "trigger":
+                pkg.error(
+                    f"undeclared script file found for '{h}'",
+                    hint="try setting its field in 'scripts' variable to True",
+                )
+            elif isinstance(sr, str):
+                pkg.error(
+                    f"ambiguous script for '{h}'",
+                    hint="pick either file or string but not both",
+                )
+            elif sr is True and h == "trigger":
+                pkg.error("triggers do not need declaration in 'scripts'")
+            sr = up.read_text()
+            tp = "file"
+        elif sr is True:
+            if h == "trigger":
+                pkg.error("triggers do not need declaration in 'scripts'")
+            pkg.error(
+                f"script file '{h}' declared in template but not found",
+                hint="maybe you have a typo in the file name?",
+            )
 
         # remove any leftovers from potential previous dirty build
         scp.unlink(missing_ok=True)
 
-        if not sr:
+        if sr is None:
             continue
 
         if len(sr.strip()) == 0:

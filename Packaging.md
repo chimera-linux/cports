@@ -972,7 +972,8 @@ Keep in mind that default values may be overridden by build styles.
   like that. Often this will be e.g. non-redistributable clause in the
   terms of the package.
 * `scripts` *(dict)* A dictionary of strings that are the scripts for
-  this package. Having both these and file-based scripts is an error.
+  this package, or `True` values for scripts that are read from files.
+  Note that triggers do not need declaring when using files.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.
@@ -2011,6 +2012,12 @@ appropriately.
 Alternatively, scripts may be provided as a part of the template
 using the `scripts` field. If both file and in-template scripts
 are provided, it is an error.
+
+When using files for scripts, you must declare them in the `scripts`
+field too, using the `True` value, except for triggers, which are
+already declared by specifying their trigger paths. Having a file
+present but not declaring it is an error. Additionally, declaring a
+file and not having the file present is also an error.
 
 Hooks get passed the new or current package version as the first
 argument, as well as the old version as a second argument where this

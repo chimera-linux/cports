@@ -20,6 +20,7 @@ configure_gen = []
 hostmakedepends = ["gperf", "pkgconf", "xmlto"]
 makedepends = ["libexpat-devel", "libx11-devel", "libcap-devel"]
 triggers = ["/usr/share/dbus-1/system.d"]
+scripts = {"pre-install": True, "pre-upgrade": True}
 pkgdesc = "Message bus system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
