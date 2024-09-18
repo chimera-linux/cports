@@ -46,5 +46,6 @@ def _(self):
 @subpackage("libpulse-progs")
 def _(self):
     self.pkgdesc = "PulseAudio utilities"
+    # installs all zsh comps to single _pulseaudio file
     self.options = ["!lintcomp"]
     return self.default_progs()
