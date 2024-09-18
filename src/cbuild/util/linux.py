@@ -120,12 +120,11 @@ def get_modsrc(pkg, modname, modver):
 
 
 def _gen_script(pkg, script, flavor, args=""):
-    pkg.scripts[script] = (
-        f"""#!/bin/sh
+    scr = f"""#!/bin/sh
 
 exec /usr/libexec/base-kernel/script-{script} "$1"{args} "{flavor}"'
 """
-    )
+    pkg.scripts[script] = scr
 
 
 def generate_scripts(pkg, flavor):
