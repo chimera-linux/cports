@@ -21,7 +21,7 @@ makedepends = [
     "kdegraphics-mobipocket-devel",
     "ki18n-devel",
     "libepubgen-devel",
-    "libpoppler-devel",
+    "poppler-devel",
     "qt6-qtdeclarative-devel",
     "taglib-devel",
 ]

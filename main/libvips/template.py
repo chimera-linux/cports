@@ -21,13 +21,13 @@ makedepends = [
     "libheif-devel",
     "libjpeg-turbo-devel",
     "libjxl-devel",
-    "libpoppler-devel",
     "libpng-devel",
     "librsvg-devel",
     "libtiff-devel",
     "libwebp-devel",
     "openexr-devel",
     "pango-devel",
+    "poppler-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast image processing library"

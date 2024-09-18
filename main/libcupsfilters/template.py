@@ -21,10 +21,10 @@ makedepends = [
     "libexif-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
-    "libpoppler-devel",
     "libqpdf-devel",
     "libtiff-devel",
     "linux-headers",
+    "poppler-devel",
 ]
 checkdepends = ["fonts-dejavu-otf"]
 depends = ["ghostscript"]

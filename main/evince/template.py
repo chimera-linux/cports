@@ -37,10 +37,10 @@ makedepends = [
     "libarchive-devel",
     "libgxps-devel",
     "libhandy-devel",  # "nautilus-devel",
-    "libpoppler-devel",
     "libsecret-devel",
     "libspectre-devel",
     "libtiff-devel",
+    "poppler-devel",
 ]
 pkgdesc = "GNOME document viewer"
 maintainer = "q66 <q66@chimera-linux.org>"

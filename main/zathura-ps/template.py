@@ -4,8 +4,8 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
-    "libpoppler-devel",
     "libspectre-devel",
+    "poppler-devel",
     "zathura-devel",
 ]
 depends = ["zathura"]

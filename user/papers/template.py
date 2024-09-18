@@ -28,9 +28,9 @@ makedepends = [
     "libadwaita-devel",
     "libarchive-devel",
     "libgxps-devel",
-    "libpoppler-devel",
     "libsecret-devel",
     "nautilus-devel",
+    "poppler-devel",
 ]
 pkgdesc = "GNOME document viewer"
 maintainer = "tulilirockz <tulilirockz@outlook.com>"

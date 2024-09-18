@@ -14,12 +14,12 @@ makedepends = [
     "gst-plugins-base-devel",
     "jasper-devel",
     "libcurl-devel",
-    "libpoppler-devel",
     "librsvg-devel",
     "libtiff-devel",
     "libxinerama-devel",
     "libxrandr-devel",
     "mesa-devel",
+    "poppler-devel",
     "sdl-devel",
 ]
 pkgdesc = "High-performance real-time graphics toolkit"

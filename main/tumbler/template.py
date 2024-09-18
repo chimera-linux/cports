@@ -22,8 +22,8 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libopenraw-devel",
     "libpng-devel",
-    "libpoppler-devel",
     "libxfce4util-devel",
+    "poppler-devel",
     # TODO: libgepub, if/when it moves off libsoup2
 ]
 depends = ["cover-thumbnailer"]

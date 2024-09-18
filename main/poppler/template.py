@@ -1,7 +1,7 @@
 pkgname = "poppler"
 pkgver = "24.09.0"
 _test_commit = "ff3133cdb6cb496ee1d2c3231bfa35006a5e8410"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
@@ -56,40 +56,48 @@ def init_configure(self):
     self.configure_args.append(f"-DTESTDATADIR={self.chroot_srcdir}/testdata")
 
 
-@subpackage("libpoppler")
+@subpackage("poppler-cpp-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    self.subdesc = "C++ binding"
+    # transitional
+    self.provides = [self.with_pkgver("libpoppler-cpp")]
+
+    return ["usr/lib/libpoppler-cpp.so.*"]
+
+
+@subpackage("poppler-qt6-libs")
+def _(self):
+    self.subdesc = "Qt6 binding"
+    # transitional
+    self.provides = [
+        self.with_pkgver("libpoppler-qt6"),
+        self.with_pkgver("poppler-qt"),
+    ]
+
+    return ["usr/lib/libpoppler-qt6.so.*"]
+
+
+@subpackage("poppler-glib-libs")
+def _(self):
+    self.subdesc = "GLib binding"
+    # transitional
+    self.provides = [self.with_pkgver("libpoppler-glib")]
+
+    return ["usr/lib/libpoppler-glib.so.*", "usr/lib/girepository-1.0"]
+
+
+@subpackage("poppler-libs")
+def _(self):
     self.depends = ["poppler-data"]
+    # transitional
+    self.provides = [self.with_pkgver("libpoppler")]
 
-    return ["usr/lib/libpoppler.so.*"]
+    return self.default_libs()
 
 
-@subpackage("libpoppler-devel")
+@subpackage("poppler-devel")
 def _(self):
     # transitional
     self.provides = [self.with_pkgver("poppler-qt-devel")]
 
     return self.default_devel()
-
-
-@subpackage("libpoppler-cpp")
-def _(self):
-    self.subdesc = "C++ binding"
-
-    return ["usr/lib/libpoppler-cpp.so.*"]
-
-
-@subpackage("libpoppler-glib")
-def _(self):
-    self.subdesc = "GLib binding"
-
-    return ["usr/lib/libpoppler-glib.so.*", "usr/lib/girepository-1.0"]
-
-
-@subpackage("libpoppler-qt6")
-def _(self):
-    self.subdesc = "Qt6 integration"
-    # transitional
-    self.provides = [self.with_pkgver("poppler-qt")]
-
-    return ["usr/lib/libpoppler-qt6.so.*"]
