@@ -2000,10 +2000,10 @@ the trigger is not modified in any way.
 Triggers are fired when the affected directory is modified in any
 way, this includes uninstallation.
 
-The script is provided as a file in the `scripts` directory inside the
-template's directory, named `pkgname.scriptname`, e.g. `foo.trigger` or
-`foo.post-install`. You can use symlinks if you want one script to be used
-for multiple hooks.
+The script is provided as a file in the template's directory,
+named `pkgname.scriptname`, e.g. `foo.trigger` or `foo.post-install`.
+You can use symlinks if you want one script to be used for multiple
+hooks.
 
 If a trigger script is provided, the `triggers` variable must be set
 appropriately.
