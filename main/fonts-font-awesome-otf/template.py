@@ -1,6 +1,6 @@
 pkgname = "fonts-font-awesome-otf"
 pkgver = "6.6.0"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Iconic font set"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "OFL-1.1"
@@ -14,3 +14,4 @@ def install(self):
         self.install_file(
             f, "usr/share/fonts/font-awesome", name=f.name.replace(" ", "")
         )
+    self.install_license("LICENSE.txt")

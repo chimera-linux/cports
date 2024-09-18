@@ -7,11 +7,12 @@ license = "OFL-1.1"
 url = "https://github.com/tonsky/FiraCode"
 source = f"{url}/releases/download/{pkgver}/Fira_Code_v{pkgver}.zip"
 sha256 = "0949915ba8eb24d89fd93d10a7ff623f42830d7c5ffc3ecbf960e4ecad3e3e79"
+# no license in tarball
+options = ["!distlicense"]
 
 
 def install(self):
-    for f in (self.cwd / "ttf").glob("*.ttf"):
-        self.install_file(f, "usr/share/fonts/firacode")
-
-    for f in (self.cwd / "variable_ttf").glob("*.ttf"):
-        self.install_file(f, "usr/share/fonts/firacode")
+    self.install_file("ttf/*.ttf", "usr/share/fonts/firacode", glob=True)
+    self.install_file(
+        "variable_ttf/*.ttf", "usr/share/fonts/firacode", glob=True
+    )
