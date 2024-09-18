@@ -16,6 +16,9 @@ sha256 = "6618733a6d9c6fef43e5e1c9a1e09047df139e4f3746c8763d79410730fc3b40"
 # generates completions with host binary
 options = ["!cross"]
 
+if self.profile().arch == "ppc64le":
+    broken = "segfaults in tests"
+
 
 def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
