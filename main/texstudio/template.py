@@ -6,7 +6,6 @@ hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "hunspell-devel",
     "libpoppler-devel",
-    "poppler-qt-devel",
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
