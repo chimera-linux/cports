@@ -1,5 +1,9 @@
 #!/bin/sh
 
+export PATH=/usr/bin
+
+set -e
+
 # remove old shells db
 rm -f /etc/shells
 # none exist

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 export PATH=/usr/bin
 
 XML_CATALOG=/etc/xml/auto/catalog

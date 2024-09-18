@@ -17,21 +17,6 @@ def get_arch(pkg):
             pkg.error(f"unknown linux architecture {pkg.profile().arch}")
 
 
-def _gen_script(pkg, script, flavor, args=""):
-    pkg.scriptlets[script] = (
-        f'/usr/libexec/base-kernel/script-{script} "$1"{args} "{flavor}"'
-    )
-
-
-def generate_scriptlets(pkg, flavor):
-    # generate scriptlets for packaging, just hooking to base-kernel helpers
-    _gen_script(pkg, "pre-install", flavor)
-    _gen_script(pkg, "pre-upgrade", flavor, ' "$2"')
-    _gen_script(pkg, "pre-deinstall", flavor)
-    _gen_script(pkg, "post-install", flavor)
-    _gen_script(pkg, "post-upgrade", flavor, ' "$2"')
-
-
 def _build_env(pkg, menv, base_env, env):
     renv = dict(menv)
     # needed for efistub
@@ -134,28 +119,50 @@ def get_modsrc(pkg, modname, modver):
     return paths.bldroot() / f"usr/src/{modname}-{modver}"
 
 
-def generate_scriptlets_ckms(pkg, modname, kernver):
-    prescript = f"""rm -f /boot/initramfs-{kernver}.img || :
+def _gen_script(pkg, script, flavor, args=""):
+    pkg.scripts[script] = (
+        f"""#!/bin/sh
+
+exec /usr/libexec/base-kernel/script-{script} "$1"{args} "{flavor}"'
+"""
+    )
+
+
+def generate_scripts(pkg, flavor):
+    # generate scripts for packaging, just hooking to base-kernel helpers
+    _gen_script(pkg, "pre-install", flavor)
+    _gen_script(pkg, "pre-upgrade", flavor, ' "$2"')
+    _gen_script(pkg, "pre-deinstall", flavor)
+    _gen_script(pkg, "post-install", flavor)
+    _gen_script(pkg, "post-upgrade", flavor, ' "$2"')
+
+
+def generate_scripts_ckms(pkg, modname, kernver):
+    prescript = f"""#!/bin/sh
+
+rm -f /boot/initramfs-{kernver}.img || :
 rm -f /boot/initrd.img-{kernver} || :"""
 
-    postscript = f"""if [ -f /boot/System.map-{kernver} ]; then
+    postscript = f"""#!/bin/sh
+
+if [ -f /boot/System.map-{kernver} ]; then
     depmod -a -F /boot/System.map-{kernver} {kernver} || :
 else
     depmod -a {kernver} || :
 fi"""
 
-    pkg.scriptlets["pre-install"] = (
+    pkg.scripts["pre-install"] = (
         prescript
         + f"""
 if [ -x /usr/bin/ckms ]; then
     ckms -q -k {kernver} uninstall {modname} > /dev/null 2>&1 || :
 fi"""
     )
-    pkg.scriptlets["pre-upgrade"] = prescript
-    pkg.scriptlets["pre-deinstall"] = prescript
-    pkg.scriptlets["post-install"] = postscript
-    pkg.scriptlets["post-upgrade"] = postscript
-    pkg.scriptlets["post-deinstall"] = postscript
+    pkg.scripts["pre-upgrade"] = prescript
+    pkg.scripts["pre-deinstall"] = prescript
+    pkg.scripts["post-install"] = postscript
+    pkg.scripts["post-upgrade"] = postscript
+    pkg.scripts["post-deinstall"] = postscript
 
 
 def _call_ckms(pkg, kver, *args):

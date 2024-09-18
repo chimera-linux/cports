@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 for x in "$@"; do
     # this can be executed when a font dir is added or removed
     rm -f "${x}/fonts.dir"

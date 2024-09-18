@@ -5,7 +5,7 @@ import shlex
 import pathlib
 import subprocess
 
-_scriptlets = {
+_scripts = {
     ".pre-install": True,
     ".pre-upgrade": True,
     ".pre-deinstall": True,
@@ -275,15 +275,15 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
     # scripts including trigger scripts
     sclist = []
 
-    for f in (pkg.statedir / "scriptlets").glob(f"{pkg.pkgname}.*"):
-        if f.is_file() and f.suffix in _scriptlets:
+    for f in (pkg.statedir / "scripts").glob(f"{pkg.pkgname}.*"):
+        if f.is_file() and f.suffix in _scripts:
             sclist.append(f.suffix[1:])
 
     sclist.sort()
 
     for f in sclist:
         # get in-chroot path to that
-        scp = pkg.rparent.chroot_statedir / f"scriptlets/{pkg.pkgname}.{f}"
+        scp = pkg.rparent.chroot_statedir / f"scripts/{pkg.pkgname}.{f}"
         # pass it
         pargs += ["--script", f"{f}:{scp}"]
 

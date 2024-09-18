@@ -437,14 +437,14 @@ core_fields = [
     ("subdesc", "", str, False, True, False),
     ("origin", None, str, False, True, True),
     ("triggers", [], list, False, True, False),
-    ("scriptlets", {}, dict, False, True, False),
+    ("scripts", {}, dict, False, True, False),
     ("file_modes", {}, dict, False, True, False),
     ("file_xattrs", {}, dict, False, True, False),
     ("broken_symlinks", [], list, False, True, False),
     ("compression", None, "comp", False, True, True),
     # wrappers
     ("exec_wrappers", [], list, False, False, False),
-    # scriptlet generators
+    # script generators
     ("system_users", [], list, False, True, False),
     ("system_groups", [], list, False, True, False),
     # fields relating to build fields
@@ -508,7 +508,7 @@ core_fields_priority = [
     ("install_if", True),
     ("ignore_shlibs", True),
     ("triggers", True),
-    ("scriptlets", True),
+    ("scripts", True),
     ("origin", True),
     ("pkgdesc", True),
     ("subdesc", True),

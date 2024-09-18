@@ -18,7 +18,7 @@ def init_configure(self):
     from cbuild.util import linux
 
     self._linux_version = linux.get_version(self, _kernver)
-    linux.generate_scriptlets_ckms(self, "zfs", self._linux_version)
+    linux.generate_scripts_ckms(self, "zfs", self._linux_version)
 
 
 def configure(self):

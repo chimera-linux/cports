@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/usr/bin/gdk-pixbuf-query-loaders --update-cache
+/usr/bin/gdk-pixbuf-query-loaders --update-cache || :

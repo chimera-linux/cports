@@ -716,6 +716,7 @@ def _build(
     invoke_prepkg(pkg)
 
     pkg._stage = {}
+    pkg.log("generating packages...")
 
     # package gen + staging is a part of the same lock
     with flock.lock(flock.stagelock(pkg), pkg):

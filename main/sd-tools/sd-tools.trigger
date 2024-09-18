@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # invoking sysusers is always harmless
 /usr/bin/sd-sysusers || :
 

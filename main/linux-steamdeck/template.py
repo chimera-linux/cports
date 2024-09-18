@@ -46,7 +46,7 @@ def _(self):
 def init_configure(self):
     from cbuild.util import linux
 
-    linux.generate_scriptlets(self, _flavor)
+    linux.generate_scripts(self, _flavor)
 
 
 def configure(self):

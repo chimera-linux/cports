@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 services=
 
 for x in "$@"; do
