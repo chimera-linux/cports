@@ -46,4 +46,5 @@ def _(self):
 @subpackage("libpulse-progs")
 def _(self):
     self.pkgdesc = "PulseAudio utilities"
+    self.options = ["!lintcomp"]
     return self.default_progs()
