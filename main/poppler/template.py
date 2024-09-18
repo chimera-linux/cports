@@ -98,6 +98,9 @@ def _(self):
 @subpackage("poppler-devel")
 def _(self):
     # transitional
-    self.provides = [self.with_pkgver("poppler-qt-devel")]
+    self.provides = [
+        self.with_pkgver("libpoppler-devel"),
+        self.with_pkgver("poppler-qt-devel"),
+    ]
 
     return self.default_devel()
