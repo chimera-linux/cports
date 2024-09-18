@@ -1,0 +1,114 @@
+From ff2381ad379a612e73f0d4604f1c9c3a012b3355 Mon Sep 17 00:00:00 2001
+From: Janne Pulkkinen <janne.pulkkinen@protonmail.com>
+Date: Wed, 25 Sep 2024 19:19:16 +0300
+Subject: [PATCH] Set arguments explicitly in CLI entrypoints
+
+Set arguments explicitly in CLI entrypoints instead of letting
+`argparse` handle it.
+
+This allows us to determine whether any arguments were actually
+provided without having to resort to checking `sys.argv`. This is done
+more for the sake of tests, which relied on monkeypatching `sys.argv`
+which is *very* brittle and broke tests in the Nix build sandbox and
+other environments as well.
+
+Fixes #346
+---
+ src/protontricks/cli/desktop_install.py |  4 ++++
+ src/protontricks/cli/launch.py          |  4 ++++
+ src/protontricks/cli/main.py            | 11 +++++++----
+ tests/cli/test_main.py                  |  6 +-----
+ 4 files changed, 16 insertions(+), 9 deletions(-)
+
+diff --git a/src/protontricks/cli/desktop_install.py b/src/protontricks/cli/desktop_install.py
+index 0e004fd..a10c6e8 100644
+--- a/src/protontricks/cli/desktop_install.py
++++ b/src/protontricks/cli/desktop_install.py
+@@ -1,4 +1,5 @@
+ import argparse
++import sys
+ from pathlib import Path
+ from subprocess import run
+ 
+@@ -41,6 +42,9 @@ def main(args=None):
+     """
+     'protontricks-desktop-install' script entrypoint
+     """
++    if args is None:
++        args = sys.argv[1:]
++
+     parser = CustomArgumentParser(
+         description=(
+             "Install Protontricks application shortcuts for the local user\n"
+diff --git a/src/protontricks/cli/launch.py b/src/protontricks/cli/launch.py
+index 8facdf4..3d09d23 100644
+--- a/src/protontricks/cli/launch.py
++++ b/src/protontricks/cli/launch.py
+@@ -1,6 +1,7 @@
+ import argparse
+ import logging
+ import shlex
++import sys
+ from pathlib import Path
+ 
+ from ..gui import (prompt_filesystem_access, select_steam_app_with_gui,
+@@ -23,6 +24,9 @@ def main(args=None):
+     """
+     'protontricks-launch' script entrypoint
+     """
++    if args is None:
++        args = sys.argv[1:]
++
+     parser = CustomArgumentParser(
+         description=(
+             "Utility for launching Windows executables using Protontricks\n"
+diff --git a/src/protontricks/cli/main.py b/src/protontricks/cli/main.py
+index 53a4e4c..4ce785b 100755
+--- a/src/protontricks/cli/main.py
++++ b/src/protontricks/cli/main.py
+@@ -37,6 +37,9 @@ def main(args=None, steam_path=None, steam_root=None):
+     """
+     'protontricks' script entrypoint
+     """
++    if args is None:
++        args = sys.argv[1:]
++
+     parser = CustomArgumentParser(
+         description=(
+             "Wrapper for running Winetricks commands for "
+@@ -154,11 +157,11 @@ def main(args=None, steam_path=None, steam_root=None):
+         version=f"%(prog)s ({__version__})"
+     )
+ 
+-    args = parser.parse_args(args)
+-
+-    if len(sys.argv) < 2:
++    if len(args) == 0:
+         # No arguments were provided, default to GUI
+-        args.gui = True
++        args = ["--gui"]
++
++    args = parser.parse_args(args)
+ 
+     # 'cli_error_handler' relies on this to know whether to use error dialog or
+     # not
+diff --git a/tests/cli/test_main.py b/tests/cli/test_main.py
+index 54d4abd..96cadf2 100644
+--- a/tests/cli/test_main.py
++++ b/tests/cli/test_main.py
+@@ -774,14 +774,10 @@ def test_run_gui_proton_incomplete(
+ 
+     @pytest.mark.usefixtures("default_proton", "gui_provider")
+     def test_run_no_args(
+-            self, cli, steam_app_factory, command_mock, gui_provider,
+-            monkeypatch):
++            self, cli, steam_app_factory, command_mock, gui_provider):
+         """
+         Run only the 'protontricks' command. This will default to GUI.
+         """
+-        # Monkeypatch 'sys.argv', as that seems to be the only way to determine
+-        # whether no arguments were provided
+-        monkeypatch.setattr(sys, "argv", ["protontricks"])
+         steam_app_factory(name="Fake game", appid=10)
+ 
+         result = cli([], expect_returncode=1)
