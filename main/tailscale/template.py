@@ -1,5 +1,5 @@
 pkgname = "tailscale"
-pkgver = "1.74.0"
+pkgver = "1.74.1"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -16,7 +16,7 @@ maintainer = "Val Packett <val@packett.cool>"
 license = "BSD-3-Clause"
 url = "https://github.com/tailscale/tailscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9a5c3499a25b4de1194ed5e4c7669fd2fd4729ee93535a49216f52ba83907722"
+sha256 = "ef7b8a76ce81133dc10f243d733302c070232cdd6594b685c6adbf32769d4f2c"
 # check: needs network access
 # cross: completions with host bin
 options = ["!check", "!cross"]
