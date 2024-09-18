@@ -32,6 +32,8 @@ def install(self):
     for f in self.files_path.glob("*.conf"):
         self.install_file(f, "usr/share/fontconfig/conf.avail")
 
+    self.install_license("LICENSE")
+
 
 @subpackage("fonts-liberation-otf")
 def _(self):

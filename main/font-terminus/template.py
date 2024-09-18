@@ -1,6 +1,6 @@
 pkgname = "font-terminus"
 pkgver = "4.49.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -27,3 +27,4 @@ def post_install(self):
     self.install_file(
         "./75-yes-terminus.conf", "usr/share/fontconfig/conf.avail"
     )
+    self.install_license("OFL.TXT")
