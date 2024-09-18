@@ -1,7 +1,7 @@
 pkgname = "poppler"
 pkgver = "24.09.0"
 _test_commit = "ff3133cdb6cb496ee1d2c3231bfa35006a5e8410"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
@@ -11,10 +11,8 @@ configure_args = [
     "-DENABLE_GOBJECT_INTROSPECTION=ON",
     "-DENABLE_NSS3=ON",
     "-DENABLE_UTILS=ON",
-    # in contrib
-    "-DENABLE_GPGME=OFF",  # creates a cycle
     "-DENABLE_QT5=OFF",
-    "-DENABLE_QT6=OFF",
+    "-DENABLE_QT6=ON",
 ]
 hostmakedepends = [
     "cmake",
@@ -27,12 +25,15 @@ makedepends = [
     "boost-devel",
     "cairo-devel",
     "glib-devel",
+    "gpgme-devel",
     "lcms2-devel",
     "libcurl-devel",
+    "libjpeg-turbo-devel",
     "libpng-devel",
     "libtiff-devel",
     "nss-devel",
     "openjpeg-devel",
+    "qt6-qtbase-devel",
 ]
 pkgdesc = "PDF rendering library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -47,6 +48,8 @@ sha256 = [
     "ebd857987e2395608c69fdc44009692d5906f13b612c5280beff65a0b75dc255",
     "98a06e7dd7619fe20bfd99505a31993dbe40517678d81278e6395a30a40f03bf",
 ]
+# check_qt6_goostring crashes
+hardening = ["!int"]
 
 
 def init_configure(self):
@@ -63,6 +66,9 @@ def _(self):
 
 @subpackage("libpoppler-devel")
 def _(self):
+    # transitional
+    self.provides = [self.with_pkgver("poppler-qt-devel")]
+
     return self.default_devel()
 
 
@@ -78,3 +84,12 @@ def _(self):
     self.subdesc = "GLib binding"
 
     return ["usr/lib/libpoppler-glib.so.*", "usr/lib/girepository-1.0"]
+
+
+@subpackage("libpoppler-qt6")
+def _(self):
+    self.subdesc = "Qt6 integration"
+    # transitional
+    self.provides = [self.with_pkgver("poppler-qt")]
+
+    return ["usr/lib/libpoppler-qt6.so.*"]
