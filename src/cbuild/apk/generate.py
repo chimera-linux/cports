@@ -189,40 +189,16 @@ def _print_diff(head, pkg, over, oldl, newl):
             log.out(f"\f[red]  -{v}")
 
 
-def genpkg(pkg, repo, arch, binpkg, adesc=None):
-    origin = pkg.origin
-    if pkg.alternative:
-        # extract from the name instead
-        origin = f"alt:{pkg.alternative}"
-
-    deps, provides, replaces, riif = _get_new_deps(pkg, origin)
-    over, odeps, oprovides, oiif = _get_old_deps(pkg, arch)
-
-    _print_diff("dependencies", pkg, over, odeps, deps)
-    _print_diff("providers", pkg, over, oprovides, provides)
-    _print_diff("install-ifs", pkg, over, oiif, riif)
-
-    binpath = repo / binpkg
-
-    repo.mkdir(parents=True, exist_ok=True)
-
-    if pkg.subdesc:
-        bpdesc = f"{pkg.pkgdesc} ({pkg.subdesc})"
-    else:
-        bpdesc = pkg.pkgdesc
-
-    if adesc:
-        pdesc = f"{bpdesc} ({adesc})"
-    else:
-        pdesc = bpdesc
-
+def _get_cmdline(
+    pkg, arch, origin, desc, deps, provides, replaces, iif, signkey
+):
     pargs = [
         "--info",
         f"name:{pkg.pkgname}",
         "--info",
         f"version:{pkg.pkgver}-r{pkg.pkgrel}",
         "--info",
-        f"description:{pdesc}",
+        f"description:{desc}",
         "--info",
         f"arch:{arch}",
         "--info",
@@ -256,8 +232,8 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
     if pkg.replaces_priority > 0:
         pargs += ["--info", f"replaces-priority:{pkg.replaces_priority}"]
 
-    if len(riif) > 0:
-        pargs += ["--info", f"install-if:{' '.join(riif)}"]
+    if len(iif) > 0:
+        pargs += ["--info", f"install-if:{' '.join(iif)}"]
 
     # scripts including trigger scripts
     sclist = []
@@ -285,12 +261,74 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
         pargs += ["--trigger", t]
 
     # signing key
-    signkey = asign.get_keypath()
     if signkey:
         if pkg.rparent.stage > 0:
             pargs += ["--sign-key", f"/tmp/{signkey.name}"]
         else:
             pargs += ["--sign-key", signkey]
+
+    # for stage 1, we have stage0 apk built without zstd
+    if (pkg.stage > 1 and pkg.compression) or pkg.compression == "none":
+        comp = pkg.compression
+        dcomp = autil.get_compression()
+        # some generic presets that respect user-set global config
+        match comp:
+            case "fast":
+                if dcomp.startswith("zstd"):
+                    comp = "zstd:3"
+                elif dcomp.startswith("deflate"):
+                    comp = "deflate:3"
+            case "slow":
+                if dcomp.startswith("zstd"):
+                    comp = "zstd:19"
+                elif dcomp.startswith("deflate"):
+                    comp = "deflate:9"
+            case "zstd:fast":
+                comp = "zstd:3"
+            case "zstd:slow":
+                comp = "zstd:19"
+            case "deflate:fast":
+                comp = "deflate:3"
+            case "deflate:slow":
+                comp = "deflate:9"
+        pargs += ["--compression", comp]
+    else:
+        pargs += ["--compression", autil.get_compression()]
+
+    return pargs
+
+
+def genpkg(pkg, repo, arch, binpkg, adesc=None):
+    origin = pkg.origin
+    if pkg.alternative:
+        # extract from the name instead
+        origin = f"alt:{pkg.alternative}"
+
+    deps, provides, replaces, riif = _get_new_deps(pkg, origin)
+    over, odeps, oprovides, oiif = _get_old_deps(pkg, arch)
+
+    if pkg.subdesc:
+        bpdesc = f"{pkg.pkgdesc} ({pkg.subdesc})"
+    else:
+        bpdesc = pkg.pkgdesc
+
+    if adesc:
+        pdesc = f"{bpdesc} ({adesc})"
+    else:
+        pdesc = bpdesc
+
+    signkey = asign.get_keypath()
+    pargs = _get_cmdline(
+        pkg, arch, origin, pdesc, deps, provides, replaces, riif, signkey
+    )
+
+    _print_diff("dependencies", pkg, over, odeps, deps)
+    _print_diff("providers", pkg, over, oprovides, provides)
+    _print_diff("install-ifs", pkg, over, oiif, riif)
+
+    binpath = repo / binpkg
+
+    repo.mkdir(parents=True, exist_ok=True)
 
     # generate a wrapper script for fakeroot ownership
     wscript = """
@@ -354,34 +392,6 @@ set -e
 
     # remove any potential outdated package
     binpath.unlink(missing_ok=True)
-
-    # for stage 1, we have stage0 apk built without zstd
-    if (pkg.stage > 1 and pkg.compression) or pkg.compression == "none":
-        comp = pkg.compression
-        dcomp = autil.get_compression()
-        # some generic presets that respect user-set global config
-        match comp:
-            case "fast":
-                if dcomp.startswith("zstd"):
-                    comp = "zstd:3"
-                elif dcomp.startswith("deflate"):
-                    comp = "deflate:3"
-            case "slow":
-                if dcomp.startswith("zstd"):
-                    comp = "zstd:19"
-                elif dcomp.startswith("deflate"):
-                    comp = "deflate:9"
-            case "zstd:fast":
-                comp = "zstd:3"
-            case "zstd:slow":
-                comp = "zstd:19"
-            case "deflate:fast":
-                comp = "deflate:3"
-            case "deflate:slow":
-                comp = "deflate:9"
-        pargs += ["--compression", comp]
-    else:
-        pargs += ["--compression", autil.get_compression()]
 
     try:
         repon = repo.parent.relative_to(paths.stage_repository())
