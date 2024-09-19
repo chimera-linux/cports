@@ -304,6 +304,8 @@ def gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=None):
         # extract from the name instead
         origin = f"alt:{pkg.alternative}"
 
+    tgts = []
+
     deps, provides, replaces, riif = _get_new_deps(pkg, origin)
     over, odeps, oprovides, oiif = _get_old_deps(pkg, arch)
 
@@ -327,6 +329,7 @@ def gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=None):
     _print_diff("install-ifs", pkg, over, oiif, riif)
 
     mkf.write(f"{pkg.pkgname}_xattrs:\n")
+    tgts.append(f"{pkg.pkgname}_xattrs")
     # as fakeroot, add extended attributes and capabilities
     # this needs to be done BEFORE chowning, or fakeroot messes things up
     # therefore, we generate it as a separate rule and have the chown rules
@@ -351,6 +354,7 @@ def gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=None):
     mkf.write("\n")
 
     mkf.write(f"{pkg.pkgname}_modes: {pkg.pkgname}_xattrs\n")
+    tgts.append(f"{pkg.pkgname}_modes")
     # at this point permissions are already applied, we just need owners
     for f in pkg.file_modes:
         if pkg.rparent.stage == 0:
@@ -392,6 +396,7 @@ def gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=None):
     binpath.unlink(missing_ok=True)
 
     mkf.write(f"{pkg.pkgname}: {pkg.pkgname}_modes\n\t")
+    tgts.append(pkg.pkgname)
     mkf.write(f'@echo "  apk: {binpath.name} in {repon}"\n\t')
     mkf.write(
         shlex.join(
@@ -408,6 +413,8 @@ def gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=None):
     )
     mkf.write("\n\n")
 
+    return tgts
+
 
 def write_make(pkg, mkf):
     arch = pkg.rparent.profile().arch
@@ -421,4 +428,4 @@ def write_make(pkg, mkf):
     else:
         repo = repobase / arch
 
-    gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=pkg.autopkg)
+    return gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=pkg.autopkg)

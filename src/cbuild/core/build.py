@@ -725,8 +725,11 @@ def _build(
     ):
         pkg.log("generating makefile...")
         # generate makefile for all packages (includes the main one)
+        tgts = []
         for sp in pkg.subpkg_all:
-            apkgen.write_make(sp, mkf)
+            tgts += apkgen.write_make(sp, mkf)
+        # make it all phony targets
+        mkf.write(f".PHONY: gen {' '.join(tgts)}\n\n")
         # central rule for all packages
         mkf.write(
             f"gen: {' '.join(map(lambda v: v.pkgname, pkg.subpkg_all))}\n"
