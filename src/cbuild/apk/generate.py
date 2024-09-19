@@ -1,9 +1,8 @@
-from cbuild.core import logger, paths, chroot
+from cbuild.core import paths
 from cbuild.apk import sign as asign, util as autil, cli as acli
 
 import shlex
 import pathlib
-import subprocess
 
 _scripts = {
     ".pre-install": True,
@@ -299,77 +298,7 @@ def _get_cmdline(
     return pargs
 
 
-def _invoke_mkpkg(pkg, repo, pargs, binpath, signkey, wscript):
-    repon = repo.parent.relative_to(paths.stage_repository())
-    logger.get().out_plain(
-        f"  \f[green]apk:\f[] \f[orange]{binpath.name}\f[] in {repon}\f[]"
-    )
-
-    if pkg.rparent.stage == 0:
-        cbpath = binpath
-    else:
-        srepo = paths.stage_repository()
-        cbpath = pathlib.Path("/stagepkgs") / binpath.relative_to(srepo)
-
-    # make repo if needed
-    repo.mkdir(parents=True, exist_ok=True)
-
-    # remove any potential outdated package
-    binpath.unlink(missing_ok=True)
-
-    # in stage 0 we need to use the host apk, avoid fakeroot while at it
-    # we just use bwrap to pretend we're root and that's all we need
-    if pkg.rparent.stage == 0:
-        ret = subprocess.run(
-            [
-                paths.bwrap(),
-                "--bind",
-                "/",
-                "/",
-                "--uid",
-                "0",
-                "--gid",
-                "0",
-                "--",
-                paths.apk(),
-                "mkpkg",
-                "--files",
-                pkg.chroot_destdir,
-                "--output",
-                cbpath,
-                *pargs,
-            ],
-            capture_output=True,
-        )
-    else:
-        ret = chroot.enter(
-            "apk",
-            "mkpkg",
-            "--files",
-            pkg.chroot_destdir,
-            "--output",
-            cbpath,
-            *pargs,
-            capture_output=True,
-            bootstrapping=False,
-            ro_root=True,
-            ro_build=True,
-            ro_dest=False,
-            unshare_all=True,
-            mount_binpkgs=True,
-            fakeroot=True,
-            binpkgs_rw=True,
-            signkey=signkey,
-            wrapper=wscript,
-        )
-
-    if ret.returncode != 0:
-        logger.get().out_plain(">> stderr:")
-        logger.get().out_plain(ret.stderr.decode())
-        pkg.error("failed to generate package")
-
-
-def genpkg(pkg, repo, arch, binpkg, adesc=None):
+def gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=None):
     origin = pkg.origin
     if pkg.alternative:
         # extract from the name instead
@@ -397,34 +326,35 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
     _print_diff("providers", pkg, over, oprovides, provides)
     _print_diff("install-ifs", pkg, over, oiif, riif)
 
-    # generate a wrapper script for fakeroot ownership
-    wscript = """
-#!/bin/sh
-set -e
-"""
-
-    needscript = False
-
+    mkf.write(f"{pkg.pkgname}_xattrs:\n")
     # as fakeroot, add extended attributes and capabilities
     # this needs to be done BEFORE chowning, or fakeroot messes things up
+    # therefore, we generate it as a separate rule and have the chown rules
+    # depend on it
     for f in pkg.file_xattrs:
+        if pkg.rparent.stage == 0:
+            break
         fpath = pkg.chroot_destdir / f
         attrs = pkg.file_xattrs[f]
         qfp = shlex.quote(str(fpath))
         for a in attrs:
-            needscript = True
             av = attrs[a]
             if av is False:
-                wscript += f"""setfattr -x {a} {qfp}\n"""
+                mkf.write(f"""\t@setfattr -x {a} {qfp}\n""")
                 continue
             if a == "security.capability":
-                wscript += f"""setcap "{av}" {qfp}\n"""
+                mkf.write(f"""\t@setcap "{av}" {qfp}\n""")
                 continue
             # regular attr set
-            wscript += f"""setfattr -n {a} -v "{av}" {qfp}\n"""
+            mkf.write(f"""\t@setfattr -n {a} -v "{av}" {qfp}\n""")
+    # rule done
+    mkf.write("\n")
 
+    mkf.write(f"{pkg.pkgname}_modes: {pkg.pkgname}_xattrs\n")
     # at this point permissions are already applied, we just need owners
     for f in pkg.file_modes:
+        if pkg.rparent.stage == 0:
+            break
         fpath = pkg.chroot_destdir / f
         recursive = False
         if len(pkg.file_modes[f]) == 4:
@@ -435,29 +365,51 @@ set -e
         if (uname == "root" or uname == 0) and (gname == "root" or gname == 0):
             if f not in pkg.file_xattrs:
                 continue
-        # now we know it's needed
-        needscript = True
         # handle recursive owner
         if recursive:
             chcmd = "chown -R"
         else:
             chcmd = "chown"
-        wscript += f"""{chcmd} {uname}:{gname} {shlex.quote(str(fpath))}\n"""
+        mkf.write(f"""\t@{chcmd} {uname}:{gname} {shlex.quote(str(fpath))}\n""")
+    # rule done
+    mkf.write("\n")
 
-    # execute what we were wrapping
-    wscript += """exec "$@"\n"""
+    pkg.rparent._stage[repo] = True
 
-    if pkg.rparent.stage == 0 or not needscript:
-        # disable wrapper script unless we have a real chroot
-        wscript = None
+    repon = repo.parent.relative_to(paths.stage_repository())
+    binpath = repo / binpkg
 
-    try:
-        _invoke_mkpkg(pkg, repo, pargs, repo / binpkg, signkey, wscript)
-    finally:
-        pkg.rparent._stage[repo] = True
+    if pkg.rparent.stage == 0:
+        cbpath = binpath
+    else:
+        srepo = paths.stage_repository()
+        cbpath = pathlib.Path("/stagepkgs") / binpath.relative_to(srepo)
+
+    # make repo if needed
+    repo.mkdir(parents=True, exist_ok=True)
+
+    # remove any potential outdated package
+    binpath.unlink(missing_ok=True)
+
+    mkf.write(f"{pkg.pkgname}: {pkg.pkgname}_modes\n\t")
+    mkf.write(f'@echo "  apk: {binpath.name} in {repon}"\n\t')
+    mkf.write(
+        shlex.join(
+            [
+                "@apk",
+                "mkpkg",
+                "--files",
+                str(pkg.chroot_destdir),
+                "--output",
+                str(cbpath),
+                *pargs,
+            ]
+        )
+    )
+    mkf.write("\n\n")
 
 
-def generate(pkg):
+def write_make(pkg, mkf):
     arch = pkg.rparent.profile().arch
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
@@ -469,4 +421,4 @@ def generate(pkg):
     else:
         repo = repobase / arch
 
-    genpkg(pkg, repo, arch, binpkg, adesc=pkg.autopkg)
+    gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=pkg.autopkg)

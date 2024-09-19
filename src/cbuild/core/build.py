@@ -1,7 +1,7 @@
 from cbuild.core import chroot, logger, dependencies, profile, scanelf, paths
 from cbuild.core import template, update_check as uc, pkg as pkgm, errors
 from cbuild.util import flock
-from cbuild.apk import cli as apk, generate as apkgen
+from cbuild.apk import cli as apk, generate as apkgen, sign as asign
 
 import importlib
 import os
@@ -10,6 +10,7 @@ import sys
 import shutil
 import stat
 import termios
+import subprocess
 
 
 def unredir_log(pkg, fpid, oldout, olderr):
@@ -716,13 +717,60 @@ def _build(
     invoke_prepkg(pkg)
 
     pkg._stage = {}
-    pkg.log("generating packages...")
 
     # package gen + staging is a part of the same lock
-    with flock.lock(flock.stagelock(pkg), pkg):
-        # generate packages for all packages (includes the main one)
+    with (
+        flock.lock(flock.stagelock(pkg), pkg),
+        open(pkg.destdir_base / "Makefile", "w") as mkf,
+    ):
+        pkg.log("generating makefile...")
+        # generate makefile for all packages (includes the main one)
         for sp in pkg.subpkg_all:
-            apkgen.generate(sp)
+            apkgen.write_make(sp, mkf)
+        # central rule for all packages
+        mkf.write(
+            f"gen: {' '.join(map(lambda v: v.pkgname, pkg.subpkg_all))}\n"
+        )
+        mkf.close()
+        pkg.log("generating packages...")
+        mkcmd = [
+            "make",
+            "--no-print-directory",
+            f"-j{pkg.conf_jobs}",
+            "-C",
+            str(pkg.chroot_destdir_base),
+            "gen",
+        ]
+        if pkg.stage == 0:
+            # a bit scuffed but whatever, simulate "root" with a namespace
+            ret = subprocess.run(
+                paths.bwrap(),
+                "--bind",
+                "/",
+                "/",
+                "--uid",
+                "0",
+                "--gid",
+                "0",
+                "--",
+                *mkcmd,
+            )
+        else:
+            # better, still cannot use pkg.do :(
+            ret = chroot.enter(
+                *mkcmd,
+                ro_root=True,
+                ro_build=True,
+                ro_dest=False,
+                unshare_all=True,
+                mount_binpkgs=True,
+                fakeroot=True,
+                binpkgs_rw=True,
+                signkey=asign.get_keypath(),
+            )
+        # handle whatever error
+        if ret.returncode != 0:
+            raise errors.CbuildException("failed to generate packages")
         pkg.current_phase = "index"
         # stage binary packages
         for repo in pkg._stage:
