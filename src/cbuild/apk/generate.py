@@ -396,7 +396,7 @@ def gen_mkpkg(pkg, repo, arch, binpkg, mkf, adesc=None):
     mkf.write(
         shlex.join(
             [
-                "@apk",
+                "@apk" if pkg.rparent.stage > 0 else f"@{paths.apk()}",
                 "mkpkg",
                 "--files",
                 str(pkg.chroot_destdir),
