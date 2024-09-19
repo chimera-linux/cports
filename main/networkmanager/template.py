@@ -1,6 +1,6 @@
 pkgname = "networkmanager"
 pkgver = "1.48.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd_journal=false",
@@ -29,7 +29,7 @@ configure_args = [
     "-Dkernel_firmware_dir=/usr/lib/firmware",
     "-Ddbus_conf_dir=/usr/share/dbus-1/system.d",
     "-Dudev_dir=/usr/lib/udev",
-    "-Dpppd_plugin_dir=/usr/lib/pppd/2.5.0",
+    "-Dpppd_plugin_dir=/usr/lib/pppd/2.5.1",
     "-Dsession_tracking=elogind",
     "-Dsuspend_resume=elogind",
     "-Dvapi=true",
