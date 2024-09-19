@@ -1,6 +1,6 @@
 pkgname = "lilv"
 pkgver = "0.24.24"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -24,7 +24,7 @@ def post_install(self):
     self.install_license("COPYING")
     self.rename(
         "etc/bash_completion.d/lilv",
-        "usr/share/bash-completion/completions/lilv",
+        "usr/share/bash-completion/completions/lv2info",
         relative=False,
     )
 
