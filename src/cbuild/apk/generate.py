@@ -150,6 +150,7 @@ def _get_new_deps(pkg, origin):
     deps.sort()
     provides.sort()
 
+    # TODO: recommends (once implemented in apk)
     return deps, provides, sorted(pkg.replaces), sorted(pkg.install_if)
 
 
@@ -298,6 +299,76 @@ def _get_cmdline(
     return pargs
 
 
+def _invoke_mkpkg(pkg, repo, pargs, binpath, signkey, wscript):
+    repon = repo.parent.relative_to(paths.stage_repository())
+    logger.get().out_plain(
+        f"  \f[green]apk:\f[] \f[orange]{binpath.name}\f[] in {repon}\f[]"
+    )
+
+    if pkg.rparent.stage == 0:
+        cbpath = binpath
+    else:
+        srepo = paths.stage_repository()
+        cbpath = pathlib.Path("/stagepkgs") / binpath.relative_to(srepo)
+
+    # make repo if needed
+    repo.mkdir(parents=True, exist_ok=True)
+
+    # remove any potential outdated package
+    binpath.unlink(missing_ok=True)
+
+    # in stage 0 we need to use the host apk, avoid fakeroot while at it
+    # we just use bwrap to pretend we're root and that's all we need
+    if pkg.rparent.stage == 0:
+        ret = subprocess.run(
+            [
+                paths.bwrap(),
+                "--bind",
+                "/",
+                "/",
+                "--uid",
+                "0",
+                "--gid",
+                "0",
+                "--",
+                paths.apk(),
+                "mkpkg",
+                "--files",
+                pkg.chroot_destdir,
+                "--output",
+                cbpath,
+                *pargs,
+            ],
+            capture_output=True,
+        )
+    else:
+        ret = chroot.enter(
+            "apk",
+            "mkpkg",
+            "--files",
+            pkg.chroot_destdir,
+            "--output",
+            cbpath,
+            *pargs,
+            capture_output=True,
+            bootstrapping=False,
+            ro_root=True,
+            ro_build=True,
+            ro_dest=False,
+            unshare_all=True,
+            mount_binpkgs=True,
+            fakeroot=True,
+            binpkgs_rw=True,
+            signkey=signkey,
+            wrapper=wscript,
+        )
+
+    if ret.returncode != 0:
+        logger.get().out_plain(">> stderr:")
+        logger.get().out_plain(ret.stderr.decode())
+        pkg.error("failed to generate package")
+
+
 def genpkg(pkg, repo, arch, binpkg, adesc=None):
     origin = pkg.origin
     if pkg.alternative:
@@ -325,10 +396,6 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
     _print_diff("dependencies", pkg, over, odeps, deps)
     _print_diff("providers", pkg, over, oprovides, provides)
     _print_diff("install-ifs", pkg, over, oiif, riif)
-
-    binpath = repo / binpkg
-
-    repo.mkdir(parents=True, exist_ok=True)
 
     # generate a wrapper script for fakeroot ownership
     wscript = """
@@ -380,76 +447,12 @@ set -e
     # execute what we were wrapping
     wscript += """exec "$@"\n"""
 
-    # TODO: recommends (once implemented in apk)
-
-    if pkg.rparent.stage == 0:
+    if pkg.rparent.stage == 0 or not needscript:
         # disable wrapper script unless we have a real chroot
-        needscript = False
-        cbpath = binpath
-    else:
-        srepo = paths.stage_repository()
-        cbpath = pathlib.Path("/stagepkgs") / binpath.relative_to(srepo)
-
-    # remove any potential outdated package
-    binpath.unlink(missing_ok=True)
+        wscript = None
 
     try:
-        repon = repo.parent.relative_to(paths.stage_repository())
-        logger.get().out_plain(
-            f"  \f[green]apk:\f[] \f[orange]{binpkg}\f[] in {repon}\f[]"
-        )
-
-        # in stage 0 we need to use the host apk, avoid fakeroot while at it
-        # we just use bwrap to pretend we're root and that's all we need
-        if pkg.rparent.stage == 0:
-            ret = subprocess.run(
-                [
-                    paths.bwrap(),
-                    "--bind",
-                    "/",
-                    "/",
-                    "--uid",
-                    "0",
-                    "--gid",
-                    "0",
-                    "--",
-                    paths.apk(),
-                    "mkpkg",
-                    "--files",
-                    pkg.chroot_destdir,
-                    "--output",
-                    cbpath,
-                    *pargs,
-                ],
-                capture_output=True,
-            )
-        else:
-            ret = chroot.enter(
-                "apk",
-                "mkpkg",
-                "--files",
-                pkg.chroot_destdir,
-                "--output",
-                cbpath,
-                *pargs,
-                capture_output=True,
-                bootstrapping=False,
-                ro_root=True,
-                ro_build=True,
-                ro_dest=False,
-                unshare_all=True,
-                mount_binpkgs=True,
-                fakeroot=True,
-                binpkgs_rw=True,
-                signkey=signkey,
-                wrapper=wscript if needscript else None,
-            )
-
-        if ret.returncode != 0:
-            logger.get().out_plain(">> stderr:")
-            logger.get().out_plain(ret.stderr.decode())
-            pkg.error("failed to generate package")
-
+        _invoke_mkpkg(pkg, repo, pargs, repo / binpkg, signkey, wscript)
     finally:
         pkg.rparent._stage[repo] = True
 
