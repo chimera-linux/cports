@@ -1,6 +1,6 @@
 # fix up networkmanager when updating this (versioned .so paths)
 pkgname = "ppp"
-pkgver = "2.5.0"
+pkgver = "2.5.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -9,16 +9,17 @@ configure_args = [
     "--with-runtime-dir=/run/pppd",
 ]
 make_build_args = ["CBCP=y"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["libpcap-devel", "openssl-devel", "linux-headers"]
 pkgdesc = "PPP (Point-to-Point Protocol) daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://ppp.samba.org"
 source = f"https://ftp.samba.org/pub/ppp/ppp-{pkgver}.tar.gz"
-sha256 = "5cae0e8075f8a1755f16ca290eb44e6b3545d3f292af4da65ecffe897de636ff"
+sha256 = "733b7f5840b613da4eab0429a5081293275f06ba8b528e1b8eea6964faf0243a"
 # no check target
-options = ["!check"]
+# no file for bsd
+options = ["!check", "!distlicense"]
 
 
 def post_install(self):
@@ -28,7 +29,8 @@ def post_install(self):
     for f in (self.destdir / f"usr/lib/pppd/{pkgver}").glob("*.so"):
         f.chmod(0o755)
 
-    self.uninstall("etc/ppp/options")
+    # just says "lock"
+    self.uninstall("etc/ppp/options.example")
     self.install_file(self.files_path / "options", "etc/ppp", mode=0o644)
     self.install_file(self.files_path / "ip-up", "etc/ppp", mode=0o755)
     self.install_file(self.files_path / "ip-down", "etc/ppp", mode=0o755)
@@ -67,6 +69,3 @@ def _(self):
     self.depends += [self.parent, "libpcap-devel"]
 
     return self.default_devel()
-
-
-configure_gen = []
