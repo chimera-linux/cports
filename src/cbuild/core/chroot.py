@@ -626,7 +626,6 @@ def enter(
     new_session=True,
     binpkgs_rw=False,
     signkey=None,
-    wrapper=None,
     binpath=None,
     lldargs=None,
     term=False,
@@ -803,13 +802,6 @@ def enter(
         fdlist.append(signfd)
         bcmd += ["--ro-bind-data", str(signfd), f"/tmp/{signkey.name}"]
 
-    if wrapper:
-        rfd, wfd = os.pipe()
-        os.write(wfd, wrapper.encode())
-        os.close(wfd)
-        fdlist.append(rfd)
-        bcmd += ["--ro-bind-data", str(rfd), "/tmp/cbuild-chroot-wrapper.sh"]
-
     if lldargs:
         rfd, wfd = os.pipe()
         os.write(wfd, "\n".join(lldargs).encode())
@@ -829,9 +821,6 @@ def enter(
         ]
     else:
         bcmd += [kpers, "--"]
-
-    if wrapper:
-        bcmd += ["sh", "/tmp/cbuild-chroot-wrapper.sh"]
 
     bcmd.append(cmd)
     bcmd += args
