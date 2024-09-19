@@ -45,6 +45,8 @@ sha256 = "f3c97391f7c4eaa677a78e090c7e97e6dc47b16f655f04683ebd37bef7fe0faa"
 env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 # the freestanding bits
 nopie_files = ["usr/lib/grub/*"]
+# single completion file for multiple commands
+options = ["!lintcomp"]
 
 exec_wrappers = []
 _tpl = self.profile().triplet
