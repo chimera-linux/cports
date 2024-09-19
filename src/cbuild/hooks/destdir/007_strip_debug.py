@@ -121,8 +121,18 @@ def invoke(pkg):
         # strip pie executable or shared library
         strip_list.append(vr)
         strip_slist.append(vr)
+        # technically there may be libraries with an interpreter set,
+        # so this is not completely robust, but there is no other way
+        # to differentiate it (DF_1_PIE may not always be set) and it
+        # is harmless, so do it anyway...
+        #
+        # the "interp is False" case means we explicitly detected DF_1_PIE
+        # without having an interpreter, which is a guaranteed static-pie
+        # executable, every other case is a guaranteed library
         if interp:
             log.out_plain(f"  \f[green]pie executable:\f[] {vr}")
+        elif interp is False:
+            log.out_plain(f"  \f[green]static-pie executable:\f[] {vr}")
         else:
             log.out_plain(f"  \f[cyan]library:\f[] {vr}")
 

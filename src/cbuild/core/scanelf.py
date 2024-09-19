@@ -147,7 +147,7 @@ def _scan_one(fpath):
     phoff = ehdr["phoff"]
     phents = ehdr["phentsize"]
 
-    interp = False
+    interp = None
     stack = False
     execstack = True
     for i in range(ehdr["phnum"]):
@@ -212,6 +212,11 @@ def _scan_one(fpath):
                 # DT_FLAGS
                 if not textrel:
                     textrel = (dynent["val"] & 0x4) != 0
+            elif dyntag == 0x6FFFFFFB:
+                # DT_FLAGS_1
+                if (dynent["val"] & 0x8000000) != 0 and not interp:
+                    # DF_1_PIE; guarantees that it's an executable
+                    interp = False
 
             dynoff += dynsz
 
