@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "1.2.3"
+pkgver = "1.2.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -35,6 +35,7 @@ makedepends = [
     "alsa-lib-devel",
     "avahi-devel",
     "bluez-devel",
+    "elogind-devel",
     "fdk-aac-devel",
     "gst-plugins-base-devel",
     "libcamera-devel",
@@ -75,7 +76,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
-sha256 = "f2645dda4294a46b58727bf81352f13180be232e74ff7fccbc44f30d31fa4766"
+sha256 = "b88b9c94548128f0078dc6d376389c2447c6c324ee6dda20d9037bc77a9dd4ee"
 
 if self.profile().endian == "big":
     configure_args += [
