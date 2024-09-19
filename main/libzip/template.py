@@ -1,6 +1,6 @@
 pkgname = "libzip"
-pkgver = "1.10.1"
-pkgrel = 1
+pkgver = "1.11"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_EXAMPLES=OFF",
@@ -27,8 +27,8 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://libzip.org"
 source = f"{url}/download/libzip-{pkgver}.tar.gz"
-sha256 = "9669ae5dfe3ac5b3897536dc8466a874c8cf2c0e3b1fdd08d75b273884299363"
-hardening = ["vis", "int"]
+sha256 = "2afc48095d990d36fc10eb296d54f03913c7eb76e0296535d7071ad85139a319"
+hardening = ["vis"]
 
 
 def post_install(self):
