@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-good"
-pkgver = "1.24.7"
-pkgrel = 3
+pkgver = "1.24.8"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -75,7 +75,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-good/gst-plugins-good-{pkgver}.tar.xz"
-sha256 = "759acb11e6de8373ff8cbb5e7ab8eb9a38631be81cf24220267b001eb55593c1"
+sha256 = "613a20f03bd4544b52f10f6ceb4e0fffd25eff15bf338ab8b12b971982eb0153"
 # FIXME int (extra tests fail, look for SIGILL)
 # in 1.24.4, pipelines_effectv only
 hardening = ["!int"]

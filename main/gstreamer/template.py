@@ -1,5 +1,5 @@
 pkgname = "gstreamer"
-pkgver = "1.24.7"
+pkgver = "1.24.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gstreamer/gstreamer-{pkgver}.tar.xz"
-sha256 = "c0e75b124c52bb7a0c3dcdb734b2ad260ea7286a8745cf2ea629d4c849e6a958"
+sha256 = "b807dbf36c5d2b3ce1c604133ed0c737350f9523ce4d8d644a1177c5f9d6ded3"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 file_modes = {
     "usr/libexec/gstreamer-1.0/gst-ptp-helper": ("root", "root", 0o755),

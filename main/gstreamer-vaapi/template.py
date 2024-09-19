@@ -1,5 +1,5 @@
 pkgname = "gstreamer-vaapi"
-pkgver = "1.24.7"
+pkgver = "1.24.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,4 +29,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gstreamer-vaapi/gstreamer-vaapi-{pkgver}.tar.xz"
-sha256 = "3aa5ed9d7f4b5a7cb60d8b0370d983d59395de546ee76704401180fd0fd5ee86"
+sha256 = "c8f015eee7a4d989383e0689a099bfabec95e55159ee875cc4eb9ff8d816dccb"
