@@ -16,7 +16,7 @@ _scripts = {
 }
 
 
-def getdeps(pkg, arch):
+def _get_old_deps(pkg, arch):
     if pkg.stage < 3:
         return None, None, None, None
 
@@ -101,7 +101,59 @@ def getdeps(pkg, arch):
     return curpver, deps, provides, instif
 
 
-def print_diff(head, pkg, over, oldl, newl):
+def _get_new_deps(pkg, origin):
+    deps = []
+    provides = []
+
+    # bootstrap packages are not installable ootb
+    if pkg.pkgname.endswith("-bootstrap") and pkg.build_style != "meta":
+        deps += ["bootstrap:" + pkg.pkgname.removesuffix("-bootstrap")]
+
+    # explicit package depends
+    for c in pkg.depends:
+        ploc = c.find("!")
+        if ploc > 0:
+            deps.append(c[0:ploc].removeprefix("virtual:"))
+        else:
+            deps.append(c.removeprefix("virtual:"))
+
+    # shlib requires
+    if hasattr(pkg, "so_requires"):
+        deps += map(lambda v: f"so:{v}", sorted(pkg.so_requires))
+
+    # .pc file requires
+    if hasattr(pkg, "pc_requires"):
+        deps += map(lambda v: f"pc:{v}", sorted(pkg.pc_requires))
+
+    # alternatives provider
+    if pkg.alternative:
+        provides += [f"{origin}=0"]
+
+    # explicit provides
+    provides += pkg.provides
+
+    # shlib provides
+    if hasattr(pkg, "aso_provides"):
+        provides += map(
+            lambda x: f"so:{x[0]}={x[1]}",
+            sorted(pkg.aso_provides, key=lambda x: x[0]),
+        )
+
+    # .pc file provides
+    if hasattr(pkg, "pc_provides"):
+        provides += map(lambda x: f"pc:{x}", sorted(pkg.pc_provides))
+
+    # command provides
+    if hasattr(pkg, "cmd_provides"):
+        provides += map(lambda x: f"cmd:{x}", sorted(pkg.cmd_provides))
+
+    deps.sort()
+    provides.sort()
+
+    return deps, provides, sorted(pkg.replaces), sorted(pkg.install_if)
+
+
+def _print_diff(head, pkg, over, oldl, newl):
     if oldl is None:
         return
 
@@ -138,18 +190,21 @@ def print_diff(head, pkg, over, oldl, newl):
 
 
 def genpkg(pkg, repo, arch, binpkg, adesc=None):
-    if not pkg.destdir.is_dir():
-        pkg.log_warn("cannot find pkg destdir, skipping...")
-        return
-
-    binpath = repo / binpkg
-
-    repo.mkdir(parents=True, exist_ok=True)
-
     origin = pkg.origin
     if pkg.alternative:
         # extract from the name instead
         origin = f"alt:{pkg.alternative}"
+
+    deps, provides, replaces, riif = _get_new_deps(pkg, origin)
+    over, odeps, oprovides, oiif = _get_old_deps(pkg, arch)
+
+    _print_diff("dependencies", pkg, over, odeps, deps)
+    _print_diff("providers", pkg, over, oprovides, provides)
+    _print_diff("install-ifs", pkg, over, oiif, riif)
+
+    binpath = repo / binpkg
+
+    repo.mkdir(parents=True, exist_ok=True)
 
     if pkg.subdesc:
         bpdesc = f"{pkg.pkgdesc} ({pkg.subdesc})"
@@ -186,91 +241,23 @@ def genpkg(pkg, repo, arch, binpkg, adesc=None):
     if pkg.rparent.git_revision and not pkg.rparent.git_dirty:
         pargs += ["--info", f"repo-commit:{pkg.rparent.git_revision}"]
 
-    # dependencies of any sort
-    deps = []
-
-    # bootstrap packages are not installable ootb
-    if pkg.pkgname.endswith("-bootstrap") and pkg.build_style != "meta":
-        deps += ["bootstrap:" + pkg.pkgname.removesuffix("-bootstrap")]
-
-    # explicit package depends
-    for c in pkg.depends:
-        ploc = c.find("!")
-        if ploc > 0:
-            deps.append(c[0:ploc].removeprefix("virtual:"))
-        else:
-            deps.append(c.removeprefix("virtual:"))
-
-    # sort before adding more
-    deps.sort()
-
-    # shlib requires
-    if hasattr(pkg, "so_requires"):
-        deps += map(lambda v: f"so:{v}", sorted(pkg.so_requires))
-
-    # .pc file requires
-    if hasattr(pkg, "pc_requires"):
-        deps += map(lambda v: f"pc:{v}", sorted(pkg.pc_requires))
-
-    # providers
-    provides = []
-
-    # alternatives provider
-    if pkg.alternative:
-        provides += [f"{origin}=0"]
-
-    # explicit provides
-    provides += sorted(pkg.provides)
-
-    # shlib provides
-    if hasattr(pkg, "aso_provides"):
-        provides += map(
-            lambda x: f"so:{x[0]}={x[1]}",
-            sorted(pkg.aso_provides, key=lambda x: x[0]),
-        )
-
-    # .pc file provides
-    if hasattr(pkg, "pc_provides"):
-        provides += map(lambda x: f"pc:{x}", sorted(pkg.pc_provides))
-
-    # command provides
-    if hasattr(pkg, "cmd_provides"):
-        provides += map(lambda x: f"cmd:{x}", sorted(pkg.cmd_provides))
-
-    # sorted for stats
-    deps.sort()
-    provides.sort()
-    riif = sorted(pkg.install_if)
-
-    over, odeps, oprovides, oiif = getdeps(pkg, arch)
-
-    print_diff("dependencies", pkg, over, odeps, deps)
-    print_diff("providers", pkg, over, oprovides, provides)
-    print_diff("install-ifs", pkg, over, oiif, riif)
-
     if len(deps) > 0:
         pargs += ["--info", f"depends:{' '.join(deps)}"]
-
-    # install-if
-    if len(pkg.install_if) > 0:
-        pargs += ["--info", f"install-if:{' '.join(riif)}"]
 
     if len(provides) > 0:
         pargs += ["--info", f"provides:{' '.join(provides)}"]
 
-    # provider priority
     if pkg.provider_priority > 0:
         pargs += ["--info", f"provider-priority:{pkg.provider_priority}"]
-
-    # replaces
-    replaces = sorted(pkg.replaces)
 
     if len(replaces) > 0:
         pargs += ["--info", f"replaces:{' '.join(replaces)}"]
 
-    # replaces priority
     if pkg.replaces_priority > 0:
         pargs += ["--info", f"replaces-priority:{pkg.replaces_priority}"]
+
+    if len(riif) > 0:
+        pargs += ["--info", f"install-if:{' '.join(riif)}"]
 
     # scripts including trigger scripts
     sclist = []
