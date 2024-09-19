@@ -1,5 +1,5 @@
 pkgname = "libzip"
-pkgver = "1.11"
+pkgver = "1.11.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,7 +27,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://libzip.org"
 source = f"{url}/download/libzip-{pkgver}.tar.gz"
-sha256 = "2afc48095d990d36fc10eb296d54f03913c7eb76e0296535d7071ad85139a319"
+sha256 = "c0e6fa52a62ba11efd30262290dc6970947aef32e0cc294ee50e9005ceac092a"
 hardening = ["vis"]
 
 
