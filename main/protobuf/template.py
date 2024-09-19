@@ -1,5 +1,5 @@
 pkgname = "protobuf"
-pkgver = "28.1"
+pkgver = "28.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"https://github.com/protocolbuffers/protobuf/archive/v{pkgver}.tar.gz"
-sha256 = "3b8bf6e96499a744bd014c60b58f797715a758093abf859f1d902194b8e1f8c9"
+sha256 = "b2340aa47faf7ef10a0328190319d3f3bee1b24f426d4ce8f4253b6f27ce16db"
 # FIXME vis breaks linking lite-test, cfi makes protoc not compile any tests
 hardening = ["!vis", "!cfi"]
 
