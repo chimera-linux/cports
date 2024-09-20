@@ -60,4 +60,3 @@ def invoke(pkg):
 
         with scp.open("w") as sf:
             sf.write(sr)
-            pkg.log(f"added package script '{h}'")
