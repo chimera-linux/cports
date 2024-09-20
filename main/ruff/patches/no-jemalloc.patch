@@ -43,4 +43,4 @@ index 9d92fe5..023e3b8 100644
  mimalloc = { workspace = true }
  
 -[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dev-dependencies]
--tikv-jemallocator = { workspace = true, features = ["unprefixed_malloc_on_supported_platforms"] }
+-tikv-jemallocator = { workspace = true }
