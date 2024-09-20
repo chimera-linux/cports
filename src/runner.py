@@ -596,7 +596,9 @@ def pkg_error(e, log):
         return
     e.pkg.log_red(f"ERROR: {e}", e.end)
     if e.hint:
-        e.pkg.logger.out_plain(f"  \f[bold,green]hint:\f[] \f[bold]{e.hint}")
+        e.pkg.logger.out_plain(
+            f"  \f[bold,green]hint:\f[] \f[bold]{e.hint}\f[]"
+        )
     if e.bt:
         short_traceback(e, log)
 
