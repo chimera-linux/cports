@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "256.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dacl=enabled",
@@ -195,6 +195,7 @@ def post_install(self):
     self.install_file(
         self.files_path / "udevd.wrapper", "usr/libexec", mode=0o755
     )
+    self.install_file(self.files_path / "dinit-devd", "usr/libexec", mode=0o755)
     self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="udev")
     self.install_service(self.files_path / "udevd", enable=True)
     # systemd-boot
