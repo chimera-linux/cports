@@ -1,5 +1,5 @@
 pkgname = "python-b4"
-pkgver = "0.14.1"
+pkgver = "0.14.2"
 pkgrel = 0
 build_style = "python_pep517"
 # it tries to run the tests from the build dir if we don't do this...
@@ -24,4 +24,4 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/mricon/b4"
 # pypi tarball doesn't contain tests
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c2c679ca223f5814196714dc0c7a2aeb7f4740e49a7878f4c00a3d8963c7f14b"
+sha256 = "ba79ca0a67f106f20e3d10db8a63bc8097deb4c33ea1f00a90496ea00b985783"
