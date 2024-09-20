@@ -1,5 +1,5 @@
 pkgname = "goawk"
-pkgver = "1.28.1"
+pkgver = "1.29.0"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT"
 url = "https://github.com/benhoyt/goawk"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bed9009c2702fca12fe773e223d9f22bae9a26133d45c523bc3d598b2819b4cf"
+sha256 = "91bf708ad6776bea7e1fbd1a0969042de8ebc3139b89468a2a1f5405f3401f54"
 
 
 def post_install(self):
