@@ -1,5 +1,5 @@
 pkgname = "dtc"
-pkgver = "1.7.0"
+pkgver = "1.7.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dpython=disabled", "-Ddefault_library=shared"]
@@ -9,8 +9,8 @@ pkgdesc = "Device Tree Compiler"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/utils/dtc/dtc.git"
-source = "https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/dtc-e8364666d5acc985c434fb574e92c5206d9a8d6b.tar.gz"
-sha256 = "9871d96b26c495561b64256bef17a749856ab1fb78b1d5e99a27ba9fe6d7bfb0"
+source = f"https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/v{pkgver}.tar.gz"
+sha256 = "65e65af7037a10026ec53c9784d07cb451ada5a19e396eb5d6c70d179c45e3a6"
 
 
 @subpackage("dtc-devel")
