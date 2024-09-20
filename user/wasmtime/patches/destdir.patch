@@ -6,8 +6,8 @@ file(configure doesn't respect destdir so you can't use it for installing things
  
  message(STATUS "Installing: ${dst}/wasmtime/conf.h")
  file(READ "${include_src}/wasmtime/conf.h.in" conf_h)
--file(CONFIGURE OUTPUT "${dst}/wasmtime/conf.h" CONTENT "${conf_h}")
-+file(CONFIGURE OUTPUT "${include_src}/conf.h" CONTENT "${conf_h}")
+-file(CONFIGURE OUTPUT "${dst}/wasmtime/conf.h" CONTENT "${conf_h}"
++file(CONFIGURE OUTPUT "${include_src}/wasmtime/conf.h" CONTENT "${conf_h}"
+      NEWLINE_STYLE CRLF)
  file(INSTALL "${include_src}/"
       DESTINATION "${dst}"
-      FILES_MATCHING REGEX "\\.hh?$")
