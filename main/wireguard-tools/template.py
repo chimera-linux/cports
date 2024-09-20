@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://www.wireguard.com"
 source = f"https://git.zx2c4.com/wireguard-tools/snapshot/wireguard-tools-{pkgver}.tar.xz"
-sha256 = "942ed32d1d6631932c82ff86c91ae8428d4c90bfec231a14ebdf6c29f068e60b"
+sha256 = "97ff31489217bb265b7ae850d3d0f335ab07d2652ba1feec88b734bc96bd05ac"
 tool_flags = {
     "CFLAGS": ['-DRUNSTATEDIR="/run"'],
 }
