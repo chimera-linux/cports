@@ -1,14 +1,14 @@
 pkgname = "libtiff"
-pkgver = "4.6.0"
-pkgrel = 1
+pkgver = "4.7.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx", "--without-x"]
 # otherwise it builds nothing
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "libtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = [
     "jbigkit-devel",
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "libtiff"
 url = "http://libtiff.maptools.org"
 source = f"http://download.osgeo.org/libtiff/tiff-{pkgver}.tar.gz"
-sha256 = "88b3979e6d5c7e32b50d7ec72fb15af724f6ab2cbf7e10880c360a77e4b5d99a"
+sha256 = "67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976"
 
 
 def post_install(self):
