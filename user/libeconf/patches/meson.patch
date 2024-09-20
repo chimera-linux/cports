@@ -1,0 +1,12 @@
+--- a/meson.build	2024-09-20 17:11:49.271033354 -0300
++++ a/meson.build	2024-09-20 17:11:58.804736776 -0300
+@@ -15,8 +15,7 @@
+ inc = include_directories('include')
+ 
+ add_project_arguments(['-D_GNU_SOURCE=1',
+-		       '-DXTSTRINGDEFINES',
+-		       '-D_FORTIFY_SOURCE=2'], language : 'c')
++		       '-DXTSTRINGDEFINES'], language : 'c')
+ 
+ possible_cc_flags = [
+ 		  '-Dwerror=true',
