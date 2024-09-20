@@ -1,5 +1,5 @@
 pkgname = "upower"
-pkgver = "1.90.5"
+pkgver = "1.90.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -9,6 +9,7 @@ configure_args = [
     "-Dintrospection=enabled",
     "-Dgtk-doc=false",
 ]
+make_check_args = ["--timeout-multiplier", "2"]
 hostmakedepends = [
     "docbook-xsl-nons",
     "gettext-devel",
@@ -37,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/upower/upower/-/archive/v{pkgver}/upower-v{pkgver}.tar.gz"
-sha256 = "92695618325aef09f2c94192c71444e55514ca9819577b128059f6f03847d944"
+sha256 = "7e367c2619ca0f26d5bfc085b46bad9657b2774cc3eaffbf310b607df6e21377"
 options = ["!cross"]
 
 
