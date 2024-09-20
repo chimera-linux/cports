@@ -40,6 +40,4 @@ fi
 export CHROME_DESKTOP="chromium.desktop"
 export CHROME_VERSION_EXTRA="Chimera Linux"
 
-cd "$PROGDIR" || exit 1
-
-exec "./chromium" ${CHROMIUM_FLAGS} "$@"
+exec "$PROGDIR/chromium" ${CHROMIUM_FLAGS} "$@"
