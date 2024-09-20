@@ -1,5 +1,5 @@
 pkgname = "faust"
-pkgver = "2.74.6"
+pkgver = "2.75.7"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["GENERATOR=Ninja"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://faust.grame.fr"
 source = f"https://github.com/grame-cncm/faust/releases/download/{pkgver}/faust-{pkgver}.tar.gz"
-sha256 = "b42a4ed2f8f2eae46e8c37b9dc3ac1bfbdaf0079b75f97ba62968f87a701bb02"
+sha256 = "89cfed24e0dabfc344fd9ecea746719cc3dd274f1a8ac283da760f59bf009c87"
 # skip execinfo
 tool_flags = {"CXXFLAGS": ["-DALPINE"]}
 # no check target
@@ -18,7 +18,7 @@ options = ["!cross", "!check"]
 
 
 def post_install(self):
-    self.rename("usr/share/faust", "usr/lib", relative=False)
+    self.rename("usr/share/faust", "usr/lib/faust", relative=False)
     self.install_link("usr/share/faust", "../lib/faust")
     self.uninstall("usr/lib/libOSCFaust.a")
     self.uninstall("usr/lib/ios-libsndfile.a")
