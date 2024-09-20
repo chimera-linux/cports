@@ -1,6 +1,6 @@
 pkgname = "wlroots0.18"
-pkgver = "0.18.0"
-pkgrel = 1
+pkgver = "0.18.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # all auto features are needed,
@@ -42,7 +42,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/wlroots/wlroots"
 source = f"https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/{pkgver}/downloads/wlroots-{pkgver}.tar.gz"
-sha256 = "89e13735d83b02f0fa519268b1fe893f7843499a5ea34d2bbda054a011722e53"
+sha256 = "b9c4bfef4123fe9f8662280b851e3c5741927457174315826827bfbb70612878"
 
 
 def post_install(self):
