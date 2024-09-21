@@ -105,6 +105,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         "-DCMAKE_INSTALL_LIBDIR=lib",
         "-DCMAKE_INSTALL_LIBEXECDIR=libexec",
         "-DCMAKE_INSTALL_SBINDIR=bin",
+        "-DCMAKE_INSTALL_BINDIR=bin",
         "--fresh",
         *extra_args,
         cdir,
