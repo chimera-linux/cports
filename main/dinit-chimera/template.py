@@ -47,12 +47,10 @@ _have_kexec_tools = self.profile().arch in [
 
 def post_install(self):
     self.install_license("COPYING.md")
-    self.install_file(self.files_path / "locale.conf", "etc")
-    self.install_tmpfiles(self.files_path / "dinit.conf", name="dinit")
-    self.install_file(
-        self.files_path / "sd-tmpfiles-clean", "usr/libexec", mode=0o755
-    )
-    self.install_service(self.files_path / "tmpfiles-clean", enable=True)
+    self.install_file("^/locale.conf", "etc")
+    self.install_tmpfiles("^/dinit.conf", name="dinit")
+    self.install_file("^/sd-tmpfiles-clean", "usr/libexec", mode=0o755)
+    self.install_service("^/tmpfiles-clean", enable=True)
     # swclock
     self.install_dir("var/lib/swclock")
     (self.destdir / "var/lib/swclock/timestamp").touch(0o644)
@@ -61,25 +59,19 @@ def post_install(self):
     self.install_link("usr/bin/init", "dinit")
     # x11 support
     self.install_dir("etc/X11/Xsession.d")
-    self.install_file(
-        self.files_path / "01dinit-env", "etc/X11/Xsession.d", mode=0o755
-    )
+    self.install_file("^/01dinit-env", "etc/X11/Xsession.d", mode=0o755)
     # sysctl additional distro files
-    self.install_tmpfiles(self.files_path / "sysctl.conf", name="sysctl")
+    self.install_tmpfiles("^/sysctl.conf", name="sysctl")
     self.install_file(
-        self.files_path / "sysctl.d/sysctl.conf",
-        "usr/lib/sysctl.d",
-        name="10-chimera.conf",
+        "^/sysctl.d/sysctl.conf", "usr/lib/sysctl.d", name="10-chimera.conf"
     )
     self.install_file(
-        self.files_path / "sysctl.d/sysctl-user.conf",
+        "^/sysctl.d/sysctl-user.conf",
         "usr/lib/sysctl.d",
         name="10-chimera-user.conf",
     )
     self.install_file(
-        self.files_path / "sysctl.d/bpf.conf",
-        "usr/lib/sysctl.d",
-        name="20-bpf.conf",
+        "^/sysctl.d/bpf.conf", "usr/lib/sysctl.d", name="20-bpf.conf"
     )
 
 

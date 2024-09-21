@@ -99,8 +99,13 @@ def _pglob_path(oldp, patp):
 
 
 def _subst_path(pkg, pathn):
-    if isinstance(pathn, str) and pathn.startswith(">/"):
-        return pkg.destdir / pathn.removeprefix(">/")
+    if isinstance(pathn, str):
+        if pathn.startswith(">/"):
+            return pkg.destdir / pathn.removeprefix(">/")
+        elif pathn.startswith("^/"):
+            return pkg.files_path / pathn.removeprefix("^/")
+        else:
+            return pathlib.Path(pathn)
     else:
         return pathlib.Path(pathn)
 
@@ -2010,8 +2015,9 @@ class Template(Package):
             (dirp / ".empty").touch(mode=0o644)
 
     def install_file(self, src, dest, mode=0o644, name=None, glob=False):
+        src = _subst_path(self, src)
         if not glob:
-            srcs = [self.cwd / pathlib.Path(src)]
+            srcs = [self.cwd / src]
         else:
             if name:
                 self.error("cannot specify 'name' and 'glob' together", bt=True)
@@ -2046,6 +2052,7 @@ class Template(Package):
         self.install_file(src, "usr/lib", mode, name, glob)
 
     def install_man(self, src, name=None, cat=None, glob=False, lang=None):
+        src = _subst_path(self, src)
         self.install_dir("usr/share/man")
         manbase = self.destdir / "usr/share/man"
         if lang:
@@ -2111,7 +2118,7 @@ class Template(Package):
                 self.error(f"unknown shell: {shell}")
 
     def install_service(self, src, name=None, enable=False):
-        src = pathlib.Path(src)
+        src = _subst_path(self, src)
         if src.suffix == ".user":
             svname = name or src.with_suffix("").name
             self.install_file(src, "etc/dinit.d/user", name=svname)
