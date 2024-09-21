@@ -1,60 +1,46 @@
-def strip(pkg, *args):
-    strip_path = "/usr/bin/" + pkg.rparent.get_tool("STRIP")
-
-    if len(args) == 0:
-        return
-
-    try:
-        pkg.rparent.do(
-            strip_path,
-            "--strip-unneeded",
-            "--remove-section=.comment",
-            "--keep-section=.gnu_debuglink",
-            *map(lambda v: pkg.chroot_destdir / v, args),
-        )
-    except Exception:
-        pkg.error("failed to strip one of inputs")
+import re
+import shlex
 
 
-def split_debug(pkg, *args):
-    if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
-        return
+def strip_attach(pkg, strip_list, no_split=[]):
+    do_split = pkg.rparent.options["debug"] and pkg.rparent.build_dbg
+    noset = {str(arg) for arg in no_split}
 
-    for path in args:
-        dfile = pkg.destdir / "usr/lib/debug" / path
-        cfile = pkg.chroot_destdir / "usr/lib/debug" / path
+    # prepare a makefile, oh no
+    with open(pkg.destdir / "Makefile", "w") as mkf:
+        mkl = sorted([str(arg) for arg in strip_list])
+        rll = []
+        rec = re.compile("[\\s/.]")
+        for mkp in mkl:
+            mkr = rec.sub("_", mkp)
+            cmdl = []
+            if pkg.rparent.stage > 0:
+                cmdl.append("strip-split")
+                if do_split and mkp not in noset:
+                    cmdl.append("-d")
+                cmdl += [str(pkg.chroot_destdir), mkp]
+            else:
+                # just a very basic strip for stage0 bootstrap
+                cmdl = [
+                    "/usr/bin/" + pkg.rparent.get_tool("STRIP"),
+                    "--strip-debug",
+                    str(pkg.chroot_destdir / mkp),
+                ]
+            mkf.write(f"{mkr}:\n\t{shlex.join(cmdl)}\n\n")
+            rll.append(mkr)
+        mks = " ".join(rll)
+        mkf.write(f".PHONY: {mks}\nall: {mks}\n")
 
-        dfile.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            pkg.rparent.do(
-                pkg.rparent.get_tool("OBJCOPY"),
-                "--only-keep-debug",
-                pkg.chroot_destdir / path,
-                cfile,
-            )
-        except Exception:
-            pkg.error(f"failed to create dbg file for {path}")
+    # invoke
+    pkg.rparent.do(
+        "make",
+        "--silent",
+        "--no-print-directory",
+        f"-j{pkg.rparent.conf_jobs}",
+        "-C",
+        str(pkg.chroot_destdir),
+        "all",
+    )
 
-        dfile.chmod(0o644)
-
-
-def attach_debug(pkg, *args):
-    if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
-        return
-
-    for path in args:
-        cfile = pkg.chroot_destdir / "usr/lib/debug" / path
-        try:
-            pkg.rparent.do(
-                pkg.rparent.get_tool("OBJCOPY"),
-                f"--add-gnu-debuglink={cfile}",
-                pkg.chroot_destdir / path,
-            )
-        except Exception:
-            pkg.error(f"failed to attach debug link to {path}")
-
-
-def strip_attach(pkg, *args):
-    split_debug(pkg, *args)
-    strip(pkg, *args)
-    attach_debug(pkg, *args)
+    # remove the leftover makefile
+    (pkg.destdir / "Makefile").unlink()

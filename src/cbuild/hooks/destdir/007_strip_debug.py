@@ -28,7 +28,7 @@ def invoke(pkg):
     have_pie = pkg.rparent.has_hardening("pie")
 
     strip_list = []
-    strip_slist = []
+    strip_noslist = []
 
     log = pkg.logger
 
@@ -72,6 +72,7 @@ def invoke(pkg):
             if not pkg.rparent.has_lto() or pkg.options["ltostrip"]:
                 log.out_plain(f"  \f[purple]static library:\f[] {vr}")
                 strip_list.append(vr)
+                strip_noslist.append(vr)
             # in any case continue
             continue
 
@@ -82,6 +83,7 @@ def invoke(pkg):
             _sanitize_exemode(pkg, v, str(vr))
             log.out_plain(f"  \f[green]static executable:\f[] {vr}")
             strip_list.append(vr)
+            strip_noslist.append(vr)
             continue
 
         # pie or nopie?
@@ -114,13 +116,11 @@ def invoke(pkg):
                 pkg.error(f"non-PIE executable found in PIE build: {vr}")
 
             strip_list.append(vr)
-            strip_slist.append(vr)
             log.out_plain(f"  \f[green]executable:\f[] {vr}")
             continue
 
         # strip pie executable or shared library
         strip_list.append(vr)
-        strip_slist.append(vr)
         # technically there may be libraries with an interpreter set,
         # so this is not completely robust, but there is no other way
         # to differentiate it (DF_1_PIE may not always be set) and it
@@ -136,9 +136,7 @@ def invoke(pkg):
         else:
             log.out_plain(f"  \f[cyan]library:\f[] {vr}")
 
-    strip.split_debug(pkg, *strip_slist)
-    strip.strip(pkg, *strip_list)
-    strip.attach_debug(pkg, *strip_slist)
+    strip.strip_attach(pkg, strip_list, strip_noslist)
 
     # prepare debug package
     if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:

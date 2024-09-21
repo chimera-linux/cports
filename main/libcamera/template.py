@@ -35,7 +35,7 @@ def post_install(self):
     for f in (self.destdir / "usr/lib/libcamera").glob("ipa*.so"):
         fr = f.relative_to(self.destdir)
         print(f"   Stripping and signing: {fr.name}")
-        strip.strip_attach(self, fr)
+        strip.strip_attach(self, [fr])
         self.do(
             "src/ipa/ipa-sign.sh",
             "build/src/ipa-priv-key.pem",
