@@ -1,0 +1,21 @@
+--- a/Makefile.am	2024-09-20 06:24:22.612601858 -0300
++++ b/Makefile.am	2024-09-20 06:24:31.382453168 -0300
+@@ -5,7 +5,7 @@
+ #
+ AUTOMAKE_OPTIONS = 1.6 foreign check-news dist-xz
+ #
+-SUBDIRS = lib tukit dbus sbin man systemd logrotate dracut doc etc
++SUBDIRS = lib tukit dbus man logrotate doc etc
+ 
+ CLEANFILES = *~ tukit.pc
+
+--- a/dbus/Makefile.am	2024-09-16 13:09:12.000000000 -0300
++++ a/dbus/Makefile.am.new	2024-09-21 10:18:22.692117647 -0300
+@@ -12,7 +12,5 @@
+ dbussystembusservice_DATA = org.opensuse.tukit.service
+ dbusinterfacesdir = @DBUSINTERFACESDIR@
+ dbusinterfaces_DATA = org.opensuse.tukit.Transaction.xml org.opensuse.tukit.Snapshot.xml
+-systemdsystemunitdir = @SYSTEMDDIR@
+-systemdsystemunit_DATA = tukitd.service
+ 
+ EXTRA_DIST = $(DATA)

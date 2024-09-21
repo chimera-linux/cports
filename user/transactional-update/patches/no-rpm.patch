@@ -1,0 +1,22 @@
+--- a/configure.ac	2024-09-20 06:10:04.979023142 -0300
++++ b/configure.ac	2024-09-20 09:08:17.039005737 -0300
+@@ -56,8 +56,6 @@
+ PKG_CHECK_MODULES([ECONF], [libeconf])
+ PKG_CHECK_MODULES([SELINUX], [libselinux])
+ PKG_CHECK_MODULES([LIBMOUNT], [mount])
+-PKG_CHECK_MODULES([LIBRPM], [rpm >= 4.15], AC_DEFINE([HAVE_RPMDBCOOKIE]),
+-	[PKG_CHECK_MODULES([LIBRPM], [rpm])])
+ PKG_CHECK_MODULES([LIBSYSTEMD], [libsystemd])
+ 
+ AC_ARG_WITH([doc],
+
+--- a/tukit.pc.in	2024-09-20 06:10:04.986023030 -0300
++++ b/tukit.pc.in	2024-09-20 17:57:45.272302671 -0300
+@@ -7,6 +7,6 @@
+ Description: Toolkit library for operating system transactional updates
+ Version: @VERSION@
+ URL: https://github.com/openSUSE/transactional-update
+-Requires.private: rpm, libeconf, mount
++Requires.private: libeconf, mount
+ Cflags: -I${includedir}
+ Libs: -L${libdir} -ltukit
