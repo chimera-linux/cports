@@ -1,5 +1,5 @@
 pkgname = "uv"
-pkgver = "0.4.13"
+pkgver = "0.4.14"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,9 +19,10 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/astral-sh/uv"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "c0dab196cc4f8141a29f72ac9f02e6542812bf283a8af06db477d92cfedef308"
+sha256 = "0bb499e1edbc89c87575fcb66fb0f2358cc9091c5dfd5e1f05de3864ba7141e9"
 # too many of them need net
-options = ["!check"]
+# completions with host bin
+options = ["!check", "!cross"]
 
 
 def post_patch(self):
@@ -37,6 +38,24 @@ def init_build(self):
     self.make_env.update(renv)
 
 
+def post_build(self):
+    for shell in ["bash", "fish", "nushell", "zsh"]:
+        with open(self.cwd / f"uv.{shell}", "w") as cf:
+            self.do(
+                f"./target/{self.profile().triplet}/release/uv",
+                "--generate-shell-completion",
+                shell,
+                stdout=cf,
+            )
+        with open(self.cwd / f"uvx.{shell}", "w") as cf:
+            self.do(
+                f"./target/{self.profile().triplet}/release/uvx",
+                "--generate-shell-completion",
+                shell,
+                stdout=cf,
+            )
+
+
 def check(self):
     from cbuild.util import cargo
 
@@ -45,3 +64,6 @@ def check(self):
 
 def post_install(self):
     self.install_license("LICENSE-MIT")
+    for shell in ["bash", "fish", "nushell", "zsh"]:
+        self.install_completion(f"uv.{shell}", shell)
+        self.install_completion(f"uvx.{shell}", shell, "uvx")
