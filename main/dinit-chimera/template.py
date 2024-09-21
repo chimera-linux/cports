@@ -35,6 +35,15 @@ sha256 = "c005d9214d903e34613433039988db14a1d9d2c9e54ae519ce6a58027270baf4"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks"]
 
+_have_kexec_tools = self.profile().arch in [
+    "aarch64",
+    "armhf",
+    "armv7",
+    "ppc64",
+    "ppc64le",
+    "x86_64",
+]
+
 
 def post_install(self):
     self.install_license("COPYING.md")
@@ -74,7 +83,7 @@ def post_install(self):
     )
 
 
-@subpackage("dinit-chimera-kdump")
+@subpackage("dinit-chimera-kdump", _have_kexec_tools)
 def _(self):
     self.subdesc = "kernel crash dump support"
     # don't install-if it, make it user choice to enable
