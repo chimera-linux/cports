@@ -1,5 +1,5 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.10"
+pkgver = "0.99.11"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -17,7 +17,7 @@ depends = [
     "cmd:snooze!snooze",
     "cmd:sulogin!shadow",
     "cmd:systemd-tmpfiles!sd-tools",
-    "cmd:udevadm!udev",
+    "cmd:udevadm>=256.6-r1!udev",
 ]
 replaces = ["systemd-utils<255", "base-kernel<0.2"]
 triggers = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "336814afb6b9bfb70b6e759e8b9f1073704ad03442d076194abefae24c9b556f"
+sha256 = "c005d9214d903e34613433039988db14a1d9d2c9e54ae519ce6a58027270baf4"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks"]
 
@@ -72,6 +72,16 @@ def post_install(self):
         "usr/lib/sysctl.d",
         name="20-bpf.conf",
     )
+
+
+@subpackage("dinit-chimera-kdump")
+def _(self):
+    self.subdesc = "kernel crash dump support"
+    # don't install-if it, make it user choice to enable
+    self.depends = [self.parent, "kexec-tools", "makedumpfile"]
+    return [
+        "usr/lib/dinit.d/early/scripts/kdump.sh",
+    ]
 
 
 @subpackage("dinit-chimera-x11")
