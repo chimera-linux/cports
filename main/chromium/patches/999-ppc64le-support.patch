@@ -106,6 +106,19 @@ index 1b86a4bb9e..bc95083101 100755
    script_dir = os.path.dirname(os.path.abspath(__file__))
    src_dir = os.path.dirname(script_dir)
    nacl_dir = os.path.join(src_dir, 'native_client')
+diff --git a/build/rust/cargo_crate.gni b/build/rust/cargo_crate.gni
+index 1b86a4bb9e..bc95083101 100755
+--- a/build/rust/cargo_crate.gni
++++ b/build/rust/cargo_crate.gni
+@@ -429,7 +429,7 @@
+           rust_abi_target,
+         ]
+       }
+-      if (current_cpu == "arm64" || current_cpu == "x64") {
++      if (current_cpu == "arm64" || current_cpu == "x64" || current_cpu == "ppc64") {
+         args += [
+           "--pointer-width",
+           "64",
 diff --git a/sandbox/features.gni b/sandbox/features.gni
 index 8434144118..c92bf1a4bc 100644
 --- a/sandbox/features.gni
