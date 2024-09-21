@@ -1,12 +1,12 @@
 pkgname = "fonts-libertinus-otf"
-pkgver = "7.040"
-pkgrel = 1
+pkgver = "7.050"
+pkgrel = 0
 pkgdesc = "Fonts based on Linux Libertine/Biolinum, with extended math support"
 maintainer = "autumnontape <autumn@cyfox.net>"
 license = "OFL-1.1"
 url = "https://github.com/alerque/libertinus"
-source = f"{url}/releases/download/v{pkgver}/Libertinus-{pkgver}.tar.xz"
-sha256 = "7fe9f022722d1c1cc67dc2c28a110b3bb55bae3575196160d2422c89333b3850"
+source = f"{url}/releases/download/v{pkgver}/Libertinus-{pkgver}.tar.zst"
+sha256 = "cbb54c4c482376eb17bb6397494489baacff0755d3864f9b5c772e2f3d43d429"
 
 
 def install(self):
