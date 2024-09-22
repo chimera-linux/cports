@@ -1,9 +1,9 @@
 pkgname = "btop"
 pkgver = "1.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBTOP_LTO=OFF", "-DBTOP_FORTIFY=OFF"]
-hostmakedepends = ["cmake", "ninja"]
+hostmakedepends = ["cmake", "ninja", "lowdown"]
 makedepends = ["linux-headers"]
 pkgdesc = "TUI monitor of system resources"
 maintainer = "mia <mia@mia.jetzt>"
