@@ -1,6 +1,6 @@
 pkgname = "amberol"
-pkgver = "0.10.3"
-pkgrel = 1
+pkgver = "2024.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "cargo-auditable",
@@ -24,7 +24,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Amberol"
 source = f"https://gitlab.gnome.org/World/amberol/-/archive/{pkgver}/amberol-{pkgver}.tar.gz"
-sha256 = "52372ec6f5ba066409e8dfc4a62fdb2c57e79f83a809cf295ff0e040eebb233b"
+sha256 = "2be110f5a5781fc4d11abf8686335e055866ce6df40562ed5eabab16916faceb"
 # broken below
 options = ["!cross"]
 
