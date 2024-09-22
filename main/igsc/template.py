@@ -1,5 +1,5 @@
 pkgname = "igsc"
-pkgver = "0.9.3"
+pkgver = "0.9.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DSYSLOG=OFF", "-DENABLE_WERROR=OFF"]
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/intel/igsc"
 source = f"{url}/archive/refs/tags/V{pkgver}.tar.gz"
-sha256 = "e657553ebe3dbb7196012bd9a234382f9053522c377651400268ce45b2a9e43a"
+sha256 = "83cba1edf133f1917e0e3809c73fae6eaf42cdd21b7c9ce3fd3d2b14b38814e4"
 
 
 @subpackage("igsc-devel")
