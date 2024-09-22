@@ -1,5 +1,5 @@
 pkgname = "libopenmpt"
-pkgver = "0.7.9"
+pkgver = "0.7.10"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,8 +8,8 @@ configure_args = [
 ]
 hostmakedepends = [
     "automake",
-    "libtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = [
     "flac-devel",
@@ -24,7 +24,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://lib.openmpt.org/libopenmpt"
 source = f"https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-{pkgver}+release.autotools.tar.gz"
-sha256 = "0386e918d75d797e79d5b14edd0847165d8b359e9811ef57652c0a356a2dfcf4"
+sha256 = "093713c1c1024f4f10c4779a66ceb2af51fb7c908a9e99feb892d04019220ba1"
 
 
 def post_install(self):
