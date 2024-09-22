@@ -1,5 +1,5 @@
 pkgname = "ruff"
-pkgver = "0.6.6"
+pkgver = "0.6.7"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -11,7 +11,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "rust-std",
-    "zstd-devel",  # checks only
+    "zstd-devel",
 ]
 depends = ["python"]
 pkgdesc = "Python formatter and linter"
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
 source = f"https://github.com/astral-sh/ruff/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "3cb23639fe8f64748fd3ff0d4a7ed8128ed2a614def511978ee83c798ca0c0ce"
+sha256 = "9539e7f928c42fb77ec6b52f4527f3837d263d250f9659a0d8e1d378f38bbfc8"
 # generates completions with host bin
 options = ["!cross"]
 
