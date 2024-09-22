@@ -1,5 +1,5 @@
 pkgname = "python-botocore"
-pkgver = "1.35.18"
+pkgver = "1.35.24"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,6 +19,6 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/boto/botocore"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "8934eae8229bd5a49507644054ab25553b5933dc24693d5d4b7661a16739d891"
+sha256 = "37e5b3df76aa2cf1581343f072bb667db7b97bdc0eb086ccd17f461c419afc12"
 # takes forever
 options = ["!check"]
