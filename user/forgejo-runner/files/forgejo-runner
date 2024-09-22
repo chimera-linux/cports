@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/forgejo-runner daemon
+working-dir = /var/lib/forgejo-runner/$1
+env-file = /usr/share/forgejo-runner/docker_host.env
+depends-on = podman
+logfile = /var/log/forgejo-runner.log
+smooth-recovery = true
