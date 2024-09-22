@@ -1,15 +1,16 @@
 pkgname = "btop"
-pkgver = "1.3.2"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBTOP_LTO=OFF", "-DBTOP_FORTIFY=OFF"]
 hostmakedepends = ["cmake", "ninja"]
+makedepends = ["linux-headers"]
 pkgdesc = "TUI monitor of system resources"
 maintainer = "mia <mia@mia.jetzt>"
 license = "Apache-2.0"
 url = "https://github.com/aristocratos/btop"
 source = f"{url}/archive/v{pkgver}/btop-{pkgver}.tar.gz"
-sha256 = "331d18488b1dc7f06cfa12cff909230816a24c57790ba3e8224b117e3f0ae03e"
+sha256 = "ac0d2371bf69d5136de7e9470c6fb286cbee2e16b4c7a6d2cd48a14796e86650"
 hardening = ["cfi", "vis"]
 
 
