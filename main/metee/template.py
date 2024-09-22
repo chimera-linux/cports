@@ -1,5 +1,5 @@
 pkgname = "metee"
-pkgver = "4.2.0"
+pkgver = "4.2.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -13,7 +13,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/intel/metee"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ca4a4b67f8e07ad6bc892f8ce15bd8ecdfb29c04563170f6256e7269e62afce6"
+sha256 = "bc796f6f07e98106d0303711302633046d6b918f16b3cbce4a49dc406a9a1090"
 
 
 @subpackage("metee-devel")
