@@ -35,10 +35,10 @@ the `.list` extension. Put something like this in there:
 
 ```
 /home/user/cports/packages/main
-/home/user/cports/packages/contrib
+/home/user/cports/packages/user
 ```
 
-This will give `apk` access to the `main` and `contrib` packages of your local
+This will give `apk` access to the `main` and `user` packages of your local
 repository. You might want to restrict this list to only the repositories that
 you have.
 
