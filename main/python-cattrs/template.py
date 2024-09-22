@@ -1,5 +1,5 @@
 pkgname = "python-cattrs"
-pkgver = "24.1.1"
+pkgver = "24.1.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -20,7 +20,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://catt.rs/en/stable"
 source = f"$(PYPI_SITE)/c/cattrs/cattrs-{pkgver}.tar.gz"
-sha256 = "16e94a13f9aaf6438bd5be5df521e072b1b00481b4cf807bcb1acbd49f814c08"
+sha256 = "8028cfe1ff5382df59dd36474a86e02d817b06eaf8af84555441bac915d2ef85"
 
 
 def init_check(self):
