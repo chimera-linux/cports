@@ -1,7 +1,7 @@
 # also bump update.py
 pkgname = "linux-steamdeck"
 pkgver = "6.5.0"
-pkgrel = 5
+pkgrel = 6
 _vver = 19
 archs = ["x86_64"]
 make_dir = "build"
