@@ -1,5 +1,5 @@
 pkgname = "sonivox"
-pkgver = "3.6.12"
+pkgver = "3.6.13"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SONIVOX_STATIC=OFF"]
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/pedrolcl/sonivox"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "23a7f29c617e791dfcb50b75eef41464e4bf3fca15b19da395a64373ff5d8456"
+sha256 = "c5c088acc423a78f7ec103f3d99c7b16c85301c2969dcebdc49537c7247790c4"
 
 
 @subpackage("sonivox-devel")
