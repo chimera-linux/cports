@@ -41,9 +41,9 @@ Using a correct commit message is also important:
 * Changes to `cbuild` should use `cbuild: custom message`.
 * Changes to other parts should use the same format but relating to the thing
   they change, e.g. for `Packaging.md` changes it's `packaging: ...` and so on.
-* Changes to multiple things in a category should use `*`, e.g. for
-  `contrib/foo` and `contrib/bar` changes it's `contrib/*`, and for a
-  global cleanup `*/*: title` may be used.
+* Changes to multiple things in a category should use `*`, e.g. for `user/foo`
+  and `user/bar` changes it's `user/*`, and for a global cleanup `*/*: title`
+  may be used.
 
 Commit messages as well as things such as package descriptions should be
 written in American English and be grammatically correct.
