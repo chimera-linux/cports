@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/crio
+depends-on = pre-local.target
+logfile = /var/log/crio.log
