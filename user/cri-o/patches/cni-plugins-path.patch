@@ -1,0 +1,12 @@
+from aports/cri-o/cni-plugins-path.patch
+
+--- a/pkg/config/config_unix.go	2024-09-09 19:22:50.000000000 -0300
++++ b/pkg/config/config_unix.go	2024-09-22 21:08:00.826738793 -0300
+@@ -6,7 +6,7 @@
+ // Defaults for linux/unix if none are specified.
+ const (
+ 	cniConfigDir             = "/etc/cni/net.d/"
+-	cniBinDir                = "/opt/cni/bin/"
++	cniBinDir                = "/usr/libexec/cni/"
+ 	containerExitsDir        = "/var/run/crio/exits"
+ 	ContainerAttachSocketDir = "/var/run/crio"
