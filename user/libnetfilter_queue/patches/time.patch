@@ -1,0 +1,12 @@
+--- a/src/libnetfilter_queue.c	2024-09-22 19:53:55.904990080 -0300
++++ a/src/libnetfilter_queue.c	2024-09-22 19:54:03.319892126 -0300
+@@ -25,7 +25,8 @@
+ #include <unistd.h>
+ #include <string.h>
+ #include <ctype.h>
+ #include <time.h>
++#include <sys/time.h>
+ #include <errno.h>
+ #include <netinet/in.h>
+ #include <sys/socket.h>
+
