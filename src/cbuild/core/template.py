@@ -2015,9 +2015,8 @@ class Template(Package):
             (dirp / ".empty").touch(mode=0o644)
 
     def install_file(self, src, dest, mode=0o644, name=None, glob=False):
-        src = _subst_path(self, src)
         if not glob:
-            srcs = [self.cwd / src]
+            srcs = [self.cwd / _subst_path(self, src)]
         else:
             if name:
                 self.error("cannot specify 'name' and 'glob' together", bt=True)
@@ -2052,13 +2051,12 @@ class Template(Package):
         self.install_file(src, "usr/lib", mode, name, glob)
 
     def install_man(self, src, name=None, cat=None, glob=False, lang=None):
-        src = _subst_path(self, src)
         self.install_dir("usr/share/man")
         manbase = self.destdir / "usr/share/man"
         if lang:
             manbase = manbase / lang
         if not glob:
-            srcs = [self.cwd / src]
+            srcs = [self.cwd / _subst_path(self, src)]
         else:
             if name:
                 self.error("cannot specify 'name' and 'glob' together", bt=True)
