@@ -1,0 +1,25 @@
+From b675d59c61c4d69f0f9840ded8a8d3e3c46131da Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?JC=20Gr=C3=BCnhage?= <jan.christian@gruenhage.xyz>
+Date: Sat, 31 Jan 2026 12:12:44 +0100
+Subject: [PATCH 2/5] no install.systemd
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index e2f0c018d..ae9bd22f0 100644
+--- a/Makefile
++++ b/Makefile
+@@ -244,7 +244,7 @@ metrics-exporter: bin/metrics-exporter ## Build the metrics exporter container.
+ 		-t quay.io/crio/metrics-exporter:latest
+ 
+ .PHONY: install
+-install: install.bin install.man install.completions install.systemd install.config ## Install the project locally.
++install: install.bin install.man install.completions install.config ## Install the project locally.
+ 
+ .PHONY: install.bin-nobuild
+ install.bin-nobuild: ## Install the binaries.
+-- 
+2.52.0
+
