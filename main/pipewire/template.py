@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "1.2.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -10,7 +10,6 @@ configure_args = [
     "-Dsdl2=disabled",  # examples
     "-Dsystemd=disabled",
     "-Dlibffado=disabled",
-    "-Droc=disabled",  # TODO
     "-Dselinux=disabled",
     "-Dsnap=disabled",
     "-Dbluez5-codec-lc3plus=disabled",
@@ -52,6 +51,7 @@ makedepends = [
     "lilv-devel",
     "ncurses-devel",
     "openssl-devel",
+    "roc-toolkit-devel",
     "sbc-devel",
     "v4l-utils-devel",
 ]
@@ -106,6 +106,15 @@ def _(self):
     return ["usr/lib/spa-0.2/bluez5"]
 
 
+@subpackage("pipewire-roc")
+def _(self):
+    self.subdesc = "ROC support"
+    self.depends += [self.parent]
+    self.install_if = [self.parent, "roc-toolkit"]
+
+    return ["usr/lib/pipewire-*/libpipewire-module-roc-*.so"]
+
+
 @subpackage("pipewire-libs")
 def _(self):
     self.subdesc = "runtime library"
@@ -138,10 +147,9 @@ def _(self):
     self.provides = [self.with_pkgver("jack")]
 
     return [
-        "usr/bin/pw-jack",
+        "cmd:pw-jack",
         "usr/lib/libjack*",
         "usr/share/pipewire/jack.conf",
-        "usr/share/man/man1/pw-jack.1",
     ]
 
 
