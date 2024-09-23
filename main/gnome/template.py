@@ -50,7 +50,7 @@ def _(self):
     self.install_if = [self.parent]
     self.depends = [
         "baobab",
-        "eog",
+        # "eog",
         "epiphany",
         "evince",
         "gnome-browser-connector",
@@ -75,6 +75,7 @@ def _(self):
         "gnome-user-docs",
         # "gnome-user-share",
         "gnome-weather",
+        "loupe",
         "orca",
         # "phodav",
         "simple-scan",
