@@ -1,6 +1,6 @@
 pkgname = "git"
-pkgver = "2.46.1"
-pkgrel = 1
+pkgver = "2.46.2"
+pkgrel = 0
 hostmakedepends = [
     "asciidoc",
     "gettext",
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/git/git-{pkgver}.tar.xz"
-sha256 = "888cafb8bd6ab4cbbebc168040a8850eb088f81dc3ac2617195cfc0877f0f543"
+sha256 = "5ee8a1c68536094a4f7f9515edc154b12a275b8a57dda4c21ecfbf1afbae2ca3"
 hardening = ["!vis", "!cfi"]
 
 
