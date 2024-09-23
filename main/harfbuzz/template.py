@@ -34,6 +34,7 @@ license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/harfbuzz/harfbuzz/releases/download/{pkgver}/harfbuzz-{pkgver}.tar.xz"
 sha256 = "a41b272ceeb920c57263ec851604542d9ec85ee3030506d94662067c7b6ab89e"
+# cross: gobject-introspection
 options = ["!cross"]
 
 
