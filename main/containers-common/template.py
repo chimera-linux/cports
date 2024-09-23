@@ -1,5 +1,5 @@
 pkgname = "containers-common"
-pkgver = "0.60.2"
+pkgver = "0.60.3"
 pkgrel = 0
 make_build_args = ["-C", "docs"]
 make_install_args = [*make_build_args]
@@ -26,7 +26,7 @@ source_paths = [
     "shortnames",
 ]
 sha256 = [
-    "45a83663c634797461810fc8743a4b941592d506099cc8679838ffdfac9d5e71",
+    "9ca9e5a7e6e8465d628da16e55544428886620f3c35b1749737a3b7f9b29982f",
     "d6c2d3af9e0f674c248477d521d0f8fc5eac050c65e2fd3f823cc42502b22847",
     "2e0a4f21416cd287a39fe3556197f258ca02ffc5825a74b4ad6c3f52f08446b5",
     "336ba679d4e510d2eb59cb11321bf16a36ef2dba58024e79dd76b89ffee539e6",
