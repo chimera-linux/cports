@@ -1,7 +1,7 @@
 # this must be synchronized with avahi-ui-progs
 pkgname = "avahi"
 pkgver = "0.8"
-pkgrel = 7
+pkgrel = 8
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",
@@ -64,8 +64,8 @@ def _(self):
 
     return [
         "etc/avahi/avahi-autoipd.action",
-        "usr/bin/avahi-autoipd",
-        "usr/share/man/man8/avahi-autoipd*",
+        "cmd:avahi-autoipd",
+        "man:avahi-autoipd*.8",
     ]
 
 
@@ -108,8 +108,7 @@ def _(self):
 def _(self):
     # do not take daemon
     return [
-        "usr/bin/avahi-browse*",
-        "usr/bin/avahi-publish*",
-        "usr/bin/avahi-resolv*",
-        "usr/share/man/man1",
+        "cmd:avahi-browse*",
+        "cmd:avahi-publish*",
+        "cmd:avahi-resolve*",
     ]
