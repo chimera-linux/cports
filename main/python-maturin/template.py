@@ -1,6 +1,6 @@
 pkgname = "python-maturin"
-pkgver = "1.7.1"
-pkgrel = 2
+pkgver = "1.7.2"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {
     "MATURIN_SETUP_ARGS": "--features=full,native-tls,password-storage"
@@ -22,7 +22,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://www.maturin.rs"
 source = f"https://github.com/PyO3/maturin/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "40259109a3d941237db3dff2f34c5e953904de86410e516c098f824d6160109b"
+sha256 = "522e763a77830dd4251bafeb83f376a29e225a06fbe985ed14d98e3db0ecabd9"
 # yeah no
 options = ["!check"]
 
