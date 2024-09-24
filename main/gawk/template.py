@@ -1,5 +1,5 @@
 pkgname = "gawk"
-pkgver = "5.3.0"
+pkgver = "5.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-readline", "--disable-pma"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gawk"
 source = f"$(GNU_SITE)/gawk/gawk-{pkgver}.tar.xz"
-sha256 = "ca9c16d3d11d0ff8c69d79dc0b47267e1329a69b39b799895604ed447d3ca90b"
+sha256 = "694db764812a6236423d4ff40ceb7b6c4c441301b72ad502bb5c27e00cd56f78"
 
 
 def post_install(self):
