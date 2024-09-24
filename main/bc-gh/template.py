@@ -1,5 +1,5 @@
 pkgname = "bc-gh"
-pkgver = "7.0.2"
+pkgver = "7.0.3"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://git.yzena.com/gavin/bc"
 source = f"https://github.com/gavinhoward/bc/releases/download/{pkgver}/bc-{pkgver}.tar.xz"
-sha256 = "5cdaa73e42deda936bdcdb668eeaa6bc0567cac820914744a6824595fa13da1d"
+sha256 = "91eb74caed0ee6655b669711a4f350c25579778694df248e28363318e03c7fc4"
 hardening = ["vis", "cfi"]
 
 
