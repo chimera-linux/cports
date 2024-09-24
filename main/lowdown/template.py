@@ -1,6 +1,6 @@
 pkgname = "lowdown"
-pkgver = "1.1.0"
-pkgrel = 1
+pkgver = "1.1.1"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "PREFIX=/usr",
@@ -14,7 +14,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://kristaps.bsd.lv/lowdown"
 source = f"{url}/snapshots/lowdown.tar.gz"
-sha256 = "f31e3950c4732b1e409174fa092eca40c55be77a448ee2818df987979d7b0879"
+sha256 = "3b1a4a9db44b0ea621189f107ff0dd6dff305c35209f46c17382b71555a3567e"
 hardening = ["vis", "cfi"]
 
 
