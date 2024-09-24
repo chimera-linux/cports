@@ -1,6 +1,6 @@
 pkgname = "git-cliff"
-pkgver = "2.5.0"
-pkgrel = 1
+pkgver = "2.6.0"
+pkgrel = 0
 build_style = "cargo"
 make_check_args = [
     "--",
@@ -20,7 +20,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/orhun/git-cliff"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "87b424657f5843fc08b544e5beb1f97c6b86ef6e90465b570ed41a343e90f135"
+sha256 = "0018be6e72a3133dbcd2e17ee4e12bbdc8d2762a38624d9590beced871314f9d"
 # generates manpages/completions with host bins
 options = ["!cross"]
 
