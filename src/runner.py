@@ -2403,7 +2403,10 @@ command_handlers = {
         do_remove_autodeps,
         "Remove build dependencies from bldroot",
     ),
-    "unstage": (do_unstage, "Unstage local repositories"),
+    "unstage": (
+        lambda cmd: do_unstage(cmd, opt_force),
+        "Unstage local repositories",
+    ),
     "unstage-check-remote": (
         check_unstage,
         "Try unstaging local packages against remote repositories",
