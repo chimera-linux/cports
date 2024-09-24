@@ -1,7 +1,14 @@
 pkgname = "muon"
-pkgver = "0.2.0"
-pkgrel = 3
+pkgver = "0.3.0"
+pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "-Ddocs=enabled",
+    "-Dlibarchive=enabled",
+    "-Dlibcurl=enabled",
+    "-Dlibpkgconf=enabled",
+    "-Dsamurai=disabled",
+]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -13,7 +20,6 @@ makedepends = [
     "libcurl-devel",
     "pkgconf-devel",
 ]
-checkdepends = ["git"]
 depends = ["ninja"]
 pkgdesc = "Minimal implementation of meson"
 maintainer = "ttyyls <contact@behri.org>"
@@ -21,12 +27,12 @@ license = "GPL-3.0-only AND Apache-2.0 AND MIT AND Unlicense"
 url = "https://muon.build"
 source = [
     f"https://git.sr.ht/~lattis/muon/archive/{pkgver}.tar.gz",
-    "https://mochiro.moe/wrap/meson-docs-0.64.1-19-g39c6fa4bc.tar.gz",
+    "https://mochiro.moe/wrap/meson-docs-1.5.1-18-g587869c37.tar.gz",
 ]
 source_paths = [".", "subprojects/meson-docs"]
 sha256 = [
-    "d73db1be5388821179a25a15ba76fd59a8bf7c8709347a4ec2cb91755203f36c",
-    "f6b74283b75085b3e21e851ba4a37934a1793d804d5bacfb3f5e870dd305c85d",
+    "e1c2741e7cbcdcb6152ad4251f032aa9ea3b77e96ce84f760a3265dc7c56ae5c",
+    "2a781073f8fdbf0f3c9dcea73cf32a37f12714d6cf0e7054d5dba245c3b564df",
 ]
 # hidden visibility breaks almost all tests
 hardening = ["!vis"]
