@@ -1,5 +1,5 @@
 pkgname = "blender"
-pkgver = "4.2.1"
+pkgver = "4.2.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -74,7 +74,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://www.blender.org"
 source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"
-sha256 = "e0b7e070ff706d23666ba90eb99a85badb8dfa80b848dae8d3351bf25d47aff9"
+sha256 = "3af4f44d9e5e5309303417097e017d5087f9bb409bc3724bc49a1292e52aef24"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
     # guilty until proven innocent
