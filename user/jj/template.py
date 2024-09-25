@@ -24,6 +24,12 @@ sha256 = "c38d98d7db42f08b799f5c51f33cd8454867bc4862a15aa0897b72f2d32eea0a"
 options = ["!cross"]
 
 
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "serde_bser")
+
+
 def post_build(self):
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(f"{self.cwd}/jj.{shell}", "w") as o:
