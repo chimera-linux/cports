@@ -1,0 +1,10 @@
+--- a/shell-rs/meson.build	2024-09-28 12:01:57.055163167 -0300
++++ b/shell-rs/meson.build	2024-09-28 12:01:29.285616924 -0300
+@@ -4,7 +4,6 @@
+   gir_dir = shell_rs_root / 'gir-files'
+ 
+   # required to make sure the bindings have stable formatting
+-  cargo_fmt = find_program('cargo-fmt', required: true)
+   run_target('update-rust-bindings',
+     command: [
+       shell_rs_root / 'update-bindings.sh',

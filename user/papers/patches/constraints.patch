@@ -1,0 +1,14 @@
+fixes the invalid package version constraints error on papers 47, should be removed whenever theres no ".beta" version on constraints
+
+--- a/meson.build	2024-09-24 23:19:55.489475081 -0300
++++ b/meson.build	2024-09-24 23:19:45.639598384 -0300
+@@ -143,7 +143,7 @@
+ 
+ glib_req_version = '>= 2.75.0'
+ gtk_req_version = '>= 4.15.2'
+-libaw_req_version = '>= 1.6.beta'
++libaw_req_version = '>= 1.6'
+ exempi_req_version = '>= 2.0'
+ 
+ gdk_pixbuf_dep = dependency('gdk-pixbuf-2.0', version: '>= 2.40.0')
+
