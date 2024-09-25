@@ -1,5 +1,5 @@
 pkgname = "libuv"
-pkgver = "1.48.0"
+pkgver = "1.49.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libuv.org"
 source = f"https://dist.libuv.org/dist/v{pkgver}/libuv-v{pkgver}-dist.tar.gz"
-sha256 = "c593139feb9061699fdd2f7fde47bb6c1ca77761ae9ec04f052083f1ef46c13b"
+sha256 = "dd81e0fd09e4b0b37ca12685b9e718237bf65203e539f460ef568c962a9b0c07"
 hardening = ["vis", "!cfi"]
 
 
