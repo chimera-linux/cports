@@ -1,6 +1,6 @@
 pkgname = "fcitx5"
 pkgver = "5.1.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -56,3 +56,9 @@ def post_extract(self):
 @subpackage("fcitx5-devel")
 def _(self):
     return self.default_devel()
+
+
+@subpackage("fcitx5-diagnose")
+def _(self):
+    self.depends = ["bash"]
+    return ["cmd:fcitx5-diagnose"]
