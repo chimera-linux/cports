@@ -1,5 +1,5 @@
 pkgname = "yoshimi"
-pkgver = "2.3.3"
+pkgver = "2.3.3.1"
 pkgrel = 0
 build_style = "cmake"
 cmake_dir = "src"
@@ -26,4 +26,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://yoshimi.github.io"
 source = f"https://github.com/Yoshimi/yoshimi/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f15ff1a909c273ea75febfd15655560a556b6b832afe57f918ea966702daf2f6"
+sha256 = "a23537735766af8a6526de1f22004811b6fed9b561645a174452092fcf7c479f"
