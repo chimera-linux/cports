@@ -1,5 +1,5 @@
 pkgname = "newsflash"
-pkgver = "3.3.4"
+pkgver = "3.3.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -23,7 +23,7 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/news-flash/news_flash_gtk"
 source = f"{url}/-/archive/v.{pkgver}/news_flash_gtk-v.{pkgver}.tar.gz"
-sha256 = "f408f4c2d1e1507008ef583868b8482708d13269b86b8e22d2ba73da9c93a0ae"
+sha256 = "7333e88187f022c0a6ba72e0d6943c1602acde19b646c38e202606cac3a965f7"
 
 
 def post_patch(self):
