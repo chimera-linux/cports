@@ -1,8 +1,10 @@
 pkgname = "libnetfilter_conntrack"
 pkgver = "1.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["automake", "pkgconf", "slibtool"]
+# reconf breaks ppc build
+configure_gen = []
+hostmakedepends = ["pkgconf"]
 makedepends = ["libnfnetlink-devel", "libmnl-devel", "linux-headers"]
 pkgdesc = "Library providing an API to the in-kernel connection tracking table"
 maintainer = "q66 <q66@chimera-linux.org>"
