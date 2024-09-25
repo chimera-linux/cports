@@ -1,6 +1,6 @@
 pkgname = "bash"
-pkgver = "5.2.32"
-pkgrel = 1
+pkgver = "5.2.37"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--without-bash-malloc",
@@ -10,6 +10,7 @@ configure_args = [
     "ac_cv_lib_error_at_line=no",
     "ac_cv_header_sys_cdefs_h=no",
 ]
+configure_gen = []
 make_check_target = "tests"
 hostmakedepends = ["bison", "texinfo"]
 makedepends = ["ncurses-devel", "readline-devel"]
@@ -19,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/bash/bash-{pkgver}.tar.gz"
-sha256 = "d3ef80d2b67d8cbbe4d3265c63a72c46f9b278ead6e0e06d61801b58f23f50b5"
+sha256 = "9599b22ecd1d5787ad7d3b7bf0c59f312b3396d1e281175dd1f8a4014da621ff"
 tool_flags = {
     "CFLAGS": [
         '-DSYS_BASHRC="/etc/bash/bashrc"',
@@ -46,6 +47,3 @@ def post_install(self):
     # remove devel files
     self.uninstall("usr/lib")
     self.uninstall("usr/include")
-
-
-configure_gen = []
