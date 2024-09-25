@@ -1,6 +1,6 @@
 pkgname = "basu"
 pkgver = "0.2.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 hostmakedepends = [
     "gperf",
