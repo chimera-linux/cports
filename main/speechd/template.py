@@ -1,6 +1,6 @@
 pkgname = "speechd"
 pkgver = "0.11.5"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -40,6 +40,11 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 @subpackage("speechd-devel")
 def _(self):
     return self.default_devel()
+
+
+@subpackage("speechd-libs")
+def _(self):
+    return self.default_libs()
 
 
 @subpackage("speechd-meta")
