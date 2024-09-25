@@ -47,6 +47,13 @@ def post_install(self):
     self.install_license("LICENSE-MIT")
 
 
+@subpackage("gst-plugins-rs-gtk4")
+def _(self):
+    self.subdesc = "GTK4 sink"
+    self.install_if = [self.parent]
+    return ["usr/lib/gstreamer-1.0/libgstgtk4.so"]
+
+
 @subpackage("gst-plugins-rs-devel")
 def _(self):
     return self.default_devel()
