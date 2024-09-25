@@ -44,7 +44,7 @@ def prepare(self):
     )
 
     self.log("installing npm dependencies...")
-    self.do("npm", "ci", "--loglevel", "info", allow_network=True)
+    self.do("npm", "ci", allow_network=True)
 
 
 def init_build(self):
