@@ -1,5 +1,5 @@
 pkgname = "hwloc"
-pkgver = "2.11.1"
+pkgver = "2.11.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://www.open-mpi.org/projects/hwloc"
 source = f"https://www.open-mpi.org/software/hwloc/v{".".join(pkgver.split(".")[0:2])}/downloads/hwloc-{pkgver}.tar.bz2"
-sha256 = "04cdfbffad225ce15f66184f0f4141327dabf288d10a8b84d13f517acb7870c6"
+sha256 = "f7f88fecae067100f1a1a915b658add0f4f71561259482910a69baea22fe8409"
 # can't run them in bwrap with no sysfs
 options = ["!check"]
 
