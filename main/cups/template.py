@@ -1,6 +1,6 @@
 pkgname = "cups"
 pkgver = "2.4.10"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-relro",
