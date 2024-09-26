@@ -2,7 +2,6 @@ pkgname = "openpgp-card-tools"
 pkgver = "0.11.6"
 pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "pcsc-lite-devel", "dbus-devel"]
 depends = ["ccid"]
