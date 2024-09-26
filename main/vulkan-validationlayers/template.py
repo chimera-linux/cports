@@ -1,5 +1,5 @@
 pkgname = "vulkan-validationlayers"
-pkgver = "1.3.295"
+pkgver = "1.3.296"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -28,10 +28,10 @@ license = "Apache-2.0"
 url = "https://vulkan.lunarg.com/doc/sdk/latest/linux/khronos_validation_layer.html"
 source = [
     f"https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/refs/tags/v{pkgver}.tar.gz",
-    "https://github.com/KhronosGroup/SPIRV-Headers/archive/f013f08e4455bcc1f0eed8e3dd5e2009682656d9.tar.gz",
+    "https://github.com/KhronosGroup/SPIRV-Headers/archive/2a9b6f951c7d6b04b6c21fe1bf3f475b68b84801.tar.gz",
 ]
 source_paths = [".", "spirv-headers"]
 sha256 = [
-    "9fa6290cb76d833f7b1ee56b504c964a07ddb9fe1e1c53456e0efcd45a8336e3",
-    "452418924e8c281872e7a5ac34fdb977f2be5f880997d559e1e9062df13ae2cd",
+    "99a4047b82b91b7856cbfaf2fe1629c3aa436ed2300a5e64d820b97d8c685564",
+    "1698e1373bd6e59a263acef821c4d955c561b991feb6db8199833ef19ffe8a37",
 ]
