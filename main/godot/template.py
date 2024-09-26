@@ -1,6 +1,6 @@
 pkgname = "godot"
 pkgver = "4.3"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = [
     "gettext",
     "pkgconf",
@@ -124,6 +124,7 @@ def build(self):
             "cflags=" + self.get_cflags(shell=True),
             "cxxflags=" + self.get_cxxflags(shell=True),
             "linkflags=" + self.get_ldflags(shell=True),
+            "import_env_vars=CCACHE_DIR",  # fuck you scons
             env={
                 "BUILD_NAME": "chimera_linux",
             },

@@ -1,6 +1,6 @@
 pkgname = "wlroots0.16"
 pkgver = "0.16.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = ["-Dexamples=false", "--includedir=/usr/include/wlroots-0.16"]
 hostmakedepends = [
