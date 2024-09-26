@@ -5,7 +5,7 @@ build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=webdav,tui"]
 make_install_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["zstd-devel"]
+makedepends = ["rust-std", "zstd-devel"]
 pkgdesc = "Encrypted and deduplicated backups - restic compatible"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"

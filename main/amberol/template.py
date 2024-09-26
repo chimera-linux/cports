@@ -13,6 +13,7 @@ makedepends = [
     "dbus-devel",
     "gst-plugins-bad-devel",
     "libadwaita-devel",
+    "rust-std",
 ]
 depends = [
     "gst-plugins-bad",

@@ -8,6 +8,7 @@ makedepends = [
     "nettle-devel",
     "openssl-devel",
     "pcsc-lite-devel",
+    "rust-std",
     "sqlite-devel",
 ]
 pkgdesc = "CA tool for OpenPGP certificates"

@@ -19,6 +19,7 @@ makedepends = [
     "libsodium-devel",
     "libwebp-devel",
     "openssl-devel",
+    "rust-std",
 ]
 pkgdesc = "GStreamer rust plugins"
 maintainer = "psykose <alice@ayaya.dev>"

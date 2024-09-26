@@ -3,6 +3,7 @@ pkgver = "2.21.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
 pkgdesc = "Background rust code checker"
 maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "AGPL-3.0-only"

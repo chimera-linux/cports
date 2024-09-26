@@ -6,7 +6,7 @@ build_style = "cargo"
 # remove this once updated to new cargo crate that has new libgit2
 make_env = {"LIBGIT2_NO_VENDOR": "0"}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["openssl-devel", "libgit2-devel", "sqlite-devel"]
+makedepends = ["openssl-devel", "libgit2-devel", "rust-std", "sqlite-devel"]
 pkgdesc = "Cryptographically verifiable code review system for cargo"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MPL-2.0 OR MIT OR Apache-2.0"

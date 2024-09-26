@@ -10,6 +10,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "openssl-devel",
+    "rust-std",
     "zstd-devel",
 ]
 pkgdesc = "Compilation caching tool with Rust support"

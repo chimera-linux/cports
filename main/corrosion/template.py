@@ -3,6 +3,7 @@ pkgver = "0.5.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "cargo-auditable"]
+makedepends = ["rust-std"]
 pkgdesc = "Tool for integrating Rust into an existing CMake project"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"

@@ -3,6 +3,7 @@ pkgver = "15.0.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
 pkgdesc = "Multiple package-manager system updater"
 maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "GPL-3.0-or-later"

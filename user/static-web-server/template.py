@@ -5,7 +5,7 @@ build_style = "cargo"
 # We patch Cargo.toml and Cargo.lock
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["zstd-devel", "libgit2-devel"]
+makedepends = ["zstd-devel", "libgit2-devel", "rust-std"]
 pkgdesc = "Web server for static files serving"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT OR Apache-2.0"

@@ -14,7 +14,7 @@ make_check_args = [
     "--skip=repo::test::test_should_retain_commit",
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["libgit2-devel", "zstd-devel"]
+makedepends = ["libgit2-devel", "rust-std", "zstd-devel"]
 pkgdesc = "Changelog generator for conventional commits"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"

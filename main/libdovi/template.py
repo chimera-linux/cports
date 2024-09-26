@@ -7,6 +7,7 @@ hostmakedepends = [
     "cargo-c",
     "pkgconf",
 ]
+makedepends = ["rust-std"]
 pkgdesc = "Library to read & write Dolby Vision metadata"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

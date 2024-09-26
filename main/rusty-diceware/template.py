@@ -5,6 +5,7 @@ build_style = "cargo"
 # we patch lockfile
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
 pkgdesc = "Word list based passphrase generator"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "AGPL-3.0-only"

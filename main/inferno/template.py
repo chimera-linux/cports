@@ -3,6 +3,7 @@ pkgver = "0.11.21"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
 pkgdesc = "Stack trace visualizer"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "CDDL-1.0"

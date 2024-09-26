@@ -17,6 +17,7 @@ makedepends = [
     "notmuch-devel",
     "openssl-devel",
     "pipewire-devel",
+    "rust-std",
 ]
 pkgdesc = "Generates content on bars that support the i3bar protocol"
 maintainer = "ttyyls <contact@behri.org>"

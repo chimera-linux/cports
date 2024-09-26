@@ -17,6 +17,7 @@ makedepends = [
     "libuuid-devel",
     "linux-headers",
     "lz4-devel",
+    "rust-std",
     "udev-devel",
     "userspace-rcu-devel",
     "zlib-ng-compat-devel",

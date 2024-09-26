@@ -8,6 +8,7 @@ hostmakedepends = [
     "python-installer",
     "python-maturin",
 ]
+makedepends = ["rust-std"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for approximate and phonetic string matching"

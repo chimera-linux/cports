@@ -11,7 +11,7 @@ hostmakedepends = [
     "ninja",
     "pkgconf",
 ]
-makedepends = ["sqlite-devel", "ncurses-devel"]
+makedepends = ["sqlite-devel", "ncurses-devel", "rust-std"]
 pkgdesc = "Intelligent phonetic input method library"
 maintainer = "xunil-cloud <river_electron@proton.me>"
 license = "LGPL-2.1-or-later"

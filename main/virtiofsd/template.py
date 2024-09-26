@@ -6,6 +6,7 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = [
     "libcap-ng-devel",
     "libseccomp-devel",
+    "rust-std",
 ]
 install_if = [self.with_pkgver("virtiofsd-meta")]
 pkgdesc = "Daemon for virtio-fs for qemu"

@@ -7,7 +7,7 @@ hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
 ]
-makedepends = ["oniguruma-devel"]
+makedepends = ["oniguruma-devel", "rust-std"]
 pkgdesc = "Terminal file manager"
 maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "MIT"

@@ -20,6 +20,7 @@ makedepends = [
     "libadwaita-devel",
     "libspelling-devel",
     "pango-devel",
+    "rust-std",
 ]
 pkgdesc = "Unofficial Signal Desktop app"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"

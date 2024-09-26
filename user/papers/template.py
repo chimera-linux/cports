@@ -31,6 +31,7 @@ makedepends = [
     "libsecret-devel",
     "nautilus-devel",
     "poppler-devel",
+    "rust-std",
 ]
 pkgdesc = "GNOME document viewer"
 maintainer = "tulilirockz <tulilirockz@outlook.com>"

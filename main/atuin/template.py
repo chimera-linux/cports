@@ -9,7 +9,7 @@ make_build_args = [
     "--features=client,server,sync,clipboard",
 ]
 hostmakedepends = ["cargo-auditable", "protoc", "pkgconf"]
-makedepends = ["sqlite-devel", "openssl-devel"]
+makedepends = ["sqlite-devel", "openssl-devel", "rust-std"]
 pkgdesc = "Sync, search and backup tool for shell history"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"

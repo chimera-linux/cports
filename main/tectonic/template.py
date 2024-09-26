@@ -17,6 +17,7 @@ makedepends = [
     "icu-devel",
     "libcurl-devel",
     "openssl-devel",
+    "rust-std",
 ]
 pkgdesc = "Modernized LaTeX engine"
 maintainer = "Erica Z <zerica@callcc.eu>"
