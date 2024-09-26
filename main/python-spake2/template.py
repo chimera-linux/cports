@@ -1,5 +1,5 @@
 pkgname = "python-spake2"
-pkgver = "0.8"
+pkgver = "0.9"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -7,14 +7,14 @@ hostmakedepends = [
     "python-installer",
     "python-setuptools",
 ]
-depends = ["python-hkdf"]
+depends = ["python-cryptography"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "SPAKE2 Python implementation"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/warner/python-spake2"
 source = f"$(PYPI_SITE)/s/spake2/spake2-{pkgver}.tar.gz"
-sha256 = "c17a614b29ee4126206e22181f70a406c618d3c6c62ca6d6779bce95e9c926f4"
+sha256 = "421fc4a8d5ac395af7af0206ffd9e6cdf188c105cb1b883d9d683312bb5a9334"
 
 
 def post_install(self):
