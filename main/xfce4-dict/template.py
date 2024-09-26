@@ -1,5 +1,5 @@
 pkgname = "xfce4-dict"
-pkgver = "0.8.6"
+pkgver = "0.8.7"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -7,9 +7,8 @@ hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -27,4 +26,4 @@ url = "https://docs.xfce.org/apps/xfce4-dict/start"
 source = (
     f"$(XFCE_SITE)/apps/xfce4-dict/{pkgver[:-2]}/xfce4-dict-{pkgver}.tar.bz2"
 )
-sha256 = "ae5db7ca70354d3293fc08eaf7ca40cdbc91799a219f199d824684b39e6c0a41"
+sha256 = "a44316fcf45c7616e430a68d822601e779e75d52f00a9047c77a0416f73fd43d"
