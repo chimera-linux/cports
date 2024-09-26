@@ -1,5 +1,5 @@
 pkgname = "eza"
-pkgver = "0.19.4"
+pkgver = "0.20.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -10,16 +10,15 @@ makedepends = [
 ]
 pkgdesc = "Directory listing utility"
 maintainer = "psykose <alice@ayaya.dev>"
-license = "MIT"
+license = "EUPL-1.2"
 url = "https://eza.rocks"
 source = (
     f"https://github.com/eza-community/eza/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "c0094b3ee230702d4dd983045e38ea2bd96375c16381c0206c88fae82fb551a4"
+sha256 = "e6c058b13aecbed9f037c0607f0df19bc0a3532fea14dacd0090878ed4bbfadc"
 
 
 def post_install(self):
-    self.install_license("LICENCE")
     self.install_completion("completions/bash/eza", "bash")
     self.install_completion("completions/zsh/_eza", "zsh")
     self.install_completion("completions/fish/eza.fish", "fish")
