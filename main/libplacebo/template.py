@@ -4,7 +4,6 @@ pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dshaderc=enabled",
-    "-Dglslang=enabled",
     "-Dvulkan=enabled",
     "-Dopengl=enabled",
     "-Dlcms=enabled",
@@ -18,7 +17,6 @@ hostmakedepends = [
     "vulkan-headers",
 ]
 makedepends = [
-    "glslang-devel",
     "lcms2-devel",
     "libdovi-devel",
     "mesa-devel",
