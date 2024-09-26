@@ -37,27 +37,23 @@ options = ["!check"]
 def _(self):
     self.subdesc = "training tools"
 
-    def install():
-        for tool in [
-            "ambiguous_words",
-            "classifier_tester",
-            "cntraining",
-            "combine_lang_model",
-            "combine_tessdata",
-            "dawg2wordlist",
-            "lstmeval",
-            "lstmtraining",
-            "merge_unicharsets",
-            "mftraining",
-            "set_unicharset_properties",
-            "shapeclustering",
-            "text2image",
-            "unicharset_extractor",
-            "wordlist2dawg",
-        ]:
-            self.take(f"cmd:{tool}")
-
-    return install
+    return [
+        "cmd:ambiguous_words",
+        "cmd:classifier_tester",
+        "cmd:cntraining",
+        "cmd:combine_lang_model",
+        "cmd:combine_tessdata",
+        "cmd:dawg2wordlist",
+        "cmd:lstmeval",
+        "cmd:lstmtraining",
+        "cmd:merge_unicharsets",
+        "cmd:mftraining",
+        "cmd:set_unicharset_properties",
+        "cmd:shapeclustering",
+        "cmd:text2image",
+        "cmd:unicharset_extractor",
+        "cmd:wordlist2dawg",
+    ]
 
 
 @subpackage("tesseract-libs")
