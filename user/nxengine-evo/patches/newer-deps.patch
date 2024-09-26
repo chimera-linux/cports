@@ -1,0 +1,91 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -58,12 +58,14 @@
+ find_package(SDL2_image REQUIRED)
+ find_package(PNG REQUIRED)
+ find_package(JPEG REQUIRED)
++find_package(nlohmann_json REQUIRED)
++find_package(spdlog REQUIRED)
++find_package(utf8cpp REQUIRED)
+ 
+ include_directories(${SDL2_INCLUDE_DIR})
+ include_directories(${SDL2_MIXER_INCLUDE_DIR})
+ include_directories(${SDL2_IMAGE_INCLUDE_DIR})
+ include_directories(${PNG_PNG_INCLUDE_DIR})
+-include_directories("${nx_SOURCE_DIR}/deps")
+ 
+ file(GLOB APP_SOURCES "src/[a-zA-Z]*.cpp")
+ file(GLOB TB_SOURCES "src/TextBox/[a-zA-Z]*.cpp")
+@@ -128,7 +130,7 @@
+             add_definitions(-DDATADIR="${CMAKE_INSTALL_FULL_DATADIR}/nxengine/data/")
+         ENDIF()
+     ENDIF()
+-    target_link_libraries(nx ${SDL2_LIBRARY} ${SDL2_MIXER_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${PNG_LIBRARY} ${JPEG_LIBRARY})
++    target_link_libraries(nx ${SDL2_LIBRARY} ${SDL2_MIXER_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${PNG_LIBRARY} ${JPEG_LIBRARY} spdlog::spdlog utf8cpp::utf8cpp nlohmann_json::nlohmann_json)
+ 
+ ELSEIF(PLATFORM STREQUAL "vita")
+     add_definitions("-std=gnu++11")
+@@ -193,7 +193,7 @@
+ 
+ IF(PLATFORM STREQUAL "pc")
+     add_executable(extract ${EXTR_SOURCES})
+-    target_link_libraries(extract ${SDL2_LIBRARY})
++    target_link_libraries(extract ${SDL2_LIBRARY} spdlog::spdlog)
+     set_property(TARGET extract PROPERTY OUTPUT_NAME nxextract)
+ 
+     install(TARGETS nx extract RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+--- a/src/i18n/translate.cpp
++++ b/src/i18n/translate.cpp
+@@ -5,7 +5,7 @@
+ #include "../Utils/Logger.h"
+ #include "minibidi.h"
+ 
+-#include <json.hpp>
++#include <nlohmann/json.hpp>
+ #include <utf8.h>
+ #include <fstream>
+ 
+--- a/src/sound/SoundManager.cpp
++++ b/src/sound/SoundManager.cpp
+@@ -9,7 +9,7 @@
+ #include "Organya.h"
+ #include "Pixtone.h"
+ 
+-#include <json.hpp>
++#include <nlohmann/json.hpp>
+ #include <fstream>
+ #include <iostream>
+ 
+--- a/src/graphics/Font.cpp
++++ b/src/graphics/Font.cpp
+@@ -10,7 +10,7 @@
+ #include "../nx.h"
+ 
+ #include <SDL_image.h>
+-#include <json.hpp>
++#include <nlohmann/json.hpp>
+ #include <utf8.h>
+ #include <fstream>
+ #include <iostream>
+--- a/src/ResourceManager.cpp
++++ b/src/ResourceManager.cpp
+@@ -21,7 +21,7 @@
+ #include "common/misc.h"
+ #include "settings.h"
+ 
+-#include <json.hpp>
++#include <nlohmann/json.hpp>
+ 
+ bool ResourceManager::fileExists(const std::string &filename)
+ {
+--- a/src/map.cpp
++++ b/src/map.cpp
+@@ -18,7 +18,7 @@
+ #include "player.h"
+ #include "settings.h"
+ 
+-#include <json.hpp>
++#include <nlohmann/json.hpp>
+ #include <fstream>
+ 
+ stMap map;
