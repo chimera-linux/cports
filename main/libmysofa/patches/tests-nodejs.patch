@@ -1,0 +1,28 @@
+freebsd sh's `command` doesn't accept multiple command names to search for and barfs with
+"command: wrong number of arguments"
+diff --git a/tests/compare.sh b/tests/compare.sh
+index 21b0616..e291865 100755
+--- a/tests/compare.sh
++++ b/tests/compare.sh
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ 
+ SCRIPTDIR=${0%/*}
+-NODEJS=$(command -v node nodejs false | head -1)
++NODEJS=node
+ 
+ ${MYSOFA2JSON:-${SCRIPTDIR}/../build/src/mysofa2json} -c -s "$1".sofa >tmp1.json 2>tmp1.txt
+ 
+diff --git a/tests/compareIgnoreNew.sh b/tests/compareIgnoreNew.sh
+index 49ed419..a623551 100755
+--- a/tests/compareIgnoreNew.sh
++++ b/tests/compareIgnoreNew.sh
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ 
+ SCRIPTDIR=${0%/*}
+-NODEJS=$(command -v node nodejs false | head -1)
++NODEJS=node
+ 
+ ${MYSOFA2JSON:-${SCRIPTDIR}/../build/src/mysofa2json} -c -s "$1".sofa >tmp1.json 2>tmp1.txt
+ 
