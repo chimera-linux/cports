@@ -1,5 +1,5 @@
 pkgname = "python-websockets"
-pkgver = "13.0.1"
+pkgver = "13.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,7 +16,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/python-websockets/websockets"
 # pypi tarball doesn't ship tests
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0cfb2f88ac0b693ed282d408479edc57b948e6a786c0d3e48222e4e8d6ade85d"
+sha256 = "39345b087381694ca06c5b2b922aa8c2a54dc8f08fcaee358eafaa2222c4dd22"
 # tests require a network connection :^)
 options = ["!check"]
 
