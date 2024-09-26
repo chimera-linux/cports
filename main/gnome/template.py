@@ -1,6 +1,6 @@
 pkgname = "gnome"
 pkgver = "46.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
 # some of them are here anyway, for clarity but no other purpose
@@ -66,7 +66,6 @@ def _(self):
         "gnome-maps",
         # "gnome-music",
         # "gnome-remote-desktop",
-        "gnome-screenshot",
         "gnome-shell-extensions",
         "gnome-software",
         "gnome-system-monitor",
