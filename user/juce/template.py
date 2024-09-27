@@ -1,5 +1,5 @@
 pkgname = "juce"
-pkgver = "8.0.1"
+pkgver = "8.0.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DJUCE_BUILD_EXTRAS=ON"]
@@ -31,7 +31,7 @@ url = "https://juce.com"
 source = (
     f"https://github.com/juce-framework/JUCE/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "1a5aae997075ae2df045793fd47a4dc16234b2a7939d445fea17075219397b05"
+sha256 = "44beae3ecd058ed865fadb1d1a16217b03fecad05a5f158bc8317469cdebf19e"
 
 
 def post_extract(self):
