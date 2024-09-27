@@ -32,6 +32,8 @@ source = (
     f"https://github.com/juce-framework/JUCE/archive/refs/tags/{pkgver}.tar.gz"
 )
 sha256 = "44beae3ecd058ed865fadb1d1a16217b03fecad05a5f158bc8317469cdebf19e"
+# remove next release when unsigned char works in bad test code
+tool_flags = {"CXXFLAGS": ["-Wno-c++11-narrowing"]}
 
 
 def post_extract(self):
