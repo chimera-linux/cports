@@ -1,0 +1,56 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index c40627e..6e16156 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1160,6 +1160,7 @@ checksum = "324a1be68054ef05ad64b861cc9eaf1d623d2d8cb25b4bf2cb9cdd902b4bf253"
+ dependencies = [
+  "crc32fast",
+  "libz-ng-sys",
++ "libz-sys",
+  "miniz_oxide 0.8.0",
+ ]
+ 
+@@ -1954,6 +1955,17 @@ dependencies = [
+  "libc",
+ ]
+ 
++[[package]]
++name = "libz-sys"
++version = "1.1.20"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "d2d16453e800a8cf6dd2fc3eb4bc99b786a9b90c663b8559a5b1a041bf89e472"
++dependencies = [
++ "cc",
++ "pkg-config",
++ "vcpkg",
++]
++
+ [[package]]
+ name = "linked-hash-map"
+ version = "0.5.6"
+@@ -5362,6 +5374,12 @@ version = "0.1.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
+ 
++[[package]]
++name = "vcpkg"
++version = "0.2.15"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
++
+ [[package]]
+ name = "version_check"
+ version = "0.9.5"
+diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
+index 2efd2b0..c3b3e74 100644
+--- a/crates/uv/Cargo.toml
++++ b/crates/uv/Cargo.toml
+@@ -113,7 +113,7 @@ ignored = [
+ ]
+ 
+ [features]
+-default = ["python", "pypi", "git", "performance"]
++default = ["python", "pypi", "git", "flate2/zlib"]
+ # Use better memory allocators, etc. — also turns-on self-update.
+ performance = [
+     "performance-memory-allocator",
