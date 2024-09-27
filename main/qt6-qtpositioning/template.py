@@ -1,5 +1,5 @@
 pkgname = "qt6-qtpositioning"
-pkgver = "6.7.2"
+pkgver = "6.7.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "(module_includes)"]
@@ -18,7 +18,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtpositioning-everywhere-src-{pkgver}.tar.xz"
-sha256 = "020009f0aa8f6b1042963a45b6e19f2784cc937949cdb673f3b876153e087b1c"
+sha256 = "da7073754224c91fb938ff5b02ff938540640605ac9ff6526db88d799cc6661c"
 # cross: TODO
 options = ["!cross"]
 

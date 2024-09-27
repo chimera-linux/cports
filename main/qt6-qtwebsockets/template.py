@@ -1,5 +1,5 @@
 pkgname = "qt6-qtwebsockets"
-pkgver = "6.7.2"
+pkgver = "6.7.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebsockets-everywhere-src-{pkgver}.tar.xz"
-sha256 = "5bde4af6ec9ce8c8632b782ab77b82d910721be2c714e6d38902521bcd1d215f"
+sha256 = "ba03007db7ee68a5bc3e3bd1d71e11f3e1f84e470bcb8c54cd7c01bbe1c5990e"
 # FIXME
 hardening = ["!int"]
 # literally doesn't find itself for some byzantine reason
@@ -27,7 +27,7 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.uninstall("usr/tests", recursive=True)
+    self.uninstall("usr/tests")
 
 
 @subpackage("qt6-qtwebsockets-devel")

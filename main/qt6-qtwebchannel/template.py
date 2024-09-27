@@ -1,5 +1,5 @@
 pkgname = "qt6-qtwebchannel"
-pkgver = "6.7.2"
+pkgver = "6.7.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -20,7 +20,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebchannel-everywhere-src-{pkgver}.tar.xz"
-sha256 = "ac5d96607b10e7de546eaf93bb9f65c0fd631ef9b91ef8a794e26fd57db4501c"
+sha256 = "15633fde6db09b3a06d46b5fd11221c915f1e49b8fb541f463966e17d25474b8"
 # FIXME
 hardening = ["!int"]
 # literally doesn't find itself for some byzantine reason
@@ -28,7 +28,7 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.uninstall("usr/tests", recursive=True)
+    self.uninstall("usr/tests")
 
 
 @subpackage("qt6-qtwebchannel-devel")

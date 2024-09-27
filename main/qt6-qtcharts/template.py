@@ -1,11 +1,10 @@
 pkgname = "qt6-qtcharts"
-pkgver = "6.7.2"
+pkgver = "6.7.3"
 pkgrel = 0
 build_style = "cmake"
 # module_includes: fails to find cmake imports
 # qbarseries: hangs and then fails
 make_check_args = ["-E", "(module_includes|tst_qbarseries)"]
-make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -16,7 +15,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",  # unused but lightly checked anyway
 ]
-checkdepends = ["xwayland-run"]
 pkgdesc = "Qt6 Charts component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
@@ -24,7 +22,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtcharts-everywhere-src-{pkgver}.tar.xz"
-sha256 = "00f6a437458b7f2c4e81d748dbe2a077567a9e6ad8d8e3820b36c39dc5279bda"
+sha256 = "07ea63a550e6bcfa4a9c38056f7aa524357305572268fe26f6063d83e4233659"
 # cross: TODO
 options = ["!cross"]
 
@@ -34,6 +32,7 @@ def init_check(self):
         "QML2_IMPORT_PATH": str(
             self.chroot_cwd / f"{self.make_dir}/lib/qt6/qml"
         ),
+        "QT_QPA_PLATFORM": "offscreen",
     }
 
 

@@ -8,12 +8,12 @@ diff --git a/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.
 index 9e02dfe..d4b7f67 100644
 --- a/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp
 +++ b/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp
-@@ -3046,7 +3046,7 @@
-     QImage image = videoFrame.toImage();
-     QVERIFY(!image.isNull());
-     QRgb upperLeftColor = image.pixel(5, 5);
+@@ -3932,7 +3932,7 @@
+ 
+     if (!isRhiRenderingSupported())
+         QEXPECT_FAIL("", "QTBUG-127784: Inaccurate color handling when no RHI backend is available", Abort);
 -    QCOMPARE_LT(colorDifference(upperLeftColor, expectedColor), 0.004);
 +    QCOMPARE_LT(colorDifference(upperLeftColor, expectedColor), 0.006);
  
-     // Compare videoSize of the output video sink with the expected value after getting a frame
-     QCOMPARE(m_fixture->surface.videoSize(), videoSize);
+     QSKIP_GSTREAMER("QTBUG-124005: surface.videoSize() not updated with rotation");
+ 

@@ -1,5 +1,5 @@
 pkgname = "qt6-qtmultimedia"
-pkgver = "6.7.2"
+pkgver = "6.7.3"
 pkgrel = 0
 build_style = "cmake"
 # these install /usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.a which
@@ -29,7 +29,10 @@ makedepends = [
     "qt6-qtshadertools-devel",
     "qt6-qtsvg-devel",
 ]
-checkdepends = ["xserver-xorg-xvfb", "mesa-dri"]
+checkdepends = [
+    "gst-plugins-good",
+    "xserver-xorg-xvfb",
+]
 depends = [
     # dlopen
     "so:libva-drm.so.2!libva",
@@ -43,7 +46,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtmultimedia-everywhere-src-{pkgver}.tar.xz"
-sha256 = "8ef835115acb9a1d3d2c9f23cfacb43f2c537e3786a8ab822299a2a7765651d3"
+sha256 = "304d28b8e592435293893b0110d5f3534407604d1e04d8a0b0e5b34afe577303"
 # FIXME: int breaks at least tst_qaudiodecoderbackend
 hardening = ["!int"]
 # TODO
@@ -65,7 +68,8 @@ def init_check(self):
 
 
 def post_install(self):
-    self.uninstall("usr/tests")
+    # disabled above, so no uninstall
+    self.rm(">usr/tests", recursive=True, force=True)
 
 
 @subpackage("qt6-qtmultimedia-devel")
