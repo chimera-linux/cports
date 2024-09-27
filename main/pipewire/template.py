@@ -1,11 +1,12 @@
 pkgname = "pipewire"
-pkgver = "1.2.4"
+pkgver = "1.2.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
     "-Ddocs=enabled",
     "-Dman=enabled",
+    "-Dlogind-provider=libelogind",
     "-Dsdl2=disabled",  # examples
     "-Dsystemd=disabled",
     "-Dlibffado=disabled",
@@ -76,7 +77,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
-sha256 = "b88b9c94548128f0078dc6d376389c2447c6c324ee6dda20d9037bc77a9dd4ee"
+sha256 = "4c3209c78ce63af6bd2658e5092c220d844fc2b7a039bbbb950e71890cc8ac78"
 
 if self.profile().endian == "big":
     configure_args += [
