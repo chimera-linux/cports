@@ -1,6 +1,6 @@
 pkgname = "tmux"
-pkgver = "3.4"
-pkgrel = 2
+pkgver = "3.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-sixel"]
 hostmakedepends = ["automake", "byacc", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "ISC"
 url = "https://tmux.github.io"
 source = f"https://github.com/tmux/tmux/releases/download/{pkgver}/tmux-{pkgver}.tar.gz"
-sha256 = "551ab8dea0bf505c0ad6b7bb35ef567cdde0ccb84357df142c254f35a23e19aa"
+sha256 = "2fe01942e7e7d93f524a22f2c883822c06bc258a4d61dba4b407353d7081950f"
 hardening = ["vis", "cfi"]
 
 
