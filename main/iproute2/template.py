@@ -1,6 +1,6 @@
 pkgname = "iproute2"
-pkgver = "6.10.0"
-pkgrel = 2
+pkgver = "6.11.0"
+pkgrel = 0
 build_style = "configure"
 configure_args = ["--color", "auto"]
 configure_env = {"CC": "clang"}
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://wiki.linuxfoundation.org/networking/iproute2"
 source = f"$(KERNEL_SITE)/utils/net/iproute2/iproute2-{pkgver}.tar.xz"
-sha256 = "91a62f82737b44905a00fa803369c447d549e914e9a2a4018fdd75b1d54e8dce"
+sha256 = "1f795398a04aeaacd06a8f6ace2cfd913c33fa5953ca99daae83bb5c534611c3"
 # causes some part of the build to silently break which drops support for various features
 hardening = ["!vis"]
 
