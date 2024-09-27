@@ -1,5 +1,5 @@
 pkgname = "openpgl"
-pkgver = "0.6.0"
+pkgver = "0.7.0"
 pkgrel = 0
 # others unsupported
 archs = ["aarch64", "x86_64"]
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/RenderKit/openpgl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4192a4096ee3e3d31878cd013f8de23418c8037c576537551f946c4811931c5e"
+sha256 = "58be6ac86e3bcf8a787e9c1332d1527e6d18f4b1403b96bb02c909e20af2ca94"
 hardening = ["vis", "cfi"]
 
 
