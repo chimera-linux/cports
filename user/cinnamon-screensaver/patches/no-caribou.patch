@@ -1,0 +1,455 @@
+diff --git a/src/meson.build b/src/meson.build
+index bd618dd..020fb47 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -34,7 +34,6 @@ app_py = [
+   'infoPanel.py',
+   'manager.py',
+   'monitorView.py',
+-  'osk.py',
+   'passwordEntry.py',
+   'playerControl.py',
+   'service.py',
+diff --git a/src/osk.py a/src/osk.py
+deleted file mode 100644
+index 465a3e3..0000000
+--- a/src/osk.py
++++ /dev/null
+@@ -1,285 +0,0 @@
+-#!/usr/bin/python3
+-# coding: utf-8
+-
+-import gi
+-gi.require_version('Caribou', '1.0')
+-
+-from gi.repository import Gtk, Gdk, GObject, Caribou, Gio, GLib
+-
+-import status
+-from util import utils, trackers, settings
+-from widgets.transparentButton import TransparentButton
+-from baseWindow import BaseWindow
+-
+-LARGEST_OSK_WIDTH = 1200
+-LARGEST_OSK_HEIGHT = 360
+-DEFAULT_PADDING = 2
+-
+-class ExtendedKey(Gtk.Button):
+-    def __init__(self, label, xkey):
+-        super(ExtendedKey, self).__init__(label)
+-        self.get_style_context().add_class("osk-button")
+-
+-        self._key = xkey
+-
+-        self.connect("button-press-event", lambda widget, event: self._key.press())
+-        self.connect("button-release-event", lambda widget, event: self._key.release())
+-
+-    def update_sizes(self, width, height):
+-        real_width = width * self._key.props.width
+-
+-        self.set_size_request(real_width, height)
+-
+-class Key(Gtk.Button):
+-    def __init__(self, key):
+-        super(Key, self).__init__()
+-
+-        self.get_style_context().add_class("osk-button")
+-
+-        self._key = key
+-        self.checked = False
+-        self._extended_keys = key.get_extended_keys()
+-        self._extended_keyboard = None
+-        self._grabbed = False
+-        self._eventCaptureId = 0
+-
+-        self.set_label(self._key.props.label)
+-
+-        self._popup = None
+-        self._popover_box = None
+-
+-        if self._extended_keys:
+-            self._key.connect("notify::show-subkeys", self._on_show_subkeys_changed)
+-            self._popup = Gtk.Popover(relative_to=self)
+-            self._popup.get_style_context().add_class("osk-popover")
+-            self.get_extended_keys()
+-
+-        self.connect("button-press-event", self.button_press_event)
+-        self.connect("button-release-event", self.button_release_event)
+-
+-        if self._key.props.name in ("Control_L", "Alt_L"):
+-            self.model_press_handler = self._key.connect("key-pressed", self._model_key_pressed)
+-            self.model_release_handler = self._key.connect("key-released", self._model_key_released)
+-
+-    def update_sizes(self, width, height):
+-        # The virtual key width is a multiplier based on the default key width.
+-        # Keys such as the spacebar use this to become proportionally wider than
+-        # other keys.
+-        real_width = width * self._key.props.width
+-
+-        self.set_size_request(real_width, height)
+-
+-        if self._popover_box:
+-            for child in self._popover_box.get_children():
+-                child.update_sizes(width, height)
+-
+-    def _model_key_pressed(self, key, data=None):
+-        print("pressed model")
+-
+-    def _model_key_released(self, key, data=None):
+-        print("released model")
+-
+-    def button_press_event(self, widget, event, data=None):
+-        # Pressing buttons quickly can be recognized as a double- or triple-click, ignore
+-        # when that happens.  Extended keys should only appear on a click-hold.
+-
+-        if event.type in (Gdk.EventType._2BUTTON_PRESS, Gdk.EventType._3BUTTON_PRESS):
+-            return Gdk.EVENT_PROPAGATE
+-
+-        self._key.press()
+-
+-        return Gdk.EVENT_PROPAGATE
+-
+-    def button_release_event(self, widget, event, data=None):
+-        self._key.release()
+-
+-        return Gdk.EVENT_PROPAGATE
+-
+-    def get_uni_char(self, key):
+-        keyval = key.props.keyval
+-        unichar = Gdk.keyval_to_unicode(keyval)
+-
+-        if unichar:
+-            return chr(unichar)
+-        else:
+-            return key.props.name
+-
+-    def get_extended_keys(self):
+-        self._popover_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, margin=6)
+-
+-        for xkey in self._extended_keys:
+-            label = self.get_uni_char(xkey)
+-
+-            key = ExtendedKey(label, xkey)
+-            self._popover_box.pack_start(key, False, False, 2)
+-
+-            self._popover_box.show_all()
+-
+-        self._popup.add(self._popover_box)
+-
+-    def _on_show_subkeys_changed(self, key, pspec, data=None):
+-        if self._key.props.show_subkeys:
+-            self._popup.popup()
+-        else:
+-            self._popup.popdown()
+-
+-
+-class OnScreenKeyboard(BaseWindow):
+-    """
+-    An on-screen keyboard that can be used to input the password in the lockscreen.  If
+-    accessibility doesn't have the osk enabled, we don't construct the keyboard initially,
+-    to save footprint.  If needed, the keyboard button can be pressed to display the keyboard
+-    on demand, and it gets constructed then.
+-    """
+-    def __init__(self):
+-        super(OnScreenKeyboard, self).__init__()
+-
+-        self.set_halign(Gtk.Align.CENTER)
+-        self.set_valign(Gtk.Align.END)
+-
+-        self.props.margin = 30
+-
+-        smallest_width, smallest_height = status.screen.get_smallest_monitor_sizes()
+-
+-        self.max_width = min(smallest_width, LARGEST_OSK_WIDTH) - 60
+-        self.max_height = min(smallest_height / 3, LARGEST_OSK_HEIGHT) - 60 
+-        # print(self.max_width, self.max_height)
+-
+-        self._group_stack = None
+-
+-        self.base_stack = Gtk.Stack()
+-        self.add(self.base_stack)
+-
+-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
+-                      halign=Gtk.Align.CENTER,
+-                      valign=Gtk.Align.END)
+-
+-        activate_button = TransparentButton("input-keyboard-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
+-        activate_button.connect("clicked", self.on_activate_button_clicked)
+-
+-        box.pack_start(activate_button, False, False, 0)
+-        box.show_all()
+-
+-        self.base_stack.add_named(box, "disabled")
+-        self.base_stack.show_all()
+-
+-        if settings.get_osk_a11y_active():
+-            self.build_and_show_keyboard()
+-
+-    def on_activate_button_clicked(self, button, data=None):
+-        self.build_and_show_keyboard()
+-
+-    def on_caribou_button_clicked(self, button, data=None):
+-        self.base_stack.set_visible_child_name("disabled")
+-
+-    def build_and_show_keyboard(self):
+-        if not self._group_stack:
+-            self._keyboard = Caribou.KeyboardModel(keyboard_type=settings.get_osk_type())
+-
+-            self._group_stack = Gtk.Stack(visible=True)
+-
+-            self._groups = {}
+-
+-            self._add_keys()
+-            self._group_stack.show_all()
+-
+-            self.base_stack.add_named(self._group_stack, "enabled")
+-
+-        self.base_stack.set_visible_child_name("enabled")
+-
+-    def _add_keys(self):
+-        groups = self._keyboard.get_groups()
+-
+-        size_group = Gtk.SizeGroup(mode=Gtk.SizeGroupMode.HORIZONTAL)
+-
+-        for group_name in groups:
+-            group = self._keyboard.get_group(group_name)
+-
+-            group.connect("notify::active-level", self._on_level_changed)
+-
+-            layers = {}
+-            levels = group.get_levels()
+-
+-            for level_name in levels:
+-                level = group.get_level(level_name)
+-
+-                box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+-                size_group.add_widget(box)
+-
+-                self._load_rows(level, box)
+-
+-                layers[level_name] = box
+-
+-                box.show_all()
+-                self._group_stack.add_named(box, "%s::%s" % (group_name, level_name))
+-
+-            self._groups[group_name] = layers
+-
+-        self.set_active_layer()
+-
+-    def _on_level_changed(self, object, pspec, data=None):
+-        self.set_active_layer()
+-
+-    def _load_rows(self, level, box):
+-        rows = level.get_rows()
+-
+-        row_height = self.max_height / len(rows)
+-
+-        for row in rows:
+-            self._add_rows(row.get_columns(), box, row_height)
+-
+-    def _add_rows(self, keys, box, row_height):
+-        num_keys = 0
+-        row_children = []
+-
+-        row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+-
+-        for key in keys:
+-            right_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+-            left_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+-            children = key.get_children()
+-
+-            right_box_members = []
+-
+-            for child in children:
+-                button = Key(child)
+-
+-                num_keys += child.props.width
+-                row_children.append(button)
+-
+-                if child.props.align == "right":
+-                    right_box_members.append(button)
+-                else:
+-                    left_box.pack_start(button, False, False, DEFAULT_PADDING)
+-
+-            if right_box_members:
+-                right_box_members.reverse()
+-
+-                for member in right_box_members:
+-                    right_box.pack_end(member, False, False, DEFAULT_PADDING)
+-
+-                if child.props.name == "Caribou_Prefs":
+-                    button.connect("clicked", self.on_caribou_button_clicked)
+-
+-            if left_box.get_children():
+-                row.pack_start(left_box, True, True, 0)
+-
+-            if right_box.get_children():
+-                row.pack_end(right_box, True, True, 0)
+-
+-        key_width = (self.max_width / num_keys) - (DEFAULT_PADDING * 2)
+-        key_height = row_height - (DEFAULT_PADDING * 2)
+-
+-        for child in row_children:
+-            child.update_sizes(key_width, key_height)
+-
+-        box.pack_start(row, False, False, DEFAULT_PADDING)
+-
+-    def set_active_layer(self):
+-        active_group_name = self._keyboard.props.active_group
+-
+-        active_group = self._keyboard.get_group(active_group_name)
+-        active_level = active_group.props.active_level
+-
+-        layers = self._groups[active_group_name]
+-        self._group_stack.set_visible_child_name("%s::%s" % (active_group_name, active_level))
+diff --git a/src/stage.py b/src/stage.py
+index 42a5c96..7bd1d94 100644
+--- a/src/stage.py
++++ b/src/stage.py
+@@ -15,7 +15,6 @@ from clock import ClockWidget
+ from albumArt import AlbumArt
+ from audioPanel import AudioPanel
+ from infoPanel import InfoPanel
+-from osk import OnScreenKeyboard
+ from floating import ALIGNMENTS
+ from util import utils, trackers, settings
+ from util.eventHandler import EventHandler
+@@ -72,7 +71,6 @@ class Stage(Gtk.Window):
+         self.unlock_dialog = None
+         self.audio_panel = None
+         self.info_panel = None
+-        self.osk = None
+ 
+         self.floaters = []
+ 
+@@ -272,12 +270,6 @@ class Stage(Gtk.Window):
+                 print("Problem setting up clock widget: %s" % str(e))
+                 self.clock_widget = None
+ 
+-            try:
+-                self.setup_osk()
+-            except Exception as e:
+-                print("Problem setting up on-screen keyboard: %s" % str(e))
+-                self.osk = None
+-
+             trackers.timer_tracker_get().start("setup-delayed-components",
+                                                2000,
+                                                self.setup_delayed_components)
+@@ -336,18 +328,11 @@ class Stage(Gtk.Window):
+         except Exception as e:
+             print(e)
+ 
+-        try:
+-            if self.osk is not None:
+-                self.osk.destroy()
+-        except Exception as e:
+-            print(e)
+-
+         self.unlock_dialog = None
+         self.clock_widget = None
+         self.albumart_widget = None
+         self.info_panel = None
+         self.audio_panel = None
+-        self.osk = None
+         self.away_message = None
+ 
+         self.monitors = []
+@@ -504,11 +489,6 @@ class Stage(Gtk.Window):
+         if settings.get_show_albumart():
+             self.albumart_widget.start_positioning()
+ 
+-    def setup_osk(self):
+-        self.osk = OnScreenKeyboard()
+-
+-        self.add_child_widget(self.osk)
+-
+     def setup_unlock(self):
+         """
+         Construct the unlock dialog widget and add it to the overlay.  It will always
+@@ -665,8 +645,6 @@ class Stage(Gtk.Window):
+             self.audio_panel.show_panel()
+         if self.info_panel is not None:
+             self.info_panel.refresh_power_state()
+-        if self.osk is not None:
+-            self.osk.show()
+ 
+     def cancel_unlocking(self):
+         if self.unlock_dialog:
+@@ -685,8 +663,6 @@ class Stage(Gtk.Window):
+             self.audio_panel.hide()
+         if self.info_panel is not None:
+             self.info_panel.hide()
+-        if self.osk is not None:
+-            self.osk.hide()
+ 
+         status.Awake = False
+ 
+@@ -988,22 +964,4 @@ class Stage(Gtk.Window):
+ 
+             return True
+ 
+-        if isinstance(child, OnScreenKeyboard):
+-            """
+-            The InfoPanel can be shown while not Awake, but will only appear if a) We have received
+-            notifications while the screensaver is running, or b) we're either on battery
+-            or plugged in but with a non-full battery.  It attaches itself to the upper-right
+-            corner of the monitor.
+-            """
+-            min_rect, nat_rect = child.get_preferred_size()
+-
+-            current_monitor = status.screen.get_mouse_monitor()
+-            monitor_rect = status.screen.get_monitor_geometry(current_monitor)
+-            allocation.x = monitor_rect.x
+-            allocation.y = monitor_rect.y + monitor_rect.height - (monitor_rect.height / 3)
+-            allocation.width = monitor_rect.width
+-            allocation.height = monitor_rect.height / 3
+-
+-            return True
+-
+         return False
+diff --git a/src/tests/test-osk a/src/tests/test-osk
+deleted file mode 100755
+index 08eb788..0000000
+--- a/src/tests/test-osk
++++ /dev/null
+@@ -1,41 +0,0 @@
+-#!/usr/bin/python3
+-
+-import sys
+-import signal
+-import gettext
+-
+-import gi
+-gi.require_version('Gtk', '3.0')
+-gi.require_version('CScreensaver', '1.0')
+-
+-sys.path.append("/usr/share/cinnamon-screensaver")
+-gettext.install("cinnamon-screensaver", "/usr/share/locale")
+-
+-from gi.repository import Gtk, CScreensaver
+-
+-from osk import OnScreenKeyboard
+-import status
+-
+-signal.signal(signal.SIGINT, signal.SIG_DFL)
+-
+-class Main:
+-    def __init__(self):
+-        status.screen = CScreensaver.Screen.new(True)
+-
+-        win = Gtk.Window()
+-
+-        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+-        win.add(box)
+-        win.get_style_context().add_class("csstage")
+-
+-        self.osk = OnScreenKeyboard()
+-        box.pack_start(self.osk, True, True, 2)
+-        box.show_all()
+-
+-        win.connect("delete-event", lambda w, e: Gtk.main_quit())
+-        win.present()
+-
+-        Gtk.main()
+-
+-if __name__ == "__main__":
+-    main = Main()
