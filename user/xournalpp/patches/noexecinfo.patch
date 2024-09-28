@@ -1,0 +1,77 @@
+diff --git a/src/core/control/CrashHandlerUnix.h b/src/core/control/CrashHandlerUnix.h
+index dda77773..5007bddc 100644
+--- a/src/core/control/CrashHandlerUnix.h
++++ b/src/core/control/CrashHandlerUnix.h
+@@ -13,7 +13,6 @@
+ #include <bitset>
+ #include <fstream>  // std::ofstream
+ 
+-#include <execinfo.h>
+ #include <gtk/gtk.h>
+ 
+ #include "util/PathUtil.h"
+@@ -109,14 +108,6 @@ static void crashHandler(int sig) {
+     g_warning("[Crash Handler] Crashed with signal %i", sig);
+ 
+     time_t lt;
+-    void* array[100];
+-    char** messages;
+-
+-    size_t size;
+-
+-    // get void*'s for all entries on the stack
+-    size = backtrace(array, 100);
+-
+     time_t curtime = time(0);
+     char stime[128];
+     strftime(stime, sizeof(stime), "%Y%m%d-%H%M%S", localtime(&curtime));
+@@ -141,15 +132,6 @@ static void crashHandler(int sig) {
+        << std::endl
+        << std::endl;
+ 
+-    messages = backtrace_symbols(array, size);
+-
+-    for (size_t i = 0; i < size; i++) {
+-        fp << FORMAT_STR("[bt]: ({1}) {2}") % i % messages[i];
+-        fp << "\n";
+-    }
+-
+-    free(messages);
+-
+     fp << "\n\nTry to get a better stacktrace...\n";
+ 
+     Stacktrace::printStracktrace(fp);
+diff --git a/src/util/Stacktrace.cpp b/src/util/Stacktrace.cpp
+index c33b7f2c..ffb92616 100644
+--- a/src/util/Stacktrace.cpp
++++ b/src/util/Stacktrace.cpp
+@@ -14,7 +14,6 @@
+ #else
+ 
+ #include <dlfcn.h>     // for dladdr
+-#include <execinfo.h>  // for backtrace, backtrace_symbols
+ #include <unistd.h>    // for readlink, ssize_t
+ 
+ #ifdef __APPLE__
+@@ -91,12 +90,10 @@ void Stacktrace::printStracktrace(std::ostream& stream) {
+     std::array<void*, 32> trace{};
+     std::array<char, 2048> buff{};
+ 
+-    int trace_size = backtrace(trace.data(), trace.size());
+-    char** messages = backtrace_symbols(trace.data(), trace_size);
++    int trace_size = 0;
+ 
+     // skip first stack frame (points here)
+     for (unsigned int i = 1; i < trace_size; ++i) {
+-        stream << "[bt] #" << i - 1 << " " << messages[i] << endl;
+ 
+         Dl_info info;  // NOLINT(cppcoreguidelines-init-variables)
+         dladdr(trace[i], &info);
+@@ -115,7 +112,6 @@ void Stacktrace::printStracktrace(std::ostream& stream) {
+         pclose(fProc);
+     }
+ 
+-    free(messages);
+ }
+ #endif
+ 
