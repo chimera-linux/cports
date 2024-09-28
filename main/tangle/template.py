@@ -1,5 +1,5 @@
 pkgname = "tangle"
-pkgver = "0.1.0"
+pkgver = "0.1.1"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["dbus-run-session"]
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/chimera-linux/tangle"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bab454b64f37c449f80e4ec1682f6cc1d28079e06a35c66fdccfd40c8dc2f2e7"
+sha256 = "709b21b489af546e6376d09b4fe64a9f7131a9ac9651336727d557d58470360c"
 
 
 def post_install(self):
