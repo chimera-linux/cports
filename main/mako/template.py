@@ -1,6 +1,6 @@
 pkgname = "mako"
 pkgver = "1.9.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dbash-completions=true",
@@ -21,7 +21,7 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
 ]
-depends = ["jq"]
+depends = ["jq", "tangle-progs"]
 pkgdesc = "Lightweight notification daemon for Wayland"
 maintainer = "Umar Getagazov <umar@handlerug.me>"
 license = "MIT"
