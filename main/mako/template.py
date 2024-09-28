@@ -1,6 +1,6 @@
 pkgname = "mako"
 pkgver = "1.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dbash-completions=true",
@@ -13,11 +13,11 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
-    "basu-devel",
     "cairo-devel",
     "gdk-pixbuf-devel",
     "linux-headers",
     "pango-devel",
+    "tangle-devel",
     "wayland-devel",
     "wayland-protocols",
 ]

@@ -1,0 +1,68 @@
+commit e5040773b04ae19e7b3b963203e63b8f821d144f
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Sep 28 21:34:24 2024 +0200
+
+    add tangle support
+
+diff --git a/include/dbus.h b/include/dbus.h
+index def15ca..7cd216b 100644
+--- a/include/dbus.h
++++ b/include/dbus.h
+@@ -8,6 +8,8 @@
+ #include <elogind/sd-bus.h>
+ #elif defined(HAVE_BASU)
+ #include <basu/sd-bus.h>
++#elif defined(HAVE_TANGLE)
++#include <tangle/sd-bus.h>
+ #endif
+ 
+ struct mako_state;
+diff --git a/include/event-loop.h b/include/event-loop.h
+index 95c8d36..bd26ce8 100644
+--- a/include/event-loop.h
++++ b/include/event-loop.h
+@@ -11,6 +11,8 @@
+ #include <elogind/sd-bus.h>
+ #elif defined(HAVE_BASU)
+ #include <basu/sd-bus.h>
++#elif defined(HAVE_TANGLE)
++#include <tangle/sd-bus.h>
+ #endif
+ 
+ enum mako_event {
+diff --git a/include/mako.h b/include/mako.h
+index dc2c372..860ef74 100644
+--- a/include/mako.h
++++ b/include/mako.h
+@@ -10,6 +10,8 @@
+ #include <elogind/sd-bus.h>
+ #elif defined(HAVE_BASU)
+ #include <basu/sd-bus.h>
++#elif defined(HAVE_TANGLE)
++#include <tangle/sd-bus.h>
+ #endif
+ 
+ #include "config.h"
+diff --git a/meson.build b/meson.build
+index 8d39d86..59909cf 100644
+--- a/meson.build
++++ b/meson.build
+@@ -42,7 +42,7 @@ endif
+ 
+ if get_option('sd-bus-provider') == 'auto'
+ 	assert(get_option('auto_features').auto(), 'sd-bus-provider must not be set to auto since auto_features != auto')
+-	sdbus = dependency('libsystemd', 'libelogind', 'basu')
++	sdbus = dependency('libsystemd', 'libelogind', 'basu', 'tangle')
+ else
+ 	sdbus = dependency(get_option('sd-bus-provider'))
+ endif
+diff --git a/meson_options.txt b/meson_options.txt
+index 88e6c47..3c3ba1f 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -1,4 +1,4 @@
+-option('sd-bus-provider', type: 'combo', choices: ['auto', 'libsystemd', 'libelogind', 'basu'], value: 'auto', description: 'Provider of the sd-bus library')
++option('sd-bus-provider', type: 'combo', choices: ['auto', 'libsystemd', 'libelogind', 'basu', 'tangle'], value: 'auto', description: 'Provider of the sd-bus library')
+ option('icons', type: 'feature', value: 'auto', description: 'Enable icon support')
+ option('man-pages', type: 'feature', value: 'auto', description: 'Generate and install man pages')
+ option('fish-completions', type: 'boolean', value: false, description: 'Install fish completions')
