@@ -1,5 +1,5 @@
 pkgname = "x265"
-pkgver = "3.6"
+pkgver = "4.0"
 pkgrel = 0
 build_wrksrc = "source"
 _commit = "aa7f602f7592"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://x265.org"
 source = f"https://bitbucket.org/multicoreware/x265_git/get/{pkgver}.tar.gz"
-sha256 = "206329b9599c78d06969a1b7b7bb939f7c99a459ab283b2e93f76854bd34ca7b"
+sha256 = "66b64be4b316362fdadb33ad8273a74236042cc380691bdbec42946b0437a389"
 # guilty until proven wrong
 hardening = ["!int"]
 # cannot be reliably tested, testing option is conditional
