@@ -1,6 +1,6 @@
 pkgname = "elogind"
 pkgver = "255.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/libexec/elogind",
@@ -35,7 +35,7 @@ makedepends = [
     "udev-devel",
 ]
 checkdepends = ["bash", "python-lxml"]
-depends = ["dbus", "turnstile"]
+depends = ["dbus", "tangle-progs", "turnstile"]
 install_if = [self.with_pkgver("elogind-meta")]
 pkgdesc = "Standalone version of logind"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -59,6 +59,11 @@ def post_install(self):
     # service file
     self.install_tmpfiles(self.files_path / "elogind.conf")
     self.install_service(self.files_path / "elogind", enable=True)
+    # busctl provided by tangle
+    self.uninstall("usr/bin/busctl")
+    self.uninstall("usr/share/man/man1/busctl.1")
+    self.uninstall("usr/share/bash-completion/completions/busctl")
+    self.uninstall("usr/share/zsh/site-functions/_busctl")
 
 
 @subpackage("elogind-devel")
