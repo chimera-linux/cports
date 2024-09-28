@@ -1,6 +1,6 @@
 pkgname = "sccache"
-pkgver = "0.8.1"
-pkgrel = 1
+pkgver = "0.8.2"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = []
 make_install_args = []
@@ -18,7 +18,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/mozilla/sccache"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "30b951b49246d5ca7d614e5712215cb5f39509d6f899641f511fb19036b5c4e5"
+sha256 = "2b3e0ef8902fe7bcdcfccf393e29f4ccaafc0194cbb93681eaac238cdc9b94f8"
 # fails due to comparing ldd output to a glibc bin
 options = ["!check"]
 
