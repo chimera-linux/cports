@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.59.0"
+pkgver = "2.59.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -42,7 +42,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/librsvg/{pkgver[:-2]}/librsvg-{pkgver}.tar.xz"
-sha256 = "370d6ada5cf0de91ceb70d849ed069523ce5de2b33b4c7e86bc640673ad65483"
+sha256 = "6116267c7ddabfd4daaf1c341326da0a773139a7223e885ae40ee09bd6986ef6"
 # check: sample files may differ based on pango/freetype/harfbuzz version
 # cross: no introspection in cross
 options = ["!check", "!cross"]
