@@ -1,5 +1,5 @@
 pkgname = "python-maturin"
-pkgver = "1.7.2"
+pkgver = "1.7.4"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {
@@ -22,7 +22,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://www.maturin.rs"
 source = f"https://github.com/PyO3/maturin/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "522e763a77830dd4251bafeb83f376a29e225a06fbe985ed14d98e3db0ecabd9"
+sha256 = "19edb033a7d744dd2b4722218d9db47dadb633948577f957b44d8c9b8eececc8"
 # yeah no
 options = ["!check"]
 
