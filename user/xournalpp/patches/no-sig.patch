@@ -1,0 +1,33 @@
+catching signals and then printing a scuffed backtrace and inhibiting a coredump
+is useless, just crash normally so a corefile can be inspected in a debugger
+instead of being impossible.
+--
+--- a/src/core/control/CrashHandlerUnix.h
++++ b/src/core/control/CrashHandlerUnix.h
+@@ -71,26 +71,6 @@
+ 
+     sigemptyset(&mask);
+ 
+-#ifdef SIGSEGV
+-    signal(SIGSEGV, crashHandler);
+-    sigaddset(&mask, SIGSEGV);
+-#endif
+-
+-#ifdef SIGFPE
+-    signal(SIGFPE, crashHandler);
+-    sigaddset(&mask, SIGFPE);
+-#endif
+-
+-#ifdef SIGILL
+-    signal(SIGILL, crashHandler);
+-    sigaddset(&mask, SIGILL);
+-#endif
+-
+-#ifdef SIGABRT
+-    signal(SIGABRT, crashHandler);
+-    sigaddset(&mask, SIGABRT);
+-#endif
+-
+     sigprocmask(SIG_UNBLOCK, &mask, 0);
+ 
+     g_log_set_default_handler(GLogFunc(log_handler), getCrashHandlerLogBuffer());
