@@ -1,0 +1,63 @@
+Patch-Source: https://github.com/strukturag/libheif/pull/1314
+--
+From 4d9d27e0b2580de23f7c620aeed5553554e19f95 Mon Sep 17 00:00:00 2001
+From: Andrey Semashev <Lastique@users.noreply.github.com>
+Date: Mon, 16 Sep 2024 02:33:14 +0300
+Subject: [PATCH] Update for compatibility with libx265 4.0
+
+libx265 4.0 has changed the signature of `x265_api::encoder_encode` and
+`x265_encoder_encode` functions to accept a pointer to an array of
+pointers to output pictures. That pointer is now required to be non-null,
+otherwise the encode call crashes.
+
+Upstream bug report: https://bitbucket.org/multicoreware/x265_git/issues/952/crash-in-libheif-tests
+---
+ libheif/plugins/encoder_x265.cc | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/libheif/plugins/encoder_x265.cc b/libheif/plugins/encoder_x265.cc
+index 313b95f835..22db3f5d56 100644
+--- a/libheif/plugins/encoder_x265.cc
++++ b/libheif/plugins/encoder_x265.cc
+@@ -901,11 +901,20 @@ static struct heif_error x265_encode_image(void* encoder_raw, const struct heif_
+ 
+   encoder->encoder = api->encoder_open(param);
+ 
++#if X265_BUILD >= 212
++  x265_picture* out_pic = NULL;
++  api->encoder_encode(encoder->encoder,
++                      &encoder->nals,
++                      &encoder->num_nals,
++                      pic,
++                      &out_pic);
++#else
+   api->encoder_encode(encoder->encoder,
+                       &encoder->nals,
+                       &encoder->num_nals,
+                       pic,
+                       NULL);
++#endif
+ 
+   api->picture_free(pic);
+   api->param_free(param);
+@@ -967,11 +976,20 @@ static struct heif_error x265_get_compressed_data(void* encoder_raw, uint8_t** d
+     encoder->nal_output_counter = 0;
+ 
+ 
++#if X265_BUILD >= 212
++    x265_picture* out_pic = NULL;
++    int result = api->encoder_encode(encoder->encoder,
++                                     &encoder->nals,
++                                     &encoder->num_nals,
++                                     NULL,
++                                     &out_pic);
++#else
+     int result = api->encoder_encode(encoder->encoder,
+                                      &encoder->nals,
+                                      &encoder->num_nals,
+                                      NULL,
+                                      NULL);
++#endif
+     if (result <= 0) {
+       *data = nullptr;
+       *size = 0;
