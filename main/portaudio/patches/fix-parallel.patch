@@ -1,0 +1,14 @@
+breaks with cpp enabled otherwise since this is recursive make and the dep won't wait
+force .la to be emitted first.
+--
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -156,7 +156,8 @@
+ SUBDIRS =
+ @ENABLE_CXX_TRUE@SUBDIRS += bindings/cpp
+ 
+ all: lib/$(PALIB) all-recursive tests examples selftests
++all-recursive: | lib/$(PALIB)
+ 
+ tests: bin-stamp $(TESTS)
+ 

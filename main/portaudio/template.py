@@ -1,11 +1,13 @@
 pkgname = "portaudio"
 pkgver = "19.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+configure_args = ["--enable-cxx"]
+configure_gen = ["autoreconf", "-fi", ".", "bindings/cpp"]
 hostmakedepends = [
     "automake",
-    "libtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = [
     "alsa-lib-devel",
@@ -32,4 +34,5 @@ def post_install(self):
 
 @subpackage("portaudio-devel")
 def _(self):
+    self.depends += ["alsa-lib-devel"]
     return self.default_devel()
