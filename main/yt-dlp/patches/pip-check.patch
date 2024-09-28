@@ -1,6 +1,3 @@
-at some point these will explicitly be marked optional (because in code they are):
-https://github.com/yt-dlp/yt-dlp/pull/9295
---
 --- a/pyproject.toml
 +++ b/pyproject.toml
 @@ -41,14 +41,7 @@
@@ -14,7 +11,7 @@ https://github.com/yt-dlp/yt-dlp/pull/9295
 -    "pycryptodomex",
 -    "requests>=2.32.2,<3",
 -    "urllib3>=1.26.17,<3",
--    "websockets>=12.0",
+-    "websockets>=13.0",
  ]
  
  [project.optional-dependencies]
