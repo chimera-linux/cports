@@ -1,6 +1,6 @@
 pkgname = "bash"
 pkgver = "5.2.37"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--without-bash-malloc",
@@ -32,7 +32,7 @@ hardening = ["vis", "!cfi", "!int"]
 
 
 def post_install(self):
-    self.install_dir("etc/bash/bashrc.d", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
     # register with shells
     self.install_shell("/usr/bin/bash")
