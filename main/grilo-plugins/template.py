@@ -1,6 +1,6 @@
 pkgname = "grilo-plugins"
 pkgver = "0.3.16"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     # TODO: libgdata if/when it moves off libsoup2
