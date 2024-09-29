@@ -1,7 +1,7 @@
 pkgname = "gst-plugins-rs"
 # separate versioning from main gst
-pkgver = "0.13.1"
-pkgrel = 1
+pkgver = "0.13.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = [
@@ -26,7 +26,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "(MIT OR Apache-2.0) AND MPL-2.0 AND LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/{pkgver}.tar.gz"
-sha256 = "93ca4dae10a2954d63ec892b3037a8457bd5def85ba5e3b21811aabb42af83c0"
+sha256 = "69cdca67a822ef165fdf1782314303e181099bfe8473573c007e55f60782b63d"
 # takes forever
 options = ["!check"]
 
