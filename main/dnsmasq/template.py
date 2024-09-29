@@ -1,6 +1,6 @@
 pkgname = "dnsmasq"
 pkgver = "2.90"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_install_args = ["BINDIR=/usr/bin"]
 hostmakedepends = ["pkgconf"]
@@ -24,7 +24,6 @@ options = ["!check"]
 
 def post_install(self):
     self.install_file("dnsmasq.conf.example", "etc", name="dnsmasq.conf")
-    self.install_dir("etc/dnsmasq.d", empty=True)
     self.install_file("trust-anchors.conf", "usr/share/dnsmasq")
     self.install_file("dbus/dnsmasq.conf", "usr/share/dbus-1/system.d")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
