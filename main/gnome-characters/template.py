@@ -1,5 +1,5 @@
 pkgname = "gnome-characters"
-pkgver = "46.0"
+pkgver = "47.0"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -27,4 +27,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Design/Apps/CharacterMap"
 source = f"$(GNOME_SITE)/gnome-characters/{pkgver[:-2]}/gnome-characters-{pkgver}.tar.xz"
-sha256 = "a4e8e2c510bf48204b9994a4e7cd537844246e74c8a986f9dbe04e223f5d827c"
+sha256 = "6bcf05a22f30f131d8a8035b0f63d86a9567007a5f6df5ce8556ba06777b7574"
