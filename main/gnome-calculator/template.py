@@ -1,6 +1,6 @@
 pkgname = "gnome-calculator"
-pkgver = "46.1"
-pkgrel = 2
+pkgver = "47.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = [
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Calculator"
 source = f"$(GNOME_SITE)/gnome-calculator/{pkgver[:-2]}/gnome-calculator-{pkgver}.tar.xz"
-sha256 = "2d36750a73890086122cf3f0c83e68517891585615165306fa1596a918668247"
+sha256 = "decdb23283b5dbeef40951b69eaf7d4b80c0c3880ddb01863f9f0f1554f8998b"
 
 
 @subpackage("gnome-calculator-devel")
