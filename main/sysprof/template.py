@@ -1,6 +1,6 @@
 pkgname = "sysprof"
-pkgver = "46.0"
-pkgrel = 3
+pkgver = "47.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # creates static separately itself
@@ -32,7 +32,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://www.sysprof.com"
 source = f"$(GNOME_SITE)/sysprof/{'.'.join(pkgver.rsplit('.')[:-1])}/sysprof-{pkgver}.tar.xz"
-sha256 = "73aa7e75ebab3e4e0946a05a723df7e6ee4249e3b9e884dba35500aba2a1d176"
+sha256 = "7424c629434660654288c04248998c357d1ce87ee1559fd44df1980992ef5df5"
 # sysprof`sysprof_disk_usage_record_fiber muloverflow when busy i/o
 hardening = ["!int"]
 
