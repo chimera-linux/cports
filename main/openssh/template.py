@@ -1,6 +1,6 @@
 pkgname = "openssh"
 pkgver = "9.9_p1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--datadir=/usr/share/openssh",
@@ -67,10 +67,7 @@ def post_install(self):
     self.install_bin("contrib/ssh-copy-id")
     self.install_man("contrib/ssh-copy-id.1")
 
-    self.install_dir("var/chroot/ssh", empty=True)
-
-    self.install_dir("etc/ssh/ssh_config.d", empty=True)
-    self.install_dir("etc/ssh/sshd_config.d", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
     self.install_service(self.files_path / "ssh-keygen")
     self.install_service(self.files_path / "sshd")
