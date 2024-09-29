@@ -1,0 +1,16 @@
+libx11 be definin macros
+
+--- a/Source/bmalloc/bmalloc/EligibilityResult.h
++++ b/Source/bmalloc/bmalloc/EligibilityResult.h
+@@ -29,6 +29,11 @@
+ 
+ #if !BUSE(LIBPAS)
+ 
++/* argh libx11 */
++#ifdef Success
++#undef Success
++#endif
++
+ namespace bmalloc {
+ 
+ enum class EligibilityKind {
