@@ -1,6 +1,6 @@
 pkgname = "accountsservice"
 pkgver = "23.13.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dsystemdsystemunitdir=no",
@@ -29,8 +29,7 @@ options = ["!cross", "!check"]
 
 
 def post_install(self):
-    self.install_dir("var/lib/AccountsService/users", empty=True)
-    self.install_dir("var/lib/AccountsService/icons", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
 @subpackage("accountsservice-devel")
