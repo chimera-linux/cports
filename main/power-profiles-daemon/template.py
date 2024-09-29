@@ -1,6 +1,6 @@
 pkgname = "power-profiles-daemon"
 pkgver = "0.23"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemdsystemunitdir=",
@@ -32,8 +32,8 @@ hardening = ["vis"]
 
 def post_install(self):
     self.install_license("COPYING")
-    self.install_dir("var/lib/power-profiles-daemon", empty=True)
     self.install_service(self.files_path / "power-profiles-daemon")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
 @subpackage("power-profiles-daemon-meta")
