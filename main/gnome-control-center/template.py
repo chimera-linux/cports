@@ -1,12 +1,13 @@
 pkgname = "gnome-control-center"
 pkgver = "47.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "gettext",
     "glib-devel",
     "gobject-introspection",
+    "libxml2-progs",
     "meson",
     "pkgconf",
     "polkit",
