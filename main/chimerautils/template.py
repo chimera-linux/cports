@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
-pkgver = "14.1.4"
-pkgrel = 1
+pkgver = "14.1.5"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dchimera_realpath=enabled"]
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
@@ -10,20 +10,23 @@ makedepends = [
     "libedit-devel",
     "libxo-devel",
     "musl-bsd-headers",
-    "musl-fts-devel",
-    "musl-rpmatch-devel",
     "ncurses-devel",
     "openssl-devel",
     "xz-devel",
     "zlib-ng-compat-devel",
 ]
 depends = ["base-files"]
+# compat
+provides = [
+    self.with_pkgver("musl-fts"),
+    self.with_pkgver("musl-rpmatch")
+]
 pkgdesc = "Chimera Linux userland"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f0dc12adfd51af89865a2db97218951b17f786087641f473537b7f6579f3fc57"
+sha256 = "6d84e2058c66c3aa7cb309bc6ccd11d1416b3f712680a6548f8d61db35102020"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
@@ -49,7 +52,6 @@ def init_configure(self):
     # into giving out the correct paths to make meson happy
     self.env["PKG_CONFIG_LIBCRYPTO_LIBDIR"] = spath
     self.env["PKG_CONFIG_LIBEDIT_LIBDIR"] = spath
-    self.configure_args += [f"-Dfts_path={spath}", f"-Drpmatch_path={spath}"]
 
 
 def post_install(self):
@@ -65,6 +67,18 @@ def post_install(self):
     self.install_dir(tdest)
     for f in (self.destdir / "usr/bin").glob("*.tiny"):
         self.mv(f, self.destdir / tdest / f.stem)
+
+
+@subpackage("chimerautils-devel")
+def _(self):
+    # compat
+    self.provides = [
+        self.with_pkgver("musl-fts-devel"),
+        self.with_pkgver("musl-rpmatch-devel"),
+    ]
+    # explicitly non-lto
+    self.options = ["ltostrip", "!splitstatic"]
+    return self.default_devel()
 
 
 @subpackage("chimerautils-extra")
