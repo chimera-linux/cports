@@ -1,6 +1,6 @@
 pkgname = "libpaper"
 pkgver = "2.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool", "gettext"]
 pkgdesc = "Library for handling paper characteristics"
@@ -13,7 +13,7 @@ sha256 = "7be50974ce0df0c74e7587f10b04272cd53fd675cb6a1273ae1cc5c9cc9cab09"
 
 def post_install(self):
     self.install_license("COPYING-MIT")
-    self.install_dir("etc/libpaper.d", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
 @subpackage("libpaper-devel")
