@@ -1,6 +1,6 @@
 pkgname = "gtk4"
 pkgver = "4.16.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -12,6 +12,7 @@ configure_args = [
     "-Dcolord=enabled",
     "-Dvulkan=enabled",
     "-Dcloudproviders=enabled",
+    "-Dsysprof=enabled",
     "-Dtracker=enabled",
     # not installed
     "-Dbuild-examples=false",
@@ -58,6 +59,7 @@ makedepends = [
     "libxrandr-devel",
     "mesa-devel",
     "pango-devel",
+    "sysprof-devel-static",
     "tinysparql-devel",
     "vulkan-headers",
     "vulkan-loader-devel",
