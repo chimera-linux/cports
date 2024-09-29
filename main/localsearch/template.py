@@ -1,11 +1,10 @@
-pkgname = "tracker-miners"
-pkgver = "3.7.3"
-pkgrel = 3
+pkgname = "localsearch"
+pkgver = "3.8.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
     "-Ddefault_library=shared",
-    "-Dtracker_core=system",
     "-Dextract=true",
     "-Dfunctional_tests=false",
     "-Dman=true",
@@ -29,15 +28,16 @@ configure_args = [
     "-Diso=enabled",
 ]
 hostmakedepends = [
+    "asciidoc",
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
-    "asciidoc",
     "xsltproc",
 ]
 makedepends = [
-    "tracker-devel",
+    "tinysparql-devel",
     "glib-devel",
     "dbus-devel",
     "gstreamer-devel",
@@ -62,14 +62,13 @@ makedepends = [
     "libiptcdata-devel",
     "libosinfo-devel",
 ]
-pkgdesc = "Data miners for tracker"
+provides = [self.with_pkgver("tracker-miners")]
+pkgdesc = "Data miners for tinysparql"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
-url = "https://gnome.pages.gitlab.gnome.org/tracker"
-source = (
-    f"$(GNOME_SITE)/tracker-miners/{pkgver[:-2]}/tracker-miners-{pkgver}.tar.xz"
-)
-sha256 = "e74388154b5c197b4b7ee42f0dce8c5fbbddd4d361093ef88d4fb303e33da5fe"
+url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
+source = f"$(GNOME_SITE)/localsearch/{pkgver[:-2]}/localsearch-{pkgver}.tar.xz"
+sha256 = "e4e83a1daebb5263915b45b719731e3f7041d959cbd637ea29afbe910c92bbf9"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]
