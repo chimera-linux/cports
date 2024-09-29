@@ -1,6 +1,6 @@
 pkgname = "gnome-console"
-pkgver = "46.0"
-pkgrel = 2
+pkgver = "47.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -26,4 +26,4 @@ url = "https://gitlab.gnome.org/GNOME/console"
 source = (
     f"$(GNOME_SITE)/gnome-console/{pkgver[:-2]}/gnome-console-{pkgver}.tar.xz"
 )
-sha256 = "1619ce701773b2c0c903718f54768c192ea5074514d55a1774a92c97231d6c3e"
+sha256 = "487ec0de0a24f12ef6f778e4aee98d744a9dcc921c9e7df98b2d9f410b00ef52"
