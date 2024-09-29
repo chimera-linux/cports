@@ -1,6 +1,26 @@
-also disable clippy test
+also disable clippy test, does nothing except take time, it's a linter
 diff --git a/src/meson.build b/src/meson.build
 index 33ff42e..2b43e0d 100644
+--
+--- a/aperture/meson.build
++++ b/aperture/meson.build
+@@ -1,16 +1,2 @@
+ aperture_cargo_options = [ '--manifest-path', meson.project_source_root() / 'aperture' / 'Cargo.toml' ]
+ aperture_cargo_options += [ '--target-dir', meson.project_build_root() / 'aperture' / 'src' ]
+-
+-test (
+-  'Cargo clippy - aperture',
+-  cargo,
+-  args: [
+-    'clippy',
+-    '--no-deps',
+-    aperture_cargo_options,
+-  ],
+-  env: [
+-    cargo_env,
+-  ],
+-  timeout: 400, # cargo might take a bit of time sometimes
+-)
 --- a/src/meson.build
 +++ b/src/meson.build
 @@ -39,33 +39,14 @@ cargo_build = custom_target(

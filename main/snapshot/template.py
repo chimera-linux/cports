@@ -24,7 +24,6 @@ depends = [
     "gstreamer-libcamera",
     "gstreamer-pipewire",
 ]
-checkdepends = ["rust-clippy"]
 pkgdesc = "GNOME camera app"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
