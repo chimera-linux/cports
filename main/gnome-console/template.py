@@ -1,23 +1,23 @@
 pkgname = "gnome-console"
-pkgver = "47.0"
+pkgver = "47.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
+    "desktop-file-utils",
     "gettext",
+    "glib-devel",
     "gobject-introspection",
     "gtk-update-icon-cache",
-    "desktop-file-utils",
+    "meson",
+    "pkgconf",
 ]
 makedepends = [
+    "gsettings-desktop-schemas-devel",
     "gtk4-devel",
     "libadwaita-devel",
-    "vte-gtk4-devel",
     "libgtop-devel",
-    "gsettings-desktop-schemas-devel",
     "pcre2-devel",
+    "vte-gtk4-devel",
 ]
 pkgdesc = "GNOME console"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -26,4 +26,4 @@ url = "https://gitlab.gnome.org/GNOME/console"
 source = (
     f"$(GNOME_SITE)/gnome-console/{pkgver[:-2]}/gnome-console-{pkgver}.tar.xz"
 )
-sha256 = "487ec0de0a24f12ef6f778e4aee98d744a9dcc921c9e7df98b2d9f410b00ef52"
+sha256 = "d3f600b45b51716691aee92870332e9c9a8ca89d553565f3131d9e28074725d0"
