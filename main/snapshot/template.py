@@ -1,6 +1,6 @@
 pkgname = "snapshot"
 pkgver = "47.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "appstream",
@@ -21,6 +21,7 @@ makedepends = [
     "rust-std",
 ]
 depends = [
+    "gst-plugins-rs-gtk4",
     "gstreamer-libcamera",
     "gstreamer-pipewire",
 ]
