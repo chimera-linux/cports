@@ -1,6 +1,6 @@
 pkgname = "gsettings-desktop-schemas"
 pkgver = "47.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dintrospection=true"]
 hostmakedepends = [

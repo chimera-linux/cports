@@ -2,7 +2,7 @@ commit ad6faff24bdf2011bc12cb2b49bde1606453acfd
 Author: q66 <q66@chimera-linux.org>
 Date:   Sun Mar 24 14:29:21 2024 +0100
 
-    change default background
+    change default background + accent
 
 diff --git a/schemas/org.gnome.desktop.background.gschema.xml.in b/schemas/org.gnome.desktop.background.gschema.xml.in
 index 8abe8ea..8dcf38f 100644
@@ -26,3 +26,16 @@ index 8abe8ea..8dcf38f 100644
        <summary>Picture URI (dark)</summary>
        <description>
          URI to use for the background image. Note that the backend only supports
+diff --git a/schemas/org.gnome.desktop.interface.gschema.xml.in b/schemas/org.gnome.desktop.interface.gschema.xml.in
+index e2983c1..4dd986a 100644
+--- a/schemas/org.gnome.desktop.interface.gschema.xml.in
++++ b/schemas/org.gnome.desktop.interface.gschema.xml.in
+@@ -312,7 +312,7 @@
+       </description>
+     </key>
+     <key name="accent-color" enum="org.gnome.desktop.GDesktopAccentColor">
+-      <default>'blue'</default>
++      <default>'pink'</default>
+       <summary>Accent color</summary>
+       <description>
+         The preferred accent color for the user interface. Valid values are "blue", "teal", "green", "yellow", "orange", "red", "pink", "purple", "slate".
