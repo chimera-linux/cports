@@ -1,6 +1,6 @@
 pkgname = "gdb"
-pkgver = "15.1"
-pkgrel = 2
+pkgver = "15.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-werror",
@@ -33,7 +33,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gdb"
 source = f"$(GNU_SITE)/gdb/gdb-{pkgver}.tar.xz"
-sha256 = "38254eacd4572134bca9c5a5aa4d4ca564cbbd30c369d881f733fb6b903354f2"
+sha256 = "83350ccd35b5b5a0cba6b334c41294ea968158c573940904f00b92f76345314d"
 # weird autotools bullshittery
 env = {"SED": "gsed"}
 # massive
