@@ -36,8 +36,7 @@ makedepends = [
     "libspelling-devel",
     "libxml2-devel",
     "ostree-devel",
-    "sysprof-devel",
-    "sysprof-devel-static",  # sysprof-capture-4 is static-only
+    "sysprof-capture",
     "template-glib-devel",
     "vte-gtk4-devel",
     "webkitgtk4-devel",

@@ -75,7 +75,7 @@ makedepends = [
     "mesa-devel",
     "openjpeg-devel",
     "sqlite-devel",
-    "sysprof-devel-static",
+    "sysprof-capture",
     "wayland-devel",
     "wayland-protocols",
     "woff2-devel",
