@@ -1,6 +1,6 @@
 pkgname = "gdm"
-pkgver = "46.2"
-pkgrel = 2
+pkgver = "47.0"
+pkgrel = 0
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -65,7 +65,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
 source = f"$(GNOME_SITE)/gdm/{pkgver[:-2]}/gdm-{pkgver}.tar.xz"
-sha256 = "4ee345422a16537150cd842450cda52b2ca86984bc51ee20cdc025dcf4bd268b"
+sha256 = "c5858326bfbcc8ace581352e2be44622dc0e9e5c2801c8690fd2eed502607f84"
 
 
 def post_install(self):
