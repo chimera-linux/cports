@@ -58,7 +58,7 @@ makedepends = [
     "libxrandr-devel",
     "mesa-devel",
     "pango-devel",
-    "tracker-devel",
+    "tinysparql-devel",
     "vulkan-headers",
     "vulkan-loader-devel",
     "wayland-devel",

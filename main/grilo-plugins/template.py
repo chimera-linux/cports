@@ -32,7 +32,7 @@ makedepends = [
     "lua5.4-devel",
     "sqlite-devel",
     "totem-pl-parser-devel",
-    "tracker-devel",
+    "tinysparql-devel",
 ]
 checkdepends = ["gst-plugins-good"]
 pkgdesc = "Collection of plugins for Grilo"

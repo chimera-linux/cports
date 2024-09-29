@@ -45,7 +45,7 @@ makedepends = [
     "libxrandr-devel",
     "mesa-devel",
     "pango-devel",
-    "tracker-devel",
+    "tinysparql-devel",
     "wayland-devel",
     "wayland-protocols",
 ]

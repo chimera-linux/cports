@@ -23,7 +23,7 @@ makedepends = [
     "libcloudproviders-devel",
     "libportal-devel",
     "libxml2-devel",
-    "tracker-devel",
+    "tinysparql-devel",
 ]
 depends = ["desktop-file-utils", "tracker", "tracker-miners"]
 checkdepends = ["dbus", "tracker", "tracker-miners", "python-gobject"]
