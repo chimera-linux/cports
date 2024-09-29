@@ -1,13 +1,13 @@
 pkgname = "mutter"
-pkgver = "46.4"
-pkgrel = 1
+pkgver = "47.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Degl_device=true",
     "-Dintrospection=true",
     "-Dnative_backend=true",
     "-Dprofiler=false",
-    "-Dtests=false",
+    "-Dtests=disabled",
     "-Dudev=true",
     "-Dxwayland_initfd=disabled",
     "-Dxwayland_path=/usr/bin/Xwayland",
@@ -37,6 +37,7 @@ makedepends = [
     "json-glib-devel",
     "lcms2-devel",
     "libcanberra-devel",
+    "libdisplay-info-devel",
     "libei-devel",
     "libice-devel",
     "libinput-devel",
@@ -69,7 +70,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/Mutter"
 source = f"$(GNOME_SITE)/mutter/{pkgver.split('.')[0]}/mutter-{pkgver}.tar.xz"
-sha256 = "611bd9cf982adb56597ce2b34224272fda619bb3bb912a684d75c6f2c37502e4"
+sha256 = "2d0ea90150ac6cd0219d0078db05d6e1514d6ae21bf9f3f740d4fb039129016b"
 # libmutter crashes gnome-shell with some applications? FIXME debug
 hardening = ["!int"]
 # needs graphical environment
@@ -78,4 +79,4 @@ options = ["!check", "!cross"]
 
 @subpackage("mutter-devel")
 def _(self):
-    return self.default_devel(extra=["usr/lib/mutter-14/*.gir"])
+    return self.default_devel(extra=["usr/lib/mutter-15/*.gir"])
