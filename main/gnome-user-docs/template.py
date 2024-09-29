@@ -1,5 +1,5 @@
 pkgname = "gnome-user-docs"
-pkgver = "46.4"
+pkgver = "47.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -16,5 +16,5 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "CC-BY-3.0"
 url = "https://gitlab.gnome.org/GNOME/gnome-user-docs"
 source = f"$(GNOME_SITE)/gnome-user-docs/{pkgver[:-2]}/gnome-user-docs-{pkgver}.tar.xz"
-sha256 = "2776072f15f92bd05028345f3ac8a093d44260de52a620d62693c0e5eea20534"
+sha256 = "d06d87fcd726a90ed03a170cab45d470894991e312912fc508bde0dfbc83cfda"
 options = ["!splitdoc"]
