@@ -1,8 +1,9 @@
 pkgname = "gnome-online-accounts"
-pkgver = "3.50.5"
+pkgver = "3.52.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "-Ddocumentation=false",
     "-Dintrospection=true",
     "-Dvapi=true",
     "-Dman=true",
@@ -19,25 +20,26 @@ hostmakedepends = [
     "vala",
 ]
 makedepends = [
-    "glib-devel",
     "dbus-devel",
     "gcr-devel",
+    "glib-devel",
     "gtk4-devel",
     "heimdal-devel",
-    "webkitgtk-devel",
     "json-glib-devel",
+    "keyutils-devel",
     "libadwaita-devel",
     "libsecret-devel",
     "libsoup-devel",
     "libxml2-devel",
     "rest-devel",
+    "webkitgtk-devel",
 ]
 pkgdesc = "GNOME service to access online accounts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
 source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-2]}/gnome-online-accounts-{pkgver}.tar.xz"
-sha256 = "2d24942700ebb6d40a4757bb1d202f3c238f80f30df6f32c63f57a9edcb73f1a"
+sha256 = "631953a9d9ea098b268a0bbe2df18cbbec6781589cac6b0455214609ee12bbd8"
 options = ["!cross"]
 
 
