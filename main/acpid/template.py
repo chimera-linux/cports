@@ -1,6 +1,6 @@
 pkgname = "acpid"
 pkgver = "2.0.34"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 makedepends = ["linux-headers"]
@@ -15,4 +15,4 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_service(self.files_path / "acpid")
-    self.install_dir("etc/acpi/events", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
