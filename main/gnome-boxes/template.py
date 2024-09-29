@@ -1,5 +1,5 @@
 pkgname = "gnome-boxes"
-pkgver = "46.1"
+pkgver = "47.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -33,7 +33,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://apps.gnome.org/Boxes"
 source = f"$(GNOME_SITE)/gnome-boxes/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-boxes-{pkgver}.tar.xz"
-sha256 = "900c177f6762640370a6634cf9e7d3cd8207e498367a8a667a6b731b04116036"
+sha256 = "65bf6c2de1bf4d51695c9192c5b1e6285cb32c98a18aa948a376ea32038bc78f"
 # gobject-introspection
 # FIXME: lto makes the os-downloader crash (pick any os and it aborts instantly in os-downloader.vala)
 options = ["!cross", "!lto"]
