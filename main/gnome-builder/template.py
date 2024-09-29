@@ -1,6 +1,6 @@
 pkgname = "gnome-builder"
-pkgver = "46.3"
-pkgrel = 2
+pkgver = "47.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dnetwork_tests=false"]
 make_check_wrapper = [
@@ -22,6 +22,7 @@ makedepends = [
     "editorconfig-devel",
     "enchant-devel",
     "flatpak-devel",
+    "gom-devel",
     "gtksourceview-devel",
     "json-glib-devel",
     "jsonrpc-glib-devel",
@@ -31,6 +32,7 @@ makedepends = [
     "libpanel-devel",
     "libpeas2-devel",
     "libportal-devel",
+    "libspelling-devel",
     "libsoup-devel",
     "libxml2-devel",
     "ostree-devel",
@@ -55,7 +57,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Builder"
 source = f"$(GNOME_SITE)/gnome-builder/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-builder-{pkgver}.tar.xz"
-sha256 = "12f27c0e2a4a7316f9f7e21859df6bf1b77570d2966f957a43306f699ec54612"
+sha256 = "f700d69ddd0857db4f117ba7c38b1da63d596bab3ade8a14d69978c892f066f3"
 # gobject-introspection
 options = ["!cross"]
 
