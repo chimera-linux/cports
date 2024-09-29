@@ -1,6 +1,6 @@
 pkgname = "gnome-shell-extension-gsconnect"
 pkgver = "57"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dinstalled_tests=false"]
 # Would've used weston-headless-run here instead of xvfb-run, but that runs
