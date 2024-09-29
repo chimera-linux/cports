@@ -1,6 +1,6 @@
 pkgname = "libabigail"
 pkgver = "2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-apidoc",
@@ -26,10 +26,10 @@ hostmakedepends = [
 ]
 makedepends = [
     "bash-completion",
+    "chimerautils-devel",
     "elfutils-devel",
     "libbpf-devel",
     "libxml2-devel",
-    "musl-fts-devel",
 ]
 pkgdesc = "Library and tooling for ABI-related tasks"
 maintainer = "psykose <alice@ayaya.dev>"

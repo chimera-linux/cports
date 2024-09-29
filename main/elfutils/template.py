@@ -1,6 +1,6 @@
 pkgname = "elfutils"
 pkgver = "0.191"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-nls",
@@ -19,12 +19,12 @@ hostmakedepends = [
 makedepends = [
     "argp-standalone",
     "bzip2-devel",
+    "chimerautils-devel",
     "libarchive-devel",
     "libcurl-devel",
     "libmicrohttpd-devel",
     "linux-headers",
     "musl-bsd-headers",
-    "musl-fts-devel",
     "musl-obstack-devel",
     "sqlite-devel",
     "xz-devel",

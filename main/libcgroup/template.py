@@ -1,6 +1,6 @@
 pkgname = "libcgroup"
 pkgver = "3.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -13,9 +13,9 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "chimerautils-devel",
     "linux-headers",
     "linux-pam-devel",
-    "musl-fts-devel",
 ]
 checkdepends = ["bash"]
 pkgdesc = "Cgroup library and commandline utilities for managing cgroups"
@@ -27,7 +27,7 @@ sha256 = "976ec4b1e03c0498308cfd28f1b256b40858f636abc8d1f9db24f0a7ea9e1258"
 # vis breaks symbols
 hardening = []
 # tests need.. sudo..
-options = ["!check"]
+options = ["!check", "linkundefver"]
 
 
 def post_install(self):

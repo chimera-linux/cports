@@ -1,12 +1,12 @@
 pkgname = "dracut-install"
 pkgver = "103"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 make_dir = "."
 make_build_target = "dracut-install"
 hostmakedepends = ["bash", "pkgconf"]
-makedepends = ["libkmod-devel", "musl-fts-devel"]
+makedepends = ["chimerautils-devel", "libkmod-devel"]
 checkdepends = ["asciidoc"]
 pkgdesc = "Dracut-install command from dracut"
 maintainer = "q66 <q66@chimera-linux.org>"

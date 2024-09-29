@@ -1,6 +1,6 @@
 pkgname = "tofi"
 pkgver = "0.9.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -11,10 +11,10 @@ hostmakedepends = [
 ]
 makedepends = [
     "cairo-devel",
+    "chimerautils-devel",
     "freetype-devel",
     "libxkbcommon-devel",
     "linux-headers",
-    "musl-fts-devel",
     "pango-devel",
     "wayland-devel",
     "wayland-protocols",

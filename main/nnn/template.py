@@ -1,9 +1,9 @@
 pkgname = "nnn"
 pkgver = "5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
-makedepends = ["musl-fts-devel", "libedit-readline-devel"]
+makedepends = ["chimerautils-devel", "libedit-readline-devel"]
 pkgdesc = "Unorthodox terminal file manager"
 maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-2-Clause"

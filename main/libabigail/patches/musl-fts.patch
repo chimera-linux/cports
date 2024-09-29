@@ -7,5 +7,5 @@
  AS_CASE(
    [${host_os}], [*-musl*], [
 -    PKG_CHECK_MODULES([FTS], [fts-standalone])
-+    PKG_CHECK_MODULES([FTS], [musl-fts])
++    PKG_CHECK_MODULES([FTS], [chimerautils])
  ])

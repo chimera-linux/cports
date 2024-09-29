@@ -1,6 +1,6 @@
 pkgname = "dolphin"
 pkgver = "24.08.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -23,6 +23,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "baloo-devel",
+    "chimerautils-devel",
     "kcmutils-devel",
     "kcrash-devel",
     "kdbusaddons-devel",
@@ -36,7 +37,6 @@ makedepends = [
     "kparts-devel",
     "ktextwidgets-devel",
     "kuserfeedback-devel",
-    "musl-fts-devel",
     "phonon-devel",
     "qt6-qtdeclarative-devel",
     # TODO: PackageKitQt6 (service menu installer)
