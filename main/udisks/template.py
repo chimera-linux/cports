@@ -1,6 +1,6 @@
 pkgname = "udisks"
 pkgver = "2.10.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -44,7 +44,8 @@ sha256 = "b75734ccf602540dedb4068bec206adcb508a4c003725e117ae8f994d92d8ece"
 
 
 def post_install(self):
-    self.install_dir("var/lib/udisks2", mode=0o750, empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.rename("usr/share/zsh/site-functions/_udisks2", "_udisksctl")
 
 
 @subpackage("udisks-devel")
