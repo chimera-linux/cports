@@ -1,6 +1,6 @@
 pkgname = "containers-common"
 pkgver = "0.60.3"
-pkgrel = 0
+pkgrel = 1
 make_build_args = ["-C", "docs"]
 make_install_args = [*make_build_args]
 hostmakedepends = ["go-md2man"]
@@ -44,7 +44,7 @@ def build(self):
 def install(self):
     self.install_dir("etc/containers/certs.d")
     self.install_dir("etc/containers/oci/hooks.d")
-    self.install_dir("var/lib/containers/sigstore", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
     with self.pushd("common"):
         self.install_file("pkg/config/containers.conf", "etc/containers")
