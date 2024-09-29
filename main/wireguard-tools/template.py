@@ -1,6 +1,6 @@
 pkgname = "wireguard-tools"
 pkgver = "1.0.20210914"
-pkgrel = 3
+pkgrel = 4
 build_style = "makefile"
 make_dir = "src"
 make_install_args = [
@@ -26,7 +26,7 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.install_dir("etc/wireguard", mode=0o700, empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_file(
         self.files_path / "wg-quick-all.sh",
         "usr/libexec",
