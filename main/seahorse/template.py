@@ -1,6 +1,6 @@
 pkgname = "seahorse"
-pkgver = "43.0"
-pkgrel = 1
+pkgver = "47.0.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dmanpage=true"]
 hostmakedepends = [
@@ -36,4 +36,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/seahorse"
 source = f"{url}/-/archive/{pkgver}/seahorse-{pkgver}.tar.gz"
-sha256 = "0a2512e9e8fd3e271177df7f1e01f8c6e7bce8867b4d258148360105721af108"
+sha256 = "46f57d8fbf8da147d9842f6efc6a6666ee76853b10d97622a636f73a44869e5e"
