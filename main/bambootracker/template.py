@@ -8,10 +8,10 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
-    "rtaudio-devel",
-    "rtmidi-devel",
     "qt6-qt5compat-devel",
     "qt6-qttools-devel",
+    "rtaudio-devel",
+    "rtmidi-devel",
 ]
 pkgdesc = "YM2608 music tracker"
 maintainer = "Erica Z <zerica@callcc.eu>"
