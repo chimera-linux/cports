@@ -1,5 +1,5 @@
 pkgname = "gnome-builder"
-pkgver = "47.0"
+pkgver = "47.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dnetwork_tests=false"]
@@ -32,8 +32,8 @@ makedepends = [
     "libpanel-devel",
     "libpeas2-devel",
     "libportal-devel",
-    "libspelling-devel",
     "libsoup-devel",
+    "libspelling-devel",
     "libxml2-devel",
     "ostree-devel",
     "sysprof-devel",
@@ -57,7 +57,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Builder"
 source = f"$(GNOME_SITE)/gnome-builder/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-builder-{pkgver}.tar.xz"
-sha256 = "f700d69ddd0857db4f117ba7c38b1da63d596bab3ade8a14d69978c892f066f3"
+sha256 = "e6f76ebcf6c55cc982d4460059d3d156d9b41127fb7ab660ecba9dc9606893c5"
 # gobject-introspection
 options = ["!cross"]
 
