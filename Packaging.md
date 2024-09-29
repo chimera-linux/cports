@@ -822,7 +822,10 @@ Keep in mind that default values may be overridden by build styles.
   explicit mode set here, otherwise they will not be allowed. That means
   any suid file installed by a package without the template re-declaring
   its mode is forbidden; the primary purpose is to make sure the packager
-  knows what kind of mode it needs to have.
+  knows what kind of mode it needs to have. This field can also be used
+  to create empty directories in the package (bypassing the cleanup system),
+  by specifying the path as starting with a plus (`+`). The mode and owner
+  is still applied to the directory.
 * `file_xattrs` *(dict)* A dictionary of strings to dictionaries, where
   the string keys are file paths (relative to the package, e.g. `usr/foo`)
   and the dicts contain mappings of extended attribute names to values.

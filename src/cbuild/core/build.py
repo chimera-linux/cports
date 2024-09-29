@@ -417,6 +417,17 @@ def _split_auto(pkg, done):
     if not done and not pkg.options["keepempty"]:
         _clean_empty(pkg, pkg.destdir, False)
 
+    # create empty dirs as necessary
+    for k in pkg.file_modes:
+        if not k.startswith("+"):
+            continue
+        rec = False
+        if len(pkg.file_modes[k]) == 4:
+            uname, gname, fmode, rec = pkg.file_modes[k]
+        else:
+            uname, gname, fmode = pkg.file_modes[k]
+        (pkg.destdir / k[1:]).mkdir(parents=rec, exist_ok=True, mode=fmode)
+
 
 def invoke_install(pkg, step):
     p = pkg.profile()

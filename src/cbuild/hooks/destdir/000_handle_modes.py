@@ -20,9 +20,12 @@ def invoke(pkg):
                 )
 
     for k in pkg.file_modes:
+        # mkdirs, done later but still validated
+        isdir = k.startswith("+")
+
         p = pkg.destdir / k
 
-        if not p.exists():
+        if not isdir and not p.exists():
             pkg.error(f"non-existent file in file_modes: {k}")
 
         fml = len(pkg.file_modes[k])
@@ -46,6 +49,9 @@ def invoke(pkg):
             pkg.error("file_modes mode must be an integer")
         if not isinstance(recursive, bool):
             pkg.error("file_mods recursive flag must be a boolean")
+
+        if isdir:
+            continue
 
         if recursive:
             for root, dirs, files in os.walk(p):
