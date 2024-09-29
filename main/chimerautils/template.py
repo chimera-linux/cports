@@ -19,7 +19,7 @@ depends = ["base-files"]
 # compat
 provides = [
     self.with_pkgver("musl-fts"),
-    self.with_pkgver("musl-rpmatch")
+    self.with_pkgver("musl-rpmatch"),
 ]
 pkgdesc = "Chimera Linux userland"
 maintainer = "q66 <q66@chimera-linux.org>"
