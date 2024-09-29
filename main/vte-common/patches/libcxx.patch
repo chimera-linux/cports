@@ -1,0 +1,111 @@
+From 9516e749b11ea800b5d1fe2808ffcc4a092e3f8e Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 29 Sep 2024 01:50:02 +0200
+Subject: [PATCH] work around lack of c++17 compliance in libc++ + fixes
+
+---
+ src/color-test.cc |  2 +-
+ src/icu-glue.hh   |  1 +
+ src/minifont.cc   |  1 +
+ src/termprops.hh  | 40 +++++++++++++++++++++++++++++-----------
+ 4 files changed, 32 insertions(+), 12 deletions(-)
+
+diff --git a/src/color-test.cc b/src/color-test.cc
+index 0ed9089..1bfad31 100644
+--- a/src/color-test.cc
++++ b/src/color-test.cc
+@@ -165,7 +165,7 @@ static void
+ test_color_to_string (void)
+ {
+         auto test = [](std::string str,
+-                       bool alpha = false) constexpr noexcept -> void
++                       bool alpha = false) noexcept -> void
+         {
+                 auto const value = parse<rgba>(str);
+                 assert(value);
+diff --git a/src/icu-glue.hh b/src/icu-glue.hh
+index f2c3331..f72999b 100644
+--- a/src/icu-glue.hh
++++ b/src/icu-glue.hh
+@@ -20,6 +20,7 @@
+ #include <glib.h>
+ #include <memory>
+ #include <optional>
++#include <string_view>
+ 
+ namespace vte::base {
+ 
+diff --git a/src/minifont.cc b/src/minifont.cc
+index 9be96d6..8d8c441 100644
+--- a/src/minifont.cc
++++ b/src/minifont.cc
+@@ -19,6 +19,7 @@
+ #include "config.h"
+ 
+ #include <cmath>
++#include <algorithm>
+ 
+ #include "cairo-glue.hh"
+ 
+diff --git a/src/termprops.hh b/src/termprops.hh
+index 0d3f0f4..8f22a3d 100644
+--- a/src/termprops.hh
++++ b/src/termprops.hh
+@@ -24,6 +24,8 @@
+ #include "glib-glue.hh"
+ 
+ #include <cmath> // for std::isfinite
++#include <cctype>
++#include <cstdlib>
+ 
+ #include <charconv>
+ #include <optional>
+@@ -388,18 +390,34 @@ template<std::floating_point T>
+ inline std::optional<TermpropValue>
+ parse_termprop_floating(std::string_view const& str) noexcept
+ {
+-        auto v = T{};
+-        if (auto [ptr, err] = std::from_chars(std::begin(str),
+-                                              std::end(str),
+-                                              v,
+-                                              std::chars_format::general);
+-            err == std::errc() &&
+-            ptr == std::end(str) &&
+-            std::isfinite(v)) {
+-                return double(v);
++        /* do away with differences of from_chars and strtod, that is:
++         * - stuff starting with whitespace or sign
++         * - hex literals
++         */
++        if (str.size() == 0) return std::nullopt;
++        if (str[0] != '.' && !std::isdigit(str[0])) return std::nullopt;
++        if (str[0] == '0' && str.size() >= 2 && (str[1] == 'x' || str[1] == 'X'))
++                return std::nullopt;
++        /* lol no c api to parse unterminated buffers */
++        std::string big;
++        char buf[64];
++        char *strp = buf;
++        if (str.size() < sizeof(buf)) {
++                memcpy(buf, str.data(), str.size());
++                buf[str.size()] = '\0';
++        } else {
++                big = str;
++                strp = big.data();
+         }
+-
+-        return std::nullopt;
++        /* now parse the mf */
++        char *end = nullptr;
++        auto vf = strtold(strp, &end);
++        /* did not parse cleanly */
++        if (!end || *end) return std::nullopt;
++        /* now get the right type */
++        auto v = static_cast<T>(vf);
++        if (!std::isfinite(v)) return std::nullopt;
++        return v;
+ }
+ 
+ template<std::floating_point T>
+-- 
+2.46.2
+

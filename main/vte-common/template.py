@@ -1,5 +1,5 @@
 pkgname = "vte-common"
-pkgver = "0.76.4"
+pkgver = "0.78.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -40,13 +40,18 @@ url = "https://wiki.gnome.org/Apps/Terminal/VTE"
 source = (
     f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
 )
-sha256 = "88979af0b02bac3c6d0bc95fcbeaf0ee025a7fc7a5b127155188b90718af0e78"
+sha256 = "82e19d11780fed4b66400f000829ce5ca113efbbfb7975815f26ed93e4c05f2d"
 # assert in meson
 options = ["!lto", "!cross"]
 
 tool_flags = {
     "CFLAGS": ["-Wno-cast-function-type-strict"],
-    "CXXFLAGS": ["-Wno-cast-function-type-strict"],
+    "CXXFLAGS": [
+        "-Wno-cast-function-type-strict",
+        # these are bad but also very noisy...
+        "-Wno-cast-align",
+        "-Wno-float-equal",
+    ],
 }
 
 
