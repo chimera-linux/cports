@@ -1,6 +1,6 @@
 pkgname = "nginx"
 pkgver = "1.26.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/var/lib/nginx",
@@ -88,6 +88,10 @@ sha256 = [
     "627fe086209bba80a2853a0add9d958d7ebbdffa1a8467a5784c9a6b4f03d738",
     "9056dca56c96922c7d3fc6100c183d8262d6faa46685a817e611ade2479d676a",
 ]
+file_modes = {
+    # must be present in main package
+    "+usr/lib/nginx/modules": ("root", "root", 0o755, True),
+}
 # needs a lot more work
 options = ["!cross"]
 
@@ -114,8 +118,6 @@ def post_install(self):
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "nginx")
-    # must be present in main package
-    self.install_dir("usr/lib/nginx/modules", empty=True)
     # better default configs, mostly adapted from alpine
     self.uninstall("etc/nginx/nginx.conf")
     self.install_file(self.files_path / "nginx.conf", "etc/nginx")
