@@ -1,5 +1,3 @@
-diff --git a/src/meson.build b/src/meson.build
-index 7a5224c..d43fcd2 100644
 --- a/src/meson.build
 +++ b/src/meson.build
 @@ -31,24 +31,17 @@ else
@@ -8,7 +6,7 @@ index 7a5224c..d43fcd2 100644
  
 -cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
 -
- cargo_build = custom_target(
+ custom_target(
    'cargo-build',
    build_by_default: true,
    build_always_stale: true,
