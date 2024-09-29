@@ -1,5 +1,5 @@
 pkgname = "baobab"
-pkgver = "46.0"
+pkgver = "47.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,5 +22,5 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/action/show/Apps/DiskUsageAnalyzer"
 source = f"$(GNOME_SITE)/baobab/{pkgver[:-2]}/baobab-{pkgver}.tar.xz"
-sha256 = "ce4def5c82d05671a5009f7bebcf85ac98675d9d8160d28ad9181b269a72e37c"
+sha256 = "b88f74f9c052d3c2388f7062d228cf5e927545acf7408c56841df80ccd1f9c37"
 hardening = ["vis", "!cfi"]
