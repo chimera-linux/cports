@@ -1,6 +1,6 @@
 pkgname = "bolt"
 pkgver = "0.9.8"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dman=true", "-Dsystemd=false"]
 make_check_wrapper = ["dbus-run-session"]
@@ -24,5 +24,4 @@ sha256 = "5a4306aa21ee398e1e9f2a5072748c9469c9360bf5edc7dcec2f12fc17be122e"
 
 def post_install(self):
     self.install_service(self.files_path / "boltd")
-
-    self.install_dir("var/lib/boltd", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
