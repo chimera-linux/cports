@@ -1,7 +1,7 @@
 # fix up networkmanager when updating this (versioned .so paths)
 pkgname = "ppp"
 pkgver = "2.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -55,8 +55,7 @@ def post_install(self):
         name="00-iface-config.sh",
         mode=0o755,
     )
-    self.install_dir("etc/ppp/ipv6-down.d", empty=True)
-    self.install_dir("etc/ppp/peers", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
     self.install_bin("scripts/pon")
     self.install_man("scripts/pon.1")
