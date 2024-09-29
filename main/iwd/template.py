@@ -1,6 +1,6 @@
 pkgname = "iwd"
 pkgver = "2.22"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     # junk cflags that redefine FORTIFY
@@ -34,5 +34,3 @@ def post_install(self):
     self.install_service(self.files_path / "iwd")
     self.install_service(self.files_path / "ead")
     self.install_tmpfiles(self.files_path / "iwd.conf")
-
-    self.install_dir("etc/iwd", empty=True)
