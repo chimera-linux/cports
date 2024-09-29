@@ -1,14 +1,14 @@
 pkgname = "papers"
-pkgver = "46.2"
+pkgver = "47.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dcomics=enabled",
+    "-Ddocumentation=false",
     "-Dps=enabled",
     "-Dtiff=enabled",
     "-Dxps=enabled",
     "-Ddjvu=enabled",
-    "-Dgtk_doc=false",
 ]
 hostmakedepends = [
     "cargo-auditable",
@@ -18,6 +18,7 @@ hostmakedepends = [
     "libxml2-progs",
     "meson",
     "pkgconf",
+    "rustfmt",
 ]
 makedepends = [
     "dbus-devel",
@@ -38,7 +39,7 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/Incubator/papers"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "675fc379c3758bfd95438131497c23320df90c7f7e86ba8648927fe586cdbafe"
+sha256 = "6bcb1c352909f6179b6e9d71a6a3607ebba616826ab5a4113f28fc97aeadab96"
 
 
 def post_patch(self):
