@@ -1,6 +1,6 @@
 pkgname = "webkitgtk"
-pkgver = "2.44.4"
-pkgrel = 1
+pkgver = "2.46.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DPORT=GTK",
@@ -75,6 +75,7 @@ makedepends = [
     "mesa-devel",
     "openjpeg-devel",
     "sqlite-devel",
+    "sysprof-devel-static",
     "wayland-devel",
     "wayland-protocols",
     "woff2-devel",
@@ -91,7 +92,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/webkitgtk-{pkgver}.tar.xz"
-sha256 = "2ce4ec1b78413035037aba8326b31ed72696626b7bea7bace5e46ac0d8cbe796"
+sha256 = "d4d433040f190151560c50bde840850089f87bad4fefa9ebdb4aae856a3df43a"
 debug_level = 1  # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],

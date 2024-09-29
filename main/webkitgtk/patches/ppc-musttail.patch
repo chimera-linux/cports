@@ -1,0 +1,169 @@
+https://github.com/llvm/llvm-project/issues/98859
+https://github.com/WebKit/WebKit/pull/33906
+--
+From 7c79dd4f03c78b5a291f0ef031061f3a2178d6e3 Mon Sep 17 00:00:00 2001
+From: Michael Catanzaro <mcatanzaro@redhat.com>
+Date: Thu, 19 Sep 2024 11:08:56 -0500
+Subject: [PATCH] [Skia] Build fails on ppc64le due to MUST_TAIL_CALL when tail
+ call is not possible https://bugs.webkit.org/show_bug.cgi?id=279985
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Reviewed by NOBODY (OOPS!).
+
+Skia's use of the clang::musttail attribute is not supported by Clang on
+ppc64le and needs to be removed in Skia. See
+https://github.com/llvm/llvm-project/pull/93267 and
+https://github.com/llvm/llvm-project/issues/98859 and
+https://github.com/llvm/llvm-project/issues/108014 for more info.
+
+Unfortunately Skia has strict requirements regarding who is allowed to
+contribute, and I do not qualify, so instead of upstreaming these
+changes as I would prefer, instead I add a simple patch mechanism to
+allow us to maintain the changes in WebKit. I don't think we can
+contribute it to upstream unless somebody who has signed the contributor
+license agreement is willing to violate it by pretending that they
+authored the change, so we're probably stuck with carrying this
+downstream forever.
+
+These changes are mostly authored by Dan Horák (thank you!). I've added
+the code comments and the Skia patching mechanism.
+
+* Source/ThirdParty/skia/README.WebKit:
+* Source/ThirdParty/skia/include/private/base/SkFeatures.h:
+* Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h:
+* Source/ThirdParty/skia/src/core/SkRasterPipeline.h:
+* Source/ThirdParty/skia/webkit.patch: Added.
+* Source/WTF/wtf/Compiler.h:
+---
+ Source/ThirdParty/skia/README.WebKit          |  5 +-
+ .../skia/include/private/base/SkFeatures.h    |  4 ++
+ .../skia/modules/skcms/src/skcms_internals.h  |  3 ++
+ .../skia/src/core/SkRasterPipeline.h          |  2 +-
+ Source/ThirdParty/skia/webkit.patch           | 49 +++++++++++++++++++
+ Source/WTF/wtf/Compiler.h                     |  3 +-
+ 6 files changed, 63 insertions(+), 3 deletions(-)
+ create mode 100644 Source/ThirdParty/skia/webkit.patch
+
+diff --git a/Source/ThirdParty/skia/include/private/base/SkFeatures.h b/Source/ThirdParty/skia/include/private/base/SkFeatures.h
+index 353ce22897f3e..3b39e2588230c 100644
+--- a/Source/ThirdParty/skia/include/private/base/SkFeatures.h
++++ b/Source/ThirdParty/skia/include/private/base/SkFeatures.h
+@@ -69,6 +69,10 @@
+   #define SK_CPU_LOONGARCH 1
+ #endif
+ 
++#if defined(__powerpc__) || defined (__powerpc64__)
++  #define SK_CPU_PPC 1
++#endif
++
+ /**
+  *  SK_CPU_SSE_LEVEL
+  *
+diff --git a/Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h b/Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h
+index f3f0a2d6cb56c..319c727d2f494 100644
+--- a/Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h
++++ b/Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h
+@@ -39,6 +39,8 @@ extern "C" {
+         // - Clang 18 runs into an ICE on armv7/androideabi with [[clang::musttail]].
+         //   (http://crbug.com/1504548)
+         // - Android RISC-V also runs into an ICE (b/314692534)
++        // - So does Linux ppc64le (https://github.com/llvm/llvm-project/issues/108014,
++        //   https://github.com/llvm/llvm-project/issues/98859)
+         // - LoongArch developers indicate they had to turn it off
+         // - Windows builds generate incorrect code with [[clang::musttail]] and crash mysteriously.
+         //   (http://crbug.com/1505442)
+@@ -47,6 +49,7 @@ extern "C" {
+                                                  && !defined(__EMSCRIPTEN__) \
+                                                  && !defined(__arm__) \
+                                                  && !defined(__riscv) \
++                                                 && !defined(__powerpc__) \
+                                                  && !defined(__loongarch__) \
+                                                  && !defined(_WIN32) && !defined(__SYMBIAN32__)
+             #define SKCMS_HAS_MUSTTAIL 1
+diff --git a/Source/ThirdParty/skia/src/core/SkRasterPipeline.h b/Source/ThirdParty/skia/src/core/SkRasterPipeline.h
+index 2475ea0d398d6..acd8853ba02d0 100644
+--- a/Source/ThirdParty/skia/src/core/SkRasterPipeline.h
++++ b/Source/ThirdParty/skia/src/core/SkRasterPipeline.h
+@@ -27,7 +27,7 @@ struct SkImageInfo;
+ struct skcms_TransferFunction;
+ 
+ #if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && \
+-        !defined(SK_CPU_LOONGARCH)
++        !defined(SK_CPU_LOONGARCH) && !defined(SK_CPU_PPC)
+     #define SK_HAS_MUSTTAIL 1
+ #else
+     #define SK_HAS_MUSTTAIL 0
+diff --git a/Source/ThirdParty/skia/webkit.patch b/Source/ThirdParty/skia/webkit.patch
+new file mode 100644
+index 0000000000000..26d73b3f7a276
+--- /dev/null
++++ b/Source/ThirdParty/skia/webkit.patch
+@@ -0,0 +1,49 @@
++diff --git a/Source/ThirdParty/skia/include/private/base/SkFeatures.h b/Source/ThirdParty/skia/include/private/base/SkFeatures.h
++index 353ce22897f3..3b39e2588230 100644
++--- a/Source/ThirdParty/skia/include/private/base/SkFeatures.h
+++++ b/Source/ThirdParty/skia/include/private/base/SkFeatures.h
++@@ -69,6 +69,10 @@
++   #define SK_CPU_LOONGARCH 1
++ #endif
++ 
+++#if defined(__powerpc__) || defined (__powerpc64__)
+++  #define SK_CPU_PPC 1
+++#endif
+++
++ /**
++  *  SK_CPU_SSE_LEVEL
++  *
++diff --git a/Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h b/Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h
++index f3f0a2d6cb56..319c727d2f49 100644
++--- a/Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h
+++++ b/Source/ThirdParty/skia/modules/skcms/src/skcms_internals.h
++@@ -39,6 +39,8 @@ extern "C" {
++         // - Clang 18 runs into an ICE on armv7/androideabi with [[clang::musttail]].
++         //   (http://crbug.com/1504548)
++         // - Android RISC-V also runs into an ICE (b/314692534)
+++        // - So does Linux ppc64le (https://github.com/llvm/llvm-project/issues/108014,
+++        //   https://github.com/llvm/llvm-project/issues/98859)
++         // - LoongArch developers indicate they had to turn it off
++         // - Windows builds generate incorrect code with [[clang::musttail]] and crash mysteriously.
++         //   (http://crbug.com/1505442)
++@@ -47,6 +49,7 @@ extern "C" {
++                                                  && !defined(__EMSCRIPTEN__) \
++                                                  && !defined(__arm__) \
++                                                  && !defined(__riscv) \
+++                                                 && !defined(__powerpc__) \
++                                                  && !defined(__loongarch__) \
++                                                  && !defined(_WIN32) && !defined(__SYMBIAN32__)
++             #define SKCMS_HAS_MUSTTAIL 1
++diff --git a/Source/ThirdParty/skia/src/core/SkRasterPipeline.h b/Source/ThirdParty/skia/src/core/SkRasterPipeline.h
++index 2475ea0d398d..acd8853ba02d 100644
++--- a/Source/ThirdParty/skia/src/core/SkRasterPipeline.h
+++++ b/Source/ThirdParty/skia/src/core/SkRasterPipeline.h
++@@ -27,7 +27,7 @@ struct SkImageInfo;
++ struct skcms_TransferFunction;
++ 
++ #if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && \
++-        !defined(SK_CPU_LOONGARCH)
+++        !defined(SK_CPU_LOONGARCH) && !defined(SK_CPU_PPC)
++     #define SK_HAS_MUSTTAIL 1
++ #else
++     #define SK_HAS_MUSTTAIL 0
+diff --git a/Source/WTF/wtf/Compiler.h b/Source/WTF/wtf/Compiler.h
+index e193740d4468e..1d1666d45af4a 100644
+--- a/Source/WTF/wtf/Compiler.h
++++ b/Source/WTF/wtf/Compiler.h
+@@ -272,10 +272,11 @@
+ 
+ // 32-bit platforms use different calling conventions, so a MUST_TAIL_CALL function
+ // written for 64-bit may fail to tail call on 32-bit.
++// It also doesn't work on ppc64le: https://github.com/llvm/llvm-project/issues/98859
+ #if COMPILER(CLANG)
+ #if __SIZEOF_POINTER__ == 8
+ #if !defined(MUST_TAIL_CALL) && defined(__cplusplus) && defined(__has_cpp_attribute)
+-#if __has_cpp_attribute(clang::musttail)
++#if __has_cpp_attribute(clang::musttail) && !defined(__powerpc__)
+ #define MUST_TAIL_CALL [[clang::musttail]]
+ #endif
+ #endif
