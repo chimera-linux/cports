@@ -1,5 +1,5 @@
 pkgname = "d-spy"
-pkgver = "1.10.0"
+pkgver = "47.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/d-spy"
 source = f"{url}/-/archive/{pkgver}/d-spy-{pkgver}.tar.gz"
-sha256 = "7e9a852a5f29572aee61b20f435f5b374902e22fe8c0a74ef29fb29850bf6090"
+sha256 = "a757ecd21a2f53148e668c422065f6fdc7c15d431d20e059bf06c476756f306b"
 hardening = ["vis", "!cfi"]
 
 
