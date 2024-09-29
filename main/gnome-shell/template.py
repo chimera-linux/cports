@@ -1,5 +1,5 @@
 pkgname = "gnome-shell"
-pkgver = "46.5"
+pkgver = "47.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,6 +17,7 @@ hostmakedepends = [
     "meson",
     "perl",
     "pkgconf",
+    "python-docutils",
     "sassc",
     "xsltproc",
 ]
@@ -53,6 +54,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell"
 source = f"$(GNOME_SITE)/gnome-shell/{pkgver.split('.')[0]}/gnome-shell-{pkgver}.tar.xz"
-sha256 = "3e640fa9ae9c7f66ba34d52a2e88b625e4d3636e2c0c6d8b9d13edda57d0cc18"
+sha256 = "7a20770c6290ad69a9a82c8497cb27e1bf863f387db25e98e542e4f6c5f06ded"
 # tests need libmutter-test
 options = ["!check", "!cross"]
