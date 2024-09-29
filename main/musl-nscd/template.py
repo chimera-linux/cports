@@ -1,8 +1,9 @@
 pkgname = "musl-nscd"
 pkgver = "1.1.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 configure_env = {"YACC": "bison"}
+configure_gen = []
 make_dir = "."
 hostmakedepends = ["flex", "bison"]
 pkgdesc = "NSS to NSCD bridge for musl"
@@ -18,9 +19,5 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("COPYRIGHT")
-    self.install_dir("var/db/nscd", empty=True)
     self.install_tmpfiles(self.files_path / "nscd.conf")
     self.install_service(self.files_path / "nscd")
-
-
-configure_gen = []
