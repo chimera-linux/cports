@@ -1,6 +1,6 @@
 pkgname = "kmod"
 pkgver = "33"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-zlib",
@@ -32,11 +32,7 @@ def post_install(self):
         "usr/lib/depmod.d",
         name="search.conf",
     )
-
-    # empty dirs
-    self.install_dir("etc/depmod.d", empty=True)
-    self.install_dir("etc/modprobe.d", empty=True)
-    self.install_dir("usr/lib/modprobe.d", empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
     # initramfs-tools
     self.install_initramfs(self.files_path / "kmod.initramfs-tools")
