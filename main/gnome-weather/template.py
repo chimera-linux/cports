@@ -1,5 +1,5 @@
 pkgname = "gnome-weather"
-pkgver = "46.0"
+pkgver = "47.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -24,4 +24,4 @@ url = "https://wiki.gnome.org/Apps/Weather"
 source = (
     f"$(GNOME_SITE)/gnome-weather/{pkgver[:-2]}/gnome-weather-{pkgver}.tar.xz"
 )
-sha256 = "153826705ccf672e14f2fe4dfc782f8e89b7c4cbe4aafe95a5532fbde7a3d49d"
+sha256 = "515f5862374dd346cbc85a9ddf0306b2d327657850bb60b6c9c9860fce9620e6"
