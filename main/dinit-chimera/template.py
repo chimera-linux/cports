@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.11"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libkmod-devel", "linux-headers"]
@@ -49,6 +49,7 @@ def post_install(self):
     self.install_license("COPYING.md")
     self.install_file("^/locale.conf", "etc")
     self.install_tmpfiles("^/dinit.conf", name="dinit")
+    self.install_tmpfiles("^/utmp.conf", name="utmp")
     self.install_file("^/sd-tmpfiles-clean", "usr/libexec", mode=0o755)
     self.install_service("^/tmpfiles-clean", enable=True)
     # init symlink
@@ -70,6 +71,9 @@ def post_install(self):
     self.install_file(
         "^/sysctl.d/bpf.conf", "usr/lib/sysctl.d", name="20-bpf.conf"
     )
+    # provided by base-files
+    self.uninstall("usr/lib/tmpfiles.d/var.conf")
+    self.uninstall("usr/lib/tmpfiles.d/tmp.conf")
 
 
 @subpackage("dinit-chimera-kdump", _have_kexec_tools)
