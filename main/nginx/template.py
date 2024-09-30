@@ -1,6 +1,6 @@
 pkgname = "nginx"
 pkgver = "1.26.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_args = [
     "--prefix=/var/lib/nginx",
@@ -123,8 +123,6 @@ def post_install(self):
     self.install_file(self.files_path / "nginx.conf", "etc/nginx")
     self.install_file(self.files_path / "default.conf", "etc/nginx/http.d")
     self.install_file(self.files_path / "stream.conf", "etc/nginx/conf.d")
-    # needed for relative module loads
-    self.install_link("var/lib/nginx/modules", "../../../usr/lib/nginx/modules")
     # remove old charset maps
     self.uninstall("etc/nginx/koi-*", glob=True)
     self.uninstall("etc/nginx/win-utf")
