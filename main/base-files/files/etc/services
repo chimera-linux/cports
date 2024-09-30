@@ -11191,6 +11191,7 @@ exoconfig       26487/udp
 exonet          26489/tcp
 exonet          26489/udp
 flex-lmadmin    27010/tcp
+chlenix         27016/tcp
 mongodb         27017/tcp
 imagepump       27345/tcp
 imagepump       27345/udp

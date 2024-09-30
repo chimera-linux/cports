@@ -1,7 +1,8 @@
 pkgname = "base-files"
-_iana_ver = "20240813"
+_iana_ver = "20240923"
 pkgver = f"0.1.{_iana_ver}"
-pkgrel = 2
+pkgrel = 0
+replaces = ["dinit-chimera<0.99.11-r2"]
 # highest priority dir owner
 replaces_priority = 65535
 pkgdesc = "Chimera Linux base system files"
@@ -25,7 +26,6 @@ def install(self):
         "run",
         "sys",
         "usr",
-        "var",
     ]:
         self.install_dir(d)
 
@@ -41,24 +41,13 @@ def install(self):
     for i in range(1, 8):
         self.install_dir("usr/share/man/man" + str(i))
 
-    # /var dirs
-    for d in ["empty", "log", "opt", "cache", "lib", "mail", "spool", "www"]:
-        self.install_dir("var/" + d)
-
-    # /var symlinks
-    self.install_link("var/lock", "../run/lock")
-    self.install_link("var/run", "../run")
-    self.install_link("var/spool/mail", "../mail")
-
     # root's home dir
     self.install_dir("root")
     (self.destdir / "root").chmod(0o750)
 
-    # /tmp and /var/tmp
+    # /tmp
     self.install_dir("tmp")
     (self.destdir / "tmp").chmod(0o777)
-    self.install_dir("var/tmp")
-    (self.destdir / "var/tmp").chmod(0o777)
 
     # Create bin and lib dirs and symlinks
     for d in ["bin", "lib"]:
@@ -73,6 +62,8 @@ def install(self):
     # Users and tmpfiles
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_tmpfiles(self.files_path / "tmp.conf", name="tmp")
+    self.install_tmpfiles(self.files_path / "var.conf", name="var")
 
     # Mutable files not to be tracked by apk
     for f in [
