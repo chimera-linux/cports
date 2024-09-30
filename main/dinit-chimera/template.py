@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libkmod-devel", "linux-headers"]
@@ -24,7 +24,7 @@ triggers = [
     "/usr/lib/binfmt.d",
     "/usr/lib/modprobe.d",
     "/usr/lib/modules-load.d",
-    "/var/lib/swclock",
+    "/usr/lib/dinit.d/early/helpers",
 ]
 pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -51,9 +51,6 @@ def post_install(self):
     self.install_tmpfiles("^/dinit.conf", name="dinit")
     self.install_file("^/sd-tmpfiles-clean", "usr/libexec", mode=0o755)
     self.install_service("^/tmpfiles-clean", enable=True)
-    # swclock
-    self.install_dir("var/lib/swclock")
-    (self.destdir / "var/lib/swclock/timestamp").touch(0o644)
     # init symlink
     self.install_dir("usr/bin")
     self.install_link("usr/bin/init", "dinit")

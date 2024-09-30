@@ -1,13 +1,16 @@
 #!/bin/sh
 
+export PATH=/usr/bin
+
 set -e
 
 services=
 
 for x in "$@"; do
     case "$x" in
-        *swclock*)
+        *dinit.d*)
             # update the timestamp to system clock every time
+            mkdir -p /var/lib/swclock > /dev/null 2>&1 || :
             touch /var/lib/swclock/timestamp > /dev/null 2>&1 || :
             ;;
         *modules-load*|*modprobe*)
@@ -28,7 +31,7 @@ done
 [ -S /run/dinitctl ] || exit 0
 
 for service in $services; do
-    /usr/bin/dinitctl --quiet is-started "$service" || continue
+    dinitctl --quiet is-started "$service" || continue
     echo "Restarting ${service}..."
-    /usr/bin/dinitctl restart "$service" || :
+    dinitctl restart "$service" || :
 done
