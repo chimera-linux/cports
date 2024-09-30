@@ -25,7 +25,7 @@ def _determine_gnupatch(pkg):
     return _gnupatch
 
 
-def patch(pkg, patch_path, wrksrc=None, patch_args=[]):
+def _patch_one(pkg, patch_path, wrksrc, patch_args):
     patch_path = pathlib.Path(patch_path)
 
     if not patch_path.is_file():
@@ -73,13 +73,28 @@ def patch(pkg, patch_path, wrksrc=None, patch_args=[]):
     )
 
 
-def patch_dir(pkg, patch_path, wrksrc=None, patch_args=[]):
-    patch_path = pathlib.Path(patch_path)
+def patch(pkg, patch_list, wrksrc=None, patch_args=[]):
+    for p in patch_list:
+        _patch_one(pkg, p, wrksrc, patch_args)
 
-    if not patch_path.is_dir():
-        pkg.error(f"patch directory does not exist: {patch_path}")
 
-    for p in sorted(patch_path.glob("*")):
-        if not p.is_file():
-            continue
-        patch(pkg, p, wrksrc, patch_args)
+def patch_git(pkg, patch_list, wrksrc=None, apply_args=[]):
+    if len(patch_list) == 0:
+        return
+
+    # first init a git repository, apply won't work without it
+    if subprocess.run(["git", "init", "-q"], cwd=pkg.srcdir).returncode != 0:
+        pkg.error("failed to initialize repository in source location")
+
+    # now apply everything in a batch
+    srcmd = [
+        "git",
+        "apply",
+        *apply_args,
+        *patch_list,
+    ]
+    if subprocess.run(srcmd, cwd=pkg.srcdir).returncode != 0:
+        pkg.error("failed to apply patches")
+
+    # now remove the repo so we don't give build systems ideas
+    shutil.rmtree(pkg.srcdir / ".git")

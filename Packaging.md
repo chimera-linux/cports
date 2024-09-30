@@ -952,6 +952,10 @@ Keep in mind that default values may be overridden by build styles.
   The primary use for this is to give all "defaults" packages providing
   alternative program symlinks the same origin so they can replace each other
   freely without errors.
+* `patch_style` *(str)* The method to use for patching. The options are
+  `patch` (uses the `patch(1)` tool inside the sandbox) and `git` (uses
+  `git apply` from the host environment). The default is currently `patch`
+  but this may change in the future.
 * `patch_args` *(list)* Options passed to `patch` when applying patches,
   in addition to the builtin ones (`-sNp1 -V none`). You can use this to
   override the strip count or pass additional options.
