@@ -8,6 +8,7 @@ license = "Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND CC0-1.0 AND
 url = "https://github.com/WebAssembly/wasi-libc"
 source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "9f557e81f7622cbf51b59eaf2d2ebceaa74eb745c4e557dbb5a01e9a36142040"
+patch_style = "patch"
 # no tests
 options = ["!check", "!lto"]
 

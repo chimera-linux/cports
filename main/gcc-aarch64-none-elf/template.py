@@ -62,6 +62,7 @@ license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
 sha256 = "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9"
+patch_style = "patch"
 env = {
     "CFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
     "CXXFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",

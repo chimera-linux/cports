@@ -25,6 +25,7 @@ license = "MIT"
 url = "https://black.readthedocs.io"
 source = f"$(PYPI_SITE)/b/black/black-{pkgver}.tar.gz"
 sha256 = "2500945420b6784c38b9ee885af039f5e7471ef284ab03fa35ecdde4688cd83f"
+patch_style = "patch"
 # unpackaged checkdepends
 options = ["!check"]
 

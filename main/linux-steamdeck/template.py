@@ -14,6 +14,7 @@ license = "GPL-2.0-only"
 url = "https://gitlab.com/evlaV/linux-integration"
 source = f"{url}/-/archive/{pkgver}-valve{_vver}/linux-integration-{pkgver}-valve{_vver}.tar.gz"
 sha256 = "15cb3da0e81cd3cd3a3f899140d51d59aef16a53e42c0e9092ab2af6250e5405"
+patch_style = "patch"
 # no meaningful checking to be done
 options = [
     "!check",

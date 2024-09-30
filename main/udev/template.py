@@ -124,6 +124,7 @@ source = (
     f"https://github.com/systemd/systemd/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "c085f162dec001407dd32f00abbf20b7e6ed7043dcfaf8ed954787d86707f409"
+patch_style = "patch"
 # the tests that can run are mostly useless
 options = ["!splitudev", "!check"]
 

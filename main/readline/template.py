@@ -23,6 +23,7 @@ license = "GPL-3.0-or-later"
 url = "https://tiswww.cwru.edu/php/chet/readline/rltop.html"
 source = f"https://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-{_gitrev}.tar.gz"
 sha256 = "86959fc06a4ad8a3852b68ce67f5bb2f98d7d95548bbfc5c87e806042a8567e1"
+patch_style = "patch"
 
 
 def post_install(self):

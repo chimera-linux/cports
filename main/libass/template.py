@@ -20,6 +20,7 @@ license = "MIT"
 url = "https://github.com/libass/libass"
 source = f"{url}/releases/download/{pkgver}/libass-{pkgver}.tar.gz"
 sha256 = "da7c348deb6fa6c24507afab2dee7545ba5dd5bbf90a137bfe9e738f7df68537"
+patch_style = "patch"
 
 
 def post_install(self):

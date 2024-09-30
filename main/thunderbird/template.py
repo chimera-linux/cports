@@ -60,6 +60,7 @@ url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}esr/source/thunderbird-{pkgver}esr.source.tar.xz"
 sha256 = "7ad90cbceb74ba0c7fe466a8032bebeaf29c97d7a48eb7c67c201dadc204dcaa"
 debug_level = 1  # defatten, especially with LTO
+patch_style = "patch"
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
 }

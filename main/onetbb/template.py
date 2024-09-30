@@ -25,6 +25,7 @@ source = (
     f"https://github.com/oneapi-src/oneTBB/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "3ad5dd08954b39d113dc5b3f8a8dc6dc1fd5250032b7c491eb07aed5c94133e1"
+patch_style = "patch"
 # vis breaks symbols
 hardening = []
 # a lot of the tests can deadlock and it's a pain to figure out which to disable

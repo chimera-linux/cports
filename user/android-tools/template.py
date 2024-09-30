@@ -36,6 +36,7 @@ license = "Apache-2.0 AND ISC AND GPL-2.0-only AND MIT"
 url = "https://github.com/nmeum/android-tools"
 source = f"{url}/releases/download/{pkgver}/android-tools-{pkgver}.tar.xz"
 sha256 = "d2c3222280315f36d8bfa5c02d7632b47e365bfe2e77e99a3564fb6576f04097"
+patch_style = "patch"
 tool_flags = {"CXXFLAGS": ["-D_LARGEFILE64_SOURCE"]}
 hardening = ["vis", "cfi"]
 

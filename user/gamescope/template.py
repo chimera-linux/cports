@@ -79,6 +79,7 @@ sha256 = [
     "8de28aee6f90f47b7fc7037dcd2360166197c0b5d2033f3afdbd34f2ea1bf216",
     "3aa6feda7773cc8ffa8fb012fe95e6207c776101e29198d0e0d34a0c5e339f6a",
 ]
+patch_style = "patch"
 file_modes = {
     "usr/bin/gamescope": ("root", "root", 0o755),
 }

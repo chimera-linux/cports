@@ -40,6 +40,7 @@ license = "LGPL-2.0-or-later"
 url = "https://ostreedev.github.io/ostree"
 source = f"https://github.com/ostreedev/ostree/releases/download/v{pkgver}/libostree-{pkgver}.tar.xz"
 sha256 = "e2136e116669f114ff7349f12e299f63c0bece733451649414a8dcd85b863c3f"
+patch_style = "patch"
 # failing on their test harness, i will find motivation Soon
 options = ["!check"]
 

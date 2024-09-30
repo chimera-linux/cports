@@ -31,6 +31,7 @@ license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kwallet/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwallet-{pkgver}.tar.xz"
 sha256 = "b319cc4cf79cc1796e7246f61bbc56bba070aa5ec994b30e11b1faa685ce7d54"
+patch_style = "patch"
 hardening = ["vis"]
 
 

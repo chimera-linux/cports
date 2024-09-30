@@ -78,6 +78,7 @@ license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
 sha256 = "4c3209c78ce63af6bd2658e5092c220d844fc2b7a039bbbb950e71890cc8ac78"
+patch_style = "patch"
 
 if self.profile().endian == "big":
     configure_args += [

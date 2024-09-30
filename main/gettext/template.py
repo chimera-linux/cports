@@ -18,6 +18,7 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gettext"
 source = f"$(GNU_SITE)/gettext/gettext-{pkgver}.tar.gz"
 sha256 = "ec1705b1e969b83a9f073144ec806151db88127f5e40fe5a94cb6c8fa48996a0"
+patch_style = "patch"
 # most tests fail to find an adequate shell ???
 options = ["!check"]
 

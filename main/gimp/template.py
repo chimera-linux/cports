@@ -80,6 +80,7 @@ source = (
     f"https://download.gimp.org/pub/gimp/v{pkgver[:-3]}/gimp-{pkgver}.tar.xz"
 )
 sha256 = "8c1bb7a94ac0d4d0cde4d701d8b356387c2ecd87abbd35bbf7d222d40f6ddb6e"
+patch_style = "patch"
 # FIXME: it worksish but crashes often/early
 hardening = ["!int"]
 options = ["!cross"]

@@ -25,6 +25,7 @@ license = "Apache-2.0"
 url = "https://github.com/containers/skopeo"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "9402e71f3fba979d0c0509240b963847bfeda2eac60be83eb5a628fd67d098e6"
+patch_style = "patch"
 
 
 def post_build(self):

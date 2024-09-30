@@ -17,6 +17,7 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/waydroid/waydroid"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "6557c6fed6a0a7417503eaaab3602efd67c6ced2026725ac24ec8c809fc672e4"
+patch_style = "patch"
 # check: no tests
 options = ["!check"]
 

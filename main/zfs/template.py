@@ -39,6 +39,7 @@ sha256 = [
     "c92e02103ac5dd77bf01d7209eabdca55c7b3356aa747bb2357ec4222652a2a7",
     "c541dfec33ba7dfec3fb85a4532fc9c7a72035316716e93074b2cfa030ca2d12",
 ]
+patch_style = "patch"
 hardening = ["!vis", "!cfi"]
 
 

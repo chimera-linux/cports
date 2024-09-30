@@ -26,6 +26,7 @@ license = "GPL-3.0-or-later"
 url = "http://fontforge.github.io/en-US"
 source = f"https://github.com/fontforge/fontforge/archive/{pkgver}.tar.gz"
 sha256 = "ab0c4be41be15ce46a1be1482430d8e15201846269de89df67db32c7de4343f1"
+patch_style = "patch"
 # FIXME int: fails checks
 hardening = ["!int"]
 

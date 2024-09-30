@@ -89,6 +89,7 @@ _subproject_list = [
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
 sha256 = "4ea18b1155a4544a09f7361848974768f6f73c19d88f63de2ec650be313b2d0c"
+patch_style = "patch"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense

@@ -10,6 +10,7 @@ license = "LGPL-2.1-or-later"
 url = "https://libusb.info"
 source = f"https://github.com/libusb/libusb/releases/download/v{pkgver}/libusb-{pkgver}.tar.bz2"
 sha256 = "ffaa41d741a8a3bee244ac8e54a72ea05bf2879663c098c82fc5757853441575"
+patch_style = "patch"
 
 
 @subpackage("libusb-devel")

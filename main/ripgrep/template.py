@@ -21,6 +21,7 @@ sha256 = [
     "4dad02a2f9c8c3c8d89434e47337aa654cb0e2aa50e806589132f186bf5c2b66",
     "4cf9f2741e6c465ffdb7c26f38056a59e2a2544b51f7cc128ef28337eeae4d8e",
 ]
+patch_style = "patch"
 
 
 def install(self):

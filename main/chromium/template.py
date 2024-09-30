@@ -141,6 +141,7 @@ url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
 sha256 = "094ddec3774b54feb04dcfb020e61766de16feabb04850d73ef82e38c4bbf2b5"
 debug_level = 1
+patch_style = "patch"
 tool_flags = {
     "CFLAGS": [
         "-Wno-unknown-warning-option",

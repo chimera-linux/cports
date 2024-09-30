@@ -39,6 +39,7 @@ license = "GPL-2.0-only AND BSD-3-Clause AND MIT"
 url = "https://developers.hp.com/hp-linux-imaging-and-printing"
 source = f"https://downloads.sourceforge.net/hplip/hplip-{pkgver}.tar.gz"
 sha256 = "5d7643831893a5e2addf9d42d581a5dbfe5aaf023626886b8762c5645da0f1fb"
+patch_style = "patch"
 # nuh uh
 hardening = ["!vis"]
 # TODO: probably ignores CC

@@ -161,6 +161,7 @@ pkgdesc = "Free office suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.libreoffice.org"
+patch_style = "patch"
 # big and not particularly useful testsuite
 # FIXME: lto breaks LO with clang 17
 options = ["!lto", "!cross", "!check", "linkundefver", "empty"]

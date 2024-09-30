@@ -22,6 +22,7 @@ license = "MIT"
 url = "https://www.nongnu.org/libunwind"
 source = f"https://github.com/libunwind/libunwind/releases/download/v{pkgver}/libunwind-{pkgver}.tar.gz"
 sha256 = "ddf0e32dd5fafe5283198d37e4bf9decf7ba1770b6e7e006c33e6df79e6a6157"
+patch_style = "patch"
 tool_flags = {"LDFLAGS": ["-lucontext"]}
 # bunch of these fail currently
 options = ["!check"]

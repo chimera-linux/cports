@@ -22,6 +22,7 @@ source = (
     f"$(GNOME_SITE)/vala/{pkgver[0:pkgver.rfind('.')]}/vala-{pkgver}.tar.xz"
 )
 sha256 = "05487b5600f5d2f09e66a753cccd8f39c1bff9f148aea1b7774d505b9c8bca9b"
+patch_style = "patch"
 
 
 @subpackage("libvala")

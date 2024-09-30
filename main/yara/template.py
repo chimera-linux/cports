@@ -27,6 +27,7 @@ source = (
     f"https://github.com/VirusTotal/yara/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "1f87056fcb10ee361936ee7b0548444f7974612ebb0e681734d8de7df055d1ec"
+patch_style = "patch"
 
 
 def post_install(self):

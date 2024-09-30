@@ -34,6 +34,7 @@ source = (
     f"https://github.com/polkit-org/polkit/archive/refs/tags/{pkgver}.tar.gz"
 )
 sha256 = "ea5cd6e6e2afa6bad938ee770bf0c2cd9317910f37956faeba2869adcf3747d1"
+patch_style = "patch"
 file_modes = {
     "usr/lib/polkit-1/polkit-agent-helper-1": ("root", "root", 0o4755),
     "usr/bin/pkexec": ("root", "root", 0o4755),

@@ -954,8 +954,7 @@ Keep in mind that default values may be overridden by build styles.
   freely without errors.
 * `patch_style` *(str)* The method to use for patching. The options are
   `patch` (uses the `patch(1)` tool inside the sandbox) and `git` (uses
-  `git apply` from the host environment). The default is currently `patch`
-  but this may change in the future.
+  `git apply` from the host environment). The default is `git`.
 * `patch_args` *(list)* Options passed to `patch` when applying patches,
   in addition to the builtin ones (`-sNp1 -V none`). You can use this to
   override the strip count or pass additional options.

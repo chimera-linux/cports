@@ -13,6 +13,7 @@ license = "MIT"
 url = "https://lua.org"
 source = f"https://www.lua.org/ftp/lua-{pkgver}.tar.gz"
 sha256 = "9fbf5e28ef86c69858f6d3d34eccc32e911c1a28b4120ff3e84aaa70cfbf1e30"
+patch_style = "patch"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 
 _lver = pkgname.removeprefix("lua")

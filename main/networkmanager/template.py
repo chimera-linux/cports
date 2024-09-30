@@ -89,6 +89,7 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/NetworkManager"
 source = f"https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/{pkgver}.tar.gz"
 sha256 = "771ff4da24eab12bb45f0ce94b63667586e8dcfb5f9ae17f5d0bbd691e0ce15c"
+patch_style = "patch"
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["!check", "!cross", "linkundefver"]
 

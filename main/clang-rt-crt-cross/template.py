@@ -51,6 +51,7 @@ sha256 = [
     "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a",
     "a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4",
 ]
+patch_style = "patch"
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "empty"]

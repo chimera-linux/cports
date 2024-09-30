@@ -17,6 +17,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/martinpitt/umockdev"
 source = f"https://github.com/martinpitt/umockdev/releases/download/{pkgver}/umockdev-{pkgver}.tar.xz"
 sha256 = "115306f17be78f8c99e20652e2deccdd48df38736bf00eb4f43fefc3809a319c"
+patch_style = "patch"
 # see below
 options = ["!cross"]
 

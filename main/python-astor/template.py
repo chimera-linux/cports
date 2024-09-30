@@ -20,6 +20,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/berkerpeksag/astor"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "eee1edbf7d58dbc01f0e42fa1a6a1e15470335ec6b82f090dfcf18c10d27c89c"
+patch_style = "patch"
 
 
 def post_install(self):

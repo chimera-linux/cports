@@ -96,6 +96,7 @@ sha256 = [
     "0075eb21d165cfa7ebfecf083116c67b86544e3e7af0ab7afe6fb6e722ce4e3e",
 ]
 debug_level = 1  # defatten, especially with LTO
+patch_style = "patch"
 tool_flags = {
     "CFLAGS": [
         "-Wno-unknown-warning-option",

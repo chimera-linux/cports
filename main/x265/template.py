@@ -13,6 +13,7 @@ license = "GPL-2.0-or-later"
 url = "https://x265.org"
 source = f"https://bitbucket.org/multicoreware/x265_git/get/{pkgver}.tar.gz"
 sha256 = "66b64be4b316362fdadb33ad8273a74236042cc380691bdbec42946b0437a389"
+patch_style = "patch"
 # guilty until proven wrong
 hardening = ["!int"]
 # cannot be reliably tested, testing option is conditional

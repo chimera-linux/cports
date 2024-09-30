@@ -13,6 +13,7 @@ license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
 sha256 = "2a372373b4e1eaf55f2a2f104bfa91477ec9b263acf8f3aed08f4d8bdc78ee3d"
+patch_style = "patch"
 # no meaningful checking to be done
 options = [
     "!check",

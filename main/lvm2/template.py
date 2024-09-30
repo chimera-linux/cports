@@ -53,6 +53,7 @@ source = (
     f"https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.{pkgver}.tgz"
 )
 sha256 = "72ea8b4f0e1610de5d119296b15ef2a2203431089541dcbebc66361f65fb35f5"
+patch_style = "patch"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]
 # otherwise we're in for a world of pain

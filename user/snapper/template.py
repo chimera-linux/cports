@@ -40,6 +40,7 @@ license = "GPL-2.0-only"
 url = "https://github.com/openSUSE/snapper"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "d2a33935f94f30b22aecbdfdecccf651b3616fa698aec266646a9d06043bfd6f"
+patch_style = "patch"
 
 
 def post_install(self):
