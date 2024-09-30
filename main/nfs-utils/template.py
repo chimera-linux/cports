@@ -1,6 +1,6 @@
 pkgname = "nfs-utils"
 pkgver = "2.6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-sbin-override",
@@ -65,6 +65,9 @@ def post_install(self):
         "rpc.statd",
     ]:
         self.install_service(self.files_path / srv)
+
+    # managed by tmpfiles
+    self.uninstall("var/lib/nfs")
 
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_file(self.files_path / "idmapd.conf", "etc")
