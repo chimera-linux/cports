@@ -1,6 +1,6 @@
 pkgname = "lowdown"
 pkgver = "1.1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "PREFIX=/usr",
@@ -13,8 +13,8 @@ pkgdesc = "Markdown translator"
 maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://kristaps.bsd.lv/lowdown"
-source = f"{url}/snapshots/lowdown.tar.gz"
-sha256 = "3b1a4a9db44b0ea621189f107ff0dd6dff305c35209f46c17382b71555a3567e"
+source = f"{url}/snapshots/lowdown-{pkgver}.tar.gz"
+sha256 = "844c6b090729aa45c6459dd63cb1faaf8d9945ed59ea46387778cd91c67033b0"
 hardening = ["vis", "cfi"]
 
 
