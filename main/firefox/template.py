@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "130.0.1"
+pkgver = "131.0"
 pkgrel = 0
 hostmakedepends = [
     "automake",
@@ -63,7 +63,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "027225a1e9b074f0072e22c7264cf27b0d2364c675c3ca811aa6c25fb01b9f70"
+sha256 = "e4066ef47c65aac570aa16deefb8c3937c1c9b0755dbf2f760937c451174fb1d"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -243,17 +243,10 @@ def install(self):
     )
 
     self.install_file(
-        self.files_path / "vendor.js",
-        "usr/lib/firefox/browser/defaults/preferences",
+        "^/vendor.js", "usr/lib/firefox/browser/defaults/preferences"
     )
-    self.install_file(
-        self.files_path / "distribution.ini",
-        "usr/lib/firefox/distribution",
-    )
-    self.install_file(
-        "taskcluster/docker/firefox-snap/firefox.desktop",
-        "usr/share/applications",
-    )
+    self.install_file("^/distribution.ini", "usr/lib/firefox/distribution")
+    self.install_file("^/firefox.desktop", "usr/share/applications")
 
     # icons
     for sz in [16, 22, 24, 32, 48, 128, 256]:
