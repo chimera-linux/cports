@@ -88,6 +88,8 @@ def patch_git(pkg, patch_list, wrksrc=None, apply_args=[]):
 
     # now apply everything in a batch
     srcmd = [
+        "env",
+        "HOME=/dev/null",
         "git",
         "apply",
         *apply_args,
