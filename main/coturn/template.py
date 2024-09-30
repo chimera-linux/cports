@@ -1,6 +1,6 @@
 pkgname = "coturn"
 pkgver = "4.6.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--turndbdir=/var/lib/coturn"]
 configure_gen = []
@@ -14,7 +14,6 @@ makedepends = [
     "openssl-devel",
     "sqlite-devel",
 ]
-triggers = ["/usr/share/turnserver"]
 pkgdesc = "VoIP media traffic NAT traversal server and gateway"
 maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
@@ -29,8 +28,10 @@ def post_install(self):
     self.install_service(self.files_path / "coturn")
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
-    # generated in trigger
-    self.uninstall("var/lib/coturn")
+    # copied via tmpfiles instead
+    self.rename(
+        "var/lib/coturn/turndb", "usr/share/turnserver/turndb", relative=False
+    )
 
 
 @subpackage("coturn-devel")
