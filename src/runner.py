@@ -2026,33 +2026,11 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         do_unstage("pkg", False)
 
 
-_repo_checked = False
-
-
-def _repo_check():
-    global _repo_checked
-    if _repo_checked:
-        return
-    from cbuild.core import errors
-    import subprocess
-
-    if (
-        subprocess.run(
-            ["git", "rev-parse", "--is-inside-work-tree"], capture_output=True
-        ).returncode
-        != 0
-    ):
-        raise errors.CbuildException("bulk-git must run from a git repository")
-    _repo_checked = True
-
-
 def _collect_git(expr):
     from cbuild.core import errors
     import subprocess
     import pathlib
 
-    # check if we're in a repository, once
-    _repo_check()
     oexpr = expr
     # find a grep
     plus = expr.find("+")

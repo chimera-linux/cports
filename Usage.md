@@ -58,7 +58,7 @@ The userland dependencies are the following:
 * Python 3.12 or newer
 * `apk` (from `apk-tools`, static binaries can be obtained [here](https://repo.chimera-linux.org/apk))
 * `openssl` (key generation only; not needed otherwise)
-* `git` (optional; required for reproducibility)
+* `git`
 * `bwrap` (from `bubblewrap`)
 
 If running a Chimera system, these tools can all be installed with the

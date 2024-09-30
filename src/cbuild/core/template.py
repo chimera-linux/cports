@@ -1235,19 +1235,17 @@ class Template(Package):
 
         self.source_date_epoch = int(time.time())
 
-        if not shutil.which("git"):
-            # no git, not reproducible
-            return
-
-        # skip for shallow clones or non-repos
+        # skip for shallow clones
         shal = subprocess.run(
             ["git", "rev-parse", "--is-shallow-repository"],
             capture_output=True,
             cwd=self.template_path,
         )
+
         if shal.returncode != 0:
-            # not a git repository
+            # not a git repository? should never happen (it's checked early)
             return
+
         if shal.stdout.strip() == b"true":
             # shallow clone
             return
