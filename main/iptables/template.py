@@ -1,13 +1,13 @@
 pkgname = "iptables"
 pkgver = "1.8.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-devel",
     "--enable-shared",
     "--enable-bpf-compiler",
 ]
-hostmakedepends = ["pkgconf", "flex"]
+hostmakedepends = ["automake", "flex", "libtool", "pkgconf"]
 makedepends = [
     "libfl-devel-static",
     "libpcap-devel",
@@ -75,12 +75,13 @@ def post_install(self):
     self.install_file(fpath / "iptables-start", "usr/libexec", mode=0o755)
     self.install_service(self.files_path / "iptables")
     self.install_service(self.files_path / "ip6tables")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
-    # config files/rules taken from void
+    # some default config files to be populated (originally from void)
     for f in ["empty", "simple_firewall"]:
-        self.install_file(fpath / f"{f}.rules", "etc/iptables")
+        self.install_file(fpath / f"{f}.rules", "usr/share/xtables/etc")
     for f in ["filter", "mangle", "nat", "raw", "security"]:
-        self.install_file(fpath / f"empty-{f}.rules", "var/lib/iptables")
+        self.install_file(fpath / f"empty-{f}.rules", "usr/share/xtables/var")
 
     # make room for defaults
     for f in ["tables", "tables-save", "tables-restore"]:
@@ -115,6 +116,3 @@ def _(self):
         "@usr/bin/iptables-restore=>xtables-legacy-multi",
         "@usr/bin/ip6tables-restore=>xtables-legacy-multi",
     ]
-
-
-configure_gen = []
