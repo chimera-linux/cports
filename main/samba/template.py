@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
 pkgver = "4.21.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -128,7 +128,7 @@ def post_install(self):
     self.install_dir("usr/lib/cups/backend")
     self.install_link("usr/lib/cups/backend/smb", "../../../bin/smbspool")
     # private dir
-    self.install_dir("var/lib/samba/private", mode=0o750, empty=True)
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
 @subpackage("samba-common")
