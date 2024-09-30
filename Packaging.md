@@ -843,7 +843,10 @@ Keep in mind that default values may be overridden by build styles.
   knows what kind of mode it needs to have. This field can also be used
   to create empty directories in the package (bypassing the cleanup system),
   by specifying the path as starting with a plus (`+`). The mode and owner
-  is still applied to the directory.
+  is still applied to the directory. If you require a user/group that does
+  not exist in the environment by default, you can ensure it is created by
+  putting a file called `sysusers.conf` in the template directory, containing
+  configuration with the `sysusers(5)` syntax.
 * `file_xattrs` *(dict)* A dictionary of strings to dictionaries, where
   the string keys are file paths (relative to the package, e.g. `usr/foo`)
   and the dicts contain mappings of extended attribute names to values.
@@ -1023,17 +1026,6 @@ Keep in mind that default values may be overridden by build styles.
   the main description as ` (subdesc)`.
 * `tools` *(dict)* This can be used to override default tools. Refer to the
   section about tools for more information.
-* `system_users` *(list)* A list of users for cbuild. A user can take two
-  forms. It can either be a string (in the format `username` or `username:uid`)
-  for the simple case, or a `dict` containing at least the fields `name` and
-  `uid` (an integer) and optionally `desc`, `shell`, `groups`, `pgroup` and
-  `home`. Note that this does not affect the generated packages anyhow; the
-  only use is when something during the build expects these to exist, or
-  when the package is to contain entries owned by that user. You will always
-  need to couple it with a `sysusers` configuration file for the package.
-* `system_groups` *(list)* A list of groups to create. It contains strings,
-  which can be in the format `gname` or `gname:gid`. The above information
-  applies identically here.
 * `tool_flags` *(dict)* This can be used to override things such as `CFLAGS`
   or `LDFLAGS`. Refer to the section about tools and tool flags for more
   information.

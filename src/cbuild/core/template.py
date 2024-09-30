@@ -449,9 +449,6 @@ core_fields = [
     ("compression", None, "comp", False, True, True),
     # wrappers
     ("exec_wrappers", [], list, False, False, False),
-    # script generators
-    ("system_users", [], list, False, True, False),
-    ("system_groups", [], list, False, True, False),
     # fields relating to build fields
     # cmake
     ("cmake_dir", None, str, False, False, False),
@@ -539,8 +536,6 @@ core_fields_priority = [
     ("hardening", True),
     ("options", True),
     ("exec_wrappers", True),
-    ("system_users", True),
-    ("system_groups", True),
     ("restricted", True),
     ("broken", True),
 ]

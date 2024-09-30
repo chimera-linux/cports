@@ -120,8 +120,6 @@ file_modes = {
 # maybe someday
 options = ["!cross", "!check"]
 
-system_users = ["_qemu"]
-
 if self.profile().endian == "little":
     configure_args += ["--enable-spice"]
     makedepends += ["spice-devel", "spice-protocol"]

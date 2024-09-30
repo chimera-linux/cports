@@ -31,8 +31,6 @@ file_modes = {"usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]
 
-system_users = ["dbus"]
-
 
 def post_install(self):
     # service file

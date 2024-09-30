@@ -72,8 +72,6 @@ file_xattrs = {
 }
 hardening = ["vis", "!cfi"]
 
-system_groups = ["_wireshark"]
-
 
 def check(self):
     # extcaps can't work in our container
