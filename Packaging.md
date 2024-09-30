@@ -250,6 +250,21 @@ hosts the builds may be run in. However, there may always be edge cases,
 and tests should not rely on edge cases - they must be reproducible across
 all environments `cbuild` may be run in.
 
+Also, Chimera systems should be stateless at their baseline. That means a
+system can be recreated from its world file, and all mutable configuration
+files are considered ephemeral. In practice this means:
+
+1) Anything installed in `/usr` is considered immutable; the package manager
+   should own all files and directories in there. This is generally already
+   the case. If a directory needs to be empty and present in there, you should
+   use the `file_modes` metadata to create them as `cbuild` will otherwise
+   clean them.
+2) Anything in `/etc` and `/var` is mutable and if the software in question
+   allows, should not be owned by the package manager. Any directories and
+   other state should be created through the `tmpfiles.d` mechanism. This
+   results in a system where deletion of these dirs/files will result in
+   them being re-created from scratch upon next boot.
+
 <a id="template_hardening"></a>
 #### Hardening Templates
 
