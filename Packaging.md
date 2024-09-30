@@ -261,7 +261,9 @@ files are considered ephemeral. In practice this means:
    clean them.
 2) Anything in `/etc` and `/var` is mutable and if the software in question
    allows, should not be owned by the package manager. Any directories and
-   other state should be created through the `tmpfiles.d` mechanism. This
+   other state should be created through the `tmpfiles.d` mechanism, except
+   when this does not make sense (e.g. the parent dir is already populated
+   by the package and the new dirs are supplementary and so on). This
    results in a system where deletion of these dirs/files will result in
    them being re-created from scratch upon next boot.
 
