@@ -1,6 +1,6 @@
 pkgname = "emacs-pgtk"
 pkgver = "29.4"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",
@@ -58,6 +58,7 @@ options = ["!check"]
 
 def post_install(self):
     self.install_sysusers(self.files_path / "emacs.conf", name="emacs")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="emacs")
     # remove suid from game exe
     (
         self.destdir
@@ -65,6 +66,7 @@ def post_install(self):
     ).chmod(0o755)
 
     self.uninstall("usr/lib/systemd/user")
+    self.uninstall("var/games")
 
     # conflicts with ctags
     self.rename("usr/bin/ctags", "ctags.emacs")
