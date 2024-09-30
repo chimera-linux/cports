@@ -22,7 +22,6 @@ license = "MIT"
 url = "https://www.nongnu.org/libunwind"
 source = f"https://github.com/libunwind/libunwind/releases/download/v{pkgver}/libunwind-{pkgver}.tar.gz"
 sha256 = "ddf0e32dd5fafe5283198d37e4bf9decf7ba1770b6e7e006c33e6df79e6a6157"
-patch_style = "patch"
 tool_flags = {"LDFLAGS": ["-lucontext"]}
 # bunch of these fail currently
 options = ["!check"]
@@ -35,14 +34,6 @@ if self.profile().arch in ["ppc64", "ppc64le"]:
 # it's trying to export outline atomic helpers for some reason?
 if self.profile().arch == "aarch64":
     tool_flags["CFLAGS"] = ["-mno-outline-atomics"]
-
-
-def post_extract(self):
-    # bsd patch doesn't support renames
-    self.mv(
-        "src/unwind/libunwind.pc.in",
-        "src/unwind/libunwind-nongnu.pc.in",
-    )
 
 
 def post_install(self):
