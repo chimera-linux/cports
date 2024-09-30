@@ -2000,7 +2000,7 @@ class Template(Package):
             self.install_dir(dest)
             shutil.copy2(path, dfn)
 
-    def install_dir(self, dest, mode=0o755, empty=False):
+    def install_dir(self, dest, mode=0o755):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
             raise errors.TracebackException(
@@ -2011,8 +2011,6 @@ class Template(Package):
             dirp.mkdir(parents=True)
         if mode is not None:
             dirp.chmod(mode)
-        if empty:
-            (dirp / ".empty").touch(mode=0o644)
 
     def install_file(self, src, dest, mode=0o644, name=None, glob=False):
         if not glob:
