@@ -73,8 +73,6 @@ hardening = ["!int"]
 # undefined references everywhere
 options = ["!lto"]
 
-system_groups = ["lp"]
-
 
 def init_configure(self):
     # build system is bad

@@ -112,6 +112,15 @@ def _prepare_etc():
                 dpath.parent.mkdir(0o755, parents=True, exist_ok=True)
                 shutil.copy(spath, dpath.parent)
 
+    # delete potential shadow so sysusers does not fail
+    (tfp / "shadow").unlink(missing_ok=True)
+    # delete potential previous cbuild file so we are clean
+    (paths.bldroot() / "usr/lib/sysusers.d/cbuild.conf").unlink(missing_ok=True)
+
+    # Create groups for the chroot
+    if (paths.bldroot() / "usr/bin/sd-sysusers").is_file():
+        enter("sd-sysusers", capture_output=True, check=True)
+
 
 def _init():
     xdir = paths.bldroot() / "etc" / "apk"
@@ -136,11 +145,11 @@ def _prepare():
     if (paths.bldroot() / "usr/bin/update-ca-certificates").is_file():
         enter("update-ca-certificates", "--fresh")
 
+    _prepare_etc()
+
     # Create temporary files for the chroot
     if (paths.bldroot() / "usr/bin/sd-tmpfiles").is_file():
         enter("sd-tmpfiles", "--create", fakeroot=True)
-
-    _prepare_etc()
 
     with open(sfpath, "w") as sf:
         sf.write(host_cpu() + "\n")
