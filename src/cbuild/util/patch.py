@@ -31,7 +31,7 @@ def patch(pkg, patch_path, wrksrc=None, patch_args=[]):
     if not patch_path.is_file():
         pkg.error(f"patch does not exist: {patch_path}")
 
-    pargs = ["-sNp1"] + patch_args
+    pargs = ["-sNp1", *patch_args]
 
     # in bootstrap envs we might be using gnu patch with different args
     gnupatch = _determine_gnupatch(pkg)
