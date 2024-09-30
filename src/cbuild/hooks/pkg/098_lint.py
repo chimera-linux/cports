@@ -167,7 +167,6 @@ def invoke(pkg):
         "usr/sbin",
         "usr/lib32",
         "usr/lib64",
-        "var/run",
         "usr/local",
         "usr/lib/locale",
         "usr/lib/systemd/system",
@@ -196,7 +195,6 @@ def invoke(pkg):
         "etc": True,
         "opt": True,
         "usr": True,
-        "var": True,
     }
 
     # toplevel must only contain allowed paths
