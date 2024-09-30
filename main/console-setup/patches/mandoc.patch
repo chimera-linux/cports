@@ -1,7 +1,7 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -134,7 +134,7 @@
- uninstall-mini-freebsd: build-mini-freebsd common-uninstall
+@@ -107,7 +107,7 @@ uninstall-linux: build-linux common-uninstall
+ uninstall-mini-linux: build-mini-linux common-uninstall
  
  %.txt : %
 -	groff -mandoc -Tascii $< | col -bx >$@

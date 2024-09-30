@@ -1,6 +1,6 @@
-From 8c3ff0ae56ae00f970da5bb83b65786def7c1860 Mon Sep 17 00:00:00 2001
+From ee67f0dd8ce27cae1ca7b9ffb7c11f56f8b9bbca Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Mon, 27 Feb 2023 02:18:41 +0100
+Date: Mon, 30 Sep 2024 22:43:04 +0200
 Subject: [PATCH] use standard console keymaps instead of xkb by default
 
 This patch will probably be reworked further later, but for now
@@ -128,10 +128,10 @@ index 2d692f5..31fbf96 100644
  .B grp:shifts_toggle
  is not supported on the console.
 diff --git a/setupcon b/setupcon
-index e701a9e..b54accd 100755
+index 42ad18a..a371b29 100755
 --- a/setupcon
 +++ b/setupcon
-@@ -460,6 +460,12 @@ if which uname >/dev/null; then
+@@ -456,6 +456,12 @@ if which uname >/dev/null; then
      esac
  fi
  
@@ -144,7 +144,7 @@ index e701a9e..b54accd 100755
  # do_save
  if [ -n "$do_save" ]; then
      if [ ! -d /usr/share ]; then
-@@ -689,7 +695,9 @@ if \
+@@ -651,7 +657,9 @@ if \
      [ -n "$do_kbd$do_save$savekbdfile$setupdir$do_printonly" \
           -a -z "$XKBMODEL" ]
  then
@@ -155,7 +155,7 @@ index e701a9e..b54accd 100755
      XKBMODEL='pc105'
  fi
  [ -n "$XKBMODEL" -o -z "$savekbdfile" ] || exit 1
-@@ -794,13 +802,6 @@ if [ "$kernel" = linux ] && ! which gzip >/dev/null; then
+@@ -869,13 +877,6 @@ if [ "$kernel" = linux ] && ! which gzip >/dev/null; then
      echo setupcon: gzip is not accessible.  Will not save cached keyboard map. >&2
  fi
  
@@ -169,7 +169,7 @@ index e701a9e..b54accd 100755
  ###########################################################################
  ### SAVE THE FILES IN /etc
  ###########################################################################
-@@ -818,7 +819,7 @@ for i in /etc/console-setup $CONSOLE_MAP $FONTFILES $FONTMAPFILE $savekbdfile; d
+@@ -893,7 +894,7 @@ for i in /etc/console-setup $CONSOLE_MAP $FONTFILES $FONTMAPFILE $savekbdfile; d
      fi
  done
  
@@ -178,16 +178,16 @@ index e701a9e..b54accd 100755
      case "$kernel" in
          linux)
              tempfile || { echo setupcon: Can not create temporary file >&2; exit 1; }
-@@ -1096,7 +1097,7 @@ if [ "$KMAP" ]; then
+@@ -1151,7 +1152,7 @@ if [ "$KMAP" ]; then
+     case "$do_kbd" in
          linux) run plain NONE loadkeys "$KMAP" ;;
-         freebsd) run in '' kbdcontrol -l "$KMAP" ;;
      esac
 -else
 +elif [ -n "$have_ckbcomp" ]; then
      tempfile || { echo setupcon: Can not create temporary file >&2; exit 1; }
      case "$do_kbd" in
          linux)
-@@ -1203,8 +1204,34 @@ if [ "$setupdir" ]; then
+@@ -1251,8 +1252,34 @@ if [ "$setupdir" ]; then
          fi
      }
  
@@ -223,7 +223,7 @@ index e701a9e..b54accd 100755
  
      echo '#!/bin/sh' >"$setupdir"/bin/setupcon
      echo '# A micro-version of setupcon with static configuration.' >>"$setupdir"/bin/setupcon
-@@ -1213,12 +1240,17 @@ if [ "$setupdir" ]; then
+@@ -1261,12 +1288,17 @@ if [ "$setupdir" ]; then
      printf "%s" "$SETUP" |
      while read -r cmd args; do
          which "$cmd" >>$TMPFILE || true
@@ -244,5 +244,5 @@ index e701a9e..b54accd 100755
      sort $TMPFILE | uniq | grep -v 'printf$' >"$setupdir"/morefiles
  fi
 -- 
-2.39.0
+2.46.2
 

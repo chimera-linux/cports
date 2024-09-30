@@ -11,9 +11,9 @@ diff --git a/Makefile.am b/Makefile.am
 index 404e6a460..0884156fa 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -40,14 +40,14 @@ conf_DATA =
- 
- statedir = $(localstatedir)/lib/bluetooth
+@@ -43,14 +43,14 @@ conf_DATA = src/main.conf
+ conf_DATA += profiles/input/input.conf
+ conf_DATA += profiles/network/network.conf
  state_DATA =
 +
 +dbussystembusdir = $(DBUS_SYSTEMBUSDIR)
@@ -28,7 +28,4 @@ index 404e6a460..0884156fa 100644
 -dbussystembus_DATA = src/org.bluez.service
  endif
  
- EXTRA_DIST += src/bluetooth.service.in src/org.bluez.service
--- 
-2.23.0
-
+ EXTRA_DIST += src/org.bluez.service

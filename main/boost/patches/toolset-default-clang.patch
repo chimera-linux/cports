@@ -13,8 +13,8 @@ Use clang toolset by default as we have no gcc in main.
                  default-toolset = msvc ;
 --- a/tools/build/test/BoostBuild.py
 +++ b/tools/build/test/BoostBuild.py
-@@ -108,7 +108,7 @@
-     if sys.platform == "darwin" or sys.platform.startswith("freebsd"):
+@@ -108,7 +108,7 @@ def get_toolset():
+     if sys.platform == "darwin" or sys.platform.startswith("freebsd") or sys.platform.startswith("openbsd"):
          return "clang"
  
 -    return "gcc"
@@ -22,12 +22,12 @@ Use clang toolset by default as we have no gcc in main.
  
  
  # Detect the host OS.
-@@ -349,7 +372,7 @@
+@@ -349,7 +349,7 @@ class Tester(TestCmd.TestCmd):
              pass
  
      def set_toolset(self, toolset, target_os=None, _pass_toolset=True):
 -        self.toolset = _pass_toolset and toolset or "gcc"
 +        self.toolset = _pass_toolset and toolset or "clang"
          if not target_os and self.toolset.startswith("emscripten"):
-             target_os = "unknown"
+             target_os = "none"
          self.target_os = target_os or host_os

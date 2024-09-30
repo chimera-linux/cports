@@ -1,6 +1,6 @@
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -48,7 +48,8 @@
+@@ -46,7 +46,8 @@ $(LIBBPF): $(wildcard $(BPF_DIR)/*.[ch] $(BPF_DIR)/Makefile) | $(LIBBPF_OUTPUT)
  
  $(LIBBPF_INTERNAL_HDRS): $(LIBBPF_HDRS_DIR)/%.h: $(BPF_DIR)/%.h | $(LIBBPF_HDRS_DIR)
  	$(call QUIET_INSTALL, $@)
@@ -9,8 +9,8 @@
 +	$(Q)install -m 644 $< $(LIBBPF_HDRS_DIR)
  
  $(LIBBPF_BOOTSTRAP): $(wildcard $(BPF_DIR)/*.[ch] $(BPF_DIR)/Makefile) | $(LIBBPF_BOOTSTRAP_OUTPUT)
- 	$(Q)$(MAKE) -C $(BPF_DIR) OUTPUT=$(LIBBPF_BOOTSTRAP_OUTPUT) \
-@@ -58,7 +58,8 @@
+ 	$(Q)$(MAKE) -C $(BPF_DIR) OBJDIR=$(patsubst %/,%,$(LIBBPF_BOOTSTRAP_OUTPUT)) \
+@@ -55,7 +56,8 @@ $(LIBBPF_BOOTSTRAP): $(wildcard $(BPF_DIR)/*.[ch] $(BPF_DIR)/Makefile) | $(LIBBP
  
  $(LIBBPF_BOOTSTRAP_INTERNAL_HDRS): $(LIBBPF_BOOTSTRAP_HDRS_DIR)/%.h: $(BPF_DIR)/%.h | $(LIBBPF_BOOTSTRAP_HDRS_DIR)
  	$(call QUIET_INSTALL, $@)
@@ -20,7 +20,7 @@
  
  $(LIBBPF)-clean: FORCE | $(LIBBPF_OUTPUT)
  	$(call QUIET_CLEAN, libbpf)
-@@ -266,8 +266,8 @@
+@@ -256,8 +258,8 @@ clean: $(LIBBPF)-clean $(LIBBPF_BOOTSTRAP)-clean
  
  install-bin: $(OUTPUT)bpftool
  	$(call QUIET_INSTALL, bpftool)

@@ -6,5 +6,5 @@
  #include "BLI_math_base.h"
 +#include "BLI_endian_switch.h"
  
- #include "MEM_guardedalloc.h"
- 
+ #ifdef __BIG_ENDIAN__
+ #  include "BLI_endian_switch.h"

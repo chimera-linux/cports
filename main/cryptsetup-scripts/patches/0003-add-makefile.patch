@@ -1,4 +1,4 @@
-From ca06c9900b34a02be64c487c58b3a9dee3cbed9a Mon Sep 17 00:00:00 2001
+From 06915ddbfa87525e540d2c6e6f64b077216f4e04 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 19 Nov 2022 02:52:19 +0100
 Subject: [PATCH 3/4] add makefile
@@ -96,5 +96,5 @@ index 0000000..020a307
 +	install -m 644 debian/initramfs/conf-hooks.d/cryptsetup $(DESTDIR)$(DATADIR)/initramfs-tools/conf-hooks.d
 +	install -m 755 debian/initramfs/cryptroot-unlock $(DESTDIR)$(DATADIR)/cryptsetup/initramfs/bin
 -- 
-2.45.2
+2.46.2
 

@@ -1,6 +1,6 @@
-diff --git a/test-etckeeper.orig b/test-etckeeper
+diff --git a/test-etckeeper b/test-etckeeper
 index 4b2ee22..c9199d6 100755
---- a/test-etckeeper.orig
+--- a/test-etckeeper
 +++ b/test-etckeeper
 @@ -79,18 +79,20 @@ check_root() {
  	[ $(grep -E -c "^${chgrp_str} '${group}' .*${testfile}'$" $metadata) -eq 0 ]

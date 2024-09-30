@@ -5,10 +5,10 @@ Date:   Fri Jun 2 17:54:11 2023 +0200
     implement readiness notification and dbus activation
 
 diff --git a/src/login/logind.c b/src/login/logind.c
-index ced6311..25f1ef3 100644
+index db88fc3..6b33916 100644
 --- a/src/login/logind.c
 +++ b/src/login/logind.c
-@@ -1323,6 +1323,16 @@ static int run(int argc, char *argv[]) {
+@@ -1326,6 +1326,16 @@ static int run(int argc, char *argv[]) {
                  return log_error_errno(r, "Failed to fully start up daemon: %m");
  
          notify_message = notify_start(NOTIFY_READY, NOTIFY_STOPPING);
@@ -26,13 +26,13 @@ index ced6311..25f1ef3 100644
  }
  
 diff --git a/src/login/org.freedesktop.login1.service.in b/src/login/org.freedesktop.login1.service.in
-index 26f2302..283414c 100644
+index 822f476..283414c 100644
 --- a/src/login/org.freedesktop.login1.service.in
 +++ b/src/login/org.freedesktop.login1.service.in
 @@ -7,5 +7,5 @@
  
  [D-BUS Service]
  Name=org.freedesktop.login1
--Exec={{ROOTLIBEXECDIR}}/elogind --daemon
+-Exec={{LIBEXECDIR}}/elogind --daemon
 +Exec=/usr/bin/dinitctl --quiet start elogind
  User=root

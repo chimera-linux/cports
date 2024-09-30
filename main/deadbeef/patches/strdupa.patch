@@ -12,6 +12,5 @@ use deadbeef's fallback version instead
 +#endif
 +
  #ifndef strdupa
- # define strdupa(s)                                                          \
-     ({                                                                       \
-
+ # define strdupa(s)							      \
+     ({									      \

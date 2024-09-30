@@ -1,4 +1,4 @@
-From a78d7f37c738ef1e9e0194d330fc4bf15b4ea41b Mon Sep 17 00:00:00 2001
+From 7132e518d597a7b92fd924f22875837aa06c915b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 17 Mar 2023 19:55:50 +0100
 Subject: [PATCH 4/4] remove lsb script dependency from cryptdisks
@@ -196,10 +196,10 @@ index c35b284..bd535be 100644
      fi
  }
 diff --git a/debian/functions b/debian/functions
-index f6fa2aa..c7860e8 100644
+index bb9b104..0d9445c 100644
 --- a/debian/functions
 +++ b/debian/functions
-@@ -452,8 +452,7 @@ crypttab_key_check() {
+@@ -454,8 +454,7 @@ crypttab_key_check() {
  
      local mode="$(stat -L -f "%Mp%Lp" -- "$CRYPTTAB_KEY")"
      if [ $(stat -L -f "%u" -- "$CRYPTTAB_KEY") -ne 0 ] || [ "${mode%00}" = "$mode" ]; then
@@ -275,5 +275,5 @@ index 8fb7d68..48c7c32 100644
 -log_action_end_msg $rv
  exit $rv
 -- 
-2.45.2
+2.46.2
 

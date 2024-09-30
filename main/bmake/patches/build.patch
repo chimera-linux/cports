@@ -6,7 +6,7 @@
  # NAME:
  #	boot-strap
  #
-@@ -413,9 +413,6 @@ op_build() {
+@@ -435,9 +435,6 @@ op_build() {
  	[ -s make-bootstrap.sh ] || op_configure
  	chmod 755 make-bootstrap.sh || exit 1
  	./make-bootstrap.sh || exit 1
@@ -16,7 +16,7 @@
  }
  
  op_test() {
-@@ -434,14 +431,13 @@ op_clean() {
+@@ -461,14 +458,13 @@ op_clean() {
  }
  
  op_install() {
@@ -32,7 +32,7 @@
  }
  
  op_all() {
-@@ -449,7 +445,7 @@ op_all() {
+@@ -476,7 +472,7 @@ op_all() {
  	if [ -n "$INSTALL_PREFIX" ]; then
  		op_install
  	else
@@ -43,8 +43,9 @@
  You can install by running:
 --- a/install-sh
 +++ b/install-sh
-@@ -1,4 +1,4 @@
--:
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-
 +#!/bin/sh
  # NAME:
  #	install.sh - portable version of install(1)

@@ -27,7 +27,7 @@ fix the error by qualifying "sample" with an explicit "::".
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/speechPlayer/src/speechWaveGenerator.cpp b/src/speechPlayer/src/speechWaveGenerator.cpp
-index 89ecb9af3..3ac0d1788 100644
+index df48319..610ec3b 100644
 --- a/src/speechPlayer/src/speechWaveGenerator.cpp
 +++ b/src/speechPlayer/src/speechWaveGenerator.cpp
 @@ -194,7 +194,7 @@ class SpeechWaveGeneratorImpl: public SpeechWaveGenerator {
@@ -37,5 +37,5 @@ index 89ecb9af3..3ac0d1788 100644
 -	unsigned int generate(const unsigned int sampleCount, sample* sampleBuf) {
 +	unsigned int generate(const unsigned int sampleCount, ::sample* sampleBuf) {
  		if(!frameManager) return 0; 
+ 		double val=0;
  		for(unsigned int i=0;i<sampleCount;++i) {
- 			const speechPlayer_frame_t* frame=frameManager->getCurrentFrame();

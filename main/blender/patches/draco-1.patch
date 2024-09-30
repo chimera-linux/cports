@@ -4,9 +4,9 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 75f5795db68..d50686adfb0 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -754,10 +754,6 @@ endif()
- set_and_warn_dependency(WITH_PYTHON WITH_CYCLES        OFF)
+@@ -1202,10 +1202,6 @@ set_and_warn_dependency(WITH_PYTHON WITH_CYCLES        OFF)
  set_and_warn_dependency(WITH_PYTHON WITH_DRACO         OFF)
+ set_and_warn_dependency(WITH_PYTHON WITH_MOD_FLUID     OFF)
  
 -if(WITH_DRACO AND NOT WITH_PYTHON_INSTALL)
 -  message(STATUS "WITH_DRACO requires WITH_PYTHON_INSTALL to be ON, disabling WITH_DRACO for now")
@@ -15,4 +15,3 @@ index 75f5795db68..d50686adfb0 100644
  
  # enable boost for cycles, audaspace or i18n
  # otherwise if the user disabled
-

@@ -1,6 +1,6 @@
-diff --git a/etckeeper.conf.orig b/etckeeper.conf
+diff --git a/etckeeper.conf b/etckeeper.conf
 index 06ce250..a88dd3f 100644
---- a/etckeeper.conf.orig
+--- a/etckeeper.conf
 +++ b/etckeeper.conf
 @@ -33,11 +33,11 @@ DARCS_COMMIT_OPTIONS="-a"
  

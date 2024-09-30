@@ -1,6 +1,6 @@
-diff --git a/Makefile.orig b/Makefile
+diff --git a/Makefile b/Makefile
 index f3dd8f2..cc278a9 100644
---- a/Makefile.orig
+--- a/Makefile
 +++ b/Makefile
 @@ -37,9 +37,6 @@ install: etckeeper.version
  	$(INSTALL_DATA) bash_completion $(DESTDIR)$(bashcompletiondir)/etckeeper

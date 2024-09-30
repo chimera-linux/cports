@@ -1,11 +1,3 @@
-commit 118edf7a1c27465bc588b76908e76709c9c3de37
-Author: q66 <q66@chimera-linux.org>
-Date:   Thu Nov 16 22:57:31 2023 +0100
-
-    bla
-
-diff --git a/scripts/build/.variables b/scripts/build/.variables
-index e014765..34d5461 100755
 --- a/scripts/build/.variables
 +++ b/scripts/build/.variables
 @@ -13,14 +13,7 @@ PLATFORM=${PLATFORM:-}
@@ -22,5 +14,5 @@ index e014765..34d5461 100755
 -fi
 +BUILDTIME=${BUILDTIME:-$(TZ=UTC date -jf "%s" "${SOURCE_DATE_EPOCH:-$(date +%s)}" +"%Y-%m-%dT%H:%M:%SZ")}
  
- GOOS="$(go env GOOS)"
- GOARCH="$(go env GOARCH)"
+ case "$VERSION" in
+ 	refs/tags/v*) VERSION=${VERSION#refs/tags/v} ;;

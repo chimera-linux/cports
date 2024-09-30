@@ -1,6 +1,6 @@
-From 1a48bd90548f3dd9c8edfe9df814bb753c207aec Mon Sep 17 00:00:00 2001
+From b8bb39486f164d16553ce42e60be1d0bea37bb2f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 17 Mar 2023 19:53:56 +0100
+Date: Mon, 30 Sep 2024 22:46:51 +0200
 Subject: [PATCH 2/4] global replace of path names for usrmerge
 
 ---
@@ -185,7 +185,7 @@ index ce5e6f4..c35b284 100644
              else
                  log_warning_msg "$target: the check for '$CRYPTTAB_NAME' failed. $CRYPTTAB_NAME contains data: $out"
 diff --git a/debian/functions b/debian/functions
-index 9e2481b..f6fa2aa 100644
+index 8fbfdc4..bb9b104 100644
 --- a/debian/functions
 +++ b/debian/functions
 @@ -15,7 +15,7 @@ export DM_DEFAULT_NAME_MANGLING_MODE=hex # for dmsetup(8)
@@ -215,7 +215,7 @@ index 9e2481b..f6fa2aa 100644
              fi
              if [ ! -x "$VALUE" ] || [ ! -f "$VALUE" ]; then
                  return 1
-@@ -273,7 +273,7 @@ crypttab_resolve_source() {
+@@ -275,7 +275,7 @@ crypttab_resolve_source() {
  #   exec()'ute `$CRYPTTAB_OPTION_keyscript "$CRYPTTAB_KEY"`.
  #   If $CRYPTTAB_OPTION_keyscript is unset or null and $CRYPTTAB_KEY is
  #   "none" (meaning the passphrase is to be read interactively from the
@@ -224,7 +224,7 @@ index 9e2481b..f6fa2aa 100644
  #   suitable prompt message instead.
  #   Since the shell process is replaced with the $CRYPTTAB_OPTION_keyscript
  #   program, run_keyscript() must be used on the left-hand side of a
-@@ -285,13 +285,13 @@ run_keyscript() {
+@@ -287,13 +287,13 @@ run_keyscript() {
      export CRYPTTAB_TRIED="$1"
  
      if [ -n "${CRYPTTAB_OPTION_keyscript+x}" ] && \
@@ -240,7 +240,7 @@ index 9e2481b..f6fa2aa 100644
          keyscriptarg="Please unlock disk $CRYPTTAB_NAME: "
      fi
  
-@@ -317,11 +317,11 @@ _get_crypt_type() {
+@@ -319,11 +319,11 @@ _get_crypt_type() {
          t="fvault2"
      elif [ -n "${CRYPTTAB_OPTION_header+x}" ]; then
          # detached headers are only supported for LUKS devices
@@ -254,7 +254,7 @@ index 9e2481b..f6fa2aa 100644
              t="luks"
          elif blk_t="$(blkid -s TYPE -o value -- "$s")" && [ "$blk_t" = "BitLocker" ]; then
              t="bitlk"
-@@ -363,7 +363,7 @@ unlock_mapping() {
+@@ -365,7 +365,7 @@ unlock_mapping() {
          unset -v CRYPTTAB_OPTION_keyslot
      fi
  
@@ -263,7 +263,7 @@ index 9e2481b..f6fa2aa 100644
          ${CRYPTTAB_OPTION_header:+--header="$CRYPTTAB_OPTION_header"} \
          ${CRYPTTAB_OPTION_cipher:+--cipher="$CRYPTTAB_OPTION_cipher"} \
          ${CRYPTTAB_OPTION_size:+--key-size="$CRYPTTAB_OPTION_size"} \
-@@ -393,7 +393,7 @@ unlock_mapping() {
+@@ -395,7 +395,7 @@ unlock_mapping() {
  resume_mapping() {
      local keyfile="${1:--}"
  
@@ -446,7 +446,7 @@ index 54492f0..24c2613 100644
  fi
  
 diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
-index adf8d25..107d7cd 100644
+index b824ccd..947fdc4 100644
 --- a/debian/initramfs/hooks/cryptroot
 +++ b/debian/initramfs/hooks/cryptroot
 @@ -15,7 +15,7 @@ case "$1" in
@@ -503,9 +503,9 @@ index adf8d25..107d7cd 100644
      [ -d "$libcryptodir" ] || return
  
      crypttab_foreach_entry populate_CRYPTO_HASHES
-@@ -337,10 +337,10 @@ fi
- manual_add_modules dm_mod
- manual_add_modules dm_crypt
+@@ -336,10 +336,10 @@ fi
+ # add required components
+ manual_add_modules dm_mod dm_crypt
  
 -copy_exec /sbin/cryptsetup
 -copy_exec /sbin/dmsetup
@@ -516,8 +516,8 @@ index adf8d25..107d7cd 100644
 +[ "$ASKPASS" = n ] || copy_exec /usr/lib/cryptsetup/askpass
  
  # We need sed. Either via busybox or as standalone binary.
- # chimera: already provided via chimerautils-tiny by default
-@@ -370,4 +370,4 @@ else
+ # chimera: copy stuff that'd be provided by bussybox
+@@ -369,4 +369,4 @@ else
      fi
      add_crypto_modules $(printf '%s' "${CRYPTO_MODULES-}" | tr ' ' '\n' | sort -u)
  fi
@@ -569,10 +569,10 @@ index 4de8f48..22406bc 100644
      kill -TERM "$PID"
      log_end_msg
 diff --git a/debian/initramfs/scripts/local-bottom/cryptroot b/debian/initramfs/scripts/local-bottom/cryptroot
-index 945739f..3d43776 100644
+index 360f90a..3c2de0b 100644
 --- a/debian/initramfs/scripts/local-bottom/cryptroot
 +++ b/debian/initramfs/scripts/local-bottom/cryptroot
-@@ -16,7 +16,7 @@ esac
+@@ -16,8 +16,8 @@ esac
  
  # If we reached this stage, we do have a rootfs mounted
  # so let's clean-up cryptroot setup mess...
@@ -582,6 +582,7 @@ index 945739f..3d43776 100644
 +. /usr/lib/cryptsetup/functions
  
  rm -f -- "$CRYPTROOT_COUNT_FILE"
+ 
 diff --git a/debian/initramfs/scripts/local-top/cryptopensc b/debian/initramfs/scripts/local-top/cryptopensc
 index 344acc6..445e5f9 100644
 --- a/debian/initramfs/scripts/local-top/cryptopensc
@@ -713,5 +714,5 @@ index 845ccae..5bc2828 100644
  			      /*"ext4,ext3,ext2,vfat,btrfs,reiserfs,xfs,jfs,ntfs,iso9660,udf",*/
  			      "-o", "noatime,nodiratime,nodev,noexec,nosuid,ro",
 -- 
-2.45.2
+2.46.2
 

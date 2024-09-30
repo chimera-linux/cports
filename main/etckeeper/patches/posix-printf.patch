@@ -1,6 +1,6 @@
-diff --git a/commit.d/50vcs-commit.orig b/commit.d/50vcs-commit
+diff --git a/commit.d/50vcs-commit b/commit.d/50vcs-commit
 index a76eb7e..547b9f6 100755
---- a/commit.d/50vcs-commit.orig
+--- a/commit.d/50vcs-commit
 +++ b/commit.d/50vcs-commit
 @@ -44,7 +44,7 @@ else
  	# try to check tty ownership, in case user su'd to root

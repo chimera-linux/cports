@@ -1,6 +1,6 @@
---- a/src/core/CLucene/queryParser/QueryParser.cpp.sav	2011-03-17 01:21:07.000000000 +0100
-+++ b/src/core/CLucene/queryParser/QueryParser.cpp	2012-03-09 18:20:58.000000000 +0100
-@@ -79,7 +79,7 @@
+--- a/src/core/CLucene/queryParser/QueryParser.cpp
++++ b/src/core/CLucene/queryParser/QueryParser.cpp
+@@ -79,7 +79,7 @@ const TCHAR* QueryParserConstants::tokenImage[] = {
      _T("<RANGEEX_GOOP>")
  };
  
@@ -9,8 +9,8 @@
  const int32_t QueryParser::jj_la1_1[] = {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,0x0,0x0,0x0};
  
  struct QueryParser::JJCalls {
---- a/src/core/CLucene/queryParser/QueryParserTokenManager.cpp.sav	2011-03-17 01:21:07.000000000 +0100
-+++ b/src/core/CLucene/queryParser/QueryParserTokenManager.cpp	2012-03-09 18:20:24.000000000 +0100
+--- a/src/core/CLucene/queryParser/QueryParserTokenManager.cpp
++++ b/src/core/CLucene/queryParser/QueryParserTokenManager.cpp
 @@ -15,9 +15,9 @@
  
  CL_NS_DEF(queryParser)
@@ -23,9 +23,9 @@
  };
  const int32_t QueryParserTokenManager::jjnextStates[]={
  		15, 17, 18, 29, 32, 23, 33, 30, 20, 21, 32, 23, 33, 31, 34, 27,
---- a/src/core/CLucene/queryParser/legacy/Lexer.cpp.sav	2013-03-01 09:25:18.000000000 +0100
-+++ b/src/core/CLucene/queryParser/legacy/Lexer.cpp 09:25:12.000000000 +0100
-@@ -117,7 +117,7 @@ bool Lexer::GetNextToken(QueryToken* tok
+--- a/src/core/CLucene/queryParser/legacy/Lexer.cpp
++++ b/src/core/CLucene/queryParser/legacy/Lexer.cpp
+@@ -117,7 +117,7 @@ bool Lexer::GetNextToken(QueryToken* token) {
        if( _istspace(ch)!=0 ) {
           continue;
        }

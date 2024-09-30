@@ -10,7 +10,7 @@ Subject: [PATCH 2/4] tests: error from make when suite fails
  3 files changed, 25 insertions(+), 29 deletions(-)
 
 diff --git a/src/tests/2am.lisp b/src/tests/2am.lisp
-index 865828f11..32bb0d27e 100644
+index 865828f..32bb0d2 100644
 --- a/src/tests/2am.lisp
 +++ b/src/tests/2am.lisp
 @@ -102,7 +102,8 @@
@@ -24,10 +24,10 @@ index 865828f11..32bb0d27e 100644
  (defun %run (fn)
    (let ((*stats* (make-test-stats)))
 diff --git a/src/tests/Makefile.in b/src/tests/Makefile.in
-index 2b9ac315c..ebc234cd0 100755
+index f672a88..b450ef0 100755
 --- a/src/tests/Makefile.in
 +++ b/src/tests/Makefile.in
-@@ -12,8 +12,7 @@
+@@ -12,8 +12,7 @@ check: config.lsp
  	$(ECL) --norc \
                 --load config.lsp \
                 --eval "(ecl-tests::run-tests '($(TESTS)))" \
@@ -38,10 +38,10 @@ index 2b9ac315c..ebc234cd0 100755
  clean:
  	rm -rf regressions.log cache
 diff --git a/src/tests/config.lsp.in b/src/tests/config.lsp.in
-index a7146eeea..6e7f49b41 100755
+index 3510271..4ad0644 100755
 --- a/src/tests/config.lsp.in
 +++ b/src/tests/config.lsp.in
-@@ -67,29 +67,25 @@
+@@ -67,32 +67,28 @@
    ;; Cleanup stray files
    (delete-everything *sandbox*)
    (ensure-directories-exist *sandbox*)
@@ -93,6 +93,6 @@ index a7146eeea..6e7f49b41 100755
 +     :input nil
 +     :output t
 +     :error :output))))
--- 
-2.41.0
-
+ 
+ ;;;
+ ;;; RUNNING ANSI-TEST

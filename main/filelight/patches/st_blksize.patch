@@ -1,3 +1,5 @@
+diff --git a/autotests/directoryIteratorTest.cpp b/autotests/directoryIteratorTest.cpp
+index 3a8f61d..a9aae1e 100644
 --- a/autotests/directoryIteratorTest.cpp
 +++ b/autotests/directoryIteratorTest.cpp
 @@ -1,6 +1,10 @@
@@ -9,8 +11,10 @@
 +#endif
 +
  #include <QDebug>
- #include <QFileInfo>
+ #include <QProcess>
  #include <QTest>
+diff --git a/src/posixWalker.cpp b/src/posixWalker.cpp
+index 27b7f1c..b0964c1 100644
 --- a/src/posixWalker.cpp
 +++ b/src/posixWalker.cpp
 @@ -1,6 +1,10 @@
@@ -22,5 +26,5 @@
 +#endif
 +
  #include "posixWalker.h"
+ #include <QDebug>
  
- static void outputError(const QByteArray &path)

@@ -1,6 +1,6 @@
-From 47698bbe0d868f6a5a7fc11480c795a3f9192d5a Mon Sep 17 00:00:00 2001
+From 6dbd56e677dfdcce69e46e3a16a3bfc85c6a8dad Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Mon, 24 Jun 2024 11:14:50 +0200
+Date: Mon, 30 Sep 2024 22:46:33 +0200
 Subject: [PATCH 1/4] general portability fixes for chimera/busyboxless
  initramfs
 
@@ -12,7 +12,7 @@ Subject: [PATCH 1/4] general portability fixes for chimera/busyboxless
  4 files changed, 29 insertions(+), 37 deletions(-)
 
 diff --git a/debian/functions b/debian/functions
-index e23695a..9e2481b 100644
+index 63ecf5d..8fbfdc4 100644
 --- a/debian/functions
 +++ b/debian/functions
 @@ -20,7 +20,7 @@ cryptsetup_message() {
@@ -24,7 +24,7 @@ index e23695a..9e2481b 100644
          echo "cryptsetup: $*" | fold -s | sed '1! s/^/    /' >&2
      fi
      return 0
-@@ -450,8 +450,8 @@ crypttab_key_check() {
+@@ -452,8 +452,8 @@ crypttab_key_check() {
          fi
      fi
  
@@ -35,7 +35,7 @@ index e23695a..9e2481b 100644
          cryptsetup_message "WARNING: $CRYPTTAB_NAME: key file $CRYPTTAB_KEY has" \
              "insecure ownership, see /usr/share/doc/cryptsetup/README.Debian.gz."
      fi
-@@ -585,10 +585,10 @@ _device_uuid() {
+@@ -587,10 +587,10 @@ _device_uuid() {
  _resolve_device() {
      local spec="$1" dev devno maj min
      if dev="$(_resolve_device_spec "$spec")" &&
@@ -50,7 +50,7 @@ index e23695a..9e2481b 100644
          DEV="$dev"
          MAJ="$maj"
          MIN="$min"
-@@ -688,7 +688,7 @@ _foreach_cryptdev() {
+@@ -690,7 +690,7 @@ _foreach_cryptdev() {
      [ "$reverse" = "y" ] && t="holders" || t="slaves"
      [ -d "$d/$t" ] || return 0
      for d2 in "$d/$t"/*; do
@@ -59,19 +59,6 @@ index e23695a..9e2481b 100644
              _foreach_cryptdev "$d2"
          fi
      done
-diff --git a/debian/initramfs/conf-hooks.d/cryptsetup b/debian/initramfs/conf-hooks.d/cryptsetup
-index 883c1ba..f858920 100644
---- a/debian/initramfs/conf-hooks.d/cryptsetup
-+++ b/debian/initramfs/conf-hooks.d/cryptsetup
-@@ -2,8 +2,5 @@
- # necessary for punching in passphrases.
- KEYMAP=y
- 
--# force busybox on initramfs
--BUSYBOX=y
--
- # and for systems using plymouth instead, use the new option
- FRAMEBUFFER=y
 diff --git a/debian/initramfs/cryptroot-unlock b/debian/initramfs/cryptroot-unlock
 index dbc2ad0..1e9cf69 100644
 --- a/debian/initramfs/cryptroot-unlock
@@ -163,7 +150,7 @@ index e0c5167..bd49e84 100644
  
  exit $RV
 diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
-index dd5c798..adf8d25 100644
+index 9ae9b8c..b824ccd 100644
 --- a/debian/initramfs/hooks/cryptroot
 +++ b/debian/initramfs/hooks/cryptroot
 @@ -89,7 +89,7 @@ crypttab_print_entry() {
@@ -212,7 +199,7 @@ index dd5c798..adf8d25 100644
      [ -d "$libcryptodir" ] || return
  
      crypttab_foreach_entry populate_CRYPTO_HASHES
-@@ -353,9 +343,8 @@ copy_exec /sbin/dmsetup
+@@ -352,9 +342,8 @@ copy_exec /sbin/dmsetup
  [ "$ASKPASS" = n ] || copy_exec /lib/cryptsetup/askpass
  
  # We need sed. Either via busybox or as standalone binary.
@@ -225,5 +212,5 @@ index dd5c798..adf8d25 100644
  # detect whether the host CPU has AES-NI support
  if grep -Eq '^flags\s*:(.*\s)?aes(\s.*)?$' /proc/cpuinfo; then
 -- 
-2.45.2
+2.46.2
 
