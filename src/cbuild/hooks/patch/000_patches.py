@@ -7,4 +7,4 @@ def invoke(pkg):
     if not pkg.patches_path.is_dir():
         return
 
-    patch.patch_dir(pkg, pkg.patches_path)
+    patch.patch_dir(pkg, pkg.patches_path, patch_args=pkg.patch_args)
