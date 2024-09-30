@@ -1,6 +1,6 @@
 # update with python-pycryptodomex
 pkgname = "python-pycryptodome"
-pkgver = "3.20.0"
+pkgver = "3.21.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -21,7 +21,7 @@ license = "BSD-2-Clause AND Unlicense"
 url = "https://www.pycryptodome.org"
 # tests not on pypi
 source = f"https://github.com/Legrandin/pycryptodome/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "35019dff66c25db80d0c739b9c7b59bb0f61551897681c6dbdbdd0f7198f780f"
+sha256 = "195e5cdfbb550b03f83f2af2aa4652c14b64783574d835fe61bb06c8fc06ba21"
 
 
 # this is identical to the default check, we just have to call a different entrypoint
