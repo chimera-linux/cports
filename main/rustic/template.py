@@ -1,5 +1,5 @@
 pkgname = "rustic"
-pkgver = "0.8.1"
+pkgver = "0.9.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=webdav,tui"]
@@ -13,22 +13,9 @@ url = "https://rustic.cli.rs"
 source = (
     f"https://github.com/rustic-rs/rustic/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "86117560a26a774c92dd37f52c8ed29204371eace2208c156cc32055de4092c9"
+sha256 = "b911515ce3879f6d2dbd179014ccbad7b157152ff28ecb7812ca6ea65a315523"
 # generates completions with host bins
 options = ["!cross"]
-
-
-def pre_prepare(self):
-    # newer rustix broken on ppc
-    self.do(
-        "cargo",
-        "update",
-        "--package",
-        "rustix",
-        "--precise",
-        "0.38.35",
-        allow_network=True,
-    )
 
 
 def post_build(self):
