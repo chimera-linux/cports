@@ -1,6 +1,6 @@
 pkgname = "libvirt"
-pkgver = "10.7.0"
-pkgrel = 1
+pkgver = "10.8.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dattr=enabled",
@@ -12,6 +12,7 @@ configure_args = [
     "-Dfirewalld=enabled",
     "-Dfirewalld_zone=enabled",
     "-Dfuse=enabled",
+    "-Djson_c=enabled",
     "-Dlibiscsi=enabled",
     "-Dlibnl=enabled",
     "-Dlibssh2=enabled",
@@ -27,7 +28,6 @@ configure_args = [
     "-Dstorage_scsi=enabled",
     "-Dstorage_zfs=enabled",
     "-Dudev=enabled",
-    "-Dyajl=enabled",
     f"-Dpackager_version={pkgver}",
     "-Dqemu_user=_libvirt-qemu",
     "-Dqemu_group=_libvirt-qemu",
@@ -53,6 +53,7 @@ makedepends = [
     "fuse-devel",
     "glib-devel",
     "gnutls-devel",
+    "json-c-devel",
     "libcap-ng-devel",
     "libcurl-devel",
     "libiscsi-devel",
@@ -70,7 +71,6 @@ makedepends = [
     "polkit-devel",
     "readline-devel",
     "udev-devel",
-    "yajl-devel",
 ]
 checkdepends = [
     "pahole",
@@ -84,7 +84,7 @@ maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
-sha256 = "ca757322eed998013b21f474c6c0c15dc08320ba6c8bae54aa16a93a1c3b7054"
+sha256 = "57e3e8238d31a197f1b26b958bd2be71f99f271a822132afa66f70b7c2100984"
 
 
 def post_install(self):
