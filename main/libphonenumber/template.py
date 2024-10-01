@@ -1,5 +1,5 @@
 pkgname = "libphonenumber"
-pkgver = "8.13.46"
+pkgver = "8.13.47"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -26,7 +26,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/google/libphonenumber"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "542460d54826de4c48a933e17eb92e2aeafc1e9fa93dbcfd4a4864d37a61d569"
+sha256 = "b56ef9dbdfd91968242d63e38457cf58f1c03ddff5a9cb8862dd0138419f6cd2"
 
 
 @subpackage("libphonenumber-devel")
