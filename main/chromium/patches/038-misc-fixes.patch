@@ -1,5 +1,7 @@
+sys hwids, no git in vpx regen, fix shim headers
+--
 diff --git a/services/device/public/cpp/usb/BUILD.gn b/services/device/public/cpp/usb/BUILD.gn
-index 102dc6e6..cea06c7e 100644
+index 04d08955d7..ddf90a76ec 100644
 --- a/services/device/public/cpp/usb/BUILD.gn
 +++ b/services/device/public/cpp/usb/BUILD.gn
 @@ -2,7 +2,7 @@
@@ -11,171 +13,28 @@ index 102dc6e6..cea06c7e 100644
  generated_ids = "$target_gen_dir/usb_ids_gen.cc"
  
  action("usb_device_ids") {
-diff --git a/third_party/blink/renderer/core/xml/parser/xml_document_parser.cc b/third_party/blink/renderer/core/xml/parser/xml_document_parser.cc
-index 7b968973..caa4ea5a 100644
---- a/third_party/blink/renderer/core/xml/parser/xml_document_parser.cc
-+++ b/third_party/blink/renderer/core/xml/parser/xml_document_parser.cc
-@@ -138,11 +138,11 @@ class PendingStartElementNSCallback final
-         attribute_count_(attribute_count),
-         defaulted_count_(defaulted_count) {
-     namespaces_ = static_cast<xmlChar**>(
--        xmlMalloc(sizeof(xmlChar*) * namespace_count * 2));
-+        malloc(sizeof(xmlChar*) * namespace_count * 2));
-     for (int i = 0; i < namespace_count * 2; ++i)
-       namespaces_[i] = xmlStrdup(namespaces[i]);
-     attributes_ = static_cast<xmlChar**>(
--        xmlMalloc(sizeof(xmlChar*) * attribute_count * 5));
-+        malloc(sizeof(xmlChar*) * attribute_count * 5));
-     for (int i = 0; i < attribute_count; ++i) {
-       // Each attribute has 5 elements in the array:
-       // name, prefix, uri, value and an end pointer.
-@@ -157,12 +157,12 @@ class PendingStartElementNSCallback final
- 
-   ~PendingStartElementNSCallback() override {
-     for (int i = 0; i < namespace_count_ * 2; ++i)
--      xmlFree(namespaces_[i]);
--    xmlFree(namespaces_);
-+      free(namespaces_[i]);
-+    free(namespaces_);
-     for (int i = 0; i < attribute_count_; ++i)
-       for (int j = 0; j < 4; ++j)
--        xmlFree(attributes_[i * 5 + j]);
--    xmlFree(attributes_);
-+        free(attributes_[i * 5 + j]);
-+    free(attributes_);
-   }
- 
-   void Call(XMLDocumentParser* parser) override {
-@@ -210,7 +210,7 @@ class PendingCharactersCallback final
-         chars_(xmlStrndup(chars, length)),
-         length_(length) {}
- 
--  ~PendingCharactersCallback() override { xmlFree(chars_); }
-+  ~PendingCharactersCallback() override { free(chars_); }
- 
-   void Call(XMLDocumentParser* parser) override {
-     parser->Characters(chars_, length_);
-@@ -294,7 +294,7 @@ class PendingErrorCallback final : public XMLDocumentParser::PendingCallback {
-         type_(type),
-         message_(xmlStrdup(message)) {}
- 
--  ~PendingErrorCallback() override { xmlFree(message_); }
-+  ~PendingErrorCallback() override { free(message_); }
- 
-   void Call(XMLDocumentParser* parser) override {
-     parser->HandleError(type_, reinterpret_cast<char*>(message_),
-diff --git a/third_party/blink/renderer/core/xml/xsl_style_sheet_libxslt.cc b/third_party/blink/renderer/core/xml/xsl_style_sheet_libxslt.cc
-index 4757639f..fe85c583 100644
---- a/third_party/blink/renderer/core/xml/xsl_style_sheet_libxslt.cc
-+++ b/third_party/blink/renderer/core/xml/xsl_style_sheet_libxslt.cc
-@@ -190,7 +190,7 @@ void XSLStyleSheet::LoadChildSheets() {
-         xmlChar* uri_ref =
-             xsltGetNsProp(curr, (const xmlChar*)"href", XSLT_NAMESPACE);
-         LoadChildSheet(String::FromUTF8((const char*)uri_ref));
--        xmlFree(uri_ref);
-+        free(uri_ref);
-       } else {
-         break;
-       }
-@@ -204,7 +204,7 @@ void XSLStyleSheet::LoadChildSheets() {
-         xmlChar* uri_ref =
-             xsltGetNsProp(curr, (const xmlChar*)"href", XSLT_NAMESPACE);
-         LoadChildSheet(String::FromUTF8((const char*)uri_ref));
--        xmlFree(uri_ref);
-+        free(uri_ref);
-       }
-       curr = curr->next;
-     }
-@@ -294,8 +294,8 @@ xmlDocPtr XSLStyleSheet::LocateStylesheetSubResource(xmlDocPtr parent_doc,
-       xmlChar* child_uri =
-           xmlBuildURI((const xmlChar*)import_href.c_str(), base);
-       bool equal_ur_is = xmlStrEqual(uri, child_uri);
--      xmlFree(base);
--      xmlFree(child_uri);
-+      free(base);
-+      free(child_uri);
-       if (equal_ur_is) {
-         child->MarkAsProcessed();
-         return child->GetDocument();
-diff --git a/third_party/blink/renderer/core/xml/xslt_extensions.cc b/third_party/blink/renderer/core/xml/xslt_extensions.cc
-index 9f7471a4..78a51f92 100644
---- a/third_party/blink/renderer/core/xml/xslt_extensions.cc
-+++ b/third_party/blink/renderer/core/xml/xslt_extensions.cc
-@@ -69,7 +69,7 @@ static void ExsltNodeSetFunction(xmlXPathParserContextPtr ctxt, int nargs) {
-   CHECK(ret);
- 
-   if (strval)
--    xmlFree(strval);
-+    free(strval);
- 
-   valuePush(ctxt, ret);
- }
-diff --git a/third_party/blink/renderer/core/xml/xslt_processor_libxslt.cc b/third_party/blink/renderer/core/xml/xslt_processor_libxslt.cc
-index 133e0b33..9c18520b 100644
---- a/third_party/blink/renderer/core/xml/xslt_processor_libxslt.cc
-+++ b/third_party/blink/renderer/core/xml/xslt_processor_libxslt.cc
-@@ -114,7 +114,7 @@ static xmlDocPtr DocLoaderFunc(const xmlChar* uri,
-       xmlChar* base = xmlNodeGetBase(context->document->doc, context->node);
-       KURL url(KURL(reinterpret_cast<const char*>(base)),
-                reinterpret_cast<const char*>(uri));
--      xmlFree(base);
-+      free(base);
- 
-       ResourceLoaderOptions fetch_options(nullptr /* world */);
-       fetch_options.initiator_info.name = fetch_initiator_type_names::kXml;
-diff --git a/third_party/blink/renderer/core/xml/xslt_unicode_sort.cc b/third_party/blink/renderer/core/xml/xslt_unicode_sort.cc
-index 56c09c37..916f5e7d 100644
---- a/third_party/blink/renderer/core/xml/xslt_unicode_sort.cc
-+++ b/third_party/blink/renderer/core/xml/xslt_unicode_sort.cc
-@@ -327,18 +327,18 @@ void XsltUnicodeSortFunction(xsltTransformContextPtr ctxt,
-     comp = static_cast<xsltStylePreComp*>(sorts[j]->psvi);
-     if (tempstype[j] == 1) {
-       // The data-type needs to be recomputed each time.
--      xmlFree(const_cast<xmlChar*>(comp->stype));
-+      free(const_cast<xmlChar*>(comp->stype));
-       comp->stype = nullptr;
-     }
-     if (temporder[j] == 1) {
-       // The order needs to be recomputed each time.
--      xmlFree(const_cast<xmlChar*>(comp->order));
-+      free(const_cast<xmlChar*>(comp->order));
-       comp->order = nullptr;
-     }
-     if (results_tab[j]) {
-       for (int i = 0; i < len; ++i)
-         xmlXPathFreeObject(results_tab[j][i]);
--      xmlFree(results_tab[j]);
-+      free(results_tab[j]);
-     }
-   }
- 
 diff --git a/third_party/libvpx/generate_gni.sh b/third_party/libvpx/generate_gni.sh
-index be1f486d..8bc7540a 100755
+index a605ebb3ab..680a374dc2 100755
 --- a/third_party/libvpx/generate_gni.sh
 +++ b/third_party/libvpx/generate_gni.sh
-@@ -598,6 +598,6 @@ gn format --in-place $BASE_DIR/BUILD.gn
- gn format --in-place $BASE_DIR/libvpx_srcs.gni
+@@ -384,7 +384,6 @@ EOF
+ }
+ 
+ # Fetch the latest tags; used in creating vpx_version.h.
+-git -C "${LIBVPX_SRC_DIR}" fetch --tags
+ 
+ find_duplicates
+ 
+@@ -618,7 +617,6 @@ cd $BASE_DIR
+ rm -rf $TEMP_DIR
  
  cd $BASE_DIR/$LIBVPX_SRC_DIR
 -update_readme
-+#update_readme
  
  cd $BASE_DIR
-diff --git a/third_party/libxml/chromium/xml_reader.cc b/third_party/libxml/chromium/xml_reader.cc
-index 4f15c50e..7c2428b1 100644
---- a/third_party/libxml/chromium/xml_reader.cc
-+++ b/third_party/libxml/chromium/xml_reader.cc
-@@ -17,7 +17,7 @@ namespace {
- // Same as XmlStringToStdString but also frees |xmlstring|.
- std::string XmlStringToStdStringWithDelete(xmlChar* xmlstring) {
-   std::string result = XmlStringToStdString(xmlstring);
--  xmlFree(xmlstring);
-+  free(xmlstring);
-   return result;
- }
- 
+ git cl format > /dev/null \
 diff --git a/tools/generate_shim_headers/generate_shim_headers.py b/tools/generate_shim_headers/generate_shim_headers.py
-index 8df3f146..1b7a4b46 100755
+index 8df3f14601..1b7a4b469a 100755
 --- a/tools/generate_shim_headers/generate_shim_headers.py
 +++ b/tools/generate_shim_headers/generate_shim_headers.py
 @@ -18,7 +18,7 @@ import sys

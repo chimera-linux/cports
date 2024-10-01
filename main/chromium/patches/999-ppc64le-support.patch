@@ -5,10 +5,10 @@ Date:   Tue Dec 19 01:54:40 2023 +0100
     unified ppc64le support patch
 
 diff --git a/base/allocator/partition_allocator/partition_alloc.gni b/base/allocator/partition_allocator/partition_alloc.gni
-index 1471292631..01b6b48dc8 100644
+index bafdbde410..17fae882eb 100644
 --- a/base/allocator/partition_allocator/partition_alloc.gni
 +++ b/base/allocator/partition_allocator/partition_alloc.gni
-@@ -16,7 +16,7 @@ if (is_nacl) {
+@@ -19,7 +19,7 @@ if (is_nacl) {
    # NaCl targets don't use 64-bit pointers.
    has_64_bit_pointers = false
  } else if (current_cpu == "x64" || current_cpu == "arm64" ||
@@ -18,10 +18,10 @@ index 1471292631..01b6b48dc8 100644
  } else if (current_cpu == "x86" || current_cpu == "arm") {
    has_64_bit_pointers = false
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
-index cb6116c438..ba3d8c1c58 100644
+index 6516c2026e..7d32eeddeb 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
-@@ -97,7 +97,7 @@
+@@ -97,7 +97,7 @@ PageAllocationGranularityShift() {
      page_characteristics.shift.store(shift, std::memory_order_relaxed);
    }
    return shift;
@@ -31,10 +31,10 @@ index cb6116c438..ba3d8c1c58 100644
    // sizes.  Since 64kB is the de facto standard on the platform and binaries
    // compiled for 64kB are likely to work on 4kB systems, 64kB is a good choice
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h
-index cddebf7f8e..d687ad6155 100644
+index a3db353a06..d1d617a8b2 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h
-@@ -111,11 +111,6 @@
+@@ -111,11 +111,6 @@ PA_ALWAYS_INLINE PAGE_ALLOCATOR_CONSTANTS_DECLARE_CONSTEXPR size_t
  PartitionPageShift() {
    return 16;  // 64 KiB
  }
@@ -47,7 +47,7 @@ index cddebf7f8e..d687ad6155 100644
  PA_ALWAYS_INLINE PAGE_ALLOCATOR_CONSTANTS_DECLARE_CONSTEXPR size_t
  PartitionPageShift() {
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
-index 508780930b..e79ab777f7 100644
+index 73c3ddc712..e685f5a6a5 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
 @@ -28,13 +28,17 @@ namespace internal {
@@ -70,7 +70,7 @@ index 508780930b..e79ab777f7 100644
  class PA_LOCKABLE Lock;
  
 diff --git a/base/compiler_specific.h b/base/compiler_specific.h
-index 5caeab5fa2..739187c1d8 100644
+index f4599e191e..b27e646850 100644
 --- a/base/compiler_specific.h
 +++ b/base/compiler_specific.h
 @@ -88,7 +88,7 @@
@@ -82,7 +82,7 @@ index 5caeab5fa2..739187c1d8 100644
  #define MUSTTAIL [[clang::musttail]]
  #else
  #define MUSTTAIL
-@@ -446,7 +446,7 @@
+@@ -456,7 +456,7 @@ inline constexpr bool AnalyzerAssumeTrue(bool arg) {
  // Clang only supports preserve_most on X86-64 and AArch64 for now.
  // See https://clang.llvm.org/docs/AttributeReference.html#preserve-most for
  // more details.
@@ -107,10 +107,10 @@ index 1b86a4bb9e..bc95083101 100755
    src_dir = os.path.dirname(script_dir)
    nacl_dir = os.path.join(src_dir, 'native_client')
 diff --git a/build/rust/cargo_crate.gni b/build/rust/cargo_crate.gni
-index 1b86a4bb9e..bc95083101 100755
+index e5d1b2f831..86d9109023 100644
 --- a/build/rust/cargo_crate.gni
 +++ b/build/rust/cargo_crate.gni
-@@ -429,7 +429,7 @@
+@@ -429,7 +429,7 @@ template("cargo_crate") {
            rust_abi_target,
          ]
        }
@@ -134,7 +134,7 @@ index 8434144118..c92bf1a4bc 100644
  # SSBD (Speculative Store Bypass Disable) is a mitigation of Spectre Variant 4.
  # As Spectre Variant 4 can be mitigated by site isolation, opt-out SSBD on site
 diff --git a/sandbox/linux/BUILD.gn b/sandbox/linux/BUILD.gn
-index 483488a3f7..89a0fef388 100644
+index cc86e06114..2d04ba54c5 100644
 --- a/sandbox/linux/BUILD.gn
 +++ b/sandbox/linux/BUILD.gn
 @@ -383,6 +383,8 @@ component("sandbox_services") {
@@ -261,10 +261,10 @@ index d7286c4078..5db9ada4c0 100644
    if (SyscallSets::IsSocketCall(sysno))
      return RestrictSocketcallCommand();
 diff --git a/sandbox/linux/seccomp-bpf-helpers/baseline_policy_unittest.cc b/sandbox/linux/seccomp-bpf-helpers/baseline_policy_unittest.cc
-index dbbf1fb510..342b7be4cc 100644
+index f2dc74f842..31c3707f2e 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/baseline_policy_unittest.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/baseline_policy_unittest.cc
-@@ -329,7 +329,7 @@ TEST_BASELINE_SIGSYS(__NR_sysinfo)
+@@ -348,7 +348,7 @@ TEST_BASELINE_SIGSYS(__NR_sysinfo)
  TEST_BASELINE_SIGSYS(__NR_syslog)
  TEST_BASELINE_SIGSYS(__NR_timer_create)
  
@@ -274,10 +274,10 @@ index dbbf1fb510..342b7be4cc 100644
  TEST_BASELINE_SIGSYS(__NR_vserver)
  #endif
 diff --git a/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc b/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc
-index 4bf133a4e2..0b53658193 100644
+index 420c9c80b7..b79a5b41f5 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc
-@@ -357,7 +357,16 @@ intptr_t SIGSYSFstatatHandler(const struct arch_seccomp_data& args,
+@@ -362,7 +362,16 @@ intptr_t SIGSYSFstatatHandler(const struct arch_seccomp_data& args,
    if (args.nr == __NR_fstatat_default) {
      if (*reinterpret_cast<const char*>(args.args[1]) == '\0' &&
          args.args[3] == static_cast<uint64_t>(AT_EMPTY_PATH)) {
@@ -296,7 +296,7 @@ index 4bf133a4e2..0b53658193 100644
      }
      return -reinterpret_cast<intptr_t>(fs_denied_errno);
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
-index 7aa286c874..0d874a87f8 100644
+index cfc37e20dc..e448a8f2e0 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 @@ -36,7 +36,7 @@
@@ -371,7 +371,7 @@ index 7aa286c874..0d874a87f8 100644
  ResultExpr RestrictSocketcallCommand() {
    // Unfortunately, we are unable to restrict the first parameter to
    // socketpair(2). Whilst initially sounding bad, it's noteworthy that very
-@@ -449,7 +473,7 @@ ResultExpr RestrictPtrace() {
+@@ -453,7 +477,7 @@ ResultExpr RestrictPtrace() {
  #endif
    return Switch(request)
        .Cases({
@@ -394,7 +394,7 @@ index 171191ec51..a36cd8d8cb 100644
  // sendto(2), recvfrom(2), shutdown(2), sendmsg(2) and recvmsg(2).
  SANDBOX_EXPORT bpf_dsl::ResultExpr RestrictSocketcallCommand();
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc b/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
-index 3363a84e1b..d223bb6224 100644
+index be04538c38..07e5780ab2 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 @@ -28,7 +28,7 @@ bool SyscallSets::IsKill(int sysno) {
@@ -742,7 +742,7 @@ index 3363a84e1b..d223bb6224 100644
      case __NR_alarm:
  #endif
      case __NR_setitimer:
-@@ -1106,17 +1117,17 @@ bool SyscallSets::IsMisc(int sysno) {
+@@ -1103,17 +1114,17 @@ bool SyscallSets::IsMisc(int sysno) {
      case __NR_syncfs:
      case __NR_vhangup:
  // The system calls below are not implemented.
@@ -764,7 +764,7 @@ index 3363a84e1b..d223bb6224 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_gtty:
      case __NR_idle:
-@@ -1125,20 +1136,20 @@ bool SyscallSets::IsMisc(int sysno) {
+@@ -1122,20 +1133,20 @@ bool SyscallSets::IsMisc(int sysno) {
      case __NR_prof:
      case __NR_profil:
  #endif
@@ -829,10 +829,10 @@ index 9be7b03ec4..35f6f157e9 100644
    // Big system V multiplexing system call.
    static bool IsSystemVIpc(int sysno);
 diff --git a/sandbox/linux/seccomp-bpf/syscall.cc b/sandbox/linux/seccomp-bpf/syscall.cc
-index 02cbb047c1..04deabf630 100644
+index 6b772c563c..873eec35f4 100644
 --- a/sandbox/linux/seccomp-bpf/syscall.cc
 +++ b/sandbox/linux/seccomp-bpf/syscall.cc
-@@ -18,7 +18,7 @@ namespace sandbox {
+@@ -23,7 +23,7 @@ namespace sandbox {
  namespace {
  
  #if defined(ARCH_CPU_X86_FAMILY) || defined(ARCH_CPU_ARM_FAMILY) || \
@@ -841,7 +841,7 @@ index 02cbb047c1..04deabf630 100644
  // Number that's not currently used by any Linux kernel ABIs.
  const int kInvalidSyscallNumber = 0x351d3;
  #else
-@@ -306,12 +306,56 @@ asm(// We need to be able to tell the kernel exactly where we made a
+@@ -311,12 +311,56 @@ asm(// We need to be able to tell the kernel exactly where we made a
      // Enter the kernel
      "svc 0\n"
      "2:ret\n"
@@ -899,7 +899,7 @@ index 02cbb047c1..04deabf630 100644
  extern "C" {
  intptr_t SyscallAsm(intptr_t nr, const intptr_t args[6]);
  }
-@@ -425,6 +469,8 @@ intptr_t Syscall::Call(int nr,
+@@ -430,6 +474,8 @@ intptr_t Syscall::Call(int nr,
      ret = inout;
    }
  
@@ -908,7 +908,7 @@ index 02cbb047c1..04deabf630 100644
  #else
  #error "Unimplemented architecture"
  #endif
-@@ -441,8 +487,18 @@ void Syscall::PutValueInUcontext(intptr_t ret_val, ucontext_t* ctx) {
+@@ -446,8 +492,18 @@ void Syscall::PutValueInUcontext(intptr_t ret_val, ucontext_t* ctx) {
      // needs to be changed back.
      ret_val = -ret_val;
      SECCOMP_PARM4(ctx) = 1;
@@ -929,10 +929,10 @@ index 02cbb047c1..04deabf630 100644
    SECCOMP_RESULT(ctx) = static_cast<greg_t>(ret_val);
  }
 diff --git a/sandbox/linux/seccomp-bpf/trap.cc b/sandbox/linux/seccomp-bpf/trap.cc
-index 7f262aaff6..02142a8105 100644
+index 9fbefe3e8b..6c4ec161c9 100644
 --- a/sandbox/linux/seccomp-bpf/trap.cc
 +++ b/sandbox/linux/seccomp-bpf/trap.cc
-@@ -232,6 +232,20 @@ void Trap::SigSys(int nr, LinuxSigInfo* info, ucontext_t* ctx) {
+@@ -236,6 +236,20 @@ void Trap::SigSys(int nr, LinuxSigInfo* info, ucontext_t* ctx) {
        SetIsInSigHandler();
      }
  
@@ -954,19 +954,19 @@ index 7f262aaff6..02142a8105 100644
      // is what we are showing to TrapFnc callbacks that the system call
      // evaluator registered with the sandbox.
 diff --git a/sandbox/linux/services/credentials.cc b/sandbox/linux/services/credentials.cc
-index 3f8c92cf26..1a1d93b3e0 100644
+index bea1af28b5..f61f0ed146 100644
 --- a/sandbox/linux/services/credentials.cc
 +++ b/sandbox/linux/services/credentials.cc
-@@ -80,7 +80,7 @@ bool ChrootToSafeEmptyDir() {
-   pid_t pid = -1;
+@@ -91,7 +91,7 @@ bool ChrootToSafeEmptyDir() {
    alignas(16) char stack_buf[PTHREAD_STACK_MIN];
+ 
  #if defined(ARCH_CPU_X86_FAMILY) || defined(ARCH_CPU_ARM_FAMILY) || \
 -    defined(ARCH_CPU_MIPS_FAMILY)
 +    defined(ARCH_CPU_MIPS_FAMILY) || defined(ARCH_CPU_PPC64_FAMILY)
    // The stack grows downward.
    void* stack = stack_buf + sizeof(stack_buf);
  #else
-@@ -89,14 +89,18 @@
+@@ -100,14 +100,18 @@ bool ChrootToSafeEmptyDir() {
  
    int clone_flags = CLONE_FS | LINUX_SIGCHLD;
    void* tls = nullptr;
@@ -988,7 +988,7 @@ index 3f8c92cf26..1a1d93b3e0 100644
  
    // PTHREAD_STACK_MIN can be dynamic in glibc2.34+, so it is not possible to
 diff --git a/sandbox/linux/services/syscall_wrappers.cc b/sandbox/linux/services/syscall_wrappers.cc
-index 7650e983b3..de71401f85 100644
+index 74d48f1f91..eba83011d4 100644
 --- a/sandbox/linux/services/syscall_wrappers.cc
 +++ b/sandbox/linux/services/syscall_wrappers.cc
 @@ -61,7 +61,7 @@ long sys_clone(unsigned long flags,
@@ -1001,7 +1001,7 @@ index 7650e983b3..de71401f85 100644
    return syscall(__NR_clone, flags, child_stack, ptid, tls, ctid);
  #endif
 diff --git a/sandbox/linux/syscall_broker/broker_process.cc b/sandbox/linux/syscall_broker/broker_process.cc
-index a55b548a8e..6b333222d6 100644
+index a452430a90..7678d33fb1 100644
 --- a/sandbox/linux/syscall_broker/broker_process.cc
 +++ b/sandbox/linux/syscall_broker/broker_process.cc
 @@ -169,7 +169,7 @@ bool BrokerProcess::IsSyscallBrokerable(int sysno, bool fast_check) const {
@@ -1122,14 +1122,15 @@ index 0000000000..ccacffe22e
 +
 +#endif  // SANDBOX_LINUX_SYSTEM_HEADERS_PPC64_LINUX_SYSCALLS_H_
 diff --git a/sandbox/policy/linux/bpf_renderer_policy_linux.cc b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
-index 9d9fc7364e..855fadc2a3 100644
+index f1cd5bb..77c3cb3 100644
 --- a/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
-@@ -15,6 +15,11 @@
+@@ -15,6 +15,12 @@
  #include "sandbox/linux/system_headers/linux_syscalls.h"
  #include "sandbox/policy/linux/sandbox_linux.h"
  
-+// On PPC64, TCGETS is defined in terms of struct termios, so we must include termios.h
++// On PPC64, TCGETS is defined in terms of struct termios, so we must include
++// termios.h
 +#ifdef __powerpc64__
 +#include <termios.h>
 +#endif
@@ -1137,7 +1138,7 @@ index 9d9fc7364e..855fadc2a3 100644
  // TODO(vignatti): replace the local definitions below with #include
  // <linux/dma-buf.h> once kernel version 4.6 becomes widely used.
  #include <linux/types.h>
-@@ -82,7 +87,7 @@ ResultExpr RendererProcessPolicy::EvaluateSyscall(int sysno) const {
+@@ -82,7 +88,7 @@ ResultExpr RendererProcessPolicy::EvaluateSyscall(int sysno) const {
      case __NR_ftruncate64:
  #endif
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -1160,7 +1161,7 @@ index e299ce998b..090f3e706f 100644
  #endif
  #if defined(__i386__) || defined(__arm__)
 diff --git a/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock_config.h b/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock_config.h
-index 24b324ac99..33715130d4 100644
+index 43a3dabeea..800b0cc6a3 100644
 --- a/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock_config.h
 +++ b/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock_config.h
 @@ -21,7 +21,7 @@
@@ -1208,10 +1209,10 @@ index bf6df8800c..d8360ef5aa 100644
      }
      // Write boolean values as their names instead of integral value.
 diff --git a/third_party/boringssl/BUILD.gn b/third_party/boringssl/BUILD.gn
-index 321a2dc2eb..2f2c810623 100644
+index f44ece0073..a61ebb7d74 100644
 --- a/third_party/boringssl/BUILD.gn
 +++ b/third_party/boringssl/BUILD.gn
-@@ -134,6 +134,11 @@ if (is_msan) {
+@@ -118,6 +118,11 @@ if (is_msan) {
      sources = crypto_sources_nasm
      visibility = [ ":*" ]  # Only targets in this file can depend on this.
    }
@@ -1224,7 +1225,7 @@ index 321a2dc2eb..2f2c810623 100644
    # All other targets use GAS-compatible assembler. BoringSSL's assembly files
    # are all wrapped in processor checks for the corresponding target, so there
 diff --git a/third_party/boringssl/src/include/openssl/target.h b/third_party/boringssl/src/include/openssl/target.h
-index 12736416f3..432876bcfd 100644
+index 2760f52ce8..11401e72f5 100644
 --- a/third_party/boringssl/src/include/openssl/target.h
 +++ b/third_party/boringssl/src/include/openssl/target.h
 @@ -54,6 +54,9 @@
@@ -1235,13 +1236,13 @@ index 12736416f3..432876bcfd 100644
 +#define OPENSSL_64_BIT
 +#define OPENSSL_PPC64
  #else
- // Note BoringSSL only supports standard 32-bit and 64-bit two's-complement,
- // little-endian architectures. Functions will not produce the correct answer
+ // The list above enumerates the platforms that BoringSSL supports. For these
+ // platforms we keep a reasonable bar of not breaking them: automated test
 diff --git a/third_party/breakpad/BUILD.gn b/third_party/breakpad/BUILD.gn
-index 10000c6097..fa120724c7 100644
+index d7d27abb8e..3818b5b1fb 100644
 --- a/third_party/breakpad/BUILD.gn
 +++ b/third_party/breakpad/BUILD.gn
-@@ -618,7 +618,6 @@ if (is_linux || is_chromeos || is_android) {
+@@ -785,7 +785,6 @@ if (is_linux || is_chromeos || is_android) {
        "breakpad/src/client/minidump_file_writer.h",
        "breakpad/src/common/convert_UTF.cc",
        "breakpad/src/common/convert_UTF.h",
@@ -1249,7 +1250,7 @@ index 10000c6097..fa120724c7 100644
        "breakpad/src/common/linux/elf_core_dump.cc",
        "breakpad/src/common/linux/elf_core_dump.h",
        "breakpad/src/common/linux/elfutils.cc",
-@@ -658,6 +657,15 @@ if (is_linux || is_chromeos || is_android) {
+@@ -825,6 +824,15 @@ if (is_linux || is_chromeos || is_android) {
  
      libs = [ "dl" ]
  
@@ -1265,7 +1266,7 @@ index 10000c6097..fa120724c7 100644
      include_dirs = [
        ".",
        "breakpad/src",
-@@ -707,7 +715,6 @@ if (is_linux || is_chromeos || is_android) {
+@@ -874,7 +882,6 @@ if (is_linux || is_chromeos || is_android) {
        "breakpad/src/client/linux/minidump_writer/minidump_writer_unittest.cc",
        "breakpad/src/client/linux/minidump_writer/minidump_writer_unittest_utils.cc",
        "breakpad/src/client/linux/minidump_writer/proc_cpuinfo_reader_unittest.cc",
@@ -1683,7 +1684,7 @@ index 4bf9094e98..f85d24737c 100644
          for (int i = EF_R0; i <= EF_R31; i++)
            info.mcontext.gregs[i - EF_R0] = status->pr_reg[i];
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.cc
-index 85922a9c46..5870567ce7 100644
+index 5c4c389c39..5801188d9c 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.cc
 @@ -770,7 +770,9 @@ bool LinuxDumper::GetStackInfo(const void** stack, size_t* stack_len,
@@ -1724,10 +1725,10 @@ index 5a135fda0e..665c143575 100644
  #error This test has not been ported to this platform.
  #endif
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
-index 2adc39e122..f2054e99f4 100644
+index fb5b7e7625..e5e72b4356 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
-@@ -189,12 +189,12 @@
+@@ -208,12 +208,12 @@ bool LinuxPtraceDumper::ReadRegisterSet(ThreadInfo* info, pid_t tid)
  #ifdef PTRACE_GETREGSET
    struct iovec io;
    info->GetGeneralPurposeRegisters(&io.iov_base, &io.iov_len);
@@ -1742,7 +1743,7 @@ index 2adc39e122..f2054e99f4 100644
    // We are going to check if we can read VFP registers on ARM32.
    // Currently breakpad does not support VFP registers to be a part of minidump,
    // so this is only to confirm that we can actually read FP registers.
-@@ -214,6 +214,15 @@
+@@ -233,6 +233,15 @@ bool LinuxPtraceDumper::ReadRegisterSet(ThreadInfo* info, pid_t tid)
      }
  #endif  // defined(__arm__)
    }
@@ -1758,7 +1759,7 @@ index 2adc39e122..f2054e99f4 100644
    return true;
  #else
    return false;
-@@ -312,6 +321,9 @@ bool LinuxPtraceDumper::GetThreadInfoByIndex(size_t index, ThreadInfo* info) {
+@@ -397,6 +406,9 @@ bool LinuxPtraceDumper::GetThreadInfoByIndex(size_t index, ThreadInfo* info) {
  #elif defined(__riscv)
    stack_pointer = reinterpret_cast<uint8_t*>(
        info->mcontext.__gregs[MD_CONTEXT_RISCV_REG_SP]);
@@ -1958,7 +1959,7 @@ index 09e4690d57..3396bca225 100644
              ExploitabilityFor("linux_write_to_nonwritable_module.dmp"));
    ASSERT_EQ(google_breakpad::EXPLOITABILITY_HIGH,
 diff --git a/third_party/breakpad/breakpad/src/tools/linux/md2core/minidump-2-core.cc b/third_party/breakpad/breakpad/src/tools/linux/md2core/minidump-2-core.cc
-index 3e310bc7d8..d2a87fff85 100644
+index 29560ed18c..faa243e34c 100644
 --- a/third_party/breakpad/breakpad/src/tools/linux/md2core/minidump-2-core.cc
 +++ b/third_party/breakpad/breakpad/src/tools/linux/md2core/minidump-2-core.cc
 @@ -82,6 +82,8 @@
@@ -1989,7 +1990,7 @@ index 3e310bc7d8..d2a87fff85 100644
  #endif
      uintptr_t stack_addr;
      const uint8_t* stack;
-@@ -599,6 +606,38 @@ ParseThreadRegisters(CrashedProcess::Thread* thread,
+@@ -627,6 +634,38 @@ ParseThreadRegisters(CrashedProcess::Thread* thread,
  #error "Unexpected __riscv_xlen"
  #endif
  }
@@ -2028,7 +2029,7 @@ index 3e310bc7d8..d2a87fff85 100644
  #else
  #error "This code has not been ported to your platform yet"
  #endif
-@@ -704,6 +743,12 @@ ParseSystemInfo(const Options& options, CrashedProcess* crashinfo,
+@@ -732,6 +771,12 @@ ParseSystemInfo(const Options& options, CrashedProcess* crashinfo,
  # else
  #  error "Unexpected __riscv_xlen"
  # endif
@@ -2139,7 +2140,7 @@ index 12413de02b..1cc0484c50 100644
  
  #endif  // CRASHPAD_MINIDUMP_MINIDUMP_CONTEXT_H_
 diff --git a/third_party/crashpad/crashpad/minidump/minidump_context_writer.cc b/third_party/crashpad/crashpad/minidump/minidump_context_writer.cc
-index 326b51fed6..efa1cdb666 100644
+index 4a6130b63e..bdf1d843ff 100644
 --- a/third_party/crashpad/crashpad/minidump/minidump_context_writer.cc
 +++ b/third_party/crashpad/crashpad/minidump/minidump_context_writer.cc
 @@ -110,6 +110,13 @@ MinidumpContextWriter::CreateFromSnapshot(const CPUContext* context_snapshot) {
@@ -2156,7 +2157,7 @@ index 326b51fed6..efa1cdb666 100644
      default: {
        LOG(ERROR) << "unknown context architecture "
                   << context_snapshot->architecture;
-@@ -602,4 +609,47 @@ size_t MinidumpContextRISCV64Writer::ContextSize() const {
+@@ -606,4 +613,47 @@ size_t MinidumpContextRISCV64Writer::ContextSize() const {
    return sizeof(context_);
  }
  
@@ -2253,10 +2254,10 @@ index 8e39c6692f..6ffb220472 100644
  
  #endif  // CRASHPAD_MINIDUMP_MINIDUMP_CONTEXT_WRITER_H_
 diff --git a/third_party/crashpad/crashpad/minidump/minidump_context_writer_test.cc b/third_party/crashpad/crashpad/minidump/minidump_context_writer_test.cc
-index 9eebe81b29..11241bad4d 100644
+index 277bd4d347..8d136da09f 100644
 --- a/third_party/crashpad/crashpad/minidump/minidump_context_writer_test.cc
 +++ b/third_party/crashpad/crashpad/minidump/minidump_context_writer_test.cc
-@@ -328,6 +328,21 @@ TYPED_TEST(MinidumpContextWriter, RISCV64_FromSnapshot) {
+@@ -322,6 +322,21 @@ TYPED_TEST(MinidumpContextWriter, RISCV64_FromSnapshot) {
                     TypeParam>(context, ExpectMinidumpContextRISCV64, kSeed);
  }
  
@@ -2292,10 +2293,10 @@ index 1abb46c318..409a6cfd6d 100644
  #error define kCPU for this CPU
  #endif
 diff --git a/third_party/crashpad/crashpad/snapshot/capture_memory.cc b/third_party/crashpad/crashpad/snapshot/capture_memory.cc
-index c1c6fba58f..3fced91655 100644
+index f2ff5d74bb..4c977d59e6 100644
 --- a/third_party/crashpad/crashpad/snapshot/capture_memory.cc
 +++ b/third_party/crashpad/crashpad/snapshot/capture_memory.cc
-@@ -122,6 +122,11 @@ void CaptureMemory::PointedToByContext(const CPUContext& context,
+@@ -123,6 +123,11 @@ void CaptureMemory::PointedToByContext(const CPUContext& context,
    for (size_t i = 0; i < std::size(context.riscv64->regs); ++i) {
      MaybeCaptureMemoryAround(delegate, context.riscv64->regs[i]);
    }
@@ -2322,7 +2323,7 @@ index 26d45f8412..5637f31788 100644
  
  }  // namespace crashpad
 diff --git a/third_party/crashpad/crashpad/snapshot/cpu_context.cc b/third_party/crashpad/crashpad/snapshot/cpu_context.cc
-index 492a0f7f91..f4447afcd9 100644
+index 6b69edefd5..187f249284 100644
 --- a/third_party/crashpad/crashpad/snapshot/cpu_context.cc
 +++ b/third_party/crashpad/crashpad/snapshot/cpu_context.cc
 @@ -173,6 +173,8 @@ uint64_t CPUContext::InstructionPointer() const {
@@ -2333,8 +2334,8 @@ index 492a0f7f91..f4447afcd9 100644
 +      return ppc64->nip;
      default:
        NOTREACHED();
-       return ~0ull;
-@@ -191,6 +193,8 @@ uint64_t CPUContext::StackPointer() const {
+   }
+@@ -190,6 +192,8 @@ uint64_t CPUContext::StackPointer() const {
        return arm64->sp;
      case kCPUArchitectureRISCV64:
        return riscv64->regs[1];
@@ -2342,8 +2343,8 @@ index 492a0f7f91..f4447afcd9 100644
 +      return ppc64->regs[1];
      default:
        NOTREACHED();
-       return ~0ull;
-@@ -232,6 +236,7 @@ bool CPUContext::Is64Bit() const {
+   }
+@@ -227,6 +231,7 @@ bool CPUContext::Is64Bit() const {
      case kCPUArchitectureARM64:
      case kCPUArchitectureMIPS64EL:
      case kCPUArchitectureRISCV64:
@@ -2480,10 +2481,10 @@ index 507d1b44dd..99b3e5755d 100644
  }  // namespace crashpad
  
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/debug_rendezvous_test.cc b/third_party/crashpad/crashpad/snapshot/linux/debug_rendezvous_test.cc
-index 62c5d4e85d..b59b51db78 100644
+index 2efa32befc..5e0ae5f2b4 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/debug_rendezvous_test.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/debug_rendezvous_test.cc
-@@ -195,6 +195,8 @@ void TestAgainstTarget(PtraceConnection* connection) {
+@@ -194,6 +194,8 @@ void TestAgainstTarget(PtraceConnection* connection) {
                device == 0 && inode == 0 && mapping_name == "[vdso]";
  #if defined(ARCH_CPU_X86)
            static constexpr char kPrefix[] = "linux-gate.so.";
@@ -2580,7 +2581,7 @@ index f931d33002..27e5922c53 100644
    } context_union_;
    CPUContext context_;
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux_test.cc b/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux_test.cc
-index b351ccaa7f..8525aaba7f 100644
+index 16ae7b671f..4efbb511aa 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux_test.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux_test.cc
 @@ -326,6 +326,28 @@ void ExpectContext(const CPUContext& actual, const NativeCPUContext& expected) {
@@ -2721,7 +2722,7 @@ index 89e697a08b..5039180679 100644
  #error Port.
  #endif  // ARCH_CPU_X86_FAMILY
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/system_snapshot_linux.cc b/third_party/crashpad/crashpad/snapshot/linux/system_snapshot_linux.cc
-index b32f22d784..f75c1308a6 100644
+index 67cd2b3af9..771120b2d1 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/system_snapshot_linux.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/system_snapshot_linux.cc
 @@ -208,6 +208,8 @@ CPUArchitecture SystemSnapshotLinux::GetCPUArchitecture() const {
@@ -2753,7 +2754,7 @@ index b32f22d784..f75c1308a6 100644
  #else
  #error port to your architecture
  #endif
-@@ -385,6 +393,9 @@ bool SystemSnapshotLinux::NXEnabled() const {
+@@ -380,6 +388,9 @@ bool SystemSnapshotLinux::NXEnabled() const {
  #elif defined(ARCH_CPU_RISCV64)
    // Not implemented
    return false;
@@ -3384,10 +3385,10 @@ index 0000000000..7834eee6b8
 +
 +#define TRIM_DSP_FUNCTIONS 1
 diff --git a/third_party/dav1d/libdav1d/src/ppc/dav1d_types.h b/third_party/dav1d/libdav1d/src/ppc/dav1d_types.h
-index 0b4bd72f0e..a0caa5e710 100644
+index 9a8bc7a732..7a6ca8d1bb 100644
 --- a/third_party/dav1d/libdav1d/src/ppc/dav1d_types.h
 +++ b/third_party/dav1d/libdav1d/src/ppc/dav1d_types.h
-@@ -51,4 +51,19 @@
+@@ -55,4 +55,19 @@
  #define u16l_to_i32(v) ((i32x4) vec_mergel((u16x8) v, vec_splat_u16(0)))
  #define i16l_to_i32(v) ((i32x4) vec_unpackl((i16x8)v))
  
@@ -3408,10 +3409,10 @@ index 0b4bd72f0e..a0caa5e710 100644
 +
  #endif /* DAV1D_SRC_PPC_TYPES_H */
 diff --git a/third_party/eigen3/BUILD.gn b/third_party/eigen3/BUILD.gn
-index d07d4e9724..beb2bd42b4 100644
+index 8263623379..8c0e29f5d2 100644
 --- a/third_party/eigen3/BUILD.gn
 +++ b/third_party/eigen3/BUILD.gn
-@@ -10,6 +10,10 @@
+@@ -10,6 +10,10 @@ config("eigen_public_includes") {
      "EIGEN_MAX_ALIGN_BYTES=64",
      "EIGEN_HAS_TYPE_TRAITS=0",
    ]
@@ -3423,7 +3424,7 @@ index d07d4e9724..beb2bd42b4 100644
  
  # As this target suppresses warnings, it should not be added to public_configs.
 diff --git a/third_party/libaom/BUILD.gn b/third_party/libaom/BUILD.gn
-index 622da283de..2a51eb23b4 100644
+index c49d6fcb9d..93062ffd01 100644
 --- a/third_party/libaom/BUILD.gn
 +++ b/third_party/libaom/BUILD.gn
 @@ -43,6 +43,8 @@ if (current_cpu == "x86") {
@@ -3436,10 +3437,10 @@ index 622da283de..2a51eb23b4 100644
    cpu_arch_full = current_cpu
  }
 diff --git a/third_party/libpng/pngpriv.h b/third_party/libpng/pngpriv.h
-index 583c26f9bd..e03d697c5a 100644
+index 9bfdb71342..f44d0b81a5 100644
 --- a/third_party/libpng/pngpriv.h
 +++ b/third_party/libpng/pngpriv.h
-@@ -196,11 +196,7 @@
+@@ -212,11 +212,7 @@
  #endif
  
  #ifndef PNG_POWERPC_VSX_OPT
@@ -3451,12 +3452,12 @@ index 583c26f9bd..e03d697c5a 100644
 +#  define PNG_POWERPC_VSX_OPT 0
  #endif
  
- #ifndef PNG_INTEL_SSE_OPT
+ #ifndef PNG_LOONGARCH_LSX_OPT
 diff --git a/third_party/libvpx/generate_gni.sh b/third_party/libvpx/generate_gni.sh
-index 8bc7540ad2..b2470f9604 100755
+index 680a374dc2..2fa226f591 100755
 --- a/third_party/libvpx/generate_gni.sh
 +++ b/third_party/libvpx/generate_gni.sh
-@@ -411,7 +411,7 @@ gen_config_files linux/mipsel "--target=mips32-linux-gcc ${all_platforms}"
+@@ -432,7 +432,7 @@ gen_config_files linux/mipsel "--target=mips32-linux-gcc ${all_platforms}"
  gen_config_files linux/mips64el "--target=mips64-linux-gcc ${all_platforms}"
  gen_config_files linux/loongarch \
    "--target=loongarch64-linux-gcc ${all_platforms}"
@@ -3464,15 +3465,15 @@ index 8bc7540ad2..b2470f9604 100755
 +gen_config_files linux/ppc64 "--target=generic-gnu ${all_platforms}"
  gen_config_files linux/generic "--target=generic-gnu $HIGHBD ${all_platforms}"
  gen_config_files win/arm64-highbd \
-   "--target=arm64-win64-vs15 ${all_platforms} ${HIGHBD}"
-@@ -476,7 +476,7 @@ gen_rtcd_header linux/arm64-highbd armv8 "${require_neon}"
+   "--target=arm64-win64-vs15 ${all_platforms} ${HIGHBD} ${disable_sve}"
+@@ -497,7 +497,7 @@ gen_rtcd_header linux/arm64-highbd armv8 "${require_neon}"
  gen_rtcd_header linux/mipsel mipsel
  gen_rtcd_header linux/mips64el mips64el
  gen_rtcd_header linux/loongarch loongarch
 -gen_rtcd_header linux/ppc64 ppc
 +gen_rtcd_header linux/ppc64 generic
  gen_rtcd_header linux/generic generic
- gen_rtcd_header win/arm64-highbd armv8 "${require_neon}"
+ gen_rtcd_header win/arm64-highbd armv8 "${require_neon} ${disable_sve}"
  gen_rtcd_header win/ia32 x86 "${require_sse2}"
 diff --git a/third_party/lss/linux_syscall_support.h b/third_party/lss/linux_syscall_support.h
 index 1e9fa47dc7..b8d0db369f 100644
@@ -3539,11 +3540,25 @@ index bdac4d7849..51e0f2cacc 100644
  typedef vector float v4sf;
  #  define SIMD_SZ 4
  #  define VZERO() ((vector float) vec_splat_u8(0))
+diff --git a/third_party/skia/modules/skcms/src/skcms_internals.h b/third_party/skia/modules/skcms/src/skcms_internals.h
+index f3f0a2d6cb..cf4ae54c62 100644
+--- a/third_party/skia/modules/skcms/src/skcms_internals.h
++++ b/third_party/skia/modules/skcms/src/skcms_internals.h
+@@ -48,7 +48,8 @@ extern "C" {
+                                                  && !defined(__arm__) \
+                                                  && !defined(__riscv) \
+                                                  && !defined(__loongarch__) \
+-                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__)
++                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__) \
++                                                 && !defined(__powerpc__)
+             #define SKCMS_HAS_MUSTTAIL 1
+         #endif
+     #endif
 diff --git a/third_party/skia/src/core/SkRasterPipeline.h b/third_party/skia/src/core/SkRasterPipeline.h
-index dc5fb4b8f2..f696f25a8b 100644
+index 2475ea0d39..6796748365 100644
 --- a/third_party/skia/src/core/SkRasterPipeline.h
 +++ b/third_party/skia/src/core/SkRasterPipeline.h
-@@ -27,7 +27,7 @@
+@@ -27,7 +27,7 @@ struct SkImageInfo;
  struct skcms_TransferFunction;
  
  #if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && \
@@ -3553,10 +3568,10 @@ index dc5fb4b8f2..f696f25a8b 100644
  #else
      #define SK_HAS_MUSTTAIL 0
 diff --git a/third_party/sqlite/src/amalgamation/sqlite3.c b/third_party/sqlite/src/amalgamation/sqlite3.c
-index f23c6fa7a2..265c5d7b18 100644
+index 31bc470571..95f69e776b 100644
 --- a/third_party/sqlite/src/amalgamation/sqlite3.c
 +++ b/third_party/sqlite/src/amalgamation/sqlite3.c
-@@ -14864,7 +14864,8 @@
+@@ -15005,7 +15005,8 @@ typedef INT16_TYPE LogEst;
  # elif defined(i386)    || defined(__i386__)      || defined(_M_IX86) ||    \
       defined(__x86_64)  || defined(__x86_64__)    || defined(_M_X64)  ||    \
       defined(_M_AMD64)  || defined(_M_ARM)        || defined(__x86)   ||    \
@@ -3567,10 +3582,10 @@ index f23c6fa7a2..265c5d7b18 100644
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
 diff --git a/third_party/sqlite/src/amalgamation_dev/sqlite3.c b/third_party/sqlite/src/amalgamation_dev/sqlite3.c
-index 67404ccece..30aae9cd8b 100644
+index 29f2d9259f..9097d28490 100644
 --- a/third_party/sqlite/src/amalgamation_dev/sqlite3.c
 +++ b/third_party/sqlite/src/amalgamation_dev/sqlite3.c
-@@ -14864,7 +14864,8 @@
+@@ -15018,7 +15018,8 @@ typedef INT16_TYPE LogEst;
  # elif defined(i386)    || defined(__i386__)      || defined(_M_IX86) ||    \
       defined(__x86_64)  || defined(__x86_64__)    || defined(_M_X64)  ||    \
       defined(_M_AMD64)  || defined(_M_ARM)        || defined(__x86)   ||    \
@@ -3581,10 +3596,10 @@ index 67404ccece..30aae9cd8b 100644
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
 diff --git a/third_party/sqlite/src/ext/rtree/rtree.c b/third_party/sqlite/src/ext/rtree/rtree.c
-index 4e85cc8aec..d0e1dab5bf 100644
+index 299b5b54b9..605c07edfc 100644
 --- a/third_party/sqlite/src/ext/rtree/rtree.c
 +++ b/third_party/sqlite/src/ext/rtree/rtree.c
-@@ -14864,7 +14864,8 @@
+@@ -485,7 +485,8 @@ struct RtreeMatchArg {
  # elif defined(i386)    || defined(__i386__)      || defined(_M_IX86) ||    \
       defined(__x86_64)  || defined(__x86_64__)    || defined(_M_X64)  ||    \
       defined(_M_AMD64)  || defined(_M_ARM)        || defined(__x86)   ||    \
@@ -3595,10 +3610,10 @@ index 4e85cc8aec..d0e1dab5bf 100644
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
 diff --git a/third_party/sqlite/src/src/sqliteInt.h b/third_party/sqlite/src/src/sqliteInt.h
-index b0cdbc199f..b9804a5f4e 100644
+index d98a4f7f06..bf9c1da948 100644
 --- a/third_party/sqlite/src/src/sqliteInt.h
 +++ b/third_party/sqlite/src/src/sqliteInt.h
-@@ -14864,7 +14864,8 @@
+@@ -971,7 +971,8 @@ typedef INT16_TYPE LogEst;
  # elif defined(i386)    || defined(__i386__)      || defined(_M_IX86) ||    \
       defined(__x86_64)  || defined(__x86_64__)    || defined(_M_X64)  ||    \
       defined(_M_AMD64)  || defined(_M_ARM)        || defined(__x86)   ||    \
@@ -3608,46 +3623,6 @@ index b0cdbc199f..b9804a5f4e 100644
  #   define SQLITE_BYTEORDER 1234
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
-diff --git a/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn b/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
-index 59e52303c5..d780239c84 100644
---- a/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
-+++ b/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
-@@ -583,6 +583,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_most") {
-     "llvm/lib/MC/MCAsmInfoCOFF.cpp",
-     "llvm/lib/MC/MCAsmInfoDarwin.cpp",
-     "llvm/lib/MC/MCAsmInfoELF.cpp",
-+    "llvm/lib/MC/MCAsmInfoXCOFF.cpp",
-     "llvm/lib/MC/MCAsmMacro.cpp",
-     "llvm/lib/MC/MCAsmStreamer.cpp",
-     "llvm/lib/MC/MCAssembler.cpp",
-@@ -638,6 +639,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_most") {
-     "llvm/lib/MC/MCWinCOFFStreamer.cpp",
-     "llvm/lib/MC/MCWinEH.cpp",
-     "llvm/lib/MC/MCXCOFFStreamer.cpp",
-+    "llvm/lib/MC/MCXCOFFObjectTargetWriter.cpp",
-     "llvm/lib/MC/MachObjectWriter.cpp",
-     "llvm/lib/MC/StringTableBuilder.cpp",
-     "llvm/lib/MC/SubtargetFeature.cpp",
-diff --git a/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn b/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
-index 13f5cc3658..434610051e 100644
---- a/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
-+++ b/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
-@@ -765,6 +765,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_source_set_0") {
-     "llvm/lib/MC/MCAsmInfoCOFF.cpp",
-     "llvm/lib/MC/MCAsmInfoDarwin.cpp",
-     "llvm/lib/MC/MCAsmInfoELF.cpp",
-+    "llvm/lib/MC/MCAsmInfoXCOFF.cpp",
-     "llvm/lib/MC/MCAsmMacro.cpp",
-     "llvm/lib/MC/MCAsmStreamer.cpp",
-     "llvm/lib/MC/MCAssembler.cpp",
-@@ -825,6 +826,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_source_set_0") {
-     "llvm/lib/MC/MCWinCOFFStreamer.cpp",
-     "llvm/lib/MC/MCWinEH.cpp",
-     "llvm/lib/MC/MCXCOFFStreamer.cpp",
-+    "llvm/lib/MC/MCXCOFFObjectTargetWriter.cpp",
-     "llvm/lib/MC/MachObjectWriter.cpp",
-     "llvm/lib/MC/SPIRVObjectWriter.cpp",
-     "llvm/lib/MC/StringTableBuilder.cpp",
 diff --git a/third_party/webrtc/rtc_base/system/arch.h b/third_party/webrtc/rtc_base/system/arch.h
 index 9d945ef7fc..77da679f62 100644
 --- a/third_party/webrtc/rtc_base/system/arch.h
@@ -3672,21 +3647,21 @@ index 9d945ef7fc..77da679f62 100644
  #error Please add support for your architecture in rtc_base/system/arch.h
  #endif
 diff --git a/ui/gl/features.gni b/ui/gl/features.gni
-index 83266614af..29d3a227d5 100644
+index 245959e908..8d3ffa23f8 100644
 --- a/ui/gl/features.gni
 +++ b/ui/gl/features.gni
-@@ -37,5 +37,5 @@ declare_args() {
-        is_chromeos_ash || is_fuchsia) &&
+@@ -30,5 +30,5 @@ declare_args() {
+        is_fuchsia) &&
        (target_cpu == "x86" || target_cpu == "x64" || target_cpu == "arm" ||
         target_cpu == "arm64" || target_cpu == "mipsel" ||
 -       target_cpu == "mips64el" || target_cpu == "riscv64")
 +       target_cpu == "mips64el" || target_cpu == "riscv64" || target_cpu == "ppc64")
  }
 diff --git a/v8/BUILD.gn b/v8/BUILD.gn
-index 01159bc491..9efb7af9a5 100644
+index 19e0d2b584..4bfbc3c075 100644
 --- a/v8/BUILD.gn
 +++ b/v8/BUILD.gn
-@@ -1340,6 +1340,12 @@ config("toolchain") {
+@@ -1447,6 +1447,12 @@ config("toolchain") {
      }
      if (host_byteorder == "little") {
        defines += [ "V8_TARGET_ARCH_PPC_LE" ]
@@ -3700,7 +3675,7 @@ index 01159bc491..9efb7af9a5 100644
        defines += [ "V8_TARGET_ARCH_PPC_BE" ]
        if (current_os == "aix") {
 diff --git a/v8/test/BUILD.gn b/v8/test/BUILD.gn
-index 6a04cbca45..53ef9f998d 100644
+index 6604cb9631..4cd486f8e9 100644
 --- a/v8/test/BUILD.gn
 +++ b/v8/test/BUILD.gn
 @@ -42,7 +42,7 @@ group("gn_all") {
@@ -3730,15 +3705,5 @@ index 6a04cbca45..53ef9f998d 100644
    ]
  
    if (v8_enable_webassembly) {
---- a/third_party/skia/modules/skcms/src/skcms_internals.h
-+++ b/third_party/skia/modules/skcms/src/skcms_internals.h
-@@ -48,7 +48,8 @@
-                                                  && !defined(__arm__) \
-                                                  && !defined(__riscv) \
-                                                  && !defined(__loongarch__) \
--                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__)
-+                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__) \
-+                                                 && !defined(__powerpc__)
-             #define SKCMS_HAS_MUSTTAIL 1
-         #endif
-     #endif
+-- 
+2.46.2

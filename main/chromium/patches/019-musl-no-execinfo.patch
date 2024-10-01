@@ -66,14 +66,3 @@ for discussion about this, see https://www.openwall.com/lists/musl/2021/07/16/1
  #else
    os << "StackTrace::OutputToStream not implemented.";
 
---- a/base/debug/stack_trace_unittest.cc
-+++ b/base/debug/stack_trace_unittest.cc
-@@ -33,7 +33,7 @@
- typedef testing::Test StackTraceTest;
- #endif
- 
--#if !defined(__UCLIBC__) && !defined(_AIX)
-+#if !defined(__UCLIBC__) && !defined(_AIX) && defined(__GLIBC__)
- // StackTrace::OutputToStream() is not implemented under uclibc, nor AIX.
- // See https://crbug.com/706728
- 
