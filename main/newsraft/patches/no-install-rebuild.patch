@@ -1,0 +1,23 @@
+please use a real build system
+--
+--- a/makefile
++++ b/makefile
+@@ -32,7 +32,7 @@
+ 
+ install: install-newsraft install-man install-examples
+ 
+-install-newsraft: newsraft
++install-newsraft:
+ 	mkdir -p $(DESTDIR)$(BINDIR)
+ 	install -m755 newsraft $(DESTDIR)$(BINDIR)/.
+ 
+--- a/tests/run-check.sh
++++ b/tests/run-check.sh
+@@ -6,7 +6,6 @@
+ 
+ cd "$(dirname "$0")/.."
+ 
+-make clean
+ make CFLAGS='-O3 -fPIC' libnewsraft.so
+ 
+ test -e libnewsraft.so
