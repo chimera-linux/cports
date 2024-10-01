@@ -1,6 +1,6 @@
 pkgname = "opencolorio"
-pkgver = "2.3.2"
-pkgrel = 2
+pkgver = "2.4.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -36,7 +36,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://opencolorio.org"
 source = f"https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6bbf4e7fa4ea2f743a238cb22aff44890425771a2f57f62cece1574e46ceec2f"
+sha256 = "00fc49578abf8435eb041088af44c8c4bcaafbe04021d53d341adcd488aec711"
 
 
 def post_install(self):
