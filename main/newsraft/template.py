@@ -1,5 +1,5 @@
 pkgname = "newsraft"
-pkgver = "0.25"
+pkgver = "0.26"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://codeberg.org/newsraft/newsraft"
 source = f"{url}/archive/newsraft-{pkgver}.tar.gz"
-sha256 = "99e587c8dcd22addd1dbd1f6f3a823af234a941009f016abbbf325ab5a6c44a0"
+sha256 = "4c96ecb5628a14b7acabff4645595326b079ca1a93c2b2cbbd1af03aef1b91ea"
 hardening = ["vis", "cfi"]
 
 
