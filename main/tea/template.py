@@ -1,6 +1,6 @@
 pkgname = "tea"
 pkgver = "0.9.2"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 make_build_args = [
     "-ldflags",

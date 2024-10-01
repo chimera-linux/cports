@@ -1,6 +1,6 @@
 pkgname = "nerdctl"
 pkgver = "1.7.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/nerdctl"]
 hostmakedepends = ["go"]

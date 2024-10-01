@@ -1,6 +1,6 @@
 pkgname = "git-lfs"
 pkgver = "3.5.1"
-pkgrel = 5
+pkgrel = 6
 build_style = "go"
 make_dir = "bin"  # needed for tests
 make_build_args = [

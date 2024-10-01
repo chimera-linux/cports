@@ -1,6 +1,6 @@
 pkgname = "minify"
 pkgver = "2.20.37"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = ["./cmd/minify"]
 hostmakedepends = ["go"]

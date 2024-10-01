@@ -1,8 +1,10 @@
 pkgname = "containerd"
 pkgver = "1.7.22"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = [
+    # invokes go, so slower in parallel since races for cache and overloads threads
+    "-j1",
     "all",
     "man",
     f"REVISION=chimera-r{pkgrel}",
