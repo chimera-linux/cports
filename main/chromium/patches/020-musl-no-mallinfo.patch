@@ -3,32 +3,6 @@ musl does not implement mallinfo()/mallinfo2()
 --
 --- a/base/allocator/partition_allocator/src/partition_alloc/shim/allocator_shim_default_dispatch_to_partition_alloc.cc
 +++ b/base/allocator/partition_allocator/src/partition_alloc/shim/allocator_shim_default_dispatch_to_partition_alloc.cc
-@@ -2,8 +2,6 @@
- // Use of this source code is governed by a BSD-style license that can be
- // found in the LICENSE file.
- 
--#include "partition_alloc/shim/allocator_shim_default_dispatch_to_partition_alloc.h"
--
- #include <atomic>
- #include <cstddef>
- #include <map>
-@@ -25,6 +23,7 @@
- #include "partition_alloc/partition_root.h"
- #include "partition_alloc/partition_stats.h"
- #include "partition_alloc/shim/allocator_dispatch.h"
-+#include "partition_alloc/shim/allocator_shim_default_dispatch_to_partition_alloc.h"
- #include "partition_alloc/shim/allocator_shim_default_dispatch_to_partition_alloc_internal.h"
- #include "partition_alloc/shim/allocator_shim_internals.h"
- 
-@@ -352,7 +351,7 @@ void* PartitionReallocUnchecked(void* address, size_t size, void* context) {
- #if PA_BUILDFLAG(IS_CAST_ANDROID)
- extern "C" {
- void __real_free(void*);
--}       // extern "C"
-+}  // extern "C"
- #endif  // PA_BUILDFLAG(IS_CAST_ANDROID)
- 
- void PartitionFree(void* object, void* context) {
 @@ -646,7 +645,7 @@ SHIM_ALWAYS_EXPORT int mallopt(int cmd, int value) __THROW {
  
  #endif  // !PA_BUILDFLAG(IS_APPLE) && !PA_BUILDFLAG(IS_ANDROID)
@@ -40,45 +14,6 @@ musl does not implement mallinfo()/mallinfo2()
    Allocator()->DumpStats("malloc", true, &allocator_dumper);
 --- a/base/process/process_metrics_posix.cc
 +++ b/base/process/process_metrics_posix.cc
-@@ -2,8 +2,6 @@
- // Use of this source code is governed by a BSD-style license that can be
- // found in the LICENSE file.
- 
--#include "base/process/process_metrics.h"
--
- #include <limits.h>
- #include <stddef.h>
- #include <stdint.h>
-@@ -12,6 +10,7 @@
- 
- #include "base/allocator/buildflags.h"
- #include "base/logging.h"
-+#include "base/process/process_metrics.h"
- #include "build/blink_buildflags.h"
- #include "build/build_config.h"
- 
-@@ -71,8 +70,9 @@ size_t GetMaxFds() {
-     max_fds = nofile.rlim_cur;
-   }
- 
--  if (max_fds > INT_MAX)
-+  if (max_fds > INT_MAX) {
-     max_fds = INT_MAX;
-+  }
- 
-   return static_cast<size_t>(max_fds);
- }
-@@ -90,8 +90,9 @@ void IncreaseFdLimitTo(unsigned int max_descriptors) {
-   struct rlimit limits;
-   if (getrlimit(RLIMIT_NOFILE, &limits) == 0) {
-     rlim_t new_limit = max_descriptors;
--    if (max_descriptors <= limits.rlim_cur)
-+    if (max_descriptors <= limits.rlim_cur) {
-       return;
-+    }
-     if (limits.rlim_max > 0 && limits.rlim_max < max_descriptors) {
-       new_limit = limits.rlim_max;
-     }
 @@ -106,7 +107,8 @@ void IncreaseFdLimitTo(unsigned int max_descriptors) {
  
  #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -103,23 +38,6 @@ diff --git a/base/trace_event/malloc_dump_provider.cc b/base/trace_event/malloc_
 index e37fc69c00..394f5dfdbb 100644
 --- a/base/trace_event/malloc_dump_provider.cc
 +++ b/base/trace_event/malloc_dump_provider.cc
-@@ -7,8 +7,6 @@
- #pragma allow_unsafe_buffers
- #endif
- 
--#include "base/trace_event/malloc_dump_provider.h"
--
- #include <stddef.h>
- 
- #include <unordered_map>
-@@ -19,6 +17,7 @@
- #include "base/metrics/histogram_functions.h"
- #include "base/numerics/safe_conversions.h"
- #include "base/strings/stringprintf.h"
-+#include "base/trace_event/malloc_dump_provider.h"
- #include "base/trace_event/process_memory_dump.h"
- #include "base/trace_event/traced_value.h"
- #include "build/build_config.h"
 @@ -189,7 +188,6 @@ void ReportMallinfoStats(ProcessMemoryDump* pmd,
  #define MALLINFO2_FOUND_IN_LIBC
    struct mallinfo2 info = mallinfo2();
@@ -158,3 +76,13 @@ index 9a4428ec45..07defd5ded 100644
    result.total_allocated_bytes = -1;
    result.in_use_allocated_bytes = -1;
  #elif defined(__GLIBC__) && __GLIBC_MINOR__ >= 33
+--- a/third_party/swiftshader/third_party/llvm-subzero/build/Linux/include/llvm/Config/config.h
++++ b/third_party/swiftshader/third_party/llvm-subzero/build/Linux/include/llvm/Config/config.h
+@@ -133,7 +133,6 @@
+ /* #undef HAVE_MALLCTL */
+ 
+ /* Define to 1 if you have the `mallinfo' function. */
+-#define HAVE_MALLINFO 1
+ 
+ /* Some projects using SwiftShader bypass cmake (eg Chromium via gn) */
+ /* so we need to check glibc version for the new API to be safe */
