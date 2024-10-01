@@ -1,8 +1,15 @@
 pkgname = "xdg-desktop-portal"
 pkgver = "1.18.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-hostmakedepends = ["meson", "pkgconf", "bubblewrap", "glib-devel"]
+hostmakedepends = [
+    "bubblewrap",
+    "gettext",
+    "glib-devel",
+    "meson",
+    "pkgconf",
+    "python-docutils",
+]
 makedepends = [
     "flatpak-devel",
     "fuse-devel",
