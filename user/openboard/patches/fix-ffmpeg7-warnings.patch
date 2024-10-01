@@ -1,0 +1,39 @@
+Patch-Source: https://github.com/OpenBoard-org/OpenBoard/commit/315bcac782e10cc6ceef1fc8b78fff40541ea38f
+--
+From 315bcac782e10cc6ceef1fc8b78fff40541ea38f Mon Sep 17 00:00:00 2001
+From: Vekhir <Vekhir@yahoo.com>
+Date: Tue, 18 Jun 2024 06:20:15 +0200
+Subject: [PATCH] fix: Resolve FFmpeg 7.0 warnings
+
+`avcodec_close` has been discouraged from use since 2.3 and is
+formally deprecated with 7.0. Use `avcodec_free_context` instead.
+
+`avcodec_free_context` takes a double pointer as argument.
+---
+ src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp b/src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp
+index bd25946d8..24451f27a 100644
+--- a/src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp
++++ b/src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp
+@@ -746,11 +746,19 @@ void UBFFmpegVideoEncoder::finishEncoding()
+     av_write_trailer(mOutputFormatContext);
+     avio_close(mOutputFormatContext->pb);
+ 
++#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(61, 3, 100)
+     avcodec_close(mVideoCodecContext);
++#else
++    avcodec_free_context(&mVideoCodecContext);
++#endif
+     sws_freeContext(mSwsContext);
+ 
+     if (mShouldRecordAudio) {
++#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(61, 3, 100)
+         avcodec_close(mAudioCodecContext);
++#else
++        avcodec_free_context(&mAudioCodecContext);
++#endif
+         swr_free(&mSwrContext);
+     }
+ 

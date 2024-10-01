@@ -1,0 +1,47 @@
+Patch-Source: https://github.com/OpenBoard-org/OpenBoard/commit/4f45b6c4016972cf5835f9188bda6197b1b4ed2f
+--
+From 4f45b6c4016972cf5835f9188bda6197b1b4ed2f Mon Sep 17 00:00:00 2001
+From: Vekhir <Vekhir@yahoo.com>
+Date: Tue, 18 Jun 2024 06:18:32 +0200
+Subject: [PATCH] fix: Support FFmpeg 7.0
+
+The `channels` attribute was deprecated for a long time and has finally
+been removed with 7.0.
+Use `ch_layout.nb_channels` which is the recommended alternative.
+---
+ src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp b/src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp
+index b7c3f944c..bd25946d8 100644
+--- a/src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp
++++ b/src/podcast/ffmpeg/UBFFmpegVideoEncoder.cpp
+@@ -520,7 +520,12 @@ bool UBFFmpegVideoEncoder::init()
+         }
+ 
+         // Buffer for resampled/converted audio
+-        mAudioOutBuffer = av_audio_fifo_alloc(c->sample_fmt, c->channels, c->frame_size);
++#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(61, 3, 100)
++        int nb_channels = c->channels;
++#else
++        int nb_channels = c->ch_layout.nb_channels;
++#endif
++        mAudioOutBuffer = av_audio_fifo_alloc(c->sample_fmt, nb_channels, c->frame_size);
+     }
+ 
+ 
+@@ -639,8 +644,13 @@ void UBFFmpegVideoEncoder::processAudio(QByteArray &data)
+     uint8_t ** outSamples = nullptr;
+     int outSamplesLineSize;
+ 
++#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(61, 3, 100)
++    int nb_channels = codecContext->channels;
++#else
++    int nb_channels = codecContext->ch_layout.nb_channels;
++#endif
+     ret = av_samples_alloc_array_and_samples(&outSamples, &outSamplesLineSize,
+-                                             codecContext->channels, outSamplesCount,
++                                             nb_channels, outSamplesCount,
+                                              codecContext->sample_fmt, 0);
+     if (ret < 0) {
+         qWarning() << "Could not allocate audio samples" << avErrorToQString(ret);

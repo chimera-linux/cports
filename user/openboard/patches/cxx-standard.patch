@@ -1,0 +1,41 @@
+Patch-Source: https://github.com/OpenBoard-org/OpenBoard/commit/09c2e2573767d56e6c95277c3f53071f5282cf4a
+--
+From ffeea1b662b012bd25a025f2130fa2c2044919f9 Mon Sep 17 00:00:00 2001
+From: Vekhir <Vekhir@yahoo.com>
+Date: Mon, 13 May 2024 10:58:33 +0200
+Subject: [PATCH] fix: Make CMAKE_CXX_STANDARD a cache variable
+
+poppler 24.05 exposes std::string::starts_with in its headers
+which requires C++20. Requiring C++20 means dropping support
+for still maintained distributions. As such, the C++ standard
+defaults to the current C++17, but can be overridden where
+necessary.
+
+Emit a status message showing the chosen C++ standard for debug
+purposes.
+---
+ CMakeLists.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 97ad4f50f..33a5599b2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -80,7 +80,7 @@ set(OPENBOARD_MIMEICON_FILE resources/linux/ch.openboard.application-ubz.svg)
+ # Basic compiler settings
+ # ==========================================================================
+ 
+-set(CMAKE_CXX_STANDARD 17)
++set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard to use - defaults to C++17")
+ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ set(CMAKE_AUTOMOC ON)
+ set(CMAKE_AUTOUIC ON)
+@@ -89,6 +89,8 @@ list(APPEND CMAKE_AUTOUIC_SEARCH_PATHS
+     ${OPENBOARD_FORMS_DIR}
+ )
+ 
++message(STATUS "Using C++" ${CMAKE_CXX_STANDARD})
++
+ # OpenMP support
+ include(FindOpenMP)
+ 
