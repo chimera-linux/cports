@@ -2,7 +2,8 @@ pkgname = "binsider"
 pkgver = "0.2.0"
 pkgrel = 0
 # inline asm, ppc needs nightly
-archs = ["aarch64", "riscv64", "x86_64"]
+# aarch64 needs a new nix crate release for ptrace::getregs
+archs = ["riscv64", "x86_64"]
 build_style = "cargo"
 make_check_args = ["--lib"]
 hostmakedepends = ["cargo-auditable"]
