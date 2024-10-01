@@ -70,8 +70,10 @@ jobs:
 
       - name: Build and test packages
         run: python3.12 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
-      - uses: actions/cache/save@v4
-        if: always()
+
+      - name: Save cbuild cache
+        uses: actions/cache/save@v4
+        if: ${{ !cancelled() }}
         with:
           path: |
             ./cbuild_cache
