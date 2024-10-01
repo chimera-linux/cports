@@ -1,0 +1,926 @@
+From 290d009f7b35d6af9bf5b5b80d113f5db6a04274 Mon Sep 17 00:00:00 2001
+From: Philippe Normand <philn@igalia.com>
+Date: Thu, 26 Sep 2024 04:37:19 -0700
+Subject: [PATCH] [WPE][GTK] Speech synthesis using libspiel
+ https://bugs.webkit.org/show_bug.cgi?id=270742
+
+Reviewed by Xabier Rodriguez-Calvar.
+
+Spiel's API is much nicer than Flite's, being directly inspired from WebSpeech. So the speech
+synthesis is now handled with Spiel in the WPE and GTK ports. The feature is also enabled by
+default. A couple layout tests relying on the presence of voice providers in the SDK had to be
+flagged, because the SDK doesn't ship any voice provider yet.
+
+* Source/WebCore/PlatformGTK.cmake:
+* Source/WebCore/PlatformWPE.cmake:
+* Source/WebCore/platform/PlatformSpeechSynthesizer.h:
+* Source/WebCore/platform/SourcesGStreamer.txt:
+* Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.cpp:
+(WebCore::registerWebKitGStreamerElements):
+* Source/WebCore/platform/gstreamer/PlatformSpeechSynthesizerGStreamer.cpp: Removed.
+* Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.cpp: Removed.
+* Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.h: Removed.
+* Source/WebCore/platform/spiel/PlatformSpeechSynthesizerSpiel.cpp: Added.
+(WebCore::SpielSpeechWrapper::SpielSpeechWrapper):
+(WebCore::SpielSpeechWrapper::~SpielSpeechWrapper):
+(WebCore::SpielSpeechWrapper::initializeVoiceList):
+(WebCore::SpielSpeechWrapper::pause):
+(WebCore::SpielSpeechWrapper::resume):
+(WebCore::SpielSpeechWrapper::speakUtterance):
+(WebCore::SpielSpeechWrapper::cancel):
+(WebCore::SpielSpeechWrapper::resetState):
+(WebCore::PlatformSpeechSynthesizer::create):
+(WebCore::PlatformSpeechSynthesizer::PlatformSpeechSynthesizer):
+(WebCore::PlatformSpeechSynthesizer::initializeVoiceList):
+(WebCore::PlatformSpeechSynthesizer::pause):
+(WebCore::PlatformSpeechSynthesizer::resume):
+(WebCore::PlatformSpeechSynthesizer::speak):
+(WebCore::PlatformSpeechSynthesizer::cancel):
+(WebCore::PlatformSpeechSynthesizer::resetState):
+* Source/cmake/FindLibSpiel.cmake: Added.
+* Source/cmake/OptionsGTK.cmake:
+* Source/cmake/OptionsWPE.cmake:
+
+Canonical link: https://commits.webkit.org/284276@main
+---
+ LayoutTests/platform/glib/TestExpectations    |   7 +-
+ Source/WebCore/PlatformGTK.cmake              |   9 +-
+ Source/WebCore/PlatformWPE.cmake              |   9 +-
+ .../platform/PlatformSpeechSynthesizer.h      |  16 +-
+ Source/WebCore/platform/SourcesGStreamer.txt  |   2 -
+ .../graphics/gstreamer/GStreamerCommon.cpp    |   8 -
+ .../PlatformSpeechSynthesizerGStreamer.cpp    | 268 ---------------
+ .../gstreamer/WebKitFliteSourceGStreamer.cpp  | 275 ----------------
+ .../gstreamer/WebKitFliteSourceGStreamer.h    |  40 ---
+ .../spiel/PlatformSpeechSynthesizerSpiel.cpp  | 308 ++++++++++++++++++
+ Source/cmake/FindLibSpiel.cmake               |  67 ++++
+ Source/cmake/OptionsGTK.cmake                 |   9 +-
+ Source/cmake/OptionsWPE.cmake                 |   9 +-
+ 13 files changed, 410 insertions(+), 617 deletions(-)
+ delete mode 100644 Source/WebCore/platform/gstreamer/PlatformSpeechSynthesizerGStreamer.cpp
+ delete mode 100644 Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.cpp
+ delete mode 100644 Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.h
+ create mode 100644 Source/WebCore/platform/spiel/PlatformSpeechSynthesizerSpiel.cpp
+ create mode 100644 Source/cmake/FindLibSpiel.cmake
+
+diff --git a/Source/WebCore/PlatformGTK.cmake b/Source/WebCore/PlatformGTK.cmake
+index 5435827e5a0ec..5aafc4743aaba 100644
+--- a/Source/WebCore/PlatformGTK.cmake
++++ b/Source/WebCore/PlatformGTK.cmake
+@@ -120,12 +120,15 @@ if (ENABLE_BUBBLEWRAP_SANDBOX)
+     list(APPEND WebCore_LIBRARIES Libseccomp::Libseccomp)
+ endif ()
+ 
+-if (ENABLE_SPEECH_SYNTHESIS)
++if (USE_SPIEL)
++    list(APPEND WebCore_SOURCES
++        platform/spiel/PlatformSpeechSynthesizerSpiel.cpp
++    )
+     list(APPEND WebCore_SYSTEM_INCLUDE_DIRECTORIES
+-        ${Flite_INCLUDE_DIRS}
++        ${SPIEL_INCLUDE_DIRS}
+     )
+     list(APPEND WebCore_LIBRARIES
+-        ${Flite_LIBRARIES}
++        LibSpiel::LibSpiel
+     )
+ endif ()
+ 
+diff --git a/Source/WebCore/platform/PlatformSpeechSynthesizer.h b/Source/WebCore/platform/PlatformSpeechSynthesizer.h
+index acc3dd9820329..552f09497045e 100644
+--- a/Source/WebCore/platform/PlatformSpeechSynthesizer.h
++++ b/Source/WebCore/platform/PlatformSpeechSynthesizer.h
+@@ -23,8 +23,7 @@
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  */
+ 
+-#ifndef PlatformSpeechSynthesizer_h
+-#define PlatformSpeechSynthesizer_h
++#pragma once
+ 
+ #if ENABLE(SPEECH_SYNTHESIS)
+ 
+@@ -40,14 +39,15 @@ OBJC_CLASS WebSpeechSynthesisWrapper;
+ 
+ namespace WebCore {
+ 
++#if USE(SPIEL)
++class SpielSpeechWrapper;
++#endif
++
+ enum class SpeechBoundary : uint8_t {
+     SpeechWordBoundary,
+     SpeechSentenceBoundary
+ };
+ 
+-#if USE(GSTREAMER)
+-class GstSpeechSynthesisWrapper;
+-#endif
+ class PlatformSpeechSynthesisUtterance;
+ 
+ class PlatformSpeechSynthesizerClient {
+@@ -95,13 +95,11 @@ class WEBCORE_EXPORT PlatformSpeechSynthesizer : public RefCounted<PlatformSpeec
+ 
+ #if PLATFORM(COCOA)
+     RetainPtr<WebSpeechSynthesisWrapper> m_platformSpeechWrapper;
+-#elif USE(GSTREAMER)
+-    std::unique_ptr<GstSpeechSynthesisWrapper> m_platformSpeechWrapper { nullptr };
++#elif USE(SPIEL)
++    std::unique_ptr<SpielSpeechWrapper> m_platformSpeechWrapper;
+ #endif
+ };
+ 
+ } // namespace WebCore
+ 
+ #endif // ENABLE(SPEECH_SYNTHESIS)
+-
+-#endif // PlatformSpeechSynthesizer_h
+diff --git a/Source/WebCore/platform/SourcesGStreamer.txt b/Source/WebCore/platform/SourcesGStreamer.txt
+index 61ef98b9e98cb..e08e858a0e476 100644
+--- a/Source/WebCore/platform/SourcesGStreamer.txt
++++ b/Source/WebCore/platform/SourcesGStreamer.txt
+@@ -108,9 +108,7 @@ platform/gstreamer/GStreamerQuirkRealtek.cpp
+ platform/gstreamer/GStreamerQuirkRialto.cpp
+ platform/gstreamer/GStreamerQuirkWesteros.cpp
+ platform/gstreamer/GStreamerQuirks.cpp
+-platform/gstreamer/PlatformSpeechSynthesizerGStreamer.cpp
+ platform/gstreamer/VideoEncoderPrivateGStreamer.cpp @no-unify
+-platform/gstreamer/WebKitFliteSourceGStreamer.cpp @no-unify
+ 
+ platform/mediarecorder/MediaRecorderPrivateGStreamer.cpp
+ 
+diff --git a/Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.cpp b/Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.cpp
+index 3525d5fc25db3..005cb6f976f83 100644
+--- a/Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.cpp
++++ b/Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.cpp
+@@ -69,10 +69,6 @@
+ #include "GStreamerMediaStreamSource.h"
+ #endif
+ 
+-#if ENABLE(SPEECH_SYNTHESIS)
+-#include "WebKitFliteSourceGStreamer.h"
+-#endif
+-
+ #if ENABLE(ENCRYPTED_MEDIA) && ENABLE(THUNDER)
+ #include "CDMThunder.h"
+ #include "WebKitThunderDecryptorGStreamer.h"
+@@ -387,10 +383,6 @@ void registerWebKitGStreamerElements()
+         gst_element_register(nullptr, "webkitmediasrc", GST_RANK_PRIMARY, WEBKIT_TYPE_MEDIA_SRC);
+ #endif
+ 
+-#if ENABLE(SPEECH_SYNTHESIS)
+-        gst_element_register(nullptr, "webkitflitesrc", GST_RANK_NONE, WEBKIT_TYPE_FLITE_SRC);
+-#endif
+-
+ #if ENABLE(VIDEO)
+         gst_element_register(0, "webkitwebsrc", GST_RANK_PRIMARY + 100, WEBKIT_TYPE_WEB_SRC);
+         gst_element_register(0, "webkitdmabufvideosink", GST_RANK_NONE, WEBKIT_TYPE_DMABUF_VIDEO_SINK);
+diff --git a/Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.cpp b/Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.cpp
+deleted file mode 100644
+index 1cc9b42912579..0000000000000
+--- a/Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.cpp
++++ /dev/null
+@@ -1,275 +0,0 @@
+-/*
+- *  Copyright (C) 2023 Igalia, S.L
+- *
+- *  This library is free software; you can redistribute it and/or
+- *  modify it under the terms of the GNU Lesser General Public
+- *  License as published by the Free Software Foundation; either
+- *  version 2 of the License, or (at your option) any later version.
+- *
+- *  This library is distributed in the hope that it will be useful,
+- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- *  Lesser General Public License for more details.
+- *
+- *  You should have received a copy of the GNU Lesser General Public
+- *  License along with this library; if not, write to the Free Software
+- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+- */
+-
+-#include "config.h"
+-#include "WebKitFliteSourceGStreamer.h"
+-
+-#if ENABLE(SPEECH_SYNTHESIS) && USE(GSTREAMER)
+-
+-#include "GStreamerCommon.h"
+-#include "GUniquePtrFlite.h"
+-#include "PlatformSpeechSynthesisVoice.h"
+-#include <wtf/DataMutex.h>
+-#include <wtf/glib/WTFGType.h>
+-
+-extern "C" {
+-/* There is no header for Flite functions below */
+-extern void usenglish_init(cst_voice*);
+-extern cst_lexicon* cmulex_init(void);
+-extern cst_voice* register_cmu_us_kal(const char*);
+-extern cst_voice* register_cmu_us_awb(const char*);
+-extern cst_voice* register_cmu_us_rms(const char*);
+-extern cst_voice* register_cmu_us_slt(const char*);
+-}
+-
+-using namespace WebCore;
+-
+-typedef struct _WebKitFliteSrcClass WebKitFliteSrcClass;
+-typedef struct _WebKitFliteSrcPrivate WebKitFliteSrcPrivate;
+-
+-#define WEBKIT_FLITE_SRC_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), WEBKIT_TYPE_FLITE_SRC, WebKitFliteSrcClass))
+-#define WEBKIT_IS_FLITE_SRC(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), WEBKIT_TYPE_FLITE_SRC))
+-#define WEBKIT_IS_FLITE_SRC_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), WEBKIT_TYPE_FLITE_SRC))
+-
+-struct _WebKitFliteSrcClass {
+-    GstBaseSrcClass parentClass;
+-};
+-
+-struct _WebKitFliteSrc {
+-    GstBaseSrc parent;
+-    WebKitFliteSrcPrivate* priv;
+-};
+-
+-struct _WebKitFliteSrcPrivate {
+-    struct StreamingMembers {
+-        bool didLoadUtterance;
+-        GRefPtr<GstAdapter> adapter;
+-    };
+-    DataMutex<StreamingMembers> dataMutex;
+-
+-    GstAudioInfo info;
+-    String text;
+-    cst_voice* currentVoice;
+-};
+-
+-GType webkit_flite_src_get_type(void);
+-
+-GST_DEBUG_CATEGORY_STATIC(webkit_flite_src_debug);
+-#define GST_CAT_DEFAULT webkit_flite_src_debug
+-
+-#define DEFAULT_SAMPLES_PER_BUFFER 1024
+-
+-static GstStaticPadTemplate srcTemplate = GST_STATIC_PAD_TEMPLATE("src",
+-    GST_PAD_SRC,
+-    GST_PAD_ALWAYS,
+-    GST_STATIC_CAPS("audio/x-raw, "
+-        "format = (string) " GST_AUDIO_NE(S16) ", "
+-        "layout = (string) interleaved, "
+-        "rate = (int) 48000, " "channels = (int) [1, 8]")
+-);
+-
+-#define webkit_flite_src_parent_class parent_class
+-WEBKIT_DEFINE_TYPE_WITH_CODE(WebKitFliteSrc, webkit_flite_src, GST_TYPE_BASE_SRC,
+-    GST_DEBUG_CATEGORY_INIT(webkit_flite_src_debug, "webkitflitesrc", 0, "flitesrc element"));
+-
+-// To add more voices, add voice register functions here.
+-using VoiceRegisterFunction = Function<cst_voice*(const char*)>;
+-static VoiceRegisterFunction voiceRegisterFunctions[] = {
+-    register_cmu_us_kal,
+-    register_cmu_us_slt,
+-    register_cmu_us_rms,
+-    register_cmu_us_awb,
+-};
+-
+-static void webkitFliteSrcReset(WebKitFliteSrc* src)
+-{
+-    WebKitFliteSrcPrivate* priv = src->priv;
+-
+-    DataMutexLocker members { priv->dataMutex };
+-    gst_adapter_clear(members->adapter.get());
+-    members->didLoadUtterance = false;
+-}
+-
+-static void webkitFliteSrcConstructed(GObject* object)
+-{
+-    GST_CALL_PARENT(G_OBJECT_CLASS, constructed, (object));
+-
+-    WebKitFliteSrc* src = WEBKIT_FLITE_SRC(object);
+-    WebKitFliteSrcPrivate* priv = src->priv;
+-
+-    /* We operate in time */
+-    gst_base_src_set_format(GST_BASE_SRC(src), GST_FORMAT_TIME);
+-    gst_base_src_set_blocksize(GST_BASE_SRC(src), -1);
+-    gst_base_src_set_automatic_eos(GST_BASE_SRC(src), FALSE);
+-
+-    DataMutexLocker members { priv->dataMutex };
+-    members->adapter = adoptGRef(gst_adapter_new());
+-
+-    // Some website does not call initializeVoiceList(), so we ensure flite voices initialized here.
+-    ensureFliteVoicesInitialized();
+-}
+-
+-static gboolean webkitFliteSrcStart(GstBaseSrc* baseSource)
+-{
+-    WebKitFliteSrc* src = WEBKIT_FLITE_SRC(baseSource);
+-    WebKitFliteSrcPrivate* priv = src->priv;
+-
+-    if (priv->text.isEmpty() || !priv->currentVoice) {
+-        GST_ERROR_OBJECT(src, "No utterance provided.");
+-        return FALSE;
+-    }
+-    return TRUE;
+-}
+-
+-static gboolean webkitFliteSrcStop(GstBaseSrc* baseSource)
+-{
+-    WebKitFliteSrc* src = WEBKIT_FLITE_SRC(baseSource);
+-    webkitFliteSrcReset(src);
+-    return TRUE;
+-}
+-
+-static GstFlowReturn webkitFliteSrcCreate(GstBaseSrc* baseSource, guint64 offset, guint length, GstBuffer** buffer)
+-{
+-    UNUSED_PARAM(offset);
+-    UNUSED_PARAM(length);
+-
+-    WebKitFliteSrc* src = WEBKIT_FLITE_SRC(baseSource);
+-    WebKitFliteSrcPrivate* priv = src->priv;
+-
+-    gsize bytes = DEFAULT_SAMPLES_PER_BUFFER * sizeof(gint16) * priv->info.channels;
+-    DataMutexLocker members { priv->dataMutex };
+-    if (!members->didLoadUtterance) {
+-        members->didLoadUtterance = true;
+-
+-        GUniquePtr<cst_wave> wave(flite_text_to_wave(priv->text.utf8().data(), priv->currentVoice));
+-        cst_wave_resample(wave.get(), priv->info.rate);
+-
+-        gsize bufferSize = priv->info.channels * sizeof(gint16) * wave->num_samples;
+-        GRefPtr<GstBuffer> buf = adoptGRef(gst_buffer_new_allocate(nullptr, bufferSize, nullptr));
+-        GstMappedBuffer map(buf, GST_MAP_WRITE);
+-        gint16* data = reinterpret_cast<gint16*>(map.data());
+-        memset(data, 0, bufferSize);
+-        for (int i = 0; i < wave->num_samples; i++)
+-            data[i * priv->info.channels] = wave->samples[i];
+-
+-        gst_adapter_push(members->adapter.get(), buf.leakRef());
+-    }
+-
+-    size_t queueSize = gst_adapter_available(members->adapter.get());
+-    if (members->didLoadUtterance && !queueSize)
+-        return GST_FLOW_EOS;
+-
+-    *buffer = gst_adapter_take_buffer(members->adapter.get(), std::min(queueSize, bytes));
+-    return GST_FLOW_OK;
+-}
+-
+-static gboolean webkitFliteSrcSetCaps(GstBaseSrc* baseSource, GstCaps* caps)
+-{
+-    WebKitFliteSrc* src = WEBKIT_FLITE_SRC(baseSource);
+-    WebKitFliteSrcPrivate* priv = src->priv;
+-
+-    gst_audio_info_init(&priv->info);
+-    if (!gst_audio_info_from_caps(&priv->info, caps)) {
+-        GST_ERROR_OBJECT(src, "Invalid caps");
+-        return FALSE;
+-    }
+-
+-    return TRUE;
+-}
+-
+-static void webkit_flite_src_class_init(WebKitFliteSrcClass* klass)
+-{
+-    GObjectClass* objectClass = G_OBJECT_CLASS(klass);
+-    objectClass->constructed = webkitFliteSrcConstructed;
+-
+-    GstElementClass* elementClass = GST_ELEMENT_CLASS(klass);
+-    gst_element_class_add_static_pad_template(elementClass, &srcTemplate);
+-    gst_element_class_set_static_metadata(elementClass,
+-        "WebKit WebSpeech GstFlite source element", "Source",
+-        "Handles WebSpeech data from WebCore",
+-        "ChangSeok Oh <changseok@webkit.org>");
+-
+-    GstBaseSrcClass* baseSrcClass = GST_BASE_SRC_CLASS(klass);
+-    baseSrcClass->start = GST_DEBUG_FUNCPTR(webkitFliteSrcStart);
+-    baseSrcClass->stop = GST_DEBUG_FUNCPTR(webkitFliteSrcStop);
+-    baseSrcClass->create = GST_DEBUG_FUNCPTR(webkitFliteSrcCreate);
+-    baseSrcClass->set_caps = GST_DEBUG_FUNCPTR(webkitFliteSrcSetCaps);
+-}
+-
+-static Vector<GUniquePtr<cst_voice>>& fliteVoices()
+-{
+-    static Vector<GUniquePtr<cst_voice>> voices;
+-    static std::once_flag onceFlag;
+-    std::call_once(onceFlag, [] {
+-        const unsigned voiceRegisterFunctionCount = sizeof(voiceRegisterFunctions) / sizeof(VoiceRegisterFunction);
+-        for (unsigned i = 0; i < voiceRegisterFunctionCount; ++i) {
+-            GUniquePtr<cst_voice> voice(voiceRegisterFunctions[i](nullptr));
+-            voices.append(WTFMove(voice));
+-        }
+-    });
+-    return voices;
+-}
+-
+-static cst_voice* fliteVoice(const char* name)
+-{
+-    if (!name)
+-        return nullptr;
+-
+-    for (auto& voice : fliteVoices()) {
+-        if (String::fromUTF8(voice->name) == String::fromUTF8(name))
+-            return voice.get();
+-    }
+-
+-    return nullptr;
+-}
+-
+-Vector<Ref<PlatformSpeechSynthesisVoice>>& ensureFliteVoicesInitialized()
+-{
+-    static Vector<Ref<PlatformSpeechSynthesisVoice>> voiceList;
+-    static std::once_flag onceFlag;
+-    std::call_once(onceFlag, [] {
+-        flite_init();
+-
+-        flite_add_lang("eng", usenglish_init, cmulex_init);
+-        flite_add_lang("usenglish", usenglish_init, cmulex_init);
+-
+-        for (auto& voice : fliteVoices())
+-            voiceList.append(PlatformSpeechSynthesisVoice::create(""_s, String::fromUTF8(voice->name), "en-US"_s, false, false));
+-        voiceList[0]->setIsDefault(true);
+-    });
+-    return voiceList;
+-}
+-
+-void webKitFliteSrcSetUtterance(WebKitFliteSrc* src, const PlatformSpeechSynthesisVoice* platformSpeechSynthesisVoice, const String& text)
+-{
+-    WebKitFliteSrcPrivate* priv = src->priv;
+-
+-    ASSERT(!fliteVoices().isEmpty());
+-
+-    cst_voice* voice = nullptr;
+-    if (platformSpeechSynthesisVoice && !platformSpeechSynthesisVoice->name().isEmpty())
+-        voice = fliteVoice(platformSpeechSynthesisVoice->name().utf8().data());
+-
+-    // We use the first registered voice as default, where no voice is specified.
+-    priv->currentVoice = voice ? voice : fliteVoices()[0].get();
+-    priv->text = text;
+-}
+-
+-#undef GST_CAT_DEFAULT
+-
+-#endif // ENABLE(SPEECH_SYNTHESIS) && USE(GSTREAMER)
+diff --git a/Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.h b/Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.h
+deleted file mode 100644
+index 77c2664937b1a..0000000000000
+--- a/Source/WebCore/platform/gstreamer/WebKitFliteSourceGStreamer.h
++++ /dev/null
+@@ -1,40 +0,0 @@
+-/*
+- *  Copyright (C) 2023 Igalia S.L
+- *
+- *  This library is free software; you can redistribute it and/or
+- *  modify it under the terms of the GNU Lesser General Public
+- *  License as published by the Free Software Foundation; either
+- *  version 2 of the License, or (at your option) any later version.
+- *
+- *  This library is distributed in the hope that it will be useful,
+- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- *  Lesser General Public License for more details.
+- *
+- *  You should have received a copy of the GNU Lesser General Public
+- *  License along with this library; if not, write to the Free Software
+- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+- */
+-
+-#pragma once
+-
+-#if ENABLE(SPEECH_SYNTHESIS) && USE(GSTREAMER)
+-
+-#include <gst/gst.h>
+-#include <wtf/Forward.h>
+-
+-namespace WebCore {
+-class PlatformSpeechSynthesisVoice;
+-}
+-
+-#define WEBKIT_TYPE_FLITE_SRC (webkit_flite_src_get_type())
+-#define WEBKIT_FLITE_SRC(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), WEBKIT_TYPE_FLITE_SRC, WebKitFliteSrc))
+-
+-typedef struct _WebKitFliteSrc WebKitFliteSrc;
+-
+-GType webkit_flite_src_get_type();
+-
+-Vector<Ref<WebCore::PlatformSpeechSynthesisVoice>>& ensureFliteVoicesInitialized();
+-void webKitFliteSrcSetUtterance(WebKitFliteSrc*, const WebCore::PlatformSpeechSynthesisVoice*, const String&);
+-
+-#endif // ENABLE(SPEECH_SYNTHESIS) && USE(GSTREAMER)
+diff --git a/Source/WebCore/platform/spiel/PlatformSpeechSynthesizerSpiel.cpp b/Source/WebCore/platform/spiel/PlatformSpeechSynthesizerSpiel.cpp
+new file mode 100644
+index 0000000000000..6afa739b5b2e2
+--- /dev/null
++++ b/Source/WebCore/platform/spiel/PlatformSpeechSynthesizerSpiel.cpp
+@@ -0,0 +1,308 @@
++/*
++ * Copyright (C) 2024 Igalia S.L. All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY APPLE INC. AND ITS CONTRIBUTORS ``AS IS''
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
++ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
++ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL APPLE INC. OR ITS CONTRIBUTORS
++ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include "config.h"
++#include "PlatformSpeechSynthesizer.h"
++
++#if ENABLE(SPEECH_SYNTHESIS) && USE(SPIEL)
++
++#include "GStreamerCommon.h"
++#include "PlatformSpeechSynthesisUtterance.h"
++#include "PlatformSpeechSynthesisVoice.h"
++#include "WebKitAudioSinkGStreamer.h"
++#include <spiel/spiel.h>
++#include <wtf/TZoneMallocInlines.h>
++#include <wtf/text/MakeString.h>
++
++namespace WebCore {
++
++#define URI_PREFIX "urn:webkit-tts:spiel:"_s
++
++GST_DEBUG_CATEGORY(webkit_spiel_debug);
++#define GST_CAT_DEFAULT webkit_spiel_debug
++
++class SpielSpeechWrapper {
++    WTF_MAKE_TZONE_ALLOCATED_INLINE(SpielSpeechWrapper);
++    WTF_MAKE_NONCOPYABLE(SpielSpeechWrapper);
++public:
++    explicit SpielSpeechWrapper(const PlatformSpeechSynthesizer&, Function<void()>&&);
++    ~SpielSpeechWrapper();
++
++    Vector<RefPtr<PlatformSpeechSynthesisVoice>> initializeVoiceList();
++    void pause();
++    void resume();
++    void speakUtterance(RefPtr<PlatformSpeechSynthesisUtterance>&&);
++    void cancel();
++    void clearUtterance();
++
++private:
++    void finishSpeakerInitialization();
++    String generateVoiceURI(const GRefPtr<SpielVoice>&, const String& language);
++
++    const PlatformSpeechSynthesizer& m_platformSynthesizer;
++    Function<void()> m_speakerCreatedCallback;
++    GRefPtr<GstElement> m_sink;
++    GRefPtr<SpielSpeaker> m_speaker;
++    HashMap<String, GRefPtr<SpielVoice>> m_voices;
++    RefPtr<PlatformSpeechSynthesisUtterance> m_utterance;
++};
++
++SpielSpeechWrapper::SpielSpeechWrapper(const PlatformSpeechSynthesizer& synthesizer, Function<void()>&& speakerCreatedCallback)
++    : m_platformSynthesizer(synthesizer)
++    , m_speakerCreatedCallback(WTFMove(speakerCreatedCallback))
++{
++    ensureGStreamerInitialized();
++    registerWebKitGStreamerElements();
++
++    static std::once_flag debugRegisteredFlag;
++    std::call_once(debugRegisteredFlag, [] {
++        GST_DEBUG_CATEGORY_INIT(webkit_spiel_debug, "webkitspiel", 0, "WebKit Spiel");
++    });
++
++    m_sink = createPlatformAudioSink("speech"_s);
++    if (!m_sink) {
++        GST_ERROR("Failed to create GStreamer audio sink element");
++        return;
++    }
++
++    spiel_speaker_new(nullptr, [](GObject*, GAsyncResult* result, gpointer userData) {
++        auto self = reinterpret_cast<SpielSpeechWrapper*>(userData);
++        GUniqueOutPtr<GError> error;
++        self->m_speaker = adoptGRef(spiel_speaker_new_finish(result, &error.outPtr()));
++        if (error) {
++            WTFLogAlways("Spiel speaker failed to initialize: %s", error->message);
++            GST_ERROR("Spiel speaker failed to initialize: %s", error->message);
++            return;
++        }
++        self->finishSpeakerInitialization();
++    }, this);
++}
++
++void SpielSpeechWrapper::finishSpeakerInitialization()
++{
++    g_object_set(m_speaker.get(), "sink", m_sink.get(), nullptr);
++
++    // TODO: Plumb support for boundaryEventOccurred? Using range-started signal?
++
++    g_signal_connect_swapped(m_speaker.get(), "utterance-started", G_CALLBACK(+[](SpielSpeechWrapper* self, SpielUtterance*) {
++        self->m_platformSynthesizer.client().didStartSpeaking(*self->m_utterance);
++    }), this);
++
++    g_signal_connect_swapped(m_speaker.get(), "utterance-finished", G_CALLBACK(+[](SpielSpeechWrapper* self, SpielUtterance*) {
++        self->m_platformSynthesizer.client().didFinishSpeaking(*self->m_utterance);
++        self->clearUtterance();
++    }), this);
++
++    g_signal_connect_swapped(m_speaker.get(), "utterance-canceled", G_CALLBACK(+[](SpielSpeechWrapper* self, SpielUtterance*) {
++        self->m_platformSynthesizer.client().didFinishSpeaking(*self->m_utterance);
++        self->clearUtterance();
++    }), this);
++
++    g_signal_connect_swapped(m_speaker.get(), "utterance-error", G_CALLBACK(+[](SpielSpeechWrapper* self, SpielUtterance*) {
++        self->m_platformSynthesizer.client().speakingErrorOccurred(*self->m_utterance);
++        self->clearUtterance();
++    }), this);
++
++    g_signal_connect_swapped(m_speaker.get(), "notify::paused", G_CALLBACK(+[](SpielSpeechWrapper* self, SpielSpeaker* speaker) {
++        gboolean isPaused;
++        g_object_get(speaker, "paused", &isPaused, nullptr);
++        if (isPaused)
++            self->m_platformSynthesizer.client().didPauseSpeaking(*self->m_utterance);
++        else
++            self->m_platformSynthesizer.client().didResumeSpeaking(*self->m_utterance);
++    }), this);
++
++    g_signal_connect_swapped(m_speaker.get(), "notify::voices", G_CALLBACK(+[](SpielSpeechWrapper* self, SpielSpeaker*) {
++        self->m_platformSynthesizer.client().voicesDidChange();
++    }), this);
++
++    m_speakerCreatedCallback();
++}
++
++SpielSpeechWrapper::~SpielSpeechWrapper()
++{
++    if (m_speaker)
++        g_signal_handlers_disconnect_by_data(m_speaker.get(), this);
++}
++
++String SpielSpeechWrapper::generateVoiceURI(const GRefPtr<SpielVoice>& voice, const String& language)
++{
++    auto provider = adoptGRef(spiel_voice_get_provider(voice.get()));
++    return makeString(URI_PREFIX, span(spiel_provider_get_well_known_name(provider.get())), '#', span(spiel_voice_get_identifier(voice.get())), '#', language);
++}
++
++Vector<RefPtr<PlatformSpeechSynthesisVoice>> SpielSpeechWrapper::initializeVoiceList()
++{
++    Vector<RefPtr<PlatformSpeechSynthesisVoice>> platformVoices;
++    auto voices = spiel_speaker_get_voices(m_speaker.get());
++    unsigned position = 0;
++    m_voices.clear();
++    while (auto item = g_list_model_get_item(voices, position++)) {
++        auto voice = SPIEL_VOICE(item);
++        auto name = makeString(span(spiel_voice_get_name(voice)));
++        const char* const* languages = spiel_voice_get_languages(voice);
++        for (unsigned i = 0; i < G_N_ELEMENTS(languages); i++) {
++            auto language = makeString(span(languages[i]));
++            bool isDefault = !i;
++            auto uri = generateVoiceURI(voice, language);
++            platformVoices.append(PlatformSpeechSynthesisVoice::create(uri, name, language, false, isDefault));
++            m_voices.add(uri, GRefPtr(voice));
++        }
++    }
++    return platformVoices;
++}
++
++void SpielSpeechWrapper::pause()
++{
++    if (!m_utterance)
++        return;
++
++    spiel_speaker_pause(m_speaker.get());
++}
++
++void SpielSpeechWrapper::resume()
++{
++    if (!m_utterance)
++        return;
++
++    spiel_speaker_resume(m_speaker.get());
++}
++
++void SpielSpeechWrapper::speakUtterance(RefPtr<PlatformSpeechSynthesisUtterance>&& utterance)
++{
++    ASSERT(!m_utterance);
++    ASSERT(utterance);
++    if (!utterance) {
++        GST_ERROR("Utterance is null");
++        ASSERT_NOT_REACHED();
++        return;
++    }
++
++    if (!utterance->voice()) {
++        m_platformSynthesizer.client().didFinishSpeaking(*utterance);
++        return;
++    }
++
++    const auto& uri = utterance->voice()->voiceURI();
++    if (!m_voices.contains(uri)) {
++        GST_ERROR("Unknown voice URI: %s", uri.utf8().data());
++        ASSERT_NOT_REACHED();
++        return;
++    }
++
++    // TODO: Detect whether the utterance text is XML and enable SSML if that is the case.
++    auto voice = m_voices.get(uri);
++    auto spielUtterance = adoptGRef(spiel_utterance_new(utterance->text().utf8().data()));
++    spiel_utterance_set_language(spielUtterance.get(), utterance->lang().utf8().data());
++    spiel_utterance_set_voice(spielUtterance.get(), voice);
++    spiel_utterance_set_volume(spielUtterance.get(), utterance->volume());
++    spiel_utterance_set_pitch(spielUtterance.get(), utterance->pitch());
++    spiel_utterance_set_rate(spielUtterance.get(), utterance->rate());
++    m_utterance = WTFMove(utterance);
++    spiel_speaker_speak(m_speaker.get(), spielUtterance.get());
++}
++
++void SpielSpeechWrapper::cancel()
++{
++    if (!m_utterance)
++        return;
++
++    spiel_speaker_cancel(m_speaker.get());
++}
++
++void SpielSpeechWrapper::clearUtterance()
++{
++    m_utterance = nullptr;
++}
++
++Ref<PlatformSpeechSynthesizer> PlatformSpeechSynthesizer::create(PlatformSpeechSynthesizerClient& client)
++{
++    return adoptRef(*new PlatformSpeechSynthesizer(client));
++}
++
++PlatformSpeechSynthesizer::PlatformSpeechSynthesizer(PlatformSpeechSynthesizerClient& client)
++    : m_speechSynthesizerClient(client)
++{
++}
++
++PlatformSpeechSynthesizer::~PlatformSpeechSynthesizer() = default;
++
++void PlatformSpeechSynthesizer::initializeVoiceList()
++{
++    if (!m_platformSpeechWrapper) {
++        m_platformSpeechWrapper = makeUnique<SpielSpeechWrapper>(*this, [&] {
++            m_voiceList = m_platformSpeechWrapper->initializeVoiceList();
++            client().voicesDidChange();
++        });
++        return;
++    }
++    m_voiceList = m_platformSpeechWrapper->initializeVoiceList();
++}
++
++void PlatformSpeechSynthesizer::pause()
++{
++    if (!m_platformSpeechWrapper)
++        return;
++    m_platformSpeechWrapper->pause();
++}
++
++void PlatformSpeechSynthesizer::resume()
++{
++    if (!m_platformSpeechWrapper)
++        return;
++    m_platformSpeechWrapper->resume();
++}
++
++void PlatformSpeechSynthesizer::speak(RefPtr<PlatformSpeechSynthesisUtterance>&& utterance)
++{
++    if (!m_platformSpeechWrapper) {
++        m_platformSpeechWrapper = makeUnique<SpielSpeechWrapper>(*this, [&, utterance = WTFMove(utterance)]() mutable {
++            m_platformSpeechWrapper->speakUtterance(WTFMove(utterance));
++        });
++        return;
++    }
++    m_platformSpeechWrapper->speakUtterance(WTFMove(utterance));
++}
++
++void PlatformSpeechSynthesizer::cancel()
++{
++    if (!m_platformSpeechWrapper)
++        return;
++    m_platformSpeechWrapper->cancel();
++}
++
++void PlatformSpeechSynthesizer::resetState()
++{
++    if (!m_platformSpeechWrapper)
++        return;
++    m_platformSpeechWrapper->cancel();
++}
++
++#undef GST_CAT_DEFAULT
++#undef URI_PREFIX
++
++} // namespace WebCore
++
++#endif // ENABLE(SPEECH_SYNTHESIS) && USE(SPIEL)
+diff --git a/Source/cmake/FindLibSpiel.cmake b/Source/cmake/FindLibSpiel.cmake
+new file mode 100644
+index 0000000000000..46d308257675c
+--- /dev/null
++++ b/Source/cmake/FindLibSpiel.cmake
+@@ -0,0 +1,67 @@
++# - Try to find LibSpiel
++# Once done, this will define
++#
++#  SPIEL_INCLUDE_DIRS - the LibSpiel include directories
++#  SPIEL_LIBRARIES - link these to use LibSpiel
++#
++# Copyright (C) 2024 Igalia S.L
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions
++# are met:
++# 1.  Redistributions of source code must retain the above copyright
++#     notice, this list of conditions and the following disclaimer.
++# 2.  Redistributions in binary form must reproduce the above copyright
++#     notice, this list of conditions and the following disclaimer in the
++#     documentation and/or other materials provided with the distribution.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND ITS CONTRIBUTORS ``AS
++# IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
++# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
++# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR ITS
++# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
++# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
++# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
++# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
++# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
++# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
++# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++
++find_package(PkgConfig QUIET)
++
++pkg_check_modules(PC_SPIEL spiel-1.0)
++
++find_path(LibSpiel_INCLUDE_DIR
++    NAMES spiel.h
++    HINTS ${PC_SPIEL_INCLUDEDIR}
++          ${PC_SPIEL_INCLUDE_DIRS}
++)
++
++find_library(LibSpiel_LIBRARY
++    NAMES spiel-1.0
++    HINTS ${PC_SPIEL_LIBDIR}
++          ${PC_SPIEL_LIBRARY_DIRS}
++)
++
++include(FindPackageHandleStandardArgs)
++find_package_handle_standard_args(LibSpiel
++    FOUND_VAR LibSpiel_FOUND
++    REQUIRED_VARS LibSpiel_LIBRARY LibSpiel_INCLUDE_DIR
++    VERSION_VAR LibSpiel_VERSION
++)
++
++if (LibSpiel_LIBRARY AND NOT TARGET LibSpiel::LibSpiel)
++    add_library(LibSpiel::LibSpiel UNKNOWN IMPORTED GLOBAL)
++    set_target_properties(LibSpiel::LibSpiel PROPERTIES
++        IMPORTED_LOCATION "${LibSpiel_LIBRARY}"
++        INTERFACE_COMPILE_OPTIONS "${LibSpiel_COMPILE_OPTIONS}"
++        INTERFACE_INCLUDE_DIRECTORIES "${LibSpiel_INCLUDE_DIR}"
++    )
++endif ()
++
++mark_as_advanced(LibSpiel_INCLUDE_DIR LibSpiel_LIBRARY)
++
++if (LibSpiel_FOUND)
++    set(LibSpiel_LIBRARIES ${LibSpiel_LIBRARY})
++    set(LibSpiel_INCLUDE_DIRS ${LibSpiel_INCLUDE_DIR})
++endif ()
+diff --git a/Source/cmake/OptionsGTK.cmake b/Source/cmake/OptionsGTK.cmake
+index 4785f6f0c833e..8492fddbd5f41 100644
+--- a/Source/cmake/OptionsGTK.cmake
++++ b/Source/cmake/OptionsGTK.cmake
+@@ -93,6 +93,7 @@ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_PDFJS PUBLIC ON)
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_SPELLCHECK PUBLIC ON)
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_TOUCH_EVENTS PUBLIC ON)
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_WEBDRIVER PUBLIC ON)
++WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_SPEECH_SYNTHESIS PUBLIC ON)
+ 
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(USE_AVIF PUBLIC ON)
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(USE_LCMS PUBLIC ON)
+@@ -134,7 +135,6 @@ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_THUNDER PRIVATE ${ENABLE_DEVELOPER_MODE}
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_PERIODIC_MEMORY_MONITOR PRIVATE ON)
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_POINTER_LOCK PRIVATE ON)
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_SHAREABLE_RESOURCE PRIVATE ON)
+-WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_SPEECH_SYNTHESIS PRIVATE ${ENABLE_EXPERIMENTAL_FEATURES})
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_VARIATION_FONTS PRIVATE ON)
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_WEB_API_STATISTICS PRIVATE ON)
+ WEBKIT_OPTION_DEFAULT_PORT_VALUE(ENABLE_WEB_CODECS PRIVATE ON)
+@@ -355,10 +355,11 @@ if (USE_GBM)
+ endif ()
+ 
+ if (ENABLE_SPEECH_SYNTHESIS)
+-    find_package(Flite 2.2)
+-    if (NOT Flite_FOUND)
+-        message(FATAL_ERROR "Flite is needed for ENABLE_SPEECH_SYNTHESIS")
++    find_package(LibSpiel)
++    if (NOT LibSpiel_FOUND)
++        message(FATAL_ERROR "LibSpiel is needed for ENABLE_SPEECH_SYNTHESIS")
+     endif ()
++    SET_AND_EXPOSE_TO_BUILD(USE_SPIEL ON)
+ endif ()
+ 
+ if (ENABLE_SPELLCHECK)

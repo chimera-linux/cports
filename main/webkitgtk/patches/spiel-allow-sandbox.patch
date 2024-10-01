@@ -1,0 +1,15 @@
+https://bugs.webkit.org/show_bug.cgi?id=280684
+
+--- a/Source/WebKit/UIProcess/Launcher/glib/XDGDBusProxy.cpp
++++ b/Source/WebKit/UIProcess/Launcher/glib/XDGDBusProxy.cpp
+@@ -85,6 +85,10 @@ std::optional<CString> XDGDBusProxy::dbusSessionProxy(const char* baseDirectory,
+     if (allowPortals == AllowPortals::Yes)
+         m_args.append("--talk=org.freedesktop.portal.Desktop");
+ 
++#if USE(SPIEL)
++    m_args.append("--talk=org.espeak.Speech.Provider");
++#endif
++
+     if (!g_strcmp0(g_getenv("WEBKIT_ENABLE_DBUS_PROXY_LOGGING"), "1"))
+         m_args.append("--log");
+ 

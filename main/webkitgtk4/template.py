@@ -1,7 +1,7 @@
 # mirrors the gtk3 webkitgtk template
 pkgname = "webkitgtk4"
 pkgver = "2.46.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DPORT=GTK",
@@ -69,6 +69,7 @@ makedepends = [
     "libseccomp-devel",
     "libsecret-devel",
     "libsoup-devel",
+    "libspiel-devel",
     "libtasn1-devel",
     "libwebp-devel",
     "libwpe-devel",
