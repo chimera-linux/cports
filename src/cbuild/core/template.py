@@ -2205,6 +2205,12 @@ def _split_dlinks(pkg):
     pkg.take("usr/lib/dinit.d/user/boot.d", missing_ok=True)
 
 
+def _split_bashcomp(pkg):
+    # this is forbidden, but the linter catches it later in the bash path
+    pkg.take("etc/bash_completion.d", missing_ok=True)
+    pkg.take("usr/share/bash-completion", missing_ok=True)
+
+
 def _split_fishcomp(pkg):
     # this is forbidden, but the linter catches it later in the fish path
     pkg.take("usr/share/fish/completions", missing_ok=True)
@@ -2253,7 +2259,7 @@ autopkgs = [
         "bashcomp",
         "bash completions",
         "bash-completion",
-        lambda p: p.take("usr/share/bash-completion", missing_ok=True),
+        _split_bashcomp,
     ),
     (
         "zshcomp",

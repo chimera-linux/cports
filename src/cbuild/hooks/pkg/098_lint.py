@@ -38,6 +38,11 @@ def _lint_license(pkg):
 
 
 def _lint_bashcomp(pkg):
+    if (pkg.destdir / "etc/bash_completion.d").is_dir():
+        pkg.error(
+            "/etc/bash_completion.d found, should be /usr/share/bash-completion"
+        )
+
     for p in (pkg.destdir / "usr/share/bash-completion/completions").iterdir():
         if not (pkg.parent.destdir / "usr/bin" / p.name).exists():
             pkg.error(f"bash completion '{p.name}' has no matching command")
@@ -138,70 +143,62 @@ def invoke(pkg):
     if pkg.pkgname == "base-files" or pkg.pkgname == "base-kernel":
         return
 
-    # gcompat and bash-completion is allowed to have them
-    if pkg.pkgname in ["bash-completion", "gcompat"]:
+    # gcompat is non-standard, it has lib64 etc.
+    if pkg.pkgname == "gcompat":
         return
 
     lintfail = False
     dirempty = True
 
-    # toplevel must only contain directories
-    for f in pkg.destdir.glob("*"):
-        dirempty = False
-        rf = f.relative_to(pkg.destdir)
-        if f.is_symlink() or not f.is_dir():
-            pkg.log_red(f"forbidden file '{rf}'")
-            lintfail = True
-
-    # certain paths must not exist, they are symlinks or in base-files
-    # or just outright forbidden (like wordsize specific lib symlinks)
-    for d in [
-        "bin",
-        "lib",
-        "lib32",
-        "lib64",
-        "sbin",
-        "usr/build-1",
-        "usr/cgi-bin",
-        "usr/etc",
-        "usr/sbin",
-        "usr/lib32",
-        "usr/lib64",
-        "usr/local",
-        "usr/lib/locale",
-        "usr/lib/systemd/system",
-        "usr/lib/systemd/user",
-        "usr/share/glib-2.0/schemas/gschemas.compiled",
-        "usr/share/mime/XMLnamespaces",
-        "usr/share/mime/aliases",
-        "usr/share/mime/generic-icons",
-        "usr/share/mime/globs",
-        "usr/share/mime/globs2",
-        "usr/share/mime/icons",
-        "usr/share/mime/magic",
-        "usr/share/mime/mime.cache",
-        "usr/share/mime/subclasses",
-        "usr/share/mime/treemagic",
-        "usr/share/mime/types",
-        "usr/share/mime/version",
-        "usr/tests",
-    ]:
-        if (pkg.destdir / d).exists():
-            pkg.log_red(f"forbidden path '{d}'")
-            lintfail = True
-
     allowpaths = {
         "boot": True,
         "etc": True,
-        "opt": True,
         "usr": True,
     }
 
     # toplevel must only contain allowed paths
+    # additionally, it must only contain directories
     for f in pkg.destdir.glob("*"):
+        dirempty = False
         rf = f.relative_to(pkg.destdir)
         if f.name not in allowpaths:
             pkg.log_red(f"forbidden directory '{rf}'")
+            lintfail = True
+            continue
+        if f.is_symlink() or not f.is_dir():
+            pkg.log_red(f"forbidden file '{rf}'")
+            lintfail = True
+
+    # certain /usr paths must not exist, they are symlinks or in base-files
+    # or just outright forbidden (like wordsize specific lib symlinks)
+    for d in [
+        "build-1",
+        "cgi-bin",
+        "etc",
+        "sbin",
+        "lib32",
+        "lib64",
+        "local",
+        "lib/locale",
+        "lib/systemd/system",
+        "lib/systemd/user",
+        "share/glib-2.0/schemas/gschemas.compiled",
+        "share/mime/XMLnamespaces",
+        "share/mime/aliases",
+        "share/mime/generic-icons",
+        "share/mime/globs",
+        "share/mime/globs2",
+        "share/mime/icons",
+        "share/mime/magic",
+        "share/mime/mime.cache",
+        "share/mime/subclasses",
+        "share/mime/treemagic",
+        "share/mime/types",
+        "share/mime/version",
+        "tests",
+    ]:
+        if (pkg.destdir / "usr" / d).exists():
+            pkg.log_red(f"forbidden path '/usr/{d}'")
             lintfail = True
 
     if (
@@ -234,7 +231,6 @@ def invoke(pkg):
 
     # stuff in /etc that should go in /usr/share
     for d in [
-        "bash_completion.d",
         "dbus-1/session.d",
         "dbus-1/system.d",
         "fonts/conf.avail",
