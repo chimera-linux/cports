@@ -1,6 +1,6 @@
 pkgname = "tlp"
-pkgver = "1.6.1"
-pkgrel = 1
+pkgver = "1.7.0"
+pkgrel = 0
 build_style = "makefile"
 make_install_args = [
     "-j1",
@@ -17,14 +17,13 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://linrunner.de/tlp"
 source = f"https://github.com/linrunner/TLP/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f7d013691a92ffcf42ef1648565dbc24a33202046d3c8138dad1963a3169a0f5"
-patch_style = "patch"
-# no tests
-options = ["!check"]
+sha256 = "547ff90bef0ea035f0ff6d7546d0d867690ebf60beec426885a884ee8d023e2e"
+# no tests, symlinked commands
+options = ["!check", "!lintcomp"]
 
 
 def post_install(self):
-    self.install_service(self.files_path / "tlp")
+    self.install_service("^/tlp")
 
 
 @subpackage("tlp-rdw")

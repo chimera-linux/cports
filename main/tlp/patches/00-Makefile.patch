@@ -1,5 +1,5 @@
---- Makefile
-+++ Makefile
+--- a/Makefile
++++ b/Makefile
 @@ -99,8 +99,7 @@
  
  MANFILES8 = \
@@ -10,118 +10,14 @@
  
  MANFILESRDW8 = \
  	tlp-rdw.8
-@@ -141,44 +140,51 @@
- 
- install-tlp: all
- 	# Package tlp
--	install -D -m 755 tlp $(_SBIN)/tlp
--	install -D -m 755 tlp-rf $(_BIN)/bluetooth
-+	install -d $(_SBIN)
-+	install -m 755 tlp $(_SBIN)/tlp
-+	install -d $(_BIN)
-+	install -m 755 tlp-rf $(_BIN)/bluetooth
- 	ln -sf bluetooth $(_BIN)/nfc
- 	ln -sf bluetooth $(_BIN)/wifi
- 	ln -sf bluetooth $(_BIN)/wwan
- 	install -m 755 tlp-run-on $(_BIN)/run-on-ac
- 	ln -sf run-on-ac $(_BIN)/run-on-bat
- 	install -m 755 tlp-stat $(_BIN)/
--	install -D -m 755 -t $(_TLIB)/func.d func.d/*
-+	install -d $(_TLIB)/func.d
-+	install -m 755 func.d/* $(_TLIB)/func.d
- 	install -m 755 tlp-func-base $(_TLIB)/
--	install -D -m 755 -t $(_TLIB)/bat.d bat.d/*
-+	install -d $(_TLIB)/bat.d
-+	install -m 755 bat.d/* $(_TLIB)/bat.d
- 	install -m 755 tlp-pcilist $(_TLIB)/
- 	install -m 755 tlp-readconfs $(_TLIB)/
- 	install -m 755 tlp-usblist $(_TLIB)/
- ifneq ($(TLP_NO_TPACPI),1)
--	install -D -m 755 tpacpi-bat $(_TPACPIBAT)
-+	install -m 755 tpacpi-bat $(_TPACPIBAT)
- endif
--	install -D -m 755 tlp-usb-udev $(_ULIB)/tlp-usb-udev
--	install -D -m 644 tlp.rules $(_ULIB)/rules.d/85-tlp.rules
--	[ -f $(_CONFUSR) ] || install -D -m 644 tlp.conf $(_CONFUSR)
-+	install -d $(_ULIB)/rules.d
-+	install -m 755 tlp-usb-udev $(_ULIB)/tlp-usb-udev
-+	install -m 644 tlp.rules $(_ULIB)/rules.d/85-tlp.rules
- 	install -d $(_CONFDIR)
--	install -D -m 644 README.d $(_CONFDIR)/README
--	install -D -m 644 00-template.conf $(_CONFDIR)/00-template.conf
--	install -D -m 644 defaults.conf $(_CONFDEF)
--	install -D -m 644 rename.conf $(_CONFREN)
--	install -D -m 644 deprecated.conf $(_CONFDPR)
-+	[ -f $(_CONFUSR) ] || install -m 644 tlp.conf $(_CONFUSR)
-+	install -m 644 README.d $(_CONFDIR)/README
-+	install -m 644 00-template.conf $(_CONFDIR)/00-template.conf
-+	install -m 644 defaults.conf $(_CONFDEF)
-+	install -m 644 rename.conf $(_CONFREN)
-+	install -m 644 deprecated.conf $(_CONFDPR)
- ifneq ($(TLP_NO_INIT),1)
--	install -D -m 755 tlp.init $(_SYSV)/tlp
-+	install -m 755 tlp.init $(_SYSV)/tlp
- endif
- ifneq ($(TLP_WITH_SYSTEMD),0)
--	install -D -m 644 tlp.service $(_SYSD)/tlp.service
--	install -D -m 755 tlp-sleep $(_SDSL)/tlp
-+	install -m 644 tlp.service $(_SYSD)/tlp.service
-+	install -m 755 tlp-sleep $(_SDSL)/tlp
- endif
- ifneq ($(TLP_WITH_ELOGIND),0)
--	install -D -m 755 tlp-sleep.elogind $(_ELOD)/49-tlp-sleep
-+	install -d $(_ELOD)
-+	install -m 755 tlp-sleep.elogind $(_ELOD)/49-tlp-sleep
- endif
- ifneq ($(TLP_NO_BASHCOMP),1)
--	install -D -m 644 completion/bash/tlp.bash_completion $(_SHCPL)/tlp
-+	install -d $(_SHCPL)
-+	install -m 644 completion/bash/tlp.bash_completion $(_SHCPL)/tlp
- 	ln -sf tlp $(_SHCPL)/tlp-stat
- 	ln -sf tlp $(_SHCPL)/bluetooth
- 	ln -sf tlp $(_SHCPL)/nfc
-@@ -186,25 +192,29 @@
- 	ln -sf tlp $(_SHCPL)/wwan
+@@ -187,7 +187,6 @@
  endif
  ifneq ($(TLP_NO_ZSHCOMP),1)
--	install -D -m 644 completion/zsh/_tlp $(_ZSHCPL)/_tlp
+ 	install -D -m 644 completion/zsh/_tlp $(_ZSHCPL)/_tlp
 -	install -D -m 644 completion/zsh/_tlp-radio-device $(_ZSHCPL)/_tlp-radio-device
--	install -D -m 644 completion/zsh/_tlp-run-on $(_ZSHCPL)/_tlp-run-on
--	install -D -m 644 completion/zsh/_tlp-stat $(_ZSHCPL)/_tlp-stat
-+	install -d $(_ZSHCPL)
-+	install -m 644 completion/zsh/_tlp $(_ZSHCPL)/_tlp
-+	install -m 644 completion/zsh/_tlp-radio-device $(_ZSHCPL)/_tlp-radio-device
-+	install -m 644 completion/zsh/_tlp-run-on $(_ZSHCPL)/_tlp-run-on
-+	install -m 644 completion/zsh/_tlp-stat $(_ZSHCPL)/_tlp-stat
+ 	install -D -m 644 completion/zsh/_tlp-run-on $(_ZSHCPL)/_tlp-run-on
+ 	install -D -m 644 completion/zsh/_tlp-stat $(_ZSHCPL)/_tlp-stat
  endif
--	install -D -m 644 de.linrunner.tlp.metainfo.xml $(_META)/de.linrunner.tlp.metainfo.xml
--	install -d -m 755 $(_VAR)
- 
- install-rdw: all
- 	# Package tlp-rdw
--	install -D -m 755 tlp-rdw $(_BIN)/tlp-rdw
--	install -D -m 644 tlp-rdw.rules $(_ULIB)/rules.d/85-tlp-rdw.rules
--	install -D -m 755 tlp-rdw-udev $(_ULIB)/tlp-rdw-udev
--	install -D -m 755 tlp-rdw-nm $(_NMDSP)/99tlp-rdw-nm
-+	install -d $(_BIN)
-+	install -m 755 tlp-rdw $(_BIN)/tlp-rdw
-+	install -d $(_ULIB)
-+	install -m 644 tlp-rdw.rules $(_ULIB)/rules.d/85-tlp-rdw.rules
-+	install -m 755 tlp-rdw-udev $(_ULIB)/tlp-rdw-udev
-+	install -d $(_NMDSP)
-+	install -m 755 tlp-rdw-nm $(_NMDSP)/99tlp-rdw-nm
- ifneq ($(TLP_NO_BASHCOMP),1)
--	install -D -m 644 completion/bash/tlp-rdw.bash_completion $(_SHCPL)/tlp-rdw
-+	install -d $(_SHCPL)
-+	install -m 644 completion/bash/tlp-rdw.bash_completion $(_SHCPL)/tlp-rdw
- endif
- ifneq ($(TLP_NO_ZSHCOMP),1)
--	install -D -m 644 completion/zsh/_tlp-rdw $(_ZSHCPL)/_tlp-rdw
-+	install -d $(_ZSHCPL)
-+	install -m 644 completion/zsh/_tlp-rdw $(_ZSHCPL)/_tlp-rdw
- endif
- 
- install-man-tlp:
 @@ -219,7 +229,7 @@
  	install -d -m 755 $(_MAN)/man8
  	cd man-rdw && install -m 644 $(MANFILESRDW8) $(_MAN)/man8/
