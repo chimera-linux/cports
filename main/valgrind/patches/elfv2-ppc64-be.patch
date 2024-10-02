@@ -738,15 +738,15 @@ diff --git a/coregrind/vg_preloaded.c b/coregrind/vg_preloaded.c
 index ad03343..f300fbe 100644
 --- a/coregrind/vg_preloaded.c
 +++ b/coregrind/vg_preloaded.c
-@@ -45,6 +45,7 @@
+@@ -43,6 +43,7 @@
  #include "pub_core_basics.h"
  #include "pub_core_clreq.h"
  #include "pub_core_debuginfo.h"  // Needed for pub_core_redir.h
 +#include "pub_core_machine.h"    // For VG_PLAT_USES_PPCTOC
  #include "pub_core_redir.h"      // For VG_NOTIFY_ON_LOAD
  
- #if defined(VGO_linux) || defined(VGO_solaris)
-@@ -103,7 +104,7 @@ void * VG_NOTIFY_ON_LOAD(ifunc_wrapper) (void)
+ #ifdef HAVE_HEADER_FEATURES_H
+@@ -129,7 +130,7 @@
      VALGRIND_GET_ORIG_FN(fn);
      CALL_FN_W_v(result, fn);
  

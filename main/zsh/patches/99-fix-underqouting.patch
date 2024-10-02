@@ -1,7 +1,7 @@
 diff --git a/./configure.ac b/./configure.ac.new
 index 07603461..fe2b0fcd 100644
---- a/./configure.ac
-+++ b/./configure.ac.new
+--- a/configure.ac
++++ b/configure.ac
 @@ -2062,13 +2062,13 @@ dnl CHECK FOR setproctitle() FOR jobs -Z / ARGV0
  AH_TEMPLATE([HAVE_SETPROCTITLE],
  [Define to 1 if the system supports `setproctitle' to change process name])

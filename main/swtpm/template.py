@@ -7,6 +7,8 @@ configure_args = [
     "--with-tss-user=tss",
     "--with-tss-group=tss",
 ]
+# test compat
+make_dir = "."
 hostmakedepends = [
     "automake",
     "bash",
@@ -34,7 +36,6 @@ license = "BSD-3-Clause"
 url = "https://github.com/stefanberger/swtpm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "9679ca171e8aaa3c4e4053e8bc1d10c8dabf0220bd4b16aba78743511c25f731"
-patch_style = "patch"
 
 
 def post_install(self):

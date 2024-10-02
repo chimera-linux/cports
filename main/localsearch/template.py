@@ -69,7 +69,6 @@ license = "GPL-2.0-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/localsearch/{pkgver[:-2]}/localsearch-{pkgver}.tar.xz"
 sha256 = "e4e83a1daebb5263915b45b719731e3f7041d959cbd637ea29afbe910c92bbf9"
-patch_style = "patch"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]

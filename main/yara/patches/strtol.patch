@@ -2,15 +2,15 @@ fix overflows that trap and sigill in tests
 --
 --- a/libyara/re_lexer.c
 +++ b/libyara/re_lexer.c
-@@ -1146,7 +1146,7 @@
-   // Examples: {3,8} {0,5} {,5} {7,}
+@@ -1152,7 +1152,7 @@
+   // Examples: {3,8} {3, 8}, {3 ,8} {3 , 8} {0,5} {,5} {7,}
  
    int hi_bound;
 -  int lo_bound = atoi(yytext + 1);
 +  int lo_bound = (int)strtol(yytext + 1, NULL, 10);
  
    char* comma = strchr(yytext, ',');
- 
+   char* hi_bound_ptr = comma + 1;
 @@ -1163,7 +1163,7 @@
    if (*hi_bound_ptr == '}')
      hi_bound = RE_MAX_RANGE;
@@ -20,7 +20,7 @@ fix overflows that trap and sigill in tests
  
    if (hi_bound > RE_MAX_RANGE)
    {
-@@ -1181,7 +1181,7 @@
+@@ -1189,7 +1189,7 @@
  
    // Example: {10}
  

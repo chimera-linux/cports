@@ -11,9 +11,9 @@ diff --git a/src/libtracker-miners-common/tracker-seccomp.c b/src/libtracker-min
 index b2ad0b7..a322216 100644
 --- a/src/libtracker-miners-common/tracker-seccomp.c
 +++ b/src/libtracker-miners-common/tracker-seccomp.c
-@@ -311,9 +311,8 @@ tracker_seccomp_init (void)
+@@ -320,9 +320,8 @@
+ 	/* Syscalls may differ between libcs */
  #if !defined(__GLIBC__)
- 	ALLOW_RULE (rt_sigreturn);
  	ALLOW_RULE (readv);
 -#else
 -	ALLOW_RULE (pread64);

@@ -8,14 +8,14 @@ diff --git a/xpcom/reflect/xptcall/md/unix/moz.build b/xpcom/reflect/xptcall/md/
 index 1779c14..cd4595c 100644
 --- a/xpcom/reflect/xptcall/md/unix/moz.build
 +++ b/xpcom/reflect/xptcall/md/unix/moz.build
-@@ -187,10 +187,6 @@ if CONFIG["CPU_ARCH"] == "ppc64":
-             "xptcstubs_asm_ppc64_linux.S",
-             "xptcstubs_ppc64_linux.cpp",
+@@ -110,10 +110,6 @@ if CONFIG["OS_ARCH"] in ("Linux", "FreeBSD", "NetBSD", "OpenBSD"):
+             "xptcstubs_asm_mips64.S",
+             "xptcstubs_mips64.cpp",
          ]
 -        if CONFIG["CC_TYPE"] == "clang":
 -            ASFLAGS += [
 -                "-fno-integrated-as",
 -            ]
- 
- if CONFIG["OS_ARCH"] == "OpenBSD" and CONFIG["CPU_ARCH"] == "ppc":
-     SOURCES += [
+     if CONFIG["TARGET_CPU"] == "mips32":
+         SOURCES += [
+             "xptcinvoke_asm_mips.S",

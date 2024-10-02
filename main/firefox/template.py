@@ -65,7 +65,6 @@ url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
 sha256 = "e4066ef47c65aac570aa16deefb8c3937c1c9b0755dbf2f760937c451174fb1d"
 debug_level = 1  # defatten, especially with LTO
-patch_style = "patch"
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
 }

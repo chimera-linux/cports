@@ -1,8 +1,6 @@
-diff --git a/data/meson.build b/data/meson.build.patched
-index 68412a75d..b12e27290 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -37,6 +37,6 @@ appdata_file = i18n.merge_file(input: '@0@.appdata.xml.in'.format(app_id),
+@@ -62,5 +62,5 @@ appdata_file = i18n.merge_file(input: '@0@.appdata.xml.in'.format(app_id),
  
  appstream_util = find_program('appstream-util', required: false)
  if appstream_util.found()

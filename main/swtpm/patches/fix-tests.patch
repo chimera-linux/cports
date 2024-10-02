@@ -1,6 +1,6 @@
 --- a/tests/common
 +++ b/tests/common
-@@ -688,12 +688,7 @@ function run_swtpm_bios()
+@@ -698,12 +698,7 @@
  # @1: filename
  function get_filesize()
  {
@@ -14,7 +14,7 @@
  }
  
  # Get the file mode bits in octal format
-@@ -701,12 +696,7 @@ function get_filesize()
+@@ -711,12 +706,7 @@
  # @1: filename
  function get_filemode()
  {
@@ -28,7 +28,7 @@
  }
  
  # Get the file owner uid and gid
-@@ -714,12 +704,7 @@ function get_filemode()
+@@ -724,12 +714,7 @@
  # @1: filename
  function get_fileowner()
  {
@@ -42,7 +42,7 @@
  }
  
  # Get the file owner user name and group name
-@@ -727,12 +712,7 @@ function get_fileowner()
+@@ -737,12 +722,7 @@
  # @1: filename
  function get_fileowner_names()
  {
@@ -56,60 +56,3 @@
  }
  
  # Get the SHA1 of a file
-
---- a/tests/test_parameters
-+++ b/tests/test_parameters
-@@ -68,7 +68,7 @@ skip_test_no_tpm12 "${SWTPM_EXE}"
- SWTPM=swtpm
- SWTPM_EXE=${SWTPM_EXE:-$ROOT/src/swtpm/$SWTPM}
- TPMDIR="$(mktemp -d)" || exit 1
--SWTPM_SETUP_CONF=$SRCDIR/samples/swtpm_setup.conf
-+SWTPM_SETUP_CONF=$SRCDIR/build/samples/swtpm_setup.conf
- # filesystem privileges require to run swtpm_setup as root during test
- TPMAUTHORING="$ROOT/src/swtpm_setup/swtpm_setup --config ${SWTPM_SETUP_CONF}"
- PATH=${ROOT}/src/swtpm_bios:${TESTDIR}:$PATH
-
---- a/tests/test_swtpm_setup_overwrite
-+++ b/tests/test_swtpm_setup_overwrite
-@@ -10,7 +10,7 @@ source ${TESTDIR}/common
- skip_test_no_tpm12 "${SWTPM_EXE}"
- STATEBASENAME="tpm-00.permall"
- 
--SWTPM_SETUP_CONF=$SRCDIR/samples/swtpm_setup.conf
-+SWTPM_SETUP_CONF=$SRCDIR/build/samples/swtpm_setup.conf
- 
- trap "cleanup" SIGTERM EXIT
- 
---- a/tests/test_swtpm_setup_file_backend
-+++ b/tests/test_swtpm_setup_file_backend
-@@ -9,7 +9,7 @@ SRCDIR=${abs_top_srcdir:-$(dirname "$0")/..}
- source ${TESTDIR}/common
- skip_test_no_tpm12 "${SWTPM_EXE}"
- 
--SWTPM_SETUP_CONF=$SRCDIR/samples/swtpm_setup.conf
-+SWTPM_SETUP_CONF=$SRCDIR/builds/samples/swtpm_setup.conf
- 
- state_save_dir="$(mktemp -d)" || exit 1
- state_save=${state_save_dir}/swtpm-test.state.save
-
---- a/tests/test_tpm2_swtpm_setup_overwrite
-+++ b/tests/test_tpm2_swtpm_setup_overwrite
-@@ -10,7 +10,7 @@ source ${TESTDIR}/common
- skip_test_no_tpm20 "${SWTPM_EXE}"
- STATEBASENAME="tpm2-00.permall"
- 
--SWTPM_SETUP_CONF=$SRCDIR/samples/swtpm_setup.conf
-+SWTPM_SETUP_CONF=$SRCDIR/build/samples/swtpm_setup.conf
- 
- trap "cleanup" SIGTERM EXIT
- 
---- a/tests/test_tpm2_parameters
-+++ b/tests/test_tpm2_parameters
-@@ -65,7 +65,7 @@ exec 101<${TESTDIR}/data/pwdfile.txt
- SWTPM=swtpm
- SWTPM_EXE=$ROOT/src/swtpm/$SWTPM
- TPMDIR="$(mktemp -d)" || exit 1
--SWTPM_SETUP_CONF=$SRCDIR/samples/swtpm_setup.conf
-+SWTPM_SETUP_CONF=$SRCDIR/build/samples/swtpm_setup.conf
- TPMAUTHORING="$ROOT/src/swtpm_setup/swtpm_setup --tpm2 --config ${SWTPM_SETUP_CONF}"
- PATH=${ROOT}/src/swtpm_bios:$PATH
