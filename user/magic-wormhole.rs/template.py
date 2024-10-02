@@ -11,13 +11,12 @@ license = "EUPL-1.2"
 url = "https://github.com/magic-wormhole/magic-wormhole.rs"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "c6e2acd3cccd982f449d26184d714d4cf813f51b8b75b3e36ecbb78565b3f4e8"
-_supported_shells = ["bash", "fish", "zsh"]
 # generates completions with host bin
 options = ["!check", "!cross"]
 
 
 def post_build(self):
-    for shell in _supported_shells:
+    for shell in ["bash", "fish", "zsh"]:
         with open(f"{self.cwd}/wormhole-rs.{shell}", "w") as o:
             self.do(
                 f"target/{self.profile().triplet}/release/wormhole-rs",
@@ -31,7 +30,7 @@ def install(self):
     self.install_bin(
         f"target/{self.profile().triplet}/release/wormhole-rs",
     )
-    for shell in _supported_shells:
+    for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"wormhole-rs.{shell}", shell, "wormhole-rs")
     self.install_man("wormhole.1")
     self.install_license("LICENSE")
