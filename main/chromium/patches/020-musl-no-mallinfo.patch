@@ -1,5 +1,7 @@
 musl does not implement mallinfo()/mallinfo2()
 (or rather, malloc-ng, musl's allocator, doesn't)
+
+for some reason only outside of x86_64 HAVE_MALLINFO gets weirdly set by something
 --
 --- a/base/allocator/partition_allocator/src/partition_alloc/shim/allocator_shim_default_dispatch_to_partition_alloc.cc
 +++ b/base/allocator/partition_allocator/src/partition_alloc/shim/allocator_shim_default_dispatch_to_partition_alloc.cc
@@ -86,3 +88,19 @@ index 9a4428ec45..07defd5ded 100644
  
  /* Some projects using SwiftShader bypass cmake (eg Chromium via gn) */
  /* so we need to check glibc version for the new API to be safe */
+--- a/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Support/Unix/Process.inc
++++ b/third_party/swiftshader/third_party/llvm-10.0/llvm/lib/Support/Unix/Process.inc
+@@ -83,11 +83,11 @@ Expected<unsigned> Process::getPageSize() {
+ }
+ 
+ size_t Process::GetMallocUsage() {
+-#if defined(HAVE_MALLINFO2)
++#if 0
+   struct mallinfo2 mi;
+   mi = ::mallinfo2();
+   return mi.uordblks;
+-#elif defined(HAVE_MALLINFO)
++#elif 0
+   struct mallinfo mi;
+   mi = ::mallinfo();
+   return mi.uordblks;
