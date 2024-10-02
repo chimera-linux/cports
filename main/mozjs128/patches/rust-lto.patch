@@ -1,22 +1,23 @@
-commit 868d15dcb646e8de98a469000e58753bc529da31
-Author: q66 <q66@chimera-linux.org>
-Date:   Tue Oct 4 01:01:22 2022 +0200
-
-    disable lto on riscv64
-
+set rust crate lto to thin to not use fatlto for gkrust which ooms on 32-bit.
+also a lot faster
+also no lto on riscv for now
+--
 diff --git a/config/makefiles/rust.mk b/config/makefiles/rust.mk
-index a243ee5..64d0ce0 100644
+index 524bc436fd..cdc8d6089c 100644
 --- a/config/makefiles/rust.mk
 +++ b/config/makefiles/rust.mk
-@@ -89,6 +89,7 @@ ifndef MOZ_LTO_RUST_CROSS
+@@ -91,8 +91,9 @@ ifndef MOZ_LTO_RUST_CROSS
  ifndef rustflags_sancov
  # Never enable when coverage is enabled to work around https://github.com/rust-lang/rust/issues/90045.
  ifndef MOZ_CODE_COVERAGE
 +ifeq (,$(findstring riscv64,$(RUST_TARGET)))
  ifeq (,$(findstring gkrust_gtest,$(RUST_LIBRARY_FILE)))
- cargo_rustc_flags += -Clto
+-cargo_rustc_flags += -Clto$(if $(filter full,$(MOZ_LTO_RUST_CROSS)),=fat)
++cargo_rustc_flags += -Clto=thin
  endif
-@@ -99,6 +100,7 @@ endif
+ # We need -Cembed-bitcode=yes for all crates when using -Clto.
+ RUSTFLAGS += -Cembed-bitcode=yes
+@@ -101,6 +102,7 @@ endif
  endif
  endif
  endif
