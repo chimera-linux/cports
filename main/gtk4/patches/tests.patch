@@ -1,5 +1,5 @@
 diff --git a/testsuite/gsk/meson.build b/testsuite/gsk/meson.build
-index 600176198e..4eca0becf3 100644
+index 882dc8a11d..d652e207dc 100644
 --- a/testsuite/gsk/meson.build
 +++ b/testsuite/gsk/meson.build
 @@ -14,7 +14,8 @@ compare_render_tests = [
@@ -12,17 +12,17 @@ index 600176198e..4eca0becf3 100644
    'blend-difference',
    'blend-modes',
    'blend-invisible-child',
-@@ -27,7 +28,8 @@ compare_render_tests = [
-   'border-bottom-right',
+@@ -28,7 +29,8 @@ compare_render_tests = [
+   'border-colorstates',
    'border-one-rounded',
    'border-opacity',
 -  'border-zero-width-color',
 +  # fails on ppc64le
 +  # 'border-zero-width-color',
    'borders-rotated',
-   'borders-scaled',
+   'borders-scaled-nogl',
    'clip-contained',
-@@ -189,7 +189,8 @@
+@@ -188,7 +190,8 @@ compare_render_tests = [
    'text-mixed-color-colrv1',
    'texture-coords',
    'texture-offscreen-mipmap-nogl',
@@ -32,8 +32,6 @@ index 600176198e..4eca0becf3 100644
    'texture-scale-magnify-10000x',
    'texture-scale-magnify-rotate',
    'texture-scale-nearest-noninteger-scaled-nogl',
-diff --git a/testsuite/gsk/nodeparser/text-color.node b/testsuite/gsk/nodeparser/text-color.node
-index 06bcfd9774..8522752c11 100644
 diff --git a/testsuite/headless/meson.build b/testsuite/headless/meson.build
 index 1e9bf36a61..beb9664e01 100644
 --- a/testsuite/headless/meson.build
@@ -64,10 +62,10 @@ index a65965d633..308bb37cb4 100644
  test('api',
    find_program('api.py', dirs: meson.current_source_dir()),
 diff --git a/testsuite/tools/settings b/testsuite/tools/settings
-index 8a31757ff2..607fc80c9c 100755
+index 19c78cf7c0..e3f59ed93e 100755
 --- a/testsuite/tools/settings
 +++ b/testsuite/tools/settings
-@@ -11,7 +11,7 @@
+@@ -11,7 +11,7 @@ name=gtk-query-settings
  result=$TEST_RESULT_DIR/$name.out
  $GTK_QUERY_SETTINGS 2>/dev/null >$result
  EXPECTED=52

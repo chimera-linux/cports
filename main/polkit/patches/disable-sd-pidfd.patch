@@ -1,12 +1,12 @@
 This breaks authentication under GNOME at least (no password dialog).
 
 diff --git a/meson.build b/meson.build
-index 2f81c90..025659f 100644
+index 302c189..d9e7d99 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -223,7 +223,7 @@ if enable_logind
+@@ -202,7 +202,7 @@ if enable_logind
  endif
- config_h.set('HAVE_LIBSYSTEMD', enable_logind)
+ config_data.set('HAVE_LIBSYSTEMD', enable_logind)
  
 -config_data.set('HAVE_PIDFD_OPEN', cc.get_define('SYS_pidfd_open', prefix: '#include <sys/syscall.h>') != '')
 +#config_data.set('HAVE_PIDFD_OPEN', cc.get_define('SYS_pidfd_open', prefix: '#include <sys/syscall.h>') != '')

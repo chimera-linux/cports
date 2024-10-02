@@ -89,7 +89,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
 sha256 = "34b624848e5de22a138b675ad6f39c0c7b9d67907c10e1fc7e5b03060e8d5437"
-patch_style = "patch"
 # FIXME: manifests as a crash in gnome-text-editor when
 # an externally modified file reloads; happens always
 hardening = ["!int"]

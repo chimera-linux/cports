@@ -11,21 +11,21 @@ when you call the library as a command.
  1 file changed, 3 insertions(+), 9 deletions(-)
 
 diff --git a/libcap/Makefile b/libcap/Makefile
-index 7706063..c716ddf 100644
+index f5dde3e..a7f2133 100644
 --- a/libcap/Makefile
 +++ b/libcap/Makefile
-@@ -110,7 +110,7 @@ loader.txt: empty
- cap_magic.o: execable.h execable.c loader.txt
- 	$(CC) $(CFLAGS) $(CPPFLAGS) -DLIBRARY_VERSION=\"$(LIBTITLE)-$(VERSION).$(MINOR)\" -DSHARED_LOADER=\"$(shell cat loader.txt)\" -c execable.c -o $@
+@@ -117,7 +117,7 @@ loader.txt: empty
+ cap_magic.o: execable.h execable.c loader.txt libcap.h
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -DLIBRARY_VERSION=\"$(LIBTITLE)-$(VERSION).$(MINOR)\" -DSHARED_LOADER=\"$(shell cat loader.txt)\" -include ./libcap.h -c execable.c -o $@
  
 -$(CAPLIBNAME) $(MAJCAPLIBNAME) $(MINCAPLIBNAME): $(CAPOBJS) $(CAPMAGICOBJ)
 +$(CAPLIBNAME) $(MAJCAPLIBNAME) $(MINCAPLIBNAME): $(CAPOBJS)
  	$(LD) $(CFLAGS) $(LDFLAGS) -Wl,-soname,$(MAJCAPLIBNAME) -o $(MINCAPLIBNAME) $^ $(MAGIC)
  	ln -sf $(MINCAPLIBNAME) $(MAJCAPLIBNAME)
  	ln -sf $(MAJCAPLIBNAME) $(CAPLIBNAME)
-@@ -118,8 +118,8 @@ $(CAPLIBNAME) $(MAJCAPLIBNAME) $(MINCAPLIBNAME): $(CAPOBJS) $(CAPMAGICOBJ)
- psx_magic.o: execable.h execable.c loader.txt
- 	$(CC) $(CFLAGS) $(CPPFLAGS) -DLIBRARY_VERSION=\"$(PSXTITLE)-$(VERSION).$(MINOR)\" -DSHARED_LOADER=\"$(shell cat loader.txt)\" -c execable.c -o $@
+@@ -125,8 +125,8 @@ $(CAPLIBNAME) $(MAJCAPLIBNAME) $(MINCAPLIBNAME): $(CAPOBJS) $(CAPMAGICOBJ)
+ psx_magic.o: execable.h psx_exec.c loader.txt
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -DLIBRARY_VERSION=\"$(PSXTITLE)-$(VERSION).$(MINOR)\" -DSHARED_LOADER=\"$(shell cat loader.txt)\" -c psx_exec.c -o $@
  
 -$(PSXLIBNAME) $(MAJPSXLIBNAME) $(MINPSXLIBNAME): $(PSXOBJS) include/sys/psx_syscall.h $(PSXMAGICOBJ)
 -	$(LD) $(CFLAGS) $(LDFLAGS) -Wl,-soname,$(MAJPSXLIBNAME) -o $(MINPSXLIBNAME) $(PSXOBJS) $(PSXMAGICOBJ) $(MAGIC) $(PSXLINKFLAGS)
@@ -34,7 +34,7 @@ index 7706063..c716ddf 100644
  	ln -sf $(MINPSXLIBNAME) $(MAJPSXLIBNAME)
  	ln -sf $(MAJPSXLIBNAME) $(PSXLIBNAME)
  endif
-@@ -141,12 +141,6 @@ libpsxsotest: $(PSXLIBNAME)
+@@ -151,12 +151,6 @@ libpsxsotest: $(PSXLIBNAME)
  
  test: cap_test
  	./cap_test

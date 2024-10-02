@@ -11,7 +11,7 @@ In file included from ../subprojects/libglnx/glnx-missing.h:95:
 
 --- a/subprojects/libglnx/glnx-missing-syscall.h
 +++ b/subprojects/libglnx/glnx-missing-syscall.h
-@@ -102,16 +102,8 @@
+@@ -104,14 +104,6 @@
  #    endif
  #  endif
  

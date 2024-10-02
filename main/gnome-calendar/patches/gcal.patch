@@ -12,17 +12,17 @@ is good enough for now.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/gui/event-editor/gcal-date-chooser.c b/src/gui/event-editor/gcal-date-chooser.c
-index 4815d83..91da46d 100644
+index 283fe253..58c8744a 100644
 --- a/src/gui/event-editor/gcal-date-chooser.c
 +++ b/src/gui/event-editor/gcal-date-chooser.c
-@@ -709,7 +709,7 @@ multi_choice_changed (GcalDateChooser *self,
+@@ -756,7 +756,7 @@ multi_choice_changed (GcalDateChooser *self,
    day = g_date_time_get_day_of_month (self->date);
  
    /* Make sure the day is valid at that month */
 -  day = MIN (day, month_length[leap (year)][month]);
 +  day = MAX (1, MIN (day, month_length[leap (year)][month]));
  
-   date = g_date_time_new_local (year, month, day, 1, 1, 1);
+   date = g_date_time_new_local (year, month, day, 0, 0, 0);
    gcal_date_chooser_set_date (GCAL_VIEW (self), date);
 -- 
 2.39.0

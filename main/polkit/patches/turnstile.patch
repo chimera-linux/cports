@@ -14,10 +14,10 @@ Date:   Sun Jul 2 15:44:51 2023 +0200
     PID to UID).
 
 diff --git a/src/polkitbackend/polkitbackendsessionmonitor-systemd.c b/src/polkitbackend/polkitbackendsessionmonitor-systemd.c
-index b00cdbd..9a3f3c3 100644
+index 4b83edd..ec02440 100644
 --- a/src/polkitbackend/polkitbackendsessionmonitor-systemd.c
 +++ b/src/polkitbackend/polkitbackendsessionmonitor-systemd.c
-@@ -346,7 +346,7 @@ polkit_backend_session_monitor_get_session_for_subject (PolkitBackendSessionMoni
+@@ -345,7 +345,7 @@ polkit_backend_session_monitor_get_session_for_subject (PolkitBackendSessionMoni
    PolkitUnixProcess *tmp_process = NULL;
    PolkitUnixProcess *process = NULL;
    PolkitSubject *session = NULL;
@@ -26,7 +26,7 @@ index b00cdbd..9a3f3c3 100644
    pid_t pid;
  #if HAVE_SD_UID_GET_DISPLAY
    uid_t uid;
-@@ -377,8 +377,26 @@ polkit_backend_session_monitor_get_session_for_subject (PolkitBackendSessionMoni
+@@ -392,8 +392,26 @@ polkit_backend_session_monitor_get_session_for_subject (PolkitBackendSessionMoni
  
    if (sd_pid_get_session (pid, &session_id) >= 0)
      {
@@ -54,4 +54,4 @@ index b00cdbd..9a3f3c3 100644
 +        }
      }
  
- #if HAVE_SD_UID_GET_DISPLAY
+ #if HAVE_SD_PIDFD_GET_SESSION

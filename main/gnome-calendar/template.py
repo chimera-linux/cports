@@ -31,6 +31,5 @@ source = (
     f"$(GNOME_SITE)/gnome-calendar/{pkgver[:-2]}/gnome-calendar-{pkgver}.tar.xz"
 )
 sha256 = "3b03313f1c4d12dc821e07e209d1596d53eafa255d492d2ce5abf92ed1b51e76"
-patch_style = "patch"
 # FIXME
 hardening = ["!int"]

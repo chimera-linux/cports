@@ -34,6 +34,5 @@ license = "LGPL-2.1-or-later"
 url = "https://docs.flatpak.org"
 source = f"https://github.com/flatpak/flatpak-builder/releases/download/{pkgver}/flatpak-builder-{pkgver}.tar.xz"
 sha256 = "dc27159394baaa2cb523f52f874472ff50d161983233264ca2a22e850741ec7a"
-patch_style = "patch"
 # CFI: fails on builder_(context|cache)_finalize during "flatpak-builder build ..."
 hardening = ["vis", "!cfi"]
