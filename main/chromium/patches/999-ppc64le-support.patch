@@ -3705,5 +3705,41 @@ index 6604cb9631..4cd486f8e9 100644
    ]
  
    if (v8_enable_webassembly) {
+--- a/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
++++ b/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
+@@ -583,6 +583,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_most") {
+     "llvm/lib/MC/MCAsmInfoCOFF.cpp",
+     "llvm/lib/MC/MCAsmInfoDarwin.cpp",
+     "llvm/lib/MC/MCAsmInfoELF.cpp",
++    "llvm/lib/MC/MCAsmInfoXCOFF.cpp",
+     "llvm/lib/MC/MCAsmMacro.cpp",
+     "llvm/lib/MC/MCAsmStreamer.cpp",
+     "llvm/lib/MC/MCAssembler.cpp",
+@@ -638,6 +639,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_most") {
+     "llvm/lib/MC/MCWinCOFFStreamer.cpp",
+     "llvm/lib/MC/MCWinEH.cpp",
+     "llvm/lib/MC/MCXCOFFStreamer.cpp",
++    "llvm/lib/MC/MCXCOFFObjectTargetWriter.cpp",
+     "llvm/lib/MC/MachObjectWriter.cpp",
+     "llvm/lib/MC/StringTableBuilder.cpp",
+     "llvm/lib/MC/SubtargetFeature.cpp",
+--- a/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
++++ b/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
+@@ -765,6 +765,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_source_set_0") {
+     "llvm/lib/MC/MCAsmInfoCOFF.cpp",
+     "llvm/lib/MC/MCAsmInfoDarwin.cpp",
+     "llvm/lib/MC/MCAsmInfoELF.cpp",
++    "llvm/lib/MC/MCAsmInfoXCOFF.cpp",
+     "llvm/lib/MC/MCAsmMacro.cpp",
+     "llvm/lib/MC/MCAsmStreamer.cpp",
+     "llvm/lib/MC/MCAssembler.cpp",
+@@ -825,6 +826,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_source_set_0") {
+     "llvm/lib/MC/MCWinCOFFStreamer.cpp",
+     "llvm/lib/MC/MCWinEH.cpp",
+     "llvm/lib/MC/MCXCOFFStreamer.cpp",
++    "llvm/lib/MC/MCXCOFFObjectTargetWriter.cpp",
+     "llvm/lib/MC/MachObjectWriter.cpp",
+     "llvm/lib/MC/SPIRVObjectWriter.cpp",
+     "llvm/lib/MC/StringTableBuilder.cpp",
 -- 
 2.46.2
