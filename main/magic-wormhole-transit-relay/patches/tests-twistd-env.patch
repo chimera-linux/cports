@@ -1,0 +1,14 @@
+the env isn't passed through at all apparently
+diff --git a/src/wormhole_transit_relay/test/test_backpressure.py b/src/wormhole_transit_relay/test/test_backpressure.py
+index d53a625..7c71495 100644
+--- a/src/wormhole_transit_relay/test/test_backpressure.py
++++ b/src/wormhole_transit_relay/test/test_backpressure.py
+@@ -60,7 +60,7 @@ def run_transit(reactor, proto, tcp_port=None, websocket_port=None):
+     if websocket_port is not None:
+         args.append("--websocket")
+         args.append(websocket_port)
+-    proc = reactor.spawnProcess(proto, exe, args)
++    proc = reactor.spawnProcess(proto, exe, args, env={"PYTHONPATH": "src"})
+     return proc
+ 
+ 
