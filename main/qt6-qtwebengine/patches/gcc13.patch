@@ -1,3 +1,29 @@
+diff --git a/src/3rdparty/chromium/components/variations/seed_response.h b/src/3rdparty/chromium/components/variations/seed_response.h
+index 6f7b58671..7a53f6520 100644
+--- a/src/3rdparty/chromium/components/variations/seed_response.h
++++ b/src/3rdparty/chromium/components/variations/seed_response.h
+@@ -5,6 +5,7 @@
+ #ifndef COMPONENTS_VARIATIONS_SEED_RESPONSE_H_
+ #define COMPONENTS_VARIATIONS_SEED_RESPONSE_H_
+ 
++#include <cstdint>
+ #include <string>
+ 
+ #include "base/component_export.h"
+diff --git a/src/3rdparty/chromium/gpu/config/gpu_driver_bug_workarounds.h b/src/3rdparty/chromium/gpu/config/gpu_driver_bug_workarounds.h
+index 1951c8b32..befb28aea 100644
+--- a/src/3rdparty/chromium/gpu/config/gpu_driver_bug_workarounds.h
++++ b/src/3rdparty/chromium/gpu/config/gpu_driver_bug_workarounds.h
+@@ -5,6 +5,7 @@
+ #ifndef GPU_CONFIG_GPU_DRIVER_BUG_WORKAROUNDS_H_
+ #define GPU_CONFIG_GPU_DRIVER_BUG_WORKAROUNDS_H_
+ 
++#include <cstdint>
+ #include <vector>
+ 
+ #include "build/build_config.h"
+diff --git a/src/3rdparty/chromium/third_party/webrtc/rtc_base/system/file_wrapper.h b/src/3rdparty/chromium/third_party/webrtc/rtc_base/system/file_wrapper.h
+index 5e1e3d6a1..2b0ecbc8c 100644
 --- a/src/3rdparty/chromium/third_party/webrtc/rtc_base/system/file_wrapper.h
 +++ b/src/3rdparty/chromium/third_party/webrtc/rtc_base/system/file_wrapper.h
 @@ -11,6 +11,7 @@
@@ -8,23 +34,3 @@
  #include <stddef.h>
  #include <stdio.h>
  
---- a/src/3rdparty/chromium/components/variations/seed_response.h
-+++ b/src/3rdparty/chromium/components/variations/seed_response.h
-@@ -5,6 +5,7 @@
- #ifndef COMPONENTS_VARIATIONS_SEED_RESPONSE_H_
- #define COMPONENTS_VARIATIONS_SEED_RESPONSE_H_
- 
-+#include <cstdint>
- #include <string>
- 
- namespace variations {
---- a/src/3rdparty/chromium/gpu/config/gpu_driver_bug_workarounds.h
-+++ b/src/3rdparty/chromium/gpu/config/gpu_driver_bug_workarounds.h
-@@ -5,6 +5,7 @@
- #ifndef GPU_CONFIG_GPU_DRIVER_BUG_WORKAROUNDS_H_
- #define GPU_CONFIG_GPU_DRIVER_BUG_WORKAROUNDS_H_
- 
-+#include <cstdint>
- #include <vector>
- 
- #include "base/macros.h"

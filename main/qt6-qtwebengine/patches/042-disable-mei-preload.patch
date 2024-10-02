@@ -7,7 +7,7 @@
 
 --- a/src/3rdparty/chromium/chrome/BUILD.gn
 +++ b/src/3rdparty/chromium/chrome/BUILD.gn
-@@ -384,7 +384,6 @@ if (!is_android && !is_mac) {
+@@ -382,7 +382,6 @@ if (!is_android && !is_mac) {
        }
  
        data_deps += [
@@ -15,14 +15,14 @@
          "//third_party/widevine/cdm",
        ]
        if (invoker.collect_inputs_only) {
-@@ -1258,7 +1257,6 @@ if (is_win) {
+@@ -1256,7 +1255,6 @@ if (is_win) {
        ":optimization_guide_library",
        ":swiftshader_library",
        ":widevine_cdm_library",
 -      "//chrome/browser/resources/media/mei_preload:component_bundle",
      ]
  
-     if (enable_ml_internal) {
+     if (is_chrome_branded) {
 --- a/src/3rdparty/chromium/chrome/installer/linux/BUILD.gn
 +++ b/src/3rdparty/chromium/chrome/installer/linux/BUILD.gn
 @@ -96,8 +96,6 @@ packaging_files = packaging_files_binaries + [
