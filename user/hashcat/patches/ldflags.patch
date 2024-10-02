@@ -1,0 +1,13 @@
+diff -ruN a/src/Makefile b/src/Makefile
+--- a/src/Makefile	2022-09-02 16:58:13.000000000 +0200
++++ b/src/Makefile	2024-10-03 21:35:26.203168592 +0200
+@@ -234,9 +234,6 @@
+ 
+ ifeq ($(DEBUG),0)
+ CFLAGS                  += -O2
+-ifneq ($(UNAME),Darwin)
+-LFLAGS                  += -s
+-endif
+ else
+ ifeq ($(DEBUG),1)
+ ifneq ($(UNAME),Darwin)

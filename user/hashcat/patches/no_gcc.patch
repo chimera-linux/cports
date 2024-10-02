@@ -1,0 +1,37 @@
+diff -ruN a/src/Makefile b/src/Makefile
+--- a/src/Makefile	2022-09-02 16:58:13.000000000 +0200
++++ b/src/Makefile	2024-10-02 21:42:39.323007337 +0200
+@@ -59,14 +59,14 @@
+ ## Native compiler paths
+ ##
+ 
+-CC                      := gcc
+-CXX                     := g++
+-AR                      := ar
+-FIND                    := find
+-INSTALL                 := install
+-RM                      := rm
+-SED                     := sed
+-SED_IN_PLACE            := -i
++CC                      ?= gcc
++CXX                     ?= g++
++AR                      ?= ar
++FIND                    ?= find
++INSTALL                 ?= install
++RM                      ?= rm
++SED                     ?= sed
++SED_IN_PLACE            ?= -i
+ 
+ ifeq ($(UNAME),Darwin)
+ CC                      := clang
+@@ -706,8 +706,8 @@
+ ## Compiler paths
+ ##
+ 
+-CC_LINUX                := gcc
+-CXX_LINUX               := g++
++CC_LINUX                := $(CC)
++CXX_LINUX               := $(CXX)
+ CC_WIN                  := x86_64-w64-mingw32-gcc
+ CXX_WIN                 := x86_64-w64-mingw32-g++
+ 
