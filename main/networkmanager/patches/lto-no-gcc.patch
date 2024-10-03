@@ -8,17 +8,12 @@ diff --git a/meson.build b/meson.build
 index 1a7dadf..0f9a6d0 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -163,13 +163,6 @@ if enable_ld_gc
+@@ -173,7 +173,7 @@
  endif
  
  enable_lto = get_option('b_lto')
 -if enable_lto
--  # meson already adds '-flto'
--  lto_flag = '-flto-partition=none'
--  assert(cc.has_argument(lto_flag), '-flto-partition=none not supported. Disable link-time optimization with -Db_lto=false.')
--  common_flags += lto_flag
--  common_ldflags += lto_flag
--endif
- 
- common_flags += cc.get_supported_arguments([
-   '-Wall',
++if false
+   # meson already adds '-flto'
+   lto_flag = '-flto-partition=none'
+   assert(cc.has_argument(lto_flag), '-flto-partition=none not supported. Disable link-time optimization with -Db_lto=false.')
