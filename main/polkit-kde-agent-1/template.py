@@ -28,5 +28,6 @@ hardening = ["vis"]
 
 
 def post_install(self):
-    # TODO: dinit user service with graphical
+    # TODO: dinit user service with graphical (
+    # also "Passed session and the session the caller is in differs. They must be equal for now."
     self.uninstall("usr/lib/systemd/user")
