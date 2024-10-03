@@ -1,5 +1,5 @@
 pkgname = "samplv1"
-pkgver = "1.1.1"
+pkgver = "1.1.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,4 +21,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://samplv1.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/samplv1/samplv1-{pkgver}.tar.gz"
-sha256 = "2851a4ad1a6992645e0dd61a1c42dfdc44f9b41cbf6abbef98ae705df5c655c2"
+sha256 = "13972c5a0ff69c80e0b859070ecff75ba4623e7121d96fade5b41933fd442ede"
