@@ -1,5 +1,5 @@
 pkgname = "cargo-watch"
-pkgver = "8.5.2"
+pkgver = "8.5.3"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = ["--", "--skip=with_cargo"]
@@ -11,7 +11,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "CC0-1.0"
 url = "https://github.com/watchexec/cargo-watch"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "850b8de75c618fa1fcf5e2d56a6b2477e7224fbdfa793f5b5f30b31bf63fb358"
+sha256 = "1884674d19492727d762da91b9aebc05d29bdb34cdb1903cde36d81edbcc6514"
 
 
 def post_install(self):
