@@ -7,7 +7,7 @@ diff --git a/src/interfaces/ecpg/Makefile b/src/interfaces/ecpg/Makefile
 index 41460a1..cc3dd37 100644
 --- a/src/interfaces/ecpg/Makefile
 +++ b/src/interfaces/ecpg/Makefile
-@@ -2,7 +2,7 @@ subdir = src/interfaces/ecpg
+@@ -2,7 +2,7 @@
  top_builddir = ../../..
  include $(top_builddir)/src/Makefile.global
  
@@ -15,4 +15,4 @@ index 41460a1..cc3dd37 100644
 +SUBDIRS = include pgtypeslib ecpglib preproc
  
  # Suppress parallel build of subdirectories to avoid a bug in GNU make 3.82, cf
- # http://savannah.gnu.org/bugs/?30653
+ # https://savannah.gnu.org/bugs/?30653

@@ -1,7 +1,7 @@
 pkgname = "postgresql16"
 _major = pkgname.removeprefix("postgresql")
 pkgver = f"{_major}.4"
-pkgrel = 1
+pkgrel = 2
 # NOTE: version 16 doesn't work with meson + tarball
 # switch to meson for version 17
 build_style = "gnu_configure"
@@ -49,11 +49,13 @@ source = [
     f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
 ]
 sha256 = ["971766d645aa73e93b9ef4e3be44201b4f45b5477095b049125403f9f3386d6f"]
-patch_style = "patch"
 # checks depend on libpq already being installed
 options = ["!check"]
 
-_default_ver = True  # should this version provide non-versioned resources?
+_default_ver = False  # should this version provide non-versioned resources?
+
+if not _default_ver:
+    makedepends += ["libecpg-devel", "libpq-devel"]
 
 # complete list of contribs, must match what is built (checked)
 # ones to skip can be prefixed with an exclamation mark
@@ -195,7 +197,7 @@ def _take_list(self, pn):
 
 def _contrib_pkg(pn):
     # build a subpackage for each contrib item
-    @subpackage(f"postgresql16-contrib-{pn}")
+    @subpackage(f"{pkgname}-contrib-{pn}")
     def _(self):
         self.subdesc = f"contrib-{pn}"
         self.depends += [self.parent]
@@ -262,7 +264,7 @@ def _(self):
 # these are provided by contribs, can't put them in the default alt
 # nor should we make them actual alternatives (autoinstall instead)
 def _contrib_alt(pn, pl):
-    @subpackage(f"postgresql-postgresql16-{pn}-default")
+    @subpackage(f"postgresql-{pkgname}-{pn}-default")
     def _(self):
         self.subdesc = f"default links for {pn}"
         self.depends = [self.with_pkgver(f"postgresql-{pkgname}-default")]
@@ -282,7 +284,7 @@ for _pn in _extra_cmds:
     _contrib_alt(_pn, _extra_cmds[_pn])
 
 
-@subpackage("postgresql16-contrib")
+@subpackage(f"{pkgname}-contrib")
 def _(self):
     self.subdesc = "contrib"
     self.options = ["empty"]
@@ -342,7 +344,7 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-pltcl")
+@subpackage(f"{pkgname}-pltcl")
 def _(self):
     self.subdesc = "PL/Tcl"
     self.depends = [self.parent]
@@ -354,7 +356,7 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-plperl")
+@subpackage(f"{pkgname}-plperl")
 def _(self):
     self.subdesc = "PL/Perl"
     self.depends = [self.parent]
@@ -365,7 +367,7 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-plpython")
+@subpackage(f"{pkgname}-plpython")
 def _(self):
     self.subdesc = "PL/Python"
     self.depends = [self.parent]
