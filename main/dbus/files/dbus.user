@@ -4,3 +4,4 @@ type = process
 command = /usr/libexec/dbus-session.wrapper --print-address=4
 ready-notification = pipefd:4
 working-dir = $HOME
+before = login.target

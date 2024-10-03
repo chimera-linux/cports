@@ -1,6 +1,6 @@
 pkgname = "wireplumber"
 pkgver = "0.5.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystem-lua=true",

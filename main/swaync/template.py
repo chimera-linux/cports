@@ -1,6 +1,6 @@
 pkgname = "swaync"
 pkgver = "0.10.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
     "gobject-introspection",

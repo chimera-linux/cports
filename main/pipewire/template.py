@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "1.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",

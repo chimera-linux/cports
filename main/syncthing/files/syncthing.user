@@ -1,3 +1,4 @@
 type = process
 command = /usr/bin/syncthing --no-browser
+before = login.target
 log-type = buffer

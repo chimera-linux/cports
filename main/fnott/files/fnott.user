@@ -1,4 +1,5 @@
 type = process
 command = /usr/bin/fnott --print-pid=4
 depends-on = dbus
+before = login.target
 ready-notification = pipefd:4

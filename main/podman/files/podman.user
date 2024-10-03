@@ -1,2 +1,3 @@
 type = process
 command = /usr/bin/podman system service --time 0
+before = login.target

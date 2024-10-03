@@ -1,6 +1,6 @@
 pkgname = "ra-multiplex"
 pkgver = "0.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]

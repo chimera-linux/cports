@@ -1,6 +1,6 @@
 pkgname = "openpgp-card-ssh-agent"
 pkgver = "0.3.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "pcsc-lite-devel", "dbus-devel"]
