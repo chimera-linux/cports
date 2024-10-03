@@ -1,7 +1,7 @@
 # nb: neovim requires either lua5.1 or luaJIT (a mess)
 pkgname = "neovim"
-pkgver = "0.10.1"
-pkgrel = 2
+pkgver = "0.10.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
@@ -27,11 +27,9 @@ makedepends = [
 ]
 depends = [
     "lua5.1-lpeg",
-    "tree-sitter-bash",
     "tree-sitter-c",
     "tree-sitter-lua",
     "tree-sitter-markdown",
-    "tree-sitter-python",
     "tree-sitter-query",
     "tree-sitter-vimdoc",
 ]
@@ -41,7 +39,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "Apache-2.0 AND custom:Vim"
 url = "https://neovim.io"
 source = f"https://github.com/neovim/neovim/archive/v{pkgver}.tar.gz"
-sha256 = "edce96e79903adfcb3c41e9a8238511946325ea9568fde177a70a614501af689"
+sha256 = "546cb2da9fffbb7e913261344bbf4cf1622721f6c5a67aa77609e976e78b8e89"
 broken_symlinks = ["usr/share/nvim/runtime/parser"]
 # hardening: visibility is needed for "nvim --api-info"
 # testing unchecked yet (via "make test", see test/README.md)
