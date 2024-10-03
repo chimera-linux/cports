@@ -1,5 +1,5 @@
 pkgname = "libnftnl"
-pkgver = "1.2.7"
+pkgver = "1.2.8"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -10,10 +10,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.netfilter.org/projects/libnftnl"
 source = f"{url}/files/libnftnl-{pkgver}.tar.xz"
-sha256 = "9122774f968093d5c0bacddd67de480f31fa4073405a7fc058a34b0f387aecb3"
+sha256 = "37fea5d6b5c9b08de7920d298de3cdc942e7ae64b1a3e8b880b2d390ae67ad95"
 # CFI: verify function pointers
 hardening = ["vis", "!cfi"]
-options = ["linkundefver"]
 
 
 @subpackage("libnftnl-devel")
