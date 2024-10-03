@@ -3,5 +3,5 @@
 type = process
 command = /usr/bin/dunst
 depends-on = dbus
-before = login.target
+depends-on = graphical.target
 log-type = buffer
