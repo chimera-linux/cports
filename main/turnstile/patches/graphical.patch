@@ -1,0 +1,43 @@
+commit d3ef9de4479a96689eda091d896854f4a65df69a
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Oct 3 13:29:02 2024 +0200
+
+    add graphical.target to dinit backend
+
+diff --git a/backend/dinit b/backend/dinit
+index d69710e..6371983 100644
+--- a/backend/dinit
++++ b/backend/dinit
+@@ -46,7 +46,7 @@ case "$1" in
+             echo "dinit: invalid control socket '$2'" >&2
+             exit 69
+         fi
+-        exec dinitctl --socket-path "$2" start boot
++        exec dinitctl --socket-path "$2" start login.target
+         ;;
+     stop)
+         exec kill -s TERM "$2"
+@@ -109,6 +109,7 @@ mkdir -p "${boot_dir}" > /dev/null 2>&1 || :
+ # this must succeed
+ cat << EOF > "${DINIT_DIR}/boot"
+ type = internal
++depends-on = graphical.target
+ depends-on = system
+ waits-for.d = ${boot_dir}
+ EOF
+@@ -119,4 +120,15 @@ type = internal
+ waits-for.d = ${system_boot_dir}
+ EOF
+ 
++# this is needed for login to proceed
++cat << EOF > "${DINIT_DIR}/login.target"
++type = internal
++EOF
++
++# this is not necessary to have started for login to proceed
++cat << EOF > "${DINIT_DIR}/graphical.target"
++type = triggered
++depends-on = login.target
++EOF
++
+ exec dinit --user --ready-fd 3 --services-dir "$DINIT_DIR" "$@" 3>"$DINIT_READY_PIPE"
