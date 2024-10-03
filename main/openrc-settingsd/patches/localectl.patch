@@ -389,7 +389,7 @@ new file mode 100644
 index 0000000..21342f5
 --- /dev/null
 +++ b/src/localectl.c
-@@ -0,0 +1,384 @@
+@@ -0,0 +1,388 @@
 +/*
 +  Copyright 2024 Gnarwhal <git.aspect893@passmail.net>
 +  Copyright 2024 q66 <q66@chimera-linux.org>
@@ -646,6 +646,7 @@ index 0000000..21342f5
 +        { "machine",         required_argument, NULL, 'M'                 },
 +        { "no-ask-password", no_argument,       NULL, ARG_NO_ASK_PASSWORD },
 +        { "no-convert",      no_argument,       NULL, ARG_NO_CONVERT      },
++        {},
 +    };
 +
 +    int c;
@@ -655,6 +656,7 @@ index 0000000..21342f5
 +    g_assert (argc >= 0);
 +    g_assert (argv);
 +
++    const char * badopt;
 +    while ((c = getopt_long (argc, argv, "h", options, NULL)) >= 0) {
 +        switch (c) {
 +            case 'h':
@@ -674,7 +676,9 @@ index 0000000..21342f5
 +                break;
 +
 +            default:
-+                warn ("invalid option -- '%c'", c);
++                badopt = argv[optind - 1];
++                while (*++badopt == '-');
++                warn ("invalid option -- '%s'", badopt);
 +                return 1;
 +        }
 +    }
