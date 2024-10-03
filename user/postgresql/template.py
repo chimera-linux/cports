@@ -1,8 +1,8 @@
 pkgname = "postgresql"
-pkgver = "1.0"
+pkgver = "1.1"
 pkgrel = 0
 build_style = "meta"
-depends = ["alt:postgresql!postgresql16"]
+depends = ["alt:postgresql!postgresql17"]
 pkgdesc = "Shared metapackage for PostgreSQL"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
