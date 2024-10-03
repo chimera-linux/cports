@@ -1,5 +1,5 @@
 pkgname = "fio"
-pkgver = "3.37"
+pkgver = "3.38"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -22,5 +22,5 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://github.com/axboe/fio"
 source = f"https://github.com/axboe/fio/archive/refs/tags/fio-{pkgver}.tar.gz"
-sha256 = "b59099d42d5c62a8171974e54466a688c8da6720bf74a7f16bf24fb0e51ff92d"
+sha256 = "73b3ca18a66fb88a90dae73b9994fdd18d35161d914ffe2089380760af5533cf"
 hardening = ["cfi", "vis"]
