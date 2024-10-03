@@ -1,6 +1,6 @@
 pkgname = "waybar"
 pkgver = "0.11.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dcava=disabled",
@@ -63,3 +63,4 @@ options = ["!cross"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_service("^/waybar.user")
