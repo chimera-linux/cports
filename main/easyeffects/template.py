@@ -1,6 +1,6 @@
 pkgname = "easyeffects"
 pkgver = "7.1.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Denable-libcpp-workarounds=true"]
 hostmakedepends = [
@@ -45,3 +45,7 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/wwmm/easyeffects"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "b22a62c7bf51930cafdedbf3afcd93b736f4fed5f4bb21d55dd2190436f80844"
+
+
+def post_install(self):
+    self.install_service("^/easyeffects.user")
