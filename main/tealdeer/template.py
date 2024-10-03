@@ -1,10 +1,10 @@
 pkgname = "tealdeer"
-pkgver = "1.6.1"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "cargo"
-# we patch lockfile
-prepare_after_patch = True
+make_build_args = ["--no-default-features", "--features", "native-tls"]
 make_check_args = [
+    *make_build_args,
     "--",
     "--skip=test_autoupdate_cache",
     "--skip=test_create_cache_directory_path",
@@ -20,12 +20,13 @@ makedepends = ["rust-std", "openssl-devel"]
 pkgdesc = "Alternative implementation of tldr"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
-url = "https://github.com/dbrgn/tealdeer"
+url = "https://github.com/tealdeer-rs/tealdeer"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d42db25a56a72faec173c86192656c5381281dc197171f385fccffd518930430"
+sha256 = "940fe96a44571f395ac8349e5cba7ddb9231ce526bee07a9eb68f02c32f7da7b"
 
 
-def post_install(self):
+def install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/tldr")
     self.install_license("LICENSE-MIT")
     self.install_completion("completion/bash_tealdeer", "bash", "tldr")
     self.install_completion("completion/zsh_tealdeer", "zsh", "tldr")
