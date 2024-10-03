@@ -1,5 +1,5 @@
 pkgname = "python-nftables"
-pkgver = "1.1.0"
+pkgver = "1.1.1"
 pkgrel = 0
 build_wrksrc = "py"
 build_style = "python_pep517"
@@ -7,7 +7,6 @@ hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 depends = ["libnftables", "python"]
 pkgdesc = "Python bindings for nftables"
@@ -15,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND GPL-2.0-or-later"
 url = "https://netfilter.org/projects/nftables"
 source = f"{url}/files/nftables-{pkgver}.tar.xz"
-sha256 = "ef3373294886c5b607ee7be82c56a25bc04e75f802f8e8adcd55aac91eb0aa24"
+sha256 = "6358830f3a64f31e39b0ad421d7dadcd240b72343ded48d8ef13b8faf204865a"
 # no tests
 options = ["!check"]
 
