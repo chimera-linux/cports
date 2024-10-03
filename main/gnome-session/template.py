@@ -1,22 +1,22 @@
 pkgname = "gnome-session"
-pkgver = "46.0"
-pkgrel = 1
+pkgver = "47.0.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=/tmp",
 ]
 hostmakedepends = [
+    "gettext",
+    "glib-devel",
     "meson",
     "pkgconf",
-    "glib-devel",
     "xmlto",
-    "gettext",
 ]
 makedepends = [
-    "glib-devel",
-    "gtk+3-devel",
     "elogind-devel",
+    "glib-devel",
     "gnome-desktop-devel",
+    "gtk+3-devel",
     "json-glib-devel",
     "libice-devel",
     "libsm-devel",
@@ -33,11 +33,9 @@ pkgdesc = "GNOME session management utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-session"
-source = (
-    f"$(GNOME_SITE)/gnome-session/{pkgver[:-2]}/gnome-session-{pkgver}.tar.xz"
-)
-sha256 = "c6e1624af6090bc4e1a191fe2268abfa7a8de07831ca7a57f217e679bf7b9a54"
-hardening = ["vis", "!cfi"]
+source = f"$(GNOME_SITE)/gnome-session/{pkgver[:pkgver.find('.')]}/gnome-session-{pkgver}.tar.xz"
+sha256 = "56ae9c68e49995793eb2096bcdc4533b111669e1e54c8b6e0b1d952f6a5e8a70"
+hardening = ["vis"]
 
 
 def post_install(self):
