@@ -1,6 +1,6 @@
 pkgname = "unbound"
-pkgver = "1.21.0"
-pkgrel = 1
+pkgver = "1.21.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-cachedb",
@@ -43,7 +43,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
-sha256 = "e7dca7d6b0f81bdfa6fa64ebf1053b5a999a5ae9278a87ef182425067ea14521"
+sha256 = "3036d23c23622b36d3c87e943117bdec1ac8f819636eb978d806416b0fa9ea46"
 
 
 def post_install(self):
