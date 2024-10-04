@@ -1,6 +1,6 @@
 pkgname = "incus"
-pkgver = "6.5.0"
-pkgrel = 1
+pkgver = "6.6.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
 make_check_args = ["-skip", "TestConvertNetworkConfig", "./..."]
@@ -43,7 +43,7 @@ maintainer = "tj <tjheeta@gmail.com>"
 license = "Apache-2.0"
 url = "https://github.com/lxc/incus"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "aabc762bdcfe210b777e6b78e40150c9ffbc798aa39c8b4ba55812dac3ada0ec"
+sha256 = "0274f6258591a3189737812228722d5c7b0cc57deb5edd0f65750d3323210394"
 # fail to link because of post_build overrides
 options = ["!check"]
 
