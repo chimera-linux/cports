@@ -5,20 +5,20 @@ Date:   Thu Jun 8 23:21:16 2023 +0200
     replace clang-incompatible bits with asm
 
 diff --git a/bridges/Library_cpp_uno.mk b/bridges/Library_cpp_uno.mk
-index 5dc92c23c..bdd4f1b27 100644
+index 5d6e7c4..df8b857 100644
 --- a/bridges/Library_cpp_uno.mk
 +++ b/bridges/Library_cpp_uno.mk
-@@ -150,6 +150,7 @@ ifneq ($(filter DRAGONFLY FREEBSD LINUX NETBSD OPENBSD,$(OS)),)
+@@ -148,6 +148,7 @@ ifneq ($(filter DRAGONFLY FREEBSD LINUX NETBSD OPENBSD,$(OS)),)
  bridges_SELECTED_BRIDGE := gcc3_linux_powerpc64
  bridge_noopt_objects := cpp2uno uno2cpp
  bridge_exception_objects := except
 +bridge_asm_objects := call
  endif
  
- else ifeq ($(CPUNAME),S390)
+ else ifeq ($(CPUNAME),S390X)
 diff --git a/bridges/source/cpp_uno/gcc3_linux_powerpc64/call.s b/bridges/source/cpp_uno/gcc3_linux_powerpc64/call.s
 new file mode 100644
-index 000000000..f20c598e6
+index 0000000..f20c598
 --- /dev/null
 +++ b/bridges/source/cpp_uno/gcc3_linux_powerpc64/call.s
 @@ -0,0 +1,478 @@
@@ -501,10 +501,10 @@ index 000000000..f20c598e6
 +	.size	codeSnippet,.-codeSnippet
 +	.section	.note.GNU-stack,"",@progbits
 diff --git a/bridges/source/cpp_uno/gcc3_linux_powerpc64/cpp2uno.cxx b/bridges/source/cpp_uno/gcc3_linux_powerpc64/cpp2uno.cxx
-index ab3fbd4c7..c0a207b71 100644
+index d1a5ee6..4c87c3b 100644
 --- a/bridges/source/cpp_uno/gcc3_linux_powerpc64/cpp2uno.cxx
 +++ b/bridges/source/cpp_uno/gcc3_linux_powerpc64/cpp2uno.cxx
-@@ -339,7 +339,7 @@ static typelib_TypeClass cpp2uno_call(
+@@ -340,7 +340,7 @@ static typelib_TypeClass cpp2uno_call(
  #  define PARAMSAVE 48
  #endif
  
@@ -513,7 +513,7 @@ index ab3fbd4c7..c0a207b71 100644
      sal_uInt64 nOffsetAndIndex,
          void ** gpreg, void ** fpreg, long sp,
      sal_Int64 * pRegisterReturn /* space for register return */ )
-@@ -513,7 +513,8 @@ static typelib_TypeClass cpp_mediate(
+@@ -514,7 +514,8 @@ static typelib_TypeClass cpp_mediate(
      return eRet;
  }
  
@@ -523,7 +523,7 @@ index ab3fbd4c7..c0a207b71 100644
  {
      sal_uInt64 gpreg[ppc64::MAX_GPR_REGS];
  
-@@ -607,6 +608,7 @@ extern "C" void privateSnippetExecutor( ... )
+@@ -608,6 +609,7 @@ extern "C" void privateSnippetExecutor( ... )
              break;
      }
  }
@@ -531,7 +531,7 @@ index ab3fbd4c7..c0a207b71 100644
  
  #if defined(_CALL_ELF) && _CALL_ELF == 2
  const int codeSnippetSize = 32;
-@@ -614,8 +616,9 @@ const int codeSnippetSize = 32;
+@@ -615,8 +617,9 @@ const int codeSnippetSize = 32;
  const int codeSnippetSize = 24;
  #endif
  
@@ -543,7 +543,7 @@ index ab3fbd4c7..c0a207b71 100644
  {
  #if OSL_DEBUG_LEVEL > 2
      fprintf(stderr,"in codeSnippet functionIndex is %x\n", nFunctionIndex);
-@@ -648,6 +651,7 @@ unsigned char *  codeSnippet( unsigned char * code, sal_Int32 nFunctionIndex, sa
+@@ -649,6 +652,7 @@ unsigned char *  codeSnippet( unsigned char * code, sal_Int32 nFunctionIndex, sa
  #endif
      return (code + codeSnippetSize);
  }
@@ -552,7 +552,7 @@ index ab3fbd4c7..c0a207b71 100644
  }
  
 diff --git a/bridges/source/cpp_uno/gcc3_linux_powerpc64/uno2cpp.cxx b/bridges/source/cpp_uno/gcc3_linux_powerpc64/uno2cpp.cxx
-index 612495d83..e3d60c556 100644
+index 37d7565..e429737 100644
 --- a/bridges/source/cpp_uno/gcc3_linux_powerpc64/uno2cpp.cxx
 +++ b/bridges/source/cpp_uno/gcc3_linux_powerpc64/uno2cpp.cxx
 @@ -92,7 +92,7 @@ namespace ppc64

@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "24.8.1.2"
+pkgver = "24.8.2.1"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -161,7 +161,6 @@ pkgdesc = "Free office suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.libreoffice.org"
-patch_style = "patch"
 # big and not particularly useful testsuite
 # FIXME: lto breaks LO with clang 17
 options = ["!lto", "!cross", "!check", "linkundefver", "empty"]
@@ -206,10 +205,10 @@ source = [
     f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "884486836a6830d761252a5b53c7bc4a5eba2f6ead26d60564250910038811e7",
-    "da919a25365910679e88246ee5362b1ca138d5633a2aa54a76f05dede90f6703",
-    "5b31c294c96b0eb744e7ae592e3c5b2caaa8dff0455f68d9c32068a4320b0650",
-    "a14e17cf480fdd8f2289bde7cdf48514f9ceea438211e8de6066886a8c92134b",
+    "ab301baeb64114a9a1bce5dcb914ee0bf3e2ac7b8d74d32f3233f5f312bcc4cf",
+    "2a4e4ed1e6412c9e29d5bfd8a49e71dddc4d2ec8f154ce7c8495ac330771f59c",
+    "4ff77d50dfa77c45dff7ca8c5033028ff24530b7e9ce333aee2a418046d08ef6",
+    "72382c0fb00d83511be9197bf1e4e0947899084a287a97960942e49624676efb",
     "bf4d2d0c5ff8889fd494486db09291cb7965f0bf2f93ef005d3b08070a5a4f5c",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
