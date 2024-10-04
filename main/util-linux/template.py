@@ -1,6 +1,6 @@
 pkgname = "util-linux"
 pkgver = "2.40.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "--auto-feature=enabled",
@@ -29,6 +29,7 @@ configure_args = [
     "-Dbuild-newgrp=disabled",
     "-Dbuild-pam-lastlog2=disabled",
     "-Dbuild-pivot_root=disabled",
+    "-Dbuild-setarch=disabled",
     "-Dbuild-switch_root=disabled",
     "-Dbuild-sulogin=disabled",
     "-Dbuild-su=disabled",
@@ -67,7 +68,6 @@ source = (
     f"$(KERNEL_SITE)/utils/util-linux/v{pkgver[:-2]}/util-linux-{pkgver}.tar.xz"
 )
 sha256 = "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3"
-patch_style = "patch"
 tool_flags = {"CFLAGS": ["-D_DIRENT_HAVE_D_TYPE"]}
 # checkdepends are missing
 options = ["!check"]
@@ -118,7 +118,6 @@ def post_install(self):
         "script",
         "scriptlive",
         "scriptreplay",
-        "setarch",
         "setsid",
         "sulogin",
         "taskset",

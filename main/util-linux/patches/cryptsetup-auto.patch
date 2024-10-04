@@ -1,6 +1,8 @@
+diff --git a/meson.build b/meson.build
+index 6d1f986..3d334d3 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -344,7 +344,7 @@ endif
+@@ -377,7 +377,7 @@ endif
  
  lib_cryptsetup = dependency(
    'libcryptsetup',
@@ -8,4 +10,4 @@
 +  required : false)
  conf.set('HAVE_CRYPTSETUP', lib_cryptsetup.found() ? 1 : false)
  
- if not get_option('cryptsetup').disabled() and get_option('cryptsetup-dlopen').enabled()
+ cryptsetup_dlopen = not get_option('cryptsetup').disabled() and get_option('cryptsetup-dlopen').enabled()

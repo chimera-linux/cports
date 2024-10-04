@@ -4,80 +4,14 @@ Date:   Fri Jun 30 04:10:06 2023 +0200
 
     portable handling of symlinks
 
-diff --git a/meson.build b/meson.build
-index b364194..147f421 100644
---- a/meson.build
-+++ b/meson.build
-@@ -828,7 +828,6 @@ bison_gen = generator(
- 
- 
- 
--meson_make_symlink = meson.current_source_dir() + '/tools/meson-make-symlink.sh'
- meson_make_manpage_stub = meson.current_source_dir() + '/tools/meson-make-manpage-stub.sh'
- 
- configure_file(
-@@ -958,9 +957,7 @@ exe = executable(
-   build_by_default : opt)
- if opt and not is_disabler(exe)
-   exes += exe
--  meson.add_install_script(meson_make_symlink,
--                           'last',
--                           join_paths(usrbin_exec_dir, 'lastb'))
-+  install_symlink('lastb', pointing_to: 'last', install_dir: usrbin_exec_dir)
-   manadocs += ['login-utils/last.1.adoc']
-   manlinks += {'lastb.1': 'last.1'}
-   bashcompletions += ['last']
-@@ -1068,13 +1065,8 @@ exe = executable(
-   build_by_default : opt)
- if opt and not is_disabler(exe)
-   exes += exe
--  meson.add_install_script(meson_make_symlink,
--                           'vipw',
--                           join_paths(usrbin_exec_dir, 'vigr'))
-+  install_symlink('vigr', pointing_to: 'vipw', install_dir: usrbin_exec_dir)
-   manadocs += ['login-utils/vipw.8.adoc']
--  meson.add_install_script(meson_make_symlink,
--                           'vipw.8',
--                           join_paths(mandir, 'man8/vigr.8'))
- endif
- 
- opt = not get_option('build-runuser').disabled()
-@@ -1667,28 +1667,6 @@
-   bashcompletions += ['setarch']
- endif
- 
--if opt
--  setarch_links = ['uname26', 'linux32', 'linux64']
--  setarch_links_arch = {
--    's390x' :   ['s390', 's390x'],
--    'x86' :     ['i386'],
--    'x86_64' :  ['i386', 'x86_64'],
--    'ppc64' :   ['ppc', 'ppc64', 'ppc32'],
--    'space64' : ['sparc', 'sparc64', 'sparc32', 'sparc32bash'],
--    'mips64' :  ['mips', 'mips64', 'mips32'],
--    'ia64' :    ['i386', 'ia64'],
--    'hppa' :    ['parisc', 'parisc64', 'parisc32'],
--  }
--  setarch_links += setarch_links_arch.get(host_machine.cpu_family(), [])
--
--  foreach link: setarch_links
--    meson.add_install_script(meson_make_symlink,
--                            'setarch',
--                            join_paths(usrbin_exec_dir, link))
--    manlinks += {link + '.8': 'setarch.8'}
--  endforeach
--endif
--
- opt = not get_option('build-eject').disabled()
- exe = executable(
-   'eject',
-@@ -3451,8 +3423,6 @@ if bash_completion.found()
-     )
-   endforeach
-   foreach link_name, target : bashcompletionslinks
--    meson.add_install_script(meson_make_symlink,
--      target,
--      join_paths(bash_completion.get_variable(pkgconfig : 'completionsdir'), link_name))
-+    install_symlink(link_name, pointing_to: target, install_dir: bash_completion.get_variable(pkgconfig : 'completionsdir'))
-   endforeach
- endif
+diff --git a/tools/meson-make-symlink.sh b/tools/meson-make-symlink.sh
+index 061e81a..c831cec 100755
+--- a/tools/meson-make-symlink.sh
++++ b/tools/meson-make-symlink.sh
+@@ -8,5 +8,5 @@ mkdir -vp "$(dirname "${DESTDIR:-}$2")"
+ if [ "$(dirname $1)" = . ]; then
+     ln -fs -T "$1" "${DESTDIR:-}$2"
+ else
+-    ln -fs -T --relative "${DESTDIR:-}$1" "${DESTDIR:-}$2"
++    ln -fs -T -r "${DESTDIR:-}$1" "${DESTDIR:-}$2"
+ fi
