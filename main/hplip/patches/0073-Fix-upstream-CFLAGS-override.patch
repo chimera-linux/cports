@@ -13,7 +13,7 @@ Origin: https://src.fedoraproject.org/rpms/hplip/raw/master/f/hplip-configure-py
  1 file changed, 23 insertions(+), 13 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 8cf7d23..f2b17b3 100644
+index 2eefd7e..d575752 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -628,20 +628,31 @@ if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$hpcu
@@ -60,9 +60,9 @@ index 8cf7d23..f2b17b3 100644
  if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite_build" = "no" && test "$hpcups_only_build" = "no"; then
     AC_ARG_VAR([PYTHON], [Python interpreter/compiler command])
     AC_CHECK_PROGS(PYTHON,[python python3 python2])
-@@ -658,7 +669,6 @@ if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite
+@@ -664,7 +675,6 @@ if test "$class_driver" = "no" && test "$hpijs_only_build" = "no" && test "$lite
+    AS_IF([test "x$FOUND_HEADER" != "xyes"],
            [AC_MSG_ERROR([cannot find python-devel support], 6)])
-    CPPFLAGS=$save_CPPFLAGS
  fi
 -CFLAGS="$save_CFLAGS"
  

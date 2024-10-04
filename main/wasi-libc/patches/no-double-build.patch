@@ -1,8 +1,10 @@
+diff --git a/Makefile b/Makefile
+index 542b43e..327169c 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -547,7 +547,7 @@
+@@ -959,7 +959,7 @@ check-symbols: startup_files libc
  	# This ignores whitespace because on Windows the output has CRLF line endings.
- 	diff -wur "$(CURDIR)/expected/$(MULTIARCH_TRIPLE)" "$(SYSROOT_SHARE)"
+ 	diff -wur "$(EXPECTED_TARGET_DIR)" "$(SYSROOT_SHARE)"
  
 -install: finish
 +install:

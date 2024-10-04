@@ -5,18 +5,18 @@ Date:   Fri Sep 2 21:13:48 2022 +0000
     drop unsupported .func
 
 diff --git a/source/common/aarch64/asm.S b/source/common/aarch64/asm.S
-index 5f020a1..07eb814 100644
+index 0450ea1..581c2b6 100644
 --- a/source/common/aarch64/asm.S
 +++ b/source/common/aarch64/asm.S
-@@ -46,7 +46,6 @@
- .macro function name, export=1
+@@ -96,7 +96,6 @@ FUNC .endfunc
+ #else
      .macro endfunc
  ELF     .size   \name, . - \name
 -FUNC    .endfunc
          .purgem endfunc
      .endm
-         .align  2
-@@ -54,12 +53,10 @@ FUNC    .endfunc
+ #endif
+@@ -105,12 +104,10 @@ FUNC    .endfunc
          .global EXTERN_ASM\name
  ELF     .hidden EXTERN_ASM\name
  ELF     .type   EXTERN_ASM\name, %function

@@ -26,7 +26,7 @@ index cc3c4f0..121df9a 100644
        esac
      ;;
 diff --git a/util/grub.d/30_os-prober.in b/util/grub.d/30_os-prober.in
-index b74606b..c54b526 100644
+index 656301e..ab4fe2f 100644
 --- a/util/grub.d/30_os-prober.in
 +++ b/util/grub.d/30_os-prober.in
 @@ -226,6 +226,11 @@ EOF
@@ -39,7 +39,7 @@ index b74606b..c54b526 100644
 +	fi
 +
  	onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
- 	recovery_params="$(echo "${LPARAMS}" | grep 'single\|recovery')" || true
+ 	recovery_params="$(echo "${LPARAMS}" | grep single)" || true
  	counter=1
 @@ -237,10 +242,6 @@ EOF
  	fi

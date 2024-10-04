@@ -29,7 +29,6 @@ license = "BSD-3-Clause"
 url = "https://github.com/shadow-maint/shadow"
 source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"
 sha256 = "b78e3921a95d53282a38e90628880624736bf6235e36eea50c50835f59a3530b"
-patch_style = "patch"
 file_modes = {
     "usr/bin/chage": ("root", "root", 0o4755),
     "usr/bin/chfn": ("root", "root", 0o4755),

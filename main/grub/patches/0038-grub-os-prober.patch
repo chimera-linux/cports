@@ -7,12 +7,12 @@ Subject: grub_os-prober
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/util/grub.d/30_os-prober.in b/util/grub.d/30_os-prober.in
-index c690783..62b259d 100644
+index ab4fe2f..fa9ec36 100644
 --- a/util/grub.d/30_os-prober.in
 +++ b/util/grub.d/30_os-prober.in
-@@ -40,13 +40,13 @@ EOF
-   fi
- }
+@@ -26,13 +26,13 @@ export TEXTDOMAINDIR="@localedir@"
+ 
+ . "$pkgdatadir/grub-mkconfig_lib"
  
 -if [ "x${GRUB_DISABLE_OS_PROBER}" = "xtrue" ]; then
 -  grub_warn "$(gettext_printf "os-prober will not be executed to detect other bootable partitions.\nSystems on them will not be added to the GRUB boot configuration.\nCheck GRUB_DISABLE_OS_PROBER documentation entry.")"

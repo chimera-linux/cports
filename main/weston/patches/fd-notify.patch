@@ -11,7 +11,7 @@ not be considered stable right now.
  2 files changed, 79 insertions(+)
  create mode 100644 compositor/fd-notify.c
 
-diff --git a/compositor/fd-notify.c b/compositor/fd-notify.c
+diff --git a/frontend/fd-notify.c b/frontend/fd-notify.c
 new file mode 100644
 index 0000000..21966d9
 --- /dev/null
@@ -85,11 +85,11 @@ index 0000000..21966d9
 +
 +    return 0;
 +}
-diff --git a/compositor/meson.build b/compositor/meson.build
-index cf09150..6de8012 100644
+diff --git a/frontend/meson.build b/frontend/meson.build
+index ddaf677..1c8efda 100644
 --- a/frontend/meson.build
 +++ b/frontend/meson.build
-@@ -177,6 +177,17 @@ if get_option('systemd')
+@@ -111,6 +111,17 @@ if get_option('systemd')
  	env_modmap += 'systemd-notify.so=@0@;'.format(plugin_systemd_notify.full_path())
  endif
  
@@ -107,6 +107,3 @@ index cf09150..6de8012 100644
  weston_ini_config = configuration_data()
  weston_ini_config.set('bindir', dir_bin)
  weston_ini_config.set('libexecdir', dir_libexec)
--- 
-2.42.0
-

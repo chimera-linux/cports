@@ -7,12 +7,12 @@ FAIL test-canonicalize (exit status: 134)
 ----
 
 diff --git a/gettext-tools/gnulib-tests/test-canonicalize-lgpl.c b/gettext-tools/gnulib-tests/test-canonicalize-lgpl.c
-index ff82981..17842e8 100644
+index 1b2ad98..ed901f1 100644
 --- a/gettext-tools/gnulib-tests/test-canonicalize-lgpl.c
 +++ b/gettext-tools/gnulib-tests/test-canonicalize-lgpl.c
-@@ -208,8 +208,8 @@ main (void)
- #ifndef __MVS__
-     if (SAME_INODE (st1, st2))
+@@ -269,8 +269,8 @@ main (void)
+ #endif
+     if (same)
        {
 -        ASSERT (strcmp (result1, "/") == 0);
 -        ASSERT (strcmp (result2, "/") == 0);
@@ -20,12 +20,14 @@ index ff82981..17842e8 100644
 +        ASSERT (strcmp (result2, "/") == 0 || strcmp (result2, "//") == 0);
        }
      else
- #endif
+       {
+diff --git a/gettext-tools/gnulib-tests/test-canonicalize.c b/gettext-tools/gnulib-tests/test-canonicalize.c
+index 6763a52..8336e67 100644
 --- a/gettext-tools/gnulib-tests/test-canonicalize.c
 +++ b/gettext-tools/gnulib-tests/test-canonicalize.c
-@@ -336,10 +336,10 @@
-     ASSERT (stat ("//", &st2) == 0);
-     if (SAME_INODE (st1, st2))
+@@ -401,10 +401,10 @@ main (void)
+ #endif
+     if (same)
        {
 -        ASSERT (strcmp (result1, "/") == 0);
 -        ASSERT (strcmp (result2, "/") == 0);

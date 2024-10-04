@@ -1,6 +1,8 @@
---- a/src/tspi/ps/tspps.c	2015-11-18 12:45:47.585113542 +0100
-+++ b/src/tspi/ps/tspps.c	2015-11-18 12:46:37.605577956 +0100
-@@ -45,7 +45,7 @@
+diff --git a/src/tspi/ps/tspps.c b/src/tspi/ps/tspps.c
+index b5e83d0..dd7bea9 100644
+--- a/src/tspi/ps/tspps.c
++++ b/src/tspi/ps/tspps.c
+@@ -51,7 +51,7 @@
  
  static int user_ps_fd = -1;
  static MUTEX_DECLARE_INIT(user_ps_lock);
@@ -9,7 +11,7 @@
  static MUTEX_DECLARE_INIT(user_ps_path);
  #endif
  static struct flock fl;
-@@ -60,7 +60,7 @@
+@@ -66,7 +66,7 @@ get_user_ps_path(char **file)
  	TSS_RESULT result;
  	char *file_name = NULL, *home_dir = NULL;
  	struct passwd *pwp;
@@ -18,7 +20,7 @@
  	struct passwd pw;
  #endif
  	struct stat stat_buf;
-@@ -72,7 +72,7 @@
+@@ -78,7 +78,7 @@ get_user_ps_path(char **file)
  		*file = strdup(file_name);
  		return (*file) ? TSS_SUCCESS : TSPERR(TSS_E_OUTOFMEMORY);
  	}
@@ -27,7 +29,7 @@
  	MUTEX_LOCK(user_ps_path);
  #endif
  
-@@ -90,7 +90,7 @@
+@@ -96,7 +96,7 @@ get_user_ps_path(char **file)
  #else
  	setpwent();
  	while (1) {
@@ -36,7 +38,7 @@
  		rc = getpwent_r(&pw, buf, PASSWD_BUFSIZE, &pwp);
  		if (rc) {
  			LogDebugFn("USER PS: Error getting path to home directory: getpwent_r: %s",
-@@ -99,7 +99,7 @@
+@@ -105,7 +105,7 @@ get_user_ps_path(char **file)
  			return TSPERR(TSS_E_INTERNAL_ERROR);
  		}
  
@@ -44,4 +46,4 @@
 +#elif !defined(__GLIBC__)
  		if ((pwp = getpwent()) == NULL) {
  			LogDebugFn("USER PS: Error getting path to home directory: getpwent: %s",
-                                    strerror(rc)); 
+                                    strerror(rc));

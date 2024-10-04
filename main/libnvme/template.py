@@ -18,7 +18,6 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/linux-nvme/libnvme"
 source = f"{url}/archive/v{pkgver}/libnvme-v{pkgver}.tar.gz"
 sha256 = "add9efa968e8341459fcaa2d96f2594a6f871e1fb3f57c02ce1c8ba5424f3960"
-patch_style = "patch"
 
 
 @subpackage("libnvme-python")

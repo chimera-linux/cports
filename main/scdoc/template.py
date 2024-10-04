@@ -12,7 +12,6 @@ license = "MIT"
 url = "https://git.sr.ht/~sircmpwn/scdoc"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "4c5c6136540384e5455b250f768e7ca11b03fdba1a8efc2341ee0f1111e57612"
-patch_style = "patch"
 hardening = ["vis", "cfi"]
 
 if self.profile().cross:

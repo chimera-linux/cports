@@ -55,6 +55,5 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell"
 source = f"$(GNOME_SITE)/gnome-shell/{pkgver.split('.')[0]}/gnome-shell-{pkgver}.tar.xz"
 sha256 = "7a20770c6290ad69a9a82c8497cb27e1bf863f387db25e98e542e4f6c5f06ded"
-patch_style = "patch"
 # tests need libmutter-test
 options = ["!check", "!cross"]

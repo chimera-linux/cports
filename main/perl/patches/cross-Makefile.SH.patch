@@ -1,14 +1,16 @@
---- a/Makefile.SH.orig	2015-06-16 13:22:55.921083153 +0200
-+++ b/Makefile.SH	2015-06-16 13:26:14.198352302 +0200
-@@ -311,6 +311,7 @@
+diff --git a/Makefile.SH b/Makefile.SH
+index 2c54238..a2a3efd 100755
+--- a/Makefile.SH
++++ b/Makefile.SH
+@@ -342,6 +342,7 @@ EXE_EXT = $_exe
+ LIB_EXT = $_a
  OBJ_EXT = $_o
- PATH_SEP = $p_
  
 +ifeq (,\$(CROSS_PERL))
  # Macros to invoke a copy of miniperl during the build.  Targets which
  # are built using these macros should depend on \$(MINIPERL_EXE)
  MINIPERL_EXE = miniperl\$(EXE_EXT)
-@@ -342,6 +343,23 @@
+@@ -381,6 +382,23 @@ $spitshell >>$Makefile <<!GROK!THIS!
  # Macros to run our tests
  RUN_TESTS = \$(LDLIBPTH) ./runtests
  
@@ -32,7 +34,7 @@
  dynamic_ext = $dynamic_list
  dynamic_ext_re = $dynamic_ext_re
  static_ext = $static_list
-@@ -580,6 +598,9 @@
+@@ -684,6 +702,9 @@ $(MANIFEST_SRT):	MANIFEST $(PERL_EXE)
  	    $(RUN_PERL) Porting/manisort -q -o MANIFEST; sh -c true)
  	@touch $(MANIFEST_SRT)
  
@@ -42,7 +44,7 @@
  .PHONY: all utilities
  
  # Both git_version.h and lib/Config_git.pl are built
-@@ -662,6 +683,9 @@
+@@ -769,6 +790,9 @@ cygwin.c: cygwin/cygwin.c
  
  globals$(OBJ_EXT): $(generated_headers)
  
@@ -52,7 +54,7 @@
  uudmap.h mg_data.h: bitcount.h
  
  generate_uudmap$(OBJ_EXT): mg_raw.h
-@@ -686,6 +710,7 @@
+@@ -793,6 +817,7 @@ bitcount.h: generate_uudmap\$(HOST_EXE_EXT)
  $spitshell >>$Makefile <<'!NO!SUBS!'
  generate_uudmap$(HOST_EXE_EXT): generate_uudmap$(OBJ_EXT)
  	$(CC) -o generate_uudmap$(EXE_EXT) $(LDFLAGS) generate_uudmap$(OBJ_EXT) $(libs)

@@ -1,15 +1,19 @@
 some tests get stuck, and xkb-latin-layouts needs gnu getopt
 
+diff --git a/src/tests/ibus-compose.c b/src/tests/ibus-compose.c
+index 21de7a2..a89c9c1 100644
 --- a/src/tests/ibus-compose.c
 +++ b/src/tests/ibus-compose.c
-@@ -375,7 +375,6 @@ main (int argc, char *argv[])
-     test_name = g_getenv ("LANG");
- #endif
+@@ -385,7 +385,6 @@ main (int argc, char *argv[])
+         test_name = g_path_get_basename (m_compose_file);
+     }
      test_path = g_build_filename ("/ibus-compose", test_name, NULL);
 -    g_test_add_func (test_path, test_compose);
      g_free (test_path);
+     g_free (test_name);
  
-     return g_test_run ();
+diff --git a/src/tests/ibus-keypress.c b/src/tests/ibus-keypress.c
+index bab0539..ed84386 100644
 --- a/src/tests/ibus-keypress.c
 +++ b/src/tests/ibus-keypress.c
 @@ -296,7 +296,6 @@ main (int argc, char *argv[])
@@ -20,6 +24,8 @@ some tests get stuck, and xkb-latin-layouts needs gnu getopt
  
  
      return g_test_run ();
+diff --git a/src/tests/xkb-latin-layouts b/src/tests/xkb-latin-layouts
+index 9246423..6f31116 100755
 --- a/src/tests/xkb-latin-layouts
 +++ b/src/tests/xkb-latin-layouts
 @@ -120,6 +120,8 @@ EOF_READ_XKB

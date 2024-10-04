@@ -13,7 +13,6 @@ license = "GPL-2.0-or-later"
 url = "https://raid.wiki.kernel.org/index.php/A_guide_to_mdadm"
 source = f"$(KERNEL_SITE)/utils/raid/mdadm/mdadm-{pkgver}.tar.gz"
 sha256 = "61a1c22477555364dea1862df7c3b4e8b9a53ee733bad320a45fda27dd0ed44f"
-patch_style = "patch"
 # does not work in sandbox
 options = ["!check"]
 

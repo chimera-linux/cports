@@ -2,7 +2,6 @@ pkgname = "x265"
 pkgver = "4.0"
 pkgrel = 0
 build_wrksrc = "source"
-_commit = "aa7f602f7592"
 build_style = "cmake"
 configure_args = ["-DENABLE_PIC=1", "-DGIT_ARCHETYPE=1"]
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
@@ -13,7 +12,6 @@ license = "GPL-2.0-or-later"
 url = "https://x265.org"
 source = f"https://bitbucket.org/multicoreware/x265_git/get/{pkgver}.tar.gz"
 sha256 = "66b64be4b316362fdadb33ad8273a74236042cc380691bdbec42946b0437a389"
-patch_style = "patch"
 # guilty until proven wrong
 hardening = ["!int"]
 # cannot be reliably tested, testing option is conditional

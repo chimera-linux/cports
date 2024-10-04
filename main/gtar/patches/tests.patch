@@ -5,51 +5,51 @@ Date:   Thu Mar 24 03:19:08 2022 +0100
     disable tests with missing prereq files
 
 diff --git a/tests/testsuite b/tests/testsuite
-index a35ce32..bd1887a 100755
+index b407c9e..57a8a8e 100755
 --- a/tests/testsuite
 +++ b/tests/testsuite
-@@ -37312,7 +37312,7 @@ read at_status <"$at_status_file"
- #AT_START_159
- at_fn_group_banner 159 'multiv07.at:28' \
+@@ -38642,7 +38642,7 @@ read at_status <"$at_status_file"
+ #AT_START_163
+ at_fn_group_banner 163 'multiv07.at:28' \
    "volumes split at an extended header" "            " 23
 -at_xfail=no
 +at_xfail=yes
        test -f $XFAILFILE && at_xfail=yes
  (
-   $as_echo "159. $at_setup_line: testing $at_desc ..."
-@@ -43750,7 +43750,7 @@ read at_status <"$at_status_file"
- #AT_START_185
- at_fn_group_banner 185 'volsize.at:29' \
+   printf "%s\n" "163. $at_setup_line: testing $at_desc ..."
+@@ -45466,7 +45466,7 @@ read at_status <"$at_status_file"
+ #AT_START_190
+ at_fn_group_banner 190 'volsize.at:29' \
    "volume header size" "                             " 28
 -at_xfail=no
 +at_xfail=yes
        test -f $XFAILFILE && at_xfail=yes
  (
-   $as_echo "185. $at_setup_line: testing $at_desc ..."
-@@ -60617,7 +60617,7 @@ read at_status <"$at_status_file"
- #AT_START_233
- at_fn_group_banner 233 'gtarfail.at:21' \
+   printf "%s\n" "190. $at_setup_line: testing $at_desc ..."
+@@ -62819,7 +62819,7 @@ read at_status <"$at_status_file"
+ #AT_START_239
+ at_fn_group_banner 239 'gtarfail.at:21' \
    "gtarfail" "                                       " 33
 -at_xfail=no
 +at_xfail=yes
  (
-   $as_echo "233. $at_setup_line: testing $at_desc ..."
+   printf "%s\n" "239. $at_setup_line: testing $at_desc ..."
    $at_traceon
-@@ -60669,7 +60669,7 @@ read at_status <"$at_status_file"
- #AT_START_234
- at_fn_group_banner 234 'gtarfail2.at:21' \
+@@ -62871,7 +62871,7 @@ read at_status <"$at_status_file"
+ #AT_START_240
+ at_fn_group_banner 240 'gtarfail2.at:21' \
    "gtarfail2" "                                      " 33
 -at_xfail=no
 +at_xfail=yes
  (
-   $as_echo "234. $at_setup_line: testing $at_desc ..."
+   printf "%s\n" "240. $at_setup_line: testing $at_desc ..."
    $at_traceon
-@@ -60723,7 +60723,7 @@ read at_status <"$at_status_file"
- #AT_START_235
- at_fn_group_banner 235 'multi-fail.at:21' \
+@@ -62925,7 +62925,7 @@ read at_status <"$at_status_file"
+ #AT_START_241
+ at_fn_group_banner 241 'multi-fail.at:21' \
    "multi-fail" "                                     " 33
 -at_xfail=no
 +at_xfail=yes
  (
-   $as_echo "235. $at_setup_line: testing $at_desc ..."
+   printf "%s\n" "241. $at_setup_line: testing $at_desc ..."
    $at_traceon

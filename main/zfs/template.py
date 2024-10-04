@@ -16,15 +16,15 @@ configure_args = [
 configure_gen = []
 hostmakedepends = ["pkgconf", "automake", "libtool", "python"]
 makedepends = [
-    "libuuid-devel",
-    "libblkid-devel",
-    "linux-pam-devel",
-    "libtirpc-devel",
     "attr-devel",
+    "libblkid-devel",
+    "libtirpc-devel",
+    "libuuid-devel",
+    "linux-headers",
+    "linux-pam-devel",
     "openssl-devel",
     "udev-devel",
     "zlib-ng-compat-devel",
-    "linux-headers",
 ]
 pkgdesc = "OpenZFS for Linux"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -39,18 +39,11 @@ sha256 = [
     "c92e02103ac5dd77bf01d7209eabdca55c7b3356aa747bb2357ec4222652a2a7",
     "c541dfec33ba7dfec3fb85a4532fc9c7a72035316716e93074b2cfa030ca2d12",
 ]
-patch_style = "patch"
 hardening = ["!vis", "!cfi"]
 
 
 def post_extract(self):
     self.cp(self.sources_path / f"zdev-{pkgver}", ".")
-
-
-def post_patch(self):
-    # clean up for ckms
-    for f in self.patches_path.iterdir():
-        self.rm(f.name)
 
 
 def pre_configure(self):

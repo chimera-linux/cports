@@ -14,10 +14,10 @@ index c494056..9ad8913 100644
  #if HAVE_SELINUX
      // we may run on a system without SELinux
 diff --git a/tests/test-umockdev-vala.vala b/tests/test-umockdev-vala.vala
-index 035fd91..2489175 100644
+index cc939f6..81656ec 100644
 --- a/tests/test-umockdev-vala.vala
 +++ b/tests/test-umockdev-vala.vala
-@@ -803,7 +803,7 @@ A: dev=188:1
+@@ -853,7 +853,7 @@ A: dev=188:1
    string pout, perr;
    int pexit;
    try {
@@ -26,7 +26,7 @@ index 035fd91..2489175 100644
    } catch (SpawnError e) {
        error ("Cannot call stty: %s", e.message);
    }
-@@ -1135,7 +1135,6 @@ main (string[] args)
+@@ -1185,7 +1185,6 @@ main (string[] args)
    Test.add_func ("/umockdev-testbed-vala/empty", t_testbed_empty);
    Test.add_func ("/umockdev-testbed-vala/add_devicev", t_testbed_add_device);
    Test.add_func ("/umockdev-testbed-vala/gudev-query-list", t_testbed_gudev_query_list);
@@ -34,8 +34,8 @@ index 035fd91..2489175 100644
  #if HAVE_SELINUX
    Test.add_func ("/umockdev-testbed-vala/selinux", t_testbed_selinux);
  #endif
-@@ -1154,12 +1153,12 @@ main (string[] args)
-   Test.add_func ("/umockdev-testbed-vala/hidraw_ioctl", t_hidraw_ioctl);
+@@ -1206,12 +1205,12 @@ main (string[] args)
+   Test.add_func ("/umockdev-testbed-vala/cros_ec_ioctl", t_cros_ec_ioctl);
  
    /* tests for mocking TTYs */
 -  Test.add_func ("/umockdev-testbed-vala/tty_stty", t_tty_stty);

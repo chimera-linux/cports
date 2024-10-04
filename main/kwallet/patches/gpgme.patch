@@ -1,11 +1,11 @@
 ld: error: unable to find library -lGpgmepp
 
 diff --git a/src/runtime/kwalletd/CMakeLists.txt b/src/runtime/kwalletd/CMakeLists.txt
-index 30417b9..aca8db0 100644
+index 6a7903a..0154acc 100644
 --- a/src/runtime/kwalletd/CMakeLists.txt
 +++ b/src/runtime/kwalletd/CMakeLists.txt
-@@ -152,7 +152,7 @@ target_link_libraries(kwalletd6
-     KF6::Notifications
+@@ -158,7 +158,7 @@ target_link_libraries(kwalletd6
+     KF6::Crash
      ${Qca_LIBRARY})
  if (Gpgmepp_FOUND)
 -    target_link_libraries(kwalletd6 Gpgmepp)

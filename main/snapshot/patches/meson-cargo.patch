@@ -1,7 +1,6 @@
 also disable clippy test, does nothing except take time, it's a linter
-diff --git a/src/meson.build b/src/meson.build
-index 33ff42e..2b43e0d 100644
---
+diff --git a/aperture/meson.build b/aperture/meson.build
+index 98e5156..efcf3c1 100644
 --- a/aperture/meson.build
 +++ b/aperture/meson.build
 @@ -1,16 +1,2 @@
@@ -21,9 +20,11 @@ index 33ff42e..2b43e0d 100644
 -  ],
 -  timeout: 400, # cargo might take a bit of time sometimes
 -)
+diff --git a/src/meson.build b/src/meson.build
+index 458c89c..8f3af8a 100644
 --- a/src/meson.build
 +++ b/src/meson.build
-@@ -39,33 +39,14 @@ cargo_build = custom_target(
+@@ -52,33 +52,14 @@ cargo_build = custom_target(
    build_always_stale: true,
    output: meson.project_name(),
    console: true,
@@ -57,7 +58,7 @@ index 33ff42e..2b43e0d 100644
  test (
    'Cargo tests',
    cargo,
-@@ -74,7 +55,4 @@ test (
+@@ -87,7 +68,4 @@ test (
      cargo_options,
    ],
    timeout: 400, # cargo might take a bit of time sometimes

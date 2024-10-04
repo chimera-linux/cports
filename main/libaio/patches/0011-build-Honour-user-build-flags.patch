@@ -20,6 +20,8 @@ Signed-off-by: Guillem Jover <guillem@hadrons.org>
  src/Makefile     |   18 +++++++++---------
  2 files changed, 15 insertions(+), 12 deletions(-)
 
+diff --git a/harness/Makefile b/harness/Makefile
+index c7ce5ec..bb2719f 100644
 --- a/harness/Makefile
 +++ b/harness/Makefile
 @@ -6,13 +6,16 @@ PROGS:=$(PARTPROGS) $(EXTRAPROGS)
@@ -50,9 +52,11 @@ Signed-off-by: Guillem Jover <guillem@hadrons.org>
  
  clean:
  	rm -f $(PROGS) *.o runtests.out rofile wofile rwfile
+diff --git a/src/Makefile b/src/Makefile
+index d080a1b..c2db2a5 100644
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -3,12 +3,12 @@ prefix=/usr
+@@ -2,12 +2,12 @@ prefix=/usr
  includedir=$(prefix)/include
  libdir=$(prefix)/lib
  
@@ -71,7 +75,7 @@ Signed-off-by: Guillem Jover <guillem@hadrons.org>
  ENABLE_SHARED ?= 1
  
  soname=libaio.so.1
-@@ -43,10 +43,10 @@ libaio_sobjs := $(patsubst %.c,%.os,$(li
+@@ -42,10 +42,10 @@ libaio_sobjs := $(patsubst %.c,%.os,$(libaio_srcs))
  $(libaio_objs) $(libaio_sobjs): libaio.h vsys_def.h
  
  %.os: %.c
@@ -92,4 +96,4 @@ Signed-off-by: Guillem Jover <guillem@hadrons.org>
 +	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $(libaio_sobjs) $(MK_LDFLAGS)
  
  install: $(all_targets)
- 	install -d -m 755 $(includedir)
+ 	install -D -m 644 libaio.h $(includedir)/libaio.h

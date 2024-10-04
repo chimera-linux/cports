@@ -1,14 +1,16 @@
 wat
 
+diff --git a/tests/Makefile b/tests/Makefile
+index 56455bd..3cdbae9 100644
 --- a/tests/Makefile
 +++ b/tests/Makefile
 @@ -1,4 +1,4 @@
--CFLAGS+=-I../include/ -D_FORTIFY_SOURCE=3 -static -O2
+-CFLAGS+=-I../include/ -D_FORTIFY_SOURCE=3 -static -O2 -DPEDANTIC_CHECKS -Wno-format -Werror=pointer-arith
 +CFLAGS+=-I../include/ -D_FORTIFY_SOURCE=3 -O2
  
  COMPTIME_TARGETS= \
  	test_memcpy_overwrite_under  \
-@@ -142,9 +142,7 @@ gcc: CC=../x86_64-linux-musl-native/bin/gcc
+@@ -152,9 +152,7 @@ gcc: CC=../x86_64-linux-musl-native/bin/gcc
  gcc: $(RUNTIME_TARGETS)
  
  clang: CC=clang
@@ -17,5 +19,5 @@ wat
 -clang: CFLAGS+=-Ix86_64-linux-musl-native/include/
 +clang: CFLAGS+=-I/usr/include
  clang: CFLAGS+=-nostdinc
- clang: comptime $(RUNTIME_TARGETS)
- 
+ clang: CXX=clang++
+ clang: CXXFLAGS=$(CFLAGS)

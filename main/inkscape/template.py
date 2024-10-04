@@ -59,7 +59,6 @@ source = (
     f"https://media.inkscape.org/dl/resources/file/inkscape-{pkgver}.tar.xz"
 )
 sha256 = "dbd1844dc443fe5e10d3e9a887144e5fb7223852fff191cfb5ef7adeab0e086b"
-patch_style = "patch"
 # TODO
 hardening = ["!int"]
 # long, heavy, etc

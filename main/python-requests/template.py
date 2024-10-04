@@ -21,6 +21,5 @@ license = "Apache-2.0"
 url = "https://requests.readthedocs.io"
 source = f"$(PYPI_SITE)/r/requests/requests-{pkgver}.tar.gz"
 sha256 = "55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"
-patch_style = "patch"
 # needs pytest, is a dependency of pytest
 options = ["!check"]

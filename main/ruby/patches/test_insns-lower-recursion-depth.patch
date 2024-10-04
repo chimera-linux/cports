@@ -36,9 +36,11 @@ so we hit SystemStackError sooner than on other platforms.
   FAIL 1/1197 tests failed
   Make: *** [uncommon.mk:666: yes-btest-ruby] Error 1
 
+diff --git a/bootstraptest/test_insns.rb b/bootstraptest/test_insns.rb
+index d2e799f..6ff903f 100644
 --- a/bootstraptest/test_insns.rb
 +++ b/bootstraptest/test_insns.rb
-@@ -248,7 +248,7 @@
+@@ -276,7 +276,7 @@ tests = [
          end
        }/ox
      end
@@ -46,4 +48,4 @@ so we hit SystemStackError sooner than on other platforms.
 +    x = once(32); x = once(7); x = once(16);
      x =~ "true" && $~
    },
-   [ 'once', <<~'},', ],         # {
+   [ 'once', <<-'},', ],         # {

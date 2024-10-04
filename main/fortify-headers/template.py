@@ -11,7 +11,6 @@ license = "0BSD"
 url = "https://git.2f30.org/fortify-headers"
 source = f"https://github.com/jvoisin/fortify-headers/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "531a029fb5ff3c266f472d0aad74f750a40e15d476cf80c67ffb39c07f34a0a7"
-patch_style = "patch"
 tool_flags = {"CFLAGS": ["-Wno-macro-redefined"]}
 options = ["bootstrap"]
 

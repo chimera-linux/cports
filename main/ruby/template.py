@@ -32,7 +32,6 @@ source = (
     f"https://cache.ruby-lang.org/pub/ruby/{pkgver[:-2]}/ruby-{pkgver}.tar.xz"
 )
 sha256 = "51aec7ea89b46125a2c9adc6f36766b65023d47952b916b1aed300ddcc042359"
-patch_style = "patch"
 # until verified; gonna need removing arch prefix from compiler name
 # tests mostly pass but there are some portability issues in the test
 # suite (stat usage) + chown not working in the sandbox + locale issues

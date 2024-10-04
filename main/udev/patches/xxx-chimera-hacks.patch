@@ -89,7 +89,7 @@ index 1bdc041..66b14ab 100644
  #
  # If your changes are generally applicable, preferably send them as a pull
 diff --git a/hwdb.d/60-evdev.hwdb b/hwdb.d/60-evdev.hwdb
-index a4431e2..eacf94d 100644
+index 372ae68..e3b13eb 100644
 --- a/hwdb.d/60-evdev.hwdb
 +++ b/hwdb.d/60-evdev.hwdb
 @@ -33,7 +33,7 @@
@@ -102,7 +102,7 @@ index a4431e2..eacf94d 100644
  # where /dev/input/eventXX is the device in question. If in doubt, simply use
  # /dev/input/event* to reload all input rules.
 diff --git a/hwdb.d/60-input-id.hwdb b/hwdb.d/60-input-id.hwdb
-index b9d1ce0..9fa3e27 100644
+index dfb035d..614349a 100644
 --- a/hwdb.d/60-input-id.hwdb
 +++ b/hwdb.d/60-input-id.hwdb
 @@ -9,7 +9,7 @@
@@ -115,7 +115,7 @@ index b9d1ce0..9fa3e27 100644
  # where /dev/input/eventXX is the device in question. If in
  # doubt, simply use /dev/input/event* to reload all input rules.
 diff --git a/hwdb.d/60-keyboard.hwdb b/hwdb.d/60-keyboard.hwdb
-index f1ea0f5..ae5ae3a 100644
+index 5a08931..bc654bf 100644
 --- a/hwdb.d/60-keyboard.hwdb
 +++ b/hwdb.d/60-keyboard.hwdb
 @@ -46,7 +46,7 @@
@@ -128,7 +128,7 @@ index f1ea0f5..ae5ae3a 100644
  # where /dev/input/eventXX is the keyboard in question. If in doubt, simply use
  # /dev/input/event* to reload all input rules.
 diff --git a/hwdb.d/60-sensor.hwdb b/hwdb.d/60-sensor.hwdb
-index b45db62..c8e3d9e 100644
+index 8054783..ed0489a 100644
 --- a/hwdb.d/60-sensor.hwdb
 +++ b/hwdb.d/60-sensor.hwdb
 @@ -23,7 +23,7 @@
@@ -141,7 +141,7 @@ index b45db62..c8e3d9e 100644
  # where /dev/iio:deviceXXX is the device in question.
  #
 diff --git a/hwdb.d/70-av-production.hwdb b/hwdb.d/70-av-production.hwdb
-index a701d1c..42c12c4 100644
+index 91c757b..ada7948 100644
 --- a/hwdb.d/70-av-production.hwdb
 +++ b/hwdb.d/70-av-production.hwdb
 @@ -8,7 +8,7 @@
@@ -167,7 +167,7 @@ index 8e942c8..3161fb9 100644
  # where /dev/input/eventXX is the joystick in question. If in
  # doubt, simply use /dev/input/event* to reload all input rules.
 diff --git a/hwdb.d/70-mouse.hwdb b/hwdb.d/70-mouse.hwdb
-index 0379eec..192e263 100644
+index 20079d6..7b765c7 100644
 --- a/hwdb.d/70-mouse.hwdb
 +++ b/hwdb.d/70-mouse.hwdb
 @@ -28,7 +28,7 @@
@@ -301,10 +301,9 @@ index 69ea5c4..633428c 100644
 -        input : nonindex_xml_files,
 -        output : 'systemd.index.xml',
 -        command : [make_man_index_py, '@OUTPUT@'] + nonindex_xml_files)
--
+ 
 -foreach tuple : xsltproc.found() ? [['systemd.directives', '7', systemd_directives_xml],
 -                                    ['systemd.index',      '7', systemd_index_xml]] : []
-+
 +foreach tuple : []
          stem = tuple[0]
          section = tuple[1]
@@ -349,6 +348,7 @@ index a9a2a25..4ca0a31 100644
   ['systemd-importd.service', '8', ['systemd-importd'], 'ENABLE_IMPORTD'],
   ['systemd-inhibit', '1', [], ''],
 diff --git a/man/systemd-hwdb.xml b/man/systemd-hwdb.xml
+index 3c6feb2..080c82c 100644
 --- a/man/systemd-hwdb.xml
 +++ b/man/systemd-hwdb.xml
 @@ -3,34 +3,34 @@
@@ -793,10 +793,10 @@ index b515f3c..29d5f2d 100644
    </refsect1>
  </refentry>
 diff --git a/meson.build b/meson.build
-index 4f886e2..a89b5e2 100644
+index 3f7aa38..fbf7397 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -684,8 +681,6 @@ rsync = find_program('rsync', required : false)
+@@ -694,8 +694,6 @@ rsync = find_program('rsync', required : false)
  diff = find_program('diff')
  find = find_program('find')
  
@@ -805,7 +805,7 @@ index 4f886e2..a89b5e2 100644
  # If -Dxxx-path option is found, use that. Otherwise, check in $PATH,
  # /usr/sbin, /sbin, and fall back to the default from middle column.
  progs = [['quotaon',    '/usr/sbin/quotaon'    ],
-@@ -714,10 +709,6 @@ foreach prog : progs
+@@ -724,10 +722,6 @@ foreach prog : progs
          conf.set_quoted(name, path)
  endforeach
  
@@ -816,7 +816,7 @@ index 4f886e2..a89b5e2 100644
  #####################################################################
  
  gperf = find_program('gperf')
-@@ -819,7 +810,7 @@ if time_epoch <= 0
+@@ -829,7 +823,7 @@ if time_epoch <= 0
          endif
          if time_epoch == ''
                  NEWS = files('NEWS')
@@ -825,7 +825,7 @@ index 4f886e2..a89b5e2 100644
                                           check : true).stdout()
          endif
          time_epoch = time_epoch.strip().to_int()
-@@ -2287,116 +2278,12 @@ subdir('src/libsystemd-network')
+@@ -2298,116 +2292,12 @@ subdir('src/libsystemd-network')
  # hwdb requires 'udev_link_with' and 'udev_rpath'
  subdir('src/udev')
  
@@ -942,7 +942,7 @@ index 4f886e2..a89b5e2 100644
  
  alias_target('devel', libsystemd_pc, libudev_pc, systemd_pc, udev_pc)
  
-@@ -2410,10 +2296,6 @@ foreach test : libsystemd_tests
+@@ -2421,10 +2311,6 @@ foreach test : libsystemd_tests
          executables += test_template + test
  endforeach
  
@@ -953,7 +953,7 @@ index 4f886e2..a89b5e2 100644
  foreach dict : executables
          name = dict.get('name', '')
          if name == ''
-@@ -2456,12 +2338,6 @@ foreach dict : executables
+@@ -2467,12 +2353,6 @@ foreach dict : executables
                  endforeach
          endif
  
@@ -966,7 +966,7 @@ index 4f886e2..a89b5e2 100644
          exe = executable(
                  name,
                  kwargs : kwargs,
-@@ -2500,43 +2376,8 @@ foreach dict : executables
+@@ -2511,43 +2391,8 @@ foreach dict : executables
                               is_parallel : dict.get('parallel', true))
                  endif
          endif
@@ -1010,7 +1010,7 @@ index 4f886e2..a89b5e2 100644
  #####################################################################
  
  test_dlopen = executables_by_name.get('test-dlopen')
-@@ -2626,14 +2467,6 @@ ukify = custom_target(
+@@ -2637,14 +2482,6 @@ ukify = custom_target(
          install : want_ukify,
          install_mode : 'rwxr-xr-x',
          install_dir : bindir)
@@ -1025,7 +1025,7 @@ index 4f886e2..a89b5e2 100644
  
  #####################################################################
  
-@@ -2681,50 +2515,13 @@ endif
+@@ -2683,50 +2520,13 @@ endif
  
  ############################################################
  
@@ -1077,7 +1077,7 @@ index 4f886e2..a89b5e2 100644
  
  #####################################################################
  
-@@ -2771,52 +2566,6 @@ foreach exec : public_programs
+@@ -2767,52 +2567,6 @@ foreach exec : public_programs
          endif
  endforeach
  
@@ -1130,7 +1130,7 @@ index 4f886e2..a89b5e2 100644
  #####################################################################
  
  if git.found()
-@@ -2882,7 +2631,6 @@ run_target(
+@@ -2878,7 +2632,6 @@ run_target(
          depends : [man, libsystemd, libudev],
          command : [check_api_docs_sh, libsystemd.full_path(), libudev.full_path()])
  
@@ -1138,7 +1138,7 @@ index 4f886e2..a89b5e2 100644
  alias_target('update-man-rules', update_man_rules)
  
  if not meson.is_cross_build()
-@@ -2904,9 +2652,6 @@ custom_target('installed-unit-files.txt',
+@@ -2900,9 +2653,6 @@ custom_target('installed-unit-files.txt',
  
  #####################################################################
  
@@ -1148,7 +1148,7 @@ index 4f886e2..a89b5e2 100644
  summary({
          'split bin-sbin' :                  split_bin,
          'prefix directory' :                prefixdir,
-@@ -2961,8 +2706,7 @@ summary({
+@@ -2957,8 +2707,7 @@ summary({
          'default status unit format' :      status_unit_format_default,
          'default user $PATH' :
                  default_user_path != '' ? default_user_path : '(same as system services)',
@@ -1158,7 +1158,7 @@ index 4f886e2..a89b5e2 100644
  
  # TODO:
  # CFLAGS:   ${OUR_CFLAGS} ${CFLAGS}
-@@ -3083,7 +2827,6 @@ foreach tuple : [
+@@ -3079,7 +2828,6 @@ foreach tuple : [
          ['debug siphash'],
          ['trace logging',          conf.get('LOG_TRACE') == 1],
          ['slow tests',             want_slow_tests],
@@ -1264,7 +1264,7 @@ index 9ff87d8..1e701b1 100644
          '--settle[Also wait for udev queue being empty.]' \
          '*::devpath:_files -P /dev/ -W /dev'
 diff --git a/shell-completion/zsh/meson.build b/shell-completion/zsh/meson.build
-index ebe79f3..cb51c73 100644
+index ea540c7..76210ad 100644
 --- a/shell-completion/zsh/meson.build
 +++ b/shell-completion/zsh/meson.build
 @@ -10,7 +10,7 @@ custom_target(
@@ -1276,7 +1276,7 @@ index ebe79f3..cb51c73 100644
          install_dir : zshcompletiondir)
  
  items = [['_busctl',                   ''],
-@@ -40,6 +40,8 @@ items = [['_busctl',                   ''],
+@@ -42,6 +42,8 @@ items = [['_busctl',                   ''],
           ['_systemd-tmpfiles',         'ENABLE_TMPFILES'],
           ['_timedatectl',              'ENABLE_TIMEDATED']]
  
@@ -1323,45 +1323,8 @@ index 0371922..57b0c6f 100644
          [LOG_FAC(LOG_KERN)]     = "kern",
          [LOG_FAC(LOG_USER)]     = "user",
          [LOG_FAC(LOG_MAIL)]     = "mail",
-diff --git a/src/boot/efi/meson.build b/src/boot/efi/meson.build
-index 1c52629..94a0bcd 100644
---- a/src/boot/efi/meson.build
-+++ b/src/boot/efi/meson.build
-@@ -150,8 +150,10 @@ if get_option('mode') == 'developer' and get_option('debug')
-         efi_c_args += '-DEFI_DEBUG'
- endif
- 
-+rtlib = run_command(cc, '-print-libgcc-file-name', check: true)
-+
- efi_c_ld_args = [
--        '-lgcc',
-+        rtlib.stdout().strip(),
-         '-nostdlib',
-         '-static-pie',
-         '-Wl,--entry=efi_main',
-diff --git a/src/core/meson.build b/src/core/meson.build
-index 7a2012a..0ba812f 100644
---- a/src/core/meson.build
-+++ b/src/core/meson.build
-@@ -238,16 +238,7 @@ install_emptydir(systemsleepdir)
- install_emptydir(systemgeneratordir)
- install_emptydir(usergeneratordir)
- 
--if install_sysconfdir
--        install_emptydir(pkgsysconfdir / 'system')
--        install_emptydir(pkgsysconfdir / 'user')
--        install_emptydir(sysconfdir / 'xdg/systemd')
--        meson.add_install_script(sh, '-c', ln_s.format(pkgsysconfdir / 'user',
--                                                       sysconfdir / 'xdg/systemd/user'))
--endif
--
- install_emptydir(sbindir)
--meson.add_install_script(sh, '-c', ln_s.format(libexecdir / 'systemd', sbindir / 'init'))
- 
- ############################################################
- 
 diff --git a/src/boot/efi/efi.h b/src/boot/efi/efi.h
-index 5c34668..50fca66 100644
+index e8217c1..e06fe4c 100644
 --- a/src/boot/efi/efi.h
 +++ b/src/boot/efi/efi.h
 @@ -1,6 +1,14 @@
@@ -1389,10 +1352,47 @@ index 5c34668..50fca66 100644
 -typedef __CHAR32_TYPE__ char32_t;
 -
  /* Let's be paranoid and do some sanity checks. */
+ assert_cc(__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__);
  assert_cc(__STDC_HOSTED__ == 0);
- assert_cc(sizeof(bool) == 1);
+diff --git a/src/boot/efi/meson.build b/src/boot/efi/meson.build
+index 3cd9fa7..b4399fa 100644
+--- a/src/boot/efi/meson.build
++++ b/src/boot/efi/meson.build
+@@ -152,8 +152,10 @@ if get_option('mode') == 'developer' and get_option('debug')
+         efi_c_args += '-DEFI_DEBUG'
+ endif
+ 
++rtlib = run_command(cc, '-print-libgcc-file-name', check: true)
++
+ efi_c_ld_args = [
+-        '-lgcc',
++        rtlib.stdout().strip(),
+         '-nostdlib',
+         '-static-pie',
+         '-Wl,--entry=efi_main',
+diff --git a/src/core/meson.build b/src/core/meson.build
+index dbeb752..97ca850 100644
+--- a/src/core/meson.build
++++ b/src/core/meson.build
+@@ -252,16 +252,7 @@ install_emptydir(systemsleepdir)
+ install_emptydir(systemgeneratordir)
+ install_emptydir(usergeneratordir)
+ 
+-if install_sysconfdir
+-        install_emptydir(pkgsysconfdir / 'system')
+-        install_emptydir(pkgsysconfdir / 'user')
+-        install_emptydir(sysconfdir / 'xdg/systemd')
+-        meson.add_install_script(sh, '-c', ln_s.format(pkgsysconfdir / 'user',
+-                                                       sysconfdir / 'xdg/systemd/user'))
+-endif
+-
+ install_emptydir(sbindir)
+-meson.add_install_script(sh, '-c', ln_s.format(libexecdir / 'systemd', sbindir / 'init'))
+ 
+ ############################################################
+ 
 diff --git a/src/fundamental/memory-util-fundamental.h b/src/fundamental/memory-util-fundamental.h
-index 78e2dbe..561e05f 100644
+index 6870f54..a4eb540 100644
 --- a/src/fundamental/memory-util-fundamental.h
 +++ b/src/fundamental/memory-util-fundamental.h
 @@ -1,11 +1,10 @@
@@ -1409,7 +1409,7 @@ index 78e2dbe..561e05f 100644
  #endif
  
 diff --git a/src/fundamental/string-util-fundamental.c b/src/fundamental/string-util-fundamental.c
-index a5bafc6..0d7c08a 100644
+index a18b2bc..cc81ac2 100644
 --- a/src/fundamental/string-util-fundamental.c
 +++ b/src/fundamental/string-util-fundamental.c
 @@ -4,8 +4,8 @@
@@ -1462,7 +1462,7 @@ index f623d47..3f137d9 100644
  
          if (fstat(fileno(hwdb->f), &hwdb->st) < 0)
 diff --git a/src/test/meson.build b/src/test/meson.build
-index 3abbb94..c75f5a6 100644
+index 9d3c7d6..702a491 100644
 --- a/src/test/meson.build
 +++ b/src/test/meson.build
 @@ -11,7 +11,6 @@ test_hashmap_ordered_c = custom_target(
@@ -1545,6 +1545,3 @@ index f306a4f..1e1b0c4 100644
  
          if (arg_update && !hwdb_bypass()) {
                  r = hwdb_update(arg_root, arg_hwdb_bin_dir, arg_strict, true);
--- 
-2.45.2
-

@@ -11,7 +11,6 @@ license = "MIT"
 url = "https://github.com/unittest-cpp/unittest-cpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "74852198877dc2fdebdc4e5e9bd074018bf8ee03a13de139bfe41f4585b2f5b9"
-patch_style = "patch"
 options = ["!lto"]
 
 

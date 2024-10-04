@@ -1,10 +1,11 @@
 From: https://git.alpinelinux.org/aports/tree/community/libgit2/fix-util-tests.patch
-diff -upr libgit2-1.6.3.orig/tests/util/CMakeLists.txt libgit2-1.6.3/tests/util/CMakeLists.txt
---- libgit2-1.6.3.orig/tests/util/CMakeLists.txt	2023-03-25 12:52:24.746097350 +0100
-+++ libgit2-1.6.3/tests/util/CMakeLists.txt	2023-03-25 12:54:01.393002040 +0100
+index 232590f..ef4b5de 100644
+--- a/tests/util/CMakeLists.txt
++++ b/tests/util/CMakeLists.txt
 @@ -65,4 +65,4 @@ endif()
  enable_testing()
  
  include(AddClarTest)
 -add_clar_test(util_tests util -v)
 +add_clar_test(util_tests util -v -sftruncate)
+\ No newline at end of file

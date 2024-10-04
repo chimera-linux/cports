@@ -19,17 +19,14 @@ expression.
  1 file changed, 1 insertion(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b4c75c9..10ecf60 100644
+index 212f52d..2f750aa 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -135,6 +135,7 @@ set(prefix      ${CMAKE_INSTALL_PREFIX})
+@@ -105,6 +105,7 @@ set(prefix      ${CMAKE_INSTALL_PREFIX})
  set(exec_prefix ${CMAKE_INSTALL_PREFIX}/bin)
- set(libdir      ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX})
+ set(libdir      ${CMAKE_INSTALL_PREFIX}/lib)
  set(includedir  ${CMAKE_INSTALL_PREFIX}/include/UnitTest++)
 +set(PACKAGE_VERSION ${CMAKE_PROJECT_VERSION})
  configure_file("UnitTest++.pc.in" "UnitTest++.pc" @ONLY)
- if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
-     set(pkgconfdir  ${CMAKE_INSTALL_PREFIX}/libdata/pkgconfig)
--- 
-2.44.0
-
+ install(FILES       "${CMAKE_CURRENT_BINARY_DIR}/UnitTest++.pc"
+         DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")

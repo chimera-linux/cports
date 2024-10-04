@@ -1,17 +1,17 @@
 diff --git a/src/gl/tests/test-malloc-gnu.c b/src/gl/tests/test-malloc-gnu.c
-index 8873eb8..b4a228e 100644
+index 126b7a6..36a436e 100644
 --- a/src/gl/tests/test-malloc-gnu.c
 +++ b/src/gl/tests/test-malloc-gnu.c
 @@ -27,6 +27,7 @@
  int
- main (int argc, char **argv)
+ main (int argc, _GL_UNUSED char **argv)
  {
 +  return 0;
    /* Check that malloc (0) is not a NULL pointer.  */
    void *volatile p = malloc (0);
    ASSERT (p != NULL);
 diff --git a/tests/cert-tests/certtool.sh b/tests/cert-tests/certtool.sh
-index 11b8b8f..e9dd5b9 100755
+index caa7d4f..f1210ca 100644
 --- a/tests/cert-tests/certtool.sh
 +++ b/tests/cert-tests/certtool.sh
 @@ -27,6 +27,8 @@ TMPFILE1=certtool-file1.$$.tmp

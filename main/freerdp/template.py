@@ -57,7 +57,6 @@ license = "Apache-2.0"
 url = "https://www.freerdp.com"
 source = f"https://pub.freerdp.com/releases/freerdp-{pkgver}.tar.gz"
 sha256 = "5a2d54e1ca0f1facd1632bcc94c73b9f071a80c5fdbbb3f26e79f02aaa586ca3"
-patch_style = "patch"
 tool_flags = {
     "CFLAGS": ["-DNDEBUG", "-Wno-incompatible-function-pointer-types"]
 }

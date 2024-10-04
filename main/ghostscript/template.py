@@ -47,7 +47,6 @@ license = "AGPL-3.0-or-later"
 url = "https://www.ghostscript.com"
 source = f"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs{pkgver.replace('.', '')}/ghostscript-{pkgver}.tar.xz"
 sha256 = "527eef0b6cd04ecf1c8d7a11796c69a52d34ffe36afca86a400729a2fc01c887"
-patch_style = "patch"
 # breaks ps2pdf
 hardening = ["!int"]
 # busted; undefined references

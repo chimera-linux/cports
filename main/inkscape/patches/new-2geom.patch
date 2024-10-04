@@ -26,10 +26,10 @@ Fixes https://gitlab.com/inkscape/inbox/-/issues/8912
  delete mode 100644 testfiles/src/min-bbox-test.cpp
 
 diff --git a/src/display/control/canvas-item.h b/src/display/control/canvas-item.h
-index 3a5387d9e91..205234ff787 100644
+index fc34176..9c41407 100644
 --- a/src/display/control/canvas-item.h
 +++ b/src/display/control/canvas-item.h
-@@ -148,12 +148,6 @@ protected:
+@@ -149,12 +149,6 @@ protected:
  
  } // namespace Inkscape
  
@@ -43,10 +43,10 @@ index 3a5387d9e91..205234ff787 100644
  
  /*
 diff --git a/src/helper/geom.cpp b/src/helper/geom.cpp
-index 30111cb8d9d..6a282a18433 100644
+index ea3f5bb..4786e84 100644
 --- a/src/helper/geom.cpp
 +++ b/src/helper/geom.cpp
-@@ -1010,67 +1010,6 @@ bool approx_dihedral(Geom::Affine const &affine, double eps)
+@@ -1022,67 +1022,6 @@ bool approx_dihedral(Geom::Affine const &affine, double eps)
      return arr == std::array {1, 0, 0, 1 } || arr == std::array{ 0, 1, 1, 0 };
  }
  
@@ -115,10 +115,10 @@ index 30111cb8d9d..6a282a18433 100644
    Local Variables:
    mode:c++
 diff --git a/src/helper/geom.h b/src/helper/geom.h
-index 50e434da780..59542e7d44f 100644
+index ac83e8e..aeae2a4 100644
 --- a/src/helper/geom.h
 +++ b/src/helper/geom.h
-@@ -45,7 +45,6 @@ void recursive_bezier4(const double x1, const double y1, const double x2, const
+@@ -46,7 +46,6 @@ void recursive_bezier4(const double x1, const double y1, const double x2, const
                         std::vector<Geom::Point> &pointlist,
                         int level);
  bool approx_dihedral(Geom::Affine const &affine, double eps = 0.0001);
@@ -127,10 +127,10 @@ index 50e434da780..59542e7d44f 100644
  /// Returns signed area of triangle given by points; may be negative.
  inline Geom::Coord triangle_area(Geom::Point const &p1, Geom::Point const &p2, Geom::Point const &p3)
 diff --git a/src/live_effects/lpe-tiling.cpp b/src/live_effects/lpe-tiling.cpp
-index b4913c79b2d..5bd88801475 100644
+index ddbaee3..696ab20 100644
 --- a/src/live_effects/lpe-tiling.cpp
 +++ b/src/live_effects/lpe-tiling.cpp
-@@ -442,7 +442,7 @@ LPETiling::doAfterEffect (SPLPEItem const* lpeitem, SPCurve *curve)
+@@ -448,7 +448,7 @@ LPETiling::doAfterEffect (SPLPEItem const* lpeitem, SPCurve *curve)
                      auto p = Geom::Point(xset + offset_x - random_x[counter], yset + offset_y - random_y[counter]);
                      auto translate = p * gap.inverse();
                      Geom::Affine finalit = (transformoriginal * Geom::Translate(spcenter_base).inverse() * mirror * Geom::Translate(spcenter_base));
@@ -140,10 +140,10 @@ index b4913c79b2d..5bd88801475 100644
                      item->requestDisplayUpdate(SP_OBJECT_MODIFIED_FLAG);
                      forcewrite = forcewrite || write;
 diff --git a/src/trace/potrace/inkscape-potrace.cpp b/src/trace/potrace/inkscape-potrace.cpp
-index a6c7f65f92a..e51a5afb104 100644
+index 24fe173..8d0ce41 100644
 --- a/src/trace/potrace/inkscape-potrace.cpp
 +++ b/src/trace/potrace/inkscape-potrace.cpp
-@@ -93,7 +93,7 @@ void PotraceTracingEngine::setTurdSize(int turdsize)
+@@ -94,7 +94,7 @@ void PotraceTracingEngine::setTurdSize(int turdsize)
   * Recursively descend the potrace_path_t node tree \a paths, writing paths to \a builder.
   * The \a points set is used to prevent redundant paths.
   */
@@ -152,7 +152,7 @@ index a6c7f65f92a..e51a5afb104 100644
  {
      auto to_geom = [] (potrace_dpoint_t const &c) {
          return Geom::Point(c.x, c.y);
-@@ -280,7 +280,7 @@ Geom::PathVector PotraceTracingEngine::grayMapToPath(GrayMap const &grayMap, Asy
+@@ -281,7 +281,7 @@ Geom::PathVector PotraceTracingEngine::grayMapToPath(GrayMap const &grayMap, Asy
  
      // Extract the paths into a pathvector and return it.
      Geom::PathBuilder builder;
@@ -162,7 +162,7 @@ index a6c7f65f92a..e51a5afb104 100644
      return builder.peek();
  }
 diff --git a/src/trace/potrace/inkscape-potrace.h b/src/trace/potrace/inkscape-potrace.h
-index 0e4a9c62eeb..f30568369b2 100644
+index 0e4a9c6..f305683 100644
 --- a/src/trace/potrace/inkscape-potrace.h
 +++ b/src/trace/potrace/inkscape-potrace.h
 @@ -45,18 +45,6 @@ enum class TraceType
@@ -194,7 +194,7 @@ index 0e4a9c62eeb..f30568369b2 100644
  
  } // namespace Potrace
 diff --git a/src/ui/widget/canvas.cpp b/src/ui/widget/canvas.cpp
-index 7274d0a30f5..86fb95a54c7 100644
+index c3f448b..5b650fe 100644
 --- a/src/ui/widget/canvas.cpp
 +++ b/src/ui/widget/canvas.cpp
 @@ -18,7 +18,6 @@
@@ -204,9 +204,9 @@ index 7274d0a30f5..86fb95a54c7 100644
 -#include <2geom/convex-hull.h>
  
  #include "canvas.h"
- 
+ #include "canvas-grid.h"
 diff --git a/src/ui/widget/canvas/stores.cpp b/src/ui/widget/canvas/stores.cpp
-index 70327f5a48b..e51598de456 100644
+index 70327f5..e51598d 100644
 --- a/src/ui/widget/canvas/stores.cpp
 +++ b/src/ui/widget/canvas/stores.cpp
 @@ -4,6 +4,7 @@

@@ -33,7 +33,6 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
 source = f"$(GNOME_SITE)/nautilus/{pkgver[:pkgver.find('.')]}/nautilus-{pkgver}.tar.xz"
 sha256 = "334264cdd9edbfd95ee7bcaafe442ebed31acca3f2d9b90f3eda30eacfd0387a"
-patch_style = "patch"
 options = ["!cross"]
 
 

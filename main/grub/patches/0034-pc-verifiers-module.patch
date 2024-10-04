@@ -52,7 +52,7 @@ index f18550c..f9d4aa2 100644
  KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/net.h
  KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/memory.h
 diff --git a/grub-core/Makefile.core.def b/grub-core/Makefile.core.def
-index 044e53c..333d3fe 100644
+index 4d8b7a6..74c02c7 100644
 --- a/grub-core/Makefile.core.def
 +++ b/grub-core/Makefile.core.def
 @@ -152,7 +152,7 @@ kernel = {
@@ -78,7 +78,7 @@ index 044e53c..333d3fe 100644
    name = hdparm;
    common = commands/hdparm.c;
 diff --git a/grub-core/kern/main.c b/grub-core/kern/main.c
-index 8401bc3..1258514 100644
+index 353a62e..371fafc 100644
 --- a/grub-core/kern/main.c
 +++ b/grub-core/kern/main.c
 @@ -29,7 +29,9 @@
@@ -91,8 +91,8 @@ index 8401bc3..1258514 100644
  
  #ifdef GRUB_MACHINE_PCBIOS
  #include <grub/machine/memory.h>
-@@ -296,8 +298,10 @@ grub_main (void)
- #endif
+@@ -286,8 +288,10 @@ grub_main (void)
+   grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
  #endif
  
 +#ifndef GRUB_MACHINE_PCBIOS

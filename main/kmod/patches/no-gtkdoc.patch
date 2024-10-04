@@ -1,6 +1,8 @@
+diff --git a/configure.ac b/configure.ac
+index 2f1c525..6911283 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -226,10 +226,7 @@ AS_IF([test "x$enable_coverage" = "xyes"], [
+@@ -235,10 +235,7 @@ AS_IF([test "x$enable_coverage" = "xyes"], [
  ])
  AM_CONDITIONAL([ENABLE_COVERAGE], [test "x$enable_coverage" = "xyes"])
  
@@ -10,8 +12,10 @@
 -AM_CONDITIONAL([ENABLE_GTK_DOC], false)])
 +AM_CONDITIONAL([ENABLE_GTK_DOC], false)
  
- #####################################################################
- # Default CFLAGS and LDFLAGS
+ PKG_INSTALLDIR
+ PKG_NOARCH_INSTALLDIR
+diff --git a/libkmod/docs/Makefile.am b/libkmod/docs/Makefile.am
+index c4f3d69..5c686a4 100644
 --- a/libkmod/docs/Makefile.am
 +++ b/libkmod/docs/Makefile.am
 @@ -25,10 +25,4 @@ IGNORE_HFILES = libkmod-internal.h \

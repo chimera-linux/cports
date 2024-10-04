@@ -1,6 +1,8 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e234cb6..446c190 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -141,7 +141,6 @@ find_package_auto(ENABLE_LIBUNINAMESLIST  Libuninameslist)
+@@ -156,7 +156,6 @@ find_package_auto(ENABLE_LIBSPIRO         Libspiro)
  find_package_auto(ENABLE_LIBGIF           GIF)
  find_package_auto(ENABLE_LIBJPEG          JPEG)
  find_package_auto(ENABLE_LIBPNG           PNG)
@@ -8,21 +10,25 @@
  find_package_auto(ENABLE_LIBTIFF          TIFF)
  find_package_auto(ENABLE_WOFF2            WOFF2)
  find_package_auto(ENABLE_CODE_COVERAGE    Gcov)
+diff --git a/cmake/FontForgeConfigure.cmake b/cmake/FontForgeConfigure.cmake
+index 0d6c5bd..cf231be 100644
 --- a/cmake/FontForgeConfigure.cmake
 +++ b/cmake/FontForgeConfigure.cmake
-@@ -95,7 +95,6 @@ function(fontforge_generate_config template destination)
+@@ -97,7 +97,6 @@ function(fontforge_generate_config template destination)
+   _set_negated(_NO_LIBTIFF "${ENABLE_LIBTIFF_RESULT}")
    _set_negated(_NO_LIBUNGIF "${ENABLE_LIBGIF_RESULT}")
-   _set_negated(_NO_LIBUNINAMESLIST "${ENABLE_LIBUNINAMESLIST_RESULT}")
    _set_negated(_NO_PYTHON "${ENABLE_PYTHON_SCRIPTING_RESULT}")
 -  _set_negated(_NO_LIBREADLINE "${ENABLE_LIBREADLINE_RESULT}")
  
    if(ENABLE_LIBSPIRO_RESULT)
      set(_LIBSPIRO_FUN ${Libspiro_FEATURE_LEVEL})
+diff --git a/fontforge/CMakeLists.txt b/fontforge/CMakeLists.txt
+index 9a052f3..9ce2409 100644
 --- a/fontforge/CMakeLists.txt
 +++ b/fontforge/CMakeLists.txt
 @@ -255,9 +255,7 @@ endif()
- if(ENABLE_LIBUNINAMESLIST_RESULT)
-   target_link_libraries(fontforge PUBLIC Libuninameslist::Libuninameslist)
+ if(ENABLE_LIBSPIRO_RESULT)
+   target_link_libraries(fontforge PUBLIC Libspiro::Libspiro)
  endif()
 -if(ENABLE_LIBREADLINE_RESULT)
 -  target_link_libraries(fontforge PUBLIC Readline::Readline)
@@ -31,9 +37,11 @@
  if(ENABLE_PYTHON_SCRIPTING_RESULT)
    target_link_libraries(fontforge PRIVATE Python3::Python)
  endif()
+diff --git a/fontforge/scripting.c b/fontforge/scripting.c
+index e5a0ec6..7d8fd6c 100644
 --- a/fontforge/scripting.c
 +++ b/fontforge/scripting.c
-@@ -98,8 +98,7 @@
+@@ -96,8 +96,7 @@
  # include <ieeefp.h>		/* Solaris defines isnan in ieeefp rather than math.h */
  #endif
  #ifndef _NO_LIBREADLINE

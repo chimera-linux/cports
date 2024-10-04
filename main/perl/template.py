@@ -20,7 +20,6 @@ sha256 = [
     "c740348f357396327a9795d3e8323bafd0fe8a5c7835fc1cbaba0cc8dfe7161f",
     "ecc37b41a60cc3c030413a960cc386455f70c43781c6333d1fcaad02ece32ea8",
 ]
-patch_style = "patch"
 # prevent a massive log dump
 tool_flags = {
     "CFLAGS": [

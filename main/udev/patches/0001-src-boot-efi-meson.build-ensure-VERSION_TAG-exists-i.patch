@@ -16,17 +16,14 @@ Signed-off-by: Chen Qi <Qi.Chen@windriver.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/src/boot/efi/meson.build b/src/boot/efi/meson.build
-index 7a60b0ec7e..99d108d6e8 100644
+index a1bdd58..3cd9fa7 100644
 --- a/src/boot/efi/meson.build
 +++ b/src/boot/efi/meson.build
-@@ -65,6 +65,7 @@ endforeach
+@@ -69,6 +69,7 @@ efi_conf.set('PROJECT_URL', conf.get('PROJECT_URL'))
  
  if meson.is_cross_build() and get_option('sbat-distro') == 'auto'
          warning('Auto detection of SBAT information not supported when cross-building, disabling SBAT.')
 +        efi_conf.set_quoted('VERSION_TAG', version_tag)
  elif get_option('sbat-distro') != ''
          efi_conf.set_quoted('SBAT_PROJECT', meson.project_name())
-         efi_conf.set_quoted('PROJECT_VERSION', meson.project_version().split('~')[0])
--- 
-2.45.1
-
+         if get_option('sbat-distro-generation') < 1

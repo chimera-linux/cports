@@ -5,10 +5,10 @@ Date:   Thu Aug 31 04:12:55 2023 +0200
     test failing on ppc64le
 
 diff --git a/hwy/tests/blockwise_test.cc b/hwy/tests/blockwise_test.cc
-index c66ebf3..1db2284 100644
+index 713d3c6..35799af 100644
 --- a/hwy/tests/blockwise_test.cc
 +++ b/hwy/tests/blockwise_test.cc
-@@ -454,7 +454,7 @@ HWY_AFTER_NAMESPACE();
+@@ -503,7 +503,7 @@ HWY_AFTER_NAMESPACE();
  
  namespace hwy {
  HWY_BEFORE_TEST(HwyBlockwiseTest);
@@ -18,15 +18,15 @@ index c66ebf3..1db2284 100644
  HWY_EXPORT_AND_TEST_P(HwyBlockwiseTest, TestAllTableLookupBytesMixed);
  HWY_EXPORT_AND_TEST_P(HwyBlockwiseTest, TestAllInterleave);
 diff --git a/hwy/tests/reduction_test.cc b/hwy/tests/reduction_test.cc
-index 8613675..773020d 100644
+index 0683bc9..c82d805 100644
 --- a/hwy/tests/reduction_test.cc
 +++ b/hwy/tests/reduction_test.cc
-@@ -308,7 +308,7 @@ HWY_AFTER_NAMESPACE();
+@@ -360,7 +360,7 @@ HWY_AFTER_NAMESPACE();
  
  namespace hwy {
  HWY_BEFORE_TEST(HwyReductionTest);
 -HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumOfLanes);
 +//HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumOfLanes);
  HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllMinMaxOfLanes);
- HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumsOf8);
- HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumsOf8AbsDiff);
+ HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumsOf2);
+ HWY_EXPORT_AND_TEST_P(HwyReductionTest, TestAllSumsOf4);

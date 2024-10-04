@@ -2,11 +2,13 @@ Doing this in our cross-toolchain case results
 in /usr/include getting included directly, which
 we do not want as it breaks cross.
 
+diff --git a/compiler-rt/lib/orc/CMakeLists.txt b/compiler-rt/lib/orc/CMakeLists.txt
+index 6bcbf05..2ed6779 100644
 --- a/compiler-rt/lib/orc/CMakeLists.txt
 +++ b/compiler-rt/lib/orc/CMakeLists.txt
-@@ -50,11 +50,6 @@ include_directories(../../include)
- 
- set(ORC_CFLAGS ${COMPILER_RT_COMMON_CFLAGS})
+@@ -71,11 +71,6 @@ set(ORC_LINK_LIBS
+   ${COMPILER_RT_UNWINDER_LINK_LIBS}
+   ${COMPILER_RT_CXX_LINK_LIBS})
  
 -# Allow the ORC runtime to reference LLVM headers.
 -foreach (DIR ${LLVM_INCLUDE_DIR} ${LLVM_MAIN_INCLUDE_DIR})

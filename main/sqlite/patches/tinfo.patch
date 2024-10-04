@@ -1,17 +1,19 @@
+diff --git a/configure b/configure
+index fcab042..95d51f2 100755
 --- a/configure
 +++ b/configure
-@@ -13143,7 +13143,7 @@
+@@ -13884,7 +13884,7 @@ do
      ac_res="none required"
    else
      ac_res=-l$ac_lib
 -    LIBS="-l$ac_lib -ltinfo $ac_func_search_save_LIBS"
 +    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
    fi
-   if ac_fn_c_try_link "$LINENO"; then :
-   ac_cv_search_readline=$ac_res
-@@ -13171,7 +13171,7 @@
+   if ac_fn_c_try_link "$LINENO"
+ then :
+@@ -13916,7 +13916,7 @@ then :
  
- $as_echo "#define HAVE_EDITLINE 1" >>confdefs.h
+ printf "%s\n" "#define HAVE_EDITLINE 1" >>confdefs.h
  
 -      READLINE_LIBS="$LIBS -ltinfo"
 +      READLINE_LIBS="$LIBS "

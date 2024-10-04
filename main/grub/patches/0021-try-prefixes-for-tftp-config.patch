@@ -11,10 +11,10 @@ Signed-off-by: Robbie Harwood <rharwood@redhat.com>
  3 files changed, 81 insertions(+), 76 deletions(-)
 
 diff --git a/grub-core/kern/ieee1275/init.c b/grub-core/kern/ieee1275/init.c
-index ed62c4b..97bf33f 100644
+index fb7d1a3..dab8d97 100644
 --- a/grub-core/kern/ieee1275/init.c
 +++ b/grub-core/kern/ieee1275/init.c
-@@ -180,23 +180,25 @@ grub_machine_get_bootlocation (char **device, char **path)
+@@ -170,23 +170,25 @@ grub_machine_get_bootlocation (char **device, char **path)
        grub_free (canon);
      }
    else
@@ -52,7 +52,7 @@ index ed62c4b..97bf33f 100644
 +  grub_free (type);
    grub_free (bootpath);
  }
- #endif
+ 
 diff --git a/grub-core/net/net.c b/grub-core/net/net.c
 index 7571afa..556c21d 100644
 --- a/grub-core/net/net.c
@@ -67,7 +67,7 @@ index 7571afa..556c21d 100644
  
  static struct grub_preboot *fini_hnd;
 diff --git a/grub-core/normal/main.c b/grub-core/normal/main.c
-index c0255a9..28decc6 100644
+index dfdfd56..58d3dce 100644
 --- a/grub-core/normal/main.c
 +++ b/grub-core/normal/main.c
 @@ -310,76 +310,79 @@ grub_enter_normal_mode (const char *config)
@@ -135,10 +135,7 @@ index c0255a9..28decc6 100644
  		 int argc, char *argv[])
  {
 -  if (argc == 0)
-+  if (argc)
-+    grub_enter_normal_mode (argv[0]);
-+  else
-     {
+-    {
 -      /* Guess the config filename. It is necessary to make CONFIG static,
 -	 so that it won't get broken by longjmp.  */
 -      char *config;
@@ -197,6 +194,12 @@ index c0255a9..28decc6 100644
 -	}
 -      else
 -	grub_enter_normal_mode (0);
+-    }
+-  else
++  if (argc)
+     grub_enter_normal_mode (argv[0]);
++  else
++    {
 +      /* Guess the config filename. */
 +      grub_err_t err;
 +      err = grub_try_normal ("fw_path");
@@ -204,9 +207,7 @@ index c0255a9..28decc6 100644
 +        err = grub_try_normal ("prefix");
 +      if (err == GRUB_ERR_FILE_NOT_FOUND)
 +        grub_enter_normal_mode (0);
-     }
--  else
--    grub_enter_normal_mode (argv[0]);
++    }
  
 -quit:
    return 0;

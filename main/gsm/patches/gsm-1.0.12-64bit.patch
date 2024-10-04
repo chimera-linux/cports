@@ -1,7 +1,9 @@
---- a/inc/private.h	2006-04-26 22:17:01.000000000 +0300
-+++ b/inc/private.h	2007-08-19 12:23:02.000000000 +0300
-@@ -10,10 +10,10 @@
- #define	PRIVATE_H
+diff --git a/inc/private.h b/inc/private.h
+index d9bed03..f0e11b4 100644
+--- a/inc/private.h
++++ b/inc/private.h
+@@ -14,10 +14,10 @@
+ #endif
  
  typedef short			word;		/* 16 bit signed int	*/
 -typedef long			longword;	/* 32 bit signed int	*/

@@ -18,7 +18,6 @@ license = "Apache-2.0"
 url = "https://apple.github.io/swift-corelibs-libdispatch"
 source = f"https://github.com/apple/swift-corelibs-libdispatch/archive/refs/tags/swift-{pkgver}-RELEASE.tar.gz"
 sha256 = "150066ba341e49b8518a0b879ba82941d6d8734ab37cb76683f2a155369e5030"
-patch_style = "patch"
 hardening = ["vis", "!cfi"]
 
 

@@ -41,7 +41,6 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/grub"
 source = f"$(GNU_SITE)/grub/grub-{pkgver}.tar.xz"
 sha256 = "f3c97391f7c4eaa677a78e090c7e97e6dc47b16f655f04683ebd37bef7fe0faa"
-patch_style = "patch"
 # our strip wrapper prevents correct kernel.img generation
 env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 # the freestanding bits

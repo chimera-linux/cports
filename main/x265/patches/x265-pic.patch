@@ -1,8 +1,10 @@
+diff --git a/source/CMakeLists.txt b/source/CMakeLists.txt
+index 37b83f9..a399441 100755
 --- a/source/CMakeLists.txt
 +++ b/source/CMakeLists.txt
-@@ -158,7 +162,7 @@ if(GCC)
-     add_definitions(-D__STDC_LIMIT_MACROS=1)
-     add_definitions(-std=gnu++98)
+@@ -233,7 +233,7 @@ if(GCC)
+         add_definitions(-std=gnu++98)
+     endif()
      if(ENABLE_PIC)
 -         add_definitions(-fPIC)
 +         add_definitions(-fPIC -DPIC)

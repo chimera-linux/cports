@@ -45,7 +45,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
 source = f"https://www.gnupg.org/ftp/gcrypt/gnutls/v{".".join(pkgver.split(".")[0:2])}/gnutls-{pkgver}.tar.xz"
 sha256 = "9ca0ddaccce28a74fa18d738744190afb3b0daebef74e6ad686bf7bef99abd60"
-patch_style = "patch"
 
 
 def post_install(self):

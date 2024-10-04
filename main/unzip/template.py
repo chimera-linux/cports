@@ -22,7 +22,6 @@ license = "Info-ZIP"
 url = "http://infozip.sf.net"
 source = "$(SOURCEFORGE_SITE)/infozip/unzip60.tar.gz"
 sha256 = "036d96991646d0449ed0aa952e4fbe21b476ce994abc276e49d30e686708bd37"
-patch_style = "patch"
 tool_flags = {
     "CFLAGS": [
         "-DWILD_STOP_AT_DIR",

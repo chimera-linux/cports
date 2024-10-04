@@ -37,10 +37,10 @@ Fixes https://github.com/llvm/llvm-project/issues/98753.
  2 files changed, 25 insertions(+), 9 deletions(-)
 
 diff --git a/llvm/lib/Analysis/InstructionSimplify.cpp b/llvm/lib/Analysis/InstructionSimplify.cpp
-index 242c200f7ef15..3a7ae577bb068 100644
+index 8dcffe4..63e0d68 100644
 --- a/llvm/lib/Analysis/InstructionSimplify.cpp
 +++ b/llvm/lib/Analysis/InstructionSimplify.cpp
-@@ -1975,13 +1975,16 @@ static Value *simplifyAndOrWithICmpEq(unsigned Opcode, Value *Op0, Value *Op1,
+@@ -1968,13 +1968,16 @@ static Value *simplifyAndOrWithICmpEq(unsigned Opcode, Value *Op0, Value *Op1,
      return nullptr;
    };
  
@@ -63,7 +63,7 @@ index 242c200f7ef15..3a7ae577bb068 100644
      return Simplify(Res);
  
    return nullptr;
-@@ -4300,6 +4303,9 @@ static Value *simplifyWithOpReplaced(Value *V, Value *Op, Value *RepOp,
+@@ -4290,6 +4293,9 @@ static Value *simplifyWithOpReplaced(Value *V, Value *Op, Value *RepOp,
                                       bool AllowRefinement,
                                       SmallVectorImpl<Instruction *> *DropFlags,
                                       unsigned MaxRecurse) {
@@ -73,7 +73,7 @@ index 242c200f7ef15..3a7ae577bb068 100644
    // Trivial replacement.
    if (V == Op)
      return RepOp;
-@@ -4347,6 +4353,11 @@ static Value *simplifyWithOpReplaced(Value *V, Value *Op, Value *RepOp,
+@@ -4337,6 +4343,11 @@ static Value *simplifyWithOpReplaced(Value *V, Value *Op, Value *RepOp,
      } else {
        NewOps.push_back(InstOp);
      }
@@ -85,7 +85,7 @@ index 242c200f7ef15..3a7ae577bb068 100644
    }
  
    if (!AnyReplaced)
-@@ -4467,6 +4478,11 @@ Value *llvm::simplifyWithOpReplaced(Value *V, Value *Op, Value *RepOp,
+@@ -4457,6 +4468,11 @@ Value *llvm::simplifyWithOpReplaced(Value *V, Value *Op, Value *RepOp,
                                      const SimplifyQuery &Q,
                                      bool AllowRefinement,
                                      SmallVectorImpl<Instruction *> *DropFlags) {
@@ -97,7 +97,7 @@ index 242c200f7ef15..3a7ae577bb068 100644
    return ::simplifyWithOpReplaced(V, Op, RepOp, Q, AllowRefinement, DropFlags,
                                    RecursionLimit);
  }
-@@ -4606,7 +4622,7 @@ static Value *simplifySelectWithICmpEq(Value *CmpLHS, Value *CmpRHS,
+@@ -4596,7 +4612,7 @@ static Value *simplifySelectWithICmpEq(Value *CmpLHS, Value *CmpRHS,
                                         Value *TrueVal, Value *FalseVal,
                                         const SimplifyQuery &Q,
                                         unsigned MaxRecurse) {
@@ -106,5 +106,3 @@ index 242c200f7ef15..3a7ae577bb068 100644
                               /* AllowRefinement */ false,
                               /* DropFlags */ nullptr, MaxRecurse) == TrueVal)
      return FalseVal;
-diff --git a/llvm/test/Transforms/InstSimplify/and-or-implied-cond.ll b/llvm/test/Transforms/InstSimplify/and-or-implied-cond.ll
-index 8620dce059ae7..99e1dd4528697 100644

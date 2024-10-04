@@ -41,7 +41,6 @@ source = (
     f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
 )
 sha256 = "82e19d11780fed4b66400f000829ce5ca113efbbfb7975815f26ed93e4c05f2d"
-patch_style = "patch"
 # assert in meson
 options = ["!lto", "!cross"]
 

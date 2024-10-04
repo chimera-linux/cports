@@ -1,10 +1,12 @@
 This patch disables tests that fail in github-ci, but pass on other linux systems.
 
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index b2e0d90..2b74f2d 100644
 --- a/tests/Makefile.am
 +++ b/tests/Makefile.am
-@@ -706,9 +706,7 @@
- 	dbus/dynamic-method.test \
- 	dbus/enum-string-marshalling.vala \
+@@ -846,9 +846,7 @@ TESTS = \
+ 	dbus/generics.test \
+ 	dbus/no-reply.test \
  	dbus/signals.test \
 -	dbus/filedescriptor.test \
  	dbus/filedescriptor-async.test \

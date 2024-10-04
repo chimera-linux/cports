@@ -34,7 +34,6 @@ source = (
     f"$(GNOME_SITE)/snapshot/{pkgver.split('.')[0]}/snapshot-{pkgver}.tar.xz"
 )
 sha256 = "62a7f10c9021ba2e49e7e68e7eb89ef540c09f2c7ddf77c205e542c9dae8ffb1"
-patch_style = "patch"
 
 
 def init_build(self):

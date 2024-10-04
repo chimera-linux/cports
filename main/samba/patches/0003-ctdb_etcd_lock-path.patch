@@ -5,16 +5,28 @@ Date: Sat, 02 Apr 2022 17:49:38 +0300
 Specify the actual installation path for this helper script.
 
 diff --git a/ctdb/doc/ctdb-etcd.7.xml b/ctdb/doc/ctdb-etcd.7.xml
-index f84989f854f..fcb3d0c3b5f 100644
+index af343db..1135935 100644
 --- a/ctdb/doc/ctdb-etcd.7.xml
 +++ b/ctdb/doc/ctdb-etcd.7.xml
-@@ -71 +71 @@
+@@ -68,7 +68,7 @@
+       <manvolnum>5</manvolnum></citerefentry>:
+     </para>
+     <screen format="linespecific">
 -cluster lock = !/usr/local/usr/libexec/ctdb/ctdb_etcd_lock
 +cluster lock = !/usr/libexec/ctdb/ctdb_etcd_lock
+     </screen>
+     <para>
+       You can also pass "-v", "-vv", or "-vvv" to include verbose output in
 diff --git a/ctdb/utils/etcd/ctdb_etcd_lock b/ctdb/utils/etcd/ctdb_etcd_lock
-index dac24361e77..e695ac7cab2 100755
+index dac2436..e695ac7 100755
 --- a/ctdb/utils/etcd/ctdb_etcd_lock
 +++ b/ctdb/utils/etcd/ctdb_etcd_lock
-@@ -26 +26 @@ the following line in the ctdb.conf:
+@@ -23,7 +23,7 @@ CTDB's cluster lock. Please see ctdb/doc/cluster_mutex_helper.txt for
+ details on what we're SUPPOSED to be doing. :) To use this, include
+ the following line in the ctdb.conf:
+ 
 -    cluster lock = !/path/to/script
 +    cluster lock = !/usr/libexec/ctdb/ctdb_etcd_lock
+ 
+ You can also pass "-v", "-vv", or "-vvv" to include verbose output in the
+ CTDB log. Additional "v"s indicate increases in verbosity.

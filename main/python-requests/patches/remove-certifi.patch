@@ -1,10 +1,26 @@
+diff --git a/setup.py b/setup.py
+index 1b0eb37..03d19b0 100755
 --- a/setup.py
 +++ b/setup.py
 @@ -62,7 +62,6 @@ requires = [
-     "charset_normalizer>=2,<3",
+     "charset_normalizer>=2,<4",
      "idna>=2.5,<4",
      "urllib3>=1.21.1,<3",
 -    "certifi>=2017.4.17",
  ]
  test_requirements = [
-     "pytest-httpbin==0.0.7",
+     "pytest-httpbin==2.0.0",
+diff --git a/src/requests/certs.py b/src/requests/certs.py
+index be422c3..5e51719 100644
+--- a/src/requests/certs.py
++++ b/src/requests/certs.py
+@@ -11,7 +11,8 @@ If you are packaging Requests, e.g., for a Linux distribution or a managed
+ environment, you can change the definition of where() to return a separately
+ packaged CA bundle.
+ """
+-from certifi import where
++def where():
++    return '/etc/ssl/certs/ca-certificates.crt'
+ 
+ if __name__ == "__main__":
+     print(where())

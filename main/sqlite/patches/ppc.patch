@@ -7,11 +7,11 @@ Date:   Fri Sep 23 02:43:48 2022 +0200
     The __ppc macro is never defined on ppc gcc.
 
 diff --git a/sqlite3.c b/sqlite3.c
-index 451ca8e..5b31d31 100644
+index 946815f..c70fcfc 100644
 --- a/sqlite3.c
 +++ b/sqlite3.c
-@@ -20860,7 +20860,7 @@ SQLITE_PRIVATE const char **sqlite3CompileOptions(int *pnOpt);
-       return val;
+@@ -36855,7 +36855,7 @@ SQLITE_PRIVATE int sqlite3VListNameToNum(VList *pIn, const char *zName, int nNam
+      return (sqlite_uint64)hi << 32 | lo;
    }
  
 -#elif !defined(__STRICT_ANSI__) && (defined(__GNUC__) && defined(__ppc__))

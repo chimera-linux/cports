@@ -15,5 +15,4 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/tar"
 source = f"$(GNU_SITE)/tar/tar-{pkgver}.tar.xz"
 sha256 = "4d62ff37342ec7aed748535323930c7cf94acf71c3591882b26a7ea50f3edc16"
-patch_style = "patch"
 hardening = ["vis", "cfi"]
