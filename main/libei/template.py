@@ -9,13 +9,21 @@ configure_args = [
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "python-attrs",
     "python-jinja2",
 ]
 makedepends = [
     "elogind-devel",
     "libevdev-devel",
     "libxkbcommon-devel",
+]
+checkdepends = [
+    "glib",
+    "python-attrs",
+    "python-dbusmock",
+    "python-gobject",
+    "python-pytest",
+    "python-pyyaml",
+    "python-structlog",
 ]
 pkgdesc = "Emulated Input Library"
 maintainer = "psykose <alice@ayaya.dev>"
