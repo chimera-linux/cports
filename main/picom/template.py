@@ -1,8 +1,9 @@
 pkgname = "picom"
-pkgver = "11.2"
+pkgver = "12.1"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["asciidoc", "meson", "pkgconf"]
+configure_args = ["-Dunittest=true", "-Dwith_docs=true"]
+hostmakedepends = ["asciidoctor", "meson", "pkgconf"]
 makedepends = [
     "dbus-devel",
     "libconfig-devel",
@@ -23,9 +24,14 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 AND MIT"
 url = "https://github.com/yshui/picom"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "1c1063936faf09ed9bba726e7737a562564b7a5f8cdef79d48fcdaf3669a4df4"
+sha256 = "d1aab4277e3a123c41621fa57c1ed66cc4a6553174a69e259d3027cf984c452c"
 
 
 def post_install(self):
     self.install_license("COPYING")
     self.install_license("LICENSES/MIT")
+
+
+@subpackage("picom-devel")
+def _(self):
+    return self.default_devel()

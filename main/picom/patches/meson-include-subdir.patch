@@ -1,0 +1,35 @@
+oopsies
+diff --git a/include/meson.build b/include/meson.build
+index 419437e..fdeb30d 100644
+--- a/include/meson.build
++++ b/include/meson.build
+@@ -1,3 +1,3 @@
+ # SPDX-License-Identifier: MPL-2.0
+ # Copyright (c) Yuxuan Shui <yshuiv7@gmail.com>
+-subdirs('picom')
++subdir('picom')
+diff --git a/include/picom/meson.build b/include/picom/meson.build
+index 71727c4..7a22d87 100644
+--- a/include/picom/meson.build
++++ b/include/picom/meson.build
+@@ -2,7 +2,7 @@
+ # Copyright (c) Yuxuan Shui <yshuiv7@gmail.com>
+ 
+ api_headers = [
+-  'api.h'
++  'api.h',
+   'backend.h'
+ ]
+ install_headers(api_headers, subdir: 'picom')
+diff --git a/meson.build b/meson.build
+index 42f0142..c039184 100644
+--- a/meson.build
++++ b/meson.build
+@@ -107,6 +107,7 @@ test_h_dep = subproject('test.h').get_variable('test_h_dep')
+ subdir('src')
+ subdir('man')
+ subdir('tools')
++subdir('include')
+ 
+ install_data('bin/picom-trans', install_dir: get_option('bindir'))
+ install_data('picom.desktop', install_dir: 'share/applications')
