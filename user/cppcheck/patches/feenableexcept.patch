@@ -5,7 +5,7 @@ index 023137c2a..92b3fe8af 100644
 +++ b/test/signal/test-signalhandler.cpp
 @@ -46,9 +46,6 @@
  
- /*static*/ void my_fpe()
+ /*static*/ void my_fpe() // NOLINT(misc-use-internal-linkage)
  {
 -#if !defined(__APPLE__)
 -    feenableexcept(FE_ALL_EXCEPT); // TODO: check result

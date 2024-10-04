@@ -1,8 +1,8 @@
 diff --git a/gcc/doc/invoke.texi b/gcc/doc/invoke.texi
-index b6731a4673c..f393c7846c6 100644
+index f82f7d2..9f0a34c 100644
 --- a/gcc/doc/invoke.texi
 +++ b/gcc/doc/invoke.texi
-@@ -17961,6 +17961,9 @@ For example, @option{-Wl,-Map,output.map} passes @option{-Map output.map} to the
+@@ -18924,6 +18924,9 @@ For example, @option{-Wl,-Map,output.map} passes @option{-Map output.map} to the
  linker.  When using the GNU linker, you can also get the same effect with
  @option{-Wl,-Map=output.map}.
  
@@ -13,17 +13,14 @@ index b6731a4673c..f393c7846c6 100644
  @item -u @var{symbol}
  Pretend the symbol @var{symbol} is undefined, to force linking of
 diff --git a/gcc/gcc.cc b/gcc/gcc.cc
-index 33b56e721d2..f82fae23c22 100644
+index 728332b..b19a69f 100644
 --- a/gcc/gcc.cc
 +++ b/gcc/gcc.cc
-@@ -1144,6 +1144,7 @@ proper position among the other output files.  */
+@@ -1157,6 +1157,7 @@ proper position among the other output files.  */
     "%{flto|flto=*:%<fcompare-debug*} \
      %{flto} %{fno-lto} %{flto=*} %l " LINK_PIE_SPEC \
     "%{fuse-ld=*:-fuse-ld=%*} " LINK_COMPRESS_DEBUG_SPEC \
 +   "-z relro -z now " \
     "%X %{o*} %{e*} %{N} %{n} %{r}\
      %{s} %{t} %{u*} %{z} %{Z} %{!nostdlib:%{!r:%{!nostartfiles:%S}}} \
-     %{Wno-poison-system-directories:--no-poison-system-directories} \
--- 
-2.41.0
-
+     %{static|no-pie|static-pie:} %@{L*} %(link_libgcc) " \

@@ -1,10 +1,14 @@
---- a/scripts/Makefile.am	2024-09-16 06:34:13.754280242 -0300
-+++ b/scripts/Makefile.am	2024-09-16 15:50:43.844506756 -0300
-@@ -18,5 +18,5 @@
+fix --mode and the cron.hourly name aesthetic
+--
+--- a/scripts/Makefile.am
++++ b/scripts/Makefile.am
+@@ -17,6 +17,6 @@
+ EXTRA_DIST = snapper-hourly bash-completion.bash zsh-completion.zsh $(pam_snapper_SCRIPTS)
  
  install-data-local:
- 	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/suse.de-snapper
+-	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/suse.de-snapper
 -	install -D --mode a+r,u+w bash-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
 -	install -D --mode a+r,u+w zsh-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper
++	install -D snapper-hourly $(DESTDIR)/etc/cron.hourly/snapper
 +	install -D -m a+r,u+w bash-completion.bash $(DESTDIR)/usr/share/bash-completion/completions/snapper
 +	install -D -m a+r,u+w zsh-completion.zsh $(DESTDIR)/usr/share/zsh/site-functions/_snapper

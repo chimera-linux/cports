@@ -5,10 +5,10 @@ Date:   Wed Dec 27 23:45:04 2023 +0100
     use compiler-rt by default
 
 diff --git a/gcc/config/linux.h b/gcc/config/linux.h
-index b3537b8fb..a4762fdf6 100644
+index 04fe1c5..698eeba 100644
 --- a/gcc/config/linux.h
 +++ b/gcc/config/linux.h
-@@ -214,4 +214,9 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+@@ -214,6 +214,11 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
  # undef TARGET_LIBC_HAS_FUNCTION
  # define TARGET_LIBC_HAS_FUNCTION linux_libc_has_function
  
@@ -17,4 +17,6 @@ index b3537b8fb..a4762fdf6 100644
 +"-lclang_rt.builtins %{static|static-libgcc:-l:libunwind.a} \
 + %{!static:%{!static-libgcc: -lunwind}}"
 +
- #endif
+ # undef TARGET_LIBM_FUNCTION_MAX_ERROR
+ # define TARGET_LIBM_FUNCTION_MAX_ERROR linux_libm_function_max_error
+ 

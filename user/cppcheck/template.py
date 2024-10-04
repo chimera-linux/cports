@@ -32,7 +32,6 @@ license = "GPL-3.0-or-later"
 url = "https://cppcheck.sourceforge.io"
 source = f"https://github.com/danmar/cppcheck/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "98bcc40ac8062635b492fb096d7815376a176ae26749d6c708083f4637f7c0bb"
-patch_style = "patch"
 # TestSymbolDatabase::enum14 test failed
 # (0x7FFFFFFFFFFFFFFF + 1 cause signed overflow)
 hardening = ["!int"]

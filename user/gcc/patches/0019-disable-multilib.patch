@@ -1,5 +1,5 @@
 diff --git a/gcc/config/aarch64/t-aarch64-linux b/gcc/config/aarch64/t-aarch64-linux
-index 57bf4100fcd..172894b57ef 100644
+index 3f7b786ec..46dcc49cd 100644
 --- a/gcc/config/aarch64/t-aarch64-linux
 +++ b/gcc/config/aarch64/t-aarch64-linux
 @@ -22,7 +22,7 @@ LIB1ASMSRC   = aarch64/lib1funcs.asm
@@ -11,8 +11,52 @@ index 57bf4100fcd..172894b57ef 100644
  MULTIARCH_DIRNAME = $(call if_multiarch,aarch64$(AARCH_BE)-linux-gnu)
  
  MULTILIB_OSDIRNAMES += mabi.ilp32=../libilp32$(call if_multiarch,:aarch64$(AARCH_BE)-linux-gnu_ilp32)
+diff --git a/gcc/config/i386/t-linux64 b/gcc/config/i386/t-linux64
+index f9edc289e..28a6e8f0a 100644
+--- a/gcc/config/i386/t-linux64
++++ b/gcc/config/i386/t-linux64
+@@ -33,6 +33,6 @@
+ comma=,
+ MULTILIB_OPTIONS    = $(subst $(comma),/,$(TM_MULTILIB_CONFIG))
+ MULTILIB_DIRNAMES   = $(patsubst m%, %, $(subst /, ,$(MULTILIB_OPTIONS)))
+-MULTILIB_OSDIRNAMES = m64=../lib64$(call if_multiarch,:x86_64-linux-gnu)
+-MULTILIB_OSDIRNAMES+= m32=$(if $(wildcard $(shell echo $(SYSTEM_HEADER_DIR))/../../usr/lib32),../lib32,../lib)$(call if_multiarch,:i386-linux-gnu)
++MULTILIB_OSDIRNAMES = m64=../lib
++MULTILIB_OSDIRNAMES+= m32=../lib32
+ MULTILIB_OSDIRNAMES+= mx32=../libx32$(call if_multiarch,:x86_64-linux-gnux32)
+diff --git a/gcc/config/riscv/linux.h b/gcc/config/riscv/linux.h
+index 0cf689891..29ed8c0dc 100644
+--- a/gcc/config/riscv/linux.h
++++ b/gcc/config/riscv/linux.h
+@@ -61,11 +61,3 @@ along with GCC; see the file COPYING3.  If not see
+ 	%{rdynamic:-export-dynamic} \
+ 	-dynamic-linker " GNU_USER_DYNAMIC_LINKER "}} \
+     %{static:-static} %{static-pie:-static -pie --no-dynamic-linker -z text}}"
+-
+-#define STARTFILE_PREFIX_SPEC 			\
+-   "/lib" XLEN_SPEC "/" ABI_SPEC "/ "		\
+-   "/usr/lib" XLEN_SPEC "/" ABI_SPEC "/ "	\
+-   "/lib/ "					\
+-   "/usr/lib/ "
+-
+-#define RISCV_USE_CUSTOMISED_MULTI_LIB select_by_abi
+diff --git a/gcc/config/riscv/t-linux b/gcc/config/riscv/t-linux
+index a6f64f88d..f88776ec5 100644
+--- a/gcc/config/riscv/t-linux
++++ b/gcc/config/riscv/t-linux
+@@ -1,5 +1,8 @@
+-# Only XLEN and ABI affect Linux multilib dir names, e.g. /lib32/ilp32d/
+-MULTILIB_DIRNAMES := $(patsubst rv32%,lib32,$(patsubst rv64%,lib64,$(MULTILIB_DIRNAMES)))
++MULTILIB_OPTIONS := march=rv64gc
++MULTILIB_DIRNAMES := rv64gc
++
++MULTILIB_DIRNAMES := $(patsubst rv32%,lib32,$(patsubst rv64%,lib,$(MULTILIB_DIRNAMES)))
+ MULTILIB_OSDIRNAMES := $(patsubst lib%,../lib%,$(MULTILIB_DIRNAMES))
++MULTILIB_MATCHES := march?rv64gc=march?rv64imafdc
+ 
+ MULTIARCH_DIRNAME := $(call if_multiarch,$(firstword $(subst -, ,$(target)))-linux-gnu)
 diff --git a/gcc/config/rs6000/t-linux b/gcc/config/rs6000/t-linux
-index 4e371255533..128c75c7d39 100644
+index 4e3712555..128c75c7d 100644
 --- a/gcc/config/rs6000/t-linux
 +++ b/gcc/config/rs6000/t-linux
 @@ -2,7 +2,8 @@
@@ -36,7 +80,7 @@ index 4e371255533..128c75c7d39 100644
  endif
  
 diff --git a/gcc/config/rs6000/t-linux64 b/gcc/config/rs6000/t-linux64
-index 01a94242308..b3a76379c03 100644
+index 248b5891e..1c60286d2 100644
 --- a/gcc/config/rs6000/t-linux64
 +++ b/gcc/config/rs6000/t-linux64
 @@ -28,8 +28,8 @@
@@ -51,7 +95,7 @@ index 01a94242308..b3a76379c03 100644
  rs6000-linux.o: $(srcdir)/config/rs6000/rs6000-linux.cc
  	$(COMPILE) $<
 diff --git a/gcc/config/rs6000/t-linux64bele b/gcc/config/rs6000/t-linux64bele
-index 97c1ee6fb4d..08d72639cb6 100644
+index 97c1ee6fb..08d72639c 100644
 --- a/gcc/config/rs6000/t-linux64bele
 +++ b/gcc/config/rs6000/t-linux64bele
 @@ -2,6 +2,6 @@
@@ -64,7 +108,7 @@ index 97c1ee6fb4d..08d72639cb6 100644
 +MULTILIB_OSDIRNAMES+= m32=../lib32
  MULTILIB_MATCHES    := ${MULTILIB_MATCHES_ENDIAN}
 diff --git a/gcc/config/rs6000/t-linux64lebe b/gcc/config/rs6000/t-linux64lebe
-index 2e63bdb9fc9..c6e1c5db65d 100644
+index 2e63bdb9f..c6e1c5db6 100644
 --- a/gcc/config/rs6000/t-linux64lebe
 +++ b/gcc/config/rs6000/t-linux64lebe
 @@ -2,6 +2,6 @@
@@ -76,45 +120,3 @@ index 2e63bdb9fc9..c6e1c5db65d 100644
 +MULTILIB_OSDIRNAMES := m64=../lib
 +MULTILIB_OSDIRNAMES += m32=../lib32
  MULTILIB_MATCHES    := ${MULTILIB_MATCHES_ENDIAN}
-diff --git a/gcc/config/i386/t-linux64 b/gcc/config/i386/t-linux64
-index 138956b0962..bc03dab874f 100644
---- a/gcc/config/i386/t-linux64
-+++ b/gcc/config/i386/t-linux64
-@@ -33,6 +33,6 @@
- comma=,
- MULTILIB_OPTIONS    = $(subst $(comma),/,$(TM_MULTILIB_CONFIG))
- MULTILIB_DIRNAMES   = $(patsubst m%, %, $(subst /, ,$(MULTILIB_OPTIONS)))
--MULTILIB_OSDIRNAMES = m64=../lib64$(call if_multiarch,:x86_64-linux-gnu)
--MULTILIB_OSDIRNAMES+= m32=$(if $(wildcard $(shell echo $(SYSTEM_HEADER_DIR))/../../usr/lib32),../lib32,../lib)$(call if_multiarch,:i386-linux-gnu)
-+MULTILIB_OSDIRNAMES = m64=../lib
-+MULTILIB_OSDIRNAMES+= m32=../lib32
- MULTILIB_OSDIRNAMES+= mx32=../libx32$(call if_multiarch,:x86_64-linux-gnux32)
-diff --git a/gcc/config/riscv/linux.h b/gcc/config/riscv/linux.h
-index f8c2c351e5a..8d9881eadeb 100644
---- a/gcc/config/riscv/linux.h
-+++ b/gcc/config/riscv/linux.h
-@@ -61,11 +61,3 @@ along with GCC; see the file COPYING3.  If not see
- 	%{rdynamic:-export-dynamic} \
- 	-dynamic-linker " GNU_USER_DYNAMIC_LINKER "}} \
-     %{static:-static} %{static-pie:-static -pie --no-dynamic-linker -z text}}"
--
--#define STARTFILE_PREFIX_SPEC 			\
--   "/lib" XLEN_SPEC "/" ABI_SPEC "/ "		\
--   "/usr/lib" XLEN_SPEC "/" ABI_SPEC "/ "	\
--   "/lib/ "					\
--   "/usr/lib/ "
--
--#define RISCV_USE_CUSTOMISED_MULTI_LIB select_by_abi
-diff --git a/gcc/config/riscv/t-linux b/gcc/config/riscv/t-linux
-index 216d2776a18..1a8a863853e 100644
---- a/gcc/config/riscv/t-linux
-+++ b/gcc/config/riscv/t-linux
-@@ -1,3 +1,6 @@
--# Only XLEN and ABI affect Linux multilib dir names, e.g. /lib32/ilp32d/
--MULTILIB_DIRNAMES := $(patsubst rv32%,lib32,$(patsubst rv64%,lib64,$(MULTILIB_DIRNAMES)))
-+MULTILIB_OPTIONS := march=rv64gc
-+MULTILIB_DIRNAMES := rv64gc
-+
-+MULTILIB_DIRNAMES := $(patsubst rv32%,lib32,$(patsubst rv64%,lib,$(MULTILIB_DIRNAMES)))
- MULTILIB_OSDIRNAMES := $(patsubst lib%,../lib%,$(MULTILIB_DIRNAMES))
-+MULTILIB_MATCHES := march?rv64gc=march?rv64imafdc

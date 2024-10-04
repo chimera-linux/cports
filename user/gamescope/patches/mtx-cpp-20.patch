@@ -10,11 +10,9 @@ is a little bit slower
  src/sdlwindow.cpp | 40 +++++++++++++++++++++++++++++++---------
  1 file changed, 31 insertions(+), 9 deletions(-)
 
-diff --git a/src/sdlwindow.cpp b/src/sdlwindow.cpp
-index 50c3b95..7bd1104 100644
 --- a/src/Backends/SDLBackend.cpp
 +++ b/src/Backends/SDLBackend.cpp
-@@ -177,13 +177,14 @@ namespace gamescope
+@@ -179,13 +179,14 @@ namespace gamescope
  		std::vector<const char *> m_pszInstanceExtensions;
  
  		std::thread m_SDLThread;
@@ -32,7 +30,7 @@ index 50c3b95..7bd1104 100644
  		SDL_Surface *m_pIconSurface = nullptr;
  		SDL_Surface *m_pCursorSurface = nullptr;
  		SDL_Cursor *m_pCursor = nullptr;
-@@ -479,7 +480,10 @@ namespace gamescope
+@@ -475,7 +476,10 @@ namespace gamescope
  
  	void CSDLBackend::SetCursorImage( std::shared_ptr<INestedHints::CursorInfo> info )
  	{
@@ -44,7 +42,7 @@ index 50c3b95..7bd1104 100644
  		PushUserEvent( GAMESCOPE_SDL_EVENT_CURSOR );
  	}
  	void CSDLBackend::SetRelativeMouseMode( bool bRelative )
-@@ -494,12 +498,18 @@ namespace gamescope
+@@ -490,12 +494,18 @@ namespace gamescope
  	}
  	void CSDLBackend::SetTitle( std::shared_ptr<std::string> szTitle )
  	{
@@ -64,8 +62,8 @@ index 50c3b95..7bd1104 100644
 +		}
  		PushUserEvent( GAMESCOPE_SDL_EVENT_ICON );
  	}
- 
-@@ -874,7 +884,11 @@ namespace gamescope
+ 	void CSDLBackend::SetSelection( std::shared_ptr<std::string> szContents, GamescopeSelection eSelection )
+@@ -842,7 +852,11 @@ namespace gamescope
  					}
  					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_TITLE ) )
  					{
@@ -78,7 +76,7 @@ index 50c3b95..7bd1104 100644
  
  						std::string szTitle = pAppTitle ? *pAppTitle : "gamescope";
  						if ( g_bGrabbed )
-@@ -883,7 +897,11 @@ namespace gamescope
+@@ -855,7 +869,11 @@ namespace gamescope
  					}
  					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_ICON ) )
  					{
@@ -91,7 +89,7 @@ index 50c3b95..7bd1104 100644
  
  						if ( m_pIconSurface )
  						{
-@@ -911,7 +929,11 @@ namespace gamescope
+@@ -883,7 +901,11 @@ namespace gamescope
  					}
  					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_CURSOR ) )
  					{
@@ -104,5 +102,48 @@ index 50c3b95..7bd1104 100644
  
  						if ( m_pCursorSurface )
  						{
--- 
-2.43.1
+--- a/src/Backends/WaylandBackend.cpp
++++ b/src/Backends/WaylandBackend.cpp
+@@ -420,7 +420,8 @@ namespace gamescope
+         std::optional<wl_fixed_t> m_ofPendingCursorX;
+         std::optional<wl_fixed_t> m_ofPendingCursorY;
+ 
+-        std::atomic<std::shared_ptr<zwp_relative_pointer_v1>> m_pRelativePointer = nullptr;
++        std::mutex m_pRelativePointerMutex;
++        std::shared_ptr<zwp_relative_pointer_v1> m_pRelativePointer = nullptr;
+         std::unordered_set<uint32_t> m_uScancodesHeld;
+ 
+         void Wayland_Registry_Global( wl_registry *pRegistry, uint32_t uName, const char *pInterface, uint32_t uVersion );
+@@ -2418,12 +2419,17 @@ namespace gamescope
+         // This constructors/destructors the display's mutex, so should be safe to do across threads.
+         if ( !bRelative )
+         {
++            std::lock_guard<std::mutex> g{m_pRelativePointerMutex};
+             m_pRelativePointer = nullptr;
+         }
+         else
+         {
+             zwp_relative_pointer_v1 *pRelativePointer = zwp_relative_pointer_manager_v1_get_relative_pointer( m_pRelativePointerManager, m_pPointer );
+-            m_pRelativePointer = std::shared_ptr<zwp_relative_pointer_v1>{ pRelativePointer, []( zwp_relative_pointer_v1 *pObject ){ zwp_relative_pointer_v1_destroy( pObject ); } };
++            auto relp = std::shared_ptr<zwp_relative_pointer_v1>{ pRelativePointer, []( zwp_relative_pointer_v1 *pObject ){ zwp_relative_pointer_v1_destroy( pObject ); } };
++            {
++                std::lock_guard<std::mutex> g{m_pRelativePointerMutex};
++                m_pRelativePointer = std::move(relp);
++            }
+             zwp_relative_pointer_v1_add_listener( pRelativePointer, &s_RelativePointerListener, this );
+         }
+     }
+@@ -2596,8 +2602,11 @@ namespace gamescope
+     }
+     void CWaylandInputThread::Wayland_Pointer_Motion( wl_pointer *pPointer, uint32_t uTime, wl_fixed_t fSurfaceX, wl_fixed_t fSurfaceY )
+     {
+-        if ( m_pRelativePointer.load() != nullptr )
+-            return;
++        {
++            std::lock_guard<std::mutex> g{m_pRelativePointerMutex};
++            if ( m_pRelativePointer != nullptr )
++                return;
++        }
+ 
+         if ( !cv_wayland_mouse_warp_without_keyboard_focus && !m_bKeyboardEntered )
+         {

@@ -90,7 +90,6 @@ license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"https://github.com/gcc-mirror/gcc/archive/{_commit}.tar.gz"
 sha256 = "9cb2bcffa015c663cc9a23a57381739eb8226d0e6c069b1e79f6681d698dd390"
-patch_style = "patch"
 hardening = ["!int", "!format", "!var-init"]
 # no tests to run
 options = ["!check", "!lto", "!relr", "!cross", "!scanshlibs"]

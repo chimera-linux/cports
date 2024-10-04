@@ -8,7 +8,6 @@ license = "LGPL-3.0-or-later"
 url = "https://opentabletdriver.net"
 source = f"https://github.com/OpenTabletDriver/OpenTabletDriver/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "1ad04f4a32b54b9b62bd944b0196abb6613873b19c269abcc9f9e94c1dc3027f"
-patch_style = "patch"
 
 
 def build(self):

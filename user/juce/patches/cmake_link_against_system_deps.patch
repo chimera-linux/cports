@@ -1,9 +1,8 @@
 Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/juce/-/blob/85ac0733192bb74ca0ae07f64f38d20a1a9a9691/juce-6.1.3-cmake_link_against_system_deps.patch
 
-diff -ruN a/extras/AudioPerformanceTest/CMakeLists.txt b/extras/AudioPerformanceTest/CMakeLists.txt
---- a/extras/AudioPerformanceTest/CMakeLists.txt	2021-12-08 16:31:22.000000000 +0100
-+++ b/extras/AudioPerformanceTest/CMakeLists.txt	2021-12-12 00:06:59.963753084 +0100
-@@ -32,6 +32,11 @@
+--- a/extras/AudioPerformanceTest/CMakeLists.txt
++++ b/extras/AudioPerformanceTest/CMakeLists.txt
+@@ -41,6 +41,11 @@ target_compile_definitions(AudioPerformanceTest PRIVATE
      JUCE_USE_CURL=0 JUCE_WEB_BROWSER=0)
  
  target_link_libraries(AudioPerformanceTest PRIVATE
@@ -15,11 +14,10 @@ diff -ruN a/extras/AudioPerformanceTest/CMakeLists.txt b/extras/AudioPerformance
      juce::juce_audio_utils
      juce::juce_recommended_config_flags
      juce::juce_recommended_lto_flags
-diff -ruN a/extras/AudioPluginHost/CMakeLists.txt b/extras/AudioPluginHost/CMakeLists.txt
---- a/extras/AudioPluginHost/CMakeLists.txt	2021-12-08 16:31:22.000000000 +0100
-+++ b/extras/AudioPluginHost/CMakeLists.txt	2021-12-12 00:08:03.473979636 +0100
-@@ -63,6 +63,10 @@
-     JUCE_WEB_BROWSER=0)
+--- a/extras/AudioPluginHost/CMakeLists.txt
++++ b/extras/AudioPluginHost/CMakeLists.txt
+@@ -81,6 +81,10 @@ target_compile_definitions(AudioPluginHost PRIVATE
+     JUCE_SILENCE_XCODE_15_LINKER_WARNING=1)
  
  target_link_libraries(AudioPluginHost PRIVATE
 +    "ogg"
@@ -29,11 +27,10 @@ diff -ruN a/extras/AudioPluginHost/CMakeLists.txt b/extras/AudioPluginHost/CMake
      AudioPluginHostData
      juce::juce_audio_utils
      juce::juce_cryptography
-diff -ruN a/extras/Build/juceaide/CMakeLists.txt b/extras/Build/juceaide/CMakeLists.txt
---- a/extras/Build/juceaide/CMakeLists.txt	2021-12-08 16:31:22.000000000 +0100
-+++ b/extras/Build/juceaide/CMakeLists.txt	2021-12-12 00:06:59.970419777 +0100
-@@ -37,6 +37,9 @@
-         JUCE_USE_CURL=0)
+--- a/extras/Build/juceaide/CMakeLists.txt
++++ b/extras/Build/juceaide/CMakeLists.txt
+@@ -50,6 +50,9 @@ if(JUCE_BUILD_HELPER_TOOLS)
+         JUCE_SILENCE_XCODE_15_LINKER_WARNING=1)
  
      target_link_libraries(juceaide PRIVATE
 +        "jpeg"
@@ -42,10 +39,9 @@ diff -ruN a/extras/Build/juceaide/CMakeLists.txt b/extras/Build/juceaide/CMakeLi
          juce::juce_build_tools
          juce::juce_recommended_config_flags
          juce::juce_recommended_lto_flags
-diff -ruN a/extras/NetworkGraphicsDemo/CMakeLists.txt b/extras/NetworkGraphicsDemo/CMakeLists.txt
---- a/extras/NetworkGraphicsDemo/CMakeLists.txt	2021-12-08 16:31:22.000000000 +0100
-+++ b/extras/NetworkGraphicsDemo/CMakeLists.txt	2021-12-12 00:06:59.963753084 +0100
-@@ -31,6 +31,13 @@
+--- a/extras/NetworkGraphicsDemo/CMakeLists.txt
++++ b/extras/NetworkGraphicsDemo/CMakeLists.txt
+@@ -40,6 +40,13 @@ target_compile_definitions(NetworkGraphicsDemo PRIVATE
      JUCE_USE_CURL=0 JUCE_WEB_BROWSER=0)
  
  target_link_libraries(NetworkGraphicsDemo PRIVATE
@@ -59,11 +55,10 @@ diff -ruN a/extras/NetworkGraphicsDemo/CMakeLists.txt b/extras/NetworkGraphicsDe
      juce::juce_audio_utils
      juce::juce_cryptography
      juce::juce_opengl
-diff -ruN a/extras/Projucer/CMakeLists.txt b/extras/Projucer/CMakeLists.txt
---- a/extras/Projucer/CMakeLists.txt	2021-12-08 16:31:22.000000000 +0100
-+++ b/extras/Projucer/CMakeLists.txt	2021-12-12 00:06:59.970419777 +0100
-@@ -158,6 +158,8 @@
-     ../Build/CMake/juce_runtime_arch_detection.cpp)
+--- a/extras/Projucer/CMakeLists.txt
++++ b/extras/Projucer/CMakeLists.txt
+@@ -153,6 +153,8 @@ juce_add_binary_data(ProjucerData SOURCES
+     ../Build/CMake/juce_LinuxSubprocessHelper.cpp)
  
  target_link_libraries(Projucer PRIVATE
 +    "png16"
@@ -71,11 +66,10 @@ diff -ruN a/extras/Projucer/CMakeLists.txt b/extras/Projucer/CMakeLists.txt
      ProjucerData
      juce::juce_build_tools
      juce::juce_cryptography
-diff -ruN a/extras/UnitTestRunner/CMakeLists.txt b/extras/UnitTestRunner/CMakeLists.txt
---- a/extras/UnitTestRunner/CMakeLists.txt	2021-12-08 16:31:22.000000000 +0100
-+++ b/extras/UnitTestRunner/CMakeLists.txt	2021-12-12 00:06:59.963753084 +0100
-@@ -33,6 +33,13 @@
-     JUCE_WEB_BROWSER=0)
+--- a/extras/UnitTestRunner/CMakeLists.txt
++++ b/extras/UnitTestRunner/CMakeLists.txt
+@@ -48,6 +48,13 @@ target_compile_definitions(UnitTestRunner PRIVATE
+     JUCE_SILENCE_XCODE_15_LINKER_WARNING=1)
  
  target_link_libraries(UnitTestRunner PRIVATE
 +    "FLAC"

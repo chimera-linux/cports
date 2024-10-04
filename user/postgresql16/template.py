@@ -49,7 +49,6 @@ source = [
     f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
 ]
 sha256 = ["971766d645aa73e93b9ef4e3be44201b4f45b5477095b049125403f9f3386d6f"]
-patch_style = "patch"
 # checks depend on libpq already being installed
 options = ["!check"]
 

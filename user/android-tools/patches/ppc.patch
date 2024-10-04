@@ -9,8 +9,8 @@
 +#elif defined(__powerpc__)
 +#define OPENSSL_32_BIT
  #else
- // Note BoringSSL only supports standard 32-bit and 64-bit two's-complement,
- // little-endian architectures. Functions will not produce the correct answer
+ // The list above enumerates the platforms that BoringSSL supports. For these
+ // platforms we keep a reasonable bar of not breaking them: automated test
 --- a/vendor/e2fsprogs/contrib/android/perms.h
 +++ b/vendor/e2fsprogs/contrib/android/perms.h
 @@ -1,6 +1,7 @@

@@ -1,0 +1,30 @@
+we create uinput separately in main udev rules, and don't build from git
+--
+--- a/generate-rules.sh
++++ b/generate-rules.sh
+@@ -8,7 +8,7 @@
+   echo "  -h, --help                              Print this help message"
+ }
+ 
+-for c in git jq tr awk sed; do
++for c in jq tr awk sed; do
+   command -v $c > /dev/null
+   if [[ $? > 0 ]]; then
+     echo "Error: Command $c not found in \$PATH." >&2
+@@ -23,7 +23,7 @@
+ shopt -s globstar
+ set -eu
+ 
+-OTD_CONFIGURATIONS="${OTD_CONFIGURATIONS:="$(git rev-parse --show-toplevel)/OpenTabletDriver.Configurations/Configurations"}"
++OTD_CONFIGURATIONS="./OpenTabletDriver.Configurations/Configurations"
+ 
+ while [ $# -gt 0 ]; do
+   case "$1" in
+@@ -51,7 +51,6 @@
+ configs_arr=$(jq -s "$script" $OTD_CONFIGURATIONS/**/**.json | tr -d '"')
+ 
+ echo \# OpenTabletDriver udev rules \(https://github.com/OpenTabletDriver/OpenTabletDriver\)
+-echo KERNEL==\"uinput\", SUBSYSTEM==\"misc\", OPTIONS+=\"static_node=uinput\", TAG+=\"uaccess\", TAG+=\"udev-acl\"
+ echo KERNEL==\"js[0-9]*\", SUBSYSTEM==\"input\", ATTRS{name}==\"OpenTabletDriver Virtual Tablet\", RUN+=\"/usr/bin/env rm %E{DEVNAME}\"
+ 
+ IFS=':'

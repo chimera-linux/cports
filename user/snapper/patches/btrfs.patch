@@ -1,17 +1,14 @@
---- a/snapper/BtrfsUtils.cc	2024-09-16 06:34:13.758280195 -0300
-+++ b/snapper/BtrfsUtils.cc	2024-09-16 14:59:43.125914359 -0300
-@@ -31,15 +31,9 @@
+the build system doesn't check for this and uses the fallback, but those headers
+are broken with musl and kernel include order stuff
+--
+--- a/snapper/BtrfsUtils.cc
++++ b/snapper/BtrfsUtils.cc
+@@ -31,7 +31,7 @@
  #include <sys/types.h>
  #include <sys/stat.h>
  #include <unistd.h>
 -#ifdef HAVE_LIBBTRFS
++#if 1
  #include <btrfs/ioctl.h>
  #include <btrfs/send-utils.h>
--#else
--#include <linux/btrfs.h>
--#endif
--#ifdef HAVE_LIBBTRFSUTIL
- #include <btrfsutil.h>
--#endif
- #include <algorithm>
- #include <functional>
+ #else

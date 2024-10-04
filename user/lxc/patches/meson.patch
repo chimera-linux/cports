@@ -1,15 +1,15 @@
 --- a/meson.build
 +++ b/meson.build
-@@ -316,7 +316,7 @@
+@@ -307,7 +307,7 @@
  if time_epoch == ''
-     time_epoch = run_command(date, '+%s', check: true).stdout()
+     time_epoch = run_command(date, '+%s', check: true).stdout().strip()
  endif
 -generate_date = run_command(date, '--utc', '--date=@' + time_epoch, '+%Y-%m-%d', check: true).stdout().strip()
 +generate_date = run_command(date, '-z', '--date=@' + time_epoch, '+%Y-%m-%d', check: true).stdout().strip()
  
  ## Manpages.
- sgml2man = find_program('docbook2X2man', 'docbook2x-man', 'db2x_docbook2man', 'docbook2man', 'docbook-to-man', required: want_mans)
-@@ -938,6 +939,6 @@
+ docconf = configuration_data()
+@@ -983,8 +983,8 @@
      'lxc user network config:	@0@'.format(lxc_user_network_conf),
      'lxc user network database:	@0@'.format(lxc_user_network_db)]
  
@@ -19,3 +19,4 @@
 +                             '+%Y-%m-%dT%H:%M:%S+00:00', check: true).stdout().strip()
  status += [
      'time epoch:			@0@ (@1@)'.format(time_epoch, alt_time_epoch)]
+ 

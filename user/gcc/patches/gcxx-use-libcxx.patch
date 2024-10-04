@@ -5,11 +5,11 @@ Date:   Wed Dec 27 22:46:32 2023 +0100
     use libcxx by default
 
 diff --git a/gcc/c-family/c.opt b/gcc/c-family/c.opt
-index b98726f33..5ea9ac13b 100644
+index a92a039a3..fead0a2eb 100644
 --- a/gcc/c-family/c.opt
 +++ b/gcc/c-family/c.opt
-@@ -2553,8 +2553,8 @@ C ObjC Alias(std=c17)
- Conform to the ISO 2017 C standard (published in 2018).
+@@ -2662,8 +2662,8 @@ C ObjC Alias(std=c23)
+ Conform to the ISO 2023 C standard draft (expected to be published in 2024) (experimental and incomplete support).
  
  stdlib=
 -Driver C++ ObjC++ Common Condition(ENABLE_STDLIB_OPTION) Var(flag_stdlib_kind) Joined Enum(stdlib_kind) RejectNegative Init(1)
@@ -20,7 +20,7 @@ index b98726f33..5ea9ac13b 100644
  
  Enum
 diff --git a/gcc/config/linux.h b/gcc/config/linux.h
-index a4762fdf6..2a76c17b7 100644
+index 698eebad2..5a909921a 100644
 --- a/gcc/config/linux.h
 +++ b/gcc/config/linux.h
 @@ -126,6 +126,8 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
@@ -33,7 +33,7 @@ index a4762fdf6..2a76c17b7 100644
  
  #ifdef LOCAL_INCLUDE_DIR
 diff --git a/gcc/config/rs6000/sysv4.h b/gcc/config/rs6000/sysv4.h
-index c8ff0c6dc..437a1cc8d 100644
+index ebddfcef4..e0b3ae4f1 100644
 --- a/gcc/config/rs6000/sysv4.h
 +++ b/gcc/config/rs6000/sysv4.h
 @@ -955,6 +955,8 @@ ncrtn.o%s"
@@ -46,7 +46,7 @@ index c8ff0c6dc..437a1cc8d 100644
  
  #ifdef LOCAL_INCLUDE_DIR
 diff --git a/gcc/cp/g++spec.cc b/gcc/cp/g++spec.cc
-index 7584f8c22..2d699a19a 100644
+index ad5d0d6a4..14bf1fc3c 100644
 --- a/gcc/cp/g++spec.cc
 +++ b/gcc/cp/g++spec.cc
 @@ -97,7 +97,7 @@ lang_specific_driver (struct cl_decoded_option **in_decoded_options,
@@ -59,10 +59,10 @@ index 7584f8c22..2d699a19a 100644
    /* The number of arguments being added to what's in argv, other than
       libraries.  We use this to track the number of times we've inserted
 diff --git a/gcc/doc/invoke.texi b/gcc/doc/invoke.texi
-index 157c1a68a..0f7447fed 100644
+index adcb4aae0..38ca35824 100644
 --- a/gcc/doc/invoke.texi
 +++ b/gcc/doc/invoke.texi
-@@ -3655,12 +3655,11 @@ directory separators or enclosed in @code{<>} or @code{""}).
+@@ -3793,12 +3793,11 @@ directory separators or enclosed in @code{<>} or @code{""}).
  @opindex stdlib
  @item -stdlib=@var{libstdc++,libc++}
  When G++ is configured to support this option, it allows specification of
@@ -81,7 +81,7 @@ index 157c1a68a..0f7447fed 100644
  
  In addition, these warning options have meanings only for C++ programs:
 diff --git a/gcc/m2/gm2spec.cc b/gcc/m2/gm2spec.cc
-index 75a6ed36c..36ec8212c 100644
+index a4faf8802..4a20d9c73 100644
 --- a/gcc/m2/gm2spec.cc
 +++ b/gcc/m2/gm2spec.cc
 @@ -424,7 +424,7 @@ lang_specific_driver (struct cl_decoded_option **in_decoded_options,

@@ -17,19 +17,17 @@ Date:   Sat Nov 11 02:41:10 2023 +0100
     Upon invocation of error handler however, do call pthread_exit
     and unlock the mutex manually.
 
-diff --git a/src/steamcompmgr.cpp b/src/steamcompmgr.cpp
-index f53f49e..08784f1 100644
 --- a/src/steamcompmgr.cpp
 +++ b/src/steamcompmgr.cpp
-@@ -743,6 +743,7 @@ extern float g_flMaxWindowScale;
+@@ -782,6 +782,7 @@ extern float g_flMaxWindowScale;
  bool			synchronize;
  
  std::mutex g_SteamCompMgrXWaylandServerMutex;
 +static std::unique_lock<std::mutex> *g_SteamCompMgrXWaylandServerLock;
  
- VBlankTimeInfo_t g_SteamCompMgrVBlankTime = {};
+ gamescope::VBlankTime g_SteamCompMgrVBlankTime = {};
  
-@@ -5892,8 +5893,8 @@ error(Display *dpy, XErrorEvent *ev)
+@@ -5895,8 +5896,8 @@ error(Display *dpy, XErrorEvent *ev)
  	return 0;
  }
  
@@ -38,11 +36,11 @@ index f53f49e..08784f1 100644
 +static void
 +steamcompmgr_exit(bool exit)
  {
- 	// Clean up any commits.
- 	{
-@@ -5925,14 +5926,19 @@ steamcompmgr_exit(void)
+ 	g_ImageWaiter.Shutdown();
  
- 	finish_drm( &g_DRM );
+@@ -5937,14 +5938,19 @@ steamcompmgr_exit(void)
+     wlserver_shutdown();
+     wlserver_unlock(false);
  
 -	pthread_exit(NULL);
 +	if (exit)
@@ -63,15 +61,15 @@ index f53f49e..08784f1 100644
  }
  
  static bool
-@@ -7399,6 +7405,7 @@ steamcompmgr_main(int argc, char **argv)
- 	assert( vblankFD >= 0 );
+@@ -7495,6 +7501,7 @@ steamcompmgr_main(int argc, char **argv)
+ 	init_runtime_info();
  
  	std::unique_lock<std::mutex> xwayland_server_guard(g_SteamCompMgrXWaylandServerMutex);
 +	g_SteamCompMgrXWaylandServerLock = &xwayland_server_guard;
  
  	// Initialize any xwayland ctxs we have
  	{
-@@ -7869,7 +7876,7 @@ steamcompmgr_main(int argc, char **argv)
+@@ -8037,7 +8044,7 @@ steamcompmgr_main(int argc, char **argv)
  		vblank = false;
  	}
  

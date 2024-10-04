@@ -1,5 +1,5 @@
---- a/scripts/snapper-hourly	2024-09-16 18:47:03.665873959 -0300
-+++ b/scripts/snapper-hourly	2024-09-16 18:47:12.112772824 -0300
+--- a/scripts/snapper-hourly
++++ b/scripts/snapper-hourly
 @@ -9,10 +9,10 @@
  
  
@@ -12,4 +12,5 @@
 +if [ -f /etc/snapper/snapper ] ; then
 +    . /etc/snapper/snapper
  fi
+ 
  
