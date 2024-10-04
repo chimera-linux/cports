@@ -1,12 +1,12 @@
 pkgname = "fonts-twemoji-ttf"
-pkgver = "14.0.2"
+pkgver = "15.0.3"
 pkgrel = 0
 pkgdesc = "Twitter Color Emoji SVGinOT Font"
 maintainer = "Val Packett <val@packett.cool>"
 license = "CC-BY-4.0"
 url = "https://github.com/13rac1/twemoji-color-font"
 source = f"{url}/releases/download/v{pkgver}/TwitterColorEmoji-SVGinOT-Linux-{pkgver}.tar.gz"
-sha256 = "6826e21ea08dc5df26c887ae4e56046987e0f4909df8c02c73de05714a0353c1"
+sha256 = "de6a5cb90dc1684c8f98230eadf58b0385c4f5491f6c082823017d9ca1d3ec7a"
 
 
 def install(self):
