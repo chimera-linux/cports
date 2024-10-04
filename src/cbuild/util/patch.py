@@ -86,6 +86,14 @@ def patch_git(pkg, patch_list, wrksrc=None, apply_args=[]):
     if subprocess.run(["git", "init", "-q"], cwd=pkg.srcdir).returncode != 0:
         pkg.error("failed to initialize repository in source location")
 
+    if (
+        subprocess.run(
+            ["git", "config", "set", "--local", "gc.auto", "0"], cwd=pkg.srcdir
+        ).returncode
+        != 0
+    ):
+        pkg.error("failed setting initial git repository config")
+
     # now apply everything in a batch
     srcmd = [
         "env",
