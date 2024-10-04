@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.11.1 Kernel Configuration
+# Linux/arm64 6.11.2 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 18.1.8"
 CONFIG_GCC_VERSION=0
@@ -7068,7 +7068,6 @@ CONFIG_VIDEO_CADENCE_CSI2TX=m
 # Chips&Media media platform drivers
 #
 CONFIG_VIDEO_CODA=m
-CONFIG_VIDEO_E5010_JPEG_ENC=m
 
 #
 # Intel media platform drivers

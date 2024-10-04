@@ -20,10 +20,10 @@ Signed-off-by: D Scott Phillips <scott@os.amperecomputing.com>
  6 files changed, 75 insertions(+), 5 deletions(-)
 
 diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index 7acd64c61f50c..4883b5624216e 100644
+index 39c5238..5f9d344 100644
 --- a/Documentation/arch/arm64/silicon-errata.rst
 +++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -52,6 +52,8 @@ stable kernels.
+@@ -53,6 +53,8 @@ stable kernels.
  | Allwinner      | A64/R18         | UNKNOWN1        | SUN50I_ERRATUM_UNKNOWN1     |
  +----------------+-----------------+-----------------+-----------------------------+
  +----------------+-----------------+-----------------+-----------------------------+
@@ -31,12 +31,12 @@ index 7acd64c61f50c..4883b5624216e 100644
 ++----------------+-----------------+-----------------+-----------------------------+
  | Ampere         | AmpereOne       | AC03_CPU_38     | AMPERE_ERRATUM_AC03_CPU_38  |
  +----------------+-----------------+-----------------+-----------------------------+
- +----------------+-----------------+-----------------+-----------------------------+
+ | Ampere         | AmpereOne AC04  | AC04_CPU_10     | AMPERE_ERRATUM_AC03_CPU_38  |
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 456e8680e16ea..c98e23b35160c 100644
+index c8cba20..265a355 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -437,6 +437,27 @@ config AMPERE_ERRATUM_AC03_CPU_38
+@@ -440,6 +440,27 @@ config AMPERE_ERRATUM_AC03_CPU_38
  config ARM64_WORKAROUND_CLEAN_CACHE
  	bool
  
@@ -65,7 +65,7 @@ index 456e8680e16ea..c98e23b35160c 100644
  	bool "Cortex-A53: 826319: System might deadlock if a write cannot complete until read data is accepted"
  	default y
 diff --git a/arch/arm64/include/asm/pci.h b/arch/arm64/include/asm/pci.h
-index 016eb6b46dc07..050f19f1149d5 100644
+index 016eb6b..050f19f 100644
 --- a/arch/arm64/include/asm/pci.h
 +++ b/arch/arm64/include/asm/pci.h
 @@ -18,6 +18,10 @@
@@ -80,10 +80,10 @@ index 016eb6b46dc07..050f19f1149d5 100644
  #include <asm-generic/pci.h>
  
 diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index 79ce70fbb751c..5c26ee4aa7572 100644
+index 7a4f560..a5cc37f 100644
 --- a/arch/arm64/include/asm/pgtable.h
 +++ b/arch/arm64/include/asm/pgtable.h
-@@ -230,11 +230,6 @@ static inline pte_t pte_mkyoung(pte_t pte)
+@@ -236,11 +236,6 @@ static inline pte_t pte_mkyoung(pte_t pte)
  	return set_pte_bit(pte, __pgprot(PTE_AF));
  }
  
@@ -95,7 +95,7 @@ index 79ce70fbb751c..5c26ee4aa7572 100644
  static inline pte_t pte_mkcont(pte_t pte)
  {
  	pte = set_pte_bit(pte, __pgprot(PTE_CONT));
-@@ -589,6 +584,27 @@ static inline void set_pud_at(struct mm_struct *mm, unsigned long addr,
+@@ -655,6 +650,27 @@ static inline void set_pud_at(struct mm_struct *mm, unsigned long addr,
  	__pgprot_modify(prot, PTE_ATTRINDX_MASK, \
  			PTE_ATTRINDX(MT_NORMAL_NC) | PTE_PXN | PTE_UXN)
  
@@ -124,7 +124,7 @@ index 79ce70fbb751c..5c26ee4aa7572 100644
  struct file;
  extern pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
 diff --git a/arch/arm64/mm/ioremap.c b/arch/arm64/mm/ioremap.c
-index 269f2f63ab7dc..51d3b0f3f68cb 100644
+index 269f2f6..51d3b0f 100644
 --- a/arch/arm64/mm/ioremap.c
 +++ b/arch/arm64/mm/ioremap.c
 @@ -3,6 +3,19 @@
@@ -160,10 +160,10 @@ index 269f2f63ab7dc..51d3b0f3f68cb 100644
  }
  EXPORT_SYMBOL(ioremap_prot);
 diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index a2bf6de11462f..fe615fb9f4d43 100644
+index 5d57ea2..175d218 100644
 --- a/drivers/pci/quirks.c
 +++ b/drivers/pci/quirks.c
-@@ -6212,6 +6212,15 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5020, of_pci_make_dev_node);
+@@ -6259,6 +6259,15 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5020, of_pci_make_dev_node);
  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5021, of_pci_make_dev_node);
  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_REDHAT, 0x0005, of_pci_make_dev_node);
  
@@ -179,6 +179,3 @@ index a2bf6de11462f..fe615fb9f4d43 100644
  /*
   * Devices known to require a longer delay before first config space access
   * after reset recovery or resume from D3cold:
--- 
-2.43.0
-
