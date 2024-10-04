@@ -16,19 +16,13 @@ license = "BSD-3-Clause"
 url = "https://github.com/eliben/pycparser"
 source = f"$(PYPI_SITE)/p/pycparser/pycparser-{pkgver}.tar.gz"
 sha256 = "491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6"
-# ply
-options = ["brokenlinks"]
-
-
-def check(self):
-    self.do("python", "-m", "pytest")
+broken_symlinks = ["usr/lib/python3*/site-packages/pycparser/ply"]
 
 
 def post_install(self):
-    for f in (self.destdir / "usr/lib").glob("python3*"):
-        self.rm(f / "site-packages/pycparser/ply", recursive=True)
-        self.install_link(
-            str(f.relative_to(self.destdir) / "site-packages/pycparser/ply"),
-            "../ply",
-        )
+    for f in (self.destdir / "usr/lib").glob(
+        "python3*/site-packages/pycparser/ply"
+    ):
+        self.rm(f, recursive=True)
+        f.symlink_to("../ply")
     self.install_license("LICENSE")
