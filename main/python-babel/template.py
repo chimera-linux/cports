@@ -1,6 +1,6 @@
 pkgname = "python-babel"
 pkgver = "2.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,8 +8,7 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
-checkdepends = ["python-pytz"]
-depends = ["python", "python-setuptools", "python-pytz"]
+depends = ["python", "python-setuptools"]
 pkgdesc = "Tools for internationalizing Python applications"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
