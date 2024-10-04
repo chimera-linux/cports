@@ -19,12 +19,12 @@ Signed-off-by: Jon Nettleton <jon@solid-run.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/src/gallium/drivers/radeonsi/si_buffer.c b/src/gallium/drivers/radeonsi/si_buffer.c
-index 6b58aebee2d..c9e983367a0 100644
+index 9f01723..82abbc2 100644
 --- a/src/gallium/drivers/radeonsi/si_buffer.c
 +++ b/src/gallium/drivers/radeonsi/si_buffer.c
-@@ -151,6 +151,11 @@ void si_init_resource_fields(struct si_screen *sscreen, struct si_resource *res,
+@@ -70,6 +70,11 @@ void si_init_resource_fields(struct si_screen *sscreen, struct si_resource *res,
         */
-       if (!sscreen->info.kernel_flushes_hdp_before_ib || !sscreen->info.is_amdgpu)
+       if (!sscreen->info.is_amdgpu)
           res->domains = RADEON_DOMAIN_GTT;
 +
 +#if defined(PIPE_ARCH_AARCH64)
@@ -34,5 +34,3 @@ index 6b58aebee2d..c9e983367a0 100644
     }
  
     /* Tiled textures are unmappable. Always put them in VRAM. */
--- 
-2.26.2
