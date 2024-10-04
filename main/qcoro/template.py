@@ -1,5 +1,5 @@
 pkgname = "qcoro"
-pkgver = "0.10.0"
+pkgver = "0.11.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DQCORO_BUILD_EXAMPLES=OFF"]
@@ -21,7 +21,7 @@ url = "https://qcoro.dvratil.cz"
 source = (
     f"https://github.com/danvratil/qcoro/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "b7c8f00273ad27d85814bf4ec93eb6922c75656800a61d11854d36355a4a1aec"
+sha256 = "9942c5b4c533192f6c5954dc6d10178b3829075e6a621b67df73f0a4b74d8297"
 # vis breaks symbols for test-qcorothread build,
 # cfi breaks at least test-qcoro{task,websocket}
 hardening = ["!vis", "!cfi"]
