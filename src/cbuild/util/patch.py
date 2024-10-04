@@ -88,7 +88,7 @@ def patch_git(pkg, patch_list, wrksrc=None, apply_args=[]):
 
     if (
         subprocess.run(
-            ["git", "config", "set", "--local", "gc.auto", "0"], cwd=pkg.srcdir
+            ["git", "config", "--local", "gc.auto", "0"], cwd=pkg.srcdir
         ).returncode
         != 0
     ):
