@@ -1,27 +1,75 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index dadfc5b..c05a939 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -2312,7 +2312,6 @@ dependencies = [
+  "tempfile",
+  "test-case",
+  "thiserror",
+- "tikv-jemallocator",
+  "toml",
+  "tracing",
+  "walkdir",
+@@ -2339,7 +2338,6 @@ dependencies = [
+  "rustc-hash 2.0.0",
+  "serde",
+  "serde_json",
+- "tikv-jemallocator",
+  "ureq",
+  "url",
+ ]
+@@ -3371,26 +3369,6 @@ dependencies = [
+  "once_cell",
+ ]
+ 
+-[[package]]
+-name = "tikv-jemalloc-sys"
+-version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "cd3c60906412afa9c2b5b5a48ca6a5abe5736aec9eb48ad05037a677e52e4e2d"
+-dependencies = [
+- "cc",
+- "libc",
+-]
+-
+-[[package]]
+-name = "tikv-jemallocator"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4cec5ff18518d81584f477e9bfdf957f5bb0979b0bac3af4ca30b5b3ae2d2865"
+-dependencies = [
+- "libc",
+- "tikv-jemalloc-sys",
+-]
+-
+ [[package]]
+ name = "tinytemplate"
+ version = "1.2.1"
 diff --git a/crates/ruff/Cargo.toml b/crates/ruff/Cargo.toml
-index 0e019b5..ee9d0a4 100644
+index d6889a3..e99525f 100644
 --- a/crates/ruff/Cargo.toml
 +++ b/crates/ruff/Cargo.toml
-@@ -73,8 +73,6 @@ ignored = ["chrono"]
+@@ -79,8 +79,6 @@ ignored = ["chrono"]
  [target.'cfg(target_os = "windows")'.dependencies]
  mimalloc = { workspace = true }
  
--[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
+-[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), not(target_os = "aix"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
 -tikv-jemallocator = { workspace = true }
  
  [lints]
  workspace = true
 diff --git a/crates/ruff/src/main.rs b/crates/ruff/src/main.rs
-index 27b2fad..5384eab 100644
+index f1d0663..5f7a70f 100644
 --- a/crates/ruff/src/main.rs
 +++ b/crates/ruff/src/main.rs
-@@ -12,18 +12,6 @@ use ruff_linter::logging::{set_up_logging, LogLevel};
+@@ -13,19 +13,6 @@ use ruff_linter::logging::{set_up_logging, LogLevel};
  #[global_allocator]
  static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
  
 -#[cfg(all(
 -    not(target_os = "windows"),
 -    not(target_os = "openbsd"),
+-    not(target_os = "aix"),
 -    any(
 -        target_arch = "x86_64",
 -        target_arch = "aarch64",
@@ -35,10 +83,10 @@ index 27b2fad..5384eab 100644
      // Enabled ANSI colors on Windows 10.
      #[cfg(windows)]
 diff --git a/crates/ruff_benchmark/Cargo.toml b/crates/ruff_benchmark/Cargo.toml
-index 9d92fe5..023e3b8 100644
+index 0532875..01a212f 100644
 --- a/crates/ruff_benchmark/Cargo.toml
 +++ b/crates/ruff_benchmark/Cargo.toml
-@@ -65,5 +65,3 @@ codspeed = ["codspeed-criterion-compat"]
+@@ -66,5 +66,3 @@ codspeed = ["codspeed-criterion-compat"]
  [target.'cfg(target_os = "windows")'.dev-dependencies]
  mimalloc = { workspace = true }
  
