@@ -1,5 +1,5 @@
 pkgname = "fwupd"
-pkgver = "1.9.25"
+pkgver = "2.0.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,6 +17,7 @@ hostmakedepends = [
     "gettext",
     "gnutls-progs",
     "gobject-introspection",
+    "hwdata",
     "meson",
     "pkgconf",
     "protobuf-c",
@@ -36,11 +37,10 @@ makedepends = [
     "libcbor-devel",
     "libcurl-devel",
     "libdrm-devel",
-    "libgudev-devel",
-    "libgusb-devel",
     "libjcat-devel",
     "libmbim-devel",
     "libqmi-devel",
+    "libusb-devel",
     "libxmlb-devel",
     "linux-headers",
     "modemmanager-devel",
@@ -50,13 +50,13 @@ makedepends = [
     "sqlite-devel",
     "tpm2-tss-devel",
 ]
-depends = ["shared-mime-info", "udisks"]
+depends = ["hwdata-usb", "shared-mime-info", "udisks"]
 pkgdesc = "Firmware updater"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "dff657b9ebae0f93baba9a9bab45806db28a6a5e444eb912dfc3f78dd8c0407b"
+sha256 = "6957160bd6fb8f4e126f538d387f3b5fe8a591440fae3ec7a793fee31ffd5e81"
 options = ["!cross"]
 
 _have_uefi = False
