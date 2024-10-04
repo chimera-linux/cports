@@ -1,6 +1,6 @@
 pkgname = "blueman"
 pkgver = "2.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Druntime_deps_check=false"]
 hostmakedepends = [
@@ -41,3 +41,17 @@ options = ["!check"]
 def post_install(self):
     self.uninstall("usr/lib/systemd/user")
     self.uninstall("usr/lib/systemd/system")
+
+    # TODO: caja and nemo aren't packaged, when they are, add a subpackage for
+    # each extension (see blueman-nautilus below)
+    self.uninstall("usr/share/nemo-python")
+    self.uninstall("usr/share/caja-python")
+
+
+@subpackage("blueman-nautilus")
+def _(self):
+    self.subdesc = "Nautilus integration"
+    self.install_if = [self.parent, "nautilus"]
+    self.depends = [self.parent, "nautilus-python"]
+
+    return ["usr/share/nautilus-python"]
