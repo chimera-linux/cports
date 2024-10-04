@@ -2,7 +2,6 @@ pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.5"
 pkgver = "18.1.8"
 pkgrel = 1
-build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -47,12 +46,11 @@ source = [
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz",
     f"https://www.musl-libc.org/releases/musl-{_musl_ver}.tar.gz",
 ]
+source_paths = [".", "musl"]
 sha256 = [
     "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a",
     "a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4",
 ]
-patch_style = "patch"
-patch_args = ["-d", f"llvm-project-{pkgver}.src"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "empty"]
 
@@ -74,10 +72,6 @@ _targetlist = [
     "riscv64",
 ]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
-
-
-def post_patch(self):
-    self.mv(f"musl-{_musl_ver}", f"llvm-project-{pkgver}.src/musl")
 
 
 def configure(self):
