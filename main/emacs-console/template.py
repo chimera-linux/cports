@@ -1,6 +1,6 @@
 pkgname = "emacs-console"
 pkgver = "29.4"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",

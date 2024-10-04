@@ -1,6 +1,6 @@
 pkgname = "rizin"
 pkgver = "0.7.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
