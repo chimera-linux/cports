@@ -1,5 +1,7 @@
---- a/pyproject.toml	2023-04-16 13:22:15.000000000 +0300
-+++ b/pyproject.toml	2023-04-29 16:49:08.704873775 +0300
+diff --git a/pyproject.toml b/pyproject.toml
+index 93b3f40..2c94457 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
 @@ -1,7 +1,7 @@
  # SPDX-License-Identifier: MIT
  
@@ -9,11 +11,10 @@
  build-backend = "hatchling.build"
  
  
-@@ -76,47 +76,6 @@
- 
+@@ -84,46 +84,6 @@ raw-options = { local_scheme = "no-local-version" }
  [tool.hatch.build.targets.wheel]
  packages = ["src/attr", "src/attrs"]
--
+ 
 -[tool.hatch.metadata.hooks.fancy-pypi-readme]
 -content-type = "text/markdown"
 -
@@ -46,14 +47,14 @@
 -
 ----
 -
--[Full changelog](https://www.attrs.org/en/stable/changelog.html)
+-[Full changelog →](https://www.attrs.org/en/stable/changelog.html)
 -"""
 -
 -# Point sponsor image URLs to versions.
 -[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
--pattern = '\/latest\/_static/sponsors'
--replacement = '/$HFPR_VERSION/_static/sponsors'
+-pattern = 'docs\/_static\/sponsors'
+-replacement = 'https://www.attrs.org/en/$HFPR_VERSION/_static/sponsors'
 -
- 
- [tool.pytest.ini_options]
- addopts = ["-ra", "--strict-markers", "--strict-config"]
+ [[tool.sponcon.sponsors]]
+ title = "Variomedia AG"
+ url = "https://www.variomedia.de/"
