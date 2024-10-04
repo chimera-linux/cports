@@ -16,13 +16,9 @@ depends = ["python-cffi"]
 checkdepends = [
     "python-certifi",
     "python-cryptography-vectors",
-    "python-hypothesis",
-    "python-iso8601",
     "python-pretend",
     "python-pytest-benchmark",
-    "python-pytest-subtests",
     "python-pytest-xdist",
-    "python-pytz",
     *depends,
 ]
 pkgdesc = "Cryptographic primitives for Python"
