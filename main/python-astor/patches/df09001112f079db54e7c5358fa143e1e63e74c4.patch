@@ -10,10 +10,10 @@ Subject: [PATCH] Add support for type parameter syntax (PEP 695) (#222)
  3 files changed, 78 insertions(+), 1 deletion(-)
 
 diff --git a/astor/code_gen.py b/astor/code_gen.py
-index 562ba15..b2bae12 100644
+index 7f82d2b..1653371 100644
 --- a/astor/code_gen.py
 +++ b/astor/code_gen.py
-@@ -285,6 +285,12 @@ def comma_list(self, items, trailing=False):
+@@ -285,6 +285,12 @@ class SourceGenerator(ExplicitNodeVisitor):
              self.write(', ' if idx else '', item)
          self.write(',' if trailing else '')
  
@@ -26,7 +26,7 @@ index 562ba15..b2bae12 100644
      # Statements
  
      def visit_Assign(self, node):
-@@ -326,10 +332,31 @@ def visit_Expr(self, node):
+@@ -326,10 +332,31 @@ class SourceGenerator(ExplicitNodeVisitor):
          self.statement(node)
          self.generic_visit(node)
  
@@ -58,8 +58,8 @@ index 562ba15..b2bae12 100644
 +        self.write('(')
          self.visit_arguments(node.args)
          self.write(')')
-         self.conditional_write(' -> ', self.get_returns(node))
-@@ -354,6 +381,7 @@ def paren_or_comma():
+         self.conditional_write(' ->', self.get_returns(node))
+@@ -354,6 +381,7 @@ class SourceGenerator(ExplicitNodeVisitor):
  
          self.decorators(node, 2)
          self.statement(node, 'class %s' % node.name)
@@ -67,27 +67,11 @@ index 562ba15..b2bae12 100644
          for base in node.bases:
              self.write(paren_or_comma, base)
          # keywords not available in early version
-diff --git a/docs/changelog.rst b/docs/changelog.rst
-index 6b7d359..87fea79 100644
---- a/docs/changelog.rst
-+++ b/docs/changelog.rst
-@@ -14,6 +14,11 @@ New features
- .. _`Issue 215`: https://github.com/berkerpeksag/astor/issues/215
- .. _`PR 219`: https://github.com/berkerpeksag/astor/pull/219
- 
-+* Add support for Type Parameter Syntax, see :pep:`695` for more details.
-+  (Contributed by am230 in `PR 222`_.)
-+
-+.. _`PR 222`: https://github.com/berkerpeksag/astor/pull/222
-+
- Bug fixes
- ~~~~~~~~~
- 
 diff --git a/tests/test_code_gen.py b/tests/test_code_gen.py
-index a57ed22..e828eb9 100644
+index 3060128..512020d 100644
 --- a/tests/test_code_gen.py
 +++ b/tests/test_code_gen.py
-@@ -1046,6 +1046,50 @@ def f(arg):
+@@ -1024,6 +1024,50 @@ class CodegenTestCase(unittest.TestCase, Comparisons):
          '''
          self.assertSrcRoundtrips(source)
  

@@ -66,7 +66,6 @@ license = "GPL-2.0-or-later"
 url = "https://obsproject.com"
 source = f"https://github.com/obsproject/obs-studio/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "3d5f37f564564b6e6fb32ba535285e062ee25d573b3a6a405e5a86d5ab029351"
-patch_style = "patch"
 hardening = ["vis", "!cfi"]
 # don't build with lto
 options = ["!check"]

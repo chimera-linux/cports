@@ -2,7 +2,7 @@
 pkgname = "linux-rpi"
 pkgver = "6.6.31"
 pkgrel = 0
-archs = ["aarch64"]
+archs = ["aarch64", "x86_64"]
 make_dir = "build"
 # necessary for efistub
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
@@ -16,7 +16,6 @@ license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
 source = f"{url}/archive/{_commit}.tar.gz"
 sha256 = "435ab088b7beab3706ac91f24fd537be676946c0cf316e529384cfa79b3fc3d9"
-patch_style = "patch"
 # no meaningful checking to be done
 options = [
     "!check",

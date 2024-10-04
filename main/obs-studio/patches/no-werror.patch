@@ -1,28 +1,32 @@
+diff --git a/UI/obs-frontend-api/cmake/linux/obs-frontend-api.pc.in b/UI/obs-frontend-api/cmake/linux/obs-frontend-api.pc.in
+index cf099bd..a498ac1 100644
+--- a/UI/obs-frontend-api/cmake/linux/obs-frontend-api.pc.in
++++ b/UI/obs-frontend-api/cmake/linux/obs-frontend-api.pc.in
+@@ -10,4 +10,4 @@ Version: @OBS_VERSION_CANONICAL@
+ Requires:
+ Libs: -L${libdir} -lobs-frontend-api -lobs
+ Libs.private: -lobs -lm -pthread
+-Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd -Werror
++Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd
 diff --git a/cmake/Modules/CompilerConfig.cmake b/cmake/Modules/CompilerConfig.cmake
-index 41c56da..b8f8bf3 100644
+index 50703b1..d1f36ae 100644
 --- a/cmake/Modules/CompilerConfig.cmake
 +++ b/cmake/Modules/CompilerConfig.cmake
-@@ -101,7 +101,6 @@ else()
- 
-   option(CALM_DEPRECATION "Keep deprecated-declarations as warnings" OFF)
+@@ -108,7 +108,6 @@ else()
+     - https://github.com/obsproject/obs-studio/issues/8850 for 13.1.1
+   ]]
    add_compile_options(
 -    -Werror
      -Wextra
      -Wvla
      -Wswitch
+diff --git a/libobs/cmake/linux/libobs.pc.in b/libobs/cmake/linux/libobs.pc.in
+index 580c071..68c7e6d 100644
 --- a/libobs/cmake/linux/libobs.pc.in
 +++ b/libobs/cmake/linux/libobs.pc.in
-@@ -10,4 +10,4 @@
+@@ -10,4 +10,4 @@ Version: @OBS_VERSION_CANONICAL@
  Requires:
  Libs: -L${libdir} -lobs
  Libs.private: -pthread -lm
--Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd -Werror
-+Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd
---- a/UI/obs-frontend-api/cmake/linux/obs-frontend-api.pc.in
-+++ b/UI/obs-frontend-api/cmake/linux/obs-frontend-api.pc.in
-@@ -10,4 +10,4 @@
- Requires:
- Libs: -L${libdir} -lobs-frontend-api -lobs
- Libs.private: -lobs -lm -pthread
 -Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd -Werror
 +Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd

@@ -1,10 +1,10 @@
 Original source: Jacek Piszczek <jacek.piszczek@runbox.com>
 
 diff --git a/Source/WebCore/platform/graphics/PixelBufferConversion.cpp b/Source/WebCore/platform/graphics/PixelBufferConversion.cpp
-index 9acf304d..618b7b26 100644
+index 9297cb00..151ee76d 100644
 --- a/Source/WebCore/platform/graphics/PixelBufferConversion.cpp
 +++ b/Source/WebCore/platform/graphics/PixelBufferConversion.cpp
-@@ -140,9 +140,17 @@ static void convertImagePixelsAccelerated(const ConstPixelBufferConversionView&
+@@ -194,9 +194,17 @@ static void convertImagePixelsSkia(const ConstPixelBufferConversionView& source,
  enum class PixelFormatConversion { None, Permute };
  
  template<PixelFormatConversion pixelFormatConversion>
@@ -22,7 +22,7 @@ index 9acf304d..618b7b26 100644
      if (!alpha) {
          reinterpret_cast<uint32_t*>(destinationPixel)[0] = 0;
          return;
-@@ -151,23 +158,81 @@ static void convertSinglePixelPremultipliedToPremultiplied(const uint8_t* source
+@@ -205,23 +213,81 @@ static void convertSinglePixelPremultipliedToPremultiplied(const uint8_t* source
      if constexpr (pixelFormatConversion == PixelFormatConversion::None)
          reinterpret_cast<uint32_t*>(destinationPixel)[0] = reinterpret_cast<const uint32_t*>(sourcePixel)[0];
      else {
@@ -104,7 +104,7 @@ index 9acf304d..618b7b26 100644
      if constexpr (pixelFormatConversion == PixelFormatConversion::None) {
          destinationPixel[0] = (sourcePixel[0] * 255) / alpha;
          destinationPixel[1] = (sourcePixel[1] * 255) / alpha;
-@@ -180,17 +245,58 @@ static void convertSinglePixelPremultipliedToUnpremultiplied(const uint8_t* sour
+@@ -234,17 +300,58 @@ static void convertSinglePixelPremultipliedToUnpremultiplied(const uint8_t* sour
          destinationPixel[2] = (sourcePixel[0] * 255) / alpha;
          destinationPixel[3] = alpha;
      }
@@ -163,7 +163,7 @@ index 9acf304d..618b7b26 100644
      if constexpr (pixelFormatConversion == PixelFormatConversion::None) {
          destinationPixel[0] = (sourcePixel[0] * alpha + 254) / 255;
          destinationPixel[1] = (sourcePixel[1] * alpha + 254) / 255;
-@@ -203,23 +309,49 @@ static void convertSinglePixelUnpremultipliedToPremultiplied(const uint8_t* sour
+@@ -257,23 +364,49 @@ static void convertSinglePixelUnpremultipliedToPremultiplied(const uint8_t* sour
          destinationPixel[2] = (sourcePixel[0] * alpha + 254) / 255;
          destinationPixel[3] = alpha;
      }
@@ -213,7 +213,7 @@ index 9acf304d..618b7b26 100644
  static void convertImagePixelsUnaccelerated(const ConstPixelBufferConversionView& source, const PixelBufferConversionView& destination, const IntSize& destinationSize)
  {
      const uint8_t* sourceRows = source.rows;
-@@ -228,7 +360,11 @@ static void convertImagePixelsUnaccelerated(const ConstPixelBufferConversionView
+@@ -282,7 +415,11 @@ static void convertImagePixelsUnaccelerated(const ConstPixelBufferConversionView
      size_t bytesPerRow = destinationSize.width() * 4;
      for (int y = 0; y < destinationSize.height(); ++y) {
          for (size_t x = 0; x < bytesPerRow; x += 4)
@@ -226,12 +226,12 @@ index 9acf304d..618b7b26 100644
          destinationRows += destination.bytesPerRow;
      }
 diff --git a/Source/WebCore/platform/graphics/PixelFormat.h b/Source/WebCore/platform/graphics/PixelFormat.h
-index 1ca711b8..4a7168f8 100644
+index 7951a0b1..683de43e 100644
 --- a/Source/WebCore/platform/graphics/PixelFormat.h
 +++ b/Source/WebCore/platform/graphics/PixelFormat.h
-@@ -33,6 +33,9 @@ namespace WebCore {
- enum class PixelFormat : uint8_t {
+@@ -33,6 +33,9 @@ enum class PixelFormat : uint8_t {
      RGBA8,
+     BGRX8,
      BGRA8,
 +#if CPU(BIG_ENDIAN)
 +    ARGB8 = BGRA8, // BGRA will actually be ARGB on BIG_ENDIAN

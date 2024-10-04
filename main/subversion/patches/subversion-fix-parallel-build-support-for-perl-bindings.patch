@@ -1,6 +1,6 @@
---- a/Makefile.in	2011-07-16 13:50:53.000000000 +0200
-+++ b/Makefile.in	2012-03-11 12:13:57.000000000 +0100
-@@ -732,7 +732,7 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -883,7 +883,7 @@ clean-swig-headers:
  extraclean-swig-headers: clean-swig-headers
  	$(EXTRACLEAN_SWIG_HEADERS)
  
@@ -8,4 +8,4 @@
 +$(SWIG_PL_DIR)/native/Makefile.PL: $(SWIG_SRC_DIR)/perl/native/Makefile.PL.in libsvn_swig_perl
  	./config.status subversion/bindings/swig/perl/native/Makefile.PL
  
- $(SWIG_PL_DIR)/native/Makefile: $(SWIG_PL_DIR)/native/Makefile.PL
+ $(SWIG_PL_DIR)/native/Makefile: libsvn_swig_perl $(SWIG_PL_DIR)/native/Makefile.PL

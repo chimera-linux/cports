@@ -8,7 +8,7 @@ Subject: [PATCH 2/9] pci-imx6-add-support-for-internal-refclk-imx8mq
  1 file changed, 42 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts b/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
-index 8956a4678..8d443acf2 100644
+index 3ae3824..9f8a81c 100644
 --- a/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
 +++ b/arch/arm64/boot/dts/freescale/imx8mq-mnt-reform2.dts
 @@ -192,6 +192,31 @@ mipi_dsi_out: endpoint {
@@ -43,7 +43,7 @@ index 8956a4678..8d443acf2 100644
  &pcie1 {
  	pinctrl-names = "default";
  	pinctrl-0 = <&pinctrl_pcie1>;
-@@ -310,6 +335,12 @@ MX8MQ_IOMUXC_I2C4_SDA_I2C4_SDA			0x40000022
+@@ -308,6 +333,12 @@ MX8MQ_IOMUXC_I2C4_SDA_I2C4_SDA			0x40000022
  		>;
  	};
  
@@ -57,10 +57,10 @@ index 8956a4678..8d443acf2 100644
  		fsl,pins = <
  			MX8MQ_IOMUXC_SAI5_RXD2_GPIO3_IO23		0x16
 diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index 7a285fb0f..7257e78c7 100644
+index 7470336..ad705ba 100644
 --- a/drivers/pci/controller/dwc/pci-imx6.c
 +++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -67,6 +67,7 @@ struct imx6_pcie {
+@@ -73,6 +73,7 @@ struct imx6_pcie {
  	struct dw_pcie		*pci;
  	int			reset_gpio;
  	bool			gpio_active_high;
@@ -68,8 +68,8 @@ index 7a285fb0f..7257e78c7 100644
  	bool			link_is_up;
  	struct clk		*pcie_bus;
  	struct clk		*pcie_phy;
-@@ -617,6 +618,40 @@ static void imx6_pcie_deassert_core_reset(struct imx6_pcie *imx6_pcie)
- 	}
+@@ -165,6 +166,40 @@ static unsigned int imx6_pcie_grp_offset(const struct imx6_pcie *imx6_pcie)
+ 	return imx6_pcie->controller_id == 1 ? IOMUXC_GPR16 : IOMUXC_GPR14;
  }
  
 +#define IMX8MQ_ANA_PLLOUT_REG			0x74
@@ -108,8 +108,8 @@ index 7a285fb0f..7257e78c7 100644
 +
  static void imx6_pcie_configure_type(struct imx6_pcie *imx6_pcie)
  {
- 	unsigned int mask, val;
-@@ -637,6 +672,9 @@ static void imx6_pcie_configure_type(struct imx6_pcie *imx6_pcie)
+ 	unsigned int mask, val, mode;
+@@ -322,6 +357,9 @@ static int pcie_phy_write(struct imx6_pcie *imx6_pcie, int addr, u16 data)
  
  static void imx6_pcie_init_phy(struct imx6_pcie *imx6_pcie)
  {
@@ -118,8 +118,8 @@ index 7a285fb0f..7257e78c7 100644
 +
  	switch (imx6_pcie->drvdata->variant) {
  	case IMX8MM:
- 		/*
-@@ -652,7 +690,8 @@ static void imx6_pcie_init_phy(struct imx6_pcie *imx6_pcie)
+ 	case IMX8MM_EP:
+@@ -341,7 +379,8 @@ static void imx6_pcie_init_phy(struct imx6_pcie *imx6_pcie)
  		regmap_update_bits(imx6_pcie->iomuxc_gpr,
  				   imx6_pcie_grp_offset(imx6_pcie),
  				   IMX8MQ_GPR_PCIE_REF_USE_PAD,
@@ -129,7 +129,7 @@ index 7a285fb0f..7257e78c7 100644
  		/*
  		 * Regarding the datasheet, the PCIE_VPH is suggested
  		 * to be 1.8V. If the PCIE_VPH is supplied by 3.3V, the
-@@ -1102,7 +1141,8 @@ static int imx6_pcie_probe(struct platform_device *pdev)
+@@ -1329,7 +1368,8 @@ static int imx6_pcie_probe(struct platform_device *pdev)
  		imx6_pcie->pcie_aux = devm_clk_get(dev, "pcie_aux");
  		if (IS_ERR(imx6_pcie->pcie_aux))
  			return dev_err_probe(dev, PTR_ERR(imx6_pcie->pcie_aux),
@@ -139,6 +139,3 @@ index 7a285fb0f..7257e78c7 100644
  		fallthrough;
  	case IMX7D:
  		if (dbi_base->start == IMX8MQ_PCIE2_BASE_ADDR)
--- 
-2.36.1
-

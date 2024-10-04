@@ -121,26 +121,6 @@ index c18d020..562ba15 100644
              set_precedence(delimiters.p + 1, node.left, *node.comparators)
              self.visit(node.left)
              for op, right in zip(node.ops, node.comparators):
-diff --git a/docs/changelog.rst b/docs/changelog.rst
-index d6f7761..6b7d359 100644
---- a/docs/changelog.rst
-+++ b/docs/changelog.rst
-@@ -5,6 +5,15 @@ Release Notes
- 0.9.0 - in development
- ----------------------
- 
-+New features
-+~~~~~~~~~~~~
-+* Add support for Structural Pattern Matching, see :pep:`634` for more
-+  details.
-+  (Reported by avelican in `Issue 215`_ and contributed by Skurikhin Alexandr in `PR 219`_.)
-+
-+.. _`Issue 215`: https://github.com/berkerpeksag/astor/issues/215
-+.. _`PR 219`: https://github.com/berkerpeksag/astor/pull/219
-+
- Bug fixes
- ~~~~~~~~~
- 
 diff --git a/tests/test_code_gen.py b/tests/test_code_gen.py
 index 6cc0f4c..a57ed22 100644
 --- a/tests/test_code_gen.py

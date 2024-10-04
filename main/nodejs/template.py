@@ -39,7 +39,6 @@ url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
 sha256 = "296854aa1dca140b0462c2415637d0419e42af91114538a7e6fdf623971a6833"
 debug_level = 1  # allow LTO build to not run out of mem
-patch_style = "patch"
 hardening = ["!vis", "!cfi"]
 options = ["!cross"]
 

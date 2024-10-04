@@ -1,5 +1,7 @@
 Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e011ceeca6df1f1995704a435244/community/prismlauncher/0001-system-jemalloc.patch
 --
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e344c1e..d2eaf0c 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -223,12 +223,15 @@ set(Launcher_QT_VERSION_MAJOR "6" CACHE STRING "Major Qt version to build agains
@@ -18,6 +20,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  endif()
  
  # API Keys
+diff --git a/buildconfig/BuildConfig.cpp.in b/buildconfig/BuildConfig.cpp.in
+index b40cacb..9fb6f36 100644
 --- a/buildconfig/BuildConfig.cpp.in
 +++ b/buildconfig/BuildConfig.cpp.in
 @@ -120,6 +120,7 @@ Config::Config()
@@ -28,6 +32,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
      BUG_TRACKER_URL = "@Launcher_BUG_TRACKER_URL@";
      TRANSLATIONS_URL = "@Launcher_TRANSLATIONS_URL@";
+diff --git a/buildconfig/BuildConfig.h b/buildconfig/BuildConfig.h
+index bda80ac..838abe2 100644
 --- a/buildconfig/BuildConfig.h
 +++ b/buildconfig/BuildConfig.h
 @@ -154,6 +154,7 @@ class Config {
@@ -38,9 +44,11 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
      QString BUG_TRACKER_URL;
      QString TRANSLATIONS_URL;
+diff --git a/launcher/Application.cpp b/launcher/Application.cpp
+index db34877..90ba9fa 100644
 --- a/launcher/Application.cpp
 +++ b/launcher/Application.cpp
-@@ -635,10 +635,12 @@
+@@ -635,10 +635,12 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
          m_settings->registerSetting("OnlineFixes", false);
  
          // Native library workarounds
@@ -57,7 +65,7 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
          // Peformance related options
          m_settings->registerSetting("EnableFeralGamemode", false);
-@@ -1659,7 +1661,8 @@ void Application::detectLibraries()
+@@ -1651,7 +1653,8 @@ void Application::detectLibraries()
  #ifdef Q_OS_LINUX
      m_detectedGLFWPath = MangoHud::findLibrary(BuildConfig.GLFW_LIBRARY_NAME);
      m_detectedOpenALPath = MangoHud::findLibrary(BuildConfig.OPENAL_LIBRARY_NAME);
@@ -67,6 +75,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  #endif
  }
  
+diff --git a/launcher/Application.h b/launcher/Application.h
+index 7669e08..9a776f5 100644
 --- a/launcher/Application.h
 +++ b/launcher/Application.h
 @@ -287,6 +287,7 @@ class Application : public QApplication {
@@ -77,6 +87,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
      QString m_instanceIdToLaunch;
      QString m_serverToJoin;
      QString m_profileToUse;
+diff --git a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/MinecraftInstance.cpp
+index a9dbfac..7c4056d 100644
 --- a/launcher/minecraft/MinecraftInstance.cpp
 +++ b/launcher/minecraft/MinecraftInstance.cpp
 @@ -172,6 +172,8 @@ void MinecraftInstance::loadSpecificSettings()
@@ -86,9 +98,9 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
 +        m_settings->registerOverride(global_settings->getSetting("UseNativeJemalloc"), nativeLibraryWorkaroundsOverride);
 +        m_settings->registerOverride(global_settings->getSetting("CustomJemallocPath"), nativeLibraryWorkaroundsOverride);
  
-         // Performance related options
+         // Peformance related options
          auto performanceOverride = m_settings->registerSetting("OverridePerformance", false);
-@@ -446,6 +448,7 @@ QStringList MinecraftInstance::extraArguments()
+@@ -445,6 +447,7 @@ QStringList MinecraftInstance::extraArguments()
      {
          QString openALPath;
          QString glfwPath;
@@ -96,7 +108,7 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
          if (settings()->get("UseNativeOpenAL").toBool()) {
              openALPath = APPLICATION->m_detectedOpenALPath;
-@@ -459,14 +462,23 @@ QStringList MinecraftInstance::extraArguments()
+@@ -458,14 +461,23 @@ QStringList MinecraftInstance::extraArguments()
              if (!customPath.isEmpty())
                  glfwPath = customPath;
          }
@@ -120,7 +132,7 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
      }
  
      return list;
-@@ -809,11 +821,14 @@ QStringList MinecraftInstance::verboseDescription(AuthSessionPtr session, Minecr
+@@ -801,11 +813,14 @@ QStringList MinecraftInstance::verboseDescription(AuthSessionPtr session, Minecr
      auto settings = this->settings();
      bool nativeOpenAL = settings->get("UseNativeOpenAL").toBool();
      bool nativeGLFW = settings->get("UseNativeGLFW").toBool();
@@ -136,6 +148,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
          out << "";
      }
  
+diff --git a/launcher/ui/pages/global/MinecraftPage.cpp b/launcher/ui/pages/global/MinecraftPage.cpp
+index a9530ef..37e6179 100644
 --- a/launcher/ui/pages/global/MinecraftPage.cpp
 +++ b/launcher/ui/pages/global/MinecraftPage.cpp
 @@ -53,6 +53,7 @@ MinecraftPage::MinecraftPage(QWidget* parent) : QWidget(parent), ui(new Ui::Mine
@@ -167,7 +181,7 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
      // Peformance related options
      s->set("EnableFeralGamemode", ui->enableFeralGamemodeCheck->isChecked());
-@@ -148,6 +156,13 @@ void MinecraftPage::loadSettings()
+@@ -147,6 +155,13 @@ void MinecraftPage::loadSettings()
      if (!APPLICATION->m_detectedOpenALPath.isEmpty())
          ui->lineEditOpenALPath->setPlaceholderText(tr("Auto detected path: %1").arg(APPLICATION->m_detectedOpenALPath));
  #endif
@@ -181,6 +195,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
      ui->enableFeralGamemodeCheck->setChecked(s->get("EnableFeralGamemode").toBool());
      ui->enableMangoHud->setChecked(s->get("EnableMangoHud").toBool());
+diff --git a/launcher/ui/pages/global/MinecraftPage.h b/launcher/ui/pages/global/MinecraftPage.h
+index 5facfbb..a2a9bae 100644
 --- a/launcher/ui/pages/global/MinecraftPage.h
 +++ b/launcher/ui/pages/global/MinecraftPage.h
 @@ -72,6 +72,7 @@ class MinecraftPage : public QWidget, public BasePage {
@@ -191,6 +207,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
     private:
      Ui::MinecraftPage* ui;
+diff --git a/launcher/ui/pages/global/MinecraftPage.ui b/launcher/ui/pages/global/MinecraftPage.ui
+index 3008099..371399c 100644
 --- a/launcher/ui/pages/global/MinecraftPage.ui
 +++ b/launcher/ui/pages/global/MinecraftPage.ui
 @@ -270,6 +270,30 @@
@@ -224,6 +242,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
           </layout>
          </widget>
         </item>
+diff --git a/launcher/ui/pages/instance/InstanceSettingsPage.cpp b/launcher/ui/pages/instance/InstanceSettingsPage.cpp
+index d4fd0ec..2acfb8b 100644
 --- a/launcher/ui/pages/instance/InstanceSettingsPage.cpp
 +++ b/launcher/ui/pages/instance/InstanceSettingsPage.cpp
 @@ -70,6 +70,7 @@ InstanceSettingsPage::InstanceSettingsPage(BaseInstance* inst, QWidget* parent)
@@ -250,7 +270,7 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
      }
  
      // Performance
-@@ -351,6 +356,13 @@ void InstanceSettingsPage::loadSettings()
+@@ -348,6 +353,13 @@ void InstanceSettingsPage::loadSettings()
  #else
      ui->lineEditOpenALPath->setPlaceholderText(tr("Path to %1 library file").arg(BuildConfig.OPENAL_LIBRARY_NAME));
  #endif
@@ -264,7 +284,7 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
      // Performance
      ui->perfomanceGroupBox->setChecked(m_settings->get("OverridePerformance").toBool());
-@@ -456,6 +468,11 @@ void InstanceSettingsPage::onUseNativeOpenALChanged(bool checked)
+@@ -452,6 +464,11 @@ void InstanceSettingsPage::onUseNativeOpenALChanged(bool checked)
      ui->lineEditOpenALPath->setEnabled(checked);
  }
  
@@ -276,6 +296,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  void InstanceSettingsPage::updateAccountsMenu()
  {
      ui->instanceAccountSelector->clear();
+diff --git a/launcher/ui/pages/instance/InstanceSettingsPage.h b/launcher/ui/pages/instance/InstanceSettingsPage.h
+index 8b78dcb..a58e2cc 100644
 --- a/launcher/ui/pages/instance/InstanceSettingsPage.h
 +++ b/launcher/ui/pages/instance/InstanceSettingsPage.h
 @@ -73,6 +73,7 @@ class InstanceSettingsPage : public QWidget, public BasePage {
@@ -286,6 +308,8 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e0
  
      void applySettings();
      void loadSettings();
+diff --git a/launcher/ui/pages/instance/InstanceSettingsPage.ui b/launcher/ui/pages/instance/InstanceSettingsPage.ui
+index 632569e..c24bec9 100644
 --- a/launcher/ui/pages/instance/InstanceSettingsPage.ui
 +++ b/launcher/ui/pages/instance/InstanceSettingsPage.ui
 @@ -499,6 +499,30 @@

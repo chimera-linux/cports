@@ -12,7 +12,11 @@ license = "GPL-3.0-or-later"
 url = "https://cwrap.org/pam_wrapper.html"
 source = f"https://ftp.samba.org/pub/cwrap/pam_wrapper-{pkgver}.tar.gz"
 sha256 = "d1c93e2b687d08834df0e09026dd63d2ce4f577701d406a013e9a8afe469bde1"
-patch_style = "patch"
+
+
+def post_extract(self):
+    # lol
+    self.rm(".git", recursive=True)
 
 
 @subpackage("pam_wrapper-python")

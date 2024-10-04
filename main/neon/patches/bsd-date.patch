@@ -5,7 +5,7 @@ Date:   Tue Jun 6 00:03:49 2023 +0200
     try to fix up date invocation
 
 diff --git a/test/makekeys.sh b/test/makekeys.sh
-index 88dc7b3..f845a39 100755
+index 8c03bbb..56e985c 100755
 --- a/test/makekeys.sh
 +++ b/test/makekeys.sh
 @@ -16,7 +16,7 @@ CADIR=./ca
@@ -40,5 +40,5 @@ index 88dc7b3..f845a39 100755
 -${CA} -startdate `asn1date "tomorrow"` -enddate `asn1date "2 days"` -in notyet.csr -out notyet.cert
 +${CA} -startdate `asn1date +1d` -enddate `asn1date +2d` -in notyet.csr -out notyet.cert
  
- for n in 1 2 3 4 5 6 7 8 9; do
+ for n in 1 2 3 4 5 6 9; do
   ${CA} -extensions altExt${n} -days 900 \

@@ -95,7 +95,6 @@ url = "https://webkitgtk.org"
 source = f"{url}/releases/webkitgtk-{pkgver}.tar.xz"
 sha256 = "2a14faac359aff941d0bc4443eb5537e3702bcaf316b0a129e0e65f3ff8eaac0"
 debug_level = 1  # otherwise LTO link runs out of memory + fat debuginfo
-patch_style = "patch"
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
     "CXXFLAGS": [

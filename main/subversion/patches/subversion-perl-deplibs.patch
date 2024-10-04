@@ -1,23 +1,23 @@
 diff --git a/configure.ac b/configure.ac
-index 3481299..e0efde9 100644
+index 31f5368..1735c82 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -327,7 +327,7 @@ AC_SUBST(LT_NO_UNDEFINED)
- 
- AC_MSG_CHECKING([whether to avoid circular linkage at all costs])
+@@ -322,7 +322,7 @@ dnl It should always work but with libtool 1.4.3 on OS X it breaks the build.
+ dnl So we only turn it on for platforms where we know we really need it.
+ AC_MSG_CHECKING([whether libtool needs -no-undefined])
  case $host in
 -  *-*-cygwin*)
 +  *linux*)
      AC_MSG_RESULT([yes])
-     AC_DEFINE([SVN_AVOID_CIRCULAR_LINKAGE_AT_ALL_COSTS_HACK], 1,
-               [Define if circular linkage is not possible on this platform.])
+     LT_NO_UNDEFINED="-no-undefined"
+     ;;
 diff --git a/subversion/bindings/swig/perl/native/Makefile.PL.in b/subversion/bindings/swig/perl/native/Makefile.PL.in
-index 27d507c..d496273 100644
+index 984b38f..3d380d7 100644
 --- a/subversion/bindings/swig/perl/native/Makefile.PL.in
 +++ b/subversion/bindings/swig/perl/native/Makefile.PL.in
-@@ -55,10 +55,7 @@ my $apu_cflags = '@SVN_APRUTIL_INCLUDES@';
- # SWIG is using C++ style comments in an extern "C" code.
- $cflags =~ s/-ansi\s+//g;
+@@ -69,10 +69,7 @@ $cflags =~ s/-Wmissing-declarations//g;
+ $cflags =~ s/-Wmissing-prototypes//g;
+ $cflags =~ s/-Wredundant-decls//g;
  
 -# According to the log of r7937, the flags guarded by the conditional break
 -# the build on FreeBSD if not conditionalized.

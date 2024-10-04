@@ -2,14 +2,14 @@ We need to mark bin/skopeo not .PHONY to avoid it being rebuilt
 during the installation.
 
 diff --git a/Makefile b/Makefile
-index 79e36c7f..8674cd4d 100644
+index 79e36c7..8674cd4 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -129,7 +129,6 @@ binary: cmd/skopeo
-        $(CONTAINER_RUN) make bin/skopeo $(if $(DEBUG),DEBUG=$(DEBUG)) BUILDTAGS='$(BUILDTAGS)'
-
+ 	$(CONTAINER_RUN) make bin/skopeo $(if $(DEBUG),DEBUG=$(DEBUG)) BUILDTAGS='$(BUILDTAGS)'
+ 
  # Build w/o using containers
 -.PHONY: bin/skopeo
  bin/skopeo:
-        $(GO) build ${GO_DYN_FLAGS} ${SKOPEO_LDFLAGS} -gcflags "$(GOGCFLAGS)" -tags "$(BUILDTAGS)" -o $@ ./cmd/skopeo
+ 	$(GO) build ${GO_DYN_FLAGS} ${SKOPEO_LDFLAGS} -gcflags "$(GOGCFLAGS)" -tags "$(BUILDTAGS)" -o $@ ./cmd/skopeo
  bin/skopeo.%:

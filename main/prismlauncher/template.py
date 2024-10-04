@@ -26,7 +26,6 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/PrismLauncher/PrismLauncher"
 source = f"{url}/releases/download/{pkgver}/prismlauncher-{pkgver}.tar.gz"
 sha256 = "a4df9059559df2e410ddf933e05fe4bffaa01631c6eeb55e63af4a2d0d719726"
-patch_style = "patch"
 
 
 @subpackage("prismlauncher-natives")

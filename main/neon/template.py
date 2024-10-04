@@ -35,7 +35,6 @@ license = "LGPL-2.0-or-later"
 url = "https://notroj.github.io/neon"
 source = f"{url}/neon-{pkgver}.tar.gz"
 sha256 = "659a5cc9cea05e6e7864094f1e13a77abbbdbab452f04d751a8c16a9447cf4b8"
-patch_style = "patch"
 
 
 @subpackage("neon-devel")

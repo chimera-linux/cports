@@ -17,18 +17,15 @@ Ref https://pubs.opengroup.org/onlinepubs/9699919799/utilities/command.html
  1 file changed, 2 deletions(-)
 
 diff --git a/scripts/Kconfig.include b/scripts/Kconfig.include
-index 2741253..4f4e379 100644
+index 3500a3d..7979c96 100644
 --- a/scripts/Kconfig.include
 +++ b/scripts/Kconfig.include
-@@ -35,8 +35,6 @@ ld-option = $(success,$(LD) -v $(1))
- # Return y if the assembler supports <instr>, n otherwise
- as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) -c -x assembler -o /dev/null -)
+@@ -36,8 +36,6 @@ ld-option = $(success,$(LD) -v $(1))
+ as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) $(2) -Wa$(comma)--fatal-warnings -c -x assembler-with-cpp -o /dev/null -)
+ as-instr64 = $(as-instr,$(1),$(m64-flag))
  
 -# check if $(CC) and $(LD) exist
 -$(error-if,$(failure,command -v $(CC)),C compiler '$(CC)' not found)
  $(error-if,$(failure,command -v $(LD)),linker '$(LD)' not found)
  
  # Get the C compiler name, version, and error out if it is not supported.
--- 
-2.38.1
-

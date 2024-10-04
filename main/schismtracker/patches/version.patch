@@ -1,7 +1,7 @@
 https://github.com/chimera-linux/cports/pull/1273#discussion_r1466266497
---- a/schism/version.c	2024-05-29 18:27:13.000000000 +0200
-+++ b/schism/version.c	2024-05-30 14:04:34.232059657 +0200
-@@ -49,11 +49,7 @@
+--- a/schism/version.c
++++ b/schism/version.c
+@@ -50,11 +50,7 @@ Information at our disposal:
  
  */
  static const char* top_banner_normal =
@@ -13,4 +13,4 @@ https://github.com/chimera-linux/cports/pull/1273#discussion_r1466266497
 +	"Schism Tracker " VERSION2
  	;
  
- /*
+ /* -------------------------------------------------------- */
