@@ -2,7 +2,7 @@
 pkgname = "linux-rpi"
 pkgver = "6.6.31"
 pkgrel = 0
-archs = ["aarch64", "x86_64"]
+archs = ["aarch64"]
 make_dir = "build"
 # necessary for efistub
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
