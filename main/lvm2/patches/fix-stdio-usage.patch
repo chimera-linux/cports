@@ -1,5 +1,5 @@
 diff --git a/lib/commands/toolcontext.c b/lib/commands/toolcontext.c
-index 2ad04d7..749c1b0 100644
+index 60739af..8b3fdf7 100644
 --- a/lib/commands/toolcontext.c
 +++ b/lib/commands/toolcontext.c
 @@ -1661,6 +1661,7 @@ struct cmd_context *create_toolcontext(unsigned is_clvmd,
@@ -18,15 +18,15 @@ index 2ad04d7..749c1b0 100644
  
  	/*
  	 * Environment variable LVM_SYSTEM_DIR overrides this below.
-@@ -2040,6 +2042,7 @@ void destroy_toolcontext(struct cmd_context *cmd)
- 
- 	dm_device_list_destroy(&cmd->cache_dm_devs);
+@@ -2038,6 +2040,7 @@ void destroy_toolcontext(struct cmd_context *cmd)
+ 	if (cmd->cft_def_hash)
+ 		dm_hash_destroy(cmd->cft_def_hash);
  
 +#ifdef __GLIBC__
  	if (!cmd->running_on_valgrind && cmd->linebuffer) {
  		int flags;
  		/* Reset stream buffering to defaults */
-@@ -2063,6 +2066,7 @@ void destroy_toolcontext(struct cmd_context *cmd)
+@@ -2061,6 +2064,7 @@ void destroy_toolcontext(struct cmd_context *cmd)
  
  		free(cmd->linebuffer);
  	}
@@ -35,10 +35,10 @@ index 2ad04d7..749c1b0 100644
  	destroy_config_context(cmd);
  
 diff --git a/tools/lvmcmdline.c b/tools/lvmcmdline.c
-index 3fd23a5..c2ee399 100644
+index 7209ebd..778c8c0 100644
 --- a/tools/lvmcmdline.c
 +++ b/tools/lvmcmdline.c
-@@ -3380,7 +3380,7 @@ static int _check_standard_fds(void)
+@@ -3378,7 +3378,7 @@ static int _check_standard_fds(void)
  	int err = is_valid_fd(STDERR_FILENO);
  
  	if (!is_valid_fd(STDIN_FILENO) &&
@@ -47,7 +47,7 @@ index 3fd23a5..c2ee399 100644
  		if (err)
  			perror("stdin stream open");
  		else
-@@ -3390,7 +3390,7 @@ static int _check_standard_fds(void)
+@@ -3388,7 +3388,7 @@ static int _check_standard_fds(void)
  	}
  
  	if (!is_valid_fd(STDOUT_FILENO) &&
@@ -56,7 +56,7 @@ index 3fd23a5..c2ee399 100644
  		if (err)
  			perror("stdout stream open");
  		/* else no stdout */
-@@ -3398,7 +3398,7 @@ static int _check_standard_fds(void)
+@@ -3396,7 +3396,7 @@ static int _check_standard_fds(void)
  	}
  
  	if (!is_valid_fd(STDERR_FILENO) &&
