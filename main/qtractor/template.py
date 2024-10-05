@@ -1,5 +1,5 @@
 pkgname = "qtractor"
-pkgver = "1.2.0"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCONFIG_WAYLAND=1"]
@@ -23,4 +23,4 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://www.qtractor.org"
 source = f"$(SOURCEFORGE_SITE)/qtractor/qtractor-{pkgver}.tar.gz"
-sha256 = "e292a2e0b7359cf5ad32d7ff58d28f4aaa8e9631c2ec65b94550116c862dd1ee"
+sha256 = "b9f414350be6c7100c2005aeb1c94fcc4d73923cfdde0bafca08ba11f004807e"
