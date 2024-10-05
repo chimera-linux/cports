@@ -1,6 +1,6 @@
 pkgname = "xfce4"
 pkgver = "4.18"
-pkgrel = 5
+pkgrel = 6
 build_style = "meta"
 depends = [
     "gvfs",
@@ -45,7 +45,7 @@ def _(self):
         "xfce4-taskmanager",
         "xfce4-terminal",
         "xfce4-volumed-pulse",
-        "xfdashboard",
+        # "xfdashboard", # clutter
     ]
     return []
 
