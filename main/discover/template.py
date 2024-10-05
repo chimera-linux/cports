@@ -1,6 +1,6 @@
 pkgname = "discover"
 pkgver = "6.1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # fails in chroot env, needs some testdata
 make_check_args = ["-E", "flatpaktest|CategoriesTest"]

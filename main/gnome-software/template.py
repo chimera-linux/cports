@@ -1,6 +1,6 @@
 pkgname = "gnome-software"
 pkgver = "47.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dtests=false",

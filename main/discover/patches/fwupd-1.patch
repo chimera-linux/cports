@@ -1,0 +1,27 @@
+Patch-Source: https://invent.kde.org/plasma/discover/-/commit/8a84672d1d47450df098ca4e54eda5e06e65edbc
+--
+From 8a84672d1d47450df098ca4e54eda5e06e65edbc Mon Sep 17 00:00:00 2001
+From: Richard Hughes <richard@hughsie.com>
+Date: Wed, 29 May 2024 12:26:57 +0100
+Subject: [PATCH] FwupdBackend: Do not use useless API now removed in fwupd
+ 2.0.x
+
+---
+ libdiscover/backends/FwupdBackend/FwupdResource.cpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/libdiscover/backends/FwupdBackend/FwupdResource.cpp b/libdiscover/backends/FwupdBackend/FwupdResource.cpp
+index 6df5d9c7b6..47cc122f29 100644
+--- a/libdiscover/backends/FwupdBackend/FwupdResource.cpp
++++ b/libdiscover/backends/FwupdBackend/FwupdResource.cpp
+@@ -188,7 +188,6 @@ void FwupdResource::setDeviceDetails(FwupdDevice *dev)
+     m_vendor = QString::fromUtf8(fwupd_device_get_vendor(dev));
+     m_releaseDate = QDateTime::fromSecsSinceEpoch(fwupd_device_get_created(dev)).date();
+     m_availableVersion = QString::fromUtf8(fwupd_device_get_version(dev));
+-    m_description = QString::fromUtf8((fwupd_device_get_description(dev)));
+ 
+     if (fwupd_device_get_icons(dev)->len >= 1)
+         m_iconName = QString::fromUtf8((const gchar *)g_ptr_array_index(fwupd_device_get_icons(dev), 0)); // Check whether given icon exists or not!
+-- 
+GitLab
+
