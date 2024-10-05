@@ -1,5 +1,5 @@
 pkgname = "curtail"
-pkgver = "1.10.0"
+pkgver = "1.11.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -24,4 +24,4 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/Huluti/Curtail"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f5e80862faa6d2dc9beb266a7eceb05197c261f4bba52a9211d75d10862833af"
+sha256 = "38ee7d5ce79fc478366fce56f9bea7bf0d232e0291a62232467d0889ab9ecb8e"
