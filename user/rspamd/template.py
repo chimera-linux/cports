@@ -1,6 +1,6 @@
 pkgname = "rspamd"
 pkgver = "3.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCONFDIR=/etc/rspamd",
@@ -22,6 +22,7 @@ makedepends = [
     "elfutils-devel",
     "fasttext-devel",
     "glib-devel",
+    "hiredis-devel",
     "icu-devel",
     "libarchive-devel",
     "libsodium-devel",
