@@ -1,9 +1,0 @@
---- a/meson.build
-+++ b/meson.build
-@@ -1,5 +1,5 @@
- project(
--	'wlroots',
-+	'wlroots-0.16',
- 	'c',
- 	version: '0.16.2',
- 	license: 'MIT',
