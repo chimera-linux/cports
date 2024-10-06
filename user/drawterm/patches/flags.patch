@@ -1,0 +1,21 @@
+make sure our CFLAGS/LDFLAGS are respected
+
+diff -ruN a/Make.linux b/Make.linux
+--- a/Make.linux	2024-10-04 03:22:35.000000000 +0200
++++ b/Make.linux	2024-10-06 14:03:04.320760656 +0200
+@@ -4,12 +4,12 @@
+ AS=as
+ RANLIB=ranlib
+ CC=cc
+-CFLAGS=-Wall -Wno-missing-braces -Wno-parentheses -ggdb -I$(ROOT) -I$(ROOT)/include -I$(ROOT)/kern -c -D_THREAD_SAFE -DPTHREAD $(PTHREAD) `pkg-config --cflags libpipewire-0.3` -D_REENTRANT -O2
++override CFLAGS := -fno-strict-aliasing -Wall -Wno-missing-braces -Wno-parentheses -I$(ROOT) -I$(ROOT)/include -I$(ROOT)/kern -c -D_THREAD_SAFE -DPTHREAD $(PTHREAD) `pkg-config --cflags libpipewire-0.3` -D_REENTRANT $(CFLAGS)
+ O=o
+ OS=posix
+ GUI=wl
+-LDADD=-lwayland-client -lxkbcommon -ggdb -lm -lrt -lpipewire-0.3
+-LDFLAGS=$(PTHREAD)
++LDADD=-lwayland-client -lxkbcommon -lm -lrt -lpipewire-0.3
++override LDFLAGS := $(PTHREAD) $(LDFLAGS)
+ TARG=drawterm
+ # AUDIO=none
+ AUDIO=pipewire
