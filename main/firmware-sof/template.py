@@ -1,6 +1,6 @@
 pkgname = "firmware-sof"
 pkgver = "2024.09"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 install_if = [self.with_pkgver("base-firmware-sof")]
 pkgdesc = "Sound Open Firmware"
@@ -20,7 +20,8 @@ def install(self):
         "sof-ipc4-tplg",
         "sof-tplg",
     ]:
-        self.install_files(folder, "usr/lib/firmware/intel")
+        self.install_files(folder, "usr/lib/firmware/intel", name=f"{folder}-v{pkgver}")
+        self.install_link(f"usr/lib/firmware/intel/{folder}", f"{folder}-v{pkgver}")
     # compat link, following the default install.sh
     self.install_link("usr/lib/firmware/intel/sof-ace-tplg", "sof-ipc4-tplg")
     self.install_license("LICENCE.NXP")
