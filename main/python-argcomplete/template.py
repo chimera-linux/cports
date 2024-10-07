@@ -1,5 +1,5 @@
 pkgname = "python-argcomplete"
-pkgver = "3.5.0"
+pkgver = "3.5.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
@@ -20,7 +20,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/kislyuk/argcomplete"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8f240c6252d7a72bfc0a1273fdca658c28195081fd83b56562928917703ef60c"
+sha256 = "c4a9d762f24b6bad712f37986e2391448fc620e9f96a5f26039daf2bcb8cfa2b"
 
 
 # this is identical to the default check, but without pytest
