@@ -1,5 +1,5 @@
 pkgname = "python-humanize"
-pkgver = "4.10.0"
+pkgver = "4.11.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://humanize.readthedocs.io"
 source = f"$(PYPI_SITE)/h/humanize/humanize-{pkgver}.tar.gz"
-sha256 = "06b6eb0293e4b85e8d385397c5868926820db32b9b654b932f57fa41c23c9978"
+sha256 = "e66f36020a2d5a974c504bd2555cf770621dbdbb6d82f94a6857c0b1ea2608be"
 
 
 def post_install(self):
