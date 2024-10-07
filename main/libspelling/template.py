@@ -1,5 +1,5 @@
 pkgname = "libspelling"
-pkgver = "0.4.1"
+pkgver = "0.4.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "GeopJr <evan@geopjr.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libspelling"
 source = f"{url}/-/archive/{pkgver}/libspelling-{pkgver}.tar.gz"
-sha256 = "a6e46bbd8965bc9346bd3fa8edebb3878c2792d60da72bb8a018c97d308da499"
+sha256 = "947e491fd5f90e557eab9714b21ebfbc2fc8c81ae5ec6ad864f93cd2df8a5bc4"
 # introspection
 options = ["!cross"]
 
