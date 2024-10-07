@@ -1,5 +1,5 @@
 pkgname = "libucontext"
-pkgver = "1.3.1"
+pkgver = "1.3.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
@@ -8,7 +8,7 @@ maintainer = "eater <=@eater.me>"
 license = "ISC"
 url = "https://github.com/kaniini/libucontext"
 source = f"{url}/archive/refs/tags/libucontext-{pkgver}.tar.gz"
-sha256 = "1243ee9f03ad38e624f6844427b7bc1f0a05aa5de70f15f3b03805a364b971d6"
+sha256 = "4faf1838a15d61efe27ddac24fded2c290929eb3a1fefc72f952ae96d5bda006"
 # see common-trampoline.c (1.3.1) libucontext_trampoline comment
 options = ["!framepointer"]
 
