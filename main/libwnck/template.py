@@ -1,6 +1,6 @@
 pkgname = "libwnck"
-pkgver = "43.0"
-pkgrel = 1
+pkgver = "43.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "gettext",
@@ -21,7 +21,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.0-only"
 url = "https://gitlab.gnome.org/GNOME/libwnck"
 source = f"$(GNOME_SITE)/libwnck/{pkgver[:-2]}/libwnck-{pkgver}.tar.xz"
-sha256 = "905bcdb85847d6b8f8861e56b30cd6dc61eae67ecef4cd994a9f925a26a2c1fe"
+sha256 = "634b4587b7367a493d3818c4b57740dac06153cf8f25cd64f5af16b657dd6845"
 options = ["!cross"]
 
 
