@@ -1,6 +1,6 @@
 pkgname = "magic-wormhole.rs"
 pkgver = "0.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = ["--bins"]
 hostmakedepends = ["cargo-auditable"]
@@ -32,5 +32,5 @@ def install(self):
     )
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"wormhole-rs.{shell}", shell, "wormhole-rs")
-    self.install_man("wormhole.1")
+    self.install_man("wormhole.1", name="wormhole-rs")
     self.install_license("LICENSE")
