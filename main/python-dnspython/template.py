@@ -1,6 +1,6 @@
 pkgname = "python-dnspython"
-pkgver = "2.6.1"
-pkgrel = 2
+pkgver = "2.7.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://www.dnspython.org"
 source = f"$(PYPI_SITE)/d/dnspython/dnspython-{pkgver}.tar.gz"
-sha256 = "e8f0f9c23a7b7cb99ded64e6c3a6f3e701d78f50c55e002b839dea7225cff7cc"
+sha256 = "ce9c432eda0dc91cf618a5cedf1a4e142651196bbcd2c80e89ed5a907e5cfaf1"
 
 
 def post_install(self):
