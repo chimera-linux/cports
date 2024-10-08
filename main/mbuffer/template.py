@@ -1,16 +1,19 @@
 pkgname = "mbuffer"
-pkgver = "20240929"
-pkgrel = 1
+pkgver = "20241007"
+pkgrel = 0
 build_style = "cmake"
 make_dir = "."
 hostmakedepends = ["cmake", "ninja"]
-makedepends = ["linux-headers"]
+makedepends = [
+    "linux-headers",
+    "openssl-devel",
+]
 pkgdesc = "Tool for buffering data streams"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-only"
 url = "https://www.maier-komor.de/mbuffer.html"
 source = f"https://www.maier-komor.de/software/mbuffer/mbuffer-{pkgver}.tgz"
-sha256 = "efb6c6de3e2459d2398774cdd44ec0a6e6b88c4132ede43d3d5e2f6c18d9a6a7"
+sha256 = "9d7363010b4ef45b1646f6b5f5027b49bb6a209c502fb84e281c7bd771d56bed"
 
 
 def pre_configure(self):
