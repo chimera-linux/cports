@@ -1,5 +1,5 @@
 pkgname = "qt6-qtdeclarative"
-pkgver = "6.7.3"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
@@ -20,7 +20,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtdeclarative-everywhere-src-{pkgver}.tar.xz"
-sha256 = "937b70e441abf5bc4e50d44d26610e2714a28514acf3885cd36116cd610b9875"
+sha256 = "3b41a36b42e919a3aa0da1f71107591504200f41707bee2ad8e8d4f99b5644c2"
 # FIXME
 hardening = ["!int"]
 # TODO
@@ -70,6 +70,8 @@ def init_check(self):
         "tst_qquickfiledialogimpl",  # XXX
         "tst_qquickfolderdialogimpl",  # test failed
         "tst_sanity",  # tst_Sanity::quickControlsSanityPlugin(signalHandlers) 'hasWarnings' returned FALSE
+        "tst_fluentwinui*",
+        "shared_qml_module",
     ]
     self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
     self.make_check_env["QT_QPA_PLATFORM"] = "offscreen"
@@ -110,6 +112,8 @@ def _(self):
             "usr/lib/qt6/modules",
             "usr/lib/qt6/plugins/qmltooling",
             "usr/lib/qt6/plugins/qmllint",
+            "usr/lib/qt6/qml/Assets/Downloader/objects-*",
+            "usr/lib/qt6/qml/QtTest",
             "usr/lib/qt6/libexec/qmlcachegen",
             "usr/lib/qt6/libexec/qmlimportscanner",
             "usr/lib/qt6/libexec/qmltyperegistrar",

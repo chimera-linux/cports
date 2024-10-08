@@ -1,5 +1,5 @@
 pkgname = "qt6-qtlocation"
-pkgver = "6.7.3"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtlocation-everywhere-src-{pkgver}.tar.xz"
-sha256 = "569fd7ddcd048ef7e8c64465eed93aeb8d021aa6f2befd5c1815fa992bd3a798"
+sha256 = "a0c487f4b36965ea921127033cc227acf1f292ba577081842c5b75d2ef9731a0"
 # cross: TODO
 options = ["!cross"]
 

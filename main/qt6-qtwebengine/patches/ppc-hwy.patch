@@ -1,0 +1,27 @@
+--- a/src/3rdparty/chromium/third_party/highway/src/hwy/targets.cc
++++ b/src/3rdparty/chromium/third_party/highway/src/hwy/targets.cc
+@@ -46,7 +46,11 @@
+ // sys/auxv.h does not always include asm/hwcap.h, or define HWCAP*, hence we
+ // still include this directly. See #1199.
+ #ifndef TOOLCHAIN_MISS_ASM_HWCAP_H
++#ifdef __powerpc64__
++#include <asm/cputable.h>
++#else
+ #include <asm/hwcap.h>
++#endif
+ #endif
+ #ifndef TOOLCHAIN_MISS_SYS_AUXV_H
+ #include <sys/auxv.h>
+--- a/src/3rdparty/chromium/third_party/highway/src/hwy/detect_targets.h
++++ b/src/3rdparty/chromium/third_party/highway/src/hwy/detect_targets.h
+@@ -121,6 +121,10 @@
+ #define HWY_SCALAR (1LL << 62)
+ #define HWY_HIGHEST_TARGET_BIT_SCALAR 62
+ 
++#ifdef __powerpc64__
++#define HWY_COMPILE_ONLY_SCALAR 1
++#endif
++
+ // Do not use bit 63 - would be confusing to have negative numbers.
+ 
+ //------------------------------------------------------------------------------

@@ -1,8 +1,9 @@
 pkgname = "qt6-qtsvg"
-pkgver = "6.7.3"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
+make_check_args = ["-E", "module_includes"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "qt6-qtbase"]
 makedepends = ["qt6-qtbase-devel"]
@@ -13,7 +14,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtsvg-everywhere-src-{pkgver}.tar.xz"
-sha256 = "40142cb71fb1e07ad612bc361b67f5d54cd9367f9979ae6b86124a064deda06b"
+sha256 = "cf7a593d5e520f8177240610d9e55d5b75b0887fe5f385554ff64377f1646199"
 # FIXME
 hardening = ["!int"]
 

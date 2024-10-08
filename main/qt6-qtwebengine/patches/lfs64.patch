@@ -2,8 +2,8 @@ diff --git a/src/3rdparty/gn/src/base/files/file.h b/src/3rdparty/gn/src/base/fi
 index 2c94eb4..b2db71a 100644
 --- a/src/3rdparty/gn/src/base/files/file.h
 +++ b/src/3rdparty/gn/src/base/files/file.h
-@@ -26,7 +26,7 @@ namespace base {
-     defined(OS_ANDROID) && __ANDROID_API__ < 21
+@@ -26,7 +26,7 @@
+     defined(OS_ANDROID) && __ANDROID_API__ < 21 || defined(OS_SERENITY)
  typedef struct stat stat_wrapper_t;
  #elif defined(OS_POSIX) || defined(OS_FUCHSIA)
 -typedef struct stat64 stat_wrapper_t;
