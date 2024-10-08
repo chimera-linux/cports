@@ -1,6 +1,6 @@
 pkgname = "chrony"
-pkgver = "4.6"
-pkgrel = 1
+pkgver = "4.6.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-user=_chrony",
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://chrony-project.org"
 source = f"https://chrony-project.org/releases/chrony-{pkgver}.tar.gz"
-sha256 = "9adad4a5014420fc52b695896556fdfb49709dc7cd72d7f688d9eb85d5a274d5"
+sha256 = "571ff73fbf0ae3097f0604eca2e00b1d8bb2e91affe1a3494785ff21d6199c5c"
 
 
 def post_install(self):
