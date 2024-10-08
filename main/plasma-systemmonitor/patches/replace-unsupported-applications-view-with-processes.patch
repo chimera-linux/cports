@@ -1,8 +1,10 @@
 "Applications view is unsupported on your system" until we have turnstile user slice cgroup anyway
-
+--
+diff --git a/src/pages/overview.page b/src/pages/overview.page
+index 2b9fff1..de4a40c 100644
 --- a/src/pages/overview.page
 +++ b/src/pages/overview.page
-@@ -112,7 +112,7 @@ totalSensors=["network/(?!all).*/network"]
+@@ -118,7 +118,7 @@ totalSensors=["network/(?!all).*/network"]
  groupByTotal=true
  
  [Face-94410254040128][Appearance]
@@ -11,7 +13,7 @@
  
  [Face-94410261307168][Appearance]
  chartFace=org.kde.ksysguard.piechart
-@@ -512,53 +512,53 @@ name=section-4
+@@ -536,54 +536,54 @@ name=section-4
  isTitle=true
  name=row-3
  heightMode=minimum
@@ -38,6 +40,7 @@
 -Title[ia]=Applicationes
 -Title[id]=Aplikasi
 -Title[ie]=Applicationes
+-Title[is]=Forrit
 -Title[it]=Applicazioni
 -Title[ja]=アプリケーション
 -Title[ka]=პლიკაციები
@@ -85,6 +88,7 @@
 +Title[ia]=Processos
 +Title[id]=Proses
 +Title[ie]=Processes
++Title[is]=Vinnslur
 +Title[it]=Processi
 +Title[ja]=プロセス
 +Title[ka]=პროცესები
@@ -112,6 +116,8 @@
  
  [page][row-4]
  isTitle=false
+diff --git a/src/systemmonitor.kcfg b/src/systemmonitor.kcfg
+index ec09b57..b0cc57f 100644
 --- a/src/systemmonitor.kcfg
 +++ b/src/systemmonitor.kcfg
 @@ -24,9 +24,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted

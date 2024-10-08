@@ -1,6 +1,6 @@
 pkgname = "discover"
-pkgver = "6.1.5"
-pkgrel = 1
+pkgver = "6.2.0"
+pkgrel = 0
 build_style = "cmake"
 # fails in chroot env, needs some testdata
 make_check_args = ["-E", "flatpaktest|CategoriesTest"]
@@ -35,6 +35,7 @@ makedepends = [
     "kio-devel",
     "kirigami-addons-devel",
     "kirigami-devel",
+    "kitemmodels-devel",
     "knewstuff-devel",
     "knotifications-devel",
     "kstatusnotifieritem-devel",
@@ -58,7 +59,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://userbase.kde.org/Discover"
 source = f"$(KDE_SITE)/plasma/{pkgver}/discover-{pkgver}.tar.xz"
-sha256 = "6e2cf59fac2cb792420ed6df653f80307d6e33d6e6ae9c1af2827a93bae3cb8d"
+sha256 = "40ffcab43962034ed4c8848baa4e354f48ff3dd8b94d329dc3deec38606495ff"
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

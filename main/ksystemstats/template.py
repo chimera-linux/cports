@@ -1,5 +1,5 @@
 pkgname = "ksystemstats"
-pkgver = "6.1.5"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
@@ -13,6 +13,7 @@ hostmakedepends = [
 makedepends = [
     "elogind-devel",
     "kcoreaddons-devel",
+    "kcrash-devel",
     "kdbusaddons-devel",
     "ki18n-devel",
     "kiconthemes-devel",
@@ -32,7 +33,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/ksystemstats"
 source = f"$(KDE_SITE)/plasma/{pkgver}/ksystemstats-{pkgver}.tar.xz"
-sha256 = "8425bb9f076234d167eaf689b74f729e2a0561c367473e8a84fab4a4c39c6893"
+sha256 = "05815d01acdb199c052fa994c48f49f694b4356a7fc23eff38bb00614ae4687e"
 # silence some ~600 lines of spam...
 tool_flags = {"CXXFLAGS": ["-Wno-deprecated-declarations"]}
 hardening = ["vis"]

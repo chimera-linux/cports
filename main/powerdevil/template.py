@@ -1,5 +1,5 @@
 pkgname = "powerdevil"
-pkgver = "6.1.5"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: all tests broken like on alpine, migrateconfig_test*
@@ -34,13 +34,17 @@ makedepends = [
     "kirigami-devel",
     "kitemmodels-devel",
     "knotifications-devel",
+    "krunner-devel",
     "kxmlgui-devel",
-    "layer-shell-qt-devel",
     "libcap-devel",
     "libkscreen-devel",
+    "libplasma-devel",
     "plasma-activities-devel",
     "plasma-workspace-devel",
+    "plasma-wayland-protocols",
+    "qcoro-devel",
     "qt6-qtbase-devel",
+    "qt6-qtwayland-devel",
 ]
 checkdepends = [
     "bash",
@@ -53,7 +57,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/powerdevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/powerdevil-{pkgver}.tar.xz"
-sha256 = "050e1c6fcf07da2cd7bfe22a618aa91504bb2b00bd31aa68121b903cde9d845d"
+sha256 = "83c1fd55117757a8b4c4452a2f3047d8f42acc54f37ec045065a28d9264179c2"
 file_modes = {
     "usr/libexec/org_kde_powerdevil": ("root", "root", 0o755),
 }

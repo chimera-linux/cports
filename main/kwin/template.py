@@ -1,5 +1,5 @@
 pkgname = "kwin"
-pkgver = "6.1.5"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -14,6 +14,8 @@ make_check_args = [
     + "|kwin-testButtonRebind"  # ppc64le fail weirdness?
     + "|kwin-testColorspaces"  # out of range on ppc64le float accuracy
     + "|kwin-testDontCrashGlxgears"  # ??
+    + "|kwin-testLockScreen"  # needs applications.menu from plasma-workspace
+    + "|kwin-testX11Window"  # ??
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
@@ -58,6 +60,7 @@ makedepends = [
     "kxmlgui-devel",
     "lcms2-devel",
     "libcap-devel",
+    "libcanberra-devel",
     "libdisplay-info-devel",
     "libei-devel",
     "libplasma-devel",
@@ -69,6 +72,7 @@ makedepends = [
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsensors-devel",
+    "qt6-qtsvg-devel",
     "qt6-qttools-devel",
     "qt6-qtwayland-devel",
     "wayland-protocols",
@@ -94,7 +98,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-{pkgver}.tar.xz"
-sha256 = "ba0aace323195b58adbfde14ec74cdd4c28c211d78a567c44af70f336dcab3f7"
+sha256 = "8ae8852e48c042e96f98e76a8b67f7e94f1d601939336fba7f8db8b43bf2fcba"
 file_modes = {
     "usr/bin/kwin_wayland": ("root", "root", 0o755),
 }

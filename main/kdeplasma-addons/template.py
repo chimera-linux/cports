@@ -1,5 +1,5 @@
 pkgname = "kdeplasma-addons"
-pkgver = "6.1.5"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: failed tz comparison / scientific notation number e uppercase
@@ -24,6 +24,7 @@ makedepends = [
     "ki18n-devel",
     "kio-devel",
     "kirigami-addons-devel",
+    "kitemmodels-devel",
     "kjobwidgets-devel",
     "knewstuff-devel",
     "knotifications-devel",
@@ -33,6 +34,7 @@ makedepends = [
     "kxmlgui-devel",
     "libplasma-devel",
     "plasma5support-devel",
+    "purpose-devel",
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtquick3d-devel",
@@ -50,7 +52,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only AND CC0-1.0 AND LGPL-3.0-or-later"
 url = "https://invent.kde.org/plasma/kdeplasma-addons"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdeplasma-addons-{pkgver}.tar.xz"
-sha256 = "36b6f9e1c03e52ea4e5d0409a0786117c8247166169f2d0a221f20f1aeab8863"
+sha256 = "28e678e944cfce1831a974fc4842e9fc9577bfdcd3af106d1b8a8522b56fc20e"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]

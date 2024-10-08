@@ -1,5 +1,5 @@
 pkgname = "plasma-workspace"
-pkgver = "6.1.5"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
@@ -18,15 +18,17 @@ make_check_args = [
     + "|testrunnermodel"  # segfaults on aarch64
     + "|keystatetest"  # fails in offscreen
     + "|lockedtest"  # needs selenium
-    + "|klippertest"  # segfaults instantly
+    + "|klipper*"  # most of these segfault
+    + "|dbusmethodcalltest"  # fails to send something to ksplash (?)
+    + "|servicerunnertest"  # fails to spawn stuff in sandbox somehow
     + "|lookandfeel-kcmTest"  # segfaults with our patch to default theme
     + "|testimagebackend"  # cannot find org.kde.plasma.wallpapers.image QML module, try QML2_IMPORT_PATH
     + "|locationsrunnertest"
     + "|testimagefrontend)",  # ^ same as above
     "-j1",  # parallel causes a bunch of flaky tests
 ]
-make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
-make_check_wrapper = ["dbus-run-session", "xwfb-run", "--"]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen", "XDG_RUNTIME_DIR": "/tmp"}
+make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -94,6 +96,7 @@ makedepends = [
     "qcoro-devel",
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
+    "qt6-qtpositioning-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",
     "wayland-protocols",
@@ -114,17 +117,18 @@ depends = [
     "xwayland",
 ]
 checkdepends = [
-    "dbus",
+    "dbus-x11",
     "python-gobject",
-    "xwayland-run",
     *depends,
 ]
+# kde-portals.conf is now here
+replaces = ["xdg-desktop-portal-kde<6.2.0"]
 pkgdesc = "KDE Plasma Workspace"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-workspace-{pkgver}.tar.xz"
-sha256 = "c29e15a3ed42446f997b7e1695864f85ebff084e2ece581c914a0d8a8e265ae7"
+sha256 = "2d4268cbae757631be57d69d34fc02c8d0204762515370c9679ecb2aa2afdf33"
 hardening = ["vis"]
 
 

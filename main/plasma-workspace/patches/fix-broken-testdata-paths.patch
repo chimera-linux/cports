@@ -1,17 +1,21 @@
+diff --git a/runners/bookmarks/autotests/chrome/testchromebookmarks.cpp b/runners/bookmarks/autotests/chrome/testchromebookmarks.cpp
+index 9aa9013..f1c9645 100644
 --- a/runners/bookmarks/autotests/chrome/testchromebookmarks.cpp
 +++ b/runners/bookmarks/autotests/chrome/testchromebookmarks.cpp
-@@ -16,7 +16,7 @@ using namespace KRunner;
+@@ -17,7 +17,7 @@ using namespace KRunner;
  
  void TestChromeBookmarks::initTestCase()
  {
 -    m_configHome = QFINDTESTDATA("chrome-config-home");
 +    m_configHome = QFINDTESTDATA("../../runners/bookmarks/autotests/chrome/chrome-config-home");
      m_findBookmarksInCurrentDirectory.reset(
-         new FakeFindProfile(QList<Profile>({Profile(m_configHome + "/Chrome-Bookmarks-Sample.json", "Sample", new FallbackFavicon())})));
+         new FakeFindProfile(QList<Profile>({Profile(QString(m_configHome + u"/Chrome-Bookmarks-Sample.json"), u"Sample"_s, new FallbackFavicon())})));
  }
+diff --git a/runners/bookmarks/autotests/firefox/testfirefoxbookmarks.cpp b/runners/bookmarks/autotests/firefox/testfirefoxbookmarks.cpp
+index 988d260..f64eb4e 100644
 --- a/runners/bookmarks/autotests/firefox/testfirefoxbookmarks.cpp
 +++ b/runners/bookmarks/autotests/firefox/testfirefoxbookmarks.cpp
-@@ -28,7 +28,7 @@ private Q_SLOTS:
+@@ -30,7 +30,7 @@ private Q_SLOTS:
  void TestFirefoxBookmarksMatch::initTestCase()
  {
      QStandardPaths::setTestModeEnabled(true);

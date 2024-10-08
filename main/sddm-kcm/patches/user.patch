@@ -1,6 +1,8 @@
+diff --git a/sddmauthhelper.cpp b/sddmauthhelper.cpp
+index 2a38b40..d7f5c04 100644
 --- a/sddmauthhelper.cpp
 +++ b/sddmauthhelper.cpp
-@@ -57,9 +57,9 @@
+@@ -60,9 +60,9 @@ static QString SddmUserCheck()
      // check for sddm user; return empty string if user not present
      // we have to check with QString and isEmpty() instead of QDir and exists() because
      // QDir returns "." and true for exists() in the case of a non-existent user;
@@ -12,7 +14,7 @@
          return QString();
      } else {
          return sddmHomeDirPath;
-@@ -88,7 +88,7 @@
+@@ -91,7 +91,7 @@ void SddmAuthHelper::copyDirectoryRecursively(const QString &source, const QStri
  
  void SddmAuthHelper::copyFile(const QString &source, const QString &destination)
  {
@@ -21,29 +23,31 @@
  
      if (QFile::exists(destination)) {
          QFile::remove(destination);
+diff --git a/src/sddmkcm.cpp b/src/sddmkcm.cpp
+index b7984ba..7036b38 100644
 --- a/src/sddmkcm.cpp
 +++ b/src/sddmkcm.cpp
-@@ -150,9 +150,9 @@
+@@ -159,9 +159,9 @@ void SddmKcm::synchronizeSettings()
      // initial check for sddm user; abort if user not present
      // we have to check with QString and isEmpty() instead of QDir and exists() because
      // QDir returns "." and true for exists() in the case of a non-existent user;
 -    QString sddmHomeDirPath = KUser("sddm").homeDir();
 +    QString sddmHomeDirPath = KUser("_sddm").homeDir();
      if (sddmHomeDirPath.isEmpty()) {
--        Q_EMIT errorOccured(kli18n("Cannot proceed, user 'sddm' does not exist. Please check your SDDM install.").untranslatedText());
-+        Q_EMIT errorOccured(kli18n("Cannot proceed, user '_sddm' does not exist. Please check your SDDM install.").untranslatedText());
+-        Q_EMIT errorOccured(QString::fromUtf8(kli18n("Cannot proceed, user 'sddm' does not exist. Please check your SDDM install.").untranslatedText()));
++        Q_EMIT errorOccured(QString::fromUtf8(kli18n("Cannot proceed, user '_sddm' does not exist. Please check your SDDM install.").untranslatedText()));
          return;
      }
  
-@@ -288,9 +288,9 @@
+@@ -297,9 +297,9 @@ void SddmKcm::resetSyncronizedSettings()
      // initial check for sddm user; abort if user not present
      // we have to check with QString and isEmpty() instead of QDir and exists() because
      // QDir returns "." and true for exists() in the case of a non-existent user
 -    QString sddmHomeDirPath = KUser("sddm").homeDir();
 +    QString sddmHomeDirPath = KUser("_sddm").homeDir();
      if (sddmHomeDirPath.isEmpty()) {
--        Q_EMIT errorOccured(kli18n("Cannot proceed, user 'sddm' does not exist. Please check your SDDM install.").untranslatedText());
-+        Q_EMIT errorOccured(kli18n("Cannot proceed, user '_sddm' does not exist. Please check your SDDM install.").untranslatedText());
+-        Q_EMIT errorOccured(QString::fromUtf8(kli18n("Cannot proceed, user 'sddm' does not exist. Please check your SDDM install.").untranslatedText()));
++        Q_EMIT errorOccured(QString::fromUtf8(kli18n("Cannot proceed, user '_sddm' does not exist. Please check your SDDM install.").untranslatedText()));
          return;
      }
  
