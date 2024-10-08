@@ -1,6 +1,6 @@
 pkgname = "qalculate-gtk"
 # match to libqalculate
-pkgver = "5.2.0"
+pkgver = "5.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -20,4 +20,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://qalculate.github.io"
 source = f"https://github.com/Qalculate/qalculate-gtk/releases/download/v{pkgver}/qalculate-gtk-{pkgver}.tar.gz"
-sha256 = "1a917fe5d5ca03e21a97308bac31f013d5459edd090ba20717eaf56259270dbd"
+sha256 = "2cbeeaa6c820644a08427c7dbf1273bf55a1eb28650ecf425e3a420612d79c9f"
