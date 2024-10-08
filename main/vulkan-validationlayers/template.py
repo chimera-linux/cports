@@ -1,5 +1,5 @@
 pkgname = "vulkan-validationlayers"
-pkgver = "1.3.296"
+pkgver = "1.3.297"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -32,6 +32,6 @@ source = [
 ]
 source_paths = [".", "spirv-headers"]
 sha256 = [
-    "99a4047b82b91b7856cbfaf2fe1629c3aa436ed2300a5e64d820b97d8c685564",
+    "11220ccc139f5517b3a3aa2e2ef0d680da314940c9bb98c7f3857a871bdb2205",
     "1698e1373bd6e59a263acef821c4d955c561b991feb6db8199833ef19ffe8a37",
 ]
