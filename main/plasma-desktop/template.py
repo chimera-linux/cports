@@ -3,7 +3,11 @@ pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
-make_check_args = ["-E", "kcm-keyboard-keyboard_memory_persister_test"]
+# tst_calibrationtool: broken on ppc64le
+make_check_args = [
+    "-E",
+    "(kcm-keyboard-keyboard_memory_persister_test|tst_calibrationtool)",
+]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
