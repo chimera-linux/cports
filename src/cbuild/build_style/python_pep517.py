@@ -88,8 +88,12 @@ def check(self):
         *self.make_wrapper,
         *self.make_check_wrapper,
         self.chroot_cwd / ".cbuild-checkenv/bin/python3",
-        "-m",
-        "pytest",
+        # avoid adding cwd to sys.path
+        # see https://docs.pytest.org/en/7.1.x/how-to/usage.html#invoke-python
+        "/usr/bin/pytest",
+        # try to prefer checkenv site-packages when importing
+        # https://docs.pytest.org/en/7.1.x/explanation/pythonpath.html
+        "--import-mode=append",
         *self.make_check_args,
         *ctgt,
         env=renv,
