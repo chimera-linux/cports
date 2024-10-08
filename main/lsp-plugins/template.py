@@ -1,5 +1,5 @@
 pkgname = "lsp-plugins"
-pkgver = "1.2.17"
+pkgver = "1.2.18"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -21,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"
 url = "https://lsp-plug.in"
 source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.7z"
-sha256 = "f07dff42c4ca83366fd4576cd18bcbb82c68979b4e7655dc6fc1809881da4a73"
+sha256 = "6f8c7115449bdb76ed861f63da0d26d19af4e716cc6251123d7d88f4835b8dd7"
 hardening = ["vis", "!cfi"]
 # no tests
 # cross broken because of dumb uname arch detection
