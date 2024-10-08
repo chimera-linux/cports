@@ -1,5 +1,5 @@
 pkgname = "python-pyproject-metadata"
-pkgver = "0.8.0"
+pkgver = "0.8.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://github.com/pypa/pyproject-metadata"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "bb5015c9f3869c6fa59d8fdf29840a58cda2a570cb557b8aecae0f9e97a4cf88"
+sha256 = "dec0ca7f8c70633595af5b9904e429ab6d15b8d35b633942843b044139d64c27"
 
 
 def post_install(self):
