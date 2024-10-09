@@ -1,5 +1,5 @@
 pkgname = "python-tomli-w"
-pkgver = "1.0.0"
+pkgver = "1.1.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/hukkin/tomli-w"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "4fe1fb4696899c01356ef4e028c975103abf62e5fa9472f31f1714100f1b065d"
+sha256 = "bf9a4ccddb0b03cf2538479ac2210827ef5d5ff77de576f07147042b903bfb32"
 
 
 def post_install(self):
