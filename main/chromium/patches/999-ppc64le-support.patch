@@ -966,27 +966,15 @@ index bea1af28b5..f61f0ed146 100644
    // The stack grows downward.
    void* stack = stack_buf + sizeof(stack_buf);
  #else
-@@ -100,14 +100,18 @@ bool ChrootToSafeEmptyDir() {
+@@ -95,7 +95,7 @@
  
    int clone_flags = CLONE_FS | LINUX_SIGCHLD;
    void* tls = nullptr;
--#if 0 && (defined(ARCH_CPU_X86_64) || defined(ARCH_CPU_ARM_FAMILY)) && \
--    !defined(MEMORY_SANITIZER)
-+#if defined(ARCH_CPU_PPC64_FAMILY) && !defined(MEMORY_SANITIZER)
+-#if (defined(ARCH_CPU_X86_64) || defined(ARCH_CPU_ARM_FAMILY)) && \
++#if (defined(ARCH_CPU_X86_64) || defined(ARCH_CPU_ARM_FAMILY) || defined(ARCH_CPU_PPC64_FAMILY)) && \
+     !defined(MEMORY_SANITIZER)
    // Use CLONE_VM | CLONE_VFORK as an optimization to avoid copying page tables.
    // Since clone writes to the new child's TLS before returning, we must set a
-   // new TLS to avoid corrupting the current process's TLS. On ARCH_CPU_X86,
-   // glibc performs syscalls by calling a function pointer in TLS, so we do not
-   // attempt this optimization.
-   // TODO(crbug.com/40196869) Broken in MSan builds after LLVM f1bb30a4956f.
-+  //
-+  // NOTE: Without CLONE_VM, fontconfig will attempt to reload configuration
-+  // in every thread.  Since the rendered threads are sandboxed without
-+  // filesystem access (e.g. to /etc/fonts/fonts.conf) this will cause font
-+  // configuraiton loading failures and no fonts will be displayed!
-   clone_flags |= CLONE_VM | CLONE_VFORK | CLONE_SETTLS;
- 
-   // PTHREAD_STACK_MIN can be dynamic in glibc2.34+, so it is not possible to
 diff --git a/sandbox/linux/services/syscall_wrappers.cc b/sandbox/linux/services/syscall_wrappers.cc
 index 74d48f1f91..eba83011d4 100644
 --- a/sandbox/linux/services/syscall_wrappers.cc
