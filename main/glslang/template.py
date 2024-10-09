@@ -1,6 +1,6 @@
 pkgname = "glslang"
 pkgver = "15.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DALLOW_EXTERNAL_SPIRV_TOOLS=ON",
