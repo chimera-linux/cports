@@ -1,6 +1,6 @@
 pkgname = "fcitx5-configtool"
-pkgver = "5.1.6"
-pkgrel = 1
+pkgver = "5.1.7"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",
@@ -46,7 +46,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://fcitx-im.org"
 source = f"https://github.com/fcitx/fcitx5-configtool/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "bb2ed52aa0ebb881a5b19a5f2d93f9759ce0c56bcf1c555062ffe039e2539221"
+sha256 = "c134b082ea9cab0102b9427f39a3714f4a71146ac082e4e6c7c18e4b8dd2aaa7"
 hardening = ["vis", "cfi"]
 # fails
 options = ["!cross"]
