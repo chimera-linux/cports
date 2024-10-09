@@ -81,6 +81,8 @@ def check(self):
         envpy,
         "-m",
         "installer",
+        "--compile-bytecode",
+        "0",
         *self.make_install_args,
         *whl,
     )
