@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/dinit-dbus
+ready-notification = pipevar:DINIT_DBUS_READY_FD
+log-type = buffer
+options = pass-cs-fd
+depends-on = dbus
+before = login.target
