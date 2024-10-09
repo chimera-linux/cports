@@ -1,6 +1,6 @@
 pkgname = "tree-sitter"
 # match to tree-sitter-cli
-pkgver = "0.24.2"
+pkgver = "0.24.3"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://tree-sitter.github.io/tree-sitter"
 source = f"https://github.com/tree-sitter/tree-sitter/archive/v{pkgver}.tar.gz"
-sha256 = "199da041ac7ef62bccdda9b7bec28aafa073f7eea2677680aa7992d503c9cc64"
+sha256 = "0a8d0cf8e09caba22ed0d8439f7fa1e3d8453800038e43ccad1f34ef29537da1"
 # check requires cargo/fixture stuff (from remote repositories)
 options = ["!check"]
 
