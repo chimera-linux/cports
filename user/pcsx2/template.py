@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "2.1.177"
+pkgver = "2.1.193"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -53,15 +53,15 @@ license = "GPL-3.0-or-later"
 url = "https://pcsx2.net"
 source = [
     f"https://github.com/PCSX2/pcsx2/archive/refs/tags/v{pkgver}.tar.gz",
-    "https://github.com/PCSX2/pcsx2_patches/archive/341d0f2c81ca5d79f97bba2a428c761085c4ca66.tar.gz",
+    "https://github.com/PCSX2/pcsx2_patches/archive/f7225735d732879ad3323ebb034e19bbd4bea3b8.tar.gz",
 ]
 source_paths = [
     ".",
     "patches",
 ]
 sha256 = [
-    "e75b192b73a442b6aa5c5d2e49dc91b82406add111bca45ab74820496dfc8294",
-    "180d6e2b458354ea5f5faf98681559cde6452bc163ad8ab81733962bbe906905",
+    "4b0a263546fefa4cc05a91f550e6831034dc738fae5148dee8593e6728314b4c",
+    "613be49e4ddf5cfbf7307ecbaede410c8a7610f5517018dddae9844e3fb26417",
 ]
 # int crashes, but it's an emulator so..
 hardening = ["vis", "!int"]
