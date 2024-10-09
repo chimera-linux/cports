@@ -1,6 +1,6 @@
 pkgname = "plasma5support"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # needs plasma-workspace plugin and is circular with it
 make_check_args = ["-E", "pluginloadertest"]
@@ -22,8 +22,9 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "solid-devel",
 ]
-# some qt5 compat modules were moved here
-replaces = ["plasma-workspace<6.1.0"]
+# some qt5 compat modules were moved here ~6.1.0
+# also locale file conflicts ~6.2.0
+replaces = ["plasma-workspace<6.2.0"]
 pkgdesc = "KDE Support components for porting from Qt5/KF5 to Qt6/KF6"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
