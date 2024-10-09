@@ -1,5 +1,5 @@
 pkgname = "python-time-machine"
-pkgver = "2.15.0"
+pkgver = "2.16.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://github.com/adamchainz/time-machine"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1b8d9e36813cbaee65e554f0c104e09ac9cb2a54ac641e5dadd969550496f8ed"
+sha256 = "d2ed8ebef04133d69bce09114bbf66be0d404d725597874a644318af6e0b3e28"
 
 
 def post_install(self):
