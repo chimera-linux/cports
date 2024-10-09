@@ -1,6 +1,6 @@
 pkgname = "python-jsonschema-specifications"
-pkgver = "2023.12.1"
-pkgrel = 1
+pkgver = "2024.10.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -18,7 +18,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-jsonschema/jsonschema-specifications"
 source = f"$(PYPI_SITE)/j/jsonschema_specifications/jsonschema_specifications-{pkgver}.tar.gz"
-sha256 = "48a76787b3e70f5ed53f1160d2b81f586e4ca6d1548c5de7085d1682674764cc"
+sha256 = "0f38b83639958ce1152d02a7f062902c41c8fd20d558b0c34344292d417ae272"
 
 
 def post_install(self):
