@@ -1,6 +1,6 @@
 pkgname = "turnstile"
 pkgver = "0.1.10"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = ["-Dmanage_rundir=true", "-Dpamdir=/usr/lib/pam.d"]
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
