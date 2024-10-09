@@ -1,5 +1,5 @@
 pkgname = "fcitx5-kkc"
-pkgver = "5.1.4"
+pkgver = "5.1.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -23,5 +23,5 @@ url = "https://fcitx-im.org"
 source = (
     f"https://github.com/fcitx/fcitx5-kkc/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "63552fa94dd81a929c3f562b4ecec99e12022147979afdbd49790625c141db44"
+sha256 = "4ea546788bb4088cfac84d1e364068bc951305c331380e27b835907e02399eaa"
 hardening = ["vis", "cfi"]
