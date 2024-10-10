@@ -1,5 +1,5 @@
 pkgname = "kirigami-addons"
-pkgver = "1.4.0"
+pkgver = "1.5.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -33,13 +33,14 @@ checkdepends = [
 depends = [
     "kirigami",
     "qt6-qtmultimedia",
+    "sonnet",
 ]
 pkgdesc = "Add-ons for the Kirigami framework"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kirigami-addons/html"
 source = f"$(KDE_SITE)/kirigami-addons/kirigami-addons-{pkgver}.tar.xz"
-sha256 = "56e3ceb52055b5603320ea08b27d3673d32a391a8d58646d998227d8b51f0a93"
+sha256 = "f9dfd191022b633ea3348f84730d7158a159dfe49668dba0a9e9bd678ac44e54"
 hardening = ["vis"]
 
 
