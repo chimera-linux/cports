@@ -1,7 +1,7 @@
 pkgname = "musl"
-pkgver = "1.2.5_git20240705"
-pkgrel = 7
-_commit = "dd1e63c3638d5f9afb857fccf6ce1415ca5f1b8b"
+pkgver = "1.2.5_git20240913"
+pkgrel = 0
+_commit = "23ab04a8630225371455d5f4538fd078665bb646"
 _mimalloc_ver = "2.1.7"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
@@ -21,7 +21,7 @@ source = [
 ]
 source_paths = [".", "mimalloc"]
 sha256 = [
-    "a6886a65387d2547aae10c1ba31a35529a5c4bbe4205b2a9255c774d5da77329",
+    "0fd59ab707e43052b5e40a26345d1b00658525749606589482e3070f6e86f741",
     "0eed39319f139afde8515010ff59baf24de9e47ea316a315398e8027d198202d",
 ]
 compression = "deflate"
