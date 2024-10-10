@@ -1,5 +1,5 @@
 pkgname = "ktnef"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/ktnef/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ktnef-{pkgver}.tar.xz"
-sha256 = "c05a03493de3ae0c23b2bf3a7b10cedb8112d6066e87c093b5cb25476b5bd3be"
+sha256 = "388e0f931413429947e56dfcd1ad429ee23fd84dd792223eb8a48b1c12b18728"
 
 
 @subpackage("ktnef-devel")

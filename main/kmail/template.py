@@ -1,5 +1,5 @@
 pkgname = "kmail"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
@@ -73,4 +73,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-only"
 url = "https://apps.kde.org/kmail2"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kmail-{pkgver}.tar.xz"
-sha256 = "ab5abd0578f1996daf3a9fb674f39491544ce33e7efb3ca1fff15ef6f5731072"
+sha256 = "2696846cb13dc8345d96489d4ed183de49328fbe233a5a1555f4b90851ce6389"

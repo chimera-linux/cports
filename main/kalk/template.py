@@ -1,5 +1,5 @@
 pkgname = "kalk"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -23,5 +23,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later AND CC0-1.0"
 url = "https://apps.kde.org/kalk"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kalk-{pkgver}.tar.xz"
-sha256 = "05153e00cfde1897554603c110be874e9cd7e0a6ea9dd57d5169b64ed0193141"
+sha256 = "6657c12a6717847b78fb0e7a0f66a07d3f942f09635374d4c0a4a4e000cc5acf"
 hardening = ["vis"]

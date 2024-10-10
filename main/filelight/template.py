@@ -1,7 +1,9 @@
 pkgname = "filelight"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
+# can segfault in parallel
+make_check_args = ["-j1"]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
@@ -28,5 +30,5 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = " GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/filelight"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/filelight-{pkgver}.tar.xz"
-sha256 = "8bd5f3477e8928a4f45da37a3f0ee2d469fcfee20f7b5197bfacff4772bb50a2"
+sha256 = "5e904cdf4573fa5b8578e4157da348ad46e7281992bfbd6af59c9430e16ba94e"
 hardening = ["vis"]

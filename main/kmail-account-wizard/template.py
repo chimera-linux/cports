@@ -1,5 +1,5 @@
 pkgname = "kmail-account-wizard"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
@@ -30,4 +30,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://userbase.kde.org/KMail/Account_Wizard"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kmail-account-wizard-{pkgver}.tar.xz"
-sha256 = "d12cfa9a206dde5ea01e7ea24baa0aa495fa4b3d55fa864c66064fd50dfc70b2"
+sha256 = "6ef27ce524665377ae082aa0c7f6375894f601a321c1745e8f9aa681ba77a439"

@@ -1,5 +1,5 @@
 pkgname = "kdenetwork-filesharing"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -26,4 +26,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenetwork_filesharing"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenetwork-filesharing-{pkgver}.tar.xz"
-sha256 = "0dbd28611839450e79aebd9ac9b7dbc45b82b8c1cd3206d5d360d545f73f70c3"
+sha256 = "7a569654d54d8306c7ec6200e092b1a03f8b1a73cf4b7ca543544ac7b8d44c65"

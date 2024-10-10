@@ -1,5 +1,5 @@
 pkgname = "francis"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -27,4 +27,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/francis"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/francis-{pkgver}.tar.xz"
-sha256 = "f6492cb18e5db06c6604d9d33b8e06046fb6654f0906b29c184331d3a2ec354d"
+sha256 = "6b8cc7f38c24e14c2e797a62299d47099965b38e7205578e3206818c7922ae80"

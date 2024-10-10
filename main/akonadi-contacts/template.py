@@ -1,5 +1,5 @@
 pkgname = "akonadi-contacts"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -38,7 +38,7 @@ url = "https://api.kde.org/kdepim/akonadi-contacts/html/index.html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-contacts-{pkgver}.tar.xz"
 )
-sha256 = "f22f5524ca4e30e8ba32b93a0472e542ee34f96fb2cce2d512308324943ca176"
+sha256 = "ea1ad8d3a4ed6f0d3091b1587869c7bd29b43095d2bda73e82c042e11ac37fc8"
 
 
 @subpackage("akonadi-contacts-devel")

@@ -1,5 +1,5 @@
 pkgname = "kget"
-pkgver = "24.08.1"
+pkgver = "24.08.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -43,4 +43,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kget"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kget-{pkgver}.tar.xz"
-sha256 = "1af81db90b0db5350bab10c9664d0e3123a3635d2c7a0ef583939773a9a68804"
+sha256 = "690c3421e38b373e825730a830a881392c1719f078cec121d68620aa7ed2738b"
