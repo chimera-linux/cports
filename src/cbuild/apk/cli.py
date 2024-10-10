@@ -393,6 +393,17 @@ def build_index(repopath, epoch, allow_untrusted=False):
         (repopath / "APKINDEX.tar.gz").unlink()
         return True
 
+    # this is very dirty, but we need to use a sha1-length truncated hash with
+    # newer apk mkndx, as old apk has a bug where it cannot handle the full
+    # sha256 hash.
+    # at the same time, old mkndx also doesn't have this arg- so we need to check
+    # for it first.
+    # https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues/11020
+    # remove this once we don't care about old apk anymore
+    help_output = call("mkndx", ["--help"], None, capture_output=True)
+    if "--hash HASH" in str(help_output.stdout):
+        aargs += ["--hash", "sha256-160"]
+
     signr = call(
         "mkndx",
         aargs,
