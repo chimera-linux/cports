@@ -1,0 +1,13 @@
+diff --git a/cxl/json.c b/cxl/json.c
+index 5066d3b..9879471 100644
+--- a/cxl/json.c
++++ b/cxl/json.c
+@@ -9,7 +9,7 @@
+ #include <json-c/json.h>
+ #include <json-c/printbuf.h>
+ #include <ccan/short_types/short_types.h>
+-#include <tracefs/tracefs.h>
++#include <libtracefs/tracefs.h>
+ 
+ #include "filter.h"
+ #include "json.h"

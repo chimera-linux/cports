@@ -1,6 +1,6 @@
 pkgname = "ndctl"
-pkgver = "79"
-pkgrel = 2
+pkgver = "80"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dmodprobedatadir=/usr/lib/modprobe.d",
@@ -29,7 +29,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only AND LGPL-2.1-only AND MIT AND CC0-1.0"
 url = "https://github.com/pmem/ndctl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c4c4e698c38ba8be4c08f3a9554cca3db8e71db1ace13906e3f8490db13418f0"
+sha256 = "4bb7565feea486997a0f62b1878aeb6d4db9af128e0fa459359b3c02644325c5"
 hardening = ["vis", "cfi"]
 # the MIT licence used doesn't have a copyright line in it
 options = ["!distlicense"]
