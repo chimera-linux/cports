@@ -1,6 +1,6 @@
 pkgname = "bcachefs-tools"
-pkgver = "1.11.0"
-pkgrel = 1
+pkgver = "1.13.0"
+pkgrel = 0
 build_style = "makefile"
 make_install_args = [
     "ROOT_SBINDIR=/usr/bin",
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/koverstreet/bcachefs-tools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "eab4bc7982c8b91796f5a9d6ceeb5f96a7075295df40ee43f5e57e8b7405faff"
+sha256 = "cc7196505eba3a71e2ab8b9d0d19c6b16959b15aeb6e57e696dc14bd735ee0d5"
 # no tests
 options = ["!check"]
 
