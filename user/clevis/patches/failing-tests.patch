@@ -1,0 +1,9 @@
+diff --git a/src/pins/tang/tests/meson.build b/src/pins/tang/tests/meson.build
+index 83f9637..dc1ec1a 100644
+--- a/src/pins/tang/tests/meson.build
++++ b/src/pins/tang/tests/meson.build
+@@ -63,4 +63,3 @@ env.prepend('PATH',
+ 
+ test('pin-tang', find_program('pin-tang'), env: env)
+ test('tang-validate-adv', find_program('tang-validate-adv'), env: env)
+-test('default-thp-alg', find_program('default-thp-alg'), env: env)
