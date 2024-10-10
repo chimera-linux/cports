@@ -823,19 +823,18 @@ def do_keygen(tgt):
 def do_clean(tgt):
     import shutil
 
-    from cbuild.core import paths, errors, chroot
+    from cbuild.core import logger, paths, errors, chroot
+
+    log = logger.get()
 
     chroot.cleanup_world(None)
-    dirp = paths.builddir() / "builddir"
-    if dirp.is_dir():
-        shutil.rmtree(dirp)
-    elif dirp.exists():
-        raise errors.CbuildException("broken container (builddir invalid)")
-    dirp = paths.builddir() / "destdir"
-    if dirp.is_dir():
-        shutil.rmtree(dirp)
-    elif dirp.exists():
-        raise errors.CbuildException("broken container (destdir invalid)")
+    for dir in ["builddir", "destdir"]:
+        log.out(f"cbuild: cleaning {dir}...")
+        dirp = paths.builddir() / dir
+        if dirp.is_dir():
+            shutil.rmtree(dirp)
+        elif dirp.exists():
+            raise errors.CbuildException(f"broken container ({dir} invalid)")
 
 
 def do_zap(tgt):
