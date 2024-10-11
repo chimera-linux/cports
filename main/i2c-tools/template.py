@@ -1,6 +1,6 @@
 pkgname = "i2c-tools"
-pkgver = "4.3"
-pkgrel = 2
+pkgver = "4.4"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = ["EXTRA=py-smbus"]
 make_install_args = ["sbindir=/usr/bin", *make_build_args]
@@ -12,7 +12,7 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/utils/i2c-tools/i2c-tools.git"
 source = f"https://mirrors.edge.kernel.org/pub/software/utils/i2c-tools/i2c-tools-{pkgver}.tar.xz"
-sha256 = "1f899e43603184fac32f34d72498fc737952dbc9c97a8dd9467fadfdf4600cf9"
+sha256 = "8b15f0a880ab87280c40cfd7235cfff28134bf14d5646c07518b1ff6642a2473"
 # no tests
 options = ["!check"]
 
