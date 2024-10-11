@@ -1,5 +1,5 @@
 pkgname = "kfilemetadata"
-pkgver = "6.6.0"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kfilemetadata/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kfilemetadata-{pkgver}.tar.xz"
-sha256 = "218ccbc926e1e26765f7213b8aace7ebdaa785464efad2bb60f8e648362cfea0"
+sha256 = "a6242a79e672b523ebf1b2554ebf83aca7a9d5065929b6f152731e9851d008d0"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

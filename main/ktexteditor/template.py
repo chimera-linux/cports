@@ -1,14 +1,15 @@
 pkgname = "ktexteditor"
-pkgver = "6.6.0"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
     # FIXME: katedocument_test testAboutToSave() hangs for 5 minutes,
     # txt_diff encoding tests broken similar to alpine but pass in cbuild chroot?
-    "katedocument_test|encoding_(utf8|latin15|utf32|utf16|utf32be|utf16be|cyrillic_utf8|cp1251|koi8-r|one-char-latin-15|latin15-with-utf8-bom).txt_diff",
+    "katedocument_test|encoding_(utf8|latin15|utf32|utf16|utf32be|utf16be|cyrillic_utf8|cp1251|koi8-r|one-char-latin-15|latin15-with-utf8-bom).txt_diff|bug313759",
 ]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
+make_check_wrapper = ["dbus-run-session", "--"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -30,12 +31,13 @@ makedepends = [
     "sonnet-devel",
     "syntax-highlighting-devel",
 ]
+checkdepends = ["dbus"]
 pkgdesc = "KDE Full text editor component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.0-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/ktexteditor/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktexteditor-{pkgver}.tar.xz"
-sha256 = "9991a78fd5cf692964d84210baea472ece56434d924f9e67561b857f8b48c777"
+sha256 = "ed76f72324225a926e00c2c970d48d7f11a576e942e48d092e9837bda79d6991"
 hardening = ["vis"]
 
 

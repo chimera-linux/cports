@@ -1,5 +1,5 @@
 pkgname = "kglobalaccel"
-pkgver = "6.6.0"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kglobalaccel/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kglobalaccel-{pkgver}.tar.xz"
-sha256 = "49295ea5e4a018222a9b483e7c0fb8e7cfb4b761a92920b1e13454fd8f85fe81"
+sha256 = "2a35b9e06c6601d602b3a45e278c49e11e4627939cfacffb1fdee0826a6f6e0b"
 hardening = ["vis"]
 
 

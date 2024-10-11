@@ -1,5 +1,5 @@
 pkgname = "knewstuff"
-pkgver = "6.6.0"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 # fails in chroot for some reason
@@ -17,18 +17,20 @@ makedepends = [
     "kconfig-devel",
     "kcoreaddons-devel",
     "ki18n-devel",
+    "kirigami-devel",
     "kpackage-devel",
     "kwidgetsaddons-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
     "syndication-devel",
 ]
+depends = ["kirigami"]
 pkgdesc = "Framework for downloading/sharing additional app data"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
-sha256 = "3f927564b454c1fc1aeec05174b8f9e76303b4d9a45979d76b2188a25bd47025"
+sha256 = "a4184622d430b64ec7cc4c77113df67c886f359cc89cc6313fbcc71764d23fa7"
 hardening = ["vis"]
 
 

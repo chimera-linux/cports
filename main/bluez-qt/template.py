@@ -1,5 +1,5 @@
 pkgname = "bluez-qt"
-pkgver = "6.6.0"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/bluez-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/bluez-qt-{pkgver}.tar.xz"
-sha256 = "1a2a805ba12639c1784d2f549f5e98f210fc8d1878c5ca770936eac827c8eb00"
+sha256 = "b0640106986213e1b28f2cba13d9cc22ee3d259755f27521f2e861634338f93b"
 hardening = ["vis"]
 
 

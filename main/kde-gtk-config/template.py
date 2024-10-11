@@ -2,8 +2,6 @@ pkgname = "kde-gtk-config"
 pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
-# needs plasma-workspace plugin and is circular with it
-# make_check_args = ["-E", "pluginloadertest"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
