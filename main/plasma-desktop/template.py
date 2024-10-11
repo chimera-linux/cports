@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 # tst_calibrationtool: broken on ppc64le
@@ -130,6 +130,9 @@ def _(self):
         "oxygen",
         "oxygen-icons",
         "oxygen-sounds",
+        # breeze gtk theme
+        "breeze-gtk",
+        "kde-gtk-config",
         # ?
         "baloo",  # search
         "bluedevil",  # bluetooth
