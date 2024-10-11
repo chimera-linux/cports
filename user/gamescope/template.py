@@ -1,6 +1,6 @@
 pkgname = "gamescope"
-pkgver = "3.15.11"
-pkgrel = 1
+pkgver = "3.15.13"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=static",
@@ -72,7 +72,7 @@ source_paths = [
     "src/reshade",
 ]
 sha256 = [
-    "f7ab8c27d5983a0f8ec66b8eac2d933deb0dadfaebcc88fec7dfb6cacf11ab59",
+    "32ee8ed93d2cb372dab8baaf7f3ddd685911593467b8add1bdbdcc71d88ec821",
     "c1913dbd1f3218b113ca7921d8cf9a1c1ddd28b432452c236cdd027dfbd7a95b",
     "37b77586e91f7ebee70380dcddd73bf01ae4acef1053e6be41d0485ede022422",
     "41272ce410c2815de1e268f5baa906b26286bb910e514677d15b8e69f81c5a04",
