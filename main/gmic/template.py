@@ -1,5 +1,5 @@
 pkgname = "gmic"
-pkgver = "3.4.2"
+pkgver = "3.4.3"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -19,6 +19,7 @@ makedepends = [
     "libomp-devel",
     "libpng-devel",
     "libtiff-devel",
+    "libwebp-devel",
     "libx11-devel",
     "openexr-devel",
     "qt6-qtbase-devel",
@@ -28,7 +29,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "CECILL-2.1"
 url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"
-sha256 = "9abd8377693715f87104bdbe077d45ecb00cf19f57c29f425eacda07c745fe8a"
+sha256 = "79951d06db2928c68bad1d352e536af3f454e9a3c09beefc2c1049d8b4084507"
 patch_style = "patch"
 # vis broken
 # FIXME int: gmic_qt PreviewWidget::updateOriginalImagePosition
