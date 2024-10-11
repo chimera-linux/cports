@@ -1,0 +1,15 @@
+std::unordered_map sux so use the better one
+--
+diff --git a/layers/CMakeLists.txt b/layers/CMakeLists.txt
+index 2143e1d..a76ed23 100644
+--- a/layers/CMakeLists.txt
++++ b/layers/CMakeLists.txt
+@@ -79,7 +79,7 @@ target_link_libraries(VkLayer_utils PUBLIC
+ target_include_directories(VkLayer_utils SYSTEM PRIVATE external)
+ target_include_directories(VkLayer_utils PUBLIC . ${API_TYPE})
+ 
+-find_package(robin_hood CONFIG)
++add_subdirectory(robinhood EXCLUDE_FROM_ALL)
+ option(USE_ROBIN_HOOD_HASHING "robin_hood provides faster versions of std::unordered_map and std::unordered_set" ${robin_hood_FOUND})
+ if (USE_ROBIN_HOOD_HASHING)
+     target_link_libraries(VkLayer_utils PUBLIC robin_hood::robin_hood)
