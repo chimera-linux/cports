@@ -1,0 +1,35 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/gtk/-/commit/1cf0520454f8f55256b7f6cdfeefa8360a5842c7
+--
+From 1cf0520454f8f55256b7f6cdfeefa8360a5842c7 Mon Sep 17 00:00:00 2001
+From: Matthias Clasen <mclasen@redhat.com>
+Date: Sat, 17 Aug 2024 21:44:37 -0400
+Subject: [PATCH] Try to fix monitor geometry on sway
+
+The Wayland protocols around outputs are truly a disaster.
+
+This is a backport of 854e40c60c0d32 from main in the hope
+of getting monitor geometry to work across compositors.
+
+Fixes: #6939
+---
+ gdk/wayland/gdkscreen-wayland.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/gdk/wayland/gdkscreen-wayland.c b/gdk/wayland/gdkscreen-wayland.c
+index 7017534f8c8..78fd4572bee 100644
+--- a/gdk/wayland/gdkscreen-wayland.c
++++ b/gdk/wayland/gdkscreen-wayland.c
+@@ -1565,7 +1565,9 @@ apply_monitor_change (GdkWaylandMonitor *monitor)
+   GdkRectangle logical_geometry;
+   gboolean needs_scaling = FALSE;
+ 
+-  if (monitor->xdg_output_done)
++  if (monitor_has_xdg_output (monitor) &&
++      monitor->xdg_output_geometry.width != 0  &&
++      monitor->xdg_output_geometry.height != 0)
+     {
+       logical_geometry = monitor->xdg_output_geometry;
+       needs_scaling =
+-- 
+GitLab
+
