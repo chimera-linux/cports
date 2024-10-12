@@ -1,6 +1,6 @@
 pkgname = "perf"
 pkgver = "6.11.3"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "tools/perf"
 build_style = "makefile"
 make_build_args = [
@@ -17,6 +17,7 @@ make_build_args = [
     "V=1",
     "WERROR=0",
     "libdir=/usr/lib",
+    "perfexecdir=/usr/lib/perf-core",
     "mandir=/usr/share/man",
     "prefix=/usr",
     "sbindir=/usr/bin",
@@ -81,4 +82,4 @@ def post_install(self):
     self.install_completion("perf-completion.sh", "bash")
     self.install_completion("perf-completion.sh", "zsh")
     # pointless tests
-    self.uninstall("usr/libexec/perf-core/tests")
+    self.uninstall("usr/lib/perf-core/tests")
