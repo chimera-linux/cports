@@ -1,8 +1,12 @@
 pkgname = "blueman"
 pkgver = "2.4.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
-configure_args = ["-Druntime_deps_check=false"]
+# XXX drop libexec
+configure_args = [
+    "--libexecdir=/usr/lib",
+    "-Druntime_deps_check=false",
+]
 hostmakedepends = [
     "gettext",
     "glib",
