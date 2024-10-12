@@ -1,0 +1,13 @@
+ffmpeg works for mp3 decode too, apparently, so don't warn on this
+--
+--- a/src/k3bsystemproblemdialog.cpp
++++ b/src/k3bsystemproblemdialog.cpp
+@@ -540,7 +540,7 @@
+             break;
+         }
+     }
+-    if( !haveMp3Decoder ) {
++    if( 0 ) {
+         problems.append( K3b::SystemProblem( K3b::SystemProblem::WARNING,
+                                            i18n("MP3 Audio Decoder plugin not found."),
+                                            i18n("K3b could not load or find the MP3 decoder plugin. This means that you will not "
