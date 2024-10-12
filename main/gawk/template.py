@@ -1,8 +1,12 @@
 pkgname = "gawk"
 pkgver = "5.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-configure_args = ["--with-readline", "--disable-pma"]
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+    "--with-readline",
+    "--disable-pma",
+]
 # makes another test pass
 hostmakedepends = ["automake", "gettext-devel", "libtool"]
 makedepends = ["libedit-readline-devel"]
