@@ -1,0 +1,10 @@
+--- a/src/plugins/pulse/ao_pulse.c
++++ b/src/plugins/pulse/ao_pulse.c
+@@ -31,6 +31,7 @@
+ #include <string.h>
+ #include <signal.h>
+ #include <limits.h>
++#include <time.h>
+ 
+ #include <pulse/pulseaudio.h>
+ #include <pulse/simple.h>
