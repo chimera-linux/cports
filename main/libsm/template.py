@@ -1,6 +1,6 @@
 pkgname = "libsm"
 pkgver = "1.2.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
 makedepends = ["libice-devel", "libuuid-devel", "xtrans"]

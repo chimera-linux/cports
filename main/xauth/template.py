@@ -1,6 +1,6 @@
 pkgname = "xauth"
 pkgver = "1.1.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["xtrans", "libxau-devel", "libxext-devel", "libxmu-devel"]

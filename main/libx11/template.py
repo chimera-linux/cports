@@ -1,6 +1,6 @@
 pkgname = "libx11"
 pkgver = "1.8.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",

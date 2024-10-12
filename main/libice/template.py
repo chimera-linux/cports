@@ -1,6 +1,6 @@
 pkgname = "libice"
 pkgver = "1.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "pkgconf",

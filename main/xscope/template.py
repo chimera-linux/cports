@@ -1,6 +1,6 @@
 pkgname = "xscope"
 pkgver = "1.4.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
