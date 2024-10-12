@@ -1,8 +1,13 @@
 pkgname = "bolt"
 pkgver = "0.9.8"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
-configure_args = ["-Dman=true", "-Dsystemd=false"]
+# XXX drop libexec
+configure_args = [
+    "--libexecdir=/usr/lib",
+    "-Dman=true",
+    "-Dsystemd=false",
+]
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
     "asciidoc",
