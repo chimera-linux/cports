@@ -1,8 +1,12 @@
 pkgname = "igt-gpu-tools"
 pkgver = "1.29"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-configure_args = ["-Dtests=disabled", "-Drunner=disabled"]
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+    "-Dtests=disabled",
+    "-Drunner=disabled",
+]
 hostmakedepends = [
     "bash",
     "bison",
