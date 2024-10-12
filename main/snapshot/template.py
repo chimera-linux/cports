@@ -1,6 +1,6 @@
 pkgname = "snapshot"
-pkgver = "47.0.1"
-pkgrel = 2
+pkgver = "47.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "appstream",
@@ -33,7 +33,7 @@ url = "https://apps.gnome.org/Snapshot"
 source = (
     f"$(GNOME_SITE)/snapshot/{pkgver.split('.')[0]}/snapshot-{pkgver}.tar.xz"
 )
-sha256 = "62a7f10c9021ba2e49e7e68e7eb89ef540c09f2c7ddf77c205e542c9dae8ffb1"
+sha256 = "e4b162679af24c7e96ee6e22b47d5ff0da96e0a0f616d13aeb1207c609f89483"
 
 
 def init_build(self):
