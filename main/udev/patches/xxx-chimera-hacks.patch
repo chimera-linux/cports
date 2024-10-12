@@ -285,7 +285,7 @@ index 69ea5c4..633428c 100644
 +        endif
 +        if stem == 'hwdb' or stem == 'bootctl' or stem == 'loader.conf'
 +            have = true
-+        elif stem == 'sd-boot' or stem == 'systemd-boot' or stem == 'systemd-stub'
++        elif stem == 'sd-boot' or stem == 'systemd-boot' or stem == 'systemd-stub' or stem == 'ukify'
 +            have = true
 +        endif
 +
@@ -796,15 +796,6 @@ diff --git a/meson.build b/meson.build
 index 3f7aa38..fbf7397 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -694,8 +694,6 @@ rsync = find_program('rsync', required : false)
- diff = find_program('diff')
- find = find_program('find')
- 
--ln_s = ln.full_path() + ' -frsT -- "${DESTDIR:-}@0@" "${DESTDIR:-}@1@"'
--
- # If -Dxxx-path option is found, use that. Otherwise, check in $PATH,
- # /usr/sbin, /sbin, and fall back to the default from middle column.
- progs = [['quotaon',    '/usr/sbin/quotaon'    ],
 @@ -724,10 +722,6 @@ foreach prog : progs
          conf.set_quoted(name, path)
  endforeach
@@ -1010,21 +1001,6 @@ index 3f7aa38..fbf7397 100644
  #####################################################################
  
  test_dlopen = executables_by_name.get('test-dlopen')
-@@ -2637,14 +2482,6 @@ ukify = custom_target(
-         install : want_ukify,
-         install_mode : 'rwxr-xr-x',
-         install_dir : bindir)
--if want_ukify
--        public_programs += ukify
--
--        # symlink for backwards compatibility after rename
--        meson.add_install_script(sh, '-c',
--                                 ln_s.format(bindir / 'ukify',
--                                             libexecdir / 'ukify'))
--endif
- 
- #####################################################################
- 
 @@ -2683,50 +2520,13 @@ endif
  
  ############################################################

@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "256.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dacl=enabled",
@@ -138,6 +138,9 @@ if _have_sd_boot:
     configure_args += [
         "-Dbootloader=enabled",
         "-Defi=true",
+        "-Dopenssl=enabled",
+        "-Dtpm2=enabled",
+        "-Dukify=enabled",
         # secure boot
         "-Dsbat-distro=chimera",
         "-Dsbat-distro-summary=Chimera Linux",
@@ -146,6 +149,7 @@ if _have_sd_boot:
         f"-Dsbat-distro-version={self.full_pkgver}",
     ]
     hostmakedepends += ["python-pyelftools"]
+    makedepends += ["openssl-devel", "tpm2-tss-devel"]
 
 
 def init_configure(self):
@@ -160,6 +164,13 @@ def post_patch(self):
 
 def post_install(self):
     # oh boy, big cleanup time
+
+    # put measure into libexec, we want it for ukify
+    self.rename(
+        "usr/lib/systemd/systemd-measure",
+        "usr/libexec/systemd-measure",
+        relative=False,
+    )
 
     # drop some more systemd bits
     for f in [
@@ -252,6 +263,23 @@ def _(self):
         "usr/share/man/man7/linux*.efi.stub.7",
         "usr/share/man/man7/systemd-stub.7",
         "usr/share/man/man7/sd-stub.7",
+    ]
+
+
+# only practical for efi so we constrain it by sd-boot
+@subpackage("ukify", _have_sd_boot)
+def _(self):
+    self.pkgdesc = "Tool to generate Unified Kernel Images"
+    self.depends = [
+        self.with_pkgver("systemd-boot-efi"),
+        "python-pefile",
+        "tpm2-tss",  # dlopened
+    ]
+
+    return [
+        "cmd:ukify",
+        # only used here, don't bring in tss2 deps elsewhere
+        "usr/libexec/systemd-measure",
     ]
 
 
