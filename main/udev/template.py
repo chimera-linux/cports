@@ -166,11 +166,12 @@ def post_install(self):
     # oh boy, big cleanup time
 
     # put measure into libexec, we want it for ukify
-    self.rename(
-        "usr/lib/systemd/systemd-measure",
-        "usr/libexec/systemd-measure",
-        relative=False,
-    )
+    if _have_sd_boot:
+        self.rename(
+            "usr/lib/systemd/systemd-measure",
+            "usr/libexec/systemd-measure",
+            relative=False,
+        )
 
     # drop some more systemd bits
     for f in [
