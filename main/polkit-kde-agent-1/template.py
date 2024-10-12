@@ -1,7 +1,9 @@
 pkgname = "polkit-kde-agent-1"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
