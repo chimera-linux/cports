@@ -1,9 +1,0 @@
---- a/services/sddm-greeter.pam.in
-+++ b/services/sddm-greeter.pam.in
-@@ -14,4 +14,5 @@ password	required pam_deny.so
- 
- # Setup session
- session		required pam_unix.so
--session		optional @LOGIND_PAM_MODULE@
-+-session		optional pam_turnstile.so
-+-session		optional @LOGIND_PAM_MODULE@

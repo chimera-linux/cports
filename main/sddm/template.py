@@ -1,6 +1,6 @@
 pkgname = "sddm"
 pkgver = "0.21.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_MAN_PAGES=ON",
