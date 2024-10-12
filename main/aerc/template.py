@@ -1,7 +1,9 @@
 pkgname = "aerc"
 pkgver = "0.18.2"
-pkgrel = 4
+pkgrel = 5
 build_style = "makefile"
+make_build_args = ["LIBEXECDIR=/usr/lib/aerc"]
+make_install_args = [*make_build_args]
 make_check_target = "tests"
 hostmakedepends = [
     "go",
