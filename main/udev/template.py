@@ -157,11 +157,6 @@ def init_configure(self):
     self.configure_args.append(f"-Dtime-epoch={self.source_date_epoch}")
 
 
-def post_patch(self):
-    # the patch won't rename
-    self.mv("man/systemd-hwdb.xml", "man/udev-hwdb.xml")
-
-
 def post_install(self):
     # oh boy, big cleanup time
 

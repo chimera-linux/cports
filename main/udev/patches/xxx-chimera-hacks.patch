@@ -347,10 +347,13 @@ index a9a2a25..4ca0a31 100644
   ['systemd-id128', '1', [], ''],
   ['systemd-importd.service', '8', ['systemd-importd'], 'ENABLE_IMPORTD'],
   ['systemd-inhibit', '1', [], ''],
-diff --git a/man/systemd-hwdb.xml b/man/systemd-hwdb.xml
+diff --git a/man/systemd-hwdb.xml b/man/udev-hwdb.xml
+similarity index 80%
+rename from man/systemd-hwdb.xml
+rename to man/udev-hwdb.xml
 index 3c6feb2..080c82c 100644
 --- a/man/systemd-hwdb.xml
-+++ b/man/systemd-hwdb.xml
++++ b/man/udev-hwdb.xml
 @@ -3,34 +3,34 @@
    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
  <!-- SPDX-License-Identifier: LGPL-2.1-or-later -->
