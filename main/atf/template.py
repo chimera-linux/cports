@@ -1,7 +1,9 @@
 pkgname = "atf"
 pkgver = "0.21"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+# XXX drop libexec
+configure_args = ["--libexecdir=/usr/lib"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 pkgdesc = "Testing library"
 maintainer = "triallax <triallax@tutanota.com>"
