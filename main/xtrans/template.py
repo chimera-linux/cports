@@ -1,5 +1,5 @@
 pkgname = "xtrans"
-pkgver = "1.5.0"
+pkgver = "1.5.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "xorg-util-macros"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/xtrans-{pkgver}.tar.gz"
-sha256 = "a806f8a92f879dcd0146f3f1153fdffe845f2fc0df9b1a26c19312b7b0a29c86"
+sha256 = "8327cd270f3b91c66de9f9fd9069cebd77d0827c60dcde30ff8d9bec9224d8c5"
 hardening = ["vis", "cfi"]
 
 
