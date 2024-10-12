@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.47.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "asciidoc",
     "gettext",
@@ -37,6 +37,7 @@ def configure(self):
         cf.write(
             f"""
 prefix = /usr
+gitexecdir = /usr/lib/git-core
 CC = {self.get_tool("CC")}
 AR = {self.get_tool("AR")}
 TAR = tar
@@ -83,15 +84,15 @@ def install(self):
     # no install target
     self.install_file(
         "contrib/credential/libsecret/git-credential-libsecret",
-        "usr/libexec/git-core",
+        "usr/lib/git-core",
         mode=0o755,
     )
 
     # remove cvs for now
     self.uninstall("usr/bin/git-cvsserver")
-    self.uninstall("usr/libexec/git-core/git-cvsexportcommit")
-    self.uninstall("usr/libexec/git-core/git-cvsimport")
-    self.uninstall("usr/libexec/git-core/git-cvsserver")
+    self.uninstall("usr/lib/git-core/git-cvsexportcommit")
+    self.uninstall("usr/lib/git-core/git-cvsimport")
+    self.uninstall("usr/lib/git-core/git-cvsserver")
     self.uninstall("usr/share/man/man1/git-cvsexportcommit.1")
     self.uninstall("usr/share/man/man1/git-cvsimport.1")
     self.uninstall("usr/share/man/man1/git-cvsserver.1")
@@ -108,14 +109,14 @@ def install(self):
     )
 
     self.install_file(
-        "contrib/git-jump/git-jump", "usr/libexec/git-core", mode=0o755
+        "contrib/git-jump/git-jump", "usr/lib/git-core", mode=0o755
     )
     self.install_file(
         "contrib/git-jump/README", "usr/share/doc/git", name="git-jump"
     )
 
     # hardlink
-    p = self.destdir / "usr/libexec/git-core/git-citool"
+    p = self.destdir / "usr/lib/git-core/git-citool"
     self.rm(p)
     p.symlink_to("git-gui")
 
@@ -137,8 +138,8 @@ def _(self):
     self.subdesc = "GUI tool"
     self.license = "GPL-2.0-or-later"
     return [
-        "usr/libexec/git-core/git-gui*",
-        "usr/libexec/git-core/git-citool",
+        "usr/lib/git-core/git-gui*",
+        "usr/lib/git-core/git-citool",
         "usr/share/man/man1/git-gui.1",
         "usr/share/man/man1/git-citool.1",
         "usr/share/git-gui",
@@ -151,7 +152,7 @@ def _(self):
     self.install_if = [self.parent, "libsecret"]
     self.pkgdesc = "Git libsecret credential helper"
 
-    return ["usr/libexec/git-core/git-credential-libsecret"]
+    return ["usr/lib/git-core/git-credential-libsecret"]
 
 
 @subpackage("git-scalar")
@@ -161,7 +162,7 @@ def _(self):
 
     return [
         "usr/bin/scalar",
-        "usr/libexec/git-core/scalar",
+        "usr/lib/git-core/scalar",
     ]
 
 
@@ -173,6 +174,6 @@ def _(self):
 
     return [
         "usr/share/perl5/vendor_perl/Git/SVN*",
-        "usr/libexec/git-core/git-svn",
+        "usr/lib/git-core/git-svn",
         "usr/share/man/man1/git-svn.1",
     ]
