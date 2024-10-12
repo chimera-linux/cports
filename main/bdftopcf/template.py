@@ -1,5 +1,5 @@
 pkgname = "bdftopcf"
-pkgver = "1.1.1"
+pkgver = "1.1.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/util/bdftopcf-{pkgver}.tar.xz"
-sha256 = "11c953d53c0f3ed349d0198dfb0a40000b5121df7eef09f2615a262892fed908"
+sha256 = "bc60be5904330faaa3ddd2aed7874bee2f29e4387c245d6787552f067eb0523a"
 hardening = ["vis", "cfi"]
 
 
