@@ -1,9 +1,10 @@
 pkgname = "gjs"
 pkgver = "1.82.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # disable tests that need X/dbus
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dskip_dbus_tests=true",
     "-Dskip_gtk_tests=true",
     "-Dinstalled_tests=false",
@@ -35,6 +36,8 @@ options = ["!cross"]
 
 def post_install(self):
     self.install_license("COPYING")
+    # seemingly ignores the configure arg
+    self.uninstall("usr/lib/installed-tests")
 
 
 @subpackage("gjs-devel")
