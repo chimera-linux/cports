@@ -1,0 +1,14 @@
+--- a/Makefile.m4
++++ b/Makefile.m4
+@@ -184,9 +184,9 @@
+ #
+ # Linux section
+ #
+-CC	=gcc
++CC	?=gcc
+ CFLAGS	+=$(WARN) -O2 -D_REENTRANT
+-CXX	=g++
++CXX	?=g++
+ CXXFLAGS+=$(WARN) -O2 -fno-exceptions -D_REENTRANT
+ LDLIBS	=-lpthread
+ LINK.o	=$(LINK.cc)

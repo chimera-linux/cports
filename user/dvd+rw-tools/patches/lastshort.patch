@@ -1,0 +1,13 @@
+Patch-Source: https://gitweb.gentoo.org/repo/gentoo.git/commit/app-cdr/dvd+rw-tools/files/dvd+rw-tools-7.1-lastshort.patch?id=8f2938a48efdf12e2c766c2f7ea64b4de765466f
+--
+--- a/growisofs_mmc.cpp
++++ b/growisofs_mmc.cpp
+@@ -540,7 +540,7 @@ ssize_t poor_mans_pwrite64 (int fd,const
+ 	// own higher HZ value and disrespects the user-land one.
+ 	// Sending them down as milliseconds is just safer...
+ 	//
+-	if (!(errcode=cmd.transport (WRITE,(void *)buff,size)))
++	if (!(errcode=cmd.transport (WRITE,(void *)buff,nbl*2048)))
+ 	    break;
+ 
+ 	//--- WRITE failed ---//

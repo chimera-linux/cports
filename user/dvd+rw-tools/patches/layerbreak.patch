@@ -1,0 +1,98 @@
+Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/dvd-rw-tools/-/blob/8840627804fa08c799ae953c721ca83384b50d9e/dvd+rw-tools-7.1-layerbreaksetup.patch
+--
+diff --git a/growisofs.c b/growisofs.c
+index 6c47192..e04d108 100644
+--- a/growisofs.c
++++ b/growisofs.c
+@@ -535,7 +535,7 @@ typedef ssize_t (*pwrite64_t)(int,const void *,size_t,off64_t);
+  */
+ int        get_mmc_profile	(void *fd);
+ int        plusminus_r_C_parm	(void *fd,char *C_parm);
+-pwrite64_t poor_mans_setup	(void *fd,off64_t leadout);
++pwrite64_t poor_mans_setup	(void *fd,off64_t leadout,unsigned int lbreak);
+ char      *plusminus_locale	();
+ int        __1x			();
+ /*
+@@ -2447,7 +2447,7 @@ int builtin_dd (int infd,int outfd,off64_t outoff)
+ 			    goto out;
+ 			}
+ 			if (!progress.final) progress.final = tracksize;
+-			tracksize = layer_break*CD_BLOCK*2;
++			//tracksize = layer_break*CD_BLOCK*2;
+ 		    }
+ 		}
+ 		else if (capacity > outoff)
+@@ -2648,7 +2648,7 @@ int builtin_dd (int infd,int outfd,off64_t outoff)
+ 	 * further details on poor_mans_setup
+ 	 */
+ 	pwrite64_method = poor_mans_setup (ioctl_handle,
+-					   outoff+tracksize);
++					   outoff+tracksize, (unsigned int)layer_break);
+     }
+ 
+     if (!progress.final)
+diff --git a/growisofs_mmc.cpp b/growisofs_mmc.cpp
+index 782c65c..4c08032 100644
+--- a/growisofs_mmc.cpp
++++ b/growisofs_mmc.cpp
+@@ -1616,7 +1616,7 @@ static int minus_r_reserve_track (Scsi_Command &cmd,off64_t size)
+   return 0;
+ }
+ 
+-static void plus_r_dl_split (Scsi_Command &cmd,off64_t size)
++static void plus_r_dl_split (Scsi_Command &cmd,off64_t size,unsigned int lbreak)
+ { int           err;
+   unsigned int  blocks,split;
+   unsigned char dvd_20[4+8];
+@@ -1646,10 +1646,17 @@ static void plus_r_dl_split (Scsi_Command &cmd,off64_t size)
+     if (blocks <= split)
+ 	fprintf (stderr,":-? more than 50%% of space will be *wasted*!\n");
+ 
+-    blocks /= 16;
+-    blocks += 1;
+-    blocks /= 2;
+-    blocks *= 16;
++    if (lbreak)
++      {
++	blocks=lbreak;
++      }
++    else
++      {
++	blocks /= 16;
++	blocks += 1;
++	blocks /= 2;
++	blocks *= 16;
++      }
+ 
+     fprintf (stderr,"%s: splitting layers at %u blocks\n",
+ 		    ioctl_device,blocks);
+@@ -2012,7 +2019,7 @@ void ram_reload ()
+ typedef ssize_t (*pwrite64_t)(int,const void *,size_t,off64_t);
+ 
+ extern "C"
+-pwrite64_t poor_mans_setup (void *fd,off64_t leadout)
++pwrite64_t poor_mans_setup (void *fd,off64_t leadout,unsigned int lbreak)
+ { Scsi_Command cmd(ioctl_handle=fd);
+   int err,profile=mmc_profile&0xFFFF;
+ 
+@@ -2061,7 +2068,7 @@ pwrite64_t poor_mans_setup (void *fd,off64_t leadout)
+ 	case 0x2B:	// DVD+R Double Layer
+ 	    plusminus_pages_setup(cmd,profile);
+ 	    if (profile==0x2B && next_track==1 && dvd_compat && leadout)
+-		plus_r_dl_split (cmd,leadout);
++	      plus_r_dl_split (cmd,leadout,lbreak);
+ 	    atexit (plus_r_finalize);
+ 	    if (next_wr_addr)
+ 	    {	atsignals (no_r_finalize);
+diff --git a/transport.hxx b/transport.hxx
+index 7eac29b..7027538 100644
+--- a/transport.hxx
++++ b/transport.hxx
+@@ -9,6 +9,7 @@
+ #if defined(__unix) || defined(__unix__)
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <limits.h>
+ #include <unistd.h>
+ #include <string.h>
+ #include <sys/types.h>

@@ -1,0 +1,79 @@
+Patch-Source: https://gitweb.gentoo.org/repo/gentoo.git/commit/app-cdr/dvd+rw-tools/files/dvd+rw-tools-7.1-clang.patch?id=116f8966c17e6ed5d5fe426a6ace8fb0ac416632
+--
+diff --git a/dvd+rw-booktype.cpp b/dvd+rw-booktype.cpp
+index eede94a..84024c4 100644
+--- a/dvd+rw-booktype.cpp
++++ b/dvd+rw-booktype.cpp
+@@ -146,7 +146,7 @@ int ricoh (Scsi_Command &cmd,int action,int book,int gen=2)
+ 		break;
+ 	case OPT_MEDIA:
+ 		if (profile!=0x1A)
+-		{   fprintf (stderr,":-( action is applicable to DVD+RW only\n");
++		{   fprintf (stderr,":-( action is applicable to DVD\xb1RW only\n");
+ 		    break;
+ 		}
+ 		if (book != 0x92 && book != 0x01)
+@@ -759,7 +759,7 @@ int main(int argc,char *argv[])
+ 	    }
+ 	}
+ 
+-	delete list;
++	delete[] list;
+     }
+ 
+     profile=buf[6]<<8|buf[7];
+diff --git a/dvd+rw-mediainfo.cpp b/dvd+rw-mediainfo.cpp
+index e73c8ab..2f0a9b3 100644
+--- a/dvd+rw-mediainfo.cpp
++++ b/dvd+rw-mediainfo.cpp
+@@ -621,7 +621,7 @@ legacy:
+ 	if (phys_end>0)	phys_end -= phys_start;
+ 	if (phys_end>0) phys_end += 1;
+ 
+-	printf (" %s    %u*2KB=%"LLU"\n",
++	printf (" %s    %u*2KB=%" LLU "\n",
+ 		dvd_dash>=0?"Legacy lead-out at:":"Last border-out at:",
+ 		phys_end,phys_end*2048LL);
+ 
+@@ -941,14 +941,14 @@ legacy:
+ 	    printf(" %s:\t\t%u*%u=",type[formats[8]&3],
+ 	        capacity=formats[4]<<24|formats[5]<<16|formats[6]<<8|formats[7],
+ 		blocksize);
+-	    printf("%"LLU"\n",(unsigned long long)capacity*blocksize);
++	    printf("%" LLU "\n",(unsigned long long)capacity*blocksize);
+ 
+ 	    for(i=12;i<len;i+=8)
+ 	    {	printf(" %02Xh(%x):\t\t%u*%u=",formats[i+4]>>2,
+ 			formats[i+5]<<16|formats[i+6]<<8|formats[i+7],
+ 	    		capacity=formats[i]<<24|formats[i+1]<<16|formats[i+2]<<8|formats[i+3],
+ 			blocksize);
+-		printf("%"LLU"\n",(unsigned long long)capacity*blocksize);
++		printf("%" LLU "\n",(unsigned long long)capacity*blocksize);
+ 	    }
+ 	    break;
+ 	}
+@@ -1121,7 +1121,7 @@ legacy:
+ 	if (ccity) ccity++;
+ 	bsize = header[4]<<24|header[5]<<16|header[6]<<8|header[7];
+ 
+-	printf ("READ CAPACITY:          %u*%u=%"LLU"\n",
++	printf ("READ CAPACITY:          %u*%u=%" LLU "\n",
+ 					ccity,bsize,
+ 					(unsigned long long)ccity*bsize);
+     } while (0);
+diff --git a/transport.hxx b/transport.hxx
+index 35a57a7..7eac29b 100644
+--- a/transport.hxx
++++ b/transport.hxx
+@@ -126,9 +126,9 @@ extern "C" char *plusminus_locale()
+ 	char str[4];
+     public:
+ 	__plusminus()	{   setlocale(LC_CTYPE,ENV_LOCALE);
+-			    int l = wctomb(str,(wchar_t)(unsigned char)'±');
++			    int l = wctomb(str,(wchar_t)'\x1b');
+ 			    if (l>0)	str[l]='\0';
+-			    else	str[0]='±',str[1]='\0';
++			    else	str[0]='\x1b',str[1]='\0';
+ 			}
+ 	~__plusminus()	{ }
+ 	operator char*(){ return str; }
