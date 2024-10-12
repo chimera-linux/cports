@@ -1,13 +1,12 @@
 pkgname = "qutebrowser"
-pkgver = "3.2.1"
-pkgrel = 1
+pkgver = "3.3.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "asciidoc",
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 depends = [
     "pdfjs",
@@ -29,7 +28,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-only"
 url = "https://qutebrowser.org"
 source = f"https://github.com/qutebrowser/qutebrowser/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c062782d35b49d085f9b44cedeb85dc7af83c11a23884e634c84bbd3865f7186"
+sha256 = "83d3a3b192f4329c94e5664047de847e33649b2969f459de9b519aed18c26cbd"
 # not worth it
 options = ["!check"]
 
