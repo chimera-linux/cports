@@ -1,8 +1,10 @@
 pkgname = "dhcpcd"
 pkgver = "10.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
+# XXX drop libexec
 configure_args = [
+    "--libexecdir=/usr/lib",
     "--prefix=/usr",
     "--sbindir=/usr/bin",
     "--sysconfdir=/etc",
