@@ -1,6 +1,6 @@
 pkgname = "swayimg"
-pkgver = "3.2"
-pkgrel = 1
+pkgver = "3.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     f"-Dversion={pkgver}",
@@ -25,6 +25,7 @@ makedepends = [
     "libtiff-devel",
     "libwebp-devel",
     "libxkbcommon-devel",
+    "openexr-devel",
     "wayland-devel",
 ]
 pkgdesc = "Image viewer for sway/wayland"
@@ -32,7 +33,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/artemsen/swayimg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8253cf21f4c5e1edba6e13698b3583a3467a129b58a81ac490ad920fdabfdd9b"
+sha256 = "1453aca5dba7c05057b58dee26b454eb3319fa3f9ac31047afd3ab1effc2a0a9"
 
 
 def post_install(self):
