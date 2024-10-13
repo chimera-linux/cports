@@ -1,5 +1,5 @@
 pkgname = "waycheck"
-pkgver = "1.3.1"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -13,4 +13,4 @@ maintainer = "cassiofb-dev <contact@cassiofernando.com>"
 license = "Apache-2.0"
 url = "https://gitlab.freedesktop.org/serebit/waycheck"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "b8dce84a1bc9c54e08148c81e715398a0699bf186eb2592c83216bb87d0d973d"
+sha256 = "0dd64dd2521bb41579cb7dcb249d9ccf90119ea6ece107ebb3ea452dd0a610c9"
