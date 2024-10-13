@@ -1,6 +1,6 @@
 pkgname = "inkscape"
-pkgver = "1.3.2"
-pkgrel = 14
+pkgver = "1.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -33,7 +33,6 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libomp-devel",
     "librevenge-devel",
-    "libsoup-devel",
     "libvisio-devel",
     "libwpg-devel",
     "libxml2-devel",
@@ -58,7 +57,7 @@ url = "https://inkscape.org"
 source = (
     f"https://media.inkscape.org/dl/resources/file/inkscape-{pkgver}.tar.xz"
 )
-sha256 = "dbd1844dc443fe5e10d3e9a887144e5fb7223852fff191cfb5ef7adeab0e086b"
+sha256 = "c59a85453b699addebcd51c1dc07684dd96a10c8aec716b19551db50562e13f5"
 # TODO
 hardening = ["!int"]
 # long, heavy, etc
