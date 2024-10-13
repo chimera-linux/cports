@@ -1,0 +1,13 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -186,8 +186,8 @@
+ AC_PREFIX_DEFAULT([/usr])
+ test "x$prefix" = "xNONE" && prefix="/usr"
+ test "x$exec_prefix" = "xNONE" && exec_prefix="${prefix}"
+-AC_SUBST([root_sbindir], [/sbin])
+-AC_SUBST([sbindir], [${exec_prefix}/sbin])
++AC_SUBST([root_sbindir], [/usr/bin])
++AC_SUBST([sbindir], [/usr/bin])
+ AC_SUBST([sysconfdir], [/etc])
+ AC_SUBST([localstatedir], [/var])
+ 
