@@ -1,6 +1,6 @@
 pkgname = "7zip"
 pkgver = "24.08"
-pkgrel = 0
+pkgrel = 1
 # Alone2: CLI with all format support
 build_wrksrc = "CPP/7zip/Bundles/Alone2"
 build_style = "makefile"
@@ -19,6 +19,19 @@ url = "https://7-zip.org"
 source = f"https://7-zip.org/a/7z{pkgver.replace('.', '')}-src.tar.xz"
 sha256 = "aa04aac906a04df59e7301f4c69e9f48808e6c8ecae4eb697703a47bfb0ac042"
 hardening = ["vis", "!cfi"]
+
+
+match self.profile().arch:
+    # TODO: there is an aarch64 file too
+    # TODO: yoink the aur meson.build and just replace the whole build system, this is way too cursed
+    case "x86_64":
+        hostmakedepends = ["uasm"]
+        # this makes unpacking a 7z up to 3-4x faster
+        make_build_args += [
+            "IS_X64=1",
+            "MY_ASM=uasm",
+            "USE_ASM=1",
+        ]
 
 
 def init_build(self):
