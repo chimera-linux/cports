@@ -134,14 +134,19 @@ def register_hooks():
             hooks[stepn].sort(key=lambda v: v[1])
 
 
-def _restricted_importer(name, globs=None, locs=None, froml=(), level=0):
+def _restricted_importer(name, globals=None, locals=None, fromlist=(), level=0):
     # a silly way to check if the import is inside the template :)
-    if globs and "pkgname" in globs and "pkgver" in globs and "pkgrel" in globs:
+    if (
+        globals
+        and "pkgname" in globals
+        and "pkgver" in globals
+        and "pkgrel" in globals
+    ):
         if name != "cbuild.util":
             raise ImportError(
                 f"only modules from cbuild.util allowed in template (got: '{name}')"
             )
-    return importlib.__import__(name, globs, locs, froml, level)
+    return importlib.__import__(name, globals, locals, fromlist, level)
 
 
 def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
