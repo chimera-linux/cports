@@ -4,7 +4,8 @@ import shlex
 
 def _get_lld_cpuargs(lthreads):
     return [
-        f"--threads={lthreads}",
+        # lld does not gain any non-lto benefit past 16, and is only slower
+        f"--threads={min(lthreads, 16)}",
         f"--thinlto-jobs={lthreads}",
     ]
 
