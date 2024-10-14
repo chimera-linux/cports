@@ -1,5 +1,5 @@
 pkgname = "lagrange"
-pkgver = "1.18.2"
+pkgver = "1.18.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -32,7 +32,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://gmi.skyjake.fi/lagrange"
 source = f"https://github.com/skyjake/lagrange/releases/download/v{pkgver}/lagrange-{pkgver}.tar.gz"
-sha256 = "12589f8df485f35506ebdc3bfe298227db2f6e8f289ca49a1ba522368b94477b"
+sha256 = "c432e2f4dd35a6cee0f4d5a77974708ec6fed76bc13cc630bb50650acec87e62"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 hardening = ["vis", "!cfi"]
 
