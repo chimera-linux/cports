@@ -1,0 +1,12 @@
+--- a/mozilla/Makefile
++++ b/mozilla/Makefile
+@@ -3,7 +3,8 @@
+ #
+ 
+ all:
+-	python3 certdata2pem.py
++	./certdata2pem
++	./remove-expired-certs.sh
+ 
+ clean:
+ 	-rm -f *.crt

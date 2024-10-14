@@ -133,18 +133,15 @@ def _(self):
     self.depends = [self.parent]
 
     def install():
-        import os
-
         self.take("cmd:python*-config")
         self.take("lib:*.a")
         self.take("usr/lib/pkgconfig")
-        self.take("usr/include")
-        pypath = "usr/include/python" + _majver
-        os.makedirs(self.parent.destdir / pypath)
-        os.rename(
-            self.destdir / pypath / "pyconfig.h",
-            self.parent.destdir / pypath / "pyconfig.h",
-        )
+        for f in (
+            self.parent.destdir / f"usr/include/python{_majver}"
+        ).iterdir():
+            if f.name == "pyconfig.h":
+                continue
+            self.take(str(f.relative_to(self.parent.destdir)))
 
     return install
 

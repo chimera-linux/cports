@@ -26,7 +26,6 @@ options = ["!check", "keepempty", "brokenlinks"]
 
 def post_patch(self):
     from cbuild.util import compiler
-    import re
 
     self.cp(self.files_path / "certdata2pem.c", ".")
     with self.profile("host"):
@@ -34,19 +33,6 @@ def post_patch(self):
         cc.invoke(["certdata2pem.c"], "mozilla/certdata2pem")
 
     self.cp(self.files_path / "remove-expired-certs.sh", "mozilla")
-
-    with open(self.cwd / "mozilla/Makefile", "r") as ifile:
-        with open(self.cwd / "mozilla/Makefile.new", "w") as ofile:
-            for ln in ifile:
-                ln = ln.replace("python3 certdata2pem.py", "./certdata2pem")
-                ln = re.sub(
-                    "(.*)(certdata2pem.*)",
-                    "\\1\\2\n\\1./remove-expired-certs.sh",
-                    ln,
-                )
-                ofile.write(ln)
-
-    self.mv("mozilla/Makefile.new", "mozilla/Makefile")
 
 
 def pre_install(self):

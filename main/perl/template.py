@@ -131,21 +131,6 @@ def post_install(self):
     for f in self.destdir.rglob(".packlist"):
         f.unlink()
 
-    import re
-    import os
-
-    cfpath = self.destdir / "usr/lib/perl5/core_perl/Config_heavy.pl"
-    with open(cfpath) as ifile:
-        with open(self.cwd / "Config_heavy.pl.new", "w") as ofile:
-            for ln in ifile:
-                ln = re.sub("-specs=.*hardened-ld", "", ln)
-                ln = re.sub("-specs=.*hardened-cc1", "", ln)
-                ofile.write(ln)
-
-    cfpath.unlink()
-    os.rename(self.cwd / "Config_heavy.pl.new", cfpath)
-    cfpath.chmod(0o644)
-
     # convert hardlinks
     hf = self.destdir / "usr/share/man/man1/perlthanks.1p"
     hf.unlink()
