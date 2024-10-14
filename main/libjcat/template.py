@@ -1,6 +1,6 @@
 pkgname = "libjcat"
-pkgver = "0.2.1"
-pkgrel = 1
+pkgver = "0.2.2"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "gnutls-progs",
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libjcat"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "f623815ac855471277dc9d1b3b5ada1a9aaad6da67659c751dc3dec899dc2658"
+sha256 = "60fb1d30b16ba1a2dbf48998094d366bc94a082846b71decf9d6ac6bb6aa4800"
 options = ["!cross"]
 
 
