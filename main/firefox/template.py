@@ -6,6 +6,7 @@ hostmakedepends = [
     "cargo",
     "cbindgen",
     "clang-devel",
+    "dbus",
     "gettext",
     "libtool",
     "llvm-devel",
@@ -200,6 +201,8 @@ def configure(self):
             for d in self.cwd.glob("obj-*"):
                 ldp = self.chroot_cwd / d.name / "dist/firefox"
             self.do(
+                "dbus-run-session",
+                "--",
                 "xvfb-run",
                 "-s",
                 "-screen 0 1920x1080x24",
