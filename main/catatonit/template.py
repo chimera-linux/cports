@@ -1,10 +1,10 @@
 pkgname = "catatonit"
 pkgver = "0.2.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
-    "libtool",
+    "slibtool",
 ]
 # copied into containers so has to be static to work
 makedepends = [
@@ -22,5 +22,5 @@ hardening = ["vis", "cfi"]
 
 
 def post_install(self):
-    self.install_dir("usr/libexec/podman")
-    self.install_link("usr/libexec/podman/catatonit", "../../bin/catatonit")
+    self.install_dir("usr/lib/podman")
+    self.install_link("usr/lib/podman/catatonit", "../../bin/catatonit")
