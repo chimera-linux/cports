@@ -1,5 +1,5 @@
 pkgname = "systemsettings"
-pkgver = "6.2.0"
+pkgver = "6.2.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -35,6 +35,6 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://userbase.kde.org/System_Settings"
 source = f"$(KDE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"
-sha256 = "6b4675edd4717f7ca88d17700696c38873ff46b3f9063ecfa7cc207eb04ebae0"
+sha256 = "1e0065d9e0006e702f3260346d716e8de264c954371dcc3ef75a8126738075b3"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 hardening = ["vis"]

@@ -1,5 +1,5 @@
 pkgname = "kpipewire"
-pkgver = "6.2.0"
+pkgver = "6.2.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -25,7 +25,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kpipewire"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kpipewire-{pkgver}.tar.xz"
-sha256 = "72c07e6c6608b6c5eaa2460d975bf9047489651fb05de5e5b540876529f425b0"
+sha256 = "1675e2f06e20661a5d77400533d552a32a2d6dcc2d9eda02bca8e5adbbc243c8"
 hardening = ["vis"]
 # only available test needs running pipewire
 options = ["!check"]

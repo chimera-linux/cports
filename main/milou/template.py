@@ -1,5 +1,5 @@
 pkgname = "milou"
-pkgver = "6.2.0"
+pkgver = "6.2.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,5 +22,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://api.kde.org/plasma/milou/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/milou-{pkgver}.tar.xz"
-sha256 = "b1f1b4e13fb40476531b3a63e766a23ef7794de1b8620242b4c51ab445f9b1c5"
+sha256 = "715c10ac3d1ef4c6cd630aeb96a5ac21f912039a9b2dbe7f1abcf3793d0f8cd2"
 hardening = ["vis"]
