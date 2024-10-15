@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/lightdm
+depends-on = login.target
+depends-on = dbus
+depends-ms = elogind
+depends-ms = openrc-settingsd
+smooth-recovery = true
