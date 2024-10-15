@@ -1,6 +1,6 @@
 pkgname = "openpgl"
 pkgver = "0.7.0"
-pkgrel = 0
+pkgrel = 1
 # others unsupported
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"

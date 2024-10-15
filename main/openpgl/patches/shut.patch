@@ -1,0 +1,12 @@
+https://github.com/RenderKit/openpgl/issues/19
+--
+--- a/openpgl/data/PathSegmentDataStorage.h
++++ b/openpgl/data/PathSegmentDataStorage.h
+@@ -295,7 +295,6 @@
+                         {
+                             if (contribution[0] > 0.f || contribution[1] > 0.f || contribution[2] > 0.f)
+                             {
+-                                std::cout << "scateredContribution" << std::endl;
+                             }
+                             else
+                             {
