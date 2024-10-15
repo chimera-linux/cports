@@ -1,12 +1,13 @@
 # TODO: service files, cleanup
 pkgname = "samba"
 pkgver = "4.21.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
     "--enable-fhs",
     "--sbindir=/usr/bin",
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--localstatedir=/var",
     "--sysconfdir=/etc",
     "--with-piddir=/run/samba",
@@ -146,8 +147,8 @@ def _(self):
         "usr/bin/samba-tool",
         "usr/bin/smbpasswd",
         "usr/bin/testparm",
-        "usr/libexec/samba/rpcd_*",
-        "usr/libexec/samba/samba-dcerpcd",
+        "usr/lib/samba/rpcd_*",
+        "usr/lib/samba/samba-dcerpcd",
         "usr/share/man/man1/dbwrap_tool.1",
         "usr/share/man/man1/nmblookup.1",
         "usr/share/man/man1/testparm.1",
@@ -283,7 +284,7 @@ def _(self):
         "usr/bin/smbtree",
         "usr/bin/wspsearch",
         "usr/lib/cups/backend/smb",
-        "usr/libexec/samba/smbspool_krb5_wrapper",
+        "usr/lib/samba/smbspool_krb5_wrapper",
         "usr/share/man/man1/mdsearch.1",
         "usr/share/man/man1/rpcclient.1",
         "usr/share/man/man1/smbcacls.1",
@@ -352,7 +353,7 @@ def _(self):
         "usr/bin/ping_pong",
         "usr/lib/libctdb-event-client-private-samba.so",
         "usr/lib/libtalloc-report-private-samba.so",
-        "usr/libexec/ctdb",
+        "usr/lib/ctdb",
         "usr/share/ctdb",
         "usr/share/man/man1/ctdb*.1",
         "usr/share/man/man1/ltdbtool.1",
