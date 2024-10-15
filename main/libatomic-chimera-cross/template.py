@@ -1,6 +1,6 @@
 pkgname = "libatomic-chimera-cross"
 pkgver = "0.90.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 makedepends = ["musl-cross"]
 depends = ["musl-cross"]
@@ -40,13 +40,19 @@ def build(self):
             at = pf.triplet
             with self.stamp(f"{an}_build"):
                 self.cp("build", f"build-{an}", recursive=True)
+                eflags = []
+                eldflags = ["--unwindlib=none", "-nostdlib"]
+                if an == "aarch64":
+                    # avoid emitting dependencies on builtins
+                    eflags += ["-mno-outline-atomics"]
+                cfl = self.get_cflags(shell=True, extra_flags=eflags)
+                ldfl = self.get_ldflags(shell=True, extra_flags=eldflags)
                 self.make.build(
                     [
                         f"CC=clang -target {at} --sysroot /usr/{at}",
                         "PREFIX=/usr",
-                        "CFLAGS=" + self.get_cflags(shell=True),
-                        "LDFLAGS=--unwindlib=none -nostdlib "
-                        + self.get_ldflags(shell=True),
+                        f"CFLAGS={cfl}",
+                        f"LDFLAGS={ldfl}",
                         "AR=" + self.tools["AR"],
                     ],
                     wrksrc=self.chroot_cwd / f"build-{an}",
