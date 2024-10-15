@@ -1,6 +1,6 @@
 pkgname = "ispc"
 pkgver = "1.25.0"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
@@ -22,8 +22,8 @@ pkgdesc = "Implicit SPMD program compiler"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://ispc.github.io"
-source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "660b17fb6d5a6db5f5dee69189e60d00ddfee950e31f41a64903a7c46aae0ece"
+source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz>lol-2.tar.gz"
+sha256 = "e216e6818302d51815ac72768b1d5506190517f5f0c3b9426fd56f4bc00ebdf1"
 
 
 def post_install(self):
