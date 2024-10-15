@@ -1,8 +1,9 @@
 pkgname = "fwupd"
 pkgver = "2.0.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddefault_library=shared",
     "-Ddocs=disabled",
     "-Defi_binary=false",
@@ -94,7 +95,7 @@ def post_install(self):
     )
     # nuke installed tests
     self.uninstall("usr/share/fwupd/remotes.d/fwupd-tests.conf")
-    self.uninstall("usr/libexec/installed-tests")
+    self.uninstall("usr/lib/installed-tests")
     self.uninstall("usr/share/fwupd/device-tests")
     self.uninstall("usr/share/installed-tests")
 
