@@ -99,6 +99,7 @@ def configure(pkg, build_dir, meson_dir=None, extra_args=[], env={}):
         "-Ddefault_library=both",
         "-Dwerror=false",
         "-Db_staticpic=true",
+        "-Dpkgconfig.relocatable=false",
         "-Dpython.bytecompile=0",
         *cargs,
         *extra_args,
