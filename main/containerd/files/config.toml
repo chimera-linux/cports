@@ -1,6 +1,6 @@
 # output of containerd config default
 # rewrites:
-# /opt -> /usr/libexec
+# /opt -> /usr/lib
 # /var/run -> /run
 
 disabled_plugins = []
@@ -80,7 +80,7 @@ version = 2
     unset_seccomp_profile = ""
 
     [plugins."io.containerd.grpc.v1.cri".cni]
-      bin_dir = "/usr/libexec/cni/bin"
+      bin_dir = "/usr/lib/cni/bin"
       conf_dir = "/etc/cni/net.d"
       conf_template = ""
       ip_pref = ""
@@ -179,7 +179,7 @@ version = 2
       tls_key_file = ""
 
   [plugins."io.containerd.internal.v1.opt"]
-    path = "/usr/libexec/containerd"
+    path = "/usr/lib/containerd"
 
   [plugins."io.containerd.internal.v1.restart"]
     interval = "10s"
@@ -196,7 +196,7 @@ version = 2
     disable = true
     disable_connections = false
     plugin_config_path = "/etc/nri/conf.d"
-    plugin_path = "/usr/libexec/nri/plugins"
+    plugin_path = "/usr/lib/nri/plugins"
     plugin_registration_timeout = "5s"
     plugin_request_timeout = "2s"
     socket_path = "/run/nri/nri.sock"
