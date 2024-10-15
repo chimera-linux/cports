@@ -1,6 +1,6 @@
 pkgname = "fwupd"
-pkgver = "2.0.0"
-pkgrel = 2
+pkgver = "2.0.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -57,7 +57,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "6957160bd6fb8f4e126f538d387f3b5fe8a591440fae3ec7a793fee31ffd5e81"
+sha256 = "2266ed0f655e3268221a0f8bd34ab41e1e80b9092978b86fc080e59268b01486"
 options = ["!cross"]
 
 _have_uefi = False
