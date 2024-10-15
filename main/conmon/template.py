@@ -1,7 +1,10 @@
 pkgname = "conmon"
 pkgver = "2.1.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+]
 hostmakedepends = [
     "go-md2man",
     "meson",
@@ -25,4 +28,10 @@ def post_build(self):
 
 
 def post_install(self):
+    # the default containers-common config paths that podman and friends use
+    # check /usr/libexec/podman hardcoded, but also /usr/bin is in the path.
+    # so just link it, i guess... maybe this should be fixed by adding /usr/lib/
+    # podman somehow to that path, as for all the other non-conmon stuff it does
+    self.install_dir("usr/bin")
+    self.install_link("usr/bin/conmon", "../lib/podman/conmon")
     self.install_man("docs/conmon.8")
