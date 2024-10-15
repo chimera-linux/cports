@@ -1,8 +1,11 @@
 pkgname = "seahorse"
 pkgver = "47.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-configure_args = ["-Dmanpage=true"]
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+    "-Dmanpage=true",
+]
 hostmakedepends = [
     "desktop-file-utils",
     "docbook-xsl-nons",
