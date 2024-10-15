@@ -1,6 +1,6 @@
 pkgname = "cni-plugins"
-pkgver = "1.5.1"
-pkgrel = 6
+pkgver = "1.6.0"
+pkgrel = 0
 hostmakedepends = ["bash", "go"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standard CNI plugins for containers"
@@ -8,7 +8,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://www.cni.dev"
 source = f"https://github.com/containernetworking/plugins/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a2eff5f064f809ee41f8f49ef8aed1f0a4093c0c772f2ce2caaee4e6f395050a"
+sha256 = "c7e994a755960ab8922c65d7bdbb26d1781a3afe90b9b688010c5e8636b95980"
 # can't run tests inside namespaces
 options = ["!check"]
 
@@ -35,4 +35,4 @@ def build(self):
 
 
 def install(self):
-    self.install_file("bin/*", "usr/libexec/cni", glob=True)
+    self.install_file("bin/*", "usr/lib/cni", glob=True)
