@@ -1,16 +1,16 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index c40627e..6e16156 100644
+index d73f836..d3400c8 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1160,6 +1160,7 @@ checksum = "324a1be68054ef05ad64b861cc9eaf1d623d2d8cb25b4bf2cb9cdd902b4bf253"
+@@ -1079,6 +1079,7 @@ checksum = "a1b589b4dc103969ad3cf85c950899926ec64300a1a46d76c03a6072957036f0"
  dependencies = [
   "crc32fast",
   "libz-ng-sys",
 + "libz-sys",
-  "miniz_oxide 0.8.0",
+  "miniz_oxide",
  ]
  
-@@ -1954,6 +1955,17 @@ dependencies = [
+@@ -1835,6 +1836,17 @@ dependencies = [
   "libc",
  ]
  
@@ -28,7 +28,7 @@ index c40627e..6e16156 100644
  [[package]]
  name = "linked-hash-map"
  version = "0.5.6"
-@@ -5362,6 +5374,12 @@ version = "0.1.0"
+@@ -5279,6 +5291,12 @@ version = "0.1.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
  
@@ -42,10 +42,10 @@ index c40627e..6e16156 100644
  name = "version_check"
  version = "0.9.5"
 diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
-index 2efd2b0..c3b3e74 100644
+index c75189b..e23193f 100644
 --- a/crates/uv/Cargo.toml
 +++ b/crates/uv/Cargo.toml
-@@ -113,7 +113,7 @@ ignored = [
+@@ -115,7 +115,7 @@ ignored = [
  ]
  
  [features]
