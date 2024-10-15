@@ -1,6 +1,6 @@
 pkgname = "modemmanager"
 pkgver = "1.22.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Ddbus_policy_dir=/usr/share/dbus-1/system.d",
