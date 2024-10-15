@@ -25,7 +25,7 @@ def _(self):
     self.pkgdesc = "DBus interface to dinit"
     return [
         "cmd:dinit-dbus",
-        "etc/dinit.d",
+        "usr/lib/dinit.d",
         "usr/share/dbus-1",
     ]
 

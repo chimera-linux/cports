@@ -64,8 +64,8 @@ def _(self):
     self.subdesc = "headless daemon"
 
     return [
-        "etc/dinit.d",
         "usr/bin/qbittorrent-nox",
+        "usr/lib/dinit.d",
         "usr/lib/sysusers.d",
         "usr/lib/tmpfiles.d",
         "usr/share/man/man1/qbittorrent-nox.1",

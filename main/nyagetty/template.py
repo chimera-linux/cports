@@ -68,7 +68,7 @@ def post_install(self):
     self.install_service(self.files_path / "agetty", enable=True)
     # generate services for individual gettys
     for name, baud in _ttys:
-        svpath = self.destdir / f"etc/dinit.d/agetty-{name}"
+        svpath = self.destdir / f"usr/lib/dinit.d/agetty-{name}"
         with open(svpath, "w") as sv:
             if baud is None:
                 cmd = f"agetty-default {name}"
@@ -99,4 +99,4 @@ def _(self):
     self.depends = [self.parent, "dinit-chimera"]
     self.install_if = [self.parent, "dinit-chimera"]
 
-    return ["etc/dinit.d/agetty*", "usr/libexec/dinit-agetty"]
+    return ["usr/lib/dinit.d/agetty*", "usr/libexec/dinit-agetty"]

@@ -80,12 +80,6 @@ def _(self):
     self.depends = [self.parent]
 
     return [
-        "etc/dinit.d/fsidd",
-        "etc/dinit.d/blkmapd",
-        "etc/dinit.d/nfs-server",
-        "etc/dinit.d/nfsdcld",
-        "etc/dinit.d/rpc.mountd",
-        "etc/dinit.d/rpc.svcgssd",
         "usr/bin/nfsdcld",
         "usr/bin/rpc.mountd",
         "usr/bin/fsidd",
@@ -97,6 +91,12 @@ def _(self):
         "usr/bin/nfsref",
         "usr/bin/nfsdcltrack",
         "usr/bin/exportfs",
+        "usr/lib/dinit.d/fsidd",
+        "usr/lib/dinit.d/blkmapd",
+        "usr/lib/dinit.d/nfs-server",
+        "usr/lib/dinit.d/nfsdcld",
+        "usr/lib/dinit.d/rpc.mountd",
+        "usr/lib/dinit.d/rpc.svcgssd",
         "usr/libexec/dinit-nfs-server",
         "usr/libexec/dinit-proc-fs-nfsd",
         "usr/share/man/man5/exports.5",

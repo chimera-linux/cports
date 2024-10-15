@@ -126,11 +126,11 @@ def _(self):
     self.pkgdesc = "Heimdal Key Distribution Center"
 
     return [
-        "etc/dinit.d/heimdal-kadmind",
-        "etc/dinit.d/heimdal-kdc",
-        "etc/dinit.d/heimdal-kpasswdd",
         "usr/bin/iprop-log",
         "usr/bin/kstash",
+        "usr/lib/dinit.d/heimdal-kadmind",
+        "usr/lib/dinit.d/heimdal-kdc",
+        "usr/lib/dinit.d/heimdal-kpasswdd",
         "usr/libexec/digest-service",
         "usr/libexec/hprop",
         "usr/libexec/hpropd",

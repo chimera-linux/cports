@@ -253,7 +253,7 @@ def _(self):
                 f"../../{pkgname}/man/man7/{f.name}",
             )
         # service
-        self.make_link("etc/dinit.d/postgresql", pkgname)
+        self.make_link("usr/lib/dinit.d/postgresql", pkgname)
 
     return _links
 

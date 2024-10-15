@@ -47,7 +47,7 @@ def _(self):
     self.subdesc = "wg-quick script"
 
     return [
-        "etc/dinit.d/wg-quick-all",
+        "usr/lib/dinit.d/wg-quick-all",
         "usr/bin/wg-quick",
         "usr/libexec/wg-quick-all",
         "usr/share/bash-completion/**/wg-quick",

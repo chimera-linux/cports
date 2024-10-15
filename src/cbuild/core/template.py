@@ -2112,7 +2112,7 @@ class Template(Package):
         src = _subst_path(self, src)
         if src.suffix == ".user":
             svname = name or src.with_suffix("").name
-            self.install_file(src, "etc/dinit.d/user", name=svname)
+            self.install_file(src, "usr/lib/dinit.d/user", name=svname)
             if enable:
                 self.install_dir("usr/lib/dinit.d/user/boot.d")
                 self.install_link(
@@ -2120,7 +2120,7 @@ class Template(Package):
                 )
         else:
             svname = name or src.name
-            self.install_file(src, "etc/dinit.d", name=svname)
+            self.install_file(src, "usr/lib/dinit.d", name=svname)
             if enable:
                 self.install_dir("usr/lib/dinit.d/boot.d")
                 self.install_link(
@@ -2239,7 +2239,7 @@ autopkgs = [
         "dinit",
         "service files",
         "dinit-chimera",
-        lambda p: p.take("etc/dinit.d", missing_ok=True),
+        lambda p: p.take("usr/lib/dinit.d", missing_ok=True),
     ),
     # foo-dinit-links installs if foo-dinit installs
     ("dinit-links", "service links", "-dinit", _split_dlinks),

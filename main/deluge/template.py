@@ -75,8 +75,8 @@ def _(self):
     self.depends = [self.parent]
 
     return [
-        "etc/dinit.d/deluge-web",
         "usr/bin/deluge-web",
+        "usr/lib/dinit.d/deluge-web",
         "usr/lib/python3*/site-packages/deluge/ui/web",
         "usr/share/man/man1/deluge-web.1",
     ]

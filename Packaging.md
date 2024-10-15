@@ -3117,8 +3117,8 @@ When `name` is not given, `self.pkgname` is used.
 ##### def install_service(self, src, name = None, enable = False)
 
 If `src` is a file path that does not have the `.user` extension, it installs
-the file in `etc/dinit.d` with mode `0o644`. Otherwise, it installs the file
-in `etc/dinit.d/user` with its extension removed. If `name` is provided, it
+the file in `usr/lib/dinit.d` with mode `0o644`. Otherwise, it installs the file
+in `usr/lib/dinit.d/user` with its extension removed. If `name` is provided, it
 is used as it is without changes.
 
 If `enable` is `True`, the service will be implicitly enabled as system service.

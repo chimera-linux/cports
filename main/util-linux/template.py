@@ -467,7 +467,7 @@ def _(self):
     self.install_if = [self.with_pkgver("libuuid")]
 
     return [
-        "etc/dinit.d",
+        "usr/lib/dinit.d",
         "usr/bin/uuid*",
         "usr/lib/sysusers.d",
         "usr/lib/tmpfiles.d",

@@ -81,6 +81,7 @@ def _(self):
     self.subdesc = "kernel crash dump support"
     # don't install-if it, make it user choice to enable
     self.depends = [self.parent, "kexec-tools", "makedumpfile"]
+    self.options = ["!splitdinit"]
     return [
         "usr/lib/dinit.d/early/scripts/kdump.sh",
     ]

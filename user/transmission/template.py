@@ -67,7 +67,7 @@ def _(self):
     self.subdesc = "daemon"
     return [
         "cmd:transmission-daemon",
-        "etc/dinit.d/transmission-daemon",
+        "usr/lib/dinit.d/transmission-daemon",
         "usr/lib/sysusers.d/transmission.conf",
         "usr/lib/tmpfiles.d/transmission.conf",
         "usr/share/transmission/public_html",

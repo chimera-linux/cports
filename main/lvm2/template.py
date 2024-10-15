@@ -102,7 +102,7 @@ def _(self):
     self.pkgdesc = "Device Mapper userspace library and tools"
 
     return [
-        "etc/dinit.d/dmeventd",
+        "usr/lib/dinit.d/dmeventd",
         "usr/bin/dm*",
         "usr/lib/libdevmapper*.so*",
         "usr/lib/liblvm2cmd.so.*",

@@ -270,7 +270,7 @@ def _(self):
     # this is the default version
     self.provider_priority = 100
     return [
-        f"@etc/dinit.d/php-fpm=>php-fpm{_majver}",
+        f"@usr/lib/dinit.d/php-fpm=>php-fpm{_majver}",
         f"@usr/bin/pear=>pear{_majver}",
         f"@usr/bin/peardev=>peardev{_majver}",
         f"@usr/bin/pecl=>pecl{_majver}",

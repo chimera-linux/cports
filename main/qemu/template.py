@@ -153,7 +153,7 @@ def _(self):
     self.depends = []
 
     return [
-        "etc/dinit.d/qemu-ga",
+        "usr/lib/dinit.d/qemu-ga",
         "usr/bin/qemu-ga",
     ]
 
