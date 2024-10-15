@@ -1,6 +1,6 @@
 pkgname = "librsvg"
 pkgver = "2.59.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     f"-Dtriplet={self.profile().triplet}",
