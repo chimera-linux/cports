@@ -22,7 +22,7 @@ pkgdesc = "Implicit SPMD program compiler"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://ispc.github.io"
-source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz>lol-2.tar.gz"
+source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "e216e6818302d51815ac72768b1d5506190517f5f0c3b9426fd56f4bc00ebdf1"
 
 
