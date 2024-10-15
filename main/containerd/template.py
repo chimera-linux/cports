@@ -1,6 +1,6 @@
 pkgname = "containerd"
-pkgver = "1.7.22"
-pkgrel = 1
+pkgver = "1.7.23"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = [
     # invokes go, so slower in parallel since races for cache and overloads threads
@@ -31,7 +31,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/containerd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "8c5edde741b7596af63c021429a1212bd616350ed65a7b741eeffc47e27ee9a9"
+sha256 = "393bfde8ca1766a0bca3441e18eddc3f5a5c8d97ef676bde0d6c9903e1b0ec0c"
 # can't run tests inside namespaces
 options = ["!check"]
 
