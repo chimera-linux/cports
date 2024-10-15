@@ -1,4 +1,4 @@
 type = scripted
-command = /usr/libexec/podman-docker start
-stop-command = /usr/libexec/podman-docker stop
+command = /usr/lib/podman-docker start
+stop-command = /usr/lib/podman-docker stop
 depends-on = podman

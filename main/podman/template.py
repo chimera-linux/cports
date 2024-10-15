@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "5.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 # for install.bin compat
 make_dir = "bin"
@@ -66,6 +66,7 @@ def install(self):
         "install.completions",
         "install.man",
         "PREFIX=/usr",
+        "LIBEXECDIR=/usr/lib",
         f"DESTDIR={self.chroot_destdir}",
     )
     self.install_service(self.files_path / "podman")
@@ -74,7 +75,7 @@ def install(self):
     self.install_service(self.files_path / "podman-restart")
     self.install_file(
         self.files_path / "podman-docker.libexec",
-        "usr/libexec",
+        "usr/lib",
         name="podman-docker",
         mode=0o755,
     )
