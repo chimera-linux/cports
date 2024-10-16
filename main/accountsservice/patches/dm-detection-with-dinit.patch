@@ -32,7 +32,7 @@ index aa9d050..6bfba82 100644
 -                        return DISPLAY_MANAGER_TYPE_LIGHTDM;
 -                else if (g_strcmp0 (basename, "gdm.service") == 0)
 -                        return DISPLAY_MANAGER_TYPE_GDM;
-+        if (g_file_test ("/usr/lib/dinit.d/boot.d/gdm", G_FILE_TEST_EXISTS)) {
++        if (g_file_test ("/etc/dinit.d/boot.d/gdm", G_FILE_TEST_EXISTS)) {
 +                return DISPLAY_MANAGER_TYPE_GDM;
          }
  
