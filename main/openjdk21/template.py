@@ -1,5 +1,5 @@
 pkgname = "openjdk21"
-pkgver = "21.0.4_p7"
+pkgver = "21.0.5_p11"
 pkgrel = 0
 _majver = pkgver.split(".")[0]
 _fver = pkgver.split("_")[0]
@@ -66,7 +66,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"
-sha256 = "b8b37fa6fcc284d91e7458c703ca4c893a1dd5a6e0f6b9e198e7d13cd8efd24d"
+sha256 = "8d57ea0ba57310fffb9257d8018e54a264d940c472228eb04d37a21b584885ac"
 # FIXME: SIGILL in jvm
 hardening = ["!int"]
 # TODO later
