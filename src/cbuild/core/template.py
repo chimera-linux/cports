@@ -2235,14 +2235,14 @@ autopkgs = [
         "base-man",
         lambda p: p.take("usr/share/man", missing_ok=True),
     ),
+    # foo-dinit-links installs if foo-dinit installs
+    ("dinit-links", "service links", "-dinit", _split_dlinks),
     (
         "dinit",
         "service files",
         "dinit-chimera",
         lambda p: p.take("usr/lib/dinit.d", missing_ok=True),
     ),
-    # foo-dinit-links installs if foo-dinit installs
-    ("dinit-links", "service links", "-dinit", _split_dlinks),
     (
         "initramfs-tools",
         "initramfs scripts",
