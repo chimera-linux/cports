@@ -1,6 +1,6 @@
 pkgname = "nyagetty"
 pkgver = "2.38.99"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
@@ -54,16 +54,10 @@ _ttys = [
 
 def post_install(self):
     # agetty dinit helper
-    self.install_file(
-        self.files_path / "dinit-agetty", "usr/libexec", mode=0o755
-    )
+    self.install_file(self.files_path / "dinit-agetty", "usr/lib", mode=0o755)
     # agetty conf wrapper
-    self.install_file(
-        self.files_path / "agetty-default", "usr/libexec", mode=0o755
-    )
-    self.install_file(
-        self.files_path / "agetty-serial", "usr/libexec", mode=0o755
-    )
+    self.install_file(self.files_path / "agetty-default", "usr/lib", mode=0o755)
+    self.install_file(self.files_path / "agetty-serial", "usr/lib", mode=0o755)
     # core service
     self.install_service(self.files_path / "agetty", enable=True)
     # generate services for individual gettys
@@ -79,7 +73,7 @@ def post_install(self):
             sv.write(
                 f"""# agetty service for {name}
 type            = process
-command         = /usr/libexec/{cmd}
+command         = /usr/lib/{cmd}
 restart         = true
 depends-on      = login.target
 termsignal      = HUP
@@ -99,4 +93,4 @@ def _(self):
     self.depends = [self.parent, "dinit-chimera"]
     self.install_if = [self.parent, "dinit-chimera"]
 
-    return ["usr/lib/dinit.d/agetty*", "usr/libexec/dinit-agetty"]
+    return ["usr/lib/dinit.d/agetty*", "usr/lib/dinit-agetty"]

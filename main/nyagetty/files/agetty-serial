@@ -19,4 +19,4 @@ shift
 [ -n "$GETTY_TERM" ] || GETTY_TERM=vt100
 [ -n "$GETTY_BAUD" ] || GETTY_BAUD=115200
 
-exec /usr/libexec/agetty-default "$GETTY" "$GETTY_BAUD" "$GETTY_TERM" -8 -L --noclear "$@"
+exec /usr/lib/agetty-default "$GETTY" "$GETTY_BAUD" "$GETTY_TERM" -8 -L --noclear "$@"

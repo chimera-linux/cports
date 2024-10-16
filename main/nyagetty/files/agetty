@@ -1,4 +1,4 @@
 # start agetty services for active consoles
 type = scripted
-command = /usr/libexec/dinit-agetty
+command = /usr/lib/dinit-agetty
 depends-on = login.target
