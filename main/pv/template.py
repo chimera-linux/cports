@@ -1,5 +1,5 @@
 pkgname = "pv"
-pkgver = "1.8.14"
+pkgver = "1.9.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "gettext-devel"]
@@ -8,4 +8,4 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://www.ivarch.com/programs/pv.shtml"
 source = f"https://www.ivarch.com/programs/sources/pv-{pkgver}.tar.gz"
-sha256 = "0cc18811a4809a587d4b11d47691bbc0ad83a5d95d2c2606af74ea7b4a674756"
+sha256 = "b38d69d7fc0785eb5eb3c57e8b12a7334f862047bf84b18f414365335399469a"
