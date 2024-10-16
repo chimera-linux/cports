@@ -1,6 +1,6 @@
 pkgname = "virtiofsd"
-pkgver = "1.11.1"
-pkgrel = 1
+pkgver = "1.12.0"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = [
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 AND BSD-3-Clause"
 url = "https://gitlab.com/virtio-fs/virtiofsd"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "20bab95e5c67034c1b73b9e1380a3373ff7cfc65dd9f237d5eeb78529aa00265"
+sha256 = "e0d89aa211d5d8175f3d1fd5806451ddc3718d86392c33c941ecc2b4c9336ada"
 
 
 def install(self):
