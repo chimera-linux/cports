@@ -10,4 +10,4 @@ index 6f25ba9..dae8c33 100644
 +libsqlite3-sys = { version = "0.28" }
  parking_lot.workspace = true
  smol.workspace = true
- thread_local = "1.1.4"
+ sqlformat.workspace = true

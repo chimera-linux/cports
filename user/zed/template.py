@@ -1,5 +1,5 @@
 pkgname = "zed"
-pkgver = "0.156.2"
+pkgver = "0.157.4"
 pkgrel = 0
 # wasmtime
 archs = ["aarch64", "x86_64"]
@@ -34,7 +34,7 @@ url = "https://zed.dev"
 source = (
     f"https://github.com/zed-industries/zed/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "cd73e071f9a6b816e6b3ed593eb9ef4ae0c7f5b9a72fb26f2dc6da4f79c80088"
+sha256 = "1398f97f9b8f4e98849027206e4b7eb864218d6b42441e8bc80bf93758d26053"
 # workaround code that fails with default gc-sections with lld
 # https://github.com/zed-industries/zed/issues/15902
 tool_flags = {"RUSTFLAGS": ["-Clink-arg=-Wl,-z,nostart-stop-gc"]}
@@ -46,7 +46,7 @@ def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/cli", name="zed")
     self.install_file(
         f"target/{self.profile().triplet}/release/zed",
-        "usr/libexec",
+        "usr/lib/zed",
         name="zed-editor",
     )
     self.install_file(
