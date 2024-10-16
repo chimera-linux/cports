@@ -22,7 +22,7 @@ PREV_CONSOLES=
 ACTIVE_SERVICES=$(
     for tty in $ACTIVE_CONSOLES; do
         tty=${tty##*/}
-        [ -f /etc/dinit.d/agetty-$tty ] || continue
+        [ -f /usr/lib/dinit.d/agetty-$tty ] || continue
         dinitctl add-dep milestone agetty agetty-$tty > /dev/null
         echo $tty
     done
