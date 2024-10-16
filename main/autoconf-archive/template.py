@@ -1,5 +1,5 @@
 pkgname = "autoconf-archive"
-pkgver = "2023.02.20"
+pkgver = "2024.10.16"
 pkgrel = 0
 build_style = "gnu_configure"
 makedepends = ["automake", "texinfo"]
@@ -8,4 +8,4 @@ maintainer = "stbk <stbk@elia.garden>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/autoconf-archive"
 source = f"$(GNU_SITE)/autoconf-archive/autoconf-archive-{pkgver}.tar.xz"
-sha256 = "71d4048479ae28f1f5794619c3d72df9c01df49b1c628ef85fde37596dc31a33"
+sha256 = "7bcd5d001916f3a50ed7436f4f700e3d2b1bade3ed803219c592d62502a57363"
