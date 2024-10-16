@@ -5,7 +5,7 @@ Date:   Thu Aug 31 21:18:54 2023 +0200
     use correct gimptool
 
 diff --git a/src/Makefile b/src/Makefile
-index 6c960ff..079ec9b 100644
+index 5433c87..2d8c7b0 100644
 --- a/src/Makefile
 +++ b/src/Makefile
 @@ -87,7 +87,7 @@ INCLUDE ?= include
@@ -15,5 +15,5 @@ index 6c960ff..079ec9b 100644
 -PLUGIN = $(shell gimptool-2.0 --gimpplugindir)/plug-ins
 +PLUGIN = $(shell gimptool-2.99 --gimpplugindir)/plug-ins
  SHARE = $(PREFIX)/share
- BASH_COMPLETIONSDIR = $(shell pkg-config --variable completionsdir bash-completion || echo $(PREFIX)/share/bash-completion/completions)
- VERSION = $(shell grep 'gmic_version\ ' gmic.h | tail -c4 | head -c3)
+ BASH_COMPLETIONSDIR = $(shell pkg-config --variable completionsdir bash-completion || echo $(SHARE)/bash-completion/completions)
+ VERSION = $(shell grep -F 'gmic_version ' gmic.h | tail -c4 | head -c3)

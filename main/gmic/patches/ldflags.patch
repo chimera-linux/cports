@@ -1,6 +1,8 @@
+diff --git a/src/Makefile b/src/Makefile
+index 2d8c7b0..406a326 100644
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -395,7 +395,7 @@
+@@ -402,7 +402,7 @@ libgmic.so: libgmic.o
  ifeq ($(OS),Darwin)
  	$(CXX) -shared -std=c++11 -pedantic -o libgmic.so.$(VERSION) libgmic.o $(LIBS)
  else
@@ -9,12 +11,12 @@
  endif
  ifneq ($(OS),Windows)
  	ln -fs libgmic.so.$(VERSION) libgmic.so.$(VERSION1)
-@@ -433,7 +433,7 @@
+@@ -441,7 +441,7 @@ half:
  _cli: gmic$(EXE)
  
  gmic$(EXE): gmic_cli.cpp gmic.o
 -	$(CXX) -o gmic$(EXE) gmic_cli.cpp $(CFLAGS) $(LIBS)
 +	$(CXX) -o gmic$(EXE) gmic_cli.cpp $(CFLAGS) $(LDFLAGS) $(LIBS)
  
- gmic.o: gmic.cpp gmic.h gmic_stdlib.h CImg.h
+ gmic.o: gmic.cpp gmic.h gmic_stdlib_community.h CImg.h
  	$(CXX) -o gmic.o -c gmic.cpp -Dgmic_core $(CFLAGS)

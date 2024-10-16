@@ -30,7 +30,6 @@ license = "CECILL-2.1"
 url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"
 sha256 = "79951d06db2928c68bad1d352e536af3f454e9a3c09beefc2c1049d8b4084507"
-patch_style = "patch"
 # vis broken
 # FIXME int: gmic_qt PreviewWidget::updateOriginalImagePosition
 hardening = ["!int"]
