@@ -1,11 +1,5 @@
-commit 6ad329002d717531aa8f1fe8bf0a991f2e5d684e
-Author: q66 <q66@chimera-linux.org>
-Date:   Tue Dec 19 01:54:40 2023 +0100
-
-    unified ppc64le support patch
-
 diff --git a/base/allocator/partition_allocator/partition_alloc.gni b/base/allocator/partition_allocator/partition_alloc.gni
-index bafdbde410..17fae882eb 100644
+index 00de65d..98882cd 100644
 --- a/base/allocator/partition_allocator/partition_alloc.gni
 +++ b/base/allocator/partition_allocator/partition_alloc.gni
 @@ -19,7 +19,7 @@ if (is_nacl) {
@@ -18,7 +12,7 @@ index bafdbde410..17fae882eb 100644
  } else if (current_cpu == "x86" || current_cpu == "arm") {
    has_64_bit_pointers = false
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
-index 6516c2026e..7d32eeddeb 100644
+index 6516c20..7d32eed 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
 @@ -97,7 +97,7 @@ PageAllocationGranularityShift() {
@@ -31,7 +25,7 @@ index 6516c2026e..7d32eeddeb 100644
    // sizes.  Since 64kB is the de facto standard on the platform and binaries
    // compiled for 64kB are likely to work on 4kB systems, 64kB is a good choice
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h
-index a3db353a06..d1d617a8b2 100644
+index a3db353..d1d617a 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_constants.h
 @@ -111,11 +111,6 @@ PA_ALWAYS_INLINE PAGE_ALLOCATOR_CONSTANTS_DECLARE_CONSTEXPR size_t
@@ -47,10 +41,10 @@ index a3db353a06..d1d617a8b2 100644
  PA_ALWAYS_INLINE PAGE_ALLOCATOR_CONSTANTS_DECLARE_CONSTEXPR size_t
  PartitionPageShift() {
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
-index 73c3ddc712..e685f5a6a5 100644
+index d38db0a..038ffeb 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
-@@ -28,13 +28,17 @@ namespace internal {
+@@ -28,12 +28,17 @@ namespace internal {
  // the second one 16. We could technically return something different for
  // malloc() and operator new(), but this would complicate things, and most of
  // our allocations are presumably coming from operator new() anyway.
@@ -64,13 +58,12 @@ index 73c3ddc712..e685f5a6a5 100644
  static_assert(kAlignment <= 16,
                "PartitionAlloc doesn't support a fundamental alignment larger "
                "than 16 bytes.");
--
 +#endif
- struct SlotSpanMetadata;
+ 
  class PA_LOCKABLE Lock;
  
 diff --git a/base/compiler_specific.h b/base/compiler_specific.h
-index f4599e191e..b27e646850 100644
+index 7f8d9ae..07043d8 100644
 --- a/base/compiler_specific.h
 +++ b/base/compiler_specific.h
 @@ -88,7 +88,7 @@
@@ -82,7 +75,7 @@ index f4599e191e..b27e646850 100644
  #define MUSTTAIL [[clang::musttail]]
  #else
  #define MUSTTAIL
-@@ -456,7 +456,7 @@ inline constexpr bool AnalyzerAssumeTrue(bool arg) {
+@@ -387,7 +387,7 @@ inline constexpr bool AnalyzerAssumeTrue(bool arg) {
  // Clang only supports preserve_most on X86-64 and AArch64 for now.
  // See https://clang.llvm.org/docs/AttributeReference.html#preserve-most for
  // more details.
@@ -92,7 +85,7 @@ index f4599e191e..b27e646850 100644
      !defined(COMPONENT_BUILD) && defined(__clang__) &&       \
      __clang_major__ >= 17 && HAS_ATTRIBUTE(preserve_most)
 diff --git a/build/download_nacl_toolchains.py b/build/download_nacl_toolchains.py
-index 1b86a4bb9e..bc95083101 100755
+index 1b86a4b..bc95083 100755
 --- a/build/download_nacl_toolchains.py
 +++ b/build/download_nacl_toolchains.py
 @@ -12,6 +12,10 @@ import sys
@@ -107,20 +100,20 @@ index 1b86a4bb9e..bc95083101 100755
    src_dir = os.path.dirname(script_dir)
    nacl_dir = os.path.join(src_dir, 'native_client')
 diff --git a/build/rust/cargo_crate.gni b/build/rust/cargo_crate.gni
-index e5d1b2f831..86d9109023 100644
+index 7290451..9592120 100644
 --- a/build/rust/cargo_crate.gni
 +++ b/build/rust/cargo_crate.gni
-@@ -429,7 +429,7 @@ template("cargo_crate") {
-           rust_abi_target,
+@@ -430,7 +430,7 @@ template("cargo_crate") {
          ]
        }
--      if (current_cpu == "arm64" || current_cpu == "x64") {
-+      if (current_cpu == "arm64" || current_cpu == "x64" || current_cpu == "ppc64") {
+       if (current_cpu == "arm64" || current_cpu == "x64" ||
+-          current_cpu == "loong64" || current_cpu == "riscv64") {
++          current_cpu == "loong64" || current_cpu == "riscv64" || current_cpu == "ppc64") {
          args += [
            "--pointer-width",
            "64",
 diff --git a/sandbox/features.gni b/sandbox/features.gni
-index 8434144118..c92bf1a4bc 100644
+index 8434144..c92bf1a 100644
 --- a/sandbox/features.gni
 +++ b/sandbox/features.gni
 @@ -9,7 +9,8 @@
@@ -134,7 +127,7 @@ index 8434144118..c92bf1a4bc 100644
  # SSBD (Speculative Store Bypass Disable) is a mitigation of Spectre Variant 4.
  # As Spectre Variant 4 can be mitigated by site isolation, opt-out SSBD on site
 diff --git a/sandbox/linux/BUILD.gn b/sandbox/linux/BUILD.gn
-index cc86e06114..2d04ba54c5 100644
+index cc86e06..2d04ba5 100644
 --- a/sandbox/linux/BUILD.gn
 +++ b/sandbox/linux/BUILD.gn
 @@ -383,6 +383,8 @@ component("sandbox_services") {
@@ -147,7 +140,7 @@ index cc86e06114..2d04ba54c5 100644
      "system_headers/arm_linux_syscalls.h",
      "system_headers/arm_linux_ucontext.h",
 diff --git a/sandbox/linux/bpf_dsl/linux_syscall_ranges.h b/sandbox/linux/bpf_dsl/linux_syscall_ranges.h
-index 1d0590b7dd..986e4f6187 100644
+index 1d0590b..986e4f6 100644
 --- a/sandbox/linux/bpf_dsl/linux_syscall_ranges.h
 +++ b/sandbox/linux/bpf_dsl/linux_syscall_ranges.h
 @@ -56,6 +56,13 @@
@@ -165,7 +158,7 @@ index 1d0590b7dd..986e4f6187 100644
  #error "Unsupported architecture"
  #endif
 diff --git a/sandbox/linux/bpf_dsl/seccomp_macros.h b/sandbox/linux/bpf_dsl/seccomp_macros.h
-index 87d5825aa3..c5d507e3ab 100644
+index 87d5825..c5d507e 100644
 --- a/sandbox/linux/bpf_dsl/seccomp_macros.h
 +++ b/sandbox/linux/bpf_dsl/seccomp_macros.h
 @@ -343,6 +343,51 @@ struct regs_struct {
@@ -221,7 +214,7 @@ index 87d5825aa3..c5d507e3ab 100644
  #error Unsupported target platform
  
 diff --git a/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc b/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
-index d7286c4078..5db9ada4c0 100644
+index d7286c4..5db9ada 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
 @@ -89,7 +89,7 @@ bool IsBaselinePolicyWatched(int sysno) {
@@ -261,7 +254,7 @@ index d7286c4078..5db9ada4c0 100644
    if (SyscallSets::IsSocketCall(sysno))
      return RestrictSocketcallCommand();
 diff --git a/sandbox/linux/seccomp-bpf-helpers/baseline_policy_unittest.cc b/sandbox/linux/seccomp-bpf-helpers/baseline_policy_unittest.cc
-index f2dc74f842..31c3707f2e 100644
+index f2dc74f..31c3707 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/baseline_policy_unittest.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/baseline_policy_unittest.cc
 @@ -348,7 +348,7 @@ TEST_BASELINE_SIGSYS(__NR_sysinfo)
@@ -274,7 +267,7 @@ index f2dc74f842..31c3707f2e 100644
  TEST_BASELINE_SIGSYS(__NR_vserver)
  #endif
 diff --git a/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc b/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc
-index 420c9c80b7..b79a5b41f5 100644
+index 420c9c8..b79a5b4 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.cc
 @@ -362,7 +362,16 @@ intptr_t SIGSYSFstatatHandler(const struct arch_seccomp_data& args,
@@ -296,7 +289,7 @@ index 420c9c80b7..b79a5b41f5 100644
      }
      return -reinterpret_cast<intptr_t>(fs_denied_errno);
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
-index cfc37e20dc..e448a8f2e0 100644
+index cfc37e2..e448a8f 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 @@ -36,7 +36,7 @@
@@ -381,7 +374,7 @@ index cfc37e20dc..e448a8f2e0 100644
                   PTRACE_GETREGSET,
  #endif
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h
-index 171191ec51..a36cd8d8cb 100644
+index 171191e..a36cd8d 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h
 @@ -52,7 +52,7 @@ SANDBOX_EXPORT bpf_dsl::ResultExpr RestrictMprotectFlags();
@@ -394,7 +387,7 @@ index 171191ec51..a36cd8d8cb 100644
  // sendto(2), recvfrom(2), shutdown(2), sendmsg(2) and recvmsg(2).
  SANDBOX_EXPORT bpf_dsl::ResultExpr RestrictSocketcallCommand();
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc b/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
-index be04538c38..07e5780ab2 100644
+index f6e77d1..5e3cbfe 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_sets.cc
 @@ -28,7 +28,7 @@ bool SyscallSets::IsKill(int sysno) {
@@ -575,7 +568,7 @@ index be04538c38..07e5780ab2 100644
  bool SyscallSets::IsNetworkSocketInformation(int sysno) {
    switch (sysno) {
      case __NR_getpeername:
-@@ -555,7 +559,7 @@ bool SyscallSets::IsAllowedAddressSpaceAccess(int sysno) {
+@@ -556,7 +560,7 @@ bool SyscallSets::IsAllowedAddressSpaceAccess(int sysno) {
      case __NR_mincore:
      case __NR_mlockall:
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -584,7 +577,7 @@ index be04538c38..07e5780ab2 100644
      case __NR_mmap:
  #endif
  #if defined(__i386__) || defined(__arm__) || \
-@@ -583,7 +587,7 @@ bool SyscallSets::IsAllowedAddressSpaceAccess(int sysno) {
+@@ -584,7 +588,7 @@ bool SyscallSets::IsAllowedAddressSpaceAccess(int sysno) {
  bool SyscallSets::IsAllowedGeneralIo(int sysno) {
    switch (sysno) {
      case __NR_lseek:
@@ -593,7 +586,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR__llseek:
  #endif
-@@ -603,27 +607,27 @@ bool SyscallSets::IsAllowedGeneralIo(int sysno) {
+@@ -604,27 +608,27 @@ bool SyscallSets::IsAllowedGeneralIo(int sysno) {
      case __NR_read:
      case __NR_readv:
      case __NR_pread64:
@@ -627,7 +620,7 @@ index be04538c38..07e5780ab2 100644
      case __NR_sendmsg:  // Could specify destination.
      case __NR_sendto:   // Could specify destination.
  #endif
-@@ -678,7 +682,7 @@ bool SyscallSets::IsAllowedBasicScheduler(int sysno) {
+@@ -679,7 +683,7 @@ bool SyscallSets::IsAllowedBasicScheduler(int sysno) {
      case __NR_nanosleep:
        return true;
      case __NR_getpriority:
@@ -636,7 +629,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_nice:
  #endif
-@@ -690,7 +694,7 @@ bool SyscallSets::IsAllowedBasicScheduler(int sysno) {
+@@ -691,7 +695,7 @@ bool SyscallSets::IsAllowedBasicScheduler(int sysno) {
  
  bool SyscallSets::IsAdminOperation(int sysno) {
    switch (sysno) {
@@ -645,7 +638,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_bdflush:
  #endif
-@@ -707,7 +711,7 @@ bool SyscallSets::IsAdminOperation(int sysno) {
+@@ -708,7 +712,7 @@ bool SyscallSets::IsAdminOperation(int sysno) {
  
  bool SyscallSets::IsKernelModule(int sysno) {
    switch (sysno) {
@@ -654,7 +647,7 @@ index be04538c38..07e5780ab2 100644
      case __NR_create_module:
      case __NR_get_kernel_syms:  // Should ENOSYS.
      case __NR_query_module:
-@@ -739,7 +743,7 @@ bool SyscallSets::IsFsControl(int sysno) {
+@@ -740,7 +744,7 @@ bool SyscallSets::IsFsControl(int sysno) {
      case __NR_quotactl:
      case __NR_swapoff:
      case __NR_swapon:
@@ -663,7 +656,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_umount:
  #endif
-@@ -756,7 +760,7 @@ bool SyscallSets::IsNuma(int sysno) {
+@@ -757,7 +761,7 @@ bool SyscallSets::IsNuma(int sysno) {
      case __NR_getcpu:
      case __NR_mbind:
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -672,7 +665,7 @@ index be04538c38..07e5780ab2 100644
      case __NR_migrate_pages:
  #endif
      case __NR_move_pages:
-@@ -791,13 +795,13 @@ bool SyscallSets::IsGlobalProcessEnvironment(int sysno) {
+@@ -792,13 +796,13 @@ bool SyscallSets::IsGlobalProcessEnvironment(int sysno) {
    switch (sysno) {
      case __NR_acct:  // Privileged.
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
@@ -689,7 +682,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_ulimit:
  #endif
-@@ -832,7 +836,7 @@ bool SyscallSets::IsGlobalSystemStatus(int sysno) {
+@@ -833,7 +837,7 @@ bool SyscallSets::IsGlobalSystemStatus(int sysno) {
  #endif
      case __NR_sysinfo:
      case __NR_uname:
@@ -698,7 +691,7 @@ index be04538c38..07e5780ab2 100644
      case __NR_olduname:
      case __NR_oldolduname:
  #endif
-@@ -914,8 +918,15 @@ bool SyscallSets::IsSystemVSemaphores(int sysno) {
+@@ -915,8 +919,15 @@ bool SyscallSets::IsSystemVSemaphores(int sysno) {
  }
  #endif
  
@@ -715,7 +708,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
  // These give a lot of ambient authority and bypass the setuid sandbox.
  bool SyscallSets::IsSystemVSharedMemory(int sysno) {
-@@ -946,7 +957,7 @@ bool SyscallSets::IsSystemVMessageQueue(int sysno) {
+@@ -947,7 +958,7 @@ bool SyscallSets::IsSystemVMessageQueue(int sysno) {
  }
  #endif
  
@@ -724,7 +717,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
  // Big system V multiplexing system call.
  bool SyscallSets::IsSystemVIpc(int sysno) {
-@@ -966,7 +977,7 @@ bool SyscallSets::IsAnySystemV(int sysno) {
+@@ -967,7 +978,7 @@ bool SyscallSets::IsAnySystemV(int sysno) {
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_64_BITS))
    return IsSystemVMessageQueue(sysno) || IsSystemVSemaphores(sysno) ||
           IsSystemVSharedMemory(sysno);
@@ -733,7 +726,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
    return IsSystemVIpc(sysno);
  #endif
-@@ -1024,7 +1035,7 @@ bool SyscallSets::IsFaNotify(int sysno) {
+@@ -1025,7 +1036,7 @@ bool SyscallSets::IsFaNotify(int sysno) {
  bool SyscallSets::IsTimer(int sysno) {
    switch (sysno) {
      case __NR_getitimer:
@@ -742,7 +735,7 @@ index be04538c38..07e5780ab2 100644
      case __NR_alarm:
  #endif
      case __NR_setitimer:
-@@ -1103,17 +1114,17 @@ bool SyscallSets::IsMisc(int sysno) {
+@@ -1104,17 +1115,17 @@ bool SyscallSets::IsMisc(int sysno) {
      case __NR_syncfs:
      case __NR_vhangup:
  // The system calls below are not implemented.
@@ -764,7 +757,7 @@ index be04538c38..07e5780ab2 100644
      (defined(ARCH_CPU_MIPS_FAMILY) && defined(ARCH_CPU_32_BITS))
      case __NR_gtty:
      case __NR_idle:
-@@ -1122,20 +1133,20 @@ bool SyscallSets::IsMisc(int sysno) {
+@@ -1123,20 +1134,20 @@ bool SyscallSets::IsMisc(int sysno) {
      case __NR_prof:
      case __NR_profil:
  #endif
@@ -790,7 +783,7 @@ index be04538c38..07e5780ab2 100644
  #endif
        return true;
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.h b/sandbox/linux/seccomp-bpf-helpers/syscall_sets.h
-index 9be7b03ec4..35f6f157e9 100644
+index 9be7b03..35f6f15 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_sets.h
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_sets.h
 @@ -46,13 +46,14 @@ class SANDBOX_EXPORT SyscallSets {
@@ -829,7 +822,7 @@ index 9be7b03ec4..35f6f157e9 100644
    // Big system V multiplexing system call.
    static bool IsSystemVIpc(int sysno);
 diff --git a/sandbox/linux/seccomp-bpf/syscall.cc b/sandbox/linux/seccomp-bpf/syscall.cc
-index 6b772c563c..873eec35f4 100644
+index 6b772c5..873eec3 100644
 --- a/sandbox/linux/seccomp-bpf/syscall.cc
 +++ b/sandbox/linux/seccomp-bpf/syscall.cc
 @@ -23,7 +23,7 @@ namespace sandbox {
@@ -929,7 +922,7 @@ index 6b772c563c..873eec35f4 100644
    SECCOMP_RESULT(ctx) = static_cast<greg_t>(ret_val);
  }
 diff --git a/sandbox/linux/seccomp-bpf/trap.cc b/sandbox/linux/seccomp-bpf/trap.cc
-index 9fbefe3e8b..6c4ec161c9 100644
+index 9fbefe3..6c4ec16 100644
 --- a/sandbox/linux/seccomp-bpf/trap.cc
 +++ b/sandbox/linux/seccomp-bpf/trap.cc
 @@ -236,6 +236,20 @@ void Trap::SigSys(int nr, LinuxSigInfo* info, ucontext_t* ctx) {
@@ -954,11 +947,11 @@ index 9fbefe3e8b..6c4ec161c9 100644
      // is what we are showing to TrapFnc callbacks that the system call
      // evaluator registered with the sandbox.
 diff --git a/sandbox/linux/services/credentials.cc b/sandbox/linux/services/credentials.cc
-index bea1af28b5..f61f0ed146 100644
+index 993a9ee..25e7bd9 100644
 --- a/sandbox/linux/services/credentials.cc
 +++ b/sandbox/linux/services/credentials.cc
-@@ -91,7 +91,7 @@ bool ChrootToSafeEmptyDir() {
-   alignas(16) char stack_buf[PTHREAD_STACK_MIN];
+@@ -87,7 +87,7 @@ bool ChrootToSafeEmptyDir() {
+   alignas(16) char stack_buf[PTHREAD_STACK_MIN_CONST];
  
  #if defined(ARCH_CPU_X86_FAMILY) || defined(ARCH_CPU_ARM_FAMILY) || \
 -    defined(ARCH_CPU_MIPS_FAMILY)
@@ -966,7 +959,7 @@ index bea1af28b5..f61f0ed146 100644
    // The stack grows downward.
    void* stack = stack_buf + sizeof(stack_buf);
  #else
-@@ -95,7 +95,7 @@
+@@ -96,7 +96,7 @@ bool ChrootToSafeEmptyDir() {
  
    int clone_flags = CLONE_FS | LINUX_SIGCHLD;
    void* tls = nullptr;
@@ -976,7 +969,7 @@ index bea1af28b5..f61f0ed146 100644
    // Use CLONE_VM | CLONE_VFORK as an optimization to avoid copying page tables.
    // Since clone writes to the new child's TLS before returning, we must set a
 diff --git a/sandbox/linux/services/syscall_wrappers.cc b/sandbox/linux/services/syscall_wrappers.cc
-index 74d48f1f91..eba83011d4 100644
+index 74d48f1..eba8301 100644
 --- a/sandbox/linux/services/syscall_wrappers.cc
 +++ b/sandbox/linux/services/syscall_wrappers.cc
 @@ -61,7 +61,7 @@ long sys_clone(unsigned long flags,
@@ -989,7 +982,7 @@ index 74d48f1f91..eba83011d4 100644
    return syscall(__NR_clone, flags, child_stack, ptid, tls, ctid);
  #endif
 diff --git a/sandbox/linux/syscall_broker/broker_process.cc b/sandbox/linux/syscall_broker/broker_process.cc
-index a452430a90..7678d33fb1 100644
+index a452430..7678d33 100644
 --- a/sandbox/linux/syscall_broker/broker_process.cc
 +++ b/sandbox/linux/syscall_broker/broker_process.cc
 @@ -169,7 +169,7 @@ bool BrokerProcess::IsSyscallBrokerable(int sysno, bool fast_check) const {
@@ -1002,7 +995,7 @@ index a452430a90..7678d33fb1 100644
  #endif
        return !fast_check || policy_->allowed_command_set.test(COMMAND_STAT);
 diff --git a/sandbox/linux/system_headers/linux_seccomp.h b/sandbox/linux/system_headers/linux_seccomp.h
-index 8690a96eb0..eb366ae7e6 100644
+index 8690a96..eb366ae 100644
 --- a/sandbox/linux/system_headers/linux_seccomp.h
 +++ b/sandbox/linux/system_headers/linux_seccomp.h
 @@ -39,6 +39,10 @@
@@ -1032,7 +1025,7 @@ index 8690a96eb0..eb366ae7e6 100644
  #ifndef PR_SET_SECCOMP
  #define PR_SET_SECCOMP               22
 diff --git a/sandbox/linux/system_headers/linux_signal.h b/sandbox/linux/system_headers/linux_signal.h
-index 69ccaf1081..25340e6ced 100644
+index 69ccaf1..25340e6 100644
 --- a/sandbox/linux/system_headers/linux_signal.h
 +++ b/sandbox/linux/system_headers/linux_signal.h
 @@ -13,7 +13,7 @@
@@ -1045,7 +1038,7 @@ index 69ccaf1081..25340e6ced 100644
  #define LINUX_SIGHUP 1
  #define LINUX_SIGINT 2
 diff --git a/sandbox/linux/system_headers/linux_stat.h b/sandbox/linux/system_headers/linux_stat.h
-index 3aae8cbced..6a78036c00 100644
+index 3aae8cb..6a78036 100644
 --- a/sandbox/linux/system_headers/linux_stat.h
 +++ b/sandbox/linux/system_headers/linux_stat.h
 @@ -173,6 +173,28 @@ struct kernel_stat {
@@ -1078,7 +1071,7 @@ index 3aae8cbced..6a78036c00 100644
  
  #if !defined(AT_EMPTY_PATH)
 diff --git a/sandbox/linux/system_headers/linux_syscalls.h b/sandbox/linux/system_headers/linux_syscalls.h
-index 6b67cbcedc..ab376c4315 100644
+index 6b67cbc..ab376c4 100644
 --- a/sandbox/linux/system_headers/linux_syscalls.h
 +++ b/sandbox/linux/system_headers/linux_syscalls.h
 @@ -36,5 +36,9 @@
@@ -1093,7 +1086,7 @@ index 6b67cbcedc..ab376c4315 100644
  
 diff --git a/sandbox/linux/system_headers/ppc64_linux_syscalls.h b/sandbox/linux/system_headers/ppc64_linux_syscalls.h
 new file mode 100644
-index 0000000000..ccacffe22e
+index 0000000..ccacffe
 --- /dev/null
 +++ b/sandbox/linux/system_headers/ppc64_linux_syscalls.h
 @@ -0,0 +1,12 @@
@@ -1136,7 +1129,7 @@ index f1cd5bb..77c3cb3 100644
      case __NR_setrlimit:
  // We allow setrlimit to dynamically adjust the address space limit as
 diff --git a/sandbox/policy/linux/bpf_utility_policy_linux.cc b/sandbox/policy/linux/bpf_utility_policy_linux.cc
-index e299ce998b..090f3e706f 100644
+index e299ce9..090f3e7 100644
 --- a/sandbox/policy/linux/bpf_utility_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_utility_policy_linux.cc
 @@ -34,7 +34,7 @@ ResultExpr UtilityProcessPolicy::EvaluateSyscall(int sysno) const {
@@ -1149,7 +1142,7 @@ index e299ce998b..090f3e706f 100644
  #endif
  #if defined(__i386__) || defined(__arm__)
 diff --git a/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock_config.h b/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock_config.h
-index 43a3dabeea..800b0cc6a3 100644
+index 43a3dab..800b0cc 100644
 --- a/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock_config.h
 +++ b/third_party/abseil-cpp/absl/base/internal/unscaledcycleclock_config.h
 @@ -21,7 +21,7 @@
@@ -1162,10 +1155,10 @@ index 43a3dabeea..800b0cc6a3 100644
  #define ABSL_HAVE_UNSCALED_CYCLECLOCK_IMPLEMENTATION 1
  #else
 diff --git a/third_party/abseil-cpp/absl/debugging/internal/stacktrace_config.h b/third_party/abseil-cpp/absl/debugging/internal/stacktrace_config.h
-index 3929b1b734..23d5e504f8 100644
+index 88949fe..4e26a6b 100644
 --- a/third_party/abseil-cpp/absl/debugging/internal/stacktrace_config.h
 +++ b/third_party/abseil-cpp/absl/debugging/internal/stacktrace_config.h
-@@ -60,7 +60,7 @@
+@@ -67,7 +67,7 @@
  #elif defined(__i386__) || defined(__x86_64__)
  #define ABSL_STACKTRACE_INL_HEADER \
    "absl/debugging/internal/stacktrace_x86-inl.inc"
@@ -1175,7 +1168,7 @@ index 3929b1b734..23d5e504f8 100644
    "absl/debugging/internal/stacktrace_powerpc-inl.inc"
  #elif defined(__aarch64__)
 diff --git a/third_party/angle/src/compiler/translator/InfoSink.h b/third_party/angle/src/compiler/translator/InfoSink.h
-index bf6df8800c..d8360ef5aa 100644
+index bf6df88..d8360ef 100644
 --- a/third_party/angle/src/compiler/translator/InfoSink.h
 +++ b/third_party/angle/src/compiler/translator/InfoSink.h
 @@ -93,7 +93,16 @@ class TInfoSinkBase
@@ -1197,12 +1190,12 @@ index bf6df8800c..d8360ef5aa 100644
      }
      // Write boolean values as their names instead of integral value.
 diff --git a/third_party/boringssl/BUILD.gn b/third_party/boringssl/BUILD.gn
-index f44ece0073..a61ebb7d74 100644
+index 52e239f..95501a0 100644
 --- a/third_party/boringssl/BUILD.gn
 +++ b/third_party/boringssl/BUILD.gn
-@@ -118,6 +118,11 @@ if (is_msan) {
-     sources = crypto_sources_nasm
-     visibility = [ ":*" ]  # Only targets in this file can depend on this.
+@@ -125,6 +125,11 @@ if (is_msan) {
+     visibility = [ ":*" ]
+     sources = rebase_path(test_support_sources_nasm, ".", "src")
    }
 +} else if (current_cpu == "ppc64") {
 +  source_set("boringssl_asm") {
@@ -1213,7 +1206,7 @@ index f44ece0073..a61ebb7d74 100644
    # All other targets use GAS-compatible assembler. BoringSSL's assembly files
    # are all wrapped in processor checks for the corresponding target, so there
 diff --git a/third_party/boringssl/src/include/openssl/target.h b/third_party/boringssl/src/include/openssl/target.h
-index 2760f52ce8..11401e72f5 100644
+index 2760f52..11401e7 100644
 --- a/third_party/boringssl/src/include/openssl/target.h
 +++ b/third_party/boringssl/src/include/openssl/target.h
 @@ -54,6 +54,9 @@
@@ -1227,7 +1220,7 @@ index 2760f52ce8..11401e72f5 100644
  // The list above enumerates the platforms that BoringSSL supports. For these
  // platforms we keep a reasonable bar of not breaking them: automated test
 diff --git a/third_party/breakpad/BUILD.gn b/third_party/breakpad/BUILD.gn
-index d7d27abb8e..3818b5b1fb 100644
+index d7d27ab..3818b5b 100644
 --- a/third_party/breakpad/BUILD.gn
 +++ b/third_party/breakpad/BUILD.gn
 @@ -785,7 +785,6 @@ if (is_linux || is_chromeos || is_android) {
@@ -1263,7 +1256,7 @@ index d7d27abb8e..3818b5b1fb 100644
        "breakpad/src/common/linux/file_id_unittest.cc",
        "breakpad/src/common/linux/linux_libc_support_unittest.cc",
 diff --git a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/raw_context_cpu.h b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/raw_context_cpu.h
-index ea4b6f6a29..37bbb90941 100644
+index ea4b6f6..37bbb90 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/raw_context_cpu.h
 +++ b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/raw_context_cpu.h
 @@ -51,6 +51,8 @@ typedef MDRawContextRISCV64 RawContextCPU;
@@ -1276,7 +1269,7 @@ index ea4b6f6a29..37bbb90941 100644
  #error "This code has not been ported to your platform yet."
  #endif
 diff --git a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/thread_info.cc b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/thread_info.cc
-index 6288a056e0..de4f24e282 100644
+index 6288a05..de4f24e 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/thread_info.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/thread_info.cc
 @@ -336,7 +336,45 @@ void ThreadInfo::FillCPUContext(RawContextCPU* out) const {
@@ -1365,7 +1358,7 @@ index 6288a056e0..de4f24e282 100644
 +
  }  // namespace google_breakpad
 diff --git a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/thread_info.h b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/thread_info.h
-index af786bcc96..604925b23a 100644
+index af786bc..604925b 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/thread_info.h
 +++ b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/thread_info.h
 @@ -70,6 +70,10 @@ struct ThreadInfo {
@@ -1392,7 +1385,7 @@ index af786bcc96..604925b23a 100644
  
  }  // namespace google_breakpad
 diff --git a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc
-index 7649768355..a0390ef220 100644
+index 7649768..a0390ef 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.cc
 @@ -324,6 +324,51 @@ void UContextReader::FillCPUContext(RawContextCPU* out, const ucontext_t* uc) {
@@ -1448,7 +1441,7 @@ index 7649768355..a0390ef220 100644
  
  }  // namespace google_breakpad
 diff --git a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
-index 60cbf90047..f7e97d2bf0 100644
+index 60cbf90..f7e97d2 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
 +++ b/third_party/breakpad/breakpad/src/client/linux/dump_writer_common/ucontext_reader.h
 @@ -54,6 +54,9 @@ struct UContextReader {
@@ -1462,7 +1455,7 @@ index 60cbf90047..f7e97d2bf0 100644
    static void FillCPUContext(RawContextCPU* out, const ucontext_t* uc);
  #endif
 diff --git a/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler.cc b/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler.cc
-index 79971dc03b..481cc62eba 100644
+index 79971dc..481cc62 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler.cc
 @@ -108,6 +108,11 @@
@@ -1521,7 +1514,7 @@ index 79971dc03b..481cc62eba 100644
  # error "This code has not been ported to your platform yet."
  #endif
 diff --git a/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler.h b/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler.h
-index f8bc1ead79..a640ba5f98 100644
+index f8bc1ea..a640ba5 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler.h
 +++ b/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler.h
 @@ -200,7 +200,11 @@ class ExceptionHandler {
@@ -1538,7 +1531,7 @@ index f8bc1ead79..a640ba5f98 100644
  #endif
    };
 diff --git a/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler_unittest.cc b/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler_unittest.cc
-index b2d8d46811..40b5ce297e 100644
+index b2d8d46..40b5ce2 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler_unittest.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/handler/exception_handler_unittest.cc
 @@ -321,7 +321,7 @@ TEST(ExceptionHandlerTest, ParallelChildCrashesDontHang) {
@@ -1573,7 +1566,7 @@ index b2d8d46811..40b5ce297e 100644
  
    const pid_t child = fork();
 diff --git a/third_party/breakpad/breakpad/src/client/linux/microdump_writer/microdump_writer.cc b/third_party/breakpad/breakpad/src/client/linux/microdump_writer/microdump_writer.cc
-index 93dae35e5c..1e3f08aefe 100644
+index 93dae35..1e3f08a 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/microdump_writer/microdump_writer.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/microdump_writer/microdump_writer.cc
 @@ -141,7 +141,9 @@ class MicrodumpWriter {
@@ -1619,7 +1612,7 @@ index 93dae35e5c..1e3f08aefe 100644
  #endif
    LinuxDumper* dumper_;
 diff --git a/third_party/breakpad/breakpad/src/client/linux/microdump_writer/microdump_writer_unittest.cc b/third_party/breakpad/breakpad/src/client/linux/microdump_writer/microdump_writer_unittest.cc
-index b1d570eb4d..328429e2ca 100644
+index b1d570e..328429e 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/microdump_writer/microdump_writer_unittest.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/microdump_writer/microdump_writer_unittest.cc
 @@ -282,10 +282,19 @@ TEST(MicrodumpWriterTest, BasicWithMappings) {
@@ -1646,7 +1639,7 @@ index b1d570eb4d..328429e2ca 100644
    ASSERT_NE(std::string::npos,
              buf.find("M 00001000 0000002A 00001000 "
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_core_dumper.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_core_dumper.cc
-index 4bf9094e98..f85d24737c 100644
+index 4bf9094..f85d247 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_core_dumper.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_core_dumper.cc
 @@ -118,6 +118,9 @@ bool LinuxCoreDumper::GetThreadInfoByIndex(size_t index, ThreadInfo* info) {
@@ -1672,7 +1665,7 @@ index 4bf9094e98..f85d24737c 100644
          for (int i = EF_R0; i <= EF_R31; i++)
            info.mcontext.gregs[i - EF_R0] = status->pr_reg[i];
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.cc
-index 5c4c389c39..5801188d9c 100644
+index 5c4c389..5801188 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.cc
 @@ -770,7 +770,9 @@ bool LinuxDumper::GetStackInfo(const void** stack, size_t* stack_len,
@@ -1687,7 +1680,7 @@ index 5c4c389c39..5801188d9c 100644
    const MappingInfo* mapping = FindMapping(stack_pointer);
    if (!mapping)
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.h b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.h
-index 2d5b2e52b6..a6d3dad71d 100644
+index 2d5b2e5..a6d3dad 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.h
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper.h
 @@ -64,7 +64,7 @@ namespace google_breakpad {
@@ -1700,7 +1693,7 @@ index 2d5b2e52b6..a6d3dad71d 100644
  #endif
  
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper_unittest_helper.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper_unittest_helper.cc
-index 5a135fda0e..665c143575 100644
+index 5a135fd..665c143 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper_unittest_helper.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_dumper_unittest_helper.cc
 @@ -56,6 +56,8 @@
@@ -1713,7 +1706,7 @@ index 5a135fda0e..665c143575 100644
  #error This test has not been ported to this platform.
  #endif
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
-index fb5b7e7625..e5e72b4356 100644
+index fb5b7e7..e5e72b4 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
 @@ -208,12 +208,12 @@ bool LinuxPtraceDumper::ReadRegisterSet(ThreadInfo* info, pid_t tid)
@@ -1758,7 +1751,7 @@ index fb5b7e7625..e5e72b4356 100644
  # error "This code hasn't been ported to your platform yet."
  #endif
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper_unittest.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper_unittest.cc
-index 16a9daf1d0..3ed5c98a4e 100644
+index 16a9daf..3ed5c98 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper_unittest.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper_unittest.cc
 @@ -470,6 +470,9 @@ TEST(LinuxPtraceDumperTest, VerifyStackReadWithMultipleThreads) {
@@ -1781,7 +1774,7 @@ index 16a9daf1d0..3ed5c98a4e 100644
  #error This test has not been ported to this platform.
  #endif
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.cc
-index a95dd25480..242d738c54 100644
+index a95dd25..242d738 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.cc
 @@ -144,7 +144,9 @@ class MinidumpWriter {
@@ -1838,7 +1831,7 @@ index a95dd25480..242d738c54 100644
  #endif
    LinuxDumper* dumper_;
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.h b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.h
-index 24e3c7bdc2..b6f72586f9 100644
+index 24e3c7b..b6f7258 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.h
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer.h
 @@ -47,6 +47,8 @@ class ExceptionHandler;
@@ -1851,7 +1844,7 @@ index 24e3c7bdc2..b6f72586f9 100644
  typedef std::remove_pointer<fpregset_t>::type fpstate_t;
  #endif
 diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer_unittest.cc b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer_unittest.cc
-index effedc5e17..95f229c97f 100644
+index effedc5..95f229c 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer_unittest.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/minidump_writer_unittest.cc
 @@ -723,6 +723,9 @@ TEST(MinidumpWriterTest, InvalidStackPointer) {
@@ -1865,7 +1858,7 @@ index effedc5e17..95f229c97f 100644
  # error "This code has not been ported to your platform yet."
  #endif
 diff --git a/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file.cc b/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file.cc
-index a7b96eb591..3424edc80f 100644
+index a7b96eb..3424edc 100644
 --- a/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file.cc
 +++ b/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file.cc
 @@ -72,7 +72,7 @@ bool MemoryMappedFile::Map(const char* path, size_t offset) {
@@ -1878,7 +1871,7 @@ index a7b96eb591..3424edc80f 100644
    struct kernel_stat st;
    if (sys_fstat(fd, &st) == -1 || st.st_size < 0) {
 diff --git a/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file_unittest.cc b/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file_unittest.cc
-index b7a61a70e8..b71b5682f4 100644
+index b7a61a7..b71b568 100644
 --- a/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file_unittest.cc
 +++ b/third_party/breakpad/breakpad/src/common/linux/memory_mapped_file_unittest.cc
 @@ -179,9 +179,10 @@ TEST_F(MemoryMappedFileTest, RemapAfterMap) {
@@ -1896,7 +1889,7 @@ index b7a61a70e8..b71b5682f4 100644
      data1[i] = i & 0x7f;
    }
 diff --git a/third_party/breakpad/breakpad/src/common/memory_allocator_unittest.cc b/third_party/breakpad/breakpad/src/common/memory_allocator_unittest.cc
-index 8ef68913be..37f05e6292 100644
+index 8ef6891..37f05e6 100644
 --- a/third_party/breakpad/breakpad/src/common/memory_allocator_unittest.cc
 +++ b/third_party/breakpad/breakpad/src/common/memory_allocator_unittest.cc
 @@ -60,8 +60,9 @@ TEST(PageAllocatorTest, LargeObject) {
@@ -1911,7 +1904,7 @@ index 8ef68913be..37f05e6292 100644
      uint8_t* p = reinterpret_cast<uint8_t*>(allocator.Alloc(i));
      ASSERT_FALSE(p == NULL);
 diff --git a/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc b/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc
-index 09e4690d57..3396bca225 100644
+index 09e4690..3396bca 100644
 --- a/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc
 +++ b/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc
 @@ -98,6 +98,8 @@ ExploitabilityFor(const string& filename) {
@@ -1947,7 +1940,7 @@ index 09e4690d57..3396bca225 100644
              ExploitabilityFor("linux_write_to_nonwritable_module.dmp"));
    ASSERT_EQ(google_breakpad::EXPLOITABILITY_HIGH,
 diff --git a/third_party/breakpad/breakpad/src/tools/linux/md2core/minidump-2-core.cc b/third_party/breakpad/breakpad/src/tools/linux/md2core/minidump-2-core.cc
-index 29560ed18c..faa243e34c 100644
+index 29560ed..faa243e 100644
 --- a/third_party/breakpad/breakpad/src/tools/linux/md2core/minidump-2-core.cc
 +++ b/third_party/breakpad/breakpad/src/tools/linux/md2core/minidump-2-core.cc
 @@ -82,6 +82,8 @@
@@ -2031,7 +2024,7 @@ index 29560ed18c..faa243e34c 100644
  #error "This code has not been ported to your platform yet"
  #endif
 diff --git a/third_party/crashpad/crashpad/CONTRIBUTORS b/third_party/crashpad/crashpad/CONTRIBUTORS
-index 8724b7f32f..8e29424ef6 100644
+index 8724b7f..8e29424 100644
 --- a/third_party/crashpad/crashpad/CONTRIBUTORS
 +++ b/third_party/crashpad/crashpad/CONTRIBUTORS
 @@ -13,3 +13,4 @@ Mark Mentovai <mark@chromium.org>
@@ -2040,7 +2033,7 @@ index 8724b7f32f..8e29424ef6 100644
  Joshua Peraza <jperaza@chromium.org>
 +Shawn Anastasio <shawn@anastas.io>
 diff --git a/third_party/crashpad/crashpad/compat/linux/sys/user.h b/third_party/crashpad/crashpad/compat/linux/sys/user.h
-index a41ffe668a..5cf5468f08 100644
+index a41ffe6..5cf5468 100644
 --- a/third_party/crashpad/crashpad/compat/linux/sys/user.h
 +++ b/third_party/crashpad/crashpad/compat/linux/sys/user.h
 @@ -15,6 +15,7 @@
@@ -2052,7 +2045,7 @@ index a41ffe668a..5cf5468f08 100644
  
  #include <features.h>
 diff --git a/third_party/crashpad/crashpad/minidump/minidump_context.h b/third_party/crashpad/crashpad/minidump/minidump_context.h
-index 12413de02b..1cc0484c50 100644
+index 12413de..1cc0484 100644
 --- a/third_party/crashpad/crashpad/minidump/minidump_context.h
 +++ b/third_party/crashpad/crashpad/minidump/minidump_context.h
 @@ -687,6 +687,71 @@ struct MinidumpContextRISCV64 {
@@ -2128,7 +2121,7 @@ index 12413de02b..1cc0484c50 100644
  
  #endif  // CRASHPAD_MINIDUMP_MINIDUMP_CONTEXT_H_
 diff --git a/third_party/crashpad/crashpad/minidump/minidump_context_writer.cc b/third_party/crashpad/crashpad/minidump/minidump_context_writer.cc
-index 4a6130b63e..bdf1d843ff 100644
+index 4a6130b..bdf1d84 100644
 --- a/third_party/crashpad/crashpad/minidump/minidump_context_writer.cc
 +++ b/third_party/crashpad/crashpad/minidump/minidump_context_writer.cc
 @@ -110,6 +110,13 @@ MinidumpContextWriter::CreateFromSnapshot(const CPUContext* context_snapshot) {
@@ -2194,7 +2187,7 @@ index 4a6130b63e..bdf1d843ff 100644
 +
  }  // namespace crashpad
 diff --git a/third_party/crashpad/crashpad/minidump/minidump_context_writer.h b/third_party/crashpad/crashpad/minidump/minidump_context_writer.h
-index 8e39c6692f..6ffb220472 100644
+index 8e39c66..6ffb220 100644
 --- a/third_party/crashpad/crashpad/minidump/minidump_context_writer.h
 +++ b/third_party/crashpad/crashpad/minidump/minidump_context_writer.h
 @@ -413,6 +413,43 @@ class MinidumpContextRISCV64Writer final : public MinidumpContextWriter {
@@ -2242,7 +2235,7 @@ index 8e39c6692f..6ffb220472 100644
  
  #endif  // CRASHPAD_MINIDUMP_MINIDUMP_CONTEXT_WRITER_H_
 diff --git a/third_party/crashpad/crashpad/minidump/minidump_context_writer_test.cc b/third_party/crashpad/crashpad/minidump/minidump_context_writer_test.cc
-index 277bd4d347..8d136da09f 100644
+index 277bd4d..8d136da 100644
 --- a/third_party/crashpad/crashpad/minidump/minidump_context_writer_test.cc
 +++ b/third_party/crashpad/crashpad/minidump/minidump_context_writer_test.cc
 @@ -322,6 +322,21 @@ TYPED_TEST(MinidumpContextWriter, RISCV64_FromSnapshot) {
@@ -2268,7 +2261,7 @@ index 277bd4d347..8d136da09f 100644
  }  // namespace test
  }  // namespace crashpad
 diff --git a/third_party/crashpad/crashpad/minidump/minidump_misc_info_writer.cc b/third_party/crashpad/crashpad/minidump/minidump_misc_info_writer.cc
-index 1abb46c318..409a6cfd6d 100644
+index 1abb46c..409a6cf 100644
 --- a/third_party/crashpad/crashpad/minidump/minidump_misc_info_writer.cc
 +++ b/third_party/crashpad/crashpad/minidump/minidump_misc_info_writer.cc
 @@ -177,6 +177,8 @@ std::string MinidumpMiscInfoDebugBuildString() {
@@ -2281,7 +2274,7 @@ index 1abb46c318..409a6cfd6d 100644
  #error define kCPU for this CPU
  #endif
 diff --git a/third_party/crashpad/crashpad/snapshot/capture_memory.cc b/third_party/crashpad/crashpad/snapshot/capture_memory.cc
-index f2ff5d74bb..4c977d59e6 100644
+index f2ff5d7..4c977d5 100644
 --- a/third_party/crashpad/crashpad/snapshot/capture_memory.cc
 +++ b/third_party/crashpad/crashpad/snapshot/capture_memory.cc
 @@ -123,6 +123,11 @@ void CaptureMemory::PointedToByContext(const CPUContext& context,
@@ -2297,7 +2290,7 @@ index f2ff5d74bb..4c977d59e6 100644
  #error Port.
  #endif
 diff --git a/third_party/crashpad/crashpad/snapshot/cpu_architecture.h b/third_party/crashpad/crashpad/snapshot/cpu_architecture.h
-index 26d45f8412..5637f31788 100644
+index 26d45f8..5637f31 100644
 --- a/third_party/crashpad/crashpad/snapshot/cpu_architecture.h
 +++ b/third_party/crashpad/crashpad/snapshot/cpu_architecture.h
 @@ -47,6 +47,9 @@ enum CPUArchitecture {
@@ -2311,7 +2304,7 @@ index 26d45f8412..5637f31788 100644
  
  }  // namespace crashpad
 diff --git a/third_party/crashpad/crashpad/snapshot/cpu_context.cc b/third_party/crashpad/crashpad/snapshot/cpu_context.cc
-index 6b69edefd5..187f249284 100644
+index 6b69ede..187f249 100644
 --- a/third_party/crashpad/crashpad/snapshot/cpu_context.cc
 +++ b/third_party/crashpad/crashpad/snapshot/cpu_context.cc
 @@ -173,6 +173,8 @@ uint64_t CPUContext::InstructionPointer() const {
@@ -2341,7 +2334,7 @@ index 6b69edefd5..187f249284 100644
      case kCPUArchitectureX86:
      case kCPUArchitectureARM:
 diff --git a/third_party/crashpad/crashpad/snapshot/cpu_context.h b/third_party/crashpad/crashpad/snapshot/cpu_context.h
-index c3640c328c..255ccf7b11 100644
+index c3640c3..255ccf7 100644
 --- a/third_party/crashpad/crashpad/snapshot/cpu_context.h
 +++ b/third_party/crashpad/crashpad/snapshot/cpu_context.h
 @@ -371,6 +371,24 @@ struct CPUContextRISCV64 {
@@ -2378,7 +2371,7 @@ index c3640c328c..255ccf7b11 100644
  };
  
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/cpu_context_linux.h b/third_party/crashpad/crashpad/snapshot/linux/cpu_context_linux.h
-index 507d1b44dd..99b3e5755d 100644
+index 507d1b4..99b3e57 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/cpu_context_linux.h
 +++ b/third_party/crashpad/crashpad/snapshot/linux/cpu_context_linux.h
 @@ -15,6 +15,7 @@
@@ -2469,7 +2462,7 @@ index 507d1b44dd..99b3e5755d 100644
  }  // namespace crashpad
  
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/debug_rendezvous_test.cc b/third_party/crashpad/crashpad/snapshot/linux/debug_rendezvous_test.cc
-index 2efa32befc..5e0ae5f2b4 100644
+index 2efa32b..5e0ae5f 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/debug_rendezvous_test.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/debug_rendezvous_test.cc
 @@ -194,6 +194,8 @@ void TestAgainstTarget(PtraceConnection* connection) {
@@ -2482,7 +2475,7 @@ index 2efa32befc..5e0ae5f2b4 100644
            static constexpr char kPrefix[] = "linux-vdso.so.";
  #endif
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux.cc b/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux.cc
-index 677afdaa77..f7cf736790 100644
+index 677afda..f7cf736 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux.cc
 @@ -367,6 +367,69 @@ bool ExceptionSnapshotLinux::ReadContext<ContextTraits64>(
@@ -2556,7 +2549,7 @@ index 677afdaa77..f7cf736790 100644
  
  bool ExceptionSnapshotLinux::Initialize(
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux.h b/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux.h
-index f931d33002..27e5922c53 100644
+index f931d33..27e5922 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux.h
 +++ b/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux.h
 @@ -91,6 +91,8 @@ class ExceptionSnapshotLinux final : public ExceptionSnapshot {
@@ -2569,7 +2562,7 @@ index f931d33002..27e5922c53 100644
    } context_union_;
    CPUContext context_;
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux_test.cc b/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux_test.cc
-index 16ae7b671f..4efbb511aa 100644
+index 16ae7b6..4efbb51 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux_test.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/exception_snapshot_linux_test.cc
 @@ -326,6 +326,28 @@ void ExpectContext(const CPUContext& actual, const NativeCPUContext& expected) {
@@ -2602,7 +2595,7 @@ index 16ae7b671f..4efbb511aa 100644
  #error Port.
  #endif
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/process_reader_linux.cc b/third_party/crashpad/crashpad/snapshot/linux/process_reader_linux.cc
-index 45713386d9..d3f2d0e7ce 100644
+index 4571338..d3f2d0e 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/process_reader_linux.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/process_reader_linux.cc
 @@ -129,6 +129,8 @@ void ProcessReaderLinux::Thread::InitializeStack(ProcessReaderLinux* reader) {
@@ -2615,7 +2608,7 @@ index 45713386d9..d3f2d0e7ce 100644
  #error Port.
  #endif
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/signal_context.h b/third_party/crashpad/crashpad/snapshot/linux/signal_context.h
-index 89e697a08b..5039180679 100644
+index 89e697a..5039180 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/signal_context.h
 +++ b/third_party/crashpad/crashpad/snapshot/linux/signal_context.h
 @@ -456,6 +456,90 @@ static_assert(offsetof(UContext<ContextTraits64>, mcontext.fpregs) ==
@@ -2710,7 +2703,7 @@ index 89e697a08b..5039180679 100644
  #error Port.
  #endif  // ARCH_CPU_X86_FAMILY
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/system_snapshot_linux.cc b/third_party/crashpad/crashpad/snapshot/linux/system_snapshot_linux.cc
-index 67cd2b3af9..771120b2d1 100644
+index 67cd2b3..771120b 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/system_snapshot_linux.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/system_snapshot_linux.cc
 @@ -208,6 +208,8 @@ CPUArchitecture SystemSnapshotLinux::GetCPUArchitecture() const {
@@ -2753,7 +2746,7 @@ index 67cd2b3af9..771120b2d1 100644
  #error Port.
  #endif  // ARCH_CPU_X86_FAMILY
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/test_modules.cc b/third_party/crashpad/crashpad/snapshot/linux/test_modules.cc
-index c03cbaae56..a70f9ac8a4 100644
+index c03cbaa..a70f9ac 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/test_modules.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/test_modules.cc
 @@ -112,6 +112,8 @@ bool WriteTestModule(const base::FilePath& module_path,
@@ -2766,7 +2759,7 @@ index c03cbaae56..a70f9ac8a4 100644
  
  #if defined(ARCH_CPU_RISCV64)
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/thread_snapshot_linux.cc b/third_party/crashpad/crashpad/snapshot/linux/thread_snapshot_linux.cc
-index 85882e8ee4..c6aa5af39a 100644
+index 85882e8..c6aa5af 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/thread_snapshot_linux.cc
 +++ b/third_party/crashpad/crashpad/snapshot/linux/thread_snapshot_linux.cc
 @@ -196,6 +196,14 @@ bool ThreadSnapshotLinux::Initialize(
@@ -2785,7 +2778,7 @@ index 85882e8ee4..c6aa5af39a 100644
  #error Port.
  #endif
 diff --git a/third_party/crashpad/crashpad/snapshot/linux/thread_snapshot_linux.h b/third_party/crashpad/crashpad/snapshot/linux/thread_snapshot_linux.h
-index 5795bfb985..a290eeecfb 100644
+index 5795bfb..a290eee 100644
 --- a/third_party/crashpad/crashpad/snapshot/linux/thread_snapshot_linux.h
 +++ b/third_party/crashpad/crashpad/snapshot/linux/thread_snapshot_linux.h
 @@ -76,6 +76,8 @@ class ThreadSnapshotLinux final : public ThreadSnapshot {
@@ -2798,7 +2791,7 @@ index 5795bfb985..a290eeecfb 100644
  #error Port.
  #endif  // ARCH_CPU_X86_FAMILY
 diff --git a/third_party/crashpad/crashpad/util/linux/auxiliary_vector.cc b/third_party/crashpad/crashpad/util/linux/auxiliary_vector.cc
-index 1bdaf7b6f5..3e8b4326e6 100644
+index 1bdaf7b..3e8b432 100644
 --- a/third_party/crashpad/crashpad/util/linux/auxiliary_vector.cc
 +++ b/third_party/crashpad/crashpad/util/linux/auxiliary_vector.cc
 @@ -56,6 +56,11 @@ bool AuxiliaryVector::Read(PtraceConnection* connection) {
@@ -2814,7 +2807,7 @@ index 1bdaf7b6f5..3e8b4326e6 100644
        LOG(ERROR) << "duplicate auxv entry";
        return false;
 diff --git a/third_party/crashpad/crashpad/util/linux/ptracer.cc b/third_party/crashpad/crashpad/util/linux/ptracer.cc
-index a985cb1d1f..a13f681cae 100644
+index a985cb1..a13f681 100644
 --- a/third_party/crashpad/crashpad/util/linux/ptracer.cc
 +++ b/third_party/crashpad/crashpad/util/linux/ptracer.cc
 @@ -430,6 +430,64 @@ bool GetThreadArea64(pid_t tid,
@@ -2893,7 +2886,7 @@ index a985cb1d1f..a13f681cae 100644
                             info->thread_context,
                             &info->thread_specific_data_address,
 diff --git a/third_party/crashpad/crashpad/util/linux/thread_info.h b/third_party/crashpad/crashpad/util/linux/thread_info.h
-index 808b35a3af..c134e789f3 100644
+index 808b35a..c134e78 100644
 --- a/third_party/crashpad/crashpad/util/linux/thread_info.h
 +++ b/third_party/crashpad/crashpad/util/linux/thread_info.h
 @@ -34,6 +34,11 @@
@@ -3016,7 +3009,7 @@ index 808b35a3af..c134e789f3 100644
    LinuxVMAddress thread_specific_data_address;
  };
 diff --git a/third_party/crashpad/crashpad/util/misc/capture_context.h b/third_party/crashpad/crashpad/util/misc/capture_context.h
-index ac7707b48c..5cb99e1ff1 100644
+index ac7707b..5cb99e1 100644
 --- a/third_party/crashpad/crashpad/util/misc/capture_context.h
 +++ b/third_party/crashpad/crashpad/util/misc/capture_context.h
 @@ -70,6 +70,7 @@ using NativeCPUContext = ucontext_t;
@@ -3028,7 +3021,7 @@ index ac7707b48c..5cb99e1ff1 100644
  //!     Additionally, the value `LR` on ARM/ARM64 will be the return address of
  //!     this function.
 diff --git a/third_party/crashpad/crashpad/util/misc/capture_context_linux.S b/third_party/crashpad/crashpad/util/misc/capture_context_linux.S
-index cfad85738e..d9fab44a9d 100644
+index cfad857..d9fab44 100644
 --- a/third_party/crashpad/crashpad/util/misc/capture_context_linux.S
 +++ b/third_party/crashpad/crashpad/util/misc/capture_context_linux.S
 @@ -34,7 +34,7 @@
@@ -3258,7 +3251,7 @@ index cfad85738e..d9fab44a9d 100644
  #elif defined(__riscv)
  
 diff --git a/third_party/crashpad/crashpad/util/misc/capture_context_test.cc b/third_party/crashpad/crashpad/util/misc/capture_context_test.cc
-index 2cd92c841a..5c154ce356 100644
+index 2cd92c8..5c154ce 100644
 --- a/third_party/crashpad/crashpad/util/misc/capture_context_test.cc
 +++ b/third_party/crashpad/crashpad/util/misc/capture_context_test.cc
 @@ -48,7 +48,7 @@ void TestCaptureContext() {
@@ -3271,7 +3264,7 @@ index 2cd92c841a..5c154ce356 100644
    // likely fail.
    const uintptr_t kReferencePC =
 diff --git a/third_party/crashpad/crashpad/util/misc/capture_context_test_util_linux.cc b/third_party/crashpad/crashpad/util/misc/capture_context_test_util_linux.cc
-index 55820b9ee7..478f9787f7 100644
+index 55820b9..478f978 100644
 --- a/third_party/crashpad/crashpad/util/misc/capture_context_test_util_linux.cc
 +++ b/third_party/crashpad/crashpad/util/misc/capture_context_test_util_linux.cc
 @@ -35,6 +35,8 @@ void SanityCheckContext(const NativeCPUContext& context) {
@@ -3302,7 +3295,7 @@ index 55820b9ee7..478f9787f7 100644
    return context.uc_mcontext.__gregs[2];
  #endif
 diff --git a/third_party/crashpad/crashpad/util/net/http_transport_libcurl.cc b/third_party/crashpad/crashpad/util/net/http_transport_libcurl.cc
-index df63a77296..d91ae3fde4 100644
+index df63a77..d91ae3f 100644
 --- a/third_party/crashpad/crashpad/util/net/http_transport_libcurl.cc
 +++ b/third_party/crashpad/crashpad/util/net/http_transport_libcurl.cc
 @@ -239,6 +239,12 @@ std::string UserAgent() {
@@ -3320,7 +3313,7 @@ index df63a77296..d91ae3fde4 100644
  #endif
 diff --git a/third_party/dav1d/config/linux/ppc64/config.h b/third_party/dav1d/config/linux/ppc64/config.h
 new file mode 100644
-index 0000000000..7834eee6b8
+index 0000000..7834eee
 --- /dev/null
 +++ b/third_party/dav1d/config/linux/ppc64/config.h
 @@ -0,0 +1,48 @@
@@ -3373,7 +3366,7 @@ index 0000000000..7834eee6b8
 +
 +#define TRIM_DSP_FUNCTIONS 1
 diff --git a/third_party/dav1d/libdav1d/src/ppc/dav1d_types.h b/third_party/dav1d/libdav1d/src/ppc/dav1d_types.h
-index 9a8bc7a732..7a6ca8d1bb 100644
+index 9a8bc7a..7a6ca8d 100644
 --- a/third_party/dav1d/libdav1d/src/ppc/dav1d_types.h
 +++ b/third_party/dav1d/libdav1d/src/ppc/dav1d_types.h
 @@ -55,4 +55,19 @@
@@ -3397,7 +3390,7 @@ index 9a8bc7a732..7a6ca8d1bb 100644
 +
  #endif /* DAV1D_SRC_PPC_TYPES_H */
 diff --git a/third_party/eigen3/BUILD.gn b/third_party/eigen3/BUILD.gn
-index 8263623379..8c0e29f5d2 100644
+index 8263623..8c0e29f 100644
 --- a/third_party/eigen3/BUILD.gn
 +++ b/third_party/eigen3/BUILD.gn
 @@ -10,6 +10,10 @@ config("eigen_public_includes") {
@@ -3412,7 +3405,7 @@ index 8263623379..8c0e29f5d2 100644
  
  # As this target suppresses warnings, it should not be added to public_configs.
 diff --git a/third_party/libaom/BUILD.gn b/third_party/libaom/BUILD.gn
-index c49d6fcb9d..93062ffd01 100644
+index 589e4a5..0507595 100644
 --- a/third_party/libaom/BUILD.gn
 +++ b/third_party/libaom/BUILD.gn
 @@ -43,6 +43,8 @@ if (current_cpu == "x86") {
@@ -3425,7 +3418,7 @@ index c49d6fcb9d..93062ffd01 100644
    cpu_arch_full = current_cpu
  }
 diff --git a/third_party/libpng/pngpriv.h b/third_party/libpng/pngpriv.h
-index 9bfdb71342..f44d0b81a5 100644
+index 9bfdb71..f44d0b8 100644
 --- a/third_party/libpng/pngpriv.h
 +++ b/third_party/libpng/pngpriv.h
 @@ -212,11 +212,7 @@
@@ -3442,7 +3435,7 @@ index 9bfdb71342..f44d0b81a5 100644
  
  #ifndef PNG_LOONGARCH_LSX_OPT
 diff --git a/third_party/libvpx/generate_gni.sh b/third_party/libvpx/generate_gni.sh
-index 680a374dc2..2fa226f591 100755
+index 680a374..2fa226f 100755
 --- a/third_party/libvpx/generate_gni.sh
 +++ b/third_party/libvpx/generate_gni.sh
 @@ -432,7 +432,7 @@ gen_config_files linux/mipsel "--target=mips32-linux-gcc ${all_platforms}"
@@ -3464,7 +3457,7 @@ index 680a374dc2..2fa226f591 100755
  gen_rtcd_header win/arm64-highbd armv8 "${require_neon} ${disable_sve}"
  gen_rtcd_header win/ia32 x86 "${require_sse2}"
 diff --git a/third_party/lss/linux_syscall_support.h b/third_party/lss/linux_syscall_support.h
-index 1e9fa47dc7..b8d0db369f 100644
+index 1e9fa47..b8d0db3 100644
 --- a/third_party/lss/linux_syscall_support.h
 +++ b/third_party/lss/linux_syscall_support.h
 @@ -4638,7 +4638,7 @@ struct kernel_statx {
@@ -3517,7 +3510,7 @@ index 1e9fa47dc7..b8d0db369f 100644
                           int*, sv)
    #endif
 diff --git a/third_party/pffft/src/pffft.c b/third_party/pffft/src/pffft.c
-index bdac4d7849..51e0f2cacc 100644
+index bdac4d7..51e0f2c 100644
 --- a/third_party/pffft/src/pffft.c
 +++ b/third_party/pffft/src/pffft.c
 @@ -100,6 +100,7 @@
@@ -3529,7 +3522,7 @@ index bdac4d7849..51e0f2cacc 100644
  #  define SIMD_SZ 4
  #  define VZERO() ((vector float) vec_splat_u8(0))
 diff --git a/third_party/skia/modules/skcms/src/skcms_internals.h b/third_party/skia/modules/skcms/src/skcms_internals.h
-index f3f0a2d6cb..cf4ae54c62 100644
+index f3f0a2d6..cf4ae54 100644
 --- a/third_party/skia/modules/skcms/src/skcms_internals.h
 +++ b/third_party/skia/modules/skcms/src/skcms_internals.h
 @@ -48,7 +48,8 @@ extern "C" {
@@ -3543,20 +3536,20 @@ index f3f0a2d6cb..cf4ae54c62 100644
          #endif
      #endif
 diff --git a/third_party/skia/src/core/SkRasterPipeline.h b/third_party/skia/src/core/SkRasterPipeline.h
-index 2475ea0d39..6796748365 100644
+index 5592061..43c4ebd 100644
 --- a/third_party/skia/src/core/SkRasterPipeline.h
 +++ b/third_party/skia/src/core/SkRasterPipeline.h
 @@ -27,7 +27,7 @@ struct SkImageInfo;
  struct skcms_TransferFunction;
  
  #if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && \
--        !defined(SK_CPU_LOONGARCH)
-+        !defined(SK_CPU_LOONGARCH) && !defined(__powerpc__)
+-        !defined(SK_CPU_LOONGARCH) && !(defined(_WIN32) && defined(SK_BUILD_FOR_ANDROID_FRAMEWORK))
++        !defined(SK_CPU_LOONGARCH) && !(defined(_WIN32) && defined(SK_BUILD_FOR_ANDROID_FRAMEWORK)) && !defined(__powerpc__)
+     // [[clang::musttail]] is disabled for the Android version of Skia running on Windows as it
+     // causes crashes (This is probably related to http://crbug.com/1505442).
      #define SK_HAS_MUSTTAIL 1
- #else
-     #define SK_HAS_MUSTTAIL 0
 diff --git a/third_party/sqlite/src/amalgamation/sqlite3.c b/third_party/sqlite/src/amalgamation/sqlite3.c
-index 31bc470571..95f69e776b 100644
+index d6e5bc7..2279cdf 100644
 --- a/third_party/sqlite/src/amalgamation/sqlite3.c
 +++ b/third_party/sqlite/src/amalgamation/sqlite3.c
 @@ -15005,7 +15005,8 @@ typedef INT16_TYPE LogEst;
@@ -3570,7 +3563,7 @@ index 31bc470571..95f69e776b 100644
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
 diff --git a/third_party/sqlite/src/amalgamation_dev/sqlite3.c b/third_party/sqlite/src/amalgamation_dev/sqlite3.c
-index 29f2d9259f..9097d28490 100644
+index 238a93b..6cbf2ce 100644
 --- a/third_party/sqlite/src/amalgamation_dev/sqlite3.c
 +++ b/third_party/sqlite/src/amalgamation_dev/sqlite3.c
 @@ -15018,7 +15018,8 @@ typedef INT16_TYPE LogEst;
@@ -3584,7 +3577,7 @@ index 29f2d9259f..9097d28490 100644
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
 diff --git a/third_party/sqlite/src/ext/rtree/rtree.c b/third_party/sqlite/src/ext/rtree/rtree.c
-index 299b5b54b9..605c07edfc 100644
+index 299b5b5..605c07e 100644
 --- a/third_party/sqlite/src/ext/rtree/rtree.c
 +++ b/third_party/sqlite/src/ext/rtree/rtree.c
 @@ -485,7 +485,8 @@ struct RtreeMatchArg {
@@ -3598,7 +3591,7 @@ index 299b5b54b9..605c07edfc 100644
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
 diff --git a/third_party/sqlite/src/src/sqliteInt.h b/third_party/sqlite/src/src/sqliteInt.h
-index d98a4f7f06..bf9c1da948 100644
+index d98a4f7..bf9c1da 100644
 --- a/third_party/sqlite/src/src/sqliteInt.h
 +++ b/third_party/sqlite/src/src/sqliteInt.h
 @@ -971,7 +971,8 @@ typedef INT16_TYPE LogEst;
@@ -3611,8 +3604,48 @@ index d98a4f7f06..bf9c1da948 100644
  #   define SQLITE_BYTEORDER 1234
  # elif defined(sparc)   || defined(__ARMEB__)     || defined(__AARCH64EB__)
  #   define SQLITE_BYTEORDER 4321
+diff --git a/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn b/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
+index 59e5230..d780239 100644
+--- a/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
++++ b/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
+@@ -583,6 +583,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_most") {
+     "llvm/lib/MC/MCAsmInfoCOFF.cpp",
+     "llvm/lib/MC/MCAsmInfoDarwin.cpp",
+     "llvm/lib/MC/MCAsmInfoELF.cpp",
++    "llvm/lib/MC/MCAsmInfoXCOFF.cpp",
+     "llvm/lib/MC/MCAsmMacro.cpp",
+     "llvm/lib/MC/MCAsmStreamer.cpp",
+     "llvm/lib/MC/MCAssembler.cpp",
+@@ -638,6 +639,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_most") {
+     "llvm/lib/MC/MCWinCOFFStreamer.cpp",
+     "llvm/lib/MC/MCWinEH.cpp",
+     "llvm/lib/MC/MCXCOFFStreamer.cpp",
++    "llvm/lib/MC/MCXCOFFObjectTargetWriter.cpp",
+     "llvm/lib/MC/MachObjectWriter.cpp",
+     "llvm/lib/MC/StringTableBuilder.cpp",
+     "llvm/lib/MC/SubtargetFeature.cpp",
+diff --git a/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn b/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
+index 891a790..aecb83e 100644
+--- a/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
++++ b/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
+@@ -770,6 +770,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_source_set_0") {
+     "llvm/lib/MC/MCAsmInfoCOFF.cpp",
+     "llvm/lib/MC/MCAsmInfoDarwin.cpp",
+     "llvm/lib/MC/MCAsmInfoELF.cpp",
++    "llvm/lib/MC/MCAsmInfoXCOFF.cpp",
+     "llvm/lib/MC/MCAsmMacro.cpp",
+     "llvm/lib/MC/MCAsmStreamer.cpp",
+     "llvm/lib/MC/MCAssembler.cpp",
+@@ -830,6 +831,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_source_set_0") {
+     "llvm/lib/MC/MCWinCOFFStreamer.cpp",
+     "llvm/lib/MC/MCWinEH.cpp",
+     "llvm/lib/MC/MCXCOFFStreamer.cpp",
++    "llvm/lib/MC/MCXCOFFObjectTargetWriter.cpp",
+     "llvm/lib/MC/MachObjectWriter.cpp",
+     "llvm/lib/MC/SPIRVObjectWriter.cpp",
+     "llvm/lib/MC/StringTableBuilder.cpp",
 diff --git a/third_party/webrtc/rtc_base/system/arch.h b/third_party/webrtc/rtc_base/system/arch.h
-index 9d945ef7fc..77da679f62 100644
+index 9d945ef..77da679 100644
 --- a/third_party/webrtc/rtc_base/system/arch.h
 +++ b/third_party/webrtc/rtc_base/system/arch.h
 @@ -89,6 +89,18 @@
@@ -3635,7 +3668,7 @@ index 9d945ef7fc..77da679f62 100644
  #error Please add support for your architecture in rtc_base/system/arch.h
  #endif
 diff --git a/ui/gl/features.gni b/ui/gl/features.gni
-index 245959e908..8d3ffa23f8 100644
+index 245959e..8d3ffa2 100644
 --- a/ui/gl/features.gni
 +++ b/ui/gl/features.gni
 @@ -30,5 +30,5 @@ declare_args() {
@@ -3646,24 +3679,26 @@ index 245959e908..8d3ffa23f8 100644
 +       target_cpu == "mips64el" || target_cpu == "riscv64" || target_cpu == "ppc64")
  }
 diff --git a/v8/BUILD.gn b/v8/BUILD.gn
-index 19e0d2b584..4bfbc3c075 100644
+index 87b2129..d5a6eca 100644
 --- a/v8/BUILD.gn
 +++ b/v8/BUILD.gn
-@@ -1447,6 +1447,12 @@ config("toolchain") {
-     }
-     if (host_byteorder == "little") {
-       defines += [ "V8_TARGET_ARCH_PPC_LE" ]
+@@ -1431,6 +1431,14 @@ config("toolchain") {
+   if (v8_current_cpu == "ppc64") {
+     defines += [ "V8_TARGET_ARCH_PPC64" ]
+     cflags += [ "-ffp-contract=off" ]
++    if (host_byteorder == "little") {
++      defines += [ "V8_TARGET_ARCH_PPC_LE" ]
 +      cflags += [
-+        # Enable usage of AltiVec, VSX, and other POWER8 and higher features
 +        "-mcpu=power8",
 +        "-maltivec",
 +        "-mvsx",
 +      ]
-     } else if (host_byteorder == "big") {
-       defines += [ "V8_TARGET_ARCH_PPC_BE" ]
-       if (current_os == "aix") {
++    }
+     if (current_os == "aix") {
+       cflags += [
+         # Work around AIX ceil, trunc and round oddities.
 diff --git a/v8/test/BUILD.gn b/v8/test/BUILD.gn
-index 6604cb9631..4cd486f8e9 100644
+index 6604cb9..4cd486f 100644
 --- a/v8/test/BUILD.gn
 +++ b/v8/test/BUILD.gn
 @@ -42,7 +42,7 @@ group("gn_all") {
@@ -3693,41 +3728,3 @@ index 6604cb9631..4cd486f8e9 100644
    ]
  
    if (v8_enable_webassembly) {
---- a/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
-+++ b/third_party/swiftshader/third_party/llvm-10.0/BUILD.gn
-@@ -583,6 +583,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_most") {
-     "llvm/lib/MC/MCAsmInfoCOFF.cpp",
-     "llvm/lib/MC/MCAsmInfoDarwin.cpp",
-     "llvm/lib/MC/MCAsmInfoELF.cpp",
-+    "llvm/lib/MC/MCAsmInfoXCOFF.cpp",
-     "llvm/lib/MC/MCAsmMacro.cpp",
-     "llvm/lib/MC/MCAsmStreamer.cpp",
-     "llvm/lib/MC/MCAssembler.cpp",
-@@ -638,6 +639,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_most") {
-     "llvm/lib/MC/MCWinCOFFStreamer.cpp",
-     "llvm/lib/MC/MCWinEH.cpp",
-     "llvm/lib/MC/MCXCOFFStreamer.cpp",
-+    "llvm/lib/MC/MCXCOFFObjectTargetWriter.cpp",
-     "llvm/lib/MC/MachObjectWriter.cpp",
-     "llvm/lib/MC/StringTableBuilder.cpp",
-     "llvm/lib/MC/SubtargetFeature.cpp",
---- a/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
-+++ b/third_party/swiftshader/third_party/llvm-16.0/BUILD.gn
-@@ -765,6 +765,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_source_set_0") {
-     "llvm/lib/MC/MCAsmInfoCOFF.cpp",
-     "llvm/lib/MC/MCAsmInfoDarwin.cpp",
-     "llvm/lib/MC/MCAsmInfoELF.cpp",
-+    "llvm/lib/MC/MCAsmInfoXCOFF.cpp",
-     "llvm/lib/MC/MCAsmMacro.cpp",
-     "llvm/lib/MC/MCAsmStreamer.cpp",
-     "llvm/lib/MC/MCAssembler.cpp",
-@@ -825,6 +826,7 @@ swiftshader_llvm_source_set("swiftshader_llvm_source_set_0") {
-     "llvm/lib/MC/MCWinCOFFStreamer.cpp",
-     "llvm/lib/MC/MCWinEH.cpp",
-     "llvm/lib/MC/MCXCOFFStreamer.cpp",
-+    "llvm/lib/MC/MCXCOFFObjectTargetWriter.cpp",
-     "llvm/lib/MC/MachObjectWriter.cpp",
-     "llvm/lib/MC/SPIRVObjectWriter.cpp",
-     "llvm/lib/MC/StringTableBuilder.cpp",
--- 
-2.46.2

@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "129.0.6668.100"
+pkgver = "130.0.6723.58"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -139,18 +139,22 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
-sha256 = "281daed29a5cb546f6273130035d9980666d2232f356ad95fc06af3c90121bc2"
+sha256 = "aa296edec7275d19feade5ef32cbe7dfdd41594d4c0c1afd94bbf4d310c38c4e"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
         "-Wno-unknown-warning-option",
         "-Wno-builtin-macro-redefined",
         "-Wno-deprecated-declarations",
+        "-Wno-sign-compare",
+        "-Wno-shorten-64-to-32",
     ],
     "CXXFLAGS": [
         "-Wno-unknown-warning-option",
         "-Wno-builtin-macro-redefined",
         "-Wno-deprecated-declarations",
+        "-Wno-sign-compare",
+        "-Wno-shorten-64-to-32",
     ],
 }
 file_modes = {
@@ -165,6 +169,39 @@ match self.profile().arch:
         # trap in add_label_offset() (assembler-ppc.cc)
         # also crashes on riscv64
         hardening += ["!int"]
+
+# remove these with llvm 19
+match self.profile().arch:
+    case "aarch64":
+        tool_flags["CFLAGS"] += [
+            "-D__GCC_CONSTRUCTIVE_SIZE=64",
+            "-D__GCC_DESTRUCTIVE_SIZE=256",
+        ]
+        tool_flags["CXXFLAGS"] += [
+            "-D__GCC_CONSTRUCTIVE_SIZE=64",
+            "-D__GCC_DESTRUCTIVE_SIZE=256",
+        ]
+    case "ppc64le":
+        tool_flags["CFLAGS"] += [
+            "-D__GCC_CONSTRUCTIVE_SIZE=128",
+            "-D__GCC_DESTRUCTIVE_SIZE=128",
+        ]
+        tool_flags["CXXFLAGS"] += [
+            "-D__GCC_CONSTRUCTIVE_SIZE=128",
+            "-D__GCC_DESTRUCTIVE_SIZE=128",
+        ]
+    case "x86_64":
+        tool_flags["CFLAGS"] += [
+            "-D__GCC_CONSTRUCTIVE_SIZE=64",
+            "-D__GCC_DESTRUCTIVE_SIZE=64",
+        ]
+        tool_flags["CXXFLAGS"] += [
+            "-D__GCC_CONSTRUCTIVE_SIZE=64",
+            "-D__GCC_DESTRUCTIVE_SIZE=64",
+        ]
+
+if self.profile().arch == "ppc64le":
+    broken = "needs more patching"
 
 
 def post_patch(self):
