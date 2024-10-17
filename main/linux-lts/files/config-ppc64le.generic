@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.6.56 Kernel Configuration
+# Linux/powerpc 6.6.57 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 18.1.8"
 CONFIG_GCC_VERSION=0
@@ -7381,6 +7381,7 @@ CONFIG_HID_ZYDACRON=m
 CONFIG_HID_SENSOR_HUB=m
 CONFIG_HID_SENSOR_CUSTOM_SENSOR=m
 CONFIG_HID_ALPS=m
+CONFIG_HID_MCP2200=m
 CONFIG_HID_MCP2221=m
 # end of Special HID drivers
 
