@@ -1,33 +1,44 @@
-pkgname = "postgresql16"
+pkgname = "postgresql17"
 _major = pkgname.removeprefix("postgresql")
-pkgver = f"{_major}.4"
-pkgrel = 2
-# NOTE: version 16 doesn't work with meson + tarball
-# switch to meson for version 17
-build_style = "gnu_configure"
+pkgver = f"{_major}.0"
+pkgrel = 0
+build_style = "meson"
 configure_args = [
     f"--bindir=/usr/libexec/{pkgname}",
     f"--datadir=/usr/share/{pkgname}",
     "--includedir=/usr/include/postgresql",
     f"--sysconfdir=/etc/{pkgname}",
-    "--disable-rpath",
-    # "--with-llvm", # NOTE: postgresql 16 doesn't support llvm 16+
-    "--with-libxml",
-    "--with-lz4",
-    "--with-perl",
-    "--with-python",
-    "--with-ssl=openssl",
-    "--with-tcl",
-    "--with-uuid=e2fs",
-    "--with-zstd",
-    "--with-system-tzdata=/usr/share/zoneinfo",
+    "-Drpath=false",
+    # "-Dllvm=enabled"
+    "-Ddocs=enabled",
+    "-Dicu=enabled",
+    "-Dlibedit_preferred=true",
+    "-Dlibxml=enabled",
+    "-Dlz4=enabled",
+    "-Dplperl=enabled",
+    "-Dplpython=enabled",
+    "-Dpltcl=disabled",
+    "-Dreadline=enabled",
+    "-Dssl=openssl",
+    "-Dsystem_tzdata=/usr/share/zoneinfo",
+    "-Dtap_tests=disabled",  # we don't run them
+    "-Duuid=e2fs",
+    "-Dzstd=enabled",
 ]
-configure_gen = []
-make_build_target = "world"
-hostmakedepends = ["pkgconf"]
+make_build_args = ["world"]
+hostmakedepends = [
+    "bison",
+    "docbook-xsl-nons",
+    "flex",
+    "meson",
+    "libxml2-progs",
+    "pkgconf",
+    "xsltproc",
+]
 makedepends = [
     "e2fsprogs-devel",
     "icu-devel",
+    "libedit-devel",
     "libxml2-devel",
     "linux-headers",
     "lz4-devel",
@@ -35,7 +46,6 @@ makedepends = [
     "perl",
     "python-devel",
     "readline-devel",
-    "tcl-devel",
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
@@ -48,11 +58,11 @@ url = "https://www.postgresql.org"
 source = [
     f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
 ]
-sha256 = ["971766d645aa73e93b9ef4e3be44201b4f45b5477095b049125403f9f3386d6f"]
+sha256 = ["7e276131c0fdd6b62588dbad9b3bb24b8c3498d5009328dba59af16e819109de"]
 # checks depend on libpq already being installed
 options = ["!check"]
 
-_default_ver = False  # should this version provide non-versioned resources?
+_default_ver = True  # should this version provide non-versioned resources?
 
 if not _default_ver:
     makedepends += ["libecpg-devel", "libpq-devel"]
@@ -60,7 +70,6 @@ if not _default_ver:
 # complete list of contribs, must match what is built (checked)
 # ones to skip can be prefixed with an exclamation mark
 _contrib_list = [
-    "adminpack",
     "amcheck",
     "auth_delay",
     "auto_explain",
@@ -90,7 +99,6 @@ _contrib_list = [
     "ltree",
     "ltree_plpython",
     "oid2name",
-    "old_snapshot",
     "pageinspect",
     "passwordcheck",
     "pg_buffercache",
@@ -130,10 +138,6 @@ _extra_cmds = {
 
 
 def post_install(self):
-    self.install_file(
-        self.files_path / "pltcl_create_tables.sql",
-        f"usr/share/{pkgname}",
-    )
     # manpages; TODO man3 devel alternatives provider later
     for cat in [1, 3, 7]:
         for f in (self.cwd / f"doc/src/sgml/man{cat}").glob(f"*.{cat}"):
@@ -204,16 +208,13 @@ def _contrib_pkg(pn):
         # autoinstalls
         if pn != "":
             self.install_if = [self.with_pkgver(f"{pkgname}-contrib")]
-            # plperl, plpython, pltcl is special (more conditions)
+            # plperl, plpython is special (more conditions)
             if pn.endswith("_plperl"):
                 self.depends += [self.with_pkgver(f"{pkgname}-plperl")]
                 self.install_if += [self.with_pkgver(f"{pkgname}-plperl")]
             elif pn.endswith("_plpython"):
                 self.depends += [self.with_pkgver(f"{pkgname}-plpython")]
                 self.install_if += [self.with_pkgver(f"{pkgname}-plpython")]
-            elif pn.endswith("_pltcl"):
-                self.depends += [self.with_pkgver(f"{pkgname}-pltcl")]
-                self.install_if += [self.with_pkgver(f"{pkgname}-pltcl")]
 
         # contents are read from the file
         def inst():
@@ -256,7 +257,7 @@ def _(self):
                 f"../../{pkgname}/man/man7/{f.name}",
             )
         # service
-        self.make_link("usr/lib/dinit.d/postgresql", pkgname)
+        self.make_link("etc/dinit.d/postgresql", pkgname)
 
     return _links
 
@@ -344,18 +345,6 @@ def _(self):
     ]
 
 
-@subpackage(f"{pkgname}-pltcl")
-def _(self):
-    self.subdesc = "PL/Tcl"
-    self.depends = [self.parent]
-
-    return [
-        f"usr/lib/{pkgname}/pltcl.so",
-        f"usr/share/{pkgname}/extension/pltcl*",
-        f"usr/share/{pkgname}/pltcl_create_tables.sql",
-    ]
-
-
 @subpackage(f"{pkgname}-plperl")
 def _(self):
     self.subdesc = "PL/Perl"
@@ -378,6 +367,6 @@ def _(self):
     ]
 
 
-@subpackage("postgresql16-devel")
+@subpackage(f"{pkgname}-devel")
 def _(self):
     return self.default_devel(extra=[f"usr/lib/{pkgname}/pgxs"])
