@@ -1,0 +1,38 @@
+This allows it so we can actually use this program without an initramFS that will mount the DRACUT_SYSROOT directory
+
+- tulip
+
+--- a/lib/Configuration.cpp	2024-09-20 19:51:59.844936442 -0300
++++ a/lib/Configuration.cpp	2024-09-20 19:52:07.022826879 -0300
+@@ -21,7 +21,7 @@
+     if (error)
+         throw std::runtime_error{"Could not create default configuration."};
+     std::map<const char*, const char*> defaults = {
+-        {"DRACUT_SYSROOT", "/sysroot"},
++        {"DRACUT_SYSROOT", "/"},
+         {"LOCKFILE", "/var/run/tukit.lock"},
+         {"OVERLAY_DIR", "/var/lib/overlay"},
+         {"REBOOT_ALLOW_SOFT_REBOOT", "true"},
+--- a/lib/Overlay.cpp
++++ b/lib/Overlay.cpp
+@@ -51,12 +51,18 @@ Overlay::Overlay(string snapshot):
+     mntEtc.setTabSource(snap->getRoot() / "etc" / "fstab");
+     // Read data from fstab if this is an existing snapshot, just use the defaults otherwise
+     try {
+-        upperdir = regex_replace(mntEtc.getOption("upperdir"), std::regex("^" + config.get("DRACUT_SYSROOT")), "");
++        if (config.get("DRACUT_SYSROOT") == "/") {
++            upperdir = mntEtc.getOption("upperdir");
++        } else {
++            upperdir = regex_replace(mntEtc.getOption("upperdir"), std::regex("^" + config.get("DRACUT_SYSROOT")), "");
++        }
+         const string fstabLowerdirs = mntEtc.getOption("lowerdir");
+         string lowerdir;
+         stringstream ss(fstabLowerdirs);
+         while (getline(ss, lowerdir, ':')) {
+-            lowerdir = regex_replace(lowerdir, std::regex("^" + config.get("DRACUT_SYSROOT")), "");
++            if (config.get("DRACUT_SYSROOT") != "/") {
++                lowerdir = regex_replace(lowerdir, std::regex("^" + config.get("DRACUT_SYSROOT")), "");
++            }
+             lowerdirs.push_back(lowerdir);
+         }
+     } catch (exception &e) {}

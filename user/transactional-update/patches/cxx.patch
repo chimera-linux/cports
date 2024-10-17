@@ -1,0 +1,33 @@
+--- a/lib/Supplement.cpp
++++ b/lib/Supplement.cpp
+@@ -21,7 +21,7 @@ Supplements::Supplements(fs::path snapshot):
+ // those directories are deleted in the end by adding them to the list of temporary files
+ void Supplements::createDirs(fs::path dir) {
+     fs::path stump{snapshot};
+-    for (auto& component: dir.relative_path()) {
++    for (const auto& component: dir.relative_path()) {
+         stump /= component;
+         if (! fs::exists(stump)) {
+             fs::create_directories(stump);
+
+--- a/lib/Snapshot/Snapper.cpp
++++ b/lib/Snapshot/Snapper.cpp
+@@ -5,6 +5,7 @@
+   Snapper backend for snapshot handling
+  */
+ 
++#include <sstream>
+ #include "Snapper.hpp"
+ #include "Exceptions.hpp"
+ #include "Util.hpp"
+
+--- a/tukit/tukit.cpp
++++ b/tukit/tukit.cpp
+@@ -5,6 +5,7 @@
+   transactional-update - apply updates to the system in an atomic way
+  */
+ 
++#include <sstream>
+ #include "tukit.hpp"
+ #include "Configuration.hpp"
+ #include "SnapshotManager.hpp"

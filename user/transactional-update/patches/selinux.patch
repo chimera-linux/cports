@@ -1,0 +1,120 @@
+diff --git a/configure.ac b/configure.ac
+index d78d48c..9dd6dbe 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -54,7 +54,6 @@ AC_PROG_LN_S
+ LT_INIT([disable-static])
+ 
+ PKG_CHECK_MODULES([ECONF], [libeconf])
+-PKG_CHECK_MODULES([SELINUX], [libselinux])
+ PKG_CHECK_MODULES([LIBMOUNT], [mount])
+ PKG_CHECK_MODULES([LIBRPM], [rpm >= 4.15], AC_DEFINE([HAVE_RPMDBCOOKIE]),
+ 	[PKG_CHECK_MODULES([LIBRPM], [rpm])])
+diff --git a/lib/Overlay.cpp b/lib/Overlay.cpp
+index 2ea711a..81c1bf5 100644
+--- a/lib/Overlay.cpp
++++ b/lib/Overlay.cpp
+@@ -15,8 +15,6 @@
+ #include <cstring>
+ #include <filesystem>
+ #include <regex>
+-#include <selinux/selinux.h>
+-#include <selinux/context.h>
+ #include <sstream>
+ #include <sys/stat.h>
+ #include <unistd.h>
+@@ -120,18 +118,7 @@ bool Overlay::sync(string base, fs::path snapRoot) {
+     previousEtc->mount(previousOvl.upperdir.parent_path() / "sync");
+     tulog.info("Syncing /etc of previous snapshot ", previousSnapId, " as base into new snapshot ", snapRoot);
+ 
+-    if (is_selinux_enabled()) {
+-        tulog.info("SELinux is enabled.");
+-    }
+-
+-    try {
+-        Util::exec("rsync --quiet --archive --inplace --xattrs --exclude='/fstab' --acls --delete " + syncSource + " " + string(snapRoot) + "/etc 2>&1");
+-    } catch (exception &e) {
+-        // rsync will fail when synchronizing pre-SELinux snapshots as soon as SELinux enabled,
+-        // so try again without the SELinux xattrs.
+-        tulog.info("Retrying rsync without SELinux xattrs...");
+-        Util::exec("rsync --quiet --archive --inplace --xattrs --filter='-x security.selinux' --exclude='/fstab' --acls --delete " + syncSource + " " + string(snapRoot) + "/etc");
+-    }
++    Util::exec("rsync --quiet --archive --inplace --xattrs --filter='-x security.selinux' --exclude='/fstab' --acls --delete " + syncSource + " " + string(snapRoot) + "/etc");
+ 
+     return true;
+ }
+@@ -200,16 +187,6 @@ void Overlay::create(string base, string snapshot, fs::path snapRoot) {
+         throw std::runtime_error{"could not set permissions of " + upperdir.string() + ": " + std::string(strerror(errno))};
+     }
+ 
+-    char* context = NULL;
+-    if (getfilecon("/etc", &context) > 0) {
+-        tulog.debug("selinux context on /etc: " + std::string(context));
+-        if (setfilecon(upperdir.c_str(), context) != 0) {
+-            freecon(context);
+-            throw std::runtime_error{"applying selinux context failed: " + std::string(strerror(errno))};
+-        }
+-        freecon(context);
+-    }
+-
+     // Assemble the new lowerdirs
+     lowerdirs.clear();
+     lowerdirs.push_back(parent.upperdir);
+diff --git a/lib/Transaction.cpp b/lib/Transaction.cpp
+index dd4c472..3cc4e16 100644
+--- a/lib/Transaction.cpp
++++ b/lib/Transaction.cpp
+@@ -25,8 +25,6 @@
+ #include <limits.h>
+ #include <poll.h>
+ #include <sched.h>
+-#include <selinux/restorecon.h>
+-#include <selinux/selinux.h>
+ #include <signal.h>
+ #include <sys/inotify.h>
+ #include <sys/mount.h>
+@@ -128,44 +126,6 @@ void Transaction::impl::snapMount() {
+         dirsToMount.push_back(std::make_unique<BindMount>("/var/lib/ca-certificates"));
+         if (fs::is_directory("/var/lib/alternatives"))
+             dirsToMount.push_back(std::make_unique<BindMount>("/var/lib/alternatives"));
+-        if (fs::is_directory("/var/lib/selinux"))
+-            dirsToMount.push_back(std::make_unique<BindMount>("/var/lib/selinux"));
+-        if (is_selinux_enabled()) {
+-            // If packages installed files into /var (which is not allowed, but still happens), they will end
+-            // up in the root file system, but will always be shadowed by the real /var mount. Due to that they
+-            // also won't be relabelled at any time. During updates this may cause problems if packages try to
+-            // access those leftover directories with wrong permissions, so they have to be relabelled manually...
+-            BindMount selinuxVar("/var/lib/selinux", 0, true);
+-            selinuxVar.mount(bindDir);
+-            BindMount selinuxEtc("/etc/selinux", 0, true);
+-            selinuxEtc.mount(bindDir);
+-
+-            // restorecon keeps open file handles, so execute it in a child process - umount will fail otherwise
+-            pid_t childPid = fork();
+-            if (childPid < 0) {
+-                throw std::runtime_error{"Forking for SELinux relabelling failed: " + std::string(strerror(errno))};
+-            } else if (childPid == 0) {
+-                if (chroot(bindDir.c_str()) < 0) {
+-                    tulog.error("Chrooting to " + bindDir.native() + " for SELinux relabelling failed: " + std::string(strerror(errno)));
+-                    _exit(errno);
+-                }
+-                unsigned int restoreconOptions = SELINUX_RESTORECON_RECURSE | SELINUX_RESTORECON_IGNORE_DIGEST;
+-                if (tulog.level >= TULogLevel::Info)
+-                    restoreconOptions |= SELINUX_RESTORECON_VERBOSE;
+-                if (selinux_restorecon("/var", restoreconOptions) < 0) {
+-                    tulog.error("Relabelling of snapshot /var failed: " + std::string(strerror(errno)));
+-                    _exit(errno);
+-                }
+-                _exit(0);
+-            }
+-            else {
+-                int status;
+-                waitpid(childPid, &status, 0);
+-                if ((WIFEXITED(status) && WEXITSTATUS(status) != 0) || WIFSIGNALED(status)) {
+-                    throw std::runtime_error{"SELinux relabelling failed."};
+-                }
+-            }
+-        }
+     }
+ 
+     std::unique_ptr<Mount> mntEtc{new Mount{"/etc"}};
