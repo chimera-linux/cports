@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20240909"
+pkgver = "20241017"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "93e9b6ae2240661639c874f5fc38f677d18afe365b17a13fee6b4fc4fba42c10"
+sha256 = "551708bc71cb7ac67c800055aecb55e50eb3c86d13486c56250d1ef5132b39dc"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -292,6 +292,7 @@ _pkgs = [
     ("rockchip", "Rockchip SoCs", _arch_arm64, "soc", ["rockchip"]),
     ("rp2", "Comtrol RocketPort 2", None, "misc", ["rp2.fw*"]),
     ("rsi", "Redpine RSI91X WLAN/Bluetooth", None, "network", ["rsi*"]),
+    ("rt1320", "Realtek sound MCU", None, "audio", ["realtek/rt1320"]),
     ("rtl_bt", "Realtek Bluetooth", None, "network", ["rtl_bt"]),
     ("rtl_nic", "Realtek Ethernet", None, "network", ["rtl_nic"]),
     (
