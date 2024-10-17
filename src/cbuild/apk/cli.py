@@ -384,6 +384,26 @@ def build_index(repopath, epoch, allow_untrusted=False):
     if keypath:
         aargs += ["--sign-key", keypath]
 
+    aenv = {"PATH": os.environ["PATH"], "SOURCE_DATE_EPOCH": str(epoch)}
+
+    # for newer apk, we need to pass --hash to preserve compatibility
+    # with older apk's treatment of indexes, but this argument will
+    # not work with older apk so we test for it
+    if (
+        call(
+            "mkndx",
+            ["--hash", "sha256-160", "--output", "hash-test.adb", "--quiet"],
+            None,
+            cwd=repopath,
+            env=aenv,
+            allow_untrusted=True,
+            capture_output=True,
+        ).returncode
+        == 0
+    ):
+        (repopath / "hash-test.adb").unlink()
+        aargs += ["--hash", "sha256-160"]
+
     ilen = len(aargs)
 
     summarize_repo(repopath, aargs)
@@ -398,7 +418,7 @@ def build_index(repopath, epoch, allow_untrusted=False):
         aargs,
         None,
         cwd=repopath,
-        env={"PATH": os.environ["PATH"], "SOURCE_DATE_EPOCH": str(epoch)},
+        env=aenv,
         allow_untrusted=not keypath,
     )
     if signr.returncode != 0:
