@@ -1,5 +1,5 @@
 pkgname = "python-trio"
-pkgver = "0.26.2"
+pkgver = "0.27.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -7,6 +7,7 @@ make_check_args = [
     "trio",
     "--skip-optional-imports",
     "-k",
+    # these fail on ci
     "not test_signals and not test_for_leaking_fds",
 ]
 hostmakedepends = [
@@ -28,7 +29,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/python-trio/trio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bba305645a31b0d51eed30bc914bbc0d13143801b1b9eba48fb5dd96ea40e85b"
+sha256 = "aea7889ddcc7a5ad62910138fabb0f3e3cd7a00f01c3ddaf0cb94a458dc85c45"
 
 
 def post_install(self):
