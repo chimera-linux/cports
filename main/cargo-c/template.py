@@ -1,5 +1,5 @@
 pkgname = "cargo-c"
-pkgver = "0.10.4"
+pkgver = "0.10.5"
 pkgrel = 0
 build_style = "cargo"
 # no tests in others
@@ -24,25 +24,12 @@ source = [
     f"!{url}/releases/download/v{pkgver}/Cargo.lock>Cargo.lock.{pkgver}",
 ]
 sha256 = [
-    "3382f6c3eca404695885e79babfce6448124a481a77cec11c3bfeb5830f677c1",
-    "9faed81831966f6569ecb8778443199de4126523c063c2b1257b39fe3d48691f",
+    "3f131a6a647851a617a87daaaf777a9e50817957be0af29806615613e98efc8a",
+    "2b5660aabd70f6a12390a19bcdeacc585c418d24aaa6855bd396a1c3a5684320",
 ]
 # mfs be like rebuild literally everything and then run
 # test_semver_one_zero_zero and test_semver_zero_zero_zero
 options = ["!check"]
-
-
-def pre_prepare(self):
-    # newer rustix broken on ppc
-    self.do(
-        "cargo",
-        "update",
-        "--package",
-        "rustix",
-        "--precise",
-        "0.38.35",
-        allow_network=True,
-    )
 
 
 def post_extract(self):
