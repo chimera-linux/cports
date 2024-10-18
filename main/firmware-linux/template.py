@@ -1,7 +1,7 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
 pkgver = "20241017"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -390,6 +390,11 @@ def install(self):
             "ZSTD_CLEVEL": "9",
             "ZSTD_NBTHREADS": str(min(4, self.make_jobs)),
         },
+    )
+    self.do(
+        "./dedup-firmware.sh",
+        "-v",
+        str(self.chroot_destdir / "usr/lib/firmware"),
     )
 
     self.install_license("WHENCE")

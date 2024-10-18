@@ -1,0 +1,10 @@
+--- a/dedup-firmware.sh
++++ b/dedup-firmware.sh
+@@ -16,6 +16,7 @@
+         -v | --verbose)
+             # shellcheck disable=SC2209
+             verbose=echo
++            shift
+             ;;
+         *)
+             if test -n "$destdir"; then
