@@ -1,6 +1,6 @@
 pkgname = "podman"
-pkgver = "5.2.4"
-pkgrel = 1
+pkgver = "5.2.5"
+pkgrel = 0
 build_style = "go"
 # for install.bin compat
 make_dir = "bin"
@@ -50,7 +50,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
-sha256 = "4e5609b9fffa26b46a135abda7049ac034d83dab402c507cbc9cb714c5bb7c5c"
+sha256 = "18bbf2c26534229c030590d65da88154bed31f0207041d30fed5f508b933a66c"
 # nah
 options = ["!check"]
 
