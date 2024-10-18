@@ -1,12 +1,13 @@
 pkgname = "libcupsfilters"
-pkgver = "2.0.0"
-pkgrel = 2
+pkgver = "2.1.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     # TODO mupdf deptree
     "--disable-mutool",
     "--with-test-font-path=/usr/share/fonts/dejavu/DejaVuSans.otf",
 ]
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
@@ -26,14 +27,14 @@ makedepends = [
     "linux-headers",
     "poppler-devel",
 ]
-checkdepends = ["fonts-dejavu-otf"]
+checkdepends = ["bash", "fonts-dejavu-otf"]
 depends = ["ghostscript"]
 pkgdesc = "Support library for cups filters"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 AND custom:gpl-exception"
 url = "https://github.com/OpenPrinting/libcupsfilters"
-source = f"https://github.com/OpenPrinting/libcupsfilters/releases/download/{pkgver}/libcupsfilters-{pkgver}.tar.xz"
-sha256 = "542f2bfbc58136a4743c11dc8c86cee03c9aca705612654e36ac34aa0d9aa601"
+source = f"{url}/releases/download/{pkgver}/libcupsfilters-{pkgver}.tar.xz"
+sha256 = "cbe900c7783e4aab0b1681629fad7322d82d082a51e8bae7e1c741d26bdcd294"
 # vis breaks symbols
 hardening = ["!vis"]
 
