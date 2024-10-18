@@ -1,6 +1,6 @@
 pkgname = "zed"
 pkgver = "0.157.5"
-pkgrel = 0
+pkgrel = 1
 # wasmtime
 archs = ["aarch64", "x86_64"]
 build_style = "cargo"
@@ -43,7 +43,9 @@ options = ["!check", "!cross"]
 
 
 def install(self):
-    self.install_bin(f"target/{self.profile().triplet}/release/cli", name="zed")
+    self.install_bin(
+        f"target/{self.profile().triplet}/release/cli", name="zeditor"
+    )
     self.install_file(
         f"target/{self.profile().triplet}/release/zed",
         "usr/lib/zed",

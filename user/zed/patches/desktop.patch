@@ -12,9 +12,9 @@
 -StartupNotify=$DO_STARTUP_NOTIFY
 -Exec=$APP_CLI $APP_ARGS
 -Icon=$APP_ICON
-+TryExec=zed
++TryExec=zeditor
 +StartupNotify=true
-+Exec=zed %U
++Exec=zeditor %U
 +Icon=zed
  Categories=Utility;TextEditor;Development;IDE;
  Keywords=zed;
@@ -23,5 +23,5 @@
  
  [Desktop Action NewWorkspace]
 -Exec=$APP_CLI --new $APP_ARGS
-+Exec=zed --new %U
++Exec=zeditor --new %U
  Name=Open a new workspace
