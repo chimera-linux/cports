@@ -1,5 +1,5 @@
 pkgname = "libpanel"
-pkgver = "1.8.0"
+pkgver = "1.8.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=disabled"]
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libpanel"
 source = f"$(GNOME_SITE)/libpanel/{'.'.join(pkgver.rsplit('.')[:-1])}/libpanel-{pkgver}.tar.xz"
-sha256 = "5a9b6b54452fa1903a2fd64ba62278ef94b9b11659b7e1a5fda3518b66cd39c3"
+sha256 = "b87b8fa9b79768cc704243793f0158a040a1e46d37b9889188545a7f7dcaa6fb"
 # gobject-introspection
 options = ["!cross"]
 
