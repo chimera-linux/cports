@@ -15,21 +15,12 @@ diff --git a/meson.build b/meson.build
 index a312ae0..763c9c6 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -351,13 +351,7 @@ if (is_asm_enabled and
-     (host_machine.cpu_family() == 'aarch64' or
-      host_machine.cpu_family().startswith('arm')))
+@@ -442,7 +442,7 @@
+     endif
+ endif
  
--   as_func_code = '''__asm__ (
--".func meson_test"
--".endfunc"
--);
--'''
--    have_as_func = cc.compiles(as_func_code)
--    cdata.set10('HAVE_AS_FUNC', have_as_func)
-+    cdata.set10('HAVE_AS_FUNC', false)
- 
-     # fedora package build infrastructure uses a gcc specs file to enable
-     # '-fPIE' by default. The chosen way only adds '-fPIE' to the C compiler
--- 
-2.34.1
-
+-cdata.set10('HAVE_AS_FUNC', have_as_func)
++cdata.set10('HAVE_AS_FUNC', false)
+ cdata.set10('HAVE_AS_ARCH_DIRECTIVE', have_as_arch)
+ foreach name, _ : aarch64_extensions
+     cdata.set10('HAVE_AS_ARCHEXT_' + name.to_upper() + '_DIRECTIVE', name in supported_aarch64_archexts)
