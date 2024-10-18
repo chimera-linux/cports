@@ -1,5 +1,5 @@
 pkgname = "gnome-text-editor"
-pkgver = "47.0"
+pkgver = "47.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,4 +27,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-text-editor"
 source = f"$(GNOME_SITE)/gnome-text-editor/{pkgver[:-2]}/gnome-text-editor-{pkgver}.tar.xz"
-sha256 = "0304961974bdacc7e6e8d146dadc949527df99b2823582c8d1ba8b33d25d4217"
+sha256 = "de95642e2b40ff265feecd86b939e0fd018e4eb2ba499350f2bad2bfcc54010c"
