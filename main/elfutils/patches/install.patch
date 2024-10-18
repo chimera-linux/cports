@@ -1,14 +1,17 @@
+diff --git a/config/Makefile.in b/config/Makefile.in
+index 45f283f..e1fabf3 100644
 --- a/config/Makefile.in
 +++ b/config/Makefile.in
-@@ -569,8 +569,9 @@ uninstall-am: uninstall-local uninstall-pkgconfigDATA
- 
+@@ -582,9 +582,9 @@ uninstall-am: uninstall-local uninstall-pkgconfigDATA
+ @LIBDEBUGINFOD_TRUE@	sed -i 's/{prefix}/prefix/g' profile.fish
  
  @LIBDEBUGINFOD_TRUE@install-data-local:
 -@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.sh -D $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.sh
 -@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.csh -D $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.csh
-+@LIBDEBUGINFOD_TRUE@	$(INSTALL) -d $(DESTDIR)$(sysconfdir)/profile.d
-+@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.sh $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.sh
-+@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.csh $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.csh
+-@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) profile.fish -D $(DESTDIR)$(datadir)/fish/vendor_conf.d/debuginfod.fish
++@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) -D profile.sh $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.sh
++@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) -D profile.csh $(DESTDIR)$(sysconfdir)/profile.d/debuginfod.csh
++@LIBDEBUGINFOD_TRUE@	$(INSTALL_DATA) -D profile.fish $(DESTDIR)$(datadir)/fish/vendor_conf.d/debuginfod.fish
  @LIBDEBUGINFOD_TRUE@	mkdir -p $(DESTDIR)$(sysconfdir)/debuginfod
  @LIBDEBUGINFOD_TRUE@	if [ -n "@DEBUGINFOD_URLS@" ]; then \
  @LIBDEBUGINFOD_TRUE@		echo "@DEBUGINFOD_URLS@" > $(DESTDIR)$(sysconfdir)/debuginfod/elfutils.urls; \

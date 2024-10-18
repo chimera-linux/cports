@@ -1,11 +1,13 @@
 pkgname = "elfutils"
-pkgver = "0.191"
-pkgrel = 2
+pkgver = "0.192"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-nls",
     "--disable-werror",
+    "--enable-debuginfod",
     "--enable-deterministic-archives",
+    "--enable-libdebuginfod",
     "--with-zstd",
     "--program-prefix=eu-",
 ]
@@ -20,6 +22,7 @@ makedepends = [
     "argp-standalone",
     "bzip2-devel",
     "chimerautils-devel",
+    "json-c-devel",
     "libarchive-devel",
     "libcurl-devel",
     "libmicrohttpd-devel",
@@ -41,11 +44,15 @@ url = "https://sourceware.org/elfutils"
 source = (
     f"https://sourceware.org/elfutils/ftp/{pkgver}/elfutils-{pkgver}.tar.bz2"
 )
-sha256 = "df76db71366d1d708365fc7a6c60ca48398f14367eb2b8954efc8897147ad871"
+sha256 = "616099beae24aba11f9b63d86ca6cc8d566d968b802391334c91df54eab416b4"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE", "-Wno-unaligned-access"],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
 }
+
+if self.profile().arch == "x86_64":
+    makedepends += ["sysprof-capture"]
+    configure_args += ["--enable-stacktrace"]
 
 
 def post_build(self):

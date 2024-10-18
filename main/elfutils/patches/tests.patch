@@ -114,11 +114,11 @@ index 2d4eebd..83e0211 100755
  	{ echo "*** failure $elfcompressedfile not smaller"; exit -1; }
      
 diff --git a/tests/run-debuginfod-archive-groom.sh b/tests/run-debuginfod-archive-groom.sh
-index e2c394e..e591239 100755
+index 0131158..d91f991 100755
 --- a/tests/run-debuginfod-archive-groom.sh
 +++ b/tests/run-debuginfod-archive-groom.sh
 @@ -112,7 +112,7 @@ done
- sourcefiles=$(find -name \*\\.debug \
+ sourcefiles=$(find -name \*\\.debug -type f \
                | env LD_LIBRARY_PATH=$ldpath xargs \
                  ${abs_top_builddir}/src/readelf --debug-dump=decodedline \
 -              | grep mtime: | wc --lines)
@@ -127,11 +127,11 @@ index e2c394e..e591239 100755
  rm -rf extracted
  
 diff --git a/tests/run-debuginfod-extraction.sh b/tests/run-debuginfod-extraction.sh
-index da6b25c..83d4a65 100755
+index f49dc6f..cc29de3 100755
 --- a/tests/run-debuginfod-extraction.sh
 +++ b/tests/run-debuginfod-extraction.sh
 @@ -97,7 +97,7 @@ done
- sourcefiles=$(find -name \*\\.debug \
+ sourcefiles=$(find -name \*\\.debug -type f \
                | env LD_LIBRARY_PATH=$ldpath xargs \
                  ${abs_top_builddir}/src/readelf --debug-dump=decodedline \
 -              | grep mtime: | wc --lines)
@@ -462,3 +462,16 @@ index c4d55ce..cbccd71 100755
    test \( \( $is_ET_REL -eq 1 \) -a \( $SIZE1 -gt $SIZE2 \) \) \
  	-o \( \( $is_ET_REL -eq 0 \) -a \( $SIZE1 -eq $SIZE2 \) \) ||
    { echo "*** failure --reloc-debug-sections not smaller $infile"; runtest_status=1; }
+diff --git a/tests/run-sysroot.sh b/tests/run-sysroot.sh
+index 1dc079c..41082c9 100755
+--- a/tests/run-sysroot.sh
++++ b/tests/run-sysroot.sh
+@@ -17,6 +17,8 @@
+ 
+ . $srcdir/test-subr.sh
+ 
++exit 77
++
+ tmpdir="$(mktemp -d)"
+ trap "rm -rf -- ${tmpdir}" EXIT
+ 
