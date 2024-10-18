@@ -1,5 +1,5 @@
 pkgname = "fcitx5-qt"
-pkgver = "5.1.7"
+pkgver = "5.1.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause AND LGPL-2.1-or-later"
 url = "https://fcitx-im.org"
 source = f"https://github.com/fcitx/fcitx5-qt/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "586e35e70e656ce387d7c87b58af1294599bd10385f983580235a2efeca666ee"
+sha256 = "a09fb653ab855424a5a92c6a634c3726fa19ae85ca7c24716784b3ddd136f201"
 hardening = ["vis", "cfi"]
 # fails
 options = ["!cross"]
