@@ -1,5 +1,5 @@
 pkgname = "libppd"
-pkgver = "2.0.0"
+pkgver = "2.1.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -23,8 +23,8 @@ pkgdesc = "Legacy support library for PPD files"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 AND custom:gpl-exception"
 url = "https://github.com/OpenPrinting/libppd"
-source = f"https://github.com/OpenPrinting/libppd/releases/download/{pkgver}/libppd-{pkgver}.tar.xz"
-sha256 = "882d3c659a336e91559de8f3c76fc26197fe6e5539d9b484a596e29a5a4e0bc8"
+source = f"{url}/releases/download/{pkgver}/libppd-{pkgver}.tar.xz"
+sha256 = "bc4d7f8b749a8809f532459a5dd2f3513556ea2b96b3e12aced3e078c2697cba"
 # vis breaks symbols
 hardening = ["!vis"]
 
