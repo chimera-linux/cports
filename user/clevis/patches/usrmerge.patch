@@ -1,0 +1,31 @@
+diff --git a/src/initramfs-tools/hooks/clevis.in b/src/initramfs-tools/hooks/clevis.in
+index 7312d7a..afd2d44 100755
+--- a/src/initramfs-tools/hooks/clevis.in
++++ b/src/initramfs-tools/hooks/clevis.in
+@@ -48,7 +48,7 @@ find_binary() {
+ }
+ 
+ if [ -n "${FORCE_CLEVIS}" ] && [ "${FORCE_CLEVIS}" != "n" ]; then
+-    for f in /sbin/cryptsetup /sbin/dmsetup /lib/cryptsetup/askpass; do
++    for f in /usr/bin/cryptsetup /usr/bin/dmsetup /usr/lib/cryptsetup/askpass; do
+         if [ ! -e "${DESTDIR}${f}" ]; then
+             die 2 "cryptsetup utility '$f' wasn't found in the generated ramdisk image. "
+         fi
+diff --git a/src/initramfs-tools/scripts/local-top/clevis.in b/src/initramfs-tools/scripts/local-top/clevis.in
+index 1487264..da68507 100755
+--- a/src/initramfs-tools/scripts/local-top/clevis.in
++++ b/src/initramfs-tools/scripts/local-top/clevis.in
+@@ -118,11 +118,11 @@ clevisloop() {
+     # Set the path how we want it (Probably not all needed)
+     PATH="/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin"
+ 
+-    if [ -x /bin/plymouth ] && plymouth --ping; then
++    if [ -x /usr/bin/plymouth ] && plymouth --ping; then
+         cryptkeyscript='plymouth ask-for-password'
+     else
+         # This has to be escaped for awk
+-        cryptkeyscript='\/lib\/cryptsetup\/askpass'
++        cryptkeyscript='\/usr\/lib\/cryptsetup\/askpass'
+     fi
+ 
+     OLD_CRYPTTAB_SOURCE=""
