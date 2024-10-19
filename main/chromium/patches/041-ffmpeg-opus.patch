@@ -1,6 +1,8 @@
 Restore the ability to play videos with opus (e.g. youtube) when
 using system-wide ffmpeg.
 
+also add mp3float as it's the default mp3 decoder ffmpeg picks and breaks mp3 sources
+--
 --- a/media/filters/ffmpeg_glue.cc
 +++ b/media/filters/ffmpeg_glue.cc
 @@ -142,7 +142,7 @@ const char* FFmpegGlue::GetAllowedAudioDecoders() {
@@ -8,7 +10,7 @@ using system-wide ffmpeg.
      // This should match the configured lists in //third_party/ffmpeg.
      std::string allowed_decoders(
 -        "vorbis,libopus,flac,pcm_u8,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le,"
-+        "vorbis,opus,libopus,flac,pcm_u8,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le,"
++        "vorbis,mp3float,opus,libopus,flac,pcm_u8,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le,"
          "mp3,pcm_s16be,pcm_s24be,pcm_mulaw,pcm_alaw");
  #if BUILDFLAG(USE_PROPRIETARY_CODECS)
      allowed_decoders += ",aac";
