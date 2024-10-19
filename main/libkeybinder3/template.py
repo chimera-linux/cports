@@ -1,6 +1,6 @@
 pkgname = "libkeybinder3"
 pkgver = "0.3.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -31,8 +31,4 @@ def post_install(self):
 
 @subpackage("libkeybinder3-devel")
 def _(self):
-    return self.default_devel(
-        extra=[
-            "usr/lib/girepository-1.0",
-        ]
-    )
+    return self.default_devel()
