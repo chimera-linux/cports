@@ -1,0 +1,19 @@
+diff --git a/crates/tinymist-world/Cargo.toml b/crates/tinymist-world/Cargo.toml
+index 6ff1528..903412d 100644
+--- a/crates/tinymist-world/Cargo.toml
++++ b/crates/tinymist-world/Cargo.toml
+@@ -30,14 +30,6 @@ parking_lot.workspace = true
+ flate2 = "1"
+ tar = "0.4"
+ 
+-[target.'cfg(not(any(target_arch = "riscv64", target_arch = "wasm32", all(target_os = "windows", target_arch = "aarch64"))))'.dependencies]
+-reqwest = { version = "^0.11", default-features = false, features = [
+-    "rustls-tls",
+-    "blocking",
+-    "multipart",
+-] }
+-
+-[target.'cfg(any(target_arch = "riscv64", all(target_os = "windows", target_arch = "aarch64")))'.dependencies]
+ reqwest = { version = "^0.11", default-features = false, features = [
+     "native-tls",
+     "blocking",

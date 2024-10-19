@@ -1,10 +1,10 @@
 pkgname = "tinymist"
 pkgver = "0.11.32"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = ["--bin", "tinymist"]
-hostmakedepends = ["cargo"]
-makedepends = ["rust-std"]
+hostmakedepends = ["cargo", "pkgconf"]
+makedepends = ["rust-std", "openssl-devel"]
 depends = ["typst"]
 pkgdesc = "Language server for Typst"
 maintainer = "psykose <alice@ayaya.dev>"
