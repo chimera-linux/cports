@@ -1,6 +1,6 @@
 pkgname = "apk-tools"
 pkgver = "3.0.0_pre10"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "0e459970971579626ddf9f8f7b47a7ff16a03af4"
 build_style = "meson"
 configure_args = [
@@ -39,6 +39,11 @@ else:
         "-Ddocs=disabled",
         "-Dzstd=false",
     ]
+
+
+def post_extract(self):
+    with open(self.cwd / "VERSION", "w") as f:
+        f.write(f"{pkgver} ({_gitrev})")
 
 
 def init_configure(self):
