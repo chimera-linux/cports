@@ -1,0 +1,26 @@
+From d9118f847f671826c863572c686e780a91674672 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 20 Oct 2024 15:47:45 +0200
+Subject: [PATCH] app_cache: initialize changeset for later processing
+
+This prevents a segfault because of the array being uninitialized,
+e.g. for `apk cache download`.
+---
+ src/app_cache.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/app_cache.c b/src/app_cache.c
+index cf566d1..d2f8b3c 100644
+--- a/src/app_cache.c
++++ b/src/app_cache.c
+@@ -96,6 +96,7 @@ static int cache_download(struct cache_ctx *cctx, struct apk_database *db, struc
+ 	struct progress prog = { .prog = db->ctx->progress };
+ 	int i, r, ret = 0;
+ 
++	apk_change_array_init(&changeset.changes);
+ 	apk_dependency_array_init(&deps);
+ 	if (apk_array_len(args) == 1 || cctx->add_dependencies)
+ 		apk_dependency_array_copy(&deps, db->world);
+-- 
+2.47.0
+
