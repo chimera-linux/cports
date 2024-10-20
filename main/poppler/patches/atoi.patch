@@ -1,0 +1,11 @@
+--- a/poppler/XRef.cc
++++ b/poppler/XRef.cc
+@@ -949,7 +949,7 @@
+ 
+                 // look for object
+             } else if (isdigit(*p & 0xff)) {
+-                num = atoi(p);
++                num = (int)strtol(p, NULL, 10);
+                 if (num > 0) {
+                     do {
+                         ++p;

@@ -1,7 +1,7 @@
 pkgname = "poppler"
 pkgver = "24.09.0"
 _test_commit = "ff3133cdb6cb496ee1d2c3231bfa35006a5e8410"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
