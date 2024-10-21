@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. /scripts/local
+. /scripts/functions
+
+
+if read_fstab_entry /var; then
+  log_begin_msg "Mounting var filesystem"
+  mountfs /etc
+  log_end_msg
+fi
+
+if read_fstab_entry /etc; then
+  log_begin_msg "Mounting etc overlay"
+  mountfs /etc
+  log_end_msg
+fi
+
