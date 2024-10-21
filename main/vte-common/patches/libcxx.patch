@@ -10,43 +10,6 @@ Subject: [PATCH] work around lack of c++17 compliance in libc++ + fixes
  src/termprops.hh  | 40 +++++++++++++++++++++++++++++-----------
  4 files changed, 32 insertions(+), 12 deletions(-)
 
-diff --git a/src/color-test.cc b/src/color-test.cc
-index 0ed9089..1bfad31 100644
---- a/src/color-test.cc
-+++ b/src/color-test.cc
-@@ -165,7 +165,7 @@ static void
- test_color_to_string (void)
- {
-         auto test = [](std::string str,
--                       bool alpha = false) constexpr noexcept -> void
-+                       bool alpha = false) noexcept -> void
-         {
-                 auto const value = parse<rgba>(str);
-                 assert(value);
-diff --git a/src/icu-glue.hh b/src/icu-glue.hh
-index f2c3331..f72999b 100644
---- a/src/icu-glue.hh
-+++ b/src/icu-glue.hh
-@@ -20,6 +20,7 @@
- #include <glib.h>
- #include <memory>
- #include <optional>
-+#include <string_view>
- 
- namespace vte::base {
- 
-diff --git a/src/minifont.cc b/src/minifont.cc
-index 9be96d6..8d8c441 100644
---- a/src/minifont.cc
-+++ b/src/minifont.cc
-@@ -19,6 +19,7 @@
- #include "config.h"
- 
- #include <cmath>
-+#include <algorithm>
- 
- #include "cairo-glue.hh"
- 
 diff --git a/src/termprops.hh b/src/termprops.hh
 index 0d3f0f4..8f22a3d 100644
 --- a/src/termprops.hh
