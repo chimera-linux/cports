@@ -1,0 +1,26 @@
+diff --git a/Makefile b/Makefile
+index 4dbce59..f9eb8c2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3485,7 +3485,7 @@ clobber: clean
+ #
+ # NOTE: Keep the uninstall rule in the reverse order of the install rule
+ #
+-install: ${LIB_H_SRC} ${BUILD_H_SRC} calc.1 all custom/Makefile
++install: ${LIB_H_SRC} ${BUILD_H_SRC} calc.1
+ 	${V} echo '=-=-=-=-= ${MAKE_FILE} start of $@ rule =-=-=-=-='
+ 	-${Q} if [ ! -z "${T}" ]; then \
+ 	    if [ ! -d ${T} ]; then \
+diff --git a/custom/Makefile b/custom/Makefile
+index 82b104e..60542b2 100644
+--- a/custom/Makefile
++++ b/custom/Makefile
+@@ -477,7 +477,7 @@ clobber: clean
+ #
+ # NOTE: Keep the uninstall rule in reverse order to the install rule
+ #
+-install: all
++install:
+ 	-${Q} if [ ! -d ${T}${LIBDIR} ]; then \
+ 	    echo ${MKDIR} -p ${T}${LIBDIR}; \
+ 	    ${MKDIR} -p ${T}${LIBDIR}; \
