@@ -1,10 +1,10 @@
 Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/7ba7df46c734e011ceeca6df1f1995704a435244/community/prismlauncher/0001-system-jemalloc.patch
 --
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index e344c1e..d2eaf0c 100644
+index b677b0b..a68be8b 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -223,12 +223,15 @@ set(Launcher_QT_VERSION_MAJOR "6" CACHE STRING "Major Qt version to build agains
+@@ -239,12 +239,15 @@ option(Launcher_ENABLE_JAVA_DOWNLOADER "Build the java downloader feature" ${Lau
  if(UNIX AND APPLE)
      set(Launcher_GLFW_LIBRARY_NAME "libglfw.dylib" CACHE STRING "Name of native glfw library")
      set(Launcher_OPENAL_LIBRARY_NAME "libopenal.dylib" CACHE STRING "Name of native openal library")
@@ -21,10 +21,10 @@ index e344c1e..d2eaf0c 100644
  
  # API Keys
 diff --git a/buildconfig/BuildConfig.cpp.in b/buildconfig/BuildConfig.cpp.in
-index b40cacb..9fb6f36 100644
+index b48232b..270e1eb 100644
 --- a/buildconfig/BuildConfig.cpp.in
 +++ b/buildconfig/BuildConfig.cpp.in
-@@ -120,6 +120,7 @@ Config::Config()
+@@ -125,6 +125,7 @@ Config::Config()
  
      GLFW_LIBRARY_NAME = "@Launcher_GLFW_LIBRARY_NAME@";
      OPENAL_LIBRARY_NAME = "@Launcher_OPENAL_LIBRARY_NAME@";
@@ -33,10 +33,10 @@ index b40cacb..9fb6f36 100644
      BUG_TRACKER_URL = "@Launcher_BUG_TRACKER_URL@";
      TRANSLATIONS_URL = "@Launcher_TRANSLATIONS_URL@";
 diff --git a/buildconfig/BuildConfig.h b/buildconfig/BuildConfig.h
-index bda80ac..838abe2 100644
+index ae705d0..e4409d9 100644
 --- a/buildconfig/BuildConfig.h
 +++ b/buildconfig/BuildConfig.h
-@@ -154,6 +154,7 @@ class Config {
+@@ -160,6 +160,7 @@ class Config {
  
      QString GLFW_LIBRARY_NAME;
      QString OPENAL_LIBRARY_NAME;
@@ -45,10 +45,10 @@ index bda80ac..838abe2 100644
      QString BUG_TRACKER_URL;
      QString TRANSLATIONS_URL;
 diff --git a/launcher/Application.cpp b/launcher/Application.cpp
-index db34877..90ba9fa 100644
+index b8dcc10..9f4343e 100644
 --- a/launcher/Application.cpp
 +++ b/launcher/Application.cpp
-@@ -635,10 +635,12 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
+@@ -658,10 +658,12 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
          m_settings->registerSetting("OnlineFixes", false);
  
          // Native library workarounds
@@ -63,9 +63,9 @@ index db34877..90ba9fa 100644
 +        m_settings->registerSetting("UseNativeJemalloc", true);
 +        m_settings->registerSetting("CustomJemallocPath", "/usr/lib/libjemalloc.so.2");
  
-         // Peformance related options
+         // Performance related options
          m_settings->registerSetting("EnableFeralGamemode", false);
-@@ -1651,7 +1653,8 @@ void Application::detectLibraries()
+@@ -1701,7 +1703,8 @@ void Application::detectLibraries()
  #ifdef Q_OS_LINUX
      m_detectedGLFWPath = MangoHud::findLibrary(BuildConfig.GLFW_LIBRARY_NAME);
      m_detectedOpenALPath = MangoHud::findLibrary(BuildConfig.OPENAL_LIBRARY_NAME);
@@ -76,29 +76,29 @@ index db34877..90ba9fa 100644
  }
  
 diff --git a/launcher/Application.h b/launcher/Application.h
-index 7669e08..9a776f5 100644
+index bd1cb2d..2afdae8 100644
 --- a/launcher/Application.h
 +++ b/launcher/Application.h
-@@ -287,6 +287,7 @@ class Application : public QApplication {
+@@ -295,6 +295,7 @@ class Application : public QApplication {
     public:
      QString m_detectedGLFWPath;
      QString m_detectedOpenALPath;
 +    QString m_detectedJemallocPath;
      QString m_instanceIdToLaunch;
      QString m_serverToJoin;
-     QString m_profileToUse;
+     QString m_worldToJoin;
 diff --git a/launcher/minecraft/MinecraftInstance.cpp b/launcher/minecraft/MinecraftInstance.cpp
-index a9dbfac..7c4056d 100644
+index 98ac764..34a5f50 100644
 --- a/launcher/minecraft/MinecraftInstance.cpp
 +++ b/launcher/minecraft/MinecraftInstance.cpp
-@@ -172,6 +172,8 @@ void MinecraftInstance::loadSpecificSettings()
+@@ -169,6 +169,8 @@ void MinecraftInstance::loadSpecificSettings()
          m_settings->registerOverride(global_settings->getSetting("CustomOpenALPath"), nativeLibraryWorkaroundsOverride);
          m_settings->registerOverride(global_settings->getSetting("UseNativeGLFW"), nativeLibraryWorkaroundsOverride);
          m_settings->registerOverride(global_settings->getSetting("CustomGLFWPath"), nativeLibraryWorkaroundsOverride);
 +        m_settings->registerOverride(global_settings->getSetting("UseNativeJemalloc"), nativeLibraryWorkaroundsOverride);
 +        m_settings->registerOverride(global_settings->getSetting("CustomJemallocPath"), nativeLibraryWorkaroundsOverride);
  
-         // Peformance related options
+         // Performance related options
          auto performanceOverride = m_settings->registerSetting("OverridePerformance", false);
 @@ -445,6 +447,7 @@ QStringList MinecraftInstance::extraArguments()
      {
@@ -132,7 +132,7 @@ index a9dbfac..7c4056d 100644
      }
  
      return list;
-@@ -801,11 +813,14 @@ QStringList MinecraftInstance::verboseDescription(AuthSessionPtr session, Minecr
+@@ -815,11 +827,14 @@ QStringList MinecraftInstance::verboseDescription(AuthSessionPtr session, Minecr
      auto settings = this->settings();
      bool nativeOpenAL = settings->get("UseNativeOpenAL").toBool();
      bool nativeGLFW = settings->get("UseNativeGLFW").toBool();
@@ -149,7 +149,7 @@ index a9dbfac..7c4056d 100644
      }
  
 diff --git a/launcher/ui/pages/global/MinecraftPage.cpp b/launcher/ui/pages/global/MinecraftPage.cpp
-index a9530ef..37e6179 100644
+index 3431dcb..6064c99 100644
 --- a/launcher/ui/pages/global/MinecraftPage.cpp
 +++ b/launcher/ui/pages/global/MinecraftPage.cpp
 @@ -53,6 +53,7 @@ MinecraftPage::MinecraftPage(QWidget* parent) : QWidget(parent), ui(new Ui::Mine
@@ -181,7 +181,7 @@ index a9530ef..37e6179 100644
  
      // Peformance related options
      s->set("EnableFeralGamemode", ui->enableFeralGamemodeCheck->isChecked());
-@@ -147,6 +155,13 @@ void MinecraftPage::loadSettings()
+@@ -148,6 +156,13 @@ void MinecraftPage::loadSettings()
      if (!APPLICATION->m_detectedOpenALPath.isEmpty())
          ui->lineEditOpenALPath->setPlaceholderText(tr("Auto detected path: %1").arg(APPLICATION->m_detectedOpenALPath));
  #endif
@@ -208,7 +208,7 @@ index 5facfbb..a2a9bae 100644
     private:
      Ui::MinecraftPage* ui;
 diff --git a/launcher/ui/pages/global/MinecraftPage.ui b/launcher/ui/pages/global/MinecraftPage.ui
-index 3008099..371399c 100644
+index 7d27412..0c27a09 100644
 --- a/launcher/ui/pages/global/MinecraftPage.ui
 +++ b/launcher/ui/pages/global/MinecraftPage.ui
 @@ -270,6 +270,30 @@
@@ -243,18 +243,18 @@ index 3008099..371399c 100644
          </widget>
         </item>
 diff --git a/launcher/ui/pages/instance/InstanceSettingsPage.cpp b/launcher/ui/pages/instance/InstanceSettingsPage.cpp
-index d4fd0ec..2acfb8b 100644
+index cf8d86c..105ca2c 100644
 --- a/launcher/ui/pages/instance/InstanceSettingsPage.cpp
 +++ b/launcher/ui/pages/instance/InstanceSettingsPage.cpp
-@@ -70,6 +70,7 @@ InstanceSettingsPage::InstanceSettingsPage(BaseInstance* inst, QWidget* parent)
+@@ -77,6 +77,7 @@ InstanceSettingsPage::InstanceSettingsPage(BaseInstance* inst, QWidget* parent)
  
      connect(ui->useNativeGLFWCheck, &QAbstractButton::toggled, this, &InstanceSettingsPage::onUseNativeGLFWChanged);
      connect(ui->useNativeOpenALCheck, &QAbstractButton::toggled, this, &InstanceSettingsPage::onUseNativeOpenALChanged);
 +    connect(ui->useNativeJemallocCheck, &QAbstractButton::toggled, this, &InstanceSettingsPage::onUseNativeJemallocChanged);
  
-     loadSettings();
- 
-@@ -218,11 +219,15 @@ void InstanceSettingsPage::applySettings()
+     auto mInst = dynamic_cast<MinecraftInstance*>(inst);
+     m_world_quickplay_supported = mInst && mInst->traits().contains("feature:is_quick_play_singleplayer");
+@@ -238,11 +239,15 @@ void InstanceSettingsPage::applySettings()
          m_settings->set("CustomGLFWPath", ui->lineEditGLFWPath->text());
          m_settings->set("UseNativeOpenAL", ui->useNativeOpenALCheck->isChecked());
          m_settings->set("CustomOpenALPath", ui->lineEditOpenALPath->text());
@@ -270,7 +270,7 @@ index d4fd0ec..2acfb8b 100644
      }
  
      // Performance
-@@ -348,6 +353,13 @@ void InstanceSettingsPage::loadSettings()
+@@ -382,6 +387,13 @@ void InstanceSettingsPage::loadSettings()
  #else
      ui->lineEditOpenALPath->setPlaceholderText(tr("Path to %1 library file").arg(BuildConfig.OPENAL_LIBRARY_NAME));
  #endif
@@ -284,7 +284,7 @@ index d4fd0ec..2acfb8b 100644
  
      // Performance
      ui->perfomanceGroupBox->setChecked(m_settings->get("OverridePerformance").toBool());
-@@ -452,6 +464,11 @@ void InstanceSettingsPage::onUseNativeOpenALChanged(bool checked)
+@@ -520,6 +532,11 @@ void InstanceSettingsPage::onUseNativeOpenALChanged(bool checked)
      ui->lineEditOpenALPath->setEnabled(checked);
  }
  
@@ -297,10 +297,10 @@ index d4fd0ec..2acfb8b 100644
  {
      ui->instanceAccountSelector->clear();
 diff --git a/launcher/ui/pages/instance/InstanceSettingsPage.h b/launcher/ui/pages/instance/InstanceSettingsPage.h
-index 8b78dcb..a58e2cc 100644
+index 6499f9e..a915af3 100644
 --- a/launcher/ui/pages/instance/InstanceSettingsPage.h
 +++ b/launcher/ui/pages/instance/InstanceSettingsPage.h
-@@ -73,6 +73,7 @@ class InstanceSettingsPage : public QWidget, public BasePage {
+@@ -76,6 +76,7 @@ class InstanceSettingsPage : public QWidget, public BasePage {
  
      void onUseNativeGLFWChanged(bool checked);
      void onUseNativeOpenALChanged(bool checked);
@@ -309,10 +309,10 @@ index 8b78dcb..a58e2cc 100644
      void applySettings();
      void loadSettings();
 diff --git a/launcher/ui/pages/instance/InstanceSettingsPage.ui b/launcher/ui/pages/instance/InstanceSettingsPage.ui
-index 632569e..c24bec9 100644
+index 4905eae..b419c9e 100644
 --- a/launcher/ui/pages/instance/InstanceSettingsPage.ui
 +++ b/launcher/ui/pages/instance/InstanceSettingsPage.ui
-@@ -499,6 +499,30 @@
+@@ -506,6 +506,30 @@
              </property>
             </widget>
            </item>
