@@ -1,5 +1,5 @@
 pkgname = "lc0"
-pkgver = "0.31.1"
+pkgver = "0.31.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -21,7 +21,7 @@ source = [
 ]
 source_paths = [".", "libs/lczero-common"]
 sha256 = [
-    "0bc3d3b2171230c36a729092f20d7d51177e88650c87a7c3431b00b908501d04",
+    "6dea1e67e33ec0513853df4fef24d51318e47a6cf0f35c0491cce5c1547dc023",
     "96d82279d1c65ba41ed136977cdbb5c2fab2a30212982f65ab679b425056e9e7",
 ]
 tool_flags = {"CXXFLAGS": []}
