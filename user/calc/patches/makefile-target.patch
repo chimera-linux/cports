@@ -1,0 +1,25 @@
+This entire build system is a horrific nightmare.
+Who thinks of this.
+
+diff --git a/Makefile.target b/Makefile.target
+index e4dd24e..0e002af 100644
+--- a/Makefile.target
++++ b/Makefile.target
+@@ -417,7 +417,7 @@ ICFLAGS= ${COMMON_CFLAGS} ${CCBAN} ${CC_STATIC}
+ else	# ($(BLD_TYPE),calc-static-only)
+ ICFLAGS= ${COMMON_CFLAGS} ${CCBAN} ${CC_SHARE}
+ endif	# ($(BLD_TYPE),calc-static-only)
+-CFLAGS= ${ICFLAGS} ${CCOPT}
++CFLAGS+= ${ICFLAGS} ${CCOPT}
+ 
+ # Required flags to link files for calc
+ #
+@@ -425,7 +425,7 @@ CFLAGS= ${ICFLAGS} ${CCOPT}
+ # LDFLAGS for ${CC} in linking calc programs other than intermediate programs
+ #
+ ILDFLAGS= ${COMMON_LDFLAGS}
+-LDFLAGS= ${LD_DEBUG} ${ILDFLAGS}
++LDFLAGS+= ${LD_DEBUG} ${ILDFLAGS}
+ 
+ #######################################################################
+ #-=-=-=-=-=- end of target section - only make rules below -=-=-=-=-=-#
