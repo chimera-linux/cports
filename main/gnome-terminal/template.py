@@ -1,5 +1,5 @@
 pkgname = "gnome-terminal"
-pkgver = "3.54.0"
+pkgver = "3.54.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal"
 source = f"https://gitlab.gnome.org/GNOME/gnome-terminal/-/archive/{pkgver}/gnome-terminal-{pkgver}.tar.gz"
-sha256 = "77370b4a00d0cda9ef339ff3aa809d266f3b937f00875176904c5bbefb76ae79"
+sha256 = "b5ac02b916a29925e64a5c76ba96fb2fc2d8ab4f8c48acc6f7d765d919ad20a6"
 # Upstream claims "LTO very much NOT supported"
 # https://gitlab.gnome.org/GNOME/gnome-terminal/-/blob/09c8b31168460c325ac00820759d6eefdf3957ab/meson.build#L226
 options = ["!cross", "!lto"]
