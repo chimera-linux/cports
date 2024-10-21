@@ -1,0 +1,13 @@
+pkgname = "perl-test-command"
+pkgver = "0.11"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Test routines for external commands"
+maintainer = "daringcuteseal <daringcuteseal@gmail.com>"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/release/Test-Command"
+source = f"$(CPAN_SITE)/Test/Test-Command-{pkgver}.tar.gz"
+sha256 = "28a3fc6fea73a19f563f11bd0f28186756d4c74207be6deacaad26d2081b9533"
