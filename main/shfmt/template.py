@@ -1,6 +1,6 @@
 pkgname = "shfmt"
-pkgver = "3.9.0"
-pkgrel = 2
+pkgver = "3.10.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags",
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/mvdan/sh"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d8bd0b83cd41bb65420395d6efb7d2c4bfcd535fbf3d702325d150e5ee2d1809"
+sha256 = "4cad722b7a569a05c86ec489b1d5980843ae60ca8db15aa71174c7810378a8ec"
 
 
 def post_install(self):
