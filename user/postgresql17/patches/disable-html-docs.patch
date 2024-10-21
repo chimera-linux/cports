@@ -1,0 +1,16 @@
+we don't care about the html docs, since postgres has a fantastic online
+reference already
+
+keep only the manpages for local convenience :-)
+--
+--- a/doc/src/sgml/meson.build
++++ b/doc/src/sgml/meson.build
+@@ -134,7 +134,7 @@
+ #
+ # Full documentation as html, text
+ #
+-if docs_dep.found()
++if false
+   html = custom_target('html',
+     input: ['stylesheet.xsl', postgres_full_xml],
+     output: 'html',
