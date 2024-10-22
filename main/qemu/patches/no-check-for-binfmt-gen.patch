@@ -1,7 +1,7 @@
 diff --git a/scripts/qemu-binfmt-conf.sh b/scripts/qemu-binfmt-conf.sh.new
 index 6ef9f118..5a8ed7b2 100755
 --- a/scripts/qemu-binfmt-conf.sh
-+++ b/scripts/qemu-binfmt-conf.sh.new
++++ b/scripts/qemu-binfmt-conf.sh
 @@ -416,5 +416,4 @@ while true ; do
      shift
  done
