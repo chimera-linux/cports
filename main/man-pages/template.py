@@ -1,6 +1,6 @@
 pkgname = "man-pages"
 pkgver = "6.9.1"
-pkgrel = 2
+pkgrel = 3
 hostmakedepends = ["gsed", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -37,15 +37,18 @@ def install(self):
         self.rm("man8/ldconfig.8")
 
     # dead links due to getspnam.3 (provided by shadow)
+    # fts/rpmatch provided by chimerautils-devel-man
     with self.pushd(self.destdir / "usr/share/man/man3"):
         self.rm("endspent.3")
         self.rm("fgetspent.3")
         self.rm("fgetspent_r.3")
+        self.rm("fts*.3", glob=True)
         self.rm("getspent.3")
         self.rm("getspent_r.3")
         self.rm("getspnam_r.3")
         self.rm("lckpwdf.3")
         self.rm("putspent.3")
+        self.rm("rpmatch.3")
         self.rm("setspent.3")
         self.rm("sgetspent.3")
         self.rm("sgetspent_r.3")
