@@ -1,6 +1,6 @@
 pkgname = "mousepad"
-pkgver = "0.6.2"
-pkgrel = 1
+pkgver = "0.6.3"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -23,4 +23,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/mousepad/start"
 source = f"$(XFCE_SITE)/apps/mousepad/{pkgver[:-2]}/mousepad-{pkgver}.tar.bz2"
-sha256 = "e7cacb3b8cb1cd689e6341484691069e73032810ca51fc747536fc36eb18d19d"
+sha256 = "2ff162c185f18014ab9c82c2ac2dfce4fba20eb0005e7690ee27f00b9cb929b9"
