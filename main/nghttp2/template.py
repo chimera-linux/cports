@@ -1,5 +1,5 @@
 pkgname = "nghttp2"
-pkgver = "1.63.0"
+pkgver = "1.64.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nghttp2.org"
 source = f"https://github.com/tatsuhiro-t/nghttp2/releases/download/v{pkgver}/nghttp2-{pkgver}.tar.xz"
-sha256 = "4879c75dd32a74421b9857924449460b8341796c0613ba114ab2188e4622354b"
+sha256 = "88bb94c9e4fd1c499967f83dece36a78122af7d5fb40da2019c56b9ccc6eb9dd"
 # CFI; reproduces in e.g. libsoup
 hardening = ["vis", "!cfi"]
 
