@@ -1,6 +1,6 @@
 pkgname = "git-extras"
-pkgver = "7.2.0"
-pkgrel = 1
+pkgver = "7.3.0"
+pkgrel = 0
 build_style = "makefile"
 make_install_args = [
     "COMPL_DIR=$(DESTDIR)/usr/share/bash-completion/completions"
@@ -14,7 +14,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/tj/git-extras"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f570f19b9e3407e909cb98d0536c6e0b54987404a0a053903a54b81680c347f1"
+sha256 = "89bae1a05731f4aaafb04066ea0186e181117b74fcfbf89d686cf205459220b7"
 
 
 def build(self):
