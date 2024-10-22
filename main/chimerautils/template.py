@@ -1,8 +1,11 @@
 pkgname = "chimerautils"
-pkgver = "14.1.5"
-pkgrel = 2
+pkgver = "14.1.6"
+pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dchimera_realpath=enabled"]
+configure_args = [
+    "--libexecdir=/usr/lib/chimerautils",
+    "-Dchimera_realpath=enabled",
+]
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
 makedepends = [
     "acl-devel",
@@ -26,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6d84e2058c66c3aa7cb309bc6ccd11d1416b3f712680a6548f8d61db35102020"
+sha256 = "e610fa7b5fe04e707197aeecd4e4f8165f3aa701378c786243e6e0728f6c0839"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
@@ -63,7 +66,7 @@ def post_install(self):
     # base shell
     self.install_shell("/usr/bin/sh")
     # tiny tools
-    tdest = "usr/libexec/chimerautils-tiny"
+    tdest = "usr/lib/chimerautils/tiny"
     self.install_dir(tdest)
     for f in (self.destdir / "usr/bin").glob("*.tiny"):
         self.mv(f, self.destdir / tdest / f.stem)
@@ -119,6 +122,6 @@ def _(self):
         "man:locate.updatedb.8",
         "man:updatedb.8",
         "etc/locate.rc",
-        "usr/libexec/locate.*",
+        "usr/lib/chimerautils/locate.*",
         "usr/share/vi",
     ]
