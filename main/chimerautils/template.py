@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
 pkgver = "14.1.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dchimera_realpath=enabled"]
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
@@ -67,6 +67,13 @@ def post_install(self):
     self.install_dir(tdest)
     for f in (self.destdir / "usr/bin").glob("*.tiny"):
         self.mv(f, self.destdir / tdest / f.stem)
+
+
+@subpackage("chimerautils-devel-man")
+def _(self):
+    # former conflicts with fts/rpmatch manpages
+    self.replaces = ["man-pages-devel<6.9.1-r3"]
+    return ["usr/share/man/man3"]
 
 
 @subpackage("chimerautils-devel")
