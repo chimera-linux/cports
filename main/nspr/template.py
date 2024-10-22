@@ -1,9 +1,10 @@
 pkgname = "nspr"
-pkgver = "4.35"
+pkgver = "4.36"
 pkgrel = 0
 build_wrksrc = "nspr"
 build_style = "gnu_configure"
 configure_args = ["--enable-optimize", "--enable-debug", "--enable-ipv6"]
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "NetScape Portable Runtime"
@@ -11,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/projects/nspr"
 source = f"$(MOZILLA_SITE)/nspr/releases/v{pkgver}/src/nspr-{pkgver}.tar.gz"
-sha256 = "7ea3297ea5969b5d25a5dd8d47f2443cda88e9ee746301f6e1e1426f8a6abc8f"
+sha256 = "55dec317f1401cd2e5dba844d340b930ab7547f818179a4002bce62e6f1c6895"
 tool_flags = {
     "CFLAGS": [
         "-D_PR_POLL_AVAILABLE",
@@ -41,6 +42,3 @@ def post_install(self):
 def _(self):
     self.depends += [self.parent]
     return self.default_devel()
-
-
-configure_gen = []
