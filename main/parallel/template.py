@@ -1,5 +1,5 @@
 pkgname = "parallel"
-pkgver = "20240922"
+pkgver = "20241022"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake"]
@@ -9,4 +9,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/parallel"
 source = f"https://ftp.gnu.org/gnu/parallel/parallel-{pkgver}.tar.bz2"
-sha256 = "63210715e8b7c5e129e098f333cd7cdd5fc7a2f325e8e0fb9ed6edba9f1acbc4"
+sha256 = "6de22bf1c67f7f316670d21ed1a2a32f1214dfbd3e420939ba937925c0a57a12"
