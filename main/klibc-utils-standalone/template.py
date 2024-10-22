@@ -1,8 +1,9 @@
 pkgname = "klibc-utils-standalone"
 _commit = "ed98c6b24cbe5989d22fda762ad58e29dd5d6592"
 pkgver = "0.0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
+configure_args = ["--libexecdir=/usr/lib"]  # XXX drop libexec
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standalone utilities from klibc"
