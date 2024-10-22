@@ -1,8 +1,9 @@
 pkgname = "klibc-kinit-standalone"
 _commit = "f2f5cb9f87598b27ee0a68bc3e5bbe470e6b8827"
 pkgver = "0.0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
+configure_args = ["--libexecdir=/usr/lib"]  # XXX drop libexec
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "libcap-devel", "linux-headers"]
 pkgdesc = "Standalone kinit tools from klibc"
