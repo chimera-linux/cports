@@ -1,5 +1,5 @@
 pkgname = "sddm-kcm"
-pkgver = "6.2.1"
+pkgver = "6.2.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -25,4 +25,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/sddm-kcm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/sddm-kcm-{pkgver}.tar.xz"
-sha256 = "5a5d31062236d24165f457eb8829f5466c9d2aef4aa6a9f3586f8253d653bfc1"
+sha256 = "67c87ee531d6534c65f3fcb8c377b5ca0ff8339c935565b98986caa3fc2ac4de"

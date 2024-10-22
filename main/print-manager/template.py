@@ -1,5 +1,5 @@
 pkgname = "print-manager"
-pkgver = "6.2.1"
+pkgver = "6.2.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -29,5 +29,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/print-manager"
 source = f"$(KDE_SITE)/plasma/{pkgver}/print-manager-{pkgver}.tar.xz"
-sha256 = "8500acb99d564af34d4f7e05859cbbffe91641c3d789f278940291c8280c73cf"
+sha256 = "88acb14e6b2b306f693c556f21f28f1ff8ae39304090ed56139576add69bb12a"
 hardening = ["vis"]

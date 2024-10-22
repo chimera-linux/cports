@@ -1,5 +1,5 @@
 pkgname = "kscreen"
-pkgver = "6.2.1"
+pkgver = "6.2.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreen-{pkgver}.tar.xz"
-sha256 = "3e32ae6c3787178a898318c02d5aea9b341ee8ce2922073feacf4dabe3f494cf"
+sha256 = "a200ab840c78f7e5e4202f4630f612effec44d62ed91d9baa7a05ec6785845f0"
 hardening = ["vis"]
 
 

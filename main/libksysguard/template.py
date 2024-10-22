@@ -1,5 +1,5 @@
 pkgname = "libksysguard"
-pkgver = "6.2.1"
+pkgver = "6.2.2"
 pkgrel = 0
 build_style = "cmake"
 # some bug in the cmake files seems to not set this to on
@@ -39,7 +39,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/libksysguard/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libksysguard-{pkgver}.tar.xz"
-sha256 = "234ca085ba9b1467a9d78f0e27bf59c21e006629ed2d9e3732f872fe22e12983"
+sha256 = "eea8947ce5ab8f82fd9352464c49418bd97460921b61497e9118d0656af0fd9f"
 file_modes = {
     "usr/libexec/ksysguard/ksgrd_network_helper": ("root", "root", 0o755),
 }
