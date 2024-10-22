@@ -1,5 +1,5 @@
 pkgname = "yt-dlp"
-pkgver = "2024.10.07"
+pkgver = "2024.10.22"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = ["-k", "not download"]
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unlicense"
 url = "https://github.com/yt-dlp/yt-dlp"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "63cdc90d40e3bb8b1d3d2afcdad9d4ede16a13492a07fc9adc83d887127f40a1"
+sha256 = "720f63c96974489664f3011ef4afd71af3ead06e5d3ed36bd217cf368aa4c259"
 
 
 @subpackage("yt-dlp-recommends")
