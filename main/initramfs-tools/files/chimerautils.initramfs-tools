@@ -28,16 +28,16 @@ cp -an /usr/lib/libc.so "${DESTDIR}/usr/lib"
 ln -sf /usr/lib/libc.so "${DESTDIR}/usr/lib/ld-musl-${LDSO_ARCH}.so.1"
 
 for kt in ${KINIT_TOOLS}; do
-    copy_exec /usr/libexec/kinit-standalone/${kt} /usr/bin/${kt}
+    copy_exec /usr/lib/kinit-standalone/${kt} /usr/bin/${kt}
 done
 
 for kt in ${KLIBC_TOOLS}; do
-    copy_exec /usr/libexec/klibc-utils-standalone/${kt} /usr/bin/${kt}
+    copy_exec /usr/lib/klibc-utils-standalone/${kt} /usr/bin/${kt}
 done
 
 for bt in ${BSD_TOOLS}; do
-    if [ -x /usr/libexec/chimerautils-tiny/${bt} ]; then
-        copy_exec /usr/libexec/chimerautils-tiny/${bt} /usr/bin/${bt}
+    if [ -x /usr/lib/chimerautils/tiny/${bt} ]; then
+        copy_exec /usr/lib/chimerautils/tiny/${bt} /usr/bin/${bt}
     else
         copy_exec /usr/bin/${bt}
     fi

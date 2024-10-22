@@ -17,7 +17,7 @@ index d301b6f..1630027 100644
  
  	# do not trust mount, check superblock
 -	eval "$(/usr/lib/klibc/bin/fstype "${dev_node}")"
-+	eval "$(/usr/libexec/kinit-standalone/fstype "${dev_node}")"
++	eval "$(/usr/lib/kinit-standalone/fstype "${dev_node}")"
  
  	# check that fstype fs recognition
  	if [ "${FSTYPE}" = "unknown" ]; then
@@ -30,7 +30,7 @@ index 3479dfc..2f219d2 100755
  			device="$(resolve_device "${MNT_FSNAME}")"
  			# shellcheck disable=SC2317
 -			fstype() { "/usr/lib/klibc/bin/fstype" "$@"; }
-+			fstype() { "/usr/libexec/kinit-standalone/fstype" "$@"; }
++			fstype() { "/usr/lib/kinit-standalone/fstype" "$@"; }
  			if ! get_fstype "${device}"; then
  				echo "W: Couldn't identify type of $2 file system '$MNT_FSNAME' for fsck hook" >&2
  			fi
