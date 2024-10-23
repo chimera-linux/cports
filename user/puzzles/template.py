@@ -1,6 +1,6 @@
 pkgname = "puzzles"
-pkgver = "0_git20240928"
-_gitrev = "182b3d9"
+pkgver = "0_git20241021"
+_gitrev = "05f4f63"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DNAME_PREFIX=puzzles-"]
@@ -20,7 +20,7 @@ maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "MIT"
 url = "https://www.chiark.greenend.org.uk/~sgtatham/puzzles"
 source = f"https://git.tartarus.org/?p=simon/puzzles.git;a=snapshot;h={_gitrev};sf=tgz>puzzles-{pkgver}.tar.gz"
-sha256 = "bf920b95661550bad5f81301a766ba37df9125b8a32da9b33f14372a794dc8ed"
+sha256 = "417b777b97b919e0570634fba84144ce216f7e5e124a766a1a0efc1fd50d6717"
 hardening = ["vis", "cfi"]
 
 
