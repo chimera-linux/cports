@@ -1,6 +1,6 @@
 pkgname = "totem"
-pkgver = "43.0"
-pkgrel = 1
+pkgver = "43.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Denable-python=no",
@@ -40,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Videos"
 source = f"$(GNOME_SITE)/totem/{pkgver[:-2]}/totem-{pkgver}.tar.xz"
-sha256 = "b36d3655928b5896462a4d39f83b6ad66d37dbc9c99dceb02ea8a2e37394a41e"
+sha256 = "5668291e9c6444985cb3ffe4ea4f0212f54c2bbe60dd01114c1a950f94759e6d"
 # needs graphical environment
 options = ["!check"]
 
