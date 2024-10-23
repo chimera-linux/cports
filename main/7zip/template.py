@@ -1,12 +1,10 @@
 pkgname = "7zip"
 pkgver = "24.08"
-pkgrel = 1
+pkgrel = 2
 # Alone2: CLI with all format support
 build_wrksrc = "CPP/7zip/Bundles/Alone2"
 build_style = "makefile"
 make_build_args = [
-    # nonfree rar sdk; uncompressed rar technically still supported
-    "DISABLE_RAR_COMPRESS=1",
     # silence garbage Werror+Weverything
     "CFLAGS_WARN_WALL=",
     "CFLAGS_WARN=",
@@ -14,7 +12,7 @@ make_build_args = [
 make_use_env = True
 pkgdesc = "File archiver with a high compression ratio"
 maintainer = "psykose <alice@ayaya.dev>"
-license = "LGPL-2.0-only AND BSD-3-Clause"
+license = "LGPL-2.0-only AND BSD-3-Clause AND custom:unrar"
 url = "https://7-zip.org"
 source = f"https://7-zip.org/a/7z{pkgver.replace('.', '')}-src.tar.xz"
 sha256 = "aa04aac906a04df59e7301f4c69e9f48808e6c8ecae4eb697703a47bfb0ac042"
@@ -69,5 +67,6 @@ def check(self):
 
 def install(self):
     self.install_license("../../../../DOC/License.txt")
+    self.install_license("../../../../DOC/unRarLicense.txt")
     self.install_bin("b/c/7zz")
     self.install_link("usr/bin/7z", "7zz")
