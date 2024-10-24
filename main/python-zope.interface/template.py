@@ -1,5 +1,5 @@
 pkgname = "python-zope.interface"
-pkgver = "7.1.0"
+pkgver = "7.1.1"
 pkgrel = 0
 build_style = "python_pep517"
 # useless setuptools version check
@@ -15,8 +15,8 @@ pkgdesc = "Zope interfaces for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ZPL-2.1"
 url = "https://github.com/zopefoundation/zope.interface"
-source = f"$(PYPI_SITE)/z/zope.interface/zope_interface-{pkgver}.tar.gz"
-sha256 = "3f005869a1a05e368965adb2075f97f8ee9a26c61898a9e52a9764d93774f237"
+source = f"$(PYPI_SITE)/z/zope.interface/zope.interface-{pkgver}.tar.gz"
+sha256 = "4284d664ef0ff7b709836d4de7b13d80873dc5faeffc073abdb280058bfac5e3"
 # not functional yet
 options = ["!check"]
 
