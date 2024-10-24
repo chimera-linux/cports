@@ -1,0 +1,26 @@
+Patch-Source: https://gist.github.com/classilla/1202f8d467749c029325278a87a068c8
+--
+--- a/toolkit/components/terminator/nsTerminator.cpp
++++ b/toolkit/components/terminator/nsTerminator.cpp
+@@ -455,16 +455,21 @@
+       // Defend against overflow
+       crashAfterMS = INT32_MAX;
+     } else {
+       crashAfterMS *= scaleUp;
+     }
+   }
+ #endif
+ 
++  // Disable watchdog for PGO train builds - writting profile information at
++  // exit may take time and it is better to make build hang rather than
++  // silently produce poorly performing binary.
++  crashAfterMS = INT32_MAX;
++
+   UniquePtr<Options> options(new Options());
+   // crashAfterTicks is guaranteed to be > 0 as
+   // crashAfterMS >= ADDITIONAL_WAIT_BEFORE_CRASH_MS >> HEARTBEAT_INTERVAL_MS
+   options->crashAfterTicks = crashAfterMS / HEARTBEAT_INTERVAL_MS;
+ 
+   DebugOnly<PRThread*> watchdogThread =
+       CreateSystemThread(RunWatchdog, options.release());
+   MOZ_ASSERT(watchdogThread);

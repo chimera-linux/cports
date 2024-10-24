@@ -1,0 +1,13 @@
+diff --git a/mozconfig b/mozconfig
+index 605fb52ae..6f0483320 100644
+--- a/mozconfig
++++ b/mozconfig
+@@ -19,8 +19,6 @@ ac_add_options --with-unsigned-addon-scopes=app,system
+ 
+ ac_add_options --with-l10n-base=$PWD/lw/l10n
+ 
+-ac_add_options --enable-bootstrap
+-
+ export MOZ_REQUIRE_SIGNING=
+ 
+ mk_add_options MOZ_CRASHREPORTER=0
