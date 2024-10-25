@@ -1,5 +1,5 @@
 pkgname = "orca"
-pkgver = "47.0"
+pkgver = "47.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -32,4 +32,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://orca.gnome.org"
 source = f"$(GNOME_SITE)/orca/{pkgver[:-2]}/orca-{pkgver}.tar.xz"
-sha256 = "fc1f3044dfe2a9f420a026493e800e4c634cac814cfd47ee17fbcff86ab24ff4"
+sha256 = "d07d7acde8565546973a9f29730732f31726ab6bc9dcccead2e1204d7d8044ed"
