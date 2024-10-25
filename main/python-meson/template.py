@@ -1,9 +1,7 @@
 pkgname = "python-meson"
-pkgver = "0.17.0"
+pkgver = "0.17.1"
 pkgrel = 0
 build_style = "python_pep517"
-# needs to be in git
-make_check_args = ["-k", "not test_reproducible"]
 hostmakedepends = [
     "meson",
     "patchelf",
@@ -25,7 +23,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://meson-python.readthedocs.io/en/latest/index.html"
 source = f"https://github.com/mesonbuild/meson-python/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1e287ae4bbe9fb6a07dd695d4fe2d0611e3090c55b4a46536b4c57b7056f3690"
+sha256 = "d533356468000e6f126215dded75dd9b07c7cbe14ca9f78c51791d4172b6e4a5"
 
 
 def post_install(self):
