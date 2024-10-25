@@ -1,7 +1,7 @@
 # update linux-stable-zfs-bin when bumping
 pkgname = "linux-stable"
 pkgver = "6.11.5"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
