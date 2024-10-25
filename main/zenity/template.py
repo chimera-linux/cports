@@ -1,5 +1,5 @@
 pkgname = "zenity"
-pkgver = "4.0.2"
+pkgver = "4.0.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dwebkitgtk=true"]
@@ -23,4 +23,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Zenity"
 source = f"$(GNOME_SITE)/zenity/{pkgver[:-2]}/zenity-{pkgver}.tar.xz"
-sha256 = "c16dcae46e29e22c2fa0b95e80e06c96b2aec93840161369c95c85ed9f093153"
+sha256 = "b429d97b87bd9ce7fb72ac0b78df534725d8ad39817ddca6a4ca2ee5381b08de"
