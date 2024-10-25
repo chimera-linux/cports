@@ -1,6 +1,6 @@
 pkgname = "desktop-file-utils"
-pkgver = "0.27"
-pkgrel = 1
+pkgver = "0.28"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["glib-devel"]
@@ -10,5 +10,5 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://freedesktop.org/wiki/Software/desktop-file-utils"
 source = f"$(FREEDESKTOP_SITE)/desktop-file-utils/releases/desktop-file-utils-{pkgver}.tar.xz"
-sha256 = "a0817df39ce385b6621880407c56f1f298168c040c2032cedf88d5b76affe836"
+sha256 = "4401d4e231d842c2de8242395a74a395ca468cd96f5f610d822df33594898a70"
 hardening = ["vis", "cfi"]
