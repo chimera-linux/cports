@@ -1,0 +1,10 @@
+--- a/Makefile	2024-09-17 18:02:01.204836491 -0300
++++ b/Makefile	2024-09-17 18:02:15.591686531 -0300
+@@ -148,8 +148,6 @@
+ 	$(call install_python_script,tuned-adm.py,$(DESTDIR)/usr/sbin/tuned-adm)
+ 	$(call install_python_script,tuned-gui.py,$(DESTDIR)/usr/sbin/tuned-gui)
+ 
+-	$(foreach file, diskdevstat netdevstat scomes, \
+-		install -Dpm 0755 systemtap/$(file) $(DESTDIR)/usr/sbin/$(notdir $(file));)
+ 	$(call install_python_script, \
+ 		systemtap/varnetload, $(DESTDIR)/usr/sbin/varnetload)
