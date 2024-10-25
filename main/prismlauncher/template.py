@@ -1,5 +1,5 @@
 pkgname = "prismlauncher"
-pkgver = "9.0"
+pkgver = "9.1"
 pkgrel = 0
 build_style = "cmake"
 configure_env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
@@ -27,7 +27,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PrismLauncher/PrismLauncher"
 source = f"{url}/releases/download/{pkgver}/prismlauncher-{pkgver}.tar.gz"
-sha256 = "8c3dae2469c70d460cd8e2747dc4e61c2e31c15f0754d9e41e23563ac544e2be"
+sha256 = "0aac56ec6b039e28f0605e7d86ebf602ee28dd9e4c7a16915ca974104954e832"
 
 
 @subpackage("prismlauncher-natives")
