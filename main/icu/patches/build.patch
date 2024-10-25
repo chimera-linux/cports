@@ -4,7 +4,7 @@
  ******************************************************************************
  */
  
-+#define ICU_DATA_DIR "/usr/share/icu/75.1"
++#define ICU_DATA_DIR "/usr/share/icu/76.1"
 +
  // Defines _XOPEN_SOURCE for access to POSIX functions.
  // Must be before any other #includes.
