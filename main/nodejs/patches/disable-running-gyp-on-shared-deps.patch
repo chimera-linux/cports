@@ -8,13 +8,13 @@ Modified 2016-11-26 by Jakub Jirutka <jakub@jirutka.cz> to update for
 Node.js 7.2.0
 
 diff --git a/Makefile b/Makefile
-index ad33c402..a86ba8d4 100644
+index 7f3f09e..f59a12a 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -173,7 +173,7 @@ with-code-cache test-code-cache:
  	$(warning '$@' target is a noop)
  
- out/Makefile: config.gypi common.gypi common_node.gypi node.gyp \
+ out/Makefile: config.gypi common.gypi node.gyp \
 -	deps/uv/uv.gyp deps/llhttp/llhttp.gyp deps/zlib/zlib.gyp \
 +	deps/uv/uv.gyp deps/llhttp/llhttp.gyp \
  	deps/simdutf/simdutf.gyp deps/ada/ada.gyp deps/nbytes/nbytes.gyp \
