@@ -1,6 +1,6 @@
 pkgname = "libvisio"
-pkgver = "0.1.7"
-pkgrel = 6
+pkgver = "0.1.8"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libvisio"
 source = f"http://dev-www.libreoffice.org/src/libvisio-{pkgver}.tar.xz"
-sha256 = "8faf8df870cb27b09a787a1959d6c646faa44d0d8ab151883df408b7166bea4c"
+sha256 = "b4098ffbf4dcb9e71213fa0acddbd928f27bed30db2d80234813b15d53d0405b"
 
 
 @subpackage("libvisio-progs")
