@@ -1,0 +1,12 @@
+diff -ru a/usr/lib/bulky/bulky.py b/usr/lib/bulky/bulky.py
+--- a/usr/lib/bulky/bulky.py	2024-07-21 17:26:01.000000000 +0800
++++ b/usr/lib/bulky/bulky.py	2024-09-06 20:08:30.391435713 +0800
+@@ -403,7 +403,7 @@
+         except Exception as e:
+             print (e)
+ 
+-        dlg.set_version("__DEB_VERSION__")
++        dlg.set_version("3.4")
+         dlg.set_icon_name("bulky")
+         dlg.set_logo_icon_name("bulky")
+         dlg.set_website("https://www.github.com/linuxmint/bulky")
