@@ -1,5 +1,5 @@
 pkgname = "liburing"
-pkgver = "2.7"
+pkgver = "2.8"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--mandir=/usr/share/man", "--use-libc"]
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later OR MIT"
 url = "https://git.kernel.dk/cgit/liburing"
 source = f"{url}/snapshot/liburing-{pkgver}.tar.gz"
-sha256 = "29c0897868cb612b71728e680fa5fac4c5c9fc51166d8c42a0261f061f4658ae"
+sha256 = "e289852ddf6dd1428afd509eac5a4549e050398fcde7a467fa57f53efa3df64c"
 # vis breaks symbols
 hardening = ["!vis", "!cfi"]
 # FIXME: run into timeout
