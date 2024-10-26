@@ -1,5 +1,5 @@
 pkgname = "rubberband"
-pkgver = "3.3.0"
+pkgver = "4.0.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -12,6 +12,7 @@ makedepends = [
     "libsndfile-devel",
     "fftw-devel",
     "ladspa-sdk",
+    "lv2",
     "vamp-plugin-sdk-devel",
 ]
 pkgdesc = "Time-stretching and pitch-shifting audio library"
@@ -19,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://breakfastquay.com/rubberband"
 source = f"https://breakfastquay.com/files/releases/rubberband-{pkgver}.tar.bz2"
-sha256 = "d9ef89e2b8ef9f85b13ac3c2faec30e20acf2c9f3a9c8c45ce637f2bc95e576c"
+sha256 = "af050313ee63bc18b35b2e064e5dce05b276aaf6d1aa2b8a82ced1fe2f8028e9"
 
 
 @subpackage("rubberband-progs")
