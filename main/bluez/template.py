@@ -1,6 +1,6 @@
 pkgname = "bluez"
 pkgver = "5.78"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-deprecated",
@@ -13,6 +13,7 @@ configure_args = [
     "--enable-sixaxis",
     "--enable-threads",
     "--with-udevdir=/usr/lib/udev",
+    "--libexecdir=/usr/lib",  # XXX drop libexec
 ]
 hostmakedepends = [
     "automake",
@@ -33,6 +34,7 @@ makedepends = [
     "readline-devel",
     "udev-devel",
 ]
+depends = ["dinit-dbus"]
 pkgdesc = "Linux Bluetooth stack"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"

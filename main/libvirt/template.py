@@ -1,8 +1,9 @@
 pkgname = "libvirt"
 pkgver = "10.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dattr=enabled",
     "-Dblkid=enabled",
     "-Dcapng=enabled",
@@ -78,7 +79,7 @@ checkdepends = [
     "python-flake8",
     "python-pytest",
 ]
-depends = ["dbus", "dnsmasq", "virtiofsd-meta"]
+depends = ["dinit-dbus", "dnsmasq", "virtiofsd-meta"]
 pkgdesc = "API, daemon, and management tool for virtualization"
 maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-only"

@@ -1,6 +1,6 @@
 pkgname = "thermald"
 pkgver = "2.5.8"
-pkgrel = 1
+pkgrel = 2
 archs = ["x86_64"]
 # don't use autogen.sh, it generates files that force reconf in build phase
 build_style = "gnu_configure"
@@ -20,6 +20,7 @@ makedepends = [
     "libxml2-devel",
     "upower-devel",
 ]
+depends = ["dinit-dbus"]
 pkgdesc = "Thermal daemon for x86_64-based Intel CPUs"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"

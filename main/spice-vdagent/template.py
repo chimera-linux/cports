@@ -1,6 +1,6 @@
 pkgname = "spice-vdagent"
 pkgver = "0.22.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--with-session-info=none"]
 hostmakedepends = ["automake", "pkgconf"]
@@ -15,6 +15,7 @@ makedepends = [
     "spice-protocol",
 ]
 checkdepends = ["procps"]
+depends = ["dinit-dbus"]
 pkgdesc = "SPICE VDAgent for Linux guests"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"

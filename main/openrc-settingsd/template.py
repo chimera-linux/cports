@@ -1,8 +1,12 @@
 pkgname = "openrc-settingsd"
 pkgver = "1.5.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
-configure_args = ["-Dopenrc=disabled", "-Denv-update="]
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+    "-Dopenrc=disabled",
+    "-Denv-update=",
+]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "dbus-devel",
@@ -10,7 +14,7 @@ makedepends = [
     "linux-headers",
     "polkit-devel",
 ]
-depends = ["dbus", "polkit"]
+depends = ["dinit-dbus", "polkit"]
 pkgdesc = "Implementation of hostnamed, localed, and timedated"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

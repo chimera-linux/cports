@@ -1,6 +1,6 @@
 pkgname = "modemmanager"
 pkgver = "1.22.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Ddbus_policy_dir=/usr/share/dbus-1/system.d",
@@ -37,7 +37,7 @@ makedepends = [
     "python-gobject-devel",
     "vala-devel",
 ]
-depends = ["ppp"]
+depends = ["dinit-dbus", "ppp"]
 checkdepends = ["dbus"]
 pkgdesc = "Mobile broadband modem management service"
 maintainer = "q66 <q66@chimera-linux.org>"

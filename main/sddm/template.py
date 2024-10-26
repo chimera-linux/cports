@@ -1,6 +1,6 @@
 pkgname = "sddm"
 pkgver = "0.21.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DBUILD_MAN_PAGES=ON",
@@ -26,7 +26,7 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 depends = [
-    "dbus",
+    "dinit-dbus",
     "elogind",
     "plasma-workspace",
     "turnstile",

@@ -1,7 +1,7 @@
 # this must be synchronized with avahi-ui-progs
 pkgname = "avahi"
 pkgver = "0.8"
-pkgrel = 8
+pkgrel = 9
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",
@@ -40,6 +40,7 @@ configure_args = [
 configure_gen = []
 hostmakedepends = ["pkgconf", "python", "gettext"]
 makedepends = ["dbus-devel", "libcap-devel", "libdaemon-devel"]
+depends = ["dinit-dbus"]
 pkgdesc = "Multicast DNS Service Discovery"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

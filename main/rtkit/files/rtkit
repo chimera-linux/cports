@@ -1,5 +1,5 @@
 type = process
-command = /usr/libexec/rtkit-daemon
+command = /usr/lib/rtkit-daemon
 before = login.target
 depends-on = dbus
 waits-for = polkitd

@@ -1,8 +1,9 @@
 pkgname = "at-spi2-core"
 pkgver = "2.54.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     # needs dbus-broker fix in the future
     "-Duse_systemd=false",
     "-Dgtk2_atk_adaptor=false",

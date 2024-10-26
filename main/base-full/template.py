@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -198,7 +198,7 @@ def _(self):
     self.provider_priority = 100
     self.depends = [
         "elogind-meta",
-        "dbus",
+        "dinit-dbus",
     ]
     return []
 

@@ -1,6 +1,6 @@
 pkgname = "easyeffects"
 pkgver = "7.1.9"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = ["-Denable-libcpp-workarounds=true"]
 hostmakedepends = [
@@ -38,7 +38,7 @@ makedepends = [
 ]
 # most plugins are from here and it can crash without them (and at least prints
 # 9 million warnings), so just always pull it
-depends = ["lsp-plugins-lv2"]
+depends = ["dinit-dbus", "lsp-plugins-lv2"]
 pkgdesc = "PipeWire audio plugins"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"

@@ -1,9 +1,9 @@
 these query udev for edid pnp stuff and will fail since it doesn't exist
 --
-diff --git a/lib/colord/cd-test-private.c b/lib/colord/cd-test-private.c.new
+diff --git a/lib/colord/cd-test-private.c b/lib/colord/cd-test-private.c
 index 4b16ca533f..4f01ccb3a3 100644
 --- a/lib/colord/cd-test-private.c
-+++ b/lib/colord/cd-test-private.c.new
++++ b/lib/colord/cd-test-private.c
 @@ -2170,7 +2170,7 @@ colord_edid_func (void)
  	g_bytes_unref (data_edid);
  

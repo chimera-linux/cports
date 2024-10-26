@@ -1,9 +1,9 @@
 pkgname = "elogind"
 pkgver = "255.5"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 configure_args = [
-    "--libexecdir=/usr/libexec/elogind",
+    "--libexecdir=/usr/lib/elogind",
     "-Dman=enabled",
     "-Dpamconfdir=/usr/lib/pam.d",
     "-Dpamlibdir=/usr/lib/security",
@@ -35,7 +35,7 @@ makedepends = [
     "udev-devel",
 ]
 checkdepends = ["bash", "python-lxml"]
-depends = ["dbus", "tangle-progs", "turnstile"]
+depends = ["dinit-dbus", "tangle-progs", "turnstile"]
 install_if = [self.with_pkgver("elogind-meta")]
 pkgdesc = "Standalone version of logind"
 maintainer = "q66 <q66@chimera-linux.org>"

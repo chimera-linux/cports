@@ -1,8 +1,9 @@
 pkgname = "iwd"
 pkgver = "3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     # junk cflags that redefine FORTIFY
     "--disable-optimization",
     "--disable-systemd-service",
@@ -16,7 +17,7 @@ hostmakedepends = ["pkgconf", "python-docutils", "automake", "libtool"]
 # iwd's usage of readline is very fucky and we don't wanna break it
 makedepends = ["readline-devel", "dbus-devel", "linux-headers"]
 checkdepends = ["python", "dbus"]
-depends = ["dbus", "resolvconf"]
+depends = ["dinit-dbus", "resolvconf"]
 pkgdesc = "Wireless daemon that replaces wpa_supplicant"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

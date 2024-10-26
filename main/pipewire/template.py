@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "1.2.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -56,6 +56,7 @@ makedepends = [
     "v4l-utils-devel",
 ]
 depends = [
+    "dinit-dbus",
     "virtual:pipewire-session-manager!pipewire-session-manager-none",
     "rtkit",
 ]

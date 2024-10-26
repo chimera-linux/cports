@@ -1,6 +1,6 @@
 pkgname = "firewalld"
 pkgver = "2.2.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
 configure_gen = ["./autogen.sh"]
@@ -19,6 +19,7 @@ makedepends = [
     "glib-devel",
 ]
 depends = [
+    "dinit-dbus",
     "python-dbus",
     "python-gobject",
     "python-nftables",

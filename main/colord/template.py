@@ -1,9 +1,10 @@
 pkgname = "colord"
 pkgver = "1.4.7"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 # manpages fail to generate
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddaemon_user=_colord",
     "-Dsystemd=false",
     "-Dargyllcms_sensor=false",
@@ -30,6 +31,7 @@ makedepends = [
     "sane-backends-devel",
     "sqlite-devel",
 ]
+depends = ["dinit-dbus"]
 pkgdesc = "Color management daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"

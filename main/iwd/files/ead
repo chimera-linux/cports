@@ -1,5 +1,5 @@
 type = process
-command = /usr/libexec/ead
+command = /usr/lib/ead
 before = network.target
 depends-on = pre-network.target
 depends-on = dbus

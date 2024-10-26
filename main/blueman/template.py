@@ -1,6 +1,6 @@
 pkgname = "blueman"
 pkgver = "2.4.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 # XXX drop libexec
 configure_args = [
@@ -23,7 +23,6 @@ makedepends = [
 ]
 depends = [
     "bluez",
-    "dbus",
     "gtk+3",
     "iproute2",
     "libnm",

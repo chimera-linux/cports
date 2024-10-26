@@ -1,6 +1,6 @@
 pkgname = "swaync"
 pkgver = "0.10.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 hostmakedepends = [
     "gobject-introspection",
@@ -18,6 +18,7 @@ makedepends = [
     "libhandy-devel",
     "libpulse-devel",
 ]
+depends = ["dinit-dbus"]
 pkgdesc = "Notification daemon for sway"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"

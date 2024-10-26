@@ -1,8 +1,9 @@
 pkgname = "rtkit"
 pkgver = "0.13"
-pkgrel = 5
+pkgrel = 6
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dlibsystemd=disabled",
     "-Dinstalled_tests=false",
 ]
@@ -13,7 +14,7 @@ makedepends = [
     "polkit-devel",
     "zlib-ng-compat-devel",
 ]
-depends = ["polkit"]
+depends = ["dinit-dbus", "polkit"]
 pkgdesc = "Realtime policy and watchdog daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-3.0-or-later"

@@ -1,6 +1,6 @@
 pkgname = "dnsmasq"
 pkgver = "2.90"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_install_args = ["BINDIR=/usr/bin"]
 hostmakedepends = ["pkgconf"]
@@ -11,7 +11,7 @@ makedepends = [
     "linux-headers",
     "nettle-devel",
 ]
-depends = ["dbus"]
+depends = ["dinit-dbus"]
 pkgdesc = "DNS, DHCP, RA, TFTP and PXE server"
 maintainer = "cesorious <cesorious@gmail.com>"
 license = "GPL-2.0-or-later"

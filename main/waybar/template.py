@@ -1,6 +1,6 @@
 pkgname = "waybar"
 pkgver = "0.11.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dcava=disabled",
@@ -52,6 +52,7 @@ makedepends = [
     "wayland-devel",
     "wireplumber-devel",
 ]
+depends = ["dinit-dbus"]
 pkgdesc = "Wayland bar for Sway and wlroots-based compositors"
 maintainer = "avgwst <avgwst@tutanota.de>"
 license = "MIT"

@@ -1,6 +1,6 @@
 pkgname = "bolt"
 pkgver = "0.9.8"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 # XXX drop libexec
 configure_args = [
@@ -19,6 +19,7 @@ hostmakedepends = [
 ]
 makedepends = ["udev-devel", "glib-devel", "polkit-devel"]
 checkdepends = ["dbus"]
+depends = ["dinit-dbus"]
 pkgdesc = "Thunderbolt device manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

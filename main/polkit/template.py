@@ -1,6 +1,6 @@
 pkgname = "polkit"
 pkgver = "125"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsession_tracking=elogind",
@@ -26,6 +26,7 @@ hostmakedepends = [
     "xsltproc",
 ]
 makedepends = ["duktape-devel", "elogind-devel", "linux-pam-devel"]
+depends = ["dinit-dbus"]
 pkgdesc = "Toolkit for defining and handling authorizations"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

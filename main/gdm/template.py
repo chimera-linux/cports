@@ -1,11 +1,12 @@
 pkgname = "gdm"
 pkgver = "47.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddefault-pam-config=arch",
-    "-Dat-spi-registryd-dir=/usr/libexec",
+    "-Dat-spi-registryd-dir=/usr/lib",
     "-Dscreenshot-dir=/var/lib/gdm/greeter",
     "-Dplymouth=disabled",
     "-Dxauth-dir=/run/gdm",
@@ -49,6 +50,7 @@ makedepends = [
 ]
 checkdepends = ["check-devel"]
 depends = [
+    "dinit-dbus",
     "elogind",
     "fprintd-meta",
     "gnome-session",

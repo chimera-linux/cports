@@ -1,9 +1,10 @@
 pkgname = "ra-multiplex"
 pkgver = "0.2.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
+depends = ["dinit-dbus"]
 pkgdesc = "Share a language server instance between multiple clients"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"

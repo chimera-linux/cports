@@ -1,6 +1,6 @@
 pkgname = "dunst"
 pkgver = "1.11.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_check_target = "test"
 make_use_env = True
@@ -19,6 +19,7 @@ makedepends = [
     "wayland-protocols",
 ]
 checkdepends = ["bash", "dbus"]
+depends = ["dinit-dbus"]
 pkgdesc = "Notification daemon"
 maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"

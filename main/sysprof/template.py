@@ -1,9 +1,10 @@
 # sync with main/sysprof-capture
 pkgname = "sysprof"
 pkgver = "47.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     # creates static separately itself
     "-Ddefault_library=shared",
     "-Dsystemdunitdir=systemd",
@@ -30,6 +31,7 @@ makedepends = [
     "linux-headers",
     "polkit-devel",
 ]
+depends = ["dinit-dbus"]
 pkgdesc = "System-wide profiler for Linux"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND BSD-2-Clause-Patent"

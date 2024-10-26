@@ -1,5 +1,5 @@
 type = process
-command = /usr/libexec/openrc-settingsd --syslog
+command = /usr/lib/openrc-settingsd --syslog
 before = login.target
 depends-on = local.target
 depends-on = dbus

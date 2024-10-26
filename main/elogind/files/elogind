@@ -1,5 +1,5 @@
 type = process
-command = /usr/libexec/elogind/elogind
+command = /usr/lib/elogind/elogind
 depends-ms = polkitd
 depends-on = dbus
 depends-on = local.target

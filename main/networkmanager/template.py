@@ -1,8 +1,9 @@
 pkgname = "networkmanager"
 pkgver = "1.50.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dsystemd_journal=false",
     "-Dselinux=false",
     "-Dovs=false",
@@ -78,6 +79,7 @@ makedepends = [
     "udev-devel",
 ]
 depends = [
+    "dinit-dbus",
     "iproute2",
     "mobile-broadband-provider-info",
     "resolvconf",

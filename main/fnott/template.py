@@ -1,6 +1,6 @@
 pkgname = "fnott"
 pkgver = "1.7.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -17,6 +17,7 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
 ]
+depends = ["dinit-dbus"]
 pkgdesc = "Keyboard driven wayland notification daemon"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
