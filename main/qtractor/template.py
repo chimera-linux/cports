@@ -1,6 +1,6 @@
 pkgname = "qtractor"
 pkgver = "1.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DCONFIG_WAYLAND=1"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
