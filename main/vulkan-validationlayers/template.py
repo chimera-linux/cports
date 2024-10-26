@@ -1,5 +1,5 @@
 pkgname = "vulkan-validationlayers"
-pkgver = "1.3.299"
+pkgver = "1.3.300"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,7 +27,7 @@ license = "Apache-2.0"
 url = "https://vulkan.lunarg.com/doc/sdk/latest/linux/khronos_validation_layer.html"
 source = [
     f"https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/refs/tags/v{pkgver}.tar.gz",
-    "https://github.com/KhronosGroup/SPIRV-Headers/archive/252dc2df08f58e0e50c8437edc0e77eacdfb7559.tar.gz",
+    "https://github.com/KhronosGroup/SPIRV-Headers/archive/22c4d1b1e9d1c7d9aa5086c93e6491f21080019b.tar.gz",
     "https://github.com/martinus/robin-hood-hashing/archive/7697343363af4cc3f42cab17be49e6af9ab181e2.tar.gz",
 ]
 source_paths = [
@@ -36,7 +36,7 @@ source_paths = [
     "layers/robinhood",
 ]
 sha256 = [
-    "90401df60bb6e540d22510dad95d616c9a5a92db64d9db7a177f78d643c56d10",
-    "e32831eb66e6425455b588ce5b91a20abf20bd4c794436b0b4d48b3b0b9a2971",
+    "157926f0c29e25e62e662b4101df0e8e5110e3f7f14270d8d045ff959be1546a",
+    "b29082319fc523b8f25edfeacad302a4dc881904da453d2dcbb67bd040b54b29",
     "bce88bee05812abd863e8ae045757b66116fc9d7e880e649916d8eb71a10fa9f",
 ]
