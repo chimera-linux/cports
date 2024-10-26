@@ -1,6 +1,6 @@
 pkgname = "kgpg"
 pkgver = "24.08.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # flaky
 make_check_args = ["-E", "kgpg-import"]
