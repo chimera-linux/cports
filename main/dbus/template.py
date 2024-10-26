@@ -1,8 +1,9 @@
 pkgname = "dbus"
 pkgver = "1.14.10"
-pkgrel = 13
+pkgrel = 14
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--disable-selinux",
     "--disable-asserts",
     "--disable-systemd",
@@ -27,7 +28,7 @@ license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
 source = f"https://dbus.freedesktop.org/releases/dbus/dbus-{pkgver}.tar.xz"
 sha256 = "ba1f21d2bd9d339da2d4aa8780c09df32fea87998b73da24f49ab9df1e36a50f"
-file_modes = {"usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
+file_modes = {"usr/lib/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]
 
@@ -35,10 +36,10 @@ options = ["linkundefver"]
 def post_install(self):
     # service file
     self.install_file(
-        self.files_path / "dbus-session.wrapper", "usr/libexec", mode=0o755
+        self.files_path / "dbus-session.wrapper", "usr/lib", mode=0o755
     )
-    self.install_service(self.files_path / "dbus", enable=True)
-    self.install_service(self.files_path / "dbus.user", enable=True)
+    self.install_service(self.files_path / "dbus-daemon", enable=True)
+    self.install_service(self.files_path / "dbus-daemon.user", enable=True)
     # x11 support
     self.install_dir("etc/X11/Xsession.d")
     self.install_file(
@@ -54,7 +55,7 @@ def _(self):
     self.depends += ["libexpat-devel"]
     return self.default_devel(
         extra=[
-            "usr/lib/dbus-*",
+            "usr/lib/dbus-1.0",
             "usr/share/doc",
         ]
     )
