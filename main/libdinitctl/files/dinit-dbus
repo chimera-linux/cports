@@ -4,5 +4,4 @@ ready-notification = pipevar:DINIT_DBUS_READY_FD
 log-type = buffer
 options = pass-cs-fd
 depends-on = local.target
-depends-on = dbus
-before = login.target
+depends-on = dbus-daemon
