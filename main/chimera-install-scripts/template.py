@@ -1,7 +1,7 @@
 pkgname = "chimera-install-scripts"
-pkgver = "0.3"
+pkgver = "0.4"
 pkgrel = 0
-_commit = "d64bd12ee54a2abb00c587bd3e0b83a47b165be2"
+_commit = "74ba5eff892c3817ddf2bc7bd774b6f5c890f322"
 build_style = "makefile"
 depends = [
     "cmd:apk!apk-tools",
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimera-install-scripts"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "0279525256ab9977282c9bca74c1f7345d5a1d01886e20fb7ff1d23660cc64e9"
+sha256 = "61e3f5d6417b14e079e31f05c3caef7cf49322601860fa4b013c5e344aa2fa7e"
 # no test suite
 options = ["!check"]
 
