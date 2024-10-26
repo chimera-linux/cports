@@ -1,5 +1,5 @@
 pkgname = "vulkan-utility-libraries"
-pkgver = "1.3.299"
+pkgver = "1.3.300"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTS=ON"]
@@ -18,6 +18,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/Vulkan-Utility-Libraries"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "300c40cf23960672b9de4740fc454eed66c30b7a6314d59c02bdb29116728f83"
+sha256 = "ffc35127708e1fa94f97ed356b645c4a93e1dfbf8e9d39e48a1d27685a3899fb"
 # static-only library, so just keep it as one package
 options = ["!lintstatic"]
