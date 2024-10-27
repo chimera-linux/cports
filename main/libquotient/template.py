@@ -1,15 +1,13 @@
 pkgname = "libquotient"
-pkgver = "0.8.2"
+pkgver = "0.9.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
-    "-DBUILD_WITH_QT6=ON",
-    "-DQuotient_ENABLE_E2EE=ON",
     "-DQuotient_INSTALL_TESTS=OFF",
 ]
 # needs running server
-make_check_args = ["-E", "testolmaccount"]
+make_check_args = ["-E", "(testolmaccount|testcrosssigning|testkeyimport)"]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -25,7 +23,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://quotient-im.github.io/libQuotient"
 source = f"https://github.com/quotient-im/libQuotient/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "12ff2fa8b80a934b9dd88fa3416a4b88e94bc0e18a8df0dcebfc90614dd2f5c9"
+sha256 = "5e607eb978a5daa82e2186cd92f0d964cb820c72cfad95ed2adda4525ed923b5"
 
 
 def post_install(self):
