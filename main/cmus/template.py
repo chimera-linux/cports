@@ -1,6 +1,6 @@
 pkgname = "cmus"
-pkgver = "2.11.0"
-pkgrel = 2
+pkgver = "2.12.0"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "prefix=/usr",
@@ -22,6 +22,7 @@ configure_args = [
 hostmakedepends = ["pkgconf", "bash"]
 makedepends = [
     "elogind-devel",
+    "faad2-devel",
     "ffmpeg-devel",
     "flac-devel",
     "libcddb-devel",
@@ -41,7 +42,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://cmus.github.io"
 source = f"https://github.com/cmus/cmus/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2bbdcd6bbbae301d734214eab791e3755baf4d16db24a44626961a489aa5e0f7"
+sha256 = "44b96cd5f84b0d84c33097c48454232d5e6a19cd33b9b6503ba9c13b6686bfc7"
 # no tests
 options = ["!check"]
 
