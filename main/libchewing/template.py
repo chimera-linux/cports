@@ -1,5 +1,5 @@
 pkgname = "libchewing"
-pkgver = "0.9.0"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "cmake"
 # The test fails when run in parallel.
@@ -17,7 +17,7 @@ maintainer = "xunil-cloud <river_electron@proton.me>"
 license = "LGPL-2.1-or-later"
 url = "https://chewing.im"
 source = f"https://github.com/chewing/libchewing/releases/download/v{pkgver}/libchewing-{pkgver}.tar.zst"
-sha256 = "58e62cd0649ba3856ffa7c67560c1cfbcbb8713342a533f7700587b51efe84e3"
+sha256 = "e98b76c306552148b7d85f0e596860751d9eef4bc8f2dfc053177b14f421c31f"
 tool_flags = {"CFLAGS": ["-DHAVE_NCURSES_H"]}
 
 
