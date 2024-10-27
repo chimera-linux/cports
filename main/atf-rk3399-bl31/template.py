@@ -1,5 +1,5 @@
 pkgname = "atf-rk3399-bl31"
-pkgver = "2.10.5"
+pkgver = "2.10.9"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "makefile"
@@ -12,7 +12,7 @@ url = "https://developer.trustedfirmware.org/dashboard/view/6"
 # unstable tarball checksum
 # source = f"https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+archive/refs/tags/lts-v{pkgver}.tar.gz"
 source = f"https://ftp.octaforge.org/q66/random/lts-v{pkgver}.tar.gz"
-sha256 = "5a765b5d2afad94562ffb7334f8a5a86f09d01f16fdee11b27705a63a1bb25ce"
+sha256 = "e51985284ee515c54ecad21d6686354490a64e6380112a1bbf5d864638433e42"
 hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug", "execstack"]
