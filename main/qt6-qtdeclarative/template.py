@@ -1,6 +1,6 @@
 pkgname = "qt6-qtdeclarative"
 pkgver = "6.8.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 hostmakedepends = [

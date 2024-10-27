@@ -1,12 +1,11 @@
 pkgname = "gspell"
 pkgver = "1.14.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-configure_args = ["-Dinstall_tests=false"]
+configure_args = ["-Dgtk_doc=false", "-Dinstall_tests=false"]
 hostmakedepends = [
     "gettext",
     "gobject-introspection",
-    "gtk-doc-tools",
     "meson",
     "pkgconf",
     "vala",

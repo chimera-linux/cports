@@ -1,6 +1,6 @@
 pkgname = "thunderbird"
 pkgver = "128.3.3"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "automake",
     "cargo",

@@ -1,6 +1,6 @@
 pkgname = "webkitgtk"
 pkgver = "2.46.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DPORT=GTK",
@@ -31,6 +31,7 @@ hostmakedepends = [
     "glib-devel",
     "gobject-introspection",
     "gperf",
+    "libxml2-progs",
     "ninja",
     "perl",
     "pkgconf",

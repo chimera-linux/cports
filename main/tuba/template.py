@@ -1,6 +1,6 @@
 pkgname = "tuba"
 pkgver = "0.8.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dclapper=true",

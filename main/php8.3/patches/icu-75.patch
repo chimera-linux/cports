@@ -1,0 +1,82 @@
+From 016068693641e2c597a8ff5e1d8f66ba0da63b90 Mon Sep 17 00:00:00 2001
+From: "Christoph M. Becker" <cmbecker69@gmx.de>
+Date: Sat, 26 Oct 2024 17:10:33 +0200
+Subject: [PATCH] Adapt ext/intl tests for ICU 75.1
+
+---
+ ext/intl/tests/locale_get_display_name8.phpt   | 18 +++++++++---------
+ .../tests/locale_get_display_variant2.phpt     | 18 +++++++++---------
+ 2 files changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/ext/intl/tests/locale_get_display_name8.phpt b/ext/intl/tests/locale_get_display_name8.phpt
+index b6b855c6d8eca..e8c1ed958ac1c 100644
+--- a/ext/intl/tests/locale_get_display_name8.phpt
++++ b/ext/intl/tests/locale_get_display_name8.phpt
+@@ -317,14 +317,14 @@ disp_locale=fr :  display_name=anglais #États-Unis, attribute=islamcal#
+ disp_locale=de :  display_name=Englisch #Vereinigte Staaten, attribute=islamcal#
+ -----------------
+ locale='zh-CN-a-myExt-x-private'
+-disp_locale=en :  display_name=Chinese #China, a=myext, Private-Use=private#
+-disp_locale=fr :  display_name=chinois #Chine, a=myext, usage privé=private#
+-disp_locale=de :  display_name=Chinesisch #China, a=myext, Privatnutzung=private#
++disp_locale=en :  display_name=Chinese #China(, A_MYEXT_X_PRIVATE)?, a=myext, Private-Use=private#
++disp_locale=fr :  display_name=chinois #Chine(, A_MYEXT_X_PRIVATE)?, a=myext, usage privé=private#
++disp_locale=de :  display_name=Chinesisch #China(, A_MYEXT_X_PRIVATE)?, a=myext, Privatnutzung=private#
+ -----------------
+ locale='en-a-myExt-b-another'
+-disp_locale=en :  display_name=English #a=myext, b=another#
+-disp_locale=fr :  display_name=anglais #a=myext, b=another#
+-disp_locale=de :  display_name=Englisch #a=myext, b=another#
++disp_locale=en :  display_name=English #(A_MYEXT_B_ANOTHER, )?a=myext, b=another#
++disp_locale=fr :  display_name=anglais #(A_MYEXT_B_ANOTHER, )?a=myext, b=another#
++disp_locale=de :  display_name=Englisch #(A_MYEXT_B_ANOTHER, )?a=myext, b=another#
+ -----------------
+ locale='de-419-DE'
+ disp_locale=en :  display_name=German #Latin America, DE#
+@@ -337,7 +337,7 @@ disp_locale=fr :  display_name=a #Allemagne#
+ disp_locale=de :  display_name=a #Deutschland#
+ -----------------
+ locale='ar-a-aaa-b-bbb-a-ccc'
+-disp_locale=en :  display_name=Arabic #a=aaa, b=bbb#
+-disp_locale=fr :  display_name=arabe #a=aaa, b=bbb#
+-disp_locale=de :  display_name=Arabisch #a=aaa, b=bbb#
++disp_locale=en :  display_name=Arabic #(A_AAA_B_BBB_A_CCC, )?a=aaa, b=bbb#
++disp_locale=fr :  display_name=arabe #(A_AAA_B_BBB_A_CCC, )?a=aaa, b=bbb#
++disp_locale=de :  display_name=Arabisch #(A_AAA_B_BBB_A_CCC, )?a=aaa, b=bbb#
+ -----------------
+diff --git a/ext/intl/tests/locale_get_display_variant2.phpt b/ext/intl/tests/locale_get_display_variant2.phpt
+index a743ed5ea3b85..e56154902dde9 100644
+--- a/ext/intl/tests/locale_get_display_variant2.phpt
++++ b/ext/intl/tests/locale_get_display_variant2.phpt
+@@ -248,14 +248,14 @@ disp_locale=fr :  display_variant=
+ disp_locale=de :  display_variant=
+ -----------------
+ locale='zh-CN-a-myExt-x-private'
+-disp_locale=en :  display_variant=
+-disp_locale=fr :  display_variant=
+-disp_locale=de :  display_variant=
++disp_locale=en :  display_variant=(A_MYEXT_X_PRIVATE)?
++disp_locale=fr :  display_variant=(A_MYEXT_X_PRIVATE)?
++disp_locale=de :  display_variant=(A_MYEXT_X_PRIVATE)?
+ -----------------
+ locale='en-a-myExt-b-another'
+-disp_locale=en :  display_variant=(MYEXT_B_ANOTHER)?
+-disp_locale=fr :  display_variant=(MYEXT_B_ANOTHER)?
+-disp_locale=de :  display_variant=(MYEXT_B_ANOTHER)?
++disp_locale=en :  display_variant=((A_)?MYEXT_B_ANOTHER)?
++disp_locale=fr :  display_variant=((A_)?MYEXT_B_ANOTHER)?
++disp_locale=de :  display_variant=((A_)?MYEXT_B_ANOTHER)?
+ -----------------
+ locale='de-419-DE'
+ disp_locale=en :  display_variant=DE
+@@ -268,7 +268,7 @@ disp_locale=fr :  display_variant=
+ disp_locale=de :  display_variant=
+ -----------------
+ locale='ar-a-aaa-b-bbb-a-ccc'
+-disp_locale=en :  display_variant=(AAA_B_BBB_A_CCC)?
+-disp_locale=fr :  display_variant=(AAA_B_BBB_A_CCC)?
+-disp_locale=de :  display_variant=(AAA_B_BBB_A_CCC)?
++disp_locale=en :  display_variant=((A_)?AAA_B_BBB_A_CCC)?
++disp_locale=fr :  display_variant=((A_)?AAA_B_BBB_A_CCC)?
++disp_locale=de :  display_variant=((A_)?AAA_B_BBB_A_CCC)?
+ -----------------

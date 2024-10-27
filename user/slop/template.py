@@ -1,6 +1,6 @@
 pkgname = "slop"
 pkgver = "7.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

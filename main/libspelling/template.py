@@ -1,6 +1,6 @@
 pkgname = "libspelling"
 pkgver = "0.4.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddocs=false",
@@ -9,6 +9,7 @@ configure_args = [
     "-Dvapi=true",
 ]
 hostmakedepends = [
+    "gettext",
     "glib-devel",
     "gobject-introspection",
     "meson",

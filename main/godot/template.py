@@ -1,6 +1,6 @@
 pkgname = "godot"
 pkgver = "4.3"
-pkgrel = 2
+pkgrel = 3
 hostmakedepends = [
     "gettext",
     "pkgconf",

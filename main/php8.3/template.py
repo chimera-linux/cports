@@ -1,7 +1,7 @@
 pkgname = "php8.3"
 _majver = "8.3"
 pkgver = f"{_majver}.13"
-pkgrel = 0
+pkgrel = 1
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -179,8 +179,6 @@ def post_patch(self):
         "ext/gettext/tests/bug53251.phpt",
         "ext/gettext/tests/gettext_bind_textdomain_codeset-retval.phpt",
         "ext/gettext/tests/gettext_bindtextdomain-cwd.phpt",
-        "ext/intl/tests/locale_get_display_name8.phpt",
-        "ext/intl/tests/locale_get_display_variant2.phpt",
         "ext/posix/tests/posix_errno_variation1.phpt",
         "ext/zip/tests/oo_encryption.phpt",
         "sapi/cli/tests/009.phpt",
@@ -209,6 +207,10 @@ def post_patch(self):
         "ext/zlib/tests/bug48725.phpt",
         # most of these try connect to an ldap server and wait for timeout then autoskip
         "ext/ldap/tests/*.phpt",
+        # icu 76
+        "ext/intl/tests/bug62070_3.phpt",
+        "ext/intl/tests/collator_get_sort_key_variant7.phpt",
+        "ext/intl/tests/timezone_IDforWindowsID_basic2.phpt",
     ]:
         self.rm(f, glob=True)
 
@@ -216,7 +218,7 @@ def post_patch(self):
 def init_check(self):
     # injected via patch
     # also seem to hang sometimes with too many jobs
-    self.make_check_args += [f"PHP_RUN_TESTS_ARGS=-j{min(4, self.make_jobs)}"]
+    self.make_check_args += [f"PHP_RUN_TESTS_ARGS=-j{min(6, self.make_jobs)}"]
 
 
 def init_install(self):

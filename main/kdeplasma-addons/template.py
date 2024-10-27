@@ -1,6 +1,6 @@
 pkgname = "kdeplasma-addons"
 pkgver = "6.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: failed tz comparison / scientific notation number e uppercase
 make_check_args = ["-E", "(converterrunnertest|datetimerunnertest)"]

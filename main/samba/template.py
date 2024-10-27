@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
 pkgver = "4.21.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [

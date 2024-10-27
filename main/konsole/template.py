@@ -1,8 +1,8 @@
 pkgname = "konsole"
 pkgver = "24.08.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-make_check_args = ["-E", "TerminalInterfaceTest"]
+make_check_args = ["-E", "(TerminalInterfaceTest|PtyTest)"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",

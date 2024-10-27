@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwebengine"
 pkgver = "6.8.0"
-pkgrel = 2
+pkgrel = 3
 # latest from https://github.com/qt/qtwebengine-chromium/commits/122-based
 # check CHROMIUM_VERSION on qt majors
 _qtwebengine_gitrev = "dd235a0c36d5de464380e5f42d4584f91a079654"

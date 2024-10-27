@@ -1,6 +1,6 @@
 pkgname = "nodejs"
 pkgver = "23.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--ninja",

@@ -1,6 +1,6 @@
 pkgname = "mpd"
 pkgver = "0.23.15"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 configure_args = [
     "-Ddocumentation=enabled",
