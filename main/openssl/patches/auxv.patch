@@ -3,9 +3,28 @@ this should not be glibc guarded, as this auxv fallback always works on linux
 this makes libcrypto use the auxv for cpu feature detection instead of falling
 back on the sigill trapping method on these arches
 --
+diff --git a/crypto/armcap.c b/crypto/armcap.c
+index 33b9dd4..04e402c 100644
+--- a/crypto/armcap.c
++++ b/crypto/armcap.c
+@@ -66,11 +66,9 @@ uint32_t OPENSSL_rdtsc(void)
+ void OPENSSL_cpuid_setup(void) __attribute__ ((constructor));
+ # endif
+ 
+-# if defined(__GLIBC__) && defined(__GLIBC_PREREQ)
+-#  if __GLIBC_PREREQ(2, 16)
++# if 1
+ #   include <sys/auxv.h>
+ #   define OSSL_IMPLEMENT_GETAUXVAL
+-#  endif
+ # elif defined(__ANDROID_API__)
+ /* see https://developer.android.google.cn/ndk/guides/cpu-features */
+ #  if __ANDROID_API__ >= 18
+diff --git a/crypto/ppccap.c b/crypto/ppccap.c
+index 08794a3..923ac2f 100644
 --- a/crypto/ppccap.c
 +++ b/crypto/ppccap.c
-@@ -207,18 +207,8 @@ size_t OPENSSL_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
+@@ -86,18 +86,8 @@ size_t OPENSSL_instrument_bus2(unsigned int *out, size_t cnt, size_t max)
          return 0;
  }
  
@@ -24,23 +43,10 @@ back on the sigill trapping method on these arches
 +#include <sys/auxv.h>
 +#define OSSL_IMPLEMENT_GETAUXVAL
  
- #if defined(__FreeBSD__)
+ #if defined(__FreeBSD__) || defined(__OpenBSD__)
  # include <sys/param.h>
---- a/crypto/armcap.c
-+++ b/crypto/armcap.c
-@@ -66,11 +66,9 @@
- void OPENSSL_cpuid_setup(void) __attribute__ ((constructor));
- # endif
- 
--# if defined(__GLIBC__) && defined(__GLIBC_PREREQ)
--#  if __GLIBC_PREREQ(2, 16)
-+# if 1
- #   include <sys/auxv.h>
- #   define OSSL_IMPLEMENT_GETAUXVAL
--#  endif
- # elif defined(__ANDROID_API__)
- /* see https://developer.android.google.cn/ndk/guides/cpu-features */
- #  if __ANDROID_API__ >= 18
+diff --git a/crypto/s390xcap.c b/crypto/s390xcap.c
+index 7721b5c..ad96a67 100644
 --- a/crypto/s390xcap.c
 +++ b/crypto/s390xcap.c
 @@ -25,10 +25,10 @@
@@ -57,7 +63,7 @@ back on the sigill trapping method on these arches
  #   define OSSL_IMPLEMENT_GETAUXVAL
  #  endif
  # endif
-@@ -129,7 +129,7 @@
+@@ -129,7 +129,7 @@ void OPENSSL_cpuid_setup(void)
              OPENSSL_s390x_facilities();
  
          /* protection against disabled vector facility */
