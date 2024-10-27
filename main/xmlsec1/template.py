@@ -1,5 +1,5 @@
 pkgname = "xmlsec1"
-pkgver = "1.3.5"
+pkgver = "1.3.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-docs", "--enable-http"]
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.aleksey.com/xmlsec"
 source = f"{url}/download/xmlsec1-{pkgver}.tar.gz"
-sha256 = "2ffd4ad1f860ec93e47a680310ab2bc94968bd07566e71976bd96133d9504917"
+sha256 = "952b626ad3f3be1a4598622dab52fdab2a8604d0837c1b00589f3637535af92f"
 # broken tests build + tests reach internet
 options = ["!cross", "!check"]
 
