@@ -19,13 +19,13 @@ index 01a05599cd..58b5cd1ce7 100644
 --- a/arch/arm/mach-rockchip/rk3399/rk3399.c
 +++ b/arch/arm/mach-rockchip/rk3399/rk3399.c
 @@ -20,6 +20,7 @@
- #include <asm/arch-rockchip/hardware.h>
  #include <linux/bitops.h>
+ #include <linux/printk.h>
  #include <power/regulator.h>
 +#include <dt-bindings/pinctrl/rockchip.h>
  
- DECLARE_GLOBAL_DATA_PTR;
- 
+ #define GRF_EMMCCORE_CON11 0xff77f02c
+ #define GRF_BASE	0xff770000
 @@ -157,6 +158,19 @@ void board_debug_uart_init(void)
  				  GPIO_PULL_NORMAL);
  	}
