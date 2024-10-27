@@ -1,6 +1,6 @@
 pkgname = "gnome-shell-extension-gsconnect"
-pkgver = "57"
-pkgrel = 1
+pkgver = "58"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dinstalled_tests=false"]
 # Would've used weston-headless-run here instead of xvfb-run, but that runs
@@ -24,6 +24,6 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/GSConnect/gnome-shell-extension-gsconnect"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6c67eb9d1e04e515f2116603577a6b775ba36373dcedd1f343a22eed753c7af5"
+sha256 = "8142bb854fb3f2e5ba29e7f545af71aaf129ed26f5b32812a7ecb51b804919ef"
 # All tests fail in latest release https://github.com/GSConnect/gnome-shell-extension-gsconnect/issues/1786
 options = ["!check"]
