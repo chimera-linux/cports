@@ -1,6 +1,6 @@
 pkgname = "libopenmpt"
-pkgver = "0.7.10"
-pkgrel = 1
+pkgver = "0.7.11"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--without-portaudio",
@@ -24,7 +24,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://lib.openmpt.org/libopenmpt"
 source = f"https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-{pkgver}+release.autotools.tar.gz"
-sha256 = "093713c1c1024f4f10c4779a66ceb2af51fb7c908a9e99feb892d04019220ba1"
+sha256 = "53a798b8c6e2e1f695e8ad05e93a0c1b53199e5aa9981837c41696b370520767"
 
 
 def post_install(self):
