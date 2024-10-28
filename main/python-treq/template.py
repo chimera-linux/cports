@@ -1,5 +1,5 @@
 pkgname = "python-treq"
-pkgver = "23.11.0"
+pkgver = "24.9.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -26,7 +26,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/twisted/treq"
 source = f"$(PYPI_SITE)/t/treq/treq-{pkgver}.tar.gz"
-sha256 = "0914ff929fd1632ce16797235260f8bc19d20ff7c459c1deabd65b8c68cbeac5"
+sha256 = "15da7fc404f3e4ed59d0abe5f8eef4966fabbe618039a2a23bc7c15305cefea8"
 
 
 def post_install(self):
