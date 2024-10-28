@@ -1,0 +1,11 @@
+we run pytest directly so we don't need this
+--- a/setup.py	2023-11-12 09:32:05.000000000 +0000
++++ b/setup.py	2024-10-28 11:41:06.315796404 +0000
+@@ -37,7 +37,6 @@
+       version="0.8.2",
+       packages=["pyte"],
+       install_requires=["wcwidth"],
+-      setup_requires=["pytest-runner"],
+       tests_require=["pytest"],
+       python_requires=">=3.8",
+       platforms=["any"],
