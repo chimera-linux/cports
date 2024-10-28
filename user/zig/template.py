@@ -3,6 +3,8 @@ pkgver = "0.13.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
+    # dodge -Dstrip
+    "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
     "-DZIG_PIE=ON",
     "-DZIG_SHARED_LLVM=ON",
     "-DZIG_TARGET_MCPU=baseline",
@@ -56,5 +58,7 @@ def check(self):
     )
 
 
-def post_install(self):
+def install(self):
     self.install_license("LICENSE")
+    self.install_files(f"{self.make_dir}/stage3/bin", "usr")
+    self.install_files(f"{self.make_dir}/stage3/lib", "usr")
