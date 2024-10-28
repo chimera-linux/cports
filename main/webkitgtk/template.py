@@ -53,7 +53,6 @@ makedepends = [
     "harfbuzz-devel",
     "hyphen-devel",
     "icu-devel",
-    "icu-devel",
     "lcms2-devel",
     "libavif-devel",
     "libgcrypt-devel",
