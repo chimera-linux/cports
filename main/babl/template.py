@@ -1,5 +1,5 @@
 pkgname = "babl"
-pkgver = "0.1.108"
+pkgver = "0.1.110"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-gir=true", "-Dwith-docs=false"]
@@ -18,7 +18,7 @@ url = "https://gegl.org/babl"
 source = (
     f"https://download.gimp.org/pub/babl/{pkgver[:-4]}/babl-{pkgver}.tar.xz"
 )
-sha256 = "26defe9deaab7ac4d0e076cab49c2a0d6ebd0df0c31fd209925a5f07edee1475"
+sha256 = "bf47be7540d6275389f66431ef03064df5376315e243d0bab448c6aa713f5743"
 # FIXME all tests fail
 hardening = ["!int"]
 
