@@ -200,9 +200,6 @@ match self.profile().arch:
             "-D__GCC_DESTRUCTIVE_SIZE=64",
         ]
 
-if self.profile().arch == "ppc64le":
-    broken = "needs more patching"
-
 
 def post_patch(self):
     self.rm("third_party/node/linux/node-linux-x64/bin/node")
