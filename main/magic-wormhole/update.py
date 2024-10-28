@@ -1,0 +1,1 @@
+pkgname = "magic_wormhole"

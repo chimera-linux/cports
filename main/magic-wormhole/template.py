@@ -1,5 +1,5 @@
 pkgname = "magic-wormhole"
-pkgver = "0.16.0"
+pkgver = "0.17.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -32,10 +32,8 @@ pkgdesc = "Utility to transfer data between computers"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://magic-wormhole.readthedocs.io"
-source = f"$(PYPI_SITE)/m/magic-wormhole/magic-wormhole-{pkgver}.tar.gz"
-sha256 = "14e6c146898dbda7a6d190262623a69419955363e7e434d64aad2d233d6d94c9"
-# TODO: bunch of tests fail with magic-wormhole-transit-relay 0.3.0+
-options = ["!check"]
+source = f"$(PYPI_SITE)/m/magic-wormhole/magic_wormhole-{pkgver}.tar.gz"
+sha256 = "142c7a271684b0b04470792601848f6b0ade0d8bf54fbcb30c6259d75edd9d06"
 
 
 def init_check(self):
