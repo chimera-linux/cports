@@ -1,0 +1,37 @@
+breaks python tests, revert:
+
+From 933f57dfe21657f7aba8f13e0cdb3b02dd64fcc3 Mon Sep 17 00:00:00 2001
+From: Neil Horman <nhorman@openssl.org>
+Date: Wed, 13 Mar 2024 11:22:15 -0400
+Subject: [PATCH] Raise an error on syscall failure in tls_retry_write_records
+
+Record the errno when we get a syscall failure in
+tls_retry_write_records
+
+Reviewed-by: Matt Caswell <matt@openssl.org>
+Reviewed-by: Tomas Mraz <tomas@openssl.org>
+(Merged from https://github.com/openssl/openssl/pull/23723)
+---
+ ssl/record/methods/tls_common.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/ssl/record/methods/tls_common.c b/ssl/record/methods/tls_common.c
+index b7481c071f746..d9e017d254afd 100644
+--- a/ssl/record/methods/tls_common.c
++++ b/ssl/record/methods/tls_common.c
+@@ -1933,13 +1933,10 @@ int tls_retry_write_records(OSSL_RECORD_LAYER *rl)
+                 else
+                     ret = OSSL_RECORD_RETURN_SUCCESS;
+             } else {
+-                if (BIO_should_retry(rl->bio)) {
++                if (BIO_should_retry(rl->bio))
+                     ret = OSSL_RECORD_RETURN_RETRY;
+-                } else {
+-                    ERR_raise_data(ERR_LIB_SYS, get_last_sys_error(),
+-                                   "tls_retry_write_records failure");
++                else
+                     ret = OSSL_RECORD_RETURN_FATAL;
+-                }
+             }
+         } else {
+             RLAYERfatal(rl, SSL_AD_INTERNAL_ERROR, SSL_R_BIO_NOT_SET);
