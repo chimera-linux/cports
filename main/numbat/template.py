@@ -1,5 +1,5 @@
 pkgname = "numbat"
-pkgver = "1.13.0"
+pkgver = "1.14.0"
 pkgrel = 0
 build_style = "cargo"
 # Tries to access network
@@ -12,7 +12,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/numbat"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3c152ec83dd0615cc62d7f92164fabad361d853f3796db22c79c20fa060e26b4"
+sha256 = "297c4ce1eca68a5f523a537b6d4a7334907f0cd4fbcf2162d1467d6d090c1445"
 
 
 def install(self):
@@ -24,6 +24,7 @@ def install(self):
     self.install_file(
         "assets/numbat.svg", "usr/share/icons/hicolor/scalable/apps"
     )
+    self.install_file("assets/numbat.vim", "usr/share/vim/vimfiles/syntax")
     for f in [16, 22, 24, 32, 48, 64, 128, 256, 512]:
         self.install_file(
             f"assets/numbat-{f}x{f}.png",
