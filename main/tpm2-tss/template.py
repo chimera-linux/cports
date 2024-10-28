@@ -23,6 +23,7 @@ makedepends = [
     "libcurl-devel",
     "libftdi1-devel",
     "libuuid-devel",
+    "libusb-bootstrap",
     "linux-headers",
     "openssl-devel",
 ]
