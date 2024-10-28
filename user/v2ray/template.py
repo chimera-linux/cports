@@ -1,5 +1,5 @@
 pkgname = "v2ray"
-pkgver = "5.21.0"
+pkgver = "5.22.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./main"]
@@ -11,7 +11,7 @@ url = "https://v2fly.org"
 source = (
     f"https://github.com/v2fly/v2ray-core/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "880a929caff7b72ef9d3b9a3262cec0dff6566c2481989822a6b27fdaaeed975"
+sha256 = "df25a873c8f7fb30f44cb6d26b18db264dfa209df5aeb6116fc43df7157fb4b8"
 # check: needs network access
 options = ["!check"]
 
