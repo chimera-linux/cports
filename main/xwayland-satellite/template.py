@@ -1,5 +1,5 @@
 pkgname = "xwayland-satellite"
-pkgver = "0.4"
+pkgver = "0.5"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -18,6 +18,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MPL-2.0"
 url = "https://github.com/Supreeeme/xwayland-satellite"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0c1db058f87a7ab686778c77bc0182ff5220fdbc3558706ea86ea7b955ea271e"
+sha256 = "b0845b711750b9850b87d8a62fd7d9a07235fe63a3b7e5bdd727884c066f1b4c"
 # no idea how to run this
 options = ["!check"]
