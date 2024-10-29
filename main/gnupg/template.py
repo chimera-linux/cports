@@ -1,6 +1,6 @@
 pkgname = "gnupg"
-pkgver = "2.4.5"
-pkgrel = 3
+pkgver = "2.4.6"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-all-tests"]
 configure_gen = []
@@ -26,4 +26,4 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnupg.org"
 source = f"https://gnupg.org/ftp/gcrypt/gnupg/gnupg-{pkgver}.tar.bz2"
-sha256 = "f68f7d75d06cb1635c336d34d844af97436c3f64ea14bcb7c869782f96f44277"
+sha256 = "95acfafda7004924a6f5c901677f15ac1bda2754511d973bb4523e8dd840e17a"
