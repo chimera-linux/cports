@@ -1,5 +1,5 @@
 pkgname = "libvips"
-pkgver = "8.15.5"
+pkgver = "8.16.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Db_ndebug=true"]
@@ -35,7 +35,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libvips/libvips"
 source = f"https://github.com/libvips/libvips/releases/download/v{pkgver}/vips-{pkgver}.tar.xz"
-sha256 = "2046d2001e60955dc6a85b82afbd6cadc8c34e10ba2f6e5ea09f03fc69eb2603"
+sha256 = "6eca46c6ba5fac86224fd69007741012b0ea1f9aa1fcb9256b0cbc2faf768563"
 # broken
 options = ["!cross"]
 
