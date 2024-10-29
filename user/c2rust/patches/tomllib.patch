@@ -1,0 +1,18 @@
+diff -ruN a/scripts/query_toml.py b/scripts/query_toml.py
+--- a/scripts/query_toml.py	2024-08-30 15:13:52.000000000 +0200
++++ b/scripts/query_toml.py	2024-10-29 10:35:11.831126267 +0100
+@@ -3,11 +3,12 @@
+ from argparse import ArgumentParser
+ from pathlib import Path
+ from typing import Any, Iterable
+-import toml
++import tomllib
+ 
+ 
+ def query_toml(path: Path, query: Iterable[str]) -> Any:
+-    result = toml.load(path)
++    with open(path, "rb") as f:
++        result = tomllib.load(f)
+     for field in query:
+         if isinstance(result, list):
+             field = int(field)
