@@ -2,15 +2,6 @@ https://crash-stats.mozilla.org/report/index/349c6eca-d2d3-49ed-ab1c-184cf024081
 --
 --- a/netwerk/protocol/http/nsHttpResponseHead.cpp
 +++ b/netwerk/protocol/http/nsHttpResponseHead.cpp
-@@ -406,7 +406,7 @@
-   } else {
-     // Status-Code
-     const char* p = start + index + 1;
--    mStatus = (uint16_t)atoi(p);
-+    mStatus = (uint16_t)strtol(p, NULL, 10);
-     if (mStatus == 0) {
-       LOG(("mal-formed response status; assuming status = 200\n"));
-       mStatus = 200;
 @@ -851,7 +851,7 @@
    const char* val = mHeaders.PeekHeader(nsHttp::Age);
    if (!val) return NS_ERROR_NOT_AVAILABLE;
