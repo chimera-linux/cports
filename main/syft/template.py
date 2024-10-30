@@ -1,6 +1,6 @@
 pkgname = "syft"
-pkgver = "1.13.0"
-pkgrel = 1
+pkgver = "1.15.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags= -X main.version={pkgver}",
@@ -12,7 +12,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://github.com/anchore/syft"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "43fb68562bc731edff8e4e6576081dbe6c7e3e2f02d238e9af3e141ad1909b5e"
+sha256 = "0e98e7066725ac2aff9de522aef2ea46b40cc2a5dcaa076373701b4bd4eac2f8"
 # Test suite depends on docker
 # generates manpages/completions with host bins
 options = ["!check", "!cross"]
