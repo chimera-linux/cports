@@ -1,6 +1,6 @@
 pkgname = "jemalloc"
 pkgver = "5.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-lg-hugepage=21"]
 configure_gen = ["./autogen.sh"]
