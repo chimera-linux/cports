@@ -8,11 +8,11 @@ diff --git a/src/AudacityApp.cpp b/src/AudacityApp.cpp
 index b048e29..a5e5877 100644
 --- a/src/AudacityApp.cpp
 +++ b/src/AudacityApp.cpp
-@@ -877,14 +877,6 @@ int main(int argc, char *argv[])
+@@ -904,14 +904,6 @@
  
     wxDISABLE_DEBUG_SUPPORT();
  
--   // Bug #1986 workaround - This doesn't actually reduce the number of 
+-   // Bug #1986 workaround - This doesn't actually reduce the number of
 -   // messages, it simply hides them in Release builds. We'll probably
 -   // never be able to get rid of the messages entirely, but we should
 -   // look into what's causing them, so allow them to show in Debug
