@@ -1,0 +1,10 @@
+--- a/tcp.c
++++ b/tcp.c
+@@ -286,6 +286,7 @@
+ #include <sys/uio.h>
+ #include <time.h>
+ #include <arpa/inet.h>
++#include <linux/types.h>
+ 
+ #include "checksum.h"
+ #include "util.h"
