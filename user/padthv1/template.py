@@ -1,5 +1,5 @@
 pkgname = "padthv1"
-pkgver = "1.1.2"
+pkgver = "1.1.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,4 +22,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://padthv1.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/padthv1/padthv1-{pkgver}.tar.gz"
-sha256 = "17fdbadc2114d3f460214d7b1c1a11e7e7c5d638f3ef522674f96a2dd2eb3a06"
+sha256 = "da40332357bec28d7478bcd4b72a9cd7cde9b089b9835786dea10327c2542e8f"
