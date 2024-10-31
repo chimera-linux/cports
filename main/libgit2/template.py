@@ -1,5 +1,5 @@
 pkgname = "libgit2"
-pkgver = "1.8.3"
+pkgver = "1.8.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -28,7 +28,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "GPL-2.0-only WITH GCC-exception-2.0"
 url = "https://libgit2.org"
 source = f"https://github.com/libgit2/libgit2/archive/v{pkgver}.tar.gz"
-sha256 = "868810a5508d41dd7033d41bdc55312561f3f916d64f5b7be92bc1ff4dcae02a"
+sha256 = "49d0fc50ab931816f6bfc1ac68f8d74b760450eebdb5374e803ee36550f26774"
 
 
 def post_extract(self):
