@@ -1,5 +1,5 @@
 pkgname = "drumkv1"
-pkgver = "1.1.2"
+pkgver = "1.1.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,4 +21,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://drumkv1.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/drumkv1/drumkv1-{pkgver}.tar.gz"
-sha256 = "a6a0c1971be39131f9c44b838b796de355863abd478b1a2293fdf616c92a5678"
+sha256 = "0c15ecb3b9b44810fd8ca90d58523eb01d392b0c4060648a328a3ea7c9447891"
