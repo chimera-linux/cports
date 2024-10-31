@@ -1,0 +1,40 @@
+Patch-Source: https://github.com/mesonbuild/meson/pull/13837
+https://github.com/mesonbuild/meson/pull/13835
+https://github.com/mesonbuild/meson/pull/12632#issuecomment-2439744211
+breaks default_library=both for gnome module
+--
+From 5b72845511338dfa4bbb40cb3c6ad6ef2f2b9b99 Mon Sep 17 00:00:00 2001
+From: Charles Brunet <charles.brunet@optelgroup.com>
+Date: Tue, 29 Oct 2024 16:51:36 -0400
+Subject: [PATCH] fix generate_gir with BothLibraries dependency
+
+Co-authored-by: Xavier Claessens <xclaesse@gmail.com>
+---
+ mesonbuild/modules/gnome.py                   |  2 +
+ .../frameworks/38 gir both_libraries/bar.c    |  7 ++++
+ .../frameworks/38 gir both_libraries/bar.h    |  1 +
+ .../frameworks/38 gir both_libraries/foo.c    |  6 +++
+ .../frameworks/38 gir both_libraries/foo.h    |  1 +
+ .../38 gir both_libraries/meson.build         | 42 +++++++++++++++++++
+ .../38 gir both_libraries/test.json           |  3 ++
+ 7 files changed, 62 insertions(+)
+ create mode 100644 test cases/frameworks/38 gir both_libraries/bar.c
+ create mode 100644 test cases/frameworks/38 gir both_libraries/bar.h
+ create mode 100644 test cases/frameworks/38 gir both_libraries/foo.c
+ create mode 100644 test cases/frameworks/38 gir both_libraries/foo.h
+ create mode 100644 test cases/frameworks/38 gir both_libraries/meson.build
+ create mode 100644 test cases/frameworks/38 gir both_libraries/test.json
+
+diff --git a/mesonbuild/modules/gnome.py b/mesonbuild/modules/gnome.py
+index e0c1214d0851..4d2bd19416b3 100644
+--- a/mesonbuild/modules/gnome.py
++++ b/mesonbuild/modules/gnome.py
+@@ -670,6 +670,8 @@ def _get_dependencies_flags_raw(
+                 cflags.update(dep.get_compile_args())
+                 cflags.update(state.get_include_args(dep.include_directories))
+                 for lib in dep.libraries:
++                    if isinstance(lib, build.BothLibraries):
++                        lib = lib.get('auto')
+                     if isinstance(lib, build.SharedLibrary):
+                         _ld, depends = self._get_link_args(state, lib, depends, include_rpath)
+                         internal_ldflags.update(_ld)
