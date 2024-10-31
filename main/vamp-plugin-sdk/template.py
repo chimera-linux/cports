@@ -1,19 +1,18 @@
 pkgname = "vamp-plugin-sdk"
+# change source next release (drops .0)
 pkgver = "2.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_dir = "."
 make_check_target = "test"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf"]
 makedepends = ["libsndfile-devel"]
 pkgdesc = "Vamp audio analysis plugin system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.vamp-plugins.org"
-source = f"https://code.soundsoftware.ac.uk/attachments/download/2691/vamp-plugin-sdk-{pkgver}.tar.gz"
-sha256 = "aeaf3762a44b148cebb10cde82f577317ffc9df2720e5445c3df85f3739ff75f"
-# fails to link
-options = ["!lto"]
+source = "https://github.com/vamp-plugins/vamp-plugin-sdk/archive/refs/tags/vamp-plugin-sdk-v2.10.tar.gz"
+sha256 = "b552bc91817294c7f90ea07d70938642ebf15d5e3bafc81cf7d55efab9995399"
 
 
 def post_install(self):
@@ -28,6 +27,3 @@ def _(self):
 @subpackage("vamp-plugin-sdk-progs")
 def _(self):
     return self.default_progs()
-
-
-configure_gen = []
