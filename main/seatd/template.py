@@ -1,5 +1,5 @@
 pkgname = "seatd"
-pkgver = "0.9.0"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://sr.ht/~kennylevinsen/seatd"
 source = f"https://git.sr.ht/~kennylevinsen/seatd/archive/{pkgver}.tar.gz"
-sha256 = "4276d1380c67e30a63c289b35f7bf955e126e6daf3596cd5aa6080670aa1214c"
+sha256 = "819979c922a0be258aed133d93920bce6a3d3565a60588d6d372ce9db2712cd3"
 
 
 def post_install(self):
