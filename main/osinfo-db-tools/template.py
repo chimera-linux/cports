@@ -1,5 +1,5 @@
 pkgname = "osinfo-db-tools"
-pkgver = "1.11.0"
+pkgver = "1.12.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "perl"]
@@ -17,6 +17,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://libosinfo.org"
 source = f"https://gitlab.com/libosinfo/osinfo-db-tools/-/archive/v{pkgver}/osinfo-db-tools-v{pkgver}.tar.gz"
-sha256 = "b03429cad1dadf5e20bd2d24c4b130df35882ed22ebfbadb5f7acd50c6218ee2"
+sha256 = "5c2ef41e3395be7df090840d171996510c4c87ea8b40763ddf59ab9fb62e0be3"
 hardening = ["vis", "cfi"]
 options = ["!cross"]
