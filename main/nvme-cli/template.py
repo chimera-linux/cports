@@ -1,5 +1,5 @@
 pkgname = "nvme-cli"
-pkgver = "2.10.2"
+pkgver = "2.11"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/linux-nvme/nvme-cli"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b3c256959ff34124788aa96c8602c9cef00705d01cc3cb9322bf3269e00ae904"
+sha256 = "5e4dc73dbb488c6b1e6ad1c78d0c62b624076fcb0c052bd9039674a1dbd6517b"
 hardening = ["vis", "cfi"]
 # require /dev nvme device
 options = ["!check"]
