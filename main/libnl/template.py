@@ -1,5 +1,5 @@
 pkgname = "libnl"
-pkgver = "3.10.0"
+pkgver = "3.11.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://github.com/thom311/libnl"
 source = f"{url}/releases/download/libnl{pkgver.replace('.', '_')}/libnl-{pkgver}.tar.gz"
-sha256 = "49b3e2235fdb58f5910bbb3ed0de8143b71ffc220571540502eb6c2471f204f5"
+sha256 = "2a56e1edefa3e68a7c00879496736fdbf62fc94ed3232c0baba127ecfa76874d"
 
 
 @subpackage("libnl-devel")
