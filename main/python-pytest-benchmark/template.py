@@ -1,5 +1,5 @@
 pkgname = "python-pytest-benchmark"
-pkgver = "5.0.0"
+pkgver = "5.1.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://github.com/ionelmc/pytest-benchmark"
 source = f"$(PYPI_SITE)/p/pytest-benchmark/pytest-benchmark-{pkgver}.tar.gz"
-sha256 = "cd0adf68516eea7ac212b78a7eb6fc3373865507de8562bb3bfff2f2f852cc63"
+sha256 = "9ea661cdc292e8231f7cd4c10b0319e56a2118e2c09d9f50e1b3d150d2aca105"
 # FIXME
 options = ["!check"]
 
