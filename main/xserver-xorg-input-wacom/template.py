@@ -1,5 +1,5 @@
 pkgname = "xserver-xorg-input-wacom"
-pkgver = "1.2.2"
+pkgver = "1.2.3"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://xorg.freedesktop.org"
 source = f"https://github.com/linuxwacom/xf86-input-wacom/releases/download/xf86-input-wacom-{pkgver}/xf86-input-wacom-{pkgver}.tar.bz2"
-sha256 = "70771033543097e6c616a39ae8bb40fd0e991a25560ed10c65b33756c3061511"
+sha256 = "70365826c3ca58cc81d98fab8f048f2c375e78c786111eb8a72a67a5721cb146"
 
 
 def post_install(self):
