@@ -1,5 +1,5 @@
 pkgname = "synthv1"
-pkgver = "1.1.2"
+pkgver = "1.1.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,4 +21,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://synthv1.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/synthv1/synthv1-{pkgver}.tar.gz"
-sha256 = "61e48caee0d4755b69ca423174af9db01fe5420d11d47c08a3153e7592ea682c"
+sha256 = "b1398766153f183828bbfde119b84cb70198a8c65554ef4a92e9fe458367f271"
