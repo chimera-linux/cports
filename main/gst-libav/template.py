@@ -1,5 +1,5 @@
 pkgname = "gst-libav"
-pkgver = "1.24.8"
+pkgver = "1.24.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
@@ -16,6 +16,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-libav/gst-libav-{pkgver}.tar.xz"
-sha256 = "1e4a8fd537621d236442cf90a6e9ad5e00f87bffffdaeb1fd8bfd23719de8c75"
+sha256 = "32682e9ae508ee01f4fb134b3a520081e2ac007220997577624b1d16171d456c"
 # FIXME int
 hardening = ["!int"]
