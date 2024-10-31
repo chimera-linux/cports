@@ -28,6 +28,7 @@ makedepends = [
     "libidn2-devel",
     "libtasn1-devel",
     "libunistring-devel",
+    "libusb-bootstrap",
     "linux-headers",
     "nettle-devel",
     "p11-kit-devel",

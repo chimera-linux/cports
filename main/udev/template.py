@@ -111,6 +111,7 @@ makedepends = [
     "libmount-devel",
     "libcap-devel",
     "libkmod-devel",
+    "libusb-bootstrap",
     "linux-headers",
 ]
 checkdepends = ["xz", "perl"]
