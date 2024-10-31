@@ -1,6 +1,6 @@
 pkgname = "libosinfo"
-pkgver = "1.11.0"
-pkgrel = 1
+pkgver = "1.12.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Denable-introspection=enabled",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://libosinfo.org"
 source = f"https://gitlab.com/libosinfo/libosinfo/-/archive/v{pkgver}/libosinfo-v{pkgver}.tar.gz"
-sha256 = "927826e666f498cef106ef1bf22af4cc0cd56749f246ab15acdc1be05695a6eb"
+sha256 = "3c52fb542d65d1ec5a10f87126d7513c2bd115eaa2f87fb91b15ba588708fc7b"
 options = ["!cross"]
 
 
