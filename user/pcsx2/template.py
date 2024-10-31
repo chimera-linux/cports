@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "2.1.229"
+pkgver = "2.1.234"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -60,7 +60,7 @@ source_paths = [
     "patches",
 ]
 sha256 = [
-    "299920eed2049dec473f6c19a671b7949a04d723ba52bc095e545524cca2ffb7",
+    "986997ebacb37f9db51e68e3fe73eeb474f8185d831dbb411f409c3342d573ff",
     "c1bafcbbed2eca1462208e37c2d280724d1c50b7b0521ba5d93f4051fe1d4a7d",
 ]
 # int crashes, but it's an emulator so..
