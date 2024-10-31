@@ -4,19 +4,19 @@ Date: Fri, 17 Mar 2023 04:39:15 +0100
 Subject: [PATCH] tests portability
 
 diff --git a/tests/test-run.sh b/tests/test-run.sh
-index 6151f1a..aa8bba8 100755
+index 1003e8c..fe659ae 100755
 --- a/tests/test-run.sh
 +++ b/tests/test-run.sh
 @@ -109,7 +109,7 @@ assert_file_has_content json-status.json '"child-pid": [0-9]'
  assert_file_has_content_literal json-status.json '"exit-code": 42'
  ok "info and json-status fd"
  
--DATA=$($RUN --proc /proc --unshare-all --info-fd 42 --json-status-fd 43 -- bash -c 'stat -L --format "%n %i" /proc/self/ns/*' 42>info.json 43>json-status.json 2>err.txt)
+-DATA=$($RUN --proc /proc --unshare-all --info-fd 42 --json-status-fd 43 -- bash -c 'stat -L -c "%n %i" /proc/self/ns/*' 42>info.json 43>json-status.json 2>err.txt)
 +DATA=$($RUN --proc /proc --unshare-all --info-fd 42 --json-status-fd 43 -- bash -c 'stat -L -f "%N %i" /proc/self/ns/*' 42>info.json 43>json-status.json 2>err.txt)
  
  for NS in "ipc" "mnt" "net" "pid" "uts"; do
  
-@@ -339,9 +331,9 @@ $RUN \
+@@ -339,9 +339,9 @@ $RUN \
      --bind "$(pwd -P)/some-dir" "$(pwd -P)/new-dir-mountpoint" \
      --bind "$(pwd -P)/some-file" "$(pwd -P)/new-file-mountpoint" \
      true
@@ -28,7 +28,7 @@ index 6151f1a..aa8bba8 100755
  assert_file_has_content new-file-permissions 444
  ok "Files and directories created as mount points have expected permissions"
  
-@@ -367,15 +359,15 @@ $RUN \
+@@ -367,15 +367,15 @@ $RUN \
      --chmod 1755 "$(pwd -P)/dir-chmod" \
      --dir "$(pwd -P)/new-dir-default-perms" \
      true
@@ -49,7 +49,7 @@ index 6151f1a..aa8bba8 100755
  assert_file_has_content dir-permissions '^1755$'
  ok "Directories created explicitly have expected permissions"
  
-@@ -407,31 +399,31 @@ $RUN \
+@@ -407,31 +407,31 @@ $RUN \
      --perms 0604 --dir "$(pwd -P)"/parent-of-0604/dir \
      --perms 0000 --dir "$(pwd -P)"/parent-of-0000/dir \
      true
@@ -94,7 +94,7 @@ index 6151f1a..aa8bba8 100755
  assert_file_has_content dir-permissions '^700$'
  chmod -R 0700 parent*
  rm -fr parent*
-@@ -442,11 +434,11 @@ $RUN \
+@@ -442,11 +442,11 @@ $RUN \
      cat /proc/self/mountinfo >&2
  $RUN \
      --perms 01777 --tmpfs "$(pwd -P)" \
@@ -108,7 +108,7 @@ index 6151f1a..aa8bba8 100755
  assert_file_has_content dir-permissions '^755$'
  ok "tmpfs has expected permissions"
  
-@@ -487,27 +467,27 @@ fi
+@@ -487,27 +487,27 @@ fi
  
  $RUN \
      --file 0 /tmp/file \
@@ -142,6 +142,3 @@ index 6151f1a..aa8bba8 100755
  assert_file_has_content file-permissions '^640$'
  ok "files have expected permissions"
  
--- 
-2.44.0
-

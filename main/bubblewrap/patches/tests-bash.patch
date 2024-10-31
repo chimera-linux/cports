@@ -4,36 +4,11 @@ diff --git a/meson.build b/meson.build
 index 72257af..b389780 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -57,7 +57,7 @@ if (
-   ], language : 'c')
- endif
- 
--bash = find_program('bash', required : false)
-+bash = find_program('bash', required : get_option('tests'))
- 
- if get_option('python') == ''
-   python = find_program('python3')
 @@ -166,6 +166,6 @@ if not meson.is_subproject()
    subdir('completions')
  endif
  
 -if get_option('tests')
-+if get_option('tests').allowed() and bash.found()
++if get_option('tests') and bash.found()
    subdir('tests')
  endif
-diff --git a/meson_options.txt b/meson_options.txt
-index 10a0a20..abbb942 100644
---- a/meson_options.txt
-+++ b/meson_options.txt
-@@ -55,9 +55,9 @@ option(
- )
- option(
-   'tests',
--  type : 'boolean',
-+  type : 'feature',
-   description : 'build tests',
--  value : 'true',
-+  value : 'auto',
- )
- option(
-   'zsh_completion',
