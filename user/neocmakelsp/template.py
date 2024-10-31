@@ -1,5 +1,5 @@
 pkgname = "neocmakelsp"
-pkgver = "0.8.12"
+pkgver = "0.8.12.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://neocmakelsp.github.io"
 source = f"https://github.com/neocmakelsp/neocmakelsp/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "de00f241038ac64ce3149ff9529791517e7ea4f106e37ee88b0bbac9c7cb42e4"
+sha256 = "74f6979fc6e3dd2e5d58cce314eb0e71280b7da2a4874795634a01c01e0fbab2"
 
 
 def post_install(self):
