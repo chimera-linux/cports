@@ -21,7 +21,7 @@ license = "MIT"
 url = "https://github.com/svenstaro/miniserve"
 source = f"{url}/archive/refs/tags/v{pkgver}.zip"
 sha256 = "b8c91a8d33333149fb1d90d3e0c481b17439b3b473e9405a06b9bbc4b9afaaa4"
-# generates completions with host binary
+# generates completions and manpage with host binary
 options = ["!cross"]
 
 
