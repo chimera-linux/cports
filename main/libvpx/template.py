@@ -1,5 +1,5 @@
 pkgname = "libvpx"
-pkgver = "1.14.1"
+pkgver = "1.15.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.webmproject.org"
 source = [f"https://github.com/webmproject/libvpx/archive/v{pkgver}.tar.gz"]
-sha256 = ["901747254d80a7937c933d03bd7c5d41e8e6c883e0665fadcb172542167c7977"]
+sha256 = ["e935eded7d81631a538bfae703fd1e293aad1c7fd3407ba00440c95105d2011e"]
 # tests take several hours and require ~a gigabyte of test data
 options = ["!check"]
 
