@@ -1,6 +1,6 @@
 pkgname = "toxic"
 pkgver = "0.15.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = [
     "DISABLE_GAMES=1",

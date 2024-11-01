@@ -1,6 +1,6 @@
 pkgname = "c-toxcore"
 pkgver = "0.2.19"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DUNITTEST=ON"]
 hostmakedepends = [
