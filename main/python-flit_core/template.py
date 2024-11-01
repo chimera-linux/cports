@@ -1,6 +1,6 @@
 pkgname = "python-flit_core"
-pkgver = "3.9.0"
-pkgrel = 2
+pkgver = "3.10.0"
+pkgrel = 0
 hostmakedepends = ["python"]
 checkdepends = ["python-pytest", "python-testpath"]
 depends = ["python"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://flit.pypa.io"
 source = f"$(PYPI_SITE)/f/flit_core/flit_core-{pkgver}.tar.gz"
-sha256 = "72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba"
+sha256 = "6d904233178b3c924f665947ac7d286f2ac799fb69087e39e56ceb4084724a97"
 # missing checkdepends
 options = ["!check"]
 
