@@ -8,6 +8,7 @@ configure_args = [
     "--enable-ntp-signd",
     "--enable-scfilter",
 ]
+# Custom configure script
 configure_gen = []
 make_dir = "."
 hostmakedepends = ["pkgconf"]

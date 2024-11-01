@@ -24,6 +24,7 @@ configure_args = [
     "--with-cups-group=lp",
     "--with-system-groups=_lpadmin root",
 ]
+# autoreconf: error: /usr/bin/autoheader failed with exit status: 1
 configure_gen = []
 # build system is bad
 make_dir = "."

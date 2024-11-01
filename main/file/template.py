@@ -8,7 +8,7 @@ configure_args = [
     "--disable-bzlib",
     "--disable-xzlib",
 ]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "File type identification utility"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -43,6 +43,3 @@ def _(self):
     self.pkgdesc = "File type identification library"
 
     return self.default_devel()
-
-
-configure_gen = []

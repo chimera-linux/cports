@@ -3,9 +3,7 @@ pkgver = "1.11"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-external-libmspack"]
-# broken
-configure_gen = []
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "gettext-devel", "pkgconf"]
 makedepends = ["libmspack-devel"]
 pkgdesc = "Tool for extracting Microsoft cabinet files"
 maintainer = "psykose <alice@ayaya.dev>"

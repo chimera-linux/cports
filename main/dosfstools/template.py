@@ -3,7 +3,7 @@ pkgver = "4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-compat-symlinks"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "gettext-devel", "pkgconf"]
 makedepends = ["udev-devel", "linux-headers"]
 pkgdesc = "DOS filesystem tools"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,6 +16,3 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.uninstall("usr/share/doc")
-
-
-configure_gen = []

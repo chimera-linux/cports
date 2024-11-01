@@ -3,14 +3,14 @@ pkgver = "1.18.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
-# broken presently
-configure_gen = []
 # full testsuite fails in netns
 make_check_target = "tests/tests_libcrun_errors.log"
 hostmakedepends = [
+    "automake",
     "go-md2man",
     "pkgconf",
     "python",
+    "libtool",
 ]
 makedepends = [
     "argp-standalone",

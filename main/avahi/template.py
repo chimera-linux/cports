@@ -37,8 +37,7 @@ configure_args = [
     "--without-systemdsystemunitdir",
     "ssp_cv_lib=no",
 ]
-configure_gen = []
-hostmakedepends = ["pkgconf", "python", "gettext"]
+hostmakedepends = ["automake", "gettext-devel", "slibtool", "pkgconf", "python"]
 makedepends = ["dbus-devel", "libcap-devel", "libdaemon-devel"]
 depends = ["dinit-dbus"]
 pkgdesc = "Multicast DNS Service Discovery"

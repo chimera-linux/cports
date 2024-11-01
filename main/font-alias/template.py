@@ -3,6 +3,8 @@ pkgver = "1.0.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-fontrootdir=/usr/share/fonts"]
+# cycle with font-util
+configure_gen = []
 pkgdesc = "Standard aliases for X11 PCF fonts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -14,6 +16,3 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []

@@ -9,6 +9,7 @@ configure_args = [
     "--with-tcl=1",
     "--with-tcl-private-stubs",
 ]
+# handrolled configure script
 configure_gen = []
 make_check_target = "test"
 makedepends = ["openssl-devel", "zlib-ng-compat-devel", "tcl-devel"]
