@@ -1,6 +1,6 @@
 pkgname = "libabigail"
-pkgver = "2.5"
-pkgrel = 1
+pkgver = "2.6"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-apidoc",
@@ -16,7 +16,7 @@ configure_args = [
     "--enable-python3",  # test stuff
     "--enable-tar",
 ]
-make_build_args = ["man"]
+make_build_args = ["all", "man"]
 hostmakedepends = [
     "automake",
     "libtool",
@@ -30,13 +30,14 @@ makedepends = [
     "elfutils-devel",
     "libbpf-devel",
     "libxml2-devel",
+    "xxhash-devel",
 ]
 pkgdesc = "Library and tooling for ABI-related tasks"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 WITH LLVM-exception"
 url = "https://sourceware.org/libabigail"
 source = f"https://mirrors.kernel.org/sourceware/libabigail/libabigail-{pkgver}.tar.xz"
-sha256 = "7cfc4e9b00ae38d87fb0c63beabb32b9cbf9ce410e52ceeb5ad5b3c5beb111f3"
+sha256 = "3bfa8ba753ff27722baa7f73b15a475f8a4599355e47439108423d1912bb5469"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
