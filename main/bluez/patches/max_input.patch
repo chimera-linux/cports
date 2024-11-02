@@ -1,0 +1,11 @@
+--- a/gdbus/object.c
++++ b/gdbus/object.c
+@@ -12,6 +12,8 @@
+ #include <config.h>
+ #endif
+ 
++#include <linux/limits.h>
++
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdbool.h>

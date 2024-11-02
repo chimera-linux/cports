@@ -1,8 +1,8 @@
 --- a/Makefile.obexd
 +++ b/Makefile.obexd
-@@ -5,15 +5,14 @@
- systemduserunitdir = $(SYSTEMD_USERUNITDIR)
- systemduserunit_DATA = obexd/src/obex.service
+@@ -4,15 +4,14 @@
+ if SYSTEMD
+ systemduserunit_DATA += obexd/src/obex.service
  
 -dbussessionbusdir = $(DBUS_SESSIONBUSDIR)
 -dbussessionbus_DATA = obexd/src/org.bluez.obex.service
