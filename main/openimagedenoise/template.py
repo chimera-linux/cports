@@ -1,6 +1,6 @@
 pkgname = "openimagedenoise"
 pkgver = "2.3.0"
-pkgrel = 2
+pkgrel = 3
 # ispc
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
