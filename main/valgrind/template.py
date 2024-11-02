@@ -1,6 +1,6 @@
 pkgname = "valgrind"
-pkgver = "3.23.0"
-pkgrel = 1
+pkgver = "3.24.0"
+pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64"]
 build_style = "gnu_configure"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://valgrind.org"
 source = f"https://sourceware.org/pub/valgrind/valgrind-{pkgver}.tar.bz2"
-sha256 = "c5c34a3380457b9b75606df890102e7df2c702b9420c2ebef9540f8b5d56264d"
+sha256 = "71aee202bdef1ae73898ccf7e9c315134fa7db6c246063afc503aef702ec03bd"
 debug_level = 1
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE", "-fPIC"], "LDFLAGS": ["-fPIC"]}
 nostrip_files = ["usr/lib/valgrind/*"]
