@@ -1,6 +1,6 @@
 pkgname = "base-vpsfree"
 pkgver = "0.2"
-pkgrel = 2
+pkgrel = 3
 archs = ["x86_64"]
 depends = [
     "!base-full-firmware",  # we're not loading a kernel, so...
@@ -33,7 +33,8 @@ def install(self):
         mode=0o755,
     )
     self.install_link(
-        "usr/lib/dinit.d/boot.d/agetty-console", "../agetty-console"
+        "usr/lib/dinit.d/boot.d/agetty-service@console",
+        "../agetty-service@console",
     )
     self.install_link("usr/lib/dinit.d/boot.d/ifupdown-ng", "../ifupdown-ng")
     self.install_link("usr/lib/dinit.d/boot.d/sshd", "../sshd")
