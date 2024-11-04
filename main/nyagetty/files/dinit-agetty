@@ -5,12 +5,47 @@
 
 export PATH=/usr/bin
 
-# the specified active consoles we want
+AUTO_EXTRA_GETTYS=
+AUTO_GETTYS=
+if [ -z "$GETTY_DISABLE_CONSOLE_DETECT" ]; then
+    # figure out active consoles on kernel cmdline
+    if [ -f /proc/cmdline ]; then
+        for ttyn in $(cat /proc/cmdline); do
+            case "$ttyn" in
+                console=*)
+                    ttyn=${ttyn#console=}
+                    ttyn=${ttyn%,*}
+                    AUTO_GETTYS="$AUTO_GETTYS $ttyn"
+                    ;;
+            esac
+        done
+    fi
+    # figure out other active consoles
+    if [ -f /sys/devices/virtual/tty/console/active ]; then
+        for ttyn in $(cat /sys/devices/virtual/tty/console/active); do
+            AUTO_GETTYS="$AUTO_GETTYS $ttyn"
+        done
+    fi
+    # filter them
+    for ttyn in $AUTO_GETTYS; do
+        [ -c "/dev/$ttyn" ] || continue
+        # filter some stuff out
+        case $ttyn in
+            tty[0-9]*) ;; # skip graphical ttys; managed differently
+            console) ;;
+            *)
+                AUTO_EXTRA_GETTYS="$AUTO_EXTRA_GETTYS /dev/$ttyn"
+                ;;
+        esac
+    done
+fi
+
+# the specified active consoles we want; also deduplicated
 ACTIVE_CONSOLES=$(
-    for tty in $ACTIVE_CONSOLES $EXTRA_GETTYS; do
-        if [ -e $tty ]; then
-            echo $tty
-        fi
+    INPUT_CONSOLES="$ACTIVE_CONSOLES $AUTO_EXTRA_GETTYS $EXTRA_GETTYS"
+    for tty in $(echo $INPUT_CONSOLES | tr ' ' '\n' | sort | uniq); do
+        [ -c "$tty" ] || continue
+        echo "${tty##*/}"
     done
 )
 
@@ -18,33 +53,27 @@ ACTIVE_CONSOLES=$(
 PREV_CONSOLES=
 [ -f /run/agetty-active ] && PREV_CONSOLES=$(cat /run/agetty-active)
 
-# add dependency links for all possible requested consoles
-ACTIVE_SERVICES=$(
-    for tty in $ACTIVE_CONSOLES; do
-        tty=${tty##*/}
-        [ -f /usr/lib/dinit.d/agetty-$tty ] || continue
-        dinitctl add-dep milestone agetty agetty-$tty > /dev/null
-        echo $tty
-    done
-)
+for tty in $ACTIVE_CONSOLES; do
+    dinitctl add-dep milestone agetty agetty-service@$tty > /dev/null
+done
 
 # clear dependency links for consoles that were active but should not be
 for otty in $PREV_CONSOLES; do
-    for tty in $ACTIVE_SERVICES; do
+    for tty in $ACTIVE_CONSOLES; do
         if [ "$tty" = "$otty" ]; then
             otty=
             break
         fi
     done
-    [ -n "$otty" ] && dinitctl rm-dep milestone agetty agetty-$otty > /dev/null
+    [ -n "$otty" ] && dinitctl rm-dep milestone agetty agetty-service@$otty > /dev/null
 done
 
 rm -f /run/agetty-active
 
 # wake whichever services newly got links and generate a new active list
-for tty in $ACTIVE_SERVICES; do
+for tty in $ACTIVE_CONSOLES; do
     echo $tty >> /run/agetty-active
-    dinitctl wake agetty-$tty > /dev/null &
+    dinitctl wake agetty-service@$tty > /dev/null &
 done
 
 wait || :
