@@ -1,5 +1,5 @@
 pkgname = "python-tldextract"
-pkgver = "5.1.2"
+pkgver = "5.1.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -29,7 +29,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/john-kurkowski/tldextract"
 source = f"$(PYPI_SITE)/t/tldextract/tldextract-{pkgver}.tar.gz"
-sha256 = "c9e17f756f05afb5abac04fe8f766e7e70f9fe387adb1859f0f52408ee060200"
+sha256 = "d43c7284c23f5dc8a42fd0fee2abede2ff74cc622674e4cb07f514ab3330c338"
 
 
 def post_install(self):
