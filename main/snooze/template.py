@@ -1,6 +1,6 @@
 pkgname = "snooze"
 pkgver = "0.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 pkgdesc = "Run a command at a particular time"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,6 +15,4 @@ options = ["!check"]
 
 def post_install(self):
     # still left for dinit-chimera
-    self.install_file(
-        self.files_path / "dinit-snooze", "usr/libexec", mode=0o755
-    )
+    self.install_file(self.files_path / "dinit-snooze", "usr/lib", mode=0o755)
