@@ -1,0 +1,40 @@
+commit 7da4e588a6794ae12601858bb5d61ca165a0180d
+Author: Till Kamppeter <till.kamppeter@gmail.com>
+Date:   Wed Nov 6 19:02:46 2024 +0100
+
+    Fix crash bugs in ppdLoadAttributes()
+    
+    When parsing the "*cupsFilter(2): ..." lines in the PPD file
+    
+    - use memmove() instead of strcpy() as the latter does not support
+      handling overlapping memory portions
+    
+    - do not move running pointer beyond the end of the input string
+    
+    Pull request #51
+
+diff --git a/ppd/ppd-ipp.c b/ppd/ppd-ipp.c
+index eee162bf..05a58dc2 100644
+--- a/ppd/ppd-ipp.c
++++ b/ppd/ppd-ipp.c
+@@ -538,16 +538,18 @@ ppdLoadAttributes(
+       ptr = buf;
+       while (*ptr && !isspace(*ptr)) ptr ++;
+       if (*ptr)
++      {
+ 	*ptr = '\0';
++	ptr ++;
++      }
+ 
+       // Check whether the second word is not the cost value, then we have
+       // a "*cupsFilter2:* line and the second word is the printer's input
+       // format
+-      ptr ++;
+       while (*ptr && isspace(*ptr)) ptr ++;
+       if (!isdigit(*ptr))
+       {
+-	strcpy(buf, ptr);
++	memmove(buf, ptr, strnlen(ptr, sizeof(buf) - 1) + 1);
+ 	ptr = buf;
+ 	while (*ptr && !isspace(*ptr)) ptr ++;
+ 	if (*ptr)
