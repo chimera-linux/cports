@@ -4,4 +4,4 @@
 
 /usr/bin/udevadm control --exit > /dev/null 2>&1
 
-exec /usr/libexec/udevd "$@"
+exec /usr/lib/udevd "$@"

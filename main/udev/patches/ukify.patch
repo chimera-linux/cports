@@ -43,7 +43,7 @@ index 75e4286..616947e 100755
  def call_systemd_measure(uki, linux, opts):
      measure_tool = find_tool('systemd-measure',
 -                             '/usr/lib/systemd/systemd-measure',
-+                             '/usr/libexec/systemd-measure',
++                             '/usr/lib/systemd-measure',
                               opts=opts)
  
      banks = opts.pcr_banks or ()
