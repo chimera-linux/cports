@@ -1,0 +1,29 @@
+commit 82d22e9f5b750ac7e9b219106c8de2e7c2ecec25
+Author: David Coppa <dcoppa@gmail.com>
+Date:   Wed Nov 6 08:57:48 2024 +0100
+
+    Fix buffer overflow in ppdLoadAttributes().
+    On my musl libc based Linux distribution (Chimera Linux), all my print jobs were failing:
+    
+    D [06/Nov/2024:07:34:56 +0100] [Job 18] ppdFilterLoadPPD: Color profile qualifier determined from job and PPD data \'RGB.Plain.\'
+    D [06/Nov/2024:07:34:56 +0100] [Job 18] ppdFilterLoadPPD: No ICC profiles specified in PPD
+    D [06/Nov/2024:07:34:56 +0100] [Job 18] ppdFilterLoadPPD: Searching for profile \"-/Plain\"...
+    D [06/Nov/2024:07:34:56 +0100] [Job 18] prnt/hpcups/HPCupsFilter.cpp 592: cupsRasterOpen failed, fd = 0
+    D [06/Nov/2024:07:34:56 +0100] [Job 18] PID 20446 (/usr/lib/cups/filter/universal) crashed on signal 4.
+    D [06/Nov/2024:07:34:56 +0100] [Job 18] Hint: Try setting the LogLevel to "debug" to find out more.
+    
+    Signed-off-by: David Coppa <dcoppa@gmail.com>
+
+diff --git a/ppd/ppd-ipp.c b/ppd/ppd-ipp.c
+index eee162bf..0f434ddb 100644
+--- a/ppd/ppd-ipp.c
++++ b/ppd/ppd-ipp.c
+@@ -547,7 +547,7 @@ ppdLoadAttributes(
+       while (*ptr && isspace(*ptr)) ptr ++;
+       if (!isdigit(*ptr))
+       {
+-	strcpy(buf, ptr);
++	snprintf(buf, sizeof(buf), "%s", ptr);
+ 	ptr = buf;
+ 	while (*ptr && !isspace(*ptr)) ptr ++;
+ 	if (*ptr)
