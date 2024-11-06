@@ -1,6 +1,6 @@
 pkgname = "kbd"
 pkgver = "2.6.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-tests"]  # tests force autom4te
 hostmakedepends = [
@@ -38,8 +38,8 @@ def post_patch(self):
 
 
 def post_install(self):
-    self.install_dir("usr/libexec/kbd")
-    self.rename("usr/bin/findkeys", "usr/libexec/kbd/findkeys", relative=False)
+    self.install_dir("usr/lib/kbd")
+    self.rename("usr/bin/findkeys", "usr/lib/kbd/findkeys", relative=False)
 
     for f in ["sun", "amiga", "atari", "i386/olpc"]:
         self.uninstall(f"usr/share/keymaps/{f}")
