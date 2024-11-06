@@ -1,7 +1,10 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.12"
+pkgver = "0.99.13"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libkmod-devel", "linux-headers"]
 depends = [
@@ -31,7 +34,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "4cc477f508da2a09892ddbc6d0110e2ba40a6381007eab58870b0c5043000ebc"
+sha256 = "193f4a1398a85f865cd624c05283a00308d3ed266047669e544a85396f9121a0"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks"]
 
