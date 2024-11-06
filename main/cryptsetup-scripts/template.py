@@ -17,3 +17,9 @@ source = f"{url}/-/archive/debian/2%25{_debver}/cryptsetup-debian-2%25{_debver}.
 sha256 = "d907277761bcb0f04d073ea8349461ede5ae783fa6d37e433653c56ed1dfde31"
 # no test suite
 options = ["!check"]
+
+
+def post_install(self):
+    self.install_file(
+        self.files_path / "dinit-cryptdisks", "usr/lib", mode=0o755
+    )
