@@ -200,9 +200,7 @@ def post_install(self):
     # services
     self.install_dir("usr/lib")
     self.install_link("usr/lib/udevd", "../bin/udevadm")
-    self.install_file(
-        self.files_path / "udevd.wrapper", "usr/lib", mode=0o755
-    )
+    self.install_file(self.files_path / "udevd.wrapper", "usr/lib", mode=0o755)
     self.install_file(self.files_path / "dinit-devd", "usr/lib", mode=0o755)
     self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="udev")
     self.install_service(self.files_path / "udevd", enable=True)

@@ -42,9 +42,7 @@ def install(self):
 
 def post_install(self):
     self.install_license("debian/copyright")
-    self.install_file(
-        self.files_path / "dinit-console", "usr/lib", mode=0o755
-    )
+    self.install_file(self.files_path / "dinit-console", "usr/lib", mode=0o755)
 
 
 @subpackage("console-setup-xkb")
