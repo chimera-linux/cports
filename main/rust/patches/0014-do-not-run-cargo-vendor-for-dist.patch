@@ -1,0 +1,28 @@
+From a5dc1bf4a49a77bfa9ea3b04e0f937dd69fc0c36 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 6 Nov 2024 01:35:05 +0100
+Subject: [PATCH 14/14] do not run cargo vendor for dist
+
+This runs cargo vendor since 1.81 near the end of the build and
+that tries to reach the internet, prevent it from doing that.
+---
+ src/bootstrap/src/core/build_steps/dist.rs | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
+index 5510c6c25..8052a73fd 100644
+--- a/src/bootstrap/src/core/build_steps/dist.rs
++++ b/src/bootstrap/src/core/build_steps/dist.rs
+@@ -1013,8 +1013,7 @@ impl Step for PlainSourceTarball {
+ 
+         // If we're building from git or tarball sources, we need to vendor
+         // a complete distribution.
+-        if builder.rust_info().is_managed_git_subrepository()
+-            || builder.rust_info().is_from_tarball()
++        if false
+         {
+             builder.require_and_update_all_submodules();
+ 
+-- 
+2.47.0
+

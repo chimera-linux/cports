@@ -1,28 +1,29 @@
-From 38c5029909b6e633e3aafecebbdb46e336d33533 Mon Sep 17 00:00:00 2001
+From cff14754cd2c2a22125efc93a86eb42a84e577b5 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 4 Jan 2024 15:08:06 +0100
-Subject: [PATCH 08/13] link stage 2 tools dynamically to libstd
+Date: Wed, 6 Nov 2024 01:32:10 +0100
+Subject: [PATCH 08/14] link stage 2 tools dynamically to libstd
 
 stage 2 tools are the ones that are distributed, and we distribute
 them together with the rust libs so there is no need to worry
 about unstable ABI
 ---
- src/bootstrap/src/core/builder.rs | 2 ++
- 1 file changed, 2 insertions(+)
+ src/bootstrap/src/core/builder.rs | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/src/bootstrap/src/core/builder.rs b/src/bootstrap/src/core/builder.rs
-index 6d6df650b..591132095 100644
+index ff0d1f3a7..aff5aa438 100644
 --- a/src/bootstrap/src/core/builder.rs
 +++ b/src/bootstrap/src/core/builder.rs
-@@ -2148,6 +2148,8 @@ impl<'a> Builder<'a> {
-         // linking all deps statically into the dylib.
-         if matches!(mode, Mode::Std | Mode::Rustc) {
+@@ -2159,6 +2159,9 @@ impl<'a> Builder<'a> {
+         if matches!(mode, Mode::Rustc) && !self.link_std_into_rustc_driver(target) {
              rustflags.arg("-Cprefer-dynamic");
-+        } else if stage >= 2 {
-+            rustflags.arg("-Cprefer-dynamic");
          }
++        if (stage >= 2) {
++            rustflags.arg("-Cprefer-dynamic");
++        }
  
-         // When building incrementally we default to a lower ThinLTO import limit
+         cargo.env(
+             "RUSTC_LINK_STD_INTO_RUSTC_DRIVER",
 -- 
-2.46.0
+2.47.0
 

@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.81.0"
+pkgver = "1.82.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "36217ef7e32f40a180e3d79bd666b4dfdaed49dd381023a5fb765fd12d0092ce"
+sha256 = "1276a0bb8fa12288ba6fa96597d28b40e74c44257c051d3bc02c2b049bb38210"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -84,6 +84,8 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.124")
     cargo.clear_vendor_checksums(self, "libc-0.2.150")
     cargo.clear_vendor_checksums(self, "libc-0.2.155")
+    cargo.clear_vendor_checksums(self, "libc-0.2.157")
+    cargo.clear_vendor_checksums(self, "libc-0.2.158")
 
 
 def configure(self):
@@ -167,7 +169,7 @@ extern {}
     with open(self.cwd / "config.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 127866
+change-id = 129295
 
 [llvm]
 ninja = false
