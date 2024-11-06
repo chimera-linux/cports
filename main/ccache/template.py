@@ -1,6 +1,6 @@
 pkgname = "ccache"
 pkgver = "4.10.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DENABLE_TESTING=ON",
@@ -9,7 +9,6 @@ configure_args = [
 # these fail cause of running grep on .o and musl has no reg_startend so shit sucks
 make_check_args = ["-E", "(test.direct|test.debug_prefix_map)"]
 hostmakedepends = [
-    "asciidoctor",
     "cmake",
     "ninja",
     "perl",
