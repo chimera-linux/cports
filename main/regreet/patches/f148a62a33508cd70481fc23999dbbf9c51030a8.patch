@@ -1,0 +1,30 @@
+From f148a62a33508cd70481fc23999dbbf9c51030a8 Mon Sep 17 00:00:00 2001
+From: Rasmus Pedersen <rasmus.pedersen@sky.uk>
+Date: Tue, 1 Aug 2023 14:12:37 +0200
+Subject: [PATCH] Only show first part of /etc/passwd gecos field
+
+This avoids showing ugly ",,," after the "full name" in the menu
+---
+ src/sysutil.rs | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/sysutil.rs b/src/sysutil.rs
+index b0ccf61..827a8a5 100644
+--- a/src/sysutil.rs
++++ b/src/sysutil.rs
+@@ -117,11 +117,13 @@ impl SysUtil {
+                     );
+                     entry.name.clone()
+                 } else {
++                    // Only take first entry in gecos field.
++                    let gecos_name_part: &str = gecos.split(',').next().unwrap_or(&gecos);
+                     debug!(
+-                        "Found user '{}' with UID '{}' and full name: {gecos}",
++                        "Found user '{}' with UID '{}' and full name: {gecos_name_part}",
+                         entry.name, entry.uid
+                     );
+-                    gecos
++                    gecos_name_part.into()
+                 }
+             } else {
+                 debug!(

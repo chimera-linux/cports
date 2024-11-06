@@ -1,6 +1,6 @@
 pkgname = "regreet"
 pkgver = "0.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = [
     "--features=gtk4_8",
