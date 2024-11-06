@@ -1,6 +1,6 @@
 pkgname = "console-setup"
 pkgver = "1.232"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_target = "build-linux"
 make_install_target = "install-linux"
@@ -43,7 +43,7 @@ def install(self):
 def post_install(self):
     self.install_license("debian/copyright")
     self.install_file(
-        self.files_path / "dinit-console", "usr/libexec", mode=0o755
+        self.files_path / "dinit-console", "usr/lib", mode=0o755
     )
 
 

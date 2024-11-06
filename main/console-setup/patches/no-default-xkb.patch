@@ -195,7 +195,7 @@ index 42ad18a..a371b29 100755
 +        local arg args f
 +        read -r arg args
 +        # downstream utility
-+        /usr/libexec/kbd/findkeys "$arg" | {
++        /usr/lib/kbd/findkeys "$arg" | {
 +            first=
 +            while read -r line; do
 +                f="${line##*/}"
