@@ -1,5 +1,5 @@
 pkgname = "powerdevil"
-pkgver = "6.2.2"
+pkgver = "6.2.3"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: all tests broken like on alpine, migrateconfig_test*
@@ -52,14 +52,14 @@ checkdepends = [
 depends = [
     "upower",
 ]
-# locale file conflicts ~6.2.2
-replaces = ["plasma-workspace<6.2.2"]
+# locale file conflicts ~6.2.3
+replaces = ["plasma-workspace<6.2.3"]
 pkgdesc = "KDE Plasma shell power consumption settings manager"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/powerdevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/powerdevil-{pkgver}.tar.xz"
-sha256 = "4006f2f49574c4e0036bb25bd3b1a1e5c47a521b26806fa4030d8073fdb17bd9"
+sha256 = "54cf3e3d0bc2fa3578af901eb7b7e2e568fb59f0b701caeeef7017e559541ec6"
 file_modes = {
     "usr/libexec/org_kde_powerdevil": ("root", "root", 0o755),
 }

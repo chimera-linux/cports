@@ -1,5 +1,5 @@
 pkgname = "flatpak-kcm"
-pkgver = "6.2.2"
+pkgver = "6.2.3"
 pkgrel = 0
 build_style = "cmake"
 # segfaults in libflatpak probably due to checking system-repo related stuff
@@ -27,5 +27,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/flatpak-kcm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/flatpak-kcm-{pkgver}.tar.xz"
-sha256 = "84b31b8058d5de3f16d76698bc537550ac4c376422efd73c0257ef7ef9ecb495"
+sha256 = "6c547e4a85f6b78b762ae60d59e9198b014edf0dfec1da335bcb6237fcf786b7"
 hardening = ["vis"]

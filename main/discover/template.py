@@ -1,5 +1,5 @@
 pkgname = "discover"
-pkgver = "6.2.2"
+pkgver = "6.2.3"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -61,7 +61,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://userbase.kde.org/Discover"
 source = f"$(KDE_SITE)/plasma/{pkgver}/discover-{pkgver}.tar.xz"
-sha256 = "d4fefafaa9b5b98005222a298cfcb7e3e1c89820d0ef8c02540e1a82108d5aae"
+sha256 = "6df2de75e9de8bfcba55aee7a1ceb8dbbf0fab3b018a59183fbcafbab2fb22ca"
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

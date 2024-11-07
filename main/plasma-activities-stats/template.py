@@ -1,5 +1,5 @@
 pkgname = "plasma-activities-stats"
-pkgver = "6.2.2"
+pkgver = "6.2.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-activities-stats"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-activities-stats-{pkgver}.tar.xz"
-sha256 = "665feecfbf0473bedc6d77dd606f6b2771566726d5eae5e9f277488095fd10a5"
+sha256 = "5bed46c860f53708d3de6830f4cd5544720d1851c00741123e8851ee2dbe7efb"
 hardening = ["vis"]
 
 

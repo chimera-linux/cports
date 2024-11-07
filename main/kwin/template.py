@@ -1,5 +1,5 @@
 pkgname = "kwin"
-pkgver = "6.2.2"
+pkgver = "6.2.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -98,7 +98,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-{pkgver}.tar.xz"
-sha256 = "fb5c2ff3e8007722f3fa528872e6494dc21d48c8a6b632b748486389486bc061"
+sha256 = "eba20a395299af2358fe0ba1d6216c00480ecddcc9d4452f77f7a60c1e78f101"
 file_modes = {
     "usr/bin/kwin_wayland": ("root", "root", 0o755),
 }

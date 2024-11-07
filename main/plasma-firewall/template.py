@@ -1,5 +1,5 @@
 pkgname = "plasma-firewall"
-pkgver = "6.2.2"
+pkgver = "6.2.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -24,4 +24,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-firewall"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-firewall-{pkgver}.tar.xz"
-sha256 = "d2c948bdffcdf981d0d354e3f598f15dbead1846c7c0b4cbfe7aab1f41d0b2d5"
+sha256 = "c7ba18e7fdd0ed72bc06ae5825e9e0569978d8d7fa5d4e23fe990be8163267fe"

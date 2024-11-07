@@ -1,5 +1,5 @@
 pkgname = "breeze-gtk"
-pkgver = "6.2.2"
+pkgver = "6.2.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -17,4 +17,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "CC0-1.0"
 url = "https://invent.kde.org/plasma/breeze-gtk"
 source = f"$(KDE_SITE)/plasma/{pkgver}/breeze-gtk-{pkgver}.tar.xz"
-sha256 = "7cc23494b450d1979a86e1f5610cda5e798e24e174e820a25131014c78cb24a1"
+sha256 = "3c59b2f6059b6661ef1feb74e59ad305bad391d692b30d7d3b1e0d91c412c6a1"
