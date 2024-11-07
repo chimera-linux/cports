@@ -462,7 +462,8 @@ def _prepare_arch(prof, dirty):
 
     # clear world so cross sysroot gets set up from scratch
     # this is a slow path but nobody cares about cross so whatever
-    cleanup_world(False)
+    if not dirty:
+        cleanup_world(False)
 
     logger.get().out(f"setting up sysroot for {prof.arch}...")
     initdb(rootp)
