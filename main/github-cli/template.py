@@ -1,5 +1,5 @@
 pkgname = "github-cli"
-pkgver = "2.60.1"
+pkgver = "2.61.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -15,7 +15,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://cli.github.com"
 source = f"https://github.com/cli/cli/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9e9337c2564894c4cd32b2ac419611263c3e870e95567811365aacd4be5dd51d"
+sha256 = "bf134281db2b65827426e3ad186de55cb04d0f92051ca2e6bd8a7d47aabe5b18"
 # cross: uses native binary to generate completions
 # check: needs network access
 options = ["!cross", "!check"]
