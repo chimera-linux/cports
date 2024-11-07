@@ -1,5 +1,5 @@
 pkgname = "zanshin"
-pkgver = "24.08.2"
+pkgver = "24.08.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -37,4 +37,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://zanshin.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/zanshin-{pkgver}.tar.xz"
-sha256 = "76e6a3562a9eb230b53b5119dbbfc87d22c03c9d9ba62354daa96fc7f95f3eab"
+sha256 = "83d22fe2c0be98fedfe1ba49ee50f08059640c93a3494c125656090dbcafe6da"

@@ -1,5 +1,5 @@
 pkgname = "k3b"
-pkgver = "24.08.2"
+pkgver = "24.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -54,7 +54,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://apps.kde.org/k3b"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/k3b-{pkgver}.tar.xz"
-sha256 = "aea81dd1942cc683c722e96b33ac7de58099fe24e223448272c148f4b8804a6f"
+sha256 = "bc97c34afb2138ca1fc25bd5fa79e77d1ca2dbe145332317159ef1afbca2c19f"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]

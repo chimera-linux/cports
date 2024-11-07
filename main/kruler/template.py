@@ -1,5 +1,5 @@
 pkgname = "kruler"
-pkgver = "24.08.2"
+pkgver = "24.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -25,4 +25,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kruler"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kruler-{pkgver}.tar.xz"
-sha256 = "13be360786f169393b4756a40ba1f15e4944be2fc7c4a4bb4f874433e548e655"
+sha256 = "05c6881cd9fdeb2efdec25ca0e30f2c1135e97753de60b7799067ec844ecd5c6"

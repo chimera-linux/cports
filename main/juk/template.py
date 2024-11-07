@@ -1,5 +1,5 @@
 pkgname = "juk"
-pkgver = "24.08.2"
+pkgver = "24.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -39,4 +39,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only"
 url = "https://juk.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/juk-{pkgver}.tar.xz"
-sha256 = "45907d1911c83a856f4bfb82055fefe50f4ffb88e956710ffa00cc5e5bfd2bfc"
+sha256 = "345ab402726004f27175dd9b6f22b72234efbe47ebea23741550606c6ce82caa"

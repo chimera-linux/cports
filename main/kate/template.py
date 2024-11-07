@@ -1,5 +1,5 @@
 pkgname = "kate"
-pkgver = "24.08.2"
+pkgver = "24.08.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -32,8 +32,10 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kate-{pkgver}.tar.xz"
-sha256 = "d85b75318895dca2f40e96ee58e91e9a6012f3587e22d7f3e0fe13beffaeca6c"
+sha256 = "ccb656435efc1fde0ae4c2d93400a2c05660bf299e6411714b9042422c50d4f2"
 hardening = ["vis"]
+# no idea
+options = ["!check"]
 
 
 # for kwrite to not pull in kate

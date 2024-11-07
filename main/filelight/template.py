@@ -1,5 +1,5 @@
 pkgname = "filelight"
-pkgver = "24.08.2"
+pkgver = "24.08.3"
 pkgrel = 0
 build_style = "cmake"
 # can segfault in parallel
@@ -30,5 +30,5 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = " GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/filelight"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/filelight-{pkgver}.tar.xz"
-sha256 = "5e904cdf4573fa5b8578e4157da348ad46e7281992bfbd6af59c9430e16ba94e"
+sha256 = "910ea6b0f1b16474b63523e1c390612aac358185705e37936960dc234bbfcf37"
 hardening = ["vis"]

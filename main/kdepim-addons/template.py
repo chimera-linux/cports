@@ -1,5 +1,5 @@
 pkgname = "kdepim-addons"
-pkgver = "24.08.2"
+pkgver = "24.08.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = [
