@@ -1,5 +1,5 @@
 pkgname = "ruby"
-pkgver = "3.3.5"
+pkgver = "3.3.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -31,7 +31,7 @@ url = "https://www.ruby-lang.org/en"
 source = (
     f"https://cache.ruby-lang.org/pub/ruby/{pkgver[:-2]}/ruby-{pkgver}.tar.xz"
 )
-sha256 = "51aec7ea89b46125a2c9adc6f36766b65023d47952b916b1aed300ddcc042359"
+sha256 = "540975969d1af42190d26ff629bc93b1c3f4bffff4ab253e245e125085e66266"
 # until verified; gonna need removing arch prefix from compiler name
 # tests mostly pass but there are some portability issues in the test
 # suite (stat usage) + chown not working in the sandbox + locale issues
@@ -53,8 +53,6 @@ if self.profile().cross:
 
 def post_install(self):
     self.install_license("COPYING")
-    # FIXME: in ruby 3.3.5 there are .lock stamp files installed for some reason
-    self.uninstall("usr/bin/*.lock", glob=True)
 
 
 @subpackage("ruby-devel")
