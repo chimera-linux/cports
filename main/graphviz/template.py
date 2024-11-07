@@ -1,5 +1,5 @@
 pkgname = "graphviz"
-pkgver = "12.1.2"
+pkgver = "12.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-lefty"]
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "EPL-1.0"
 url = "https://graphviz.org"
 source = f"https://gitlab.com/graphviz/graphviz/-/archive/{pkgver}/graphviz-{pkgver}.tar.gz"
-sha256 = "29ea6216aad2bc0bbc00e2274f24b7bf5a6ea0443c1533abf1b14d370542f186"
+sha256 = "0063e501fa4642b55f4daf82820b2778bfb7dafa651a862ae5c9810efb8e2311"
 # expects already installed graphviz
 # testing is via pytest
 options = ["!check"]
