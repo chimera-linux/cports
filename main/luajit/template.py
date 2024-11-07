@@ -1,5 +1,5 @@
 pkgname = "luajit"
-pkgver = "2.1_p20240815"
+pkgver = "2.1_p20241104"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "x86_64"]
 _tests_rev = "a3a5deb5d97d57fb4da567017a621ae73ee7305e"
@@ -26,7 +26,7 @@ source_paths = [
     "test-suite",
 ]
 sha256 = [
-    "9e59ec13c301c8b2855838b1248def49ef348a3e7563fabef677431706718145",
+    "197a5eb626bc9e0c19dcb025a190735ca1e23890606204bd9ef4c9828d5c4d4a",
     "b9862f002768dac55c8ab3d1ea21f3aa06d4075f6d022bb2eff76e82df264ffc",
 ]
 hardening = []
