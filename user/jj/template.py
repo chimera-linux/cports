@@ -1,5 +1,5 @@
 pkgname = "jj"
-pkgver = "0.22.0"
+pkgver = "0.23.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://martinvonz.github.io/jj"
 source = f"https://github.com/martinvonz/jj/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ed49b1c01ee6086bb782a465a4437e2f1b66f43bcf39c231df2b261091ab114b"
+sha256 = "18e0cc5600c06e940defce0a23ab4b29885bac265f94176603e5f8f926ed000e"
 # generates completions with host binary
 options = ["!cross"]
 
