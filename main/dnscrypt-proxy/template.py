@@ -1,6 +1,6 @@
 pkgname = "dnscrypt-proxy"
 pkgver = "2.1.5"
-pkgrel = 10
+pkgrel = 11
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Tool for securing communications between a client and a DNS resolver"

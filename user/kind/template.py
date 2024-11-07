@@ -1,6 +1,6 @@
 pkgname = "kind"
 pkgver = "0.24.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_check_args = ["-skip", "TestIntegrationEnsureNetworkConcurrent"]
 hostmakedepends = ["go"]

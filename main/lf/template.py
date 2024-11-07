@@ -1,6 +1,6 @@
 pkgname = "lf"
 pkgver = "32"
-pkgrel = 7
+pkgrel = 8
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Terminal file manager"

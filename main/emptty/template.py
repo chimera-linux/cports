@@ -1,6 +1,6 @@
 pkgname = "emptty"
 pkgver = "0.13.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_env = {"CGO_ENABLED": "1"}
 hostmakedepends = ["go"]

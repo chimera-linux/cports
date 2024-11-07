@@ -1,6 +1,6 @@
 pkgname = "cni-plugins"
 pkgver = "1.6.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["bash", "go"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standard CNI plugins for containers"
