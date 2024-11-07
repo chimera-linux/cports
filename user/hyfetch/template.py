@@ -1,5 +1,5 @@
 pkgname = "hyfetch"
-pkgver = "1.4.11"
+pkgver = "1.99.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "cassiofb-dev <contact@cassiofernando.com>"
 license = "MIT"
 url = "https://github.com/hykilpikonna/hyfetch"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "79cd6706a681fa7c05754b35d9338abf96bebce222c27376a4155e94d6a5350d"
+sha256 = "c712a11a354b34a86c86e7b080ee5e63faa6db5b8a88a3ebea35ef67c33588fd"
 # no test
 options = ["!check"]
 
