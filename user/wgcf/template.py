@@ -1,6 +1,6 @@
 pkgname = "wgcf"
-pkgver = "2.2.22"
-pkgrel = 1
+pkgver = "2.2.23"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Unofficial CLI for Cloudflare Warp"
@@ -8,7 +8,7 @@ maintainer = "cassiofb-dev <contact@cassiofernando.com>"
 license = "MIT"
 url = "https://github.com/ViRb3/wgcf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "949cfc61681683ef44af9561bf8080ea87f04d4da00f97d0512143956b6e27b9"
+sha256 = "01851eee54954174bc7a0b6528252f5aee0d7996d48094f266011db3f20b1554"
 
 
 def post_build(self):
