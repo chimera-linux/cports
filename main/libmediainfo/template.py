@@ -1,5 +1,5 @@
 pkgname = "libmediainfo"
-pkgver = "24.06"
+pkgver = "24.11"
 pkgrel = 0
 build_wrksrc = "Project/CMake"
 build_style = "cmake"
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://mediaarea.net/en/MediaInfo"
 source = f"https://mediaarea.net/download/source/libmediainfo/{pkgver}/libmediainfo_{pkgver}.tar.bz2"
-sha256 = "891b471497eb3e6a1e8f7557fcf039b62b1ec71ef2e647695ddf92290dd2a1d8"
+sha256 = "6bf686f6de10e536f73ab473b852f963cf9664a0e6c13cb0f8aa23d60da30adb"
 
 
 def post_install(self):
