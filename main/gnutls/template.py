@@ -1,5 +1,5 @@
 pkgname = "gnutls"
-pkgver = "3.8.7.1"
+pkgver = "3.8.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,11 +8,11 @@ configure_args = [
     "--disable-valgrind-tests",
     "--disable-afalg",  # broken outside x86_64
     "--enable-ktls",
-    "--with-brotli",
+    "--with-brotli=link",
     "--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt",
-    "--with-tpm2",
-    "--with-zlib",
-    "--with-zstd",
+    "--with-tpm2=link",
+    "--with-zlib=link",
+    "--with-zstd=link",
 ]
 hostmakedepends = [
     "automake",
@@ -44,7 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
 source = f"https://www.gnupg.org/ftp/gcrypt/gnutls/v{".".join(pkgver.split(".")[0:2])}/gnutls-{pkgver}.tar.xz"
-sha256 = "9ca0ddaccce28a74fa18d738744190afb3b0daebef74e6ad686bf7bef99abd60"
+sha256 = "ac4f020e583880b51380ed226e59033244bc536cad2623f2e26f5afa2939d8fb"
 
 
 def post_install(self):
