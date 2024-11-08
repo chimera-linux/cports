@@ -1,5 +1,5 @@
 pkgname = "kdav"
-pkgver = "6.7.0"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 # hangs forever
@@ -26,7 +26,7 @@ url = "https://api.kde.org/frameworks/kdav/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdav-{pkgver}.tar.xz"
 )
-sha256 = "6629f2af0042eb1e0dc0c08b5180ac7b48dae6b5999e1dd0b678aed8b874c1d7"
+sha256 = "d895e3b6d4ff9916d185ec50f94b08a70636202e28739fcc74772e2ecd92182c"
 
 
 @subpackage("kdav-devel")

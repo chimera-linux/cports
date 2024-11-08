@@ -1,5 +1,5 @@
 pkgname = "kirigami"
-pkgver = "6.7.0"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only"
 url = "https://develop.kde.org/frameworks/kirigami"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kirigami-{pkgver}.tar.xz"
-sha256 = "4d645a0374d33b9465e79e3e17170882e2cbda1526f45bc5b6b176dadda77d76"
+sha256 = "0e0b90ac96ba49630e2c01d8977bd8c51c9ab1808313fc88f60de179700742a2"
 hardening = ["vis"]
 
 

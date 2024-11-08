@@ -1,5 +1,5 @@
 pkgname = "attica"
-pkgver = "6.7.0"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 # requires network access and passes in cbuild chroot
@@ -18,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/attica/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/attica-{pkgver}.tar.xz"
-sha256 = "daa5c07b474899e16b42710e03d0590936bce0f54800239d633d48caa3be0d7d"
+sha256 = "44300a2d0ed465d9adb0023fac6d67b3b29bec299a54fea3ff3477d9118d1fdd"
 hardening = ["vis"]
 
 

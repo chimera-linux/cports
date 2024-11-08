@@ -1,5 +1,5 @@
 pkgname = "ktexteditor"
-pkgver = "6.7.0"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -37,7 +37,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.0-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/ktexteditor/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktexteditor-{pkgver}.tar.xz"
-sha256 = "ed76f72324225a926e00c2c970d48d7f11a576e942e48d092e9837bda79d6991"
+sha256 = "6a58ab74c4efddf3161174e860d211426454122e844b25fc25ef6282a1e7a270"
 hardening = ["vis"]
 
 

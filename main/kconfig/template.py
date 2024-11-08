@@ -1,5 +1,5 @@
 pkgname = "kconfig"
-pkgver = "6.7.0"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: kconfigtest can work with right env
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kconfig/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kconfig-{pkgver}.tar.xz"
-sha256 = "be2d5ddb63e56703bc097e5d9912b39abc513ac51654de2e0d83a1aed2c54b1b"
+sha256 = "3f8f3c2ef384a5281ae5a3918a3e3cc2be0168eb14becfdaa61710655d8b16ac"
 hardening = ["vis"]
 
 

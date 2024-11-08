@@ -1,0 +1,13 @@
+nice meme
+--
+--- a/src/solid/devices/backends/fstab/fstabwatcher.h
++++ b/src/solid/devices/backends/fstab/fstabwatcher.h
+@@ -9,7 +9,7 @@
+ 
+ #include <QObject>
+ #ifdef Q_OS_LINUX
+-#include <libmount.h>
++#include <libmount/libmount.h>
+ #endif
+ 
+ class QFileSystemWatcher;
