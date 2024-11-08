@@ -1,5 +1,5 @@
 pkgname = "lxqt-menu-data"
-pkgver = "2.0.0"
+pkgver = "2.1.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -17,4 +17,4 @@ maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-menu-data"
 source = f"{url}/releases/download/{pkgver}/lxqt-menu-data-{pkgver}.tar.xz"
-sha256 = "44768dd5dcc7c66fadd919ddd8528e22dd7ee587ef198b02dffbf05e0c0d1a52"
+sha256 = "d2d2187313c16fc435a7313e53b80ace7ccba0b5de6c0d9cd53bfdfa13d5eab4"
