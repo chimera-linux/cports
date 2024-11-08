@@ -1,5 +1,5 @@
 pkgname = "pavucontrol-qt"
-pkgver = "2.0.0"
+pkgver = "2.1.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,4 +19,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/lxqt/pavucontrol-qt"
 source = f"{url}/releases/download/{pkgver}/pavucontrol-qt-{pkgver}.tar.xz"
-sha256 = "3acec36371614a2bb8145228449e684cea83aab31234c960176688d88e830475"
+sha256 = "6c3cfc8a4bc0b232b66516b16c32ebcd2d1d1ddb144d9e3adeea6cdffb386bbf"
