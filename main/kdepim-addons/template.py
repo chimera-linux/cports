@@ -75,7 +75,7 @@ url = "https://invent.kde.org/pim/kdepim-addons"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdepim-addons-{pkgver}.tar.xz"
 )
-sha256 = "ce45080ca328ff2b020cf8e1d7b0924a0d7dc4830111bc948141c1e256afa912"
+sha256 = "0db2033c3c673766c3267391b528920c7ecf66bf2033a8a69c6eb4fca5b1a549"
 # date diffs, formatting diffs, cant find plugins, ...
 options = ["!check"]
 
