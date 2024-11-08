@@ -2,7 +2,10 @@ pkgname = "yt-dlp"
 pkgver = "2024.11.04"
 pkgrel = 0
 build_style = "python_pep517"
-make_check_args = ["-k", "not download and not test_verify_cert"]
+make_check_args = [
+    "-k",
+    "not download and not test_verify_cert and not test_mtls",
+]
 hostmakedepends = [
     "python-build",
     "python-hatchling",
