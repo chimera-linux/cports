@@ -1,5 +1,5 @@
 pkgname = "dns-root-data"
-pkgver = "2024041802"
+pkgver = "2024071800"
 pkgrel = 0
 pkgdesc = "DNS root hints and DNSSEC trust anchor"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -9,7 +9,7 @@ url = "https://data.iana.org/root-anchors"
 # does, but then we create a depcycle as that needs programs that come
 # with unbound as well as some others
 source = f"$(DEBIAN_SITE)/main/d/dns-root-data/dns-root-data_{pkgver}_all.deb"
-sha256 = "1c60b5794e508681d7d4f61c16eebb959d90f0a6619367947059154be6e1a135"
+sha256 = "5172a3feea331ab5ab2169b4db4ba0b3d70b2590b54273cd48086434e5cb28cc"
 
 
 def install(self):
