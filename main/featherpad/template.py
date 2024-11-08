@@ -1,5 +1,5 @@
 pkgname = "featherpad"
-pkgver = "1.5.1"
+pkgver = "1.5.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,4 +19,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/tsujan/FeatherPad"
 source = f"{url}/releases/download/V{pkgver}/FeatherPad-{pkgver}.tar.xz"
-sha256 = "7ea930530d2d910dff1e8ff6fa1a2677653639929a9fc6e24010262b495ac345"
+sha256 = "d63d977c875ee18be1ef007b8cd653ae495018184ea641e2bbc812781b926e87"
