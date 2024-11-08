@@ -1,6 +1,6 @@
 pkgname = "lxqt-panel"
-pkgver = "2.0.1"
-pkgrel = 1
+pkgver = "2.1.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSYSSTAT_PLUGIN=OFF",
@@ -24,6 +24,7 @@ makedepends = [
     "lxqt-globalkeys-devel",
     "lxqt-menu-data",
     "qt6-qttools-devel",
+    "qt6-qtwayland-devel",
     "solid-devel",
     "xcb-util-devel",
 ]
@@ -33,4 +34,4 @@ maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-panel"
 source = f"{url}/releases/download/{pkgver}/lxqt-panel-{pkgver}.tar.xz"
-sha256 = "73483c36e411496f8e958b7e56ba8bb06ae0b4300a62cf4c4a78964da6a59407"
+sha256 = "176d1638f2bc0669afc0f3ff34da3faa543f2e2dac5122fd0ec235eea98986d5"
