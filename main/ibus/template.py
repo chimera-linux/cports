@@ -1,5 +1,5 @@
 pkgname = "ibus"
-pkgver = "1.5.30"
+pkgver = "1.5.31"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -57,7 +57,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/ibus-{pkgver}.tar.gz"
-sha256 = "05b84d4a45139face161596e5ade8e6c5da55cfaf6f194861da66516190f5b96"
+sha256 = "5093994c8342551134c81f2d271575efbc459bb756cef1173c22430c8601a1e1"
 # gtk3 can't handle seatless wayland displays
 options = ["!cross", "!check"]
 
@@ -68,6 +68,10 @@ def post_extract(self):
     # since no libdbusmenu-glib)
     # so, just touch an empty file
     (self.cwd / "ui/gtk3/panel.vala").touch()
+
+
+def post_install(self):
+    self.rename("usr/share/bash-completion/completions/ibus.bash", "ibus")
 
 
 @subpackage("libibus")
