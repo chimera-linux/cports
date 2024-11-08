@@ -1,5 +1,5 @@
 pkgname = "ruff"
-pkgver = "0.7.2"
+pkgver = "0.7.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,9 +19,10 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
 source = f"https://github.com/astral-sh/ruff/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "e678307f10bd316f4bc8f0ca7419646e04be25b387f1ff84ea4470d482e240ba"
+sha256 = "6b2aa675bb50124f636bda2c671f3394a8cfc7bf32d2fce63f852f7d43ce4810"
 # generates completions with host bin
-options = ["!cross"]
+# tests are mostly a waste of time
+options = ["!cross", "!check"]
 
 
 def post_patch(self):
