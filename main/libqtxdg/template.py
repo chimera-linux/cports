@@ -1,5 +1,5 @@
 pkgname = "libqtxdg"
-pkgver = "4.0.1"
+pkgver = "4.1.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/libqtxdg"
 source = f"{url}/releases/download/{pkgver}/libqtxdg-{pkgver}.tar.xz"
-sha256 = "cd9efd93dcfb8c337dbaca715c71666f7f05ff6a7702fde27526a34cce91b88c"
+sha256 = "0604d397d9561a6a6148930a2b131f2bdee86cec6cca304f7513a8ec7b8e8809"
 
 
 @subpackage("libqtxdg-devel")
