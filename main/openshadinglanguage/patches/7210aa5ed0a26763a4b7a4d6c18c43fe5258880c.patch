@@ -1,0 +1,27 @@
+From 7210aa5ed0a26763a4b7a4d6c18c43fe5258880c Mon Sep 17 00:00:00 2001
+From: Larry Gritz <lg@larrygritz.com>
+Date: Sat, 12 Oct 2024 17:04:32 -0700
+Subject: [PATCH] deps: Add include to deal with OIIO 3.0 deprecations (#1884)
+
+OIIO 3.0 shifs some things around slightly and requires us to
+include fmath.h directly in a place where we had been inadvertently
+relying on it getting included transitively (but now is not).
+
+Signed-off-by: Larry Gritz <lg@larrygritz.com>
+---
+ src/testshade/rs_simplerend.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/testshade/rs_simplerend.cpp b/src/testshade/rs_simplerend.cpp
+index 3c9d25075..0a0ce824f 100644
+--- a/src/testshade/rs_simplerend.cpp
++++ b/src/testshade/rs_simplerend.cpp
+@@ -6,6 +6,8 @@
+ #    error OSL_HOST_RS_BITCODE must be defined by your build system.
+ #endif
+ 
++#include <OpenImageIO/fmath.h>
++
+ #include <OSL/fmt_util.h>
+ #include <OSL/journal.h>
+ #include <OSL/rendererservices.h>
