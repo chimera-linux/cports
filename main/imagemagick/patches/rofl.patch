@@ -1,0 +1,12 @@
+--- a/Magick++/lib/Magick++/Include.h
++++ b/Magick++/lib/Magick++/Include.h
+@@ -32,9 +32,6 @@
+ #include <errno.h>
+ #include <stdint.h>
+ 
+-#if __cplusplus >= 201703L
+-void* operator new(size_t, void*) throw();
+-#endif
+ 
+ //
+ // Include ImageMagick headers into namespace "MagickCore". If
