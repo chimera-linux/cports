@@ -1,10 +1,9 @@
 pkgname = "libwebp"
 pkgver = "1.4.0"
-pkgrel = 0
-build_style = "gnu_configure"
-configure_args = ["--enable-libwebpdecoder"]
-configure_gen = []
-hostmakedepends = ["pkgconf"]
+pkgrel = 1
+build_style = "cmake"
+configure_args = ["-DBUILD_SHARED_LIBS=ON"]
+hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "giflib-devel",
     "libpng-devel",
@@ -19,11 +18,14 @@ source = (
     f"http://downloads.webmproject.org/releases/webp/libwebp-{pkgver}.tar.gz"
 )
 sha256 = "61f873ec69e3be1b99535634340d5bde750b2e4447caa1db9f61be3fd49ab1e5"
+tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 hardening = ["vis"]
 
 
 def post_install(self):
     self.install_license("COPYING")
+    self.install_dir("usr/lib/cmake")
+    self.rename("usr/share/WebP/cmake", "usr/lib/cmake/WebP", relative=False)
 
 
 @subpackage("libwebp-devel")
