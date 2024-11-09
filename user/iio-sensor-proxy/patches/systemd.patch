@@ -1,0 +1,43 @@
+diff -ruN a/data/80-iio-sensor-proxy.rules b/data/80-iio-sensor-proxy.rules
+--- a/data/80-iio-sensor-proxy.rules	2023-07-25 10:28:22.000000000 +0200
++++ b/data/80-iio-sensor-proxy.rules	2024-11-09 19:17:38.263578369 +0100
+@@ -18,7 +18,4 @@
+ 
+ ENV{IIO_SENSOR_PROXY_TYPE}=="", GOTO="iio_sensor_proxy_end"
+ 
+-# We got here because we have a sensor type, which means we need the service
+-TAG+="systemd", ENV{SYSTEMD_WANTS}+="iio-sensor-proxy.service"
+-
+ LABEL="iio_sensor_proxy_end"
+diff -ruN a/data/meson.build b/data/meson.build
+--- a/data/meson.build	2023-07-25 10:28:22.000000000 +0200
++++ b/data/meson.build	2024-11-09 19:17:20.466742335 +0100
+@@ -8,13 +8,6 @@
+ data_conf.set('geoclue_user', get_option('geoclue-user'))
+ 
+ configure_file(
+-  input: 'iio-sensor-proxy.service.in',
+-  output: 'iio-sensor-proxy.service',
+-  configuration: data_conf,
+-  install_dir: systemd_system_unit_dir,
+-)
+-
+-configure_file(
+   input: 'net.hadess.SensorProxy.conf.in',
+   output: 'net.hadess.SensorProxy.conf',
+   configuration: data_conf,
+diff -ruN a/meson.build b/meson.build
+--- a/meson.build	2023-07-25 10:28:22.000000000 +0200
++++ b/meson.build	2024-11-09 19:16:49.567026569 +0100
+@@ -34,11 +34,6 @@
+     udev_dep = dependency('udev')
+     udev_rules_dir = udev_dep.get_pkgconfig_variable('udevdir') + '/rules.d'
+ endif
+-systemd_system_unit_dir = get_option('systemdsystemunitdir')
+-if systemd_system_unit_dir == 'auto'
+-    systemd_dep = dependency('systemd')
+-    systemd_system_unit_dir = systemd_dep.get_pkgconfig_variable('systemdsystemunitdir')
+-endif
+ if get_option('gtk-tests')
+     gtk_dep = dependency('gtk+-3.0', required: false)
+ endif
