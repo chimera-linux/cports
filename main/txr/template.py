@@ -1,5 +1,5 @@
 pkgname = "txr"
-pkgver = "293"
+pkgver = "296"
 pkgrel = 0
 archs = ["aarch64", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "configure"
@@ -12,7 +12,7 @@ maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:txr"
 url = "https://www.nongnu.org/txr"
 source = f"https://www.kylheku.com/cgit/txr/snapshot/txr-{pkgver}.tar.bz2"
-sha256 = "6fc21ae7332f98f97af35ad3ca1808d0043c4c85384c4e7bebcfce967e36fa5c"
+sha256 = "753e74c1f11c109a5235856b5e5800912b8267e08257a1a26f17e74efd5c2917"
 hardening = ["vis"]
 # tests disabled on ppc
 options = ["!cross", "!lto"]
