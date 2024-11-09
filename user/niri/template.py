@@ -1,5 +1,5 @@
 pkgname = "niri"
-pkgver = "0.1.9"
+pkgver = "0.1.10"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -34,7 +34,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "70427efcde50a9d262c341befbd4df4e24557afd8311753bf912a4be1bf243a7"
+sha256 = "2a6e6c21b05c14498eb84e58853c0a4c9d96d4215b8aec53388e89266fccca1b"
 
 # TODO: dinit graphical user session service, --notify-fd, etc
 
