@@ -1,6 +1,6 @@
 pkgname = "libclc"
 pkgver = "18.1.8"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
 hostmakedepends = [
