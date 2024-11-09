@@ -1,6 +1,6 @@
 pkgname = "gimp"
-pkgver = "2.99.18"
-pkgrel = 3
+pkgver = "3.0.0_rc1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dcheck-update=no",
@@ -8,10 +8,11 @@ configure_args = [
     "-Dlibbacktrace=false",
     "-Ddefault_library=shared",
     # this needs luajit and prints junk into the console
-    "-Dlua=disabled",
+    "-Dlua=false",
 ]
 hostmakedepends = [
-    "gegl",
+    "bison",
+    "flex",
     "gettext-devel",
     "gjs",
     "glib-devel",
@@ -44,7 +45,9 @@ makedepends = [
     "libgs-devel",
     "libgudev-devel",
     "libheif-devel",
+    "libomp-devel",
     "libjpeg-turbo-devel",
+    "libjxl-devel",
     "libmypaint-devel",
     "libpng-devel",
     "librsvg-devel",
@@ -76,13 +79,12 @@ pkgdesc = "GNU Image Manipulation Program"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://www.gimp.org"
-source = (
-    f"https://download.gimp.org/pub/gimp/v{pkgver[:-3]}/gimp-{pkgver}.tar.xz"
-)
-sha256 = "8c1bb7a94ac0d4d0cde4d701d8b356387c2ecd87abbd35bbf7d222d40f6ddb6e"
+source = f"https://download.gimp.org/pub/gimp/v{pkgver[:3]}/gimp-{pkgver.replace('_', '-').upper()}.tar.xz"
+sha256 = "b3d0b264c5e38e789faaf3417003397f3240014c59c7f417f9ca3bd39c5ffb66"
 # FIXME: it worksish but crashes often/early
 hardening = ["!int"]
-options = ["!cross"]
+# needs graphical env (gtk3 broken in weston headless)
+options = ["!cross", "!check"]
 
 
 @subpackage("gimp-libs")

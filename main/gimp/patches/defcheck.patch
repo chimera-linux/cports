@@ -10,12 +10,12 @@ diff --git a/libgimp/meson.build b/libgimp/meson.build
 index 82a91e4..ab1eac1 100644
 --- a/libgimp/meson.build
 +++ b/libgimp/meson.build
-@@ -521,7 +521,7 @@ else
+@@ -571,7 +571,7 @@
    endif
  endif
  
--if have_python and not platform_windows and not platform_osx
-+if false
+-if not platform_windows and not platform_osx
++if false and not platform_windows and not platform_osx
    # Verify .def files for Windows.
    # Ironically we only check this on non-Windows platform, since the
    # script expects .so libraries, and I'm not sure that the `nm` tool is

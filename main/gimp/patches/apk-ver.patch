@@ -1,0 +1,23 @@
+--- a/meson.build
++++ b/meson.build
+@@ -1,6 +1,6 @@
+ project('gimp',
+   'c', 'cpp',
+-  version: '3.0.0-RC1',
++  version: '3.0.0_rc1',
+   meson_version: '>=0.61.0',
+   default_options: [
+     'cpp_std=gnu++14',
+@@ -29,10 +29,10 @@
+ gimp_app_version_arr = gimp_version.split('.')
+ gimp_app_version_major = gimp_app_version_arr[0].to_int()
+ gimp_app_version_minor = gimp_app_version_arr[1].to_int()
+-gimp_app_micro_rc      = gimp_app_version_arr[2].split('-')
++gimp_app_micro_rc      = gimp_app_version_arr[2].split('_')
+ gimp_app_version_micro = gimp_app_micro_rc[0].to_int()
+ if gimp_app_micro_rc.length() > 1
+-  if not gimp_app_micro_rc[1].startswith('RC')
++  if not gimp_app_micro_rc[1].startswith('rc')
+     error('Version format is: <major>.<minor>.<micro> with optional "-RC<num>" suffix.')
+   endif
+   gimp_app_version_rc = gimp_app_micro_rc[1].substring(2).to_int()
