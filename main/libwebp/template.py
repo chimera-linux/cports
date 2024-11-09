@@ -1,6 +1,6 @@
 pkgname = "libwebp"
 pkgver = "1.4.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -13,7 +13,7 @@ makedepends = [
 pkgdesc = "WebP image format library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
-url = "http://www.libpng.org/pub/png/libpng.html"
+url = "https://chromium.googlesource.com/webm/libwebp"
 source = (
     f"http://downloads.webmproject.org/releases/webp/libwebp-{pkgver}.tar.gz"
 )
