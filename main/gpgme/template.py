@@ -1,9 +1,8 @@
 pkgname = "gpgme"
-pkgver = "1.23.2"
-pkgrel = 5
+pkgver = "1.24.0"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
-# otherwise cmake files are broken
 hostmakedepends = [
     "automake",
     "gnupg",
@@ -28,7 +27,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://gnupg.org/software/gpgme/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/gpgme/gpgme-{pkgver}.tar.bz2"
-sha256 = "9499e8b1f33cccb6815527a1bc16049d35a6198a6c5fae0185f2bd561bce5224"
+sha256 = "61e3a6ad89323fecfaff176bc1728fb8c3312f2faa83424d9d5077ba20f5f7da"
 
 
 def post_build(self):
@@ -76,8 +75,7 @@ def _(self):
     self.subdesc = "Qt6 support development files"
 
     return [
-        "usr/include/QGpgME",
-        "usr/include/qgpgme",
+        "usr/include/qgpgme-qt6",
         "usr/lib/libqgpgmeqt*.so",
         "usr/lib/cmake/QGpgme*",
     ]

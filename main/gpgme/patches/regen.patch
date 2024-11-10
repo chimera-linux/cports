@@ -8,6 +8,6 @@
 -      tmp="-unknown"
 +      beta=no
 +      tmp=
+       cid="0000000"
        rev="0000000"
        rvd="0"
-     fi
