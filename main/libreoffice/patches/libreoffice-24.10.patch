@@ -1,0 +1,15 @@
+--- a/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
++++ b/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
+@@ -1306,9 +1306,9 @@ poppler_bool PDFOutDev::tilingPatternFil
+         0, nBitmapWidth * nBitmapHeight, Object(objNull)));
+     auto aDecode = Object(objNull);
+     std::unique_ptr<GfxImageColorMap> pRgbIdentityColorMap(new GfxImageColorMap(8, &aDecode,
+-        new GfxDeviceRGBColorSpace()));
++        std::make_unique<GfxDeviceRGBColorSpace>()));
+     std::unique_ptr<GfxImageColorMap> pGrayIdentityColorMap(new GfxImageColorMap(8, &aDecode,
+-        new GfxDeviceGrayColorSpace()));
++        std::make_unique<GfxDeviceGrayColorSpace>()));
+ 
+     OutputBuffer aBuf; initBuf(aBuf);
+     writePng_(aBuf, pRgbStr.get(), nBitmapWidth, nBitmapHeight, pRgbIdentityColorMap.get(),
+

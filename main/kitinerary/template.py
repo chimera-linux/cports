@@ -1,6 +1,6 @@
 pkgname = "kitinerary"
 pkgver = "24.08.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # extractortest: difference in AT/österreich key
 # knowledgedbtest: flaky SIBBUS crash in ki18n IsoCodesCache::subdivisionCount from accessing cache (weird pointer stuff)
