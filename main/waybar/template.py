@@ -1,6 +1,6 @@
 pkgname = "waybar"
 pkgver = "0.11.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dcava=disabled",
