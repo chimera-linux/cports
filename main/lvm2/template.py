@@ -1,5 +1,5 @@
 pkgname = "lvm2"
-pkgver = "2.03.27"
+pkgver = "2.03.28"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -52,7 +52,7 @@ url = "https://sourceware.org/lvm2"
 source = (
     f"https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.{pkgver}.tgz"
 )
-sha256 = "3133415905b9b46d152d064865d52f32eee4fcbeb0e8a69e3510caeaae0c56a9"
+sha256 = "b822baff6b62df36382c717ceba98a2688ebb31bf2b768f3ffa2b6d5e2557242"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]
 # otherwise we're in for a world of pain
