@@ -33,3 +33,15 @@ diff -u a/src/mem.c b/src/mem.c
  
  void *
  mem_malloc (unsigned int size, bool_t crit)
+diff -u a/src/wrapper.c b/src/wrapper.c
+--- a/src/wrapper.c	2024-10-02 03:47:25.000000000 +0100
++++ b/src/wrapper.c	2024-11-11 22:41:10.058563321 +0000
+@@ -35,6 +35,7 @@
+ #include <signal.h>
+ 
+ #include "libprtX.h"
++#include "custompage.h"
+ 
+ #define WIDTH_BYTES(bits) (((bits) + 31) / 32 * 4)
+ 
+
