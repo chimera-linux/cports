@@ -1,10 +1,12 @@
 pkgname = "fwupd-efi"
 pkgver = "1.4"
-pkgrel = 2
+pkgrel = 3
 # riscv64 not supported yet
 archs = ["aarch64", "x86_64"]
 build_style = "meson"
-configure_args = []
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+]
 hostmakedepends = [
     "meson",
     "efivar",
