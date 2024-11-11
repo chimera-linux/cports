@@ -1,6 +1,6 @@
 pkgname = "restic"
-pkgver = "0.17.2"
-pkgrel = 1
+pkgver = "0.17.3"
+pkgrel = 0
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version=v{pkgver}", "./cmd/restic"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://restic.net"
 source = f"https://github.com/restic/restic/releases/download/v{pkgver}/restic-{pkgver}.tar.gz"
-sha256 = "ac52843c40bc9b520bb8dbbbaeda6afec7a35c59753b8cbf11348dd734896ed1"
+sha256 = "bf0dd73edfae531c24070e2e7833938613f7b179ed165e6b681098edfdf286c8"
 # fails in bwrap chroot
 options = ["!check"]
 
