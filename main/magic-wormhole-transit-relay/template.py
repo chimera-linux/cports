@@ -1,5 +1,5 @@
 pkgname = "magic-wormhole-transit-relay"
-pkgver = "0.3.1"
+pkgver = "0.4.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/magic-wormhole/magic-wormhole-transit-relay"
 source = f"$(PYPI_SITE)/m/magic-wormhole-transit-relay/magic-wormhole-transit-relay-{pkgver}.tar.gz"
-sha256 = "2ef2efbe4d34f0e624870f842259fd733ba77152ed310af4349774a62884900e"
+sha256 = "912d835da21b11266c77111dc9b5e5800263fc0b98f0a179962267df41819e8c"
 
 
 def post_install(self):
