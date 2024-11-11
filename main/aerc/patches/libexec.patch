@@ -1,0 +1,104 @@
+commit 3feb1560c4922a8c9ba3e6f746cd949542910f9f
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Nov 11 01:22:56 2024 +0100
+
+    patch libexec dir
+    
+    because these are hardcoded and not taken from buildsystem
+
+diff --git a/config/aerc.conf b/config/aerc.conf
+index 4a83625..4e27f38 100644
+--- a/config/aerc.conf
++++ b/config/aerc.conf
+@@ -733,9 +733,9 @@
+ #   ${XDG_CONFIG_HOME:-~/.config}/aerc/filters
+ #   ~/.local/libexec/aerc/filters
+ #   ${XDG_DATA_HOME:-~/.local/share}/aerc/filters
+-#   $PREFIX/libexec/aerc/filters
++#   $PREFIX/lib/aerc/filters
+ #   $PREFIX/share/aerc/filters
+-#   /usr/libexec/aerc/filters
++#   /usr/lib/aerc/filters
+ #   /usr/share/aerc/filters
+ #
+ # If you want to run a program in your default $PATH which has the same name
+diff --git a/config/config.go b/config/config.go
+index 61ac041..3e8edb7 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -34,7 +34,7 @@ func buildDefaultDirs() []string {
+ 	}
+ 
+ 	// Add custom buildtime dirs
+-	if libexecDir != "" && libexecDir != "/usr/local/libexec/aerc" {
++	if libexecDir != "" && libexecDir != "/usr/local/lib/aerc" {
+ 		defaultDirs = append(defaultDirs, xdg.ExpandHome(libexecDir))
+ 	}
+ 	if shareDir != "" && shareDir != "/usr/local/share/aerc" {
+@@ -42,9 +42,9 @@ func buildDefaultDirs() []string {
+ 	}
+ 
+ 	// Add fixed fallback locations
+-	defaultDirs = append(defaultDirs, "/usr/local/libexec/aerc")
++	defaultDirs = append(defaultDirs, "/usr/local/lib/aerc")
+ 	defaultDirs = append(defaultDirs, "/usr/local/share/aerc")
+-	defaultDirs = append(defaultDirs, "/usr/libexec/aerc")
++	defaultDirs = append(defaultDirs, "/usr/lib/aerc")
+ 	defaultDirs = append(defaultDirs, "/usr/share/aerc")
+ 
+ 	return defaultDirs
+diff --git a/doc/aerc-config.5.scd b/doc/aerc-config.5.scd
+index d54609c..d040968 100644
+--- a/doc/aerc-config.5.scd
++++ b/doc/aerc-config.5.scd
+@@ -970,7 +970,7 @@ reading from stdin by putting _-_ instead of a path to a file. You can also
+ chain together multiple filters by piping with _|_.
+ 
+ aerc ships with some default filters installed in the libexec directory (usually
+-_/usr/libexec/aerc/filters_). Note that these may have additional dependencies
++_/usr/lib/aerc/filters_). Note that these may have additional dependencies
+ that aerc does not have alone.
+ 
+ The filter commands are invoked with _sh -c command_. The following folders are
+@@ -980,9 +980,9 @@ prepended to the system *$PATH* to allow referencing filters from their name onl
+ ${XDG_CONFIG_HOME:-~/.config}/aerc/filters
+ ~/.local/libexec/aerc/filters
+ ${XDG_DATA_HOME:-~/.local/share}/aerc/filters
+-$PREFIX/libexec/aerc/filters
++$PREFIX/lib/aerc/filters
+ $PREFIX/share/aerc/filters
+-/usr/libexec/aerc/filters
++/usr/lib/aerc/filters
+ /usr/share/aerc/filters
+ ```
+ 
+diff --git a/doc/aerc-templates.7.scd b/doc/aerc-templates.7.scd
+index b568103..7d00231 100644
+--- a/doc/aerc-templates.7.scd
++++ b/doc/aerc-templates.7.scd
+@@ -391,14 +391,14 @@ aerc provides the following additional functions:
+ 	Attaches a file to the message being composed.
+ 
+ 	```
+-	{{.Attach '/usr/libexec/aerc/filters/html'}}
++	{{.Attach '/usr/lib/aerc/filters/html'}}
+ 	```
+ 
+ *exec*
+ 	Execute external command, provide the second argument to its stdin.
+ 
+ 	```
+-	{{exec `/usr/libexec/aerc/filters/html` .OriginalText}}
++	{{exec `/usr/lib/aerc/filters/html` .OriginalText}}
+ 	```
+ 
+ *.Local*
+@@ -558,7 +558,7 @@ aerc provides the following additional functions:
+ 
+ 	```
+ 	{{if eq .OriginalMIMEType "text/html"}}
+-	{{exec `/usr/libexec/aerc/filters/html` .OriginalText | wrap 72 | quote}}
++	{{exec `/usr/lib/aerc/filters/html` .OriginalText | wrap 72 | quote}}
+ 	{{else}}
+ 	{{wrap 72 .OriginalText | trimSignature | quote}}
+ 	{{end}}
