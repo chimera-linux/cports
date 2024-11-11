@@ -1,6 +1,6 @@
 pkgname = "tailscale"
 pkgver = "1.76.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [
     "-ldflags="
@@ -35,6 +35,8 @@ def post_build(self):
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service(self.files_path / "tailscaled")
+    self.install_service("^/tailscaled")
+    self.install_tmpfiles("^/tmpfiles.conf")
+    self.install_file("^/envfile", "usr/share/tailscale")
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"tailscale.{shell}", shell)

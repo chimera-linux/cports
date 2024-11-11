@@ -2,4 +2,5 @@ type = process
 command = /usr/bin/tailscaled
 depends-on = network.target
 depends-on = local.target
+env-file = /etc/default/tailscaled
 smooth-recovery = true
