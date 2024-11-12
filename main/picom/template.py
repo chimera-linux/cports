@@ -1,5 +1,5 @@
 pkgname = "picom"
-pkgver = "12.3"
+pkgver = "12.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dunittest=true", "-Dwith_docs=true"]
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 AND MIT"
 url = "https://github.com/yshui/picom"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "926142c667c9e5b5205a11b2755fb9ca39c3e696365792d705a45d84e34d7a68"
+sha256 = "d890a5e484d55b2a4e9284161c71c36bcc5acc23bd74eec269d3253e69cb96fa"
 
 
 def post_install(self):
