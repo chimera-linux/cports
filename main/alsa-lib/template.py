@@ -1,5 +1,5 @@
 pkgname = "alsa-lib"
-pkgver = "1.2.12"
+pkgver = "1.2.13"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
 source = f"{url}/files/pub/lib/alsa-lib-{pkgver}.tar.bz2"
-sha256 = "4868cd908627279da5a634f468701625be8cc251d84262c7e5b6a218391ad0d2"
+sha256 = "8c4ff37553cbe89618e187e4c779f71a9bb2a8b27b91f87ed40987cc9233d8f6"
 
 
 @subpackage("alsa-lib-devel")

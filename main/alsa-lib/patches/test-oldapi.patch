@@ -1,20 +1,22 @@
+we disable old symbols so building this test fails
+--
 diff --git a/test/Makefile.am b/test/Makefile.am
 index 99c2c4f..ac7bae1 100644
 --- a/test/Makefile.am
 +++ b/test/Makefile.am
-@@ -2,7 +2,7 @@ SUBDIRS=. lsb
+@@ -2,7 +2,7 @@
  
- check_PROGRAMS=control pcm pcm_min latency seq \
- 	       playmidi1 timer rawmidi midiloop \
+ check_PROGRAMS=control pcm pcm_min latency seq seq-ump-example \
+ 	       playmidi1 timer rawmidi midiloop umpinfo \
 -	       oldapi queue_timer namehint client_event_filter \
 +	       queue_timer namehint client_event_filter \
  	       chmap audio_time user-ctl-element-set pcm-multi-thread
  
  control_LDADD=../src/libasound.la
-@@ -16,7 +16,6 @@ playmidi1_LDADD=../src/libasound.la
- timer_LDADD=../src/libasound.la
+@@ -18,7 +18,6 @@
  rawmidi_LDADD=../src/libasound.la
  midiloop_LDADD=../src/libasound.la
+ umpinfo_LDADD=../src/libasound.la
 -oldapi_LDADD=../src/libasound.la
  queue_timer_LDADD=../src/libasound.la
  namehint_LDADD=../src/libasound.la
