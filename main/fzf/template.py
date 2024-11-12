@@ -1,5 +1,5 @@
 pkgname = "fzf"
-pkgver = "0.56.1"
+pkgver = "0.56.2"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/junegunn/fzf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "799c558628462fe0767ca282ed7e0746633239b80ab09ebc9d6f3653e3b788c9"
+sha256 = "1d67edb3e3ffbb14fcbf786bfcc0b5b8d87db6a0685135677b8ef4c114d2b864"
 
 
 def post_install(self):
