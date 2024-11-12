@@ -17,6 +17,7 @@ options = ["!check", "keepempty"]
 
 def install(self):
     # kernel.d helpers
+    self.install_dir("usr/lib/base-kernel")
     self.install_dir("usr/libexec/base-kernel")
 
     for f in [
@@ -24,7 +25,6 @@ def install(self):
         "kernel-root-detect",
         "kernel-pre-upgrade",
         "kernel-post-upgrade",
-        "run-kernel-d",
         "script-funcs",
         "script-pre-deinstall",
         "script-pre-install",
@@ -35,6 +35,15 @@ def install(self):
         self.install_file(
             self.files_path / "libexec" / f,
             "usr/libexec/base-kernel",
+            mode=0o755,
+        )
+
+    for f in [
+        "run-kernel-d",
+    ]:
+        self.install_file(
+            self.files_path / "libexec" / f,
+            "usr/lib/base-kernel",
             mode=0o755,
         )
 

@@ -106,7 +106,7 @@ case "$COMMAND" in
         done
         if [ -n "$RUN_HOOKS" ]; then
             echo "Running kernel hooks..."
-            /usr/libexec/base-kernel/run-kernel-d
+            /usr/lib/base-kernel/run-kernel-d
         fi
         ;;
     *)
