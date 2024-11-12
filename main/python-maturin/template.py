@@ -1,6 +1,6 @@
 pkgname = "python-maturin"
 pkgver = "1.7.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {
     "MATURIN_SETUP_ARGS": "--features=full,native-tls,password-storage"
@@ -16,7 +16,7 @@ hostmakedepends = [
 ]
 makedepends = ["rust-std", "openssl-devel"]
 checkdepends = ["pytest"]
-depends = ["python-tomli"]
+depends = ["python"]
 pkgdesc = "Tool for building and publishing Rust-based Python packages"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR MIT"
