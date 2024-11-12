@@ -1,5 +1,5 @@
 pkgname = "hyperfine"
-pkgver = "1.18.0"
+pkgver = "1.19.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/hyperfine"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "fea7b92922117ed04b9c84bb9998026264346768804f66baa40743c5528bed6b"
+sha256 = "d1c782a54b9ebcdc1dedf8356a25ee11e11099a664a7d9413fdd3742138fa140"
 
 
 def post_install(self):
