@@ -1,5 +1,5 @@
 pkgname = "ugrep"
-pkgver = "7.0.2"
+pkgver = "7.0.3"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -24,7 +24,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://ugrep.com"
 source = f"https://github.com/Genivia/ugrep/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9fb583a1569d070016ee8cf801b923f55b10556e64770fb369837f141d180449"
+sha256 = "9242da0f4106889a85751e72fd9383b71f9fbcee21903c5736f2e0921d4d49e7"
 
 
 def post_install(self):
