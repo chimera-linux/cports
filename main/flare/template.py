@@ -1,5 +1,5 @@
 pkgname = "flare"
-pkgver = "0.15.4"
+pkgver = "0.15.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -27,7 +27,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "AGPL-3.0-only"
 url = "https://mobile.schmidhuberj.de/flare"
 source = f"https://gitlab.com/schmiddi-on-mobile/flare/-/archive/{pkgver}/flare-{pkgver}.tar.gz"
-sha256 = "cdde38252759715f6ce3a45906c608a4232f215ff1c510f08d0d7afc169f30c4"
+sha256 = "8ddedc8f00c7e346143695293f1995080fa748e6bc6be8631102d626f2322cd8"
 
 
 def prepare(self):
