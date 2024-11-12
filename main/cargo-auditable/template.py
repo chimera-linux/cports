@@ -1,7 +1,7 @@
 # Keep in sync with cargo-auditable-bootstrap
 pkgname = "cargo-auditable"
-pkgver = "0.6.4"
-pkgrel = 1
+pkgver = "0.6.5"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = ["-p", "cargo-auditable"]
 make_check_args = [
@@ -19,7 +19,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/rust-secure-code/cargo-auditable"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3e3f4134d81b47277d34c44bc1169c9b0356612977651f8e98e2ba1a470b69a2"
+sha256 = "5e7dad2d00cba7f09f92f457999d15b7fb786a5ddd1adf87ddbc634878ab5589"
 
 
 def install(self):
