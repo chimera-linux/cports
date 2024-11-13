@@ -1,5 +1,5 @@
 pkgname = "containers-common"
-pkgver = "0.60.4"
+pkgver = "0.61.0"
 pkgrel = 0
 make_build_args = ["-C", "docs"]
 make_install_args = [*make_build_args]
@@ -10,8 +10,8 @@ license = "Apache-2.0"
 url = "https://github.com/containers/common"
 _base_url = url.removesuffix("/common")
 _common_ver = pkgver
-_storage_ver = "1.55.0"
-_image_ver = "5.32.2"
+_storage_ver = "1.56.0"
+_image_ver = "5.33.0"
 _shortnames_ver = "2023.02.20"
 source = [
     f"{_base_url}/common/archive/v{_common_ver}.tar.gz",
@@ -26,9 +26,9 @@ source_paths = [
     "shortnames",
 ]
 sha256 = [
-    "4d244fd6fe3ec6e069c42e0220a12ca2fa284190647563ff613066e17d55a2b6",
-    "d6c2d3af9e0f674c248477d521d0f8fc5eac050c65e2fd3f823cc42502b22847",
-    "2e0a4f21416cd287a39fe3556197f258ca02ffc5825a74b4ad6c3f52f08446b5",
+    "87e92762dcb6750b3afc016e5c553174bfb7a24a4dd8ccaf7e97973366d0076a",
+    "4304a4ecfd8f7809430ad0675a86b944f6339f9d0d54d985e12221f1f267c763",
+    "9d4b5fdfa1bfbb8e382b8c51d6ae1fdf9ab9082f6bbe37179d35b242dda2b51e",
     "336ba679d4e510d2eb59cb11321bf16a36ef2dba58024e79dd76b89ffee539e6",
 ]
 # no tests
