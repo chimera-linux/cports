@@ -1,0 +1,37 @@
+commit 5b9cb547c7d9c118282777d06fdb5552978b7b69
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Nov 13 16:33:15 2024 +0100
+
+    kernel-env: drop for now
+
+diff --git a/early/scripts/kernel-env.sh b/early/scripts/kernel-env.sh
+index 2aeb4b7..9dca5d7 100644
+--- a/early/scripts/kernel-env.sh
++++ b/early/scripts/kernel-env.sh
+@@ -2,7 +2,8 @@
+ #
+ # Expose kernel environment in dinit
+ #
+-# It may be cleared by early init, so re-parse it from procfs
++# Nothing to do here for now, as there is no way to tell what would
++# become environment variables.
+ 
+ DINIT_SERVICE=kernel-env
+ # containers do not clear environment so no need, also not portable
+@@ -12,16 +13,4 @@ DINIT_NO_CONTAINER=1
+ 
+ set -e
+ 
+-[ -r /proc/cmdline ] || exit 0
+-
+-# ensures quoting is safe and so on
+-eval set -- $(cat /proc/cmdline)
+-
+-for enval in "$@"; do
+-    case "$enval" in
+-        -) break ;;
+-        *=*) dinitctl --use-passed-cfd setenv "$enval" ;;
+-    esac
+-done
+-
+ exit 0
