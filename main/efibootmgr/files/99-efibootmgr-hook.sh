@@ -126,11 +126,11 @@ add_entry() {
         CMDLINE_FULL="$CMDLINE_FULL $INITRD"
     fi
 
-    CMDLINE_FULL=$(/usr/libexec/base-kernel/kernel-root-detect "$CMDLINE_FULL")
+    CMDLINE_FULL=$(/usr/lib/base-kernel/kernel-root-detect "$CMDLINE_FULL")
     add_entry_raw "$1" "" "$VMLINUX" "$CMDLINE_FULL"
 
     if [ -z "$EFIBOOTMGR_DISABLE_RECOVERY" ]; then
-        CMDLINE=$(/usr/libexec/base-kernel/kernel-root-detect "$CMDLINE")
+        CMDLINE=$(/usr/lib/base-kernel/kernel-root-detect "$CMDLINE")
         add_entry_raw "$1" ", recovery" "$VMLINUX" "$CMDLINE"
     fi
 }
