@@ -1,0 +1,49 @@
+Patch-Source: https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/7891
+--
+From 9b23c9b1a44dc48eef2abcee2e902992ea67e6bc Mon Sep 17 00:00:00 2001
+From: Benjamin Otte <otte.benjamin@googlemail.com>
+Date: Sun, 29 Sep 2024 04:55:12 +0000
+Subject: [PATCH] Merge branch 'wip/otte/for-main' into 'main'
+
+gpu: Consider scissor when intersecting with recangle
+
+Closes #7044
+
+See merge request GNOME/gtk!7762
+
+(cherry picked from commit 10fa5701951945498d24ae8526b4b175cb8abbb4)
+
+e18c5534 gpu: Consider scissor when intersecting with recangle
+---
+ gsk/gpu/gskgpunodeprocessor.c                 |  13 ++++++
+ .../compare/clip-all-clipped-issue-7044.node  |  42 ++++++++++++++++++
+ .../compare/clip-all-clipped-issue-7044.png   | Bin 0 -> 129 bytes
+ testsuite/gsk/meson.build                     |   1 +
+ 4 files changed, 56 insertions(+)
+ create mode 100644 testsuite/gsk/compare/clip-all-clipped-issue-7044.node
+ create mode 100644 testsuite/gsk/compare/clip-all-clipped-issue-7044.png
+
+diff --git a/gsk/gpu/gskgpunodeprocessor.c b/gsk/gpu/gskgpunodeprocessor.c
+index da093223666..7f9c6c1439f 100644
+--- a/gsk/gpu/gskgpunodeprocessor.c
++++ b/gsk/gpu/gskgpunodeprocessor.c
+@@ -1033,6 +1033,19 @@ gsk_gpu_node_processor_add_node_clipped (GskGpuNodeProcessor   *self,
+     }
+   else
+     {
++      graphene_rect_t scissored_clip;
++
++      if (gsk_gpu_node_processor_rect_device_to_clip (self,
++                                                      &GSK_RECT_INIT_CAIRO (&self->scissor),
++                                                      &scissored_clip))
++        {
++          if (!gsk_rect_intersection (&scissored_clip, &clip, &clip))
++            {
++              gsk_gpu_clip_init_copy (&self->clip, &old_clip);
++              return;
++            }
++        }
++
+       if (!gsk_gpu_clip_intersect_rect (&self->clip, &old_clip, &clip))
+         {
+           GskGpuImage *image;

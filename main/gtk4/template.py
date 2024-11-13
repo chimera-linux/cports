@@ -1,6 +1,6 @@
 pkgname = "gtk4"
 pkgver = "4.16.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
