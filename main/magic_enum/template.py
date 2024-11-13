@@ -1,5 +1,5 @@
 pkgname = "magic_enum"
-pkgver = "0.9.6"
+pkgver = "0.9.7"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/Neargye/magic_enum"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "814791ff32218dc869845af7eb89f898ebbcfa18e8d81aa4d682d18961e13731"
+sha256 = "b403d3dad4ef542fdc3024fa37d3a6cedb4ad33c72e31b6d9bab89dcaf69edf7"
 
 
 def post_install(self):
