@@ -1,9 +1,10 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.13"
+pkgver = "0.99.14"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
+    "-Ddefault-path-env=/usr/bin",
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libkmod-devel", "linux-headers"]
@@ -34,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "193f4a1398a85f865cd624c05283a00308d3ed266047669e544a85396f9121a0"
+sha256 = "696aabb532083da5eda104cd728ab9131bb17274566759234c50690d7a73ce0c"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks"]
 
@@ -55,9 +56,6 @@ def post_install(self):
     self.install_tmpfiles("^/utmp.conf", name="utmp")
     self.install_file("^/sd-tmpfiles-clean", "usr/lib", mode=0o755)
     self.install_service("^/tmpfiles-clean", enable=True)
-    # init symlink
-    self.install_dir("usr/bin")
-    self.install_link("usr/bin/init", "dinit")
     # x11 support
     self.install_dir("etc/X11/Xsession.d")
     self.install_file("^/01dinit-env", "etc/X11/Xsession.d", mode=0o755)
