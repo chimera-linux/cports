@@ -1,6 +1,6 @@
 pkgname = "go"
 pkgver = "1.23.3"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["bash"]
 checkdepends = [
     "libatomic-chimera-devel-static",
