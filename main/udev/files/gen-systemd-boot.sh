@@ -120,7 +120,7 @@ build_cmdline() {
 
 gen_cmdline() {
     CMDL=$(build_cmdline "$@" | sed 's/[ ]*$//')
-    /usr/libexec/base-kernel/kernel-root-detect "$CMDL"
+    /usr/lib/base-kernel/kernel-root-detect "$CMDL"
 }
 
 CMDLINE_MULTI=$(gen_cmdline 1)
