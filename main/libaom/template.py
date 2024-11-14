@@ -1,5 +1,5 @@
 pkgname = "libaom"
-pkgver = "3.10.0"
+pkgver = "3.11.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -9,12 +9,12 @@ configure_args = [
 ]
 hostmakedepends = [
     "cmake",
-    "ninja",
-    "pkgconf",
-    "perl",
-    "python",
-    "nasm",
     "doxygen",
+    "nasm",
+    "ninja",
+    "perl",
+    "pkgconf",
+    "python",
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Reference implementation of the AV1 codec"
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://aomedia.org"
 source = [f"https://storage.googleapis.com/aom-releases/libaom-{pkgver}.tar.gz"]
-sha256 = ["55ccb6816fb4b7d508d96a95b6e9cc3d2c0ae047f9f947dbba03720b56d89631"]
+sha256 = ["cf7d103d2798e512aca9c6e7353d7ebf8967ee96fffe9946e015bb9947903e3e"]
 # requires a testdata download, tests take long
 options = ["!check"]
 
