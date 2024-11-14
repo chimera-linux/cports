@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.6.60 Kernel Configuration
+# Linux/arm64 6.6.61 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 18.1.8"
 CONFIG_GCC_VERSION=0
@@ -543,7 +543,6 @@ CONFIG_ARM64_EPAN=y
 # end of ARMv8.7 architectural features
 
 CONFIG_ARM64_SVE=y
-CONFIG_ARM64_SME=y
 CONFIG_ARM64_PSEUDO_NMI=y
 # CONFIG_ARM64_DEBUG_PRIORITY_MASKING is not set
 CONFIG_RELOCATABLE=y
