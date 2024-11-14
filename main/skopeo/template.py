@@ -1,6 +1,6 @@
 pkgname = "skopeo"
-pkgver = "1.16.1"
-pkgrel = 3
+pkgver = "1.17.0"
+pkgrel = 0
 build_style = "go"
 # for compatibility with Makefile targets
 make_dir = "bin"
@@ -24,7 +24,7 @@ maintainer = "Radosław Piliszek <radek@piliszek.it>"
 license = "Apache-2.0"
 url = "https://github.com/containers/skopeo"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9402e71f3fba979d0c0509240b963847bfeda2eac60be83eb5a628fd67d098e6"
+sha256 = "e548c044c7b644ba455f482df387ec90aceea432b9c61a0bab0ec8534970eb69"
 
 
 def post_build(self):
