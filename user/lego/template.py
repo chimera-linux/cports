@@ -1,6 +1,6 @@
 pkgname = "lego"
-pkgver = "4.19.2"
-pkgrel = 1
+pkgver = "4.20.2"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["-ldflags", f"-X main.version={pkgver}", "./cmd/lego"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/go-acme/lego"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c6741f3ae0f17370b1b400ed170fd070575c55ba6bc2aa71d90738f3f0a719d9"
+sha256 = "8b295378d4b2d3fed4f0df6d4d5d6aa712082729334848f89f776a8fec912f97"
 # check: tests need network access: https://github.com/go-acme/lego/issues/560
 options = ["!check"]
 
