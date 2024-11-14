@@ -1,12 +1,11 @@
 pkgname = "python-blinker"
-pkgver = "1.8.2"
-pkgrel = 1
+pkgver = "1.9.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-flit_core",
     "python-installer",
-    "python-wheel",
 ]
 depends = ["python"]
 checkdepends = ["python-pytest", "python-pytest-asyncio"]
@@ -15,7 +14,7 @@ maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"
 url = "https://github.com/pallets-eco/blinker"
 source = f"https://github.com/pallets-eco/blinker/archive/{pkgver}.tar.gz"
-sha256 = "8bdbf175087cf3af2c5b13ad247cf832ad03f93daceffff7cbaaae95b63d9581"
+sha256 = "9b02df578ec0aadd5e800e5f09281e80abddab5e0f74b4b88694f06c9956b6aa"
 
 
 def post_install(self):
