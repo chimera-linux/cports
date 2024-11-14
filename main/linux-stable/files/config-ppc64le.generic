@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.11.7 Kernel Configuration
+# Linux/powerpc 6.11.8 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 18.1.8"
 CONFIG_GCC_VERSION=0
@@ -3307,6 +3307,7 @@ CONFIG_CAN_C_CAN=m
 CONFIG_CAN_C_CAN_PLATFORM=m
 CONFIG_CAN_C_CAN_PCI=m
 CONFIG_CAN_CC770=m
+CONFIG_CAN_CC770_ISA=m
 CONFIG_CAN_CC770_PLATFORM=m
 # CONFIG_CAN_CTUCANFD_PCI is not set
 # CONFIG_CAN_CTUCANFD_PLATFORM is not set
