@@ -1,6 +1,6 @@
-pkgname = "minetest"
-pkgver = "5.9.1"
-pkgrel = 1
+pkgname = "luanti"
+pkgver = "5.10.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SERVER=TRUE",
@@ -39,15 +39,16 @@ makedepends = [
     "sqlite-devel",
     "zstd-devel",
 ]
-depends = [self.with_pkgver("minetest-common")]
+depends = [self.with_pkgver("luanti-common")]
+provides = [self.with_pkgver("minetest")]
 pkgdesc = "Voxel game creation platform"
 maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
-url = "https://www.minetest.net"
+url = "https://www.luanti.org"
 source = (
     f"https://github.com/minetest/minetest/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "aa9a6ae57445b779f57dcba5a83b0704fabd24c5eca37c6c8611e885bdf09d7c"
+sha256 = "2a3161c04e7389608006f01280eda30507f8bacfa1d6b64c2af1b820a62d2677"
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
 # see below
@@ -59,30 +60,32 @@ if self.profile().arch == "ppc64le":
 
 
 def check(self):
-    self.do("bin/minetest", "--run-unittests")
-    self.do("bin/minetestserver", "--run-unittests")
+    self.do("bin/luanti", "--run-unittests")
+    self.do("bin/luantiserver", "--run-unittests")
 
 
 def post_install(self):
     self.install_file(
         "minetest.conf.example",
-        "etc/minetest",
+        "etc/luanti",
         name="minetest.conf",
     )
     # dead symlink
-    self.uninstall("usr/share/minetest/client/shaders/Irrlicht")
+    self.uninstall("usr/share/luanti/client/shaders/Irrlicht")
 
 
-@subpackage("minetest-common")
+@subpackage("luanti-common")
 def _(self):
     self.subdesc = "common files"
+    self.provides = [self.with_pkgver("minetest-common")]
 
-    return ["usr/share/minetest/builtin"]
+    return ["usr/share/luanti/builtin"]
 
 
-@subpackage("minetest-server")
+@subpackage("luanti-server")
 def _(self):
     self.subdesc = "server"
-    self.depends = [self.with_pkgver("minetest-common")]
+    self.depends = [self.with_pkgver("luanti-common")]
+    self.provides = [self.with_pkgver("minetest-server")]
 
-    return ["usr/bin/minetestserver"]
+    return ["usr/bin/luantiserver"]
