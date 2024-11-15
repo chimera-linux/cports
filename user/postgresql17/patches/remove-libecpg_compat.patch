@@ -1,0 +1,35 @@
+Nothing ever depended on libecpg_compat.so.3 in Fedora, so don't install
+it now, at least till somebody explicitly requests that.
+
+Patch-Source: https://src.fedoraproject.org/rpms/libecpg/blob/f35/f/libecpg-10.5-no-compat-lib.patch
+(updated for meson)
+
+--- a/src/interfaces/ecpg/test/meson.build
++++ b/src/interfaces/ecpg/test/meson.build
+@@ -29,7 +29,7 @@
+ ecpg_test_exec_kw = {
+   'dependencies': [frontend_code, libpq],
+   'include_directories': [ecpg_inc],
+-  'link_with': [ecpglib_so, ecpg_compat_so, ecpg_pgtypes_so],
++  'link_with': [ecpglib_so, ecpg_pgtypes_so],
+   'build_by_default': false,
+   'install': false,
+ }
+@@ -52,7 +52,6 @@
+ 
+ ecpg_test_dependencies = []
+ 
+-subdir('compat_informix')
+ subdir('compat_oracle')
+ subdir('connect')
+ subdir('pgtypeslib')
+--- a/src/interfaces/ecpg/meson.build
++++ b/src/interfaces/ecpg/meson.build
+@@ -5,7 +5,6 @@
+ subdir('include')
+ subdir('pgtypeslib')
+ subdir('ecpglib')
+-subdir('compatlib')
+ subdir('preproc')
+ 
+ alias_target('ecpg', ecpg_targets)
