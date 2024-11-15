@@ -1,0 +1,28 @@
+--- a/subprojects/scenefx/meson.build
++++ b/subprojects/scenefx/meson.build
+@@ -100,7 +100,7 @@
+ 	required: false,
+ 	version: wlroots_version,
+ ).found()
+-wlroots = dependency('wlroots',
++wlroots = dependency('wlroots-0.17',
+ 	version: wlroots_version,
+ 	default_options: wlroots_options,
+ )
+--- a/meson.build
++++ b/meson.build
+@@ -46,12 +46,12 @@
+ # Execute the wlroots subproject, if any
+ wlroots_version = ['>=0.17.0', '<0.18.0']
+ subproject(
+-	'wlroots',
++	'wlroots-0.17',
+ 	default_options: ['examples=false'],
+ 	required: false,
+ 	version: wlroots_version,
+ )
+-wlroots = dependency('wlroots', version: wlroots_version)
++wlroots = dependency('wlroots-0.17', version: wlroots_version)
+ wlroots_features = {
+ 	'xwayland': false,
+ 	'libinput_backend': false,
