@@ -1,6 +1,6 @@
 pkgname = "rclone"
-pkgver = "1.68.1"
-pkgrel = 2
+pkgver = "1.68.2"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Rsync for cloud storage"
@@ -8,7 +8,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://rclone.org"
 source = f"https://github.com/rclone/rclone/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "26259526855a12499d00e3a3135ee95e7aeb3ecf2f85886d8c837a2e7b236226"
+sha256 = "6c4c1a1702633c7a8f8755a9cfb951c3ae0b7bcc2e210b92e191250b6aae2e9f"
 # tests require network
 options = ["!check", "!cross"]
 
