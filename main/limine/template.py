@@ -1,6 +1,6 @@
 pkgname = "limine"
 pkgver = "8.4.0"
-pkgrel = 0
+pkgrel = 1
 # these targets implemented
 archs = ["aarch64", "x86_64", "riscv64"]
 build_style = "gnu_configure"
