@@ -1,7 +1,7 @@
 pkgname = "postgresql16"
 _major = pkgname.removeprefix("postgresql")
 pkgver = f"{_major}.5"
-pkgrel = 0
+pkgrel = 1
 # NOTE: version 16 doesn't work with meson + tarball
 # switch to meson for version 17
 build_style = "gnu_configure"

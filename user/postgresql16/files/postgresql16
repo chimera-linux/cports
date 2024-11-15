@@ -1,5 +1,3 @@
-# postgresql service
-
 type = process
 command = /usr/libexec/postgresql16/postgres -D /var/lib/postgresql
 depends-on = network.target
@@ -7,3 +5,10 @@ smooth-recovery = true
 logfile = /var/log/postgresql.log
 run-as = _postgres
 stop-timeout = 60.0
+# see https://www.postgresql.org/docs/current/server-shutdown.html
+# ideally, we would use TERM and follow it with INT after some time,
+# but dinit doesn't support that. so default to fast-shutdown- the default
+# TERM smart shutdown will "hang forever" and then get a SIGKILL since
+# long-running server processes will be using the same connection constantly and
+# not making new ones and never let postgres drop to 0 connections and exit.
+term-signal = INT
