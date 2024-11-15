@@ -1,5 +1,5 @@
 pkgname = "libnvme"
-pkgver = "1.11"
+pkgver = "1.11.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/linux-nvme/libnvme"
 source = f"{url}/archive/v{pkgver}/libnvme-v{pkgver}.tar.gz"
-sha256 = "f6da60036b14e0427246718a32abff442228331f9ae3853f89160cf366d83dfe"
+sha256 = "6d5d8ba2cc4c94a61a994c9f7f25b3b26ef973fb5c0daa37729890903f37a1f1"
 
 
 @subpackage("libnvme-python")
