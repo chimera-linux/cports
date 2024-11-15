@@ -1,16 +1,16 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index dadfc5b..c05a939 100644
+index 1f7584b..f5955df 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2312,7 +2312,6 @@ dependencies = [
+@@ -2505,7 +2505,6 @@ dependencies = [
   "tempfile",
   "test-case",
-  "thiserror",
+  "thiserror 2.0.3",
 - "tikv-jemallocator",
   "toml",
   "tracing",
   "walkdir",
-@@ -2339,7 +2338,6 @@ dependencies = [
+@@ -2531,7 +2530,6 @@ dependencies = [
   "rustc-hash 2.0.0",
   "serde",
   "serde_json",
@@ -18,7 +18,7 @@ index dadfc5b..c05a939 100644
   "ureq",
   "url",
  ]
-@@ -3371,26 +3369,6 @@ dependencies = [
+@@ -3594,26 +3592,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -43,10 +43,10 @@ index dadfc5b..c05a939 100644
 -]
 -
  [[package]]
- name = "tinytemplate"
- version = "1.2.1"
+ name = "tinystr"
+ version = "0.7.6"
 diff --git a/crates/ruff/Cargo.toml b/crates/ruff/Cargo.toml
-index d6889a3..e99525f 100644
+index d1c0741..025b637 100644
 --- a/crates/ruff/Cargo.toml
 +++ b/crates/ruff/Cargo.toml
 @@ -79,8 +79,6 @@ ignored = ["chrono"]
@@ -59,10 +59,10 @@ index d6889a3..e99525f 100644
  [lints]
  workspace = true
 diff --git a/crates/ruff/src/main.rs b/crates/ruff/src/main.rs
-index f1d0663..5f7a70f 100644
+index 2271cca..34c3e9d 100644
 --- a/crates/ruff/src/main.rs
 +++ b/crates/ruff/src/main.rs
-@@ -13,19 +13,6 @@ use ruff_linter::logging::{set_up_logging, LogLevel};
+@@ -11,19 +11,6 @@ use ruff::{run, ExitStatus};
  #[global_allocator]
  static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
  
@@ -83,10 +83,10 @@ index f1d0663..5f7a70f 100644
      // Enabled ANSI colors on Windows 10.
      #[cfg(windows)]
 diff --git a/crates/ruff_benchmark/Cargo.toml b/crates/ruff_benchmark/Cargo.toml
-index 0532875..01a212f 100644
+index c6c8510..ed0b5e3 100644
 --- a/crates/ruff_benchmark/Cargo.toml
 +++ b/crates/ruff_benchmark/Cargo.toml
-@@ -66,5 +66,3 @@ codspeed = ["codspeed-criterion-compat"]
+@@ -65,5 +65,3 @@ codspeed = ["codspeed-criterion-compat"]
  [target.'cfg(target_os = "windows")'.dev-dependencies]
  mimalloc = { workspace = true }
  
