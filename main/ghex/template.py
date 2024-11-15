@@ -1,5 +1,5 @@
 pkgname = "ghex"
-pkgver = "46.0"
+pkgver = "46.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/ghex"
 source = f"$(GNOME_SITE)/ghex/{pkgver[:-2]}/ghex-{pkgver}.tar.xz"
-sha256 = "a1c46f3020cb358b8323025db3a539c97d994a4c46f701f48edc6357f7fbcbd1"
+sha256 = "8a13975474eee27719b29ad763f1b24760a1aede6d7da4b623703070bc26e9fd"
 options = ["!cross"]
 
 
