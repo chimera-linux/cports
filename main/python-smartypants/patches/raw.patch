@@ -1,0 +1,18 @@
+--- a/smartypants.py
++++ b/smartypants.py
+@@ -268,13 +268,13 @@ def smartypants(text, attr=None):
+                 if do_quotes:
+                     if t == "'":
+                         # Special case: single-character ' token
+-                        if re.match("\S", prev_token_last_char):
++                        if re.match(r"\S", prev_token_last_char):
+                             t = "&#8217;"
+                         else:
+                             t = "&#8216;"
+                     elif t == '"':
+                         # Special case: single-character " token
+-                        if re.match("\S", prev_token_last_char):
++                        if re.match(r"\S", prev_token_last_char):
+                             t = "&#8221;"
+                         else:
+                             t = "&#8220;"
