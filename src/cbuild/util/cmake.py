@@ -88,12 +88,15 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
             f"-DCMAKE_RANLIB=/usr/bin/{pkg.get_tool('RANLIB')}",
         ]
 
+    # TODO: try put these args in a toolchain file like above even for native, if it
+    # silences all the warnings about unused args and actually works
     pkg.do(
         "cmake",
         "-G",
         generator or "Ninja",
         *cargs,
         "-Wno-dev",
+        f"-DCMAKE_AUTOGEN_PARALLEL={min(pkg.make_jobs, 2)}",
         "-DCMAKE_BUILD_TYPE=None",
         "-DCMAKE_INSTALL_PREFIX=/usr",
         "-DCMAKE_TLS_VERIFY=ON",
