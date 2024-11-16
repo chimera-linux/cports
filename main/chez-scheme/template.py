@@ -1,5 +1,5 @@
 pkgname = "chez-scheme"
-pkgver = "10.0.0"
+pkgver = "10.1.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--enable-libffi", "LZ4=-llz4", "ZLIB=-lz"]
@@ -16,7 +16,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://cisco.github.io/ChezScheme"
 source = f"https://github.com/cisco/ChezScheme/releases/download/v{pkgver}/csv{pkgver}.tar.gz"
-sha256 = "d37199012b5ed1985c4069d6a87ff18e5e1f5a2df27e402991faf45dc4f2232c"
+sha256 = "9181a6c8c4ab5e5d32d879ff159d335a50d4f8b388611ae22a263e932c35398b"
 hardening = ["!int"]
 # below
 options = ["!cross"]
