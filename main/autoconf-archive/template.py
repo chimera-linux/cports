@@ -1,6 +1,6 @@
 pkgname = "autoconf-archive"
 pkgver = "2024.10.16"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 makedepends = ["automake", "texinfo"]
 pkgdesc = "Collection of re-usable Autoconf macros"
