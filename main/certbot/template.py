@@ -1,6 +1,6 @@
 pkgname = "certbot"
-pkgver = "2.11.0"
-pkgrel = 1
+pkgver = "3.0.1"
+pkgrel = 0
 build_wrksrc = "certbot"
 build_style = "python_pep517"
 _plugins = [
@@ -47,7 +47,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0 AND MIT"
 url = "https://github.com/certbot/certbot"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "93764a18e0b19fe5fc7471a02a2df1937c40eb65c86b3f9ea11b40416c1541dc"
+sha256 = "241bc1b7bfaf9b00955a86274bc78336a15c3706ce838b59e8819325dee698cc"
 
 
 def post_build(self):
