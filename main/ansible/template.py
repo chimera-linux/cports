@@ -1,5 +1,5 @@
 pkgname = "ansible"
-pkgver = "10.5.0"
+pkgver = "10.6.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "Mara <177581589+catgirlconspiracy@users.noreply.github.com>"
 license = "GPL-3.0-or-later"
 url = "https://ansible.com"
 source = f"$(PYPI_SITE)/a/ansible/ansible-{pkgver}.tar.gz"
-sha256 = "ba2045031a7d60c203b6e5fe1f8eaddd53ae076f7ada910e636494384135face"
+sha256 = "a8bde9c3ee8ee7c4a085e125777ba39bf837c6e74a0733e1f786389b125e6db2"
 # many collections either require additional Python modules, or the tests
 # require dependencies that aren't in the tarball, or they're just broken
 # (possibly due to Python version compat issues)
