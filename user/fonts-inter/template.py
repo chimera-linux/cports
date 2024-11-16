@@ -1,12 +1,12 @@
 pkgname = "fonts-inter"
-pkgver = "4.0"
+pkgver = "4.1"
 pkgrel = 0
 pkgdesc = "Inter typeface family"
 maintainer = "beb <beb_@tutamail.com>"
 license = "OFL-1.1"
 url = "https://rsms.me/inter"
 source = f"https://github.com/rsms/inter/releases/download/v{pkgver}/Inter-{pkgver}.zip"
-sha256 = "ff970a5d4561a04f102a7cb781adbd6ac4e9b6c460914c7a101f15acb7f7d1a4"
+sha256 = "9883fdd4a49d4fb66bd8177ba6625ef9a64aa45899767dde3d36aa425756b11e"
 options = ["empty"]
 
 
