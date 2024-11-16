@@ -1,5 +1,5 @@
 pkgname = "rsgain"
-pkgver = "3.5.2"
+pkgver = "3.5.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://github.com/complexlogic/rsgain"
 source = f"{url}/releases/download/v{pkgver}/rsgain-{pkgver}-source.tar.xz"
-sha256 = "4f701521fd270b60f536a12aeb64e09bb87f24c30d576231d2fda3b6cc8c697e"
+sha256 = "3626e7adaee475be3c72c78cd1e8c6ffa38062daf48c8e8a8591c16022ff6bf4"
 
 
 def post_install(self):
