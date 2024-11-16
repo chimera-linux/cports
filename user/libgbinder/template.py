@@ -1,6 +1,6 @@
 pkgname = "libgbinder"
-pkgver = "1.1.40"
-pkgrel = 1
+pkgver = "1.1.41"
+pkgrel = 0
 build_style = "makefile"
 make_install_target = "install-dev"
 make_check_target = "test"
@@ -12,7 +12,7 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/mer-hybris/libgbinder"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9e86243df6502ffd0a68ee8384c5c36b9cd4093733ea620313f1947f312abbd1"
+sha256 = "270a93a6e2168392cfee64520b17ac7d6347da070e3daa2391be3abc75d44ef2"
 
 
 def post_build(self):
