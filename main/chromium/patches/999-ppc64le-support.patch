@@ -62,6 +62,17 @@ index d38db0a..038ffeb 100644
  
  class PA_LOCKABLE Lock;
  
+--- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
++++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
+@@ -138,7 +138,7 @@
+ //     PA_MUSTTAIL return Func1(d + 1);  // `Func1()` will be tail-called.
+ //   }
+ // ```
+-#if PA_HAS_CPP_ATTRIBUTE(clang::musttail)
++#if PA_HAS_CPP_ATTRIBUTE(clang::musttail) && !defined(__powerpc__)
+ #define PA_MUSTTAIL [[clang::musttail]]
+ #else
+ #define PA_MUSTTAIL
 diff --git a/base/compiler_specific.h b/base/compiler_specific.h
 index 7f8d9ae..07043d8 100644
 --- a/base/compiler_specific.h
