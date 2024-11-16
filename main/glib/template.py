@@ -1,12 +1,13 @@
 pkgname = "glib"
 pkgver = "2.82.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddocumentation=false",
     "-Dintrospection=enabled",
     "-Dman-pages=enabled",
     "-Dselinux=disabled",
+    "-Dsysprof=enabled",
 ]
 make_check_args = ["--timeout-multiplier", "5"]
 make_check_wrapper = ["dbus-run-session"]
@@ -26,6 +27,7 @@ makedepends = [
     "libffi-devel",
     "libmount-devel",
     "pcre2-devel",
+    "sysprof-capture",
     "zlib-ng-compat-devel",
 ]
 checkdepends = [
