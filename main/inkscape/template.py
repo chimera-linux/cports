@@ -1,6 +1,6 @@
 pkgname = "inkscape"
 pkgver = "1.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -49,6 +49,7 @@ depends = [
     "python-numpy",
     "python-pillow",
     "python-scour",
+    "python-tinycss2",
 ]
 pkgdesc = "Vector graphics editor"
 maintainer = "q66 <q66@chimera-linux.org>"
