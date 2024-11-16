@@ -1,6 +1,6 @@
 pkgname = "cava"
-pkgver = "0.10.2"
-pkgrel = 2
+pkgver = "0.10.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-input-alsa",
@@ -29,7 +29,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/karlstav/cava"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "853ee78729ed3501d0cdf9c1947967ad3bfe6526d66a029b4ddf9adaa6334d4f"
+sha256 = "bf822ac18ae0ca2cf926c2875f3221591960c25f2bcab89ea19729be4b9c3663"
 
 
 def post_install(self):
