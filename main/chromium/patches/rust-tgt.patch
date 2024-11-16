@@ -1,6 +1,6 @@
 --- a/build/config/rust.gni
 +++ b/build/config/rust.gni
-@@ -198,14 +198,16 @@
+@@ -198,14 +198,17 @@
  rust_abi_target = ""
  if (is_linux || is_chromeos) {
    if (current_cpu == "arm64") {
@@ -16,6 +16,7 @@
      cargo_target_abi = ""
 +  } else if (current_cpu == "ppc64") {
 +    rust_abi_target = "powerpc64le-chimera-linux-musl"
++    cargo_target_abi = ""
    } else if (current_cpu == "arm") {
      if (arm_float_abi == "hard") {
        float_suffix = "hf"
