@@ -7,9 +7,9 @@ diff --git a/base/allocator/partition_allocator/partition_alloc.gni b/base/alloc
 index e7f2f679b5..bafdbde410 100644
 --- a/base/allocator/partition_allocator/partition_alloc.gni
 +++ b/base/allocator/partition_allocator/partition_alloc.gni
-@@ -30,8 +30,7 @@ if (is_nacl) {
- # Increases the size of the empty slot span ring.
- use_large_empty_slot_span_ring = is_mac
+@@ -37,8 +37,7 @@
+ # TODO(crbug.com/329199197): Clean this up when experiments are complete.
+ use_large_empty_slot_span_ring = true
  
 -has_memory_tagging =
 -    current_cpu == "arm64" && is_clang && !is_asan && (is_linux || is_android)
@@ -34,14 +34,15 @@ diff --git a/base/allocator/partition_allocator/src/partition_alloc/page_allocat
 index 295d0ce..9381363 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_internals_posix.cc
 +++ b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_internals_posix.cc
-@@ -8,8 +8,8 @@
- #include "partition_alloc/buildflags.h"
- #include "partition_alloc/page_allocator.h"
+@@ -37,8 +37,9 @@
+ 
+ #endif  // PA_BUILDFLAG(IS_MAC)
  
 -#if PA_BUILDFLAG(HAS_MEMORY_TAGGING) || \
 -    (defined(__ARM_FEATURE_BTI_DEFAULT) && (__ARM_FEATURE_BTI_DEFAULT == 1))
-+#if 0 && (PA_BUILDFLAG(HAS_MEMORY_TAGGING) || \
-+    (defined(__ARM_FEATURE_BTI_DEFAULT) && (__ARM_FEATURE_BTI_DEFAULT == 1)))
++#if 0 &&                                 \
++    (PA_BUILDFLAG(HAS_MEMORY_TAGGING) || \
++     (defined(__ARM_FEATURE_BTI_DEFAULT) && (__ARM_FEATURE_BTI_DEFAULT == 1)))
  struct __ifunc_arg_t;
  
  #include "partition_alloc/aarch64_support.h"

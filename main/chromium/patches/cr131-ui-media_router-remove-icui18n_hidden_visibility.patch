@@ -1,0 +1,34 @@
+From cace49464c226bb0c0faa54760596ad5125fbf00 Mon Sep 17 00:00:00 2001
+From: Nik Pavlov <nikita.pavlov.dev@gmail.com>
+Date: Wed, 23 Oct 2024 09:23:12 +0000
+Subject: [PATCH] Remove icui18n_hidden_visibility from dependencies to resolve
+ duplicate symbol issue
+
+This change resolves a build issue caused by duplicate symbols like
+"upvec_open_74" being defined in both `libicuuc.a` and
+`libicuuc_hidden_visibility.a`. The conflict occurred because both
+`icui18n` and `icui18n_hidden_visibility` were included in the deps,
+leading to symbol duplication during linking.
+
+Change-Id: I42fbe20cb24c603e99a32815753e074c1bfb161d
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/5952405
+Reviewed-by: Erik Chen <erikchen@chromium.org>
+Commit-Queue: Antonio Gomes <tonikitoo@igalia.com>
+Reviewed-by: Antonio Gomes <tonikitoo@igalia.com>
+Cr-Commit-Position: refs/heads/main@{#1372572}
+---
+ chrome/browser/ui/media_router/BUILD.gn | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/chrome/browser/ui/media_router/BUILD.gn b/chrome/browser/ui/media_router/BUILD.gn
+index 9f861521cab63..3ca4a061dd604 100644
+--- a/chrome/browser/ui/media_router/BUILD.gn
++++ b/chrome/browser/ui/media_router/BUILD.gn
+@@ -78,7 +78,6 @@ source_set("impl") {
+     "//media/remoting:remoting_device_capability",
+     "//net",
+     "//third_party/icu:icui18n",
+-    "//third_party/icu:icui18n_hidden_visibility",
+     "//ui/base",
+     "//ui/display",
+     "//ui/views",

@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "130.0.6723.116"
+pkgver = "131.0.6778.69"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -140,7 +140,7 @@ license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 # from gentoo
 source = f"https://chromium-tarballs.syd1.digitaloceanspaces.com/chromium-{pkgver}.tar.xz"
-sha256 = "489f98fa4e44e97bfd2df73ab74d35f43a618d725098cd233e57b02fd43b9ee9"
+sha256 = "56d332bd53b26ad4f9a8f36c4cba37e9f05126a353d57666d12690944769bfaa"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
