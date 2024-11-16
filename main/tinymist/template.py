@@ -1,8 +1,8 @@
 pkgname = "tinymist"
 pkgver = "0.12.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
-make_build_args = ["--bin", "tinymist"]
+make_build_args = ["--bin", "tinymist", "--bin", "typlite"]
 hostmakedepends = ["cargo", "pkgconf"]
 makedepends = ["rust-std", "openssl-devel"]
 depends = ["typst"]
@@ -31,3 +31,4 @@ def install(self):
     for shell in ["bash", "fish", "zsh", "nushell"]:
         self.install_completion(f"tinymist.{shell}", shell)
     self.install_bin(f"target/{self.profile().triplet}/release/tinymist")
+    self.install_bin(f"target/{self.profile().triplet}/release/typlite")
