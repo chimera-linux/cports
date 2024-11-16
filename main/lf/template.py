@@ -19,3 +19,4 @@ def post_install(self):
         self.install_completion("lf.zsh", "zsh")
         self.install_completion("lf.bash", "bash")
         self.install_completion("lf.fish", "fish")
+        self.install_completion("lf.nu", "nushell")
