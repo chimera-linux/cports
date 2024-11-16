@@ -1,8 +1,11 @@
 pkgname = "pango"
 pkgver = "1.54.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
-configure_args = ["-Dintrospection=enabled"]
+configure_args = [
+    "-Dintrospection=enabled",
+    "-Dsysprof=enabled",
+]
 hostmakedepends = [
     "glib-devel",
     "gobject-introspection",
@@ -16,6 +19,7 @@ makedepends = [
     "harfbuzz-devel",
     "libthai-devel",
     "libxft-devel",
+    "sysprof-capture",
 ]
 checkdepends = [
     "fonts-cantarell-otf",
