@@ -1,5 +1,5 @@
 pkgname = "freerdp"
-pkgver = "2.11.7"
+pkgver = "3.9.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -7,13 +7,20 @@ configure_args = [
     "-DWITH_CAIRO=ON",
     "-DWITH_CHANNELS=ON",
     "-DWITH_JPEG=ON",
+    "-DWITH_KRB5=ON",
     "-DWITH_MBEDTLS=OFF",
     "-DWITH_OSS=OFF",
+    "-DWITH_PULSE=ON",
     "-DWITH_SERVER=ON",
     "-DWITH_SERVER_CHANNELS=ON",
     "-DWITH_SWSCALE=ON",
+    "-DWITH_WAYLAND=ON",
     "-DWITH_WEBVIEW=OFF",
+    "-DWITH_X11=ON",
     "-DWITH_ZLIB=ON",
+    "-DWINPR_UTILS_IMAGE_JPEG=ON",
+    "-DWINPR_UTILS_IMAGE_PNG=ON",
+    "-DWINPR_UTILS_IMAGE_WEBP=ON",
 ]
 hostmakedepends = [
     "cmake",
@@ -30,9 +37,11 @@ makedepends = [
     "fuse-devel",
     "gsm-devel",
     "heimdal-devel",
+    "json-c-devel",
     "libjpeg-turbo-devel",
     "libpulse-devel",
     "libusb-devel",
+    "libwebp-devel",
     "libx11-devel",
     "libxcursor-devel",
     "libxdamage-devel",
@@ -47,6 +56,8 @@ makedepends = [
     "openssl-devel",
     "pcsc-lite-devel",
     "pkcs11-helper-devel",
+    "sdl-devel",
+    "sdl_ttf-devel",
     "uriparser-devel",
     "wayland-devel",
     "zlib-ng-compat-devel",
@@ -56,10 +67,8 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://www.freerdp.com"
 source = f"https://pub.freerdp.com/releases/freerdp-{pkgver}.tar.gz"
-sha256 = "5a2d54e1ca0f1facd1632bcc94c73b9f071a80c5fdbbb3f26e79f02aaa586ca3"
-tool_flags = {
-    "CFLAGS": ["-DNDEBUG", "-Wno-incompatible-function-pointer-types"]
-}
+sha256 = "2eef25f2b421dbe7b6ca64a96045afe57a4b8c559339baca8cb8528c42518b83"
+tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 
 
 @subpackage("freerdp-devel")
