@@ -1,6 +1,6 @@
 pkgname = "perf"
 pkgver = "6.11.8"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "tools/perf"
 build_style = "makefile"
 make_build_args = [
@@ -21,6 +21,7 @@ make_build_args = [
     "mandir=/usr/share/man",
     "prefix=/usr",
     "sbindir=/usr/bin",
+    "tipdir=/usr/share/doc/perf-tip",
 ]
 make_install_args = [
     "install-python_ext",
