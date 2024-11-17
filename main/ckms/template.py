@@ -1,10 +1,9 @@
 pkgname = "ckms"
 pkgver = "0.1.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "makefile"
 hostmakedepends = ["scdoc"]
 depends = ["python"]
-triggers = ["/usr/src"]
 pkgdesc = "Chimera Kernel Module System"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
@@ -26,8 +25,4 @@ def post_install(self):
     # initramfs refresh hook
     self.install_file(
         self.files_path / "refresh-initramfs.sh", "etc/ckms", mode=0o755
-    )
-    # helpers
-    self.install_file(
-        self.files_path / "ckms-install-all", "usr/libexec", mode=0o755
     )
