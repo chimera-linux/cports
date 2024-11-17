@@ -5,12 +5,12 @@ index 56455bd..3cdbae9 100644
 --- a/tests/Makefile
 +++ b/tests/Makefile
 @@ -1,4 +1,4 @@
--CFLAGS+=-I../include/ -D_FORTIFY_SOURCE=3 -static -O2 -DPEDANTIC_CHECKS -Wno-format -Werror=pointer-arith
+-CFLAGS+=-I../include/ -D_FORTIFY_SOURCE=3 -static -O2 -DFORTIFY_PEDANTIC_CHECKS -Wno-format -Werror=pointer-arith
 +CFLAGS+=-I../include/ -D_FORTIFY_SOURCE=3 -O2
  
  COMPTIME_TARGETS= \
  	test_memcpy_overwrite_under  \
-@@ -152,9 +152,7 @@ gcc: CC=../x86_64-linux-musl-native/bin/gcc
+@@ -144,14 +144,10 @@
  gcc: $(RUNTIME_TARGETS)
  
  clang: CC=clang
@@ -20,4 +20,10 @@ index 56455bd..3cdbae9 100644
 +clang: CFLAGS+=-I/usr/include
  clang: CFLAGS+=-nostdinc
  clang: CXX=clang++
- clang: CXXFLAGS=$(CFLAGS)
+-clang: CXXFLAGS+=-I/usr/include/x86_64-linux-musl
+-clang: CXXFLAGS+=-I../x86_64-linux-musl-native/include/
+-clang: CXXFLAGS+=-Ix86_64-linux-musl-native/include/
++clang: CXXFLAGS+=-I/usr/include
+ clang: CXXFLAGS+=-nostdinc
+ clang: comptime $(RUNTIME_TARGETS) cpp
+ 
