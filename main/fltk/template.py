@@ -1,5 +1,5 @@
 pkgname = "fltk"
-pkgver = "1.3.9"
+pkgver = "1.3.10"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.0-only WITH FLTK-exception"
 url = "https://www.fltk.org"
 source = f"{url}/pub/fltk/{pkgver}/fltk-{pkgver}-source.tar.gz"
-sha256 = "d736b0445c50d607432c03d5ba5e82f3fba2660b10bc1618db8e077a42d9511b"
+sha256 = "c1c96d4f2ca7844f4b7945b4670aff2846f150cd5f3e23e3e4c70a61807108c7"
 hardening = ["vis", "!cfi"]
 
 
