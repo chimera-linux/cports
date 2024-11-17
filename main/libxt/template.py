@@ -1,16 +1,16 @@
 pkgname = "libxt"
-pkgver = "1.3.0"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libsm-devel", "libx11-devel"]
 pkgdesc = "X Toolkit Intrinsics library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXt-{pkgver}.tar.gz"
-sha256 = "de4a80c4cc7785b9620e572de71026805f68e85a2bf16c386009ef0e50be3f77"
+source = f"$(XORG_SITE)/lib/libXt-{pkgver}.tar.xz"
+sha256 = "e0a774b33324f4d4c05b199ea45050f87206586d81655f8bef4dba434d931288"
 
 
 def post_install(self):
@@ -20,6 +20,3 @@ def post_install(self):
 @subpackage("libxt-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []
