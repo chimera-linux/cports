@@ -1,12 +1,12 @@
 pkgname = "base-kernel"
 pkgver = "0.2"
-pkgrel = 4
+pkgrel = 5
 depends = [
     "kmod",
     "procps",
     "cmd:findmnt!mount",
 ]
-triggers = ["/usr/lib/modules"]
+triggers = ["/usr/lib/modules", "/usr/src"]
 pkgdesc = "Common data and scripts for Linux kernels in Chimera"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
