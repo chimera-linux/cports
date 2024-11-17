@@ -1,8 +1,8 @@
 pkgname = "krdc"
 pkgver = "24.08.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = ["-DQT_MAJOR_VERSION=6"]
+configure_args = ["-DWITH_RDP3=ON", "-DWITH_RDP=OFF"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
