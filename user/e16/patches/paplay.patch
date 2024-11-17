@@ -1,0 +1,18 @@
+Passing this on cmdline seems somehow broken? The value becomes 'yes'
+
+So patch it in the configure.ac instead
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -159,9 +159,9 @@ AC_ARG_ENABLE(sound_player,
+   enable_sound_player="yes")
+ AC_ARG_WITH(sound_player,
+   AS_HELP_STRING([--with-sound-player],
+-                 [Audio player @<:@default="/usr/bin/aplay -q %s"@:>@]),
++                 [Audio player @<:@default="/usr/bin/paplay %s"@:>@]),
+   with_sound_player="$enableval",
+-  with_sound_player="/usr/bin/aplay -q %s")
++  with_sound_player="/usr/bin/paplay %s")
+ if test "x$enable_sound_player" = "xyes"; then
+   AC_DEFINE(USE_SOUND_PLAYER, 1, [Play sounds using audio player])
+   AC_DEFINE_UNQUOTED(SOUND_PLAYER_FMT, "$with_sound_player", [Audio player])
