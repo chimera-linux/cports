@@ -8,6 +8,7 @@ hostmakedepends = [
     "ninja",
 ]
 makedepends = [
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtwebsockets-devel",
 ]
