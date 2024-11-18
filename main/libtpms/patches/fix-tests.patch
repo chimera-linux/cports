@@ -1,14 +1,14 @@
 --- a/tests/common
 +++ b/tests/common
-@@ -4,10 +4,5 @@
+@@ -5,10 +5,5 @@
  # @1: filename
  function get_filesize()
  {
 -	if [[ "$(uname -s)" =~ (Linux|CYGWIN_NT-) ]]; then
--		stat -c%s $1
+-		stat -c%s "$1"
 -	else
 -		# OpenBSD
--		stat -f%z $1
+-		stat -f%z "$1"
 -	fi
-+	stat -f%z $1
++	stat -f%z "$1"
  }

@@ -1,11 +1,11 @@
 pkgname = "libtpms"
-pkgver = "0.9.6"
+pkgver = "0.10.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
-    "libtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = ["openssl-devel"]
 checkdepends = ["bash"]
@@ -14,7 +14,7 @@ maintainer = "cesorious <cesorious@gmail.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/stefanberger/libtpms"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2807466f1563ebe45fdd12dd26e501e8a0c4fbb99c7c428fbb508789efd221c0"
+sha256 = "6da9a527b3afa7b1470acd4cd17157b8646c31a2c7ff3ba2dfc50c81ba413426"
 
 
 def post_install(self):
