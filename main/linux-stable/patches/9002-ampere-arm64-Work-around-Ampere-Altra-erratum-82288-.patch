@@ -127,9 +127,9 @@ diff --git a/arch/arm64/mm/ioremap.c b/arch/arm64/mm/ioremap.c
 index 269f2f6..51d3b0f 100644
 --- a/arch/arm64/mm/ioremap.c
 +++ b/arch/arm64/mm/ioremap.c
-@@ -3,6 +3,19 @@
- #include <linux/mm.h>
- #include <linux/io.h>
+@@ -14,6 +14,19 @@ int arm64_ioremap_prot_hook_register(ioremap_prot_hook_t hook)
+ 	return 0;
+ }
  
 +#ifdef CONFIG_ALTRA_ERRATUM_82288
 +DEFINE_STATIC_KEY_FALSE(have_altra_erratum_82288);
@@ -147,16 +147,16 @@ index 269f2f6..51d3b0f 100644
  void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
  			   unsigned long prot)
  {
-@@ -16,6 +29,11 @@ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
- 	if (WARN_ON(pfn_is_map_memory(__phys_to_pfn(phys_addr))))
+@@ -37,6 +50,11 @@ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
  		return NULL;
+ 	}
  
 +#ifdef CONFIG_ALTRA_ERRATUM_82288
 +	if (static_branch_unlikely(&have_altra_erratum_82288) && is_altra_pci(phys_addr, size))
-+		prot = pgprot_val(pgprot_device(__pgprot(prot)));
++		pgprot = __pgprot(pgprot_val(pgprot_device(pgprot)));
 +#endif
 +
- 	return generic_ioremap_prot(phys_addr, size, __pgprot(prot));
+ 	return generic_ioremap_prot(phys_addr, size, pgprot);
  }
  EXPORT_SYMBOL(ioremap_prot);
 diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
