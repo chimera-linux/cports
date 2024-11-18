@@ -1,7 +1,8 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
+# rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
 pkgver = "6.8.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DBUILD_WITH_PCH=OFF",
@@ -283,6 +284,18 @@ def _(self):
     self.install_if = []
 
     return ["usr/lib/*.a"]
+
+
+@subpackage("qt6-qtbase-private-devel")
+def _(self):
+    self.subdesc = "private development files"
+    self.depends += [self.with_pkgver("qt6-qtbase-devel")]
+    return [
+        "usr/include/**/private",
+        "usr/lib/cmake/*Private",
+        "usr/lib/qt6/metatypes/*private_*_metatypes.json",
+        "usr/lib/qt6/modules/*Private.json",
+    ]
 
 
 @subpackage("qt6-qtbase-devel")
