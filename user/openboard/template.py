@@ -1,6 +1,6 @@
 pkgname = "openboard"
-pkgver = "1.7.1"
-pkgrel = 1
+pkgver = "1.7.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_CXX_STANDARD=20"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -21,7 +21,7 @@ maintainer = "breakgimme <adam@plock.com>"
 license = "GPL-3.0-or-later"
 url = "https://openboard.ch"
 source = f"https://github.com/OpenBoard-org/OpenBoard/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5c9fcb54bc1598b4b7026e6ecca07137660dd3d45bda472a5710acf600a2a22f"
+sha256 = "47ef1ab60f21280b907d9205c7381537be640a64a4808861fb83b70d1d519370"
 
 
 @subpackage("openboard-locale")
