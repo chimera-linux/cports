@@ -1,5 +1,5 @@
 pkgname = "stylua"
-pkgver = "2.0.0"
+pkgver = "2.0.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MPL-2.0"
 url = "https://github.com/JohnnyMorganz/StyLua"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6222cb07ec22963cce2ff2cb0a64f8a5df59d9aa434191610948ad3607d668e0"
+sha256 = "ee0e70e38c8352e6534aac4394402a61ca8d8704e8c11403d9721536b517d66b"
 
 
 def install(self):
