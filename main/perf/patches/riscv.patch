@@ -1,0 +1,46 @@
+There is no <asm/fence.h>, but there is one present in the same directory,
+so include that instead
+
+Also, without compiling at least one .c file into perf-test-in.o, we get:
+
+ld.lld   -r -o arch/perf-test-in.o  arch/riscv/perf-test-in.o
+ld.lld: error: target emulation unknown: -m or at least one .o file required
+
+This seems to be because with an empty archive the linker cannot infer what
+target emulation to use (with bfd this does not happen as bfd is a single-arch
+linker where the default depends on build config).
+
+diff --git a/tools/arch/riscv/include/asm/barrier.h b/tools/arch/riscv/include/asm/barrier.h
+index e63eabc..12ebc65 100644
+--- a/tools/arch/riscv/include/asm/barrier.h
++++ b/tools/arch/riscv/include/asm/barrier.h
+@@ -10,7 +10,7 @@
+ #ifndef _TOOLS_LINUX_ASM_RISCV_BARRIER_H
+ #define _TOOLS_LINUX_ASM_RISCV_BARRIER_H
+ 
+-#include <asm/fence.h>
++#include "fence.h"
+ #include <linux/compiler.h>
+ 
+ /* These barriers need to enforce ordering on both devices and memory. */
+diff --git a/tools/perf/arch/riscv/Build b/tools/perf/arch/riscv/Build
+index e63eabc..12ebc65 100644
+--- a/tools/perf/arch/riscv/Build
++++ b/tools/perf/arch/riscv/Build
+@@ -1 +1,2 @@
+ perf-util-y += util/
++perf-test-y += tests/
+diff --git a/tools/perf/arch/riscv/tests/Build b/tools/perf/arch/riscv/tests/Build
+new file mode 100644
+index 0000000..06b2166
+--- /dev/null
++++ b/tools/perf/arch/riscv/tests/Build
+@@ -0,0 +1 @@
++perf-test-y += arch-tests.o
+diff --git a/tools/perf/arch/riscv/tests/arch-tests.c b/tools/perf/arch/riscv/tests/arch-tests.c
+new file mode 100644
+index 0000000..4c875d2
+--- /dev/null
++++ b/tools/perf/arch/riscv/tests/arch-tests.c
+@@ -0,0 +1 @@
++/* placeholder file so perf-test-in.o is not an empty archive, to allow linker to detect stuff */
