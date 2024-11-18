@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "7.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -146,6 +146,9 @@ license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"
 source = f"{url}/releases/ffmpeg-{pkgver}.tar.xz"
 sha256 = "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
+# some conf checks like for some pthread functions don't detect interfaces
+# without it
+tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # seems to need rpath?
 options = ["!check"]
 
