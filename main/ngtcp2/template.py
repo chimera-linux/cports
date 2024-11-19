@@ -1,8 +1,8 @@
 pkgname = "ngtcp2"
-pkgver = "1.8.1"
+pkgver = "1.9.0"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DENABLE_GNUTLS=ON"]
+configure_args = ["-DENABLE_GNUTLS=ON", "-DENABLE_OPENSSL=OFF"]
 make_check_target = "check"
 hostmakedepends = [
     "cmake",
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ngtcp2/ngtcp2"
 source = f"{url}/releases/download/v{pkgver}/ngtcp2-{pkgver}.tar.xz"
-sha256 = "ac844a79eb3f153e4ccdcfeccedf42c57ab352bb8ab92ec8ac5d3417a79cfb11"
+sha256 = "b09d6f870e91b2b81b4c55ddd82190a80d53cca278e533d1a06529c00185514e"
 
 
 def post_install(self):
