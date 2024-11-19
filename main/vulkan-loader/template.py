@@ -1,6 +1,6 @@
 pkgname = "vulkan-loader"
 pkgver = "1.3.301"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     f"-DVULKAN_HEADERS_INSTALL_DIR={self.profile().sysroot / 'usr'}",
@@ -35,4 +35,5 @@ options = ["!check"]
 
 @subpackage("vulkan-loader-devel")
 def _(self):
+    self.depends += ["vulkan-headers"]
     return self.default_devel()
