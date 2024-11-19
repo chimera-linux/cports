@@ -1,13 +1,15 @@
 pkgname = "zellij"
-pkgver = "0.40.1"
+pkgver = "0.41.2"
 pkgrel = 0
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
 # check fails because of wasm target
 # https://github.com/zellij-org/zellij/blob/c25166c30af05a39f189c7520e3ab0e6a50905be/zellij-utils/src/consts.rs#L96
-make_check_args = ["--release"]
-hostmakedepends = ["cargo-auditable", "pkgconf", "go-md2man"]
-makedepends = ["rust-std", "openssl-devel"]
+make_build_args = ["--no-default-features", "--features=plugins_from_target"]
+make_install_args = [*make_build_args]
+make_check_args = [*make_build_args, "--release"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
+makedepends = ["rust-std", "libcurl-devel", "zstd-devel"]
 pkgdesc = "Terminal workspace with batteries included"
 maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "MIT"
@@ -15,16 +17,12 @@ url = "https://zellij.dev"
 source = (
     f"https://github.com/zellij-org/zellij/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "1f0bfa13f2dbe657d76341a196f98a3b4caa47ac63abee06b39883a11ca220a8"
+sha256 = "12e7f0f80c1e39deed5638c4662fc070855cee0250a7eb1d76cefbeef8c2f376"
 # generates completions with host bin
 options = ["!cross"]
 
 
 def post_build(self):
-    with open(self.cwd / "docs/MANPAGE.md", "rb") as i:
-        with open(self.cwd / "docs/zellij.1", "w") as o:
-            self.do("go-md2man", input=i.read(), stdout=o)
-
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"assets/zellij.{shell}", "w") as o:
             self.do(
@@ -37,7 +35,6 @@ def post_build(self):
 
 
 def post_install(self):
-    self.install_man("docs/zellij.1")
     self.install_license("LICENSE.md")
 
     for shell in ["bash", "fish", "zsh"]:
