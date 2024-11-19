@@ -1,12 +1,12 @@
 pkgname = "fonts-font-awesome-otf"
-pkgver = "6.6.0"
-pkgrel = 1
+pkgver = "6.7.0"
+pkgrel = 0
 pkgdesc = "Iconic font set"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "OFL-1.1"
 url = "https://fontawesome.com"
 source = f"https://github.com/FortAwesome/Font-Awesome/releases/download/{pkgver}/fontawesome-free-{pkgver}-desktop.zip"
-sha256 = "8cde9bf442f218ee330844263ee35403ff466a1afbbd11ab170523f3cd09067c"
+sha256 = "0494ff2d3b05dff36e4e72204aa1a98fdee24a78fede6005f882e28d46037b28"
 
 
 def install(self):
