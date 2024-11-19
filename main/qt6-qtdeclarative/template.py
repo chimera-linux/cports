@@ -1,6 +1,6 @@
 pkgname = "qt6-qtdeclarative"
 pkgver = "6.8.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 hostmakedepends = [
@@ -12,7 +12,7 @@ hostmakedepends = [
     "qt6-qtbase",
     "qt6-qtshadertools",
 ]
-makedepends = ["qt6-qtbase-devel", "qt6-qtshadertools-devel"]
+makedepends = ["qt6-qtbase-private-devel", "qt6-qtshadertools-devel"]
 pkgdesc = "Qt6 declarative component"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = (

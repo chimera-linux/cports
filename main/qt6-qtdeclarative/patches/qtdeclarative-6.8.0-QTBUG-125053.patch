@@ -5,43 +5,32 @@ diff --git a/src/qmlmodels/qqmldelegatemodel.cpp b/src/qmlmodels/qqmldelegatemod
 index e730f3a3..973be379 100644
 --- a/src/qmlmodels/qqmldelegatemodel.cpp
 +++ b/src/qmlmodels/qqmldelegatemodel.cpp
-@@ -3,6 +3,8 @@
- 
+@@ -4,4 +4,6 @@
  #include "qqmldelegatemodel_p_p.h"
  
 +#include <QtCore/private/qabstractitemmodel_p.h>
 +
  #include <QtQml/qqmlinfo.h>
  
- #include <private/qqmlabstractdelegatecomponent_p.h>
-@@ -171,7 +173,6 @@ QQmlDelegateModelPrivate::QQmlDelegateModelPrivate(QQmlContext *ctxt)
-     , m_transaction(false)
+@@ -172,5 +174,4 @@
      , m_incubatorCleanupScheduled(false)
      , m_waitingToFetchMore(false)
 -    , m_maybeResetRoleNames(false)
      , m_cacheItems(nullptr)
      , m_items(nullptr)
-     , m_persistedItems(nullptr)
-@@ -365,8 +366,6 @@ void QQmlDelegateModelPrivate::connectToAbstractItemModel()
-     QObject::connect(aim, &QAbstractItemModel::dataChanged, q, &QQmlDelegateModel::_q_dataChanged);
+@@ -366,5 +367,4 @@
      QObject::connect(aim, &QAbstractItemModel::rowsMoved, q, &QQmlDelegateModel::_q_rowsMoved);
      QObject::connect(aim, &QAbstractItemModel::modelAboutToBeReset, q, &QQmlDelegateModel::_q_modelAboutToBeReset);
 -    QObject::connect(aim, &QAbstractItemModel::modelReset, q, &QQmlDelegateModel::handleModelReset);
--    QObject::connect(aim, &QAbstractItemModel::layoutChanged, q, &QQmlDelegateModel::_q_layoutChanged);
+     QObject::connect(aim, &QAbstractItemModel::layoutChanged, q, &QQmlDelegateModel::_q_layoutChanged);
  }
- 
- void QQmlDelegateModelPrivate::disconnectFromAbstractItemModel()
-@@ -386,8 +385,6 @@ void QQmlDelegateModelPrivate::disconnectFromAbstractItemModel()
-     QObject::disconnect(aim, &QAbstractItemModel::dataChanged, q, &QQmlDelegateModel::_q_dataChanged);
+@@ -387,5 +387,4 @@
      QObject::disconnect(aim, &QAbstractItemModel::rowsMoved, q, &QQmlDelegateModel::_q_rowsMoved);
      QObject::disconnect(aim, &QAbstractItemModel::modelAboutToBeReset, q, &QQmlDelegateModel::_q_modelAboutToBeReset);
 -    QObject::disconnect(aim, &QAbstractItemModel::modelReset, q, &QQmlDelegateModel::handleModelReset);
--    QObject::disconnect(aim, &QAbstractItemModel::layoutChanged, q, &QQmlDelegateModel::_q_layoutChanged);
+     QObject::disconnect(aim, &QAbstractItemModel::layoutChanged, q, &QQmlDelegateModel::_q_layoutChanged);
  }
- 
- void QQmlDelegateModel::setModel(const QVariant &model)
-@@ -411,6 +408,21 @@ void QQmlDelegateModel::setModel(const QVariant &model)
-         _q_itemsInserted(0, d->adaptorModelCount());
+@@ -412,4 +411,19 @@
          d->requestMoreIfNecessary();
      }
 +
@@ -61,9 +50,7 @@ index e730f3a3..973be379 100644
 +    }
  }
  
- /*!
-@@ -1897,28 +1909,25 @@ void QQmlDelegateModel::_q_modelAboutToBeReset()
-     Q_D(QQmlDelegateModel);
+@@ -1898,26 +1912,23 @@
      if (!d->m_adaptorModel.adaptsAim())
          return;
 -
@@ -109,9 +96,7 @@ index e730f3a3..973be379 100644
 +    }, Qt::SingleShotConnection);
  }
  
- void QQmlDelegateModel::handleModelReset()
-@@ -1928,23 +1937,6 @@ void QQmlDelegateModel::handleModelReset()
-         return;
+@@ -1929,21 +1940,4 @@
  
      int oldCount = d->m_count;
 -
@@ -133,31 +118,21 @@ index e730f3a3..973be379 100644
 -
      d->m_adaptorModel.rootIndex = QModelIndex();
  
-     if (d->m_complete) {
-diff --git a/src/qmlmodels/qqmldelegatemodel_p_p.h b/src/qmlmodels/qqmldelegatemodel_p_p.h
-index bae8fc8a..3c7ab928 100644
 --- a/src/qmlmodels/qqmldelegatemodel_p_p.h
 +++ b/src/qmlmodels/qqmldelegatemodel_p_p.h
-@@ -334,7 +334,6 @@ public:
-     QQmlReusableDelegateModelItemsPool m_reusableItemsPool;
+@@ -335,5 +335,4 @@
      QList<QQDMIncubationTask *> m_finishedIncubating;
      QList<QByteArray> m_watchedRoles;
 -    QHash<int, QByteArray> m_roleNamesBeforeReset;
  
      QString m_filterGroup;
- 
-@@ -348,7 +347,6 @@ public:
-     bool m_transaction : 1;
+@@ -349,5 +348,4 @@
      bool m_incubatorCleanupScheduled : 1;
      bool m_waitingToFetchMore : 1;
 -    bool m_maybeResetRoleNames : 1;
  
      union {
-         struct {
-diff --git a/tests/auto/qml/qqmldelegatemodel/data/proxyModelWithDelayedSourceModelInListView.qml b/tests/auto/qml/qqmldelegatemodel/data/proxyModelWithDelayedSourceModelInListView.qml
-new file mode 100644
-index 00000000..b6733bd3
---- /dev/null
+--- a/tests/auto/qml/qqmldelegatemodel/data/proxyModelWithDelayedSourceModelInListView.qml
 +++ b/tests/auto/qml/qqmldelegatemodel/data/proxyModelWithDelayedSourceModelInListView.qml
 @@ -0,0 +1,30 @@
 +import QtQuick
@@ -190,28 +165,21 @@ index 00000000..b6733bd3
 +
 +    Component.onCompleted: root.connectionModel = modelComponent.createObject(root)
 +}
-diff --git a/tests/auto/qml/qqmldelegatemodel/tst_qqmldelegatemodel.cpp b/tests/auto/qml/qqmldelegatemodel/tst_qqmldelegatemodel.cpp
-index d9f8b7ae..3f08d8fc 100644
 --- a/tests/auto/qml/qqmldelegatemodel/tst_qqmldelegatemodel.cpp
 +++ b/tests/auto/qml/qqmldelegatemodel/tst_qqmldelegatemodel.cpp
-@@ -3,6 +3,7 @@
- 
+@@ -4,4 +4,5 @@
  #include <QtTest/qtest.h>
  #include <QtCore/qjsonobject.h>
 +#include <QtCore/qsortfilterproxymodel.h>
  #include <QtCore/QConcatenateTablesProxyModel>
  #include <QtCore/qtimer.h>
- #include <QtGui/QStandardItemModel>
-@@ -51,6 +52,7 @@ private slots:
-     void doNotUnrefObjectUnderConstruction();
+@@ -52,4 +53,5 @@
      void clearCacheDuringInsertion();
      void viewUpdatedOnDelegateChoiceAffectingRoleChange();
 +    void proxyModelWithDelayedSourceModelInListView();
  };
  
- class BaseAbstractItemModel : public QAbstractItemModel
-@@ -731,6 +733,79 @@ void tst_QQmlDelegateModel::viewUpdatedOnDelegateChoiceAffectingRoleChange()
-     QVERIFY(returnedValue);
+@@ -732,4 +734,77 @@
  }
  
 +class ProxySourceModel : public QAbstractListModel
@@ -289,4 +257,3 @@ index d9f8b7ae..3f08d8fc 100644
 +
  QTEST_MAIN(tst_QQmlDelegateModel)
  
- #include "tst_qqmldelegatemodel.moc"
