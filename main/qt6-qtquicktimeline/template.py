@@ -8,6 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "vulkan-headers",
 ]

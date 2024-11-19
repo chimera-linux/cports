@@ -10,7 +10,7 @@ hostmakedepends = [
 makedepends = [
     "libtiff-devel",
     "libwebp-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",
 ]
 pkgdesc = "Qt6 additional image formats component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"

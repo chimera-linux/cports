@@ -5,7 +5,7 @@ build_style = "cmake"
 # FIXME: times out after 5 minutes on aarch64
 make_check_args = ["-E", "(tst_qxmlinputsource|module_includes)"]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qtbase"]
-makedepends = ["qt6-qtdeclarative-devel"]
+makedepends = ["qt6-qtbase-private-devel", "qt6-qtdeclarative-devel"]
 pkgdesc = "Module containing unsupported Qt5 APIs"
 maintainer = "aurelia <git@elia.garden>"
 license = (

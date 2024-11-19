@@ -4,7 +4,11 @@ pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["qt6-qtdeclarative-devel", "qt6-qtsvg-devel"]
+makedepends = [
+    "qt6-qtbase-private-devel",
+    "qt6-qtdeclarative-devel",
+    "qt6-qtsvg-devel",
+]
 pkgdesc = "Qt6 Sensors component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (

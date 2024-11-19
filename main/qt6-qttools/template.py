@@ -23,7 +23,7 @@ makedepends = [
     "clang-devel",
     "clang-tools-extra",
     "llvm-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 depends = [self.with_pkgver("qt6-qttools-qdbus")]

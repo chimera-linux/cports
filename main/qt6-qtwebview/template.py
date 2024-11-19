@@ -9,7 +9,7 @@ hostmakedepends = [
     "ninja",
     "pkgconf",
 ]
-makedepends = ["qt6-qtwebengine-devel"]
+makedepends = ["qt6-qtbase-private-devel", "qt6-qtwebengine-devel"]
 pkgdesc = "Qt6 WebView component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (

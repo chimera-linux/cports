@@ -24,7 +24,7 @@ makedepends = [
     "gst-plugins-base-devel",
     "libpulse-devel",
     "libva-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtshadertools-devel",
     "qt6-qtsvg-devel",

@@ -16,7 +16,7 @@ hostmakedepends = [
     "qt6-qtdeclarative-devel",
 ]
 makedepends = [
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Qt6 SCXML component"

@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "qt6-qtbase"]
-makedepends = ["qt6-qtbase-devel"]
+makedepends = ["qt6-qtbase-private-devel"]
 depends = [self.with_pkgver("qt6-qtshadertools-libs")]
 pkgdesc = "Qt6 shader tools"
 maintainer = "q66 <q66@chimera-linux.org>"

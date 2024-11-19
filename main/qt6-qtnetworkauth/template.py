@@ -8,7 +8,7 @@ hostmakedepends = [
     "ninja",
     "pkgconf",
 ]
-makedepends = ["qt6-qtbase-devel"]
+makedepends = ["qt6-qtbase-private-devel"]
 pkgdesc = "Qt6 Networkauth component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (

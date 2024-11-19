@@ -11,6 +11,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "assimp-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtshadertools-devel",
     "qt6-qtquicktimeline-devel",

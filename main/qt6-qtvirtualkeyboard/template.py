@@ -11,7 +11,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "hunspell-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
 ]

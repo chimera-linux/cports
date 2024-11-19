@@ -6,7 +6,7 @@ configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_args = ["-E", "module_includes"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "qt6-qtbase"]
-makedepends = ["qt6-qtbase-devel"]
+makedepends = ["qt6-qtbase-private-devel"]
 pkgdesc = "Qt6 SVG component"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = (
