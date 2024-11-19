@@ -1,5 +1,5 @@
 pkgname = "waypipe"
-pkgver = "0.9.1"
+pkgver = "0.9.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"
-sha256 = "d60d94a19038d2e231e3f1bf8122ae0894bc78fa753190f6e831c7931f8caaab"
+sha256 = "ef0783ba95abb950cb0e876e1d186de77905759ed7406ec23973f46cab96b5ee"
 hardening = ["vis", "cfi"]
 
 
