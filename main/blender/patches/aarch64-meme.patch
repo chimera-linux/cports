@@ -2,12 +2,12 @@ Apparently -msse4.2 is not an error on aarch64 and -msse4.1 is???
 
 --- a/intern/cycles/CMakeLists.txt
 +++ b/intern/cycles/CMakeLists.txt
-@@ -117,7 +117,7 @@ elseif(WIN32 AND MSVC AND NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-   string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO " /Ox")
-   string(APPEND CMAKE_CXX_FLAGS_MINSIZEREL " /Ox")
+@@ -88,7 +88,7 @@
+     set(CYCLES_SSE42_FLAGS "/arch:SSE2")
+   endif()
  elseif(CMAKE_COMPILER_IS_GNUCC OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
 -  check_cxx_compiler_flag(-msse4.2 CXX_HAS_SSE42)
 +  check_cxx_compiler_flag(-msse4.1 CXX_HAS_SSE42)
-   check_cxx_compiler_flag(-mavx CXX_HAS_AVX)
    check_cxx_compiler_flag(-mavx2 CXX_HAS_AVX2)
  
+   if(CXX_HAS_SSE42)

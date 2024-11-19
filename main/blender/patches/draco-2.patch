@@ -2,22 +2,22 @@ Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/blender/
 --
 diff --git a/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py b/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py
 index e7518ac4..c0d78564 100644
---- a/scripts/addons_core/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py
-+++ b/scripts/addons_core/io_scene_gltf2/io/com/gltf2_io_draco_compression_extension.py
-@@ -3,6 +3,7 @@
- # SPDX-License-Identifier: Apache-2.0
+--- a/scripts/addons_core/io_scene_gltf2/io/com/draco.py
++++ b/scripts/addons_core/io_scene_gltf2/io/com/draco.py
+@@ -4,6 +4,7 @@
  
  import os
-+import site
  import sys
++import site
  from pathlib import Path
  import bpy
-@@ -18,7 +19,7 @@ def dll_path() -> Path:
+ 
+@@ -35,7 +36,7 @@
      python_lib = Path('{v[0]}.{v[1]}/python/lib'.format(v=bpy.app.version))
      python_version = 'python{v[0]}.{v[1]}'.format(v=sys.version_info)
  
 -    path = os.environ.get('BLENDER_EXTERN_DRACO_LIBRARY_PATH')
 +    path = f"{site.getsitepackages()[0]}/libextern_draco.so"
-     if path is None:
-         path = {
-             'win32': blender_root / python_lib / 'site-packages',
+     if path is not None:
+         return Path(path)
+ 
