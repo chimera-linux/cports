@@ -1,0 +1,10 @@
+--- a/ip/iplink.c
++++ b/ip/iplink.c
+@@ -16,6 +16,7 @@
+ #include <linux/if_packet.h>
+ #include <linux/if_ether.h>
+ #include <linux/sockios.h>
++#include <limits.h>
+ #include <netinet/in.h>
+ #include <arpa/inet.h>
+ #include <string.h>
