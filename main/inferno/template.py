@@ -1,5 +1,5 @@
 pkgname = "inferno"
-pkgver = "0.11.21"
+pkgver = "0.12.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,6 +9,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "CDDL-1.0"
 url = "https://github.com/jonhoo/inferno"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8650bcb44715ecf83b00d36ed0e28e8b6c1f11d9de8e25a54554d72c0d67dc87"
+sha256 = "7c045ad20db6284b0f1312a60e13438723bc6273e49ca2544000027794638396"
 # some tests need an actual git checkout of a submodule (not tarball) and i cbf
 options = ["!check"]
