@@ -1,10 +1,9 @@
 Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/juce/-/blob/85ac0733192bb74ca0ae07f64f38d20a1a9a9691/juce-7.0.11-helper_install_dir.patch
 
-diff --git i/CMakeLists.txt w/CMakeLists.txt
-index 04842652c..59cb982a0 100644
---- i/CMakeLists.txt
-+++ w/CMakeLists.txt
-@@ -167,14 +167,14 @@ if(("${CMAKE_SOURCE_DIR}" STREQUAL "${JUCE_SOURCE_DIR}") AND (NOT JUCE_BUILD_HEL
+diff -ruN a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2024-11-18 11:20:17.000000000 +0100
++++ b/CMakeLists.txt	2024-11-19 13:52:23.508519173 +0100
+@@ -181,14 +181,14 @@
      _juce_add_lv2_manifest_helper_target()
  
      if(TARGET juce_lv2_helper)
