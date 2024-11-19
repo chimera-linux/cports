@@ -61,6 +61,7 @@ makedepends = [
     "python-devel",
     "python-numpy",
     "shaderc-devel",
+    "vulkan-loader-devel",
     "wayland-devel",
     "zstd-devel",
 ]
