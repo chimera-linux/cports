@@ -1,5 +1,5 @@
 pkgname = "juce"
-pkgver = "8.0.3"
+pkgver = "8.0.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DJUCE_BUILD_EXTRAS=ON"]
@@ -31,9 +31,7 @@ url = "https://juce.com"
 source = (
     f"https://github.com/juce-framework/JUCE/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "2fac71e13bdc135086f5859a579b3047fa4a012f1bd92685d3d20f958d2c1693"
-# remove next release when unsigned char works in bad test code
-tool_flags = {"CXXFLAGS": ["-Wno-c++11-narrowing"]}
+sha256 = "0effe9823a6fd8a4f98e5c08be7d308350e417b2d15dcf34011e778fefbbf005"
 
 
 def post_extract(self):

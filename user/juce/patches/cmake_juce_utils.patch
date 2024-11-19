@@ -14,9 +14,9 @@ Last-Update: 2022-11-10
  1 file changed, 3 insertions(+)
 
 diff -ruN a/extras/Build/CMake/JUCEModuleSupport.cmake b/extras/Build/CMake/JUCEModuleSupport.cmake
---- a/extras/Build/CMake/JUCEModuleSupport.cmake	2024-07-29 13:47:03.000000000 +0200
-+++ b/extras/Build/CMake/JUCEModuleSupport.cmake	2024-08-31 13:41:21.395323533 +0200
-@@ -486,7 +486,7 @@
+--- a/extras/Build/CMake/JUCEModuleSupport.cmake	2024-11-18 11:20:17.000000000 +0100
++++ b/extras/Build/CMake/JUCEModuleSupport.cmake	2024-11-19 13:46:36.325432537 +0100
+@@ -520,7 +520,7 @@
      if(${module_name} STREQUAL "juce_core")
          _juce_add_standard_defs(${module_name})
  
@@ -26,17 +26,17 @@ diff -ruN a/extras/Build/CMake/JUCEModuleSupport.cmake b/extras/Build/CMake/JUCE
          if(CMAKE_SYSTEM_NAME MATCHES ".*BSD")
              target_link_libraries(juce_core INTERFACE execinfo)
 diff -ruN a/extras/Build/CMake/JUCEUtils.cmake b/extras/Build/CMake/JUCEUtils.cmake
---- a/extras/Build/CMake/JUCEUtils.cmake	2024-07-29 13:47:03.000000000 +0200
-+++ b/extras/Build/CMake/JUCEUtils.cmake	2024-08-31 13:42:10.947964363 +0200
-@@ -108,6 +108,7 @@
-     _juce_create_pkgconfig_target(JUCE_CURL_LINUX_DEPS libcurl)
-     _juce_available_pkgconfig_module_or_else(webkit_package_name webkit2gtk-4.1 webkit2gtk-4.0)
-     _juce_create_pkgconfig_target(JUCE_BROWSER_LINUX_DEPS ${webkit_package_name} gtk+-x11-3.0)
+--- a/extras/Build/CMake/JUCEUtils.cmake	2024-11-18 11:20:17.000000000 +0100
++++ b/extras/Build/CMake/JUCEUtils.cmake	2024-11-19 13:47:38.321829252 +0100
+@@ -110,6 +110,7 @@
+ 
+     # All browser related libs are loaded dynamically only if they are available during runtime
+     _juce_create_pkgconfig_target(JUCE_BROWSER_LINUX_DEPS NOLINK ${webkit_package_name} gtk+-x11-3.0)
 +    _juce_create_pkgconfig_target(JUCE_IMG_LINUX_DEPS libpng libjpeg)
  endif()
  
  # We set up default/fallback copy dirs here. If you need different copy dirs, use
-@@ -275,6 +276,8 @@
+@@ -277,6 +278,8 @@
                  juce_link_with_embedded_linux_subprocess(${target})
              endif()
          endif()
