@@ -1,5 +1,5 @@
 pkgname = "sane-airscan"
-pkgver = "0.99.29"
+pkgver = "0.99.30"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -21,4 +21,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later WITH SANE-exception"
 url = "https://github.com/alexpevzner/sane-airscan"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "e8aa43005ed495fc0db65e2ff51b29cef11a45fc6d8c385294b3394b848db65f"
+sha256 = "89bef46839b5f07689f29e9550b694748d70263cbd66a34566e7d616ca228ad6"
