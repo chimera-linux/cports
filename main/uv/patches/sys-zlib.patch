@@ -1,18 +1,17 @@
-
 diff --git a/Cargo.lock b/Cargo.lock
-index 81507fd..b2cbce3 100644
+index 2b198d0..cd525e8 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1089,6 +1089,7 @@ checksum = "a1b589b4dc103969ad3cf85c950899926ec64300a1a46d76c03a6072957036f0"
+@@ -1096,6 +1096,7 @@ checksum = "c936bfdafb507ebbf50b8074c54fa31c5be9a1e7e5f467dd659697041407d07c"
  dependencies = [
   "crc32fast",
-  "libz-ng-sys",
+  "libz-rs-sys",
 + "libz-sys",
   "miniz_oxide",
  ]
  
-@@ -1845,6 +1846,17 @@ dependencies = [
-  "libc",
+@@ -1991,6 +1992,17 @@ dependencies = [
+  "zlib-rs",
  ]
  
 +[[package]]
@@ -29,9 +28,9 @@ index 81507fd..b2cbce3 100644
  [[package]]
  name = "linked-hash-map"
  version = "0.5.6"
-@@ -5360,6 +5372,12 @@ dependencies = [
-  "rustc-hash",
- ]
+@@ -5657,6 +5669,12 @@ version = "0.1.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
  
 +[[package]]
 +name = "vcpkg"
@@ -40,13 +39,13 @@ index 81507fd..b2cbce3 100644
 +checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
 +
  [[package]]
- name = "uv-workspace"
- version = "0.0.1"
+ name = "version-ranges"
+ version = "0.1.1"
 diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
-index 4572de3..7db353a 100644
+index bf5d93a..d0eba8f 100644
 --- a/crates/uv/Cargo.toml
 +++ b/crates/uv/Cargo.toml
-@@ -120,7 +120,7 @@ ignored = [
+@@ -129,7 +129,7 @@ ignored = [
  ]
  
  [features]
