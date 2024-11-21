@@ -1,0 +1,13 @@
+diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
+index bf5d93a..d0eba8f 100644
+--- a/crates/uv/Cargo.toml
++++ b/crates/uv/Cargo.toml
+@@ -129,7 +129,7 @@ ignored = [
+ ]
+ 
+ [features]
+-default = ["python", "python-managed", "pypi", "git", "performance", "crates-io"]
++default = ["python", "python-managed", "pypi", "git", "crates-io"]
+ # Use better memory allocators, etc. — also turns-on self-update.
+ performance = [
+     "performance-memory-allocator",
