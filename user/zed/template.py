@@ -1,5 +1,5 @@
 pkgname = "zed"
-pkgver = "0.161.2"
+pkgver = "0.162.3"
 pkgrel = 0
 # wasmtime
 archs = ["aarch64", "x86_64"]
@@ -27,6 +27,8 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
+# otherwise downloads a non-working one
+depends = ["nodejs"]
 pkgdesc = "Graphical text editor"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND AGPL-3.0-or-later AND Apache-2.0"
@@ -34,7 +36,7 @@ url = "https://zed.dev"
 source = (
     f"https://github.com/zed-industries/zed/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "8c8a90d1900d6e34c6339c1accd796d845d6c0150193af9ee372aa3663a2b859"
+sha256 = "1ac7c353321e386722801a7b40d1b27230821caa9c3b30cbe47479bb105ded3e"
 # workaround code that fails with default gc-sections with lld
 # https://github.com/zed-industries/zed/issues/15902
 tool_flags = {"RUSTFLAGS": ["-Clink-arg=-Wl,-z,nostart-stop-gc"]}
