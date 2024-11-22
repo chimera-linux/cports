@@ -1,5 +1,5 @@
 pkgname = "intel-gmmlib"
-pkgver = "22.5.3"
+pkgver = "22.5.4"
 pkgrel = 0
 # aarch64 segfaults in tests
 # only needed for intel-media-driver anyway
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/intel/gmmlib"
 source = f"{url}/archive/refs/tags/intel-gmmlib-{pkgver}.tar.gz"
-sha256 = "a8ccba4a71319b66a901df016998a76745ce9624032b6555517607c5bbb2b4e8"
+sha256 = "f5d2260441e4baf5ae6713678cb37c7f140aa2bec54332769cc46c77b54e78b3"
 # CFI: testsuite sigill
 hardening = ["vis", "!cfi"]
 # check cross: testsuite runs as part of install(), disabling that also doesn't build it..
