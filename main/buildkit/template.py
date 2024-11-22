@@ -1,5 +1,5 @@
 pkgname = "buildkit"
-pkgver = "0.17.1"
+pkgver = "0.17.2"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
@@ -10,7 +10,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/moby/buildkit"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "35f97f4f77d34fc4cbee357f8c1b05016c3df7686ed6d2238077bbbbf0a9789d"
+sha256 = "0dce3869150bb6625d05f35b491a66a206f0db4fdc8a688b0bf621b48a11d92a"
 # cannot work in bwrap
 options = ["!check"]
 
