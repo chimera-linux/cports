@@ -1,26 +1,22 @@
 pkgname = "python-pyyaml"
-pkgver = "6.0.1"
-pkgrel = 2
+pkgver = "6.0.2"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-cython",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 makedepends = ["libyaml-devel", "python-devel"]
 depends = ["python"]
+checkdepends = ["python-pytest"]
 pkgdesc = "YAML parser and emitter for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://pyyaml.org/wiki/PyYAML"
-source = f"$(PYPI_SITE)/P/PyYAML/PyYAML-{pkgver}.tar.gz"
-sha256 = "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
-
-
-def check(self):
-    self.do("python", "setup.py", "test")
+source = f"$(PYPI_SITE)/p/pyyaml/pyyaml-{pkgver}.tar.gz"
+sha256 = "d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e"
 
 
 def post_install(self):
