@@ -1,9 +1,0 @@
---- a/test/malloc_info.c
-+++ b/test/malloc_info.c
-@@ -1,5 +1,6 @@
- #include <pthread.h>
- #include <stdio.h>
-+#include <stdlib.h>
- 
- #if defined(__GLIBC__) || defined(__ANDROID__)
- #include <malloc.h>

@@ -1,5 +1,5 @@
 pkgname = "hardened_malloc"
-pkgver = "12"
+pkgver = "13"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/GrapheneOS/hardened_malloc"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0bc99987ff149455cd790b1f99566094baeb2212c5ec116ac526685999a29db5"
+sha256 = "1c485dbfd397db68081f95182cde18e1fa54a091dca7e67ee8c9356c6c5db798"
 
 
 def install(self):
