@@ -1,5 +1,5 @@
 pkgname = "libmtp"
-pkgver = "1.1.21"
+pkgver = "1.1.22"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-udev=/usr/lib/udev", "--with-udev-group=plugdev"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libmtp.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libmtp/libmtp-{pkgver}.tar.gz"
-sha256 = "c4ffa5ab8c8f48c91b0047f2e253c101c418d5696a5ed65c839922a4280872a7"
+sha256 = "c3fcf411aea9cb9643590cbc9df99fa5fe30adcac695024442973d76fa5f87bc"
 options = ["!cross"]
 
 
