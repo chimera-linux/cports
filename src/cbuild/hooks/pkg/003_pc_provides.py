@@ -64,7 +64,7 @@ def invoke(pkg):
                 )
             pname, mver = plist
             # sanitize version for apk
-            mver = re.sub("-(alpha|beta|rc|pre)", "_\\1", mver)
+            mver = re.sub(r"-(alpha|beta|rc|pre)", "_\\1", mver)
             # fallback
             if len(mver) == 0 or pkg.alternative:
                 mver = "0"

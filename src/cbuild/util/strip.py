@@ -10,7 +10,7 @@ def strip_attach(pkg, strip_list, no_split=[]):
     with open(pkg.destdir / "Makefile", "w") as mkf:
         mkl = sorted([str(arg) for arg in strip_list])
         rll = []
-        rec = re.compile("[\\s/.]")
+        rec = re.compile(r"[\s/.]")
         for mkp in mkl:
             mkr = rec.sub("_", mkp)
             cmdl = []

@@ -148,7 +148,7 @@ class UpdateCheck:
             ret.append(self.template.url)
 
         for u in urls:
-            m = re.match("(.+)/[^/]+", u)
+            m = re.match(r"(.+)/[^/]+", u)
             if m:
                 u = m[1]
             ret.append(u + "/")
@@ -221,7 +221,7 @@ class UpdateCheck:
         else:
             urlpfx = m[0][:tsl] + "/"
             dirpfx = m[0][tsl + 1 :]
-        urlsfx = re.match(".+/([^/]+)", url[len(urlpfx) + 1 :])
+        urlsfx = re.match(r".+/([^/]+)", url[len(urlpfx) + 1 :])
         if urlsfx:
             urlsfx = urlsfx[1]
         else:

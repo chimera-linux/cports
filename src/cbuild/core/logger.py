@@ -33,7 +33,7 @@ def _replf_nocolor(m):
 def write_color(stream, use_colors, msg):
     stream.write(
         re.sub(
-            "\f\\[([a-z,]*)\\]", _replf if use_colors else _replf_nocolor, msg
+            r"\f\[([a-z,]*)\]", _replf if use_colors else _replf_nocolor, msg
         )
     )
 

@@ -1169,7 +1169,7 @@ def do_prune_sources(tgt):
     for tmpln in tmpls:
         with (paths.distdir() / tmpln / "template.py").open("r") as inf:
             for ln in inf.readlines():
-                for sha in re.findall('"[0-9a-fA-F]{64}"', ln):
+                for sha in re.findall(r'"[0-9a-fA-F]{64}"', ln):
                     shaset.add(sha.strip('"').lower())
     shalist = list(shaset)
     shalist.sort()

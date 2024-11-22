@@ -18,7 +18,7 @@ def invoke(pkg):
                 continue
             # match the shebang more specifically against a pattern
             rm = re.match(
-                b"^.*(\\s|/)(python([0-9](\\.[0-9]+)?)?)(\\s+.*|$)",
+                rb"^.*(\s|/)(python([0-9](\.[0-9]+)?)?)(\s+.*|$)",
                 fhandle.readline(),
             )
             # no match, skip
