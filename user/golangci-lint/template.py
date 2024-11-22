@@ -1,7 +1,8 @@
 pkgname = "golangci-lint"
 pkgver = "1.62.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
+make_dir = "build-cccc"
 make_build_args = ["./cmd/golangci-lint"]
 hostmakedepends = ["go"]
 pkgdesc = "Linters runner for Go"
