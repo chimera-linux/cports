@@ -1,19 +1,21 @@
 pkgname = "wpaperd"
-pkgver = "1.0.1"
-pkgrel = 1
+pkgver = "1.1.0"
+pkgrel = 0
 build_style = "cargo"
+make_build_args = ["--features", "avif"]
+make_check_args = [*make_build_args]
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
     "scdoc",
 ]
-makedepends = ["mesa-devel", "rust-std", "wayland-devel"]
+makedepends = ["dav1d-devel", "mesa-devel", "rust-std", "wayland-devel"]
 pkgdesc = "Wallpaper daemon for Wayland"
 maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/danyspin97/wpaperd"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "4ed30c90dc14fa629ac977ace3ca4a146a33d85f73d2d49915643fbb9ea53ab9"
+sha256 = "a8edce7d703d50716ce7f12f786cbade99531b669637fc1ffd0299f427f1d10c"
 # check: no meaningful tests
 options = ["!check"]
 
