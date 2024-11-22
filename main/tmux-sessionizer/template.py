@@ -1,8 +1,7 @@
 pkgname = "tmux-sessionizer"
-pkgver = "0.4.3"
-pkgrel = 1
+pkgver = "0.4.4"
+pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl-devel", "libgit2-devel"]
 pkgdesc = "Tool for opening git repositories as tmux sessions"
@@ -10,7 +9,7 @@ maintainer = "jabuxas <jabuxas@proton.me>"
 license = "MIT"
 url = "https://github.com/jrmoulton/tmux-sessionizer"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e7baf324409af475a96d2b034a2ecdb46452feb7d0ef3ddc41e834475063a1f7"
+sha256 = "9dfbe99a3c1fe7f48be0c1ab9056e49f36c4f85d023e24f874254f6791a9894e"
 
 
 def post_install(self):
