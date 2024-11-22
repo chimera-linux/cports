@@ -1,5 +1,5 @@
 pkgname = "libblockdev"
-pkgver = "3.1.1"
+pkgver = "3.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,11 +12,14 @@ makedepends = [
     "device-mapper-devel",
     "e2fsprogs-devel",
     "glib-devel",
+    "json-glib-devel",
     "keyutils-devel",
+    "libatasmart-devel",
     "libbytesize-devel",
     "libfdisk-devel",
     "libkmod-devel",
     "libnvme-devel",
+    "libyaml-devel",
     "linux-headers",
     "ndctl-devel",
     "parted-devel",
@@ -26,8 +29,8 @@ pkgdesc = "Library for manipulating block devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libblockdev"
-source = f"{url}/releases/download/{pkgver}-1/libblockdev-{pkgver}.tar.gz"
-sha256 = "a5cb33a53ff5969067982704f45399d02555fdb2313ed0c56eac9555397dc2db"
+source = f"{url}/releases/download/{pkgver}/libblockdev-{pkgver}.tar.gz"
+sha256 = "318b9e2cedfdfe88161f28079fcb63239aeb5592223f4485b861cfc6ef11189a"
 
 tool_flags = {
     "CFLAGS": ["-Wno-error=typedef-redefinition", "-Wno-error=unused-variable"]
