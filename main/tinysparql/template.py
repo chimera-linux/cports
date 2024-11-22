@@ -1,6 +1,6 @@
 pkgname = "tinysparql"
-pkgver = "3.8.0"
-pkgrel = 1
+pkgver = "3.8.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
@@ -40,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/tinysparql/{pkgver[:-2]}/tinysparql-{pkgver}.tar.xz"
-sha256 = "c0fcda77520f531548b2395137dcd193ee9cde5e222d3c9d273f030d1762a504"
+sha256 = "53e04add1ecb4d08caa1317f477fdf0e7148eaac5462831f2374880092ffb295"
 # check may be disabled
 options = ["!cross"]
 
