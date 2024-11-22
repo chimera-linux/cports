@@ -1,6 +1,6 @@
 pkgname = "wpaperd"
 pkgver = "1.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = ["--features", "avif"]
 make_check_args = [*make_build_args]
