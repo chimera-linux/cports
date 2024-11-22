@@ -1,1 +1,1 @@
-pattern = r"tag/R(\d+)\""
+pattern = r"tag/R([\d.]+)\""
