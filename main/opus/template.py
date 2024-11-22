@@ -1,10 +1,13 @@
 pkgname = "opus"
 pkgver = "1.5.2"
-pkgrel = 1
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dcustom-modes=true",
+    "-Ddeep-plc=enabled",
+    "-Ddred=enabled",
     "-Dfloat-approx=true",
+    "-Dosce=enabled",
     "-Dtests=enabled",
 ]
 make_check_args = ["--timeout-multiplier", "10"]
