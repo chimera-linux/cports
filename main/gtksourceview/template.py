@@ -1,5 +1,5 @@
 pkgname = "gtksourceview"
-pkgver = "5.14.1"
+pkgver = "5.14.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled", "-Dvapi=true"]
@@ -29,7 +29,7 @@ url = "https://wiki.gnome.org/Projects/GtkSourceView"
 source = (
     f"$(GNOME_SITE)/gtksourceview/{pkgver[:-2]}/gtksourceview-{pkgver}.tar.xz"
 )
-sha256 = "009862e87b929da5a724ece079f01f8cee29e74797a1ecac349f58c15a3cbc58"
+sha256 = "1a6d387a68075f8aefd4e752cf487177c4a6823b14ff8a434986858aeaef6264"
 # FIXME: lto results in broken mouse scrolling in gnome-text-editor
 # also seems to have a weird pango interaction; the tests sigill if only both
 # have lto
