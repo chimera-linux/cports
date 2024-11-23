@@ -1,6 +1,6 @@
 pkgname = "tinymist"
-pkgver = "0.12.2"
-pkgrel = 1
+pkgver = "0.12.4"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bin", "tinymist", "--bin", "typlite"]
 hostmakedepends = ["cargo", "pkgconf"]
@@ -11,7 +11,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://myriad-dreamin.github.io/tinymist"
 source = f"https://github.com/Myriad-Dreamin/tinymist/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f51531ff4ffee1dbeb6dbadf9db45312a81eb1177f886ac9df01766a65fe4ddb"
+sha256 = "2986bd1c524b43a1839d754966fda2659ccf3f26f96573e040b5896405c1835d"
 # takes forever
 options = ["!check"]
 
