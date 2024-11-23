@@ -263,7 +263,7 @@ def check_version(*args):
     if len(args) == 1 and not args[0][0].isdigit():
         return False
     v = subprocess.run(
-        [paths.apk(), "version", "--quiet", "--check", *args],
+        [paths.apk(), "--root", paths.bldroot(), "version", "--quiet", "--check", *args],
         capture_output=True,
     )
     return v.returncode == 0
@@ -276,7 +276,7 @@ def compare_version(v1, v2, strict=True):
         raise RuntimeError("invalid version")
 
     v = subprocess.run(
-        [paths.apk(), "version", "--quiet", "--test", v1, v2],
+        [paths.apk(), "--root", paths.bldroot(), "version", "--quiet", "--test", v1, v2],
         capture_output=True,
         check=True,
     ).stdout.strip()
