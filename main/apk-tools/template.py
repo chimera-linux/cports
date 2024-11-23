@@ -1,6 +1,6 @@
 pkgname = "apk-tools"
 pkgver = "3.0.0_pre11"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "d33294236cb4547b57411f985648cc3279d1e42b"
 build_style = "meson"
 configure_args = [

@@ -1,0 +1,217 @@
+From 967552f2cc227bca376b76b39ca3b1e5a7dca658 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 23 Nov 2024 15:09:18 +0100
+Subject: [PATCH] revert more breaking stuff
+
+This mostly reverts https://gitlab.alpinelinux.org/alpine/apk-tools/-/commit/de9baf912245a7cbfe7405618953f1f14aa1d4a1
+
+which breaks usage of the "version" applet when the db structure
+does not exist and a --root is not provided, besides other things
+probably
+---
+ src/apk_context.h  |  3 +--
+ src/apk_database.h |  2 +-
+ src/app_convdb.c   | 10 +++++-----
+ src/context.c      | 27 ---------------------------
+ src/database.c     | 20 +++++++++-----------
+ 5 files changed, 16 insertions(+), 46 deletions(-)
+
+diff --git a/src/apk_context.h b/src/apk_context.h
+index 673af17..485991a 100644
+--- a/src/apk_context.h
++++ b/src/apk_context.h
+@@ -81,7 +81,7 @@ struct apk_ctx {
+ 	struct apk_trust trust;
+ 	struct apk_id_cache id_cache;
+ 	struct apk_database *db;
+-	int root_fd, dest_fd, db_root_fd;
++	int root_fd, dest_fd;
+ 	unsigned int root_set : 1;
+ 	unsigned int cache_dir_set : 1;
+ };
+@@ -95,7 +95,6 @@ struct apk_id_cache *apk_ctx_get_id_cache(struct apk_ctx *ac);
+ 
+ static inline int apk_ctx_fd_root(struct apk_ctx *ac) { return ac->root_fd; }
+ static inline int apk_ctx_fd_dest(struct apk_ctx *ac) { return ac->dest_fd; }
+-static inline int apk_ctx_fd_db_root(struct apk_ctx *ac) { return ac->db_root_fd; }
+ static inline time_t apk_ctx_since(struct apk_ctx *ac, time_t since) {
+ 	return (ac->force & APK_FORCE_REFRESH) ? APK_ISTREAM_FORCE_REFRESH : since;
+ }
+diff --git a/src/apk_database.h b/src/apk_database.h
+index 6211406..5bbc386 100644
+--- a/src/apk_database.h
++++ b/src/apk_database.h
+@@ -164,7 +164,7 @@ struct apk_database {
+ 	struct apk_balloc ba_pkgs;
+ 	struct apk_balloc ba_files;
+ 	struct apk_balloc ba_deps;
+-	int root_fd, lock_fd, cache_fd, db_root_fd;
++	int root_fd, lock_fd, cache_fd;
+ 	unsigned num_repos, num_repo_tags;
+ 	const char *cache_dir;
+ 	char *cache_remount_dir, *root_proc_dir;
+diff --git a/src/app_convdb.c b/src/app_convdb.c
+index 35b9ad5..728d09d 100644
+--- a/src/app_convdb.c
++++ b/src/app_convdb.c
+@@ -201,7 +201,7 @@ static int conv_main(void *pctx, struct apk_ctx *ac, struct apk_string_array *ar
+ 	struct conv_ctx *ctx = pctx;
+ 	struct adb_obj idb;
+ 	int r;
+-	int db_root_fd = apk_ctx_fd_db_root(ac);
++	int root_fd = apk_ctx_fd_root(ac);
+ 
+ 	ctx->ac = ac;
+ 	list_init(&ctx->script_head);
+@@ -213,18 +213,18 @@ static int conv_main(void *pctx, struct apk_ctx *ac, struct apk_string_array *ar
+ 	adb_wo_alloca(&ctx->pkgs, &schema_package_adb_array, &ctx->dbi);
+ 
+ 	apk_tar_parse(
+-		apk_istream_from_file(db_root_fd, "db/scripts.tar"),
++		apk_istream_from_file(root_fd, "usr/lib/apk/db/scripts.tar"),
+ 		read_script, ctx, apk_ctx_get_id_cache(ac));
+ 
+-	read_triggers(ctx, apk_istream_from_file(db_root_fd, "db/triggers"));
++	read_triggers(ctx, apk_istream_from_file(root_fd, "usr/lib/apk/db/triggers"));
+ 
+-	convert_idb(ctx, apk_istream_from_file(db_root_fd, "db/installed"));
++	convert_idb(ctx, apk_istream_from_file(root_fd, "usr/lib/apk/db/installed"));
+ 
+ 	adb_wo_obj(&idb, ADBI_IDB_PACKAGES, &ctx->pkgs);
+ 	adb_w_rootobj(&idb);
+ 
+ 	r = adb_c_create(
+-		//apk_ostream_to_file(db_root_fd, "db/installed.adb", 0644),
++		//apk_ostream_to_file(root_fd, "usr/lib/apk/db/installed.adb", 0644),
+ 		adb_compress(apk_ostream_to_file(AT_FDCWD, "installed.adb", 0644), &ac->compspec),
+ 		&ctx->dbi, apk_ctx_get_trust(ac));
+ 	if (r == 0) {
+diff --git a/src/context.c b/src/context.c
+index 15ac7d4..32ab04f 100644
+--- a/src/context.c
++++ b/src/context.c
+@@ -35,24 +35,9 @@ void apk_ctx_free(struct apk_ctx *ac)
+ 	apk_string_array_free(&ac->repository_list);
+ 	apk_string_array_free(&ac->arch_list);
+ 	if (ac->root_fd) close(ac->root_fd);
+-	if (ac->db_root_fd) close(ac->db_root_fd);
+ 	if (ac->out.log) fclose(ac->out.log);
+ }
+ 
+-static int apk_ctx_get_db_root(struct apk_ctx *ac, const char *path)
+-{
+-	char db_path[NAME_MAX];
+-	int fd;
+-	if (faccessat(ac->root_fd, apk_fmts(db_path, sizeof db_path, "%s/db", path), F_OK, 0) == 0) {
+-		fd = openat(ac->root_fd, path,
+-			    O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+-		if (fd < 0)
+-			return -errno;
+-		return fd;
+-	}
+-	return -errno;
+-}
+-
+ int apk_ctx_prepare(struct apk_ctx *ac)
+ {
+ 	if (ac->flags & APK_SIMULATE &&
+@@ -90,18 +75,6 @@ int apk_ctx_prepare(struct apk_ctx *ac)
+ 		return -errno;
+ 	}
+ 	ac->dest_fd = ac->root_fd;
+-	ac->db_root_fd = apk_ctx_get_db_root(ac, "usr/lib/apk");
+-	if (ac->db_root_fd < 0)
+-		ac->db_root_fd = apk_ctx_get_db_root(ac, "lib/apk");
+-	if ((ac->db_root_fd < 0) && (ac->open_flags & APK_OPENF_CREATE)) {
+-		apk_make_dirs(ac->root_fd, "usr/lib/apk/db", 0755, 0755);
+-		ac->db_root_fd =
+-			openat(ac->root_fd, "usr/lib/apk", O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+-	}
+-	if (ac->db_root_fd < 0) {
+-		apk_err(&ac->out, "Unable to open db root: %s", apk_error_str(ac->db_root_fd));
+-		return -errno;
+-	}
+ 
+ 	if (ac->open_flags & APK_OPENF_CREATE) {
+ 		uid_t uid = getuid();
+diff --git a/src/database.c b/src/database.c
+index b0d9766..c4737b8 100644
+--- a/src/database.c
++++ b/src/database.c
+@@ -1237,7 +1237,7 @@ static int apk_db_read_layer(struct apk_database *db, unsigned layer)
+ 	 * 4. scripts db
+ 	 */
+ 
+-	fd = openat(db->db_root_fd, apk_db_layer_name(layer), O_RDONLY | O_CLOEXEC);
++	fd = openat(db->root_fd, apk_db_layer_name(layer), O_RDONLY | O_CLOEXEC);
+ 	if (fd < 0) return -errno;
+ 
+ 	if (!(flags & APK_OPENF_NO_WORLD)) {
+@@ -1630,8 +1630,8 @@ static int setup_cache(struct apk_database *db)
+ const char *apk_db_layer_name(int layer)
+ {
+ 	switch (layer) {
+-	case APK_DB_LAYER_ROOT: return "db";
+-	case APK_DB_LAYER_UVOL: return "db-uvol";
++	case APK_DB_LAYER_ROOT: return "usr/lib/apk/db";
++	case APK_DB_LAYER_UVOL: return "usr/lib/apk/db-uvol";
+ 	default:
+ 		assert(!"invalid layer");
+ 		return 0;
+@@ -1644,15 +1644,15 @@ static void setup_uvol_target(struct apk_database *db)
+ 	const struct apk_ctx *ac = db->ctx;
+ 	const char *uvol_db = apk_db_layer_name(APK_DB_LAYER_UVOL);
+ 	const char *uvol_target = APK_UVOL_DB_TARGET;
+-	const char *uvol_symlink_target = "../../../" APK_UVOL_DB_TARGET;
++	const char *uvol_symlink_target = "../../" APK_UVOL_DB_TARGET;
+ 
+ 	if (!(ac->open_flags & (APK_OPENF_WRITE|APK_OPENF_CREATE))) return;
+ 	if (IS_ERR(ac->uvol)) return;
+-	if (faccessat(db->db_root_fd, uvol_db, F_OK, 0) == 0) return;
++	if (faccessat(db->root_fd, uvol_db, F_OK, 0) == 0) return;
+ 	if (faccessat(db->root_fd, uvol_target, F_OK, 0) != 0) return;
+ 
+ 	// Create symlink from uvol_db to uvol_target in relative form
+-	symlinkat(uvol_symlink_target, db->db_root_fd, uvol_db);
++	symlinkat(uvol_symlink_target, db->root_fd, uvol_db);
+ }
+ #else
+ static void setup_uvol_target(struct apk_database *db) { }
+@@ -1706,14 +1706,13 @@ int apk_db_open(struct apk_database *db, struct apk_ctx *ac)
+ 	apk_db_setup_repositories(db, ac->cache_dir);
+ 	db->root_fd = apk_ctx_fd_root(ac);
+ 	db->cache_fd = -APKE_CACHE_NOT_AVAILABLE;
+-	db->db_root_fd = apk_ctx_fd_db_root(ac);
+ 	db->permanent = !detect_tmpfs_root(db);
+ 	db->usermode = !!(ac->open_flags & APK_OPENF_USERMODE);
+ 
+ 	if (!(ac->open_flags & APK_OPENF_CREATE)) {
+ 		// Autodetect usermode from the installeddb owner
+ 		struct stat st;
+-		if (fstatat(db->db_root_fd, apk_db_layer_name(APK_DB_LAYER_ROOT), &st, 0) == 0 &&
++		if (fstatat(db->root_fd, apk_db_layer_name(APK_DB_LAYER_ROOT), &st, 0) == 0 &&
+ 		    st.st_uid != 0)
+ 			db->usermode = 1;
+ 	}
+@@ -1896,7 +1895,7 @@ static int apk_db_write_layers(struct apk_database *db)
+ 		struct layer_data *ld = &layers[i];
+ 		if (!(db->active_layers & BIT(i))) continue;
+ 
+-		ld->fd = openat(db->db_root_fd, apk_db_layer_name(i), O_DIRECTORY | O_RDONLY | O_CLOEXEC);
++		ld->fd = openat(db->root_fd, apk_db_layer_name(i), O_DIRECTORY | O_RDONLY | O_CLOEXEC);
+ 		if (ld->fd < 0) {
+ 			if (i == APK_DB_LAYER_ROOT) return -errno;
+ 			continue;
+@@ -1978,8 +1977,7 @@ int apk_db_write_config(struct apk_database *db)
+ 		return 0;
+ 
+ 	if (db->ctx->open_flags & APK_OPENF_CREATE) {
+-		const char *adb_root = apk_db_layer_name(APK_DB_LAYER_ROOT);
+-		apk_make_dirs(db->db_root_fd, adb_root, 0755, 0755);
++		apk_make_dirs(db->root_fd, "usr/lib/apk/db", 0755, 0755);
+ 		apk_make_dirs(db->root_fd, "etc/apk", 0755, 0755);
+ 	} else if (db->lock_fd == 0) {
+ 		apk_err(out, "Refusing to write db without write lock!");
+-- 
+2.47.0
+
