@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.14"
-pkgrel = 1
+pkgver = "0.99.15"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "696aabb532083da5eda104cd728ab9131bb17274566759234c50690d7a73ce0c"
+sha256 = "c88f734bbdb7e926bd1167ed9b1844fff7b20cc7289ccbbb32940422fa18b951"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks"]
 
