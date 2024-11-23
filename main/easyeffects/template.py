@@ -1,5 +1,5 @@
 pkgname = "easyeffects"
-pkgver = "7.2.0"
+pkgver = "7.2.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-libcpp-workarounds=true"]
@@ -44,7 +44,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/wwmm/easyeffects"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "524dae04e0295b6bf3ac63e475bf61dfb70eaecf0325408746dec3049515992f"
+sha256 = "8032e7f4e5e527b47bcc1eabe863439ce343755c8d18e154dda0261433b5c7ca"
 
 
 def post_install(self):
