@@ -1,0 +1,13 @@
+pkgname = "perl-ipc-system-simple"
+pkgver = "1.30"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+checkdepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Run commands simply, with detailed diagnostics"
+license = "GPL-1.0-or-later OR Artistic-1.0-Perl"
+url = "https://metacpan.org/dist/IPC-System-Simple"
+source = f"https://cpan.metacpan.org/authors/id/J/JK/JKEENAN/IPC-System-Simple-{pkgver}.tar.gz"
+sha256 = "22e6f5222b505ee513058fdca35ab7a1eab80539b98e5ca4a923a70a8ae9ba9e"
