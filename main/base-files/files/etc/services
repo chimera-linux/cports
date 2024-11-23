@@ -8944,6 +8944,9 @@ fis              5912/sctp
 aoc-acars        5913/tcp
 aoc-acars        5913/udp
 ads-c            5913/sctp
+ipsdtls          5914/tcp
+ipsdtls          5914/udp
+ipsdtls          5914/sctp
 indy             5963/tcp
 indy             5963/udp
 mppolicy-v5      5968/tcp

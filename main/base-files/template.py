@@ -1,5 +1,5 @@
 pkgname = "base-files"
-_iana_ver = "20240923"
+_iana_ver = "20241122"
 pkgver = f"0.1.{_iana_ver}"
 pkgrel = 0
 replaces = ["dinit-chimera<0.99.11-r2"]
