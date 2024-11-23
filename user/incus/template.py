@@ -27,6 +27,7 @@ depends = [
     "acl-progs",
     "attr-progs",
     "dnsmasq",
+    "gtar",
     "iptables",
     "libvirt",
     "lxc",
