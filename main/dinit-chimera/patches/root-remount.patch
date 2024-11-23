@@ -1,0 +1,31 @@
+commit 742fea815d361d992ceb073242fc2a4927758c4e
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Nov 23 20:30:13 2024 +0100
+
+    respect the root remount kernel command line
+
+diff --git a/init b/init
+index 573f15f..5da2817 100644
+--- a/init
++++ b/init
+@@ -25,6 +25,9 @@ if [ -n "$dinit_log_file" ]; then
+     set -- --log-file "$dinit_log_file" "$@"
+ fi
+ 
++unset dinit_auto_recovery dinit_quiet dinit_log_level
++unset dinit_console_level dinit_log_file
++
+ # in a container, sanitize PATH and exec directly
+ # as we don't have a way to deal with the init env
+ # after the fact, and there is no initramfs anyway
+@@ -45,5 +48,10 @@ if [ "$dinit_early_debug" ]; then
+         "$@"
+ fi
+ 
++# also respect this
++if [ "$dinit_early_root_remount" ]; then
++    set -- dinit_early_root_remount=$dinit_early_root_remount "$@"
++fi
++
+ # if not a container, exec in a mostly clean env...
+ exec /usr/bin/env -i "$@"

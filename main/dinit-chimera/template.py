@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.15"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
