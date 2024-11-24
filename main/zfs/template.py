@@ -2,7 +2,7 @@
 # also update linux-*-zfs-bin
 pkgname = "zfs"
 pkgver = "2.2.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
