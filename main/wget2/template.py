@@ -1,6 +1,6 @@
 pkgname = "wget2"
-pkgver = "2.1.0"
-pkgrel = 1
+pkgver = "2.2.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-lzma",
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/gnuwget/wget2"
 source = f"$(GNU_SITE)/wget/wget2-{pkgver}.tar.gz"
-sha256 = "a05dc5191c6bad9313fd6db2777a78f5527ba4774f665d5d69f5a7461b49e2e7"
+sha256 = "2b3b9c85b7fb26d33ca5f41f1f8daca71838d869a19b406063aa5c655294d357"
 
 
 def post_install(self):
