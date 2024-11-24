@@ -2,7 +2,7 @@ pkgname = "dinit"
 pkgver = "0.19.1"
 # temporary so we get our features
 _gitrev = "29c189ac8a12aa1c78e4bfd37b6c5984a9f033da"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
 configure_args = ["--sbindir=/usr/bin", "--syscontrolsocket=/run/dinitctl"]
 make_check_args = ["check-igr"]  # additional target
