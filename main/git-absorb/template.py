@@ -1,5 +1,5 @@
 pkgname = "git-absorb"
-pkgver = "0.6.15"
+pkgver = "0.6.16"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["asciidoc", "cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/tummychow/git-absorb"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "630e61a6edf1e244c38145bda98a522217c34d3ab70a3399af1f29f19e7ced26"
+sha256 = "d0fac448801674a4d4d5d42d6ef2d2e21545ad66755023c531a273a47893a573"
 # generates completions with host bin
 options = ["!cross"]
 
