@@ -1,6 +1,6 @@
 pkgname = "dbus"
 pkgver = "1.14.10"
-pkgrel = 14
+pkgrel = 15
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec

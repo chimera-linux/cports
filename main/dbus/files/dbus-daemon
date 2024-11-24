@@ -1,7 +1,7 @@
 # dbus daemon service
 
 type = process
-command = /usr/bin/dbus-daemon --system --nofork --nopidfile --print-address=4
+command = /usr/bin/dbus-daemon --system --dinit --nofork --nopidfile --print-address=4
 before = login.target
 depends-on = local.target
 ready-notification = pipefd:4
