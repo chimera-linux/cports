@@ -1,25 +1,24 @@
 # Keep in sync with cargo-auditable-bootstrap
 pkgname = "cargo-auditable"
-pkgver = "0.6.5"
+pkgver = "0.6.6"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["-p", "cargo-auditable"]
 make_check_args = [
     *make_build_args,
     "--",
-    "--skip",
-    # probably fails because we have slightly older cargo
-    "test_wasm",
+    "--skip=test_self_hosting",
+    "--skip=test_wasm",
 ]
 hostmakedepends = ["cargo-auditable-bootstrap"]
-makedepends = ["rust-std"]
+makedepends = ["rust-std", "rust-wasm"]
 depends = ["cargo"]
 pkgdesc = "Tool for embedding dependency information in rust binaries"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/rust-secure-code/cargo-auditable"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5e7dad2d00cba7f09f92f457999d15b7fb786a5ddd1adf87ddbc634878ab5589"
+sha256 = "adecc1ccf8e86f4e3734767ee6a1c90e04c6639a4f73a59ac2db68a07220c807"
 
 
 def install(self):
