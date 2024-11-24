@@ -1,6 +1,6 @@
 pkgname = "lazydocker"
-pkgver = "0.23.3"
-pkgrel = 5
+pkgver = "0.24.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags= -X main.version={pkgver} -X main.buildSource=release",
@@ -11,7 +11,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jesseduffield/lazydocker"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6ea52b69c3fb5cb371a01e55d1deeaf053b17fb240be069af577246c5169f4f1"
+sha256 = "f54197d333a28e658d2eb4d9b22461ae73721ec9e4106ba23ed177fc530c21f4"
 
 
 def post_install(self):
