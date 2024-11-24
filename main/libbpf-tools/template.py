@@ -1,5 +1,5 @@
 pkgname = "libbpf-tools"
-pkgver = "0.31.0"
+pkgver = "0.32.0"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_wrksrc = "libbpf-tools"
@@ -9,6 +9,8 @@ make_build_args = [
     "V=1",
     "APP_PREFIX=bpf-",
     "BPFTOOL=bpftool",
+    "BPFTOOL_OUTPUT=/usr/bin/bpftool",
+    "USE_BLAZESYM=0",
 ]
 make_install_args = [*make_build_args]
 hostmakedepends = [
@@ -25,7 +27,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/iovisor/bcc/tree/master/libbpf-tools"
 source = f"https://github.com/iovisor/bcc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ca091ec1cc55c2a2b39f153ac722a04fae0a2fb6abc571250af945ceaf9a5583"
+sha256 = "06d868f789c087dbdf7b52a456b7f3eea1702160dda95a4f0c11298bdd70b1cd"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],

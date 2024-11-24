@@ -1,16 +1,8 @@
-
+diff --git a/libbpf-tools/Makefile b/libbpf-tools/Makefile
+index 065e383..c5274ca 100644
 --- a/libbpf-tools/Makefile
 +++ b/libbpf-tools/Makefile
-@@ -173,7 +173,7 @@
- 	$(call msg,INC,$@)
- 	$(Q)cp blazesym/target/release/blazesym.h $@
- 
--$(OUTPUT) $(OUTPUT)/libbpf $(BPFTOOL_OUTPUT):
-+$(OUTPUT) $(OUTPUT)/libbpf:
- 	$(call msg,MKDIR,$@)
- 	$(Q)mkdir -p $@
- 
-@@ -181,9 +181,9 @@
+@@ -182,9 +182,9 @@ $(BPFTOOL): | $(BPFTOOL_OUTPUT)
  	$(call msg,BPFTOOL,$@)
  	$(Q)$(MAKE) ARCH= CROSS_COMPILE=  OUTPUT=$(BPFTOOL_OUTPUT)/ -C $(BPFTOOL_SRC) bootstrap
  
@@ -18,11 +10,11 @@
 +$(APPS): %: $(OUTPUT)/%.o $(COMMON_OBJ) | $(OUTPUT)
  	$(call msg,BINARY,$@)
 -	$(Q)$(CC) $(CFLAGS) $^ $(LDFLAGS) -lelf -lz -o $@
-+	$(Q)$(CC) $(CFLAGS) $$(pkg-config --cflags --libs libbpf) $^ $(LDFLAGS) -lelf -lz -o $@
++	$(Q)$(CC) $(CFLAGS) $^ $(LDFLAGS) $$(pkg-config --cflags --libs libbpf libelf zlib) -o $@
  
  ifeq ($(USE_BLAZESYM),1)
  $(patsubst %,$(OUTPUT)/%.o,$(BZ_APPS)): $(OUTPUT)/blazesym.h
-@@ -191,15 +191,15 @@
+@@ -192,9 +192,9 @@ endif
  
  $(patsubst %,$(OUTPUT)/%.o,$(APPS)): %.o: %.skel.h
  
@@ -34,7 +26,9 @@
  
  $(OUTPUT)/%.skel.h: $(OUTPUT)/%.bpf.o | $(OUTPUT) $(BPFTOOL)
  	$(call msg,GEN-SKEL,$@)
- 	$(Q)$(BPFTOOL) gen skeleton $< > $@
+@@ -202,7 +202,7 @@ $(OUTPUT)/%.skel.h: $(OUTPUT)/%.bpf.o | $(OUTPUT) $(BPFTOOL)
+ 
+ $(OUTPUT)/softirqs.bpf.o: BPFCFLAGS = $(BPFCFLAGS_softirqs)
  
 -$(OUTPUT)/%.bpf.o: %.bpf.c $(LIBBPF_OBJ) $(wildcard %.h) $(ARCH)/vmlinux.h | $(OUTPUT)
 +$(OUTPUT)/%.bpf.o: %.bpf.c $(wildcard %.h) $(ARCH)/vmlinux.h | $(OUTPUT)
