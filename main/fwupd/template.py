@@ -1,5 +1,5 @@
 pkgname = "fwupd"
-pkgver = "2.0.1"
+pkgver = "2.0.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -57,7 +57,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "2266ed0f655e3268221a0f8bd34ab41e1e80b9092978b86fc080e59268b01486"
+sha256 = "4fa96142531e8ce61fb77cc7893a78ccf0ade0d9f8236defdb4613e4e53f1dc2"
 options = ["!cross"]
 
 _have_uefi = False
@@ -96,7 +96,6 @@ def post_install(self):
     # nuke installed tests
     self.uninstall("usr/share/fwupd/remotes.d/fwupd-tests.conf")
     self.uninstall("usr/lib/installed-tests")
-    self.uninstall("usr/share/fwupd/device-tests")
     self.uninstall("usr/share/installed-tests")
 
 
