@@ -1,5 +1,5 @@
 pkgname = "f2"
-pkgver = "2.0.1"
+pkgver = "2.0.3"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/f2"]
@@ -10,7 +10,7 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "MIT"
 url = "https://github.com/ayoisaiah/f2"
 source = f"https://github.com/ayoisaiah/f2/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8b0776bdbde03041191d5d307a8f5b5aa8e87eb4380fb28f4c15d23975287a30"
+sha256 = "164e1282ae1f2ea6a8af93c785d7bb214b09919ad8537b8fbab5b5bc8ee1a396"
 
 
 def post_install(self):
