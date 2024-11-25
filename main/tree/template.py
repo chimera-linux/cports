@@ -1,5 +1,5 @@
 pkgname = "tree"
-pkgver = "2.1.3"
+pkgver = "2.2.0"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "Recursive directory indented listing of files"
@@ -7,7 +7,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "GPL-2.0-or-later"
 url = "https://oldmanprogrammer.net/source.php?dir=projects/tree"
 source = f"https://gitlab.com/OldManProgrammer/unix-tree/-/archive/{pkgver}/unix-tree-{pkgver}.tar.gz"
-sha256 = "f554a1b62233b96fa8eaa2d85e91bc62cad80ee441fd591380f16cdfbe3e8868"
+sha256 = "bc6f954de0626babe80969746ded5440a7658f9a397e37304ddc1cc23fc08c2f"
 hardening = ["vis", "cfi"]
 # no check target
 options = ["!check"]
