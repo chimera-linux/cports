@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "24.2.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -352,13 +352,6 @@ def _(self):
     ]
 
 
-@subpackage("mesa-vaapi", _have_hwdec)
-def _(self):
-    self.pkgdesc = "Mesa VA-API drivers"
-
-    return ["usr/lib/dri/*_drv_video.so"]
-
-
 @subpackage("mesa-libgallium")
 def _(self):
     self.pkgdesc = "Mesa gallium loader"
@@ -369,6 +362,8 @@ def _(self):
 def _(self):
     self.pkgdesc = "Mesa DRI drivers"
     self.install_if = [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("mesa-vaapi")]
 
     return ["usr/lib/dri"]
 
