@@ -1,5 +1,5 @@
 pkgname = "kdecoration"
-pkgver = "6.2.3"
+pkgver = "6.2.4"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -18,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/plasma/kdecoration/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdecoration-{pkgver}.tar.xz"
-sha256 = "49637726e0c347674f2a0248408e4c5eb37b5e35f99e11343b7338b8c358c063"
+sha256 = "ac645b4d582d110258694a9e2ea2bf65fbbd4bd58e9de9f9354786397bc4f71a"
 hardening = ["vis"]
 
 
