@@ -27,6 +27,7 @@ makedepends = [
     "libplasma-devel",
     "libpulse-devel",
     "pulseaudio-qt-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 depends = [

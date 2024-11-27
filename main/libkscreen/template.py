@@ -14,7 +14,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "plasma-wayland-protocols",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qttools-devel",
     "qt6-qtwayland-devel",
 ]

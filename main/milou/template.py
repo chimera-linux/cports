@@ -15,6 +15,7 @@ makedepends = [
     "ksvg-devel",
     "kwindowsystem-devel",
     "libplasma-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE Dedicated search application"

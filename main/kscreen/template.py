@@ -21,6 +21,7 @@ makedepends = [
     "layer-shell-qt-devel",
     "libkscreen-devel",
     "libplasma-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtsensors-devel",
     "xcb-util-devel",
 ]
