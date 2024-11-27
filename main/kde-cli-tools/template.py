@@ -21,7 +21,7 @@ makedepends = [
     "kiconthemes-devel",
     "kio-devel",
     "kparts-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "KDE command line tools to interact with Plasma"

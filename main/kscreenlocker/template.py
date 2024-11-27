@@ -28,6 +28,7 @@ makedepends = [
     "libkscreen-devel",
     "libplasma-devel",
     "linux-pam-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 checkdepends = [

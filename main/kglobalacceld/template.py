@@ -19,6 +19,7 @@ makedepends = [
     "kio-devel",
     "kservice-devel",
     "kwindowsystem-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE Daemon for global keyboard shortcut functionality"

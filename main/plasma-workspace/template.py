@@ -95,6 +95,7 @@ makedepends = [
     "prison-devel",
     "qcoro-devel",
     "qt6-qt5compat-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtpositioning-devel",
     "qt6-qtsvg-devel",
