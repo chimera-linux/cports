@@ -1,5 +1,5 @@
 pkgname = "xdg-desktop-portal-kde"
-pkgver = "6.2.3"
+pkgver = "6.2.4"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -46,7 +46,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/xdg-desktop-portal-kde"
 source = f"$(KDE_SITE)/plasma/{pkgver}/xdg-desktop-portal-kde-{pkgver}.tar.xz"
-sha256 = "5f2ad108c4206b96b48760ef093deb7b935185836c5cce77a33e49caf3dd74da"
+sha256 = "daf2d8769d0f45264ef1f48b63f5274446222574ff832e40f21d06a4c3822d1d"
 hardening = ["vis"]
 
 
