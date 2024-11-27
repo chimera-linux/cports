@@ -1,6 +1,6 @@
 pkgname = "qalculate-qt"
 # match to libqalculate
-pkgver = "5.3.0"
+pkgver = "5.4.0"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -19,7 +19,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://qalculate.github.io"
 source = f"https://github.com/Qalculate/qalculate-qt/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9dbe7deffe92b13ed09e8d09d11f20fb46d003f674c3b8250bbc6a471f11ff9b"
+sha256 = "6e42e6d191e0e7e412e9af7158f5a7f3c5d54b532fd2a7f6eb29ab07c71c91fe"
 
 
 def configure(self):
