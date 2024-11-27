@@ -23,7 +23,7 @@ makedepends = [
 ]
 depends = ["cups"]
 pkgdesc = "Filters, backends, utilities for CUPS"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 AND custom:gpl-exception"
 url = "https://github.com/OpenPrinting/cups-filters"
 source = f"https://github.com/OpenPrinting/cups-filters/releases/download/{pkgver}/cups-filters-{pkgver}.tar.xz"

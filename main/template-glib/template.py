@@ -11,7 +11,7 @@ hostmakedepends = [
     "vala",
 ]
 pkgdesc = "Library for GObject template expansion"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/template-glib"
 source = f"$(GNOME_SITE)/template-glib/{'.'.join(pkgver.rsplit('.')[:-1])}/template-glib-{pkgver}.tar.xz"

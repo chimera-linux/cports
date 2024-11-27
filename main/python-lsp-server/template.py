@@ -20,7 +20,7 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python LSP server"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-lsp/python-lsp-server"
 source = f"$(PYPI_SITE)/p/python-lsp-server/python_lsp_server-{pkgver}.tar.gz"

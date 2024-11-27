@@ -20,7 +20,7 @@ makedepends = [
 ]
 depends = ["ibus"]
 pkgdesc = "Japanese KKC engine for IBus"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/ueno/ibus-kkc"
 _gitrev = "b3fb76ef26a9238cc2814987d05b480ee4189ed4"

@@ -24,7 +24,7 @@ makedepends = [
 # dot
 depends = ["graphviz"]
 pkgdesc = "Graphviz DOT file viewer"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://invent.kde.org/graphics/kgraphviewer"
 source = (

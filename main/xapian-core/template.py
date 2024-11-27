@@ -11,7 +11,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Open source search engine library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://xapian.org"
 source = f"https://oligarchy.co.uk/xapian/{pkgver}/xapian-core-{pkgver}.tar.xz"

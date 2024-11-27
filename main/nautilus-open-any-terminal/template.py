@@ -14,7 +14,7 @@ depends = [
     "python-gobject",
 ]
 pkgdesc = "Open a terminal from inside nautilus"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://github.com/Stunkymonkey/nautilus-open-any-terminal"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

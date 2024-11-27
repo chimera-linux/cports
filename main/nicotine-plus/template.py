@@ -30,7 +30,7 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Graphical client for the Soulseek network"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://nicotine-plus.github.io/nicotine-plus"
 source = (

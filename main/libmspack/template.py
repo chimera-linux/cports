@@ -8,7 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Library for Microsoft CAB compression formats"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://www.cabextract.org.uk/libmspack"
 source = f"https://www.cabextract.org.uk/libmspack/libmspack-{pkgver.replace('_', '')}.tar.gz"

@@ -18,7 +18,7 @@ makedepends = [
     "uriparser-devel",
 ]
 pkgdesc = "COLLADA DOM access library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/collada-dom"
 source = f"https://github.com/rdiankov/collada-dom/archive/refs/tags/v{pkgver}.tar.gz"

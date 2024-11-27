@@ -13,7 +13,7 @@ makedepends = [
     "libslirp-devel",
 ]
 pkgdesc = "User-mode networking for unprivileged network namespaces"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rootless-containers/slirp4netns"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

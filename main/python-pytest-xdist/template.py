@@ -15,7 +15,7 @@ depends = [
 ]
 checkdepends = ["python-filelock", "python-pexpect", "python-psutil", *depends]
 pkgdesc = "Pytest plugin for testing parallelisation"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-xdist"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

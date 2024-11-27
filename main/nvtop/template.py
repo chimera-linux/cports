@@ -16,7 +16,7 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "GPU process monitor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/Syllo/nvtop"
 source = f"https://github.com/Syllo/nvtop/archive/refs/tags/{pkgver}.tar.gz"

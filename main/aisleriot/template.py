@@ -21,7 +21,7 @@ makedepends = [
     "librsvg-devel",
 ]
 pkgdesc = "Collection of solitaire and other card games"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/aisleriot"
 source = f"{url}/-/archive/{pkgver}.tar.gz"

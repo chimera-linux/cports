@@ -46,7 +46,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Multimedia framework for video editors"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-3.0-or-later"
 url = "https://www.mltframework.org"
 source = f"https://github.com/mltframework/mlt/releases/download/v{pkgver}/mlt-{pkgver}.tar.gz"

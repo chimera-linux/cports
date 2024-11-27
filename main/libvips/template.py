@@ -31,7 +31,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast image processing library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libvips/libvips"
 source = f"https://github.com/libvips/libvips/releases/download/v{pkgver}/vips-{pkgver}.tar.xz"

@@ -19,7 +19,7 @@ makedepends = [
     "kwindowsystem-devel",
 ]
 pkgdesc = "KDE dialog displayer"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://develop.kde.org/docs/administration/kdialog"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdialog-{pkgver}.tar.xz"

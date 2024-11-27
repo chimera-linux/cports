@@ -21,7 +21,7 @@ makedepends = [
     "gtest-devel",
 ]
 pkgdesc = "C++ implementation of the Google logging module"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/google/glog"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

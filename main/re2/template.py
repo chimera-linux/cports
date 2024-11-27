@@ -21,7 +21,7 @@ makedepends = [
     "icu-devel",
 ]
 pkgdesc = "C++ regular expression library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/google/re2"
 source = f"{url}/archive/refs/tags/{pkgver.replace('.', '-')}.tar.gz"

@@ -22,7 +22,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for parsing, formatting, and validating phone numbers"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/libphonenumber"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

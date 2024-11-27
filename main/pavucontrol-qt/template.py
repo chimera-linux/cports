@@ -15,7 +15,7 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Qt Pulseaudio mixer"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/lxqt/pavucontrol-qt"
 source = f"{url}/releases/download/{pkgver}/pavucontrol-qt-{pkgver}.tar.xz"

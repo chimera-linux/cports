@@ -23,7 +23,7 @@ makedepends = [
 ]
 checkdepends = ["nihtest"]
 pkgdesc = "C library for manipulating zip archives"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libzip.org"
 source = f"{url}/download/libzip-{pkgver}.tar.gz"

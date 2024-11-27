@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["oniguruma-devel"]
 pkgdesc = "Command-line JSON processor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/jqlang/jq"
 source = f"{url}/releases/download/jq-{pkgver}/jq-{pkgver}.tar.gz"

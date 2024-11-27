@@ -22,7 +22,7 @@ makedepends = [
     "python-pybind11-devel",
 ]
 pkgdesc = "Sparse volume data tools"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.openvdb.org"
 source = f"https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{pkgver}.tar.gz"

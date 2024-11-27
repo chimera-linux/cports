@@ -15,7 +15,7 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Screen recorder for wlroots-based compositors"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ammen99/wf-recorder"
 source = f"{url}/releases/download/v{pkgver}/wf-recorder-{pkgver}.tar.xz"

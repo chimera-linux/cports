@@ -22,7 +22,7 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "GStreamer rust plugins"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "(MIT OR Apache-2.0) AND MPL-2.0 AND LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/{pkgver}.tar.gz"

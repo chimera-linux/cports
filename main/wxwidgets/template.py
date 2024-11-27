@@ -43,7 +43,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "WXwidgets GUI toolkit"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "custom:wxWidgets"
 url = "https://www.wxwidgets.org"
 source = f"https://github.com/wxWidgets/wxWidgets/releases/download/v{pkgver}/wxWidgets-{pkgver}.tar.bz2"

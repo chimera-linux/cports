@@ -50,7 +50,7 @@ depends = [
     "schilytools-cdrtools",
 ]
 pkgdesc = "KDE disc burning and ripping application"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://apps.kde.org/k3b"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/k3b-{pkgver}.tar.xz"

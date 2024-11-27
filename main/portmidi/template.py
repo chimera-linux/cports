@@ -11,7 +11,7 @@ makedepends = [
     "alsa-lib-devel",
 ]
 pkgdesc = "Cross-platform MIDI input/output library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/PortMidi/portmidi"
 source = (

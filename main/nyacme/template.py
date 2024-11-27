@@ -12,7 +12,7 @@ depends = [
     "uacme",
 ]
 pkgdesc = "Wrapper for uacme"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://git.ddd.rip/ptrcnull/nyacme"
 source = f"{url}/archive/v{pkgver}.tar.gz"

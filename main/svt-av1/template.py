@@ -16,7 +16,7 @@ hostmakedepends = [
 ]
 checkdepends = ["python"]
 pkgdesc = "AOMedia Scalable Video Technology AV1 Encoder/Decoder"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause-Clear"
 url = "https://gitlab.com/AOMediaCodec/SVT-AV1"
 source = f"{url}/-/archive/v{pkgver}/SVT-AV1-v{pkgver}.tar.gz"

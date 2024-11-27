@@ -15,7 +15,7 @@ makedepends = [
     "python-gobject-devel",
 ]
 pkgdesc = "GLib wrapper around libgit2"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libgit2-glib"
 source = f"$(GNOME_SITE)/libgit2-glib/{'.'.join(pkgver.rsplit('.')[:-1])}/libgit2-glib-{pkgver}.tar.xz"

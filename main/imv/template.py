@@ -35,7 +35,7 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Image viewer for X11/Wayland"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sr.ht/~exec64/imv"
 source = f"https://git.sr.ht/~exec64/imv/archive/v{pkgver}.tar.gz"

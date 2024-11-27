@@ -25,7 +25,7 @@ makedepends = [
     "openssl-devel",
 ]
 pkgdesc = "Client API library for the Matrix protocol"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/nheko-reborn/mtxclient"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -20,7 +20,7 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Legacy support library for PPD files"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 AND custom:gpl-exception"
 url = "https://github.com/OpenPrinting/libppd"
 source = f"{url}/releases/download/{pkgver}/libppd-{pkgver}.tar.xz"

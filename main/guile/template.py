@@ -22,7 +22,7 @@ makedepends = [
     "readline-devel",
 ]
 pkgdesc = "GNU Scheme implementation"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://www.gnu.org/software/guile"
 source = f"$(GNU_SITE)/guile/guile-{pkgver}.tar.gz"

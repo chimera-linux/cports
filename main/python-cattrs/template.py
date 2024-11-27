@@ -16,7 +16,7 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python module for data structuring and unstructuring"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://catt.rs/en/stable"
 source = f"$(PYPI_SITE)/c/cattrs/cattrs-{pkgver}.tar.gz"

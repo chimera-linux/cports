@@ -21,7 +21,7 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Future-based programming for GLib-based applications"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-3-Clause"
 url = "https://gitlab.gnome.org/GNOME/libdex"
 source = f"$(GNOME_SITE)/libdex/{'.'.join(pkgver.rsplit('.')[:-1])}/libdex-{pkgver}.tar.xz"

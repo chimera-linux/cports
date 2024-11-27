@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["gtest-devel"]
 pkgdesc = "Implementation of zlib compression library with new API"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Zlib"
 url = "https://github.com/zlib-ng/zlib-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -13,7 +13,7 @@ makedepends = [
     "wxwidgets-devel",
 ]
 pkgdesc = "Acoustic spectrum analyser"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://github.com/alexkay/spek"
 source = f"{url}/releases/download/v{pkgver}/spek-{pkgver}.tar.xz"

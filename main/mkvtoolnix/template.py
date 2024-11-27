@@ -40,7 +40,7 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "Tooling for editing and inspecting Matroska files"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://mkvtoolnix.download/index.html"
 source = f"https://mkvtoolnix.download/sources/mkvtoolnix-{pkgver}.tar.xz"

@@ -12,7 +12,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "High quality, one-dimensional sample-rate conversion library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://sourceforge.net/projects/soxr"
 source = f"$(SOURCEFORGE_SITE)/soxr/soxr-{pkgver}-Source.tar.xz"

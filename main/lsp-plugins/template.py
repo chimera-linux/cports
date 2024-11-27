@@ -17,7 +17,7 @@ makedepends = [
     "pipewire-jack-devel",
 ]
 pkgdesc = "Collection of free audio plugins"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://lsp-plug.in"
 source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.tar.gz"

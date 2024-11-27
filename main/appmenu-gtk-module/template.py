@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["gtk+3-devel"]
 pkgdesc = "GTK module for appmenu"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://gitlab.com/vala-panel-project/vala-panel-appmenu"
 source = f"{url}/-/archive/{pkgver}/vala-panel-appmenu-{pkgver}.tar.gz"

@@ -13,7 +13,7 @@ makedepends = [
     "glib-devel",
 ]
 pkgdesc = "Mpris plugin for deadbeef"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/DeaDBeeF-Player/deadbeef-mpris2-plugin"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

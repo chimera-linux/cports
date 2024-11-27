@@ -15,7 +15,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast, global-search, tag-based email system"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://notmuchmail.org"
 source = f"{url}/releases/notmuch-{pkgver}.tar.xz"

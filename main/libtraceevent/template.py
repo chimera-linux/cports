@@ -16,7 +16,7 @@ hostmakedepends = [
 ]
 makedepends = ["cunit-devel", "linux-headers"]
 pkgdesc = "Linux kernel trace event library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only AND GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git"
 source = f"{url}/snapshot/libtraceevent-{pkgver}.tar.gz"

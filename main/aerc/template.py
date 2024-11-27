@@ -17,7 +17,7 @@ checkdepends = [
     "gpgme",
 ]
 pkgdesc = "Terminal email client"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sr.ht/~rjarry/aerc"
 source = f"https://git.sr.ht/~rjarry/aerc/archive/{pkgver}.tar.gz"

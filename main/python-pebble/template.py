@@ -13,7 +13,7 @@ checkdepends = [
     "python-pytest",
 ]
 pkgdesc = "Multi-threading and processing for python"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/noxdafox/pebble"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

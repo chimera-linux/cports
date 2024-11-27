@@ -15,7 +15,7 @@ makedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python formatter and linter"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
 source = f"https://github.com/astral-sh/ruff/archive/refs/tags/{pkgver}.tar.gz"

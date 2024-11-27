@@ -14,7 +14,7 @@ hostmakedepends = [
     "python",
 ]
 pkgdesc = "Monospace bitmap font"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "OFL-1.1"
 url = "https://terminus-font.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/terminus-font/terminus-font-{pkgver}.tar.gz"

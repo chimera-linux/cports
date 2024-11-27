@@ -17,7 +17,7 @@ makedepends = [
     "lv2",
 ]
 pkgdesc = "Calf Studio Gear audio plugins"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://calf-studio-gear.org"
 source = f"https://github.com/calf-studio-gear/calf/archive/refs/tags/{pkgver}.tar.gz"

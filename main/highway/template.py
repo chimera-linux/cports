@@ -15,7 +15,7 @@ hostmakedepends = [
 ]
 makedepends = ["gtest-devel", "linux-headers"]
 pkgdesc = "Google's SIMD library with runtime dispatch"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR BSD-3-Clause"
 url = "https://github.com/google/highway"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

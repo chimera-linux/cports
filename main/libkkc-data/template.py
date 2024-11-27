@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-marisa",
 ]
 pkgdesc = "Data for libkkc"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ueno/libkkc"
 source = f"{url}/releases/download/v{_libkkc}/libkkc-data-{pkgver}.tar.xz"

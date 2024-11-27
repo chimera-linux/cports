@@ -20,7 +20,7 @@ makedepends = [
     "openssl-devel",
 ]
 pkgdesc = "C library for pattern matching"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://virustotal.github.io/yara"
 source = (

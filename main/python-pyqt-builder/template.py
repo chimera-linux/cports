@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "PEP517 backend for PyQt projects"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "custom:sip"
 url = "https://github.com/Python-PyQt/PyQt-builder"
 source = f"$(PYPI_SITE)/P/PyQt-builder/pyqt_builder-{pkgver}.tar.gz"

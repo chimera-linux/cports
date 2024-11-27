@@ -8,7 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Library for the Unicode line breaking and word breaking algorithms"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Zlib"
 url = "https://github.com/adah1972/libunibreak"
 source = f"{url}/releases/download/libunibreak_{pkgver.replace('.', '_')}/libunibreak-{pkgver}.tar.gz"

@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "C++ library to parse Extensible Binary Meta-Language files"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://matroska-org.github.io/libebml"
 source = f"https://dl.matroska.org/downloads/libebml/libebml-{pkgver}.tar.xz"

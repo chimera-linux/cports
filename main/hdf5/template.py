@@ -28,7 +28,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "HDF5 data model library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause AND BSD-3-Clause-LBNL"
 url = "https://www.hdfgroup.org/solutions/hdf5"
 # last . is - in the source tarballs

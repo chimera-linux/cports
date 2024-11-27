@@ -30,7 +30,7 @@ makedepends = [
 # otherwise downloads a non-working one
 depends = ["nodejs"]
 pkgdesc = "Graphical text editor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later AND AGPL-3.0-or-later AND Apache-2.0"
 url = "https://zed.dev"
 source = (

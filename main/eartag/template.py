@@ -19,7 +19,7 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Edit audio file tags"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://apps.gnome.org/EarTag"
 source = f"https://gitlab.gnome.org/World/eartag/-/archive/{pkgver}/eartag-{pkgver}.tar.gz"

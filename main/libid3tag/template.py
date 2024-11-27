@@ -11,7 +11,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for reading ID3 metadata tags from MP3 files"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 # this is the slightly updated forked version
 url = "https://codeberg.org/tenacityteam/libid3tag"

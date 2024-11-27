@@ -18,7 +18,7 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "Qt based color picker"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/ksnip/kColorPicker"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

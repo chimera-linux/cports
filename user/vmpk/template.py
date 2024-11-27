@@ -12,7 +12,7 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Virtual MIDI piano keyboard"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://sourceforge.net/projects/vmpk"
 source = f"$(SOURCEFORGE_SITE)/vmpk/vmpk-{pkgver}.tar.gz"

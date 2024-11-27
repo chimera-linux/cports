@@ -14,7 +14,7 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "Hardware resource locality library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.open-mpi.org/projects/hwloc"
 source = f"https://www.open-mpi.org/software/hwloc/v{".".join(pkgver.split(".")[0:2])}/downloads/hwloc-{pkgver}.tar.bz2"

@@ -28,7 +28,7 @@ makedepends = [
 ]
 install_if = [self.with_pkgver("libvisual-plugins-meta")]
 pkgdesc = "Plugins for libvisual"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://libvisual.org"
 source = f"https://github.com/Libvisual/libvisual/releases/download/libvisual-plugins-{pkgver}/libvisual-plugins-{pkgver}.tar.bz2"

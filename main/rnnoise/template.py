@@ -8,7 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Neural network based noise reduction library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://jmvalin.ca/demo/rnnoise"
 source = f"https://github.com/xiph/rnnoise/releases/download/v{pkgver}/rnnoise-{pkgver}.tar.gz"

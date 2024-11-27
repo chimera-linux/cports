@@ -15,7 +15,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "NVMe management command line interface"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/linux-nvme/nvme-cli"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

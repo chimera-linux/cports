@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["rust-std"]
 pkgdesc = "Library to read & write Dolby Vision metadata"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/quietvoid/dovi_tool"
 source = f"{url}/archive/refs/tags/libdovi-{pkgver}.tar.gz"

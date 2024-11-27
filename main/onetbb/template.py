@@ -18,7 +18,7 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "OneAPI Threading Building Blocks"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://oneapi-src.github.io/oneTBB"
 source = (

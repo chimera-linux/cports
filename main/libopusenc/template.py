@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["opus-devel"]
 pkgdesc = "Library for encoding Opus files"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://opus-codec.org"
 source = f"https://downloads.xiph.org/releases/opus/libopusenc-{pkgver}.tar.gz"

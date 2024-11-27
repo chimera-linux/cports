@@ -14,7 +14,7 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-devel"]
 pkgdesc = "Helper class for single-instance applications"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/KDAB/KDSingleApplication"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

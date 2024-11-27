@@ -15,7 +15,7 @@ checkdepends = [
     "perl-test-deep",
 ]
 pkgdesc = "Ogg Opus tag editor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/fmang/opustags"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

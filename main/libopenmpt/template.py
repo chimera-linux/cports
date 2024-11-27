@@ -20,7 +20,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for rendering tracker music to PCM"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://lib.openmpt.org/libopenmpt"
 source = f"https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-{pkgver}+release.autotools.tar.gz"

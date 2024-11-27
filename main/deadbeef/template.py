@@ -41,7 +41,7 @@ makedepends = [
     "wavpack-devel",
 ]
 pkgdesc = "Modular cross-platform audio player"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND Zlib AND BSD-2-Clause"
 url = "https://deadbeef.sourceforge.io"
 source = f"https://downloads.sourceforge.net/sourceforge/deadbeef/deadbeef-{pkgver}.tar.bz2"

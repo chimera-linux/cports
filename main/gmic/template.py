@@ -25,7 +25,7 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "Full-featured Open-Source Framework for Image Processing"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "CECILL-2.1"
 url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"

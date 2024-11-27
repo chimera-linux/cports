@@ -13,7 +13,7 @@ makedepends = [
     "pciutils-devel",
 ]
 pkgdesc = "Utility to dump info about DRM devices"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/emersion/drm_info"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"

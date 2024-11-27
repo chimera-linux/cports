@@ -14,7 +14,7 @@ makedepends = [
 ]
 depends = ["xwayland"]
 pkgdesc = "Xwayland manager for Wayland"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/Supreeeme/xwayland-satellite"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

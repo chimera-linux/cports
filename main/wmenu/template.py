@@ -15,7 +15,7 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Dynamic menu for wlroots compositors"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://codeberg.org/adnano/wmenu"
 source = f"{url}/archive/{pkgver}.tar.gz"

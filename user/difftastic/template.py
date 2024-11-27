@@ -9,7 +9,7 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Structural diff tool"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://difftastic.wilfred.me.uk"
 source = (

@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["pciutils-devel"]
 pkgdesc = "Adjust power management settings for Ryzen mobile processors"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://github.com/FlyGoat/RyzenAdj"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

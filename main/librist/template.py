@@ -17,7 +17,7 @@ makedepends = [
     "mbedtls-devel",
 ]
 pkgdesc = "Reliable Internet Stream Transport"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://code.videolan.org/rist/librist"
 source = f"https://code.videolan.org/rist/librist/-/archive/v{pkgver}/librist-v{pkgver}.tar.bz2"

@@ -47,7 +47,7 @@ makedepends = [
 provides = [f"emacs={pkgver}"]
 provider_priority = 10
 pkgdesc = "Extensible, customizable, self-documenting, real-time display editor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/emacs/emacs.html"
 source = f"https://ftp.gnu.org/gnu/emacs/emacs-{pkgver}.tar.xz"

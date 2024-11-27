@@ -29,7 +29,7 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Image viewer for sway/wayland"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/artemsen/swayimg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

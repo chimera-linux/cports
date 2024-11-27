@@ -17,7 +17,7 @@ makedepends = [
     "libidn2-devel",
 ]
 pkgdesc = "Intelligent WHOIS Client"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rfc1036/whois"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

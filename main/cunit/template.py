@@ -11,7 +11,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Automated C testing framework"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://cunit.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/cunit/CUnit/{_pkgver}/CUnit-{_pkgver}.tar.bz2"

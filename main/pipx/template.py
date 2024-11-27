@@ -18,7 +18,7 @@ depends = [
     "python-userpath",
 ]
 pkgdesc = "Python tool for installing binaries to venvs"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pypa/pipx"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

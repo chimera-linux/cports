@@ -11,7 +11,7 @@ hostmakedepends = [
 ]
 makedepends = ["gnutls-devel"]
 pkgdesc = "C IETF QUIC protocol implementation"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ngtcp2/ngtcp2"
 source = f"{url}/releases/download/v{pkgver}/ngtcp2-{pkgver}.tar.xz"

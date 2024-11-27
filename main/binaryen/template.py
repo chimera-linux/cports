@@ -18,7 +18,7 @@ checkdepends = [
     "llvm-tools",
 ]
 pkgdesc = "Optimizer and compiler/toolchain library for WebAssembly"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/WebAssembly/binaryen"
 source = [

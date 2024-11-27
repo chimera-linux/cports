@@ -6,7 +6,7 @@ build_style = "meson"
 configure_args = ["-Dtests=false"]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "SIMD wrapper implementation with non-native fallbacks"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/simd-everywhere/simde"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

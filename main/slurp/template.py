@@ -15,7 +15,7 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Tool to select a region in a wayland compositor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/emersion/slurp"
 source = f"{url}/releases/download/v{pkgver}/slurp-{pkgver}.tar.gz"

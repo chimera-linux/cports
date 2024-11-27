@@ -15,7 +15,7 @@ makedepends = [
     "spdlog-devel",
 ]
 pkgdesc = "Asynchronous libcurl wrapper"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://nheko.im/nheko-reborn/coeurl"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"

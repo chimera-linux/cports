@@ -14,7 +14,7 @@ checkdepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python module that reads env vars from a .env file"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://saurabh-kumar.com/python-dotenv"
 source = f"$(PYPI_SITE)/p/python-dotenv/python-dotenv-{pkgver}.tar.gz"

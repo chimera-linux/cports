@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Free AAC decoder"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/faac"
 source = f"https://github.com/knik0/faad2/archive/refs/tags/{pkgver}.tar.gz"

@@ -18,7 +18,7 @@ makedepends = [
     "zita-convolver-devel",
 ]
 pkgdesc = "Collection of audio plugins for high-quality audio processing"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/zamaudio/zam-plugins"
 _dpf = "077fcf5758ed6038bfe6e7aee1e407aa02e807b2"

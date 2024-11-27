@@ -8,7 +8,7 @@ make_build_args = [
 ]
 hostmakedepends = ["go"]
 pkgdesc = "Open source implementation of the tailscale control server"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/juanfont/headscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

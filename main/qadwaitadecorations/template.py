@@ -15,7 +15,7 @@ makedepends = [
     "qt6-qtwayland-devel",
 ]
 pkgdesc = "Qt decoration plugin for Adwaita decorations"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/FedoraQt/QAdwaitaDecorations"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

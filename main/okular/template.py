@@ -54,7 +54,7 @@ makedepends = [
 ]
 checkdepends = ["dbus", "xwayland-run"]
 pkgdesc = "KDE document viewer"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/okular"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/okular-{pkgver}.tar.xz"

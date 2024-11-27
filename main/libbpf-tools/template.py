@@ -23,7 +23,7 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Standalone eBPF programs from BCC"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/iovisor/bcc/tree/master/libbpf-tools"
 source = f"https://github.com/iovisor/bcc/archive/refs/tags/v{pkgver}.tar.gz"

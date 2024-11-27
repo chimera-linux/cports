@@ -23,7 +23,7 @@ makedepends = [
     "libdeflate-devel",
 ]
 pkgdesc = "Reference implementation of the EXR format"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.openexr.com"
 source = f"https://github.com/openexr/openexr/archive/v{pkgver}.tar.gz"

@@ -8,7 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Data Matrix 2D library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/dmtx/libdmtx"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -13,7 +13,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Lightweight C JSON parser"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/DaveGamble/cJSON"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

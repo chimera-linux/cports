@@ -26,7 +26,7 @@ makedepends = [
     "mesa-devel",
 ]
 pkgdesc = "Cross-platform C++ GUI toolkit"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.0-only WITH FLTK-exception"
 url = "https://www.fltk.org"
 source = f"{url}/pub/fltk/{pkgver}/fltk-{pkgver}-source.tar.gz"

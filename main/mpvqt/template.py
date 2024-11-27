@@ -12,7 +12,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "QML libmpv wrapper"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = " LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries/mpvqt"
 source = f"$(KDE_SITE)/mpvqt/mpvqt-{pkgver}.tar.xz"

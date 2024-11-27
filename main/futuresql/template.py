@@ -13,7 +13,7 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "Non-blocking database framework for Qt"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/futuresql/html"
 source = f"$(KDE_SITE)/futuresql/futuresql-{pkgver}.tar.xz"

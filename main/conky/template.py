@@ -47,7 +47,7 @@ makedepends = [
     "wireless-tools-devel",
 ]
 pkgdesc = "System-monitor with various OS integrations"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://conky.cc"
 source = [

@@ -10,7 +10,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Ultimate Disassembler"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause-Clear"
 url = "https://www.capstone-engine.org"
 source = f"https://github.com/capstone-engine/capstone/archive/refs/tags/{pkgver}.tar.gz"

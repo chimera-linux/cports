@@ -19,7 +19,7 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "Keyboard driven wayland notification daemon"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fnott"
 source = f"{url}/archive/{pkgver}.tar.gz"

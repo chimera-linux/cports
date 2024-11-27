@@ -11,7 +11,7 @@ hostmakedepends = [
 ]
 makedepends = ["libadwaita-devel"]
 pkgdesc = "Dock/panel library for GTK 4"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libpanel"
 source = f"$(GNOME_SITE)/libpanel/{'.'.join(pkgver.rsplit('.')[:-1])}/libpanel-{pkgver}.tar.xz"

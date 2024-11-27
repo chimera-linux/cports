@@ -7,7 +7,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "C library of portability wrappers and data structures"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/category/zix"
 source = f"https://download.drobilla.net/zix-{pkgver}.tar.xz"

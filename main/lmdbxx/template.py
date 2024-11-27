@@ -8,7 +8,7 @@ make_check_args = ["LDFLAGS=", "CXXFLAGS="]
 makedepends = ["lmdb-devel"]
 depends = [*makedepends]
 pkgdesc = "Header-only C++ wrapper for LMDB"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Unlicense"
 url = "https://github.com/hoytech/lmdbxx"
 source = f"https://github.com/hoytech/lmdbxx/archive/refs/tags/{pkgver}.tar.gz"

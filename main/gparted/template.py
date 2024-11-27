@@ -19,7 +19,7 @@ makedepends = [
     "polkit-devel",
 ]
 pkgdesc = "Graphical disk partition editor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gparted.org"
 source = f"$(SOURCEFORGE_SITE)/gparted/gparted-{pkgver}.tar.gz"

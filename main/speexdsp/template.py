@@ -8,7 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Speex DSP library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.speex.org"
 source = f"https://gitlab.xiph.org/xiph/speexdsp/-/archive/SpeexDSP-{pkgver}/speexdsp-SpeexDSP-{pkgver}.tar.bz2"

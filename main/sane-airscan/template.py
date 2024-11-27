@@ -17,7 +17,7 @@ makedepends = [
     "sane-backends-devel",
 ]
 pkgdesc = "SANE backend for AirScan (eSCL) and WSD document scanners"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later WITH SANE-exception"
 url = "https://github.com/alexpevzner/sane-airscan"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

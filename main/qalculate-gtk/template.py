@@ -16,7 +16,7 @@ makedepends = [
     "libxml2-devel",
 ]
 pkgdesc = "GTK+3 frontend for libqalculate"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://qalculate.github.io"
 source = f"https://github.com/Qalculate/qalculate-gtk/releases/download/v{pkgver}/qalculate-gtk-{pkgver}.tar.gz"

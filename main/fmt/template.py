@@ -15,7 +15,7 @@ hostmakedepends = [
     "python",
 ]
 pkgdesc = "Formatting library for C++"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://fmt.dev/latest/index.html"
 source = (

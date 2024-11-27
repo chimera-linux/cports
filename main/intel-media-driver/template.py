@@ -21,7 +21,7 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Intel Media Driver for VAAPI"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/intel/media-driver"
 source = f"{url}/archive/refs/tags/intel-media-{pkgver}.tar.gz"

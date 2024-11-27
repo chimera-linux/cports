@@ -13,7 +13,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Linux BPF userspace library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/libbpf/libbpf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

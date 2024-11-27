@@ -16,7 +16,7 @@ makedepends = [
 ]
 checkdepends = ["dbus", "xwayland-run"]
 pkgdesc = "Accessibility helper library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries/libqaccessibilityclient"
 source = f"$(KDE_SITE)/libqaccessibilityclient/libqaccessibilityclient-{pkgver}.tar.xz"

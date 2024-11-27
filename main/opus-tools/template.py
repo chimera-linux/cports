@@ -15,7 +15,7 @@ makedepends = [
     "opusfile-devel",
 ]
 pkgdesc = "Collection of tools for the Opus audio codec"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause AND GPL-2.0-only"
 url = "https://wiki.xiph.org/Opus-tools"
 source = f"https://downloads.xiph.org/releases/opus/opus-tools-{pkgver}.tar.gz"

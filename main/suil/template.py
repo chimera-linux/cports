@@ -17,7 +17,7 @@ makedepends = [
     "lv2",
 ]
 pkgdesc = "C library for loading and wrapping LV2 plugin UIs"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/suil.html"
 source = f"https://download.drobilla.net/suil-{pkgver}.tar.xz"

@@ -38,7 +38,7 @@ depends = [
 ]
 checkdepends = [*depends]
 pkgdesc = "Qt-based matrix client"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://nheko-reborn.github.io"
 source = (

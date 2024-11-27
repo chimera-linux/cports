@@ -21,7 +21,7 @@ makedepends = [
     "libsoup-devel",
 ]
 pkgdesc = "Simple media player"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://rafostar.github.io/clapper"
 source = (

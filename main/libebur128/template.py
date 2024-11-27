@@ -11,7 +11,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Library implementing the EBU R128 loudness standard"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/jiixyj/libebur128"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "C library for INI file parsing"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.com/iniparser/iniparser"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"

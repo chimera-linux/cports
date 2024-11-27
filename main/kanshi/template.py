@@ -13,7 +13,7 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Dynamic display configuration for wayland"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sr.ht/~emersion/kanshi"
 source = f"https://git.sr.ht/~emersion/kanshi/archive/v{pkgver}.tar.gz"

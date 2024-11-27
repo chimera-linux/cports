@@ -13,7 +13,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Qt6 websockets component"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

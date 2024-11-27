@@ -64,7 +64,7 @@ makedepends = [
     "sqlite-devel",
 ]
 pkgdesc = "Open source photography workflow application and raw developer"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.darktable.org"
 source = f"https://github.com/darktable-org/darktable/releases/download/release-{pkgver}/darktable-{pkgver}.tar.xz"

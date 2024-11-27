@@ -63,7 +63,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "RDP clients and libraries"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.freerdp.com"
 source = f"https://pub.freerdp.com/releases/freerdp-{pkgver}.tar.gz"

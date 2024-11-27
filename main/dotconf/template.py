@@ -8,7 +8,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Dot.conf configuration file parser library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only AND Apache-1.1"
 url = "https://github.com/williamh/dotconf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

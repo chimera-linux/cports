@@ -23,7 +23,7 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Zig programming language toolchain"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ziglang/zig"
 source = f"https://ziglang.org/download/{pkgver}/zig-{pkgver}.tar.xz"

@@ -15,7 +15,7 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Qt Plain-Text editor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/tsujan/FeatherPad"
 source = f"{url}/releases/download/V{pkgver}/FeatherPad-{pkgver}.tar.xz"

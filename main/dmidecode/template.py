@@ -8,7 +8,7 @@ make_install_args = ["prefix=/usr", "sbindir=/usr/bin"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["bash-completion"]
 pkgdesc = "Utility for reporting system hardware"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://nongnu.org/dmidecode"
 source = f"https://download.savannah.gnu.org/releases/dmidecode/dmidecode-{pkgver}.tar.xz"

@@ -23,7 +23,7 @@ depends = [
     "python-gobject",
 ]
 pkgdesc = "Visual diff and merge tool"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://meldmerge.org"
 source = f"$(GNOME_SITE)/meld/{pkgver[:-2]}/meld-{pkgver}.tar.xz"

@@ -12,7 +12,7 @@ checkdepends = [
     "strace",
 ]
 pkgdesc = "Preloadable library to stub out fsync"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.flamingspork.com/projects/libeatmydata"
 source = f"https://github.com/stewartsmith/libeatmydata/releases/download/v{pkgver}/libeatmydata-{pkgver}.tar.gz"

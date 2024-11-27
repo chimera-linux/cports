@@ -11,7 +11,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "C library for generating pdfs"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Zlib"
 url = "https://github.com/libharu/libharu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

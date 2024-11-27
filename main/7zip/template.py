@@ -11,7 +11,7 @@ make_build_args = [
 ]
 make_use_env = True
 pkgdesc = "File archiver with a high compression ratio"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.0-only AND BSD-3-Clause AND custom:unrar"
 url = "https://7-zip.org"
 source = f"https://7-zip.org/a/7z{pkgver.replace('.', '')}-src.tar.xz"

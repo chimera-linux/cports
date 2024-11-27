@@ -13,7 +13,7 @@ makedepends = [
     "lua5.4-devel",
 ]
 pkgdesc = "Terminal Serial I/O tool"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/tio/tio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

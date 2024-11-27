@@ -19,7 +19,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "ReplayGain 2.0 tagging utility"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/complexlogic/rsgain"
 source = f"{url}/releases/download/v{pkgver}/rsgain-{pkgver}-source.tar.xz"

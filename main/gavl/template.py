@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Audiovisual library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gmerlin.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/gmerlin/gavl-{pkgver}.tar.gz"

@@ -20,7 +20,7 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "Notification daemon for sway"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ErikReider/SwayNotificationCenter"
 source = f"https://github.com/ErikReider/SwayNotificationCenter/archive/refs/tags/v{pkgver}.tar.gz"

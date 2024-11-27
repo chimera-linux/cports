@@ -15,7 +15,7 @@ makedepends = [
 ]
 checkdepends = ["dbus"]
 pkgdesc = "GLib-based library for managing the accounts database"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://gitlab.com/accounts-sso/libaccounts-qt"
 source = (

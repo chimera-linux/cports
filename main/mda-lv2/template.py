@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["lv2"]
 pkgdesc = "Port of MDA VST plugins to LV2"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/drobilla/mda-lv2"
 source = f"https://download.drobilla.net/mda-lv2-{pkgver}.tar.xz"

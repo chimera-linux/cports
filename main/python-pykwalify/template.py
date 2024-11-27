@@ -20,7 +20,7 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "YAML/JSON schema validation for python"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/Grokzen/pykwalify"
 source = f"$(PYPI_SITE)/p/pykwalify/pykwalify-{pkgver}.tar.gz"

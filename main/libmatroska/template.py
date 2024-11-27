@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["libebml-devel"]
 pkgdesc = "C++ libary to parse Matroska files"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/Matroska-Org/libmatroska"
 source = (

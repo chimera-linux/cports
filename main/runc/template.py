@@ -17,7 +17,7 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "CLI tool for spawning and running containers on Linux"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/opencontainers/runc"
 source = f"{url}/archive/v{pkgver}.tar.gz"

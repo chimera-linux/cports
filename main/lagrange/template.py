@@ -28,7 +28,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Beautiful gemini client"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://gmi.skyjake.fi/lagrange"
 source = f"https://github.com/skyjake/lagrange/releases/download/v{pkgver}/lagrange-{pkgver}.tar.gz"

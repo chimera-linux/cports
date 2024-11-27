@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["libxtst-devel"]
 pkgdesc = "Library for simulating X11 keypresses"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://git.yoctoproject.org/libfakekey"
 source = f"http://git.yoctoproject.org/cgit/cgit.cgi/libfakekey/snapshot/libfakekey-{pkgver}.tar.gz"

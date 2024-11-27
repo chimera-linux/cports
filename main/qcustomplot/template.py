@@ -8,7 +8,7 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-devel"]
 pkgdesc = "Qt widgets for plotting and data visualization"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.qcustomplot.com"
 source = [

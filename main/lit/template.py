@@ -13,7 +13,7 @@ depends = [
     "python",
 ]
 pkgdesc = "Software testing tool from LLVM"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://pypi.org/project/lit"
 # the pypi source has the correct version instead of 'dev0'

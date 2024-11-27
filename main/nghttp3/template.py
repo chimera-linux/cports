@@ -8,7 +8,7 @@ hostmakedepends = [
     "slibtool",
 ]
 pkgdesc = "C HTTP/3 library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://nghttp2.org/nghttp3"
 source = f"https://github.com/ngtcp2/nghttp3/releases/download/v{pkgver}/nghttp3-{pkgver}.tar.xz"

@@ -19,7 +19,7 @@ makedepends = [
 ]
 depends = ["qt6-qtsvg"]
 pkgdesc = "QT-based torrent client"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.qbittorrent.org"
 source = f"https://github.com/qbittorrent/qBittorrent/archive/refs/tags/release-{pkgver}.tar.gz"

@@ -24,7 +24,7 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python port of C-Reduce, for program testcase minimisation"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "NCSA"
 url = "https://github.com/marxin/cvise"
 source = f"{url}/archive/v{pkgver}.tar.gz"

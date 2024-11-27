@@ -33,7 +33,7 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "System-wide profiler for Linux"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later AND BSD-2-Clause-Patent"
 url = "https://www.sysprof.com"
 source = f"$(GNOME_SITE)/sysprof/{'.'.join(pkgver.rsplit('.')[:-1])}/sysprof-{pkgver}.tar.xz"

@@ -14,7 +14,7 @@ makedepends = [
     "signond-devel",
 ]
 pkgdesc = "Oauth 1.0 and 2.0 plugin for signond"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://gitlab.com/accounts-sso/signon-plugin-oauth2"
 source = f"{url}/-/archive/{_gitrev}.tar.gz"

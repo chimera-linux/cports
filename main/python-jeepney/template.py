@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python DBus protocol wrapper"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.com/takluyver/jeepney"
 source = f"$(PYPI_SITE)/j/jeepney/jeepney-{pkgver}.tar.gz"

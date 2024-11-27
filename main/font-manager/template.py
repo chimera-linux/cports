@@ -26,7 +26,7 @@ makedepends = [
     "webkitgtk4-devel",
 ]
 pkgdesc = "Font management application"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://fontmanager.github.io"
 source = f"https://github.com/FontManager/font-manager/archive/refs/tags/{pkgver}.tar.gz"

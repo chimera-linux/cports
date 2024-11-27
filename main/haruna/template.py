@@ -28,7 +28,7 @@ makedepends = [
 ]
 depends = ["kdeclarative", "yt-dlp"]
 pkgdesc = "Qt/libmpv based video player"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/haruna"
 source = f"$(KDE_SITE)/haruna/{pkgver}/haruna-{pkgver}.tar.xz"

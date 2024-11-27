@@ -25,7 +25,7 @@ makedepends = [
     "qt6-qtwayland-devel",
 ]
 pkgdesc = "Qt library and IM module for Fcitx5"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause AND LGPL-2.1-or-later"
 url = "https://fcitx-im.org"
 source = f"https://github.com/fcitx/fcitx5-qt/archive/refs/tags/{pkgver}.tar.gz"

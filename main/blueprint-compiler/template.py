@@ -14,7 +14,7 @@ depends = [
 ]
 checkdepends = ["xwayland-run", *depends]
 pkgdesc = "Markup language compiler for GTK user interfaces"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://jwestman.pages.gitlab.gnome.org/blueprint-compiler"
 source = f"https://gitlab.gnome.org/jwestman/blueprint-compiler/-/archive/v{pkgver}/blueprint-compiler-v{pkgver}.tar.gz"

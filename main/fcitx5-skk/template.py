@@ -17,7 +17,7 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "SKK wrapper for Fcitx5"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://fcitx-im.org"
 source = (

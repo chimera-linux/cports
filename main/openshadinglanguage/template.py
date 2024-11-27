@@ -44,7 +44,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Shading language library for renderers"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

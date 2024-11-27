@@ -24,7 +24,7 @@ makedepends = [
 ]
 depends = ["python-pyqt6_sip"]
 pkgdesc = "Python Qt6 bindings"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://www.riverbankcomputing.com/software/pyqt"
 source = f"$(PYPI_SITE)/P/PyQt6/PyQt6-{pkgver}.tar.gz"

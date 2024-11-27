@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "MPRIS media player CLI tool"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/altdesktop/playerctl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

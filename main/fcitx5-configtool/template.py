@@ -42,7 +42,7 @@ depends = [
     "qt6-qtsvg",
 ]
 pkgdesc = "Configuration tool for Fcitx5"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://fcitx-im.org"
 source = f"https://github.com/fcitx/fcitx5-configtool/archive/refs/tags/{pkgver}.tar.gz"

@@ -19,7 +19,7 @@ makedepends = [
 ]
 checkdepends = ["perl"]
 pkgdesc = "Command-line tool and C++ library for PDF files"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/qpdf/qpdf"
 source = f"{url}/releases/download/v{pkgver}/qpdf-{pkgver}.tar.gz"

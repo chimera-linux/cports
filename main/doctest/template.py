@@ -8,7 +8,7 @@ hostmakedepends = [
     "ninja",
 ]
 pkgdesc = "Single-header testing framework"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/doctest/doctest"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

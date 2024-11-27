@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python3-compatible Python2 random module"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "PSF-2.0"
 url = "https://pypi.org/project/random2"
 source = f"$(PYPI_SITE)/r/random2/random2-{pkgver}.tar.gz"

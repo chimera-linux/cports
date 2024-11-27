@@ -10,7 +10,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "BLAKE3 cryptographic hash implementation"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "CC0-1.0 OR Apache-2.0"
 url = "https://github.com/BLAKE3-team/BLAKE3"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

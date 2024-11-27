@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["rust-std"]
 pkgdesc = "CLI for manipulation of wasm modules"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"
 url = "https://github.com/bytecodealliance/wasm-tools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

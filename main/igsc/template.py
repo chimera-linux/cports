@@ -13,7 +13,7 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "Intel graphics system controller firmware update library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/intel/igsc"
 source = f"{url}/archive/refs/tags/V{pkgver}.tar.gz"

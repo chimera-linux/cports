@@ -13,7 +13,7 @@ makedepends = [
     "musl-devel-static",
 ]
 pkgdesc = "Init for containers"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/openSUSE/catatonit"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

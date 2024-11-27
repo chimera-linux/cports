@@ -34,7 +34,7 @@ depends = [
     "python-gobject",
 ]
 pkgdesc = "Drivers for HP printers"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only AND BSD-3-Clause AND MIT"
 url = "https://developers.hp.com/hp-linux-imaging-and-printing"
 source = f"https://downloads.sourceforge.net/hplip/hplip-{pkgver}.tar.gz"

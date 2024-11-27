@@ -14,7 +14,7 @@ depends = [
 ]
 checkdepends = [*depends]
 pkgdesc = "Pytest plugin for testing parallelisation"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-forked"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

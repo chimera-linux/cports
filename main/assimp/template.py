@@ -18,7 +18,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Open asset importing library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.assimp.org"
 source = f"https://github.com/assimp/assimp/archive/refs/tags/v{pkgver}.tar.gz"

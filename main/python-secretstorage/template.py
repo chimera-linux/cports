@@ -19,7 +19,7 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python bindings to the Secret Storage API"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://secretstorage.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/S/SecretStorage/SecretStorage-{pkgver}.tar.gz"

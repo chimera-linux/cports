@@ -16,7 +16,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for DEFLATE/zlib/gzip compression and decompression"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ebiggers/libdeflate"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

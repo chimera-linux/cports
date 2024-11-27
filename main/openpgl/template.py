@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["onetbb-devel"]
 pkgdesc = "Intel path guiding library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/RenderKit/openpgl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

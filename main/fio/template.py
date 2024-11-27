@@ -18,7 +18,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Flexible I/O tester"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/axboe/fio"
 source = f"https://github.com/axboe/fio/archive/refs/tags/fio-{pkgver}.tar.gz"

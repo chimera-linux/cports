@@ -16,7 +16,7 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "User space tools for kernel auditing"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://people.redhat.com/sgrubb/audit"
 source = f"{url}/audit-{pkgver}.tar.gz"

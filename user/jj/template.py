@@ -15,7 +15,7 @@ makedepends = [
 ]
 checkdepends = ["openssh"]
 pkgdesc = "Git-compatible VCS frontend"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://martinvonz.github.io/jj"
 source = f"https://github.com/martinvonz/jj/archive/refs/tags/v{pkgver}.tar.gz"

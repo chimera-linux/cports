@@ -19,7 +19,7 @@ makedepends = [
     "libhandy-devel",
 ]
 pkgdesc = "Viewer and editor of applications internal dconf settings"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/dconf-editor"
 source = f"$(GNOME_SITE)/dconf-editor/{pkgver[:-pkgver.rfind('.')]}/dconf-editor-{pkgver}.tar.xz"

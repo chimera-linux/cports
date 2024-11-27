@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Open Sound Control protocol implementation for POSIX systems"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://liblo.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/liblo/{pkgver}/liblo-{pkgver}.tar.gz"

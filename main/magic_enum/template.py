@@ -12,7 +12,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Header-only library for enum reflection"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/Neargye/magic_enum"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

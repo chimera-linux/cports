@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["libplist-devel"]
 pkgdesc = "Common code library for the libimobiledevice project"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libimobiledevice.org"
 source = f"https://github.com/libimobiledevice/libimobiledevice-glue/releases/download/{pkgver}/libimobiledevice-glue-{pkgver}.tar.bz2"

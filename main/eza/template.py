@@ -9,7 +9,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Directory listing utility"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "EUPL-1.2"
 url = "https://eza.rocks"
 source = (

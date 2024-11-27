@@ -14,7 +14,7 @@ makedepends = [
     "xcb-util-keysyms-devel",
 ]
 pkgdesc = "X input method support for XCB"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://github.com/fcitx/xcb-imdkit"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

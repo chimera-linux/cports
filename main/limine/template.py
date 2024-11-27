@@ -7,7 +7,7 @@ build_style = "gnu_configure"
 configure_args = ["--enable-all", "TOOLCHAIN_FOR_TARGET=llvm"]
 hostmakedepends = ["automake", "mtools", "nasm"]
 pkgdesc = "Multiprotocol EFI bootloader"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause AND 0BSD"
 url = "https://limine-bootloader.org"
 source = f"https://github.com/limine-bootloader/limine/releases/download/v{pkgver}/limine-{pkgver}.tar.zst"

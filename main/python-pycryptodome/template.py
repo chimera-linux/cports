@@ -16,7 +16,7 @@ depends = [
 ]
 pkgdesc = "Self-contained cryptographic library for Python"
 subdesc = "PyCrypto compatibility layer"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause AND Unlicense"
 url = "https://www.pycryptodome.org"
 # tests not on pypi

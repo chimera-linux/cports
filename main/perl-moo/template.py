@@ -13,7 +13,7 @@ depends = [
 ]
 checkdepends = [*depends]
 pkgdesc = "Moose-compatible object oriented library for perl"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/dist/Moo"
 source = f"https://cpan.metacpan.org/authors/id/H/HA/HAARG/Moo-{pkgver}.tar.gz"

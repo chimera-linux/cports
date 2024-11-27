@@ -14,7 +14,7 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "Pipewire graph manager"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.freedesktop.org/rncbc/qpwgraph"
 source = f"{url}/-/archive/v{pkgver}/qpwgraph-v{pkgver}.tar.gz"

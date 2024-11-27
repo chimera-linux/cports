@@ -15,7 +15,7 @@ depends = [
     "perl-libintl-perl",
 ]
 pkgdesc = "Tools for PCSC"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://pcsc-tools.apdu.fr"
 source = f"{url}/pcsc-tools-{pkgver}.tar.bz2"

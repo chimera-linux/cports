@@ -48,7 +48,7 @@ depends = [
 ]
 checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE plugin for communicating with a smartphone device"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = " GPL-2.0-only OR GPL-3.0-only"
 url = "https://community.kde.org/KDEConnect"
 source = (

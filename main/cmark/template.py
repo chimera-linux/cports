@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 checkdepends = ["python"]
 pkgdesc = "C implementation of the CommonMark markdown specification"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/commonmark/cmark"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

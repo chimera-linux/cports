@@ -13,7 +13,7 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Qt library for storing data in the system keychain"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/frankosterfeld/qtkeychain"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

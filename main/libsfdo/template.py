@@ -7,7 +7,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Libraries for Freedesktop specifications"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://gitlab.freedesktop.org/vyivel/libsfdo"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"

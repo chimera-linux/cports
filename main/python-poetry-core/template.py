@@ -14,7 +14,7 @@ depends = [
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "PEP517 build backend for Poetry"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-poetry/poetry-core"
 source = f"$(PYPI_SITE)/p/poetry_core/poetry_core-{pkgver}.tar.gz"

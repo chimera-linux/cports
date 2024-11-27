@@ -19,7 +19,7 @@ makedepends = [
 ]
 checkdepends = ["perl-env-path"]
 pkgdesc = "Solver for various solitaire card games"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/shlomif/black-hole-solitaire"
 source = f"https://fc-solve.shlomifish.org/downloads/fc-solve/black-hole-solver-{pkgver}.tar.xz"

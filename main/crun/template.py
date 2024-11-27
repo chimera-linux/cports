@@ -21,7 +21,7 @@ makedepends = [
     "yajl-devel",
 ]
 pkgdesc = "Fast and lightweight OCI runtime"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/containers/crun"
 source = f"{url}/releases/download/{pkgver}/crun-{pkgver}.tar.zst"

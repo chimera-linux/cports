@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["freetype-devel"]
 pkgdesc = "OpenType to BDF font converter"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 # original site is gone
 url = "https://github.com/jirutka/otf2bdf"

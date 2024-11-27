@@ -21,7 +21,7 @@ depends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "Music player for GNOME"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Amberol"
 source = f"https://gitlab.gnome.org/World/amberol/-/archive/{pkgver}/amberol-{pkgver}.tar.gz"

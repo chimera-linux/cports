@@ -8,7 +8,7 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-devel"]
 pkgdesc = "LXQt build and packaging tooling"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/lxqt/lxqt-build-tools"
 source = f"{url}/releases/download/{pkgver}/lxqt-build-tools-{pkgver}.tar.xz"

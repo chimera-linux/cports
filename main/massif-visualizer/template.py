@@ -23,7 +23,7 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "KDE visualizer for valgrind massif profile files"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/massif_visualizer"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/massif-visualizer-{pkgver}.tar.xz"

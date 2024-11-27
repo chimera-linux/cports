@@ -30,7 +30,7 @@ depends = [
     "so:libEGL.so.1!libegl",
 ]
 pkgdesc = "Scrollable-tiling wayland compositor"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

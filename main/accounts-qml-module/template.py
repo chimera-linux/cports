@@ -16,7 +16,7 @@ makedepends = [
 ]
 checkdepends = ["dbus-test-runner", "xserver-xorg-xvfb"]
 pkgdesc = "QML bindings for signond/libaccounts-qt"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://gitlab.com/accounts-sso/accounts-qml-module"
 source = f"{url}/-/archive/{_gitrev}.tar.gz"

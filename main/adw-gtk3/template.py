@@ -7,7 +7,7 @@ hostmakedepends = [
     "sassc",
 ]
 pkgdesc = "Libadwaita's theme for gtk3"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lassekongo83/adw-gtk3"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

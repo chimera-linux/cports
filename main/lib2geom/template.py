@@ -30,7 +30,7 @@ makedepends = [
     "gtk+3-devel",
 ]
 pkgdesc = "2D geometry library for C++"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-1.1 OR LGPL-2.1-only"
 url = "https://gitlab.com/inkscape/lib2geom"
 source = f"https://gitlab.com/inkscape/lib2geom/-/archive/{pkgver}/lib2geom-{pkgver}.tar.gz"

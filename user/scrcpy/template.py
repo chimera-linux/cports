@@ -19,7 +19,7 @@ makedepends = [
 ]
 depends = ["android-tools"]
 pkgdesc = "Display and control an Android device"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/Genymobile/scrcpy"
 source = [

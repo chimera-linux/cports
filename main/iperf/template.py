@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["openssl-devel"]
 pkgdesc = "IP bandwidth measurement tool"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause-LBNL"
 url = "https://github.com/esnet/iperf"
 source = f"https://github.com/esnet/iperf/releases/download/{pkgver}/iperf-{pkgver}.tar.gz"

@@ -19,7 +19,7 @@ makedepends = [
 ]
 depends = ["xdg-desktop-portal"]
 pkgdesc = "XDG-desktop-portal implementation for wlroots"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/emersion/xdg-desktop-portal-wlr"
 source = f"https://github.com/emersion/xdg-desktop-portal-wlr/releases/download/v{pkgver}/xdg-desktop-portal-wlr-{pkgver}.tar.gz"

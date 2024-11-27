@@ -29,7 +29,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Surface subdivision library"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://graphics.pixar.com/opensubdiv/docs/intro.html"
 source = f"https://github.com/PixarAnimationStudios/OpenSubdiv/archive/refs/tags/v{pkgver.replace('.', '_')}.tar.gz"

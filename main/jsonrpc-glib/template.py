@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["json-glib-devel"]
 pkgdesc = "Library for the JSON-RPC 2.0 specification"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/jsonrpc-glib"
 source = f"$(GNOME_SITE)/jsonrpc-glib/{'.'.join(pkgver.rsplit('.')[:-1])}/jsonrpc-glib-{pkgver}.tar.xz"

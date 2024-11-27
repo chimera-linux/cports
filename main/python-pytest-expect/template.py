@@ -13,7 +13,7 @@ depends = [
     "python-u-msgpack",
 ]
 pkgdesc = "Pytest plugin to store test expectations"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/gsnedders/pytest-expect"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -10,7 +10,7 @@ makedepends = [
 ]
 install_if = [self.with_pkgver("virtiofsd-meta")]
 pkgdesc = "Daemon for virtio-fs for qemu"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 AND BSD-3-Clause"
 url = "https://gitlab.com/virtio-fs/virtiofsd"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
