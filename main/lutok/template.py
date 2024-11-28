@@ -1,5 +1,5 @@
 pkgname = "lutok"
-pkgver = "0.4"
+pkgver = "0.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-atf=no"]
@@ -10,9 +10,8 @@ pkgdesc = "C++ API for Lua"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/freebsd/lutok"
-source = f"{url}/releases/download/lutok-{pkgver}/lutok-{pkgver}.tar.gz"
-sha256 = "2cec51efa0c8d65ace8b21eaa08384b77abc5087b46e785f78de1c21fb754cd5"
-tool_flags = {"CXXFLAGS": ["-std=gnu++11"]}
+source = f"{url}/archive/refs/tags/lutok-{pkgver}.tar.gz"
+sha256 = "fea79b79e80a9787143a1d4d5e4962d061ff7923efe6b2ba3a332b25a9b31f72"
 # Cycle with kyua
 options = ["!check"]
 
