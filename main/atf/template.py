@@ -1,17 +1,16 @@
 pkgname = "atf"
-pkgver = "0.21"
-pkgrel = 1
+pkgver = "0.22"
+pkgrel = 0
 build_style = "gnu_configure"
 # XXX drop libexec
 configure_args = ["--libexecdir=/usr/lib"]
-hostmakedepends = ["automake", "libtool", "pkgconf"]
+hostmakedepends = ["automake", "slibtool", "pkgconf"]
 pkgdesc = "Testing library"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://github.com/freebsd/atf"
-source = f"{url}/releases/download/atf-{pkgver}/atf-{pkgver}.tar.gz"
-sha256 = "92bc64180135eea8fe84c91c9f894e678767764f6dbc8482021d4dde09857505"
-tool_flags = {"CXXFLAGS": ["-std=gnu++11"]}
+source = f"{url}/archive/refs/tags/atf-{pkgver}.tar.gz"
+sha256 = "a31fa9eb443ebce34540cb852c81f39346eb1875523e14399a6d4a636e4765a7"
 
 
 def post_install(self):
