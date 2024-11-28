@@ -1,5 +1,5 @@
 pkgname = "jwt-cli"
-pkgver = "6.1.1"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,13 +9,13 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/mike-engel/jwt-cli"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "80193ea16f603b65fccb31c6da383ca531d23c0e171f443761958bed5e973e1d"
+sha256 = "49d67d920391978684dc32b75e553a2abbd46c775365c0fb4b232d22c0ed653a"
 # generates completions with host binary
 options = ["!cross"]
 
 
 def post_build(self):
-    for shell in ["bash", "fish", "zsh"]:
+    for shell in ["bash", "fish", "zsh", "nushell"]:
         with open(self.cwd / f"jwt.{shell}", "w") as outf:
             self.do(
                 f"target/{self.profile().triplet}/release/jwt",
@@ -27,5 +27,5 @@ def post_build(self):
 
 def post_install(self):
     self.install_license("LICENSE.md")
-    for shell in ["bash", "fish", "zsh"]:
+    for shell in ["bash", "fish", "zsh", "nushell"]:
         self.install_completion(f"jwt.{shell}", shell, "jwt")
