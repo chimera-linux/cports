@@ -293,8 +293,10 @@ def _(self):
     self.depends += [self.with_pkgver("qt6-qtbase-devel")]
     return [
         "usr/include/**/private",
-        "usr/lib/cmake/*Private",
+        # usr/lib/cmake/*Private excluded due to anything using qt6_add_qml_module()
+        # etc failing to configure as a false-positive in most cases, else build fails
         "usr/lib/qt6/metatypes/*private_*_metatypes.json",
+        # without usr/lib/qt6/mkspecs/modules/*_private.pri qmake won't find libatomic
         "usr/lib/qt6/modules/*Private.json",
     ]
 
@@ -308,6 +310,9 @@ def _(self):
         self.with_pkgver("qt6-qtbase-devel-static"),
         *makedepends,
     ]
+    # keep qt6_add_qml_module() working with split -private-devel by satisfying
+    # Qt6::QmlPrivate /usr/include/qt6/QtCore/6.*/QtCore etc with empty dirs
+    self.options = ["keepempty"]
     return self.default_devel(
         extra=[
             "usr/bin/androiddeployqt6",
