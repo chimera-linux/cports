@@ -1,0 +1,22 @@
+--- a/common/main.c
++++ b/common/main.c
+@@ -77,6 +77,8 @@
+ #define MINSTACKSZ	0x02000000
+ #define MAXSTACKSZ	0x08000000
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ 
+ /* declarations of externally defined global symbols *************************/
+ 
+--- a/invutil/invidx.c
++++ b/invutil/invidx.c
+@@ -41,6 +41,8 @@
+ #include "stobj.h"
+ #include "timeutil.h"
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ invidx_fileinfo_t *invidx_file;
+ int invidx_numfiles;
+ 
