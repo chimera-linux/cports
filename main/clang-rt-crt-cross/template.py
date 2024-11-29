@@ -1,7 +1,7 @@
 pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.5"
-pkgver = "18.1.8"
-pkgrel = 1
+pkgver = "19.1.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -26,6 +26,7 @@ configure_args = [
     "-DCOMPILER_RT_BUILD_SANITIZERS=OFF",
     "-DCOMPILER_RT_BUILD_XRAY=OFF",
     "-DCOMPILER_RT_BUILD_ORC=OFF",
+    "-DCOMPILER_RT_BUILD_CTX_PROFILE=OFF",
     # use multiarch style paths
     "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON",
 ]
@@ -48,7 +49,7 @@ source = [
 ]
 source_paths = [".", "musl"]
 sha256 = [
-    "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a",
+    "3aa2d2d2c7553164ad5c6f3b932b31816e422635e18620c9349a7da95b98d811",
     "a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4",
 ]
 # crosstoolchain

@@ -1,17 +1,17 @@
-From 8634ee49c9357354bc61d35cc6e41ec7671a0499 Mon Sep 17 00:00:00 2001
+From 516cd5fa736d16aec4430f6a67711672cf183d0f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 08:55:34 +0100
-Subject: [PATCH 06/27] compiler-rt: default to libc++ for sanitizers
+Subject: [PATCH 06/30] compiler-rt: default to libc++ for sanitizers
 
 ---
  compiler-rt/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
-index bbb4e8d7c..819a5a5e5 100644
+index 6cf20ab7c..4c7b252aa 100644
 --- a/compiler-rt/CMakeLists.txt
 +++ b/compiler-rt/CMakeLists.txt
-@@ -203,7 +203,7 @@ macro(handle_default_cxx_lib var)
+@@ -223,7 +223,7 @@ macro(handle_default_cxx_lib var)
        set(${var}_LIBNAME "libc++")
        set(${var}_INTREE 1)
      else()
@@ -21,5 +21,5 @@ index bbb4e8d7c..819a5a5e5 100644
      endif()
    else()
 -- 
-2.44.0
+2.47.0
 

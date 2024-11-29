@@ -1,7 +1,7 @@
-From 243c705722a5dff009631de9231ae1c60314dbb2 Mon Sep 17 00:00:00 2001
+From f186b28c6d2b6ab484afe3824459df944a9cc227 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 08:44:01 +0100
-Subject: [PATCH 01/27] llvm: always set a larger stack size explicitly
+Subject: [PATCH 01/30] llvm: always set a larger stack size explicitly
 
 ---
  llvm/lib/Support/Threading.cpp | 14 --------------
@@ -34,5 +34,5 @@ index 7cc7ba44c..b91b8f4bb 100644
  #endif
  
 -- 
-2.44.0
+2.47.0
 

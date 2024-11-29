@@ -1,17 +1,17 @@
-From a1b0b01df0a3eb6018c12555f293d4e0fa811e5b Mon Sep 17 00:00:00 2001
+From 28381edd19f49f3bbc9938a714782e0e92691953 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:48:51 +0200
-Subject: [PATCH 17/27] clang: use --as-needed by default
+Subject: [PATCH 17/30] clang: use --as-needed by default
 
 ---
  clang/lib/Driver/ToolChains/Gnu.cpp | 7 +++++++
  1 file changed, 7 insertions(+)
 
 diff --git a/clang/lib/Driver/ToolChains/Gnu.cpp b/clang/lib/Driver/ToolChains/Gnu.cpp
-index e5e1b1d77..412368e12 100644
+index 5e9a655ea..263c4632a 100644
 --- a/clang/lib/Driver/ToolChains/Gnu.cpp
 +++ b/clang/lib/Driver/ToolChains/Gnu.cpp
-@@ -539,6 +539,13 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
+@@ -543,6 +543,13 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
    bool NeedsSanitizerDeps = addSanitizerRuntimes(ToolChain, Args, CmdArgs);
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
@@ -26,5 +26,5 @@ index e5e1b1d77..412368e12 100644
  
    addHIPRuntimeLibArgs(ToolChain, C, Args, CmdArgs);
 -- 
-2.44.0
+2.47.0
 

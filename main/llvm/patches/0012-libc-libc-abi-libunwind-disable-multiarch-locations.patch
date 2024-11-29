@@ -1,7 +1,7 @@
-From 440da478ecceea07ba9ed1d48466b96d23e28375 Mon Sep 17 00:00:00 2001
+From 187a99af41a82d4301ecfb1d8e34ea65b383cb89 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sun, 14 Apr 2024 14:43:48 +0200
-Subject: [PATCH 12/27] libc++,libc++abi,libunwind: disable multiarch locations
+Date: Fri, 29 Nov 2024 19:42:47 +0100
+Subject: [PATCH 12/30] libc++,libc++abi,libunwind: disable multiarch locations
 
 ---
  libcxx/CMakeLists.txt            | 2 +-
@@ -11,57 +11,57 @@ Subject: [PATCH 12/27] libc++,libc++abi,libunwind: disable multiarch locations
  4 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index 44560b208..2394995f1 100644
+index d830d6b4c..a5627f686 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -434,7 +434,7 @@ set(LIBCXX_INSTALL_MODULES_DIR "share/libc++/v1" CACHE STRING
+@@ -430,7 +430,7 @@ set(LIBCXX_INSTALL_MODULES_DIR "share/libc++/v1" CACHE STRING
  set(LIBCXX_SHARED_OUTPUT_NAME "c++" CACHE STRING "Output name for the shared libc++ runtime library.")
  set(LIBCXX_STATIC_OUTPUT_NAME "c++" CACHE STRING "Output name for the static libc++ runtime library.")
  
 -if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE)
 +if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
-   set(LIBCXX_LIBRARY_DIR ${LLVM_LIBRARY_OUTPUT_INTDIR}/${LLVM_DEFAULT_TARGET_TRIPLE})
-   set(LIBCXX_GENERATED_INCLUDE_DIR "${LLVM_BINARY_DIR}/include/c++/v1")
-   set(LIBCXX_GENERATED_MODULE_DIR "${LLVM_BINARY_DIR}/modules/c++/v1")
+   set(LIBCXX_TARGET_SUBDIR ${LLVM_DEFAULT_TARGET_TRIPLE})
+   if(LIBCXX_LIBDIR_SUBDIR)
+     string(APPEND LIBCXX_TARGET_SUBDIR /${LIBCXX_LIBDIR_SUBDIR})
 diff --git a/libcxx/benchmarks/CMakeLists.txt b/libcxx/benchmarks/CMakeLists.txt
-index 2434d82c6..aecf2c279 100644
+index d96ccc1e4..ce99a8186 100644
 --- a/libcxx/benchmarks/CMakeLists.txt
 +++ b/libcxx/benchmarks/CMakeLists.txt
-@@ -15,7 +15,7 @@ set(BENCHMARK_LIBCXX_COMPILE_FLAGS
+@@ -15,7 +15,7 @@ set(BENCHMARK_COMPILE_FLAGS
      -Wl,-rpath,${LIBCXX_LIBRARY_DIR}
      ${SANITIZER_FLAGS}
      )
 -if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE)
 +if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
-   list(APPEND BENCHMARK_LIBCXX_COMPILE_FLAGS
+   list(APPEND BENCHMARK_COMPILE_FLAGS
      -isystem "${LIBCXX_GENERATED_INCLUDE_TARGET_DIR}")
  endif()
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index 8d9a93316..5bb2d5578 100644
+index dc1f4cd6f..9560ec30c 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -181,7 +181,7 @@ set(CMAKE_MODULE_PATH
+@@ -182,7 +182,7 @@ set(CMAKE_MODULE_PATH
  set(LIBCXXABI_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
      "Path where built libc++abi runtime libraries should be installed.")
  
 -if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE)
 +if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
-   set(LIBCXXABI_HEADER_DIR ${LLVM_BINARY_DIR})
-   set(LIBCXXABI_LIBRARY_DIR ${LLVM_LIBRARY_OUTPUT_INTDIR}/${LLVM_DEFAULT_TARGET_TRIPLE})
-   set(LIBCXXABI_INSTALL_LIBRARY_DIR lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE} CACHE STRING
+   set(LIBCXXABI_TARGET_SUBDIR ${LLVM_DEFAULT_TARGET_TRIPLE})
+   if(LIBCXXABI_LIBDIR_SUBDIR)
+     string(APPEND LIBCXXABI_TARGET_SUBDIR /${LIBCXXABI_LIBDIR_SUBDIR})
 diff --git a/libunwind/CMakeLists.txt b/libunwind/CMakeLists.txt
-index 806d5a783..47dcaf142 100644
+index 28d67b0fe..c5d624d5b 100644
 --- a/libunwind/CMakeLists.txt
 +++ b/libunwind/CMakeLists.txt
-@@ -128,7 +128,7 @@ set(LIBUNWIND_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
+@@ -130,7 +130,7 @@ set(LIBUNWIND_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
  set(LIBUNWIND_SHARED_OUTPUT_NAME "unwind" CACHE STRING "Output name for the shared libunwind runtime library.")
  set(LIBUNWIND_STATIC_OUTPUT_NAME "unwind" CACHE STRING "Output name for the static libunwind runtime library.")
  
 -if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE)
 +if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
-   set(LIBUNWIND_LIBRARY_DIR ${LLVM_LIBRARY_OUTPUT_INTDIR}/${LLVM_DEFAULT_TARGET_TRIPLE})
-   set(LIBUNWIND_INSTALL_LIBRARY_DIR lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE} CACHE STRING
-       "Path where built libunwind libraries should be installed.")
+   set(LIBUNWIND_TARGET_SUBDIR ${LLVM_DEFAULT_TARGET_TRIPLE})
+   if(LIBUNWIND_LIBDIR_SUBDIR)
+     string(APPEND LIBUNWIND_TARGET_SUBDIR /${LIBUNWIND_LIBDIR_SUBDIR})
 -- 
-2.44.0
+2.47.0
 

@@ -1,7 +1,7 @@
-From b4173c8119d63ee16f9bc842b27b2d92bad88d8d Mon Sep 17 00:00:00 2001
+From fd6d2a4fabc2e0a1a63d3f888a02b5b3bf3ccf87 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:55:21 +0200
-Subject: [PATCH 26/27] clang: implicitly include stdc-predef.h
+Subject: [PATCH 26/30] clang: implicitly include stdc-predef.h
 
 This behavior is required to match gcc and get default access
 to some macros to get rid of certain hacks (especially on musl,
@@ -16,10 +16,10 @@ for both.
  1 file changed, 10 insertions(+)
 
 diff --git a/clang/lib/Driver/ToolChains/Clang.cpp b/clang/lib/Driver/ToolChains/Clang.cpp
-index aa344b34..efbe71f7 100644
+index 23e7128ac..92634dd8a 100644
 --- a/clang/lib/Driver/ToolChains/Clang.cpp
 +++ b/clang/lib/Driver/ToolChains/Clang.cpp
-@@ -1184,6 +1184,16 @@ void Clang::AddPreprocessingOptions(Compilation &C, const JobAction &JA,
+@@ -1136,6 +1136,16 @@ void Clang::AddPreprocessingOptions(Compilation &C, const JobAction &JA,
      }
    }
  
@@ -37,4 +37,5 @@ index aa344b34..efbe71f7 100644
    for (const Arg *A : Args.filtered(options::OPT_clang_i_Group)) {
      if (A->getOption().matches(options::OPT_include) &&
 -- 
-2.44.0
+2.47.0
+

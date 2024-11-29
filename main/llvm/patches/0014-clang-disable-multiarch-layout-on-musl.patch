@@ -1,14 +1,14 @@
-From 2b29a1531b5de34ee49b23597411127e6b7fff1c Mon Sep 17 00:00:00 2001
+From ce590689a8b7cbbe53c8c5b95e136b4776460a1a Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:08:54 +0100
-Subject: [PATCH 14/27] clang: disable multiarch layout on musl
+Subject: [PATCH 14/30] clang: disable multiarch layout on musl
 
 ---
  clang/lib/Driver/ToolChains/Linux.cpp | 5 +++++
  1 file changed, 5 insertions(+)
 
 diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
-index 4300a2bdf..077795782 100644
+index 35bf39069..0bedc73de 100644
 --- a/clang/lib/Driver/ToolChains/Linux.cpp
 +++ b/clang/lib/Driver/ToolChains/Linux.cpp
 @@ -47,6 +47,11 @@ std::string Linux::getMultiarchTriple(const Driver &D,
@@ -24,5 +24,5 @@ index 4300a2bdf..077795782 100644
    // clever.
    switch (TargetTriple.getArch()) {
 -- 
-2.44.0
+2.47.0
 

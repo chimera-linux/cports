@@ -1,7 +1,7 @@
-From f97ba32f5882d6eccf1bdd448f17821a7883bfb0 Mon Sep 17 00:00:00 2001
+From c99e73a20ac739476a0326da7f59e9f158f0e1e5 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:42:37 +0200
-Subject: [PATCH 10/27] compiler-rt,libcxx(abi),libunwind: HACK: force -fno-lto
+Subject: [PATCH 10/30] compiler-rt,libcxx(abi),libunwind: HACK: force -fno-lto
 
 Also do -ftrivial-auto-var-init=unitialized for libunwind, as it appears
 to break unwinding in strange ways with C++ on ppc64le, particularly with
@@ -16,10 +16,10 @@ https://github.com/llvm/llvm-project/issues/76771
  4 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index a22169342..8cba9ded3 100644
+index b2dc114b6..ae5b938cd 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -721,7 +721,7 @@ if (APPLE)
+@@ -745,7 +745,7 @@ if (APPLE)
    add_subdirectory(macho_embedded)
    darwin_add_builtin_libraries(${BUILTIN_SUPPORTED_OS})
  else ()
@@ -29,10 +29,10 @@ index a22169342..8cba9ded3 100644
  
    if (COMPILER_RT_HAS_FCF_PROTECTION_FLAG)
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index d392e9507..44560b208 100644
+index 674082c7d..d830d6b4c 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -595,6 +595,10 @@ function(cxx_add_rtti_flags target)
+@@ -597,6 +597,10 @@ function(cxx_add_rtti_flags target)
        target_add_compile_flags_if_supported(${target} PUBLIC -fno-rtti)
      endif()
    endif()
@@ -44,10 +44,10 @@ index d392e9507..44560b208 100644
  
  # Modules flags ===============================================================
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index da998d222..8d9a93316 100644
+index 43400c6e8..dc1f4cd6f 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -288,6 +288,10 @@ else()
+@@ -289,6 +289,10 @@ else()
    add_compile_flags_if_supported(-EHa-)
  endif()
  
@@ -73,5 +73,5 @@ index 780430ba7..ae0e79370 100644
  string(REPLACE ";" " " LIBUNWIND_CXX_FLAGS "${LIBUNWIND_CXX_FLAGS}")
  string(REPLACE ";" " " LIBUNWIND_C_FLAGS "${LIBUNWIND_C_FLAGS}")
 -- 
-2.44.0
+2.47.0
 

@@ -1,6 +1,6 @@
 pkgname = "libclc"
-pkgver = "18.1.8"
-pkgrel = 4
+pkgver = "19.1.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
 hostmakedepends = [
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://libclc.llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/libclc-{pkgver}.src.tar.xz"
-sha256 = "905bd59e9f810d6bd0ae6874725a8f8a3c91cb416199c03f2b98b57437cfb32e"
+sha256 = "d73969262195a0aef9643c80431f46061353c41021951bd96cf25e912cec5077"
 hardening = ["vis", "!cfi"]
 # external-calls-clspv broken
 options = ["!check"]

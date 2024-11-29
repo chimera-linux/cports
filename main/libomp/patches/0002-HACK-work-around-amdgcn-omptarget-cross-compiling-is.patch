@@ -8,10 +8,10 @@ Subject: [PATCH 02/22] HACK: work around amdgcn omptarget cross-compiling
  openmp/libomptarget/DeviceRTL/CMakeLists.txt | 6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/openmp/libomptarget/DeviceRTL/CMakeLists.txt b/openmp/libomptarget/DeviceRTL/CMakeLists.txt
+diff --git a/offload/DeviceRTL/CMakeLists.txt b/offload/DeviceRTL/CMakeLists.txt
 index ce6621482..c41617dea 100644
---- a/openmp/libomptarget/DeviceRTL/CMakeLists.txt
-+++ b/openmp/libomptarget/DeviceRTL/CMakeLists.txt
+--- a/offload/DeviceRTL/CMakeLists.txt
++++ b/offload/DeviceRTL/CMakeLists.txt
 @@ -24,7 +24,11 @@ if(NOT ${CMAKE_SIZEOF_VOID_P} EQUAL "8")
    return()
  endif()

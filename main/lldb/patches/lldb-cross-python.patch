@@ -7,11 +7,11 @@ Subject: [PATCH 18/19] lldb: cross-compiling workarounds for python
  lldb/CMakeLists.txt | 9 ++-------
  1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git lldb/CMakeLists.txt lldb/CMakeLists.txt
-index edb4c513a..acf682f3d 100644
---- lldb/CMakeLists.txt
-+++ lldb/CMakeLists.txt
-@@ -46,20 +46,15 @@ if (LLDB_ENABLE_PYTHON)
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 59cdc45..819ccbf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -60,20 +60,15 @@ if (LLDB_ENABLE_PYTHON)
      "Filename extension for native code python modules")
  
    foreach(var LLDB_PYTHON_RELATIVE_PATH LLDB_PYTHON_EXE_RELATIVE_PATH LLDB_PYTHON_EXT_SUFFIX)
@@ -33,7 +33,4 @@ index edb4c513a..acf682f3d 100644
 -      endif()
      endif()
    endforeach()
- endif ()
--- 
-2.37.3
-
+   # Make sure lldb extension has "_d" suffix on Windows in Debug mode.

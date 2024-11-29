@@ -1,17 +1,17 @@
-From 114faa53a4db7b4e2d82902fdd1f0e64370e1e50 Mon Sep 17 00:00:00 2001
+From 37a8c7818c4407b6d56ffe14f6f12c53b559f18b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:45:36 +0200
-Subject: [PATCH 13/27] libc++: musl locale workarounds
+Subject: [PATCH 13/30] libc++: musl locale workarounds
 
 ---
  libcxx/include/locale | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/libcxx/include/locale b/libcxx/include/locale
-index 9e97eb9f3..a00dff3c0 100644
+index 573910a85..7d610b584 100644
 --- a/libcxx/include/locale
 +++ b/libcxx/include/locale
-@@ -716,7 +716,11 @@ __num_get_signed_integral(const char* __a, const char* __a_end, ios_base::iostat
+@@ -727,7 +727,11 @@ __num_get_signed_integral(const char* __a, const char* __a_end, ios_base::iostat
      __libcpp_remove_reference_t<decltype(errno)> __save_errno = errno;
      errno                                                     = 0;
      char* __p2;
@@ -23,7 +23,7 @@ index 9e97eb9f3..a00dff3c0 100644
      __libcpp_remove_reference_t<decltype(errno)> __current_errno = errno;
      if (__current_errno == 0)
        errno = __save_errno;
-@@ -748,7 +752,11 @@ __num_get_unsigned_integral(const char* __a, const char* __a_end, ios_base::iost
+@@ -759,7 +763,11 @@ __num_get_unsigned_integral(const char* __a, const char* __a_end, ios_base::iost
      __libcpp_remove_reference_t<decltype(errno)> __save_errno = errno;
      errno                                                     = 0;
      char* __p2;
@@ -36,5 +36,5 @@ index 9e97eb9f3..a00dff3c0 100644
      if (__current_errno == 0)
        errno = __save_errno;
 -- 
-2.44.0
+2.47.0
 
