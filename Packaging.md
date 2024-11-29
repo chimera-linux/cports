@@ -1703,7 +1703,7 @@ is a command, and will make a `cmd:foo` for `usr/bin/foo`.
 
 There are some `options` you can use to control this. With `!scanrundeps`,
 no dependencies will be scanned. As for provides, that can be controlled
-with `scanshlibs`, `scanpkgconf` and `scancmd`.
+with `scanshlibs`, `scanpkgconf`, `scancmd`, and `scanservices`.
 
 #### Development packages and install_if
 
@@ -1834,6 +1834,8 @@ for subpackages separately if needed:
   shared libraries to be provided by the package.
 * `scanpkgconf` *(true)* If disabled, the package will not be scanned for
   `.pc` files.
+* `scanservices` *(true)* If disabled, the package will not be scanned for
+  service files.
 * `scandevelif` *(true)* If disabled, `install_if` will not be generated
   for development packages.
 * `scancmd` *(true)* If disabled, the package will not be scanned for

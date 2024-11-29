@@ -347,6 +347,7 @@ default_options = {
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),
+    "scanservices": (True, False),
     "scandevelif": (True, False),
     "scancmd": (True, False),
     "textrels": (False, False),

@@ -146,6 +146,10 @@ def _get_new_deps(pkg, origin):
     if hasattr(pkg, "cmd_provides"):
         provides += map(lambda x: f"cmd:{x}", sorted(pkg.cmd_provides))
 
+    # service provides
+    if hasattr(pkg, "svc_provides"):
+        provides += pkg.svc_provides
+
     deps.sort()
     provides.sort()
 
