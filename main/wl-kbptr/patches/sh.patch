@@ -1,0 +1,10 @@
+diff --git a/helpers/wl-kbptr-sway-active-win b/helpers/wl-kbptr-sway-active-win
+index 762e2ff..a556ee1 100755
+--- a/helpers/wl-kbptr-sway-active-win
++++ b/helpers/wl-kbptr-sway-active-win
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ active_area=$(swaymsg -t get_tree | jq --raw-output \
+ 	'.. | (.nodes? // empty)[] | select (.focused) | .rect | "\(.width)x\(.height)+\(.x)+\(.y)"')

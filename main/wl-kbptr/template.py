@@ -1,6 +1,6 @@
 pkgname = "wl-kbptr"
 pkgver = "0.2.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -9,6 +9,7 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
 ]
+depends = ["jq"]
 pkgdesc = "Control the mouse pointer with the keyboard"
 maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
@@ -20,4 +21,4 @@ hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_bin("helpers/*", glob=True)
+    self.install_bin("helpers/wl-kbptr-sway-active-win")
