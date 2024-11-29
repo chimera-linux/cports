@@ -1,6 +1,6 @@
 pkgname = "gdm-settings"
-pkgver = "4.4"
-pkgrel = 1
+pkgver = "5.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
@@ -26,7 +26,7 @@ maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "AGPL-3.0-or-later"
 url = "https://gdm-settings.github.io"
 source = f"https://github.com/gdm-settings/gdm-settings/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9b9ac615e56ac1c96de567dd56c2ff5e9b869a1d50b2e497e60e8b55c596f744"
+sha256 = "adfc33250589217531e9fa679cad03cbe7c845b39fb99fcc226329453ce0ac40"
 
 
 def post_install(self):
