@@ -1,6 +1,6 @@
 pkgname = "sbctl"
 pkgver = "0.16"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/sbctl"]
 hostmakedepends = ["asciidoc", "go"]
@@ -37,6 +37,7 @@ def post_build(self):
 
 def post_install(self):
     self.install_man("docs/sbctl.8")
+    self.install_man("docs/sbctl.conf.5")
 
     self.install_completion("sbctl.bash", "bash")
     self.install_completion("sbctl.zsh", "zsh")
