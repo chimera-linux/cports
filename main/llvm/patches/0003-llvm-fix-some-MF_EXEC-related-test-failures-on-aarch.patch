@@ -1,7 +1,7 @@
-From fd4dfa4073bf4cc2cdc81a377c7b1c48c7cf6d7d Mon Sep 17 00:00:00 2001
+From 99998413721b18d851020ef9bff1226b43de0ffc Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 May 2023 16:04:20 +0200
-Subject: [PATCH 03/27] llvm: fix some MF_EXEC related test failures on aarch64
+Subject: [PATCH 03/30] llvm: fix some MF_EXEC related test failures on aarch64
 
 https://bugs.llvm.org/show_bug.cgi?id=14278#c10
 ---
@@ -9,7 +9,7 @@ https://bugs.llvm.org/show_bug.cgi?id=14278#c10
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/llvm/lib/Support/Unix/Memory.inc b/llvm/lib/Support/Unix/Memory.inc
-index 69bd11643..3678cced8 100644
+index bac208a7d..4cb941d39 100644
 --- a/llvm/lib/Support/Unix/Memory.inc
 +++ b/llvm/lib/Support/Unix/Memory.inc
 @@ -50,7 +50,7 @@ static int getPosixProtectionFlags(unsigned Flags) {
@@ -22,5 +22,5 @@ index 69bd11643..3678cced8 100644
      // can have unintended consequences.  The function InvalidateInstruction-
      // Cache uses instructions dcbf and icbi, both of which are treated by
 -- 
-2.44.0
+2.47.0
 

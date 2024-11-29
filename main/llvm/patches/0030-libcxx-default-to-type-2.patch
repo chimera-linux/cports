@@ -1,17 +1,28 @@
-default to type 2:
+From 4333f61c097c1e493591dca6b972a015284275d1 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Fri, 29 Nov 2024 19:55:07 +0100
+Subject: [PATCH 30/30] libcxx: default to type 2
+
 // This implementation of type_info does not assume there is always a unique
 // copy of the RTTI for a given type inside a program. For various reasons
 // the linker may have failed to merge every copy of a types RTTI
 // (For example: -Bsymbolic or llvm.org/PR37398). Under this assumption, two
 // type_infos are equal if their addresses are equal or if a deep string
 // comparison is equal.
-this is mostly for compat with libstdc++, which some projects like kde* rely on:
+
+this is mostly for compat with libstdc++, which some projects
+like kde* rely on:
+
 https://bugs.kde.org/show_bug.cgi?id=479679
-if https://github.com/llvm/llvm-project/issues/36746 is fixed it might not be needed
---
+---
+ libcxx/include/typeinfo | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libcxx/include/typeinfo b/libcxx/include/typeinfo
+index 2727cad02..d6cb084ac 100644
 --- a/libcxx/include/typeinfo
 +++ b/libcxx/include/typeinfo
-@@ -179,7 +179,7 @@
+@@ -177,7 +177,7 @@ public:
  
  // On all other platforms, assume the Itanium C++ ABI and use the Unique implementation.
  #      else
@@ -20,3 +31,6 @@ if https://github.com/llvm/llvm-project/issues/36746 is fixed it might not be ne
  #      endif
  #    endif
  
+-- 
+2.47.0
+

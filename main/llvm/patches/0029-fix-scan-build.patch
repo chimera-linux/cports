@@ -1,0 +1,27 @@
+From 081636719a981183342493e184da90b3d0c370e4 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Fri, 29 Nov 2024 19:54:08 +0100
+Subject: [PATCH 29/30] fix scan-build
+
+---
+ clang/tools/scan-build/libexec/ccc-analyzer | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/clang/tools/scan-build/libexec/ccc-analyzer b/clang/tools/scan-build/libexec/ccc-analyzer
+index 74f812aef..72bbab742 100755
+--- a/clang/tools/scan-build/libexec/ccc-analyzer
++++ b/clang/tools/scan-build/libexec/ccc-analyzer
+@@ -84,8 +84,8 @@ if (`uname -s` =~ m/Darwin/) {
+   $DefaultCCompiler = 'cc';
+   $DefaultCXXCompiler = 'c++';
+ } else {
+-  $DefaultCCompiler = 'gcc';
+-  $DefaultCXXCompiler = 'g++';
++  $DefaultCCompiler = 'clang';
++  $DefaultCXXCompiler = 'clang++';
+ }
+ 
+ if ($FindBin::Script =~ /c\+\+-analyzer/) {
+-- 
+2.47.0
+

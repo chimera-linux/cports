@@ -1,7 +1,7 @@
-From a60bf54999fc758160af596482d2b87a6c448dc2 Mon Sep 17 00:00:00 2001
+From 976dae9c1f717e9e0c63f571ee638e851fb036df Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:04:56 +0100
-Subject: [PATCH 11/27] compiler-rt: HACK: always compile in gcc_personality_v0
+Subject: [PATCH 11/30] compiler-rt: HACK: always compile in gcc_personality_v0
 
 Looks like HAVE_UNWIND_H is not accounted for when doing the
 runtimes build, but this is the only place where it's checked.
@@ -13,10 +13,10 @@ Unconditionally compile it in because some things use it.
  2 files changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index 8cba9ded3..c64680c46 100644
+index ae5b938cd..a0c816710 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -216,12 +216,10 @@ if(APPLE)
+@@ -225,12 +225,10 @@ if(APPLE)
    )
  endif()
  
@@ -47,5 +47,5 @@ index ef63a5fb8..5a0a90b38 100644
      !defined(__USING_SJLJ_EXCEPTIONS__)
  // When building with older compilers (e.g. clang <3.9), it is possible that we
 -- 
-2.44.0
+2.47.0
 

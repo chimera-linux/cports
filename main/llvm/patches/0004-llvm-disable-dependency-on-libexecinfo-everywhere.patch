@@ -1,7 +1,7 @@
-From 4ca715eb6e8ad146b9b55cba4d553314cc2c57d1 Mon Sep 17 00:00:00 2001
+From 0aa53552b21d2351b2b06e908e3ea0b34b9a7a9e Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sat, 4 Nov 2023 08:51:17 +0100
-Subject: [PATCH 04/27] llvm: disable dependency on libexecinfo everywhere
+Date: Fri, 29 Nov 2024 19:33:12 +0100
+Subject: [PATCH 04/30] llvm: disable dependency on libexecinfo everywhere
 
 ---
  compiler-rt/cmake/config-ix.cmake       | 1 -
@@ -11,22 +11,22 @@ Subject: [PATCH 04/27] llvm: disable dependency on libexecinfo everywhere
  4 files changed, 16 deletions(-)
 
 diff --git a/compiler-rt/cmake/config-ix.cmake b/compiler-rt/cmake/config-ix.cmake
-index 2ca18ebb4..77b3c4eaf 100644
+index dad557af2..42861db32 100644
 --- a/compiler-rt/cmake/config-ix.cmake
 +++ b/compiler-rt/cmake/config-ix.cmake
-@@ -179,7 +179,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
+@@ -181,7 +181,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
  check_library_exists(rt shm_open "" COMPILER_RT_HAS_LIBRT)
  check_library_exists(m pow "" COMPILER_RT_HAS_LIBM)
  check_library_exists(pthread pthread_create "" COMPILER_RT_HAS_LIBPTHREAD)
 -check_library_exists(execinfo backtrace "" COMPILER_RT_HAS_LIBEXECINFO)
  
- # Look for terminfo library, used in unittests that depend on LLVMSupport.
- if(LLVM_ENABLE_TERMINFO STREQUAL FORCE_ON)
+ if (ANDROID AND COMPILER_RT_HAS_LIBDL)
+   # Android's libstdc++ has a dependency on libdl.
 diff --git a/llvm/cmake/config-ix.cmake b/llvm/cmake/config-ix.cmake
-index bf1b11024..28530e69d 100644
+index 0aae13e30..d8404a163 100644
 --- a/llvm/cmake/config-ix.cmake
 +++ b/llvm/cmake/config-ix.cmake
-@@ -260,8 +260,6 @@ endif()
+@@ -261,8 +261,6 @@ endif()
  # function checks
  check_symbol_exists(arc4random "stdlib.h" HAVE_DECL_ARC4RANDOM)
  find_package(Backtrace)
@@ -36,7 +36,7 @@ index bf1b11024..28530e69d 100644
  # Prevent check_symbol_exists from using API that is not supported for a given
  # deployment target.
 diff --git a/llvm/include/llvm/Config/config.h.cmake b/llvm/include/llvm/Config/config.h.cmake
-index fc1f9bf34..93a7a9b16 100644
+index ff30741c8..04e92dfcf 100644
 --- a/llvm/include/llvm/Config/config.h.cmake
 +++ b/llvm/include/llvm/Config/config.h.cmake
 @@ -23,11 +23,6 @@
@@ -52,10 +52,10 @@ index fc1f9bf34..93a7a9b16 100644
  #cmakedefine HAVE_CRASHREPORTERCLIENT_H
  
 diff --git a/llvm/lib/Support/CMakeLists.txt b/llvm/lib/Support/CMakeLists.txt
-index e19223fde..8ce5bc253 100644
+index f653379e3..ee9c2197e 100644
 --- a/llvm/lib/Support/CMakeLists.txt
 +++ b/llvm/lib/Support/CMakeLists.txt
-@@ -48,14 +48,6 @@ elseif( CMAKE_HOST_UNIX )
+@@ -49,14 +49,6 @@ elseif( CMAKE_HOST_UNIX )
    if( HAVE_LIBDL )
      set(system_libs ${system_libs} ${CMAKE_DL_LIBS})
    endif()
@@ -67,9 +67,9 @@ index e19223fde..8ce5bc253 100644
 -    STRING(REGEX REPLACE "^lib" "" Backtrace_LIBFILE ${Backtrace_LIBFILE})
 -    set(system_libs ${system_libs} ${Backtrace_LIBFILE})
 -  endif()
-   if( LLVM_ENABLE_TERMINFO )
-     set(imported_libs ${imported_libs} Terminfo::terminfo)
-   endif()
+   set(system_libs ${system_libs} ${LLVM_ATOMIC_LIB})
+   set(system_libs ${system_libs} ${LLVM_PTHREAD_LIB})
+   if( UNIX AND NOT (BEOS OR HAIKU) )
 -- 
-2.44.0
+2.47.0
 

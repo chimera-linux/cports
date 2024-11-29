@@ -1,22 +1,21 @@
-From 0b45f6631aa8e32d6dd9d8883d9311d315c704aa Mon Sep 17 00:00:00 2001
+From a045fd8aededbe15339bc067c1b68a75ea8b9679 Mon Sep 17 00:00:00 2001
 From: Erica Z <zerica@callcc.eu>
-Date: Mon, 15 Apr 2024 10:13:00 +0200
-Subject: [PATCH 27/27] 32-bit musl sanitizer fixes
+Date: Fri, 29 Nov 2024 19:49:16 +0100
+Subject: [PATCH 27/30] 32-bit musl sanitizer fixes
 
 ---
- .../lib/sanitizer_common/sanitizer_linux.cpp  | 49 +++----------------
- 1 file changed, 7 insertions(+), 42 deletions(-)
+ .../lib/sanitizer_common/sanitizer_linux.cpp  | 48 +++----------------
+ 1 file changed, 7 insertions(+), 41 deletions(-)
 
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-index 5d25d58c9..6c82c0958 100644
+index 0b69fedcc..067e16922 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-@@ -278,26 +278,6 @@ uptr internal_ftruncate(fd_t fd, uptr size) {
+@@ -317,25 +317,6 @@ uptr internal_ftruncate(fd_t fd, uptr size) {
    return res;
  }
  
--#    if (!SANITIZER_LINUX_USES_64BIT_SYSCALLS || SANITIZER_SPARC) && \
--        SANITIZER_LINUX
+-#    if !SANITIZER_LINUX_USES_64BIT_SYSCALLS && SANITIZER_LINUX
 -static void stat64_to_stat(struct stat64 *in, struct stat *out) {
 -  internal_memset(out, 0, sizeof(*out));
 -  out->st_dev = in->st_dev;
@@ -38,9 +37,9 @@ index 5d25d58c9..6c82c0958 100644
  #    if SANITIZER_LINUX && defined(__loongarch__)
  static void statx_to_stat(struct statx *in, struct stat *out) {
    internal_memset(out, 0, sizeof(*out));
-@@ -385,17 +365,11 @@ uptr internal_stat(const char *path, void *buf) {
-   return internal_syscall(SYSCALL(newfstatat), AT_FDCWD, (uptr)path, (uptr)buf,
-                           0);
+@@ -434,17 +415,11 @@ uptr internal_stat(const char *path, void *buf) {
+   kernel_stat_to_stat(&buf64, (struct stat *)buf);
+   return res;
  #      else
 -  struct stat64 buf64;
 -  int res = internal_syscall(SYSCALL(fstatat64), AT_FDCWD, (uptr)path,
@@ -59,9 +58,9 @@ index 5d25d58c9..6c82c0958 100644
  #    endif
  }
  
-@@ -417,17 +391,11 @@ uptr internal_lstat(const char *path, void *buf) {
-   return internal_syscall(SYSCALL(newfstatat), AT_FDCWD, (uptr)path, (uptr)buf,
-                           AT_SYMLINK_NOFOLLOW);
+@@ -472,17 +447,11 @@ uptr internal_lstat(const char *path, void *buf) {
+   kernel_stat_to_stat(&buf64, (struct stat *)buf);
+   return res;
  #      else
 -  struct stat64 buf64;
 -  int res = internal_syscall(SYSCALL(fstatat64), AT_FDCWD, (uptr)path,
@@ -80,7 +79,7 @@ index 5d25d58c9..6c82c0958 100644
  #    endif
  }
  
-@@ -449,10 +417,7 @@ uptr internal_fstat(fd_t fd, void *buf) {
+@@ -510,10 +479,7 @@ uptr internal_fstat(fd_t fd, void *buf) {
    return internal_syscall(SYSCALL(fstat), fd, (uptr)buf);
  #      endif
  #    else
@@ -93,5 +92,5 @@ index 5d25d58c9..6c82c0958 100644
  }
  
 -- 
-2.44.0
+2.47.0
 

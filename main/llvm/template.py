@@ -1,6 +1,6 @@
 pkgname = "llvm"
-pkgver = "18.1.8"
-pkgrel = 6
+pkgver = "19.1.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -55,7 +55,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
+sha256 = "3aa2d2d2c7553164ad5c6f3b932b31816e422635e18620c9349a7da95b98d811"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -115,13 +115,13 @@ else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=OFF",
         "-DLLVM_ENABLE_LIBPFM=OFF",
-        "-DLLVM_ENABLE_TERMINFO=OFF",
         # for stage 0 bootstrap, avoid all the optional runtime
         "-DCOMPILER_RT_BUILD_SANITIZERS=OFF",
         "-DCOMPILER_RT_BUILD_XRAY=OFF",
         "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF",
         "-DCOMPILER_RT_BUILD_PROFILE=OFF",
         "-DCOMPILER_RT_BUILD_MEMPROF=OFF",
+        "-DCOMPILER_RT_BUILD_CTX_PROFILE=OFF",
     ]
 
 _enable_flang = False
@@ -355,6 +355,7 @@ def _(self):
         "usr/bin/c++",
         "usr/lib/cmake/clang",
         "usr/share/clang",
+        "usr/share/clang-doc",
     ]
 
 
@@ -497,7 +498,7 @@ def _(self):
 
     return [
         "usr/include/mlir*",
-        "usr/lib/libMLIR.so",
+        "usr/lib/libMLIR*.so",
         "usr/lib/libmlir*.so",
         "usr/lib/cmake/mlir",
     ]
@@ -509,7 +510,7 @@ def _(self):
     self.provides = [self.with_pkgver("libmlir")]
 
     return [
-        "usr/lib/libMLIR.so.*",
+        "usr/lib/libMLIR*.so.*",
         "usr/lib/libmlir*.so.*",
     ]
 
@@ -577,9 +578,11 @@ def _(self):
     self.options = ["ltostrip", "!splitstatic"]
 
     return [
+        "usr/lib/libc++.modules.json",
         "usr/lib/libc++.so",
         "usr/lib/libc++experimental.a",
         "usr/include/c++",
+        "usr/share/libc++",
     ]
 
 

@@ -1,7 +1,7 @@
-From 41673036255a1ceb5157b1501691ada7af004731 Mon Sep 17 00:00:00 2001
+From dd1f0c4aed996ccc7a55732844aeaf197e0f9eae Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 2 May 2023 16:25:59 +0200
-Subject: [PATCH 22/27] clang: fix unwind chain inclusion
+Subject: [PATCH 22/30] clang: fix unwind chain inclusion
 
 This fixes the compiler complaining about the __has_include_next.
 ---
@@ -42,5 +42,5 @@ index 33e1792cd..a32e18cda 100644
  
 -#endif /* __CLANG_UNWIND_H */
 -- 
-2.44.0
+2.47.0
 

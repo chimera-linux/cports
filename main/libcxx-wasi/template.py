@@ -1,6 +1,6 @@
 pkgname = "libcxx-wasi"
-pkgver = "18.1.8"
-pkgrel = 5
+pkgver = "19.1.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -55,7 +55,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "0b58557a6d32ceee97c8d533a59b9212d87e0fc4d2833924eb6c611247db2f2a"
+sha256 = "3aa2d2d2c7553164ad5c6f3b932b31816e422635e18620c9349a7da95b98d811"
 hardening = ["!int", "!scp", "!var-init"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "!strip"]
@@ -134,3 +134,15 @@ def install(self):
     # clang will not try including any c++ paths unless this path exists
     self.install_dir("usr/wasm32-unknown-wasi/include/c++/v1")
     (self.destdir / "usr/wasm32-unknown-wasi/include/c++/v1/__empty").touch()
+
+    # rename wrong dirs...
+    self.rename(
+        "usr/wasm32-unknown-wasi/lib/wasm32-unknown-wasip1", "wasm32-wasip1"
+    )
+    self.rename(
+        "usr/wasm32-unknown-wasi/lib/wasm32-unknown-wasip1-threads",
+        "wasm32-wasip1-threads",
+    )
+    self.rename(
+        "usr/wasm32-unknown-wasi/lib/wasm32-unknown-wasip2", "wasm32-wasip2"
+    )

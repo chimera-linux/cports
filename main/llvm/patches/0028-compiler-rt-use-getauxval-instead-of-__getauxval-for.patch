@@ -1,7 +1,7 @@
-From b74d1fc4670b36cce603e3e3111aeb098d6b3911 Mon Sep 17 00:00:00 2001
+From fb933d868828cdfc248a2783fc86819af2cde0db Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Tue, 16 Apr 2024 11:12:39 +0200
-Subject: [PATCH 28/28] compiler-rt: use getauxval instead of __getauxval for
+Subject: [PATCH 28/30] compiler-rt: use getauxval instead of __getauxval for
  aarch64 sme
 
 Unlike glibc, musl does not export the underscored version.
@@ -27,5 +27,5 @@ index b6ee12170..29b20bebb 100644
  
  #else  // defined(__linux__)
 -- 
-2.44.0
+2.47.0
 

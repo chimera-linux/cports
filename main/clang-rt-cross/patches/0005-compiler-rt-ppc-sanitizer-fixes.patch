@@ -1,7 +1,7 @@
-From dd0b7655944947d50684b15f0d89ff31a6ae4ff1 Mon Sep 17 00:00:00 2001
+From dce4bbc5d698f6dd4f80016824a9179a5d731f9f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:33:38 +0200
-Subject: [PATCH 05/27] compiler-rt: ppc sanitizer fixes
+Subject: [PATCH 05/30] compiler-rt: ppc sanitizer fixes
 
 ---
  compiler-rt/cmake/base-config-ix.cmake        |  3 +-
@@ -12,10 +12,10 @@ Subject: [PATCH 05/27] compiler-rt: ppc sanitizer fixes
  5 files changed, 44 insertions(+), 4 deletions(-)
 
 diff --git a/compiler-rt/cmake/base-config-ix.cmake b/compiler-rt/cmake/base-config-ix.cmake
-index 908c8a402..aac61db31 100644
+index 5a9799275..5f0af14d9 100644
 --- a/compiler-rt/cmake/base-config-ix.cmake
 +++ b/compiler-rt/cmake/base-config-ix.cmake
-@@ -217,9 +217,10 @@ macro(test_targets)
+@@ -224,9 +224,10 @@ macro(test_targets)
        test_target_arch(loongarch64 "" "")
      elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "powerpc64le|ppc64le")
        test_target_arch(powerpc64le "" "-m64")
@@ -28,10 +28,10 @@ index 908c8a402..aac61db31 100644
        test_target_arch(s390x "" "")
      elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "sparc")
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-index 5d2dd3a7a..5d25d58c9 100644
+index be3b3bd94..0b69fedcc 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-@@ -77,6 +77,10 @@
+@@ -82,6 +82,10 @@
  #    include <sys/personality.h>
  #  endif
  
@@ -56,7 +56,7 @@ index 6d61d276d..9948eafd9 100644
  #      ifdef __arm__
  typedef struct user_fpregs elf_fpregset_t;
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
-index 25c4af708..9f8b7db14 100644
+index 526a71c39..8065a1995 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
 @@ -31,7 +31,7 @@
@@ -132,5 +132,5 @@ index 7e872b5b4..9616a09d8 100644
  
  inline bool probeRequiredCPUFeatures() XRAY_NEVER_INSTRUMENT {
 -- 
-2.44.0
+2.47.0
 

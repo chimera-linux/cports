@@ -1,5 +1,5 @@
 pkgname = "spirv-llvm-translator"
-pkgver = "18.1.6"
+pkgver = "19.1.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "NCSA"
 url = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2a1e142cfcd3720fe5e3fb6086f83a15b94c08990d05a780ba1e33c5313e2884"
+sha256 = "7f6f7a1af0eb40910ddf3a7647d2186c8c5dc5a47945afa935aeec56bacf4336"
 # FIXME int: crashes libclc build
 hardening = ["!int"]
 # tests disabled
