@@ -1,5 +1,5 @@
 pkgname = "milkytracker"
-pkgver = "1.05.00"
+pkgver = "1.05.01"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -14,4 +14,4 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://milkytracker.github.io"
 source = f"https://github.com/milkytracker/MilkyTracker/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "370a33057025a15077cb71d0765f32caa782d760ded94aa495f3019541c32af5"
+sha256 = "c487fccf6c97c483f5a624c3a408377393fa45a27cca27323425ad71ee689e16"
