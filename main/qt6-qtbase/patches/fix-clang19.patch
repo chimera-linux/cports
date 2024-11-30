@@ -1,0 +1,15 @@
+char_traits meme
+
+--- a/tests/auto/corelib/text/qbytearrayview/tst_qbytearrayview.cpp
++++ b/tests/auto/corelib/text/qbytearrayview/tst_qbytearrayview.cpp
+@@ -673,7 +673,9 @@ void tst_QByteArrayView::fromContainers() const
+     fromContainer<Char, QVector<Char>>();
+     fromContainer<Char, QVarLengthArray<Char>>();
+     fromContainer<Char, std::vector<Char>>();
+-    fromContainer<Char, std::basic_string<Char>>();
++    if constexpr (std::is_same_v<Char, char>) {
++        fromContainer<Char, std::basic_string<Char>>();
++    }
+ }
+ 
+ void tst_QByteArrayView::comparison() const

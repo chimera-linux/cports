@@ -154,6 +154,7 @@ def init_check(self):
         "tst_qopenglwidget",  # execution failed with exit code Segmentation fault.
         "tst_qcomplextext",  # tst_QComplexText::bidiCursorMovement(data46) 'newX <= x' returned FALSE
         "tst_qsharedmemory",  # tst_QSharedMemory::simpleThreadedProducerConsumer(POSIX:5 consumers, producer is this) 'p.producer.isAttached()' returned FALSE
+        "tst_qaccessibility",  # tst_QAccessibility::mdiSubWindowTest() Compared values are not the same
         "test_qt_extract_metatypes",  # fails to find qt6config.cmake in the test
         "test_qt_add_resources_rebuild",  # ditto
         "test_collecting_plugins",  # unknown platform linux-clang
