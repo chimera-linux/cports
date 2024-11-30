@@ -15,6 +15,7 @@ makedepends = [
     "kparts-devel",
     "kwindowsystem-devel",
     "kxmlgui-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE Kontact plugin interface library"

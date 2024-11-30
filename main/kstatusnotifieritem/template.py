@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "kwindowsystem-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qwidgetwindow_p.h
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Implementation of Status Notifier Items"

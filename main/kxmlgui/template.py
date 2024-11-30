@@ -19,6 +19,7 @@ makedepends = [
     "ki18n-devel",
     "kiconthemes-devel",
     "kitemviews-devel",
+    "qt6-qtbase-private-devel",  # qlocale_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]

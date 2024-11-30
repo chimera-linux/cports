@@ -27,7 +27,6 @@ makedepends = [
     "kjobwidgets-devel",
     "kuserfeedback-devel",
     "libplasma-devel",
-    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
 ]

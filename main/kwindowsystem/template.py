@@ -24,7 +24,7 @@ hostmakedepends = [
 makedepends = [
     "libxrender-devel",
     "plasma-wayland-protocols",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
     "qt6-qtwayland-devel",

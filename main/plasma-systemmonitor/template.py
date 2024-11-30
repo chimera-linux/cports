@@ -23,7 +23,6 @@ makedepends = [
     "kpackage-devel",
     "kservice-devel",
     "libksysguard-devel",
-    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 depends = [

@@ -28,7 +28,7 @@ makedepends = [
     "libplasma-devel",
     "libwacom-devel",
     "plasma5support-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "xserver-xorg-input-wacom-devel",
 ]

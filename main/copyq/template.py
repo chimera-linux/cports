@@ -15,7 +15,7 @@ hostmakedepends = [
 makedepends = [
     "libxfixes-devel",
     "libxtst-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",

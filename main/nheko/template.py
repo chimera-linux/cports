@@ -23,6 +23,7 @@ makedepends = [
     "nlohmann-json",
     "olm-devel",
     "openssl-devel",
+    "qt6-qtbase-private-devel",  # qqmlincubator_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qtsvg-devel",

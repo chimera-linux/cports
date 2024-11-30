@@ -29,7 +29,7 @@ makedepends = [
     "ksvg-devel",
     "plasma-activities-devel",
     "plasma-wayland-protocols",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qplatformwindow_p.h/qtguiglobal_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",

@@ -35,6 +35,7 @@ makedepends = [
     "modemmanager-qt-devel",
     "pulseaudio-qt-devel",
     "qqc2-desktop-style-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtconnectivity-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",

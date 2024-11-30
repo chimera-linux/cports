@@ -21,7 +21,7 @@ makedepends = [
     "fcitx5-devel",
     "libxcb-devel",
     "libxkbcommon-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qguiapplication_p.h
     "qt6-qtwayland-devel",
 ]
 pkgdesc = "Qt library and IM module for Fcitx5"

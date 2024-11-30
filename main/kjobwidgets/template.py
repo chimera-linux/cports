@@ -11,7 +11,7 @@ makedepends = [
     "kcoreaddons-devel",
     "knotifications-devel",
     "kwidgetsaddons-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Widgets for showing progress of asynchronous jobs"

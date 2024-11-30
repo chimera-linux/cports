@@ -81,7 +81,7 @@ makedepends = [
     "opus-devel",
     "protobuf-devel",
     "qt6-qt5compat-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qquickitem_p.h/qtguiglobal_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",

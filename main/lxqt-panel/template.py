@@ -23,7 +23,6 @@ makedepends = [
     "libstatgrab-devel",
     "lxqt-globalkeys-devel",
     "lxqt-menu-data",
-    "qt6-qtbase-private-devel",
     "qt6-qttools-devel",
     "qt6-qtwayland-devel",
     "solid-devel",

@@ -14,6 +14,7 @@ makedepends = [
     "kconfig-devel",
     "kguiaddons-devel",
     "ki18n-devel",
+    "qt6-qtbase-private-devel",  # qguiapplication_p.h
     "qt6-qtdeclarative-devel",
 ]
 checkdepends = ["dbus"]

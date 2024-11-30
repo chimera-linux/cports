@@ -17,7 +17,6 @@ makedepends = [
     "libva-devel",
     "pipewire-devel",
     "plasma-wayland-protocols",
-    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtwayland-devel",
 ]

@@ -9,7 +9,7 @@ hostmakedepends = [
     "ninja",
 ]
 makedepends = [
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qttools-devel",
 ]
 checkdepends = [

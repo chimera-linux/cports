@@ -11,7 +11,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "plasma-wayland-protocols",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtguiglobal_p.h
     "qt6-qtwayland-devel",
 ]
 pkgdesc = "KDE addons to QtGui"

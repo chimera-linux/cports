@@ -23,6 +23,7 @@ makedepends = [
     "ktextwidgets-devel",
     "kuserfeedback-devel",
     "kwallet-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qtkeychain-devel",
 ]

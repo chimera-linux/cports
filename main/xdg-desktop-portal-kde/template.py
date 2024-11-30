@@ -25,7 +25,7 @@ makedepends = [
     "kstatusnotifieritem-devel",
     "kwayland-devel",
     "plasma-wayland-protocols",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qxkbcommon_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtwayland-devel",
     "wayland-protocols",

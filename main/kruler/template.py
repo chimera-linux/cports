@@ -18,7 +18,7 @@ makedepends = [
     "kwindowsystem-devel",
     "kxmlgui-devel",
     "libxcb-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
 ]
 pkgdesc = "KDE screen measuring tool"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"

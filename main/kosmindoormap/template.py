@@ -18,6 +18,7 @@ makedepends = [
     "kpublictransport-devel",
     "kservice-devel",
     "protobuf-devel",
+    "qt6-qtbase-private-devel",  # qlocale_tools_p.h
     "qt6-qtdeclarative-devel",
     "zlib-ng-compat-devel",
 ]

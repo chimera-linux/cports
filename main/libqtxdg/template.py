@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qicon_p.h
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
 ]

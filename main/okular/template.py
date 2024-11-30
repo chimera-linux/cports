@@ -47,6 +47,7 @@ makedepends = [
     "plasma-activities-devel",
     "poppler-devel",
     "purpose-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtspeech-devel",
     "qt6-qtsvg-devel",

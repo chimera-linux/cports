@@ -36,7 +36,7 @@ makedepends = [
     "phonon-devel",
     "plasma-activities-devel",
     "purpose-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",
     "wayland-devel",

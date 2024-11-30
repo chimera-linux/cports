@@ -29,6 +29,7 @@ makedepends = [
     "plasma-wayland-protocols",
     "prison-devel",
     "purpose-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtmultimedia-devel",
     "qt6-qtwayland-devel",
     "xcb-util-devel",

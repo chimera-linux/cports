@@ -27,7 +27,6 @@ makedepends = [
     "kxmlgui-devel",
     "plasma-activities-devel",
     "plasma-workspace-devel",
-    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 depends = ["plasma-workspace"]

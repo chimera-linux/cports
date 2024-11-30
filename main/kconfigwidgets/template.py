@@ -18,6 +18,7 @@ makedepends = [
     "kguiaddons-devel",
     "ki18n-devel",
     "kwidgetsaddons-devel",
+    "qt6-qtbase-private-devel",  # qguiapplication_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]

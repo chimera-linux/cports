@@ -40,6 +40,7 @@ makedepends = [
     "kwallet-devel",
     "kwindowsystem-devel",
     "plasma-activities-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtwebengine-devel",
     "sonnet-devel",
 ]

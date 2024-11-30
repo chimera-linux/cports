@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qglobal_p.h/qwaylanddisplay_p.h etc
     "qt6-qtdeclarative-devel",
     "qt6-qtwayland-devel",
     "wayland-protocols",

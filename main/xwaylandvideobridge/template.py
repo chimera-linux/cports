@@ -16,6 +16,7 @@ makedepends = [
     "kpipewire-devel",
     "kstatusnotifieritem-devel",
     "kwindowsystem-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "xcb-util-devel",
 ]

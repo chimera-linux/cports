@@ -15,7 +15,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "olm-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qjson_p.h
     "qtkeychain-devel",
 ]
 pkgdesc = "Qt library for Matrix clients"

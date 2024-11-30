@@ -59,7 +59,7 @@ makedepends = [
     "mpg123-devel",
     "orc-devel",
     "pipewire-jack-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qrhi_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
     "qt6-qtwayland-devel",

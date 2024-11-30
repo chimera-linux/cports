@@ -36,6 +36,7 @@ makedepends = [
     "kwindowsystem-devel",
     "libxslt-devel",
     "qt6-qt5compat-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
     "solid-devel",

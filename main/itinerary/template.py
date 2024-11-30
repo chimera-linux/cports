@@ -37,6 +37,7 @@ makedepends = [
     "networkmanager-qt-devel",
     "prison-devel",
     "qqc2-desktop-style-devel",
+    "qt6-qtbase-private-devel",  # qjson_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtlocation-devel",
     "qt6-qtmultimedia-devel",

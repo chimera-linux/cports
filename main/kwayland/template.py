@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "plasma-wayland-protocols",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qwaylandwindow_p.h
     "qt6-qtwayland-devel",
     "wayland-protocols",
 ]

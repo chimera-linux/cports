@@ -70,7 +70,7 @@ makedepends = [
     "plasma-activities-devel",
     "plasma-wayland-protocols",
     "qt6-qt5compat-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtguiglobal_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsensors-devel",
     "qt6-qtsvg-devel",

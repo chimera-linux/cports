@@ -51,7 +51,7 @@ makedepends = [
     "plasma-workspace-devel",
     "plasma5support-devel",
     "qt6-qt5compat-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",

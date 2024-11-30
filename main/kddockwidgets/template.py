@@ -14,6 +14,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "nlohmann-json",
+    "qt6-qtbase-private-devel",  # qhighdpiscaling_p.h/qquickitem_p.h
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Dock Widget Framework for Qt"

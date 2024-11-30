@@ -43,7 +43,7 @@ makedepends = [
     "plasma-workspace-devel",
     "plasma-wayland-protocols",
     "qcoro-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtwayland-devel",
 ]
 checkdepends = [
