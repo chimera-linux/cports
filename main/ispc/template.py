@@ -1,6 +1,6 @@
 pkgname = "ispc"
 pkgver = "1.25.3"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
