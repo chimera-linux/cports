@@ -1,6 +1,6 @@
 pkgname = "imhex"
 pkgver = "1.35.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DIMHEX_BUNDLE_DOTNET=OFF",
@@ -33,6 +33,7 @@ makedepends = [
     "glfw-devel",
     "libarchive-devel",
     "libcurl-devel",
+    "libedit-devel",
     "llvm-devel",
     # LLVMdemangle is static only
     "llvm-devel-static",

@@ -1,6 +1,6 @@
 pkgname = "openvdb"
 pkgver = "11.0.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DOPENVDB_CORE_STATIC=OFF",  # 1.4gb lol

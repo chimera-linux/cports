@@ -1,6 +1,6 @@
 pkgname = "bcachefs-tools"
 pkgver = "1.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_install_args = [
     "ROOT_SBINDIR=/usr/bin",
