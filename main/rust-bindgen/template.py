@@ -1,6 +1,6 @@
 pkgname = "rust-bindgen"
 pkgver = "0.70.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = ["--bins"]
 make_install_args = ["--bins"]

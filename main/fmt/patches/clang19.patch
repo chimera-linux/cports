@@ -1,0 +1,10 @@
+--- a/include/fmt/format.h
++++ b/include/fmt/format.h
+@@ -46,6 +46,7 @@
+ #  include <cstring>           // std::memcpy
+ #  include <initializer_list>  // std::initializer_list
+ #  include <limits>            // std::numeric_limits
++#  include <algorithm>         // std::copy
+ #  if defined(__GLIBCXX__) && !defined(_GLIBCXX_USE_DUAL_ABI)
+ // Workaround for pre gcc 5 libstdc++.
+ #    include <memory>  // std::allocator_traits
