@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.82.0"
+pkgver = "1.83.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "1276a0bb8fa12288ba6fa96597d28b40e74c44257c051d3bc02c2b049bb38210"
+sha256 = "7b11d4242dab0921a7d54758ad3fe805153c979c144625fecde11735760f97df"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -74,7 +74,7 @@ if self.current_target == "custom:bootstrap":
 def post_patch(self):
     from cbuild.util import cargo
 
-    cargo.clear_vendor_checksums(self, "compiler_builtins-0.1.123")
+    cargo.clear_vendor_checksums(self, "compiler_builtins-0.1.133")
     # nice fucking meme
     cargo.clear_vendor_checksums(self, "libc-0.2.94")
     cargo.clear_vendor_checksums(self, "libc-0.2.97")
@@ -85,8 +85,9 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.124")
     cargo.clear_vendor_checksums(self, "libc-0.2.150")
     cargo.clear_vendor_checksums(self, "libc-0.2.155")
-    cargo.clear_vendor_checksums(self, "libc-0.2.157")
     cargo.clear_vendor_checksums(self, "libc-0.2.158")
+    cargo.clear_vendor_checksums(self, "libc-0.2.159")
+    cargo.clear_vendor_checksums(self, "libc-0.2.161")
 
 
 def configure(self):
@@ -170,7 +171,7 @@ extern {}
     with open(self.cwd / "config.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 129295
+change-id = 131075
 
 [llvm]
 ninja = false
@@ -235,6 +236,7 @@ llvm-libunwind = 'system'
 
 [dist]
 
+vendor = false
 src-tarball = true
 compression-formats = ['{_comp}']
 compression-profile = '{_comp_prof}'

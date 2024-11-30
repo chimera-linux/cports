@@ -1,4 +1,4 @@
-From e6dd62bd80096742201777d00eab5f204ed18f51 Mon Sep 17 00:00:00 2001
+From a0725b4ad8bb2134b7a4977c99c5785e3b204839 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 14:53:26 +0100
 Subject: [PATCH 01/14] add chimera targets, always dynamic musl + static pie
@@ -25,10 +25,10 @@ Subject: [PATCH 01/14] add chimera targets, always dynamic musl + static pie
  create mode 100644 compiler/rustc_target/src/spec/targets/x86_64_chimera_linux_musl.rs
 
 diff --git a/compiler/rustc_target/src/spec/base/linux_musl.rs b/compiler/rustc_target/src/spec/base/linux_musl.rs
-index 42aa1e1a6..3a5dfa639 100644
+index e020bb8523..078cb531d8 100644
 --- a/compiler/rustc_target/src/spec/base/linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/base/linux_musl.rs
-@@ -4,12 +4,14 @@ pub fn opts() -> TargetOptions {
+@@ -4,12 +4,14 @@ pub(crate) fn opts() -> TargetOptions {
      let mut base = base::linux::opts();
  
      base.env = "musl".into();
@@ -50,10 +50,10 @@ index 42aa1e1a6..3a5dfa639 100644
      base
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index d5f227a84..e7a2d8f09 100644
+index 82e11a3afc..a0be8d788c 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -1541,6 +1541,14 @@ macro_rules! supported_targets {
+@@ -1618,6 +1618,14 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {
@@ -70,7 +70,7 @@ index d5f227a84..e7a2d8f09 100644
      ("i686-unknown-linux-gnu", i686_unknown_linux_gnu),
 diff --git a/compiler/rustc_target/src/spec/targets/aarch64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/aarch64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..ff2c140aa
+index 0000000000..ff2c140aa5
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/aarch64_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
@@ -86,7 +86,7 @@ index 000000000..ff2c140aa
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/arm_chimera_linux_musleabihf.rs b/compiler/rustc_target/src/spec/targets/arm_chimera_linux_musleabihf.rs
 new file mode 100644
-index 000000000..2a96971af
+index 0000000000..2a96971af1
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/arm_chimera_linux_musleabihf.rs
 @@ -0,0 +1,10 @@
@@ -102,7 +102,7 @@ index 000000000..2a96971af
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/armv7_chimera_linux_musleabihf.rs b/compiler/rustc_target/src/spec/targets/armv7_chimera_linux_musleabihf.rs
 new file mode 100644
-index 000000000..8f44b8ec5
+index 0000000000..8f44b8ec51
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/armv7_chimera_linux_musleabihf.rs
 @@ -0,0 +1,10 @@
@@ -118,7 +118,7 @@ index 000000000..8f44b8ec5
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..5953e1565
+index 0000000000..5953e15654
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
@@ -134,7 +134,7 @@ index 000000000..5953e1565
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..29a7459b7
+index 0000000000..29a7459b7a
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64le_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
@@ -150,7 +150,7 @@ index 000000000..29a7459b7
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..65b2d62ba
+index 0000000000..65b2d62ba0
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/powerpc_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
@@ -166,7 +166,7 @@ index 000000000..65b2d62ba
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/riscv64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/riscv64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..8c26403ce
+index 0000000000..8c26403ce8
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/riscv64_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@
@@ -182,7 +182,7 @@ index 000000000..8c26403ce
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/x86_64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/targets/x86_64_chimera_linux_musl.rs
 new file mode 100644
-index 000000000..9a94dd228
+index 0000000000..9a94dd228a
 --- /dev/null
 +++ b/compiler/rustc_target/src/spec/targets/x86_64_chimera_linux_musl.rs
 @@ -0,0 +1,10 @@

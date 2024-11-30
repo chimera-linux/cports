@@ -1,4 +1,4 @@
-From cff14754cd2c2a22125efc93a86eb42a84e577b5 Mon Sep 17 00:00:00 2001
+From 60d89bb2aac899e0b035dcce06cd352745680e98 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Wed, 6 Nov 2024 01:32:10 +0100
 Subject: [PATCH 08/14] link stage 2 tools dynamically to libstd
@@ -11,10 +11,10 @@ about unstable ABI
  1 file changed, 3 insertions(+)
 
 diff --git a/src/bootstrap/src/core/builder.rs b/src/bootstrap/src/core/builder.rs
-index ff0d1f3a7..aff5aa438 100644
+index 9ac0b0a01f..4ccba39030 100644
 --- a/src/bootstrap/src/core/builder.rs
 +++ b/src/bootstrap/src/core/builder.rs
-@@ -2159,6 +2159,9 @@ impl<'a> Builder<'a> {
+@@ -2207,6 +2207,9 @@ impl<'a> Builder<'a> {
          if matches!(mode, Mode::Rustc) && !self.link_std_into_rustc_driver(target) {
              rustflags.arg("-Cprefer-dynamic");
          }

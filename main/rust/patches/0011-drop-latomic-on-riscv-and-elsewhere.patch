@@ -1,4 +1,4 @@
-From 24d44475c70f5bc57c6c128d6c06385f1ed1eded Mon Sep 17 00:00:00 2001
+From cec9c59aae78e37e7e2d648eae67eb40fbfa5217 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:56:05 +0200
 Subject: [PATCH 11/14] drop -latomic on riscv and elsewhere
@@ -9,10 +9,10 @@ Subject: [PATCH 11/14] drop -latomic on riscv and elsewhere
  2 files changed, 1 insertion(+), 36 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 616339157..1569580ce 100644
+index 46537cc317..1830bf9915 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -230,15 +230,7 @@ fn main() {
+@@ -233,15 +233,7 @@ fn main() {
          println!("cargo:rustc-link-lib=kstat");
      }
  
@@ -29,7 +29,7 @@ index 616339157..1569580ce 100644
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
      } else if target.contains("haiku")
-@@ -373,14 +365,6 @@ fn main() {
+@@ -376,14 +368,6 @@ fn main() {
          "stdc++"
      };
  
@@ -45,10 +45,10 @@ index 616339157..1569580ce 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index e1eea31b3..3ae87b8e7 100644
+index a2d40f6fbd..af22ecb456 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -398,25 +398,6 @@ impl Step for Llvm {
+@@ -413,25 +413,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  
