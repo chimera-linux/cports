@@ -1,9 +1,8 @@
 pkgname = "apache-ant"
 pkgver = "1.10.15"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["openjdk17-jdk"]
-# FIXME: depends on unversioned providers are somewhat broken in apk
-# depends = ["virtual:java-jre!openjdk17-jre"]
+depends = ["virtual:java-jre!openjdk17-jre"]
 pkgdesc = "Java build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
