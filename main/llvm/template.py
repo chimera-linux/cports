@@ -126,7 +126,8 @@ else:
 
 _enable_flang = False
 # from stage 2 only, pointless to build before
-_enable_mlir = self.stage >= 2
+# temporarily disable on cross, switch back for .5
+_enable_mlir = self.stage >= 2 and not self.profile().cross
 
 match self.profile().arch:
     # consistently runs out of memory in flang ConvertExpr
@@ -180,11 +181,13 @@ def init_configure(self):
         "-DLLVM_NATIVE_TOOL_DIR=/usr/bin",
         "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
         "-DLLVM_TABLEGEN=/usr/bin/llvm-tblgen",
+        "-DLLVM_HEADERS_TABLEGEN=/usr/bin/llvm-tblgen",
         "-DCLANG_TABLEGEN=/usr/bin/clang-tblgen",
         "-DCLANG_PSEUDO_GEN=/usr/bin/clang-pseudo-gen",
         "-DCLANG_TIDY_CONFUSABLE_CHARS_GEN=/usr/bin/clang-tidy-confusable-chars-gen",
         "-DMLIR_TABLEGEN=/usr/bin/mlir-tblgen",
         "-DMLIR_PDLL_TABLEGEN=/usr/bin/mlir-pdll",
+        "-DMLIR_MLIR_SRC_SHARDER_TABLEGEN=/usr/bin/mlir-src-sharder",
         "-DMLIR_LINALG_ODS_YAML_GEN=/usr/bin/mlir-linalg-ods-yaml-gen",
     ]
 
@@ -249,6 +252,9 @@ def post_install(self):
     # extra cross bins, not super useful outside of that but harmless
     self.install_bin("build/bin/clang-tidy-confusable-chars-gen")
     self.install_bin("build/bin/clang-pseudo-gen")
+    # FIXME: make it build for cross so we get consistent packages
+    if _enable_mlir and not self.profile().cross:
+        self.install_bin("build/bin/mlir-src-sharder")
 
 
 @subpackage("clang-tools-extra-static")
