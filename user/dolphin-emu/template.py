@@ -1,5 +1,5 @@
 pkgname = "dolphin-emu"
-pkgver = "2409"
+pkgver = "2412"
 pkgrel = 0
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
@@ -81,7 +81,7 @@ source_paths = [
     "Externals/mGBA/mgba",
 ]
 sha256 = [
-    "291723727a3021d381facc47567ad03cad192310c5d59dd37c076ab3e3bd8158",
+    "6aafc7d3b6f735a727db26c329679d4973b1b15e028c82e4452c33c4eb9fefa4",
     "a795511bf56183ff7bad8fb2d2836ca5bb158e12ddd519caced62946ffa69c83",
     "526c5af3980edfaebb510119c3311a9062d33ca5599e9f137a88e0d8a3be67a6",
     "6352803f1ed18d479ea93abf96ac75c0222a21403be22840bde1072ee5935dfa",
