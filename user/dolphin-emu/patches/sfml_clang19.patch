@@ -1,0 +1,600 @@
+diff -ruN a/Externals/SFML/include/SFML/System/String.hpp b/Externals/SFML/include/SFML/System/String.hpp
+--- a/Externals/SFML/include/SFML/System/String.hpp	2024-12-02 00:00:52.000000000 +0100
++++ b/Externals/SFML/include/SFML/System/String.hpp	2024-12-02 11:13:10.673998270 +0100
+@@ -49,8 +49,8 @@
+     ////////////////////////////////////////////////////////////
+     // Types
+     ////////////////////////////////////////////////////////////
+-    typedef std::basic_string<Uint32>::iterator       Iterator;      ///< Iterator type
+-    typedef std::basic_string<Uint32>::const_iterator ConstIterator; ///< Read-only iterator type
++    typedef std::basic_string<char32_t>::iterator       Iterator;      ///< Iterator type
++    typedef std::basic_string<char32_t>::const_iterator ConstIterator; ///< Read-only iterator type
+ 
+     ////////////////////////////////////////////////////////////
+     // Static member data
+@@ -91,7 +91,7 @@
+     /// \param utf32Char UTF-32 character to convert
+     ///
+     ////////////////////////////////////////////////////////////
+-    String(Uint32 utf32Char);
++    String(char32_t utf32Char);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Construct from a null-terminated C-style ANSI string and a locale
+@@ -139,7 +139,7 @@
+     /// \param utf32String UTF-32 string to assign
+     ///
+     ////////////////////////////////////////////////////////////
+-    String(const Uint32* utf32String);
++    String(const char32_t* utf32String);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Construct from an UTF-32 string
+@@ -147,7 +147,7 @@
+     /// \param utf32String UTF-32 string to assign
+     ///
+     ////////////////////////////////////////////////////////////
+-    String(const std::basic_string<Uint32>& utf32String);
++    String(const std::basic_string<char32_t>& utf32String);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Copy constructor
+@@ -273,7 +273,7 @@
+     /// \see toUtf16, toUtf32
+     ///
+     ////////////////////////////////////////////////////////////
+-    std::basic_string<Uint8> toUtf8() const;
++    std::basic_string<char> toUtf8() const;
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Convert the Unicode string to a UTF-16 string
+@@ -283,7 +283,7 @@
+     /// \see toUtf8, toUtf32
+     ///
+     ////////////////////////////////////////////////////////////
+-    std::basic_string<Uint16> toUtf16() const;
++    std::basic_string<char16_t> toUtf16() const;
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Convert the Unicode string to a UTF-32 string
+@@ -296,7 +296,7 @@
+     /// \see toUtf8, toUtf16
+     ///
+     ////////////////////////////////////////////////////////////
+-    std::basic_string<Uint32> toUtf32() const;
++    std::basic_string<char32_t> toUtf32() const;
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Overload of assignment operator
+@@ -329,7 +329,7 @@
+     /// \return Character at position \a index
+     ///
+     ////////////////////////////////////////////////////////////
+-    Uint32 operator [](std::size_t index) const;
++    char32_t operator [](std::size_t index) const;
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Overload of [] operator to access a character by its position
+@@ -342,7 +342,7 @@
+     /// \return Reference to the character at position \a index
+     ///
+     ////////////////////////////////////////////////////////////
+-    Uint32& operator [](std::size_t index);
++    char32_t& operator [](std::size_t index);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Clear the string
+@@ -466,7 +466,7 @@
+     /// \return Read-only pointer to the array of characters
+     ///
+     ////////////////////////////////////////////////////////////
+-    const Uint32* getData() const;
++    const char32_t* getData() const;
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Return an iterator to the beginning of the string
+@@ -524,7 +524,7 @@
+     ////////////////////////////////////////////////////////////
+     // Member data
+     ////////////////////////////////////////////////////////////
+-    std::basic_string<Uint32> m_string; ///< Internal string of UTF-32 characters
++    std::basic_string<char32_t> m_string; ///< Internal string of UTF-32 characters
+ };
+ 
+ ////////////////////////////////////////////////////////////
+diff -ruN a/Externals/SFML/include/SFML/System/Utf.hpp b/Externals/SFML/include/SFML/System/Utf.hpp
+--- a/Externals/SFML/include/SFML/System/Utf.hpp	2024-12-02 00:00:52.000000000 +0100
++++ b/Externals/SFML/include/SFML/System/Utf.hpp	2024-12-02 11:06:10.327531551 +0100
+@@ -64,7 +64,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename In>
+-    static In decode(In begin, In end, Uint32& output, Uint32 replacement = 0);
++    static In decode(In begin, In end, char32_t& output, char32_t replacement = 0);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Encode a single UTF-8 character
+@@ -80,7 +80,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename Out>
+-    static Out encode(Uint32 input, Out output, Uint8 replacement = 0);
++    static Out encode(char32_t input, Out output, Uint8 replacement = 0);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Advance to the next UTF-8 character
+@@ -271,7 +271,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename In>
+-    static In decode(In begin, In end, Uint32& output, Uint32 replacement = 0);
++    static In decode(In begin, In end, char32_t& output, char32_t replacement = 0);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Encode a single UTF-16 character
+@@ -287,7 +287,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename Out>
+-    static Out encode(Uint32 input, Out output, Uint16 replacement = 0);
++    static Out encode(char32_t input, Out output, char16_t replacement = 0);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Advance to the next UTF-16 character
+@@ -479,7 +479,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename In>
+-    static In decode(In begin, In end, Uint32& output, Uint32 replacement = 0);
++    static In decode(In begin, In end, char32_t& output, char32_t replacement = 0);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Encode a single UTF-32 character
+@@ -496,7 +496,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename Out>
+-    static Out encode(Uint32 input, Out output, Uint32 replacement = 0);
++    static Out encode(char32_t input, Out output, char32_t replacement = 0);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Advance to the next UTF-32 character
+@@ -675,7 +675,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename In>
+-    static Uint32 decodeAnsi(In input, const std::locale& locale = std::locale());
++    static char32_t decodeAnsi(In input, const std::locale& locale = std::locale());
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Decode a single wide character to UTF-32
+@@ -690,7 +690,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename In>
+-    static Uint32 decodeWide(In input);
++    static char32_t decodeWide(In input);
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Encode a single UTF-32 character to ANSI
+@@ -708,7 +708,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename Out>
+-    static Out encodeAnsi(Uint32 codepoint, Out output, char replacement = 0, const std::locale& locale = std::locale());
++    static Out encodeAnsi(char32_t codepoint, Out output, char replacement = 0, const std::locale& locale = std::locale());
+ 
+     ////////////////////////////////////////////////////////////
+     /// \brief Encode a single UTF-32 character to wide
+@@ -725,7 +725,7 @@
+     ///
+     ////////////////////////////////////////////////////////////
+     template <typename Out>
+-    static Out encodeWide(Uint32 codepoint, Out output, wchar_t replacement = 0);
++    static Out encodeWide(char32_t codepoint, Out output, wchar_t replacement = 0);
+ };
+ 
+ #include <SFML/System/Utf.inl>
+diff -ruN a/Externals/SFML/include/SFML/System/Utf.inl b/Externals/SFML/include/SFML/System/Utf.inl
+--- a/Externals/SFML/include/SFML/System/Utf.inl	2024-12-02 00:00:52.000000000 +0100
++++ b/Externals/SFML/include/SFML/System/Utf.inl	2024-12-02 11:06:10.327531551 +0100
+@@ -36,7 +36,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename In>
+-In Utf<8>::decode(In begin, In end, Uint32& output, Uint32 replacement)
++In Utf<8>::decode(In begin, In end, char32_t& output, char32_t replacement)
+ {
+     // Some useful precomputed data
+     static const int trailing[256] =
+@@ -50,7 +50,7 @@
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5
+     };
+-    static const Uint32 offsets[6] =
++    static const char32_t offsets[6] =
+     {
+         0x00000000, 0x00003080, 0x000E2080, 0x03C82080, 0xFA082080, 0x82082080
+     };
+@@ -84,7 +84,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename Out>
+-Out Utf<8>::encode(Uint32 input, Out output, Uint8 replacement)
++Out Utf<8>::encode(char32_t input, Out output, Uint8 replacement)
+ {
+     // Some useful precomputed data
+     static const Uint8 firstBytes[7] =
+@@ -132,7 +132,7 @@
+ template <typename In>
+ In Utf<8>::next(In begin, In end)
+ {
+-    Uint32 codepoint;
++    char32_t codepoint;
+     return decode(begin, end, codepoint);
+ }
+ 
+@@ -158,7 +158,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint = Utf<32>::decodeAnsi(*begin++, locale);
++        char32_t codepoint = Utf<32>::decodeAnsi(*begin++, locale);
+         output = encode(codepoint, output);
+     }
+ 
+@@ -172,7 +172,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint = Utf<32>::decodeWide(*begin++);
++        char32_t codepoint = Utf<32>::decodeWide(*begin++);
+         output = encode(codepoint, output);
+     }
+ 
+@@ -199,7 +199,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         output = Utf<32>::encodeAnsi(codepoint, output, replacement, locale);
+     }
+@@ -214,7 +214,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         output = Utf<32>::encodeWide(codepoint, output, replacement);
+     }
+@@ -231,7 +231,7 @@
+     // and can thus be treated as (a sub-range of) UTF-32
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         *output++ = codepoint < 256 ? static_cast<char>(codepoint) : replacement;
+     }
+@@ -254,7 +254,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         output = Utf<16>::encode(codepoint, output);
+     }
+@@ -269,7 +269,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         *output++ = codepoint;
+     }
+@@ -280,20 +280,20 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename In>
+-In Utf<16>::decode(In begin, In end, Uint32& output, Uint32 replacement)
++In Utf<16>::decode(In begin, In end, char32_t& output, char32_t replacement)
+ {
+-    Uint16 first = *begin++;
++    char16_t first = *begin++;
+ 
+     // If it's a surrogate pair, first convert to a single UTF-32 character
+     if ((first >= 0xD800) && (first <= 0xDBFF))
+     {
+         if (begin < end)
+         {
+-            Uint32 second = *begin++;
++            char32_t second = *begin++;
+             if ((second >= 0xDC00) && (second <= 0xDFFF))
+             {
+                 // The second element is valid: convert the two elements to a UTF-32 character
+-                output = static_cast<Uint32>(((first - 0xD800) << 10) + (second - 0xDC00) + 0x0010000);
++                output = static_cast<char32_t>(((first - 0xD800) << 10) + (second - 0xDC00) + 0x0010000);
+             }
+             else
+             {
+@@ -320,7 +320,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename Out>
+-Out Utf<16>::encode(Uint32 input, Out output, Uint16 replacement)
++Out Utf<16>::encode(char32_t input, Out output, char16_t replacement)
+ {
+     if (input <= 0xFFFF)
+     {
+@@ -334,7 +334,7 @@
+         else
+         {
+             // Valid character directly convertible to a single UTF-16 character
+-            *output++ = static_cast<Uint16>(input);
++            *output++ = static_cast<char16_t>(input);
+         }
+     }
+     else if (input > 0x0010FFFF)
+@@ -347,8 +347,8 @@
+     {
+         // The input character will be converted to two UTF-16 elements
+         input -= 0x0010000;
+-        *output++ = static_cast<Uint16>((input >> 10)     + 0xD800);
+-        *output++ = static_cast<Uint16>((input & 0x3FFUL) + 0xDC00);
++        *output++ = static_cast<char16_t>((input >> 10)     + 0xD800);
++        *output++ = static_cast<char16_t>((input & 0x3FFUL) + 0xDC00);
+     }
+ 
+     return output;
+@@ -359,7 +359,7 @@
+ template <typename In>
+ In Utf<16>::next(In begin, In end)
+ {
+-    Uint32 codepoint;
++    char32_t codepoint;
+     return decode(begin, end, codepoint);
+ }
+ 
+@@ -385,7 +385,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint = Utf<32>::decodeAnsi(*begin++, locale);
++        char32_t codepoint = Utf<32>::decodeAnsi(*begin++, locale);
+         output = encode(codepoint, output);
+     }
+ 
+@@ -399,7 +399,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint = Utf<32>::decodeWide(*begin++);
++        char32_t codepoint = Utf<32>::decodeWide(*begin++);
+         output = encode(codepoint, output);
+     }
+ 
+@@ -423,7 +423,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         output = Utf<32>::encodeAnsi(codepoint, output, replacement, locale);
+     }
+@@ -438,7 +438,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         output = Utf<32>::encodeWide(codepoint, output, replacement);
+     }
+@@ -469,7 +469,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         output = Utf<8>::encode(codepoint, output);
+     }
+@@ -492,7 +492,7 @@
+ {
+     while (begin < end)
+     {
+-        Uint32 codepoint;
++        char32_t codepoint;
+         begin = decode(begin, end, codepoint);
+         *output++ = codepoint;
+     }
+@@ -503,7 +503,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename In>
+-In Utf<32>::decode(In begin, In /*end*/, Uint32& output, Uint32 /*replacement*/)
++In Utf<32>::decode(In begin, In /*end*/, char32_t& output, char32_t /*replacement*/)
+ {
+     output = *begin++;
+     return begin;
+@@ -512,7 +512,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename Out>
+-Out Utf<32>::encode(Uint32 input, Out output, Uint32 /*replacement*/)
++Out Utf<32>::encode(char32_t input, Out output, char32_t /*replacement*/)
+ {
+     *output++ = input;
+     return output;
+@@ -636,7 +636,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename In>
+-Uint32 Utf<32>::decodeAnsi(In input, const std::locale& locale)
++char32_t Utf<32>::decodeAnsi(In input, const std::locale& locale)
+ {
+     // On Windows, GCC's standard library (glibc++) has almost
+     // no support for Unicode stuff. As a consequence, in this
+@@ -651,7 +651,7 @@
+ 
+         wchar_t character = 0;
+         mbtowc(&character, &input, 1);
+-        return static_cast<Uint32>(character);
++        return static_cast<char32_t>(character);
+ 
+     #else
+ 
+@@ -659,7 +659,7 @@
+         const std::ctype<wchar_t>& facet = std::use_facet< std::ctype<wchar_t> >(locale);
+ 
+         // Use the facet to convert each character of the input string
+-        return static_cast<Uint32>(facet.widen(input));
++        return static_cast<char32_t>(facet.widen(input));
+ 
+     #endif
+ }
+@@ -667,7 +667,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename In>
+-Uint32 Utf<32>::decodeWide(In input)
++char32_t Utf<32>::decodeWide(In input)
+ {
+     // The encoding of wide characters is not well defined and is left to the system;
+     // however we can safely assume that it is UCS-2 on Windows and
+@@ -681,7 +681,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename Out>
+-Out Utf<32>::encodeAnsi(Uint32 codepoint, Out output, char replacement, const std::locale& locale)
++Out Utf<32>::encodeAnsi(char32_t codepoint, Out output, char replacement, const std::locale& locale)
+ {
+     // On Windows, gcc's standard library (glibc++) has almost
+     // no support for Unicode stuff. As a consequence, in this
+@@ -718,7 +718,7 @@
+ 
+ ////////////////////////////////////////////////////////////
+ template <typename Out>
+-Out Utf<32>::encodeWide(Uint32 codepoint, Out output, wchar_t replacement)
++Out Utf<32>::encodeWide(char32_t codepoint, Out output, wchar_t replacement)
+ {
+     // The encoding of wide characters is not well defined and is left to the system;
+     // however we can safely assume that it is UCS-2 on Windows and
+diff -ruN a/Externals/SFML/src/SFML/Network/Packet.cpp b/Externals/SFML/src/SFML/Network/Packet.cpp
+--- a/Externals/SFML/src/SFML/Network/Packet.cpp	2024-12-02 00:00:52.000000000 +0100
++++ b/Externals/SFML/src/SFML/Network/Packet.cpp	2024-12-02 11:16:08.545518437 +0100
+@@ -364,7 +364,7 @@
+         {
+             Uint32 character = 0;
+             *this >> character;
+-            data += character;
++            data += static_cast<char32_t>(character);
+         }
+     }
+ 
+diff -ruN a/Externals/SFML/src/SFML/System/String.cpp b/Externals/SFML/src/SFML/System/String.cpp
+--- a/Externals/SFML/src/SFML/System/String.cpp	2024-12-02 00:00:52.000000000 +0100
++++ b/Externals/SFML/src/SFML/System/String.cpp	2024-12-02 11:11:59.439596925 +0100
+@@ -34,7 +34,7 @@
+ namespace sf
+ {
+ ////////////////////////////////////////////////////////////
+-const std::size_t String::InvalidPos = std::basic_string<Uint32>::npos;
++const std::size_t String::InvalidPos = std::basic_string<char32_t>::npos;
+ 
+ 
+ ////////////////////////////////////////////////////////////
+@@ -58,7 +58,7 @@
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-String::String(Uint32 utf32Char)
++String::String(char32_t utf32Char)
+ {
+     m_string += utf32Char;
+ }
+@@ -111,7 +111,7 @@
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-String::String(const Uint32* utf32String)
++String::String(const char32_t* utf32String)
+ {
+     if (utf32String)
+         m_string = utf32String;
+@@ -119,7 +119,7 @@
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-String::String(const std::basic_string<Uint32>& utf32String) :
++String::String(const std::basic_string<char32_t>& utf32String) :
+ m_string(utf32String)
+ {
+ }
+@@ -175,10 +175,10 @@
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-std::basic_string<Uint8> String::toUtf8() const
++std::basic_string<char> String::toUtf8() const
+ {
+     // Prepare the output string
+-    std::basic_string<Uint8> output;
++    std::basic_string<char> output;
+     output.reserve(m_string.length());
+ 
+     // Convert
+@@ -189,10 +189,10 @@
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-std::basic_string<Uint16> String::toUtf16() const
++std::basic_string<char16_t> String::toUtf16() const
+ {
+     // Prepare the output string
+-    std::basic_string<Uint16> output;
++    std::basic_string<char16_t> output;
+     output.reserve(m_string.length());
+ 
+     // Convert
+@@ -203,7 +203,7 @@
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-std::basic_string<Uint32> String::toUtf32() const
++std::basic_string<char32_t> String::toUtf32() const
+ {
+     return m_string;
+ }
+@@ -226,14 +226,14 @@
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-Uint32 String::operator [](std::size_t index) const
++char32_t String::operator [](std::size_t index) const
+ {
+     return m_string[index];
+ }
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-Uint32& String::operator [](std::size_t index)
++char32_t& String::operator [](std::size_t index)
+ {
+     return m_string[index];
+ }
+@@ -312,7 +312,7 @@
+ 
+ 
+ ////////////////////////////////////////////////////////////
+-const Uint32* String::getData() const
++const char32_t* String::getData() const
+ {
+     return m_string.c_str();
+ }
