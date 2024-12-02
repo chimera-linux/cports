@@ -1,6 +1,6 @@
 pkgname = "podman-tui"
-pkgver = "1.2.3"
-pkgrel = 1
+pkgver = "1.3.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = [
@@ -25,5 +25,5 @@ pkgdesc = "Podman terminal UI"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/containers/podman-tui"
-source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz>1.2.3-2.tar.gz"
-sha256 = "d513362b270672c688407673326a8b9d850f4351e07cd3841ca321a84d9f5622"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "5a56d0f98e9537cefec1db2e685afc4f0453fcf0272a5f922f3ca04b3b2f9f59"
