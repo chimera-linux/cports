@@ -1,5 +1,5 @@
 pkgname = "tio"
-pkgver = "3.7"
+pkgver = "3.8"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -17,4 +17,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/tio/tio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9e39b57f38a5648b87b436e66edc54103e1deee23d78a8c5a097f314967cc326"
+sha256 = "c0e68c96f28a5b4daaf94eba31b066853efd1f1ea396c75a6cc168f2e95cdea3"
