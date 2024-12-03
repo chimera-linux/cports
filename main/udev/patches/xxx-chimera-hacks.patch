@@ -260,15 +260,15 @@ index 3822552..9420b2d 100644
        and compiled to a binary database located at <filename>/etc/udev/hwdb.bin</filename>,
        or alternatively <filename>/usr/lib/udev/hwdb.bin</filename> if you want ship the
        compiled database in an immutable image.  During runtime, only the binary database
-@@ -147,7 +147,7 @@ PROPERTY_WITH_SPACES=some string</programlisting>
+@@ -146,7 +146,7 @@ PROPERTY_WITH_SPACES=some string</programlisting>
+   <refsect1>
      <title>See Also</title>
-     <para>
-       <citerefentry>
--        <refentrytitle>systemd-hwdb</refentrytitle><manvolnum>8</manvolnum>
-+        <refentrytitle>udev-hwdb</refentrytitle><manvolnum>8</manvolnum>
-       </citerefentry>
-     </para>
+     <para><simplelist type="inline">
+-      <member><citerefentry><refentrytitle>systemd-hwdb</refentrytitle><manvolnum>8</manvolnum></citerefentry></member>
++      <member><citerefentry><refentrytitle>udev-hwdb</refentrytitle><manvolnum>8</manvolnum></citerefentry></member>
+     </simplelist></para>
    </refsect1>
+ </refentry>
 diff --git a/man/meson.build b/man/meson.build
 index 69ea5c4..633428c 100644
 --- a/man/meson.build
