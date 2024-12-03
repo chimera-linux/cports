@@ -1,5 +1,5 @@
 pkgname = "mtools"
-pkgver = "4.0.44"
+pkgver = "4.0.46"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "texinfo"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/mtools"
 source = f"$(GNU_SITE)/mtools/mtools-{pkgver}.tar.bz2"
-sha256 = "37dc4df022533c3d4b2ec1c78973c27c7e8b585374c2d46ab64c6a3db31eddb8"
+sha256 = "9aad8dd859f88fb7787924ec47590192d3abf7bad6c840509c854290d6bc16c0"
 hardening = ["vis", "!cfi"]
 
 
