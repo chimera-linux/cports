@@ -1,6 +1,6 @@
 pkgname = "tzutils"
-pkgver = "2024a"
-pkgrel = 5
+pkgver = "2024b"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = ["KSHELL=/bin/sh"]
 make_install_args = ["ZICDIR=/usr/bin", "ZFLAGS=-b fat"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://www.iana.org/time-zones"
 source = f"{url}/repository/releases/tzdb-{pkgver}.tar.lz"
-sha256 = "511af6b467f40b1ec9ac3684d1701793af470f3e29ddfb97b82be438e8601a7a"
+sha256 = "22674a67786d3ec1b0547305904011cb2b9126166e72abbbea39425de5595233"
 hardening = ["vis", "cfi"]
 # needs network access
 options = ["!check"]
