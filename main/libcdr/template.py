@@ -1,6 +1,6 @@
 pkgname = "libcdr"
-pkgver = "0.1.7"
-pkgrel = 7
+pkgver = "0.1.8"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-debug"]
 make_dir = "."
@@ -10,8 +10,8 @@ pkgdesc = "Corel Draw format importer library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libcdr"
-source = f"http://dev-www.libreoffice.org/src/libcdr/libcdr-{pkgver}.tar.bz2"
-sha256 = "ae613caeb7e0e539cbc1b08ea5169bddaed8d2021d25ef66b39ddc0aa72c2902"
+source = f"http://dev-www.libreoffice.org/src/libcdr/libcdr-{pkgver}.tar.xz"
+sha256 = "ced677c8300b29c91d3004bb1dddf0b99761bf5544991c26c2ee8f427e87193c"
 
 
 @subpackage("libcdr-progs")
