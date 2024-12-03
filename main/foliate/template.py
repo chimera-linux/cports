@@ -1,5 +1,5 @@
 pkgname = "foliate"
-pkgver = "3.1.1"
+pkgver = "3.2.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -25,5 +25,5 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://johnfactotum.github.io/foliate"
 source = f"https://github.com/johnfactotum/foliate/releases/download/{pkgver}/com.github.johnfactotum.Foliate-{pkgver}.tar.xz"
-sha256 = "1bda9cd32b4d9a2480b0fc4f9884ad04450bd96fdb30a48ab9c1e7b6ec625144"
+sha256 = "714d42d54e103f4a3c367bf18186a56401228b7ee1175224e760ae59f204e1e6"
 options = ["!cross"]
