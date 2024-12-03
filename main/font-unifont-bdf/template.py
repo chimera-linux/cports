@@ -1,5 +1,5 @@
 pkgname = "font-unifont-bdf"
-pkgver = "16.0.01"
+pkgver = "16.0.02"
 pkgrel = 0
 depends = ["font-util"]
 pkgdesc = "GNU Unifont Glyphs"
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://unifoundry.com/unifont/index.html"
 source = f"http://unifoundry.com/pub/unifont/unifont-{pkgver}/font-builds/unifont-{pkgver}.bdf.gz"
-sha256 = "230a0959aa50778b68239c88ad3c2d53abde58be0932b14a379a3869118aca33"
+sha256 = "521f2b92e8b6bd4ea190cea049a039dde359a6e2cae9458e45d696008fa6997f"
 
 
 def install(self):
