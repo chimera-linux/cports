@@ -1,5 +1,5 @@
 pkgname = "makedumpfile"
-pkgver = "1.7.5"
+pkgver = "1.7.6"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["LINKTYPE=dynamic", "USELZO=on", "USEZSTD=on"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/makedumpfile/makedumpfile"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0c53f1e5e11e75e4896197df795bee63b3d46b8821fbc3368f7a240861b543b5"
+sha256 = "c949a5b2ad95e5f83a6d1b4faac0972510e4286b0e3257020762e45357816a61"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
