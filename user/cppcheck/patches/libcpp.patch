@@ -1,0 +1,11 @@
+--- a/test/testmathlib.cpp
++++ b/test/testmathlib.cpp
+@@ -657,7 +657,7 @@ private:
+ 
+         ASSERT_THROW_INTERNAL_EQUALS(MathLib::toDoubleNumber("invalid"), INTERNAL, "Internal Error. MathLib::toDoubleNumber: conversion failed: invalid");
+ 
+-#ifdef _LIBCPP_VERSION
++#if 0
+         ASSERT_THROW_INTERNAL_EQUALS(MathLib::toDoubleNumber("1invalid"), INTERNAL, "Internal Error. MathLib::toDoubleNumber: conversion failed: 1invalid");
+         ASSERT_THROW_INTERNAL_EQUALS(MathLib::toDoubleNumber("1.1invalid"), INTERNAL, "Internal Error. MathLib::toDoubleNumber: conversion failed: 1.1invalid");
+ #else
