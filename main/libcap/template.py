@@ -1,5 +1,5 @@
 pkgname = "libcap"
-pkgver = "2.71"
+pkgver = "2.73"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["GOLANG=no"]
@@ -21,7 +21,7 @@ url = "http://sites.google.com/site/fullycapable"
 source = (
     f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/libcap-{pkgver}.tar.xz"
 )
-sha256 = "b7006c9af5168315f35fc734bf1a8d2aa70766bd8b8c4340962e05b19c35b900"
+sha256 = "6405f6089cf4cdd8c271540cd990654d78dd0b1989b2d9bda20f933a75a795a5"
 
 
 def init_configure(self):
