@@ -1,5 +1,5 @@
 pkgname = "alembic"
-pkgver = "1.8.7"
+pkgver = "1.8.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DUSE_HDF5=ON"]
@@ -20,7 +20,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.alembic.io"
 source = f"https://github.com/alembic/alembic/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "3590f51f82e3675bb907f7a6a7149a76c06c23ef25d153e64391bcd22d86cc8c"
+sha256 = "ba1f34544608ef7d3f68cafea946ec9cc84792ddf9cda3e8d5590821df71f6c6"
 hardening = ["vis", "!cfi"]
 
 if self.profile().endian == "big":
