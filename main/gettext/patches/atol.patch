@@ -5,15 +5,15 @@ Date:   Tue Nov 26 20:50:48 2024 +0100
     replace unsafe use of atol
 
 diff --git a/gettext-tools/src/x-c.c b/gettext-tools/src/x-c.c
-index 49c6b12..b10c98f 100644
+index 4137f8e..2401712 100644
 --- a/gettext-tools/src/x-c.c
 +++ b/gettext-tools/src/x-c.c
-@@ -1687,7 +1687,7 @@ phase5_get (token_ty *tp)
-         }
-       buffer[bufpos] = 0;
-       tp->type = token_type_number;
--      tp->number = atol (buffer);
-+      tp->number = strtol (buffer, NULL, 10);
+@@ -1684,7 +1684,7 @@ phase5_get (token_ty *tp)
+             break;
+           }
+         tp->type = token_type_number;
+-        tp->number = atol (sb_xdupfree_c (&buffer));
++        tp->number = strtol (sb_xdupfree_c (&buffer), NULL, 10);
+       }
        return;
  
-     case '\'':
