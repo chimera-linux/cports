@@ -1,5 +1,5 @@
 pkgname = "mutter"
-pkgver = "47.1"
+pkgver = "47.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -70,7 +70,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/Mutter"
 source = f"$(GNOME_SITE)/mutter/{pkgver.split('.')[0]}/mutter-{pkgver}.tar.xz"
-sha256 = "905474a32cd99b34342cd69e74bb01971b387e2fa22361b6d99add109409ddc9"
+sha256 = "b53055be307cfbc5e9f70460df5bb06089ced2e61030084cbcfab393199abf8f"
 # libmutter crashes gnome-shell with some applications? FIXME debug
 hardening = ["!int"]
 # needs graphical environment
