@@ -1,0 +1,63 @@
+From f880c3e37b5b3e38e70a3694f26ed696e475318a Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Tue, 3 Dec 2024 22:55:39 +0100
+Subject: [PATCH] test: portability fixes
+
+---
+ test/solver.sh               |  2 +-
+ test/user/command-parsing.sh |  2 +-
+ test/user/hardlink.sh        | 14 ++++++++++----
+ 3 files changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/test/solver.sh b/test/solver.sh
+index 5b566e9..2375ee8 100755
+--- a/test/solver.sh
++++ b/test/solver.sh
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ 
+-source $(dirname "$0")/testlib.sh
++. $(dirname "$0")/testlib.sh
+ 
+ update_repo() {
+ 	local repo="$1"
+diff --git a/test/user/command-parsing.sh b/test/user/command-parsing.sh
+index 1d5e7ef..adaa7af 100755
+--- a/test/user/command-parsing.sh
++++ b/test/user/command-parsing.sh
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ 
+-source $(dirname "$0")/../testlib.sh
++. $(dirname "$0")/../testlib.sh
+ 
+ help_output=$($APK version --help 2>/dev/null) || true
+ invalid_option_output="$($APK --invalid-option version 2>/dev/null)" || true
+diff --git a/test/user/hardlink.sh b/test/user/hardlink.sh
+index 29357ab..aa21aca 100755
+--- a/test/user/hardlink.sh
++++ b/test/user/hardlink.sh
+@@ -1,10 +1,16 @@
+ #!/bin/sh
+ 
+-source $(dirname "$0")/../testlib.sh
++. $(dirname "$0")/../testlib.sh
+ 
+-dev_inode() {
+-	stat -c "%D:%i" "$@"
+-}
++if ! stat -c "%D:%i" /dev/null > /dev/null 2>&1; then
++	dev_inode() {
++		stat -f "%d:%i" "$@"
++	}
++else
++	dev_inode() {
++		stat -c "%D:%i" "$@"
++	}
++fi
+ 
+ setup_apkroot
+ APK="$APK --allow-untrusted --no-interactive"
+-- 
+2.47.1
+

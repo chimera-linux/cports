@@ -1,7 +1,7 @@
 pkgname = "apk-tools"
-pkgver = "3.0.0_pre11"
-pkgrel = 1
-_gitrev = "d33294236cb4547b57411f985648cc3279d1e42b"
+pkgver = "3.0.0_pre12"
+pkgrel = 0
+_gitrev = "9c0d353c79056d844d80811bada9f32ae82ce2fd"
 build_style = "meson"
 configure_args = [
     "-Dlua=disabled",
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"https://gitlab.alpinelinux.org/alpine/apk-tools/-/archive/{_gitrev}.tar.gz"
-sha256 = "09c723331fe041be187dc47465e8b5ddea52360babed5369572b1b880e6fb1ae"
+sha256 = "2d309e97bf65dddb4d61aefce6333d1d4aea723a60a1b0a0a3baa4a120807388"
 compression = "deflate"
 options = ["bootstrap"]
 
