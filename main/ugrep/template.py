@@ -1,5 +1,5 @@
 pkgname = "ugrep"
-pkgver = "7.1.0"
+pkgver = "7.1.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -24,7 +24,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://ugrep.com"
 source = f"https://github.com/Genivia/ugrep/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e821b5747d3bca17a71c49a704f5b5a383e51657ccb13470b456e4da5016ddab"
+sha256 = "89e3d7898995d1aff44c0231d65ce2b78d991db198544723526576f9a46f0578"
 
 
 def post_install(self):
