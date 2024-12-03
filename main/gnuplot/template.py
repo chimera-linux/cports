@@ -113,7 +113,7 @@ def install(self):
         "install",
         f"DESTDIR={self.chroot_destdir}",
     )
-    self.rename("usr/bin/gnuplot", "usr/bin/gnuplot-wx")
+    self.rename("usr/bin/gnuplot", "gnuplot-wx")
 
     self.do(
         "make",
