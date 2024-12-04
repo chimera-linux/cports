@@ -1,0 +1,115 @@
+--- a/epan/wscbor.c
++++ b/epan/wscbor.c
+@@ -152,8 +152,8 @@ struct _wscbor_chunk_priv_t {
+  * @param head_value The value to clamp.
+  * @return The clamped length value.
+  */
+-static int wscbor_get_length(wscbor_chunk_t *chunk, uint64_t head_value) {
+-    int length;
++static unsigned int wscbor_get_length(wscbor_chunk_t *chunk, uint64_t head_value) {
++    unsigned int length;
+     if (head_value > INT_MAX) {
+         wmem_list_append(chunk->errors, wscbor_error_new(
+                 chunk->_priv->alloc, &ei_cbor_overflow,
+@@ -162,7 +162,7 @@ static int wscbor_get_length(wscbor_chunk_t *chunk, uint64_t head_value) {
+         length = INT_MAX;
+     }
+     else {
+-        length = (int) head_value;
++        length = (unsigned int) head_value;
+     }
+     return length;
+ }
+@@ -230,10 +230,10 @@ wscbor_chunk_t * wscbor_chunk_read(wmem_allocator_t *alloc, tvbuff_t *tvb, int *
+         case CBOR_TYPE_BYTESTRING:
+         case CBOR_TYPE_STRING:
+             if (chunk->type_minor != 31) {
+-                const int datalen = wscbor_get_length(chunk, chunk->head_value);
++                const unsigned int datalen = wscbor_get_length(chunk, chunk->head_value);
+                 // skip over definite data
+-                *offset += datalen;
+-                chunk->data_length += datalen;
++                *offset = ((unsigned int)*offset) + datalen;
++                chunk->data_length = ((unsigned int)chunk->data_length) + datalen;
+                 // allow even zero-length strings
+                 chunk->_priv->str_value = tvb_new_subset_length(tvb, chunk->start + chunk->head_length, datalen);
+             }
+@@ -260,9 +260,9 @@ wscbor_chunk_t * wscbor_chunk_read(wmem_allocator_t *alloc, tvbuff_t *tvb, int *
+                             ));
+                         }
+                         else {
+-                            const int datalen = wscbor_get_length(chunk, head->rawvalue);
+-                            *offset += datalen;
+-                            chunk->data_length += datalen;
++                            const unsigned int datalen = wscbor_get_length(chunk, head->rawvalue);
++                            *offset = ((unsigned int)*offset) + datalen;
++                            chunk->data_length = ((unsigned int)chunk->data_length) + datalen;
+                             if(datalen) {
+                                 if (!chunk->_priv->str_value) {
+                                     chunk->_priv->str_value = tvb_new_composite ();
+--- a/epan/wslua/wslua_int64.c
++++ b/epan/wslua/wslua_int64.c
+@@ -348,26 +348,26 @@ WSLUA_METAMETHOD Int64__unm(lua_State* L) {
+     WSLUA_RETURN(1); /* The new <<lua_class_Int64,`Int64`>>. */
+ }
+ 
+-#define WSLUA_MATH_OP_FUNC(obj,op) \
++#define WSLUA_MATH_OP_FUNC(obj,op,cast) \
+     /* use the 'get' form so we can accept numbers as well */ \
+     obj num1 = get##obj(L,1); \
+     obj num2 = get##obj(L,2); \
+-    push##obj(L,(num1) op (num2)); \
++    push##obj(L,(cast)(num1) op (cast)(num2)); \
+     return 1
+ 
+ WSLUA_METAMETHOD Int64__add(lua_State* L) {
+     /* Adds two <<lua_class_Int64,`Int64`>> together and returns a new one. The value may wrapped. */
+-    WSLUA_MATH_OP_FUNC(Int64,+);
++    WSLUA_MATH_OP_FUNC(Int64,+,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD Int64__sub(lua_State* L) {
+     /* Subtracts two <<lua_class_Int64,`Int64`>> and returns a new one. The value may wrapped. */
+-    WSLUA_MATH_OP_FUNC(Int64,-);
++    WSLUA_MATH_OP_FUNC(Int64,-,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD Int64__mul(lua_State* L) {
+     /* Multiplies two <<lua_class_Int64,`Int64`>> and returns a new one. The value may truncated. */
+-    WSLUA_MATH_OP_FUNC(Int64,*);
++    WSLUA_MATH_OP_FUNC(Int64,*,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD Int64__div(lua_State* L) {
+@@ -408,8 +408,8 @@ WSLUA_METAMETHOD Int64__pow(lua_State* L) {
+     }
+     else {
+         for (result = 1; num2 > 0; num2 >>= 1) {
+-            if (num2 & 1) result *= num1;
+-            num1 *= num1;
++            if (num2 & 1) result = (uint64_t)result * (uint64_t)num1;
++            num1 = (uint64_t)num1 * (uint64_t)num1;
+         }
+     }
+     pushInt64(L,result);
+@@ -845,17 +845,17 @@ WSLUA_METAMETHOD UInt64__unm(lua_State* L) {
+ 
+ WSLUA_METAMETHOD UInt64__add(lua_State* L) {
+     /* Adds two <<lua_class_UInt64,`UInt64`>> together and returns a new one. This may wrap the value. */
+-    WSLUA_MATH_OP_FUNC(UInt64,+);
++    WSLUA_MATH_OP_FUNC(UInt64,+,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD UInt64__sub(lua_State* L) {
+     /* Subtracts two <<lua_class_UInt64,`UInt64`>> and returns a new one. This may wrap the value. */
+-    WSLUA_MATH_OP_FUNC(UInt64,-);
++    WSLUA_MATH_OP_FUNC(UInt64,-,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD UInt64__mul(lua_State* L) {
+     /* Multiplies two <<lua_class_UInt64,`UInt64`>> and returns a new one. This may truncate the value. */
+-    WSLUA_MATH_OP_FUNC(UInt64,*);
++    WSLUA_MATH_OP_FUNC(UInt64,*,UInt64);
+ }
+ 
+ WSLUA_METAMETHOD UInt64__div(lua_State* L) {
