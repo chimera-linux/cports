@@ -1,6 +1,6 @@
 pkgname = "enlightenment"
 pkgver = "0.26.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dpam=true",
@@ -31,6 +31,7 @@ depends = [
     "desktop-file-utils",
     "elogind",
     "hicolor-icon-theme",
+    "setxkbmap",
     "xkeyboard-config",
 ]
 pkgdesc = "Enlightenment desktop shell"
