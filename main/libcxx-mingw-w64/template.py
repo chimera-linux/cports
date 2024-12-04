@@ -1,5 +1,5 @@
 pkgname = "libcxx-mingw-w64"
-pkgver = "19.1.4"
+pkgver = "19.1.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -50,7 +50,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "3aa2d2d2c7553164ad5c6f3b932b31816e422635e18620c9349a7da95b98d811"
+sha256 = "bd8445f554aae33d50d3212a15e993a667c0ad1b694ac1977f3463db3338e542"
 hardening = ["!scp"]
 # crosstoolchain
 options = ["!check", "empty", "!relr"]
