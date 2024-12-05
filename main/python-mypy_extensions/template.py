@@ -1,6 +1,6 @@
 pkgname = "python-mypy_extensions"
 pkgver = "1.0.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_check_target = "tests/testextensions.py"
 hostmakedepends = [
@@ -11,7 +11,7 @@ hostmakedepends = [
 ]
 depends = ["python"]
 checkdepends = ["python-pytest"]
-pkgdesc = "Powerful and lightweight Python tree data structure"
+pkgdesc = "Extensions for Python typing module"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python/mypy_extensions"
