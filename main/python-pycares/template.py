@@ -1,6 +1,6 @@
 pkgname = "python-pycares"
-pkgver = "4.4.0"
-pkgrel = 1
+pkgver = "4.5.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"PYCARES_USE_SYSTEM_LIB": "1"}
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/saghul/pycares"
 source = f"$(PYPI_SITE)/p/pycares/pycares-{pkgver}.tar.gz"
-sha256 = "f47579d508f2f56eddd16ce72045782ad3b1b3b678098699e2b6a1b30733e1c2"
+sha256 = "025b6c2ffea4e9fb8f9a097381c2fecb24aff23fbd6906e70da22ec9ba60e19d"
 # tests requires internet access
 options = ["!check"]
 
