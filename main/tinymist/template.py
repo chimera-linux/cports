@@ -1,5 +1,5 @@
 pkgname = "tinymist"
-pkgver = "0.12.4"
+pkgver = "0.12.8"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bin", "tinymist", "--bin", "typlite"]
@@ -11,7 +11,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://myriad-dreamin.github.io/tinymist"
 source = f"https://github.com/Myriad-Dreamin/tinymist/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2986bd1c524b43a1839d754966fda2659ccf3f26f96573e040b5896405c1835d"
+sha256 = "69755c0b6561d18517361a9d90c636ba95f18e32bb23cd752f5658657189c340"
 # takes forever
 options = ["!check"]
 
