@@ -1,5 +1,5 @@
 pkgname = "libquotient"
-pkgver = "0.9.0"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,11 +19,11 @@ makedepends = [
     "qtkeychain-devel",
 ]
 pkgdesc = "Qt library for Matrix clients"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://quotient-im.github.io/libQuotient"
 source = f"https://github.com/quotient-im/libQuotient/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "5e607eb978a5daa82e2186cd92f0d964cb820c72cfad95ed2adda4525ed923b5"
+sha256 = "0a1fd19c9f6e4d93c60fbec5ab4ca84961781e6d00105a4437ecd14aaea36bc9"
 
 
 def post_install(self):
