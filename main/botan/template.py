@@ -39,6 +39,9 @@ if self.profile().arch == "ppc64":
     options += ["!check"]
     configure_args += ["--disable-modules=aes_power8"]
 
+if self.profile().arch == "x86_64":
+    broken = "check fails"
+
 
 def post_install(self):
     self.install_license("license.txt")
