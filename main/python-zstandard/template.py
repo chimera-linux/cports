@@ -19,8 +19,6 @@ license = "BSD-3-Clause"
 url = "https://github.com/indygreg/python-zstandard"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "f29233338bcef11f233737eb58aba85074f0fd3163bec1a20303de1270e6fb16"
-# tests fail to find internal modules due to cwd
-options = ["!check"]
 
 
 def post_install(self):
