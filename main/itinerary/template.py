@@ -1,6 +1,6 @@
 pkgname = "itinerary"
 pkgver = "24.08.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # fails with no output
 make_check_args = ["-E", "itinerary-self-test"]

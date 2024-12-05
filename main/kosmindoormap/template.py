@@ -1,6 +1,6 @@
 pkgname = "kosmindoormap"
 pkgver = "24.08.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "bison",

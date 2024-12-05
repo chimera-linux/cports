@@ -1,6 +1,6 @@
 pkgname = "kscreen"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
