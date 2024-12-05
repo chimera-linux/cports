@@ -1,5 +1,5 @@
 pkgname = "zed"
-pkgver = "0.163.2"
+pkgver = "0.164.2"
 pkgrel = 0
 # wasmtime
 archs = ["aarch64", "x86_64"]
@@ -36,7 +36,7 @@ url = "https://zed.dev"
 source = (
     f"https://github.com/zed-industries/zed/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "d0c6cc6727ba229ef1a912cd238554651242a3d1569ab27c534c66f4f8e098f9"
+sha256 = "cf7407cb717acfcbdf26ff947c7a3648bc26c99e1ea5b54a7b051cae0ed3bc2b"
 # workaround code that fails with default gc-sections with lld
 # https://github.com/zed-industries/zed/issues/15902
 tool_flags = {"RUSTFLAGS": ["-Clink-arg=-Wl,-z,nostart-stop-gc"]}
