@@ -1,6 +1,6 @@
 pkgname = "vulkan-validationlayers"
 pkgver = "1.3.302"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -40,3 +40,26 @@ sha256 = [
     "2bfe8f3006d5b5e350cdc32bcee54f894d65d8a2932574f399e7cd0b3d787044",
     "bce88bee05812abd863e8ae045757b66116fc9d7e880e649916d8eb71a10fa9f",
 ]
+# lol; drop on next release
+tool_flags = {
+    "CXXFLAGS": [
+        "-Dsafe_VkBindDescriptorSetsInfoKHR=safe_VkBindDescriptorSetsInfo",
+        "-Dsafe_VkCopyImageToImageInfoEXT=safe_VkCopyImageToImageInfo",
+        "-Dsafe_VkCopyImageToMemoryInfoEXT=safe_VkCopyImageToMemoryInfo",
+        "-Dsafe_VkCopyMemoryToImageInfoEXT=safe_VkCopyMemoryToImageInfo",
+        "-Dsafe_VkHostImageLayoutTransitionInfoEXT=safe_VkHostImageLayoutTransitionInfo",
+        "-Dsafe_VkMemoryMapInfoKHR=safe_VkMemoryMapInfo",
+        "-Dsafe_VkMemoryUnmapInfoKHR=safe_VkMemoryUnmapInfo",
+        "-Dsafe_VkPushConstantsInfoKHR=safe_VkPushConstantsInfo",
+        "-Dsafe_VkPushDescriptorSetInfoKHR=safe_VkPushDescriptorSetInfo",
+        "-Dstring_VkBufferUsageFlags2KHR=string_VkBufferUsageFlags2",
+        "-Dstring_VkHostImageCopyFlagsEXT=string_VkHostImageCopyFlags",
+        "-Dstring_VkLineRasterizationModeKHR=string_VkLineRasterizationMode",
+        "-Dstring_VkMemoryUnmapFlagsKHR=string_VkMemoryUnmapFlags",
+        "-Dstring_VkPipelineCreateFlags2KHR=string_VkPipelineCreateFlags2",
+        "-Dstring_VkPipelineCreateFlagBits2KHR=string_VkPipelineCreateFlagBits2",
+        "-Dstring_VkPipelineRobustnessBufferBehaviorEXT=string_VkPipelineRobustnessBufferBehavior",
+        "-Dstring_VkPipelineRobustnessImageBehaviorEXT=string_VkPipelineRobustnessImageBehavior",
+        "-Dstring_VkQueueGlobalPriorityKHR=string_VkQueueGlobalPriority",
+    ]
+}
