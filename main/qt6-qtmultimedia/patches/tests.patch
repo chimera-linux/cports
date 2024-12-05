@@ -5,15 +5,15 @@ Date:   Mon Mar 11 19:29:44 2024 +0100
     up the sample tolerance
 
 diff --git a/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp b/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp
-index 9e02dfe..d4b7f67 100644
+index 150f9de..e94a519 100644
 --- a/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp
 +++ b/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp
-@@ -3932,7 +3932,7 @@
+@@ -4019,7 +4019,7 @@ void tst_QMediaPlayerBackend::
  
      if (!isRhiRenderingSupported())
          QEXPECT_FAIL("", "QTBUG-127784: Inaccurate color handling when no RHI backend is available", Abort);
 -    QCOMPARE_LT(colorDifference(upperLeftColor, expectedColor), 0.004);
 +    QCOMPARE_LT(colorDifference(upperLeftColor, expectedColor), 0.006);
  
-     QSKIP_GSTREAMER("QTBUG-124005: surface.videoSize() not updated with rotation");
+     // QSKIP_GSTREAMER("QTBUG-124005: surface.videoSize() not updated with rotation");
  

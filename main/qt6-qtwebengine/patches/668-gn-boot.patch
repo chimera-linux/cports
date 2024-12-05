@@ -23,7 +23,8 @@ be a straight forward to use as an alternative and be fragile.
 [4] https://bugs.gentoo.org/920758
 --- a/src/3rdparty/gn/build/gen.py
 +++ b/src/3rdparty/gn/build/gen.py
-@@ -947,4 +947,7 @@
+@@ -1013,6 +1013,9 @@ def WriteGNNinja(path, platform, host, options, args_list):
+   executables['gn']['libs'].extend(static_libraries.keys())
    executables['gn_unittests']['libs'].extend(static_libraries.keys())
  
 +  cflags += os.environ.get('CXXFLAGS', '').split()
@@ -31,22 +32,29 @@ be a straight forward to use as an alternative and be fragile.
 +  ldflags += os.environ.get('LDFLAGS', '').split()
    WriteGenericNinja(path, static_libraries, executables, cxx, ar, ld,
                      platform, host, options, args_list,
+                     cflags, ldflags, libflags, include_dirs, libs)
 --- a/src/gn/CMakeLists.txt
 +++ b/src/gn/CMakeLists.txt
-@@ -40,4 +40,5 @@
+@@ -39,6 +39,7 @@ else()
+     set(GN_EXECUTABLE gn)
  endif()
  
 +separate_arguments(NINJAFLAGS UNIX_COMMAND "$ENV{NINJAFLAGS}")
  file(MAKE_DIRECTORY ${GN_BINARY_DIR})
  
-@@ -68,7 +69,9 @@
+ if((UNIX AND NOT APPLE) AND
+@@ -70,11 +71,13 @@ add_custom_command(
+         --platform ${platform}
          --ar ${CMAKE_AR}
          --qt-version "${QT_REPO_MODULE_VERSION}.qtwebengine.qt.io"
 +        --allow-warnings
 +        --no-static-libstdc++
          $<$<PLATFORM_ID:Darwin>:--isysroot>
          $<$<PLATFORM_ID:Darwin>:${CMAKE_OSX_SYSROOT}>
+         $<$<AND:$<PLATFORM_ID:Darwin>,$<BOOL:${OSX_ARCH}>>:--osx-architectures>
+         $<$<AND:$<PLATFORM_ID:Darwin>,$<BOOL:${OSX_ARCH}>>:${OSX_ARCH}>
 -    COMMAND Ninja::ninja -C ${GN_BINARY_DIR}/$<CONFIG> ${GN_EXECUTABLE}
 +    COMMAND Ninja::ninja ${NINJAFLAGS} -C ${GN_BINARY_DIR}/$<CONFIG> ${GN_EXECUTABLE}
      VERBATIM
      USES_TERMINAL
+     COMMAND_EXPAND_LISTS
