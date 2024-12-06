@@ -1,6 +1,6 @@
 pkgname = "nerdctl"
-pkgver = "2.0.0"
-pkgrel = 1
+pkgver = "2.0.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/nerdctl"]
 hostmakedepends = ["go"]
@@ -10,7 +10,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/nerdctl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "76c7f77ebd32e47bffe5c737bc99398758084a611efa963bd434e155ab400cf4"
+sha256 = "916d67ca74f343f6a169caed3187a71c338c342deaf253101ffd4e04e7a43d8b"
 # can't run tests inside namespaces
 # cross: generates completions with host binary
 options = ["!check", "!cross"]
