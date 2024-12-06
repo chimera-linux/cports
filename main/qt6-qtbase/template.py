@@ -164,6 +164,7 @@ def init_check(self):
         "tst_qdir",  # flaky
         "tst_qsqltablemodel",  # tst_QSqlTableModel::modelInAnotherThread() 't.isFinished()' returned FALSE. ()
         "tst_qtimer_no_glib",  # times out after 300s
+        "tst_qtimer",  # flaky, times out after 300s in tst_QTimer::singleShotToFunctors()
         "tst_qmetatype",  # times out after 300s when busy in threadsafety test
         "tst_qfilesystemmodel",
         "tst_qthread",
