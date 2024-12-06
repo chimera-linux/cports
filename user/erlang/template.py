@@ -1,6 +1,6 @@
 # TODO: split devel, maybe the libs too? (may not be worth it)
 pkgname = "erlang"
-pkgver = "27.1.2"
+pkgver = "27.1.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.erlang.org"
 source = f"https://github.com/erlang/otp/archive/OTP-{pkgver}.tar.gz"
-sha256 = "365208d47f9590f27c0814ccd7ee7aec0e1b6ba2fe9d875e356edb5d9b054541"
+sha256 = "826e594b94115824960e8cb51116d4ae5410caf6be294e03268c109421d7098a"
 # some staticlibs inside the runtime should be non-lto
 options = ["!cross", "!lto"]
 
