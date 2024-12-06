@@ -1,0 +1,201 @@
+From b4f60ed0752599d2e147d1ab988e91ea481bdc7f Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Fri, 6 Dec 2024 15:09:16 +0100
+Subject: [PATCH] dynamically allocate udev spawn result if necessary
+
+This allows udev not to hang when the helper output exceeds
+the 16k it was previously given.
+---
+ src/udev/test-udev-spawn.c |  2 +-
+ src/udev/udev-rules.c      |  9 ++++----
+ src/udev/udev-spawn.c      | 44 +++++++++++++++++++++++++++++++-------
+ src/udev/udev-spawn.h      |  2 +-
+ 4 files changed, 43 insertions(+), 14 deletions(-)
+
+diff --git a/src/udev/test-udev-spawn.c b/src/udev/test-udev-spawn.c
+index 7cbccf3..de8580a 100644
+--- a/src/udev/test-udev-spawn.c
++++ b/src/udev/test-udev-spawn.c
+@@ -18,7 +18,7 @@ static void test_event_spawn_core(bool with_pidfd, const char *cmd, char *result
+ 
+         assert_se(sd_device_new_from_syspath(&dev, "/sys/class/net/lo") >= 0);
+         assert_se(event = udev_event_new(dev, NULL, EVENT_TEST_SPAWN));
+-        assert_se(udev_event_spawn(event, false, cmd, result_buf, buf_size, NULL) == 0);
++        assert_se(udev_event_spawn(event, false, cmd, &result_buf, buf_size, NULL) == 0);
+ 
+         assert_se(unsetenv("SYSTEMD_PIDFD") >= 0);
+ }
+diff --git a/src/udev/udev-rules.c b/src/udev/udev-rules.c
+index cdf648a..6e130ba 100644
+--- a/src/udev/udev-rules.c
++++ b/src/udev/udev-rules.c
+@@ -2089,7 +2089,7 @@ static int udev_rule_apply_token_to_event(
+                 return token->op == (match ? OP_MATCH : OP_NOMATCH);
+         }
+         case TK_M_PROGRAM: {
+-                char buf[UDEV_LINE_SIZE], result[UDEV_LINE_SIZE];
++                char buf[UDEV_LINE_SIZE], result[UDEV_LINE_SIZE], *resultp = result;
+                 bool truncated;
+                 size_t count;
+ 
+@@ -2102,7 +2102,7 @@ static int udev_rule_apply_token_to_event(
+ 
+                 log_event_debug(dev, token, "Running PROGRAM=\"%s\"", buf);
+ 
+-                r = udev_event_spawn(event, /* accept_failure = */ true, buf, result, sizeof(result), NULL);
++                r = udev_event_spawn(event, /* accept_failure = */ true, buf, &resultp, sizeof(result), NULL);
+                 if (r != 0) {
+                         if (r < 0)
+                                 log_event_warning_errno(dev, token, r, "Failed to execute \"%s\": %m", buf);
+@@ -2174,7 +2174,8 @@ static int udev_rule_apply_token_to_event(
+         }
+         case TK_M_IMPORT_PROGRAM: {
+                 _cleanup_strv_free_ char **lines = NULL;
+-                char buf[UDEV_LINE_SIZE], result[UDEV_LINE_SIZE];
++                _cleanup_free_ char *result = NULL;
++                char buf[UDEV_LINE_SIZE];
+                 bool truncated;
+ 
+                 (void) udev_event_apply_format(event, token->value, buf, sizeof(buf), false, &truncated);
+@@ -2185,7 +2186,7 @@ static int udev_rule_apply_token_to_event(
+ 
+                 log_event_debug(dev, token, "Importing properties from results of '%s'", buf);
+ 
+-                r = udev_event_spawn(event, /* accept_failure = */ true, buf, result, sizeof result, &truncated);
++                r = udev_event_spawn(event, /* accept_failure = */ true, buf, &result, 0, &truncated);
+                 if (r != 0) {
+                         if (r < 0)
+                                 log_event_warning_errno(dev, token, r, "Failed to execute '%s', ignoring: %m", buf);
+diff --git a/src/udev/udev-spawn.c b/src/udev/udev-spawn.c
+index 3f867a8..0a4adcb 100644
+--- a/src/udev/udev-spawn.c
++++ b/src/udev/udev-spawn.c
+@@ -27,9 +27,10 @@ typedef struct Spawn {
+         bool accept_failure;
+         int fd_stdout;
+         int fd_stderr;
+-        char *result;
++        char **result;
+         size_t result_size;
+         size_t result_len;
++        bool truncate;
+         bool truncated;
+ } Spawn;
+ 
+@@ -41,17 +42,30 @@ static int on_spawn_io(sd_event_source *s, int fd, uint32_t revents, void *userd
+         int r;
+ 
+         assert(fd == spawn->fd_stdout || fd == spawn->fd_stderr);
+-        assert(!spawn->result || spawn->result_len < spawn->result_size);
++        assert(!spawn->result || spawn->result_len < spawn->result_size || !spawn->truncate);
+ 
+         if (fd == spawn->fd_stdout && spawn->result) {
+-                p = spawn->result + spawn->result_len;
++                p = *spawn->result + spawn->result_len;
+                 size = spawn->result_size - spawn->result_len;
+         } else {
+                 p = buf;
+                 size = sizeof(buf);
+         }
+ 
+-        l = read(fd, p, size - (p == buf));
++        if (size <= 1 && !spawn->truncate) {
++                spawn->result_size *= 2;
++                p = realloc(*spawn->result, spawn->result_size);
++                if (!p) {
++                        log_device_error_errno(spawn->device, errno, "Failed to reallocate buffer: %m");
++                        return 0;
++                }
++                *spawn->result = p;
++                p += spawn->result_len;
++                size = spawn->result_size - spawn->result_len;
++        }
++
++        /* if not truncating, leave at least one character extra for safe intermediate termination */
++        l = read(fd, p, size - (p == buf || !spawn->truncate));
+         if (l < 0) {
+                 if (errno == EAGAIN)
+                         goto reenable;
+@@ -62,7 +76,11 @@ static int on_spawn_io(sd_event_source *s, int fd, uint32_t revents, void *userd
+                 return 0;
+         }
+ 
+-        if ((size_t) l == size) {
++        if (p != buf && l == (size - 1) && !spawn->truncate) {
++                spawn->result_len += l;
++                p[l] = '\0';
++                goto reenable;
++        } else if ((size_t) l == size) {
+                 log_device_warning(spawn->device, "Truncating stdout of '%s' up to %zu byte.",
+                                    spawn->cmd, spawn->result_size);
+                 l--;
+@@ -213,7 +231,7 @@ int udev_event_spawn(
+                 UdevEvent *event,
+                 bool accept_failure,
+                 const char *cmd,
+-                char *result,
++                char **result,
+                 size_t result_size,
+                 bool *ret_truncated) {
+ 
+@@ -223,6 +241,7 @@ int udev_event_spawn(
+         Spawn spawn;
+         pid_t pid;
+         int r;
++        bool trunc = !result || result_size != 0;
+ 
+         assert(event);
+         assert(IN_SET(event->event_mode, EVENT_UDEV_WORKER, EVENT_UDEVADM_TEST, EVENT_TEST_RULE_RUNNER, EVENT_TEST_SPAWN));
+@@ -230,10 +249,18 @@ int udev_event_spawn(
+         assert(cmd);
+         assert(result || result_size == 0);
+ 
++        /* allocate initial buffer */
++        if (result && !result_size) {
++                result_size = UDEV_LINE_SIZE;
++                *result = malloc(result_size);
++                if (!*result)
++                        return log_device_error_errno(event->dev, errno, "Failed to allocate buffer: %m");
++        }
++
+         if (event->event_mode == EVENT_UDEVADM_TEST &&
+             !STARTSWITH_SET(cmd, "ata_id", "cdrom_id", "dmi_memory_id", "fido_id", "mtd_probe", "scsi_id")) {
+                 log_device_debug(event->dev, "Running in test mode, skipping execution of '%s'.", cmd);
+-                result[0] = '\0';
++                (*result)[0] = '\0';
+                 if (ret_truncated)
+                         *ret_truncated = false;
+                 return 0;
+@@ -317,6 +344,7 @@ int udev_event_spawn(
+                 .fd_stderr = errpipe[READ_END],
+                 .result = result,
+                 .result_size = result_size,
++                .truncate = trunc,
+         };
+         r = spawn_wait(&spawn);
+         if (r < 0)
+@@ -324,7 +352,7 @@ int udev_event_spawn(
+                                               "Failed to wait for spawned command '%s': %m", cmd);
+ 
+         if (result)
+-                result[spawn.result_len] = '\0';
++                (*result)[spawn.result_len] = '\0';
+ 
+         if (ret_truncated)
+                 *ret_truncated = spawn.truncated;
+diff --git a/src/udev/udev-spawn.h b/src/udev/udev-spawn.h
+index 6b22b68..79b8a53 100644
+--- a/src/udev/udev-spawn.h
++++ b/src/udev/udev-spawn.h
+@@ -16,7 +16,7 @@ int udev_event_spawn(
+                 UdevEvent *event,
+                 bool accept_failure,
+                 const char *cmd,
+-                char *result,
++                char **result,
+                 size_t ressize,
+                 bool *ret_truncated);
+ void udev_event_execute_run(UdevEvent *event);
+-- 
+2.47.1
+
