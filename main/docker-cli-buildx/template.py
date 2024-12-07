@@ -1,5 +1,5 @@
 pkgname = "docker-cli-buildx"
-pkgver = "0.19.1"
+pkgver = "0.19.2"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/docker/buildx"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7a14199d052d4933bb5379207f13d4b6562ab10f3fb9f5217790b482bd2b25f4"
+sha256 = "f45cb0d465ef0bdcac5136764db33626280fb8720dbae5f9565102e1af58f3c4"
 # some tests rely on network
 options = ["!check"]
 
