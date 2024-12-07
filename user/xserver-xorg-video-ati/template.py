@@ -1,4 +1,4 @@
-pkgname = "xf86-video-ati"
+pkgname = "xserver-xorg-video-ati"
 pkgver = "22.0.0"
 pkgrel = 0
 build_style = "gnu_configure"
