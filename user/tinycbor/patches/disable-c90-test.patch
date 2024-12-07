@@ -1,0 +1,26 @@
+From 4df5e4f70045730c045a8fefa9aaadb673513f2a Mon Sep 17 00:00:00 2001
+From: Thiago Macieira <thiago.macieira@intel.com>
+Date: Wed, 1 May 2024 18:26:51 -0700
+Subject: [PATCH] Tests: disable the C90 test
+
+We don't support this any more.
+```
+../../src/cbor.h:255:69: error: '_Bool' is a C99 extension [-Werror,-Wc99-extensions]
+CBOR_INLINE_API CborError cbor_encode_boolean(CborEncoder *encoder, bool value)
+                                                                    ^
+```
+
+Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
+---
+ tests/tests.pro | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/tests.pro b/tests/tests.pro
+index 6036f0f9..627ffbc1 100644
+--- a/tests/tests.pro
++++ b/tests/tests.pro
+@@ -1,3 +1,3 @@
+ TEMPLATE = subdirs
+-SUBDIRS = parser encoder c90 cpp tojson
++SUBDIRS = parser encoder cpp tojson
+ msvc: SUBDIRS -= tojson
