@@ -2,7 +2,7 @@ From: Mark Hindley <mark@hindley.org.uk>
 Date: Tue, 13 Dec 2022 16:04:06 +0000
 Subject: [PATCH] Support libseat.
 
-Devuan patch. Equivalent to 856af5b4533014f9455bd371bdef5ddc404094c0
+Devuan patch. Equivalent to support-libseat-upstream fc24510f17e89a5bbac1065abab758a4d0c42634
 
 
 Closes: #799
@@ -14,7 +14,7 @@ Closes: #799
  hw/xfree86/os-support/linux/Makefile.am     |   5 +
  hw/xfree86/os-support/linux/lnx_init.c      |   8 +-
  hw/xfree86/os-support/linux/lnx_platform.c  |  20 +-
- hw/xfree86/os-support/linux/seatd-libseat.c | 386 ++++++++++++++++++++++++++++
+ hw/xfree86/os-support/linux/seatd-libseat.c | 394 ++++++++++++++++++++++++++++
  hw/xfree86/os-support/shared/VTsw_usl.c     |   6 +
  include/Makefile.am                         |   1 +
  include/dix-config.h.in                     |   3 +
@@ -22,15 +22,15 @@ Closes: #799
  include/seatd-libseat.h                     |  49 ++++
  meson.build                                 |   8 +-
  meson_options.txt                           |   2 +
- 15 files changed, 526 insertions(+), 16 deletions(-)
+ 15 files changed, 534 insertions(+), 16 deletions(-)
  create mode 100644 hw/xfree86/os-support/linux/seatd-libseat.c
  create mode 100644 include/seatd-libseat.h
 
 diff --git a/configure.ac b/configure.ac
-index 60ea2c3..084bcaa 100644
+index f8145e4..1b5ad9f 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -566,6 +566,7 @@ AC_ARG_ENABLE(pciaccess, AS_HELP_STRING([--enable-pciaccess], [Build Xorg with p
+@@ -574,6 +574,7 @@ AC_ARG_ENABLE(pciaccess, AS_HELP_STRING([--enable-pciaccess], [Build Xorg with p
  AC_ARG_ENABLE(linux_acpi, AS_HELP_STRING([--disable-linux-acpi], [Disable building ACPI support on Linux (if available).]), [enable_linux_acpi=$enableval], [enable_linux_acpi=yes])
  AC_ARG_ENABLE(linux_apm, AS_HELP_STRING([--disable-linux-apm], [Disable building APM support on Linux (if available).]), [enable_linux_apm=$enableval], [enable_linux_apm=yes])
  AC_ARG_ENABLE(systemd-logind, AS_HELP_STRING([--enable-systemd-logind], [Build systemd-logind support (default: auto)]), [SYSTEMD_LOGIND=$enableval], [SYSTEMD_LOGIND=auto])
@@ -38,7 +38,7 @@ index 60ea2c3..084bcaa 100644
  AC_ARG_ENABLE(suid-wrapper, AS_HELP_STRING([--enable-suid-wrapper], [Build suid-root wrapper for legacy driver support on rootless xserver systems (default: no)]), [SUID_WRAPPER=$enableval], [SUID_WRAPPER=no])
  
  dnl DDXes.
-@@ -882,6 +883,23 @@ if test "x$CONFIG_HAL" = xyes; then
+@@ -890,6 +891,23 @@ if test "x$CONFIG_HAL" = xyes; then
  fi
  AM_CONDITIONAL(CONFIG_HAL, [test "x$CONFIG_HAL" = xyes])
  
@@ -176,7 +176,7 @@ index 5695e71..0119d91 100644
      dbus_core_fini();
  
 diff --git a/hw/xfree86/common/xf86Xinput.c b/hw/xfree86/common/xf86Xinput.c
-index 8cf3f62..7b9f187 100644
+index 8cf3f62..2fe4c50 100644
 --- a/hw/xfree86/common/xf86Xinput.c
 +++ b/hw/xfree86/common/xf86Xinput.c
 @@ -64,6 +64,7 @@
@@ -199,16 +199,18 @@ index 8cf3f62..7b9f187 100644
  
      /* Remove the entry from the list. */
      if (pInp == xf86InputDevs)
-@@ -940,7 +943,8 @@ xf86NewInputDevice(InputInfoPtr pInfo, DeviceIntPtr *pdev, BOOL enable)
+@@ -940,9 +943,10 @@ xf86NewInputDevice(InputInfoPtr pInfo, DeviceIntPtr *pdev, BOOL enable)
      if (path && pInfo->major == 0 && pInfo->minor == 0)
          xf86stat(path, &pInfo->major, &pInfo->minor);
  
 -    if (path && (drv->capabilities & XI86_DRV_CAP_SERVER_FD)){
 +    if (path && (drv->capabilities & XI86_DRV_CAP_SERVER_FD)) {
-+        seatd_libseat_open_device(pInfo);
          int fd = systemd_logind_take_fd(pInfo->major, pInfo->minor,
                                          path, &paused);
++        seatd_libseat_open_device(pInfo, &fd, &paused);
          if (fd != -1) {
+             if (paused) {
+                 /* Put on new_input_devices list for delayed probe */
 diff --git a/hw/xfree86/os-support/linux/Makefile.am b/hw/xfree86/os-support/linux/Makefile.am
 index 4392fe8..c58c063 100644
 --- a/hw/xfree86/os-support/linux/Makefile.am
@@ -316,12 +318,12 @@ index 8a6be97..db2dcdf 100644
      if (delayed_index == -1) {
 diff --git a/hw/xfree86/os-support/linux/seatd-libseat.c b/hw/xfree86/os-support/linux/seatd-libseat.c
 new file mode 100644
-index 0000000..ba2005d
+index 0000000..b3120ed
 --- /dev/null
 +++ b/hw/xfree86/os-support/linux/seatd-libseat.c
-@@ -0,0 +1,386 @@
+@@ -0,0 +1,394 @@
 +/*
-+ * Copyright © 2022 Mark Hindley, Ralph Ronnquist.
++ * Copyright © 2022-2024 Mark Hindley, Ralph Ronnquist.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -400,11 +402,13 @@ index 0000000..ba2005d
 +    for (pInfo = xf86InputDevs; pInfo; pInfo = pInfo->next)
 +        if (pInfo->flags & XI86_SERVER_FD){
 +            if (xf86CheckIntOption(pInfo->options, "libseat_id", -1) > 0){
-+                seatd_libseat_open_device(pInfo);
++		int fd = -1, paused = FALSE;
++                seatd_libseat_open_device(pInfo, &fd, &paused);
 +                xf86EnableInputDeviceForVTSwitch(pInfo);
 +            }
 +        }
-+    xf86platformVTProbe();
++    xf86InputEnableVTProbe(); // Add any paused input devices
++    xf86platformVTProbe(); // Probe for outputs
 +}
 +
 +/*
@@ -622,13 +626,19 @@ index 0000000..ba2005d
 + * successful.
 + */
 +void
-+seatd_libseat_open_device(InputInfoPtr p)
++seatd_libseat_open_device(InputInfoPtr p, int *pfd, Bool *paused)
 +{
 +    int id, fd;
 +    char *path = xf86CheckStrOption(p->options, "Device", NULL);
 +
 +    if (!libseat_active()) {
 +        return;
++    }
++    if (!seat_info.vt_active) {
++	*pfd = -2; /* Invalid, but not -1. See xf86NewInputDevice() */
++	*paused = TRUE;
++        LogMessage(X_INFO, "seatd_libseat paused %s\n", path);
++	return;
 +    }
 +    fd = check_duplicate_device(p->major,p->minor);
 +    if (fd < 0) {
@@ -641,7 +651,7 @@ index 0000000..ba2005d
 +        }
 +    }
 +    else {
-+        LogMessage(X_INFO, "seatd_libseat reuse %d for %s\n", fd, path); return;
++        LogMessage(X_INFO, "seatd_libseat reuse %d for %s\n", fd, path);
 +    }
 +    p->flags |= XI86_SERVER_FD;
 +    p->fd = fd;
@@ -777,12 +787,12 @@ index 591bc25..bfcf3a0 100644
  conf_data.set('CONFIG_WSCONS', host_machine.system() == 'openbsd' ? '1' : false)
 diff --git a/include/seatd-libseat.h b/include/seatd-libseat.h
 new file mode 100644
-index 0000000..155f20d
+index 0000000..cbc0d2a
 --- /dev/null
 +++ b/include/seatd-libseat.h
 @@ -0,0 +1,49 @@
 +/*
-+ * Copyright © 2022 Mark Hindley, Ralph Ronnquist.
++ * Copyright © 2022-2024 Mark Hindley, Ralph Ronnquist.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -815,7 +825,7 @@ index 0000000..155f20d
 +extern int seatd_libseat_init(void);
 +extern void seatd_libseat_fini(void);
 +extern int seatd_libseat_open_graphics(const char *path);
-+extern void seatd_libseat_open_device(InputInfoPtr p);
++extern void seatd_libseat_open_device(InputInfoPtr p,int *fd,Bool *paus);
 +extern void seatd_libseat_close_device(InputInfoPtr p);
 +extern int seatd_libseat_switch_session(int session);
 +extern Bool seatd_libseat_controls_session(void);
@@ -823,7 +833,7 @@ index 0000000..155f20d
 +#define seatd_libseat_init()
 +#define seatd_libseat_fini()
 +#define seatd_libseat_open_graphics(path) -1
-+#define seatd_libseat_open_device(p)
++#define seatd_libseat_open_device(p,x,y)
 +#define seatd_libseat_close_device(p)
 +#define seatd_libseat_switch_session(int) -1
 +#define seatd_libseat_controls_session() FALSE
@@ -831,7 +841,7 @@ index 0000000..155f20d
 +
 +#endif
 diff --git a/meson.build b/meson.build
-index 637938a..02af22e 100644
+index 9e54a0a..1fb2eac 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -172,8 +172,14 @@ if ['windows',  'darwin', 'cygwin'].contains(host_machine.system())
