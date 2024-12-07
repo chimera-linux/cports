@@ -22,11 +22,10 @@ configure_env = {
     "CUPSCONFIG": "/usr/bin/cups-config",
     "CCAUX": "cc",
 }
-configure_gen = []
 make_dir = "."  # bad build system
 make_build_args = ["all", "so"]
 make_install_args = ["install", "install-so"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "cups-devel",
     "dbus-devel",
