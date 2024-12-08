@@ -1,8 +1,8 @@
 # also bump update.py
 pkgname = "linux-steamdeck"
-pkgver = "6.5.0"
-pkgrel = 6
-_vver = 19
+pkgver = "6.8.12"
+pkgrel = 0
+_vver = 7
 archs = ["x86_64"]
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://gitlab.com/evlaV/linux-integration"
 source = f"{url}/-/archive/{pkgver}-valve{_vver}/linux-integration-{pkgver}-valve{_vver}.tar.gz"
-sha256 = "15cb3da0e81cd3cd3a3f899140d51d59aef16a53e42c0e9092ab2af6250e5405"
+sha256 = "4957a9d6dac285b9b0f68232bc928dac1506cdbe67d8b67d8a5bd79ceb39dfaa"
 # no meaningful checking to be done
 options = [
     "!check",
