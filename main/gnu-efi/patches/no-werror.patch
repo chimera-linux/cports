@@ -1,6 +1,6 @@
 --- a/Make.defaults
 +++ b/Make.defaults
-@@ -187,7 +187,7 @@ CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Werror \
+@@ -190,7 +190,7 @@ CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Werror \
             -funsigned-char -fshort-wchar -fno-strict-aliasing \
             -ffreestanding -fno-stack-protector
  else
@@ -8,4 +8,4 @@
 +CFLAGS  += $(ARCH3264) -g -O2 -Wall -Wextra -Wno-pointer-sign \
             -funsigned-char -fshort-wchar -fno-strict-aliasing \
  	   -ffreestanding -fno-stack-protector -fno-stack-check \
-            -fno-stack-check \
+            $(if $(findstring gcc,$(CC)),-fno-merge-all-constants,)
