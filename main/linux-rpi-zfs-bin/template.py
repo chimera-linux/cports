@@ -1,5 +1,5 @@
 pkgname = "linux-rpi-zfs-bin"
-_kernver = "6.6.58"
+_kernver = "6.6.63"
 _zfsver = "2.2.6"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
