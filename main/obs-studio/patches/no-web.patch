@@ -1,39 +1,22 @@
-ancient chromium submodule, impossible to build, etc
---
 --- a/plugins/CMakeLists.txt
 +++ b/plugins/CMakeLists.txt
-@@ -50,8 +50,6 @@
-   add_obs_plugin(mac-videotoolbox PLATFORMS MACOS)
-   add_obs_plugin(mac-virtualcam PLATFORMS MACOS)
+@@ -56,8 +56,6 @@ add_obs_plugin(mac-videotoolbox PLATFORMS MACOS)
+ add_obs_plugin(mac-virtualcam PLATFORMS MACOS)
+ add_obs_plugin(nv-filters PLATFORMS WINDOWS)
  
--  check_obs_browser()
+-check_obs_browser()
 -
-   add_obs_plugin(obs-ffmpeg)
-   add_obs_plugin(obs-filters)
-   add_obs_plugin(obs-libfdk)
-@@ -62,8 +60,6 @@
-   add_obs_plugin(obs-vst PLATFORMS WINDOWS MACOS LINUX WITH_MESSAGE)
-   add_obs_plugin(obs-webrtc)
+ add_obs_plugin(obs-ffmpeg)
+ add_obs_plugin(obs-filters)
+ add_obs_plugin(obs-libfdk)
+--- a/plugins/CMakeLists.txt
++++ b/plugins/CMakeLists.txt
+@@ -75,8 +75,6 @@ add_obs_plugin(
+ )
+ add_obs_plugin(obs-webrtc)
  
--  check_obs_websocket()
+-check_obs_websocket()
 -
-   add_obs_plugin(obs-x264)
-   add_obs_plugin(oss-audio PLATFORMS FREEBSD OPENBSD)
-   add_obs_plugin(rtmp-services)
-@@ -128,8 +124,6 @@
-   add_subdirectory(sndio)
-   add_subdirectory(obs-vst)
-   add_subdirectory(obs-qsv11)
--
--  check_obs_browser()
- elseif(OS_FREEBSD)
-   add_subdirectory(linux-capture)
-   add_subdirectory(linux-pipewire)
-@@ -148,7 +148,6 @@
- if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/obs-websocket/CMakeLists.txt)
-   add_subdirectory(obs-websocket)
- else()
--  obs_status(FATAL_ERROR "obs-websocket submodule not available.")
- endif()
- 
- add_subdirectory(image-source)
+ add_obs_plugin(obs-x264)
+ add_obs_plugin(oss-audio PLATFORMS FREEBSD OPENBSD)
+ add_obs_plugin(rtmp-services)
