@@ -1,5 +1,5 @@
 pkgname = "nsd"
-pkgver = "4.10.1"
+pkgver = "4.10.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-user=_nsd"]
@@ -16,7 +16,7 @@ maintainer = "yanchan09 <yan@omg.lol>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/nsd/about"
 source = f"https://nlnetlabs.nl/downloads/nsd/nsd-{pkgver}.tar.gz"
-sha256 = "c0190f923f0095995f2e6331dacd92c6e1f4d578b880d61690602b43a5acfd84"
+sha256 = "c91eef2e73e430fa286bd48f075a8d023fb6e60560e22189cb3583c5da00b69b"
 hardening = ["cfi", "vis"]
 
 
