@@ -1,5 +1,5 @@
 pkgname = "yq"
-pkgver = "4.44.5"
+pkgver = "4.44.6"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/mikefarah/yq"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "1505367f4a6c0c4f3b91c6197ffed4112d29ef97c48d0b5e66530cfa851d3f0e"
+sha256 = "c0acef928168e5fdb26cd7e8320eddde822f30cf1942817f3f6b854dd721653f"
 # generates completions with host binary
 options = ["!cross"]
 
