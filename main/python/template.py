@@ -2,7 +2,7 @@
 pkgname = "python"
 _majver = "3.12"
 pkgver = f"{_majver}.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",
@@ -36,6 +36,7 @@ make_check_args = [
     + "-i test_isinstance "  # ppc64le stack overflow
     + "-i test_pickle "  # ppc64le stack overflow
     + "-i test_pickletools "  # ppc64le stack overflow
+    + "-i test_sysconfig "  # temporary until fix-mach.patch is gone
     + "-i test.test_strptime.StrptimeTests.test_date_locale2 "
 ]
 hostmakedepends = [
