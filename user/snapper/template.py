@@ -1,5 +1,5 @@
 pkgname = "snapper"
-pkgver = "0.11.2"
+pkgver = "0.12.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -39,7 +39,7 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "GPL-2.0-only"
 url = "https://github.com/openSUSE/snapper"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d2a33935f94f30b22aecbdfdecccf651b3616fa698aec266646a9d06043bfd6f"
+sha256 = "057230965c8135ed78038dab8045444e7b40d7f5c1ca8aa80ecb3ef90c70c5ac"
 
 
 def post_install(self):
