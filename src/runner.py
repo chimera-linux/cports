@@ -1705,6 +1705,8 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             raise errors.CbuildException(f"{tgt} eneeds two arguments")
         tgt = "custom:" + cmdline.command[1]
         pkgn = cmdline.command[2]
+    elif tgt == "pkg" and len(cmdline.command) > 2:
+        return do_bulkpkg(tgt)
     elif not pkgn:
         if len(cmdline.command) <= 1 and tgt != "chroot":
             raise errors.CbuildException(f"{tgt} needs a package name")
@@ -2345,7 +2347,7 @@ command_handlers = {
         "Print a newline-separated versioned list of unbuilt templates",
     ),
     "patch": (do_pkg, "Run up to patch phase of a template"),
-    "pkg": (do_pkg, "Build a package"),
+    "pkg": (do_pkg, "Build a package or multiple packages"),
     "prepare": (do_pkg, "Run up to prepare phase of a template"),
     "prepare-upgrade": (
         do_prepare_upgrade,

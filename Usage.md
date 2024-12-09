@@ -545,7 +545,8 @@ The following commands are recognized:
   date version of the package already exists in the local repository, unless
   overridden with `-f` or `--force`, when using the "pkg" target. Other
   targets will run always unless already finished in builddir (you can
-  make them always run regardless by passing `-f` or `--force`).
+  make them always run regardless by passing `-f` or `--force`). Passing
+  multiple packages to `pkg` is a special case and is an alias for `bulk-pkg`.
 * `index` When not given a path, reindex all known repositories. When given
   a path, reindex a specific repository. Only either the host architecture or
   the `-a` architecture are indexed, and the path should not include the
