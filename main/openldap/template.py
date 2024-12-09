@@ -1,6 +1,6 @@
 pkgname = "openldap"
-pkgver = "2.6.8"
-pkgrel = 1
+pkgver = "2.6.9"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-debug",
@@ -40,7 +40,7 @@ url = "https://www.openldap.org"
 source = (
     f"{url}/software/download/OpenLDAP/openldap-release/openldap-{pkgver}.tgz"
 )
-sha256 = "48969323e94e3be3b03c6a132942dcba7ef8d545f2ad35401709019f696c3c4e"
+sha256 = "2cb7dc73e9c8340dff0d99357fbaa578abf30cc6619f0521972c555681e6b2ff"
 
 
 def post_install(self):
