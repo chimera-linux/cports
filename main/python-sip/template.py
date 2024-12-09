@@ -1,5 +1,5 @@
 pkgname = "python-sip"
-pkgver = "6.8.6"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "custom:sip"
 url = "https://github.com/Python-SIP/sip"
 source = f"$(PYPI_SITE)/s/sip/sip-{pkgver}.tar.gz"
-sha256 = "7fc959e48e6ec5d5af8bd026f69f5e24d08b3cb8abb342176f5ab8030cc07d7a"
+sha256 = "093fd0e15d99ae2f8a83dd7f7dbaa3ff250c582a77eb8e0845cd9acadb1f0934"
 # no tests
 options = ["!check"]
 
