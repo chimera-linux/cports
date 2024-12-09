@@ -8,7 +8,7 @@ makedepends = ["lua5.1-devel"]
 pkgdesc = "Pattern-matching library based on Parsing Expression Grammars"
 maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
-url = "http://www.inf.puc-rio.br/~roberto/lpeg"
+url = "https://www.inf.puc-rio.br/~roberto/lpeg"
 source = f"{url}/lpeg-{pkgver}.tar.gz"
 sha256 = "4b155d67d2246c1ffa7ad7bc466c1ea899bbc40fef0257cc9c03cecbaed4352a"
 # for check
