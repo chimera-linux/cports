@@ -3,7 +3,7 @@ pkgver = "20240109"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--program-transform=s,^,b,"]
-configure_gen = []
+hostmakedepends = ["automake"]
 pkgdesc = "Berkeley yacc, a LALR(1) parser generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:byacc"
