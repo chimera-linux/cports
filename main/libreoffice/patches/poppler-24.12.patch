@@ -1,0 +1,14 @@
+--- a/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
++++ b/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
+@@ -1088,9 +1088,10 @@ void PDFOutDev::drawImageMask(GfxState* pState, Object*, Stream* str,
+ 
+     printf( "drawMask %d %d %d", width, height, invert );
+ 
++    bool hasAlpha;
+     int bitsPerComponent = 1;
+     StreamColorSpaceMode csMode = streamCSNone;
+-    str->getImageParams( &bitsPerComponent, &csMode );
++    str->getImageParams( &bitsPerComponent, &csMode, &hasAlpha );
+     if( bitsPerComponent == 1 && (csMode == streamCSNone || csMode == streamCSDeviceGray) )
+     {
+         GfxRGB oneColor = { dblToCol( 1.0 ), dblToCol( 1.0 ), dblToCol( 1.0 ) };
