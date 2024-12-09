@@ -1,0 +1,39 @@
+based on pmbootstrap/375814b9d2f0d08d221093e8f9d82c50d2f234c4 commit but on a version older than 3.0.0
+
+--- a/pmb/chroot/mount.py	2024-05-18 13:34:09.000000000 -0300
++++ b/pmb/chroot/mount.py	2024-09-25 21:48:53.647857439 -0300
+@@ -20,13 +20,18 @@
+             path = chroot + "/dev/" + str(dev[4])
+             if not os.path.exists(path):
+                 pmb.helpers.run.root(args, ["mknod",
+-                                            "-m", str(dev[0]),  # permissions
+                                             path,  # name
+                                             str(dev[1]),  # type
+                                             str(dev[2]),  # major
+                                             str(dev[3]),  # minor
+                                             ])
+-
++                pmb.helpers.run.root(args,
++                    [
++                        "chmod",
++                        str(dev[0]), # perms
++                        path, # name
++                    ]
++                )
+         # Verify major and minor numbers of created nodes
+         for dev in pmb.config.chroot_device_nodes:
+             path = chroot + "/dev/" + str(dev[4])
+
+--- a/pmb/install/_install.py	2024-05-18 13:34:09.000000000 -0300
++++ a/pmb/install/_install.py	2024-09-25 21:24:49.085716314 -0300
+@@ -194,8 +194,8 @@
+         pmb.helpers.run.root(args, ["cp", f, rootfs + "/var/cache/apk/"])
+ 
+     # Disable pmbootstrap repository
+-    pmb.helpers.run.root(args, ["sed", "-i", r"/\/mnt\/pmbootstrap\/packages/d",
+-                                rootfs + "/etc/apk/repositories"])
++    pmb.helpers.run.root(args, ["sed", "-i", "", r"/\/mnt\/pmbootstrap\/packages/d",
++                                "/mnt/install/etc/apk/repositories"])
+     pmb.helpers.run.user(args, ["cat", rootfs + "/etc/apk/repositories"])
+ 
+ 
