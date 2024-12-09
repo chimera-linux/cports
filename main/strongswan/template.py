@@ -1,5 +1,5 @@
 pkgname = "strongswan"
-pkgver = "5.9.14"
+pkgver = "6.0.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,7 +12,6 @@ configure_args = [
     "--disable-des",
     "--disable-eap-gtc",
     "--disable-hmac",
-    "--disable-ldap",
     "--disable-md5",
     "--disable-mysql",
     "--disable-rc2",
@@ -24,6 +23,7 @@ configure_args = [
     "--enable-blowfish",
     "--enable-bypass-lan",
     "--enable-cmd",
+    "--enable-conftest",
     "--enable-curl",
     "--enable-eap-aka",
     "--enable-eap-aka-3gpp2",
@@ -44,6 +44,7 @@ configure_args = [
     "--enable-ha",
     "--enable-ikev1",
     "--enable-ipseckey",
+    "--enable-ldap",
     "--enable-md4",
     "--enable-openssl",
     "--enable-pkcs11",
@@ -51,6 +52,7 @@ configure_args = [
     "--enable-python-eggs",
     "--enable-shared",
     "--enable-sqlite",
+    "--enable-stroke",
     "--enable-swanctl",
     "--enable-unbound",
     "--enable-unity",
@@ -69,6 +71,7 @@ makedepends = [
     "libldns-devel",
     "linux-headers",
     "linux-pam-devel",
+    "openldap-devel",
     "openssl-devel",
     "sqlite-devel",
     "unbound-devel",
@@ -78,7 +81,7 @@ maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "GPL-2.0-or-later"
 url = "https://www.strongswan.org"
 source = f"https://download.strongswan.org/strongswan-{pkgver}.tar.bz2"
-sha256 = "728027ddda4cb34c67c4cec97d3ddb8c274edfbabdaeecf7e74693b54fc33678"
+sha256 = "72fe58b7523155703b65b08c3cc559c2c9a5c96da54afebd8136f6623e7dda82"
 
 
 def post_install(self):
