@@ -1,6 +1,6 @@
 pkgname = "nfs-utils"
-pkgver = "2.6.4"
-pkgrel = 1
+pkgver = "2.8.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-sbin-override",
@@ -22,8 +22,10 @@ makedepends = [
     "heimdal-devel-static",
     "keyutils-devel",
     "libcap-devel",
+    "libedit-readline-devel",
     "libevent-devel",
     "libmount-devel",
+    "libnl-devel",
     "libtirpc-devel",
     "libxml2-devel",
     "linux-headers",
@@ -36,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://linux-nfs.org"
 source = f"https://cdn.kernel.org/pub/linux/utils/nfs-utils/{pkgver}/nfs-utils-{pkgver}.tar.gz"
-sha256 = "e41c9ac96b15b4e8b8bde05da6e072e98bcf3acd8ae8f055e4a0bd5ac2328d4c"
+sha256 = "d3dc02318200de39eb8f4f3636a59eb565458dd76ba256210c02d356fbf7a62b"
 # FIXME
 tool_flags = {"CFLAGS": ["-Wno-format-nonliteral", "-Wno-strict-prototypes"]}
 file_modes = {"usr/bin/mount.nfs": ("root", "root", 0o4755)}
@@ -86,6 +88,7 @@ def _(self):
         "usr/bin/rpc.nfsd",
         "usr/bin/blkmapd",
         "usr/bin/nfsdclddb",
+        "usr/bin/nfsdctl",
         "usr/bin/rpc.svcgssd",
         "usr/bin/nfsdclnts",
         "usr/bin/nfsref",
@@ -105,6 +108,7 @@ def _(self):
         "usr/share/man/man8/*nfsd.8",
         "usr/share/man/man8/blkmapd.8",
         "usr/share/man/man8/nfsdclddb.8",
+        "usr/share/man/man8/nfsdctl.8",
         "usr/share/man/man8/*svcgssd.8",
         "usr/share/man/man8/nfsdclnts.8",
         "usr/share/man/man8/nfsref.8",
