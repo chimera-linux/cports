@@ -1,5 +1,5 @@
 pkgname = "python-git-filter-repo"
-pkgver = "2.45.0"
+pkgver = "2.47.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
@@ -16,7 +16,7 @@ license = "MIT"
 url = "https://github.com/newren/git-filter-repo"
 # pypi tarball doesn't contain man page
 source = f"{url}/releases/download/v{pkgver}/git-filter-repo-{pkgver}.tar.xz"
-sha256 = "430a2c4a5d6f010ebeafac6e724e3d8d44c83517f61ea2b2d0d07ed8a6fc555a"
+sha256 = "4662cbe5918196a9f1b5b3e1211a32e61cff1812419c21df4f47c5439f09e902"
 # TODO: figure out why some of the tests fail
 options = ["!check"]
 
