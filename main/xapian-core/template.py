@@ -1,6 +1,6 @@
 pkgname = "xapian-core"
-pkgver = "1.4.26"
-pkgrel = 1
+pkgver = "1.4.27"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -15,7 +15,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://xapian.org"
 source = f"https://oligarchy.co.uk/xapian/{pkgver}/xapian-core-{pkgver}.tar.xz"
-sha256 = "9e6a7903806966d16ce220b49377c9c8fad667c8f0ffcb23a3442946269363a7"
+sha256 = "bcbc99cfbf16080119c2571fc296794f539bd542ca3926f17c2999600830ab61"
 hardening = ["vis", "cfi"]
 # see below
 options = []
