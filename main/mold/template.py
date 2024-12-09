@@ -29,5 +29,4 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_license("LICENSE.third-party")
     self.uninstall("usr/share/doc/mold/LICENSE")
