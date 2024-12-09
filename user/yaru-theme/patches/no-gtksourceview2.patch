@@ -1,0 +1,12 @@
+--- ./gtksourceview/gtksourceview/meson.build	2024-09-11 11:08:53.000000000 +0800
++++ ./gtksourceview/gtksourceview/meson.build	2024-12-09 10:14:46.133031332 +0800
+@@ -8,8 +8,7 @@
+       'FlavourThemeName': theme_name,
+     })
+ 
+-  foreach version: ['gtksourceview-2.0',
+-                    'gtksourceview-3.0',
++  foreach version: ['gtksourceview-3.0',
+                     'gtksourceview-4',
+                     'libgedit-gtksourceview-300']
+     style_dir = get_option('datadir') / version / 'styles'
