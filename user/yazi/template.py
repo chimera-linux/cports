@@ -1,5 +1,5 @@
 pkgname = "yazi"
-pkgver = "0.3.3"
+pkgver = "0.4.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
@@ -13,7 +13,7 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "MIT"
 url = "https://yazi-rs.github.io"
 source = f"https://github.com/sxyazi/yazi/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fe2a458808334fe20eff1ab0145c78d684d8736c9715e4c51bce54038607dc4e"
+sha256 = "65a063705dceecd23cfc3f617bf5e9ec9e31a7e5eef2f9bf4da4ffd4752b5e5c"
 
 
 def install(self):
