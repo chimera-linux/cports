@@ -142,14 +142,6 @@ def generate_scripts_ckms(pkg, modname, kernver):
 rm -f /boot/initramfs-{kernver}.img || :
 rm -f /boot/initrd.img-{kernver} || :"""
 
-    postscript = f"""#!/bin/sh
-
-if [ -f /boot/System.map-{kernver} ]; then
-    depmod -a -F /boot/System.map-{kernver} {kernver} || :
-else
-    depmod -a {kernver} || :
-fi"""
-
     pkg.scripts["pre-install"] = (
         prescript
         + f"""
@@ -159,9 +151,6 @@ fi"""
     )
     pkg.scripts["pre-upgrade"] = prescript
     pkg.scripts["pre-deinstall"] = prescript
-    pkg.scripts["post-install"] = postscript
-    pkg.scripts["post-upgrade"] = postscript
-    pkg.scripts["post-deinstall"] = postscript
 
 
 def _call_ckms(pkg, kver, *args):
