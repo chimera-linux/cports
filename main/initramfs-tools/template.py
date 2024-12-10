@@ -1,6 +1,6 @@
 pkgname = "initramfs-tools"
 pkgver = "0.145"
-pkgrel = 3
+pkgrel = 4
 build_style = "makefile"
 depends = [
     "base-kernel",

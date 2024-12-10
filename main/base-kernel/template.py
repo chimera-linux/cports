@@ -1,12 +1,18 @@
 pkgname = "base-kernel"
 pkgver = "0.2"
-pkgrel = 5
+pkgrel = 6
 depends = [
     "kmod",
     "procps",
     "cmd:findmnt!mount",
 ]
-triggers = ["/usr/lib/modules", "/usr/src"]
+# all paths that should result in kernel.d hooks being rerun
+triggers = [
+    "+/usr/lib/firmware",
+    "+/usr/lib/modules/*",
+    "+/usr/share/initramfs-tools",
+    "+/usr/src",
+]
 pkgdesc = "Common data and scripts for Linux kernels in Chimera"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
@@ -92,6 +98,10 @@ def install(self):
         "usr/bin",
         mode=0o755,
         name="chimera-prunekernels",
+    )
+
+    self.install_file(
+        self.files_path / "49-depmod.sh", "usr/lib/kernel.d", mode=0o755
     )
 
     # setup and prune hooks; WIP so don't install for now
