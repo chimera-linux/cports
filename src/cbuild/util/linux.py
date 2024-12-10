@@ -137,13 +137,7 @@ def generate_scripts(pkg, flavor):
 
 
 def generate_scripts_ckms(pkg, modname, kernver):
-    ckprescript = f"""#!/bin/sh
-
-if [ -x /usr/bin/ckms ]; then
-    ckms -q -k {kernver} uninstall {modname} > /dev/null 2>&1 || :
-fi"""
-
-    pkg.scripts["pre-install"] = ckprescript
+    pass
 
 
 def _call_ckms(pkg, kver, *args):

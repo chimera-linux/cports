@@ -3,13 +3,31 @@
 export CKMS_APK_DEFER_INITRAMFS=1
 export CKMS_APK_DEFER_DEPMOD=1
 
+# prune statedirs for system-disabled (binary) modules first
+for kern in /usr/lib/modules/*; do
+    [ -d "${kern}" ] || continue
+    kernver=${kern#/usr/lib/modules/}
+    for dismod in "${kern}/ckms-disable"/*; do
+        [ -d "${dismod}" ] || continue
+        modname=${dismod#${kern}/ckms-disable/}
+        for disver in "${dismod}"/*; do
+            [ -e "${disver}" ] || continue
+            modver=${disver#${dismod}/}
+            modbase="/var/lib/ckms/${modname}"
+            # nuke kernel-specific state bits
+            rm -rf "${modbase}/${modver}/${kernver}"
+            rm -f "${modbase}/kernel-${kernver}-"*
+        done
+    done
+done
+
 # clean up whatever ckms manages if the kernel is already gone
 
 for kern in /usr/lib/modules/*; do
     [ -d "${kern}" ] || continue
     kernver=${kern#/usr/lib/modules/}
     # only consider removed kernels
-    [ -f "${kern}/modules.dep" ] && continue
+    [ -f "${kern}/modules.order" ] && continue
     # skip early
     [ "${kernver}" = "apk-backup" ] && continue
     # uninstall everything installed for that kernel
@@ -35,9 +53,13 @@ done
 for mod in /var/lib/ckms/*; do
     [ -d "$mod" ] || continue
     for ver in "${mod}"/*; do
+        # installed-module symlink, skip
+        if [ -L "${ver}" ]; then
+            # prune if needed though...
+            [ -e "${ver}" ] || rm -f "${ver}"
+            continue
+        fi
         [ -d "${ver}" ] || continue
-        # skip the symlinks indicating installed modules
-        [ -L "${ver}" ] && continue
         # if the module is invalid, just kill it
         if [ ! -f "${ver}/ckms.ini" ]; then
             rm -rf "${ver}"
@@ -71,7 +93,7 @@ for kern in /usr/lib/modules/*; do
     [ -d "${kern}" ] || continue
     kernver=${kern#/usr/lib/modules/}
     # possibly not a kernel, or at least not modular
-    [ -f "${kern}/modules.dep" ] || continue
+    [ -f "${kern}/modules.order" ] || continue
     # skip early
     if [ ! -d "${kern}/build" ]; then
         echo "kernel headers not installed for ${kernver}, skipping..."
