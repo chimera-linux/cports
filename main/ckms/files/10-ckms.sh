@@ -1,6 +1,7 @@
 #!/bin/sh
 
 export CKMS_APK_DEFER_INITRAMFS=1
+export CKMS_APK_DEFER_DEPMOD=1
 
 # clean up whatever ckms manages if the kernel is already gone
 
@@ -96,17 +97,6 @@ for kern in /usr/lib/modules/*; do
                 fi
             fi
         done
-done
-
-# and refresh deferred initramfs as necessary
-
-for f in /boot/.ckms-initramfs-defer.*; do
-    [ -f "$f" ] || continue
-    kernver=$(basename $f)
-    kernver=${kernver#.ckms-initramfs-defer.}
-    update-initramfs -u -k "${kernver}" || \
-        echo "FAILED: update-initramfs for ${kernver}"
-    rm -f "$f"
 done
 
 exit 0
