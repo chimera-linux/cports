@@ -1,5 +1,5 @@
 pkgname = "girara"
-pkgver = "0.4.4"
+pkgver = "0.4.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -21,7 +21,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/girara"
 source = f"{url}/download/girara-{pkgver}.tar.xz"
-sha256 = "a321079b3cda000d16d978e8609fb631381f54d7596e7218aaba05c6f4b8bac1"
+sha256 = "6b7f7993f82796854d5036572b879ffaaf7e0b619d12abdb318ce14757bdda91"
 
 
 def post_install(self):
