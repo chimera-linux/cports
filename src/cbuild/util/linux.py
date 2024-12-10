@@ -137,20 +137,13 @@ def generate_scripts(pkg, flavor):
 
 
 def generate_scripts_ckms(pkg, modname, kernver):
-    prescript = f"""#!/bin/sh
+    pkg.scripts[
+        "pre-install"
+    ] = f"""#!/bin/sh
 
-rm -f /boot/initramfs-{kernver}.img || :
-rm -f /boot/initrd.img-{kernver} || :"""
-
-    pkg.scripts["pre-install"] = (
-        prescript
-        + f"""
 if [ -x /usr/bin/ckms ]; then
     ckms -q -k {kernver} uninstall {modname} > /dev/null 2>&1 || :
 fi"""
-    )
-    pkg.scripts["pre-upgrade"] = prescript
-    pkg.scripts["pre-deinstall"] = prescript
 
 
 def _call_ckms(pkg, kver, *args):
