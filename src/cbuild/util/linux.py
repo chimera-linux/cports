@@ -136,10 +136,6 @@ def generate_scripts(pkg, flavor):
     _gen_script(pkg, "post-upgrade", flavor, ' "$2"')
 
 
-def generate_scripts_ckms(pkg, modname, kernver):
-    pass
-
-
 def _call_ckms(pkg, kver, *args):
     pkg.do(
         "ckms",
