@@ -1,5 +1,5 @@
 pkgname = "megatools"
-pkgver = "1.11.1.20230212"
+pkgver = "1.11.1.20241028"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -23,5 +23,5 @@ maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "GPL-2.0-or-later"
 url = "https://megatools.megous.com"
 source = f"{url}/builds/megatools-{pkgver}.tar.gz"
-sha256 = "ecfa2ee4b277c601ebae648287311030aa4ca73ea61ee730bc66bef24ef19a34"
+sha256 = "3632135a23aa737950e74183199eb23d4e44461ca4221842717225fb31527a4d"
 hardening = ["vis", "cfi"]
