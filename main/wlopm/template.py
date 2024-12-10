@@ -2,7 +2,6 @@ pkgname = "wlopm"
 pkgver = "1.0.0"
 pkgrel = 0
 build_style = "makefile"
-make_cmd = "gmake"
 hostmakedepends = [
     "wayland-progs",
 ]
