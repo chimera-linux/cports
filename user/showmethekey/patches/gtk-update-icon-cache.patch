@@ -1,0 +1,13 @@
+diff --git a/meson.build b/meson.build
+index 0adbb05..ec7c7a3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -85,7 +85,7 @@ if meson.version().version_compare('>= 0.57.0')
+     skip_if_destdir: true
+   )
+   meson.add_install_script(
+-    'gtk4-update-icon-cache',
++    'gtk-update-icon-cache',
+     '-f',
+     '-t',
+     get_option('prefix') / get_option('datadir') / 'icons' / 'hicolor',
