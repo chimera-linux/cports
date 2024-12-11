@@ -2217,6 +2217,9 @@ def do_prepare_upgrade(tgt):
     )
     oldsha = list(tmpl.sha256)
 
+    # be less confusing with the output
+    tmpl.pkgrel = 0
+
     chroot.prepare_arch(opt_arch, opt_dirty)
     build.build(
         "fetch",
