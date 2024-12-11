@@ -1,0 +1,1027 @@
+diff --git a/cinnamon.pot b/cinnamon.pot
+index cd75560..c71b9be 100644
+--- a/cinnamon.pot
++++ b/cinnamon.pot
+@@ -1462,18 +1462,6 @@ msgid_plural "%d minutes ago"
+ msgstr[0] ""
+ msgstr[1] ""
+ 
+-#: files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/applet.js:14
+-msgid "Enable on-screen keyboard"
+-msgstr ""
+-
+-#: files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/applet.js:35
+-msgid "Click to toggle the on-screen keyboard"
+-msgstr ""
+-
+-#: files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/applet.js:38
+-msgid "Click to enable the on-screen keyboard"
+-msgstr ""
+-
+ #: files/usr/share/cinnamon/applets/panel-launchers@cinnamon.org/applet.js:45
+ msgid "Launch"
+ msgstr ""
+@@ -8285,14 +8273,6 @@ msgstr ""
+ msgid "Activate scale on hover"
+ msgstr ""
+ 
+-#. on-screen-keyboard@cinnamon.org->metadata.json->name
+-msgid "On-Screen keyboard"
+-msgstr ""
+-
+-#. on-screen-keyboard@cinnamon.org->metadata.json->description
+-msgid "A Cinnamon applet to launch the on-screen keyboard"
+-msgstr ""
+-
+ #. network@cinnamon.org->metadata.json->description
+ msgid "Network manager applet"
+ msgstr ""
+diff --git a/files/usr/share/applications/cinnamon-onscreen-keyboard.desktop a/files/usr/share/applications/cinnamon-onscreen-keyboard.desktop
+deleted file mode 100644
+index 39e40da..0000000
+--- a/files/usr/share/applications/cinnamon-onscreen-keyboard.desktop
++++ /dev/null
+@@ -1,157 +0,0 @@
+-[Desktop Entry]
+-Exec=dbus-send --print-reply --dest=org.Cinnamon /org/Cinnamon org.Cinnamon.ToggleKeyboard
+-Icon=cinnamon-virtual-keyboard
+-Terminal=false
+-Type=Application
+-Categories=Utility;
+-OnlyShowIn=X-Cinnamon;
+-Keywords=onboard;keyboard;caribou;
+-Name=Virtual keyboard
+-Name[af]=Virtuele sleutelbord
+-Name[am]=የሚታይ የ ፊደል ገበታ
+-Name[ar]=لوحة المفاتيح الافتراضية
+-Name[ast]=Teclaú virtual
+-Name[ay]=Pantallan tiklado
+-Name[az]=Sanal düyməlik
+-Name[be]=Віртуальная клавіятура
+-Name[bg]=Виртуална клавиатура
+-Name[bn]=ভার্চুয়াল কিবোর্ড
+-Name[ca]=Teclat virtual
+-Name[ca@valencia]=Teclat virtual
+-Name[cs]=Virtuální klávesnice
+-Name[cy]=Rhith fysellfwrdd
+-Name[da]=Virtuelt tastatur
+-Name[de]=Bildschirmtastatur
+-Name[el]=Εικονικό πληκτρολόγιο
+-Name[eo]=Virtuala klavaro
+-Name[es]=Teclado virtual
+-Name[es_AR]=Teclado virtual
+-Name[et]=Virtuaalne klaviatuur
+-Name[eu]=Teklatu birtuala
+-Name[fa]=صفحه‌کلید مجازی
+-Name[fi]=Virtuaalinäppäimistö
+-Name[fr]=Clavier virtuel
+-Name[fr_CA]=Clavier virtuel
+-Name[he]=מקלדת מדומה
+-Name[hi]=आभासी कुंजीपटल
+-Name[hr]=Virtualna tipkovnica
+-Name[hsb]=Wirtuelna tastatura
+-Name[hu]=Virtuális billentyűzet
+-Name[ia]=Claviero virtual
+-Name[id]=Papan ketik maya
+-Name[ie]=Tastatura virtual
+-Name[is]=Sýndarlyklaborð
+-Name[it]=Tastiera virtuale
+-Name[ja]=仮想キーボード
+-Name[kab]=Anasiw aḥlis
+-Name[ko]=가상 키보드
+-Name[la]=Claviatura virtualis
+-Name[lt]=Virtuali klaviatūra
+-Name[nap]=Tastiera faveza
+-Name[nb]=Virtuelt tastatur
+-Name[nl]=Virtueel toetsenbord
+-Name[oc]=Clavièr visual
+-Name[pl]=Klawiatura wirtualna
+-Name[pt]=Teclado virtual
+-Name[pt_BR]=Teclado virtual
+-Name[ro]=Tastatură virtuală
+-Name[ru]=Виртуальная клавиатура
+-Name[rue]=Віртуална клавешниця
+-Name[sc]=Tastiera virtuale
+-Name[sk]=Virtuálna klávesnica
+-Name[sl]=Virtualna tipkovnica
+-Name[sq]=Tastiera virtuale
+-Name[sr]=Виртуелна тастатура
+-Name[sr@ijekavian]=Виртуелна тастатура
+-Name[sr@ijekavianlatin]=Виртуелна тастатура
+-Name[sr@latin]=Virtuelna tastatura
+-Name[sv]=Virtuellt tangentbord
+-Name[ta]=திரைப்பலகை
+-Name[th]=แป้นพิมพ์เสมือนจริง
+-Name[tr]=Sanal klavye
+-Name[uk]=Віртуальна клавіатура
+-Name[ur]=ورچول کیی بورڈ
+-Name[uz]=Virtual klaviatura
+-Name[vi]=Bàn phím ảo
+-Name[zh_CN]=虚拟键盘
+-Name[zh_HK]=虛擬鍵盤
+-Name[zh_TW]=虛擬鍵盤
+-Comment=Turn on-screen keyboard on or off
+-Comment[af]=Skakel die sleutelbord op die skerm aan of af
+-Comment[am]=የመመልከቻውን ፊደል ገበታ ማብሪያ ወይንም ማጥፊያ
+-Comment[ar]=تشغيل أو إيقاف تشغيل لوحة المفاتيح على الشاشة
+-Comment[ast]=Prender o apagar la pantalla del tecláu
+-Comment[ay]=Pantallan tiklado uk naktayaña jan ukax jiwt'ayaña
+-Comment[az]=Göstərici düyməliyini işlət ya da söndür
+-Comment[be]=Уключыць/выключыць экранную клавіятуру
+-Comment[bg]=Включване или изключване на екранната клавиатура
+-Comment[bn]=পর্দার কিবোর্ড বন্ধ অথবা সচল করুন
+-Comment[bs]=Uključi/isključi ekransku tastaturu
+-Comment[ca]=Activa o desactiva el teclat en pantalla
+-Comment[ca@valencia]=Activa o desactiva el teclat en pantalla
+-Comment[cs]=Zapnout nebo vypnout klávesnici na obrazovce
+-Comment[cy]=Cychwyn neu ddiffodd y bysellfwrdd ar sgrin
+-Comment[da]=Slå skærmtastatur til/fra
+-Comment[de]=Bildschirmtastatur ein-/ausschalten
+-Comment[el]=Εναλλαγή λειτουργίας πληκτρολογίου οθόνης
+-Comment[eo]=En- aŭ elŝalti la ekranklavaron
+-Comment[es]=Activar o desactivar el teclado en pantalla
+-Comment[es_AR]=Activar o desactivar el teclado en pantalla
+-Comment[et]=Ekraaniklaviatuuri sisse või välja lülitamine
+-Comment[eu]=Aktibatu edo desaktibatu pantailako teklatua
+-Comment[fa]=روشن یا خاموش کردن صفحه‌کلیدِ روی-صفحه
+-Comment[fi]=Näyttönäppäimistö päälle/pois
+-Comment[fr]=Activer ou désactiver le clavier visuel
+-Comment[fr_CA]=Activer ou désactiver le clavier visuel
+-Comment[ga]=Cas air nó as méarchlár scáileáin
+-Comment[gd]=Cuir am meur-chlàr air an sgrìn air no dheth
+-Comment[gl]=Activar ou desactivar o teclado en pantalla
+-Comment[he]=הפעלת או כיבוי מקלדת־מרקע
+-Comment[hi]=ऑन स्क्रीन कुंजीपटल चालू या बंद करें
+-Comment[hr]=Uključi/Isključi zaslonsku tipkovnicu
+-Comment[hsb]=Tastaturu na wobrazowce za/wušaltować
+-Comment[hu]=Képernyő-billentyűzet be- vagy kikapcsolása
+-Comment[ia]=Activar o stoppar le claviero sur-le-schermo
+-Comment[id]=Mengaktifkan atau menonaktifkan keyboard di layar
+-Comment[is]=Skjályklaborð af eða á
+-Comment[it]=Attiva/disattiva la tastiera sullo schermo
+-Comment[ja]=スクリーンキーボードをオン/オフ
+-Comment[ka]=ეკრანზე ნაჩვენებ კლავიატურის ჩართვა/გამორთვა
+-Comment[kab]=Rmed neɣ ssens anasiw amwalan
+-Comment[kk]=Экрандағы пернетақтаны қосу/сөндіру
+-Comment[ko]=가상 키보드 켜고 끄기
+-Comment[lt]=Įjungti arba išjungti ekraninę klaviatūrą
+-Comment[lv]=Ieslēgt vai izslēgt ekrāna tastatūru
+-Comment[ms]=Hidup atau matikan papan kekunci skrin
+-Comment[nb]=Slå av/på skjermtastatur
+-Comment[nds]=Bildschirmtastatur ein- oder ausschalten
+-Comment[nl]=Schermtoetsenbord in- of uitschakelen
+-Comment[oc]=Activar o desactivar lo clavièr visual
+-Comment[om]=Furtuu gabatee argiirratii bantuufi cuftuu
+-Comment[pa]=ਆਨ-ਸਕਰੀਨ ਕੀਬੋਰਡ ਚਾਲੂ ਜਾਂ ਬੰਦ ਕਰੋ
+-Comment[pl]=Włącz/Wyłącz klawiaturę ekranową
+-Comment[pt]=Ativar ou desativar teclado no ecrã
+-Comment[pt_BR]=Ativar ou desativar o teclado virtual
+-Comment[ro]=Activează  sau dezactivează tastatura pe ecran
+-Comment[ru]=Включить или выключить экранную клавиатуру
+-Comment[rue]=Уключити наекранну клавешницю вадь выключити
+-Comment[sc]=Ativa o disativa sa tastiera in s'ischermu
+-Comment[sk]=Zapnúť alebo vypnúť klávesnicu na obrazovke
+-Comment[sl]=Omogoči ali onemogoči zaslonsko tipkovnico
+-Comment[sq]=Aktivizo ose çaktivizo tastierën në ekran
+-Comment[sr]=Укључи/искључи тастатуру на екрану
+-Comment[sr@ijekavian]=Укључи/искључи тастатуру на екрану
+-Comment[sr@ijekavianlatin]=Укључи/искључи тастатуру на екрану
+-Comment[sr@latin]=Uključi ili isključi tastaturu na ekranu
+-Comment[sv]=Aktivera eller inaktivera skärmtangentbord
+-Comment[ta]=திரைப்பலகை ஆன் அல்லது ஆஃப் செய்
+-Comment[tg]=Хомӯш ё фаъол кардани ҳарфкалиди экранӣ
+-Comment[th]=เปิดหรือปิดแป้นพิมพ์บนจอ
+-Comment[tr]=Ekran klavyesini aç ya da kapat
+-Comment[uk]=Увімкнути або вимкнути екранну клавіатуру
+-Comment[ur]=سکرین کیبورڈ چالو یا بند کریں
+-Comment[uz]=Ekran klaviaturasini yoqish yoki o‘chirish
+-Comment[vi]=Bật tắt bàn phím màn hình
+-Comment[zh_CN]=开关屏幕键盘
+-Comment[zh_HK]=開啟或關閉熒幕鍵盤
+-Comment[zh_TW]=開啟或關閉螢幕鍵盤
+diff --git a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/applet.js a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/applet.js
+deleted file mode 100644
+index 2e374b7..0000000
+--- a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/applet.js
++++ /dev/null
+@@ -1,45 +0,0 @@
+-const Applet = imports.ui.applet;
+-const Gio = imports.gi.Gio;
+-const Lang = imports.lang;
+-const PopupMenu = imports.ui.popupMenu;
+-const Main = imports.ui.main;
+-
+-class CinnamonOnScreenKeyboardApplet extends Applet.IconApplet {
+-    constructor(metadata, orientation, panel_height, instanceId) {
+-        super(orientation, panel_height, instanceId);
+-        this.settings = new Gio.Settings({ schema_id: 'org.cinnamon.desktop.a11y.applications' });
+-        this.settings.connect('changed::screen-keyboard-enabled', Lang.bind(this, this.update_status));
+-
+-        this.keyboard_switch = new PopupMenu.PopupSwitchMenuItem(
+-            _("Enable on-screen keyboard"),
+-            this.settings.get_boolean("screen-keyboard-enabled"),
+-            null);
+-        this._applet_context_menu.addMenuItem(this.keyboard_switch);
+-        this.keyboard_switch.connect(
+-            "toggled",
+-            Lang.bind(this,
+-                function(item, state) {this.settings.set_boolean("screen-keyboard-enabled", state)}));
+-        this._applet_context_menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+-
+-        this.update_status();
+-    }
+-
+-    on_applet_clicked(event) {
+-        Main.virtualKeyboard.toggle();
+-        this.keyboard_switch.setToggleState(true);
+-    }
+-
+-    update_status() {
+-        if (this.settings.get_boolean("screen-keyboard-enabled")) {
+-            this.set_applet_icon_symbolic_name('on-screen-keyboard');
+-            this.set_applet_tooltip(_("Click to toggle the on-screen keyboard"));
+-        } else {
+-            this.set_applet_icon_symbolic_name('on-screen-keyboard-disabled');
+-            this.set_applet_tooltip(_("Click to enable the on-screen keyboard"));
+-        }
+-    }
+-}
+-
+-function main(metadata, orientation, panel_height, instanceId) {
+-    return new CinnamonOnScreenKeyboardApplet(metadata, orientation, panel_height, instanceId);
+-}
+diff --git a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/icons/on-screen-keyboard-disabled-symbolic.svg a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/icons/on-screen-keyboard-disabled-symbolic.svg
+deleted file mode 100644
+index 6b0492a..0000000
+--- a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/icons/on-screen-keyboard-disabled-symbolic.svg
++++ /dev/null
+@@ -1,64 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+-<!-- Created with Inkscape (http://www.inkscape.org/) -->
+-
+-<svg
+-   xmlns:dc="http://purl.org/dc/elements/1.1/"
+-   xmlns:cc="http://creativecommons.org/ns#"
+-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+-   xmlns:svg="http://www.w3.org/2000/svg"
+-   xmlns="http://www.w3.org/2000/svg"
+-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+-   id="svg7384"
+-   height="16"
+-   width="16"
+-   version="1.1"
+-   inkscape:version="0.48.4 r9939"
+-   sodipodi:docname="on-screen-keyboard-disabled-symbolic.svg">
+-  <defs
+-     id="defs9" />
+-  <sodipodi:namedview
+-     pagecolor="#ffffff"
+-     bordercolor="#666666"
+-     borderopacity="1"
+-     objecttolerance="10"
+-     gridtolerance="10"
+-     guidetolerance="10"
+-     inkscape:pageopacity="0"
+-     inkscape:pageshadow="2"
+-     inkscape:window-width="1920"
+-     inkscape:window-height="1146"
+-     id="namedview7"
+-     showgrid="false"
+-     inkscape:zoom="14.75"
+-     inkscape:cx="-2.7118644"
+-     inkscape:cy="8"
+-     inkscape:window-x="0"
+-     inkscape:window-y="0"
+-     inkscape:window-maximized="1"
+-     inkscape:current-layer="svg7384" />
+-  <metadata
+-     id="metadata90">
+-    <rdf:RDF>
+-      <cc:Work
+-         rdf:about="">
+-        <dc:format>image/svg+xml</dc:format>
+-        <dc:type
+-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+-        <dc:title>Gnome Symbolic Icon Theme</dc:title>
+-      </cc:Work>
+-    </rdf:RDF>
+-  </metadata>
+-  <title
+-     id="title9167">Gnome Symbolic Icon Theme</title>
+-  <path
+-     style="color:#bebebe;fill:#bebebe"
+-     d="M 1 2 C 0.446 2 0 2.446 0 3 L 0 13 C 0 13.554 0.446 14 1 14 L 8.40625 14 L 8.40625 12.03125 L 5 12.03125 L 5 10.03125 L 8.40625 10.03125 L 8.40625 8.21875 L 9 8.21875 L 9 7.03125 L 11 7.03125 L 11 8.21875 L 12 8.21875 L 12 7.03125 L 14 7.03125 L 14 8.21875 L 16 8.21875 L 16 3 C 16 2.446 15.554 2 15 2 L 1 2 z M 2 4 L 4 4 L 4 6 L 2 6 L 2 4 z M 5 4 L 7 4 L 7 6 L 5 6 L 5 4 z M 8 4 L 10 4 L 10 6 L 8 6 L 8 4 z M 11 4 L 13 4 L 13 6 L 11 6 L 11 4 z M 3 7.03125 L 5 7.03125 L 5 9.03125 L 3 9.03125 L 3 7.03125 z M 6 7.03125 L 8 7.03125 L 8 9.03125 L 6 9.03125 L 6 7.03125 z M 2 10.03125 L 4 10.03125 L 4 12.03125 L 2 12.03125 L 2 10.03125 z "
+-     id="rect4890" />
+-  <path
+-     inkscape:connector-curvature="0"
+-     id="path3482-5"
+-     d="m 12.406783,8.8728812 c -1.933003,0 -3.5000042,1.5670028 -3.5000042,3.5000028 0,1.932999 1.5670012,3.499999 3.5000042,3.499999 1.933,0 3.5,-1.567 3.5,-3.499999 0,-1.933 -1.567,-3.5000028 -3.5,-3.5000028 z M 9.9067778,11.841684 h 5.0000052 v 1.0312 H 9.9067778 v -1.0312 z"
+-     style="color:#bebebe;fill:#ef2929"
+-     class="error" />
+-</svg>
+diff --git a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/icons/on-screen-keyboard-symbolic.svg a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/icons/on-screen-keyboard-symbolic.svg
+deleted file mode 100644
+index 553eac0..0000000
+--- a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/icons/on-screen-keyboard-symbolic.svg
++++ /dev/null
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+-<!-- Created with Inkscape (http://www.inkscape.org/) -->
+-<svg id="svg7384" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+- <metadata id="metadata90">
+-  <rdf:RDF>
+-   <cc:Work rdf:about="">
+-    <dc:format>image/svg+xml</dc:format>
+-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+-    <dc:title>Gnome Symbolic Icon Theme</dc:title>
+-   </cc:Work>
+-  </rdf:RDF>
+- </metadata>
+- <title id="title9167">Gnome Symbolic Icon Theme</title>
+- <g id="layer10" transform="translate(-121,-448)">
+-  <path id="rect4890" style="color:#bebebe;fill:#bebebe" d="m122 450c-0.554 0-1 0.446-1 1v10c0 0.554 0.446 1 1 1h14c0.554 0 1-0.446 1-1v-10c0-0.554-0.446-1-1-1h-14zm1 2h2v2h-2v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zm-8 3.0312h2v2h-2v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zm3 0h2v2h-2v-2zm-10 3h2v2h-2v-2zm3 0h6v2h-6v-2zm7 0h3v2h-3v-2z"/>
+- </g>
+-</svg>
+diff --git a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/metadata.json a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/metadata.json
+deleted file mode 100644
+index f1561b0..0000000
+--- a/files/usr/share/cinnamon/applets/on-screen-keyboard@cinnamon.org/metadata.json
++++ /dev/null
+@@ -1,6 +0,0 @@
+-{
+- "uuid": "on-screen-keyboard@cinnamon.org",
+- "name": "On-Screen keyboard",
+- "icon": "cinnamon-virtual-keyboard",
+- "description": "A Cinnamon applet to launch the on-screen keyboard"
+-}
+diff --git a/generate_additional_files.py b/generate_additional_files.py
+index 2c2cc7a..f563c44 100755
+--- a/generate_additional_files.py
++++ b/generate_additional_files.py
+@@ -35,15 +35,3 @@ Keywords=Preferences;Settings;
+ """
+ 
+ additionalfiles.generate(DOMAIN, PATH, "files/usr/share/applications/cinnamon-settings-users.desktop", prefix, _("Users and Groups"), _("Add or remove users and groups"), "")
+-
+-prefix = """[Desktop Entry]
+-Exec=dbus-send --print-reply --dest=org.Cinnamon /org/Cinnamon org.Cinnamon.ToggleKeyboard
+-Icon=cinnamon-virtual-keyboard
+-Terminal=false
+-Type=Application
+-Categories=Utility;
+-OnlyShowIn=X-Cinnamon;
+-Keywords=onboard;keyboard;caribou;
+-"""
+-
+-additionalfiles.generate(DOMAIN, PATH, "files/usr/share/applications/cinnamon-onscreen-keyboard.desktop", prefix, _("Virtual keyboard"), _("Turn on-screen keyboard on or off"), "")
+diff --git a/js/ui/cinnamonDBus.js b/js/ui/cinnamonDBus.js
+index 4048a43..964f22e 100644
+--- a/js/ui/cinnamonDBus.js
++++ b/js/ui/cinnamonDBus.js
+@@ -430,10 +430,6 @@ CinnamonDBus.prototype = {
+         }
+     },
+ 
+-    ToggleKeyboard: function() {
+-        Main.virtualKeyboard.toggle();
+-    },
+-
+     GetMonitors: function() {
+         let monitors = [];
+ 
+diff --git a/js/ui/main.js b/js/ui/main.js
+index 12bcfc0..02c5d2a 100644
+--- a/js/ui/main.js
++++ b/js/ui/main.js
+@@ -23,7 +23,6 @@
+  * @locatePointer (LocatePointer.LocatePointer): The locate pointer object
+  * @xdndHandler (XdndHandler.XdndHandler): The X DND handler
+  * @statusIconDispatcher (StatusIconDispatcher.StatusIconDispatcher): The status icon dispatcher
+- * @virtualKeyboard (VirtualKeyboard.Keyboard): The keyboard object
+  * @layoutManager (Layout.LayoutManager): The layout manager.
+  * @monitorLabeler (MonitorLabeler.MonitorLabeler): Adds labels to each monitor when configuring displays.
+  * \
+@@ -95,7 +94,6 @@ var AppletManager = imports.ui.appletManager;
+ const SearchProviderManager = imports.ui.searchProviderManager;
+ const DeskletManager = imports.ui.deskletManager;
+ const ExtensionSystem = imports.ui.extensionSystem;
+-const VirtualKeyboard = imports.ui.virtualKeyboard;
+ const MessageTray = imports.ui.messageTray;
+ const OsdWindow = imports.ui.osdWindow;
+ const Overview = imports.ui.overview;
+@@ -160,7 +158,6 @@ var magnifier = null;
+ var locatePointer = null;
+ var xdndHandler = null;
+ var statusIconDispatcher = null;
+-var virtualKeyboard = null;
+ var layoutManager = null;
+ var networkAgent = null;
+ var monitorLabeler = null;
+@@ -413,7 +410,6 @@ function start() {
+ 
+     wm = new imports.ui.windowManager.WindowManager();
+     messageTray = new MessageTray.MessageTray();
+-    virtualKeyboard = new VirtualKeyboard.Keyboard();
+     notificationDaemon = new NotificationDaemon.NotificationDaemon();
+     windowAttentionHandler = new WindowAttentionHandler.WindowAttentionHandler();
+     placesManager = new PlacesManager.PlacesManager();
+@@ -422,7 +418,6 @@ function start() {
+     locatePointer = new LocatePointer.locatePointer();
+ 
+     layoutManager.init();
+-    virtualKeyboard.init();
+     overview.init();
+     expo.init();
+ 
+diff --git a/js/ui/popupMenu.js b/js/ui/popupMenu.js
+index 2aa96ef..4617ead 100644
+--- a/js/ui/popupMenu.js
++++ b/js/ui/popupMenu.js
+@@ -3692,9 +3692,6 @@ var PopupMenuManager = class PopupMenuManager {
+         if (!this.grabbed)
+             return false;
+ 
+-        if (Main.virtualKeyboard.shouldTakeEvent(event))
+-            return Clutter.EVENT_PROPAGATE;
+-
+         if (this._owner.menuEventFilter &&
+             this._owner.menuEventFilter(event))
+             return true;
+diff --git a/js/ui/virtualKeyboard.js a/js/ui/virtualKeyboard.js
+deleted file mode 100644
+index 6b93b70..0000000
+--- a/js/ui/virtualKeyboard.js
++++ /dev/null
+@@ -1,555 +0,0 @@
+-// -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
+-
+-const Caribou = imports.gi.Caribou;
+-const Clutter = imports.gi.Clutter;
+-const Gdk = imports.gi.Gdk;
+-const Gio = imports.gi.Gio;
+-const GLib = imports.gi.GLib;
+-const Lang = imports.lang;
+-const St = imports.gi.St;
+-
+-const BoxPointer = imports.ui.boxpointer;
+-const Main = imports.ui.main;
+-const MessageTray = imports.ui.messageTray;
+-const Panel = imports.ui.panel;
+-
+-const KEYBOARD_SCHEMA = 'org.cinnamon.keyboard';
+-const KEYBOARD_TYPE = 'keyboard-type';
+-const KEYBOARD_SIZE = 'keyboard-size';
+-const KEYBOARD_POSITION = 'keyboard-position';
+-const ACTIVATION_MODE = 'activation-mode';
+-
+-const A11Y_APPLICATIONS_SCHEMA = 'org.cinnamon.desktop.a11y.applications';
+-const SHOW_KEYBOARD = 'screen-keyboard-enabled';
+-
+-const CaribouKeyboardIface =
+-    "<node> \
+-        <interface name='org.gnome.Caribou.Keyboard'> \
+-            <method name='Show'> \
+-                <arg type='u' direction='in' /> \
+-            </method> \
+-            <method name='Hide'> \
+-                <arg type='u' direction='in' /> \
+-            </method> \
+-            <method name='SetCursorLocation'> \
+-                <arg type='i' direction='in' /> \
+-                <arg type='i' direction='in' /> \
+-                <arg type='i' direction='in' /> \
+-                <arg type='i' direction='in' /> \
+-            </method> \
+-            <method name='SetEntryLocation'> \
+-                <arg type='i' direction='in' /> \
+-                <arg type='i' direction='in' /> \
+-                <arg type='i' direction='in' /> \
+-                <arg type='i' direction='in' /> \
+-            </method> \
+-            <property name='Name' access='read' type='s' /> \
+-        </interface> \
+-    </node>";
+-
+-function Key() {
+-    this._init.apply(this, arguments);
+-}
+-
+-Key.prototype = {
+-    _init : function(key) {
+-        this._key = key;
+-
+-        this.actor = this._makeKey();
+-        this.actor.connect('destroy', Lang.bind(this, this._onDestroy));
+-
+-        this._extended_keys = this._key.get_extended_keys();
+-        this._extended_keyboard = null;
+-
+-        if (this._key.name == 'Control_L' || this._key.name == 'Alt_L')
+-            this._key.latch = true;
+-
+-        this._key.connect('key-pressed', Lang.bind(this, function ()
+-                                                   { this.actor.checked = true }));
+-        this._key.connect('key-released', Lang.bind(this, function ()
+-                                                    { this.actor.checked = false; }));
+-
+-        if (this._extended_keys.length > 0) {
+-            this._grabbed = false;
+-            this._eventCaptureId = 0;
+-            this._key.connect('notify::show-subkeys', Lang.bind(this, this._onShowSubkeysChanged));
+-            this._boxPointer = new BoxPointer.BoxPointer(St.Side.BOTTOM,
+-                                                         { x_fill: true,
+-                                                           y_fill: true,
+-                                                           x_align: St.Align.START });
+-            // Adds style to existing keyboard style to avoid repetition
+-            this._boxPointer.actor.add_style_class_name('keyboard-subkeys');
+-            this._getExtendedKeys();
+-            this.actor._extended_keys = this._extended_keyboard;
+-            this._boxPointer.actor.hide();
+-            Main.layoutManager.addChrome(this._boxPointer.actor, { visibleInFullscreen: true });
+-        }
+-    },
+-
+-    _onDestroy: function() {
+-        if (this._boxPointer) {
+-            this._boxPointer.actor.destroy();
+-            this._boxPointer = null;
+-        }
+-    },
+-
+-    _makeKey: function () {
+-        let label = GLib.markup_escape_text(this._key.label, -1);
+-        let button = new St.Button ({ label: label,
+-                                      style_class: 'keyboard-key' });
+-
+-        button.key_width = this._key.width;
+-        button.connect('button-press-event', Lang.bind(this, function () { this._key.press(); }));
+-        button.connect('button-release-event', Lang.bind(this, function () { this._key.release(); }));
+-
+-        return button;
+-    },
+-
+-    _getUnichar: function(key) {
+-        let keyval = key.keyval;
+-        let unichar = Gdk.keyval_to_unicode(keyval);
+-        if (unichar) {
+-            return String.fromCharCode(unichar);
+-        } else {
+-            return key.name;
+-        }
+-    },
+-
+-    _getExtendedKeys: function () {
+-        this._extended_keyboard = new St.BoxLayout({ style_class: 'keyboard-layout',
+-                                                     vertical: false });
+-        for (let i = 0; i < this._extended_keys.length; ++i) {
+-            let extended_key = this._extended_keys[i];
+-            let label = this._getUnichar(extended_key);
+-            let key = new St.Button({ label: label, style_class: 'keyboard-key' });
+-            key.extended_key = extended_key;
+-            key.connect('button-press-event', Lang.bind(this, function () { extended_key.press(); }));
+-            key.connect('button-release-event', Lang.bind(this, function () { extended_key.release(); }));
+-            this._extended_keyboard.add(key);
+-        }
+-        this._boxPointer.bin.add_actor(this._extended_keyboard);
+-    },
+-
+-    _onEventCapture: function (actor, event) {
+-        let source = event.get_source();
+-        let type = event.type();
+-
+-        if ((type == Clutter.EventType.BUTTON_PRESS ||
+-             type == Clutter.EventType.BUTTON_RELEASE) &&
+-            this._extended_keyboard.contains(source)) {
+-            source.extended_key.press();
+-            source.extended_key.release();
+-            return false;
+-        }
+-        if (type == Clutter.EventType.BUTTON_PRESS) {
+-            this._boxPointer.actor.hide();
+-            this._ungrab();
+-            return true;
+-        }
+-        return false;
+-    },
+-
+-    _ungrab: function () {
+-        global.stage.disconnect(this._eventCaptureId);
+-        this._eventCaptureId = 0;
+-        this._grabbed = false;
+-        Main.popModal(this.actor);
+-    },
+-
+-    _onShowSubkeysChanged: function () {
+-        if (this._key.show_subkeys) {
+-            this.actor.fake_release();
+-            this._boxPointer.actor.raise_top();
+-            this._boxPointer.setPosition(this.actor, 0.5);
+-            this._boxPointer.show(true);
+-            this.actor.set_hover(false);
+-            if (!this._grabbed) {
+-                 Main.pushModal(this.actor);
+-                 this._eventCaptureId = global.stage.connect('captured-event', Lang.bind(this, this._onEventCapture));
+-                 this._grabbed = true;
+-            }
+-            this._key.release();
+-        } else {
+-            if (this._grabbed)
+-                this._ungrab();
+-            this._boxPointer.hide(true);
+-        }
+-    }
+-};
+-
+-function Keyboard() {
+-    this._init.apply(this, arguments);
+-}
+-
+-Keyboard.prototype = {
+-    _init: function () {
+-        this._impl = Gio.DBusExportedObject.wrapJSObject(CaribouKeyboardIface, this);
+-        this._impl.export(Gio.DBus.session, '/org/gnome/Caribou/Keyboard');
+-
+-        this.actor = null;
+-        this.monitorIndex = 0;
+-        this._focusInExtendedKeys = false;
+-
+-        this._timestamp = global.display.get_current_time_roundtrip();
+-        Main.layoutManager.connect('monitors-changed', Lang.bind(this, this._redraw));
+-
+-        this._keyboardSettings = new Gio.Settings({ schema_id: KEYBOARD_SCHEMA });
+-        this._keyboardSettings.connect('changed', Lang.bind(this, this._settingsChanged));
+-        this._a11yApplicationsSettings = new Gio.Settings({ schema_id: A11Y_APPLICATIONS_SCHEMA });
+-        this._a11yApplicationsSettings.connect('changed', Lang.bind(this, this._settingsChanged));
+-        this._settingsChanged();
+-    },
+-
+-    init: function () {
+-        this._redraw();
+-    },
+-
+-    // _compareTimestamp:
+-    //
+-    // Compare two timestamps taking into account
+-    // CURRENT_TIME (0)
+-    _compareTimestamp: function(one, two) {
+-        if (one == two)
+-            return 0;
+-        if (one == Clutter.CURRENT_TIME)
+-            return 1;
+-        if (two == Clutter.CURRENT_TIME)
+-            return -1;
+-        return one - two;
+-    },
+-
+-    _settingsChanged: function (settings, key) {
+-        this._enableKeyboard = this._a11yApplicationsSettings.get_boolean(SHOW_KEYBOARD);
+-        this.accessibleMode = this._keyboardSettings.get_string(ACTIVATION_MODE) == "accessible";
+-        this.keyboard_size = this._keyboardSettings.get_int(KEYBOARD_SIZE);
+-        this.keyboard_position = this._keyboardSettings.get_string(KEYBOARD_POSITION);
+-
+-        if (!this._enableKeyboard && !this._keyboard)
+-            return;
+-
+-        if (this._enableKeyboard && this._keyboard &&
+-            this._keyboard.keyboard_type == this._keyboardSettings.get_string(KEYBOARD_TYPE))
+-            return;
+-
+-        if (this._keyboard)
+-            this._destroyKeyboard();
+-
+-        if (this._enableKeyboard) {
+-            // If we've been called because the setting actually just
+-            // changed to true (as opposed to being called from
+-            // this._init()), then we want to pop up the keyboard.
+-            let showKeyboard = (settings != null);
+-
+-            // However, caribou-gtk-module or this._onKeyFocusChanged
+-            // will probably immediately tell us to hide it, so we
+-            // have to fake things out so we'll ignore that request.
+-            if (showKeyboard)
+-                this._timestamp = global.display.get_current_time_roundtrip() + 1;
+-            this._setupKeyboard(showKeyboard);
+-        } else
+-            Main.layoutManager.hideKeyboard(true);
+-    },
+-
+-    _destroyKeyboard: function() {
+-        if (this._keyboardNotifyId)
+-            this._keyboard.disconnect(this._keyboardNotifyId);
+-        if (this._focusNotifyId)
+-            global.stage.disconnect(this._focusNotifyId);
+-        this._keyboard = null;
+-        this.actor.destroy();
+-        this.actor = null;
+-    },
+-
+-    _setupKeyboard: function(show) {
+-        this.actor = new St.BoxLayout({ name: 'keyboard', vertical: true, reactive: true });
+-        Main.layoutManager.keyboardBox.add_actor(this.actor);
+-        Main.layoutManager.trackChrome(this.actor);
+-
+-        this._keyboard = new Caribou.KeyboardModel({ keyboard_type: this._keyboardSettings.get_string(KEYBOARD_TYPE) });
+-        this._groups = {};
+-        this._current_page = null;
+-
+-        // Initialize keyboard key measurements
+-        this._numOfHorizKeys = 0;
+-        this._numOfVertKeys = 0;
+-
+-        this._addKeys();
+-
+-        // Keys should be layout according to the group, not the
+-        // locale; as Caribou already provides the expected layout,
+-        // this means enforcing LTR for all locales.
+-        this.actor.text_direction = Clutter.TextDirection.LTR;
+-
+-        //this._keyboardNotifyId = this._keyboard.connect('notify::active-group', Lang.bind(this, this._onGroupChanged));
+-        //this._focusNotifyId = global.stage.connect('notify::key-focus', Lang.bind(this, this._onKeyFocusChanged));
+-
+-        if (show)
+-            this.show();
+-    },
+-
+-    _onKeyFocusChanged: function () {
+-        let focus = global.stage.key_focus;
+-
+-        // Showing an extended key popup and clicking a key from the extended keys
+-        // will grab focus, but ignore that
+-        let extendedKeysWereFocused = this._focusInExtendedKeys;
+-        this._focusInExtendedKeys = focus && (focus._extended_keys || focus.extended_key);
+-        if (this._focusInExtendedKeys || extendedKeysWereFocused)
+-            return;
+-
+-        let time = global.get_current_time();
+-        if (focus instanceof Clutter.Text)
+-            this.Show(time);
+-        else
+-            this.Hide(time);
+-    },
+-
+-    _addKeys: function () {
+-        let groups = this._keyboard.get_groups();
+-        for (let i = 0; i < groups.length; ++i) {
+-             let gname = groups[i];
+-             let group = this._keyboard.get_group(gname);
+-             group.connect('notify::active-level', Lang.bind(this, this._onLevelChanged));
+-             let layers = {};
+-             let levels = group.get_levels();
+-             for (let j = 0; j < levels.length; ++j) {
+-                 let lname = levels[j];
+-                 let level = group.get_level(lname);
+-                 let layout = new St.BoxLayout({ style_class: 'keyboard-layout',
+-                                                 vertical: true });
+-                 this._loadRows(level, layout);
+-                 layers[lname] = layout;
+-                 this.actor.add(layout, { x_fill: false });
+-
+-                 layout.hide();
+-             }
+-             this._groups[gname] = layers;
+-        }
+-
+-        this._setActiveLayer();
+-    },
+-
+-    _addRows : function (keys, layout) {
+-        let keyboard_row = new St.BoxLayout();
+-        for (let i = 0; i < keys.length; ++i) {
+-            let children = keys[i].get_children();
+-
+-            // keys can be more or less than a standard key 'width' (like shift, enter keys)
+-            // adjusted_children will add these multipliers rather than just 1 for a single key,
+-            // in order to get the actual width of all keys together, so we don't overflow the monitor.
+-            let adjusted_children = 0;
+-            let right_box = new St.BoxLayout({ style_class: 'keyboard-row' });
+-            let left_box = new St.BoxLayout({ style_class: 'keyboard-row' });
+-            for (let j = 0; j < children.length; ++j) {
+-                let key = children[j];
+-                let button = new Key(key);
+-                // (caribou) key.width is a multiplier, like 1 or 1.5
+-                adjusted_children += key.width;
+-
+-                if (key.align == 'right')
+-                    right_box.add(button.actor);
+-                else
+-                    left_box.add(button.actor);
+-                if (key.name == 'Caribou_Prefs') {
+-                    key.connect('key-released', Lang.bind(this, this.hide));
+-                }
+-
+-                this._numOfHorizKeys = Math.max(Math.ceil(adjusted_children), this._numOfHorizKeys);
+-            }
+-            keyboard_row.add(left_box, { expand: true, x_fill: false, x_align: St.Align.START });
+-            keyboard_row.add(right_box, { expand: true, x_fill: false, x_align: St.Align.END });
+-        }
+-        layout.add(keyboard_row);
+-    },
+-
+-    _loadRows : function (level, layout) {
+-        let rows = level.get_rows();
+-        for (let i = 0; i < rows.length; ++i) {
+-            let row = rows[i];
+-            this._numOfVertKeys = Math.max(rows.length, this._numOfVertKeys);
+-            this._addRows(row.get_columns(), layout);
+-        }
+-    },
+-
+-    _redraw: function () {
+-        let focus = Main.layoutManager.focusMonitor;
+-        let index = Main.layoutManager.focusIndex;
+-        if (!this._enableKeyboard || focus == null)
+-            return;
+-
+-
+-        let panelPadding = 0;
+-        let panels = Main.getPanels();
+-        if(panels) {
+-            let [topPadding, bottomPadding] = Panel.heightsUsedMonitor(index, panels);
+-            if(this.keyboard_position == "bottom") {
+-                this.actor.style = `padding-bottom: ${ bottomPadding / global.ui_scale }px; padding-top: 0;`;
+-                panelPadding = bottomPadding;
+-            } else {
+-                this.actor.style = `padding-top: ${ topPadding / global.ui_scale }px; padding-bottom: 0;`;
+-                panelPadding = topPadding;
+-            }
+-        }
+-
+-        Main.layoutManager.keyboardBox.set_size(focus.width, -1);
+-        this.actor.width = focus.width;
+-
+-        let maxHeight = focus.height / this.keyboard_size;
+-
+-        this.monitorIndex = index;
+-
+-        let layout = this._current_page;
+-        let verticalSpacing = layout.get_theme_node().get_length('spacing') / this.keyboard_size;
+-        let vpadding = layout.get_theme_node().get_vertical_padding();
+-        let hpadding = layout.get_theme_node().get_horizontal_padding();
+-
+-        let box = layout.get_child_at_index(0).get_child_at_index(0);
+-        let horizontalSpacing = box.get_theme_node().get_length('spacing') / this.keyboard_size;
+-        let allHorizontalSpacing = (this._numOfHorizKeys - 1) * horizontalSpacing;
+-        let keyWidth = Math.floor((this.actor.width - allHorizontalSpacing - hpadding) / this._numOfHorizKeys);
+-
+-        let allVerticalSpacing = (this._numOfVertKeys - 1) * verticalSpacing;
+-        let keyHeight = Math.floor((maxHeight - allVerticalSpacing - vpadding) / this._numOfVertKeys);
+-
+-        let keySize = Math.min(keyWidth, keyHeight);
+-
+-        let rows = this._current_page.get_children();
+-        for (let i = 0; i < rows.length; ++i) {
+-            let keyboard_row = rows[i];
+-            let boxes = keyboard_row.get_children();
+-            for (let j = 0; j < boxes.length; ++j) {
+-                let keys = boxes[j].get_children();
+-                for (let k = 0; k < keys.length; ++k) {
+-                    let child = keys[k];
+-                    child.width = keySize * child.key_width;
+-                    child.height = keySize;
+-                    if (child._extended_keys) {
+-                        let extended_keys = child._extended_keys.get_children();
+-                        for (let n = 0; n < extended_keys.length; ++n) {
+-                            let extended_key = extended_keys[n];
+-                            extended_key.width = keySize;
+-                            extended_key.height = keySize;
+-                        }
+-                    }
+-                }
+-            }
+-        }
+-
+-        let keyboard_y = 0;
+-        if (this.keyboard_position == "bottom") {
+-            keyboard_y = focus.y + focus.height - this.actor.height;
+-        }
+-
+-        Main.layoutManager.keyboardBox.set_position(focus.x, keyboard_y);
+-    },
+-
+-    _onLevelChanged: function () {
+-        this._setActiveLayer();
+-        this._redraw();
+-    },
+-
+-    _onGroupChanged: function () {
+-        this._setActiveLayer();
+-        this._redraw();
+-    },
+-
+-    _setActiveLayer: function () {
+-        let active_group_name = this._keyboard.active_group;
+-        let active_group = this._keyboard.get_group(active_group_name);
+-        let active_level = active_group.active_level;
+-        let layers = this._groups[active_group_name];
+-
+-        if (this._current_page != null) {
+-            this._current_page.hide();
+-        }
+-
+-        this._current_page = layers[active_level];
+-        this._current_page.show();
+-    },
+-
+-    toggle: function() {
+-        if (!this._a11yApplicationsSettings.get_boolean(SHOW_KEYBOARD)) {
+-            /* This will show the keyboard also, so we don't need to do a separate call */
+-            this._a11yApplicationsSettings.set_boolean (SHOW_KEYBOARD, true);
+-        } else {
+-            if (Main.layoutManager.keyboardBox.visible)
+-                this.hide();
+-            else
+-                this.show();
+-        }
+-    },
+-
+-    show: function () {
+-        let needs_redraw = this.monitorIndex != Main.layoutManager.focusIndex;
+-
+-        if (!Main.layoutManager._keyboardVisible || needs_redraw)
+-            this._redraw();
+-
+-        Main.layoutManager.showKeyboard();
+-    },
+-
+-    hide: function () {
+-        Main.layoutManager.queueHideKeyboard();
+-    },
+-
+-    _moveTemporarily: function () {
+-        let currentWindow = global.display.focus_window;
+-        let rect = currentWindow.get_outer_rect();
+-
+-        let newX = rect.x;
+-        let newY = 3 * this.actor.height / 2;
+-        currentWindow.move_frame(true, newX, newY);
+-    },
+-
+-    _setLocation: function (x, y) {
+-        if (y >= 2 * this.actor.height)
+-            this._moveTemporarily();
+-    },
+-
+-    shouldTakeEvent: function(event) {
+-        let actor = event.get_source();
+-        return !actor.is_finalized()
+-            && (Main.layoutManager.keyboardBox.contains(actor)
+-                || actor.maybeGet("_extended_keys")
+-                || actor.maybeGet("extended_key"));
+-    },
+-
+-    // D-Bus methods
+-    Show: function(timestamp) {
+-        if (!this._enableKeyboard || !this.accessibleMode)
+-            return;
+-
+-        if (this._compareTimestamp(timestamp, this._timestamp) < 0)
+-            return;
+-
+-        if (timestamp != Clutter.CURRENT_TIME)
+-            this._timestamp = timestamp;
+-        this.show();
+-    },
+-
+-    Hide: function(timestamp) {
+-        if (!this._enableKeyboard || !this.accessibleMode)
+-            return;
+-
+-        if (this._compareTimestamp(timestamp, this._timestamp) < 0)
+-            return;
+-
+-        if (timestamp != Clutter.CURRENT_TIME)
+-            this._timestamp = timestamp;
+-        this.hide();
+-    },
+-
+-    SetCursorLocation: function(x, y, w, h) {
+-        if (!this._enableKeyboard || !this.accessibleMode)
+-            return;
+-    },
+-
+-    SetEntryLocation: function(x, y, w, h) {
+-        if (!this._enableKeyboard || !this.accessibleMode)
+-            return;
+-    },
+-
+-    get Name() {
+-        return 'cinnamon';
+-    }
+-};
+diff --git a/src/main.c b/src/main.c
+index b07c3dc..5775aa6 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -146,11 +146,6 @@ cinnamon_dbus_init (gboolean  replace,
+   /* ...and the org.gnome.Magnifier service. */
+                             MAGNIFIER_DBUS_SERVICE, FALSE,
+                             NULL);
+-  /* ...and the on-screen keyboard service */
+-  cinnamon_dbus_acquire_name (bus,
+-                           DBUS_NAME_FLAG_REPLACE_EXISTING,
+-                           &request_name_result,
+-                           "org.gnome.Caribou.Keyboard", FALSE);
+ 
+   /* At login, cinnamon.desktop requests that cinnamon-session start cinnamon
+    * during CSM_MANAGER_PHASE_WINDOW_MANAGER.  This call should return FALSE.

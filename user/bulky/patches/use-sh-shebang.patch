@@ -1,0 +1,7 @@
+diff -ru a/usr/bin/bulky b/usr/bin/bulky
+--- a/usr/bin/bulky	2024-07-21 17:26:01.000000000 +0800
++++ b/usr/bin/bulky	2024-09-10 11:45:49.044165427 +0800
+@@ -1,2 +1,2 @@
+-#!/bin/bash
++#!/bin/sh
+ /usr/lib/bulky/bulky.py "$@" &
