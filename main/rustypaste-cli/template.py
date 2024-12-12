@@ -1,5 +1,5 @@
 pkgname = "rustypaste-cli"
-pkgver = "0.9.1"
+pkgver = "0.9.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -13,7 +13,9 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/orhun/rustypaste-cli"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c5defaf6357e2ab8dc7b0e3f3e9e2012b79590b0af6cf16dd65ef0eabfb7c73a"
+sha256 = "747c4690631082e3cfbdf7bf4656ac9a76db4ea6bb3f067f24a982ea00f16cc2"
+# no tests defined
+options = ["!check"]
 
 
 def install(self):
