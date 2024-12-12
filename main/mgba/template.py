@@ -1,6 +1,6 @@
 pkgname = "mgba"
-pkgver = "0.10.3"
-pkgrel = 1
+pkgver = "0.10.4"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -27,7 +27,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MPL-2.0"
 url = "https://mgba.io"
 source = f"https://github.com/mgba-emu/mgba/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "be2cda7de3da8819fdab0c659c5cd4c4b8ca89d9ecddeeeef522db6d31a64143"
+sha256 = "f85eeb8f78f847f5217a87bd5e2d6c1214b461ffd4ec129cc656162ab707cb24"
 hardening = ["!int"]
 
 
