@@ -1,0 +1,38 @@
+From db9f29d4994d1ccb14f4abbfab335c23b5b1bd84 Mon Sep 17 00:00:00 2001
+From: Thiago Macieira <thiago.macieira@intel.com>
+Date: Wed, 1 May 2024 18:01:24 -0700
+Subject: [PATCH] CI/Makefile: do allow Qt 6
+
+I don't think we need to worry about Qt 4 any more.
+
+Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
+---
+ .github/workflows/build.yml |  2 +-
+ Makefile                    | 14 --------------
+ 2 files changed, 1 insertion(+), 15 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 26925eee..6df16553 100644
+--- a/Makefile
++++ b/Makefile
+@@ -65,20 +65,6 @@ VERSION = $(shell cat $(SRCDIR)VERSION)
+ SOVERSION = $(shell cut -f1-2 -d. $(SRCDIR)VERSION)
+ PACKAGE = tinycbor-$(VERSION)
+ 
+-# Check that QMAKE is Qt 5
+-ifeq ($(origin QMAKE),file)
+-  check_qmake = $(strip $(shell $(1) -query QT_VERSION 2>/dev/null | cut -b1))
+-  ifneq ($(call check_qmake,$(QMAKE)),5)
+-    QMAKE := qmake -qt5
+-    ifneq ($(call check_qmake,$(QMAKE)),5)
+-      QMAKE := qmake-qt5
+-      ifneq ($(call check_qmake,$(QMAKE)),5)
+-        QMAKE := @echo >&2 $(MAKEFILE): Cannot find a Qt 5 qmake; false
+-      endif
+-    endif
+-  endif
+-endif
+-
+ -include .config
+ 
+ ifeq ($(wildcard .config),)
