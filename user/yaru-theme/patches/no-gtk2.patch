@@ -1,0 +1,34 @@
+--- ./gtk/src/meson.build	2024-09-11 11:08:53.000000000 +0800
++++ ./gtk/src/meson.build	2024-12-09 10:13:01.912924241 +0800
+@@ -75,30 +75,7 @@
+     ]
+ 
+     if gtk_ver == '2.0'
+-      rc_paths = []
+-      foreach src: sources_priority
+-        rc_paths = [ src ] + rc_paths
+-      endforeach
+-
+-      gtk2_sources_data = run_command(
+-        'find',
+-        rc_paths,
+-        '-name', '*rc'
+-        ).stdout().strip().split('\n')
+-
+-      install_data(gtk2_sources_data, install_dir: install_path)
+-
+-      assets_paths = []
+-      foreach src: sources_priority
+-        assets_paths = [ src / 'assets' ] + assets_paths
+-      endforeach
+-
+-      gtk2_asset_data = run_command(
+-        'find', assets_paths, '-name', '*.png'
+-        ).stdout().strip().split('\n')
+-
+-      install_data(gtk2_asset_data, install_dir: install_path / 'assets')
+-
++      message('Skipping GTK2')
+       continue
+     endif
+ 
