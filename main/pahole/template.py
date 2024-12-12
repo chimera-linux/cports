@@ -1,6 +1,6 @@
 pkgname = "pahole"
-pkgver = "1.27"
-pkgrel = 4
+pkgver = "1.28"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-D__LIB=lib",
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/devel/pahole/pahole.git"
 source = f"https://fedorapeople.org/~acme/dwarves/dwarves-{pkgver}.tar.xz"
-sha256 = "81e227af6fe6a3228d64211a80209f7cd86022a6bd48c53302124cef76154505"
+sha256 = "a4c1a3c16c7d41f27eba8323e05b59fe33581832d5c50ef8390fa102d75a16e3"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
