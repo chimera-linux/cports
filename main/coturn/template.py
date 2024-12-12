@@ -3,6 +3,7 @@ pkgver = "4.6.2"
 pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--turndbdir=/var/lib/coturn"]
+# Custom configure script
 configure_gen = []
 make_dir = "."
 make_check_target = "test"

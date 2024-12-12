@@ -10,6 +10,7 @@ configure_args = [
     "ac_cv_lib_error_at_line=no",
     "ac_cv_header_sys_cdefs_h=no",
 ]
+# autoreconf: error: /usr/bin/autoheader failed with exit status: 1
 configure_gen = []
 make_check_target = "tests"
 hostmakedepends = ["bison", "texinfo"]

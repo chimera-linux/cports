@@ -3,9 +3,7 @@ pkgver = "1.3.20240619"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-ncursesw", "--disable-nls"]
-# broken to reconf
-configure_gen = []
-makedepends = ["ncurses-devel"]
+makedepends = ["automake", "ncurses-devel"]
 pkgdesc = "Tool to display dialog boxes from shell scripts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
