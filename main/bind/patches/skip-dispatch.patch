@@ -2,12 +2,13 @@ on ppc64le:
 netmgr/netmgr.c:293:isc__netmgr_create(): fatal error: uv_loop_init failed: too many open files
 raising the limit to 4096 works but there is no ergonomic way to do that in cbuild yet
 --
---- a/tests/dns/Makefile.am
-+++ b/tests/dns/Makefile.am
-@@ -24,7 +24,6 @@
- 	dbdiff_test		\
+diff -ruN a/tests/dns/Makefile.am b/tests/dns/Makefile.am
+--- a/tests/dns/Makefile.am	2024-12-03 13:33:16.153051290 +0100
++++ b/tests/dns/Makefile.am	2024-12-12 22:32:31.200862480 +0100
+@@ -25,7 +25,6 @@
  	dbiterator_test		\
  	dbversion_test		\
+ 	diff_test		\
 -	dispatch_test		\
  	dns64_test		\
  	dst_test		\
