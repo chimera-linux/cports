@@ -17,4 +17,13 @@ for KVER in $(linux-version list | linux-version sort --reverse); do
     # else do nothing...
 done
 
+# prune initramfs that don't correspond to any kernel anymore
+# mostly for cleanup of junk from the old system...
+for initrd in /boot/initrd.img-*; do
+    kver=${initrd#/boot/initrd.img-}
+    if [ ! -f "/usr/lib/modules/${kver}/modules.order" ]; then
+        rm -rf "$initrd"
+    fi
+done
+
 exit $KRET

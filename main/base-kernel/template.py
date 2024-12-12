@@ -1,9 +1,10 @@
 pkgname = "base-kernel"
 pkgver = "0.2"
-pkgrel = 6
+pkgrel = 7
 depends = [
     "kmod",
     "procps",
+    "rsync",
     "cmd:findmnt!mount",
 ]
 # all paths that should result in kernel.d hooks being rerun
@@ -26,6 +27,8 @@ def install(self):
     self.install_dir("usr/lib/base-kernel")
     self.install_dir("usr/libexec/base-kernel")
 
+    # obsolete scripts only for old kernel packages
+    # to be removed in some months...
     for f in [
         "kernel-clean-initramfs",
         "kernel-pre-upgrade",
@@ -93,6 +96,7 @@ def install(self):
         name="chimera-stripko",
     )
 
+    # this is for the old kernel system, remove later
     self.install_file(
         self.files_path / "chimera-prunekernels.sh",
         "usr/bin",
@@ -104,17 +108,17 @@ def install(self):
         self.files_path / "49-depmod.sh", "usr/lib/kernel.d", mode=0o755
     )
 
-    # setup and prune hooks; WIP so don't install for now
-    # self.install_file(
-    #    self.files_path / "00-setup-kernels.sh",
-    #    "usr/lib/kernel.d",
-    #    mode=0o755,
-    # )
-    # self.install_file(
-    #    self.files_path / "05-prune-kernels.sh",
-    #    "usr/lib/kernel.d",
-    #    mode=0o755,
-    # )
+    # setup and prune hooks
+    self.install_file(
+       self.files_path / "00-setup-kernels.sh",
+       "usr/lib/kernel.d",
+       mode=0o755,
+    )
+    self.install_file(
+       self.files_path / "05-prune-kernels.sh",
+       "usr/lib/kernel.d",
+       mode=0o755,
+    )
 
 
 @subpackage("base-kernel-devel")

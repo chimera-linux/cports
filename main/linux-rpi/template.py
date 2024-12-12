@@ -35,13 +35,6 @@ if self.profile().cross:
     broken = "linux-devel does not come out right"
 
 
-def init_configure(self):
-    # generate scripts for packaging, just hooking to base-kernel helpers
-    from cbuild.util import linux
-
-    linux.generate_scripts(self, _flavor)
-
-
 def configure(self):
     from cbuild.util import linux
 
@@ -77,4 +70,4 @@ def _(self):
         "execstack",
         "textrels",
     ]
-    return ["usr/lib/debug", "boot/System.map-*"]
+    return ["usr/lib/debug", "usr/lib/modules/*/apk-dist/boot/System.map-*"]

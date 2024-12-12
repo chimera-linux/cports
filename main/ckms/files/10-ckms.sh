@@ -10,42 +10,55 @@ for kern in /usr/lib/modules/*; do
     for dismod in "${kern}/ckms-disable"/*; do
         [ -d "${dismod}" ] || continue
         modname=${dismod#${kern}/ckms-disable/}
-        for disver in "${dismod}"/*; do
+        for disver in /var/lib/ckms/${modname}/*; do
             [ -e "${disver}" ] || continue
-            modver=${disver#${dismod}/}
-            modbase="/var/lib/ckms/${modname}"
             # nuke kernel-specific state bits
-            rm -rf "${modbase}/${modver}/${kernver}"
-            rm -f "${modbase}/kernel-${kernver}-"*
+            rm -rf "${disver}/${kernver}"
+        done
+        rm -f "/var/lib/ckms/${modname}/kernel-${kernver}-"*
+    done
+done
+
+# prune statedirs for backup kernels in the modern system
+for kern in /usr/lib/modules/*; do
+    [ -d "${kern}" ] || continue
+    # custom kernel, old system, etc.
+    [ -f "${kern}/.apk-series" ] || continue
+    # installed kernel
+    [ -f "${kern}/apk-dist/.apk-series" ] && continue
+    kernver=${kern#/usr/lib/modules/}
+    # now prune
+    for ckmod in /var/lib/ckms/*; do
+        [ -d "${ckmod}" ] || continue
+        modname=${ckmod#/var/lib/ckms/}
+        rm -f "${ckmod}/kernel-${kernver}-"*
+        for ckver in "${ckmod}"/*; do
+            [ -d "${ckver}" ] || continue
+            rm -rf "${ckver}/${kernver}"
         done
     done
 done
 
 # clean up whatever ckms manages if the kernel is already gone
-
-for kern in /usr/lib/modules/*; do
-    [ -d "${kern}" ] || continue
-    kernver=${kern#/usr/lib/modules/}
-    # only consider removed kernels
-    [ -f "${kern}/modules.order" ] && continue
-    # skip early
-    [ "${kernver}" = "apk-backup" ] && continue
-    # uninstall everything installed for that kernel
-    ckms -q -k "${kernver}" plain-status | \
-        while read modn modv kernv karch status; do
-            # remove installed modules
-            if [ "$status" = "installed" ]; then
-                # uninstall
-                ckms -k "${kernv}" uninstall "${modn}=${modv}" || \
-                    echo "FAILED: uninstall ${modn}=${modv} for ${kernv}"
-                status="built"
+for mod in /var/lib/ckms/*; do
+    [ -d "$mod" ] || continue
+    # prune kerndirs first
+    for ver in "${mod}"/*; do
+        [ -L "$ver" -o ! -d "$ver" ] && continue
+        for cont in "${ver}"/*; do
+            [ -d "$cont" ] || continue
+            [ -L "$cont" ] && continue
+            kernver=${cont#${ver}/}
+            if [ ! -f "/usr/lib/modules/${kernver}/modules.order" ]; then
+                rm -rf "${cont}"
             fi
-            if [ "$status" = "built" -o "$status" = "built+disabled" ]; then
-                # clean up
-                ckms -k "${kernv}" clean "${modn}=${modv}" || \
-                    echo "FAILED: clean ${modn}=${modv} for ${kernv}"
-            fi
-        done || :
+        done
+    done
+    # now prune leftover links
+    for lnk in "${mod}"/*; do
+        [ -L "$lnk" ] || continue
+        [ -e "$lnk" ] || rm -f "$lnk"
+    done
 done
 
 # after that, prune ckms modules that are no longer installed
