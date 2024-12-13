@@ -1,6 +1,6 @@
 pkgname = "kvantum"
 pkgver = "1.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 cmake_dir = "Kvantum"
 hostmakedepends = [
@@ -23,4 +23,4 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/tsujan/Kvantum"
 source = f"{url}/releases/download/V{pkgver}/Kvantum-{pkgver}.tar.xz"
 sha256 = "d9e4eca0c0a760a032c7c26c1baffa1409eb2ad6f1c05d341109fa5751a3f041"
-hardening = ["vis", "cfi"]
+hardening = ["vis", "cfi", "!int"]
