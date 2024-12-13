@@ -101,7 +101,9 @@ def install(pkg, flavor, env=None):
     for f in (pkg.destdir / kpath).iterdir():
         match f.name:
             case (
-                "modules.builtin" | "modules.builtin.modinfo" | "modules.order"
+                "modules.builtin"
+                | "modules.builtin.modinfo"
+                | "modules.order"
             ):
                 # these get moved to dist always
                 pkg.mv(f, f.parent / "apk-dist")
