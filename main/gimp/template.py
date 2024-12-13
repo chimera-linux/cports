@@ -86,9 +86,6 @@ hardening = ["!int"]
 # needs graphical env (gtk3 broken in weston headless)
 options = ["!cross", "!check"]
 
-if self.profile().arch == "ppc64":
-    broken = "hangs forever in last build step"
-
 
 @subpackage("gimp-libs")
 def _(self):
