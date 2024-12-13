@@ -110,14 +110,14 @@ def install(self):
 
     # setup and prune hooks
     self.install_file(
-       self.files_path / "00-setup-kernels.sh",
-       "usr/lib/kernel.d",
-       mode=0o755,
+        self.files_path / "00-setup-kernels.sh",
+        "usr/lib/kernel.d",
+        mode=0o755,
     )
     self.install_file(
-       self.files_path / "05-prune-kernels.sh",
-       "usr/lib/kernel.d",
-       mode=0o755,
+        self.files_path / "05-prune-kernels.sh",
+        "usr/lib/kernel.d",
+        mode=0o755,
     )
 
 
