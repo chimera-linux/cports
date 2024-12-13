@@ -9,7 +9,6 @@ make_build_args = [
 make_use_env = True
 hostmakedepends = [
     "bash",
-    "gimp",
     "pkgconf",
     "qt6-qtbase",
 ]
