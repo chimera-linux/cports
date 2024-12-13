@@ -1,8 +1,0 @@
-#!/bin/sh
-
-ver_old=$2
-
-if [ "$(apk version -t "$ver_old" '1.21.0-r1')" = '<' ]; then
-  # apk's handling of symlink transitions is totally busted
-  echo "If upgrading from go=1.21.0-r1 or older, please del and add the package for clean transition."
-fi
