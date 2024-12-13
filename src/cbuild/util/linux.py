@@ -100,11 +100,10 @@ def install(pkg, flavor, env=None):
     # and relocate other distribution files
     for f in (pkg.destdir / kpath).iterdir():
         match f.name:
-            case (
-                "modules.builtin" | "modules.builtin.modinfo" | "modules.order"
-            ):
-                # these get moved to dist always
-                pkg.mv(f, f.parent / "apk-dist")
+            case "modules.builtin" | "modules.builtin.modinfo":
+                pass
+            case "modules.order":
+                pass
             case "build" | "apk-dist":
                 # this stays where it is
                 continue
@@ -113,8 +112,8 @@ def install(pkg, flavor, env=None):
                 if f.name.startswith("modules."):
                     f.unlink()
                     continue
-                # other stuff gets moved too
-                pkg.mv(f, f.parent / "apk-dist")
+        # these get moved to dist always
+        pkg.mv(f, f.parent / "apk-dist")
 
 
 # api to manipulate out of tree modules
