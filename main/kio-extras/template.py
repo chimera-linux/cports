@@ -1,6 +1,6 @@
 pkgname = "kio-extras"
 pkgver = "24.08.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # thumbnail: fails for some reason
 # testkioarchive: fails to open tar, support seems to not be detected
