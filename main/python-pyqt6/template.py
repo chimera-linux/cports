@@ -1,5 +1,5 @@
 pkgname = "python-pyqt6"
-pkgver = "6.7.1"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "makefile"
 make_dir = "build"
@@ -28,7 +28,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://www.riverbankcomputing.com/software/pyqt"
 source = f"$(PYPI_SITE)/P/PyQt6/PyQt6-{pkgver}.tar.gz"
-sha256 = "3672a82ccd3a62e99ab200a13903421e2928e399fda25ced98d140313ad59cb9"
+sha256 = "6d8628de4c2a050f0b74462e4c9cb97f839bf6ffabbca91711722ffb281570d9"
 # qmake needs a lot of setup to cross anything
 options = ["!cross"]
 

@@ -1,5 +1,5 @@
 pkgname = "python-pyqt6-webengine"
-pkgver = "6.7.0"
+pkgver = "6.8.0"
 pkgrel = 0
 build_style = "makefile"
 make_dir = "build"
@@ -25,7 +25,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://pypi.org/project/PyQt6-WebEngine"
 source = f"$(PYPI_SITE)/P/PyQt6_WebEngine/PyQt6_WebEngine-{pkgver}.tar.gz"
-sha256 = "68edc7adb6d9e275f5de956881e79cca0d71fad439abeaa10d823bff5ac55001"
+sha256 = "64045ea622b6a41882c2b18f55ae9714b8660acff06a54e910eb72822c2f3ff2"
 
 
 def configure(self):
