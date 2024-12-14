@@ -1,6 +1,6 @@
 pkgname = "supertuxkart"
 pkgver = "1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
