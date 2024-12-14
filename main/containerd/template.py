@@ -1,6 +1,6 @@
 pkgname = "containerd"
-pkgver = "2.0.0"
-pkgrel = 1
+pkgver = "2.0.1"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = [
     # invokes go, so slower in parallel since races for cache and overloads threads
@@ -31,7 +31,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/containerd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "346d644e1b96e1f4a39bfe9d1eb0eb01ca676f806c12d95e5dbe35325bbc1780"
+sha256 = "a2958e6c97dcc44d2b3fc5f1e0c5cfb267d4620b26b51ff52cbe7bd07678707d"
 # can't run tests inside namespaces
 options = ["!check"]
 
