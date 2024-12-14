@@ -1,5 +1,5 @@
 pkgname = "mise"
-pkgver = "2024.12.6"
+pkgver = "2024.12.11"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -28,7 +28,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://mise.jdx.dev"
 source = f"https://github.com/jdx/mise/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c8f41169d6c9c44dd754ea47cbd83f85b0ba01d721fdbe68f71b30abe05d26e3"
+sha256 = "059ae28e362993ea18df9edc0434c9bbda6abf3bab81b61447c462199acee63a"
 
 
 def install(self):
