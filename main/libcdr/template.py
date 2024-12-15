@@ -1,6 +1,6 @@
 pkgname = "libcdr"
 pkgver = "0.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-debug"]
 make_dir = "."

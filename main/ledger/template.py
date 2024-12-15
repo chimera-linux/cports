@@ -1,6 +1,6 @@
 pkgname = "ledger"
 pkgver = "3.3.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 make_dir = "."
 # see https://github.com/ledger/ledger/issues/1783

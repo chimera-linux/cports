@@ -1,6 +1,6 @@
 pkgname = "mdds"
 pkgver = "2.1.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 checkdepends = ["boost-devel"]

@@ -1,6 +1,6 @@
 pkgname = "highlight"
 pkgver = "4.14"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["boost-devel", "lua5.4-devel"]

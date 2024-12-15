@@ -1,6 +1,6 @@
 pkgname = "lib2geom"
 pkgver = "1.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-D2GEOM_BUILD_SHARED=ON",

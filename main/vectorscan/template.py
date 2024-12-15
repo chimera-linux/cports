@@ -1,6 +1,6 @@
 pkgname = "vectorscan"
 pkgver = "5.4.11"
-pkgrel = 3
+pkgrel = 4
 archs = ["aarch64", "ppc64le", "x86_64"]
 build_style = "cmake"
 configure_args = [
