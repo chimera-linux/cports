@@ -1,6 +1,6 @@
 pkgname = "boost"
-pkgver = "1.86.0"
-pkgrel = 1
+pkgver = "1.87.0"
+pkgrel = 0
 hostmakedepends = ["pkgconf", "python"]
 makedepends = [
     "bzip2-devel",
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "2575e74ffc3ef1cd0babac2c1ee8bdb5782a0ee672b1912da40e5b4b591ca01f"
+sha256 = "f55c340aa49763b1925ccf02b2e83f35fdcf634c9d5164a2acb87540173c741d"
 options = ["empty"]
 
 # libs have semi-auto-generated subpkgs using this array
@@ -184,7 +184,7 @@ def _(self):
     self.depends = [self.parent, *makedepends]
     self.provides = [self.with_pkgver(f"boost{pkgver[:-2]}-devel")]
 
-    return self.default_devel()
+    return self.default_devel(extra=["usr/share/boost_predef"])
 
 
 def _gen_libp(libname):
