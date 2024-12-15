@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.12.4 Kernel Configuration
+# Linux/powerpc 6.12.5 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 19.1.5"
 CONFIG_GCC_VERSION=0
@@ -10843,8 +10843,6 @@ CONFIG_DEFAULT_HUNG_TASK_TIMEOUT=120
 CONFIG_SCHED_INFO=y
 CONFIG_SCHEDSTATS=y
 # end of Scheduler Debugging
-
-# CONFIG_DEBUG_TIMEKEEPING is not set
 
 #
 # Lock Debugging (spinlocks, mutexes, etc...)
