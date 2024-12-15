@@ -1,5 +1,5 @@
 pkgname = "qutebrowser"
-pkgver = "3.3.1"
+pkgver = "3.4.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -28,7 +28,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-only"
 url = "https://qutebrowser.org"
 source = f"https://github.com/qutebrowser/qutebrowser/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "83d3a3b192f4329c94e5664047de847e33649b2969f459de9b519aed18c26cbd"
+sha256 = "6b48eb5b5cdc8965564ffa259cc9c1891ef3ff62e24e64b5af7c00276ffd9098"
 # not worth it
 options = ["!check"]
 
