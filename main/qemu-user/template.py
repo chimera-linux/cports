@@ -1,5 +1,5 @@
 pkgname = "qemu-user"
-pkgver = "9.1.2"
+pkgver = "9.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde libssh capstone
@@ -32,6 +32,7 @@ makedepends = [
     "glib-devel-static",
     "libatomic-chimera-devel-static",
     "libcxx-devel-static",
+    "libdrm-devel",
     "libunwind-devel-static",
     "liburing-devel-static",
     "linux-headers",
@@ -44,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "19fd9d7535a54d6e044e186402aa3b3b1bdfa87c392ec8884855592c8510c96f"
+sha256 = "f859f0bc65e1f533d040bbe8c92bcfecee5af2c921a6687c652fb44d089bd894"
 # maybe someday
 options = ["!cross", "!check", "empty"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
@@ -94,11 +95,6 @@ def _upkg(uname):
 
         return [f"usr/bin/qemu-{uname}"]
 
-    match uname:
-        case "cris":
-            # no binfmt support
-            return
-
     do_pkg = True
     curarch = self.profile().arch
     if uname == curarch:
@@ -128,7 +124,6 @@ for _u in [
     "alpha",
     "arm",
     "armeb",
-    "cris",
     "hexagon",
     "hppa",
     "i386",
