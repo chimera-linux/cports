@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.6.65 Kernel Configuration
+# Linux/powerpc 6.6.66 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 19.1.5"
 CONFIG_GCC_VERSION=0
@@ -2273,6 +2273,7 @@ CONFIG_ZRAM_DEF_COMP_LZORLE=y
 # CONFIG_ZRAM_DEF_COMP_842 is not set
 CONFIG_ZRAM_DEF_COMP="lzo-rle"
 CONFIG_ZRAM_WRITEBACK=y
+# CONFIG_ZRAM_TRACK_ENTRY_ACTIME is not set
 # CONFIG_ZRAM_MEMORY_TRACKING is not set
 # CONFIG_ZRAM_MULTI_COMP is not set
 CONFIG_BLK_DEV_LOOP=m
