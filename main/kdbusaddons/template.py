@@ -1,6 +1,6 @@
 pkgname = "kdbusaddons"
-pkgver = "6.8.0"
-pkgrel = 1
+pkgver = "6.9.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
@@ -20,7 +20,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/frameworks/kdbusaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdbusaddons-{pkgver}.tar.xz"
-sha256 = "6c760a0dc372af0a2f825b65575bfabd1950c76c0e37f87de21d47cec8d58bc7"
+sha256 = "30a0b18f702830ee3e9ae94f0d953b0bf835f3d9c836cb22366de48065a3a74c"
 hardening = ["vis"]
 
 

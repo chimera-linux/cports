@@ -1,5 +1,5 @@
 pkgname = "syntax-highlighting"
-pkgver = "6.8.0"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://api.kde.org/frameworks/syntax-highlighting/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/syntax-highlighting-{pkgver}.tar.xz"
-sha256 = "ed3c7d3d92c154d9af39a1aba39166b07e6411c18c3100116208f3a4423b1257"
+sha256 = "d6fd07020ee57917517a1c03bdf36e661b083c8455c489cf94ad77a90ec29c70"
 hardening = ["vis"]
 
 

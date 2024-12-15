@@ -1,6 +1,6 @@
 pkgname = "kimageformats"
-pkgver = "6.8.0"
-pkgrel = 1
+pkgver = "6.9.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DKIMAGEFORMATS_HEIF=ON"]
 # jpegxr
@@ -26,4 +26,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kimageformats/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kimageformats-{pkgver}.tar.xz"
-sha256 = "d9f262641cc47e5f2dd1bdd56ee92e379ab4cb34d460dfc884fd991250d7b417"
+sha256 = "8317dce66a773648c5c00f0a676156c4ee4e71d7c98540900c31b7b70a50f6df"

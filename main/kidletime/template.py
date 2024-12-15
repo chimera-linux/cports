@@ -1,5 +1,5 @@
 pkgname = "kidletime"
-pkgver = "6.8.0"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -20,7 +20,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only"
 url = "https://api.kde.org/frameworks/kidletime/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kidletime-{pkgver}.tar.xz"
-sha256 = "51016058faf392515ea7f582d25c666abddf38ef66abf187502cf46c5e11e410"
+sha256 = "e1665ef314660d8493f330069c477d1c8cfb0977be4b9f380d8e726b2694d242"
 hardening = ["vis"]
 
 
