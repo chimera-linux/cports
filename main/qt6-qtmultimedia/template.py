@@ -1,6 +1,6 @@
 pkgname = "qt6-qtmultimedia"
 pkgver = "6.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # these install /usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.a which
 # then has to exist for the -devel to work, but not splitting static keeps around
@@ -21,7 +21,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "ffmpeg-devel",
-    "gst-plugins-base-devel",
+    "gst-plugins-bad-devel",
     "libpulse-devel",
     "libva-devel",
     "qt6-qtbase-private-devel",
