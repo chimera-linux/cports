@@ -108,7 +108,7 @@ makedepends = [
     "libabw-devel",
     "libatomic_ops-devel",
     "libcdr-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libe-book-devel",
     "libepoxy-devel",
     "libepubgen-devel",

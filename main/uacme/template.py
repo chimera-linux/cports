@@ -10,7 +10,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "libcurl-devel",
+    "curl-devel",
     "libev-devel",
     "openssl-devel",
 ]

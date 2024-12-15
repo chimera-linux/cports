@@ -117,7 +117,7 @@ makedepends = [
     "lame-devel",
     "libcdio-devel",
     "libcdio-paranoia-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libexpat-devel",
     "libgme-devel",
     "libid3tag-devel",

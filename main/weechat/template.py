@@ -26,7 +26,7 @@ makedepends = [
     "enchant-devel",  # spell plugin
     "gnutls-devel",
     "guile-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libgcrypt-devel",
     "lua5.4-devel",  # lua plugin
     "ncurses-devel",

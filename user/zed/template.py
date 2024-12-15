@@ -19,7 +19,7 @@ makedepends = [
     "alsa-lib-devel",
     "fontconfig-devel",
     "freetype-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libgit2-devel",
     "libxkbcommon-devel",
     "rust-std",

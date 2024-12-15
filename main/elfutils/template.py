@@ -24,7 +24,7 @@ makedepends = [
     "chimerautils-devel",
     "json-c-devel",
     "libarchive-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libmicrohttpd-devel",
     "linux-headers",
     "musl-bsd-headers",

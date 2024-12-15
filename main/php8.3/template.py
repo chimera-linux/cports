@@ -99,7 +99,7 @@ makedepends = [
     "gettext-devel",
     "gmp-devel",
     "icu-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libedit-devel",
     "libffi-devel",
     "libgd-devel",

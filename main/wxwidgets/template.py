@@ -29,7 +29,7 @@ makedepends = [
     "gspell-devel",
     "gst-plugins-base-devel",
     "gtk+3-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libexpat-devel",
     "libjpeg-turbo-devel",
     "xz-devel",

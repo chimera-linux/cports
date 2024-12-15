@@ -43,7 +43,7 @@ if self.stage >= 2:
     # librash does not like cfi, so only set it when using system's
     hardening += ["cfi"]
     makedepends += [
-        "libcurl-devel",
+        "curl-devel",
         "nghttp2-devel",
         "libexpat-devel",
         "libuv-devel",

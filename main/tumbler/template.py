@@ -17,7 +17,7 @@ makedepends = [
     "gdk-pixbuf-devel",
     "glib-devel",
     "gst-plugins-base-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libgsf-devel",
     "libjpeg-turbo-devel",
     "libopenraw-devel",

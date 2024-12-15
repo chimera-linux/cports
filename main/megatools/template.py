@@ -14,7 +14,7 @@ makedepends = [
     "glib-devel",
     "glib-networking",
     "gobject-introspection",
-    "libcurl-devel",
+    "curl-devel",
     "libsodium-devel",
     "openssl-devel",
 ]

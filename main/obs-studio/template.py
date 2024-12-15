@@ -34,7 +34,7 @@ makedepends = [
     "fontconfig-devel",
     "freetype-devel",
     "jansson-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libdatachannel-devel",
     "libpulse-devel",
     "librist-devel",

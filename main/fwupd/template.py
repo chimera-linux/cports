@@ -36,7 +36,7 @@ makedepends = [
     "json-glib-devel",
     "libarchive-devel",
     "libcbor-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libdrm-devel",
     "libjcat-devel",
     "libmbim-devel",

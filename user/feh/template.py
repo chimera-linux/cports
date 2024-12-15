@@ -13,7 +13,7 @@ make_use_env = True
 makedepends = [
     "file-devel",
     "imlib2-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libexif-devel",
     "libpng-devel",
     "libx11-devel",

@@ -17,7 +17,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libarchive-devel",
-    "libcurl-devel",
+    "curl-devel",
     "pkgconf-devel",
 ]
 depends = ["ninja"]

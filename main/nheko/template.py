@@ -15,7 +15,7 @@ makedepends = [
     "gst-plugins-bad-devel",
     "gst-plugins-base-devel",
     "kdsingleapplication-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libevent-devel",
     "lmdb-devel",
     "lmdbxx",

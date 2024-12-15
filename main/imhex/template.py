@@ -32,7 +32,7 @@ makedepends = [
     "freetype-devel",
     "glfw-devel",
     "libarchive-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libedit-devel",
     "llvm-devel",
     # LLVMdemangle is static only

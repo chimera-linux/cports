@@ -25,7 +25,7 @@ makedepends = [
     "gtk+3-devel",
     "gtkmm3.0-devel",
     "ladspa-sdk",
-    "libcurl-devel",
+    "curl-devel",
     "liblo-devel",
     "libsndfile-devel",
     "lilv-devel",

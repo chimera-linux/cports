@@ -6,7 +6,7 @@ make_use_env = True
 makedepends = [
     "alsa-lib-devel",
     "gmp-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libjpeg-turbo-devel",
     "libmodplug-devel",
     "libvorbis-devel",

@@ -56,7 +56,7 @@ makedepends = [
     "gnutls-devel",
     "json-c-devel",
     "libcap-ng-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libiscsi-devel",
     "libnl-devel",
     "libnuma-devel",

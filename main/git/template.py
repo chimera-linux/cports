@@ -10,7 +10,7 @@ hostmakedepends = [
     "xmlto",
 ]
 makedepends = [
-    "libcurl-devel",
+    "curl-devel",
     "libexpat-devel",
     "libsecret-devel",
     "pcre2-devel",

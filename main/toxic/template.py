@@ -18,7 +18,7 @@ makedepends = [
     "c-toxcore-devel",
     "freealut-devel",
     "libconfig-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libnotify-devel",
     "libpng-devel",
     "libx11-devel",

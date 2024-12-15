@@ -89,7 +89,7 @@ makedepends = [
     "libaom-devel",
     "libavif-devel",
     "libcap-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libdrm-devel",
     "libevdev-devel",
     "libevent-devel",

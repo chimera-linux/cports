@@ -14,7 +14,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "fftw-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libomp-devel",
     "libpng-devel",
     "libtiff-devel",

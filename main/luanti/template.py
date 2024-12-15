@@ -24,7 +24,7 @@ makedepends = [
     "gmp-devel",
     "hiredis-devel",
     "jsoncpp-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libjpeg-turbo-devel",
     "libogg-devel",
     "libpng-devel",

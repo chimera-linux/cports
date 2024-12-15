@@ -26,7 +26,7 @@ makedepends = [
     "freetype-devel",
     "gdk-pixbuf-devel",
     "glib-devel",
-    "libcurl-devel",
+    "curl-devel",
     "librsvg-devel",
     "libxml2-devel",
     "libxmlb-devel",

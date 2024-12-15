@@ -29,7 +29,7 @@ makedepends = [
     "cairo-devel",
     "freetype-devel",
     "imlib2-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libmicrohttpd-devel",
     "libmpdclient-devel",
     "libpulse-devel",

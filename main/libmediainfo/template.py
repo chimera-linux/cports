@@ -6,7 +6,7 @@ build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
 makedepends = [
-    "libcurl-devel",
+    "curl-devel",
     "libmms-devel",
     "libzen-devel",
     "zlib-ng-compat-devel",

@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["libcurl-devel", "zlib-ng-compat-devel"]
+makedepends = ["curl-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Prometheus Client Library for Modern C++"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"

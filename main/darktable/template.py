@@ -46,7 +46,7 @@ makedepends = [
     "lcms2-devel",
     "lensfun-devel",
     "libavif-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libedit-devel",
     "libgphoto2-devel",
     "libheif-devel",

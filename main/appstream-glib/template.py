@@ -11,7 +11,7 @@ hostmakedepends = [
     "glib-devel",
     "gobject-introspection",
     "gperf",
-    "libcurl-devel",
+    "curl-devel",
     "libyaml-devel",
     "meson",
     "pkgconf",
@@ -23,7 +23,7 @@ makedepends = [
     "gtk+3-devel",
     "json-glib-devel",
     "libarchive-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libyaml-devel",
 ]
 pkgdesc = "AppStream metadata library"

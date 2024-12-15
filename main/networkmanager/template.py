@@ -60,7 +60,7 @@ makedepends = [
     "dbus-devel",
     "elogind-devel",
     "jansson-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libedit-devel",
     "libgirepository-devel",
     "libgudev-devel",

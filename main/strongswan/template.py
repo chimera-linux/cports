@@ -67,7 +67,7 @@ makedepends = [
     "gettext-devel",
     "gmp-devel",
     "libcap-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libldns-devel",
     "linux-headers",
     "linux-pam-devel",

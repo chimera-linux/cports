@@ -27,7 +27,7 @@ makedepends = [
     "glib-devel",
     "gpgme-devel",
     "lcms2-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libtiff-devel",

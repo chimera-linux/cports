@@ -14,7 +14,7 @@ makedepends = [
     "elfutils-devel",
     "flatpak-devel",
     "json-glib-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libxml2-devel",
     "libyaml-devel",
     "linux-headers",

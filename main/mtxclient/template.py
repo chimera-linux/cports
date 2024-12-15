@@ -20,7 +20,7 @@ makedepends = [
     "nlohmann-json",
     "coeurl-devel",
     "libevent-devel",
-    "libcurl-devel",
+    "curl-devel",
     "re2-devel",
     "openssl-devel",
 ]

@@ -95,7 +95,7 @@ makedepends = [
     "libaom-devel",
     "libass-devel",
     "libbs2b-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libde265-devel",
     "libdrm-devel",
     "libfreeaptx-devel",

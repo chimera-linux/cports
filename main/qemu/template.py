@@ -74,7 +74,7 @@ makedepends = [
     "libcacard-devel",
     "libcap-ng-devel",
     "libcbor-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libdrm-devel",
     "libiscsi-devel",
     "libjpeg-turbo-devel",

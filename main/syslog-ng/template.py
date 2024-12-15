@@ -46,7 +46,7 @@ makedepends = [
     "hiredis-devel",
     "ivykis-devel",
     "json-c-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libdbi-devel",
     "linux-headers",
     "openssl-devel",

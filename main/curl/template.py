@@ -1,6 +1,6 @@
 pkgname = "curl"
-pkgver = "8.11.0"
-pkgrel = 4
+pkgver = "8.11.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimize",
@@ -47,7 +47,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://curl.haxx.se"
 source = f"{url}/download/curl-{pkgver}.tar.xz"
-sha256 = "db59cf0d671ca6e7f5c2c5ec177084a33a79e04c97e71cf183a5cdea235054eb"
+sha256 = "c7ca7db48b0909743eaef34250da02c19bc61d4f1dcedd6603f109409536ab56"
 hardening = ["vis", "!cfi"]
 
 
@@ -74,16 +74,20 @@ def init_check(self):
     self.make_check_env["TFLAGS"] = f"-j{self.make_jobs * 7}"
 
 
-@subpackage("libcurl")
+@subpackage("curl-libs")
 def _(self):
     self.pkgdesc = "Multiprotocol file transfer library"
+    # transitional
+    self.provides = [self.with_pkgver("libcurl")]
 
     return self.default_libs()
 
 
-@subpackage("libcurl-devel")
+@subpackage("curl-devel")
 def _(self):
     self.depends += makedepends
     self.pkgdesc = "Multiprotocol file transfer library"
+    # transitional
+    self.provides = [self.with_pkgver("libcurl-devel")]
 
     return self.default_devel()

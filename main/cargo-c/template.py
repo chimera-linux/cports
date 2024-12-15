@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "libcurl-devel",
+    "curl-devel",
     "libgit2-devel",
     "openssl-devel",
     "rust-std",

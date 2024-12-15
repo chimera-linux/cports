@@ -20,7 +20,7 @@ hostmakedepends = [
 makedepends = [
     "cmocka-devel",
     "json-c-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libftdi1-devel",
     "libuuid-devel",
     "libusb-bootstrap",
