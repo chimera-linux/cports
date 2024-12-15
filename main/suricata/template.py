@@ -1,5 +1,5 @@
 pkgname = "suricata"
-pkgver = "7.0.7"
+pkgver = "7.0.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -40,7 +40,7 @@ url = "https://suricata.io"
 source = (
     f"https://www.openinfosecfoundation.org/download/suricata-{pkgver}.tar.gz"
 )
-sha256 = "26d0a36194d53080fc8b09b999b2b5a83c4049f40ad07ef6ae69c7225a728b86"
+sha256 = "492928c622e170bd9c45d3530bc2b1033c5582dc18085c436fceafb62829d3ce"
 
 
 def post_install(self):
