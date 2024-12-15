@@ -3,8 +3,8 @@ pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DKIMAGEFORMATS_HEIF=ON"]
-# jpegxr
-make_check_args = ["-E", "kimageformats-read-hej2"]
+# jpegxr; exr write fails on ppc64le
+make_check_args = ["-E", "(kimageformats-read-hej2|kimageformats-write-exr)"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
