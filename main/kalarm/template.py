@@ -1,7 +1,8 @@
 pkgname = "kalarm"
-pkgver = "24.05.2"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DENABLE_LIBMPV=ON", "-DENABLE_LIBVLC=OFF"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -45,6 +46,7 @@ makedepends = [
     "kwindowsystem-devel",
     "kxmlgui-devel",
     "libcanberra-devel",
+    "mpv-devel",
     "qt6-qtbase-devel",
 ]
 depends = ["kdepim-runtime"]
@@ -53,4 +55,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/kalarm"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kalarm-{pkgver}.tar.xz"
-sha256 = "20d1d17575d7bcd58821199aa577ec6bead940e8da25d02a529b0818a67c6102"
+sha256 = "699436c461b0b29aec3933b6c1b9e26345a53060f7558532da0689583735ef72"

@@ -1,5 +1,5 @@
 pkgname = "kdepim-runtime"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-j1", "-E", "(akonadi-sqlite-.*)"]
@@ -17,7 +17,6 @@ makedepends = [
     "akonadi-contacts-devel",
     "akonadi-devel",
     "akonadi-mime-devel",
-    "akonadi-notes-devel",
     "kcalendarcore-devel",
     "kcalutils-devel",
     "kcmutils-devel",
@@ -59,4 +58,4 @@ url = "https://invent.kde.org/pim/kdepim-runtime"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdepim-runtime-{pkgver}.tar.xz"
 )
-sha256 = "6c419b575f87b6cf62ba5da06ac2842e805a80b9918b92b37cfbba4286fcde6f"
+sha256 = "80f64309b75ab0be488eff3748143368ec661844f891ef28b3a916ac802a58a2"

@@ -1,6 +1,6 @@
 pkgname = "kitinerary"
-pkgver = "24.08.3"
-pkgrel = 3
+pkgver = "24.12.0"
+pkgrel = 0
 build_style = "cmake"
 # extractortest: difference in AT/österreich key
 # knowledgedbtest: flaky SIBBUS crash in ki18n IsoCodesCache::subdivisionCount from accessing cache (weird pointer stuff)
@@ -33,7 +33,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kitinerary/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kitinerary-{pkgver}.tar.xz"
-sha256 = "f0ff4d103c93e24770d94432afd0acf456efca70e00d4749d734a5ff98cfd14b"
+sha256 = "4c11339a5bce980bd061a4437a943200fae82e104bd8472f3b2f7dc36f82b5c7"
 
 
 @subpackage("kitinerary-devel")

@@ -1,5 +1,5 @@
 pkgname = "signon-kwallet-extension"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -18,5 +18,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/network/signon-kwallet-extension"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/signon-kwallet-extension-{pkgver}.tar.xz"
-sha256 = "b1a45f680de80a53fcefab707dbaedd750c3c1fc638d99bd9c6a65c11a0bfc8e"
+sha256 = "aaf0ca9b42867c2a037fd983cb42720b3a87243226d5d6ed8cda7d0ce466e438"
 hardening = ["vis"]

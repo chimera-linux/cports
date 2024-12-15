@@ -1,5 +1,5 @@
 pkgname = "plasmatube"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -35,4 +35,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/plasmatube"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/plasmatube-{pkgver}.tar.xz"
-sha256 = "e01bd34cc5158b12baaa665256d850568ee69d5556a43ba5e3b9783a5a2abc3c"
+sha256 = "36654d2b6ec1b8ce282253fa78569dacf7d918919f965bd959bf5924a08b748e"

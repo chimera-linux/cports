@@ -1,5 +1,5 @@
 pkgname = "kclock"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -12,6 +12,7 @@ hostmakedepends = [
 makedepends = [
     "kconfig-devel",
     "kcoreaddons-devel",
+    "kcrash-devel",
     "kdbusaddons-devel",
     "ki18n-devel",
     "kirigami-addons-devel",
@@ -28,5 +29,5 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later AND LGPL-2.1-or-later"
 url = "https://apps.kde.org/kclock"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kclock-{pkgver}.tar.xz"
-sha256 = "64675186861b20d2a171b305ccd5fdc9a61171cd254dbad9e0ed953fce8e2c9f"
+sha256 = "7d1b8de2719bf8432c2fd947e8983eba6a8628a2109be34b33815193baac259d"
 hardening = ["vis"]

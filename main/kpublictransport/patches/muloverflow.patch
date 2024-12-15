@@ -1,11 +1,11 @@
 --- a/src/lib/datatypes/journey.cpp
 +++ b/src/lib/datatypes/journey.cpp
-@@ -331,7 +331,7 @@
-     const auto mode = route().line().mode();
-     for (const auto &map : emissionForModeMap) {
-         if (map.mode == mode) {
--            return (map.gramPerKm * distance()) / 1000;
-+            return ((unsigned)map.gramPerKm * distance()) / 1000;
-         }
-     }
-     return -1;
+@@ -365,7 +365,7 @@
+             const auto mode = route().line().mode();
+             for (const auto &map : emissionForModeMap) {
+                 if (map.mode == mode) {
+-                    return (map.gramPerKm * distance()) / 1000;
++                    return ((unsigned)map.gramPerKm * distance()) / 1000;
+                 }
+             }
+             qCDebug(Log) << "No CO2 emission estimate for mode" << mode;

@@ -1,5 +1,5 @@
 pkgname = "kdenlive"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTING=OFF"]
@@ -43,11 +43,11 @@ depends = [
     "frei0r",
 ]
 pkgdesc = "KDE video editor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenlive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenlive-{pkgver}.tar.xz"
-sha256 = "b61b60c53bbd1657fe816bb3c08954f7b9f7c76a62d099fabd3cd9190a3bb39d"
+sha256 = "c61d034dce9c25a9d2f9e7acff990b7ba46f664d1f972acfaba3a84de1c2288a"
 # avoid crashes
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # INT: crashes spacertest/trimmingtest
