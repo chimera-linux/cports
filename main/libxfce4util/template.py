@@ -1,16 +1,14 @@
 pkgname = "libxfce4util"
-pkgver = "4.18.2"
-pkgrel = 1
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "gobject-introspection",
     "gtk-doc-tools",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "vala",
     "xfce4-dev-tools",
 ]
@@ -20,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/libxfce4util/start"
 source = f"$(XFCE_SITE)/xfce/libxfce4util/{pkgver[:-2]}/libxfce4util-{pkgver}.tar.bz2"
-sha256 = "d9a329182b78f7e2520cd4aafcbb276bbbf162f6a89191676539ad2e3889c353"
+sha256 = "21493f9c9995a282823db93839f6b9f06ae31edb094191ba9acf04d932a2b592"
 options = ["!cross"]
 
 
