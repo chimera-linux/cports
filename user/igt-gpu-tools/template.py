@@ -1,6 +1,6 @@
 pkgname = "igt-gpu-tools"
-pkgver = "1.29"
-pkgrel = 1
+pkgver = "1.30"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -27,7 +27,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/drm/igt-gpu-tools"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "e324d9907a6ab55ecb68cccadbb8146d929b6a3de6af65dc560a4cdeb3ca4a80"
+sha256 = "a3e61ac583fb7849e9543ba5e74b86b68baa3b902702c9f507c9956763a46bb9"
 # need fancy setup for integration tests
 options = ["!check"]
 
