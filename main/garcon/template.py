@@ -1,17 +1,15 @@
 pkgname = "garcon"
-pkgver = "4.18.2"
-pkgrel = 1
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
-    "gettext",
+    "gettext-devel",
     "glib-devel",
     "gobject-introspection",
     "gtk-doc-tools",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -25,7 +23,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/garcon/start"
 source = f"$(XFCE_SITE)/xfce/garcon/{pkgver[:-2]}/garcon-{pkgver}.tar.bz2"
-sha256 = "1b8c9292e131968fbfc8987bbc62c5ba47186dd45ef4e47c5d8c5088bb2d434d"
+sha256 = "7fb8517c12309ca4ddf8b42c34bc0c315e38ea077b5442bfcc4509415feada8f"
 options = ["!cross"]
 
 
