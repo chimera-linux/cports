@@ -1,19 +1,15 @@
 pkgname = "xfce4-panel"
-pkgver = "4.18.6"
-pkgrel = 2
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-helper-path-prefix=/usr/libexec"]
-# check target fails without this
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "glib-devel",
     "gobject-introspection",
     "gtk-doc-tools",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -22,10 +18,13 @@ makedepends = [
     "garcon-devel",
     "glib-devel",
     "gtk+3-devel",
+    "gtk-layer-shell-devel",
     "libdbusmenu-devel",
     "libwnck-devel",
     "libxfce4ui-devel",
     "libxfce4util-devel",
+    "libxfce4windowing-devel",
+    "libyaml-devel",
     "xfconf-devel",
 ]
 pkgdesc = "Xfce panel"
@@ -35,7 +34,7 @@ url = "https://docs.xfce.org/xfce/xfce4-panel/start"
 source = (
     f"$(XFCE_SITE)/xfce/xfce4-panel/{pkgver[:-2]}/xfce4-panel-{pkgver}.tar.bz2"
 )
-sha256 = "21337161f58bb9b6e42760cb6883bc79beea27882aa6272b61f0e09d750d7c62"
+sha256 = "ff33cd5f5d16c2193fe305f4878d82cd8d2feea92f2594bcd27b2b5c392d43b8"
 options = ["!cross"]
 
 
