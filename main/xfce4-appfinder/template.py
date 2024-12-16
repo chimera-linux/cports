@@ -1,14 +1,12 @@
 pkgname = "xfce4-appfinder"
-pkgver = "4.18.1"
+pkgver = "4.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -24,4 +22,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfce4-appfinder/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-appfinder/{pkgver[:-2]}/xfce4-appfinder-{pkgver}.tar.bz2"
-sha256 = "9854ea653981be544ad545850477716c4c92d0c43eb47b75f78534837c0893f9"
+sha256 = "82ca82f77dc83e285db45438c2fe31df445148aa986ffebf2faabee4af9e7304"
