@@ -1,6 +1,6 @@
 pkgname = "catatonit"
-pkgver = "0.2.0"
-pkgrel = 3
+pkgver = "0.2.1"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -17,7 +17,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/openSUSE/catatonit"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d0cf1feffdc89c9fb52af20fc10127887a408bbd99e0424558d182b310a3dc92"
+sha256 = "771385049516fdd561fbb9164eddf376075c4c7de3900a8b18654660172748f1"
 hardening = ["vis", "cfi"]
 
 
