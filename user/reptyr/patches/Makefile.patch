@@ -1,0 +1,21 @@
+--- a/Makefile
++++ b/Makefile 
+@@ -18,7 +18,7 @@ BINDIR=$(PREFIX)/bin
+ MANDIR=$(PREFIX)/share/man
+
+ PKG_CONFIG ?= pkg-config
+-PYTHON_CMD ?= python2
++PYTHON_CMD ?= python3
+
+ all: reptyr
+
+@@ -51,7 +51,7 @@ install: reptyr
+        install -d -m 755 $(DESTDIR)$(MANDIR)/fr/man1
+        install -m 644 reptyr.fr.1 $(DESTDIR)$(MANDIR)/fr/man1/reptyr.1
+        bashcompdir=$(BASHCOMPDIR) ; \
+-       test -z "$$bashcompdir" && bashcompdir=/etc/bash_completion.d ; \
++       test -z "$$bashcompdir" && bashcompdir=/usr/share/bash-completion/completions ; \
+        install -d -m 755 $(DESTDIR)$$bashcompdir ; \
+        install -m 644 reptyr.bash $(DESTDIR)$$bashcompdir/reptyr
+
+
