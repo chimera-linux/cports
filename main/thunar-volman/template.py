@@ -1,14 +1,12 @@
 pkgname = "thunar-volman"
-pkgver = "4.18.0"
+pkgver = "4.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -26,4 +24,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/thunar/thunar-volman"
 source = f"$(XFCE_SITE)/xfce/thunar-volman/{pkgver[:-2]}/thunar-volman-{pkgver}.tar.bz2"
-sha256 = "93b75c7ffbe246a21f4190295acc148e184be8df397e431b258d0d676e87fc65"
+sha256 = "b0dad852959b515b8fbfd1ed552e362340347d26d5246e7f1b973027131eb1da"
