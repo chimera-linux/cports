@@ -1,20 +1,17 @@
 pkgname = "xfce4-settings"
-pkgver = "4.18.6"
-pkgrel = 1
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-helper-path-prefix=/usr/libexec",
-    "--enable-pluggable-dialogs",
     "--enable-sound-settings",
     "--enable-upower-glib",
 ]
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
+    "libxml2-progs",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -24,6 +21,7 @@ makedepends = [
     "garcon-devel",
     "glib-devel",
     "gtk+3-devel",
+    "gtk-layer-shell-devel",
     "libnotify-devel",
     "libx11-devel",
     "libxcursor-devel",
@@ -42,7 +40,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/xfce4-settings/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-settings/{pkgver[:-2]}/xfce4-settings-{pkgver}.tar.bz2"
-sha256 = "d9a9051b6026edd6766c64bb403b51e9167e4d31e7f1c7f843d3aed19f667bfe"
+sha256 = "23548da3429a296501fbfdbc98a861ee241b9fdd47e8d5de1781f57c6bbce5a9"
 
 
 @subpackage("xfce4-settings-default-themes")

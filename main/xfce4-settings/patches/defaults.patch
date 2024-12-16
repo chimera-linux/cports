@@ -1,13 +1,13 @@
 diff --git a/xfsettingsd/xsettings.xml b/xfsettingsd/xsettings.xml
-index d8fe2ac4..ed04cdf5 100644
+index de4ddb66..f7259ab0 100644
 --- a/xfsettingsd/xsettings.xml
 +++ b/xfsettingsd/xsettings.xml
 @@ -6,8 +6,8 @@
  
  <channel name="xsettings" version="1.0">
    <property name="Net" type="empty">
--    <property name="ThemeName" type="empty"/>
--    <property name="IconThemeName" type="empty"/>
+-    <property name="ThemeName" type="string" value="Adwaita"/>
+-    <property name="IconThemeName" type="string" value="Adwaita"/>
 +    <property name="ThemeName" type="string" value="adw-gtk3"/>
 +    <property name="IconThemeName" type="string" value="Papirus"/>
      <property name="DoubleClickTime" type="int" value="400"/>
@@ -16,16 +16,16 @@ index d8fe2ac4..ed04cdf5 100644
 @@ -19,9 +19,9 @@
    </property>
    <property name="Xft" type="empty">
-     <property name="DPI" type="empty"/>
+     <property name="DPI" type="int" value="-1"/>
 -    <property name="Antialias" type="int" value="-1"/>
 +    <property name="Antialias" type="int" value="1"/>
      <property name="Hinting" type="int" value="-1"/>
 -    <property name="HintStyle" type="string" value="hintnone"/>
 +    <property name="HintStyle" type="string" value="hintfull"/>
      <property name="RGBA" type="string" value="none"/>
-     <!-- <property name="Lcdfilter" type="string" value="none"/> -->
    </property>
-@@ -40,7 +40,7 @@
+   <property name="Gtk" type="empty">
+@@ -34,7 +34,7 @@
      <property name="MenuImages" type="bool" value="true"/>
      <property name="ButtonImages" type="bool" value="true"/>
      <property name="MenuBarAccel" type="string" value="F10"/>
