@@ -89,6 +89,10 @@ def check_stage(arch, force=False, remote=False):
     for r in rr:
         rlist += ["--repository", str(r)]
 
+    # not needed for local repos (basically a noop for those) but
+    # for remote repos this is important for provider checking
+    _call_apk(*rlist, "update")
+
     for d in rs:
         reld = str(d.relative_to(stagep))
         # only stage exists, so nothing is replacing anything
@@ -283,7 +287,10 @@ def check_stage(arch, force=False, remote=False):
     if len(checkdeps) == 0:
         return rs
 
-    logger.get().out("Cannot unstage repositories:")
+    if not remote:
+        logger.get().out("Cannot unstage repositories:")
+    else:
+        logger.get().out("Unstage requirements:")
 
     # ensure repo remains staged
     # also print a list of stuff to rebuild and what causes
