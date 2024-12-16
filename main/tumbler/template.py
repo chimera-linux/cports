@@ -1,15 +1,13 @@
 pkgname = "tumbler"
-pkgver = "4.18.2"
-pkgrel = 4
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "gtk-doc-tools",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -32,7 +30,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/tumbler/start"
 source = f"$(XFCE_SITE)/xfce/tumbler/{pkgver[:-2]}/tumbler-{pkgver}.tar.bz2"
-sha256 = "b530eec635eac7f898c0d8d3a3ff79d76a145d3bed3e786d54b1ec058132be7a"
+sha256 = "74b1647d55926547e98bfac70838ff63c5a84299a5e10c81c38d1fab90e25880"
 
 
 def post_install(self):
