@@ -1,12 +1,12 @@
 pkgname = "xfce4-dev-tools"
-pkgver = "4.18.1"
+pkgver = "4.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
-    "libtool",
+    "meson",
     "pkgconf",
+    "slibtool",
     "xsltproc",
 ]
 makedepends = ["glib-devel"]
@@ -15,4 +15,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfce4-dev-tools/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-dev-tools/{pkgver[:-2]}/xfce4-dev-tools-{pkgver}.tar.bz2"
-sha256 = "812cabe7048922ebc176564b73c3e427e467c9566365ee3e54c0487d305a7681"
+sha256 = "1fba39a08a0ecc771eaa3a3b6e4272a4f0b9e7c67d0f66e780cd6090cd4466aa"
