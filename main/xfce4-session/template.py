@@ -1,27 +1,26 @@
 pkgname = "xfce4-session"
-pkgver = "4.18.4"
-pkgrel = 1
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-helper-path-prefix=/usr/libexec"]
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "iceauth",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
-    "libxfce4util-devel",
-    "libxfce4ui-devel",
-    "gtk+3-devel",
     "glib-devel",
-    "libwnck-devel",
-    "xfconf-devel",
-    "polkit-devel",
+    "gtk+3-devel",
+    "gtk-layer-shell-devel",
     "libsm-devel",
+    "libwnck-devel",
+    "libxfce4ui-devel",
+    "libxfce4util-devel",
+    "libxfce4windowing-devel",
+    "polkit-devel",
+    "xfconf-devel",
 ]
 depends = ["iceauth"]
 pkgdesc = "Xfce desktop session"
@@ -29,4 +28,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfce4-session/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-session/{pkgver[:-2]}/xfce4-session-{pkgver}.tar.bz2"
-sha256 = "9a9c5074c7338b881a5259d3b643619bf84901360c03478e1a697938ece06516"
+sha256 = "5229233fe6ee692361cc28724886c5b08e0216d89f09c42d273191d38fd64f85"
