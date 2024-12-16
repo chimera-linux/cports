@@ -1,5 +1,5 @@
 pkgname = "bacon"
-pkgver = "3.5.0"
+pkgver = "3.6.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "AGPL-3.0-only"
 url = "https://dystroy.org/bacon"
 source = f"https://github.com/Canop/bacon/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a5819aa6b5a56d089dba3e51ce469845af84b7c6feeba02f21f038ea92accad9"
+sha256 = "e8b49e95f40c050ef684b94fadc3ff55e1d4a694e215ea68ea82ea5e676c1e9c"
 
 
 def post_install(self):
