@@ -1,5 +1,5 @@
 pkgname = "forgejo"
-pkgver = "9.0.2"
+pkgver = "9.0.3"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
@@ -18,7 +18,7 @@ source = [
 ]
 source_paths = [".", "go-sqlite3-patched"]
 sha256 = [
-    "80569351d553a9d4e3c08ada87d3dc2ed17ff49313e3ee21fc0ff0fcb1373a19",
+    "f6da57eb044cf79b1af2335222b53b07fd45196d79aeab6df1ae75bd82af6230",
     "8fa3b0b66914ae2dd4ddef9a954f614c5b3eb6ac9d80ee61ae2d08e3178507ec",
 ]
 # check takes quite a bit
