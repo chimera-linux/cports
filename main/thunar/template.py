@@ -1,14 +1,12 @@
 pkgname = "thunar"
-pkgver = "4.18.11"
+pkgver = "4.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
     "gobject-introspection",
     "gtk-doc-tools",
-    "intltool",
     "libtool",
     "pkgconf",
     "xfce4-dev-tools",
@@ -31,7 +29,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/thunar/start"
 source = f"$(XFCE_SITE)/xfce/thunar/{pkgver[:pkgver.rfind('.')]}/thunar-{pkgver}.tar.bz2"
-sha256 = "7d0bdae2076a568c137d403ab5600e06a7a4f7a02514d486da7b8414aa75d612"
+sha256 = "27731a76f3aecf3752b1ca35afad89e264c52244f70083d933507dd4a17548b0"
 options = ["!cross"]
 
 
