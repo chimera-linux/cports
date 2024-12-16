@@ -1,11 +1,11 @@
 pkgname = "iperf"
-pkgver = "3.17.1"
+pkgver = "3.18"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "libtool",
+    "slibtool",
 ]
 makedepends = ["openssl-devel"]
 pkgdesc = "IP bandwidth measurement tool"
@@ -13,7 +13,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause-LBNL"
 url = "https://github.com/esnet/iperf"
 source = f"https://github.com/esnet/iperf/releases/download/{pkgver}/iperf-{pkgver}.tar.gz"
-sha256 = "84404ca8431b595e86c473d8f23d8bb102810001f15feaf610effd3b318788aa"
+sha256 = "c0618175514331e766522500e20c94bfb293b4424eb27d7207fb427b88d20bab"
 
 
 def post_install(self):
