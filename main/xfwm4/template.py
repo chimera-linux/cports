@@ -1,19 +1,16 @@
 pkgname = "xfwm4"
-pkgver = "4.18.0"
-pkgrel = 1
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-helper-path-prefix=/usr/libexec",
     "--enable-poswin",
     "--enable-xi2",
 ]
-make_dir = "."
 hostmakedepends = [
     "automake",
-    "libtool",
     "gettext-devel",
-    "intltool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -36,7 +33,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfwm4/start"
 source = f"$(XFCE_SITE)/xfce/xfwm4/{pkgver[:-2]}/xfwm4-{pkgver}.tar.bz2"
-sha256 = "92cd1b889bb25cb4bc06c1c6736c238d96e79c1e706b9f77fad0a89d6e5fc13f"
+sha256 = "a58b63e49397aa0d8d1dcf0636be93c8bb5926779aef5165e0852890190dcf06"
 
 
 @subpackage("xfwm4-default-themes")
