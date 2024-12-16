@@ -1,6 +1,6 @@
 pkgname = "libxfce4ui"
-pkgver = "4.18.6"
-pkgrel = 1
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-tests",
@@ -14,10 +14,9 @@ hostmakedepends = [
     "glib-devel",
     "gobject-introspection",
     "gtk-doc-tools",
-    "intltool",
-    "libtool",
     "pkgconf",
     "python",
+    "slibtool",
     "vala-devel",
     "xfce4-dev-tools",
 ]
@@ -41,7 +40,7 @@ url = "https://docs.xfce.org/xfce/libxfce4ui/start"
 source = (
     f"$(XFCE_SITE)/xfce/libxfce4ui/{pkgver[:-2]}/libxfce4ui-{pkgver}.tar.bz2"
 )
-sha256 = "77dd99206cc8c6c7f69c269c83c7ee6a037bca9d4a89b1a6d9765e5a09ce30cd"
+sha256 = "75e8996984f20375aadecd5c16f5147c211ed0bd26d7861ab0257561eb76eaee"
 options = ["!cross"]
 
 
