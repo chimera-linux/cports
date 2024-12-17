@@ -1,12 +1,10 @@
 pkgname = "xfce4-weather-plugin"
-pkgver = "0.11.2"
+pkgver = "0.11.3"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
     "pkgconf",
     "slibtool",
     "xfce4-dev-tools",
@@ -27,4 +25,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-weather-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-weather-plugin/{pkgver[:-2]}/xfce4-weather-plugin-{pkgver}.tar.bz2"
-sha256 = "65d40aff7863550858a9f9d2b6054f27c69a3e7e712991785987f9a73bba876b"
+sha256 = "002d1fe63906d2f3a012f3cb58cceff1dfbcc466759e36c76d3b03dd01c0dc57"

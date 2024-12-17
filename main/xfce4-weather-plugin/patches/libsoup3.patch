@@ -1,4 +1,4 @@
-From 36e93fa56d20ebb8c1cc16d4b5be2e9b5ff16bc3 Mon Sep 17 00:00:00 2001
+From 9115037ed7cfe722d3739ca800d5247f4bb3bc53 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C4=90o=C3=A0n=20Tr=E1=BA=A7n=20C=C3=B4ng=20Danh?=
  <congdanhqx@gmail.com>
 Date: Fri, 1 Mar 2024 21:56:34 +0700
@@ -16,7 +16,7 @@ Subject: [PATCH 1/3] libxfce4ui: Avoid deprecated functions
  3 files changed, 14 insertions(+), 12 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 18b53ee..a3649d7 100644
+index 97cc9ead..324599fd 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -66,7 +66,7 @@ XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.22.0])
@@ -29,10 +29,10 @@ index 18b53ee..a3649d7 100644
  XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [4.12.0])
  XDT_CHECK_PACKAGE([LIBXML], [libxml-2.0], [2.4.0])
 diff --git a/panel-plugin/weather-config.c b/panel-plugin/weather-config.c
-index ea54524..cba3693 100644
+index 9f773403..26454088 100644
 --- a/panel-plugin/weather-config.c
 +++ b/panel-plugin/weather-config.c
-@@ -946,8 +946,8 @@ button_icons_dir_clicked(GtkWidget *button,
+@@ -958,8 +958,8 @@ button_icons_dir_clicked(GtkWidget *button,
      g_mkdir_with_parents(dir, 0755);
      command = g_strdup_printf("exo-open %s", dir);
      g_free(dir);
@@ -44,10 +44,10 @@ index ea54524..cba3693 100644
  }
  
 diff --git a/panel-plugin/weather-search.c b/panel-plugin/weather-search.c
-index 0e74e7e..b63e68d 100644
+index 83f1d717..7e87ae85 100644
 --- a/panel-plugin/weather-search.c
 +++ b/panel-plugin/weather-search.c
-@@ -198,15 +198,17 @@ create_search_dialog(GtkWindow *parent,
+@@ -205,15 +205,17 @@ create_search_dialog(GtkWindow *parent,
      dialog->session = session;
  
      dialog->dialog =
@@ -78,7 +78,7 @@ index 0e74e7e..b63e68d 100644
 GitLab
 
 
-From 1e68bf59ad252afd03579ae9fbf967db6490b81f Mon Sep 17 00:00:00 2001
+From c0653a903c6f2cecdf41ac9eaeba4f4617656ffe Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C4=90o=C3=A0n=20Tr=E1=BA=A7n=20C=C3=B4ng=20Danh?=
  <congdanhqx@gmail.com>
 Date: Fri, 1 Mar 2024 21:56:34 +0700
@@ -97,10 +97,10 @@ Prepare for that move.
  5 files changed, 76 insertions(+), 29 deletions(-)
 
 diff --git a/panel-plugin/weather-config.c b/panel-plugin/weather-config.c
-index cba3693..b4a7a51 100644
+index 26454088..19fa1d82 100644
 --- a/panel-plugin/weather-config.c
 +++ b/panel-plugin/weather-config.c
-@@ -243,9 +243,16 @@ cb_lookup_altitude(SoupSession *session,
+@@ -245,6 +245,13 @@ cb_lookup_altitude(SoupSession *session,
      xfceweather_dialog *dialog = (xfceweather_dialog *) user_data;
      xml_altitude *altitude;
      gdouble alt = 0;
@@ -112,13 +112,18 @@ index cba3693..b4a7a51 100644
 +        len = msg->response_body->length;
 +    }
  
+     if (global_dialog == NULL) {
+         weather_debug("%s called after dialog was destroyed", G_STRFUNC);
+@@ -252,7 +259,7 @@ cb_lookup_altitude(SoupSession *session,
+     }
+ 
      altitude = (xml_altitude *)
 -        parse_xml_document(msg, (XmlParseFunc) parse_altitude);
 +        parse_xml_document(body, len, (XmlParseFunc) parse_altitude);
  
      if (altitude) {
          alt = string_to_double(altitude->altitude, -9999);
-@@ -267,9 +274,16 @@ cb_lookup_timezone(SoupSession *session,
+@@ -274,6 +281,13 @@ cb_lookup_timezone(SoupSession *session,
  {
      xfceweather_dialog *dialog = (xfceweather_dialog *) user_data;
      xml_timezone *xml_tz;
@@ -130,6 +135,11 @@ index cba3693..b4a7a51 100644
 +        len = msg->response_body->length;
 +    }
  
+     if (global_dialog == NULL) {
+         weather_debug("%s called after dialog was destroyed", G_STRFUNC);
+@@ -281,7 +295,7 @@ cb_lookup_timezone(SoupSession *session,
+     }
+ 
      xml_tz = (xml_timezone *)
 -        parse_xml_document(msg, (XmlParseFunc) parse_timezone);
 +        parse_xml_document(body, len, (XmlParseFunc) parse_timezone);
@@ -137,7 +147,7 @@ index cba3693..b4a7a51 100644
  
      if (xml_tz) {
 diff --git a/panel-plugin/weather-parsers.c b/panel-plugin/weather-parsers.c
-index d53a2bc..28934c4 100644
+index d53a2bc9..28934c46 100644
 --- a/panel-plugin/weather-parsers.c
 +++ b/panel-plugin/weather-parsers.c
 @@ -791,49 +791,51 @@ parse_timezone(xmlNode *cur_node)
@@ -210,7 +220,7 @@ index d53a2bc..28934c4 100644
          root_node = xmlDocGetRootElement(doc);
          if (G_LIKELY(root_node))
 diff --git a/panel-plugin/weather-parsers.h b/panel-plugin/weather-parsers.h
-index a9d019d..09b9c02 100644
+index a9d019da..09b9c02e 100644
 --- a/panel-plugin/weather-parsers.h
 +++ b/panel-plugin/weather-parsers.h
 @@ -22,7 +22,6 @@
@@ -237,10 +247,10 @@ index a9d019d..09b9c02 100644
  
  xml_astro *xml_astro_copy(const xml_astro *src);
 diff --git a/panel-plugin/weather-search.c b/panel-plugin/weather-search.c
-index b63e68d..cfbcd55 100644
+index 7e87ae85..6a2ba1f7 100644
 --- a/panel-plugin/weather-search.c
 +++ b/panel-plugin/weather-search.c
-@@ -87,10 +87,17 @@ cb_searchdone(SoupSession *session,
+@@ -89,6 +89,13 @@ cb_searchdone(SoupSession *session,
      gint found = 0;
      GtkTreeIter iter;
      GtkTreeSelection *selection;
@@ -252,6 +262,10 @@ index b63e68d..cfbcd55 100644
 +        len = msg->response_body->length;
 +    }
  
+     if (global_dialog == NULL) {
+         weather_debug("%s called after dialog was destroyed", G_STRFUNC);
+@@ -97,7 +104,7 @@ cb_searchdone(SoupSession *session,
+ 
      gtk_widget_set_sensitive(dialog->find_button, TRUE);
  
 -    doc = get_xml_document(msg);
@@ -259,7 +273,7 @@ index b63e68d..cfbcd55 100644
      if (!doc)
          return;
  
-@@ -377,9 +384,16 @@ cb_geolocation(SoupSession *session,
+@@ -385,6 +392,13 @@ cb_geolocation(SoupSession *session,
      xml_geolocation *geo;
      gchar *full_loc;
      units_config *units;
@@ -271,6 +285,11 @@ index b63e68d..cfbcd55 100644
 +        len = msg->response_body->length;
 +    }
  
+     if (global_dialog == NULL) {
+         weather_debug("%s called after dialog was destroyed", G_STRFUNC);
+@@ -392,7 +406,7 @@ cb_geolocation(SoupSession *session,
+     }
+ 
      geo = (xml_geolocation *)
 -        parse_xml_document(msg, (XmlParseFunc) parse_geolocation);
 +        parse_xml_document(body, len, (XmlParseFunc) parse_geolocation);
@@ -278,7 +297,7 @@ index b63e68d..cfbcd55 100644
  
      if (!geo) {
 diff --git a/panel-plugin/weather.c b/panel-plugin/weather.c
-index 015a15f..0783b5c 100644
+index 0a92b4e3..b75c6330 100644
 --- a/panel-plugin/weather.c
 +++ b/panel-plugin/weather.c
 @@ -489,11 +489,17 @@ cb_astro_update_sun(SoupSession *session,
@@ -349,7 +368,7 @@ index 015a15f..0783b5c 100644
 GitLab
 
 
-From 527314c4a11b05ed18fa8f005e260abd81423316 Mon Sep 17 00:00:00 2001
+From 279c975dc1f95bd1ce9152eee1d19122e7deb9a8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?=C4=90o=C3=A0n=20Tr=E1=BA=A7n=20C=C3=B4ng=20Danh?=
  <congdanhqx@gmail.com>
 Date: Fri, 1 Mar 2024 21:56:34 +0700
@@ -366,7 +385,7 @@ Subject: [PATCH 3/3] libsoup: Port to libsoup-3.0
  7 files changed, 132 insertions(+), 115 deletions(-)
 
 diff --git a/README b/README
-index 6587581..3530b1f 100644
+index 65875811..3530b1fc 100644
 --- a/README
 +++ b/README
 @@ -152,10 +152,10 @@ using gdb or any other debugger should the plugin crash:
@@ -383,7 +402,7 @@ index 6587581..3530b1f 100644
  
  You might also need developer libraries necessary for building other
 diff --git a/configure.ac b/configure.ac
-index a3649d7..328d90e 100644
+index 324599fd..049ef887 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -70,7 +70,7 @@ XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.16.0])
@@ -396,10 +415,10 @@ index a3649d7..328d90e 100644
  XDT_CHECK_OPTIONAL_PACKAGE([UPOWER_GLIB], [upower-glib], [0.9.0], [upower],
                             [upower for adapting update interval to power state])
 diff --git a/panel-plugin/weather-config.c b/panel-plugin/weather-config.c
-index b4a7a51..29f7e97 100644
+index 19fa1d82..d27c825f 100644
 --- a/panel-plugin/weather-config.c
 +++ b/panel-plugin/weather-config.c
-@@ -236,8 +236,8 @@ sanitize_location_name(const gchar *location_name)
+@@ -238,8 +238,8 @@ sanitize_location_name(const gchar *location_name)
  
  
  static void
@@ -410,7 +429,7 @@ index b4a7a51..29f7e97 100644
                     gpointer user_data)
  {
      xfceweather_dialog *dialog = (xfceweather_dialog *) user_data;
-@@ -245,11 +245,14 @@ cb_lookup_altitude(SoupSession *session,
+@@ -247,11 +247,14 @@ cb_lookup_altitude(SoupSession *session,
      gdouble alt = 0;
      const gchar *body = NULL;
      gsize len = 0;
@@ -427,9 +446,9 @@ index b4a7a51..29f7e97 100644
 +    else
 +        body = g_bytes_get_data(response, &len);
  
-     altitude = (xml_altitude *)
-         parse_xml_document(body, len, (XmlParseFunc) parse_altitude);
-@@ -264,23 +267,27 @@ cb_lookup_altitude(SoupSession *session,
+     if (global_dialog == NULL) {
+         weather_debug("%s called after dialog was destroyed", G_STRFUNC);
+@@ -271,23 +274,27 @@ cb_lookup_altitude(SoupSession *session,
      else if (dialog->pd->units->altitude == FEET)
          alt /= 0.3048;
      gtk_spin_button_set_value(GTK_SPIN_BUTTON(dialog->spin_alt), alt);
@@ -461,9 +480,9 @@ index b4a7a51..29f7e97 100644
 +    else
 +        body = g_bytes_get_data(response, &len);
  
-     xml_tz = (xml_timezone *)
-         parse_xml_document(body, len, (XmlParseFunc) parse_timezone);
-@@ -292,6 +299,7 @@ cb_lookup_timezone(SoupSession *session,
+     if (global_dialog == NULL) {
+         weather_debug("%s called after dialog was destroyed", G_STRFUNC);
+@@ -304,6 +311,7 @@ cb_lookup_timezone(SoupSession *session,
          xml_timezone_free(xml_tz);
      } else
          gtk_entry_set_text(GTK_ENTRY(dialog->text_timezone), "");
@@ -472,10 +491,10 @@ index b4a7a51..29f7e97 100644
  
  
 diff --git a/panel-plugin/weather-search.c b/panel-plugin/weather-search.c
-index cfbcd55..d49dd79 100644
+index 6a2ba1f7..e030ff84 100644
 --- a/panel-plugin/weather-search.c
 +++ b/panel-plugin/weather-search.c
-@@ -76,8 +76,8 @@ sanitize_str(const gchar *str)
+@@ -78,8 +78,8 @@ sanitize_str(const gchar *str)
  
  
  static void
@@ -486,7 +505,7 @@ index cfbcd55..d49dd79 100644
                gpointer user_data)
  {
      search_dialog *dialog = (search_dialog *) user_data;
-@@ -89,17 +89,22 @@ cb_searchdone(SoupSession *session,
+@@ -91,11 +91,14 @@ cb_searchdone(SoupSession *session,
      GtkTreeSelection *selection;
      const gchar *body = NULL;
      gsize len = 0;
@@ -503,6 +522,9 @@ index cfbcd55..d49dd79 100644
 +    else
 +        body = g_bytes_get_data(response, &len);
  
+     if (global_dialog == NULL) {
+         weather_debug("%s called after dialog was destroyed", G_STRFUNC);
+@@ -105,8 +108,10 @@ cb_searchdone(SoupSession *session,
      gtk_widget_set_sensitive(dialog->find_button, TRUE);
  
      doc = get_xml_document(body, len);
@@ -514,7 +536,7 @@ index cfbcd55..d49dd79 100644
  
      cur_node = xmlDocGetRootElement(doc);
      if (cur_node) {
-@@ -133,6 +138,7 @@ cb_searchdone(SoupSession *session,
+@@ -140,6 +145,7 @@ cb_searchdone(SoupSession *session,
          }
  
      gtk_tree_view_column_set_title(dialog->column, _("Results"));
@@ -522,7 +544,7 @@ index cfbcd55..d49dd79 100644
  }
  
  
-@@ -376,8 +382,8 @@ get_preferred_units(const gchar *country_code)
+@@ -384,8 +390,8 @@ get_preferred_units(const gchar *country_code)
  
  
  static void
@@ -533,7 +555,7 @@ index cfbcd55..d49dd79 100644
                 gpointer user_data)
  {
      geolocation_data *data = (geolocation_data *) user_data;
-@@ -386,11 +392,14 @@ cb_geolocation(SoupSession *session,
+@@ -394,11 +400,14 @@ cb_geolocation(SoupSession *session,
      units_config *units;
      const gchar *body = NULL;
      gsize len = 0;
@@ -550,9 +572,9 @@ index cfbcd55..d49dd79 100644
 +    else
 +        body = g_bytes_get_data(response, &len);
  
-     geo = (xml_geolocation *)
-         parse_xml_document(body, len, (XmlParseFunc) parse_geolocation);
-@@ -398,6 +407,7 @@ cb_geolocation(SoupSession *session,
+     if (global_dialog == NULL) {
+         weather_debug("%s called after dialog was destroyed", G_STRFUNC);
+@@ -411,6 +420,7 @@ cb_geolocation(SoupSession *session,
  
      if (!geo) {
          data->cb(NULL, NULL, NULL, NULL, data->user_data);
@@ -560,7 +582,7 @@ index cfbcd55..d49dd79 100644
          g_free(data);
          return;
      }
-@@ -428,6 +438,7 @@ cb_geolocation(SoupSession *session,
+@@ -441,6 +451,7 @@ cb_geolocation(SoupSession *session,
      g_slice_free(units_config, units);
      xml_geolocation_free(geo);
      g_free(full_loc);
@@ -569,7 +591,7 @@ index cfbcd55..d49dd79 100644
  }
  
 diff --git a/panel-plugin/weather-summary.c b/panel-plugin/weather-summary.c
-index a6a2f56..224bb34 100644
+index a6a2f567..224bb342 100644
 --- a/panel-plugin/weather-summary.c
 +++ b/panel-plugin/weather-summary.c
 @@ -234,22 +234,29 @@ get_logo_path(void)
@@ -620,7 +642,7 @@ index a6a2f56..224bb34 100644
  
  
 diff --git a/panel-plugin/weather.c b/panel-plugin/weather.c
-index 0783b5c..e13be20 100644
+index b75c6330..1a84537a 100644
 --- a/panel-plugin/weather.c
 +++ b/panel-plugin/weather.c
 @@ -23,6 +23,8 @@
@@ -837,7 +859,7 @@ index 0783b5c..e13be20 100644
  
  #ifdef HAVE_UPOWER_GLIB
  static void
-@@ -2036,9 +2027,10 @@ static plugin_data *
+@@ -2037,9 +2028,10 @@ static plugin_data *
  xfceweather_create_control(XfcePanelPlugin *plugin)
  {
      plugin_data *data = g_slice_new0(plugin_data);
@@ -850,7 +872,7 @@ index 0783b5c..e13be20 100644
      GtkWidget *refresh;
      cairo_surface_t *icon = NULL;
      data_types lbl;
-@@ -2076,29 +2068,26 @@ xfceweather_create_control(XfcePanelPlugin *plugin)
+@@ -2077,29 +2069,26 @@ xfceweather_create_control(XfcePanelPlugin *plugin)
  
      /* Setup session for HTTP connections */
      data->session = soup_session_new();
@@ -895,7 +917,7 @@ index 0783b5c..e13be20 100644
      data->scrollbox = gtk_scrollbox_new();
  
 diff --git a/panel-plugin/weather.h b/panel-plugin/weather.h
-index 208de09..01974ce 100644
+index 208de090..01974ceb 100644
 --- a/panel-plugin/weather.h
 +++ b/panel-plugin/weather.h
 @@ -183,7 +183,7 @@ extern gboolean debug_mode;
