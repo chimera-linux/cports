@@ -1,3 +1,5 @@
+updated for 6.12 kernel by q66
+
 From e6cc32a85f77f12b67ee3047f5c03fead396843b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
  <jan.christian@gruenhage.xyz>
@@ -27,22 +29,23 @@ Signed-off-by: Jan Čermák <sairon@sairon.cz>
 
 diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
 new file mode 100644
-index 000000000000..b3d57a53d222
+index 0000000..fcb23df
 --- /dev/null
 +++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
-@@ -0,0 +1,712 @@
+@@ -0,0 +1,713 @@
 +// SPDX-License-Identifier: GPL-2.0
++// derived from bcm2711-rpi-cm4.dts
 +/dts-v1/;
 +#define BCM2711
 +#define i2c0 i2c0if
 +#include "bcm2711.dtsi"
++#include "bcm2711-rpi.dtsi"
++/delete-node/&i2c0mux;
 +#include "bcm283x-rpi-wifi-bt.dtsi"
 +#undef i2c0
 +#include "bcm270x.dtsi"
 +#define i2c0 i2c0mux
-+#include "bcm2711-rpi.dtsi"
 +#undef i2c0
-+//#include "bcm283x-rpi-usb-peripheral.dtsi"
 +
 +#include <dt-bindings/input/input.h>
 +
@@ -744,10 +747,10 @@ index 000000000000..b3d57a53d222
 +	};
 +};
 diff --git a/arch/arm64/boot/dts/broadcom/Makefile b/arch/arm64/boot/dts/broadcom/Makefile
-index 5dd4c5c77e2f..bf4d26ee0774 100644
+index 0d43290..8936dbc 100644
 --- a/arch/arm64/boot/dts/broadcom/Makefile
 +++ b/arch/arm64/boot/dts/broadcom/Makefile
-@@ -19,6 +19,8 @@ dtb-$(CONFIG_ARCH_BCM2835) += bcm2710-rpi-3-b.dtb
+@@ -21,6 +21,8 @@ dtb-$(CONFIG_ARCH_BCM2835) += bcm2710-rpi-3-b.dtb
  dtb-$(CONFIG_ARCH_BCM2835) += bcm2710-rpi-3-b-plus.dtb
  dtb-$(CONFIG_ARCH_BCM2835) += bcm2710-rpi-cm3.dtb
  dtb-$(CONFIG_ARCH_BCM2835) += bcm2711-rpi-cm4.dtb
@@ -758,18 +761,19 @@ index 5dd4c5c77e2f..bf4d26ee0774 100644
  dtb-$(CONFIG_ARCH_BCM2835) += bcm2712d0-rpi-5-b.dtb
 diff --git a/arch/arm64/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
 new file mode 100644
-index 000000000000..97ff67ade14d
+index 0000000..97ff67a
 --- /dev/null
 +++ b/arch/arm64/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
 @@ -0,0 +1 @@
 +#include "../../../../arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts"
 diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts
 new file mode 100644
-index 000000000000..4b130f42b235
+index 0000000..785e0dd
 --- /dev/null
 +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-cm5-ha-yellow.dts
-@@ -0,0 +1,1063 @@
+@@ -0,0 +1,1021 @@
 +// SPDX-License-Identifier: GPL-2.0
++// derived from bcm2712-rpi-cm5.dtsi
 +/dts-v1/;
 +
 +#include <dt-bindings/gpio/gpio.h>
@@ -780,45 +784,7 @@ index 000000000000..4b130f42b235
 +#include <dt-bindings/pwm/pwm.h>
 +#include <dt-bindings/reset/raspberrypi,firmware-reset.h>
 +
-+#define i2c0 _i2c0
-+#define i2c3 _i2c3
-+#define i2c4 _i2c4
-+#define i2c5 _i2c5
-+#define i2c6 _i2c6
-+#define i2c8 _i2c8
-+#define i2s _i2s
-+#define pwm0 _pwm0
-+#define pwm1 _pwm1
-+#define spi0 _spi0
-+#define spi3 _spi3
-+#define spi4 _spi4
-+#define spi5 _spi5
-+#define spi6 _spi6
-+#define uart0 _uart0
-+#define uart2 _uart2
-+#define uart5 _uart5
-+
-+#include "bcm2712.dtsi"
-+
-+#undef i2c0
-+#undef i2c3
-+#undef i2c4
-+#undef i2c5
-+#undef i2c6
-+#undef i2c8
-+#undef i2s
-+#undef pwm0
-+#undef pwm1
-+#undef spi0
-+#undef spi3
-+#undef spi4
-+#undef spi5
-+#undef spi6
-+#undef uart0
-+#undef uart2
-+#undef uart3
-+#undef uart4
-+#undef uart5
++#include "bcm2712-ds.dtsi"
 +
 +/ {
 +	compatible = "raspberrypi,5-compute-module-ha-yellow", "raspberrypi,5-compute-module", "brcm,bcm2712";
@@ -887,9 +853,6 @@ index 000000000000..4b130f42b235
 +		enable-active-high;
 +	};
 +
-+	clocks: clocks {
-+	};
-+
 +	cam1_clk: cam1_clk {
 +		compatible = "fixed-clock";
 +		#clock-cells = <0>;
@@ -937,12 +900,10 @@ index 000000000000..4b130f42b235
 +// Add some labels to 2712 device
 +
 +// The system UART
-+uart10: &_uart0 { status = "okay"; };
++&uart10 { status = "okay"; };
 +
 +// The system SPI for the bootloader EEPROM
-+spi10: &_spi0 { status = "okay"; };
-+
-+i2c_rp1boot: &_i2c3 { };
++&spi10 { status = "okay"; };
 +
 +#include "rp1.dtsi"
 +
@@ -1190,7 +1151,7 @@ index 000000000000..4b130f42b235
 +	};
 +};
 +
-+&i2c_rp1boot {
++&i2c10 {
 +	clock-frequency = <400000>;
 +	pinctrl-0 = <&i2c3_m4_agpio0_pins>;
 +	pinctrl-names = "default";
@@ -1298,6 +1259,7 @@ index 000000000000..4b130f42b235
 +	// clash with the firmware monitoring the PMIC interrupt via the VPU.
 +
 +	/delete-property/ interrupt-controller;
++	/delete-property/ #interrupt-cells;
 +};
 +
 +&main_aon_irq {
@@ -1547,7 +1509,7 @@ index 000000000000..4b130f42b235
 +};
 +
 +&vc4 {
-+	compatible = "brcm,bcm2712d0-vc6";
++	compatible = "brcm,bcm2712d0-vc6", "brcm,bcm2712-vc6";
 +};
 +
 +&uart10 {
@@ -1762,7 +1724,6 @@ index 000000000000..4b130f42b235
 +		i2c4 = &i2c4;
 +		i2c5 = &i2c5;
 +		i2c6 = &i2c6;
-+		i2c10 = &i2c_rp1boot;
 +		// Bit-bashed i2c_gpios start at 10
 +		spi0 = &spi0;
 +		spi1 = &spi1;
@@ -1834,4 +1795,3 @@ index 000000000000..4b130f42b235
 +};
 -- 
 2.47.0
-
