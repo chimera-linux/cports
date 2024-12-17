@@ -28,11 +28,11 @@ def _build_env(pkg, menv, base_env, env):
     return renv
 
 
-def configure(pkg, flavor, extra_args=[], build_dir=None, env=None):
+def configure(pkg, extra_args=[], build_dir=None, env=None):
     cfgarch = pkg.profile().arch
-    cfgname = f"config-{cfgarch}.{flavor}"
 
-    pkg.cp(pkg.files_path / cfgname, pkg.cwd)
+    for f in pkg.files_path.glob("config-*"):
+        pkg.cp(f, ".")
 
     epoch = pkg.source_date_epoch or 0
     args = []
@@ -48,10 +48,9 @@ def configure(pkg, flavor, extra_args=[], build_dir=None, env=None):
         "chimera-buildkernel",
         "prepare",
         f"ARCH={get_arch(pkg)}",
-        f"CONFIG_FILE={pkg.chroot_cwd}/{cfgname}",
+        f"CONFIG_FILE=config-{cfgarch}",
         f"OBJDIR={bdir}",
         f"JOBS={pkg.make_jobs}",
-        f"LOCALVERSION=-{pkg.pkgrel}-{flavor}",
         f"EPOCH={epoch}",
         *args,
         *extra_args,
