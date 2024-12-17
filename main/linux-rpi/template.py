@@ -3,6 +3,8 @@ pkgname = "linux-rpi"
 pkgver = "6.6.64"
 pkgrel = 0
 archs = ["aarch64"]
+build_style = "linux-kernel"
+configure_args = ["FLAVOR=rpi", f"RELEASE={pkgrel}"]
 make_dir = "build"
 # necessary for efistub
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
@@ -29,28 +31,8 @@ options = [
     "foreignelf",  # vdso32
 ]
 
-_flavor = "rpi"
-
 if self.profile().cross:
     broken = "linux-devel does not come out right"
-
-
-def configure(self):
-    from cbuild.util import linux
-
-    linux.configure(self, [f"FLAVOR={_flavor}", f"RELEASE={pkgrel}"])
-
-
-def build(self):
-    from cbuild.util import linux
-
-    linux.build(self)
-
-
-def install(self):
-    from cbuild.util import linux
-
-    linux.install(self)
 
 
 @subpackage("linux-rpi-devel")

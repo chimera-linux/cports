@@ -3,6 +3,8 @@ pkgname = "linux-lts"
 pkgver = "6.6.66"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
+build_style = "linux-kernel"
+configure_args = ["FLAVOR=generic", f"RELEASE={pkgrel}"]
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
@@ -26,8 +28,6 @@ options = [
     "foreignelf",  # vdso32
 ]
 
-_flavor = "generic"
-
 if self.current_target == "custom:generate-configs":
     hostmakedepends += ["base-cross", "ncurses-devel"]
 
@@ -39,27 +39,7 @@ if self.profile().cross:
 def _(self):
     from cbuild.util import linux
 
-    linux.update_configs(
-        self, archs, [f"FLAVOR={_flavor}", f"RELEASE={pkgrel}"]
-    )
-
-
-def configure(self):
-    from cbuild.util import linux
-
-    linux.configure(self, [f"FLAVOR={_flavor}", f"RELEASE={pkgrel}"])
-
-
-def build(self):
-    from cbuild.util import linux
-
-    linux.build(self)
-
-
-def install(self):
-    from cbuild.util import linux
-
-    linux.install(self)
+    linux.update_configs(self, archs, self.configure_args)
 
 
 @subpackage("linux-lts-devel")
