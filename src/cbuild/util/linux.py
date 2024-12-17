@@ -74,7 +74,7 @@ def update_configs(pkg, archs, flavor):
     pkg.log_green("SUCCESS: kernel configs have been updated")
 
 
-def build(pkg, flavor, env=None):
+def build(pkg, env=None):
     pkg.do(
         "chimera-buildkernel",
         "build",
@@ -82,24 +82,26 @@ def build(pkg, flavor, env=None):
     )
 
 
-def install(pkg, flavor, env=None):
+def install(pkg, env=None):
     pkg.do(
         "chimera-buildkernel",
         "install",
         pkg.chroot_destdir,
         env=_build_env(pkg, pkg.make_env, pkg.make_install_env, env),
     )
-    kpath = f"usr/lib/modules/{pkg.pkgver}-{pkg.pkgrel}-{flavor}"
+    kdest = list(
+        (pkg.destdir / "usr/lib/modules").glob(f"{pkg.pkgver}-{pkg.pkgrel}-*")
+    )[0]
     # most things get relocated to a distribution directory
-    pkg.install_dir(f"{kpath}/apk-dist/boot")
+    pkg.install_dir(f"{kdest.relative_to(pkg.destdir)}/apk-dist/boot")
     # write the series into a special file...
-    with open(pkg.destdir / kpath / "apk-dist/.apk-series", "w") as sf:
+    with open(kdest / "apk-dist/.apk-series", "w") as sf:
         sf.write(f"{pkg.pkgname}\n")
     # relocate boot files
     for f in (pkg.destdir / "boot").iterdir():
-        pkg.mv(f, pkg.destdir / kpath / "apk-dist/boot")
+        pkg.mv(f, kdest / "apk-dist/boot")
     # and relocate other distribution files
-    for f in (pkg.destdir / kpath).iterdir():
+    for f in kdest.iterdir():
         match f.name:
             case "modules.builtin" | "modules.builtin.modinfo":
                 pass

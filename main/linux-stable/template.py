@@ -51,13 +51,13 @@ def configure(self):
 def build(self):
     from cbuild.util import linux
 
-    linux.build(self, _flavor)
+    linux.build(self)
 
 
 def install(self):
     from cbuild.util import linux
 
-    linux.install(self, _flavor)
+    linux.install(self)
 
 
 @subpackage("linux-stable-devel")
