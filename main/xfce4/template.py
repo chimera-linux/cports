@@ -1,6 +1,6 @@
 pkgname = "xfce4"
-pkgver = "4.18"
-pkgrel = 6
+pkgver = "4.20"
+pkgrel = 0
 build_style = "meta"
 depends = [
     "gvfs",
