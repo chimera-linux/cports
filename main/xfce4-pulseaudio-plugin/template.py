@@ -1,14 +1,12 @@
 pkgname = "xfce4-pulseaudio-plugin"
-pkgver = "0.4.8"
+pkgver = "0.4.9"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -18,13 +16,12 @@ makedepends = [
     "libkeybinder3-devel",
     "libnotify-devel",
     "libpulse-devel",
-    "libwnck-devel",
     "libx11-devel",
     "libxfce4ui-devel",
     "libxfce4util-devel",
+    "libxfce4windowing-devel",
     "xfce4-panel-devel",
     "xfconf-devel",
-    # "libxfce4windowing-devel" when xfce 4.20
 ]
 # Default mixer
 depends = ["pavucontrol"]
@@ -33,4 +30,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-pulseaudio-plugin/{pkgver[:-2]}/xfce4-pulseaudio-plugin-{pkgver}.tar.bz2"
-sha256 = "bd742b207c39c221e91c57c9c9be2839eb802d1b1ee01a02b7427cd02d3f0348"
+sha256 = "a0807615fb2848d0361b7e4568a44f26d189fda48011c7ba074986c8bfddc99a"
