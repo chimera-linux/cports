@@ -28,7 +28,7 @@ def _build_env(pkg, menv, base_env, env):
     return renv
 
 
-def configure(pkg, flavor, build_dir=None, env=None):
+def configure(pkg, flavor, extra_args=[], build_dir=None, env=None):
     cfgarch = pkg.profile().arch
     cfgname = f"config-{cfgarch}.{flavor}"
 
@@ -54,6 +54,7 @@ def configure(pkg, flavor, build_dir=None, env=None):
         f"LOCALVERSION=-{pkg.pkgrel}-{flavor}",
         f"EPOCH={epoch}",
         *args,
+        *extra_args,
         env=_build_env(pkg, pkg.configure_env, None, env),
     )
 
