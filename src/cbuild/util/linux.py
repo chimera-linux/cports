@@ -58,12 +58,12 @@ def configure(pkg, extra_args=[], build_dir=None, env=None):
     )
 
 
-def update_configs(pkg, archs, flavor):
+def update_configs(pkg, archs, extra_args=[]):
     for a in archs:
         with pkg.profile(a):
             with pkg.stamp(f"{a}_config"):
                 pkg.log(f"configuring {a}...")
-                configure(pkg, flavor, f"{pkg.make_dir}-{a}")
+                configure(pkg, extra_args, f"{pkg.make_dir}-{a}")
                 pkg.log("now perform other config (press enter once done)")
                 input()
                 pkg.cp(

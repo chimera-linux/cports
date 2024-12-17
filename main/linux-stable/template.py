@@ -39,7 +39,9 @@ if self.profile().cross:
 def _(self):
     from cbuild.util import linux
 
-    linux.update_configs(self, archs, _flavor)
+    linux.update_configs(
+        self, archs, [f"FLAVOR={_flavor}", f"RELEASE={pkgrel}"]
+    )
 
 
 def configure(self):
