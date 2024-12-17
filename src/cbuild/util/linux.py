@@ -59,6 +59,10 @@ def configure(pkg, extra_args=[], build_dir=None, env=None):
 
 
 def update_configs(pkg, archs, extra_args=[]):
+    flavor = "generic"
+    for flv in extra_args:
+        if flv.startswith("FLAVOR="):
+            flavor = flv.removeprefix("FLAVOR=")
     for a in archs:
         with pkg.profile(a):
             with pkg.stamp(f"{a}_config"):
