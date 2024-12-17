@@ -17,7 +17,12 @@ def install(self):
     linux.install(self, renv)
 
 
+def _update_configs(self):
+    linux.update_configs(self, self.archs, self.configure_args)
+
+
 def use(tmpl):
     tmpl.configure = configure
     tmpl.build = build
     tmpl.install = install
+    tmpl._custom_targets["generate-configs"] = (_update_configs, "patch")

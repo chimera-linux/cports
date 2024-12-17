@@ -35,13 +35,6 @@ if self.profile().cross:
     broken = "linux-devel does not come out right"
 
 
-@custom_target("generate-configs", "patch")
-def _(self):
-    from cbuild.util import linux
-
-    linux.update_configs(self, archs, self.configure_args)
-
-
 @subpackage("linux-stable-devel")
 def _(self):
     self.depends += ["clang"]
