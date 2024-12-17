@@ -223,7 +223,10 @@ do_prepare() {
     rm -rf "${OBJDIR}" || die "Failed to remove build directory."
     mkdir -p "${OBJDIR}" || die "Failed to create build directory."
 
-    [ -r "$CONFIG_FILE" ] || die "Config file is not readable."
+    if [ ! -r "$CONFIG_FILE" ]; then
+        [ -n "$FLAVOR" ] && CONFIG_FILE="${CONFIG_FILE}.${FLAVOR}"
+        [ -r "$CONFIG_FILE" ] || die "Config file is not readable."
+    fi
     cp "$CONFIG_FILE" "${OBJDIR}/.config" \
         || die "Failed to copy config file."
 
