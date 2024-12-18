@@ -1702,7 +1702,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         bstage = stage
     if tgt == "invoke-custom":
         if len(cmdline.command) != 3:
-            raise errors.CbuildException(f"{tgt} eneeds two arguments")
+            raise errors.CbuildException(f"{tgt} needs two arguments")
         tgt = "custom:" + cmdline.command[1]
         pkgn = cmdline.command[2]
     elif tgt == "pkg" and len(cmdline.command) > 2:

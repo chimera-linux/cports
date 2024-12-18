@@ -34,7 +34,7 @@ if self.stage > 0:
         "tzdata",
     ]
 
-if self.stage > 1:
+if self.stage > 2:
     depends += ["ccache"]
 
 
