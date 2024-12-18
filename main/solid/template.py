@@ -1,5 +1,5 @@
 pkgname = "solid"
-pkgver = "6.9.0"
+pkgver = "6.9.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,7 +24,7 @@ url = "https://develop.kde.org/docs/features/solid"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/solid-{pkgver}.tar.xz"
 )
-sha256 = "8db2540498697847ee7f93afe4c307320f2cfee26fbdfca0133bf8cacfea42f5"
+sha256 = "254d562da6611a15f1f617e7afb78d4702455b89ca95de1dba9f6b9928320367"
 hardening = ["vis"]
 
 
