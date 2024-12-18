@@ -1,0 +1,35 @@
+commit eb23639b3516784f313528a73a724405e152dcef
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Dec 18 19:47:43 2024 +0100
+
+    build: only use VERSION up until first space for soname
+    
+    This lets VERSION contain additional info and without making
+    the library filenames messed up.
+
+diff --git a/Makefile b/Makefile
+index 79b9a0e..2ac7da3 100644
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,7 @@
+ 
+ PACKAGE := apk-tools
+ VERSION := $(shell ./get-version.sh "$(FULL_VERSION)" "$(VERSION)")
+-SO_VERSION := $(shell cat VERSION)
++SO_VERSION := $(shell cat VERSION | cut -d' ' -f1)
+ 
+ export PACKAGE VERSION SO_VERSION
+ 
+diff --git a/meson.build b/meson.build
+index 99c1d53..04c1bca 100644
+--- a/meson.build
++++ b/meson.build
+@@ -5,7 +5,7 @@ project(
+ 	version: run_command('./get-version.sh', check: true).stdout().strip(),
+ 	meson_version: '>=0.55'
+ )
+-so_version = run_command('cat', 'VERSION', check: true).stdout().strip()
++so_version = run_command('cat', 'VERSION', check: true).stdout().strip().split()[0]
+ 
+ pkgc = import('pkgconfig')
+ 
