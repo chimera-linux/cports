@@ -12,15 +12,15 @@ We suggest to avoid using GitHub's web editor for contributions, especially
 for templates, since those need testing. Therefore, if you do not know at
 least the basics of Git, use some of the public resources to get familiar.
 
-Also read `USING_GIT.md` if you are unfamiliar with Git.
+Also read [`USING_GIT.md`](USING_GIT.md) if you are unfamiliar with Git.
 
 Once you have that, clone your fork and prepare the changes.
 
 ## Preparing your changes
 
 Whether you are creating a new template or modifying an existing one, you
-should follow the manual (see `Packaging.md`) which should be able to answer
-all or at least most questions.
+should follow the manual (see [`Packaging.md`](Packaging.md)) which should be
+able to answer all or at least most questions.
 
 Always ensure to follow the expected style and other basics to make the
 reviewer's job easier.
