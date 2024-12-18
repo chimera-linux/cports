@@ -14,5 +14,5 @@ The following must be true for all changes:
 
 The following must be true for template/package changes:
 
-- [ ] I have read [Packaging.md](https://github.com/chimera-linux/cports/blob/master/Packaging.md#correct_templates)
+- [ ] I have read [Packaging.md](https://github.com/chimera-linux/cports/blob/master/Packaging.md#quality_requirements)
 - [ ] I have built and tested my changes on my machine
