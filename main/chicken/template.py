@@ -1,24 +1,22 @@
 pkgname = "chicken"
-pkgver = "5.4.0"
+pkgver = "6.0.0_pre1"
 pkgrel = 0
-build_style = "makefile"
+build_style = "configure"
+configure_args = ["--prefix=/usr"]
 depends = [self.with_pkgver("chicken-devel")]
 pkgdesc = "Practical and portable Scheme system"
 license = "BSD-3-Clause"
 url = "https://call-cc.org"
-source = f"https://code.call-cc.org/releases/{pkgver}/chicken-{pkgver}.tar.gz"
-sha256 = "3c5d4aa61c1167bf6d9bf9eaf891da7630ba9f5f3c15bf09515a7039bfcdec5f"
+source = (
+    "https://code.call-cc.org/dev-snapshots/2024/12/09/chicken-6.0.0pre1.tar.gz"
+)
+sha256 = "a4beda4eede1e2aa81f1c7d6cd71e0d0f2d3b9aa0023209984f1810fa29e7629"
 # is fwrapv so it mostly does not matter, still breaks tests on loongarch
 hardening = ["!int"]
-# parallel build unsupported
-options = ["!parallel"]
 
 
 def init_build(self):
     self.make_env = {
-        "C_COMPILER": self.get_tool("CC"),
-        "CXX_COMPILER": self.get_tool("CXX"),
-        "C_COMPILER_OPTIMIZATION_OPTIONS": self.get_cflags(shell=True),
         "LINKER_OPTIONS": self.get_ldflags(shell=True),
     }
 
