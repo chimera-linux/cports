@@ -1,5 +1,5 @@
 pkgname = "dunst"
-pkgver = "1.12.0"
+pkgver = "1.12.1"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -27,7 +27,7 @@ url = "https://dunst-project.org"
 source = (
     f"https://github.com/dunst-project/dunst/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "217075fa52ac9cd9b87b6dafb094019c4b07a1572259f7bd2adc4fc31771ed95"
+sha256 = "340b10c38ee519a75b14040f65505d72817857358ce7a6fe23190ab68782f892"
 env = {"SYSCONFDIR": "/etc"}
 hardening = ["vis", "cfi"]
 
