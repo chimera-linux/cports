@@ -1851,11 +1851,13 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         rpkgs.add(npn)
 
     # visited "intermediate" templates, includes stuff that is "to be done"
+    # which will be force-added after base-cbuild is handled, as we don't
+    # want this to influence the graph of base-cbuild
     #
     # ignore minor errors in templates like lint as those do not concern us
     # allow broken because that does not concern us yet either (handled later)
     # do not ignore missing tmpls because that is likely error in main tmpl
-    pvisit = set(rpkgs)
+    pvisit = set()
 
     # this is visited stuff in base-cbuild, we do checks against it later
     # to figure out if to add the implicit base-cbuild "dep" in the topology
@@ -1867,7 +1869,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         if do_raw:
             return True
         # add base-cbuild "dependency" for correct implicit sorting
-        if not cbinit and pn not in cbvisit:
+        if not cbinit and pn not in cbvisit and pn != "main/base-cbuild":
             depg.add(pn, "main/base-cbuild")
         # now add the rest of the stuff
         return _add_deps_graph(
@@ -1906,6 +1908,10 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         ),
         True,
     )
+
+    # finally add the "to be done" stuff...
+    for pkg in rpkgs:
+        pvisit.add(pkg)
 
     rpkgs = sorted(rpkgs)
 
