@@ -1,5 +1,5 @@
 pkgname = "kconfigwidgets"
-pkgver = "6.8.0"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -18,6 +18,7 @@ makedepends = [
     "kguiaddons-devel",
     "ki18n-devel",
     "kwidgetsaddons-devel",
+    "qt6-qtbase-private-devel",  # qguiapplication_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]
@@ -29,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/kconfigwidgets"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kconfigwidgets-{pkgver}.tar.xz"
-sha256 = "9dc3a82f1fb32750e6ecf78a863a43226a30e2fcadd7551eec7886916e1cb4f1"
+sha256 = "c9568cbdd9169a496a26293383cc4f7c79e94871f76a9146fb167c3c759b04ca"
 hardening = ["vis"]
 
 

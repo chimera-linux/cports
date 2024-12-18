@@ -1,5 +1,5 @@
 pkgname = "yoshimi"
-pkgver = "2.3.3.1"
+pkgver = "2.3.3.2"
 pkgrel = 0
 build_style = "cmake"
 cmake_dir = "src"
@@ -26,4 +26,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://yoshimi.github.io"
 source = f"https://github.com/Yoshimi/yoshimi/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a23537735766af8a6526de1f22004811b6fed9b561645a174452092fcf7c479f"
+sha256 = "edeeeb97d199396293b85296fb66157685bfcee69ca510327870525531803f8f"

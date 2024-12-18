@@ -11,7 +11,7 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "dbus-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libpulse-devel",
     "libsensors-devel",
     "notmuch-devel",

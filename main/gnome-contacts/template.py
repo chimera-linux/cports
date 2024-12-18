@@ -1,5 +1,5 @@
 pkgname = "gnome-contacts"
-pkgver = "47.0"
+pkgver = "47.1.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -30,5 +30,5 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Contacts"
 source = f"$(GNOME_SITE)/gnome-contacts/{pkgver.split('.')[0]}/gnome-contacts-{pkgver}.tar.xz"
-sha256 = "25e3c6f79728188afa5f0cd5d0be85dc467d12db6a2d98b54af3df0dcb4290d0"
+sha256 = "47e1ae45b7041a05d5e27649d912e2c300256188ac460edcba46899c6608a478"
 options = ["!cross"]

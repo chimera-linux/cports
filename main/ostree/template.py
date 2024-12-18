@@ -26,7 +26,7 @@ makedepends = [
     "fuse-devel",
     "glib-devel",
     "gpgme-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libgpg-error-devel",
     "linux-headers",
     "openssl-devel",

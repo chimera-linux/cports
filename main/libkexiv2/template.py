@@ -1,5 +1,5 @@
 pkgname = "libkexiv2"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/libkexiv2/html/index.html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkexiv2-{pkgver}.tar.xz"
-sha256 = "9f3865411afb594ad2da9f2907e5124277f662be3f4c614bd4d5ccc36cfb8906"
+sha256 = "27c7919d13ab7d481c064f115831fd4e276354bf1b61adf48350e28fab6730f6"
 hardening = ["vis"]
 
 

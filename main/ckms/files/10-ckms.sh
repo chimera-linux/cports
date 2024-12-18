@@ -1,32 +1,64 @@
 #!/bin/sh
 
 export CKMS_APK_DEFER_INITRAMFS=1
+export CKMS_APK_DEFER_DEPMOD=1
 
-# clean up whatever ckms manages if the kernel is already gone
-
+# prune statedirs for system-disabled (binary) modules first
 for kern in /usr/lib/modules/*; do
     [ -d "${kern}" ] || continue
     kernver=${kern#/usr/lib/modules/}
-    # only consider removed kernels
-    [ -f "${kern}/modules.dep" ] && continue
-    # skip early
-    [ "${kernver}" = "apk-backup" ] && continue
-    # uninstall everything installed for that kernel
-    ckms -q -k "${kernver}" plain-status | \
-        while read modn modv kernv karch status; do
-            # remove installed modules
-            if [ "$status" = "installed" ]; then
-                # uninstall
-                ckms -k "${kernv}" uninstall "${modn}=${modv}" || \
-                    echo "FAILED: uninstall ${modn}=${modv} for ${kernv}"
-                status="built"
+    for dismod in "${kern}/ckms-disable"/*; do
+        [ -d "${dismod}" ] || continue
+        modname=${dismod#${kern}/ckms-disable/}
+        for disver in /var/lib/ckms/${modname}/*; do
+            [ -e "${disver}" ] || continue
+            # nuke kernel-specific state bits
+            rm -rf "${disver}/${kernver}"
+        done
+        rm -f "/var/lib/ckms/${modname}/kernel-${kernver}-"*
+    done
+done
+
+# prune statedirs for backup kernels in the modern system
+for kern in /usr/lib/modules/*; do
+    [ -d "${kern}" ] || continue
+    # custom kernel, old system, etc.
+    [ -f "${kern}/.apk-series" ] || continue
+    # installed kernel
+    [ -f "${kern}/apk-dist/.apk-series" ] && continue
+    kernver=${kern#/usr/lib/modules/}
+    # now prune
+    for ckmod in /var/lib/ckms/*; do
+        [ -d "${ckmod}" ] || continue
+        modname=${ckmod#/var/lib/ckms/}
+        rm -f "${ckmod}/kernel-${kernver}-"*
+        for ckver in "${ckmod}"/*; do
+            [ -d "${ckver}" ] || continue
+            rm -rf "${ckver}/${kernver}"
+        done
+    done
+done
+
+# clean up whatever ckms manages if the kernel is already gone
+for mod in /var/lib/ckms/*; do
+    [ -d "$mod" ] || continue
+    # prune kerndirs first
+    for ver in "${mod}"/*; do
+        [ -L "$ver" -o ! -d "$ver" ] && continue
+        for cont in "${ver}"/*; do
+            [ -d "$cont" ] || continue
+            [ -L "$cont" ] && continue
+            kernver=${cont#${ver}/}
+            if [ ! -f "/usr/lib/modules/${kernver}/modules.order" ]; then
+                rm -rf "${cont}"
             fi
-            if [ "$status" = "built" -o "$status" = "built+disabled" ]; then
-                # clean up
-                ckms -k "${kernv}" clean "${modn}=${modv}" || \
-                    echo "FAILED: clean ${modn}=${modv} for ${kernv}"
-            fi
-        done || :
+        done
+    done
+    # now prune leftover links
+    for lnk in "${mod}"/*; do
+        [ -L "$lnk" ] || continue
+        [ -e "$lnk" ] || rm -f "$lnk"
+    done
 done
 
 # after that, prune ckms modules that are no longer installed
@@ -34,9 +66,13 @@ done
 for mod in /var/lib/ckms/*; do
     [ -d "$mod" ] || continue
     for ver in "${mod}"/*; do
+        # installed-module symlink, skip
+        if [ -L "${ver}" ]; then
+            # prune if needed though...
+            [ -e "${ver}" ] || rm -f "${ver}"
+            continue
+        fi
         [ -d "${ver}" ] || continue
-        # skip the symlinks indicating installed modules
-        [ -L "${ver}" ] && continue
         # if the module is invalid, just kill it
         if [ ! -f "${ver}/ckms.ini" ]; then
             rm -rf "${ver}"
@@ -70,7 +106,7 @@ for kern in /usr/lib/modules/*; do
     [ -d "${kern}" ] || continue
     kernver=${kern#/usr/lib/modules/}
     # possibly not a kernel, or at least not modular
-    [ -f "${kern}/modules.dep" ] || continue
+    [ -f "${kern}/modules.order" ] || continue
     # skip early
     if [ ! -d "${kern}/build" ]; then
         echo "kernel headers not installed for ${kernver}, skipping..."
@@ -96,17 +132,6 @@ for kern in /usr/lib/modules/*; do
                 fi
             fi
         done
-done
-
-# and refresh deferred initramfs as necessary
-
-for f in /boot/.ckms-initramfs-defer.*; do
-    [ -f "$f" ] || continue
-    kernver=$(basename $f)
-    kernver=${kernver#.ckms-initramfs-defer.}
-    update-initramfs -u -k "${kernver}" || \
-        echo "FAILED: update-initramfs for ${kernver}"
-    rm -f "$f"
 done
 
 exit 0

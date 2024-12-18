@@ -1,6 +1,6 @@
 pkgname = "exempi"
 pkgver = "2.6.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["boost-devel", "libexpat-devel", "zlib-ng-compat-devel"]

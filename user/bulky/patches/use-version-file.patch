@@ -1,0 +1,18 @@
+diff --git a/usr/lib/bulky/bulky.py b/usr/lib/bulky/bulky.py
+index 5e01644..54bb550 100755
+--- a/usr/lib/bulky/bulky.py
++++ b/usr/lib/bulky/bulky.py
+@@ -403,7 +403,12 @@ class MainWindow():
+         except Exception as e:
+             print (e)
+ 
+-        dlg.set_version("__DEB_VERSION__")
++        try:
++            verfile = open("/usr/share/bulky/version", "r")
++            dlg.set_version(verfile.read())
++            verfile.close()
++        except Exception as e:
++            print (e)
+         dlg.set_icon_name("bulky")
+         dlg.set_logo_icon_name("bulky")
+         dlg.set_website("https://www.github.com/linuxmint/bulky")

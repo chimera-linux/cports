@@ -1,6 +1,6 @@
 pkgname = "krdc"
-pkgver = "24.08.3"
-pkgrel = 1
+pkgver = "24.12.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DWITH_RDP3=ON", "-DWITH_RDP=OFF"]
 hostmakedepends = [
@@ -17,6 +17,7 @@ makedepends = [
     "kcmutils-devel",
     "kcompletion-devel",
     "kconfig-devel",
+    "kcrash-devel",
     "kdnssd-devel",
     "kdoctools-devel",
     "ki18n-devel",
@@ -41,7 +42,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/krdc"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/krdc-{pkgver}.tar.xz"
-sha256 = "2f04a408434702aee49caf9c0193c3471a049f341b0e8a36a773e7ed93810af0"
+sha256 = "7174604a50134bb23bda77e904986b170f9e35e41d83ce22ea2457608290c296"
 
 
 @subpackage("krdc-devel")

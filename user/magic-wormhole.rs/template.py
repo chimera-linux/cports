@@ -1,5 +1,5 @@
 pkgname = "magic-wormhole.rs"
-pkgver = "0.7.3"
+pkgver = "0.7.4"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
@@ -10,9 +10,13 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "EUPL-1.2"
 url = "https://github.com/magic-wormhole/magic-wormhole.rs"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f787a31113af560fcfea4ef2d6096f860253450ce2207d436edb83bf6be2b1e1"
+sha256 = "3ddc40c82faa381e96ffdc54757625a4707c1bd111d67ab2ec733a5bb666a43c"
 # generates completions with host bin
 options = ["!check", "!cross"]
+
+
+def post_extract(self):
+    self.rm(".cargo/config")
 
 
 def post_build(self):

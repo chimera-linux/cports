@@ -43,7 +43,7 @@ makedepends = [
     "json-glib-devel",
     "libarchive-devel",
     "libcap-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libseccomp-devel",
     "libxau-devel",
     "libxml2-devel",

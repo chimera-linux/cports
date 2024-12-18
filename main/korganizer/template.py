@@ -1,5 +1,5 @@
 pkgname = "korganizer"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
@@ -15,7 +15,6 @@ makedepends = [
     "akonadi-calendar-devel",
     "akonadi-contacts-devel",
     "akonadi-devel",
-    "akonadi-notes-devel",
     "calendarsupport-devel",
     "eventviews-devel",
     "incidenceeditor-devel",
@@ -56,4 +55,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/korganizer"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/korganizer-{pkgver}.tar.xz"
-sha256 = "abea5028fee888d3f4e3a7b8e2c2c31b678676008bb14fc10ee6890498d69f60"
+sha256 = "a340ca5b469ec0706947d3b23db87a490ae97a85524b907b0c5db0524d8f5746"

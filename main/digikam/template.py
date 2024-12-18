@@ -1,6 +1,6 @@
 pkgname = "digikam"
 pkgver = "8.5.0"
-pkgrel = 0
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DBUILD_TESTING=ON",
@@ -58,7 +58,7 @@ makedepends = [
     "libxml2-devel",
     "libxslt-devel",
     "opencv-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qtnetworkauth-devel",

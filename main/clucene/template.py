@@ -1,6 +1,6 @@
 pkgname = "clucene"
 pkgver = "2.3.3.4"
-pkgrel = 7
+pkgrel = 8
 build_style = "cmake"
 configure_args = [
     "-DENABLE_ASCII_MODE=OFF",

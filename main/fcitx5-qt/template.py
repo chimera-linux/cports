@@ -1,6 +1,6 @@
 pkgname = "fcitx5-qt"
 pkgver = "5.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -21,7 +21,7 @@ makedepends = [
     "fcitx5-devel",
     "libxcb-devel",
     "libxkbcommon-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qguiapplication_p.h
     "qt6-qtwayland-devel",
 ]
 pkgdesc = "Qt library and IM module for Fcitx5"

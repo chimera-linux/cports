@@ -1,6 +1,6 @@
 pkgname = "plasma-activities"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

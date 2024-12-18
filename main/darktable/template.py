@@ -1,6 +1,6 @@
 pkgname = "darktable"
 pkgver = "4.8.1"
-pkgrel = 3
+pkgrel = 4
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -46,7 +46,7 @@ makedepends = [
     "lcms2-devel",
     "lensfun-devel",
     "libavif-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libedit-devel",
     "libgphoto2-devel",
     "libheif-devel",

@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "19.1.4"
+pkgver = "19.1.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -55,7 +55,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "3aa2d2d2c7553164ad5c6f3b932b31816e422635e18620c9349a7da95b98d811"
+sha256 = "bd8445f554aae33d50d3212a15e993a667c0ad1b694ac1977f3463db3338e542"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -126,8 +126,7 @@ else:
 
 _enable_flang = False
 # from stage 2 only, pointless to build before
-# temporarily disable on cross, switch back for .5
-_enable_mlir = self.stage >= 2 and not self.profile().cross
+_enable_mlir = self.stage >= 2
 
 match self.profile().arch:
     # consistently runs out of memory in flang ConvertExpr

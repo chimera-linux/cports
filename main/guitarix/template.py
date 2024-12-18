@@ -1,6 +1,6 @@
 pkgname = "guitarix"
 pkgver = "0.46.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "waf"
 hostmakedepends = [
     "binutils",
@@ -25,7 +25,7 @@ makedepends = [
     "gtk+3-devel",
     "gtkmm3.0-devel",
     "ladspa-sdk",
-    "libcurl-devel",
+    "curl-devel",
     "liblo-devel",
     "libsndfile-devel",
     "lilv-devel",

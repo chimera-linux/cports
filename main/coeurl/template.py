@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "doctest",
-    "libcurl-devel",
+    "curl-devel",
     "libevent-devel",
     "spdlog-devel",
 ]

@@ -10,7 +10,7 @@ makedepends = [
     "freetype-devel",
     "gtk+3-devel",
     "ladspa-sdk",
-    "libcurl-devel",
+    "curl-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libvorbis-devel",

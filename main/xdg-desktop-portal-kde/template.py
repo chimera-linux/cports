@@ -1,6 +1,6 @@
 pkgname = "xdg-desktop-portal-kde"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
@@ -25,7 +25,7 @@ makedepends = [
     "kstatusnotifieritem-devel",
     "kwayland-devel",
     "plasma-wayland-protocols",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qxkbcommon_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtwayland-devel",
     "wayland-protocols",

@@ -8,7 +8,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "gumbo-parser-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libexpat-devel",
     "ncurses-devel",
     "sqlite-devel",

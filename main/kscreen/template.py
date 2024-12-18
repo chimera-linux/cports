@@ -1,6 +1,6 @@
 pkgname = "kscreen"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -21,7 +21,7 @@ makedepends = [
     "layer-shell-qt-devel",
     "libkscreen-devel",
     "libplasma-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtsensors-devel",
     "xcb-util-devel",
 ]

@@ -10,7 +10,7 @@ make_install_args = [*make_build_args]
 make_check_args = [*make_install_args]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
-    "libcurl-devel",
+    "curl-devel",
     "rust-std",
     "sqlite-devel",
     "zlib-ng-compat-devel",

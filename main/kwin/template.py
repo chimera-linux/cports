@@ -1,6 +1,6 @@
 pkgname = "kwin"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -70,7 +70,7 @@ makedepends = [
     "plasma-activities-devel",
     "plasma-wayland-protocols",
     "qt6-qt5compat-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtguiglobal_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsensors-devel",
     "qt6-qtsvg-devel",

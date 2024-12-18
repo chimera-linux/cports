@@ -2,10 +2,43 @@
 
 echo "Running kernel.d scripts..."
 
+KERNVERS=
+
+for modpath in "$@"; do
+    case "$modpath" in
+        */firmware)
+            export KERNEL_D_CHANGE_FIRMWARE=1
+            ;;
+        */src)
+            export KERNEL_D_CHANGE_SRC=1
+            ;;
+        */initramfs-tools)
+            export KERNEL_D_CHANGE_INITRAMFS_TOOLS=1
+            ;;
+        *)
+            [ -f "${modpath}/apk-dist/modules.order" ] || continue
+            # changed kernel ver
+            kver=$(basename "$modpath")
+            # sanity check...
+            [ -f "/usr/lib/modules/${kver}/apk-dist/modules.order" ] || continue
+            KERNVERS="$KERNVERS $kver"
+            ;;
+    esac
+done
+
+# for each changed kernver, enforce running depmod later
+for kver in $KERNVERS; do
+    rm -f "/usr/lib/modules/$kver"/modules.dep
+    # unstamp if managed by new kernel system
+    if [ -f "/usr/lib/modules/${kver}/apk-dist/.apk-series" ]; then
+        rm -f "/usr/lib/modules/${kver}/.apk-stamp"
+    fi
+done
+
 find -L /etc/kernel.d /usr/lib/kernel.d -maxdepth 1 -not -type d 2>/dev/null | \
   sed 's,.*/\(.*\),& \1,' | sort -k2 -s | uniq -f1 | cut -d' ' -f1 | \
   while read hook; do
     if [ -x "$hook" ]; then
-        "$hook" || echo "FAILED: $hook"
+        "$hook" $KERNVERS || echo "FAILED: $hook"
     fi
 done

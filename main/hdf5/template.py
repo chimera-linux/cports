@@ -1,5 +1,5 @@
 pkgname = "hdf5"
-pkgver = "1.14.4.3"
+pkgver = "1.14.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -31,9 +31,8 @@ pkgdesc = "HDF5 data model library"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause AND BSD-3-Clause-LBNL"
 url = "https://www.hdfgroup.org/solutions/hdf5"
-# last . is - in the source tarballs
-source = f"https://github.com/HDFGroup/hdf5/releases/download/hdf5_{pkgver}/hdf5-{'-'.join(pkgver.rsplit('.', 1))}.tar.gz"
-sha256 = "019ac451d9e1cf89c0482ba2a06f07a46166caf23f60fea5ef3c37724a318e03"
+source = f"https://github.com/HDFGroup/hdf5/releases/download/hdf5_{pkgver}/hdf5-{pkgver}.tar.gz"
+sha256 = "ec2e13c52e60f9a01491bb3158cb3778c985697131fc6a342262d32a26e58e44"
 hardening = ["vis"]
 
 

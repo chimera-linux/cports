@@ -1,6 +1,6 @@
 pkgname = "nheko"
 pkgver = "0.12.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 hostmakedepends = [
     "asciidoctor",
@@ -15,7 +15,7 @@ makedepends = [
     "gst-plugins-bad-devel",
     "gst-plugins-base-devel",
     "kdsingleapplication-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libevent-devel",
     "lmdb-devel",
     "lmdbxx",
@@ -23,6 +23,7 @@ makedepends = [
     "nlohmann-json",
     "olm-devel",
     "openssl-devel",
+    "qt6-qtbase-private-devel",  # qqmlincubator_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
     "qt6-qtsvg-devel",

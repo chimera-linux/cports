@@ -1,6 +1,6 @@
 pkgname = "openexr"
-pkgver = "3.2.4"
-pkgrel = 2
+pkgver = "3.3.2"
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -27,7 +27,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.openexr.com"
 source = f"https://github.com/openexr/openexr/archive/v{pkgver}.tar.gz"
-sha256 = "81e6518f2c4656fdeaf18a018f135e96a96e7f66dbe1c1f05860dd94772176cc"
+sha256 = "5013e964de7399bff1dd328cbf65d239a989a7be53255092fa10b85a8715744d"
 # CIF: has a bunch of test failures
 hardening = ["vis", "!cfi"]
 

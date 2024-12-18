@@ -7,7 +7,7 @@ makedepends = [
     "ffmpeg-devel",
     "libcdio-devel",
     "libcdio-paranoia-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libmusicbrainz-devel",
 ]
 pkgdesc = "Bule-ish CD ripper"

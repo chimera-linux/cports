@@ -1,6 +1,6 @@
 pkgname = "swayimg"
-pkgver = "3.5"
-pkgrel = 0
+pkgver = "3.6"
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     f"-Dversion={pkgver}",
@@ -33,7 +33,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/artemsen/swayimg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fc2786d356b0c673fe15ffc4ac7967016a535547cca8085a0b6d5f50ff308ca6"
+sha256 = "82de841c426fb2da7cb0f1fa9fe6790ea1770471d3df070bd7e7a81b1fdac873"
 
 
 def post_install(self):

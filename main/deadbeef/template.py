@@ -28,7 +28,7 @@ makedepends = [
     "flac-devel",
     "gtk+3-devel",
     "jansson-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libdispatch-devel",
     "libsamplerate-devel",
     "libsndfile-devel",

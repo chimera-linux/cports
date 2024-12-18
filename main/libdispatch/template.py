@@ -1,5 +1,5 @@
 pkgname = "libdispatch"
-pkgver = "6.0.2"
+pkgver = "6.0.3"
 pkgrel = 0
 build_style = "cmake"
 # these always fail on linux for some reason on musl
@@ -17,7 +17,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://apple.github.io/swift-corelibs-libdispatch"
 source = f"https://github.com/apple/swift-corelibs-libdispatch/archive/refs/tags/swift-{pkgver}-RELEASE.tar.gz"
-sha256 = "3df429b22d9294c0ca5291c86e83a35f6326600a1c271933107bba199b919008"
+sha256 = "444c0de5fe18e148548a3f3b60b3bac3d4d586285c21064346c7ca17ed1d4fac"
 hardening = ["vis", "!cfi"]
 
 

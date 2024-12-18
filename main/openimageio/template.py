@@ -1,6 +1,6 @@
 pkgname = "openimageio"
-pkgver = "2.5.17.0"
-pkgrel = 0
+pkgver = "3.0.1.0"
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # disabled below
@@ -27,6 +27,7 @@ makedepends = [
     "freetype-devel",
     "giflib-devel",
     "libheif-devel",
+    "libjxl-devel",
     "libpng-devel",
     "libraw-devel",
     "libtiff-devel",
@@ -37,6 +38,7 @@ makedepends = [
     "opencv-devel",
     "openexr-devel",
     "openjpeg-devel",
+    "openvdb-devel",
     "ptex-devel",
     "pugixml-devel",
     "python-pybind11-devel",
@@ -48,7 +50,9 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://github.com/AcademySoftwareFoundation/OpenImageIO"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9cf1b98762ce5aa5f3f7cd34672549034f5716da1eba26eb5173c18aa21e6583"
+sha256 = "7f84c2b9c13be74c4a187fefe3844b391374ba329aa63fbbca21fa232e43c87b"
+# simulate release with none
+tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
 
 

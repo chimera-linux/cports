@@ -1,6 +1,6 @@
 pkgname = "python-pebble"
-pkgver = "5.0.7"
-pkgrel = 1
+pkgver = "5.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -17,4 +17,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/noxdafox/pebble"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ca1b85e7b65f6d993898e123528b2417e7c686760ed525cf3c8ca1c21793f658"
+sha256 = "d4b9bd857fe34b287e522fd2f206e53b495b4650d57837fe4fa8c8c5b854c668"

@@ -1,5 +1,5 @@
 pkgname = "libkgapi"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,7 +22,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only"
 url = "https://api.kde.org/kdepim/libkgapi/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkgapi-{pkgver}.tar.xz"
-sha256 = "b7135bfa5fe0dea4391f812d4aa18d08adc11606746168f0abbc1e50faba4c47"
+sha256 = "3ed3e2370cddbc6af483041ffc5402f1665fae0a42e718c38377924a43d42dd6"
 # tests all segfault with missing data
 options = ["!check"]
 

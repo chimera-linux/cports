@@ -1,5 +1,5 @@
 pkgname = "kdialog"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,11 +19,11 @@ makedepends = [
     "kwindowsystem-devel",
 ]
 pkgdesc = "KDE dialog displayer"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://develop.kde.org/docs/administration/kdialog"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdialog-{pkgver}.tar.xz"
-sha256 = "781a2e9b456563f06d9a2c0d3feac54f156b6b8d0d18094aa2b7a1cb45796fc3"
+sha256 = "6922aa49019b14acb3fb3f22151ff71021aa6b31e8a90590c3b87178984e569f"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

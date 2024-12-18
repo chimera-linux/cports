@@ -1,0 +1,77 @@
+hacky patch by q66
+
+diff --git a/intern/cycles/scene/osl.cpp b/intern/cycles/scene/osl.cpp
+index 3e63111..c811bd6 100644
+--- a/intern/cycles/scene/osl.cpp
++++ b/intern/cycles/scene/osl.cpp
+@@ -35,7 +35,7 @@ CCL_NAMESPACE_BEGIN
+ 
+ /* Shared Texture and Shading System */
+ 
+-OSL::TextureSystem *OSLShaderManager::ts_shared = NULL;
++std::shared_ptr<OSL::TextureSystem> OSLShaderManager::ts_shared{};
+ int OSLShaderManager::ts_shared_users = 0;
+ thread_mutex OSLShaderManager::ts_shared_mutex;
+ 
+@@ -111,7 +111,7 @@ void OSLShaderManager::device_update_specific(Device *device,
+ 
+   /* set texture system (only on CPU devices, since GPU devices cannot use OIIO) */
+   if (device->info.type == DEVICE_CPU) {
+-    scene->image_manager->set_osl_texture_system((void *)ts_shared);
++    scene->image_manager->set_osl_texture_system((void *)ts_shared.get());
+   }
+ 
+   /* create shaders */
+@@ -150,7 +150,7 @@ void OSLShaderManager::device_update_specific(Device *device,
+     OSL::ShadingSystem *ss = ss_shared[sub_device->info.type];
+ 
+     og->ss = ss;
+-    og->ts = ts_shared;
++    og->ts = ts_shared.get();
+     og->services = static_cast<OSLRenderServices *>(ss->renderer());
+ 
+     og->background_state = og->surface_state[background_id & SHADER_MASK];
+@@ -282,7 +282,7 @@ void OSLShaderManager::shading_system_init()
+ 
+     if (ss_shared_users++ == 0 || ss_shared.find(device_type) == ss_shared.end()) {
+       /* Must use aligned new due to concurrent hash map. */
+-      OSLRenderServices *services = util_aligned_new<OSLRenderServices>(ts_shared, device_type);
++      OSLRenderServices *services = util_aligned_new<OSLRenderServices>(ts_shared.get(), device_type);
+ 
+       string shader_path = path_get("shader");
+ #  ifdef _WIN32
+@@ -297,7 +297,7 @@ void OSLShaderManager::shading_system_init()
+       shader_path = string_to_ansi(shader_path);
+ #  endif
+ 
+-      OSL::ShadingSystem *ss = new OSL::ShadingSystem(services, ts_shared, &errhandler);
++      OSL::ShadingSystem *ss = new OSL::ShadingSystem(services, ts_shared.get(), &errhandler);
+       ss->attribute("lockgeom", 1);
+       ss->attribute("commonspace", "world");
+       ss->attribute("searchpath:shader", shader_path);
+diff --git a/intern/cycles/scene/osl.h b/intern/cycles/scene/osl.h
+index 3cb2c23..32db88b 100644
+--- a/intern/cycles/scene/osl.h
++++ b/intern/cycles/scene/osl.h
+@@ -106,7 +106,7 @@ class OSLShaderManager : public ShaderManager {
+   Device *device_;
+   map<string, OSLShaderInfo> loaded_shaders;
+ 
+-  static OSL::TextureSystem *ts_shared;
++  static std::shared_ptr<OSL::TextureSystem> ts_shared;
+   static thread_mutex ts_shared_mutex;
+   static int ts_shared_users;
+ 
+diff --git a/source/blender/imbuf/intern/oiio/openimageio_support.cc b/source/blender/imbuf/intern/oiio/openimageio_support.cc
+index e8148d8..3a783fa 100644
+--- a/source/blender/imbuf/intern/oiio/openimageio_support.cc
++++ b/source/blender/imbuf/intern/oiio/openimageio_support.cc
+@@ -304,7 +304,7 @@ bool imb_oiio_write(const WriteContext &ctx, const char *filepath, const ImageSp
+   if (ctx.ibuf->channels > 1 && file_spec.nchannels == 1) {
+     float weights[4] = {};
+     IMB_colormanagement_get_luminance_coefficients(weights);
+-    ImageBufAlgo::channel_sum(final_buf, orig_buf, {weights, orig_buf.nchannels()});
++    ImageBufAlgo::channel_sum(final_buf, orig_buf, {weights, size_t(orig_buf.nchannels())});
+   }
+   else {
+     /* If we are moving from an 1-channel format to n-channel we need to

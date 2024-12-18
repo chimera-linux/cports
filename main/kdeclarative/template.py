@@ -1,5 +1,5 @@
 pkgname = "kdeclarative"
-pkgver = "6.8.0"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kdeclarative/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdeclarative-{pkgver}.tar.xz"
-sha256 = "ad461085c7bfc2ac68f1dc252c666959261efb2ffa80e7923e76b781c72336a1"
+sha256 = "1a266dd2a2912ffe632e455d823a76c9dbfb44977c07838bc44e457e5bec98eb"
 hardening = ["vis"]
 
 

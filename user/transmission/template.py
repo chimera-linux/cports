@@ -26,7 +26,7 @@ hostmakedepends = [
 makedepends = [
     "gtest-devel",
     "gtkmm-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libdeflate-devel",
     "libevent-devel",
     "libpsl-devel",

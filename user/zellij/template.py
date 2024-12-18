@@ -9,7 +9,7 @@ make_build_args = ["--no-default-features", "--features=plugins_from_target"]
 make_install_args = [*make_build_args]
 make_check_args = [*make_build_args, "--release"]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["rust-std", "libcurl-devel", "zstd-devel"]
+makedepends = ["curl-devel", "rust-std", "zstd-devel"]
 pkgdesc = "Terminal workspace with batteries included"
 maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "MIT"

@@ -25,7 +25,7 @@ makedepends = [
     "ffmpeg-devel",
     "fmt-devel",
     "hidapi-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libevdev-devel",
     "libpulse-devel",
     "libspng-devel",

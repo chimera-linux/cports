@@ -1,6 +1,6 @@
 pkgname = "kglobalacceld"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # needs full init of kglobalaccel
 make_check_args = ["-E", "shortcutstest"]
@@ -19,7 +19,7 @@ makedepends = [
     "kio-devel",
     "kservice-devel",
     "kwindowsystem-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE Daemon for global keyboard shortcut functionality"

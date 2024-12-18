@@ -1,6 +1,6 @@
 pkgname = "ckms"
-pkgver = "0.1.0"
-pkgrel = 4
+pkgver = "0.1.1"
+pkgrel = 2
 build_style = "makefile"
 hostmakedepends = ["scdoc"]
 depends = ["python"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/ckms"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "29e19116397cf0a50bb49a87b09d816cf8d233aa7016c4884d1ff88bfbc6ab27"
+sha256 = "d15e252fc5a9fa6d9a9187979512849b1634a52c4b98d44839a3f42464964021"
 # no tests
 options = ["!check"]
 
@@ -26,3 +26,5 @@ def post_install(self):
     self.install_file(
         self.files_path / "refresh-initramfs.sh", "etc/ckms", mode=0o755
     )
+    # depmod hook
+    self.install_file(self.files_path / "depmod.sh", "etc/ckms", mode=0o755)

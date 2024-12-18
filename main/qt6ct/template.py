@@ -1,9 +1,12 @@
 pkgname = "qt6ct"
 pkgver = "0.9"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "qt6-qttools", "qt6-qtbase"]
-makedepends = ["qt6-qtbase-private-devel", "qt6-qttools-devel"]
+makedepends = [
+    "qt6-qtbase-private-devel",  # qgenericunixthemes_p.h etc
+    "qt6-qttools-devel",
+]
 depends = ["qt6-qtsvg"]
 pkgdesc = "Qt6 configuration tool"
 maintainer = "q66 <q66@chimera-linux.org>"

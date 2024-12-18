@@ -15,7 +15,7 @@ makedepends = [
     "graphite2-devel",
     "harfbuzz-devel",
     "icu-devel",
-    "libcurl-devel",
+    "curl-devel",
     "openssl-devel",
     "rust-std",
 ]

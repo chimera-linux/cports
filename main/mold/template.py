@@ -1,5 +1,5 @@
 pkgname = "mold"
-pkgver = "2.34.1"
+pkgver = "2.35.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/rui314/mold"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a8cf638045b4a4b2697d0bcc77fd96eae93d54d57ad3021bf03b0333a727a59d"
+sha256 = "2703f1c88c588523815886478950bcae1ef02190dc4787e0d120a293b1a46e3b"
 # TODO: a portion of the tests fail, for various reasons, such as assuming
 # presence of gcc, gnu grep, and various toolchain specifics; around 70%
 # of the tests pass right now, fix the rest later
@@ -29,5 +29,4 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_license("LICENSE.third-party")
     self.uninstall("usr/share/doc/mold/LICENSE")

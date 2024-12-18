@@ -1,8 +1,10 @@
 # update linux-lts-zfs-bin when bumping
 pkgname = "linux-lts"
-pkgver = "6.6.63"
+pkgver = "6.6.66"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
+build_style = "linux-kernel"
+configure_args = ["FLAVOR=generic", f"RELEASE={pkgrel}"]
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
@@ -12,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "d1054ab4803413efe2850f50f1a84349c091631ec50a1cf9e891d1b1f9061835"
+sha256 = "9d757937c4661c2f512c62641b74ef74eff9bb13dc5dbcbaaa108c21152f1e52"
 # no meaningful checking to be done
 options = [
     "!check",
@@ -26,45 +28,11 @@ options = [
     "foreignelf",  # vdso32
 ]
 
-_flavor = "generic"
-
 if self.current_target == "custom:generate-configs":
     hostmakedepends += ["base-cross", "ncurses-devel"]
 
 if self.profile().cross:
     broken = "linux-devel does not come out right"
-
-
-@custom_target("generate-configs", "patch")
-def _(self):
-    from cbuild.util import linux
-
-    linux.update_configs(self, archs, _flavor)
-
-
-def init_configure(self):
-    # generate scripts for packaging, just hooking to base-kernel helpers
-    from cbuild.util import linux
-
-    linux.generate_scripts(self, _flavor)
-
-
-def configure(self):
-    from cbuild.util import linux
-
-    linux.configure(self, _flavor)
-
-
-def build(self):
-    from cbuild.util import linux
-
-    linux.build(self, _flavor)
-
-
-def install(self):
-    from cbuild.util import linux
-
-    linux.install(self, _flavor)
 
 
 @subpackage("linux-lts-devel")
@@ -84,4 +52,4 @@ def _(self):
         "execstack",
         "textrels",
     ]
-    return ["usr/lib/debug", "boot/System.map-*"]
+    return ["usr/lib/debug", "usr/lib/modules/*/apk-dist/boot/System.map-*"]

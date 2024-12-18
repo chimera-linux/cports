@@ -1,5 +1,5 @@
 pkgname = "python-pytest-subtests"
-pkgver = "0.13.1"
+pkgver = "0.14.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-subtests"
 source = f"$(PYPI_SITE)/p/pytest-subtests/pytest_subtests-{pkgver}.tar.gz"
-sha256 = "989e38f0f1c01bc7c6b2e04db7d9fd859db35d77c2c1a430c831a70cbf3fde2d"
+sha256 = "350c00adc36c3aff676a66135c81aed9e2182e15f6c3ec8721366918bbbf7580"
 
 
 def post_install(self):

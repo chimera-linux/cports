@@ -256,7 +256,7 @@ def _get_cmdline(
 
     # trigger paths
     for t in pkg.triggers:
-        p = pathlib.Path(t)
+        p = pathlib.Path(t.removeprefix("+"))
         if not p or not p.is_absolute():
             pkg.error(
                 f"invalid trigger path: {t}",

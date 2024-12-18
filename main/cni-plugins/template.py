@@ -1,6 +1,6 @@
 pkgname = "cni-plugins"
-pkgver = "1.6.0"
-pkgrel = 1
+pkgver = "1.6.1"
+pkgrel = 0
 hostmakedepends = ["bash", "go"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standard CNI plugins for containers"
@@ -8,7 +8,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.cni.dev"
 source = f"https://github.com/containernetworking/plugins/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c7e994a755960ab8922c65d7bdbb26d1781a3afe90b9b688010c5e8636b95980"
+sha256 = "5e2ea69bca08bfb92921f22fa2cc1e69392ee139a5878068dfbc1c7568e37b01"
 # can't run tests inside namespaces
 options = ["!check"]
 

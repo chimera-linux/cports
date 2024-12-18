@@ -1,5 +1,5 @@
 pkgname = "kate"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -23,6 +23,7 @@ makedepends = [
     "ktextwidgets-devel",
     "kuserfeedback-devel",
     "kwallet-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qtkeychain-devel",
 ]
@@ -32,7 +33,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kate-{pkgver}.tar.xz"
-sha256 = "ccb656435efc1fde0ae4c2d93400a2c05660bf299e6411714b9042422c50d4f2"
+sha256 = "a5926a0d85c69ca2cc34d87e567501e795e95050e16f896e39cd8cac4ced2348"
 hardening = ["vis"]
 # no idea
 options = ["!check"]

@@ -1,5 +1,5 @@
 pkgname = "zed"
-pkgver = "0.163.2"
+pkgver = "0.165.4"
 pkgrel = 0
 # wasmtime
 archs = ["aarch64", "x86_64"]
@@ -19,7 +19,7 @@ makedepends = [
     "alsa-lib-devel",
     "fontconfig-devel",
     "freetype-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libgit2-devel",
     "libxkbcommon-devel",
     "rust-std",
@@ -36,7 +36,7 @@ url = "https://zed.dev"
 source = (
     f"https://github.com/zed-industries/zed/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "d0c6cc6727ba229ef1a912cd238554651242a3d1569ab27c534c66f4f8e098f9"
+sha256 = "9a9ddbf5bcbf126a3c8d64245474c482af7b135e037f2d65e97193de204ff89d"
 # workaround code that fails with default gc-sections with lld
 # https://github.com/zed-industries/zed/issues/15902
 tool_flags = {"RUSTFLAGS": ["-Clink-arg=-Wl,-z,nostart-stop-gc"]}

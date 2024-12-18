@@ -21,7 +21,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "avahi-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libgphoto2-devel",
     "libjpeg-turbo-devel",
     "libtiff-devel",

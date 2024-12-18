@@ -1,6 +1,6 @@
 pkgname = "python-pybind11"
 pkgver = "2.13.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_args = ["--skip-dependency-check"]
 make_check_args = [

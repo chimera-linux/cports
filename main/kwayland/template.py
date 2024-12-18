@@ -1,6 +1,6 @@
 pkgname = "kwayland"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "plasma-wayland-protocols",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qwaylandwindow_p.h
     "qt6-qtwayland-devel",
     "wayland-protocols",
 ]

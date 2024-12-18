@@ -1,6 +1,6 @@
 pkgname = "linux-rpi-zfs-bin"
-_kernver = "6.6.58"
-_zfsver = "2.2.6"
+_kernver = "6.6.64"
+_zfsver = "2.2.7"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
 archs = ["aarch64"]
@@ -19,7 +19,6 @@ def init_configure(self):
     from cbuild.util import linux
 
     self._linux_version = linux.get_version(self, _kernver)
-    linux.generate_scripts_ckms(self, "zfs", self._linux_version)
 
 
 def configure(self):

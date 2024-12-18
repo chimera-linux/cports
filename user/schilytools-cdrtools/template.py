@@ -8,7 +8,7 @@ build_style = "makefile"
 make_build_args = ["INS_BASE=/usr"]
 make_install_args = ["-j1", "CHGRPPROG=true", *make_build_args]
 make_use_env = True
-hostmakedepends = ["gmake", "libcap-progs"]
+hostmakedepends = ["libcap-progs"]
 makedepends = ["e2fsprogs-devel", "linux-headers"]
 # provide the default distro-name-expected name, since in most places it's unprefixed
 provides = [self.with_pkgver("cdrtools")]

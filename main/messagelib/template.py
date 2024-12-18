@@ -1,5 +1,5 @@
 pkgname = "messagelib"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -59,7 +59,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/messagelib/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/messagelib-{pkgver}.tar.xz"
-sha256 = "e67ce81f227c9fad4c4181863b5662f2d187c8842ad8e5d82c51eeeb272fdbdd"
+sha256 = "9eff795b5e12d30ba33171442de3a3bd66772039f19214e55384e9596fc82ff6"
 # fails a ton of tests due to not finding its own plugins from build tree
 options = ["!check"]
 

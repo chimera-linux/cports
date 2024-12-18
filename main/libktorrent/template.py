@@ -1,5 +1,5 @@
 pkgname = "libktorrent"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 # flakes sometimes
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/network/libktorrent"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libktorrent-{pkgver}.tar.xz"
-sha256 = "58243287e78a86a212af400cc3cfc4ded1a0837a2ebbf6898eeb67b5bb02d4fc"
+sha256 = "8d45ebceb9004b2905d015383e5c0cda2a15d869527f3bb010f3a837d4f32f51"
 
 
 @subpackage("libktorrent-devel")

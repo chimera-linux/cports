@@ -1,0 +1,225 @@
+commit 226ff55716bc3a759d1d2885a13185ac5b165c66
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Dec 14 21:15:04 2024 +0100
+
+    revert vulkan 1.4 stuff
+    
+    until we have glslang with support in, we revert this
+
+diff --git a/glslc/src/main.cc b/glslc/src/main.cc
+index 5e7c68d..9d3afa8 100644
+--- a/glslc/src/main.cc
++++ b/glslc/src/main.cc
+@@ -165,7 +165,6 @@ Options:
+                         vulkan1.1
+                         vulkan1.2
+                         vulkan1.3
+-                        vulkan1.4
+                         vulkan          # Same as vulkan1.0
+                         opengl4.5
+                         opengl          # Same as opengl4.5
+@@ -177,7 +176,6 @@ Options:
+                     the default for vulkan1.1 is spv1.3,
+                     the default for vulkan1.2 is spv1.5,
+                     the default for vulkan1.3 is spv1.6,
+-                    the default for vulkan1.4 is spv1.6.
+                     Values are:
+                         spv1.0, spv1.1, spv1.2, spv1.3, spv1.4, spv1.5, spv1.6
+   --version         Display compiler version information.
+@@ -455,9 +453,6 @@ int main(int argc, char** argv) {
+       } else if (target_env_str == "vulkan1.3") {
+         target_env = shaderc_target_env_vulkan;
+         version = shaderc_env_version_vulkan_1_3;
+-      } else if (target_env_str == "vulkan1.4") {
+-        target_env = shaderc_target_env_vulkan;
+-        version = shaderc_env_version_vulkan_1_4;
+       } else if (target_env_str == "opengl") {
+         target_env = shaderc_target_env_opengl;
+       } else if (target_env_str == "opengl4.5") {
+diff --git a/glslc/test/option_target_env.py b/glslc/test/option_target_env.py
+index 9555a77..5da166d 100644
+--- a/glslc/test/option_target_env.py
++++ b/glslc/test/option_target_env.py
+@@ -140,16 +140,6 @@ class TestTargetEnvEqVulkan1_3WithVulkan1_1ShaderSucceeds(expect.ValidObjectFile
+     shader = FileShader(vulkan_compute_subgroup_shader(), '.comp')
+     glslc_args = ['--target-env=vulkan1.3', '-c', shader]
+ 
+-@inside_glslc_testsuite('OptionTargetEnv')
+-class TestTargetEnvEqVulkan1_4WithVulkan1_0ShaderSucceeds(expect.ValidObjectFile1_6):
+-    shader = FileShader(vulkan_vertex_shader(), '.vert')
+-    glslc_args = ['--target-env=vulkan1.4', '-c', shader]
+-
+-@inside_glslc_testsuite('OptionTargetEnv')
+-class TestTargetEnvEqVulkan1_4WithVulkan1_1ShaderSucceeds(expect.ValidObjectFile1_6):
+-    shader = FileShader(vulkan_compute_subgroup_shader(), '.comp')
+-    glslc_args = ['--target-env=vulkan1.4', '-c', shader]
+-
+ 
+ @inside_glslc_testsuite('OptionTargetEnv')
+ class TestTargetEnvEqOpenGL4_5WithOpenGLShaderSucceeds(expect.ValidObjectFile):
+diff --git a/glslc/test/parameter_tests.py b/glslc/test/parameter_tests.py
+index d496210..4bd48e3 100644
+--- a/glslc/test/parameter_tests.py
++++ b/glslc/test/parameter_tests.py
+@@ -169,7 +169,6 @@ Options:
+                         vulkan1.1
+                         vulkan1.2
+                         vulkan1.3
+-                        vulkan1.4
+                         vulkan          # Same as vulkan1.0
+                         opengl4.5
+                         opengl          # Same as opengl4.5
+@@ -181,7 +180,6 @@ Options:
+                     the default for vulkan1.1 is spv1.3,
+                     the default for vulkan1.2 is spv1.5,
+                     the default for vulkan1.3 is spv1.6,
+-                    the default for vulkan1.4 is spv1.6.
+                     Values are:
+                         spv1.0, spv1.1, spv1.2, spv1.3, spv1.4, spv1.5, spv1.6
+   --version         Display compiler version information.
+diff --git a/libshaderc/include/shaderc/env.h b/libshaderc/include/shaderc/env.h
+index 3d32b2a..14b418d 100644
+--- a/libshaderc/include/shaderc/env.h
++++ b/libshaderc/include/shaderc/env.h
+@@ -41,7 +41,6 @@ typedef enum {
+   shaderc_env_version_vulkan_1_1 = ((1u << 22) | (1 << 12)),
+   shaderc_env_version_vulkan_1_2 = ((1u << 22) | (2 << 12)),
+   shaderc_env_version_vulkan_1_3 = ((1u << 22) | (3 << 12)),
+-  shaderc_env_version_vulkan_1_4 = ((1u << 22) | (4 << 12)),
+   // For OpenGL, use the number from #version in shaders.
+   // TODO(dneto): Currently no difference between OpenGL 4.5 and 4.6.
+   // See glslang/Standalone/Standalone.cpp
+diff --git a/libshaderc/src/shaderc.cc b/libshaderc/src/shaderc.cc
+index 821f31f..2e16cc0 100644
+--- a/libshaderc/src/shaderc.cc
++++ b/libshaderc/src/shaderc.cc
+@@ -311,10 +311,6 @@ shaderc_util::Compiler::TargetEnvVersion GetCompilerTargetEnvVersion(
+       version_number) {
+     return Compiler::TargetEnvVersion::Vulkan_1_3;
+   }
+-  if (static_cast<uint32_t>(Compiler::TargetEnvVersion::Vulkan_1_4) ==
+-      version_number) {
+-    return Compiler::TargetEnvVersion::Vulkan_1_4;
+-  }
+   if (static_cast<uint32_t>(Compiler::TargetEnvVersion::OpenGL_4_5) ==
+       version_number) {
+     return Compiler::TargetEnvVersion::OpenGL_4_5;
+diff --git a/libshaderc/src/shaderc_cpp_test.cc b/libshaderc/src/shaderc_cpp_test.cc
+index 401d5b9..0bd739f 100644
+--- a/libshaderc/src/shaderc_cpp_test.cc
++++ b/libshaderc/src/shaderc_cpp_test.cc
+@@ -1126,23 +1126,6 @@ TEST_F(CppInterface,
+                                  shaderc_glsl_compute_shader, options_));
+ }
+ 
+-// Simple Vulkan 1.4 tests
+-TEST_F(CppInterface,
+-       TargetEnvCompileOptionsVulkan1_4EnvVulkan1_0ShaderSucceeds) {
+-  options_.SetTargetEnvironment(shaderc_target_env_vulkan,
+-                                shaderc_env_version_vulkan_1_4);
+-  EXPECT_TRUE(CompilationSuccess(BarrierComputeShader(),
+-                                 shaderc_glsl_compute_shader, options_));
+-}
+-
+-TEST_F(CppInterface,
+-       TargetEnvCompileOptionsVulkan1_4EnvVulkan1_1ShaderSucceeds) {
+-  options_.SetTargetEnvironment(shaderc_target_env_vulkan,
+-                                shaderc_env_version_vulkan_1_4);
+-  EXPECT_TRUE(CompilationSuccess(SubgroupBarrierComputeShader(),
+-                                 shaderc_glsl_compute_shader, options_));
+-}
+-
+ // Other tests
+ 
+ TEST_F(CppInterface, BeginAndEndOnSpvCompilationResult) {
+diff --git a/libshaderc/src/shaderc_test.cc b/libshaderc/src/shaderc_test.cc
+index 43cc372..5ed3e58 100644
+--- a/libshaderc/src/shaderc_test.cc
++++ b/libshaderc/src/shaderc_test.cc
+@@ -1262,25 +1262,6 @@ TEST_F(CompileStringWithOptionsTest,
+                                  shaderc_glsl_compute_shader, options_.get()));
+ }
+ 
+-// Simple Vulkan 1.4 tests
+-TEST_F(CompileStringWithOptionsTest,
+-       TargetEnvRespectedWhenCompilingVulkan1_0ShaderToVulkan1_4Succeeds) {
+-  shaderc_compile_options_set_target_env(options_.get(),
+-                                         shaderc_target_env_vulkan,
+-                                         shaderc_env_version_vulkan_1_4);
+-  EXPECT_TRUE(CompilesToValidSpv(compiler_, kGlslShaderComputeBarrier,
+-                                 shaderc_glsl_compute_shader, options_.get()));
+-}
+-
+-TEST_F(CompileStringWithOptionsTest,
+-       TargetEnvRespectedWhenCompilingVulkan1_1ShaderToVulkan1_4Succeeds) {
+-  shaderc_compile_options_set_target_env(options_.get(),
+-                                         shaderc_target_env_vulkan,
+-                                         shaderc_env_version_vulkan_1_4);
+-  EXPECT_TRUE(CompilesToValidSpv(compiler_, kGlslShaderComputeSubgroupBarrier,
+-                                 shaderc_glsl_compute_shader, options_.get()));
+-}
+-
+ // task shader
+ TEST_F(CompileStringWithOptionsTest,
+        TargetEnvRespectedWhenCompilingVulkan1_0TaskShaderToVulkan1_0Succeeds) {
+diff --git a/libshaderc_util/include/libshaderc_util/compiler.h b/libshaderc_util/include/libshaderc_util/compiler.h
+index 09dd31e..f19455d 100644
+--- a/libshaderc_util/include/libshaderc_util/compiler.h
++++ b/libshaderc_util/include/libshaderc_util/compiler.h
+@@ -85,7 +85,6 @@ class Compiler {
+     Vulkan_1_1 = ((1 << 22) | (1 << 12)),  // Vulkan 1.1
+     Vulkan_1_2 = ((1 << 22) | (2 << 12)),  // Vulkan 1.2
+     Vulkan_1_3 = ((1 << 22) | (3 << 12)),  // Vulkan 1.3
+-    Vulkan_1_4 = ((1 << 22) | (4 << 12)),  // Vulkan 1.4
+     // For OpenGL, use the numbering from #version in shaders.
+     OpenGL_4_5 = 450,
+   };
+diff --git a/libshaderc_util/src/compiler.cc b/libshaderc_util/src/compiler.cc
+index 9bf9a43..eff7baa 100644
+--- a/libshaderc_util/src/compiler.cc
++++ b/libshaderc_util/src/compiler.cc
+@@ -758,9 +758,6 @@ GlslangClientInfo GetGlslangClientInfo(
+       } else if (env_version == Compiler::TargetEnvVersion::Vulkan_1_3) {
+         result.client_version = glslang::EShTargetVulkan_1_3;
+         result.target_language_version = glslang::EShTargetSpv_1_6;
+-      } else if (env_version == Compiler::TargetEnvVersion::Vulkan_1_4) {
+-        result.client_version = glslang::EShTargetVulkan_1_4;
+-        result.target_language_version = glslang::EShTargetSpv_1_6;
+       } else {
+         errs << "error:" << error_tag << ": Invalid target client version "
+              << static_cast<uint32_t>(env_version) << " for Vulkan environment "
+diff --git a/libshaderc_util/src/compiler_test.cc b/libshaderc_util/src/compiler_test.cc
+index b580d0e..c6622b9 100644
+--- a/libshaderc_util/src/compiler_test.cc
++++ b/libshaderc_util/src/compiler_test.cc
+@@ -927,7 +927,6 @@ INSTANTIATE_TEST_SUITE_P(
+         {CASE_VK(1_0, 1_4), false, GCASE_VK("", 1_0, 1_0)},
+         {CASE_VK(1_1, 1_4), false, GCASE_VK("", 1_1, 1_3)},
+         {CASE_VK(1_3, 1_6), false, GCASE_VK("", 1_3, 1_6)},
+-        {CASE_VK(1_4, 1_6), false, GCASE_VK("", 1_4, 1_6)},
+         {CASE_GL(4_5, 1_4), false, GCASE_GL("", 450, 1_0)},
+     }));
+ 
+@@ -946,9 +945,6 @@ INSTANTIATE_TEST_SUITE_P(
+         {CASE_VK(1_3, 1_4), true, GCASE_VK("", 1_3, 1_4)},
+         {CASE_VK(1_3, 1_5), true, GCASE_VK("", 1_3, 1_5)},
+         {CASE_VK(1_3, 1_6), true, GCASE_VK("", 1_3, 1_6)},
+-        {CASE_VK(1_4, 1_4), true, GCASE_VK("", 1_4, 1_4)},
+-        {CASE_VK(1_4, 1_5), true, GCASE_VK("", 1_4, 1_5)},
+-        {CASE_VK(1_4, 1_6), true, GCASE_VK("", 1_4, 1_6)},
+         {CASE_GL(4_5, 1_0), true, GCASE_GL("", 450, 1_0)},
+         {CASE_GL(4_5, 1_1), true, GCASE_GL("", 450, 1_1)},
+         {CASE_GL(4_5, 1_2), true, GCASE_GL("", 450, 1_2)},
+diff --git a/libshaderc_util/src/spirv_tools_wrapper.cc b/libshaderc_util/src/spirv_tools_wrapper.cc
+index 49426d0..fbc61cc 100644
+--- a/libshaderc_util/src/spirv_tools_wrapper.cc
++++ b/libshaderc_util/src/spirv_tools_wrapper.cc
+@@ -40,8 +40,6 @@ spv_target_env GetSpirvToolsTargetEnv(Compiler::TargetEnv env,
+           return SPV_ENV_VULKAN_1_2;
+         case Compiler::TargetEnvVersion::Vulkan_1_3:
+           return SPV_ENV_VULKAN_1_3;
+-        case Compiler::TargetEnvVersion::Vulkan_1_4:
+-          return SPV_ENV_VULKAN_1_4;
+         default:
+           break;
+       }

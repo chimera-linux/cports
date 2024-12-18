@@ -1,5 +1,5 @@
 pkgname = "qemu"
-pkgver = "9.1.2"
+pkgver = "9.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde
@@ -68,16 +68,20 @@ makedepends = [
     "glib-devel",
     "gnutls-devel",
     "gtk+3-devel",
+    "keyutils-devel",
     "libaio-devel",
     "libbpf-devel",
     "libcacard-devel",
     "libcap-ng-devel",
-    "libcurl-devel",
+    "libcbor-devel",
+    "curl-devel",
+    "libdrm-devel",
     "libiscsi-devel",
     "libjpeg-turbo-devel",
     "libnfs-devel",
     "libnuma-devel",
     "libpulse-devel",
+    "libsasl-devel",
     "libseccomp-devel",
     "libslirp-devel",
     "libssh-devel",
@@ -107,7 +111,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "19fd9d7535a54d6e044e186402aa3b3b1bdfa87c392ec8884855592c8510c96f"
+sha256 = "f859f0bc65e1f533d040bbe8c92bcfecee5af2c921a6687c652fb44d089bd894"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
@@ -261,7 +265,6 @@ def _spkg(sname):
             case "s390x":
                 extras = [
                     "usr/lib/qemu/s390-ccw.img",
-                    "usr/lib/qemu/s390-netboot.img",
                 ]
                 self.options += ["execstack", "textrels"]
             case "sparc":
@@ -288,7 +291,6 @@ for _sys in [
     "alpha",
     "arm",
     "avr",
-    "cris",
     "hppa",
     "i386",
     "loongarch64",

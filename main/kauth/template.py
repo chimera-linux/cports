@@ -1,5 +1,5 @@
 pkgname = "kauth"
-pkgver = "6.8.0"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
@@ -25,7 +25,7 @@ url = "https://develop.kde.org/docs/features/kauth"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kauth-{pkgver}.tar.xz"
 )
-sha256 = "bbf83a39870f756aaefb9afbd34e621d5fc53280c5eb70db9bd367fc51f8c749"
+sha256 = "84cf15729bd248aa9d78c1bfecf68161782d521ac14a9b6a5bdacc29cbe3dec6"
 hardening = ["vis"]
 
 

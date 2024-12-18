@@ -13,7 +13,7 @@ makedepends = [
     "giflib-devel",
     "gst-plugins-base-devel",
     "jasper-devel",
-    "libcurl-devel",
+    "curl-devel",
     "librsvg-devel",
     "libtiff-devel",
     "libxinerama-devel",

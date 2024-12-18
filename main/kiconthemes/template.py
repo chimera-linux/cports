@@ -1,5 +1,5 @@
 pkgname = "kiconthemes"
-pkgver = "6.8.0"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky tests when parallel
@@ -18,6 +18,7 @@ makedepends = [
     "kconfigwidgets-devel",
     "ki18n-devel",
     "kwidgetsaddons-devel",
+    "qt6-qtbase-private-devel",  # qguiapplication_p.h/qiconloader_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
@@ -27,7 +28,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kiconthemes/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kiconthemes-{pkgver}.tar.xz"
-sha256 = "cc5e116abbd81000d21d875f79e586af050b31a17933bd2064b210043714cdaa"
+sha256 = "e24d4b4f8bd09d6edd61e7dfb2033017352452eae879c1260200a81d48bc996e"
 hardening = ["vis"]
 
 

@@ -1,6 +1,6 @@
 pkgname = "oxygen"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
 hostmakedepends = [
@@ -21,7 +21,7 @@ makedepends = [
     "kservice-devel",
     "kwindowsystem-devel",
     "libplasma-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
 ]
 depends = [

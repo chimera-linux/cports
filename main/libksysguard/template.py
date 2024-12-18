@@ -32,7 +32,6 @@ makedepends = [
     "libnl-devel",
     "libpcap-devel",
     "libsensors-devel",
-    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE system monitor library"

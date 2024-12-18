@@ -1,6 +1,6 @@
 pkgname = "kde-cli-tools"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: only test fails on initTestCase() 'fakeApplicationService' returned FALSE
 make_check_args = ["-E", "filetypestest"]
@@ -21,7 +21,7 @@ makedepends = [
     "kiconthemes-devel",
     "kio-devel",
     "kparts-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "KDE command line tools to interact with Plasma"

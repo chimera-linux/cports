@@ -1,6 +1,6 @@
 pkgname = "libodfgen"
 pkgver = "0.1.8"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]

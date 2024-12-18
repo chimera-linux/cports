@@ -14,7 +14,7 @@ makedepends = [
     "hiredis-devel",
     "i2c-tools-devel",
     "jansson-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libdbi-devel",
     "libiptc-devel",
     "libmicrohttpd-devel",

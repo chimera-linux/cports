@@ -1,5 +1,5 @@
 pkgname = "kasts"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -14,6 +14,7 @@ makedepends = [
     "kcolorscheme-devel",
     "kconfig-devel",
     "kcoreaddons-devel",
+    "kcrash-devel",
     "ki18n-devel",
     "kirigami-devel",
     "qt6-qtdeclarative-devel",
@@ -29,4 +30,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kasts"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kasts-{pkgver}.tar.xz"
-sha256 = "1853a1f37872836e2596f440f0533a99e2d8cad693b1ad5f252266e7a6acfc76"
+sha256 = "48668ee817c68166795f89ec5d51132ee88aeb3d66da1abba1b56f86ed7511a6"

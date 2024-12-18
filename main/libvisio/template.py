@@ -1,6 +1,6 @@
 pkgname = "libvisio"
 pkgver = "0.1.8"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [

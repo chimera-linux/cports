@@ -16,7 +16,6 @@ makedepends = [
     "kiconthemes-devel",
     "kirigami-devel",
     "kquickcharts-devel",
-    "qt6-qtbase-private-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]

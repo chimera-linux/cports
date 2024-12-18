@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
 pkgver = "5.0.2"
-pkgrel = 0
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DSTACKTRACE=OFF"]
 hostmakedepends = [
@@ -13,7 +13,7 @@ makedepends = [
     "boost-devel",
     "libtorrent-rasterbar-devel",
     "openssl-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qtcore-config_p.h
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
 ]

@@ -1,5 +1,5 @@
 pkgname = "python-pyqt6_sip"
-pkgver = "13.8.0"
+pkgver = "13.9.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "custom:sip"
 url = "https://www.riverbankcomputing.com/software/sip"
 source = f"$(PYPI_SITE)/P/PyQt6_sip/PyQt6_sip-{pkgver}.tar.gz"
-sha256 = "2f74cf3d6d9cab5152bd9f49d570b2dfb87553ebb5c4919abfde27f5b9fd69d4"
+sha256 = "5dc660f2242f6bd8c6bc5973a39f31a5b97f261f5ba69b4571912c7feae346bb"
 # no tests
 options = ["!check"]
 

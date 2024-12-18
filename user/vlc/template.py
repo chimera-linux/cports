@@ -1,7 +1,7 @@
 pkgname = "vlc"
 # git because no release of 4 yet (qt6, ffmpeg etc)
 pkgver = "3.0.20_git20240928"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "e5fc9cc4be87e0f8c7e06e1cedd7e061a390c6ee"
 build_style = "gnu_configure"
 configure_args = [
@@ -81,7 +81,7 @@ makedepends = [
     "opus-devel",
     "protobuf-devel",
     "qt6-qt5compat-devel",
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qquickitem_p.h/qtguiglobal_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",

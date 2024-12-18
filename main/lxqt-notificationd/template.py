@@ -1,5 +1,5 @@
 pkgname = "lxqt-notificationd"
-pkgver = "2.1.0"
+pkgver = "2.1.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DLXQT_NOTIFICATION_BUILD_TESTS=ON"]
@@ -21,4 +21,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-notificationd"
 source = f"{url}/releases/download/{pkgver}/lxqt-notificationd-{pkgver}.tar.xz"
-sha256 = "e79e4d57b345333aa350ff8a1dfb8cd9e624beb6910a276c454b459cf580964b"
+sha256 = "7e17acbe1eb0501aaceb5eda0f4b34d2e1b69c1d30639eef4d4d33d4f15ef058"

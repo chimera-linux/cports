@@ -1,6 +1,6 @@
 pkgname = "ixion"
 pkgver = "0.19.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",

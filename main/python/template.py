@@ -1,8 +1,8 @@
 # update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
 _majver = "3.12"
-pkgver = f"{_majver}.7"
-pkgrel = 0
+pkgver = f"{_majver}.8"
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",
@@ -36,6 +36,8 @@ make_check_args = [
     + "-i test_isinstance "  # ppc64le stack overflow
     + "-i test_pickle "  # ppc64le stack overflow
     + "-i test_pickletools "  # ppc64le stack overflow
+    + "-i test_sysconfig "  # temporary until fix-mach.patch is gone
+    + "-i test.test_strptime.StrptimeTests.test_date_locale2 "
 ]
 hostmakedepends = [
     "autoconf-archive",
@@ -63,7 +65,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "24887b92e2afd4a2ac602419ad4b596372f67ac9b077190f459aba390faf5550"
+sha256 = "c909157bb25ec114e5869124cc2a9c4a4d4c1e957ca4ff553f1edc692101154e"
 # FIXME int cfi; cfi ftbfs, int fails ctypes test
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being

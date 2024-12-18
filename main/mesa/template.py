@@ -1,11 +1,10 @@
 pkgname = "mesa"
-pkgver = "24.2.8"
-pkgrel = 0
+pkgver = "24.3.1"
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
     "-Ddefault_library=shared",
-    "-Ddri3=enabled",
     "-Degl=enabled",
     "-Dgbm=enabled",
     "-Dgles1=enabled",
@@ -88,7 +87,7 @@ _subproject_list = [
     "unicode-ident",
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "999d0a854f43864fc098266aaf25600ce7961318a1e2e358bff94a7f53580e30"
+sha256 = "9c795900449ce5bc7c526ba0ab3532a22c3c951cab7e0dd9de5fcac41b0843af"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -265,7 +264,10 @@ def _(self):
     self.pkgdesc = "Generic Buffer Management"
     self.subdesc = "runtime library"
 
-    return ["usr/lib/libgbm.so.*"]
+    return [
+        "usr/lib/gbm",
+        "usr/lib/libgbm.so.*",
+    ]
 
 
 @subpackage("libgbm-devel")

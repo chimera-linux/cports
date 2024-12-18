@@ -1,6 +1,6 @@
 pkgname = "gmic"
 pkgver = "3.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = [
     "QMAKE=qmake6",
@@ -9,13 +9,12 @@ make_build_args = [
 make_use_env = True
 hostmakedepends = [
     "bash",
-    "gimp",
     "pkgconf",
     "qt6-qtbase",
 ]
 makedepends = [
     "fftw-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libomp-devel",
     "libpng-devel",
     "libtiff-devel",

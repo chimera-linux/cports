@@ -1,0 +1,12 @@
+fails to build without this in 6.8.0
+
+--- a/sip/QtWebEngineCore/qwebengineframe.sip
++++ b/sip/QtWebEngineCore/qwebengineframe.sip
+@@ -26,6 +26,7 @@ class QWebEngineFrame /NoDefaultCtors/
+ {
+ %TypeHeaderCode
+ #include <qwebengineframe.h>
++#include <QVariant>
+ %End
+ 
+ public:

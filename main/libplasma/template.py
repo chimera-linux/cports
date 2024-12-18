@@ -1,6 +1,6 @@
 pkgname = "libplasma"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
 make_check_args = ["-E", "(bug485688test|dialognativetest)"]
@@ -29,7 +29,7 @@ makedepends = [
     "ksvg-devel",
     "plasma-activities-devel",
     "plasma-wayland-protocols",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qplatformwindow_p.h/qtguiglobal_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",

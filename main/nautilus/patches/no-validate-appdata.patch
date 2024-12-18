@@ -1,0 +1,14 @@
+for whatever reason appstreamcli treats ca and
+ca@valencia as one, resulting in an error
+
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -143,7 +143,7 @@ if desktop_file_validate.found()
+ endif
+ 
+ appstreamcli = find_program('appstreamcli', required: false)
+-if appstreamcli.found()
++if false
+   test(
+     'validate-appdata', appstreamcli,
+     args: [

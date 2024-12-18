@@ -1,8 +1,8 @@
-commit 9c79849f079f41279b42d267a015d6f75e755536
+commit e2c16f101b5a1c6ccab19bda1259ad7e464ac302
 Author: q66 <q66@chimera-linux.org>
 Date:   Sun Nov 24 02:17:26 2024 +0100
 
-    disable pre-power8 ppc sha256 impl
+    disable pre-power8 ppc sha* impl
     
     This fails to initialize on ppc970 and crashes the kernel, so
     disable it.
@@ -30,5 +30,25 @@ index 0f24319..81aee34 100644
 -	.is_supported = sha2_is_supported,
 +	.is_supported = sha256_have_ppc,
  	.transform = tf_sha256_ppc,
+ 	.name = "ppc"
+ };
+diff --git a/module/icp/algs/sha2/sha512_impl.c b/module/icp/algs/sha2/sha512_impl.c
+index 6291fbd..56d954d 100644
+--- a/module/icp/algs/sha2/sha512_impl.c
++++ b/module/icp/algs/sha2/sha512_impl.c
+@@ -125,9 +125,14 @@ const sha512_ops_t sha512_neon_impl = {
+ #endif
+ 
+ #elif defined(__PPC64__)
++static boolean_t sha512_have_ppc(void)
++{
++	return B_FALSE;
++}
++
+ TF(zfs_sha512_ppc, tf_sha512_ppc);
+ const sha512_ops_t sha512_ppc_impl = {
+-	.is_supported = sha2_is_supported,
++	.is_supported = sha512_have_ppc,
+ 	.transform = tf_sha512_ppc,
  	.name = "ppc"
  };

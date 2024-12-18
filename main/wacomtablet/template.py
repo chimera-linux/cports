@@ -1,6 +1,6 @@
 pkgname = "wacomtablet"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # X*: fail outside x11
 make_check_args = ["-E", "(XInputAdaptor|XsetWacomAdaptor|DBusTabletService)"]
@@ -28,7 +28,7 @@ makedepends = [
     "libplasma-devel",
     "libwacom-devel",
     "plasma5support-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "xserver-xorg-input-wacom-devel",
 ]

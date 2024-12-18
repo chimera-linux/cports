@@ -1,6 +1,6 @@
 pkgname = "kddockwidgets"
 pkgver = "2.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DKDDockWidgets_QT6=ON",
@@ -14,6 +14,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "nlohmann-json",
+    "qt6-qtbase-private-devel",  # qhighdpiscaling_p.h/qquickitem_p.h
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Dock Widget Framework for Qt"

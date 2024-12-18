@@ -1,18 +1,23 @@
 pkgname = "beets"
-pkgver = "2.0.0"
+pkgver = "2.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
-    # python-reflink
-    "--deselect=test/test_files.py::MoveTest::test_reflink_arrives",
-    "--deselect=test/test_files.py::MoveTest::test_reflink_does_not_depart",
-    "--config-file=/dev/null",
+    # pytest fixture client not found
+    "--ignore=test/plugins/test_aura.py",
+    # requests_oauthlib
+    "--ignore=test/plugins/test_beatport.py",
+    # discogs_client
+    "--ignore=test/plugins/test_discogs.py",
+    # pylast
+    "--ignore=test/plugins/test_lastgenre.py",
+    # mpd
+    "--ignore=test/plugins/test_mpdstats.py",
 ]
 hostmakedepends = [
     "python-build",
     "python-installer",
-    "python-setuptools",
-    "python-wheel",
+    "python-poetry-core",
 ]
 depends = [
     "python-confuse",
@@ -20,17 +25,24 @@ depends = [
     "python-mediafile",
     "python-munkres",
     "python-musicbrainzngs",
+    "python-platformdirs",
     "python-unidecode",
     "python-pyyaml",
     "python-requests",
 ]
-checkdepends = ["python-pytest-xdist", *depends]
+checkdepends = [
+    "python-flask",
+    "python-pytest-xdist",
+    "python-pyxdg",
+    "python-responses",
+    *depends,
+]
 pkgdesc = "CLI media library management"
 maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "MIT"
 url = "https://beets.io"
 source = f"$(PYPI_SITE)/b/beets/beets-{pkgver}.tar.gz"
-sha256 = "3b1172b5bc3729e33a6ea4689f7d0236682bf828c67196b6a260f0389cb1f8cf"
+sha256 = "cc0a277f530844575e3374021f316da16bf78ed514963c1ab1597168a8d4c715"
 
 
 def init_check(self):

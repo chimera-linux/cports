@@ -1,5 +1,5 @@
 pkgname = "kcoreaddons"
-pkgver = "6.8.0"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -17,7 +17,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/kcoreaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcoreaddons-{pkgver}.tar.xz"
-sha256 = "28977f478be5d7d5f5650876bf7b806674ed6fc609d703eea329a819fa4ad99c"
+sha256 = "9ce79eeeff62c0df46be1db17630344e9bee7f63655441e626923d3d4f986fbd"
 hardening = ["vis"]
 
 

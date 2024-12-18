@@ -1,6 +1,6 @@
 pkgname = "xwaylandvideobridge"
 pkgver = "0.4.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
 hostmakedepends = [
@@ -16,6 +16,7 @@ makedepends = [
     "kpipewire-devel",
     "kstatusnotifieritem-devel",
     "kwindowsystem-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "xcb-util-devel",
 ]

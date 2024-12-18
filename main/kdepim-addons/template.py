@@ -1,5 +1,5 @@
 pkgname = "kdepim-addons"
-pkgver = "24.08.3"
+pkgver = "24.12.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = [
@@ -22,7 +22,6 @@ makedepends = [
     "akonadi-contacts-devel",
     "akonadi-devel",
     "akonadi-import-wizard-devel",
-    "akonadi-notes-devel",
     "discount-devel",
     "eventviews-devel",
     "gpgme-devel",
@@ -43,6 +42,7 @@ makedepends = [
     "kimap-devel",
     "kio-devel",
     "kitinerary-devel",
+    "kldap-devel",
     "kmailtransport-devel",
     "kmime-devel",
     "kparts-devel",
@@ -75,7 +75,7 @@ url = "https://invent.kde.org/pim/kdepim-addons"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdepim-addons-{pkgver}.tar.xz"
 )
-sha256 = "0db2033c3c673766c3267391b528920c7ecf66bf2033a8a69c6eb4fca5b1a549"
+sha256 = "68f0c8f1188695f9eb0530951aa15e3740ab49e1af9c46537e8af11f055687e8"
 # date diffs, formatting diffs, cant find plugins, ...
 options = ["!check"]
 

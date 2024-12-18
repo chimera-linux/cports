@@ -1,5 +1,5 @@
 pkgname = "qt6-qtscxml"
-pkgver = "6.8.0"
+pkgver = "6.8.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
@@ -20,13 +20,13 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Qt6 SCXML component"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtscxml-everywhere-src-{pkgver}.tar.xz"
-sha256 = "bba9aa4ef441b01b2d391486ddccfb09efa378c8a24e6d13e983fc019837b43b"
+sha256 = "2f406f44cfacd6eddb90468012a5d1d99d7a64ec05a21a2a7eda9dfc12614fd6"
 
 
 def init_check(self):

@@ -1,0 +1,46 @@
+Upgrade mattn/go-sqlite3 so that we can link with system libsqlite
+Upgrade other modules to their latest versions too while we're at it
+
+--- a/go.mod
++++ b/go.mod
+@@ -3,10 +3,12 @@
+ go 1.22.0
+ 
+ require (
+-	github.com/jessevdk/go-flags v0.0.0-20151018211510-4047bd797dd9
+-	github.com/kr/text v0.0.0-20130911015532-6807e777504f
++	github.com/jessevdk/go-flags v1.6.1
++	github.com/kr/text v0.2.0
+ 	github.com/laurent22/go-sqlkv v0.0.0-20140919090402-db1022af2c66
+ 	github.com/laurent22/go-trash v0.0.0-20150202180955-681610e5e1bc
+-	github.com/mattn/go-sqlite3 v0.0.0-20150127001921-25d045f12a64
++	github.com/mattn/go-sqlite3 v1.14.24
+ 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
+ )
++
++require golang.org/x/sys v0.28.0 // indirect
+
+--- a/go.sum
++++ b/go.sum
+@@ -1,12 +1,21 @@
++github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
+ github.com/jessevdk/go-flags v0.0.0-20151018211510-4047bd797dd9 h1:PSPYIsaVMJhLmEu95g3hW2qzg17OLzsxVYpis1OfjWc=
+ github.com/jessevdk/go-flags v0.0.0-20151018211510-4047bd797dd9/go.mod h1:4FA24M0QyGHXBuZZK/XkWh8h0e1EYbRYJSGM75WSRxI=
++github.com/jessevdk/go-flags v1.6.1 h1:Cvu5U8UGrLay1rZfv/zP7iLpSHGUZ/Ou68T0iX1bBK4=
++github.com/jessevdk/go-flags v1.6.1/go.mod h1:Mk8T1hIAWpOiJiHa9rJASDK2UGWji0EuPGBnNLMooyc=
+ github.com/kr/text v0.0.0-20130911015532-6807e777504f h1:JaNmHIV9Eby6srQVWuiQ6n8ko2o/lG6udSRCbFZe1fs=
+ github.com/kr/text v0.0.0-20130911015532-6807e777504f/go.mod h1:sjUstKUATFIcff4qlB53Kml0wQPtJVc/3fWrmuUmcfA=
++github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
++github.com/kr/text v0.2.0/go.mod h1:eLer722TekiGuMkidMxC/pM04lWEeraHUUmBw8l2grE=
+ github.com/laurent22/go-sqlkv v0.0.0-20140919090402-db1022af2c66 h1:VTaw1HULypzR5GOHJsGYjWmvbhTsJfznGDVexKaPPSY=
+ github.com/laurent22/go-sqlkv v0.0.0-20140919090402-db1022af2c66/go.mod h1:r3x+J38xknkgf11E+ECTWBklI6qo2nfH96hKH26NJQU=
+ github.com/laurent22/go-trash v0.0.0-20150202180955-681610e5e1bc h1:Q+jQNLWBZP8ys5oK3kH6+cxDth04ZZEbWBN1RJ+Bip0=
+ github.com/laurent22/go-trash v0.0.0-20150202180955-681610e5e1bc/go.mod h1:eXLX8oRhB8MuD8er7n4QQYCultp7I+dI3rZVnNAFpnk=
+ github.com/mattn/go-sqlite3 v0.0.0-20150127001921-25d045f12a64 h1:ZGTxuQ4twqaQhcDWA0TtuGDFoaCl6H1YE5Ff3DpLUoM=
+ github.com/mattn/go-sqlite3 v0.0.0-20150127001921-25d045f12a64/go.mod h1:FPy6KqzDD04eiIsT53CuJW3U88zkxoIYsOqkbpncsNc=
++github.com/mattn/go-sqlite3 v1.14.24 h1:tpSp2G2KyMnnQu99ngJ47EIkWVmliIizyZBfPrBWDRM=
++github.com/mattn/go-sqlite3 v1.14.24/go.mod h1:Uh1q+B4BYcTPb+yiD3kU8Ct7aC0hY9fxUwlHK0RXw+Y=
+ github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d h1:VhgPp6v9qf9Agr/56bj7Y/xa04UccTW04VP0Qed4vnQ=
+ github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d/go.mod h1:YUTz3bUH2ZwIWBy3CJBeOBEugqcmXREj14T+iG/4k4U=
++golang.org/x/sys v0.28.0 h1:Fksou7UEQUWlKvIdsqzJmUmCX3cZuD2+P3XyyzwMhlA=
++golang.org/x/sys v0.28.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=

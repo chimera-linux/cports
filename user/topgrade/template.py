@@ -1,5 +1,5 @@
 pkgname = "topgrade"
-pkgver = "16.0.1"
+pkgver = "16.0.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/topgrade-rs/topgrade"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9cfcf31db3322f536f0c48d8a75c6750f18762e0ef60eb7446e3d4a0ab60853f"
+sha256 = "9cbaf60a44a1ba76c51d4a44e4fe4e7567ffbbb8c5c3b5751dfbdafd161f8230"
 # generates completions with host binary
 options = ["!cross"]
 

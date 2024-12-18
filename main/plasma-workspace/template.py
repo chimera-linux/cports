@@ -1,6 +1,6 @@
 pkgname = "plasma-workspace"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
 configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
@@ -95,7 +95,7 @@ makedepends = [
     "prison-devel",
     "qcoro-devel",
     "qt6-qt5compat-devel",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtpositioning-devel",
     "qt6-qtsvg-devel",

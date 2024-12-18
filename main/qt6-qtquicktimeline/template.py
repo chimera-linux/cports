@@ -1,5 +1,5 @@
 pkgname = "qt6-qtquicktimeline"
-pkgver = "6.8.0"
+pkgver = "6.8.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtquicktimeline-everywhere-src-{pkgver}.tar.xz"
-sha256 = "1106a41bd8081903058a47a2bca3a147d594d15cc21006aa45f38c6e1dd91f08"
+sha256 = "fdbc198e27fd7bce0801fb3cfa336e81932607e6a36c97ae8394880eedfe12a3"
 # cross: TODO
 # check: fails to find simpletest.qml
 options = ["!cross", "!check"]

@@ -1,6 +1,6 @@
 pkgname = "collada-dom"
 pkgver = "2.5.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",

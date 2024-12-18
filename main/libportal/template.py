@@ -1,6 +1,6 @@
 pkgname = "libportal"
 pkgver = "0.8.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Ddocs=false",
@@ -15,7 +15,12 @@ hostmakedepends = [
     "pkgconf",
     "vala",
 ]
-makedepends = ["glib-devel", "gtk+3-devel", "gtk4-devel", "qt6-qtbase-devel"]
+makedepends = [
+    "glib-devel",
+    "gtk+3-devel",
+    "gtk4-devel",
+    "qt6-qtbase-private-devel",  # qguiapplication_p.h
+]
 pkgdesc = "Flatpak portal library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"

@@ -1,6 +1,6 @@
 pkgname = "libqtxdg"
 pkgver = "4.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "qt6-qtbase-devel",
+    "qt6-qtbase-private-devel",  # qicon_p.h
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
 ]

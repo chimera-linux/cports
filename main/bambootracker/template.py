@@ -5,6 +5,7 @@ build_style = "cmake"
 configure_args = [
     "-DSYSTEM_RTAUDIO=ON",
     "-DSYSTEM_RTMIDI=ON",
+    "-DWARNINGS_ARE_ERRORS=OFF",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [

@@ -1,6 +1,6 @@
 pkgname = "libopenraw"
 pkgver = "0.3.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 hostmakedepends = [
@@ -13,7 +13,7 @@ hostmakedepends = [
 makedepends = [
     "boost-devel",
     "gdk-pixbuf-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libjpeg-turbo-devel",
     "libxml2-devel",
     "rust-std",

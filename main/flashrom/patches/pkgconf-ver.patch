@@ -1,0 +1,11 @@
+--- a/meson.build
++++ b/meson.build
+@@ -685,7 +685,7 @@ libflashrom = library(
+ pkgg = import('pkgconfig')
+ pkgg.generate(
+   libraries : libflashrom,
+-  version : flashrom_version.split()[0], # cut off the git version
++  version : flashrom_version.split()[0].substring(1), # cut off the git version
+   name : 'flashrom',
+   filebase : 'flashrom',
+   description : 'library to interact with flashrom',

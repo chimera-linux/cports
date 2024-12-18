@@ -1,2 +1,2 @@
-url = "https://pypi.org/project/setuptools"
-pattern = r"setuptools-([\d.]+).tar.gz"
+url = "https://github.com/pypa/setuptools/releases"
+pattern = r">v([\d.]+)<"

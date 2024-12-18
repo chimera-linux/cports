@@ -1,5 +1,5 @@
 pkgname = "qadwaitadecorations"
-pkgver = "0.1.5"
+pkgver = "0.1.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DUSE_QT6=ON"]
@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qwaylanddecorationplugin_p.h etc
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",
@@ -19,4 +19,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/FedoraQt/QAdwaitaDecorations"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9e3bde8332da156744f86ad09f9e0456dd63f6fcfdc330b4667f4fdc4faf7a6b"
+sha256 = "dc413ddd27ea8f5bbbfd9640f5f2c25827c035d280dc271dd8dc18c88de905e1"

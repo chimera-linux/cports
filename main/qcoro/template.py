@@ -1,6 +1,6 @@
 pkgname = "qcoro"
 pkgver = "0.11.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DQCORO_BUILD_EXAMPLES=OFF"]
 hostmakedepends = [
@@ -8,7 +8,7 @@ hostmakedepends = [
     "ninja",
 ]
 makedepends = [
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qjsvalue_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtwebsockets-devel",
 ]

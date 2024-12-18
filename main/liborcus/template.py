@@ -1,6 +1,6 @@
 pkgname = "liborcus"
 pkgver = "0.19.2"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool", "python"]
 makedepends = [

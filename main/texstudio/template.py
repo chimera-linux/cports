@@ -1,5 +1,5 @@
 pkgname = "texstudio"
-pkgver = "4.8.4"
+pkgver = "4.8.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -17,4 +17,4 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://www.texstudio.org"
 source = f"https://github.com/texstudio-org/texstudio/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "aec719cb21b788a41576375eeeba734600a54ff64130dd93f5d0da1efa37414c"
+sha256 = "e96d6ac05fc70b32ace99dbf515716d5b1f155dff67249afaa7345bc297a0473"

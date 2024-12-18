@@ -1,6 +1,6 @@
 pkgname = "coturn"
-pkgver = "4.6.2"
-pkgrel = 3
+pkgver = "4.6.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--turndbdir=/var/lib/coturn"]
 configure_gen = []
@@ -19,7 +19,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/coturn/coturn"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "13f2a38b66cffb73d86b5ed24acba4e1371d738d758a6039e3a18f0c84c176ad"
+sha256 = "dc3a529fd9956dc8771752a7169c5ad4c18b9deef3ec96049de30fabf1637704"
 hardening = ["vis", "cfi"]
 
 

@@ -2221,6 +2221,7 @@ def _split_fishcomp(pkg):
 def _split_locale(pkg):
     pkg.take("usr/share/locale", missing_ok=True)
     # translations for qt crap (like lxqt and assorted apps)
+    pkg.take("usr/share/*/i18n/*.qm", missing_ok=True)
     pkg.take("usr/share/*/translations/*.qm", missing_ok=True)
 
 

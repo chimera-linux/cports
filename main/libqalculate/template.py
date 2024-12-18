@@ -13,7 +13,7 @@ hostmakedepends = [
 makedepends = [
     "gmp-devel",
     "icu-devel",
-    "libcurl-devel",
+    "curl-devel",
     "libxml2-devel",
     "mpfr-devel",
     "readline-devel",

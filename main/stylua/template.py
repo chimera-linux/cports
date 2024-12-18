@@ -1,5 +1,5 @@
 pkgname = "stylua"
-pkgver = "2.0.1"
+pkgver = "2.0.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -15,7 +15,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/JohnnyMorganz/StyLua"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ee0e70e38c8352e6534aac4394402a61ca8d8704e8c11403d9721536b517d66b"
+sha256 = "0d88a55d4d33a7d7334bdef8ccaf1fb6524b21dd66d60be8efc0cf92f6d31ad3"
 
 
 def install(self):

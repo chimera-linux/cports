@@ -6,7 +6,7 @@ configure_args = ["--with-yajl=no"]
 make_check_args = ["-j1"]  # racey tests
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "libcurl-devel",
+    "curl-devel",
     "libxml2-devel",
     "libxslt-devel",
     "icu-devel",

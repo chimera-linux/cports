@@ -16,7 +16,7 @@ makedepends = [
     "icu-devel",
     "leptonica-devel",
     "libarchive-devel",
-    "libcurl-devel",
+    "curl-devel",
     "pango-devel",
 ]
 depends = [

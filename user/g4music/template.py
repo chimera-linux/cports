@@ -1,5 +1,5 @@
 pkgname = "g4music"
-pkgver = "4.2"
+pkgver = "4.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -21,4 +21,4 @@ maintainer = "tulilirockz <tulilirockz@outlook.com>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/neithern/g4music"
 source = f"{url}/-/archive/v{pkgver}/g4music-v{pkgver}.tar.gz"
-sha256 = "99edccf0c987498778b4135d9517017110c54a5309d92697ea68c0d2a3c0d1ae"
+sha256 = "c39a6f1b98d11e7661ace8abdf78270153be2505ad0f1a7753e078b40c16b65a"

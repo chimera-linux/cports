@@ -1,6 +1,6 @@
 pkgname = "plasma-integration"
 pkgver = "6.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
 make_check_args = [
@@ -30,7 +30,7 @@ makedepends = [
     "kstatusnotifieritem-devel",
     "kxmlgui-devel",
     "plasma-wayland-protocols",
-    "qt6-qtbase-private-devel",
+    "qt6-qtbase-private-devel",  # qgenericunixthemes_p.h/qgenericunixservices_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtwayland-devel",
     "wayland-devel",

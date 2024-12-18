@@ -8,18 +8,6 @@ index cf099bd..a498ac1 100644
  Libs.private: -lobs -lm -pthread
 -Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd -Werror
 +Cflags: -I${includedir} -std=gnu@CMAKE_C_STANDARD@ -fPIC -fvisibility=hidden -fopenmp-simd
-diff --git a/cmake/Modules/CompilerConfig.cmake b/cmake/Modules/CompilerConfig.cmake
-index 50703b1..d1f36ae 100644
---- a/cmake/Modules/CompilerConfig.cmake
-+++ b/cmake/Modules/CompilerConfig.cmake
-@@ -108,7 +108,6 @@ else()
-     - https://github.com/obsproject/obs-studio/issues/8850 for 13.1.1
-   ]]
-   add_compile_options(
--    -Werror
-     -Wextra
-     -Wvla
-     -Wswitch
 diff --git a/libobs/cmake/linux/libobs.pc.in b/libobs/cmake/linux/libobs.pc.in
 index 580c071..68c7e6d 100644
 --- a/libobs/cmake/linux/libobs.pc.in
