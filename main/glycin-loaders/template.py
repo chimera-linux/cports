@@ -26,7 +26,7 @@ checkdepends = [*depends]
 pkgdesc = "Sandboxed and extendable image decoding"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
-url = "https://gitlab.gnome.org/sophie-h/glycin"
+url = "https://gitlab.gnome.org/GNOME/glycin"
 source = f"$(GNOME_SITE)/glycin/{pkgver[:-2]}/glycin-{pkgver}.tar.xz"
 sha256 = "41c72be1ec9ba55da90c82fc18573b742dff582b09afc37b4565c47e99cc8ff4"
 # gobject-introspection
