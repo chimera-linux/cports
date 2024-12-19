@@ -1,5 +1,5 @@
 pkgname = "clang-rt-builtins-mingw-w64"
-pkgver = "19.1.5"
+pkgver = "19.1.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -40,7 +40,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "bd8445f554aae33d50d3212a15e993a667c0ad1b694ac1977f3463db3338e542"
+sha256 = "e3f79317adaa9196d2cfffe1c869d7c100b7540832bc44fe0d3f44a12861fa34"
 hardening = ["!scp"]
 # crosstoolchain
 options = ["!check", "empty"]
