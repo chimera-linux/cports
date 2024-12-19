@@ -2429,8 +2429,8 @@ class Subpackage(Package):
                 sfx = p[col + 1 :]
                 match p[0:col]:
                     case "cmd":
-                        # take potential manpages for that command
-                        # only take manpages for commands that were globbed,
+                        # take potential manpages and known shell completions
+                        # only take stuff for commands that were globbed,
                         # as using the original wildcard would potentially
                         # match false positives
                         def _take_mancmd(p):
@@ -2439,6 +2439,18 @@ class Subpackage(Package):
                             )
                             self._take_impl(
                                 f"usr/share/man/**/man8/{p.name}.8", True
+                            )
+                            self._take_impl(
+                                f"usr/share/bash-completion/completions/{p.name}",
+                                True,
+                            )
+                            self._take_impl(
+                                f"usr/share/zsh/site-functions/_{p.name}",
+                                True,
+                            )
+                            self._take_impl(
+                                f"usr/share/fish/completions/{p.name}.fish",
+                                True,
                             )
 
                         # and then take the command itself

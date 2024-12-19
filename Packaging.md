@@ -3213,7 +3213,8 @@ This additionally supports prefix-style shorthand values, e.g. instead
 of `usr/bin/foo*` you can write `cmd:foo*`. The currently supported
 prefixes are `cmd:`, `lib:` and `man:`; `man:` automatically resolves
 the category, e.g. `man:foo.1` will take `usr/share/man/man1/foo.1`,
-and `cmd:` will also take any associated manpage in either `man1` or `man8`.
+and `cmd:` will also take any associated manpage in either `man1` or `man8`
+as well as known shell completions.
 
 You will want to use this if you return a function from the subpackage
 function. The following are equivalent:
