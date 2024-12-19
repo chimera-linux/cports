@@ -529,7 +529,8 @@ The following commands are recognized:
   pass a template name and then it will start inside the template's build
   directory if it exists (or `/builddir` if not).
 * `clean` Clean up the build root. This means removing automatic dependencies
-  and removing `builddir` and `destdir` within.
+  and removing `builddir` and `destdir` within. When given a template name,
+  it will only clean the directories for that template.
 * `cycle-check` Scan all templates or a single template for build-time
   dependency cycles. Only one cycle at a time is printed. The goal is to
   keep the tree free of cycles at all times. Therefore, if you encounter
