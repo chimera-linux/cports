@@ -103,10 +103,6 @@ def install(pkg, env=None):
         sf.write(f"{pkg.pkgname}\n")
     # relocate boot files
     for f in (pkg.destdir / "boot").iterdir():
-        # drop system.map if dbg is not generated
-        if not pkg.build_dbg and f.name.startswith("System.map-"):
-            f.unlink()
-            continue
         pkg.mv(f, kdest / "apk-dist/boot")
     # and relocate other distribution files
     for f in kdest.iterdir():
