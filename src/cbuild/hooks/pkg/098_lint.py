@@ -93,7 +93,10 @@ def _lint_comp(pkg):
 def _lint_devel(pkg):
     # lint for LTOed static stuff first, regardless of -devel
     if pkg.options["lintstatic"] and not _lint_static(pkg):
-        pkg.error("package lint failed")
+        pkg.error(
+            "package lint failed",
+            hint="maybe you forgot to create a -devel subpackage?",
+        )
 
     if pkg.pkgname.endswith("-devel"):
         return
