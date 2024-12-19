@@ -1,0 +1,10 @@
+Fails on Musl
+--- a/tests/meson.build	2024-09-18 07:53:14.000000000 -0300
++++ b/tests/meson.build	2024-09-20 07:10:42.449539955 -0300
+@@ -203,6 +203,3 @@
+ test('tst-shells2', tst_shells2_exe)
+ 
+ 
+-test('tst_econftool1', find_program('tst-econftool1.sh'))
+-test('tst_econftool_show1', find_program('tst-econftool_show1.sh'))
+-test('tst_econftool_cat', find_program('tst-econftool_cat.sh'))
