@@ -1,6 +1,6 @@
 pkgname = "delve"
-pkgver = "1.23.1"
-pkgrel = 2
+pkgver = "1.24.0"
+pkgrel = 0
 # supported archs
 archs = ["aarch64", "x86_64"]
 build_style = "go"
@@ -12,7 +12,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/go-delve/delve"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "52554d682e7df2154affaa6c1a4e74ead1fe53959ac630f1118317031160a47d"
+sha256 = "940fc50d6338dfe515982ac5fcc3247616f23e2652048ac4f2b439ebd51741c1"
 
 
 def post_build(self):
