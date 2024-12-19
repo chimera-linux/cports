@@ -26,6 +26,7 @@ makedepends = [
     "libarchive-devel",
     "curl-devel",
     "libmicrohttpd-devel",
+    "libusb-bootstrap",
     "linux-headers",
     "musl-bsd-headers",
     "musl-obstack-devel",

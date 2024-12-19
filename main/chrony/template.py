@@ -16,6 +16,7 @@ makedepends = [
     "libcap-devel",
     "libedit-devel",
     "libseccomp-devel",
+    "libusb-bootstrap",
     "linux-headers",
     "nettle-devel",
 ]

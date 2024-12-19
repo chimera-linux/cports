@@ -19,11 +19,12 @@ hostmakedepends = [
     "python-setuptools",
 ]
 makedepends = [
-    "openssl-devel",
-    "linux-headers",
-    "libuuid-devel",
     "gnutls-devel",
+    "libusb-bootstrap",
+    "libuuid-devel",
+    "linux-headers",
     "ncurses-libtinfo-devel",
+    "openssl-devel",
     "python-devel",
 ]
 pkgdesc = "Das U-Boot tools"
