@@ -1,5 +1,5 @@
 pkgname = "kakoune-lsp"
-pkgver = "18.1.0"
+pkgver = "18.1.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT OR Unlicense"
 url = "https://github.com/kakoune-lsp/kakoune-lsp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e9be8b132cc92612b5fa94535b0162b093bceacf20b6c883895acae0ef36eb8f"
+sha256 = "cb0f8185dfd7952f213e3b11cbcea36a9420514710589c37c5db594f5144f3ac"
 
 
 def install(self):
