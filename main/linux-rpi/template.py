@@ -1,6 +1,6 @@
 # update linux-rpi-zfs-bin when bumping
 pkgname = "linux-rpi"
-pkgver = "6.6.64"
+pkgver = "6.12.5"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "linux-kernel"
@@ -8,7 +8,7 @@ configure_args = ["FLAVOR=rpi", f"RELEASE={pkgrel}"]
 make_dir = "build"
 # necessary for efistub
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
-_commit = "80533a952218696c0ef1b346bab50dc401e6b74c"
+_commit = "c7d876495ffad298d7f5fa252000c80fd4fd1b74"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 provides = ["linux"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "5bb76f5bfed312d1b186e41919150fe56ae3581719f2cc0a38205776e0a71c3c"
+sha256 = "b8029d8f2c5832825fba1007447e2e18d5bf8a58061ecc45f637c435ec8a5bd2"
 # no meaningful checking to be done
 options = [
     "!check",
@@ -33,6 +33,11 @@ options = [
 
 if self.profile().cross:
     broken = "linux-devel does not come out right"
+
+
+def post_patch(self):
+    # this breaks dtbinst kbuild
+    self.rm("arch/arm64/boot/dts/overlays/README")
 
 
 @subpackage("linux-rpi-devel")
