@@ -1,6 +1,6 @@
 pkgname = "cronie"
 pkgver = "1.7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-anacron",
@@ -28,13 +28,14 @@ def post_install(self):
     self.install_service(self.files_path / "crond")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
-    self.install_file("contrib/anacrontab", "etc")
-    self.install_file("contrib/0hourly", "etc/cron.d")
-    self.install_file("contrib/0anacron", "etc/cron.hourly", mode=0o755)
+    self.install_file("contrib/anacrontab", "usr/share/cronie")
+    self.install_file(self.files_path / "crontab", "usr/share/cronie")
 
-    self.install_file(self.files_path / "crontab", "etc")
-    self.install_file(self.files_path / "cron.deny", "etc")
-    self.install_file(self.files_path / "anacron", "etc/default")
+    self.install_file("contrib/0anacron", "usr/share/cronie", mode=0o755)
+    self.install_file("contrib/0hourly", "usr/share/cronie")
+
+    self.install_file(self.files_path / "cron.deny", "usr/share/cronie")
+    self.install_file(self.files_path / "anacron.default", "usr/share/cronie")
 
     # new-style pam.d paths
     self.rename("etc/pam.d", "usr/lib/pam.d", relative=False)
