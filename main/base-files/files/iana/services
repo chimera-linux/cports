@@ -4902,6 +4902,8 @@ f5-globalsite    2792/tcp
 f5-globalsite    2792/udp
 initlsmsad       2793/tcp
 initlsmsad       2793/udp
+urp              2794/tcp
+urp              2794/udp
 livestats        2795/tcp
 livestats        2795/udp
 ac-tech          2796/tcp
