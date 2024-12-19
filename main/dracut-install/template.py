@@ -2,6 +2,7 @@ pkgname = "dracut-install"
 pkgver = "105"
 pkgrel = 0
 build_style = "gnu_configure"
+# handrolled configure
 configure_gen = []
 make_dir = "."
 make_build_target = "dracut-install"
