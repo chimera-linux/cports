@@ -1,0 +1,12 @@
+--- a/Makefile	2024-09-09 19:22:50.000000000 -0300
++++ b/Makefile	2024-09-22 21:11:08.522952422 -0300
+@@ -259,7 +259,7 @@
+ 		-t quay.io/crio/metrics-exporter:latest
+ 
+ .PHONY: install
+-install: install.bin install.man install.completions install.systemd install.config ## Install the project locally.
++install: install.bin install.man install.completions install.config ## Install the project locally.
+ 
+ .PHONY: install.bin-nobuild
+ install.bin-nobuild: ## Install the binaries.
+
