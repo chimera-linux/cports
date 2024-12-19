@@ -2161,7 +2161,7 @@ class Template(Package):
         self.install_dir("usr/lib/shells.d")
         for s in args:
             self.install_link(
-                f"etc/shells.d/{os.path.basename(s)}", s, absolute=True
+                f"usr/lib/shells.d/{os.path.basename(s)}", s, absolute=True
             )
 
 
