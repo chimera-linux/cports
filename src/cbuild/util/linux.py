@@ -52,6 +52,7 @@ def configure(pkg, extra_args=[], build_dir=None, env=None):
         f"OBJDIR={bdir}",
         f"JOBS={pkg.make_jobs}",
         f"EPOCH={epoch}",
+        f"SPLIT_DBG={'1' if pkg.build_dbg else '0'}",
         *args,
         *extra_args,
         env=_build_env(pkg, pkg.configure_env, None, env),
@@ -102,6 +103,10 @@ def install(pkg, env=None):
         sf.write(f"{pkg.pkgname}\n")
     # relocate boot files
     for f in (pkg.destdir / "boot").iterdir():
+        # drop system.map if dbg is not generated
+        if not pkg.build_dbg and f.name.startswith("System.map-"):
+            f.unlink()
+            continue
         pkg.mv(f, kdest / "apk-dist/boot")
     # and relocate other distribution files
     for f in kdest.iterdir():
