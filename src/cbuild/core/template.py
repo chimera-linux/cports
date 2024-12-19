@@ -2158,7 +2158,7 @@ class Template(Package):
         dest.symlink_to(tgt)
 
     def install_shell(self, *args):
-        self.install_dir("etc/shells.d")
+        self.install_dir("usr/lib/shells.d")
         for s in args:
             self.install_link(
                 f"etc/shells.d/{os.path.basename(s)}", s, absolute=True
