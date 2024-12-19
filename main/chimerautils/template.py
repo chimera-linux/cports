@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
 pkgver = "14.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib/chimerautils",
@@ -18,7 +18,7 @@ makedepends = [
     "xz-devel",
     "zlib-ng-compat-devel",
 ]
-depends = ["base-files"]
+depends = ["base-files", "debianutils"]
 # compat
 provides = [
     self.with_pkgver("musl-fts"),
