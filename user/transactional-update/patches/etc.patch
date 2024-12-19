@@ -1,0 +1,10 @@
+--- a/etc/Makefile.am
++++ b/etc/Makefile.am
+@@ -2,5 +2,5 @@
+ # SPDX-FileCopyrightText: 2018-2021 SUSE LLC
+ 
+ EXTRA_DIST = transactional-update.conf tukit.conf
+-configdir = $(prefix)$(sysconfdir)
++configdir = $(sysconfdir)
+ config_DATA = $(EXTRA_DIST)
+
