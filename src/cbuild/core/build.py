@@ -649,6 +649,7 @@ def _build(
         return False
 
     if update_check:
+        pkg.log("checking for new versions...")
         uc.check_pkg(pkg)
 
     if not hasattr(pkg, "fetch"):
