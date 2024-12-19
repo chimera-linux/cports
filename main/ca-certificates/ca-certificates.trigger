@@ -1,5 +1,7 @@
 #!/bin/sh
 
-/usr/bin/update-ca-certificates --fresh || :
-# spawns some subprocesses, we want to let it finish
-wait
+# pre-create emptydirs if needed
+/usr/bin/sd-tmpfiles --create /usr/lib/tmpfiles.d/ca-certificates.conf
+
+# don't fail if it fails
+/usr/bin/update-ca-certificates || :
