@@ -1,5 +1,5 @@
 pkgname = "bzip3"
-pkgver = "1.5.0"
+pkgver = "1.5.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -12,7 +12,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND Apache-2.0"
 url = "https://github.com/kspalaiologos/bzip3"
 source = f"{url}/releases/download/{pkgver}/bzip3-{pkgver}.tar.zst"
-sha256 = "4535aac61d4ad33e5c6daadaac6e9b061318eadf53768dca8b4e6b689807e57d"
+sha256 = "6223fc69a0e983712242d225930b212879454b81eb2712f5f8d9cda3a69b08e1"
 hardening = ["vis", "cfi"]
 
 
