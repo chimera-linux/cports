@@ -1,6 +1,6 @@
 pkgname = "espeak-ng"
 pkgver = "1.52.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 make_dir = "."
