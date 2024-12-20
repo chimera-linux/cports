@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.15"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -51,7 +51,6 @@ _have_kexec_tools = self.profile().arch in [
 
 def post_install(self):
     self.install_license("COPYING.md")
-    self.install_file("^/locale.conf", "etc")
     self.install_tmpfiles("^/dinit.conf", name="dinit")
     self.install_tmpfiles("^/utmp.conf", name="utmp")
     self.install_file("^/sd-tmpfiles-clean", "usr/lib", mode=0o755)

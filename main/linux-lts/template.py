@@ -42,7 +42,7 @@ def _(self):
     return ["usr/src", "usr/lib/modules/*/build"]
 
 
-@subpackage("linux-lts-dbg")
+@subpackage("linux-lts-dbg", self.build_dbg)
 def _(self):
     self.options = [
         "!scanrundeps",

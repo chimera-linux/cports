@@ -368,6 +368,7 @@ default_options = {
     "linkundefver": (False, False),
     "framepointer": (True, True),
     "fullrustflags": (False, True),
+    "sanruntime": (False, True),
 }
 
 core_fields = [
@@ -2158,10 +2159,10 @@ class Template(Package):
         dest.symlink_to(tgt)
 
     def install_shell(self, *args):
-        self.install_dir("etc/shells.d")
+        self.install_dir("usr/lib/shells.d")
         for s in args:
             self.install_link(
-                f"etc/shells.d/{os.path.basename(s)}", s, absolute=True
+                f"usr/lib/shells.d/{os.path.basename(s)}", s, absolute=True
             )
 
 
@@ -2429,8 +2430,8 @@ class Subpackage(Package):
                 sfx = p[col + 1 :]
                 match p[0:col]:
                     case "cmd":
-                        # take potential manpages for that command
-                        # only take manpages for commands that were globbed,
+                        # take potential manpages and known shell completions
+                        # only take stuff for commands that were globbed,
                         # as using the original wildcard would potentially
                         # match false positives
                         def _take_mancmd(p):
@@ -2439,6 +2440,18 @@ class Subpackage(Package):
                             )
                             self._take_impl(
                                 f"usr/share/man/**/man8/{p.name}.8", True
+                            )
+                            self._take_impl(
+                                f"usr/share/bash-completion/completions/{p.name}",
+                                True,
+                            )
+                            self._take_impl(
+                                f"usr/share/zsh/site-functions/_{p.name}",
+                                True,
+                            )
+                            self._take_impl(
+                                f"usr/share/fish/completions/{p.name}.fish",
+                                True,
                             )
 
                         # and then take the command itself

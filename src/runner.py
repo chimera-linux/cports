@@ -823,17 +823,39 @@ def do_keygen(tgt):
 def do_clean(tgt):
     import shutil
 
-    from cbuild.core import paths, errors, chroot
+    from cbuild.core import paths, errors, chroot, template
+
+    ctmpl = cmdline.command[1] if len(cmdline.command) >= 2 else None
+    if ctmpl:
+        tmpl = template.Template(
+            template.sanitize_pkgname(ctmpl),
+            chroot.host_cpu(),
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
+            target="lint",
+        )
+    else:
+        tmpl = None
 
     chroot.cleanup_world(None)
     dirp = paths.builddir() / "builddir"
     if dirp.is_dir():
-        shutil.rmtree(dirp)
+        if tmpl and (dirp / f"{tmpl.pkgname}-{tmpl.pkgver}").is_dir():
+            shutil.rmtree(dirp / f"{tmpl.pkgname}-{tmpl.pkgver}")
+        else:
+            shutil.rmtree(dirp)
     elif dirp.exists():
         raise errors.CbuildException("broken container (builddir invalid)")
     dirp = paths.builddir() / "destdir"
     if dirp.is_dir():
-        shutil.rmtree(dirp)
+        if tmpl and (dirp / f"{tmpl.pkgname}-{tmpl.pkgver}").is_dir():
+            shutil.rmtree(dirp / f"{tmpl.pkgname}-{tmpl.pkgver}")
+        else:
+            shutil.rmtree(dirp)
     elif dirp.exists():
         raise errors.CbuildException("broken container (destdir invalid)")
 

@@ -1,5 +1,5 @@
 pkgname = "docker-compose"
-pkgver = "2.32.0"
+pkgver = "2.32.1"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://docs.docker.com/compose"
 source = f"https://github.com/docker/compose/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9a128c281641090d413f89da1cc3546ae936766dd18489076315348f2c103636"
+sha256 = "730a55f6746fdb0b0258ea45d2d9070e6e3a10db901342daa3056f4c4262c50e"
 # need a running docker daemon
 options = ["!check"]
 

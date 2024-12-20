@@ -42,7 +42,7 @@ def _(self):
     return ["usr/src", "usr/lib/modules/*/build"]
 
 
-@subpackage("linux-rpi-dbg")
+@subpackage("linux-rpi-dbg", self.build_dbg)
 def _(self):
     self.options = [
         "!scanrundeps",

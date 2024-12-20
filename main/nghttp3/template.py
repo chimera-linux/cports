@@ -1,5 +1,5 @@
 pkgname = "nghttp3"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -12,7 +12,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://nghttp2.org/nghttp3"
 source = f"https://github.com/ngtcp2/nghttp3/releases/download/v{pkgver}/nghttp3-{pkgver}.tar.xz"
-sha256 = "eaa901954bc494034d3738ef19130de69387d6a3da029044c60d9dae91792a8d"
+sha256 = "b4eb6bceb99293d9a9df2031c1aad166af3d57b3e33655aca0699397b6f0d751"
 
 
 def post_install(self):

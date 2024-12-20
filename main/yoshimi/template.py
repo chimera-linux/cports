@@ -1,6 +1,6 @@
 pkgname = "yoshimi"
 pkgver = "2.3.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 cmake_dir = "src"
 hostmakedepends = [

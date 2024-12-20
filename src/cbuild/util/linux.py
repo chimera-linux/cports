@@ -52,6 +52,7 @@ def configure(pkg, extra_args=[], build_dir=None, env=None):
         f"OBJDIR={bdir}",
         f"JOBS={pkg.make_jobs}",
         f"EPOCH={epoch}",
+        f"SPLIT_DBG={'1' if pkg.build_dbg else '0'}",
         *args,
         *extra_args,
         env=_build_env(pkg, pkg.configure_env, None, env),

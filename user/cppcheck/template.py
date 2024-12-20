@@ -1,5 +1,5 @@
 pkgname = "cppcheck"
-pkgver = "2.16.1"
+pkgver = "2.16.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "xunil-cloud <river_electron@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://cppcheck.sourceforge.io"
 source = f"https://github.com/danmar/cppcheck/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "cba3634650fe9dc406a769e4cc6cf053d077740fb273a50a91ce3f17ac773607"
+sha256 = "521b996cb56b0c30f89e022abcb50aef85d7219cb7a7162fa81fe40fe6394206"
 # TestSymbolDatabase::enum14 test failed
 # (0x7FFFFFFFFFFFFFFF + 1 cause signed overflow)
 hardening = ["!int"]

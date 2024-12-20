@@ -1,6 +1,6 @@
 pkgname = "binutils"
 pkgver = "2.43.1"
-_llvmver = "19.1.5"
+_llvmver = "19.1.6"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [

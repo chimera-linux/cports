@@ -43,7 +43,7 @@ def _(self):
     return ["usr/src", "usr/lib/modules/*/build"]
 
 
-@subpackage("linux-steamdeck-dbg")
+@subpackage("linux-steamdeck-dbg", self.build_dbg)
 def _(self):
     self.options = [
         "!scanrundeps",

@@ -1,6 +1,6 @@
 pkgname = "rspamd"
-pkgver = "3.10.2"
-pkgrel = 1
+pkgver = "3.11.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCONFDIR=/etc/rspamd",
@@ -40,7 +40,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND LGPL-3.0-only AND MIT AND Zlib"
 url = "https://rspamd.com/index.html"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "3f77a2230c88b5026b5c3cef022f0432b324ef492fdc297f30c6916f17103bdf"
+sha256 = "6dbe6fc7df4079a64f59cd6e8e996400d02d946d808140a1f30060cea76088a6"
 
 
 match self.profile().arch:

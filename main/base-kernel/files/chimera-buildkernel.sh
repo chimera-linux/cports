@@ -407,7 +407,9 @@ do_install() {
 
     install -d "${DESTDIR}/boot"
     install -m644 "${OBJDIR}/.config" "${DESTDIR}/boot/config-${kernver}"
-    install -m644 "${OBJDIR}/System.map" "${DESTDIR}/boot/System.map-${kernver}"
+    if [ "$SPLIT_DBG" -ne 0 ]; then
+        install -m644 "${OBJDIR}/System.map" "${DESTDIR}/boot/System.map-${kernver}"
+    fi
 
     case "$ARCH" in
         x86_64|i386)

@@ -1,6 +1,6 @@
 pkgname = "openssl"
 pkgver = "3.4.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
@@ -65,6 +65,11 @@ def build(self):
     self.make.build(["MAKEDEPPROG=" + self.get_tool("CC")])
 
 
+def post_install(self):
+    # provided by ca-certificates
+    self.uninstall("usr/bin/c_rehash")
+
+
 def init_check(self):
     self.env["HARNESS_JOBS"] = str(self.make_jobs)
 
@@ -85,17 +90,6 @@ def _(self):
     self.subdesc = "SSL/TLS library"
 
     return ["usr/lib/libssl.so.*"]
-
-
-@subpackage("openssl-c_rehash")
-def _(self):
-    self.subdesc = "c_rehash utility"
-    self.depends = ["openssl"]
-
-    if self.stage > 0:
-        self.depends.append("perl")
-
-    return ["usr/bin/c_rehash"]
 
 
 @subpackage("openssl-devel")

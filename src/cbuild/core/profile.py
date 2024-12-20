@@ -76,6 +76,7 @@ def _get_archflags(prof, tmpl, hard):
     sflags = []
     ubsan = False
     lto = tmpl.options["lto"] and prof._has_lto(tmpl.stage)
+    sanrt = tmpl.options["sanruntime"]
 
     if hard["vis"]:
         sflags.append("-fvisibility=hidden")
@@ -96,6 +97,8 @@ def _get_archflags(prof, tmpl, hard):
     # that means we stick with local cfi for hidden symbols for now
     if lto and hard["cfi"]:
         sflags.append("-fsanitize=cfi")
+        if sanrt:
+            sflags.append("-fno-sanitize-trap=cfi")
         if not hard["cfi-icall"]:
             sflags.append("-fno-sanitize=cfi-icall")
         if hard["cfi-genptr"]:
@@ -105,10 +108,11 @@ def _get_archflags(prof, tmpl, hard):
         sflags.append(
             "-fsanitize=signed-integer-overflow,integer-divide-by-zero"
         )
-        # ensure no runtime is relied upon
-        sflags.append(
-            "-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero"
-        )
+        if not sanrt:
+            # ensure no runtime is relied upon
+            sflags.append(
+                "-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero"
+            )
         ubsan = True
 
     if ubsan:
@@ -167,6 +171,20 @@ def _get_hldflags(prof, tmpl, tharden):
 
     if tmpl.options["relr"] and prof._has_relr(tmpl.stage):
         hflags.append("-Wl,-z,pack-relative-relocs")
+
+    # cfi uses the ubsan runtime for error printing
+    if tmpl.options["sanruntime"] and (hard["int"] or hard["cfi"]):
+        hflags += [
+            "/"
+            + str(
+                (
+                    list((paths.bldroot() / "usr/lib/clang").iterdir())[0]
+                    / "lib"
+                    / prof._triplet
+                    / "libclang_rt.ubsan_standalone.a"
+                ).relative_to(paths.bldroot())
+            )
+        ]
 
     hflags += ["-Wl,-O2"]
 

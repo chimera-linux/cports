@@ -1,6 +1,6 @@
 pkgname = "espeak-ng"
-pkgver = "1.51.1"
-pkgrel = 2
+pkgver = "1.52.0"
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 make_dir = "."
@@ -16,7 +16,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/espeak-ng/espeak-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0823df5648659dcb67915baaf99118dcc8853639f47cadaa029c174bdd768d20"
+sha256 = "bb4338102ff3b49a81423da8a1a158b420124b055b60fa76cfb4b18677130a23"
 # FIXME: a bunch fail for unknown reasons
 options = ["!check"]
 

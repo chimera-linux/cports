@@ -1,9 +1,10 @@
 pkgname = "fltk"
-pkgver = "1.3.10"
+pkgver = "1.4.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
+    "-DFLTK_BUILD_SHARED_LIBS=ON",
     # not actual tests, just test programs
     "-DFLTK_BUILD_TEST=ON",
     "-DOPTION_CAIRO=ON",
@@ -14,23 +15,31 @@ hostmakedepends = [
     "cmake",
     "ninja",
     "pkgconf",
+    "wayland-progs",
 ]
 makedepends = [
     "cairo-devel",
+    "glu-devel",
+    "libdecor-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libx11-devel",
+    "libxcursor-devel",
     "libxext-devel",
     "libxft-devel",
+    "libxkbcommon-devel",
     "libxinerama-devel",
     "mesa-devel",
+    "pango-devel",
+    "wayland-devel",
+    "wayland-protocols",
 ]
 pkgdesc = "Cross-platform C++ GUI toolkit"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.0-only WITH FLTK-exception"
 url = "https://www.fltk.org"
-source = f"{url}/pub/fltk/{pkgver}/fltk-{pkgver}-source.tar.gz"
-sha256 = "c1c96d4f2ca7844f4b7945b4670aff2846f150cd5f3e23e3e4c70a61807108c7"
+source = f"https://github.com/fltk/fltk/releases/download/release-{pkgver}/fltk-{pkgver}-source.tar.gz"
+sha256 = "7d0a5a352fde0beae44a2009c1aca1d6be15d46dd251d1c12cf34d752b429038"
 hardening = ["vis", "!cfi"]
 
 
@@ -40,4 +49,5 @@ def post_install(self):
 
 @subpackage("fltk-devel")
 def _(self):
+    self.depends += ["pango-devel"]
     return self.default_devel(extra=["usr/share/fltk"])
