@@ -1,6 +1,6 @@
 pkgname = "nestopia"
 pkgver = "1.52.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["autoconf-archive", "automake", "pkgconf"]
 makedepends = [
