@@ -1,5 +1,5 @@
 pkgname = "crun"
-pkgver = "1.19"
+pkgver = "1.19.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
@@ -25,7 +25,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/containers/crun"
 source = f"{url}/releases/download/{pkgver}/crun-{pkgver}.tar.zst"
-sha256 = "26e66b385e1177d8b773686eb5d62db3bd618c51f63fba922878c76afff98880"
+sha256 = "969d66362ecea59f6d93c463739178ac6c2b75eda7a550a45de413e2d92def11"
 
 
 def post_install(self):
