@@ -105,10 +105,11 @@ def _get_archflags(prof, tmpl, hard):
         sflags.append(
             "-fsanitize=signed-integer-overflow,integer-divide-by-zero"
         )
-        # ensure no runtime is relied upon
-        sflags.append(
-            "-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero"
-        )
+        if not tmpl.options["sanruntime"]:
+            # ensure no runtime is relied upon
+            sflags.append(
+                "-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero"
+            )
         ubsan = True
 
     if ubsan:
@@ -167,6 +168,19 @@ def _get_hldflags(prof, tmpl, tharden):
 
     if tmpl.options["relr"] and prof._has_relr(tmpl.stage):
         hflags.append("-Wl,-z,pack-relative-relocs")
+
+    if tmpl.options["sanruntime"] and hard["int"]:
+        hflags += [
+            "/"
+            + str(
+                (
+                    list((paths.bldroot() / "usr/lib/clang").iterdir())[0]
+                    / "lib"
+                    / prof._triplet
+                    / "libclang_rt.ubsan_standalone.a"
+                ).relative_to(paths.bldroot())
+            )
+        ]
 
     hflags += ["-Wl,-O2"]
 

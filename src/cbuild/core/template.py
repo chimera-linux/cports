@@ -368,6 +368,7 @@ default_options = {
     "linkundefver": (False, False),
     "framepointer": (True, True),
     "fullrustflags": (False, True),
+    "sanruntime": (False, True),
 }
 
 core_fields = [
