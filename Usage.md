@@ -552,6 +552,8 @@ The following commands are recognized:
   a path, reindex a specific repository. Only either the host architecture or
   the `-a` architecture are indexed, and the path should not include the
   architecture.
+* `interactive` Enter a prompt where `cbuild` commands can be entered.
+  They take the same syntax as always, just without explicitly calling `cbuild`.
 * `invoke-custom` Takes a target name and a package. Invokes a custom-defined
   template-specific target function. Typically used to handle logic for
   generation of bootstrap bindists, kernel config refresh, and the likes.

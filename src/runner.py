@@ -7,6 +7,7 @@ rtpath = None
 
 global_cfg = None
 cmdline = None
+parser = None
 
 opt_apkcmd = "apk"
 opt_bwcmd = "bwrap"
@@ -102,6 +103,7 @@ def handle_options():
 
     global global_cfg
     global cmdline
+    global parser
 
     global opt_apkcmd, opt_bwcmd, opt_dryrun, opt_bulkcont, opt_timing
     global opt_arch, opt_cflags, opt_cxxflags, opt_fflags, opt_tltocache
@@ -2333,6 +2335,23 @@ def do_bump_pkgrel(tgt):
             )
 
 
+def do_interactive(tgt):
+    import shlex
+
+    from cbuild.core import logger
+
+    global cmdline
+
+    while True:
+        pmpt = shlex.split(input("cbuild> "))
+        try:
+            cmdline = parser.parse_intermixed_args(pmpt)
+        except SystemExit:
+            logger.get().out("\f[red]cbuild: invalid command line")
+            continue
+        fire_cmd()
+
+
 #
 # MAIN ENTRYPOINT
 #
@@ -2424,12 +2443,52 @@ command_handlers = {
     ),
     "update-check": (do_update_check, "Check a template for upstream updates"),
     "zap": (do_zap, "Remove the bldroot"),
+    "interactive": (do_interactive, "Enter interactive prompt"),
 }
+
+
+def fire_cmd():
+    import shutil
+    import sys
+
+    from cbuild.core import logger, paths
+
+    retcode = None
+
+    if "alias" in global_cfg:
+        alias_map = global_cfg["alias"]
+    else:
+        alias_map = None
+
+    def bodyf():
+        nonlocal retcode
+        cmd = cmdline.command[0]
+        if "/" in cmd and len(cmdline.command) >= 2:
+            # allow reverse order for commands taking package names
+            ncmd = cmdline.command[1]
+            cmdline.command[0] = ncmd
+            cmdline.command[1] = cmd
+            cmd = ncmd
+        # if aliased, get the rel name
+        if alias_map:
+            cmd = alias_map.get(cmd, fallback=cmd)
+        if cmd in command_handlers:
+            retcode = command_handlers[cmd][0](cmd)
+        else:
+            logger.get().out(f"\f[red]cbuild: invalid target {cmd}")
+            sys.exit(1)
+        return None
+
+    ret, failed = pkg_run_exc(bodyf)
+
+    if opt_mdirtemp and not opt_keeptemp:
+        shutil.rmtree(paths.bldroot())
+
+    return ret, failed, retcode
 
 
 def fire():
     import sys
-    import shutil
     import subprocess
 
     from cbuild.core import build, chroot, logger, template, profile
@@ -2492,36 +2551,8 @@ def fire():
 
     build.register_hooks()
     template.register_cats(opt_allowcat.strip().split())
-    retcode = None
 
-    if "alias" in global_cfg:
-        alias_map = global_cfg["alias"]
-    else:
-        alias_map = None
-
-    def bodyf():
-        nonlocal retcode
-        cmd = cmdline.command[0]
-        if "/" in cmd and len(cmdline.command) >= 2:
-            # allow reverse order for commands taking package names
-            ncmd = cmdline.command[1]
-            cmdline.command[0] = ncmd
-            cmdline.command[1] = cmd
-            cmd = ncmd
-        # if aliased, get the rel name
-        if alias_map:
-            cmd = alias_map.get(cmd, fallback=cmd)
-        if cmd in command_handlers:
-            retcode = command_handlers[cmd][0](cmd)
-        else:
-            logger.get().out(f"\f[red]cbuild: invalid target {cmd}")
-            sys.exit(1)
-        return None
-
-    ret, failed = pkg_run_exc(bodyf)
-
-    if opt_mdirtemp and not opt_keeptemp:
-        shutil.rmtree(paths.bldroot())
+    ret, failed, retcode = fire_cmd()
 
     if failed:
         sys.exit(1)
