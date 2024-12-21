@@ -2335,8 +2335,50 @@ def do_bump_pkgrel(tgt):
             )
 
 
-def interactive_completer(text, state):
-    return None
+class InteractiveCompleter:
+    def complete(self, text, state):
+        import pathlib
+        import readline
+        import shlex
+
+        if state == 0:
+            self.matches = []
+            lbuf = readline.get_line_buffer()
+            lbeg = readline.get_begidx()
+            lend = readline.get_endidx()
+            ptext = lbuf[0:lbeg]
+            ctext = lbuf[lbeg:lend]
+            # previously matched a category, so match a template now
+            if ptext.endswith("/"):
+                pcat = shlex.split(ptext)[-1][0:-1]
+                for cat in opt_allowcat.split():
+                    if cat == pcat:
+                        break
+                else:
+                    # no category match
+                    return None
+                # matched category so try to find a template
+                cp = pathlib.Path(pcat)
+                if not cp.is_dir():
+                    return None
+                if "*" not in text:
+                    text += "*"
+                for gl in cp.glob(text):
+                    if gl.is_symlink() or not gl.is_dir():
+                        continue
+                    self.matches.append(gl.name)
+            else:
+                for v in command_handlers:
+                    if not text or v.startswith(text):
+                        self.matches.append(v)
+                for v in opt_allowcat.split():
+                    if not text or v.startswith(text):
+                        self.matches.append(v + "/")
+        try:
+            return self.matches[state]
+        except IndexError:
+            pass
+        return None
 
 
 def do_interactive(tgt):
@@ -2348,8 +2390,19 @@ def do_interactive(tgt):
 
     global cmdline
 
-    readline.parse_and_bind("tab: complete")
-    readline.parse_and_bind("set editing-mode vi")
+    readline.set_completer(InteractiveCompleter().complete)
+
+    bkend = "readline"
+    try:
+        bkend = readline.backend
+    except AttributeError:
+        if readline._READLINE_LIBRARY_VERSION.startswith("EditLine"):
+            bkend = "editline"
+
+    if bkend == "readline":
+        readline.parse_and_bind("set editing-mode vi")
+    elif bkend == "editline":
+        readline.parse_and_bind("python:bind -v")
 
     readline.set_history_length(1000)
 
@@ -2361,7 +2414,10 @@ def do_interactive(tgt):
     except OSError:
         pass
 
-    readline.set_completer(interactive_completer)
+    if bkend == "readline":
+        readline.parse_and_bind("tab: complete")
+    elif bkend == "editline":
+        readline.parse_and_bind("python:bind ^I rl_complete")
 
     while True:
         pmpt = shlex.split(input("cbuild> "))
