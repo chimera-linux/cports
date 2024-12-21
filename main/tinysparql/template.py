@@ -1,5 +1,5 @@
 pkgname = "tinysparql"
-pkgver = "3.8.1"
+pkgver = "3.8.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -40,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/tinysparql/{pkgver[:-2]}/tinysparql-{pkgver}.tar.xz"
-sha256 = "53e04add1ecb4d08caa1317f477fdf0e7148eaac5462831f2374880092ffb295"
+sha256 = "bb8643386c8edc591a03205d4a0eda661dcdd2094473bffb9bbdb94e93589cb2"
 # check may be disabled
 options = ["!cross"]
 
