@@ -1,5 +1,5 @@
 pkgname = "xapp"
-pkgver = "2.8.6"
+pkgver = "2.8.7"
 pkgrel = 0
 build_style = "meson"
 # XXX: drop libexec
@@ -31,7 +31,7 @@ maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xapp/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "7cb987399789502bc4094add704c22873c610323426379e61cf18fd5921e9be5"
+sha256 = "95ad692de2f53bd12b8fd5fb7786ba197f830f982a73903c342c3a64bc6fb604"
 # No tests
 options = ["!check", "!cross"]
 
