@@ -1,6 +1,6 @@
 pkgname = "sdl_image"
-pkgver = "2.8.2"
-pkgrel = 1
+pkgver = "2.8.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSDL2IMAGE_AVIF=ON",
@@ -34,7 +34,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org/projects/SDL_image"
 source = f"{url}/release/SDL2_image-{pkgver}.tar.gz"
-sha256 = "8f486bbfbcf8464dd58c9e5d93394ab0255ce68b51c5a966a918244820a76ddc"
+sha256 = "4b000f2c238ce380807ee0cb68a0ef005871691ece8646dbf4f425a582b1bb22"
 # no check target
 options = ["!check"]
 
