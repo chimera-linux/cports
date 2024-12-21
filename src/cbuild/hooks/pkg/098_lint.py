@@ -146,10 +146,6 @@ def invoke(pkg):
     if pkg.pkgname == "base-files" or pkg.pkgname == "base-kernel":
         return
 
-    # gcompat is non-standard, it has lib64 etc.
-    if pkg.pkgname == "gcompat":
-        return
-
     lintfail = False
     dirempty = True
 

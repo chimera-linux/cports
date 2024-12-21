@@ -1,6 +1,6 @@
 pkgname = "gcompat"
 pkgver = "1.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = [
@@ -59,7 +59,14 @@ def pre_install(self):
 
 def post_install(self):
     self.install_license("LICENSE")
-    # compat links
-    ws = self.profile().wordsize
-    self.install_link(f"lib{ws}", "lib")
-    self.install_link(f"usr/lib{ws}", "lib")
+    # library links
+    for f in [
+        "libc.so.6",
+        "libcrypt.so.1",
+        "libm.so.6",
+        "libpthread.so.0",
+        "libresolv.so.2",
+        "librt.so.1",
+        "libutil.so.1",
+    ]:
+        self.install_link(f"usr/lib/{f}", "libgcompat.so.0")
