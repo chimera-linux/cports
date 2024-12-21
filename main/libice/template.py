@@ -1,6 +1,6 @@
 pkgname = "libice"
-pkgver = "1.1.1"
-pkgrel = 1
+pkgver = "1.1.2"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "pkgconf",
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libICE-{pkgver}.tar.gz"
-sha256 = "04fbd34a11ba08b9df2e3cdb2055c2e3c1c51b3257f683d7fcf42dabcf8e1210"
+sha256 = "1da62f732f8679c20045708a29372b82dff9e7eceee543ed488b845002b3b0ff"
 
 
 def post_install(self):
