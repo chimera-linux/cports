@@ -1,6 +1,6 @@
 pkgname = "fossil"
 pkgver = "2.25"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--json",

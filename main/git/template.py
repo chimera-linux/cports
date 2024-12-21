@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.47.1"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "asciidoc",
     "gettext",
