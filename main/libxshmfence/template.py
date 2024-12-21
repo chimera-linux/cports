@@ -1,5 +1,5 @@
 pkgname = "libxshmfence"
-pkgver = "1.3.2"
+pkgver = "1.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-futex", "--with-shared-memory-dir=/dev/shm"]
