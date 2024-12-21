@@ -2368,12 +2368,21 @@ class InteractiveCompleter:
                         continue
                     self.matches.append(gl.name)
             else:
+                if "alias" in global_cfg:
+                    alias_map = global_cfg["alias"]
+                else:
+                    alias_map = None
+                ctext = shlex.split(lbuf)[-1]
                 for v in command_handlers:
-                    if not text or v.startswith(text):
-                        self.matches.append(v)
+                    if not ctext or v.startswith(ctext):
+                        self.matches.append(v.removeprefix(ptext))
+                for v in alias_map:
+                    if not ctext or v.startswith(ctext):
+                        self.matches.append(v.removeprefix(ptext))
                 for v in opt_allowcat.split():
-                    if not text or v.startswith(text):
-                        self.matches.append(v + "/")
+                    if not ctext or v.startswith(ctext):
+                        self.matches.append(v.removeprefix(ptext) + "/")
+                self.matches.sort()
         try:
             return self.matches[state]
         except IndexError:
