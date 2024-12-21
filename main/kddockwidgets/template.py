@@ -1,6 +1,6 @@
 pkgname = "kddockwidgets"
-pkgver = "2.1.0"
-pkgrel = 1
+pkgver = "2.2.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DKDDockWidgets_QT6=ON",
@@ -22,7 +22,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://www.kdab.com/development-resources/qt-tools/kddockwidgets"
 source = f"https://github.com/KDAB/KDDockWidgets/releases/download/v{pkgver}/kddockwidgets-{pkgver}.tar.gz"
-sha256 = "cf3242b8fde8988b2661366b6a9597bcb67164074c4f31d03ec2999b475a25d7"
+sha256 = "02672f3ae864ed278e47602bebd8e5b1051a8d592678c829c171ce812d8469b2"
 
 
 @subpackage("kddockwidgets-devel")
