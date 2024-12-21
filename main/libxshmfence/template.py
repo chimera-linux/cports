@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libxshmfence-{pkgver}.tar.gz"
-sha256 = "e93a85099604beb244ee756dcaf70e18b08701c1ca84c4de0126cd71bd6c8181"
+sha256 = "6233ccd9fa80198835efc3039cdf8086ab2b218b17e77ebdb0a19913fcee58d3"
 
 
 def post_install(self):
