@@ -2335,12 +2335,33 @@ def do_bump_pkgrel(tgt):
             )
 
 
+def interactive_completer(text, state):
+    return None
+
+
 def do_interactive(tgt):
+    import os
     import shlex
+    import readline
 
     from cbuild.core import logger
 
     global cmdline
+
+    readline.parse_and_bind("tab: complete")
+    readline.parse_and_bind("set editing-mode vi")
+
+    readline.set_history_length(1000)
+
+    try:
+        if os.path.exists("etc/inputrc"):
+            readline.read_init_file("etc/inputrc")
+        else:
+            readline.read_init_file()
+    except OSError:
+        pass
+
+    readline.set_completer(interactive_completer)
 
     while True:
         pmpt = shlex.split(input("cbuild> "))
