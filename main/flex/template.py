@@ -3,7 +3,7 @@ pkgver = "2.6.4"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
-hostmakedepends = ["byacc"]
+hostmakedepends = ["automake", "byacc"]
 makedepends = ["byacc"]
 depends = ["byacc", self.with_pkgver("libfl-devel-static")]
 pkgdesc = "Fast Lexical Analyzer"
@@ -40,6 +40,3 @@ def _(self):
     ]
 
     return self.default_devel()
-
-
-configure_gen = []
