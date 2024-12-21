@@ -1,10 +1,10 @@
 pkgname = "fakeroot"
-pkgver = "1.36"
+pkgver = "1.36.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 make_check_env = {"VERBOSE": "x"}
-hostmakedepends = ["automake", "libtool"]
+hostmakedepends = ["automake", "slibtool"]
 makedepends = ["acl-devel"]
 checkdepends = ["ugetopt"]
 depends = [self.with_pkgver("fakeroot-core")]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"{url}/-/archive/upstream/{pkgver}/fakeroot-upstream-{pkgver}.tar.gz"
-sha256 = "5128dd5df59955d60453aea1817d2f31c29ffb8b8addcc5d7e200460278a6b0a"
+sha256 = "c10ce55bdb12361c172e9ed419d29a71e80a8f1b08fcc4150d00bc2feb021845"
 options = ["bootstrap"]
 
 if self.stage > 0:
