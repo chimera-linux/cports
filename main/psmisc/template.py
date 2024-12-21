@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["gettext-devel", "automake"]
 makedepends = ["ncurses-devel", "gnu-getopt", "linux-headers"]
-checkdepends = ["dejagnu"]
 pkgdesc = "Small utilities that use the proc file-system"
 maintainer = "roastveg <louis@hamptonsoftworks.com>"
 license = "GPL-2.0-or-later"
@@ -16,3 +15,5 @@ tool_flags = {
     "CFLAGS": ["-Dgetopt_long_only=gnu_getopt_long_only"],
 }
 hardening = ["vis", "cfi"]
+# dejagnu
+options = ["!check"]
