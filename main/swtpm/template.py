@@ -1,6 +1,6 @@
 pkgname = "swtpm"
 pkgver = "0.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-gnutls",
@@ -12,7 +12,6 @@ make_dir = "."
 hostmakedepends = [
     "automake",
     "bash",
-    "expect",
     "gawk",
     "gnutls-progs",
     "libtool",
