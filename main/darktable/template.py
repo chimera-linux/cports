@@ -1,6 +1,6 @@
 pkgname = "darktable"
-pkgver = "4.8.1"
-pkgrel = 4
+pkgver = "5.0.0"
+pkgrel = 0
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -68,7 +68,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.darktable.org"
 source = f"https://github.com/darktable-org/darktable/releases/download/release-{pkgver}/darktable-{pkgver}.tar.xz"
-sha256 = "901b0e2caed36fb8619fdf4c60edfb8d31134b947d3054b5c66fd55c38af5991"
+sha256 = "eaa136e6e624bb53127282e26aafa0441abcc189b55371465e1f5a8a493fa3a1"
 
 # with lto: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6')
 # without lto: ICE: fatal error: error in backend: Cannot select: 0x3fff9b420de0: ...
