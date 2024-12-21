@@ -1,5 +1,5 @@
 pkgname = "tcllib"
-pkgver = "1.21"
+pkgver = "2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "tcl"]
@@ -9,4 +9,8 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "TCL"
 url = "https://core.tcl-lang.org/tcllib"
 source = f"{url}/uv/tcllib-{pkgver}.tar.xz"
-sha256 = "10c7749e30fdd6092251930e8a1aa289b193a3b7f1abf17fee1d4fa89814762f"
+sha256 = "642c2c679c9017ab6fded03324e4ce9b5f4292473b62520e82aacebb63c0ce20"
+
+
+def build(self):
+    pass
