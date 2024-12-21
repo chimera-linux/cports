@@ -1,5 +1,5 @@
 pkgname = "xed"
-pkgver = "3.6.7"
+pkgver = "3.8.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared", "-Ddocs=true"]
@@ -29,7 +29,7 @@ maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xed/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "dc9af1c9175e03cc9c3a65d4c06191ca1adac1365b0f93b5cf242dcc03ae837a"
+sha256 = "10ed35d52644e413ba2155832bd2a06623d90cbded8ef10b825b16778f05c1ad"
 # Tests require the "dogtail" Python module
 options = ["!check", "!cross"]
 
