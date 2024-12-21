@@ -1,6 +1,6 @@
 pkgname = "libsm"
-pkgver = "1.2.4"
-pkgrel = 2
+pkgver = "1.2.5"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
 makedepends = ["libice-devel", "libuuid-devel", "xtrans"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libSM-{pkgver}.tar.gz"
-sha256 = "51464ce1abce323d5b6707ceecf8468617106e1a8a98522f8342db06fd024c15"
+sha256 = "a11c3d23b60dce0c13256a8ce9478c1ea330719c0747b5adfbce60571198fa57"
 
 
 def post_install(self):
