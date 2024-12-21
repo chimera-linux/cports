@@ -1,8 +1,8 @@
 pkgname = "base-files"
-_iana_ver = "20241206"
+_iana_ver = "20241220"
 pkgver = f"0.1.{_iana_ver}"
-pkgrel = 0
-replaces = ["dinit-chimera<0.99.11-r2"]
+pkgrel = 1
+replaces = ["dinit-chimera<0.99.11-r2", "gcompat<1.1.0-r2"]
 # highest priority dir owner
 replaces_priority = 65535
 pkgdesc = "Chimera Linux base system files"
@@ -58,6 +58,11 @@ def install(self):
     self.install_link("sbin", "usr/bin")
     self.install_link("usr/sbin", "bin")
     self.install_link("usr/local/sbin", "bin")
+    # wordsized stuff
+    libwn = f"lib{self.profile().wordsize}"
+    self.install_link(libwn, "lib")
+    self.install_link(f"usr/{libwn}", "lib")
+    self.install_link("usr/local/{libwn}", "lib")
 
     # Users and tmpfiles
     self.install_sysusers(self.files_path / "sysusers.conf")
