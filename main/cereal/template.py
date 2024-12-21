@@ -1,6 +1,6 @@
 pkgname = "cereal"
 pkgver = "1.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # -m32 unsupported + broken in fortify-headers
 configure_args = [
