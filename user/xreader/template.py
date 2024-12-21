@@ -1,5 +1,5 @@
 pkgname = "xreader"
-pkgver = "4.2.2"
+pkgver = "4.2.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -37,7 +37,7 @@ url = "https://projects.linuxmint.com/xapps"
 source = (
     f"https://github.com/linuxmint/xreader/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "1392286e58408c40b35afd3f8d187f4c0b575d89ff86985f334e89109b6283e6"
+sha256 = "57d8c20eddcb90ba768f386c444519b5f330c1aacfcaa3deb33db1ad1d7bbd6d"
 # Tests require the "dogtail" Python module
 options = ["!check"]
 
