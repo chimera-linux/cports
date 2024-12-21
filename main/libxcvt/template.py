@@ -1,5 +1,5 @@
 pkgname = "libxcvt"
-pkgver = "0.1.2"
+pkgver = "0.1.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"$(XORG_SITE)/lib/libxcvt-{pkgver}.tar.xz"
-sha256 = "0561690544796e25cfbd71806ba1b0d797ffe464e9796411123e79450f71db38"
+sha256 = "a929998a8767de7dfa36d6da4751cdbeef34ed630714f2f4a767b351f2442e01"
 
 
 def post_install(self):
