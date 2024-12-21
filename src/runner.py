@@ -2494,6 +2494,11 @@ def fire():
     template.register_cats(opt_allowcat.strip().split())
     retcode = None
 
+    if "alias" in global_cfg:
+        alias_map = global_cfg["alias"]
+    else:
+        alias_map = None
+
     def bodyf():
         nonlocal retcode
         cmd = cmdline.command[0]
@@ -2503,6 +2508,9 @@ def fire():
             cmdline.command[0] = ncmd
             cmdline.command[1] = cmd
             cmd = ncmd
+        # if aliased, get the rel name
+        if alias_map:
+            cmd = alias_map.get(cmd, fallback=cmd)
         if cmd in command_handlers:
             retcode = command_handlers[cmd][0](cmd)
         else:

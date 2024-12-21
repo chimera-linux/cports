@@ -1,6 +1,10 @@
 # This is a reference for the cbuild configuration file.
 # Every value specified here is the system's default.
 
+[alias]
+# you can define custom aliases for command names here
+#pu = prepare-upgrade
+
 # options related to your host apk
 [apk]
 # the fallback apk command to use
