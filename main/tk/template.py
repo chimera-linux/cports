@@ -1,5 +1,5 @@
 pkgname = "tk"
-pkgver = "8.6.15"
+pkgver = "9.0.0"
 pkgrel = 0
 build_wrksrc = "unix"
 build_style = "gnu_configure"
@@ -9,9 +9,10 @@ configure_args = [
     "--disable-rpath",
     "--without-tzdata",
     "tk_cv_strtod_unbroken=ok",
-    "LIBS=-ltcl8.6",
+    "LIBS=-ltcl9.0",
 ]
-hostmakedepends = ["automake", "pkgconf"]
+make_dir = "."
+hostmakedepends = ["automake", "pkgconf", "zip"]
 makedepends = [
     "zlib-ng-compat-devel",
     "tcl-devel",
@@ -19,13 +20,13 @@ makedepends = [
     "libxscrnsaver-devel",
     "libxft-devel",
 ]
-provides = ["so:libtk8.6.so=0"]
+provides = ["so:libtk9.0.so=0"]
 pkgdesc = "TK graphical user interface toolkit for TCL"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/tcl/tk{pkgver}-src.tar.gz"
-sha256 = "550969f35379f952b3020f3ab7b9dd5bfd11c1ef7c9b7c6a75f5c49aca793fec"
+sha256 = "f166e3c20773c82243f753cef4b091d05267cb7f87da64be88cb2ca5a2ba027e"
 # no check target
 options = ["!check", "!cross", "!lto"]
 
@@ -38,7 +39,7 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.install_link("usr/bin/wish", "wish8.6")
+    self.install_link("usr/bin/wish", "wish9.0")
     self.install_license("../license.terms")
 
 
