@@ -1,5 +1,5 @@
 pkgname = "lsp-plugins"
-pkgver = "1.2.19"
+pkgver = "1.2.20"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -21,7 +21,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://lsp-plug.in"
 source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.tar.gz"
-sha256 = "184d95a8a58d8f1f2285b57bbbf8b4c7d773455cbe864c289631469d5023e4e6"
+sha256 = "ca8860dca6bfb1e7bcaba342c153e5fc5d3a025c91db66a4433e37829fb591c9"
 hardening = ["vis", "!cfi"]
 # no tests
 # cross broken because of dumb uname arch detection
