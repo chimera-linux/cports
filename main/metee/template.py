@@ -1,5 +1,5 @@
 pkgname = "metee"
-pkgver = "4.2.1"
+pkgver = "4.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -13,7 +13,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/intel/metee"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "bc796f6f07e98106d0303711302633046d6b918f16b3cbce4a49dc406a9a1090"
+sha256 = "6652c3a1a3877a5912096a6e137a9c93230704132e17d31a3a91a730c8fda8fd"
 
 
 @subpackage("metee-devel")
