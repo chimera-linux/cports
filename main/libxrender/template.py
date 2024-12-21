@@ -1,5 +1,5 @@
 pkgname = "libxrender"
-pkgver = "0.9.11"
+pkgver = "0.9.12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXrender-{pkgver}.tar.gz"
-sha256 = "6aec3ca02e4273a8cbabf811ff22106f641438eb194a12c0ae93c7e08474b667"
+sha256 = "0fff64125819c02d1102b6236f3d7d861a07b5216d8eea336c3811d31494ecf7"
 
 
 def post_install(self):
