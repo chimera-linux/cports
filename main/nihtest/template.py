@@ -1,5 +1,5 @@
 pkgname = "nihtest"
-pkgver = "1.8.0"
+pkgver = "1.9.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/nih-at/nihtest"
 source = f"{url}/releases/download/v{pkgver}/nihtest-{pkgver}.tar.gz"
-sha256 = "6843b6769bddfae51f5b68bc62eb34b444087365dd6f4003d528eaedf8184087"
+sha256 = "e8f309fb5007089fe13a0b563fb2ed78105207a04e7dc9e14486119ce3053978"
 
 
 def check(self):
