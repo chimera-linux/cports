@@ -1,5 +1,5 @@
 pkgname = "cinnamon-desktop"
-pkgver = "6.4.0"
+pkgver = "6.4.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dpnp_ids=/usr/share/hwdata/pnp.ids"]
@@ -29,7 +29,7 @@ maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://projects.linuxmint.com/cinnamon"
 source = f"https://github.com/linuxmint/cinnamon-desktop/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "61d2fb8a8b2e9eac66522ff78ece2cdc63c6083895a4823642c6f3c06bf83c51"
+sha256 = "0e9af48b97910302a1130424a05c63b2e7aacb4ce6ae7a1d53c71bcd157a3a8f"
 options = ["!cross"]
 
 
