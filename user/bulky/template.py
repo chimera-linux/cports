@@ -1,5 +1,5 @@
 pkgname = "bulky"
-pkgver = "3.4"
+pkgver = "3.5"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["gettext"]
@@ -15,7 +15,7 @@ maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/bulky/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "dd3350ccb98ce1b1f3df67151ca091430df67e41f19162a415550ef8ebd67c45"
+sha256 = "84d449535553f5f1857812d88c70252730473c8f85760e80be1381d53290028c"
 # Test script requires write access to the cbuild container's root
 options = ["!check"]
 
