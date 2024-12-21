@@ -1,5 +1,5 @@
 pkgname = "passt"
-_pkgver = "2024_11_27.c0fbc7e"
+_pkgver = "2024_12_11.09478d5"
 # yeardate only
 pkgver = _pkgver.split(".")[0].replace("_", ".")
 pkgrel = 0
@@ -13,7 +13,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "https://passt.top/passt/about"
 source = f"https://passt.top/passt/snapshot/passt-{_pkgver}.tar.zst"
-sha256 = "5ae0044c0b134b7cae6d084c352e0e003431ea5a12cf4b54b2d47044c0ae2b08"
+sha256 = "bdf14494bbcb12b5c87ecb766973cb8cc2bd3cfdf33a4ba407417f0317ae8b93"
 # tries to pass this via __attribute(optimise) for some stuff but that is ignored
 tool_flags = {"CFLAGS": ["-fno-strict-aliasing"]}
 hardening = ["vis", "cfi"]
