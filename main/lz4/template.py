@@ -1,6 +1,6 @@
 pkgname = "lz4"
 pkgver = "1.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_args = ["-j1"]
 make_use_env = True
@@ -12,7 +12,6 @@ license = "BSD-2-Clause AND GPL-2.0-or-later"
 url = "https://lz4.github.io/lz4"
 source = f"https://github.com/lz4/lz4/archive/v{pkgver}.tar.gz"
 sha256 = "537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b"
-hardening = ["vis", "cfi"]
 options = ["bootstrap"]
 
 
