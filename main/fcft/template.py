@@ -1,6 +1,6 @@
 pkgname = "fcft"
 pkgver = "3.1.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = [
@@ -17,7 +17,6 @@ license = "MIT"
 url = "https://codeberg.org/dnkl/fcft"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "4b7e3b2ab7e14f532d8a9cb0f2d3b0cdf9d2919b95e6ab8030f7ac87d059c2b6"
-hardening = ["vis", "cfi"]
 
 
 def post_install(self):
