@@ -98,6 +98,7 @@ def post_install(self):
     self.install_dir("usr/share/pam")
     self.rename("etc/security", "usr/share/pam/security", relative=False)
 
+
 @subpackage("pipewire-bluetooth")
 def _(self):
     self.subdesc = "Bluetooth support"
