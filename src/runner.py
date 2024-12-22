@@ -2372,7 +2372,11 @@ class InteractiveCompleter:
                     alias_map = global_cfg["alias"]
                 else:
                     alias_map = None
-                ctext = shlex.split(lbuf)[-1]
+                carr = shlex.split(lbuf)
+                if len(carr) == 0:
+                    ctext = ""
+                else:
+                    ctext = carr[-1]
                 for v in command_handlers:
                     if not ctext or v.startswith(ctext):
                         self.matches.append(v.removeprefix(ptext))
@@ -2400,6 +2404,8 @@ def do_interactive(tgt):
     global cmdline
 
     readline.set_completer(InteractiveCompleter().complete)
+    # default is something like ' \t\n`~!@#$%^&*()-=+[{]}\\|;:\'",<>/?'
+    readline.set_completer_delims(" \t\n/")
 
     bkend = "readline"
     try:
