@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "1.2.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -94,7 +94,9 @@ def post_install(self):
     self.install_sysusers(self.files_path / "pipewire.conf")
     self.install_service(self.files_path / "pipewire.user", enable=True)
     self.install_service(self.files_path / "pipewire-pulse.user", enable=True)
-
+    # move to vendordir
+    self.install_dir("usr/share/pam")
+    self.rename("etc/security", "usr/share/pam/security", relative=False)
 
 @subpackage("pipewire-bluetooth")
 def _(self):
