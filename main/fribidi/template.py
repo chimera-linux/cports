@@ -1,6 +1,6 @@
 pkgname = "fribidi"
 pkgver = "1.0.16"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
 hostmakedepends = ["meson", "pkgconf"]
@@ -10,7 +10,6 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/fribidi/fribidi"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "5a1d187a33daa58fcee2ad77f0eb9d136dd6fa4096239199ba31e850d397e8a8"
-hardening = ["vis", "cfi"]
 
 
 @subpackage("fribidi-devel")
