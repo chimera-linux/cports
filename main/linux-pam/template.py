@@ -1,12 +1,13 @@
 pkgname = "linux-pam"
 pkgver = "1.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddocdir=/usr/share/doc/pam",
     "-Dnis=disabled",
     "-Daudit=disabled",
     "-Dselinux=disabled",
+    "-Dvendordir=/usr/share/pam",
 ]
 hostmakedepends = [
     "docbook-xsl",
@@ -27,8 +28,8 @@ sha256 = "57dcd7a6b966ecd5bbd95e1d11173734691e16b68692fa59661cdae9b13b1697"
 file_modes = {
     "usr/bin/unix_chkpwd": ("root", "root", 0o4755),
     # other stuff in there is owned by the package so...
-    "+etc/security/limits.d": ("root", "root", 0o755),
-    "+etc/security/namespace.d": ("root", "root", 0o755),
+    "+usr/share/pam/security/limits.d": ("root", "root", 0o755),
+    "+usr/share/pam/security/namespace.d": ("root", "root", 0o755),
 }
 options = ["linkundefver"]
 
