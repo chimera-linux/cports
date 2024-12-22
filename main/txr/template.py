@@ -1,5 +1,5 @@
 pkgname = "txr"
-pkgver = "296"
+pkgver = "298"
 pkgrel = 0
 archs = ["aarch64", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "configure"
@@ -12,23 +12,10 @@ maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:txr"
 url = "https://www.nongnu.org/txr"
 source = f"https://www.kylheku.com/cgit/txr/snapshot/txr-{pkgver}.tar.bz2"
-sha256 = "753e74c1f11c109a5235856b5e5800912b8267e08257a1a26f17e74efd5c2917"
+sha256 = "49c0f101f3ee549159c3bd90ee0c434ce1c573e4fe23ed764f82e73075a31023"
 hardening = ["vis"]
 # tests disabled on ppc
 options = ["!cross", "!lto"]
-
-match self.profile().arch:
-    case "ppc64le":
-        # weird corruption maybe due to UB? FIXME
-        # in eval.c in env_vbind, env->e.vbindings
-        # may be 0x4 instead of 0x0 once loaded into
-        # the loc (due to how it deals with unions?)
-        tool_flags = {"CFLAGS": ["-O1"]}
-        # tests still fail FIXME
-        options += ["!check"]
-    case "ppc64":
-        # tests also fail, FIXME
-        options += ["!check"]
 
 
 def init_configure(self):
