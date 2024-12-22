@@ -1,0 +1,16 @@
+libaacs needs this...
+
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -26,11 +26,7 @@ pkgconfig_DATA = libgcrypt.pc
+ EXTRA_DIST = libgcrypt-config.in libgcrypt.m4 libgcrypt.vers \
+              gcrypt.h.in libgcrypt.def libgcrypt.pc.in gen-note-integrity.sh
+ 
+-if USE_GPGRT_CONFIG
+-noinst_SCRIPTS = libgcrypt-config
+-else
+ bin_SCRIPTS = libgcrypt-config
+-endif
+ m4datadir = $(datadir)/aclocal
+ m4data_DATA = libgcrypt.m4
+ nodist_include_HEADERS = gcrypt.h
