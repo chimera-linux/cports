@@ -1,7 +1,7 @@
 pkgname = "vlc"
 # git because no release of 4 yet (qt6, ffmpeg etc)
 pkgver = "3.0.20_git20240928"
-pkgrel = 1
+pkgrel = 2
 _gitrev = "e5fc9cc4be87e0f8c7e06e1cedd7e061a390c6ee"
 build_style = "gnu_configure"
 configure_args = [

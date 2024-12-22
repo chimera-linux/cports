@@ -1,6 +1,6 @@
 pkgname = "opencv"
 pkgver = "4.10.0"
-pkgrel = 12
+pkgrel = 13
 build_style = "cmake"
 configure_args = [
     # rm NDEBUG
