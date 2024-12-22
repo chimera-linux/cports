@@ -1,6 +1,6 @@
 pkgname = "php8.3"
 _majver = "8.3"
-pkgver = f"{_majver}.14"
+pkgver = f"{_majver}.15"
 pkgrel = 0
 _apiver = "20230831"
 build_style = "gnu_configure"
@@ -123,7 +123,7 @@ maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "e4ee602c31e2f701c9f0209a2902dd4802727431246a9155bf56dda7bcf7fb4a"
+sha256 = "67073c3c9c56c86461e0715d9e1806af5ddffe8e6e2eb9781f7923bbb5bd67fa"
 
 
 def post_patch(self):
