@@ -1,6 +1,14 @@
+def _lint_static_cfi(pkg):
+    if pkg.rparent.has_hardening("cfi"):
+        pkg.log_red("CFI enabled on a template with static libraries")
+        return False
+
+    return True
+
+
 def _lint_static(pkg):
     if pkg.pkgname.endswith("-static"):
-        return True
+        return _lint_static_cfi(pkg)
 
     for v in (pkg.destdir / "usr/lib").rglob("*.a"):
         allow = not pkg.rparent.options["lto"] or pkg.options["ltostrip"]
@@ -11,7 +19,7 @@ def _lint_static(pkg):
             pkg.log_warn(
                 "static libraries should usually be in the -static package"
             )
-            return True
+            return _lint_static_cfi(pkg)
 
     return True
 
