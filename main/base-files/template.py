@@ -1,7 +1,7 @@
 pkgname = "base-files"
 _iana_ver = "20241220"
 pkgver = f"0.1.{_iana_ver}"
-pkgrel = 1
+pkgrel = 2
 replaces = ["dinit-chimera<0.99.11-r2", "gcompat<1.1.0-r2"]
 # highest priority dir owner
 replaces_priority = 65535

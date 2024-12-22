@@ -16,13 +16,15 @@ fi
 # Additional profile scripts
 if [ -x /usr/bin/run-parts -a -d /etc/profile.d ]; then
     OIFS="$IFS"
-    IFS=$'\n'
+    IFS='
+'
     for snip in $(/usr/bin/run-parts --list --regex '^.*\.sh' /etc/profile.d /usr/lib/profile.d); do
         IFS="$OIFS"
         unset OIFS
         . "$snip"
         OIFS="$IFS"
-        IFS=$'\n'
+        IFS='
+'
     done
     unset snip
     IFS="$OIFS"
