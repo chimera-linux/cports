@@ -7,26 +7,20 @@
 umask 022
 
 # Filter the PATH and make sure the necessary components exist
-if [ -r /etc/profile.path ]; then
+if [ -r /etc/profile.custom ]; then
+    . /etc/profile.custom
+elif [ -r /etc/profile.path ]; then
     . /etc/profile.path
 elif [ -r /usr/share/base-files/profile.path ]; then
     . /usr/share/base-files/profile.path
 fi
 
 # Additional profile scripts
-if [ -x /usr/bin/run-parts -a -d /etc/profile.d ]; then
-    OIFS="$IFS"
-    IFS='
-'
-    for snip in $(/usr/bin/run-parts --list --regex '^.*\.sh' /etc/profile.d /usr/lib/profile.d); do
-        IFS="$OIFS"
-        unset OIFS
-        . "$snip"
-        OIFS="$IFS"
-        IFS='
-'
-    done
-    unset snip
-    IFS="$OIFS"
-    unset OIFS
+if [ -x /usr/bin/run-parts -a -d /etc/profile.d -a ! -r /etc/profile.custom ]; then
+    while read -r profile_d; do
+        . "$profile_d"
+    done <<EOS
+$(/usr/bin/run-parts --list --regex '^.*\.sh' /etc/profile.d /usr/lib/profile.d)
+EOS
+    unset profile_d
 fi

@@ -1,7 +1,7 @@
 pkgname = "base-files"
 _iana_ver = "20241220"
 pkgver = f"0.1.{_iana_ver}"
-pkgrel = 2
+pkgrel = 3
 replaces = ["dinit-chimera<0.99.11-r2", "gcompat<1.1.0-r2"]
 # highest priority dir owner
 replaces_priority = 65535
@@ -86,7 +86,7 @@ def install(self):
         self.install_file(self.files_path / "share" / f, "usr/share/base-files")
 
     self.install_file(
-        self.files_path / "share/securetty", "usr/share/base-files", mode=0o600
+        self.files_path / "share/securetty", "usr/share/pam", mode=0o600
     )
 
     # Files that should not be changed
