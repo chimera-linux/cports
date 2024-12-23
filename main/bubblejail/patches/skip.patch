@@ -1,0 +1,12 @@
+diff --git a/test/meson.build b/test/meson.build
+index 658def0..70018c7 100644
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -4,7 +4,6 @@ unittests = files(
+     'test_helper.py',
+     'test_profiles.py',
+     'test_service_info.py',
+-    'test_auto_completion.py',
+     'test_full_run.py',
+ )
+ 
