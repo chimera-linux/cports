@@ -1,18 +1,15 @@
 pkgname = "xfce4-screensaver"
-pkgver = "4.18.3"
-pkgrel = 1
+pkgver = "4.18.4"
+pkgrel = 0
 # workaround for lack of gdbus port
 _dbus_gmain_rev = "93e8fced640e29bd6fbcc066a6c854a8dd74f8ab"
 build_style = "gnu_configure"
 configure_args = ["--with-xf86gamma-ext"]
-# check target fails without this
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -35,6 +32,8 @@ makedepends = [
     "shadow-devel",
     "xfconf-devel",
 ]
+# Needed for xfce4-screensaver-configure.py
+depends = ["python-gobject"]
 pkgdesc = "Xfce screensaver"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
@@ -45,7 +44,7 @@ source = [
 ]
 source_paths = [".", "dbus-gmain"]
 sha256 = [
-    "d171316136a1189dfe69ef3da7f7a7f842014129ece184cc21ffb13bc0e13a39",
+    "cf717d032d2d0555978c479299da992af6dc3363ae7e758af9515c7166eac170",
     "b05a1cab9564d5490df3f92d564cec8582e82cc264130a071b0e0a8d9350ec18",
 ]
 
