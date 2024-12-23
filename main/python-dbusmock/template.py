@@ -12,18 +12,13 @@ hostmakedepends = [
 ]
 depends = ["python-dbus"]
 checkdepends = [
-    "bluez",
     "dbus",
-    "elogind",
     "libnotify",
     "modemmanager",
     "networkmanager",
     "polkit",
     "python-gobject",
     "python-pytest",
-    # Cycle
-    # "power-profiles-daemon",
-    # "upower",
     *depends,
 ]
 pkgdesc = "D-Bus object mocks for python"
