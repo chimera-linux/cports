@@ -1,6 +1,6 @@
 pkgname = "regreet"
-pkgver = "0.1.1"
-pkgrel = 1
+pkgver = "0.1.2"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = [
     "--features=gtk4_8",
@@ -19,7 +19,7 @@ maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/rharish101/ReGreet"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a658c91cdf242dfea814f0bfd0c4d877bd39e3af498d36e5024061e3d07ea76b"
+sha256 = "7358f5536d1fbbf36e0d9ba152a393d85d733ea5946bdc0c720f460de2c5e8e4"
 
 
 def post_install(self):
