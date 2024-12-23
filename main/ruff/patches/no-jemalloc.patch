@@ -1,16 +1,16 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 40b862c96..8b8a79347 100644
+index 993f01d0f..66997a831 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2565,7 +2565,6 @@ dependencies = [
+@@ -2566,7 +2566,6 @@ dependencies = [
   "tempfile",
   "test-case",
-  "thiserror 2.0.6",
+  "thiserror 2.0.7",
 - "tikv-jemallocator",
   "toml",
   "tracing",
   "walkdir",
-@@ -2591,7 +2590,6 @@ dependencies = [
+@@ -2592,7 +2591,6 @@ dependencies = [
   "rustc-hash 2.1.0",
   "serde",
   "serde_json",
@@ -18,7 +18,7 @@ index 40b862c96..8b8a79347 100644
   "ureq",
   "url",
  ]
-@@ -3662,26 +3660,6 @@ dependencies = [
+@@ -3664,26 +3662,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -46,7 +46,7 @@ index 40b862c96..8b8a79347 100644
  name = "tinystr"
  version = "0.7.6"
 diff --git a/crates/ruff/Cargo.toml b/crates/ruff/Cargo.toml
-index 244f9a255..4018accff 100644
+index 9759b8c19..dd6af61ef 100644
 --- a/crates/ruff/Cargo.toml
 +++ b/crates/ruff/Cargo.toml
 @@ -79,8 +79,5 @@ ignored = ["chrono"]
