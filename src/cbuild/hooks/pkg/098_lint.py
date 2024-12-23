@@ -1,5 +1,5 @@
 def _lint_static_cfi(pkg):
-    if pkg.rparent.has_hardening("cfi"):
+    if pkg.rparent.has_hardening("cfi") and not pkg.options["ltostrip"]:
         pkg.log_red("CFI enabled on a template with static libraries")
         return False
 
