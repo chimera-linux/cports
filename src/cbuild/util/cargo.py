@@ -117,7 +117,7 @@ class Cargo:
             wrksrc = tmpl.make_dir
 
         bargs = []
-        if command != "vendor":
+        if command != "vendor" and command != "update":
             bargs += ["--target", tmpl.profile().triplet]
 
         if offline:
@@ -321,6 +321,28 @@ class Cargo:
             tmpl.make_check_args + args,
             jobs,
             True,
+            tmpl.make_check_env,
+            env,
+            wrksrc,
+            tmpl.make_check_wrapper,
+            wrapper,
+        )
+
+    def update(
+        self,
+        args=[],
+        command="update",
+        jobs=None,
+        env={},
+        wrksrc=None,
+        wrapper=[],
+    ):
+        tmpl = self.template
+        return self._invoke(
+            command,
+            tmpl.make_check_args + args,
+            jobs,
+            False,
             tmpl.make_check_env,
             env,
             wrksrc,
