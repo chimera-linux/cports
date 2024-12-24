@@ -1,14 +1,12 @@
 pkgname = "xfce4-netload-plugin"
-pkgver = "1.4.1"
+pkgver = "1.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -21,4 +19,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-netload-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-netload-plugin/{pkgver[:-2]}/xfce4-netload-plugin-{pkgver}.tar.bz2"
-sha256 = "9fac3a3ad52e18584bfb127cd1721d56de1004b9fdd140915fded89704ccb44e"
+sha256 = "a2041338408b2670f8debe57fcec6af539f704659eba853943c1524936ebabeb"
