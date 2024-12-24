@@ -825,7 +825,7 @@ def do_keygen(tgt):
 def do_clean(tgt):
     import shutil
 
-    from cbuild.core import paths, errors, chroot, template
+    from cbuild.core import paths, chroot, template, logger
 
     ctmpl = cmdline.command[1] if len(cmdline.command) >= 2 else None
     if ctmpl:
@@ -844,22 +844,18 @@ def do_clean(tgt):
         tmpl = None
 
     chroot.cleanup_world(None)
-    dirp = paths.builddir() / "builddir"
-    if dirp.is_dir():
-        if tmpl and (dirp / f"{tmpl.pkgname}-{tmpl.pkgver}").is_dir():
-            shutil.rmtree(dirp / f"{tmpl.pkgname}-{tmpl.pkgver}")
-        else:
+
+    for dirn in ["builddir", "destdir"]:
+        dirp = paths.builddir() / dirn
+        if tmpl:
+            dirp = dirp / f"{tmpl.pkgname}-{tmpl.pkgver}"
+        if not dirp.exists():
+            continue
+        logger.get().out(f"cleaning '{dirp}'...")
+        if dirp.is_dir():
             shutil.rmtree(dirp)
-    elif dirp.exists():
-        raise errors.CbuildException("broken container (builddir invalid)")
-    dirp = paths.builddir() / "destdir"
-    if dirp.is_dir():
-        if tmpl and (dirp / f"{tmpl.pkgname}-{tmpl.pkgver}").is_dir():
-            shutil.rmtree(dirp / f"{tmpl.pkgname}-{tmpl.pkgver}")
         else:
-            shutil.rmtree(dirp)
-    elif dirp.exists():
-        raise errors.CbuildException("broken container (destdir invalid)")
+            dirp.unlink()
 
 
 def do_zap(tgt):
