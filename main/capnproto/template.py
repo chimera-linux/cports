@@ -1,5 +1,5 @@
 pkgname = "capnproto"
-pkgver = "1.0.2"
+pkgver = "1.1.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -15,7 +15,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://capnproto.org"
 source = f"{url}/capnproto-c++-{pkgver}.tar.gz"
-sha256 = "9057dbc0223366b74bbeca33a05de164a229b0377927f1b7ef3828cdd8cb1d7e"
+sha256 = "07167580e563f5e821e3b2af1c238c16ec7181612650c5901330fa9a0da50939"
 
 
 if self.profile().cross:
