@@ -1,14 +1,12 @@
 pkgname = "xfce4-clipman-plugin"
-pkgver = "1.6.6"
+pkgver = "1.6.7"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -28,4 +26,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-clipman-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-clipman-plugin/{pkgver[:-2]}/xfce4-clipman-plugin-{pkgver}.tar.bz2"
-sha256 = "08ad475b006f878df5dd20d83c98edc33ed21e69b414d0e5ff6d4accd64d7120"
+sha256 = "9bae27808a50e959e0912b7202ea5d651ed7401a6fc227f811d9bdaf2e44178c"
