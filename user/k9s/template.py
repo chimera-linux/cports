@@ -1,6 +1,6 @@
 pkgname = "k9s"
-pkgver = "0.32.5"
-pkgrel = 5
+pkgver = "0.32.7"
+pkgrel = 0
 build_style = "go"
 make_build_args = [f"-ldflags= -X github.com/derailed/k9s/cmd.version={pkgver}"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://k9scli.io"
 source = f"https://github.com/derailed/k9s/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e011697b3de99d7691119036eaae6e5d4f1a98e284755ab6b15ae6daba08595f"
+sha256 = "508f5d22616d0a741b72171d31df6e6baa45298b3614b7f9a171fe3f05e74365"
 
 
 def post_build(self):
