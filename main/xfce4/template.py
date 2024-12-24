@@ -1,6 +1,6 @@
 pkgname = "xfce4"
 pkgver = "4.20"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "gvfs",
@@ -55,6 +55,8 @@ def _(self):
     self.subdesc = "panel plugins"
     self.install_if = [self.parent]
     self.depends = [
+        "xfce4-battery-plugin",
+        "xfce4-calculator-plugin",
         "xfce4-clipman-plugin",
         "xfce4-cpufreq-plugin",
         "xfce4-cpugraph-plugin",
