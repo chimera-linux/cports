@@ -1,0 +1,12 @@
+this pulls in libyuv, we don't want that but still want tests
+
+--- a/meson.build
++++ b/meson.build
+@@ -217,7 +217,6 @@ pipelines_support = {
+     'simple':       ['any'],
+     'uvcvideo':     ['any'],
+     'vimc':         ['test'],
+-    'virtual':      ['test'],
+ }
+ 
+ if pipelines.contains('all')

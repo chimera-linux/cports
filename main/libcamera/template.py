@@ -1,5 +1,5 @@
 pkgname = "libcamera"
-pkgver = "0.3.2"
+pkgver = "0.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtest=true"]
@@ -25,7 +25,7 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://libcamera.org"
 source = f"https://github.com/libcamera-org/libcamera/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d2c0a28749ec95b84866bbdad1cd71e7d7309560153f8b369d27c0b1de5b459a"
+sha256 = "23b0618c551241a1906e3077330ba29d2ff61c70b157e1b5c5c32ab9daf81430"
 nostrip_files = ["usr/lib/libcamera/ipa*.so"]
 
 
