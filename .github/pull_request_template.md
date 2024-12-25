@@ -16,3 +16,7 @@ The following must be true for template/package changes:
 
 - [ ] I have read [Packaging.md](https://github.com/chimera-linux/cports/blob/master/Packaging.md#quality_requirements)
 - [ ] I have built and tested my changes on my machine
+
+The following must be true for new package submissions:
+
+- [ ] I will take responsibility for my template and keep it up to date
