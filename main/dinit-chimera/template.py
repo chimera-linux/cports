@@ -1,13 +1,18 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.15"
-pkgrel = 2
+pkgver = "0.99.16"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Ddefault-path-env=/usr/bin",
 ]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["libkmod-devel", "linux-headers"]
+makedepends = [
+    "libdinitctl-devel",
+    "libkmod-devel",
+    "linux-headers",
+    "udev-devel",
+]
 depends = [
     "dinit",
     "tzdata",
@@ -35,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "c88f734bbdb7e926bd1167ed9b1844fff7b20cc7289ccbbb32940422fa18b951"
+sha256 = "fb7dee65b72870c963569f3834fa4cf66805f07c37344d6342cf3f475b6e5c75"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks"]
 
