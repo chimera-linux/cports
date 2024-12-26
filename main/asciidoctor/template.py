@@ -1,6 +1,6 @@
 pkgname = "asciidoctor"
 pkgver = "2.0.23"
-pkgrel = 1
+pkgrel = 2
 build_style = "ruby_gem"
 hostmakedepends = ["ruby"]
 depends = ["ruby"]
