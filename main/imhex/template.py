@@ -1,6 +1,6 @@
 pkgname = "imhex"
-pkgver = "1.35.4"
-pkgrel = 2
+pkgver = "1.36.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DIMHEX_BUNDLE_DOTNET=OFF",
@@ -47,15 +47,21 @@ pkgdesc = "Hex editor for reverse engineers"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://imhex.werwolv.net"
-_patterns = "4299243e950bca438e16114937a2691ce23a4869"
+_plutovg_ver = "0.0.10"
 source = [
     f"https://github.com/WerWolv/ImHex/releases/download/v{pkgver}/Full.Sources.tar.gz>src-{pkgver}.tar.gz",
-    f"https://github.com/WerWolv/ImHex-Patterns/archive/{_patterns}.tar.gz",
+    f"https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v{pkgver}.tar.gz",
+    f"https://github.com/sammycage/plutovg/archive/refs/tags/v{_plutovg_ver}.tar.gz",
 ]
-source_paths = [".", "ImHex-Patterns"]
+source_paths = [
+    ".",
+    "ImHex-Patterns",
+    "build/_deps/plutovg-src",
+]
 sha256 = [
-    "987188df511a01dca407c4fd398a9dbc805ef82cdf044ea27da57ec343c7d6df",
-    "ed187d7d143ecf0cb69bbb9186f7aea02fbd9bf996c7e55fc3893e73db45d7aa",
+    "ee464053969ae5f5754ebb1afb3bbdcf2faa4ac195fad0f7ff43cf129abcab04",
+    "a2a3820037c2ca23fa834526ee605bf166fba910f43a08089b9037e1e87d3609",
+    "639ce28e8f12920ed19d96cd50809973ded904a4e17ba7f9986d6e88431e93c6",
 ]
 
 
