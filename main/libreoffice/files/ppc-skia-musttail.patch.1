@@ -13,16 +13,28 @@ Date:   Sat May 13 23:00:04 2023 +0200
     
     To be investigated later.
 
+diff --git a/modules/skcms/src/skcms_internals.h b/modules/skcms/src/skcms_internals.h
+index f3f0a2d..d695e40 100644
+--- a/modules/skcms/src/skcms_internals.h
++++ b/modules/skcms/src/skcms_internals.h
+@@ -48,6 +48,7 @@ extern "C" {
+                                                  && !defined(__arm__) \
+                                                  && !defined(__riscv) \
+                                                  && !defined(__loongarch__) \
++                                                 && !defined(__powerpc__) \
+                                                  && !defined(_WIN32) && !defined(__SYMBIAN32__)
+             #define SKCMS_HAS_MUSTTAIL 1
+         #endif
 diff --git a/src/core/SkRasterPipeline.h b/src/core/SkRasterPipeline.h
-index 766bb0c..88c6cb2 100644
+index 5592061..43c4ebd 100644
 --- a/src/core/SkRasterPipeline.h
 +++ b/src/core/SkRasterPipeline.h
-@@ -24,7 +24,7 @@ enum SkColorType : int;
- struct SkImageInfo;
+@@ -27,7 +27,7 @@ struct SkImageInfo;
  struct skcms_TransferFunction;
  
--#if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32)
-+#if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && !defined(__powerpc__)
+ #if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && \
+-        !defined(SK_CPU_LOONGARCH) && !(defined(_WIN32) && defined(SK_BUILD_FOR_ANDROID_FRAMEWORK))
++        !defined(SK_CPU_LOONGARCH) && !(defined(_WIN32) && defined(SK_BUILD_FOR_ANDROID_FRAMEWORK)) && !defined(__powerpc__)
+     // [[clang::musttail]] is disabled for the Android version of Skia running on Windows as it
+     // causes crashes (This is probably related to http://crbug.com/1505442).
      #define SK_HAS_MUSTTAIL 1
- #else
-     #define SK_HAS_MUSTTAIL 0

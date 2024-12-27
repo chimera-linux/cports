@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "24.8.4.2"
+pkgver = "25.2.0.1"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -174,7 +174,7 @@ source = [
     f"{_surl}/libreoffice-dictionaries-{pkgver}.tar.xz",
     f"{_surl}/libreoffice-help-{pkgver}.tar.xz",
     f"{_surl}/libreoffice-translations-{pkgver}.tar.xz",
-    f"{_aurl}/rhino-1.7.14.zip",
+    f"{_aurl}/rhino-1.7.15.zip",
     f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip",
     f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip",
     f"{_aurl}/language-subtag-registry-2024-11-19.tar.bz2",
@@ -185,7 +185,7 @@ source = [
     f"{_aurl}/libcmis-0.6.2.tar.xz",
     f"{_aurl}/libstaroffice-0.0.7.tar.xz",
     f"{_aurl}/libzmf-0.0.2.tar.xz",
-    f"{_aurl}/pdfium-6425.tar.bz2",
+    f"{_aurl}/pdfium-6764.tar.bz2",
     f"{_eurl}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar",
     f"{_eurl}/odfvalidator-0.9.0-RC2-SNAPSHOT-jar-with-dependencies-2726ab578664434a545f8379a01a9faffac0ae73.jar",
     f"{_aurl}/dtoa-20180411.tgz",
@@ -199,17 +199,17 @@ source = [
     f"{_aurl}/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip",
     f"{_aurl}/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip",
     f"{_aurl}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip",
-    f"{_aurl}/skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz",
+    f"{_aurl}/skia-m130-3c64459d5df2fa9794b277f0959ed8a92552bf4c.tar.xz",
     f"{_aurl}/dragonbox-1.1.3.tar.gz",
-    f"{_aurl}/frozen-1.1.1.tar.gz",
+    f"{_aurl}/frozen-1.2.0.tar.gz",
     f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "1564de2ea39aa91a66315c051058e43a0be4536ae88c43fdf0f8ce0ebe081a17",
-    "ff0f8db99b511ec24d598e4dca20c63854a1540d70dea86e915020181c32e924",
-    "f00e4bfada8fa10b6fc60524429e06124e7118664be6e26cae3bd61e5cbc097c",
-    "8d525b83bb5b2a8f831bb40dd0f7eeea35e134d204d590c85af22756b0a8047d",
-    "bf4d2d0c5ff8889fd494486db09291cb7965f0bf2f93ef005d3b08070a5a4f5c",
+    "9cc5596f1102b878d8b70aa192a6fe55c306c0ff38db6ba49d55d395f73c65b8",
+    "aefae5ee2b6af6c7b9ecf80933c597c43480eff4a909791010ed210040a66f8c",
+    "660cfdd64843483f9f1b9527cef9abba7967e6d16b88544e2ad102314f2e26ae",
+    "71b4e904574ec513db7040c1714a87beabe793d560d40f3789a9e29105a193fc",
+    "42fce6baf1bf789b62bf938b8e8ec18a1ac92c989dd6e7221e9531454cbd97fa",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
     "121f27bd1fabac9a74fb042cf68396b6df74cdf5d1ccc30f4c9b78584cc13864",
@@ -220,7 +220,7 @@ sha256 = [
     "1b5c2d7258ff93eb5f9958ff0e4dfd7332dc75a071bb717dde2217a26602a644",
     "f94fb0ad8216f97127bedef163a45886b43c62deac5e5b0f5e628e234220c8db",
     "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
-    "fe0291b96d7352bac530d13ef2e5fd63ad9980e0128911f88b957b5992508f1c",
+    "59d5df3b38312b069d96a8de9d4f8d7f44a29835c9dc82bd792ea02be86c4e49",
     "f2443f27561af52324eee03a1892d9f569adc8db9e7bca55614898bc2a13a770",
     "d55495ab3a86544650587de2a72180ddf8bfc6376d14ddfa923992dbc86a06e0",
     "0082d0684f7db6f62361b76c4b7faba19e0c7ce5cb8e36c4b65fea8281e711b4",
@@ -234,9 +234,9 @@ sha256 = [
     "abe2c57ac12ba45d83563b02e240fa95d973376de2f720aab8fe11f2e621c095",
     "05640a1f6805b2b2d7e2cb9c50db9a5cb084e3c52ab1a71ce015239b4a1d4343",
     "085f2112c51fa8c1783fac12fbd452650596415121348393bb51f0f7e85a9045",
-    "2223ebce534458a37826e8fe4f24635b0712cde7ed1bd3208f089f6fdd796e01",
+    "53f55303821158b6de9e6b90f1cc3a548611a7e430c1a0883ff159a8db89677d",
     "09d63b05e9c594ec423778ab59b7a5aa1d76fdd71d25c7048b0258c4ec9c3384",
-    "f7c7075750e8fceeac081e9ef01944f221b36d9725beac8681cbd2838d26be45",
+    "ed8339c017d7c5fe019ac2c642477f435278f0dc643c1d69d3f3b1e95915e823",
     "77d6c6ecb35952a8d8ce7f736b7a2bf466275c48210e309b73782d6b7e84dffd",
 ]
 tool_flags = {
@@ -257,7 +257,6 @@ def post_extract(self):
     # copy over patches
     self.cp(self.files_path / "ppc-skia-musttail.patch.1", "external/skia")
     self.cp(self.files_path / "libcmis-libxml2.patch.1", "external/libcmis")
-    self.cp(self.files_path / "libcmis-boost-1.86.patch.1", "external/libcmis")
 
 
 def init_configure(self):
