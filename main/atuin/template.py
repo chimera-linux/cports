@@ -1,5 +1,5 @@
 pkgname = "atuin"
-pkgver = "18.3.0"
+pkgver = "18.4.0"
 pkgrel = 0
 build_style = "cargo"
 # we patch Cargo.toml and Cargo.lock
@@ -15,7 +15,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/atuinsh/atuin"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d05d978d1f1b6a633ac24a9ac9bde3b1dfb7416165b053ef54240fff898aded3"
+sha256 = "de6d2bcf10de4d757916c7e92a70f15929fc1dea75abc4df09b0baedf26a53b2"
 # A bunch of failures yet to be investigated
 # generates completions using host binary
 options = ["!check", "!cross"]
