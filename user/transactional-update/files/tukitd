@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/tukitd
+before = pre-local.target
+depends-on = early-fs-pre.target
+smooth-recovery = true
