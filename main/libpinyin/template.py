@@ -1,6 +1,6 @@
 pkgname = "libpinyin"
 pkgver = "2.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-dbm=KyotoCabinet", "--enable-libzhuyin"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "gettext"]
