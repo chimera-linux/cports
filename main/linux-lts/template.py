@@ -2,7 +2,7 @@
 pkgname = "linux-lts"
 pkgver = "6.6.68"
 pkgrel = 0
-archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
+archs = ["aarch64", "ppc64le", "ppc64", "ppc", "riscv64", "x86_64"]
 build_style = "linux-kernel"
 configure_args = ["FLAVOR=generic", f"RELEASE={pkgrel}"]
 make_dir = "build"
