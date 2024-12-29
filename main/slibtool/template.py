@@ -1,6 +1,6 @@
 pkgname = "slibtool"
 pkgver = "0.6.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_gen = []
 pkgdesc = "Alternative libtool implementation"
