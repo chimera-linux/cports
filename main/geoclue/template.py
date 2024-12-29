@@ -35,6 +35,7 @@ sha256 = "01d24a44a036769049411899ae83c9a86f73d272cca3df6af5a03bfac32456d2"
 
 def post_install(self):
     self.install_sysusers(self.files_path / "geoclue.conf")
+    self.install_service(self.files_path / "geoclue")
 
 
 @subpackage("geoclue-devel")
