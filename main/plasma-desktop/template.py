@@ -166,7 +166,8 @@ def _(self):
         # non-kde, misc integrations
         "desktop-file-utils",
         "fprintd-meta",
-        # "iio-sensor-proxy",  # FIXME: package and test on device with accelerometer
+        "iio-sensor-proxy-meta",  # tablet/convertible auto-rotate etc.
+        "maliit-keyboard",  # on-screen keyboard
         "power-profiles-daemon-meta",  # battery power saving
     ]
     self.options = ["empty"]
