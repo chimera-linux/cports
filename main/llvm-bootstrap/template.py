@@ -90,7 +90,7 @@ match self.profile().arch:
         _arch = "X86"
     case "aarch64":
         _arch = "AArch64"
-    case "ppc64le" | "ppc64":
+    case "ppc64le" | "ppc64" | "ppc":
         _arch = "PowerPC"
     case "riscv64":
         _arch = "RISCV64"
