@@ -1,6 +1,6 @@
 pkgname = "kyotocabinet"
 pkgver = "1.2.80"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     # march=native
