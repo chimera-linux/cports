@@ -58,7 +58,7 @@ options = ["!check"]
 # otherwise we're in for a world of pain
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 
-if self.profile().arch == "riscv64":
+if not self.has_lto(force=True):
     # udev static library weirdness
     makedepends += ["libcap-devel-static"]
     configure_args += ["LIBS=-lcap"]

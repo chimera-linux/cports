@@ -34,7 +34,7 @@ source = (
 )
 sha256 = "d2be4395b8f503b0ebf4b2d81db90c35a97050a358ee21fe62a0dfb66e5d5522"
 
-if self.profile().arch == "riscv64":
+if not self.has_lto(force=True):
     # udev static library weirdness
     makedepends += ["libcap-devel-static"]
     configure_args += ["LIBS=-lcap"]

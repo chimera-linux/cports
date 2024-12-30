@@ -1,6 +1,7 @@
 pkgname = "libomp"
 pkgver = "19.1.6"
 pkgrel = 0
+archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "cmake"
 configure_args = [
     "-DLIBOMP_ENABLE_SHARED=ON",

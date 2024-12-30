@@ -6,7 +6,7 @@ build_style = "cmake"
 make_check_args = ["-j1"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["cunit-devel", "zlib-ng-compat-devel"]
-checkdepends = ["nodejs"]
+checkdepends = []
 pkgdesc = "Reader for AES SOFA files to get better HRTFs"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -15,6 +15,15 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "a15f7236a2b492f8d8da69f6c71b5bde1ef1bac0ef428b94dfca1cabcb24c84f"
 # FIXME: breaks fail-issue-167a test
 hardening = ["!int"]
+# no nodejs on some platforms
+options = []
+
+
+match self.profile().arch:
+    case "aarch64" | "ppc64le" | "riscv64" | "x86_64":
+        checkdepends += ["nodejs"]
+    case _:
+        options += ["!check"]
 
 
 def post_install(self):

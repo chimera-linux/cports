@@ -1905,10 +1905,10 @@ class Template(Package):
 
         return profile.get_hardening(target, self)[hname]
 
-    def has_lto(self, target=None):
+    def has_lto(self, target=None, force=False):
         target = pkg_profile(self, target)
 
-        return self.options["lto"] and target._has_lto(self.stage)
+        return (force or self.options["lto"]) and target._has_lto(self.stage)
 
     def can_lto(self, target=None):
         return pkg_profile(self, target)._has_lto(self.stage)

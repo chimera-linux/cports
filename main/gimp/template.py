@@ -86,7 +86,7 @@ hardening = ["!int"]
 # needs graphical env (gtk3 broken in weston headless)
 options = ["!cross", "!check"]
 
-if self.profile().arch == "ppc64":
+if self.profile().endian == "big":
     broken = "hangs forever in last build step"
 
 

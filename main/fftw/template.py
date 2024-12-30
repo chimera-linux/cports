@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf", "automake", "libtool"]
-makedepends = ["libomp-devel"]
+makedepends = []
 pkgdesc = "Library for computing the discrete Fourier transform"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -13,6 +13,14 @@ source = f"{url}/fftw-{pkgver}.tar.gz"
 sha256 = "56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467"
 # flaky
 options = ["!check"]
+
+
+match self.profile().arch:
+    case "aarch64" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
+        makedepends += ["libomp-devel"]
+        _have_omp = True
+    case _:
+        _have_omp = False
 
 
 def pre_configure(self):
@@ -24,9 +32,11 @@ def configure(self):
 
     gnu_configure.replace_guess(self)
 
-    eargs = ["--enable-shared", "--enable-threads", "--enable-openmp"]
+    eargs = ["--enable-shared", "--enable-threads"]
     sseargs = []
     sse2args = []
+    if _have_omp:
+        eargs += ["--enable-openmp"]
     match self.profile().arch:
         case "x86_64":
             sseargs += ["--enable-sse"]
