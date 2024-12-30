@@ -1,0 +1,48 @@
+--- a/arch/powerpc/platforms/52xx/mpc52xx_sleep.S
++++ b/arch/powerpc/platforms/52xx/mpc52xx_sleep.S
+@@ -7,8 +7,6 @@
+ .text
+ 
+ _GLOBAL(mpc52xx_deep_sleep)
+-mpc52xx_deep_sleep: /* args r3-r6: SRAM, SDRAM regs, CDM regs, INTR regs */
+-
+ 	/* enable interrupts */
+ 	mfmsr	r7
+ 	ori	r7, r7, 0x8000 /* EE */
+@@ -31,7 +29,7 @@ mpc52xx_deep_sleep: /* args r3-r6: SRAM, SDRAM regs, CDM regs, INTR regs */
+ 
+ 	/* wait for it to happen */
+ 1:
+-	cmpi	cr0, r10, 1
++	cmpwi	cr0, r10, 1
+ 	bne	cr0, 1b
+ 
+ 	/* lock icache */
+@@ -64,7 +62,6 @@ mpc52xx_deep_sleep: /* args r3-r6: SRAM, SDRAM regs, CDM regs, INTR regs */
+ 
+ 
+ _GLOBAL(mpc52xx_ds_sram)
+-mpc52xx_ds_sram:
+ 	/* put SDRAM into self-refresh */
+ 	lwz	r8, 0x4(r4)	/* sdram->ctrl */
+ 
+@@ -116,13 +113,11 @@ mpc52xx_ds_sram:
+ 
+ 	blr
+ _GLOBAL(mpc52xx_ds_sram_size)
+-mpc52xx_ds_sram_size:
+ 	.long $-mpc52xx_ds_sram
+ 
+ 
+ /* ### interrupt handler for wakeup from deep-sleep ### */
+ _GLOBAL(mpc52xx_ds_cached)
+-mpc52xx_ds_cached:
+ 	mtspr	SPRN_SPRG0, r7
+ 	mtspr	SPRN_SPRG1, r8
+ 
+@@ -151,5 +146,4 @@ mpc52xx_ds_cached:
+ 
+ 	rfi
+ _GLOBAL(mpc52xx_ds_cached_size)
+-mpc52xx_ds_cached_size:
+ 	.long $-mpc52xx_ds_cached
