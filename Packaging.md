@@ -3025,12 +3025,17 @@ by the template or defaults, and it must be supported for the target.
 
 The `target` argument is the same as for `profile()`.
 
-##### def has_lto(self, target = None)
+##### def has_lto(self, target = None, force = False)
 
 Check if the current configuration (i.e. taking into account the template
 as well as the current profile or the `target`) is going to LTO the
 build. This will be `True` if the template does not disable it, and
 if the stage is at least 2 and the profile supports it.
+
+If `force` is set, then the `options` are ignored and only the profile
+is checked for the current stage. This is useful for checks at template
+level where options are not yet initialized, or for checking if LTO
+is available for the profile regardless of whether disabled.
 
 ##### def can_lto(self, target = None)
 
