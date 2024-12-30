@@ -1,11 +1,11 @@
 https://github.com/chimera-linux/cports/pull/1273#discussion_r1466266497
 --- a/schism/version.c
 +++ b/schism/version.c
-@@ -50,11 +50,7 @@ Information at our disposal:
+@@ -50,11 +50,7 @@
  
  */
  static const char* top_banner_normal =
--#if !defined(EMPTY_VERSION)
+-#ifndef EMPTY_VERSION
 -	"Schism Tracker " VERSION
 -#else
 -	"Schism Tracker built " __DATE__ " " __TIME__
