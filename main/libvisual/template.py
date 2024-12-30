@@ -12,6 +12,7 @@ hostmakedepends = [
     "libtool",
     "pkgconf",
 ]
+makedepends = ["linux-headers"]
 pkgdesc = "Abstraction library for audio visualization plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
