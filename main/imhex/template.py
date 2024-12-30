@@ -1,5 +1,5 @@
 pkgname = "imhex"
-pkgver = "1.36.0"
+pkgver = "1.36.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -59,8 +59,8 @@ source_paths = [
     "build/_deps/plutovg-src",
 ]
 sha256 = [
-    "ee464053969ae5f5754ebb1afb3bbdcf2faa4ac195fad0f7ff43cf129abcab04",
-    "a2a3820037c2ca23fa834526ee605bf166fba910f43a08089b9037e1e87d3609",
+    "29bed22dae537b83ac4cce905352b4a1c5342862a67cad5575c58ff41f5847f7",
+    "d1555d142347ddf576e5c0b1a19050ae168e8d174b206d269a9e84e07d2515c9",
     "639ce28e8f12920ed19d96cd50809973ded904a4e17ba7f9986d6e88431e93c6",
 ]
 
