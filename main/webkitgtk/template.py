@@ -124,12 +124,11 @@ match self.profile().arch:
             "-DENABLE_WEBASSEMBLY=OFF",
         ]
 
-# LTO broken on aarch64 (JIT segfault) and on riscv64 (broken in LLVM)
-match self.profile().arch:
-    case "aarch64" | "riscv64":
-        options += ["!lto"]
-    case _:
-        configure_args += ["-DLTO_MODE=thin"]
+# LTO broken on aarch64 (JIT segfault)
+if self.has_lto(force=True) and self.profile().arch != "aarch64":
+    configure_args += ["-DLTO_MODE=thin"]
+else:
+    options += ["!lto"]
 
 
 def post_install(self):
