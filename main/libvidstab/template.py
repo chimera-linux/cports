@@ -3,7 +3,7 @@ pkgver = "1.1.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["orc-devel", "libomp-devel"]
+makedepends = ["orc-devel"]
 pkgdesc = "Video stabilization library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -13,6 +13,18 @@ sha256 = "9001b6df73933555e56deac19a0f225aae152abbc0e97dc70034814a1943f3d4"
 # sketchy tests
 options = ["!check"]
 
+
+_have_omp = self.profile().arch in [
+    "aarch64",
+    "ppc64le",
+    "ppc64",
+    "riscv64",
+    "x86_64",
+]
+
+if _have_omp:
+    makedepends += ["libomp-devel"]
+
 match self.profile().arch:
     case "x86_64":
         configure_args = ["-DSSE2_FOUND=1"]
@@ -20,6 +32,7 @@ match self.profile().arch:
 
 @subpackage("libvidstab-devel")
 def _(self):
-    self.depends += ["libomp-devel"]
+    if _have_omp:
+        self.depends += ["libomp-devel"]
 
     return self.default_devel()
