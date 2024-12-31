@@ -31,7 +31,6 @@ makedepends = [
     "libcdr-devel",
     "libedit-readline-devel",
     "libjpeg-turbo-devel",
-    "libomp-devel",
     "librevenge-devel",
     "libvisio-devel",
     "libwpg-devel",
@@ -63,3 +62,8 @@ sha256 = "c59a85453b699addebcd51c1dc07684dd96a10c8aec716b19551db50562e13f5"
 hardening = ["!int"]
 # long, heavy, etc
 options = ["!check"]
+
+if self.profile().arch in ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]:
+    makedepends += ["libomp-devel"]
+else:
+    configure_args += ["-DWITH_OPENMP=OFF"]
