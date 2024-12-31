@@ -1,0 +1,24 @@
+this does not compile and would only be used on ppc32
+
+--- a/build/generic/configure.in
++++ b/build/generic/configure.in
+@@ -532,7 +532,7 @@ dnl * The vector definition is handled in portab.h thx to
+ dnl   HAVE_PARENTHESES/BRACES_ALTIVEC_DECL
+ dnl
+ PPC_ALTIVEC_SOURCES=""
+-if test "$ARCHITECTURE" = "PPC" ; then
++if test "$ARCHITECTURE" = "nope" ; then
+    AS="\$(CC)"
+    AFLAGS=""
+    ASSEMBLY_EXTENSION=".s"
+--- a/src/portab.h
++++ b/src/portab.h
+@@ -311,8 +311,6 @@ static __inline int64_t read_counter(void)
+ #            define AVV(x...) (x)
+ #        elif defined(HAVE_ALTIVEC_BRACES_DECL)
+ #            define AVV(x...) {x}
+-#        else
+-#            error Trying to compile PPC target without a vector declaration type.
+ #        endif
+ 
+ #        define BSWAP(a) __asm__ __volatile__ \
