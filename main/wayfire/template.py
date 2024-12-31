@@ -15,7 +15,6 @@ hostmakedepends = [
 makedepends = [
     "cairo-devel",
     "glm",
-    "libomp-devel",
     "libxml2-devel",
     "nlohmann-json",
     "pango-devel",
@@ -34,6 +33,11 @@ hardening = ["!vis"]
 # FIXME: crashes in signal-provider.hpp::provider_t::emit from libblur
 # probably since clang17
 options = ["!lto"]
+
+if self.profile().arch in ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]:
+    makedepends += ["libomp-devel"]
+else:
+    configure_args += ["-Denable_openmp=false"]
 
 
 def post_install(self):
