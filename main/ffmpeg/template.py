@@ -152,7 +152,7 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # seems to need rpath?
 options = ["!check"]
 
-if self.profile().arch != "riscv64":
+if self.has_lto(force=True):
     configure_args += ["--enable-lto=thin"]
 
 if self.profile().cross:
