@@ -8,7 +8,6 @@ hostmakedepends = [
     "ninja",
 ]
 makedepends = [
-    "libomp-devel",
     "qt6-qtbase-private-devel",  # qguiapplication_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
@@ -22,8 +21,21 @@ source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kirigami-{pkgver}
 sha256 = "a3429c8bcf40e252d11b0a4c35a43c0433a9835ea1b333580707379b7b5c82c0"
 hardening = ["vis"]
 
+_have_omp = self.profile().arch in [
+    "aarch64",
+    "ppc64le",
+    "ppc64",
+    "riscv64",
+    "x86_64",
+]
+
+if _have_omp:
+    makedepends += ["libomp-devel"]
+
 
 @subpackage("kirigami-devel")
 def _(self):
-    self.depends += ["libomp-devel", "qt6-qtdeclarative-devel"]
+    self.depends += ["qt6-qtdeclarative-devel"]
+    if _have_omp:
+        self.depends += ["libomp-devel"]
     return self.default_devel()
