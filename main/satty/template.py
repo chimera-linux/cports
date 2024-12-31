@@ -1,5 +1,5 @@
 pkgname = "satty"
-pkgver = "0.15.0"
+pkgver = "0.16.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MPL-2.0"
 url = "https://github.com/gabm/Satty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "365ff52d6dda35a0332bfdc47fa53dec15e2dc01efe0aad3effcd5033073933c"
+sha256 = "36ffbea973fd844d92998f1d5aed53c779692e956ed07490d324812223eab4bd"
 # no tests defined
 options = ["!check"]
 
