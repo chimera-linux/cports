@@ -54,7 +54,6 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libjxl-devel",
     "libltdl-devel",
-    "libomp-devel",
     "libpng-devel",
     "libpng-devel",
     "libraw-devel",
@@ -80,6 +79,9 @@ options = ["!cross", "!check"]
 
 if self.profile().cross:
     hostmakedepends += ["file"]
+
+if self.profile().arch in ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]:
+    makedepends += ["libomp-devel"]
 
 
 def post_install(self):
