@@ -1,6 +1,6 @@
 pkgname = "easyeffects"
 pkgver = "7.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Denable-libcpp-workarounds=true"]
 hostmakedepends = [
