@@ -22,3 +22,41 @@ this does not compile and would only be used on ppc32
  #        endif
  
  #        define BSWAP(a) __asm__ __volatile__ \
+--- a/src/xvid.c
++++ b/src/xvid.c
+@@ -75,7 +75,7 @@ unsigned int xvid_debug = 0; /* xvid debug mask */
+ 
+ #if (defined(ARCH_IS_IA32) || defined(ARCH_IS_X86_64)) && defined(_MSC_VER)
+ #	include <windows.h>
+-#elif defined(ARCH_IS_IA32) || defined(ARCH_IS_X86_64) || (defined(ARCH_IS_PPC) && !defined(__amigaos4__))
++#elif defined(ARCH_IS_IA32) || defined(ARCH_IS_X86_64)
+ #	include <signal.h>
+ #	include <setjmp.h>
+ 
+@@ -110,7 +110,7 @@ sigill_check(void (*func)())
+ 	}
+ 	return(0);
+ }
+-#elif defined(ARCH_IS_IA32) || defined(ARCH_IS_X86_64) || (defined(ARCH_IS_PPC) && !defined(__amigaos4__))
++#elif defined(ARCH_IS_IA32) || defined(ARCH_IS_X86_64)
+ static int
+ sigill_check(void (*func)())
+ {
+@@ -161,7 +161,7 @@ detect_cpu_flags(void)
+ 		cpu_flags &= ~(XVID_CPU_SSE2|XVID_CPU_SSE3|XVID_CPU_SSE41);
+ #endif
+ 
+-#if defined(ARCH_IS_PPC)
++#if 0
+ #if defined(__amigaos4__)
+         {
+                 uint32_t vector_unit = VECTORTYPE_NONE;
+@@ -622,7 +622,7 @@ int xvid_gbl_init(xvid_gbl_init_t * init)
+ 	}
+ #endif
+ 
+-#if defined(ARCH_IS_PPC)
++#if 0
+ 	if ((cpu_flags & XVID_CPU_ALTIVEC)) {
+           /* sad operators */
+ 		  sad16 = sad16_altivec_c;
