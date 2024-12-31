@@ -2,7 +2,7 @@ pkgname = "linux-lts-zfs-bin"
 _kernver = "6.6.68"
 _zfsver = "2.2.7"
 pkgver = f"{_zfsver}.{_kernver}"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["perl", "python", "ckms"]
 makedepends = ["linux-lts-devel", "zfs-ckms"]
 # provides the same thing as the ckms variant

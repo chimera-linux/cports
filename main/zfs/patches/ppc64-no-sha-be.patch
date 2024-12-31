@@ -1,0 +1,52 @@
+commit 681321b03677ac9c6f8de1eb748f5e86d36f3305
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Dec 31 22:34:20 2024 +0100
+
+    restrict sha256/512 ppc impls to little endian
+    
+    they panic the kernel on big endian
+
+diff --git a/module/icp/algs/sha2/sha256_impl.c b/module/icp/algs/sha2/sha256_impl.c
+index 0f24319..2367721 100644
+--- a/module/icp/algs/sha2/sha256_impl.c
++++ b/module/icp/algs/sha2/sha256_impl.c
+@@ -152,7 +152,7 @@ const sha256_ops_t sha256_armv8_impl = {
+ };
+ #endif
+ 
+-#elif defined(__PPC64__)
++#elif defined(__PPC64__) && defined(__LITTLE_ENDIAN__)
+ static boolean_t sha256_have_isa207(void)
+ {
+ 	return (kfpu_allowed() && zfs_isa207_available());
+@@ -201,7 +201,7 @@ static const sha256_ops_t *const sha256_impls[] = {
+ 	&sha256_armv8_impl,
+ #endif
+ #endif
+-#if defined(__PPC64__)
++#if defined(__PPC64__) && defined(__LITTLE_ENDIAN__)
+ 	&sha256_ppc_impl,
+ 	&sha256_power8_impl,
+ #endif /* __PPC64__ */
+diff --git a/module/icp/algs/sha2/sha512_impl.c b/module/icp/algs/sha2/sha512_impl.c
+index 6291fbd..e36938f 100644
+--- a/module/icp/algs/sha2/sha512_impl.c
++++ b/module/icp/algs/sha2/sha512_impl.c
+@@ -124,7 +124,7 @@ const sha512_ops_t sha512_neon_impl = {
+ };
+ #endif
+ 
+-#elif defined(__PPC64__)
++#elif defined(__PPC64__) && defined(__LITTLE_ENDIAN__)
+ TF(zfs_sha512_ppc, tf_sha512_ppc);
+ const sha512_ops_t sha512_ppc_impl = {
+ 	.is_supported = sha2_is_supported,
+@@ -169,7 +169,7 @@ static const sha512_ops_t *const sha512_impls[] = {
+ 	&sha512_neon_impl,
+ #endif
+ #endif
+-#if defined(__PPC64__)
++#if defined(__PPC64__) && defined(__LITTLE_ENDIAN__)
+ 	&sha512_ppc_impl,
+ 	&sha512_power8_impl,
+ #endif /* __PPC64__ */
