@@ -3,7 +3,14 @@ pkgver = "1.3.0"
 pkgrel = 6
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
-hostmakedepends = ["pkgconf", "automake", "libtool", "python", "python-cython"]
+hostmakedepends = [
+    "pkgconf",
+    "automake",
+    "libtool",
+    "python",
+    "python-cython",
+    "python-setuptools",
+]
 makedepends = [
     "python-devel",
     "glib-devel",
