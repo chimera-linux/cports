@@ -16,7 +16,7 @@ hostmakedepends = [
     "perl",
     "pkgconf",
 ]
-makedepends = ["libomp-devel", "linux-headers"]
+makedepends = ["linux-headers"]
 depends = ["perl", "python"]
 pkgdesc = "Instrumentation framework for building dynamic analysis tools"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -45,6 +45,9 @@ match self.profile().arch:
         tool_flags["LDFLAGS"] += ["-fuse-ld=bfd"]
         # does not build
         options += ["!check"]
+
+if self.profile().arch in ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]:
+    makedepends += ["libomp-devel"]
 
 
 @subpackage("valgrind-devel")
