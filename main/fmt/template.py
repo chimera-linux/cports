@@ -1,6 +1,6 @@
 pkgname = "fmt"
-pkgver = "11.0.2"
-pkgrel = 1
+pkgver = "11.1.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -21,7 +21,7 @@ url = "https://fmt.dev/latest/index.html"
 source = (
     f"https://github.com/fmtlib/fmt/releases/download/{pkgver}/fmt-{pkgver}.zip"
 )
-sha256 = "40fc58bebcf38c759e11a7bd8fdc163507d2423ef5058bba7f26280c5b9c5465"
+sha256 = "a25124e41c15c290b214c4dec588385153c91b47198dbacda6babce27edc4b45"
 # CFI: test failures
 hardening = ["vis", "!cfi"]
 
