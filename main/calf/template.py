@@ -25,6 +25,9 @@ sha256 = "60ddef9062d92b245c71e9e8a565fbaaf015a5973eaebed615e0f63c89a14f8f"
 # vis breaks symbols
 hardening = ["!vis"]
 
+if self.profile().arch == "ppc":
+    tool_flags = {"CFLAGS": ["-DPFFFT_SIMD_DISABLE"]}
+
 
 def post_install(self):
     # no executables
