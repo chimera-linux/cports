@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-error-on-warning",
+    "--disable-lto",
     "--disable-static",
 ]
 hostmakedepends = [
@@ -29,6 +30,10 @@ source = f"$(GNU_SITE)/guile/guile-{pkgver}.tar.gz"
 sha256 = "2dbdbc97598b2faf31013564efb48e4fed44131d28e996c26abe8a5b23b56c2a"
 # broken af
 options = ["!lto"]
+
+
+if self.profile().arch == "ppc":
+    broken = "Pre-boot error; key: wrong-type-arg, args: ..."
 
 
 @subpackage("guile-devel")
