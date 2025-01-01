@@ -39,10 +39,19 @@ source = (
     f"https://github.com/pybind/pybind11/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "e08cb87f4773da97fa7b5f035de8763abc656d87d5773e62f6da0587d1f0ec20"
+# tests disabled conditionally
+options = []
+
+if self.profile().arch == "ppc":
+    # tests fail to build
+    options += ["!check"]
 
 
 def post_build(self):
     from cbuild.util import cmake
+
+    if not self.options["check"]:
+        return
 
     cmake.configure(
         self,
