@@ -3,7 +3,10 @@ pkgver = "0.3.28"
 pkgrel = 0
 archs = ["aarch64", "ppc", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=ON"]
+configure_args = [
+    "-DBUILD_SHARED_LIBS=ON",
+    f"-DBINARY={self.profile().wordsize}",
+]
 # FIXME: flang support
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["linux-headers"]
