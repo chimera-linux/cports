@@ -1,0 +1,11 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -737,7 +737,7 @@ fi
+ 
+ # Checks for library functions.
+ AM_GNU_GETTEXT([external])
+-AM_GNU_GETTEXT_VERSION([0.18])
++AM_GNU_GETTEXT_VERSION([0.22])
+ AC_FUNC_ERROR_AT_LINE
+ AC_PROG_GCC_TRADITIONAL
+ 
