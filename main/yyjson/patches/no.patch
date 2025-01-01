@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -347,8 +347,6 @@ if(YYJSON_BUILD_TESTS)
+         # Base flags
+         set(YYJSON_BASE_FLAGS
+             -pedantic
+-            -pedantic-errors
+-            -Werror
+             -Wall
+             -Wextra
+             -Wconversion
