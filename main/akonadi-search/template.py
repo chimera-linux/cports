@@ -44,10 +44,16 @@ source = (
 sha256 = "145eb9b1c7f323ceb62817b48a9a3a07fa26d27e3d93a421d6767717bc157fa4"
 
 
-def post_patch(self):
+def prepare(self):
     from cbuild.util import cargo
 
     cargo.Cargo(self, wrksrc="agent/rs/htmlparser").vendor()
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "libc", "agent/rs/htmlparser/vendor")
 
 
 def init_build(self):
