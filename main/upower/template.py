@@ -27,6 +27,7 @@ makedepends = [
     "linux-headers",
 ]
 checkdepends = [
+    "dbus",
     "python-dbus",
     "python-dbusmock",
     "python-gobject",
