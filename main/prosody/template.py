@@ -1,6 +1,6 @@
 pkgname = "prosody"
-pkgver = "0.12.4"
-pkgrel = 1
+pkgver = "0.12.5"
+pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
 make_use_env = True
@@ -25,7 +25,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://prosody.im"
 source = f"https://prosody.im/downloads/source/prosody-{pkgver}.tar.gz"
-sha256 = "47d712273c2f29558c412f6cdaec073260bbc26b7dda243db580330183d65856"
+sha256 = "778fb7707a0f10399595ba7ab9c66dd2a2288c0ae3a7fe4ab78f97d462bd399f"
 
 
 def configure(self):
