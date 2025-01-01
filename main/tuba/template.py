@@ -1,5 +1,5 @@
 pkgname = "tuba"
-pkgver = "0.9.0"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,4 +31,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://tuba.geopjr.dev"
 source = f"https://github.com/GeopJr/Tuba/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "efdd74f543025473507b2f9b18e7c272c2376b779ff65f1a2f8e41f8b99fe2ac"
+sha256 = "1303e5e5646d73d6ef6c0b263a3f0ba72bf7573bea0d60f066e58f91a7bada1b"
