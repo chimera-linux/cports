@@ -1,6 +1,6 @@
 pkgname = "jq"
 pkgver = "1.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -19,8 +19,15 @@ sha256 = "478c9ca129fd2e3443fe27314b455e211e0d8c60bc8ff7df703873deeee580c2"
 hardening = ["!int", "vis", "cfi"]
 
 
+def post_extract(self):
+    with (self.cwd / "VERSION").open("w") as vf:
+        vf.write(pkgver)
+
+
 def post_install(self):
     self.install_license("COPYING")
+    # cfi staticlib
+    self.uninstall("usr/lib/libjq.a")
 
 
 @subpackage("jq-devel")
