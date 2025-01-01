@@ -1,5 +1,5 @@
 pkgname = "python-flexmock"
-pkgver = "0.12.1"
+pkgver = "0.12.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/flexmock/flexmock"
 source = f"$(PYPI_SITE)/f/flexmock/flexmock-{pkgver}.tar.gz"
-sha256 = "20b690afa4ff8c6f31548d896d6d41cca1fc9050a4cf628b965ea434ec548ee3"
+sha256 = "435c661c3b35477575eb9150428a1cfd7c62cb992aa7887567c3357aebc9aca1"
 
 
 def post_install(self):
