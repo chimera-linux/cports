@@ -12,6 +12,10 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "98cae3e4b32514e51fcc1ed07fdbe6929d4b80942925348cc6e57b308d9c4cb0"
 
 
+if self.profile().wordsize == 32:
+    broken = "requires atomic64"
+
+
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/dust")
     self.install_man("man-page/dust.1")
