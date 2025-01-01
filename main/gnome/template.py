@@ -77,8 +77,9 @@ def _(self):
         "orca",
         # "phodav",
         "simple-scan",
-        "snapshot",
         "sushi",
         "totem",
     ]
+    if self.rparent.profile().wordsize != 32:
+        self.depends += ["snapshot"]
     return []
