@@ -1,0 +1,11 @@
+--- a/fcitx-gclient/Fcitx5GClient.pc.in
++++ b/fcitx-gclient/Fcitx5GClient.pc.in
+@@ -5,7 +5,7 @@ includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@/Fcitx5/GClient
+ 
+ Name: Fcitx5GClient
+ Description: Fcitx GLib Client Library
+-Version: @FCITX5_GTK_VERSION@
++Version: @PROJECT_VERSION@
+ Requires: gobject-2.0, gio-2.0
+ Cflags: -I${includedir}
+ Libs: -L${libdir} -lFcitx5GClient

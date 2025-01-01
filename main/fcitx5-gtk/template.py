@@ -1,6 +1,6 @@
 pkgname = "fcitx5-gtk"
 pkgver = "5.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DENABLE_GTK2_IM_MODULE=OFF",
