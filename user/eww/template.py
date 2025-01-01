@@ -1,6 +1,6 @@
 pkgname = "eww"
 pkgver = "0.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
@@ -14,6 +14,28 @@ license = "MIT"
 url = "https://elkowar.github.io/eww"
 source = f"https://github.com/elkowar/eww/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "cef361946946c566b79f8ddc6208d1a3f16b4ff9961439a3f86935e1cfa174a1"
+
+
+def pre_prepare(self):
+    # rust 1.80 type inference regression
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "chrono",
+        "--precise",
+        "0.4.39",
+        allow_network=True,
+    )
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "time",
+        "--precise",
+        "0.3.36",
+        allow_network=True,
+    )
 
 
 def post_build(self):
