@@ -1,7 +1,8 @@
 pkgname = "fasttext"
 pkgver = "0.9.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
+configure_args = [f"-DPROJECT_VERSION={pkgver}"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Library for fast text representation and classification"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
