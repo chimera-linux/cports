@@ -37,6 +37,10 @@ sha256 = "61be5f378545fe4ef76feb7d5604aac6261a3dedcfb5dd756713eacc574d5373"
 options = ["!check", "!debug"]
 
 
+if self.profile().wordsize == 32:
+    broken = "needs atomicu64"
+
+
 def post_patch(self):
     from cbuild.util import cargo
 
