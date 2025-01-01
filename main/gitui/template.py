@@ -24,6 +24,9 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "8075e180f3b01ff0c290b690488a7628c44b4de12346e04a77d823914a48918b"
 env = {"GITUI_RELEASE": "1"}
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def post_install(self):
     self.install_license("LICENSE.md")
