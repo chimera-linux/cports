@@ -1,11 +1,11 @@
 pkgname = "mkvtoolnix"
-pkgver = "88.0"
-pkgrel = 1
+pkgver = "89.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimization",
     "--disable-update-check",
-    "--with-docbook-xsl-root=/usr/share/xsl/docbook",
+    "--with-docbook-xsl-root=/usr/share/xsl-nons/docbook",
 ]
 make_cmd = "rake"
 make_dir = "."
@@ -13,7 +13,7 @@ make_check_target = ""
 make_check_args = ["tests:unit", "tests:run_unit"]
 hostmakedepends = [
     "automake",
-    "docbook-xsl",
+    "docbook-xsl-nons",
     "gettext",
     "pkgconf",
     "qt6-qtbase",
@@ -44,7 +44,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://mkvtoolnix.download/index.html"
 source = f"https://mkvtoolnix.download/sources/mkvtoolnix-{pkgver}.tar.xz"
-sha256 = "f2f08c0100740668ef8aba7953fe4aed8c04ee6a5b51717816a4b3d529df0a25"
+sha256 = "6127b694b088e53270a946c178b6816da756200bdf672abdf65cfe0b50b260b2"
 
 
 @subpackage("mkvtoolnix-gui")
