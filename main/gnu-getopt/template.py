@@ -9,7 +9,7 @@ url = "https://github.com/sabotage-linux/gnu-getopt"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "52eefa6973d05cab92cfc76ab83b3cde4654b91564e97983b26020792694cb5c"
 # no check target
-options = ["!lto", "!check"]
+options = ["!lto", "!check", "!distlicense"]
 
 
 def install(self):
