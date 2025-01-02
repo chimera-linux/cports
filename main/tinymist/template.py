@@ -15,6 +15,9 @@ sha256 = "f9cb474364d2f1e42a51a0c409b03e7f2482787f260d7a2ab6df71dce27b4d47"
 # takes forever
 options = ["!check"]
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def post_build(self):
     for shell in ["bash", "fish", "zsh", "nushell"]:
