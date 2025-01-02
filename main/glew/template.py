@@ -38,6 +38,10 @@ def init_configure(self):
     ]
 
 
+def post_install(self):
+    self.install_license("LICENSE.txt")
+
+
 @subpackage("glew-devel")
 def _(self):
     return self.default_devel()
