@@ -23,6 +23,9 @@ sha256 = "fef778119046e6057aabcc087685aafefe62eb3a65febba639482e72c85a59ed"
 # too long
 options = ["!check"]
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def install(self):
     self.do(
