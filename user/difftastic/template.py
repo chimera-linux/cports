@@ -1,9 +1,9 @@
 pkgname = "difftastic"
-pkgver = "0.61.0"
+pkgver = "0.62.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
 ]
 makedepends = [
     "rust-std",
@@ -15,7 +15,7 @@ url = "https://difftastic.wilfred.me.uk"
 source = (
     f"https://github.com/Wilfred/difftastic/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "8e85001e32f1fe7b2c6d164f3a654cb589c6e48b6350421df27a56919da7a185"
+sha256 = "ef69a23c6e3b9697d84ea5be158e8cb6d7482f49fc91cf4f9c7416bd48301260"
 
 
 def post_install(self):
