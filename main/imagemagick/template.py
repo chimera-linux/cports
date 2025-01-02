@@ -1,6 +1,6 @@
 pkgname = "imagemagick"
-pkgver = "7.1.1.41"
-pkgrel = 1
+pkgver = "7.1.1.43"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -38,7 +38,7 @@ configure_args = [
     # "--with-wmf",
 ]
 configure_gen = []
-hostmakedepends = ["pkgconf", "automake", "libtool", "perl"]
+hostmakedepends = ["pkgconf", "automake", "slibtool", "perl"]
 makedepends = [
     "bzip2-devel",
     "djvulibre-devel",
@@ -73,7 +73,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ImageMagick"
 url = "https://www.imagemagick.org"
 source = f"https://github.com/ImageMagick/ImageMagick/archive/{'-'.join(pkgver.rsplit('.', 1))}.tar.gz"
-sha256 = "cabf2516dce66da56dd4e3071453b808eefaf4326a93292d2a222a4ea623d601"
+sha256 = "ceb972266b23dc7c1cfce0da5a7f0c9acfb4dc81f40eb542a49476fedbc2618f"
 # runs out of file descriptors
 options = ["!cross", "!check"]
 
