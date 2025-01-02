@@ -24,6 +24,9 @@ sha256 = "f48c9e2479e72957ce5dfd3d0cc9d27f5aeb36d15ae2f97c9c116fc5c742dc5d"
 # tests are mostly a waste of time
 options = ["!cross", "!check"]
 
+if self.profile().wordsize == 32:
+    broken = "requires atomic64"
+
 
 def post_patch(self):
     from cbuild.util import cargo
