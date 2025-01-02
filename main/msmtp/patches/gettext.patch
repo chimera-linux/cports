@@ -1,0 +1,11 @@
+--- a/po/Makefile.in.in
++++ b/po/Makefile.in.in
+@@ -8,7 +8,7 @@
+ # without any warranty.
+ #
+ # Origin: gettext-0.21
+-GETTEXT_MACRO_VERSION = 0.20
++GETTEXT_MACRO_VERSION = 0.22
+ 
+ PACKAGE = @PACKAGE@
+ VERSION = @VERSION@
