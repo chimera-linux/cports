@@ -15,6 +15,9 @@ sha256 = "1eb8dbb85839c5b0d333e8c3f9011c3f725e0244bb92f4db918fce9d69851ff7"
 # check: test snapshots fail with libgit2 1.8
 options = ["!cross", "!check"]
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def init_check(self):
     self.env["TEST_GIT"] = "/usr/bin/git"
