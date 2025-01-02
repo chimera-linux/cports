@@ -1,0 +1,17 @@
+using __builtin_setjmp causes wonky behavior on 32-bit ppc
+wrt error handling of i/o streams and probably other places,
+so disable it just like for its 64-bit counterpart
+
+-- q66
+
+--- a/configure.ac
++++ b/configure.ac
+@@ -1294,7 +1294,7 @@ main()
+ 		# the TOC register (r2), which is problematic
+ 		# when a global exit happens from JITted .so code.
+ 		# __builtin_setjmp can have issues on arm64 linux (see [Bug #14480]).
+-		AS_CASE(["$target_cpu"], [powerpc64*|arm64|aarch64], [
++		AS_CASE(["$target_cpu"], [powerpc*|arm64|aarch64], [
+ 			ac_cv_func___builtin_setjmp=no
+ 		])
+ 		# With gcc-8's -fcf-protection, RJIT's __builtin_longjmp fails.
