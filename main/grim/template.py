@@ -1,6 +1,6 @@
 pkgname = "grim"
 pkgver = "1.4.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dfish-completions=true",
@@ -32,3 +32,4 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.rename("usr/share/bash-completion/completions/grim.bash", "grim")
