@@ -16,6 +16,8 @@ sha256 = "dafb39c08ef24a0e2abd00d05d7341b1bf1f0c38bfcd5a4c69cf5f0ecb6db112"
 
 if self.profile().arch in ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]:
     makedepends += ["libomp-devel"]
+else:
+    configure_args += ["-DBUILD_TESTS=OFF"]
 
 
 @subpackage("lensfun-devel")
