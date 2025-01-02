@@ -23,7 +23,7 @@ sha256 = "9af46cc80da58b4301ca2baefcc25a40d112d0315507e632c0f3f0f08328d054"
 hardening = ["vis", "!cfi"]
 # FIXME: they hang forever, after failing a test for -v not silencing output in harness
 # zsh completions don't match command
-options = ["!check", "!lintcomp]
+options = ["!check", "!lintcomp"]
 
 
 @subpackage("notmuch-devel")
