@@ -11,6 +11,9 @@ url = "https://github.com/jrmoulton/tmux-sessionizer"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "9dfbe99a3c1fe7f48be0c1ab9056e49f36c4f85d023e24f874254f6791a9894e"
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def post_install(self):
     self.install_license("LICENSE")
