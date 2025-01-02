@@ -1,6 +1,6 @@
 pkgname = "kmod"
 pkgver = "33"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--with-zlib",
