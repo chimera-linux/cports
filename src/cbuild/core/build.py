@@ -674,8 +674,11 @@ def _build(
         # check and install dependencies
         # if a missing dependency has triggered a build, update the chroot
         # afterwards to have a clean state with up to date dependencies
-        if dependencies.install(
-            pkg, pkg.origin_pkg.pkgname, "pkg", depmap, chost, update_check
+        if (
+            dependencies.install(
+                pkg, pkg.origin_pkg.pkgname, "pkg", depmap, chost, update_check
+            )
+            and pkg.stage > 0
         ):
             chroot.update(pkg)
 
@@ -778,16 +781,18 @@ def _build(
         if pkg.stage == 0:
             # a bit scuffed but whatever, simulate "root" with a namespace
             ret = subprocess.run(
-                paths.bwrap(),
-                "--bind",
-                "/",
-                "/",
-                "--uid",
-                "0",
-                "--gid",
-                "0",
-                "--",
-                *mkcmd,
+                [
+                    paths.bwrap(),
+                    "--bind",
+                    "/",
+                    "/",
+                    "--uid",
+                    "0",
+                    "--gid",
+                    "0",
+                    "--",
+                    *mkcmd,
+                ]
             )
         else:
             # better, still cannot use pkg.do :(
