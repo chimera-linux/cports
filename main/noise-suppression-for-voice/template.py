@@ -8,6 +8,7 @@ configure_args = [
     "-DBUILD_LV2_PLUGIN=OFF",
     "-DBUILD_VST_PLUGIN=OFF",
     "-DBUILD_VST3_PLUGIN=OFF",
+    "-DBUILD_TESTS=OFF",
 ]
 hostmakedepends = [
     "cmake",
