@@ -13,6 +13,9 @@ source = (
 )
 sha256 = "85a87115fb7b59a3fb4dab7d291627ce109eecdcf84b403ec8787ef54082519f"
 
+if self.profile().arch == "ppc":
+    broken = "fails to boot"
+
 
 def post_install(self):
     self.install_license("LICENSE")
