@@ -3,10 +3,10 @@ Chimera doesn't have `shred`, nor does BSD, and it's usefulness is questionable,
 
 password-store also assumes a util-linux getopt, so force it to use ugetopt
 
-diff --git a/src/password-store.sh b/src/password-store.sh.new
+diff --git a/src/password-store.sh b/src/password-store.sh
 index 7a26d7fa..c46ef246 100755
 --- a/src/password-store.sh
-+++ b/src/password-store.sh.new
++++ b/src/password-store.sh
 @@ -234,15 +234,13 @@ tmpdir() {
  		)"
  		SECURE_TMPDIR="$(mktemp -d "${TMPDIR:-/tmp}/$template")"
