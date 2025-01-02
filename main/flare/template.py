@@ -29,6 +29,9 @@ url = "https://mobile.schmidhuberj.de/flare"
 source = f"https://gitlab.com/schmiddi-on-mobile/flare/-/archive/{pkgver}/flare-{pkgver}.tar.gz"
 sha256 = "7dad44a1192f02a4a335823fd9084ad8b0066d28416e74d1c4432b4e2a47caf3"
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def prepare(self):
     from cbuild.util import cargo
