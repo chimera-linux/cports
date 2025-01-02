@@ -25,6 +25,9 @@ url = "https://gitlab.freedesktop.org/pipewire/helvum"
 source = f"{url}/-/archive/{pkgver}/helvum-{pkgver}.tar.bz2"
 sha256 = "d4f5cc0c3a70a91edfc816f12a10426dadd9ca74ea82662e2df5e6c4eb31d8ca"
 
+if self.profile().wordsize == 32:
+    broken = "expected *mut i64, found *mut i32"
+
 
 def post_patch(self):
     from cbuild.util import cargo
