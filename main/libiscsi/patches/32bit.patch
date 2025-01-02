@@ -1,0 +1,28 @@
+make these actually match
+
+diff --git a/lib/socket.c b/lib/socket.c
+index db7f667..16da99b 100644
+--- a/lib/socket.c
++++ b/lib/socket.c
+@@ -531,7 +531,7 @@ iscsi_iovector_readv_writev(struct iscsi_context *iscsi, struct scsi_iovector *i
+ 
+ 	if (pos < iovector->offset) {
+ 		iscsi_set_error(iscsi, "%s: iovector reset. pos(%d) is smaller than"
+-				"current offset(%ld)", rw, pos, iovector->offset);
++				"current offset(%zu)", rw, pos, iovector->offset);
+ 		errno = EINVAL;
+ 		return -1;
+ 	}
+diff --git a/utils/iscsi-discard.c b/utils/iscsi-discard.c
+index f8ad18a..5b1ec4d 100644
+--- a/utils/iscsi-discard.c
++++ b/utils/iscsi-discard.c
+@@ -220,7 +220,7 @@ int main(int argc, char *argv[])
+ 
+ 	capacity = block_length * (rc16->returned_lba + 1);
+ 	if (offset > capacity) {
+-		fprintf(stderr,"Offset(%lu) exceeds capacity(%lu)\n", offset, capacity);
++		fprintf(stderr,"Offset(%llu) exceeds capacity(%llu)\n", offset, capacity);
+ 		goto free_task;
+ 	}
+ 
