@@ -1,5 +1,5 @@
 pkgname = "croc"
-pkgver = "10.1.3"
+pkgver = "10.2.1"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT"
 url = "https://github.com/schollz/croc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3bce38e7d74714bb7ca00791ee9771935a4d2c5dac8a8831b6713f49c1ec4207"
+sha256 = "78bf0efd00daa9002bcdeb460f4ddaf82dde4480e63862feab0958ed9ed54963"
 # check: needs network access
 options = ["!check"]
 
