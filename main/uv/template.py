@@ -24,6 +24,9 @@ sha256 = "4f581e0903285e3228f55967f7094f3311a06aa3ec4e4ea3bf7438702fb776d6"
 # completions with host bin
 options = ["!check", "!cross"]
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def post_patch(self):
     from cbuild.util import cargo
