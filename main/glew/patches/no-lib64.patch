@@ -1,7 +1,7 @@
-diff --git a/config/Makefile.linux-clang b/config/Makefile.linux-clang.new
+diff --git a/config/Makefile.linux-clang b/config/Makefile.linux-clang
 index 75a43f8f..4fb191d6 100644
 --- a/config/Makefile.linux-clang
-+++ b/config/Makefile.linux-clang.new
++++ b/config/Makefile.linux-clang
 @@ -10,8 +10,8 @@ ifeq (ppc64,${M_ARCH})
    ARCH64 = true
  endif
