@@ -63,6 +63,9 @@ sha256 = "39207fce1ce42838e085261bae0af5ce4a0843aa777cfc0f5c49bc7729602bcd"
 # docs are a single tips file that gets displayed in the TUI
 options = ["!check", "!splitdoc"]
 
+if self.profile().arch == "ppc":
+    broken = "segfaults during build"
+
 
 def init_build(self):
     self.make_build_args += [f"EXTRA_CFLAGS={self.get_cflags(shell=True)}"]
