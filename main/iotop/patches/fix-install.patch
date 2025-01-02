@@ -1,0 +1,13 @@
+--- a/Makefile
++++ b/Makefile
+@@ -102,8 +102,8 @@ install: $(TARGET)
+ 	$(E) STRIP $(TARGET)
+ 	$(Q)$(STRIP) $(TARGET)
+ 	$(E) INSTALL $(TARGET)
+-	$(Q)$(INSTALL) -D -m 0755 $(TARGET) $(PREFIX)/sbin/$(TARGET)
+-	$(Q)$(INSTALL) -D -m 0644 iotop.8 $(PREFIX)/share/man/man8/iotop.8
++	$(Q)$(INSTALL) -D -m 0755 $(TARGET) $(DESTDIR)$(PREFIX)/bin/$(TARGET)
++	$(Q)$(INSTALL) -D -m 0644 iotop.8 $(DESTDIR)$(PREFIX)/share/man/man8/iotop.8
+ 
+ uninstall:
+ 	$(E) UNINSTALL $(TARGET)
