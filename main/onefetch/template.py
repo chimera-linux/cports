@@ -1,5 +1,5 @@
 pkgname = "onefetch"
-pkgver = "2.22.0"
+pkgver = "2.23.1"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://onefetch.dev"
 source = f"https://github.com/o2sh/onefetch/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1741516c628bb70b432285aa78439c4acfeb5df19e48b8d85dba5f71336e190b"
+sha256 = "72e87f6a62682ad88aa07b02815ee1e2863fe45e04df3bba49026bf3edd10537"
 
 
 def post_build(self):
