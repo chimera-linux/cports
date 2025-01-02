@@ -27,6 +27,9 @@ hardening = ["vis", "!cfi"]
 # cross broken because of dumb uname arch detection
 options = ["!check", "!cross"]
 
+if self.profile().arch == "ppc":
+    broken = "segfaults during build"
+
 
 def configure(self):
     # disabling docs makes it not require php
