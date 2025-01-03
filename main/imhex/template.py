@@ -64,6 +64,9 @@ sha256 = [
     "639ce28e8f12920ed19d96cd50809973ded904a4e17ba7f9986d6e88431e93c6",
 ]
 
+if self.profile().wordsize == 32:
+    broken = "uses int128"
+
 
 def post_install(self):
     self.uninstall("usr/bin/imhex-updater")
