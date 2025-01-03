@@ -33,6 +33,9 @@ sha256 = "ca825b69643c95ecab771687ccd4a467e002bca6e651959b1afc2199f5f635a4"
 hardening = ["!int", "!format"]
 options = ["!lto"]
 
+if self.profile().wordsize == 32:
+    broken = "wraps time64-unsafe apis, breaking redirects"
+
 tool_flags = {
     "CXXFLAGS": [
         "-std=gnu++98",
