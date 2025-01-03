@@ -1,3 +1,29 @@
+diff --git a/include/libunwind-ppc32.h b/include/libunwind-ppc32.h
+index 303597c..7f7170a 100644
+--- a/include/libunwind-ppc32.h
++++ b/include/libunwind-ppc32.h
+@@ -69,7 +69,7 @@ extern "C" {
+ 
+ #define UNW_TDEP_CURSOR_LEN 280
+ 
+-#if __WORDSIZE==32
++#if !defined(__powerpc64__)
+ typedef uint32_t unw_word_t;
+ typedef int32_t unw_sword_t;
+ # define UNW_WORD_MAX UINT32_MAX
+diff --git a/include/libunwind-ppc64.h b/include/libunwind-ppc64.h
+index 1ce48bf..5839ebd 100644
+--- a/include/libunwind-ppc64.h
++++ b/include/libunwind-ppc64.h
+@@ -69,7 +69,7 @@ extern "C" {
+ 
+ #define UNW_TDEP_CURSOR_LEN 280
+ 
+-#if __WORDSIZE==32
++#if !defined(__powerpc64__)
+ typedef uint32_t unw_word_t;
+ typedef int32_t unw_sword_t;
+ #define UNW_WORD_MAX UINT32_MAX
 diff --git a/src/ppc32/Ginit.c b/src/ppc32/Ginit.c
 index 9444cbb..13b5aff 100644
 --- a/src/ppc32/Ginit.c
