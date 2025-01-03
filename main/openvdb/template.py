@@ -32,6 +32,7 @@ options = []
 
 if self.profile().arch != "x86_64":
     options += ["!check"]
+    configure_args += ["-DOPENVDB_BUILD_UNITTESTS=OFF"]
 
 
 @subpackage("openvdb-devel")
