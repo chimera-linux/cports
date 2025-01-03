@@ -56,7 +56,6 @@ makedepends = [
     "gst-plugins-base-devel",
     "gstreamer-devel",
     "harfbuzz-devel",
-    "libomp-devel",
     "libva-devel",
     "libwebp-devel",
     "libxkbcommon-devel",
