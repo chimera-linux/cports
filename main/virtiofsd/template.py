@@ -16,6 +16,9 @@ url = "https://gitlab.com/virtio-fs/virtiofsd"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
 sha256 = "05d80e3d35b2a0bcf7c9fd1bb4bcfea2760376125880e4ee4df395bda203982e"
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def install(self):
     self.install_file(
