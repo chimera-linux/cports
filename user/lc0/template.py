@@ -26,5 +26,7 @@ sha256 = [
 ]
 tool_flags = {"CXXFLAGS": []}
 
-if self.profile().arch == "ppc64":
+if self.profile().wordsize == 32:
+    broken = "fails static assertions"
+elif self.profile().arch == "ppc64":
     tool_flags["CXXFLAGS"] += ["-DEIGEN_DONT_VECTORIZE"]
