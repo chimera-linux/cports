@@ -1,6 +1,6 @@
 pkgname = "ptex"
 pkgver = "2.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DPTEX_BUILD_STATIC_LIBS=OFF"]
 make_check_args = ["-j1"]
