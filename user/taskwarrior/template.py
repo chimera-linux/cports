@@ -13,6 +13,9 @@ url = "https://taskwarrior.org"
 source = f"https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v{pkgver}/task-{pkgver}.tar.gz"
 sha256 = "1ae67c74b84067573a53095cf3cb6718245dd7dd808f19f9b3d85da445838b4f"
 
+if self.profile().wordsize == 32:
+    broken = "atomic64 assumptions"
+
 
 def post_patch(self):
     from cbuild.util import cargo
