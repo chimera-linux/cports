@@ -1,0 +1,51 @@
+--- a/src/runtime/ppc-linux-os.c
++++ b/src/runtime/ppc-linux-os.c
+@@ -61,25 +61,25 @@ int arch_os_thread_cleanup(struct thread *thread) {
+ os_context_register_t   *
+ os_context_register_addr(os_context_t *context, int offset)
+ {
+-    return &context->uc_mcontext.regs->gpr[offset];
++    return &((struct pt_regs *)context->uc_regs)->gpr[offset];
+ }
+ 
+ os_context_register_t *
+ os_context_lr_addr(os_context_t *context)
+ {
+-    return &context->uc_mcontext.regs->link;
++    return &((struct pt_regs *)context->uc_regs)->link;
+ }
+ 
+ os_context_register_t *
+ os_context_ctr_addr(os_context_t *context)
+ {
+-    return &context->uc_mcontext.regs->ctr;
++    return &((struct pt_regs *)context->uc_regs)->ctr;
+ }
+ 
+ os_context_register_t *
+ os_context_cr_addr(os_context_t *context)
+ {
+-    return &context->uc_mcontext.regs->ccr;
++    return &((struct pt_regs *)context->uc_regs)->ccr;
+ }
+ 
+ sigset_t *
+@@ -91,7 +91,7 @@ os_context_sigmask_addr(os_context_t *context)
+ unsigned long
+ os_context_fp_control(os_context_t *context)
+ {
+-    return ((unsigned long*)context->uc_mcontext.regs)[PT_FPSCR];
++    return ((unsigned long*)context->uc_regs)[PT_FPSCR];
+ }
+ 
+ void
+--- a/src/runtime/ppc-linux-os.h
++++ b/src/runtime/ppc-linux-os.h
+@@ -10,6 +10,6 @@ unsigned long os_context_fp_control(os_context_t *context);
+ #define RESTORE_FP_CONTROL_FROM_CONTEXT
+ void os_restore_fp_control(os_context_t *context);
+ 
+-#define OS_CONTEXT_PC(context) (context->uc_mcontext.regs)->nip
++#define OS_CONTEXT_PC(context) ((struct pt_regs *)context->uc_regs)->nip
+ 
+ #endif /* _PPC_LINUX_OS_H */
