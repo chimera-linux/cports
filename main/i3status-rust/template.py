@@ -26,6 +26,9 @@ url = "https://github.com/greshake/i3status-rust"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "eb9df6eac57a65a7948ba763a7d1fcef5d506e374a4ac9d57aa88a22270ee06b"
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/i3status-rs")
