@@ -1,0 +1,39 @@
+--- a/common-user/host/ppc/safe-syscall.inc.S
++++ b/common-user/host/ppc/safe-syscall.inc.S
+@@ -9,6 +9,8 @@
+  * See the COPYING file in the top-level directory.
+  */
+ 
++#include "tcg-target-reg-bits.h"
++
+ /*
+  * Standardize on the _CALL_FOO symbols used by GCC:
+  * Apple XCode does not define _CALL_DARWIN.
+--- a/linux-user/include/host/ppc/host-signal.h
++++ b/linux-user/include/host/ppc/host-signal.h
+@@ -17,12 +17,12 @@ typedef ucontext_t host_sigcontext;
+ 
+ static inline uintptr_t host_signal_pc(host_sigcontext *uc)
+ {
+-    return uc->uc_mcontext.regs->nip;
++    return ((struct pt_regs *)uc->uc_regs)->nip;
+ }
+ 
+ static inline void host_signal_set_pc(host_sigcontext *uc, uintptr_t pc)
+ {
+-    uc->uc_mcontext.regs->nip = pc;
++    ((struct pt_regs *)uc->uc_regs)->nip = pc;
+ }
+ 
+ static inline void *host_signal_mask(host_sigcontext *uc)
+@@ -32,8 +32,8 @@ static inline void *host_signal_mask(host_sigcontext *uc)
+ 
+ static inline bool host_signal_write(siginfo_t *info, host_sigcontext *uc)
+ {
+-    return uc->uc_mcontext.regs->trap != 0x400
+-        && (uc->uc_mcontext.regs->dsisr & 0x02000000);
++    return ((struct pt_regs *)uc->uc_regs)->trap != 0x400
++        && (((struct pt_regs *)uc->uc_regs)->dsisr & 0x02000000);
+ }
+ 
+ #endif

@@ -82,6 +82,7 @@ _skip_32bit = {
     "i386": "x86_64",
     "arm": "aarch64",
     "ppc": "ppc64",
+    "ppc64": "ppc",
     "ppcle": "ppc64le",
     "riscv32": "riscv64",
 }
