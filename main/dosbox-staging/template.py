@@ -23,6 +23,6 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.dosbox-staging.org"
 source = f"https://github.com/dosbox-staging/dosbox-staging/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "96556debe87f4b4a1397293be5c3311de9d736cc5d51e8b0ab4ffe93bc42cfbf"
+sha256 = "a3f63f86bf203ba28512e189ce6736cdb0273647e77a62ce47ed3d01b3b4a88d"
 # CFI: breaks the tests
 hardening = ["!cfi", "vis"]
