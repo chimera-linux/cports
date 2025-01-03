@@ -25,6 +25,9 @@ url = "https://gitlab.com/news-flash/news_flash_gtk"
 source = f"{url}/-/archive/v.{pkgver}/news_flash_gtk-v.{pkgver}.tar.gz"
 sha256 = "7333e88187f022c0a6ba72e0d6943c1602acde19b646c38e202606cac3a965f7"
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def post_patch(self):
     from cbuild.util import cargo
