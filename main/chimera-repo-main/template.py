@@ -1,7 +1,7 @@
 pkgname = "chimera-repo-main"
 pkgver = "0.2"
 pkgrel = 0
-archs = ["aarch64", "ppc64", "ppc64le", "riscv64", "x86_64"]
+archs = ["aarch64", "ppc", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "meta"
 depends = ["apk-tools", "!base-cbuild"]
 pkgdesc = "Chimera base repository"
