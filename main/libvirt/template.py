@@ -79,13 +79,16 @@ checkdepends = [
     "python-flake8",
     "python-pytest",
 ]
-depends = ["dinit-dbus", "dnsmasq", "virtiofsd-meta"]
+depends = ["dinit-dbus", "dnsmasq"]
 pkgdesc = "API, daemon, and management tool for virtualization"
 maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
 sha256 = "e1bd7bd31b7c0d0ae073dec050bb5b0232b3e4adebdc58ea82fe8b366c765796"
+
+if self.profile().wordsize != 32:
+    depends += ["virtiofsd-meta"]
 
 
 def post_install(self):
