@@ -19,6 +19,19 @@ The affected asm:
 
 The other changes are related to incomplete definitions of struct pt_regs.
 
+diff --git a/src/runtime/Config.ppc-linux b/src/runtime/Config.ppc-linux
+index 00b35dd..ab9cd73 100644
+--- a/src/runtime/Config.ppc-linux
++++ b/src/runtime/Config.ppc-linux
+@@ -10,7 +10,7 @@
+ # files for more information.
+ 
+ CFLAGS += -m32 -std=gnu99
+-LINKFLAGS += -m32 -Wl,--export-dynamic
++LINKFLAGS += -m32 -Wl,--export-dynamic -no-pie
+ 
+ ASSEM_SRC = ppc-assem.S
+ ARCH_SRC = ppc-arch.c
 --- a/src/runtime/Config.ppc64-linux
 +++ b/src/runtime/Config.ppc64-linux
 @@ -10,7 +10,7 @@
