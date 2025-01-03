@@ -60,6 +60,9 @@ options = ["linkundefver"]
 if self.profile().arch not in ["ppc64le", "x86_64"]:
     options += ["!check"]
 
+if self.profile().wordsize == 32:
+    broken = "fails static assertions"
+
 
 def post_install(self):
     self.install_license("LICENSE.md")
