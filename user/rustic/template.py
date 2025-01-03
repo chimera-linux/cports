@@ -17,6 +17,9 @@ sha256 = "cb26f48325897946e7e6995d7617741586dfee0229ada1dfecb01e8ac90c4967"
 # generates completions with host bins
 options = ["!cross"]
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
