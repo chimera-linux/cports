@@ -33,6 +33,9 @@ source = (
 )
 sha256 = "0effe9823a6fd8a4f98e5c08be7d308350e417b2d15dcf34011e778fefbbf005"
 
+if self.profile().wordsize == 32:
+    broken = "needs lock-free 64-bit atomics"
+
 
 def post_extract(self):
     # ensure these are never vendored
