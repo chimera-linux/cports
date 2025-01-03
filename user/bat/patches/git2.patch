@@ -1,5 +1,5 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index d51c98a..90367a0 100644
+index d51c98a..753147c 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
 @@ -523,9 +523,9 @@ dependencies = [
@@ -14,7 +14,15 @@ index d51c98a..90367a0 100644
  dependencies = [
   "bitflags 2.4.0",
   "libc",
-@@ -658,9 +658,9 @@ checksum = "b4668fb0ea861c1df094127ac5f1da3409a82116a4ba74fca2e58ef927159bb3"
+@@ -652,15 +652,15 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
+ 
+ [[package]]
+ name = "libc"
+-version = "0.2.147"
++version = "0.2.168"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "b4668fb0ea861c1df094127ac5f1da3409a82116a4ba74fca2e58ef927159bb3"
++checksum = "5aaeb2981e0606ca11d79718f8bb01164f1d6ed75080182d3abf017e6d244b6d"
  
  [[package]]
  name = "libgit2-sys"

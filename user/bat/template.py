@@ -1,6 +1,6 @@
 pkgname = "bat"
 pkgver = "0.24.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 prepare_after_patch = True
 make_build_env = {"BAT_ASSETS_GEN_DIR": "gen"}
@@ -12,7 +12,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["bash"]
-pkgdesc = "Cat clone with wings"
+pkgdesc = "Cat clone but larger"
 maintainer = "aurelia <git@elia.garden>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/bat"
