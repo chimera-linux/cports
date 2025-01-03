@@ -13,6 +13,9 @@ sha256 = "bae10101b4afff203f781702deeb0a60d3ab0c9f0c7a616a7c1e0c504c33c93f"
 # generates completions with host bins
 options = ["!cross"]
 
+if self.profile().wordsize == 32:
+    broken = "runs out of memory during linking"
+
 
 def post_build(self):
     for shell in ["bash", "fish", "zsh"]:
