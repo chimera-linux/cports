@@ -296,6 +296,9 @@ def _get_cmdline(
             case "deflate:slow":
                 comp = "deflate:9"
         pargs += ["--compression", comp]
+    elif pkg.stage < 2:
+        # stage0 apk is built without zstd support
+        pargs += ["--compression", "deflate"]
     else:
         pargs += ["--compression", autil.get_compression()]
 
