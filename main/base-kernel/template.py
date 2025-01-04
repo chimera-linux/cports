@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.2"
-pkgrel = 9
+pkgrel = 10
 depends = [
     "kmod",
     "procps",
@@ -9,6 +9,7 @@ depends = [
 ]
 # all paths that should result in kernel.d hooks being rerun
 triggers = [
+    "+/usr/lib/depmod.d",
     "+/usr/lib/firmware",
     "+/usr/lib/modules/*",
     "+/usr/share/initramfs-tools",

@@ -6,6 +6,9 @@ KERNVERS=
 
 for modpath in "$@"; do
     case "$modpath" in
+        */depmod.d)
+            export KERNEL_D_CHANGE_DEPMOD_D=1
+            ;;
         */firmware)
             export KERNEL_D_CHANGE_FIRMWARE=1
             ;;
@@ -25,6 +28,15 @@ for modpath in "$@"; do
             ;;
     esac
 done
+
+if [ -n "$KERNEL_D_CHANGE_DEPMOD_D" ]; then
+    # remove all apk-managed modules.deps
+    for kern in /usr/lib/modules/*; do
+        [ -d "${kern}" ] || continue
+        [ -f "${kern}/.apk-series" ] || continue
+        rm -f "${kern}/modules.dep"
+    done
+fi
 
 # for each changed kernver, enforce running depmod later
 for kver in $KERNVERS; do
