@@ -1,5 +1,5 @@
 pkgname = "utf8proc"
-pkgver = "2.9.0"
+pkgver = "2.10.0"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = ["prefix=/usr"]
@@ -9,7 +9,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/JuliaStrings/utf8proc"
 source = f"{url}/archive/v{pkgver}/utf8proc-{pkgver}.tar.gz"
-sha256 = "18c1626e9fc5a2e192311e36b3010bfc698078f692888940f1fa150547abb0c1"
+sha256 = "6f4f1b639daa6dca9f80bc5db1233e9cbaa31a67790887106160b33ef743f136"
 hardening = ["vis", "cfi"]
 # cannot run check because Julia isn't packaged
 options = ["!check"]
