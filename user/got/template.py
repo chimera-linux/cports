@@ -1,10 +1,11 @@
 pkgname = "got"
 pkgver = "0.106"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--exec-prefix=/usr",
-    "--with-gitwrapper-git-libexec=/usr/libexec/git-core",
+    "--libexecdir=/usr/lib/got",
+    "--with-gitwrapper-git-libexec=/usr/lib/git-core",
 ]
 make_check_target = "tests"
 hostmakedepends = [
