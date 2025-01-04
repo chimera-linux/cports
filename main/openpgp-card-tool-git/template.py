@@ -1,5 +1,5 @@
 pkgname = "openpgp-card-tool-git"
-pkgver = "0.1.4"
+pkgver = "0.1.5"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -16,7 +16,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://codeberg.org/openpgp-card/tool-git"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "1bf653e40f6ceea03e0dad3c6e8b89c2c099ec580b249a5e2936904388e49507"
+sha256 = "4d8bba39568c5bdad36cc987f4acd5faa958fde595693a049182eb88b9821d01"
 
 
 def post_install(self):
