@@ -13,12 +13,7 @@ hostmakedepends = [
     "pkgconf",
     "scdoc",
 ]
-makedepends = [
-    "libatomic-chimera-devel-static",
-    "libunwind-devel-static",
-    "openssl-devel-static",
-    "zlib-ng-compat-devel-static",
-]
+makedepends = ["openssl-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
@@ -29,7 +24,15 @@ compression = "deflate"
 options = ["bootstrap"]
 
 if self.stage > 0:
-    makedepends += ["linux-headers", "musl-devel-static", "zstd-devel-static"]
+    makedepends += [
+        "libatomic-chimera-devel-static",
+        "libunwind-devel-static",
+        "linux-headers",
+        "musl-devel-static",
+        "openssl-devel-static",
+        "zlib-ng-compat-devel-static",
+        "zstd-devel-static",
+    ]
     if self.stage > 1:
         depends = ["ca-certificates"]
 else:
@@ -57,6 +60,7 @@ def init_configure(self):
 def post_configure(self):
     if self.stage == 0:
         return
+
     from cbuild.util import meson
 
     meson.configure(
@@ -75,11 +79,18 @@ def post_configure(self):
 def post_build(self):
     if self.stage == 0:
         return
+
     self.do("ninja", f"-j{self.make_jobs}", "-C", "build-static", "src/apk")
 
 
 def post_install(self):
     if self.stage == 0:
+        # drop devel bits for stage 0, not used by anything and it lets
+        # us bypass the fact that stage0 packages don't have pc: providers
+        self.uninstall("usr/include")
+        self.uninstall("usr/lib/libapk.a")
+        self.uninstall("usr/lib/libapk.so")
+        self.uninstall("usr/lib/pkgconfig")
         return
 
     self.install_bin("build-static/src/apk", name="apk.static")
@@ -88,7 +99,7 @@ def post_install(self):
     (self.destdir / "etc/apk/interactive").touch()
 
 
-@subpackage("apk-tools-devel")
+@subpackage("apk-tools-devel", self.stage > 0)
 def _(self):
     return self.default_devel()
 
