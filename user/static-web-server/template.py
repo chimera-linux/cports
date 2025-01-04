@@ -1,5 +1,5 @@
 pkgname = "static-web-server"
-pkgver = "2.33.0"
+pkgver = "2.34.0"
 pkgrel = 0
 build_style = "cargo"
 # We patch Cargo.toml and Cargo.lock
@@ -11,7 +11,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/static-web-server/static-web-server"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3858b355bfc67cd961a665650af2c0507554497b8bd7ae3ca40451133edd792d"
+sha256 = "f0b6ef64f68445c98f1ffd22265d5675e64157e572431fa4fd362970199d0b5e"
 # generates completions using host binary
 options = ["!cross"]
 
