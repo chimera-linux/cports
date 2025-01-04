@@ -1,0 +1,79 @@
+From b159c75e87655b2024a74a7880c85a80766d7b37 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Wed, 1 Jan 2025 17:38:14 +0100
+Subject: [PATCH 2/2] update cxxbridge version to match chimera repo
+
+---
+ Cargo.lock | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 5fed700e2..622f19a9f 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -740,9 +740,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "cxx"
+-version = "1.0.133"
++version = "1.0.136"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "05e1ec88093d2abd9cf1b09ffd979136b8e922bf31cad966a8fe0d73233112ef"
++checksum = "ad7c7515609502d316ab9a24f67dc045132d93bfd3f00713389e90d9898bf30d"
+ dependencies = [
+  "cc",
+  "cxxbridge-cmd",
+@@ -768,9 +768,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "cxxbridge-cmd"
+-version = "1.0.133"
++version = "1.0.136"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "3c23bfff654d6227cbc83de8e059d2f8678ede5fc3a6c5a35d5c379983cc61e6"
++checksum = "6c33fd49f5d956a1b7ee5f7a9768d58580c6752838d92e39d0d56439efdedc35"
+ dependencies = [
+  "clap",
+  "codespan-reporting",
+@@ -781,15 +781,15 @@ dependencies = [
+ 
+ [[package]]
+ name = "cxxbridge-flags"
+-version = "1.0.133"
++version = "1.0.136"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f7c01b36e22051bc6928a78583f1621abaaf7621561c2ada1b00f7878fbe2caa"
++checksum = "be0f1077278fac36299cce8446effd19fe93a95eedb10d39265f3bf67b3036c9"
+ 
+ [[package]]
+ name = "cxxbridge-macro"
+-version = "1.0.133"
++version = "1.0.136"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f6e14013136fac689345d17b9a6df55977251f11d333c0a571e8d963b55e1f95"
++checksum = "3da7e4d6e74af6b79031d264b2f13c3ea70af1978083741c41ffce9308f1f24f"
+ dependencies = [
+  "proc-macro2",
+  "quote",
+@@ -1934,7 +1934,7 @@ dependencies = [
+  "once_cell",
+  "socket2",
+  "tracing",
+- "windows-sys 0.59.0",
++ "windows-sys 0.52.0",
+ ]
+ 
+ [[package]]
+@@ -3034,7 +3034,7 @@ version = "0.1.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "cf221c93e13a30d793f7645a0e7762c55d169dbb0a49671918a2319d289b10bb"
+ dependencies = [
+- "windows-sys 0.59.0",
++ "windows-sys 0.52.0",
+ ]
+ 
+ [[package]]
+-- 
+2.47.1
+

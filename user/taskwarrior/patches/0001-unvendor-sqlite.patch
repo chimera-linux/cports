@@ -1,0 +1,60 @@
+From 785abafd8b99b8c8ad947fb1e49d2a0881530dbe Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Sun, 31 Mar 2024 20:37:10 +0000
+Subject: [PATCH 1/2] unvendor sqlite
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Jan Christian Grünhage <jan.christian@gruenhage.xyz>
+---
+ Cargo.lock                      | 1 -
+ src/CMakeLists.txt              | 6 +++---
+ src/taskchampion-cpp/Cargo.toml | 2 +-
+ 3 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 56f3ab7a8..5fed700e2 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1606,7 +1606,6 @@ version = "0.30.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "2e99fb7a497b1e3339bc746195567ed8d3e24945ecd636e3619d20b9de9e9149"
+ dependencies = [
+- "cc",
+  "pkg-config",
+  "vcpkg",
+ ]
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 45b027c4a..a14ad9fb1 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -53,9 +53,9 @@ add_executable (calc_executable calc.cpp)
+ add_executable (lex_executable lex.cpp)
+ 
+ # Yes, 'task' (and hence libshared) is included twice, otherwise linking fails on assorted OSes.
+-target_link_libraries (task_executable task commands columns libshared task libshared ${TASK_LIBRARIES})
+-target_link_libraries (calc_executable task commands columns libshared task libshared ${TASK_LIBRARIES})
+-target_link_libraries (lex_executable  task commands columns libshared task libshared ${TASK_LIBRARIES})
++target_link_libraries (task_executable task commands columns libshared task libshared ${TASK_LIBRARIES} sqlite3)
++target_link_libraries (calc_executable task commands columns libshared task libshared ${TASK_LIBRARIES} sqlite3)
++target_link_libraries (lex_executable  task commands columns libshared task libshared ${TASK_LIBRARIES} sqlite3)
+ if (DARWIN)
+     # SystemConfiguration is required by Rust libraries like reqwest, to get proxy configuration.
+     target_link_libraries (task_executable "-framework CoreFoundation -framework Security -framework SystemConfiguration")
+diff --git a/src/taskchampion-cpp/Cargo.toml b/src/taskchampion-cpp/Cargo.toml
+index b806f986f..7c2d6e419 100644
+--- a/src/taskchampion-cpp/Cargo.toml
++++ b/src/taskchampion-cpp/Cargo.toml
+@@ -9,7 +9,7 @@ rust-version = "1.78.0"  # MSRV
+ crate-type = ["staticlib"]
+ 
+ [dependencies]
+-taskchampion = "=1.0.2"
++taskchampion = { version = "=1.0.2", default-features = false, features = ["sync"] }
+ cxx = "1.0.133"
+ 
+ [features]
+-- 
+2.47.1
+
