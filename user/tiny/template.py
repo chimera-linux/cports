@@ -1,5 +1,5 @@
 pkgname = "tiny"
-pkgver = "0.12.0"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -18,7 +18,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/osa1/tiny"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "95406a234fe4c7013edab622970e89a5b56d4441fb5c1ec871a992fc6ee8db7a"
+sha256 = "599697fa736d7500b093566a32204691093bd16abd76f43a76b761487a7c584c"
 
 
 def install(self):
