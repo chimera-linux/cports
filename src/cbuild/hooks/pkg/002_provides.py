@@ -6,7 +6,7 @@ import pathlib
 
 
 def _invoke_cmd(pkg):
-    if not pkg.options["scancmd"] or pkg.stage == 0 or pkg.autopkg:
+    if not pkg.options["scancmd"] or pkg.autopkg:
         return
 
     cmds = []
