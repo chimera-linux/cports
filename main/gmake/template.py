@@ -10,8 +10,8 @@ pkgdesc = "GNU Make build tool"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/make"
-source = f"$(GNU_SITE)/make/make-{pkgver}.tar.lz"
-sha256 = "8814ba072182b605d156d7589c19a43b89fc58ea479b9355146160946f8cf6e9"
+source = f"$(GNU_SITE)/make/make-{pkgver}.tar.gz"
+sha256 = "dd16fb1d67bfab79a72f5e8390735c49e3e8e70b4945a15ab1f81ddb78658fb3"
 hardening = ["!cfi"]  # needs figuring out hidden visibility first
 # perl needs gmake to build, so tests introduce a cycle
 options = ["!check", "bootstrap"]
