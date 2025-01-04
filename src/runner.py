@@ -2445,8 +2445,8 @@ def do_interactive(tgt):
 #
 
 command_handlers = {
-    "binary-bootstrap": (binary_bootstrap, "Set up the build container"),
-    "bootstrap": (bootstrap, "Bootstrap the build container from scratch"),
+    "binary-bootstrap": (binary_bootstrap, "Set up the build container (alias for bootstrap)"),
+    "bootstrap": (binary_bootstrap, "Bootstrap the build container"),
     "bootstrap-update": (bootstrap_update, "Update the build container"),
     "build": (do_pkg, "Run up to build phase of a template"),
     "bulk-pkg": (do_bulkpkg, "Perform a bulk build"),
@@ -2521,6 +2521,7 @@ command_handlers = {
         do_remove_autodeps,
         "Remove build dependencies from bldroot",
     ),
+    "source-bootstrap": (bootstrap, "Bootstrap the build container from scratch"),
     "unstage": (
         lambda cmd: do_unstage(cmd, opt_force),
         "Unstage local repositories",
