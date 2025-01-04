@@ -28,6 +28,9 @@ url = "https://github.com/marhkb/pods"
 source = f"https://github.com/marhkb/pods/releases/download/v{pkgver}/pods-v{pkgver}.tar.xz"
 sha256 = "259fe1830e1efcde5bea5afabd234907361ef6727c0b29c4f289427b1f1e5360"
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def post_extract(self):
     self.rm(".cargo/config")
