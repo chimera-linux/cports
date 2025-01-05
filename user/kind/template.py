@@ -1,15 +1,15 @@
 pkgname = "kind"
-pkgver = "0.25.0"
+pkgver = "0.26.0"
 pkgrel = 0
 build_style = "go"
 make_check_args = ["-skip", "TestIntegrationEnsureNetworkConcurrent"]
 hostmakedepends = ["go"]
 pkgdesc = "Containerized Kubernetes Environment in Docker"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "Gabriel M. Dutra <dmdutra@proton.me>"
 license = "Apache-2.0"
 url = "https://kind.sigs.k8s.io"
 source = f"https://github.com/kubernetes-sigs/kind/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "016c36750be5c5fb81f70e4675ee0a4f278dd929f05273184ff68cae112ce71b"
+sha256 = "6b0ae7748144034ba296a302f5aaaad7120aef4df9d8138cc6276a43ca3c96d1"
 # cross: uses host binary to generate completions
 options = ["!cross"]
 
