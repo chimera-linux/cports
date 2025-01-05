@@ -35,7 +35,7 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "GNOME document viewer"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/Incubator/papers"
 source = f"{url}/-/archive/{pkgver}.tar.gz"

@@ -19,7 +19,7 @@ makedepends = [
     "sqlite-devel",
 ]
 pkgdesc = "GTK-based podcast aggregator"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/podcasts"
 source = f"{url}/-/archive/{pkgver}/podcasts-{pkgver}.tar.gz"

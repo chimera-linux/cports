@@ -20,7 +20,7 @@ depends = [
     "python-scour",
 ]
 pkgdesc = "GTK image compressor"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/Huluti/Curtail"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

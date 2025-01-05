@@ -17,7 +17,7 @@ makedepends = [
     "libadwaita-devel",
 ]
 pkgdesc = "GTK4 music player with a fluent adaptive user interface"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/neithern/g4music"
 source = f"{url}/-/archive/v{pkgver}/g4music-v{pkgver}.tar.gz"

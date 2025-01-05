@@ -16,7 +16,7 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "GTK-based magic wormhole client"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/warp"
 source = [
