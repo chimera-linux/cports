@@ -1,5 +1,5 @@
 pkgname = "gumbo-parser"
-pkgver = "0.12.2"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://codeberg.org/gumbo-parser/gumbo-parser"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "7515dfef24c288fe1230c7b3beef15f09289ed1ac8a926ff249495260e4a1336"
+sha256 = "7ad2ee259f35e8951233e4c9ad80968fb880f20d8202cb9c48f0b65f67d38e61"
 
 
 @subpackage("gumbo-parser-devel")
