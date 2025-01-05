@@ -1,4 +1,4 @@
-_vver = 7
+_vver = 9
 
 pattern = r"/tags/([\d.]+-valve\d+)\""
 pkgver = f"{self.pkgver}.{_vver}"
