@@ -1,6 +1,6 @@
 pkgname = "vte-common"
 pkgver = "0.78.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-D_systemd=false",
@@ -43,6 +43,10 @@ source = (
 sha256 = "cbeb337d4158abe809200e64ea0d184002bc5cb74e7aa944737bdff6eb0b0a8a"
 # assert in meson
 options = ["!lto", "!cross"]
+
+if self.profile().arch == "ppc":
+    # sigtrap on real hardware
+    hardening = ["!int"]
 
 tool_flags = {
     "CFLAGS": ["-Wno-cast-function-type-strict"],
