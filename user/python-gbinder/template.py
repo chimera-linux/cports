@@ -14,7 +14,7 @@ makedepends = [
     "python-devel",
 ]
 pkgdesc = "Python bindings for libgbinder"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/erfanoabdi/gbinder-python"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

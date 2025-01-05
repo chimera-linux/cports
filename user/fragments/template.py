@@ -20,7 +20,7 @@ makedepends = [
 ]
 depends = ["transmission-daemon"]
 pkgdesc = "BitTorrent client for the GNOME desktop environment"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/Fragments"
 source = f"{url}/-/archive/{pkgver}/Fragments-{pkgver}.tar.gz"

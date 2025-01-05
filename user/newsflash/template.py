@@ -19,7 +19,7 @@ makedepends = [
     "webkitgtk4-devel",
 ]
 pkgdesc = "Feed reader designed for the GNOME desktop"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/news-flash/news_flash_gtk"
 source = f"{url}/-/archive/v.{pkgver}/news_flash_gtk-v.{pkgver}.tar.gz"

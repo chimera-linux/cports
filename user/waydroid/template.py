@@ -12,7 +12,7 @@ depends = [
     "python-pyclip",
 ]
 pkgdesc = "Container-based approach to boot a full Android system"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/waydroid/waydroid"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

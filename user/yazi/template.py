@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["oniguruma-devel", "rust-std"]
 pkgdesc = "Terminal file manager"
-maintainer = "tulilirockz <tulilirockz@outlook.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://yazi-rs.github.io"
 source = f"https://github.com/sxyazi/yazi/archive/refs/tags/v{pkgver}.tar.gz"
