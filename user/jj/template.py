@@ -1,5 +1,5 @@
 pkgname = "jj"
-pkgver = "0.24.0"
+pkgver = "0.25.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -15,11 +15,11 @@ makedepends = [
 ]
 checkdepends = ["openssh"]
 pkgdesc = "Git-compatible VCS frontend"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://martinvonz.github.io/jj"
 source = f"https://github.com/martinvonz/jj/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c0e92ec25b7500deec2379a95ab655c6c92021cf4ccb29511fee2377e37b35d6"
+sha256 = "3a99528539e414a3373f24eb46a0f153d4e52f7035bb06df47bd317a19912ea3"
 # generates completions with host binary
 options = ["!cross"]
 
