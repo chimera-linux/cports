@@ -1,0 +1,23 @@
+--- a/src/gallium/targets/dri/dri.sym
++++ b/src/gallium/targets/dri/dri.sym
+@@ -4,9 +4,6 @@
+ 		__driDriverGetExtensions*;
+ 		nouveau_drm_screen_create;
+ 		radeon_drm_winsys_create;
+-		amdgpu_winsys_create;
+-		fd_drm_screen_create;
+-		ac_init_shared_llvm_once;
+ 	local:
+ 		*;
+ };
+--- a/src/gallium/targets/va/va.sym
++++ b/src/gallium/targets/va/va.sym
+@@ -5,8 +5,6 @@
+ 		# Workaround for an LLVM warning with -simplifycfg-sink-common
+ 		# due to LLVM being initialized multiple times.
+ 		radeon_drm_winsys_create;
+-		amdgpu_winsys_create;
+-		ac_init_shared_llvm_once;
+ 	local:
+ 		*;
+ };

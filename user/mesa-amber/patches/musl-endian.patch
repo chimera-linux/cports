@@ -1,0 +1,19 @@
+--- a/src/util/u_endian.h
++++ b/src/util/u_endian.h
+@@ -87,6 +87,16 @@
+ #define UTIL_ARCH_LITTLE_ENDIAN 1
+ #define UTIL_ARCH_BIG_ENDIAN 0
+ 
++#else
++/* Musl libc */
++#include <endian.h>
++
++#if __BYTE_ORDER == __LITTLE_ENDIAN
++# define PIPE_ARCH_LITTLE_ENDIAN
++#elif __BYTE_ORDER == __BIG_ENDIAN
++# define PIPE_ARCH_BIG_ENDIAN
++#endif
++
+ #endif
+ 
+ #if !defined(UTIL_ARCH_LITTLE_ENDIAN) || !defined(UTIL_ARCH_BIG_ENDIAN)
