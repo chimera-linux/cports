@@ -44,10 +44,6 @@ sha256 = "cbeb337d4158abe809200e64ea0d184002bc5cb74e7aa944737bdff6eb0b0a8a"
 # assert in meson
 options = ["!lto", "!cross"]
 
-if self.profile().arch == "ppc":
-    # sigtrap on real hardware
-    hardening = ["!int"]
-
 tool_flags = {
     "CFLAGS": ["-Wno-cast-function-type-strict"],
     "CXXFLAGS": [

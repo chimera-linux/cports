@@ -28,7 +28,9 @@ hardening_fields = {
 }
 
 # only some are arch-specific, those are here
+# int is disabled on 32bit because it seems to cause alignment issues on hw
 supported_fields = {
+    "int": {"x86_64", "ppc64le", "ppc64", "riscv64", "aarch64"},
     "scp": {"x86_64", "ppc64le", "ppc64"},
     "sst": {"x86_64", "aarch64"},
     "cfi": {"x86_64", "aarch64"},
