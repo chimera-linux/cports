@@ -1,5 +1,5 @@
 pkgname = "eza"
-pkgver = "0.20.13"
+pkgver = "0.20.15"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -9,13 +9,13 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Directory listing utility"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "ttyyls <contact@behri.org>"
 license = "EUPL-1.2"
 url = "https://eza.rocks"
 source = (
     f"https://github.com/eza-community/eza/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "aea362ca4330ddfdd72f725a26265a195da6709dc8c7a651b189128ed8dd836f"
+sha256 = "cbb50e61b35b06ccf487ee6cc88d3b624931093546194dd5a2bbd509ed1786d6"
 
 
 def post_install(self):
