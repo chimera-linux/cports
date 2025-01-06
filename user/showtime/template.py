@@ -1,6 +1,6 @@
 pkgname = "showtime"
 pkgver = "47.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
@@ -13,6 +13,7 @@ hostmakedepends = [
 makedepends = ["libadwaita-devel"]
 depends = [
     "gst-plugins-base",
+    "gst-plugins-rs-gtk4",
     "libadwaita",
     "python-gobject",
 ]
