@@ -1,5 +1,5 @@
 pkgname = "winetricks"
-pkgver = "20240105"
+pkgver = "20250102"
 pkgrel = 0
 build_style = "makefile"
 depends = [
@@ -19,6 +19,6 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/Winetricks/winetricks"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "e92929045cf9ffb1e8d16ef8fd971ea1cf63a28a73916b1951e9553c94482f61"
+sha256 = "24d339806e3309274ee70743d76ff7b965fef5a534c001916d387c924eebe42e"
 # check: requires connection
 options = ["!check"]
