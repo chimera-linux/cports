@@ -1,9 +1,7 @@
 pkgname = "bat"
-pkgver = "0.24.0"
-pkgrel = 2
+pkgver = "0.25.0"
+pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
-make_build_env = {"BAT_ASSETS_GEN_DIR": "gen"}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
@@ -17,7 +15,11 @@ maintainer = "aurelia <git@elia.garden>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/bat"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "907554a9eff239f256ee8fe05a922aad84febe4fe10a499def72a4557e9eedfb"
+sha256 = "4433403785ebb61d1e5d4940a8196d020019ce11a6f7d4553ea1d324331d8924"
+
+
+def init_build(self):
+    self.make_build_env["BAT_ASSETS_GEN_DIR"] = f"{self.chroot_cwd}/gen"
 
 
 def install(self):
