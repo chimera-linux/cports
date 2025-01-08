@@ -44,6 +44,10 @@ def apklock(arch):
     return cpath / f"apk-{arch}.lock"
 
 
+def rootlock():
+    return paths.bldroot() / ".lock"
+
+
 def repolock(arch):
     return _archlock(paths.repository(), arch)
 

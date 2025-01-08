@@ -530,23 +530,24 @@ def build(
     maintainer=None,
 ):
     pkgm.push(pkg)
-    try:
-        _build(
-            step,
-            pkg,
-            depmap,
-            chost,
-            dirty,
-            keep_temp,
-            check_fail,
-            no_update,
-            update_check,
-            accept_checksums,
-            maintainer,
-        )
-    except Exception:
-        pkgm.set_failed(pkgm.pop())
-        raise
+    with flock.lock(flock.rootlock()):
+        try:
+            _build(
+                step,
+                pkg,
+                depmap,
+                chost,
+                dirty,
+                keep_temp,
+                check_fail,
+                no_update,
+                update_check,
+                accept_checksums,
+                maintainer,
+            )
+        except Exception:
+            pkgm.set_failed(pkgm.pop())
+            raise
     pkgm.pop()
     pkg.log(f"finished phase '{step}'")
 
