@@ -1,0 +1,30 @@
+From 7f8060d5b280eac9786f92ac74d263cc8359c5ed Mon Sep 17 00:00:00 2001
+From: Christian Blichmann <cblichmann@users.noreply.github.com>
+Date: Tue, 7 Jan 2025 23:59:12 +0100
+Subject: [PATCH] fix: Compatibility with external fmtlib 11.1.1 (#3312)
+
+Include fmtlib's `xchar` header to include `fmt::basic_format_string`.
+Otherwise, compilation with an external fmtlib 11.1.1 fails with
+
+```
+In file included from include/spdlog/spdlog.h:12:
+include/spdlog/common.h:369:49: error: no template named 'basic_format_string' in namespace 'fmt'; did you mean 'std::basic_format_string'?
+  369 | inline fmt::basic_string_view<T> to_string_view(fmt::basic_format_string<T, Args...> fmt) {
+      |                                                 ^~~~~
+```
+
+Signed-off-by: Christian Blichmann <cblichmann@google.com>
+---
+ include/spdlog/fmt/fmt.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/spdlog/fmt/fmt.h b/include/spdlog/fmt/fmt.h
+index 7fa6b0933..2f09c15ed 100644
+--- a/include/spdlog/fmt/fmt.h
++++ b/include/spdlog/fmt/fmt.h
+@@ -27,4 +27,5 @@
+ #else  // SPDLOG_FMT_EXTERNAL is defined - use external fmtlib
+     #include <fmt/core.h>
+     #include <fmt/format.h>
++    #include <fmt/xchar.h>
+ #endif
