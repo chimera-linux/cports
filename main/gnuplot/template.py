@@ -1,5 +1,5 @@
 pkgname = "gnuplot"
-pkgver = "6.0.2"
+pkgver = "6.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,11 +12,11 @@ make_check_args = ["-j1"]
 make_check_env = {"GNUTERM": "dumb"}
 hostmakedepends = [
     "automake",
+    "libtool",
     "lua5.1",
     "pkgconf",
     "qt6-qtbase",
     "qt6-qttools",
-    "slibtool",
 ]
 makedepends = [
     "cairo-devel",
@@ -37,7 +37,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "gnuplot"
 url = "http://www.gnuplot.info"
 source = f"$(SOURCEFORGE_SITE)/gnuplot/gnuplot/{pkgver}/gnuplot-{pkgver}.tar.gz"
-sha256 = "f68a3b0bbb7bbbb437649674106d94522c00bf2f285cce0c19c3180b1ee7e738"
+sha256 = "e85a660c1a2a1808ff24f7e69981ffcbac66a45c9dcf711b65610b26ea71379a"
 # fails tests
 hardening = ["!int"]
 options = ["!cross"]
