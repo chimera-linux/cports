@@ -1,5 +1,5 @@
 pkgname = "stress-ng"
-pkgver = "0.18.07"
+pkgver = "0.18.09"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/ColinIanKing/stress-ng"
 source = f"https://github.com/ColinIanKing/stress-ng/archive/refs/tags/V{pkgver}.tar.gz"
-sha256 = "e2adaab67a70f4f98863d88d92e5805a31adce4559de52419e4f556e2ddeada6"
+sha256 = "0694f2c24eb5d839fe11f41adc2c0ea31bb7e9c1a53316fc251847d1d55f6344"
 env = {
     "MAN_COMPRESS": "0",
     "PRESERVE_CFLAGS": "1",
