@@ -1,5 +1,5 @@
 pkgname = "ca-certificates"
-pkgver = "20241010"
+pkgver = "20241121"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND MPL-2.0"
 url = "https://gitlab.alpinelinux.org/alpine/ca-certificates"
 source = f"{url}/-/archive/{pkgver}/ca-certificates-{pkgver}.tar.gz"
-sha256 = "71d4356bdf636b3ab45cb7076a95aaeb0352107ff902bcae6df81c64cc9fe39c"
+sha256 = "66f33bb5174f1544e922c7328cac37dd5735d971c54bf71da1da88b2780ddbb5"
 compression = "deflate"
 # no tests
 options = ["!check"]
