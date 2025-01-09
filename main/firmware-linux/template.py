@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20241110"
+pkgver = "20241210"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "c8a561dfdbd54157692fe166b84a173f9bc01f89c78f6196863beea2450e4938"
+sha256 = "c7b83ae05d9943ab7f09e18e3c673ea8a55402f96e3b059a7d05b88c81670b78"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -24,6 +24,7 @@ _pkgs = [
     ("amd-ucode", "AMD CPU microcode", _arch_x86, "misc", ["amd-ucode"]),
     ("amd-sev", "AMD SEV firmware", _arch_x86, "misc", ["amd"]),
     ("amdgpu", "Newer AMD GPUs", None, "gpu", ["amdgpu"]),
+    ("amdnpu", "AMD AI junk", None, "misc", ["amdnpu"]),
     ("amphion", "i.MX8Q VPU", _arch_arm64, "misc", ["amphion"]),
     ("amdtee", "AMD ASP TEE", _arch_x86, "misc", ["amdtee"]),
     (
