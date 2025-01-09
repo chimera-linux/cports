@@ -1,11 +1,18 @@
 #!/bin/sh
 
 # number of backups to keep by default (1 non-managed)
-KEEP_BACKUP=1
+KERNEL_NUM_BACKUPS=1
+
+[ -e /etc/default/kernel ] && . /etc/default/kernel
 
 # if manually invoked with "all", don't keep any backups
 if [ "$1" = "all" ]; then
-    KEEP_BACKUP=0
+    KERNEL_NUM_BACKUPS=0
+fi
+
+# if invalid, fall back to default
+if ! [ "$KERNEL_NUM_BACKUPS" -ge 0 ] 2>/dev/null; then
+    KERNEL_NUM_BACKUPS=1
 fi
 
 APK_KSERS=
@@ -23,7 +30,7 @@ for kpath in /usr/lib/modules/*; do
     # only track installed kernels here
     [ -f "${kpath}/apk-dist/.apk-series" ] || continue
     # if we're not keeping backups, don't try
-    [ "$KEEP_BACKUP" -lt 1 ] && continue
+    [ "$KERNEL_NUM_BACKUPS" -lt 1 ] && continue
     # grab the series name...
     kser=$(cat "${kpath}/apk-dist/.apk-series")
     # it must be non-empty, handle that first
@@ -32,7 +39,7 @@ for kpath in /usr/lib/modules/*; do
     vkser=$(echo "$kser" | grep -o "[a-zA-Z0-9.-]*")
     [ "$kser" = "$vkser" ] || continue
     # finally add it...
-    APK_KSERS="${APK_KSERS}${kser}:${KEEP_BACKUP}:"
+    APK_KSERS="${APK_KSERS}${kser}:${KERNEL_NUM_BACKUPS}:"
 done
 
 set -- $RAW_KVERS
