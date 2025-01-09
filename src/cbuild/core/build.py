@@ -530,24 +530,23 @@ def build(
     maintainer=None,
 ):
     pkgm.push(pkg)
-    with flock.lock(flock.rootlock()):
-        try:
-            _build(
-                step,
-                pkg,
-                depmap,
-                chost,
-                dirty,
-                keep_temp,
-                check_fail,
-                no_update,
-                update_check,
-                accept_checksums,
-                maintainer,
-            )
-        except Exception:
-            pkgm.set_failed(pkgm.pop())
-            raise
+    try:
+        _build(
+            step,
+            pkg,
+            depmap,
+            chost,
+            dirty,
+            keep_temp,
+            check_fail,
+            no_update,
+            update_check,
+            accept_checksums,
+            maintainer,
+        )
+    except Exception:
+        pkgm.set_failed(pkgm.pop())
+        raise
     pkgm.pop()
     pkg.log(f"finished phase '{step}'")
 
@@ -661,6 +660,41 @@ def _build(
         if _step_sentinel("fetch"):
             return
 
+    with flock.lock(flock.rootlock()):
+        return _build_locked(
+            step,
+            pkg,
+            depmap,
+            depn,
+            chost,
+            dirty,
+            keep_temp,
+            check_fail,
+            no_update,
+            update_check,
+            _step_sentinel,
+            oldcwd,
+            oldchd,
+            prof,
+        )
+
+
+def _build_locked(
+    step,
+    pkg,
+    depmap,
+    depn,
+    chost,
+    dirty,
+    keep_temp,
+    check_fail,
+    no_update,
+    update_check,
+    _step_sentinel,
+    oldcwd,
+    oldchd,
+    prof,
+):
     if not dirty or step == "deps":
         # no_update is set when this is a build triggered by a missing dep;
         # in this case chroot.update() was already performed by its parent
