@@ -1,5 +1,5 @@
 pkgname = "regreet"
-pkgver = "0.1.3"
+pkgver = "0.2.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -19,7 +19,7 @@ maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/rharish101/ReGreet"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "94663c856aa748a0ab973a77fb0851a1cd8afcea7c5c273d4671eca4ba8ad3c3"
+sha256 = "6ce1f948feb75e12436eccc41557ad6a7127672f0658a9c9fbd5a412cebafc8a"
 
 
 def post_install(self):
