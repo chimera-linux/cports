@@ -1,5 +1,5 @@
 pkgname = "python-gitdb"
-pkgver = "4.0.11"
+pkgver = "4.0.12"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://gitdb.readthedocs.org"
 source = f"$(PYPI_SITE)/g/gitdb/gitdb-{pkgver}.tar.gz"
-sha256 = "bf5421126136d6d0af55bc1e7c1af1c397a34f5b7bd79e776cd3e89785c2b04b"
+sha256 = "5ef71f855d191a3326fcfbc0d5da835f26b13fbcba60c32c21091c349ffdb571"
 # TODO: a bunch of tests want initialised git repo
 options = ["!check"]
 
