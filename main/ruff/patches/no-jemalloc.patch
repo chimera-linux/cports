@@ -1,16 +1,22 @@
+commit 06f447d54c721241bea8b5c51a19e79ab292d748
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Jan 9 17:19:31 2025 +0100
+
+    bla
+
 diff --git a/Cargo.lock b/Cargo.lock
-index 993f01d0f..66997a831 100644
+index 710480f..3129b5c 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2566,7 +2566,6 @@ dependencies = [
+@@ -2545,7 +2545,6 @@ dependencies = [
   "tempfile",
   "test-case",
-  "thiserror 2.0.7",
+  "thiserror 2.0.9",
 - "tikv-jemallocator",
   "toml",
   "tracing",
   "walkdir",
-@@ -2592,7 +2591,6 @@ dependencies = [
+@@ -2571,7 +2570,6 @@ dependencies = [
   "rustc-hash 2.1.0",
   "serde",
   "serde_json",
@@ -18,7 +24,7 @@ index 993f01d0f..66997a831 100644
   "ureq",
   "url",
  ]
-@@ -3664,26 +3662,6 @@ dependencies = [
+@@ -3643,26 +3641,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -46,7 +52,7 @@ index 993f01d0f..66997a831 100644
  name = "tinystr"
  version = "0.7.6"
 diff --git a/crates/ruff/Cargo.toml b/crates/ruff/Cargo.toml
-index 9759b8c19..dd6af61ef 100644
+index 5f437b3..3450bbc 100644
 --- a/crates/ruff/Cargo.toml
 +++ b/crates/ruff/Cargo.toml
 @@ -79,8 +79,5 @@ ignored = ["chrono"]
@@ -59,7 +65,7 @@ index 9759b8c19..dd6af61ef 100644
  [lints]
  workspace = true
 diff --git a/crates/ruff/src/main.rs b/crates/ruff/src/main.rs
-index 2271cca49..34c3e9da1 100644
+index 2271cca..34c3e9d 100644
 --- a/crates/ruff/src/main.rs
 +++ b/crates/ruff/src/main.rs
 @@ -11,19 +11,6 @@ use ruff::{run, ExitStatus};
@@ -83,7 +89,7 @@ index 2271cca49..34c3e9da1 100644
      // Enabled ANSI colors on Windows 10.
      #[cfg(windows)]
 diff --git a/crates/ruff_benchmark/Cargo.toml b/crates/ruff_benchmark/Cargo.toml
-index c6c851014..9688650dd 100644
+index c6c8510..9688650 100644
 --- a/crates/ruff_benchmark/Cargo.toml
 +++ b/crates/ruff_benchmark/Cargo.toml
 @@ -64,6 +64,3 @@ codspeed = ["codspeed-criterion-compat"]
