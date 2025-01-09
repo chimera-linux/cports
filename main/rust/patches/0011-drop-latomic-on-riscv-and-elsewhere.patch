@@ -1,7 +1,7 @@
-From cec9c59aae78e37e7e2d648eae67eb40fbfa5217 Mon Sep 17 00:00:00 2001
+From ed79b44f11e43466dae762590693d6c1c512d2a8 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:56:05 +0200
-Subject: [PATCH 11/14] drop -latomic on riscv and elsewhere
+Subject: [PATCH 11/13] drop -latomic on riscv and elsewhere
 
 ---
  compiler/rustc_llvm/build.rs               | 18 +-----------------
@@ -45,7 +45,7 @@ index 46537cc317..1830bf9915 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index a2d40f6fbd..af22ecb456 100644
+index ffb7d9a9e0..26a7985efc 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
 @@ -413,25 +413,6 @@ impl Step for Llvm {
@@ -75,5 +75,5 @@ index a2d40f6fbd..af22ecb456 100644
              // LLVM wants 64-bit atomics, while mipsel is 32-bit only, so needs -latomic
              ldflags.exe.push(" -latomic");
 -- 
-2.47.0
+2.47.1
 

@@ -1,7 +1,7 @@
-From faaf24f32ef4433273369e860a318efaca8be9cc Mon Sep 17 00:00:00 2001
+From 583d3561bb4a2d4874ce352a9b1fede4e6f77204 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:01:57 +0100
-Subject: [PATCH 03/14] move debugger scripts to /usr/share/rust
+Subject: [PATCH 03/13] move debugger scripts to /usr/share/rust
 
 ---
  src/bootstrap/src/core/build_steps/dist.rs | 2 +-
@@ -11,10 +11,10 @@ Subject: [PATCH 03/14] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index 90e6a10d9d..c24fa8d173 100644
+index 0cb8971634..d06c0fc437 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -527,7 +527,7 @@ impl Step for DebuggerScripts {
+@@ -532,7 +532,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let host = self.host;
          let sysroot = self.sysroot;
@@ -65,5 +65,5 @@ index bce72f1bad..8abb012452 100755
  # Call LLDB with the commands added to the argument list
  exec "$lldb" --one-line-before-file "$script_import" --source-before-file "$commands_file" "$@"
 -- 
-2.47.0
+2.47.1
 

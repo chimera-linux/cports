@@ -1,7 +1,7 @@
-From c0c09423dc9c71a341490cafedb085b53ece0302 Mon Sep 17 00:00:00 2001
+From 0105e042a8613a12ea3546a787345bd03c7ac5b8 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:11:57 +0100
-Subject: [PATCH 12/14] use system lld for wasm
+Subject: [PATCH 12/13] use system lld for wasm
 
 ---
  compiler/rustc_target/src/spec/base/wasm.rs | 4 ++--
@@ -23,5 +23,5 @@ index 81b96cd39f..bacc658258 100644
  
          pre_link_args,
 -- 
-2.47.0
+2.47.1
 

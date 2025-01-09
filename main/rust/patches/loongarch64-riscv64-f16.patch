@@ -1,7 +1,7 @@
 source: alpine
 
---- a/vendor/compiler_builtins-0.1.133/configure.rs
-+++ b/vendor/compiler_builtins-0.1.133/configure.rs
+--- a/vendor/compiler_builtins-0.1.138/configure.rs
++++ b/vendor/compiler_builtins-0.1.138/configure.rs
 @@ -72,6 +72,8 @@ pub fn configure_f16_f128(target: &Target) {
          "sparc" | "sparcv9" => (true, false),
          // `f16` miscompiles <https://github.com/llvm/llvm-project/issues/96438>

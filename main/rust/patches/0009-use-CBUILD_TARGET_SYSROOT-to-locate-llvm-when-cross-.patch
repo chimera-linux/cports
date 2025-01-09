@@ -1,7 +1,7 @@
-From 6611670a93c6d514af7f45d383cb98b5cff79024 Mon Sep 17 00:00:00 2001
+From 67d6381c1e38a47c5c2279e0478e340c5adf1752 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 20 Dec 2021 01:56:48 +0100
-Subject: [PATCH 09/14] use CBUILD_TARGET_SYSROOT to locate llvm when
+Subject: [PATCH 09/13] use CBUILD_TARGET_SYSROOT to locate llvm when
  cross-compiling
 
 ---
@@ -27,5 +27,5 @@ index f092110a32..46537cc317 100644
          } else if let Some(stripped) = lib.strip_prefix("-LIBPATH:") {
              println!("cargo:rustc-link-search=native={stripped}");
 -- 
-2.47.0
+2.47.1
 

@@ -1,7 +1,7 @@
-From 470a437b631b55923239a2911e2fb5e76a052970 Mon Sep 17 00:00:00 2001
+From e0da04cf62fdb00181c986ed77cc7b156bc62dfe Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 30 Nov 2024 01:24:27 +0100
-Subject: [PATCH 02/14] remove a bunch of unused junk
+Subject: [PATCH 02/13] remove a bunch of unused junk
 
 ---
  compiler/rustc_target/src/spec/crt_objects.rs | 22 ----------
@@ -47,10 +47,10 @@ index e3b6430a46..13a96e2cb7 100644
      new(&[
          (LinkOutputKind::DynamicNoPicExe, &["crt2.o", "rsbegin.o"]),
 diff --git a/src/bootstrap/configure.py b/src/bootstrap/configure.py
-index a555a26367..5a8b9f8a7b 100755
+index 70f4e70962..a6cecb9d3a 100755
 --- a/src/bootstrap/configure.py
 +++ b/src/bootstrap/configure.py
-@@ -100,40 +100,6 @@ v("llvm-config", None, "set path to llvm-config")
+@@ -102,40 +102,6 @@ v("llvm-config", None, "set path to llvm-config")
  v("llvm-filecheck", None, "set path to LLVM's FileCheck utility")
  v("python", "build.python", "set path to python")
  v("android-ndk", "build.android-ndk", "set path to Android NDK")
@@ -92,10 +92,10 @@ index a555a26367..5a8b9f8a7b 100755
    "rootfs in qemu testing, you probably don't want to use this")
  v("qemu-aarch64-rootfs", "target.aarch64-unknown-linux-gnu.qemu-rootfs",
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index 27bbc8bd8f..1e2285c4dd 100644
+index 8e088682f9..b5429438e5 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
-@@ -367,40 +367,7 @@ fn copy_self_contained_objects(
+@@ -351,40 +351,7 @@ fn copy_self_contained_objects(
      t!(fs::create_dir_all(&libdir_self_contained));
      let mut target_deps = vec![];
  
@@ -137,7 +137,7 @@ index 27bbc8bd8f..1e2285c4dd 100644
          let srcdir = builder.wasi_libdir(target).unwrap_or_else(|| {
              panic!(
                  "Target {:?} does not have a \"wasi-root\" key in Config.toml \
-@@ -562,15 +529,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
+@@ -546,15 +513,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
              .arg("--manifest-path")
              .arg(builder.src.join("library/sysroot/Cargo.toml"));
  
@@ -154,10 +154,10 @@ index 27bbc8bd8f..1e2285c4dd 100644
              if let Some(dir) = builder.wasi_libdir(target) {
                  let root = format!("native={}", dir.to_str().unwrap());
 diff --git a/src/bootstrap/src/core/config/config.rs b/src/bootstrap/src/core/config/config.rs
-index f768470c4f..9292cc961c 100644
+index e706aba977..ae14f842d9 100644
 --- a/src/bootstrap/src/core/config/config.rs
 +++ b/src/bootstrap/src/core/config/config.rs
-@@ -325,8 +325,6 @@ pub struct Config {
+@@ -345,8 +345,6 @@ pub struct Config {
      pub print_step_timings: bool,
      pub print_step_rusage: bool,
  
@@ -166,7 +166,7 @@ index f768470c4f..9292cc961c 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -597,8 +595,6 @@ pub struct Target {
+@@ -620,8 +618,6 @@ pub struct Target {
      pub profiler: Option<StringOrBool>,
      pub rpath: Option<bool>,
      pub crt_static: Option<bool>,
@@ -175,7 +175,7 @@ index f768470c4f..9292cc961c 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub runner: Option<String>,
-@@ -1122,7 +1118,6 @@ define_config! {
+@@ -1151,7 +1147,6 @@ define_config! {
          default_linker: Option<String> = "default-linker",
          channel: Option<String> = "channel",
          description: Option<String> = "description",
@@ -183,7 +183,7 @@ index f768470c4f..9292cc961c 100644
          rpath: Option<bool> = "rpath",
          strip: Option<bool> = "strip",
          frame_pointers: Option<bool> = "frame-pointers",
-@@ -1177,8 +1172,6 @@ define_config! {
+@@ -1206,8 +1201,6 @@ define_config! {
          profiler: Option<StringOrBool> = "profiler",
          rpath: Option<bool> = "rpath",
          crt_static: Option<bool> = "crt-static",
@@ -192,15 +192,15 @@ index f768470c4f..9292cc961c 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1678,7 +1671,6 @@ impl Config {
+@@ -1736,7 +1729,6 @@ impl Config {
                  default_linker,
-                 channel,
+                 channel: _, // already handled above
                  description,
 -                musl_root,
                  rpath,
                  verbose_tests,
                  optimize_tests,
-@@ -1762,7 +1754,6 @@ impl Config {
+@@ -1822,7 +1814,6 @@ impl Config {
              config.llvm_enzyme =
                  llvm_enzyme.unwrap_or(config.channel == "dev" || config.channel == "nightly");
              config.rustc_default_linker = default_linker;
@@ -208,7 +208,7 @@ index f768470c4f..9292cc961c 100644
              config.save_toolstates = save_toolstates.map(PathBuf::from);
              set(&mut config.deny_warnings, match flags.warnings {
                  Warnings::Deny => Some(true),
-@@ -1999,8 +1990,6 @@ impl Config {
+@@ -2044,8 +2035,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -217,7 +217,7 @@ index f768470c4f..9292cc961c 100644
                  target.wasi_root = cfg.wasi_root.map(PathBuf::from);
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
                  target.runner = cfg.runner;
-@@ -3088,7 +3077,6 @@ fn check_incompatible_options_for_ci_rustc(
+@@ -3123,7 +3112,6 @@ fn check_incompatible_options_for_ci_rustc(
          debuginfo_level_tests: _,
          backtrace: _,
          parallel_compiler: _,
@@ -226,10 +226,10 @@ index f768470c4f..9292cc961c 100644
          optimize_tests: _,
          codegen_tests: _,
 diff --git a/src/bootstrap/src/core/sanity.rs b/src/bootstrap/src/core/sanity.rs
-index 6fbdd76ed5..c66311c737 100644
+index fabb4f2b13..76d9080240 100644
 --- a/src/bootstrap/src/core/sanity.rs
 +++ b/src/bootstrap/src/core/sanity.rs
-@@ -330,28 +330,6 @@ than building it.
+@@ -326,28 +326,6 @@ than building it.
              continue;
          }
  
@@ -259,10 +259,10 @@ index 6fbdd76ed5..c66311c737 100644
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
 diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index ecb219ea33..9255dd481c 100644
+index c384fd6bf4..cadb129e2c 100644
 --- a/src/bootstrap/src/lib.rs
 +++ b/src/bootstrap/src/lib.rs
-@@ -1308,25 +1308,6 @@ Executed at: {executed_at}"#,
+@@ -1307,25 +1307,6 @@ Executed at: {executed_at}"#,
          }
      }
  
@@ -324,5 +324,5 @@ index 0df0046945..f044b1791e 100644
              let root = PathBuf::from(std::env::var_os("WASI_SDK_PATH")?);
              let compiler = match compiler {
 -- 
-2.47.0
+2.47.1
 
