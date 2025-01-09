@@ -3,7 +3,7 @@ some dependencies until things no longer crash. This is not sustainable
 forever but for now it makes it work.
 
 diff --git a/Cargo.lock b/Cargo.lock
-index 404e5d2..343d8e3 100644
+index 2a16764..14dcf1b 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
 @@ -124,9 +124,9 @@ dependencies = [
@@ -34,7 +34,7 @@ index 404e5d2..343d8e3 100644
   "serde",
  ]
  
-@@ -2059,16 +2059,17 @@ dependencies = [
+@@ -2073,16 +2073,17 @@ dependencies = [
  
  [[package]]
  name = "ignore"
@@ -56,7 +56,7 @@ index 404e5d2..343d8e3 100644
   "walkdir",
   "winapi-util",
  ]
-@@ -2235,7 +2236,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -2285,7 +2286,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "4979f22fdb869068da03c9f7528f8297c6fd2606bc3a4affe42e6a823fdb8da4"
  dependencies = [
   "cfg-if",
@@ -65,7 +65,7 @@ index 404e5d2..343d8e3 100644
  ]
  
  [[package]]
-@@ -2348,9 +2349,9 @@ dependencies = [
+@@ -2398,9 +2399,9 @@ dependencies = [
  
  [[package]]
  name = "memchr"
@@ -77,7 +77,7 @@ index 404e5d2..343d8e3 100644
  
  [[package]]
  name = "memmap2"
-@@ -2941,6 +2942,12 @@ dependencies = [
+@@ -2998,6 +2999,12 @@ dependencies = [
   "regex-syntax 0.6.29",
  ]
  
@@ -91,7 +91,7 @@ index 404e5d2..343d8e3 100644
  name = "regex-automata"
  version = "0.4.7"
 diff --git a/Cargo.toml b/Cargo.toml
-index c797f11..1f24149 100644
+index c2cbff8..3018282 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -21,7 +21,7 @@ repository = "https://github.com/rust-lang/cargo"
@@ -102,8 +102,8 @@ index c797f11..1f24149 100644
 +anyhow = "1.0.75"
  base64 = "0.22.1"
  blake3 = "1.5.2"
- bytesize = "1.3"
-@@ -56,7 +56,7 @@ hmac = "0.12.1"
+ build-rs = { version = "0.2.0", path = "crates/build-rs" }
+@@ -57,7 +57,7 @@ hmac = "0.12.1"
  home = "0.5.9"
  http-auth = { version = "0.1.9", default-features = false }
  humantime = "2.1.0"
@@ -112,7 +112,7 @@ index c797f11..1f24149 100644
  im-rc = "15.1.0"
  indexmap = "2.2.6"
  itertools = "0.13.0"
-@@ -65,7 +65,7 @@ lazycell = "1.3.0"
+@@ -66,7 +66,7 @@ lazycell = "1.3.0"
  libc = "0.2.155"
  libgit2-sys = "0.17.0"
  libloading = "0.8.5"
