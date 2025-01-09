@@ -1,5 +1,5 @@
 pkgname = "sccache"
-pkgver = "0.9.0"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = []
@@ -18,7 +18,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/mozilla/sccache"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "df5b8a38f6d29f438dba0be57ec2e6c4c87675c7b9bb4dd2e93d4c9375ca797b"
+sha256 = "150967a59f148f780acc167c9e35961a196953bd804d513ab013344d73deb436"
 # fails due to comparing ldd output to a glibc bin
 options = ["!check"]
 
