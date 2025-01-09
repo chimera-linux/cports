@@ -1,5 +1,5 @@
 pkgname = "evolution"
-pkgver = "3.54.2"
+pkgver = "3.54.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -49,7 +49,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Evolution"
 source = f"https://download.gnome.org/sources/evolution/{pkgver[:-2]}/evolution-{pkgver}.tar.xz"
-sha256 = "edea2912ffdb6599c0ea0289c3a9ae2017bfe37a08d78223584521aa5686b576"
+sha256 = "746cf81ef5c325af17f53b2fab46d67260f3b13da014d8994d4ad9e846b855eb"
 
 
 @subpackage("evolution-devel")
