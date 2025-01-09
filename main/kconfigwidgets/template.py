@@ -29,7 +29,7 @@ pkgdesc = "KDE Widgets for configuration dialogs"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/kconfigwidgets"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kconfigwidgets-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kconfigwidgets-{pkgver}.tar.xz"
 sha256 = "c9568cbdd9169a496a26293383cc4f7c79e94871f76a9146fb167c3c759b04ca"
 hardening = ["vis"]
 

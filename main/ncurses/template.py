@@ -231,7 +231,7 @@ def post_install(self):
         f"usr/lib/libtinfo.so.{pkgver}", f"libncursesw.so.{pkgver}"
     )
     self.install_link(
-        f"usr/lib/libtinfo.so.{pkgver[0:pkgver.find('.')]}",
+        f"usr/lib/libtinfo.so.{pkgver[0 : pkgver.find('.')]}",
         f"libtinfo.so.{pkgver}",
     )
     self.install_link("usr/lib/pkgconfig/tinfo.pc", "ncursesw.pc")

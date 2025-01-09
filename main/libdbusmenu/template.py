@@ -30,7 +30,7 @@ pkgdesc = "Library for passing menus over DBus"
 maintainer = "avgwst <avgwst@tutanota.de>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later"
 url = "https://launchpad.net/libdbusmenu"
-source = f"{url}/{pkgver[:pkgver.rfind('.')]}/{pkgver}/+download/libdbusmenu-{pkgver}.tar.gz"
+source = f"{url}/{pkgver[: pkgver.rfind('.')]}/{pkgver}/+download/libdbusmenu-{pkgver}.tar.gz"
 sha256 = "b9cc4a2acd74509435892823607d966d424bd9ad5d0b00938f27240a1bfa878a"
 
 

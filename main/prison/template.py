@@ -18,7 +18,7 @@ pkgdesc = "KDE library to produce QR codes and DataMatrix barcodes"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://api.kde.org/frameworks/prison/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/prison-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/prison-{pkgver}.tar.xz"
 sha256 = "e84135473756a7b6cdfcbc026b464112dc02c158550ec3149b308e065a798443"
 hardening = ["vis"]
 

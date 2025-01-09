@@ -1,7 +1,7 @@
 pkgname = "cunit"
 pkgver = "2.1.3"
 pkgrel = 0
-_pkgver = f"{pkgver[:pkgver.rfind('.')]}-{pkgver[-1]}"
+_pkgver = f"{pkgver[: pkgver.rfind('.')]}-{pkgver[-1]}"
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [

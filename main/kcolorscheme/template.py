@@ -22,7 +22,7 @@ pkgdesc = "KDE library to interact with KColorScheme"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/frameworks/kcolorscheme"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcolorscheme-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcolorscheme-{pkgver}.tar.xz"
 sha256 = "71beaae08b294b5ebf25c5174a1d55cacdce5e8991e9167d143a448b9574281a"
 hardening = ["vis"]
 

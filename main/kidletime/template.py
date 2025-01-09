@@ -19,7 +19,7 @@ pkgdesc = "KDE Idle time reporting of user and system"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only"
 url = "https://api.kde.org/frameworks/kidletime/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kidletime-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kidletime-{pkgver}.tar.xz"
 sha256 = "e1665ef314660d8493f330069c477d1c8cfb0977be4b9f380d8e726b2694d242"
 hardening = ["vis"]
 

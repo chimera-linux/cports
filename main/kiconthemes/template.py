@@ -27,7 +27,7 @@ pkgdesc = "KDE Icon GUI utilities"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kiconthemes/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kiconthemes-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kiconthemes-{pkgver}.tar.xz"
 sha256 = "e24d4b4f8bd09d6edd61e7dfb2033017352452eae879c1260200a81d48bc996e"
 hardening = ["vis"]
 

@@ -33,7 +33,7 @@ pkgdesc = "GNOME session management utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-session"
-source = f"$(GNOME_SITE)/gnome-session/{pkgver[:pkgver.find('.')]}/gnome-session-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/gnome-session/{pkgver[: pkgver.find('.')]}/gnome-session-{pkgver}.tar.xz"
 sha256 = "56ae9c68e49995793eb2096bcdc4533b111669e1e54c8b6e0b1d952f6a5e8a70"
 hardening = ["vis"]
 

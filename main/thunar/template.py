@@ -28,7 +28,7 @@ pkgdesc = "Xfce file manager"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/thunar/start"
-source = f"$(XFCE_SITE)/xfce/thunar/{pkgver[:pkgver.rfind('.')]}/thunar-{pkgver}.tar.bz2"
+source = f"$(XFCE_SITE)/xfce/thunar/{pkgver[: pkgver.rfind('.')]}/thunar-{pkgver}.tar.bz2"
 sha256 = "27731a76f3aecf3752b1ca35afad89e264c52244f70083d933507dd4a17548b0"
 options = ["!cross"]
 

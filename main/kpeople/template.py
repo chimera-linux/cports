@@ -23,7 +23,7 @@ pkgdesc = "KDE contact api"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpeople/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kpeople-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kpeople-{pkgver}.tar.xz"
 sha256 = "27ee5b5f865d309374a53d4086dee14cf4e02f99dd9ae6fae71a7e3e02ad7422"
 hardening = ["vis"]
 

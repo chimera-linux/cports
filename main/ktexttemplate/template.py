@@ -12,7 +12,7 @@ pkgdesc = "KDE library for text templates"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/ktexttemplate/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktexttemplate-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ktexttemplate-{pkgver}.tar.xz"
 sha256 = "4c5f6c71ee1895285a97e1329a60c6a0dc5f8aca4875970f4bdf7442f211c8a9"
 hardening = ["vis"]
 

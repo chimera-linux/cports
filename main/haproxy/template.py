@@ -39,7 +39,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later WITH custom:OpenSSL-exception"
 url = "https://www.haproxy.org"
 source = (
-    f"{url}/download/{pkgver[:pkgver.rfind('.')]}/src/haproxy-{pkgver}.tar.gz"
+    f"{url}/download/{pkgver[: pkgver.rfind('.')]}/src/haproxy-{pkgver}.tar.gz"
 )
 sha256 = "cf1bf58b5bc79c48db7b01667596ffd98343adb29a41096f075f00a8f90a7335"
 hardening = ["!vis", "!cfi", "!int"]

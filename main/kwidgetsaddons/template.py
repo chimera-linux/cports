@@ -24,7 +24,7 @@ pkgdesc = "KDE addons to QtWidgets"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only AND LGPL-2.1-only AND Unicode-DFS-2016"
 url = "https://api.kde.org/frameworks/kwidgetsaddons/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwidgetsaddons-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwidgetsaddons-{pkgver}.tar.xz"
 sha256 = "bda7d5cef310ad3b8e0aa9accf319c3349e2b7cbead673bd25a39af593787a48"
 hardening = ["vis"]
 # fails

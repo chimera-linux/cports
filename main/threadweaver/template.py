@@ -12,7 +12,7 @@ pkgdesc = "KDE Multithreading helper library"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/threadweaver/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/threadweaver-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/threadweaver-{pkgver}.tar.xz"
 sha256 = "d249181d21aa89ad6f5108db3b188c25c9415c9834110f8d15f6bab2df39c190"
 hardening = ["vis"]
 

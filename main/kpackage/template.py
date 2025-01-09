@@ -21,7 +21,7 @@ pkgdesc = "KDE Installation and loading of additional content as packages"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpackage/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kpackage-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kpackage-{pkgver}.tar.xz"
 sha256 = "62a76b896378b4b7a392528fbfb9ff8427f99f727ff27e2a5e06fe5cbef567a9"
 hardening = ["vis"]
 

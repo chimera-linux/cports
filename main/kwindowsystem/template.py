@@ -42,7 +42,7 @@ pkgdesc = "KDE windowing system access"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
 sha256 = "9b0f96fb0073f7ba89788cd5a10fba6f960cea86eba2b03336fa6e309e5e875b"
 hardening = ["vis"]
 

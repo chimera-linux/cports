@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0:pkgver.find('.')]}",
+    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0 : pkgver.find('.')]}",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=ON",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
@@ -121,14 +121,15 @@ def install(self):
     # we don't need or want these for cross
     with self.pushd(self.destdir):
         self.rm(
-            f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/share", recursive=True
-        )
-        self.rm(
-            f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include",
+            f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/share",
             recursive=True,
         )
         self.rm(
-            f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/bin", recursive=True
+            f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/include",
+            recursive=True,
+        )
+        self.rm(
+            f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/bin", recursive=True
         )
 
 
@@ -148,7 +149,7 @@ def _gen_subp(an):
         ]
         with self.rparent.profile(an) as pf:
             return [
-                f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/{pf.triplet}"
+                f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/lib/{pf.triplet}"
             ]
 
     if an in _targets:

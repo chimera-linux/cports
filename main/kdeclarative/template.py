@@ -20,7 +20,7 @@ pkgdesc = "KDE Integration of QML and KDE work spaces"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kdeclarative/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdeclarative-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdeclarative-{pkgver}.tar.xz"
 sha256 = "1a266dd2a2912ffe632e455d823a76c9dbfb44977c07838bc44e457e5bec98eb"
 hardening = ["vis"]
 

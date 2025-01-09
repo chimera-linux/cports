@@ -17,7 +17,7 @@ pkgdesc = "KDE plotting library"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kplotting/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kplotting-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kplotting-{pkgver}.tar.xz"
 sha256 = "5e1883d107de16ccd7a27323c5575bb1ec2fec22c44c9c3199b3de885f5c18f4"
 
 

@@ -15,7 +15,7 @@ pkgdesc = "KDE's RSS/Atom parser library"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND BSD-2-Clause"
 url = "https://api.kde.org/frameworks/syndication/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/syndication-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/syndication-{pkgver}.tar.xz"
 sha256 = "642642c4c07fda0bc6314cb08602370b16c290f34463d2f44d44f0e5a6bfb1c2"
 hardening = ["vis"]
 

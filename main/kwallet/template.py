@@ -29,7 +29,7 @@ pkgdesc = "KDE Safe desktop-wide storage for passwords"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kwallet/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwallet-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwallet-{pkgver}.tar.xz"
 sha256 = "52311e656445bf6e16caed5146898b2d23309dcc35bfd1ce4c91c0bbd040537c"
 hardening = ["vis"]
 

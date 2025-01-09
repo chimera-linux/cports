@@ -36,7 +36,7 @@ pkgdesc = "KDE Full text editor component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.0-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/ktexteditor/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktexteditor-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ktexteditor-{pkgver}.tar.xz"
 sha256 = "1b1660dc6a07f21d99fe5495951f25f1e9f61db63f8f50bc2f610482bc15b3ca"
 hardening = ["vis"]
 

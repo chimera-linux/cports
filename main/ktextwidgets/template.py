@@ -23,7 +23,7 @@ pkgdesc = "KDE Text editing widgets"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/ktextwidgets/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/ktextwidgets-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ktextwidgets-{pkgver}.tar.xz"
 sha256 = "da966c6e01cfb3125ec31a4d2149372a19d1481441869ece9fcef3b70bb3514d"
 hardening = ["vis"]
 

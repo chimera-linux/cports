@@ -22,7 +22,7 @@ pkgdesc = "KDE Multi-language spell checker"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://develop.kde.org/docs/features/spellchecking"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/sonnet-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/sonnet-{pkgver}.tar.xz"
 sha256 = "158f38af459676ecf7f5dbbe39014ebf9bfae29557ca149c1d6ff5575a6d600d"
 hardening = ["vis"]
 

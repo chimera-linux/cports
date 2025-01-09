@@ -8,7 +8,7 @@ configure_args = [
     "-DCMAKE_SYSTEM_VERSION=1",
     "-DCMAKE_SYSTEM_PROCESSOR=wasm32",
     "-DCMAKE_SYSROOT=/usr/wasm32-unknown-wasi",
-    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0:pkgver.find('.')]}",
+    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0 : pkgver.find('.')]}",
     # prevent executable checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # only build that target
@@ -64,10 +64,10 @@ def init_configure(self):
 
 def post_install(self):
     self.install_license("LICENSE.TXT")
-    self.uninstall(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include")
+    self.uninstall(f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/include")
     self.install_link(
-        f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/wasip1", "wasi"
+        f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/lib/wasip1", "wasi"
     )
     self.install_link(
-        f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/wasip2", "wasi"
+        f"usr/lib/clang/{pkgver[0 : pkgver.find('.')]}/lib/wasip2", "wasi"
     )

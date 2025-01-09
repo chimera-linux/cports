@@ -31,7 +31,7 @@ pkgdesc = "KDE framework for file metadata"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kfilemetadata/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kfilemetadata-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kfilemetadata-{pkgver}.tar.xz"
 sha256 = "d17b692ea7ac0d9baecb1dce3aa10a562db3a9ae7e92dc2b9dc6044dfa11dc0b"
 hardening = ["vis"]
 # TODO

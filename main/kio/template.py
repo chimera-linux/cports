@@ -50,7 +50,7 @@ license = (
 )
 url = "https://api.kde.org/frameworks/kio/html"
 source = (
-    f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kio-{pkgver}.tar.xz"
+    f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kio-{pkgver}.tar.xz"
 )
 sha256 = "5360962b0b9bc06d01f86888c896ca591ccd2d0bca79b7f5cc4367a6e31b368b"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}

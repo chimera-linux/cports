@@ -18,7 +18,7 @@ pkgdesc = "KDE Converting physical units"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kunitconversion/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kunitconversion-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kunitconversion-{pkgver}.tar.xz"
 sha256 = "ea57ac6fa0ccc22dbcbcf87057cabc813a7f7b25a5cfa4349829d00e134bfd1c"
 hardening = ["vis"]
 

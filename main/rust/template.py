@@ -183,7 +183,7 @@ use-libcxx = true
 
 build = '{host_profile.triplet}'
 host = ['{tgt_profile.triplet}']
-target = [{','.join(_tgt_spec)}]
+target = [{",".join(_tgt_spec)}]
 
 cargo = '/usr/bin/cargo'
 rustc = '/usr/bin/rustc'

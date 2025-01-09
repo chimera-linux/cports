@@ -15,7 +15,7 @@ pkgdesc = "GNOME XSLT parser library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://xmlsoft.org/XSLT"
-source = f"$(GNOME_SITE)/libxslt/{pkgver[:pkgver.rfind('.')]}/libxslt-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/libxslt/{pkgver[: pkgver.rfind('.')]}/libxslt-{pkgver}.tar.xz"
 sha256 = "85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb"
 
 

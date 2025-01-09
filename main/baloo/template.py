@@ -30,9 +30,7 @@ pkgdesc = "KDE Framework for searching and metadata"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/frameworks/baloo/html"
-source = (
-    f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/baloo-{pkgver}.tar.xz"
-)
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/baloo-{pkgver}.tar.xz"
 sha256 = "d1f4e759d14074e365965222076c87539f21e24d8e8768be7c9f9603885360d0"
 hardening = ["vis"]
 

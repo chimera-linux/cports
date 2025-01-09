@@ -25,7 +25,7 @@ pkgdesc = "Integration of Qt application with KDE workspaces"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/frameworkintegration/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/frameworkintegration-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/frameworkintegration-{pkgver}.tar.xz"
 sha256 = "b9afb3d94dca1a9e404cb19c99bacae7e4da687e0f154b9e3969f2f9c38e9db8"
 hardening = ["vis"]
 

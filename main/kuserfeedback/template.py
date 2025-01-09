@@ -24,7 +24,7 @@ pkgdesc = "KDE user feedback integration"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kuserfeedback/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kuserfeedback-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kuserfeedback-{pkgver}.tar.xz"
 sha256 = "d12bec0c0396f589423a77a8a8e3c8e7fdc8e9cb88ec6eb35ad978a3127ae5e8"
 hardening = ["vis"]
 

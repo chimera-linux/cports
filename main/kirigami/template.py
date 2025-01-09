@@ -17,7 +17,7 @@ pkgdesc = "KDE's QtQuick based UI component set"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only"
 url = "https://develop.kde.org/frameworks/kirigami"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kirigami-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kirigami-{pkgver}.tar.xz"
 sha256 = "a3429c8bcf40e252d11b0a4c35a43c0433a9835ea1b333580707379b7b5c82c0"
 hardening = ["vis"]
 

@@ -22,7 +22,7 @@ pkgdesc = "Alternative DHCP implementation by ISC"
 maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "MPL-2.0"
 url = "https://kea.isc.org"
-source = f"https://downloads.isc.org/isc/kea/cur/{pkgver[:pkgver.rfind('.')]}/kea-{pkgver}.tar.gz"
+source = f"https://downloads.isc.org/isc/kea/cur/{pkgver[: pkgver.rfind('.')]}/kea-{pkgver}.tar.gz"
 sha256 = "d2ce14a91c2e248ad2876e29152d647bcc5e433bc68dafad0ee96ec166fcfad1"
 
 

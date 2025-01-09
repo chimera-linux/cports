@@ -31,7 +31,7 @@ pkgdesc = "KDE purpose-specific integrations"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/purpose/html/index.html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/purpose-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/purpose-{pkgver}.tar.xz"
 sha256 = "1709a31d446e7be432179b7fcd2ee26e8e3b9fde0a39ab3557835643873ae558"
 hardening = ["vis"]
 

@@ -21,7 +21,7 @@ pkgdesc = "KDE Plugin framework for desktop services"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kservice/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kservice-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kservice-{pkgver}.tar.xz"
 sha256 = "f4ff574f422b27575f04c7491694162c61c7db4ad923565408fa23b9a7e9675f"
 hardening = ["vis"]
 

@@ -20,7 +20,7 @@ pkgdesc = "KDE Bookmarks management library"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kbookmarks/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kbookmarks-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kbookmarks-{pkgver}.tar.xz"
 sha256 = "932234bedbf5a5887f23c610010c8c70b36b5dce4f4c4c5d76f47a92ce8e577a"
 hardening = ["vis"]
 

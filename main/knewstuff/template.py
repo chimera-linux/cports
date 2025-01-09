@@ -29,7 +29,7 @@ pkgdesc = "Framework for downloading/sharing additional app data"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
 sha256 = "ae3738515d17ecb56a2b4db17a2a317f1b3676518fc35d461631bcb6fa46c4ea"
 hardening = ["vis"]
 

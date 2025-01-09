@@ -16,7 +16,7 @@ pkgdesc = "QtQuick high-performance charts module"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kquickcharts/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kquickcharts-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kquickcharts-{pkgver}.tar.xz"
 sha256 = "df17c336aeb885e0d533916bf5211910e4f0844f8bcc8b45423dd9a0a02839ef"
 hardening = ["vis"]
 

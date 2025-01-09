@@ -20,7 +20,7 @@ pkgdesc = "Breeze icon themes"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-or-later"
 url = "https://api.kde.org/frameworks/breeze-icons/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/breeze-icons-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/breeze-icons-{pkgver}.tar.xz"
 sha256 = "618f633bafb0a5aabaa93eaa6733dfebd6e79303ef1d0a93dcf249181896bed9"
 broken_symlinks = [
     # broken symbolic links to 24

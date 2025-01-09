@@ -30,7 +30,7 @@ pkgdesc = "Lightweight web server"
 maintainer = "yanchan09 <yan@omg.lol>"
 license = "BSD-3-Clause"
 url = "https://lighttpd.net"
-source = f"https://download.lighttpd.net/lighttpd/releases-{pkgver[:pkgver.rfind('.')]}.x/lighttpd-{pkgver}.tar.xz"
+source = f"https://download.lighttpd.net/lighttpd/releases-{pkgver[: pkgver.rfind('.')]}.x/lighttpd-{pkgver}.tar.xz"
 sha256 = "8cbf4296e373cfd0cedfe9d978760b5b05c58fdc4048b4e2bcaf0a61ac8f5011"
 
 

@@ -16,7 +16,7 @@ sha256 = "633df610a5f5d2f69ad377e320afc85009052b4acc245f0586cbf932a179e2d6"
 
 
 def init_build(self):
-    self.make_build_args += [f"LCC={self.get_tool("CC")}"]
+    self.make_build_args += [f"LCC={self.get_tool('CC')}"]
 
 
 def post_install(self):

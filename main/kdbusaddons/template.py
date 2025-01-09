@@ -19,7 +19,7 @@ pkgdesc = "KDE Widgets for configuration dialogs"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/frameworks/kdbusaddons/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kdbusaddons-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdbusaddons-{pkgver}.tar.xz"
 sha256 = "30a0b18f702830ee3e9ae94f0d953b0bf835f3d9c836cb22366de48065a3a74c"
 hardening = ["vis"]
 

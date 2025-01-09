@@ -23,7 +23,7 @@ pkgdesc = "KDE address book API"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kcontacts/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kcontacts-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcontacts-{pkgver}.tar.xz"
 sha256 = "c6494623bd866d6f6f9a42fd0c7ff2bc4d98ca8d94b7e68f8529af09f321fc9c"
 hardening = ["vis"]
 

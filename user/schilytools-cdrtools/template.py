@@ -17,7 +17,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 # lol
 license = "LGPL-2.1-only AND GPL-2.0-or-later AND custom:CDDL-schily"
 url = "https://codeberg.org/schilytools/schilytools"
-source = f"{url}/archive/{pkgver.replace(".", "-")}.tar.gz"
+source = f"{url}/archive/{pkgver.replace('.', '-')}.tar.gz"
 sha256 = "4d66bf35a5bc2927248fac82266b56514fde07c1acda66f25b9c42ccff560a02"
 # int/aliasing/lto disabled because inheriting an ancient 30 year old C codebase
 # and it's most likely broken

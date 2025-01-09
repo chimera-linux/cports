@@ -31,7 +31,7 @@ pkgdesc = "KDE Framework for providing different actions given a string query"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/krunner/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/krunner-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/krunner-{pkgver}.tar.xz"
 sha256 = "eb4a5ee730b8d53641d8b08bdeb8d4bb065b19b6de3fa2ae9250436822f00d8c"
 hardening = ["vis"]
 

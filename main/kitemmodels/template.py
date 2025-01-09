@@ -15,7 +15,7 @@ pkgdesc = "KDE's item models extending the Qt model-view framework"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only AND LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kitemmodels/html"
-source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kitemmodels-{pkgver}.tar.xz"
+source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kitemmodels-{pkgver}.tar.xz"
 sha256 = "ab4dafc0ca8219fa4789439f5aca08a72bac60da0b29026710636af7e88b7324"
 hardening = ["vis"]
 
