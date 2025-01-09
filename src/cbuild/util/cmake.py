@@ -29,7 +29,7 @@ SET(CMAKE_SYSTEM_VERSION 1)
 SET(CMAKE_C_COMPILER   {pkg.get_tool("CC")})
 SET(CMAKE_CXX_COMPILER {pkg.get_tool("CXX")})
 
-SET(CMAKE_FIND_ROOT_PATH  "{paths.bldroot() / 'usr'};{paths.bldroot()}")
+SET(CMAKE_FIND_ROOT_PATH  "{paths.bldroot() / "usr"};{paths.bldroot()}")
 
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -71,7 +71,7 @@ SET(CMAKE_SYSROOT "{sroot}")
 
 SET(CMAKE_SYSTEM_PROCESSOR {cmake_cpu})
 
-SET(CMAKE_FIND_ROOT_PATH  "{sroot / 'usr'};{sroot}")
+SET(CMAKE_FIND_ROOT_PATH  "{sroot / "usr"};{sroot}")
 
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)

@@ -2463,7 +2463,7 @@ class Subpackage(Package):
                     case "man":
                         dot = sfx.rfind(".")
                         return self._take_impl(
-                            f"usr/share/man/**/man{sfx[dot + 1:]}/{sfx}",
+                            f"usr/share/man/**/man{sfx[dot + 1 :]}/{sfx}",
                             missing_ok,
                         )
         return self._take_impl(p, missing_ok)

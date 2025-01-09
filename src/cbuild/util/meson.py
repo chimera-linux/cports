@@ -33,7 +33,7 @@ readelf = '{pkg.get_tool("READELF")}'
 objcopy = '{pkg.get_tool("OBJCOPY")}'
 pkgconfig = '{pkg.get_tool("PKG_CONFIG")}'
 llvm-config = '/usr/bin/llvm-config'
-rust = ['rustc', '--target', '{pkg.profile().triplet}', '--sysroot', '{pkg.profile().sysroot / 'usr'}']
+rust = ['rustc', '--target', '{pkg.profile().triplet}', '--sysroot', '{pkg.profile().sysroot / "usr"}']
 
 [properties]
 needs_exe_wrapper = true
