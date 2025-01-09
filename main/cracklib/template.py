@@ -1,6 +1,6 @@
 pkgname = "cracklib"
-pkgver = "2.10.2"
-pkgrel = 1
+pkgver = "2.10.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 hostmakedepends = [
@@ -22,8 +22,8 @@ source = [
 ]
 source_paths = [".", "words"]
 sha256 = [
-    "2689cd4a3a8df2bbe033aba56bedd1becfa82235505109ca45b4d2a5f652aef6",
-    "02b52483c812462fbbc183ab2976ce077e1af0f6c55303e0a0ff1306b0c9c7df",
+    "877b823198eb29aa1778b16a70cad05f7b54b164b3bf7ab656fc326c393f4c85",
+    "1d9dd4d8eed30520d83c0f331ac8ddad5b0c78b9fe8a4f456edbba7b6f871250",
 ]
 
 
