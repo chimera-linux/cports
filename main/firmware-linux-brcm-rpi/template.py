@@ -1,8 +1,8 @@
 pkgname = "firmware-linux-brcm-rpi"
-pkgver = "20231024"
-pkgrel = 1
-_fw_rev = "88aa085bfa1a4650e1ccd88896f8343c22a24055"
-_bt_rev = "d9d4741caba7314d6500f588b1eaa5ab387a4ff5"
+pkgver = "20241222"
+pkgrel = 0
+_fw_rev = "a6ed59a078d52ad72f0f2b99e68f324e7411afa1"
+_bt_rev = "78d6a07730e2d20c035899521ab67726dc028e1c"
 archs = ["aarch64"]
 hostmakedepends = ["zstd-progs"]
 replaces = ["firmware-linux-brcm", "firmware-rpi<=20220905-r0"]
@@ -16,8 +16,8 @@ source = [
     f"https://github.com/RPi-Distro/bluez-firmware/archive/{_bt_rev}.tar.gz",
 ]
 sha256 = [
-    "bb3d8fed40546e03e29d9e635745433f8083391e62d6ff151c895b892776964a",
-    "ae076a08ece89624b0449ea2495b0dfe2ea1223f683f5b57f2b89966e6a093d6",
+    "41783dd15e21f591eb65d47bd013eba4c1bfccd6f52a43963b8971f32e89190b",
+    "56bcee9bac20720ceeef983949ba4d6b8d81c2f9602613232e642de547240841",
 ]
 options = ["!strip", "foreignelf", "execstack"]
 
