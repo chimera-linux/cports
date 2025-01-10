@@ -1,14 +1,12 @@
 pkgname = "xfce4-wavelan-plugin"
-pkgver = "0.6.3"
+pkgver = "0.6.4"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -21,7 +19,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-wavelan-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-wavelan-plugin/{pkgver[:-2]}/xfce4-wavelan-plugin-{pkgver}.tar.bz2"
-sha256 = "61c0c2f56cb70872d403b770dd76349df9ff24c0dbe905ee1b4f913c34d8f72b"
+sha256 = "129c917b40ffa10d96f3d2c0d03f1e8ad8037c79133e9a6436661e37dd7bb3de"
 
 
 def post_install(self):
