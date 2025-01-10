@@ -1,14 +1,12 @@
 pkgname = "xfce4-timer-plugin"
-pkgver = "1.7.2"
+pkgver = "1.7.3"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -23,4 +21,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-timer-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-timer-plugin/{pkgver[:-2]}/xfce4-timer-plugin-{pkgver}.tar.bz2"
-sha256 = "feb3b8c2d39505e816683540a3226bd7bda870ccbcb4c7d0f6abfeeff5c58b7d"
+sha256 = "acf4c861af88608b9e802a76a4b05846bd30189e0085e826680cc179b6df4cd3"
