@@ -1,5 +1,5 @@
 pkgname = "kauth"
-pkgver = "6.9.0"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["dbus-run-session"]
@@ -23,7 +23,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/kauth"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kauth-{pkgver}.tar.xz"
-sha256 = "84cf15729bd248aa9d78c1bfecf68161782d521ac14a9b6a5bdacc29cbe3dec6"
+sha256 = "be25601b91b129a48e497231be2513a1eb8c9707a82d38395561656d1df10988"
 hardening = ["vis"]
 
 

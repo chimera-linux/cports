@@ -1,5 +1,5 @@
 pkgname = "karchive"
-pkgver = "6.9.0"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 # fails with zlib-ng equality on comp data
@@ -20,7 +20,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/karchive"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/karchive-{pkgver}.tar.xz"
-sha256 = "246ad8dd2b5fb83df1cb05ff1fd3934f8a52be94d124350f9e6b7c3420e9c474"
+sha256 = "ac5160c19dd110bbdadeba9c5355cbfd3b5c1bd00ce3dbdc4a085776698c8a48"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "kdoctools"
-pkgver = "6.9.0"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,7 +27,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kdoctools/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdoctools-{pkgver}.tar.xz"
-sha256 = "6cc43f7db6df703cde1c6fbb24debcfb11c3df8f176be101577e21582d0209ca"
+sha256 = "03fa98e1213235ee4d4839d16e3edb22ee56849b9ab03d140639cf9facb6b038"
 hardening = ["vis"]
 
 

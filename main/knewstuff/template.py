@@ -1,5 +1,5 @@
 pkgname = "knewstuff"
-pkgver = "6.9.0"
+pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 # fails in chroot for some reason
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"
-sha256 = "ae3738515d17ecb56a2b4db17a2a317f1b3676518fc35d461631bcb6fa46c4ea"
+sha256 = "81cb5ea54fe03d27f80a481dde18a767ca1a95267403bd87483cfdd81981e4e7"
 hardening = ["vis"]
 
 
