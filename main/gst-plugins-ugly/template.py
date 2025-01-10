@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-ugly"
-pkgver = "1.24.10"
+pkgver = "1.24.11"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -33,4 +33,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-ugly/gst-plugins-ugly-{pkgver}.tar.xz"
-sha256 = "9df6fd85a7256241efbb25f84b337575e3b345266f5dab3849371e4694779f18"
+sha256 = "3a1f58a33aee8d13522865bcb564007a6837ef5711d7dfff8ce4260921013f8a"
