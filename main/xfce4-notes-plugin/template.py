@@ -1,18 +1,17 @@
 pkgname = "xfce4-notes-plugin"
-pkgver = "1.11.0"
+pkgver = "1.11.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
+    "slibtool",
     "pkgconf",
     "xfce4-dev-tools",
 ]
 makedepends = [
     "gtk+3-devel",
+    "gtksourceview4-devel",
     "libxfce4ui-devel",
     "libxfce4util-devel",
     "xfce4-panel-devel",
@@ -23,4 +22,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-notes-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-notes-plugin/{pkgver[:-2]}/xfce4-notes-plugin-{pkgver}.tar.bz2"
-sha256 = "eb38246deb0fc89535fa9ff9b953c762cece232b5585d8210fab9abbf282aae3"
+sha256 = "ef410999c9dafc5cf13fdcfd62ae49728508c0d37510f006971d5291061524aa"
