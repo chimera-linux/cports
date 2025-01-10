@@ -1,15 +1,13 @@
 pkgname = "xfce4-sensors-plugin"
-pkgver = "1.4.4"
+pkgver = "1.4.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-procapi", "--enable-sysfsacpi"]
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -25,7 +23,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-sensors-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-sensors-plugin/{pkgver[:-2]}/xfce4-sensors-plugin-{pkgver}.tar.bz2"
-sha256 = "6c1605a738e5df40e084d08ac93f962cd445093396de1e9bfadc7ab4588c36b6"
+sha256 = "f69fdf79b7f76d2a81724828124a6fce76803a9122a4c82de8f3dfa3efbb179a"
 
 
 @subpackage("xfce4-sensors-plugin-devel")
