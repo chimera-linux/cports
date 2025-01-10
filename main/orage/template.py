@@ -1,14 +1,13 @@
 pkgname = "orage"
-pkgver = "4.18.0"
+pkgver = "4.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
+configure_args = ["--enable-x11-tray-icon"]
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -25,4 +24,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/orage/start"
 source = f"$(XFCE_SITE)/apps/orage/{pkgver[:-2]}/orage-{pkgver}.tar.bz2"
-sha256 = "6313b49b26cfa39fc5e99468f3fbcfe0fa1c0f3f74273f03674f1a7d6141a3ec"
+sha256 = "ee07918a6f6033e6107e9c1b8e164c645ea590ffbdba0b58d071c0e491046a85"
