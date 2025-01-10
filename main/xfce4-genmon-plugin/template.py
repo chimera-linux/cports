@@ -1,14 +1,12 @@
 pkgname = "xfce4-genmon-plugin"
-pkgver = "4.2.0"
+pkgver = "4.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -23,4 +21,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-genmon-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-genmon-plugin/{pkgver[:-2]}/xfce4-genmon-plugin-{pkgver}.tar.bz2"
-sha256 = "948d08ee5f2140847f109b531bc1d4cc6268496913ea7600d3c5ad89025a0362"
+sha256 = "de540562e1ea58f35a9c815e20736d26af541a0a9372011148cb75b5f0b65951"
