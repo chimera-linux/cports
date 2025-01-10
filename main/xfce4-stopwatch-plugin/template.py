@@ -1,14 +1,12 @@
 pkgname = "xfce4-stopwatch-plugin"
-pkgver = "0.5.0"
+pkgver = "0.5.2"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -24,7 +22,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-stopwatch-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-stopwatch-plugin/{pkgver[:-2]}/xfce4-stopwatch-plugin-{pkgver}.tar.bz2"
-sha256 = "7c1b5e3401874daa0bc6c9ecfdd85f16b6dfc5c089709a18a4b87d89920004e1"
+sha256 = "b5a458fa5b7538d42cd9783cf4c26eafe0c9d394906a0e5e25bb3fe0adc34c08"
 
 
 def post_install(self):
