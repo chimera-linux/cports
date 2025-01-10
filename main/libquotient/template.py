@@ -1,5 +1,5 @@
 pkgname = "libquotient"
-pkgver = "0.9.1"
+pkgver = "0.9.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://quotient-im.github.io/libQuotient"
 source = f"https://github.com/quotient-im/libQuotient/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0a1fd19c9f6e4d93c60fbec5ab4ca84961781e6d00105a4437ecd14aaea36bc9"
+sha256 = "5dc75f1e4e23c8aac445a0e31d354adf97af456e29d27c032d4d467d4664ca06"
 
 
 def post_install(self):
