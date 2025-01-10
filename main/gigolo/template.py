@@ -1,14 +1,12 @@
 pkgname = "gigolo"
-pkgver = "0.5.3"
+pkgver = "0.5.4"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -20,4 +18,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/apps/gigolo/start"
 source = f"$(XFCE_SITE)/apps/gigolo/{pkgver[:-2]}/gigolo-{pkgver}.tar.bz2"
-sha256 = "d25984f65744665e2433335249f9547a38cead45440027af0c397ebf254d2fd0"
+sha256 = "29951a16ca48c5350fa862417a253bc45c2762106027c216bb7a56eabdd7f0f6"
