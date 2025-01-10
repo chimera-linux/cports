@@ -1,6 +1,6 @@
 pkgname = "libpng"
 pkgver = "1.6.45"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "libtool"]
 makedepends = ["zlib-ng-compat-devel"]
