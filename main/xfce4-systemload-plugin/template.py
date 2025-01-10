@@ -1,14 +1,12 @@
 pkgname = "xfce4-systemload-plugin"
-pkgver = "1.3.2"
+pkgver = "1.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -25,7 +23,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-systemload-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-systemload-plugin/{pkgver[:-2]}/xfce4-systemload-plugin-{pkgver}.tar.bz2"
-sha256 = "bb303fc3020e053ad1fa0b8fcbf0d7681c5563bb8f649357d6a95a577802b072"
+sha256 = "6852d5d9c9a74d0e0db582c6f5fe7390ebe48a2eb5692177ae12e1c4ccc6efc9"
 
 
 def post_install(self):
