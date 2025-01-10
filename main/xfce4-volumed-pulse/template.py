@@ -1,12 +1,12 @@
 pkgname = "xfce4-volumed-pulse"
-pkgver = "0.2.4"
+pkgver = "0.2.5"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
-    "libtool",
+    "gettext-devel",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -25,4 +25,4 @@ license = "GPL-3.0-or-later"
 # condition but not sure
 url = "https://xfce.org"
 source = f"$(XFCE_SITE)/apps/xfce4-volumed-pulse/{pkgver[:-2]}/xfce4-volumed-pulse-{pkgver}.tar.bz2"
-sha256 = "a019e3f626b31c0aaa0b807962606645cc0caf7930882b034a5a3a1719858362"
+sha256 = "30ebee3a16e467a2120db63b53d4cd3a603b310c6141c9514371c2dedf68bb03"
