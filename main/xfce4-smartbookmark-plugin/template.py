@@ -1,14 +1,12 @@
 pkgname = "xfce4-smartbookmark-plugin"
-pkgver = "0.5.2"
+pkgver = "0.5.3"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -20,4 +18,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-smartbookmark-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-smartbookmark-plugin/{pkgver[:-2]}/xfce4-smartbookmark-plugin-{pkgver}.tar.bz2"
-sha256 = "2a279e2f5a54518684e62ad1f3cd8ef950826505b39725f1b5d8f0c43031cdd3"
+sha256 = "3b4db0ac198339197a7682935f0bba5a7e8dd7f35bf575ac6665afa4cecec236"
