@@ -1,6 +1,6 @@
 pkgname = "libportal"
-pkgver = "0.8.1"
-pkgrel = 2
+pkgver = "0.9.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddocs=false",
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://github.com/flatpak/libportal"
 source = f"{url}/releases/download/{pkgver}/libportal-{pkgver}.tar.xz"
-sha256 = "281e54e4f8561125a65d20658f1462ab932b2b1258c376fed2137718441825ac"
+sha256 = "113910f06f39387328805397053d20c7acafb7388d8e6cd5e06e05efb9690735"
 
 
 @subpackage("libportal-gtk3")
