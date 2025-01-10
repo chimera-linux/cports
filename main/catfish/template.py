@@ -1,23 +1,22 @@
 pkgname = "catfish"
-pkgver = "4.18.0"
-pkgrel = 1
-build_style = "python_pep517"
+pkgver = "4.20.0"
+pkgrel = 0
+build_style = "meson"
+_deps = ["python-dbus", "python-gobject", "python-pexpect"]
 hostmakedepends = [
-    "intltool",
-    "python-build",
-    "python-distutils-extra",
-    "python-installer",
-    "python-setuptools",
-    "python-wheel",
+    "desktop-file-utils",
+    "gettext",
+    "meson",
+    "pkgconf",
+    *_deps,
 ]
+makedepends = ["gtk+3-devel", "pango-devel", "xfconf-devel"]
 depends = [
     "gtk+3",
-    "python-cairo",
-    "python-dbus",
-    "python-gobject",
-    "python-pexpect",
+    "pango",
     "cmd:locate!chimerautils-extra",
     "xfconf",
+    *_deps,
 ]
 pkgdesc = "Xfce file search tool"
 maintainer = "triallax <triallax@tutanota.com>"
@@ -25,6 +24,6 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/catfish/start"
 source = f"$(XFCE_SITE)/apps/catfish/{pkgver[:-2]}/catfish-{pkgver}.tar.bz2"
-sha256 = "fdae9b73cc754a50716bb04b958aa31dbd7e94047068b7207f2ae313a7d58b99"
+sha256 = "3938a3cd5a9ecd75c9c7777f7204f8e4cfcb9960203ffd8c2df7d08d11a73a6e"
 # No tests
 options = ["!check"]
