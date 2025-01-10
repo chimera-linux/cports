@@ -1,5 +1,5 @@
 pkgname = "plasma5support"
-pkgver = "6.2.4"
+pkgver = "6.2.5"
 pkgrel = 0
 build_style = "cmake"
 # needs plasma-workspace plugin and is circular with it
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma5support"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma5support-{pkgver}.tar.xz"
-sha256 = "233bbdc3f1c0b8acbb710f53c6308359c315b699958f6784b3467f4724f93d8d"
+sha256 = "cac5244aa2961ad020ed2c43427389e0823482ecb179948b5fd6b221606e8b04"
 hardening = ["vis"]
 
 

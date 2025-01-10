@@ -1,5 +1,5 @@
 pkgname = "plasma-systemmonitor"
-pkgver = "6.2.4"
+pkgver = "6.2.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -34,5 +34,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://apps.kde.org/plasma-systemmonitor"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-systemmonitor-{pkgver}.tar.xz"
-sha256 = "4796b5a571ff4396fd4755b1b090b27c23fa596b8715c32ce4a0315d12c8064c"
+sha256 = "9575d4562e68209627aee2f358070b09122cc3e09fee50c90451df52bf00b2ca"
 hardening = ["vis"]

@@ -1,5 +1,5 @@
 pkgname = "plasma-thunderbolt"
-pkgver = "6.2.4"
+pkgver = "6.2.5"
 pkgrel = 0
 build_style = "cmake"
 # fail to register on fakeserver for some reason
@@ -36,4 +36,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-thunderbolt"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-thunderbolt-{pkgver}.tar.xz"
-sha256 = "c435d500b1c0fa2c184851ad3ea205cd60651a0aaaa31a9e6fcd88e0aeefb670"
+sha256 = "e6c38c7fe844eba6b2d38a06cf3e9f2c51e989893965e1683917c46d94eb24da"
