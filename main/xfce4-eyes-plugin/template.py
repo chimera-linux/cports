@@ -1,14 +1,12 @@
 pkgname = "xfce4-eyes-plugin"
-pkgver = "4.6.0"
+pkgver = "4.6.2"
 pkgrel = 0
 build_style = "gnu_configure"
-make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -21,4 +19,4 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-eyes-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-eyes-plugin/{pkgver[:-2]}/xfce4-eyes-plugin-{pkgver}.tar.bz2"
-sha256 = "ad0ff05d88ba393b7c8922f8233edd33fc0a4e8b000b61de1f8f3a10c5ae5324"
+sha256 = "02b4ac637604a0b9262616cb9613e0fe6797fb6b0f1fc2889a77e1e0ad4a01a5"
