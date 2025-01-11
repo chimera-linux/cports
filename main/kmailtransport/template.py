@@ -1,5 +1,5 @@
 pkgname = "kmailtransport"
-pkgver = "24.12.0"
+pkgver = "24.12.1"
 pkgrel = 0
 build_style = "cmake"
 # no worthy sasl mechs
@@ -29,7 +29,7 @@ url = "https://api.kde.org/kdepim/kmailtransport/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kmailtransport-{pkgver}.tar.xz"
 )
-sha256 = "7f542a37b45b852ccfefbdc9aa39006dfe00bcd66dac386b98da9482c9691846"
+sha256 = "5d385562b53981a2ff0178f9255aa9897897a8ac7641e0d5af59a130a25194af"
 
 
 @subpackage("kmailtransport-devel")

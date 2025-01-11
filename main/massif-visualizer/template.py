@@ -1,5 +1,5 @@
 pkgname = "massif-visualizer"
-pkgver = "24.12.0"
+pkgver = "24.12.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,4 +27,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/massif_visualizer"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/massif-visualizer-{pkgver}.tar.xz"
-sha256 = "738ab85f85d391cb541a22662b825682b1c1d99a6851b66d5c65c713551dd52e"
+sha256 = "395873e6745831bfed4e241b5db1b37aa6f49f73385f4b71bbd15eef5ec4822c"

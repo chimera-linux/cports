@@ -1,5 +1,5 @@
 pkgname = "krdc"
-pkgver = "24.12.0"
+pkgver = "24.12.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DWITH_RDP3=ON", "-DWITH_RDP=OFF"]
@@ -42,7 +42,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/krdc"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/krdc-{pkgver}.tar.xz"
-sha256 = "7174604a50134bb23bda77e904986b170f9e35e41d83ce22ea2457608290c296"
+sha256 = "6eb70ac2c1d3c625aa6fc20458366bf39ea61d1104b42bed2852796c77b59a4f"
 
 
 @subpackage("krdc-devel")

@@ -1,5 +1,5 @@
 pkgname = "libgravatar"
-pkgver = "24.12.0"
+pkgver = "24.12.1"
 pkgrel = 0
 build_style = "cmake"
 # needs net
@@ -27,7 +27,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/libgravatar/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libgravatar-{pkgver}.tar.xz"
-sha256 = "ed50ed375e435b23f90e8a9d639d6ad55a74df6800559d538cae16ec385a3d6c"
+sha256 = "c65c615f4492c7c5b10edc66e9cfa2866daeaa7f4f1db26b583440da6d133abf"
 
 
 @subpackage("libgravatar-devel")

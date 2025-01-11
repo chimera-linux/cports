@@ -1,5 +1,5 @@
 pkgname = "akonadi-search"
-pkgver = "24.12.0"
+pkgver = "24.12.1"
 pkgrel = 0
 build_style = "cmake"
 # sqlite: fails instantly (?)
@@ -41,7 +41,7 @@ url = "https://api.kde.org/kdepim/akonadi-search/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-search-{pkgver}.tar.xz"
 )
-sha256 = "145eb9b1c7f323ceb62817b48a9a3a07fa26d27e3d93a421d6767717bc157fa4"
+sha256 = "be94ed8c1bdc8c0588c4104929fe9aed04ed77f1fa7ee5315a54f83ff4a8720e"
 
 
 def prepare(self):

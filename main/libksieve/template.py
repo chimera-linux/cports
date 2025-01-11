@@ -1,5 +1,5 @@
 pkgname = "libksieve"
-pkgver = "24.12.0"
+pkgver = "24.12.1"
 pkgrel = 0
 build_style = "cmake"
 # sieveeditorhelphtmlwidgettest: qtwebengine doesnt work in chroot
@@ -42,7 +42,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/libksieve/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libksieve-{pkgver}.tar.xz"
-sha256 = "c48699eaafe04d09a0acd134e8c3d10f3db8ef3a017923923499b25d12035272"
+sha256 = "b34e622e357f43a13606b7d010838ff3d9f7ef944937865e35dae110c786daeb"
 
 
 @subpackage("libksieve-devel")

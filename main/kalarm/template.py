@@ -1,5 +1,5 @@
 pkgname = "kalarm"
-pkgver = "24.12.0"
+pkgver = "24.12.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_LIBMPV=ON", "-DENABLE_LIBVLC=OFF"]
@@ -55,4 +55,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/kalarm"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kalarm-{pkgver}.tar.xz"
-sha256 = "699436c461b0b29aec3933b6c1b9e26345a53060f7558532da0689583735ef72"
+sha256 = "04dff68aab1f271137e64331f9b1c42473a2a6a87ee87c994bd411534aea7326"
