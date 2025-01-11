@@ -1,5 +1,5 @@
 pkgname = "zvm"
-pkgver = "0.8.2"
+pkgver = "0.8.4"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/tristanisham/zvm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cf681dc7cf67994094c7ac4c0c7075d972d5382d94fe4873e4722e195380cb61"
+sha256 = "e2efbb886aabe9e11ae9016fe292ee066ab2953c2eb366aa76b642a810366864"
 
 
 def post_install(self):
