@@ -1,6 +1,6 @@
 pkgname = "gnome-boxes"
 pkgver = "47.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "desktop-file-utils",
@@ -26,7 +26,7 @@ makedepends = [
 ]
 depends = [
     "libvirt",
-    "qemu",
+    "qemu-img",
 ]
 pkgdesc = "QEMU frontend for GNOME"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
