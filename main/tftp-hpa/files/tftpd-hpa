@@ -1,0 +1,2 @@
+type = process
+command = /usr/bin/in.tftpd -L -s -v /var/lib/tftpd-hpa
