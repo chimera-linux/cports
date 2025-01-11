@@ -1,5 +1,5 @@
 pkgname = "gtk-vnc"
-pkgver = "1.3.1"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -33,7 +33,7 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/gtk-vnc"
 source = f"$(GNOME_SITE)/gtk-vnc/{pkgver[:-2]}/gtk-vnc-{pkgver}.tar.xz"
-sha256 = "512763ac4e0559d0158b6682ca5dd1a3bd633f082f5e4349d7158e6b5f80f1ce"
+sha256 = "1be64c4e4760c52b3ec33067290d1efa40ad4cecab6c673813804e3c559d9683"
 
 
 @subpackage("gtk-vnc-devel")
