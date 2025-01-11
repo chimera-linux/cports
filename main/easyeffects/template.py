@@ -1,6 +1,6 @@
 pkgname = "easyeffects"
-pkgver = "7.2.1"
-pkgrel = 1
+pkgver = "7.2.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-libcpp-workarounds=true"]
 hostmakedepends = [
@@ -40,11 +40,11 @@ makedepends = [
 # 9 million warnings), so just always pull it
 depends = ["dinit-dbus", "lsp-plugins-lv2"]
 pkgdesc = "PipeWire audio plugins"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/wwmm/easyeffects"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8032e7f4e5e527b47bcc1eabe863439ce343755c8d18e154dda0261433b5c7ca"
+sha256 = "5d3afa96901c86c4fa065aa40db11800a7cdfd9d393f1de9b44bb126eee4b01e"
 
 
 def post_install(self):
