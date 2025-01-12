@@ -1,5 +1,5 @@
 pkgname = "comrak"
-pkgver = "0.32.0"
+pkgver = "0.33.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "BSD-2-Clause"
 url = "https://github.com/kivikakk/comrak"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "06a495cbdcded18a11322d58d8b44f3ca117b2fab6ed1fcc627f9098dbde6bed"
+sha256 = "52f3a8aa79dbde40c3a3f8ea540098150a2b7049cb30f41ec32ea56399dd8c81"
 
 
 def post_install(self):
