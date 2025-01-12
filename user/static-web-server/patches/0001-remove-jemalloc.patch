@@ -1,4 +1,4 @@
-From 3ca16e80a46b700c85402c3ea490f21bbb9c7e85 Mon Sep 17 00:00:00 2001
+From ac634d51c0b3163a7265cc1b13e698cd8c0d612b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
  <jan.christian@gruenhage.xyz>
 Date: Fri, 30 Aug 2024 08:44:42 +0200
@@ -11,10 +11,10 @@ Subject: [PATCH] remove jemalloc
  3 files changed, 28 deletions(-)
 
 diff --git a/Cargo.lock b/Cargo.lock
-index e82c71c..ed709db 100644
+index edff330..9944b7d 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1686,7 +1686,6 @@ dependencies = [
+@@ -1837,7 +1837,6 @@ dependencies = [
   "shadow-rs",
   "signal-hook",
   "signal-hook-tokio",
@@ -22,7 +22,7 @@ index e82c71c..ed709db 100644
   "tokio",
   "tokio-metrics-collector",
   "tokio-rustls",
-@@ -1775,26 +1774,6 @@ dependencies = [
+@@ -1938,26 +1937,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -48,9 +48,9 @@ index e82c71c..ed709db 100644
 -
  [[package]]
  name = "time"
- version = "0.3.36"
+ version = "0.3.37"
 diff --git a/Cargo.toml b/Cargo.toml
-index c4fe691..919aab8 100644
+index 93df6b1..77a606e 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -97,9 +97,6 @@ toml = "0.8"
@@ -79,5 +79,5 @@ index 95bf386..6316d53 100644
      settings::{cli::General, Commands},
      Result, Settings,
 -- 
-2.46.2
+2.47.1
 
