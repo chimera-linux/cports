@@ -1,6 +1,6 @@
 pkgname = "efl"
-pkgver = "1.27.0"
-pkgrel = 5
+pkgver = "1.28.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dbuild-tests=false",  # enable if enabling tests
@@ -99,7 +99,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/efl/efl-{pkgver}.tar.xz"
-sha256 = "3dfb99fbcc268c0bc797e2f83e8c503ef9de66284f40b381bb597a08185c00f4"
+sha256 = "f09a43d6b4861be06cc0e2849c53296413d4e52c8e31f52fc95e9ea5f1c59a36"
 tool_flags = {
     "CFLAGS": ["-D_LARGEFILE64_SOURCE", "-D__USE_MISC"],
     "LDFLAGS": ["-Wl,-z,stack-size=0x200000"],
