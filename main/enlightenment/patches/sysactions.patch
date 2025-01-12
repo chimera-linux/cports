@@ -65,4 +65,4 @@
 +#endif
  }
  
- void
+ static void
