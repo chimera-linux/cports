@@ -1,5 +1,5 @@
---- a/pkgs/sqlite3.45.3/generic/tclsqlite3.c
-+++ b/pkgs/sqlite3.45.3/generic/tclsqlite3.c
+--- a/pkgs/sqlite3.47.2/generic/tclsqlite3.c
++++ b/pkgs/sqlite3.47.2/generic/tclsqlite3.c
 @@ -1,3 +1,4 @@
 +#include <stdint.h>
  #ifdef USE_SYSTEM_SQLITE
