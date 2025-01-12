@@ -1,5 +1,5 @@
 pkgname = "juce"
-pkgver = "8.0.4"
+pkgver = "8.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DJUCE_BUILD_EXTRAS=ON"]
@@ -31,7 +31,7 @@ url = "https://juce.com"
 source = (
     f"https://github.com/juce-framework/JUCE/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "0effe9823a6fd8a4f98e5c08be7d308350e417b2d15dcf34011e778fefbbf005"
+sha256 = "95752f8e8b37d802b4c10182bc757de7d88f0c8899e879afa8798589be306a11"
 
 if self.profile().wordsize == 32:
     broken = "needs lock-free 64-bit atomics"
