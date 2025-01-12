@@ -1,5 +1,5 @@
 pkgname = "rofi"
-pkgver = "1.7.5_p3"
+pkgver = "1.7.7_p1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["bison", "cmake", "meson", "ninja", "pkgconf"]
@@ -19,6 +19,8 @@ makedepends = [
     "startup-notification-devel",
     "wayland-devel",
     "wayland-protocols",
+    "xcb-imdkit-devel",
+    "xcb-util-keysyms-devel",
     "xcb-util-cursor-devel",
     "xcb-util-devel",
     "xcb-util-wm-devel",
@@ -29,7 +31,7 @@ license = "MIT"
 # rofi with wayland support
 url = "https://github.com/lbonn/rofi"
 source = f"{url}/releases/download/{pkgver.replace('_p', '+wayland')}/rofi-{pkgver.replace('_p', '+wayland')}.tar.gz"
-sha256 = "ddd66ce401bc30da8e502499bafb9ab2dbf1f8d62aeb9d41f32213394246ea59"
+sha256 = "ef05c251c173172d58b90897c5dd3643da084963aaefff23c07bced7f325d5b7"
 
 
 def post_install(self):
