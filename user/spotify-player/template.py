@@ -30,6 +30,9 @@ url = "https://github.com/aome510/spotify-player"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "1d13f47ef4df3415835736f32629d57e331707d781507007ea04217a7dc735d8"
 
+if self.profile().wordsize == 32:
+    broken = "needs atomic64"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/spotify_player")
