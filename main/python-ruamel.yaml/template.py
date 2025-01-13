@@ -1,5 +1,5 @@
 pkgname = "python-ruamel.yaml"
-pkgver = "0.18.6"
+pkgver = "0.18.10"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/ruamel-yaml"
 source = f"$(PYPI_SITE)/r/ruamel.yaml/ruamel.yaml-{pkgver}.tar.gz"
-sha256 = "8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b"
+sha256 = "20c86ab29ac2153f80a428e1254a8adf686d3383df04490514ca3b79a362db58"
 # no tests on pypi
 options = ["!check"]
 
