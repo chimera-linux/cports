@@ -1,5 +1,5 @@
 pkgname = "python-poetry-core"
-pkgver = "1.9.1"
+pkgver = "2.0.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-poetry/poetry-core"
 source = f"$(PYPI_SITE)/p/poetry_core/poetry_core-{pkgver}.tar.gz"
-sha256 = "7a2d49214bf58b4f17f99d6891d947a9836c9899a67a5069f52d7b67217f61b8"
+sha256 = "10177c2772469d9032a49f0d8707af761b1c597cea3b4fb31546e5cd436eb157"
 # FIXME
 options = ["!check"]
 
