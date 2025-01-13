@@ -1,6 +1,6 @@
 pkgname = "emacs-gtk3"
 pkgver = "29.4"
-pkgrel = 7
+pkgrel = 8
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",

@@ -1,7 +1,7 @@
 # nb: neovim requires either lua5.1 or luaJIT (a mess)
 pkgname = "neovim"
 pkgver = "0.10.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
