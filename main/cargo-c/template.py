@@ -1,5 +1,5 @@
 pkgname = "cargo-c"
-pkgver = "0.10.7"
+pkgver = "0.10.8"
 pkgrel = 0
 build_style = "cargo"
 # no tests in others
@@ -24,8 +24,8 @@ source = [
     f"!{url}/releases/download/v{pkgver}/Cargo.lock>Cargo.lock.{pkgver}",
 ]
 sha256 = [
-    "c4532dd2bf23769df5f64649d5b0c037fb2a29467c74d16a54bad3054d9f3f3a",
-    "7272f41442713ce20c42198fdf9128a77b539ded1649872ab88dc1411db8dee4",
+    "2c7bfff50e9c11801c92280f34f7d308857652b0c3875d0fd0906167623414ac",
+    "f3c1e2e8fb2e78fac3a84f32c83fd68c69e6761c622bb948ddd1be194e03c57d",
 ]
 # mfs be like rebuild literally everything and then run
 # test_semver_one_zero_zero and test_semver_zero_zero_zero
