@@ -1,5 +1,5 @@
 pkgname = "pugixml"
-pkgver = "1.14"
+pkgver = "1.15"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://pugixml.org"
 source = f"https://github.com/zeux/pugixml/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "610f98375424b5614754a6f34a491adbddaaec074e9044577d965160ec103d2e"
+sha256 = "b39647064d9e28297a34278bfb897092bf33b7c487906ddfc094c9e8868bddcb"
 hardening = ["vis", "!cfi"]
 
 
