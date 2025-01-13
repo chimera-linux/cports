@@ -16,6 +16,6 @@ This ensures that efficient capability checks are used on musl.
 +# define USE_GETAUXVAL 1
 +# include <asm/cputable.h>
 +# include <sys/auxv.h>
- #elif defined(__FreeBSD__)
+ #elif defined(__FreeBSD__) || defined(__OpenBSD__)
  # include <machine/cpu.h>
  # ifdef PPC_FEATURE2_HAS_VEC_CRYPTO
