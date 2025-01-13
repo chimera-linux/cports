@@ -1,5 +1,5 @@
 pkgname = "python-pyqt-builder"
-pkgver = "1.17.0"
+pkgver = "1.17.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,10 +14,10 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "custom:sip"
 url = "https://github.com/Python-PyQt/PyQt-builder"
 source = f"$(PYPI_SITE)/P/PyQt-builder/pyqt_builder-{pkgver}.tar.gz"
-sha256 = "fce0e92346d2a4296525b7ad9f02b74ea425f26210390ae0d3e4ca08c31cf4cc"
+sha256 = "457dcd6a1408ea4bf1264e3511c734d53451ae8a3905e98982d50f7b3fdab724"
 # no tests
 options = ["!check"]
 
 
 def post_install(self):
-    self.install_license("pyqtbuild/bundle/qt_wheel_distinfo/LICENSE")
+    self.install_license("LICENSE")
