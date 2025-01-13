@@ -1,5 +1,5 @@
 pkgname = "mozjs128"
-pkgver = "128.5.2"
+pkgver = "128.6.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo",
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "25d633eb81499cbda44b8c64fa1c1a5879d55024b864ef495d4997154d68358f"
+sha256 = "b7a39d3ce12d05021dd34a5e449cdd4bb53d3dc24f0ae9201eaaa85c71868508"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
