@@ -1,5 +1,5 @@
 pkgname = "niri"
-pkgver = "0.1.10.1"
+pkgver = "25.01"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -8,6 +8,7 @@ make_build_args = [
     "dbus,dinit,xdp-gnome-screencast",
 ]
 make_check_args = [*make_build_args]
+make_check_env = {"XDG_RUNTIME_DIR": "/tmp"}
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
@@ -30,11 +31,11 @@ depends = [
     "so:libEGL.so.1!libegl",
 ]
 pkgdesc = "Scrollable-tiling wayland compositor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d8854830436a87215b0bc6a60b6d43f350d927a03a2798c75f0fbda228bac8d3"
+sha256 = "86b89bcfc3fc6a8ed81f9e3f0ac7a29bd30267515efb2c19e1e0bc2ccd67b649"
 
 if self.profile().wordsize == 32:
     broken = "weird pipewire api stuff"
