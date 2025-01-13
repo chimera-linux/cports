@@ -1,5 +1,5 @@
 pkgname = "pulseaudio-qt"
-pkgver = "1.6.1"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -18,7 +18,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries/pulseaudio-qt"
 source = f"$(KDE_SITE)/pulseaudio-qt/pulseaudio-qt-{pkgver}.tar.xz"
-sha256 = "f21bf30f2ff3e670d2046f966069dc23f5e653ff56bacdb8920c1374264cbc1e"
+sha256 = "6a18db76dd2bcc3df7d9a9379c025295817264baa1f2ed8caaac7da44e04e931"
 hardening = ["vis"]
 
 
