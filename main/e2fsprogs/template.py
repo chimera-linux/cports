@@ -1,5 +1,5 @@
 pkgname = "e2fsprogs"
-pkgver = "1.47.1"
+pkgver = "1.47.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://e2fsprogs.sourceforge.net"
 source = f"$(KERNEL_SITE)/kernel/people/tytso/e2fsprogs/v{pkgver}/e2fsprogs-{pkgver}.tar.xz"
-sha256 = "5a33dc047fd47284bca4bb10c13cfe7896377ae3d01cb81a05d406025d99e0d1"
+sha256 = "08242e64ca0e8194d9c1caad49762b19209a06318199b63ce74ae4ef2d74e63c"
 
 
 def post_patch(self):
