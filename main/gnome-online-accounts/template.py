@@ -1,5 +1,5 @@
 pkgname = "gnome-online-accounts"
-pkgver = "3.52.2"
+pkgver = "3.52.3.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -38,8 +38,8 @@ pkgdesc = "GNOME service to access online accounts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
-source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-2]}/gnome-online-accounts-{pkgver}.tar.xz"
-sha256 = "fb413f48deefbb9fc3002a91579dee947ceeed41f49c2f51317af7489b676f67"
+source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-4]}/gnome-online-accounts-{pkgver}.tar.xz"
+sha256 = "49ed727d6fc49474996fa7edf0919b21e4fc856ea37e6e30f17b50b103af9701"
 options = ["!cross"]
 
 
