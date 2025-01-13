@@ -1,6 +1,6 @@
 pkgname = "wireshark"
-pkgver = "4.4.2"
-pkgrel = 1
+pkgver = "4.4.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DENABLE_GNUTLS=ON",
@@ -60,7 +60,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.wireshark.org"
 source = f"https://www.wireshark.org/download/src/wireshark-{pkgver}.tar.xz"
-sha256 = "6053d97499c83feb87ce1d7f732d9c889c6c18bb334de67e65dca11483b0514e"
+sha256 = "2abb53b958a7701c239093706d373e199ac183550904d490e173b91195e2fab6"
 # forbid non-wireshark-group users from reading all network packets
 file_modes = {
     "usr/bin/dumpcap": ("root", "_wireshark", 0o750),
