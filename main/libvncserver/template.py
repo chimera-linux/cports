@@ -1,5 +1,5 @@
 pkgname = "libvncserver"
-pkgver = "0.9.14"
+pkgver = "0.9.15"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -26,7 +26,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/LibVNC/libvncserver"
 source = f"{url}/archive/refs/tags/LibVNCServer-{pkgver}.tar.gz"
-sha256 = "83104e4f7e28b02f8bf6b010d69b626fae591f887e949816305daebae527c9a5"
+sha256 = "62352c7795e231dfce044beb96156065a05a05c974e5de9e023d688d8ff675d7"
 
 
 @subpackage("libvncserver-devel")
