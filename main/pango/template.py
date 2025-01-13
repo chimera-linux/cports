@@ -1,6 +1,6 @@
 pkgname = "pango"
-pkgver = "1.54.0"
-pkgrel = 4
+pkgver = "1.56.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dintrospection=enabled",
@@ -33,7 +33,7 @@ url = "https://www.pango.org"
 source = (
     f"$(GNOME_SITE)/pango/{pkgver[: pkgver.rfind('.')]}/pango-{pkgver}.tar.xz"
 )
-sha256 = "8a9eed75021ee734d7fc0fdf3a65c3bba51dfefe4ae51a9b414a60c70b2d1ed8"
+sha256 = "1fb98b338ee6f7cf8ef96153b7d242f4568fe60f9b7434524eca630a57bd538b"
 # subtly breaks various things
 hardening = ["!int"]
 
@@ -49,7 +49,7 @@ def _(self):
 def _(self):
     self.subdesc = "utility to view pango files"
 
-    return ["usr/bin/pango-view", "usr/share/man/man1/pango-view.1"]
+    return ["cmd:pango-view"]
 
 
 @subpackage("pango-devel")
