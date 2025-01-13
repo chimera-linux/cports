@@ -1,5 +1,5 @@
 pkgname = "fakeroot"
-pkgver = "1.36.1"
+pkgver = "1.36.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"{url}/-/archive/upstream/{pkgver}/fakeroot-upstream-{pkgver}.tar.gz"
-sha256 = "c10ce55bdb12361c172e9ed419d29a71e80a8f1b08fcc4150d00bc2feb021845"
+sha256 = "d92fadad835bec18410f5f3ca5242ed4ff397196e16d6886d2b92cde9b6658a3"
 options = ["bootstrap"]
 
 if self.stage > 0:
