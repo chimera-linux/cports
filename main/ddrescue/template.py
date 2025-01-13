@@ -1,5 +1,5 @@
 pkgname = "ddrescue"
-pkgver = "1.28"
+pkgver = "1.29"
 pkgrel = 0
 build_style = "gnu_configure"
 # handrolled conf
@@ -9,7 +9,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/ddrescue/ddrescue.html"
 source = f"$(GNU_SITE)/ddrescue/ddrescue-{pkgver}.tar.lz"
-sha256 = "6626c07a7ca1cc1d03cad0958522c5279b156222d32c342e81117cfefaeb10c1"
+sha256 = "01a414327853b39fba2fd0ece30f7bee2e9d8c8e8eb314318524adf5a60039a3"
 hardening = ["vis", "cfi"]
 
 
