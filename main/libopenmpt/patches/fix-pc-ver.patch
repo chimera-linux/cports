@@ -3,8 +3,8 @@ index 816b0a9..dfa1f9a 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1,4 +1,4 @@
--AC_INIT([libopenmpt], [0.7.12+release.autotools], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
-+AC_INIT([libopenmpt], [0.7.12], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
+-AC_INIT([libopenmpt], [0.7.13+release.autotools], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
++AC_INIT([libopenmpt], [0.7.13], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
  AC_PREREQ([2.69])
  # we do want 2.70, but distributions are not ready yet
  #AC_PREREQ([2.70])
