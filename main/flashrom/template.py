@@ -1,5 +1,5 @@
 pkgname = "flashrom"
-pkgver = "1.5.0"
+pkgver = "1.5.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Duse_internal_dmi=false"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.flashrom.org"
 source = f"https://download.flashrom.org/releases/flashrom-v{pkgver}.tar.xz"
-sha256 = "3ef431cd0f039c1f7b929e81be145885e79192d16a843827e42977f488d9fec5"
+sha256 = "1f934b076ed49eace203655ec249fc7861a6b8e87fe4aef732e47b6e485b6293"
 # needs special configuration?
 options = ["!check", "linkundefver"]
 
