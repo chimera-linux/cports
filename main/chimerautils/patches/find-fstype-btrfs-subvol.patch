@@ -1,0 +1,35 @@
+commit 183eaba4e0946a0ab099935ca014ecbce1d21405
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Jan 13 13:29:07 2025 +0100
+
+    find: fix for btrfs subvolumes
+    
+    The assumption that any relevant mount will have a / root is wrong
+    as it does not apply to just bindmounts but also btrfs subvolumes,
+    where the root will be relative to the parent mount.
+
+diff --git a/src.freebsd/findutils/find/function.c b/src.freebsd/findutils/find/function.c
+index 679b1b1..f17bdc7 100644
+--- a/src.freebsd/findutils/find/function.c
++++ b/src.freebsd/findutils/find/function.c
+@@ -954,17 +954,14 @@ f_fstypename(dev_t curdev)
+ 			 * to stat each mountpoint later for that "fake" st_dev
+ 			 */
+ 			if (sscanf(
+-			    lbuf, "%*d %*d %*u:%*u / %*s %*[^-]- %63s %*s %*s",
++			    lbuf, "%*d %*d %*u:%*u %*s %*s %*[^-]- %63s %*s %*s",
+ 			    curfstype
+ 			) <= 0)
+ 				continue;
+ 			/* now get the mountpoint root... */
+ 			mntpt = strchr(lbuf, '/');
+-			/* submounts are ignored */
+-			if (mntpt[1] != ' ')
+-				continue;
+-			/* skip to the actual mountpoint */
+-			mntpt += 2;
++			/* skip over it to get the real mountpoint */
++			mntpt = strchr(mntpt + 1, '/');
+ 			/* the path is escaped, terminate at space */
+ 			*strchr(mntpt, ' ') = '\0';
+ 			/* now unscape spaces and whatever */
