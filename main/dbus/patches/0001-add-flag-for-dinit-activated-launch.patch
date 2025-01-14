@@ -1,4 +1,4 @@
-From 8c8503624ed6ce76f24d56409ee185e939ad52b0 Mon Sep 17 00:00:00 2001
+From b60d7689eb6ac54554f3505aa3c7407b1f253d38 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 24 Nov 2024 20:08:28 +0100
 Subject: [PATCH 1/2] add flag for dinit-activated launch
@@ -10,7 +10,7 @@ Subject: [PATCH 1/2] add flag for dinit-activated launch
  3 files changed, 20 insertions(+), 1 deletion(-)
 
 diff --git a/bus/bus.c b/bus/bus.c
-index 11de90d..f7fc1b5 100644
+index eaa8f2a..06bf7e3 100644
 --- a/bus/bus.c
 +++ b/bus/bus.c
 @@ -77,6 +77,7 @@ struct BusContext
@@ -33,7 +33,7 @@ index 11de90d..f7fc1b5 100644
    /* Check for an existing pid file. Of course this is a race;
     * we'd have to use fcntl() locks on the pid file to
     * avoid that. But we want to check for the pid file
-@@ -1353,6 +1359,12 @@ bus_context_get_systemd_activation (BusContext *context)
+@@ -1341,6 +1347,12 @@ bus_context_get_systemd_activation (BusContext *context)
    return context->systemd_activation;
  }
  
@@ -47,10 +47,10 @@ index 11de90d..f7fc1b5 100644
  bus_context_get_registry (BusContext  *context)
  {
 diff --git a/bus/bus.h b/bus/bus.h
-index bc8b42c..75b020b 100644
+index b970be6..127683d 100644
 --- a/bus/bus.h
 +++ b/bus/bus.h
-@@ -81,7 +81,8 @@ typedef enum
+@@ -83,7 +83,8 @@ typedef enum
    BUS_CONTEXT_FLAG_SYSTEMD_ACTIVATION = (1 << 4),
    BUS_CONTEXT_FLAG_SYSLOG_ALWAYS = (1 << 5),
    BUS_CONTEXT_FLAG_SYSLOG_NEVER = (1 << 6),
@@ -60,7 +60,7 @@ index bc8b42c..75b020b 100644
  } BusContextFlags;
  
  BusContext*       bus_context_new                                (const DBusString *config_file,
-@@ -102,6 +103,7 @@ const char*       bus_context_get_type                           (BusContext
+@@ -104,6 +105,7 @@ const char*       bus_context_get_type                           (BusContext
  const char*       bus_context_get_address                        (BusContext       *context);
  const char*       bus_context_get_servicehelper                  (BusContext       *context);
  dbus_bool_t       bus_context_get_systemd_activation             (BusContext       *context);
@@ -69,10 +69,10 @@ index bc8b42c..75b020b 100644
  BusConnections*   bus_context_get_connections                    (BusContext       *context);
  BusActivation*    bus_context_get_activation                     (BusContext       *context);
 diff --git a/bus/main.c b/bus/main.c
-index 5f756d5..a85aff5 100644
+index cf1abc6..65fefa1 100644
 --- a/bus/main.c
 +++ b/bus/main.c
-@@ -173,6 +173,7 @@ usage (void)
+@@ -175,6 +175,7 @@ usage (void)
  #ifdef DBUS_UNIX
        " [--fork]"
        " [--systemd-activation]"
@@ -80,7 +80,7 @@ index 5f756d5..a85aff5 100644
  #endif
        "\n");
    exit (1);
-@@ -506,6 +507,10 @@ main (int argc, char **argv)
+@@ -505,6 +506,10 @@ main (int argc, char **argv)
          {
            flags |= BUS_CONTEXT_FLAG_SYSTEMD_ACTIVATION;
          }
@@ -92,5 +92,5 @@ index 5f756d5..a85aff5 100644
        else if (strcmp (arg, "--nopidfile") == 0)
          {
 -- 
-2.47.0
+2.48.0
 

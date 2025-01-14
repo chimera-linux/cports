@@ -1,24 +1,23 @@
 pkgname = "dbus"
-pkgver = "1.14.10"
-pkgrel = 15
-build_style = "gnu_configure"
+pkgver = "1.16.0"
+pkgrel = 0
+build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
-    "--disable-selinux",
-    "--disable-asserts",
-    "--disable-systemd",
-    "--disable-user-session",
-    "--disable-doxygen-docs",
-    "--enable-inotify",
-    "--enable-xml-docs",
-    "--enable-epoll",
-    "--enable-traditional-activation",
-    "--with-dbus-user=dbus",
-    "--with-system-socket=/run/dbus/system_bus_socket",
-    "--with-system-pid-file=/run/dbus/pid",
+    "-Dasserts=false",
+    "-Ddbus_user=dbus",
+    "-Ddoxygen_docs=disabled",
+    "-Depoll=enabled",
+    "-Dinotify=enabled",
+    "-Dselinux=disabled",
+    "-Dsystem_pid_file=/run/dbus/pid",
+    "-Dsystem_socket=/run/dbus/system_bus_socket",
+    "-Dsystemd=disabled",
+    "-Duser_session=false",
+    "-Dtraditional_activation=true",
+    "-Dxml_docs=enabled",
 ]
-configure_gen = []
-hostmakedepends = ["gperf", "pkgconf", "xmlto"]
+hostmakedepends = ["gperf", "meson", "pkgconf", "xmlto"]
 makedepends = ["libexpat-devel", "libx11-devel", "libcap-devel"]
 triggers = ["/usr/share/dbus-1/system.d"]
 scripts = {"pre-install": True, "pre-upgrade": True}
@@ -27,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
 source = f"https://dbus.freedesktop.org/releases/dbus/dbus-{pkgver}.tar.xz"
-sha256 = "ba1f21d2bd9d339da2d4aa8780c09df32fea87998b73da24f49ab9df1e36a50f"
+sha256 = "9f8ca5eb51cbe09951aec8624b86c292990ae2428b41b856e2bed17ec65c8849"
 file_modes = {"usr/lib/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]

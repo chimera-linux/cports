@@ -1,4 +1,4 @@
-From 77e1c81af72f4faa99b45534526bb7a3ae66ed36 Mon Sep 17 00:00:00 2001
+From 9d719eb914d13ba5c07dd04ee46296e024bc9a83 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 24 Nov 2024 20:14:30 +0100
 Subject: [PATCH 2/2] add dinit environment updating
@@ -8,10 +8,10 @@ Subject: [PATCH 2/2] add dinit environment updating
  1 file changed, 25 insertions(+), 10 deletions(-)
 
 diff --git a/bus/driver.c b/bus/driver.c
-index 8ea2955..7d8c2ce 100644
+index fa4213c..fa9acc2 100644
 --- a/bus/driver.c
 +++ b/bus/driver.c
-@@ -1189,18 +1189,25 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+@@ -1169,18 +1169,25 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
  
    _dbus_assert (_dbus_list_get_length (&keys) == _dbus_list_get_length (&values));
  
@@ -43,7 +43,7 @@ index 8ea2955..7d8c2ce 100644
            goto out;
          }
  
-@@ -1211,7 +1218,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+@@ -1191,7 +1198,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
                                               &systemd_iter))
          {
            BUS_SET_OOM (error);
@@ -52,7 +52,7 @@ index 8ea2955..7d8c2ce 100644
            goto out;
          }
      }
-@@ -1244,7 +1251,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+@@ -1224,7 +1231,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
                !_dbus_string_append_printf (&envline, "%s=%s", key, value))
              {
                BUS_SET_OOM (error);
@@ -61,7 +61,7 @@ index 8ea2955..7d8c2ce 100644
                _dbus_string_free (&envline);
                break;
              }
-@@ -1255,7 +1262,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+@@ -1235,7 +1242,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
                                                 DBUS_TYPE_STRING, &s))
              {
                BUS_SET_OOM (error);
@@ -70,7 +70,7 @@ index 8ea2955..7d8c2ce 100644
                _dbus_string_free (&envline);
                break;
              }
-@@ -1283,7 +1290,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
+@@ -1263,7 +1270,7 @@ bus_driver_handle_update_activation_environment (DBusConnection *connection,
        if (!dbus_message_iter_close_container (&iter, &systemd_iter))
          {
            BUS_SET_OOM (error);
@@ -79,7 +79,7 @@ index 8ea2955..7d8c2ce 100644
            goto out;
          }
  
-@@ -3195,6 +3202,14 @@ features_getter (BusContext      *context,
+@@ -3135,6 +3142,14 @@ features_getter (BusContext      *context,
          goto abandon;
      }
  
@@ -95,5 +95,5 @@ index 8ea2955..7d8c2ce 100644
  
  abandon:
 -- 
-2.47.0
+2.48.0
 
