@@ -1,6 +1,6 @@
 pkgname = "lighttpd"
-pkgver = "1.4.76"
-pkgrel = 1
+pkgver = "1.4.77"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dwith_brotli=enabled",
@@ -31,7 +31,7 @@ maintainer = "yanchan09 <yan@omg.lol>"
 license = "BSD-3-Clause"
 url = "https://lighttpd.net"
 source = f"https://download.lighttpd.net/lighttpd/releases-{pkgver[: pkgver.rfind('.')]}.x/lighttpd-{pkgver}.tar.xz"
-sha256 = "8cbf4296e373cfd0cedfe9d978760b5b05c58fdc4048b4e2bcaf0a61ac8f5011"
+sha256 = "acafabdbfa2267d8b6452d03d85fdd2a66525f3f05a36a79b6645c017f1562ce"
 
 
 def post_install(self):
