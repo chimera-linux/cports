@@ -2,7 +2,7 @@
 pkgname = "python"
 _majver = "3.12"
 pkgver = f"{_majver}.8"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",
@@ -66,6 +66,11 @@ license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
 sha256 = "c909157bb25ec114e5869124cc2a9c4a4d4c1e957ca4ff553f1edc692101154e"
+# use a chunky stack; python by default does not use more than 1 thread
+# but anything dlopened from it will be stuck with the default stacksize
+# (e.g. python gtk programs, gtk loads icons from a threadpool and it may
+# result in librsvg rust stack overflowing) so assume a bigger default
+tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # FIXME int cfi; cfi ftbfs, int fails ctypes test
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being
