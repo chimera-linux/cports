@@ -1,6 +1,6 @@
 pkgname = "efl"
 pkgver = "1.28.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dbuild-tests=false",  # enable if enabling tests
