@@ -30,6 +30,7 @@ makedepends = [
 depends = [
     "so:libEGL.so.1!libegl",
 ]
+checkdepends = ["xkeyboard-config"]
 pkgdesc = "Scrollable-tiling wayland compositor"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
