@@ -43,7 +43,7 @@ options = []
 if self.profile().wordsize == 32:
     broken = "weird pipewire api stuff"
 
-if self.profile.arch() == "ppc64le":
+if self.profile().arch == "ppc64le":
     # fails some xkeyboard stuff mysteriously? FIXME
     options += ["!check"]
 
