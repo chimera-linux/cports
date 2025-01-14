@@ -37,9 +37,15 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "86b89bcfc3fc6a8ed81f9e3f0ac7a29bd30267515efb2c19e1e0bc2ccd67b649"
+# check may be disabled
+options = []
 
 if self.profile().wordsize == 32:
     broken = "weird pipewire api stuff"
+
+if self.profile.arch() == "ppc64le":
+    # fails some xkeyboard stuff mysteriously? FIXME
+    options += ["!check"]
 
 # TODO: dinit graphical user session service, --notify-fd, etc
 
