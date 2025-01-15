@@ -13,6 +13,12 @@ license = "MIT"
 url = "https://taskfile.dev"
 source = f"https://github.com/go-task/task/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "e80cdfa2afefa69238e5078960d50a8e703de1043740b277946629ca5f3bde85"
+# conditionally disabled check
+options = []
+
+# test suite expects amd64
+if self.profile().arch != "x86_64":
+    options += ["!check"]
 
 
 def post_install(self):
