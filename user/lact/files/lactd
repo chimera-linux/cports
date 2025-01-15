@@ -1,0 +1,4 @@
+# lact daemon
+type = process
+command = /usr/bin/lact daemon
+before = login.target
