@@ -1,6 +1,6 @@
 pkgname = "rsync"
-pkgver = "3.4.0"
-pkgrel = 1
+pkgver = "3.4.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-rrsync",
@@ -27,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://rsync.samba.org"
 source = f"https://www.samba.org/ftp/rsync/src/rsync-{pkgver}.tar.gz"
-sha256 = "8e942f95a44226a012fe822faffa6c7fc38c34047add3a0c941e9bc8b8b93aa4"
+sha256 = "2924bcb3a1ed8b551fc101f740b9f0fe0a202b115027647cf69850d65fd88c52"
 # FIXME int: crashes in match_sums (match.c) after a while in partial mode
 hardening = ["vis", "cfi", "!int"]
 
