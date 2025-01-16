@@ -1,5 +1,5 @@
 pkgname = "cbindgen"
-pkgver = "0.27.0"
+pkgver = "0.28.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/eqrion/cbindgen"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "af74dd0452ace58895088048873a765fffacc3ad55eea00c0f2999cc4bcf9b5d"
+sha256 = "b0ed39dda089cafba583e407183e43de151d2ae9d945d74fb4870db7e4ca858e"
 # only expected to work with rust nightly
 options = ["!check"]
 
