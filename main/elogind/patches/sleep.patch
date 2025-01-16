@@ -18,7 +18,7 @@ index 053e908..afa656e 100644
 +#if 1 /// elogind supports suspend modes (deep s2idle) so we need defaults, too
          /* Not used by SLEEP_SUSPEND */
  #else // 0
-         [SLEEP_SUSPEND]      = STRV_MAKE("s2idle", "deep"),
+         [SLEEP_SUSPEND]      = STRV_MAKE("deep", "s2idle"),
 @@ -172,7 +172,7 @@ int parse_sleep_config(SleepConfig **ret) {
                  { "Sleep", "AllowHybridSleep",          config_parse_tristate,    0,               &allow_hybrid_sleep          },
  
