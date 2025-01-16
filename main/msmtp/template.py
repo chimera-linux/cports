@@ -1,5 +1,5 @@
 pkgname = "msmtp"
-pkgver = "1.8.27"
+pkgver = "1.8.28"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://marlam.de/msmtp"
 source = f"{url}/releases/msmtp-{pkgver}.tar.xz"
-sha256 = "94030580a63a747faa0a3b9b1b264ae355aad33a4d94b832bfeb5b21633c965e"
+sha256 = "3a57f155f54e4860f7dd42138d9bea1af615b99dfab5ab4cd728fc8c09a647a4"
 hardening = ["vis", "cfi"]
 
 
