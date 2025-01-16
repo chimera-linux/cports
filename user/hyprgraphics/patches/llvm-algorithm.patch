@@ -1,0 +1,11 @@
+diff --git a/src/color/Color.cpp b/src/color/Color.cpp
+index 3de4454..7823aaf 100644
+--- a/src/color/Color.cpp
++++ b/src/color/Color.cpp
+@@ -1,5 +1,6 @@
+ #include <hyprgraphics/color/Color.hpp>
+ #include <cmath>
++#include <algorithm>
+ 
+ using namespace Hyprgraphics;
+ 

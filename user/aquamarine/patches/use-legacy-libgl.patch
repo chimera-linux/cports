@@ -1,0 +1,7 @@
+--- CMakeLists.txt	2025-01-16 19:00:59.317901270 +0000
++++ CMakeLists.txt2	2025-01-16 19:01:40.607935314 +0000
+@@ -62,3 +62,3 @@
+                                             SOVERSION 6)
+-target_link_libraries(aquamarine OpenGL::EGL OpenGL::OpenGL PkgConfig::deps)
++target_link_libraries(aquamarine OpenGL::EGL OpenGL::GL PkgConfig::deps)
+ 
