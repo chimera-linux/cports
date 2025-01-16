@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20241210"
+pkgver = "20250109"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "c7b83ae05d9943ab7f09e18e3c673ea8a55402f96e3b059a7d05b88c81670b78"
+sha256 = "211b09e0639bc329637da08e58021bb484abca1ced0d8ed75f9d42816f9af5cb"
 options = ["empty"]
 
 _arch = self.profile().arch
