@@ -69,7 +69,7 @@ pkgdesc = "Mesa 3D Graphics Library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
-source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver}.tar.xz"
+source = f"https://archive.mesa3d.org/older-versions/21.x/mesa-{pkgver}.tar.xz"
 sha256 = "91fe6f20339884e37a7c47bfba42fb1cd397512c9ed5ad423de369f047cd8b5c"
 # lots of issues in swrast and so on
 hardening = ["!int"]
