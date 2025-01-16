@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "131.0.6778.264"
+pkgver = "132.0.6834.83"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -46,7 +46,6 @@ configure_args = [
     "use_system_freetype=true",
     "use_system_harfbuzz=true",
     "use_system_lcms2=true",
-    "use_system_libdrm=true",
     "use_system_libffi=true",
     "use_system_libjpeg=true",
     "use_system_zlib=true",
@@ -140,7 +139,7 @@ license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 # from gentoo
 source = f"https://chromium-tarballs.syd1.digitaloceanspaces.com/chromium-{pkgver}-linux.tar.xz"
-sha256 = "11858f10c3a8f9dd5ba8082ba2e3abb0f85a84d048bb572c06d60cd8a36b7cb2"
+sha256 = "ae5e7534c9d0aa234e151541d7451b888325ff1b3fe31ad31b8cfb306370f25d"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
@@ -230,7 +229,6 @@ def configure(self):
         "harfbuzz-ng",
         "highway",
         "icu",
-        "libdrm",
         "libevent",
         "libjpeg",
         "libpng",

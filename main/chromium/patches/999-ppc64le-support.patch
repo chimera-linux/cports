@@ -1174,7 +1174,7 @@ index bf6df88..d8360ef 100644
 --- a/third_party/angle/src/compiler/translator/InfoSink.h
 +++ b/third_party/angle/src/compiler/translator/InfoSink.h
 @@ -93,7 +93,16 @@ class TInfoSinkBase
-             stream.precision(8);
+             stream.precision(9);
              stream << f;
          }
 -        sink.append(stream.str());
@@ -3523,33 +3523,6 @@ index bdac4d7..51e0f2c 100644
  typedef vector float v4sf;
  #  define SIMD_SZ 4
  #  define VZERO() ((vector float) vec_splat_u8(0))
-diff --git a/third_party/skia/modules/skcms/src/skcms_internals.h b/third_party/skia/modules/skcms/src/skcms_internals.h
-index f3f0a2d6..cf4ae54 100644
---- a/third_party/skia/modules/skcms/src/skcms_internals.h
-+++ b/third_party/skia/modules/skcms/src/skcms_internals.h
-@@ -48,7 +48,8 @@ extern "C" {
-                                                  && !defined(__arm__) \
-                                                  && !defined(__riscv) \
-                                                  && !defined(__loongarch__) \
--                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__)
-+                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__) \
-+                                                 && !defined(__powerpc__)
-             #define SKCMS_HAS_MUSTTAIL 1
-         #endif
-     #endif
-diff --git a/third_party/skia/src/core/SkRasterPipeline.h b/third_party/skia/src/core/SkRasterPipeline.h
-index 5592061..43c4ebd 100644
---- a/third_party/skia/src/core/SkRasterPipeline.h
-+++ b/third_party/skia/src/core/SkRasterPipeline.h
-@@ -27,7 +27,7 @@ struct SkImageInfo;
- struct skcms_TransferFunction;
- 
- #if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && \
--        !defined(SK_CPU_LOONGARCH) && !(defined(_WIN32) && defined(SK_BUILD_FOR_ANDROID_FRAMEWORK))
-+        !defined(SK_CPU_LOONGARCH) && !(defined(_WIN32) && defined(SK_BUILD_FOR_ANDROID_FRAMEWORK)) && !defined(__powerpc__)
-     // [[clang::musttail]] is disabled for the Android version of Skia running on Windows as it
-     // causes crashes (This is probably related to http://crbug.com/1505442).
-     #define SK_HAS_MUSTTAIL 1
 diff --git a/third_party/sqlite/src/amalgamation/sqlite3.c b/third_party/sqlite/src/amalgamation/sqlite3.c
 index d6e5bc7..2279cdf 100644
 --- a/third_party/sqlite/src/amalgamation/sqlite3.c
@@ -3674,7 +3647,7 @@ index 245959e..8d3ffa2 100644
 --- a/ui/gl/features.gni
 +++ b/ui/gl/features.gni
 @@ -30,5 +30,5 @@ declare_args() {
-        is_fuchsia) &&
+       (is_win || is_linux || is_chromeos || is_mac || is_fuchsia) &&
        (target_cpu == "x86" || target_cpu == "x64" || target_cpu == "arm" ||
         target_cpu == "arm64" || target_cpu == "mipsel" ||
 -       target_cpu == "mips64el" || target_cpu == "riscv64")
