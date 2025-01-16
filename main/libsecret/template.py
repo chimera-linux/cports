@@ -1,5 +1,5 @@
 pkgname = "libsecret"
-pkgver = "0.21.4"
+pkgver = "0.21.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false"]
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libsecret"
 source = f"$(GNOME_SITE)/libsecret/{pkgver[:-2]}/libsecret-{pkgver}.tar.xz"
-sha256 = "163d08d783be6d4ab9a979ceb5a4fecbc1d9660d3c34168c581301cd53912b20"
+sha256 = "747b8c175be108c880d3adfb9c3537ea66e520e4ad2dccf5dce58003aeeca090"
 # does not work in container
 options = ["!check", "!cross"]
 
