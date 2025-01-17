@@ -1,5 +1,5 @@
 pkgname = "gnome-podcasts"
-pkgver = "0.7.1"
+pkgver = "0.7.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -23,7 +23,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/podcasts"
 source = f"{url}/-/archive/{pkgver}/podcasts-{pkgver}.tar.gz"
-sha256 = "933d33dfd0f36343f9c80f055a48e14307a0665b35097da176767ddbfe583399"
+sha256 = "ecfc2354f014d0b49beed580312502661b909964655f24ebfd7e0e26d9f6b98d"
 # check: broken tests due to sandboxing
 options = ["!check"]
 
