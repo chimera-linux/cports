@@ -16,7 +16,7 @@ def set_nolock(nolock):
 @contextmanager
 def lock(path, pkg=None):
     if no_lock:
-        yield fd
+        yield -1
     fd = os.open(path, os.O_CREAT | os.O_WRONLY | os.O_TRUNC)
     while True:
         try:
