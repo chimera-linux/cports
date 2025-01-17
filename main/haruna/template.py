@@ -1,5 +1,5 @@
 pkgname = "haruna"
-pkgver = "1.2.1"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -32,4 +32,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/haruna"
 source = f"$(KDE_SITE)/haruna/{pkgver}/haruna-{pkgver}.tar.xz"
-sha256 = "eb01261a3498c6e25c28064e6ccea37aeb38cd8aa5006f02c92760b124c362fb"
+sha256 = "7fe143ff284237ad5e1abf0133f2ac8e86927665b6a3d218405c7e05cd81ba2f"
