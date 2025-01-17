@@ -3,7 +3,8 @@ pkgver = "6.10.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DKIMAGEFORMATS_HEIF=ON"]
-# jpegxr; exr, dds write fails on ppc64le
+# jpegxr; exr write fails on ppc64le
+# dds; read fails on ppc64le
 # avci; needs libheif built against openh264 but that SIGILLs atm
 make_check_args = [
     "-E",
