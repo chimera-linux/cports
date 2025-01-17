@@ -16,19 +16,3 @@ index 16a2619..f3a4d70 100644
  
  #include "escape.h"
  #include "readproc.h"
-diff --git a/src/watch.c b/src/watch.c
-index cb2e299..1af9108 100644
---- a/src/watch.c
-+++ b/src/watch.c
-@@ -53,10 +53,9 @@
- # define _XOPEN_SOURCE_EXTENDED 1
- # include <wchar.h>
- # include <wctype.h>
--# include <ncursesw/ncurses.h>
- #else
--# include <ncurses.h>
- #endif	/* WITH_WATCH8BIT */
-+#include <ncurses.h>
- 
- #ifdef FORCE_8BIT
- # undef isprint

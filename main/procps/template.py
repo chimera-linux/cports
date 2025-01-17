@@ -1,6 +1,6 @@
 pkgname = "procps"
-pkgver = "4.0.4"
-pkgrel = 1
+pkgver = "4.0.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-kill",
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.com/procps-ng/procps"
 source = f"$(SOURCEFORGE_SITE)/procps-ng/Production/procps-ng-{pkgver}.tar.xz"
-sha256 = "22870d6feb2478adb617ce4f09a787addaf2d260c5a8aa7b17d889a962c5e42e"
+sha256 = "c2e6d193cc78f84cd6ddb72aaf6d5c6a9162f0470e5992092057f5ff518562fa"
 hardening = ["!vis", "!cfi"]
 # dejagnu
 options = ["!check"]
