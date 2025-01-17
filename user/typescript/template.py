@@ -1,5 +1,5 @@
 pkgname = "typescript"
-pkgver = "5.7.2"
+pkgver = "5.7.3"
 pkgrel = 0
 depends = ["nodejs"]
 pkgdesc = "Superset of JavaScript that compiles to JavaScript output"
@@ -7,7 +7,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/microsoft/TypeScript"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fa57801450fa6886c6959e24b56b95633baccdc4b03bf285e8aa175ca600fbee"
+sha256 = "f421dc7195ab14d1af7b637d010ec936676f9646723f71663042c53e24433450"
 
 
 def install(self):
