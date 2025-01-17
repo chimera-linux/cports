@@ -1,5 +1,5 @@
 pkgname = "timeshift"
-pkgver = "24.06.5"
+pkgver = "24.06.6"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["gettext", "help2man", "meson", "pkgconf", "vala"]
@@ -19,7 +19,7 @@ url = "https://projects.linuxmint.com/xapps"
 source = (
     f"https://github.com/linuxmint/timeshift/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "237c1b901c5ba1e72ffdf1779d52077229a5902f79c03548342eac3b22a62ec4"
+sha256 = "99123f5ee1792ae7d60e4d023e91ef04b9322fc271b5b90d18f6b1ecaa5188c2"
 tool_flags = {"CFLAGS": ["-Wno-implicit-function-declaration"]}
 hardening = ["vis"]
 restricted = "FIXME: timeshift-gtk causes segmentation fault at strlen()"
