@@ -1,5 +1,5 @@
 pkgname = "warp"
-pkgver = "0.8.0"
+pkgver = "0.8.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dqr-code-scanning=disabled"]
@@ -25,7 +25,7 @@ source = [
 ]
 source_paths = [".", "license-list-data"]
 sha256 = [
-    "133bf12f34b887a20ba3ac77994f7c7b17699a987bf37f4d7c411be45c7ac849",
+    "8da6871aca17873264639817c8ba903c96a193d89cbcec46edf64d95d1e143e5",
     "f3114e9f3fbf27b9768a5fc2ab427e9bc4282d30fea0abc9272456d6abf26fae",
 ]
 
