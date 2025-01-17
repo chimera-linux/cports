@@ -1,6 +1,6 @@
 pkgname = "iotop"
-pkgver = "1.26"
-pkgrel = 2
+pkgver = "1.27"
+pkgrel = 0
 build_style = "makefile"
 hostmakedepends = [
     "pkgconf",
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/Tomas-M/iotop"
 source = f"https://github.com/Tomas-M/iotop/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b0a334cba89249bc7cbb87cf92cf4166911bf00dd2ea8841b572fd776018c487"
+sha256 = "ca643a9d11fb398158decd2094dcf74c3e4625d06c54300073a69f1e92c721ea"
 hardening = ["cfi", "vis"]
 # no tests
 options = ["!check"]
