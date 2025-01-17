@@ -1,5 +1,5 @@
 pkgname = "yazi"
-pkgver = "0.4.1"
+pkgver = "0.4.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
@@ -13,7 +13,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://yazi-rs.github.io"
 source = f"https://github.com/sxyazi/yazi/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "702f7f7b69248d8e2bc2d75c1f293d6c92bad4e37a87e5e02850ba44ece44e2c"
+sha256 = "88995c90954d140f455cf9ca4f87f9ca36390717377be86b0672456e1eb5f65f"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
