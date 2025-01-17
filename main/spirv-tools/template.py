@@ -1,6 +1,6 @@
 # update and rebuild shaderc when updating
 pkgname = "spirv-tools"
-pkgver = "1.3.296.0"
+pkgver = "1.4.304.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/SPIRV-Tools"
 source = f"{url}/archive/vulkan-sdk-{pkgver}.tar.gz"
-sha256 = "75aafdf7e731b4b6bfb36a590ddfbb38ebc605d80487f38254da24fe0cb95837"
+sha256 = "ad6e8922538c498e7131bcd82a8d6d9f9863b8d7431c5bfa27dd98e26435be07"
 hardening = ["!vis", "!cfi"]
 
 # Note: only some tests are run, the others need subfolders of gtest and effcee
