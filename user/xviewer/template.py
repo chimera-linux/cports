@@ -1,5 +1,5 @@
 pkgname = "xviewer"
-pkgver = "3.4.7"
+pkgver = "3.4.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
@@ -33,7 +33,7 @@ url = "https://projects.linuxmint.com/xapps"
 source = (
     f"https://github.com/linuxmint/xviewer/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "1f5a3135464710ea8dc335719ef0910507b08bea705e9d3d31ae799e4736f5d7"
+sha256 = "c8abe0e9a19ba867c620a1c417bb719b6c1e07e5baa444697d1e71ad8f676889"
 options = ["!cross"]
 
 
