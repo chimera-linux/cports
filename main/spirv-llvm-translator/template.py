@@ -1,6 +1,6 @@
 pkgname = "spirv-llvm-translator"
 pkgver = "19.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/usr/include/spirv",

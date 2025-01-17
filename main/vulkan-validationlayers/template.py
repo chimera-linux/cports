@@ -1,6 +1,6 @@
 pkgname = "vulkan-validationlayers"
 pkgver = "1.4.304"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
