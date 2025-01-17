@@ -1,5 +1,5 @@
 pkgname = "mercurial"
-pkgver = "6.9"
+pkgver = "6.9.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.mercurial-scm.org"
 source = f"https://www.mercurial-scm.org/release/mercurial-{pkgver}.tar.gz"
-sha256 = "629604293df2be8171ec856bf4f8b4faa8e4305af13607dce0f89f74132836d6"
+sha256 = "e577577ee9a97a9f84d3c34d53ccb8b9354263d6ab96447525094f3e0a567270"
 # a lot of them fail just due to different positions of messages in a diff
 options = ["!check"]
 
