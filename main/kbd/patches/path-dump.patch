@@ -27,14 +27,14 @@ index c495883..7dd8492 100644
  	setleds setmetamode kbd_mode psfxtable fgconsole \
  	kbdrate chvt deallocvt openvt kbdinfo setvtrgb
  
-@@ -67,6 +67,7 @@ kbdinfo_SOURCES         = $(ALL_S) kbdinfo.c
+@@ -75,6 +75,7 @@ showconsolefont_LDADD = libkfont/libkfont.la $(COMMON_LIBS)
  
- dumpkeys_SOURCES        = $(ALL_S) dumpkeys.c
- loadkeys_SOURCES        = $(ALL_S) loadkeys.c
-+findkeys_SOURCES        = $(ALL_S) findkeys.c
+ dumpkeys_LDADD        = libkeymap/libkeymap.la libkbdfile/libkbdfile.la $(COMMON_LIBS)
+ loadkeys_LDADD        = libkeymap/libkeymap.la libkbdfile/libkbdfile.la $(COMMON_LIBS)
++findkeys_LDADD        = libkeymap/libkeymap.la libkbdfile/libkbdfile.la $(COMMON_LIBS)
  
- getunimap_CFLAGS = -DUSE_LIBC
- 
+ install-exec-hook:
+ 	for i in psfaddtable psfgettable psfstriptable; do \
 diff --git a/src/findkeys.c b/src/findkeys.c
 new file mode 100644
 index 0000000..3725dc5
@@ -142,10 +142,10 @@ index 76eb888..c762dd2 100644
  	free(s);
  
  	return stack_push(ctx, fp, scanner);
-diff --git a/src/libkeymap/keymap/context.h b/src/libkeymap/keymap/context.h
+diff --git a/src/include/kbd/keymap/context.h b/src/include/kbd/keymap/context.h
 index c353952..8672e04 100644
---- a/src/libkeymap/keymap/context.h
-+++ b/src/libkeymap/keymap/context.h
+--- a/src/include/kbd/keymap/context.h
++++ b/src/include/kbd/keymap/context.h
 @@ -17,7 +17,8 @@ typedef enum {
  	LK_FLAG_UNICODE_MODE   = (1 << 1), /**< Unicode mode */
  	LK_FLAG_CLEAR_COMPOSE  = (1 << 2), /**< Compose */
