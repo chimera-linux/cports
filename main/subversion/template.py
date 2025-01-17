@@ -1,6 +1,6 @@
 # TODO: service
 pkgname = "subversion"
-pkgver = "1.14.4"
+pkgver = "1.14.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -49,7 +49,7 @@ url = "https://subversion.apache.org"
 source = (
     f"https://archive.apache.org/dist/subversion/subversion-{pkgver}.tar.gz"
 )
-sha256 = "3a784da1ff90179a0fb93adf9309ba15ca1d01f80721c815b42c36f61c5307fc"
+sha256 = "cd143fe8fdb1cd506c438eef1c772a2e87e1519e6b0be3fcd54a8c59e9022390"
 # not even once also nobody cares L
 options = ["!cross", "!check"]
 
