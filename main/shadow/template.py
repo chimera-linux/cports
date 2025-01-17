@@ -1,6 +1,6 @@
 pkgname = "shadow"
-pkgver = "4.16.0"
-pkgrel = 3
+pkgver = "4.17.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/shadow-maint/shadow"
 source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"
-sha256 = "b78e3921a95d53282a38e90628880624736bf6235e36eea50c50835f59a3530b"
+sha256 = "a21cf0d34bffc4314cede01cff258689174fab30ca494ae8f45784d3d56c9849"
 file_modes = {
     "usr/bin/chage": ("root", "root", 0o4755),
     "usr/bin/chfn": ("root", "root", 0o4755),
@@ -89,9 +89,6 @@ def post_install(self):
         self.files_path / "default.useradd", "etc/default", name="useradd"
     )
 
-    # chimerautils
-    self.uninstall("usr/bin/groups")
-    self.uninstall("usr/share/man/man1/groups.1")
     # links
     for mp in [
         "endspent",
