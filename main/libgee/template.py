@@ -1,6 +1,6 @@
 pkgname = "libgee"
-pkgver = "0.20.6"
-pkgrel = 1
+pkgver = "0.20.7"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Libgee"
 source = f"$(GNOME_SITE)/libgee/{pkgver[:-2]}/libgee-{pkgver}.tar.xz"
-sha256 = "1bf834f5e10d60cc6124d74ed3c1dd38da646787fbf7872220b8b4068e476d4d"
+sha256 = "0fdc3cd3d385b3beeb5955ff450752cae76176296ee123be2155d0810d0f89c7"
 
 
 @subpackage("libgee-devel")
