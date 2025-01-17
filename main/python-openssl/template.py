@@ -1,5 +1,5 @@
 pkgname = "python-openssl"
-pkgver = "24.2.1"
+pkgver = "25.0.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -7,7 +7,7 @@ hostmakedepends = [
     "python-installer",
     "python-setuptools",
 ]
-depends = ["python-cryptography"]
+depends = ["python-cryptography", "python-typing_extensions"]
 checkdepends = [
     "python-pretend",
     "python-pytest",
@@ -19,4 +19,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://pyopenssl.org"
 source = f"$(PYPI_SITE)/p/pyopenssl/pyopenssl-{pkgver}.tar.gz"
-sha256 = "4247f0dbe3748d560dcbb2ff3ea01af0f9a1a001ef5f7c4c647956ed8cbf0e95"
+sha256 = "cd2cef799efa3936bb08e8ccb9433a575722b9dd986023f1cabc4ae64e9dac16"
