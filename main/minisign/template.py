@@ -1,5 +1,5 @@
 pkgname = "minisign"
-pkgver = "0.11"
+pkgver = "0.12"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -11,7 +11,7 @@ url = "https://jedisct1.github.io/minisign"
 source = (
     f"https://github.com/jedisct1/minisign/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "74c2c78a1cd51a43a6c98f46a4eabefbc8668074ca9aa14115544276b663fc55"
+sha256 = "796dce1376f9bcb1a19ece729c075c47054364355fe0c0c1ebe5104d508c7db0"
 hardening = ["vis", "cfi"]
 
 
