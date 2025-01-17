@@ -1,5 +1,5 @@
 pkgname = "zxing-cpp"
-pkgver = "2.2.1"
+pkgver = "2.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/nu-book/zxing-cpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "02078ae15f19f9d423a441f205b1d1bee32349ddda7467e2c84e8f08876f8635"
+sha256 = "64e4139103fdbc57752698ee15b5f0b0f7af9a0331ecbdc492047e0772c417ba"
 
 
 @subpackage("zxing-cpp-devel")
