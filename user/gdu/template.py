@@ -1,6 +1,6 @@
 pkgname = "gdu"
-pkgver = "5.29.0"
-pkgrel = 3
+pkgver = "5.30.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/gdu"]
 # expects writing to /xyzxyz to give eperm instead of erofs (which happens in --ro bwrap)
@@ -11,7 +11,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/dundee/gdu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "42e972f46e49995be24b223c91375bfbea547f5e8cf94c0364f7b3eb5b0ed0a3"
+sha256 = "ad363967b6a34e02812e4cba36bb340f377cf64a435e23f6e8e9e6b3f775220e"
 
 
 def post_install(self):
