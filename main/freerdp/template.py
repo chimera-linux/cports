@@ -1,5 +1,5 @@
 pkgname = "freerdp"
-pkgver = "3.10.2"
+pkgver = "3.10.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -68,7 +68,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.freerdp.com"
 source = f"https://pub.freerdp.com/releases/freerdp-{pkgver}.tar.gz"
-sha256 = "8df51ca72189463f869af5cee949e11dd90dec38bf34271a32d15b704cfcbc7b"
+sha256 = "0bedda4ba1dcb225845522e24c595464aabce2c553a4c08b5c25a4977fbe1831"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 
 
