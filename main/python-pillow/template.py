@@ -1,5 +1,5 @@
 pkgname = "python-pillow"
-pkgver = "11.0.0"
+pkgver = "11.1.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "Tests"
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT-CMU"
 url = "https://python-pillow.org"
 source = f"$(PYPI_SITE)/p/pillow/pillow-{pkgver}.tar.gz"
-sha256 = "72bacbaf24ac003fea9bff9837d1eedb6088758d41e100c1552930151f677739"
+sha256 = "368da70808b36d73b4b390a8ffac11069f8a5c85f29eff1f1b01bcf3ef5b2a20"
 
 
 def post_install(self):
