@@ -1,5 +1,5 @@
 pkgname = "meld"
-pkgver = "3.22.2"
+pkgver = "3.22.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -27,4 +27,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://meldmerge.org"
 source = f"$(GNOME_SITE)/meld/{pkgver[:-2]}/meld-{pkgver}.tar.xz"
-sha256 = "46a0a713fbcd1b153b377a1e0757c8ce255c9822467658eacfbd89b1e92316ef"
+sha256 = "37f7f29eb1ff0fec4d8b088d5483c556de1089f6d018fe6d481993caf2499d84"
