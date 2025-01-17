@@ -19,7 +19,12 @@ env:
 jobs:
   build:
     name: Build packages
-    runs-on: ubuntu-24.04
+
+    strategy:
+        matrix:
+            runner: [ubuntu-24.04, ubuntu-24.04-arm]
+
+    runs-on: ${{ matrix.runner }}
     if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
 
     env:
