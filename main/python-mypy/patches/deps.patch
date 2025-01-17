@@ -1,9 +1,9 @@
 --- a/pyproject.toml
 +++ b/pyproject.toml
 @@ -5,13 +5,6 @@ requires = [
+     # and build-requirements.txt, because those are both needed for
      # self-typechecking :/
-     "setuptools >= 40.6.2",
-     "wheel >= 0.30.0",
+     "setuptools >= 75.1.0",
 -    # the following is from mypy-requirements.txt/setup.py
 -    "typing_extensions>=4.6.0",
 -    "mypy_extensions>=1.0.0",

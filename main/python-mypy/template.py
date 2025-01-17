@@ -1,5 +1,5 @@
 pkgname = "python-mypy"
-pkgver = "1.13.0"
+pkgver = "1.14.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "mypy/test"
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mypy-lang.org"
 source = f"$(PYPI_SITE)/m/mypy/mypy-{pkgver}.tar.gz"
-sha256 = "0291a61b6fbf3e6673e3405cfcc0e7650bebc7939659fdca2702958038bd835e"
+sha256 = "7ec88144fe9b510e8475ec2f5f251992690fcf89ccb4500b214b4226abcd32d6"
 # they take ages, also there are like 3 failures
 options = ["!check"]
 
