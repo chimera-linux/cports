@@ -1,5 +1,5 @@
 pkgname = "pekwm"
-pkgver = "0.3.1"
+pkgver = "0.3.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.pekwm.se"
 source = f"https://github.com/pekdon/pekwm/archive/release-{pkgver}.tar.gz"
-sha256 = "965e25982ebc428ae75cece68cd3ae6f0287c8dc3511b3f94c64f849d047e0cc"
+sha256 = "cf5e61a753f1a125877c65477ffd9b76b1aa6cec0f241f1fd6af9159dd23bfdf"
 hardening = ["vis", "!cfi"]
 # no test target
 options = ["!check"]
