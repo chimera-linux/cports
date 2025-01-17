@@ -1,5 +1,5 @@
 pkgname = "volk"
-pkgver = "1.3.296.0"
+pkgver = "1.4.304"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -15,10 +15,8 @@ pkgdesc = "Vulkan meta loader"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/zeux/volk"
-source = (
-    f"https://github.com/zeux/volk/archive/refs/tags/vulkan-sdk-{pkgver}.tar.gz"
-)
-sha256 = "8ffd0e81e29688f4abaa39e598937160b098228f37503903b10d481d4862ab85"
+source = f"https://github.com/zeux/volk/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "ab3d4a8ccaeb32652259cdd008399504a41792675b0421d90b67729ee274746f"
 
 
 def post_install(self):
