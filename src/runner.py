@@ -54,6 +54,7 @@ opt_updatecheck = False
 opt_acceptsum = False
 opt_maint = "unknown <cports@local>"
 opt_tdata = {}
+opt_nolock = False
 
 #
 # INITIALIZATION ROUTINES
@@ -113,7 +114,7 @@ def handle_options():
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
-    global opt_acceptsum, opt_comp, opt_maint, opt_epkgs, opt_tdata
+    global opt_acceptsum, opt_comp, opt_maint, opt_epkgs, opt_tdata, opt_nolock
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -301,6 +302,13 @@ def handle_options():
         const=True,
         default=opt_acceptsum,
         help="Accept mismatched checksums when fetching.",
+    )
+    parser.add_argument(
+        "--no-lock",
+        action="store_const",
+        const=True,
+        default=opt_nolock,
+        help="Do not protect paths with advisory locks (dangerous).",
     )
     parser.add_argument(
         "command",
@@ -2589,8 +2597,10 @@ def fire():
     from cbuild.core import build, chroot, logger, template, profile
     from cbuild.core import paths
     from cbuild.apk import cli
+    from cbuild.util import flock
 
     logger.init(not opt_nocolor, opt_timing)
+    flock.set_nolock(opt_nolock)
 
     # set host arch to provide early guarantees
     if opt_harch:
