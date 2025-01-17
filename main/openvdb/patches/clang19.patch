@@ -1,5 +1,5 @@
---- a/nanovdb/nanovdb/util/GridBuilder.h
-+++ b/nanovdb/nanovdb/util/GridBuilder.h
+--- a/nanovdb/nanovdb/tools/GridBuilder.h
++++ b/nanovdb/nanovdb/tools/GridBuilder.h
 @@ -1158,7 +1158,7 @@ struct LeafNode
          ValueIterator& operator=(const ValueIterator&) = default;
          ValueType operator*() const { NANOVDB_ASSERT(*this); return mParent->mValues[mPos];}
@@ -11,7 +11,7 @@
          ValueIterator operator++(int) {
 --- a/openvdb/openvdb/tree/NodeManager.h
 +++ b/openvdb/openvdb/tree/NodeManager.h
-@@ -327,7 +327,7 @@ private:
+@@ -328,7 +328,7 @@ private:
          void operator()(const NodeRange& range) const
          {
              for (typename NodeRange::Iterator it = range.begin(); it; ++it) {
@@ -20,7 +20,7 @@
              }
          }
          const NodeOp mNodeOp;
-@@ -347,7 +347,7 @@ private:
+@@ -348,7 +348,7 @@ private:
          void operator()(const NodeRange& range) const
          {
              for (typename NodeRange::Iterator it = range.begin(); it; ++it) {
@@ -29,7 +29,7 @@
              }
          }
          const NodeOp& mNodeOp;
-@@ -372,7 +372,7 @@ private:
+@@ -373,7 +373,7 @@ private:
          void operator()(const NodeRange& range)
          {
              for (typename NodeRange::Iterator it = range.begin(); it; ++it) {

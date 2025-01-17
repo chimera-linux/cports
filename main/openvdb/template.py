@@ -1,6 +1,6 @@
 pkgname = "openvdb"
-pkgver = "11.0.0"
-pkgrel = 3
+pkgver = "12.0.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DOPENVDB_CORE_STATIC=OFF",  # 1.4gb lol
@@ -19,14 +19,14 @@ makedepends = [
     "gtest-devel",
     "onetbb-devel",
     "python-devel",
-    "python-pybind11-devel",
+    "python-nanobind-devel",
 ]
 pkgdesc = "Sparse volume data tools"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.openvdb.org"
 source = f"https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6314ff1db057ea90050763e7b7d7ed86d8224fcd42a82cdbb9c515e001b96c74"
+sha256 = "23ceb5b18a851f45af118f718a9dd3001efaee364e3f623c37ffbdad03b8905f"
 # 4 unittests fail outside of x86_64 with no easy way to skip them
 options = []
 
