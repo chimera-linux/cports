@@ -1,0 +1,8 @@
+--- a/Makefile.common
++++ b/Makefile.common
+@@ -43,4 +43,4 @@ V_GEN_SED_1 =
+ 	    -e 's|[@]libdir[@]|$(libdir)|g' \
+ 	    -e 's|[@]includedir[@]|$(includedir)|g' \
+ 	    <$< >$@ && \
+-	chmod --reference=$< $@;
++	chmod 644 $@;
