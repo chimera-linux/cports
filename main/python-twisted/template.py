@@ -1,5 +1,5 @@
 pkgname = "python-twisted"
-pkgver = "24.10.0"
+pkgver = "24.11.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "tests"
@@ -40,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://twistedmatrix.com"
 source = f"$(PYPI_SITE)/t/twisted/twisted-{pkgver}.tar.gz"
-sha256 = "02951299672595fea0f70fa2d5f7b5e3d56836157eda68859a6ad6492d36756e"
+sha256 = "695d0556d5ec579dcc464d2856b634880ed1319f45b10d19043f2b57eb0115b5"
 # unpackaged checkdepends etc.
 options = ["!check"]
 
