@@ -1,5 +1,5 @@
 pkgname = "containerd"
-pkgver = "2.0.1"
+pkgver = "2.0.2"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -31,7 +31,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/containerd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "a2958e6c97dcc44d2b3fc5f1e0c5cfb267d4620b26b51ff52cbe7bd07678707d"
+sha256 = "472747a7a6b360a0864bab0ee00a8a6f51da5795171e6a60ab17aa80cbd850a2"
 # can't run tests inside namespaces
 options = ["!check"]
 
