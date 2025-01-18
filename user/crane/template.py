@@ -1,6 +1,6 @@
 pkgname = "crane"
-pkgver = "0.20.2"
-pkgrel = 2
+pkgver = "0.20.3"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/crane"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "Radosław Piliszek <radek@piliszek.it>"
 license = "Apache-2.0"
 url = "https://github.com/google/go-containerregistry"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "064e9c47e3dac49acddccb4afe908b9d835725d371ee9a471fd445d134fbbf1d"
+sha256 = "663f4b808c10315f56a09b7c0a63e314ad79b16a07f950641330899db68c6075"
 
 
 def post_extract(self):
