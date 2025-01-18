@@ -1,0 +1,83 @@
+From f83b59576dac51cc1bc0a1a3d2c4ae6c391da336 Mon Sep 17 00:00:00 2001
+From: Guilhem Baccialone <guilhem.baccialone@zaclys.net>
+Date: Fri, 31 Jan 2025 23:03:00 +0100
+Subject: [PATCH 4/4] fix unresolved reference when fortifying headers
+
+---
+ src/core/osutils.cc | 2 +-
+ src/core/osutils.h  | 2 +-
+ src/core/parisc.cc  | 2 +-
+ src/core/pci.cc     | 4 ++--
+ src/core/sysfs.cc   | 2 +-
+ 5 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/core/osutils.cc b/src/core/osutils.cc
+index a3d8c12..f9c0b4f 100644
+--- a/src/core/osutils.cc
++++ b/src/core/osutils.cc
+@@ -421,7 +421,7 @@ bool matches(const string & s, const string & pattern, int cflags)
+ }
+ 
+ 
+-string readlink(const string & path)
++string readsymlink(const string & path)
+ {
+   char buffer[PATH_MAX+1];
+ 
+diff --git a/src/core/osutils.h b/src/core/osutils.h
+index 75c42e3..d82d38a 100644
+--- a/src/core/osutils.h
++++ b/src/core/osutils.h
+@@ -12,7 +12,7 @@ std::string pwd();
+ 
+ bool exists(const std::string & path);
+ bool samefile(const std::string & path1, const std::string & path2);
+-std::string readlink(const std::string & path);
++std::string readsymlink(const std::string & path);
+ std::string realpath(const std::string & path);
+ std::string dirname(const std::string & path);
+ std::string shortname(const std::string & path);
+diff --git a/src/core/parisc.cc b/src/core/parisc.cc
+index 8a8c4d8..40b917d 100644
+--- a/src/core/parisc.cc
++++ b/src/core/parisc.cc
+@@ -543,7 +543,7 @@ static bool scan_device(hwNode & node, string name = "")
+       newnode.setBusInfo(guessBusInfo(name));
+     if(exists("driver"))
+     {
+-      string driver = readlink("driver");
++      string driver = readsymlink("driver");
+       size_t slash = driver.rfind("/");
+       newnode.setConfig("driver", driver.substr(slash==driver.npos?0:slash+1));
+       newnode.claim();
+diff --git a/src/core/pci.cc b/src/core/pci.cc
+index 009f844..2982816 100644
+--- a/src/core/pci.cc
++++ b/src/core/pci.cc
+@@ -1169,8 +1169,8 @@ bool scan_pci(hwNode & n)
+         device->setBusInfo(devices[i]->d_name);
+         if(exists(string(devices[i]->d_name)+"/driver"))
+         {
+-          string drivername = readlink(string(devices[i]->d_name)+"/driver");
+-          string modulename = readlink(string(devices[i]->d_name)+"/driver/module");
++          string drivername = readsymlink(string(devices[i]->d_name)+"/driver");
++          string modulename = readsymlink(string(devices[i]->d_name)+"/driver/module");
+ 
+           device->setConfig("driver", shortname(drivername));
+           if(exists(modulename))
+diff --git a/src/core/sysfs.cc b/src/core/sysfs.cc
+index fda1e9b..1e6c8ef 100644
+--- a/src/core/sysfs.cc
++++ b/src/core/sysfs.cc
+@@ -251,7 +251,7 @@ string entry::driver() const
+   string driverlink = This->devpath + "/driver";
+   if (!exists(driverlink))
+     return "";
+-  return shortname(readlink(driverlink));
++  return shortname(readsymlink(driverlink));
+ }
+ 
+ 
+-- 
+2.48.1
+

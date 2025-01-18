@@ -1,0 +1,64 @@
+From 6aade30c495aef93b3d37e9dcd0967d33f1f8c1a Mon Sep 17 00:00:00 2001
+From: Guilhem BACCIALONE <guilhem.baccialone@zaclys.net>
+Date: Wed, 29 Jan 2025 09:02:19 +0100
+Subject: [PATCH 3/4] fortify source
+
+- Needed to compile with Chimera Linux hardening options
+---
+ src/Makefile      | 2 +-
+ src/core/Makefile | 1 -
+ src/gui/Makefile  | 5 ++---
+ 3 files changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index b5a837a..ea1470b 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -29,7 +29,7 @@ ifneq ($(NO_VERSION_CHECK), 1)
+ REMOTE_VERSION_CHECK?=-DREMOTE_VERSION_CHECK
+ endif
+ DEFINES=-DPREFIX=\"$(PREFIX)\" -DSBINDIR=\"$(SBINDIR)\" -DMANDIR=\"$(MANDIR)\" -DDATADIR=\"$(DATADIR)\" -DVERSION=\"$(VERSION)\" $(REMOTE_VERSION_CHECK)
+-CXXFLAGS=-g -Wall -g $(INCLUDES) $(DEFINES) $(RPM_OPT_FLAGS)
++CXXFLAGS+=-Wall $(INCLUDES) $(DEFINES) $(RPM_OPT_FLAGS)
+ ifeq ($(SQLITE), 1)
+ 	CXXFLAGS+= -DSQLITE $(shell $(PKG_CONFIG) --cflags sqlite3)
+ endif
+diff --git a/src/core/Makefile b/src/core/Makefile
+index 5035062..a744d3e 100644
+--- a/src/core/Makefile
++++ b/src/core/Makefile
+@@ -7,7 +7,6 @@ REMOTE_VERSION_CHECK?=-DREMOTE_VERSION_CHECK
+ endif
+ DEFINES=-DPREFIX=\"$(PREFIX)\" -DSBINDIR=\"$(SBINDIR)\" -DMANDIR=\"$(MANDIR)\" -DDATADIR=\"$(DATADIR)\" $(REMOTE_VERSION_CHECK)
+ CXXFLAGS?=-g -Wall $(INCLUDES) $(DEFINES) $(RPM_OPT_FLAGS)
+-LDFLAGS=
+ LDSTATIC=
+ LIBS=
+ 
+diff --git a/src/gui/Makefile b/src/gui/Makefile
+index cc2d168..5b931d1 100644
+--- a/src/gui/Makefile
++++ b/src/gui/Makefile
+@@ -9,17 +9,16 @@ OBJCOPY?=objcopy
+ DEFINES=-DPREFIX=\"$(PREFIX)\" -DSBINDIR=\"$(SBINDIR)\" -DMANDIR=\"$(MANDIR)\" -DDATADIR=\"$(DATADIR)\"
+ GTKINCLUDES=$(shell $(PKG_CONFIG) gtk+-3.0 --cflags)
+ INCLUDES=-I../core $(GTKINCLUDES)
+-CXXFLAGS=-g -Wall $(INCLUDES) $(DEFINES) $(RPM_OPT_FLAGS)
++CXXFLAGS+=-Wall $(INCLUDES) $(DEFINES) $(RPM_OPT_FLAGS)
+ ifeq ($(SQLITE), 1)
+ 	CXXFLAGS+= -DSQLITE $(shell $(PKG_CONFIG) --cflags sqlite3)
+ endif
+-CFLAGS=$(CXXFLAGS) -g $(DEFINES)
++CFLAGS+=$(CXXFLAGS) $(DEFINES)
+ GTKLIBS=$(shell $(PKG_CONFIG) gtk+-3.0 gmodule-2.0 --libs)
+ LIBS+=-L../core -llshw -lresolv $(GTKLIBS)
+ ifeq ($(SQLITE), 1)
+ 	LIBS+= $(shell $(PKG_CONFIG) --libs sqlite3)
+ endif
+-LDFLAGS=
+ ifneq ($(shell $(LD) --help 2| grep -- --as-needed), )
+ 	LDFLAGS+= -Wl,--as-needed
+ endif
+-- 
+2.48.1
+
