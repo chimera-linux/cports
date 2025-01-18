@@ -1,5 +1,5 @@
 pkgname = "toxic"
-pkgver = "0.16.0"
+pkgver = "0.16.1"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -33,6 +33,6 @@ maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/JFreegman/toxic"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9b58f87941c5638e6169f972292351205bb6335bde8121c103d7dc6fc5174ac7"
+sha256 = "4969f0a72e40e0ed296cfff5a5bcd58b999ace52759327c29f23866c96d64f00"
 # toxic has no tests
 options = ["!check"]
