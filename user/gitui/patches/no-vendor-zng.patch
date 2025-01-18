@@ -1,0 +1,11 @@
+--- a/asyncgit/Cargo.toml
++++ b/asyncgit/Cargo.toml
+@@ -20,7 +20,7 @@ fuzzy-matcher = "0.3"
+ git2 = "0.19"
+ git2-hooks = { path = "../git2-hooks", version = ">=0.4" }
+ gix = { version = "0.69.1", default-features = false, features = [
+-    "max-performance",
++    "max-performance-safe",
+     "revision",
+ ] }
+ log = "0.4"
