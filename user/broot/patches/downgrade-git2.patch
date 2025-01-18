@@ -1,0 +1,58 @@
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1026,9 +1026,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "git2"
+-version = "0.20.0"
++version = "0.19.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "3fda788993cc341f69012feba8bf45c0ba4f3291fcc08e214b4d5a7332d88aff"
++checksum = "b903b73e45dc0c6c596f2d37eccece7c1c8bb6e4407b001096387c63d0d93724"
+ dependencies = [
+  "bitflags 2.7.0",
+  "libc",
+@@ -1039,9 +1039,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "glassbench"
+-version = "0.4.4"
++version = "0.4.3"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4a637870281a348cf7a02967abfad0c807dabc7d461504c2176f37e8aa76a910"
++checksum = "3eb49813e12f1639c0bd04839caefea41018fc55b0a7c463040131c315845ff7"
+ dependencies = [
+  "base64 0.13.1",
+  "chrono",
+@@ -1504,9 +1504,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "libgit2-sys"
+-version = "0.18.0+1.9.0"
++version = "0.17.0+1.8.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "e1a117465e7e1597e8febea8bb0c410f1c7fb93b1e1cddf34363f8390367ffec"
++checksum = "10472326a8a6477c3c20a64547b0059e4b0d086869eee31e6d7da728a8eb7224"
+ dependencies = [
+  "cc",
+  "libc",
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -36,7 +36,7 @@ deser-hjson = "2.2.3"
+ directories = "4.0"
+ file-size = "1.0.3"
+ flex-grow = "0.1"
+-git2 = { version = "0.20", default-features = false } # waiting for a good pure-rust alternative
++git2 = { version = "0.19", default-features = false } # waiting for a good pure-rust alternative
+ glob = "0.3"
+ id-arena = "2.2.1"
+ image = "0.25"
+@@ -70,7 +70,7 @@ which = "4.4.0"
+ xterm-query = { version = "0.5", optional = true }
+ 
+ [dev-dependencies]
+-glassbench = "0.4.4"
++glassbench = "0.4.3"
+ 
+ [target.'cfg(unix)'.dependencies]
+ lfs-core = "0.11.0"
