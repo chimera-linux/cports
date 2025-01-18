@@ -2300,6 +2300,51 @@ def do_prepare_upgrade(tgt):
     tmpl.log("PACKAGE METADATA UPDATED, now verify everything is correct.")
 
 
+def do_bump_pkgver(tgt):
+    from cbuild.core import chroot, logger, template, errors
+    from cbuild.apk import cli as acli
+    import pathlib
+
+    if len(cmdline.command) != 3:
+        raise errors.CbuildException("bump-pkgver needs a name and a version")
+
+    pkgn = cmdline.command[1]
+    pkgv = cmdline.command[2]
+
+    if not acli.check_version(pkgv):
+        raise errors.CbuildException(f"version '{pkgv}' is invalid")
+
+    try:
+        tmpl = template.Template(
+            template.sanitize_pkgname(pkgn),
+            chroot.host_cpu(),
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
+            target="lint",
+        )
+        pr = tmpl.pkgrel
+        tmplp = f"{tmpl.full_pkgname}/template.py"
+        tmpl_source = pathlib.Path(tmplp).read_text()
+        with open(tmplp + ".tmp", "w") as outf:
+            for ln in tmpl_source.splitlines():
+                # update pkgrel
+                if ln.startswith("pkgver ="):
+                    outf.write(f"pkgver = \"{pkgv}\"\n")
+                    continue
+                outf.write(ln)
+                outf.write("\n")
+        pathlib.Path(tmplp + ".tmp").rename(tmplp)
+        logger.get().out(f"Updated version: {pkgn} {tmpl.pkgver} => {pkgv}")
+    except Exception:
+        logger.get().out(
+            f"\f[orange]WARNING: Failed to update version: {pkgn}"
+        )
+
+
 def do_bump_pkgrel(tgt):
     from cbuild.core import chroot, logger, template, errors
     import pathlib
@@ -2606,6 +2651,7 @@ command_handlers = {
         "Perform an unsorted bulk build",
     ),
     "bump-pkgrel": (do_bump_pkgrel, "Increase the pkgrel of a template"),
+    "bump-pkgver": (do_bump_pkgver, "Update the pkgver of a template"),
     "check": (do_pkg, "Run up to check phase of a template"),
     "chroot": (do_pkg, "Enter an interactive bldroot chroot"),
     "clean": (do_clean, "Clean the build directory"),

@@ -521,6 +521,8 @@ The following commands are recognized:
   built in the order that is given.
 * `bump-pkgrel` Given a list of template names (at least one), increase
   the `pkgrel` number by one for each.
+* `bump-pkgver` Given a template name and a valid apk version, update the
+  `pkgver` of the template to that version.
 * `chroot` Enter the build root with an interactive shell. In this environment,
   the root is mostly unsandboxed, i.e. writable and with network access. You
   can use this kind of environment for quick testing, as well as entering failed
