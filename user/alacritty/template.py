@@ -1,5 +1,5 @@
 pkgname = "alacritty"
-pkgver = "0.14.0"
+pkgver = "0.15.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "nbfritch <nbfritch@gmail.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/alacritty/alacritty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2919767177c010339502085b4ac5d3f9f15ca27e6befc39aa9d20fefb93ebcdf"
+sha256 = "aa4479c99547c0b6860760b5b704865f629ffe1f1ec374153c2cd84e53ce5412"
 
 
 def install(self):
