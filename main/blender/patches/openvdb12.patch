@@ -1,0 +1,38 @@
+--- a/intern/cycles/scene/image_vdb.cpp
++++ b/intern/cycles/scene/image_vdb.cpp
+@@ -59,19 +59,19 @@ struct ToNanoOp {
+         if constexpr (std::is_same_v<FloatGridType, openvdb::FloatGrid>) {
+           openvdb::FloatGrid floatgrid(*openvdb::gridConstPtrCast<GridType>(grid));
+           if (precision == 0) {
+-            nanogrid = nanovdb::createNanoGrid<openvdb::FloatGrid, nanovdb::FpN>(floatgrid);
++            nanogrid = nanovdb::tools::createNanoGrid<openvdb::FloatGrid, nanovdb::FpN>(floatgrid);
+           }
+           else if (precision == 16) {
+-            nanogrid = nanovdb::createNanoGrid<openvdb::FloatGrid, nanovdb::Fp16>(floatgrid);
++            nanogrid = nanovdb::tools::createNanoGrid<openvdb::FloatGrid, nanovdb::Fp16>(floatgrid);
+           }
+           else {
+-            nanogrid = nanovdb::createNanoGrid<openvdb::FloatGrid, float>(floatgrid);
++            nanogrid = nanovdb::tools::createNanoGrid<openvdb::FloatGrid, float>(floatgrid);
+           }
+         }
+         else if constexpr (std::is_same_v<FloatGridType, openvdb::Vec3fGrid>) {
+           openvdb::Vec3fGrid floatgrid(*openvdb::gridConstPtrCast<GridType>(grid));
+-          nanogrid = nanovdb::createNanoGrid<openvdb::Vec3fGrid, nanovdb::Vec3f>(
+-              floatgrid, nanovdb::StatsMode::Disable);
++          nanogrid = nanovdb::tools::createNanoGrid<openvdb::Vec3fGrid, nanovdb::Vec3f>(
++              floatgrid, nanovdb::tools::StatsMode::Disable);
+         }
+ #    else
+         /* OpenVDB 10. */
+--- a/intern/cycles/scene/image_vdb.h
++++ b/intern/cycles/scene/image_vdb.h
+@@ -9,7 +9,7 @@
+ #  include <openvdb/openvdb.h>
+ #endif
+ #ifdef WITH_NANOVDB
+-#  include <nanovdb/util/GridHandle.h>
++#  include <nanovdb/GridHandle.h>
+ #endif
+ 
+ #include "scene/image.h"
