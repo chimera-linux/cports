@@ -530,6 +530,9 @@ The following commands are recognized:
 * `clean` Clean up the build root. This means removing automatic dependencies
   and removing `builddir` and `destdir` within. When given a template name,
   it will only clean the directories for that template.
+* `commit` Commit a given template or templates. Currently, only individual
+  templates are supported, and one commit will be generated for each. Any
+  optional arguments after `--` will be passed to `git commit` directly.
 * `cycle-check` Scan all templates or a single template for build-time
   dependency cycles. Only one cycle at a time is printed. The goal is to
   keep the tree free of cycles at all times. Therefore, if you encounter

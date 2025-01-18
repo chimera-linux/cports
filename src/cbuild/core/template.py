@@ -17,6 +17,7 @@ import pathlib
 import contextlib
 import subprocess
 import builtins
+import tempfile
 import stat
 
 from cbuild.core import logger, chroot, paths, profile, spdx, errors
@@ -713,6 +714,7 @@ class Template(Package):
         allow_restricted=True,
         data=None,
         init=True,
+        contents=None,
     ):
         super().__init__()
 
@@ -792,9 +794,9 @@ class Template(Package):
             # append and repeat
             self.source_repositories.append(crepo)
 
-        self.exec_module(init)
+        self.exec_module(init, contents)
 
-    def exec_module(self, init):
+    def exec_module(self, init, contents=None):
         def subpkg_deco(spkgname, cond=True, alternative=None):
             def deco(f):
                 if alternative:
@@ -824,6 +826,27 @@ class Template(Package):
         setattr(builtins, "subpackage", subpkg_deco)
         setattr(builtins, "custom_target", target_deco)
         setattr(builtins, "self", self)
+
+        if contents:
+            with tempfile.NamedTemporaryFile(
+                "w", delete_on_close=False, suffix=".py"
+            ) as nf:
+                nf.write(contents)
+                # make sure the contents exist...
+                nf.close()
+                # and build a fresh modspec
+                modspec = importlib.util.spec_from_file_location(
+                    self.full_pkgname, nf.name
+                )
+                self._mod_handle = importlib.util.module_from_spec(modspec)
+                modspec.loader.exec_module(self._mod_handle)
+                self._raw_mod = self._mod_handle
+                self._mod_handle = None
+                delattr(builtins, "self")
+                delattr(builtins, "subpackage")
+            if init:
+                self.init_from_mod()
+            return
 
         modh, modspec = Template._tmpl_dict.get(self.full_pkgname, (None, None))
         if modh:

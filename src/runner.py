@@ -2398,6 +2398,131 @@ class InteractiveCompleter:
         return None
 
 
+def do_commit(tgt):
+    from cbuild.core import errors, chroot, paths, template
+    import subprocess
+    import tempfile
+
+    # filter the args for valid templates
+    copts = []
+    tmpls = []
+
+    for cmd in cmdline.command[1:]:
+        if cmd.startswith("-"):
+            copts.append(cmd)
+        else:
+            tmpls.append(cmd)
+
+    # collect files known to git...
+    subp = subprocess.run(["git", "status", "--porcelain"], capture_output=True)
+    if subp.returncode != 0:
+        raise errors.CbuildException("failed to resolve git changes")
+
+    # track changes in a set so we know what we can pass to commit
+    changes = set()
+    for ln in subp.stdout.splitlines():
+        ln = ln.strip().split(b" ", 1)
+        if len(ln) != 2:
+            continue
+        changes.add(ln[1].decode())
+
+    if len(tmpls) < 1:
+        raise errors.CbuildException("commit needs at least one template")
+
+    hcpu = chroot.host_cpu()
+
+    def build_tmpl(sname, contents):
+        return template.Template(
+            sname,
+            hcpu,
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
+            target="lint",
+            contents=contents,
+        )
+
+    # parse everything first so we know stuff's intact, store before calling git
+    tmplos = []
+
+    for tmp in tmpls:
+        # we don't handle template deletion yet... maybe sometime
+        sname = template.sanitize_pkgname(tmp)
+        # try getting the HEAD contents of it
+        relh = str(sname.relative_to(paths.distdir()) / "template.py")
+        subp = subprocess.run(
+            ["git", "show", f"HEAD:{relh}"], capture_output=True
+        )
+        # try building a template object of the old state
+        if subp.returncode == 0:
+            try:
+                otmpl = build_tmpl(sname, subp.stdout.decode())
+            except Exception:
+                # differentiate failure to parse and non-existence
+                otmpl = None
+        else:
+            otmpl = False
+        # build the current contents of it, this has to succeed
+        tmpl = build_tmpl(sname, None)
+        tfiles = {tmpl.full_pkgname}
+        # store
+        tmplos.append((tmpl, otmpl, tfiles))
+
+    ddir = paths.distdir()
+
+    # for each template pair, recreate subpackage symlinks
+    for tmpl, otmpl, tfiles in tmplos:
+        if otmpl:
+            # remove potentially old subpkg symlinks
+            for osp in otmpl.subpkg_list:
+                p = ddir / otmpl.repository / osp.pkgname
+                if not p.exists():
+                    continue
+                p.unlink()
+                tf = f"{otmpl.repository}/{osp.pkgname}"
+                tfiles.add(tf)
+                changes.add(tf)
+        # create new subpkg symlinks
+        for sp in tmpl.subpkg_list:
+            p = ddir / tmpl.repository / sp.pkgname
+            p.unlink(missing_ok=True)
+            p.symlink_to(tmpl.pkgname)
+            tf = f"{tmpl.repository}/{sp.pkgname}"
+            tfiles.add(tf)
+            changes.add(tf)
+
+    # now for each, run git commit...
+    for tmpl, otmpl, tfiles in tmplos:
+        if otmpl is False:
+            # new package
+            msg = f"{tmpl.full_pkgname}: new package"
+        elif not otmpl:
+            # previously failed to parse (fix?)
+            msg = f"{tmpl.full_pkgname}: fix [reason here]"
+        elif otmpl.pkgver != tmpl.pkgver:
+            # new version
+            msg = f"{tmpl.full_pkgname}: update to {tmpl.pkgver}"
+        elif otmpl.pkgrel != tmpl.pkgrel:
+            # revision bump
+            msg = f"{tmpl.full_pkgname}: rebuild for [reason here]"
+        else:
+            # other change
+            msg = f"{tmpl.full_pkgname}: [description here]"
+        # now fill in the rest, build list
+        xl = sorted(tfiles)
+        # make all the files known to git, but don't add them
+        subprocess.run(["git", "add", "-N", *xl], capture_output=True)
+        # and run it
+        with tempfile.NamedTemporaryFile("w", delete_on_close=False) as nf:
+            nf.write(msg)
+            nf.write("\n")
+            nf.close()
+            subprocess.run(["git", "commit", "-t", nf.name, *copts, *xl])
+
+
 def do_interactive(tgt):
     import os
     import shlex
@@ -2473,6 +2598,7 @@ command_handlers = {
     "check": (do_pkg, "Run up to check phase of a template"),
     "chroot": (do_pkg, "Enter an interactive bldroot chroot"),
     "clean": (do_clean, "Clean the build directory"),
+    "commit": (do_commit, "Commit the changes in the template"),
     "configure": (do_pkg, "Run up to configure phase of a template"),
     "cycle-check": (
         do_cycle_check,
