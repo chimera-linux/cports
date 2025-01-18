@@ -1,19 +1,21 @@
 pkgname = "waypipe"
-pkgver = "0.9.2"
+pkgver = "0.10.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dwith_dmabuf=enabled",
+    "-Dwith_gbm=enabled",
     "-Dwith_systemtap=false",
-    "-Dwith_vaapi=enabled",
     "-Dwith_video=enabled",
     "-Dwith_zstd=enabled",
-    "-Db_ndebug=true",
 ]
 hostmakedepends = [
+    "cargo-auditable",
     "meson",
     "pkgconf",
+    "rust-bindgen",
     "scdoc",
+    "shaderc-progs",
     "wayland-progs",
 ]
 makedepends = [
@@ -22,18 +24,35 @@ makedepends = [
     "libva-devel",
     "lz4-devel",
     "mesa-devel",
+    "rust-std",
+    "vulkan-headers",
+    "vulkan-loader-devel",
     "wayland-devel",
     "wayland-protocols",
     "zstd-devel",
 ]
+# dynamically loaded
+depends = ["so:libavcodec.so.61!libavcodec", "so:libgbm.so.1!libgbm"]
 pkgdesc = "Proxy for wayland clients"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
-license = "MIT"
+license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"
-sha256 = "ef0783ba95abb950cb0e876e1d186de77905759ed7406ec23973f46cab96b5ee"
-hardening = ["vis", "cfi"]
+sha256 = "cd49f56c4b4574801f8199894ff278262fa6b75f1a989ffe7270cb2735df42f8"
+
+
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.Cargo(self, wrksrc=".").vendor()
+
+
+def init_build(self):
+    from cbuild.util import cargo
+
+    renv = cargo.get_environment(self)
+    self.make_env.update(renv)
 
 
 def post_install(self):
-    self.install_license("COPYING")
+    self.install_bin(f"./build/target/{self.profile().triplet}/meson-2/waypipe")

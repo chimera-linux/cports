@@ -1,0 +1,27 @@
+--- a/meson.build
++++ b/meson.build
+@@ -120,23 +120,7 @@ if get_option('build_rs')
+     output = target_dir / 'release/waypipe'
+     manifest = meson.project_source_root() / 'Cargo.toml'
+ 
+-    # Cargo has no direct analogue for 'g' or 'plain' optimization levels,
+-    # so the choices for them are somewhat arbitrary
+-    if get_option('optimization') == '0' or get_option('optimization') == 'g'
+-        profile = 'meson-0'
+-    elif get_option('optimization') == '1' or get_option('optimization') == 'plain'
+-        profile = 'meson-1'
+-    elif get_option('optimization') == '3'
+-        profile = 'meson-3'
+-    elif get_option('optimization') == 's'
+-        profile = 'meson-s'
+-    else
+-        profile = 'meson-2'
+-    endif
+-
+-    if get_option('debug') == false
+-        profile += '-strip'
+-    endif
++    profile = 'meson-2'
+     message('Cargo will be run with profile: @0@'.format(profile))
+ 
+     binary = custom_target(
