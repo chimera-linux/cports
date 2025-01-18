@@ -1,6 +1,6 @@
 pkgname = "vulkan-validationlayers"
-pkgver = "1.4.304"
-pkgrel = 1
+pkgver = "1.4.305"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -36,7 +36,7 @@ source_paths = [
     "layers/robinhood",
 ]
 sha256 = [
-    "fd889b0135b7770a3d9819ed1273009ddd654b9715b09c0af150eca8ffc15eb2",
+    "cda4e89f54afa7ededbe73a41a30ce51306418e7cbf2635bfa0222c40d362656",
     "2301e11e5c77213258d6863bf4e6c607a8c6431fa8336e98ac6a2131bd6284f8",
     "bce88bee05812abd863e8ae045757b66116fc9d7e880e649916d8eb71a10fa9f",
 ]
