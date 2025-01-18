@@ -40,6 +40,9 @@ url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"
 sha256 = "cd49f56c4b4574801f8199894ff278262fa6b75f1a989ffe7270cb2735df42f8"
 
+if self.profile().wordsize == 32:
+    broken = "some u64 nonsense in vulkan code"
+
 
 def post_patch(self):
     from cbuild.util import cargo
