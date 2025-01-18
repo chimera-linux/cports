@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "7.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -70,6 +70,7 @@ configure_args = [
     "--enable-vaapi",
     "--enable-vapoursynth",
     "--enable-vulkan",
+    "--enable-libvmaf",
 ]
 make_install_args = ["install-man"]
 make_check_args = ["-j1"]
@@ -137,6 +138,7 @@ makedepends = [
     "xvidcore-devel",
     "zimg-devel",
     "zlib-ng-compat-devel",
+    "vmaf-devel",
 ]
 depends = [self.with_pkgver("ffplay")]
 pkgdesc = "Decoding, encoding and streaming software"
