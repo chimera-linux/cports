@@ -2326,23 +2326,20 @@ def do_bump_pkgver(tgt):
             None,
             target="lint",
         )
-        pr = tmpl.pkgrel
         tmplp = f"{tmpl.full_pkgname}/template.py"
         tmpl_source = pathlib.Path(tmplp).read_text()
         with open(tmplp + ".tmp", "w") as outf:
             for ln in tmpl_source.splitlines():
                 # update pkgrel
                 if ln.startswith("pkgver ="):
-                    outf.write(f"pkgver = \"{pkgv}\"\n")
+                    outf.write(f'pkgver = "{pkgv}"\n')
                     continue
                 outf.write(ln)
                 outf.write("\n")
         pathlib.Path(tmplp + ".tmp").rename(tmplp)
         logger.get().out(f"Updated version: {pkgn} {tmpl.pkgver} => {pkgv}")
     except Exception:
-        logger.get().out(
-            f"\f[orange]WARNING: Failed to update version: {pkgn}"
-        )
+        logger.get().out(f"\f[orange]WARNING: Failed to update version: {pkgn}")
 
 
 def do_bump_pkgrel(tgt):
