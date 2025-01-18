@@ -34,7 +34,8 @@ match self.profile().arch:
     case "x86_64":
         configure_args += ["-DTARGET=GENERIC"]
 
-if self.profile().arch in ["aarch64", "ppc64le", "riscv64", "x86_64"]:
+# riscv64 dynamic_arch is currently broken
+if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     configure_args += ["-DDYNAMIC_ARCH=ON"]
 
 if self.profile().arch in ["ppc", "ppc64", "ppc64le"]:
