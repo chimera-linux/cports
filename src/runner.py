@@ -2330,9 +2330,13 @@ def do_bump_pkgver(tgt):
         tmpl_source = pathlib.Path(tmplp).read_text()
         with open(tmplp + ".tmp", "w") as outf:
             for ln in tmpl_source.splitlines():
-                # update pkgrel
+                # update pkgver
                 if ln.startswith("pkgver ="):
                     outf.write(f'pkgver = "{pkgv}"\n')
+                    continue
+                # reset pkgrel to zero
+                if ln.startswith("pkgrel ="):
+                    outf.write("pkgrel = 0\n")
                     continue
                 outf.write(ln)
                 outf.write("\n")
