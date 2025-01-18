@@ -1,5 +1,5 @@
 pkgname = "worker"
-pkgver = "5.1.0"
+pkgver = "5.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
@@ -12,13 +12,13 @@ makedepends = [
     "openssl-devel",
 ]
 pkgdesc = "Worker file manager"
-maintainer = "logout <logout128@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://www.boomerangsworld.de/cms/worker/index.html"
 source = (
     f"http://www.boomerangsworld.de/cms/worker/downloads/worker-{pkgver}.tar.gz"
 )
-sha256 = "4df7ffd48f51658a36a171ac9eb19e4acebd5bd9cfbbb3850f0175060e91d35b"
+sha256 = "3d704f9c5c102aabb1c9e9763444175cebe24849d251d46bc7e772a26cca2fe9"
 hardening = ["cfi", "vis"]
 # no tests
 options = ["!check"]
