@@ -2520,7 +2520,18 @@ def do_commit(tgt):
             nf.write(msg)
             nf.write("\n")
             nf.close()
-            subprocess.run(["git", "commit", "-t", nf.name, *copts, *xl])
+            # allow-empty-message because git is silly and complains if you do not edit
+            subprocess.run(
+                [
+                    "git",
+                    "commit",
+                    "--allow-empty-message",
+                    "-t",
+                    nf.name,
+                    *copts,
+                    *xl,
+                ]
+            )
 
 
 def do_interactive(tgt):
