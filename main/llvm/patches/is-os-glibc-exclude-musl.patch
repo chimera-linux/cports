@@ -1,0 +1,65 @@
+From df0d0fadac7798c63d0c61b39621208bef81fbb5 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 18 Jan 2025 01:35:34 +0100
+Subject: [PATCH] fix isOSGlibc thinking musl is glibc
+
+---
+ llvm/include/llvm/TargetParser/Triple.h     | 2 +-
+ llvm/lib/Target/X86/X86ISelDAGToDAG.cpp     | 2 +-
+ llvm/lib/Target/X86/X86ISelLoweringCall.cpp | 2 +-
+ llvm/lib/Target/X86/X86Subtarget.h          | 1 +
+ 4 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/llvm/include/llvm/TargetParser/Triple.h b/llvm/include/llvm/TargetParser/Triple.h
+index d2126a0..fdb6012 100644
+--- a/llvm/include/llvm/TargetParser/Triple.h
++++ b/llvm/include/llvm/TargetParser/Triple.h
+@@ -710,7 +710,7 @@ public:
+   bool isOSGlibc() const {
+     return (getOS() == Triple::Linux || getOS() == Triple::KFreeBSD ||
+             getOS() == Triple::Hurd) &&
+-           !isAndroid();
++           !isAndroid() && !isMusl();
+   }
+ 
+   /// Tests whether the OS is AIX.
+diff --git a/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp b/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp
+index 74804e5..51626aa 100644
+--- a/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp
++++ b/llvm/lib/Target/X86/X86ISelDAGToDAG.cpp
+@@ -1840,7 +1840,7 @@ bool X86DAGToDAGISel::matchLoadInAddress(LoadSDNode *N, X86ISelAddressMode &AM,
+   // For more information see http://people.redhat.com/drepper/tls.pdf
+   if (isNullConstant(Address) && AM.Segment.getNode() == nullptr &&
+       !IndirectTlsSegRefs &&
+-      (Subtarget->isTargetGlibc() || Subtarget->isTargetAndroid() ||
++      (Subtarget->isTargetGlibc() || Subtarget->isTargetMusl() || Subtarget->isTargetAndroid() ||
+        Subtarget->isTargetFuchsia())) {
+     if (Subtarget->isTarget64BitILP32() && !AllowSegmentRegForX32)
+       return true;
+diff --git a/llvm/lib/Target/X86/X86ISelLoweringCall.cpp b/llvm/lib/Target/X86/X86ISelLoweringCall.cpp
+index f659c16..116452b 100644
+--- a/llvm/lib/Target/X86/X86ISelLoweringCall.cpp
++++ b/llvm/lib/Target/X86/X86ISelLoweringCall.cpp
+@@ -529,7 +529,7 @@ unsigned X86TargetLowering::getAddressSpace() const {
+ }
+ 
+ static bool hasStackGuardSlotTLS(const Triple &TargetTriple) {
+-  return TargetTriple.isOSGlibc() || TargetTriple.isOSFuchsia() ||
++  return TargetTriple.isOSGlibc() || TargetTriple.isOSFuchsia() || TargetTriple.isMusl() ||
+          (TargetTriple.isAndroid() && !TargetTriple.isAndroidVersionLT(17));
+ }
+ 
+diff --git a/llvm/lib/Target/X86/X86Subtarget.h b/llvm/lib/Target/X86/X86Subtarget.h
+index e3cb9ee..759d959 100644
+--- a/llvm/lib/Target/X86/X86Subtarget.h
++++ b/llvm/lib/Target/X86/X86Subtarget.h
+@@ -290,6 +290,7 @@ public:
+   bool isTargetLinux() const { return TargetTriple.isOSLinux(); }
+   bool isTargetKFreeBSD() const { return TargetTriple.isOSKFreeBSD(); }
+   bool isTargetGlibc() const { return TargetTriple.isOSGlibc(); }
++  bool isTargetMusl() const { return TargetTriple.isMusl(); }
+   bool isTargetAndroid() const { return TargetTriple.isAndroid(); }
+   bool isTargetNaCl() const { return TargetTriple.isOSNaCl(); }
+   bool isTargetNaCl32() const { return isTargetNaCl() && !is64Bit(); }
+-- 
+2.48.1
