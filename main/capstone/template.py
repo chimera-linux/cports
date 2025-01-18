@@ -1,5 +1,5 @@
 pkgname = "capstone"
-pkgver = "5.0.4"
+pkgver = "5.0.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause-Clear"
 url = "https://www.capstone-engine.org"
 source = f"https://github.com/capstone-engine/capstone/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9f882af550747307d61dba0b741c714dfa5a659997362b4c61ad1e505be0ec42"
+sha256 = "3bfd3e7085fbf0fab75fb1454067bf734bb0bebe9b670af7ce775192209348e9"
 hardening = ["vis", "!cfi"]
 
 
