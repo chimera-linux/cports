@@ -1,0 +1,16 @@
+diff --git a/.pytest.ini b/.pytest.ini
+index 2058b4f..4326455 100644
+--- a/.pytest.ini
++++ b/.pytest.ini
+@@ -7,9 +7,6 @@ filterwarnings =
+     # ' <- This apostroph is just to fix syntax highlighting
+ addopts =
+     --import-mode=importlib
+-    --no-cov-on-fail
+-    --cov=semver
+-    --cov-report=term-missing
+     --doctest-glob='*.rst'
+     --doctest-modules
+-    --doctest-report ndiff
+\ No newline at end of file
++    --doctest-report ndiff
