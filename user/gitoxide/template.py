@@ -1,6 +1,6 @@
 pkgname = "gitoxide"
-pkgver = "0.40.0"
-pkgrel = 1
+pkgver = "0.41.0"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
@@ -20,7 +20,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/Byron/gitoxide"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fe0ed165f3325176e7e7abff1d2a819a473a332ecf48921931756c3289405e86"
+sha256 = "6c90676da83e4aa202ac08c6ce849d31031310953569d5fee7529437778b6273"
 
 
 def post_install(self):
