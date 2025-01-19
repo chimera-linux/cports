@@ -1,5 +1,5 @@
 pkgname = "zix"
-pkgver = "0.4.2"
+pkgver = "0.6.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -11,7 +11,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/category/zix"
 source = f"https://download.drobilla.net/zix-{pkgver}.tar.xz"
-sha256 = "0c071cc11ab030bdc668bea3b46781b6dafd47ddd03b6d0c2bc1ebe7177e488d"
+sha256 = "4bc771abf4fcf399ea969a1da6b375f0117784f8fd0e2db356a859f635f616a7"
 hardening = ["vis", "!cfi"]
 
 
