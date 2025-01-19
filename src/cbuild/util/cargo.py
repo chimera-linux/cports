@@ -6,6 +6,11 @@ def clear_vendor_checksums(pkg, crate, vendor_dir="vendor"):
     p.write_text(re.sub(r"""("files":{)[^}]*""", r"\1", p.read_text()))
 
 
+def write_vendor_checksum(pkg, crate, cksum, vendor_dir="vendor"):
+    p = pkg.cwd / vendor_dir / crate / ".cargo-checksum.json"
+    p.write_text(f'{{"files":{{}},"package":"{cksum}"}}')
+
+
 def get_environment(pkg, jobs=None):
     if not jobs:
         jobs = pkg.make_jobs
