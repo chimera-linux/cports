@@ -1,5 +1,5 @@
 pkgname = "xdg-user-dirs-gtk"
-pkgver = "0.11"
+pkgver = "0.14"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["pkgconf", "meson", "gettext", "xdg-user-dirs"]
@@ -10,4 +10,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk"
 source = f"$(GNOME_SITE)/xdg-user-dirs-gtk/{pkgver}/xdg-user-dirs-gtk-{pkgver}.tar.xz"
-sha256 = "534bd563d3c0e3f8dcbf3578cb8ab0e49d3ba41c966d477c8af9438364121e7d"
+sha256 = "537fbe142b24736ed7894e4a01f69fd758cb6c7a677a382879529d217f4a2873"
