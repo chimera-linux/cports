@@ -1,0 +1,18 @@
+diff --git a/tests/test_spinners.py b/tests/test_spinners.py
+index 4f77aad..7d1a24f 100644
+--- a/tests/test_spinners.py
++++ b/tests/test_spinners.py
+@@ -19,11 +19,11 @@ class TestSpinners(unittest.TestCase):
+ 
+         dots = Spinners.dots
+ 
+-        self.assertEquals(
++        self.assertEqual(
+             dots.value['interval'], 80
+         )
+ 
+-        self.assertEquals(
++        self.assertEqual(
+             type(dots.value['frames']), list
+         )
+ 
