@@ -1,6 +1,6 @@
 pkgname = "xdg-desktop-portal-gtk"
-pkgver = "1.15.1"
-pkgrel = 1
+pkgver = "1.15.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # pulls gnome-desktop
@@ -24,7 +24,7 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/flatpak/xdg-desktop-portal-gtk"
 source = f"https://github.com/flatpak/xdg-desktop-portal-gtk/releases/download/{pkgver}/xdg-desktop-portal-gtk-{pkgver}.tar.xz"
-sha256 = "425551ca5f36451d386d53599d95a3a05b94020f1a4927c5111a2c3ba3a0fe4c"
+sha256 = "0295af247fc0d8c94e722731c29a2db7a045d38b132325b22e508709a235300b"
 
 
 def post_install(self):
