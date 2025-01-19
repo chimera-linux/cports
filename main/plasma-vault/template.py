@@ -37,6 +37,6 @@ sha256 = "6b7e73fc39c6bb5e2c06573ef88a8948eea570608a8e1e49d912389aefa50b4e"
 def _(self):
     self.subdesc = "gocryptfs support"
     self.install_if = [self.parent]
-    self.depends += ["gocryptfs"]
+    self.depends += ["virtual:gocryptfs!base-files"]
     self.options = ["empty"]
     return []
