@@ -1,5 +1,5 @@
 pkgname = "libvirt"
-pkgver = "10.10.0"
+pkgver = "11.0.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -85,7 +85,7 @@ maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
-sha256 = "e1bd7bd31b7c0d0ae073dec050bb5b0232b3e4adebdc58ea82fe8b366c765796"
+sha256 = "01a176ff4042ad58cf83c09fe0925d6bc8eed0ecce1e0ee19b8ef4c1ffa3806e"
 
 if self.profile().wordsize != 32:
     depends += ["virtiofsd-meta"]
