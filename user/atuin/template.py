@@ -1,13 +1,10 @@
 pkgname = "atuin"
 pkgver = "18.4.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 # we patch Cargo.toml and Cargo.lock
 prepare_after_patch = True
-make_build_args = [
-    "--no-default-features",
-    "--features=client,server,sync,clipboard",
-]
+make_build_args = ["--no-default-features"]
 hostmakedepends = ["cargo-auditable", "protoc", "pkgconf"]
 makedepends = ["sqlite-devel", "openssl-devel", "rust-std"]
 pkgdesc = "Sync, search and backup tool for shell history"
