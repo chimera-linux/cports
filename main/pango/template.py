@@ -1,5 +1,5 @@
 pkgname = "pango"
-pkgver = "1.56.0"
+pkgver = "1.56.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -33,7 +33,7 @@ url = "https://www.pango.org"
 source = (
     f"$(GNOME_SITE)/pango/{pkgver[: pkgver.rfind('.')]}/pango-{pkgver}.tar.xz"
 )
-sha256 = "1fb98b338ee6f7cf8ef96153b7d242f4568fe60f9b7434524eca630a57bd538b"
+sha256 = "426be66460c98b8378573e7f6b0b2ab450f6bb6d2ec7cecc33ae81178f246480"
 # subtly breaks various things
 hardening = ["!int"]
 
