@@ -1,6 +1,6 @@
 pkgname = "stagit"
 pkgver = "1.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_args = [
     "COMPATOBJ=",

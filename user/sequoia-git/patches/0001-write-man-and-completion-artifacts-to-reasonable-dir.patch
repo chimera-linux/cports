@@ -22,7 +22,7 @@ diff --git a/build.rs b/build.rs
 index 1b950a6..a501d3d 100644
 --- a/build.rs
 +++ b/build.rs
-@@ -49,14 +49,7 @@ fn git_version() {
+@@ -49,14 +49,7 @@ fn main() {
  
  fn completions() {
      // Generate shell completions

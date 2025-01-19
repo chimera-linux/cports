@@ -1,7 +1,7 @@
 pkgname = "cargo"
 pkgver = "1.84.0"
 _cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 # PKG_CONFIG being in environment mysteriously brings target sysroot
 # into linker sequence for build script, breaking build entirely

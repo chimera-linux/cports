@@ -1,7 +1,8 @@
 pkgname = "jj"
 pkgver = "0.25.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
@@ -24,8 +25,11 @@ sha256 = "3a99528539e414a3373f24eb46a0f153d4e52f7035bb06df47bd317a19912ea3"
 options = ["!cross"]
 
 
-def post_patch(self):
-    from cbuild.util import cargo
+def post_prepare(self):
+    from cbuild.util import cargo, patch
+
+    # done separately because we need to patch lockfile before vendoring :/
+    patch.patch_git(self, [self.files_path / "bser.patch"])
 
     cargo.clear_vendor_checksums(self, "serde_bser")
 

@@ -1,6 +1,6 @@
 pkgname = "git-branchless"
 pkgver = "0.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]

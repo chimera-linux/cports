@@ -1,6 +1,6 @@
 pkgname = "eza"
 pkgver = "0.20.17"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]

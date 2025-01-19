@@ -1,6 +1,6 @@
 pkgname = "libgit2-glib"
 pkgver = "1.2.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
     "gobject-introspection",

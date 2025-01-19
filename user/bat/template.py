@@ -1,7 +1,8 @@
 pkgname = "bat"
 pkgver = "0.25.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",

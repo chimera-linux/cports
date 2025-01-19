@@ -1,0 +1,50 @@
+we are not running from git tree, eliminate build-time libgit2
+
+diff --git a/Cargo.toml b/Cargo.toml
+index a175848..d7141fd 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -40,7 +40,7 @@ clap = { version = "4.0", features = [ "cargo", "derive", "env", "string", "wrap
+ clap_complete = "4"
+ clap_mangen = "0.2"
+ dirs = "5"
+-vergen = { version = "8", features = [ "git", "git2" ] }
++vergen = { version = "8", features = [ ] }
+ 
+ [[bin]]
+ name = "sq-git"
+diff --git a/build.rs b/build.rs
+index a501d3d..97f5790 100644
+--- a/build.rs
++++ b/build.rs
+@@ -23,30 +23,10 @@ pub mod openpgp {
+ }
+ 
+ fn main() {
+-    git_version();
+     completions();
+     man_pages();
+ }
+ 
+-fn git_version() {
+-    // Emit the "cargo:" instructions including
+-    // "cargo:rustc-env=VERGEN_GIT_DESCRIBE=<DESCRIBE>".
+-    //
+-    // If the source directory does not contain a git repository,
+-    // e.g., because the code was extracted from a tarball, this
+-    // produces an `Error` result, which we ignore, and
+-    // `VERGEN_GIT_DESCRIBE` is not set.  That's okay, because we are
+-    // careful to only use `VERGEN_GIT_DESCRIBE` if it is actually
+-    // set.
+-    let _ = vergen::EmitBuilder::builder()
+-        // VERGEN_GIT_DESCRIBE
+-        .git_describe(/* dirty */ true, /* tags */ false, None)
+-        // Don't emit placeholder values for the git version if the
+-        // git repository is not present.
+-        .fail_on_error()
+-        .emit();
+-}
+-
+ fn completions() {
+     // Generate shell completions
+     let outdir = PathBuf::from("completions");

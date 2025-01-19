@@ -1,11 +1,11 @@
 pkgname = "static-web-server"
 pkgver = "2.35.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 # We patch Cargo.toml and Cargo.lock
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["zstd-devel", "libgit2-devel", "rust-std"]
+makedepends = ["zstd-devel", "rust-std"]
 pkgdesc = "Web server for static files serving"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT OR Apache-2.0"

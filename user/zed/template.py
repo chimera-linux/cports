@@ -1,9 +1,10 @@
 pkgname = "zed"
 pkgver = "0.165.4"
-pkgrel = 0
+pkgrel = 1
 # wasmtime
 archs = ["aarch64", "x86_64"]
 build_style = "cargo"
+prepare_after_patch = True
 make_build_args = ["--package", "zed", "--package", "cli"]
 make_build_env = {
     "RELEASE_VERSION": pkgver,

@@ -1,6 +1,6 @@
 pkgname = "git-interactive-rebase-tool"
 pkgver = "2.4.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 prepare_after_patch = True
 make_build_env = {"CARGO_PKG_VERSION": pkgver}

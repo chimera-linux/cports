@@ -1,6 +1,6 @@
 pkgname = "gnome-builder"
 pkgver = "47.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dnetwork_tests=false"]
 make_check_wrapper = [
@@ -29,6 +29,7 @@ makedepends = [
     "libadwaita-devel",
     "libdex-devel",
     "libgit2-glib-devel",
+    "libgit2-devel",
     "libpanel-devel",
     "libpeas2-devel",
     "libportal-devel",

@@ -1,6 +1,6 @@
 pkgname = "gitui"
 pkgver = "0.27.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 prepare_after_patch = True
 make_build_args = [

@@ -1,0 +1,22 @@
+we don't build from a git repo anyway, might as well avoid libgit2
+
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -89,7 +89,7 @@ serde = { version = "1.0", default-features = false, features = ["derive"] }
+ serde_ignored = "0.1"
+ serde_json = "1.0"
+ serde_repr = "0.1"
+-shadow-rs = "0.36"
++shadow-rs = { version = "0.36", default-features = false, features = ["tzdb"] }
+ tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "macros", "fs", "io-util", "signal"] }
+ tokio-rustls = { version = "0.26", optional = true, default-features = false, features = ["logging", "tls12", "ring"] }
+ tokio-util = { version = "0.7", default-features = false, features = ["io"] }
+@@ -114,7 +114,7 @@ bytes = "1.9"
+ serde_json = "1.0"
+ 
+ [build-dependencies]
+-shadow-rs = "0.36"
++shadow-rs = { version = "0.36", default-features = false, features = ["tzdb"] }
+ 
+ [profile.release]
+ codegen-units = 1
