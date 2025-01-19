@@ -1,5 +1,5 @@
 pkgname = "userspace-rcu"
-pkgver = "0.14.1"
+pkgver = "0.15.0"
 pkgrel = 0
 build_style = "gnu_configure"
 make_check_args = ["-j1"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://liburcu.org"
 source = f"https://www.lttng.org/files/urcu/userspace-rcu-{pkgver}.tar.bz2"
-sha256 = "231acb13dc6ec023e836a0f0666f6aab47dc621ecb1d2cd9d9c22f922678abc0"
+sha256 = "4f2d839af67905ad396d6d53ba5649b66113d90840dcbc89941e0da64bccd38c"
 tool_flags = {"CFLAGS": ["-DLITTLE_ENDIAN=4321", "-DBIG_ENDIAN=1234"]}
 # XXX: tests pass when run outside the suite...
 options = ["!check"]
