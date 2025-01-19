@@ -1,0 +1,11 @@
+pkgname = "anthy"
+pkgver = "9100h"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["automake", "slibtool"]
+pkgdesc = "Free and secure Japanese input system"
+maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
+license = "GPL-2.0-only"
+url = "https://osdn.net/projects/anthy"
+source = f"http://osdn.dl.osdn.net/anthy/37536/{pkgname}-{pkgver}.tar.gz"
+sha256 = "d256f075f018b4a3cb0d165ed6151fda4ba7db1621727e0eb54569b6e2275547"
