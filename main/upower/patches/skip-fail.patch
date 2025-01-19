@@ -2,21 +2,21 @@ both fail with
     with self.assertRaises(Exception) as cm:
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Exception not raised
---
+
 --- a/src/linux/integration-test.py
 +++ b/src/linux/integration-test.py
-@@ -1074,6 +1074,7 @@
+@@ -1581,6 +1581,7 @@ class Tests(dbusmock.DBusTestCase):
  
      def test_battery_charge_limit_multiple_batteries_polkit_not_allowed(self):
-         '''Battery with charge limits with multiple batteries, but polkit isn't allowed'''
+         """Battery with charge limits with multiple batteries, but polkit isn't allowed"""
 +        return
  
          if not self.polkit:
              self.start_polkitd({})
-@@ -1213,6 +1214,7 @@
+@@ -1808,6 +1809,7 @@ class Tests(dbusmock.DBusTestCase):
  
      def test_battery_charge_limit_supported_polkit_not_allowed(self):
-         '''Battery with charge_control_start/end_threshold supported'''
+         """Battery with charge_control_start/end_threshold supported"""
 +        return
  
          if not self.polkit:
