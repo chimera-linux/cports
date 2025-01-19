@@ -21,9 +21,20 @@ if self.profile().arch != "x86_64":
     options += ["!check"]
 
 
+def post_build(self):
+    # don't think there is any point supporting powershell
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"task-comp.{shell}", "w") as fp:
+            self.do(
+                "./build/task",
+                "--completion",
+                shell,
+                stdout=fp,
+            )
+
+
 def post_install(self):
     self.install_license("LICENSE")
 
-    self.install_completion("completion/fish/task.fish", "fish", "task")
-    self.install_completion("completion/bash/task.bash", "bash", "task")
-    self.install_completion("completion/zsh/_task", "zsh", "task")
+    for shell in ["bash", "fish", "zsh"]:
+        self.install_completion(f"task-comp.{shell}", shell, "task")
