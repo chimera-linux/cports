@@ -1,5 +1,5 @@
 pkgname = "go-task"
-pkgver = "3.40.1"
+pkgver = "3.41.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -12,7 +12,7 @@ maintainer = "Mathijs Rietbergen <mathijs.rietbergen@proton.me>"
 license = "MIT"
 url = "https://taskfile.dev"
 source = f"https://github.com/go-task/task/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e80cdfa2afefa69238e5078960d50a8e703de1043740b277946629ca5f3bde85"
+sha256 = "18302d17d660b25d388338765664e4f66853f10d6ab9a5f2285e56f30a077976"
 # conditionally disabled check
 options = []
 
