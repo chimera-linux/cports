@@ -1,5 +1,5 @@
 pkgname = "font-manager"
-pkgver = "0.9.1"
+pkgver = "0.9.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://fontmanager.github.io"
 source = f"https://github.com/FontManager/font-manager/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f2617c14b69947deffdfff8c3e43da5fa8bd5cdabe9ae7d74fd84aa0e337e688"
+sha256 = "2e4eff44d9cee01ae14cf7271ae27170c327ddfbc776f4c0908b7589f2eb1bfb"
 # gobject-introspection
 options = ["!cross"]
 
