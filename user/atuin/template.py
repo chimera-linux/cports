@@ -1,6 +1,6 @@
 pkgname = "atuin"
 pkgver = "18.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 # we patch Cargo.toml and Cargo.lock
 prepare_after_patch = True
@@ -20,8 +20,19 @@ sha256 = "de6d2bcf10de4d757916c7e92a70f15929fc1dea75abc4df09b0baedf26a53b2"
 # generates completions using host binary
 options = ["!check", "!cross"]
 
+# TODO service + sysusers
 
-def post_build(self):
+
+def build(self):
+    tgt_base = f"target/{self.profile().triplet}/release"
+
+    with self.stamp("server"):
+        self.cargo.build(["--features=server"])
+        self.mv(f"{tgt_base}/atuin", f"{tgt_base}/atuin-server")
+
+    with self.stamp("client"):
+        self.cargo.build(["--features=client,sync,clipboard"])
+
     for shell in ["bash", "fish", "zsh"]:
         with open(self.cwd / f"atuin.{shell}", "w") as outf:
             self.do(
@@ -35,6 +46,23 @@ def post_build(self):
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/atuin")
+    self.install_bin(f"target/{self.profile().triplet}/release/atuin-server")
+
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"atuin.{shell}", shell)
+
+    self.install_file(
+        "crates/atuin-server/server.toml", "usr/share/examples/atuin"
+    )
+
     self.install_license("LICENSE")
+
+
+@subpackage("atuin-server")
+def _(self):
+    self.subdesc = "server"
+
+    return [
+        "usr/bin/atuin-server",
+        "usr/share/examples",
+    ]
