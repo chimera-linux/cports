@@ -1,5 +1,5 @@
 pkgname = "libexif"
-pkgver = "0.6.24"
+pkgver = "0.6.25"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["ac_cv_path_DOXYGEN=false"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libexif/libexif"
 source = f"{url}/archive/libexif-{pkgver.replace('.', '_')}-release.tar.gz"
-sha256 = "d3fb7c47829ec4d2def39aa38f4c35a0891763448a05dbf216a329a12bf198f9"
+sha256 = "ee0795432c20d2fdb2a8a579dd6fc0e19d402e36f14f42c03ab60d2345950f09"
 
 
 @subpackage("libexif-devel")
