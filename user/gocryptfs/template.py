@@ -1,6 +1,6 @@
 pkgname = "gocryptfs"
 pkgver = "2.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     "-ldflags="
@@ -35,3 +35,12 @@ def post_install(self):
     self.install_man("Documentation/gocryptfs.1")
     self.install_man("Documentation/gocryptfs-xray.1")
     self.install_license("LICENSE")
+
+
+@subpackage("plasma-vault-gocryptfs")
+def _(self):
+    self.subdesc = "plasma-vault backend"
+    self.provides = [self.with_pkgver("plasma-vault-backend")]
+    self.options = ["empty"]
+
+    return []

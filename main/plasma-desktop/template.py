@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 # tst_calibrationtool: broken on ppc64le
@@ -227,6 +227,7 @@ def _(self):
         "okular",  # document viewer
         "partitionmanager",  # partition manager
         "plasma-systemmonitor",
+        "plasma-vault",
         "skanlite",  # image scanner
         # "skanpage",  # document scanner (TODO: tesseract)
         "spectacle",  # screenshot
@@ -249,17 +250,6 @@ def _(self):
             "khelpcenter",  # documentation viewer
             "konqueror",  # web browser
             "tokodon",  # mastodon client
-        ]
-    if self.rparent.profile().arch in [
-        "aarch64",
-        "ppc64le",
-        "riscv64",
-        "x86_64",
-    ]:
-        self.depends += [
-            # gocryptfs -> go
-            # there are other backends too, but one is abandoned and the other needs fuse2
-            "plasma-vault",  # encrypted file storage
         ]
     self.options = ["empty"]
 
