@@ -1,5 +1,5 @@
 pkgname = "waypipe"
-pkgver = "0.10.0"
+pkgver = "0.10.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -38,7 +38,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"
-sha256 = "cd49f56c4b4574801f8199894ff278262fa6b75f1a989ffe7270cb2735df42f8"
+sha256 = "60d8d0d0b1a7f356eff82404b2d3a3be0d2348c0c6aaec413f490a825a04ae7d"
 
 if self.profile().wordsize == 32:
     broken = "some u64 nonsense in vulkan code"
