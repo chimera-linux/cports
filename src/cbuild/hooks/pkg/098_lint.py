@@ -277,5 +277,10 @@ def invoke(pkg):
                 pkg.log_red(f"{d} found in Python site-packages")
                 lintfail = True
 
+    # kernel signing stuff, reject explicitly
+    for d in (pkg.destdir / "usr/src").glob("linux-headers-*/certs"):
+        for f in d.glob("signing_key.*"):
+            pkg.log_red(f"{d} found in packaged kernel headers")
+
     if lintfail:
         pkg.error("package lint failed")

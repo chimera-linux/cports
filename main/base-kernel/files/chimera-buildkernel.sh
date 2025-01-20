@@ -489,6 +489,19 @@ do_install() {
             "${hdrdest}/arch/powerpc/lib"
     fi
 
+    # module signing utility
+    if [ -f "${OBJDIR}/scripts/sign-file" ]; then
+        cp -p "${OBJDIR}/scripts/sign-file" "${hdrdest}/scripts"
+        chmod 755 "${hdrdest}/scripts/sign-file"
+    fi
+
+    # module signing key and certificate; do *not* ship in public packages
+    if [ -f "${OBJDIR}/certs/signing_key.pem" ]; then
+        mkdir -p "${hdrdest}/certs"
+        cp -p "${OBJDIR}/certs/signing_key.pem" "${hdrdest}/certs"
+        cp -p "${OBJDIR}/certs/signing_key.x509" "${hdrdest}/certs"
+    fi
+
     echo ""
     echo "Kernel installation done ($kernver), files in ${DESTDIR}."
 }
