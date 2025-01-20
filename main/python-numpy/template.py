@@ -1,6 +1,6 @@
 pkgname = "python-numpy"
 pkgver = "2.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_args = []
 hostmakedepends = [
@@ -101,7 +101,10 @@ def post_install(self):
 @subpackage("python-numpy-tests")
 def _(self):
     self.subdesc = "tests"
-    self.depends += ["python"]
+    self.depends = [
+        *checkdepends,
+        self.parent,
+    ]
     return [
         "usr/lib/python*/site-packages/numpy/*/tests/",
         "usr/lib/python*/site-packages/numpy/tests/",
