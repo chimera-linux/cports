@@ -1,5 +1,5 @@
 pkgname = "sq"
-pkgver = "0.48.4"
+pkgver = "0.48.5"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -22,7 +22,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://sq.io"
 source = f"https://github.com/neilotoole/sq/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4692a71da5302f0f392721e9d9f28676d5120aefe90e81dcab54bc3214882977"
+sha256 = "4ed9cef836e66174b6e01c8d410cd393aeae7f7069a428a7ab2adcd1e282cf68"
 # some tests require network
 options = ["!check"]
 
