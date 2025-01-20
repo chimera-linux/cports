@@ -683,16 +683,12 @@ in a regular system and represent either bootstrap builds of various software
 needed to break dependency cycles in `cbuild` or bootstrap toolchains for
 various programming language compilers.
 
-Every package `foo-bootstrap` gains an implicit dependency on `bootstrap:foo`.
-This package is not provided by anything. Whenever `cbuild` sees a bootstrap
-package in its `hostmakedepends` or `makedepends`, it will implicitly create
-a virtual package in the current build environment to allow such package to
-be installed.
+Every package `foo-bootstrap` gains an implicit dependency on `bootstrap:cbuild`.
 
-You can do so in your own environment like such:
+You can set up a virtual `bootstrap:cbuild` in your own environment:
 
 ```
-$ apk add --virtual bootstrap:foo
+$ apk add --virtual bootstrap:cbuild
 ```
 
 <a id="template_structure"></a>

@@ -1,7 +1,7 @@
 # Keep in sync with cargo-auditable
 pkgname = "cargo-auditable-bootstrap"
 pkgver = "0.6.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = ["-p", "cargo-auditable"]
 make_check_args = [

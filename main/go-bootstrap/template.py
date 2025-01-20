@@ -1,6 +1,6 @@
 pkgname = "go-bootstrap"
 pkgver = "1.22.4"
-pkgrel = 0
+pkgrel = 1
 # just in case
 depends = ["!go"]
 pkgdesc = "Go programming language bootstrap toolchain"

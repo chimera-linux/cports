@@ -3,7 +3,7 @@
 # better hinting - do not actually use this package in a regular system
 pkgname = "freetype-bootstrap"
 pkgver = "2.13.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dbrotli=disabled",

@@ -1,6 +1,6 @@
 pkgname = "openjdk21-bootstrap"
 pkgver = "21.0.3_p9"
-pkgrel = 0
+pkgrel = 1
 # satisfy revdeps
 makedepends = [
     "alsa-lib-devel",

@@ -1,6 +1,6 @@
 pkgname = "glib-bootstrap"
 pkgver = "2.82.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",

@@ -1,6 +1,6 @@
 pkgname = "rust-bootstrap"
 pkgver = "1.83.0"
-pkgrel = 0
+pkgrel = 1
 # satisfy revdeps
 makedepends = ["zlib-ng-compat", "ncurses-libs", "zstd"]
 # overlapping files

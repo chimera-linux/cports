@@ -1,6 +1,6 @@
 pkgname = "cargo-bootstrap"
 pkgver = "1.83.0"
-pkgrel = 0
+pkgrel = 1
 # satisfy runtime dependencies
 hostmakedepends = ["curl"]
 # satisfy revdeps

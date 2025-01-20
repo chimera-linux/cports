@@ -1,6 +1,6 @@
 pkgname = "libusb-bootstrap"
 pkgver = "1.0.27"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-static", "--disable-udev"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]

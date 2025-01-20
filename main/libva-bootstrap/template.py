@@ -1,6 +1,6 @@
 pkgname = "libva-bootstrap"
 pkgver = "2.22.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",

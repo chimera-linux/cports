@@ -1,6 +1,6 @@
 pkgname = "openjdk17-bootstrap"
 pkgver = "17.0.7_p5"
-pkgrel = 0
+pkgrel = 1
 # satisfy revdeps
 makedepends = [
     "alsa-lib-devel",

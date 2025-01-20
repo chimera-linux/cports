@@ -106,7 +106,7 @@ def _get_new_deps(pkg, origin):
 
     # bootstrap packages are not installable ootb
     if pkg.pkgname.endswith("-bootstrap") and pkg.build_style != "meta":
-        deps += ["bootstrap:" + pkg.pkgname.removesuffix("-bootstrap")]
+        deps += ["bootstrap:cbuild"]
 
     # explicit package depends
     for c in pkg.depends:

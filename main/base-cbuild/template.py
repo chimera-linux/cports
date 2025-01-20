@@ -1,6 +1,6 @@
 pkgname = "base-cbuild"
 pkgver = "0.1"
-pkgrel = 8
+pkgrel = 9
 build_style = "meta"
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -21,7 +21,12 @@ depends = [
     "fakeroot-core",
     self.with_pkgver("base-cbuild-progs"),
 ]
-provides = ["apk-tools-cache-link=9999-r0"]
+# bootstrap-llvm is temporary until next llvm release, don't feel like rebuild
+provides = [
+    "apk-tools-cache-link=9999-r0",
+    "bootstrap:cbuild=9999-r0",
+    "bootstrap:llvm=9999-r0",
+]
 
 options = ["bootstrap", "brokenlinks"]
 
