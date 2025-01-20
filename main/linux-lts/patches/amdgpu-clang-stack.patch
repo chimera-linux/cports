@@ -20,8 +20,8 @@ index 2d8e55e..51f38fd 100644
 +	depends on BROKEN || !CC_IS_CLANG || ARM64 || RISCV || SPARC64 || X86_64 || PPC64
  	select SND_HDA_COMPONENT if SND_HDA_CORE
  	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
--	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-+	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON))
+-	select DRM_AMD_DC_FP if ARCH_HAS_KERNEL_FPU_SUPPORT && !(CC_IS_CLANG && (ARM64 || RISCV))
++	select DRM_AMD_DC_FP if ARCH_HAS_KERNEL_FPU_SUPPORT
  	help
  	  Choose this option if you want to use the new display engine
  	  support for AMDGPU. This adds required support for Vega and
