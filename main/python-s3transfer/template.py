@@ -1,5 +1,5 @@
 pkgname = "python-s3transfer"
-pkgver = "0.10.4"
+pkgver = "0.11.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -19,7 +19,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/boto/s3transfer"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "165b03315289916514673ee2a6141144316abab123d217ed9e1e44cdbf9f7689"
+sha256 = "b22725ab2fbcc236b937cf86d31e9cd5b7d20e367991531679886eb2502fa9f7"
 
 
 def init_check(self):
