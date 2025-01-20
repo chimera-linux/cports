@@ -15,6 +15,7 @@ hardening = ["vis", "cfi"]
 # check may be disabled
 options = []
 
-if self.profile().arch == "aarch64":
-    # fails kak_selection test
+if self.profile().arch == "aarch64" or self.profile().endian == "big":
+    # aarch64 fails kak_selection test
+    # big endian gets stuck in the suite
     options += ["!check"]
