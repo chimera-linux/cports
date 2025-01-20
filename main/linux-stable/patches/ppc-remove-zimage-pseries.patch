@@ -1,11 +1,11 @@
-commit 59c50a67d42f3e3f05fb7619f7d55911321bc0ea
+commit b6cf5458e916e41fc72247568e798773d135ff33
 Author: q66 <q66@chimera-linux.org>
-Date:   Mon Oct 9 01:15:01 2023 +0200
+Date:   Mon Jan 20 13:18:53 2025 +0100
 
     disable some broken but unused targets
 
 diff --git a/arch/powerpc/boot/Makefile b/arch/powerpc/boot/Makefile
-index 968aee2..e73770c 100644
+index 1ff6ad4..ef15a78 100644
 --- a/arch/powerpc/boot/Makefile
 +++ b/arch/powerpc/boot/Makefile
 @@ -35,9 +35,7 @@ endif
@@ -19,7 +19,7 @@ index 968aee2..e73770c 100644
  else
  BOOTTARGETFLAGS	:= -m32
  endif
-@@ -75,8 +73,6 @@ BOOTCFLAGS	:= $(BOOTTARGETFLAGS) \
+@@ -73,8 +71,6 @@ BOOTCFLAGS	:= $(BOOTTARGETFLAGS) \
  		   -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
  		   -fno-strict-aliasing -O2 \
  		   -msoft-float -mno-altivec -mno-vsx \
@@ -28,13 +28,12 @@ index 968aee2..e73770c 100644
  		   $(call cc-option,-mno-mma) \
  		   $(call cc-option,-mno-spe) $(call cc-option,-mspe=no) \
  		   -fomit-frame-pointer -fno-builtin -fPIC
-@@ -280,18 +276,6 @@ quiet_cmd_wrap	= WRAP    $@
+@@ -274,17 +270,6 @@ quiet_cmd_wrap	= WRAP    $@
  		$(CROSSWRAP) $(if $3, -s $3)$(if $4, -d $4)$(if $5, -i $5) \
  		vmlinux
  
 -image-$(CONFIG_PPC_PSERIES)		+= zImage.pseries
 -image-$(CONFIG_PPC_POWERNV)		+= zImage.pseries
--image-$(CONFIG_PPC_MAPLE)		+= zImage.maple
 -image-$(CONFIG_PPC_IBM_CELL_BLADE)	+= zImage.pseries
 -image-$(CONFIG_PPC_PS3)			+= dtbImage.ps3
 -image-$(CONFIG_PPC_CHRP)		+= zImage.chrp
@@ -47,13 +46,26 @@ index 968aee2..e73770c 100644
  #
  # Targets which embed a device tree blob
  #
-@@ -453,9 +437,7 @@ $(obj)/zImage.initrd:	$(addprefix $(obj)/, $(initrd-y))
+@@ -354,12 +339,6 @@ image-$(CONFIG_AMIGAONE)		+= cuImage.amigaone
+ 
+ image-$(CONFIG_PPC_MICROWATT)		+= dtbImage.microwatt
+ 
+-# For 32-bit powermacs, build the COFF and miboot images
+-# as well as the ELF images.
+-ifdef CONFIG_PPC32
+-image-$(CONFIG_PPC_PMAC)	+= zImage.coff zImage.miboot
+-endif
+-
+ # Allow extra targets to be added to the defconfig
+ image-y	+= $(CONFIG_EXTRA_TARGETS)
+ 
+@@ -441,9 +420,7 @@ $(obj)/zImage.initrd:	$(addprefix $(obj)/, $(initrd-y))
  
  # anything not in $(targets)
  clean-files += $(image-) $(initrd-) cuImage.* dtbImage.* treeImage.* \
 -	zImage zImage.initrd zImage.chrp zImage.coff zImage.holly \
 -	zImage.miboot zImage.pmac zImage.pseries \
--	zImage.maple simpleImage.* otheros.bld
+-	simpleImage.* otheros.bld
 +	zImage
  
  # clean up files cached by wrapper
