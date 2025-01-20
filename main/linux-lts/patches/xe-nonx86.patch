@@ -1,0 +1,18 @@
+--- a/drivers/gpu/drm/i915/display/intel_vga.c
++++ b/drivers/gpu/drm/i915/display/intel_vga.c
+@@ -80,6 +80,7 @@ void intel_vga_redisable(struct drm_i915_private *i915)
+
+ void intel_vga_reset_io_mem(struct drm_i915_private *i915)
+ {
++#if defined(CONFIG_VGA_CONSOLE)
+ 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+
+ 	/*
+@@ -95,6 +96,7 @@ void intel_vga_reset_io_mem(struct drm_i915_private *i915)
+ 	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+ 	outb(inb(VGA_MIS_R), VGA_MIS_W);
+ 	vga_put(pdev, VGA_RSRC_LEGACY_IO);
++#endif
+ }
+
+ int intel_vga_register(struct drm_i915_private *i915)
