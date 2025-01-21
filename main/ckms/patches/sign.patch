@@ -1,0 +1,228 @@
+commit a39fae03f004aa4b2bba06f1416cd99ef27f04ba
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Jan 21 02:30:21 2025 +0100
+
+    implement basic module signing support
+
+diff --git a/ckms b/ckms
+index 8f51208..934d41a 100755
+--- a/ckms
++++ b/ckms
+@@ -31,6 +31,8 @@ opt_depmod = True
+ opt_machine = None
+ opt_jobs = None
+ opt_comp = None
++opt_signkey = None
++opt_signcert = None
+ 
+ use_colors = True
+ 
+@@ -135,6 +137,7 @@ class Package:
+         self.cfgdata = cfgdata
+         self.pkgpath = pkgpath
+         self.pkgconf = pkgconf
++        self.sig_hash = None
+         # whether to strip the modules, true by default
+         try:
+             self.strip = cfgdata["general"].getboolean(
+@@ -240,11 +243,23 @@ class Package:
+             self.add_cfg_env()
+             return
+         with open(cfg) as cf:
++            comp_over = False
+             for l in cf:
+-                # we only care about the first category
++                # we only care about the first category for the compiler opts
+                 if l == "\n":
+-                    break
++                    comp_over = True
++                    continue
+                 l = l.strip()
++                # break at the earliest point we can
++                if l == "# CONFIG_MODULE_SIG is not set":
++                    break
++                # found module signing support
++                if l.startswith("CONFIG_MODULE_SIG_HASH="):
++                    self.sig_hash = l.removeprefix("CONFIG_MODULE_SIG_HASH=")[1:-1]
++                    break
++                # these are all in the first block
++                if comp_over:
++                    continue
+                 if l == "CONFIG_CC_IS_CLANG=y":
+                     margs.append("LLVM=1")
+                     self.env["LLVM"] = "1"
+@@ -452,6 +467,42 @@ def get_compsfx():
+ 
+     return compsfx
+ 
++def do_sign(pkg, path):
++    dosig = True
++    hdrpath = kern_path / opt_kernver / "build"
++    certpath = hdrpath / "certs"
++    sign_tool = shutil.which(str(hdrpath / "scripts/sign-file"))
++
++    signkey = certpath / "signing_key.pem"
++    signcert = certpath / "signing_key.x509"
++
++    if not signkey.is_file() or not signcert.is_file():
++        signkey = opt_signkey
++        signcert = opt_signcert
++
++    if not pkg.sig_hash:
++        # no signing in kernel
++        log(f"signing not enabled in {opt_kernver}, not signing...")
++        dosig = False
++    elif not signkey or not signcert:
++        # no signkeys...
++        log("signing keys not available, not signing...")
++        dosig = False
++    elif not sign_tool:
++        # no sign tool
++        log("signing tool not available, not signing...")
++        dosig = False
++
++    if not dosig:
++        path.chmod(0o644)
++        return
++
++    log(f"signing module '{path.name}'...")
++    if pkg.do(sign_tool, pkg.sig_hash, signkey, signcert, path).returncode != 0:
++        raise CkmsError(f"signing failed for '{path}'")
++
++    path.chmod(0o644)
++
+ def do_build(cmd, quiet = False):
+     check_has_action(cmd)
+ 
+@@ -513,7 +564,8 @@ def do_build(cmd, quiet = False):
+         # then copy
+         destf.mkdir(parents = True, exist_ok = True)
+         shutil.copy(modf, destf)
+-        (destf / f"{modn}.ko").chmod(0o644)
++        # sign if needed
++        do_sign(pkg, destf / f"{modn}.ko")
+ 
+     # clean build dir
+     shutil.rmtree(bdir)
+@@ -731,7 +783,7 @@ def main():
+     global opt_confpath, opt_kernver, opt_pkgconf, opt_quiet
+     global opt_depmod, opt_machine, opt_jobs, opt_comp, opt_statedir, opt_destdir
+     global use_colors, opt_stripcmd, opt_makeargs, opt_makeenv, opt_initramfs
+-    global opt_depmodh
++    global opt_depmodh, opt_signkey, opt_signcert
+ 
+     parser = argparse.ArgumentParser(
+         description = "Chimera Kernel Module System"
+@@ -753,6 +805,9 @@ def main():
+         "-x", "--compression", default = None,
+         help = "Compression method for modules (gz, xz or zst)"
+     )
++    parser.add_argument(
++        "--sign", default = None, help = "Signing key to use"
++    )
+     parser.add_argument(
+         "-q", "--quiet", action = "store_const", const = True,
+         default = opt_quiet, help = "Do not log build output to stdout."
+@@ -797,6 +852,8 @@ def main():
+     opt_makeargs = ckcfg.get("make_build_args", fallback = opt_makeargs)
+     opt_initramfs = ckcfg.get("initramfs_hook", fallback = opt_initramfs)
+     opt_depmodh = ckcfg.get("depmod_hook", fallback = opt_depmodh)
++    opt_signkey = ckcfg.get("sign_key", fallback = opt_signkey)
++    opt_signcert = ckcfg.get("sign_cert", fallback = opt_signcert)
+     if "build_env" in gcfg:
+         opt_makeenv = gcfg["build_env"]
+ 
+@@ -828,6 +885,16 @@ def main():
+     if cmdline.compression:
+         opt_comp = cmdline.compression
+ 
++    if cmdline.sign:
++        sk = cmdline.sign.split(",")
++        if len(sk) == 1:
++            opt_signkey, opt_signcert = f"{sk[0]}.pem", f"{sk[0]}.x509"
++        elif len(sk) == 2:
++            opt_signkey, opt_signcert = sk
++        else:
++            log_red(f"ERROR: invalid parameter to --sign")
++            return 1
++
+     # some reasonable defaults
+ 
+     if not opt_jobs:
+@@ -857,6 +924,16 @@ def main():
+         log_red(f"ERROR: invalid compression method {opt_comp}")
+         return 1
+ 
++    if not opt_signkey or not opt_signcert:
++        # ignore if unset
++        opt_signkey = opt_signcert = None
++    elif not os.path.isfile(opt_signkey) or not os.path.isfile(opt_signcert):
++        # ignore if nonexistent
++        opt_signkey = opt_signcert = None
++    else:
++        opt_signkey = pathlib.Path(opt_signkey)
++        opt_signcert = pathlib.Path(opt_signcert)
++
+     # match the action
+ 
+     try:
+diff --git a/ckms-config.ini.5.scd b/ckms-config.ini.5.scd
+index 6277a02..5eab14e 100644
+--- a/ckms-config.ini.5.scd
++++ b/ckms-config.ini.5.scd
+@@ -61,6 +61,24 @@ This is everything in the section _[ckms]_.
+ 	environment of a package. They are always added to the very end, after
+ 	any arguments implicitly set up by CKMS.
+ 
++*sign\_key*
++	The private key used for module signing. If unset, _certs/signing\_key.pem_
++	will be checked in the kernel headers directory. If neither exist, the
++	module will not be signed.
++
++	For the signing to happen, the kernel headers directory additionally needs
++	to contain the _sign-file_ binary in its _scripts_ directory. The kernel
++	dotconfig also needs to have signing enabled.
++
++	In general, the kernel key will exist when using self-built kernels, while
++	the config key will be something like the user's custom key enrolled in the
++	MOK. If the kernel key exists, it will be preferred first, as that is the
++	key used to sign the rest of the kernel's modules, which is always better.
++
++*sign\_cert*
++	The x509 certificate counterpart of _sign\_key_. Both have to exist for the
++	signing to happen. The kernel path is _certs/signing\_key.x509_.
++
+ # BUILD ENVIRONMENT
+ 
+ It is additionally possible to globally influence the build environment of
+diff --git a/ckms.8.scd b/ckms.8.scd
+index 878d0f9..00471b1 100644
+--- a/ckms.8.scd
++++ b/ckms.8.scd
+@@ -88,6 +88,14 @@ the commands.
+ 	The compression method to use for modules. By default, no compression
+ 	is used. The valid methods are _gz_, _xz_ and _zst_.
+ 
++*--sign* _KEY,CERT_
++	Use the given private key and cert. Equivalent to the _sign\_key_ and
++	_sign\_cert_ options in the configuration file. Used unless the kernel
++	headers provide a key. You also need to provide the x509 certificate and
++	both have to exist, or this gets ignored. Can be specified either as two
++	comma-separated paths, or a single path, in which case the _.pem_ and
++	_.x509_ suffixes get appended.
++
+ # COMMANDS
+ 
+ These commands are permitted, along with their options.
+diff --git a/config.ini b/config.ini
+index af92b90..00031e7 100644
+--- a/config.ini
++++ b/config.ini
+@@ -6,5 +6,7 @@ quiet = no
+ strip = strip -g
+ initramfs_hook = /etc/ckms/refresh-initramfs.sh
+ #make_build_args = ...
++#sign_key = /path/to/signing_key.pem
++#sign_cert = /path/to/signing_key.x509
+ [build_env]
+ #FOO = bar

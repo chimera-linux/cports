@@ -147,7 +147,7 @@ def get_modsrc(pkg, modname, modver):
     return paths.bldroot() / f"usr/src/{modname}-{modver}"
 
 
-def _call_ckms(pkg, kver, *args):
+def _call_ckms(pkg, kver, *args, tmpfiles=None):
     pkg.do(
         "ckms",
         "-s",
@@ -156,6 +156,7 @@ def _call_ckms(pkg, kver, *args):
         kver,
         *args,
         env={"CBUILD_BYPASS_STRIP_WRAPPER": "1"},
+        tmpfiles=tmpfiles,
     )
 
 
@@ -164,7 +165,23 @@ def ckms_configure(pkg, modname, modver, kver):
 
 
 def ckms_build(pkg, modname, modver, kver):
-    _call_ckms(pkg, kver, "build", f"{modname}={modver}")
+    from cbuild.core import paths
+
+    # check if we have the stuff available
+    kpath = paths.distdir() / "etc/keys/kernel"
+    pkey = kpath / f"{kver}-signing_key.pem"
+    cert = kpath / f"{kver}-signing_key.x509"
+    tfiles = None
+    cargs = []
+
+    # pass the signing key ephemerally via file descriptors
+    if pkey.is_file() and cert.is_file():
+        tfiles = [pkey, cert]
+        cargs += [f"--sign=/tmp/{kver}-signing_key"]
+
+    _call_ckms(
+        pkg, kver, *cargs, "build", f"{modname}={modver}", tmpfiles=tfiles
+    )
 
 
 def ckms_install(pkg, modname, modver, kver):

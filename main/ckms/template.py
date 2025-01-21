@@ -1,6 +1,6 @@
 pkgname = "ckms"
 pkgver = "0.1.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 hostmakedepends = ["scdoc"]
 depends = ["python"]

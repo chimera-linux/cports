@@ -2888,7 +2888,7 @@ This is useful if you have e.g. some personal authentication token needed
 to fetch particular sources, and you do not want to paste the token directly
 to the template.
 
-##### def do(self, cmd, *args, env = None, wrksrc = None, capture_output = False, stdout = None, stderr = None, input = None, check = True, allow_network = False, path = None)
+##### def do(self, cmd, *args, env = None, wrksrc = None, capture_output = False, stdout = None, stderr = None, input = None, check = True, allow_network = False, path = None, tmpfiles = None)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,
 instead directly runs `cmd`, passing it `*args`. You can use `env` to provide
@@ -2926,6 +2926,10 @@ that if needed.
 
 The `stdout` and `stderr` arguments work the same as for Python `subprocess.run`,
 likewise with `input`.
+
+The `tmpfiles` argument can be a list of `pathlib.Path` specifying host-filesystem
+file paths to be bound into the sandbox in `/tmp`. The target filenames will be
+the same as the source filenames.
 
 The return value is the same as from Python `subprocess.run`. There you can
 access the return code as well as possibly captured `stdout`.

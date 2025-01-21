@@ -1735,6 +1735,7 @@ class Template(Package):
         check=True,
         allow_network=False,
         path=None,
+        tmpfiles=None,
     ):
         cpf = self.profile()
 
@@ -1856,6 +1857,7 @@ class Template(Package):
             lldargs=lld_args,
             binpath=path,
             term=True,
+            tmpfiles=tmpfiles,
         )
 
     def stamp(self, name):

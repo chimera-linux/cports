@@ -840,7 +840,7 @@ def _build_locked(
                 mount_binpkgs=True,
                 fakeroot=True,
                 binpkgs_rw=True,
-                signkey=asign.get_keypath(),
+                tmpfiles=[asign.get_keypath()],
             )
         # handle whatever error
         if ret.returncode != 0:
