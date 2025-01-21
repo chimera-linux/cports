@@ -1,6 +1,6 @@
 pkgname = "php8.3"
 _majver = "8.3"
-pkgver = f"{_majver}.15"
+pkgver = f"{_majver}.16"
 pkgrel = 0
 _apiver = "20230831"
 build_style = "gnu_configure"
@@ -123,7 +123,7 @@ maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "67073c3c9c56c86461e0715d9e1806af5ddffe8e6e2eb9781f7923bbb5bd67fa"
+sha256 = "61441627dca50cf0173e3f054ffe8c4f5db6552555c43cab87a8ecacfd201c7e"
 
 
 def post_patch(self):
@@ -148,11 +148,6 @@ def post_patch(self):
         "ext/soap/tests/server009.phpt",
         "ext/sockets/tests/bug63000.phpt",
         "sapi/fpm/tests/socket-ipv4-fallback.phpt",
-        # Marked as XFAIL on PHP repo in March 2024
-        "ext/openssl/tests/openssl_error_string_basic_openssl3.phpt",
-        "ext/openssl/tests/openssl_private_decrypt_basic.phpt",
-        # fails with openssl 3.3
-        "ext/openssl/tests/bug74341.phpt",
         # Broken and being discussed upstream
         # https://github.com/php/php-src/issues/11252
         "ext/gd/tests/bug43073.phpt",
@@ -163,8 +158,6 @@ def post_patch(self):
         "ext/gd/tests/bug53504.phpt",
         "ext/gd/tests/bug65148.phpt",
         "ext/gd/tests/bug73272.phpt",
-        # https://github.com/php/php-src/issues/13806
-        "ext/openssl/tests/openssl_x509_parse_basic.phpt",
         # aarch64; all related to chunked encoding?
         "ext/soap/tests/bug47021.phpt",
         "ext/standard/tests/filters/chunked_001.phpt",
@@ -180,6 +173,7 @@ def post_patch(self):
         "ext/gettext/tests/gettext_bind_textdomain_codeset-retval.phpt",
         "ext/gettext/tests/gettext_bindtextdomain-cwd.phpt",
         "ext/posix/tests/posix_errno_variation1.phpt",
+        "ext/standard/tests/http/gh16810.phpt",
         "ext/zip/tests/oo_encryption.phpt",
         "sapi/cli/tests/009.phpt",
         "sapi/cli/tests/012-2.phpt",
