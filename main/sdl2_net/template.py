@@ -1,9 +1,11 @@
-pkgname = "sdl_net"
+pkgname = "sdl2_net"
 pkgver = "2.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = ["pkgconf"]
-makedepends = ["sdl-devel-static"]  # needs sdl_test which is static only
+makedepends = ["sdl2-compat-devel"]
+provides = [self.with_pkgver("sdl_net")]
 pkgdesc = "SDL networking library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -18,9 +20,8 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("sdl_net-devel")
+@subpackage("sdl2_net-devel")
 def _(self):
+    self.provides = [self.with_pkgver("sdl_net-devel")]
+
     return self.default_devel()
-
-
-configure_gen = []
