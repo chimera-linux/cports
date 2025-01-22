@@ -1,6 +1,6 @@
-pkgname = "sdl_mixer"
+pkgname = "sdl2_mixer"
 pkgver = "2.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     # use external libraries, disable bundled crap
@@ -35,10 +35,11 @@ makedepends = [
     "libvorbis-devel",
     "mpg123-devel",
     "opusfile-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "smpeg-devel",
     "wavpack-devel",
 ]
+provides = [self.with_pkgver("sdl_mixer")]
 pkgdesc = "SDL audio mixer library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
@@ -53,6 +54,8 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("sdl_mixer-devel")
+@subpackage("sdl2_mixer-devel")
 def _(self):
+    self.provides = [self.with_pkgver("sdl_mixer-devel")]
+
     return self.default_devel()
