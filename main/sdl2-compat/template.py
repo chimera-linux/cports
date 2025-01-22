@@ -1,13 +1,13 @@
 pkgname = "sdl2-compat"
 pkgver = "2.30.50"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["sdl3-devel"]
 # is dlopen'ed
 depends = ["so:libSDL3.so.0!sdl"]
-# manually cap provided version so this isn't prioritized over main/sdl
-provides = ["so:libSDL2-2.0.so.0=0"]
+# sdl is transitional, current names are versioned
+provides = [self.with_pkgver("sdl2"), self.with_pkgver("sdl")]
 pkgdesc = "Compatibility layer for SDL 2"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
@@ -27,10 +27,9 @@ def _(self):
 def _(self):
     # pull in expected makedepends for stuff
     self.depends += [self.with_pkgver("sdl2-compat-devel-static"), "sdl3-devel"]
-    # see above
     self.provides = [
-        "cmd:sdl2-config=2.30.0",
-        "pc:sdl2=2.30.0",
+        self.with_pkgver("sdl2-devel"),
+        self.with_pkgver("sdl-devel"),
     ]
 
     return self.default_devel()
