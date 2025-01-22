@@ -1,6 +1,6 @@
 pkgname = "mpg123"
 pkgver = "1.32.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-optimization=0",
@@ -19,7 +19,7 @@ makedepends = [
     "libpulse-devel",
     "linux-headers",
     "pipewire-jack-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
 depends = [self.with_pkgver("mpg123-output-dummy")]
 pkgdesc = "MPEG 1.0/2.0/2.5 audio player"
@@ -44,7 +44,7 @@ for _libn, _descn, _iif in [
     ("oss", "OSS", None),
     ("jack", "JACK", "jack"),
     ("pulse", "PulseAudio", "libpulse"),
-    ("sdl", "SDL", "sdl"),
+    ("sdl", "SDL", "sdl2"),
     ("dummy", "dummy", None),
 ]:
     _genlib(_libn, _descn, _iif)
