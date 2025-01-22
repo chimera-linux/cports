@@ -22,7 +22,7 @@ makedepends = [
     "pipewire-jack-devel",
     "portaudio-devel",
     "rtmidi-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "zlib-ng-compat-devel",
 ]
 depends = ["zenity"]

@@ -6,12 +6,15 @@ hostmakedepends = ["autoconf-archive", "automake", "pkgconf"]
 makedepends = [
     "fltk-devel",
     "fontconfig-devel",
+    "glu-devel",
     "libarchive-devel",
     "libepoxy-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
+    "libsamplerate-devel",
     "libxft-devel",
-    "sdl-devel",
+    "libxinerama-devel",
+    "sdl2-compat-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "NES/Famicom emulator"

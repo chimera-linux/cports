@@ -18,7 +18,7 @@ makedepends = [
     "lua5.4-devel",
     "minizip-devel",
     # next release: qt6
-    "sdl-devel",
+    "sdl2-compat-devel",
     "sqlite-devel",
     "zlib-ng-compat-devel",
 ]

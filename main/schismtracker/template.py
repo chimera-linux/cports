@@ -9,7 +9,7 @@ configure_args = [
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "flac-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "utf8proc-devel",
 ]
 pkgdesc = "Reimplementation of Impulse Tracker"

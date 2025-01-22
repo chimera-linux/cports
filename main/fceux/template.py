@@ -10,7 +10,7 @@ makedepends = [
     "lua5.1-devel",
     "minizip-devel",
     "qt6-qtdeclarative-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
 pkgdesc = "NES/Famicom emulator"
 maintainer = "Erica Z <zerica@callcc.eu>"

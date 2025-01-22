@@ -24,7 +24,7 @@ makedepends = [
     "openssl-devel",
     "opusfile-devel",
     "pcre2-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Beautiful gemini client"

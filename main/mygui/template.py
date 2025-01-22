@@ -13,7 +13,7 @@ makedepends = [
     "freetype-devel",
     "libx11-devel",
     "mesa-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast, flexible and simple GUI"

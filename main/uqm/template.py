@@ -8,7 +8,7 @@ makedepends = [
     "libmikmod-devel",
     "libpng-devel",
     "libvorbis-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Port of Star Control 2"

@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-input-alsa",
+    "--disable-input-jack",
     "--disable-input-portaudio",
     "--disable-input-pulse",
     "--disable-input-sndio",
@@ -22,7 +23,7 @@ makedepends = [
     "mesa-devel",
     "ncurses-devel",
     "pipewire-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
 pkgdesc = "Console-based audio visualiser"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

@@ -14,7 +14,7 @@ makedepends = [
     "libslirp-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
 pkgdesc = "DS emulator"
 maintainer = "Erica Z <zerica@callcc.eu>"

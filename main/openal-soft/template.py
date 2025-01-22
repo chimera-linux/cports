@@ -1,6 +1,6 @@
 pkgname = "openal-soft"
 pkgver = "1.24.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DALSOFT_EXAMPLES=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -9,7 +9,8 @@ makedepends = [
     "libpulse-devel",
     "pipewire-devel",
     "pipewire-jack-devel",
-    "sdl-devel",
+    "sdl3-devel",
+    "sdl3-devel-static",
     "ffmpeg-devel",
 ]
 pkgdesc = "Cross-platform 3D audio API"

@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_UBSAN=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["zlib-ng-compat-devel", "sdl-devel"]
+makedepends = ["zlib-ng-compat-devel", "sdl2-compat-devel"]
 pkgdesc = "Video game music file emulation/playback library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

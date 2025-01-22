@@ -24,7 +24,7 @@ makedepends = [
     "openal-soft-devel",
     "openscenegraph-devel",
     "qt6-qtbase-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "unshield-devel",
 ]
 pkgdesc = "Open implementation of Morrowind's engine"

@@ -1,0 +1,11 @@
+--- a/src/modules/sdl2/common.c
++++ b/src/modules/sdl2/common.c
+@@ -17,6 +17,8 @@
+  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+  */
+ 
++#include <string.h>
++
+ #include "common.h"
+ 
+ #include <framework/mlt_log.h>

@@ -8,7 +8,7 @@ hostmakedepends = [
     "libtool",
     "pkgconf",
 ]
-makedepends = ["sdl-devel"]
+makedepends = ["sdl2-compat-devel"]
 pkgdesc = "MPEG decoding library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

@@ -9,11 +9,12 @@ configure_args = [
 make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
+    "dbus-devel",
     "glib-devel",
     "pipewire-devel",
     "pipewire-jack-devel",
     "libpulse-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "libsndfile-devel",
     "libedit-readline-devel",
     "linux-headers",

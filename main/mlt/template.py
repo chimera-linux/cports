@@ -42,7 +42,7 @@ makedepends = [
     "qt6-qt5compat-devel",
     "qt6-qtbase-devel",
     "qt6-qtsvg-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Multimedia framework for video editors"
