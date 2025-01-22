@@ -10,7 +10,6 @@ makedepends = [
     "pipewire-devel",
     "pipewire-jack-devel",
     "sdl3-devel",
-    "sdl3-devel-static",
     "ffmpeg-devel",
 ]
 pkgdesc = "Cross-platform 3D audio API"

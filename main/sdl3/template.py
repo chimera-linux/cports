@@ -1,6 +1,6 @@
 pkgname = "sdl3"
 pkgver = "3.2.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -16,6 +16,7 @@ configure_args = [
     "-DSDL_WAYLAND_SHARED=OFF",
     "-DSDL_X11_SHARED=OFF",
     "-DSDL_ALTIVEC=OFF",  # ppc64le fail in sdl2-compat blit tests
+    "-DSDL_IBUS=OFF",  # causes depcycles for ffmpeg, fluidsynth, etc.
 ]
 hostmakedepends = [
     "cmake",
@@ -24,7 +25,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "dbus-devel",
-    "ibus-devel",
     "libdecor-devel",
     "liburing-devel",
     "libusb-devel",
@@ -57,6 +57,16 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
+@subpackage("sdl3-devel-static")
+def _(self):
+    self.subdesc = "static libraries"
+
+    return ["usr/lib/*.a"]
+
+
 @subpackage("sdl3-devel")
 def _(self):
+    # cmake dependencies shenanigans
+    self.depends += [self.with_pkgver("sdl3-devel-static")]
+
     return self.default_devel()

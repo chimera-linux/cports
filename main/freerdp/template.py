@@ -61,7 +61,6 @@ makedepends = [
     "pkcs11-helper-devel",
     "sdl2-compat-devel",  # no sdl3-ttf yet
     "sdl2_ttf-devel",
-    "sdl3-devel-static",
     "uriparser-devel",
     "wayland-devel",
     "zlib-ng-compat-devel",

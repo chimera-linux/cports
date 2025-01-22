@@ -3,7 +3,7 @@ pkgver = "2.30.50"
 pkgrel = 2
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["sdl3-devel", "sdl3-devel-static"]  # needs libSDL3_test.a
+makedepends = ["sdl3-devel"]
 # is dlopen'ed
 depends = ["so:libSDL3.so.0!sdl"]
 # manually cap provided version so this isn't prioritized over main/sdl
