@@ -302,7 +302,12 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
 
     # ensure cross-toolchain is included in hostdeps
     if cross:
-        ihdeps.append((None, f"base-cross-{pprof.arch}"))
+        ihdeps.append(
+            (
+                _srcpkg_ver(f"base-cross-{pprof.arch}", pkg),
+                f"base-cross-{pprof.arch}",
+            )
+        )
 
     chost = chroot.host_cpu()
 
