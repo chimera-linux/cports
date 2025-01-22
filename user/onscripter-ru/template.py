@@ -11,9 +11,9 @@ makedepends = [
     "libpng-devel",
     "libusb-devel",
     "libvorbis-devel",
-    "sdl-devel",
-    "sdl_image-devel",
-    "sdl_mixer-devel",
+    "sdl2-compat-devel",
+    "sdl2_image-devel",
+    "sdl2_mixer-devel",
     "smpeg-devel",
     "zlib-ng-compat-devel",
 ]

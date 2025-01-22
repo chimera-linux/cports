@@ -13,8 +13,8 @@ makedepends = [
     "libslirp-devel",
     "mt32emu-devel",
     "opusfile-devel",
-    "sdl-devel",
-    "sdl_net-devel",
+    "sdl2-compat-devel",
+    "sdl2_net-devel",
     "speexdsp-devel",
     "zlib-ng-compat-devel",
 ]

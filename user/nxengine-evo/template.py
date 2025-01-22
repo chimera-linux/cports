@@ -11,9 +11,9 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libpng-devel",
     "nlohmann-json",
-    "sdl-devel",
-    "sdl_image-devel",
-    "sdl_mixer-devel",
+    "sdl2-compat-devel",
+    "sdl2_image-devel",
+    "sdl2_mixer-devel",
     "spdlog-devel",
     "utfcpp",
 ]

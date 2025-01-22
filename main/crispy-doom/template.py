@@ -6,9 +6,9 @@ hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "libpng-devel",
     "libsamplerate-devel",
-    "sdl-devel",
-    "sdl_mixer-devel",
-    "sdl_net-devel",
+    "sdl2-compat-devel",
+    "sdl2_mixer-devel",
+    "sdl2_net-devel",
 ]
 pkgdesc = "Limit-removing enhanced-resolution Doom source port"
 maintainer = "q66 <q66@chimera-linux.org>"

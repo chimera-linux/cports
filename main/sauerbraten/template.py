@@ -4,9 +4,9 @@ pkgrel = 1
 build_wrksrc = "src"
 build_style = "makefile"
 makedepends = [
-    "sdl-devel",
-    "sdl_image-devel",
-    "sdl_mixer-devel",
+    "sdl2-compat-devel",
+    "sdl2_image-devel",
+    "sdl2_mixer-devel",
     "zlib-ng-compat-devel",
 ]
 depends = [self.with_pkgver("sauerbraten-data")]
