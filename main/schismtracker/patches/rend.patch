@@ -1,0 +1,11 @@
+--- a/sys/sdl2/video.c
++++ b/sys/sdl2/video.c
+@@ -334,7 +334,7 @@ static void sdl2_video_setup(const char *quality)
+ 	if (cfg_video_interpolation != quality)
+ 		strncpy(cfg_video_interpolation, quality, 7);
+ 	sdl2_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, quality);
+-	video_redraw_texture();
++	if (video.renderer) video_redraw_texture();
+ }
+ 
+ static void sdl2_video_startup(void)
