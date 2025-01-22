@@ -1,6 +1,6 @@
 pkgname = "sdl3"
 pkgver = "3.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -15,6 +15,7 @@ configure_args = [
     "-DSDL_WAYLAND_LIBDECOR_SHARED=OFF",
     "-DSDL_WAYLAND_SHARED=OFF",
     "-DSDL_X11_SHARED=OFF",
+    "-DSDL_ALTIVEC=OFF",  # ppc64le fail in sdl2-compat blit tests
 ]
 hostmakedepends = [
     "cmake",
