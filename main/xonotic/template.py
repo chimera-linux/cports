@@ -13,7 +13,7 @@ makedepends = [
     "libxpm-devel",
     "libxxf86vm-devel",
     "mesa-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
 depends = [f"xonotic-data~{pkgver}"]
 pkgdesc = "Free, fast-paced cross-platform first-person shooter"

@@ -77,7 +77,6 @@ hostmakedepends = [
     "nasm",
     "perl",
     "pkgconf",
-    "texinfo",
 ]
 makedepends = [
     "bzip2-devel",
@@ -124,7 +123,7 @@ makedepends = [
     "pipewire-jack-devel",
     "rav1e-devel",
     "rubberband-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "shaderc-devel",
     "soxr-devel",
     "svt-av1-devel",

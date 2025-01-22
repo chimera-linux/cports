@@ -37,7 +37,7 @@ makedepends = [
     "pugixml-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "speexdsp-devel",
     "udev-devel",
     "xxhash-devel",

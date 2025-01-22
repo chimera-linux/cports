@@ -55,7 +55,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "sonnet-devel",
     "wayland-protocols",
     "xcb-util-devel",

@@ -12,7 +12,7 @@ makedepends = [
     "luajit-devel",
     "mpg123-devel",
     "openal-soft-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "zlib-ng-devel",
 ]
 pkgdesc = "Lua 2D graphics library"

@@ -21,7 +21,7 @@ makedepends = [
     "libpulse-devel",
     "libxv-devel",
     "minizip-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
 pkgdesc = "SNES emulator"
 maintainer = "Erica Z <zerica@callcc.eu>"

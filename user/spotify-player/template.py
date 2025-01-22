@@ -18,7 +18,7 @@ hostmakedepends = [
 makedepends = [
     "libpulse-devel",
     "dbus-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "openssl-devel",
     "libsixel-devel",
     "rust-std",

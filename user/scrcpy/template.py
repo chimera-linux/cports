@@ -15,7 +15,7 @@ hostmakedepends = [
 makedepends = [
     "ffmpeg-devel",
     "libusb-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
 depends = ["android-tools"]
 pkgdesc = "Display and control an Android device"

@@ -16,7 +16,7 @@ makedepends = [
     "mesa-devel",
     "openal-soft-devel",
     "openssl-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "shaderc-devel",
     "sqlite-devel",
 ]

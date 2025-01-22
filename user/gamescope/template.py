@@ -44,7 +44,7 @@ makedepends = [
     "luajit-devel",
     "pipewire-devel",
     "pixman-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "stb",
     "vulkan-headers",
     "vulkan-loader-devel",

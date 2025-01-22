@@ -39,7 +39,7 @@ makedepends = [
     "libtiff-devel",
     "mesa-devel",
     "pcre2-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "WXwidgets GUI toolkit"

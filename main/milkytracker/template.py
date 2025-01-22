@@ -7,7 +7,7 @@ makedepends = [
     "alsa-lib-devel",
     "pipewire-jack-devel",
     "rtmidi-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
 pkgdesc = "FT2 compatible music tracker"
 maintainer = "Erica Z <zerica@callcc.eu>"
