@@ -1,6 +1,6 @@
 pkgname = "zathura-pdf-poppler"
 pkgver = "0.3.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
