@@ -1,6 +1,6 @@
-pkgname = "sdl"
+pkgname = "sdl2"
 pkgver = "2.30.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
@@ -25,6 +25,7 @@ configure_args = [
     "--enable-video-wayland",
     "--enable-clock_gettime",
 ]
+configure_gen = []
 hostmakedepends = ["pkgconf", "nasm", "wayland-progs"]
 makedepends = [
     "dbus-devel",
@@ -52,6 +53,8 @@ depends = [
     "so:libGLESv2.so.2!libgles2",
     "so:libGL.so.1!libgl",
 ]
+# transitional
+provides = [self.with_pkgver("sdl")]
 pkgdesc = "Simple DirectMedia Layer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
@@ -66,11 +69,10 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("sdl-devel")
+@subpackage("sdl2-devel")
 def _(self):
     self.depends += makedepends
+    # transitional
+    self.provides = [self.with_pkgver("sdl-devel")]
 
     return self.default_devel()
-
-
-configure_gen = []
