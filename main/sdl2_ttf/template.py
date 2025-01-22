@@ -1,12 +1,13 @@
-pkgname = "sdl_ttf"
+pkgname = "sdl2_ttf"
 pkgver = "2.22.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSDL2TTF_HARFBUZZ=ON",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["sdl-devel", "freetype-devel", "harfbuzz-devel"]
+makedepends = ["sdl2-compat-devel", "freetype-devel", "harfbuzz-devel"]
+provides = [self.with_pkgver("sdl_ttf")]
 pkgdesc = "TrueType font support for SDL"
 maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "Zlib"
@@ -21,6 +22,8 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("sdl_ttf-devel")
+@subpackage("sdl2_ttf-devel")
 def _(self):
+    self.provides = [self.with_pkgver("sdl_ttf-devel")]
+
     return self.default_devel()
