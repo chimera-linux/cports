@@ -1,6 +1,6 @@
-pkgname = "sdl_image"
+pkgname = "sdl2_image"
 pkgver = "2.8.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSDL2IMAGE_AVIF=ON",
@@ -27,8 +27,9 @@ makedepends = [
     "libpng-devel",
     "libtiff-devel",
     "libwebp-devel",
-    "sdl-devel",
+    "sdl2-compat-devel",
 ]
+provides = [self.with_pkgver("sdl_image")]
 pkgdesc = "SDL image loading library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
@@ -43,6 +44,8 @@ def post_install(self):
     self.install_license("LICENSE.txt")
 
 
-@subpackage("sdl_image-devel")
+@subpackage("sdl2_image-devel")
 def _(self):
+    self.provides = [self.with_pkgver("sdl_image-devel")]
+
     return self.default_devel()
