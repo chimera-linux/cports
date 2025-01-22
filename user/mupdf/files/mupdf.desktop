@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Name=mupdf
+Icon=mupdf
+Terminal=false
+Exec=mupdf %f
