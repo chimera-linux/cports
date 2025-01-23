@@ -1,5 +1,5 @@
 pkgname = "openjdk17"
-pkgver = "17.0.13_p11"
+pkgver = "17.0.14_p7"
 pkgrel = 0
 _majver = pkgver.split(".")[0]
 _fver = pkgver.split("_")[0]
