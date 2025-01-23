@@ -1,13 +1,13 @@
 diff --git a/crates/uv/Cargo.toml b/crates/uv/Cargo.toml
-index 52be3cac4..581728e70 100644
+index 779acffb2..3c1d58873 100644
 --- a/crates/uv/Cargo.toml
 +++ b/crates/uv/Cargo.toml
 @@ -133,7 +133,7 @@ ignored = [
  ]
  
  [features]
--default = ["python", "python-managed", "pypi", "git", "performance", "crates-io", "test-ecosystem"]
-+default = ["python", "python-managed", "pypi", "git", "crates-io", "test-ecosystem"]
+-default = ["python", "python-managed", "pypi", "git", "performance", "crates-io", "slow-tests", "test-ecosystem"]
++default = ["python", "python-managed", "pypi", "git", "crates-io", "slow-tests", "test-ecosystem"]
  # Use better memory allocators, etc.
  performance = [
      "performance-memory-allocator",
