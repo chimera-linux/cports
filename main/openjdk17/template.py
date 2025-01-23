@@ -65,7 +65,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"
-sha256 = "86e27ac99560e08db3c0ad4df0428a076e40679c20636b29ecee5b62431d1cbe"
+sha256 = "98a6eb04bf7067ea040c0e1fa068845db822bf3f9ca686436327a834fa796f30"
 # FIXME: SIGILL in jvm
 hardening = ["!int"]
 # TODO later
