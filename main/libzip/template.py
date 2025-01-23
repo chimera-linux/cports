@@ -1,5 +1,5 @@
 pkgname = "libzip"
-pkgver = "1.11.2"
+pkgver = "1.11.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -17,6 +17,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "bzip2-devel",
+    "openssl-devel",
     "xz-devel",
     "zlib-ng-compat-devel",
     "zstd-devel",
@@ -27,7 +28,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libzip.org"
 source = f"{url}/download/libzip-{pkgver}.tar.gz"
-sha256 = "6b2a43837005e1c23fdfee532b78f806863e412d2089b9c42b49ab08cbcd7665"
+sha256 = "76653f135dde3036036c500e11861648ffbf9e1fc5b233ff473c60897d9db0ea"
 hardening = ["vis"]
 
 
