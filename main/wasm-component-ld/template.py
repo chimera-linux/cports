@@ -1,5 +1,5 @@
 pkgname = "wasm-component-ld"
-pkgver = "0.5.11"
+pkgver = "0.5.12"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -11,7 +11,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT"
 url = "https://github.com/bytecodealliance/wasm-component-ld"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "323328b18a1e13e35e36339ce59c6e7c4d1800b4fbdd78ba6fa83f3358324414"
+sha256 = "d9747c922bdeda3490405d62669d3d74c4dc39481a10e5302db6deece768623a"
 
 
 def post_install(self):
