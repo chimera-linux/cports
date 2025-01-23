@@ -1,6 +1,6 @@
 pkgname = "git-lfs"
-pkgver = "3.6.0"
-pkgrel = 1
+pkgver = "3.6.1"
+pkgrel = 0
 build_style = "go"
 make_dir = "bin"  # needed for tests
 make_build_args = [
@@ -14,7 +14,7 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "MIT"
 url = "https://git-lfs.com"
 source = f"https://github.com/git-lfs/git-lfs/releases/download/v{pkgver}/git-lfs-v{pkgver}.tar.gz"
-sha256 = "9a5d2a598b4096f0fdde5b2ead6038996c657acafe5a89d22b8c2f1b56aeaf36"
+sha256 = "1417b7ee9a8fba8d649a89f070fdcde8b2593ca2caa74e3e808d2bb35d5ca5f7"
 # a test fails after go bump
 options = ["!check"]
 
