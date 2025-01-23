@@ -1,5 +1,5 @@
 pkgname = "obs-studio"
-pkgver = "31.0.0"
+pkgver = "31.0.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -66,7 +66,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://obsproject.com"
 source = f"https://github.com/obsproject/obs-studio/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a22966ff07aba38833ba57c36c9e0d190d083be5dec5048d0a60cd9e6b997242"
+sha256 = "535a8a5e36b3701e1fcea5dc46458fcd96d4be0eae5720249080a77bdb8fce72"
 hardening = ["vis", "!cfi"]
 # don't build with lto
 options = ["!check"]
