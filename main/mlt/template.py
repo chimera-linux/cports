@@ -1,6 +1,6 @@
 pkgname = "mlt"
-pkgver = "7.28.0"
-pkgrel = 2
+pkgver = "7.30.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # needs an ancient abandoned ruby kwalify
@@ -50,7 +50,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-3.0-or-later"
 url = "https://www.mltframework.org"
 source = f"https://github.com/mltframework/mlt/releases/download/v{pkgver}/mlt-{pkgver}.tar.gz"
-sha256 = "bc425bf9602213f5f4855b78cfbbcd43eeb78097c508588bde44415963955aa1"
+sha256 = "c802a5fdc16324f6c69273d0bb9718d30c2f635422e171ee01c0e7745e0e793c"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # suboverflow in find_first_pts for certain files
 hardening = ["!int"]
