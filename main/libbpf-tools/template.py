@@ -1,5 +1,5 @@
 pkgname = "libbpf-tools"
-pkgver = "0.32.0"
+pkgver = "0.33.0"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_wrksrc = "libbpf-tools"
@@ -27,7 +27,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only OR BSD-2-Clause"
 url = "https://github.com/iovisor/bcc/tree/master/libbpf-tools"
 source = f"https://github.com/iovisor/bcc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "06d868f789c087dbdf7b52a456b7f3eea1702160dda95a4f0c11298bdd70b1cd"
+sha256 = "83b486bffca939baf74742c29d4f02ce90df740c26fe147549987f5c1fd32a8b"
 tool_flags = {
     # see libbpf comment about bpf headers
     "CFLAGS": ["-I/usr/include/bpf/uapi"],
