@@ -18,7 +18,7 @@ source = [
 ]
 sha256 = [
     "4c7de0db2634c38297d5fcef61ab4a3e21856dd7247d49c33d9b19542bd1c61f",
-    "cb1b716d0c1a361e05a6bc126eea53c0e06f6161affa66a01b6f4d779d5b58b7",
+    "1504c301f6d417f2626085337e5c3bb3dc0282265089396ab36bfe1942feef1c",
 ]
 hardening = ["vis", "cfi"]
 # fcgiwrap has no checks
