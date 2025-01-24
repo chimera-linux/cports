@@ -1,5 +1,5 @@
 pkgname = "python-ssh2"
-pkgver = "1.1.1"
+pkgver = "1.1.2"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {
@@ -26,7 +26,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-only"
 url = "https://github.com/ParallelSSH/ssh2-python"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "33bc92de14341aab479ac49e33e747895be5117863b910e90f8a5fc23e8e64b8"
+sha256 = "d911297f22322d39e85144900cccdb5b376492a92e17d1680611344451df4fbb"
 
 
 # this is identical to the default check, we just have to change the pytest invocation
