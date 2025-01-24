@@ -37,19 +37,14 @@ jobs:
           sudo sysctl kernel.apparmor_restrict_unprivileged_unconfined=0
           sudo sysctl kernel.apparmor_restrict_unprivileged_userns=0
 
-      - name: Install python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install ruff
-        run: python -m pip install ruff --break-system-packages
-
       - name: Install apt dependencies
         run: |
           sudo rm -f /var/lib/man-db/auto-update
           sudo apt-get update
-          sudo apt-get install --no-install-recommends ca-certificates openssl git bubblewrap wget
+          sudo apt-get install --no-install-recommends python3-pip ca-certificates openssl git bubblewrap wget
+
+      - name: Install ruff
+        run: python -m pip install ruff --break-system-packages
 
       - name: Set up cbuild configuration
         run: sh .ci/setup-cbuild.sh
