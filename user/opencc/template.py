@@ -1,8 +1,17 @@
 pkgname = "opencc"
 pkgver = "1.1.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
+configure_args = [
+    "-DENABLE_GTEST=ON",
+    "-DUSE_SYSTEM_GTEST=ON",
+    "-DUSE_SYSTEM_MARISA=ON",
+    "-DUSE_SYSTEM_RAPIDJSON=ON",
+    "-DUSE_SYSTEM_TCLAP=ON",
+]
 hostmakedepends = ["pkgconf", "cmake", "ninja", "python"]
+makedepends = ["marisa-trie-devel", "rapidjson", "tclap"]
+checkdepends = ["gtest-devel"]
 pkgdesc = "Open Chinese conversion library"
 maintainer = "metalparade <comer@live.cn>"
 license = "Apache-2.0"
