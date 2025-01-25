@@ -1,6 +1,6 @@
 pkgname = "git-cliff"
-pkgver = "2.7.0"
-pkgrel = 2
+pkgver = "2.8.0"
+pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
 make_check_args = [
@@ -24,7 +24,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/orhun/git-cliff"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7b9a74f0871983bf5c326ffd7358ba46925f14a6feb1638c8c1e5d6b36448eae"
+sha256 = "dfcf7b7d903c6479e58c8e7594364d67ce59e3e50351b3277eb33482a783418d"
 # generates manpages/completions with host bins
 options = ["!cross"]
 
