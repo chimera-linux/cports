@@ -1,5 +1,5 @@
 pkgname = "television"
-pkgver = "0.9.2"
+pkgver = "0.10.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/alexpasmantier/television"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "93f82f33e699a4a91f0015d88856a7fde5ae95bfa132a02c08518ddd264256cb"
+sha256 = "62dbc15b4109be90ef7bda6993523223aa6f89f39333ea8d35d515edc4ccb98d"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
