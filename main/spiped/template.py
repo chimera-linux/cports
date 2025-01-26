@@ -1,5 +1,5 @@
 pkgname = "spiped"
-pkgver = "1.6.2"
+pkgver = "1.6.3"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -10,7 +10,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-2-Clause"
 url = "https://www.tarsnap.com/spiped.html"
 source = f"https://www.tarsnap.com/spiped/spiped-{pkgver}.tgz"
-sha256 = "05d4687d12d11d7f9888d43f3d80c541b7721c987038d085f71c91bb06204567"
+sha256 = "70c53070dbbb10d1442754aeafb01b08ec829203d41023647dbf1a1435ee4a65"
 
 
 def init_install(self):
