@@ -1,11 +1,3 @@
-commit b842d4272dd08b34c4f19249718cbf92928cc589
-Author: q66 <q66@chimera-linux.org>
-Date:   Sun Jan 26 20:55:38 2025 +0100
-
-    bla
-
-diff --git a/lib/Tempest/Engine/CMakeLists.txt b/lib/Tempest/Engine/CMakeLists.txt
-index c577a09..0bb1f95 100644
 --- a/lib/Tempest/Engine/CMakeLists.txt
 +++ b/lib/Tempest/Engine/CMakeLists.txt
 @@ -66,25 +66,11 @@ if(APPLE)
