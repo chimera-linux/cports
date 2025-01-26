@@ -1,5 +1,5 @@
 pkgname = "pix"
-pkgver = "3.4.4"
+pkgver = "3.4.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlibbrasero=false", "-Dwebservices=false"]
@@ -29,7 +29,7 @@ maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/pix/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "38991168a1e90611ca6190ac86c68babc9e93b1705d6274c701af625c26e11aa"
+sha256 = "d0fc194e404a199518ca3f507468788041162ce31286aa45dff56df15635d44d"
 
 
 @subpackage("pix-devel")
