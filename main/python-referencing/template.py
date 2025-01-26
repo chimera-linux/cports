@@ -1,6 +1,6 @@
 pkgname = "python-referencing"
-pkgver = "0.36.1"
-pkgrel = 1
+pkgver = "0.36.2"
+pkgrel = 0
 build_style = "python_pep517"
 # the tests in suite/ depend on jsonschema
 make_check_args = ["referencing"]
@@ -28,7 +28,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-jsonschema/referencing"
 source = f"$(PYPI_SITE)/r/referencing/referencing-{pkgver}.tar.gz"
-sha256 = "ca2e6492769e3602957e9b831b94211599d2aade9477f5d44110d2530cf9aade"
+sha256 = "df2e89862cd09deabbdba16944cc3f10feb6b3e6f18e902f7cc25609a34775aa"
 
 
 def post_install(self):
