@@ -1,6 +1,6 @@
 pkgname = "wayidle"
-pkgver = "0.2.0"
-pkgrel = 1
+pkgver = "1.0.0"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
@@ -9,7 +9,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://git.sr.ht/~whynothugo/wayidle"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "36f191372658a7ac25a4343bcd227ce06523358ca1801daa807fd07b1cd34d27"
+sha256 = "e02ee79310c91de44466d245d6a12277d539ff7001fc5e53d3b3edf374512f05"
 # no tests
 options = ["!check"]
 
