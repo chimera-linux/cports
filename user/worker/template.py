@@ -1,5 +1,5 @@
 pkgname = "worker"
-pkgver = "5.2.0"
+pkgver = "5.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
@@ -18,7 +18,7 @@ url = "http://www.boomerangsworld.de/cms/worker/index.html"
 source = (
     f"http://www.boomerangsworld.de/cms/worker/downloads/worker-{pkgver}.tar.gz"
 )
-sha256 = "3d704f9c5c102aabb1c9e9763444175cebe24849d251d46bc7e772a26cca2fe9"
+sha256 = "c6559e08e38f5e59bbd6758ffd4abd8b5c6cc163a0cd7d319a4c19c263164e5d"
 hardening = ["cfi", "vis"]
 # no tests
 options = ["!check"]
