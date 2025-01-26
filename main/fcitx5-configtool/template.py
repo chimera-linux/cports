@@ -1,5 +1,5 @@
 pkgname = "fcitx5-configtool"
-pkgver = "5.1.7"
+pkgver = "5.1.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -46,7 +46,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://fcitx-im.org"
 source = f"https://github.com/fcitx/fcitx5-configtool/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "c134b082ea9cab0102b9427f39a3714f4a71146ac082e4e6c7c18e4b8dd2aaa7"
+sha256 = "e33c4b92af1435724c663d91adf69153a688af67cee22a16b7e9676763175a51"
 hardening = ["vis", "cfi"]
 # fails
 options = ["!cross"]
