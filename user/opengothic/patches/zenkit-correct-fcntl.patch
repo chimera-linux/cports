@@ -1,0 +1,11 @@
+--- a/lib/ZenKit/src/MmapPosix.cc
++++ b/lib/ZenKit/src/MmapPosix.cc
+@@ -2,7 +2,7 @@
+ // SPDX-License-Identifier: MIT
+ #include "zenkit/Mmap.hh"
+ 
+-#include <sys/fcntl.h>
++#include <fcntl.h>
+ #include <sys/mman.h>
+ #include <sys/stat.h>
+ #include <unistd.h>

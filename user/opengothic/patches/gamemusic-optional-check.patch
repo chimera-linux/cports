@@ -1,0 +1,13 @@
+prevent a game crash on loading
+
+--- a/game/gamemusic.cpp
++++ b/game/gamemusic.cpp
+@@ -52,7 +52,7 @@ struct GameMusic::OpenGothicMusicProvider : GameMusic::MusicProvider {
+         hasPending = false;
+         updateTheme = true;
+         reloadTheme = this->reloadTheme;
+-        theme = *pendingMusic;
++        if (pendingMusic.has_value()) theme = *pendingMusic;
+         tags = pendingTags;
+       }
+     }
