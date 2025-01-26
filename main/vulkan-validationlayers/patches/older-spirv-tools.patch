@@ -1,0 +1,31 @@
+remove when spv-tools gets updated
+
+--- a/layers/utils/shader_utils.cpp
++++ b/layers/utils/shader_utils.cpp
+@@ -136,7 +136,6 @@ void AdjustValidatorOptions(const DeviceExtensions &device_extensions, const Dev
+         bool scalar_block_layout;
+         bool workgroup_scalar_block_layout;
+         bool allow_local_size_id;
+-        bool allow_offset_texture_operand;
+     } settings;
+ 
+     // VK_KHR_relaxed_block_layout never had a feature bit so just enabling the extension allows relaxed layout
+@@ -148,7 +147,6 @@ void AdjustValidatorOptions(const DeviceExtensions &device_extensions, const Dev
+     settings.scalar_block_layout = enabled_features.scalarBlockLayout == VK_TRUE;
+     settings.workgroup_scalar_block_layout = enabled_features.workgroupMemoryExplicitLayoutScalarBlockLayout == VK_TRUE;
+     settings.allow_local_size_id = enabled_features.maintenance4 == VK_TRUE;
+-    settings.allow_offset_texture_operand = enabled_features.maintenance8 == VK_TRUE;
+ 
+     if (settings.relax_block_layout) {
+         // --relax-block-layout
+@@ -170,10 +168,6 @@ void AdjustValidatorOptions(const DeviceExtensions &device_extensions, const Dev
+         // --allow-localsizeid
+         out_options.SetAllowLocalSizeId(true);
+     }
+-    if (settings.allow_offset_texture_operand) {
+-        // --allow-offset-texture-operand
+-        out_options.SetAllowOffsetTextureOperand(true);
+-    }
+ 
+     // Faster validation without friendly names.
+     out_options.SetFriendlyNames(false);
