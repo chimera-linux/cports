@@ -1,5 +1,5 @@
 pkgname = "aerc"
-pkgver = "0.19.0"
+pkgver = "0.20.0"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["LIBEXECDIR=/usr/lib/aerc"]
@@ -21,7 +21,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://sr.ht/~rjarry/aerc"
 source = f"https://git.sr.ht/~rjarry/aerc/archive/{pkgver}.tar.gz"
-sha256 = "caf830959cf689db257ffb64893fd78f1a362a22fe774dd561340fc552d599eb"
+sha256 = "1a7d6172b5740ead40bf1400cd45f00400822bb6af00aef76d04b386a4292d8c"
 tool_flags = {"GOFLAGS": ["-tags=notmuch", "-buildmode=pie"]}
 
 
