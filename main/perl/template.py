@@ -1,7 +1,7 @@
 pkgname = "perl"
-pkgver = "5.40.0"
-pkgrel = 1
-_perl_cross_ver = "1.5.3"
+pkgver = "5.40.1"
+pkgrel = 0
+_perl_cross_ver = "1.6"
 build_style = "gnu_configure"
 make_dir = "."
 make_check_target = "test"
@@ -17,8 +17,8 @@ source = [
     f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_ver}/perl-cross-{_perl_cross_ver}.tar.gz",
 ]
 sha256 = [
-    "c740348f357396327a9795d3e8323bafd0fe8a5c7835fc1cbaba0cc8dfe7161f",
-    "ecc37b41a60cc3c030413a960cc386455f70c43781c6333d1fcaad02ece32ea8",
+    "02f8c45bb379ed0c3de7514fad48c714fd46be8f0b536bfd5320050165a1ee26",
+    "5abf198ee50ce9e69eb68fede68c87f65241caa744e4203e97490fa59b45ed69",
 ]
 # prevent a massive log dump
 tool_flags = {
@@ -48,6 +48,9 @@ def pre_patch(self):
             f.rmdir()
             continue
         self.mv(f, ".")
+
+    # there is no explicit one in the release... but it's the same
+    self.mv("cnf/diffs/perl5-5.40.0", "cnf/diffs/perl5-5.40.1")
 
 
 def init_configure(self):
