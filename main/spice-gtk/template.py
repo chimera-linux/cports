@@ -1,6 +1,6 @@
 pkgname = "spice-gtk"
 pkgver = "0.42"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dbuiltin-mjpeg=false",
@@ -50,7 +50,7 @@ makedepends = [
     "spice-devel",
     "spice-protocol",
     "usbredir-devel",
-    "usbutils-devel",
+    "usbutils",
     "vala-devel",
     "wayland-protocols",
 ]
@@ -68,6 +68,8 @@ file_xattrs = {
         "security.capability": "cap_fowner+ep",
     },
 }
+# FIXME: crashes virt-manager sometimes, to be investigated
+hardening = ["!int"]
 options = ["linkundefver"]
 
 
