@@ -1,6 +1,6 @@
 pkgname = "ugrep"
-pkgver = "7.1.3"
-pkgrel = 1
+pkgver = "7.2.1"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 make_check_target = "test"
@@ -20,11 +20,11 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "Grep-compatible file searcher"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://ugrep.com"
 source = f"https://github.com/Genivia/ugrep/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "99bbccd7a192fb11070fa75f4d8adaa1379d0a27dd3cbc1f78e1bace1c2d0e46"
+sha256 = "10130417e265582fc35a5356305b308027fd8ed186b8cbb1399c1b8e530ce899"
 
 
 def post_install(self):
