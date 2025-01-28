@@ -1,10 +1,11 @@
 # fix up networkmanager when updating this (versioned .so paths)
 pkgname = "ppp"
-pkgver = "2.5.1"
-pkgrel = 1
+pkgver = "2.5.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
+    "--enable-multilink",
     "--with-logfile-dir=/var/log/ppp",
     "--with-runtime-dir=/run/pppd",
 ]
@@ -16,14 +17,14 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://ppp.samba.org"
 source = f"https://ftp.samba.org/pub/ppp/ppp-{pkgver}.tar.gz"
-sha256 = "733b7f5840b613da4eab0429a5081293275f06ba8b528e1b8eea6964faf0243a"
+sha256 = "47da358de54a10cb10bf6ff2cf9b1c03c0d3555518f6182e8f701b8e55733cb2"
 # no check target
 # no file for bsd
 options = ["!check", "!distlicense"]
 
 
 def post_install(self):
-    self.install_file("include/net/ppp_defs.h", "usr/include/net")
+    self.install_file("include/linux/ppp_defs.h", "usr/include/net")
 
     # eliminate suid bits
     for f in (self.destdir / f"usr/lib/pppd/{pkgver}").glob("*.so"):
