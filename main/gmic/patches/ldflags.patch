@@ -1,16 +1,16 @@
 diff -ruN a/src/Makefile b/src/Makefile
---- a/src/Makefile	2024-12-31 12:11:35.000000000 +0100
-+++ b/src/Makefile	2025-01-06 10:58:56.171909885 +0100
-@@ -401,7 +401,7 @@
- libgmic.so: libgmic.o
- 	ar rcs libgmic.a libgmic.o
+--- a/src/Makefile	2025-01-27 18:30:40.000000000 +0100
++++ b/src/Makefile	2025-01-28 08:24:50.830328629 +0100
+@@ -404,7 +404,7 @@
+ 	$(CXX) -dynamiclib -o libgmic.$(SOVERSION).dylib -install_name $(USR)/lib/libgmic.$(SOVERSION).dylib -compatibility_version $(SOVERSION) -current_version $(SVERSION) $(MANDATORY_CFLAGS) libgmic.o $(LIBS)
+ else
  ifdef IS_CLANG
 -	$(CXX) -shared -std=c++11 -pedantic -o libgmic.so.$(VERSION) libgmic.o $(LIBS)
 +	$(CXX) -shared -std=c++11 -pedantic -Wl,-soname,libgmic.so.$(VERSION1) -o libgmic.so.$(VERSION) libgmic.o $(LDFLAGS) $(LIBS)
  else
  	$(CXX) -shared -std=c++11 -pedantic -Wl,-soname,libgmic.so.$(VERSION1) -o libgmic.so.$(VERSION) libgmic.o $(LIBS)
  endif
-@@ -442,7 +442,7 @@
+@@ -450,7 +450,7 @@
  _cli: gmic$(EXE)
  
  gmic$(EXE): gmic_cli.cpp gmic.o
