@@ -1,7 +1,7 @@
 # update python-libseccomp alongside this
 pkgname = "libseccomp"
-pkgver = "2.5.5"
-pkgrel = 1
+pkgver = "2.6.0"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "bash",
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/seccomp/libseccomp"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "7082b016d3cbda3e15c0e71ebd018023d693bb7507389b32f943db13f935e01d"
+sha256 = "0889a8da98e37f86019c90789fd4ff7eda6e1ceb9ef07d4c51c67aeb50a77860"
 # prevent a bunch of pain
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 
