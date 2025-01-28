@@ -1,5 +1,5 @@
 pkgname = "docker-cli"
-pkgver = "27.5.0"
+pkgver = "27.5.1"
 pkgrel = 0
 build_style = "makefile"
 _commit = "ce1223035ac3ab8922717092e63a184cf67b493d"
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://docker.com"
 source = f"https://github.com/docker/cli/archive/v{pkgver}.tar.gz"
-sha256 = "7676968253f0b5ca3a44213c8a92c570284e7146d464a95b6ed11050bd09238c"
+sha256 = "abd16e3911bc7bbd00596ebe4f58baf3d577160d99eefd749a908507ddfc587b"
 env = {
     "AUTO_GOPATH": "1",
     "GITCOMMIT": _commit,
