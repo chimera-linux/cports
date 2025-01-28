@@ -81,6 +81,8 @@ options = ["!cross", "!check"]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."
+elif self.profile().arch == "riscv64":
+    broken = "fails to compile uniffi_bindgen since rust 1.84"
 
 # crashes compiler in gl.c
 if self.profile().arch == "riscv64":
