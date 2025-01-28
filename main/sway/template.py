@@ -1,6 +1,6 @@
 pkgname = "sway"
-pkgver = "1.10"
-pkgrel = 1
+pkgver = "1.10.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "libcap-progs",
@@ -24,7 +24,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://swaywm.org"
 source = f"https://github.com/swaywm/sway/releases/download/{pkgver}/sway-{pkgver}.tar.gz"
-sha256 = "7472a7f11150212e0bed0bd0af9f591c9caac9f9ea87c35486e475a21f5ce81f"
+sha256 = "b2fbf3a2f94c8926efa18d6af59bb9f5f1eafa6d46491284b1610c57bef2d105"
 file_modes = {
     "usr/bin/sway": ("root", "root", 0o755),
 }
