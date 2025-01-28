@@ -1,6 +1,6 @@
 pkgname = "libpng"
-pkgver = "1.6.45"
-pkgrel = 1
+pkgver = "1.6.46"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "libtool"]
 makedepends = ["zlib-ng-compat-devel"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Libpng"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = f"$(SOURCEFORGE_SITE)/libpng/libpng-{pkgver}.tar.xz"
-sha256 = "926485350139ffb51ef69760db35f78846c805fef3d59bfdcb2fba704663f370"
+sha256 = "f3aa8b7003998ab92a4e9906c18d19853e999f9d3bca9bd1668f54fa81707cb1"
 
 
 def post_install(self):
