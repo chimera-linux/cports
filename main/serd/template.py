@@ -1,5 +1,5 @@
 pkgname = "serd"
-pkgver = "0.32.2"
+pkgver = "0.32.4"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/serd.html"
 source = f"https://download.drobilla.net/serd-{pkgver}.tar.xz"
-sha256 = "df7dc2c96f2ba1decfd756e458e061ded7d8158d255554e7693483ac0963c56b"
+sha256 = "cbefb569e8db686be8c69cb3866a9538c7cb055e8f24217dd6a4471effa7d349"
 hardening = ["vis", "!cfi"]
 
 
