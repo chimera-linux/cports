@@ -10,7 +10,7 @@ Date:   Sat Mar 30 00:42:08 2024 +0100
     We can figure out a better way later.
 
 diff --git a/Makefile.am b/Makefile.am
-index 56ecf7d..71882cf 100644
+index 1662423..c425714 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -4,14 +4,14 @@
@@ -31,10 +31,10 @@ index 56ecf7d..71882cf 100644
  if COND_DOC
  dist_doc_DATA = \
 diff --git a/configure.ac b/configure.ac
-index 075567f..3ed7dd8 100644
+index de2951b..37a271f 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -775,16 +775,6 @@ AM_CONDITIONAL([COND_SYMVERS_GENERIC],
+@@ -802,15 +802,6 @@ AM_CONDITIONAL([COND_SYMVERS_GENERIC],
  # Checks for libraries.
  ###############################################################################
  
@@ -47,11 +47,10 @@ index 075567f..3ed7dd8 100644
 -AM_GNU_GETTEXT_VERSION([0.19.6])
 -AM_GNU_GETTEXT([external])
 -
--
- ###############################################################################
- # Checks for header files.
- ###############################################################################
-@@ -1343,7 +1333,6 @@ AC_SUBST([xz])
+ # The command line tools use UTF-8 on native Windows. Non-ASCII characters
+ # display correctly only when using UCRT and gettext-runtime >= 0.23.1.
+ AS_CASE([$USE_NLS-$host_os],
+@@ -1314,7 +1305,6 @@ AC_SUBST([xz])
  
  AC_CONFIG_FILES([
  	Makefile
