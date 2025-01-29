@@ -715,7 +715,7 @@ def bootstrap(tgt):
         rp = None
         try:
             rp = template.Template(
-                template.sanitize_pkgname("main/base-cbuild"),
+                "main/base-cbuild",
                 None,
                 False,
                 False,
@@ -838,7 +838,7 @@ def do_clean(tgt):
     ctmpl = cmdline.command[1] if len(cmdline.command) >= 2 else None
     if ctmpl:
         tmpl = template.Template(
-            template.sanitize_pkgname(ctmpl),
+            ctmpl,
             chroot.host_cpu(),
             True,
             False,
@@ -1057,7 +1057,7 @@ def do_lint(tgt):
     # just read it and do nothing else
     # don't let the skip logic kick in
     template.Template(
-        template.sanitize_pkgname(pkgn),
+        pkgn,
         opt_arch if opt_arch else chroot.host_cpu(),
         True,
         False,
@@ -1132,7 +1132,7 @@ def _graph_prepare():
             return rtmpls[pkgn]
         try:
             tp = template.Template(
-                template.sanitize_pkgname(pkgn),
+                pkgn,
                 chroot.host_cpu(),
                 True,
                 False,
@@ -1174,7 +1174,7 @@ def do_prune_sources(tgt):
     def _read_pkg(pkgn):
         try:
             tp = template.Template(
-                template.sanitize_pkgname(pkgn),
+                pkgn,
                 chroot.host_cpu(),
                 True,
                 False,
@@ -1262,7 +1262,7 @@ def do_relink_subpkgs(tgt):
     def _read_pkg(pkgn):
         try:
             tp = template.Template(
-                template.sanitize_pkgname(pkgn),
+                pkgn,
                 chroot.host_cpu(),
                 True,
                 False,
@@ -1371,7 +1371,7 @@ def do_print_build_graph(tgt):
             return rtmpls[pkgn]
         try:
             tp = template.Template(
-                template.sanitize_pkgname(pkgn),
+                pkgn,
                 opt_arch or chroot.host_cpu(),
                 True,
                 False,
@@ -1462,7 +1462,7 @@ def _get_unbuilt(outdated=False):
 
     for pn in tmpls:
         tmpl = template.Template(
-            template.sanitize_pkgname(pn),
+            pn,
             tarch,
             True,
             False,
@@ -1590,7 +1590,7 @@ def do_update_check(tgt):
         nonlocal namelen, verlen
 
         tmpl = template.Template(
-            template.sanitize_pkgname(pkgn),
+            pkgn,
             chroot.host_cpu(),
             True,
             False,
@@ -1694,7 +1694,7 @@ def do_dump(tgt):
     def _read_pkg(pkgn):
         try:
             return template.Template(
-                template.sanitize_pkgname(pkgn),
+                pkgn,
                 opt_arch if opt_arch else chroot.host_cpu(),
                 True,
                 False,
@@ -1744,7 +1744,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             pkgn = cmdline.command[1]
     rp = (
         template.Template(
-            template.sanitize_pkgname(pkgn),
+            pkgn,
             opt_arch if opt_arch else chroot.host_cpu(),
             force,
             check,
@@ -1907,7 +1907,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             cbvisit,
             lambda d: _do_with_exc(
                 lambda: template.Template(
-                    template.sanitize_pkgname(d),
+                    d,
                     tarch,
                     True,
                     False,
@@ -1925,7 +1925,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     handle_recdeps(
         "main/base-cbuild",
         template.Template(
-            template.sanitize_pkgname("main/base-cbuild"),
+            "main/base-cbuild",
             tarch,
             True,
             False,
@@ -1957,7 +1957,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         failed = False
         tp = _do_with_exc(
             lambda: template.Template(
-                template.sanitize_pkgname(pn),
+                pn,
                 tarch,
                 opt_force,
                 opt_check,
@@ -2238,7 +2238,7 @@ def do_prepare_upgrade(tgt):
     chroot.chroot_check()
 
     tmpl = template.Template(
-        template.sanitize_pkgname(pkgn),
+        pkgn,
         opt_arch if opt_arch else chroot.host_cpu(),
         True,
         False,
@@ -2316,7 +2316,7 @@ def do_bump_pkgver(tgt):
 
     try:
         tmpl = template.Template(
-            template.sanitize_pkgname(pkgn),
+            pkgn,
             chroot.host_cpu(),
             True,
             False,
@@ -2356,7 +2356,7 @@ def do_bump_pkgrel(tgt):
     for pkgn in cmdline.command[1:]:
         try:
             tmpl = template.Template(
-                template.sanitize_pkgname(pkgn),
+                pkgn,
                 chroot.host_cpu(),
                 True,
                 False,

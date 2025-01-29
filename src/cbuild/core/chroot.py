@@ -351,7 +351,7 @@ def _setup_dummy(rootp, archn):
 
     def _get_ver(pkgn):
         tobj = template.Template(
-            template.sanitize_pkgname(f"main/{pkgn}"),
+            f"main/{pkgn}",
             archn,
             True,
             False,

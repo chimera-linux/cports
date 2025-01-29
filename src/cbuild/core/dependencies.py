@@ -452,7 +452,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             build.build(
                 step,
                 template.Template(
-                    template.sanitize_pkgname(fulln),
+                    fulln,
                     chost if pkg.stage > 0 else None,
                     False,
                     pkg.run_check,
@@ -480,7 +480,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             build.build(
                 step,
                 template.Template(
-                    template.sanitize_pkgname(fulln),
+                    fulln,
                     tarch if pkg.stage > 0 else None,
                     False,
                     pkg.run_check,

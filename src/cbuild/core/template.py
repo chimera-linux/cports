@@ -727,6 +727,9 @@ class Template(Package):
         for fl, dval, tp, mand, sp, inh in core_fields:
             setattr(self, fl, copy_of_dval(dval))
 
+        if isinstance(tmplp, str):
+            tmplp = sanitize_pkgname(tmplp)
+
         # make this available early
         self.pkgname = tmplp.name
         self.repository = tmplp.parent.name
