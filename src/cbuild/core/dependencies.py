@@ -374,7 +374,8 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         if not cross and (pkgn == origpkg or pkgn == pkg.pkgname):
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
-        host_missing_deps.append((pkgn, sver, fulln))
+        host_missing_deps.append(fulln)
+        host_binpkgs_deps.append(f"{pkgn}={sver}")
 
     for sver, pkgn, fulln in itdeps:
         # check if available in repository
@@ -393,7 +394,8 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         if pkgn == origpkg or pkgn == pkg.pkgname:
             pkg.error(f"[target] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
-        missing_deps.append((pkgn, sver, fulln))
+        missing_deps.append(fulln)
+        binpkgs_deps.append(f"{pkgn}={sver}")
 
     for origin, dep in irdeps:
         pkgn, pkgv, pkgop = autil.split_pkg_name(dep)
@@ -436,7 +438,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
     # if this triggers any build of its own, it will return true
     missing = False
 
-    for pn, pv, fulln in host_missing_deps:
+    for fulln in host_missing_deps:
         try:
             build.build(
                 step,
@@ -463,9 +465,8 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             missing = True
         except template.SkipPackage:
             pass
-        host_binpkg_deps.append(f"{pn}={pv}")
 
-    for pn, pv, fulln in missing_deps:
+    for fulln in missing_deps:
         try:
             build.build(
                 step,
@@ -492,7 +493,6 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             missing = True
         except template.SkipPackage:
             pass
-        binpkg_deps.append(f"{pn}={pv}")
 
     for rd, rop, rv in missing_rdeps:
         rdv, fulln = _srcpkg_ver(rd, pkg)
