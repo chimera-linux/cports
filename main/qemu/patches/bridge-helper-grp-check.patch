@@ -33,7 +33,7 @@
 +    }
 +
 +    /* check if it's in there */
-+    int found = 0;
++    int found = !strcmp(pwd->pw_name, "_qemu");
 +    for (char **grps = gr->gr_mem; *grps; ++grps) {
 +        if (!strcmp(*grps, pwd->pw_name)) {
 +            found = 1;
