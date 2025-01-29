@@ -1,8 +1,7 @@
-# dbus daemon service
-
 type = process
 command = /usr/bin/dbus-daemon --system --dinit --nofork --nopidfile --print-address=4
-before = login.target
-depends-on = local.target
 ready-notification = pipefd:4
 working-dir = /
+before: login.target
+depends-on: local.target
+load-options: export-passwd-vars
