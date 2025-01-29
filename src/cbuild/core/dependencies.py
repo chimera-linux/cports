@@ -318,7 +318,6 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
     binpkg_deps = []
     host_missing_deps = []
     missing_deps = []
-    missing_rdeps = []
 
     log = logger.get()
 
@@ -431,7 +430,17 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         # not found
         log.out_plain(f"  [runtime] {dep}: not found")
         # consider missing
-        missing_rdeps.append((pkgn, pkgop, pkgv))
+        rdv, fulln = _srcpkg_ver(pkgn, pkg)
+        if not fulln or (pkgop and pkgv and not rdv):
+            pkg.error(f"template '{pkgn}' cannot be resolved")
+        if pkgop and pkgv:
+            rfv = f"{pkgn}-{rdv}"
+            rpt = pkgn + pkgop + pkgv
+            # ensure the build is not futile
+            if not autil.pkg_match(rfv, rpt):
+                pkg.error(f"version {rfv} does not match dependency {rpt}")
+        # treat the same as any missing target dependency, but without install
+        missing_deps.append(fulln)
 
     from cbuild.core import build
 
@@ -467,43 +476,6 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             pass
 
     for fulln in missing_deps:
-        try:
-            build.build(
-                step,
-                template.Template(
-                    template.sanitize_pkgname(fulln),
-                    tarch if pkg.stage > 0 else None,
-                    False,
-                    pkg.run_check,
-                    (pkg.conf_jobs, pkg.conf_link_threads),
-                    pkg.build_dbg,
-                    (pkg.use_ccache, pkg.use_sccache, pkg.use_ltocache),
-                    pkg,
-                    force_check=pkg._force_check,
-                    stage=pkg.stage,
-                    allow_restricted=pkg._allow_restricted,
-                    data=pkg._data,
-                ),
-                depmap,
-                chost=hostdep,
-                no_update=not missing,
-                update_check=update_check,
-                maintainer=pkg._maintainer,
-            )
-            missing = True
-        except template.SkipPackage:
-            pass
-
-    for rd, rop, rv in missing_rdeps:
-        rdv, fulln = _srcpkg_ver(rd, pkg)
-        if not fulln or (rop and rv and not rdv):
-            pkg.error(f"template '{rd}' cannot be resolved")
-        if rop and rv:
-            rfv = f"{rd}-{rdv}"
-            rpt = rd + rop + rv
-            # ensure the build is not futile
-            if not autil.pkg_match(rfv, rpt):
-                pkg.error(f"version {rfv} does not match dependency {rpt}")
         try:
             build.build(
                 step,
