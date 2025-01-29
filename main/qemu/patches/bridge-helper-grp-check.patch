@@ -1,0 +1,50 @@
+--- a/qemu-bridge-helper.c
++++ b/qemu-bridge-helper.c
+@@ -48,6 +48,11 @@
+ #include <cap-ng.h>
+ #endif
+ 
++#include <errno.h>
++#include <err.h>
++#include <grp.h>
++#include <pwd.h>
++
+ #define DEFAULT_ACL_FILE CONFIG_QEMU_CONFDIR "/bridge.conf"
+ 
+ enum {
+@@ -211,6 +216,35 @@ static int send_fd(int c, int fd)
+ #ifdef CONFIG_LIBCAP_NG
+ static int drop_privileges(void)
+ {
++    /* get the group structure */
++    errno = ENOENT;
++    struct group *gr = getgrnam("_qemu");
++    if (!gr) {
++        warn("could not get _qemu group");
++        return -1;
++    }
++
++    /* get the calling user name */
++    errno = ENOENT;
++    struct passwd *pwd = getpwuid(getuid());
++    if (!pwd) {
++        warn("could not get the user's passwd structure");
++        return -1;
++    }
++
++    /* check if it's in there */
++    int found = 0;
++    for (char **grps = gr->gr_mem; *grps; ++grps) {
++        if (!strcmp(*grps, pwd->pw_name)) {
++            found = 1;
++            break;
++        }
++    }
++    if (!found) {
++        warnx("user '%s' not allowed to call this", pwd->pw_name);
++        return -1;
++    }
++
+     /* clear all capabilities */
+     capng_clear(CAPNG_SELECT_BOTH);
+ 
