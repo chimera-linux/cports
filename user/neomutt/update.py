@@ -1,0 +1,1 @@
+pkgver = self.pkgver.replace(".", "")
