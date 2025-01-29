@@ -13,6 +13,8 @@ def get_arch(pkg):
             return "riscv"
         case "armhf" | "armv7":
             return "arm"
+        case "loongarch64" | "loongarch32":
+            return "loongarch"
         case _:
             pkg.error(f"unknown linux architecture {pkg.profile().arch}")
 

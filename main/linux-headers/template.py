@@ -22,6 +22,8 @@ match self.profile().arch:
         _arch = "riscv"
     case "armhf" | "armv7":
         _arch = "arm"
+    case "loongarch64" | "loongarch64":
+        _arch = "loongarch"
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 

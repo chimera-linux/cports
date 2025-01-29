@@ -6,6 +6,7 @@ def configure(self):
         self.chroot_cwd / self.configure_script,
         *self.configure_args,
         wrksrc=self.make_dir,
+        env=self.configure_env,
     )
 
 

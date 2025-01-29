@@ -48,6 +48,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
                 | "riscv64"
                 | "armhf"
                 | "armv7"
+                | "loongarch64"
             ):
                 cmake_cpu = pkg.profile().arch
             case _:

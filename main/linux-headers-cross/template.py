@@ -1,6 +1,6 @@
 pkgname = "linux-headers-cross"
 pkgver = "6.12.5"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["perl"]
 depends = []
 pkgdesc = "Linux API headers for cross-compiling"
@@ -21,6 +21,7 @@ _targetlist = [
     ("ppc", "powerpc"),
     ("x86_64", "x86_64"),
     ("riscv64", "riscv"),
+    ("loongarch64", "loongarch"),
 ]
 _targets = list(filter(lambda p: p[0] != self.profile().arch, _targetlist))
 

@@ -47,8 +47,8 @@ match self.profile().arch:
         configure_args += ["enable-ec_nistp_64_gcc_128", "linux-x86_64"]
     case "aarch64" | "ppc64le" | "ppc64" | "ppc":
         configure_args += [f"linux-{self.profile().arch}"]
-    case "riscv64":
-        configure_args += ["linux64-riscv64"]
+    case "riscv64" | "loongarch64":
+        configure_args += [f"linux64-{self.profile().arch}"]
     case "armhf" | "armv7":
         configure_args += ["linux-armv4"]
     case _:
