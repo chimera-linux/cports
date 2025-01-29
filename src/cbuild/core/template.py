@@ -2662,35 +2662,6 @@ def sanitize_pkgname(pkgname, error=True):
     return tmplpath.resolve().parent
 
 
-def resolve_pkgname(pkgname, resolve, ignore_missing):
-    tmplpath = None
-    for r in resolve.source_repositories:
-        tmplpath = paths.distdir() / r / pkgname / "template.py"
-        if tmplpath.is_file():
-            break
-        else:
-            tmplpath = None
-    if not tmplpath:
-        altname = None
-        for apkg, adesc, iif, takef in autopkgs:
-            if pkgname.endswith(f"-{apkg}"):
-                altname = pkgname.removesuffix(f"-{apkg}")
-                break
-        if altname:
-            for r in resolve.source_repositories:
-                rpath = paths.distdir() / r
-                tmplpath = rpath / altname / "template.py"
-                if tmplpath.is_file():
-                    break
-                else:
-                    tmplpath = None
-    if not tmplpath:
-        if ignore_missing:
-            return None
-        raise errors.CbuildException(f"missing template for '{pkgname}'")
-    return tmplpath.resolve().parent
-
-
 def register_cats(cats):
     global _allow_cats
     _allow_cats = cats
