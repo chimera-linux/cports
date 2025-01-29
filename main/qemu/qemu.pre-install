@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo 'u _qemu - "qemu user" /var/empty /usr/bin/nologin' | \
+    /usr/bin/systemd-sysusers --replace /usr/lib/sysusers.d/qemu.conf - || :

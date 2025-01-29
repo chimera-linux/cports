@@ -1,6 +1,6 @@
 pkgname = "qemu"
 pkgver = "9.2.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
@@ -106,6 +106,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
+scripts = {"pre-install": True, "pre-upgrade": True}
 pkgdesc = "Generic machine emulator and virtualizer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
@@ -119,7 +120,7 @@ tool_flags = {
 }
 file_modes = {
     "etc/qemu/bridge.conf": ("root", "_qemu", 0o640),
-    "usr/lib/qemu-bridge-helper": ("root", "root", 0o4755),
+    "usr/lib/qemu-bridge-helper": ("root", "_qemu", 0o4710),
 }
 # maybe someday
 options = ["!cross", "!check"]
