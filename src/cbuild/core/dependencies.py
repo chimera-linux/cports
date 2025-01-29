@@ -465,7 +465,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             pass
         host_binpkg_deps.append(f"{pn}={pv}")
 
-    for pn, pv in missing_deps:
+    for pn, pv, fulln in missing_deps:
         try:
             build.build(
                 step,
