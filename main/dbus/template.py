@@ -1,6 +1,6 @@
 pkgname = "dbus"
 pkgver = "1.16.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -20,13 +20,14 @@ configure_args = [
 hostmakedepends = ["gperf", "meson", "pkgconf", "xmlto"]
 makedepends = ["libexpat-devel", "libx11-devel", "libcap-devel"]
 triggers = ["/usr/share/dbus-1/system.d"]
+scripts = {"pre-install": True, "pre-upgrade": True}
 pkgdesc = "Message bus system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
 source = f"https://dbus.freedesktop.org/releases/dbus/dbus-{pkgver}.tar.xz"
 sha256 = "9f8ca5eb51cbe09951aec8624b86c292990ae2428b41b856e2bed17ec65c8849"
-file_modes = {"usr/lib/dbus-daemon-launch-helper": ("root", "root", 0o4755)}
+file_modes = {"usr/lib/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]
 
