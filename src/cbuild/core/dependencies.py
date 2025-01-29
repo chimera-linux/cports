@@ -375,7 +375,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
         host_missing_deps.append(fulln)
-        host_binpkgs_deps.append(f"{pkgn}={sver}")
+        host_binpkg_deps.append(f"{pkgn}={sver}")
 
     for sver, pkgn, fulln in itdeps:
         # check if available in repository
@@ -395,7 +395,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
             pkg.error(f"[target] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
         missing_deps.append(fulln)
-        binpkgs_deps.append(f"{pkgn}={sver}")
+        binpkg_deps.append(f"{pkgn}={sver}")
 
     for origin, dep in irdeps:
         pkgn, pkgv, pkgop = autil.split_pkg_name(dep)
