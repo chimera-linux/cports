@@ -1,6 +1,6 @@
 pkgname = "zathura-pdf-poppler"
 pkgver = "0.3.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -9,6 +9,7 @@ makedepends = [
 ]
 checkdepends = ["check-devel"]
 depends = ["zathura"]
+install_if = ["zathura-poppler-default"]
 pkgdesc = "PDF support for zathura"
 subdesc = "poppler backend"
 maintainer = "ttyyls <contact@behri.org>"
