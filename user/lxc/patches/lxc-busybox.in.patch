@@ -1,0 +1,11 @@
+--- a/templates/lxc-busybox.in
++++ b/templates/lxc-busybox.in
+@@ -260,7 +260,7 @@ EOF
+   return 0
+ }
+ 
+-if ! options=$(getopt -o hp:n: -l help,rootfs:,path:,name:,mapped-uid:,mapped-gid:,busybox-path: -- "$@"); then
++if ! options=$(ugetopt -o hp:n: -l help,rootfs:,path:,name:,mapped-uid:,mapped-gid:,busybox-path: -- "$@"); then
+   usage
+   exit 1
+ fi
