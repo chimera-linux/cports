@@ -1,6 +1,6 @@
 pkgname = "zathura-pdf-mupdf"
 pkgver = "0.4.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -9,6 +9,7 @@ makedepends = [
 ]
 checkdepends = ["check-devel"]
 depends = ["zathura"]
+install_if = ["zathura-mupdf-default"]
 pkgdesc = "PDF support for zathura"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
