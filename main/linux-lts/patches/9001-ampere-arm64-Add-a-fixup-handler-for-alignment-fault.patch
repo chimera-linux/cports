@@ -21,7 +21,7 @@ index 60454256945b8..05f1ac75e315c 100644
 -obj-y				:= dma-mapping.o extable.o fault.o init.o \
 +obj-y				:= dma-mapping.o extable.o fault.o fault_neon.o init.o \
  				   cache.o copypage.o flush.o \
- 				   ioremap.o mmap.o pgd.o mmu.o \
+ 				   ioremap.o mmap.o pgd.o mem_encrypt.o mmu.o \
  				   context.o proc.o pageattr.o fixmap.o
 @@ -14,3 +14,5 @@ KASAN_SANITIZE_physaddr.o	+= n
  
