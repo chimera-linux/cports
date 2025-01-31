@@ -1,5 +1,5 @@
 pkgname = "bind"
-pkgver = "9.20.4"
+pkgver = "9.20.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-libidn2"]
@@ -36,7 +36,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MPL-2.0"
 url = "https://www.isc.org/bind"
 source = f"https://downloads.isc.org/isc/bind9/{pkgver}/bind-{pkgver}.tar.xz"
-sha256 = "3a8e1a05e00e3e9bc02bdffded7862faf7726ba76ba997f42ab487777bd8210b"
+sha256 = "19274fd739c023772b4212a0b6c201cf4364855fa7e6a7d3db49693f55db1ab8"
 # lto: some udp tests fail otherwise
 options = ["!lto"]
 
