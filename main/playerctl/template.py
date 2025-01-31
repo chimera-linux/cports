@@ -1,6 +1,6 @@
 pkgname = "playerctl"
 pkgver = "2.4.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dgtk-doc=false"]
 hostmakedepends = [
@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "MPRIS media player CLI tool"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/altdesktop/playerctl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
@@ -25,3 +25,7 @@ def _(self):
 @subpackage("playerctl-libs")
 def _(self):
     return self.default_libs()
+
+
+def post_install(self):
+    self.install_service(self.files_path / "playerctld.user")
