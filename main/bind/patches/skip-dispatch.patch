@@ -3,8 +3,8 @@ netmgr/netmgr.c:293:isc__netmgr_create(): fatal error: uv_loop_init failed: too 
 raising the limit to 4096 works but there is no ergonomic way to do that in cbuild yet
 --
 diff -ruN a/tests/dns/Makefile.am b/tests/dns/Makefile.am
---- a/tests/dns/Makefile.am	2024-12-03 13:33:16.153051290 +0100
-+++ b/tests/dns/Makefile.am	2024-12-12 22:32:31.200862480 +0100
+--- a/tests/dns/Makefile.am	2025-01-20 14:20:46.153498658 +0100
++++ b/tests/dns/Makefile.am	2025-01-31 15:08:13.292928042 +0100
 @@ -25,7 +25,6 @@
  	dbiterator_test		\
  	dbversion_test		\
@@ -12,4 +12,4 @@ diff -ruN a/tests/dns/Makefile.am b/tests/dns/Makefile.am
 -	dispatch_test		\
  	dns64_test		\
  	dst_test		\
- 	keytable_test		\
+ 	ede_test		\
