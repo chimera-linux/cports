@@ -1,0 +1,21 @@
+diff --git a/lib/meson.build b/lib/meson.build
+index a997ca9..703ae37 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -2,14 +2,8 @@ flags = '-Wl,--version-script=' + meson.current_source_dir() + '/libjose.map'
+ code = 'int main() { return 0; }'
+ cc = meson.get_compiler('c')
+ 
+-if host_machine.system() == 'freebsd'
+-  if not cc.links(code, args: flags + ',--undefined-version' , name: '-Wl,--version-script=...')
+-     flags = [ '-export-symbols-regex=^jose_.*' ]
+-  endif
+-else
+-  if not cc.links(code, args: flags, name: '-Wl,--version-script=...')
+-     flags = [ '-export-symbols-regex=^jose_.*' ]
+-  endif
++if not cc.links(code, args: flags + ',--undefined-version' , name: '-Wl,--version-script=...')
++  flags = [ '-export-symbols-regex=^jose_.*' ]
+ endif
+ 
+ libjose_lib = shared_library('jose',
