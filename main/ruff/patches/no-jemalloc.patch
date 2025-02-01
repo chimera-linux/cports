@@ -5,18 +5,18 @@ Date:   Thu Jan 9 17:19:31 2025 +0100
     bla
 
 diff --git a/Cargo.lock b/Cargo.lock
-index 710480f..3129b5c 100644
+index 9304b93c7..f3bf26594 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2545,7 +2545,6 @@ dependencies = [
+@@ -2653,7 +2653,6 @@ dependencies = [
   "tempfile",
   "test-case",
-  "thiserror 2.0.9",
+  "thiserror 2.0.11",
 - "tikv-jemallocator",
   "toml",
   "tracing",
   "walkdir",
-@@ -2571,7 +2570,6 @@ dependencies = [
+@@ -2694,7 +2693,6 @@ dependencies = [
   "rustc-hash 2.1.0",
   "serde",
   "serde_json",
@@ -24,8 +24,8 @@ index 710480f..3129b5c 100644
   "ureq",
   "url",
  ]
-@@ -3643,26 +3641,6 @@ dependencies = [
-  "once_cell",
+@@ -3802,26 +3800,6 @@ dependencies = [
+  "num_cpus",
  ]
  
 -[[package]]
@@ -52,7 +52,7 @@ index 710480f..3129b5c 100644
  name = "tinystr"
  version = "0.7.6"
 diff --git a/crates/ruff/Cargo.toml b/crates/ruff/Cargo.toml
-index 5f437b3..3450bbc 100644
+index 6773ba64e..d85a7a32f 100644
 --- a/crates/ruff/Cargo.toml
 +++ b/crates/ruff/Cargo.toml
 @@ -79,8 +79,5 @@ ignored = ["chrono"]
@@ -65,7 +65,7 @@ index 5f437b3..3450bbc 100644
  [lints]
  workspace = true
 diff --git a/crates/ruff/src/main.rs b/crates/ruff/src/main.rs
-index 2271cca..34c3e9d 100644
+index 2271cca49..34c3e9da1 100644
 --- a/crates/ruff/src/main.rs
 +++ b/crates/ruff/src/main.rs
 @@ -11,19 +11,6 @@ use ruff::{run, ExitStatus};
@@ -89,7 +89,7 @@ index 2271cca..34c3e9d 100644
      // Enabled ANSI colors on Windows 10.
      #[cfg(windows)]
 diff --git a/crates/ruff_benchmark/Cargo.toml b/crates/ruff_benchmark/Cargo.toml
-index c6c8510..9688650 100644
+index 8ea87a478..0e7f816a5 100644
 --- a/crates/ruff_benchmark/Cargo.toml
 +++ b/crates/ruff_benchmark/Cargo.toml
 @@ -64,6 +64,3 @@ codspeed = ["codspeed-criterion-compat"]
