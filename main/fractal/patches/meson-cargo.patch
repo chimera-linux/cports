@@ -1,19 +1,16 @@
---- a/src/meson.build	2024-08-01 08:49:42.000000000 +0100
-+++ b/src/meson.build	2024-08-14 23:52:37.271725354 +0100
-@@ -39,12 +39,6 @@
+diff --git a/src/meson.build b/src/meson.build
+index 0210c295..290cd9c6 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -40,24 +40,17 @@ else
    message('Building in release mode')
  endif
  
--if get_option('sandboxed-build')
--  # This is the path used by flatpak-cargo-generator in flatpak-builder-tools
--  cargo_env = [ 'CARGO_HOME=' + meson.project_source_root() / 'cargo' ]
--else
--  cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
--endif
- 
+-cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+-
  custom_target(
    'cargo-build',
-@@ -52,16 +46,11 @@
+   build_by_default: true,
    build_always_stale: true,
    output: meson.project_name(),
    console: true,
@@ -30,7 +27,7 @@
    ]
  )
  
-@@ -101,7 +90,7 @@
+@@ -98,7 +91,7 @@ custom_target(
      output: 'doc',
      console: true,
      command: [
