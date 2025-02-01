@@ -1,7 +1,10 @@
 pkgname = "gnome-boxes"
 pkgver = "47.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+]
 hostmakedepends = [
     "desktop-file-utils",
     "gettext",
@@ -44,3 +47,8 @@ match _arch:
         depends += [f"qemu-system-{_arch}"]
     case "ppc64le" | "ppc64":
         depends += ["qemu-system-ppc64"]
+
+
+@subpackage("gnome-boxes-devel")
+def _(self):
+    return self.default_devel()
