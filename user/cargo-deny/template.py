@@ -1,6 +1,6 @@
 pkgname = "cargo-deny"
-pkgver = "0.16.3"
-pkgrel = 1
+pkgver = "0.16.4"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=native-certs"]
 make_install_args = [*make_build_args]
@@ -13,7 +13,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/EmbarkStudios/cargo-deny"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "99f8906b6468ae309c5c7312f9ce1d7567300dcc43cd58228955dcc5522fcaff"
+sha256 = "9b6bdbf90f2610203708065afc653b9e1e1ba8cc425ffe5d8957da68d9347c01"
 # TODO
 options = ["!check"]
 
