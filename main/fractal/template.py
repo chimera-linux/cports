@@ -1,12 +1,13 @@
 pkgname = "fractal"
-pkgver = "9"
-pkgrel = 1
+pkgver = "10"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "cargo-auditable",
     "desktop-file-utils",
     "gettext",
     "glib-devel",
+    "grass",
     "meson",
     "pkgconf",
 ]
@@ -14,12 +15,12 @@ makedepends = [
     "gst-plugins-bad-devel",
     "gst-plugins-base-devel",
     "gtksourceview-devel",
+    "lcms2-devel",
     "libadwaita-devel",
     "libseccomp-devel",
     "libshumate-devel",
     "libwebp-devel",
     "openssl3-devel",
-    "pipewire-devel",
     "rust-std",
     "sqlite-devel",
     "xdg-desktop-portal-devel",
@@ -30,7 +31,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/fractal"
 source = f"{url}/-/archive/{pkgver}/fractal-{pkgver}.tar.gz"
-sha256 = "61be5f378545fe4ef76feb7d5604aac6261a3dedcfb5dd756713eacc574d5373"
+sha256 = "b1f76119e71d5953675f62f3207f246be48f885e963f3fddb57734a260afbc88"
 # check: has few actual tests, not worth a time-consuming cargo rebuild
 # debug: quite massive, CARGO_PROFILE_RELEASE_DEBUG=line-tables-only in
 # env makes it better but it's still ~260M
