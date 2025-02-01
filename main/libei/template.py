@@ -17,6 +17,7 @@ makedepends = [
     "libxkbcommon-devel",
 ]
 checkdepends = [
+    "dbus",
     "glib",
     "python-attrs",
     "python-dbusmock",
