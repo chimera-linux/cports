@@ -1,5 +1,5 @@
 pkgname = "papers"
-pkgver = "47.0"
+pkgver = "47.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -18,7 +18,6 @@ hostmakedepends = [
     "libxml2-progs",
     "meson",
     "pkgconf",
-    "rustfmt",
 ]
 makedepends = [
     "dbus-devel",
@@ -39,7 +38,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/Incubator/papers"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "6bcb1c352909f6179b6e9d71a6a3607ebba616826ab5a4113f28fc97aeadab96"
+sha256 = "27b38c620ec201a91a268ca6c34bc1464fe262a90693e4b3404da59cc81c52c4"
 
 
 def post_patch(self):
