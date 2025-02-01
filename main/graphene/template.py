@@ -1,6 +1,6 @@
 pkgname = "graphene"
 pkgver = "1.10.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dinstalled_tests=false",

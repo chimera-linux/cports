@@ -1,0 +1,29 @@
+From f89522ca60a76512b8b85c7b8e4d16b94849f22f Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Thu, 7 Apr 2022 19:01:49 +0000
+Subject: [PATCH] meson: don't install introspection file with
+ installed_tests=false
+
+fixes #247
+---
+ tests/meson.build | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/tests/meson.build b/tests/meson.build
+index 0a6a355..0120c29 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -67,7 +67,9 @@ src_build_path = meson.current_build_dir() / '../src'
+ 
+ if build_gir and host_system == 'linux' and not meson.is_cross_build()
+   foreach unit: ['introspection.py']
+-    install_data(unit, install_dir: installed_test_bindir)
++    if get_option('installed_tests')
++      install_data(unit, install_dir: installed_test_bindir)
++    endif
+ 
+     wrapper = '@0@.test'.format(unit)
+     custom_target(wrapper,
+-- 
+2.48.1
+
