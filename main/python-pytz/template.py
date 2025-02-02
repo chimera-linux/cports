@@ -1,12 +1,11 @@
 pkgname = "python-pytz"
-pkgver = "2024.2"
+pkgver = "2025.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 checkdepends = ["python-pytest"]
 depends = ["python", "tzdata"]
@@ -15,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pythonhosted.org/pytz"
 source = f"$(PYPI_SITE)/p/pytz/pytz-{pkgver}.tar.gz"
-sha256 = "2aa355083c50a0f93fa581709deac0c9ad65cca8a9e9beac660adcbd493c798a"
+sha256 = "c2db42be2a2518b28e65f9207c4d05e6ff547d1efa4086469ef855e4ab70178e"
 broken_symlinks = ["usr/lib/python*/site-packages/pytz/zoneinfo"]
 # TODO
 options = ["!check"]
