@@ -1,5 +1,5 @@
 pkgname = "kitty"
-pkgver = "0.39.0"
+pkgver = "0.39.1"
 pkgrel = 0
 hostmakedepends = [
     "fonts-nerd-symbols-only",
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://sw.kovidgoyal.net/kitty"
 source = f"https://github.com/kovidgoyal/kitty/releases/download/v{pkgver}/kitty-{pkgver}.tar.xz"
-sha256 = "c3f5d2371ce78ae29475d21d31264d41478357024f267d9f6038bb4bcdbc972b"
+sha256 = "4baa2a59de7569b3b34f44ea8536c53d312aa76d1347121a2d6557abfde21325"
 # nah
 options = ["!cross"]
 
