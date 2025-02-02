@@ -1,5 +1,5 @@
 pkgname = "aisleriot"
-pkgver = "3.22.34"
+pkgver = "3.22.35"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,6 +25,6 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/aisleriot"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "b56063ea5714d410dc186d945177c99b994fd113b28f66b75dd9d78918584a5a"
+sha256 = "27d35055c710d4dd3de9a7a34bdda8461013478f629ae6b4779328884f74a77c"
 # not supported
 options = ["!lto"]
