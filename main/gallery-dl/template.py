@@ -1,5 +1,5 @@
 pkgname = "gallery-dl"
-pkgver = "1.28.4"
+pkgver = "1.28.5"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -20,7 +20,7 @@ maintainer = "Nasado <hi@nasado.name>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/mikf/gallery-dl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ff29c66c276000019cbd0e2e67c656b547387891f0fdef43984d121c2013ba3c"
+sha256 = "169d55e7baa933e1776cba6fff4ce36765146d21004d99226e7c28f88d20e675"
 
 
 def pre_build(self):
