@@ -1,12 +1,12 @@
 pkgname = "bmake"
-pkgver = "20250120"
+pkgver = "20250125"
 pkgrel = 0
 pkgdesc = "Portable version of NetBSD make"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.crufty.net/help/sjg/bmake.html"
 source = f"https://www.crufty.net/ftp/pub/sjg/bmake-{pkgver}.tar.gz"
-sha256 = "c0a5549b132fe38580e7bdd3bf4ef6d96164e176d1ac3e7a32522ff0d32643a2"
+sha256 = "4c7db7d04dbbfad00e57adc750cdd183095cc494bbeaf9daf338415cb5a599b2"
 hardening = ["vis", "cfi"]
 
 
