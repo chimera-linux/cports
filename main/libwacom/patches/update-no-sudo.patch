@@ -1,0 +1,88 @@
+commit d10ce3856e5c66fe73fd784e9ce525c41b60873d
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Feb 25 01:22:05 2025 +0100
+
+    rip out the hwdb update junk
+
+diff --git a/tools/libwacom-update-db.py b/tools/libwacom-update-db.py
+index 4e14778..6af1b20 100755
+--- a/tools/libwacom-update-db.py
++++ b/tools/libwacom-update-db.py
+@@ -176,19 +176,6 @@ def find_udev_base_dir(paths):
+     raise FileNotFoundError(paths)
+ 
+ 
+-# udev's behaviour is that where a file X exists in two locations,
+-# only the highest-precedence one is read. Our files are supposed to be
+-# complimentary to the system-installed ones (which default to
+-# 65-libwacom.hwdb) so we bump the filename number.
+-def guess_hwdb_filename(basedir):
+-    hwdbdir = Path(basedir) / "hwdb.d"
+-    if not hwdbdir.exists():
+-        raise FileNotFoundError(hwdbdir)
+-
+-    fname = hwdbdir / "66-libwacom.hwdb"
+-    return fname
+-
+-
+ if __name__ == "__main__":
+     parser = argparse.ArgumentParser(
+         description="Update the system according to the current set of tablet data files"
+@@ -208,18 +195,6 @@ if __name__ == "__main__":
+         default=False,
+         help="be used by the build system only",
+     )
+-    parser.add_argument(
+-        "--skip-systemd-hwdb-update",
+-        action="store_true",
+-        default=False,
+-        help="Do not run systemd-hwdb --update (Note: updates to tablet files will not be reflected in udev)",
+-    )
+-    parser.add_argument(
+-        "--udev-base-dir",
+-        type=Path,
+-        default=None,
+-        help="The udev base directory (default: guessed based on the path)",
+-    )
+     ns = parser.parse_args()
+ 
+     if ns.path is None:
+@@ -255,31 +230,10 @@ if __name__ == "__main__":
+                 "WARNING: Running this command as root will not pick up .tablet files in $XDG_CONFIG_HOME/libwacom"
+             )
+ 
+-        try:
+-            udevdir = ns.udev_base_dir or find_udev_base_dir(paths)
+-            hwdbfile = guess_hwdb_filename(udevdir)
+-
+-            with tempfile.NamedTemporaryFile(
+-                mode="w+", prefix=f"{hwdbfile.name}-XXXXXX", encoding="utf-8"
+-            ) as fd:
+-                hwdb.print(fd)
+-                print(f"Using sudo to copy hwdb file to {hwdbfile}")
+-                subprocess.run(["sudo", "cp", f"{fd.name}", hwdbfile.absolute()])
+-
+-            if not ns.skip_systemd_hwdb_update:
+-                print("Using sudo to run systemd-hwdb update")
+-                subprocess.run(
+-                    ["sudo", "systemd-hwdb", "update"],
+-                    capture_output=True,
+-                    check=True,
+-                    text=True,
+-                )
+-            print("Finished, please unplug and replug your device")
+-        except PermissionError as e:
+-            print(f"{e}, please run me as root")
+-        except FileNotFoundError as e:
+-            print(f"Unable to find udev base directory: {e}")
+-        except subprocess.CalledProcessError as e:
+-            print(f"hwdb update failed: {e.stderr}")
+-        except KeyboardInterrupt:
+-            pass
++        udevdir = "/etc/udev/hwdb.d"
++        hwdbfile = "66-libwacom.hwdb"
++
++        with open(hwdbfile, "w") as fd:
++            hwdb.print(fd)
++
++        print(f"Finished, please copy '{hwdbfile}' to '{udevdir}' and run 'udev-hwdb update' as root")
