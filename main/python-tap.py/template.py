@@ -1,21 +1,19 @@
 pkgname = "python-tap.py"
-pkgver = "3.1"
+pkgver = "3.2.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
-    "python-babel",
     "python-build",
+    "python-hatchling",
     "python-installer",
-    "python-setuptools",
-    "python-wheel",
 ]
 depends = ["python"]
 pkgdesc = "Test Anything Protocol (TAP) tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/python-tap/tappy"
-source = f"$(PYPI_SITE)/t/tap.py/tap.py-{pkgver}.tar.gz"
-sha256 = "3c0cd45212ad5a25b35445964e2517efa000a118a1bfc3437dae828892eaf1e1"
+source = f"$(PYPI_SITE)/t/tap.py/tap_py-{pkgver}.tar.gz"
+sha256 = "d03c9e6af0a56fad994f1c69f14041e676811d73eeeef20bf4077c43d621d608"
 
 
 def check(self):
