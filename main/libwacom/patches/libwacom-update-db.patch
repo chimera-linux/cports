@@ -1,0 +1,31 @@
+diff --git a/tools/libwacom-update-db.py b/tools/libwacom-update-db.py
+index 4e14778..2f5c4eb 100755
+--- a/tools/libwacom-update-db.py
++++ b/tools/libwacom-update-db.py
+@@ -212,7 +212,7 @@ if __name__ == "__main__":
+         "--skip-systemd-hwdb-update",
+         action="store_true",
+         default=False,
+-        help="Do not run systemd-hwdb --update (Note: updates to tablet files will not be reflected in udev)",
++        help="Do not run udev-hwdb --update (Note: updates to tablet files will not be reflected in udev)",
+     )
+     parser.add_argument(
+         "--udev-base-dir",
+@@ -263,13 +263,13 @@ if __name__ == "__main__":
+                 mode="w+", prefix=f"{hwdbfile.name}-XXXXXX", encoding="utf-8"
+             ) as fd:
+                 hwdb.print(fd)
+-                print(f"Using sudo to copy hwdb file to {hwdbfile}")
+-                subprocess.run(["sudo", "cp", f"{fd.name}", hwdbfile.absolute()])
++                print(f"Using doas to copy hwdb file to {hwdbfile}")
++                subprocess.run(["doas", "cp", f"{fd.name}", hwdbfile.absolute()])
+ 
+             if not ns.skip_systemd_hwdb_update:
+-                print("Using sudo to run systemd-hwdb update")
++                print("Using doas to run udev-hwdb update")
+                 subprocess.run(
+-                    ["sudo", "systemd-hwdb", "update"],
++                    ["doas", "udev-hwdb", "update"],
+                     capture_output=True,
+                     check=True,
+                     text=True,
