@@ -1,8 +1,9 @@
 pkgname = "appstream"
 pkgver = "1.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dapidocs=false",
     "-Dcompose=true",
     "-Dqt=true",
@@ -44,6 +45,10 @@ source = (
 )
 sha256 = "dff6efa67d9ea4797870d70e3370b9e3fa66ce3c749aba68e6b10222473463cf"
 options = ["!cross"]
+
+
+def post_install(self):
+    self.uninstall("usr/share/installed-tests")
 
 
 @subpackage("appstream-qt")
