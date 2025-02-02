@@ -29,7 +29,7 @@
  )
  
  list(APPEND API_FILES
-@@ -72,22 +56,10 @@
+@@ -72,18 +56,6 @@ foreach(file IN LISTS API_FILES)
    list(APPEND xml_files ${xml_file_fullpath})
  endforeach()
  
@@ -45,12 +45,17 @@
 -  set(ical-glib-src-generator_EXE ical-glib-src-generator)
 -endif()
 -
- add_custom_command (
-   OUTPUT ${LIBICAL_GLIB_SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/libical-glib-private.h ${CMAKE_CURRENT_BINARY_DIR}/i-cal-forward-declarations.h
+ list(
+   APPEND
+   LIBICAL_GLIB_SOURCES
+@@ -94,8 +66,8 @@ list(
+ 
+ add_custom_command(
+   OUTPUT ${LIBICAL_GLIB_SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/i-cal-forward-declarations.h
 -  COMMAND ${ical-glib-src-generator_EXE} "${CMAKE_CURRENT_SOURCE_DIR}/tools" "${CMAKE_CURRENT_SOURCE_DIR}/api"
 -  DEPENDS ${ical-glib-src-generator_EXE} ${xml_files}
 +  COMMAND ${EXECUTABLE_OUTPUT_PATH}/ical-glib-src-generator "${CMAKE_CURRENT_SOURCE_DIR}/tools" "${CMAKE_CURRENT_SOURCE_DIR}/api"
 +  DEPENDS ${EXECUTABLE_OUTPUT_PATH}/ical-glib-src-generator ${xml_files}
+   COMMENT "Generate the libical-glib sources"
  )
  
- configure_file(

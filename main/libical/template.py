@@ -1,6 +1,6 @@
 pkgname = "libical"
-pkgver = "3.0.18"
-pkgrel = 2
+pkgver = "3.0.19"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DICAL_BUILD_DOCS=OFF",
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-only"
 url = "https://libical.github.io/libical"
 source = f"https://github.com/libical/libical/archive/v{pkgver}.tar.gz"
-sha256 = "72b7dc1a5937533aee5a2baefc990983b66b141dd80d43b51f80aced4aae219c"
+sha256 = "6a1e7f0f50a399cbad826bcc286ce10d7151f3df7cc103f641de15160523c73f"
 options = ["!cross"]
 
 
