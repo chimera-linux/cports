@@ -1,5 +1,5 @@
 pkgname = "python-certifi"
-pkgver = "2024.12.14"
+pkgver = "2025.1.31"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,6 +14,6 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/certifi/python-certifi"
 source = f"$(PYPI_SITE)/c/certifi/certifi-{pkgver}.tar.gz"
-sha256 = "b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db"
+sha256 = "3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651"
 # no tests
 options = ["!check"]
