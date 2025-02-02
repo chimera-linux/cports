@@ -1,12 +1,11 @@
 pkgname = "solaar"
 pkgver = "1.1.14"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 depends = [
     "python-dbus",
@@ -15,6 +14,7 @@ depends = [
     "python-psutil",
     "python-pyudev",
     "python-pyyaml",
+    "python-typing_extensions",
     "python-xlib",
 ]
 pkgdesc = "Device manager for Logitech devices"
