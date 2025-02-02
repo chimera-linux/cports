@@ -1,8 +1,9 @@
 pkgname = "gnome-system-monitor"
-pkgver = "47.0"
+pkgver = "47.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dsystemd=false",
 ]
 hostmakedepends = [
@@ -27,5 +28,5 @@ maintainer = "GeopJr <evan@geopjr.dev>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/SystemMonitor"
 source = f"$(GNOME_SITE)/gnome-system-monitor/{pkgver[0 : pkgver.find('.')]}/gnome-system-monitor-{pkgver}.tar.xz"
-sha256 = "ede7b925eb714d8b3c2bfbf7405a1b714494fe47e02f0af08f5837b3e256547f"
+sha256 = "d3c5714fd91fa7f05d6775e6797ccdab3149f131d1aa776a3352e2addb110f01"
 tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"]}
