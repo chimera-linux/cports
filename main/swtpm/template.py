@@ -1,8 +1,9 @@
 pkgname = "swtpm"
 pkgver = "0.10.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--with-gnutls",
     "--with-tss-user=tss",
     "--with-tss-group=tss",
@@ -40,6 +41,7 @@ sha256 = "9f10ae0d3123ab05c3808f8c8d39f633cf1a0cf142d6ac9b87b8364a682ac842"
 def post_install(self):
     self.install_license("LICENSE")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.uninstall("usr/lib/installed-tests")
 
 
 @subpackage("swtpm-libs")
