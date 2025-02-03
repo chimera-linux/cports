@@ -170,7 +170,7 @@ def ckms_build(pkg, modname, modver, kver):
     from cbuild.core import paths
 
     # check if we have the stuff available
-    kpath = paths.distdir() / "etc/keys/kernel"
+    kpath = paths.keys() / "kernel"
     pkey = kpath / f"{kver}-signing_key.pem"
     cert = kpath / f"{kver}-signing_key.x509"
     tfiles = None

@@ -44,6 +44,7 @@ opt_bldroot = "bldroot"
 opt_blddir = ""
 opt_pkgpath = "packages"
 opt_srcpath = "sources"
+opt_keypath = None
 opt_cchpath = "cbuild_cache"
 opt_stagepath = "pkgstage"
 opt_statusfd = None
@@ -115,6 +116,7 @@ def handle_options():
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
     global opt_acceptsum, opt_comp, opt_maint, opt_epkgs, opt_tdata, opt_nolock
+    global opt_keypath
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -220,6 +222,9 @@ def handle_options():
     )
     parser.add_argument(
         "-s", "--sources-path", default=None, help="Sources storage path."
+    )
+    parser.add_argument(
+        "-k", "--keys-path", default=None, help="Additional keys path."
     )
     parser.add_argument(
         "-t",
@@ -383,6 +388,7 @@ def handle_options():
         signcfg = global_cfg["signing"]
 
         opt_signkey = signcfg.get("key", fallback=opt_signkey)
+        opt_keypath = bcfg.get("keys", fallback=opt_keypath)
 
     if "data" in global_cfg:
         opt_tdata = dict(global_cfg["data"])
@@ -430,6 +436,9 @@ def handle_options():
 
     if cmdline.sources_path:
         opt_srcpath = cmdline.sources_path
+
+    if cmdline.keys_path:
+        opt_keypath = cmdline.keys_path
 
     if cmdline.no_remote:
         opt_nonet = True
@@ -527,6 +536,11 @@ def init_late():
 
     # register signing key
     sign.register_key(opt_signkey)
+
+    if opt_keypath:
+        paths.init_keys(opt_keypath)
+    else:
+        paths.init_keys(sign.get_keypath().parent)
 
     # set compression type
     autil.set_compression(opt_comp)

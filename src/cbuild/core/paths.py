@@ -111,6 +111,15 @@ def sources():
     return _srcs
 
 
+def init_keys(kp):
+    global _keys
+    _keys = _expath(pathlib.Path.cwd(), kp)
+
+
+def keys():
+    return _keys
+
+
 def cbuild_cache():
     return _ccdir
 

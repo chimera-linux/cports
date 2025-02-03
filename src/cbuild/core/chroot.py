@@ -165,7 +165,7 @@ def setup_keys(rootp):
     for f in (paths.distdir() / "etc/apk/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
 
-    for f in (paths.distdir() / "etc/keys").glob("*.pub"):
+    for f in paths.keys().glob("*.pub"):
         shutil.copy2(f, keydir)
 
     pkey = signi.get_keypath()

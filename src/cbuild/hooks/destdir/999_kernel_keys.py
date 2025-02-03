@@ -18,7 +18,7 @@ def invoke(pkg):
     # kernel version
     kver = kdir.name.removeprefix("linux-headers-")
     # first erase whatever was already there
-    dpath = paths.distdir() / "etc/keys/kernel"
+    dpath = paths.keys() / "kernel"
     for f in dpath.glob(f"{kver}-signing_key.*"):
         f.unlink()
     # find if we have signing key stuff in the new kernel
@@ -27,8 +27,8 @@ def invoke(pkg):
     if len(klist) == 0:
         return
     # else prepare a dir for it
-    dpath = paths.distdir() / "etc/keys/kernel"
-    dpath.mkdir(exist_ok=True)
+    dpath = paths.keys() / "kernel"
+    dpath.mkdir(exist_ok=True, parents=True)
     # and copy it all there
     for sk in klist:
         df = dpath / f"{kver}-{sk.name}"
