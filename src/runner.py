@@ -434,6 +434,9 @@ def handle_options():
     if cmdline.no_remote:
         opt_nonet = True
 
+    if cmdline.no_lock:
+        opt_nolock = True
+
     if cmdline.dirty_build:
         opt_dirty = True
 

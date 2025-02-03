@@ -17,6 +17,7 @@ def set_nolock(nolock):
 def lock(path, pkg=None):
     if no_lock:
         yield -1
+        return
     fd = os.open(path, os.O_CREAT | os.O_WRONLY | os.O_TRUNC)
     while True:
         try:
