@@ -1,0 +1,135 @@
+also migrates to v3: https://github.com/catchorg/Catch2/blob/914aeecfe23b1e16af6ea675a4fb5dbd5a5b8d0a/docs/migrate-v2-to-v3.md
+
+diff -ruN a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2023-06-22 15:43:24.000000000 +0200
++++ b/CMakeLists.txt	2025-02-25 13:18:17.288068189 +0100
+@@ -3,10 +3,9 @@
+ # Create the project
+ project(lsdj)
+ 
+-add_subdirectory(dependency/Catch2)
+ add_subdirectory(liblsdj)
+ add_subdirectory(lsdsng_export)
+ add_subdirectory(lsdsng_import)
+ # add_subdirectory(lsdj_clean)
+ add_subdirectory(lsdj_mono)
+-add_subdirectory(lsdj_wavetable_import)
+\ No newline at end of file
++add_subdirectory(lsdj_wavetable_import)
+diff -ruN a/liblsdj/test/CMakeLists.txt b/liblsdj/test/CMakeLists.txt
+--- a/liblsdj/test/CMakeLists.txt	2023-06-22 15:43:24.000000000 +0200
++++ b/liblsdj/test/CMakeLists.txt	2025-02-25 13:31:39.576755520 +0100
+@@ -20,7 +20,8 @@
+ 
+ target_link_libraries(test
+ 	PRIVATE
+-	Catch2::Catch2
++	Catch2
++	Catch2Main
+ 	liblsdj
+ 	)
+ 
+diff -ruN a/liblsdj/test/format.cpp b/liblsdj/test/format.cpp
+--- a/liblsdj/test/format.cpp	2023-06-22 15:43:24.000000000 +0200
++++ b/liblsdj/test/format.cpp	2025-02-25 13:27:35.229778209 +0100
+@@ -6,7 +6,7 @@
+ #include <lsdj/table.h>
+ 
+ #include <cassert>
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ 
+ using namespace Catch;
+ 
+diff -ruN a/liblsdj/test/main.cpp b/liblsdj/test/main.cpp
+--- a/liblsdj/test/main.cpp	2023-06-22 15:43:24.000000000 +0200
++++ b/liblsdj/test/main.cpp	2025-02-25 13:27:41.826723600 +0100
+@@ -1,2 +1,2 @@
+ #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+-#include <catch2/catch.hpp>
+\ No newline at end of file
++#include <catch2/catch_all.hpp>
+diff -ruN a/liblsdj/test/project.cpp b/liblsdj/test/project.cpp
+--- a/liblsdj/test/project.cpp	2023-06-22 15:43:24.000000000 +0200
++++ b/liblsdj/test/project.cpp	2025-02-25 13:29:56.215611135 +0100
+@@ -3,7 +3,7 @@
+ #include <algorithm>
+ #include <array>
+ #include <cassert>
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ #include <cstring>
+ #include <lsdj/compression.h>
+ 
+@@ -29,7 +29,7 @@
+ 
+ 			THEN( "The name should be empty")
+ 			{
+-				REQUIRE_THAT(name.data(), Equals(""));
++				REQUIRE_THAT(name.data(), Catch::Matchers::Equals(""));
+ 				REQUIRE(lsdj_project_get_name_length(project) == 0);
+ 			}
+ 		}
+@@ -44,7 +44,7 @@
+                 name.fill('\0');
+ 				strncpy(name.data(), lsdj_project_get_name(project), name.size());
+ 
+-				REQUIRE_THAT(name.data(), Equals("NAME"));
++				REQUIRE_THAT(name.data(), Catch::Matchers::Equals("NAME"));
+ 				REQUIRE(lsdj_project_get_name_length(project) == 4);
+ 			}
+ 		}
+@@ -113,7 +113,7 @@
+                 name.fill('\0');
+ 				strncpy(name.data(), lsdj_project_get_name(project), name.size());
+ 
+-				REQUIRE_THAT(name.data(), Equals("MYSONG"));
++				REQUIRE_THAT(name.data(), Catch::Matchers::Equals("MYSONG"));
+ 				REQUIRE(lsdj_project_get_version(copy) == 16);
+ 
+ 				auto bufferCopy = lsdj_project_get_song_const(project);
+diff -ruN a/liblsdj/test/sav.cpp b/liblsdj/test/sav.cpp
+--- a/liblsdj/test/sav.cpp	2023-06-22 15:43:24.000000000 +0200
++++ b/liblsdj/test/sav.cpp	2025-02-25 13:30:13.962464227 +0100
+@@ -3,7 +3,7 @@
+ #include <algorithm>
+ #include <array>
+ #include <cassert>
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ #include <cstring>
+ 
+ #include "file.hpp"
+@@ -104,7 +104,7 @@
+                 name.fill('\0');
+                 strncpy(name.data(), lsdj_project_get_name(copy), name.size());
+ 
+-				REQUIRE_THAT( name.data(), Equals("MYSONG") );
++				REQUIRE_THAT( name.data(), Catch::Matchers::Equals("MYSONG") );
+ 				REQUIRE( lsdj_project_get_version(copy) == 16 );
+ 
+ 				auto bufferCopy = lsdj_project_get_song_const(project);
+diff -ruN a/liblsdj/test/song.cpp b/liblsdj/test/song.cpp
+--- a/liblsdj/test/song.cpp	2023-06-22 15:43:24.000000000 +0200
++++ b/liblsdj/test/song.cpp	2025-02-25 13:27:57.249595930 +0100
+@@ -1,7 +1,7 @@
+ #include <lsdj/song.h>
+ 
+ #include <array>
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ #include <cstring>
+ 
+ #include <lsdj/chain.h>
+diff -ruN a/liblsdj/test/vio.cpp b/liblsdj/test/vio.cpp
+--- a/liblsdj/test/vio.cpp	2023-06-22 15:43:24.000000000 +0200
++++ b/liblsdj/test/vio.cpp	2025-02-25 13:28:03.855541247 +0100
+@@ -1,7 +1,7 @@
+ #include <lsdj/vio.h>
+ 
+ #include <array>
+-#include <catch2/catch.hpp>
++#include <catch2/catch_all.hpp>
+ #include <cstring>
+ 
+ using namespace Catch;
