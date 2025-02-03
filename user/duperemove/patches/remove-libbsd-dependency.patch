@@ -1,0 +1,33 @@
+--- a/Makefile
++++ b/Makefile
+@@ -23,7 +23,7 @@ DIST=duperemove-$(VERSION)
+ DIST_TARBALL=$(VERSION).tar.gz
+ TEMP_INSTALL_DIR:=$(shell mktemp -du -p .)
+ 
+-EXTRA_CFLAGS=$(shell $(PKG_CONFIG) --cflags glib-2.0,sqlite3,blkid,mount,uuid,libbsd)
++EXTRA_CFLAGS=$(shell $(PKG_CONFIG) --cflags glib-2.0,sqlite3,blkid,mount,uuid)
+ EXTRA_LIBS=$(shell $(PKG_CONFIG) --libs glib-2.0,sqlite3,blkid,mount,uuid)
+ 
+ ifdef DEBUG
+--- a/file_scan.c
++++ b/file_scan.c
+@@ -41,7 +41,7 @@
+ #include <libmount/libmount.h>
+ #include <sys/sysmacros.h>
+ #include <uuid/uuid.h>
+-#include <bsd/sys/queue.h>
++#include <sys/queue.h>
+ 
+ #include <glib.h>
+ 
+--- a/filerec.h
++++ b/filerec.h
+@@ -19,7 +19,7 @@
+ #include <stdint.h>
+ #include <time.h>
+ #include <glib.h>
+-#include <bsd/sys/queue.h>
++#include <sys/queue.h>
+ #include "rbtree.h"
+ #include "results-tree.h"
+ 
