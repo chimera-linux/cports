@@ -540,7 +540,12 @@ def init_late():
     if opt_keypath:
         paths.init_keys(opt_keypath)
     else:
-        paths.init_keys(sign.get_keypath().parent)
+        kp = sign.get_keypath()
+        if kp:
+            paths.init_keys(kp.parent)
+        else:
+            # fallback
+            paths.init_keys("etc/keys")
 
     # set compression type
     autil.set_compression(opt_comp)
