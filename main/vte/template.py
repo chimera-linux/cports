@@ -1,6 +1,6 @@
-pkgname = "vte-common"
+pkgname = "vte"
 pkgver = "0.78.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-D_systemd=false",
@@ -32,6 +32,8 @@ makedepends = [
     "zlib-ng-compat-devel",
     "linux-headers",
 ]
+# transitional
+provides = [self.with_pkgver("vte-common")]
 pkgdesc = "Gtk terminal widget"
 subdesc = "common files"
 maintainer = "q66 <q66@chimera-linux.org>"
