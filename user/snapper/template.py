@@ -24,11 +24,10 @@ hostmakedepends = [
 makedepends = [
     "acl-devel",
     "boost-devel",
+    "btrfs-progs-devel",
     "dbus-devel",
     "e2fsprogs-devel",
     "json-c-devel",
-    "libbtrfs-devel",
-    "libbtrfsutil-devel",
     "libmount-devel",
     "libxml2-devel",
     "linux-pam-devel",

@@ -18,7 +18,7 @@ hostmakedepends = [
     "go-md2man",
 ]
 makedepends = [
-    "libbtrfs-devel",
+    "btrfs-progs-devel",
     "libseccomp-devel",
     "linux-headers",
 ]

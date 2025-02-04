@@ -27,12 +27,12 @@ hostmakedepends = [
 ]
 makedepends = [
     "acl-devel",
+    "btrfs-progs-devel",
     "libatasmart-devel",
     "libgudev-devel",
     "polkit-devel",
     "elogind-devel",
     "libblockdev-devel",
-    "libbtrfs-devel",
     "device-mapper-devel",
 ]
 pkgdesc = "Daemon, tools and libraries for disk manipulation"

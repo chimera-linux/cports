@@ -12,8 +12,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "btrfs-progs-devel",
     "gpgme-devel",
-    "libbtrfs-devel",
     "linux-headers",
     "sqlite-devel",
 ]

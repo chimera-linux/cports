@@ -4,7 +4,7 @@ pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 makedepends = [
-    "libbtrfs-devel",
+    "btrfs-progs-devel",
     "linux-headers",
     "sqlite-devel",
 ]

@@ -1,6 +1,6 @@
 pkgname = "btrfs-progs"
 pkgver = "6.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--enable-python"]
 # build system assumes . is the root right off the bat
@@ -46,36 +46,33 @@ def post_install(self):
     self.install_completion("btrfs-completion", "bash", "btrfs")
 
 
-@subpackage("libbtrfs")
+@subpackage("btrfs-progs-libs")
 def _(self):
-    self.subdesc = "btrfs library"
-    return ["usr/lib/libbtrfs.so.*"]
-
-
-@subpackage("libbtrfs-devel")
-def _(self):
-    self.subdesc = "libbtrfs development files"
-    return ["usr/include/btrfs", "usr/lib/libbtrfs.*"]
-
-
-@subpackage("libbtrfsutil")
-def _(self):
-    self.subdesc = "btrfsutil library"
-    return ["usr/lib/libbtrfsutil.so.*"]
-
-
-@subpackage("libbtrfsutil-devel")
-def _(self):
-    self.subdesc = "libbtrfsutil development files"
-    return [
-        "usr/include/btrfsutil.h",
-        "usr/lib/libbtrfsutil.*",
-        "usr/lib/pkgconfig/libbtrfsutil.pc",
+    # transitional
+    self.provides = [
+        self.with_pkgver("libbtrfs"),
+        self.with_pkgver("libbtrfsutil"),
     ]
 
+    return self.default_libs()
 
-@subpackage("python-btrfsutil")
+
+@subpackage("btrfs-progs-devel")
+def _(self):
+    # transitional
+    self.provides = [
+        self.with_pkgver("libbtrfs-devel"),
+        self.with_pkgver("libbtrfsutil-devel"),
+    ]
+
+    return self.default_devel()
+
+
+@subpackage("btrfs-progs-python")
 def _(self):
     self.subdesc = "python module"
+    # transitional
+    self.provides = [self.with_pkgver("python-btrfsutil")]
     self.depends += ["python"]
+
     return ["usr/lib/python*"]
