@@ -223,19 +223,19 @@ def _(self):
     ]
 
 
-@subpackage("libgfortran")
+@subpackage("gcc-fortran-libs")
 def _(self):
     self.subdesc = "Fortran runtime library"
     return ["usr/lib/libgfortran.so.*"]
 
 
-@subpackage("libobjc")
+@subpackage("gcc-objc-libs")
 def _(self):
     self.subdesc = "Objective-C runtime library"
     return ["usr/lib/libobjc.so.*"]
 
 
-@subpackage("libgomp-devel")
+@subpackage("gcc-gomp-devel")
 def _(self):
     self.subdesc = "OpenMP develpment files"
     return [
@@ -247,13 +247,13 @@ def _(self):
     ]
 
 
-@subpackage("libgomp")
+@subpackage("gcc-gomp-libs")
 def _(self):
     self.subdesc = "OpenMP runtime"
     return ["usr/lib/libgomp.so.*"]
 
 
-@subpackage("libitm-devel")
+@subpackage("gcc-itm-devel")
 def _(self):
     self.subdesc = "transactional memory lib development files"
     return [
@@ -264,7 +264,7 @@ def _(self):
     ]
 
 
-@subpackage("libitm")
+@subpackage("gcc-itm-libs")
 def _(self):
     self.subdesc = "transactional memory library"
     return ["usr/lib/libitm.so.*"]
