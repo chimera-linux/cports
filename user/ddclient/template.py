@@ -1,6 +1,6 @@
 pkgname = "ddclient"
-pkgver = "3.11.2"
-pkgrel = 1
+pkgver = "4.0.0"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -16,8 +16,10 @@ url = "https://ddclient.net"
 source = (
     f"https://github.com/ddclient/ddclient/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "243cd832abd3cdd2b49903e1b5ed7f450e2d9c4c0eaf8ce4fe692c244d3afd77"
+sha256 = "4b37c99ac0011102d7db62f1ece7ff899b06df3d4b172e312703931a3c593c93"
 
 
 def post_install(self):
     self.install_service(self.files_path / "ddclient")
+    self.install_file("build/ddclient.conf", "usr/share/examples/ddclient")
+    self.uninstall("etc/ddclient")
