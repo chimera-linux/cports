@@ -1,6 +1,6 @@
 pkgname = "pkgconf"
 pkgver = "2.3.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_gen = []
 checkdepends = ["kyua"]
@@ -22,9 +22,12 @@ def post_install(self):
     self.install_link("usr/share/man/man1/pkg-config.1", "pkgconf.1")
 
 
-@subpackage("libpkgconf")
+@subpackage("pkgconf-libs")
 def _(self):
     self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libpkgconf")]
+
     return self.default_libs()
 
 
