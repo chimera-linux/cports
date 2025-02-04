@@ -20,7 +20,7 @@ hostmakedepends = [
     "python",
 ]
 makedepends = [
-    "avahi-devel",
+    "avahi-bootstrap",
     "curl-devel",
     "libgphoto2-devel",
     "libjpeg-turbo-devel",

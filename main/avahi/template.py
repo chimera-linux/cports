@@ -1,30 +1,27 @@
-# this must be synchronized with avahi-ui-progs
 pkgname = "avahi"
 pkgver = "0.8"
-pkgrel = 9
+pkgrel = 10
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",
     "--disable-qt4",
     "--disable-qt5",
     "--disable-gtk",
-    "--disable-gtk3",
-    "--disable-glib",
-    "--disable-gobject",
-    "--disable-libevent",
     "--disable-dbm",
     "--disable-gdbm",
     "--disable-mono",
     "--disable-monodoc",
     "--disable-doxygen-doc",
-    "--disable-xmltoman",
-    "--disable-pygobject",
-    "--disable-python-dbus",
     "--disable-static",
-    "--disable-introspection",
+    "--enable-gtk3",
+    "--enable-glib",
+    "--enable-gobject",
+    "--enable-pygobject",
+    "--enable-introspection",
     "--enable-compat-libdns_sd",
     "--enable-compat-howl",
     "--enable-python",
+    "--enable-xmltoman",
     "--with-xml=expat",
     "--with-avahi-user=_avahi",
     "--with-avahi-group=_avahi",
@@ -37,9 +34,25 @@ configure_args = [
     "--without-systemdsystemunitdir",
     "ssp_cv_lib=no",
 ]
-configure_gen = []
-hostmakedepends = ["pkgconf", "python", "gettext"]
-makedepends = ["dbus-devel", "libcap-devel", "libdaemon-devel"]
+hostmakedepends = [
+    "automake",
+    "gettext-devel",
+    "glib-devel",
+    "gobject-introspection",
+    "libtool",
+    "pkgconf",
+    "python",
+    "python-dbus",
+    "xmltoman",
+]
+makedepends = [
+    "dbus-devel",
+    "gtk+3-devel",
+    "libcap-devel",
+    "libdaemon-devel",
+    "libevent-devel",
+    "python-gobject-devel",
+]
 depends = ["dinit-dbus"]
 pkgdesc = "Multicast DNS Service Discovery"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -51,12 +64,103 @@ options = ["!cross"]
 
 
 def post_install(self):
-    # is in avahi-python
-    self.uninstall("usr/lib/python*", glob=True)
-    self.uninstall("usr/share/man/man1/avahi-bookmarks.1")
-    # service
     self.install_service(self.files_path / "avahi-daemon")
     self.install_sysusers(self.files_path / "sysusers.conf")
+
+
+@subpackage("avahi-python")
+def _(self):
+    self.pkgdesc = "Python utility package for Avahi"
+    self.depends = ["python", "python-dbus"]
+
+    return [
+        "usr/bin/avahi-bookmarks",
+        "usr/lib/python3*",
+        "usr/share/man/man1/avahi-bookmarks*",
+    ]
+
+
+@subpackage("avahi-glib-devel")
+def _(self):
+    self.pkgdesc = "Avahi glib libraries"
+    self.depends = [f"avahi-devel~{pkgver}"]
+
+    return [
+        "usr/include/avahi-g*",
+        "usr/lib/libavahi-glib.so",
+        "usr/lib/libavahi-gobject.so",
+        "usr/lib/pkgconfig/avahi-g*",
+        "usr/share/gir-1.0",
+    ]
+
+
+@subpackage("avahi-glib-libs")
+def _(self):
+    self.pkgdesc = "Avahi glib libraries"
+
+    return [
+        "usr/lib/libavahi-glib.so.*",
+        "usr/lib/libavahi-gobject.so.*",
+        "usr/lib/girepository-1.0",
+    ]
+
+
+@subpackage("avahi-ui-progs")
+def _(self):
+    self.pkgdesc = "Avahi Gtk+ utilities"
+    self.depends = [self.parent]
+
+    return [
+        "cmd:avahi-discover-standalone",
+        "cmd:bshell",
+        "cmd:bssh",
+        "cmd:bvnc",
+        "usr/share/applications/bssh.desktop",
+        "usr/share/applications/bvnc.desktop",
+        "usr/share/avahi/interfaces/avahi-discover.ui",
+    ]
+
+
+@subpackage("avahi-ui-devel")
+def _(self):
+    self.pkgdesc = "Avahi UI libraries"
+    self.depends = [f"avahi-devel~{pkgver}"]
+
+    return [
+        "usr/include/avahi-ui",
+        "usr/lib/libavahi-ui*.so",
+        "usr/lib/pkgconfig/avahi-ui*",
+    ]
+
+
+@subpackage("avahi-ui-libs")
+def _(self):
+    self.pkgdesc = "Avahi UI libraries"
+
+    return [
+        "usr/lib/libavahi-ui*.so.*",
+    ]
+
+
+@subpackage("avahi-libevent-devel")
+def _(self):
+    self.pkgdesc = "Avahi libevent libraries"
+    self.depends = [f"avahi-devel~{pkgver}"]
+
+    return [
+        "usr/include/avahi-libevent*",
+        "usr/lib/libavahi-libevent*.so",
+        "usr/lib/pkgconfig/avahi-libevent*",
+    ]
+
+
+@subpackage("avahi-libevent-libs")
+def _(self):
+    self.pkgdesc = "Avahi libevent libraries"
+
+    return [
+        "usr/lib/libavahi-libevent*.so.*",
+    ]
 
 
 @subpackage("avahi-autoipd")

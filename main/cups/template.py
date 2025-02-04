@@ -29,14 +29,14 @@ configure_gen = []
 make_dir = "."
 make_check_args = ["-j1"]
 hostmakedepends = [
-    "avahi-devel",
+    "avahi-bootstrap",
     "openssl-devel",
     "pkgconf",
     "xdg-utils",
 ]
 makedepends = [
     "acl-devel",
-    "avahi-devel",
+    "avahi-bootstrap",
     "libpaper-devel",
     "libpng-devel",
     "libtiff-devel",
