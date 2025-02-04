@@ -8,7 +8,7 @@ configure_args = [
     "--disable-bzlib",
     "--disable-xzlib",
 ]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "File type identification utility"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -25,9 +25,10 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libmagic")
+@subpackage("file-libs")
 def _(self):
-    self.pkgdesc = "File type identification library"
+    # transitional
+    self.provides = [self.with_pkgver("libmagic")]
 
     return self.default_libs(
         extra=[
@@ -40,9 +41,5 @@ def _(self):
 @subpackage("file-devel")
 def _(self):
     self.depends += makedepends
-    self.pkgdesc = "File type identification library"
 
     return self.default_devel()
-
-
-configure_gen = []
