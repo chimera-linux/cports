@@ -1738,6 +1738,34 @@ def do_dump(tgt):
     print(json.dumps(dumps, indent=4))
 
 
+def do_print_mismatched(tgt):
+    from cbuild.core import chroot, template, errors
+
+    tmpls = _collect_tmpls(None)
+
+    def _read_pkg(pkgn):
+        try:
+            return template.Template(
+                pkgn,
+                opt_arch if opt_arch else chroot.host_cpu(),
+                True,
+                False,
+                (1, 1),
+                False,
+                False,
+                None,
+                target="lint",
+            )
+        except errors.PackageException:
+            return None
+
+    for tmpln in tmpls:
+        pkgr = _read_pkg(tmpln)
+        for spkg in pkgr.subpkg_list:
+            if not spkg.pkgname.startswith(f"{pkgr.pkgname}-"):
+                print(f"{pkgr.pkgname} -> {spkg.pkgname}")
+
+
 def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
     from cbuild.core import build, chroot, template, errors, paths
     from cbuild.util import compiler
@@ -2711,6 +2739,10 @@ command_handlers = {
     "print-build-graph": (
         do_print_build_graph,
         "Print the build graph of a template",
+    ),
+    "print-mismatched-subpkgs": (
+        do_print_mismatched,
+        "Print subpackages that have wrong names",
     ),
     "print-outdated": (
         lambda cmd: do_print_unbuilt(cmd, False, True),
