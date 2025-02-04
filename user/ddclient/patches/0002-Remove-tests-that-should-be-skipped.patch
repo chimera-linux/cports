@@ -1,0 +1,1580 @@
+From 94eade0519ac05c4a23ec9f9f987c731c9db72d7 Mon Sep 17 00:00:00 2001
+From: Gnarwhal <git.aspect893@passmail.net>
+Date: Sat, 15 Mar 2025 18:05:17 +0000
+Subject: [PATCH 2/2] Remove tests that should be skipped
+
+These tests should be skipped when dependencies are missing
+but they throw errors instead :/
+
+---
+ Makefile.am              |   8 -
+ t/geturl_connectivity.pl |  57 ------
+ t/protocol_directnic.pl  | 169 -----------------
+ t/protocol_dnsexit2.pl   | 242 ------------------------
+ t/protocol_dyndns2.pl    | 279 ---------------------------
+ t/skip.pl                | 150 ---------------
+ t/ssl-validate.pl        |  94 ----------
+ t/update_nics.pl         | 395 ---------------------------------------
+ t/use_web.pl             |  87 ---------
+ 9 files changed, 1481 deletions(-)
+ delete mode 100644 t/geturl_connectivity.pl
+ delete mode 100644 t/protocol_directnic.pl
+ delete mode 100644 t/protocol_dnsexit2.pl
+ delete mode 100644 t/protocol_dyndns2.pl
+ delete mode 100644 t/skip.pl
+ delete mode 100644 t/ssl-validate.pl
+ delete mode 100644 t/update_nics.pl
+ delete mode 100644 t/use_web.pl
+
+diff --git a/Makefile.am b/Makefile.am
+index fcb38a4..cc77374 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -60,7 +60,6 @@ handwritten_tests = \
+ 	t/builtinfw_query.pl \
+ 	t/check_value.pl \
+ 	t/get_ip_from_if.pl \
+-	t/geturl_connectivity.pl \
+ 	t/geturl_response.pl \
+ 	t/group_hosts_by.pl \
+ 	t/header_ok.pl \
+@@ -70,15 +69,8 @@ handwritten_tests = \
+ 	t/is-and-extract-ipv6-global.pl \
+ 	t/logmsg.pl \
+ 	t/parse_assignments.pl \
+-	t/protocol_directnic.pl \
+-	t/protocol_dnsexit2.pl \
+-	t/protocol_dyndns2.pl \
+ 	t/read_recap.pl \
+-	t/skip.pl \
+-	t/ssl-validate.pl \
+-	t/update_nics.pl \
+ 	t/use_cmd.pl \
+-	t/use_web.pl \
+ 	t/variable_defaults.pl \
+ 	t/write_recap.pl
+ generated_tests = \
+diff --git a/t/geturl_connectivity.pl b/t/geturl_connectivity.pl
+deleted file mode 100644
+index d3f2033..0000000
+--- a/t/geturl_connectivity.pl
++++ /dev/null
+@@ -1,57 +0,0 @@
+-use Test::More;
+-BEGIN { SKIP: { eval { require Test::Warnings; 1; } or skip($@, 1); } }
+-BEGIN { eval { require 'ddclient'; } or BAIL_OUT($@); }
+-use ddclient::t::HTTPD;
+-use ddclient::t::ip;
+-
+-httpd_required();
+-
+-$ddclient::globals{'ssl_ca_file'} = $ca_file;
+-
+-for my $ipv ('4', '6') {
+-    for my $ssl (0, 1) {
+-        my $httpd = httpd($ipv, $ssl) or next;
+-        $httpd->run(sub {
+-            return [200, ['Content-Type' => 'application/octet-stream'], [$_[0]->as_string()]];
+-        });
+-    }
+-}
+-
+-my @test_cases = (
+-    {ipv6_opt => 0, server_ipv => '4', client_ipv => ''},
+-    {ipv6_opt => 0, server_ipv => '4', client_ipv => '4'},
+-    # IPv* client to a non-SSL IPv6 server is not expected to work unless opt('ipv6') is true
+-    {ipv6_opt => 0, server_ipv => '6', client_ipv => '6'},
+-
+-    # Fetch without ssl
+-    { server_ipv => '4', client_ipv => '' },
+-    { server_ipv => '4', client_ipv => '4' },
+-    { server_ipv => '6', client_ipv => '' },
+-    { server_ipv => '6', client_ipv => '6' },
+-
+-    # Fetch with ssl
+-    { ssl => 1, server_ipv => '4', client_ipv => '' },
+-    { ssl => 1, server_ipv => '4', client_ipv => '4' },
+-    { ssl => 1, server_ipv => '6', client_ipv => '' },
+-    { ssl => 1, server_ipv => '6', client_ipv => '6' },
+-);
+-
+-for my $tc (@test_cases) {
+-    $tc->{ipv6_opt} //= 0;
+-    $tc->{ssl} //= 0;
+-    SKIP: {
+-        skip("IPv6 not supported on this system", 1)
+-            if $tc->{server_ipv} eq '6' && !$ipv6_supported;
+-        skip("HTTP::Daemon too old for IPv6 support", 1)
+-            if $tc->{server_ipv} eq '6' && !$httpd_ipv6_supported;
+-        skip("HTTP::Daemon::SSL not available", 1) if $tc->{ssl} && !$httpd_ssl_supported;
+-        my $uri = httpd($tc->{server_ipv}, $tc->{ssl})->endpoint();
+-        my $name = sprintf("IPv%s client to %s%s",
+-                           $tc->{client_ipv} || '*', $uri, $tc->{ipv6_opt} ? ' (-ipv6)' : '');
+-        $ddclient::globals{'ipv6'} = $tc->{ipv6_opt};
+-        my $got = ddclient::geturl(url => $uri, ipversion => $tc->{client_ipv});
+-        isnt($got // '', '', $name);
+-    }
+-}
+-
+-done_testing();
+diff --git a/t/protocol_directnic.pl b/t/protocol_directnic.pl
+deleted file mode 100644
+index bc96152..0000000
+--- a/t/protocol_directnic.pl
++++ /dev/null
+@@ -1,169 +0,0 @@
+-use Test::More;
+-BEGIN { SKIP: { eval { require Test::Warnings; 1; } or skip($@, 1); } }
+-BEGIN { eval { require JSON::PP; 1; } or plan(skip_all => $@); JSON::PP->import(); }
+-BEGIN { eval { require 'ddclient'; } or BAIL_OUT($@); }
+-use ddclient::t::HTTPD;
+-use ddclient::t::Logger;
+-
+-httpd_required();
+-
+-ddclient::load_json_support('directnic');
+-
+-httpd()->run(sub {
+-    my ($req) = @_;
+-    diag('==============================================================================');
+-    diag("Test server received request:\n" . $req->as_string());
+-    my $headers = ['content-type' => 'text/plain; charset=utf-8'];
+-    if ($req->uri->as_string =~ m/\/dns\/gateway\/(abc|def)\/\?data=([^&]*)/) {
+-        return [200, ['Content-Type' => 'application/json'], [encode_json({
+-            result  => 'success',
+-            message => "Your record was updated to $2",
+-        })]];
+-    } elsif ($req->uri->as_string =~ m/\/dns\/gateway\/bad_token\/\?data=([^&]*)/) {
+-        return [200, ['Content-Type' => 'application/json'], [encode_json({
+-            result  => 'error',
+-            message => "There was an error updating your record.",
+-        })]];
+-    } elsif ($req->uri->as_string =~ m/\/bad\/path\/\?data=([^&]*)/) {
+-        return [200, ['Content-Type' => 'application/json'], ['unexpected response body']];
+-    }
+-    return [400, $headers, ['unexpected request: ' . $req->uri()]]
+-});
+-
+-my $hostname = httpd()->endpoint();
+-my @test_cases = (
+-    {
+-        desc => 'IPv4, good',
+-        cfg => {h1 => {urlv4 => "$hostname/dns/gateway/abc/", wantipv4 => '192.0.2.1'}},
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, failed',
+-        cfg => {h1 => {urlv4 => "$hostname/dns/gateway/bad_token/", wantipv4 => '192.0.2.1'}},
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'failed'},
+-        },
+-        wantlogs => [
+-            {label => 'FAILED', ctx => ['h1'], msg => qr/There was an error updating your record/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, bad',
+-        cfg => {h1 => {urlv4 => "$hostname/bad/path/", wantipv4 => '192.0.2.1'}},
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'bad'},
+-        },
+-        wantlogs => [
+-            {label => 'FAILED', ctx => ['h1'], msg => qr/response is not a JSON object:\nunexpected response body/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, unexpected response',
+-        cfg => {h1 => {urlv4 => "$hostname/unexpected/path/", wantipv4 => '192.0.2.1'}},
+-        wantrecap => {},
+-        wantlogs => [
+-            {label => 'FAILED', ctx => ['h1'], msg => qr/400 Bad Request/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, no urlv4',
+-        cfg => {h1 => {wantipv4 => '192.0.2.1'}},
+-        wantrecap => {},
+-        wantlogs => [
+-            {label => 'FAILED', ctx => ['h1'], msg => qr/missing urlv4 option/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv6, good',
+-        cfg => {h1 => {urlv6 => "$hostname/dns/gateway/abc/", wantipv6 => '2001:db8::1'}},
+-        wantrecap => {
+-            h1 => {'status-ipv6' => 'good', 'ipv6' => '2001:db8::1', 'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv6/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4 and IPv6, good',
+-        cfg => {h1 => {
+-            urlv4 => "$hostname/dns/gateway/abc/",
+-            urlv6 => "$hostname/dns/gateway/def/",
+-            wantipv4 => '192.0.2.1',
+-            wantipv6 => '2001:db8::1',
+-        }},
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1',
+-                'status-ipv6' => 'good', 'ipv6' => '2001:db8::1',
+-                'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv6/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4 and IPv6, mixed success',
+-        cfg => {h1 => {
+-            urlv4 => "$hostname/dns/gateway/bad_token/",
+-            urlv6 => "$hostname/dns/gateway/def/",
+-            wantipv4 => '192.0.2.1',
+-            wantipv6 => '2001:db8::1',
+-        }},
+-        wantips => {h1 => {wantipv4 => '192.0.2.1', wantipv6 => '2001:db8::1'}},
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'failed',
+-                'status-ipv6' => 'good', 'ipv6' => '2001:db8::1',
+-                'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'FAILED', ctx => ['h1'], msg => qr/There was an error updating your record/},
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv6/},
+-        ],
+-    },
+-);
+-
+-for my $tc (@test_cases) {
+-    diag('==============================================================================');
+-    diag("Starting test: $tc->{desc}");
+-    diag('==============================================================================');
+-    local $ddclient::globals{debug} = 1;
+-    local $ddclient::globals{verbose} = 1;
+-    my $l = ddclient::t::Logger->new($ddclient::_l, qr/^(?:WARNING|FATAL|SUCCESS|FAILED)$/);
+-    local %ddclient::config = %{$tc->{cfg}};
+-    local %ddclient::recap;
+-    {
+-        local $ddclient::_l = $l;
+-        ddclient::nic_directnic_update(undef, sort(keys(%{$tc->{cfg}})));
+-    }
+-    is_deeply(\%ddclient::recap, $tc->{wantrecap}, "$tc->{desc}: recap")
+-        or diag(ddclient::repr(Values => [\%ddclient::recap, $tc->{wantrecap}],
+-                               Names => ['*got', '*want']));
+-    $tc->{wantlogs} //= [];
+-    subtest("$tc->{desc}: logs" => sub {
+-        my @got = @{$l->{logs}};
+-        my @want = @{$tc->{wantlogs}};
+-        for my $i (0..$#want) {
+-            last if $i >= @got;
+-            my $got = $got[$i];
+-            my $want = $want[$i];
+-            subtest("log $i" => sub {
+-                is($got->{label}, $want->{label}, "label matches");
+-                is_deeply($got->{ctx}, $want->{ctx}, "context matches");
+-                like($got->{msg}, $want->{msg}, "message matches");
+-            }) or diag(ddclient::repr(Values => [$got, $want], Names => ['*got', '*want']));
+-        }
+-        my @unexpected = @got[@want..$#got];
+-        ok(@unexpected == 0, "no unexpected logs")
+-            or diag(ddclient::repr(\@unexpected, Names => ['*unexpected']));
+-        my @missing = @want[@got..$#want];
+-        ok(@missing == 0, "no missing logs")
+-            or diag(ddclient::repr(\@missing, Names => ['*missing']));
+-    });
+-}
+-
+-done_testing();
+diff --git a/t/protocol_dnsexit2.pl b/t/protocol_dnsexit2.pl
+deleted file mode 100644
+index 9991e7c..0000000
+--- a/t/protocol_dnsexit2.pl
++++ /dev/null
+@@ -1,242 +0,0 @@
+-use Test::More;
+-BEGIN { SKIP: { eval { require Test::Warnings; 1; } or skip($@, 1); } }
+-BEGIN { eval { require JSON::PP; 1; } or plan(skip_all => $@); JSON::PP->import(); }
+-BEGIN { eval { require 'ddclient'; } or BAIL_OUT($@); }
+-use ddclient::t::HTTPD;
+-use ddclient::t::Logger;
+-
+-httpd_required();
+-
+-local $ddclient::globals{debug} = 1;
+-local $ddclient::globals{verbose} = 1;
+-
+-ddclient::load_json_support('dnsexit2');
+-
+-httpd()->run(sub {
+-    my ($req) = @_;
+-    return undef if $req->uri()->path() eq '/control';
+-    return [200, ['Content-Type' => 'application/json'], [encode_json({
+-        code => 0,
+-        message => 'Success'
+-    })]];
+-});
+-
+-sub cmp_update {
+-    my ($a, $b) = @_;
+-    return $a->{name} cmp $b->{name} || $a->{type} cmp $b->{type};
+-}
+-
+-sub sort_updates {
+-    my ($req) = @_;
+-    return {
+-        %$req,
+-        update => [sort({ cmp_update($a, $b); } @{$req->{update}})],
+-    };
+-}
+-
+-sub sort_reqs {
+-    my @reqs = map(sort_updates($_), @_);
+-    my @sorted = sort({
+-        my $ret = $a->{domain} cmp $b->{domain};
+-        $ret = @{$a->{update}} <=> @{$b->{update}} if !$ret;
+-        my $i = 0;
+-        while (!$ret && $i < @{$a->{update}} && $i < @{$b->{update}}) {
+-            $ret = cmp_update($a->{update}[$i], $b->{update}[$i]);
+-        }
+-        return $ret;
+-    } @reqs);
+-    return @sorted;
+-}
+-
+-my @test_cases = (
+-    {
+-        desc => 'both IPv4 and IPv6 are updated together',
+-        cfg => {
+-            'host.my.example.com' => {
+-                ttl => 5,
+-                wantipv4 => '192.0.2.1',
+-                wantipv6 => '2001:db8::1',
+-                zone => 'my.example.com',
+-            },
+-        },
+-        want => [{
+-            apikey => 'key',
+-            domain => 'my.example.com',
+-            update => [
+-                {
+-                    content => '192.0.2.1',
+-                    name => 'host',
+-                    ttl => 5,
+-                    type => 'A',
+-                },
+-                {
+-                    content => '2001:db8::1',
+-                    name => 'host',
+-                    ttl => 5,
+-                    type => 'AAAA',
+-                },
+-            ],
+-        }],
+-    },
+-    {
+-        desc => 'zone defaults to host',
+-        cfg => {
+-            'host.my.example.com' => {
+-                ttl => 10,
+-                wantipv4 => '192.0.2.1',
+-            },
+-        },
+-        want => [{
+-            apikey => 'key',
+-            domain => 'host.my.example.com',
+-            update => [
+-                {
+-                    content => '192.0.2.1',
+-                    name => '',
+-                    ttl => 10,
+-                    type => 'A',
+-                },
+-            ],
+-        }],
+-    },
+-    {
+-        desc => 'two hosts, different zones',
+-        cfg => {
+-            'host1.example.com' => {
+-                ttl => 5,
+-                wantipv4 => '192.0.2.1',
+-                # 'zone' intentionally not set, so it will default to 'host1.example.com'.
+-            },
+-            'host2.example.com' => {
+-                ttl => 10,
+-                wantipv6 => '2001:db8::1',
+-                zone => 'example.com',
+-            },
+-        },
+-        want => [
+-            {
+-                apikey => 'key',
+-                domain => 'host1.example.com',
+-                update => [
+-                    {
+-                        content => '192.0.2.1',
+-                        name => '',
+-                        ttl => 5,
+-                        type => 'A',
+-                    },
+-                ],
+-            },
+-            {
+-                apikey => 'key',
+-                domain => 'example.com',
+-                update => [
+-                    {
+-                        content => '2001:db8::1',
+-                        name => 'host2',
+-                        ttl => 10,
+-                        type => 'AAAA',
+-                    },
+-                ],
+-            },
+-        ],
+-    },
+-    {
+-        desc => 'two hosts, same zone',
+-        cfg => {
+-            'host1.example.com' => {
+-                ttl => 5,
+-                wantipv4 => '192.0.2.1',
+-                zone => 'example.com',
+-            },
+-            'host2.example.com' => {
+-                ttl => 10,
+-                wantipv6 => '2001:db8::1',
+-                zone => 'example.com',
+-            },
+-        },
+-        want => [
+-            {
+-                apikey => 'key',
+-                domain => 'example.com',
+-                update => [
+-                    {
+-                        content => '192.0.2.1',
+-                        name => 'host1',
+-                        ttl => 5,
+-                        type => 'A',
+-                    },
+-                    {
+-                        content => '2001:db8::1',
+-                        name => 'host2',
+-                        ttl => 10,
+-                        type => 'AAAA',
+-                    },
+-                ],
+-            },
+-        ],
+-    },
+-    {
+-        desc => 'host outside of zone',
+-        cfg => {
+-            'host.example' => {
+-                wantipv4 => '192.0.2.1',
+-                zone => 'example.com',
+-            },
+-        },
+-        want_fatal => qr{hostname does not end with the zone: example.com},
+-    },
+-);
+-
+-for my $tc (@test_cases) {
+-    subtest($tc->{desc} => sub {
+-        local $ddclient::_l = ddclient::pushlogctx($tc->{desc});
+-        local %ddclient::config = ();
+-        my @hosts = keys(%{$tc->{cfg}});
+-        for my $h (@hosts) {
+-            $ddclient::config{$h} = {
+-                password => 'key',
+-                path => '/update',
+-                server => httpd()->endpoint(),
+-                %{$tc->{cfg}{$h}},
+-            };
+-        }
+-        my $l = ddclient::t::Logger->new($ddclient::_l, qr/^FATAL$/);
+-        my $err = do {
+-            local $ddclient::_l = $l;
+-            local $@;
+-            (eval { ddclient::nic_dnsexit2_update(undef, @hosts); 1; })
+-                ? undef : ($@ // 'unknown error');
+-        };
+-        my @requests = httpd()->reset();
+-        my @got;
+-        for (my $i = 0; $i < @requests; $i++) {
+-            subtest("request $i" => sub {
+-                my $req = $requests[$i];
+-                is($req->method(), 'POST', 'method is POST');
+-                is($req->uri()->as_string(), '/update', 'path is /update');
+-                is($req->header('content-type'), 'application/json', 'Content-Type is JSON');
+-                is($req->header('accept'), 'application/json', 'Accept is JSON');
+-                my $got = decode_json($req->content());
+-                is(ref($got), 'HASH', 'request content is a JSON object');
+-                is(ref($got->{update}), 'ARRAY', 'JSON object has array "update" property');
+-                push(@got, $got);
+-            });
+-        }
+-        @got = sort_reqs(@got);
+-        my @want = sort_reqs(@{$tc->{want} // []});
+-        is_deeply(\@got, \@want, 'request objects match');
+-        subtest('expected (or lack of) error' => sub {
+-            if (is(defined($err), defined($tc->{want_fatal}), 'error existence') && defined($err)) {
+-                my @got = @{$l->{logs}};
+-                if (is(scalar(@got), 2, 'logged two events')) {
+-                    is($got[0]->{label}, 'FATAL', 'first logged event is a FATAL message');
+-                    like($got[0]->{msg}, $tc->{want_fatal}, 'first logged event message matches');
+-                    is($got[1], 'aborted', 'second logged event is an "aborted" event');
+-                    isa_ok($err, qw(ddclient::t::LoggerAbort));
+-                }
+-            }
+-        });
+-    });
+-}
+-
+-done_testing();
+diff --git a/t/protocol_dyndns2.pl b/t/protocol_dyndns2.pl
+deleted file mode 100644
+index a5091cb..0000000
+--- a/t/protocol_dyndns2.pl
++++ /dev/null
+@@ -1,279 +0,0 @@
+-use Test::More;
+-BEGIN { SKIP: { eval { require Test::Warnings; 1; } or skip($@, 1); } }
+-use MIME::Base64;
+-BEGIN { eval { require 'ddclient'; } or BAIL_OUT($@); }
+-use ddclient::t::HTTPD;
+-use ddclient::t::Logger;
+-
+-httpd_required();
+-
+-httpd()->run(sub {
+-    my ($req) = @_;
+-    diag('==============================================================================');
+-    diag("Test server received request:\n" . $req->as_string());
+-    return undef if $req->uri()->path() eq '/control';
+-    my $wantauthn = 'Basic ' . encode_base64('username:password', '');
+-    return [401, [@$textplain, 'www-authenticate' => 'Basic realm="realm", charset="UTF-8"'],
+-            ['authentication required']] if ($req->header('authorization') // '') ne $wantauthn;
+-    return [400, $textplain, ['invalid method: ' . $req->method()]] if $req->method() ne 'GET';
+-    return undef;
+-});
+-
+-my @test_cases = (
+-    {
+-        desc => 'IPv4, single host, good',
+-        cfg => {h1 => {wantipv4 => '192.0.2.1'}},
+-        resp => ['good'],
+-        wantquery => 'hostname=h1&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, single host, nochg',
+-        cfg => {h1 => {wantipv4 => '192.0.2.1'}},
+-        resp => ['nochg'],
+-        wantquery => 'hostname=h1&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'WARNING', ctx => ['h1'], msg => qr/nochg/},
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, single host, bad',
+-        cfg => {h1 => {wantipv4 => '192.0.2.1'}},
+-        resp => ['nohost'],
+-        wantquery => 'hostname=h1&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'nohost'},
+-        },
+-        wantlogs => [
+-            {label => 'FAILED', ctx => ['h1'], msg => qr/nohost/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, single host, unexpected',
+-        cfg => {h1 => {wantipv4 => '192.0.2.1'}},
+-        resp => ['WAT'],
+-        wantquery => 'hostname=h1&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'WAT'},
+-        },
+-        wantlogs => [
+-            {label => 'FAILED', ctx => ['h1'], msg => qr/unexpected.*WAT/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, multiple hosts, multiple good',
+-        cfg => {
+-            h1 => {wantipv4 => '192.0.2.1'},
+-            h2 => {wantipv4 => '192.0.2.1'},
+-        },
+-        resp => [
+-            'good 192.0.2.1',
+-            'good',
+-        ],
+-        wantquery => 'hostname=h1,h2&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-            h2 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-            {label => 'SUCCESS', ctx => ['h2'], msg => qr/IPv4/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4, multiple hosts, mixed success',
+-        cfg => {
+-            h1 => {wantipv4 => '192.0.2.1'},
+-            h2 => {wantipv4 => '192.0.2.1'},
+-            h3 => {wantipv4 => '192.0.2.1'},
+-        },
+-        resp => [
+-            'good',
+-            'nochg',
+-            'dnserr',
+-        ],
+-        wantquery => 'hostname=h1,h2,h3&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-            h2 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-            h3 => {'status-ipv4' => 'dnserr'},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-            {label => 'WARNING', ctx => ['h2'], msg => qr/nochg/},
+-            {label => 'SUCCESS', ctx => ['h2'], msg => qr/IPv4/},
+-            {label => 'FAILED', ctx => ['h3'], msg => qr/dnserr/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv6, single host, good',
+-        cfg => {h1 => {wantipv6 => '2001:db8::1'}},
+-        resp => ['good'],
+-        wantquery => 'hostname=h1&myip=2001:db8::1',
+-        wantrecap => {
+-            h1 => {'status-ipv6' => 'good', 'ipv6' => '2001:db8::1', 'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv6/},
+-        ],
+-    },
+-    {
+-        desc => 'IPv4 and IPv6, single host, good',
+-        cfg => {h1 => {wantipv4 => '192.0.2.1', wantipv6 => '2001:db8::1'}},
+-        resp => ['good'],
+-        wantquery => 'hostname=h1&myip=192.0.2.1,2001:db8::1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1',
+-                   'status-ipv6' => 'good', 'ipv6' => '2001:db8::1',
+-                   'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv6/},
+-        ],
+-    },
+-    {
+-        desc => 'excess status line',
+-        cfg => {
+-            h1 => {wantipv4 => '192.0.2.1'},
+-            h2 => {wantipv4 => '192.0.2.1'},
+-        },
+-        resp => [
+-            'good',
+-            'good',
+-            'WAT',
+-        ],
+-        wantquery => 'hostname=h1,h2&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-            h2 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-            {label => 'SUCCESS', ctx => ['h2'], msg => qr/IPv4/},
+-            {label => 'WARNING', ctx => ['h1,h2'], msg => qr/unexpected.*\nWAT$/},
+-        ],
+-    },
+-    {
+-        desc => 'multiple hosts, single failure',
+-        cfg => {
+-            h1 => {wantipv4 => '192.0.2.1'},
+-            h2 => {wantipv4 => '192.0.2.1'},
+-        },
+-        resp => ['abuse'],
+-        wantquery => 'hostname=h1,h2&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'abuse'},
+-            h2 => {'status-ipv4' => 'abuse'},
+-        },
+-        wantlogs => [
+-            {label => 'FAILED', ctx => ['h1'], msg => qr/abuse/},
+-            {label => 'FAILED', ctx => ['h2'], msg => qr/abuse/},
+-        ],
+-    },
+-    {
+-        desc => 'multiple hosts, single success',
+-        cfg => {
+-            h1 => {wantipv4 => '192.0.2.1'},
+-            h2 => {wantipv4 => '192.0.2.1'},
+-        },
+-        resp => ['good'],
+-        wantquery => 'hostname=h1,h2&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-            h2 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-        },
+-        wantlogs => [
+-            {label => 'WARNING', ctx => ['h1,h2'], msg => qr//},
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-            {label => 'SUCCESS', ctx => ['h2'], msg => qr/IPv4/},
+-        ],
+-    },
+-    {
+-        desc => 'multiple hosts, fewer results',
+-        cfg => {
+-            h1 => {wantipv4 => '192.0.2.1'},
+-            h2 => {wantipv4 => '192.0.2.1'},
+-            h3 => {wantipv4 => '192.0.2.1'},
+-        },
+-        resp => [
+-            'good',
+-            'nochg',
+-        ],
+-        wantquery => 'hostname=h1,h2,h3&myip=192.0.2.1',
+-        wantrecap => {
+-            h1 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-            h2 => {'status-ipv4' => 'good', 'ipv4' => '192.0.2.1', 'mtime' => $ddclient::now},
+-            h3 => {'status-ipv4' => 'unknown'},
+-        },
+-        wantlogs => [
+-            {label => 'SUCCESS', ctx => ['h1'], msg => qr/IPv4/},
+-            {label => 'WARNING', ctx => ['h2'], msg => qr/nochg/},
+-            {label => 'SUCCESS', ctx => ['h2'], msg => qr/IPv4/},
+-            {label => 'FAILED', ctx => ['h3'], msg => qr/assuming failure/},
+-        ],
+-    },
+-);
+-
+-for my $tc (@test_cases) {
+-    diag('==============================================================================');
+-    diag("Starting test: $tc->{desc}");
+-    diag('==============================================================================');
+-    local $ddclient::globals{debug} = 1;
+-    local $ddclient::globals{verbose} = 1;
+-    my $l = ddclient::t::Logger->new($ddclient::_l, qr/^(?:WARNING|FATAL|SUCCESS|FAILED)$/);
+-    local %ddclient::config;
+-    local %ddclient::recap;
+-    $ddclient::config{$_} = {
+-        login => 'username',
+-        password => 'password',
+-        server => httpd()->endpoint(),
+-        script => '/nic/update',
+-        %{$tc->{cfg}{$_}},
+-    } for keys(%{$tc->{cfg}});
+-    httpd()->reset([200, $textplain, [map("$_\n", @{$tc->{resp}})]]);
+-    {
+-        local $ddclient::_l = $l;
+-        ddclient::nic_dyndns2_update(undef, sort(keys(%{$tc->{cfg}})));
+-    }
+-    my @requests = httpd()->reset();
+-    is(scalar(@requests), 1, "$tc->{desc}: single update request");
+-    my $req = shift(@requests);
+-    is($req->uri()->path(), '/nic/update', "$tc->{desc}: request path");
+-    is($req->uri()->query(), $tc->{wantquery}, "$tc->{desc}: request query");
+-    is_deeply(\%ddclient::recap, $tc->{wantrecap}, "$tc->{desc}: recap")
+-        or diag(ddclient::repr(Values => [\%ddclient::recap, $tc->{wantrecap}],
+-                               Names => ['*got', '*want']));
+-    $tc->{wantlogs} //= [];
+-    subtest("$tc->{desc}: logs" => sub {
+-        my @got = @{$l->{logs}};
+-        my @want = @{$tc->{wantlogs}};
+-        for my $i (0..$#want) {
+-            last if $i >= @got;
+-            my $got = $got[$i];
+-            my $want = $want[$i];
+-            subtest("log $i" => sub {
+-                is($got->{label}, $want->{label}, "label matches");
+-                is_deeply($got->{ctx}, $want->{ctx}, "context matches");
+-                like($got->{msg}, $want->{msg}, "message matches");
+-            }) or diag(ddclient::repr(Values => [$got, $want], Names => ['*got', '*want']));
+-        }
+-        my @unexpected = @got[@want..$#got];
+-        ok(@unexpected == 0, "no unexpected logs")
+-            or diag(ddclient::repr(\@unexpected, Names => ['*unexpected']));
+-        my @missing = @want[@got..$#want];
+-        ok(@missing == 0, "no missing logs")
+-            or diag(ddclient::repr(\@missing, Names => ['*missing']));
+-    });
+-}
+-
+-done_testing();
+diff --git a/t/skip.pl b/t/skip.pl
+deleted file mode 100644
+index 3f0ba3a..0000000
+--- a/t/skip.pl
++++ /dev/null
+@@ -1,150 +0,0 @@
+-use Test::More;
+-BEGIN { SKIP: { eval { require Test::Warnings; 1; } or skip($@, 1); } }
+-BEGIN { eval { require 'ddclient'; } or BAIL_OUT($@); }
+-use ddclient::t::HTTPD;
+-use ddclient::t::ip;
+-
+-httpd_required();
+-
+-httpd('4')->run(
+-    sub { return [200, ['Content-Type' => 'text/plain'], ['127.0.0.1 skip 127.0.0.2']]; });
+-httpd('6')->run(
+-    sub { return [200, ['Content-Type' => 'text/plain'], ['::1 skip ::2']]; })
+-    if httpd('6');
+-
+-my $builtinwebv4 = 't/skip.pl webv4';
+-my $builtinwebv6 = 't/skip.pl webv6';
+-my $builtinfw = 't/skip.pl fw';
+-
+-$ddclient::builtinweb{$builtinwebv4} = {'url' => httpd('4')->endpoint(), 'skip' => 'skip'};
+-$ddclient::builtinweb{$builtinwebv6} = {'url' => httpd('6')->endpoint(), 'skip' => 'skip'}
+-    if httpd('6');
+-$ddclient::builtinfw{$builtinfw} = {name => 'test', skip => 'skip'};
+-%ddclient::builtinfw if 0;  # suppress spurious warning "Name used only once: possible typo"
+-%ddclient::ip_strategies = (%ddclient::ip_strategies, ddclient::builtinfw_strategy($builtinfw));
+-%ddclient::ipv4_strategies =
+-    (%ddclient::ipv4_strategies, ddclient::builtinfwv4_strategy($builtinfw));
+-%ddclient::ipv6_strategies =
+-    (%ddclient::ipv6_strategies, ddclient::builtinfwv6_strategy($builtinfw));
+-
+-sub run_test_case {
+-    my %tc = @_;
+-    SKIP: {
+-        skip("IPv6 not supported on this system", 1) if $tc{ipv6} && !$ipv6_supported;
+-        skip("HTTP::Daemon too old for IPv6 support", 1) if $tc{ipv6} && !$httpd_ipv6_supported;
+-        my $h = 't/skip.pl';
+-        $ddclient::config{$h} = $tc{cfg};
+-        %ddclient::config if 0;  # suppress spurious warning "Name used only once: possible typo"
+-        is(ddclient::get_ip(ddclient::strategy_inputs('use', $h)), $tc{want}, $tc{desc})
+-            if ($tc{cfg}{use});
+-        is(ddclient::get_ipv4(ddclient::strategy_inputs('usev4', $h)), $tc{want}, $tc{desc})
+-            if ($tc{cfg}{usev4});
+-        is(ddclient::get_ipv6(ddclient::strategy_inputs('usev6', $h)), $tc{want}, $tc{desc})
+-            if ($tc{cfg}{usev6});
+-    }
+-}
+-
+-subtest "use=web web='$builtinwebv4'" => sub {
+-    run_test_case(
+-        desc => "web-skip='' cancels built-in skip",
+-        cfg => {
+-            'use' => 'web',
+-            'web' => $builtinwebv4,
+-            'web-skip' => '',
+-        },
+-        want => '127.0.0.1',
+-    );
+-    run_test_case(
+-        desc => 'web-skip=undef uses built-in skip',
+-        cfg => {
+-            'use' => 'web',
+-            'web' => $builtinwebv4,
+-            'web-skip' => undef,
+-        },
+-        want => '127.0.0.2',
+-    );
+-};
+-subtest "usev4=webv4 webv4='$builtinwebv4'" => sub {
+-    run_test_case(
+-        desc => "webv4-skip='' cancels built-in skip",
+-        cfg => {
+-            'usev4' => 'webv4',
+-            'webv4' => $builtinwebv4,
+-            'webv4-skip' => '',
+-        },
+-        want => '127.0.0.1',
+-    );
+-    run_test_case(
+-        desc => 'webv4-skip=undef uses built-in skip',
+-        cfg => {
+-            'usev4' => 'webv4',
+-            'webv4' => $builtinwebv4,
+-            'webv4-skip' => undef,
+-        },
+-        want => '127.0.0.2',
+-    );
+-};
+-subtest "usev6=webv6 webv6='$builtinwebv6'" => sub {
+-    run_test_case(
+-        desc => "webv6-skip='' cancels built-in skip",
+-        cfg => {
+-            'usev6' => 'webv6',
+-            'webv6' => $builtinwebv6,
+-            'webv6-skip' => '',
+-        },
+-        ipv6 => 1,
+-        want => '::1',
+-    );
+-    run_test_case(
+-        desc => 'webv6-skip=undef uses built-in skip',
+-        cfg => {
+-            'usev6' => 'webv6',
+-            'webv6' => $builtinwebv6,
+-            'webv6-skip' => undef,
+-        },
+-        ipv6 => 1,
+-        want => '::2',
+-    );
+-};
+-subtest "use='$builtinfw'" => sub {
+-    run_test_case(
+-        desc => "fw-skip='' cancels built-in skip",
+-        cfg => {
+-            'fw' => httpd('4')->endpoint(),
+-            'fw-skip' => '',
+-            'use' => $builtinfw,
+-        },
+-        want => '127.0.0.1',
+-    );
+-    run_test_case(
+-        desc => 'fw-skip=undef uses built-in skip',
+-        cfg => {
+-            'fw' => httpd('4')->endpoint(),
+-            'fw-skip' => undef,
+-            'use' => $builtinfw,
+-        },
+-        want => '127.0.0.2',
+-    );
+-};
+-subtest "usev4='$builtinfw'" => sub {
+-    run_test_case(
+-        desc => "fwv4-skip='' cancels built-in skip",
+-        cfg => {
+-            'fwv4' => httpd('4')->endpoint(),
+-            'fwv4-skip' => '',
+-            'usev4' => $builtinfw,
+-        },
+-        want => '127.0.0.1',
+-    );
+-    run_test_case(
+-        desc => 'fwv4-skip=undef uses built-in skip',
+-        cfg => {
+-            'fwv4' => httpd('4')->endpoint(),
+-            'fwv4-skip' => undef,
+-            'usev4' => $builtinfw,
+-        },
+-        want => '127.0.0.2',
+-    );
+-};
+-
+-done_testing();
+diff --git a/t/ssl-validate.pl b/t/ssl-validate.pl
+deleted file mode 100644
+index 6bea9a3..0000000
+--- a/t/ssl-validate.pl
++++ /dev/null
+@@ -1,94 +0,0 @@
+-use Test::More;
+-BEGIN { SKIP: { eval { require Test::Warnings; 1; } or skip($@, 1); } }
+-BEGIN { eval { require 'ddclient'; } or BAIL_OUT($@); }
+-use ddclient::t::HTTPD;
+-use ddclient::t::ip;
+-
+-local $ddclient::globals{debug} = 1;
+-local $ddclient::globals{verbose} = 1;
+-
+-httpd_required();
+-httpd_ssl_required();
+-
+-httpd('4', 1)->run(sub { return [200, $textplain, ['127.0.0.1']]; });
+-httpd('6', 1)->run(sub { return [200, $textplain, ['::1']]; }) if httpd('6', 1);
+-my $h = 't/ssl-validate.pl';
+-my %ep = (
+-    '4' => httpd('4', 1)->endpoint(),
+-    '6' => httpd('6', 1) ? httpd('6', 1)->endpoint() : undef,
+-);
+-
+-my @test_cases = (
+-    {
+-        desc => 'usev4=webv4 web-ssl-validate=no',
+-        cfg => {'usev4' => 'webv4', 'web-ssl-validate' => 0, 'webv4' => $ep{'4'}},
+-        want => '127.0.0.1',
+-    },
+-    {
+-        desc => 'usev4=webv4 web-ssl-validate=yes',
+-        cfg => {'usev4' => 'webv4', 'web-ssl-validate' => 1, 'webv4' => $ep{'4'}},
+-        want => undef,
+-    },
+-    {
+-        desc => 'usev6=webv6 web-ssl-validate=no',
+-        cfg => {'usev6' => 'webv6', 'web-ssl-validate' => 0, 'webv6' => $ep{'6'}},
+-        ipv6 => 1,
+-        want => '::1',
+-    },
+-    {
+-        desc => 'usev6=webv6 web-ssl-validate=yes',
+-        cfg => {'usev6' => 'webv6', 'web-ssl-validate' => 1, 'webv6' => $ep{'6'}},
+-        ipv6 => 1,
+-        want => undef,
+-    },
+-    {
+-        desc => 'usev4=cisco-asa fw-ssl-validate=no',
+-        cfg => {'usev4' => 'cisco-asa', 'fw-ssl-validate' => 0,
+-                # cisco-asa adds https:// to the URL.  :-/
+-                'fwv4' => substr($ep{'4'}, length('https://'))},
+-        want => '127.0.0.1',
+-    },
+-    {
+-        desc => 'usev4=cisco-asa fw-ssl-validate=yes',
+-        cfg => {'usev4' => 'cisco-asa', 'fw-ssl-validate' => 1,
+-                # cisco-asa adds https:// to the URL.  :-/
+-                'fwv4' => substr($ep{'4'}, length('https://'))},
+-        want => undef,
+-    },
+-    {
+-        desc => 'usev4=fwv4 fw-ssl-validate=no',
+-        cfg => {'usev4' => 'fwv4', 'fw-ssl-validate' => 0, 'fwv4' => $ep{'4'}},
+-        want => '127.0.0.1',
+-    },
+-    {
+-        desc => 'usev4=fwv4 fw-ssl-validate=yes',
+-        cfg => {'usev4' => 'fwv4', 'fw-ssl-validate' => 1, 'fwv4' => $ep{'4'}},
+-        want => undef,
+-    },
+-);
+-
+-for my $tc (@test_cases) {
+-    local $ddclient::_l = ddclient::pushlogctx($tc->{desc});
+-    SKIP: {
+-        skip("IPv6 not supported on this system", 1) if $tc->{ipv6} && !$ipv6_supported;
+-        skip("HTTP::Daemon too old for IPv6 support", 1) if $tc->{ipv6} && !$httpd_ipv6_supported;
+-        # $ddclient::globals{'ssl_ca_file'} is intentionally NOT set to $ca_file so that we can
+-        # test what happens when certificate validation fails.  However, if curl can't find any CA
+-        # certificates (which may be the case in some minimal test environments, such as Docker
+-        # images and Debian package builder chroots), it will immediately close the connection
+-        # after it sends the TLS client hello and before it receives the server hello (in Debian
+-        # sid as of 2025-01-08, anyway).  This confuses IO::Socket::SSL (used by
+-        # Test::Fake::HTTPD), causing it to hang in the middle of the TLS handshake waiting for
+-        # input that will never arrive.  To work around this, the CA certificate file is explicitly
+-        # set to an unrelated certificate so that curl has something to read.
+-        local $ddclient::globals{'ssl_ca_file'} = $other_ca_file;
+-        local $ddclient::config{$h} = $tc->{cfg};
+-        %ddclient::config if 0;  # suppress spurious warning "Name used only once: possible typo"
+-        is(ddclient::get_ipv4(ddclient::strategy_inputs('usev4', $h)), $tc->{want}, $tc->{desc})
+-            if ($tc->{cfg}{usev4});
+-        is(ddclient::get_ipv6(ddclient::strategy_inputs('usev6', $h)), $tc->{want}, $tc->{desc})
+-            if ($tc->{cfg}{usev6});
+-    }
+-}
+-
+-done_testing();
+diff --git a/t/update_nics.pl b/t/update_nics.pl
+deleted file mode 100644
+index e0fe679..0000000
+--- a/t/update_nics.pl
++++ /dev/null
+@@ -1,395 +0,0 @@
+-use Test::More;
+-BEGIN { SKIP: { eval { require Test::Warnings; 1; } or skip($@, 1); } }
+-use File::Temp;
+-BEGIN { eval { require HTTP::Request; 1; } or plan(skip_all => $@); }
+-BEGIN { eval { require JSON::PP; 1; } or plan(skip_all => $@); JSON::PP->import(); }
+-use List::Util qw(max);
+-use Scalar::Util qw(refaddr);
+-BEGIN { eval { require 'ddclient'; } or BAIL_OUT($@); }
+-use ddclient::t::HTTPD;
+-use ddclient::t::ip;
+-
+-httpd_required();
+-
+-httpd('4')->run();
+-httpd('6')->run() if httpd('6');
+-local %ddclient::builtinweb = (
+-    v4 => {url => "" . httpd('4')->endpoint()},
+-    defined(httpd('6')) ? (v6 => {url => "" . httpd('6')->endpoint()}) : (),
+-);
+-
+-# Sentinel value used by `mergecfg` that means "this hash entry should be deleted if it exists."
+-my $DOES_NOT_EXIST = [];
+-
+-sub mergecfg {
+-    my %ret;
+-    for my $cfg (@_) {
+-        next if !defined($cfg);
+-        for my $h (keys(%$cfg)) {
+-            if (refaddr($cfg->{$h}) == refaddr($DOES_NOT_EXIST)) {
+-                delete($ret{$h});
+-                next;
+-            }
+-            $ret{$h} = {%{$ret{$h} // {}}, %{$cfg->{$h}}};
+-            for my $k (keys(%{$ret{$h}})) {
+-                my $a = refaddr($ret{$h}{$k});
+-                delete($ret{$h}{$k}) if defined($a) && $a == refaddr($DOES_NOT_EXIST);
+-            }
+-        }
+-    }
+-    return \%ret;
+-}
+-
+-local $ddclient::globals{debug} = 1;
+-local $ddclient::globals{verbose} = 1;
+-local $ddclient::now = 1000;
+-our @updates;
+-local %ddclient::protocols = (
+-    # The `legacy` protocol reads the legacy `wantip` property and sets the legacy `ip` and `status`
+-    # properties.  (Modern protocol implementations read `wantipv4` and `wantipv6` and set `ipv4`,
+-    # `ipv6`, `status-ipv4`, and `status-ipv6`.)  It always succeeds.
+-    legacy => ddclient::LegacyProtocol->new(
+-        update => sub {
+-            my $self = shift;
+-            ddclient::debug('in update');
+-            push(@updates, [@_]);
+-            for my $h (@_) {
+-                local $ddclient::_l = ddclient::pushlogctx($h);
+-                ddclient::debug('updating host');
+-                $ddclient::recap{$h}{status} = 'good';
+-                $ddclient::recap{$h}{ip} = delete($ddclient::config{$h}{wantip});
+-                $ddclient::recap{$h}{mtime} = $ddclient::now;
+-            }
+-            ddclient::debug('returning from update');
+-        },
+-    ),
+-);
+-
+-my @test_cases = (
+-    map({
+-        my %cfg = %{delete($_->{cfg})};
+-        my $desc = join(' ', map("$_=$cfg{$_}", keys(%cfg)));
+-        {
+-            desc => "legacy, fresh, $desc",
+-            cfg => {host => {
+-                'protocol' => 'legacy',
+-                %cfg,
+-            }},
+-            want_reqs_webv4 => 1,
+-            want_updates => [['host']],
+-            want_recap_changes => {host => {
+-                'atime' => $ddclient::now,
+-                'ipv4' => '192.0.2.1',
+-                'mtime' => $ddclient::now,
+-                'status-ipv4' => 'good',
+-            }},
+-            %$_,
+-        };
+-    } {cfg => {use => 'web'}}, {cfg => {usev4 => 'webv4'}}),
+-    {
+-        desc => 'legacy, fresh, use=web (IPv6)',
+-        ipv6 => 1,
+-        cfg => {host => {
+-            'protocol' => 'legacy',
+-            'use' => 'web',
+-            'web' => 'v6',
+-        }},
+-        want_reqs_webv6 => 1,
+-        want_updates => [['host']],
+-        want_recap_changes => {host => {
+-            'atime' => $ddclient::now,
+-            'ipv6' => '2001:db8::1',
+-            'mtime' => $ddclient::now,
+-            'status-ipv6' => 'good',
+-        }},
+-    },
+-    {
+-        desc => 'legacy, fresh, usev6=webv6',
+-        ipv6 => 1,
+-        cfg => {host => {
+-            'protocol' => 'legacy',
+-            'usev6' => 'webv6',
+-        }},
+-        want_reqs_webv6 => 1,
+-        want_updates => [['host']],
+-        want_recap_changes => {host => {
+-            'atime' => $ddclient::now,
+-            'ipv6' => '2001:db8::1',
+-            'mtime' => $ddclient::now,
+-            'status-ipv6' => 'good',
+-        }},
+-    },
+-    {
+-        desc => 'legacy, fresh, usev4=webv4 usev6=webv6',
+-        ipv6 => 1,
+-        cfg => {host => {
+-            'protocol' => 'legacy',
+-            'usev4' => 'webv4',
+-            'usev6' => 'webv6',
+-        }},
+-        want_reqs_webv4 => 1,
+-        want_reqs_webv6 => 1,
+-        want_updates => [['host']],
+-        want_recap_changes => {host => {
+-            'atime' => $ddclient::now,
+-            'ipv4' => '192.0.2.1',
+-            'mtime' => $ddclient::now,
+-            'status-ipv4' => 'good',
+-        }},
+-    },
+-    map({
+-        my %cfg = %{delete($_->{cfg})};
+-        my $desc = join(' ', map("$_=$cfg{$_}", keys(%cfg)));
+-        {
+-            desc => "legacy, no change, not yet time, $desc",
+-            recap => {host => {
+-                'atime' => $ddclient::now - ddclient::opt('min-interval'),
+-                'ipv4' => '192.0.2.1',
+-                'mtime' => $ddclient::now - ddclient::opt('min-interval'),
+-                'status-ipv4' => 'good',
+-            }},
+-            cfg => {host => {
+-                'protocol' => 'legacy',
+-                %cfg,
+-            }},
+-            want_reqs_webv4 => 1,
+-            %$_,
+-        };
+-    } {cfg => {use => 'web'}}, {cfg => {usev4 => 'webv4'}}),
+-    map({
+-        my %cfg = %{delete($_->{cfg})};
+-        my $desc = join(' ', map("$_=$cfg{$_}", keys(%cfg)));
+-        {
+-            desc => "legacy, min-interval elapsed but no change, $desc",
+-            recap => {host => {
+-                'atime' => $ddclient::now - ddclient::opt('min-interval') - 1,
+-                'ipv4' => '192.0.2.1',
+-                'mtime' => $ddclient::now - ddclient::opt('min-interval') - 1,
+-                'status-ipv4' => 'good',
+-            }},
+-            cfg => {host => {
+-                'protocol' => 'legacy',
+-                %cfg,
+-            }},
+-            want_reqs_webv4 => 1,
+-            %$_,
+-        };
+-    } {cfg => {use => 'web'}}, {cfg => {usev4 => 'webv4'}}),
+-    map({
+-        my %cfg = %{delete($_->{cfg})};
+-        my $desc = join(' ', map("$_=$cfg{$_}", keys(%cfg)));
+-        {
+-            desc => "legacy, needs update, not yet time, $desc",
+-            recap => {host => {
+-                'atime' => $ddclient::now - ddclient::opt('min-interval'),
+-                'ipv4' => '192.0.2.2',
+-                'mtime' => $ddclient::now - ddclient::opt('min-interval'),
+-                'status-ipv4' => 'good',
+-            }},
+-            cfg => {host => {
+-                'protocol' => 'legacy',
+-                %cfg,
+-            }},
+-            want_reqs_webv4 => 1,
+-            want_recap_changes => {host => {
+-                'warned-min-interval' => $ddclient::now,
+-            }},
+-            %$_,
+-        };
+-    } {cfg => {use => 'web'}}, {cfg => {usev4 => 'webv4'}}),
+-    map({
+-        my %cfg = %{delete($_->{cfg})};
+-        my $desc = join(' ', map("$_=$cfg{$_}", keys(%cfg)));
+-        {
+-            desc => "legacy, min-interval elapsed, needs update, $desc",
+-            recap => {host => {
+-                'atime' => $ddclient::now - ddclient::opt('min-interval') - 1,
+-                'ipv4' => '192.0.2.2',
+-                'mtime' => $ddclient::now - ddclient::opt('min-interval') - 1,
+-                'status-ipv4' => 'good',
+-            }},
+-            cfg => {host => {
+-                'protocol' => 'legacy',
+-                %cfg,
+-            }},
+-            want_reqs_webv4 => 1,
+-            want_updates => [['host']],
+-            want_recap_changes => {host => {
+-                'atime' => $ddclient::now,
+-                'ipv4' => '192.0.2.1',
+-                'mtime' => $ddclient::now,
+-            }},
+-            %$_,
+-        };
+-    } {cfg => {use => 'web'}}, {cfg => {usev4 => 'webv4'}}),
+-    map({
+-        my %cfg = %{delete($_->{cfg})};
+-        my $desc = join(' ', map("$_=$cfg{$_}", keys(%cfg)));
+-        {
+-            desc => "legacy, previous failed update, not yet time to retry, $desc",
+-            recap => {host => {
+-                'atime' => $ddclient::now - ddclient::opt('min-error-interval'),
+-                'ipv4' => '192.0.2.2',
+-                'mtime' => $ddclient::now - max(ddclient::opt('min-error-interval'),
+-                                                ddclient::opt('min-interval')) - 1,
+-                'status-ipv4' => 'failed',
+-            }},
+-            cfg => {host => {
+-                'protocol' => 'legacy',
+-                %cfg,
+-            }},
+-            want_reqs_webv4 => 1,
+-            want_recap_changes => {host => {
+-                'warned-min-error-interval' => $ddclient::now,
+-            }},
+-            %$_,
+-        };
+-    } {cfg => {use => 'web'}}, {cfg => {usev4 => 'webv4'}}),
+-    map({
+-        my %cfg = %{delete($_->{cfg})};
+-        my $desc = join(' ', map("$_=$cfg{$_}", keys(%cfg)));
+-        {
+-            desc => "legacy, previous failed update, time to retry, $desc",
+-            recap => {host => {
+-                'atime' => $ddclient::now - ddclient::opt('min-error-interval') - 1,
+-                'ipv4' => '192.0.2.2',
+-                'mtime' => $ddclient::now - ddclient::opt('min-error-interval') - 2,
+-                'status-ipv4' => 'failed',
+-            }},
+-            cfg => {host => {
+-                'protocol' => 'legacy',
+-                %cfg,
+-            }},
+-            want_reqs_webv4 => 1,
+-            want_updates => [['host']],
+-            want_recap_changes => {host => {
+-                'atime' => $ddclient::now,
+-                'ipv4' => '192.0.2.1',
+-                'mtime' => $ddclient::now,
+-                'status-ipv4' => 'good',
+-            }},
+-            %$_,
+-        };
+-    } {cfg => {use => 'web'}}, {cfg => {usev4 => 'webv4'}}),
+-    map({
+-        my %cfg = %{delete($_->{cfg})};
+-        my $desc = join(' ', map("$_=$cfg{$_}", sort(keys(%cfg))));
+-        {
+-            desc => "deduplicates identical IP discovery, $desc",
+-            cfg => {
+-                hosta => {protocol => 'legacy', %cfg},
+-                hostb => {protocol => 'legacy', %cfg},
+-            },
+-            want_reqs_webv4 => 1,
+-            want_updates => [['hosta', 'hostb']],
+-            want_recap_changes => {
+-                hosta => {
+-                    'atime' => $ddclient::now,
+-                    'ipv4' => '192.0.2.1',
+-                    'mtime' => $ddclient::now,
+-                    'status-ipv4' => 'good',
+-                },
+-                hostb => {
+-                    'atime' => $ddclient::now,
+-                    'ipv4' => '192.0.2.1',
+-                    'mtime' => $ddclient::now,
+-                    'status-ipv4' => 'good',
+-                },
+-            },
+-            %$_,
+-        };
+-    } {cfg => {use => 'web'}}, {cfg => {usev4 => 'webv4'}}),
+-    {
+-        desc => "deduplicates identical IP discovery, usev6=webv6",
+-        ipv6 => 1,
+-        cfg => {
+-            hosta => {protocol => 'legacy', usev6 => 'webv6'},
+-            hostb => {protocol => 'legacy', usev6 => 'webv6'},
+-        },
+-        want_reqs_webv6 => 1,
+-        want_updates => [['hosta', 'hostb']],
+-        want_recap_changes => {
+-            hosta => {
+-                'atime' => $ddclient::now,
+-                'ipv6' => '2001:db8::1',
+-                'mtime' => $ddclient::now,
+-                'status-ipv6' => 'good',
+-            },
+-            hostb => {
+-                'atime' => $ddclient::now,
+-                'ipv6' => '2001:db8::1',
+-                'mtime' => $ddclient::now,
+-                'status-ipv6' => 'good',
+-            },
+-        },
+-    },
+-);
+-
+-for my $tc (@test_cases) {
+-    SKIP: {
+-        skip("IPv6 not supported on this system", 1) if $tc->{ipv6} && !$ipv6_supported;
+-        skip("HTTP::Daemon too old for IPv6 support", 1) if $tc->{ipv6} && !$httpd_ipv6_supported;
+-        subtest($tc->{desc} => sub {
+-            local $ddclient::_l = ddclient::pushlogctx($tc->{desc});
+-            for my $ipv ('4', '6') {
+-                $tc->{"want_reqs_webv$ipv"} //= 0;
+-                my $want = $tc->{"want_reqs_webv$ipv"};
+-                next if !defined(httpd($ipv)) && $want == 0;
+-                local $ddclient::_l = ddclient::pushlogctx("IPv$ipv");
+-                my $ip = $ipv eq '4' ? '192.0.2.1' : '2001:db8::1';
+-                httpd($ipv)->reset(([200, $textplain, [$ip]]) x $want);
+-            }
+-            $tc->{recap}{$_}{host} //= $_ for keys(%{$tc->{recap} // {}});
+-            # Deep copy `%{$tc->{recap}}` so that updates to `%ddclient::recap` don't mutate it.
+-            local %ddclient::recap = %{mergecfg($tc->{recap})};
+-            my $cachef = File::Temp->new();
+-            # $cachef is an object that stringifies to a filename.
+-            local $ddclient::globals{cache} = "$cachef";
+-            $tc->{cfg} = {map({
+-                ($_ => {
+-                    host => $_,
+-                    web => 'v4',
+-                    webv4 => 'v4',
+-                    webv6 => 'v6',
+-                    %{$tc->{cfg}{$_}},
+-                });
+-            } keys(%{$tc->{cfg} // {}}))};
+-            # Deep copy `%{$tc->{cfg}}` so that updates to `%ddclient::config` don't mutate it.
+-            local %ddclient::config = %{mergecfg($tc->{cfg})};
+-            local @updates;
+-
+-            ddclient::update_nics();
+-
+-            for my $ipv ('4', '6') {
+-                next if !defined(httpd($ipv));
+-                local $ddclient::_l = ddclient::pushlogctx("IPv$ipv");
+-                my @gotreqs = httpd($ipv)->reset();
+-                my $got = @gotreqs;
+-                my $want = $tc->{"want_reqs_webv$ipv"};
+-                is($got, $want, "number of requests to webv$ipv service");
+-            }
+-            TODO: {
+-                local $TODO = $tc->{want_updates_TODO};
+-                is_deeply(\@updates, $tc->{want_updates} // [], 'got expected updates')
+-                    or diag(ddclient::repr(Values => [\@updates, $tc->{want_updates}],
+-                                           Names => ['*got', '*want']));
+-            }
+-            my %want_recap = %{mergecfg($tc->{recap}, $tc->{want_recap_changes})};
+-            TODO: {
+-                local $TODO = $tc->{want_recap_changes_TODO};
+-                is_deeply(\%ddclient::recap, \%want_recap, 'recap matches')
+-                    or diag(ddclient::repr(Values => [\%ddclient::recap, \%want_recap],
+-                                           Names => ['*got', '*want']));
+-            }
+-            my %want_cfg = %{mergecfg($tc->{cfg}, $tc->{want_cfg_changes})};
+-            TODO: {
+-                local $TODO = $tc->{want_cfg_changes_TODO};
+-                is_deeply(\%ddclient::config, \%want_cfg, 'config matches')
+-                    or diag(ddclient::repr(Values => [\%ddclient::config, \%want_cfg],
+-                                           Names => ['*got', '*want']));
+-            }
+-        });
+-    }
+-}
+-
+-done_testing();
+diff --git a/t/use_web.pl b/t/use_web.pl
+deleted file mode 100644
+index 130034a..0000000
+--- a/t/use_web.pl
++++ /dev/null
+@@ -1,87 +0,0 @@
+-use Test::More;
+-BEGIN { SKIP: { eval { require Test::Warnings; 1; } or skip($@, 1); } }
+-BEGIN { eval { require 'ddclient'; } or BAIL_OUT($@); }
+-use ddclient::t::HTTPD;
+-use ddclient::t::ip;
+-
+-httpd_required();
+-
+-my $builtinweb = 't/use_web.pl builtinweb';
+-my $h = 't/use_web.pl hostname';
+-
+-my $headers = [
+-    @$textplain,
+-    'this-ipv4-should-be-ignored' => 'skip skip2 192.0.2.255',
+-    'this-ipv6-should-be-ignored' => 'skip skip2 2001:db8::ff',
+-];
+-httpd('4')->run(sub { return [200, $headers, ['192.0.2.1 skip 192.0.2.2 skip2 192.0.2.3']]; });
+-httpd('6')->run(sub { return [200, $headers, ['2001:db8::1 skip 2001:db8::2 skip2 2001:db8::3']]; })
+-    if httpd('6');
+-my %ep = (
+-    '4' => httpd('4')->endpoint(),
+-    '6' => httpd('6') ? httpd('6')->endpoint() : undef,
+-);
+-
+-my @test_cases;
+-for my $ipv ('4', '6') {
+-    my $ipv4 = $ipv eq '4';
+-    for my $sfx ('', "v$ipv") {
+-        push(
+-            @test_cases,
+-            {
+-                desc => "use$sfx=web$sfx web$sfx=<url> IPv$ipv",
+-                ipv6 => !$ipv4,
+-                cfg => {"use$sfx" => "web$sfx", "web$sfx" => $ep{$ipv}},
+-                want => $ipv4 ? '192.0.2.1' : '2001:db8::1',
+-            },
+-            {
+-                desc => "use$sfx=web$sfx web$sfx=<url> web$sfx-skip=skip IPv$ipv",
+-                ipv6 => !$ipv4,
+-                cfg => {"use$sfx" => "web$sfx", "web$sfx" => $ep{$ipv}, "web$sfx-skip" => 'skip'},
+-                # Note that "skip" should skip past the first "skip" and not past "skip2".
+-                want => $ipv4 ? '192.0.2.2' : '2001:db8::2',
+-            },
+-            {
+-                desc => "use$sfx=web$sfx web$sfx=<builtinweb> IPv$ipv",
+-                ipv6 => !$ipv4,
+-                cfg => {"use$sfx" => "web$sfx", "web$sfx" => $builtinweb},
+-                biw => {url => $ep{$ipv}},
+-                want => $ipv4 ? '192.0.2.1' : '2001:db8::1',
+-            },
+-            {
+-                desc => "use$sfx=web$sfx web$sfx=<builtinweb w/skip> IPv$ipv",
+-                ipv6 => !$ipv4,
+-                cfg => {"use$sfx" => "web$sfx", "web$sfx" => $builtinweb},
+-                biw => {url => $ep{$ipv}, skip => 'skip'},
+-                # Note that "skip" should skip past the first "skip" and not past "skip2".
+-                want => $ipv4 ? '192.0.2.2' : '2001:db8::2',
+-            },
+-            {
+-                desc => "use$sfx=web$sfx web$sfx=<builtinweb w/skip> web$sfx-skip=skip2 IPv$ipv",
+-                ipv6 => !$ipv4,
+-                cfg => {"use$sfx" => "web$sfx", "web$sfx" => $builtinweb, "web$sfx-skip" => 'skip2'},
+-                biw => {url => $ep{$ipv}, skip => 'skip'},
+-                want => $ipv4 ? '192.0.2.3' : '2001:db8::3',
+-            },
+-        );
+-    }
+-}
+-
+-for my $tc (@test_cases) {
+-    local $ddclient::builtinweb{$builtinweb} = $tc->{biw};
+-    $ddclient::builtinweb if 0;
+-    local $ddclient::config{$h} = $tc->{cfg};
+-    $ddclient::config if 0;
+-    SKIP: {
+-        skip("IPv6 not supported on this system", 1) if $tc->{ipv6} && !$ipv6_supported;
+-        skip("HTTP::Daemon too old for IPv6 support", 1) if $tc->{ipv6} && !$httpd_ipv6_supported;
+-        is(ddclient::get_ip(ddclient::strategy_inputs('use', $h)), $tc->{want}, $tc->{desc})
+-            if $tc->{cfg}{use};
+-        is(ddclient::get_ipv4(ddclient::strategy_inputs('usev4', $h)), $tc->{want}, $tc->{desc})
+-            if $tc->{cfg}{usev4};
+-        is(ddclient::get_ipv6(ddclient::strategy_inputs('usev6', $h)), $tc->{want}, $tc->{desc})
+-            if $tc->{cfg}{usev6};
+-    }
+-}
+-
+-done_testing();
+-- 
+2.48.1
+
