@@ -1,6 +1,6 @@
 pkgname = "woff2"
 pkgver = "1.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["brotli-devel"]
@@ -18,25 +18,15 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libwoff2common")
+@subpackage("woff2-libs")
 def _(self):
-    self.subdesc = "common library"
-
-    return ["usr/lib/libwoff2common.so.*"]
-
-
-@subpackage("libwoff2dec")
-def _(self):
-    self.subdesc = "decoder library"
-
-    return ["usr/lib/libwoff2dec.so.*"]
-
-
-@subpackage("libwoff2enc")
-def _(self):
-    self.subdesc = "encoder library"
-
-    return ["usr/lib/libwoff2enc.so.*"]
+    # transitional
+    self.provides = [
+        self.with_pkgver("libwoff2common"),
+        self.with_pkgver("libwoff2dec"),
+        self.with_pkgver("libwoff2enc"),
+    ]
+    return self.default_libs()
 
 
 @subpackage("woff2-devel")
