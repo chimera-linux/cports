@@ -1,7 +1,7 @@
 # update and rebuild shaderc when updating
 pkgname = "spirv-tools"
 pkgver = "1.4.304.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSPIRV_WERROR=OFF",
@@ -29,9 +29,11 @@ def _(self):
     return ["usr/lib/*.a"]
 
 
-@subpackage("libspirv-tools-shared")
+@subpackage("spirv-tools-libs")
 def _(self):
     self.subdesc = "shared library"
+    # transitional
+    self.provides = [self.with_pkgver("libspirv-tools-shared")]
 
     return ["usr/lib/*.so"]
 
@@ -41,7 +43,7 @@ def _(self):
     self.depends += [
         self.parent,
         self.with_pkgver(f"{pkgname}-devel-static"),
-        self.with_pkgver(f"lib{pkgname}-shared"),
+        self.with_pkgver(f"{pkgname}-libs"),
     ]
 
     return self.default_devel()
