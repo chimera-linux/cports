@@ -1,6 +1,6 @@
 pkgname = "base-cbuild"
 pkgver = "0.1"
-pkgrel = 9
+pkgrel = 10
 build_style = "meta"
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -17,7 +17,7 @@ depends = [
     "chimerautils-extra",
     "apk-tools",
     "gmake",
-    "bsdtar",
+    "libarchive-progs",
     "fakeroot-core",
     self.with_pkgver("base-cbuild-progs"),
 ]

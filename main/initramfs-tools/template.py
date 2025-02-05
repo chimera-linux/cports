@@ -10,7 +10,7 @@ depends = [
     "cmd:ischroot!debianutils",
     "cmd:run-parts!debianutils",
     "cmd:zstd!zstd",
-    "cmd:cpio!bsdtar",
+    "cmd:cpio!libarchive-progs",
     "cmd:ugetopt!ugetopt",
     "cmd:setupcon!console-setup",
     "cmd:awk!chimerautils",

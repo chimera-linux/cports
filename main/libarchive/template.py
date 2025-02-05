@@ -1,6 +1,6 @@
 pkgname = "libarchive"
 pkgver = "3.7.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -51,9 +51,10 @@ def post_install(self):
     self.rename("usr/share/man/man5/mtree.5", "libarchive-mtree.5")
 
 
-@subpackage("bsdtar")
+@subpackage("libarchive-progs")
 def _(self):
-    self.pkgdesc = "BSD utilities using libarchive"
+    # transitional
+    self.provides = [self.with_pkgver("bsdtar")]
 
     return self.default_progs(man="15")
 

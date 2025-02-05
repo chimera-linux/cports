@@ -11,7 +11,7 @@ depends = [
     "cmd:mount!mount",
     "cmd:mountpoint!mount",
     "cmd:realpath!chimerautils",
-    "cmd:tar!bsdtar",
+    "cmd:tar!libarchive-progs",
 ]
 pkgdesc = "Scripts to aid Chimera system installation"
 maintainer = "q66 <q66@chimera-linux.org>"

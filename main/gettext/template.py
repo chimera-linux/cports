@@ -65,7 +65,7 @@ def _(self):
     self.depends += [
         self.parent,
         self.with_pkgver(f"{pkgname}-libintl"),
-        "cmd:tar!bsdtar",
+        "cmd:tar!libarchive-progs",
         "cmd:xz!xz",
     ]
 

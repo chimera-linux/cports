@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -30,7 +30,7 @@ def _(self):
     self.install_if = [self.parent]
     self.depends = [
         "base-bootstrap",
-        "bsdtar",
+        "libarchive-progs",
         "chimera-install-scripts",
         "dinit-chimera",
         "procps",

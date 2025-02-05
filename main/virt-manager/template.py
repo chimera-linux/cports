@@ -3,7 +3,7 @@ pkgver = "5.0.0"
 pkgrel = 0
 build_style = "meson"
 _deps = [
-    "bsdtar",  # cpio
+    "libarchive-progs",
     "libosinfo",
     "libxml2-python",
     "python-gobject",
