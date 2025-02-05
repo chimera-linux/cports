@@ -1,6 +1,6 @@
 pkgname = "elogind"
 pkgver = "255.17"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib/elogind",
@@ -89,17 +89,22 @@ def _(self):
     return []
 
 
-@subpackage("libelogind")
+@subpackage("elogind-libs")
 def _(self):
-    self.subdesc = "library"
+    # transitional
+    self.provides = [self.with_pkgver("libelogind")]
+
     return self.default_libs()
 
 
-@subpackage("pam_elogind")
+@subpackage("elogind-pam")
 def _(self):
     self.subdesc = "PAM"
     self.depends = [self.parent, "linux-pam"]
     self.install_if = [self.parent, "linux-pam"]
+    # transitional
+    self.provides = [self.with_pkgver("pam_elogind")]
+
     return [
         "usr/lib/pam.d",
         "usr/lib/security",
