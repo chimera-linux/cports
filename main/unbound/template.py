@@ -1,6 +1,6 @@
 pkgname = "unbound"
 pkgver = "1.22.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-cachedb",
@@ -57,9 +57,10 @@ def post_install(self):
     self.install_service(self.files_path / "unbound")
 
 
-@subpackage("libunbound")
+@subpackage("unbound-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libunbound")]
 
     return self.default_libs()
 
