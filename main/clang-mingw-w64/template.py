@@ -1,12 +1,11 @@
 pkgname = "clang-mingw-w64"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "clang",
     "clang-rt-builtins-mingw-w64",
-    "libcxx-mingw-w64",
-    "libunwind-mingw-w64",
+    "llvm-runtimes-mingw-w64",
     "mingw-w64-crt",
     "mingw-w64-headers",
     "mingw-w64-winpthreads",
@@ -51,8 +50,7 @@ def _gen(an):
         self.depends = [
             "clang",
             f"clang-rt-builtins-mingw-w64-{an}",
-            f"libcxx-mingw-w64-{an}",
-            f"libunwind-mingw-w64-{an}",
+            f"llvm-runtimes-mingw-w64-{an}",
             f"mingw-w64-crt-{an}",
             f"mingw-w64-headers-{an}",
             f"mingw-w64-winpthreads-{an}",

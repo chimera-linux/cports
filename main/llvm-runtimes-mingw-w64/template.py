@@ -1,4 +1,4 @@
-pkgname = "libcxx-mingw-w64"
+pkgname = "llvm-runtimes-mingw-w64"
 pkgver = "19.1.7"
 pkgrel = 0
 build_style = "cmake"
@@ -42,7 +42,7 @@ hostmakedepends = [
     "python",
 ]
 depends = [
-    self.with_pkgver("libcxxabi-mingw-w64"),
+    self.with_pkgver("llvm-runtimes-mingw-w64-libcxx"),
     "mingw-w64-headers",
 ]
 pkgdesc = "LLVM libc++ for Windows development"
@@ -129,44 +129,59 @@ def install(self):
 
 
 def _gen(an, at):
-    @subpackage(f"libunwind-mingw-w64-{an}")
+    @subpackage(f"llvm-runtimes-mingw-w64-libunwind-{an}")
     def _(self):
         self.pkgdesc = "LLVM libunwind for Windows development"
         self.subdesc = an
         self.depends = [f"mingw-w64-crt-{an}"]
         # strip not supported for COFF
         self.options = ["!strip"]
+        # transitional
+        self.provides = [self.with_pkgver(f"libunwind-mingw-w64-{an}")]
 
         return [
             f"usr/{at}/lib/libunwind.*",
         ]
 
-    @subpackage(f"libcxxabi-mingw-w64-{an}")
+    @subpackage(f"llvm-runtimes-mingw-w64-libcxxabi-{an}")
     def _(self):
         self.pkgdesc = "LLVM libc++abi for Windows development"
         self.subdesc = an
-        self.depends = [self.with_pkgver(f"libunwind-mingw-w64-{an}")]
+        self.depends = [
+            self.with_pkgver(f"llvm-runtimes-mingw-w64-libunwind-{an}")
+        ]
         self.options = ["!strip"]
+        # transitional
+        self.provides = [self.with_pkgver(f"libcxxabi-mingw-w64-{an}")]
 
         return [
             f"usr/{at}/lib/libc++abi*",
         ]
 
-    @subpackage(f"libcxx-mingw-w64-{an}")
+    @subpackage(f"llvm-runtimes-mingw-w64-libcxx-{an}")
     def _(self):
         self.subdesc = an
         self.depends = [
-            self.with_pkgver(f"libcxxabi-mingw-w64-{an}"),
+            self.with_pkgver(f"llvm-runtimes-mingw-w64-libcxxabi-{an}"),
             # host headers
             "libcxx-devel",
             # for include_next
             f"mingw-w64-headers-{an}",
         ]
         self.options = ["!strip"]
+        # transitional
+        self.provides = [self.with_pkgver(f"libcxx-mingw-w64-{an}")]
 
         return [f"usr/{at}"]
 
-    depends.append(self.with_pkgver(f"libcxx-mingw-w64-{an}"))
+    @subpackage(f"llvm-runtimes-mingw-w64-{an}")
+    def _(self):
+        self.subdesc = an
+        self.depends = [
+            self.with_pkgver(f"llvm-runtimes-mingw-w64-libcxx-{an}")
+        ]
+        self.options = ["empty"]
+        return []
 
 
 for _an in _targets:
@@ -174,23 +189,40 @@ for _an in _targets:
     _gen(_an, _at)
 
 
-@subpackage("libunwind-mingw-w64")
+@subpackage("llvm-runtimes-mingw-w64-libunwind")
 def _(self):
     self.pkgdesc = "LLVM libunwind for Windows development"
     self.depends = ["mingw-w64-crt"]
     self.options = ["empty"]
+    # transitional
+    self.provides = [self.with_pkgver("libunwind-mingw-w64")]
     for an in _targets:
         self.depends.append(self.with_pkgver(f"libunwind-mingw-w64-{an}"))
 
     return []
 
 
-@subpackage("libcxxabi-mingw-w64")
+@subpackage("llvm-runtimes-mingw-w64-libcxxabi")
 def _(self):
     self.pkgdesc = "LLVM libc++abi for Windows development"
-    self.depends = [self.with_pkgver("libunwind-mingw-w64")]
+    self.depends = [self.with_pkgver("llvm-runtimes-mingw-w64-libunwind")]
     self.options = ["empty"]
+    # transitional
+    self.provides = [self.with_pkgver("libcxxabi-mingw-w64")]
     for an in _targets:
         self.depends.append(self.with_pkgver(f"libcxxabi-mingw-w64-{an}"))
+
+    return []
+
+
+@subpackage("llvm-runtimes-mingw-w64-libcxx")
+def _(self):
+    self.pkgdesc = "LLVM libc++ for Windows development"
+    self.depends = [self.with_pkgver("llvm-runtimes-mingw-w64-libcxxabi")]
+    self.options = ["empty"]
+    # transitional
+    self.provides = [self.with_pkgver("libcxx-mingw-w64")]
+    for an in _targets:
+        self.depends.append(self.with_pkgver(f"libcxx-mingw-w64-{an}"))
 
     return []
