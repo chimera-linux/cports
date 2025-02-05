@@ -1,6 +1,6 @@
 pkgname = "sane-backends"
 pkgver = "1.3.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-locking",
@@ -60,9 +60,10 @@ def post_install(self):
     )
 
 
-@subpackage("libsane")
+@subpackage("sane-backends-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libsane")]
 
     return self.default_libs()
 
