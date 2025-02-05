@@ -1,6 +1,6 @@
 pkgname = "cdparanoia"
 pkgver = "10.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 # messy build system
 make_dir = "."
@@ -18,9 +18,10 @@ tool_flags = {"CFLAGS": ["-Du_int16_t=uint16_t", "-Du_int32_t=uint32_t"]}
 options = ["!check", "!parallel"]
 
 
-@subpackage("libcdparanoia")
+@subpackage("cdparanoia-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libcdparanoia")]
 
     return self.default_libs()
 
