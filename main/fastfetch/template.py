@@ -10,7 +10,7 @@ makedepends = [
     "dconf-devel",
     "ddcutil-devel",
     "elfutils-devel",
-    "libmagick-devel",
+    "imagemagick-devel",
     "libpulse-devel",
     "libxrandr-devel",
     "ocl-icd-devel",

@@ -88,9 +88,10 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libmagick")
+@subpackage("imagemagick-libs")
 def _(self):
-    self.pkgdesc = "ImageMagick library"
+    # transitional
+    self.provides = [self.with_pkgver("libmagick")]
 
     return [
         "usr/lib/libMagick*.so.*",
@@ -99,17 +100,22 @@ def _(self):
     ]
 
 
-@subpackage("libmagick-perl")
+@subpackage("imagemagick-perl")
 def _(self):
+    # transitional
+    self.provides = [self.with_pkgver("libmagick-perl")]
+
     return [
         "usr/lib/perl5",
         "usr/share/man/man3/Image::Magick*",
     ]
 
 
-@subpackage("libmagick-devel")
+@subpackage("imagemagick-devel")
 def _(self):
     # buildsystem is stupid and does not emit deps
     self.depends += makedepends
+    # transitional
+    self.provides = [self.with_pkgver("libmagick-devel")]
 
     return self.default_devel()
