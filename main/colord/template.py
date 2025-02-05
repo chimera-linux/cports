@@ -1,6 +1,6 @@
 pkgname = "colord"
 pkgver = "1.4.7"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 # manpages fail to generate
 configure_args = [
@@ -51,9 +51,10 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
 
 
-@subpackage("libcolord")
+@subpackage("colord-libs")
 def _(self):
-    self.subdesc = "shared library"
+    # transitional
+    self.provides = [self.with_pkgver("libcolord")]
 
     return self.default_libs()
 
