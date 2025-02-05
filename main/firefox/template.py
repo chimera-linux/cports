@@ -50,7 +50,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 depends = [
-    "libavcodec",
+    "ffmpeg-avcodec-libs",
     "openh264-firefox-plugin-meta",
     "speechd-meta",
 ]
