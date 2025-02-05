@@ -1,6 +1,6 @@
 pkgname = "elfutils"
 pkgver = "0.192"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-nls",
@@ -63,9 +63,11 @@ def post_install(self):
     self.rename("usr/bin/eu-eustack", "eu-stack")
 
 
-@subpackage("debuginfod")
+@subpackage("elfutils-debuginfod")
 def _(self):
     self.subdesc = "debuginfod"
+    # transitional
+    self.provides = [self.with_pkgver("debuginfod")]
 
     return [
         "usr/bin/debuginfod*",
@@ -73,9 +75,11 @@ def _(self):
     ]
 
 
-@subpackage("debuginfod-libs")
+@subpackage("elfutils-debuginfod-libs")
 def _(self):
     self.subdesc = "debuginfod library"
+    # transitional
+    self.provides = [self.with_pkgver("debuginfod-libs")]
 
     return [
         "etc/profile.d",
