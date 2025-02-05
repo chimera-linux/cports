@@ -1,12 +1,12 @@
 pkgname = "base-cross"
 pkgver = "0.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "meta"
 depends = [
     "clang-rt-cross",
     "musl-cross",
     "libatomic-chimera-cross",
-    "libcxx-cross",
+    "llvm-runtimes-cross",
     "fortify-headers",
 ]
 pkgdesc = "Base metapackage for cross-compiling"
@@ -72,7 +72,7 @@ def _gen(an):
             f"clang-rt-cross-{an}",
             f"musl-cross-{an}",
             f"libatomic-chimera-cross-{an}",
-            f"libcxx-cross-{an}",
+            f"llvm-runtimes-cross-{an}",
         ]
         self.options = ["brokenlinks"]
         with self.rparent.profile(an) as pf:

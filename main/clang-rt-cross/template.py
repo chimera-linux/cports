@@ -1,6 +1,6 @@
 pkgname = "clang-rt-cross"
 pkgver = "19.1.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -40,12 +40,12 @@ hostmakedepends = [
 ]
 makedepends = [
     "clang-rt-crt-cross",
-    "libcxx-cross",
+    "llvm-runtimes-cross",
     "libffi-devel",
     "linux-headers-cross",
     "zlib-ng-compat-devel",
 ]
-depends = ["clang-rt-crt-cross", "libcxx-cross"]
+depends = ["clang-rt-crt-cross", "llvm-runtimes-cross"]
 pkgdesc = "Cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
@@ -140,7 +140,7 @@ def _gen_subp(an):
         self.subdesc = f"{an} support"
         self.depends = [
             f"clang-rt-crt-cross-{an}",
-            f"libcxx-cross-{an}",
+            f"llvm-runtimes-cross-{an}",
         ]
         self.options = [
             "!scanshlibs",
