@@ -1,6 +1,6 @@
 pkgname = "blueman"
 pkgver = "2.4.4"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 # XXX drop libexec
 configure_args = [
@@ -25,7 +25,7 @@ depends = [
     "bluez",
     "gtk+3",
     "iproute2",
-    "libnm",
+    "networkmanager-libs",
     "libpulse",
     "python-cairo",
     "python-gobject",

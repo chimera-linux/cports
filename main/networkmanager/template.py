@@ -1,6 +1,6 @@
 pkgname = "networkmanager"
 pkgver = "1.50.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -121,9 +121,10 @@ def post_install(self):
     )
 
 
-@subpackage("libnm")
+@subpackage("networkmanager-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libnm")]
 
     return self.default_libs()
 
