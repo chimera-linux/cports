@@ -1,6 +1,6 @@
 pkgname = "djvulibre"
 pkgver = "3.5.28"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["libtiff-devel", "libjpeg-turbo-devel"]
@@ -12,9 +12,10 @@ source = f"$(SOURCEFORGE_SITE)/djvu/djvulibre-{pkgver}.tar.gz"
 sha256 = "fcd009ea7654fde5a83600eb80757bd3a76998e47d13c66b54c8db849f8f2edc"
 
 
-@subpackage("libdjvulibre")
+@subpackage("djvulibre-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libdjvulibre")]
 
     return self.default_libs()
 
