@@ -1,8 +1,10 @@
-# we call it this because 'glycin' is for the rust crate, and -loaders is for the loaders
-pkgname = "glycin-loaders"
+pkgname = "glycin"
 pkgver = "1.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX libexecdir
+]
 hostmakedepends = [
     "cargo-auditable",
     "gettext",
@@ -21,8 +23,10 @@ makedepends = [
     "pango-devel",
     "rust-std",
 ]
-depends = ["bubblewrap"]
+depends = [self.with_pkgver("glycin-loaders")]
 checkdepends = [*depends]
+# transitional
+provides = [self.with_pkgver("libglycin")]
 pkgdesc = "Sandboxed and extendable image decoding"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
@@ -43,27 +47,31 @@ def init_build(self):
     del self.make_env["CARGO_BUILD_TARGET"]
 
 
-@subpackage("libglycin-devel")
+@subpackage("glycin-devel")
 def _(self):
+    # transitional
+    self.provides = [self.with_pkgver("libglycin-devel")]
+
     return self.default_devel()
 
 
-# matches upstream lib naming
-@subpackage("libglycin-gtk4")
+@subpackage("glycin-gtk4")
 def _(self):
-    self.subdesc = "C GTK4 bindings"
-    self.depends = [self.parent]
+    self.subdesc = "GTK4 bindings"
+    self.depends = [self.with_pkgver("glycin-loaders")]
+    # transitional
+    self.provides = [self.with_pkgver("libglycin-gtk4")]
     return [
         "lib:libglycin-gtk4-1.so.*",
         "usr/lib/girepository-1.0/GlyGtk4-1.typelib",
     ]
 
 
-@subpackage("libglycin")
+@subpackage("glycin-loaders")
 def _(self):
-    self.subdesc = "C bindings"
-    self.depends = [self.parent]
+    self.subdesc = "loaders"
+    self.depends = ["bubblewrap"]
     return [
-        "lib:libglycin-1.so.*",
-        "usr/lib/girepository-1.0/Gly-1.typelib",
+        "usr/lib/glycin-loaders",
+        "usr/share/glycin-loaders",
     ]
