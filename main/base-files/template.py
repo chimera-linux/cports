@@ -114,31 +114,3 @@ def install(self):
         "services",
     ]:
         self.install_file(self.files_path / "iana" / f, "usr/share/iana")
-
-
-@subpackage("base-devel")
-def _(self):
-    self.pkgdesc = "Base package for development packages"
-    self.depends = []
-    self.options = ["empty"]
-
-    return []
-
-
-@subpackage("base-devel-static")
-def _(self):
-    self.pkgdesc = "Base package for static development packages"
-    self.depends = []
-    self.install_if = []
-    self.options = ["empty"]
-
-    return []
-
-
-@subpackage("base-doc")
-def _(self):
-    self.pkgdesc = "Base package for documentation"
-    self.depends = []
-    self.options = ["empty"]
-
-    return []
