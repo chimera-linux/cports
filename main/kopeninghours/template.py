@@ -1,6 +1,6 @@
 pkgname = "kopeninghours"
 pkgver = "24.12.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # make_check_wrapper = ["wlheadless-run", "--"]
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -37,7 +37,10 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("python-kopeninghours")
+@subpackage("kopeninghours-python")
 def _(self):
     self.subdesc = "python module"
+    # transitional
+    self.provides = [self.with_pkgver("python-kopeninghours")]
+
     return ["usr/lib/python*"]
