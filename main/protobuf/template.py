@@ -1,6 +1,6 @@
 pkgname = "protobuf"
 pkgver = "29.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -19,7 +19,7 @@ sha256 = "008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e"
 hardening = ["!vis", "!cfi"]
 
 if self.profile().cross:
-    hostmakedepends += ["protoc"]  # needs host protoc
+    hostmakedepends += ["protobuf-protoc"]  # needs host protoc
     broken = "generated protobuf-targets.cmake looks for protoc in target sysroot, cannot cross-build android-tools etc"
 
 
@@ -41,10 +41,11 @@ def _(self):
     return ["usr/lib/libprotobuf-lite.so.*"]
 
 
-@subpackage("protoc")
+@subpackage("protobuf-protoc")
 def _(self):
     self.pkgdesc = "Protocol buffers compiler and its library"
     self.depends = [self.with_pkgver("protobuf-devel")]
+    self.provides = [self.with_pkgver("protoc")]
 
     return [
         "usr/bin",

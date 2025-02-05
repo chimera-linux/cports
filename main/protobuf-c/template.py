@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = [
     "--enable-protoc",
 ]
-hostmakedepends = ["automake", "slibtool", "pkgconf", "protoc"]
+hostmakedepends = ["automake", "slibtool", "pkgconf", "protobuf-protoc"]
 makedepends = ["boost-devel", "protobuf-devel"]
 pkgdesc = "Protobuf implementation in C"
 maintainer = "q66 <q66@chimera-linux.org>"

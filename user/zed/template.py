@@ -14,7 +14,7 @@ hostmakedepends = [
     "cargo-auditable",
     "cmake",
     "pkgconf",
-    "protoc",
+    "protobuf-protoc",
 ]
 makedepends = [
     "alsa-lib-devel",

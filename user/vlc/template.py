@@ -17,7 +17,7 @@ hostmakedepends = [
     "gettext-devel",
     "libtool",
     "pkgconf",
-    "protoc",
+    "protobuf-protoc",
     "qt6-qtbase",
     "qt6-qttools",
     "spirv-tools",

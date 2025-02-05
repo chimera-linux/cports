@@ -42,7 +42,7 @@ hostmakedepends = [
     "cmake",
     "ninja",
     "pkgconf",
-    "protoc",
+    "protobuf-protoc",
     "python-devel",
     "python-numpy",
 ]

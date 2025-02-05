@@ -9,7 +9,7 @@ hostmakedepends = [
     "gettext",
     "meson",
     "pkgconf",
-    "protoc",
+    "protobuf-protoc",
 ]
 makedepends = [
     "cairo-devel",
