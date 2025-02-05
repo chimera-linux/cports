@@ -1,6 +1,6 @@
 pkgname = "gnome-terminal"
 pkgver = "3.54.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "docbook-xsl-nons",
@@ -36,11 +36,13 @@ def post_install(self):
     self.uninstall("usr/lib/systemd")
 
 
-@subpackage("nautilus-gnome-terminal-extension")
+@subpackage("gnome-terminal-nautilus-extension")
 def _(self):
     self.pkgdesc = "GNOME terminal extension for Nautilus"
     self.depends += [self.parent]
     self.install_if = [self.parent, "nautilus"]
+    # transitional
+    self.provides = [self.with_pkgver("nautilus-gnome-terminal-extension")]
 
     return [
         "usr/lib/nautilus",
