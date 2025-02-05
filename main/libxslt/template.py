@@ -1,6 +1,6 @@
 pkgname = "libxslt"
 pkgver = "1.1.42"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-python=no"]
 hostmakedepends = [
