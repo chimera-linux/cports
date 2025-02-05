@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -42,7 +42,7 @@ def _(self):
 @subpackage("base-full-firmware")
 def _(self):
     self.subdesc = "firmware"
-    self.install_if = [self.parent, "linux", "!base-minimal"]
+    self.install_if = [self.parent, "linux", "!base-full-minimal"]
     self.depends = [
         "base-firmware-linux",
         "firmware-ipw2100",
@@ -57,7 +57,7 @@ def _(self):
 @subpackage("base-full-fonts")
 def _(self):
     self.subdesc = "fonts"
-    self.install_if = [self.parent, "fontconfig", "!base-minimal"]
+    self.install_if = [self.parent, "fontconfig", "!base-full-minimal"]
     self.depends = [
         "fonts-dejavu",
         "fonts-liberation",
@@ -94,7 +94,7 @@ def _(self):
 @subpackage("base-full-kernel")
 def _(self):
     self.subdesc = "kernel tooling"
-    self.install_if = [self.parent, "linux", "!base-minimal"]
+    self.install_if = [self.parent, "linux", "!base-full-minimal"]
     # transitional
     self.provides = [self.with_pkgver("base-core-kernel")]
     self.depends = [
@@ -130,7 +130,7 @@ def _(self):
 @subpackage("base-full-misc")
 def _(self):
     self.subdesc = "miscellaneous"
-    self.install_if = [self.parent, "!base-minimal"]
+    self.install_if = [self.parent, "!base-full-minimal"]
     # transitional
     self.provides = [self.with_pkgver("base-core-misc")]
     self.depends = [
@@ -171,7 +171,7 @@ def _(self):
 @subpackage("base-full-net")
 def _(self):
     self.subdesc = "network"
-    self.install_if = [self.parent, "!base-minimal"]
+    self.install_if = [self.parent, "!base-full-minimal"]
     self.depends = [
         "dhcpcd",
         "iwd",
@@ -183,7 +183,7 @@ def _(self):
 @subpackage("base-full-session")
 def _(self):
     self.subdesc = "session management"
-    self.install_if = [self.parent, "!base-minimal"]
+    self.install_if = [self.parent, "!base-full-minimal"]
     self.depends = [
         "elogind-meta",
         "dinit-dbus",
@@ -194,15 +194,16 @@ def _(self):
 @subpackage("base-full-sound")
 def _(self):
     self.subdesc = "sound"
-    self.install_if = [self.parent, "!base-minimal"]
+    self.install_if = [self.parent, "!base-full-minimal"]
     self.depends = [
         "pipewire",
     ]
     return []
 
 
-@subpackage("base-minimal")
+@subpackage("base-full-minimal")
 def _(self):
     self.subdesc = "metapackage for small installations"
     self.depends = [self.parent]
+    self.provides = [self.with_pkgver("base-minimal")]
     return []
