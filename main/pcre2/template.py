@@ -1,6 +1,6 @@
 pkgname = "pcre2"
 pkgver = "10.44"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-pic",
@@ -32,9 +32,11 @@ def post_install(self):
     self.install_license("LICENCE")
 
 
-@subpackage("libpcre2")
+@subpackage("pcre2-libs")
 def _(self):
-    self.subdesc = "shared libraries"
+    # transitional
+    self.provides = [self.with_pkgver("libpcre2")]
+
     return self.default_libs()
 
 
