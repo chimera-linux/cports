@@ -24,10 +24,10 @@ make_install_args = ["-j1", "install-libs"]
 hostmakedepends = ["pkgconf", "texinfo"]
 makedepends = [
     "fuse-devel",
-    "libblkid-devel",
-    "libuuid-devel",
     "linux-headers",
     "udev-devel",
+    "util-linux-blkid-devel",
+    "util-linux-uuid-devel",
 ]
 checkdepends = ["bzip2", "perl"]
 pkgdesc = "Ext2/3/4 file system utilities"

@@ -8,9 +8,9 @@ hostmakedepends = [
     "flex",
     "gcc-aarch64-none-elf",
     "gnutls-devel",
-    "libuuid-devel",
     "openssl-devel",
     "python-setuptools",
+    "util-linux-uuid-devel",
 ]
 pkgdesc = "U-Boot for qemu-aarch64"
 maintainer = "q66 <q66@chimera-linux.org>"

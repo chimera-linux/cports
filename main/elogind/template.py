@@ -29,10 +29,10 @@ makedepends = [
     "acl-devel",
     "gettext-devel",
     "libcap-devel",
-    "libmount-devel",
     "libseccomp-devel",
     "linux-pam-devel",
     "udev-devel",
+    "util-linux-mount-devel",
 ]
 checkdepends = ["bash", "python-lxml"]
 depends = ["dinit-dbus", "tangle-progs", "turnstile"]

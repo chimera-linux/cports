@@ -25,9 +25,9 @@ makedepends = [
     "freetype-bootstrap",
     "glib-bootstrap",
     "libffi-devel",
-    "libmount-devel",
     "pcre2-devel",
     "sysprof-capture",
+    "util-linux-mount-devel",
     "zlib-ng-compat-devel",
 ]
 checkdepends = [

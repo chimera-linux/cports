@@ -1,6 +1,6 @@
 pkgname = "kpmcore"
 pkgver = "24.12.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -17,8 +17,8 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 depends = [
-    "fdisk",
     "smartmontools",
+    "util-linux-fdisk",
 ]
 pkgdesc = "KDE library for partition management"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"

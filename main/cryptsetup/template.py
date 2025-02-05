@@ -19,7 +19,7 @@ makedepends = [
     "device-mapper-devel-static",
     "json-c-devel-static",
     "libatomic-chimera-devel-static",
-    "libuuid-devel-static",
+    "util-linux-uuid-devel-static",
     "linux-headers",
     "openssl-devel-static",
     "popt-devel-static",

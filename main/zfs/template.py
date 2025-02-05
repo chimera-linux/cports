@@ -19,13 +19,13 @@ configure_gen = []
 hostmakedepends = ["pkgconf", "automake", "libtool", "python"]
 makedepends = [
     "attr-devel",
-    "libblkid-devel",
     "libtirpc-devel",
-    "libuuid-devel",
     "linux-headers",
     "linux-pam-devel",
     "openssl-devel",
     "udev-devel",
+    "util-linux-blkid-devel",
+    "util-linux-uuid-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "OpenZFS for Linux"

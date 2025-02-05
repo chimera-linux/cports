@@ -20,9 +20,9 @@ makedepends = [
     "kmod-devel",
     "libtraceevent-devel",
     "libtracefs-devel",
-    "libuuid-devel",
     "linux-headers",
     "udev-devel",
+    "util-linux-uuid-devel",
 ]
 pkgdesc = "Tools and libraries for NVDIMMs and other platform memory"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

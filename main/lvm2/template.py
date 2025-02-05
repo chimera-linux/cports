@@ -36,7 +36,6 @@ make_dir = "."
 hostmakedepends = ["gsed", "pkgconf", "bash"]
 makedepends = [
     "udev-devel-static",
-    "libblkid-devel-static",
     "libaio-devel-static",
     "libedit-devel-static",
     "musl-devel-static",
@@ -44,6 +43,7 @@ makedepends = [
     "libatomic-chimera-devel-static",
     "ncurses-devel-static",
     "linux-headers",
+    "util-linux-blkid-devel-static",
 ]
 pkgdesc = "Logical Volume Manager 2 utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

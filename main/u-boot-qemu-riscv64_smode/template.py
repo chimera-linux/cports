@@ -8,9 +8,9 @@ hostmakedepends = [
     "flex",
     "gcc-riscv64-unknown-elf",
     "gnutls-devel",
-    "libuuid-devel",
     "openssl-devel",
     "python-setuptools",
+    "util-linux-uuid-devel",
 ]
 pkgdesc = "U-Boot for qemu-riscv64 supervisor mode"
 maintainer = "q66 <q66@chimera-linux.org>"

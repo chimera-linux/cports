@@ -15,7 +15,7 @@ hostmakedepends = [
     "pkgconf",
     "python",
 ]
-makedepends = ["libexpat-devel", "freetype-bootstrap", "libuuid-devel"]
+makedepends = ["libexpat-devel", "freetype-bootstrap", "util-linux-uuid-devel"]
 triggers = ["/usr/share/fonts/*"]
 pkgdesc = "Library for configuring and customizing font access"
 maintainer = "q66 <q66@chimera-linux.org>"

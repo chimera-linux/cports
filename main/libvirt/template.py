@@ -39,11 +39,11 @@ hostmakedepends = [
     "libxml2-progs",
     "lvm2",  # buildtime check
     "meson",
-    "mkfs",  # buildtime check
-    "mount",  # buildtime check
     "perl",
     "pkgconf",
     "python-docutils",
+    "util-linux-mkfs",  # buildtime check
+    "util-linux-mount",  # buildtime check
     "xsltproc",
 ]
 makedepends = [

@@ -20,8 +20,8 @@ makedepends = [
     "dbus-devel",
     "elfutils-devel",
     "libffi-devel",
-    "libmount-devel",
     "pcre2-devel",
+    "util-linux-mount-devel",
     "zlib-ng-compat-devel",
 ]
 depends = ["!glib", "!glib-devel"]

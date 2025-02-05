@@ -16,9 +16,9 @@ makedepends = [
     "gsettings-desktop-schemas-devel",
     "gtk+3-devel",
     "libhandy-devel",
-    "libuuid-devel",
     "nautilus-devel",
     "pcre2-devel",
+    "util-linux-uuid-devel",
     "vte-gtk3-devel",
 ]
 pkgdesc = "GNOME terminal emulator"

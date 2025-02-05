@@ -109,10 +109,10 @@ hostmakedepends = [
 makedepends = [
     "acl-devel",
     "kmod-devel",
-    "libblkid-devel",
-    "libmount-devel",
     "libcap-devel",
     "linux-headers",
+    "util-linux-blkid-devel",
+    "util-linux-mount-devel",
 ]
 checkdepends = ["xz", "perl"]
 depends = ["so:libkmod.so.2!kmod-libs"]

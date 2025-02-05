@@ -28,10 +28,10 @@ makedepends = [
     "dbus-devel",
     "e2fsprogs-devel",
     "json-c-devel",
-    "libmount-devel",
     "libxml2-devel",
     "linux-pam-devel",
     "ncurses-libtinfo-devel",
+    "util-linux-mount-devel",
 ]
 pkgdesc = "Filesystem snapshot manager"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

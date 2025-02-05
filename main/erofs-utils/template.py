@@ -18,9 +18,9 @@ hostmakedepends = [
 makedepends = [
     "fuse-devel",
     "libdeflate-devel",
-    "libuuid-devel",
     "linux-headers",
     "lz4-devel",
+    "util-linux-uuid-devel",
     "xz-devel",
     "zlib-ng-compat-devel",
     "zstd-devel",

@@ -5,10 +5,10 @@ build_style = "makefile"
 make_dir = "."
 make_check_target = "test"
 makedepends = [
-    "libuuid-devel",
     "linux-headers",
     "ncurses-devel",
     "popt-devel",
+    "util-linux-uuid-devel",
 ]
 pkgdesc = "Fdisk-like partitioning tool for GPT disks"
 maintainer = "reocat <ng.ct_ml@tuta.io>"

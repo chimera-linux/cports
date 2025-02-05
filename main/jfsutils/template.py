@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
 ]
-makedepends = ["libuuid-devel"]
+makedepends = ["util-linux-uuid-devel"]
 pkgdesc = "JFS filesystem utilities"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"

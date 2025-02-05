@@ -21,12 +21,12 @@ hostmakedepends = [
 makedepends = [
     "acl-devel",
     "e2fsprogs-devel",
-    "libblkid-devel",
-    "libuuid-devel",
     "linux-headers",
     "lzo-devel",
     "python-devel",
     "udev-devel",
+    "util-linux-blkid-devel",
+    "util-linux-uuid-devel",
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]

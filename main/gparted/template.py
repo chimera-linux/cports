@@ -14,9 +14,9 @@ hostmakedepends = [
 ]
 makedepends = [
     "gtkmm3.0-devel",
-    "libuuid-devel",
     "parted-devel",
     "polkit-devel",
+    "util-linux-uuid-devel",
 ]
 pkgdesc = "Graphical disk partition editor"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

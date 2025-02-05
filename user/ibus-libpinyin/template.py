@@ -11,7 +11,6 @@ hostmakedepends = ["intltool", "libtool", "pkgconf", "automake", "gsed"]
 makedepends = [
     "gettext-devel",
     "sqlite-devel",
-    "libuuid-devel",
     "opencc-devel",
     "lua5.4-devel",
     "ibus-devel",
@@ -20,6 +19,7 @@ makedepends = [
     "json-glib-devel",
     "boost-devel",
     "python-gobject-devel",
+    "util-linux-uuid-devel",
 ]
 depends = ["ibus"]
 pkgdesc = "Intelligent Pinyin engine based on libpinyin for IBus"

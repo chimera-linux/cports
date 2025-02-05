@@ -17,8 +17,8 @@ hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = [
     "gnutls-devel",
     "libgcrypt-devel",
-    "libuuid-devel",
     "linux-headers",
+    "util-linux-uuid-devel",
 ]
 depends = ["fuse"]
 pkgdesc = "NTFS FUSE driver and tools"

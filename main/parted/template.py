@@ -7,12 +7,12 @@ hostmakedepends = ["pkgconf"]
 # TODO: look into porting to editline properly
 # it compiles if forced, but fails extra tests
 makedepends = [
-    "libuuid-devel",
-    "libblkid-devel",
     "ncurses-devel",
     "readline-devel",
     "device-mapper-devel",
     "linux-headers",
+    "util-linux-blkid-devel",
+    "util-linux-uuid-devel",
 ]
 checkdepends = ["e2fsprogs", "perl", "python"]
 pkgdesc = "GNU parted"

@@ -5,10 +5,10 @@ build_style = "gnu_configure"
 make_dir = "."  # bad build system
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = [
-    "libuuid-devel",
-    "libblkid-devel",
     "linux-headers",
     "musl-bsd-headers",
+    "util-linux-uuid-devel",
+    "util-linux-blkid-devel",
 ]
 pkgdesc = "F2FS (Flash-Friendly File System) utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

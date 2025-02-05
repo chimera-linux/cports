@@ -10,8 +10,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "libnvme-devel",
-    "libuuid-devel",
     "linux-headers",
+    "util-linux-uuid-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "NVMe management command line interface"

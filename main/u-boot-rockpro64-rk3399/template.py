@@ -16,12 +16,12 @@ hostmakedepends = [
     "flex",
     "gcc-aarch64-none-elf",
     "gnutls-devel",
-    "libuuid-devel",
     "openssl-devel",
     "python-devel",
     "python-pyelftools",
     "python-setuptools",
     "swig",
+    "util-linux-uuid-devel",
 ]
 makedepends = ["atf-rk3399-bl31"]
 pkgdesc = "U-Boot for RockPro64"

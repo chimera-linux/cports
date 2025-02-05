@@ -1,6 +1,6 @@
 pkgname = "fastfetch"
 pkgver = "2.34.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTS=ON", "-DENABLE_SYSTEM_YYJSON=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -21,7 +21,7 @@ makedepends = [
     "yyjson-devel",
     "zlib-ng-compat-devel",
 ]
-depends = ["lscpu"]
+depends = ["cmd:lscpu!util-linux-lscpu"]
 pkgdesc = "Neofetch-like system information fetching tool"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"

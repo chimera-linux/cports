@@ -24,13 +24,13 @@ makedepends = [
     "libcap-devel",
     "libedit-readline-devel",
     "libevent-devel",
-    "libmount-devel",
     "libnl-devel",
     "libtirpc-devel",
     "libxml2-devel",
     "linux-headers",
     "musl-bsd-headers",
     "sqlite-devel",
+    "util-linux-mount-devel",
 ]
 depends = ["python", "rpcbind"]
 pkgdesc = "Utilities for managing NFS"

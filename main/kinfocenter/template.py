@@ -1,6 +1,6 @@
 pkgname = "kinfocenter"
 pkgver = "6.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -46,7 +46,7 @@ def _(self):
         "plasma-systemmonitor",
         # devices
         "libpulse-progs",
-        "lscpu",
+        "cmd:lscpu!util-linux-lscpu",
         "aha",
         "fwupd",
         "pciutils",

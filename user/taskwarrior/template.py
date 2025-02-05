@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = ["-DSYSTEM_CORROSION=ON"]
 make_dir = "."
 hostmakedepends = ["cmake", "ninja", "cargo", "corrosion", "cxxbridge"]
-makedepends = ["libuuid-devel", "rust-std", "sqlite-devel"]
+makedepends = ["util-linux-uuid-devel", "rust-std", "sqlite-devel"]
 pkgdesc = "TODO list manager for the command line"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"

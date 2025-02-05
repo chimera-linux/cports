@@ -1,15 +1,15 @@
 pkgname = "cloud-utils"
 pkgver = "0.33"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 depends = [
     "bash",
     "e2fsprogs",
-    "fdisk",
     "file",
-    "mount",
     "qemu-img",
     "ugetopt",
+    "util-linux-fdisk",
+    "util-linux-mount",
 ]
 pkgdesc = "Utilities to work with cloud images"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -39,7 +39,7 @@ def _(self):
 @subpackage("cloud-utils-growpart")
 def _(self):
     self.subdesc = "grow disk partitions"
-    self.depends = ["fdisk", "mount"]
+    self.depends = ["util-linux-fdisk", "util-linux-mount"]
     self.install_if = [self.parent]
 
     return ["cmd:growpart"]

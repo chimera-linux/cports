@@ -11,11 +11,11 @@ hostmakedepends = [
 ]
 makedepends = [
     "libimobiledevice-devel",
-    "libmount-devel",
     "libplist-devel",
     "qt6-qtbase-devel",
     "qt6-qttools-devel",
     "udev-devel",
+    "util-linux-mount-devel",
 ]
 pkgdesc = "KDE Hardware integration and detection"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"

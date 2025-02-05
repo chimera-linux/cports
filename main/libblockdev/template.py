@@ -17,13 +17,13 @@ makedepends = [
     "kmod-devel",
     "libatasmart-devel",
     "libbytesize-devel",
-    "libfdisk-devel",
     "libnvme-devel",
     "libyaml-devel",
     "linux-headers",
     "ndctl-devel",
     "parted-devel",
     "pcre2-devel",
+    "util-linux-fdisk-devel",
 ]
 pkgdesc = "Library for manipulating block devices"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -9,10 +9,10 @@ hostmakedepends = [
     "slibtool",
 ]
 makedepends = [
-    "libblkid-devel",
-    "libmount-devel",
-    "libuuid-devel",
     "linux-headers",
+    "util-linux-blkid-devel",
+    "util-linux-mount-devel",
+    "util-linux-uuid-devel",
 ]
 pkgdesc = "Userspace utilities for the NILFS filesystem"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

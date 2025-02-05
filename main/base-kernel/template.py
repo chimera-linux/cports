@@ -5,7 +5,7 @@ depends = [
     "kmod",
     "procps",
     "rsync",
-    "cmd:findmnt!mount",
+    "cmd:findmnt!util-linux-mount",
 ]
 # all paths that should result in kernel.d hooks being rerun
 triggers = [

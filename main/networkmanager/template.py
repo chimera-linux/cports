@@ -67,7 +67,6 @@ makedepends = [
     "libndp-devel",
     "libnl-devel",
     "libpsl-devel",
-    "libuuid-devel",
     "linux-headers",
     "mobile-broadband-provider-info",
     "modemmanager-devel",
@@ -77,6 +76,7 @@ makedepends = [
     "ppp-devel",
     "python-gobject",
     "udev-devel",
+    "util-linux-uuid-devel",
 ]
 depends = [
     "dinit-dbus",

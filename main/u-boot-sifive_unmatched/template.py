@@ -10,12 +10,12 @@ hostmakedepends = [
     "flex",
     "gcc-riscv64-unknown-elf",
     "gnutls-devel",
-    "libuuid-devel",
     "opensbi",
     "openssl-devel",
     "python-devel",
     "python-setuptools",
     "swig",
+    "util-linux-uuid-devel",
 ]
 pkgdesc = "U-Boot for HiFive Unmatched boards"
 maintainer = "q66 <q66@chimera-linux.org>"

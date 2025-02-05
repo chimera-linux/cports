@@ -1,6 +1,6 @@
 pkgname = "xfsprogs"
 pkgver = "6.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline=yes",
@@ -12,15 +12,15 @@ configure_gen = []
 make_dir = "."
 # libxfs-install-dev shits itself when run in parallel
 make_install_args = ["-j1", "install-dev"]
-hostmakedepends = ["gettext", "libuuid-devel", "pkgconf"]
+hostmakedepends = ["gettext", "util-linux-uuid-devel", "pkgconf"]
 makedepends = [
     "attr-devel",
     "device-mapper-devel",
     "gettext-devel",
-    "libblkid-devel",
     "libedit-devel",
     "inih-devel",
     "userspace-rcu-devel",
+    "util-linux-blkid-devel",
     "linux-headers",
 ]
 pkgdesc = "XFS file system utilities"
@@ -50,6 +50,6 @@ def post_install(self):
 
 @subpackage("xfsprogs-devel")
 def _(self):
-    self.depends += ["libuuid-devel"]
+    self.depends += ["util-linux-uuid-devel"]
 
     return self.default_devel()

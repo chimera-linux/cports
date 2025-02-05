@@ -16,8 +16,8 @@ def _(self):
     # transitional
     self.provides = [self.with_pkgver("base-core-console")]
     self.depends = [
+        "cmd:dmesg!util-linux-dmesg",
         "console-setup",
-        "dmesg",
         "kbd",
         "nyagetty",
     ]
@@ -30,7 +30,7 @@ def _(self):
     self.install_if = [self.parent]
     self.depends = [
         "base-bootstrap",
-        "libarchive-progs",
+        "cmd:tar!libarchive-progs",
         "chimera-install-scripts",
         "dinit-chimera",
         "procps",
@@ -75,9 +75,9 @@ def _(self):
     # transitional
     self.provides = [self.with_pkgver("base-core-fs")]
     self.depends = [
-        "fdisk",
-        "fstrim",
-        "mkfs",
+        "util-linux-fdisk",
+        "util-linux-fstrim",
+        "util-linux-mkfs",
         "e2fsprogs",
         "f2fs-tools",
         "xfsprogs",
@@ -140,13 +140,13 @@ def _(self):
         "chrony",
         "file",
         "less",
-        "lscpu",
         "nano",
         "pciutils",
         "syslog-ng",
-        "zramctl",
         "opendoas",
         "usbutils",
+        "util-linux-lscpu",
+        "util-linux-zramctl",
     ]
     return []
 
@@ -163,7 +163,7 @@ def _(self):
         "iproute2",
         "traceroute",
         "iw",
-        "rfkill",
+        "util-linux-rfkill",
     ]
     return []
 

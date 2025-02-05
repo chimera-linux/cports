@@ -1,11 +1,11 @@
 pkgname = "apr"
 pkgver = "1.7.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-installbuilddir=/usr/lib/apr/build-1"]
 make_check_args = ["-j1"]
 hostmakedepends = ["automake", "slibtool", "pkgconf"]
-makedepends = ["libexpat-devel", "libuuid-devel", "linux-headers"]
+makedepends = ["libexpat-devel", "util-linux-uuid-devel", "linux-headers"]
 pkgdesc = "Apache Portable Runtime"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
@@ -18,6 +18,6 @@ options = ["!cross"]
 
 @subpackage("apr-devel")
 def _(self):
-    self.depends += ["libuuid-devel"]
+    self.depends += ["util-linux-uuid-devel"]
 
     return self.default_devel()
