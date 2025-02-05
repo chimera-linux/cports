@@ -1,6 +1,6 @@
 pkgname = "rtmpdump"
 pkgver = "2.4.20210219"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_build_args = ["CRYPTO=OPENSSL"]
 make_install_args = ["prefix=/usr", "sbindir=/usr/bin", "mandir=/usr/share/man"]
@@ -37,15 +37,18 @@ def init_configure(self):
     ]
 
 
-@subpackage("librtmp")
+@subpackage("rtmpdump-libs")
 def _(self):
-    self.subdesc = "shared library"
+    # transitional
+    self.provides = [self.with_pkgver("librtmp")]
 
     return self.default_libs()
 
 
-@subpackage("librtmp-devel")
+@subpackage("rtmpdump-devel")
 def _(self):
     self.depends += ["zlib-ng-compat-devel"]
+    # transitional
+    self.provides = [self.with_pkgver("librtmp-devel")]
 
     return self.default_devel()
