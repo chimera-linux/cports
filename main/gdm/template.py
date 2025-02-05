@@ -1,6 +1,6 @@
 pkgname = "gdm"
 pkgver = "47.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -83,9 +83,10 @@ def post_install(self):
     self.uninstall("usr/lib/udev/rules.d/61-gdm.rules")
 
 
-@subpackage("libgdm")
+@subpackage("gdm-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libgdm")]
 
     return self.default_libs()
 
