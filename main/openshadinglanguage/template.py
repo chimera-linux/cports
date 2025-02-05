@@ -1,6 +1,6 @@
 pkgname = "openshadinglanguage"
 pkgver = "1.13.12.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_CXX_STANDARD=17",
@@ -78,9 +78,11 @@ def _(self):
     return self.default_progs()
 
 
-@subpackage("python-openshadinglanguage")
+@subpackage("openshadinglanguage-python")
 def _(self):
     self.subdesc = "Python modules"
-    self.depends = ["python-openimageio"]
+    self.depends = ["openimageio-python"]
+    # transitional
+    self.provides = [self.with_pkgver("python-openshadinglanguage")]
 
     return ["usr/lib/python*"]

@@ -1,6 +1,6 @@
 pkgname = "openvdb"
 pkgver = "12.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DOPENVDB_CORE_STATIC=OFF",  # 1.4gb lol
@@ -45,7 +45,10 @@ def _(self):
     return self.default_progs()
 
 
-@subpackage("python-pyopenvdb")
+@subpackage("openvdb-python")
 def _(self):
     self.subdesc = "python bindings"
+    # transitional
+    self.provides = [self.with_pkgver("python-pyopenvdb")]
+
     return ["usr/lib/python*"]

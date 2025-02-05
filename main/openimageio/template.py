@@ -1,6 +1,6 @@
 pkgname = "openimageio"
 pkgver = "3.0.2.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     # disabled below
@@ -69,8 +69,11 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("python-openimageio")
+@subpackage("openimageio-python")
 def _(self):
     self.pkgdesc = "Python bindings for openimageio"
     self.depends += ["python"]
+    # transitional
+    self.provides = [self.with_pkgver("python-openimageio")]
+
     return ["usr/lib/python*"]
