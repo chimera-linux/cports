@@ -1,6 +1,6 @@
-pkgname = "seatd"
+pkgname = "libseat"
 pkgver = "0.9.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dexamples=disabled",
@@ -8,7 +8,7 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = ["elogind-devel", "linux-headers"]
-pkgdesc = "Seat management daemon"
+pkgdesc = "Universal seat management library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://sr.ht/~kennylevinsen/seatd"
@@ -22,11 +22,12 @@ def post_install(self):
     self.install_service(self.files_path / "seatd")
 
 
-@subpackage("libseat")
+@subpackage("libseat-seatd")
 def _(self):
-    self.pkgdesc = "Universal seat management library"
+    self.pkgdesc = "Seat management daemon"
+    self.provides = [self.with_pkgver("seatd")]
 
-    return self.default_libs()
+    return self.default_progs(extra=["usr/lib/dinit.d", "usr/lib/sysusers.d"])
 
 
 @subpackage("libseat-devel")
