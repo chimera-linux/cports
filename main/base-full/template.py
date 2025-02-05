@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -44,13 +44,13 @@ def _(self):
     self.subdesc = "firmware"
     self.install_if = [self.parent, "linux", "!base-full-minimal"]
     self.depends = [
-        "base-firmware-linux",
+        "firmware-linux-meta",
         "firmware-ipw2100",
         "firmware-ipw2200",
         "firmware-zd1211",
     ]
     if self.rparent.profile().arch == "x86_64":
-        self.depends += ["base-firmware-sof"]
+        self.depends += ["firmware-sof-meta"]
     return []
 
 

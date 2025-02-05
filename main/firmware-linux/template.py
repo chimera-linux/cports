@@ -1,7 +1,7 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
 pkgver = "20250109"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -488,11 +488,13 @@ def _(self):
     return []
 
 
-@subpackage("base-firmware-linux")
+@subpackage("firmware-linux-meta")
 def _(self):
     self.subdesc = "base metapackage"
     self.options = ["empty"]
     self.install_if = [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("base-firmware-linux")]
 
     return []
 

@@ -1,6 +1,6 @@
 pkgname = "firmware-sof"
 pkgver = "2024.09.2"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 install_if = [self.with_pkgver("base-firmware-sof")]
 pkgdesc = "Sound Open Firmware"
@@ -32,9 +32,11 @@ def install(self):
     self.install_license("LICENCE.Intel")
 
 
-@subpackage("base-firmware-sof")
+@subpackage("firmware-sof-meta")
 def _(self):
     self.subdesc = "base metapackage"
     self.options = ["empty"]
+    # transitional
+    self.provides = [self.with_pkgver("base-firmware-sof")]
 
     return []
