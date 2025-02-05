@@ -1,6 +1,6 @@
 pkgname = "kinfocenter"
 pkgver = "6.2.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -52,7 +52,7 @@ def _(self):
         "pciutils",
         # graphics
         "clinfo",
-        "mesa-utils",
+        "mesa-demos-core",
         "vulkan-tools",
         "wayland-utils",
         "qt6-qttools-qdbus",

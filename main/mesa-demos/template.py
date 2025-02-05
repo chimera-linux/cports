@@ -1,6 +1,6 @@
 pkgname = "mesa-demos"
 pkgver = "9.0.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dlibdrm=enabled",
@@ -27,7 +27,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-devel",
 ]
-depends = [self.with_pkgver("mesa-utils")]
+depends = [self.with_pkgver("mesa-demos-core")]
 pkgdesc = "Collection of OpenGL and Mesa demos and test programs"
 maintainer = "eater <=@eater.me>"
 license = "MIT"
@@ -42,9 +42,10 @@ def post_install(self):
     self.uninstall("usr/bin/line")
 
 
-@subpackage("mesa-utils")
+@subpackage("mesa-demos-core")
 def _(self):
-    self.pkgdesc = "Common Mesa utilities"
+    self.subdesc = "most useful utilities"
+    self.provides = [self.with_pkgver("mesa-utils")]
 
     return [
         "usr/bin/egl*",

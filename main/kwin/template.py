@@ -88,7 +88,7 @@ depends = [
 checkdepends = [
     "breeze",
     "dbus",
-    "mesa-utils",
+    "mesa-demos-core",
     "xwayland-run",
     *depends,
 ]
