@@ -21,7 +21,7 @@ hostmakedepends = [
     "gtk-doc-tools",
     "libtasn1-progs",
 ]
-makedepends = ["libtasn1-devel", "libffi-devel"]
+makedepends = ["libtasn1-devel", "libffi8-devel"]
 pkgdesc = "Provides a way to load and enumerate PKCS#11 modules"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

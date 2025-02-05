@@ -24,7 +24,7 @@ makedepends = [
     "elfutils-devel",
     "freetype-bootstrap",
     "glib-bootstrap",
-    "libffi-devel",
+    "libffi8-devel",
     "pcre2-devel",
     "sysprof-capture",
     "util-linux-mount-devel",

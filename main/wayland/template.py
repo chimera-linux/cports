@@ -7,7 +7,7 @@ hostmakedepends = ["meson", "pkgconf", "flex"]
 makedepends = [
     "flex-devel-static",
     "libexpat-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libxml2-devel",
 ]
 pkgdesc = "Wayland compositor infrastructure"
@@ -40,5 +40,5 @@ def _(self):
 
 @subpackage("wayland-devel")
 def _(self):
-    self.depends += [self.with_pkgver("wayland-progs"), "libffi-devel"]
+    self.depends += [self.with_pkgver("wayland-progs"), "libffi8-devel"]
     return self.default_devel(extra=["usr/share/wayland"])

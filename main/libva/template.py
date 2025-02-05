@@ -8,7 +8,7 @@ makedepends = [
     "libxfixes-devel",
     "libxext-devel",
     "libdrm-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "wayland-devel",
     "mesa-devel",
 ]

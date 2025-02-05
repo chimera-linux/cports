@@ -5,7 +5,7 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "flex", "bison"]
 makedepends = [
     "glib-bootstrap",
-    "libffi-devel",
+    "libffi8-devel",
     "python-devel",
     "python-mako",
     "python-markdown",
@@ -60,7 +60,7 @@ def _(self):
 
 @subpackage("gobject-introspection-devel")
 def _(self):
-    self.depends += ["cairo-devel", "libffi-devel"]
+    self.depends += ["cairo-devel", "libffi8-devel"]
     # transitional
     self.provides = [self.with_pkgver("libgirepository-devel")]
 

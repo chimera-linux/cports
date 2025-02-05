@@ -49,7 +49,7 @@ makedepends = [
     "bzip2-devel",
     "libedit-devel",
     "libexpat-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "linux-headers",
     "openssl-devel",
     "sqlite-devel",

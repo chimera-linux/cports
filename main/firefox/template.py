@@ -28,7 +28,7 @@ makedepends = [
     "gtk+3-devel",
     "icu-devel",
     "libevent-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libjpeg-turbo-devel",
     "libnotify-devel",
     "libogg-devel",

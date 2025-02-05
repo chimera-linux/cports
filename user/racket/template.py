@@ -8,7 +8,7 @@ configure_args = ["--disable-strip"]
 configure_gen = []
 hostmakedepends = ["automake", "sqlite"]
 makedepends = [
-    "libffi-devel",
+    "libffi8-devel",
     "lz4-devel",
     "ncurses-devel",
     "zlib-ng-compat-devel",

@@ -53,7 +53,7 @@ makedepends = [
     "elfutils-devel",
     "libarchive-devel",
     "libexpat-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libsensors-devel",
     "libxml2-devel",
     "lua5.4-devel",

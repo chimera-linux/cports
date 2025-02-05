@@ -17,7 +17,7 @@ hostmakedepends = [
 makedepends = [
     "gc-devel",
     "gmp-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libunistring-devel",
     "ncurses-devel",
     "readline-devel",

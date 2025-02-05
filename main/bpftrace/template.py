@@ -21,7 +21,7 @@ makedepends = [
     "elfutils-devel",
     "libbpf-devel",
     "libedit-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libpcap-devel",
     "libxml2-devel",
     "linux-headers",

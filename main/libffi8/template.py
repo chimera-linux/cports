@@ -1,6 +1,6 @@
 pkgname = "libffi8"
 pkgver = "3.4.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--includedir=/usr/include",
@@ -40,6 +40,8 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libffi-devel")
+@subpackage("libffi8-devel")
 def _(self):
+    self.provides = [self.with_pkgver("libffi-devel")]
+
     return self.default_devel(extra=["usr/share/info"])

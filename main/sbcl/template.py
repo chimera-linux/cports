@@ -16,7 +16,7 @@ hostmakedepends = [
     "gc-devel",
     "gmp-devel",
     "libatomic_ops-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "linux-headers",
     "texinfo",
 ]

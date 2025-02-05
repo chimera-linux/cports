@@ -5,7 +5,7 @@ build_style = "configure"
 configure_args = ["--enable-libffi", "LZ4=-llz4", "ZLIB=-lz"]
 make_check_target = "test-some-fast"
 makedepends = [
-    "libffi-devel",
+    "libffi8-devel",
     "libx11-devel",
     "lz4-devel",
     "ncurses-devel",

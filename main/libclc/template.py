@@ -10,7 +10,7 @@ hostmakedepends = [
     "llvm-devel",
     "python",
     "libedit-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "ncurses-devel",
     "zlib-ng-compat-devel",
     "spirv-llvm-translator",

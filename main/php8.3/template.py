@@ -101,7 +101,7 @@ makedepends = [
     "icu-devel",
     "curl-devel",
     "libedit-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libgd-devel",
     "libjpeg-turbo-devel",
     "libsodium-devel",

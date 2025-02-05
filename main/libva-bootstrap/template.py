@@ -9,7 +9,7 @@ configure_args = [
     "-Dwith_wayland=no",
 ]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["libffi-devel", "libdrm-devel"]
+makedepends = ["libffi8-devel", "libdrm-devel"]
 depends = ["!libva", "!libva-devel"]
 # no provides needed, only for mesa which needs headers
 pkgdesc = "Video Acceleration API"

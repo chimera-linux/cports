@@ -20,7 +20,7 @@ hostmakedepends = [
 makedepends = [
     "clang-devel",
     "libedit-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libxml2-devel",
     "linux-headers",
     "llvm-devel",

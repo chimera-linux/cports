@@ -19,7 +19,7 @@ hostmakedepends = [
 makedepends = [
     "dbus-devel",
     "elfutils-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "pcre2-devel",
     "util-linux-mount-devel",
     "zlib-ng-compat-devel",

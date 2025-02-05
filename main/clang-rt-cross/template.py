@@ -41,7 +41,7 @@ hostmakedepends = [
 makedepends = [
     "clang-rt-crt-cross",
     "llvm-runtimes-cross",
-    "libffi-devel",
+    "libffi8-devel",
     "linux-headers-cross",
     "zlib-ng-compat-devel",
 ]

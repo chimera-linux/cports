@@ -5,7 +5,7 @@ hostmakedepends = [
     "cargo-bootstrap",
     "cmake",
     "curl",
-    "libffi-devel",
+    "libffi8-devel",
     "libxml2-devel",
     "llvm-devel",
     "llvm-tools",
@@ -17,7 +17,7 @@ hostmakedepends = [
     "zstd-devel",
 ]
 makedepends = [
-    "libffi-devel",
+    "libffi8-devel",
     "libxml2-devel",
     "llvm-devel",
     "ncurses-devel",

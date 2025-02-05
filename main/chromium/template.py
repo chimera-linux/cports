@@ -93,7 +93,7 @@ makedepends = [
     "libevdev-devel",
     "libevent-devel",
     "libexif-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libgcrypt-devel",
     "libjpeg-turbo-devel",
     "libmtp-devel",

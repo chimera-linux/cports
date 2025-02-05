@@ -19,7 +19,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libedit-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libyaml-devel",
     "openssl-devel",
     "zlib-ng-compat-devel",

@@ -87,11 +87,11 @@ _enabled_runtimes = ["compiler-rt", "libcxx", "libcxxabi", "libunwind"]
 
 if self.stage > 0:
     configure_args += ["-DLLVM_ENABLE_FFI=ON"]
-    hostmakedepends += ["libffi-devel"]
+    hostmakedepends += ["libffi8-devel"]
     makedepends += [
         "python-devel",
         "libedit-devel",
-        "libffi-devel",
+        "libffi8-devel",
         "zstd-devel",
         "linux-headers",
     ]

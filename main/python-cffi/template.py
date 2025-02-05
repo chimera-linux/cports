@@ -3,12 +3,12 @@ pkgver = "1.17.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
-    "libffi-devel",
+    "libffi8-devel",
     "python-build",
     "python-installer",
     "python-setuptools",
 ]
-makedepends = ["libffi-devel", "python-devel"]
+makedepends = ["libffi8-devel", "python-devel"]
 depends = ["python-pycparser"]
 checkdepends = ["python-pycparser", "python-pytest"]
 pkgdesc = "C FFI for Python"

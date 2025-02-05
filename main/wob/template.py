@@ -6,7 +6,7 @@ configure_args = ["-Dseccomp=enabled"]
 hostmakedepends = ["meson", "pkgconf", "scdoc", "wayland-progs"]
 makedepends = [
     "inih-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "libseccomp-devel",
     "linux-headers",
     "wayland-devel",

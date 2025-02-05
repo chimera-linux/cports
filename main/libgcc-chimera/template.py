@@ -26,7 +26,7 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "python", "perl", "clang-tools-extra"]
 makedepends = [
-    "libffi-devel",
+    "libffi8-devel",
     "libunwind-devel",
     "linux-headers",
     "llvm-devel",

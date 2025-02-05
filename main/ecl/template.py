@@ -9,7 +9,7 @@ makedepends = [
     "gc-devel",
     "gmp-devel",
     "libatomic_ops-devel",
-    "libffi-devel",
+    "libffi8-devel",
 ]
 pkgdesc = "Embeddable Common Lisp"
 maintainer = "Paul A. Patience <paul@apatience.com>"

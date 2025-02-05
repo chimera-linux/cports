@@ -10,7 +10,7 @@ hostmakedepends = ["pkgconf", "gobject-introspection"]
 makedepends = [
     "gobject-introspection-freedesktop",
     "glib-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "lua5.4-devel",
 ]
 depends = ["gobject-introspection-freedesktop"]

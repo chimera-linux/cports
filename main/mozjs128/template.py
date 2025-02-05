@@ -13,7 +13,7 @@ hostmakedepends = [
 makedepends = [
     "icu-devel",
     "libedit-devel",
-    "libffi-devel",
+    "libffi8-devel",
     "linux-headers",
     "nspr-devel",
     "rust-std",

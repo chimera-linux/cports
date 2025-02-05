@@ -6,7 +6,7 @@ build_style = "configure"
 configure_args = ["--parallelmake", "--prefix=/usr"]
 make_check_target = "tests"
 hostmakedepends = ["bash"]
-makedepends = ["libffi-devel", "zlib-ng-compat-devel"]
+makedepends = ["libffi8-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Data munging language"
 maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:txr"

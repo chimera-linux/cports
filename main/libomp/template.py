@@ -10,7 +10,7 @@ configure_args = [
 ]
 hostmakedepends = ["clang-tools-extra", "cmake", "ninja", "perl", "python"]
 makedepends = [
-    "libffi-devel",
+    "libffi8-devel",
     "linux-headers",
     "llvm-devel",
     "ncurses-devel",
