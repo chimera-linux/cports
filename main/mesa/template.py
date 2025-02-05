@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "24.3.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -252,20 +252,22 @@ def post_install(self):
     self.install_license("docs/license.rst")
 
 
-@subpackage("libglapi")
+@subpackage("mesa-glapi-libs")
 def _(self):
     self.pkgdesc = "Free implementation of the GL API"
-    self.subdesc = "runtime library"
     self.depends += [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("libglapi")]
 
     return ["usr/lib/libglapi.so.*"]
 
 
-@subpackage("libgbm")
+@subpackage("mesa-gbm-libs")
 def _(self):
     self.pkgdesc = "Generic Buffer Management"
-    self.subdesc = "runtime library"
     self.depends += [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("libgbm")]
 
     return [
         "usr/lib/gbm",
@@ -273,9 +275,11 @@ def _(self):
     ]
 
 
-@subpackage("libgbm-devel")
+@subpackage("mesa-gbm-devel")
 def _(self):
     self.pkgdesc = "Generic Buffer Management"
+    # transitional
+    self.provides = [self.with_pkgver("libgbm-devel")]
 
     return [
         "usr/include/gbm.h",
@@ -284,56 +288,62 @@ def _(self):
     ]
 
 
-@subpackage("libosmesa")
+@subpackage("mesa-osmesa-libs")
 def _(self):
     self.pkgdesc = "Mesa off-screen interface"
-    self.subdesc = "runtime library"
     self.depends += [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("libosmesa")]
 
     return ["usr/lib/libOSMesa.so.*"]
 
 
-@subpackage("libgles1")
+@subpackage("mesa-gles1-libs")
 def _(self):
     self.pkgdesc = "Free implementation of OpenGL ES 1.x API"
-    self.subdesc = "runtime library"
     self.depends += [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("libgles1")]
 
     return ["usr/lib/libGLESv1_CM.so.*"]
 
 
-@subpackage("libgles2")
+@subpackage("mesa-gles2-libs")
 def _(self):
     self.pkgdesc = "Free implementation of OpenGL ES 2.x API"
-    self.subdesc = "runtime library"
     self.depends += [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("libgles2")]
 
     return ["usr/lib/libGLESv2.so.*"]
 
 
-@subpackage("libegl")
+@subpackage("mesa-egl-libs")
 def _(self):
     self.pkgdesc = "Free implementation of the EGL API"
-    self.subdesc = "runtime library"
     self.depends += [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("libegl")]
 
     return ["usr/lib/libEGL.so.*"]
 
 
-@subpackage("libgl")
+@subpackage("mesa-gl-libs")
 def _(self):
     self.pkgdesc = "Free implementation of the OpenGL API"
-    self.subdesc = "runtime library"
     self.depends += [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("libgl")]
 
     return ["usr/lib/libGL.so.*"]
 
 
-@subpackage("libxatracker", _have_vmware)
+@subpackage("mesa-xatracker-libs", _have_vmware)
 def _(self):
     self.pkgdesc = "X acceleration library"
-    self.subdesc = "runtime library"
     self.depends += [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("libxatracker")]
 
     return ["usr/lib/libxatracker*.so.*"]
 
@@ -397,6 +407,6 @@ def _(self):
 
 @subpackage("mesa-devel")
 def _(self):
-    self.depends += [self.parent, self.with_pkgver("libgbm-devel")]
+    self.depends += [self.parent, self.with_pkgver("mesa-gbm-devel")]
 
     return self.default_devel()

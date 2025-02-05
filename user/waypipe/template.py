@@ -32,7 +32,10 @@ makedepends = [
     "zstd-devel",
 ]
 # dynamically loaded
-depends = ["so:libavcodec.so.61!libavcodec", "so:libgbm.so.1!libgbm"]
+depends = [
+    "so:libavcodec.so.61!ffmpeg-avcodec-libs",
+    "so:libgbm.so.1!mesa-gbm-libs",
+]
 pkgdesc = "Proxy for wayland clients"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"

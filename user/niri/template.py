@@ -28,7 +28,7 @@ makedepends = [
     "udev-devel",
 ]
 depends = [
-    "so:libEGL.so.1!libegl",
+    "so:libEGL.so.1!mesa-egl-libs",
 ]
 checkdepends = ["xkeyboard-config"]
 pkgdesc = "Scrollable-tiling wayland compositor"

@@ -8,8 +8,8 @@ makedepends = [
     "ffmpeg-devel",
     "gnutls-devel",
     "libdrm-devel",
-    "libgbm-devel",
     "libjpeg-turbo-devel",
+    "mesa-gbm-devel",
     "pixman-devel",
     "zlib-ng-compat-devel",
 ]

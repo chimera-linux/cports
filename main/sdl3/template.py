@@ -42,8 +42,8 @@ makedepends = [
 ]
 depends = [
     # dynamically loaded
-    "so:libGLESv2.so.2!libgles2",
-    "so:libGL.so.1!libgl",
+    "so:libGLESv2.so.2!mesa-gles2-libs",
+    "so:libGL.so.1!mesa-gl-libs",
 ]
 pkgdesc = "Simple DirectMedia Layer version 3"
 maintainer = "Erica Z <zerica@callcc.eu>"

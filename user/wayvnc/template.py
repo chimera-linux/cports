@@ -6,8 +6,8 @@ hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
 makedepends = [
     "jansson-devel",
     "libdrm-devel",
-    "libgbm-devel",
     "libxkbcommon-devel",
+    "mesa-gbm-devel",
     "musl-bsd-headers",
     "neatvnc-devel",
     "pixman-devel",
