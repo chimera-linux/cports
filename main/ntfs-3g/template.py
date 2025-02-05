@@ -39,13 +39,17 @@ def post_install(self):
     self.uninstall("sbin")
 
 
-@subpackage("libntfs-3g")
+@subpackage("ntfs-3g-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libntfs-3g")]
 
     return self.default_libs()
 
 
-@subpackage("libntfs-3g-devel")
+@subpackage("ntfs-3g-devel")
 def _(self):
+    # transitional
+    self.provides = [self.with_pkgver("libntfs-3g-devel")]
+
     return self.default_devel()
