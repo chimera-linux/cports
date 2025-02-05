@@ -1,6 +1,6 @@
 pkgname = "heimdal"
 pkgver = "7.8.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-kcm",
@@ -86,9 +86,11 @@ def post_install(self):
 
 
 def _genlib(pkgn, desc):
-    @subpackage(f"lib{pkgn}")
+    @subpackage(f"heimdal-{pkgn}-libs")
     def _(self):
         self.pkgdesc = f"{desc} library from Heimdal Kerberos"
+        # transitional
+        self.provides = [self.with_pkgver(f"lib{pkgn}")]
 
         return [f"usr/lib/lib{pkgn}.so.*"]
 
