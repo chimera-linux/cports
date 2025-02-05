@@ -1,8 +1,9 @@
 pkgname = "libxkbcommon"
 pkgver = "1.7.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX libexecdir
     "-Denable-x11=true",
     "-Denable-wayland=true",
     "-Denable-xkbregistry=true",
@@ -24,6 +25,8 @@ makedepends = [
     "xorgproto",
 ]
 depends = ["xkeyboard-config"]
+# transitional
+provides = [self.with_pkgver("libxkbregistry")]
 pkgdesc = "Library to handle keyboard descriptions"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -43,13 +46,6 @@ def _(self):
     return ["usr/lib/*x11*.so.*"]
 
 
-@subpackage("libxkbregistry")
-def _(self):
-    self.pkgdesc = "XKB API to query keyboard descriptions"
-
-    return ["usr/lib/libxkbregistry.so.*"]
-
-
 @subpackage("libxkbcommon-devel")
 def _(self):
     return self.default_devel()
@@ -57,4 +53,4 @@ def _(self):
 
 @subpackage("libxkbcommon-progs")
 def _(self):
-    return self.default_progs(extra=["usr/libexec"])
+    return self.default_progs(extra=["usr/lib/xkbcommon"])
