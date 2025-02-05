@@ -1,7 +1,7 @@
 pkgname = "libqalculate"
 # match to qalculate-gtk/qt
 pkgver = "5.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -33,7 +33,9 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("qalc")
+@subpackage("libqalculate-progs")
 def _(self):
-    self.pkgdesc = "Command-line calculator"
-    return ["usr/bin/qalc", "usr/share/man/man1/qalc.1"]
+    # transitional
+    self.provides = [self.with_pkgver("qalc")]
+
+    return self.default_progs()
