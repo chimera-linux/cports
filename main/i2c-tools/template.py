@@ -1,6 +1,6 @@
 pkgname = "i2c-tools"
 pkgver = "4.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = ["EXTRA=py-smbus"]
 make_install_args = ["sbindir=/usr/bin", *make_build_args]
@@ -17,15 +17,17 @@ sha256 = "8b15f0a880ab87280c40cfd7235cfff28134bf14d5646c07518b1ff6642a2473"
 options = ["!check"]
 
 
-# LGPL-2.1-or-later
 @subpackage("i2c-tools-devel")
 def _(self):
+    self.license = "LGPL-2.1-or-later"
+
     return self.default_devel()
 
 
-# GPL-2.0-only
-@subpackage("python-smbus")
+@subpackage("i2c-tools-python")
 def _(self):
     self.pkgdesc = "Python bindings for Linux SMBus access through i2c-dev"
     self.depends += ["python"]
+    self.provides = [self.with_pkgver("python-smbus")]
+    self.license = "GPL-2.0-only"
     return ["usr/lib/python3*"]
