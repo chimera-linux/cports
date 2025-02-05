@@ -13,7 +13,7 @@ hostmakedepends = [
     "libtool",
     "pkgconf",
     "python-sphinx",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "cmocka-devel",

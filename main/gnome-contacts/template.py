@@ -11,7 +11,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "vala",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "evolution-data-server-devel",

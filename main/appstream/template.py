@@ -19,7 +19,7 @@ hostmakedepends = [
     "itstool",
     "meson",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "cairo-devel",

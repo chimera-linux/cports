@@ -19,7 +19,7 @@ hostmakedepends = [
     "gtk-doc-tools",
     "libtool",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "e2fsprogs-devel",

@@ -74,7 +74,7 @@ hostmakedepends = [
     "qt6-qtbase",
     "sane-backends",
     "unzip",
-    "xsltproc",
+    "libxslt-progs",
     "xz",
     "zip",
 ]

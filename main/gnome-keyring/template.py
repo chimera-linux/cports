@@ -27,7 +27,7 @@ hostmakedepends = [
     "openssh",
     "pkgconf",
     "python",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "gcr3-devel",

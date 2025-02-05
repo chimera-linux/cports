@@ -14,7 +14,7 @@ hostmakedepends = [
     "python",
     "gettext",
     "docbook-xsl-nons",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["python-devel", "gettext-devel"]
 pkgdesc = "Simple database API similar to gdbm"

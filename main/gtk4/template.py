@@ -36,7 +36,7 @@ hostmakedepends = [
     "shaderc-progs",
     "wayland-progs",
     "wayland-protocols",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "at-spi2-core-devel",

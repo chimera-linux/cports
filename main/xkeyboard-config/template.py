@@ -3,7 +3,7 @@ pkgver = "2.43"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dxorg-rules-symlinks=true", "-Dcompat-rules=true"]
-hostmakedepends = ["meson", "pkgconf", "xsltproc", "python", "perl"]
+hostmakedepends = ["meson", "pkgconf", "libxslt-progs", "python", "perl"]
 makedepends = ["libx11-devel", "xkbcomp-devel"]
 checkdepends = ["gawk"]
 depends = ["xkbcomp"]

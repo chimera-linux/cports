@@ -18,7 +18,7 @@ hostmakedepends = [
     "pkgconf",
     "qt6-qtbase",
     "ruby",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "boost-devel",

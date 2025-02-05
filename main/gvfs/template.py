@@ -17,7 +17,7 @@ hostmakedepends = [
     "openssh",
     "pkgconf",
     "polkit-devel",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "avahi-glib-devel",

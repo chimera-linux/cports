@@ -1,6 +1,6 @@
 pkgname = "xmlto"
 pkgver = "0.0.29"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_env = {"GETOPT": "ugetopt"}
 hostmakedepends = [
@@ -10,9 +10,9 @@ hostmakedepends = [
     "flex",
     "libtool",
     "ugetopt",
-    "xsltproc",
+    "libxslt-progs",
 ]
-depends = ["bash", "ugetopt", "xsltproc", "docbook-xsl-nons"]
+depends = ["bash", "ugetopt", "libxslt-progs", "docbook-xsl-nons"]
 pkgdesc = "Tool to help transform XML documents into other formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

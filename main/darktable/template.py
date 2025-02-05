@@ -29,7 +29,7 @@ hostmakedepends = [
     "iso-codes",
     "ninja",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "clang-devel",

@@ -1,6 +1,6 @@
 pkgname = "gtk-doc-tools"
 pkgver = "1.34.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # glib cyclic dep
 configure_args = ["-Dtests=false"]
@@ -12,14 +12,14 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "python-pygments",
-    "xsltproc",
+    "libxslt-progs",
 ]
 depends = [
     "docbook-xml",
     "docbook-xsl-nons",
     "python-lxml",
     "python-pygments",
-    "xsltproc",
+    "libxslt-progs",
 ]
 pkgdesc = "Documentation tool for public library API"
 maintainer = "q66 <q66@chimera-linux.org>"

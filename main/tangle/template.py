@@ -10,7 +10,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "python-jinja2",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["libcap-devel"]
 checkdepends = ["dbus"]

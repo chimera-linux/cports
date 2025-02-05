@@ -19,7 +19,7 @@ hostmakedepends = [
     "openssh",
     "pkgconf",
     "vala",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "avahi-devel",

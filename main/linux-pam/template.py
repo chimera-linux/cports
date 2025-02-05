@@ -14,7 +14,7 @@ hostmakedepends = [
     "gettext-devel",
     "meson",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["flex-devel-static", "gettext-devel", "linux-headers"]
 checkdepends = ["linux-pam-base"]

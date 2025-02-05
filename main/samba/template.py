@@ -52,7 +52,7 @@ hostmakedepends = [
     "rpcsvc-proto",
     "tdb-python",
     "tevent-python",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

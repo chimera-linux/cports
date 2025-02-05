@@ -7,7 +7,7 @@ make_build_args = [
     "DOCBOOK_XSL=/usr/share/xsl-nons/docbook/manpages/docbook.xsl",
     f"VERSION={pkgver}",
 ]
-hostmakedepends = ["perl", "docbook-xsl-nons", "xsltproc"]
+hostmakedepends = ["perl", "docbook-xsl-nons", "libxslt-progs"]
 depends = ["cryptsetup", "device-mapper", "util-linux-mount", "util-linux-mkfs"]
 pkgdesc = "Supporting infrastructure for cryptsetup from Debian"
 maintainer = "q66 <q66@chimera-linux.org>"

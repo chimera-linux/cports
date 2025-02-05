@@ -22,7 +22,7 @@ hostmakedepends = [
     "meson",
     "perl",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["duktape-devel", "elogind-devel", "linux-pam-devel"]
 depends = ["dinit-dbus"]

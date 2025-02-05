@@ -31,7 +31,7 @@ hostmakedepends = [
     "ninja",
     "pkgconf",
     "wayland-progs",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "cairo-devel",

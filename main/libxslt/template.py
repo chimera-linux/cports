@@ -28,7 +28,9 @@ def _(self):
     return self.default_devel(extra=["usr/lib/xsltConf.sh"])
 
 
-@subpackage("xsltproc")
+@subpackage("libxslt-progs")
 def _(self):
-    self.pkgdesc = "XSLT 1.0 command line processor"
+    # transitional
+    self.provides = [self.with_pkgver("xsltproc")]
+
     return self.default_progs()

@@ -21,7 +21,7 @@ hostmakedepends = [
     "itstool",
     "meson",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "appstream-devel",

@@ -34,7 +34,7 @@ hostmakedepends = [
     "gobject-introspection",
     "meson",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "tinysparql-devel",

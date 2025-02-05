@@ -1,6 +1,6 @@
 pkgname = "yelp-tools"
 pkgver = "42.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -8,11 +8,11 @@ hostmakedepends = [
     "gettext",
     "itstool",
     "python-lxml",
-    "xsltproc",
+    "libxslt-progs",
     "libxml2-progs",
 ]
 makedepends = ["yelp-xsl"]
-depends = ["xsltproc", "yelp-xsl", "python-lxml"]
+depends = ["libxslt-progs", "yelp-xsl", "python-lxml"]
 pkgdesc = "Help browser for GNOME desktopS"
 subdesc = "tools"
 maintainer = "q66 <q66@chimera-linux.org>"

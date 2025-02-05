@@ -10,7 +10,7 @@ hostmakedepends = [
     "glib-devel",
     "meson",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "elogind-devel",

@@ -8,7 +8,7 @@ hostmakedepends = [
     "meson",
     "ninja",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["glib-devel"]
 checkdepends = ["dbus"]

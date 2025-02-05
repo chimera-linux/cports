@@ -44,7 +44,7 @@ hostmakedepends = [
     "python-docutils",
     "util-linux-mkfs",  # buildtime check
     "util-linux-mount",  # buildtime check
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

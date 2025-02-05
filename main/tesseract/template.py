@@ -10,7 +10,7 @@ hostmakedepends = [
     "automake",
     "pkgconf",
     "slibtool",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "icu-devel",

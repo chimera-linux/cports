@@ -6,7 +6,7 @@ hostmakedepends = [
     "pkgconf",
     "automake",
     "libtool",
-    "xsltproc",
+    "libxslt-progs",
     "docbook-xsl-nons",
     "gettext-devel",
 ]

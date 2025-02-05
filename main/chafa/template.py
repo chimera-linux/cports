@@ -12,7 +12,7 @@ hostmakedepends = [
     "libtool",
     "libxml2-progs",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "freetype-devel",

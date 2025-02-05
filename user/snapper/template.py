@@ -19,7 +19,7 @@ hostmakedepends = [
     "gettext",
     "pkgconf",
     "slibtool",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

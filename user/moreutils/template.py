@@ -7,7 +7,7 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "libxml2-progs",
     "perl",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["linux-headers"]
 depends = ["perl-ipc-run"]

@@ -104,7 +104,7 @@ hostmakedepends = [
     "bash",
     "docbook-xsl-nons",
     "python-jinja2",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

@@ -12,7 +12,7 @@ hostmakedepends = [
     "pcre2-devel",
     "pkgconf",
     "vala",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "glib-devel",

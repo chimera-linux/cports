@@ -16,7 +16,7 @@ hostmakedepends = [
     "glib-devel",
     "gtk+3-devel",
     "gettext",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "gtk+3-devel",

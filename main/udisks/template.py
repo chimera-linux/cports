@@ -19,7 +19,7 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "gettext-devel",
     "glib-devel",
-    "xsltproc",
+    "libxslt-progs",
     "polkit",
     "automake",
     "libtool",

@@ -15,7 +15,7 @@ hostmakedepends = [
     "gettext-devel",
     "docbook-xsl-nons",
     "glib-devel",
-    "xsltproc",
+    "libxslt-progs",
     "gobject-introspection",
     "vala",
 ]

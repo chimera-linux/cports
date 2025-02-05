@@ -23,7 +23,7 @@ hostmakedepends = [
     "pkgconf",
     "python-jinja2",
     "shadow",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "acl-devel",

@@ -25,7 +25,7 @@ hostmakedepends = [
     "perl",
     "pkgconf",
     "wayland-progs",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "at-spi2-core-devel",

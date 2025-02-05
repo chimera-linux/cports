@@ -12,7 +12,7 @@ hostmakedepends = [
     "libcap-progs",
     "meson",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["libcap-devel"]
 pkgdesc = "Useful utilities for Linux networking"

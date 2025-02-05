@@ -7,7 +7,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "slibtool",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "Xfce development tools"

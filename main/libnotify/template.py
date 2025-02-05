@@ -11,7 +11,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "glib-devel",
-    "xsltproc",
+    "libxslt-progs",
     "docbook-xsl",
     "gobject-introspection",
 ]

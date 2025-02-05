@@ -18,7 +18,7 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "ninja",
     "pkgconf",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "qt6-qtbase-devel",

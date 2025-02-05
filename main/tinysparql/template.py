@@ -17,7 +17,7 @@ hostmakedepends = [
     "gettext",
     "vala",
     "asciidoc",
-    "xsltproc",
+    "libxslt-progs",
     "dbus",
     "gobject-introspection",
     "python-gobject",

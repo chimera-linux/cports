@@ -54,7 +54,7 @@ hostmakedepends = [
     "pkgconf",
     "python-gobject",
     "vala",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "dbus-devel",

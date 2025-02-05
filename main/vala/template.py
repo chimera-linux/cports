@@ -9,7 +9,7 @@ hostmakedepends = [
     "flex",
     "pkgconf",
     "slibtool",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = ["flex-devel-static", "glib-devel", "graphviz-devel"]
 checkdepends = ["dbus", "gobject-introspection-devel", "bash"]

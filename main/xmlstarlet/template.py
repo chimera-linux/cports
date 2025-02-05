@@ -6,7 +6,7 @@ configure_args = ["--with-libxml-prefix=/usr", "--with-libxslt-prefix=/usr"]
 make_dir = "."
 # exclude bigxml tests that fail with latest libxml2
 make_check_target = "qcheck"
-hostmakedepends = ["automake", "pkgconf", "xsltproc"]
+hostmakedepends = ["automake", "pkgconf", "libxslt-progs"]
 makedepends = ["libxslt-devel", "libxml2-devel"]
 pkgdesc = "Command line utilities for XML manipulation"
 maintainer = "q66 <q66@chimera-linux.org>"

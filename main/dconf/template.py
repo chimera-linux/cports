@@ -8,7 +8,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "vala",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "bash-completion",

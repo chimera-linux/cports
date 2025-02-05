@@ -19,7 +19,7 @@ hostmakedepends = [
     "pkgconf",
     "python-docutils",
     "sassc",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "at-spi2-core-devel",

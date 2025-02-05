@@ -23,7 +23,7 @@ hostmakedepends = [
     "pkgconf",
     "python-gobject",
     "shared-mime-info",
-    "xsltproc",
+    "libxslt-progs",
 ]
 makedepends = [
     "alsa-lib-devel",
