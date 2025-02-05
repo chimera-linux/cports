@@ -1,6 +1,6 @@
 pkgname = "pax-utils"
 pkgver = "1.3.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dlddtree_implementation=python",
@@ -36,17 +36,19 @@ match self.profile().arch:
         options += ["!check"]
 
 
-@subpackage("lddtree")
+@subpackage("pax-utils-lddtree")
 def _(self):
     self.depends += ["python-pyelftools"]
     self.install_if = [self.parent, "python"]
+    self.provides = [self.with_pkgver("lddtree")]
     self.pkgdesc = "Print ELF dependency trees"
     return ["usr/bin/lddtree"]
 
 
-@subpackage("symtree")
+@subpackage("pax-utils-symtree")
 def _(self):
     self.depends += [self.parent, "bash"]
     self.install_if = [self.parent, "bash"]
+    self.provides = [self.with_pkgver("symtree")]
     self.pkgdesc = "Display libraries that satisfy undefined symbols"
     return ["usr/bin/symtree"]
