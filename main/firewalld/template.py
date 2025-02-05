@@ -1,6 +1,6 @@
 pkgname = "firewalld"
 pkgver = "2.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
 configure_gen = ["./autogen.sh"]
@@ -45,10 +45,12 @@ def post_install(self):
     self.install_service(self.files_path / "firewalld")
 
 
-@subpackage("firewall-config")
+@subpackage("firewalld-firewall-config")
 def _(self):
     self.pkgdesc = "GTK-based configuration utility for firewalld"
     self.depends = [self.parent, "gtk+3"]
+    # transitional
+    self.provides = [self.with_pkgver("firewall-config")]
     return [
         "usr/bin/firewall-config",
         "usr/share/applications",
