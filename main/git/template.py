@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.48.1"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "asciidoc",
     "gettext",
@@ -124,10 +124,11 @@ def install(self):
     self.install_shell("/usr/bin/git-shell")
 
 
-@subpackage("gitk")
+@subpackage("git-gitk")
 def _(self):
     self.depends += [self.parent, "tk"]
     self.pkgdesc = "Git repository browser"
+    self.provides = [self.with_pkgver("gitk")]
     self.license = "GPL-2.0-or-later"
     return ["usr/bin/gitk", "usr/share/gitk", "usr/share/man/man1/gitk.1"]
 
