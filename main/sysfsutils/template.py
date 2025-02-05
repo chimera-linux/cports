@@ -1,6 +1,6 @@
 pkgname = "sysfsutils"
 pkgver = "2.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -16,9 +16,10 @@ source = f"https://github.com/linux-ras/sysfsutils/archive/refs/tags/v{pkgver}.t
 sha256 = "f7f669d27c997d3eb3f3e014b4c0aa1aa4d07ce4d6f9e41fa835240f2bf38810"
 
 
-@subpackage("libsysfs")
+@subpackage("sysfsutils-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libsysfs")]
 
     return self.default_libs()
 
