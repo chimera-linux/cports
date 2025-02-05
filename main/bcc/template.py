@@ -1,7 +1,7 @@
 pkgname = "bcc"
 # keep in sync with contrib/libbpf-tools
 pkgver = "0.33.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_USE_LIBBPF_PACKAGE=ON",
@@ -32,7 +32,7 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 depends = [
-    self.with_pkgver("python-bcc"),
+    self.with_pkgver("bcc-python"),
     # dep of half the programs in /usr/share/bcc/tools
     "bash",
 ]
@@ -70,8 +70,10 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("python-bcc")
+@subpackage("bcc-python")
 def _(self):
     self.subdesc = "python module"
     self.depends += [self.with_pkgver("bcc-libs")]
+    # transitional
+    self.provides = [self.with_pkgver("python-bcc")]
     return ["usr/lib/python*"]
