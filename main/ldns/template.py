@@ -1,6 +1,6 @@
 pkgname = "ldns"
 pkgver = "1.8.4"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--with-drill",
@@ -35,15 +35,19 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libldns")
+@subpackage("ldns-libs")
 def _(self):
     self.depends = ["dns-root-data"]
+    # transitional
+    self.provides = [self.with_pkgver("libldns")]
 
     return self.default_libs()
 
 
-@subpackage("libldns-devel")
+@subpackage("ldns-devel")
 def _(self):
     self.depends += ["openssl-devel"]
+    # transitional
+    self.provides = [self.with_pkgver("libldns-devel")]
 
     return self.default_devel()
