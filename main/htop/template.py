@@ -15,7 +15,7 @@ hostmakedepends = [
 makedepends = [
     "libcap-devel",
     "libnl-devel",
-    "libsensors-devel",
+    "lm-sensors-devel",
     "ncurses-devel",
 ]
 pkgdesc = "Interactive process viewer"

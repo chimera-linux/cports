@@ -13,9 +13,9 @@ hostmakedepends = [
 makedepends = [
     "gtk+3-devel",
     "libnotify-devel",
-    "libsensors-devel",
     "libxfce4ui-devel",
     "libxfce4util-devel",
+    "lm-sensors-devel",
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce hardware sensors panel plugin"

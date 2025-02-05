@@ -20,7 +20,7 @@ makedepends = [
     "kio-devel",
     "libksysguard-devel",
     "libnl-devel",
-    "libsensors-devel",
+    "lm-sensors-devel",
     "networkmanager-qt-devel",
     "qt6-qtdeclarative-devel",
     "solid-devel",

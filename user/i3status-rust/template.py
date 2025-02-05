@@ -13,7 +13,7 @@ makedepends = [
     "dbus-devel",
     "curl-devel",
     "libpulse-devel",
-    "libsensors-devel",
+    "lm-sensors-devel",
     "notmuch-devel",
     "openssl-devel",
     "pipewire-devel",

@@ -1,6 +1,6 @@
 pkgname = "lm-sensors"
 pkgver = "3.6.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_args = [f"MACHINE={self.profile().arch}"]
 make_install_args = ["SBINDIR=/usr/bin", "MANDIR=/usr/share/man"]
@@ -18,15 +18,17 @@ options = ["!check"]
 # TODO: service for fancontrol
 
 
-@subpackage("libsensors")
+@subpackage("lm-sensors-libs")
 def _(self):
-    self.pkgdesc = "Sensor reading library"
+    # transitional
+    self.provides = [self.with_pkgver("libsensors")]
 
     return self.default_libs()
 
 
-@subpackage("libsensors-devel")
+@subpackage("lm-sensors-devel")
 def _(self):
-    self.pkgdesc = "Sensor reading library"
+    # transitional
+    self.provides = [self.with_pkgver("libsensors-devel")]
 
     return self.default_devel()
