@@ -1,6 +1,6 @@
 pkgname = "efivar"
 pkgver = "37"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_target = "all"
 make_build_args = ["libdir=/usr/lib", "ERRORS="]
@@ -17,9 +17,11 @@ sha256 = "3c67feb93f901b98fbb897d5ca82931a6698b5bcd6ac34f0815f670d77747b9f"
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-D_FILE_OFFSET_BITS=64"]}
 
 
-@subpackage("libefivar")
+@subpackage("efivar-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libefivar")]
+
     return self.default_libs()
 
 
