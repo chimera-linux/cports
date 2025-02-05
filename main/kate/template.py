@@ -1,6 +1,6 @@
 pkgname = "kate"
 pkgver = "24.12.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -45,9 +45,10 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("kwrite")
+@subpackage("kate-kwrite")
 def _(self):
     self.subdesc = "KWrite"
+    self.provides = [self.with_pkgver("kwrite")]
     return [
         "usr/bin/kwrite",
         "usr/share/icons/hicolor/*/apps/kwrite.*",
