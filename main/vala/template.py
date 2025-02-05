@@ -1,6 +1,6 @@
 pkgname = "vala"
 pkgver = "0.56.16"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -24,16 +24,19 @@ source = (
 sha256 = "05487b5600f5d2f09e66a753cccd8f39c1bff9f148aea1b7774d505b9c8bca9b"
 
 
-@subpackage("libvala")
+@subpackage("vala-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libvala")]
 
     return ["usr/lib/libvala-*.so.*"]
 
 
-@subpackage("valadoc")
+@subpackage("vala-valadoc")
 def _(self):
     self.pkgdesc = "Vala documentation tool"
+    # transitional
+    self.provides = [self.with_pkgver("valadoc")]
 
     return [
         "usr/bin/valadoc*",
@@ -41,10 +44,11 @@ def _(self):
     ]
 
 
-@subpackage("libvaladoc")
+@subpackage("vala-valadoc-libs")
 def _(self):
     self.pkgdesc = "Vala documentation tool"
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libvaladoc")]
 
     return [
         "usr/lib/libvaladoc-*.so.*",
@@ -53,9 +57,11 @@ def _(self):
     ]
 
 
-@subpackage("valadoc-devel")
+@subpackage("vala-valadoc-devel")
 def _(self):
     self.pkgdesc = "Vala documentation tool"
+    # transitional
+    self.provides = [self.with_pkgver("valadoc-devel")]
 
     return [
         "usr/include/valadoc-*",
