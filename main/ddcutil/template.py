@@ -12,8 +12,8 @@ hostmakedepends = [
 makedepends = [
     "glib-devel",
     "jansson-devel",
+    "kmod-devel",
     "libdrm-devel",
-    "libkmod-devel",
     "libusb-devel",
     "linux-headers",
     "udev-devel",

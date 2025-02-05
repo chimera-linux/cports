@@ -8,8 +8,8 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
+    "kmod-devel",
     "libdinitctl-devel",
-    "libkmod-devel",
     "linux-headers",
     "udev-devel",
 ]

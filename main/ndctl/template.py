@@ -17,7 +17,7 @@ makedepends = [
     "iniparser-devel",
     "json-c-devel",
     "keyutils-devel",
-    "libkmod-devel",
+    "kmod-devel",
     "libtraceevent-devel",
     "libtracefs-devel",
     "libuuid-devel",

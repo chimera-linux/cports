@@ -1,6 +1,6 @@
 pkgname = "kmod"
 pkgver = "33"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 configure_args = [
     "--with-zlib",
@@ -38,13 +38,18 @@ def post_install(self):
     self.install_initramfs(self.files_path / "kmod.initramfs-tools")
 
 
-@subpackage("libkmod-devel")
+@subpackage("kmod-devel")
 def _(self):
     self.depends += makedepends
+    # transitional
+    self.provides = [self.with_pkgver("libkmod-devel")]
+
     return self.default_devel()
 
 
-@subpackage("libkmod")
+@subpackage("kmod-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libkmod")]
+
     return self.default_libs()

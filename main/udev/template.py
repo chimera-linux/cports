@@ -108,14 +108,14 @@ hostmakedepends = [
 ]
 makedepends = [
     "acl-devel",
+    "kmod-devel",
     "libblkid-devel",
     "libmount-devel",
     "libcap-devel",
-    "libkmod-devel",
     "linux-headers",
 ]
 checkdepends = ["xz", "perl"]
-depends = ["so:libkmod.so.2!libkmod"]
+depends = ["so:libkmod.so.2!kmod-libs"]
 triggers = ["/usr/lib/udev/rules.d", "/usr/lib/udev/hwdb.d", "/etc/udev/hwdb.d"]
 pkgdesc = "Standalone build of systemd-udev"
 maintainer = "q66 <q66@chimera-linux.org>"

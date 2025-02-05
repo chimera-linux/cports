@@ -17,8 +17,8 @@ hostmakedepends = [
 makedepends = [
     "cairo-devel",
     "elfutils-devel",
+    "kmod-devel",
     "libdrm-devel",
-    "libkmod-devel",
     "pixman-devel",
     "procps-devel",
 ]
