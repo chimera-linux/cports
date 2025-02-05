@@ -1,6 +1,6 @@
 pkgname = "libplist"
 pkgver = "2.6.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
 hostmakedepends = [
@@ -12,6 +12,8 @@ hostmakedepends = [
     "python-setuptools",
 ]
 makedepends = ["python-devel", "glib-devel", "libxml2-devel"]
+# transitional
+provides = ["libplist++"]
 pkgdesc = "Apple Property List library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
@@ -21,13 +23,6 @@ sha256 = "67be9ee3169366589c92dc7c22809b90f51911dd9de22520c39c9a64fb047c9c"
 # FIXME int
 hardening = ["!int"]
 options = ["!cross"]
-
-
-@subpackage("libplist++")
-def _(self):
-    self.subdesc = "C++ runtime library"
-
-    return ["usr/lib/libplist++*.so.*"]
 
 
 @subpackage("libplist-python")
