@@ -1,6 +1,6 @@
 pkgname = "libexpat"
 pkgver = "2.6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--without-examples"]
 configure_gen = []
@@ -25,7 +25,9 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("xmlwf")
+@subpackage("libexpat-progs")
 def _(self):
-    self.subdesc = "xmlwf utility"
+    # transitional
+    self.provides = [self.with_pkgver("xmlwf")]
+
     return self.default_progs()
