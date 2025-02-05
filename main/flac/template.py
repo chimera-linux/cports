@@ -1,6 +1,6 @@
 pkgname = "flac"
 pkgver = "1.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
@@ -36,9 +36,11 @@ def post_install(self):
     self.install_license("COPYING.Xiph")
 
 
-@subpackage("libflac")
+@subpackage("flac-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libflac")]
+
     return self.default_libs()
 
 
