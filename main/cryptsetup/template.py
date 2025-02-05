@@ -1,6 +1,6 @@
 pkgname = "cryptsetup"
 pkgver = "2.7.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-crypto_backend=openssl",
@@ -47,9 +47,10 @@ def _(self):
     return ["usr/bin/*.static"]
 
 
-@subpackage("libcryptsetup")
+@subpackage("cryptsetup-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libcryptsetup")]
 
     return self.default_libs()
 
