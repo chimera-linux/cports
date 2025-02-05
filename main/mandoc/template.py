@@ -59,15 +59,6 @@ manpath /usr/share/man
     fp.symlink_to("apropos.1")
 
 
-@subpackage("base-man")
-def _(self):
-    self.pkgdesc = "Base package for manpages"
-    self.depends = [self.parent]
-    self.options = ["empty"]
-
-    return []
-
-
 @subpackage("mandoc-apropos")
 def _(self):
     self.subdesc = "apropos trigger"
