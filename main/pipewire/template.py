@@ -51,7 +51,7 @@ makedepends = [
     "libva-devel",
     "lilv-devel",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "sbc-devel",
     "v4l-utils-devel",
 ]

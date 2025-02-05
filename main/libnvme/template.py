@@ -9,7 +9,7 @@ makedepends = [
     "json-c-devel",
     "keyutils-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "python-devel",
 ]
 pkgdesc = "C library for NVMe on Linux"

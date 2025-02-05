@@ -14,7 +14,7 @@ makedepends = [
     "boost-devel",
     "gtest-devel",
     "log4cplus",
-    "openssl-devel",
+    "openssl3-devel",
     "python-devel",
 ]
 checkdepends = ["procps"]

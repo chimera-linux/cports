@@ -13,7 +13,7 @@ makedepends = [
     "karchive-devel",
     "kcodecs-devel",
     "ki18n-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "qt6-qtdeclarative-devel",
     "zlib-ng-compat-devel",
 ]

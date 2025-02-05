@@ -3,7 +3,7 @@ pkgver = "2.1.6"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [f"GIT_VERSION={pkgver}"]
-makedepends = ["openssl-devel"]
+makedepends = ["openssl3-devel"]
 pkgdesc = "List supported ciphers in TLS servers"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later WITH custom:OpenSSL-exception"

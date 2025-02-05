@@ -13,7 +13,7 @@ makedepends = [
     "abseil-cpp-devel",
     "protobuf-devel",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 depends = ["perl"]

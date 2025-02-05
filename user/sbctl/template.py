@@ -4,7 +4,7 @@ pkgrel = 2
 build_style = "go"
 make_build_args = ["./cmd/sbctl"]
 hostmakedepends = ["asciidoc", "go"]
-checkdepends = ["openssl-devel"]
+checkdepends = ["openssl3-devel"]
 depends = [
     "llvm-binutils",  # required to generate EFI bundles
 ]

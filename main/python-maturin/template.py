@@ -14,7 +14,7 @@ hostmakedepends = [
     "python-setuptools-rust",
     "python-wheel",
 ]
-makedepends = ["rust-std", "openssl-devel"]
+makedepends = ["rust-std", "openssl3-devel"]
 checkdepends = ["pytest"]
 depends = ["python"]
 pkgdesc = "Tool for building and publishing Rust-based Python packages"

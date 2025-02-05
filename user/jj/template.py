@@ -10,7 +10,7 @@ hostmakedepends = [
 makedepends = [
     "libgit2-devel",
     "libssh2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
     "zstd-devel",
 ]

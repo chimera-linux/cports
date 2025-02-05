@@ -45,7 +45,7 @@ makedepends = [
     "libtraceevent-devel",
     "linux-headers",
     "numactl-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "perl",
     "python-devel",
     "slang-devel",

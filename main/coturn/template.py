@@ -11,7 +11,7 @@ makedepends = [
     "hiredis-devel",
     "libevent-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "sqlite-devel",
 ]
 pkgdesc = "VoIP media traffic NAT traversal server and gateway"

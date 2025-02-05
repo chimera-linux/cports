@@ -145,7 +145,7 @@ makedepends = [
     "nss-devel",
     "openjpeg-devel",
     "openldap-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "poppler-devel",
     "python-devel",
     "qt6-qtbase-devel",

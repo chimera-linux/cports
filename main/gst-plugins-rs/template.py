@@ -18,7 +18,7 @@ makedepends = [
     "gtk4-devel",
     "libsodium-devel",
     "libwebp-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
 ]
 pkgdesc = "GStreamer rust plugins"

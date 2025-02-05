@@ -14,7 +14,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "openssl-devel",
+    "openssl3-devel",
 ]
 depends = [
     "fuse",

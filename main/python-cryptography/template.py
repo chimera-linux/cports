@@ -11,7 +11,7 @@ hostmakedepends = [
     "python-maturin",
     "python-setuptools",
 ]
-makedepends = ["python-devel", "openssl-devel", "rust-std"]
+makedepends = ["python-devel", "openssl3-devel", "rust-std"]
 depends = ["python-cffi"]
 checkdepends = [
     "python-certifi",

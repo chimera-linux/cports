@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = ["-DENABLE_SMB=ON"]
 make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "linux-headers", "pkgconf"]
-makedepends = ["libpcap-devel", "openssl-devel"]
+makedepends = ["libpcap-devel", "openssl3-devel"]
 checkdepends = ["perl"]
 pkgdesc = "Command-line network traffic analysis tool"
 maintainer = "Renato Botelho do Couto <renato@netgate.com>"

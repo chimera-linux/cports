@@ -110,7 +110,7 @@ makedepends = [
     "libzip-devel",
     "oniguruma-devel",
     "openldap-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "sqlite-devel",
     "unixodbc-devel",
     "zlib-ng-compat-devel",

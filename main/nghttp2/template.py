@@ -10,7 +10,7 @@ makedepends = [
     "libev-devel",
     "libevent-devel",
     "libxml2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["cppunit-devel"]

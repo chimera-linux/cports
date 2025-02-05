@@ -8,7 +8,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libsasl-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["perl"]

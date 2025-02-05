@@ -12,7 +12,7 @@ hostmakedepends = [
 makedepends = [
     "boost-devel",
     "libtorrent-rasterbar-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "qt6-qtbase-private-devel",  # qtcore-config_p.h
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",

@@ -9,7 +9,7 @@ makedepends = [
     "libidn2-devel",
     "linux-headers",
     "lua5.4-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 depends = [
     "lua5.4",

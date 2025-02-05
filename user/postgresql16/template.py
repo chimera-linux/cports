@@ -31,7 +31,7 @@ makedepends = [
     "libxml2-devel",
     "linux-headers",
     "lz4-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "perl",
     "python-devel",
     "readline-devel",

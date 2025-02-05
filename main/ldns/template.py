@@ -15,7 +15,7 @@ hostmakedepends = [
     "pkgconf",
     "slibtool",
 ]
-makedepends = ["libpcap-devel", "openssl-devel", "dns-root-data"]
+makedepends = ["libpcap-devel", "openssl3-devel", "dns-root-data"]
 pkgdesc = "Modern DNS/DNSSEC library"
 subdesc = "utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -46,7 +46,7 @@ def _(self):
 
 @subpackage("ldns-devel")
 def _(self):
-    self.depends += ["openssl-devel"]
+    self.depends += ["openssl3-devel"]
     # transitional
     self.provides = [self.with_pkgver("libldns-devel")]
 

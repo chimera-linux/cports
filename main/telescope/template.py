@@ -9,7 +9,7 @@ makedepends = [
     "libgrapheme-devel",
     "libretls-devel",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "Terminal browser for gemini/gopher/finger"
 maintainer = "ttyyls <contact@behri.org>"

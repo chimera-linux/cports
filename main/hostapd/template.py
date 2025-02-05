@@ -6,7 +6,7 @@ build_style = "makefile"
 make_install_args = ["BINDIR=/usr/bin"]
 make_use_env = True
 hostmakedepends = ["pkgconf"]
-makedepends = ["libnl-devel", "linux-headers", "openssl-devel"]
+makedepends = ["libnl-devel", "linux-headers", "openssl3-devel"]
 pkgdesc = "IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator"
 maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"

@@ -14,7 +14,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libjpeg-turbo-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["perl"]

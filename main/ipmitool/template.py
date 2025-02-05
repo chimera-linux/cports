@@ -14,7 +14,7 @@ make_dir = "."
 hostmakedepends = ["automake", "libtool"]
 makedepends = [
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "readline-devel",
 ]
 pkgdesc = "CLI to manage IPMI systems"

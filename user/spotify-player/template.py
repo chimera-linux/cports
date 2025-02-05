@@ -19,7 +19,7 @@ makedepends = [
     "libpulse-devel",
     "dbus-devel",
     "sdl2-compat-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "libsixel-devel",
     "rust-std",
 ]

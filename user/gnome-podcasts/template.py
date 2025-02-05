@@ -14,7 +14,7 @@ makedepends = [
     "gst-plugins-bad-devel",
     "gstreamer-devel",
     "libadwaita-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
     "sqlite-devel",
 ]

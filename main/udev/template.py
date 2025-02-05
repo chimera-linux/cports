@@ -150,7 +150,7 @@ if _have_sd_boot:
         f"-Dsbat-distro-version={self.full_pkgver}",
     ]
     hostmakedepends += ["python-pyelftools"]
-    makedepends += ["openssl-devel", "tpm2-tss-devel"]
+    makedepends += ["openssl3-devel", "tpm2-tss-devel"]
 
 
 def init_configure(self):

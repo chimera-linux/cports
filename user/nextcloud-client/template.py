@@ -15,7 +15,7 @@ makedepends = [
     "karchive-devel",
     "kguiaddons-devel",
     "kio-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "qt6-qt5compat-devel",
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",

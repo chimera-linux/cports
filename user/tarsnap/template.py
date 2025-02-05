@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_gen = []
 makedepends = [
     "e2fsprogs-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Online backups for the truly paranoid"

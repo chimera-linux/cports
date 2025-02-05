@@ -8,7 +8,7 @@ configure_args = [
     "--enable-tests",
 ]
 hostmakedepends = ["pkgconf"]
-makedepends = ["libarchive-devel", "openssl-devel", "zlib-ng-compat-devel"]
+makedepends = ["libarchive-devel", "openssl3-devel", "zlib-ng-compat-devel"]
 depends = ["ca-certificates"]
 checkdepends = ["kyua", "atf-devel"]
 pkgdesc = "XBPS package manager"

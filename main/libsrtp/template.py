@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dcrypto-library=openssl"]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["openssl-devel"]
+makedepends = ["openssl3-devel"]
 pkgdesc = "Library for Secure Real-Time Transport Protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

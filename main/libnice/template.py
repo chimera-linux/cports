@@ -11,7 +11,7 @@ configure_args = [
     "-Dtests=enabled",
 ]
 hostmakedepends = ["glib-devel", "gobject-introspection", "meson", "pkgconf"]
-makedepends = ["glib-devel", "gstreamer-devel", "openssl-devel"]
+makedepends = ["glib-devel", "gstreamer-devel", "openssl3-devel"]
 pkgdesc = "Implementation of the IETF's draft ICE"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

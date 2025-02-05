@@ -17,7 +17,7 @@ make_check_args = [
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
     "zstd-devel",
 ]

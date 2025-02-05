@@ -42,7 +42,7 @@ makedepends = [
     "pixman-devel",
     "nettle-devel",
     "dbus-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "font-util-devel",
     "xkbcomp-devel",
     "xorgproto",

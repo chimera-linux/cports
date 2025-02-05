@@ -15,7 +15,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
 ]
 pkgdesc = "CLI for TOML"

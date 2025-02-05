@@ -32,7 +32,7 @@ options = ["bootstrap", "!check"]
 
 if self.stage > 0:
     configure_args += ["--with-openssl", "--with-zstd"]
-    makedepends += ["openssl-devel", "zstd-devel"]
+    makedepends += ["openssl3-devel", "zstd-devel"]
 else:
     configure_args += ["--without-openssl", "--without-zstd"]
 

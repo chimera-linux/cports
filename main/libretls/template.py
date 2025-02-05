@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "OpenSSL-based libtls implementation"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

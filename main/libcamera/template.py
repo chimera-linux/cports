@@ -17,7 +17,7 @@ makedepends = [
     "libevent-devel",
     "libunwind-devel",
     "libyaml-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "udev-devel",
 ]
 pkgdesc = "Open source camera stack and framework"

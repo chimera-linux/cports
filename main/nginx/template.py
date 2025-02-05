@@ -62,7 +62,7 @@ hostmakedepends = [
     "libxml2-devel",
     "libxslt-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "pcre2-devel",
     "perl",
     "zlib-ng-compat-devel",

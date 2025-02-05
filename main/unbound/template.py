@@ -34,7 +34,7 @@ makedepends = [
     "libevent-devel",
     "libsodium-devel",
     "nghttp2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "protobuf-c-devel",
 ]
 depends = ["dns-root-data"]
@@ -67,6 +67,6 @@ def _(self):
 
 @subpackage("unbound-devel")
 def _(self):
-    self.depends += ["openssl-devel", "libsodium-devel"]
+    self.depends += ["openssl3-devel", "libsodium-devel"]
 
     return self.default_devel()

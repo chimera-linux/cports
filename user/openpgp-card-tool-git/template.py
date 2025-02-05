@@ -5,7 +5,7 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "dbus-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "pcsc-lite-devel",
     "rust-std",
     "sqlite-devel",

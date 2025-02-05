@@ -6,7 +6,7 @@ prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
     "sqlite-devel",
     "zstd-devel",

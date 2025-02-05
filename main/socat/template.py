@@ -8,7 +8,7 @@ make_dir = "."
 make_check_target = "test"
 makedepends = [
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "readline-devel",
 ]
 checkdepends = ["bash", "iproute2", "procps"]

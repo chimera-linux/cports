@@ -19,7 +19,7 @@ makedepends = [
     "libtirpc-devel",
     "libxml2-devel",
     "openldap-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "Kernel-based automounter"
 maintainer = "Erica Z <zerica@callcc.eu>"

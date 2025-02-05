@@ -143,7 +143,7 @@ def _(self):
         "u-boot-tools",
         "linux-headers",
         "elfutils-devel",
-        "openssl-devel",
+        "openssl3-devel",
         "zlib-ng-compat-devel",
     ]
 

@@ -26,7 +26,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libsasl-devel",
     "lz4-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "opus-devel",
     "pixman-devel",
     "spice-protocol",

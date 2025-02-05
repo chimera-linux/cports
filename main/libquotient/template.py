@@ -35,7 +35,7 @@ def post_install(self):
 def _(self):
     self.depends += [
         "olm-devel",
-        "openssl-devel",
+        "openssl3-devel",
         "qt6-qtbase-devel",
         "qtkeychain-devel",
     ]

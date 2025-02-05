@@ -21,7 +21,7 @@ makedepends = [
     "libatomic-chimera-devel-static",
     "util-linux-uuid-devel-static",
     "linux-headers",
-    "openssl-devel-static",
+    "openssl3-devel-static",
     "popt-devel-static",
 ]
 checkdepends = ["procps", "xz"]

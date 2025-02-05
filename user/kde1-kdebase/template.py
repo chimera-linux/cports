@@ -22,7 +22,7 @@ makedepends = [
     "linux-pam-devel",
     "mesa-devel",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "qt1-devel",
 ]
 # for konsole

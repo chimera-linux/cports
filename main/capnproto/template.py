@@ -7,7 +7,7 @@ hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "libucontext-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Cap'n Proto serialization/RPC system"

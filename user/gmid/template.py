@@ -8,7 +8,7 @@ hostmakedepends = ["flex", "pkgconf"]
 makedepends = [
     "libevent-devel",
     "libretls-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 checkdepends = [
     "ca-certificates",

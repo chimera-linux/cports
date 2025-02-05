@@ -25,7 +25,7 @@ makedepends = [
     "linux-pam-devel",
     "lz4-devel",
     "lzo-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "pcre2-devel",
 ]
 depends = ["iproute2"]

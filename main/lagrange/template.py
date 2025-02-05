@@ -21,7 +21,7 @@ makedepends = [
     "libwebp-devel",
     "mpg123-devel",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "opusfile-devel",
     "pcre2-devel",
     "sdl2-compat-devel",

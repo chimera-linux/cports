@@ -15,7 +15,7 @@ hostmakedepends = [
 makedepends = [
     "dbus-devel",
     "libadwaita-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
 ]
 depends = ["transmission-daemon"]

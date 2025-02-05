@@ -17,7 +17,7 @@ makedepends = [
     "ffmpeg-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "lzo-devel",
     "zlib-ng-compat-devel",
 ]

@@ -12,7 +12,7 @@ hostmakedepends = [
 makedepends = [
     "curl-devel",
     "libev-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "ACMEv2 client"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

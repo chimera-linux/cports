@@ -16,7 +16,7 @@ hostmakedepends = [
 makedepends = [
     "libnice-devel",
     "libsrtp-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "plog",
     "usrsctp-devel",
 ]

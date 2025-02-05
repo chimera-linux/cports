@@ -19,7 +19,7 @@ hostmakedepends = [
     "python-devel",
     "python-setuptools",
 ]
-makedepends = ["openssl-devel", "boost-devel", "python-devel", "linux-headers"]
+makedepends = ["openssl3-devel", "boost-devel", "python-devel", "linux-headers"]
 pkgdesc = "C++ BitTorrent library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

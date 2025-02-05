@@ -14,7 +14,7 @@ makedepends = [
     "libxo-devel",
     "musl-bsd-headers",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "xz-devel",
     "zlib-ng-compat-devel",
 ]

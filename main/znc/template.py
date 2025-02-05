@@ -20,7 +20,7 @@ makedepends = [
     "boost-devel",
     "icu-devel",
     "libsasl-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "python-devel",
     "tcl-devel",
     "zlib-ng-devel",

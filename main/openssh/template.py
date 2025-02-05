@@ -35,7 +35,7 @@ makedepends = [
     "libfido2-devel",
     "libldns-devel",
     "linux-pam-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "OpenSSH free Secure Shell (SSH) client and server implementation"

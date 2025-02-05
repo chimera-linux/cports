@@ -13,7 +13,7 @@ hostmakedepends = [
     "pkgconf",
     "scdoc",
 ]
-makedepends = ["openssl-devel", "zlib-ng-compat-devel"]
+makedepends = ["openssl3-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
@@ -29,7 +29,7 @@ if self.stage > 0:
         "libunwind-devel-static",
         "linux-headers",
         "musl-devel-static",
-        "openssl-devel-static",
+        "openssl3-devel-static",
         "zlib-ng-compat-devel-static",
         "zstd-devel-static",
     ]

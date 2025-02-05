@@ -30,7 +30,7 @@ make_dir = "."
 make_check_args = ["-j1"]
 hostmakedepends = [
     "avahi-bootstrap",
-    "openssl-devel",
+    "openssl3-devel",
     "pkgconf",
     "xdg-utils",
 ]
@@ -43,7 +43,7 @@ makedepends = [
     "libusb-devel",
     "linux-headers",
     "linux-pam-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 depends = ["xdg-utils"]
 pkgdesc = "Common Unix Printing System"

@@ -73,7 +73,7 @@ makedepends = [
     "lz4-devel",
     "mesa-devel",
     "openjpeg-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "poppler-devel",
     "udev-devel",
     "util-linux-mount-devel",

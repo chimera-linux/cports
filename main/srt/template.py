@@ -15,7 +15,7 @@ hostmakedepends = [
 makedepends = [
     "gtest-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "Secure Reliable Transport library"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

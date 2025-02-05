@@ -28,7 +28,7 @@ makedepends = [
     "libsodium-devel",
     "libunwind-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "pcre2-devel",
     "snowball-devel",
     "sqlite-devel",

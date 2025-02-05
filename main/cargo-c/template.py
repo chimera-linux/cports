@@ -11,7 +11,7 @@ hostmakedepends = [
 makedepends = [
     "curl-devel",
     "libgit2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
     "sqlite-devel",
 ]

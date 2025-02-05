@@ -11,7 +11,7 @@ hostmakedepends = [
     "gcc-riscv64-unknown-elf",
     "gnutls-devel",
     "opensbi",
-    "openssl-devel",
+    "openssl3-devel",
     "python-devel",
     "python-setuptools",
     "swig",

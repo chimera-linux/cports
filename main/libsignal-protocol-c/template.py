@@ -6,8 +6,8 @@ configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
     "-DBUILD_TESTING=ON",
 ]
-hostmakedepends = ["cmake", "pkgconf", "ninja", "openssl-devel"]
-makedepends = ["openssl-devel"]
+hostmakedepends = ["cmake", "pkgconf", "ninja", "openssl3-devel"]
+makedepends = ["openssl3-devel"]
 checkdepends = ["check-devel"]
 pkgdesc = "Signal protocol C library"
 maintainer = "q66 <q66@chimera-linux.org>"

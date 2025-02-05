@@ -7,7 +7,7 @@ hostmakedepends = [
     "automake",
     "slibtool",
 ]
-makedepends = ["openssl-devel"]
+makedepends = ["openssl3-devel"]
 pkgdesc = "IP bandwidth measurement tool"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause-LBNL"

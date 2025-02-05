@@ -7,7 +7,7 @@ hostmakedepends = [
     "pkgconf",
     "slibtool",
 ]
-makedepends = ["openssl-devel"]
+makedepends = ["openssl3-devel"]
 checkdepends = ["bash"]
 pkgdesc = "Software emulation of a Trusted Platform Module"
 maintainer = "cesorious <cesorious@gmail.com>"

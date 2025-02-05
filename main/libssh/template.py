@@ -15,7 +15,7 @@ hostmakedepends = [
 makedepends = [
     "cmocka-devel",
     "heimdal-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for accessing ssh client services through C libraries"

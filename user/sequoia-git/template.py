@@ -9,7 +9,7 @@ makedepends = [
     "bzip2-devel",
     "libgit2-devel",
     "nettle-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
     "sqlite-devel",
 ]

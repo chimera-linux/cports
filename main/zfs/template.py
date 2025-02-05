@@ -22,7 +22,7 @@ makedepends = [
     "libtirpc-devel",
     "linux-headers",
     "linux-pam-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "udev-devel",
     "util-linux-blkid-devel",
     "util-linux-uuid-devel",

@@ -18,7 +18,7 @@ makedepends = [
     "libxml2-devel",
     "lua5.4-devel",
     "musl-bsd-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "pcre2-devel",
     "sqlite-devel",
     "xxhash-devel",

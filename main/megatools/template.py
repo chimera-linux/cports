@@ -16,7 +16,7 @@ makedepends = [
     "gobject-introspection",
     "curl-devel",
     "libsodium-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "Command line client for mega.nz"
 maintainer = "Isaac Freund <mail@isaacfreund.com>"

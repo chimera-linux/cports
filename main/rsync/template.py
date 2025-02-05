@@ -16,7 +16,7 @@ hostmakedepends = ["perl"]
 makedepends = [
     "acl-devel",
     "lz4-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "popt-devel",
     "xxhash-devel",
     "zlib-ng-compat-devel",

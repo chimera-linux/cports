@@ -28,7 +28,7 @@ makedepends = [
     "libusb-devel",
     "libxml2-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "v4l-utils-devel",
 ]
 pkgdesc = "Scanner Access Now Easy"

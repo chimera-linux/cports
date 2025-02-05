@@ -72,7 +72,7 @@ makedepends = [
     "linux-headers",
     "linux-pam-devel",
     "openldap-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "sqlite-devel",
     "unbound-devel",
 ]

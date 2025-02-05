@@ -21,7 +21,7 @@ makedepends = [
     "kpkpass-devel",
     "libphonenumber-devel",
     "libxml2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "poppler-devel",
     "qt6-qtdeclarative-devel",
     "shared-mime-info",

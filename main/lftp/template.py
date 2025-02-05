@@ -16,7 +16,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "readline-devel",
     "zlib-ng-compat-devel",
 ]

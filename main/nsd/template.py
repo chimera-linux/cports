@@ -9,7 +9,7 @@ make_check_target = "test"
 hostmakedepends = ["automake", "bison", "flex"]
 makedepends = [
     "libevent-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "Authoritative DNS name server"
 maintainer = "yanchan09 <yan@omg.lol>"

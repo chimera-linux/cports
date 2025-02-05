@@ -8,7 +8,7 @@ hostmakedepends = [
     "flex",
     "gcc-riscv64-unknown-elf",
     "gnutls-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "python-setuptools",
     "util-linux-uuid-devel",
 ]

@@ -14,7 +14,7 @@ hostmakedepends = [
     "python",
     "zlib-ng-compat-devel",
 ]
-makedepends = ["curl-devel", "openssl-devel", "sqlite-devel"]
+makedepends = ["curl-devel", "openssl3-devel", "sqlite-devel"]
 pkgdesc = "Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
@@ -31,7 +31,7 @@ options = ["!check"]
 
 if self.current_target == "custom:bootstrap":
     hostmakedepends += ["rust-bootstrap"]
-    makedepends += ["rust-bootstrap", "openssl-devel-static"]
+    makedepends += ["rust-bootstrap", "openssl3-devel-static"]
     options += ["!debug"]
 else:
     hostmakedepends += ["rust"]

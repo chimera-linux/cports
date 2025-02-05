@@ -15,7 +15,7 @@ makedepends = [
     "libvorbis-devel",
     "mesa-devel",
     "openal-soft-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "sdl2-compat-devel",
     "shaderc-devel",
     "sqlite-devel",

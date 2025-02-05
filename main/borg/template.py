@@ -34,7 +34,7 @@ makedepends = [
     "acl-devel",
     "linux-headers",
     "lz4-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "python-devel",
     "xxhash-devel",
     "zstd-devel",

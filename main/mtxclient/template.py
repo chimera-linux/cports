@@ -22,7 +22,7 @@ makedepends = [
     "libevent-devel",
     "curl-devel",
     "re2-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "Client API library for the Matrix protocol"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

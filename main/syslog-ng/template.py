@@ -49,7 +49,7 @@ makedepends = [
     "curl-devel",
     "libdbi-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "pcre2-devel",
     "python-devel",
     "rabbitmq-c-devel",

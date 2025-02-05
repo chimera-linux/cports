@@ -18,7 +18,7 @@ makedepends = [
     "libseccomp-devel",
     "libshumate-devel",
     "libwebp-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "pipewire-devel",
     "rust-std",
     "sqlite-devel",

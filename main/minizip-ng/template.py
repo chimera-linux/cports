@@ -6,7 +6,7 @@ configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DMZ_LIB_SUFFIX=-ng"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "bzip2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "xz-devel",
     "zlib-ng-devel",
     "zstd-devel",

@@ -29,7 +29,7 @@ makedepends = [
     "curl-devel",
     "libgpg-error-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "xz-devel",
     "libarchive-devel",
 ]

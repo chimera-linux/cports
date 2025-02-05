@@ -6,7 +6,7 @@ make_build_args = ["CRYPTO=OPENSSL"]
 make_install_args = ["prefix=/usr", "sbindir=/usr/bin", "mandir=/usr/share/man"]
 make_use_env = True
 hostmakedepends = ["pkgconf"]
-makedepends = ["zlib-ng-compat-devel", "openssl-devel", "linux-headers"]
+makedepends = ["zlib-ng-compat-devel", "openssl3-devel", "linux-headers"]
 pkgdesc = "Toolkit for RTMP streams"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

@@ -6,7 +6,7 @@ make_dir = "."
 hostmakedepends = ["cmake", "ninja"]
 makedepends = [
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "Tool for buffering data streams"
 maintainer = "Erica Z <zerica@callcc.eu>"

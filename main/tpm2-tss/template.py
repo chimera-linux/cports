@@ -24,7 +24,7 @@ makedepends = [
     "libftdi1-devel",
     "libusb-bootstrap",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "util-linux-uuid-devel",
 ]
 pkgdesc = "Implementation of TCG TPM2"

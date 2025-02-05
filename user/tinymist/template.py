@@ -4,7 +4,7 @@ pkgrel = 1
 build_style = "cargo"
 make_build_args = ["--features=cli", "--bin", "tinymist", "--bin", "typlite"]
 hostmakedepends = ["cargo", "pkgconf"]
-makedepends = ["rust-std", "openssl-devel"]
+makedepends = ["rust-std", "openssl3-devel"]
 depends = ["typst"]
 pkgdesc = "Language server for Typst"
 maintainer = "ttyyls <contact@behri.org>"

@@ -16,7 +16,7 @@ makedepends = [
     "bzip2-devel",
     "libidn2-devel",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Text web browser"

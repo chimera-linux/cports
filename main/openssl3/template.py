@@ -1,6 +1,6 @@
-pkgname = "openssl"
+pkgname = "openssl3"
 pkgver = "3.4.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
@@ -25,6 +25,7 @@ make_check_args = [
     + " -test_sslsigalgs"
 ]
 hostmakedepends = ["pkgconf", "perl"]
+provides = [self.with_pkgver("openssl")]
 pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
@@ -74,28 +75,23 @@ def init_check(self):
     self.env["HARNESS_JOBS"] = str(self.make_jobs)
 
 
-@subpackage("libcrypto3")
+@subpackage("openssl3-libs")
 def _(self):
-    self.subdesc = "crypto library"
-
-    return [
-        "usr/lib/libcrypto.so.*",
-        "usr/lib/engines-3",
-        "usr/lib/ossl-modules",
+    # transitional
+    self.provides = [
+        self.with_pkgver("libcrypto3"),
+        self.with_pkgver("libssl3"),
     ]
+    return self.default_libs(
+        extra=["usr/lib/engines-3", "usr/lib/ossl-modules"]
+    )
 
 
-@subpackage("libssl3")
-def _(self):
-    self.subdesc = "SSL/TLS library"
-
-    return ["usr/lib/libssl.so.*"]
-
-
-@subpackage("openssl-devel")
+@subpackage("openssl3-devel")
 def _(self):
     self.depends = [
         self.parent,
     ]
+    self.provides = [self.with_pkgver("openssl-devel")]
 
     return self.default_devel()

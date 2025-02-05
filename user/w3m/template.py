@@ -9,7 +9,7 @@ makedepends = [
     "imlib2-devel",
     "linux-headers",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "TUI web browser and pager"
 maintainer = "ttyyls <contact@behri.org>"

@@ -15,7 +15,7 @@ hostmakedepends = ["apr-devel", "libtool", "pkgconf"]
 makedepends = [
     "apr-devel",
     "libexpat-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "sqlite-devel",
     "unixodbc-devel",
     "zlib-ng-compat-devel",

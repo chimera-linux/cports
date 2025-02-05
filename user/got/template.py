@@ -20,7 +20,7 @@ makedepends = [
     "linux-headers",
     "musl-devel",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "util-linux-uuid-devel",
     "zlib-ng-compat-devel",
 ]

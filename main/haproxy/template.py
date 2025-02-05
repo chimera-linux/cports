@@ -30,7 +30,7 @@ hostmakedepends = [
 makedepends = [
     "linux-headers",
     "lua5.4-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "pcre2-devel",
     "zlib-ng-compat-devel",
 ]

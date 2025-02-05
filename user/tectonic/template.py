@@ -16,7 +16,7 @@ makedepends = [
     "harfbuzz-devel",
     "icu-devel",
     "curl-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
 ]
 pkgdesc = "Modernized LaTeX engine"

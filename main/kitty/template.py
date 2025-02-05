@@ -24,7 +24,7 @@ makedepends = [
     "libxinerama-devel",
     "libxkbcommon-devel",
     "libxrandr-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "python-devel",
     "simde",
     "xxhash-devel",

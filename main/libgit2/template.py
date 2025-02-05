@@ -19,7 +19,7 @@ makedepends = [
     "heimdal-devel",
     "http-parser-devel",
     "libssh2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "pcre2-devel",
     "zlib-ng-compat-devel",
 ]

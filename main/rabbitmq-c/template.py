@@ -10,7 +10,7 @@ configure_args = [
     "-DBUILD_TOOLS=ON",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "doxygen", "xmlto"]
-makedepends = ["openssl-devel", "popt-devel"]
+makedepends = ["openssl3-devel", "popt-devel"]
 pkgdesc = "RabbitMQ C client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

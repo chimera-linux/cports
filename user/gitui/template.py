@@ -13,7 +13,7 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
     "oniguruma-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
 ]
 pkgdesc = "Terminal ui for git"

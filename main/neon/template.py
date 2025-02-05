@@ -25,7 +25,7 @@ hostmakedepends = [
 makedepends = [
     "libexpat-devel",
     "libproxy-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 depends = ["ca-certificates"]

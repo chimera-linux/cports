@@ -122,7 +122,7 @@ makedepends = [
     "openal-soft-devel",
     "openexr-devel",
     "openjpeg-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "opus-devel",
     "pango-devel",
     "qrencode-devel",

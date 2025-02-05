@@ -26,7 +26,7 @@ makedepends = [
     "libxml2-devel",
     "lmdb-devel",
     "nghttp2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "userspace-rcu-devel",
 ]
 checkdepends = ["python-pytest", "python-dnspython"]

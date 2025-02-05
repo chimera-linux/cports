@@ -56,7 +56,7 @@ makedepends = [
     "libxrandr-devel",
     "libxv-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "pcsc-lite-devel",
     "pkcs11-helper-devel",
     "sdl2-compat-devel",  # no sdl3-ttf yet

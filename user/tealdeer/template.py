@@ -16,7 +16,7 @@ make_check_args = [
     "--skip=test_update_cache",
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
-makedepends = ["rust-std", "openssl-devel"]
+makedepends = ["rust-std", "openssl3-devel"]
 pkgdesc = "Alternative implementation of tldr"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"

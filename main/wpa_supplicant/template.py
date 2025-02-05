@@ -11,7 +11,7 @@ makedepends = [
     "libedit-readline-devel",
     "libnl-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "pcsc-lite-devel",
 ]
 pkgdesc = "WPA/WPA2/IEEE 802.1X Supplicant"

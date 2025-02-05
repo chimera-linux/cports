@@ -4,7 +4,12 @@ pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-poetry-core", "python-installer"]
 depends = ["pkgconf", "python"]
-checkdepends = ["python-setuptools", "python-pytest", "openssl-devel", *depends]
+checkdepends = [
+    "python-setuptools",
+    "python-pytest",
+    "openssl3-devel",
+    *depends,
+]
 pkgdesc = "Python interface to pkg-config"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"

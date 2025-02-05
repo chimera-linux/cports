@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "makefile"
 make_use_env = True
 hostmakedepends = ["openssl", "perl"]
-makedepends = ["openssl-devel"]
+makedepends = ["openssl3-devel"]
 depends = ["debianutils", "openssl"]
 # replace the openssl implementation
 provides = ["openssl-c_rehash=4"]

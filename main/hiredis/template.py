@@ -5,7 +5,7 @@ build_style = "makefile"
 make_build_args = ["USE_SSL=1"]
 make_install_args = ["USE_SSL=1"]
 hostmakedepends = ["pkgconf"]
-makedepends = ["openssl-devel"]
+makedepends = ["openssl3-devel"]
 pkgdesc = "Minimalistic C client library for Redis"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

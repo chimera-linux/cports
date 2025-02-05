@@ -26,7 +26,7 @@ makedepends = [
     "libtasn1-devel",
     "libtpms-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 checkdepends = ["iproute2"]
 depends = ["gnutls-progs", "trousers"]

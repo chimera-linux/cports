@@ -17,7 +17,7 @@ makedepends = [
     "file-devel",
     "jansson-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "C library for pattern matching"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

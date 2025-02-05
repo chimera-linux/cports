@@ -51,7 +51,7 @@ makedepends = [
     "libexpat-devel",
     "libffi8-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "sqlite-devel",
     "xz-devel",
     "zlib-ng-compat-devel",

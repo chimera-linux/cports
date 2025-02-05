@@ -15,7 +15,7 @@ hostmakedepends = [
     "flex",
     "gcc-aarch64-none-elf",
     "gnutls-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "python-devel",
     "python-pyelftools",
     "python-setuptools",

@@ -7,7 +7,7 @@ configure_args = [
     "--enable-threading",
 ]
 hostmakedepends = ["automake", "pkgconf", "libtool"]
-makedepends = ["openssl-devel"]
+makedepends = ["openssl3-devel"]
 pkgdesc = "Helper library for multiple PKCS#11 providers"
 maintainer = "Dmitriy Vakhrushev <dvakhrushev@netgate.com>"
 license = "GPL-2.0-only AND BSD-3-Clause"

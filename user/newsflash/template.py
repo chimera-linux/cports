@@ -14,7 +14,7 @@ makedepends = [
     "clapper-devel",
     "libadwaita-devel",
     "libxml2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
     "webkitgtk4-devel",
 ]

@@ -118,7 +118,7 @@ makedepends = [
     "lilv-devel",
     "ocl-icd-devel",
     "openjpeg-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "opus-devel",
     "pipewire-jack-devel",
     "rav1e-devel",

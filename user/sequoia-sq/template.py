@@ -8,7 +8,7 @@ makedepends = [
     "bzip2-devel",
     "capnproto-devel",
     "nettle-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
     "sqlite-devel",
 ]

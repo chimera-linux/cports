@@ -41,7 +41,7 @@ makedepends = [
     "libssh2-devel",
     "libuv-devel",
     "libxml2-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "sqlite-devel",
     "zlib-ng-compat-devel",
 ]

@@ -15,7 +15,7 @@ hostmakedepends = [
 makedepends = [
     "libcbor-devel",
     "linux-headers",
-    "openssl-devel",
+    "openssl3-devel",
     "udev-devel",
     "zlib-ng-compat-devel",
 ]

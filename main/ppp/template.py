@@ -11,7 +11,7 @@ configure_args = [
 ]
 make_build_args = ["CBCP=y"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
-makedepends = ["libpcap-devel", "openssl-devel", "linux-headers"]
+makedepends = ["libpcap-devel", "openssl3-devel", "linux-headers"]
 pkgdesc = "PPP (Point-to-Point Protocol) daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND LGPL-2.0-or-later AND GPL-2.0-or-later"

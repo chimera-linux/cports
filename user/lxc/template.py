@@ -20,7 +20,7 @@ makedepends = [
     "libunwind-devel",
     "libunwind-devel-static",
     "musl-devel-static",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 depends = ["ugetopt", "xz", "wget2"]
 pkgdesc = "Linux containers"

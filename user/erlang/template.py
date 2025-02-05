@@ -11,7 +11,7 @@ makedepends = [
     "glu-devel",
     "linux-headers",
     "ncurses-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "unixodbc-devel",
     "wxwidgets-devel",
     "zlib-ng-compat-devel",

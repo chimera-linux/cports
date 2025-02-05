@@ -14,7 +14,7 @@ hostmakedepends = [
 makedepends = [
     "python-devel",
     "glib-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "libusb-devel",
     "libusbmuxd-devel",
     "libplist-devel",

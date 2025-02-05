@@ -9,7 +9,7 @@ makedepends = [
     "libxft-devel",
     "libxinerama-devel",
     "lua5.4-devel",
-    "openssl-devel",
+    "openssl3-devel",
 ]
 pkgdesc = "Worker file manager"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

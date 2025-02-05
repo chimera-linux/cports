@@ -8,7 +8,7 @@ configure_args = [
 ]
 configure_gen = []
 hostmakedepends = ["pkgconf"]
-makedepends = ["zlib-ng-compat-devel", "openssl-devel"]
+makedepends = ["zlib-ng-compat-devel", "openssl3-devel"]
 checkdepends = ["bash"]
 pkgdesc = "Library implementing the SSH2 protocol"
 maintainer = "q66 <q66@chimera-linux.org>"

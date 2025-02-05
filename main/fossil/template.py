@@ -11,7 +11,7 @@ configure_args = [
 ]
 configure_gen = []
 make_check_target = "test"
-makedepends = ["openssl-devel", "zlib-ng-compat-devel", "tcl-devel"]
+makedepends = ["openssl3-devel", "zlib-ng-compat-devel", "tcl-devel"]
 checkdepends = ["tcl", "tcllib"]
 pkgdesc = "Distributed software configuration management system"
 maintainer = "Erica Z <zerica@callcc.eu>"

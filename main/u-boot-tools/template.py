@@ -19,7 +19,7 @@ hostmakedepends = [
     "python-setuptools",
 ]
 makedepends = [
-    "openssl-devel",
+    "openssl3-devel",
     "linux-headers",
     "gnutls-devel",
     "ncurses-libtinfo-devel",

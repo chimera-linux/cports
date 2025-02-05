@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
-    "openssl-devel",
+    "openssl3-devel",
     "rust-std",
 ]
 pkgdesc = "CLI tool for saving complete web pages as a single HTML file"
