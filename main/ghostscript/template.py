@@ -1,7 +1,7 @@
 # AGPL: forbidden from being a dependency except in special unambiguous cases
 pkgname = "ghostscript"
 pkgver = "10.04.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-dynamic",
@@ -91,13 +91,17 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libgs")
+@subpackage("ghostscript-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libgs")]
 
     return self.default_libs()
 
 
-@subpackage("libgs-devel")
+@subpackage("ghostscript-devel")
 def _(self):
+    # transitional
+    self.provides = [self.with_pkgver("libgs-devel")]
+
     return self.default_devel()
