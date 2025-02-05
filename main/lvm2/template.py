@@ -1,6 +1,6 @@
 pkgname = "lvm2"
 pkgver = "2.03.30"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline",
@@ -32,6 +32,7 @@ configure_args = [
     "--with-default-run-dir=/run/lvm",
     "--with-default-locking-dir=/run/lock/lvm",
 ]
+configure_gen = []
 make_dir = "."
 hostmakedepends = ["gsed", "pkgconf", "bash"]
 makedepends = [
@@ -45,7 +46,7 @@ makedepends = [
     "linux-headers",
     "util-linux-blkid-devel-static",
 ]
-pkgdesc = "Logical Volume Manager 2 utilities"
+pkgdesc = "Logical Volume Manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
@@ -80,10 +81,11 @@ def post_install(self):
     self.uninstall("usr/sbin")
 
 
-@subpackage("device-mapper-devel")
+@subpackage("lvm2-devel")
 def _(self):
-    self.pkgdesc = "Device Mapper userspace library and tools"
     self.depends += makedepends
+    # transitional
+    self.provides = [self.with_pkgver("device-mapper-devel")]
 
     return [
         "usr/lib/pkgconfig/devmapper*.pc",
@@ -97,9 +99,11 @@ def _(self):
     ]
 
 
-@subpackage("device-mapper")
+@subpackage("lvm2-dm")
 def _(self):
-    self.pkgdesc = "Device Mapper userspace library and tools"
+    self.subdesc = "Device Mapper"
+    # transitional
+    self.provides = [self.with_pkgver("device-mapper")]
 
     return [
         "usr/lib/dinit.d/dmeventd",
@@ -125,6 +129,3 @@ def _(self):
         "usr/bin/lvm_import_vdo",
         "usr/bin/lvmdump",
     ]
-
-
-configure_gen = []

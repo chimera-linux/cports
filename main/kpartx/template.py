@@ -9,7 +9,7 @@ make_install_args = [
     "bindir=/usr/bin",
 ]
 hostmakedepends = ["pkgconf"]
-makedepends = ["device-mapper-devel"]
+makedepends = ["lvm2-devel"]
 pkgdesc = "Create device maps from partition tables"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

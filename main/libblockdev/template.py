@@ -9,7 +9,6 @@ configure_args = [
 hostmakedepends = ["bash", "pkgconf", "python", "automake", "libtool"]
 makedepends = [
     "cryptsetup-devel",
-    "device-mapper-devel",
     "e2fsprogs-devel",
     "glib-devel",
     "json-glib-devel",
@@ -20,6 +19,7 @@ makedepends = [
     "libnvme-devel",
     "libyaml-devel",
     "linux-headers",
+    "lvm2-devel",
     "ndctl-devel",
     "parted-devel",
     "pcre2-devel",

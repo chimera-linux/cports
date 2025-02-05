@@ -1,6 +1,6 @@
 pkgname = "cryptsetup"
 pkgver = "2.7.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-crypto_backend=openssl",
@@ -16,9 +16,9 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "device-mapper-devel-static",
     "json-c-devel-static",
     "libatomic-chimera-devel-static",
+    "lvm2-devel-static",
     "util-linux-uuid-devel-static",
     "linux-headers",
     "openssl3-devel-static",

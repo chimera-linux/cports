@@ -1,14 +1,14 @@
 pkgname = "cryptsetup-scripts"
 pkgver = "2.7.5.1"
 _debver = "-".join(pkgver.rsplit(".", 1))
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_args = [
     "DOCBOOK_XSL=/usr/share/xsl-nons/docbook/manpages/docbook.xsl",
     f"VERSION={pkgver}",
 ]
 hostmakedepends = ["perl", "docbook-xsl-nons", "libxslt-progs"]
-depends = ["cryptsetup", "device-mapper", "util-linux-mount", "util-linux-mkfs"]
+depends = ["cryptsetup", "lvm2-dm", "util-linux-mount", "util-linux-mkfs"]
 pkgdesc = "Supporting infrastructure for cryptsetup from Debian"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

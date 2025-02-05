@@ -8,8 +8,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "device-mapper-devel",
     "linux-headers",
+    "lvm2-devel",
     "rust-std",
     "udev-devel",
     "zstd-devel",

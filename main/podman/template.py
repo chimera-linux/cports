@@ -19,11 +19,11 @@ hostmakedepends = [
 ]
 makedepends = [
     "btrfs-progs-devel",
-    "device-mapper-devel",
     "gpgme-devel",
     "libassuan-devel",
     "libseccomp-devel",
     "linux-headers",
+    "lvm2-devel",
     "sqlite-devel",
 ]
 depends = [

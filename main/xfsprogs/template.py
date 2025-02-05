@@ -15,13 +15,13 @@ make_install_args = ["-j1", "install-dev"]
 hostmakedepends = ["gettext", "util-linux-uuid-devel", "pkgconf"]
 makedepends = [
     "attr-devel",
-    "device-mapper-devel",
     "gettext-devel",
-    "libedit-devel",
     "inih-devel",
+    "libedit-devel",
+    "linux-headers",
+    "lvm2-devel",
     "userspace-rcu-devel",
     "util-linux-blkid-devel",
-    "linux-headers",
 ]
 pkgdesc = "XFS file system utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

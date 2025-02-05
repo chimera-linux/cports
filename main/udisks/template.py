@@ -33,7 +33,7 @@ makedepends = [
     "polkit-devel",
     "elogind-devel",
     "libblockdev-devel",
-    "device-mapper-devel",
+    "lvm2-devel",
 ]
 pkgdesc = "Daemon, tools and libraries for disk manipulation"
 maintainer = "q66 <q66@chimera-linux.org>"
