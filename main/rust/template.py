@@ -448,10 +448,11 @@ def _(self):
     ]
 
 
-@subpackage("rustfmt")
+@subpackage("rust-rustfmt")
 def _(self):
     self.pkgdesc = "Rust code formatter"
     self.depends = [self.parent]
+    self.provides = [self.with_pkgver("rustfmt")]
 
     return [
         "usr/bin/rustfmt",
