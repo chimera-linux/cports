@@ -1,6 +1,6 @@
 pkgname = "numactl"
 pkgver = "2.0.19"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers"]
