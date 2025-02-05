@@ -1,6 +1,6 @@
 pkgname = "vim"
 pkgver = "9.1.0880"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -25,7 +25,7 @@ makedepends = [
     "python-devel",
     "ruby-devel",
 ]
-depends = [self.with_pkgver("xxd")]
+depends = [self.with_pkgver("vim-xxd")]
 pkgdesc = "Vi-style text editor"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Vim"
@@ -49,9 +49,10 @@ def post_install(self):
     self.uninstall("usr/share/man/*/man1/view.1", glob=True)
 
 
-@subpackage("xxd")
+@subpackage("vim-xxd")
 def _(self):
     self.pkgdesc = "Tool for viewing/editing hex dumps"
+    self.provides = [self.with_pkgver("xxd")]
     return [
         "usr/bin/xxd",
         "usr/share/man/man1/xxd.1",
