@@ -1,6 +1,6 @@
 pkgname = "mlt"
 pkgver = "7.30.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # needs an ancient abandoned ruby kwalify
@@ -62,9 +62,11 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("python-mlt")
+@subpackage("mlt-python")
 def _(self):
     self.subdesc = "python module"
     self.depends += ["python"]
+    # transitional
+    self.provides = [self.with_pkgver("python-mlt")]
 
     return ["usr/lib/python*"]
