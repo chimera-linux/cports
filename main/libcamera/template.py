@@ -1,6 +1,6 @@
 pkgname = "libcamera"
 pkgver = "0.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dtest=true"]
 hostmakedepends = [
@@ -44,10 +44,12 @@ def post_install(self):
         )
 
 
-@subpackage("gstreamer-libcamera")
+@subpackage("libcamera-gstreamer")
 def _(self):
     self.subdesc = "GStreamer support"
     self.install_if = [self.parent, "gstreamer"]
+    # transitional
+    self.provides = [self.with_pkgver("gstreamer-libcamera")]
     return ["usr/lib/gstreamer-1.0"]
 
 
