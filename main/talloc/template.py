@@ -1,6 +1,6 @@
 pkgname = "talloc"
 pkgver = "2.4.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -46,9 +46,11 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("libpytalloc-util")
+@subpackage("talloc-python-libs")
 def _(self):
     self.subdesc = "Python utility library"
+    # transitional
+    self.provides = [self.with_pkgver("libpytalloc-util")]
 
     return ["usr/lib/libpytalloc-util.so.*"]
 
