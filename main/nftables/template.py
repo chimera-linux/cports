@@ -1,7 +1,7 @@
 # update main/python-nftables alongside this
 pkgname = "nftables"
 pkgver = "1.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-cli=editline",
@@ -36,9 +36,10 @@ def post_install(self):
     self.install_service(fpath / "nftables")
 
 
-@subpackage("libnftables")
+@subpackage("nftables-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libnftables")]
 
     return self.default_libs()
 

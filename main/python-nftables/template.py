@@ -1,6 +1,6 @@
 pkgname = "python-nftables"
 pkgver = "1.1.1"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "py"
 build_style = "python_pep517"
 hostmakedepends = [
@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-installer",
     "python-setuptools",
 ]
-depends = ["libnftables", "python"]
+depends = ["nftables-libs", "python"]
 pkgdesc = "Python bindings for nftables"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND GPL-2.0-or-later"
