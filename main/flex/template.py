@@ -1,11 +1,12 @@
 pkgname = "flex"
 pkgver = "2.6.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
+configure_gen = []
 hostmakedepends = ["byacc"]
 makedepends = ["byacc"]
-depends = ["byacc", self.with_pkgver("libfl-devel-static")]
+depends = ["byacc", self.with_pkgver("flex-devel-static")]
 pkgdesc = "Fast Lexical Analyzer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:flex"
@@ -30,7 +31,7 @@ def post_install(self):
     self.install_license("COPYING")
 
 
-@subpackage("libfl-devel-static")
+@subpackage("flex-devel-static")
 def _(self):
     self.depends = []
     self.install_if = [
@@ -38,8 +39,7 @@ def _(self):
         "base-devel",
         "base-devel-static",
     ]
+    # transitional
+    self.provides = [self.with_pkgver("libfl-devel-static")]
 
     return self.default_devel()
-
-
-configure_gen = []

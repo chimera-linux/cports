@@ -11,7 +11,7 @@ hostmakedepends = [
     "slibtool",
     "xsltproc",
 ]
-makedepends = ["libfl-devel-static", "glib-devel", "graphviz-devel"]
+makedepends = ["flex-devel-static", "glib-devel", "graphviz-devel"]
 checkdepends = ["dbus", "libgirepository-devel", "bash"]
 provides = ["so:libvalaccodegen.so=0"]
 pkgdesc = "Programming language based on the GObject type system"

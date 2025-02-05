@@ -13,8 +13,8 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "flex-devel-static",
     "libcap-devel",
-    "libfl-devel-static",
     "libmnl-devel",
     "libxtables-devel",
     "linux-headers",

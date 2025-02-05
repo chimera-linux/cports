@@ -5,9 +5,9 @@ build_style = "meson"
 configure_args = ["-Ddocumentation=false"]
 hostmakedepends = ["meson", "pkgconf", "flex"]
 makedepends = [
+    "flex-devel-static",
     "libexpat-devel",
     "libffi-devel",
-    "libfl-devel-static",
     "libxml2-devel",
 ]
 pkgdesc = "Wayland compositor infrastructure"

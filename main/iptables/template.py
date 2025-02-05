@@ -9,7 +9,7 @@ configure_args = [
 ]
 hostmakedepends = ["automake", "flex", "libtool", "pkgconf"]
 makedepends = [
-    "libfl-devel-static",
+    "flex-devel-static",
     "libpcap-devel",
     "libmnl-devel",
     "libnfnetlink-devel",

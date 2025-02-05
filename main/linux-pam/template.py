@@ -16,7 +16,7 @@ hostmakedepends = [
     "pkgconf",
     "xsltproc",
 ]
-makedepends = ["gettext-devel", "libfl-devel-static", "linux-headers"]
+makedepends = ["flex-devel-static", "gettext-devel", "linux-headers"]
 checkdepends = ["linux-pam-base"]
 depends = ["linux-pam-base"]
 pkgdesc = "Pluggable Authentication Modules for Linux"

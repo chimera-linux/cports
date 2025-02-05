@@ -13,7 +13,7 @@ hostmakedepends = [
     "texinfo",
 ]
 makedepends = [
-    "libfl-devel-static",
+    "flex-devel-static",
     "linux-headers",
     "ncurses-devel",
 ]
