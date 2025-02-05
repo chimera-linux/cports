@@ -1,6 +1,6 @@
 pkgname = "wget2"
 pkgver = "2.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-lzma",
@@ -44,12 +44,17 @@ def post_install(self):
     self.install_link("usr/share/man/man1/wget.1", "wget2.1")
 
 
-@subpackage("libwget")
+@subpackage("wget2-libs")
 def _(self):
-    self.subdesc = "runtime libraries"
+    # transitional
+    self.provides = [self.with_pkgver("libwget")]
+
     return self.default_libs()
 
 
-@subpackage("libwget-devel")
+@subpackage("wget2-devel")
 def _(self):
+    # transitional
+    self.provides = [self.with_pkgver("libwget-devel")]
+
     return self.default_devel()
