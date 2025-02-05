@@ -51,7 +51,7 @@ def _(self):
 
 @subpackage("gobject-introspection-libs")
 def _(self):
-    self.depends += [self.with_pkgver("gir-freedesktop")]
+    self.depends += [self.with_pkgver("gobject-introspection-freedesktop")]
     # transitional
     self.provides = [self.with_pkgver("libgirepository")]
 
