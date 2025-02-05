@@ -7,7 +7,7 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "gettext",
     "glib-devel",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "meson",
     "pkgconf",
     "vala",

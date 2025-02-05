@@ -5,7 +5,7 @@ build_style = "meson"
 hostmakedepends = [
     "desktop-file-utils",
     "gettext",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "meson",
     "pkgconf",
 ]

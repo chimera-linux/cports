@@ -6,7 +6,7 @@ hostmakedepends = [
     "cmake",
     "gettext",
     "glib-devel",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "highlight",
     "intltool",
     "itstool",

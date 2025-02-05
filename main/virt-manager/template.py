@@ -14,7 +14,7 @@ _deps = [
 ]
 hostmakedepends = [
     "gettext",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "meson",
     "python-docutils",
 ]

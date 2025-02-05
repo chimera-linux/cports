@@ -8,7 +8,7 @@ hostmakedepends = [
     "gettext",
     "git",
     "glib-devel",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "meson",
     "pkgconf",
 ]

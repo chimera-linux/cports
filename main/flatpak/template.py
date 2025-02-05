@@ -1,6 +1,6 @@
 pkgname = "flatpak"
 pkgver = "1.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddconf=enabled",
@@ -57,7 +57,7 @@ checkdepends = ["bash", "dbus", "socat"]
 depends = [
     "bubblewrap",
     "desktop-file-utils",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "shared-mime-info",
     "xdg-dbus-proxy",
 ]

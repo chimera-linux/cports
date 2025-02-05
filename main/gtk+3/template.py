@@ -1,6 +1,6 @@
 pkgname = "gtk+3"
 pkgver = "3.24.43"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dbroadway_backend=true",
@@ -51,7 +51,7 @@ makedepends = [
 ]
 depends = [
     "adwaita-icon-theme",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "shared-mime-info",
     "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
@@ -76,10 +76,11 @@ hardening = ["!int"]
 options = ["!cross", "!check"]
 
 
-@subpackage("gtk-update-icon-cache")
+@subpackage("gtk+3-update-icon-cache")
 def _(self):
     self.subdesc = "icon cache update tool"
     self.triggers = ["/usr/share/icons/*"]
+    self.provides = [self.with_pkgver("gtk-update-icon-cache")]
 
     return [
         "usr/bin/gtk-update-icon-cache",

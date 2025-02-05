@@ -6,7 +6,7 @@ hostmakedepends = [
     "gettext",
     # checks for gtk+3 by running python program in host :/
     "gtk+3",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "itstool",
     "meson",
     "pkgconf",

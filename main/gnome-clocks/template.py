@@ -10,7 +10,7 @@ hostmakedepends = [
     "vala",
     "itstool",
     "gobject-introspection",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "desktop-file-utils",
 ]
 makedepends = [

@@ -6,7 +6,7 @@ configure_args = ["--buildtype=release"]
 hostmakedepends = [
     "cargo-auditable",
     "desktop-file-utils",
-    "gtk-update-icon-cache",
+    "gtk+3-update-icon-cache",
     "meson",
     "ninja",
     "pkgconf",
