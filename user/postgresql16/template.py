@@ -1,7 +1,7 @@
 pkgname = "postgresql16"
 _major = pkgname.removeprefix("postgresql")
 pkgver = f"{_major}.6"
-pkgrel = 0
+pkgrel = 1
 # NOTE: version 16 doesn't work with meson + tarball
 # switch to meson for version 17
 build_style = "gnu_configure"
@@ -289,18 +289,22 @@ def _(self):
     return []
 
 
-@subpackage("libpq", _default_ver)
+@subpackage("postgresql16-client-libs", _default_ver)
 def _(self):
     self.subdesc = "client library"
+    # transitional
+    self.provides = [self.with_pkgver("libpq")]
 
     return [
         "usr/lib/libpq.so.*",
     ]
 
 
-@subpackage("libpq-devel", _default_ver)
+@subpackage("postgresql16-client-devel", _default_ver)
 def _(self):
     self.subdesc = "client library development files"
+    # transitional
+    self.provides = [self.with_pkgver("libpq-devel")]
 
     return [
         "usr/bin/pg_config",
@@ -316,16 +320,20 @@ def _(self):
     ]
 
 
-@subpackage("libecpg", _default_ver)
+@subpackage("postgresql16-ecpg-libs", _default_ver)
 def _(self):
     self.subdesc = "embedded PostgreSQL for C"
+    # transitional
+    self.provides = [self.with_pkgver("libecpg")]
 
     return ["usr/lib/libecpg.so.*", "usr/lib/libpgtypes.so*"]
 
 
-@subpackage("libecpg-devel", _default_ver)
+@subpackage("postgresql16-ecpg-devel", _default_ver)
 def _(self):
     self.subdesc = "embedded PostgreSQL for C development files"
+    # transitional
+    self.provides = [self.with_pkgver("libecpg-devel")]
 
     return [
         f"usr/libexec/{pkgname}/ecpg",
