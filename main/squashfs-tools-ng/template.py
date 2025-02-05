@@ -1,6 +1,6 @@
 pkgname = "squashfs-tools-ng"
 pkgver = "1.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -23,9 +23,10 @@ source = f"https://infraroot.at/pub/squashfs/squashfs-tools-ng-{pkgver}.tar.xz"
 sha256 = "0d907ac3e735c351e47c867fb51d94bffa3b05fb95bec01f31e848b7c44215a9"
 
 
-@subpackage("libsquashfs")
+@subpackage("squashfs-tools-ng-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libsquashfs")]
 
     return self.default_libs()
 
