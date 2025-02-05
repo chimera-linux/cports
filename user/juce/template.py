@@ -1,6 +1,6 @@
 pkgname = "juce"
 pkgver = "8.0.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DJUCE_BUILD_EXTRAS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -53,9 +53,11 @@ def post_install(self):
     self.install_bin("build/extras/Projucer/Projucer_artefacts/None/Projucer")
 
 
-@subpackage("projucer")
+@subpackage("juce-projucer")
 def _(self):
     self.pkgdesc = "Cross-platform IDE for audio plugins"
     self.depends = [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("projucer")]
 
     return ["cmd:Projucer"]
