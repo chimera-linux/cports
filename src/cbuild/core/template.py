@@ -803,7 +803,7 @@ class Template(Package):
         def subpkg_deco(spkgname, cond=True, alternative=None):
             def deco(f):
                 if alternative:
-                    pn = f"{alternative}-{spkgname}-default"
+                    pn = f"{alternative.removeprefix('!')}-{spkgname}-default"
                 else:
                     pn = spkgname
                 if f.__name__ != "_":
@@ -991,7 +991,9 @@ class Template(Package):
         # link subpackages and fill in their fields
         for spn, spf, spa in self.subpackages:
             if spa:
-                spn = f"{spa}-{spn}-default"
+                spn = f"{spa.removeprefix('!')}-{spn}-default"
+                if spa.startswith("!"):
+                    spa = None
             if spn in spdupes:
                 self.error(f"subpackage '{spn}' already exists")
             if spn.lower() != spn:

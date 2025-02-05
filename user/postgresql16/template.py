@@ -261,7 +261,7 @@ def _(self):
 # these are provided by contribs, can't put them in the default alt
 # nor should we make them actual alternatives (autoinstall instead)
 def _contrib_alt(pn, pl):
-    @subpackage(f"postgresql-postgresql16-{pn}-default")
+    @subpackage(f"{pkgname}-{pn}", alternative="!postgresql")
     def _(self):
         self.subdesc = f"default links for {pn}"
         self.depends = [self.with_pkgver(f"postgresql-{pkgname}-default")]
