@@ -26,7 +26,7 @@ makedepends = [
     "libvorbis-devel",
     "libpulse-devel",
     "udev-devel",
-    "libltdl-devel",
+    "libtool-devel",
     "tdb-devel",
 ]
 pkgdesc = "Portable sound event API"

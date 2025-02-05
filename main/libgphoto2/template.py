@@ -18,7 +18,7 @@ makedepends = [
     "libexif-devel",
     "libusb-devel",
     "libxml2-devel",
-    "libltdl-devel",
+    "libtool-devel",
 ]
 pkgdesc = "Digital camera access library"
 maintainer = "q66 <q66@chimera-linux.org>"

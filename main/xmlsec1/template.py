@@ -8,7 +8,7 @@ makedepends = [
     "gnutls-devel",
     "libgcrypt-devel",
     "libgcrypt-devel",
-    "libltdl-devel",
+    "libtool-devel",
     "libxslt-devel",
     "nspr-devel",
     "nss-devel",

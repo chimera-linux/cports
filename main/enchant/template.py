@@ -14,7 +14,7 @@ makedepends = [
     "glib-devel",
     "hunspell-devel",
     "icu-devel",
-    "libltdl-devel",
+    "libtool-devel",
     "nuspell-devel",
     "unittest-cpp",
 ]

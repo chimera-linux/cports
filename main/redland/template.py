@@ -11,7 +11,7 @@ configure_args = [
 ]
 hostmakedepends = ["pkgconf", "automake", "libtool", "perl", "gtk-doc-tools"]
 makedepends = [
-    "libltdl-devel",
+    "libtool-devel",
     "rasqal-devel",
     "sqlite-devel",
     "unixodbc-devel",

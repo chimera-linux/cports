@@ -28,7 +28,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libevent-devel",
-    "libltdl-devel",
+    "libtool-devel",
     "libsasl-devel",
     "libsodium-devel",
     "openssl-devel",

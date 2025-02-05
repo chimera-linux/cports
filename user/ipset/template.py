@@ -7,7 +7,7 @@ make_dir = "."
 make_check_target = "tests"
 hostmakedepends = [
     "automake",
-    "libltdl-devel",
+    "libtool-devel",
     "libtool",
     "pkgconf",
 ]

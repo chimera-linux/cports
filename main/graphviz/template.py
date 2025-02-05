@@ -11,7 +11,7 @@ hostmakedepends = [
     "automake",
     "bison",
     "flex",
-    "libltdl-devel",
+    "libtool-devel",
     "libtool",
     "perl",
     "pkgconf",

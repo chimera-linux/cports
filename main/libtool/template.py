@@ -1,7 +1,8 @@
 pkgname = "libtool"
 pkgver = "2.5.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = [
     "gm4",
     "perl",
@@ -30,9 +31,10 @@ def pre_configure(self):
         (self.cwd / "libltdl" / f).touch()
 
 
-@subpackage("libltdl-devel")
+@subpackage("libtool-devel")
 def _(self):
-    self.pkgdesc = "GNU libtool dlopen wrapper"
+    # transitional
+    self.provides = [self.with_pkgver("libltdl-devel")]
     # can't use default_devel, some aclocal stuff belongs in main package
     return [
         "usr/include",
@@ -43,10 +45,9 @@ def _(self):
     ]
 
 
-@subpackage("libltdl")
+@subpackage("libtool-libs")
 def _(self):
-    self.pkgdesc = "GNU libtool dlopen wrapper"
+    # transitional
+    self.provides = [self.with_pkgver("libltdl")]
+
     return self.default_libs()
-
-
-configure_gen = []

@@ -40,7 +40,7 @@ makedepends = [
     "libheif-devel",
     "libjpeg-turbo-devel",
     "libjxl-devel",
-    "libltdl-devel",
+    "libtool-devel",
     "libpng-devel",
     "libtiff-devel",
     "libwebp-devel",
