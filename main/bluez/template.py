@@ -1,6 +1,6 @@
 pkgname = "bluez"
 pkgver = "5.79"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-deprecated",
@@ -52,9 +52,10 @@ def post_install(self):
     self.install_service(self.files_path / "bluetoothd")
 
 
-@subpackage("libbluetooth")
+@subpackage("bluez-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libbluetooth")]
 
     return self.default_libs()
 
