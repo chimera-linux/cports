@@ -1,6 +1,6 @@
 pkgname = "python-pytz"
 pkgver = "2025.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,7 +8,7 @@ hostmakedepends = [
     "python-setuptools",
 ]
 checkdepends = ["python-pytest"]
-depends = ["python", "tzdata"]
+depends = ["python", "tzdb"]
 pkgdesc = "Python timezone library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

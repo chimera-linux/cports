@@ -1,6 +1,6 @@
 pkgname = "libgweather"
 pkgver = "4.4.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsoup2=false",
@@ -23,7 +23,7 @@ makedepends = [
     "libxml2-devel",
     "json-glib-devel",
 ]
-depends = ["tzdata"]
+depends = ["tzdb"]
 pkgdesc = "GNOME Weather information access library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

@@ -1,12 +1,12 @@
 pkgname = "numbat"
 pkgver = "1.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 # Tries to access network
 make_check_args = ["--", "--skip=examples_can_be_parsed_and_interpreted"]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
-depends = ["tzdata"]
+depends = ["tzdb"]
 pkgdesc = "High-precision scientific calculator"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT OR Apache-2.0"

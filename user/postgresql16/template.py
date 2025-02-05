@@ -39,7 +39,7 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-depends = ["postgresql-common", "tzdata"]
+depends = ["postgresql-common", "tzdb"]
 provides = ["postgresql-runtime"]
 pkgdesc = f"Sophisticated object-relational DBMS, version {_major}.x"
 maintainer = "mia <mia@mia.jetzt>"

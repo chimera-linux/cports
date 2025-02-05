@@ -1,6 +1,6 @@
 pkgname = "hare"
 pkgver = "0.24.2"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
 make_env = {"LOCALVER": "chimera"}
@@ -10,8 +10,8 @@ make_build_args = [
     f"{self.profile().arch.upper()}_LD=ld",
 ]
 hostmakedepends = [f"binutils-{self.profile().arch}", "harec", "qbe", "scdoc"]
-depends = ["binutils", "clang", "harec", "qbe", "tzdata"]
-checkdepends = ["tzdata"]
+depends = ["binutils", "clang", "harec", "qbe", "tzdb"]
+checkdepends = ["tzdb"]
 pkgdesc = "Hare programming language"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0 AND GPL-3.0-only"

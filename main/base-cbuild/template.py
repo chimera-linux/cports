@@ -1,6 +1,6 @@
 pkgname = "base-cbuild"
 pkgver = "0.1"
-pkgrel = 10
+pkgrel = 11
 build_style = "meta"
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -36,7 +36,7 @@ if self.stage > 0:
         "bc-gh",
         "resolvconf",
         "resolvconf-none",
-        "tzdata",
+        "tzdb",
     ]
 
 if self.stage > 2:

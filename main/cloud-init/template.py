@@ -1,6 +1,6 @@
 pkgname = "cloud-init"
 pkgver = "24.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",
@@ -23,7 +23,7 @@ depends = [
     "python-pyyaml",
     "python-requests",
     "shadow",
-    "tzdata",
+    "tzdb",
     "util-linux-mount",
 ]
 checkdepends = [
