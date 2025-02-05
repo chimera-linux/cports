@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "1.2.7"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -153,18 +153,22 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("gstreamer-pipewire")
+@subpackage("pipewire-gstreamer")
 def _(self):
     self.subdesc = "gstreamer plugin"
     self.install_if = [self.parent, "gst-plugins-base"]
+    # transitional
+    self.provides = [self.with_pkgver("gstreamer-pipewire")]
 
     return ["usr/lib/gstreamer-1.0"]
 
 
-@subpackage("alsa-pipewire")
+@subpackage("pipewire-alsa")
 def _(self):
     self.subdesc = "ALSA client library"
     self.install_if = [self.parent, "alsa-lib"]
+    # transitional
+    self.provides = [self.with_pkgver("alsa-pipewire")]
 
     return [
         "usr/lib/alsa-lib",
@@ -172,10 +176,12 @@ def _(self):
     ]
 
 
-@subpackage("alsa-pipewire-default")
+@subpackage("pipewire-alsa-default")
 def _(self):
     self.subdesc = "use for ALSA by default"
-    self.install_if = [self.with_pkgver("alsa-pipewire")]
+    self.install_if = [self.with_pkgver("pipewire-alsa")]
+    # transitional
+    self.provides = [self.with_pkgver("alsa-pipewire-default")]
 
     return [
         "@etc/alsa/conf.d/99-pipewire-default.conf=>../../../usr/share/alsa/alsa.conf.d/99-pipewire-default.conf"
