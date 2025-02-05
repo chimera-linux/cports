@@ -1,5 +1,5 @@
 pkgname = "blueman"
-pkgver = "2.4.3"
+pkgver = "2.4.4"
 pkgrel = 3
 build_style = "meson"
 # XXX drop libexec
@@ -36,7 +36,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://blueman-project.github.io/blueman"
 source = f"https://github.com/blueman-project/blueman/releases/download/{pkgver}/blueman-{pkgver}.tar.xz"
-sha256 = "bdfc49909742cb79288f8a11d6f666b75c2713b91c085e6d0dd329434793fe85"
+sha256 = "d34f9154c8c6887d15679d129744922ac72f6a71cb2bccfb6662f8ca446e85f0"
 # TODO
 options = ["!check"]
 
@@ -45,8 +45,8 @@ def post_install(self):
     self.uninstall("usr/lib/systemd/user")
     self.uninstall("usr/lib/systemd/system")
 
-    # TODO: caja and nemo aren't packaged, when they are, add a subpackage for
-    # each extension (see blueman-nautilus below)
+    # TODO: caja and nemo-python aren't packaged, when they are, add a
+    # subpackage for each extension (see blueman-nautilus below)
     self.uninstall("usr/share/nemo-python")
     self.uninstall("usr/share/caja-python")
 
