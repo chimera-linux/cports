@@ -14,9 +14,9 @@ hostmakedepends = [
 ]
 makedepends = [
     "flex-devel-static",
+    "iptables-devel",
     "libcap-devel",
     "libmnl-devel",
-    "libxtables-devel",
     "linux-headers",
 ]
 pkgdesc = "IP routing utilities"

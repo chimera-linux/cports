@@ -19,7 +19,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "libiptc-devel",
+    "iptables-devel",
     "libmnl-devel",
     "libnftnl-devel",
     "libuuid-devel",

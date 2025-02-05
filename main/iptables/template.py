@@ -1,6 +1,6 @@
 pkgname = "iptables"
 pkgver = "1.8.10"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-devel",
@@ -34,37 +34,26 @@ source = f"{url}/files/iptables-{pkgver}.tar.xz"
 sha256 = "5cc255c189356e317d070755ce9371eb63a1b783c34498fb8c30264f3cc59c9c"
 
 
-@subpackage("libiptc")
+@subpackage("iptables-libs")
 def _(self):
-    self.pkgdesc = "Netfilter libiptc library"
-    return ["usr/lib/libip[46]tc.so.*"]
-
-
-@subpackage("libiptc-devel")
-def _(self):
-    self.pkgdesc = "Netfilter libiptc library"
-    return [
-        "usr/include/libiptc",
-        "usr/lib/libip[46]tc.so",
-        "usr/lib/pkgconfig/libiptc.pc",
-        "usr/lib/pkgconfig/libip[46]tc.pc",
+    # transitional
+    self.provides = [
+        self.with_pkgver("libiptc"),
+        self.with_pkgver("libxtables"),
     ]
 
+    return self.default_libs()
 
-@subpackage("libxtables")
+
+@subpackage("iptables-devel")
 def _(self):
-    self.pkgdesc = "Netfilter xtables library"
-    return ["usr/lib/libxtables.so.*"]
-
-
-@subpackage("libxtables-devel")
-def _(self):
-    self.pkgdesc = "Netfilter xtables library"
-    return [
-        "usr/include/xtables*.h",
-        "usr/lib/libxtables.so",
-        "usr/lib/pkgconfig/xtables.pc",
+    # transitional
+    self.provides = [
+        self.with_pkgver("libiptc-devel"),
+        self.with_pkgver("libxtables-devel"),
     ]
+
+    return self.default_devel()
 
 
 def post_install(self):
