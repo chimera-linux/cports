@@ -1,6 +1,6 @@
 pkgname = "gnutls"
 pkgver = "3.8.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
@@ -38,7 +38,7 @@ makedepends = [
     "zstd-devel",
 ]
 # dlopened
-depends = ["libtspi"]
+depends = ["trousers-libs"]
 pkgdesc = "GNU Transport Layer Security library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

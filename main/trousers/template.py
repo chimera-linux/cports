@@ -1,6 +1,6 @@
 pkgname = "trousers"
 pkgver = "0.3.15"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["openssl3-devel", "linux-headers"]
@@ -21,9 +21,10 @@ def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="tss")
 
 
-@subpackage("libtspi")
+@subpackage("trousers-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libtspi")]
 
     return self.default_libs()
 
