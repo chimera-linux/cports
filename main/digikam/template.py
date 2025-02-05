@@ -69,7 +69,7 @@ makedepends = [
     "threadweaver-devel",
     "x265-devel",
 ]
-depends = ["exiftool"]
+depends = ["cmd:exiftool!perl-image-exiftool-progs"]
 checkdepends = [*depends]
 pkgdesc = "Digital photo management application"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"

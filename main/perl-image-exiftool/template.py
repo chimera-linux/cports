@@ -1,6 +1,6 @@
 pkgname = "perl-image-exiftool"
 pkgver = "13.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]
@@ -13,7 +13,9 @@ source = f"{url}/Image-ExifTool-{pkgver}.tar.gz"
 sha256 = "b8bb379b8f8d7534792de229f25557a83300d46a2d7c3448f29eb3358998366d"
 
 
-@subpackage("exiftool")
+@subpackage("perl-image-exiftool-progs")
 def _(self):
     self.depends += [self.parent]
-    return ["usr/bin"]
+    self.provides = [self.with_pkgver("exiftool")]
+
+    return self.default_progs()
