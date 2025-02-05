@@ -33,7 +33,6 @@ makedepends = [
     "libkexiv2-devel",
     "libmtp-devel",
     "libplist-devel",
-    "libsmbclient-devel",
     "libssh-devel",
     "openexr-devel",
     "phonon-devel",
@@ -43,6 +42,7 @@ makedepends = [
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
+    "samba-client-devel",
     "syntax-highlighting-devel",
     "taglib-devel",
 ]

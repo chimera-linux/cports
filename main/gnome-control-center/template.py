@@ -39,7 +39,6 @@ makedepends = [
     "libpulse-devel",
     "libpwquality-devel",
     "libsecret-devel",
-    "libsmbclient-devel",
     "libsoup-devel",
     "libwacom-devel",
     "libx11-devel",
@@ -48,6 +47,7 @@ makedepends = [
     "modemmanager-devel",
     "networkmanager-devel",
     "polkit-devel",
+    "samba-client-devel",
     "udisks-devel",
     "upower-devel",
 ]

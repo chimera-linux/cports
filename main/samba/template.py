@@ -175,10 +175,12 @@ def _(self):
     ]
 
 
-@subpackage("libsmbclient")
+@subpackage("samba-client-libs")
 def _(self):
     self.subdesc = "client library"
     self.depends = [self.with_pkgver("samba-libs")]
+    # transitional
+    self.provides = [self.with_pkgver("libsmbclient")]
 
     return [
         "usr/lib/libsmbclient.so.*",
@@ -186,9 +188,11 @@ def _(self):
     ]
 
 
-@subpackage("libsmbclient-devel")
+@subpackage("samba-client-devel")
 def _(self):
     self.subdesc = "client library development files"
+    # transitional
+    self.provides = [self.with_pkgver("libsmbclient-devel")]
 
     return [
         "usr/include/samba-4.0/libsmbclient.h",
@@ -197,17 +201,21 @@ def _(self):
     ]
 
 
-@subpackage("libwbclient")
+@subpackage("samba-winbind-libs")
 def _(self):
     self.subdesc = "winbind client library"
     self.depends = [self.with_pkgver("samba-libs")]
+    # transitional
+    self.provides = [self.with_pkgver("libwbclient")]
 
     return ["usr/lib/libwbclient.so.*"]
 
 
-@subpackage("libwbclient-devel")
+@subpackage("samba-winbind-devel")
 def _(self):
     self.subdesc = "winbind library development files"
+    # transitional
+    self.provides = [self.with_pkgver("libwbclient-devel")]
 
     return [
         "usr/include/samba-4.0/wbclient.h",
@@ -242,11 +250,13 @@ def _(self):
     ]
 
 
-@subpackage("pam_winbind")
+@subpackage("samba-winbind-pam")
 def _(self):
     self.pkgdesc = "Windows domain authentication integration plugin"
     self.depends = [self.with_pkgver("samba-winbind")]
-    self.install_if = [self.with_pkgver("libnss_winbind")]
+    self.install_if = [self.with_pkgver("samba-winbind-nss")]
+    # transitional
+    self.provides = [self.with_pkgver("pam_winbind")]
 
     return [
         "usr/lib/security/pam_winbind.so",
@@ -255,10 +265,12 @@ def _(self):
     ]
 
 
-@subpackage("libnss_winbind")
+@subpackage("samba-winbind-nss")
 def _(self):
     self.pkgdesc = "Samba nameservice integration plugins"
     self.depends = [self.with_pkgver("samba-winbind")]
+    # transitional
+    self.provides = [self.with_pkgver("libnss_winbind")]
 
     return ["usr/lib/libnss_win*.so.*"]
 
@@ -369,10 +381,12 @@ def _(self):
     return self.default_devel()
 
 
-@subpackage("ldb-progs")
+@subpackage("samba-ldb-progs")
 def _(self):
     self.pkgdesc = "LDAP-like database"
-    self.subdesc = "programs"
+    # transitional
+    self.provides = [self.with_pkgver("ldb-progs")]
+
     return ["cmd:ldb*"]
 
 

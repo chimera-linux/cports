@@ -41,12 +41,12 @@ makedepends = [
     "libnfs-devel",
     "libplist-devel",
     "libsecret-devel",
-    "libsmbclient-devel",
     "libsoup-devel",
     "libusb-devel",
     "libxml2-devel",
     "msgraph-devel",
     "polkit-devel",
+    "samba-client-devel",
     "udisks-devel",
 ]
 depends = ["desktop-file-utils"]
