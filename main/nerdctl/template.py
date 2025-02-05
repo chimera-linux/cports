@@ -29,18 +29,3 @@ def post_install(self):
     )
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"nerdctl.{shell}", shell)
-
-
-@subpackage("containerd-rootless")
-def _(self):
-    self.pkgdesc = "Rootless containerd support"
-    self.depends = [
-        "containerd",
-        "rootlesskit",
-        "slirp4netns",
-    ]
-
-    return [
-        "usr/bin/containerd-rootless",
-        "usr/lib/dinit.d/user",
-    ]
