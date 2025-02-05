@@ -5,7 +5,7 @@ pkgname = "readline"
 # use a git revision so we don't have to deal with the stupid patches
 _gitrev = "037d85f199a8c6e5b16689a46c8bc31b586a0c94"
 pkgver = "8.2.013"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -27,13 +27,6 @@ sha256 = "86959fc06a4ad8a3852b68ce67f5bb2f98d7d95548bbfc5c87e806042a8567e1"
 
 def post_install(self):
     self.uninstall("usr/share/doc")
-
-
-@subpackage("libhistory")
-def _(self):
-    self.subdesc = "history library"
-
-    return ["usr/lib/libhistory.so.*"]
 
 
 @subpackage("readline-devel")
