@@ -1,6 +1,6 @@
 pkgname = "xserver-xorg-input-libinput"
 pkgver = "1.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -10,6 +10,7 @@ hostmakedepends = [
 ]
 makedepends = ["xserver-xorg-devel", "libinput-devel"]
 depends = ["virtual:xserver-abi-input~24!xserver-xorg-core"]
+provides = [self.with_pkgver("xserver-xorg-input-driver")]
 pkgdesc = "Generic input driver for X.org server based on libinput"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
