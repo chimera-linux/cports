@@ -1,8 +1,9 @@
 pkgname = "gmp"
 pkgver = "6.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx"]
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Library for arbitrary precision arithmetic"
@@ -13,16 +14,20 @@ source = f"{url}/download/gmp/gmp-{pkgver}.tar.xz"
 sha256 = "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
 
 
-@subpackage("gmpxx")
+@subpackage("gmp-gmpxx")
 def _(self):
     self.subdesc = "C++ support"
+    # transitional
+    self.provides = [self.with_pkgver("gmpxx")]
 
     return ["usr/lib/libgmpxx.so.*"]
 
 
-@subpackage("gmpxx-devel")
+@subpackage("gmp-gmpxx-devel")
 def _(self):
     self.subdesc = "C++ development files"
+    # transitional
+    self.provides = [self.with_pkgver("gmpxx-devel")]
 
     return [
         "usr/include/gmpxx.h",
@@ -34,6 +39,3 @@ def _(self):
 @subpackage("gmp-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []
