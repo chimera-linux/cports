@@ -13,8 +13,8 @@ hostmakedepends = ["automake", "libtool"]
 makedepends = [
     "librtas-devel",
     "zlib-ng-compat-devel",
-    "libnuma-devel",
     "linux-headers",
+    "numactl-devel",
 ]
 depends = ["bash"]
 pkgdesc = "Suite of utilities for Linux on Power systems"

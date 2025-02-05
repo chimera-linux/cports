@@ -13,8 +13,8 @@ hostmakedepends = [
 ]
 makedepends = [
     "libaio-devel",
-    "libnuma-devel",
     "linux-headers",
+    "numactl-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Flexible I/O tester"

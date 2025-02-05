@@ -5,7 +5,7 @@ build_wrksrc = "source"
 build_style = "cmake"
 configure_args = ["-DENABLE_PIC=1", "-DGIT_ARCHETYPE=1"]
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
-makedepends = ["libnuma-devel", "linux-headers"]
+makedepends = ["numactl-devel", "linux-headers"]
 pkgdesc = "Open source H.265/HEVC encoder"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
