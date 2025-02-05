@@ -2,7 +2,7 @@ pkgname = "zlib-ng-compat"
 pkgver = "2.2.3"
 # compat version
 _cver = "1.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -16,6 +16,8 @@ hostmakedepends = ["pkgconf"]
 provides = [
     f"so:libz.so.1={_cver}.99",
     f"zlib={_cver}-r99",
+    # bad transitional hack
+    self.with_pkgver("zlib-dbg"),
 ]
 replaces = [f"zlib<{_cver}-r99"]
 pkgdesc = "Implementation of zlib compression library"
@@ -44,12 +46,3 @@ def _(self):
     self.replaces = [f"zlib-devel<{_cver}-r99"]
 
     return self.default_devel()
-
-
-@subpackage("zlib-dbg")
-def _(self):
-    self.subdesc = "transitional debug package"
-    # prevent cbuild from thinking it's a depcycle
-    self.depends = [f"virtual:zlib-ng-compat-dbg={self.full_pkgver}!base-files"]
-    self.options = ["empty"]
-    return []
