@@ -1,6 +1,6 @@
 pkgname = "libcgroup"
 pkgver = "3.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -45,11 +45,13 @@ def _(self):
     return self.default_progs()
 
 
-@subpackage("pam_cgroup")
+@subpackage("libcgroup-pam")
 def _(self):
     self.subdesc = "PAM"
     self.depends = [self.parent, "linux-pam"]
     self.install_if = [self.parent, "linux-pam"]
+    # transitional
+    self.provides = [self.with_pkgver("pam_cgroup")]
     return [
         "usr/lib/security",
     ]
