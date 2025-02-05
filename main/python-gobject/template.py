@@ -1,6 +1,6 @@
 pkgname = "python-gobject"
 pkgver = "3.50.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 make_check_env = {"PYGI_TEST_VERBOSE": "1"}
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -22,7 +22,7 @@ checkdepends = [
     "python-pytest",
     "xwayland-run",
 ]
-depends = ["python", "gir-freedesktop", "python-cairo"]
+depends = ["python", "gobject-introspection-freedesktop", "python-cairo"]
 pkgdesc = "Python bindings for GObject"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
@@ -37,8 +37,8 @@ options = ["!check"]
 def _(self):
     self.depends += [
         self.parent,
+        "gobject-introspection-devel",
         "python-cairo-devel",
-        "libgirepository-devel",
     ]
 
     return self.default_devel()

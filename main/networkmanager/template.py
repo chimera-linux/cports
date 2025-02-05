@@ -62,7 +62,7 @@ makedepends = [
     "jansson-devel",
     "curl-devel",
     "libedit-devel",
-    "libgirepository-devel",
+    "gobject-introspection-devel",
     "libgudev-devel",
     "libndp-devel",
     "libnl-devel",

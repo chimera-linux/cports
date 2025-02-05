@@ -32,6 +32,7 @@ hostmakedepends = [
 makedepends = [
     "acl-devel",
     "gdk-pixbuf-devel",
+    "gobject-introspection-devel",
     "gst-plugins-base-devel",
     "gstreamer-devel",
     "gtk+3-devel",
@@ -39,7 +40,6 @@ makedepends = [
     "libcacard-devel",
     "libcap-ng-devel",
     "libepoxy-devel",
-    "libgirepository-devel",
     "libjpeg-turbo-devel",
     "libsasl-devel",
     "libusb-devel",

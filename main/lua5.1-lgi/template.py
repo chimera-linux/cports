@@ -1,18 +1,18 @@
 pkgname = "lua5.1-lgi"
 pkgver = "0.9.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = ["LUA_VERSION=5.1", "LUA_CFLAGS=-I/usr/include/lua5.1"]
 make_check_args = ["LUA=lua5.1"]
 make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = ["pkgconf", "gobject-introspection"]
 makedepends = [
-    "gir-freedesktop",
+    "gobject-introspection-freedesktop",
     "glib-devel",
     "libffi-devel",
     "lua5.1-devel",
 ]
-depends = ["gir-freedesktop"]
+depends = ["gobject-introspection-freedesktop"]
 checkdepends = ["xwayland-run", "dbus", "lua5.1", "gtk+3"]
 pkgdesc = "Lua binding to GObject libraries using GObject-Introspection"
 maintainer = "Wesley Moore <wes@wezm.net>"

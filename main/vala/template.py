@@ -12,7 +12,7 @@ hostmakedepends = [
     "xsltproc",
 ]
 makedepends = ["flex-devel-static", "glib-devel", "graphviz-devel"]
-checkdepends = ["dbus", "libgirepository-devel", "bash"]
+checkdepends = ["dbus", "gobject-introspection-devel", "bash"]
 provides = ["so:libvalaccodegen.so=0"]
 pkgdesc = "Programming language based on the GObject type system"
 maintainer = "q66 <q66@chimera-linux.org>"

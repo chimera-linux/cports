@@ -33,12 +33,12 @@ hostmakedepends = [
 makedepends = [
     "catch2-devel",
     "fmt-devel",
+    "gobject-introspection-devel",
     "gtk-layer-shell-devel",
     "gtkmm3.0-devel",
     "jsoncpp-devel",
     "libdbusmenu-devel",
     "libevdev-devel",
-    "libgirepository-devel",
     "libinput-devel",
     "libmpdclient-devel",
     "libnl-devel",

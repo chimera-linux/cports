@@ -24,7 +24,7 @@ makedepends = [
     "libedit-readline-devel",
     "mozjs128-devel",
 ]
-checkdepends = ["gir-freedesktop", "gtk+3"]
+checkdepends = ["gobject-introspection-freedesktop", "gtk+3"]
 pkgdesc = "JavaScript bindings for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR LGPL-2.0-or-later"
