@@ -1,6 +1,6 @@
 pkgname = "totem-pl-parser"
 pkgver = "3.26.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Denable-libarchive=yes",
@@ -22,6 +22,8 @@ makedepends = [
     "libgcrypt-devel",
     "libarchive-devel",
 ]
+# transitional
+provides = [self.with_pkgver("libtotem-plparser-mini")]
 pkgdesc = "Totem playlist parser library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
@@ -35,10 +37,3 @@ options = ["!check", "linkundefver"]
 @subpackage("totem-pl-parser-devel")
 def _(self):
     return self.default_devel()
-
-
-@subpackage("libtotem-plparser-mini")
-def _(self):
-    self.subdesc = "totem-plparser-mini library"
-
-    return ["usr/lib/libtotem-plparser-mini.so.*"]
