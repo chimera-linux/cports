@@ -40,4 +40,4 @@ def invoke(pkg):
             break
     else:
         # we have python stuff, add implied dependency
-        pkg.depends.append(f"base-python{pyver}~{pyver}")
+        pkg.depends.append(f"python-python{pyver}-meta~{pyver}")

@@ -9,7 +9,7 @@ configure_args = [
     "--shared",
     "--zlib-compat",
 ]
-configure_env = {"CHOST": self.profile().triplet}
+configure_env = {}
 hostmakedepends = ["pkgconf"]
 # we need to explicitly provide higher ver or apk won't upgrade it,
 # even with provider_priority set which is strange but it is how it is
@@ -30,6 +30,9 @@ tool_flags = {"CFLAGS": ["-fPIC"]}
 compression = "deflate"
 # sigh, carried over from zlib's old buildsystem
 options = ["bootstrap", "linkundefver"]
+
+if self.profile().cross:
+    configure_env["CHOST"] = self.profile().triplet
 
 
 @subpackage("zlib-ng-compat-devel-static")

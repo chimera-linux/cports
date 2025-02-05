@@ -2417,7 +2417,7 @@ class Subpackage(Package):
                             # we want pycaches to soft-pull the right python,
                             # in order for them to affect staging (leave no
                             # outdated pycache behind)
-                            ddeps.append(f"base-python{pyver}~{pyver}")
+                            ddeps.append(f"python-python{pyver}-meta~{pyver}")
                     elif not instif.startswith("base-"):
                         ddeps.append(instif)
                     self.install_if = [fbdep, instif]
