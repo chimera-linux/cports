@@ -1,6 +1,6 @@
 pkgname = "ibus"
 pkgver = "1.5.31"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ui",
@@ -74,9 +74,10 @@ def post_install(self):
     self.rename("usr/share/bash-completion/completions/ibus.bash", "ibus")
 
 
-@subpackage("libibus")
+@subpackage("ibus-libs")
 def _(self):
-    self.subdesc = "runtime library"
+    # transitional
+    self.provides = [self.with_pkgver("libibus")]
 
     return self.default_libs()
 
