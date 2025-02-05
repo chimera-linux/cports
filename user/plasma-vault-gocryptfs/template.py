@@ -1,0 +1,11 @@
+pkgname = "plasma-vault-gocryptfs"
+pkgver = "2.6"
+pkgrel = 0
+build_style = "meta"
+depends = ["gocryptfs"]
+provides = [self.with_pkgver("plasma-vault-backend")]
+pkgdesc = "Plasma-vault gocryptfs backend"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "custom:meta"
+url = "https://chimera-linux.org"
+options = ["empty"]

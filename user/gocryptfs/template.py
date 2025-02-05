@@ -9,16 +9,9 @@ make_build_args = [
     ".",
     "./gocryptfs-xray",
 ]
-hostmakedepends = [
-    "go",
-    "pkgconf",
-]
-makedepends = [
-    "openssl3-devel",
-]
-depends = [
-    "fuse",
-]
+hostmakedepends = ["go", "pkgconf"]
+makedepends = ["openssl3-devel"]
+depends = ["fuse"]
 pkgdesc = "Encrypted overlay filesystem"
 maintainer = "Nasado <hi@nasado.name>"
 license = "MIT"
@@ -35,12 +28,3 @@ def post_install(self):
     self.install_man("Documentation/gocryptfs.1")
     self.install_man("Documentation/gocryptfs-xray.1")
     self.install_license("LICENSE")
-
-
-@subpackage("plasma-vault-gocryptfs")
-def _(self):
-    self.subdesc = "plasma-vault backend"
-    self.provides = [self.with_pkgver("plasma-vault-backend")]
-    self.options = ["empty"]
-
-    return []
