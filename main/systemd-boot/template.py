@@ -161,9 +161,17 @@ def post_install(self):
         "usr/lib/libsystemd.*",
         "usr/lib/libudev.*",
         "usr/lib/pkgconfig",
+        "usr/lib/udev",
+        "usr/share/bash-completion/completions/udevadm",
         "usr/share/dbus-1",
+        "usr/share/man/man3",
+        "usr/share/man/man5/udev*",
+        "usr/share/man/man7/udev*",
+        "usr/share/man/man7/hw*",
+        "usr/share/man/man8",
         "usr/share/pkgconfig",
         "usr/share/polkit-1",
+        "usr/share/zsh/site-functions/_udevadm",
     ]:
         self.uninstall(f, glob=True)
 
