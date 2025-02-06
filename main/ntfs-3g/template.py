@@ -1,6 +1,6 @@
 pkgname = "ntfs-3g"
 pkgver = "2022.10.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--exec-prefix=/usr",
