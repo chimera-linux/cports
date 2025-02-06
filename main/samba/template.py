@@ -231,7 +231,7 @@ def _(self):
     self.depends = [
         self.with_pkgver("samba-libs"),
         self.with_pkgver("samba-common"),
-        self.with_pkgver("libwbclient"),
+        self.with_pkgver("samba-winbind-libs"),
     ]
     return [
         "usr/bin/ntlm_auth",
