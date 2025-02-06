@@ -2,7 +2,7 @@ pkgname = "zlib-ng-compat"
 pkgver = "2.2.3"
 # compat version
 _cver = "1.3.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -16,8 +16,6 @@ hostmakedepends = ["pkgconf"]
 provides = [
     f"so:libz.so.1={_cver}.99",
     f"zlib={_cver}-r99",
-    # bad transitional hack
-    self.with_pkgver("zlib-dbg"),
 ]
 replaces = [f"zlib<{_cver}-r99"]
 pkgdesc = "Implementation of zlib compression library"
