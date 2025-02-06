@@ -1,21 +1,23 @@
-pkgname = "udev"
+pkgname = "systemd-boot"
 pkgver = "256.11"
-pkgrel = 0
+pkgrel = 1
+archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
-    "-Dacl=enabled",
+    "-Dacl=disabled",
     "-Dadm-group=false",
     "-Danalyze=false",
     "-Dapparmor=disabled",
     "-Daudit=disabled",
     "-Dbacklight=false",
     "-Dbinfmt=false",
+    "-Dbootloader=enabled",
     "-Dbpf-framework=disabled",
     "-Dbzip2=disabled",
     "-Dcoredump=false",
     "-Ddbus=disabled",
-    "-Defi=false",
+    "-Defi=true",
     "-Delfutils=disabled",
     "-Denvironment-d=false",
     "-Dfdisk=disabled",
@@ -48,7 +50,7 @@ configure_args = [
     "-Dnss-resolve=disabled",
     "-Dnss-systemd=false",
     "-Doomd=false",
-    "-Dopenssl=disabled",
+    "-Dopenssl=enabled",
     "-Dp11kit=disabled",
     "-Dpam=disabled",
     "-Dpcre2=disabled",
@@ -68,10 +70,11 @@ configure_args = [
     "-Dtimesyncd=false",
     "-Dtmpfiles=false",
     "-Dtpm=false",
+    "-Dtpm2=enabled",
     "-Dqrencode=disabled",
     "-Dquotacheck=false",
     "-Duserdb=false",
-    "-Dukify=disabled",
+    "-Dukify=enabled",
     "-Dutmp=false",
     "-Dvconsole=false",
     "-Dwheel-group=false",
@@ -80,10 +83,10 @@ configure_args = [
     "-Dxz=disabled",
     "-Dzlib=disabled",
     "-Dzstd=disabled",
-    "-Dhwdb=true",
+    "-Dhwdb=false",
     "-Dman=enabled",
     "-Dstandalone-binaries=true",
-    "-Dstatic-libudev=true",
+    "-Dstatic-libudev=false",
     "-Dtests=false",
     "-Dlink-boot-shared=false",
     "-Dlink-journalctl-shared=false",
@@ -95,6 +98,12 @@ configure_args = [
     "-Dsysvinit-path=",
     "-Drpmmacrosdir=no",
     "-Dpamconfdir=no",
+    # secure boot
+    "-Dsbat-distro=chimera",
+    "-Dsbat-distro-summary=Chimera Linux",
+    "-Dsbat-distro-pkgname=systemd-boot",
+    "-Dsbat-distro-url=https://chimera-linux.org",
+    f"-Dsbat-distro-version={self.full_pkgver}",
 ]
 hostmakedepends = [
     "meson",
@@ -104,6 +113,7 @@ hostmakedepends = [
     "bash",
     "docbook-xsl-nons",
     "python-jinja2",
+    "python-pyelftools",
     "libxslt-progs",
 ]
 makedepends = [
@@ -111,13 +121,13 @@ makedepends = [
     "kmod-devel",
     "libcap-devel",
     "linux-headers",
+    "openssl3-devel",
+    "tpm2-tss-devel",
     "util-linux-blkid-devel",
     "util-linux-mount-devel",
 ]
 checkdepends = ["xz", "perl"]
-depends = ["so:libkmod.so.2!kmod-libs"]
-triggers = ["/usr/lib/udev/rules.d", "/usr/lib/udev/hwdb.d", "/etc/udev/hwdb.d"]
-pkgdesc = "Standalone build of systemd-udev"
+pkgdesc = "UEFI boot manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/systemd/systemd"
@@ -126,7 +136,7 @@ source = (
 )
 sha256 = "5038424744b2ed8c1d7ecc75b00eeffe68528f9789411da60f199d65762d9ba5"
 # the tests that can run are mostly useless
-options = ["!splitudev", "!check"]
+options = ["!check"]
 
 
 def init_configure(self):
@@ -135,15 +145,24 @@ def init_configure(self):
 
 
 def post_install(self):
-    # oh boy, big cleanup time
+    # put measure into lib, we want it for ukify
+    self.rename(
+        "usr/lib/systemd/systemd-measure",
+        "usr/lib/systemd-measure",
+        relative=False,
+    )
 
     # drop some more systemd bits
     for f in [
         "etc/systemd",
+        "etc/udev",
+        "usr/bin/udevadm",
+        "usr/include",
         "usr/lib/libsystemd.*",
-        "usr/lib/pkgconfig/libsystemd.pc",
+        "usr/lib/libudev.*",
+        "usr/lib/pkgconfig",
         "usr/share/dbus-1",
-        "usr/share/pkgconfig/systemd.pc",
+        "usr/share/pkgconfig",
         "usr/share/polkit-1",
     ]:
         self.uninstall(f, glob=True)
@@ -154,41 +173,44 @@ def post_install(self):
             continue
         self.rm(f, recursive=True, glob=True)
 
-    # predictable interface names
+    self.install_file("build/systemd-bless-boot", "usr/lib", mode=0o755)
     self.install_file(
-        self.files_path / "80-net-name-slot.rules",
-        "usr/lib/udev/rules.d",
-        mode=0o644,
+        self.files_path / "99-gen-systemd-boot.sh",
+        "usr/lib/kernel.d",
+        mode=0o755,
     )
-
-    # initramfs-tools
-    self.install_initramfs(self.files_path / "udev.hook")
-    self.install_initramfs(self.files_path / "udev.init-top", "init-top")
-    self.install_initramfs(self.files_path / "udev.init-bottom", "init-bottom")
-    # services
-    self.install_dir("usr/lib")
-    self.install_link("usr/lib/udevd", "../bin/udevadm")
-    self.install_file(self.files_path / "udevd.wrapper", "usr/lib", mode=0o755)
-    self.install_file(self.files_path / "dinit-devd", "usr/lib", mode=0o755)
-    self.install_tmpfiles(self.files_path / "tmpfiles.conf", name="udev")
-    self.install_service(self.files_path / "udevd", enable=True)
+    self.install_bin(
+        self.files_path / "gen-systemd-boot.sh", name="gen-systemd-boot"
+    )
+    self.install_file(self.files_path / "systemd-boot", "etc/default")
 
 
-@subpackage("udev-devel")
+@subpackage("systemd-boot-efi")
 def _(self):
-    return self.default_devel()
+    self.pkgdesc = "UEFI boot manager"
+    self.subdesc = "EFI binaries"
+
+    return [
+        "usr/lib/systemd/boot/efi",
+        "usr/share/man/man7/linux*.efi.stub.7",
+        "usr/share/man/man7/systemd-stub.7",
+        "usr/share/man/man7/sd-stub.7",
+    ]
 
 
-@subpackage("udev-libs")
+# only practical for efi so we constrain it by sd-boot
+@subpackage("systemd-boot-ukify")
 def _(self):
-    return self.default_libs()
+    self.pkgdesc = "Tool to generate Unified Kernel Images"
+    self.provides = [self.with_pkgver("ukify")]
+    self.depends = [
+        self.with_pkgver("systemd-boot-efi"),
+        "python-pefile",
+        "tpm2-tss",  # dlopened
+    ]
 
-
-@subpackage("base-udev")
-def _(self):
-    self.pkgdesc = "Base package for udev configs"
-    self.depends = [self.parent]
-    self.install_if = [self.parent]
-    self.options = ["empty"]
-
-    return []
+    return [
+        "cmd:ukify",
+        # only used here, don't bring in tss2 deps elsewhere
+        "usr/lib/systemd-measure",
+    ]
