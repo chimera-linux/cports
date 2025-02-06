@@ -18,5 +18,5 @@ sed \
     -e '/<update_contact>/d' \
     -e '/<p>/N;/<p>\n.*\(We invite\|Chromium supports Vorbis\)/,/<\/p>/d' \
     -e '/^<?xml/,$p' \
-    chrome/installer/linux/common/chromium-browser/chromium-browser.appdata.xml \
+    chrome/installer/linux/common/appdata.xml.template \
     > chromium.appdata.xml
