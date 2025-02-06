@@ -1,6 +1,6 @@
 pkgname = "openjdk21"
 pkgver = "21.0.6_p7"
-pkgrel = 0
+pkgrel = 1
 _majver = pkgver.split(".")[0]
 _fver = pkgver.split("_")[0]
 _bver = pkgver.split("_p")[-1]
@@ -38,7 +38,7 @@ hostmakedepends = [
     "file",
     "libtool",
     "linux-headers",
-    "openssl",
+    "openssl3",
     "pkgconf",
     "zip",
     "zlib-ng-compat-devel",
@@ -273,6 +273,7 @@ def _(self):
 def _(self):
     # default version
     self.provider_priority = 120
+    self.provides = ["java-jre-headless"]
     return [
         "usr/bin/java",
         "usr/bin/jfr",
@@ -297,6 +298,7 @@ def _(self):
         self.with_pkgver(f"java-jre-headless-openjdk{_majver}-default"),
         self.with_pkgver(f"openjdk{_majver}-jre"),
     ]
+    self.provides = ["java-jre"]
     # empty
     self.options = ["empty"]
     return []
@@ -308,6 +310,7 @@ def _(self):
     self.provider_priority = 120
     # requires the stuff
     self.depends += [self.with_pkgver(f"java-jre-openjdk{_majver}-default")]
+    self.provides = ["java-jdk"]
     return [
         "usr/bin",
         "usr/share/man",

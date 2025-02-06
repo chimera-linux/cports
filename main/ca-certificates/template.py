@@ -1,11 +1,11 @@
 pkgname = "ca-certificates"
 pkgver = "20241121"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_use_env = True
-hostmakedepends = ["openssl", "perl"]
+hostmakedepends = ["openssl3", "perl"]
 makedepends = ["openssl3-devel"]
-depends = ["debianutils", "openssl"]
+depends = ["debianutils", "openssl3"]
 # replace the openssl implementation
 provides = ["openssl-c_rehash=4"]
 triggers = [

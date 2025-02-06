@@ -1,6 +1,6 @@
 pkgname = "openjdk17"
 pkgver = "17.0.14_p7"
-pkgrel = 0
+pkgrel = 1
 _majver = pkgver.split(".")[0]
 _fver = pkgver.split("_")[0]
 _bver = pkgver.split("_p")[-1]
@@ -37,7 +37,7 @@ hostmakedepends = [
     "file",
     "libtool",
     "linux-headers",
-    "openssl",
+    "openssl3",
     "pkgconf",
     "zip",
     "zlib-ng-compat-devel",
@@ -273,7 +273,10 @@ def _(self):
     # default version
     self.provider_priority = 100
     # compat
-    self.provides = [self.with_pkgver(f"openjdk{_majver}-jre-headless-default")]
+    self.provides = [
+        self.with_pkgver(f"openjdk{_majver}-jre-headless-default"),
+        "java-jre-headless",
+    ]
     return [
         "usr/bin/java",
         "usr/bin/jfr",
@@ -294,7 +297,10 @@ def _(self):
     # default version
     self.provider_priority = 100
     # compat
-    self.provides = [self.with_pkgver(f"openjdk{_majver}-jre-default")]
+    self.provides = [
+        self.with_pkgver(f"openjdk{_majver}-jre-default"),
+        "java-jre",
+    ]
     # requires
     self.depends += [
         self.with_pkgver(f"java-jre-headless-openjdk{_majver}-default"),
@@ -313,6 +319,7 @@ def _(self):
     self.provides = [
         self.with_pkgver(f"openjdk{_majver}-jdk-default"),
         self.with_pkgver(f"openjdk{_majver}-default"),
+        "java-jdk",
     ]
     # requires the stuff
     self.depends += [self.with_pkgver(f"java-jre-openjdk{_majver}-default")]
