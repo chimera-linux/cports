@@ -1,6 +1,6 @@
-diff --color -ruN python-dbus-fast-2.28.0/tests/benchmarks/test_marshall.py python-dbus-fast-2.28.0-patched/tests/benchmarks/test_marshall.py
---- python-dbus-fast-2.28.0/tests/benchmarks/test_marshall.py	2025-01-07 23:06:33.000000000 +0000
-+++ python-dbus-fast-2.28.0-patched/tests/benchmarks/test_marshall.py	1970-01-01 00:00:00.000000000 +0000
+diff --color -ruN python-dbus-fast-2.32.0/tests/benchmarks/test_marshall.py python-dbus-fast-2.32.0-patched/tests/benchmarks/test_marshall.py
+--- python-dbus-fast-2.32.0/tests/benchmarks/test_marshall.py	2025-01-07 23:06:33.000000000 +0000
++++ python-dbus-fast-2.32.0-patched/tests/benchmarks/test_marshall.py	1970-01-01 00:00:00.000000000 +0000
 @@ -1,17 +0,0 @@
 -from dbus_fast import Message
 -from pytest_codspeed import BenchmarkFixture
@@ -19,9 +19,9 @@ diff --color -ruN python-dbus-fast-2.28.0/tests/benchmarks/test_marshall.py pyth
 -    @benchmark
 -    def marhsall_bluez_get_managed_objects_message():
 -        message._marshall(False)
-diff --color -ruN python-dbus-fast-2.28.0/tests/benchmarks/test_unmarshall.py python-dbus-fast-2.28.0-patched/tests/benchmarks/test_unmarshall.py
---- python-dbus-fast-2.28.0/tests/benchmarks/test_unmarshall.py	2025-01-07 23:06:33.000000000 +0000
-+++ python-dbus-fast-2.28.0-patched/tests/benchmarks/test_unmarshall.py	1970-01-01 00:00:00.000000000 +0000
+diff --color -ruN python-dbus-fast-2.32.0/tests/benchmarks/test_unmarshall.py python-dbus-fast-2.32.0-patched/tests/benchmarks/test_unmarshall.py
+--- python-dbus-fast-2.32.0/tests/benchmarks/test_unmarshall.py	2025-01-07 23:06:33.000000000 +0000
++++ python-dbus-fast-2.32.0-patched/tests/benchmarks/test_unmarshall.py	1970-01-01 00:00:00.000000000 +0000
 @@ -1,66 +0,0 @@
 -import io
 -
