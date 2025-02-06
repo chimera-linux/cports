@@ -1,11 +1,11 @@
 pkgname = "sdl2-compat"
-pkgver = "2.30.50"
-pkgrel = 3
+pkgver = "2.30.52"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["sdl3-devel"]
 # is dlopen'ed
-depends = ["so:libSDL3.so.0!sdl"]
+depends = ["so:libSDL3.so.0!sdl3"]
 # sdl is transitional, current names are versioned
 provides = [self.with_pkgver("sdl2"), self.with_pkgver("sdl")]
 pkgdesc = "Compatibility layer for SDL 2"
@@ -13,7 +13,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://github.com/libsdl-org/sdl2-compat"
 source = f"{url}/releases/download/release-{pkgver}/sdl2-compat-{pkgver}.tar.gz"
-sha256 = "f65e369b45c4cf2981f446541b1754ccb4714a7ec62fad339d75c0176b8fa212"
+sha256 = "812616ba773c01dbf2b802a855a63d77c1e9b6c6805b189a4cdb9982a7f737f6"
 
 
 @subpackage("sdl2-compat-devel-static")
