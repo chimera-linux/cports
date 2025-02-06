@@ -388,7 +388,7 @@ def handle_options():
         signcfg = global_cfg["signing"]
 
         opt_signkey = signcfg.get("key", fallback=opt_signkey)
-        opt_keypath = bcfg.get("keys", fallback=opt_keypath)
+        opt_keypath = signcfg.get("keys", fallback=opt_keypath)
 
     if "data" in global_cfg:
         opt_tdata = dict(global_cfg["data"])
