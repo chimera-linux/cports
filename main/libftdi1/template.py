@@ -4,7 +4,7 @@ pkgrel = 6
 build_style = "cmake"
 configure_args = ["-DLIB_SUFFIX="]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["libconfuse-devel", "libusb-bootstrap"]
+makedepends = ["libconfuse-devel", "libusb-devel"]
 checkdepends = ["boost-devel"]
 pkgdesc = "Library for communicating with FTDI USB devices"
 maintainer = "q66 <q66@chimera-linux.org>"

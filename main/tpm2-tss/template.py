@@ -22,7 +22,7 @@ makedepends = [
     "json-c-devel",
     "curl-devel",
     "libftdi1-devel",
-    "libusb-bootstrap",
+    "libusb-devel",
     "linux-headers",
     "openssl3-devel",
     "util-linux-uuid-devel",
