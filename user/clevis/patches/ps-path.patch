@@ -1,0 +1,13 @@
+diff --git a/src/initramfs-tools/scripts/local-top/clevis.in b/src/initramfs-tools/scripts/local-top/clevis.in
+index da68507..82f2812 100755
+--- a/src/initramfs-tools/scripts/local-top/clevis.in
++++ b/src/initramfs-tools/scripts/local-top/clevis.in
+@@ -41,7 +41,7 @@ get_fifo_path() {
+ 
+ # Print the PID of the askpass process and fifo path with a file descriptor opened to
+ get_askpass_pid() {
+-    psinfo=$(ps) # Doing this so I don't end up matching myself
++    psinfo=$(ps -o pid,cmd) # Doing this so I don't end up matching myself
+     echo "$psinfo" | awk "/$cryptkeyscript/ { print \$1 }" | while read -r pid; do
+         pf=$(get_fifo_path "${pid}")
+         if [[ $pf != "" ]]; then
