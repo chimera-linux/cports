@@ -12,5 +12,5 @@ index 7f925cc..993a9ee 100644
 -  clone_flags |= CLONE_VM | CLONE_VFORK | CLONE_SETTLS;
 +  clone_flags |= CLONE_VM | CLONE_VFORK;
  
-   char tls_buf[PTHREAD_STACK_MIN_CONST] = {0};
+   char tls_buf[PTHREAD_STACK_MIN_CONST] = {};
    tls = tls_buf;

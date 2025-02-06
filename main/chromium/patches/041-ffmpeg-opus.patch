@@ -3,8 +3,8 @@ using system-wide ffmpeg.
 
 also add mp3float as it's the default mp3 decoder ffmpeg picks and breaks mp3 sources
 --
---- a/media/filters/ffmpeg_glue.cc
-+++ b/media/filters/ffmpeg_glue.cc
+--- a/media/ffmpeg/ffmpeg_common.cc
++++ b/media/ffmpeg/ffmpeg_common.cc
 @@ -142,7 +142,7 @@ const char* FFmpegGlue::GetAllowedAudioDecoders() {
    static const base::NoDestructor<std::string> kAllowedAudioCodecs([]() {
      // This should match the configured lists in //third_party/ffmpeg.
