@@ -1,6 +1,6 @@
 pkgname = "qt6-qtmultimedia"
-pkgver = "6.8.1"
-pkgrel = 1
+pkgver = "6.8.2"
+pkgrel = 0
 build_style = "cmake"
 # these install /usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.a which
 # then has to exist for the -devel to work, but not splitting static keeps around
@@ -46,7 +46,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtmultimedia-everywhere-src-{pkgver}.tar.xz"
-sha256 = "75fa87134f9afab7f0a62c55a4744799ac79519560d19c8e1d4c32bdd173f953"
+sha256 = "34f561fdc07b158bcc4ad040b596fc6086c48908060e854b473b557e4feb1569"
 # FIXME: int breaks at least tst_qaudiodecoderbackend
 hardening = ["!int"]
 # TODO
