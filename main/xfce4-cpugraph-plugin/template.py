@@ -1,14 +1,13 @@
 pkgname = "xfce4-cpugraph-plugin"
-pkgver = "1.2.10"
+pkgver = "1.2.11"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
-    "intltool",
-    "libtool",
     "pkgconf",
+    "slibtool",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -23,4 +22,9 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-cpugraph-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-cpugraph-plugin/{pkgver[: pkgver.rfind('.')]}/xfce4-cpugraph-plugin-{pkgver}.tar.bz2"
-sha256 = "37792dd052691712195658169b95fb6583f924485ce7a467b33d01e08775d915"
+sha256 = "58aa31df1934afc2a352744754a730a3d796b1246e12c7a5e86f7b6a403ca20d"
+
+
+def post_install(self):
+    # TODO: figure out why build system installs this
+    self.uninstall("usr/lib/xfce4/panel/plugins/libcpugraph.a")
