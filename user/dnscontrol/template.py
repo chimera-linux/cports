@@ -1,5 +1,5 @@
 pkgname = "dnscontrol"
-pkgver = "4.15.5"
+pkgver = "4.16.0"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://dnscontrol.org"
 source = f"https://github.com/StackExchange/dnscontrol/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "baaf10cd3dd100b6676ae0f8a0b9fabc16b8971403a039ef2fa79a265ec600ba"
+sha256 = "ce9aa8887a8cad28b17f8e07f0755730beadae70f48976116ad8be7390cec3a6"
 # tests rely on network
 # generates completions with host bins
 options = ["!check", "!cross"]
