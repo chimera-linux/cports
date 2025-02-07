@@ -1,6 +1,6 @@
 pkgname = "kddockwidgets"
 pkgver = "2.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DKDDockWidgets_QT6=ON",

@@ -1,6 +1,6 @@
 pkgname = "kscreenlocker"
 pkgver = "6.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # circular plasma-workspace dep (QML org.kde.plasma.private.sessions) needed by kscreenlocker_greet,
 # ksmserver-ksldTest even needs it installed under /usr/lib/libexec

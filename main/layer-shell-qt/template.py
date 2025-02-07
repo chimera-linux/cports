@@ -1,6 +1,6 @@
 pkgname = "layer-shell-qt"
 pkgver = "6.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

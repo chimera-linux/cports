@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.2.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 # tst_calibrationtool: broken on ppc64le

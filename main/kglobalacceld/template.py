@@ -1,6 +1,6 @@
 pkgname = "kglobalacceld"
 pkgver = "6.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # needs full init of kglobalaccel
 make_check_args = ["-E", "shortcutstest"]

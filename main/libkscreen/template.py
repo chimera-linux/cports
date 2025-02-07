@@ -1,6 +1,6 @@
 pkgname = "libkscreen"
 pkgver = "6.2.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # testbackendloader testEnv(xrandr 1.1) 'preferred.fileName().startsWith(backend)' returned FALSE, flaky tests when parallel
 make_check_args = ["-E", "testbackendloader", "-j1"]

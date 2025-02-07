@@ -1,6 +1,6 @@
 pkgname = "kguiaddons"
 pkgver = "6.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
