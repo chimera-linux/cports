@@ -1,5 +1,5 @@
 pkgname = "kgpg"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 # flaky
@@ -39,4 +39,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kgpg"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kgpg-{pkgver}.tar.xz"
-sha256 = "4bda4335cbd1e1adaded9fe781a6248a57fdafc2af897053740a542952c58667"
+sha256 = "48d48f19c16c9587b9b90df2e801d07a5847b2b93c9e6395adece25acc2c61c1"

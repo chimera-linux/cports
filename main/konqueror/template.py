@@ -1,5 +1,5 @@
 pkgname = "konqueror"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -50,7 +50,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-only AND GPL-2.0-or-later"
 url = "https://apps.kde.org/konqueror"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konqueror-{pkgver}.tar.xz"
-sha256 = "9d0fb0922b76626fe80492c860a426e6d61bcd68eefbc6276ee72e56b4c1b4d4"
+sha256 = "4795067a926f99fe9e6afb480d10ffef85cfe79e20d4068983ca2099a9cbe4d5"
 hardening = ["vis"]
 
 

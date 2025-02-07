@@ -1,5 +1,5 @@
 pkgname = "kontrast"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -26,4 +26,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kontrast"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kontrast-{pkgver}.tar.xz"
-sha256 = "e529b58567728730c960460f98e4920dc02b086a09675996c5a2582a8e7adf80"
+sha256 = "34cbf152bad6ff5f7ea21aa184f379523305f02f67470d58a418ec64e17e71f6"

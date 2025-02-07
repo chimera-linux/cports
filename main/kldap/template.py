@@ -1,5 +1,5 @@
 pkgname = "kldap"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,7 +24,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kldap/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kldap-{pkgver}.tar.xz"
-sha256 = "7e43652b5ccafed0552d5362c5afa2a1d45eb810076d273a351925e45cecdb8f"
+sha256 = "6d5e43c3755034a8d2e82566078c3de5d04fd3d15bf396909c58fbe1d0bc05da"
 
 
 @subpackage("kldap-devel")

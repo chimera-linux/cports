@@ -1,5 +1,5 @@
 pkgname = "k3b"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -54,7 +54,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://apps.kde.org/k3b"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/k3b-{pkgver}.tar.xz"
-sha256 = "26ca9a5b17293434d54bf14fa333f90d5b72d8473c540da01006080eb423e3ea"
+sha256 = "2db44e1fba22697ba25b832c05745e649ff6f5711e3999efc75e42f06c62157f"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]

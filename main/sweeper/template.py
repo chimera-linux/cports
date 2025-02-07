@@ -1,5 +1,5 @@
 pkgname = "sweeper"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,4 +27,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/sweeper"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/sweeper-{pkgver}.tar.xz"
-sha256 = "7e43fe10562e450feabccf8cc5c8a616435045ad288872c900439a018191b7c0"
+sha256 = "fbcbaaace8889857e9d76c01ad26dcbd649b6884ec26dbaedcd723775eff37e9"

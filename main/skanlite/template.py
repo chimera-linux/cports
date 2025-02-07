@@ -1,5 +1,5 @@
 pkgname = "skanlite"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -25,4 +25,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/skanlite"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/skanlite-{pkgver}.tar.xz"
-sha256 = "552849f3c092d7d1b2752f13d15913b44c6135d67aa64328a36b396fe15c2f8b"
+sha256 = "d42c4431beb9166c7f097b741678be5f11cf16b009f32624f4d469a2377d7824"

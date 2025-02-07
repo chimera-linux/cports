@@ -1,5 +1,5 @@
 pkgname = "pimcommon"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -43,7 +43,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-3.0-only"
 url = "https://api.kde.org/kdepim/pimcommon/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/pimcommon-{pkgver}.tar.xz"
-sha256 = "e4d5af2c9a5464176a36992e5d15025133f2cf8b25bd84a923c8ae1e65939dbb"
+sha256 = "6948e9930b5706944347fdeec69cd2bfd53331312919782aec111fea57d9650c"
 
 
 @subpackage("pimcommon-devel")

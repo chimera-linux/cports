@@ -1,5 +1,5 @@
 pkgname = "konsole"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "(TerminalInterfaceTest|PtyTest)"]
@@ -38,5 +38,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/konsole"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konsole-{pkgver}.tar.xz"
-sha256 = "43deca40b7fcddc340db12f08d0a63c538f1e540e9919b075a2f905e7a32cb3c"
+sha256 = "24586c3c83f9ca2b814c5319e4aeef885adccfccd94e9c45dba5c1574bb77262"
 hardening = ["vis"]

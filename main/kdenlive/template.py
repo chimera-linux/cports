@@ -1,5 +1,5 @@
 pkgname = "kdenlive"
-pkgver = "24.12.1"
+pkgver = "24.12.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTING=OFF"]
@@ -47,7 +47,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenlive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenlive-{pkgver}.tar.xz"
-sha256 = "6d1345462a1ad9a725dbf9ab42b8b340eeafc8437d9c0f52ac5ebacfdfd9b8b2"
+sha256 = "37be18de3583fda33fb246f312f5a4e25c1e64ae6d746668244252e2033ef489"
 # avoid crashes
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # INT: crashes spacertest/trimmingtest
