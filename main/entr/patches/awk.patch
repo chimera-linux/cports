@@ -15,10 +15,10 @@ index 0bd58f1..2aaac73 100644
  	if (safe == 2)
  		argv[5] = NULL;
 diff --git a/system_test.sh b/system_test.sh
-index 45da6e6..6f6b1cc 100755
+index 34f685823..1da341d9e 100755
 --- a/system_test.sh
 +++ b/system_test.sh
-@@ -58,13 +58,6 @@ for util in $utils; do
+@@ -45,13 +45,6 @@ for util in $utils; do
  	}
  done
  
@@ -29,6 +29,6 @@ index 45da6e6..6f6b1cc 100755
 -	}
 -fi
 -
- # fast tests
- 
- try "no arguments"
+ # local binary, non-interactive by default
+ alias entr='./entr -n'
+ alias entr_tty='./entr'
