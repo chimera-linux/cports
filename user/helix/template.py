@@ -1,6 +1,6 @@
 pkgname = "helix"
-pkgver = "25.01"
-pkgrel = 1
+pkgver = "25.01.1"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "git"]
 makedepends = ["rust-std"]
@@ -9,7 +9,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MPL-2.0"
 url = "https://github.com/helix-editor/helix"
 source = f"{url}/releases/download/{pkgver}/helix-{pkgver}-source.tar.xz"
-sha256 = "922fba301e1a3d9b933a445ab2d306cffcd689d678ecd06f00870cfc874cffb8"
+sha256 = "12508c4f5b9ae6342299bd40d281cd9582d3b51487bffe798f3889cb8f931609"
 env = {"HELIX_DEFAULT_RUNTIME": "/usr/lib/helix/runtime"}
 
 if self.profile().wordsize == 32:
