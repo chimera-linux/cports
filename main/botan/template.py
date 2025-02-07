@@ -1,6 +1,6 @@
 pkgname = "botan"
-pkgver = "3.6.1"
-pkgrel = 1
+pkgver = "3.7.1"
+pkgrel = 0
 build_style = "configure"
 configure_script = "./configure.py"
 configure_args = [
@@ -28,7 +28,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://botan.randombit.net"
 source = f"{url}/releases/Botan-{pkgver}.tar.xz"
-sha256 = "7cb8575d88d232c77174769d7f9e24bb44444160585986eebd66e749cb9a9089"
+sha256 = "fc0620463461caaea8e60f06711d7e437a3ad1eebd6de4ac29c14bbd901ccd1b"
 hardening = ["vis", "!cfi"]
 # see below
 options = []
