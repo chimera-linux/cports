@@ -1,5 +1,5 @@
 pkgname = "texlab"
-pkgver = "5.22.0"
+pkgver = "5.22.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/latex-lsp/texlab"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "dfca5bc12419e771092b6bdaf9379fe04164848ff19054d4ec7c4bba0eef7021"
+sha256 = "dd7602c069e8411c1a744d5b25f80686339ef18e6f12c1bc971f27912e3e9714"
 
 
 def install(self):
