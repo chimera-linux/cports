@@ -1,9 +1,10 @@
 pkgname = "pastel"
 pkgver = "0.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
+depends = ["zenity"]
 pkgdesc = "CLI tool to generate, analyze, convert and manipulate colors"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0 OR MIT"
