@@ -1,6 +1,6 @@
 pkgname = "protobuf-c"
-pkgver = "1.5.0"
-pkgrel = 23
+pkgver = "1.5.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-protoc",
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/protobuf-c/protobuf-c"
 source = f"{url}/releases/download/v{pkgver}/protobuf-c-{pkgver}.tar.gz"
-sha256 = "7b404c63361ed35b3667aec75cc37b54298d56dd2bcf369de3373212cc06fd98"
+sha256 = "20d1dc257da96f8ddff8be4dd9779215bbd0a6069ed53bbe9de38fa7629be06b"
 
 
 def post_install(self):
