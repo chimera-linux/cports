@@ -1,6 +1,6 @@
 pkgname = "fnott"
-pkgver = "1.7.0"
-pkgrel = 2
+pkgver = "1.7.1"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -19,11 +19,11 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "Keyboard driven wayland notification daemon"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fnott"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "40013d64423332a53aa943b7d9366f25e8cdd3313345f7a74b53c5d33eb49c80"
+sha256 = "39c732f2ac57d18f24ef9112524d71090e2b68b72a892f4a44f3a77a1f067487"
 hardening = ["vis", "cfi"]
 
 
