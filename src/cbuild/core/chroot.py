@@ -204,6 +204,8 @@ def repo_init():
     cfile = apkpath / "cache"
     cfile.unlink(missing_ok=True)
 
+    shutil.rmtree(paths.bldroot() / "var/cache/apk", ignore_errors=True)
+
     return rfile, cfile
 
 
