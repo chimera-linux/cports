@@ -1,5 +1,5 @@
 pkgname = "linux-stable-zfs-bin"
-_kernver = "6.13.1"
+_kernver = "6.13.2"
 _zfsver = "2.3.0"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
