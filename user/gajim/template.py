@@ -41,16 +41,17 @@ depends = [
     "python-sqlalchemy",
     "sqlite",
 ]
-checkdepends = depends + [
+checkdepends = [
     "python-cryptography",
     "python-pytest",
     "xserver-xorg-xvfb",
+    *depends,
 ]
 pkgdesc = "XMPP client"
 maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://gajim.org"
-source = f"{url}/downloads/{pkgver[:pkgver.rfind('.')]}/gajim-{pkgver}.tar.gz"
+source = f"{url}/downloads/{pkgver[: pkgver.rfind('.')]}/gajim-{pkgver}.tar.gz"
 sha256 = "7fdf4db0eb16a7ebc679c2360f145f64e0abcff0f16913c45f92c8eb8d87563c"
 
 
