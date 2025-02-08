@@ -1,5 +1,5 @@
 pkgname = "meson"
-pkgver = "1.6.1"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://mesonbuild.com"
 source = f"https://github.com/mesonbuild/meson/releases/download/{pkgver}/meson-{pkgver}.tar.gz"
-sha256 = "1eca49eb6c26d58bbee67fd3337d8ef557c0804e30a6d16bfdf269db997464de"
+sha256 = "08efbe84803eed07f863b05092d653a9d348f7038761d900412fddf56deb0284"
 # meson is early in our bootstrap path but has a million checkdepends
 options = ["!check"]
 
