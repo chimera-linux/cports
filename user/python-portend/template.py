@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-tempora"]
-checkdepends = depends + ["python-pytest"]
+checkdepends = ["python-pytest", *depends]
 pkgdesc = "TCP port monitoring and discovery"
 maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
