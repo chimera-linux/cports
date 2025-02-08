@@ -1,5 +1,5 @@
 pkgname = "wine"
-pkgver = "10.0"
+pkgver = "10.1"
 pkgrel = 0
 archs = ["x86_64"]
 build_style = "gnu_configure"
@@ -56,8 +56,8 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.winehq.org"
 # the url is .0 for .0 and .x for >0
-source = f"https://dl.winehq.org/wine/source/10.0/wine-{pkgver}.tar.xz"
-sha256 = "c5e0b3f5f7efafb30e9cd4d9c624b85c583171d33549d933cd3402f341ac3601"
+source = f"https://dl.winehq.org/wine/source/10.x/wine-{pkgver}.tar.xz"
+sha256 = "63471e37b1a515795ff3368d26a039261660e1377cb427d1b61b3a7b76091663"
 # FIXME: int breaks wine
 # trivial-auto-var-init relies on memset() symbol existing during link for vars
 # which isn't the case for loader/preloader.o:(map_so_lib)
