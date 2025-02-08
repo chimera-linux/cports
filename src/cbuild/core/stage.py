@@ -45,15 +45,18 @@ def check_stage(arch, force=False, remote=False):
             # go over allowed repos
             for sect in template.get_cats():
                 rp = stagep / r.lstrip("/").replace("@section@", sect)
-                if not (rp / arch / "APKINDEX.tar.gz"):
+                rbase = rp / arch
+                ridx = rbase / "Packages.adb"
+                if not ridx.is_file():
+                    ridx = rbase / "APKINDEX.tar.gz"
+                if not ridx.is_file():
                     continue
-                rs.append(rp)
+                rs.append(ridx)
     else:
-        for f in stagep.rglob("APKINDEX.tar.gz"):
-            p = f.parent
-            if p.name != arch:
+        for f in cli.find_indexes(stagep):
+            if f.parent.name != arch:
                 continue
-            rs.append(p.parent)
+            rs.append(f)
     rs.sort()
 
     if force:
@@ -76,12 +79,11 @@ def check_stage(arch, force=False, remote=False):
                 if sidx > 0:
                     rrm[r[sidx:].replace("@section@", sect)] = url
     else:
-        for f in repop.rglob("APKINDEX.tar.gz"):
-            p = f.parent
-            if p.name != arch:
+        for f in cli.find_indexes(repop):
+            if f.parent.name != arch:
                 continue
-            rr.append(p.parent)
-            rrm[str(p.parent.relative_to(repop))] = p.parent
+            rr.append(f)
+            rrm[str(f.parent.parent.relative_to(repop))] = f
     rr.sort()
 
     for r in rs:
@@ -94,7 +96,7 @@ def check_stage(arch, force=False, remote=False):
     _call_apk(*rlist, "update")
 
     for d in rs:
-        reld = str(d.relative_to(stagep))
+        reld = str(d.relative_to(stagep).parent.parent)
         # only stage exists, so nothing is replacing anything
         ad = rrm.get(reld, None)
         if not ad:
@@ -314,7 +316,7 @@ def _do_clear(arch, force):
     epoch = int(time.time())
 
     for d in unstage or []:
-        d = d / arch
+        d = d.parent.parent / arch
         ad = repop / d.relative_to(stagep)
         try:
             ad.rmdir()
@@ -332,7 +334,8 @@ def _do_clear(arch, force):
         for f in d.glob("*.apk"):
             f.rename(ad / f.name)
         # clear the stage index, we won't need it
-        (d / "APKINDEX.tar.gz").unlink()
+        (d / "APKINDEX.tar.gz").unlink(missing_ok=True)
+        (d / "Packages.adb").unlink(missing_ok=True)
         # try removing the stage dir, but keep it if there is still stuff in it
         try:
             d.rmdir()

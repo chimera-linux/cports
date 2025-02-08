@@ -53,21 +53,29 @@ def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
             rl = r.replace("@section@", cr)
             rpath = paths.repository() / rl
             spath = paths.stage_repository() / rl
-            ispath = f"/stagepkgs/{rl}"
             # stage repo
-            if (spath / arch / "APKINDEX.tar.gz").is_file() and use_stage:
-                ret.append("--repository")
-                if intree:
-                    ret.append(ispath)
-                else:
-                    ret.append(str(spath))
+            if use_stage:
+                sbase = spath / arch
+                sidx = sbase / "Packages.adb"
+                if not sidx.is_file():
+                    sidx = sbase / "APKINDEX.tar.gz"
+                if sidx.is_file():
+                    ret.append("--repository")
+                    if intree:
+                        ret.append(f"/stagepkgs/{rl}/{arch}/{sidx.name}")
+                    else:
+                        ret.append(str(sidx))
             # regular repo
-            if (rpath / arch / "APKINDEX.tar.gz").is_file():
+            rbase = rpath / arch
+            ridx = rbase / "Packages.adb"
+            if not ridx.is_file():
+                ridx = rbase / "APKINDEX.tar.gz"
+            if ridx.is_file():
                 ret.append("--repository")
                 if intree:
-                    ret.append(f"/binpkgs/{rl}")
+                    ret.append(f"/binpkgs/{rl}/{arch}/{ridx.name}")
                 else:
-                    ret.append(str(rpath))
+                    ret.append(str(ridx))
 
     # alt repository comes last in order to be lower priority
     # also, always ignore stage for altrepo, as it should be considered opaque
@@ -79,12 +87,16 @@ def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
             for cr in srepos:
                 rl = r.replace("@section@", cr)
                 rpath = paths.alt_repository() / rl
-                if (rpath / arch / "APKINDEX.tar.gz").is_file():
+                rbase = rpath / arch
+                ridx = rbase / "Packages.adb"
+                if not ridx.is_file():
+                    ridx = rbase / "APKINDEX.tar.gz"
+                if ridx.is_file():
                     ret.append("--repository")
                     if intree:
-                        ret.append(f"/altbinpkgs/{rl}")
+                        ret.append(f"/altbinpkgs/{rl}/{arch}/{ridx.name}")
                     else:
-                        ret.append(str(rpath))
+                        ret.append(str(ridx))
 
     if use_cache:
         ret.append("--cache-dir")
@@ -369,12 +381,35 @@ def prune(repopath, arch=None, dry=False):
     logger.get().out("repo cleanup complete")
 
 
+def find_indexes(repopath):
+    for root, dirs, files in repopath.walk():
+        has_adb = False
+        has_gz = False
+        for fl in files:
+            if fl == "Packages.adb":
+                has_adb = True
+                if has_gz:
+                    break
+            elif fl == "APKINDEX.tar.gz":
+                has_gz = True
+                if has_adb:
+                    break
+        if not has_adb and not has_gz:
+            continue
+        if has_adb:
+            yield repopath / root / "Packages.adb"
+        else:
+            yield repopath / root / "APKINDEX.tar.gz"
+
+
 def build_index(repopath, epoch, allow_untrusted=False):
     repopath = pathlib.Path(repopath)
 
-    aargs = ["--quiet", "--output", "APKINDEX.tar.gz"]
+    aargs = ["--quiet", "--output", "Packages.adb", "--hash", "sha256-160"]
 
-    if (repopath / "APKINDEX.tar.gz").is_file():
+    if (repopath / "Packages.adb").is_file():
+        aargs += ["--index", "Packages.adb"]
+    elif (repopath / "APKINDEX.tar.gz").is_file():
         aargs += ["--index", "APKINDEX.tar.gz"]
 
     keypath = None
@@ -386,31 +421,14 @@ def build_index(repopath, epoch, allow_untrusted=False):
 
     aenv = {"PATH": os.environ["PATH"], "SOURCE_DATE_EPOCH": str(epoch)}
 
-    # for newer apk, we need to pass --hash to preserve compatibility
-    # with older apk's treatment of indexes, but this argument will
-    # not work with older apk so we test for it
-    if (
-        call(
-            "mkndx",
-            ["--hash", "sha256-160", "--output", "hash-test.adb", "--quiet"],
-            None,
-            cwd=repopath,
-            env=aenv,
-            allow_untrusted=True,
-            capture_output=True,
-        ).returncode
-        == 0
-    ):
-        (repopath / "hash-test.adb").unlink()
-        aargs += ["--hash", "sha256-160"]
-
     ilen = len(aargs)
 
     summarize_repo(repopath, aargs)
 
     # no packages, just drop the index
-    if (len(aargs) - ilen) == 0 and (repopath / "APKINDEX.tar.gz").is_file():
-        (repopath / "APKINDEX.tar.gz").unlink()
+    if (len(aargs) - ilen) == 0:
+        (repopath / "APKINDEX.tar.gz").unlink(missing_ok=True)
+        (repopath / "Packages.adb").unlink(missing_ok=True)
         return True
 
     signr = call(
@@ -424,6 +442,11 @@ def build_index(repopath, epoch, allow_untrusted=False):
     if signr.returncode != 0:
         logger.get().out("\f[red]Indexing failed!")
         return False
+
+    # for compatibility
+    lidx = repopath / "APKINDEX.tar.gz"
+    lidx.unlink(missing_ok=True)
+    lidx.symlink_to("Packages.adb")
 
     return True
 

@@ -914,7 +914,7 @@ def do_prune_obsolete(tgt):
     reposd = paths.repository()
     reposet = {}
 
-    for idx in reposd.rglob("APKINDEX.tar.gz"):
+    for idx in cli.find_indexes(reposd):
         repop = idx.parent.parent
         if not repop.is_relative_to(reposd):
             continue
@@ -1006,7 +1006,7 @@ def do_prune_removed(tgt):
     reposd = paths.repository()
     reposet = {}
     # find all existing indexes
-    for idx in reposd.rglob("APKINDEX.tar.gz"):
+    for idx in cli.find_indexes(reposd):
         repo = idx.parent.parent
         if not repo.is_relative_to(reposd):
             continue
@@ -1057,7 +1057,7 @@ def do_index(tgt):
     reposd = paths.repository()
     reposet = {}
     # find all existing indexes
-    for idx in reposd.rglob("APKINDEX.tar.gz"):
+    for idx in cli.find_indexes(reposd):
         repo = idx.parent.parent
         if not repo.is_relative_to(reposd):
             continue
@@ -1442,7 +1442,11 @@ def _get_unbuilt(outdated=False):
     repovers = {}
 
     def _collect_vers(repop):
-        if not (repop / tarch / "APKINDEX.tar.gz").is_file():
+        rbase = repop / tarch
+        repof = rbase / "Packages.adb"
+        if not repof.is_file():
+            repof = rbase / "APKINDEX.tar.gz"
+        if not repof.is_file():
             return
         outp = subprocess.run(
             [
@@ -1453,7 +1457,7 @@ def _get_unbuilt(outdated=False):
                 "--root",
                 paths.bldroot(),
                 "--repository",
-                repop,
+                str(repof),
                 "search",
                 "--from",
                 "none",
