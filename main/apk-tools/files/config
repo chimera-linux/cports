@@ -1,0 +1,5 @@
+# the default apk-tools distribution config; create a replacement in
+# /etc/apk/config with your own options if you wish to override this
+
+interactive
+cache-packages
