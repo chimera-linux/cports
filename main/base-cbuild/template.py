@@ -1,6 +1,6 @@
 pkgname = "base-cbuild"
 pkgver = "0.1"
-pkgrel = 11
+pkgrel = 12
 build_style = "meta"
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -23,10 +23,11 @@ depends = [
 ]
 # bootstrap-llvm is temporary until next llvm release, don't feel like rebuild
 provides = [
-    "apk-tools-cache-link=9999-r0",
     "bootstrap:cbuild=9999-r0",
     "bootstrap:llvm=9999-r0",
 ]
+replaces = ["apk-tools"]
+replaces_priority = 100
 
 options = ["bootstrap", "brokenlinks"]
 
@@ -61,6 +62,9 @@ def install(self):
     # replace regular ld and ld.lld symlinks
     self.install_link("usr/bin/ld.lld", "cbuild-lld-wrapper")
     self.install_link("usr/bin/ld64.lld", "cbuild-lld-wrapper")
+
+    # different default apk config
+    self.install_file(self.files_path / "config", "usr/lib/apk")
 
 
 @subpackage("base-cbuild-progs")
