@@ -1,0 +1,31 @@
+From 3efd75dc7e49845a642382a0d28f5f17887ddacc Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 8 Feb 2025 17:28:00 +0100
+Subject: [PATCH] crypto: fix segfault when passing --hash
+
+There are gholes in the apk_digest_str array, where the field
+is NULL. This will result in a segfault because strcmp cannot
+take a NULL.
+---
+ src/crypto.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/crypto.c b/src/crypto.c
+index 371c6256..c3b0b0b2 100644
+--- a/src/crypto.c
++++ b/src/crypto.c
+@@ -18,8 +18,10 @@ const char *apk_digest_alg_str(uint8_t alg)
+ 
+ uint8_t apk_digest_alg_by_str(const char *algstr)
+ {
+-	for (uint8_t alg = 0; alg < ARRAY_SIZE(apk_digest_str); alg++)
++	for (uint8_t alg = 0; alg < ARRAY_SIZE(apk_digest_str); alg++) {
++		if (!apk_digest_str[alg]) continue;
+ 		if (strcmp(apk_digest_str[alg], algstr) == 0) return alg;
++	}
+ 	return APK_DIGEST_NONE;
+ }
+ 
+-- 
+GitLab
+

@@ -1,11 +1,12 @@
 pkgname = "apk-tools"
 pkgver = "3.0.0_rc4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dlua=disabled",
     "-Dlua_version=5.4",
 ]
+make_check_env = {"APK_CONFIG": "/dev/null"}
 hostmakedepends = [
     "lua5.4",
     "lua5.4-zlib",
