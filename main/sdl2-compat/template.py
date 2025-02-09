@@ -1,5 +1,5 @@
 pkgname = "sdl2-compat"
-pkgver = "2.30.52"
+pkgver = "2.32.50"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -13,7 +13,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://github.com/libsdl-org/sdl2-compat"
 source = f"{url}/releases/download/release-{pkgver}/sdl2-compat-{pkgver}.tar.gz"
-sha256 = "812616ba773c01dbf2b802a855a63d77c1e9b6c6805b189a4cdb9982a7f737f6"
+sha256 = "b559c734f2cdc4ea34266a1ef7724cbf3a729deaab23a774aa60a980368f5a88"
 
 
 @subpackage("sdl2-compat-devel-static")
