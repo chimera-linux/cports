@@ -111,6 +111,16 @@ broken_symlinks = [
     f"usr/lib/gcc/{_trip}/{_mnver}/libclang_rt.builtins.a",
 ]
 
+# not all archs have gcc-bootstrap and on some using the regular host
+# clang to bootstrap is fine, but where we can bootstrap with gcc, do
+# so in order to avoid trouble
+_use_bootstrap = False
+
+match self.profile().arch:
+    case "aarch64" | "ppc64le" | "ppc64" | "ppc" | "riscv64" | "x86_64":
+        _use_bootstrap = True
+        hostmakedepends += ["gcc-bootstrap"]
+
 match self.profile().arch:
     case "aarch64":
         configure_args += [
@@ -147,6 +157,14 @@ def init_configure(self):
     self.env["BOOT_CFLAGS"] = cfl
     self.env["BOOT_CXXFLAGS"] = cxfl
     self.env["BOOT_LDFLAGS"] = ldfl
+    # bypass clang
+    if _use_bootstrap:
+        self.env["CC"] = (
+            "/usr/lib/gcc-bootstrap/bin/gcc -I/usr/include -L/usr/lib"
+        )
+        self.env["CXX"] = (
+            "/usr/lib/gcc-bootstrap/bin/g++ -I/usr/include -L/usr/lib"
+        )
 
 
 def post_install(self):
