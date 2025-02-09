@@ -1,5 +1,5 @@
 pkgname = "freerdp"
-pkgver = "3.10.3"
+pkgver = "3.11.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -66,11 +66,11 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "RDP clients and libraries"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
+maintainer = "fossdd <fossdd@pwned.life>"
 license = "Apache-2.0"
 url = "https://www.freerdp.com"
 source = f"https://pub.freerdp.com/releases/freerdp-{pkgver}.tar.gz"
-sha256 = "0bedda4ba1dcb225845522e24c595464aabce2c553a4c08b5c25a4977fbe1831"
+sha256 = "0697b6f92d2107ef40ab6cc9baf05738ef0bda5ee5ba9076ee837df9648adfcf"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 
 
