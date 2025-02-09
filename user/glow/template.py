@@ -1,6 +1,6 @@
 pkgname = "glow"
 pkgver = "2.0.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 # needs net
 make_check_args = ["-skip", "TestGlowSources", "./..."]

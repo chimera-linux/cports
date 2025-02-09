@@ -1,6 +1,6 @@
 pkgname = "go-task"
 pkgver = "3.41.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/go-task/task/v3/internal/version.version=v{pkgver}",

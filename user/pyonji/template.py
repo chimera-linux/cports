@@ -1,6 +1,6 @@
 pkgname = "pyonji"
 pkgver = "0.1.0"
-pkgrel = 10
+pkgrel = 11
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Easy-to-use tool to send e-mail patches"

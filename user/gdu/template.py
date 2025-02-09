@@ -1,6 +1,6 @@
 pkgname = "gdu"
 pkgver = "5.30.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/gdu"]
 # expects writing to /xyzxyz to give eperm instead of erofs (which happens in --ro bwrap)

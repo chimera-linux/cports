@@ -1,6 +1,6 @@
 pkgname = "lazygit"
 pkgver = "0.45.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version=v{pkgver}"]
 hostmakedepends = ["go"]
