@@ -14,7 +14,6 @@ options = [
     "!lintstatic",
     "brokenlinks",
 ]
-restricted = "work in progress"
 
 match self.profile().arch:
     case "aarch64":

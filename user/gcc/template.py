@@ -1,12 +1,9 @@
 # rebuild on major clang version updates
 pkgname = "gcc"
 _clangver = "19"
-_mver = "14"
-_mnver = f"{_mver}.1"
-_bver = f"{_mnver}.1"
-_datever = "20240720"
-_commit = "94e4661fee27c5b1362e02690c5047e0b543fc9a"
-pkgver = f"{_bver}_git{_datever}"
+pkgver = f"14.2.0"
+_bver = pkgver
+_mnver = _bver[0 : _bver.rfind(".")]
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -88,12 +85,11 @@ pkgdesc = "GNU Compiler Collection"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
-source = f"https://github.com/gcc-mirror/gcc/archive/{_commit}.tar.gz"
-sha256 = "9cb2bcffa015c663cc9a23a57381739eb8226d0e6c069b1e79f6681d698dd390"
+source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
+sha256 = "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9"
 hardening = ["!int", "!format", "!var-init"]
 # no tests to run
 options = ["!check", "!lto", "!relr", "!cross", "!scanshlibs"]
-restricted = "work in progress"
 
 _trip = self.profile().triplet
 # we cannot use clang, gcc expects binutils

@@ -24,6 +24,25 @@ index f9edc289e..28a6e8f0a 100644
 +MULTILIB_OSDIRNAMES = m64=../lib
 +MULTILIB_OSDIRNAMES+= m32=../lib32
  MULTILIB_OSDIRNAMES+= mx32=../libx32$(call if_multiarch,:x86_64-linux-gnux32)
+diff --git a/gcc/config/loongarch/t-linux b/gcc/config/loongarch/t-linux
+index 23e1fb979..c2753abb8 100644
+--- a/gcc/config/loongarch/t-linux
++++ b/gcc/config/loongarch/t-linux
+@@ -21,11 +21,6 @@ MULTIOSDIR_lp64f := ../lib64/f32$(call if_multiarch,:loongarch64-linux-gnuf32)
+ MULTIOSDIR_lp64s := ../lib64/sf$(call if_multiarch,:loongarch64-linux-gnusf)
+ 
+ # Don't define MULTILIB_OSDIRNAMES if multilib is disabled.
+-ifeq ($(filter LA_DISABLE_MULTILIB,$(tm_defines)),)
+-
+-    MULTILIB_OSDIRNAMES = .=$(MULTIOSDIR_$(mlib_default))
+-    MULTILIB_OSDIRNAMES += mabi.lp64d=$(MULTIOSDIR_lp64d)
+-    MULTILIB_OSDIRNAMES += mabi.lp64f=$(MULTIOSDIR_lp64f)
+-    MULTILIB_OSDIRNAMES += mabi.lp64s=$(MULTIOSDIR_lp64s)
+-
+-endif
++    MULTILIB_OSDIRNAMES =  mabi.lp64d=../lib
++    MULTILIB_OSDIRNAMES += mabi.lp64f=../lib
++    MULTILIB_OSDIRNAMES += mabi.lp64s=../lib
 diff --git a/gcc/config/riscv/linux.h b/gcc/config/riscv/linux.h
 index 0cf689891..29ed8c0dc 100644
 --- a/gcc/config/riscv/linux.h
