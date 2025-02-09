@@ -2,10 +2,9 @@
 
 set -e
 
-APK_VER="3.0.0_rc2-r0"
-APK_URL="https://repo.chimera-linux.org/apk"
+APK_URL="https://repo.chimera-linux.org/apk/latest"
 APK_ARCH=$(uname -m)
-APK_FILE="apk-${APK_ARCH}-${APK_VER}.static"
+APK_FILE="apk-${APK_ARCH}.static"
 
 echo "=> Getting apk-tools..."
 curl --parallel -LO "${APK_URL}/${APK_FILE}" -LO "${APK_URL}/sha256sums.txt"
