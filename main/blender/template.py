@@ -35,7 +35,7 @@ makedepends = [
     "ffmpeg-devel",
     "fftw-devel",
     "freetype-devel",
-    "gmpxx-devel",
+    "gmp-gmpxx-devel",
     "libepoxy-devel",
     "libharu-devel",
     "libjpeg-turbo-devel",
