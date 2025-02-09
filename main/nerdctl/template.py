@@ -23,9 +23,5 @@ def post_build(self):
 
 
 def post_install(self):
-    self.install_service(self.files_path / "containerd.user")
-    self.install_bin(
-        "extras/rootless/containerd-rootless.sh", name="containerd-rootless"
-    )
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"nerdctl.{shell}", shell)
