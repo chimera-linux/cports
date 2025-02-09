@@ -1,7 +1,7 @@
 # rebuild on major clang version updates
 pkgname = "gcc"
 _clangver = "19"
-pkgver = f"14.2.0"
+pkgver = "14.2.0"
 _bver = pkgver
 _mnver = _bver[0 : _bver.rfind(".")]
 pkgrel = 0
