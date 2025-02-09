@@ -1,5 +1,5 @@
 pkgname = "lxqt-config"
-pkgver = "2.1.0"
+pkgver = "2.1.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -26,4 +26,4 @@ maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-config"
 source = f"{url}/releases/download/{pkgver}/lxqt-config-{pkgver}.tar.xz"
-sha256 = "fa81bdf793d396da8cc9aed1f61df532606152092ad0d3b52674e06b0121780d"
+sha256 = "222144caa133a91c2ed7503d2988573cd3a0b09e61caa1cb45bd8a099538df3f"
