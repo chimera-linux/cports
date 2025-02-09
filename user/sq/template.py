@@ -7,7 +7,7 @@ make_build_args = [
     " -X github.com/neilotoole/sq/cli/buildinfo.Commit=RELEASE"
 ]
 hostmakedepends = ["go"]
-makedepends = ["icu-devel", "sqlite-devel", "libpq-devel"]
+makedepends = ["icu-devel", "sqlite-devel", "postgresql16-client-devel"]
 go_build_tags = [
     "sqlite_vtable",
     "sqlite_stat4",
