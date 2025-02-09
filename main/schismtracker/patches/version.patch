@@ -1,16 +1,17 @@
 https://github.com/chimera-linux/cports/pull/1273#discussion_r1466266497
---- a/schism/version.c
-+++ b/schism/version.c
-@@ -50,11 +50,7 @@
+diff -ruN a/schism/version.c b/schism/version.c
+--- a/schism/version.c	2025-02-09 05:39:42.000000000 +0100
++++ b/schism/version.c	2025-02-09 08:26:49.650203967 +0100
+@@ -51,11 +51,7 @@
+ 		on gcc-like compilers. (not like anyone's really using schism with anything else...)
  
  */
- static const char* top_banner_normal =
--#ifndef EMPTY_VERSION
--	"Schism Tracker " VERSION
+-#if !defined(EMPTY_VERSION) && defined(VERSION)
+-# define TOP_BANNER_NORMAL "Schism Tracker " VERSION
 -#else
--	"Schism Tracker built " __DATE__ " " __TIME__
+-# define TOP_BANNER_NORMAL "Schism Tracker built " __DATE__ " " __TIME__
 -#endif
-+	"Schism Tracker " VERSION2
++#define TOP_BANNER_NORMAL "Schism Tracker " VERSION2
  	;
  
  /* -------------------------------------------------------- */
