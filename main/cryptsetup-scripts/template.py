@@ -1,7 +1,7 @@
 pkgname = "cryptsetup-scripts"
 pkgver = "2.7.5.1"
 _debver = "-".join(pkgver.rsplit(".", 1))
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_build_args = [
     "DOCBOOK_XSL=/usr/share/xsl-nons/docbook/manpages/docbook.xsl",
