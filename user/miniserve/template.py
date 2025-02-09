@@ -1,5 +1,5 @@
 pkgname = "miniserve"
-pkgver = "0.28.0"
+pkgver = "0.29.0"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = [
@@ -14,13 +14,16 @@ make_check_args = [
 ]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["zstd-devel"]
-checkdepends = ["curl"]  # test case: cant_navigate_up_the_root
+checkdepends = [
+    "openssl3-devel",
+    "curl",  # test case: cant_navigate_up_the_root
+]
 pkgdesc = "CLI tool to serve files and dirs over HTTP"
 maintainer = "sonata-chen <sonatachen39@gmail.com>"
 license = "MIT"
 url = "https://github.com/svenstaro/miniserve"
 source = f"{url}/archive/refs/tags/v{pkgver}.zip"
-sha256 = "b8c91a8d33333149fb1d90d3e0c481b17439b3b473e9405a06b9bbc4b9afaaa4"
+sha256 = "e1b65231fe8eb94ecb46680173fa849be0fb64c07b0c9dc1e471cda1529b2e66"
 # generates completions and manpage with host binary
 options = ["!cross"]
 
