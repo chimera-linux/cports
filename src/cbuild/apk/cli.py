@@ -446,7 +446,7 @@ def build_index(repopath, epoch, allow_untrusted=False):
     # for compatibility
     lidx = repopath / "APKINDEX.tar.gz"
     lidx.unlink(missing_ok=True)
-    lidx.symlink_to("Packages.adb")
+    lidx.hardlink_to(repopath / "Packages.adb")
 
     return True
 
