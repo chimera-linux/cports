@@ -141,6 +141,14 @@ match self.profile().arch:
             "--with-abi=lp64d",
         ]
 
+_have_libgomp = False
+
+match self.profile().arch:
+    case "aarch64" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
+        _have_libgomp = True
+    case _:
+        configure_args += ["--disable-libgomp"]
+
 
 def init_configure(self):
     cfl = self.get_cflags(shell=True)
@@ -249,7 +257,7 @@ def _(self):
     return ["usr/lib/libobjc.so.*"]
 
 
-@subpackage("gcc-gomp-devel")
+@subpackage("gcc-gomp-devel", _have_libgomp)
 def _(self):
     self.subdesc = "OpenMP develpment files"
     return [
@@ -261,7 +269,7 @@ def _(self):
     ]
 
 
-@subpackage("gcc-gomp-libs")
+@subpackage("gcc-gomp-libs", _have_libgomp)
 def _(self):
     self.subdesc = "OpenMP runtime"
     return ["usr/lib/libgomp.so.*"]
