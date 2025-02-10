@@ -1,6 +1,6 @@
 pkgname = "xhost"
-pkgver = "1.0.9"
-pkgrel = 1
+pkgver = "1.0.10"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "gettext-devel"]
 makedepends = ["libx11-devel", "libxmu-devel"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xhost-{pkgver}.tar.gz"
-sha256 = "ca850367593fcddc4bff16de7ea1598aa4f6817daf5a803a1258dff5e337f7c3"
+sha256 = "10a157a9c818e6ec17764ba22117e006089107a22aacf58be6de089a76a112f4"
 hardening = ["vis", "cfi"]
 
 
