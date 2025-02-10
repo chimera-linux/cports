@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "256.11"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -11,6 +11,7 @@ configure_args = [
     "-Daudit=disabled",
     "-Dbacklight=false",
     "-Dbinfmt=false",
+    "-Dbootloader=disabled",
     "-Dbpf-framework=disabled",
     "-Dbzip2=disabled",
     "-Dcoredump=false",
@@ -149,9 +150,6 @@ def post_install(self):
         self.uninstall(f, glob=True)
 
     for f in (self.destdir / "usr/lib/systemd").iterdir():
-        # keep efi stubs
-        if f.name == "boot":
-            continue
         self.rm(f, recursive=True, glob=True)
 
     # predictable interface names
@@ -160,6 +158,15 @@ def post_install(self):
         "usr/lib/udev/rules.d",
         mode=0o644,
     )
+
+    # hecc
+    self.uninstall("usr/bin/bootctl")
+    self.uninstall("usr/share/man/man1/bootctl.1")
+    self.uninstall("usr/share/man/man1/ukify.1")
+    self.uninstall("usr/share/man/man5/loader.conf.5")
+    self.uninstall("usr/share/man/man7/linux*", glob=True)
+    self.uninstall("usr/share/man/man7/*-boot.7", glob=True)
+    self.uninstall("usr/share/man/man7/*-stub.7", glob=True)
 
     # initramfs-tools
     self.install_initramfs(self.files_path / "udev.hook")
