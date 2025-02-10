@@ -5,12 +5,12 @@ import shlex
 import pathlib
 
 _scripts = {
-    ".pre-install": True,
-    ".pre-upgrade": True,
-    ".pre-deinstall": True,
-    ".post-install": True,
-    ".post-upgrade": True,
-    ".post-deinstall": True,
+    # ".pre-install": True,
+    # ".pre-upgrade": True,
+    # ".pre-deinstall": True,
+    # ".post-install": True,
+    # ".post-upgrade": True,
+    # ".post-deinstall": True,
     ".trigger": True,
 }
 

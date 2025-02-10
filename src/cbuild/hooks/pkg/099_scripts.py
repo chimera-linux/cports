@@ -1,12 +1,12 @@
 def invoke(pkg):
     # available scripts
     _avail = [
-        "pre-install",
-        "pre-upgrade",
-        "pre-deinstall",
-        "post-install",
-        "post-upgrade",
-        "post-deinstall",
+        # "pre-install",
+        # "pre-upgrade",
+        # "pre-deinstall",
+        # "post-install",
+        # "post-upgrade",
+        # "post-deinstall",
         "trigger",
     ]
 

@@ -29,7 +29,7 @@ you should not rely on them or expect them to be stable.
   * [Template Options](#template_options)
   * [Hardening Options](#hardening_options)
   * [Tools and Tool Flags](#tools)
-  * [Hooks and Triggers](#hooks_triggers)
+  * [Triggers](#triggers)
 * [Build Profiles](#build_profiles)
 * [Build Environment](#build_environment)
 * [Hooks and Invocation](#hooks)
@@ -995,9 +995,6 @@ Keep in mind that default values may be overridden by build styles.
   are marked this way to be built. The value is the reason why it's marked
   like that. Often this will be e.g. non-redistributable clause in the
   terms of the package.
-* `scripts` *(dict)* A dictionary of strings that are the scripts for
-  this package, or `True` values for scripts that are read from files.
-  Note that triggers do not need declaring when using files.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.
@@ -1988,59 +1985,26 @@ compilers. Any differences will be noted in here, if needed.
 There are many more variables that are implicitly exported into the
 environment, but those are documented elsewhere.
 
-<a id="hooks_triggers"></a>
-### Hooks and Triggers
+<a id="triggers"></a>
+### Triggers
 
-The packaging system lets you provide custom hooks as well as triggers.
+The packaging system lets you provide custom triggers.
 
-Hooks are shell scripts that will run at specified times during the package
-installation or removal. Triggers are scripts that run if something modifies
-a monitored directory.
-
-The system supports `install`, `upgrade` and `deinstall` hooks, each
-having `pre` and `post` variants differentiating whether the hook is
-run before or after the step.
-
-The `install` hooks are executed if a package is installed, but not
-downgraded or upgraded or reinstalled. Conversely, the `upgrade`
-hooks are run on downgrade or upgrade as well as reinstallation,
-but not clean installation. The `deinstall` hooks are run when you
-uninstall a package, but removal before upgrade or reinstall is not
-counted.
-
-Overall, this makes 6 hooks such as `pre-install` and so on.
-
-Triggers are a different kind of script. Each package is allowed
-to carry one trigger, and this trigger must have a list of directory
-patterns set up for it. These directory patterns are then monitored
-for changes, potentially by other packages. That means other packages
-can result in invocation of triggers even if the package providing
-the trigger is not modified in any way.
+Triggers are scripts that run if something modifies a monitored directory.
+Each package is allowed to carry one trigger script, and this trigger must
+have a list of directory patterns set up for it. These directory patterns
+are then monitored for changes, potentially by other packages. That means
+other packages can result in invocation of triggers even if the package
+providing the trigger is not modified in any way.
 
 Triggers are fired when the affected directory is modified in any
 way, this includes uninstallation.
 
 The script is provided as a file in the template's directory,
-named `pkgname.scriptname`, e.g. `foo.trigger` or `foo.post-install`.
-You can use symlinks if you want one script to be used for multiple
-hooks.
+named `pkgname.scriptname`, e.g. `foo.trigger`.
 
 If a trigger script is provided, the `triggers` variable must be set
 appropriately.
-
-Alternatively, scripts may be provided as a part of the template
-using the `scripts` field. If both file and in-template scripts
-are provided, it is an error.
-
-When using files for scripts, you must declare them in the `scripts`
-field too, using the `True` value, except for triggers, which are
-already declared by specifying their trigger paths. Having a file
-present but not declaring it is an error. Additionally, declaring a
-file and not having the file present is also an error.
-
-Hooks get passed the new or current package version as the first
-argument, as well as the old version as a second argument where this
-is relevant.
 
 Triggers are passed the directory paths that resulted in the trigger
 being invoked.
