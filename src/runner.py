@@ -10,6 +10,7 @@ cmdline = None
 parser = None
 
 opt_apkcmd = "apk"
+opt_apkrepo = "https://repo.chimera-linux.org/current"
 opt_bwcmd = "bwrap"
 opt_cflags = "-O2"
 opt_cxxflags = "-O2"
@@ -116,7 +117,7 @@ def handle_options():
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
     global opt_acceptsum, opt_comp, opt_maint, opt_epkgs, opt_tdata, opt_nolock
-    global opt_keypath
+    global opt_keypath, opt_apkrepo
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -336,6 +337,7 @@ def handle_options():
         apkcfg = global_cfg["apk"]
 
         opt_apkcmd = apkcfg.get("command", fallback=opt_apkcmd)
+        opt_apkrepo = apkcfg.get("repo", fallback=opt_apkrepo)
 
     if "build" in global_cfg:
         bcfg = global_cfg["build"]
@@ -2857,6 +2859,9 @@ def fire():
 
     # register extra packages
     chroot.set_extras(opt_epkgs.split())
+
+    # set the repo mirror
+    chroot.set_mirror(opt_apkrepo)
 
     # ensure we've got a signing key
     if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":

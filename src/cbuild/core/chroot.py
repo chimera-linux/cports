@@ -176,6 +176,12 @@ def setup_keys(rootp):
 
 
 _crepos = None
+_mirror = None
+
+
+def set_mirror(mirror):
+    global _mirror
+    _mirror = mirror
 
 
 def get_confrepos():
@@ -188,7 +194,7 @@ def get_confrepos():
     for f in (paths.distdir() / "etc/apk/repositories.d").glob("*.conf"):
         with open(f) as repof:
             for repo in repof:
-                _crepos.append(repo.strip())
+                _crepos.append(repo.strip().replace("@mirror@", _mirror))
 
     return _crepos
 
