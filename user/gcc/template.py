@@ -135,6 +135,12 @@ match self.profile().arch:
             "--enable-secureplt",
             "--disable-decimal-float",
         ]
+    case "ppc":
+        configure_args += [
+            "--enable-secureplt",
+            "--disable-decimal-float",
+        ]
+        broken = "libssp shenanigans"
     case "riscv64":
         configure_args += [
             "--with-arch=rv64gc",
