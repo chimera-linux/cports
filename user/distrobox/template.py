@@ -1,5 +1,5 @@
 pkgname = "distrobox"
-pkgver = "1.8.0"
+pkgver = "1.8.1.2"
 pkgrel = 0
 depends = ["curl", "podman", "polkit"]
 pkgdesc = "Use any Linux distribution inside your terminal"
@@ -7,7 +7,8 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only"
 url = "https://distrobox.it"
 source = f"https://github.com/89luca89/distrobox/archive/{pkgver}.tar.gz"
-sha256 = "72d8d825b6aad63e03e0b92376e6ead9c053c1e676acab3c7eaac9be2929d0a2"
+sha256 = "3ecbce9b8c5b5df941f986798ffa6ea7fdf742223d42204207974c4323d5b9fc"
+options = ["!lintcomp"]  # zsh _distrobox_running_containers
 
 
 def install(self):
