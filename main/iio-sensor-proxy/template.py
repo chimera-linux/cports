@@ -1,5 +1,5 @@
 pkgname = "iio-sensor-proxy"
-pkgver = "3.5"
+pkgver = "3.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -28,7 +28,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/hadess/iio-sensor-proxy"
 source = f"{url}/-/archive/{pkgver}/iio-sensor-proxy-{pkgver}.tar.gz"
-sha256 = "8689425f2287626a95d95b1e1e5b62e497d09dd08cf411084ed22166d4a49da5"
+sha256 = "387cffea8b55d3087b199975cf3e00f2405d4dfe4a9bfb311b396e6473c67a96"
 hardening = ["vis", "cfi"]
 
 
