@@ -2285,7 +2285,7 @@ autopkgs = [
     (
         "udev",
         "udev rules",
-        "base-udev",
+        "udev-meta",
         lambda p: p.take("usr/lib/udev", missing_ok=True),
     ),
     (
