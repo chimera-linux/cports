@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "256.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -184,11 +184,13 @@ def _(self):
     return self.default_libs()
 
 
-@subpackage("base-udev")
+@subpackage("udev-meta")
 def _(self):
     self.pkgdesc = "Base package for udev configs"
     self.depends = [self.parent]
     self.install_if = [self.parent]
+    # transitional
+    self.provides = [self.with_pkgver("base-udev")]
     self.options = ["empty"]
 
     return []

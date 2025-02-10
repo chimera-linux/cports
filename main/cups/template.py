@@ -37,6 +37,7 @@ hostmakedepends = [
 makedepends = [
     "acl-devel",
     "avahi-bootstrap",
+    "dbus-devel",
     "libpaper-devel",
     "libpng-devel",
     "libtiff-devel",
@@ -86,7 +87,7 @@ def post_install(self):
 
     # move the default configs
     for f in (self.destdir / "etc/cups").rglob("*.default"):
-        self.mv(f, self.destdir / "usr/share/cups")
+        self.install_file(f, "usr/share/cups", mode=0o644)
 
     # and nuke the /etc stuff
     self.uninstall("etc/cups")
