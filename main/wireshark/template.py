@@ -1,6 +1,6 @@
 pkgname = "wireshark"
 pkgver = "4.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DENABLE_GNUTLS=ON",
@@ -54,16 +54,14 @@ makedepends = [
     "zstd-devel",
 ]
 checkdepends = ["python-pytest-xdist"]
-scripts = {"pre-install": True}
 pkgdesc = "Network protocol analyzer"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.wireshark.org"
 source = f"https://www.wireshark.org/download/src/wireshark-{pkgver}.tar.xz"
 sha256 = "2abb53b958a7701c239093706d373e199ac183550904d490e173b91195e2fab6"
-# forbid non-wireshark-group users from reading all network packets
 file_modes = {
-    "usr/bin/dumpcap": ("root", "_wireshark", 0o750),
+    "usr/bin/dumpcap": ("root", "root", 0o755),
 }
 file_xattrs = {
     "usr/bin/dumpcap": {

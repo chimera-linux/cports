@@ -1,0 +1,56 @@
+this no longer exists in minizip-ng 4.0.8
+
+diff --git a/cmake/modules/FindMinizipng.cmake b/cmake/modules/FindMinizipng.cmake
+index 653d654..c6273b4 100644
+--- a/cmake/modules/FindMinizipng.cmake
++++ b/cmake/modules/FindMinizipng.cmake
+@@ -16,15 +16,15 @@ endif()
+ 
+ find_path(MINIZIPNG_INCLUDE_DIR
+   NAMES
+-    mz_compat.h
+-    minizip-ng/mz_compat.h
++    mz.h
++    minizip-ng/mz.h
+   HINTS
+     ${MINIZIPNG_INCLUDE_DIRS}
+     "${MINIZIPNG_HINTS}/include"
+ )
+ 
+ get_filename_component(MINIZIPNG_PARENT_DIR ${MINIZIPNG_INCLUDE_DIR} DIRECTORY)
+-if(EXISTS "${MINIZIPNG_PARENT_DIR}/minizip-ng/mz_compat.h")
++if(EXISTS "${MINIZIPNG_PARENT_DIR}/minizip-ng/mz.h")
+   set(MINIZIPNG_INCLUDE_DIR "${MINIZIPNG_PARENT_DIR}")
+ endif()
+ 
+diff --git a/ui/qt/utils/wireshark_zip_helper.cpp b/ui/qt/utils/wireshark_zip_helper.cpp
+index bcf670a..9e26852 100644
+--- a/ui/qt/utils/wireshark_zip_helper.cpp
++++ b/ui/qt/utils/wireshark_zip_helper.cpp
+@@ -21,7 +21,8 @@
+ #include <minizip/unzip.h>
+ #include <minizip/zip.h>
+ #else
+-#include <minizip-ng/mz_compat.h>
++#include <minizip-ng/unzip.h>
++#include <minizip-ng/zip.h>
+ #endif
+ #include "epan/prefs.h"
+ #include "wsutil/file_util.h"
+diff --git a/ui/qt/utils/wireshark_zip_helper.h b/ui/qt/utils/wireshark_zip_helper.h
+index 7845f70..4acdf12 100644
+--- a/ui/qt/utils/wireshark_zip_helper.h
++++ b/ui/qt/utils/wireshark_zip_helper.h
+@@ -18,10 +18,11 @@
+ 
+ #if defined(HAVE_MINIZIP) || defined(HAVE_MINIZIPNG)
+ 
++#include <zlib.h>
+ #ifdef HAVE_MINIZIP
+ #include "minizip/zip.h"
+ #else
+-#include "minizip-ng/mz_compat.h"
++#include "minizip-ng/zip.h"
+ #endif
+ 
+ class WiresharkZipHelper

@@ -1,0 +1,123 @@
+This implements permission checking:
+
+- root or suid is always allowed
+- users in _wireshark group are allowed
+- if running without caps, we are allowed
+- otherwise deny
+
+This lets us drop the whole "must be owned by a group"
+nonsense we had to deal with previously.
+
+diff --git a/dumpcap.c b/dumpcap.c
+index 6ad2a25..3fc166e 100644
+--- a/dumpcap.c
++++ b/dumpcap.c
+@@ -32,6 +32,8 @@
+ 
+ #include <signal.h>
+ #include <errno.h>
++#include <grp.h>
++#include <err.h>
+ 
+ #include <wsutil/array.h>
+ #include <wsutil/cmdarg_err.h>
+@@ -1202,6 +1204,73 @@ exit_main(int status)
+ }
+ 
+ #ifdef HAVE_LIBCAP
++static void
++check_wireshark_group(void)
++{
++    /* root, maybe setuid */
++    if (started_with_special_privs()) return;
++
++    cap_t caps = cap_get_proc();
++    cap_flag_value_t value;
++
++    if (cap_get_flag(caps, CAP_NET_ADMIN, CAP_PERMITTED, &value) != 0) {
++        warn("could not get CAP_NET_ADMIN value");
++        cap_free(caps);
++        exit_main(1);
++    }
++
++    cap_free(caps);
++
++    if (value == CAP_CLEAR) {
++        /* not started with capabilities */
++        return;
++    }
++
++    /* get the group structure */
++    errno = ENOENT;
++    struct group *gr = getgrnam("_wireshark");
++    if (!gr) {
++        warn("could not get wireshark group");
++        exit_main(1);
++    }
++
++    /* primary group */
++    if (getgid() == gr->gr_gid) return;
++
++    gid_t gbuf[32];
++
++    int ngrp = getgroups(32, gbuf);
++    if (ngrp < 0) {
++        warn("could not get supplementary groups");
++        exit_main(1);
++    }
++
++    gid_t *glist = gbuf;
++    if (ngrp > 32) {
++        glist = malloc(ngrp * sizeof(glist));
++        if (!glist) {
++            warn("out of memory");
++            exit_main(1);
++        }
++        if (getgroups(ngrp, glist) < 0) {
++            free(glist);
++            warn("could not get supplementary groups");
++            exit_main(1);
++        }
++    }
++
++    for (int i = 0; i < ngrp; ++i) {
++        if (glist[i] == gr->gr_gid) {
++            if (glist != gbuf) free(glist);
++            return;
++        }
++    }
++
++    if (glist != gbuf) free(glist);
++    warnx("you are not allowed to call this");
++    exit_main(1);
++}
++
+ /*
+  * If we were linked with libcap (not related to libpcap), make sure we have
+  * CAP_NET_ADMIN and CAP_NET_RAW, then relinquish our permissions.
+@@ -5458,6 +5527,8 @@ main(int argc, char *argv[])
+     init_process_policies();
+ 
+ #ifdef HAVE_LIBCAP
++    check_wireshark_group();
++
+     /* If 'started with special privileges' (and using libcap)  */
+     /*   Set to keep only NET_RAW and NET_ADMIN capabilities;   */
+     /*   Set euid/egid = ruid/rgid to remove suid privileges    */
+diff --git a/wsutil/privileges.c b/wsutil/privileges.c
+index 6ee0dfd..3b17f57 100644
+--- a/wsutil/privileges.c
++++ b/wsutil/privileges.c
+@@ -150,11 +150,8 @@ bool
+ started_with_special_privs(void)
+ {
+ 	ws_assert(init_process_policies_called);
+-#ifdef HAVE_ISSETUGID
+-	return issetugid();
+-#else
++	/* don't use issetugid as that considers process with capabilities that too */
+ 	return (ruid != euid || rgid != egid || ruid == 0 || rgid == 0);
+-#endif
+ }
+ 
+ /*
