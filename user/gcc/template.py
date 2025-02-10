@@ -146,6 +146,7 @@ match self.profile().arch:
             "--with-arch=rv64gc",
             "--with-abi=lp64d",
         ]
+        broken = "takes forever in emulator"
 
 _have_libgomp = False
 
