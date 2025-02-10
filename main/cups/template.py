@@ -1,6 +1,6 @@
 pkgname = "cups"
 pkgver = "2.4.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-relro",
@@ -57,17 +57,6 @@ tool_flags = {
     "CFLAGS": ["-Wno-unused-command-line-argument"],
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
 }
-file_modes = {
-    "etc/cups/classes.conf": ("root", "lp", 0o644),
-    "etc/cups/printers.conf": ("root", "lp", 0o644),
-    "etc/cups/subscriptions.conf": ("root", "lp", 0o644),
-    "etc/cups/cups-files.conf": ("root", "lp", 0o640),
-    "etc/cups/cups-files.conf.default": ("root", "lp", 0o640),
-    "etc/cups/cupsd.conf": ("root", "lp", 0o640),
-    "etc/cups/cupsd.conf.default": ("root", "lp", 0o640),
-    "etc/cups/snmp.conf": ("root", "lp", 0o640),
-    "etc/cups/snmp.conf.default": ("root", "lp", 0o640),
-}
 # FIXME int
 hardening = ["!int"]
 # undefined references everywhere
@@ -85,25 +74,33 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.install_file(self.files_path / "client.conf", "etc/cups")
+    self.install_file(self.files_path / "client.conf.default", "usr/share/cups")
 
     self.install_service(self.files_path / "cupsd")
 
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_tmpfiles(
+        self.files_path / "tmpfiles-client.conf", name="cups-client"
+    )
 
-    # install some more configuration files that will get filled by cupsd
-    for f in ["printers", "classes", "subscriptions"]:
-        (self.destdir / f"etc/cups/{f}.conf").touch(mode=0o644)
+    # move the default configs
+    for f in (self.destdir / "etc/cups").rglob("*.default"):
+        self.mv(f, self.destdir / "usr/share/cups")
+
+    # and nuke the /etc stuff
+    self.uninstall("etc/cups")
+
+    # we don't have xinetd
+    self.uninstall("etc/xinetd.d")
 
 
 @subpackage("cups-libs")
 def _(self):
-    self.file_modes = {"etc/cups/client.conf": ("root", "lp", 0o644)}
-
     return self.default_libs(
         extra=[
-            "etc/cups/client.conf",
+            "usr/lib/tmpfiles.d/cups-client.conf",
+            "usr/share/cups/client.conf.default",
             "usr/share/man/man5/client.conf.5",
         ]
     )
