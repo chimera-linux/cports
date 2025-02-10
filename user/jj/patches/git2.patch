@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index afb7c5a..94bc609 100644
+index 1ab9dae..fde65c8 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -913,9 +913,9 @@ checksum = "40ecd4077b5ae9fd2e9e169b102c6c330d0605168eb0e8bf79952b256dbefffd"
+@@ -1109,9 +1109,9 @@ checksum = "40ecd4077b5ae9fd2e9e169b102c6c330d0605168eb0e8bf79952b256dbefffd"
  
  [[package]]
  name = "git2"
@@ -12,9 +12,9 @@ index afb7c5a..94bc609 100644
 -checksum = "b903b73e45dc0c6c596f2d37eccece7c1c8bb6e4407b001096387c63d0d93724"
 +checksum = "3fda788993cc341f69012feba8bf45c0ba4f3291fcc08e214b4d5a7332d88aff"
  dependencies = [
-  "bitflags",
+  "bitflags 2.6.0",
   "libc",
-@@ -2110,9 +2110,9 @@ checksum = "b5aba8db14291edd000dfcc4d620c7ebfb122c613afb886ca8803fa4e128a20a"
+@@ -2395,9 +2395,9 @@ checksum = "b5aba8db14291edd000dfcc4d620c7ebfb122c613afb886ca8803fa4e128a20a"
  
  [[package]]
  name = "libgit2-sys"
@@ -27,7 +27,7 @@ index afb7c5a..94bc609 100644
   "cc",
   "libc",
 diff --git a/Cargo.toml b/Cargo.toml
-index bcf385b..cdaf040 100644
+index 01eb25c..977070b 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -46,7 +46,7 @@ dirs = "5.0.1"

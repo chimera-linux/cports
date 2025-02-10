@@ -1,6 +1,6 @@
 pkgname = "jj"
-pkgver = "0.25.0"
-pkgrel = 1
+pkgver = "0.26.0"
+pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = [
@@ -12,15 +12,14 @@ makedepends = [
     "libssh2-devel",
     "openssl3-devel",
     "rust-std",
-    "zstd-devel",
 ]
-checkdepends = ["openssh"]
+checkdepends = ["git", "openssh"]
 pkgdesc = "Git-compatible VCS frontend"
 maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://martinvonz.github.io/jj"
 source = f"https://github.com/martinvonz/jj/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3a99528539e414a3373f24eb46a0f153d4e52f7035bb06df47bd317a19912ea3"
+sha256 = "099eeb346f32a4968ebb8273566321eff2e6ca6a7de0c9dcfd7eee016b37cba1"
 # generates completions with host binary
 options = ["!cross"]
 
@@ -44,17 +43,15 @@ def post_build(self):
                 shell,
                 stdout=o,
             )
-    with open(f"{self.cwd}/jj.1", "w") as o:
-        self.do(
-            f"target/{self.profile().triplet}/release/jj",
-            "util",
-            "mangen",
-            stdout=o,
-        )
 
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/jj")
+    self.do(
+        f"target/{self.profile().triplet}/release/jj",
+        "util",
+        "install-man-pages",
+        f"{self.chroot_destdir}/usr/share/man",
+    )
     for shell in ["bash", "fish", "nushell", "zsh"]:
         self.install_completion(f"jj.{shell}", shell)
-    self.install_man("jj.1")
