@@ -1,6 +1,6 @@
 pkgname = "trousers"
 pkgver = "0.3.15"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["openssl3-devel", "linux-headers"]

@@ -1,6 +1,6 @@
 pkgname = "coturn"
 pkgver = "4.6.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--turndbdir=/var/lib/coturn"]
 configure_gen = []
@@ -20,7 +20,6 @@ license = "BSD-3-Clause"
 url = "https://github.com/coturn/coturn"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "dc3a529fd9956dc8771752a7169c5ad4c18b9deef3ec96049de30fabf1637704"
-hardening = ["vis", "cfi"]
 
 
 def post_install(self):
