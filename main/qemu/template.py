@@ -1,6 +1,6 @@
 pkgname = "qemu"
 pkgver = "9.2.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
@@ -106,7 +106,6 @@ makedepends = [
     "zlib-ng-compat-devel",
     "zstd-devel",
 ]
-scripts = {"pre-install": True, "pre-upgrade": True}
 pkgdesc = "Generic machine emulator and virtualizer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
@@ -119,8 +118,7 @@ tool_flags = {
     "CXXFLAGS": ["-I/usr/include/bpf/uapi"],
 }
 file_modes = {
-    "etc/qemu/bridge.conf": ("root", "_qemu", 0o640),
-    "usr/lib/qemu-bridge-helper": ("root", "_qemu", 0o4710),
+    "usr/lib/qemu-bridge-helper": ("root", "root", 0o4755),
 }
 # maybe someday
 options = ["!cross", "!check"]
@@ -141,13 +139,14 @@ def init_configure(self):
 def post_install(self):
     self.install_service(self.files_path / "qemu-ga")
 
-    self.install_sysusers(self.files_path / "qemu.conf")
-    self.install_file(self.files_path / "80-kvm.rules", "usr/lib/udev/rules.d")
-    self.install_file(self.files_path / "bridge.conf", "etc/qemu")
-
     # no elf files in /usr/share
     self.rename("usr/share/qemu", "usr/lib/qemu", relative=False)
     self.install_link("usr/share/qemu", "../lib/qemu")
+
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_sysusers(self.files_path / "qemu.conf")
+    self.install_file(self.files_path / "80-kvm.rules", "usr/lib/udev/rules.d")
+    self.install_file(self.files_path / "bridge.conf", "usr/lib/qemu")
 
     self.uninstall("usr/share/doc")
 
