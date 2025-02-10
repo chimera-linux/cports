@@ -954,6 +954,7 @@ def do_prune_removed(tgt):
             )
         tmplp = paths.distdir() / repon
         touched = False
+        tmpls = set()
         for pkg in (repo / archn).glob("*.apk"):
             pkgn = pkg.stem
             rd = pkgn.rfind("-")
@@ -967,13 +968,26 @@ def do_prune_removed(tgt):
             pkgn = pkgn[0:rd]
             # automatic subpackages are special, except when explicit
             opkgn = pkgn
-            if not (tmplp / pkgn / "template.py").exists():
+            if pkgn not in tmpls:
+                tmpl = template.locate(None, pkgn, repo=repon, arch=archn)
+                if tmpl:
+                    tmpls.add(tmpl.pkgname)
+                    for sp in tmpl.all_subpackages:
+                        tmpls.add(sp)
+            # maybe automatic?
+            if pkgn not in tmpls:
                 for apkg, adesc, iif, takef in template.autopkgs:
                     if pkgn.endswith(f"-{apkg}"):
                         pkgn = pkgn[: -len(apkg) - 1]
                         break
+                if pkgn != opkgn and pkgn not in tmpls:
+                    tmpl = template.locate(None, pkgn, repo=repon, arch=archn)
+                    if tmpl:
+                        tmpls.add(tmpl.pkgname)
+                        for sp in tmpl.all_subpackages:
+                            tmpls.add(sp)
             # if it's ok, just skip
-            if (tmplp / pkgn / "template.py").exists():
+            if pkgn in tmpls:
                 if pkgn != opkgn:
                     # for autopkgs also check pkgver matches
                     # autopkg always matches its base no matter what
@@ -999,8 +1013,10 @@ def do_prune_removed(tgt):
                 )
             logger.get().out(f"Pruning package: {pkg.name}")
             if not opt_dryrun:
-                touched = True
-                pkg.unlink()
+                # do not enable if we're not 100% sure it won't nuke our repos
+                # touched = True
+                # pkg.unlink()
+                pass
         # reindex
         if touched:
             cli.build_index(repo / archn, epoch)
@@ -1273,98 +1289,6 @@ def do_prune_sources(tgt):
         continue
 
     logger.get().out("Sources pruning complete.")
-
-
-def do_relink_subpkgs(tgt):
-    from cbuild.core import chroot, paths, logger, errors, template
-    import shutil
-
-    ddir = paths.distdir()
-    links = {}
-    cats = {}
-
-    def _read_pkg(pkgn):
-        try:
-            tp = template.Template(
-                pkgn,
-                chroot.host_cpu(),
-                True,
-                False,
-                (1, 1),
-                False,
-                False,
-                None,
-                target="lint",
-            )
-            links[tp.full_pkgname] = tp.all_subpackages
-            return tp
-        except errors.PackageException:
-            return None
-
-    tgt = None
-    prune_bad = False
-
-    if len(cmdline.command) >= 2:
-        if cmdline.command[1] == "prune":
-            prune_bad = True
-        else:
-            tgt = cmdline.command[1]
-            _read_pkg(tgt)
-
-    if not tgt:
-        logger.get().out("Collecting templates...")
-        tmpls = _collect_tmpls(None)
-        logger.get().out("Reading templates...")
-        for tmpln in tmpls:
-            tp = _read_pkg(tmpln)
-            if tp:
-                cats[tp.repository] = True
-            else:
-                logger.get().out(
-                    f"\f[orange]WARNING: template '{tmpln}' failed to parse (ignoring)"
-                )
-
-    # erase all symlinks first if parsing all
-    for d in cats:
-        for el in (ddir / d).iterdir():
-            if el.name == ".parent" and el.is_symlink():
-                continue
-            if el.is_symlink():
-                if el.name == ".parent":
-                    continue
-                # symlink, erase
-                el.unlink()
-            elif el.is_dir():
-                if not (el / "template.py").is_file():
-                    if prune_bad:
-                        logger.get().out(f"Pruning bad directory: {el}")
-                        shutil.rmtree(el)
-                    else:
-                        logger.get().out(
-                            f"\f[orange]WARNING: Bad directory encountered: {el}"
-                        )
-                continue
-            elif prune_bad:
-                logger.get().out(f"Pruning bad contents: {el}")
-                el.unlink()
-            else:
-                logger.get().out(
-                    f"\f[orange]WARNING: Bad contents encountered: {el}"
-                )
-                continue
-
-    # recreate symlinks
-    for pn in links:
-        repo, jpn = pn.split("/")
-        for sn in links[pn]:
-            fp = ddir / repo / sn
-            if fp.exists():
-                if not fp.is_symlink():
-                    logger.get().out(
-                        f"\f[orange]WARNING: Non-symlink encountered: {fp}"
-                    )
-                fp.unlink()
-            fp.symlink_to(jpn)
 
 
 def do_cycle_check(tgt):
@@ -2575,29 +2499,6 @@ def do_commit(tgt):
         # store
         tmplos.append((tmpl, otmpl, tfiles))
 
-    ddir = paths.distdir()
-
-    # for each template pair, recreate subpackage symlinks
-    for tmpl, otmpl, tfiles in tmplos:
-        if otmpl:
-            # remove potentially old subpkg symlinks
-            for osp in otmpl.subpkg_list:
-                p = ddir / otmpl.repository / osp.pkgname
-                if not p.exists():
-                    continue
-                p.unlink()
-                tf = f"{otmpl.repository}/{osp.pkgname}"
-                tfiles.add(tf)
-                changes.add(tf)
-        # create new subpkg symlinks
-        for sp in tmpl.subpkg_list:
-            p = ddir / tmpl.repository / sp.pkgname
-            p.unlink(missing_ok=True)
-            p.symlink_to(tmpl.pkgname)
-            tf = f"{tmpl.repository}/{sp.pkgname}"
-            tfiles.add(tf)
-            changes.add(tf)
-
     # now for each, run git commit...
     for tmpl, otmpl, tfiles in tmplos:
         if otmpl is False:
@@ -2773,7 +2674,6 @@ command_handlers = {
         "Prune removed packages from local repos",
     ),
     "prune-sources": (do_prune_sources, "Prune local sources"),
-    "relink-subpkgs": (do_relink_subpkgs, "Remake subpackage symlinks"),
     "remove-autodeps": (
         do_remove_autodeps,
         "Remove build dependencies from bldroot",
