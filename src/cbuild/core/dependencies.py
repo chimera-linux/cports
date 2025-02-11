@@ -13,19 +13,45 @@ def _srcpkg_ver(pkgn, pkgb):
     if pkgn in _tcache:
         return _tcache[pkgn]
 
-    tmplv = template.locate(pkgb, pkgn)
-    # could not locate anything, so try if we have an autosuffix
-    if tmplv is False:
+    tmplpath = None
+    for r in pkgb.source_repositories:
+        tmplpath = paths.distdir() / r / pkgn / "template.py"
+        if tmplpath.is_file():
+            break
+        else:
+            tmplpath = None
+
+    if not tmplpath:
         altname = None
         for apkg, adesc, iif, takef in template.autopkgs:
             if pkgn.endswith(f"-{apkg}"):
                 altname = pkgn.removesuffix(f"-{apkg}")
                 break
         if altname:
-            tmplv = template.locate(pkgb, altname)
+            for r in pkgb.source_repositories:
+                rpath = paths.distdir() / r
+                tmplpath = rpath / altname / "template.py"
+                if tmplpath.is_file():
+                    break
+                else:
+                    tmplpath = None
 
-    if not tmplv:
+    if not tmplpath:
         return None, None
+
+    pkgp = tmplpath.resolve().parent
+
+    tmplv = template.Template(
+        pkgp,
+        pkgb.profile().arch,
+        True,
+        False,
+        (1, 1),
+        False,
+        False,
+        None,
+        init=False,
+    )
 
     modv = tmplv._raw_mod
     if not hasattr(modv, "pkgver") or not hasattr(modv, "pkgrel"):

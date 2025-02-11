@@ -1356,6 +1356,19 @@ class Template(Package):
             if sp.build_style and sp.build_style != self.build_style:
                 self.error("subpackages cannot change build-style")
 
+            tlink = f"{repo}/{sp.pkgname}"
+            tpath = paths.distdir() / tlink
+            if not tpath.is_symlink():
+                self.error(
+                    f"subpackage '{sp.pkgname}' is missing a symlink",
+                    hint="run 'cbuild relink-subpkgs' to rebuild them",
+                )
+            if str(tpath.readlink()) != bpn:
+                self.error(
+                    f"subpackage '{sp.pkgname}' has incorrect symlink",
+                    hint="run 'cbuild relink-subpkgs' to rebuild them",
+                )
+
         if not cli.check_version(f"{self.pkgver}-r{self.pkgrel}"):
             self.error("pkgver has an invalid format")
 
@@ -2650,61 +2663,6 @@ def sanitize_pkgname(pkgname, error=True):
             return None
         raise errors.CbuildException(f"missing template for '{pkgname}'")
     return tmplpath.resolve().parent
-
-
-def locate(pkgb, pkgn, opkgn=None, repo=None, arch=None):
-    if not opkgn:
-        opkgn = pkgn
-
-    tmplpath = None
-    if repo:
-        tmplpath = paths.distdir() / repo / pkgn / "template.py"
-        if not tmplpath.is_file():
-            tmplpath = None
-    else:
-        for r in pkgb.source_repositories:
-            tmplpath = paths.distdir() / r / pkgn / "template.py"
-            if tmplpath.is_file():
-                break
-            else:
-                tmplpath = None
-
-    if not tmplpath:
-        dash = pkgn.rfind("-")
-        if dash < 0:
-            return False
-        # try with stuff removed
-        return locate(pkgb, pkgn[0:dash], opkgn, repo, arch)
-
-    # we've located something, try parsing it out
-    pkgp = tmplpath.resolve().parent
-
-    tmplv = Template(
-        pkgp,
-        arch if arch else pkgb.profile().arch,
-        True,
-        False,
-        (1, 1),
-        False,
-        False,
-        None,
-        init=False,
-    )
-
-    # exact name match
-    if tmplv.pkgname == opkgn:
-        return tmplv
-    # else try finding a subpkg
-    for spn in tmplv.all_subpackages:
-        if spn == opkgn:
-            return tmplv
-
-    # did not match any subpackage so recurse again
-    dash = pkgn.rfind("-")
-    if dash < 0:
-        return False
-    # try with stuff removed
-    return locate(pkgb, pkgn[0:dash], opkgn, repo, arch)
 
 
 def register_cats(cats):
