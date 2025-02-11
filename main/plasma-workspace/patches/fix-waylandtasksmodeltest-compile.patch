@@ -1,5 +1,3 @@
-diff --git a/libtaskmanager/autotests/waylandtasksmodeltest.cpp b/libtaskmanager/autotests/waylandtasksmodeltest.cpp
-index ee5050abc7..942e23cea7 100644
 --- a/libtaskmanager/autotests/waylandtasksmodeltest.cpp
 +++ b/libtaskmanager/autotests/waylandtasksmodeltest.cpp
 @@ -6,6 +6,8 @@
@@ -8,6 +6,6 @@ index ee5050abc7..942e23cea7 100644
  
 +#include <unistd.h>
 +
+ #include <QDBusConnection>
+ #include <QDBusMessage>
  #include <QProcess>
- #include <qpa/qplatformnativeinterface.h>
- 

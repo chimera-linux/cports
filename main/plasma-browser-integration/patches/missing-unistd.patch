@@ -1,0 +1,12 @@
+diff --git a/flatpak-integrator/plugin.cpp b/flatpak-integrator/plugin.cpp
+index 27f064cc..e6d59033 100644
+--- a/flatpak-integrator/plugin.cpp
++++ b/flatpak-integrator/plugin.cpp
+@@ -3,6 +3,7 @@
+ 
+ #include <fcntl.h>
+ #include <sys/stat.h>
++#include <unistd.h>
+ 
+ #include <QDBusConnection>
+ #include <QDBusConnectionInterface>

@@ -1,6 +1,6 @@
 pkgname = "plasma-vault"
-pkgver = "6.2.5"
-pkgrel = 1
+pkgver = "6.3.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -31,7 +31,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only AND LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/plasma-vault"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-vault-{pkgver}.tar.xz"
-sha256 = "6b7e73fc39c6bb5e2c06573ef88a8948eea570608a8e1e49d912389aefa50b4e"
+sha256 = "414fe5360eb132ff246322ece9a564504112fa95a4c462b3f172b98613dc25d8"
 
 
 @subpackage("plasma-vault-none")

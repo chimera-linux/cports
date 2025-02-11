@@ -1,10 +1,7 @@
 "Applications view is unsupported on your system" until we have turnstile user slice cgroup anyway
---
-diff --git a/src/pages/overview.page b/src/pages/overview.page
-index 2b9fff1..de4a40c 100644
 --- a/src/pages/overview.page
 +++ b/src/pages/overview.page
-@@ -118,7 +118,7 @@ totalSensors=["network/(?!all).*/network"]
+@@ -122,7 +122,7 @@ totalSensors=["network/(?!all).*/network"]
  groupByTotal=true
  
  [Face-94410254040128][Appearance]
@@ -13,7 +10,7 @@ index 2b9fff1..de4a40c 100644
  
  [Face-94410261307168][Appearance]
  chartFace=org.kde.ksysguard.piechart
-@@ -536,54 +536,54 @@ name=section-4
+@@ -552,56 +552,56 @@ name=section-4
  isTitle=true
  name=row-3
  heightMode=minimum
@@ -26,6 +23,7 @@ index 2b9fff1..de4a40c 100644
 -Title[ca]=Aplicacions
 -Title[ca@valencia]=Aplicacions
 -Title[cs]=Aplikace
+-Title[da]=Programmer
 -Title[de]=Programme
 -Title[en_GB]=Applications
 -Title[eo]=Aplikoj
@@ -35,6 +33,7 @@ index 2b9fff1..de4a40c 100644
 -Title[fr]=Applications
 -Title[gl]=Aplicacións
 -Title[he]=יישומים
+-Title[hi]=अनुप्रयोग
 -Title[hsb]=Aplikacije
 -Title[hu]=Alkalmazások
 -Title[ia]=Applicationes
@@ -74,6 +73,7 @@ index 2b9fff1..de4a40c 100644
 +Title[ca]=Processos
 +Title[ca@valencia]=Processos
 +Title[cs]=Procesy
++Title[da]=Processer
 +Title[de]=Prozesse
 +Title[en_GB]=Processes
 +Title[eo]=Procezoj
@@ -83,6 +83,7 @@ index 2b9fff1..de4a40c 100644
 +Title[fr]=Processus
 +Title[gl]=Procesos
 +Title[he]=תהליכים
++Title[hi]=प्रक्रियाओं
 +Title[hsb]=Procesy
 +Title[hu]=Folyamatok
 +Title[ia]=Processos
@@ -116,8 +117,6 @@ index 2b9fff1..de4a40c 100644
  
  [page][row-4]
  isTitle=false
-diff --git a/src/systemmonitor.kcfg b/src/systemmonitor.kcfg
-index ec09b57..b0cc57f 100644
 --- a/src/systemmonitor.kcfg
 +++ b/src/systemmonitor.kcfg
 @@ -24,9 +24,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted

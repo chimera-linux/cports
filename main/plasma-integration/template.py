@@ -1,6 +1,6 @@
 pkgname = "plasma-integration"
-pkgver = "6.2.5"
-pkgrel = 1
+pkgver = "6.3.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
 make_check_args = [
@@ -44,5 +44,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-integration"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-integration-{pkgver}.tar.xz"
-sha256 = "5795e52285deea10877fd56474473d061071cb425ba87cef3366832d50764729"
+sha256 = "e082f45c71807e4a41a5fee0eee3f2734728b8c8ded041e2f944b75306869433"
 hardening = ["vis"]

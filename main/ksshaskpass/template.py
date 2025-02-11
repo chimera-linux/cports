@@ -1,5 +1,5 @@
 pkgname = "ksshaskpass"
-pkgver = "6.2.5"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,4 +22,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/ksshaskpass"
 source = f"$(KDE_SITE)/plasma/{pkgver}/ksshaskpass-{pkgver}.tar.xz"
-sha256 = "85e71c8037d5d2199f861ae707189f42a7caed2f03743ea83b7570c34a11eb72"
+sha256 = "11793796c5c4f6eb7b0601bc003d84ce8e42147bf05212c2a6bd20dfc74a3622"

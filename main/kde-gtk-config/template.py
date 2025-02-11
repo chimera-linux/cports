@@ -1,5 +1,5 @@
 pkgname = "kde-gtk-config"
-pkgver = "6.2.5"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,4 +27,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/kde-gtk-config"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kde-gtk-config-{pkgver}.tar.xz"
-sha256 = "283f9803a15f13734de6298558f875406a5c7c0ea46e9ffba5647f480bfc6a58"
+sha256 = "f52910f23ef36a63037e40124a8cf153627280ae39b3f8a31ed1f2db4887984f"

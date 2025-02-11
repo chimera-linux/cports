@@ -1,5 +1,5 @@
 pkgname = "plasma-welcome"
-pkgver = "6.2.5"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -36,4 +36,4 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-welcome"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-welcome-{pkgver}.tar.xz"
-sha256 = "e9a2ae0cad82ef9feae7471f625628d7df7098255ea8ee71fab78ed48539261a"
+sha256 = "c7e884178c1cd1aa0ac26073bd9cf124d0a3be3926c0240b7974778067211984"
