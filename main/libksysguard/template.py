@@ -40,6 +40,8 @@ license = "LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/libksysguard/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libksysguard-{pkgver}.tar.xz"
 sha256 = "bc1bbb385b25c06423f6f2d044b00c106cbdb551c5cf8348bd5922c63d4cbcb9"
+# FIXME: drop with LLVM 20 where std::jthread & std::stop_token are deemed stable
+tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
 file_modes = {
     "usr/libexec/ksysguard/ksgrd_network_helper": ("root", "root", 0o755),
 }
