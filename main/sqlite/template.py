@@ -2,8 +2,9 @@ pkgname = "sqlite"
 pkgver = "3.49.0"
 _amalg = "3490000"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "configure"
 configure_args = [
+    "--prefix=/usr",
     "--enable-fts3",
     "--enable-fts4",
     "--enable-fts5",
@@ -12,10 +13,8 @@ configure_args = [
     "--editline",
     "--soname=legacy",
 ]
-configure_gen = []
-make_dir = "."
 hostmakedepends = ["pkgconf"]
-makedepends = ["libedit-devel", "zlib-ng-compat-devel"]
+makedepends = ["libedit-readline-devel", "zlib-ng-compat-devel"]
 pkgdesc = "SQL Database Engine in a C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "blessing"
@@ -24,6 +23,13 @@ source = f"https://sqlite.org/2025/sqlite-autoconf-{_amalg}.tar.gz"
 sha256 = "4d8bfa0b55e36951f6e5a9fb8c99f3b58990ab785c57b4f84f37d163a0672759"
 # no tests
 options = ["!parallel", "!check"]
+
+if self.profile().cross:
+    configure_args += [
+        f"--host={self.profile().triplet}",
+        f"--sysroot={self.profile().sysroot}",
+        f"--with-readline-cflags=-I{self.profile().sysroot}",
+    ]
 
 _cflags = [
     "-DHAVE_FDATASYNC",
