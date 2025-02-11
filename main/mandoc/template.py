@@ -1,6 +1,6 @@
 pkgname = "mandoc"
 pkgver = "1.14.6"
-pkgrel = 4
+pkgrel = 5
 build_style = "configure"
 make_check_target = "regress"
 makedepends = ["zlib-ng-compat-devel"]
@@ -28,6 +28,7 @@ LDFLAGS="{self.get_ldflags(shell=True)}"
 CC="{self.get_tool("CC")}"
 HAVE_REWB_BSD=0
 UTF8_LOCALE=C.UTF-8
+BINM_PAGER=less
 """
         )
 
