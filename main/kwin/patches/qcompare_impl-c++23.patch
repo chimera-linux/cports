@@ -1,0 +1,31 @@
+Workaround for qt6/QtCore/qcompare_impl.h error: no member named 'is_null_pointer_v' in namespace 'std'
+--- a/src/osd.h
++++ b/src/osd.h
+@@ -7,6 +7,7 @@
+ 
+ #pragma once
+ 
++#include <type_traits>
+ #include <QFlags>
+ #include <QString>
+ 
+--- a/src/plugins/windowsystem/windowsystem.h
++++ b/src/plugins/windowsystem/windowsystem.h
+@@ -5,6 +5,7 @@
+ */
+ #pragma once
+ 
++#include <type_traits>
+ #include <private/kwindowsystem_p.h>
+ 
+ #include <QObject>
+--- a/src/plugins/eis/eiscontext.h
++++ b/src/plugins/eis/eiscontext.h
+@@ -6,6 +6,7 @@
+ 
+ #pragma once
+ 
++#include <type_traits>
+ #include <QFlag>
+ #include <QSocketNotifier>
+ #include <QString>
