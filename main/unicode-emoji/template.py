@@ -1,6 +1,6 @@
 pkgname = "unicode-emoji"
-pkgver = "16.0"
-pkgrel = 1
+pkgver = "17.0"
+pkgrel = 0
 pkgdesc = "Unicode Emoji data files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unicode-DFS-2016"
@@ -11,9 +11,9 @@ source = [
     f"https://www.unicode.org/Public/emoji/{pkgver}/emoji-zwj-sequences.txt>emoji-zwj-sequences-{pkgver}.txt",
 ]
 sha256 = [
-    "3fe3c77e72e8f26df302dc7d99b106c5d08fd808ef7246fb5d4502d659fe659c",
-    "24f0c534e86cf142e2496953e8f0e46a3e702392911eddcd29c6cced85139697",
-    "9423ec235474356f970a696506737e2d5d65453a67f45df66b8bbe920c3fab83",
+    "bec5f82bc4c846ccba508b2c617aae239c0804dde0106f06eee62e011cb494f6",
+    "07ee0565612af5d8cf36ea7d2cd7d255429441059133c60f863e97e648ebeb29",
+    "5b25441daed2322b068c5e70cda522946a4f0274df864445a1965a92e5fc5cad",
 ]
 
 
