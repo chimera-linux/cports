@@ -1,6 +1,6 @@
 pkgname = "libtasn1"
-pkgver = "4.19.0"
-pkgrel = 1
+pkgver = "4.20.0"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "gtk-doc-tools", "pkgconf", "perl", "slibtool"]
 pkgdesc = "ASN.1 structure parser library"
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnu.org/software/libtasn1"
 source = f"$(GNU_SITE)/libtasn1/libtasn1-{pkgver}.tar.gz"
-sha256 = "1613f0ac1cf484d6ec0ce3b8c06d56263cc7242f1c23b30d82d23de345a63f7a"
+sha256 = "92e0e3bd4c02d4aeee76036b2ddd83f0c732ba4cda5cb71d583272b23587a76c"
 
 
 @subpackage("libtasn1-devel")
