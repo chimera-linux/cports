@@ -1,8 +1,8 @@
 pkgname = "zlib-ng-compat"
-pkgver = "2.2.3"
+pkgver = "2.2.4"
 # compat version
 _cver = "1.3.1"
-pkgrel = 2
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://github.com/zlib-ng/zlib-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f2fb245c35082fe9ea7a22b332730f63cf1d42f04d84fe48294207d033cba4dd"
+sha256 = "a73343c3093e5cdc50d9377997c3815b878fd110bf6511c2c7759f2afb90f5a3"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 compression = "deflate"
 # sigh, carried over from zlib's old buildsystem
