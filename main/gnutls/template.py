@@ -1,6 +1,6 @@
 pkgname = "gnutls"
-pkgver = "3.8.8"
-pkgrel = 1
+pkgver = "3.8.9"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
@@ -44,7 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
 source = f"https://www.gnupg.org/ftp/gcrypt/gnutls/v{'.'.join(pkgver.split('.')[0:2])}/gnutls-{pkgver}.tar.xz"
-sha256 = "ac4f020e583880b51380ed226e59033244bc536cad2623f2e26f5afa2939d8fb"
+sha256 = "69e113d802d1670c4d5ac1b99040b1f2d5c7c05daec5003813c049b5184820ed"
 
 
 def post_install(self):
