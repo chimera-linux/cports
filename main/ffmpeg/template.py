@@ -70,6 +70,7 @@ configure_args = [
     "--enable-vaapi",
     "--enable-vapoursynth",
     "--enable-vulkan",
+    "--enable-libvmaf",
 ]
 make_install_args = ["install-man"]
 make_check_args = ["-j1"]
@@ -136,6 +137,7 @@ makedepends = [
     "xvidcore-devel",
     "zimg-devel",
     "zlib-ng-compat-devel",
+    "vmaf-devel",
 ]
 depends = [self.with_pkgver("ffmpeg-ffplay")]
 pkgdesc = "Decoding, encoding and streaming software"
