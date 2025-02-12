@@ -1,6 +1,6 @@
 pkgname = "rust"
-pkgver = "1.84.0"
-pkgrel = 1
+pkgver = "1.84.1"
+pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
     "cmake",
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "bc2c1639f26814c7b17a323992f1e08c3b01fe88cdff9a27d951987d886e00b3"
+sha256 = "e23ec747a06ffd3e94155046f40b6664ac152c9ee3c2adfd90353a7ccff24226"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
