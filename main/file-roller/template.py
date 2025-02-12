@@ -1,5 +1,5 @@
 pkgname = "file-roller"
-pkgver = "44.4"
+pkgver = "44.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -25,4 +25,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/FileRoller"
 source = f"https://gitlab.gnome.org/GNOME/file-roller/-/archive/{pkgver}/file-roller-{pkgver}.tar.gz"
-sha256 = "6a56bf1ef2f7c41d8659ba0d84026f263096999d1a908be6e7935e4ee72c0607"
+sha256 = "23f574efdbdc574dee8b853057e5aa7504419138e14c392472902130f94a8f84"
