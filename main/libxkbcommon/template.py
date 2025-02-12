@@ -1,6 +1,6 @@
 pkgname = "libxkbcommon"
-pkgver = "1.7.0"
-pkgrel = 2
+pkgver = "1.8.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX libexecdir
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-{pkgver}.tar.gz"
-sha256 = "20d5e40dabd927f7a7f4342bebb1e8c7a59241283c978b800ae3bf60394eabc4"
+sha256 = "025c53032776ed850fbfb92683a703048cd70256df4ac1a1ec41ed3455d5d39c"
 
 
 def post_install(self):

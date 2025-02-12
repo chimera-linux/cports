@@ -1,11 +1,15 @@
-these need to connect to an x11 server
+pulling in xserver-xorg-xvfb creates a cycle
 --
 --- a/meson.build
 +++ b/meson.build
-@@ -769,18 +769,6 @@
+@@ -882,22 +882,6 @@
      env: test_env,
  )
  if get_option('enable-x11')
+-    has_xvfb = find_program('Xvfb', required: false)
+-    if not has_xvfb.found()
+-        warning('Xvfb program not found, but is required to run X11 tests.')
+-    endif
 -    test(
 -        'x11',
 -        executable('test-x11', 'test/x11.c', dependencies: x11_test_dep),
