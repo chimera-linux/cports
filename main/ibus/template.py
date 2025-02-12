@@ -1,8 +1,9 @@
 pkgname = "ibus"
 pkgver = "1.5.31"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "--enable-ui",
     "--enable-gtk3",
     "--enable-gtk4",
@@ -29,10 +30,10 @@ hostmakedepends = [
     "glib-devel",
     "gobject-introspection",
     "gtk-doc-tools",
-    "libtool",
     "pkgconf",
     "python",
     "python-gobject-devel",
+    "slibtool",
     "unicode-character-database",
     "unicode-cldr-common",
     "unicode-emoji",
@@ -103,7 +104,7 @@ def _(self):
     self.subdesc = "Wayland support"
     self.install_if = [self.parent, "wayland"]
 
-    return ["usr/libexec/ibus-wayland"]
+    return ["usr/lib/ibus-wayland"]
 
 
 @subpackage("ibus-x11")
@@ -111,7 +112,7 @@ def _(self):
     self.subdesc = "X11 support"
     self.install_if = [self.parent, "libx11"]
 
-    return ["usr/libexec/ibus-x11"]
+    return ["usr/lib/ibus-x11"]
 
 
 @subpackage("ibus-devel")
