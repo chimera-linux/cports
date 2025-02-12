@@ -1,5 +1,5 @@
 pkgname = "fractal"
-pkgver = "10"
+pkgver = "10.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -31,7 +31,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/fractal"
 source = f"{url}/-/archive/{pkgver}/fractal-{pkgver}.tar.gz"
-sha256 = "b1f76119e71d5953675f62f3207f246be48f885e963f3fddb57734a260afbc88"
+sha256 = "17fcf774bb795c37dd6ab1d27737ae754215da800659c06c05e6f95bc89eb272"
 # check: has few actual tests, not worth a time-consuming cargo rebuild
 # debug: quite massive, CARGO_PROFILE_RELEASE_DEBUG=line-tables-only in
 # env makes it better but it's still ~260M
