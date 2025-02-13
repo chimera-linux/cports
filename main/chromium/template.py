@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "133.0.6943.53"
+pkgver = "133.0.6943.98"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -139,7 +139,7 @@ license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 # from gentoo
 source = f"https://chromium-tarballs.syd1.digitaloceanspaces.com/chromium-{pkgver}-linux.tar.xz"
-sha256 = "dbd06314054f738ef6aa4e0f5d7e765602b90df9820e62a21efe068a869de7a3"
+sha256 = "f0c2a519cb7794260ed30c8557f554e0e78edbae733900d89dc6a1d3e096dc96"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
@@ -202,7 +202,8 @@ match self.profile().arch:
 
 
 def post_patch(self):
-    self.rm("third_party/node/linux/node-linux-x64/bin/node")
+    self.rm("third_party/node/linux/node-linux-x64/bin/node", force=True)
+    self.mkdir("third_party/node/linux/node-linux-x64/bin", parents=True)
     self.ln_s("/usr/bin/node", "third_party/node/linux/node-linux-x64/bin/node")
 
     self.cp(self.files_path / "unbundle.sh", ".")
