@@ -1,0 +1,54 @@
+diff --git a/src/libcmd/meson.build b/src/libcmd/meson.build
+index 4145f408a..528350c44 100644
+--- a/src/libcmd/meson.build
++++ b/src/libcmd/meson.build
+@@ -49,6 +49,19 @@ elif readline_flavor == 'readline'
+     1,
+     description: 'Use readline instead of editline',
+   )
++elif readline_flavor == 'libedit'
++  libedit = dependency('libedit')
++  deps_private += libedit
++  configdata.set(
++    'USE_LIBEDIT',
++    1,
++    description: 'Use libedit instead of editline',
++  )
++  configdata.set(
++    'USE_READLINE',
++    1,
++    description: 'Use readline compatible calls instead of editline versions (libedit is readline compatible, but not editline compatible)'
++  )
+ else
+   error('illegal editline flavor', readline_flavor)
+ endif
+diff --git a/src/libcmd/meson.options b/src/libcmd/meson.options
+index 79ae4fa55..bc312bfaf 100644
+--- a/src/libcmd/meson.options
++++ b/src/libcmd/meson.options
+@@ -9,7 +9,7 @@ option(
+ option(
+   'readline-flavor',
+   type : 'combo',
+-  choices : ['editline', 'readline'],
++  choices : ['editline', 'readline', 'libedit'],
+   value : 'editline',
+   description : 'Which library to use for nice line editing with the Nix language REPL',
+ )
+diff --git a/src/libcmd/repl-interacter.cc b/src/libcmd/repl-interacter.cc
+index 187af46ea..23f8efde2 100644
+--- a/src/libcmd/repl-interacter.cc
++++ b/src/libcmd/repl-interacter.cc
+@@ -1,8 +1,12 @@
+ #include <cstdio>
+ 
+ #ifdef USE_READLINE
++#ifdef USE_LIBEDIT
++#include <editline/readline.h>
++#else
+ #include <readline/history.h>
+ #include <readline/readline.h>
++#endif
+ #else
+ // editline < 1.15.2 don't wrap their API for C++ usage
+ // (added in https://github.com/troglobit/editline/commit/91398ceb3427b730995357e9d120539fb9bb7461).

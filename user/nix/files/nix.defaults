@@ -1,0 +1,9 @@
+# Set to true to set the location of your nix profile to ~/.local/state/nix/profile.
+# Set to false to set the location of your nix profile to ~/.nix-profile.
+# Comment out to determine the location based on the settings
+# use-xdg-base-directories in nix.conf.
+#USE_XDG_BASE_DIRS=
+
+# whether to append or prepend nix directories to $PATH
+# When prepending, nix binaries get precedence over traditional tools.
+PREPEND=false
