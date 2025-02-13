@@ -1,6 +1,6 @@
 pkgname = "liburing"
-pkgver = "2.8"
-pkgrel = 1
+pkgver = "2.9"
+pkgrel = 0
 build_style = "configure"
 configure_args = ["--mandir=/usr/share/man", "--use-libc"]
 make_check_target = "runtests"
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MIT"
 url = "https://github.com/axboe/liburing"
 source = f"{url}/archive/refs/tags/liburing-{pkgver}.tar.gz"
-sha256 = "3ed7891d1b2bbe743ef3fb6d0a4970e630aa02d7c7bd3b0212791fb7be815984"
+sha256 = "897b1153b55543e8b92a5a3eb9b906537a5fedcf8afaf241f8b8787940c79f8d"
 # vis breaks symbols
 hardening = ["!vis", "!cfi"]
 # FIXME: run into timeout
