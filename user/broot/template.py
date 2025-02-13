@@ -1,6 +1,6 @@
 pkgname = "broot"
-pkgver = "1.44.6"
-pkgrel = 1
+pkgver = "1.44.7"
+pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://dystroy.org/broot"
 source = f"https://github.com/Canop/broot/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "554abc12c8343a0e921f92740e06bf3a86993f71eb78246c9b494293da13b1df"
+sha256 = "8f21782b0b2f4c0ebcebeb161d8b163927d7f272c44c1c37b2af3640c5c36fc7"
 
 
 def install(self):
