@@ -1,5 +1,5 @@
 pkgname = "lua5.1-libluv"
-pkgver = "1.48.0.2"
+pkgver = "1.50.0.1"
 pkgrel = 0
 _distver = "-".join(pkgver.rsplit(".", 1))
 build_style = "cmake"
@@ -17,7 +17,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "Apache-2.0"
 url = "https://github.com/luvit/luv"
 source = f"https://github.com/luvit/luv/releases/download/{_distver}/luv-{_distver}.tar.gz"
-sha256 = "2c3a1ddfebb4f6550293a40ee789f7122e97647eede51511f57203de48c03b7a"
+sha256 = "d867c3024d9c981d54f2edd83e13fd6dc1158f0608635f7b1c0f6b5586b5bc34"
 
 
 @subpackage("lua5.1-libluv-devel")
