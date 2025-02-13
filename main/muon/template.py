@@ -1,5 +1,5 @@
 pkgname = "muon"
-pkgver = "0.3.1"
+pkgver = "0.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ source = [
 ]
 source_paths = [".", "subprojects/meson-docs"]
 sha256 = [
-    "14b175b29c4390a69c1d9b5758b4689f0456c749822476af67511f007be2e503",
+    "c2ce8302e886b2d3534ec38896a824dc83f43698d085d57bb19a751611d94e86",
     "2a781073f8fdbf0f3c9dcea73cf32a37f12714d6cf0e7054d5dba245c3b564df",
 ]
 # hidden visibility breaks almost all tests
