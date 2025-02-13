@@ -1,6 +1,6 @@
 pkgname = "libffi8"
-pkgver = "3.4.6"
-pkgrel = 3
+pkgver = "3.4.7"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--includedir=/usr/include",
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{pkgver}.tar.gz"
-sha256 = "b0dea9df23c863a7a50e825440f3ebffabd65df1497108e5d437747843895a4e"
+sha256 = "138607dee268bdecf374adf9144c00e839e38541f75f24a1fcf18b78fda48b2d"
 # dejagnu
 options = ["!check", "linkundefver"]
 
