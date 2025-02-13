@@ -1,6 +1,6 @@
 # nb: requires CXX14+ to use it
 pkgname = "gtest"
-pkgver = "1.15.2"
+pkgver = "1.16.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,10 +14,8 @@ pkgdesc = "Google's framework for writing C++ tests"
 maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "BSD-3-Clause"
 url = "https://github.com/google/googletest"
-source = (
-    f"https://github.com/google/googletest/archive/refs/tags/v{pkgver}.tar.gz"
-)
-sha256 = "7b42b4d6ed48810c5362c265a17faebe90dc2373c885e5216439d37927f02926"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "78c676fc63881529bf97bf9d45948d905a66833fbfa5318ea2cd7478cb98f399"
 
 
 def post_install(self):
