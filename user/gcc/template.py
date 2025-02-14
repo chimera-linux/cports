@@ -4,7 +4,7 @@ _clangver = "19"
 pkgver = "14.2.0"
 _bver = pkgver
 _mnver = _bver[0 : _bver.rfind(".")]
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -33,8 +33,9 @@ configure_args = [
     "--enable-__cxa_atexit",
     "--enable-default-pie",
     "--enable-default-ssp",
+    "--enable-host-shared",
     # more languages later
-    "--enable-languages=c,c++,objc,fortran",
+    "--enable-languages=c,c++,objc,fortran,jit",
     "--enable-linker-build-id",
     "--with-matchpd-partitions=32",
     "--enable-plugins",
@@ -297,3 +298,20 @@ def _(self):
 def _(self):
     self.subdesc = "transactional memory library"
     return ["usr/lib/libitm.so.*"]
+
+
+@subpackage("gcc-jit-devel")
+def _(self):
+    self.subdesc = "just-in-time compiler development files"
+    return [
+        "usr/include/libgccjit.h",
+        "usr/include/libgccjit++.h",
+        "usr/share/info/libgccjit.info",
+    ]
+
+
+@subpackage("gcc-jit-libs")
+def _(self):
+    self.subdesc = "just-in-time compiler"
+    self.depends = [self.parent]
+    return ["usr/lib/libgccjit.so.*"]
