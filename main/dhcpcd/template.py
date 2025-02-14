@@ -1,6 +1,6 @@
 pkgname = "dhcpcd"
-pkgver = "10.1.0"
-pkgrel = 1
+pkgver = "10.2.0"
+pkgrel = 0
 build_style = "configure"
 # XXX drop libexec
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://roy.marples.name/projects/dhcpcd"
 source = f"https://github.com/NetworkConfiguration/dhcpcd/releases/download/v{pkgver}/dhcpcd-{pkgver}.tar.xz"
-sha256 = "abc307c63853da3199baa5c1e15fd5ede9d68d068b2a59ca14c5a6768e9cc3b7"
+sha256 = "7916fed1560835b5b9d70d27604c3858e501c5a177eef027f96eb7ab0f711399"
 # FIXME vis for usr/lib/dhcpcd/dev/udev.so
 hardening = ["!vis", "!cfi"]
 
