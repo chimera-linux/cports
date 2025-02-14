@@ -1,14 +1,14 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20250109"
-pkgrel = 1
+pkgver = "20250211"
+pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "211b09e0639bc329637da08e58021bb484abca1ced0d8ed75f9d42816f9af5cb"
+sha256 = "30f181fa8fb03a49da3b76b82dc525ca094426f92e54c540fe784ff44c91e1d6"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -350,7 +350,7 @@ _pkgs = [
         "Texas Instruments amplifiers",
         None,
         "audio",
-        ["INT88*", "TAS2*", "TIAS2*", "ti/tas*"],
+        ["INT88*", "TAS2*", "TIAS2*", "TXNW*", "ti/tas*"],
     ),
     ("tigon", "Tigon I/II/III Ethernet", None, "network", ["acenic", "tigon"]),
     (
