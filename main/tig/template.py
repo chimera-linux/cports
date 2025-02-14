@@ -1,6 +1,6 @@
 pkgname = "tig"
-pkgver = "2.5.10"
-pkgrel = 1
+pkgver = "2.5.12"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 make_install_args = ["install-doc-man"]
@@ -12,7 +12,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/jonas/tig"
 source = f"{url}/releases/download/tig-{pkgver}/tig-{pkgver}.tar.gz"
-sha256 = "f655cc1366fc10058a2bd505bb88ca78e653ff7526c1b81774c44b9d841210e3"
+sha256 = "5dda8a098810bb499096e17fc9f69c0a5915a23f46be27209fc8195d7a792108"
 # test suite tries to access /dev/tty which fails
 options = ["!check"]
 
