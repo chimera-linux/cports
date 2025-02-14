@@ -1,0 +1,41 @@
+From 8686a49843b0cc67782115e149a9b4971575996f Mon Sep 17 00:00:00 2001
+From: Guilhem Baccialone <guilhem.baccialone@zaclys.net>
+Date: Sun, 26 Jan 2025 22:02:24 +0100
+Subject: [PATCH 2/4] install files from integration's folder
+
+---
+ src/Makefile | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/src/Makefile b/src/Makefile
+index 9ff435a..b5a837a 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -10,6 +10,7 @@ PREFIX?=/usr
+ SBINDIR=$(PREFIX)/bin
+ MANDIR=$(PREFIX)/share/man
+ DATADIR=$(PREFIX)/share
++LIBDIR=$(PREFIX)/lib
+ INSTALL?=install -p
+ STRIP?=strip
+ GZIP?=gzip -9
+@@ -136,8 +137,16 @@ install-gui: gui
+ 	$(INSTALL) -m 0755 gui/gtk-$(PACKAGENAME) $(DESTDIR)/$(SBINDIR)
+ 	$(INSTALL) -d -m 0755 $(DESTDIR)/$(DATADIR)/$(PACKAGENAME)/artwork
+ 	$(INSTALL) -d -m 0755 $(DESTDIR)/$(DATADIR)/$(PACKAGENAME)/ui
++	$(INSTALL) -d -m 0755 $(DESTDIR)/$(DATADIR)/applications
++	$(INSTALL) -d -m 0755 $(DESTDIR)/$(DATADIR)/metainfo
++	$(INSTALL) -d -m 0755 $(DESTDIR)/$(DATADIR)/doc/$(PACKAGENAME)
++	$(INSTALL) -d -m 0755 $(DESTDIR)/$(LIBDIR)/pam.d
+ 	$(INSTALL) -m 0644 gui/*.ui $(DESTDIR)/$(DATADIR)/$(PACKAGENAME)/ui
+ 	$(INSTALL) -m 0644 gui/artwork/*.svg $(DESTDIR)/$(DATADIR)/$(PACKAGENAME)/artwork
++	$(INSTALL) -m 0644 gui/integration/gtk-lshw.desktop $(DESTDIR)/$(DATADIR)/applications
++	$(INSTALL) -m 0644 gui/integration/gtk-lshw.appdata.xml $(DESTDIR)/$(DATADIR)/metainfo
++	$(INSTALL) -T -m 0644 gui/integration/gtk-lshw.pam $(DESTDIR)/$(LIBDIR)/pam.d/gtk-lshw
++	$(INSTALL) -m 0644 gui/integration/console.apps $(DESTDIR)/$(DATADIR)/doc/$(PACKAGENAME)
+ 
+ clean:
+ 	rm -f $(PACKAGENAME).o $(PACKAGENAME) $(PACKAGENAME)-static $(PACKAGENAME)-compressed
+-- 
+2.48.1
+
