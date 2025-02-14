@@ -1,0 +1,14 @@
+musl defines __WORDSIZE here
+
+diff -ruN a/src/include/OpenImageIO/typedesc.h b/src/include/OpenImageIO/typedesc.h
+--- a/src/include/OpenImageIO/typedesc.h	2025-02-02 01:22:41.000000000 +0100
++++ b/src/include/OpenImageIO/typedesc.h	2025-02-09 08:12:16.210067821 +0100
+@@ -28,6 +28,8 @@
+ #include <OpenImageIO/string_view.h>
+ #include <OpenImageIO/strutil.h>
+ 
++#include <sys/user.h>
++
+ // Define symbols that let client applications determine if newly added
+ // features are supported.
+ #define OIIO_TYPEDESC_VECTOR2 1
