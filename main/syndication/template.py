@@ -1,5 +1,5 @@
 pkgname = "syndication"
-pkgver = "6.10.0"
+pkgver = "6.11.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND BSD-2-Clause"
 url = "https://api.kde.org/frameworks/syndication/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/syndication-{pkgver}.tar.xz"
-sha256 = "a743c525e806e5f07b5b7b27cfe34882100b212b4d846e661c61a27ae1396330"
+sha256 = "d889c553a5189339217e8d06b628595aba3c842b74693e7a8179606b13629e1d"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "kitemmodels"
-pkgver = "6.10.0"
+pkgver = "6.11.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -16,7 +16,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only AND LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kitemmodels/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kitemmodels-{pkgver}.tar.xz"
-sha256 = "83859a4aee67bf5e768a93325422264cb9e847013f281c5cb02e631c3b3b0007"
+sha256 = "398dc4e3c5c44461350a20ac234055bafc2b184284ddea91563134ef62f5d6a6"
 hardening = ["vis"]
 
 

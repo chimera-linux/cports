@@ -1,6 +1,6 @@
 pkgname = "kjobwidgets"
-pkgver = "6.10.0"
-pkgrel = 1
+pkgver = "6.11.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/kjobwidgets/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kjobwidgets-{pkgver}.tar.xz"
-sha256 = "ee3ff5d21c8484959d0af1976a7c1bab01f4368414df2ebb2cb8540b3c28691b"
+sha256 = "2bb342e554f8ecf84d7218a6567628dcc73c1b914d0c5aad1c8bf7753986ddd7"
 hardening = ["vis"]
 
 

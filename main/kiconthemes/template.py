@@ -1,6 +1,6 @@
 pkgname = "kiconthemes"
-pkgver = "6.10.0"
-pkgrel = 1
+pkgver = "6.11.0"
+pkgrel = 0
 build_style = "cmake"
 # flaky tests when parallel
 make_check_args = ["-j1"]
@@ -28,7 +28,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kiconthemes/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kiconthemes-{pkgver}.tar.xz"
-sha256 = "15807e785183c048810af0141b3a560085f2bbf00f3a21fe962eb37a673f9314"
+sha256 = "1671ab3fd9b1e0753a7062bab80f5489f3ac750ecb30b91db99a6689988afb87"
 hardening = ["vis"]
 
 

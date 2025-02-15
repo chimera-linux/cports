@@ -1,5 +1,5 @@
 pkgname = "kwallet"
-pkgver = "6.10.0"
+pkgver = "6.11.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -30,7 +30,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kwallet/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwallet-{pkgver}.tar.xz"
-sha256 = "e1993911a15b4318d64abce0acdc1b5fc5a6116dc7595eff86dde03b35e6bd50"
+sha256 = "ce94b032446ed1e1383e673185b5a4372deeab71df8b7a49083a1b6ead822e09"
 hardening = ["vis"]
 
 

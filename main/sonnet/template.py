@@ -1,5 +1,5 @@
 pkgname = "sonnet"
-pkgver = "6.10.0"
+pkgver = "6.11.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -23,7 +23,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://develop.kde.org/docs/features/spellchecking"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/sonnet-{pkgver}.tar.xz"
-sha256 = "99c0bca563594fd115f31f18ad3264770046290c6695ded0d2aa3c2eddb0d4b7"
+sha256 = "19441de62d9d97f61e48d26e003543e75607b2ba8f6e4feb19f956289af21d60"
 hardening = ["vis"]
 
 
