@@ -1,6 +1,6 @@
 pkgname = "xserver-xorg"
 pkgver = "21.1.15"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 _fontroot = "/usr/share/fonts"
 configure_args = [
@@ -164,6 +164,7 @@ def _(self):
     self.subdesc = "default server"
     # check if this needs to be updated when updating
     self.depends += [
+        "so:libEGL.so.1!mesa-egl-libs",
         "xserver-xorg-protocol>=20180227",
         "xkeyboard-config",
     ]
