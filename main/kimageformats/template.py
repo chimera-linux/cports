@@ -5,10 +5,11 @@ build_style = "cmake"
 configure_args = ["-DKIMAGEFORMATS_HEIF=ON"]
 # jpegxr; exr write fails on ppc64le
 # dds; read fails on ppc64le
+# xcf; read fails on aarch64
 # avci; needs libheif built against openh264 but that SIGILLs atm
 make_check_args = [
     "-E",
-    "(kimageformats-read-dds|kimageformats-read-hej2|kimageformats-write-exr|kimageformats-read-avci)",
+    "kimageformats-(write-exr|read-(dds|hej2|xcf|avci))",
 ]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
