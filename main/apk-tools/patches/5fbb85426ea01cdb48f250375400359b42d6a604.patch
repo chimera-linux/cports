@@ -1,0 +1,120 @@
+From 5fbb85426ea01cdb48f250375400359b42d6a604 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Timo=20Ter=C3=A4s?= <timo.teras@iki.fi>
+Date: Wed, 12 Feb 2025 16:05:50 +0200
+Subject: [PATCH] libfetch: fix fetch_err* for negative error codes
+
+The earlier fix for 32-bit arches also messed up the sign
+extension for error code portion. Fix this by using a
+struct instead of trying to be clever with the bit shifts.
+
+fixes 8d41ff40 fetch: fix fetch_err_make() for 32-bit arches
+fixes #11082
+---
+ libfetch/common.h     |  4 ++--
+ libfetch/fetch.c      |  2 +-
+ libfetch/fetch.h      | 14 +++++---------
+ src/io_url_libfetch.c | 14 +++++++-------
+ 4 files changed, 15 insertions(+), 19 deletions(-)
+
+diff --git a/libfetch/common.h b/libfetch/common.h
+index b8674528..eb08b360 100644
+--- a/libfetch/common.h
++++ b/libfetch/common.h
+@@ -103,8 +103,8 @@ int		 fetch_netrc_auth(struct url *url);
+ int		 fetch_no_proxy_match(const char *);
+ int		 fetch_urlpath_safe(char);
+ 
+-static inline void _fetch_seterr(unsigned char category, int code) {
+-	fetchLastErrCode = fetch_err_make(category, code);
++static inline void _fetch_seterr(unsigned int category, int code) {
++	fetchLastErrCode = (struct fetch_error) { .category = category, .code = code };
+ }
+ static inline void fetch_syserr(void) {
+ 	_fetch_seterr(FETCH_ERRCAT_ERRNO, errno);
+diff --git a/libfetch/fetch.c b/libfetch/fetch.c
+index d9c301fc..c43081da 100644
+--- a/libfetch/fetch.c
++++ b/libfetch/fetch.c
+@@ -41,7 +41,7 @@
+ 
+ fetch_redirect_t fetchRedirectMethod;
+ auth_t	 fetchAuthMethod;
+-long	 fetchLastErrCode;
++struct fetch_error fetchLastErrCode;
+ int	 fetchTimeout;
+ volatile int	 fetchRestartCalls = 1;
+ int	 fetchDebug;
+diff --git a/libfetch/fetch.h b/libfetch/fetch.h
+index 6dc8b63f..739cfc3b 100644
+--- a/libfetch/fetch.h
++++ b/libfetch/fetch.h
+@@ -103,14 +103,10 @@ enum {
+ 	FETCH_ERR_TLS_HANDSHAKE,
+ };
+ 
+-#define fetch_err_make(category, code) ((((unsigned long)category) << 28) + (unsigned long)code)
+-
+-static inline unsigned char fetch_err_category(unsigned long err) {
+-	return (unsigned char)(err >> 28);
+-}
+-static inline int fetch_err_code(unsigned long err) {
+-	return (int)(err & 0xfffffff);
+-}
++struct fetch_error {
++	unsigned int category;
++	int code;
++};
+ 
+ #if defined(__cplusplus)
+ extern "C" {
+@@ -172,7 +168,7 @@ typedef int (*auth_t)(struct url *);
+ extern auth_t		 fetchAuthMethod;
+ 
+ /* Last error code */
+-extern long		 fetchLastErrCode;
++extern struct fetch_error fetchLastErrCode;
+ 
+ /* I/O timeout */
+ extern int		 fetchTimeout;
+diff --git a/src/io_url_libfetch.c b/src/io_url_libfetch.c
+index 11bf992a..c77e3c2f 100644
+--- a/src/io_url_libfetch.c
++++ b/src/io_url_libfetch.c
+@@ -35,7 +35,7 @@ static int fetch_maperr(const struct maperr *map, size_t mapsz, int ec, int defa
+ 	return default_apkerr;
+ }
+ 
+-static int fetch_maperror(long ec)
++static int fetch_maperror(struct fetch_error fe)
+ {
+ 	static const struct maperr fetch_err[] = {
+ 		{ FETCH_OK,			0, },
+@@ -73,19 +73,19 @@ static int fetch_maperror(long ec)
+ 		{ 504, APKE_HTTP_504_GATEWAY_TIMEOUT },
+ 	};
+ 
+-	switch (fetch_err_category(ec)) {
++	switch (fe.category) {
+ 	case FETCH_ERRCAT_FETCH:
+-		return fetch_maperr(fetch_err, ARRAY_SIZE(fetch_err), fetch_err_code(ec), EIO);
++		return fetch_maperr(fetch_err, ARRAY_SIZE(fetch_err), fe.code, EIO);
+ 	case FETCH_ERRCAT_URL:
+ 		return APKE_URL_FORMAT;
+ 	case FETCH_ERRCAT_ERRNO:
+-		return fetch_err_code(ec);
++		return fe.code;
+ 	case FETCH_ERRCAT_NETDB:
+-		return fetch_maperr(netdb_err, ARRAY_SIZE(netdb_err), fetch_err_code(ec), APKE_DNS_FAIL);
++		return fetch_maperr(netdb_err, ARRAY_SIZE(netdb_err), fe.code, APKE_DNS_FAIL);
+ 	case FETCH_ERRCAT_HTTP:
+-		return fetch_maperr(http_err, ARRAY_SIZE(http_err), fetch_err_code(ec), APKE_HTTP_UNKNOWN);
++		return fetch_maperr(http_err, ARRAY_SIZE(http_err), fe.code, APKE_HTTP_UNKNOWN);
+ 	case FETCH_ERRCAT_TLS:
+-		return fetch_maperr(tls_err, ARRAY_SIZE(tls_err), fetch_err_code(ec), APKE_TLS_ERROR);
++		return fetch_maperr(tls_err, ARRAY_SIZE(tls_err), fe.code, APKE_TLS_ERROR);
+ 	default:
+ 		return EIO;
+ 	}
+-- 
+GitLab
+
