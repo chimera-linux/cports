@@ -1,0 +1,4 @@
+type = process
+command = /usr/lib/bandicootd
+logfile = /var/log/bandicootd.log
+depends-on: pre-local.target
