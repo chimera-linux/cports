@@ -1,6 +1,6 @@
 pkgname = "obs-pipewire-audio-capture"
-pkgver = "1.1.5"
-pkgrel = 1
+pkgver = "1.2.0"
+pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
@@ -16,5 +16,5 @@ maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "GPL-2.0-or-later"
 url = "https://obsproject.com/forum/resources/pipewire-audio-capture.1458"
 source = f"https://github.com/dimtpap/obs-pipewire-audio-capture/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9746c0564cc1e41aa3acf5bc516f4d3646450628c34bfaca49485e45a32cde23"
+sha256 = "ce5973187d637edaf5089ac443f364e5ade27b9612082c30c422ab5d8211d88a"
 hardening = ["vis", "!cfi"]
