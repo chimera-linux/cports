@@ -1,5 +1,5 @@
 pkgname = "flare"
-pkgver = "0.15.7"
+pkgver = "0.15.9"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -27,7 +27,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "AGPL-3.0-only"
 url = "https://mobile.schmidhuberj.de/flare"
 source = f"https://gitlab.com/schmiddi-on-mobile/flare/-/archive/{pkgver}/flare-{pkgver}.tar.gz"
-sha256 = "7551793e7510bfbdffaceb95f70b65ee4cdf29d817314f50102a08ab58871fef"
+sha256 = "5a5b169247b9fe7b2ac7dd10ce352b2f1a1fac2c9c016751d157cf181762300b"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
