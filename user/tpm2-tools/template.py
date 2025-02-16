@@ -12,7 +12,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "curl-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "tpm2-tss-devel",
 ]
 pkgdesc = "Trusted Platform Module (TPM2.0) tools"
