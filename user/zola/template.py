@@ -1,6 +1,6 @@
 pkgname = "zola"
-pkgver = "0.19.2"
-pkgrel = 1
+pkgver = "0.20.0"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl3-devel", "oniguruma-devel"]
@@ -9,7 +9,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://www.getzola.org"
 source = f"https://github.com/getzola/zola/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bae10101b4afff203f781702deeb0a60d3ab0c9f0c7a616a7c1e0c504c33c93f"
+sha256 = "ed0274b4139e5ebae1bfac045a635d952e50dc238fdc39cb730b032167f8bb4a"
 # generates completions with host bins
 options = ["!cross"]
 
