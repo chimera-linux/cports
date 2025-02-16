@@ -1,0 +1,444 @@
+Use globally installed doctest headers instead of local ones.
+The project recommends using git submodules, but we want to use
+the libraries from chimera's repos, so we need to use the global
+include path.
+diff --git a/tests/test_comments.cpp b/tests/test_comments.cpp
+--- a/tests/test_comments.cpp
++++ b/tests/test_comments.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml.hpp>
+ 
+diff --git a/tests/test_datetime.cpp b/tests/test_datetime.cpp
+--- a/tests/test_datetime.cpp
++++ b/tests/test_datetime.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/datetime.hpp>
+ 
+diff --git a/tests/test_error_message.cpp b/tests/test_error_message.cpp
+--- a/tests/test_error_message.cpp
++++ b/tests/test_error_message.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml.hpp>
+ 
+diff --git a/tests/test_find.cpp b/tests/test_find.cpp
+--- a/tests/test_find.cpp
++++ b/tests/test_find.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_find_or.cpp b/tests/test_find_or.cpp
+--- a/tests/test_find_or.cpp
++++ b/tests/test_find_or.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_format_floating.cpp b/tests/test_format_floating.cpp
+--- a/tests/test_format_floating.cpp
++++ b/tests/test_format_floating.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/parser.hpp>
+ #include <toml11/serializer.hpp>
+diff --git a/tests/test_format_integer.cpp b/tests/test_format_integer.cpp
+--- a/tests/test_format_integer.cpp
++++ b/tests/test_format_integer.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/parser.hpp>
+ #include <toml11/serializer.hpp>
+diff --git a/tests/test_format_table.cpp b/tests/test_format_table.cpp
+--- a/tests/test_format_table.cpp
++++ b/tests/test_format_table.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/parser.hpp>
+ #include <toml11/serializer.hpp>
+diff --git a/tests/test_get.cpp b/tests/test_get.cpp
+--- a/tests/test_get.cpp
++++ b/tests/test_get.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_get_or.cpp b/tests/test_get_or.cpp
+--- a/tests/test_get_or.cpp
++++ b/tests/test_get_or.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_literal.cpp b/tests/test_literal.cpp
+--- a/tests/test_literal.cpp
++++ b/tests/test_literal.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <iostream>
+ 
+diff --git a/tests/test_location.cpp b/tests/test_location.cpp
+--- a/tests/test_location.cpp
++++ b/tests/test_location.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/location.hpp>
+ 
+diff --git a/tests/test_parse.cpp b/tests/test_parse.cpp
+--- a/tests/test_parse.cpp
++++ b/tests/test_parse.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml.hpp>
+ 
+diff --git a/tests/test_parse_array.cpp b/tests/test_parse_array.cpp
+--- a/tests/test_parse_array.cpp
++++ b/tests/test_parse_array.cpp
+@@ -5,7 +5,7 @@
+ #include <toml11/parser.hpp>
+ #include <toml11/types.hpp>
+ 
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ TEST_CASE("testing an array")
+ {
+diff --git a/tests/test_parse_boolean.cpp b/tests/test_parse_boolean.cpp
+--- a/tests/test_parse_boolean.cpp
++++ b/tests/test_parse_boolean.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_parse_datetime.cpp b/tests/test_parse_datetime.cpp
+--- a/tests/test_parse_datetime.cpp
++++ b/tests/test_parse_datetime.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_parse_floating.cpp b/tests/test_parse_floating.cpp
+--- a/tests/test_parse_floating.cpp
++++ b/tests/test_parse_floating.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_parse_inline_table.cpp b/tests/test_parse_inline_table.cpp
+--- a/tests/test_parse_inline_table.cpp
++++ b/tests/test_parse_inline_table.cpp
+@@ -5,7 +5,7 @@
+ #include <toml11/parser.hpp>
+ #include <toml11/types.hpp>
+ 
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ TEST_CASE("testing an inline table v1.0")
+ {
+diff --git a/tests/test_parse_integer.cpp b/tests/test_parse_integer.cpp
+--- a/tests/test_parse_integer.cpp
++++ b/tests/test_parse_integer.cpp
+@@ -1,6 +1,6 @@
+ 
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_parse_null.cpp b/tests/test_parse_null.cpp
+--- a/tests/test_parse_null.cpp
++++ b/tests/test_parse_null.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_parse_string.cpp b/tests/test_parse_string.cpp
+--- a/tests/test_parse_string.cpp
++++ b/tests/test_parse_string.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ #include <iostream>
+diff --git a/tests/test_parse_table.cpp b/tests/test_parse_table.cpp
+--- a/tests/test_parse_table.cpp
++++ b/tests/test_parse_table.cpp
+@@ -5,7 +5,7 @@
+ #include <toml11/parser.hpp>
+ #include <toml11/types.hpp>
+ 
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ TEST_CASE("testing a table")
+ {
+diff --git a/tests/test_parse_table_keys.cpp b/tests/test_parse_table_keys.cpp
+--- a/tests/test_parse_table_keys.cpp
++++ b/tests/test_parse_table_keys.cpp
+@@ -5,7 +5,7 @@
+ #include <toml11/parser.hpp>
+ #include <toml11/types.hpp>
+ 
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ TEST_CASE("testing table keys")
+ {
+diff --git a/tests/test_result.cpp b/tests/test_result.cpp
+--- a/tests/test_result.cpp
++++ b/tests/test_result.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/result.hpp>
+ 
+diff --git a/tests/test_scanner.cpp b/tests/test_scanner.cpp
+--- a/tests/test_scanner.cpp
++++ b/tests/test_scanner.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_serialize.cpp b/tests/test_serialize.cpp
+--- a/tests/test_serialize.cpp
++++ b/tests/test_serialize.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml.hpp>
+ 
+diff --git a/tests/test_spec.cpp b/tests/test_spec.cpp
+--- a/tests/test_spec.cpp
++++ b/tests/test_spec.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/spec.hpp>
+ 
+diff --git a/tests/test_storage.cpp b/tests/test_storage.cpp
+--- a/tests/test_storage.cpp
++++ b/tests/test_storage.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/storage.hpp>
+ 
+diff --git a/tests/test_syntax_boolean.cpp b/tests/test_syntax_boolean.cpp
+--- a/tests/test_syntax_boolean.cpp
++++ b/tests/test_syntax_boolean.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_syntax_comment.cpp b/tests/test_syntax_comment.cpp
+--- a/tests/test_syntax_comment.cpp
++++ b/tests/test_syntax_comment.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_syntax_datetime.cpp b/tests/test_syntax_datetime.cpp
+--- a/tests/test_syntax_datetime.cpp
++++ b/tests/test_syntax_datetime.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_syntax_floating.cpp b/tests/test_syntax_floating.cpp
+--- a/tests/test_syntax_floating.cpp
++++ b/tests/test_syntax_floating.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_syntax_integer.cpp b/tests/test_syntax_integer.cpp
+--- a/tests/test_syntax_integer.cpp
++++ b/tests/test_syntax_integer.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_syntax_key.cpp b/tests/test_syntax_key.cpp
+--- a/tests/test_syntax_key.cpp
++++ b/tests/test_syntax_key.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_syntax_string.cpp b/tests/test_syntax_string.cpp
+--- a/tests/test_syntax_string.cpp
++++ b/tests/test_syntax_string.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_traits.cpp b/tests/test_traits.cpp
+--- a/tests/test_traits.cpp
++++ b/tests/test_traits.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/types.hpp>
+ 
+diff --git a/tests/test_types.cpp b/tests/test_types.cpp
+--- a/tests/test_types.cpp
++++ b/tests/test_types.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/types.hpp>
+ 
+diff --git a/tests/test_user_defined_conversion.cpp b/tests/test_user_defined_conversion.cpp
+--- a/tests/test_user_defined_conversion.cpp
++++ b/tests/test_user_defined_conversion.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml.hpp>
+ #include "utility.hpp"
+diff --git a/tests/test_utility.cpp b/tests/test_utility.cpp
+--- a/tests/test_utility.cpp
++++ b/tests/test_utility.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/utility.hpp>
+ 
+diff --git a/tests/test_value.cpp b/tests/test_value.cpp
+--- a/tests/test_value.cpp
++++ b/tests/test_value.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/test_visit.cpp b/tests/test_visit.cpp
+--- a/tests/test_visit.cpp
++++ b/tests/test_visit.cpp
+@@ -1,5 +1,5 @@
+ #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <toml11/comments.hpp>
+ #include <toml11/types.hpp>
+diff --git a/tests/utility.cpp b/tests/utility.cpp
+--- a/tests/utility.cpp
++++ b/tests/utility.cpp
+@@ -1,4 +1,4 @@
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include "utility.hpp"
+ 
+diff --git a/tests/utility.hpp b/tests/utility.hpp
+--- a/tests/utility.hpp
++++ b/tests/utility.hpp
+@@ -9,7 +9,7 @@
+ #include <toml11/serializer.hpp>
+ #include <toml11/value.hpp>
+ 
+-#include "doctest.h"
++#include <doctest/doctest.h>
+ 
+ #include <ostream>
+ #include <string>
