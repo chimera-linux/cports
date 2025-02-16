@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "jansson-devel",
-    "openssl-devel",
+    "openssl3-devel",
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["jq"]
