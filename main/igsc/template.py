@@ -1,6 +1,6 @@
 pkgname = "igsc"
 pkgver = "0.9.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DSYSLOG=OFF", "-DENABLE_WERROR=OFF"]
 hostmakedepends = [
