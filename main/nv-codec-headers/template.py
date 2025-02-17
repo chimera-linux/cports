@@ -1,5 +1,5 @@
 pkgname = "nv-codec-headers"
-pkgver = "12.2.72.0"
+pkgver = "13.0.19.0"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
@@ -8,6 +8,6 @@ maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "MIT"
 url = "https://github.com/FFmpeg/nv-codec-headers"
 source = f"{url}/archive/refs/tags/n{pkgver}.tar.gz"
-sha256 = "dbeaec433d93b850714760282f1d0992b1254fc3b5a6cb7d76fc1340a1e47563"
+sha256 = "86d15d1a7c0ac73a0eafdfc57bebfeba7da8264595bf531cf4d8db1c22940116"
 # no tests, no license file
 options = ["!check", "!distlicense"]
