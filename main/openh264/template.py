@@ -1,5 +1,5 @@
 pkgname = "openh264"
-pkgver = "2.5.0"
+pkgver = "2.6.0"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -21,12 +21,12 @@ license = "BSD-2-Clause"
 url = "https://github.com/cisco/openh264"
 source = [
     f"{url}/archive/v{pkgver}.tar.gz",
-    "https://github.com/mozilla/gmp-api/archive/refs/tags/Firefox114_2.tar.gz",
+    "https://github.com/mozilla/gmp-api/archive/refs/tags/Firefox135.tar.gz",
 ]
 source_paths = [".", "gmp-api"]
 sha256 = [
-    "94c8ca364db990047ec4ec3481b04ce0d791e62561ef5601443011bdc00825e3",
-    "c7fd4ae00dfa19bdc485fe6bfd08a337e245ec0f16a52891bcdede39aca8aed3",
+    "558544ad358283a7ab2930d69a9ceddf913f4a51ee9bf1bfb9e377322af81a69",
+    "939be3596292ff445bf3cd5454a03041f68258444f7fff023a0bac17b238b40f",
 ]
 
 
@@ -47,7 +47,7 @@ def post_install(self):
     # then the symlinks. we can't use glob= install because it derefs the
     # symlinks and installs 3 copies of the same lib.
     self.install_file(
-        "libgmpopenh264.so.7",
+        "libgmpopenh264.so.8",
         "usr/lib/nsbrowser/plugins/gmp-gmpopenh264/system-installed",
     )
     self.install_file(

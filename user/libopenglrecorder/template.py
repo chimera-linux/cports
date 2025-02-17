@@ -1,6 +1,6 @@
 pkgname = "libopenglrecorder"
 pkgver = "0.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
