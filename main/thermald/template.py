@@ -1,6 +1,6 @@
 pkgname = "thermald"
-pkgver = "2.5.8"
-pkgrel = 2
+pkgver = "2.5.9"
+pkgrel = 0
 archs = ["x86_64"]
 # don't use autogen.sh, it generates files that force reconf in build phase
 build_style = "gnu_configure"
@@ -26,7 +26,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/intel/thermal_daemon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "365fbb91d5b986ecbac7fe70d6993bc5a4d47e07dfca9d832204fe8ec0a7094b"
+sha256 = "32fc75861e5e42b4b6ce0718af3e5b275f3febfccf6e7a3d3fbb5254791d7e74"
 hardening = ["vis", "!cfi"]
 
 
