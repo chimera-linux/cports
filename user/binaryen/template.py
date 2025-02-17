@@ -1,5 +1,5 @@
 pkgname = "binaryen"
-pkgver = "121"
+pkgver = "122"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,7 +27,7 @@ source = [
 ]
 source_paths = [".", "test/spec/testsuite"]
 sha256 = [
-    "93f3b3d62def4aee6d09b11e6de75b955d29bc37878117e4ed30c3057a2ca4b4",
+    "53f01137c3c420e691f4e7fc781896c24eb4da2bc064a5c8a7495d073c3740e2",
     "0c9961b7b308f87bed2f8187892047fe5575af2298d0bfdca526223219dfc899",
 ]
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
