@@ -1,5 +1,5 @@
 pkgname = "usbredir"
-pkgver = "0.14.0"
+pkgver = "0.15.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -11,7 +11,7 @@ url = "https://gitlab.freedesktop.org/spice/usbredir"
 source = (
     f"https://www.spice-space.org/download/usbredir/usbredir-{pkgver}.tar.xz"
 )
-sha256 = "924dfb5c78328fae45a4c93a01bc83bb72c1310abeed119109255627a8baa332"
+sha256 = "6dc2a380277688a068191245dac2ab7063a552999d8ac3ad8e841c10ff050961"
 
 
 @subpackage("usbredir-devel")
