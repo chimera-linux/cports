@@ -1,6 +1,6 @@
 pkgname = "kind"
-pkgver = "0.26.0"
-pkgrel = 1
+pkgver = "0.27.0"
+pkgrel = 0
 build_style = "go"
 make_check_args = ["-skip", "TestIntegrationEnsureNetworkConcurrent"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "Gabriel M. Dutra <dmdutra@proton.me>"
 license = "Apache-2.0"
 url = "https://kind.sigs.k8s.io"
 source = f"https://github.com/kubernetes-sigs/kind/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6b0ae7748144034ba296a302f5aaaad7120aef4df9d8138cc6276a43ca3c96d1"
+sha256 = "841dd2fdc5c194e1ea49f36204cce33a943285862303713a1baa5d2073cdb0d9"
 # cross: uses host binary to generate completions
 options = ["!cross"]
 
