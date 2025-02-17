@@ -1,0 +1,11 @@
+--- a/init
++++ b/init
+@@ -39,7 +39,7 @@ fi
+ # afaik getent is not a posix command
+ getent_cmd=$(command -v getent)
+ 
+-if -n "$getent_cmd"; then
++if [ -n "$getent_cmd" ]; then
+     # retrieve using getent if we can
+     HOME=$("$getent_cmd" passwd root | cut -f6 -d:)
+ else
