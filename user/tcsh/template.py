@@ -1,5 +1,5 @@
 pkgname = "tcsh"
-pkgver = "6.24.14"
+pkgver = "6.24.15"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-nls"]
@@ -10,7 +10,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://astron.com/pub/tcsh"
 source = f"{url}/tcsh-{pkgver}.tar.gz"
-sha256 = "36880f258a63fc11fe72a65098b585ebc4ecdee24388b8ebec97e6ae8e485318"
+sha256 = "d4d0b2a4df320f57a518e44c359ef36bbcf85d64f5146d0cb8ff34984e0d23fd"
 
 
 def post_install(self):
