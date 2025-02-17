@@ -1,20 +1,21 @@
 pkgname = "lowdown"
-pkgver = "1.4.0"
+pkgver = "2.0.2"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
     "PREFIX=/usr",
     "MANDIR=/usr/share/man",
 ]
+make_cmd = "bmake"
 make_install_args = ["install_libs"]
 make_check_target = "regress"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["bmake", "pkgconf"]
 pkgdesc = "Markdown translator"
 maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://kristaps.bsd.lv/lowdown"
 source = f"{url}/snapshots/lowdown-{pkgver}.tar.gz"
-sha256 = "75bf8ddc66f6c75ebb64131ced1e729983a38f866a93878fc1753df93330e0ef"
+sha256 = "d59f2ad82f981a63051bb61d8d04c02c8c49428ac29c435dff03a92e210b0004"
 
 
 def init_configure(self):
