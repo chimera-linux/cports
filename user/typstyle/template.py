@@ -1,5 +1,5 @@
 pkgname = "typstyle"
-pkgver = "0.12.14"
+pkgver = "0.12.15"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/Enter-tainer/typstyle"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "053ae2b6349fe244f44dc816f7d91036c152eeb14bfc2c6bfeeca33cc5ac0c34"
+sha256 = "13e482cb9ca0b71eb6196b14f444f7bb9099f436fcc26ce4fac0d27f99e0fdee"
 
 
 def install(self):
