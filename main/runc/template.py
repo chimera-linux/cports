@@ -1,6 +1,6 @@
 pkgname = "runc"
-pkgver = "1.2.4"
-pkgrel = 1
+pkgver = "1.2.5"
+pkgrel = 0
 build_style = "makefile"
 make_build_args = ["all", "man", f"COMMIT=chimera-r{pkgrel}"]
 make_install_args = ["BINDIR=/usr/bin", "install-bash", "install-man"]
@@ -21,7 +21,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/opencontainers/runc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "9785c144c97974b52b6091b7a79168b73681ff574bc8438b44f3f5f8c112f171"
+sha256 = "1ae11980477b789732915dfd7ba4246f5babe5ff76a31021d36365007d9713b0"
 # tests create namespaces and fail because no perms
 options = ["!check"]
 
