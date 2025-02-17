@@ -1,0 +1,20 @@
+--- a/fsck/fsck.c
++++ b/fsck/fsck.c
+@@ -1083,7 +1083,7 @@ out:
+ }
+ 
+ static int exfat_repair_upcase_table(struct exfat *exfat,
+-		struct exfat_dentry *dentry, loff_t dentry_off)
++		struct exfat_dentry *dentry, off_t dentry_off)
+ {
+ 	clus_t clu;
+ 	int ret;
+@@ -1175,7 +1175,7 @@ static int read_upcase_table(struct exfat_fsck *fsck)
+ 	ssize_t size;
+ 	__le32 checksum;
+ 	clus_t start_clu;
+-	loff_t dentry_off;
++	off_t dentry_off;
+ 
+ 	retval = exfat_lookup_dentry_set(exfat, exfat->root, &filter);
+ 	if (retval == EOF) {

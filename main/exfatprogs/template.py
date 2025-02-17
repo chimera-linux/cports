@@ -1,5 +1,5 @@
 pkgname = "exfatprogs"
-pkgver = "1.2.6"
+pkgver = "1.2.7"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -13,4 +13,4 @@ maintainer = "Val Packett <val@packett.cool>"
 license = "GPL-2.0-only"
 url = "https://github.com/exfatprogs/exfatprogs"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "6548789ec41e396ad0743727b40f5745fe5df4b5f615269f576dc80bfb9e1201"
+sha256 = "dadf6c58ecc58572d6a482c66a5c60fea2ca71a7df293be6b6008d7cdcebe99a"
