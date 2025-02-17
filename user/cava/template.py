@@ -1,5 +1,5 @@
 pkgname = "cava"
-pkgver = "0.10.3"
+pkgver = "0.10.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/karlstav/cava"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "bf822ac18ae0ca2cf926c2875f3221591960c25f2bcab89ea19729be4b9c3663"
+sha256 = "5a2efedf2d809d70770f49349f28a5c056f1ba9b3f5476e78744291a468e206a"
 
 
 def post_install(self):
