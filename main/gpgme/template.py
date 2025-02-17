@@ -1,5 +1,5 @@
 pkgname = "gpgme"
-pkgver = "1.24.1"
+pkgver = "1.24.2"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -27,7 +27,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://gnupg.org/software/gpgme/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/gpgme/gpgme-{pkgver}.tar.bz2"
-sha256 = "ea05d0258e71061d61716584ec34cef59330a91340571edc46b78374973ba85f"
+sha256 = "e11b1a0e361777e9e55f48a03d89096e2abf08c63d84b7017cfe1dce06639581"
 
 
 def post_build(self):
