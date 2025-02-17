@@ -1,5 +1,5 @@
 pkgname = "iniparser"
-pkgver = "4.2.5"
+pkgver = "4.2.6"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.com/iniparser/iniparser"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "c03f125259ff8fec7e3fc76277957a1ba070dcbfa6c05f29c08ad0216bbe99cf"
+sha256 = "bbed169ed965a3673f58dd14164558832aaae92201f95e829d503f1da634e963"
 # vis breaks symbols
 hardening = []
 
