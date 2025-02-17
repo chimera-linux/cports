@@ -1,5 +1,5 @@
 pkgname = "rsgain"
-pkgver = "3.5.3"
+pkgver = "3.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/complexlogic/rsgain"
 source = f"{url}/releases/download/v{pkgver}/rsgain-{pkgver}-source.tar.xz"
-sha256 = "3626e7adaee475be3c72c78cd1e8c6ffa38062daf48c8e8a8591c16022ff6bf4"
+sha256 = "26d46f1240a83366e82cbc9121a467fc1dcc977c7adfb4e15c99ead6b3d07ec8"
 
 
 def post_install(self):
