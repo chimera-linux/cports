@@ -1,5 +1,5 @@
 pkgname = "python-lsp-server"
-pkgver = "1.12.0"
+pkgver = "1.12.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -24,7 +24,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-lsp/python-lsp-server"
 source = f"$(PYPI_SITE)/p/python-lsp-server/python_lsp_server-{pkgver}.tar.gz"
-sha256 = "b6a336f128da03bd9bac1e61c3acca6e84242b8b31055a1ccf49d83df9dc053b"
+sha256 = "fea039a36b3132774d0f803671184cf7dde0c688e7b924f23a6359a66094126d"
 
 
 def init_check(self):
