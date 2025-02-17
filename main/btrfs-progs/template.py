@@ -1,6 +1,6 @@
 pkgname = "btrfs-progs"
-pkgver = "6.12"
-pkgrel = 1
+pkgver = "6.13"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--enable-python"]
 # build system assumes . is the root right off the bat
@@ -36,7 +36,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://btrfs.readthedocs.io/en/latest"
 source = f"$(KERNEL_SITE)/kernel/people/kdave/btrfs-progs/btrfs-progs-v{pkgver}.tar.xz"
-sha256 = "9a7d9651ffd52fbe5212a8e4852a3cdb079e3d223fc5504e6a50b0ba96cd20a1"
+sha256 = "65b3f21117a594f80013b432620eecc6a7e2b0c05eab97136ff506c74d73ee9a"
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
 options = ["!check"]
