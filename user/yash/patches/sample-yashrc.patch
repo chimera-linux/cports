@@ -6,8 +6,8 @@ Make yash behave similarly to other shells.
 
 --- a/share/initialization/sample
 +++ b/share/initialization/sample
-@@ -2,10 +2,18 @@
- # This is a sample initialization script for yash. Copy this file to ~/.yashrc
+@@ -3,11 +3,19 @@
+ # $XDG_CONFIG_HOME/yash/rc or ~/.yashrc
  # and add your favorite customization to it.
  
 +# Load global initialization script, if exists.
@@ -18,10 +18,11 @@ Make yash behave similarly to other shells.
  # Firstly, load the common customization script.
  # If you don't like settings applied in this script, remove this line.
  . --autoload --no-alias initialization/common
-+
+ 
 +if [ -f ~/.profile ]; then
 +  . ~/.profile
 +fi
- 
++
  # These are additional aliases that are not defined in the common script.
  # Uncomment to enable them.
+ #alias g='grep'

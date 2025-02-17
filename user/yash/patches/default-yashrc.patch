@@ -6,9 +6,9 @@ Make it easier to follow.
 
 --- a/share/initialization/default
 +++ b/share/initialization/default
-@@ -12,10 +12,12 @@
- You are seeing this message because a user-specific initialization script is
- not found at ~/.yashrc. The current session has been loaded with common
+@@ -13,10 +13,12 @@ You are seeing this message because a user-specific initialization script is
+ not found at ${XDG_CONFIG_HOME:-$HOME/.config}/yash/rc or ~/.yashrc.
+ The current session has been loaded with common
  settings that should be useful for many users. To suppress this message, copy
 -a sample initialization script from ${yashdatadir}/initialization/sample
 -to ~/.yashrc and make any customization in it if you want. For bare default

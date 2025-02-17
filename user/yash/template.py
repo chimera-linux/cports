@@ -1,5 +1,5 @@
 pkgname = "yash"
-pkgver = "2.57"
+pkgver = "2.58.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-2.0-only"
 url = "https://github.com/magicant/yash"
 source = f"{url}/releases/download/{pkgver}/yash-{pkgver}.tar.xz"
-sha256 = "f5ff3334dcfa0fdde3882f5df002623f46a0a4f2b2335e7d91715520d8fb1dab"
+sha256 = "7674ece98dc77bcc753db49c4311c30532f981682205f9047f20213a3a6755bb"
 
 
 def post_install(self):
