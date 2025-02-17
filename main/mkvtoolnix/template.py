@@ -1,5 +1,5 @@
 pkgname = "mkvtoolnix"
-pkgver = "89.0"
+pkgver = "90.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -44,7 +44,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://mkvtoolnix.download/index.html"
 source = f"https://mkvtoolnix.download/sources/mkvtoolnix-{pkgver}.tar.xz"
-sha256 = "6127b694b088e53270a946c178b6816da756200bdf672abdf65cfe0b50b260b2"
+sha256 = "35d2585454723e6a621e10ba61fbe2a7723f4d60ee67503d4d9e984d4d070ab0"
 
 
 @subpackage("mkvtoolnix-gui")
