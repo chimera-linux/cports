@@ -1,6 +1,6 @@
 pkgname = "moar"
 pkgver = "1.31.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.versionString=v{pkgver}"]
 hostmakedepends = ["go"]

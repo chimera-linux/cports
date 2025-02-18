@@ -1,0 +1,33 @@
+this never worked anyway due to it using git-describe
+and in go 1.24 it started failing mysteriously with
+errors like
+
+--- FAIL: TestSpecialVars (0.01s)
+    --- FAIL: TestSpecialVars/included:print-task-version#01 (0.06s)
+        task_test.go:256: 
+            	Error Trace:	/builddir/go-task-3.41.0/task_test.go:256
+            	Error:      	Received unexpected error:
+            	            	task: Failed to run task "included:print-task-version": 1:1: "foo(" must be followed by )
+            	Test:       	TestSpecialVars/included:print-task-version#01
+
+probably due to some go api changes
+
+--- a/internal/compiler/compiler.go
++++ b/internal/compiler/compiler.go
+@@ -14,7 +14,6 @@ import (
+ 	"github.com/go-task/task/v3/internal/filepathext"
+ 	"github.com/go-task/task/v3/internal/logger"
+ 	"github.com/go-task/task/v3/internal/templater"
+-	"github.com/go-task/task/v3/internal/version"
+ 	"github.com/go-task/task/v3/taskfile/ast"
+ )
+ 
+@@ -190,7 +189,7 @@ func (c *Compiler) getSpecialVars(t *ast.Task, call *ast.Call) (map[string]strin
+ 		"ROOT_TASKFILE":    filepathext.SmartJoin(c.Dir, c.Entrypoint),
+ 		"ROOT_DIR":         c.Dir,
+ 		"USER_WORKING_DIR": c.UserWorkingDir,
+-		"TASK_VERSION":     version.GetVersion(),
++		"TASK_VERSION":     "unknown",
+ 	}
+ 	if t != nil {
+ 		allVars["TASK"] = t.Task

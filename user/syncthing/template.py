@@ -1,6 +1,6 @@
 pkgname = "syncthing"
 pkgver = "1.29.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/syncthing/syncthing/lib/build.Version=v{pkgver}",
