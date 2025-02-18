@@ -1,6 +1,6 @@
 pkgname = "ifupdown-ng"
 pkgver = "0.12.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_target = "all"
 make_build_args = ["docs"]
