@@ -1,0 +1,187 @@
+commit 53425c3e8d7855355d8c785e09d6c78379ecfebe
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Feb 18 03:34:00 2025 +0100
+
+    revert erms-based memmove support
+    
+    Revert https://github.com/golang/go/commit/601ea46a5308876e4460a1662718a9cd2c6ac2e3
+    
+    This breaks a bunch of stuff using wasm.
+
+diff --git a/src/internal/cpu/cpu.go b/src/internal/cpu/cpu.go
+index cd3db10..2053010 100644
+--- a/src/internal/cpu/cpu.go
++++ b/src/internal/cpu/cpu.go
+@@ -37,7 +37,6 @@ var X86 struct {
+ 	HasBMI1      bool
+ 	HasBMI2      bool
+ 	HasERMS      bool
+-	HasFSRM      bool
+ 	HasFMA       bool
+ 	HasOSXSAVE   bool
+ 	HasPCLMULQDQ bool
+diff --git a/src/internal/cpu/cpu_x86.go b/src/internal/cpu/cpu_x86.go
+index ee81207..2b629d4 100644
+--- a/src/internal/cpu/cpu_x86.go
++++ b/src/internal/cpu/cpu_x86.go
+@@ -40,8 +40,7 @@ const (
+ 	cpuid_SHA      = 1 << 29
+ 	cpuid_AVX512BW = 1 << 30
+ 	cpuid_AVX512VL = 1 << 31
+-	// edx bits
+-	cpuid_FSRM = 1 << 4
++
+ 	// edx bits for CPUID 0x80000001
+ 	cpuid_RDTSCP = 1 << 27
+ )
+@@ -53,7 +52,6 @@ func doinit() {
+ 		{Name: "adx", Feature: &X86.HasADX},
+ 		{Name: "aes", Feature: &X86.HasAES},
+ 		{Name: "erms", Feature: &X86.HasERMS},
+-		{Name: "fsrm", Feature: &X86.HasFSRM},
+ 		{Name: "pclmulqdq", Feature: &X86.HasPCLMULQDQ},
+ 		{Name: "rdtscp", Feature: &X86.HasRDTSCP},
+ 		{Name: "sha", Feature: &X86.HasSHA},
+@@ -139,7 +137,7 @@ func doinit() {
+ 		return
+ 	}
+ 
+-	_, ebx7, _, edx7 := cpuid(7, 0)
++	_, ebx7, _, _ := cpuid(7, 0)
+ 	X86.HasBMI1 = isSet(ebx7, cpuid_BMI1)
+ 	X86.HasAVX2 = isSet(ebx7, cpuid_AVX2) && osSupportsAVX
+ 	X86.HasBMI2 = isSet(ebx7, cpuid_BMI2)
+@@ -153,8 +151,6 @@ func doinit() {
+ 		X86.HasAVX512VL = isSet(ebx7, cpuid_AVX512VL)
+ 	}
+ 
+-	X86.HasFSRM = isSet(edx7, cpuid_FSRM)
+-
+ 	var maxExtendedInformation uint32
+ 	maxExtendedInformation, _, _, _ = cpuid(0x80000000, 0)
+ 
+diff --git a/src/runtime/cpuflags_amd64.go b/src/runtime/cpuflags_amd64.go
+index b6d8c6c..8cca4bc 100644
+--- a/src/runtime/cpuflags_amd64.go
++++ b/src/runtime/cpuflags_amd64.go
+@@ -8,31 +8,17 @@ import (
+ 	"internal/cpu"
+ )
+ 
+-var memmoveBits uint8
++var useAVXmemmove bool
+ 
+-const (
+-	// avxSupported indicates that the CPU supports AVX instructions.
+-	avxSupported = 1 << 0
++func init() {
++	// Let's remove stepping and reserved fields
++	processor := processorVersionInfo & 0x0FFF3FF0
+ 
+-	// repmovsPreferred indicates that REP MOVSx instruction is more
+-	// efficient on the CPU.
+-	repmovsPreferred = 1 << 1
+-)
++	isIntelBridgeFamily := isIntel &&
++		processor == 0x206A0 ||
++		processor == 0x206D0 ||
++		processor == 0x306A0 ||
++		processor == 0x306E0
+ 
+-func init() {
+-	// Here we assume that on modern CPUs with both FSRM and ERMS features,
+-	// copying data blocks of 2KB or larger using the REP MOVSB instruction
+-	// will be more efficient to avoid having to keep up with CPU generations.
+-	// Therefore, we may retain a BlockList mechanism to ensure that microarchitectures
+-	// that do not fit this case may appear in the future.
+-	// We enable it on Intel CPUs first, and we may support more platforms
+-	// in the future.
+-	isERMSNiceCPU := isIntel
+-	useREPMOV := isERMSNiceCPU && cpu.X86.HasERMS && cpu.X86.HasFSRM
+-	if cpu.X86.HasAVX {
+-		memmoveBits |= avxSupported
+-	}
+-	if useREPMOV {
+-		memmoveBits |= repmovsPreferred
+-	}
++	useAVXmemmove = cpu.X86.HasAVX && !isIntelBridgeFamily
+ }
+diff --git a/src/runtime/memmove_amd64.s b/src/runtime/memmove_amd64.s
+index 8883b55..018bb0b 100644
+--- a/src/runtime/memmove_amd64.s
++++ b/src/runtime/memmove_amd64.s
+@@ -72,10 +72,9 @@ tail:
+ 	CMPQ	BX, $256
+ 	JBE	move_129through256
+ 
+-	MOVB	runtime·memmoveBits(SB), AX
+-	// We have AVX but we don't want to use REP MOVSx.
+-	CMPB	AX, $const_avxSupported
+-	JEQ	avxUnaligned
++	TESTB	$1, runtime·useAVXmemmove(SB)
++	JNZ	avxUnaligned
++
+ /*
+  * check and set for backwards
+  */
+@@ -83,23 +82,16 @@ tail:
+ 	JLS	back
+ 
+ /*
+-* forward copy loop
+-*/
++ * forward copy loop
++ */
+ forward:
+-	CMPQ	BX, $2048
+-	JL	check_avx
+-	// REP MOVSx is slow if destination address is unaligned.
+-	TESTQ	$15,DI
+-	JNZ	check_avx
+-	TESTB	$const_repmovsPreferred, AX
+-	JNZ	fwdBy8
+-	// For backward copy, REP MOVSx performs worse than avx.
+-check_avx:
+-	TESTB	$const_avxSupported, AX
+-	JNZ	avxUnaligned
+-
+ 	CMPQ	BX, $2048
+ 	JLS	move_256through2048
++
++	// If REP MOVSB isn't fast, don't use it
++	CMPB	internal∕cpu·X86+const_offsetX86HasERMS(SB), $1 // enhanced REP MOVSB/STOSB
++	JNE	fwdBy8
++
+ 	// Check alignment
+ 	MOVL	SI, AX
+ 	ORL	DI, AX
+@@ -112,16 +104,12 @@ check_avx:
+ 	RET
+ 
+ fwdBy8:
+-	// Loading the last (possibly partially overlapping) word and writing
+-	// it at the end.
+-	MOVQ	-8(SI)(BX*1), AX
+-	LEAQ	-8(DI)(BX*1), DX
+ 	// Do 8 bytes at a time
+-	LEAQ 	-1(BX),CX
++	MOVQ	BX, CX
+ 	SHRQ	$3, CX
++	ANDQ	$7, BX
+ 	REP;	MOVSQ
+-	MOVQ	AX, (DX)
+-	RET
++	JMP	tail
+ 
+ back:
+ /*
+@@ -131,9 +119,6 @@ back:
+ 	ADDQ	BX, CX
+ 	CMPQ	CX, DI
+ 	JLS	forward
+-
+-	TESTB	$const_avxSupported, AX
+-	JNZ	avxUnaligned
+ /*
+  * whole thing backwards has
+  * adjusted addresses
