@@ -1,6 +1,6 @@
 pkgname = "forgejo"
-pkgver = "9.0.3"
-pkgrel = 2
+pkgver = "10.0.1"
+pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
 make_check_target = "test-backend"
@@ -18,7 +18,7 @@ source = [
 ]
 source_paths = [".", "go-sqlite3-patched"]
 sha256 = [
-    "f6da57eb044cf79b1af2335222b53b07fd45196d79aeab6df1ae75bd82af6230",
+    "4e7087e453a703c173ec5367b2cec063e4e595559776abacd24c21bb38807b15",
     "8fa3b0b66914ae2dd4ddef9a954f614c5b3eb6ac9d80ee61ae2d08e3178507ec",
 ]
 # check takes quite a bit
@@ -40,7 +40,7 @@ def prepare(self):
         "mod",
         "edit",
         "-replace",
-        f"github.com/mattn/go-sqlite3@v1.14.22={self.chroot_srcdir / 'go-sqlite3-patched'}",
+        f"github.com/mattn/go-sqlite3@v1.14.24={self.chroot_srcdir / 'go-sqlite3-patched'}",
     )
 
     self.log("installing npm dependencies...")
