@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 06a3995a..f294efb3 100644
+index 78bd19b..5eb3f02 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2546,26 +2546,6 @@ dependencies = [
+@@ -2573,26 +2573,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -29,19 +29,19 @@ index 06a3995a..f294efb3 100644
  [[package]]
  name = "time"
  version = "0.3.37"
-@@ -3497,7 +3477,6 @@ dependencies = [
-  "scopeguard",
+@@ -3485,7 +3465,6 @@ dependencies = [
   "signal-hook-tokio",
   "syntect",
+  "textwrap",
 - "tikv-jemallocator",
   "tokio",
   "tokio-stream",
   "tracing",
 diff --git a/yazi-fm/Cargo.toml b/yazi-fm/Cargo.toml
-index 30ecdf17..3276b41d 100644
+index b09e9a1..cdb08ea 100644
 --- a/yazi-fm/Cargo.toml
 +++ b/yazi-fm/Cargo.toml
-@@ -50,9 +50,6 @@ signal-hook-tokio = { version = "0.3.1", features = [ "futures-v0_3" ] }
+@@ -52,9 +52,6 @@ signal-hook-tokio = { version = "0.3.1", features = [ "futures-v0_3" ] }
  [target.'cfg(target_os = "macos")'.dependencies]
  crossterm = { workspace = true, features = [ "use-dev-tty", "libc" ] }
  
@@ -52,7 +52,7 @@ index 30ecdf17..3276b41d 100644
  name = "yazi"
  path = "src/main.rs"
 diff --git a/yazi-fm/src/main.rs b/yazi-fm/src/main.rs
-index 7d8c4e42..28d4bef2 100644
+index 96d8bff..df510ce 100644
 --- a/yazi-fm/src/main.rs
 +++ b/yazi-fm/src/main.rs
 @@ -1,10 +1,6 @@
