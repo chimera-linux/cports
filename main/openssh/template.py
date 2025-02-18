@@ -1,6 +1,6 @@
 pkgname = "openssh"
-pkgver = "9.9_p1"
-pkgrel = 1
+pkgver = "9.9_p2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--datadir=/usr/share/openssh",
@@ -31,9 +31,9 @@ hostmakedepends = [
 ]
 makedepends = [
     "heimdal-devel",
+    "ldns-devel",
     "libedit-devel",
     "libfido2-devel",
-    "libldns-devel",
     "linux-pam-devel",
     "openssl3-devel",
     "zlib-ng-compat-devel",
@@ -43,7 +43,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-{pkgver.replace('_', '')}.tar.gz"
-sha256 = "b343fbcdbff87f15b1986e6e15d6d4fc9a7d36066be6b7fb507087ba8f966c02"
+sha256 = "91aadb603e08cc285eddf965e1199d02585fa94d994d6cae5b41e1721e215673"
 file_modes = {"usr/libexec/ssh-keysign": ("root", "root", 0o4755)}
 # CFI: does not work; maybe make testsuite work first
 hardening = ["vis", "!cfi"]
