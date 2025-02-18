@@ -1,5 +1,5 @@
 pkgname = "oxipng"
-pkgver = "9.1.3"
+pkgver = "9.1.4"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/shssoichiro/oxipng"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5f34bc3a9eba661a686106261720061b1136301ccd67cc653c9c70d71fa33c09"
+sha256 = "90c5e32c556c49e8fb2170f281586e87f7619fd574b4ccf1bc76e2f6819bba77"
 
 
 def post_extract(self):
