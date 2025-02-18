@@ -2,7 +2,7 @@ pkgname = "libbs2b"
 pkgver = "3.1.0"
 pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libsndfile-devel"]
 pkgdesc = "Bauer stereophonic-to-binaural DSP"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("libbs2b-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

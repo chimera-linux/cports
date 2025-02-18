@@ -3,7 +3,8 @@ pkgver = "1.3.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-optimizations", "--disable-bdjava-jar"]
-hostmakedepends = ["pkgconf"]
+# slibtool breaks dlfcn.h check
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["libxml2-devel", "fontconfig-devel"]
 pkgdesc = "Library for Blu-Ray disk playback"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -21,6 +22,3 @@ def _(self):
 @subpackage("libbluray-progs")
 def _(self):
     return self.default_progs()
-
-
-configure_gen = []

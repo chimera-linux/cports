@@ -3,7 +3,7 @@ pkgver = "2.8.8"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."  # fails tests otherwise
-hostmakedepends = ["pkgconf", "perl", "gawk"]
+hostmakedepends = ["automake", "pkgconf", "perl", "gawk", "libtool"]
 checkdepends = ["bash"]
 pkgdesc = "Hyphenation library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -26,6 +26,3 @@ def _(self):
 @subpackage("hyphen-progs")
 def _(self):
     return self.default_progs()
-
-
-configure_gen = []

@@ -3,7 +3,7 @@ pkgver = "0.99_beta20"
 pkgrel = 2
 build_style = "gnu_configure"
 make_dir = "."
-hostmakedepends = ["pkgconf", "python"]
+hostmakedepends = ["automake", "pkgconf", "python", "slibtool"]
 makedepends = ["ncurses-devel", "imlib2-devel", "libx11-devel"]
 pkgdesc = "Graphics library that outputs text instead of pixels"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -36,6 +36,3 @@ def _(self):
 @subpackage("libcaca-progs")
 def _(self):
     return self.default_progs()
-
-
-configure_gen = []

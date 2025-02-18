@@ -1,28 +1,9 @@
-commit edbd3120512386426cc1e241eb4cbaf6350a8926
-Author: q66 <q66@chimera-linux.org>
-Date:   Wed Jan 19 03:10:35 2022 +0100
-
-    fix up version so .pc files are apk compatible
-
-diff --git a/configure b/configure
-index 4973e5d..d0993a9 100755
---- a/configure
-+++ b/configure
-@@ -618,7 +618,7 @@ MAKEFLAGS=
- # Identity of this package.
- PACKAGE_NAME='libcaca'
- PACKAGE_TARNAME='libcaca'
--PACKAGE_VERSION='0.99.beta20'
-+PACKAGE_VERSION='0.99_beta20'
- PACKAGE_STRING='libcaca 0.99.beta20'
- PACKAGE_BUGREPORT=''
- PACKAGE_URL=''
-@@ -3719,7 +3719,7 @@ fi
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,5 +1,5 @@
  
- # Define the identity of the package.
-  PACKAGE='libcaca'
-- VERSION='0.99.beta20'
-+ VERSION='0.99_beta20'
- 
- 
- # Some tools Automake needs.
+-AC_INIT([libcaca],[0.99.beta20])
++AC_INIT([libcaca],[0.99_beta20])
+ AC_PREREQ([2.71])
+ AC_CONFIG_AUX_DIR(.auto)
+ AC_CANONICAL_TARGET

@@ -2,7 +2,7 @@ pkgname = "jansson"
 pkgver = "2.14"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Library for encoding, decoding and manipulating JSON data"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -18,6 +18,3 @@ def post_install(self):
 @subpackage("jansson-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

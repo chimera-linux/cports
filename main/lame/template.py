@@ -3,6 +3,8 @@ pkgver = "3.100"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-nasm", "--enable-shared"]
+# broken m4
+configure_gen = []
 hostmakedepends = ["nasm"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Fast, high quality MP3 encoder"
@@ -17,6 +19,3 @@ options = ["linkundefver"]
 @subpackage("lame-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

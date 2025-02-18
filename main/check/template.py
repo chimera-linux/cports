@@ -3,7 +3,7 @@ pkgver = "0.15.2"
 pkgrel = 0
 build_style = "gnu_configure"
 make_check_args = ["-j1"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Unit testing framework for C"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
@@ -18,6 +18,3 @@ options = ["!check"]
 @subpackage("check-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []
