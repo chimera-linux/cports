@@ -1,5 +1,5 @@
 pkgname = "kwin"
-pkgver = "6.3.0"
+pkgver = "6.3.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -16,6 +16,7 @@ make_check_args = [
     + "|kwin-testDontCrashGlxgears"  # ??
     + "|kwin-testLockScreen"  # needs applications.menu from plasma-workspace
     + "|kwin-testX11Window"  # ??
+    + "|kwin-testInputCapture"  # broken since libei 1.4
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
@@ -99,7 +100,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-{pkgver}.tar.xz"
-sha256 = "1ad978fc52b21bfdd218843554a015b24689e0c04904d1cb00e2e4afca4f4af4"
+sha256 = "9a50ba0eaa6209783bdefbb668e57d0cbdfa71ce8ebfbd17fe446db6d773f242"
 file_modes = {
     "usr/bin/kwin_wayland": ("root", "root", 0o755),
 }

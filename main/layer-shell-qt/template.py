@@ -1,5 +1,5 @@
 pkgname = "layer-shell-qt"
-pkgver = "6.3.0"
+pkgver = "6.3.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/layer-shell-qt/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/layer-shell-qt-{pkgver}.tar.xz"
-sha256 = "a0988a12a23664cfe357b0070d3d8caecea3b08882ee52086a5a4e34b885d443"
+sha256 = "8e19ea265cbba4b010e2d4997140e0c9a0bbb5a11b50accc8bd4338e7af7e97f"
 hardening = ["vis"]
 
 
