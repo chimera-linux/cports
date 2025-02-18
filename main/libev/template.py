@@ -2,6 +2,7 @@ pkgname = "libev"
 pkgver = "4.33"
 pkgrel = 0
 build_style = "gnu_configure"
+hostmakedepends = ["automake", "slibtool"]
 pkgdesc = "High-performance event loop loosely modelled after libevent"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause OR GPL-2.0-or-later"
@@ -19,6 +20,3 @@ def post_install(self):
 @subpackage("libev-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

@@ -2,6 +2,8 @@ pkgname = "libthai"
 pkgver = "0.1.29"
 pkgrel = 0
 build_style = "gnu_configure"
+# fails to regen
+configure_gen = []
 make_install_args = ["-j1"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["libdatrie-devel"]
@@ -19,6 +21,3 @@ if self.profile().cross:
 @subpackage("libthai-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

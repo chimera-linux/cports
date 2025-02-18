@@ -2,6 +2,8 @@ pkgname = "libmypaint"
 pkgver = "1.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
+# fails to regen
+configure_gen = []
 hostmakedepends = [
     "glib-devel",
     "gobject-introspection",
@@ -24,6 +26,3 @@ def post_install(self):
 @subpackage("libmypaint-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

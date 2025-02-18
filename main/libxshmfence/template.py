@@ -3,7 +3,7 @@ pkgver = "1.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-futex", "--with-shared-memory-dir=/dev/shm"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "linux-headers"]
 pkgdesc = "X SyncFence synchronization primitive"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -20,6 +20,3 @@ def post_install(self):
 @subpackage("libxshmfence-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

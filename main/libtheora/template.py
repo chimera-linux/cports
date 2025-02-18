@@ -7,6 +7,8 @@ configure_args = [
     "--disable-vorbistest",
     "--disable-sdltest",
 ]
+# fails to regen
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["libogg-devel"]
 pkgdesc = "Theora video compression codec"
@@ -26,6 +28,3 @@ def post_install(self):
 @subpackage("libtheora-devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])
-
-
-configure_gen = []

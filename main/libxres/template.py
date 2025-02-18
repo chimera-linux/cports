@@ -3,7 +3,7 @@ pkgver = "1.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libxext-devel"]
 pkgdesc = "X extension library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -20,6 +20,3 @@ def post_install(self):
 @subpackage("libxres-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

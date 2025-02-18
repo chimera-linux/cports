@@ -8,7 +8,7 @@ configure_args = [
     "--with-pcap=linux",
     "--enable-usb",
 ]
-hostmakedepends = ["pkgconf", "flex"]
+hostmakedepends = ["automake", "pkgconf", "flex", "slibtool"]
 makedepends = ["libnl-devel", "libusb-devel", "linux-headers"]
 pkgdesc = "System-independent interface for user-level packet capture"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -43,6 +43,3 @@ def _(self):
     self.depends += ["libnl-devel"]
 
     return self.default_devel(man="357")
-
-
-configure_gen = []

@@ -2,7 +2,7 @@ pkgname = "libmnl"
 pkgver = "1.0.5"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["linux-headers"]
 checkdepends = ["musl-bsd-headers"]
 pkgdesc = "Minimalistic user-space library oriented to Netlink developers"
@@ -18,6 +18,3 @@ hardening = ["vis", "!cfi"]
 @subpackage("libmnl-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

@@ -6,7 +6,7 @@ configure_args = ["--enable-nss"]
 # bashisms in configure script
 configure_env = {"CONFIG_SHELL": "/usr/bin/bash"}
 make_dir = "."  # tests broken otherwise
-hostmakedepends = ["pkgconf", "bash"]
+hostmakedepends = ["automake", "bash", "pkgconf", "slibtool"]
 makedepends = ["curl-devel", "nss-devel"]
 pkgdesc = "C implementation of the OAuth protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -23,6 +23,3 @@ def post_install(self):
 @subpackage("liboauth-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

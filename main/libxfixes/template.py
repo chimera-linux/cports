@@ -2,7 +2,7 @@ pkgname = "libxfixes"
 pkgver = "6.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libx11-devel"]
 pkgdesc = "Xfixes library and extension of X RandR"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("libxfixes-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

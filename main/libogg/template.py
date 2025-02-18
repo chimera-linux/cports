@@ -2,7 +2,7 @@ pkgname = "libogg"
 pkgver = "1.3.5"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Ogg bitstream file format library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -20,6 +20,3 @@ def post_install(self):
 @subpackage("libogg-devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])
-
-
-configure_gen = []

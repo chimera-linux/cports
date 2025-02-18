@@ -3,7 +3,7 @@ pkgver = "1.0.13"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libx11-devel", "libxext-devel"]
 pkgdesc = "Xv extension library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -20,6 +20,3 @@ def post_install(self):
 @subpackage("libxv-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

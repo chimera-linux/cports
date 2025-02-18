@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 make_dir = "."  # ftbfs
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["ghostscript-devel"]
 checkdepends = ["cairo-devel"]
 pkgdesc = "Small library for rendering PostScript documents"
@@ -21,6 +21,3 @@ hardening = ["vis", "cfi"]
 @subpackage("libspectre-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

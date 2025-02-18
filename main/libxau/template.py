@@ -2,7 +2,7 @@ pkgname = "libxau"
 pkgver = "1.0.12"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto"]
 pkgdesc = "Authorization Protocol for X"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("libxau-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

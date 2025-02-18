@@ -3,7 +3,13 @@ pkgver = "3.5.17"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-open-zfile"]
-hostmakedepends = ["pkgconf", "gettext"]
+hostmakedepends = [
+    "automake",
+    "gettext",
+    "pkgconf",
+    "slibtool",
+    "xorg-util-macros",
+]
 makedepends = ["xorgproto", "libsm-devel", "libxext-devel", "libxt-devel"]
 pkgdesc = "X PixMap library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -20,6 +26,3 @@ def post_install(self):
 @subpackage("libxpm-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

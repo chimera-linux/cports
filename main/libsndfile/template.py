@@ -2,7 +2,7 @@ pkgname = "libsndfile"
 pkgver = "1.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf", "python"]
+hostmakedepends = ["automake", "pkgconf", "python", "slibtool"]
 # FIXME: mpg123 is cyclic (pipewire->sbc->sndfile)
 makedepends = [
     "libvorbis-devel",
@@ -28,6 +28,3 @@ def _(self):
 @subpackage("libsndfile-devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])
-
-
-configure_gen = []

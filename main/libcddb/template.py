@@ -2,7 +2,7 @@ pkgname = "libcddb"
 pkgver = "1.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "gettext-devel", "pkgconf", "slibtool"]
 pkgdesc = "Library to access data on a CDDB server"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
@@ -21,6 +21,3 @@ def _(self):
 @subpackage("libcddb-progs")
 def _(self):
     return self.default_progs()
-
-
-configure_gen = []

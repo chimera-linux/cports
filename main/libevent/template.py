@@ -2,6 +2,8 @@ pkgname = "libevent"
 pkgver = "2.1.12"
 pkgrel = 0
 build_style = "gnu_configure"
+# regenerated configure gets stuck
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["openssl3-devel"]
 pkgdesc = "Abstract asynchronous event notification library"
@@ -22,6 +24,3 @@ def post_install(self):
 @subpackage("libevent-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

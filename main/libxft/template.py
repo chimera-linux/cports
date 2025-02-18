@@ -2,7 +2,7 @@ pkgname = "libxft"
 pkgver = "2.3.8"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = [
     "xorgproto",
     "libxrender-devel",
@@ -26,6 +26,3 @@ def post_install(self):
 @subpackage("libxft-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

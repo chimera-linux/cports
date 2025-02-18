@@ -2,7 +2,7 @@ pkgname = "libxcomposite"
 pkgver = "0.4.6"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libxfixes-devel"]
 pkgdesc = "X Composite library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("libxcomposite-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []
