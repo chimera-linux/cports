@@ -14,9 +14,7 @@ pkgdesc = "Simple and elegant implementation of an actor library in C"
 maintainer = "Anthony <w732qq@gmail.com>"
 license = "MIT"
 url = "https://github.com/FedeDP/libmodule"
-source = (
-    f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-)
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "35506360272cb13c0a09f17db6f716cf1c3e9fe40ac1bd574e4dc67916f7ca0a"
 
 
