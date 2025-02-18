@@ -1,6 +1,6 @@
 pkgname = "go-bootstrap"
-pkgver = "1.22.4"
-pkgrel = 1
+pkgver = "1.23.6"
+pkgrel = 0
 # just in case
 depends = ["!go"]
 pkgdesc = "Go programming language bootstrap toolchain"
@@ -12,24 +12,24 @@ options = ["!strip", "!scanrundeps", "!lintstatic", "foreignelf", "execstack"]
 match self.profile().goarch:
     case "arm64":
         sha256 = (
-            "cc3bb22dab758904e4433dc41ba834ea4592ae9a49842cd146dac74f349cbd81"
+            "e13364ae0ba9545ee0af7120c902bffb8c3749ffb9ef4ed1b46a9a589b8c4e70"
         )
     case "ppc64le":
         sha256 = (
-            "2adec370003b542ff4b73f7a647b4fa4a1b8234751619e5386b148f7b38393ef"
+            "c71193824401538ef41cd981b1cf77710b7a35e25c3bad32304e692d365a0d59"
         )
     case "riscv64":
         sha256 = (
-            "ff3899e7e17049204e1a8e2fe88bcb3f80c850f95e846ec6a6ef204cdfdff9e5"
+            "f5897db05a93e196f4b7abdfd75931a118a1850532b7b6473ddc9fc6da7b8774"
         )
     case "amd64":
         sha256 = (
-            "289d3bb8b3ff23df4cc346dd88967ff7aa1d2ca7a5aaaadfb0433df8cb2f75de"
+            "dcadf4d5ac3a7d812538f958509f4a45ef3244b1bae22f8bf5eeea4e3e029fb8"
         )
     case _:
         broken = f"not yet built for {self.profile().arch}"
 
-source = f"https://repo.chimera-linux.org/distfiles/go-bootstrap-{pkgver}-{self.profile().goarch or ''}.tar.xz"
+source = f"https://repo.chimera-linux.org/distfiles/go-bootstrap-{pkgver}-{self.profile().goarch or ''}.tar.zst"
 
 
 def install(self):
