@@ -3,6 +3,7 @@ pkgver = "5.40.1"
 pkgrel = 0
 _perl_cross_ver = "1.6"
 build_style = "gnu_configure"
+configure_gen = []
 make_dir = "."
 make_check_target = "test"
 make_check_env = {"PERL_BUILD_PACKAGING": "1"}
@@ -141,6 +142,3 @@ def post_install(self):
     hf = self.destdir / "usr/bin/perlthanks"
     hf.unlink()
     hf.symlink_to("perlbug")
-
-
-configure_gen = []

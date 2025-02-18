@@ -19,7 +19,7 @@ configure_args = [
     "--enable-xim",
     "--disable-perl",
 ]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "fontconfig-devel",
     "gdk-pixbuf-devel",
@@ -68,6 +68,3 @@ def _(self):
     self.subdesc = "terminfo data"
 
     return ["usr/share/terminfo"]
-
-
-configure_gen = []

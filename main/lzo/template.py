@@ -3,7 +3,7 @@ pkgver = "2.10"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-shared"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Portable lossless data compression library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("lzo-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

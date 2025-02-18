@@ -2,7 +2,7 @@ pkgname = "transset"
 pkgver = "1.0.4"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libxt-devel"]
 pkgdesc = "Sets the transparency of an X window"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,6 +15,3 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []

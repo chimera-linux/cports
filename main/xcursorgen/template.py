@@ -2,7 +2,7 @@ pkgname = "xcursorgen"
 pkgver = "1.0.8"
 pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = [
     "libx11-devel",
     "libxcursor-devel",
@@ -21,6 +21,3 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []

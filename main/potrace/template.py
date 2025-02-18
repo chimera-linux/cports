@@ -3,7 +3,7 @@ pkgver = "1.16"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-libpotrace"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Bitmap to vector tracer"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,6 +16,3 @@ sha256 = "be8248a17dedd6ccbaab2fcc45835bb0502d062e40fbded3bc56028ce5eb7acc"
 @subpackage("potrace-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

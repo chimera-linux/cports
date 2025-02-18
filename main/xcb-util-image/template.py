@@ -2,7 +2,7 @@ pkgname = "xcb-util-image"
 pkgver = "0.4.1"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xcb-util-devel"]
 pkgdesc = "XCB utilities library - XImage and XShmImage"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("xcb-util-image-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

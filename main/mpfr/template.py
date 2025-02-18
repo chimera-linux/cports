@@ -3,7 +3,7 @@ pkgver = "4.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-thread-safe"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "texinfo"]
 makedepends = ["gmp-devel"]
 pkgdesc = "Library for multiple-precision floating-point computations"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -18,6 +18,3 @@ def _(self):
     self.depends += ["gmp-devel"]
 
     return self.default_devel()
-
-
-configure_gen = []

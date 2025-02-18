@@ -1,10 +1,12 @@
 pkgname = "raptor"
 pkgver = "2.0.16"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 configure_args = ["--with-yajl=no"]
+# fails tests when regen
+configure_gen = []
 make_check_args = ["-j1"]  # racey tests
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "curl-devel",
     "libxml2-devel",
@@ -32,6 +34,3 @@ def _(self):
 @subpackage("raptor-progs")
 def _(self):
     return self.default_progs()
-
-
-configure_gen = []

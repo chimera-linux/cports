@@ -2,7 +2,7 @@ pkgname = "xkill"
 pkgver = "1.0.6"
 pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libx11-devel", "libxmu-devel"]
 pkgdesc = "Kill an X client by its X resource"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,6 +15,3 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []

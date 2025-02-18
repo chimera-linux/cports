@@ -2,7 +2,7 @@ pkgname = "xset"
 pkgver = "1.2.5"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = [
     "libxmu-devel",
     "libxext-devel",
@@ -22,6 +22,3 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []

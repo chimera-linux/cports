@@ -3,7 +3,7 @@ pkgver = "0.12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["lf_cv_sane_realloc=yes", "lf_cv_sane_malloc=yes"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libx11-devel", "libsm-devel", "xcb-util-devel"]
 pkgdesc = "Library for tracking application startup"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -18,6 +18,3 @@ options = ["!check"]
 @subpackage("startup-notification-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

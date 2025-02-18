@@ -2,7 +2,13 @@ pkgname = "xcb-util"
 pkgver = "0.4.1"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf", "gperf"]
+hostmakedepends = [
+    "automake",
+    "gperf",
+    "pkgconf",
+    "slibtool",
+    "xorg-util-macros",
+]
 makedepends = ["libxcb-devel"]
 pkgdesc = "XCB utilities library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +25,3 @@ def post_install(self):
 @subpackage("xcb-util-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

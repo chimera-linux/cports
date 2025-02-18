@@ -2,7 +2,7 @@ pkgname = "xvinfo"
 pkgver = "1.1.5"
 pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libxv-devel"]
 pkgdesc = "X video capabilities query utility"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,6 +15,3 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []

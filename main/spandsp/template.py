@@ -3,7 +3,7 @@ pkgver = "0.0.6"
 pkgrel = 0
 build_style = "gnu_configure"
 make_install_args = ["-j1"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libtiff-devel", "libjpeg-turbo-devel"]
 pkgdesc = "Low-level signal processing library for telephony"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,3 @@ def _(self):
     self.depends += ["libtiff-devel"]
 
     return self.default_devel()
-
-
-configure_gen = []

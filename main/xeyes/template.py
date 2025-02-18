@@ -2,7 +2,7 @@ pkgname = "xeyes"
 pkgver = "1.3.0"
 pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf", "xorg-util-macros"]
+hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libxmu-devel", "libxt-devel", "libxrender-devel", "libxi-devel"]
 pkgdesc = "Follow the mouse"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,6 +15,3 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []

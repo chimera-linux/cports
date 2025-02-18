@@ -2,6 +2,7 @@ pkgname = "slang"
 pkgver = "2.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = []
 make_dir = "."
 hostmakedepends = ["pkgconf"]
 pkgdesc = "S-Lang programming library"
@@ -37,6 +38,3 @@ def post_install(self):
 @subpackage("slang-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

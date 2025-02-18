@@ -2,7 +2,7 @@ pkgname = "xcb-util-wm"
 pkgver = "0.4.2"
 pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf", "xorg-util-macros"]
+hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xcb-util-devel"]
 pkgdesc = "XCB utilities library - window manager helpers for ICCCM"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("xcb-util-wm-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

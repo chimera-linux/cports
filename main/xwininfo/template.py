@@ -2,7 +2,7 @@ pkgname = "xwininfo"
 pkgver = "1.1.6"
 pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "gettext-devel", "pkgconf", "xorg-util-macros"]
 makedepends = ["libx11-devel"]
 pkgdesc = "Query information about X windows"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,6 +15,3 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []

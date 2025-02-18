@@ -2,7 +2,7 @@ pkgname = "mpc"
 pkgver = "1.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["gmp-devel", "mpfr-devel"]
 pkgdesc = "C library for complex numbers"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -17,6 +17,3 @@ def _(self):
     self.depends += makedepends
 
     return self.default_devel(extra=["usr/share"])
-
-
-configure_gen = []

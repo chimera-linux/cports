@@ -2,6 +2,7 @@ pkgname = "sound-theme-freedesktop"
 pkgver = "0.8"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Freedesktop sound theme"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -20,6 +21,3 @@ def pre_build(self):
 
 def post_install(self):
     self.install_license("CREDITS")
-
-
-configure_gen = []

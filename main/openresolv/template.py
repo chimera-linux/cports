@@ -2,6 +2,7 @@ pkgname = "openresolv"
 pkgver = "3.13.2"
 pkgrel = 2
 build_style = "gnu_configure"
+configure_gen = []
 configure_args = ["--libexecdir=/usr/libexec/resolvconf"]
 make_dir = "."
 pkgdesc = "Management framework for resolv.conf"
@@ -20,6 +21,3 @@ def post_install(self):
     # rename
     self.rename("usr/bin/resolvconf", "resolvconf-openresolv")
     self.rename("usr/share/man/man8/resolvconf.8", "resolvconf-openresolv.8")
-
-
-configure_gen = []

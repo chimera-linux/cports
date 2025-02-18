@@ -4,7 +4,8 @@ pkgver = "20200702"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-static", "--enable-shared"]
-hostmakedepends = ["pkgconf", "nasm", "perl", "bash"]
+configure_gen = []
+hostmakedepends = ["bash", "nasm", "perl", "pkgconf"]
 makedepends = ["fontconfig-devel", "fribidi-devel", "harfbuzz-devel"]
 pkgdesc = "Free library for encoding H264/AVC video streams"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -35,6 +36,3 @@ match self.profile().endian:
 @subpackage("x264-devel")
 def _(self):
     return self.default_devel()
-
-
-configure_gen = []

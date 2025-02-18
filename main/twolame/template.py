@@ -2,7 +2,7 @@ pkgname = "twolame"
 pkgver = "0.4.0"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libsndfile-devel"]
 checkdepends = ["perl"]
 pkgdesc = "Optimized MPEG Audio Layer 2 encoder"
@@ -16,6 +16,3 @@ sha256 = "cc35424f6019a88c6f52570b63e1baf50f62963a3eac52a03a800bb070d7c87d"
 @subpackage("twolame-devel")
 def _(self):
     return self.default_devel(extra=["usr/share/doc"])
-
-
-configure_gen = []
