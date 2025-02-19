@@ -1,7 +1,6 @@
 pkgname = "postgresql16"
-_major = pkgname.removeprefix("postgresql")
-pkgver = f"{_major}.6"
-pkgrel = 1
+pkgver = "16.7"
+pkgrel = 0
 # NOTE: version 16 doesn't work with meson + tarball
 # switch to meson for version 17
 build_style = "gnu_configure"
@@ -41,14 +40,14 @@ makedepends = [
 ]
 depends = ["postgresql-common", "tzdb"]
 provides = ["postgresql-runtime"]
-pkgdesc = f"Sophisticated object-relational DBMS, version {_major}.x"
+pkgdesc = "Sophisticated object-relational DBMS, version 16.x"
 maintainer = "mia <mia@mia.jetzt>"
 license = "PostgreSQL"
 url = "https://www.postgresql.org"
 source = [
     f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
 ]
-sha256 = ["23369cdaccd45270ac5dcc30fa9da205d5be33fa505e1f17a0418d2caeca477b"]
+sha256 = ["62e02f77ebfc4a37f1700c20cc3ccd85ff797b5613766ebf949a7899bb2113fe"]
 # checks depend on libpq already being installed
 options = ["!check"]
 
