@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.21.3"
-pkgrel = 1
+pkgver = "4.21.4"
+pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -96,7 +96,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/samba-{pkgver}.tar.gz"
-sha256 = "ae2179a613e7a5d4088735ab100d4ca1cae0f92374d6307e22eaec13ad90125c"
+sha256 = "50acf030db0ce6be1ee8a6c3a7636e54576c60a7f814e64becfa840f7b30eced"
 tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"]}
 env = {"PYTHONHASHSEED": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
