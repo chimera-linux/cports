@@ -1,6 +1,6 @@
 pkgname = "talloc"
-pkgver = "2.4.2"
-pkgrel = 1
+pkgver = "2.4.3"
+pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://talloc.samba.org"
 source = f"https://download.samba.org/pub/talloc/talloc-{pkgver}.tar.gz"
-sha256 = "85ecf9e465e20f98f9950a52e9a411e14320bc555fa257d87697b7e7a9b1d8a6"
+sha256 = "dc46c40b9f46bb34dd97fe41f548b0e8b247b77a918576733c528e83abd854dd"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 hardening = ["vis", "!cfi"]
