@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-cli"
 # match to tree-sitter
-pkgver = "0.24.7"
+pkgver = "0.25.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["-p", "tree-sitter-cli"]
@@ -12,7 +12,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://tree-sitter.github.io/tree-sitter"
 source = f"https://github.com/tree-sitter/tree-sitter/archive/v{pkgver}.tar.gz"
-sha256 = "7cbc13c974d6abe978cafc9da12d1e79e07e365c42af75e43ec1b5cdc03ed447"
+sha256 = "26791f69182192fef179cd58501c3226011158823557a86fe42682cb4a138523"
 # requires fetching fixtures
 options = ["!check"]
 
