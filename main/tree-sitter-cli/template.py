@@ -1,7 +1,7 @@
 pkgname = "tree-sitter-cli"
 # match to tree-sitter
 pkgver = "0.25.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = ["-p", "tree-sitter-cli"]
 make_check_args = [*make_build_args]
@@ -19,6 +19,12 @@ options = ["!check"]
 if self.profile().arch in ["aarch64", "x86_64"]:
     make_build_args += ["--features", "wasm"]
     make_check_args += ["--features", "wasm"]
+
+
+def post_prepare(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "cc")
 
 
 def install(self):
