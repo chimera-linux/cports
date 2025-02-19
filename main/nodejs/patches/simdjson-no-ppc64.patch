@@ -1,0 +1,24 @@
+the altivec code uses vsx, disable it
+
+--- a/deps/simdjson/simdjson.cpp
++++ b/deps/simdjson/simdjson.cpp
+@@ -156,7 +156,7 @@ using std::size_t;
+ #define SIMDJSON_IS_LOONGARCH64 1
+ #elif defined(__PPC64__) || defined(_M_PPC64)
+ #define SIMDJSON_IS_PPC64 1
+-#if defined(__ALTIVEC__)
++#if defined(__ALTIVEC__) && !defined(__BIG_ENDIAN__)
+ #define SIMDJSON_IS_PPC64_VMX 1
+ #endif // defined(__ALTIVEC__)
+ #else
+--- a/deps/simdjson/simdjson.h
++++ b/deps/simdjson/simdjson.h
+@@ -176,7 +176,7 @@ using std::size_t;
+ #define SIMDJSON_IS_LOONGARCH64 1
+ #elif defined(__PPC64__) || defined(_M_PPC64)
+ #define SIMDJSON_IS_PPC64 1
+-#if defined(__ALTIVEC__)
++#if defined(__ALTIVEC__) && !defined(__BIG_ENDIAN__)
+ #define SIMDJSON_IS_PPC64_VMX 1
+ #endif // defined(__ALTIVEC__)
+ #else
