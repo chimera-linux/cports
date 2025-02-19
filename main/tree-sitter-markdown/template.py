@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-markdown"
 pkgver = "0.2.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [
@@ -35,7 +35,7 @@ def post_install(self):
         "../libtree-sitter-markdown.so.0",
     )
     self.install_link(
-        "usr/lib/tree-sitter/inline_markdown.so",
+        "usr/lib/tree-sitter/markdown_inline.so",
         "../libtree-sitter-markdown-inline.so.0",
     )
 
