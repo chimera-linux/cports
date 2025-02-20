@@ -1,5 +1,5 @@
 pkgname = "libxml2"
-pkgver = "2.13.5"
+pkgver = "2.13.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,9 +12,9 @@ configure_args = [
 ]
 hostmakedepends = [
     "automake",
-    "libtool",
     "pkgconf",
     "python-devel",
+    "slibtool",
 ]
 makedepends = [
     "icu-devel",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.xmlsoft.org"
 source = f"$(GNOME_SITE)/libxml2/{pkgver[: pkgver.rfind('.')]}/libxml2-{pkgver}.tar.xz"
-sha256 = "74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6"
+sha256 = "f453480307524968f7a04ec65e64f2a83a825973bcd260a2e7691be82ae70c96"
 
 
 def post_install(self):
