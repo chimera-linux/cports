@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/poweralertd
+log-type = buffer
+depends-on: dbus
