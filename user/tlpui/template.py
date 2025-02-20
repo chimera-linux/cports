@@ -1,5 +1,5 @@
 pkgname = "tlpui"
-pkgver = "1.7.1"
+pkgver = "1.8.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -20,4 +20,4 @@ maintainer = "Guilhem Baccialone <guilhem.baccialone@zaclys.net>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/d4nj1/TLPUI"
 source = f"{url}/archive/refs/tags/tlpui-{pkgver}.tar.gz"
-sha256 = "3d94beeb34c6b89ea80e01263a5b0535421c925181782bc50c702957b4393924"
+sha256 = "3c1f10ac4a7bbc6041c7e57875457b916f8b312c2988c217bf9d60a19ec636ce"
