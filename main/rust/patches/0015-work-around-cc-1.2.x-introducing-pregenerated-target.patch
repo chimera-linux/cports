@@ -1,0 +1,289 @@
+From ab75cb94b1451483241cc7ef05570e8d4ad048e4 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 20 Feb 2025 21:30:56 +0100
+Subject: [PATCH 15/15] work around cc-1.2.x introducing pregenerated target
+ table garbage
+
+Without this, stuff complains about missing targets.
+---
+ vendor/cc-1.2.0/src/target/generated.rs | 84 +++++++++++++++++++++++++
+ vendor/cc-1.2.6/src/target/generated.rs | 84 +++++++++++++++++++++++++
+ 2 files changed, 168 insertions(+)
+
+diff --git a/vendor/cc-1.2.0/src/target/generated.rs b/vendor/cc-1.2.0/src/target/generated.rs
+index 0c9b0ae1a..254ef8dea 100644
+--- a/vendor/cc-1.2.0/src/target/generated.rs
++++ b/vendor/cc-1.2.0/src/target/generated.rs
+@@ -124,6 +124,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "arm64-apple-watchos-simulator",
+         },
+     ),
++    (
++        "aarch64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "aarch64",
++            arch: "aarch64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "aarch64-chimera-linux-musl",
++        },
++    ),
+     (
+         "aarch64-fuchsia",
+         TargetInfo {
+@@ -1408,6 +1420,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "i686-unknown-linux-gnu",
+         },
+     ),
++    (
++        "loongarch64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "loongarch64",
++            arch: "loongarch64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "loongarch64-chimera-linux-musl",
++        },
++    ),
+     (
+         "loongarch64-unknown-linux-gnu",
+         TargetInfo {
+@@ -1732,6 +1756,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "nvptx64-nvidia-cuda",
+         },
+     ),
++    (
++        "powerpc-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "powerpc",
++            arch: "powerpc",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "powerpc-chimera-linux-musl",
++        },
++    ),
+     (
+         "powerpc-unknown-freebsd",
+         TargetInfo {
+@@ -1840,6 +1876,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "powerpc-unknown-linux-gnuspe",
+         },
+     ),
++    (
++        "powerpc64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "powerpc64",
++            arch: "powerpc64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "powerpc64-chimera-linux-musl",
++        },
++    ),
+     (
+         "powerpc64-ibm-aix",
+         TargetInfo {
+@@ -1912,6 +1960,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "powerpc64-unknown-linux-gnu",
+         },
+     ),
++    (
++        "powerpc64le-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "powerpc64le",
++            arch: "powerpc64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "powerpc64le-chimera-linux-musl",
++        },
++    ),
+     (
+         "powerpc64le-unknown-freebsd",
+         TargetInfo {
+@@ -2188,6 +2248,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "riscv32",
+         },
+     ),
++    (
++        "riscv64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "riscv64",
++            arch: "riscv64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "riscv64-chimera-linux-musl",
++        },
++    ),
+     (
+         "riscv64-linux-android",
+         TargetInfo {
+@@ -2848,6 +2920,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "x86_64-apple-watchos-simulator",
+         },
+     ),
++    (
++        "x86_64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "x86_64",
++            arch: "x86_64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "x86_64-chimera-linux-musl",
++        },
++    ),
+     (
+         "x86_64-fortanix-unknown-sgx",
+         TargetInfo {
+diff --git a/vendor/cc-1.2.6/src/target/generated.rs b/vendor/cc-1.2.6/src/target/generated.rs
+index bf157979e..1265e0691 100644
+--- a/vendor/cc-1.2.6/src/target/generated.rs
++++ b/vendor/cc-1.2.6/src/target/generated.rs
+@@ -124,6 +124,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "arm64-apple-watchos-simulator",
+         },
+     ),
++    (
++        "aarch64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "aarch64",
++            arch: "aarch64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "aarch64-chimera-linux-musl",
++        },
++    ),
+     (
+         "aarch64-fuchsia",
+         TargetInfo {
+@@ -1408,6 +1420,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "i686-unknown-linux-gnu",
+         },
+     ),
++    (
++        "loongarch64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "loongarch64",
++            arch: "loongarch64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "loongarch64-chimera-linux-musl",
++        },
++    ),
+     (
+         "loongarch64-unknown-linux-gnu",
+         TargetInfo {
+@@ -1732,6 +1756,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "nvptx64-nvidia-cuda",
+         },
+     ),
++    (
++        "powerpc-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "powerpc",
++            arch: "powerpc",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "powerpc-chimera-linux-musl",
++        },
++    ),
+     (
+         "powerpc-unknown-freebsd",
+         TargetInfo {
+@@ -1840,6 +1876,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "powerpc-unknown-linux-gnuspe",
+         },
+     ),
++    (
++        "powerpc64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "powerpc64",
++            arch: "powerpc64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "powerpc64-chimera-linux-musl",
++        },
++    ),
+     (
+         "powerpc64-ibm-aix",
+         TargetInfo {
+@@ -1912,6 +1960,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "powerpc64-unknown-linux-gnu",
+         },
+     ),
++    (
++        "powerpc64le-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "powerpc64le",
++            arch: "powerpc64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "powerpc64le-chimera-linux-musl",
++        },
++    ),
+     (
+         "powerpc64le-unknown-freebsd",
+         TargetInfo {
+@@ -2188,6 +2248,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "riscv32",
+         },
+     ),
++    (
++        "riscv64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "riscv64",
++            arch: "riscv64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "riscv64-chimera-linux-musl",
++        },
++    ),
+     (
+         "riscv64-linux-android",
+         TargetInfo {
+@@ -2848,6 +2920,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "x86_64-apple-watchos-simulator",
+         },
+     ),
++    (
++        "x86_64-chimera-linux-musl",
++        TargetInfo {
++            full_arch: "x86_64",
++            arch: "x86_64",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "",
++            unversioned_llvm_target: "x86_64-chimera-linux-musl",
++        },
++    ),
+     (
+         "x86_64-fortanix-unknown-sgx",
+         TargetInfo {
+-- 
+2.48.1
+

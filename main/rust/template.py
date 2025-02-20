@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.84.1"
+pkgver = "1.85.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "e23ec747a06ffd3e94155046f40b6664ac152c9ee3c2adfd90353a7ccff24226"
+sha256 = "d542c397217b5ba5bac7eb274f5ca62d031f61842c3ba4cc5328c709c38ea1e7"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -74,7 +74,7 @@ if self.current_target == "custom:bootstrap":
 def post_patch(self):
     from cbuild.util import cargo
 
-    cargo.clear_vendor_checksums(self, "compiler_builtins-0.1.138")
+    cargo.clear_vendor_checksums(self, "compiler_builtins-0.1.140")
     # nice fucking meme
     cargo.clear_vendor_checksums(self, "libc-0.2.94")
     cargo.clear_vendor_checksums(self, "libc-0.2.97")
@@ -86,10 +86,11 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.150")
     cargo.clear_vendor_checksums(self, "libc-0.2.155")
     cargo.clear_vendor_checksums(self, "libc-0.2.158")
-    cargo.clear_vendor_checksums(self, "libc-0.2.159")
-    cargo.clear_vendor_checksums(self, "libc-0.2.161")
-    cargo.clear_vendor_checksums(self, "libc-0.2.162")
-    cargo.clear_vendor_checksums(self, "libc-0.2.164")
+    cargo.clear_vendor_checksums(self, "libc-0.2.167")
+    cargo.clear_vendor_checksums(self, "libc-0.2.169")
+    # aaaaaargh
+    cargo.clear_vendor_checksums(self, "cc-1.2.0")
+    cargo.clear_vendor_checksums(self, "cc-1.2.6")
 
 
 def configure(self):
@@ -170,10 +171,11 @@ extern {}
     with self.profile("host") as hpf:
         host_profile = hpf
 
+    # check src/bootstrap/src/utils/change_tracker.rs
     with open(self.cwd / "config.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 133207
+change-id = 134650
 
 [llvm]
 ninja = false
@@ -223,7 +225,6 @@ debuginfo-level-std = {_debug}
 lto = '{_lto}'
 
 incremental = false
-parallel-compiler = false
 
 channel = 'stable'
 description = 'Chimera Linux'

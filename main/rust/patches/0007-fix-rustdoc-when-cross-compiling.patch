@@ -1,14 +1,14 @@
-From 729edc9173b4db0519b637770d332488cac04e97 Mon Sep 17 00:00:00 2001
+From d25b5089dedfa68c9a0e585517ed582c1a0ab1da Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:54:43 +0200
-Subject: [PATCH 07/13] fix rustdoc when cross-compiling
+Subject: [PATCH 07/14] fix rustdoc when cross-compiling
 
 ---
  src/bootstrap/src/bin/rustdoc.rs | 7 ++-----
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/src/bin/rustdoc.rs b/src/bootstrap/src/bin/rustdoc.rs
-index a338b9c808..f23fb64ac6 100644
+index a338b9c80..f23fb64ac 100644
 --- a/src/bootstrap/src/bin/rustdoc.rs
 +++ b/src/bootstrap/src/bin/rustdoc.rs
 @@ -28,9 +28,6 @@ fn main() {
@@ -40,5 +40,5 @@ index a338b9c808..f23fb64ac6 100644
          );
          eprintln!("sysroot: {sysroot:?}");
 -- 
-2.47.1
+2.48.1
 

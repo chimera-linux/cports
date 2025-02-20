@@ -1,29 +1,34 @@
-From ba681a7679007c716d9500f639d87c0496acf304 Mon Sep 17 00:00:00 2001
+From 718da9e91e59a1a9448bf757fa787b466f69da10 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 25 Feb 2022 00:39:21 +0100
-Subject: [PATCH 10/13] do not export LD_LIBRARY_PATH
+Date: Thu, 20 Feb 2025 20:44:45 +0100
+Subject: [PATCH 10/14] do not export LD_LIBRARY_PATH
 
 ---
- src/bootstrap/bootstrap.py | 6 ------
- 1 file changed, 6 deletions(-)
+ src/bootstrap/bootstrap.py | 11 -----------
+ 1 file changed, 11 deletions(-)
 
 diff --git a/src/bootstrap/bootstrap.py b/src/bootstrap/bootstrap.py
-index d7ae0299dd..5904a8bd77 100644
+index 535bdecb0..75d23899b 100644
 --- a/src/bootstrap/bootstrap.py
 +++ b/src/bootstrap/bootstrap.py
-@@ -941,12 +941,6 @@ class RustBuild(object):
+@@ -1023,17 +1023,6 @@ class RustBuild(object):
              del env["CARGO_BUILD_TARGET"]
          env["CARGO_TARGET_DIR"] = build_dir
          env["RUSTC"] = self.rustc()
--        env["LD_LIBRARY_PATH"] = os.path.join(self.bin_root(), "lib") + \
--            (os.pathsep + env["LD_LIBRARY_PATH"]) \
--            if "LD_LIBRARY_PATH" in env else ""
--        env["DYLD_LIBRARY_PATH"] = os.path.join(self.bin_root(), "lib") + \
--            (os.pathsep + env["DYLD_LIBRARY_PATH"]) \
--            if "DYLD_LIBRARY_PATH" in env else ""
-         env["LIBRARY_PATH"] = os.path.join(self.bin_root(), "lib") + \
-             (os.pathsep + env["LIBRARY_PATH"]) \
-             if "LIBRARY_PATH" in env else ""
+-        env["LD_LIBRARY_PATH"] = (
+-            os.path.join(self.bin_root(), "lib") + (os.pathsep + env["LD_LIBRARY_PATH"])
+-            if "LD_LIBRARY_PATH" in env
+-            else ""
+-        )
+-        env["DYLD_LIBRARY_PATH"] = (
+-            os.path.join(self.bin_root(), "lib")
+-            + (os.pathsep + env["DYLD_LIBRARY_PATH"])
+-            if "DYLD_LIBRARY_PATH" in env
+-            else ""
+-        )
+         env["LIBRARY_PATH"] = (
+             os.path.join(self.bin_root(), "lib") + (os.pathsep + env["LIBRARY_PATH"])
+             if "LIBRARY_PATH" in env
 -- 
-2.47.1
+2.48.1
 
