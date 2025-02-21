@@ -1,5 +1,5 @@
 pkgname = "libfprint"
-pkgver = "1.94.8"
+pkgver = "1.94.9"
 pkgrel = 0
 build_style = "meson"
 # Needs virtual drivers (`-Ddrivers=all`) to run all tests, but they fail and I
@@ -17,7 +17,7 @@ makedepends = [
     "libgudev-devel",
     "libgusb-devel",
     "linux-headers",
-    "nss-devel",
+    "openssl3-devel",
     "pixman-devel",
 ]
 checkdepends = ["python-cairo"]
@@ -26,7 +26,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://fprint.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/libfprint/libfprint/-/archive/v{pkgver}/libfprint-v{pkgver}.tar.gz"
-sha256 = "bf6a224bde98801de8615f76bcc0a4950b65a106b321b2cfccac9b679c241364"
+sha256 = "6398e7a28c91b3a16ff17e6a577c7a03692a5de509e8def817396f1120823ecf"
 # meson error: "ERROR: An exe_wrapper is needed but was not found."
 options = ["!cross"]
 
