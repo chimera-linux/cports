@@ -20,9 +20,6 @@ sha256 = "8f685207c63cebfde375a20b235e34012d75d4d41fbaad8b2cc1b8cfc1eceae8"
 # check: needs network access
 options = ["!cross", "!check"]
 
-if self.profile().arch == "riscv64":
-    broken = "build gets stuck"
-
 
 def post_build(self):
     self.do("./build/gen-docs", "--man-page", "--doc-path", "man")
