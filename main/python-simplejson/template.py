@@ -1,5 +1,5 @@
 pkgname = "python-simplejson"
-pkgver = "3.19.3"
+pkgver = "3.20.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT OR AFL-2.1"
 url = "https://simplejson.readthedocs.io"
 source = f"$(PYPI_SITE)/s/simplejson/simplejson-{pkgver}.tar.gz"
-sha256 = "8e086896c36210ab6050f2f9f095a5f1e03c83fa0e7f296d6cba425411364680"
+sha256 = "e64139b4ec4f1f24c142ff7dcafe55a22b811a74d86d66560c8815687143037d"
 hardening = ["vis", "!cfi"]
 
 
