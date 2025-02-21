@@ -1,5 +1,5 @@
 pkgname = "re2c"
-pkgver = "4.0.2"
+pkgver = "4.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
@@ -17,7 +17,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "custom:none"  # Public Domain dedication
 url = "https://re2c.org"
 source = f"https://github.com/skvadrik/re2c/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "43f15eef0dd2b67b268b520a40bb440bb78a0ad77b11e7fd2ee16b2c35ce6485"
+sha256 = "439c5ca02f2dcc280d01054622272f34d54c05919a41859614ec386cc7f89b6d"
 
 
 def post_install(self):
