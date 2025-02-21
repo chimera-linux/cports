@@ -1,5 +1,5 @@
 pkgname = "man-pages"
-pkgver = "6.10"
+pkgver = "6.11"
 pkgrel = 0
 hostmakedepends = ["gsed", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
@@ -7,17 +7,19 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
 source = f"$(KERNEL_SITE)/docs/man-pages/man-pages-{pkgver}.tar.xz"
-sha256 = "db49503ad4da07633fa28012a278915f0f0178ad6c33346e59b7ada731925709"
+sha256 = "ddaa2eda2e8d286fbec221d115f12d3fff5d36cc5066cdfecc8d24a258d58b19"
 options = ["!autosplit"]
 
 
 def install(self):
     self.do(
         "make",
+        "-R",  # remove once we have gmake 4.5
         "install",
         "SED=gsed",
         "VERBOSE=1",
         "LINK_PAGES=symlink",
+        f"VERSION={pkgver}",
         f"prefix={self.chroot_destdir}/usr",
     )
 
