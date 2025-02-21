@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/gotosocial server start --config-path=/etc/gotosocial/config.yaml
+logfile = /var/log/gotosocial.log
+run-as = _gotosocial
+depends-on: network.target
+depends-on: local.target
+load-options: export-passwd-vars

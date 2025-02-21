@@ -1,0 +1,55 @@
+diff --git a/example/config.yaml b/example/config.yaml
+index ea33e4c..50bc030 100644
+--- a/example/config.yaml
++++ b/example/config.yaml
+@@ -142,7 +142,7 @@ trusted-proxies:
+ # String. Database type.
+ # Options: ["postgres","sqlite"]
+ # Default: "postgres"
+-db-type: "postgres"
++db-type: "sqlite"
+ 
+ # String. Database address or parameters.
+ #
+@@ -157,7 +157,7 @@ db-type: "postgres"
+ #
+ # Examples: ["localhost","my.db.host","127.0.0.1","192.111.39.110",":memory:", "sqlite.db"]
+ # Default: ""
+-db-address: ""
++db-address: "/var/lib/gotosocial/sqlite.db"
+ 
+ # Int. Port for database connection.
+ # Examples: [5432, 1234, 6969]
+@@ -329,12 +329,12 @@ cache:
+ # String. Directory from which gotosocial will attempt to load html templates (.tmpl files).
+ # Examples: ["/some/absolute/path/", "./relative/path/", "../../some/weird/path/"]
+ # Default: "./web/template/"
+-web-template-base-dir: "./web/template/"
++web-template-base-dir: "/usr/share/gotosocial/web/template/"
+ 
+ # String. Directory from which gotosocial will attempt to serve static web assets (images, scripts).
+ # Examples: ["/some/absolute/path/", "./relative/path/", "../../some/weird/path/"]
+ # Default: "./web/assets/"
+-web-asset-base-dir: "./web/assets/"
++web-asset-base-dir: "/usr/share/gotosocial/web/assets/"
+ 
+ ###########################
+ ##### INSTANCE CONFIG #####
+@@ -593,7 +593,7 @@ storage-backend: "local"
+ # Only required when running with the local storage backend.
+ # Examples: ["/home/gotosocial/storage", "/opt/gotosocial/datastorage"]
+ # Default: "/gotosocial/storage"
+-storage-local-base-path: "/gotosocial/storage"
++storage-local-base-path: "/var/lib/gotosocial/storage"
+ 
+ # String. API endpoint of the S3 compatible service.
+ # Only required when running with the s3 storage backend.
+@@ -733,7 +733,7 @@ letsencrypt-port: 80
+ # In any case, make sure GoToSocial has permissions to write to / read from this directory.
+ # Examples: ["/home/gotosocial/storage/certs", "/acmecerts"]
+ # Default: "/gotosocial/storage/certs"
+-letsencrypt-cert-dir: "/gotosocial/storage/certs"
++letsencrypt-cert-dir: "/var/lib/gotosocial/storage/certs"
+ 
+ # String. Email address to use when registering LetsEncrypt certs.
+ # Most likely, this will be the email address of the instance administrator.
