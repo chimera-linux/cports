@@ -1,5 +1,5 @@
 pkgname = "rdfind"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://rdfind.pauldreik.se"
 source = f"https://rdfind.pauldreik.se/rdfind-{pkgver}.tar.gz"
-sha256 = "7a406e8ef1886a5869655604618dd98f672f12c6a6be4926d053be65070f3279"
+sha256 = "78c463152e1d9e4fd1bfeb83b9c92df5e7fc4c5f93c7d426fb1f7efa2be4df29"
 hardening = ["vis", "cfi"]
 # linuxisms in testsuite
 options = ["!check"]
