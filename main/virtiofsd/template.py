@@ -1,5 +1,5 @@
 pkgname = "virtiofsd"
-pkgver = "1.13.0"
+pkgver = "1.13.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 AND BSD-3-Clause"
 url = "https://gitlab.com/virtio-fs/virtiofsd"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "05d80e3d35b2a0bcf7c9fd1bb4bcfea2760376125880e4ee4df395bda203982e"
+sha256 = "84b34c359c45565adb495ffe9e4f6afdde8ef5b05cbfd47e49140bb58e470a2a"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
