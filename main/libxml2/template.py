@@ -1,6 +1,6 @@
 pkgname = "libxml2"
 pkgver = "2.13.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -12,9 +12,9 @@ configure_args = [
 ]
 hostmakedepends = [
     "automake",
+    "libtool",
     "pkgconf",
     "python-devel",
-    "slibtool",
 ]
 makedepends = [
     "icu-devel",
