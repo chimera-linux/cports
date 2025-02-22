@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.13.3 Kernel Configuration
+# Linux/powerpc 6.13.4 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 19.1.7"
 CONFIG_GCC_VERSION=0
@@ -4629,6 +4629,7 @@ CONFIG_CDNS_I3C_MASTER=m
 CONFIG_DW_I3C_MASTER=m
 CONFIG_SVC_I3C_MASTER=m
 CONFIG_MIPI_I3C_HCI=m
+CONFIG_MIPI_I3C_HCI_PCI=m
 CONFIG_SPI=y
 # CONFIG_SPI_DEBUG is not set
 CONFIG_SPI_MASTER=y
