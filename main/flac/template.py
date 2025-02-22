@@ -1,6 +1,6 @@
 pkgname = "flac"
-pkgver = "1.4.3"
-pkgrel = 1
+pkgver = "1.5.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "http://flac.sourceforge.net"
 source = f"https://downloads.xiph.org/releases/flac/flac-{pkgver}.tar.xz"
-sha256 = "6c58e69cd22348f441b861092b825e591d0b822e106de6eb0ee4d05d27205b70"
+sha256 = "f2c1c76592a82ffff8413ba3c4a1299b6c7ab06c734dee03fd88630485c2b920"
 # FIXME cfi int: test failures with both
 hardening = ["vis", "!cfi", "!int"]
 # stuck on some weird test, but appears harmless
