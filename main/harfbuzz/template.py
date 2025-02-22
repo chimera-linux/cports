@@ -1,5 +1,5 @@
 pkgname = "harfbuzz"
-pkgver = "10.2.0"
+pkgver = "10.3.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -33,7 +33,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/harfbuzz/harfbuzz/releases/download/{pkgver}/harfbuzz-{pkgver}.tar.xz"
-sha256 = "620e3468faec2ea8685d32c46a58469b850ef63040b3565cde05959825b48227"
+sha256 = "cd63fc3cbae32622588e46e0670fabf78ee6cff44a6348ca7f037dae9a32f9ea"
 options = ["!cross"]
 
 
