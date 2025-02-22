@@ -1,12 +1,13 @@
 pkgname = "nfs-utils"
-pkgver = "2.8.1"
-pkgrel = 1
+pkgver = "2.8.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-sbin-override",
     "--disable-static",
     "--enable-junction",
     "--enable-libmount-mount",
+    "--enable-nfsdcltrack",
     "--enable-svcgss",
 ]
 make_dir = "."
@@ -38,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://linux-nfs.org"
 source = f"https://cdn.kernel.org/pub/linux/utils/nfs-utils/{pkgver}/nfs-utils-{pkgver}.tar.gz"
-sha256 = "d3dc02318200de39eb8f4f3636a59eb565458dd76ba256210c02d356fbf7a62b"
+sha256 = "c9d99d0c797035570fee0dc153773ad27fded677069068ced3b76be4dcb64915"
 # FIXME
 tool_flags = {"CFLAGS": ["-Wno-format-nonliteral", "-Wno-strict-prototypes"]}
 file_modes = {"usr/bin/mount.nfs": ("root", "root", 0o4755)}
