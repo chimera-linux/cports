@@ -1,6 +1,6 @@
 pkgname = "sdl2_ttf"
-pkgver = "2.22.0"
-pkgrel = 1
+pkgver = "2.24.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSDL2TTF_HARFBUZZ=ON",
@@ -13,7 +13,7 @@ maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "Zlib"
 url = "https://github.com/libsdl-org/SDL_ttf"
 source = f"{url}/releases/download/release-{pkgver}/SDL2_ttf-{pkgver}.tar.gz"
-sha256 = "d48cbd1ce475b9e178206bf3b72d56b66d84d44f64ac05803328396234d67723"
+sha256 = "0b2bf1e7b6568adbdbc9bb924643f79d9dedafe061fa1ed687d1d9ac4e453bfd"
 # no check target
 options = ["!check"]
 
