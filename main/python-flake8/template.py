@@ -1,5 +1,5 @@
 pkgname = "python-flake8"
-pkgver = "7.1.1"
+pkgver = "7.1.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://flake8.pycqa.org"
 source = f"https://github.com/PyCQA/flake8/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "e389d1806e1f911b092fd41b7989c751f05eda510bab4ac255b144da96477e2b"
+sha256 = "60364d3593a8fd8a22f3ffcd751b29d0b61945e975754115bb9316bef157e03e"
 # some failures in new testsuite
 options = ["!check"]
 
