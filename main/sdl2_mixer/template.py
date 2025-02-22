@@ -1,6 +1,6 @@
 pkgname = "sdl2_mixer"
-pkgver = "2.8.0"
-pkgrel = 1
+pkgver = "2.8.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     # use external libraries, disable bundled crap
@@ -45,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org/projects/SDL_mixer"
 source = f"{url}/release/SDL2_mixer-{pkgver}.tar.gz"
-sha256 = "1cfb34c87b26dbdbc7afd68c4f545c0116ab5f90bbfecc5aebe2a9cb4bb31549"
+sha256 = "cb760211b056bfe44f4a1e180cc7cb201137e4d1572f2002cc1be728efd22660"
 # no check target
 options = ["!check"]
 
