@@ -1,0 +1,24 @@
+From ec4c1add7bde426371125b0aeec3dffea259352a Mon Sep 17 00:00:00 2001
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+Date: Fri, 6 May 2022 18:05:43 +0200
+Subject: [PATCH] udev rules: add RK3588 device ID
+
+---
+ 99-rk-rockusb.rules | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/99-rk-rockusb.rules b/99-rk-rockusb.rules
+index f05d0d8..88aba10 100644
+--- a/99-rk-rockusb.rules
++++ b/99-rk-rockusb.rules
+@@ -16,5 +16,7 @@ ATTRS{idVendor}=="2207", ATTRS{idProduct}=="330a", MODE="0666", GROUP="users"
+ ATTRS{idVendor}=="2207", ATTRS{idProduct}=="330c", MODE="0666", GROUP="users"
+ # RK3566
+ ATTRS{idVendor}=="2207", ATTRS{idProduct}=="350a", MODE="0666", GROUP="users"
++# RK3588
++ATTRS{idVendor}=="2207", ATTRS{idProduct}=="350b", MODE="0666", GROUP="users"
+ 
+ LABEL="end_rules"
+-- 
+GitLab
+
