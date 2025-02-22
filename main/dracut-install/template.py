@@ -1,7 +1,8 @@
 pkgname = "dracut-install"
-pkgver = "105"
+pkgver = "106"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_args = ["--disable-dracut-cpio"]
 configure_gen = []
 make_dir = "."
 make_build_target = "dracut-install"
@@ -13,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/dracut-ng/dracut-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a5f94012873f589e2efc3659341f5e383ec90419f5c361a6fd3561f946133f69"
+sha256 = "9009ac13072c9b583822ad1a17f2cca47af463190f0d6623e90b0f1107c71f95"
 hardening = ["vis", "cfi"]
 # assumes rw filesystem
 options = ["!check"]
