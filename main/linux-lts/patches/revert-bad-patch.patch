@@ -1,0 +1,38 @@
+commit 7af2ecc884da81b1a11a45119376377afc8c1ba0
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Feb 23 00:20:43 2025 +0100
+
+    Revert "tools: fix annoying "mkdir -p ..." logs when building..."
+    
+    This breaks build:
+    
+    exec-cmd.c:2:10: fatal error: 'linux/compiler.h' file not found
+        2 | #include <linux/compiler.h>
+          |          ^~~~~~~~~~~~~~~~~~
+    1 error generated.
+
+diff --git a/Makefile b/Makefile
+index c436a6e..a927b6d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1416,13 +1416,18 @@ ifneq ($(wildcard $(resolve_btfids_O)),)
+ 	$(Q)$(MAKE) -sC $(srctree)/tools/bpf/resolve_btfids O=$(resolve_btfids_O) clean
+ endif
+ 
++# Clear a bunch of variables before executing the submake
++ifeq ($(quiet),silent_)
++tools_silent=s
++endif
++
+ tools/: FORCE
+ 	$(Q)mkdir -p $(objtree)/tools
+-	$(Q)$(MAKE) LDFLAGS= O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/
++	$(Q)$(MAKE) LDFLAGS= MAKEFLAGS="$(tools_silent) $(filter --j% -j,$(MAKEFLAGS))" O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/
+ 
+ tools/%: FORCE
+ 	$(Q)mkdir -p $(objtree)/tools
+-	$(Q)$(MAKE) LDFLAGS= O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/ $*
++	$(Q)$(MAKE) LDFLAGS= MAKEFLAGS="$(tools_silent) $(filter --j% -j,$(MAKEFLAGS))" O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/ $*
+ 
+ # ---------------------------------------------------------------------------
+ # Kernel selftest
