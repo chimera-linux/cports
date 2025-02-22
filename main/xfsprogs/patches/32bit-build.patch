@@ -1,0 +1,11 @@
+--- a/mkfs/proto.c
++++ b/mkfs/proto.c
+@@ -20,7 +20,7 @@ static struct xfs_trans * getres(struct xfs_mount *mp, uint blocks);
+ static void rsvfile(xfs_mount_t *mp, xfs_inode_t *ip, long long len);
+ static int newregfile(char **pp, char **fname);
+ static void rtinit(xfs_mount_t *mp);
+-static long filesize(int fd);
++static off_t filesize(int fd);
+ static int slashes_are_spaces;
+ 
+ /*
