@@ -1,6 +1,6 @@
 pkgname = "audiofile"
 pkgver = "0.3.6"
-pkgrel = 0
+pkgrel = 1
 _commit = "2f4e4704b731086b11175c433e036bcbe7c9c913"
 build_style = "gnu_configure"
 make_dir = "."

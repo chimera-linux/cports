@@ -1,6 +1,6 @@
 pkgname = "sdl1.2_mixer"
 pkgver = "1.2.12"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 # make sure they're pulled as runtime deps
 configure_args = [

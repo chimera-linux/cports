@@ -1,6 +1,6 @@
 pkgname = "libsndfile"
 pkgver = "1.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "python", "slibtool"]
 # FIXME: mpg123 is cyclic (pipewire->sbc->sndfile)

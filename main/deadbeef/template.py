@@ -1,6 +1,6 @@
 pkgname = "deadbeef"
 pkgver = "1.9.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     # yasm

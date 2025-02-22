@@ -1,6 +1,6 @@
 pkgname = "audiocd-kio"
 pkgver = "24.12.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
