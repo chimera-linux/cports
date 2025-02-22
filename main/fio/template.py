@@ -1,5 +1,5 @@
 pkgname = "fio"
-pkgver = "3.38"
+pkgver = "3.39"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -22,5 +22,5 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/axboe/fio"
 source = f"https://github.com/axboe/fio/archive/refs/tags/fio-{pkgver}.tar.gz"
-sha256 = "73b3ca18a66fb88a90dae73b9994fdd18d35161d914ffe2089380760af5533cf"
+sha256 = "e2f4ff137061b44ceb83a55eb9ca8856fe188db6d9b00cb59f8629c9162afe0a"
 hardening = ["cfi", "vis"]
