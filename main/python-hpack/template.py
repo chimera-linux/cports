@@ -1,6 +1,6 @@
 pkgname = "python-hpack"
-pkgver = "4.0.0"
-pkgrel = 1
+pkgver = "4.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-hyper/hpack"
 source = f"$(PYPI_SITE)/h/hpack/hpack-{pkgver}.tar.gz"
-sha256 = "fc41de0c63e687ebffde81187a948221294896f6bdc0ae2312708df339430095"
+sha256 = "ec5eca154f7056aa06f196a557655c5b009b382873ac8d1e66e79e87535f1dca"
 # python-hypothesis needed
 options = ["!check"]
 
