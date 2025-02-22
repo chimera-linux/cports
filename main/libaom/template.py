@@ -1,5 +1,5 @@
 pkgname = "libaom"
-pkgver = "3.11.0"
+pkgver = "3.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://aomedia.org"
 source = [f"https://storage.googleapis.com/aom-releases/libaom-{pkgver}.tar.gz"]
-sha256 = ["cf7d103d2798e512aca9c6e7353d7ebf8967ee96fffe9946e015bb9947903e3e"]
+sha256 = ["d89daa160a0ea1409c4193be5b17c9591024c4f5a0e545dcb9d197535c66836e"]
 # requires a testdata download, tests take long
 options = ["!check"]
 
