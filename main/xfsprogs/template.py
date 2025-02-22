@@ -1,6 +1,6 @@
 pkgname = "xfsprogs"
-pkgver = "6.12.0"
-pkgrel = 1
+pkgver = "6.13.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline=yes",
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/xfsprogs/xfsprogs-{pkgver}.tar.xz"
-sha256 = "0832407247db791cc70def96e7e254bd6edf043dc84a80a62f3ccd6e3dffd329"
+sha256 = "0459933f93d94c82bc2789e7bd63742273d9d74207cdae67dc3032038da08337"
 tool_flags = {"CFLAGS": ["-DOVERRIDE_SYSTEM_STATX"]}
 # no check target
 options = ["!check"]
