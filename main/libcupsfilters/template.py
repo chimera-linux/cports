@@ -1,6 +1,6 @@
 pkgname = "libcupsfilters"
-pkgver = "2.1.0"
-pkgrel = 1
+pkgver = "2.1.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     # TODO mupdf deptree
@@ -34,7 +34,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 AND custom:gpl-exception"
 url = "https://github.com/OpenPrinting/libcupsfilters"
 source = f"{url}/releases/download/{pkgver}/libcupsfilters-{pkgver}.tar.xz"
-sha256 = "cbe900c7783e4aab0b1681629fad7322d82d082a51e8bae7e1c741d26bdcd294"
+sha256 = "6c303e36cfde05a6c88fb940c62b6a18e7cdbfb91f077733ebc98f104925ce36"
 # vis breaks symbols
 hardening = ["!vis"]
 
