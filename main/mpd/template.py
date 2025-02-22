@@ -1,6 +1,6 @@
 pkgname = "mpd"
-pkgver = "0.23.16"
-pkgrel = 2
+pkgver = "0.23.17"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddocumentation=enabled",
@@ -148,7 +148,7 @@ maintainer = "nullobsi <nullobsi@unix.dog>"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://www.musicpd.org"
 source = f"{url}/download/mpd/{pkgver[:-3]}/mpd-{pkgver}.tar.xz"
-sha256 = "9668e36df80de485683c962d02845bf314d8a08e6141af7afeff76401e32b2c1"
+sha256 = "a86f4fe811695743b08db82a9f1a840b8918bb4f46b06f48aa1d8d1b5386dff2"
 
 
 def post_install(self):
