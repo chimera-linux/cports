@@ -1,5 +1,5 @@
 pkgname = "python-nanobind"
-pkgver = "2.4.0"
+pkgver = "2.5.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -20,7 +20,7 @@ source = [
 ]
 source_paths = [".", "ext/robin_map"]
 sha256 = [
-    "bb35deaed7efac5029ed1e33880a415638352f757d49207a8e6013fefb6c49a7",
+    "acb2e1997c44f2c79f510c66e7ff9f4cac0502e9fe275ebc7af7571e869f8df0",
     "a8424ad3b0affd4c57ed26f0f3d8a29604f0e1f2ef2089f497f614b1c94c7236",
 ]
 
