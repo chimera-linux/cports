@@ -10,6 +10,6 @@ when adding some really big sized torrents
  
 -		m_num_pad_bytes += bytes;
 +		m_num_pad_bytes = (unsigned)m_num_pad_bytes + bytes;
+ 		// We don't support *changing* the number of pad bytes in a piece
+ 		TORRENT_ASSERT(m_pads_in_piece.count(piece) == 0);
  		m_pads_in_piece[piece] = bytes;
- 
- 		piece_pos& p = m_piece_map[piece];

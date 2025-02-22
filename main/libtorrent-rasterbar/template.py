@@ -1,6 +1,6 @@
 pkgname = "libtorrent-rasterbar"
-pkgver = "2.0.10"
-pkgrel = 5
+pkgver = "2.0.11"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-Dpython-bindings=ON",
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libtorrent.org"
 source = f"https://github.com/arvidn/libtorrent/releases/download/v{pkgver}/libtorrent-rasterbar-{pkgver}.tar.gz"
-sha256 = "fc935b8c1daca5c0a4d304bff59e64e532be16bb877c012aea4bda73d9ca885d"
+sha256 = "f0db58580f4f29ade6cc40fa4ba80e2c9a70c90265cd77332d3cdec37ecf1e6d"
 
 # loud build
 tool_flags = {
