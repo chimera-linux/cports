@@ -1,6 +1,6 @@
 pkgname = "yt-dlp"
-pkgver = "2025.01.26"
-pkgrel = 1
+pkgver = "2025.02.19"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=test/test_socks.py",
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unlicense"
 url = "https://github.com/yt-dlp/yt-dlp"
 source = f"{url}/releases/download/{pkgver}/yt-dlp.tar.gz"
-sha256 = "f9b62c5f8c3db910d693a7ac1477f44696a923ff9b0a3f9d87fefea4e10e9e04"
+sha256 = "28a8c33e4c32bd12e16601180b9f3a43fdc2896ad5467bc6e5a9f1fa6c280e28"
 
 
 @subpackage("yt-dlp-recommends")
