@@ -1,5 +1,5 @@
 pkgname = "libpng"
-pkgver = "1.6.46"
+pkgver = "1.6.47"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "libtool"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Libpng"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = f"$(SOURCEFORGE_SITE)/libpng/libpng-{pkgver}.tar.xz"
-sha256 = "f3aa8b7003998ab92a4e9906c18d19853e999f9d3bca9bd1668f54fa81707cb1"
+sha256 = "b213cb381fbb1175327bd708a77aab708a05adde7b471bc267bd15ac99893631"
 
 
 def post_install(self):
