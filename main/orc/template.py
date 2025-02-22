@@ -1,5 +1,5 @@
 pkgname = "orc"
-pkgver = "0.4.40"
+pkgver = "0.4.41"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/orc/orc-{pkgver}.tar.xz"
-sha256 = "3fc2bee78dfb7c41fd9605061fc69138db7df007eae2f669a1f56e8bacef74ab"
+sha256 = "cb1bfd4f655289cd39bc04642d597be9de5427623f0861c1fc19c08d98467fa2"
 
 
 def post_install(self):
