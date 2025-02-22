@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
-pkgver = "5.0.3"
-pkgrel = 1
+pkgver = "5.0.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DSTACKTRACE=OFF"]
 hostmakedepends = [
@@ -23,7 +23,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.qbittorrent.org"
 source = f"https://github.com/qbittorrent/qBittorrent/archive/refs/tags/release-{pkgver}.tar.gz"
-sha256 = "12dc7228b6fd1f0c184e0fd58836797b9f01fd7da89c9ff65795a031eb571759"
+sha256 = "6c1077e51be2189189c4a0ec99402ccc88a4f43d88d8dece721cbe508460dd4b"
 # CFI: BitTorrent::SessionImpl::SessionImpl crash
 hardening = ["vis", "!cfi"]
 # don't build
