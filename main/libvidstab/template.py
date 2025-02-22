@@ -1,6 +1,6 @@
 pkgname = "libvidstab"
 pkgver = "1.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["orc-devel"]
