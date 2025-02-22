@@ -1,6 +1,6 @@
 pkgname = "sdl2_image"
-pkgver = "2.8.4"
-pkgrel = 1
+pkgver = "2.8.5"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSDL2IMAGE_AVIF=ON",
@@ -29,13 +29,15 @@ makedepends = [
     "libwebp-devel",
     "sdl2-compat-devel",
 ]
+# sigh, dynamically loaded
+depends = ["so:libjxl.so.0.11!libjxl", "so:libavif.so.16!libavif"]
 provides = [self.with_pkgver("sdl_image")]
 pkgdesc = "SDL image loading library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org/projects/SDL_image"
 source = f"{url}/release/SDL2_image-{pkgver}.tar.gz"
-sha256 = "f7c06a8783952cfe960adccdd3d8472b63ab31475b4390d10cfdcc1aea61238f"
+sha256 = "8bc4c57f41e2c0db7f9b749b253ef6cecdc6f0b689ecbe36ee97b50115fff645"
 # no check target
 options = ["!check"]
 
