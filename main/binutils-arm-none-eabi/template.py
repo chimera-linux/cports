@@ -1,6 +1,6 @@
 _trip = "arm-none-eabi"
 pkgname = f"binutils-{_trip}"
-pkgver = "2.43.1"
+pkgver = "2.44"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -37,7 +37,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/binutils"
 source = f"$(GNU_SITE)/binutils/binutils-{pkgver}.tar.xz"
-sha256 = "13f74202a3c4c51118b797a39ea4200d3f6cfbe224da6d1d95bb938480132dfd"
+sha256 = "ce2017e059d63e67ddb9240e9d4ec49c2893605035cd60e92ad53177f4377237"
 # resistance is futile
 options = ["!check", "!lto", "linkundefver"]
 
