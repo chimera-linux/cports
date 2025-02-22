@@ -1,6 +1,6 @@
 pkgname = "sdl2"
-pkgver = "2.30.11"
-pkgrel = 1
+pkgver = "2.32.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-rpath",
@@ -60,7 +60,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org"
 source = f"https://www.libsdl.org/release/SDL2-{pkgver}.tar.gz"
-sha256 = "8b8d4aef2038533da814965220f88f77d60dfa0f32685f80ead65e501337da7f"
+sha256 = "f5c2b52498785858f3de1e2996eba3c1b805d08fe168a47ea527c7fc339072d0"
 # no check target
 options = ["!check"]
 
