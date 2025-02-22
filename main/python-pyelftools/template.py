@@ -1,5 +1,5 @@
 pkgname = "python-pyelftools"
-pkgver = "0.31"
+pkgver = "0.32"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unlicense"
 url = "https://github.com/eliben/pyelftools"
 source = f"$(PYPI_SITE)/p/pyelftools/pyelftools-{pkgver}.tar.gz"
-sha256 = "c774416b10310156879443b81187d182d8d9ee499660380e645918b50bc88f99"
+sha256 = "6de90ee7b8263e740c8715a925382d4099b354f29ac48ea40d840cf7aa14ace5"
 
 
 def check(self):
