@@ -1,5 +1,5 @@
 pkgname = "strawberry"
-pkgver = "1.2.6"
+pkgver = "1.2.7"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_GPOD=OFF"]
@@ -41,4 +41,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.strawberrymusicplayer.org"
 source = f"https://files.strawberrymusicplayer.org/strawberry-{pkgver}.tar.xz"
-sha256 = "37409b4a3df25294d8e96395ae4c4787c1c35ff86f263d2ba4d316d987e2e1ba"
+sha256 = "3411878ce1937fc5161ed9cffe25591c228035b6918d383bd26f73d12eed799a"
