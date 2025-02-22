@@ -1,8 +1,8 @@
 # update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
 _majver = "3.12"
-pkgver = f"{_majver}.8"
-pkgrel = 3
+pkgver = f"{_majver}.9"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ipv6",
@@ -65,7 +65,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "c909157bb25ec114e5869124cc2a9c4a4d4c1e957ca4ff553f1edc692101154e"
+sha256 = "7220835d9f90b37c006e9842a8dff4580aaca4318674f947302b8d28f3f81112"
 # use a chunky stack; python by default does not use more than 1 thread
 # but anything dlopened from it will be stuck with the default stacksize
 # (e.g. python gtk programs, gtk loads icons from a threadpool and it may
