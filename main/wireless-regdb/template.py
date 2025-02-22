@@ -1,5 +1,5 @@
 pkgname = "wireless-regdb"
-pkgver = "2024.10.07"
+pkgver = "2025.02.20"
 pkgrel = 0
 build_style = "makefile"
 make_install_args = ["FIRMWARE_PATH=/usr/lib/firmware"]
@@ -8,7 +8,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://wireless.wiki.kernel.org/en/developers/regulatory/wireless-regdb"
 source = f"https://mirrors.edge.kernel.org/pub/software/network/wireless-regdb/wireless-regdb-{pkgver}.tar.xz"
-sha256 = "f76f2bd79a653e9f9dd50548d99d03a4a4eb157da056dfd5892f403ec28fb3d5"
+sha256 = "57f8e7721cf5a880c13ae0c202edbb21092a060d45f9e9c59bcd2a8272bfa456"
 # just files
 options = ["!check"]
 
