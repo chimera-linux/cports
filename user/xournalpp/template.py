@@ -1,5 +1,5 @@
 pkgname = "xournalpp"
-pkgver = "1.2.5"
+pkgver = "1.2.6"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -26,7 +26,7 @@ maintainer = "daringcuteseal <daringcuteseal@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/xournalpp/xournalpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9a67fb0073bc5dd97b32d5c740ce583d90bc530532e4c6d74d187c840792fe3e"
+sha256 = "dce483e01e267b0d20afb88c59bf53b8ca1bd8518a31f98ef5061a334d6dc4eb"
 # known overflow in tablet handling thread
 tool_flags = {
     "CXXFLAGS": ["-DNDEBUG"],
