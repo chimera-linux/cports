@@ -1,6 +1,6 @@
 pkgname = "cloud-init"
-pkgver = "24.2"
-pkgrel = 2
+pkgver = "25.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",
@@ -47,7 +47,7 @@ url = "https://cloud-init.io"
 source = (
     f"https://github.com/canonical/cloud-init/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "b70d49e9e5bd891b0bb021b09b80aed501c81e2bef5f1cba00561adfd8d2e974"
+sha256 = "afe13e887b48262835e801028071ee0b404cd38d1da55ab58ac36a22c9deb665"
 # checkdepends
 options = ["!check"]
 
@@ -80,7 +80,13 @@ def install(self):
 def post_install(self):
     # our services
     self.install_file(
-        self.files_path / "cloud-init.wrapper", "usr/libexec", mode=0o755
+        self.files_path / "cloud-init.wrapper", "usr/lib", mode=0o755
+    )
+    self.install_file(
+        self.files_path / "cloud-init-hotplugd.sh",
+        "usr/lib",
+        name="cloud-init-hotplugd",
+        mode=0o755,
     )
     self.install_service(self.files_path / "cloud-config")
     self.install_service(self.files_path / "cloud-final")
@@ -116,6 +122,7 @@ def post_install(self):
         "almalinux",
         "alpine",
         "amazon",
+        "aosc",
         "arch",
         "azurelinux",
         "bsd",
@@ -167,11 +174,7 @@ def post_install(self):
     # systemd-related
     self.uninstall("etc/cloud/templates/timesyncd.conf.tmpl")
     self.uninstall("etc/cloud/templates/systemd.resolved.conf.tmpl")
-    self.uninstall("etc/systemd")
-    self.uninstall("lib/systemd")
-
-    # move udev rules that get put in wrong place
-    self.rename("lib/udev", "usr/lib/udev", relative=False)
+    self.uninstall("usr/lib/systemd")
 
     # irrelevant modules
     for mod in [

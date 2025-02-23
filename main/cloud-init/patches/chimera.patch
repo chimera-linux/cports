@@ -11,7 +11,7 @@ kinds of things.
 -- q66
 
 diff --git a/cloudinit/config/cc_apk_configure.py b/cloudinit/config/cc_apk_configure.py
-index fcfbe05..aee58ba 100644
+index 7c40294..34ac492 100644
 --- a/cloudinit/config/cc_apk_configure.py
 +++ b/cloudinit/config/cc_apk_configure.py
 @@ -18,7 +18,7 @@ LOG = logging.getLogger(__name__)
@@ -60,7 +60,7 @@ index fcfbe05..aee58ba 100644
 +    "distros": ["alpine", "chimera"],
      "frequency": PER_INSTANCE,
      "activate_by_schema_keys": ["apk_repos"],
- }  # type: ignore
+ }
 @@ -87,49 +80,48 @@ def handle(name: str, cfg: Config, cloud: Cloud, args: list) -> None:
          )
          return
@@ -136,18 +136,18 @@ index fcfbe05..aee58ba 100644
      # Clean up temporary template
      util.del_file(template_fn)
 diff --git a/cloudinit/config/cc_ca_certs.py b/cloudinit/config/cc_ca_certs.py
-index 61345fc..2cc28ea 100644
+index 2e56e1c..e504989 100644
 --- a/cloudinit/config/cc_ca_certs.py
 +++ b/cloudinit/config/cc_ca_certs.py
-@@ -73,6 +73,7 @@ distros = [
-     "almalinux",
+@@ -81,6 +81,7 @@ distros = [
+     "aosc",
      "cloudlinux",
      "alpine",
 +    "chimera",
      "debian",
      "fedora",
      "rhel",
-@@ -140,8 +141,8 @@ def add_ca_certs(distro_cfg, certs):
+@@ -148,8 +149,8 @@ def add_ca_certs(distro_cfg, certs):
  
  def disable_default_ca_certs(distro_name, distro_cfg):
      """
@@ -158,17 +158,17 @@ index 61345fc..2cc28ea 100644
      L{update_ca_certs}.
  
      @param distro_name: String providing the distro class name.
-@@ -149,7 +150,7 @@ def disable_default_ca_certs(distro_name, distro_cfg):
+@@ -157,7 +158,7 @@ def disable_default_ca_certs(distro_name, distro_cfg):
      """
      if distro_name in ["rhel", "photon"]:
          remove_default_ca_certs(distro_cfg)
--    elif distro_name in ["alpine", "debian", "ubuntu"]:
-+    elif distro_name in ["alpine", "chimera", "debian", "ubuntu"]:
+-    elif distro_name in ["alpine", "aosc", "debian", "ubuntu"]:
++    elif distro_name in ["alpine", "chimera", "aosc", "debian", "ubuntu"]:
          disable_system_ca_certs(distro_cfg)
  
          if distro_name in ["debian", "ubuntu"]:
 diff --git a/cloudinit/config/cc_keyboard.py b/cloudinit/config/cc_keyboard.py
-index e6e7749..5a6f27b 100644
+index 8657ab4..1093768 100644
 --- a/cloudinit/config/cc_keyboard.py
 +++ b/cloudinit/config/cc_keyboard.py
 @@ -21,7 +21,7 @@ from cloudinit.settings import PER_INSTANCE
@@ -181,18 +181,18 @@ index e6e7749..5a6f27b 100644
  
  meta: MetaSchema = {
 diff --git a/cloudinit/config/cc_ntp.py b/cloudinit/config/cc_ntp.py
-index 3d65952..f6e6c1d 100644
+index 0501a89..10b1951 100644
 --- a/cloudinit/config/cc_ntp.py
 +++ b/cloudinit/config/cc_ntp.py
-@@ -26,6 +26,7 @@ distros = [
-     "alpine",
+@@ -28,6 +28,7 @@ distros = [
+     "aosc",
      "azurelinux",
      "centos",
 +    "chimera",
      "cloudlinux",
      "cos",
      "debian",
-@@ -126,6 +127,11 @@ DISTRO_CLIENT_CONFIG = {
+@@ -134,6 +135,11 @@ DISTRO_CLIENT_CONFIG: Dict[str, Dict] = {
              "service_name": "chronyd",
          },
      },
@@ -205,7 +205,7 @@ index 3d65952..f6e6c1d 100644
          "chrony": {
              "service_name": "chronyd",
 diff --git a/cloudinit/config/cc_resolv_conf.py b/cloudinit/config/cc_resolv_conf.py
-index 408bbbc..2e9e5fd 100644
+index 920c539..95e792a 100644
 --- a/cloudinit/config/cc_resolv_conf.py
 +++ b/cloudinit/config/cc_resolv_conf.py
 @@ -28,6 +28,7 @@ meta: MetaSchema = {
@@ -217,12 +217,12 @@ index 408bbbc..2e9e5fd 100644
          "mariner",
          "opensuse",
 diff --git a/cloudinit/config/schemas/schema-cloud-config-v1.json b/cloudinit/config/schemas/schema-cloud-config-v1.json
-index f5609c5..730140a 100644
+index 136db6e..4979eb8 100644
 --- a/cloudinit/config/schemas/schema-cloud-config-v1.json
 +++ b/cloudinit/config/schemas/schema-cloud-config-v1.json
 @@ -963,7 +963,7 @@
                "default": false,
-               "description": "By default, cloud-init will generate a new repositories file ``/etc/apk/repositories`` based on any valid configuration settings specified within a apk_repos section of cloud config. To disable this behavior and preserve the repositories file from the pristine image, set ``preserve_repositories`` to ``true``.\nThe ``preserve_repositories`` option overrides all other config keys that would alter ``/etc/apk/repositories``."
+               "description": "By default, cloud-init will generate a new repositories file ``/etc/apk/repositories`` based on any valid configuration settings specified within a apk_repos section of cloud config. To disable this behavior and preserve the repositories file from the pristine image, set **preserve_repositories** to ``true``.\nThe **preserve_repositories** option overrides all other config keys that would alter ``/etc/apk/repositories``."
              },
 -            "alpine_repo": {
 +            "apk_repo": {
@@ -234,7 +234,7 @@ index f5609c5..730140a 100644
                  "base_url": {
                    "type": "string",
 -                  "default": "https://alpine.global.ssl.fastly.net/alpine",
--                  "description": "The base URL of an Alpine repository, or mirror, to download official packages from. If not specified then it defaults to ``https://alpine.global.ssl.fastly.net/alpine``"
+-                  "description": "The base URL of an Alpine repository, or mirror, to download official packages from. If not specified then it defaults to ``https://alpine.global.ssl.fastly.net/alpine``."
 +                  "default": "https://repo.chimera-linux.org",
 +                  "description": "The base URL of a Chimera repository"
                  },
@@ -252,7 +252,7 @@ index f5609c5..730140a 100644
                  },
                  "version": {
                    "type": "string",
--                  "description": "The Alpine version to use (e.g. ``v3.12`` or ``edge``)"
+-                  "description": "The Alpine version to use (e.g. ``v3.12`` or ``edge``)."
 +                  "description": "The Chimera version to use (usually ``current``)"
                  }
                },
@@ -261,31 +261,31 @@ index f5609c5..730140a 100644
              },
              "local_repo_base_url": {
                "type": "string",
--              "description": "The base URL of an Alpine repository containing unofficial packages"
-+              "description": "The base URL of a Chimera repository containing unofficial packages"
+-              "description": "The base URL of an Alpine repository containing unofficial packages."
++              "description": "The base URL of a Chimera repository containing unofficial packages."
              }
            }
          }
 diff --git a/cloudinit/distros/__init__.py b/cloudinit/distros/__init__.py
-index 4557d43..3def1c1 100644
+index b0b18ab..56b45da 100644
 --- a/cloudinit/distros/__init__.py
 +++ b/cloudinit/distros/__init__.py
-@@ -61,6 +61,7 @@ ALL_DISTROS = "all"
- OSFAMILIES = {
+@@ -64,6 +64,7 @@ OSFAMILIES = {
      "alpine": ["alpine"],
+     "aosc": ["aosc"],
      "arch": ["arch"],
 +    "chimera": ["chimera"],
      "debian": ["debian", "ubuntu"],
      "freebsd": ["freebsd", "dragonfly"],
      "gentoo": ["gentoo", "cos"],
 diff --git a/cloudinit/distros/chimera.py b/cloudinit/distros/chimera.py
-index a1d0d90..7297698 100644
+index 19912d3..dfad52d 100644
 --- a/cloudinit/distros/chimera.py
 +++ b/cloudinit/distros/chimera.py
 @@ -1,5 +1,6 @@
  # Copyright (C) 2016 Matt Dainty
  # Copyright (C) 2020 Dermot Bradley
-+# Copyright (C) 2024 q66
++# Copyright (C) 2024-2025 q66
  #
  # Author: Matt Dainty <matt@bodgit-n-scarper.com>
  # Author: Dermot Bradley <dermot_bradley@yahoo.com>
@@ -299,7 +299,7 @@ index a1d0d90..7297698 100644
 -from typing import Any, Dict, Optional
 +from typing import Optional
  
- from cloudinit import distros, helpers, subp, util
+ from cloudinit import distros, helpers, lifecycle, subp, util
  from cloudinit.distros.parsers.hostname import HostnameConf
 @@ -30,18 +28,12 @@ NETWORK_FILE_HEADER = """\
  
@@ -396,7 +396,7 @@ index a1d0d90..7297698 100644
  
      def set_timezone(self, tz):
          distros.set_etc_timezone(tz=tz, tz_file=self._find_tz_file(tz))
-@@ -201,373 +169,32 @@ class Distro(distros.Distro):
+@@ -201,7 +169,7 @@ class Distro(distros.Distro):
      def preferred_ntp_clients(self):
          """Allow distro to determine the preferred ntp client list"""
          if not self._preferred_ntp_clients:
@@ -405,16 +405,18 @@ index a1d0d90..7297698 100644
  
          return self._preferred_ntp_clients
  
-     def add_user(self, name, **kwargs):
+@@ -209,9 +177,6 @@ class Distro(distros.Distro):
          """
          Add a user to the system using standard tools
--
+ 
 -        On Alpine this may use either 'useradd' or 'adduser' depending
 -        on whether the 'shadow' package is installed.
+-
+         Returns False if user already exists, otherwise True.
          """
          if util.is_user(name):
-             LOG.info("User %s already exists, skipping.", name)
-             return
+@@ -219,390 +184,19 @@ class Distro(distros.Distro):
+             return False
  
          if "selinux_user" in kwargs:
 -            LOG.warning("Ignoring selinux_user parameter for Alpine Linux")
@@ -449,7 +451,7 @@ index a1d0d90..7297698 100644
 -            if isinstance(groups, str):
 -                groups = groups.split(",")
 -            elif isinstance(groups, dict):
--                util.deprecate(
+-                lifecycle.deprecate(
 -                    deprecated=f"The user {name} has a 'groups' config value "
 -                    "of type dict",
 -                    deprecated_version="22.3",
@@ -619,6 +621,9 @@ index a1d0d90..7297698 100644
 -                LOG, "Failed to update %s for user %s", shadow_file, name
 -            )
 -
+-        # Indicate that a new user was created
+-        return True
+-
 -    def lock_passwd(self, name):
 -        """
 -        Lock the password of a user, i.e., disable password logins
@@ -645,6 +650,36 @@ index a1d0d90..7297698 100644
 -                return True
 -        except subp.ProcessExecutionError as e:
 -            util.logexc(LOG, "Failed to disable password for user %s", name)
+-            raise e
+-
+-    def unlock_passwd(self, name: str):
+-        """
+-        Unlock the password of a user, i.e., enable password logins
+-        """
+-
+-        # Check whether Shadow's or Busybox's version of 'passwd'.
+-        # If Shadow's 'passwd' is available then use the generic
+-        # lock_passwd function from __init__.py instead.
+-        if not os.path.islink(
+-            "/usr/bin/passwd"
+-        ) or "bbsuid" not in os.readlink("/usr/bin/passwd"):
+-            return super().unlock_passwd(name)
+-
+-        cmd = ["passwd", "-u", name]
+-        # Busybox's 'passwd', unlike Shadow's 'passwd', errors
+-        # if password is already unlocked:
+-        #
+-        #   "passwd: password for user2 is already unlocked"
+-        #
+-        # with exit code 1
+-        #
+-        # and also does *not* error if no password is set.
+-        try:
+-            _, err = subp.subp(cmd, rcs=[0, 1])
+-            if re.search(r"is already unlocked", err):
+-                return True
+-        except subp.ProcessExecutionError as e:
+-            util.logexc(LOG, "Failed to unlock password for user %s", name)
 -            raise e
 -
 -    def expire_passwd(self, user):
@@ -776,7 +811,7 @@ index a1d0d90..7297698 100644
          """
          return False
  
-@@ -576,25 +203,20 @@ class Distro(distros.Distro):
+@@ -611,25 +205,20 @@ class Distro(distros.Distro):
          self, action: str, service: str, *extra_args: str, rcs=None
      ):
          """
@@ -812,7 +847,7 @@ index a1d0d90..7297698 100644
          }
          cmd = list(cmds[action])
          return subp.subp(cmd, capture=True, rcs=rcs)
-@@ -611,30 +233,6 @@ class Distro(distros.Distro):
+@@ -646,30 +235,6 @@ class Distro(distros.Distro):
          """
          realpath = os.path.realpath(blockdev)
  
@@ -844,10 +879,10 @@ index a1d0d90..7297698 100644
              LOG.debug(
                  "%s is a mapped device pointing to %s", blockdev, realpath
 diff --git a/cloudinit/util.py b/cloudinit/util.py
-index 98dd66d..a9f944f 100644
+index bfcc9c8..f0a2da1 100644
 --- a/cloudinit/util.py
 +++ b/cloudinit/util.py
-@@ -607,7 +607,7 @@ def get_linux_distro():
+@@ -562,7 +562,7 @@ def get_linux_distro():
              # which will include both version codename and architecture
              # on all distributions.
              flavor = platform.machine()
@@ -856,7 +891,7 @@ index 98dd66d..a9f944f 100644
              flavor = os_release.get("PRETTY_NAME", "")
          elif distro_name == "virtuozzo" and not os_release_rhel:
              # Only use this if the redhat file is not parsed
-@@ -659,6 +659,7 @@ def _get_variant(info):
+@@ -615,6 +615,7 @@ def _get_variant(info):
              "arch",
              "azurelinux",
              "centos",
@@ -865,13 +900,13 @@ index 98dd66d..a9f944f 100644
              "debian",
              "eurolinux",
 diff --git a/config/cloud.cfg.tmpl b/config/cloud.cfg.tmpl
-index 68175cd..96ad5b7 100644
+index e0c947b..8bbfdee 100644
 --- a/config/cloud.cfg.tmpl
 +++ b/config/cloud.cfg.tmpl
 @@ -12,7 +12,7 @@
                   "openmandriva": "OpenMandriva admin", "photon": "PhotonOS",
                   "ubuntu": "Ubuntu", "unknown": "Ubuntu"}) %}
- {% set groups = ({"alpine": "adm, wheel", "arch": "wheel, users",
+ {% set groups = ({"alpine": "adm, wheel", "aosc": "wheel", "arch": "wheel, users",
 -                  "azurelinux": "wheel",
 +                  "azurelinux": "wheel", "chimera": "wheel",
                    "debian": "adm, audio, cdrom, dialout, dip, floppy, netdev, plugdev, sudo, video",
@@ -895,7 +930,7 @@ index 68175cd..96ad5b7 100644
                     "openmandriva", "photon", "TencentOS"] or is_rhel %}
  
  {% if is_rhel %}
-@@ -128,7 +128,7 @@ cloud_init_modules:
+@@ -130,7 +130,7 @@ cloud_init_modules:
    - set_hostname
    - update_hostname
    - update_etc_hosts
@@ -904,7 +939,7 @@ index 68175cd..96ad5b7 100644
    - resolv_conf
  {% endif %}
  {% if not is_bsd or variant not in ["photon"] %}
-@@ -157,7 +157,7 @@ cloud_config_modules:
+@@ -159,7 +159,7 @@ cloud_config_modules:
  {% endif %}
    - locale
  {% endif %}
@@ -913,25 +948,25 @@ index 68175cd..96ad5b7 100644
    - apk_configure
  {% elif variant in ["debian", "ubuntu", "unknown"] %}
    - grub_dpkg
-@@ -220,7 +220,7 @@ cloud_final_modules:
+@@ -228,7 +228,7 @@ cloud_final_modules:
  # (not accessible to handlers/transforms)
  system_info:
    # This will affect which distro class gets used
--{% if variant in ["alpine", "amazon", "arch", "azurelinux", "debian", "fedora",
-+{% if variant in ["alpine", "amazon", "arch", "azurelinux", "chimera", "debian", "fedora",
+-{% if variant in ["alpine", "amazon", "aosc", "arch", "azurelinux", "debian", "fedora",
++{% if variant in ["alpine", "amazon", "aosc", "arch", "azurelinux", "chimera", "debian", "fedora",
                    "freebsd", "gentoo", "mariner", "netbsd", "openbsd",
                    "OpenCloudOS", "openeuler", "openmandriva", "photon", "suse",
                    "TencentOS", "ubuntu"] or is_rhel %}
-@@ -238,7 +238,7 @@ system_info:
+@@ -246,7 +246,7 @@ system_info:
  {% else %}
      name: {{ variant }}
  {% endif %}
--{% if variant in ["alpine", "amazon", "arch", "azurelinux", "debian", "fedora",
-+{% if variant in ["alpine", "amazon", "arch", "azurelinux", "chimera", "debian", "fedora",
+-{% if variant in ["alpine", "amazon", "aosc", "arch", "azurelinux", "debian", "fedora",
++{% if variant in ["alpine", "amazon", "aosc", "arch", "azurelinux", "chimera", "debian", "fedora",
                    "gentoo", "mariner", "OpenCloudOS", "openeuler",
                    "openmandriva", "photon", "suse", "TencentOS", "ubuntu",
                    "unknown"]
-@@ -263,7 +263,7 @@ system_info:
+@@ -271,7 +271,7 @@ system_info:
      primary_group: users
      no_user_group: true
  {% endif %}
@@ -940,7 +975,7 @@ index 68175cd..96ad5b7 100644
  {% if variant in usernames %}
      doas:
        - permit nopass usernames[{{ variant }}]
-@@ -278,7 +278,7 @@ system_info:
+@@ -286,7 +286,7 @@ system_info:
  {% else %}
      shell: /bin/bash
  {% endif %}
@@ -949,29 +984,29 @@ index 68175cd..96ad5b7 100644
    network:
      renderers: ['eni']
  {% elif variant == "debian" %}
-@@ -320,7 +320,7 @@ system_info:
+@@ -328,7 +328,7 @@ system_info:
    # Automatically discover the best ntp_client
    ntp_client: auto
  {% endif %}
--{% if variant in ["alpine", "amazon", "arch", "azurelinux", "debian", "fedora",
-+{% if variant in ["alpine", "amazon", "arch", "azurelinux", "chimera", "debian", "fedora",
+-{% if variant in ["alpine", "amazon", "aosc", "arch", "azurelinux", "debian", "fedora",
++{% if variant in ["alpine", "amazon", "aosc", "arch", "azurelinux", "chimera", "debian", "fedora",
                    "gentoo", "mariner", "OpenCloudOS", "openeuler",
                    "openmandriva", "photon", "suse", "TencentOS", "ubuntu",
                    "unknown"]
-@@ -368,7 +368,7 @@ system_info:
+@@ -376,7 +376,7 @@ system_info:
  {% endif %}
  {% if variant in ["debian", "ubuntu", "unknown"] %}
    ssh_svcname: ssh
--{% elif variant in ["alpine", "amazon", "arch", "azurelinux", "fedora",
-+{% elif variant in ["alpine", "amazon", "arch", "azurelinux", "chimera", "fedora",
+-{% elif variant in ["alpine", "amazon", "aosc", "arch", "azurelinux", "fedora",
++{% elif variant in ["alpine", "amazon", "aosc", "arch", "azurelinux", "chimera", "fedora",
                      "gentoo", "mariner", "OpenCloudOS", "openeuler",
                      "openmandriva", "photon", "suse", "TencentOS"]
                     or is_rhel %}
 diff --git a/pyproject.toml b/pyproject.toml
-index 7408488..afd2f7c 100644
+index 3ae24bf..9f49b78 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -61,6 +61,7 @@ module = [
+@@ -58,6 +58,7 @@ module = [
      "cloudinit.distros.alpine",
      "cloudinit.distros.azurelinux",
      "cloudinit.distros.bsd",
@@ -979,7 +1014,7 @@ index 7408488..afd2f7c 100644
      "cloudinit.distros.opensuse",
      "cloudinit.distros.parsers.hostname",
      "cloudinit.distros.parsers.hosts",
-@@ -171,6 +172,7 @@ module = [
+@@ -148,6 +149,7 @@ module = [
      "tests.unittests.config.test_schema",
      "tests.unittests.conftest",
      "tests.unittests.distros.test_alpine",
