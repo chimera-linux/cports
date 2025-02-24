@@ -53,7 +53,8 @@ for kpath in /usr/lib/modules/*; do
         # just in case if there was a dbg package and now there isn't
         [ -f "${kpath}/boot/System.map-${kver}" ] || rm -f "/boot/System.map-${kver}"
         # resync boot files, noop if unchanged
-        if ! rsync -a "--link-dest=${kpath}/boot" "${kpath}/boot/" /boot; then
+        # no hardlinking to allow for separate /boot
+        if ! rsync -a "${kpath}/boot/" /boot; then
             echo "SETUP FAILED: $kver"
             continue
         fi
