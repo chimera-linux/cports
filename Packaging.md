@@ -355,9 +355,6 @@ In case of indirect function call breakage, there are two ways to fix this:
    relaxes pointer type checks. The first example would work with that,
    but note that qualifiers (e.g. `const`) still need to match.
 
-It is also possible to disable just indirect function call checks and leave
-the rest enabled by disabling `cfi-icall`.
-
 Note that there are two other caveats to Clang CFI in our case:
 
 1) It is not cross-DSO; checks are performed only within the executable
@@ -1891,7 +1888,6 @@ Several others are available that are not on by default:
 CFI has additional options that affect it:
 
 * `cfi-genptr` Relaxed pointer checks (disabled by default).
-* `cfi-icall` Indirect function call checking (enabled by default).
 
 Hardening options that are not supported on a platform are silently disabled,
 but their dependency relationships are always checked.

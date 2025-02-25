@@ -24,7 +24,6 @@ hardening_fields = {
     "var-init": True,  # trivial-auto-var-init=zero
     # options affecting enabled hardening types
     "cfi-genptr": False,  # loosen pointer type checks
-    "cfi-icall": True,  # indirect call checks
 }
 
 # only some are arch-specific, those are here
@@ -61,8 +60,6 @@ def get_hardening(prof, tmpl, hlist=None):
             raise errors.CbuildException("CFI requires LTO")
         if not hdict["vis"]:
             raise errors.CbuildException("CFI requires hidden visibility")
-    else:
-        hdict["cfi-icall"] = False
 
     # ensure unsupported hardenings are never used
     for k in supported_fields:
@@ -101,8 +98,6 @@ def _get_archflags(prof, tmpl, hard):
         sflags.append("-fsanitize=cfi")
         if sanrt:
             sflags.append("-fno-sanitize-trap=cfi")
-        if not hard["cfi-icall"]:
-            sflags.append("-fno-sanitize=cfi-icall")
         if hard["cfi-genptr"]:
             sflags.append("-fsanitize-cfi-icall-generalize-pointers")
 
