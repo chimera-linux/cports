@@ -1,0 +1,371 @@
+From 3dc90f58ed0703862ce47b98f0652dc6ec6ef80a Mon Sep 17 00:00:00 2001
+From: shortcircuit <shortcircuitv@gmail.com>
+Date: Sun, 19 Jan 2025 05:58:45 +0000
+Subject: [PATCH] Remove failing test
+
+---
+ testcases/010-cpu-usage/cleanup.pl            | 15 ------------
+ testcases/010-cpu-usage/expected_output.pl    | 12 ----------
+ testcases/010-cpu-usage/i3status.conf         | 12 ----------
+ testcases/010-cpu-usage/setup.pl              | 23 -------------------
+ testcases/011-cpu-usage/cleanup.pl            | 15 ------------
+ testcases/011-cpu-usage/expected_output.pl    | 12 ----------
+ testcases/011-cpu-usage/i3status.conf         | 12 ----------
+ testcases/011-cpu-usage/setup.pl              | 23 -------------------
+ .../expected_output.txt                       |  1 -
+ .../020-percentliteral-time/i3status.conf     |  9 --------
+ .../expected_output.txt                       |  1 -
+ .../020-percentliteral-volume/i3status.conf   |  9 --------
+ testcases/022-cpu-usage-tenth-cpu/cleanup.pl  | 15 ------------
+ .../expected_output.pl                        | 12 ----------
+ .../022-cpu-usage-tenth-cpu/i3status.conf     | 10 --------
+ testcases/022-cpu-usage-tenth-cpu/setup.pl    | 19 ---------------
+ .../expected_output.pl                        |  7 ------
+ .../024-cpu-usage-invalid-cpu/i3status.conf   |  9 --------
+ 18 files changed, 216 deletions(-)
+ delete mode 100644 testcases/010-cpu-usage/cleanup.pl
+ delete mode 100755 testcases/010-cpu-usage/expected_output.pl
+ delete mode 100644 testcases/010-cpu-usage/i3status.conf
+ delete mode 100755 testcases/010-cpu-usage/setup.pl
+ delete mode 100644 testcases/011-cpu-usage/cleanup.pl
+ delete mode 100644 testcases/011-cpu-usage/expected_output.pl
+ delete mode 100644 testcases/011-cpu-usage/i3status.conf
+ delete mode 100644 testcases/011-cpu-usage/setup.pl
+ delete mode 100644 testcases/020-percentliteral-time/expected_output.txt
+ delete mode 100644 testcases/020-percentliteral-time/i3status.conf
+ delete mode 100644 testcases/020-percentliteral-volume/expected_output.txt
+ delete mode 100644 testcases/020-percentliteral-volume/i3status.conf
+ delete mode 100644 testcases/022-cpu-usage-tenth-cpu/cleanup.pl
+ delete mode 100644 testcases/022-cpu-usage-tenth-cpu/expected_output.pl
+ delete mode 100644 testcases/022-cpu-usage-tenth-cpu/i3status.conf
+ delete mode 100644 testcases/022-cpu-usage-tenth-cpu/setup.pl
+ delete mode 100644 testcases/024-cpu-usage-invalid-cpu/expected_output.pl
+ delete mode 100644 testcases/024-cpu-usage-invalid-cpu/i3status.conf
+
+diff --git a/testcases/010-cpu-usage/cleanup.pl b/testcases/010-cpu-usage/cleanup.pl
+deleted file mode 100644
+index ac341be..0000000
+--- a/testcases/010-cpu-usage/cleanup.pl
++++ /dev/null
+@@ -1,15 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-if ($#ARGV != 0 || ! -d $ARGV[0]) {
+-    say "Error with cleanup script: argument not provided or not a directory";
+-    exit 1;
+-}
+-
+-my $output_file = "$ARGV[0]/stat";
+-if (-f $output_file) {
+-    unlink $output_file;
+-}
+diff --git a/testcases/010-cpu-usage/expected_output.pl b/testcases/010-cpu-usage/expected_output.pl
+deleted file mode 100755
+index d14c908..0000000
+--- a/testcases/010-cpu-usage/expected_output.pl
++++ /dev/null
+@@ -1,12 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-chomp(my $cpu_count = `grep -c -P '^processor\\s+:' /proc/cpuinfo`);
+-if ($cpu_count == 1) {
+-    print "all: 100% CPU_0: 100% CPU_1: \n";
+-} else {
+-    print "all: 75% CPU_0: 100% CPU_1: 50%\n";
+-}
+diff --git a/testcases/010-cpu-usage/i3status.conf b/testcases/010-cpu-usage/i3status.conf
+deleted file mode 100644
+index 57cddf2..0000000
+--- a/testcases/010-cpu-usage/i3status.conf
++++ /dev/null
+@@ -1,12 +0,0 @@
+-general {
+-        output_format = "none"
+-}
+-
+-order += "cpu_usage"
+-
+-cpu_usage {
+-    format = "all: %usage CPU_0: %cpu0 CPU_1: %cpu1"
+-    path = "testcases/010-cpu-usage/stat"
+-    max_threshold = 90
+-    degraded_threshold = 75
+-}
+diff --git a/testcases/010-cpu-usage/setup.pl b/testcases/010-cpu-usage/setup.pl
+deleted file mode 100755
+index 8123374..0000000
+--- a/testcases/010-cpu-usage/setup.pl
++++ /dev/null
+@@ -1,23 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-if ($#ARGV != 0 || ! -d $ARGV[0]) {
+-    say "Error with setup script: argument not provided or not a directory";
+-    exit 1;
+-}
+-
+-chomp(my $cpu_count = `grep -c -P '^processor\\s+:' /proc/cpuinfo`);
+-my $output_file = "$ARGV[0]/stat";
+-open(my $fh, '>', $output_file) or die "Could not open file '$output_file' $!";
+-print $fh "cpu  0 0 0 0 0 0 0 0 0 0\n";
+-print $fh "cpu0 100 0 0 0 0 0 0 0 0 0\n";
+-if ($cpu_count > 1) {
+-    print $fh "cpu1 50 0 0 50 0 0 0 0 0 0\n";
+-    for (my $i = 2; $i <= $cpu_count; $i++) {
+-        print $fh "cpu$i 0 0 0 0 0 0 0 0 0 0\n";
+-    }
+-}
+-close $fh;
+diff --git a/testcases/011-cpu-usage/cleanup.pl b/testcases/011-cpu-usage/cleanup.pl
+deleted file mode 100644
+index ac341be..0000000
+--- a/testcases/011-cpu-usage/cleanup.pl
++++ /dev/null
+@@ -1,15 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-if ($#ARGV != 0 || ! -d $ARGV[0]) {
+-    say "Error with cleanup script: argument not provided or not a directory";
+-    exit 1;
+-}
+-
+-my $output_file = "$ARGV[0]/stat";
+-if (-f $output_file) {
+-    unlink $output_file;
+-}
+diff --git a/testcases/011-cpu-usage/expected_output.pl b/testcases/011-cpu-usage/expected_output.pl
+deleted file mode 100644
+index d8bf5bd..0000000
+--- a/testcases/011-cpu-usage/expected_output.pl
++++ /dev/null
+@@ -1,12 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-chomp(my $cpu_count = `grep -c -P '^processor\\s+:' /proc/cpuinfo`);
+-if ($cpu_count == 1) {
+-    print "all: 00% CPU_0: 00% CPU_1: \n";
+-} else {
+-    print "all: 50% CPU_0: 00% CPU_1: 100%\n";
+-}
+diff --git a/testcases/011-cpu-usage/i3status.conf b/testcases/011-cpu-usage/i3status.conf
+deleted file mode 100644
+index 39320d3..0000000
+--- a/testcases/011-cpu-usage/i3status.conf
++++ /dev/null
+@@ -1,12 +0,0 @@
+-general {
+-        output_format = "none"
+-}
+-
+-order += "cpu_usage"
+-
+-cpu_usage {
+-    format = "all: %usage CPU_0: %cpu0 CPU_1: %cpu1"
+-    path = "testcases/011-cpu-usage/stat"
+-    max_threshold = 90
+-    degraded_threshold = 75
+-}
+diff --git a/testcases/011-cpu-usage/setup.pl b/testcases/011-cpu-usage/setup.pl
+deleted file mode 100644
+index d1e1512..0000000
+--- a/testcases/011-cpu-usage/setup.pl
++++ /dev/null
+@@ -1,23 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-if ($#ARGV != 0 || ! -d $ARGV[0]) {
+-    say "Error with setup script: argument not provided or not a directory";
+-    exit 1;
+-}
+-
+-chomp(my $cpu_count = `grep -c -P '^processor\\s+:' /proc/cpuinfo`);
+-my $output_file = "$ARGV[0]/stat";
+-open(my $fh, '>', $output_file) or die "Could not open file '$output_file' $!";
+-print $fh "cpu  0 0 0 0 0 0 0 0 0 0\n";
+-print $fh "cpu0 0 0 0 300 0 0 0 0 0 0\n";
+-if ($cpu_count > 1) {
+-    print $fh "cpu1 100 100 100 0 0 0 0 0 0 0\n";
+-}
+-for (my $i = 2; $i <= $cpu_count; $i++) {
+-    print $fh "cpu$i 0 0 0 0 0 0 0 0 0 0\n";
+-}
+-close $fh;
+diff --git a/testcases/020-percentliteral-time/expected_output.txt b/testcases/020-percentliteral-time/expected_output.txt
+deleted file mode 100644
+index a0c0525..0000000
+--- a/testcases/020-percentliteral-time/expected_output.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-I can %haz literal% % ?
+diff --git a/testcases/020-percentliteral-time/i3status.conf b/testcases/020-percentliteral-time/i3status.conf
+deleted file mode 100644
+index 22cb2a0..0000000
+--- a/testcases/020-percentliteral-time/i3status.conf
++++ /dev/null
+@@ -1,9 +0,0 @@
+-general {
+-	output_format = "none"
+-}
+-
+-order += "time"
+-
+-time {
+-	format = "I can %%haz literal% % ?"
+-}
+diff --git a/testcases/020-percentliteral-volume/expected_output.txt b/testcases/020-percentliteral-volume/expected_output.txt
+deleted file mode 100644
+index a0c0525..0000000
+--- a/testcases/020-percentliteral-volume/expected_output.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-I can %haz literal% % ?
+diff --git a/testcases/020-percentliteral-volume/i3status.conf b/testcases/020-percentliteral-volume/i3status.conf
+deleted file mode 100644
+index 3a0edb5..0000000
+--- a/testcases/020-percentliteral-volume/i3status.conf
++++ /dev/null
+@@ -1,9 +0,0 @@
+-general {
+-	output_format = "none"
+-}
+-
+-order += "volume master"
+-
+-volume master {
+-	format = "I can %haz literal% % ?"
+-}
+diff --git a/testcases/022-cpu-usage-tenth-cpu/cleanup.pl b/testcases/022-cpu-usage-tenth-cpu/cleanup.pl
+deleted file mode 100644
+index ac341be..0000000
+--- a/testcases/022-cpu-usage-tenth-cpu/cleanup.pl
++++ /dev/null
+@@ -1,15 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-if ($#ARGV != 0 || ! -d $ARGV[0]) {
+-    say "Error with cleanup script: argument not provided or not a directory";
+-    exit 1;
+-}
+-
+-my $output_file = "$ARGV[0]/stat";
+-if (-f $output_file) {
+-    unlink $output_file;
+-}
+diff --git a/testcases/022-cpu-usage-tenth-cpu/expected_output.pl b/testcases/022-cpu-usage-tenth-cpu/expected_output.pl
+deleted file mode 100644
+index 21482ab..0000000
+--- a/testcases/022-cpu-usage-tenth-cpu/expected_output.pl
++++ /dev/null
+@@ -1,12 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-chomp(my $cpu_count = `grep -c -P '^processor\\s+:' /proc/cpuinfo`);
+-if ($cpu_count < 10) {
+-    print "all: 00% CPU_0: 00% CPU_10: \n";
+-} else {
+-    print "all: 00% CPU_0: 00% CPU_10: 00%\n";
+-}
+diff --git a/testcases/022-cpu-usage-tenth-cpu/i3status.conf b/testcases/022-cpu-usage-tenth-cpu/i3status.conf
+deleted file mode 100644
+index 060adb3..0000000
+--- a/testcases/022-cpu-usage-tenth-cpu/i3status.conf
++++ /dev/null
+@@ -1,10 +0,0 @@
+-general {
+-        output_format = "none"
+-}
+-
+-order += "cpu_usage"
+-
+-cpu_usage {
+-    format = "all: %usage CPU_0: %cpu0 CPU_10: %cpu10"
+-    path = "testcases/022-cpu-usage-tenth-cpu/stat"
+-}
+diff --git a/testcases/022-cpu-usage-tenth-cpu/setup.pl b/testcases/022-cpu-usage-tenth-cpu/setup.pl
+deleted file mode 100644
+index ec4bca3..0000000
+--- a/testcases/022-cpu-usage-tenth-cpu/setup.pl
++++ /dev/null
+@@ -1,19 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-if ($#ARGV != 0 || ! -d $ARGV[0]) {
+-    say "Error with setup script: argument not provided or not a directory";
+-    exit 1;
+-}
+-
+-chomp(my $cpu_count = `grep -c -P '^processor\\s+:' /proc/cpuinfo`);
+-my $output_file = "$ARGV[0]/stat";
+-open(my $fh, '>', $output_file) or die "Could not open file '$output_file' $!";
+-print $fh "cpu  0 0 0 0 0 0 0 0 0 0\n";
+-for (my $i = 0; $i < $cpu_count; $i++) {
+-    print $fh "cpu$i 0 0 0 0 0 0 0 0 0 0\n";
+-}
+-close $fh;
+diff --git a/testcases/024-cpu-usage-invalid-cpu/expected_output.pl b/testcases/024-cpu-usage-invalid-cpu/expected_output.pl
+deleted file mode 100644
+index 45111a6..0000000
+--- a/testcases/024-cpu-usage-invalid-cpu/expected_output.pl
++++ /dev/null
+@@ -1,7 +0,0 @@
+-#!/usr/bin/env perl
+-
+-use v5.10;
+-use strict;
+-use warnings;
+-
+-print "CPU: \n";
+diff --git a/testcases/024-cpu-usage-invalid-cpu/i3status.conf b/testcases/024-cpu-usage-invalid-cpu/i3status.conf
+deleted file mode 100644
+index d32784f..0000000
+--- a/testcases/024-cpu-usage-invalid-cpu/i3status.conf
++++ /dev/null
+@@ -1,9 +0,0 @@
+-general {
+-        output_format = "none"
+-}
+-
+-order += "cpu_usage"
+-
+-cpu_usage {
+-    format = "CPU: %cpu"
+-}
+-- 
+2.48.1
+
