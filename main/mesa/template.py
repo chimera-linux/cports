@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "24.3.4"
-pkgrel = 1
+pkgver = "25.0.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -89,7 +89,7 @@ _subproject_list = [
     "unicode-ident",
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "e641ae27191d387599219694560d221b7feaa91c900bcec46bf444218ed66025"
+sha256 = "96a53501fd59679654273258c6c6a1055a20e352ee1429f0b123516c7190e5b0"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -252,16 +252,6 @@ def post_install(self):
     self.install_license("docs/license.rst")
 
 
-@subpackage("mesa-glapi-libs")
-def _(self):
-    self.pkgdesc = "Free implementation of the GL API"
-    self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libglapi")]
-
-    return ["usr/lib/libglapi.so.*"]
-
-
 @subpackage("mesa-gbm-libs")
 def _(self):
     self.pkgdesc = "Generic Buffer Management"
@@ -373,6 +363,11 @@ def _(self):
 def _(self):
     self.pkgdesc = "Mesa gallium loader"
     self.depends += [self.parent]
+    # swallowed by libgallium
+    self.provides = [
+        self.with_pkgver("libglapi"),
+        self.with_pkgver("mesa-glapi-libs"),
+    ]
 
     return ["usr/lib/libgallium-*.so"]
 
