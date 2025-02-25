@@ -1,6 +1,6 @@
 pkgname = "lynx"
 pkgver = "2.9.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-widec",
@@ -27,5 +27,5 @@ source = f"https://invisible-mirror.net/archives/lynx/tarballs/lynx{pkgver.repla
 sha256 = "7374b89936d991669e101f4e97f2c9592036e1e8cdaa7bafc259a77ab6fb07ce"
 # CFI: crashes in UCPutUtf8_charstring via magic function pointer stuff
 # when -display_charset utf-8 on any website
-hardening = ["vis", "cfi", "cfi-genptr"]
+hardening = ["vis", "!cfi"]
 options = ["!cross"]

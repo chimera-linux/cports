@@ -348,19 +348,11 @@ Other types of CFI usually do not break as much as they are either specific
 to C++ (which is more strictly typed, especially in those contexts) or
 overall less prone to such shortcuts.
 
-In case of indirect function call breakage, there are two ways to fix this:
-
-1) Patching the code. This is usually better.
-2) Adding `cfi-genptr` to `hardening`. This enables special CFI mode that
-   relaxes pointer type checks. The first example would work with that,
-   but note that qualifiers (e.g. `const`) still need to match.
-
 Note that there are two other caveats to Clang CFI in our case:
 
 1) It is not cross-DSO; checks are performed only within the executable
    or library and not for any external API. Correct cross-DSO CFI requires
-   support in the C standard library. The `cfi-genptr` method also would
-   not work with cross-DSO CFI.
+   support in the C standard library.
 2) It is currently only available on the `x86_64` and `aarch64` targets.
    On other targets it is silently ignored (so you do not need to set
    it conditionally).
@@ -1884,10 +1876,6 @@ Several others are available that are not on by default:
 * `vis` Build with `-fvisibility=hidden` in default flags.
 * `cfi` Enables Clang Control Flow Integrity (needs `vis`, `x86_64` and `aarch64`)
 * `sst` Enables Clang SafeStack (`x86_64`, `aarch64`)
-
-CFI has additional options that affect it:
-
-* `cfi-genptr` Relaxed pointer checks (disabled by default).
 
 Hardening options that are not supported on a platform are silently disabled,
 but their dependency relationships are always checked.

@@ -22,8 +22,6 @@ hardening_fields = {
     # misc general hardening that you'll almost never want to disable
     "format": True,  # format-security
     "var-init": True,  # trivial-auto-var-init=zero
-    # options affecting enabled hardening types
-    "cfi-genptr": False,  # loosen pointer type checks
 }
 
 # only some are arch-specific, those are here
@@ -98,8 +96,6 @@ def _get_archflags(prof, tmpl, hard):
         sflags.append("-fsanitize=cfi")
         if sanrt:
             sflags.append("-fno-sanitize-trap=cfi")
-        if hard["cfi-genptr"]:
-            sflags.append("-fsanitize-cfi-icall-generalize-pointers")
 
     if hard["int"]:
         sflags.append(
