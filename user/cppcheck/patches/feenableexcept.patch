@@ -1,15 +1,22 @@
-Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/8dd3d8861eff2b4b5171d861e9cde50a92adb93b/community/cppcheck/feenableexcept.patch
 diff --git a/test/signal/test-signalhandler.cpp b/test/signal/test-signalhandler.cpp
-index 023137c2a..92b3fe8af 100644
+index a3e77b08e..f8c3503a2 100644
 --- a/test/signal/test-signalhandler.cpp
 +++ b/test/signal/test-signalhandler.cpp
-@@ -46,9 +46,6 @@
- 
- /*static*/ void my_fpe() // NOLINT(misc-use-internal-linkage)
- {
--#if !defined(__APPLE__)
--    feenableexcept(FE_ALL_EXCEPT); // TODO: check result
--#endif
-     std::feraiseexcept(FE_UNDERFLOW | FE_DIVBYZERO); // TODO: check result
-     // TODO: to generate this via code
+@@ -52,17 +52,13 @@
+     ++*(int*)nullptr;
  }
+ 
+-#if !defined(__APPLE__)
+ /*static*/ int my_fpe() // NOLINT(misc-use-internal-linkage)
+ {
+-    if (feenableexcept(FE_ALL_EXCEPT) == -1)
+-        return 2;
+     if (std::feraiseexcept(FE_ALL_EXCEPT) != 0)
+         return 3;
+     return 1 % -1;
+ }
+ #endif
+-#endif
+ 
+ int main(int argc, const char * const argv[])
+ {
