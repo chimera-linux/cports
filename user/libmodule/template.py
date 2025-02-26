@@ -1,6 +1,6 @@
 pkgname = "libmodule"
 pkgver = "5.0.1"
-pkgrel = 1
+pkgrel = 0
 build_style = "cmake"
 # TODO: cmocka misses .pc which makes it undiscoverable, so skip tests for now
 # configure_args = ["-DBUILD_TESTS=true"]
