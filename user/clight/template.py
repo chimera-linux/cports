@@ -4,25 +4,22 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
+    "ninja",
+    "pkgconf",
+]
+makedepends = [
+    "bash-completion",
     "dbus-devel",
     "elogind-devel",
+    "fish-shell",
     "gsl-devel",
     "libconfig-devel",
     "libmodule-devel",
     "linux-headers",
-    "ninja",
-    "pkgconf",
     "popt-devel",
 ]
-makedepends = [
-    "bash-completion",
-    "fish-shell",
-]
 depends = [
-    "clightd",
-]
-install_if = [
-    "clightd>=5",
+    "clightd=5.9-r0",
 ]
 pkgdesc = "User daemon to adjust screen backlight based on ambient brightness"
 maintainer = "Anthony <w732qq@gmail.com>"
