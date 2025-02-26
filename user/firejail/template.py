@@ -7,19 +7,15 @@ configure_args = ["--sysconfdir=/usr/share"]
 configure_gen = []
 make_dir = "."
 make_check_target = "test"
-makedepends = [
-    "gawk",
-    "base-kernel-devel"
-]
+hostmakedepends = ["gawk", "linux-headers"]
+checkdepends = ["bash"]
 pkgdesc = "Firejail SUID sandboxing tool"
 maintainer = "hbog <herwig.bogaert@posteo.net>"
 license = "GPL-2.0-only"
 url = "https://github.com/netblue30/firejail"
 source = f"{url}/archive/{_commit}.zip"
 sha256 = "2a05497ac0dc2053b5e3aca2ddf5c32ab5176f60be102498bc849b3042225bb3"
-file_modes = {
-    "usr/bin/firejail": ("root", "root", 0o4755)
-}
+file_modes = {"usr/bin/firejail": ("root", "root", 0o4755)}
 hardening = ["vis", "cfi"]
 
 
