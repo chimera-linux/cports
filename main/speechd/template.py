@@ -1,6 +1,6 @@
 pkgname = "speechd"
-pkgver = "0.11.5"
-pkgrel = 5
+pkgver = "0.12.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -32,7 +32,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/brailcom/speechd"
 source = f"{url}/releases/download/{pkgver}/speech-dispatcher-{pkgver}.tar.gz"
-sha256 = "1ce4759ffabbaf1aeb433a5ec0739be0676e9bdfbae9444a7b3be1b2af3ec12b"
+sha256 = "e1dd0bfa24b8338545e165451330adf51c4c0dca862b1b67e76fba5142dbbb74"
 # strcasestr
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 
