@@ -1,5 +1,5 @@
 pkgname = "wireshark"
-pkgver = "4.4.4"
+pkgver = "4.4.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -59,7 +59,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.wireshark.org"
 source = f"https://www.wireshark.org/download/src/wireshark-{pkgver}.tar.xz"
-sha256 = "5154d2b741ec928b1bdb5eba60e29536f78907b21681a7fe18c652f4db44b1f1"
+sha256 = "02346f7de3d50678c200189a2ecbf4747fd83fbfc5850cadfd428fd9b1544428"
 file_modes = {
     "usr/bin/dumpcap": ("root", "root", 0o755),
 }
