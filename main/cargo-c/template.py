@@ -1,5 +1,5 @@
 pkgname = "cargo-c"
-pkgver = "0.10.9"
+pkgver = "0.10.11"
 pkgrel = 0
 build_style = "cargo"
 # no tests in others
@@ -26,9 +26,9 @@ source = [
 ]
 source_paths = [".", "git2", "."]
 sha256 = [
-    "4542e39aa67bf8712c60f21701cc8e8b5153d0344afe1b618f121f696b578a7f",
+    "8a6d6dc589d6d70bd7eb95971e3c608240e1f9c938dd5b54a049977333b59f05",
     "d4b8b2b2526944d6cb75ecf8bcc2c1757fc1fa6deef94b6d32410b1f84f38d1b",
-    "387e25aa120f945c5455557ca7815b8085090b825d2d4fd0b46cc9fdce0c34bc",
+    "c65ee1fcd2fefa0a3c572477243c64326f21ff5c85b960a7975663141121eb91",
 ]
 # mfs be like rebuild literally everything and then run
 # test_semver_one_zero_zero and test_semver_zero_zero_zero

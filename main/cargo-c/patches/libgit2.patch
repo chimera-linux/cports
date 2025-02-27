@@ -54,7 +54,7 @@ index 8eac87d..9aaf673 100644
 +version = "0.21.0"
  
  [dependencies.gix]
- version = "0.67.0"
+ version = "0.69.1"
 @@ -163,7 +163,7 @@ version = "0.1.32"
  version = "1.3.0"
  
