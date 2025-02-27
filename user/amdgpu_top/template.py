@@ -1,6 +1,6 @@
 pkgname = "amdgpu_top"
-pkgver = "0.10.1"
-pkgrel = 1
+pkgver = "0.10.3"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=package"]
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/Umio-Yasuno/amdgpu_top"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "99f76632866694f2fa24f2b6e7b687d34b901fdcba28762cccd8f0a876c11765"
+sha256 = "b74065ea89fb35a572dddccc22b71e81b7cb1e76b83027704814595e4fcdc6e4"
 # no tests
 options = ["!check"]
 
