@@ -1,5 +1,5 @@
 pkgname = "g4music"
-pkgver = "4.3"
+pkgver = "4.3.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -21,4 +21,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/neithern/g4music"
 source = f"{url}/-/archive/v{pkgver}/g4music-v{pkgver}.tar.gz"
-sha256 = "c39a6f1b98d11e7661ace8abdf78270153be2505ad0f1a7753e078b40c16b65a"
+sha256 = "a4aa9db0923ba04b362f45bbe2b777cd6a163a6f209c1bad0db3ea6727f450a0"
