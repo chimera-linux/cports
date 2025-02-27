@@ -6,6 +6,7 @@ build_style = "gnu_configure"
 configure_args = [
     "--disable-tests",
     "--enable-archs=x86_64,i386",
+    "--enable-tools",
     "--enable-win64",
 ]
 make_install_args = [
@@ -69,28 +70,7 @@ options = ["!lto", "!check"]
 
 
 def post_install(self):
-    # when building 64+32 compat, only bare name is emitted, add *64 names for compat
     self.install_link("usr/bin/wine64", "wine")
-    self.install_link("usr/bin/wine64-preloader", "wine-preloader")
-
-    # all of these are the same wineapploader shell script that uses $0,
-    # so just create links to it
-    self.install_bin("build/tools/wineapploader")
-    for link in [
-        "msidb",
-        "msiexec",
-        "notepad",
-        "regedit",
-        "regsvr32",
-        "wineboot",
-        "winecfg",
-        "wineconsole",
-        "winefile",
-        "winemine",
-        "winepath",
-    ]:
-        self.uninstall(f"usr/bin/{link}")
-        self.install_link(f"usr/bin/{link}", "wineapploader")
 
 
 @subpackage("wine-devel")
