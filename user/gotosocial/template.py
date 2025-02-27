@@ -1,9 +1,7 @@
 pkgname = "gotosocial"
-pkgver = "0.17.4"
+pkgver = "0.18.1"
 pkgrel = 0
 build_style = "go"
-# go.mod is patched
-prepare_after_patch = True
 make_build_args = [f"-ldflags=-X main.Version=${pkgver}", "./cmd/gotosocial"]
 make_check_env = {"GTS_DB_TYPE": "sqlite", "GTS_DB_ADDRESS": ":memory:"}
 hostmakedepends = ["go", "go-swagger", "yarn"]
@@ -16,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "AGPL-3.0-or-later"
 url = "https://gotosocial.org"
 source = f"https://github.com/superseriousbusiness/gotosocial/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "13acb84353ff745e93b42d1ab2e960f8927090916c8a6f642b0939ef3ce5dffb"
+sha256 = "704d15d2d27ca287944439d83c382f1036d144fe615849e00ab509deb744754d"
 # flaky
 options = ["!check"]
 
@@ -38,13 +36,7 @@ def post_extract(self):
     self.rm("internal/federation/dereferencing/emoji_test.go")
 
 
-def prepare(self):
-    from cbuild.util import golang
-
-    self.do(
-        "go", "mod", "vendor", allow_network=True, env=golang.get_go_env(self)
-    )
-
+def post_prepare(self):
     self.do(
         "yarn",
         "--cwd",
