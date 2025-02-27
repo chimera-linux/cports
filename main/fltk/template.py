@@ -1,5 +1,5 @@
 pkgname = "fltk"
-pkgver = "1.4.1"
+pkgver = "1.4.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -39,7 +39,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.0-only WITH FLTK-exception"
 url = "https://www.fltk.org"
 source = f"https://github.com/fltk/fltk/releases/download/release-{pkgver}/fltk-{pkgver}-source.tar.gz"
-sha256 = "7d0a5a352fde0beae44a2009c1aca1d6be15d46dd251d1c12cf34d752b429038"
+sha256 = "abf51c65c73e08d470488b3fc834c943dc8cec16f7919165827f3403318a15ef"
 hardening = ["vis", "!cfi"]
 
 
