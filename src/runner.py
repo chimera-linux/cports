@@ -829,10 +829,12 @@ def bootstrap(tgt):
 
 def bootstrap_update(tgt):
     from cbuild.core import chroot
+    from cbuild.util import flock
 
     chroot.install()
-    chroot.cleanup_world(False)
-    chroot.update("main")
+    with flock.lock(flock.rootlock()):
+        chroot.cleanup_world(False)
+        chroot.update("main")
 
 
 def do_keygen(tgt):
