@@ -1,5 +1,5 @@
 pkgname = "xplr"
-pkgver = "0.21.9"
+pkgver = "0.21.10"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features"]
@@ -19,13 +19,13 @@ url = "https://xplr.dev"
 source = (
     f"https://github.com/sayanarijit/xplr/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "345400c2fb7046963b2e0fcca8802b6e523e0fb742d0d893cb7fd42f10072a55"
+sha256 = "9d0201dd6beff259a614a6e38f7f321f1cbefd191d661fc70506c2ffd1501e33"
 # needs rebuild with non-release to use bin from debug/
 options = ["!check"]
 
 
 def post_extract(self):
-    self.rm(".cargo/config")
+    self.rm(".cargo/config.toml")
 
 
 def post_install(self):
