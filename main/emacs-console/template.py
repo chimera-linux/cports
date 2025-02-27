@@ -1,7 +1,8 @@
 pkgname = "emacs-console"
-pkgver = "29.4"
+pkgver = "30.1"
 pkgrel = 9
 build_style = "gnu_configure"
+# TODO gccjit (cba to figure it out for now)
 configure_args = [
     "--with-gameuser=:_games",
     "--with-gpm",
@@ -21,7 +22,6 @@ makedepends = [
     "glib-devel",
     "gmp-devel",
     "gnutls-devel",
-    "jansson-devel",
     "lcms2-devel",
     "libxml2-devel",
     "linux-headers",
@@ -33,8 +33,8 @@ provider_priority = 0
 pkgdesc = "Extensible, customizable, self-documenting, real-time display editor"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/emacs/emacs.html"
-source = f"https://ftp.gnu.org/gnu/emacs/emacs-{pkgver}.tar.xz"
-sha256 = "ba897946f94c36600a7e7bb3501d27aa4112d791bfe1445c61ed28550daca235"
+source = f"$(GNU_SITE)/emacs/emacs-{pkgver}.tar.xz"
+sha256 = "6ccac1ae76e6af93c6de1df175e8eb406767c23da3dd2a16aa67e3124a6f138f"
 # CFI: breaks
 hardening = ["vis", "!cfi"]
 # no tests
