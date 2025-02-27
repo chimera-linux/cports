@@ -1,5 +1,5 @@
 pkgname = "nicotine-plus"
-pkgver = "3.3.7"
+pkgver = "3.3.8"
 pkgrel = 0
 build_style = "python_pep517"
 # test_update_check: no networking + patched
@@ -35,4 +35,4 @@ url = "https://nicotine-plus.github.io/nicotine-plus"
 source = (
     f"https://github.com/Nicotine-Plus/nicotine-plus/archive/{pkgver}.tar.gz"
 )
-sha256 = "ea92ef27f4da7c41ce01f6419523345e1496f2a4348a7e1355f1bf87f9201274"
+sha256 = "9b8db64d0d3f850b012910be9a799b19731317435da183b1fb21efd2e1b474b9"
