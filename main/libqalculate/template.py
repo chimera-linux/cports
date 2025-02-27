@@ -1,7 +1,7 @@
 pkgname = "libqalculate"
 # match to qalculate-gtk/qt
-pkgver = "5.5.0"
-pkgrel = 1
+pkgver = "5.5.1"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -23,7 +23,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://qalculate.github.io"
 source = f"https://github.com/Qalculate/libqalculate/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c54bba4962089c10e596bd0ba0261918741b5d1a022c97b4324a32c27b087c96"
+sha256 = "8850a71ceb7a16e8b161edc2f11e2d76bd7c298abe9ddd68f43edf1bdc34aaee"
 
 
 @subpackage("libqalculate-devel")
