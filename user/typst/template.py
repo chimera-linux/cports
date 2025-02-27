@@ -18,6 +18,9 @@ sha256 = "5a7224e32a555ac647ff202667a183b80d35539b685b3ce64bedf5d4e5a1a286"
 # takes forever
 options = ["!check"]
 
+if self.profile().wordsize == 32:
+    broken = "atomic64 shenanigans"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/typst")
