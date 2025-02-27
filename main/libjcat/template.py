@@ -1,6 +1,6 @@
 pkgname = "libjcat"
-pkgver = "0.2.2"
-pkgrel = 1
+pkgver = "0.2.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libjcat"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "60fb1d30b16ba1a2dbf48998094d366bc94a082846b71decf9d6ac6bb6aa4800"
+sha256 = "9b94aa1915ff392c466c03aa3ad8de320eb625d7a074571de9ec669ab17d405a"
 options = ["!cross"]
 
 
