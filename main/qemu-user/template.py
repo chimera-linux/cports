@@ -1,5 +1,5 @@
 pkgname = "qemu-user"
-pkgver = "9.2.1"
+pkgver = "9.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde libssh capstone
@@ -45,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "b7b0782ead63a5373fdfe08e084d3949a9395ec196180286b841f78a464d169c"
+sha256 = "752eaeeb772923a73d536b231e05bcc09c9b1f51690a41ad9973d900e4ec9fbf"
 # maybe someday
 options = ["!cross", "!check", "empty"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
