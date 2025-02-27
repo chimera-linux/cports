@@ -1,5 +1,5 @@
 pkgname = "socat"
-pkgver = "1.8.0.2"
+pkgver = "1.8.0.3"
 pkgrel = 0
 build_style = "gnu_configure"
 # broken
@@ -17,7 +17,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://www.dest-unreach.org/socat"
 source = f"{url}/download/socat-{pkgver}.tar.gz"
-sha256 = "e9498367cb765d44bb06be9709c950f436b30bf7071a224a0fee2522f9cbb417"
+sha256 = "a9f9eb6cfb9aa6b1b4b8fe260edbac3f2c743f294db1e362b932eb3feca37ba4"
 hardening = ["vis", "cfi"]
 # tests have heisenbugs
 options = ["!check"]
