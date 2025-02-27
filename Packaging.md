@@ -73,7 +73,7 @@ pkgdesc = "Simple package"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://foo.software"
-source = f"https://foo.software/foo-{pkgver}.tar.gz"
+source = f"{url}/foo-{pkgver}.tar.gz"
 sha256 = "ad031c86b23ed776697f77f1a3348cd7129835965d4ee9966bc50e65c97703e8"
 ```
 
