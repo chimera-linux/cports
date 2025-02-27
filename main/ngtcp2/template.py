@@ -1,5 +1,5 @@
 pkgname = "ngtcp2"
-pkgver = "1.10.0"
+pkgver = "1.11.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_GNUTLS=ON", "-DENABLE_OPENSSL=OFF"]
@@ -15,7 +15,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ngtcp2/ngtcp2"
 source = f"{url}/releases/download/v{pkgver}/ngtcp2-{pkgver}.tar.xz"
-sha256 = "4f8dc1d61957205d01c3d6aa6f1c96c7b2bac1feea71fdaf972d86db5f6465df"
+sha256 = "382c15bf66b630f26021631b25b7eb1feac42c67c1d6826189d61091dfaa4d09"
 
 
 def post_install(self):
