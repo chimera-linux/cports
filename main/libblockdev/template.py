@@ -26,7 +26,6 @@ makedepends = [
     "util-linux-fdisk-devel",
 ]
 pkgdesc = "Library for manipulating block devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libblockdev"
 source = f"{url}/releases/download/{pkgver}/libblockdev-{pkgver}.tar.gz"

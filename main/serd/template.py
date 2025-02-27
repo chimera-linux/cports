@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "C library for RDF syntax"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/serd.html"
 source = f"https://download.drobilla.net/serd-{pkgver}.tar.xz"

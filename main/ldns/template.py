@@ -18,7 +18,6 @@ hostmakedepends = [
 makedepends = ["libpcap-devel", "openssl3-devel", "dns-root-data"]
 pkgdesc = "Modern DNS/DNSSEC library"
 subdesc = "utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.nlnetlabs.nl/projects/ldns"
 source = f"http://www.nlnetlabs.nl/downloads/ldns/ldns-{pkgver}.tar.gz"

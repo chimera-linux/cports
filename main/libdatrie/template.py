@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 make_install_args = ["-j1"]
 hostmakedepends = ["autoconf-archive", "automake", "pkgconf", "slibtool"]
 pkgdesc = "Implementation of double-array structure for representing trie"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://linux.thai.net/projects/datrie"
 source = f"https://linux.thai.net/pub/ThaiLinux/software/libthai/libdatrie-{pkgver}.tar.xz"

@@ -18,7 +18,6 @@ depends = [
     "fonts-source-code-pro-otf",
 ]
 pkgdesc = "Collection of GSettings schemas"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
 source = f"$(GNOME_SITE)/gsettings-desktop-schemas/{pkgver[:-2]}/gsettings-desktop-schemas-{pkgver}.tar.xz"

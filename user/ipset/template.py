@@ -17,7 +17,6 @@ makedepends = [
 ]
 checkdepends = ["bash", "iptables"]
 pkgdesc = "Manage Linux IP sets"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://ipset.netfilter.org"
 source = f"{url}/ipset-{pkgver}.tar.bz2"

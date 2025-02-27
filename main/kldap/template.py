@@ -20,7 +20,6 @@ makedepends = [
     "qtkeychain-devel",
 ]
 pkgdesc = "KDE LDAP access API"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kldap/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kldap-{pkgver}.tar.xz"

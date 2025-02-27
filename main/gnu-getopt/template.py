@@ -3,7 +3,6 @@ pkgver = "0.0.1"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "GNU getopt compatibility package for musl"
-maintainer = "roastveg <louis@hamptonsoftworks.com>"
 license = "BSD-4-Clause AND ISC"
 url = "https://github.com/sabotage-linux/gnu-getopt"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

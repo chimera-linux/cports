@@ -4,7 +4,6 @@ pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Markdown to manpage converter"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/cpuguy83/go-md2man"
 source = f"{url}/archive/v{pkgver}.tar.gz"

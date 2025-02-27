@@ -12,7 +12,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "Authoritative DNS name server"
-maintainer = "yanchan09 <yan@omg.lol>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/nsd/about"
 source = f"https://nlnetlabs.nl/downloads/nsd/nsd-{pkgver}.tar.gz"

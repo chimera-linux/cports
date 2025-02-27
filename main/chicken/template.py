@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 depends = [self.with_pkgver("chicken-devel")]
 pkgdesc = "Practical and portable Scheme system"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://call-cc.org"
 source = f"https://code.call-cc.org/releases/{pkgver}/chicken-{pkgver}.tar.gz"

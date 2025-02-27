@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Tool to generate C bindings for Rust code"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/eqrion/cbindgen"
 source = f"{url}/archive/v{pkgver}.tar.gz"

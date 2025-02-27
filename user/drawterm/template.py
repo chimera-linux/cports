@@ -13,7 +13,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Interface to Plan 9 systems"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://drawterm.9front.org"
 _wlr_protocols_commit = "ffb89ac790096f6e6272822c8d5df7d0cc6fcdfa"

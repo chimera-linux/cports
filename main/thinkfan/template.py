@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["yaml-cpp-devel"]
 pkgdesc = "Simple fan control program"
-maintainer = "Val Packett <val@packett.cool>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/vmatare/thinkfan"
 source = f"https://github.com/vmatare/thinkfan/archive/{pkgver}.tar.gz"

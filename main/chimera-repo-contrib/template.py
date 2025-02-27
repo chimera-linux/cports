@@ -6,7 +6,6 @@ build_style = "meta"
 build_style = "meta"
 depends = ["chimera-repo-main"]
 pkgdesc = "Transitional package for former contrib repository"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 

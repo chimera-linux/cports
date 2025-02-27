@@ -16,7 +16,6 @@ checkdepends = [
     "python-simplejson",
 ]
 pkgdesc = "Python logging library"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "Apache-2.0 OR MIT"
 url = "https://structlog.org"
 source = f"$(PYPI_SITE)/s/structlog/structlog-{pkgver}.tar.gz"

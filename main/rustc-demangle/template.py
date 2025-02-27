@@ -7,7 +7,6 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Library and tool to demangle Rust symbols"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/rust-lang/rustc-demangle"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ make_env = {"CGO_ENABLED": "1"}
 hostmakedepends = ["go"]
 makedepends = ["libx11-devel", "linux-pam-devel"]
 pkgdesc = "TTY display manager"
-maintainer = "Michal Tvrznik <emporeor@gmail.com>"
 license = "MIT"
 url = "https://github.com/tvrzna/emptty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

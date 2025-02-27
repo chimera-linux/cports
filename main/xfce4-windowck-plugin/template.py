@@ -20,7 +20,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce window controls/title bar panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-windowck-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-windowck-plugin/{pkgver[:-2]}/xfce4-windowck-plugin-{pkgver}.tar.bz2"

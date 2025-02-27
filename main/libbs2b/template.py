@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libsndfile-devel"]
 pkgdesc = "Bauer stereophonic-to-binaural DSP"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://bs2b.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/bs2b/libbs2b/{pkgver}/libbs2b-{pkgver}.tar.gz"

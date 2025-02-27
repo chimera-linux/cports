@@ -13,7 +13,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Menu files for LXQt components"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-menu-data"
 source = f"{url}/releases/download/{pkgver}/lxqt-menu-data-{pkgver}.tar.xz"

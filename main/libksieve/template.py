@@ -38,7 +38,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Sieve scripting library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/libksieve/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libksieve-{pkgver}.tar.xz"

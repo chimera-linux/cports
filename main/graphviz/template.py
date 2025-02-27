@@ -34,7 +34,6 @@ checkdepends = ["fonts-liberation-otf"]
 depends = ["fonts-liberation"]
 triggers = ["/usr/lib/graphviz"]
 pkgdesc = "Graph visualization software"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "EPL-1.0"
 url = "https://graphviz.org"
 source = f"https://gitlab.com/graphviz/graphviz/-/archive/{pkgver}/graphviz-{pkgver}.tar.gz"

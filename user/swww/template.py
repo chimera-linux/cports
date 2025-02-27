@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf", "scdoc"]
 makedepends = ["lz4-devel", "rust-std"]
 pkgdesc = "Solution to your Wayland Wallpaper Woes"
-maintainer = "Nova <froggo8311@proton.me>"
 license = "GPL-3.0-only"
 url = "https://github.com/LGFae/swww"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

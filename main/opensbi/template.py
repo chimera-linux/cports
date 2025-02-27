@@ -11,7 +11,6 @@ make_build_args = [
 make_use_env = True
 hostmakedepends = ["bash", "python"]
 pkgdesc = "RISC-V Open Source Supervisor Binary Interface"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/riscv-software-src/opensbi"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

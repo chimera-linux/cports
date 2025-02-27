@@ -7,7 +7,6 @@ make_check_target = "test"
 depends = ["bash", "git", "gnupg", "tree", "ugetopt"]
 checkdepends = [*depends]
 pkgdesc = "Console-based password manager"
-maintainer = "eater <=@eater.me>"
 license = "GPL-2.0-or-later"
 url = "https://www.passwordstore.org"
 source = f"https://git.zx2c4.com/password-store/snapshot/password-store-{pkgver}.tar.xz"

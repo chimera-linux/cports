@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 makedepends = ["ocl-icd-devel"]
 pkgdesc = "OpenCL info dumper"
-maintainer = "eater <=@eater.me>"
 license = "CC0-1.0"
 url = "https://github.com/Oblomov/clinfo"
 source = f"https://github.com/Oblomov/clinfo/archive/{pkgver}.tar.gz"

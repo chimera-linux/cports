@@ -3,7 +3,6 @@ pkgver = "3.003"
 pkgrel = 1
 _commit = "bd7e37632246368c60fdcbd374dbf9bad11969b6"
 pkgdesc = "Open source sans-serif typeface"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "OFL-1.1"
 url = "https://fonts.google.com/specimen/Open+Sans"
 source = f"https://github.com/googlefonts/opensans/archive/{_commit}.tar.gz"

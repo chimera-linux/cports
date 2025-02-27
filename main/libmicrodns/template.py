@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Minimal mDNS resolver library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/videolabs/libmicrodns"
 source = f"{url}/archive/{pkgver}.tar.gz"

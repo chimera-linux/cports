@@ -8,7 +8,6 @@ make_build_args = [
 hostmakedepends = ["go"]
 go_build_tags = ["extended"]
 pkgdesc = "Static site generator"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://gohugo.io"
 source = f"https://github.com/gohugoio/hugo/archive/v{pkgver}.tar.gz"

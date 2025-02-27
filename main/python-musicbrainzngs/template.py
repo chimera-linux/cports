@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Musicbrainz NGS webservice interface python bindings"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "BSD-2-Clause"
 url = "https://github.com/alastair/python-musicbrainzngs"
 source = f"$(PYPI_SITE)/m/musicbrainzngs/musicbrainzngs-{pkgver}.tar.gz"

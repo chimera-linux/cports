@@ -18,7 +18,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Shell with a focus on structured data"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://www.nushell.sh"
 source = f"https://github.com/nushell/nushell/archive/refs/tags/{pkgver}.tar.gz"

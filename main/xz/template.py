@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = []
 provides = [self.with_pkgver("liblzma")]
 pkgdesc = "XZ compression utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
 url = "https://tukaani.org/xz"
 source = f"https://github.com/tukaani-project/xz/releases/download/v{pkgver}/xz-{pkgver}.tar.gz"

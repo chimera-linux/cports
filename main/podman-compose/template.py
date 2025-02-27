@@ -14,7 +14,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Podman utility for docker-compose.yml support"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/containers/podman-compose"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

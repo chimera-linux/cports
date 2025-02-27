@@ -13,7 +13,6 @@ makedepends = [
     "xserver-xorg-devel",
 ]
 pkgdesc = "Xorg ATI Radeon video driver"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/driver/xf86-video-ati-{pkgver}.tar.gz"

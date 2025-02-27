@@ -6,7 +6,6 @@ configure_args = ["-DRTAUDIO_API_ALSA=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["pipewire-jack-devel", "libpulse-devel"]
 pkgdesc = "Common API for realtime audio input/output"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://www.music.mcgill.ca/~gary/rtaudio"
 source = f"https://github.com/thestk/rtaudio/archive/refs/tags/{pkgver}.tar.gz"

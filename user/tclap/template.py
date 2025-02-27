@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["automake", "pkgconf"]
 pkgdesc = "Templatized command line argument parser"
-maintainer = "Bin Jin <bjin@protonmail.com>"
 license = "MIT"
 url = "http://tclap.sourceforge.net"
 source = f"https://downloads.sourceforge.net/sourceforge/{pkgname}/{pkgname}-{pkgver}.tar.gz"

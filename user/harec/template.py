@@ -9,7 +9,6 @@ make_check_args = [*make_build_args]
 depends = ["qbe"]
 checkdepends = ["binutils", *depends]
 pkgdesc = "Hare compiler"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-only"
 url = "https://git.sr.ht/~sircmpwn/harec"
 source = f"{url}/archive/{pkgver}.tar.gz"

@@ -8,7 +8,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "NetScape Portable Runtime"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/projects/nspr"
 source = f"$(MOZILLA_SITE)/nspr/releases/v{pkgver}/src/nspr-{pkgver}.tar.gz"

@@ -22,7 +22,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Cryptographic primitives for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause OR Apache-2.0"
 url = "https://github.com/pyca/cryptography"
 source = f"$(PYPI_SITE)/c/cryptography/cryptography-{pkgver}.tar.gz"

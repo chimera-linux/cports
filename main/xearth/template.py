@@ -5,7 +5,6 @@ build_style = "makefile"
 make_build_args = ["-f", "Makefile.DIST"]
 makedepends = ["libx11-devel", "libxt-devel"]
 pkgdesc = "Set the X11 root window to an image of the Earth"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:xearth"
 url = "https://xearth.org"
 source = f"https://xearth.org/xearth-{pkgver}.tar.gz"

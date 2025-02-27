@@ -27,7 +27,6 @@ makedepends = [
 ]
 depends = ["cmd:lscpu!util-linux-lscpu"]
 pkgdesc = "Neofetch-like system information fetching tool"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://github.com/fastfetch-cli/fastfetch"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

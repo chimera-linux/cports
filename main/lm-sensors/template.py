@@ -7,7 +7,6 @@ make_install_args = ["SBINDIR=/usr/bin", "MANDIR=/usr/share/man"]
 hostmakedepends = ["flex", "bison", "perl"]
 depends = ["perl"]
 pkgdesc = "Sensor reading utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/lm-sensors/lm-sensors"
 source = f"{url}/archive/V{pkgver.replace('.', '-')}.tar.gz"

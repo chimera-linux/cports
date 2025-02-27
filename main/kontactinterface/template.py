@@ -19,7 +19,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE Kontact plugin interface library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only"
 url = "https://api.kde.org/kdepim/kontactinterface/html"
 source = (

@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["librevenge-devel", "boost-devel"]
 pkgdesc = "Library for importing WordPerfect documents"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://libwpd.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libwpd/libwpd-{pkgver}.tar.xz"

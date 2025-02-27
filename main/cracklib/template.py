@@ -13,7 +13,6 @@ hostmakedepends = [
 depends = ["cmd:gzip!chimerautils"]
 triggers = ["/usr/share/cracklib"]
 pkgdesc = "Password checking library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/cracklib/cracklib"
 source = [

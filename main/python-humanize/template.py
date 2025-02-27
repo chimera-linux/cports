@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest", "python-freezegun"]
 pkgdesc = "Python humanization utilities"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://humanize.readthedocs.io"
 source = f"$(PYPI_SITE)/h/humanize/humanize-{pkgver}.tar.gz"

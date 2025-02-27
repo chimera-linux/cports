@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["libgcrypt-devel"]
 pkgdesc = "Research implementation of the AACS specification"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.videolan.org/developers/libaacs.html"
 source = f"https://download.videolan.org/pub/videolan/libaacs/{pkgver}/libaacs-{pkgver}.tar.bz2"

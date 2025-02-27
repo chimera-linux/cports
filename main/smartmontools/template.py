@@ -11,7 +11,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Utilities for SMART-enabled drives"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.smartmontools.org"
 source = f"$(SOURCEFORGE_SITE)/smartmontools/smartmontools-{pkgver}.tar.gz"

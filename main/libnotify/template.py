@@ -22,7 +22,6 @@ makedepends = [
     "gtk+3-devel",
 ]
 pkgdesc = "Desktop notification library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libnotify"
 source = f"$(GNOME_SITE)/libnotify/{pkgver[:-2]}/libnotify-{pkgver}.tar.xz"

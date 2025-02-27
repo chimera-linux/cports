@@ -6,7 +6,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["openssl3-devel", "libgit2-devel", "rust-std", "sqlite-devel"]
 pkgdesc = "Cryptographically verifiable code review system for cargo"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MPL-2.0 OR MIT OR Apache-2.0"
 url = "https://github.com/crev-dev/cargo-crev"
 source = [

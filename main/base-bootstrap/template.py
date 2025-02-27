@@ -7,7 +7,6 @@ depends = [
     "apk-tools",
 ]
 pkgdesc = "Minimal set of packages suitable for containers"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 

@@ -18,7 +18,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE Plugin framework for desktop services"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kservice/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kservice-{pkgver}.tar.xz"

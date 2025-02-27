@@ -18,7 +18,6 @@ makedepends = [
     "libchewing-devel",
 ]
 pkgdesc = "Virtual keyboard for Wayland and X11"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND BSD-3-Clause"
 url = "https://github.com/maliit/keyboard"
 source = f"{url}/archive/{pkgver}.tar.gz"

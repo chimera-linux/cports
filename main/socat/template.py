@@ -13,7 +13,6 @@ makedepends = [
 ]
 checkdepends = ["bash", "iproute2", "procps"]
 pkgdesc = "Multipurpose relay for binary protocols"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://www.dest-unreach.org/socat"
 source = f"{url}/download/socat-{pkgver}.tar.gz"

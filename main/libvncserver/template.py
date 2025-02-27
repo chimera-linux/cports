@@ -22,7 +22,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "VNC client/server libraries"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/LibVNC/libvncserver"
 source = f"{url}/archive/refs/tags/LibVNCServer-{pkgver}.tar.gz"

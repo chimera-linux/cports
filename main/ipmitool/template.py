@@ -18,7 +18,6 @@ makedepends = [
     "readline-devel",
 ]
 pkgdesc = "CLI to manage IPMI systems"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"
 url = "https://codeberg.org/IPMITool/ipmitool"
 source = f"{url}/archive/IPMITOOL_{pkgver.replace('.', '_')}.tar.gz"

@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python-pynacl"]
 pkgdesc = "Library that adds cryptographic attestation to e-mail patches"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT-0"
 url = "https://git.kernel.org/pub/scm/utils/patatt/patatt.git"
 source = f"$(PYPI_SITE)/p/patatt/patatt-{pkgver}.tar.gz"

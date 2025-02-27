@@ -21,7 +21,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "Tool for annotating images"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/ksnip/kImageAnnotator"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

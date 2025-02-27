@@ -48,7 +48,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE KIO additional plugins"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-or-later"
 url = "https://invent.kde.org/network/kio-extras"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-extras-{pkgver}.tar.xz"

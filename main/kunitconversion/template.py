@@ -15,7 +15,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE Converting physical units"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kunitconversion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kunitconversion-{pkgver}.tar.xz"

@@ -10,7 +10,6 @@ hostmakedepends = [
 checkdepends = ["python-commentjson", "python-packaging", "python-pytest"]
 depends = ["python"]
 pkgdesc = "Resolve abstract dependencies into concrete ones"
-maintainer = "Mara <177581589+catgirlconspiracy@users.noreply.github.com>"
 license = "ISC"
 url = "https://github.com/sarugaku/resolvelib"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

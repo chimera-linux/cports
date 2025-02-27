@@ -20,7 +20,6 @@ hostmakedepends = [
 ]
 makedepends = ["colord-devel", "gtk4-devel", "gtk+3-devel"]
 pkgdesc = "Gtk+ support library for colord"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/colord-gtk"
 source = f"$(FREEDESKTOP_SITE)/colord/releases/colord-gtk-{pkgver}.tar.xz"

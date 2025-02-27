@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "gtk-doc-tools", "pkgconf", "perl", "slibtool"]
 pkgdesc = "ASN.1 structure parser library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnu.org/software/libtasn1"
 source = f"$(GNU_SITE)/libtasn1/libtasn1-{pkgver}.tar.gz"

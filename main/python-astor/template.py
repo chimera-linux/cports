@@ -15,7 +15,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python AST read/write"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://github.com/berkerpeksag/astor"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

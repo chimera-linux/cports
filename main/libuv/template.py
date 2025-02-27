@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Multi-platform support library with focus on asynchronous I/O"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libuv.org"
 source = f"https://dist.libuv.org/dist/v{pkgver}/libuv-v{pkgver}-dist.tar.gz"

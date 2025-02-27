@@ -32,7 +32,6 @@ makedepends = [
 ]
 depends = ["prison"]
 pkgdesc = "KDE Plasma NetworkManager integration"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-nm"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-nm-{pkgver}.tar.xz"

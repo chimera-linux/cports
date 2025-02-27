@@ -13,7 +13,6 @@ makedepends = [
     "sqlite-devel",
 ]
 pkgdesc = "Command-line frontend for Sequoia, a new OpenPGP implementation"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "LGPL-2.0-or-later"
 url = "https://sequoia-pgp.org/projects#sq"
 source = f"https://gitlab.com/sequoia-pgp/sequoia-sq/-/archive/v{pkgver}/sequoia-sq-v{pkgver}.tar.gz"

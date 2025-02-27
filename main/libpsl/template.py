@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "ninja", "pkgconf"]
 makedepends = ["icu-devel", "libidn2-devel", "libunistring-devel"]
 pkgdesc = "Public Suffix List library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://rockdaboot.github.io/libpsl"
 source = f"https://github.com/rockdaboot/libpsl/releases/download/{pkgver}/libpsl-{pkgver}.tar.gz"

@@ -53,7 +53,6 @@ makedepends = [
 depends = ["qt6-qtbase-sql"]
 checkdepends = ["dbus", "xwayland-run", *depends]
 pkgdesc = "KDE storage service for PIM data"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://userbase.kde.org/Akonadi"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-{pkgver}.tar.xz"

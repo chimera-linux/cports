@@ -2,7 +2,6 @@ pkgname = "musl-bsd-headers"
 pkgver = "0.1"
 pkgrel = 1
 pkgdesc = "BSD compatibility headers for musl"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND BSD-3-Clause"
 url = "https://chimera-linux.org"
 options = ["bootstrap"]

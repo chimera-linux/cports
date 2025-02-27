@@ -6,7 +6,6 @@ configure_args = ["-DINSTALL_HELPER_SCRIPTS=OFF", "-DBUILD_TESTS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "python-setuptools"]
 makedepends = ["glib-devel"]
 pkgdesc = "Photographic lens distortion library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only AND CC-BY-SA-3.0"
 url = "https://lensfun.github.io"
 source = (

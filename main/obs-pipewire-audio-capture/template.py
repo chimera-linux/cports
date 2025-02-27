@@ -12,7 +12,6 @@ makedepends = [
     "pipewire-devel",
 ]
 pkgdesc = "OBS plugin for capturing device and application audio using pipewire"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "GPL-2.0-or-later"
 url = "https://obsproject.com/forum/resources/pipewire-audio-capture.1458"
 source = f"https://github.com/dimtpap/obs-pipewire-audio-capture/archive/refs/tags/{pkgver}.tar.gz"

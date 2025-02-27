@@ -17,7 +17,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Qt wrapper for minizip"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later WITH custom:static-linking-exception"
 url = "https://github.com/stachenov/quazip"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

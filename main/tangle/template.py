@@ -15,7 +15,6 @@ hostmakedepends = [
 makedepends = ["libcap-devel"]
 checkdepends = ["dbus"]
 pkgdesc = "Subset of libsystemd providing sd-bus and sd-event"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/chimera-linux/tangle"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

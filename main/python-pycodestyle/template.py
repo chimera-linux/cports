@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python style guide checker"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/PyCQA/pycodestyle"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

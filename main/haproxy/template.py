@@ -35,7 +35,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "TCP/HTTP reverse proxy for high availability environments"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later WITH custom:OpenSSL-exception"
 url = "https://www.haproxy.org"
 source = (

@@ -28,7 +28,6 @@ makedepends = [
 depends = ["desktop-file-utils", "localsearch", "tinysparql"]
 checkdepends = ["dbus", "localsearch", "tinysparql", "python-gobject"]
 pkgdesc = "GNOME file manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
 source = f"$(GNOME_SITE)/nautilus/{pkgver[: pkgver.find('.')]}/nautilus-{pkgver}.tar.xz"

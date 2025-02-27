@@ -16,7 +16,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Computer graphics interchange framework"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.alembic.io"
 source = f"https://github.com/alembic/alembic/archive/refs/tags/{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 make_check_args = ["-j1"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Unit testing framework for C"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libcheck.github.io/check"
 source = f"https://github.com/libcheck/check/releases/download/{pkgver}/check-{pkgver}.tar.gz"

@@ -30,7 +30,6 @@ depends = [
     "polkit",
 ]
 pkgdesc = "GNOME session management utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-session"
 source = f"$(GNOME_SITE)/gnome-session/{pkgver[: pkgver.find('.')]}/gnome-session-{pkgver}.tar.xz"

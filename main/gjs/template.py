@@ -26,7 +26,6 @@ makedepends = [
 ]
 checkdepends = ["gobject-introspection-freedesktop", "gtk+3"]
 pkgdesc = "JavaScript bindings for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gjs"
 source = f"$(GNOME_SITE)/gjs/{pkgver[:-2]}/gjs-{pkgver}.tar.xz"

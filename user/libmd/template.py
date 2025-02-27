@@ -6,7 +6,6 @@ build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Message Digest functions from BSD systems"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause AND BSD-2-Clause AND ISC AND Beerware AND custom:none"
 url = "https://www.hadrons.org/software/libmd"
 source = f"https://archive.hadrons.org/software/libmd/libmd-{pkgver}.tar.xz"

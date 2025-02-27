@@ -6,7 +6,6 @@ make_build_args = ["prefix=/usr"]
 make_install_args = ["prefix=/usr"]
 makedepends = ["linux-headers"]
 pkgdesc = "Traces the route taken by packets over an IPv4/IPv6 network"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://traceroute.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/traceroute/traceroute-{pkgver}.tar.gz"

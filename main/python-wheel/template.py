@@ -14,7 +14,6 @@ checkdepends = [
 ]
 depends = ["python"]
 pkgdesc = "Built-in package format for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pypa/wheel"
 source = f"$(PYPI_SITE)/w/wheel/wheel-{pkgver}.tar.gz"

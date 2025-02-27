@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 depends = ["python", "python-sphinx"]
 pkgdesc = "Extension to include jQuery on newer Sphinx releases"
-maintainer = "eater <=@eater.me>"
 license = "0BSD"
 url = "https://github.com/sphinx-contrib/jquery"
 source = f"https://github.com/sphinx-contrib/jquery/archive/refs/tags/v{pkgver}.tar.gz"

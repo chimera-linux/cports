@@ -73,7 +73,6 @@ makedepends = [
     "vulkan-loader-devel",
 ]
 pkgdesc = "Computer vision and machine learning libraries"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://opencv.org"
 source = [

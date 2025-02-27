@@ -14,7 +14,6 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["dbus-devel", "openssl3-devel", "rust-std"]
 pkgdesc = "Terminal IRC client"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/osa1/tiny"
 source = f"{url}/archive/v{pkgver}.tar.gz"

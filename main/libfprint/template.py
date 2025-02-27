@@ -22,7 +22,6 @@ makedepends = [
 ]
 checkdepends = ["python-cairo"]
 pkgdesc = "Library for fingerprint readers"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://fprint.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/libfprint/libfprint/-/archive/v{pkgver}/libfprint-v{pkgver}.tar.gz"

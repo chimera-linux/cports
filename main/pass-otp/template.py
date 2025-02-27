@@ -5,7 +5,6 @@ build_style = "makefile"
 make_install_args = ["BASHCOMPDIR=/usr/share/bash-completion/completions"]
 depends = ["password-store", "oath-toolkit", "qrencode"]
 pkgdesc = "Pass extension for managing one-time-password (OTP) tokens"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/tadfisher/pass-otp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

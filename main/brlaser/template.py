@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja"]
 makedepends = ["cups-devel"]
 pkgdesc = "CUPS driver for monochrome Brother laser printers"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/Owl-Maintain/brlaser"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

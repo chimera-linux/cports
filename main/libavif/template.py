@@ -25,7 +25,6 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "Library for encoding and decoding .avif files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/AOMediaCodec/libavif"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

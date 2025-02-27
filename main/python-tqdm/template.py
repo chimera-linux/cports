@@ -15,7 +15,6 @@ checkdepends = [
     "python-pytest-xdist",
 ]
 pkgdesc = "Python progress bar"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT AND MPL-2.0"
 url = "https://tqdm.github.io"
 source = f"$(PYPI_SITE)/t/tqdm/tqdm-{pkgver}.tar.gz"

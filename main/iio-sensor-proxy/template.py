@@ -24,7 +24,6 @@ checkdepends = [
 ]
 install_if = [f"iio-sensor-proxy-meta={pkgver}-r{pkgrel}"]
 pkgdesc = "D-Bus proxy for IIO sensors"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/hadess/iio-sensor-proxy"
 source = f"{url}/-/archive/{pkgver}/iio-sensor-proxy-{pkgver}.tar.gz"

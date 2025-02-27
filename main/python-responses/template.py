@@ -14,7 +14,6 @@ depends = [
     "python-urllib3",
 ]
 pkgdesc = "Utility library for mocking out the requests python library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/getsentry/responses"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

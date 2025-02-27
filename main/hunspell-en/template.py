@@ -2,7 +2,6 @@ pkgname = "hunspell-en"
 pkgver = "2020.12.07"
 pkgrel = 0
 pkgdesc = "English language dictionaries for hunspell"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "http://wordlist.aspell.net/dicts"
 source = [

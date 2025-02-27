@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Algorithm for the Assignment Problem in Python"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "Apache-2.0"
 url = "http://software.clapper.org/munkres"
 source = f"$(PYPI_SITE)/m/munkres/munkres-{pkgver}.tar.gz"

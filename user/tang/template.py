@@ -22,7 +22,6 @@ checkdepends = [
     "socat",
 ]
 pkgdesc = "Server for binding data to network presence"
-maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/latchset/tang"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

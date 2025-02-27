@@ -25,7 +25,6 @@ makedepends = [
 ]
 depends = ["evince", "gtksourceview4", "nautilus", "webkitgtk"]
 pkgdesc = "File previewer for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/sushi"
 source = f"$(GNOME_SITE)/sushi/{pkgver[:-2]}/sushi-{pkgver}.tar.xz"

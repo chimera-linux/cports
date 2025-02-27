@@ -10,7 +10,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Encoding and language detection"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://charset-normalizer.readthedocs.io"
 source = f"https://github.com/Ousret/charset_normalizer/archive/refs/tags/{pkgver}.tar.gz>3.4.0-real.tar.gz"

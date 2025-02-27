@@ -30,7 +30,6 @@ makedepends = [
 # not in a standard path and therefore not picked up by shlib scanner
 provides = [f"so:libpulsecommon-{pkgver}.so=0"]
 pkgdesc = "PulseAudio library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/PulseAudio"
 source = f"$(FREEDESKTOP_SITE)/pulseaudio/releases/pulseaudio-{pkgver}.tar.xz"

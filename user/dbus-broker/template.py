@@ -8,7 +8,6 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Linux D-Bus message broker"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/bus1/dbus-broker/wiki"
 source = f"https://github.com/bus1/dbus-broker/releases/download/v{pkgver}/dbus-broker-{pkgver}.tar.xz"

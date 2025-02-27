@@ -22,7 +22,6 @@ makedepends = [
     "vte-gtk4-devel",
 ]
 pkgdesc = "GTK frontend for podman"
-maintainer = "breakgimme <adam@plock.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/marhkb/pods"
 source = f"https://github.com/marhkb/pods/releases/download/v{pkgver}/pods-v{pkgver}.tar.xz"

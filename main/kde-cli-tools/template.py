@@ -25,7 +25,6 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "KDE command line tools to interact with Plasma"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kde-cli-tools"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kde-cli-tools-{pkgver}.tar.xz"

@@ -12,7 +12,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Extensions for Python typing module"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python/mypy_extensions"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

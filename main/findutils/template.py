@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 checkdepends = ["musl-bsd-headers"]
 pkgdesc = "GNU find utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/findutils"
 source = f"$(GNU_SITE)/findutils/findutils-{pkgver}.tar.xz"

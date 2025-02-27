@@ -6,7 +6,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Zip file manipulation library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://www.winimage.com/zLibDll/minizip.html"
 source = f"https://www.zlib.net/fossils/zlib-{pkgver}.tar.gz"

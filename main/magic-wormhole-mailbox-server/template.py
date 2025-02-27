@@ -19,7 +19,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Rendezvous/mailbox server for Magic Wormhole clients"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/magic-wormhole/magic-wormhole-mailbox-server"
 source = f"$(PYPI_SITE)/m/magic-wormhole-mailbox-server/magic-wormhole-mailbox-server-{pkgver}.tar.gz"

@@ -10,7 +10,6 @@ hostmakedepends = ["bash"]
 depends = ["bash", "git"]
 checkdepends = ["git", "python-gitpython", "python-pytest", "python-testpath"]
 pkgdesc = "Extra Git utilities"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/tj/git-extras"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

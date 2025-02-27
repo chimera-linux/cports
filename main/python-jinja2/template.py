@@ -10,7 +10,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest", "python-markupsafe"]
 depends = ["python", "python-markupsafe"]
 pkgdesc = "Python template engine"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://jinja.palletsprojects.com"
 source = f"$(PYPI_SITE)/J/Jinja2/jinja2-{pkgver}.tar.gz"

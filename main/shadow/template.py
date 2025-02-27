@@ -24,7 +24,6 @@ depends = ["linux-pam", "base-shells"]
 # self-trigger
 triggers = ["/usr/share/shadow"]
 pkgdesc = "Shadow password file utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/shadow-maint/shadow"
 source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"

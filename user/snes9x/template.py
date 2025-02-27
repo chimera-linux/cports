@@ -24,7 +24,6 @@ makedepends = [
     "sdl2-compat-devel",
 ]
 pkgdesc = "SNES emulator"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "custom:snes9x"
 url = "https://www.snes9x.com"
 _commit_spirv_cross = "bccaa94db814af33d8ef05c153e7c34d8bd4d685"

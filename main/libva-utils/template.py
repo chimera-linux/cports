@@ -6,7 +6,6 @@ configure_args = ["-Ddrm=true", "-Dx11=true", "-Dwayland=true"]
 hostmakedepends = ["pkgconf", "meson", "ninja"]
 makedepends = ["libva-devel", "libdrm-devel", "libx11-devel"]
 pkgdesc = "Collection of utilities for libva"
-maintainer = "eater <=@eater.me>"
 license = "MIT"
 url = "https://github.com/intel/libva-utils"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

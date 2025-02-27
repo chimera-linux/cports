@@ -24,7 +24,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Tools to create and extract Squashfs filesystems"
-maintainer = "tj <tjheeta@gmail.com>"
 license = "GPL-2.0-only"
 url = "https://github.com/plougher/squashfs-tools"
 source = f"https://github.com/plougher/squashfs-tools/archive/refs/tags/{pkgver}.tar.gz"

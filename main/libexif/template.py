@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["ac_cv_path_DOXYGEN=false"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-devel"]
 pkgdesc = "EXIF metadata library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libexif/libexif"
 source = f"{url}/archive/libexif-{pkgver.replace('.', '_')}-release.tar.gz"

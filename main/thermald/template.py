@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "Thermal daemon for x86_64-based Intel CPUs"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/intel/thermal_daemon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

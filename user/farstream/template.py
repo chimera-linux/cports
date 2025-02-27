@@ -20,7 +20,6 @@ makedepends = [
     "libnice-devel",
 ]
 pkgdesc = "Audio/video communications framework"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/Farstream"
 source = f"https://freedesktop.org/software/farstream/releases/farstream/farstream-{pkgver}.tar.gz"

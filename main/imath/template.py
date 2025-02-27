@@ -15,7 +15,6 @@ makedepends = [
     "boost-devel",
 ]
 pkgdesc = "C++ library of 2D and 3D vector, matrix, and math operations"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://imath.readthedocs.io/en/latest"
 source = f"https://github.com/AcademySoftwareFoundation/Imath/archive/refs/tags/v{pkgver}.tar.gz"

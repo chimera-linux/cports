@@ -10,7 +10,6 @@ makedepends = ["ncurses-devel"]
 depends = ["perl"]
 triggers = ["/usr/share/info"]
 pkgdesc = "GNU Documentation System"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/texinfo"
 source = f"$(GNU_SITE)/texinfo/texinfo-{pkgver}.tar.xz"

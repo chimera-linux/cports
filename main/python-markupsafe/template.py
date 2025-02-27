@@ -12,7 +12,6 @@ makedepends = ["python-devel"]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "XML/HTML/XHTML Markup safe string for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://palletsprojects.com/p/markupsafe"
 source = f"$(PYPI_SITE)/M/MarkupSafe/MarkupSafe-{pkgver}.tar.gz"

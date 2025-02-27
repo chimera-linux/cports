@@ -11,7 +11,6 @@ makedepends = [
     "freeglut-devel",
 ]
 pkgdesc = "WebP image format library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://chromium.googlesource.com/webm/libwebp"
 source = (

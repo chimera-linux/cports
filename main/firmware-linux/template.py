@@ -4,7 +4,6 @@ pkgver = "20250211"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"

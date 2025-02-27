@@ -12,7 +12,6 @@ checkdepends = [
     "python-pytest",
 ]
 pkgdesc = "Python module for adding locations to PATH"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ofek/userpath"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

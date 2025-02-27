@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Low-level pseudo-tty allocation library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/IO-Tty"
 source = f"$(CPAN_SITE)/IO/IO-Tty-{pkgver}.tar.gz"

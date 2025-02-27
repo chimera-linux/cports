@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library to adapt iterables to a file-like interface"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-3.0-only"
 url = "https://github.com/pR0Ps/iterable-io"
 source = f"$(PYPI_SITE)/i/iterable-io/iterable-io-{pkgver}.tar.gz"

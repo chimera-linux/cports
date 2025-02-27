@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool"]
 makedepends = ["heimdal-devel", "linux-pam-devel"]
 pkgdesc = "PAM module for Kerberos authentication"
-maintainer = "yanchan09 <yan@omg.lol>"
 license = "BSD-3-Clause OR GPL-1.0-or-later"
 url = "https://www.eyrie.org/~eagle/software/pam-krb5"
 source = (

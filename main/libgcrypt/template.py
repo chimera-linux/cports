@@ -15,7 +15,6 @@ hostmakedepends = [
 ]
 makedepends = ["libgpg-error-devel"]
 pkgdesc = "GNU cryptographic library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
 source = f"{url}/ftp/gcrypt/libgcrypt/libgcrypt-{pkgver}.tar.bz2"

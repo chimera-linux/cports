@@ -64,7 +64,6 @@ checkdepends = [
 ]
 triggers = ["/usr/lib/gtk-3.0/3.0.0/immodules"]
 pkgdesc = "Gimp Toolkit version 3"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"

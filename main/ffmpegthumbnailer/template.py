@@ -6,7 +6,6 @@ configure_args = ["-DENABLE_THUMBNAILER=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["ffmpeg-devel", "libjpeg-turbo-devel", "libpng-devel"]
 pkgdesc = "Video thumbnailer utilizing ffpmeg"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/dirkvdb/ffmpegthumbnailer"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

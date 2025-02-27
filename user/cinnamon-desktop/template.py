@@ -25,7 +25,6 @@ depends = [
     "hwdata-pnp",
 ]
 pkgdesc = "Cinnamon desktop library and common settings schemas"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://projects.linuxmint.com/cinnamon"
 source = f"https://github.com/linuxmint/cinnamon-desktop/archive/refs/tags/{pkgver}.tar.gz"

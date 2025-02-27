@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "CMake language server"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://neocmakelsp.github.io"
 source = f"https://github.com/neocmakelsp/neocmakelsp/archive/refs/tags/v{pkgver}.tar.gz"

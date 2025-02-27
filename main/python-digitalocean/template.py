@@ -18,7 +18,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", "python-responses", *depends]
 pkgdesc = "Python module to manage DigitalOcean droplets"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/koalalorenzo/python-digitalocean"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

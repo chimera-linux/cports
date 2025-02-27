@@ -9,7 +9,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "Tool for buffering data streams"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-only"
 url = "https://www.maier-komor.de/mbuffer.html"
 source = f"https://www.maier-komor.de/software/mbuffer/mbuffer-{pkgver}.tgz"

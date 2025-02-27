@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Platform-specific directory module for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ActiveState/appdirs"
 source = f"$(PYPI_SITE)/a/appdirs/appdirs-{pkgver}.tar.gz"

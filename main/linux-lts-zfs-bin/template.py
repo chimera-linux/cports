@@ -8,7 +8,6 @@ makedepends = ["linux-lts-devel", "zfs-ckms"]
 # provides the same thing as the ckms variant
 depends = [f"linux-lts~{_kernver}", f"zfs~{_zfsver}"]
 pkgdesc = f"OpenZFS modules for kernel {_kernver}"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 options = ["!cross"]

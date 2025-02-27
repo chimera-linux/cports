@@ -19,7 +19,6 @@ checkdepends = [
     "python-six",
 ]
 pkgdesc = "HTTP client library for Python"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://httplib2.readthedocs.io"
 source = f"$(PYPI_SITE)/h/httplib2/httplib2-{pkgver}.tar.gz"

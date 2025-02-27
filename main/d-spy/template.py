@@ -15,7 +15,6 @@ makedepends = [
     "libadwaita-devel",
 ]
 pkgdesc = "D-Bus inspector and debugger"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/d-spy"
 source = f"{url}/-/archive/{pkgver}/d-spy-{pkgver}.tar.gz"

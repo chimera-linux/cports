@@ -12,7 +12,6 @@ makedepends = ["rust-std"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for approximate and phonetic string matching"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "BSD-2-Clause"
 url = "https://jamesturk.github.io/jellyfish"
 source = f"$(PYPI_SITE)/j/jellyfish/jellyfish-{pkgver}.tar.gz"

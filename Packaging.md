@@ -70,10 +70,9 @@ pkgver = "0.99.0"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "Simple package"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://foo.software"
-source = f"https://foo.software/foo-{pkgver}.tar.gz"
+source = f"https://download.foo.software/foo-{pkgver}.tar.gz"
 sha256 = "ad031c86b23ed776697f77f1a3348cd7129835965d4ee9966bc50e65c97703e8"
 ```
 
@@ -723,10 +722,6 @@ These variables are mandatory:
   is inherited into all subpackages, and subpackages are allowed to set
   it themselves. License exceptions can be from the standard list or they
   can be custom as well, e.g. `GPL-2.0-or-later WITH custom:foo-exception`.
-* `maintainer` *(str)* The maintainer of the package, in the same format as
-  Git commits (i.e. `name <email>`). Orphaned packages should use the
-  maintainer `Orphaned <orphaned@chimera-linux.org>`. Note that this is
-  not recorded in the package and exists only for informational purposes.
 * `pkgname` *(str)* The primary package name, must match template name.
   It must be lowercase, likewise for subpackages.
 * `pkgver` *(str)* The package version, applies to all subpackages. Must

@@ -16,7 +16,6 @@ depends = [
     "cmd:sysctl!procps",
 ]
 pkgdesc = "Uncomplicated Firewall"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://launchpad.net/ufw"
 source = f"{url}/{pkgver[:-2]}/{pkgver}/+download/ufw-{pkgver}.tar.gz"

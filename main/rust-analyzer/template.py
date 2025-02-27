@@ -7,7 +7,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["rust-src"]
 pkgdesc = "Rust compiler LSP server"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/rust-lang/rust-analyzer"
 source = f"{url}/archive/refs/tags/{pkgver.replace('.', '-')}.tar.gz"

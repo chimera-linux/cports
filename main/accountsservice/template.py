@@ -19,7 +19,6 @@ hostmakedepends = [
 makedepends = ["polkit-devel", "elogind-devel", "dbus-devel"]
 checkdepends = ["python-dbus"]
 pkgdesc = "D-Bus service for accessing user accounts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/AccountsService"
 source = f"$(FREEDESKTOP_SITE)/accountsservice/accountsservice-{pkgver}.tar.xz"

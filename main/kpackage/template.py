@@ -18,7 +18,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE Installation and loading of additional content as packages"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpackage/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kpackage-{pkgver}.tar.xz"

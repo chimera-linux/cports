@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["kdsoap-devel"]
 pkgdesc = "WS-Discovery client library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/libraries/kdsoap-ws-discovery-client"
 source = f"$(KDE_SITE)/kdsoap-ws-discovery-client/kdsoap-ws-discovery-client-{pkgver}.tar.xz"

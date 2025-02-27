@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Intel CSME HECI interface access library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/intel/metee"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

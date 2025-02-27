@@ -25,7 +25,6 @@ makedepends = [
 depends = ["hwdata", "osinfo-db"]
 checkdepends = [*depends]
 pkgdesc = "GObject API for managing information about operating systems"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://libosinfo.org"
 source = f"https://gitlab.com/libosinfo/libosinfo/-/archive/v{pkgver}/libosinfo-v{pkgver}.tar.gz"

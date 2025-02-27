@@ -15,7 +15,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Ruff plugin for python-lsp-server"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-lsp/python-lsp-ruff"
 source = f"$(PYPI_SITE)/p/python-lsp-ruff/python_lsp_ruff-{pkgver}.tar.gz"

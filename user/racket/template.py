@@ -14,7 +14,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Language-oriented programming language"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT OR Apache-2.0"
 url = "https://racket-lang.org"
 source = f"https://download.racket-lang.org/installers/{pkgver}/racket-{pkgver}-src-builtpkgs.tgz"

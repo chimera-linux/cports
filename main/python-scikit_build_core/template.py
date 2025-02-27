@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["cmake", "python-pathspec", "python-packaging"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python CMake adaptor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://scikit-build-core.readthedocs.io"
 source = f"$(PYPI_SITE)/s/scikit_build_core/scikit_build_core-{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "pcsc-lite-devel", "dbus-devel"]
 depends = ["ccid"]
 pkgdesc = "CLI tool for inspecting, configuring and using OpenPGP cards"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://codeberg.org/openpgp-card/openpgp-card-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"

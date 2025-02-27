@@ -34,7 +34,6 @@ makedepends = [
 ]
 checkdepends = ["7zip", "xwayland-run", "zstd"]
 pkgdesc = "KDE archive manager"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ark"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ark-{pkgver}.tar.xz"

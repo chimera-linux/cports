@@ -14,7 +14,6 @@ hostmakedepends = ["automake", "libtool", "pkgconf", "python-docutils"]
 makedepends = ["jansson-devel", "libxml2-devel", "libyaml-devel", "pcre2-devel"]
 checkdepends = ["python"]
 pkgdesc = "Fork of Exuberant Ctags to generate index/tag files"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "GPL-2.0-or-later"
 url = "https://ctags.io"
 source = f"https://github.com/universal-ctags/ctags/archive/refs/tags/v{pkgver}.tar.gz"

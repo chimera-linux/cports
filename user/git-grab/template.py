@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["git"]
 pkgdesc = "Clone a git repository into a standard location"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/wezm/git-grab"
 source = f"{url}/archive/{pkgver}.tar.gz"

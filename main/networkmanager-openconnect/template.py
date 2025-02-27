@@ -26,7 +26,6 @@ makedepends = [
     "webkitgtk-devel",
 ]
 pkgdesc = "OpenConnect support for NetworkManager"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/NetworkManager-openconnect"
 source = f"{url}/-/archive/{pkgver}/NetworkManager-openconnect-{pkgver}.tar.bz2"

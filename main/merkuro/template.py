@@ -51,7 +51,6 @@ depends = [
 ]
 checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE calendar with cloud sync"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND GPL-3.0-or-later"
 url = "https://apps.kde.org/merkuro.calendar"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/merkuro-{pkgver}.tar.xz"

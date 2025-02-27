@@ -23,7 +23,6 @@ depends = [
 ]
 checkdepends = [*depends]
 pkgdesc = "Bubblewrap based sandboxing for desktop applications"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/igo95862/bubblejail"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

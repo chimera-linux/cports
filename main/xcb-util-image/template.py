@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xcb-util-devel"]
 pkgdesc = "XCB utilities library - XImage and XShmImage"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/xcb-util-image-{pkgver}.tar.gz"

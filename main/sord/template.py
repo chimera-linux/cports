@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["serd-devel", "pcre2-devel", "zix-devel"]
 pkgdesc = "C library for storing RDF data in memory"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/sord.html"
 source = f"https://download.drobilla.net/sord-{pkgver}.tar.xz"

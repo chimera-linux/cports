@@ -17,7 +17,6 @@ makedepends = [
     "librevenge-devel",
 ]
 pkgdesc = "Parser for Aldus/Macromedia/Adobe FreeHand documents"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libfreehand"
 source = f"http://dev-www.libreoffice.org/src/libfreehand/libfreehand-{pkgver}.tar.xz"

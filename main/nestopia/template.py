@@ -18,7 +18,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "NES/Famicom emulator"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "http://0ldsk00l.ca/nestopia"
 source = f"https://github.com/0ldsk00l/nestopia/archive/{pkgver}.tar.gz"

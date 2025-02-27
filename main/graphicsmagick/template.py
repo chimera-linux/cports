@@ -49,7 +49,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Image processing system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.graphicsmagick.org"
 source = f"$(SOURCEFORGE_SITE)/graphicsmagick/GraphicsMagick-{pkgver}.tar.xz"

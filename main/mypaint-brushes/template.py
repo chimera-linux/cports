@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 hostmakedepends = ["automake", "pkgconf"]
 pkgdesc = "Brushes for libmypaint"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "CC0-1.0"
 url = "https://github.com/mypaint/mypaint-brushes"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ hostmakedepends = ["pkgconf", "meson", "gettext", "xdg-user-dirs"]
 makedepends = ["gtk+3-devel", "xdg-user-dirs"]
 depends = ["xdg-user-dirs"]
 pkgdesc = "Gtk companion to xdg-user-dirs"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk"
 source = f"$(GNOME_SITE)/xdg-user-dirs-gtk/{pkgver}/xdg-user-dirs-gtk-{pkgver}.tar.xz"

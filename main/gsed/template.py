@@ -13,7 +13,6 @@ hostmakedepends = ["automake", "gettext-devel", "texinfo"]
 makedepends = ["acl-devel"]
 checkdepends = ["perl", "bash"]
 pkgdesc = "GNU stream editor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/sed"
 source = f"$(GNU_SITE)/sed/sed-{pkgver}.tar.xz"

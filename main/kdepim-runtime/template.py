@@ -52,7 +52,6 @@ makedepends = [
 depends = ["shared-mime-info"]
 checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE PIM Akonadi agents and runtime resources"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND GPL-2.0-or-later"
 url = "https://invent.kde.org/pim/kdepim-runtime"
 source = (

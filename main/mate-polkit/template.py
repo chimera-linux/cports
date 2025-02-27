@@ -13,7 +13,6 @@ makedepends = [
     "polkit-devel",
 ]
 pkgdesc = "Polkit integration for the MATE desktop"
-maintainer = "natthias <natthias@proton.me>"
 license = "LGPL-2.0-or-later"
 url = "https://mate-desktop.org"
 source = f"https://github.com/mate-desktop/mate-polkit/archive/refs/tags/v{pkgver}.tar.gz"

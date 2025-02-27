@@ -6,7 +6,6 @@ make_dir = "."  # fails tests otherwise
 hostmakedepends = ["automake", "pkgconf", "perl", "gawk", "libtool"]
 checkdepends = ["bash"]
 pkgdesc = "Hyphenation library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1"
 url = "http://sourceforge.net/projects/hunspell/files/Hyphen"
 source = f"$(SOURCEFORGE_SITE)/hunspell/hyphen-{pkgver}.tar.gz"

@@ -19,7 +19,6 @@ makedepends = [
     "json-glib-devel",
 ]
 pkgdesc = "Library for Jcat file manipulation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libjcat"
 source = f"{url}/archive/{pkgver}.tar.gz"

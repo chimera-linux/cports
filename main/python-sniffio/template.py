@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Runtime async library detection for Python"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 AND MIT"
 url = "https://github.com/python-trio/sniffio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

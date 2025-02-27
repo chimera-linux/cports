@@ -26,7 +26,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE KWallet GUI manager"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/utilities/kwalletmanager"
 source = (

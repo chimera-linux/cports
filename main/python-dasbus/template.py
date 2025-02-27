@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-gobject"]
 checkdepends = ["dbus", "python-pytest", *depends]
 pkgdesc = "Python DBus library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/rhinstaller/dasbus"
 source = f"$(PYPI_SITE)/d/dasbus/dasbus-{pkgver}.tar.gz"

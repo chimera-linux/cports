@@ -57,7 +57,6 @@ depends = [
 ]
 checkdepends = ["fonts-liberation-otf"]
 pkgdesc = "GStreamer base plugins"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-base/gst-plugins-base-{pkgver}.tar.xz"

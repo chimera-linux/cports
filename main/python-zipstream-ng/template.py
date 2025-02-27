@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Streamable zip file generator"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-3.0-only"
 url = "https://github.com/pR0Ps/zipstream-ng"
 source = f"$(PYPI_SITE)/z/zipstream-ng/zipstream_ng-{pkgver}.tar.gz"

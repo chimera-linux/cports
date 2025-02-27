@@ -19,7 +19,6 @@ checkdepends = [
     "python-pytest-mock",
 ]
 pkgdesc = "Meson PEP 517 Python build backend"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://meson-python.readthedocs.io/en/latest/index.html"
 source = f"https://github.com/mesonbuild/meson-python/archive/refs/tags/{pkgver}.tar.gz"

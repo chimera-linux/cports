@@ -7,7 +7,6 @@ configure_args = ["--libexecdir=/usr/lib"]  # XXX libexecdir
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["linux-headers", "zstd-devel"]
 pkgdesc = "Crash dump handler"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/bandicoot"
 source = f"{url}/archive/{_gitrev}.tar.gz"

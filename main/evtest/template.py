@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["asciidoc", "automake", "xmlto"]
 makedepends = ["linux-headers"]
 pkgdesc = "Command line tool to display device input information"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.freedesktop.org/libevdev/evtest"
 source = f"{url}/-/archive/evtest-{pkgver}/evtest-evtest-{pkgver}.tar.gz"

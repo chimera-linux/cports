@@ -18,7 +18,6 @@ hostmakedepends = [
     "util-linux-uuid-devel",
 ]
 pkgdesc = "U-Boot for HiFive Unmatched boards"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"

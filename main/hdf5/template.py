@@ -28,7 +28,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "HDF5 data model library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause AND BSD-3-Clause-LBNL"
 url = "https://www.hdfgroup.org/solutions/hdf5"
 source = f"https://github.com/HDFGroup/hdf5/releases/download/hdf5_{pkgver}/hdf5-{pkgver}.tar.gz"

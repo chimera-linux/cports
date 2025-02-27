@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "makefile"
 makedepends = ["linux-headers"]
 pkgdesc = "Wireless extension manipulation tools"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://hewlettpackard.github.io/wireless-tools/Tools.html"
 source = f"https://hewlettpackard.github.io/wireless-tools/wireless_tools.{pkgver.replace('_', '.')}.tar.gz"

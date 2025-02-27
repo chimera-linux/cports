@@ -6,7 +6,6 @@ configure_args = ["--disable-option-checking"]
 configure_gen = ["./autogen.sh"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "Open H.265 codec implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/libde265/archive/v{pkgver}.tar.gz"

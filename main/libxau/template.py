@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto"]
 pkgdesc = "Authorization Protocol for X"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXau-{pkgver}.tar.gz"

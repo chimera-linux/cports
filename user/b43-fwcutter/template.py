@@ -3,7 +3,6 @@ pkgver = "019"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "Tool to extract firmware for Broadcom 43xx wireless chips"
-maintainer = "breakgimme <adam@plock.com>"
 license = "BSD-2-Clause"
 url = "https://wireless.docs.kernel.org/en/latest/en/users/drivers/b43.html"
 source = f"https://bues.ch/b43/fwcutter/b43-fwcutter-{pkgver}.tar.bz2"

@@ -22,7 +22,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "Kernel-based automounter"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://www.kernel.org/pub/linux/daemons/autofs"
 source = f"{url}/v{pkgver.split('.')[0]}/autofs-{pkgver}.tar.xz"

@@ -8,7 +8,6 @@ hostmakedepends = [
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Perl module for role composition"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/pod/Role::Tiny"
 source = (

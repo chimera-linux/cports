@@ -23,7 +23,6 @@ hostmakedepends = [
 makedepends = ["zstd-devel"]
 checkdepends = ["strace"]
 pkgdesc = "Steel Bank Common Lisp"
-maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:sbcl AND LOOP"
 url = "https://www.sbcl.org"
 source = f"$(SOURCEFORGE_SITE)/sbcl/sbcl-{pkgver}-source.tar.bz2"

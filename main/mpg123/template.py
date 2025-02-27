@@ -23,7 +23,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("mpg123-output-dummy")]
 pkgdesc = "MPEG 1.0/2.0/2.5 audio player"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://www.mpg123.org"
 source = f"$(SOURCEFORGE_SITE)/mpg123/mpg123-{pkgver}.tar.bz2"

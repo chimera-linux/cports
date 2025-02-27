@@ -13,7 +13,6 @@ hostmakedepends = [f"binutils-{self.profile().arch}", "harec", "qbe", "scdoc"]
 depends = ["binutils", "clang", "harec", "qbe", "tzdb"]
 checkdepends = ["tzdb"]
 pkgdesc = "Hare programming language"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0 AND GPL-3.0-only"
 url = "https://harelang.org"
 source = f"https://git.sr.ht/~sircmpwn/hare/archive/{pkgver}.tar.gz"

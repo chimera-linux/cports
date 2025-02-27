@@ -14,7 +14,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Let your python tests travel through time"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"
 url = "https://github.com/spulec/freezegun"
 source = f"$(PYPI_SITE)/f/freezegun/freezegun-{pkgver}.tar.gz"

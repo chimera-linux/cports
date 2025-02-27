@@ -23,7 +23,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE Daemon for global keyboard shortcut functionality"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kglobalacceld"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"

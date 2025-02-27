@@ -13,7 +13,6 @@ depends = [
     "cmd:zstdcat!zstd-progs",
 ]
 pkgdesc = "Debian bootstrapping tool"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://salsa.debian.org/installer-team/debootstrap"
 source = f"{url}/-/archive/{pkgver}/debootstrap-{pkgver}.tar.gz"

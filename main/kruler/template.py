@@ -22,7 +22,6 @@ makedepends = [
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
 ]
 pkgdesc = "KDE screen measuring tool"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kruler"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kruler-{pkgver}.tar.xz"

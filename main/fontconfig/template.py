@@ -18,7 +18,6 @@ hostmakedepends = [
 makedepends = ["libexpat-devel", "freetype-bootstrap", "util-linux-uuid-devel"]
 triggers = ["/usr/share/fonts/*"]
 pkgdesc = "Library for configuring and customizing font access"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.fontconfig.org"
 source = f"$(FREEDESKTOP_SITE)/fontconfig/release/fontconfig-{pkgver}.tar.xz"

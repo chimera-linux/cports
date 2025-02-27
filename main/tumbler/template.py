@@ -26,7 +26,6 @@ makedepends = [
 ]
 depends = ["cover-thumbnailer"]
 pkgdesc = "Xfce implementation of the thumbnail management D-Bus spec"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/tumbler/start"
 source = f"$(XFCE_SITE)/xfce/tumbler/{pkgver[:-2]}/tumbler-{pkgver}.tar.bz2"

@@ -8,7 +8,6 @@ make_check_target = "test"
 hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Virtual machine for x86-64 Linux programs"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "ISC"
 url = "https://github.com/jart/blink"
 source = f"{url}/releases/download/{pkgver}/blink-{pkgver}.tar.gz"

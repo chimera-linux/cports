@@ -13,7 +13,6 @@ makedepends = [
     "sdl2-compat-devel",
 ]
 pkgdesc = "NES/Famicom emulator"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://fceux.com"
 source = (

@@ -12,7 +12,6 @@ makedepends = ["libffi8-devel", "python-devel"]
 depends = ["python-pycparser"]
 checkdepends = ["python-pycparser", "python-pytest"]
 pkgdesc = "C FFI for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://cffi.readthedocs.io"
 source = f"$(PYPI_SITE)/c/cffi/cffi-{pkgver}.tar.gz"

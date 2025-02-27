@@ -23,7 +23,6 @@ makedepends = [
 ]
 provides = [self.with_pkgver("foot-themes")]
 pkgdesc = "Wayland terminal emulator"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/foot"
 source = f"{url}/archive/{pkgver}.tar.gz"

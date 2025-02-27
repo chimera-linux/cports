@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja"]
 pkgdesc = "UTF-8 header-only library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://github.com/nemtrif/utfcpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

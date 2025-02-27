@@ -6,7 +6,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["pcre2-devel"]
 pkgdesc = "EditorConfig core C library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://editorconfig.org"
 source = [

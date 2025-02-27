@@ -4,7 +4,6 @@ pkgrel = 0
 hostmakedepends = ["gawk"]
 depends = ["gawk"]
 pkgdesc = "Converts flat ASCII text to man page format"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/mvertes/txt2man"
 source = f"{url}/archive/refs/tags/txt2man-{pkgver}.tar.gz"

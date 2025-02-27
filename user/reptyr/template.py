@@ -8,7 +8,6 @@ make_check_args = ["PYTHON_CMD=python"]
 makedepends = ["linux-headers"]
 checkdepends = ["python-pexpect"]
 pkgdesc = "Reparent a running program to a new terminal"
-maintainer = "LeFantome <fantome137@proton.me>"
 license = "MIT"
 url = "https://github.com/nelhage/reptyr"
 source = f"{url}/archive/refs/tags/reptyr-{pkgver}.tar.gz"

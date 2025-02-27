@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 makedepends = ["linux-headers"]
 pkgdesc = "ACPI Daemon (acpid) With Netlink Support"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/acpid2"
 source = f"https://downloads.sourceforge.net/sourceforge/acpid2/acpid-{pkgver}.tar.xz"

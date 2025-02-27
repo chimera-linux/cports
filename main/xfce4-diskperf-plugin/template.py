@@ -16,7 +16,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce disk performance panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-diskperf-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-diskperf-plugin/{pkgver[:-2]}/xfce4-diskperf-plugin-{pkgver}.tar.bz2"

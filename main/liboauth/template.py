@@ -9,7 +9,6 @@ make_dir = "."  # tests broken otherwise
 hostmakedepends = ["automake", "bash", "pkgconf", "slibtool"]
 makedepends = ["curl-devel", "nss-devel"]
 pkgdesc = "C implementation of the OAuth protocol"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/liboauth"
 source = f"$(SOURCEFORGE_SITE)/liboauth/liboauth-{pkgver}.tar.gz"

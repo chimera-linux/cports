@@ -17,7 +17,6 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "Linux multi-touch gesture recognizer"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/JoseExposito/touchegg"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

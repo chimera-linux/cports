@@ -14,7 +14,6 @@ makedepends = ["libxslt-devel", "libxml2-devel", "python-devel"]
 depends = ["python"]
 checkdepends = ["python-html5lib"]
 pkgdesc = "Python bindings for the libxml2 and libxslt libraries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND custom:ElementTree"
 url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"

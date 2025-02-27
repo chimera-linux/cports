@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["xtrans", "libxau-devel", "libxext-devel", "libxmu-devel"]
 pkgdesc = "X authentication utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xauth-{pkgver}.tar.gz"

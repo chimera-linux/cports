@@ -80,7 +80,6 @@ makedepends = [
 ]
 depends = ["hicolor-icon-theme"]
 pkgdesc = "Video player based on mplayer2"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/mpv/archive/v{pkgver}.tar.gz"

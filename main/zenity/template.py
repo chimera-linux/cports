@@ -19,7 +19,6 @@ makedepends = [
     "webkitgtk4-devel",
 ]
 pkgdesc = "Display Gtk+ dialogs from the command line"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Zenity"
 source = f"$(GNOME_SITE)/zenity/{pkgver[:-2]}/zenity-{pkgver}.tar.xz"

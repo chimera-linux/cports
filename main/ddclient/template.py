@@ -11,7 +11,6 @@ depends = [
     "perl",
 ]
 pkgdesc = "Client used to update dynamic DNS entries"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "GPL-2.0-or-later"
 url = "https://ddclient.net"
 source = (

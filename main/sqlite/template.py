@@ -16,7 +16,6 @@ configure_args = [
 hostmakedepends = ["pkgconf"]
 makedepends = ["libedit-readline-devel", "zlib-ng-compat-devel"]
 pkgdesc = "SQL Database Engine in a C library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "blessing"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2025/sqlite-autoconf-{_amalg}.tar.gz"

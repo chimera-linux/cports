@@ -13,7 +13,6 @@ checkdepends = [
     "python-tests",
 ]
 pkgdesc = "Python asyncore for 3.12"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://github.com/simonrob/pyasyncore"
 source = f"$(PYPI_SITE)/p/pyasyncore/pyasyncore-{pkgver}.tar.gz"

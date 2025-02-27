@@ -13,7 +13,6 @@ makedepends = [
 ]
 checkdepends = ["cmocka-devel"]
 pkgdesc = "Utility for flashing ROM chips"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.flashrom.org"
 source = f"https://download.flashrom.org/releases/flashrom-v{pkgver}.tar.xz"

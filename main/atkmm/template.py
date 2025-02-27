@@ -9,7 +9,6 @@ makedepends = [
     "libsigc++-devel",
 ]
 pkgdesc = "C++ accessibility interface bindings"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/atkmm/{pkgver[:-2]}/atkmm-{pkgver}.tar.xz"

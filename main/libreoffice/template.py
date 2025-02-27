@@ -158,7 +158,6 @@ makedepends = [
     "zxing-cpp-devel",
 ]
 pkgdesc = "Free office suite"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.libreoffice.org"
 # big and not particularly useful testsuite

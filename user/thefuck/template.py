@@ -20,7 +20,6 @@ depends = [
 ]
 checkdepends = ["python-pytest-mock", *depends]
 pkgdesc = "Command-line tool to correct errors in shell commands"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/nvbn/thefuck"
 # pypi tarball missing tests

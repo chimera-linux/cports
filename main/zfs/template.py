@@ -29,7 +29,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "OpenZFS for Linux"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 source = [

@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = ["libtirpc-devel", "musl-bsd-headers"]
 pkgdesc = "Universal addresses to RPC program number mapper"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://linux-nfs.org"
 source = f"https://sourceforge.net/projects/rpcbind/files/rpcbind/{pkgver}/rpcbind-{pkgver}.tar.bz2"

@@ -15,7 +15,6 @@ hostmakedepends = [
 depends = ["python-botocore"]
 checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "Amazon S3 transfer manager for python"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/boto/s3transfer"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

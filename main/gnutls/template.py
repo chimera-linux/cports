@@ -40,7 +40,6 @@ makedepends = [
 # dlopened
 depends = ["trousers-libs"]
 pkgdesc = "GNU Transport Layer Security library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
 source = f"https://www.gnupg.org/ftp/gcrypt/gnutls/v{'.'.join(pkgver.split('.')[0:2])}/gnutls-{pkgver}.tar.xz"

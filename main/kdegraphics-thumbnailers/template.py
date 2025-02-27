@@ -19,7 +19,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE thumbnailers for PostScript/RAW/MobiPocket/Blender"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdegraphics_thumbnailers"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdegraphics-thumbnailers-{pkgver}.tar.xz"

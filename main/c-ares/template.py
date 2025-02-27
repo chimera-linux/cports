@@ -6,7 +6,6 @@ build_style = "gnu_configure"
 configure_args = ["--disable-tests"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "C library for asynchronous DNS requests"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://c-ares.haxx.se"
 source = f"https://github.com/c-ares/c-ares/releases/download/v{pkgver}/c-ares-{pkgver}.tar.gz"

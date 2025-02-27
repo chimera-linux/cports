@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 makedepends = ["libuv-devel", "raft-devel", "sqlite-devel"]
 pkgdesc = "Embeddable, replicated and fault tolerant SQL engine"
-maintainer = "tj <tjheeta@gmail.com>"
 license = "LGPL-3.0-only"
 url = "https://github.com/cowsql/cowsql"
 source = f"{url}/archive/v{pkgver}.tar.gz"

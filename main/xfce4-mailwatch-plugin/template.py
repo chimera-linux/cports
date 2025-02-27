@@ -19,7 +19,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce mail watcher panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/panel-plugins/xfce4-mailwatch-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-mailwatch-plugin/{pkgver[:-2]}/xfce4-mailwatch-plugin-{pkgver}.tar.bz2"

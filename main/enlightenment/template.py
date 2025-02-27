@@ -35,7 +35,6 @@ depends = [
     "xkeyboard-config",
 ]
 pkgdesc = "Enlightenment desktop shell"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org"
 source = f"http://download.enlightenment.org/rel/apps/enlightenment/enlightenment-{pkgver}.tar.xz"

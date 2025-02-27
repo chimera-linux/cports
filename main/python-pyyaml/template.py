@@ -12,7 +12,6 @@ makedepends = ["libyaml-devel", "python-devel"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "YAML parser and emitter for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://pyyaml.org/wiki/PyYAML"
 source = f"$(PYPI_SITE)/p/pyyaml/pyyaml-{pkgver}.tar.gz"

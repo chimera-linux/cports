@@ -13,7 +13,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Wayland-info utility to display supported protocols"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/wayland/wayland-utils"
 source = f"{url}/-/releases/{pkgver}/downloads/wayland-utils-{pkgver}.tar.xz"

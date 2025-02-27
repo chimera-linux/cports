@@ -14,7 +14,6 @@ triggers = [
     "/etc/ca-certificates/update.d",
 ]
 pkgdesc = "Common CA certificates for SSL/TLS"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND MPL-2.0"
 url = "https://gitlab.alpinelinux.org/alpine/ca-certificates"
 source = f"{url}/-/archive/{pkgver}/ca-certificates-{pkgver}.tar.gz"

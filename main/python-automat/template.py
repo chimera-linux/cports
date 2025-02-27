@@ -12,7 +12,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Finite state machines for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/glyph/Automat"
 source = f"$(PYPI_SITE)/A/Automat/automat-{pkgver}.tar.gz"

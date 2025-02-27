@@ -48,7 +48,6 @@ depends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Plasma addons"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only AND CC0-1.0 AND LGPL-3.0-or-later"
 url = "https://invent.kde.org/plasma/kdeplasma-addons"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdeplasma-addons-{pkgver}.tar.xz"

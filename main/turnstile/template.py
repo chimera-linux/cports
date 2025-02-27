@@ -7,7 +7,6 @@ hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = ["linux-pam-devel"]
 depends = ["dinit-chimera"]
 pkgdesc = "Chimera user service manager and session tracker"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/turnstile"
 source = f"https://github.com/chimera-linux/turnstile/archive/refs/tags/v{pkgver}.tar.gz"

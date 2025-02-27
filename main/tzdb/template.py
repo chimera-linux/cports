@@ -8,7 +8,6 @@ hostmakedepends = []
 checkdepends = ["curl", "perl"]
 provides = [self.with_pkgver("tzdata")]
 pkgdesc = "Time zone database"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://www.iana.org/time-zones"
 source = f"{url}/repository/releases/tzdb-{pkgver}.tar.lz"

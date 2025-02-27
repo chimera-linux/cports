@@ -54,7 +54,6 @@ makedepends = [
 checkdepends = ["xwayland-run", "fonts-dejavu-otf", "setxkbmap", "bash"]
 depends = ["python-gobject", "iso-codes", "dbus-x11"]
 pkgdesc = "Intelligent Input Bus"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/ibus-{pkgver}.tar.gz"

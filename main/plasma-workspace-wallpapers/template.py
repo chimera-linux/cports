@@ -8,7 +8,6 @@ hostmakedepends = [
     "ninja",
 ]
 pkgdesc = "Wallpapers for Plasma Workspaces"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND CC-BY-SA-4.0"
 url = "https://invent.kde.org/plasma/plasma-workspace-wallpapers"
 source = (

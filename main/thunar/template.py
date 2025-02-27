@@ -25,7 +25,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce file manager"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/thunar/start"
 source = f"$(XFCE_SITE)/xfce/thunar/{pkgver[: pkgver.rfind('.')]}/thunar-{pkgver}.tar.bz2"

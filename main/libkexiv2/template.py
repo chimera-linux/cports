@@ -19,7 +19,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE wrapper around exiv2"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/libkexiv2/html/index.html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkexiv2-{pkgver}.tar.xz"

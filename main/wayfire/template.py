@@ -23,7 +23,6 @@ makedepends = [
     "wlroots0.17-devel",
 ]
 pkgdesc = "Modular and extensible wayland compositor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wayfire/releases/download/v{pkgver}/wayfire-{pkgver}.tar.xz"

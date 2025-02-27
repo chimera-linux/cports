@@ -14,7 +14,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python asynchat for 3.12"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://github.com/simonrob/pyasynchat"
 source = f"$(PYPI_SITE)/p/pyasynchat/pyasynchat-{pkgver}.tar.gz"

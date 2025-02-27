@@ -19,7 +19,6 @@ makedepends = [
     "ncurses-devel",
 ]
 pkgdesc = "Interactive process viewer"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only"
 url = "https://htop.dev"
 source = f"https://github.com/htop-dev/htop/releases/download/{pkgver}/htop-{pkgver}.tar.xz"

@@ -12,7 +12,6 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "Cat clone but larger"
-maintainer = "aurelia <git@elia.garden>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/bat"
 source = f"{url}/archive/v{pkgver}.tar.gz"

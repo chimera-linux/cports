@@ -3,7 +3,6 @@ pkgver = "2.2.5"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "Program for making large letters out of ordinary text"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "http://www.figlet.org"
 source = (

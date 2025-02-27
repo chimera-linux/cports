@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo", "pkgconf"]
 makedepends = ["openssl3-devel", "rust-std", "sqlite-devel"]
 pkgdesc = "ListenBrainz submission client for MPD"
-maintainer = "JetpackJackson <jetpackjackson@katzenmue.de>"
 license = "AGPL-3.0-only"
 url = "https://codeberg.org/elomatreb/listenbrainz-mpd"
 source = f"{url}/archive/v{pkgver}.tar.gz"

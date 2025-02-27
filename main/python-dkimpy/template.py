@@ -16,7 +16,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python library that implements DKIM email signing and verification"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://launchpad.net/dkimpy"
 source = f"$(PYPI_SITE)/d/dkimpy/dkimpy-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = ["libtool", "perl", "pkgconf"]
 pkgdesc = "Abstract VT220/xterm/ECMA-48 emulation library"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "http://www.leonerd.org.uk/code/libvterm"
 source = f"http://www.leonerd.org.uk/code/libvterm/libvterm-{pkgver}.tar.gz"

@@ -36,7 +36,6 @@ makedepends = [
 provides = [self.with_pkgver("vte-common")]
 pkgdesc = "Gtk terminal widget"
 subdesc = "common files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal/VTE"
 source = (

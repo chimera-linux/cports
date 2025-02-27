@@ -5,7 +5,6 @@ build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["gawk"]
 pkgdesc = "POSIX-compliant implementation of Awk"
-maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT"
 url = "https://github.com/benhoyt/goawk"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

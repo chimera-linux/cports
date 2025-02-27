@@ -7,7 +7,6 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Simple ini parser library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/benhoyt/inih"
 source = f"{url}/archive/r{pkgver}.tar.gz"

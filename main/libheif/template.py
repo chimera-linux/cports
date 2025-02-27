@@ -21,7 +21,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "HEIF and AVIF file format decoder and encoder"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "http://www.libheif.org"
 source = f"https://github.com/strukturag/libheif/archive/v{pkgver}.tar.gz"

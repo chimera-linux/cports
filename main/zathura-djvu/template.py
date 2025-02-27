@@ -12,7 +12,6 @@ makedepends = [
 ]
 depends = ["zathura"]
 pkgdesc = "Djvu support for zathura"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-djvu"
 source = f"{url}/download/zathura-djvu-{pkgver}.tar.xz"

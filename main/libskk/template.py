@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = ["skkdict"]
 pkgdesc = "Japanese input method library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ueno/libskk"
 source = f"{url}/releases/download/{pkgver}/libskk-{pkgver}.tar.xz"

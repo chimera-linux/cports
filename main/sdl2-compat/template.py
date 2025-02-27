@@ -9,7 +9,6 @@ depends = ["so:libSDL3.so.0!sdl3"]
 # sdl is transitional, current names are versioned
 provides = [self.with_pkgver("sdl2"), self.with_pkgver("sdl")]
 pkgdesc = "Compatibility layer for SDL 2"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://github.com/libsdl-org/sdl2-compat"
 source = f"{url}/releases/download/release-{pkgver}/sdl2-compat-{pkgver}.tar.gz"

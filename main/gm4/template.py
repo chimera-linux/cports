@@ -13,7 +13,6 @@ configure_args = [
 configure_gen = []
 hostmakedepends = ["texinfo"]
 pkgdesc = "GNU version of UNIX m4 macro language processor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/m4"
 source = f"$(GNU_SITE)/m4/m4-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libsodium-devel"]
 pkgdesc = "File signing and signature verification tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://jedisct1.github.io/minisign"
 source = (

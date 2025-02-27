@@ -10,7 +10,6 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf", "nasm"]
 pkgdesc = "Small and fast AV1 decoder"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://code.videolan.org/videolan/dav1d"
 source = f"{url}/-/archive/{pkgver}/dav1d-{pkgver}.tar.gz"

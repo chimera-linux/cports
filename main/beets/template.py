@@ -38,7 +38,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "CLI media library management"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "MIT"
 url = "https://beets.io"
 source = f"$(PYPI_SITE)/b/beets/beets-{pkgver}.tar.gz"

@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Core utility library for all LXQt components"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/liblxqt"
 source = f"{url}/releases/download/{pkgver}/liblxqt-{pkgver}.tar.xz"

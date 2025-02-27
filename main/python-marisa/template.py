@@ -16,7 +16,6 @@ hostmakedepends = [
 makedepends = ["marisa-trie-devel"]
 depends = ["python"]
 pkgdesc = "Python bindings for libmarisa"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause OR LGPL-2.1-or-later"
 url = "https://github.com/s-yata/marisa-trie"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

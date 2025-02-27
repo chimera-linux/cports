@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 make_check_args = ["-j1"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Userspace RCU library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://liburcu.org"
 source = f"https://www.lttng.org/files/urcu/userspace-rcu-{pkgver}.tar.bz2"

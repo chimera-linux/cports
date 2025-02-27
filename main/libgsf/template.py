@@ -15,7 +15,6 @@ hostmakedepends = [
 makedepends = ["gdk-pixbuf-devel", "libxml2-devel"]
 checkdepends = ["perl-xml-parser", "unzip"]
 pkgdesc = "Structured File Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libgsf"
 source = f"$(GNOME_SITE)/libgsf/{pkgver[:-3]}/libgsf-{pkgver}.tar.xz"

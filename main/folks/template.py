@@ -23,7 +23,6 @@ makedepends = [
 ]
 checkdepends = ["bluez", "python-dbusmock"]
 pkgdesc = "GObject Library to aggregate people into metacontacts"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Folks"
 source = f"$(GNOME_SITE)/folks/{'.'.join(pkgver.split('.')[:2])}/folks-{pkgver}.tar.xz"

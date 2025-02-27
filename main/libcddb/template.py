@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "gettext-devel", "pkgconf", "slibtool"]
 pkgdesc = "Library to access data on a CDDB server"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "http://libcddb.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libcddb/libcddb-{pkgver}.tar.gz"

@@ -21,7 +21,6 @@ makedepends = [
     "libtool-devel",
 ]
 pkgdesc = "Digital camera access library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.gphoto.org"
 source = f"https://github.com/gphoto/libgphoto2/releases/download/v{pkgver}/libgphoto2-{pkgver}.tar.xz"

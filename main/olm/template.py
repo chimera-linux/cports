@@ -9,7 +9,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Implementation of the Olm and Megolm cryptographic ratchets"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://gitlab.matrix.org/matrix-org/olm"
 source = f"{url}/-/archive/{pkgver}.tar.gz"

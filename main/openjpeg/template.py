@@ -7,7 +7,6 @@ configure_args = ["-DBUILD_TESTING=ON", "-DBUILD_STATIC_LIBS=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libpng-devel", "libtiff-devel", "lcms2-devel"]
 pkgdesc = "Open-source JPEG 2000 codec written in C"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://www.openjpeg.org"
 source = f"https://github.com/uclouvain/openjpeg/archive/v{pkgver}.tar.gz"

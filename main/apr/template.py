@@ -7,7 +7,6 @@ make_check_args = ["-j1"]
 hostmakedepends = ["automake", "slibtool", "pkgconf"]
 makedepends = ["libexpat-devel", "util-linux-uuid-devel", "linux-headers"]
 pkgdesc = "Apache Portable Runtime"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://apr.apache.org"
 source = f"https://archive.apache.org/dist/apr/apr-{pkgver}.tar.gz"

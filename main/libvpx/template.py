@@ -20,7 +20,6 @@ configure_args = [
 hostmakedepends = ["pkgconf", "perl", "nasm"]
 makedepends = ["linux-headers"]
 pkgdesc = "VP8 and VP9 codec implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.webmproject.org"
 source = [f"https://github.com/webmproject/libvpx/archive/v{pkgver}.tar.gz"]

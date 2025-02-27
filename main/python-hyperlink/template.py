@@ -12,7 +12,6 @@ hostmakedepends = [
 depends = ["python-idna"]
 checkdepends = ["python-pytest", "python-idna"]
 pkgdesc = "Python immutable URLs"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-hyper/hyperlink"
 source = f"$(PYPI_SITE)/h/hyperlink/hyperlink-{pkgver}.tar.gz"

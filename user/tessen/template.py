@@ -12,7 +12,6 @@ depends = [
     "wtype",
 ]
 pkgdesc = "Interactive menu to autotype and copy pass data"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "GPL-2.0-only"
 url = "https://sr.ht/~ayushnix/tessen"
 source = f"https://git.sr.ht/~ayushnix/tessen/archive/v{pkgver}.tar.gz"

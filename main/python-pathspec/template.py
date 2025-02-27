@@ -10,7 +10,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python utility library for pattern matching of file paths"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/cpburnz/python-pathspec"
 source = f"$(PYPI_SITE)/p/pathspec/pathspec-{pkgver}.tar.gz"

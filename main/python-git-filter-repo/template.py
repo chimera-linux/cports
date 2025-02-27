@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["git", "python"]
 checkdepends = ["bash", "rsync", *depends]
 pkgdesc = "Tool for rewriting git history"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/newren/git-filter-repo"
 # pypi tarball doesn't contain man page

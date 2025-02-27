@@ -17,7 +17,6 @@ makedepends = [
     "opus-devel",
 ]
 pkgdesc = "Tox communication project"
-maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/TokTok/c-toxcore"
 source = f"{url}/releases/download/v{pkgver}/c-toxcore-{pkgver}.tar.gz"

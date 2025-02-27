@@ -46,7 +46,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Multi-protocol download utility"
-maintainer = "nullobsi <nullobsi@unix.dog>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/aria2/aria2"
 source = f"{url}/releases/download/release-{pkgver}/aria2-{pkgver}.tar.xz"

@@ -23,7 +23,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Free Unix Spectrum Emulator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://fuse-emulator.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/fuse-emulator/fuse-{pkgver}.tar.gz"

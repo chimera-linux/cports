@@ -22,7 +22,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Grab images from a wayland compositor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sr.ht/~emersion/grim"
 source = f"https://git.sr.ht/~emersion/grim/archive/v{pkgver}.tar.gz"

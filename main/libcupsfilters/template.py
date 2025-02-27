@@ -30,7 +30,6 @@ makedepends = [
 checkdepends = ["bash", "fonts-dejavu-otf"]
 depends = ["ghostscript"]
 pkgdesc = "Support library for cups filters"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 AND custom:gpl-exception"
 url = "https://github.com/OpenPrinting/libcupsfilters"
 source = f"{url}/releases/download/{pkgver}/libcupsfilters-{pkgver}.tar.xz"

@@ -43,7 +43,6 @@ makedepends = [
 ]
 pkgdesc = "Scalable cross-language services framework for IPC/RPC"
 subdesc = "compiler"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"
 url = "https://thrift.apache.org"
 source = f"https://github.com/apache/thrift/archive/v{pkgver}.tar.gz"

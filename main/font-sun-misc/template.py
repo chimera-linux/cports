@@ -16,7 +16,6 @@ hostmakedepends = [
 ]
 depends = ["encodings", "font-alias", "mkfontscale"]
 pkgdesc = "X.org sun misc font"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/font/font-sun-misc-{pkgver}.tar.gz"

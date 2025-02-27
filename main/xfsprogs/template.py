@@ -24,7 +24,6 @@ makedepends = [
     "util-linux-blkid-devel",
 ]
 pkgdesc = "XFS file system utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/xfsprogs/xfsprogs-{pkgver}.tar.xz"

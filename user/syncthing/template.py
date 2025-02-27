@@ -17,7 +17,6 @@ make_check_args = [
 hostmakedepends = ["go"]
 go_build_tags = ["noupgrade"]
 pkgdesc = "Continuous file synchronization program"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0"
 url = "https://syncthing.net"
 source = f"https://github.com/syncthing/syncthing/archive/v{pkgver}.tar.gz"

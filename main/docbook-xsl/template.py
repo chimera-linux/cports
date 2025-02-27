@@ -3,7 +3,6 @@ pkgver = "1.79.2"
 pkgrel = 3
 depends = ["xmlcatmgr", "docbook-xml"]
 pkgdesc = "Docbook XSL modular stylesheet"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://docbook.org"
 source = f"https://github.com/docbook/xslt10-stylesheets/releases/download/release/{pkgver}/docbook-xsl-{pkgver}.tar.bz2"

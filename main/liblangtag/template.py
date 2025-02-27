@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["libxml2-devel"]
 pkgdesc = "Interface library to access tags for identifying languages"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-3.0-or-later"
 url = "https://bitbucket.org/tagoh/liblangtag"
 source = f"{url}/downloads/liblangtag-{pkgver}.tar.bz2"

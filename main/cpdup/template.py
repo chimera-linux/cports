@@ -5,7 +5,6 @@ build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["openssl3-devel"]
 pkgdesc = "Comprehensive filesystem mirroring and backup program"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-2-Clause"
 url = "https://github.com/DragonFlyBSD/cpdup"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

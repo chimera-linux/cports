@@ -6,7 +6,6 @@ build_style = "makefile"
 make_build_target = "build"
 make_build_args = ["optimize=no", "SUPPORTED_ARCH=true", "arch=any"]
 pkgdesc = "Free UCI chess engine derived from Glaurung"
-maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "GPL-3.0-or-later"
 url = "https://stockfishchess.org"
 _net_file_big = "nn-1111cefa1111.nnue"

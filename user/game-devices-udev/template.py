@@ -2,7 +2,6 @@ pkgname = "game-devices-udev"
 pkgver = "0.23"
 pkgrel = 1
 pkgdesc = "Miscellaneous udev rules for game devices"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://codeberg.org/fabiscafe/game-devices-udev"
 source = f"{url}/archive/{pkgver}.tar.gz"

@@ -18,7 +18,6 @@ depends = [
     "python-xlib",
 ]
 pkgdesc = "Device manager for Logitech devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://pwr-solaar.github.io/Solaar"
 source = (

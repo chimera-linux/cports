@@ -6,7 +6,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = []
 pkgdesc = "Library for computing the discrete Fourier transform"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://www.fftw.org"
 source = f"{url}/fftw-{pkgver}.tar.gz"

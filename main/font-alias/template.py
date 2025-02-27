@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--with-fontrootdir=/usr/share/fonts"]
 configure_gen = []
 pkgdesc = "Standard aliases for X11 PCF fonts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/font/font-alias-{pkgver}.tar.gz"

@@ -20,7 +20,6 @@ hostmakedepends = [
 ]
 makedepends = ["llvm-devel"]
 pkgdesc = "API and commands for processing SPIR-V modules"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "NCSA"
 url = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

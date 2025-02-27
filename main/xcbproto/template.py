@@ -6,7 +6,6 @@ configure_args = ["--enable-legacy"]
 hostmakedepends = ["pkgconf", "python", "automake"]
 depends = ["python"]
 pkgdesc = "XML-XCB (X C Bindings) protocol descriptions"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/proto/xcbproto/-/archive/xcb-proto-{pkgver}/xcbproto-xcb-proto-{pkgver}.tar.gz"

@@ -9,7 +9,6 @@ make_check_args = ["-j1"]  # Tests broken when ran in parallel
 hostmakedepends = ["pkgconf"]
 checkdepends = ["perl"]
 pkgdesc = "Extended attribute support library for ACL support"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://savannah.nongnu.org/projects/attr"
 source = f"$(NONGNU_SITE)/attr/attr-{pkgver}.tar.gz"

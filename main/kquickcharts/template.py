@@ -13,7 +13,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "QtQuick high-performance charts module"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kquickcharts/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kquickcharts-{pkgver}.tar.xz"

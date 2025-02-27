@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for sorting collections and containers"
-maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "Apache-2.0"
 url = "https://github.com/grantjenks/python-sortedcontainers"
 source = f"https://github.com/grantjenks/python-sortedcontainers/archive/v{pkgver}.tar.gz"

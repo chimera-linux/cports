@@ -19,7 +19,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "Command line client for mega.nz"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "GPL-2.0-or-later"
 url = "https://megatools.megous.com"
 source = f"{url}/builds/megatools-{pkgver}.tar.gz"

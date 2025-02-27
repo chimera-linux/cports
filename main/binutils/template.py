@@ -45,7 +45,6 @@ makedepends = [
 # binutils is a metapackage pointing to the current target binutils
 depends = [self.with_pkgver(f"binutils-{self.profile().arch}")]
 pkgdesc = "GNU binutils"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/binutils"
 source = [

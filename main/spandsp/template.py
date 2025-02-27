@@ -6,7 +6,6 @@ make_install_args = ["-j1"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libtiff-devel", "libjpeg-turbo-devel"]
 pkgdesc = "Low-level signal processing library for telephony"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.soft-switch.org"
 source = f"$(DEBIAN_SITE)/main/s/spandsp/spandsp_{pkgver}+dfsg.orig.tar.xz"

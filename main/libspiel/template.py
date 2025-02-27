@@ -19,7 +19,6 @@ checkdepends = [
     "python-tap.py",
 ]
 pkgdesc = "Speech synthesis client library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://project-spiel.org"
 source = f"https://github.com/project-spiel/libspiel/archive/refs/tags/SPIEL_{pkgver.replace('.', '_')}.tar.gz"

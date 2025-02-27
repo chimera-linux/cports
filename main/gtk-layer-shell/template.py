@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["gtk+3-devel"]
 pkgdesc = "Library to create panels and other desktop components for Wayland"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND MIT"
 url = "https://github.com/wmww/gtk-layer-shell"
 source = f"https://github.com/wmww/gtk-layer-shell/archive/refs/tags/v{pkgver}.tar.gz"

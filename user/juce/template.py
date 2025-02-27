@@ -25,7 +25,6 @@ depends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Cross-platform framework for audio plugins"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-only"
 url = "https://juce.com"
 source = (

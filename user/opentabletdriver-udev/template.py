@@ -3,7 +3,6 @@ pkgver = "0.6.5.1"
 pkgrel = 0
 hostmakedepends = ["bash", "jq"]
 pkgdesc = "Udev rules for OpenTabletDriver"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://opentabletdriver.net"
 source = f"https://github.com/OpenTabletDriver/OpenTabletDriver/archive/refs/tags/v{pkgver}.tar.gz"

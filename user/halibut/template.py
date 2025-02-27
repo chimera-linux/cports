@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "perl"]
 pkgdesc = "Yet another free document preparation system"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "MIT AND APAFML"
 url = "https://www.chiark.greenend.org.uk/~sgtatham/halibut"
 source = f"{url}/halibut-{pkgver}/halibut-{pkgver}.tar.gz"

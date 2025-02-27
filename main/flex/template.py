@@ -8,7 +8,6 @@ hostmakedepends = ["byacc"]
 makedepends = ["byacc"]
 depends = ["byacc", self.with_pkgver("flex-devel-static")]
 pkgdesc = "Fast Lexical Analyzer"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:flex"
 url = "https://github.com/westes/flex"
 source = f"{url}/releases/download/v{pkgver}/flex-{pkgver}.tar.gz"

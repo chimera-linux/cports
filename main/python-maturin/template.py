@@ -18,7 +18,6 @@ makedepends = ["rust-std", "openssl3-devel"]
 checkdepends = ["pytest"]
 depends = ["python"]
 pkgdesc = "Tool for building and publishing Rust-based Python packages"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://www.maturin.rs"
 source = f"https://github.com/PyO3/maturin/archive/refs/tags/v{pkgver}.tar.gz"

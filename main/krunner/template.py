@@ -28,7 +28,6 @@ checkdepends = [
     "dbus",
 ]
 pkgdesc = "KDE Framework for providing different actions given a string query"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/krunner/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/krunner-{pkgver}.tar.xz"

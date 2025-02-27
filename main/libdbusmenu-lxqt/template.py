@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-devel"]
 pkgdesc = "Qt implementation of the DBusMenu spec"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.0-or-later"
 url = "https://github.com/lxqt/libdbusmenu-lxqt"
 source = f"{url}/releases/download/{pkgver}/libdbusmenu-lxqt-{pkgver}.tar.xz"

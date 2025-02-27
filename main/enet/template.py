@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "UDP networking library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "http://enet.bespin.org"
 source = f"{url}/download/enet-{pkgver}.tar.gz"

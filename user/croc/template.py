@@ -4,7 +4,6 @@ pkgrel = 3
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "File transfer tool"
-maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT"
 url = "https://github.com/schollz/croc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

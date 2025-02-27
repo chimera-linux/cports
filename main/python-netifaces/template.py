@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers", "python-devel"]
 pkgdesc = "Module to access network interface information"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://alastairs-place.net/projects/netifaces"
 source = f"$(PYPI_SITE)/n/netifaces/netifaces-{pkgver}.tar.gz"

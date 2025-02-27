@@ -11,7 +11,6 @@ hostmakedepends = [
 
 depends = ["python-jinja2"]
 pkgdesc = "Multi-language graphics API loader generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://glad.dav1d.de"
 source = f"https://github.com/Dav1dde/glad/archive/refs/tags/v{pkgver}.tar.gz"

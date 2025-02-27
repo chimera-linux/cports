@@ -27,7 +27,6 @@ makedepends = [
 ]
 checkdepends = ["bash", "dbus-test-runner", "xserver-xorg-xvfb"]
 pkgdesc = "Library for passing menus over DBus"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later"
 url = "https://launchpad.net/libdbusmenu"
 source = f"{url}/{pkgver[: pkgver.rfind('.')]}/{pkgver}/+download/libdbusmenu-{pkgver}.tar.gz"

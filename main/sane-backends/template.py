@@ -32,7 +32,6 @@ makedepends = [
     "v4l-utils-devel",
 ]
 pkgdesc = "Scanner Access Now Easy"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later WITH custom:sane-exception"
 url = "http://sane-project.org"
 _rhash = "83bdbb6c9a115184c2d48f1fdc6847db"

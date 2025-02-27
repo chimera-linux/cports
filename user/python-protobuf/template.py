@@ -14,7 +14,6 @@ makedepends = [
     "python-devel",
 ]
 pkgdesc = "Python bindings for protobuf"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"$(PYPI_SITE)/p/protobuf/protobuf-{pkgver}.tar.gz"

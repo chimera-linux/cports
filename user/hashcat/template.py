@@ -19,7 +19,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Password recovery tool"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://hashcat.net/hashcat"
 source = f"https://hashcat.net/files/hashcat-{pkgver}.tar.gz"

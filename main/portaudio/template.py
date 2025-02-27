@@ -15,7 +15,6 @@ makedepends = [
     "pipewire-jack-devel",
 ]
 pkgdesc = "C library for real-time audio i/o"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://www.portaudio.com"
 source = (

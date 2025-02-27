@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "gettext-devel", "libtool", "pkgconf"]
 pkgdesc = "Hybrid lossless audio compression"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.wavpack.com"
 source = f"https://github.com/dbry/WavPack/releases/download/{pkgver}/wavpack-{pkgver}.tar.xz"

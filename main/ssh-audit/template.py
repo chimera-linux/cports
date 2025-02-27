@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "SSH server & client configuration auditor"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jtesta/ssh-audit"
 source = f"{url}/releases/download/v{pkgver}/ssh-audit-{pkgver}.tar.gz"

@@ -24,7 +24,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE parser for MIME trees"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND GPL-3.0-only"
 url = "https://invent.kde.org/pim/mimetreeparser"
 source = (

@@ -15,7 +15,6 @@ makedepends = [
     "util-linux-uuid-devel",
 ]
 pkgdesc = "Userspace utilities for the NILFS filesystem"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://nilfs.sourceforge.io/en/index.html"
 source = f"https://github.com/nilfs-dev/nilfs-utils/archive/refs/tags/v{pkgver}.tar.gz"

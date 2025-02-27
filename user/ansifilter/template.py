@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja"]
 makedepends = ["boost-devel", "qt6-qtbase-devel"]
 pkgdesc = "ANSI escape codes parser"
-maintainer = "jabuxas <jabuxas@proton.me>"
 license = "GPL-3.0-only"
 url = "https://gitlab.com/saalen/ansifilter"
 source = f"{url}/-/archive/{pkgver}/ansifilter-{pkgver}.tar.gz"

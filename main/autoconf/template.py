@@ -7,7 +7,6 @@ configure_gen = []
 hostmakedepends = ["perl", "gm4", "texinfo"]
 depends = ["cmd:awk!base-files", "gm4", "perl"]
 pkgdesc = "Generates automatic source code configuration scripts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/autoconf"
 source = f"$(GNU_SITE)/autoconf/autoconf-{pkgver}.tar.gz"

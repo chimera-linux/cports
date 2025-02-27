@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "Xfce development tools"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfce4-dev-tools/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-dev-tools/{pkgver[:-2]}/xfce4-dev-tools-{pkgver}.tar.bz2"

@@ -22,7 +22,6 @@ makedepends = [
 ]
 checkdepends = ["perl", "perl-test-command", "mandoc"]
 pkgdesc = "Fast and light image viewer"
-maintainer = "daringcuteseal <daringcuteseal@gmail.com>"
 license = "MIT"
 url = "https://feh.finalrewind.org"
 source = f"{url}/feh-{pkgver}.tar.bz2"

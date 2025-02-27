@@ -25,7 +25,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Separates url's subdomain, domain, and public suffix"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/john-kurkowski/tldextract"
 source = f"$(PYPI_SITE)/t/tldextract/tldextract-{pkgver}.tar.gz"

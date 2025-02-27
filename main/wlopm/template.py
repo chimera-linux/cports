@@ -9,7 +9,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Wayland output power management"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "GPL-3.0-only"
 url = "https://sr.ht/~leon_plickat/wlopm"
 source = f"https://git.sr.ht/~leon_plickat/wlopm/archive/v{pkgver}.tar.gz"

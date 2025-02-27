@@ -29,7 +29,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "VNC client viewer widget for GTK+3"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/gtk-vnc"
 source = f"$(GNOME_SITE)/gtk-vnc/{pkgver[:-2]}/gtk-vnc-{pkgver}.tar.xz"

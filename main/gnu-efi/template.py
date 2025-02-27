@@ -7,7 +7,6 @@ build_style = "makefile"
 make_use_env = True
 hostmakedepends = ["pkgconf", f"binutils-{self.profile().arch}"]
 pkgdesc = "Development libraries for EFI"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/gnu-efi"
 source = f"$(SOURCEFORGE_SITE)/gnu-efi/gnu-efi-{pkgver}.tar.bz2"

@@ -71,7 +71,6 @@ depends = [
     "python-zstandard",
 ]
 pkgdesc = "3D creation suite"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://www.blender.org"
 source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"

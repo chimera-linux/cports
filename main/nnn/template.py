@@ -5,7 +5,6 @@ build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["chimerautils-devel", "libedit-readline-devel"]
 pkgdesc = "Unorthodox terminal file manager"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/jarun/nnn"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -17,7 +17,6 @@ checkdepends = [
 ]
 depends = ["python"]
 pkgdesc = "Bidirectional mapping library for Python"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "MPL-2.0"
 url = "https://bidict.readthedocs.io"
 source = f"https://github.com/jab/bidict/archive/refs/tags/v{pkgver}.tar.gz"

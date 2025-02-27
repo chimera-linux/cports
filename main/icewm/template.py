@@ -38,7 +38,6 @@ makedepends = [
 ]
 depends = ["shared-mime-info"]
 pkgdesc = "Window manager for X11"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://ice-wm.org"
 source = f"https://github.com/ice-wm/icewm/archive/{pkgver}.tar.gz"

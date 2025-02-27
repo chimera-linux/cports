@@ -7,7 +7,6 @@ make_install_args = ["install-extra"]
 make_use_env = True
 makedepends = ["argp-standalone", "parted-devel", "linux-headers", "udev-devel"]
 pkgdesc = "Flash devices tester"
-maintainer = "jabuxas <jabuxas@proton.me>"
 license = "GPL-3.0-only"
 url = "https://github.com/AltraMayor/f3"
 source = f"{url}/archive/v{pkgver}.tar.gz"

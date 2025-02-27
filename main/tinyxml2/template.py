@@ -9,7 +9,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "C++ XML parser"
-maintainer = "xunil-cloud <river_electron@proton.me>"
 license = "Zlib"
 url = "https://github.com/leethomason/tinyxml2"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

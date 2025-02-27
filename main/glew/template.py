@@ -9,7 +9,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf"]
 makedepends = ["libxext-devel", "libxmu-devel", "libxi-devel", "glu-devel"]
 pkgdesc = "OpenGL Extension Wrangler Library"
-maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 # sourceforge site is outdated, so use github instead
 url = "https://github.com/nigels-com/glew"

@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers", "musl-bsd-headers"]
 pkgdesc = "Linux kernel io_uring access library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MIT"
 url = "https://github.com/axboe/liburing"
 source = f"{url}/archive/refs/tags/liburing-{pkgver}.tar.gz"

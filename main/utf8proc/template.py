@@ -5,7 +5,6 @@ build_style = "makefile"
 make_install_args = ["prefix=/usr"]
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Clean C library for processing UTF-8 Unicode data"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/JuliaStrings/utf8proc"
 source = f"{url}/archive/v{pkgver}/utf8proc-{pkgver}.tar.gz"

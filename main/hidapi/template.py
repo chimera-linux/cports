@@ -14,7 +14,6 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "Cross-platform library for communicating with HID devices"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause OR custom:hidapi OR GPL-3.0-only"
 url = "https://github.com/libusb/hidapi"
 source = f"{url}/archive/refs/tags/hidapi-{pkgver}.tar.gz"

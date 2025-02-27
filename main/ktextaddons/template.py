@@ -36,7 +36,6 @@ makedepends = [
     "syntax-highlighting-devel",
 ]
 pkgdesc = "KDE text handling addons library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/libraries/ktextaddons"
 source = f"$(KDE_SITE)/ktextaddons/ktextaddons-{pkgver}.tar.xz"

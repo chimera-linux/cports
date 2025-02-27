@@ -7,7 +7,6 @@ make_use_env = True
 hostmakedepends = ["gsed", "pkgconf", "libnl-devel"]
 makedepends = ["libnl-devel", "linux-headers"]
 pkgdesc = "Utility for nl80211 based CLI configuration of wireless devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://wireless.kernel.org/en/users/Documentation/iw"
 source = f"https://www.kernel.org/pub/software/network/iw/iw-{pkgver}.tar.xz"

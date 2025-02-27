@@ -8,7 +8,6 @@ checkdepends = [
     "musl-devel-static",
 ]
 pkgdesc = "Go programming language"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"

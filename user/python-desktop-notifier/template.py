@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-bidict", "python-dbus-fast", "python-packaging"]
 checkdepends = ["dbus", "python-pytest-asyncio", *depends]
 pkgdesc = "Cross-platform desktop notification library"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "MIT"
 url = "https://pypi.org/project/desktop-notifier"
 source = f"https://github.com/samschott/desktop-notifier/archive/refs/tags/v{pkgver}.tar.gz"

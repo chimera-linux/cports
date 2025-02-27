@@ -8,7 +8,6 @@ make_check_target = ""
 make_check_args = ["-f", "Makefile.cmdline"]
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Embeddeable JavaScript engine"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://duktape.org"
 source = f"https://github.com/svaarala/duktape/releases/download/v{pkgver}/duktape-{pkgver}.tar.xz"

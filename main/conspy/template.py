@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["automake"]
 makedepends = ["ncurses-devel", "linux-headers"]
 pkgdesc = "Remote control Linux virtual consoles"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "AGPL-3.0-or-later"
 url = "https://conspy.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/conspy/conspy-{pkgver}-1/conspy-{pkgver}.tar.gz"

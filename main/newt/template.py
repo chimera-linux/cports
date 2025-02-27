@@ -8,7 +8,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "python-devel"]
 makedepends = ["python-devel", "slang-devel", "popt-devel"]
 pkgdesc = "Library for color text mode, widget based user interfaces"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-only"
 url = "https://pagure.io/newt"
 source = f"https://releases.pagure.org/newt/newt-{pkgver}.tar.gz"

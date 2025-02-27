@@ -13,7 +13,6 @@ hostmakedepends = [
     "python-docutils",
 ]
 pkgdesc = "Regular Expressions to Code, lexer generator"
-maintainer = "ttyyls <contact@behri.org>"
 license = "custom:none"  # Public Domain dedication
 url = "https://re2c.org"
 source = f"https://github.com/skvadrik/re2c/archive/refs/tags/{pkgver}.tar.gz"

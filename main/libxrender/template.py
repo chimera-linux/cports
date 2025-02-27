@@ -6,7 +6,6 @@ configure_args = ["--enable-malloc0returnsnull"]
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libxext-devel"]
 pkgdesc = "X Render library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXrender-{pkgver}.tar.gz"

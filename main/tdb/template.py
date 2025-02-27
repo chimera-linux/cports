@@ -18,7 +18,6 @@ hostmakedepends = [
 ]
 makedepends = ["python-devel", "gettext-devel"]
 pkgdesc = "Simple database API similar to gdbm"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://tdb.samba.org"
 source = f"https://download.samba.org/pub/tdb/tdb-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "makefile"
 hostmakedepends = ["pkgconf", "gettext"]
 checkdepends = ["perl"]
 pkgdesc = "Line ending converter"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://waterlan.home.xs4all.nl/dos2unix.html"
 source = f"https://waterlan.home.xs4all.nl/dos2unix/dos2unix-{pkgver}.tar.gz"

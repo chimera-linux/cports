@@ -13,7 +13,6 @@ makedepends = [
 ]
 checkdepends = ["perl"]
 pkgdesc = "Cross-platform library for system statistics"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://libstatgrab.org"
 source = f"https://github.com/libstatgrab/libstatgrab/releases/download/LIBSTATGRAB_{pkgver.replace('.', '_')}/libstatgrab-{pkgver}.tar.gz"

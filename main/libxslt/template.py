@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["libgcrypt-devel", "libxml2-devel"]
 pkgdesc = "GNOME XSLT parser library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://xmlsoft.org/XSLT"
 source = f"$(GNOME_SITE)/libxslt/{pkgver[: pkgver.rfind('.')]}/libxslt-{pkgver}.tar.xz"

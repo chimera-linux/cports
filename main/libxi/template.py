@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["xorgproto", "libxfixes-devel", "libxext-devel"]
 pkgdesc = "X Input extension library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXi-{pkgver}.tar.xz"

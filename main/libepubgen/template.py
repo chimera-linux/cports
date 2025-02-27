@@ -7,7 +7,6 @@ hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel", "libxml2-devel"]
 checkdepends = ["cppunit-devel"]
 pkgdesc = "EPUB generator for librevenge"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://sourceforge.net/projects/libepubgen"
 source = f"$(SOURCEFORGE_SITE)/libepubgen/libepubgen-{pkgver}/libepubgen-{pkgver}.tar.xz"

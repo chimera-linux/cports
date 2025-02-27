@@ -20,7 +20,6 @@ makedepends = ["qt6-qtbase-private-devel", "qt6-qtdeclarative-devel"]
 checkdepends = ["mesa-dri"]
 install_if = [self.with_pkgver("qt6-qtbase-gui"), "wayland"]
 pkgdesc = "Qt6 Wayland component"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

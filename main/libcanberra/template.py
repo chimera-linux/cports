@@ -30,7 +30,6 @@ makedepends = [
     "tdb-devel",
 ]
 pkgdesc = "Portable sound event API"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://0pointer.de/lennart/projects/libcanberra"
 source = f"{url}/libcanberra-{pkgver}.tar.xz"

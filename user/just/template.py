@@ -8,7 +8,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 checkdepends = ["bash", "python"]
 pkgdesc = "Save and run commands from justfile"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "CC0-1.0"
 url = "https://github.com/casey/just"
 source = [

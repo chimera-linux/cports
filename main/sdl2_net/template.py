@@ -7,7 +7,6 @@ hostmakedepends = ["pkgconf"]
 makedepends = ["sdl2-compat-devel"]
 provides = [self.with_pkgver("sdl_net")]
 pkgdesc = "SDL networking library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libsdl.org/projects/SDL_net"
 source = f"{url}/release/SDL2_net-{pkgver}.tar.gz"

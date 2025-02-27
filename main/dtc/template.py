@@ -6,7 +6,6 @@ configure_args = ["-Dpython=disabled", "-Ddefault_library=shared"]
 hostmakedepends = ["meson", "ninja", "flex", "bison", "pkgconf"]
 makedepends = ["libyaml-devel"]
 pkgdesc = "Device Tree Compiler"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/utils/dtc/dtc.git"
 source = f"https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/v{pkgver}.tar.gz"

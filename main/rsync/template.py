@@ -23,7 +23,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Fast incremental file transfer tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://rsync.samba.org"
 source = f"https://www.samba.org/ftp/rsync/src/rsync-{pkgver}.tar.gz"

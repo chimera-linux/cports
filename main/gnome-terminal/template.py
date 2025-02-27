@@ -22,7 +22,6 @@ makedepends = [
     "vte-gtk3-devel",
 ]
 pkgdesc = "GNOME terminal emulator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal"
 source = f"https://gitlab.gnome.org/GNOME/gnome-terminal/-/archive/{pkgver}/gnome-terminal-{pkgver}.tar.gz"

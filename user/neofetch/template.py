@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "makefile"
 depends = ["bash"]
 pkgdesc = "Simple system information script"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/dylanaraps/neofetch"
 source = f"{url}/archive/{pkgver}/neofetch-{pkgver}.tar.gz"

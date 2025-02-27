@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "C interface for ruamel.yaml"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/ruamel-yaml-clib"
 source = f"$(PYPI_SITE)/r/ruamel.yaml.clib/ruamel.yaml.clib-{pkgver}.tar.gz"

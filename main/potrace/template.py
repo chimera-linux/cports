@@ -6,7 +6,6 @@ configure_args = ["--with-libpotrace"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Bitmap to vector tracer"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://potrace.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/potrace/potrace-{pkgver}.tar.gz"

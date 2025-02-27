@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
 makedepends = ["xorgproto", "libxext-devel", "libxt-devel"]
 pkgdesc = "X Miscellaneous Utilities library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXmu-{pkgver}.tar.gz"

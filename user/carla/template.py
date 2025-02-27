@@ -15,7 +15,6 @@ makedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Audio plugin host"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://kx.studio/Applications:Carla"
 source = f"https://github.com/falkTX/Carla/archive/refs/tags/v{pkgver}.tar.gz"

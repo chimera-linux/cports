@@ -8,7 +8,6 @@ hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "qt6-qtbase"]
 makedepends = ["qt6-qtbase-private-devel"]
 depends = [self.with_pkgver("qt6-qtshadertools-libs")]
 pkgdesc = "Qt6 shader tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

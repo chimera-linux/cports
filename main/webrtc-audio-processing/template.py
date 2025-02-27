@@ -6,7 +6,6 @@ configure_args = ["-Dcpp_std=c++17"]
 hostmakedepends = ["meson", "pkgconf", "cmake"]
 makedepends = ["abseil-cpp-devel", "linux-headers"]
 pkgdesc = "Packaging-friendly copy of WebRTC AudioProcessing"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://freedesktop.org/software/pulseaudio/webrtc-audio-processing"
 source = f"$(FREEDESKTOP_SITE)/pulseaudio/webrtc-audio-processing/webrtc-audio-processing-{pkgver}.tar.gz"

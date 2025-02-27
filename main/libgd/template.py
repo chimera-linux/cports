@@ -16,7 +16,6 @@ makedepends = [
 ]
 checkdepends = ["fonts-liberation-otf"]
 pkgdesc = "Graphics library for the dynamic creation of images"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:libgd"
 url = "https://libgd.github.io"
 # source = f"https://github.com/libgd/libgd/releases/download/gd-{pkgver}/libgd-{pkgver}.tar.xz"

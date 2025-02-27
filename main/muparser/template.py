@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = []
 pkgdesc = "Qt implementation of freedesktop.org xdg specs"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "BSD-2-Clause"
 url = "https://beltoforion.de/en/muparser"
 source = f"https://github.com/beltoforion/muparser/archive/refs/tags/v{pkgver}.tar.gz"

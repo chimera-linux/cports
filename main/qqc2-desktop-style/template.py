@@ -22,7 +22,6 @@ makedepends = [
 depends = ["sonnet"]
 checkdepends = [*depends]
 pkgdesc = "Style for Qt Quick Controls 2 to follow your KDE desktop theme"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/frameworks/qqc2-desktop-style/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/qqc2-desktop-style-{pkgver}.tar.xz"

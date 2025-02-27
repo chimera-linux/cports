@@ -18,7 +18,6 @@ makedepends = [
 ]
 depends = ["gsettings-desktop-schemas"]
 pkgdesc = "Graphical directory tree analyzer for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/action/show/Apps/DiskUsageAnalyzer"
 source = f"$(GNOME_SITE)/baobab/{pkgver[:-2]}/baobab-{pkgver}.tar.xz"

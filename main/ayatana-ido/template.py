@@ -18,7 +18,6 @@ makedepends = [
 ]
 checkdepends = ["gtest-devel", "xwayland-run"]
 pkgdesc = "Ayatana Indicator Display Objects"
-maintainer = "triallax <triallax@tutanota.com>"
 license = (
     "GPL-3.0-only AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 )

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "perl", "automake", "libtool"]
 makedepends = ["audiofile-devel", "glib-devel", "libgcrypt-devel"]
 pkgdesc = "ZX Spectrum emulator support library"
-maintainer = "logout <logout128@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://fuse-emulator.sourceforge.net/libspectrum.php"
 source = f"$(SOURCEFORGE_SITE)/fuse-emulator/libspectrum/{pkgver}/libspectrum-{pkgver}.tar.gz"

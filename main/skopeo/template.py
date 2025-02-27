@@ -20,7 +20,6 @@ makedepends = [
 depends = ["containers-common"]
 go_build_tags = ["libsqlite3"]
 pkgdesc = "OCI image and repo manipulation tool"
-maintainer = "Radosław Piliszek <radek@piliszek.it>"
 license = "Apache-2.0"
 url = "https://github.com/containers/skopeo"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

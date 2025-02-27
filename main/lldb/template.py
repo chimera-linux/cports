@@ -30,7 +30,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "LLVM debugger"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = [

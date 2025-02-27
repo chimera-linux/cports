@@ -16,7 +16,6 @@ checkdepends = [
     "procps",
 ]
 pkgdesc = "Gemini server"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://gmid.omarpolo.com"
 source = f"https://ftp.omarpolo.com/gmid-{pkgver}.tar.gz"

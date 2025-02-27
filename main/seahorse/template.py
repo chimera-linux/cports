@@ -35,7 +35,6 @@ makedepends = [
     "openldap-devel",
 ]
 pkgdesc = "Password and encryption key manager for GNOME"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/seahorse"
 source = f"{url}/-/archive/{pkgver}/seahorse-{pkgver}.tar.gz"

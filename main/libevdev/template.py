@@ -7,7 +7,6 @@ hostmakedepends = ["pkgconf", "python", "automake", "libtool"]
 makedepends = ["check-devel", "linux-headers"]
 checkdepends = ["bash"]
 pkgdesc = "Wrapper library for evdev devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libevdev"
 source = f"$(FREEDESKTOP_SITE)/libevdev/libevdev-{pkgver}.tar.xz"

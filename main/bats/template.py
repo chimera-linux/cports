@@ -5,7 +5,6 @@ hostmakedepends = ["bash"]
 checkdepends = ["bash", "procps"]
 depends = ["bash"]
 pkgdesc = "Bash Automated Testing System"
-maintainer = "hge <h.gersen@gmail.com>"
 license = "MIT"
 url = "https://github.com/bats-core/bats-core"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

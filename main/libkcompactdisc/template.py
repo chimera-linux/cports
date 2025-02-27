@@ -17,7 +17,6 @@ makedepends = [
     "phonon-devel",
 ]
 pkgdesc = "KDE library for interfacing with CDs"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/libkcompactdisc/html"
 source = (

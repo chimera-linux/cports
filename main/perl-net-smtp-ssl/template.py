@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl", "perl-io-socket-ssl"]
 depends = [*makedepends]
 pkgdesc = "SSL support for Net::SMTP"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/Net-SMTP-SSL"
 source = f"$(CPAN_SITE)/Net/Net-SMTP-SSL-{pkgver}.tar.gz"

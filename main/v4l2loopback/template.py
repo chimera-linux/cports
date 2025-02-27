@@ -8,7 +8,6 @@ make_install_target = "install-extra"
 hostmakedepends = ["help2man"]
 makedepends = ["linux-headers"]
 pkgdesc = "Kernel module to create V4L2 loopback devices"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/umlaeute/v4l2loopback"
 source = f"https://github.com/umlaeute/v4l2loopback/archive/refs/tags/v{pkgver}.tar.gz"

@@ -37,7 +37,6 @@ makedepends = [
 checkdepends = ["gtest-devel"]
 depends = ["qt6-qtbase-sql"]
 pkgdesc = "Audio player and organizer"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.strawberrymusicplayer.org"
 source = f"https://files.strawberrymusicplayer.org/strawberry-{pkgver}.tar.xz"

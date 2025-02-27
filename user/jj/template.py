@@ -15,7 +15,6 @@ makedepends = [
 ]
 checkdepends = ["git", "openssh"]
 pkgdesc = "Git-compatible VCS frontend"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://martinvonz.github.io/jj"
 source = f"https://github.com/martinvonz/jj/archive/refs/tags/v{pkgver}.tar.gz"

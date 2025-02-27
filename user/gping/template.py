@@ -9,7 +9,6 @@ make_check_args = [
 ]
 hostmakedepends = ["cargo-auditable"]
 pkgdesc = "TUI ping tool with a graph"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/orf/gping"
 source = f"{url}/archive/refs/tags/gping-v{pkgver}.tar.gz"

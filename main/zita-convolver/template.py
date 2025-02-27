@@ -7,7 +7,6 @@ make_install_args = ["SUFFIX="]
 make_use_env = True
 makedepends = ["fftw-devel"]
 pkgdesc = "Real-time C++ convolution library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://kokkinizita.linuxaudio.org/linuxaudio"
 source = f"https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-convolver-{pkgver}.tar.bz2"

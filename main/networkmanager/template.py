@@ -87,7 +87,6 @@ depends = [
 ]
 checkdepends = ["python-dbus"]
 pkgdesc = "Network management daemon"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/NetworkManager"
 source = f"https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/archive/{pkgver}.tar.gz"

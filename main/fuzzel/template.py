@@ -22,7 +22,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Application launcher for wlroots-based Wayland compositors"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fuzzel"
 source = f"{url}/archive/{pkgver}.tar.gz"

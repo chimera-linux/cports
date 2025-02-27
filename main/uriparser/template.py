@@ -12,7 +12,6 @@ makedepends = [
     "gtest-devel",
 ]
 pkgdesc = "RFC 3986 compliant URI parsing and handling library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/uriparser/uriparser"
 source = f"{url}/archive/refs/tags/uriparser-{pkgver}.tar.gz"

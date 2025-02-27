@@ -29,7 +29,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("mesa-demos-core")]
 pkgdesc = "Collection of OpenGL and Mesa demos and test programs"
-maintainer = "eater <=@eater.me>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/mesa/demos"
 source = f"{url}/-/archive/mesa-demos-{pkgver}/demos-mesa-demos-{pkgver}.tar.gz"

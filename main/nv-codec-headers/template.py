@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Headers for Nvidia codec APIs"
-maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "MIT"
 url = "https://github.com/FFmpeg/nv-codec-headers"
 source = f"{url}/archive/refs/tags/n{pkgver}.tar.gz"

@@ -9,7 +9,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["cppunit-devel", "utfcpp", "zlib-ng-compat-devel"]
 pkgdesc = "Library for accessing ID tags in various media files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://taglib.github.io"
 source = f"https://github.com/taglib/taglib/archive/v{pkgver}.tar.gz"

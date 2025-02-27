@@ -19,7 +19,6 @@ checkdepends = [
     "xwayland-run",
 ]
 pkgdesc = "KDE calendar access library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kcalendarcore/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcalendarcore-{pkgver}.tar.xz"

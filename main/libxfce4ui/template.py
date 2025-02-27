@@ -34,7 +34,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce UI library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/libxfce4ui/start"
 source = (

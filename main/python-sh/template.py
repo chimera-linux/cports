@@ -14,7 +14,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python subprocess replacement module"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sh.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/s/sh/sh-{pkgver}.tar.gz"

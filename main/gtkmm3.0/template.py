@@ -14,7 +14,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "C++ bindings for Gtk+3"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/gtkmm/{pkgver[:-2]}/gtkmm-{pkgver}.tar.xz"

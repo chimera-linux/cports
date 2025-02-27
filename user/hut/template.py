@@ -4,7 +4,6 @@ pkgrel = 10
 build_style = "go"
 hostmakedepends = ["go", "scdoc"]
 pkgdesc = "CLI tool for sr.ht"
-maintainer = "Hugo Machet <mail@hmachet.com>"
 license = "AGPL-3.0-only"
 url = "https://git.sr.ht/~xenrox/hut"
 source = f"{url}/archive/v{pkgver}.tar.gz"

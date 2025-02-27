@@ -27,7 +27,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("vim-xxd")]
 pkgdesc = "Vi-style text editor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Vim"
 url = "https://www.vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"

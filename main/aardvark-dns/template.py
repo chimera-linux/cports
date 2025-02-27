@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Authoritative DNS server for A/AAAA container records"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containers/aardvark-dns"
 source = f"{url}/archive/v{pkgver}.tar.gz"

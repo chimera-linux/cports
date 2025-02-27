@@ -29,7 +29,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Mail reader"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://neomutt.org"
 source = f"https://github.com/neomutt/neomutt/archive/refs/tags/{pkgver.replace('.', '')}.tar.gz"

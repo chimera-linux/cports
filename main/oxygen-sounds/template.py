@@ -12,7 +12,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Ocean Sound Theme for KDE Plasma"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "CC-BY-SA-4.0"
 url = "https://invent.kde.org/plasma/oxygen-sounds"
 source = f"$(KDE_SITE)/plasma/{pkgver}/oxygen-sounds-{pkgver}.tar.xz"

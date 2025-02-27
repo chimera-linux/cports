@@ -17,7 +17,6 @@ depends = [
     "python-setuptools",
 ]
 pkgdesc = "Introspection system for GObject-based libraries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GObjectIntrospection"
 source = f"$(GNOME_SITE)/gobject-introspection/{pkgver[:-2]}/gobject-introspection-{pkgver}.tar.xz"

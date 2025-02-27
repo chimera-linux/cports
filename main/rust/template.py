@@ -26,7 +26,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("rust-std"), "clang", "musl-devel"]
 pkgdesc = "Rust programming language"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"

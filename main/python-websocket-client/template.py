@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python", "ca-certificates"]
 pkgdesc = "WebSocket client for Python3"
-maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "Apache-2.0"
 url = "https://github.com/websocket-client/websocket-client"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

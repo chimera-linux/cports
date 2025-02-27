@@ -42,7 +42,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Backend implementation for xdg-desktop-portal using Qt/KF6"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/xdg-desktop-portal-kde"
 source = f"$(KDE_SITE)/plasma/{pkgver}/xdg-desktop-portal-kde-{pkgver}.tar.xz"

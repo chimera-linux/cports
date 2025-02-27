@@ -13,7 +13,6 @@ makedepends = [
     "musl-bsd-headers",
 ]
 pkgdesc = "Apple's concurrent threading library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://apple.github.io/swift-corelibs-libdispatch"
 source = f"https://github.com/apple/swift-corelibs-libdispatch/archive/refs/tags/swift-{pkgver}-RELEASE.tar.gz"

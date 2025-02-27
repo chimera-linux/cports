@@ -15,7 +15,6 @@ makedepends = [
     "xtrans",
 ]
 pkgdesc = "X font 2 library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXfont2-{pkgver}.tar.xz"

@@ -6,7 +6,6 @@ make_check_target = "tst"
 make_use_env = True
 hostmakedepends = ["pkgconf"]
 pkgdesc = "GSM 06.10 lossy speech compression"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "TU-Berlin-2.0"
 url = "http://www.quut.com/gsm"
 source = f"{url}/gsm-{pkgver}.tar.gz"

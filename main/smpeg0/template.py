@@ -6,7 +6,6 @@ configure_gen = ["./autogen.sh"]
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = ["sdl12-compat-devel", "glu-devel"]
 pkgdesc = "MPEG decoding library for SDL 1.2"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-or-later"
 url = "https://icculus.org/smpeg"
 source = f"https://github.com/icculus/smpeg/archive/refs/tags/release_{pkgver.replace('.', '_')}.tar.gz"

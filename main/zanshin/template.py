@@ -34,7 +34,6 @@ checkdepends = [
     "kdepim-runtime",
 ]
 pkgdesc = "KDE time management assistant"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://zanshin.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/zanshin-{pkgver}.tar.xz"

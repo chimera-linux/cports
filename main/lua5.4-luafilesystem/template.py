@@ -6,7 +6,6 @@ make_build_args = ["LUA_VERSION=5.4"]
 make_install_args = ["LUA_VERSION=5.4"]
 makedepends = ["lua5.4-devel"]
 pkgdesc = "File system library for lua"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://lunarmodules.github.io/luafilesystem"
 source = f"https://github.com/lunarmodules/luafilesystem/archive/refs/tags/v{pkgver.replace('.', '_')}.tar.gz"

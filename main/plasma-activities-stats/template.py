@@ -15,7 +15,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Library to access KDE activity manager statistics data"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-activities-stats"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-activities-stats-{pkgver}.tar.xz"

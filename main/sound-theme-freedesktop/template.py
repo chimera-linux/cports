@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Freedesktop sound theme"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:sound-theme-freedesktop"
 url = "https://freedesktop.org/wiki/Specifications/sound-theme-spec"
 source = f"https://people.freedesktop.org/~mccann/dist/sound-theme-freedesktop-{pkgver}.tar.bz2"

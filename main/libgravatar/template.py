@@ -23,7 +23,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE PIM Gravatar lookup library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/libgravatar/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libgravatar-{pkgver}.tar.xz"

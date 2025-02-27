@@ -10,7 +10,6 @@ makedepends = [
     "popt-devel",
 ]
 pkgdesc = "Pinentry based on bemenu"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/t-8ch/pinentry-bemenu"
 source = f"{url}/archive/v{pkgver}.tar.gz"

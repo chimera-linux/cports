@@ -22,7 +22,6 @@ makedepends = [
 # net, testparm
 depends = ["samba-common"]
 pkgdesc = "KDE samba filesharing plugin"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenetwork_filesharing"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenetwork-filesharing-{pkgver}.tar.xz"

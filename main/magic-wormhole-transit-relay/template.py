@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-autobahn", "python-twisted"]
 checkdepends = ["python-mock", "python-pytest", *depends]
 pkgdesc = "Transit relay server for Magic Wormhole"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/magic-wormhole/magic-wormhole-transit-relay"
 source = f"$(PYPI_SITE)/m/magic-wormhole-transit-relay/magic-wormhole-transit-relay-{pkgver}.tar.gz"

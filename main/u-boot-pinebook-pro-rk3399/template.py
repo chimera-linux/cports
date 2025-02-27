@@ -24,7 +24,6 @@ hostmakedepends = [
 ]
 makedepends = ["atf-rk3399-bl31"]
 pkgdesc = "U-Boot for Pinebook Pro"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"

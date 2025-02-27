@@ -19,7 +19,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "Console utilities for Akonadi calendars"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/pim/akonadi-calendar-tools"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-calendar-tools-{pkgver}.tar.xz"

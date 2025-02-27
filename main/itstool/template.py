@@ -7,7 +7,6 @@ hostmakedepends = ["python", "libxml2-python"]
 makedepends = [*hostmakedepends]
 depends = [*makedepends]
 pkgdesc = "ITS Tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://itstool.org"
 source = f"http://files.itstool.org/itstool/itstool-{pkgver}.tar.bz2"

@@ -26,7 +26,6 @@ makedepends = [
 checkdepends = ["python-dbus"]
 depends = ["bluez"]
 pkgdesc = "GNOME Bluetooth widgets"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeBluetooth"
 source = f"$(GNOME_SITE)/gnome-bluetooth/{pkgver[:-2]}/gnome-bluetooth-{pkgver}.tar.xz"

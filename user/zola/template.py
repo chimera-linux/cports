@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl3-devel", "oniguruma-devel"]
 pkgdesc = "Static site generator"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://www.getzola.org"
 source = f"https://github.com/getzola/zola/archive/refs/tags/v{pkgver}.tar.gz"

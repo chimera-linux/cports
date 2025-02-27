@@ -20,7 +20,6 @@ makedepends = ["flex-devel-static", "gettext-devel", "linux-headers"]
 checkdepends = ["linux-pam-base"]
 depends = ["linux-pam-base"]
 pkgdesc = "Pluggable Authentication Modules for Linux"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/linux-pam/linux-pam"
 source = f"{url}/releases/download/v{pkgver}/Linux-PAM-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = ["./cmd/minify"]
 hostmakedepends = ["go"]
 pkgdesc = "Minifier for web formats"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://github.com/tdewolff/minify"
 source = f"{url}/archive/v{pkgver}.tar.gz"

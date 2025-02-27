@@ -18,7 +18,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce stopwatch panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-stopwatch-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-stopwatch-plugin/{pkgver[:-2]}/xfce4-stopwatch-plugin-{pkgver}.tar.bz2"

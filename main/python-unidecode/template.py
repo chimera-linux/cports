@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "ASCII transliterations of Unicode text for Python"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "GPL-2.0-or-later"
 url = "https://pypi.org/project/Unidecode"
 source = f"$(PYPI_SITE)/U/Unidecode/Unidecode-{pkgver}.tar.gz"

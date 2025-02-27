@@ -25,7 +25,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", "python-astor", *depends]
 pkgdesc = "Python library for async concurrency"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/python-trio/trio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

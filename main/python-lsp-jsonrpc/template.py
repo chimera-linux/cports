@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-ujson"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python implementation of the JSON RPC 2.0 protocol"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-lsp/python-lsp-jsonrpc"
 source = f"$(PYPI_SITE)/p/python-lsp-jsonrpc/python-lsp-jsonrpc-{pkgver}.tar.gz"

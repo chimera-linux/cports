@@ -8,7 +8,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["libmspack-devel"]
 pkgdesc = "Tool for extracting Microsoft cabinet files"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.cabextract.org.uk"
 source = f"https://www.cabextract.org.uk/cabextract-{pkgver}.tar.gz"

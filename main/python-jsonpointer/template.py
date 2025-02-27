@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Identify specific nodes in a JSON document"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/stefankoegl/python-json-pointer"
 source = f"$(PYPI_SITE)/j/jsonpointer/jsonpointer-{pkgver}.tar.gz"

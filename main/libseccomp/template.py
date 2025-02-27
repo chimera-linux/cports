@@ -13,7 +13,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "High level interface to seccomp"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/seccomp/libseccomp"
 source = f"{url}/archive/v{pkgver}.tar.gz"

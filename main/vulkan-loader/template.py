@@ -21,7 +21,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Vulkan Installable Client Driver (ICD) loader"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = (

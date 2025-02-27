@@ -4,7 +4,6 @@ pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Environment variables loader"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/direnv/direnv"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

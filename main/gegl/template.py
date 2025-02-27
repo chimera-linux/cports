@@ -38,7 +38,6 @@ makedepends = [
     "vala-devel",
 ]
 pkgdesc = "Graph-based image processing framework"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-3.0-only"
 url = "https://gegl.org"
 source = (

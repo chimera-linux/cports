@@ -46,7 +46,6 @@ makedepends = [
     "syntax-highlighting-devel",
 ]
 pkgdesc = "KDE PIM library for mail applications"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only AND GPL-3.0-only"
 url = "https://api.kde.org/kdepim/mailcommon/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/mailcommon-{pkgver}.tar.xz"

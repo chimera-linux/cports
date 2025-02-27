@@ -6,7 +6,6 @@ configure_args = ["--disable-werror"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 checkdepends = ["bash"]
 pkgdesc = "N-Gram-Based Text Categorization library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://wiki.documentfoundation.org/Libexttextcat"
 source = f"https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-{pkgver}.tar.xz"

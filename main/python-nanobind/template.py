@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["cmake", "python-devel", "python-pytest"]
 pkgdesc = "C++/Python bindings generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/wjakob/nanobind"
 source = [

@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel"]
 pkgdesc = "Library for Aldus/Adobe PageMaker format"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libpagemaker"
 source = f"https://dev-www.libreoffice.org/src/libpagemaker/libpagemaker-{pkgver}.tar.xz"

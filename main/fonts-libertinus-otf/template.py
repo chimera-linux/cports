@@ -2,7 +2,6 @@ pkgname = "fonts-libertinus-otf"
 pkgver = "7.051"
 pkgrel = 0
 pkgdesc = "Fonts based on Linux Libertine/Biolinum, with extended math support"
-maintainer = "autumnontape <autumn@cyfox.net>"
 license = "OFL-1.1"
 url = "https://github.com/alerque/libertinus"
 source = f"{url}/releases/download/v{pkgver}/Libertinus-{pkgver}.tar.zst"

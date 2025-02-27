@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libvgm-devel", "inih-devel"]
 pkgdesc = "VGM file player"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "custom:vgmplay"
 url = "https://github.com/ValleyBell/vgmplay-libvgm"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

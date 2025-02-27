@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Sass compiler"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/connorskees/grass"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

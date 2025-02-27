@@ -9,7 +9,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "JSON for modern C++"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://json.nlohmann.me"
 source = f"https://github.com/nlohmann/json/archive/refs/tags/v{pkgver}.tar.gz"

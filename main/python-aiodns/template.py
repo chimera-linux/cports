@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python-pycares"]
 pkgdesc = "Simple DNS resolver for asyncio"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/saghul/aiodns"
 source = f"$(PYPI_SITE)/a/aiodns/aiodns-{pkgver}.tar.gz"

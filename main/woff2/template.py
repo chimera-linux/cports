@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["brotli-devel"]
 pkgdesc = "Web Open Font Format 2 reference implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/google/woff2"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for PE files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/erocarrera/pefile"
 source = f"$(PYPI_SITE)/p/pefilE/pefile-{pkgver}.tar.gz"

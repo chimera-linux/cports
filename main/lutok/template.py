@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["atf-devel", "automake", "libtool", "pkgconf"]
 makedepends = ["lua5.4-devel"]
 pkgdesc = "C++ API for Lua"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/freebsd/lutok"
 source = f"{url}/archive/refs/tags/lutok-{pkgver}.tar.gz"

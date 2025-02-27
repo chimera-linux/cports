@@ -18,7 +18,6 @@ depends = [
     self.with_pkgver("hwdata-pnp"),
 ]
 pkgdesc = "Hardware identification databases"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/vcrhonek/hwdata"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

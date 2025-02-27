@@ -2,7 +2,6 @@ pkgname = "fonts-ibm-plex-mono"
 pkgver = "1.1.0"
 pkgrel = 0
 pkgdesc = "IBM's typeface, IBM Plex Mono"
-maintainer = "surreal reverie <surrealreverie@proton.me>"
 license = "OFL-1.1"
 url = "https://www.ibm.com/plex"
 source = f"https://github.com/IBM/plex/releases/download/%40ibm%2Fplex-mono%40{pkgver}/ibm-plex-mono.zip"

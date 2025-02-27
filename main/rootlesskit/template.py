@@ -9,7 +9,6 @@ make_build_args = [
 hostmakedepends = ["go"]
 depends = ["util-linux-ns"]
 pkgdesc = "Fake root for rootless containers"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/rootless-containers/rootlesskit"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python compatibility utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/benjaminp/six"
 source = f"$(PYPI_SITE)/s/six/six-{pkgver}.tar.gz"

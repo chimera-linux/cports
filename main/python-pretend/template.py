@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Stubbing helper for python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/alex/pretend"
 source = f"https://github.com/alex/pretend/archive/refs/tags/v{pkgver}.tar.gz"

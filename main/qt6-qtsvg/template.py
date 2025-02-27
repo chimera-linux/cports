@@ -8,7 +8,6 @@ make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "qt6-qtbase"]
 makedepends = ["qt6-qtbase-private-devel"]
 pkgdesc = "Qt6 SVG component"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

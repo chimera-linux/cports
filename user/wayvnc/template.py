@@ -14,7 +14,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "VNC server for wlroots-based Wayland compositors"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://github.com/any1/wayvnc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

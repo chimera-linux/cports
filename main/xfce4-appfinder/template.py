@@ -18,7 +18,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce application finder"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfce4-appfinder/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-appfinder/{pkgver[:-2]}/xfce4-appfinder-{pkgver}.tar.bz2"

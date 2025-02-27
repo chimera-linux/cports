@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest-benchmark"]
 depends = ["python"]
 pkgdesc = "Python library to infer binary file types"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://h2non.github.io/filetype.py"
 source = f"$(PYPI_SITE)/f/filetype/filetype-{pkgver}.tar.gz"

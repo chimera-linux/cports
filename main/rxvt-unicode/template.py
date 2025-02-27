@@ -33,7 +33,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("rxvt-unicode-terminfo")]
 pkgdesc = "Terminal emulator supporting Xft fonts and Unicode"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://software.schmorp.de/pkg/rxvt-unicode.html"
 source = f"http://dist.schmorp.de/rxvt-unicode/rxvt-unicode-{pkgver}.tar.bz2"

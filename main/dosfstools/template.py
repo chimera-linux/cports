@@ -6,7 +6,6 @@ configure_args = ["--enable-compat-symlinks"]
 hostmakedepends = ["automake", "gettext-devel", "pkgconf"]
 makedepends = ["udev-devel", "linux-headers"]
 pkgdesc = "DOS filesystem tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/dosfstools/dosfstools"
 source = f"{url}/releases/download/v{pkgver}/dosfstools-{pkgver}.tar.gz"

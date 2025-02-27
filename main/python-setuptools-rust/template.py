@@ -12,7 +12,6 @@ depends = [
     "python-setuptools",
 ]
 pkgdesc = "Setuptools plugin for Rust support"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/PyO3/setuptools-rust"
 source = f"$(PYPI_SITE)/s/setuptools-rust/setuptools_rust-{pkgver}.tar.gz"

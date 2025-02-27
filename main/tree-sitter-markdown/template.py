@@ -9,7 +9,6 @@ hostmakedepends = [
     "tree-sitter-cli",
 ]
 pkgdesc = "Markdown grammar for tree-sitter"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "MIT"
 url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

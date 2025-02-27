@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["linux-headers"]
 checkdepends = ["musl-bsd-headers"]
 pkgdesc = "Minimalistic user-space library oriented to Netlink developers"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.netfilter.org/projects/libmnl"
 source = f"{url}/files/libmnl-{pkgver}.tar.bz2"

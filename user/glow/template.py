@@ -6,7 +6,6 @@ build_style = "go"
 make_check_args = ["-skip", "TestGlowSources", "./..."]
 hostmakedepends = ["go"]
 pkgdesc = "Render markdown on the CLI"
-maintainer = "xunil-cloud <river_electron@proton.me>"
 license = "MIT"
 url = "https://github.com/charmbracelet/glow"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

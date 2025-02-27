@@ -12,7 +12,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf", "doxygen", "xmlto"]
 makedepends = ["openssl3-devel", "popt-devel"]
 pkgdesc = "RabbitMQ C client"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/alanxz/rabbitmq-c"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

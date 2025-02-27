@@ -9,7 +9,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "python", "pkgconf"]
 makedepends = ["spirv-tools-devel", "spirv-headers", "glslang-devel"]
 pkgdesc = "Collection of tools and libraries for shader compilation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/shaderc"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["fftw-devel", "libogg-devel", "speexdsp-devel"]
 pkgdesc = "Free audio codec for speech"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.speex.org"
 source = f"https://downloads.xiph.org/releases/speex/speex-{pkgver}.tar.gz"

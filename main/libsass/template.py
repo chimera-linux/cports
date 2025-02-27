@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "C implementation of the Sass CSS preprocessor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.sass-lang.com/libsass"
 source = f"https://github.com/sass/libsass/archive/{pkgver}.tar.gz"

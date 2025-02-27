@@ -19,7 +19,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python implementation of websocket and WAMP protocols"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://autobahn.readthedocs.io"
 source = f"$(PYPI_SITE)/a/autobahn/autobahn-{pkgver}.tar.gz"

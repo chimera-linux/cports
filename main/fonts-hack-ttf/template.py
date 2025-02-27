@@ -2,7 +2,6 @@ pkgname = "fonts-hack-ttf"
 pkgver = "3.003"
 pkgrel = 0
 pkgdesc = "Typeface designed for source code"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND custom:Bitstream-Vera"
 url = "https://sourcefoundry.org/hack"
 source = (

@@ -8,7 +8,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["xorgproto", "zlib-ng-compat-devel"]
 pkgdesc = "Fontenc Library from X.org"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libfontenc-{pkgver}.tar.xz"

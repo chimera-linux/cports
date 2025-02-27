@@ -119,7 +119,6 @@ checkdepends = ["xz", "perl"]
 depends = ["so:libkmod.so.2!kmod-libs"]
 triggers = ["/usr/lib/udev/rules.d", "/usr/lib/udev/hwdb.d", "/etc/udev/hwdb.d"]
 pkgdesc = "Standalone build of systemd-udev"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/systemd/systemd"
 source = (

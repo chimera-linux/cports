@@ -26,7 +26,6 @@ depends = [
     "sound-theme-freedesktop",
 ]
 pkgdesc = "GNOME tweak tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later AND CC0-1.0"
 url = "https://wiki.gnome.org/Apps/Tweaks"
 source = (

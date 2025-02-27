@@ -8,7 +8,6 @@ hostmakedepends = [
 ]
 makedepends = ["dbus-devel"]
 pkgdesc = "Desktop notification sending utility"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fyi"
 source = f"{url}/archive/{pkgver}.tar.gz"

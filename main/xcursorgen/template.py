@@ -11,7 +11,6 @@ makedepends = [
     "libpng-devel",
 ]
 pkgdesc = "X cursor generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xcursorgen-{pkgver}.tar.gz"

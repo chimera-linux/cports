@@ -11,7 +11,6 @@ hostmakedepends = [
     "gettext-devel",
 ]
 pkgdesc = "Tool to help manage user directories"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://www.freedesktop.org/wiki/Software/xdg-user-dirs"
 source = (

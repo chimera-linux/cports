@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Parse human-readable date/time strings"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"
 url = "https://github.com/bear/parsedatetime"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

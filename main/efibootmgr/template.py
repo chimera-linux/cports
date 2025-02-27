@@ -6,7 +6,6 @@ hostmakedepends = ["pkgconf"]
 makedepends = ["efivar-devel", "popt-devel", "linux-headers"]
 depends = ["base-kernel"]
 pkgdesc = "Tool to modify the UEFI Boot Manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rhboot/efibootmgr"
 source = f"{url}/releases/download/{pkgver}/efibootmgr-{pkgver}.tar.bz2"

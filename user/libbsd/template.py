@@ -15,7 +15,6 @@ makedepends = [
     "musl-devel",
 ]
 pkgdesc = "Commonly used BSD functions not implemented by all libcs"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://libbsd.freedesktop.org"
 source = f"{url}/releases/libbsd-{pkgver}.tar.xz"

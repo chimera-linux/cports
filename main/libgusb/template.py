@@ -12,7 +12,6 @@ makedepends = [
     "vala-devel",
 ]
 pkgdesc = "GLib wrapper around libusb"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libgusb"
 source = f"{url}/releases/download/{pkgver}/libgusb-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Touchscreen access library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libts/tslib"
 source = f"{url}/releases/download/{pkgver}/tslib-{pkgver}.tar.xz"

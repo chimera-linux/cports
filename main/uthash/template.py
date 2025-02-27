@@ -2,7 +2,6 @@ pkgname = "uthash"
 pkgver = "2.3.0"
 pkgrel = 0
 pkgdesc = "Hash table for C structures"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://troydhanson.github.io/uthash"
 source = (

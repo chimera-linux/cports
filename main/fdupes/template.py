@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_gen = []
 makedepends = ["ncurses-devel", "pcre2-devel", "sqlite-devel"]
 pkgdesc = "Tool for identifying and/or deleting duplicate files"
-maintainer = "autumnontape <autumn@cyfox.net>"
 license = "MIT"
 url = "https://github.com/adrianlopezroche/fdupes"
 source = f"{url}/releases/download/v{pkgver}/fdupes-{pkgver}.tar.gz"

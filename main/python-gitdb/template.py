@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-smmap"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python git object database"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://gitdb.readthedocs.org"
 source = f"$(PYPI_SITE)/g/gitdb/gitdb-{pkgver}.tar.gz"

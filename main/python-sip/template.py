@@ -13,7 +13,6 @@ depends = [
     "python-setuptools",
 ]
 pkgdesc = "Tool for making python bindings for C/C++ libraries"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "custom:sip"
 url = "https://github.com/Python-SIP/sip"
 source = f"$(PYPI_SITE)/s/sip/sip-{pkgver}.tar.gz"

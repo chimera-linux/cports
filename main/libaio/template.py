@@ -7,7 +7,6 @@ hostmakedepends = ["pkgconf"]
 makedepends = ["linux-headers"]
 checkdepends = ["bash"]
 pkgdesc = "Linux-native asynchronous I/O facility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://pagure.io/libaio"
 source = f"{url}/archive/libaio-{pkgver}/libaio-libaio-{pkgver}.tar.gz"

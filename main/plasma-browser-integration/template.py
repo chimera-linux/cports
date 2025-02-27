@@ -29,7 +29,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE integration with the system browser"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later AND MIT"
 url = "https://community.kde.org/Plasma/Browser_Integration"
 source = (

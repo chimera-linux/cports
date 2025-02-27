@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-webencodings"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "CSS parser for python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/Kozea/tinycss2"
 source = f"$(PYPI_SITE)/t/tinycss2/tinycss2-{pkgver}.tar.gz"

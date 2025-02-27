@@ -15,7 +15,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce eyes panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-eyes-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-eyes-plugin/{pkgver[:-2]}/xfce4-eyes-plugin-{pkgver}.tar.bz2"

@@ -20,7 +20,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce dictionary search app"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-dict/start"
 source = (

@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-attrs"]
 checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "Python library to simplify working with jsonlines and ndjson data"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://jsonlines.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/j/jsonlines/jsonlines-{pkgver}.tar.gz"

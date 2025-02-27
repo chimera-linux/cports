@@ -23,7 +23,6 @@ makedepends = [
 ]
 depends = ["ibus"]
 pkgdesc = "Intelligent Pinyin engine based on libpinyin for IBus"
-maintainer = "metalparade <comer@live.cn>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/libpinyin/ibus-libpinyin"
 source = f"{url}/releases/download/{pkgver}/ibus-libpinyin-{pkgver}.tar.gz"

@@ -21,7 +21,6 @@ depends = [
     "util-linux-fdisk",
 ]
 pkgdesc = "KDE library for partition management"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpmcore-{pkgver}.tar.xz"

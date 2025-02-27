@@ -20,7 +20,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Library optimised for binary data compression"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.blosc.org"
 source = f"https://github.com/Blosc/c-blosc/archive/refs/tags/v{pkgver}.tar.gz"

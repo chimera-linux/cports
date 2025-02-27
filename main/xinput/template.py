@@ -11,7 +11,6 @@ makedepends = [
     "libxinerama-devel",
 ]
 pkgdesc = "X input device configuration utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xinput-{pkgver}.tar.gz"

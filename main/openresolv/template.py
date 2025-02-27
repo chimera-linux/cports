@@ -6,7 +6,6 @@ configure_gen = []
 configure_args = ["--libexecdir=/usr/libexec/resolvconf"]
 make_dir = "."
 pkgdesc = "Management framework for resolv.conf"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://roy.marples.name/projects/openresolv"
 source = f"https://github.com/NetworkConfiguration/openresolv/releases/download/v{pkgver}/openresolv-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["bash", "tzdb"]
 pkgdesc = "Command-line YAML processor"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/mikefarah/yq"
 source = f"{url}/archive/v{pkgver}.tar.gz"

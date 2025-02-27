@@ -11,7 +11,6 @@ makedepends = [
     "unbound-devel",
 ]
 pkgdesc = "Lua bindings to libunbound"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://www.zash.se/luaunbound.html"
 source = f"https://code.zash.se/dl/luaunbound/luaunbound-{pkgver}.tar.gz"

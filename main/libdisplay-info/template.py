@@ -10,7 +10,6 @@ makedepends = [
     "hwdata-devel",
 ]
 pkgdesc = "EDID and DisplayID library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/emersion/libdisplay-info"
 source = f"{url}/-/archive/{pkgver}/libdisplay-info-{pkgver}.tar.gz"

@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["stockfish"]
 pkgdesc = "Pure Python chess library with move generation and validation"
-maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/niklasf/python-chess"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -7,7 +7,6 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std", "sqlite-devel"]
 checkdepends = ["git"]
 pkgdesc = "Additional tools for Git"
-maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/arxanas/git-branchless"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

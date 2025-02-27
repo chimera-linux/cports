@@ -22,7 +22,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "GTK library to display maps"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libshumate"
 source = f"$(GNOME_SITE)/libshumate/{pkgver[:-2]}/libshumate-{pkgver}.tar.xz"

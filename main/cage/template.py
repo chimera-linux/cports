@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc", "wayland-progs"]
 makedepends = ["wayland-protocols", "wlroots0.18-devel"]
 pkgdesc = "Kiosk compositor for Wayland"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://www.hjdskes.nl/projects/cage"
 source = f"https://github.com/cage-kiosk/cage/releases/download/v{pkgver}/cage-{pkgver}.tar.gz"

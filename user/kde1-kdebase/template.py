@@ -28,7 +28,6 @@ makedepends = [
 # for konsole
 depends = ["font-misc-misc"]
 pkgdesc = "KDE1 base applications"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdebase"
 source = f"{url}/archive/{_gitrev}.tar.gz"

@@ -26,7 +26,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Userspace tools for the EROFS filesystem"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 AND GPL-2.0-or-later"
 url = "https://github.com/erofs/erofs-utils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

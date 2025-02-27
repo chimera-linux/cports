@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-pytest"]
 checkdepends = [*depends]
 pkgdesc = "Pytest snapshot plugin"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://syrupy-project.github.io/syrupy"
 source = f"$(PYPI_SITE)/s/syrupy/syrupy-{pkgver}.tar.gz"

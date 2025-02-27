@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xcb-util-devel"]
 pkgdesc = "XCB utilities library - Render extension convenience functions"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/xcb-util-renderutil-{pkgver}.tar.gz"

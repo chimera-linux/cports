@@ -4,7 +4,6 @@ pkgrel = 0
 hostmakedepends = ["python-devel"]
 depends = ["python", "python-wheel"]
 pkgdesc = "Easily build and distribute Python packages"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pypa/setuptools"
 source = f"$(PYPI_SITE)/s/setuptools/setuptools-{pkgver}.tar.gz"

@@ -52,7 +52,6 @@ makedepends = [
     "xcb-util-wm-devel",
 ]
 pkgdesc = "Modular status panel for X11 and Wayland"
-maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/yambar"
 source = f"{url}/releases/download/{pkgver}/yambar-{pkgver}.tar.gz"

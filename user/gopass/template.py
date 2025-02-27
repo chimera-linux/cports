@@ -5,7 +5,6 @@ build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["git", "gnupg"]
 pkgdesc = "Pass-compatible password manager with more features"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://www.gopass.pw"
 source = (

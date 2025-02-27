@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["gtest-devel"]
 pkgdesc = "MIDI synthesizer library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/pedrolcl/sonivox"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

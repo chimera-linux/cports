@@ -13,7 +13,6 @@ makedepends = [
     "ncurses-devel",
 ]
 pkgdesc = "OCFS2 utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/markfasheh/ocfs2-tools"
 source = f"{url}/archive/refs/tags/ocfs2-tools-{pkgver}.tar.gz"

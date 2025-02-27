@@ -14,7 +14,6 @@ makedepends = [
 depends = ["colord", "shared-color-targets"]
 checkdepends = ["xwayland-run"]
 pkgdesc = "Color profile manager for the GNOME desktop"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-color-manager"
 source = f"$(GNOME_SITE)/gnome-color-manager/{pkgver[:-2]}/gnome-color-manager-{pkgver}.tar.xz"

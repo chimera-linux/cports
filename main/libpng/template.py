@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "libtool"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Library for manipulating PNG images"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Libpng"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = f"$(SOURCEFORGE_SITE)/libpng/libpng-{pkgver}.tar.xz"

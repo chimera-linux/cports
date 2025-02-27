@@ -7,7 +7,6 @@ configure_args = ["-DBUILD_TESTS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["doctest"]
 pkgdesc = "C++ wrappers for SIMD optimized mathematical functions"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/xtensor-stack/xsimd"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -25,7 +25,6 @@ depends = [
     "python-nftables",
 ]
 pkgdesc = "Stateful zone-based firewall daemon with D-Bus interface"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://firewalld.org"
 source = f"https://github.com/firewalld/firewalld/releases/download/v{pkgver}/firewalld-{pkgver}.tar.bz2"

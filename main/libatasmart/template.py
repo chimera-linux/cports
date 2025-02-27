@@ -6,7 +6,6 @@ configure_args = ["--disable-static"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["udev-devel", "linux-headers"]
 pkgdesc = "ATA S.M.A.R.T. reading and parsing library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://0pointer.de/blog/projects/being-smart.html"
 source = f"https://0pointer.de/public/libatasmart-{pkgver}.tar.xz"

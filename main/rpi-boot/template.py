@@ -5,7 +5,6 @@ archs = ["aarch64"]
 _gitrev = "7db5aa85c9644cf3c41469a578e320ae2c550178"
 replaces = ["firmware-rpi<=20220905-r0"]
 pkgdesc = "Bootloader for Raspberry Pi"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:raspberry"
 url = "https://github.com/raspberrypi/firmware"
 source = f"{url}/archive/{_gitrev}.tar.gz"

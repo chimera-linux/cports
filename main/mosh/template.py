@@ -18,7 +18,6 @@ makedepends = [
 ]
 depends = ["perl"]
 pkgdesc = "Mobile shell"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://mosh.org"
 source = f"https://github.com/mobile-shell/mosh/releases/download/mosh-{pkgver}/mosh-{pkgver}.tar.gz"

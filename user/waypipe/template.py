@@ -37,7 +37,6 @@ depends = [
     "so:libgbm.so.1!mesa-gbm-libs",
 ]
 pkgdesc = "Proxy for wayland clients"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"

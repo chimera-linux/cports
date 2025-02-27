@@ -7,7 +7,6 @@ make_check_args = ["-j1"]
 hostmakedepends = ["cmake", "ninja", "doxygen", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Texture mapping library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://ptex.us"
 source = f"https://github.com/wdas/ptex/archive/refs/tags/v{pkgver}.tar.gz"

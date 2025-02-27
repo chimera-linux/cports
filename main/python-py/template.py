@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python development support library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pytest-dev/py"
 source = f"$(PYPI_SITE)/p/py/py-{pkgver}.tar.gz"

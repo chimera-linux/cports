@@ -7,7 +7,6 @@ prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["zstd-devel", "rust-std"]
 pkgdesc = "Web server for static files serving"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/static-web-server/static-web-server"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

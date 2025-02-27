@@ -14,7 +14,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Implementation of Status Notifier Items"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/frameworks/kstatusnotifieritem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kstatusnotifieritem-{pkgver}.tar.xz"

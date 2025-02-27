@@ -3,7 +3,6 @@ pkgver = "5.7.3"
 pkgrel = 0
 depends = ["nodejs"]
 pkgdesc = "Superset of JavaScript that compiles to JavaScript output"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/microsoft/TypeScript"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

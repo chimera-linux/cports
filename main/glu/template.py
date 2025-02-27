@@ -6,7 +6,6 @@ configure_args = ["-Dgl_provider=gl"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["mesa-devel"]
 pkgdesc = "Mesa OpenGL utility library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "SGI-B-2.0"
 url = "https://gitlab.freedesktop.org/mesa/glu"
 source = f"https://mesa.freedesktop.org/archive/glu/glu-{pkgver}.tar.xz"

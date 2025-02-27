@@ -66,7 +66,6 @@ makedepends = [
 provides = [self.with_pkgver("mesa")]
 provider_priority = 0
 pkgdesc = "Mesa 3D Graphics Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://archive.mesa3d.org/older-versions/21.x/mesa-{pkgver}.tar.xz"

@@ -21,7 +21,6 @@ makedepends = [
     "librsvg-devel",
 ]
 pkgdesc = "Image manipulation library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Imlib2"
 url = "https://www.enlightenment.org"
 source = f"$(SOURCEFORGE_SITE)/enlightenment/imlib2-src/imlib2-{pkgver}.tar.gz"

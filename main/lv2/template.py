@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libsndfile-devel"]
 pkgdesc = "Plugin standard for audio systems"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://lv2plug.in"
 source = f"{url}/spec/lv2-{pkgver}.tar.xz"

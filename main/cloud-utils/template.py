@@ -12,7 +12,6 @@ depends = [
     "util-linux-mount",
 ]
 pkgdesc = "Utilities to work with cloud images"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://launchpad.net/cloud-utils"
 source = f"https://github.com/canonical/cloud-utils/archive/refs/tags/{pkgver}.tar.gz"

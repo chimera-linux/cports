@@ -11,7 +11,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Utility to manage outputs of wlroots compositors"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://sr.ht/~emersion/wlr-randr"
 source = f"https://git.sr.ht/~emersion/wlr-randr/refs/download/v{pkgver}/wlr-randr-{pkgver}.tar.gz"

@@ -16,7 +16,6 @@ makedepends = [
 ]
 depends = ["binutils-common"]
 pkgdesc = "High-performance linker"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/rui314/mold"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

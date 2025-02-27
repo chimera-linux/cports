@@ -25,7 +25,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "GStreamer VA-API plugins"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gstreamer-vaapi/gstreamer-vaapi-{pkgver}.tar.xz"

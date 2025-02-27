@@ -6,7 +6,6 @@ build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Port of the NetBSD command line editing library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/libedit-chimera"
 source = f"{url}/archive/{_gitrev}.tar.gz"

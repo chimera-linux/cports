@@ -16,7 +16,6 @@ hostmakedepends = [
 makedepends = ["gtest-devel"]
 checkdepends = ["bash", "python-ply"]
 pkgdesc = "WebAssembly binary toolkit"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/WebAssembly/wabt"
 source = [

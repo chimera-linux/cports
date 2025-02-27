@@ -10,7 +10,6 @@ hostmakedepends = [
     "slibtool",
 ]
 pkgdesc = "WebSocket library in C"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://tatsuhiro-t.github.io/wslay"
 source = f"https://github.com/tatsuhiro-t/wslay/archive/refs/tags/release-{pkgver}.tar.gz"

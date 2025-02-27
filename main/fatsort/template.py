@@ -5,7 +5,6 @@ build_style = "makefile"
 make_check_target = "tests"
 checkdepends = ["bash", "xz"]
 pkgdesc = "FAT filesystem sorting utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://fatsort.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/project/fatsort/fatsort-{pkgver}.tar.xz"

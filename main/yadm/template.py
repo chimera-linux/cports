@@ -3,7 +3,6 @@ pkgver = "3.4.0"
 pkgrel = 0
 depends = ["bash", "git"]
 pkgdesc = "Yet Another Dotfiles Manager"
-maintainer = "hge <h.gersen@gmail.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/TheLocehiliosan/yadm"
 source = f"{url}/archive/{pkgver}.tar.gz"

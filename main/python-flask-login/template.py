@@ -25,7 +25,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Flask user session management"
-maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"
 url = "https://github.com/maxcountryman/flask-login"
 source = f"https://github.com/maxcountryman/flask-login/archive/{pkgver}.tar.gz"

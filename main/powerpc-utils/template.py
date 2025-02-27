@@ -18,7 +18,6 @@ makedepends = [
 ]
 depends = ["bash"]
 pkgdesc = "Suite of utilities for Linux on Power systems"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/ibm-power-utilities/powerpc-utils"
 source = f"{url}/archive/v{pkgver}.tar.gz"

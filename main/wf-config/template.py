@@ -13,7 +13,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Library for managing configuration files written for Wayfire"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wf-config/releases/download/v{pkgver}/wf-config-{pkgver}.tar.xz"

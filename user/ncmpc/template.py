@@ -23,7 +23,6 @@ makedepends = [
     "pcre2-devel",
 ]
 pkgdesc = "Ncurses client for the Music Player Daemon"
-maintainer = "Caio Raposo <caioraposo@disroot.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.musicpd.org/clients/ncmpc"
 source = f"https://www.musicpd.org/download/ncmpc/0/ncmpc-{pkgver}.tar.xz"

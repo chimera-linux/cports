@@ -23,7 +23,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "KDE OSM multi-floor renderer"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/libraries/kosmindoormap"
 source = (

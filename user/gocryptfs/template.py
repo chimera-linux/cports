@@ -13,7 +13,6 @@ hostmakedepends = ["go", "pkgconf"]
 makedepends = ["openssl3-devel"]
 depends = ["fuse"]
 pkgdesc = "Encrypted overlay filesystem"
-maintainer = "Nasado <hi@nasado.name>"
 license = "MIT"
 url = "https://github.com/rfjakob/gocryptfs"
 source = (

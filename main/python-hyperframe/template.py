@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python implementation of HTTP/2 framing"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-hyper/hyperframe"
 source = f"$(PYPI_SITE)/h/hyperframe/hyperframe-{pkgver}.tar.gz"

@@ -27,7 +27,6 @@ hostmakedepends = [
 makedepends = ["duktape-devel", "elogind-devel", "linux-pam-devel"]
 depends = ["dinit-dbus"]
 pkgdesc = "Toolkit for defining and handling authorizations"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/polkit"
 source = (

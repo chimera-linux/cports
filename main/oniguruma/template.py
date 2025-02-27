@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--enable-posix-api=yes"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 pkgdesc = "Multi-charset regular expression library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/kkos/oniguruma"
 source = f"{url}/releases/download/v{pkgver}/onig-{pkgver}.tar.gz"

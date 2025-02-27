@@ -15,7 +15,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Ext4 recovery utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/ext4magic"
 source = f"$(SOURCEFORGE_SITE)/ext4magic/ext4magic-{pkgver}.tar.gz"

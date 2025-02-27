@@ -24,7 +24,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Spotify player in the terminal with full feature parity"
-maintainer = "sewn <sewn@disroot.org>"
 license = "MIT"
 url = "https://github.com/aome510/spotify-player"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

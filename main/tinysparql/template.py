@@ -36,7 +36,6 @@ depends = ["shared-mime-info"]
 checkdepends = ["mandoc"]
 provides = [self.with_pkgver("tracker")]
 pkgdesc = "Search engine and triplestore for desktop, embedded and mobile"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/tinysparql/{pkgver[:-2]}/tinysparql-{pkgver}.tar.xz"

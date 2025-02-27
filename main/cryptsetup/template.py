@@ -26,7 +26,6 @@ makedepends = [
 ]
 checkdepends = ["procps", "xz"]
 pkgdesc = "Open source Linux disk encryption setup"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/cryptsetup/cryptsetup"
 source = (

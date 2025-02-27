@@ -24,7 +24,6 @@ depends = [
     "qt6-qtwebengine",
 ]
 pkgdesc = "Keyboard driven web browser with a minimalist gui"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-only"
 url = "https://qutebrowser.org"
 source = f"https://github.com/qutebrowser/qutebrowser/archive/refs/tags/v{pkgver}.tar.gz"

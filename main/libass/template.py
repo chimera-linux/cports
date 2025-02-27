@@ -15,7 +15,6 @@ makedepends = [
     "libunibreak-devel",
 ]
 pkgdesc = "Portable library for SSA/ASS subtitle rendering"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/libass/libass"
 source = f"{url}/releases/download/{pkgver}/libass-{pkgver}.tar.gz"

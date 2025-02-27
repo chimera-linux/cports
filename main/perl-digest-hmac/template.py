@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Perl interface to HMAC message-digest algorithms"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/Digest-HMAC"
 source = f"$(CPAN_SITE)/Digest/Digest-HMAC-{pkgver}.tar.gz"

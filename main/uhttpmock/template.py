@@ -14,7 +14,6 @@ makedepends = [
     "libsoup-devel",
 ]
 pkgdesc = "HTTP service mocking library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/pwithnall/uhttpmock"
 source = f"{url}/-/archive/{pkgver}.tar.gz"

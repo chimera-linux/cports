@@ -20,7 +20,6 @@ makedepends = [
     "xtrans",
 ]
 pkgdesc = "X11 window manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/fvwmorg/fvwm3"
 source = f"{url}/releases/download/{pkgver}/fvwm3-{pkgver}.tar.gz"

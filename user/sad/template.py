@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "python"]
 makedepends = ["rust-std"]
 pkgdesc = "CLI search and replace"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/ms-jpq/sad"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

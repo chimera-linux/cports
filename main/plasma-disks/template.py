@@ -25,7 +25,6 @@ makedepends = [
 depends = ["smartmontools"]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE disk failure monitor"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-disks"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-disks-{pkgver}.tar.xz"

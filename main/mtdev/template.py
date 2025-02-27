@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Multitouch Protocol Translation Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://bitmath.org/code/mtdev"
 source = f"{url}/mtdev-{pkgver}.tar.bz2"

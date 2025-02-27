@@ -7,7 +7,6 @@ hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libx11-devel"]
 depends = ["cmd:mcookie!chimerautils"]
 pkgdesc = "X init program"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xinit-{pkgver}.tar.gz"

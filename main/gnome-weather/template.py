@@ -18,7 +18,6 @@ makedepends = [
 ]
 depends = ["geoclue", "gjs", "libadwaita", "libgweather"]
 pkgdesc = "GNOME weather application"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Weather"
 source = (

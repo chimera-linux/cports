@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "slibtool"]
 pkgdesc = "High-performance event loop loosely modelled after libevent"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause OR GPL-2.0-or-later"
 url = "http://software.schmorp.de/pkg/libev.html"
 source = f"http://dist.schmorp.de/libev/libev-{pkgver}.tar.gz"

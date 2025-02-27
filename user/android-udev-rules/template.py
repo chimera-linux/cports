@@ -2,7 +2,6 @@ pkgname = "android-udev-rules"
 pkgver = "20241109"
 pkgrel = 0
 pkgdesc = "Comprehensive Android udev rules collection"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/M0Rf30/android-udev-rules"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

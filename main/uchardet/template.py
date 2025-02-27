@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Encoding detector library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-1.1"
 url = "https://www.freedesktop.org/wiki/Software/uchardet"
 source = f"$(FREEDESKTOP_SITE)/uchardet/releases/uchardet-{pkgver}.tar.xz"

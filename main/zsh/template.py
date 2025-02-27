@@ -29,7 +29,6 @@ make_check_wrapper = ["env", "-u", "LC_COLLATE", "-u", "LANG"]
 hostmakedepends = ["pkgconf", "texinfo", "automake"]
 makedepends = ["ncurses-devel", "pcre2-devel", "libcap-devel"]
 pkgdesc = "Z shell"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://www.zsh.org"
 source = f"{url}/pub/zsh-{pkgver}.tar.xz"

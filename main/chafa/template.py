@@ -24,7 +24,6 @@ makedepends = [
     "libwebp-devel",
 ]
 pkgdesc = "Character art facsimile generator"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://hpjansson.org/chafa"
 source = f"https://github.com/hpjansson/chafa/archive/refs/tags/{pkgver}.tar.gz"

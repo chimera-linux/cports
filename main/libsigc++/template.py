@@ -11,7 +11,6 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Type-safe callback system for C++"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://libsigcplusplus.github.io/libsigcplusplus"
 source = f"$(GNOME_SITE)/libsigc++/{pkgver[:-2]}/libsigc++-{pkgver}.tar.xz"

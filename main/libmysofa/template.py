@@ -8,7 +8,6 @@ hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["cunit-devel", "zlib-ng-compat-devel"]
 checkdepends = []
 pkgdesc = "Reader for AES SOFA files to get better HRTFs"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/hoene/libmysofa"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -11,7 +11,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Screenshot annotation tool"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MPL-2.0"
 url = "https://github.com/gabm/Satty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

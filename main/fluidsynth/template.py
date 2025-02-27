@@ -20,7 +20,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Software synthesizer based on the SoundFont 2 specifications"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.fluidsynth.org"
 source = f"https://github.com/FluidSynth/fluidsynth/archive/v{pkgver}.tar.gz"

@@ -12,7 +12,6 @@ makedepends = [
     "sqlite-devel",
 ]
 pkgdesc = "CA tool for OpenPGP certificates"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "GPL-3.0-or-later"
 url = "https://openpgp-ca.org"
 source = f"https://gitlab.com/openpgp-ca/openpgp-ca/-/archive/openpgp-ca/v{pkgver}/openpgp-ca-openpgp-ca-v{pkgver}.tar.gz"

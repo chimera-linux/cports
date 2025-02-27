@@ -9,7 +9,6 @@ hostmakedepends = ["go", "nodejs"]
 makedepends = ["linux-pam-devel", "sqlite-devel"]
 depends = ["git", "git-lfs"]
 pkgdesc = "Git forge"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://forgejo.org"
 source = [

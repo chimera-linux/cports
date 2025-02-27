@@ -19,7 +19,6 @@ makedepends = [
 ]
 # depends = ["hunspell", "aspell-en"]
 pkgdesc = "KDE Multi-language spell checker"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://develop.kde.org/docs/features/spellchecking"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/sonnet-{pkgver}.tar.xz"

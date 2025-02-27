@@ -8,7 +8,6 @@ hostmakedepends = ["python", "python-setuptools"]
 makedepends = ["linux-headers", "python-devel"]
 depends = ["perl"]
 pkgdesc = "Heterogeneous set of I2C tools and I2C library for Linux"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/utils/i2c-tools/i2c-tools.git"
 source = f"https://mirrors.edge.kernel.org/pub/software/utils/i2c-tools/i2c-tools-{pkgver}.tar.xz"

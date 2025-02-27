@@ -21,7 +21,6 @@ makedepends = [
     "nautilus-devel",
 ]
 pkgdesc = "GNOME archiver frontend"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/FileRoller"
 source = f"https://gitlab.gnome.org/GNOME/file-roller/-/archive/{pkgver}/file-roller-{pkgver}.tar.gz"

@@ -7,7 +7,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf", "xorg-util-macros", "gm4"]
 makedepends = ["libx11-devel", "xcb-util-devel", "musl-bsd-headers"]
 pkgdesc = "XCB utilities library - X resource manager"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/Airblader/xcb-util-xrm"
 source = f"{url}/releases/download/v{pkgver}/xcb-util-xrm-{pkgver}.tar.gz"

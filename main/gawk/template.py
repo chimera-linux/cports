@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["automake", "gettext-devel", "libtool"]
 makedepends = ["libedit-readline-devel"]
 pkgdesc = "GNU awk utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gawk"
 source = f"$(GNU_SITE)/gawk/gawk-{pkgver}.tar.xz"

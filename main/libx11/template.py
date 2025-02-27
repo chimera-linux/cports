@@ -13,7 +13,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf", "xorg-util-macros"]
 makedepends = ["xorgproto", "xtrans", "libxcb-devel"]
 pkgdesc = "Base X libraries from Xorg"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libX11-{pkgver}.tar.gz"

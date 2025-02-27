@@ -53,7 +53,6 @@ makedepends = [
     "xwayland-devel",
 ]
 pkgdesc = "SteamOS compositor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/ValveSoftware/gamescope"
 source = [

@@ -40,7 +40,6 @@ hostmakedepends = [
 makedepends = ["zlib-ng-compat-devel", "libffi8-devel"]
 depends = []
 pkgdesc = "Core cross-compiling runtime for LLVM"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = [

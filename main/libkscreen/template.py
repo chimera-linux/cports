@@ -25,7 +25,6 @@ checkdepends = [
 ]
 # depends = ["jq"] for zsh completions to work at their full capacity
 pkgdesc = "KDE screen management library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "LGPL-2.1-or-later AND GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 )

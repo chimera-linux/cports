@@ -55,7 +55,6 @@ makedepends = [
 ]
 checkdepends = ["python-pytest-xdist"]
 pkgdesc = "Network protocol analyzer"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.wireshark.org"
 source = f"https://www.wireshark.org/download/src/wireshark-{pkgver}.tar.xz"

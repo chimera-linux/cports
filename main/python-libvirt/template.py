@@ -18,7 +18,6 @@ checkdepends = [
     "python-pytest",
 ]
 pkgdesc = "Libvirt virtualization API Python3 binding"
-maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://pypi.org/project/libvirt-python"
 source = f"https://libvirt.org/sources/python/libvirt-python-{pkgver}.tar.gz"

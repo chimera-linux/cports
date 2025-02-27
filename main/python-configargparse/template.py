@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest", "python-pyyaml"]
 pkgdesc = "Drop-in replacement for argparse"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://github.com/bw2/ConfigArgParse"
 source = f"$(PYPI_SITE)/C/ConfigArgParse/ConfigArgParse-{pkgver}.tar.gz"

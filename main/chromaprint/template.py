@@ -7,7 +7,6 @@ make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["fftw-devel", "ffmpeg-devel"]
 pkgdesc = "Library that extracts fingerprints from any audio source"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND LGPL-2.1-only"
 url = "https://acoustid.org/chromaprint"
 source = f"https://github.com/acoustid/chromaprint/releases/download/v{pkgver}/chromaprint-{pkgver}.tar.gz"

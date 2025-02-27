@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Minimalist production ready plugin system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pluggy"
 source = f"$(PYPI_SITE)/p/pluggy/pluggy-{pkgver}.tar.gz"

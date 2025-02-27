@@ -2,7 +2,6 @@ pkgname = "firmware-zd1211"
 pkgver = "1.5"
 pkgrel = 0
 pkgdesc = "Firmware for the Zydas 1211 wifi cards"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://zd1211.wiki.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/zd1211/zd1211-firmware-{pkgver}.tar.bz2"

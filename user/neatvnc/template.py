@@ -14,7 +14,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "VNC server library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://github.com/any1/neatvnc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

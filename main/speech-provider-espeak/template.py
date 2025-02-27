@@ -10,7 +10,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Spiel speech provider using eSpeak-NG"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://project-spiel.org"
 source = f"https://github.com/project-spiel/speech-provider-espeak/archive/refs/tags/SPEECH_PROVIDER_ESPEAK_{pkgver.replace('.', '_')}.tar.gz"

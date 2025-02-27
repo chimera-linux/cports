@@ -53,7 +53,6 @@ makedepends = [
 ]
 depends = ["hwdata-usb", "shared-mime-info", "udisks"]
 pkgdesc = "Firmware updater"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"

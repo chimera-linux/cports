@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Library for encoding, decoding and manipulating JSON data"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.digip.org/jansson"
 source = f"https://github.com/akheron/jansson/releases/download/v{pkgver}/jansson-{pkgver}.tar.gz"

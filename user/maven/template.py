@@ -4,7 +4,6 @@ pkgrel = 0
 hostmakedepends = ["openjdk21"]
 depends = ["virtual:java-jre!openjdk21-jre"]
 pkgdesc = "Software project management and comprehension tool"
-maintainer = "natthias <natthias@proton.me>"
 license = "Apache-2.0"
 url = "https://maven.apache.org"
 source = [

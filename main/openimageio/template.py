@@ -46,7 +46,6 @@ makedepends = [
 ]
 checkdepends = ["bash", "fonts-dejavu"]
 pkgdesc = "Toolset for manipulating VFX-related image file formats"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://github.com/AcademySoftwareFoundation/OpenImageIO"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

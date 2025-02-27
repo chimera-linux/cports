@@ -6,7 +6,6 @@ make_install_args = ["prefix=/usr"]
 make_check_target = "test"
 make_check_args = ["-j1"]
 pkgdesc = "Selectively remove C preprocessor conditionals"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND BSD-3-Clause"
 url = "https://github.com/fanf2/unifdef"
 source = f"https://dotat.at/prog/unifdef/unifdef-{pkgver}.tar.xz"

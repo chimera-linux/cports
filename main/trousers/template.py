@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["openssl3-devel", "linux-headers"]
 pkgdesc = "Trusted Computing Software Stack for the TPM"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://trousers.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/trousers/trousers-{pkgver}.tar.gz"

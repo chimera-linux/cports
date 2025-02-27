@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 pkgdesc = "Rpcsvc protocol definitions from glibc"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/thkukuk/rpcsvc-proto"
 source = f"{url}/releases/download/v{pkgver}/rpcsvc-proto-{pkgver}.tar.xz"

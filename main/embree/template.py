@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja"]
 makedepends = ["onetbb-devel"]
 pkgdesc = "Ray tracing library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://www.embree.org"
 source = f"https://github.com/embree/embree/archive/refs/tags/v{pkgver}.tar.gz"

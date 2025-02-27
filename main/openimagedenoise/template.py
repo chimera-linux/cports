@@ -15,7 +15,6 @@ makedepends = [
     "ispc-devel",
 ]
 pkgdesc = "Ray-tracing denoising library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://www.openimagedenoise.org"
 source = f"https://github.com/RenderKit/oidn/releases/download/v{pkgver}/oidn-{pkgver}.src.tar.gz"

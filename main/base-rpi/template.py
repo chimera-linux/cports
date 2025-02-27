@@ -5,7 +5,6 @@ archs = ["aarch64"]
 depends = ["rpi-boot", "firmware-linux-brcm-rpi"]
 replaces = ["firmware-rpi<=20220905-r0"]
 pkgdesc = "Chimera base package for Raspberry Pi devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"
 

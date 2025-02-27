@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Optimized BLAS library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://www.openblas.net"
 source = f"https://github.com/OpenMathLib/OpenBLAS/releases/download/v{pkgver}/OpenBLAS-{pkgver}.tar.gz"

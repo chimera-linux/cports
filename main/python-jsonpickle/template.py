@@ -23,7 +23,6 @@ checkdepends = [
     "python-pytest",
 ]
 pkgdesc = "Serializing any arbitrary object graph into JSON"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/jsonpickle/jsonpickle"
 source = f"$(PYPI_SITE)/j/jsonpickle/jsonpickle-{pkgver}.tar.gz"

@@ -36,7 +36,6 @@ makedepends = [
 # check if this needs to be updated when updating
 depends = ["xserver-xorg-protocol>=20180227"]
 pkgdesc = "Xwayland X server"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/xwayland-{pkgver}/xserver-xwayland-{pkgver}.tar.gz"

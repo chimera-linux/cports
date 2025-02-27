@@ -28,7 +28,6 @@ depends = ["xkeyboard-config"]
 # transitional
 provides = [self.with_pkgver("libxkbregistry")]
 pkgdesc = "Library to handle keyboard descriptions"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-{pkgver}.tar.gz"

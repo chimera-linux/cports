@@ -21,7 +21,6 @@ makedepends = [
 ]
 depends = ["python-pyqt6"]
 pkgdesc = "Python bindings for QtWebengine"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://pypi.org/project/PyQt6-WebEngine"
 source = f"$(PYPI_SITE)/P/PyQt6_WebEngine/PyQt6_WebEngine-{pkgver}.tar.gz"

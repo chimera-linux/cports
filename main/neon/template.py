@@ -30,7 +30,6 @@ makedepends = [
 ]
 depends = ["ca-certificates"]
 pkgdesc = "HTTP and WebDAV client library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://notroj.github.io/neon"
 source = f"{url}/neon-{pkgver}.tar.gz"

@@ -7,7 +7,6 @@ archs = ["x86_64"]
 build_style = "makefile"
 make_build_args = ["-C", "userspace"]
 pkgdesc = "Kernel module for access to AMD Ryzen System Management Units"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/leogx9r/ryzen_smu"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"

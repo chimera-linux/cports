@@ -13,7 +13,6 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "DNS, DHCP, RA, TFTP and PXE server"
-maintainer = "cesorious <cesorious@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://www.thekelleys.org.uk/dnsmasq/doc.html"
 source = f"https://www.thekelleys.org.uk/dnsmasq/dnsmasq-{pkgver}.tar.gz"

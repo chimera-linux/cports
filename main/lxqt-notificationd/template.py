@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "LXQt notification daemon"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-notificationd"
 source = f"{url}/releases/download/{pkgver}/lxqt-notificationd-{pkgver}.tar.xz"

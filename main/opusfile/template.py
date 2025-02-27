@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["libogg-devel", "opus-devel", "openssl3-devel"]
 pkgdesc = "Library for opening, seeking, and decoding .opus files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.opus-codec.org"
 source = f"http://downloads.xiph.org/releases/opus/opusfile-{pkgver}.tar.gz"

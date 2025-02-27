@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python-pyproject_hooks", "python-packaging"]
 pkgdesc = "Simple PEP 517 build frontend"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pypa-build.readthedocs.io"
 source = f"$(PYPI_SITE)/b/build/build-{pkgver}.tar.gz"

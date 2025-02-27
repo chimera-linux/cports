@@ -7,7 +7,6 @@ hostmakedepends = ["pkgconf"]
 makedepends = ["ncurses-devel", "libcddb-devel", "linux-headers"]
 checkdepends = ["bash"]
 pkgdesc = "CD-ROM access library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libcdio"
 source = f"$(GNU_SITE)/libcdio/libcdio-{pkgver}.tar.bz2"

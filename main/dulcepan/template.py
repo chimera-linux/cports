@@ -18,7 +18,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Screenshot tool for wlroots compositors"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://codeberg.org/vyivel/dulcepan"
 source = f"{url}/archive/v{pkgver}.tar.gz"

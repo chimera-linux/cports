@@ -13,7 +13,6 @@ configure_args = [
 make_check_args = ["--timeout-multiplier", "10"]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Totally open, royalty-free, highly versatile audio codec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.opus-codec.org"
 source = f"https://downloads.xiph.org/releases/opus/opus-{pkgver}.tar.gz"

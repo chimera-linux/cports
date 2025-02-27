@@ -16,7 +16,6 @@ depends = [
     "python-gobject",
 ]
 pkgdesc = "Python plugin support for Nautilus"
-maintainer = "Val Packett <val@packett.cool>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/nautilus-python"
 source = f"{url}/-/archive/{pkgver}/nautilus-python-{pkgver}.tar.gz"

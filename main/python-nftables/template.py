@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["nftables-libs", "python"]
 pkgdesc = "Python bindings for nftables"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND GPL-2.0-or-later"
 url = "https://netfilter.org/projects/nftables"
 source = f"{url}/files/nftables-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Background rust code checker"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "AGPL-3.0-only"
 url = "https://dystroy.org/bacon"
 source = f"https://github.com/Canop/bacon/archive/refs/tags/v{pkgver}.tar.gz"

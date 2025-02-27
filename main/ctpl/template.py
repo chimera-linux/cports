@@ -14,7 +14,6 @@ makedepends = [
     "glib-devel",
 ]
 pkgdesc = "C template library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://ctpl.tuxfamily.org"
 source = f"https://github.com/b4n/ctpl/archive/refs/tags/v{pkgver}.tar.gz"

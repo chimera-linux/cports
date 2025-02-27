@@ -13,7 +13,6 @@ configure_args = [
 hostmakedepends = ["glib-devel", "gobject-introspection", "meson", "pkgconf"]
 makedepends = ["glib-devel", "gstreamer-devel", "openssl3-devel"]
 pkgdesc = "Implementation of the IETF's draft ICE"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libnice.freedesktop.org"
 source = f"{url}/releases/libnice-{pkgver}.tar.gz"

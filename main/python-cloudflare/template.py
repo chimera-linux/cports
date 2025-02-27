@@ -19,7 +19,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python wrapper for the Cloudflare v4 API"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/cloudflare/python-cloudflare"
 source = f"$(PYPI_SITE)/c/cloudflare/cloudflare-{pkgver}.tar.gz"

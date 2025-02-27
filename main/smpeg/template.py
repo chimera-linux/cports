@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["sdl2-compat-devel"]
 pkgdesc = "MPEG decoding library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://icculus.org/smpeg"
 source = f"https://www.libsdl.org/projects/smpeg/release/smpeg2-{pkgver}.tar.gz"

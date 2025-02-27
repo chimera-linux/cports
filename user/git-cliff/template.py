@@ -20,7 +20,6 @@ make_check_args = [
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std", "zstd-devel"]
 pkgdesc = "Changelog generator for conventional commits"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/orhun/git-cliff"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

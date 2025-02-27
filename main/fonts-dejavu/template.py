@@ -7,7 +7,6 @@ make_build_args = ["full-ttf"]
 hostmakedepends = ["fontforge-cli", "perl-font-ttf"]
 depends = ["mkfontscale"]
 pkgdesc = "DejaVu family of fonts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:Bitstream-Vera AND custom:Arev-Fonts AND custom:none"
 url = "https://github.com/dejavu-fonts/dejavu-fonts"
 source = f"{url}/archive/refs/tags/version_{pkgver.replace('.', '_')}.tar.gz"

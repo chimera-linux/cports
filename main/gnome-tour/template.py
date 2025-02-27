@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = ["gdk-pixbuf-devel", "libadwaita-devel", "rust-std"]
 pkgdesc = "GNOME tour and greeter"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Tour"
 source = f"$(GNOME_SITE)/gnome-tour/{pkgver.split('.')[0]}/gnome-tour-{pkgver}.tar.xz"

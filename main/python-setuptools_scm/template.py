@@ -16,7 +16,6 @@ depends = [
     "python-typing_extensions",
 ]
 pkgdesc = "Manage Python package versions with SCM tags"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pypa/setuptools_scm"
 source = f"$(PYPI_SITE)/s/setuptools-scm/setuptools_scm-{pkgver}.tar.gz"

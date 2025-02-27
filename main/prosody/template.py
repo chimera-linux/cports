@@ -21,7 +21,6 @@ depends = [
 ]
 checkdepends = ["lua5.4-busted", *depends]
 pkgdesc = "Modern xmpp communication server"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://prosody.im"
 source = f"https://prosody.im/downloads/source/prosody-{pkgver}.tar.gz"

@@ -2,7 +2,6 @@ pkgname = "linux-pam-base"
 pkgver = "0.111"
 pkgrel = 0
 pkgdesc = "Pluggable Authentication Modules for Linux"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"
 # no tests

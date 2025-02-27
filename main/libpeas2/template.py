@@ -25,7 +25,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run", "fonts-dejavu-ttf"]
 pkgdesc = "GObject application plugin library 2.x"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Libpeas"
 source = f"$(GNOME_SITE)/libpeas/{pkgver[:-2]}/libpeas-{pkgver}.tar.xz"

@@ -14,7 +14,6 @@ checkdepends = [
     "python-pytz",
 ]
 pkgdesc = "ISO 8601 parser for Python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/micktwomey/pyiso8601"
 source = f"$(PYPI_SITE)/i/iso8601/iso8601-{pkgver}.tar.gz"

@@ -13,7 +13,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "GNOME menu definitions"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-menus"
 source = f"$(GNOME_SITE)/gnome-menus/{pkgver[:-2]}/gnome-menus-{pkgver}.tar.xz"

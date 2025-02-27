@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["perl"]
 pkgdesc = "Filesystem cache diagnostic and control tool"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://hoytech.com/vmtouch"
 source = (

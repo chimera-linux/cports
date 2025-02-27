@@ -15,7 +15,6 @@ makedepends = [
     "libhangul-devel",
 ]
 pkgdesc = "Hangul Wrapper for Fcitx5"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://fcitx-im.org"
 source = (

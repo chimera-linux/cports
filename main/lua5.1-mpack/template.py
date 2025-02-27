@@ -7,7 +7,6 @@ make_check_target = "test"
 hostmakedepends = ["pkgconf"]
 makedepends = ["lua5.1-devel", "libmpack-devel"]
 pkgdesc = "Simple implementation of MessagePack for Lua"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://github.com/libmpack/libmpack-lua"
 source = f"https://github.com/libmpack/libmpack-lua/archive/{pkgver}.tar.gz"

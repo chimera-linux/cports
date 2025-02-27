@@ -61,7 +61,6 @@ depends = [
     self.with_pkgver(f"{pkgname}-demos"),
 ]
 pkgdesc = f"Oracle OpenJDK {_majver}"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"

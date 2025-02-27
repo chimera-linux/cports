@@ -27,7 +27,6 @@ makedepends = [
 ]
 depends = ["virtual:plasma-vault-backend!plasma-vault-none"]
 pkgdesc = "KDE encrypted storage applet"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only AND LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/plasma-vault"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-vault-{pkgver}.tar.xz"

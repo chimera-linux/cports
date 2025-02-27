@@ -10,7 +10,6 @@ makedepends = [
     "sdl2-compat-devel",
 ]
 pkgdesc = "FT2 compatible music tracker"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://milkytracker.github.io"
 source = f"https://github.com/milkytracker/MilkyTracker/archive/refs/tags/v{pkgver}.tar.gz"

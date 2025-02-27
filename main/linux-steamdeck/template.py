@@ -11,7 +11,6 @@ hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 provides = ["linux"]
 pkgdesc = f"Linux kernel for Steam Deck {pkgver[0 : pkgver.rfind('.')]}.x"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://gitlab.com/evlaV/linux-integration"
 source = f"{url}/-/archive/{pkgver}-valve{_vver}/linux-integration-{pkgver}-valve{_vver}.tar.gz"

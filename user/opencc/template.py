@@ -13,7 +13,6 @@ hostmakedepends = ["pkgconf", "cmake", "ninja", "python"]
 makedepends = ["marisa-trie-devel", "rapidjson", "tclap"]
 checkdepends = ["gtest-devel"]
 pkgdesc = "Open Chinese conversion library"
-maintainer = "metalparade <comer@live.cn>"
 license = "Apache-2.0"
 url = "https://github.com/BYVoid/OpenCC"
 source = f"{url}/archive/refs/tags/ver.{pkgver}.tar.gz"

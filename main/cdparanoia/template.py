@@ -8,7 +8,6 @@ make_check_target = "test"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["linux-headers"]
 pkgdesc = "CDDA reading utility with extra data verification features"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-only"
 url = "https://www.xiph.org/paranoia"
 source = f"https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-{pkgver}.src.tgz"

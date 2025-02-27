@@ -27,7 +27,6 @@ depends = [
     "gstreamer-pipewire",
 ]
 pkgdesc = "GNOME camera app"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Snapshot"
 source = (

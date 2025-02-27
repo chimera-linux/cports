@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["gdk-pixbuf-devel", "glib-devel", "sqlite-devel"]
 pkgdesc = "GObject data mapper"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gom"
 source = f"$(GNOME_SITE)/gom/{pkgver[:-2]}/gom-{pkgver}.tar.xz"

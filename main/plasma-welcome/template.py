@@ -32,7 +32,6 @@ makedepends = [
 ]
 depends = ["kuserfeedback"]
 pkgdesc = "KDE onboarding wizard"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-welcome"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-welcome-{pkgver}.tar.xz"

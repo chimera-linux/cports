@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_gen = ["./bootstrap.sh"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 pkgdesc = "Implementation of obstack for musl"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/void-linux/musl-obstack"
 source = f"{url}/archive/v{pkgver}.tar.gz"

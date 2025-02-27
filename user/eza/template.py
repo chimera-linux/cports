@@ -10,7 +10,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Directory listing utility"
-maintainer = "ttyyls <contact@behri.org>"
 license = "EUPL-1.2"
 url = "https://eza.rocks"
 source = (

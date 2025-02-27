@@ -29,7 +29,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Utility to transfer data between computers"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://magic-wormhole.readthedocs.io"
 source = f"$(PYPI_SITE)/m/magic-wormhole/magic_wormhole-{pkgver}.tar.gz"

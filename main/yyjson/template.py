@@ -5,7 +5,6 @@ build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DYYJSON_BUILD_TESTS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "High performance C JSON library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://ibireme.github.io/yyjson"
 source = f"https://github.com/ibireme/yyjson/archive/refs/tags/{pkgver}.tar.gz"

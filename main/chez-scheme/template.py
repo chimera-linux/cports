@@ -12,7 +12,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Compiler and runtime system for R6RS Scheme"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://cisco.github.io/ChezScheme"
 source = f"https://github.com/cisco/ChezScheme/releases/download/v{pkgver}/csv{pkgver}.tar.gz"

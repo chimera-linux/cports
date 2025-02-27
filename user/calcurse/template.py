@@ -13,7 +13,6 @@ hostmakedepends = [
 makedepends = ["ncurses-devel"]
 depends = ["python-httplib2"]
 pkgdesc = "Calendar and scheduling application for the command line"
-maintainer = "Caio Raposo <caioraposo@disroot.org>"
 license = "BSD-2-Clause"
 url = "https://calcurse.org"
 source = f"https://calcurse.org/files/calcurse-{pkgver}.tar.gz"

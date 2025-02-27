@@ -15,7 +15,6 @@ makedepends = [
 ]
 checkdepends = ["cppunit-devel"]
 pkgdesc = "HTTP/2 C Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nghttp2.org"
 source = f"https://github.com/tatsuhiro-t/nghttp2/releases/download/v{pkgver}/nghttp2-{pkgver}.tar.xz"

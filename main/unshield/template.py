@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Utility for InstallShield CAB archive extraction"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/twogood/unshield"
 source = f"{url}/archive/{pkgver}.tar.gz"

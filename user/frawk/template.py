@@ -12,7 +12,6 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Awk-like language"
-maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/ezrosent/frawk"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

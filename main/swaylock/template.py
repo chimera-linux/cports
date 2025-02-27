@@ -16,7 +16,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Screen locker for Wayland"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/swaywm/swaylock"
 source = f"{url}/releases/download/v{pkgver}/swaylock-{pkgver}.tar.gz"

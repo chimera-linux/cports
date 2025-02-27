@@ -12,7 +12,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Shared library for mediainfo"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://mediaarea.net/en/MediaInfo"
 source = f"https://mediaarea.net/download/source/libmediainfo/{pkgver}/libmediainfo_{pkgver}.tar.bz2"

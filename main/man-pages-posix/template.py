@@ -3,7 +3,6 @@ _pver = "2017-a"
 pkgver = f"{_pver.replace('-', '')}"
 pkgrel = 1
 pkgdesc = "POSIX man pages"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "custom:posix"
 url = "https://pubs.opengroup.org/onlinepubs/9699919799/nframe.html"
 source = f"https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/man-pages-posix/man-pages-posix-{_pver}.tar.xz"

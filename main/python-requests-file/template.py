@@ -15,7 +15,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "File transport adapter for python-requests"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/dashea/requests-file"
 source = f"$(PYPI_SITE)/r/requests_file/requests_file-{pkgver}.tar.gz"

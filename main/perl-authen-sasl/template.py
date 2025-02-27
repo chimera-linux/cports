@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl", "perl-digest-hmac"]
 depends = ["perl", "perl-digest-hmac"]
 pkgdesc = "SASL authentication framework"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/Authen-SASL"
 source = f"$(CPAN_SITE)/Authen/Authen-SASL-{pkgver}.tar.gz"

@@ -23,7 +23,6 @@ makedepends = [
 depends = ["shared-mime-info"]
 triggers = ["/usr/lib/gdk-pixbuf-2.0/2.10.0/loaders"]
 pkgdesc = "Image loading library for GTK"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GdkPixbuf"
 source = f"$(GNOME_SITE)/gdk-pixbuf/{pkgver[:-3]}/gdk-pixbuf-{pkgver}.tar.xz"

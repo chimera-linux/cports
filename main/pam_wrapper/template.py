@@ -7,7 +7,6 @@ hostmakedepends = ["cmake", "ninja", "pkgconf", "python-setuptools"]
 makedepends = ["linux-pam-devel", "python-devel"]
 checkdepends = ["cmocka-devel"]
 pkgdesc = "Tool to test PAM applications and modules"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://cwrap.org/pam_wrapper.html"
 source = f"https://ftp.samba.org/pub/cwrap/pam_wrapper-{pkgver}.tar.gz"

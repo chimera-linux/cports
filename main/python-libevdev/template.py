@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python", "libevdev"]
 checkdepends = ["python-pytest", "libevdev"]
 pkgdesc = "Python wrapper around libevdev"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/libevdev/python-libevdev"
 source = f"{url}/-/archive/{pkgver}/python-libevdev-{pkgver}.tar.gz"

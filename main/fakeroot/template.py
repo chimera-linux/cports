@@ -9,7 +9,6 @@ makedepends = ["acl-devel"]
 checkdepends = ["ugetopt"]
 depends = [self.with_pkgver("fakeroot-core")]
 pkgdesc = "Tool for simulating superuser privileges"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"{url}/-/archive/upstream/{pkgver}/fakeroot-upstream-{pkgver}.tar.gz"

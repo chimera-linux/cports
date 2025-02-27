@@ -6,7 +6,6 @@ configure_gen = []
 make_dir = "."
 hostmakedepends = ["pkgconf"]
 pkgdesc = "S-Lang programming library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.jedsoft.org/slang"
 source = f"https://www.jedsoft.org/releases/slang/slang-{pkgver}.tar.bz2"

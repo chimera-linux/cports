@@ -21,7 +21,6 @@ hostmakedepends = ["gperf", "meson", "pkgconf", "xmlto"]
 makedepends = ["libexpat-devel", "libx11-devel", "libcap-devel"]
 triggers = ["/usr/share/dbus-1/system.d"]
 pkgdesc = "Message bus system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
 source = f"https://dbus.freedesktop.org/releases/dbus/dbus-{pkgver}.tar.xz"

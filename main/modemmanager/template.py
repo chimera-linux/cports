@@ -40,7 +40,6 @@ makedepends = [
 depends = ["dinit-dbus", "ppp"]
 checkdepends = ["dbus"]
 pkgdesc = "Mobile broadband modem management service"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/ModemManager"
 source = f"https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/archive/{pkgver}/ModemManager-{pkgver}.tar.gz"

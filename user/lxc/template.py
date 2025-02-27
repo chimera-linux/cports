@@ -24,7 +24,6 @@ makedepends = [
 ]
 depends = ["ugetopt", "xz", "wget2"]
 pkgdesc = "Linux containers"
-maintainer = "tj <tjheeta@gmail.com>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://linuxcontainers.org"
 source = f"{url}/downloads/lxc/lxc-{pkgver}.tar.gz"

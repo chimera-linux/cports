@@ -33,7 +33,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("gnuplot-common")]
 pkgdesc = "Command-line-driven graphing utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "gnuplot"
 url = "http://www.gnuplot.info"
 source = f"$(SOURCEFORGE_SITE)/gnuplot/gnuplot/{pkgver}/gnuplot-{pkgver}.tar.gz"

@@ -31,7 +31,6 @@ makedepends = [
 ]
 checkdepends = ["bzip2", "perl"]
 pkgdesc = "Ext2/3/4 file system utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://e2fsprogs.sourceforge.net"
 source = f"$(KERNEL_SITE)/kernel/people/tytso/e2fsprogs/v{pkgver}/e2fsprogs-{pkgver}.tar.xz"

@@ -22,7 +22,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "Qt-based SOAP component"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://www.kdab.com/development-resources/qt-tools/kd-soap"
 source = f"https://github.com/KDAB/KDSoap/releases/download/kdsoap-{pkgver}/kdsoap-{pkgver}.tar.gz"

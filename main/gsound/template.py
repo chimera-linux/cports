@@ -15,7 +15,6 @@ hostmakedepends = [
 ]
 makedepends = ["libcanberra-devel", "vala"]
 pkgdesc = "Small library for playing system sounds"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GSound"
 source = f"$(GNOME_SITE)/gsound/{pkgver[:-2]}/gsound-{pkgver}.tar.xz"

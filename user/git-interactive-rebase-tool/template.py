@@ -7,7 +7,6 @@ make_build_env = {"CARGO_PKG_VERSION": pkgver}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std"]
 pkgdesc = "Sequence editor for git interactive rebase"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/MitMaro/git-interactive-rebase-tool"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

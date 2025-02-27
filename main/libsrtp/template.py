@@ -6,7 +6,6 @@ configure_args = ["-Dcrypto-library=openssl"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["openssl3-devel"]
 pkgdesc = "Library for Secure Real-Time Transport Protocol"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/cisco/libsrtp"
 source = f"{url}/archive/v{pkgver}.tar.gz"

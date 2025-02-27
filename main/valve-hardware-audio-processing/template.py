@@ -11,7 +11,6 @@ hostmakedepends = ["bash", "faust"]
 makedepends = ["boost-devel", "lv2"]
 depends = ["bash", "dmidecode", "pipewire", "noise-suppression-for-voice"]
 pkgdesc = "Steam Deck audio processing"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/evlaV/valve-hardware-audio-processing"
 source = (

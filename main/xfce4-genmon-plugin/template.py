@@ -17,7 +17,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce generic program monitor panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-genmon-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-genmon-plugin/{pkgver[:-2]}/xfce4-genmon-plugin-{pkgver}.tar.bz2"

@@ -6,7 +6,6 @@ configure_gen = ["./autogen.sh"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["linux-headers"]  # hwcap on arm etc.
 pkgdesc = "Image processing library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "WTFPL"
 url = "https://github.com/sekrit-twc/zimg"
 source = f"{url}/archive/release-{pkgver}.tar.gz"

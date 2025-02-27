@@ -6,7 +6,6 @@ build_style = "meta"
 # any php provider around, so hack around this a little bit
 depends = ["virtual:php-runtime!base-files"]
 pkgdesc = "PHP common data"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"
 # no tests

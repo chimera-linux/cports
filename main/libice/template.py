@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["xorgproto", "xtrans"]
 pkgdesc = "Inter Client Exchange (ICE) library for X"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libICE-{pkgver}.tar.gz"

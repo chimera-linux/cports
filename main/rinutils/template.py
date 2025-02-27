@@ -12,7 +12,6 @@ hostmakedepends = [
 makedepends = ["cmocka-devel"]
 checkdepends = ["perl-env-path", "perl-path-tiny"]
 pkgdesc = "C11 header-only utility library for SchlomiFish projects"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/shlomif/rinutils"
 source = f"{url}/releases/download/{pkgver}/rinutils-{pkgver}.tar.xz"

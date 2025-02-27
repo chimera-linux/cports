@@ -6,7 +6,6 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["glib-devel"]
 triggers = ["/usr/share/applications"]
 pkgdesc = "Utilities to manage desktop entries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://freedesktop.org/wiki/Software/desktop-file-utils"
 source = f"$(FREEDESKTOP_SITE)/desktop-file-utils/releases/desktop-file-utils-{pkgver}.tar.xz"

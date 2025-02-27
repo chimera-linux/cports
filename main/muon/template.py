@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = ["ninja"]
 pkgdesc = "Minimal implementation of meson"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-only AND Apache-2.0 AND MIT AND Unlicense"
 url = "https://muon.build"
 source = [

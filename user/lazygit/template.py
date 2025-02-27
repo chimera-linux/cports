@@ -6,7 +6,6 @@ make_build_args = [f"-ldflags=-X main.version=v{pkgver}"]
 hostmakedepends = ["go"]
 depends = ["git"]
 pkgdesc = "Terminal UI for git commands"
-maintainer = "jabuxas <jabuxas@proton.me>"
 license = "MIT"
 url = "https://github.com/jesseduffield/lazygit"
 source = f"{url}/archive/v{pkgver}.tar.gz"

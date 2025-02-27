@@ -8,7 +8,6 @@ triggers = [
     "/usr/share/sgml/catalogs",
 ]
 pkgdesc = "XML and SGML catalog manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://xmlcatmgr.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/xmlcatmgr/xmlcatmgr-{pkgver}.tar.gz"

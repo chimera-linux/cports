@@ -15,7 +15,6 @@ makedepends = [
 ]
 depends = ["greetd"]
 pkgdesc = "Clean and customizable greeter for greetd"
-maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/rharish101/ReGreet"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

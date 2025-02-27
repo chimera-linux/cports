@@ -27,7 +27,6 @@ makedepends = [
     "libyaml-devel",
 ]
 pkgdesc = "AppStream metadata library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://people.freedesktop.org/~hughsient/appstream-glib"
 source = f"https://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-{pkgver}.tar.xz"

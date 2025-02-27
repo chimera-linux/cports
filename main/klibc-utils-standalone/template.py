@@ -7,7 +7,6 @@ configure_args = ["--libexecdir=/usr/lib"]  # XXX drop libexec
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standalone utilities from klibc"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/chimera-linux/klibc-utils-standalone"
 source = f"{url}/archive/{_commit}.tar.gz"

@@ -19,7 +19,6 @@ makedepends = [
     "libtiff-devel",
 ]
 pkgdesc = "GObject library for XPS documents"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/libgxps"
 source = f"$(GNOME_SITE)/libgxps/{pkgver[:-2]}/libgxps-{pkgver}.tar.xz"

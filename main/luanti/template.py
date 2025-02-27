@@ -42,7 +42,6 @@ makedepends = [
 depends = [self.with_pkgver("luanti-common")]
 provides = [self.with_pkgver("minetest")]
 pkgdesc = "Voxel game creation platform"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.luanti.org"
 source = (

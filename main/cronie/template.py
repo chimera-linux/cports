@@ -12,7 +12,6 @@ hostmakedepends = ["automake", "libtool"]
 makedepends = ["linux-pam-devel", "musl-obstack-devel"]
 depends = ["cmd:run-parts!debianutils"]
 pkgdesc = "Cron daemon"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later"
 url = "https://github.com/cronie-crond/cronie"
 source = f"{url}/releases/download/cronie-{pkgver}/cronie-{pkgver}.tar.gz"

@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "X11 PCI access library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libpciaccess-{pkgver}.tar.xz"

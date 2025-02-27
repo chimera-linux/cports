@@ -3,7 +3,6 @@ pkgver = "0.5"
 pkgrel = 3
 build_style = "makefile"
 pkgdesc = "Run a command at a particular time"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://github.com/leahneukirchen/snooze"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

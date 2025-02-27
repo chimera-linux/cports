@@ -21,7 +21,6 @@ makedepends = [
 ]
 checkdepends = ["bash", "dbus"]
 pkgdesc = "Desktop integration portal"
-maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/flatpak/xdg-desktop-portal"
 source = f"https://github.com/flatpak/xdg-desktop-portal/releases/download/{pkgver}/xdg-desktop-portal-{pkgver}.tar.xz"

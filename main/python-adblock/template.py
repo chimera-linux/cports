@@ -14,7 +14,6 @@ makedepends = ["rust-std"]
 depends = ["python"]
 checkdepends = ["python-pytest-xdist"]
 pkgdesc = "Python wrapper for Brave's adblocking library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/ArniDagur/python-adblock"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

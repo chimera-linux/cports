@@ -16,7 +16,6 @@ depends = [
 ]
 checkdepends = ["lsof", "python-pytest", *depends]
 pkgdesc = "Twisted-based Tor controller client"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://txtorcon.readthedocs.io"
 source = f"$(PYPI_SITE)/t/txtorcon/txtorcon-{pkgver}.tar.gz"

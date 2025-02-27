@@ -11,7 +11,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Lightning Memory-Mapped Database Manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "OLDAP-2.8"
 url = "http://www.lmdb.tech/doc"
 source = f"https://git.openldap.org/openldap/openldap/-/archive/LMDB_{pkgver}/openldap-LMDB_{pkgver}.tar.gz"

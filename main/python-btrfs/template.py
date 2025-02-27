@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python module and utilities for interacting with btrfs filesystems"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/knorrie/python-btrfs"
 source = f"$(PYPI_SITE)/b/btrfs/btrfs-{pkgver}.tar.gz"

@@ -8,7 +8,6 @@ configure_gen = []
 make_dir = "."
 makedepends = ["libjpeg-turbo-devel"]
 pkgdesc = "Utility for optimising jpeg files"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/tjko/jpegoptim"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

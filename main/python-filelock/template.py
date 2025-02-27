@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Platform-independent file lock for Python"
-maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "Unlicense"
 url = "https://github.com/tox-dev/filelock"
 source = f"$(PYPI_SITE)/f/filelock/filelock-{pkgver}.tar.gz"

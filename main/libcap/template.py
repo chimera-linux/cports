@@ -15,7 +15,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf", "perl"]
 makedepends = ["attr-devel", "linux-headers"]
 pkgdesc = "POSIX.1e capabilities suite"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://sites.google.com/site/fullycapable"
 source = (

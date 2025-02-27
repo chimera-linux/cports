@@ -15,7 +15,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python interface to OpenSSL"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://pyopenssl.org"
 source = f"$(PYPI_SITE)/p/pyopenssl/pyopenssl-{pkgver}.tar.gz"

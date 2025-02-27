@@ -20,7 +20,6 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "zlib-ng-compat-devel"]
 checkdepends = ["git"]
 pkgdesc = "Cross-shell prompt"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://starship.rs"
 source = (

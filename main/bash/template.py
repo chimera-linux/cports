@@ -16,7 +16,6 @@ hostmakedepends = ["bison", "texinfo"]
 makedepends = ["ncurses-devel", "readline-devel"]
 checkdepends = ["perl"]
 pkgdesc = "GNU Bourne Again Shell"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/bash/bash-{pkgver}.tar.gz"

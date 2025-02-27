@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "AOSP libldac dispatcher"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/EHfive/ldacBT"
 source = f"{url}/releases/download/v{pkgver}/ldacBT-{pkgver}.tar.gz"

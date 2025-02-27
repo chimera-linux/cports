@@ -10,7 +10,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "OpenGL Mathematics"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:Happy-Bunny-License"
 url = "https://github.com/g-truc/glm"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

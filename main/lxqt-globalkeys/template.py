@@ -16,7 +16,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Daemon used to register global keyboard shortcuts"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-globalkeys"
 source = f"{url}/releases/download/{pkgver}/lxqt-globalkeys-{pkgver}.tar.xz"

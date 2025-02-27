@@ -6,7 +6,6 @@ configure_args = ["--disable-mmx"]
 hostmakedepends = ["automake", "slibtool", "pkgconf"]
 makedepends = ["sdl2-compat-devel"]
 pkgdesc = "SDL2 graphics drawing primitives and other support functions"
-maintainer = "peri <peri@periwinkle.sh>"
 license = "Zlib"
 url = "https://www.ferzkopp.net/wordpress/2016/01/02/sdl_gfx-sdl2_gfx"
 source = f"http://www.ferzkopp.net/Software/SDL2_gfx/SDL2_gfx-{pkgver}.tar.gz"

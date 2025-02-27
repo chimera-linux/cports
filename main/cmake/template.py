@@ -22,7 +22,6 @@ makedepends = [
     "ncurses-devel",
 ]
 pkgdesc = "Cross-platform, open source build system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
 source = f"https://www.cmake.org/files/v{pkgver[:-2]}/cmake-{pkgver}.tar.gz"

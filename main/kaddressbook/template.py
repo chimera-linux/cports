@@ -29,7 +29,6 @@ makedepends = [
 ]
 depends = ["kdepim-runtime"]
 pkgdesc = "KDE address book"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/kaddressbook"
 source = (

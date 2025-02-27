@@ -12,7 +12,6 @@ makedepends = [
     "mpv-devel",
 ]
 pkgdesc = "GTK frontend for mpv"
-maintainer = "breakgimme <adam@plock.com>"
 license = "GPL-3.0-or-later"
 url = "https://celluloid-player.github.io"
 source = f"https://github.com/celluloid-player/celluloid/releases/download/v{pkgver}/celluloid-{pkgver}.tar.xz"

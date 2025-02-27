@@ -10,7 +10,6 @@ hostmakedepends = [
 makedepends = ["openssl3-devel"]
 checkdepends = ["bash"]
 pkgdesc = "Software emulation of a Trusted Platform Module"
-maintainer = "cesorious <cesorious@gmail.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/stefanberger/libtpms"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

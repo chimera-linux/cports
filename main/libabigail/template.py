@@ -33,7 +33,6 @@ makedepends = [
     "xxhash-devel",
 ]
 pkgdesc = "Library and tooling for ABI-related tasks"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception"
 url = "https://sourceware.org/libabigail"
 source = f"https://mirrors.kernel.org/sourceware/libabigail/libabigail-{pkgver}.tar.xz"

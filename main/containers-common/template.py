@@ -5,7 +5,6 @@ make_build_args = ["-C", "docs"]
 make_install_args = [*make_build_args]
 hostmakedepends = ["go-md2man"]
 pkgdesc = "Shared docs and configs for Containers"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containers/common"
 _base_url = url.removesuffix("/common")

@@ -94,7 +94,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "KDE Window Manager and Wayland Compositor"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.1-only"
 )

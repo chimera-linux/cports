@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["neon-devel", "libxml2-devel"]
 pkgdesc = "MusicBrainz client library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-or-later"
 url = "https://musicbrainz.org/doc/libmusicbrainz"
 source = f"https://github.com/metabrainz/libmusicbrainz/releases/download/release-{pkgver}/libmusicbrainz-{pkgver}.tar.gz"

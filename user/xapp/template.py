@@ -27,7 +27,6 @@ makedepends = [
 ]
 depends = ["gtk+3", "python-gobject", "python-setproctitle"]
 pkgdesc = "Cross-desktop libraries and common resources"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xapp/archive/refs/tags/{pkgver}.tar.gz"

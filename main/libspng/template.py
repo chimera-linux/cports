@@ -7,7 +7,6 @@ makedepends = ["zlib-ng-compat-devel"]
 provides = [self.with_pkgver("spng")]
 replaces = ["spng<0.7.5"]
 pkgdesc = "Simple PNG library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-2-Clause"
 url = "https://libspng.org"
 source = (

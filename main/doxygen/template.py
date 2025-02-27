@@ -6,7 +6,6 @@ configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
 hostmakedepends = ["cmake", "ninja", "perl", "python", "flex", "bison"]
 checkdepends = ["libxml2-progs"]
 pkgdesc = "Source code documentation generator tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://doxygen.nl"
 source = f"{url}/files/doxygen-{pkgver}.src.tar.gz"

@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Bookmarks management library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kbookmarks/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kbookmarks-{pkgver}.tar.xz"

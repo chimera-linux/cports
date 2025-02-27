@@ -13,7 +13,6 @@ makedepends = [
 ]
 depends = ["cronie", "psmisc", "rsync"]
 pkgdesc = "System restore tool"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = (

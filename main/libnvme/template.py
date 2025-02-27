@@ -13,7 +13,6 @@ makedepends = [
     "python-devel",
 ]
 pkgdesc = "C library for NVMe on Linux"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/linux-nvme/libnvme"
 source = f"{url}/archive/v{pkgver}/libnvme-v{pkgver}.tar.gz"

@@ -20,7 +20,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Text web browser"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://lynx.invisible-island.net"
 source = f"https://invisible-mirror.net/archives/lynx/tarballs/lynx{pkgver.replace('_pre', 'dev.')}.tar.bz2"

@@ -8,7 +8,6 @@ make_install_args = ["install_docs"]
 hostmakedepends = ["scdoc"]
 checkdepends = ["atf", "kyua"]
 pkgdesc = "Network configuration manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://github.com/ifupdown-ng/ifupdown-ng"
 source = f"{url}/archive/refs/tags/ifupdown-ng-{pkgver}.tar.gz"

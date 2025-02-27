@@ -13,7 +13,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "Pre-GM MIDI device emulation library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-or-later AND GPL-3.0-or-later"
 url = "https://munt.sourceforge.net"
 source = f"https://github.com/munt/munt/archive/refs/tags/munt_{pkgver.replace('.', '_')}.tar.gz"

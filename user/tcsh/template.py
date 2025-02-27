@@ -6,7 +6,6 @@ configure_args = ["--disable-nls"]
 hostmakedepends = ["automake"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Enhanced version of the Berkeley UNIX C shell"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://astron.com/pub/tcsh"
 source = f"{url}/tcsh-{pkgver}.tar.gz"

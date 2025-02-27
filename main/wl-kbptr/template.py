@@ -11,7 +11,6 @@ makedepends = [
 ]
 depends = ["jq"]
 pkgdesc = "Control the mouse pointer with the keyboard"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/moverest/wl-kbptr"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

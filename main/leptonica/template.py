@@ -14,7 +14,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Image processing library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-2-Clause"
 url = "http://www.leptonica.org"
 source = f"https://github.com/DanBloomberg/leptonica/archive/refs/tags/{pkgver}.tar.gz"

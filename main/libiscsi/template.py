@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers", "libgcrypt-devel"]
 pkgdesc = "ISCSI client library and utilities"
-maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://foo.software"
 source = f"https://github.com/sahlberg/libiscsi/archive/{pkgver}.tar.gz"

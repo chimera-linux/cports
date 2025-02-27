@@ -32,7 +32,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "KDE integration for controlling Thunderbolt devices"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-thunderbolt"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-thunderbolt-{pkgver}.tar.xz"

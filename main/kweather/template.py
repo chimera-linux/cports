@@ -24,7 +24,6 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "KDE Weather application"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kweather"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kweather-{pkgver}.tar.xz"

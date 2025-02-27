@@ -13,7 +13,6 @@ hostmakedepends = [
 makedepends = ["c-ares-devel", "python-devel"]
 depends = ["python-cffi"]
 pkgdesc = "Python bindings for c-ares"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/saghul/pycares"
 source = f"$(PYPI_SITE)/p/pycares/pycares-{pkgver}.tar.gz"

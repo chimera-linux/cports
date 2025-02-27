@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python-gitdb"]
 pkgdesc = "Python library to interact with Git repos"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://gitpython.readthedocs.org"
 source = f"$(PYPI_SITE)/g/GitPython/gitpython-{pkgver}.tar.gz"

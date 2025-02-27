@@ -12,7 +12,6 @@ makedepends = ["linux-headers"]
 checkdepends = ["python-pytest-xdist"]
 depends = ["python"]
 pkgdesc = "Process and system monitoring module for Python"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "BSD-3-Clause"
 url = "https://github.com/giampaolo/psutil"
 source = f"$(PYPI_SITE)/p/psutil/psutil-{pkgver}.tar.gz"

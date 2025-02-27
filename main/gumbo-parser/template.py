@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["gtest-devel"]
 pkgdesc = "HTML5 parsing library in pure C99"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://codeberg.org/gumbo-parser/gumbo-parser"
 source = f"{url}/archive/{pkgver}.tar.gz"

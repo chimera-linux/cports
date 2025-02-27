@@ -12,7 +12,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Plasma-specific wayland protocols"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/libraries/plasma-wayland-protocols"
 source = f"$(KDE_SITE)/plasma-wayland-protocols/plasma-wayland-protocols-{pkgver}.tar.xz"

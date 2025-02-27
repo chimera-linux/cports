@@ -15,7 +15,6 @@ hostmakedepends = [
 ]
 depends = ["kbd"]
 pkgdesc = "Console font and keymap setup program"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND custom:console-setup"
 url = "https://salsa.debian.org/installer-team/console-setup"
 source = f"{url}/-/archive/{pkgver}/console-setup-{pkgver}.tar.gz"

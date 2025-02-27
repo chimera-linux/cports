@@ -27,7 +27,6 @@ makedepends = [
 ]
 depends = ["udisks"]
 pkgdesc = "GNOME disk drive and media management"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Disks"
 source = f"$(GNOME_SITE)/gnome-disk-utility/{pkgver[:-2]}/gnome-disk-utility-{pkgver}.tar.xz"

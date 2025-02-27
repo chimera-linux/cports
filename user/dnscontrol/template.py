@@ -4,7 +4,6 @@ pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "System for maintaining DNS zones"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://dnscontrol.org"
 source = f"https://github.com/StackExchange/dnscontrol/archive/refs/tags/v{pkgver}.tar.gz"

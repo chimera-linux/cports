@@ -8,7 +8,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Library for Neighbor Discovery Protocol"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libndp.org"
 source = f"{url}/files/libndp-{pkgver}.tar.gz"

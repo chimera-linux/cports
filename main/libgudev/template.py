@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "udev-devel", "vala-devel"]
 pkgdesc = "GObject bindings for libudev"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://wiki.gnome.org/Projects/libgudev"
 source = f"$(GNOME_SITE)/libgudev/{pkgver}/libgudev-{pkgver}.tar.xz"

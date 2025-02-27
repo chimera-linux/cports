@@ -13,7 +13,6 @@ checkdepends = [
     "python-pytest",
 ]
 pkgdesc = "Python3 helper to pass trusted data to untrusted environments"
-maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "BSD-3-Clause"
 url = "https://github.com/pallets/itsdangerous"
 source = f"$(PYPI_SITE)/i/itsdangerous/itsdangerous-{pkgver}.tar.gz"

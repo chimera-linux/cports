@@ -18,7 +18,6 @@ hostmakedepends = [
 makedepends = ["cracklib-devel", "linux-pam-devel", "python-devel"]
 depends = ["cracklib-words"]
 pkgdesc = "Library for password quality checking"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause OR GPL-2.0-or-later"
 url = "https://github.com/libpwquality/libpwquality"
 source = f"{url}/releases/download/libpwquality-{pkgver}/libpwquality-{pkgver}.tar.bz2"

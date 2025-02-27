@@ -12,7 +12,6 @@ hostmakedepends = [
 makedepends = ["pcaudiolib-devel"]
 provides = [self.with_pkgver("espeak-ng-vim")]
 pkgdesc = "Multilingual software speech synthesizer"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/espeak-ng/espeak-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

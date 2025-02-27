@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "pcsc-lite-devel", "dbus-devel"]
 depends = ["ccid"]
 pkgdesc = "SSH-agent backed by OpenPGP card authentication keys"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://codeberg.org/openpgp-card/ssh-agent"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -22,7 +22,6 @@ makedepends = [
     "qtkeychain-devel",
 ]
 pkgdesc = "KDE KIO plugin for Google Drive"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kio_gdrive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-gdrive-{pkgver}.tar.xz"

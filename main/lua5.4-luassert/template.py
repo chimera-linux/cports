@@ -3,7 +3,6 @@ pkgver = "1.9.0"
 pkgrel = 0
 depends = ["lua5.4-say"]
 pkgdesc = "Assertion library for Lua"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/lunarmodules/luassert"
 source = f"https://github.com/lunarmodules/luassert/archive/refs/tags/v{pkgver}.tar.gz"

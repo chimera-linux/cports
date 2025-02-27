@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["greetd"]
 pkgdesc = "Console greeter for greetd"
-maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/apognu/tuigreet"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

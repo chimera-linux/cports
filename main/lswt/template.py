@@ -10,7 +10,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "List Wayland toplevels"
-maintainer = "Hugo Machet <mail@hmachet.com>"
 license = "GPL-3.0-only"
 url = "https://git.sr.ht/~leon_plickat/lswt"
 source = f"{url}/archive/v{pkgver}.tar.gz"

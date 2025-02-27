@@ -10,7 +10,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Wayland event viewer"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://git.sr.ht/~sircmpwn/wev"
 source = f"{url}/archive/{pkgver}.tar.gz"

@@ -12,7 +12,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Symbolic constants for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/twisted/constantly"
 source = f"$(PYPI_SITE)/c/constantly/constantly-{pkgver}.tar.gz"

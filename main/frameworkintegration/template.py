@@ -22,7 +22,6 @@ makedepends = [
     # TODO: packagekitqt6 + AppStreamQt 1.0? (KPackage install handler binaries)
 ]
 pkgdesc = "Integration of Qt application with KDE workspaces"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/frameworkintegration/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/frameworkintegration-{pkgver}.tar.xz"

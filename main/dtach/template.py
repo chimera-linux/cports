@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 pkgdesc = "Program that emulates the detach feature of screen"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "GPL-2.0-or-later"
 url = "https://dtach.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/dtach/dtach-{pkgver}.tar.gz"

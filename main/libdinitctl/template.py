@@ -6,7 +6,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Library to interact with dinit's client protocol"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/libdinitctl"
 source = f"{url}/archive/{_gitrev}.tar.gz"

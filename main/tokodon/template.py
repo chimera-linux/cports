@@ -37,7 +37,6 @@ depends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Mastodon client"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.0-or-later"
 url = "https://apps.kde.org/tokodon"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/tokodon-{pkgver}.tar.xz"

@@ -13,7 +13,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libuv-devel", "lua5.1-devel"]
 pkgdesc = "Bare libuv bindings for Lua"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "Apache-2.0"
 url = "https://github.com/luvit/luv"
 source = f"https://github.com/luvit/luv/releases/download/{_distver}/luv-{_distver}.tar.gz"

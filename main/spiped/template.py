@@ -6,7 +6,6 @@ make_check_target = "test"
 makedepends = ["openssl3-devel"]
 checkdepends = ["procps"]
 pkgdesc = "Secure pipe daemon"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-2-Clause"
 url = "https://www.tarsnap.com/spiped.html"
 source = f"https://www.tarsnap.com/spiped/spiped-{pkgver}.tgz"

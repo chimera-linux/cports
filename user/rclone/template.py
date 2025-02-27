@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Rsync for cloud storage"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://rclone.org"
 source = f"https://github.com/rclone/rclone/archive/refs/tags/v{pkgver}.tar.gz"

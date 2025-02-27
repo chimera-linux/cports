@@ -26,7 +26,6 @@ makedepends = [
 checkdepends = ["bash"]
 depends = ["vpnc-scripts"]
 pkgdesc = "Multi-protocol SSL VPN client"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-only"
 url = "https://www.infradead.org/openconnect"
 source = f"{url}/download/openconnect-{pkgver}.tar.gz"

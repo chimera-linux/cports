@@ -28,7 +28,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "Image format plugins for Qt6"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kimageformats/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kimageformats-{pkgver}.tar.xz"

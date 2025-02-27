@@ -11,7 +11,6 @@ makedepends = [
 ]
 checkdepends = ["bash", "git"]
 pkgdesc = "Displays project information and code statistics"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://onefetch.dev"
 source = f"https://github.com/o2sh/onefetch/archive/refs/tags/{pkgver}.tar.gz"

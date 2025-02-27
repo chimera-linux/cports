@@ -5,7 +5,6 @@ build_style = "perl_module"
 hostmakedepends = ["perl"]
 depends = ["perl-io-tty"]
 pkgdesc = "Perl system() and background procs w/ piping, redirs, ptys"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/dist/IPC-Run"
 source = f"$(CPAN_SITE)/IPC/IPC-Run-{pkgver}.tar.gz"

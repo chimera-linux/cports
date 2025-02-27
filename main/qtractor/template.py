@@ -19,7 +19,6 @@ makedepends = [
     "rubberband-devel",
 ]
 pkgdesc = "Audio/MIDI multi-track sequencer"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://www.qtractor.org"
 source = f"$(SOURCEFORGE_SITE)/qtractor/qtractor-{pkgver}.tar.gz"

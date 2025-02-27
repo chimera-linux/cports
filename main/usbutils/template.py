@@ -6,7 +6,6 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["udev-devel", "libusb-devel", "linux-headers"]
 depends = ["hwdata-usb"]
 pkgdesc = "Linux USB utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://linux-usb.sourceforge.net"
 source = f"$(KERNEL_SITE)/utils/usb/usbutils/usbutils-{pkgver}.tar.xz"

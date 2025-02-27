@@ -11,7 +11,6 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Lua formatter"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/JohnnyMorganz/StyLua"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

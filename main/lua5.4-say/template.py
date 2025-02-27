@@ -2,7 +2,6 @@ pkgname = "lua5.4-say"
 pkgver = "1.4.1"
 pkgrel = 0
 pkgdesc = "Lua string hashing library, useful for internationalization"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/lunarmodules/say"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

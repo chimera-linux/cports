@@ -12,7 +12,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Service identity verification for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pyca/service-identity"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

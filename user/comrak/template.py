@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["oniguruma-devel", "rust-std"]
 pkgdesc = "CommonMark compatible GitHub Flavored Markdown parser and formatter"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "BSD-2-Clause"
 url = "https://github.com/kivikakk/comrak"
 source = f"{url}/archive/v{pkgver}.tar.gz"

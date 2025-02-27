@@ -28,7 +28,6 @@ makedepends = [
 depends = ["shared-mime-info"]
 provides = ["so:libeog.so=0"]
 pkgdesc = "GNOME image viewer"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/EyeOfGnome"
 source = f"$(GNOME_SITE)/eog/{pkgver[:-2]}/eog-{pkgver}.tar.xz"

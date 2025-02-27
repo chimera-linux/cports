@@ -16,7 +16,6 @@ hostmakedepends = ["automake", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "sqlite-devel"]
 provides = ["so:libtcl8.6.so=0"]
 pkgdesc = "TCL scripting language"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/tcl/tcl{pkgver}-src.tar.gz"

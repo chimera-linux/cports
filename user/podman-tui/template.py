@@ -22,7 +22,6 @@ go_build_tags = [
 ]
 go_check_tags = [*go_build_tags]
 pkgdesc = "Podman terminal UI"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/containers/podman-tui"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

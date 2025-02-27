@@ -23,7 +23,6 @@ makedepends = [
 checkdepends = ["fonts-dejavu", "xwayland-run"]
 depends = ["gjs", "gnome-desktop", "libadwaita"]
 pkgdesc = "GNOME character map utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Design/Apps/CharacterMap"
 source = f"$(GNOME_SITE)/gnome-characters/{pkgver[:-2]}/gnome-characters-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = ["./cmd/crane"]
 hostmakedepends = ["go"]
 pkgdesc = "Container image and registry manipulation tool"
-maintainer = "Radosław Piliszek <radek@piliszek.it>"
 license = "Apache-2.0"
 url = "https://github.com/google/go-containerregistry"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

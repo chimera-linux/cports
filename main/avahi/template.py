@@ -55,7 +55,6 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "Multicast DNS Service Discovery"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lathiat/avahi"
 source = f"{url}/releases/download/v{pkgver}/avahi-{pkgver}.tar.gz"

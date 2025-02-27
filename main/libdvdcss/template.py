@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["linux-headers"]
 pkgdesc = "Library for accessing DVDs"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.videolan.org/developers/libdvdcss.html"
 source = f"https://download.videolan.org/pub/libdvdcss/{pkgver}/libdvdcss-{pkgver}.tar.bz2"

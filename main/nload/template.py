@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["automake"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Command line tool to visualize network traffic"
-maintainer = "Iztok <iztok@iztok.space>"
 license = "GPL-2.0-or-later"
 url = "http://www.roland-riegel.de/nload"
 source = f"$(SOURCEFORGE_SITE)/nload/nload/{pkgver}/nload-{pkgver}.tar.gz"

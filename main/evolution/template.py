@@ -45,7 +45,6 @@ makedepends = [
 ]
 depends = ["highlight"]
 pkgdesc = "Mail, calendar and address book suite"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Evolution"
 source = f"https://download.gnome.org/sources/evolution/{pkgver[:-2]}/evolution-{pkgver}.tar.xz"

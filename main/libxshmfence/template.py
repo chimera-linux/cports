@@ -6,7 +6,6 @@ configure_args = ["--enable-futex", "--with-shared-memory-dir=/dev/shm"]
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "linux-headers"]
 pkgdesc = "X SyncFence synchronization primitive"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libxshmfence-{pkgver}.tar.gz"

@@ -53,7 +53,6 @@ makedepends = [
 # not traced but needed
 depends = ["libxrandr"]
 pkgdesc = "Compatibility layer for running Windows programs on Linux"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.winehq.org"
 # the url is .0 for .0 and .x for >0

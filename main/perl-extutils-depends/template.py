@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Perl module for using extensions during the build"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/dist/ExtUtils-Depends"
 source = f"$(CPAN_SITE)/ExtUtils/ExtUtils-Depends-{pkgver}.tar.gz"

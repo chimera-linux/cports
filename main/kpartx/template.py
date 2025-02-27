@@ -11,7 +11,6 @@ make_install_args = [
 hostmakedepends = ["pkgconf"]
 makedepends = ["lvm2-devel"]
 pkgdesc = "Create device maps from partition tables"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://christophe.varoqui.free.fr"
 source = f"https://github.com/opensvc/multipath-tools/archive/refs/tags/{pkgver}.tar.gz"

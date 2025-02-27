@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["xcb-util-renderutil-devel", "xcb-util-image-devel"]
 pkgdesc = "XCB utilities library - port of libxcursor"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"https://xorg.freedesktop.org/archive/individual/lib/xcb-util-cursor-{pkgver}.tar.xz"

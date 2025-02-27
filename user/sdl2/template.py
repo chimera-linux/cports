@@ -56,7 +56,6 @@ depends = [
 # transitional
 provides = [self.with_pkgver("sdl")]
 pkgdesc = "Simple DirectMedia Layer"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org"
 source = f"https://www.libsdl.org/release/SDL2-{pkgver}.tar.gz"

@@ -21,7 +21,6 @@ makedepends = [
     "xcb-util-devel",
 ]
 pkgdesc = "Utility to stream Wayland screens/windows to X11 applications"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/system/xwaylandvideobridge"
 source = f"$(KDE_SITE)/xwaylandvideobridge/xwaylandvideobridge-{pkgver}.tar.xz"

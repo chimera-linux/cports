@@ -19,7 +19,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python port of expect(1) for child process handling"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://pexpect.readthedocs.io/en/stable"
 source = f"$(PYPI_SITE)/p/pexpect/pexpect-{pkgver}.tar.gz"

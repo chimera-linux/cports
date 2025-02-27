@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["xorgproto", "libx11-devel"]
 pkgdesc = "Xkbfile library from X.org"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libxkbfile-{pkgver}.tar.xz"

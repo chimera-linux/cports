@@ -12,7 +12,6 @@ makedepends = ["python-devel"]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python bindings for the Brotli compression library"
-maintainer = "q66 <q66@chimera-linux.com>"
 license = "MIT"
 url = "https://github.com/google/brotli"
 source = f"$(PYPI_SITE)/b/brotli/Brotli-{pkgver}.tar.gz"

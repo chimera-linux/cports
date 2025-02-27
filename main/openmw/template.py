@@ -28,7 +28,6 @@ makedepends = [
     "unshield-devel",
 ]
 pkgdesc = "Open implementation of Morrowind's engine"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://openmw.org"
 # matches the files openmw declares in cmake

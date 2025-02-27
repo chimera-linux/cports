@@ -11,7 +11,6 @@ checkdepends = [
 ]
 depends = ["python"]
 pkgdesc = "Low-level library for calling Python build backends"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pyproject-hooks.readthedocs.io"
 source = f"$(PYPI_SITE)/p/pyproject_hooks/pyproject_hooks-{pkgver}.tar.gz"

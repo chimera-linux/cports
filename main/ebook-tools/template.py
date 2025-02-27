@@ -11,7 +11,6 @@ makedepends = [
     "libzip-devel",
 ]
 pkgdesc = "Tools for accessing and converting ebook formats"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/ebook-tools"
 source = f"$(SOURCEFORGE_SITE)/ebook-tools/ebook-tools-{pkgver}.tar.gz"

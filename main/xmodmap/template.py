@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libx11-devel"]
 pkgdesc = "Modify X keymaps and pointer button mappings"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xmodmap-{pkgver}.tar.gz"

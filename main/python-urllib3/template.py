@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "HTTP library with thread-safe connection pooling"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://urllib3.readthedocs.io"
 source = f"$(PYPI_SITE)/u/urllib3/urllib3-{pkgver}.tar.gz"

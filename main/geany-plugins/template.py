@@ -28,7 +28,6 @@ makedepends = [
 ]
 depends = [f"geany~{pkgver}"]
 pkgdesc = "Geany IDE plugins"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://geany.org"
 source = f"https://github.com/geany/geany-plugins/releases/download/{pkgver}/geany-plugins-{pkgver[:-2]}.tar.gz"

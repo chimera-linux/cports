@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 depends = ["bash", "ugetopt", "libxslt-progs", "docbook-xsl-nons"]
 pkgdesc = "Tool to help transform XML documents into other formats"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://pagure.io/xmlto"
 source = f"{url}/archive/{pkgver}/xmlto-{pkgver}.tar.gz"

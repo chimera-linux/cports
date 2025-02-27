@@ -46,7 +46,6 @@ depends = [
     "so:libGL.so.1!mesa-gl-libs",
 ]
 pkgdesc = "Simple DirectMedia Layer version 3"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://libsdl.org"
 source = f"https://github.com/libsdl-org/SDL/releases/download/release-{pkgver}/SDL3-{pkgver}.zip"

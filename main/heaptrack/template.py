@@ -32,7 +32,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "KDE heap memory profiler"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/heaptrack"
 source = f"$(KDE_SITE)/heaptrack/{pkgver}/heaptrack-{pkgver}.tar.xz"

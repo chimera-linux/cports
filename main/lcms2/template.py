@@ -10,7 +10,6 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libjpeg-turbo-devel", "libtiff-devel"]
 pkgdesc = "Small-footprint color management engine"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://littlecms.com"
 source = f"https://github.com/mm2/Little-CMS/releases/download/lcms{pkgver}/lcms2-{pkgver}.tar.gz"

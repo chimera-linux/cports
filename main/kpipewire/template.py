@@ -21,7 +21,6 @@ makedepends = [
     "qt6-qtwayland-devel",
 ]
 pkgdesc = "KDE Components for Flatpak pipewire usage in Plasma"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kpipewire"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kpipewire-{pkgver}.tar.xz"

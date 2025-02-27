@@ -13,7 +13,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "libxml2-devel", "pango-devel", "python-devel"]
 pkgdesc = "Round Robin Database Tool"
-maintainer = "yanchan09 <yan@omg.lol>"
 license = "GPL-2.0-or-later AND custom:FLOSS-License-Exception"
 url = "https://oss.oetiker.ch/rrdtool"
 source = f"https://github.com/oetiker/rrdtool-1.x/releases/download/v{pkgver}/rrdtool-{pkgver}.tar.gz"

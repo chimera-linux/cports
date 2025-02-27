@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-six"]
 pkgdesc = "Lex and Yacc for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.dabeaz.com/ply"
 source = f"$(PYPI_SITE)/p/ply/ply-{pkgver}.tar.gz"

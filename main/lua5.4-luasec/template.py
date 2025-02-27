@@ -11,7 +11,6 @@ make_install_args = [*make_build_args]
 make_use_env = True
 makedepends = ["lua5.4-devel", "openssl3-devel"]
 pkgdesc = "Bindings to openssl for lua"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/lunarmodules/luasec"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

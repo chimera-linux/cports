@@ -16,7 +16,6 @@ triggers = [
     "+/usr/src",
 ]
 pkgdesc = "Common data and scripts for Linux kernels in Chimera"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 # no tests

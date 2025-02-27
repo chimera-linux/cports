@@ -6,7 +6,6 @@ hostmakedepends = ["perl", "openssl3"]
 makedepends = ["perl", "zlib-ng-compat-devel", "openssl3-devel"]
 depends = ["perl"]
 pkgdesc = "Perl extension for using OpenSSL"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-2.0"
 url = "https://metacpan.org/release/Net-SSLeay"
 source = f"$(CPAN_SITE)/Net/Net-SSLeay-{pkgver}.tar.gz"

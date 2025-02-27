@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meta"
 depends = ["virtual:oci-runtime-provider!oci-runtime-runc"]
 pkgdesc = "OCI runtime metapackage"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"
 # no tests

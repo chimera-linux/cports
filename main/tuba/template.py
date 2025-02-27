@@ -27,7 +27,6 @@ makedepends = [
 ]
 depends = ["webp-pixbuf-loader", "gst-plugins-good"]
 pkgdesc = "GTK fediverse client"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://tuba.geopjr.dev"
 source = f"https://github.com/GeopJr/Tuba/archive/refs/tags/v{pkgver}.tar.gz"

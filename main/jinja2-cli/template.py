@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-jinja2"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "CLI for Jinja2"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/mattrobenolt/jinja2-cli"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

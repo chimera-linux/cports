@@ -12,7 +12,6 @@ hostmakedepends = [
 makedepends = ["python-devel"]
 depends = ["python"]
 pkgdesc = "Python object serialization library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/aresch/rencode"
 source = f"{url}/archive/v{pkgver}.tar.gz"

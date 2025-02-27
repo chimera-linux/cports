@@ -5,7 +5,6 @@ build_style = "cmake"
 configure_args = [f"-DPROJECT_VERSION={pkgver}"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Library for fast text representation and classification"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://fasttext.cc/index.html"
 source = f"https://github.com/facebookresearch/fasttext/archive/refs/tags/v{pkgver}.tar.gz"

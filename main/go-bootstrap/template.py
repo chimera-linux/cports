@@ -4,7 +4,6 @@ pkgrel = 0
 # just in case
 depends = ["!go"]
 pkgdesc = "Go programming language bootstrap toolchain"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 options = ["!strip", "!scanrundeps", "!lintstatic", "foreignelf", "execstack"]

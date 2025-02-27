@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "gnu_configure"
 makedepends = ["automake", "texinfo"]
 pkgdesc = "Collection of re-usable Autoconf macros"
-maintainer = "stbk <stbk@elia.garden>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/autoconf-archive"
 source = f"$(GNU_SITE)/autoconf-archive/autoconf-archive-{pkgver}.tar.xz"

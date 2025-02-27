@@ -7,7 +7,6 @@ hostmakedepends = ["automake"]
 makedepends = ["ncurses-devel"]
 checkdepends = ["perl"]
 pkgdesc = "Pager program similar to more(1)"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:less OR GPL-3.0-or-later"
 url = "https://www.greenwoodsoftware.com/less"
 source = f"https://www.greenwoodsoftware.com/less/less-{pkgver}.tar.gz"

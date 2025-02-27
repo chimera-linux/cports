@@ -6,7 +6,6 @@ makedepends = ["zlib-ng-compat", "ncurses-libs", "zstd"]
 # overlapping files
 depends = ["!rust"]
 pkgdesc = "Rust programming language bootstrap toolchain"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 _urlb = "https://repo.chimera-linux.org/distfiles"

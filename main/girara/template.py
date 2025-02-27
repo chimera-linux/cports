@@ -17,7 +17,6 @@ makedepends = [
 ]
 checkdepends = ["xserver-xorg-xvfb"]
 pkgdesc = "GTK+ user interface library with a focus on simplicity"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/girara"
 source = f"{url}/download/girara-{pkgver}.tar.xz"

@@ -7,7 +7,6 @@ makedepends = ["zlib-ng-compat-devel"]
 checkdepends = ["perl"]
 depends = ["less"]
 pkgdesc = "UNIX manpage compiler toolset"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://mandoc.bsd.lv"
 source = f"{url}/snapshots/mandoc-{pkgver}.tar.gz"

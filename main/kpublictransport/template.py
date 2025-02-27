@@ -17,7 +17,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "KDE library for accessing public transport information"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kpublictransport/html"
 source = (

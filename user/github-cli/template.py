@@ -11,7 +11,6 @@ make_check_args = ["./..."]
 hostmakedepends = ["go"]
 checkdepends = ["git", "openssh"]
 pkgdesc = "GitHub CLI tool"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://cli.github.com"
 source = f"https://github.com/cli/cli/archive/refs/tags/v{pkgver}.tar.gz"

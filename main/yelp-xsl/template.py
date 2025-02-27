@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "gettext-devel", "itstool", "pkgconf"]
 makedepends = ["libxslt-devel"]
 pkgdesc = "Help browser for GNOME desktop"
 subdesc = "XSL and misc files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Yelp/Xsl"
 source = f"$(GNOME_SITE)/yelp-xsl/{pkgver[:-2]}/yelp-xsl-{pkgver}.tar.xz"

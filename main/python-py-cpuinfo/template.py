@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest-xdist"]
 pkgdesc = "Python module for getting CPU info"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/workhorsy/py-cpuinfo"
 source = f"$(PYPI_SITE)/p/py-cpuinfo/py-cpuinfo-{pkgver}.tar.gz"

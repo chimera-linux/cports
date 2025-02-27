@@ -67,7 +67,6 @@ makedepends = [
 ]
 provider_priority = 999
 pkgdesc = "Mesa 3D Graphics Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 # so we don't also download vendored system libs, just rlib names

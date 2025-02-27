@@ -8,7 +8,6 @@ hostmakedepends = ["pkgconf"]
 makedepends = ["linux-headers", "udev-devel"]
 checkdepends = ["bash", "e2fsprogs", "udev"]
 pkgdesc = "Tool for handling Linux md arrays"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://raid.wiki.kernel.org/index.php/A_guide_to_mdadm"
 source = f"$(KERNEL_SITE)/utils/raid/mdadm/mdadm-{pkgver}.tar.gz"

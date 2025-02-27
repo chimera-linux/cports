@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["automake"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Curses-based text editor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://joe-editor.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/joe-editor/JOE%20sources/joe-{pkgver}/joe-{pkgver}.tar.gz"

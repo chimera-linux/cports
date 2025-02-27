@@ -55,7 +55,6 @@ depends = [
 # locale file conflicts ~6.2.3
 replaces = ["plasma-workspace<6.2.3"]
 pkgdesc = "KDE Plasma shell power consumption settings manager"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/powerdevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/powerdevil-{pkgver}.tar.xz"

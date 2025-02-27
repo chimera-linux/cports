@@ -23,7 +23,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE profiling visualisation tool"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only"
 url = "https://apps.kde.org/kcachegrind"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kcachegrind-{pkgver}.tar.xz"

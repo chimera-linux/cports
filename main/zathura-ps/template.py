@@ -10,7 +10,6 @@ makedepends = [
 ]
 depends = ["zathura"]
 pkgdesc = "Postscript support for zathura"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-ps"
 source = f"{url}/download/zathura-ps-{pkgver}.tar.xz"

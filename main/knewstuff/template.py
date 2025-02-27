@@ -26,7 +26,6 @@ makedepends = [
 ]
 depends = ["kirigami"]
 pkgdesc = "Framework for downloading/sharing additional app data"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/knewstuff/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/knewstuff-{pkgver}.tar.xz"

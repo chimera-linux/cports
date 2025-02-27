@@ -21,7 +21,6 @@ makedepends = [
     "ncurses-devel",
 ]
 pkgdesc = "GNU screen"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/screen"
 source = f"$(GNU_SITE)/screen/screen-{pkgver}.tar.gz"

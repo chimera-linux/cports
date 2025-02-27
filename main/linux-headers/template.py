@@ -3,7 +3,6 @@ pkgver = "6.13.1"
 pkgrel = 0
 hostmakedepends = ["perl"]
 pkgdesc = "Linux API headers for userland development"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"

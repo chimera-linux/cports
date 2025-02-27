@@ -22,7 +22,6 @@ makedepends = [
     "qt6-qtbase-private-devel",  # qguiapplication_p.h
 ]
 pkgdesc = "Flatpak portal library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://github.com/flatpak/libportal"
 source = f"{url}/releases/download/{pkgver}/libportal-{pkgver}.tar.xz"

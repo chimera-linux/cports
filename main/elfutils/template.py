@@ -38,7 +38,6 @@ checkdepends = ["bash"]
 # transitional
 provides = [self.with_pkgver("elftoolchain")]
 pkgdesc = "Utilities and libraries to handle ELF files and DWARF data"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later)"
 url = "https://sourceware.org/elfutils"
 source = (

@@ -20,7 +20,6 @@ makedepends = [
     "slop-devel",
 ]
 pkgdesc = "X11 screenshot utility"
-maintainer = "peri <peri@periwinkle.sh>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/naelstrof/maim"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

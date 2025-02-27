@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "libevdev-devel", "libgudev-devel"]
 pkgdesc = "Simple GObject game controller library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libmanette"
 source = f"$(GNOME_SITE)/libmanette/{pkgver[:-2]}/libmanette-{pkgver}.tar.xz"

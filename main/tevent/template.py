@@ -23,7 +23,6 @@ makedepends = [
     "gettext-devel",
 ]
 pkgdesc = "Event system based on talloc"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://tevent.samba.org"
 source = f"https://download.samba.org/pub/tevent/tevent-{pkgver}.tar.gz"

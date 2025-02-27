@@ -16,7 +16,6 @@ makedepends = [
     "xz-devel",
 ]
 pkgdesc = "Raptor RDF syntax library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 OR LGPL-2.1-or-later OR GPL-2.0-or-later"
 url = "https://librdf.org/raptor"
 source = f"https://librdf.org/dist/source/raptor2-{pkgver}.tar.gz"

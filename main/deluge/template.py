@@ -26,7 +26,6 @@ depends = [
     "python-zope.interface",
 ]
 pkgdesc = "Portable BitTorrent client"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://deluge-torrent.org"
 source = f"https://ftp.osuosl.org/pub/deluge/source/{pkgver[:-2]}/deluge-{pkgver}.tar.xz"

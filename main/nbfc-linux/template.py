@@ -5,7 +5,6 @@ build_style = "makefile"
 make_build_args = ["confdir=/etc"]
 make_install_args = ["confdir=/etc"]
 pkgdesc = "NoteBook FanControl for Linux"
-maintainer = "Sid Pranjale <mail@sidonthe.net>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/nbfc-linux/nbfc-linux"
 source = f"{url}/archive/{pkgver}/nbfc-linux-{pkgver}.tar.gz"

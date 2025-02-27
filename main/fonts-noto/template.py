@@ -2,7 +2,6 @@ pkgname = "fonts-noto"
 pkgver = "2025.02.01"
 pkgrel = 0
 pkgdesc = "Google Noto fonts"
-maintainer = "GeopJr <evan@geopjr.dev>"
 license = "OFL-1.1"
 url = "https://github.com/notofonts/notofonts.github.io"
 source = f"{url}/archive/refs/tags/noto-monthly-release-{pkgver}.zip"

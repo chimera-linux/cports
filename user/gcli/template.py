@@ -13,7 +13,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "CLI tool for interacting with Git(Hub|Lab|Tea)"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-2-Clause"
 url = "https://herrhotzenplotz.de/gcli"
 source = f"{url}/releases/gcli-{pkgver}/gcli-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 depends = ["perl"]
 pkgdesc = "Shell tool for executing jobs in parallel"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/parallel"
 source = f"https://ftp.gnu.org/gnu/parallel/parallel-{pkgver}.tar.bz2"

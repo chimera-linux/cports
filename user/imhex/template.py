@@ -43,7 +43,6 @@ makedepends = [
     "yara-devel",
 ]
 pkgdesc = "Hex editor for reverse engineers"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://imhex.werwolv.net"
 source = [

@@ -18,7 +18,6 @@ depends = [
     "python-gobject",
 ]
 pkgdesc = "GNOME video player"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/Incubator/showtime"
 source = f"{url}/-/archive/{pkgver}.tar.gz"

@@ -7,7 +7,6 @@ hostmakedepends = ["curl"]
 makedepends = ["sqlite", "zlib-ng-compat"]
 depends = ["!cargo"]
 pkgdesc = "Bootstrap binaries of Rust package manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://repo.chimera-linux.org/distfiles/cargo-{pkgver}-{self.profile().triplet}.tar.xz"

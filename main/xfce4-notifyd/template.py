@@ -25,7 +25,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce notification daemon"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/apps/xfce4-notifyd/start"
 # source = f"$(XFCE_SITE)/apps/xfce4-notifyd/{pkgver[:-2]}/xfce4-notifyd-{pkgver}.tar.bz2"

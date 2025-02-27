@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["automake"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Tool for managing software built from source"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "GPL-2.0-or-later"
 url = "http://xstow.sourceforge.net"
 source = f"https://github.com/majorkingleo/xstow/releases/download/{pkgver}/xstow-{pkgver}.tar.bz2"

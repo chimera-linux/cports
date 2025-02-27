@@ -7,7 +7,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["libgpg-error-devel"]
 pkgdesc = "IPC library used by some GnuPG related software"
-maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnupg.org/related_software/libassuan"
 source = f"https://gnupg.org/ftp/gcrypt/libassuan/libassuan-{pkgver}.tar.bz2"

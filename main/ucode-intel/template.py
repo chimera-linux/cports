@@ -5,7 +5,6 @@ archs = ["x86_64"]
 hostmakedepends = ["iucode-tool"]
 depends = ["iucode-tool"]
 pkgdesc = "Intel CPU microcode"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:proprietary"
 url = "https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files"
 source = f"{url}/archive/microcode-{pkgver}.tar.gz"

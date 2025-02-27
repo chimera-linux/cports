@@ -16,7 +16,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "KDE Idle time reporting of user and system"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only"
 url = "https://api.kde.org/frameworks/kidletime/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kidletime-{pkgver}.tar.xz"

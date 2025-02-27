@@ -10,7 +10,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Matching algorithm with recursively implemented storage"
-maintainer = "Nasado <hi@nasado.name>"
 license = "BSD-2-Clause OR LGPL-2.1-or-later"
 url = "https://github.com/s-yata/marisa-trie"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

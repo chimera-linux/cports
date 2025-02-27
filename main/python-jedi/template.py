@@ -14,7 +14,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Autocompletion and analysis library for Python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://jedi.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/j/jedi/jedi-{pkgver}.tar.gz"

@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Generic syntax highlighter written in Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://pygments.org"
 source = f"$(PYPI_SITE)/p/pygments/pygments-{pkgver}.tar.gz"

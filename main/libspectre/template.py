@@ -8,7 +8,6 @@ hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["ghostscript-devel"]
 checkdepends = ["cairo-devel"]
 pkgdesc = "Small library for rendering PostScript documents"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/libspectre"
 source = (

@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Extensible central daemon of KDE workspaces"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kded/html"
 source = (

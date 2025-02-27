@@ -9,7 +9,6 @@ make_build_args = [
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "CLI client for rustypaste"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/orhun/rustypaste-cli"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

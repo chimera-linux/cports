@@ -14,7 +14,6 @@ makedepends = ["python-devel"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python bindings to the Zstandard compression library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://github.com/indygreg/python-zstandard"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

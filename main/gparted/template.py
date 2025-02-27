@@ -19,7 +19,6 @@ makedepends = [
     "util-linux-uuid-devel",
 ]
 pkgdesc = "Graphical disk partition editor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gparted.org"
 source = f"$(SOURCEFORGE_SITE)/gparted/gparted-{pkgver}.tar.gz"

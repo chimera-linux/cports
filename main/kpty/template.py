@@ -14,7 +14,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE Interface to pseudo terminal devices"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpty/html"
 source = (

@@ -34,7 +34,6 @@ depends = [
     "kitemmodels",
 ]
 pkgdesc = "KDE Plasma PulseAudio integration"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-pa"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-pa-{pkgver}.tar.xz"

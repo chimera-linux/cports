@@ -16,7 +16,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Core components for KDE's Activity Manager"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/plasma/plasma-activities"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-activities-{pkgver}.tar.xz"

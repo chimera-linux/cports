@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["xorgproto", "libsm-devel", "libxext-devel", "libxt-devel"]
 pkgdesc = "X PixMap library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXpm-{pkgver}.tar.gz"

@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python-lark-parser"]
 pkgdesc = "Python parser for JSON with Python/Javascript style inline comments"
-maintainer = "Mara <177581589+catgirlconspiracy@users.noreply.github.com>"
 license = "MIT"
 url = "https://github.com/vaidik/commentjson"
 source = f"$(PYPI_SITE)/c/commentjson/commentjson-{pkgver}.tar.gz"

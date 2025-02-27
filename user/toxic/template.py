@@ -29,7 +29,6 @@ makedepends = [
     "qrencode-devel",
 ]
 pkgdesc = "Tox-based instant messaging and video chat client"
-maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/JFreegman/toxic"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

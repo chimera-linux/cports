@@ -17,7 +17,6 @@ makedepends = [
     "libsigc++-devel",
 ]
 pkgdesc = "PulseAudio volume control"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://freedesktop.org/software/pulseaudio/pavucontrol"
 source = f"https://gitlab.freedesktop.org/pulseaudio/pavucontrol/-/archive/v{pkgver}.tar.gz"

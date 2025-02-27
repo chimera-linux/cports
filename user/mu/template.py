@@ -13,7 +13,6 @@ makedepends = [
     "xapian-core-devel",
 ]
 pkgdesc = "Maildir-utils indexer/searcher and mu4e extension for emacs"
-maintainer = "tj <tjheeta@gmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/djcb/mu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

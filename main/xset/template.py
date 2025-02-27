@@ -10,7 +10,6 @@ makedepends = [
     "libxfontcache-devel",
 ]
 pkgdesc = "X11 user preferences utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xset-{pkgver}.tar.gz"

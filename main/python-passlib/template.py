@@ -6,7 +6,6 @@ hostmakedepends = ["python-build", "python-installer", "python-setuptools"]
 depends = ["python"]
 checkdepends = ["python-bcrypt", "python-pytest-xdist"]
 pkgdesc = "Password hashing library for Python"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "BSD-3-Clause"
 url = "https://passlib.readthedocs.io"
 source = f"https://foss.heptapod.net/python-libs/passlib/-/archive/{pkgver}/passlib-{pkgver}.tar.gz"

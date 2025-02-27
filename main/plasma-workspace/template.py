@@ -125,7 +125,6 @@ checkdepends = [
 # kde-portals.conf is now here
 replaces = ["xdg-desktop-portal-kde<6.2.1"]
 pkgdesc = "KDE Plasma Workspace"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/plasma-workspace-{pkgver}.tar.xz"

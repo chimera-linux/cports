@@ -6,7 +6,6 @@ build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Library for manipulating the IPTC metadata"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libiptcdata.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libiptcdata/libiptcdata-{pkgver}.tar.gz"

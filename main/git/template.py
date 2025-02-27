@@ -24,7 +24,6 @@ depends = [
 ]
 checkdepends = ["gnupg"]
 pkgdesc = "Fast, distributed version control system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/git/git-{pkgver}.tar.xz"

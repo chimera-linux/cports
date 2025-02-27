@@ -13,7 +13,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "nasm"]
 makedepends = ["libogg-devel"]
 pkgdesc = "Free Lossless Audio Codec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "http://flac.sourceforge.net"
 source = f"https://downloads.xiph.org/releases/flac/flac-{pkgver}.tar.xz"

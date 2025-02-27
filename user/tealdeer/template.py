@@ -18,7 +18,6 @@ make_check_args = [
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl3-devel"]
 pkgdesc = "Alternative implementation of tldr"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/tealdeer-rs/tealdeer"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

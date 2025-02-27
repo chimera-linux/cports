@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "LaTeX LSP server"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/latex-lsp/texlab"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

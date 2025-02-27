@@ -4,7 +4,6 @@ pkgrel = 3
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
 pkgdesc = "Compiler backend"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://c9x.me/compile"
 source = f"https://c9x.me/compile/release/qbe-{pkgver}.tar.xz"

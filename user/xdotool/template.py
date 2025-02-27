@@ -19,7 +19,6 @@ checkdepends = [
     "xserver-xorg-xvfb",
 ]
 pkgdesc = "Command-line X11 automation tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/jordansissel/xdotool"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"

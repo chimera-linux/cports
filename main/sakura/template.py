@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "gettext", "ninja", "perl", "pkgconf"]
 makedepends = ["vte-gtk3-devel"]
 pkgdesc = "Libvte-based terminal emulator"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "GPL-2.0-only"
 url = "https://launchpad.net/sakura"
 source = f"{url}/trunk/{pkgver}/+download/sakura-{pkgver}.tar.gz"

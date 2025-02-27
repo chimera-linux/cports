@@ -12,7 +12,6 @@ makedepends = ["python-devel", "linux-headers"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python bindings for evdev"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/gvalkov/python-evdev"
 source = f"{url}/archive/v{pkgver}.tar.gz"

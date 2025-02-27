@@ -6,7 +6,6 @@ configure_args = ["-DBTOP_LTO=OFF", "-DBTOP_FORTIFY=OFF"]
 hostmakedepends = ["cmake", "ninja", "lowdown"]
 makedepends = ["linux-headers"]
 pkgdesc = "TUI monitor of system resources"
-maintainer = "mia <mia@mia.jetzt>"
 license = "Apache-2.0"
 url = "https://github.com/aristocratos/btop"
 source = f"{url}/archive/v{pkgver}/btop-{pkgver}.tar.gz"

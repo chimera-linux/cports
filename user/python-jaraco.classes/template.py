@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-more-itertools"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Utility functions for Python class constructs"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jaraco/jaraco.classes"
 source = f"$(PYPI_SITE)/j/jaraco.classes/jaraco.classes-{pkgver}.tar.gz"

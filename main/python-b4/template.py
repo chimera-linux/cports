@@ -19,7 +19,6 @@ depends = [
 ]
 checkdepends = ["python-git-filter-repo", "python-pytest", "python-requests"]
 pkgdesc = "Tool to help with email-based patch workflows"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/mricon/b4"
 # pypi tarball doesn't contain tests

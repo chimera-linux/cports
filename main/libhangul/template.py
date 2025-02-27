@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "gettext-devel", "libtool", "pkgconf"]
 pkgdesc = "Library to support hangul input and character classification"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/libhangul/libhangul"
 source = f"{url}/archive/libhangul-{pkgver}.tar.gz"

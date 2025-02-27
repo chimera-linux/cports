@@ -12,7 +12,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Gradually dim the screen"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://git.sr.ht/~emersion/chayang"
 source = f"{url}/archive/v{pkgver}.tar.gz"

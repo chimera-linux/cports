@@ -9,7 +9,6 @@ make_check_args = ["-j1"]
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["boost-devel"]
 pkgdesc = "Convert source code to syntax highlighted document"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/src-highlite"
 source = f"$(GNU_SITE)/src-highlite/source-highlight-{pkgver}.tar.gz"

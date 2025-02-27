@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["gettext-devel", "automake"]
 makedepends = ["ncurses-devel", "gnu-getopt", "linux-headers"]
 pkgdesc = "Small utilities that use the proc file-system"
-maintainer = "roastveg <louis@hamptonsoftworks.com>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/psmisc/psmisc"
 source = f"$(SOURCEFORGE_SITE)/psmisc/psmisc-{pkgver}.tar.xz"

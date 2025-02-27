@@ -15,7 +15,6 @@ checkdepends = [
     "python-tempora",
 ]
 pkgdesc = "Python decorators and context managers"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jaraco/jaraco.context"
 source = f"$(PYPI_SITE)/j/jaraco.context/jaraco_context-{pkgver}.tar.gz"

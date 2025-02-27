@@ -36,7 +36,6 @@ makedepends = [
     "xserver-xorg-input-libinput-devel",
 ]
 pkgdesc = "Xfce settings app"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/xfce4-settings/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-settings/{pkgver[:-2]}/xfce4-settings-{pkgver}.tar.bz2"

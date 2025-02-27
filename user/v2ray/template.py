@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = ["./main"]
 hostmakedepends = ["go"]
 pkgdesc = "Platform for building proxies to bypass network restrictions"
-maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "MIT"
 url = "https://v2fly.org"
 source = (

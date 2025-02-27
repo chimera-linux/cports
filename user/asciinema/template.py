@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Terminal session recorder"
-maintainer = "cassiofb-dev <contact@cassiofernando.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/asciinema/asciinema"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

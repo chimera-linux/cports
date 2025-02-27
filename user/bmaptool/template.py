@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["gpgme-python", "gtar", "python-six"]
 checkdepends = ["python-pytest", "python-six", *depends]
 pkgdesc = "Tool for creating and using block maps"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/yoctoproject/bmaptool"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -28,7 +28,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce panel"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://docs.xfce.org/xfce/xfce4-panel/start"
 source = (

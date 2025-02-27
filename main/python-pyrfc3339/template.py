@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Generate and parse RFC 3339 timestamps"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://github.com/kurtraschke/pyRFC3339"
 # pypi has no tests

@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Themeable LS_COLORS generator"
-maintainer = "jabuxas <jabuxas@proton.me>"
 license = "MIT AND Apache-2.0"
 url = "https://github.com/sharkdp/vivid"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

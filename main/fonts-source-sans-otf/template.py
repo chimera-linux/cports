@@ -2,7 +2,6 @@ pkgname = "fonts-source-sans-otf"
 pkgver = "3.052"
 pkgrel = 0
 pkgdesc = "Sans serif font family for UI environments"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "OFL-1.1"
 url = "https://adobe-fonts.github.io/source-sans"
 source = f"https://github.com/adobe-fonts/source-sans/releases/download/{pkgver}R/OTF-source-sans-{pkgver}R.zip"

@@ -37,7 +37,6 @@ makedepends = [
     "zxing-cpp-devel",
 ]
 pkgdesc = "KDE Screenshot capture utility"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/spectacle"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/spectacle-{pkgver}.tar.xz"

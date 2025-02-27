@@ -18,7 +18,6 @@ hostmakedepends = ["pkgconf"]
 makedepends = ["udev-devel", "linux-headers"]
 depends = ["resolvconf"]
 pkgdesc = "RFC2131 compliant DHCP client"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://roy.marples.name/projects/dhcpcd"
 source = f"https://github.com/NetworkConfiguration/dhcpcd/releases/download/v{pkgver}/dhcpcd-{pkgver}.tar.xz"

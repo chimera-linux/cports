@@ -11,7 +11,6 @@ makedepends = [
     "sdl2_net-devel",
 ]
 pkgdesc = "Limit-removing enhanced-resolution Doom source port"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/fabiangreffrath/crispy-doom"
 source = f"{url}/archive/crispy-doom-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Terminal bandwidth utilization tool"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/imsnif/bandwhich"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

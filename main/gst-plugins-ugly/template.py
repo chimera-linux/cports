@@ -29,7 +29,6 @@ makedepends = [
     "x264-devel",
 ]
 pkgdesc = "GStreamer ugly plugins"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-ugly/gst-plugins-ugly-{pkgver}.tar.xz"

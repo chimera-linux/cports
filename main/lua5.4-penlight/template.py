@@ -4,7 +4,6 @@ pkgrel = 0
 makedepends = ["lua5.4-devel"]
 depends = ["lua5.4-luafilesystem"]
 pkgdesc = "Lua library for miscellaneous extended operations"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://lunarmodules.github.io/Penlight"
 source = f"https://github.com/lunarmodules/Penlight/archive/refs/tags/{pkgver}.tar.gz"

@@ -18,7 +18,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce clipboard manager app and panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-cpugraph-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-cpugraph-plugin/{pkgver[: pkgver.rfind('.')]}/xfce4-cpugraph-plugin-{pkgver}.tar.bz2"

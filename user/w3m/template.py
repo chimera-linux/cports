@@ -12,7 +12,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "TUI web browser and pager"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/tats/w3m"
 source = f"{url}/archive/refs/tags/v{pkgver.replace('_', '+')}.tar.gz"

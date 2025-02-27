@@ -24,7 +24,6 @@ makedepends = [
     "libxml2-devel",
 ]
 pkgdesc = "GNOME RESTful library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/librest"
 source = f"$(GNOME_SITE)/rest/{pkgver[:-2]}/rest-{pkgver}.tar.xz"

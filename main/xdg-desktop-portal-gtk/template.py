@@ -20,7 +20,6 @@ makedepends = [
 ]
 depends = ["xdg-desktop-portal", "gsettings-desktop-schemas"]
 pkgdesc = "Gtk implementation of xdg-desktop-portal"
-maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/flatpak/xdg-desktop-portal-gtk"
 source = f"https://github.com/flatpak/xdg-desktop-portal-gtk/releases/download/{pkgver}/xdg-desktop-portal-gtk-{pkgver}.tar.xz"

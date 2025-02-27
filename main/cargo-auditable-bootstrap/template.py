@@ -14,7 +14,6 @@ hostmakedepends = ["cargo"]
 makedepends = ["rust-std"]
 depends = ["cargo"]
 pkgdesc = "Tool for embedding dependency information in rust binaries"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/rust-secure-code/cargo-auditable"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

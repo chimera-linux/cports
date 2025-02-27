@@ -6,7 +6,6 @@ build_style = "gnu_configure"
 configure_args = ["--libexecdir=/usr/lib"]
 hostmakedepends = ["automake", "slibtool", "pkgconf"]
 pkgdesc = "Testing library"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://github.com/freebsd/atf"
 source = f"{url}/archive/refs/tags/atf-{pkgver}.tar.gz"

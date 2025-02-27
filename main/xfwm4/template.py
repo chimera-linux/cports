@@ -29,7 +29,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce window manager"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfwm4/start"
 source = f"$(XFCE_SITE)/xfce/xfwm4/{pkgver[:-2]}/xfwm4-{pkgver}.tar.bz2"

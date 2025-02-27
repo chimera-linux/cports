@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 checkdepends = ["gtest-devel"]
 pkgdesc = "Multi-format 1D/2D barcode library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/nu-book/zxing-cpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

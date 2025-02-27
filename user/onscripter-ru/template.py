@@ -18,7 +18,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Umineko Project visual novel engine"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later AND BSD-3-Clause"
 url = "https://umineko-project.org"
 source = f"https://github.com/z-erica/onscripter-ru/archive/refs/tags/v{pkgver}.tar.gz"

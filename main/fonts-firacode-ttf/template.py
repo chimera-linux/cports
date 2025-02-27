@@ -2,7 +2,6 @@ pkgname = "fonts-firacode-ttf"
 pkgver = "6.2"
 pkgrel = 0
 pkgdesc = "Free monospaced font with programming ligatures"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "OFL-1.1"
 url = "https://github.com/tonsky/FiraCode"
 source = f"{url}/releases/download/{pkgver}/Fira_Code_v{pkgver}.zip"

@@ -8,7 +8,6 @@ make_build_args = [
 ]
 hostmakedepends = ["go"]
 pkgdesc = "Terminal-based text editor"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "MIT"
 url = "https://micro-editor.github.io"
 source = f"https://github.com/zyedidia/micro/archive/v{pkgver}.tar.gz"

@@ -18,7 +18,6 @@ make_check_args = [
 hostmakedepends = ["automake", "libtool"]
 makedepends = ["elfutils-devel", "linux-headers"]
 pkgdesc = "System call tracer"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://strace.io"
 source = f"https://github.com/strace/strace/releases/download/v{pkgver}/strace-{pkgver}.tar.xz"

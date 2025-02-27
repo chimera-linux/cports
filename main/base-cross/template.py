@@ -10,7 +10,6 @@ depends = [
     "fortify-headers",
 ]
 pkgdesc = "Base metapackage for cross-compiling"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 options = ["!cross"]

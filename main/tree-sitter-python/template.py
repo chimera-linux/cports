@@ -8,7 +8,6 @@ hostmakedepends = [
     "tree-sitter-cli",
 ]
 pkgdesc = "Python grammar for tree-sitter"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/tree-sitter/tree-sitter-python"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

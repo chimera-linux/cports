@@ -12,7 +12,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["libogg-devel"]
 pkgdesc = "Theora video compression codec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://theora.org"
 source = f"https://downloads.xiph.org/releases/theora/libtheora-{pkgver}.tar.xz"

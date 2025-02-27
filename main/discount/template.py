@@ -19,7 +19,6 @@ make_install_target = "install.everything"
 make_check_target = "test"
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Markdown to HTML translator"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.pell.portland.or.us/~orc/Code/discount"
 source = f"https://github.com/Orc/discount/archive/refs/tags/v{pkgver}.tar.gz"

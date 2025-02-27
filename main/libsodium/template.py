@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["lt_cv_prog_compiler_static_works=yes"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 pkgdesc = "Modern and easy-to-use crypto library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://libsodium.org"
 source = f"https://download.libsodium.org/libsodium/releases/libsodium-{pkgver}.tar.gz"

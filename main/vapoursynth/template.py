@@ -13,7 +13,6 @@ hostmakedepends = [
 ]
 makedepends = ["python-devel", "zimg-devel"]
 pkgdesc = "Video processing framework"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.vapoursynth.com"
 source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"

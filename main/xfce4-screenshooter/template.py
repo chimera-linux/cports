@@ -29,7 +29,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Xfce screenshot app"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-screenshooter/start"
 source = f"$(XFCE_SITE)/apps/xfce4-screenshooter/{'.'.join(pkgver.split('.')[:-1])}/xfce4-screenshooter-{pkgver}.tar.bz2"

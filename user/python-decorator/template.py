@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for decorators"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://github.com/micheles/decorator"
 source = f"$(PYPI_SITE)/d/decorator/decorator-{pkgver}.tar.gz"

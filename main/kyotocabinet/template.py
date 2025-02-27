@@ -12,7 +12,6 @@ make_dir = "."
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = ["xz-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Library of database management routines"
-maintainer = "metalparade <comer@live.cn>"
 license = "GPL-3.0-or-later"
 url = "https://dbmx.net/kyotocabinet"
 source = f"{url}/pkg/kyotocabinet-{pkgver}.tar.gz"

@@ -12,7 +12,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["linux-headers", "gtest-devel"]
 pkgdesc = "Abseil C++ libraries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://abseil.io"
 source = (

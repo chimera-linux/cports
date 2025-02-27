@@ -9,7 +9,6 @@ make_check_target = "test"
 hostmakedepends = ["asciidoc"]
 checkdepends = ["perl"]
 pkgdesc = "80x86 assembler designed for portability and modularity"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://www.nasm.us"
 source = f"{url}/pub/nasm/releasebuilds/{pkgver}/nasm-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = ["./cmd/swagger"]
 hostmakedepends = ["go"]
 pkgdesc = "Swagger implementation for Go"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/go-swagger/go-swagger"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

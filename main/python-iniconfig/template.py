@@ -6,7 +6,6 @@ hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 checkdepends = ["python-pytest", "python-py"]
 depends = ["python"]
 pkgdesc = "Brain-dead simple config-ini parsing"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/RonnyPfannschmidt/iniconfig"
 source = f"$(PYPI_SITE)/i/iniconfig/iniconfig-{pkgver}.tar.gz"

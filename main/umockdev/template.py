@@ -12,7 +12,6 @@ hostmakedepends = [
 makedepends = ["glib-devel", "libpcap-devel", "linux-headers", "udev-devel"]
 checkdepends = ["libgudev-devel", "udev"]
 pkgdesc = "Mock hardware devices"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/martinpitt/umockdev"
 source = f"https://github.com/martinpitt/umockdev/releases/download/{pkgver}/umockdev-{pkgver}.tar.xz"

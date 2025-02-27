@@ -28,7 +28,6 @@ makedepends = [
     "util-linux-uuid-devel",
 ]
 pkgdesc = "Implementation of TCG TPM2"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/tpm2-software/tpm2-tss"
 source = f"{url}/releases/download/{pkgver}/tpm2-tss-{pkgver}.tar.gz"

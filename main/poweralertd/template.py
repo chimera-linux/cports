@@ -10,7 +10,6 @@ hostmakedepends = [
 makedepends = ["elogind-devel"]
 depends = ["upower"]
 pkgdesc = "UPower-powered power alerter"
-maintainer = "Umar Getagazov <umar@handlerug.me>"
 license = "GPL-3.0-only"
 url = "https://sr.ht/~kennylevinsen/poweralertd"
 source = f"https://git.sr.ht/~kennylevinsen/poweralertd/archive/{pkgver}.tar.gz"

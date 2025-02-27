@@ -14,7 +14,6 @@ makedepends = [
     "pango-devel",
 ]
 pkgdesc = "Window manager based on aewm++"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.pekwm.se"
 source = f"https://github.com/pekdon/pekwm/archive/release-{pkgver}.tar.gz"

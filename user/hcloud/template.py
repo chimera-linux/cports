@@ -10,7 +10,6 @@ make_build_args = [
 ]
 hostmakedepends = ["go"]
 pkgdesc = "Command-line interface for Hetzner Cloud"
-maintainer = "breakgimme <adam@plock.com>"
 license = "MIT"
 url = "https://github.com/hetznercloud/cli"
 source = (

@@ -14,7 +14,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "Freedesktop Open Collaboration Services (OCS) binding for Qt"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/attica/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/attica-{pkgver}.tar.xz"

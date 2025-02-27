@@ -37,7 +37,6 @@ makedepends = [
     "xcb-util-wm-devel",
 ]
 pkgdesc = "Modular Wayland compositor library 0.17.x"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/wlroots/wlroots"
 source = f"https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/{pkgver}/downloads/wlroots-{pkgver}.tar.gz"

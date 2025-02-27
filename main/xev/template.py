@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libxrandr-devel"]
 pkgdesc = "Display X events"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xev-{pkgver}.tar.gz"

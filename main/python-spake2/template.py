@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-cryptography"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "SPAKE2 Python implementation"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/warner/python-spake2"
 source = f"$(PYPI_SITE)/s/spake2/spake2-{pkgver}.tar.gz"

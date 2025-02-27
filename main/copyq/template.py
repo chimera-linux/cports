@@ -23,7 +23,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Clipboard manager with advanced features"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://hluk.github.io/CopyQ"
 source = f"https://github.com/hluk/CopyQ/archive/refs/tags/v{pkgver}.tar.gz"

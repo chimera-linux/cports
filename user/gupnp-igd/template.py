@@ -10,7 +10,6 @@ makedepends = [
     "libxml2-devel",
 ]
 pkgdesc = "Library to handle UPnP IGD port mapping"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GUPnP"
 source = f"$(GNOME_SITE)/gupnp-igd/{pkgver[:-2]}/gupnp-igd-{pkgver}.tar.xz"

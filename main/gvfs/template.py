@@ -53,7 +53,6 @@ depends = ["desktop-file-utils"]
 # some shared libs that modules depend on
 provides = ["so:libgvfscommon.so=0", "so:libgvfsdaemon.so=0"]
 pkgdesc = "GNOME virtual file system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gvfs"
 source = f"$(GNOME_SITE)/gvfs/{pkgver[:-2]}/gvfs-{pkgver}.tar.xz"

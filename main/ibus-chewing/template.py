@@ -25,7 +25,6 @@ checkdepends = [
     "xwayland-run",
 ]
 pkgdesc = "Chewing engine for IBus"
-maintainer = "xunil-cloud <river_electron@proton.me>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/chewing/ibus-chewing"
 source = (

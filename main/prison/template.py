@@ -15,7 +15,6 @@ makedepends = [
     "zxing-cpp-devel",
 ]
 pkgdesc = "KDE library to produce QR codes and DataMatrix barcodes"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://api.kde.org/frameworks/prison/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/prison-{pkgver}.tar.xz"

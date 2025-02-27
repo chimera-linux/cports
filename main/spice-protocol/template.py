@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Protocol definition for SPICE project"
-maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://gitlab.freedesktop.org/spice/spice-protocol"
 source = f"https://www.spice-space.org/download/releases/spice-protocol-{pkgver}.tar.xz"

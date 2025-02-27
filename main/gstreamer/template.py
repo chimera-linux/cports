@@ -31,7 +31,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Core GStreamer libraries and elements"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gstreamer/gstreamer-{pkgver}.tar.xz"

@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["automake"]
 makedepends = ["libpcap-devel", "linux-headers", "ncurses-devel"]
 pkgdesc = "Display bandwidth usage on an interface by host"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "GPL-2.0-or-later"
 url = "https://pdw.ex-parrot.com/iftop"
 source = f"{url}/download/iftop-1.0pre4.tar.gz"

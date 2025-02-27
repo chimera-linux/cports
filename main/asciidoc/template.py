@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 depends = ["python", "docbook-xsl-nons", "libxslt-progs", "libxml2-progs"]
 pkgdesc = "Text-based document generation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://asciidoc.org"
 source = f"$(PYPI_SITE)/a/asciidoc/asciidoc-{pkgver}.tar.gz"

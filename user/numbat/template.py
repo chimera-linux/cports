@@ -8,7 +8,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["tzdb"]
 pkgdesc = "High-precision scientific calculator"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/numbat"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

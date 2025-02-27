@@ -25,7 +25,6 @@ checkdepends = [
 ]
 pkgdesc = "Configuration management and multinode orchestration framework"
 subdesc = "core components"
-maintainer = "Mara <177581589+catgirlconspiracy@users.noreply.github.com>"
 license = "GPL-3.0-or-later"
 url = "https://ansible.com"
 source = f"$(PYPI_SITE)/a/ansible-core/ansible_core-{pkgver}.tar.gz"

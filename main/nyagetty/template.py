@@ -6,7 +6,6 @@ hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
 depends = ["cmd:login!shadow"]
 pkgdesc = "Standalone util-linux agetty"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
 url = "https://github.com/chimera-linux/nyagetty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

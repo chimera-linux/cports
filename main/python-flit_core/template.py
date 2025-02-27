@@ -5,7 +5,6 @@ hostmakedepends = ["python"]
 checkdepends = ["python-pytest", "python-testpath"]
 depends = ["python"]
 pkgdesc = "Simplified PEP 517 packaging backend"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://flit.pypa.io"
 source = f"$(PYPI_SITE)/f/flit_core/flit_core-{pkgver}.tar.gz"

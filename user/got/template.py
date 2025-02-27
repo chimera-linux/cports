@@ -26,7 +26,6 @@ makedepends = [
 ]
 checkdepends = ["git"]
 pkgdesc = "VCS prioritizing simplicity over flexibily"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://gameoftrees.org"
 source = f"{url}/releases/portable/got-portable-{pkgver}.tar.gz"

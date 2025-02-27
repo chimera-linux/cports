@@ -20,7 +20,6 @@ checkdepends = [
 ]
 provides = [self.with_pkgver("black")]
 pkgdesc = "Python formatting tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://black.readthedocs.io"
 source = f"$(PYPI_SITE)/b/black/black-{pkgver}.tar.gz"

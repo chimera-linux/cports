@@ -8,7 +8,6 @@ hostmakedepends = ["zstd-progs"]
 replaces = ["firmware-linux-brcm", "firmware-rpi<=20220905-r0"]
 replaces_priority = 100  # always overrides files of firmware-linux-brcm
 pkgdesc = "Broadcom firmware for Raspberry Pi"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:Broadcom AND custom:Cypress"
 url = "https://github.com/raspberrypi/firmware"
 source = [

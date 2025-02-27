@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = ["pinentry"]
 pkgdesc = "GNU Privacy Guard 2.x"
-maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnupg.org"
 source = f"https://gnupg.org/ftp/gcrypt/gnupg/gnupg-{pkgver}.tar.bz2"

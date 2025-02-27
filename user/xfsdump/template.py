@@ -11,7 +11,6 @@ make_install_args = ["PKG_ROOT_SBIN_DIR=/usr/bin"]
 hostmakedepends = ["gettext"]
 makedepends = ["attr-devel", "linux-headers", "ncurses-devel", "xfsprogs-devel"]
 pkgdesc = "XFS dump tools"
-maintainer = "nilfsuser5678 <chimera-dev.o6dyz@passmail.net>"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/fs/xfs/xfsdump-dev.git"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/xfsdump/xfsdump-{pkgver}.tar.xz"

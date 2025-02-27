@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["fontconfig-devel", "freetype-devel", "libxcb-devel", "rust-std"]
 pkgdesc = "Cross-platform, GPU-accelerated terminal emulator"
-maintainer = "nbfritch <nbfritch@gmail.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/alacritty/alacritty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

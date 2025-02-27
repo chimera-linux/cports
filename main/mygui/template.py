@@ -17,7 +17,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Fast, flexible and simple GUI"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/MyGUI"
 source = f"{url}/mygui/archive/MyGUI{pkgver}.tar.gz"

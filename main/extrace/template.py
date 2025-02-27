@@ -5,7 +5,6 @@ build_style = "makefile"
 hostmakedepends = ["libcap-progs"]
 makedepends = ["linux-headers"]
 pkgdesc = "Trace program executions occurring on a system"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://github.com/leahneukirchen/extrace"
 source = f"{url}/archive/v{pkgver}.tar.gz"

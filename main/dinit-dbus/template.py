@@ -9,7 +9,6 @@ checkdepends = ["dbus"]
 depends = ["dbus"]
 replaces = ["dbus-dinit<1.14.10-r14"]
 pkgdesc = "DBus interface to dinit"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-dbus"
 source = f"{url}/archive/{_gitrev}.tar.gz"

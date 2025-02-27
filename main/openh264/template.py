@@ -16,7 +16,6 @@ make_check_target = "test"
 make_use_env = True
 hostmakedepends = ["nasm", "pkgconf"]
 pkgdesc = "H.264 codec implementation"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/cisco/openh264"
 source = [

@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["sdl2-compat-devel", "sdl2_image-devel", "alsa-lib-devel"]
 pkgdesc = "Chiptune tracker"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://kometbomb.github.io/klystrack"
 source = f"https://github.com/z-erica/klystrack/releases/download/{pkgver}/klystrack-{pkgver}.tar.xz"

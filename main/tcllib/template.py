@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "tcl"]
 makedepends = ["tcl-devel"]
 pkgdesc = "Tcl standard library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "TCL"
 url = "https://core.tcl-lang.org/tcllib"
 source = f"{url}/uv/tcllib-{pkgver}.tar.xz"

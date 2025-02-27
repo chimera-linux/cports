@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-ply"]
 checkdepends = ["python-ply", "python-pytest"]
 pkgdesc = "C99 parser in Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/eliben/pycparser"
 source = f"$(PYPI_SITE)/p/pycparser/pycparser-{pkgver}.tar.gz"

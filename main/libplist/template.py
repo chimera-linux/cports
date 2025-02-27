@@ -15,7 +15,6 @@ makedepends = ["python-devel", "glib-devel", "libxml2-devel"]
 # transitional
 provides = ["libplist++"]
 pkgdesc = "Apple Property List library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
 source = f"https://github.com/libimobiledevice/libplist/releases/download/{pkgver}/libplist-{pkgver}.tar.bz2"

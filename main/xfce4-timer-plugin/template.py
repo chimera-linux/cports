@@ -17,7 +17,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce timer panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-timer-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-timer-plugin/{pkgver[:-2]}/xfce4-timer-plugin-{pkgver}.tar.bz2"

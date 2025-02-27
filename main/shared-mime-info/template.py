@@ -7,7 +7,6 @@ hostmakedepends = ["meson", "pkgconf", "gettext", "xmlto", "libxml2-progs"]
 makedepends = ["glib-devel", "libxml2-devel"]
 triggers = ["/usr/share/mime"]
 pkgdesc = "Core database of common types"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://freedesktop.org/wiki/Software/shared-mime-info"
 source = f"https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/{pkgver}/shared-mime-info-{pkgver}.tar.gz"

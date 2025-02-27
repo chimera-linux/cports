@@ -12,7 +12,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE's RSS/Atom parser library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND BSD-2-Clause"
 url = "https://api.kde.org/frameworks/syndication/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/syndication-{pkgver}.tar.xz"

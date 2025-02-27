@@ -16,7 +16,6 @@ makedepends = [
 ]
 depends = ["dinit-dbus", "polkit"]
 pkgdesc = "Realtime policy and watchdog daemon"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://github.com/heftig/rtkit"
 source = f"{url}/releases/download/v{pkgver}/rtkit-{pkgver}.tar.xz"

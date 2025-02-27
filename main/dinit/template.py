@@ -13,7 +13,6 @@ configure_args = [
 make_check_args = ["check-igr"]  # additional target
 makedepends = ["libcap-devel"]
 pkgdesc = "Service manager and init system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://davmac.org/projects/dinit"
 source = f"https://github.com/davmac314/dinit/archive/{_gitrev}.tar.gz"

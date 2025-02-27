@@ -129,7 +129,6 @@ makedepends = [
 depends = [self.with_pkgver("systemd-boot-efi")]
 checkdepends = ["xz", "perl"]
 pkgdesc = "UEFI boot manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/systemd/systemd"
 source = (

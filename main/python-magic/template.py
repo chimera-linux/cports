@@ -12,7 +12,6 @@ depends = ["python"]
 depends = ["libmagic"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python wrapper for libmagic"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ahupp/python-magic"
 source = (

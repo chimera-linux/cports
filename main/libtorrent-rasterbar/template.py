@@ -21,7 +21,6 @@ hostmakedepends = [
 ]
 makedepends = ["openssl3-devel", "boost-devel", "python-devel", "linux-headers"]
 pkgdesc = "C++ BitTorrent library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libtorrent.org"
 source = f"https://github.com/arvidn/libtorrent/releases/download/v{pkgver}/libtorrent-rasterbar-{pkgver}.tar.gz"

@@ -4,7 +4,6 @@ _commit = "5736b15f7ea0ffb08dd38af21067c314d6a3aae9"
 pkgrel = 0
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Single-header libraries for C/C++"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/nothings/stb"
 source = f"{url}/archive/{_commit}.tar.gz"

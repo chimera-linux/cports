@@ -31,7 +31,6 @@ makedepends = [
 # also locale file conflicts ~6.2.3 & more plasma-workspace dataengines ~6.3.0
 replaces = ["plasma-workspace<6.3.0"]
 pkgdesc = "KDE Support components for porting from Qt5/KF5 to Qt6/KF6"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma5support"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma5support-{pkgver}.tar.xz"

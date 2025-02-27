@@ -22,7 +22,6 @@ depends = [
     "libxslt-progs",
 ]
 pkgdesc = "Documentation tool for public library API"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND GFDL-1.1-or-later"
 url = "http://www.gtk.org/gtk-doc"
 source = f"$(GNOME_SITE)/gtk-doc/{pkgver[:-2]}/gtk-doc-{pkgver}.tar.xz"

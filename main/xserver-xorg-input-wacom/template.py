@@ -20,7 +20,6 @@ makedepends = [
 ]
 depends = ["virtual:xserver-abi-input~24!xserver-xorg-core"]
 pkgdesc = "X.org Wacom tablet input driver"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://xorg.freedesktop.org"
 source = f"https://github.com/linuxwacom/xf86-input-wacom/releases/download/xf86-input-wacom-{pkgver}/xf86-input-wacom-{pkgver}.tar.bz2"

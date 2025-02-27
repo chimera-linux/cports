@@ -8,7 +8,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "GNU Scientific Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gsl/gsl.html"
 source = f"$(GNU_SITE)/gsl/gsl-{pkgver}.tar.gz"

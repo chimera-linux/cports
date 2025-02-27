@@ -12,7 +12,6 @@ hostmakedepends = [
 # not strictly dependencies per se, just to drag them in
 depends = ["font-alias", "fontconfig", "mkfontscale"]
 pkgdesc = "X.org font utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/font/font-util-{pkgver}.tar.gz"

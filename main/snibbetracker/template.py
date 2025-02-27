@@ -5,7 +5,6 @@ build_style = "makefile"
 make_dir = "res/linux"
 makedepends = ["sdl2-compat-devel"]
 pkgdesc = "Fakebit music tracker"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://github.com/lundstroem/snibbetracker"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

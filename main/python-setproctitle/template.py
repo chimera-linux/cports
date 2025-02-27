@@ -12,7 +12,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python module for process title customization"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/dvarrazzo/py-setproctitle"
 source = f"$(PYPI_SITE)/s/setproctitle/setproctitle-{pkgver}.tar.gz"

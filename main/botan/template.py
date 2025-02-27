@@ -24,7 +24,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Crypto and TLS for C++"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://botan.randombit.net"
 source = f"{url}/releases/Botan-{pkgver}.tar.xz"

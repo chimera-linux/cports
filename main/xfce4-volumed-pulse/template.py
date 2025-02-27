@@ -18,7 +18,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce volume keys control daemon"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 # FIXME: Should be https://gitlab.xfce.org/apps/xfce4-volumed-pulse but that
 # causes the update check to not find any versions, seems like some kind of race

@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python mock library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://mock.readthedocs.org"
 source = f"$(PYPI_SITE)/m/mock/mock-{pkgver}.tar.gz"

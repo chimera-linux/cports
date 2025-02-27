@@ -12,7 +12,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Port of Star Control 2"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://sc2.sourceforge.net"
 source = (

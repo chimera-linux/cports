@@ -27,7 +27,6 @@ make_check_args = [
 hostmakedepends = ["pkgconf", "perl"]
 provides = [self.with_pkgver("openssl")]
 pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.openssl.org"
 source = f"https://github.com/openssl/openssl/releases/download/openssl-{pkgver}/openssl-{pkgver}.tar.gz"

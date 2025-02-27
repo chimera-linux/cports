@@ -19,7 +19,6 @@ makedepends = [
     "unittest-cpp",
 ]
 pkgdesc = "Generic spell checking library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://abiword.github.io/enchant"
 source = f"https://github.com/AbiWord/enchant/releases/download/v{pkgver}/enchant-{pkgver}.tar.gz"

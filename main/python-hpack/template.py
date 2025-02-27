@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python implementation of HTTP/2 header encoding"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-hyper/hpack"
 source = f"$(PYPI_SITE)/h/hpack/hpack-{pkgver}.tar.gz"

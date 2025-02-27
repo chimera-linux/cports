@@ -8,7 +8,6 @@ makedepends = ["libx11-devel", "xkbcomp-devel"]
 checkdepends = ["gawk"]
 depends = ["xkbcomp"]
 pkgdesc = "X Keyboard Configuration Database"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/XKeyboardConfig"
 source = f"$(XORG_SITE)/data/xkeyboard-config/xkeyboard-config-{pkgver}.tar.xz"

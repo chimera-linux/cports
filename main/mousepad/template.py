@@ -19,7 +19,6 @@ makedepends = [
     "polkit-devel",
 ]
 pkgdesc = "Xfce text editor"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/mousepad/start"
 source = f"$(XFCE_SITE)/apps/mousepad/{pkgver[:-2]}/mousepad-{pkgver}.tar.bz2"

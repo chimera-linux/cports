@@ -8,7 +8,6 @@ make_check_target = "test"
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = ["libsndfile-devel"]
 pkgdesc = "Vamp audio analysis plugin system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.vamp-plugins.org"
 source = "https://github.com/vamp-plugins/vamp-plugin-sdk/archive/refs/tags/vamp-plugin-sdk-v2.10.tar.gz"

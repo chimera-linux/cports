@@ -98,7 +98,6 @@ makedepends = [
     "x265-devel",
 ]
 pkgdesc = "Multimedia Player"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://www.videolan.org"
 source = f"https://code.videolan.org/videolan/vlc/-/archive/{_gitrev}.tar.gz"

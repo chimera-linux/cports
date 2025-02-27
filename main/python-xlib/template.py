@@ -17,7 +17,6 @@ checkdepends = [
     "xserver-xorg-xvfb",
 ]
 pkgdesc = "Xlib in pure Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/python-xlib/python-xlib"
 source = f"{url}/releases/download/{pkgver}/python-xlib-{pkgver}.tar.bz2"

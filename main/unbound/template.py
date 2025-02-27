@@ -39,7 +39,6 @@ makedepends = [
 ]
 depends = ["dns-root-data"]
 pkgdesc = "Validating, recursive, and caching DNS resolver"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"

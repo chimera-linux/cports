@@ -31,7 +31,6 @@ makedepends = [
 checkdepends = ["iproute2"]
 depends = ["gnutls-progs", "trousers"]
 pkgdesc = "TPM emulator with socket, character device, and Linux CUSE interface"
-maintainer = "cesorious <cesorious@gmail.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/stefanberger/swtpm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -8,7 +8,6 @@ configure_args = [
 hostmakedepends = ["automake", "slibtool", "pkgconf", "protobuf-protoc"]
 makedepends = ["boost-devel", "protobuf-devel"]
 pkgdesc = "Protobuf implementation in C"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/protobuf-c/protobuf-c"
 source = f"{url}/releases/download/v{pkgver}/protobuf-c-{pkgver}.tar.gz"

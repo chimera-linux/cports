@@ -7,7 +7,6 @@ make_check_target = "all"
 make_check_args = ["--directory", "test"]
 make_use_env = True
 pkgdesc = "Portable Game Notation (PGN) Manipulator for Chess Games"
-maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.cs.kent.ac.uk/people/staff/djb/pgn-extract"
 source = f"{url}/pgn-extract-{pkgver.replace('.', '-')}.tgz"

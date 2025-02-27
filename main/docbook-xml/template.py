@@ -3,7 +3,6 @@ pkgver = "4.5"
 pkgrel = 1
 depends = ["xmlcatmgr"]
 pkgdesc = "XML DTD designed for computer documentation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.oasis-open.org/docbook"
 source = [

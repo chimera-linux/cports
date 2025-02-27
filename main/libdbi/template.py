@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--disable-docs"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 pkgdesc = "Database-independent abstraction layer for C"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "http://libdbi.sourceforge.net"
 source = (

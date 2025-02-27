@@ -6,7 +6,6 @@ configure_args = ["-Dtest=true"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["check-devel"]
 pkgdesc = "Asynchronous API library for interfacing with MPD"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "BSD-2-Clause AND BSD-3-Clause"
 url = "https://musicpd.org/libs/libmpdclient"
 source = f"https://www.musicpd.org/download/libmpdclient/2/libmpdclient-{pkgver}.tar.xz"

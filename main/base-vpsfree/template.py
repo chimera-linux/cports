@@ -17,7 +17,6 @@ depends = [
 ]
 replaces = ["dinit-chimera"]
 pkgdesc = "Chimera base package for vpsfree.cz VPSes"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"
 broken_symlinks = ["usr/lib/dinit.d/boot.d/*"]

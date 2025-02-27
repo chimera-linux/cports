@@ -12,7 +12,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "Terminal browser for gemini/gopher/finger"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC AND Unicode-3.0 AND BSD-3-Clause AND MIT"
 url = "https://www.telescope-browser.org"
 source = f"https://ftp.omarpolo.com/telescope-{pkgver}.tar.gz"

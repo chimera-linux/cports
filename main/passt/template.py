@@ -9,7 +9,6 @@ make_install_args = ["prefix=/usr"]
 make_use_env = True
 makedepends = ["linux-headers"]
 pkgdesc = "User-mode network translation layer between Layer 2 and 4"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "https://passt.top/passt/about"
 source = f"https://passt.top/passt/snapshot/passt-{_pkgver}.tar.zst"

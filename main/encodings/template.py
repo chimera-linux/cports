@@ -13,7 +13,6 @@ hostmakedepends = [
     "xorg-util-macros",
 ]
 pkgdesc = "Font encoding tables for libfontenc"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/font/encodings-{pkgver}.tar.gz"

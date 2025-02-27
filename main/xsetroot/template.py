@@ -11,7 +11,6 @@ makedepends = [
     "libxcursor-devel",
 ]
 pkgdesc = "X root window parameter setting utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xsetroot-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["gmp-devel", "mpfr-devel"]
 pkgdesc = "C library for complex numbers"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://www.multiprecision.org/mpc"
 source = f"$(GNU_SITE)/mpc/mpc-{pkgver}.tar.gz"

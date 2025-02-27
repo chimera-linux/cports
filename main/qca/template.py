@@ -11,7 +11,6 @@ makedepends = [
     "qt6-qt5compat-devel",
 ]
 pkgdesc = "Qt6 cryptographic architecture"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/qca/html"
 source = f"$(KDE_SITE)/qca/{pkgver}/qca-{pkgver}.tar.xz"

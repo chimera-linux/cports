@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "File type identification utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.darwinsys.com/file"
 source = f"https://astron.com/pub/file/file-{pkgver}.tar.gz"

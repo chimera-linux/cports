@@ -16,7 +16,6 @@ checkdepends = [
     "dbus-x11",
 ]
 pkgdesc = "Qt C++ Coroutine Library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://qcoro.dvratil.cz"
 source = (

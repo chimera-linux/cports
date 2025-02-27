@@ -17,7 +17,6 @@ makedepends = [
     "zlib-ng-devel",
 ]
 pkgdesc = "Simulation game based upon Transport Tycoon Deluxe"
-maintainer = "breakgimme <adam@plock.com>"
 license = "GPL-2.0-or-later"
 url = "https://openttd.org"
 source = f"https://cdn.openttd.org/openttd-releases/{pkgver}/openttd-{pkgver}-source.tar.xz"

@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python", "python-pygments"]
 checkdepends = ["python-pygments"]
 pkgdesc = "Python documentation utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none AND BSD-2-Clause AND GPL-3.0-or-later AND Python-2.0"
 url = "http://docutils.sourceforge.net"
 source = f"$(PYPI_SITE)/d/docutils/docutils-{pkgver}.tar.gz"

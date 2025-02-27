@@ -34,7 +34,6 @@ depends = [
     self.with_pkgver("kitty-terminfo"),
 ]
 pkgdesc = "Accelerated terminal emulator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://sw.kovidgoyal.net/kitty"
 source = f"https://github.com/kovidgoyal/kitty/releases/download/v{pkgver}/kitty-{pkgver}.tar.xz"

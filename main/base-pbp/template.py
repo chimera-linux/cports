@@ -9,7 +9,6 @@ depends = [
     "u-boot-menu",
 ]
 pkgdesc = "Chimera base package for Pinebook Pro"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"
 

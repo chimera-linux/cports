@@ -6,7 +6,6 @@ configure_args = ["-DYAML_CPP_BUILD_TESTS=ON", "-DYAML_BUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["gtest-devel"]
 pkgdesc = "C++ YAML parser and emitter"
-maintainer = "Val Packett <val@packett.cool>"
 license = "MIT"
 url = "https://github.com/jbeder/yaml-cpp"
 source = f"https://github.com/jbeder/yaml-cpp/archive/{pkgver}.tar.gz"

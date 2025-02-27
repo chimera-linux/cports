@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-six"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Extensions for python datetime"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/dateutil/dateutil"
 source = f"$(PYPI_SITE)/p/python-dateutil/python-dateutil-{pkgver}.tar.gz"

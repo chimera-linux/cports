@@ -7,7 +7,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "C implementation of the scfg config format"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://git.sr.ht/~emersion/libscfg"
 source = f"{url}/archive/v{pkgver}.tar.gz"

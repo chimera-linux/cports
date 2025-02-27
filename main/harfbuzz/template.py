@@ -29,7 +29,6 @@ makedepends = [
     "icu-devel",
 ]
 pkgdesc = "Text shaping engine"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/harfbuzz/harfbuzz/releases/download/{pkgver}/harfbuzz-{pkgver}.tar.xz"

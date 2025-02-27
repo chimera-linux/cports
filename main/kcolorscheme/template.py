@@ -19,7 +19,6 @@ makedepends = [
 ]
 checkdepends = ["dbus"]
 pkgdesc = "KDE library to interact with KColorScheme"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/frameworks/kcolorscheme"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcolorscheme-{pkgver}.tar.xz"

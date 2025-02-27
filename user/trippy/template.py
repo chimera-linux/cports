@@ -7,7 +7,6 @@ make_build_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Network diagnostic tool combining traceroute and ping"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://trippy.rs"
 source = (

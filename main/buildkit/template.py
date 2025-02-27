@@ -6,7 +6,6 @@ make_build_args = ["./cmd/..."]
 hostmakedepends = ["go"]
 depends = ["containerd"]
 pkgdesc = "Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/moby/buildkit"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

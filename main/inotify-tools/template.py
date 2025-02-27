@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "gnu_configure"
 makedepends = ["automake", "slibtool"]
 pkgdesc = "Command-line interface to inotify"
-maintainer = "c7s <c7s@kasku.net>"
 license = "GPL-2.0-only"
 url = "https://github.com/inotify-tools/inotify-tools"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

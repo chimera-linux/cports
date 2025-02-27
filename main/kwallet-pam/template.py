@@ -16,7 +16,6 @@ makedepends = [
 ]
 depends = ["socat"]
 pkgdesc = "KDE KWallet PAM plugin"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kwallet-pam"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwallet-pam-{pkgver}.tar.xz"

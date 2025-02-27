@@ -29,7 +29,6 @@ depends = [
     "cmd:patch!chimerautils-extra",
 ]
 pkgdesc = "Tool to build flatpaks from source"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://docs.flatpak.org"
 source = f"https://github.com/flatpak/flatpak-builder/releases/download/{pkgver}/flatpak-builder-{pkgver}.tar.xz"

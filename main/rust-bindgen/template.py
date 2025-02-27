@@ -9,7 +9,6 @@ makedepends = ["rust-std"]
 depends = ["clang-libs"]
 checkdepends = ["clang-libs"]
 pkgdesc = "Tool to generate Rust bindings for C/C++ code"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://rust-lang.github.io/rust-bindgen"
 source = f"https://github.com/rust-lang/rust-bindgen/archive/refs/tags/v{pkgver}.tar.gz"

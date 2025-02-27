@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["gmp-devel"]
 pkgdesc = "Integer Set Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libisl.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/libisl/isl-{pkgver}.tar.bz2"

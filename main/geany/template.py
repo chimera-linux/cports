@@ -16,7 +16,6 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "Gtk+3 IDE"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://geany.org"
 source = f"https://github.com/geany/geany/releases/download/{pkgver}/geany-{pkgver[:-2]}.tar.gz"

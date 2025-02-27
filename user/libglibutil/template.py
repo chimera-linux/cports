@@ -8,7 +8,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf"]
 makedepends = ["glib-devel"]
 pkgdesc = "Library of glib utilities"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/sailfishos/libglibutil"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

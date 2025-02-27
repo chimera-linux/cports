@@ -7,7 +7,6 @@ configure_args = ["-DLIBRARY_TYPE=SHARED"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "libpulse-devel"]
 pkgdesc = "VGM playback library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "custom:libvgm"
 url = "https://github.com/ValleyBell/libvgm"
 source = f"{url}/archive/{_commit}.tar.gz"

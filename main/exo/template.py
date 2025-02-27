@@ -15,7 +15,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "gtk+3-devel", "libxfce4ui-devel"]
 pkgdesc = "Xfce extensions library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://docs.xfce.org/xfce/exo/start"
 source = f"$(XFCE_SITE)/xfce/exo/{pkgver[:-2]}/exo-{pkgver}.tar.bz2"

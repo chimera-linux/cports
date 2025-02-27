@@ -3,7 +3,6 @@ pkgver = "1.8.1.2"
 pkgrel = 0
 depends = ["curl", "podman", "polkit"]
 pkgdesc = "Use any Linux distribution inside your terminal"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only"
 url = "https://distrobox.it"
 source = f"https://github.com/89luca89/distrobox/archive/{pkgver}.tar.gz"

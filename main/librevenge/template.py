@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["boost-devel", "zlib-ng-compat-devel", "cppunit-devel"]
 pkgdesc = "Library for reverse engineered format filters"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://sourceforge.net/p/libwpd/librevenge"
 source = f"$(SOURCEFORGE_SITE)/libwpd/librevenge-{pkgver}.tar.xz"

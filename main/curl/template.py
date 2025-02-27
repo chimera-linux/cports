@@ -43,7 +43,6 @@ checkdepends = [
 ]
 depends = ["ca-certificates"]
 pkgdesc = "Command line tool for transferring data with URL syntax"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://curl.haxx.se"
 source = f"{url}/download/curl-{pkgver}.tar.xz"

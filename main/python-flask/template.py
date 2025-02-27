@@ -17,7 +17,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python micro framework for building web applications"
-maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"
 url = "https://github.com/pallets/flask"
 source = f"https://github.com/pallets/flask/archive/{pkgver}.tar.gz"

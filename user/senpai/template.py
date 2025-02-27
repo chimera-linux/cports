@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = ["./cmd/senpai"]
 hostmakedepends = ["go", "scdoc"]
 pkgdesc = "IRC client that works best with bouncers"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "ISC"
 url = "https://git.sr.ht/~delthas/senpai"
 source = f"https://git.sr.ht/~delthas/senpai/archive/v{pkgver}.tar.gz"

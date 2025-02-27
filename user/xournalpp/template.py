@@ -22,7 +22,6 @@ makedepends = [
     "portaudio-devel",
 ]
 pkgdesc = "Handwriting notetaking software with PDF annotation support"
-maintainer = "daringcuteseal <daringcuteseal@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/xournalpp/xournalpp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

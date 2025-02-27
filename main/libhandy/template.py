@@ -26,7 +26,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "GTK+3 building blocks for modern adaptive applications"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libhandy"
 source = f"$(GNOME_SITE)/libhandy/{pkgver[:-2]}/libhandy-{pkgver}.tar.xz"

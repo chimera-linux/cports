@@ -24,7 +24,6 @@ makedepends = [
 ]
 checkdepends = ["ghostscript", "poppler-devel", "librsvg-devel"]
 pkgdesc = "Vector graphics library with cross-device output support"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://cairographics.org"
 source = f"{url}/releases/cairo-{pkgver}.tar.xz"

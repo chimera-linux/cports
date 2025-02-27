@@ -23,7 +23,6 @@ makedepends = [
 ]
 depends = ["gnupg"]
 pkgdesc = "GnuPG Made Easy"
-maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://gnupg.org/software/gpgme/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/gpgme/gpgme-{pkgver}.tar.bz2"

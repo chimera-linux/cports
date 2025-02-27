@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["openal-soft-devel"]
 pkgdesc = "OpenAL Utility Toolkit"
-maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/vancegroup/freealut"
 source = f"{url}/archive/refs/tags/freealut_{pkgver.replace('.', '_')}.tar.gz"

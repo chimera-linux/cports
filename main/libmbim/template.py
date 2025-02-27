@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "libgudev-devel", "linux-headers"]
 pkgdesc = "MBIM modem protocol helper library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/libmbim"
 source = f"https://gitlab.freedesktop.org/mobile-broadband/libmbim/-/archive/{pkgver}/libmbim-{pkgver}.tar.gz"

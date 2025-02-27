@@ -18,7 +18,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "KDE library for health certificates"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/pim/khealthcertificate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/khealthcertificate-{pkgver}.tar.xz"

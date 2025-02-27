@@ -17,7 +17,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Terminal ui for git"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/extrawurst/gitui"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

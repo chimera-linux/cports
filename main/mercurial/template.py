@@ -14,7 +14,6 @@ makedepends = ["python-devel"]
 depends = ["python"]
 checkdepends = ["python-pytest", "unzip"]
 pkgdesc = "Distributed source control management"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.mercurial-scm.org"
 source = f"https://www.mercurial-scm.org/release/mercurial-{pkgver}.tar.gz"

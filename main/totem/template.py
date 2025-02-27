@@ -36,7 +36,6 @@ depends = [
     "gsettings-desktop-schemas",
 ]
 pkgdesc = "GNOME media player"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Videos"
 source = f"$(GNOME_SITE)/totem/{pkgver[:-2]}/totem-{pkgver}.tar.xz"

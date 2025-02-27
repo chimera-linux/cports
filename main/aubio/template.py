@@ -15,7 +15,6 @@ makedepends = [
     "pipewire-jack-devel",
 ]
 pkgdesc = "Library for audio and music analysis"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://aubio.org"
 # bundled waf uses deprecated python modules

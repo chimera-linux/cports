@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Perl module for editing exif metadata"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://exiftool.org"
 source = f"{url}/Image-ExifTool-{pkgver}.tar.gz"

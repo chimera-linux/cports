@@ -35,7 +35,6 @@ makedepends = [
     "zita-resampler-devel",
 ]
 pkgdesc = "Virtual guitar amplifier"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://guitarix.org"
 source = f"https://github.com/brummer10/guitarix/releases/download/V{pkgver}/guitarix2-{pkgver}.tar.xz"

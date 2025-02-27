@@ -7,7 +7,6 @@ configure_gen = ["./bootstrap.sh"]
 hostmakedepends = ["automake", "pkgconf", "libcap-progs"]
 makedepends = ["ncurses-devel", "libcap-devel"]
 pkgdesc = "Network diagnostic tool"
-maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-only AND BSD-3-Clause"
 url = "https://www.bitwizard.nl/mtr"
 source = (

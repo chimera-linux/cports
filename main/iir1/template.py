@@ -9,7 +9,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "DSP IIR realtime filter library written in C++"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://berndporr.github.io/iir1"
 source = f"https://github.com/berndporr/iir1/archive/refs/tags/{pkgver}.tar.gz"

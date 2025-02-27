@@ -6,7 +6,6 @@ configure_args = ["--enable-malloc0returnsnull"]
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libxext-devel"]
 pkgdesc = "XFree86-DGA X extension library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXxf86dga-{pkgver}.tar.gz"

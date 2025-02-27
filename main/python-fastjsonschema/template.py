@@ -16,7 +16,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest-benchmark"]
 pkgdesc = "Python json schema validator"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://horejsek.github.io/python-fastjsonschema"
 source = f"$(PYPI_SITE)/f/fastjsonschema/fastjsonschema-{pkgver}.tar.gz"

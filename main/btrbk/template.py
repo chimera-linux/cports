@@ -5,7 +5,6 @@ build_style = "makefile"
 hostmakedepends = ["asciidoctor"]
 depends = ["perl", "btrfs-progs", "openssh", "mbuffer"]
 pkgdesc = "Backup tool for btrfs subvolumes"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://digint.ch/btrbk"
 source = f"https://digint.ch/download/btrbk/releases/btrbk-{pkgver}.tar.xz"

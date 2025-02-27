@@ -27,7 +27,6 @@ makedepends = [
 ]
 checkdepends = ["fonts-cantarell-otf", "xwayland-run"]
 pkgdesc = "GTK4 building blocks for modern adaptive applications"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libadwaita"
 source = f"$(GNOME_SITE)/libadwaita/{pkgver[:-2]}/libadwaita-{pkgver}.tar.xz"

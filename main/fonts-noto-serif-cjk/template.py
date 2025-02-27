@@ -2,7 +2,6 @@ pkgname = "fonts-noto-serif-cjk"
 pkgver = "2.003"
 pkgrel = 0
 pkgdesc = "Google Noto Serif CJK fonts"
-maintainer = "GeopJr <evan@geopjr.dev>"
 license = "OFL-1.1"
 url = "https://github.com/googlefonts/noto-cjk"
 

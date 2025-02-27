@@ -14,7 +14,6 @@ depends = [
     "cmd:tar!libarchive-progs",
 ]
 pkgdesc = "Scripts to aid Chimera system installation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimera-install-scripts"
 source = f"{url}/archive/{_commit}.tar.gz"

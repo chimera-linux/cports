@@ -64,7 +64,6 @@ depends = [
 # invoke the trigger on self
 triggers = ["/usr/share/flatpak"]
 pkgdesc = "Linux application sandboxing and distribution framework"
-maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://flatpak.org"
 source = f"https://github.com/flatpak/flatpak/releases/download/{pkgver}/flatpak-{pkgver}.tar.xz"

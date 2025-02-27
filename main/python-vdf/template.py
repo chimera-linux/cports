@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "Serialization module for Valve's key/value format"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://github.com/ValvePython/vdf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

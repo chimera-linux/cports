@@ -32,7 +32,6 @@ depends = [
     "xapp",
 ]
 pkgdesc = "File browser for Cinnamon"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later AND GFDL-1.1-or-later AND LGPL-2.0-or-later"
 url = "https://projects.linuxmint.com/cinnamon"
 source = f"https://github.com/linuxmint/nemo/archive/refs/tags/{pkgver}.tar.gz"

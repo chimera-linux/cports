@@ -18,7 +18,6 @@ makedepends = [
     "vala",
 ]
 pkgdesc = "Spell-checking library for Gtk+"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gspell"
 source = f"$(GNOME_SITE)/gspell/{pkgver[:-2]}/gspell-{pkgver}.tar.xz"

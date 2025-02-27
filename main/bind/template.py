@@ -32,7 +32,6 @@ makedepends = [
 checkdepends = ["python-pytest", "python-dnspython"]
 depends = [self.with_pkgver("bind-progs")]
 pkgdesc = "ISC DNS server"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MPL-2.0"
 url = "https://www.isc.org/bind"
 source = f"https://downloads.isc.org/isc/bind9/{pkgver}/bind-{pkgver}.tar.xz"

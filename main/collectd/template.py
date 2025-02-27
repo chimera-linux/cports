@@ -32,7 +32,6 @@ makedepends = [
     "rrdtool-devel",
 ]
 pkgdesc = "System statistics collection daemon"
-maintainer = "Josh Dorsey <jdorsey@netgate.com>"
 license = "MIT"
 url = "https://collectd.org"
 source = f"https://github.com/collectd/collectd/releases/download/collectd-{pkgver}/collectd-{pkgver}.tar.bz2"

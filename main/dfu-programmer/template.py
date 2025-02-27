@@ -7,7 +7,6 @@ configure_gen = []
 make_dir = "."
 makedepends = ["libusb-devel"]
 pkgdesc = "Command-line programmer for Atmel USB microcontrollers"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://dfu-programmer.github.io"
 source = f"https://github.com/dfu-programmer/dfu-programmer/releases/download/v{pkgver}/dfu-programmer-{pkgver}.tar.gz"

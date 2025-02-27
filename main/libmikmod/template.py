@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 pkgdesc = "Mikmod module player and library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://mikmod.shlomifish.org"
 source = f"$(SOURCEFORGE_SITE)/mikmod/libmikmod-{pkgver}.tar.gz"

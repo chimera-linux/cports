@@ -22,7 +22,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python requests-like API build on top of Twisted"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/twisted/treq"
 source = f"$(PYPI_SITE)/t/treq/treq-{pkgver}.tar.gz"

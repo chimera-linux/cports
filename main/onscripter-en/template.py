@@ -21,7 +21,6 @@ makedepends = [
     "smpeg0-devel",
 ]
 pkgdesc = "Visual novel engine"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://galladite.net/~galladite/ons-en"
 source = f"https://github.com/Galladite27/ONScripter-EN/archive/refs/tags/{pkgver.replace('.', '-')}.tar.gz"

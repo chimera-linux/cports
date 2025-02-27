@@ -6,7 +6,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["libx11-devel", "libxkbfile-devel", "libxrandr-devel"]
 pkgdesc = "Sets the X keyboard layout"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/setxkbmap-{pkgver}.tar.gz"

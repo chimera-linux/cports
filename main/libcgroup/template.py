@@ -19,7 +19,6 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "Cgroup library and commandline utilities for managing cgroups"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://github.com/libcgroup/libcgroup"
 source = f"{url}/releases/download/v{pkgver}/libcgroup-{pkgver}.tar.gz"

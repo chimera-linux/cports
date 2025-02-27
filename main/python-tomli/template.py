@@ -6,7 +6,6 @@ hostmakedepends = ["python-build", "python-flit_core", "python-installer"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "TOML parser for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/hukkin/tomli"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

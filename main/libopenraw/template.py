@@ -19,7 +19,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "RAW format parsing library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://libopenraw.freedesktop.org"
 source = f"{url}/download/libopenraw-{pkgver}.tar.xz"

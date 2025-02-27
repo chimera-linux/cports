@@ -20,7 +20,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Wayland dynamic menu"
-maintainer = "jabuxas <jabuxas@proton.me>"
 license = "MIT"
 url = "https://github.com/philj56/tofi"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -38,7 +38,6 @@ makedepends = [
 ]
 depends = ["freerdp"]
 pkgdesc = "KDE remote desktop client"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/krdc"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/krdc-{pkgver}.tar.xz"

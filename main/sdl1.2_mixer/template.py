@@ -19,7 +19,6 @@ makedepends = [
     "smpeg0-devel",
 ]
 pkgdesc = "SDL 1.2 audio mixer library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://www.libsdl.org/projects/old/SDL_mixer/release-1.2.html"
 source = f"https://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-{pkgver}.tar.gz"

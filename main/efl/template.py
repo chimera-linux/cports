@@ -95,7 +95,6 @@ checkdepends = [
     "xserver-xorg-xvfb",
 ]
 pkgdesc = "Enlightenment Foundation Libraries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/efl/efl-{pkgver}.tar.xz"

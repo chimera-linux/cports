@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = [f"-ldflags=-X main.version={pkgver}"]
 hostmakedepends = ["go", "go-md2man"]
 pkgdesc = "Pager for grep output"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/vrothberg/vgrep"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -12,7 +12,6 @@ makedepends = [
     "libffi8-devel",
 ]
 pkgdesc = "Embeddable Common Lisp"
-maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "LGPL-2.1-or-later"
 url = "https://ecl.common-lisp.dev"
 source = f"https://gitlab.com/embeddable-common-lisp/ecl/-/archive/{pkgver}/ecl-{pkgver}.tar.gz"

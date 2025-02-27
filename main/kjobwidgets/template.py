@@ -15,7 +15,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Widgets for showing progress of asynchronous jobs"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/kjobwidgets/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kjobwidgets-{pkgver}.tar.xz"

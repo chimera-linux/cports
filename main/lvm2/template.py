@@ -47,7 +47,6 @@ makedepends = [
     "util-linux-blkid-devel-static",
 ]
 pkgdesc = "Logical Volume Manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
 source = (

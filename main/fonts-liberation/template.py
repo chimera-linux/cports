@@ -5,7 +5,6 @@ build_style = "makefile"
 hostmakedepends = ["fontforge-cli", "python-fonttools"]
 depends = ["mkfontscale"]
 pkgdesc = "Liberation family of fonts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "OFL-1.1"
 url = "https://github.com/liberationfonts/liberation-fonts"
 source = f"{url}/archive/{pkgver}.tar.gz"

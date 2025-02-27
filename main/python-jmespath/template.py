@@ -14,7 +14,6 @@ checkdepends = [
     "python-pytest-xdist",
 ]
 pkgdesc = "JSON matching expressions"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://jmespath.org"
 source = (

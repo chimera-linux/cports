@@ -6,7 +6,6 @@ hostmakedepends = ["go"]
 depends = ["golangci-lint"]
 checkdepends = ["golangci-lint"]
 pkgdesc = "Language server for golangci-lint"
-maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "MIT"
 url = "https://github.com/nametake/golangci-lint-langserver"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

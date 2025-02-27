@@ -6,7 +6,6 @@ build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Simplifies the drawing of beautiful curves"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/fontforge/libspiro"
 source = f"{url}/releases/download/{pkgver}/libspiro-dist-{pkgver}.tar.gz"

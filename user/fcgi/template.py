@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "slibtool", "pkgconf"]
 pkgdesc = "Language independent, high performance extension to CGI"
-maintainer = "mia <mia@mia.jetzt>"
 license = "custom:fcgi"
 url = "https://github.com/FastCGI-Archives/fcgi2"
 source = f"{url}/archive/{pkgver}.tar.gz"

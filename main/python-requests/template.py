@@ -16,7 +16,6 @@ depends = [
     "python",
 ]
 pkgdesc = "Python HTTP library for human beings"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://requests.readthedocs.io"
 source = f"$(PYPI_SITE)/r/requests/requests-{pkgver}.tar.gz"

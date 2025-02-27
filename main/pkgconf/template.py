@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_gen = []
 checkdepends = ["kyua"]
 pkgdesc = "Provides compiler and linker configuration"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"

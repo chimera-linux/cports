@@ -11,7 +11,6 @@ make_check_args = ["-p", "typst-cli"]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl3-devel"]
 pkgdesc = "Markup-based typesetting system"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://typst.app"
 source = f"https://github.com/typst/typst/archive/refs/tags/v{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["orc-devel"]
 pkgdesc = "Video stabilization library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://public.hronopik.de/vid.stab"
 source = f"https://github.com/georgmartius/vid.stab/archive/v{pkgver}.tar.gz"

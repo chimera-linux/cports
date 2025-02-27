@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-dateutil"]
 checkdepends = ["cmake", "ninja", *depends]
 pkgdesc = "Testing tool for command line utilities"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/nih-at/nihtest"
 source = f"{url}/releases/download/v{pkgver}/nihtest-{pkgver}.tar.gz"

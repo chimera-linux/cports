@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "xmlto"]
 makedepends = ["pcre2-devel"]
 depends = ["perl"]
 pkgdesc = "Collection of programs for manipulating patch files"
-maintainer = "reocat <ng.ct_ml@tuta.io>"
 license = "GPL-2.0-or-later"
 url = "http://cyberelk.net/tim/patchutils"
 source = (

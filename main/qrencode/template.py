@@ -6,7 +6,6 @@ configure_args = ["--with-tests"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["libpng-devel"]
 pkgdesc = "Library for encoding QR codes"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://fukuchi.org/works/qrencode/index.html.en"
 source = f"https://fukuchi.org/works/qrencode/qrencode-{pkgver}.tar.bz2"

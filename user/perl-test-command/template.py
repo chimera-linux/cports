@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Test routines for external commands"
-maintainer = "daringcuteseal <daringcuteseal@gmail.com>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/Test-Command"
 source = f"$(CPAN_SITE)/Test/Test-Command-{pkgver}.tar.gz"

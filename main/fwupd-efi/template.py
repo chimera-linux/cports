@@ -19,7 +19,6 @@ makedepends = [
     "gnu-efi",
 ]
 pkgdesc = "EFI application used by fwupd uefi-capsule"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd-efi"
 source = f"{url}/archive/{pkgver}.tar.gz"

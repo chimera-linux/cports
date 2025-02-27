@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "Utility library for Xfce"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/libxfce4util/start"
 source = f"$(XFCE_SITE)/xfce/libxfce4util/{pkgver[:-2]}/libxfce4util-{pkgver}.tar.bz2"

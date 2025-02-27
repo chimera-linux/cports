@@ -23,7 +23,6 @@ depends = [
     "libxml2-progs",
 ]
 pkgdesc = "KDE Documentation generation from docbook"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kdoctools/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdoctools-{pkgver}.tar.xz"

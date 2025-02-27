@@ -27,7 +27,6 @@ makedepends = [
     "vala",
 ]
 pkgdesc = "GNOME crypto package"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gcr"
 source = f"$(GNOME_SITE)/gcr/{pkgver[:-2]}/gcr-{pkgver}.tar.xz"

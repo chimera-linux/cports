@@ -16,7 +16,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE color palette tool"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://apps.kde.org/kcolorchooser"
 source = (

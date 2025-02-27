@@ -8,7 +8,6 @@ hostmakedepends = ["cmake", "ninja", "linux-headers", "pkgconf"]
 makedepends = ["libpcap-devel", "openssl3-devel"]
 checkdepends = ["perl"]
 pkgdesc = "Command-line network traffic analysis tool"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
 source = f"https://www.tcpdump.org/release/tcpdump-{pkgver}.tar.gz"

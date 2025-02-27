@@ -5,7 +5,6 @@ hostmakedepends = ["python-flit_core"]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Low-level library for installing from a Python wheel"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://installer.pypa.io/en/stable"
 source = f"$(PYPI_SITE)/i/installer/installer-{pkgver}.tar.gz"

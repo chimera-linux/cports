@@ -13,7 +13,6 @@ makedepends = [
 ]
 triggers = ["/usr/share/fonts/*"]
 pkgdesc = "X11 scalable font index generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/mkfontscale-{pkgver}.tar.gz"

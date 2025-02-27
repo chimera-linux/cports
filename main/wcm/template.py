@@ -18,7 +18,6 @@ makedepends = [
 ]
 depends = ["cmd:wdisplays!wdisplays"]
 pkgdesc = "Wayfire Config Manager"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wcm/releases/download/v{pkgver}/wcm-{pkgver}.tar.xz"

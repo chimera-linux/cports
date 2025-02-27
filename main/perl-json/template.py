@@ -7,7 +7,6 @@ makedepends = ["perl"]
 checkdepends = ["perl-test-pod"]
 depends = ["perl"]
 pkgdesc = "JSON encoder/decoder"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/JSON"
 source = f"$(CPAN_SITE)/JSON/JSON-{pkgver}.tar.gz"

@@ -10,7 +10,6 @@ hostmakedepends = ["bash", "pkgconf"]
 makedepends = ["chimerautils-devel", "kmod-devel"]
 checkdepends = ["asciidoc"]
 pkgdesc = "Dracut-install command from dracut"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/dracut-ng/dracut-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

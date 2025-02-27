@@ -22,6 +22,5 @@ depends = [
     "ninja",
 ]
 pkgdesc = "Everything one needs to build Chimera from source"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"

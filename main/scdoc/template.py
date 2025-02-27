@@ -7,7 +7,6 @@ make_install_args = []
 make_check_args = []
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Tool for generating roff manual pages"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://git.sr.ht/~sircmpwn/scdoc"
 source = f"{url}/archive/{pkgver}.tar.gz"

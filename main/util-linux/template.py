@@ -61,7 +61,6 @@ makedepends = [
 checkdepends = ["xz", "iproute2", "socat", "procps"]
 depends = [self.with_pkgver("util-linux-common")]
 pkgdesc = "Miscellaneous Linux utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.kernel.org/pub/linux/utils/util-linux"
 source = (

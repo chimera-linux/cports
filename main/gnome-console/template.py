@@ -20,7 +20,6 @@ makedepends = [
     "vte-gtk4-devel",
 ]
 pkgdesc = "GNOME console"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/console"
 source = (

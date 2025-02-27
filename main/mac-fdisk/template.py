@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 makedepends = ["linux-headers"]
 pkgdesc = "Apple Partition Map utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://packages.debian.org/sid/mac-fdisk"
 source = f"http://deb.debian.org/debian/pool/main/m/mac-fdisk/mac-fdisk_{pkgver}.orig.tar.gz"

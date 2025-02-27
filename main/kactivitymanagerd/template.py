@@ -20,7 +20,6 @@ makedepends = [
 ]
 # depends = ["qt6-qtbase-sql"]
 pkgdesc = "KDE Manage user's activities and track usage patterns"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/kactivitymanagerd"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kactivitymanagerd-{pkgver}.tar.xz"

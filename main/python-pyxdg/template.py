@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["shared-mime-info", "python-pytest"]
 pkgdesc = "Freedesktop.org standards module for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-only"
 url = "https://freedesktop.org/Software/pyxdg"
 source = f"$(PYPI_SITE)/p/pyxdg/pyxdg-{pkgver}.tar.gz"

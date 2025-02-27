@@ -41,7 +41,6 @@ makedepends = [
 depends = ["postgresql-common", "tzdb"]
 provides = ["postgresql-runtime"]
 pkgdesc = "Sophisticated object-relational DBMS, version 16.x"
-maintainer = "mia <mia@mia.jetzt>"
 license = "PostgreSQL"
 url = "https://www.postgresql.org"
 source = [

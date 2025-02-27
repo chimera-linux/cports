@@ -10,7 +10,6 @@ makedepends = [
     "fontconfig-devel",
 ]
 pkgdesc = "X font library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXft-{pkgver}.tar.gz"

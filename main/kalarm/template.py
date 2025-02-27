@@ -51,7 +51,6 @@ makedepends = [
 ]
 depends = ["kdepim-runtime"]
 pkgdesc = "KDE personal alarm scheduler"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/kalarm"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kalarm-{pkgver}.tar.xz"

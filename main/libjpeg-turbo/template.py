@@ -9,7 +9,6 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "nasm"]
 pkgdesc = "Derivative of libjpeg which uses SIMD instructions"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "IJG AND BSD-3-Clause AND Zlib"
 url = "https://libjpeg-turbo.org"
 source = f"https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/{pkgver}/libjpeg-turbo-{pkgver}.tar.gz"

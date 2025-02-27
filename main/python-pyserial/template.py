@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python serial port module"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/pyserial/pyserial"
 source = f"$(PYPI_SITE)/p/pyserial/pyserial-{pkgver}.tar.gz"

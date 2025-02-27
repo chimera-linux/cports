@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "NFS client library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/sahlberg/libnfs"
 source = f"{url}/archive/libnfs-{pkgver}.tar.gz"

@@ -82,7 +82,6 @@ depends = [
     f"libcxx-devel~{_clangver}",
 ]
 pkgdesc = "GNU Compiler Collection"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"

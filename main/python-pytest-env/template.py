@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-pytest"]
 checkdepends = [*depends]
 pkgdesc = "Pytest plugin for adding environment variables"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://github.com/MobileDynasty/pytest-env"
 source = f"$(PYPI_SITE)/p/pytest-env/pytest_env-{pkgver}.tar.gz"

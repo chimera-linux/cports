@@ -23,7 +23,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Minecraft launcher with multiple instances support"
-maintainer = "aurelia <git@elia.garden>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PrismLauncher/PrismLauncher"
 source = f"{url}/releases/download/{pkgver}/prismlauncher-{pkgver}.tar.gz"

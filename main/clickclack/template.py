@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 makedepends = ["linux-headers", "sdl2-compat-devel"]
 pkgdesc = "Haptic and audio feedback utility"
-maintainer = "Froggo <froggo8311@proton.me>"
 license = "MIT"
 url = "https://git.sr.ht/~proycon/clickclack"
 source = f"{url}/archive/{pkgver}.tar.gz"

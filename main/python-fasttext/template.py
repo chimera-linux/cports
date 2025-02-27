@@ -14,7 +14,6 @@ hostmakedepends = [
 makedepends = ["fasttext-devel"]
 depends = ["python-numpy"]
 pkgdesc = "Python bindings for fasttext"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://fasttext.cc/index.html"
 source = f"$(PYPI_SITE)/f/fasttext/fasttext-{pkgver}.tar.gz"

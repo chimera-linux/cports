@@ -11,7 +11,6 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "python", "pkgconf"]
 pkgdesc = "Google's framework for writing C++ tests"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "BSD-3-Clause"
 url = "https://github.com/google/googletest"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

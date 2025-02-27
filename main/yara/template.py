@@ -20,7 +20,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "C library for pattern matching"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://virustotal.github.io/yara"
 source = (

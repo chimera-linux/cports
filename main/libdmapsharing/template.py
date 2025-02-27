@@ -22,7 +22,6 @@ makedepends = [
 ]
 checkdepends = ["check-devel"]
 pkgdesc = "Library implementing the DMAP family of protocols"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://www.flyn.org/projects/libdmapsharing/index.html"
 source = f"https://www.flyn.org/projects/libdmapsharing/libdmapsharing-{pkgver}.tar.gz"

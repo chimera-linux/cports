@@ -23,7 +23,6 @@ makedepends = [
     "procps-devel",
 ]
 pkgdesc = "Tooling for Intel GPUs"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/drm/igt-gpu-tools"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"

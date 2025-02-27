@@ -22,7 +22,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library to read/write several different streaming archive formats"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.libarchive.org"
 source = f"https://github.com/libarchive/libarchive/releases/download/v{pkgver}/libarchive-{pkgver}.tar.gz"

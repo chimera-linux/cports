@@ -3,7 +3,6 @@ pkgver = "11.2.1"
 pkgrel = 0
 depends = [f"binutils-{self.profile().arch}"]
 pkgdesc = "GCC bootstrap binaries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://musl.cc"
 source = f"https://more.musl.cc/{pkgver}/x86_64-linux-musl/{self.profile().triplet.split('-')[0]}-linux-musl-native.tgz"

@@ -12,7 +12,6 @@ makedepends = [
 ]
 depends = ["ccid"]
 pkgdesc = "Drop in replacement for gpg in git for usage with OpenPGP cards"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://codeberg.org/openpgp-card/tool-git"
 source = f"{url}/archive/v{pkgver}.tar.gz"

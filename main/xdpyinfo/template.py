@@ -14,7 +14,6 @@ makedepends = [
     "libxinerama-devel",
 ]
 pkgdesc = "X display information utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xdpyinfo-{pkgver}.tar.gz"

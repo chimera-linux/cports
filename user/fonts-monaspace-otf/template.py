@@ -2,7 +2,6 @@ pkgname = "fonts-monaspace-otf"
 pkgver = "1.200"
 pkgrel = 0
 pkgdesc = "GitHub Next Monaspace fonts"
-maintainer = "BarryLhm <Lhm13144572810@outlook.com>"
 license = "OFL-1.1"
 url = "https://github.com/githubnext/monaspace"
 source = f"{url}/archive/refs/tags/v{pkgver}.zip"

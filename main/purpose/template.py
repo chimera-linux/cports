@@ -28,7 +28,6 @@ makedepends = [
 depends = ["accounts-qml-module"]
 checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE purpose-specific integrations"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/purpose/html/index.html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/purpose-{pkgver}.tar.xz"

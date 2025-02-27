@@ -16,7 +16,6 @@ makedepends = [
     "tpm2-tss-devel",
 ]
 pkgdesc = "Trusted Platform Module (TPM2.0) tools"
-maintainer = "natthias <natthias@proton.me>"
 license = "BSD-3-Clause"
 url = "https://github.com/tpm2-software/tpm2-tools"
 source = f"{url}/releases/download/{pkgver}/tpm2-tools-{pkgver}.tar.gz"

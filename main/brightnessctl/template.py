@@ -7,7 +7,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf"]
 makedepends = ["elogind-devel"]
 pkgdesc = "Program to read and control device brightness"
-maintainer = "Froggo <froggo8311@proton.me>"
 license = "X11"
 url = "https://github.com/Hummer12007/brightnessctl"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

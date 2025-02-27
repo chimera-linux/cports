@@ -14,7 +14,6 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "SMTP client"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://marlam.de/msmtp"
 source = f"{url}/releases/msmtp-{pkgver}.tar.xz"

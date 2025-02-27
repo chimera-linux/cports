@@ -15,7 +15,6 @@ provides = ["systemd-utils=255-r0"]
 replaces = ["systemd-tmpfiles<255"]
 triggers = ["/usr/lib/sysusers.d", "/usr/lib/tmpfiles.d"]
 pkgdesc = "Small set of tools forked from systemd"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/chimera-linux/sd-tools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

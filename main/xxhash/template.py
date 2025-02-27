@@ -8,7 +8,6 @@ make_check_args = ["-j1"]
 make_use_env = True
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Fast non-cryptographic hashing algorithm"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://cyan4973.github.io/xxHash"
 source = f"https://github.com/Cyan4973/xxhash/archive/v{pkgver}.tar.gz"

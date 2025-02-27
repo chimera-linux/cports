@@ -9,7 +9,6 @@ makedepends = [
 ]
 depends = ["qt6-qtsvg"]
 pkgdesc = "Qt6 configuration tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/trialuser02/qt6ct"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

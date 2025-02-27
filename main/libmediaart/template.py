@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["gdk-pixbuf-devel", "glib-devel"]
 pkgdesc = "Library for handling media art caches"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libmediaart"
 source = f"$(GNOME_SITE)/libmediaart/{pkgver[:-2]}/libmediaart-{pkgver}.tar.xz"

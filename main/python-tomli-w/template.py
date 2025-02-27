@@ -11,7 +11,6 @@ makedepends = ["python-pytest"]
 checkdepends = ["python-tomli"]
 depends = ["python"]
 pkgdesc = "TOML writer for Python"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/hukkin/tomli-w"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

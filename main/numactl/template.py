@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers"]
 checkdepends = ["bash"]
 pkgdesc = "Simple NUMA policy support"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://github.com/numactl/numactl"
 source = f"{url}/archive/v{pkgver}.tar.gz"

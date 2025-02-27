@@ -12,7 +12,6 @@ makedepends = [
     "vala-devel",
 ]
 pkgdesc = "Resource discovery and announcement over SSDP"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GUPnP"
 source = f"$(GNOME_SITE)/gssdp/{pkgver[:-2]}/gssdp-{pkgver}.tar.xz"

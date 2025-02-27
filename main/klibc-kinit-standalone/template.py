@@ -7,7 +7,6 @@ configure_args = ["--libexecdir=/usr/lib"]  # XXX drop libexec
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "libcap-devel", "linux-headers"]
 pkgdesc = "Standalone kinit tools from klibc"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/chimera-linux/klibc-kinit-standalone"
 source = f"{url}/archive/{_commit}.tar.gz"

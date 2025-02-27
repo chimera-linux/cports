@@ -8,7 +8,6 @@ make_check_target = "tests"
 hostmakedepends = ["bash"]
 makedepends = ["libffi8-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Data munging language"
-maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:txr"
 url = "https://www.nongnu.org/txr"
 source = f"https://www.kylheku.com/cgit/txr/snapshot/txr-{pkgver}.tar.bz2"

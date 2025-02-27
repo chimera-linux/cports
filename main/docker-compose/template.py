@@ -10,7 +10,6 @@ make_build_args = [
 hostmakedepends = ["go"]
 depends = ["docker-cli"]
 pkgdesc = "Docker CLI plugin for compose files"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://docs.docker.com/compose"
 source = f"https://github.com/docker/compose/archive/refs/tags/v{pkgver}.tar.gz"

@@ -70,7 +70,6 @@ makedepends = [
 ]
 depends = ["shared-mime-info"]
 pkgdesc = "Qt application framework 6.x"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

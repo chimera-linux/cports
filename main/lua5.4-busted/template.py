@@ -10,7 +10,6 @@ depends = [
     "lua5.4-lua-term",
 ]
 pkgdesc = "Lua unit testing"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://lunarmodules.github.io/busted"
 source = (

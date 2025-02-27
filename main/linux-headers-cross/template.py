@@ -4,7 +4,6 @@ pkgrel = 0
 hostmakedepends = ["perl"]
 depends = []
 pkgdesc = "Linux API headers for cross-compiling"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"

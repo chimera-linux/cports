@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = ["libkkc-data"]
 pkgdesc = "Japanese kana-kanji conversion library"
-maintainer = "Nasado <hi@nasado.name>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ueno/libkkc"
 _gitrev = "cdcaf4dceaf273bfe7b018a4a651a92f786c6ec6"

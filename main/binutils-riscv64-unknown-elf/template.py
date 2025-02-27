@@ -33,7 +33,6 @@ configure_gen = []
 hostmakedepends = ["flex", "texinfo"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "GNU binutils for RISC-V embedded targets"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/binutils"
 source = f"$(GNU_SITE)/binutils/binutils-{pkgver}.tar.xz"

@@ -18,7 +18,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "Dock Widget Framework for Qt"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://www.kdab.com/development-resources/qt-tools/kddockwidgets"
 source = f"https://github.com/KDAB/KDDockWidgets/releases/download/v{pkgver}/kddockwidgets-{pkgver}.tar.gz"

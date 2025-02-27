@@ -13,7 +13,6 @@ makedepends = [
     "kde1-kdelibs-devel",
 ]
 pkgdesc = "KDE1 games"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdegames"
 source = f"{url}/archive/{_gitrev}.tar.gz"

@@ -7,7 +7,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["openssl3-devel"]
 pkgdesc = "Abstract asynchronous event notification library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libevent.org"
 source = f"https://github.com/libevent/libevent/releases/download/release-{pkgver}-stable/libevent-{pkgver}-stable.tar.gz"

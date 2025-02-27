@@ -16,7 +16,6 @@ hostmakedepends = [
 makedepends = ["gtk+3-devel"]
 depends = ["cmd:xdg-open!xdg-utils"]
 pkgdesc = "Collection of small programs which implement one-player puzzle games"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "MIT"
 url = "https://www.chiark.greenend.org.uk/~sgtatham/puzzles"
 source = f"https://git.tartarus.org/?p=simon/puzzles.git;a=snapshot;h={_gitrev};sf=tgz>puzzles-{pkgver}.tar.gz"

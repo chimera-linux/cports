@@ -7,7 +7,6 @@ configure_gen = []
 checkdepends = ["perl"]
 replaces = ["bmake<=20240808-r0"]
 pkgdesc = "GNU Make build tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/make"
 source = f"$(GNU_SITE)/make/make-{pkgver}.tar.gz"

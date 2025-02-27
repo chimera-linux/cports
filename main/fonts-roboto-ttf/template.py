@@ -2,7 +2,6 @@ pkgname = "fonts-roboto-ttf"
 pkgver = "2.138"
 pkgrel = 0
 pkgdesc = "Roboto family of fonts"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://github.com/googlefonts/roboto"
 source = f"{url}/releases/download/v{pkgver}/roboto-android.zip"

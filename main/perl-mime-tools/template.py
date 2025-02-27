@@ -12,7 +12,6 @@ makedepends = [
 checkdepends = ["perl-test-deep"]
 depends = [*makedepends]
 pkgdesc = "Parses streams to create MIME entities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/MIME-tools"
 source = f"$(CPAN_SITE)/MIME/MIME-tools-{pkgver}.tar.gz"

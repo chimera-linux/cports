@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Unofficial CLI for Cloudflare Warp"
-maintainer = "cassiofb-dev <contact@cassiofernando.com>"
 license = "MIT"
 url = "https://github.com/ViRb3/wgcf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

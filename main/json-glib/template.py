@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "JSON parser for glib-based projects"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/action/show/Projects/JsonGlib"
 source = f"$(GNOME_SITE)/json-glib/{pkgver[:-2]}/json-glib-{pkgver}.tar.xz"

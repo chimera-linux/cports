@@ -14,7 +14,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "KDE1 multimedia applications"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdemultimedia"
 source = f"{url}/archive/{_gitrev}.tar.gz"

@@ -11,7 +11,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Size profiler for binaries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/bloaty"
 source = f"{url}/releases/download/v{pkgver}/bloaty-{pkgver}.tar.bz2"

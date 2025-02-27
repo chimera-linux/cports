@@ -31,7 +31,6 @@ makedepends = [
 ]
 depends = ["glib-networking"]
 pkgdesc = "HTTP library for glib"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libsoup"
 source = f"$(GNOME_SITE)/libsoup/{pkgver[:-2]}/libsoup-{pkgver}.tar.xz"

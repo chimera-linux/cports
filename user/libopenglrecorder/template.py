@@ -11,7 +11,6 @@ makedepends = [
     "openh264-devel",
 ]
 pkgdesc = "OpenGL recording library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/Benau/libopenglrecorder"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -2,7 +2,6 @@ pkgname = "pdfjs"
 pkgver = "4.10.38"
 pkgrel = 0
 pkgdesc = "Platform for parsing and rendering PDFs"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/mozilla/pdf.js"
 source = f"{url}/releases/download/v{pkgver}/pdfjs-{pkgver}-legacy-dist.zip"

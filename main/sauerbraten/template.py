@@ -11,7 +11,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("sauerbraten-data")]
 pkgdesc = "Free FPS game, successor to Cube"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "http://sauerbraten.org"
 source = f"$(SOURCEFORGE_SITE)/sauerbraten/sauerbraten_{pkgver.replace('.', '_')}_linux.tar.bz2"

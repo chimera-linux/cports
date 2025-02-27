@@ -39,7 +39,6 @@ depends = [
 provides = [self.with_pkgver("gnome-core")]
 pkgdesc = "GNOME desktop environment"
 subdesc = "session"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://www.gnome.org"
 

@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "Library of Unicode names and annotation data"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/fontforge/libuninameslist"
 source = (

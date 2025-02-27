@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE KIO admin:// protocol implementation"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/system/kio-admin"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-admin-{pkgver}.tar.xz"

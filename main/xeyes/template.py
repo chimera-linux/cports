@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libxmu-devel", "libxt-devel", "libxrender-devel", "libxi-devel"]
 pkgdesc = "Follow the mouse"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xeyes-{pkgver}.tar.gz"

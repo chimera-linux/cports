@@ -20,7 +20,6 @@ checkdepends = [
     "dbus",
 ]
 pkgdesc = "KDE Persistent platform-independent application settings"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kconfig/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kconfig-{pkgver}.tar.xz"

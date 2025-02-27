@@ -5,7 +5,6 @@ build_style = "makefile"
 make_use_env = True
 makedepends = ["linux-headers"]
 pkgdesc = "DVD and blu-ray burning tools"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://fy.chalmers.se/~appro/linux/DVD+RW"
 source = f"{url}/tools/dvd+rw-tools-{pkgver}.tar.gz"

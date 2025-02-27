@@ -29,7 +29,6 @@ makedepends = [
 ]
 depends = ["konsole"]
 pkgdesc = "KDE Advanced Text Editor"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/kate"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kate-{pkgver}.tar.xz"

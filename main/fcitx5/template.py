@@ -30,7 +30,6 @@ makedepends = [
     "xcb-util-wm-devel",
 ]
 pkgdesc = "Generic input method framework"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://fcitx-im.org"
 _en_dict_ver = "20121020"

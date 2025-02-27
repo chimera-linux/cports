@@ -139,7 +139,6 @@ makedepends = [
 ]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer bad plugins"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-bad/gst-plugins-bad-{pkgver}.tar.xz"

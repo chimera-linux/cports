@@ -12,7 +12,6 @@ hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["linux-headers"]
 depends = ["alsa-ucm-conf"]
 pkgdesc = "Advanced Linux Sound Architecture library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
 source = f"{url}/files/pub/lib/alsa-lib-{pkgver}.tar.bz2"

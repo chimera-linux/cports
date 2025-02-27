@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["libtool-devel", "libedit-readline-devel"]
 pkgdesc = "Unix ODBC implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://www.unixodbc.org"
 source = f"{url}/unixODBC-{pkgver}.tar.gz"

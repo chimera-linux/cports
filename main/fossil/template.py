@@ -14,7 +14,6 @@ make_check_target = "test"
 makedepends = ["openssl3-devel", "zlib-ng-compat-devel", "tcl-devel"]
 checkdepends = ["tcl", "tcllib"]
 pkgdesc = "Distributed software configuration management system"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-2-Clause"
 url = "https://fossil-scm.org"
 source = f"https://fossil-scm.org/home/tarball/version-{pkgver}/fossil-src-{pkgver}.tar.gz"

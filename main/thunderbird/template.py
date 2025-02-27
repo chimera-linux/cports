@@ -54,7 +54,6 @@ provides = [
     self.with_pkgver("thunderbird-wayland"),
 ]
 pkgdesc = "Thunderbird mail client"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}esr/source/thunderbird-{pkgver}esr.source.tar.xz"

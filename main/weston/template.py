@@ -42,7 +42,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland"]
 pkgdesc = "Reference implementation of a Wayland compositor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/wayland/weston/-/releases/{pkgver}/downloads/weston-{pkgver}.tar.xz"

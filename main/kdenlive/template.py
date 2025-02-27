@@ -43,7 +43,6 @@ depends = [
     "frei0r",
 ]
 pkgdesc = "KDE video editor"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenlive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenlive-{pkgver}.tar.xz"

@@ -6,7 +6,6 @@ hostmakedepends = ["python-build", "python-flit_core", "python-installer"]
 depends = ["python-pyyaml"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "YAML config files for Python"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "MIT"
 url = "https://github.com/beetbox/confuse"
 source = f"$(PYPI_SITE)/c/confuse/confuse-{pkgver}.tar.gz"

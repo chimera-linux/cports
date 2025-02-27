@@ -14,7 +14,6 @@ makedepends = [
     "gtk+3-devel",
 ]
 pkgdesc = "Xfce GIO/GVFS frontend"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/apps/gigolo/start"
 source = f"$(XFCE_SITE)/apps/gigolo/{pkgver[:-2]}/gigolo-{pkgver}.tar.bz2"

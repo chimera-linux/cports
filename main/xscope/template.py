@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["libxt-devel", "xtrans"]
 pkgdesc = "Program to monitor X11 Server/Client conversations"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"{url}/archive/individual/app/xscope-{pkgver}.tar.gz"

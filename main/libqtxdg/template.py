@@ -14,7 +14,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Qt implementation of freedesktop.org xdg specs"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/libqtxdg"
 source = f"{url}/releases/download/{pkgver}/libqtxdg-{pkgver}.tar.xz"

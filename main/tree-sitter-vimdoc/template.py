@@ -8,7 +8,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Vimdoc grammar for tree-sitter"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/neovim/tree-sitter-vimdoc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

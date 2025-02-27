@@ -12,7 +12,6 @@ makedepends = ["libarchive-devel", "openssl3-devel", "zlib-ng-compat-devel"]
 depends = ["ca-certificates"]
 checkdepends = ["kyua", "atf-devel"]
 pkgdesc = "XBPS package manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND BSD-3-Clause AND MIT"
 url = "https://github.com/void-linux/xbps"
 source = f"{url}/archive/{pkgver}.tar.gz"

@@ -20,7 +20,6 @@ depends = [
     "bluez",
 ]
 pkgdesc = "Qt wrapper for Bluez 5 D-Bus API"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/bluez-qt/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/bluez-qt-{pkgver}.tar.xz"

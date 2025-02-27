@@ -22,7 +22,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "CLI program to download videos from YouTube and other sites"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unlicense"
 url = "https://github.com/yt-dlp/yt-dlp"
 source = f"{url}/releases/download/{pkgver}/yt-dlp.tar.gz"

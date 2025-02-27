@@ -7,7 +7,6 @@ configure_args = ["--enable-utf8"]
 configure_gen = []
 makedepends = ["ncurses-devel", "file-devel", "linux-headers"]
 pkgdesc = "GNU nano text editor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.nano-editor.org"
 source = f"https://www.nano-editor.org/dist/v{pkgver[0]}/nano-{pkgver}.tar.xz"

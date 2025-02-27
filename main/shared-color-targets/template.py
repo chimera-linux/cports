@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 pkgdesc = "Shared color targets for creating color profiles"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "CC-BY-SA-3.0"
 url = "https://github.com/hughsie/shared-color-targets"
 source = f"https://people.freedesktop.org/~hughsient/releases/shared-color-targets-{pkgver}.tar.xz"

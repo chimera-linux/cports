@@ -21,7 +21,6 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "Open source camera stack and framework"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://libcamera.org"
 source = f"https://github.com/libcamera-org/libcamera/archive/refs/tags/v{pkgver}.tar.gz"

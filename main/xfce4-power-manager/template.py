@@ -24,7 +24,6 @@ makedepends = [
 ]
 depends = ["polkit"]
 pkgdesc = "Xfce power manager"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/xfce4-power-manager/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-power-manager/{pkgver[:-2]}/xfce4-power-manager-{pkgver}.tar.bz2"

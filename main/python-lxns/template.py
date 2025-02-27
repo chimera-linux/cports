@@ -11,7 +11,6 @@ makedepends = ["linux-headers", "python-devel"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library to control Linux kernel namespaces"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MPL-2.0"
 url = "https://github.com/igo95862/python-lxns"
 source = f"$(PYPI_SITE)/l/lxns/lxns-{pkgver}.tar.gz"

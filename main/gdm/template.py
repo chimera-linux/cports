@@ -63,7 +63,6 @@ depends = [
     "xwayland",
 ]
 pkgdesc = "GNOME display manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
 source = f"$(GNOME_SITE)/gdm/{pkgver[:-2]}/gdm-{pkgver}.tar.xz"

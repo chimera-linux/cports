@@ -12,7 +12,6 @@ makedepends = [
     "lv2",
 ]
 pkgdesc = "C API for using LV2 plugins"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/lilv.html"
 source = f"https://download.drobilla.net/lilv-{pkgver}.tar.xz"

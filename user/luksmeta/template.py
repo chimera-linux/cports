@@ -18,7 +18,6 @@ checkdepends = [
     "cryptsetup",
 ]
 pkgdesc = "Simple library for storing metadata in the LUKSv1 header"
-maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-only"
 url = "https://github.com/latchset/luksmeta"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

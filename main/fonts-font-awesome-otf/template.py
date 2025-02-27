@@ -2,7 +2,6 @@ pkgname = "fonts-font-awesome-otf"
 pkgver = "6.7.2"
 pkgrel = 0
 pkgdesc = "Iconic font set"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "OFL-1.1"
 url = "https://fontawesome.com"
 source = f"https://github.com/FortAwesome/Font-Awesome/releases/download/{pkgver}/fontawesome-free-{pkgver}-desktop.zip"

@@ -38,7 +38,6 @@ checkdepends = [
 replaces = ["gir-freedesktop<1.80.0"]
 triggers = ["/usr/share/glib-2.0/schemas", "/usr/lib/gio/modules"]
 pkgdesc = "GLib library of C routines"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/glib/{pkgver[:-2]}/glib-{pkgver}.tar.xz"

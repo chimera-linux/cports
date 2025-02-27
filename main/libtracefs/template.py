@@ -22,7 +22,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Linux kernel trace file system library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/about"
 source = f"https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/snapshot/libtracefs-{pkgver}.tar.gz"

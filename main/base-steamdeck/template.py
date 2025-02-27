@@ -8,6 +8,5 @@ depends = [
     "valve-hardware-audio-processing",
 ]
 pkgdesc = "Chimera base package for Steam Deck"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"

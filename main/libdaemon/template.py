@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--disable-lynx"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Lightweight C library that eases the writing of UNIX daemons"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://0pointer.de/lennart/projects/libdaemon"
 source = f"{url}/libdaemon-{pkgver}.tar.gz"

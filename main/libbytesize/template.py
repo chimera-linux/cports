@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["gmp-devel", "mpfr-devel", "pcre2-devel"]
 pkgdesc = "Library for operations with sizes in bytes"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libbytesize"
 source = f"{url}/releases/download/{pkgver}/libbytesize-{pkgver}.tar.gz"

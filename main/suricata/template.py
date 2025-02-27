@@ -34,7 +34,6 @@ makedepends = [
 ]
 depends = ["python-pyyaml"]
 pkgdesc = "High Performance Network IDS, IPS and Security Monitoring engine"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "GPL-2.0-or-later"
 url = "https://suricata.io"
 source = (

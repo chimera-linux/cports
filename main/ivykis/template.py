@@ -8,7 +8,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Library for asynchronous I/O readiness notification"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "http://libivykis.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libivykis/{pkgver}/ivykis-{pkgver}.tar.gz"

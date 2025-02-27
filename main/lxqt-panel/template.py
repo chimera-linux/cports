@@ -30,7 +30,6 @@ makedepends = [
 ]
 depends = ["lxqt-menu-data"]
 pkgdesc = "LXQt desktop panel"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-panel"
 source = f"{url}/releases/download/{pkgver}/lxqt-panel-{pkgver}.tar.xz"

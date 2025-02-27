@@ -6,7 +6,6 @@ configure_args = ["--enable-libpst-shared", "--disable-python"]
 hostmakedepends = ["automake", "gettext-devel", "libtool", "pkgconf"]
 makedepends = ["libgsf-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Library for working with PST files"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://www.five-ten-sg.com/libpst"
 source = f"{url}/packages/libpst-{pkgver}.tar.gz"

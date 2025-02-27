@@ -22,7 +22,6 @@ makedepends = [
 ]
 install_if = [self.with_pkgver("fprintd-meta")]
 pkgdesc = "Fingerprint scanning daemon"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://fprint.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/libfprint/fprintd/-/archive/v{pkgver}/fprintd-v{pkgver}.tar.gz"

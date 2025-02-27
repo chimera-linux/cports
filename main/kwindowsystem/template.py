@@ -39,7 +39,6 @@ depends = [
     "qqc2-desktop-style",
 ]
 pkgdesc = "KDE windowing system access"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"

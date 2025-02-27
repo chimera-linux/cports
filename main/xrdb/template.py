@@ -6,7 +6,6 @@ configure_args = ["--with-cpp=/usr/bin/clang-cpp,/usr/bin/cpp"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "xorg-util-macros"]
 makedepends = ["libx11-devel", "libxmu-devel"]
 pkgdesc = "X server resource database utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xrdb-{pkgver}.tar.gz"

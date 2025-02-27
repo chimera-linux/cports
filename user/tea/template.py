@@ -8,7 +8,6 @@ make_build_args = [
 ]
 hostmakedepends = ["go"]
 pkgdesc = "CLI tool to interact with Gitea servers"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://gitea.com/gitea/tea"
 source = f"{url}/archive/v{pkgver}.tar.gz"

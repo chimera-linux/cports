@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pyyaml"]
 depends = ["python"]
 pkgdesc = "Python implementation of Markdown"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/Python-Markdown/markdown"
 source = f"$(PYPI_SITE)/M/Markdown/markdown-{pkgver}.tar.gz"

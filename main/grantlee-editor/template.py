@@ -28,7 +28,6 @@ makedepends = [
     "syntax-highlighting-devel",
 ]
 pkgdesc = "KDE editor for Grantlee themes"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/pim/grantlee-editor"
 source = (

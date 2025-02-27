@@ -12,7 +12,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Hangul IME for Wayland"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://github.com/mswiger/seogi"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

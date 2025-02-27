@@ -6,7 +6,6 @@ configure_args = ["--enable-malloc0returnsnull"]
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libxext-devel"]
 pkgdesc = "X-TrueType font cache extension client library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXfontcache-{pkgver}.tar.bz2"

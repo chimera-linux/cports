@@ -12,7 +12,6 @@ make_build_args = [
 make_check_args = ["./src/..."]
 hostmakedepends = ["go"]
 pkgdesc = "Experiment in scalable routing as an encrypted IPv6 overlay network"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "LGPL-3.0-only"
 url = "https://yggdrasil-network.github.io"
 source = f"https://github.com/yggdrasil-network/yggdrasil-go/archive/v{pkgver}.tar.gz"

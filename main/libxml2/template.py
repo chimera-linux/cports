@@ -25,7 +25,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "XML parsing library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.xmlsoft.org"
 source = f"$(GNOME_SITE)/libxml2/{pkgver[: pkgver.rfind('.')]}/libxml2-{pkgver}.tar.xz"

@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = ["!sway"]
 pkgdesc = "Fork of sway with more graphical effects"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/WillPower3309/swayfx"
 source = [

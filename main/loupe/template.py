@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = ["glycin-loaders"]
 pkgdesc = "GNOME image viewer"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Loupe"
 source = f"$(GNOME_SITE)/loupe/{pkgver[:-2]}/loupe-{pkgver}.tar.xz"

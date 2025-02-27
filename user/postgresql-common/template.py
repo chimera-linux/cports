@@ -6,7 +6,6 @@ build_style = "meta"
 # some postgresql provider around, so hack around it anyway
 depends = ["virtual:postgresql-runtime!base-files"]
 pkgdesc = "Common files for PostgreSQL"
-maintainer = "mia <mia@mia.jetzt>"
 license = "custom:none"
 url = "https://chimera-linux.org"
 

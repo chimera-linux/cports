@@ -15,7 +15,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Qt6 component exposing Wayland wl-layer-shell protocol"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/layer-shell-qt/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/layer-shell-qt-{pkgver}.tar.xz"

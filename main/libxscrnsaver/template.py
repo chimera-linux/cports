@@ -6,7 +6,6 @@ configure_args = ["--enable-malloc0returnsnull"]
 hostmakedepends = ["automake", "pkgconf", "slibtool", "xorg-util-macros"]
 makedepends = ["xorgproto", "libx11-devel", "libxext-devel"]
 pkgdesc = "X Screensaver Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXScrnSaver-{pkgver}.tar.gz"

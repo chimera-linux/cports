@@ -37,7 +37,6 @@ makedepends = [
 ]
 depends = ["shared-mime-info"]
 pkgdesc = "Tools and libraries to work with AppStream metadata"
-maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "http://www.freedesktop.org/wiki/Distributions/AppStream"
 source = (

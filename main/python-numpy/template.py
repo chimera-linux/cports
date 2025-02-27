@@ -17,7 +17,6 @@ checkdepends = [
     "python-pytest-xdist",
 ]
 pkgdesc = "Package for scientific computing with Python"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"

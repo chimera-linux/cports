@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["librevenge-devel", "boost-devel", "libxml2-devel"]
 pkgdesc = "Library for AbiWord document format"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libabw"
 source = f"https://dev-www.libreoffice.org/src/libabw/libabw-{pkgver}.tar.xz"

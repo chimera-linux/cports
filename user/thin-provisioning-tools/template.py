@@ -15,7 +15,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Tools for manipulating the metadata of dm-thin targets"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/jthornber/thin-provisioning-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -42,7 +42,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "PostScript and PDF language interpreter"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "AGPL-3.0-or-later"
 url = "https://www.ghostscript.com"
 source = f"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs{pkgver.replace('.', '')}/ghostscript-{pkgver}.tar.xz"

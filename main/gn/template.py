@@ -5,7 +5,6 @@ _gitrev = "415b3b19e094cd4b6982147693485df65037f942"
 hostmakedepends = ["ninja", "python"]
 depends = ["ninja"]
 pkgdesc = "Build system that generates ninja"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://gn.googlesource.com/gn"
 # shamelessly leech off alpine

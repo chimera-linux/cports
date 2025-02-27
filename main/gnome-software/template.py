@@ -40,7 +40,6 @@ makedepends = [
 ]
 checkdepends = ["dbus", "xwayland-run"]
 pkgdesc = "GNOME software center"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-software"
 source = (

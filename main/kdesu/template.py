@@ -16,7 +16,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Framework for running commands as root"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only"
 url = "https://api.kde.org/frameworks/kdesu/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdesu-{pkgver}.tar.xz"

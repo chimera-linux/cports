@@ -3,7 +3,6 @@ pkgver = "3.3.0"
 pkgrel = 1
 provides = [self.with_pkgver("fonts-nerd-fonts")]
 pkgdesc = "Nerd Fonts"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "custom:meta"
 url = "https://www.nerdfonts.com"
 # Filled later in the template

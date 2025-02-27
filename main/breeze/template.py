@@ -30,7 +30,6 @@ depends = [
     "frameworkintegration",
 ]
 pkgdesc = "Breeze visual style for the KDE Plasma Desktop"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/breeze"
 source = f"$(KDE_SITE)/plasma/{pkgver}/breeze-{pkgver}.tar.xz"

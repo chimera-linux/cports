@@ -6,7 +6,6 @@ hostmakedepends = ["gettext", "meson", "pkgconf", "scdoc"]
 makedepends = ["cairo-devel", "gtk+3-devel", "pango-devel"]
 depends = ["wl-clipboard", "fonts-font-awesome-otf"]
 pkgdesc = "Wayland native snapshot editing tool"
-maintainer = "jabuxas <jabuxas@proton.me>"
 license = "MIT"
 url = "https://github.com/jtheoof/swappy"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

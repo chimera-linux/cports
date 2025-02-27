@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "CLI tool to check XMPP SRV records"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-2-Clause"
 url = "https://salsa.debian.org/mdosch/xmpp-dns"
 source = f"{url}/-/archive/v{pkgver}/xmpp-dns-v{pkgver}.tar.gz"

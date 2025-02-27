@@ -7,7 +7,6 @@ build_style = "makefile"
 make_check_target = "check_stemtest"
 hostmakedepends = ["perl"]
 pkgdesc = "Snowball rule-based stemming algorithms"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "BSD-3-Clause"
 url = "https://snowballstem.org/index.html"
 source = f"https://github.com/snowballstem/snowball/archive/refs/tags/v{pkgver}.tar.gz"

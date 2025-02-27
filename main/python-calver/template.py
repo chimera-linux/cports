@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Setuptools extension for CalVer package versions"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/di/calver"
 source = f"$(PYPI_SITE)/c/calver/calver-{pkgver}.tar.gz"

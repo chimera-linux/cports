@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
 makedepends = ["xcb-util-devel"]
 pkgdesc = "XCB utilities library - key constants and keycode conversion"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/xcb-util-keysyms-{pkgver}.tar.gz"

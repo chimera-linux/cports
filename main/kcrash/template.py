@@ -13,7 +13,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE Graceful handling of application crashes"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcrash/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcrash-{pkgver}.tar.xz"

@@ -21,7 +21,6 @@ makedepends = [
     "gettext-devel",
 ]
 pkgdesc = "Hierarchical pool based memory allocator with destructors"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://talloc.samba.org"
 source = f"https://download.samba.org/pub/talloc/talloc-{pkgver}.tar.gz"

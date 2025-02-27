@@ -16,7 +16,6 @@ makedepends = [
 ]
 checkdepends = ["e2fsprogs", "perl", "python"]
 pkgdesc = "GNU parted"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/parted"
 source = f"$(GNU_SITE)/parted/parted-{pkgver}.tar.xz"

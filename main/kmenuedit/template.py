@@ -24,7 +24,6 @@ makedepends = [
     "sonnet-devel",
 ]
 pkgdesc = "KDE menu editor"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only"
 url = "https://invent.kde.org/plasma/kmenuedit"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kmenuedit-{pkgver}.tar.xz"

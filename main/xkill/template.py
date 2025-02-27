@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["libx11-devel", "libxmu-devel"]
 pkgdesc = "Kill an X client by its X resource"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xkill-{pkgver}.tar.gz"

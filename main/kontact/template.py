@@ -25,7 +25,6 @@ makedepends = [
     "qt6-qtwebengine-devel",
 ]
 pkgdesc = "KDE PIM unified UI"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only AND GPL-2.0-or-later"
 url = "https://kontact.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kontact-{pkgver}.tar.xz"

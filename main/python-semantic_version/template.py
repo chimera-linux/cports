@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Semantic version comparison for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/rbarrois/python-semanticversion"
 source = f"$(PYPI_SITE)/s/semantic-version/semantic_version-{pkgver}.tar.gz"

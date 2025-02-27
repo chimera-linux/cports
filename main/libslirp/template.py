@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["glib-devel", "linux-headers"]
 pkgdesc = "General purpose TCP-IP emulator"
-maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://gitlab.freedesktop.org/slirp/libslirp"
 source = f"{url}/-/archive/v{pkgver}/libslirp-v{pkgver}.tar.gz"

@@ -7,7 +7,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf"]
 makedepends = ["libedit-readline-devel"]
 pkgdesc = "Lua scripting language 5.1.x"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://lua.org"
 source = f"https://www.lua.org/ftp/lua-{pkgver}.tar.gz"

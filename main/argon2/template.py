@@ -8,7 +8,6 @@ make_check_target = "test"
 make_use_env = True
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Argon2 password-hashing function"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 OR CC0-1.0"
 url = "https://github.com/P-H-C/phc-winner-argon2"
 source = f"{url}/archive/{pkgver}.tar.gz"

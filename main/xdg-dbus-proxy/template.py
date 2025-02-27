@@ -13,7 +13,6 @@ hostmakedepends = [
 makedepends = ["glib-devel"]
 checkdepends = ["dbus"]
 pkgdesc = "Filtering proxy for D-Bus connections"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/flatpak/xdg-dbus-proxy"
 source = f"{url}/releases/download/{pkgver}/xdg-dbus-proxy-{pkgver}.tar.xz"

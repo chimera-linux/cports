@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Testing library that makes it easy to create mocks, stubs and fakes"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/flexmock/flexmock"
 source = f"$(PYPI_SITE)/f/flexmock/flexmock-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "ruby_gem"
 hostmakedepends = ["ruby"]
 depends = ["ruby"]
 pkgdesc = "Ruby-based AsciiDoc converter"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://asciidoctor.org"
 source = f"!https://rubygems.org/downloads/asciidoctor-{pkgver}.gem"

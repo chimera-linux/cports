@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "json-glib-devel", "json-c-devel", "gegl-devel"]
 pkgdesc = "MyPaint brush engine library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://github.com/mypaint/libmypaint"
 source = f"{url}/releases/download/v{pkgver}/libmypaint-{pkgver}.tar.xz"

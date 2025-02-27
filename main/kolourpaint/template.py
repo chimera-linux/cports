@@ -16,7 +16,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE paint program"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-2-Clause AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/graphics/kolourpaint"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kolourpaint-{pkgver}.tar.xz"

@@ -16,7 +16,6 @@ makedepends = [
 depends = ["dbus"]
 checkdepends = ["bash", "dbus", "python-dbusmock"]
 pkgdesc = "Test executables under a new DBus session"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "GPL-3.0-only"
 url = "https://launchpad.net/dbus-test-runner"
 source = f"{url}/{pkgver[: pkgver.rfind('.')]}/{pkgver}/+download/dbus-test-runner-{pkgver}.tar.gz"

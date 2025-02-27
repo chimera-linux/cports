@@ -17,7 +17,6 @@ makedepends = [
 # dependency of wcm=0.8.0-r1, provides same file as 0.8.0-r0
 replaces = ["wcm<0.8.0-r1"]
 pkgdesc = "GUI display configuration tool for wlroots compositors"
-maintainer = "dhruv22592 <dhruv22592@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/artizirk/wdisplays"
 source = f"{url}/archive/{pkgver}.tar.gz"

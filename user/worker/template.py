@@ -12,7 +12,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "Worker file manager"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://www.boomerangsworld.de/cms/worker/index.html"
 source = (

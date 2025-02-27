@@ -2,7 +2,6 @@ pkgname = "firmware-ipw2100"
 pkgver = "1.3"
 pkgrel = 0
 pkgdesc = "Firmware for the Intel PRO/Wireless 2100 wifi cards"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:ipw2100"
 url = "http://ipw2100.sourceforge.net"
 source = f"http://firmware.openbsd.org/firmware-dist/ipw2100-fw-{pkgver}.tgz"

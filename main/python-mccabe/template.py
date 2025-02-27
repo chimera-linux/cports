@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python McCabe complexity checker"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/PyCQA/mccabe"
 source = f"$(PYPI_SITE)/m/mccabe/mccabe-{pkgver}.tar.gz"

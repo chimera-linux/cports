@@ -6,7 +6,6 @@ make_check_args = ["--bins"]  # disable integration tests
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Log file highlighter"
-maintainer = "sonata-chen <sonatachen39@gmail.com>"
 license = "MIT"
 url = "https://github.com/bensadeh/tailspin"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

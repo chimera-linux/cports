@@ -11,7 +11,6 @@ makedepends = [
     "util-linux-blkid-devel",
 ]
 pkgdesc = "F2FS (Flash-Friendly File System) utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/cgit/linux/kernel/git/jaegeuk/f2fs-tools.git"
 source = f"{url}/snapshot/f2fs-tools-{pkgver}.tar.gz"

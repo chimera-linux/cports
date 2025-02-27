@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["lcms2-devel", "icu-devel", "librevenge-devel", "boost-devel"]
 pkgdesc = "Corel Draw format importer library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libcdr"
 source = f"http://dev-www.libreoffice.org/src/libcdr/libcdr-{pkgver}.tar.xz"

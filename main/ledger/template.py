@@ -8,7 +8,6 @@ make_check_args = ["-E", "(BaselineTest_cmd-pricedb|BaselineTest_cmd-prices)"]
 hostmakedepends = ["cmake", "ninja"]
 makedepends = ["boost-devel", "utfcpp", "mpfr-devel", "libedit-devel"]
 pkgdesc = "Plain text accounting software"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://ledger-cli.org"
 source = f"https://github.com/ledger/ledger/archive/refs/tags/v{pkgver}.tar.gz"

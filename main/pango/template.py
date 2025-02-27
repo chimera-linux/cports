@@ -27,7 +27,6 @@ checkdepends = [
     "fonts-liberation-ttf",
 ]
 pkgdesc = "Text rendering and layout library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.pango.org"
 source = (

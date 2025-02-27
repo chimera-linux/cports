@@ -26,7 +26,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Linux OS platform information API"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"
 url = "https://github.com/python-distro/distro"
 source = f"$(PYPI_SITE)/d/distro/distro-{pkgver}.tar.gz"

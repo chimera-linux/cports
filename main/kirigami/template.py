@@ -14,7 +14,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE's QtQuick based UI component set"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-only"
 url = "https://develop.kde.org/frameworks/kirigami"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kirigami-{pkgver}.tar.xz"

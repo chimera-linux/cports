@@ -6,7 +6,6 @@ prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl3-devel", "libgit2-devel"]
 pkgdesc = "Tool for opening git repositories as tmux sessions"
-maintainer = "jabuxas <jabuxas@proton.me>"
 license = "MIT"
 url = "https://github.com/jrmoulton/tmux-sessionizer"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

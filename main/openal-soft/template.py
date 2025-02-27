@@ -13,7 +13,6 @@ makedepends = [
     "ffmpeg-devel",
 ]
 pkgdesc = "Cross-platform 3D audio API"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://openal-soft.org"
 source = f"{url}/openal-releases/openal-soft-{pkgver}.tar.bz2"

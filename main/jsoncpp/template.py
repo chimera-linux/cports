@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "C++ library for interacting with JSON"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "MIT"
 url = "https://github.com/open-source-parsers/jsoncpp"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

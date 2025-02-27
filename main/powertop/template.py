@@ -18,7 +18,6 @@ makedepends = [
     "pciutils-devel",
 ]
 pkgdesc = "Diagnostic tool for power usage"
-maintainer = "stbk <stbk@elia.garden>"
 license = "GPL-2.0-only"
 url = "https://github.com/fenrus75/powertop"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

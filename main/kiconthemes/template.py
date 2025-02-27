@@ -24,7 +24,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Icon GUI utilities"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kiconthemes/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kiconthemes-{pkgver}.tar.xz"

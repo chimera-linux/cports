@@ -3,7 +3,6 @@ pkgver = "0.1"
 pkgrel = 2
 depends = ["base-kernel"]
 pkgdesc = "Common U-Boot boot menu generator for device targets"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 # no tests

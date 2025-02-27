@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-werkzeug"]
 checkdepends = ["python-pytest", "python-requests", *depends]
 pkgdesc = "Pytest http server extension"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/csernazs/pytest-httpserver"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

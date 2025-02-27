@@ -9,7 +9,6 @@ make_check_args = ["--lib"]
 hostmakedepends = ["cargo-auditable"]
 depends = ["rust-std"]
 pkgdesc = "TUI for analyzing ELF files"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://binsider.dev"
 source = f"https://github.com/orhun/binsider/archive/refs/tags/v{pkgver}.tar.gz"

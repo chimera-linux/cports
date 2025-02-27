@@ -21,7 +21,6 @@ makedepends = [
 ]
 provides = ["so:libtk8.6.so=0"]
 pkgdesc = "TK graphical user interface toolkit for TCL"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/tcl/tk{pkgver}-src.tar.gz"

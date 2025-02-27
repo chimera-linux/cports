@@ -4,7 +4,6 @@ _commit = "53a0442b8700ddcb33caa5d1d17ca9a290000283"
 pkgver = "20240503"
 pkgrel = 0
 pkgdesc = "X server protocol name registry"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"!https://gitlab.freedesktop.org/xorg/xserver/-/raw/{_commit}/dix/protocol.txt"

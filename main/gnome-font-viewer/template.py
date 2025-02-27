@@ -18,7 +18,6 @@ makedepends = [
     "gnome-desktop-devel",
 ]
 pkgdesc = "Font viewer for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-font-viewer"
 source = f"$(GNOME_SITE)/gnome-font-viewer/{pkgver[:-2]}/gnome-font-viewer-{pkgver}.tar.xz"

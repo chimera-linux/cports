@@ -15,7 +15,6 @@ hostmakedepends = [
     "ninja",
 ]
 pkgdesc = "C++ library for serialization"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/USCiLab/cereal"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

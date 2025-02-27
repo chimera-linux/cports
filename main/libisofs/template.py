@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "libtool", "pkgconf"]
 # TODO: libjte (if it's actually worth it)
 makedepends = ["acl-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Library to create ISO 9660 images"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://dev.lovelyhq.com/libburnia/libisofs"
 source = f"http://files.libburnia-project.org/releases/libisofs-{pkgver[:-2]}.pl0{pkgver[-1]}.tar.gz"

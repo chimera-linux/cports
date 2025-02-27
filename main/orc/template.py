@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Optimized Inner Loop Runtime Compiler"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/orc/orc-{pkgver}.tar.xz"

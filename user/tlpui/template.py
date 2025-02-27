@@ -16,7 +16,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "GTK user interface for TLP"
-maintainer = "Guilhem Baccialone <guilhem.baccialone@zaclys.net>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/d4nj1/TLPUI"
 source = f"{url}/archive/refs/tags/tlpui-{pkgver}.tar.gz"

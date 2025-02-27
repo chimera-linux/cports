@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "gettext-devel", "xorg-util-macros"]
 makedepends = ["libx11-devel", "libxmu-devel"]
 pkgdesc = "X server access control program"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xhost-{pkgver}.tar.gz"

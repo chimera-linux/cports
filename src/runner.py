@@ -1670,43 +1670,15 @@ def do_update_check(tgt):
             _print_upd(tmpls[0].full_pkgname, pv, nv)
         return
 
-    maint = None
-    pmaint = False
-    first = True
-
-    # sorted by maintainer for convenience (and then by name)
-    # put a placeholder for no maintainer, print orphaned first
     stmpls = sorted(
         tmpls,
         key=lambda tmpl: (
-            (
-                tmpl.maintainer
-                if tmpl.maintainer != "Orphaned <orphaned@chimera-linux.org>"
-                else "!!!"
-            ),
             tmpl.repository,
             tmpl.pkgname,
         ),
     )
     for tmpl in stmpls:
-        if tmpl.maintainer != maint:
-            maint = tmpl.maintainer
-            pmaint = False
-        # check each package, print maintainer when we find something
         cv = update_check.update_check(tmpl, verbose)
-        if cv and not pmaint:
-            if first:
-                first = False
-            else:
-                # put an empty line inbetween different maintainers' stuff
-                print()
-            if maint:
-                print(maint)
-                print("-" * len(maint))
-            else:
-                print("ORPHANED PACKAGES")
-                print("-----------------")
-            pmaint = True
         # now we can actually print the versions
         for pv, nv in cv:
             _print_upd(tmpl.full_pkgname, pv, nv)

@@ -11,6 +11,5 @@ depends = [
     "python",
 ]
 pkgdesc = "Everything one needs to use cbuild and cports"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"

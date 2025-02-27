@@ -20,7 +20,6 @@ hostmakedepends = [
 depends = ["evolution-data-server", "gnome-shell", "gsound", "openssl3"]
 checkdepends = ["dbus", "gnome-shell", "xserver-xorg-xvfb"]
 pkgdesc = "KDE Connect implementation for GNOME"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/GSConnect/gnome-shell-extension-gsconnect"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

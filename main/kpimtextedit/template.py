@@ -27,7 +27,6 @@ makedepends = [
     "syntax-highlighting-devel",
 ]
 pkgdesc = "KDE PIM textedit class"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/kdepim/kpimtextedit/html"
 source = (

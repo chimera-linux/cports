@@ -35,7 +35,6 @@ makedepends = [
     "webkitgtk-devel",
 ]
 pkgdesc = "GNOME service to access online accounts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
 source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-4]}/gnome-online-accounts-{pkgver}.tar.xz"

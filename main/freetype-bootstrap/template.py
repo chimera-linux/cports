@@ -21,7 +21,6 @@ depends = ["!freetype", "!freetype-devel"]
 # provide lowest possible version
 provides = ["so:libfreetype.so.6=0", "pc:freetype2=24.3.0"]
 pkgdesc = "Font rendering engine"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(SOURCEFORGE_SITE)/freetype/freetype-{pkgver}.tar.xz"

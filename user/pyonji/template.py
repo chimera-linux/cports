@@ -4,7 +4,6 @@ pkgrel = 12
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Easy-to-use tool to send e-mail patches"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "GPL-3.0-only"
 url = "https://sr.ht/~emersion/pyonji"
 source = f"https://git.sr.ht/~emersion/pyonji/refs/download/v{pkgver}/pyonji-{pkgver}.tar.gz"

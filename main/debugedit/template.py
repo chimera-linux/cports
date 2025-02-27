@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "bash", "help2man", "pkgconf"]
 makedepends = ["elfutils-devel", "musl-bsd-headers", "xxhash-devel"]
 pkgdesc = "Utilities for creating debuginfo and source file distributions"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later AND LGPL-2.0-or-later"
 url = "https://sourceware.org/debugedit"
 source = (

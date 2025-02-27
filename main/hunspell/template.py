@@ -7,7 +7,6 @@ hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["gettext-devel", "ncurses-devel", "libedit-readline-devel"]
 checkdepends = ["bash"]
 pkgdesc = "Spell checker and morphological analyzer"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1"
 url = "https://hunspell.github.io"
 source = f"https://github.com/hunspell/hunspell/releases/download/v{pkgver}/hunspell-{pkgver}.tar.gz"

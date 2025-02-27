@@ -15,7 +15,6 @@ makedepends = [
 ]
 checkdepends = ["git", "gnupg"]
 pkgdesc = "Tool to verify git commit signatures based on a policy"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.com/sequoia-pgp/sequoia-git"
 source = f"{url}/-/archive/v{pkgver}/sequoia-git-v{pkgver}.tar.gz"

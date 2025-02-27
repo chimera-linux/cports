@@ -21,7 +21,6 @@ makedepends = [
     "usrsctp-devel",
 ]
 pkgdesc = "WebRTC network library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://libdatachannel.org"
 source = f"https://github.com/paullouisageneau/libdatachannel/archive/refs/tags/v{pkgver}.tar.gz"

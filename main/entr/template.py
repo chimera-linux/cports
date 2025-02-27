@@ -12,7 +12,6 @@ checkdepends = [
     "vim",
 ]
 pkgdesc = "Run arbitrary commands when files change"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://eradman.com/entrproject"
 source = f"{url}/code/entr-{pkgver}.tar.gz"

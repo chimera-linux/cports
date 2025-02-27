@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["xmlto"]
 pkgdesc = "Library to handle, display and manipulate GIFs"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/giflib"
 source = f"$(SOURCEFORGE_SITE)/giflib/giflib-{pkgver}.tar.gz"

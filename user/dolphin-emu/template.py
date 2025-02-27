@@ -47,7 +47,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "GameCube and Wii emulator"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-only"
 url = "https://dolphin-emu.org"
 _commit_cubeb = "54217bca3f3e0cd53c073690a23dd25d83557909"

@@ -21,7 +21,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Implementation of the JSON Schema specification for Python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-jsonschema/jsonschema"
 source = f"$(PYPI_SITE)/j/jsonschema/jsonschema-{pkgver}.tar.gz"

@@ -18,7 +18,6 @@ makedepends = [
     "qt6-qtpositioning-devel",
 ]
 pkgdesc = "KDE Weather library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kweathercore/html"
 source = (

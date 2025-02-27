@@ -7,7 +7,6 @@ makedepends = ["sqlite-devel"]
 go_build_tags = ["libsqlite3"]
 go_check_tags = ["libsqlite3"]
 pkgdesc = "Rename multiple files using any text editor"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "MIT"
 url = "https://github.com/laurent22/massren"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

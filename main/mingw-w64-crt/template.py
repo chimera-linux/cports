@@ -7,7 +7,6 @@ configure_args = ["--disable-dependency-tracking"]
 hostmakedepends = ["automake", "libtool"]
 depends = []
 pkgdesc = "C runtime for Windows development"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "ZPL-2.1"
 url = "https://www.mingw-w64.org"
 source = f"$(SOURCEFORGE_SITE)/mingw-w64/mingw-w64-v{pkgver}.tar.bz2"

@@ -61,7 +61,6 @@ depends = [self.with_pkgver(f"python-python{_majver}-meta"), "ca-certificates"]
 provides = [self.with_pkgver(f"python{_majver}")]
 install_if = [self.with_pkgver(f"python-python{_majver}-meta")]
 pkgdesc = "Python programming language"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"

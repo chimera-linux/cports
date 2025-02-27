@@ -25,7 +25,6 @@ makedepends = [
 # transitional
 provides = [self.with_pkgver("libtotem-plparser-mini")]
 pkgdesc = "Totem playlist parser library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/totem-pl-parser"
 source = f"$(GNOME_SITE)/totem-pl-parser/{pkgver[:-2]}/totem-pl-parser-{pkgver}.tar.xz"

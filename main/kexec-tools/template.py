@@ -6,7 +6,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool"]
 makedepends = ["linux-headers", "xz-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Tools for kexec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org/pub/linux/utils/kernel/kexec"
 source = f"$(KERNEL_SITE)/utils/kernel/kexec/kexec-tools-{pkgver}.tar.xz"

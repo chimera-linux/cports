@@ -20,7 +20,6 @@ makedepends = [
 ]
 depends = ["xwayland"]
 pkgdesc = "Wayland compositor compatible with i3"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://swaywm.org"
 source = f"https://github.com/swaywm/sway/releases/download/{pkgver}/sway-{pkgver}.tar.gz"

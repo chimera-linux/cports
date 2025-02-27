@@ -34,7 +34,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "FOSS implementation of the Lightweight Directory Access Protocol"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "OLDAP-2.8"
 url = "https://www.openldap.org"
 source = (

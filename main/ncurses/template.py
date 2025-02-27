@@ -28,7 +28,6 @@ depends = [self.with_pkgver("ncurses-base")]
 # we generally want this in a proper system as a soft dep
 install_if = [self.with_pkgver("ncurses-libs"), "chimerautils"]
 pkgdesc = "System V Release 4.0 curses emulation library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.gnu.org/software/ncurses"
 source = f"$(GNU_SITE)/ncurses/ncurses-{pkgver}.tar.gz"

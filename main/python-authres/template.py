@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Authentication-Results verification module"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://launchpad.net/authentication-results-python"
 source = f"$(PYPI_SITE)/a/authres/authres-{pkgver}.tar.gz"

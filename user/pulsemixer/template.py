@@ -5,7 +5,6 @@ build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-setuptools"]
 depends = ["libpulse"]
 pkgdesc = "CLI and curses mixer for PulseAudio"
-maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "MIT"
 url = "https://github.com/GeorgeFilipkin/pulsemixer"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

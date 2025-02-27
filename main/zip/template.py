@@ -12,7 +12,6 @@ make_install_args = [*make_build_args]
 make_use_env = True
 depends = ["unzip"]  # zip -T
 pkgdesc = "Create/update ZIP files compatible with pkzip"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Info-ZIP"
 url = "https://infozip.sourceforge.net"
 source = "$(SOURCEFORGE_SITE)/infozip/zip30.tar.gz"

@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-requests"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python library for the Youtube Music API"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/sigma67/ytmusicapi"
 source = f"$(PYPI_SITE)/y/ytmusicapi/ytmusicapi-{pkgver}.tar.gz"

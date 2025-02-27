@@ -6,7 +6,6 @@ replaces = ["dinit-chimera<0.99.11-r2", "gcompat<1.1.0-r2"]
 # highest priority dir owner
 replaces_priority = 65535
 pkgdesc = "Chimera Linux base system files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 # no tests

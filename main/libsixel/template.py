@@ -12,7 +12,6 @@ makedepends = [
     "libpng-devel",
 ]
 pkgdesc = "SIXEL encoder/decoder"
-maintainer = "natthias <natthias@proton.me>"
 license = "MIT"
 url = "https://github.com/libsixel/libsixel"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -2,7 +2,6 @@ pkgname = "fonts-tex-gyre-otf"
 pkgver = "2.501"
 pkgrel = 0
 pkgdesc = "TeX Gyre Collection of Fonts"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "OFL-1.1"
 url = "https://www.gust.org.pl/projects/e-foundry/tex-gyre/index_html"
 source = f"https://www.gust.org.pl/projects/e-foundry/tex-gyre/whole/tg{pkgver.replace('.', '_')}otf.zip"

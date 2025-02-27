@@ -5,7 +5,6 @@ pkgrel = 3
 hostmakedepends = ["pkgconf"]
 provides = [self.with_pkgver("libbz2")]
 pkgdesc = "Freely available, patent free, high-quality data compressor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:bzip2"
 url = "https://sourceware.org/bzip2"
 source = f"https://sourceware.org/pub/bzip2/bzip2-{pkgver}.tar.gz"

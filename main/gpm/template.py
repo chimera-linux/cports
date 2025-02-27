@@ -19,7 +19,6 @@ makedepends = [
 ]
 depends = ["cmd:pgrep!procps"]
 pkgdesc = "Mouse server for the console"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.nico.schottelius.org/software/gpm"
 source = f"{url}/archives/gpm-{pkgver}.tar.gz"

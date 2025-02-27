@@ -15,7 +15,6 @@ makedepends = [
     "sqlite-devel",
 ]
 pkgdesc = "VoIP media traffic NAT traversal server and gateway"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/coturn/coturn"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "go"
 hostmakedepends = ["go"]
 depends = ["zfs"]
 pkgdesc = "ZFS backup and replication tool - dsh2dsh's enhanced fork"
-maintainer = "Robert David <robert.david@posteo.net>"
 license = "MIT"
 url = "https://github.com/dsh2dsh/zrepl"
 source = f"{url}/archive/v{pkgver}.tar.gz"

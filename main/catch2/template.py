@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 checkdepends = ["python"]
 pkgdesc = "C++-based test framework"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://github.com/catchorg/Catch2"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

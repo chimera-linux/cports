@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "Fast YAML 1.1 parser and emitter library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pyyaml.org/wiki/LibYAML"
 source = f"https://github.com/yaml/libyaml/archive/{pkgver}.tar.gz"

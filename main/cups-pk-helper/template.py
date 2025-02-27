@@ -7,7 +7,6 @@ configure_args = ["--libexecdir=/usr/lib"]
 hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext"]
 makedepends = ["glib-devel", "cups-devel", "polkit-devel"]
 pkgdesc = "PolicyKit helper to configure CUPS with fine-grained privileges"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/cups-pk-helper"
 source = f"https://gitlab.freedesktop.org/cups-pk-helper/cups-pk-helper/-/archive/{pkgver}/cups-pk-helper-{pkgver}.tar.gz"

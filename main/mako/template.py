@@ -23,7 +23,6 @@ makedepends = [
 ]
 depends = ["jq", "tangle-progs"]
 pkgdesc = "Lightweight notification daemon for Wayland"
-maintainer = "Umar Getagazov <umar@handlerug.me>"
 license = "MIT"
 url = "https://wayland.emersion.fr/mako"
 source = f"https://github.com/emersion/mako/releases/download/v{pkgver}/mako-{pkgver}.tar.gz"

@@ -10,7 +10,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Themes, graphics and icons for LXQt"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-themes"
 source = f"{url}/releases/download/{pkgver}/lxqt-themes-{pkgver}.tar.xz"

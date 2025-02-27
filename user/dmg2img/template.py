@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 makedepends = ["bzip2-devel", "openssl3-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Compressed dmg to standard image disk file convert tool"
-maintainer = "breakgimme <adam@plock.com>"
 license = "GPL-2.0-only"
 url = "http://vu1tur.eu.org/tools"
 source = f"http://vu1tur.eu.org/tools/dmg2img-{pkgver}.tar.gz"

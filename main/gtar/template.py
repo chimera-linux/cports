@@ -10,7 +10,6 @@ configure_gen = []
 hostmakedepends = ["texinfo"]
 makedepends = ["acl-devel"]
 pkgdesc = "GNU tape archiver"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/tar"
 source = f"$(GNU_SITE)/tar/tar-{pkgver}.tar.xz"

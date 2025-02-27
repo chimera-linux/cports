@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Tool to send messages or files over XMPP"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-2-Clause"
 url = "https://salsa.debian.org/mdosch/go-sendxmpp"
 source = f"{url}/-/archive/v{pkgver}/go-sendxmpp-v{pkgver}.tar.gz"

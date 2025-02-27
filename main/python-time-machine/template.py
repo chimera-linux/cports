@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-dateutil"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python library for mocking the current time"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://github.com/adamchainz/time-machine"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

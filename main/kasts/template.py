@@ -26,7 +26,6 @@ makedepends = [
     "threadweaver-devel",
 ]
 pkgdesc = "KDE convergent podcast player"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kasts"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kasts-{pkgver}.tar.xz"

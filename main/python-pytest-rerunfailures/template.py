@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-pytest"]
 checkdepends = [*depends]
 pkgdesc = "Pytest plugin to rerun failed tests multiple times"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/pytest-dev/pytest-rerunfailures"
 source = (

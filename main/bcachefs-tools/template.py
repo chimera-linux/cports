@@ -24,7 +24,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Bcachefs utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/koverstreet/bcachefs-tools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

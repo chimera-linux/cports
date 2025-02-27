@@ -8,7 +8,6 @@ configure_gen = []
 hostmakedepends = ["bash", "nasm", "perl", "pkgconf"]
 makedepends = ["fontconfig-devel", "fribidi-devel", "harfbuzz-devel"]
 pkgdesc = "Free library for encoding H264/AVC video streams"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.videolan.org/developers/x264.html"
 source = f"https://code.videolan.org/videolan/x264/-/archive/{_commit}.tar.gz"

@@ -24,7 +24,6 @@ checkdepends = [
 ]
 depends = ["python", "gobject-introspection-freedesktop", "python-cairo"]
 pkgdesc = "Python bindings for GObject"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://pygobject.readthedocs.io"
 source = f"$(GNOME_SITE)/pygobject/{pkgver[:-2]}/pygobject-{pkgver}.tar.xz"

@@ -23,7 +23,6 @@ makedepends = [
 ]
 depends = ["openvpn"]
 pkgdesc = "OpenVPN support for NetworkManager"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/NetworkManager/NetworkManager-openvpn/tree/main"
 source = f"https://github.com/NetworkManager/NetworkManager-openvpn/archive/refs/tags/{pkgver}.tar.gz"

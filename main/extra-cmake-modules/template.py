@@ -8,7 +8,6 @@ make_check_args = ["-E", "KDEFetchTranslations"]
 hostmakedepends = ["cmake", "ninja"]
 checkdepends = ["qt6-qtdeclarative-devel", "qt6-qttools-devel"]
 pkgdesc = "Extra modules and scripts for CMake"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause"
 url = "https://api.kde.org/frameworks/extra-cmake-modules/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/extra-cmake-modules-{pkgver}.tar.xz"

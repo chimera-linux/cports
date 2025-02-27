@@ -2,7 +2,6 @@ pkgname = "os-prober"
 pkgver = "1.83"
 pkgrel = 0
 pkgdesc = "Utility to detect other OSes on a set of drives"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/os-prober"
 source = f"$(DEBIAN_SITE)/main/o/os-prober/os-prober_{pkgver}.tar.xz"

@@ -12,7 +12,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Fork of the popular zip manipulation library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://github.com/zlib-ng/minizip-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

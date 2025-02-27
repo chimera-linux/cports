@@ -2,7 +2,6 @@ pkgname = "lua5.4-mediator_lua"
 pkgver = "1.1.0"
 pkgrel = 0
 pkgdesc = "Mediator pattern implementation for pub-sub management"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "http://www.olivinelabs.com/mediator_lua"
 source = f"https://github.com/Olivine-Labs/mediator_lua/archive/refs/tags/v{pkgver}.tar.gz"

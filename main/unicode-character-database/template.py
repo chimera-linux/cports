@@ -2,7 +2,6 @@ pkgname = "unicode-character-database"
 pkgver = "16.0.0"
 pkgrel = 1
 pkgdesc = "Unicode Character Database"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unicode-DFS-2016"
 url = "https://www.unicode.org"
 source = [

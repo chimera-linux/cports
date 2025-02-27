@@ -25,7 +25,6 @@ makedepends = [
 ]
 depends = ["cmark"]
 pkgdesc = "KDE markdown editor"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/ghostwriter"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ghostwriter-{pkgver}.tar.xz"

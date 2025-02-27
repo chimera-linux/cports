@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Yet Another Parser Parser for Perl"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/Parse-Yapp"
 source = f"$(CPAN_SITE)/Parse/Parse-Yapp-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "makefile"
 makedepends = ["musl-cross"]
 depends = ["musl-cross"]
 pkgdesc = "Libatomic for cross-compiling"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/chimera-linux/libatomic-chimera"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

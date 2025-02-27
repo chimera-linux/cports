@@ -9,7 +9,6 @@ makedepends = [
     "sdl12-compat-devel",
 ]
 pkgdesc = "TrueType support for SDL legacy branch"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://www.libsdl.org/projects/old/SDL_ttf/release-1.2.html"
 source = (

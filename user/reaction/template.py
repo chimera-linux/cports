@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = [f"-ldflags=-X main.version={pkgver}"]
 hostmakedepends = ["go"]
 pkgdesc = "Scans logs for repeated patterns and takes action"
-maintainer = "ttyyls <contact@behri.org>"
 license = "AGPL-3.0-or-later"
 url = "https://reaction.ppom.me"
 source = f"https://framagit.org/ppom/reaction/-/archive/v{pkgver}/reaction-v{pkgver}.tar.gz"

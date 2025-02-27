@@ -20,7 +20,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Generates content on bars that support the i3bar protocol"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-only"
 url = "https://github.com/greshake/i3status-rust"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

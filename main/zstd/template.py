@@ -16,7 +16,6 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["lz4-devel", "xz-devel", "zlib-ng-compat-devel"]
 provides = [self.with_pkgver("libzstd")]
 pkgdesc = "Zstd compression utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.zstd.net"
 source = f"https://github.com/facebook/zstd/releases/download/v{pkgver}/zstd-{pkgver}.tar.gz"

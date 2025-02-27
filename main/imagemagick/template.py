@@ -69,7 +69,6 @@ makedepends = [
 ]
 checkdepends = ["ghostscript"]
 pkgdesc = "Create, edit, compose, or convert digital images"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ImageMagick"
 url = "https://www.imagemagick.org"
 source = f"https://github.com/ImageMagick/ImageMagick/archive/{'-'.join(pkgver.rsplit('.', 1))}.tar.gz"

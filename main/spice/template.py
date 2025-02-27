@@ -34,7 +34,6 @@ makedepends = [
 ]
 checkdepends = ["glib-networking"]
 pkgdesc = "Simple Protocol for Independent Computing Environments"
-maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://www.spice-space.org"
 source = f"https://www.spice-space.org/download/releases/spice-{pkgver}.tar.bz2"

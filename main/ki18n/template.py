@@ -19,7 +19,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "KDE Gettext-based UI text internationalization"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-or-later)"
 url = "https://api.kde.org/frameworks/ki18n/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ki18n-{pkgver}.tar.xz"

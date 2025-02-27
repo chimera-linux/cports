@@ -8,7 +8,6 @@ hostmakedepends = [
 makedepends = ["perl"]
 depends = ["perl", "perl-uri"]
 pkgdesc = "Distributed, collaborative spam detection and filtering network"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Artistic-2.0"
 url = "https://sourceforge.net/projects/razor"
 source = f"https://cpan.metacpan.org/authors/id/T/TO/TODDR/Razor2-Client-Agent-{pkgver}.tar.gz"

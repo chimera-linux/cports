@@ -22,7 +22,6 @@ configure_args = [
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "Cyrus SASL"
 subdesc = "runtime library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause-Attribution"
 url = "https://www.cyrusimap.org/sasl"
 source = f"https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-{pkgver}/cyrus-sasl-{pkgver}.tar.gz"

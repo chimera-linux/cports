@@ -72,7 +72,6 @@ makedepends = [
 depends = ["cmd:exiftool!perl-image-exiftool-progs"]
 checkdepends = [*depends]
 pkgdesc = "Digital photo management application"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.digikam.org"
 source = [

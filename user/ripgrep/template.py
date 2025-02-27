@@ -9,7 +9,6 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "pcre2-devel"]
 pkgdesc = "Recursive grep-like tool"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT OR Unlicense"
 url = "https://github.com/BurntSushi/ripgrep"
 source = [

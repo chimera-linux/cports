@@ -15,7 +15,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce generic slider panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-only"
 url = "https://docs.xfce.org/panel-plugins/xfce4-generic-slider/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-generic-slider/{pkgver[:-2]}/xfce4-generic-slider-{pkgver}.tar.bz2"

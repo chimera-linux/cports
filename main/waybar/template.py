@@ -54,7 +54,6 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "Wayland bar for Sway and wlroots-based compositors"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "MIT"
 url = "https://github.com/Alexays/Waybar"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

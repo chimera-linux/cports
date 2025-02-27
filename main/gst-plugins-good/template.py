@@ -71,7 +71,6 @@ depends = ["libsoup"]  # dynamically loaded
 checkdepends = ["xwayland-run"]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer good plugins"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-good/gst-plugins-good-{pkgver}.tar.xz"

@@ -13,7 +13,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "vala"]
 pkgdesc = "GObject library to create cabinet files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/msitools"
 source = f"$(GNOME_SITE)/gcab/{pkgver}/gcab-{pkgver}.tar.xz"

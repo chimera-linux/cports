@@ -41,7 +41,6 @@ makedepends = [
     "zlib-ng-compat-devel-static",
 ]
 pkgdesc = "QEMU user mode emulators"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"

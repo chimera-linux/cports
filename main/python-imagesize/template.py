@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python3 library to get image size from png/jpeg/jpeg2000/gif file"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/shibukawa/imagesize_py"
 source = f"$(PYPI_SITE)/i/imagesize/imagesize-{pkgver}.tar.gz"

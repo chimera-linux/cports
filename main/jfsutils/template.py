@@ -7,7 +7,6 @@ hostmakedepends = [
 ]
 makedepends = ["util-linux-uuid-devel"]
 pkgdesc = "JFS filesystem utilities"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://jfs.sourceforge.net"
 source = f"{url}/project/pub/jfsutils-{pkgver}.tar.gz"

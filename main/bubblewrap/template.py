@@ -6,7 +6,6 @@ hostmakedepends = ["meson", "pkgconf", "libxslt-progs", "docbook-xsl-nons"]
 makedepends = ["libcap-devel"]
 checkdepends = ["bash", "libcap-progs", "util-linux-mount"]
 pkgdesc = "Unprivileged sandboxing tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://github.com/containers/bubblewrap"
 source = f"{url}/releases/download/v{pkgver}/bubblewrap-{pkgver}.tar.xz"

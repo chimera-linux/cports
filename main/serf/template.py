@@ -4,7 +4,6 @@ pkgrel = 0
 hostmakedepends = ["pkgconf", "scons"]
 makedepends = ["apr-util-devel", "openssl3-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Asynchronous HTTP client library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://serf.apache.org"
 source = f"https://archive.apache.org/dist/serf/serf-{pkgver}.tar.bz2"

@@ -20,7 +20,6 @@ checkdepends = [
     "python-pyelftools",
 ]
 pkgdesc = "ELF related utils for ELF binaries"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/gentoo/pax-utils"
 source = f"https://dev.gentoo.org/~sam/distfiles/app-misc/pax-utils/pax-utils-{pkgver}.tar.xz"

@@ -18,7 +18,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE KIO zeroconf support"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-only"
 url = "https://invent.kde.org/network/kio-zeroconf"
 source = (

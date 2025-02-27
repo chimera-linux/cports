@@ -20,7 +20,6 @@ makedepends = [
     "xcb-util-renderutil-devel",
 ]
 pkgdesc = "Standalone compositor for X11"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 AND MIT"
 url = "https://github.com/yshui/picom"
 source = f"{url}/archive/v{pkgver}.tar.gz"

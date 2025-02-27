@@ -9,7 +9,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Yet Another JSON Library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://github.com/lloyd/yajl"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

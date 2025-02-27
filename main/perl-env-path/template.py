@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Perl module for operations on PATH variables"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/dist/Env-Path"
 source = f"$(CPAN_SITE)/Env/Env-Path-{pkgver}.tar.gz"

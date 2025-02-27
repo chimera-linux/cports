@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["hunspell-devel"]
 pkgdesc = "Simple thesaurus that uses structured text data"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://sourceforge.net/projects/hunspell/files/MyThes"
 source = f"$(SOURCEFORGE_SITE)/hunspell/mythes-{pkgver}.tar.gz"

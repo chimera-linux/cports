@@ -39,7 +39,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE PIM common library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-3.0-only"
 url = "https://api.kde.org/kdepim/pimcommon/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/pimcommon-{pkgver}.tar.xz"

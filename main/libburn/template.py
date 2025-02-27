@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Library for reading, mastering and writing optical discs"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://dev.lovelyhq.com/libburnia/libburn"
 source = f"http://files.libburnia-project.org/releases/libburn-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--enable-static", "--enable-shared"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "Library for atomic operations"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-2.0-or-later"
 url = "https://github.com/ivmai/libatomic_ops"
 source = f"{url}/releases/download/v{pkgver}/libatomic_ops-{pkgver}.tar.gz"

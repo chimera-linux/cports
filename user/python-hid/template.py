@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python", "hidapi"]
 pkgdesc = "Python bindings for hidapi"
-maintainer = "Julie Koubova <julie@koubova.net>"
 license = "MIT"
 url = "https://github.com/apmorton/pyhidapi"
 source = f"$(PYPI_SITE)/h/hid/hid-{pkgver}.tar.gz"

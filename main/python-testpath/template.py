@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python test utilities for working with files and commands"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://testpath.readthedocs.io"
 source = f"$(PYPI_SITE)/t/testpath/testpath-{pkgver}.tar.gz"

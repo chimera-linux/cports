@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--disable-werror"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "C++ unit testing framework"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://cppunit.sourceforge.net"
 source = f"https://dev-www.libreoffice.org/src/cppunit-{pkgver}.tar.gz"

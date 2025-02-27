@@ -3,7 +3,6 @@ pkgver = "59c"
 pkgrel = 0
 checkdepends = ["perl"]
 pkgdesc = "MirBSD Korn shell"
-maintainer = "Christiano Haesbaert <haesbaert@haesbaert.org>"
 license = "MirOS"
 url = "http://www.mirbsd.org/mksh.htm"
 source = f"https://mbsd.evolvis.org/MirOS/dist/mir/mksh/mksh-R{pkgver}.tgz"

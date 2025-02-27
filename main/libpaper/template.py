@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool", "gettext"]
 pkgdesc = "Library for handling paper characteristics"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-2.0-only AND GPL-3.0-or-later AND custom:none"
 url = "https://github.com/rrthomas/libpaper"
 source = f"{url}/releases/download/v{pkgver}/libpaper-{pkgver}.tar.gz"

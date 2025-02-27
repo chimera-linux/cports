@@ -13,7 +13,6 @@ makedepends = [
     "libxkbcommon-devel",
 ]
 pkgdesc = "GNOME keyboard layout viewer"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/tecla"
 source = f"$(GNOME_SITE)/tecla/{pkgver[:-2]}/tecla-{pkgver}.tar.xz"

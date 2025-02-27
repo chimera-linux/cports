@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["asciidoc", "cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std"]
 pkgdesc = "Automatic git commit --fixup"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/tummychow/git-absorb"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

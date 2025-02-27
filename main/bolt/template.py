@@ -21,7 +21,6 @@ makedepends = ["udev-devel", "glib-devel", "polkit-devel"]
 checkdepends = ["dbus"]
 depends = ["dinit-dbus"]
 pkgdesc = "Thunderbolt device manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/bolt/bolt"
 source = f"{url}/-/archive/{pkgver}/bolt-{pkgver}.tar.gz"

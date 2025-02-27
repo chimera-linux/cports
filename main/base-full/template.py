@@ -4,7 +4,6 @@ pkgrel = 3
 build_style = "meta"
 provides = [self.with_pkgver("base-core")]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 

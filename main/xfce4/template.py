@@ -19,7 +19,6 @@ depends = [
 ]
 pkgdesc = "Xfce desktop environment"
 subdesc = "session"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "custom:meta"
 url = "https://www.xfce.org"
 

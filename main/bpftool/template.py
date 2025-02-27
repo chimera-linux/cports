@@ -24,7 +24,6 @@ makedepends = [
     "llvm-devel",
 ]
 pkgdesc = "Linux kernel bpf manipulation tool"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/libbpf/bpftool"
 source = [

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool"]
 makedepends = ["nettle-devel"]
 pkgdesc = "Duplicate file finder"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://rdfind.pauldreik.se"
 source = f"https://rdfind.pauldreik.se/rdfind-{pkgver}.tar.gz"

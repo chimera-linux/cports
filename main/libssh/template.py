@@ -19,7 +19,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for accessing ssh client services through C libraries"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later WITH custom:openssl-exception AND BSD-2-Clause"
 url = "https://www.libssh.org"
 source = f"https://www.libssh.org/files/{pkgver[: pkgver.rfind('.')]}/libssh-{pkgver}.tar.xz"

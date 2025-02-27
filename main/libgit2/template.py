@@ -24,7 +24,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Linkable library for using git"
-maintainer = "aurelia <git@elia.garden>"
 license = "GPL-2.0-only WITH GCC-exception-2.0"
 url = "https://libgit2.org"
 source = f"https://github.com/libgit2/libgit2/archive/v{pkgver}.tar.gz"

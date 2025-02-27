@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Load testing tool"
-maintainer = "Gabriel M. Dutra <dmdutra@proton.me>"
 license = "AGPL-3.0-only"
 url = "https://github.com/grafana/k6"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

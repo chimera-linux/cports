@@ -22,7 +22,6 @@ depends = [
 ]
 checkdepends = ["python-pytest-xdist", *depends]
 pkgdesc = "Python AWS SDK"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/boto/boto3"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

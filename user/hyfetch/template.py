@@ -12,7 +12,6 @@ depends = [
     "python-setuptools",
 ]
 pkgdesc = "Neofetch with pride flags"
-maintainer = "cassiofb-dev <contact@cassiofernando.com>"
 license = "MIT"
 url = "https://github.com/hykilpikonna/hyfetch"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

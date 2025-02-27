@@ -12,7 +12,6 @@ make_build_args = [
 hostmakedepends = ["go"]
 depends = ["iptables", "ca-certificates"]
 pkgdesc = "Mesh VPN daemon based on WireGuard"
-maintainer = "Val Packett <val@packett.cool>"
 license = "BSD-3-Clause"
 url = "https://github.com/tailscale/tailscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

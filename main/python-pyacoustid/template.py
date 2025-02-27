@@ -14,7 +14,6 @@ depends = [
     "python-requests",
 ]
 pkgdesc = "Python bindings for Chromaprint and Acoustid"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/beetbox/pyacoustid"
 source = (

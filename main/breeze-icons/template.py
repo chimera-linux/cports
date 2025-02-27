@@ -17,7 +17,6 @@ checkdepends = [
     "fdupes",
 ]
 pkgdesc = "Breeze icon themes"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-or-later"
 url = "https://api.kde.org/frameworks/breeze-icons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/breeze-icons-{pkgver}.tar.xz"

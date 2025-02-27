@@ -10,7 +10,6 @@ makedepends = ["cairo-devel", "python-devel"]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python bindings for the Cairo graphics library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://pycairo.readthedocs.io"
 source = f"https://github.com/pygobject/pycairo/releases/download/v{pkgver}/pycairo-{pkgver}.tar.gz"

@@ -12,7 +12,6 @@ hostmakedepends = [
 makedepends = ["python-devel"]
 depends = ["python-setuptools"]
 pkgdesc = "Zope interfaces for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ZPL-2.1"
 url = "https://github.com/zopefoundation/zope.interface"
 source = f"$(PYPI_SITE)/z/zope.interface/zope.interface-{pkgver}.tar.gz"

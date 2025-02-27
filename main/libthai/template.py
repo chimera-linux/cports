@@ -8,7 +8,6 @@ make_install_args = ["-j1"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["libdatrie-devel"]
 pkgdesc = "Thai language support routines"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://linux.thai.net/projects/libthai"
 source = f"https://linux.thai.net/pub/ThaiLinux/software/libthai/libthai-{pkgver}.tar.xz"

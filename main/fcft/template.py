@@ -12,7 +12,6 @@ makedepends = [
     "utf8proc-devel",
 ]
 pkgdesc = "Simple library for font loading and glyph rasterization"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fcft"
 source = f"{url}/archive/{pkgver}.tar.gz"

@@ -84,7 +84,6 @@ checkdepends = [
     "xwayland-run",
 ]
 pkgdesc = "Gimp Toolkit version 4"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-3]}/gtk-{pkgver}.tar.xz"

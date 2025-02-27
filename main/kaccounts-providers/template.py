@@ -19,7 +19,6 @@ makedepends = [
     "signond-devel",
 ]
 pkgdesc = "KDE providers for online accounts"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/network/kaccounts-providers"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kaccounts-providers-{pkgver}.tar.xz"

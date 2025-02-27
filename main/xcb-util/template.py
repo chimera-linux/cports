@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["libxcb-devel"]
 pkgdesc = "XCB utilities library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/xcb-util-{pkgver}.tar.gz"

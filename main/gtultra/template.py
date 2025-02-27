@@ -7,7 +7,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf", "imagemagick"]
 makedepends = ["sdl2-compat-devel", "alsa-lib-devel"]
 pkgdesc = "C64 music editor"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/jpage8580/GTUltra"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

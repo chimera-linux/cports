@@ -39,7 +39,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Akonadi debug console"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://techbase.kde.org/KDE_PIM/Akonadi/Development_Tools"
 source = (

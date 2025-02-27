@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = ["-ldflags", f"-X main.version={pkgver}", "./cmd/lego"]
 hostmakedepends = ["go"]
 pkgdesc = "Let's Encrypt/ACME client"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/go-acme/lego"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

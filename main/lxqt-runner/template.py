@@ -19,7 +19,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Tool used to launch programs quickly by typing their names"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-runner"
 source = f"{url}/releases/download/{pkgver}/lxqt-runner-{pkgver}.tar.xz"

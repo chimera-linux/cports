@@ -3,7 +3,6 @@ pkgver = "0.90.0"
 pkgrel = 1
 build_style = "makefile"
 pkgdesc = "ABI-compatible GNU libatomic alternative"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/chimera-linux/libatomic-chimera"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

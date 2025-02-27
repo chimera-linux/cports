@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 pkgdesc = "Tool for resizing BDF format font"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://openlab.ring.gr.jp/efont/dist/tools/bdfresize"
 source = f"{url}/bdfresize-{pkgver}.tar.gz"

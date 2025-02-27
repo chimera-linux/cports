@@ -23,7 +23,6 @@ makedepends = [
     "libspelling-devel",
 ]
 pkgdesc = "GNOME text editor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-text-editor"
 source = f"$(GNOME_SITE)/gnome-text-editor/{pkgver[:-2]}/gnome-text-editor-{pkgver}.tar.xz"

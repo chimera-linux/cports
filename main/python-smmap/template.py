@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python sliding window memory map manager"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://smmap.readthedocs.org"
 source = f"$(PYPI_SITE)/s/smmap/smmap-{pkgver}.tar.gz"

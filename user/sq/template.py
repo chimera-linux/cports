@@ -18,7 +18,6 @@ go_build_tags = [
     "sqlite_math_functions",
 ]
 pkgdesc = "Tool to inspect, query, join, import, and export structured data"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://sq.io"
 source = f"https://github.com/neilotoole/sq/archive/refs/tags/v{pkgver}.tar.gz"

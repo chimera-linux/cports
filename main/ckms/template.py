@@ -5,7 +5,6 @@ build_style = "makefile"
 hostmakedepends = ["scdoc"]
 depends = ["python"]
 pkgdesc = "Chimera Kernel Module System"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/ckms"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

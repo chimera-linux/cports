@@ -11,7 +11,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "FUSE implementation for overlayfs"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/containers/fuse-overlayfs"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

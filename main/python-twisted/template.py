@@ -36,7 +36,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Asynchronous framework for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://twistedmatrix.com"
 source = f"$(PYPI_SITE)/t/twisted/twisted-{pkgver}.tar.gz"

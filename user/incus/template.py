@@ -40,7 +40,6 @@ depends = [
 go_build_tags = ["libsqlite3"]
 go_check_tags = ["libsqlite3"]
 pkgdesc = "Powerful system container and virtual machine manager"
-maintainer = "tj <tjheeta@gmail.com>"
 license = "Apache-2.0"
 url = "https://github.com/lxc/incus"
 source = f"{url}/archive/v{pkgver}.tar.gz"

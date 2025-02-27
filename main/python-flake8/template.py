@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-pycodestyle", "python-pyflakes", "python-mccabe"]
 checkdepends = ["python-pytest", "python-mock", *depends]
 pkgdesc = "Python tool for style guide enforcement"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://flake8.pycqa.org"
 source = f"https://github.com/PyCQA/flake8/archive/refs/tags/{pkgver}.tar.gz"

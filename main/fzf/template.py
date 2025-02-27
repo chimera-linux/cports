@@ -5,7 +5,6 @@ build_style = "go"
 hostmakedepends = ["go"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Command-line fuzzy finder"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/junegunn/fzf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

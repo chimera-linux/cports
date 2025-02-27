@@ -10,7 +10,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python", "tzdb"]
 pkgdesc = "Python timezone library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pythonhosted.org/pytz"
 source = f"$(PYPI_SITE)/p/pytz/pytz-{pkgver}.tar.gz"

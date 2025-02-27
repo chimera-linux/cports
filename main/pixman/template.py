@@ -12,7 +12,6 @@ make_check_args = ["--timeout-multiplier", "3"]
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = ["linux-headers", "libpng-devel"]
 pkgdesc = "Library of low-level pixel manipulation routines"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pixman.org"
 source = f"https://www.cairographics.org/releases/pixman-{pkgver}.tar.gz"

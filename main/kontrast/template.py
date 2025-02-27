@@ -22,7 +22,6 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "KDE contrast inspection tool"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kontrast"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kontrast-{pkgver}.tar.xz"

@@ -33,7 +33,6 @@ makedepends = [
 depends = ["libkdegames-carddecks"]
 checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE solitaire collection"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kpat"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpat-{pkgver}.tar.xz"

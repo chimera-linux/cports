@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Fuzzy cd command for interactive shells"
-maintainer = "aurelia <git@elia.garden>"
 license = "MIT"
 url = "https://github.com/ajeetdsouza/zoxide"
 source = f"{url}/archive/v{pkgver}.tar.gz"

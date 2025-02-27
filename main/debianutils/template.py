@@ -2,7 +2,6 @@ pkgname = "debianutils"
 pkgver = "5.21"
 pkgrel = 0
 pkgdesc = "Miscellaneous utilities from Debian"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/debianutils"
 source = f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.tar.xz"

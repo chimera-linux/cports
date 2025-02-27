@@ -7,7 +7,6 @@ make_build_args = ["./cmd/gdu"]
 make_check_args = ["-skip", "TestOutputFileError", "./..."]
 hostmakedepends = ["go"]
 pkgdesc = "Disk usage analyzer"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/dundee/gdu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-pypng"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python QR code image generator"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/lincolnloop/python-qrcode"
 source = f"$(PYPI_SITE)/q/qrcode/qrcode-{pkgver}.tar.gz"

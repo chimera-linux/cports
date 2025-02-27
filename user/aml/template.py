@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["musl-bsd-headers"]
 pkgdesc = "Main loop library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://github.com/any1/aml"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

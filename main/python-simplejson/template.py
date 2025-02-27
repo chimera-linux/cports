@@ -11,7 +11,6 @@ makedepends = ["python-devel"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python JSON encoder and decoder"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT OR AFL-2.1"
 url = "https://simplejson.readthedocs.io"
 source = f"$(PYPI_SITE)/s/simplejson/simplejson-{pkgver}.tar.gz"

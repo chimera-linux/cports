@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Wait for wayland compositor idle timeouts"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://git.sr.ht/~whynothugo/wayidle"
 source = f"{url}/archive/v{pkgver}.tar.gz"

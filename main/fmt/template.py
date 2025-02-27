@@ -15,7 +15,6 @@ hostmakedepends = [
     "python",
 ]
 pkgdesc = "Formatting library for C++"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://fmt.dev/latest/index.html"
 source = (

@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Checks for deleted system libraries still in use"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/klausman/lib_users"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -16,7 +16,6 @@ hostmakedepends = [
 ]
 depends = [*_deps]
 pkgdesc = "Python unit testing framework"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://docs.pytest.org/en/latest"
 source = f"$(PYPI_SITE)/p/pytest/pytest-{pkgver}.tar.gz"

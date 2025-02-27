@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-smartypants"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Filters to enhance web typography"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/mintchaos/typogrify"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -15,7 +15,6 @@ make_check_target = "cl_test"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["boost-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Text search engine written in C++"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later OR Apache-2.0"
 url = "https://clucene.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/clucene/clucene-core-{pkgver}.tar.gz"

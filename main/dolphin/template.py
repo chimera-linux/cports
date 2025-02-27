@@ -47,7 +47,6 @@ checkdepends = [
     "dbus",
 ]
 pkgdesc = "KDE File Manager"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/dolphin"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/dolphin-{pkgver}.tar.xz"

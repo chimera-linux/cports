@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "texinfo", "automake", "libtool"]
 makedepends = ["gmp-devel", "linux-headers"]
 pkgdesc = "Low-level cryptographic library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later OR LGPL-3.0-or-later"
 url = "https://www.lysator.liu.se/~nisse/nettle"
 source = f"$(GNU_SITE)/nettle/nettle-{pkgver}.tar.gz"

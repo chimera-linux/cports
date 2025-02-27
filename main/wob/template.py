@@ -13,7 +13,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Wayland Overlay Bar"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "ISC"
 url = "https://github.com/francma/wob"
 source = f"{url}/archive/{pkgver}.tar.gz"

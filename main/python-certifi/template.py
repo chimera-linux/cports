@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["ca-certificates", "python"]
 pkgdesc = "Python package for providing Mozilla's CA bundle"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/certifi/python-certifi"
 source = f"$(PYPI_SITE)/c/certifi/certifi-{pkgver}.tar.gz"

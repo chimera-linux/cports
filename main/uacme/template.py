@@ -15,7 +15,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "ACMEv2 client"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ndilieto/uacme"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

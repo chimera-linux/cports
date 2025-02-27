@@ -14,7 +14,6 @@ checkdepends = [
 ]
 depends = ["python-referencing"]
 pkgdesc = "Json Schema meta-schemas and vocabularies, exposed as a Registry"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-jsonschema/jsonschema-specifications"
 source = f"$(PYPI_SITE)/j/jsonschema_specifications/jsonschema_specifications-{pkgver}.tar.gz"

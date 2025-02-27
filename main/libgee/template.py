@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "GObject collection library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Libgee"
 source = f"$(GNOME_SITE)/libgee/{pkgver[:-2]}/libgee-{pkgver}.tar.xz"

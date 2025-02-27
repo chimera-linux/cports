@@ -26,7 +26,6 @@ makedepends = [
     "qrencode-devel",
 ]
 pkgdesc = "GNOME contacts application"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Contacts"
 source = f"$(GNOME_SITE)/gnome-contacts/{pkgver.split('.')[0]}/gnome-contacts-{pkgver}.tar.xz"

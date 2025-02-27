@@ -20,7 +20,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Debug information utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/devel/pahole/pahole.git"
 source = f"https://fedorapeople.org/~acme/dwarves/dwarves-{pkgver}.tar.xz"

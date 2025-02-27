@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["bash", "python-pytest"]
 depends = ["python"]
 pkgdesc = "Run subprocesses in pseudo-terminals"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://github.com/pexpect/ptyprocess"
 source = f"$(PYPI_SITE)/p/ptyprocess/ptyprocess-{pkgver}.tar.gz"

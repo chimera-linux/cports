@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["vulkan-headers"]
 pkgdesc = "Vulkan meta loader"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/zeux/volk"
 source = f"https://github.com/zeux/volk/archive/refs/tags/{pkgver}.tar.gz"

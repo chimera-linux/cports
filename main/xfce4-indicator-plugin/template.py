@@ -19,7 +19,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce messaging menu panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-indicator-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-indicator-plugin/{pkgver[:-2]}/xfce4-indicator-plugin-{pkgver}.tar.bz2"

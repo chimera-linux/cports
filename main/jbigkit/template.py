@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 checkdepends = ["check-devel"]
 pkgdesc = "JBIG1 data compression standard implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://www.cl.cam.ac.uk/~mgk25/jbigkit"
 source = (

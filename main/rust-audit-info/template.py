@@ -6,7 +6,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "CLI tool to extract dependency info embedded by cargo auditable"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/rust-secure-code/cargo-auditable/tree/master/rust-audit-info"
 source = f"https://github.com/rust-secure-code/cargo-auditable/archive/refs/tags/rust-audit-info/v{pkgver}.tar.gz"

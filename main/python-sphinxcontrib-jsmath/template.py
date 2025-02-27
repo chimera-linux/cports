@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-sphinx"]
 depends = ["python"]
 pkgdesc = "Sphinx extension which renders math in HTML with JavaScript"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://sphinx-doc.org"
 source = (

@@ -9,7 +9,6 @@ hostmakedepends = [
     "slibtool",
 ]
 pkgdesc = "Library for error values used by GnuPG components"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
 source = f"{url}/ftp/gcrypt/libgpg-error/libgpg-error-{pkgver}.tar.bz2"

@@ -7,7 +7,6 @@ hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext"]
 makedepends = ["ncurses-devel", "pcre2-devel"]
 checkdepends = ["python", "procps"]
 pkgdesc = "Friendly interactive command line shell"
-maintainer = "lunamothxyz <mail@lunamoth.xyz>"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"

@@ -12,7 +12,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Minimal and flexible login manager daemon"
-maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://git.sr.ht/~kennylevinsen/greetd"
 source = f"{url}/archive/{pkgver}.tar.gz"

@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-devel"]
 pkgdesc = "KDE Multithreading helper library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/threadweaver/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/threadweaver-{pkgver}.tar.xz"

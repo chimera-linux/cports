@@ -13,7 +13,6 @@ checkdepends = [
     "python-pytest",
 ]
 pkgdesc = "Colored text output for python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/tartley/colorama"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

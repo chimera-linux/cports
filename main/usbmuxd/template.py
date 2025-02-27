@@ -9,7 +9,6 @@ makedepends = [
     "libusb-devel",
 ]
 pkgdesc = "USB multiplex daemon"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://libimobiledevice.org"
 source = f"https://github.com/libimobiledevice/usbmuxd/archive/{pkgver}.tar.gz"

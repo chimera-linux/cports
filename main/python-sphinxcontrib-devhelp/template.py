@@ -6,7 +6,6 @@ hostmakedepends = ["python-build", "python-flit_core", "python-installer"]
 checkdepends = ["python-sphinx"]
 depends = ["python"]
 pkgdesc = "Sphinx extension which outputs Devhelp document"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://www.sphinx-doc.org"
 source = f"$(PYPI_SITE)/s/sphinxcontrib-devhelp/sphinxcontrib_devhelp-{pkgver}.tar.gz"

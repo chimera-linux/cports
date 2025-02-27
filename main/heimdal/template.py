@@ -43,7 +43,6 @@ makedepends = [
     "sqlite-devel",
 ]
 pkgdesc = "Implementation of the Kerberos authentication protocol"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://heimdal.software"
 source = f"https://github.com/heimdal/heimdal/releases/download/heimdal-{pkgver}/heimdal-{pkgver}.tar.gz"

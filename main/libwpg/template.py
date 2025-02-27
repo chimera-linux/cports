@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel", "libwpd-devel"]
 pkgdesc = "Library for importing WordPerfect graphics"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://libwpg.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libwpg/libwpg-{pkgver}.tar.xz"

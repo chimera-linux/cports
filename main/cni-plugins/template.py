@@ -4,7 +4,6 @@ pkgrel = 2
 hostmakedepends = ["bash", "go"]
 makedepends = ["linux-headers"]
 pkgdesc = "Standard CNI plugins for containers"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.cni.dev"
 source = f"https://github.com/containernetworking/plugins/archive/refs/tags/v{pkgver}.tar.gz"

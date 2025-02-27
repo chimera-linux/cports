@@ -7,7 +7,6 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["linux-headers", "udev-devel"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Filesystem in USErspace"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/libfuse/libfuse"
 source = f"{url}/releases/download/fuse-{pkgver}/fuse-{pkgver}.tar.gz"

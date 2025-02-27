@@ -15,7 +15,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python library to control i3wm and sway"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "BSD-3-Clause"
 url = "https://pypi.org/project/i3ipc"
 source = f"$(PYPI_SITE)/i/i3ipc/i3ipc-{pkgver}.tar.gz"

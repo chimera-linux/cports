@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "go-md2man", "protobuf-protoc"]
 makedepends = ["linux-headers", "rust-std"]
 pkgdesc = "Container network stack"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containers/netavark"
 source = f"{url}/archive/v{pkgver}.tar.gz"

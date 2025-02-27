@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Free implementation of aptX codec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/iamthehorker/libfreeaptx"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

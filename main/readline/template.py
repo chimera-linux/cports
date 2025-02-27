@@ -18,7 +18,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "GNU Readline library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://tiswww.cwru.edu/php/chet/readline/rltop.html"
 source = f"https://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-{_gitrev}.tar.gz"

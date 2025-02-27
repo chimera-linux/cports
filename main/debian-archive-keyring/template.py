@@ -2,7 +2,6 @@ pkgname = "debian-archive-keyring"
 pkgver = "2023.4"
 pkgrel = 0
 pkgdesc = "Debian archive keyring"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "custom:none"
 url = "https://salsa.debian.org/release-team/debian-archive-keyring"
 source = f"$(DEBIAN_SITE)/main/d/debian-archive-keyring/debian-archive-keyring_{pkgver}_all.deb"

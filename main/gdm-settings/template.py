@@ -22,7 +22,6 @@ depends = [
     "glib-devel",
 ]
 pkgdesc = "Settings app for GDM"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "AGPL-3.0-or-later"
 url = "https://gdm-settings.github.io"
 source = f"https://github.com/gdm-settings/gdm-settings/archive/refs/tags/v{pkgver}.tar.gz"

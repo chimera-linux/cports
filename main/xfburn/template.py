@@ -22,7 +22,6 @@ makedepends = [
     "libxfce4ui-devel",
 ]
 pkgdesc = "Xfce burning software"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfburn/start"
 source = f"$(XFCE_SITE)/apps/xfburn/{pkgver[:-2]}/xfburn-{pkgver}.tar.bz2"

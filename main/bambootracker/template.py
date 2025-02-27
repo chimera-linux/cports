@@ -15,7 +15,6 @@ makedepends = [
     "rtmidi-devel",
 ]
 pkgdesc = "YM2608 music tracker"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://bambootracker.github.io/BambooTracker"
 source = f"https://github.com/BambooTracker/BambooTracker/releases/download/v{pkgver}/BambooTracker-src-v{pkgver}.tar.gz"

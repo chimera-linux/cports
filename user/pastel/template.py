@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["zenity"]
 pkgdesc = "CLI tool to generate, analyze, convert and manipulate colors"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/sharkdp/pastel"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

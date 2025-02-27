@@ -20,7 +20,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Mozilla JavaScript interpreter and library, version 128.x"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"

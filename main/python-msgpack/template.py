@@ -13,7 +13,6 @@ makedepends = ["python-devel"]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "MessagePack serializer for Python"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://msgpack.org"
 source = f"https://github.com/msgpack/msgpack-python/archive/refs/tags/v{pkgver}.tar.gz"

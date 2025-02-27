@@ -12,7 +12,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest", "xclip", "xserver-xorg-xvfb"]
 pkgdesc = "Python cross-platform clipboard module"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "Apache-2.0"
 url = "https://github.com/spyoungtech/pyclip"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

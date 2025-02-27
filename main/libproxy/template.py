@@ -24,7 +24,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Automatic proxy configuration management library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libproxy.github.io/libproxy"
 source = (

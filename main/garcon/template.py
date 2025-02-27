@@ -19,7 +19,6 @@ makedepends = [
     "libxfce4util-devel",
 ]
 pkgdesc = "Xfce implementation of the freedesktop compliant menu spec"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/garcon/start"
 source = f"$(XFCE_SITE)/xfce/garcon/{pkgver[:-2]}/garcon-{pkgver}.tar.bz2"

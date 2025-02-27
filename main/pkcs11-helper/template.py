@@ -9,7 +9,6 @@ configure_args = [
 hostmakedepends = ["automake", "pkgconf", "libtool"]
 makedepends = ["openssl3-devel"]
 pkgdesc = "Helper library for multiple PKCS#11 providers"
-maintainer = "Dmitriy Vakhrushev <dvakhrushev@netgate.com>"
 license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://github.com/OpenSC/pkcs11-helper"
 source = f"{url}/archive/refs/tags/pkcs11-helper-{pkgver}.tar.gz"

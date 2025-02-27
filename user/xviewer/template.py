@@ -27,7 +27,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Generic image viewer"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = (

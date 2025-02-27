@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = ["wayland-devel", "wayland-protocols"]
 pkgdesc = "Day/night gamma adjustments for Wayland"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://git.sr.ht/~kennylevinsen/wlsunset"
 source = f"{url}/archive/{pkgver}.tar.gz"

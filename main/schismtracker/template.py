@@ -13,7 +13,6 @@ makedepends = [
     "utf8proc-devel",
 ]
 pkgdesc = "Reimplementation of Impulse Tracker"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://schismtracker.org"
 source = f"https://github.com/schismtracker/schismtracker/archive/refs/tags/{pkgver}.tar.gz"

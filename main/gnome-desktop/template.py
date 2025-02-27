@@ -35,7 +35,6 @@ depends = [
     "xkeyboard-config",
 ]
 pkgdesc = "GNOME desktop management utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-desktop"
 source = (

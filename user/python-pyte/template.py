@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-wcwidth"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "In-memory terminal emulator library"
-maintainer = "triallax <triallax@tutanota.com>"
 # Doesn't seem to be specified anywhere, presume -only
 license = "LGPL-3.0-only"
 url = "https://pyte.readthedocs.org"

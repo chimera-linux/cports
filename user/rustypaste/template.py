@@ -22,7 +22,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "File upload/pastebin service"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/orhun/rustypaste"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

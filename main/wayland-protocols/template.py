@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
 makedepends = ["wayland-devel"]
 pkgdesc = "Wayland compositor protocols"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/wayland/wayland-protocols/-/archive/{pkgver}/wayland-protocols-{pkgver}.tar.gz"

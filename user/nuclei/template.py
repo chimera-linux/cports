@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = ["./cmd/nuclei"]
 hostmakedepends = ["go"]
 pkgdesc = "Web vulnerability scanner"
-maintainer = "Gabriel M. Dutra <dmdutra@proton.me>"
 license = "MIT"
 url = "https://github.com/projectdiscovery/nuclei"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

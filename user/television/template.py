@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["oniguruma-devel"]
 depends = ["rust-std"]
 pkgdesc = "Fuzzy finder"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/alexpasmantier/television"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

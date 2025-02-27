@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "CSS Cascading Style Sheets library for Python"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/ebook-utils/css-parser"
 source = f"$(PYPI_SITE)/c/css-parser/css-parser-{pkgver}.tar.gz"

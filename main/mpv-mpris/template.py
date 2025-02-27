@@ -19,7 +19,6 @@ checkdepends = [
     "xserver-xorg-xvfb",
 ]
 pkgdesc = "MPRIS plugin for mpv"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/hoyon/mpv-mpris"
 source = f"{url}/archive/{pkgver}.tar.gz"

@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["gtk+3-devel", "libxklavier-devel"]
 pkgdesc = "Gnome keyboard configuration library"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/libgnomekbd"
 source = f"$(GNOME_SITE)/libgnomekbd/{pkgver[:-2]}/libgnomekbd-{pkgver}.tar.xz"

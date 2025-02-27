@@ -13,7 +13,6 @@ makedepends = [
 ]
 provides = [self.with_pkgver(f"boost{pkgver[:-2]}")]
 pkgdesc = "Free peer-reviewed portable C++ source libraries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"

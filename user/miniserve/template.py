@@ -19,7 +19,6 @@ checkdepends = [
     "curl",  # test case: cant_navigate_up_the_root
 ]
 pkgdesc = "CLI tool to serve files and dirs over HTTP"
-maintainer = "sonata-chen <sonatachen39@gmail.com>"
 license = "MIT"
 url = "https://github.com/svenstaro/miniserve"
 source = f"{url}/archive/refs/tags/v{pkgver}.zip"

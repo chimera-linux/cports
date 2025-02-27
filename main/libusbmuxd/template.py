@@ -9,7 +9,6 @@ makedepends = [
     "libusb-devel",
 ]
 pkgdesc = "Client library to multiplex connections to/from iOS devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
 source = f"https://github.com/libimobiledevice/libusbmuxd/releases/download/{pkgver}/libusbmuxd-{pkgver}.tar.bz2"

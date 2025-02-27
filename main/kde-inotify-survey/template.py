@@ -20,7 +20,6 @@ makedepends = [
 depends = ["kirigami-addons"]
 checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE inotify limit monitor"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/system/kde-inotify-survey"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kde-inotify-survey-{pkgver}.tar.xz"

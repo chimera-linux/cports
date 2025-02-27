@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-pyasn1"]
 checkdepends = ["python-pytest", "python-pyasn1"]
 pkgdesc = "Python ASN.1 protocol modules"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://pyasn1.readthedocs.io/en/latest/contents.html"
 source = f"$(PYPI_SITE)/p/pyasn1_modules/pyasn1_modules-{pkgver}.tar.gz"

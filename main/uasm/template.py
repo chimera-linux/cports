@@ -6,7 +6,6 @@ build_style = "makefile"
 make_build_args = ["-f", "Makefile-Linux-GCC-64.mak"]
 make_use_env = True
 pkgdesc = "MASM-compatible assembler"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "CC-BY-SA-3.0 AND Watcom-1.0"
 url = "https://www.terraspace.co.uk/uasm.html"
 source = (

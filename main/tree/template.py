@@ -3,7 +3,6 @@ pkgver = "2.2.1"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "Recursive directory indented listing of files"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "GPL-2.0-or-later"
 url = "https://oldmanprogrammer.net/source.php?dir=projects/tree"
 source = f"https://gitlab.com/OldManProgrammer/unix-tree/-/archive/{pkgver}/unix-tree-{pkgver}.tar.gz"

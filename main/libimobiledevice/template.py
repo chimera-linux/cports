@@ -20,7 +20,6 @@ makedepends = [
     "libplist-devel",
 ]
 pkgdesc = "Library to communicate with Apple devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
 source = f"https://github.com/libimobiledevice/libimobiledevice/archive/{pkgver}.tar.gz"

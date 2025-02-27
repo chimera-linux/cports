@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf"]
 pkgdesc = "X.org autotools macros"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/xorg/util/macros"
 source = f"$(XORG_SITE)/util/util-macros-{pkgver}.tar.gz"

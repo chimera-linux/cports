@@ -19,7 +19,6 @@ makedepends = [
     "libsoup-devel",
 ]
 pkgdesc = "GLib library for geocoding and reverse geocoding"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://developer.gnome.org/geocode-glib"
 source = (

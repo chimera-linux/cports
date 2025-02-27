@@ -16,7 +16,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Noise suppression plugin based on RNNoise"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/werman/noise-suppression-for-voice"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 checkdepends = ["python"]
 pkgdesc = "Robust and fully-featured Unicode libraries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ICU"
 url = "https://home.unicode.org"
 source = f"https://github.com/unicode-org/icu/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz"

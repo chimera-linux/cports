@@ -7,7 +7,6 @@ configure_gen = []
 make_dir = "."
 hostmakedepends = ["flex", "bison"]
 pkgdesc = "NSS to NSCD bridge for musl"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pikhq/musl-nscd"
 source = f"{url}/archive/v{pkgver}.tar.gz"

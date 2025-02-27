@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python", "python-setuptools"]
 pkgdesc = "Tools for internationalizing Python applications"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://babel.pocoo.org"
 source = f"$(PYPI_SITE)/B/Babel/babel-{pkgver}.tar.gz"

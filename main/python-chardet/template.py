@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Universal encoding detector for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://github.com/chardet/chardet"
 source = f"$(PYPI_SITE)/c/chardet/chardet-{pkgver}.tar.gz"

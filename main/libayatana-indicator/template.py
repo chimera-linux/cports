@@ -13,7 +13,6 @@ makedepends = [
 ]
 checkdepends = ["bash", "dbus-test-runner", "xserver-xorg-xvfb"]
 pkgdesc = "Ayatana Indicators Shared Library"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/AyatanaIndicators/libayatana-indicator"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

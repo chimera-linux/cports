@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 pkgdesc = "Standalone argp implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ericonr/argp-standalone"
 source = f"{url}/archive/{pkgver}.tar.gz"

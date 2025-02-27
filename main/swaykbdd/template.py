@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["json-c-devel"]
 pkgdesc = "Keyboard layout switcher for sway"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/artemsen/swaykbdd"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

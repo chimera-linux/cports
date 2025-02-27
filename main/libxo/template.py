@@ -7,7 +7,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["musl-bsd-headers"]
 pkgdesc = "Library for generating text, XML, JSON, and HTML output"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/Juniper/libxo"
 source = f"{url}/releases/download/{pkgver}/libxo-{pkgver}.tar.gz"

@@ -27,7 +27,6 @@ depends = [
     "python-sphinxcontrib-serializinghtml",
 ]
 pkgdesc = "Python documentation generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.sphinx-doc.org/en/master"
 source = f"$(PYPI_SITE)/s/sphinx/sphinx-{pkgver}.tar.gz"

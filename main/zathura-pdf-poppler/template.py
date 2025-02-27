@@ -11,7 +11,6 @@ checkdepends = ["check-devel"]
 depends = ["zathura"]
 pkgdesc = "PDF support for zathura"
 subdesc = "poppler backend"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura-pdf-poppler"
 source = f"{url}/download/zathura-pdf-poppler-{pkgver}.tar.xz"

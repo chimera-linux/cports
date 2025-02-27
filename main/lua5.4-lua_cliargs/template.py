@@ -2,7 +2,6 @@ pkgname = "lua5.4-lua_cliargs"
 pkgver = "3.0.2"
 pkgrel = 0
 pkgdesc = "CLI argument parsing module for Lua"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/lunarmodules/lua_cliargs"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

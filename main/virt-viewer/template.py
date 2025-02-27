@@ -24,7 +24,6 @@ makedepends = [
     "vte-gtk3-devel",
 ]
 pkgdesc = "Graphical display viewer for VNC and SPICE protocols"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/virt-viewer/virt-viewer"
 source = f"{url}/-/archive/v{pkgver}/virt-viewer-v{pkgver}.tar.bz2"

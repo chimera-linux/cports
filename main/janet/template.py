@@ -5,7 +5,6 @@ build_style = "meson"
 configure_args = ["-Depoll=true"]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Dynamic Lisp dialect and bytecode VM"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://janet-lang.org"
 source = (

@@ -25,7 +25,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Ruby scripting language"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Ruby OR BSD-2-Clause"
 url = "https://www.ruby-lang.org/en"
 source = (

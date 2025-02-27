@@ -15,7 +15,6 @@ makedepends = [
     "pcsc-lite-devel",
 ]
 pkgdesc = "WPA/WPA2/IEEE 802.1X Supplicant"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://w1.fi/wpa_supplicant"
 source = f"http://w1.fi/releases/wpa_supplicant-{pkgver}.tar.gz"

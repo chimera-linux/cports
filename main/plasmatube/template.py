@@ -31,7 +31,6 @@ depends = [
     "yt-dlp",
 ]
 pkgdesc = "KDE Youtube player"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/plasmatube"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/plasmatube-{pkgver}.tar.xz"

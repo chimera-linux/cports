@@ -9,7 +9,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Lossy PNG compressor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/kornelski/pngquant"
 _libimagequant = "6e9805761851f1a8320380b9f563961f892ec6ba"

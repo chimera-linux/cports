@@ -38,7 +38,6 @@ makedepends = [
 checkdepends = ["dbus", "xwayland-run"]
 depends = ["dconf"]
 pkgdesc = "GNOME password and secret manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-keyring"
 source = (

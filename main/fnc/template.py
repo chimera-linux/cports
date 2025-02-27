@@ -9,7 +9,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Text-based user interface for Fossil"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "ISC"
 url = "https://fnc.bsdbox.org"
 source = f"{url}/uv/dl/fnc-{pkgver}.tar.gz"

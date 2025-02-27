@@ -36,7 +36,6 @@ triggers = [
     "/usr/lib/dinit.d/early/helpers",
 ]
 pkgdesc = "Chimera core services suite"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"

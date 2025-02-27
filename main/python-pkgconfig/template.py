@@ -11,7 +11,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python interface to pkg-config"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://github.com/matze/pkgconfig"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -34,7 +34,6 @@ provides = [
 ]
 pkgdesc = "GLib library of C routines"
 subdesc = "bootstrap"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/glib/{pkgver[:-2]}/glib-{pkgver}.tar.xz"

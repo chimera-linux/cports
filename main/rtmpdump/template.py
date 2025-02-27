@@ -8,7 +8,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "openssl3-devel", "linux-headers"]
 pkgdesc = "Toolkit for RTMP streams"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://rtmpdump.mplayerhq.hu"
 source = f"https://repo.chimera-linux.org/distfiles/rtmpdump-{pkgver}.tar.xz"

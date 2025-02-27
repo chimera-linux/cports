@@ -14,7 +14,6 @@ makedepends = [
 depends = ["python-libevdev", "python-pyudev"]
 checkdepends = ["bash", "python-pytest", *depends]
 pkgdesc = "Library to handle Wacom tablets"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/linuxwacom/libwacom"
 source = f"{url}/releases/download/libwacom-{pkgver}/libwacom-{pkgver}.tar.xz"

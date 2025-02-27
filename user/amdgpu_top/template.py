@@ -12,7 +12,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "AMDGPU usage monitor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/Umio-Yasuno/amdgpu_top"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

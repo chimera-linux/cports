@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["iwd"]
 pkgdesc = "Menu-driven Wi-Fi management interface"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/e-tho/iwmenu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -37,7 +37,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "BitTorrent client"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/transmission/transmission"
 source = f"{url}/releases/download/{pkgver}/transmission-{pkgver}.tar.xz"

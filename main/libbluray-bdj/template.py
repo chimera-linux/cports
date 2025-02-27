@@ -13,7 +13,6 @@ hostmakedepends = [
 makedepends = ["libxml2-devel", "fontconfig-devel"]
 pkgdesc = "Library for Blu-Ray disk playback"
 subdesc = "BD-J support"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.videolan.org/developers/libbluray.html"
 source = f"https://download.videolan.org/pub/videolan/libbluray/{pkgver}/libbluray-{pkgver}.tar.bz2"

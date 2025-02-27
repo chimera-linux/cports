@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "I/O on in-core objects like strings/arrays"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/IO-stringy"
 source = f"https://github.com/genio/IO-Stringy/archive/v{pkgver}.tar.gz"

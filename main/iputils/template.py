@@ -16,7 +16,6 @@ hostmakedepends = [
 ]
 makedepends = ["libcap-devel"]
 pkgdesc = "Useful utilities for Linux networking"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "https://github.com/iputils/iputils"
 source = f"{url}/archive/{pkgver}.tar.gz"

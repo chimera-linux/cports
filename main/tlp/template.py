@@ -13,7 +13,6 @@ make_install_args = [
 ]
 depends = ["perl", "ethtool", "hdparm"]
 pkgdesc = "Battery life optimization utility"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://linrunner.de/tlp"
 source = f"https://github.com/linrunner/TLP/archive/refs/tags/{pkgver}.tar.gz"

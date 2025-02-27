@@ -11,7 +11,6 @@ makedepends = [
     "libdrm-devel",
 ]
 pkgdesc = "KMS plane library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/emersion/libliftoff"
 source = f"{url}/-/archive/v{pkgver}/libliftoff-{pkgver}.tar.gz"

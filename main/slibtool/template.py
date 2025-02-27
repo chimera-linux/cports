@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 pkgdesc = "Alternative libtool implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://dev.midipix.org/cross/slibtool"
 source = f"https://dl.foss21.org/slibtool/slibtool-{pkgver}.tar.xz"

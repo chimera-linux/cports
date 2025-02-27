@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE thumbnail creator"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ffmpegthumbs"
 source = (

@@ -20,7 +20,6 @@ makedepends = [
 ]
 checkdepends = ["dbus"]
 pkgdesc = "KDE library for push notifications"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kunifiedpush/html"
 source = f"$(KDE_SITE)/kunifiedpush/kunifiedpush-{pkgver}.tar.xz"

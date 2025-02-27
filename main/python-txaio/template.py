@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python compatibility API between asyncio/Twisted"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://txaio.readthedocs.io"
 source = f"$(PYPI_SITE)/t/txaio/txaio-{pkgver}.tar.gz"

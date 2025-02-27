@@ -20,7 +20,6 @@ makedepends = [
 depends = ["gsettings-desktop-schemas"]
 checkdepends = ["glib"]
 pkgdesc = "Network extensions for glib"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glib-networking"
 source = f"$(GNOME_SITE)/glib-networking/{pkgver[:-2]}/glib-networking-{pkgver}.tar.xz"

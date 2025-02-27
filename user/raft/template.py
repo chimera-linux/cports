@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers", "libuv-devel", "lz4-devel"]
 pkgdesc = "C implementation of the Raft consensus protocol"
-maintainer = "tj <tjheeta@gmail.com>"
 license = "LGPL-3.0-only"
 url = "https://github.com/cowsql/raft"
 source = f"{url}/archive/v{pkgver}.tar.gz"

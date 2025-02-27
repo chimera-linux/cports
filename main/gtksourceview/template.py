@@ -23,7 +23,6 @@ makedepends = [
 ]
 checkdepends = ["dbus", "xwayland-run"]
 pkgdesc = "Advanced Gtk4 text editor widget"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GtkSourceView"
 source = (

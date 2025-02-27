@@ -18,7 +18,6 @@ makedepends = [
 ]
 pkgdesc = "High level interface to seccomp"
 subdesc = "python bindings"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/seccomp/libseccomp"
 source = f"{url}/archive/v{pkgver}.tar.gz"

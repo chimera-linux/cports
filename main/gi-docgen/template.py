@@ -17,7 +17,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Documentation generator for GObject-based libraries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 OR GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gi-docgen"
 source = f"$(GNOME_SITE)/gi-docgen/{pkgver[:-2]}/gi-docgen-{pkgver}.tar.xz"

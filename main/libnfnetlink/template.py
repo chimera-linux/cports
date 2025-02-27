@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["linux-headers"]
 pkgdesc = "Low-level library for netfilter kernel/userspace communication"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.netfilter.org/projects/libnfnetlink"
 source = f"{url}/files/libnfnetlink-{pkgver}.tar.bz2"

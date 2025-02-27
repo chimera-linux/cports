@@ -26,7 +26,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Akonadi mime libraries"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only"
 url = "https://api.kde.org/kdepim/akonadi-mime/html"
 source = (

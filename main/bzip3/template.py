@@ -8,7 +8,6 @@ hostmakedepends = [
     "slibtool",
 ]
 pkgdesc = "Better and stronger spiritual successor to BZip2"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND Apache-2.0"
 url = "https://github.com/kspalaiologos/bzip3"
 source = f"{url}/releases/download/{pkgver}/bzip3-{pkgver}.tar.zst"

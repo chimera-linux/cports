@@ -30,7 +30,6 @@ makedepends = [
     "pciutils-devel",
 ]
 pkgdesc = "Linux CPU power management tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[: pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"

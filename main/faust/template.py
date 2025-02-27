@@ -7,7 +7,6 @@ make_build_args = ["GENERATOR=Ninja"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 depends = ["bash"]
 pkgdesc = "Functional programming language for real-time signal processing"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://faust.grame.fr"
 source = f"https://github.com/grame-cncm/faust/releases/download/{pkgver}/faust-{pkgver}.tar.gz"

@@ -24,7 +24,6 @@ makedepends = [
 ]
 depends = ["iso-codes", "xkeyboard-config"]
 pkgdesc = "Deprecated high-level API for X Keyboard Extension"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/LibXklavier"
 source = f"https://people.freedesktop.org/~svu/libxklavier-{pkgver}.tar.bz2"

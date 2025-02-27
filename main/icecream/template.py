@@ -19,7 +19,6 @@ depends = [
     "cmd:ugetopt!ugetopt",
 ]
 pkgdesc = "Distributed compiler"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/icecc/icecream"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

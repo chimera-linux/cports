@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "texinfo"]
 makedepends = ["acl-devel", "linux-headers"]
 pkgdesc = "Utilities to access MS-DOS disks"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/mtools"
 source = f"$(GNU_SITE)/mtools/mtools-{pkgver}.tar.bz2"

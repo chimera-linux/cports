@@ -8,7 +8,6 @@ hostmakedepends = ["automake", "asciidoc", "xmlto", "pkgconf"]
 makedepends = ["ncurses-devel"]
 depends = ["git"]
 pkgdesc = "Text-mode interface for git"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/jonas/tig"
 source = f"{url}/releases/download/tig-{pkgver}/tig-{pkgver}.tar.gz"

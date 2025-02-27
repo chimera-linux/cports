@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Perl module to extract data from Macintosh BinHex files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/Convert-BinHex"
 source = f"$(CPAN_SITE)/Convert/Convert-BinHex-{pkgver}.tar.gz"

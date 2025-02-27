@@ -11,7 +11,6 @@ make_install_args = ["install_libs"]
 make_check_target = "regress"
 hostmakedepends = ["bmake", "pkgconf"]
 pkgdesc = "Markdown translator"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://kristaps.bsd.lv/lowdown"
 source = f"{url}/snapshots/lowdown-{pkgver}.tar.gz"

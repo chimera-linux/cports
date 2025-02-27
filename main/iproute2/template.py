@@ -20,7 +20,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "IP routing utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://wiki.linuxfoundation.org/networking/iproute2"
 source = f"$(KERNEL_SITE)/utils/net/iproute2/iproute2-{pkgver}.tar.xz"

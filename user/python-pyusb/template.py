@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["libusb", "python"]
 pkgdesc = "Easy USB access for Python"
-maintainer = "Julie Koubova <julie@koubova.net>"
 license = "BSD-3-Clause"
 url = "https://github.com/pyusb/pyusb"
 source = f"$(PYPI_SITE)/p/pyusb/pyusb-{pkgver}.tar.gz"

@@ -28,7 +28,6 @@ depends = [
     # TODO: liblouis, brlapi, brltty,
 ]
 pkgdesc = "GNOME screen reader"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://orca.gnome.org"
 source = f"$(GNOME_SITE)/orca/{pkgver[:-2]}/orca-{pkgver}.tar.xz"

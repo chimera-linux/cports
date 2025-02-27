@@ -9,7 +9,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Standalone widget system for wayland written in rust"
-maintainer = "Nova <froggo8311@proton.me>"
 license = "MIT"
 url = "https://elkowar.github.io/eww"
 source = f"https://github.com/elkowar/eww/archive/refs/tags/v{pkgver}.tar.gz"

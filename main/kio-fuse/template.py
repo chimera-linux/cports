@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE KIO fuse interface"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://invent.kde.org/system/kio-fuse"
 source = f"$(KDE_SITE)/kio-fuse/kio-fuse-{pkgver}.tar.xz"

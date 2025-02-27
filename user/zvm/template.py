@@ -4,7 +4,6 @@ pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Zig version manager"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/tristanisham/zvm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

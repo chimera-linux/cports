@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE library for TNEF data"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/ktnef/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ktnef-{pkgver}.tar.xz"

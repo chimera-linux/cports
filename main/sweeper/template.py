@@ -23,7 +23,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE cache cleaner"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/sweeper"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/sweeper-{pkgver}.tar.xz"

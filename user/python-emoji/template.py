@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for emoji support"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/carpedm20/emoji"
 source = f"$(PYPI_SITE)/e/emoji/emoji-{pkgver}.tar.gz"

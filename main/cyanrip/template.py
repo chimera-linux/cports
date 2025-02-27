@@ -11,7 +11,6 @@ makedepends = [
     "libmusicbrainz-devel",
 ]
 pkgdesc = "Bule-ish CD ripper"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/cyanreg/cyanrip"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

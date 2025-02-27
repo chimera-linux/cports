@@ -10,7 +10,6 @@ hostmakedepends = [
 makedepends = ["python-devel"]
 depends = ["python"]
 pkgdesc = "C extensions for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://cython.org"
 source = f"$(PYPI_SITE)/c/cython/cython-{pkgver}.tar.gz"

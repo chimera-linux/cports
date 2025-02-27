@@ -7,7 +7,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf"]
 provides = [self.with_pkgver("liblz4")]
 pkgdesc = "LZ4 compression utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND GPL-2.0-or-later"
 url = "https://lz4.github.io/lz4"
 source = f"https://github.com/lz4/lz4/archive/v{pkgver}.tar.gz"

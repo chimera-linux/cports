@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["libtiff-devel", "libjpeg-turbo-devel"]
 pkgdesc = "Utilities for the DjVu image format"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://djvu.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/djvu/djvulibre-{pkgver}.tar.gz"

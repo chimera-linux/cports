@@ -16,7 +16,6 @@ makedepends = [
 depends = ["python"]
 checkdepends = ["dbus", "python-pytest-asyncio", "python-pytest-timeout"]
 pkgdesc = "DBus library for python"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "MIT"
 url = "https://pypi.org/project/dbus-fast"
 source = f"https://github.com/Bluetooth-Devices/dbus-fast/archive/refs/tags/v{pkgver}.tar.gz"

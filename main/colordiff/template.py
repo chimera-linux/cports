@@ -6,7 +6,6 @@ make_install_args = ["INSTALL_DIR=/usr/bin", "MAN_DIR=/usr/share/man/man1"]
 hostmakedepends = ["xmlto", "lynx", "perl"]
 depends = ["perl"]
 pkgdesc = "Tool to colorize diff output"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://www.colordiff.org"
 source = f"https://www.colordiff.org/colordiff-{pkgver}.tar.gz"

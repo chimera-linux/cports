@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "ELF and DWARF parsing library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unlicense"
 url = "https://github.com/eliben/pyelftools"
 source = f"$(PYPI_SITE)/p/pyelftools/pyelftools-{pkgver}.tar.gz"

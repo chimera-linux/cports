@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "lcms2-devel", "vala-devel"]
 pkgdesc = "Dynamic pixel format translation library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
 url = "https://gegl.org/babl"
 source = (

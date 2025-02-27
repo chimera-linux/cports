@@ -13,7 +13,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "TUI file explorer"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://xplr.dev"
 source = (

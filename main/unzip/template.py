@@ -17,7 +17,6 @@ make_check_args = ["-f", "unix/Makefile"]
 make_use_env = True
 makedepends = ["bzip2-devel"]
 pkgdesc = "List, test and extract compressed files in a ZIP archive"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Info-ZIP"
 url = "http://infozip.sf.net"
 source = "$(SOURCEFORGE_SITE)/infozip/unzip60.tar.gz"

@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Library for nonlinear optimization"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nlopt.readthedocs.io"
 source = f"https://github.com/stevengj/nlopt/archive/v{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "python-gobject"]
 depends = ["python-gobject", "gnome-shell"]
 pkgdesc = "GNOME Shell web browser integration"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/action/show/Projects/GnomeShellIntegration"
 source = f"https://gitlab.gnome.org/GNOME/gnome-browser-connector/-/archive/v{pkgver}/gnome-browser-connector-v{pkgver}.tar.gz"

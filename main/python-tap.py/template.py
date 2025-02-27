@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Test Anything Protocol (TAP) tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/python-tap/tappy"
 source = f"$(PYPI_SITE)/t/tap.py/tap_py-{pkgver}.tar.gz"

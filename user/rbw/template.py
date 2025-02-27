@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Unofficial Bitwarden CLI"
-maintainer = "sewn <sewn@disroot.org>"
 license = "MIT"
 url = "https://github.com/doy/rbw"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

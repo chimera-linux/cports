@@ -15,7 +15,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Store and access your passwords safely"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jaraco/keyring"
 source = f"$(PYPI_SITE)/k/keyring/keyring-{pkgver}.tar.gz"

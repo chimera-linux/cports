@@ -17,7 +17,6 @@ checkdepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python bindings to the Rust rpds crate"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/crate-py/rpds"
 source = f"$(PYPI_SITE)/r/rpds-py/rpds_py-{pkgver}.tar.gz"

@@ -14,7 +14,6 @@ makedepends = [
     "vala-devel",
 ]
 pkgdesc = "Language server for vala"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/vala-lang/vala-language-server"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

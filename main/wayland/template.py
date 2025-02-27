@@ -11,7 +11,6 @@ makedepends = [
     "libxml2-devel",
 ]
 pkgdesc = "Wayland compositor infrastructure"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = (

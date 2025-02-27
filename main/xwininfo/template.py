@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "gettext-devel", "pkgconf", "xorg-util-macros"]
 makedepends = ["libx11-devel"]
 pkgdesc = "Query information about X windows"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xwininfo-{pkgver}.tar.gz"

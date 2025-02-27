@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--enable-legacy"]
 hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
 pkgdesc = "Combined X.Org X11 protocol headers"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/proto/xorgproto-{pkgver}.tar.gz"

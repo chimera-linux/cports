@@ -119,7 +119,6 @@ checkdepends = ["procps"]
 depends = ["php-common"]
 provides = ["php-runtime"]
 pkgdesc = "HTML-embedded scripting language"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"

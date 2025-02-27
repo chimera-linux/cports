@@ -3,7 +3,6 @@ pkgver = "0.5.1"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "Ansi HTML Adapter"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later OR MPL-1.1"
 url = "https://github.com/theZiz/aha"
 source = f"{url}/archive/{pkgver}.tar.gz"

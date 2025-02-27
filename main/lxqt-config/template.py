@@ -22,7 +22,6 @@ depends = [
     "lxqt-menu-data",
 ]
 pkgdesc = "Tools to configure LXQt and the underlying operating system"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-config"
 source = f"{url}/releases/download/{pkgver}/lxqt-config-{pkgver}.tar.xz"

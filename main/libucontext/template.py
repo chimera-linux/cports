@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 pkgdesc = "Implementation of ucontext featuring glibc-compatible ABI"
-maintainer = "eater <=@eater.me>"
 license = "ISC"
 url = "https://github.com/kaniini/libucontext"
 source = f"{url}/archive/refs/tags/libucontext-{pkgver}.tar.gz"

@@ -34,7 +34,6 @@ depends = [
     "xserver-xorg-input-libinput",
 ]
 pkgdesc = "QML based display manager"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND CC-BY-3.0"
 url = "https://github.com/sddm/sddm"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["glib-devel"]
 pkgdesc = "MMS stream protocol library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://sourceforge.net/projects/libmms"
 source = f"$(SOURCEFORGE_SITE)/libmms/libmms-{pkgver}.tar.gz"

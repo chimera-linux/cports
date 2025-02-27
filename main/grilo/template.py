@@ -25,7 +25,6 @@ makedepends = [
     "totem-pl-parser-devel",
 ]
 pkgdesc = "Framework for media discovery"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Grilo"
 source = f"$(GNOME_SITE)/grilo/{pkgver[:-3]}/grilo-{pkgver}.tar.xz"

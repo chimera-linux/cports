@@ -10,7 +10,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "General purpose allocator library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://jemalloc.net"
 source = f"https://github.com/jemalloc/jemalloc/releases/download/{pkgver}/jemalloc-{pkgver}.tar.bz2"

@@ -25,7 +25,6 @@ makedepends = [
     "util-linux-uuid-devel",
 ]
 pkgdesc = "Tools and libraries for NVDIMMs and other platform memory"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only AND MIT AND CC0-1.0"
 url = "https://github.com/pmem/ndctl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

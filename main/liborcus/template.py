@@ -11,7 +11,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library for processing spreadsheets"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://gitlab.com/orcus/orcus"
 source = f"{url}/-/archive/{pkgver}/liborcus-{pkgver}.tar.gz"

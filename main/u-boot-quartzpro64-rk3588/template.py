@@ -25,7 +25,6 @@ hostmakedepends = [
 ]
 makedepends = ["atf-rk3588-bl31"]
 pkgdesc = "U-Boot for QuartzPro64"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://www.denx.de/wiki/U-Boot"
 _ddr_ver = "1.18"

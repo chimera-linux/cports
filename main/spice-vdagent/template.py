@@ -17,7 +17,6 @@ makedepends = [
 checkdepends = ["procps"]
 depends = ["dinit-dbus"]
 pkgdesc = "SPICE VDAgent for Linux guests"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://www.spice-space.org"
 source = f"https://www.spice-space.org/download/releases/spice-vdagent-{pkgver}.tar.bz2"

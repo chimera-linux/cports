@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 makedepends = ["linux-headers"]
 pkgdesc = "Multicast forwarding IGMP proxy"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/pali/igmpproxy"
 source = f"{url}/releases/download/{pkgver}/igmpproxy-{pkgver}.tar.gz"

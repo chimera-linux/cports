@@ -16,7 +16,6 @@ makedepends = [
     "libxml2-devel",
 ]
 pkgdesc = "Glib integration with libvirt"
-maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"http://libvirt.org/sources/glib/libvirt-glib-{pkgver}.tar.xz"

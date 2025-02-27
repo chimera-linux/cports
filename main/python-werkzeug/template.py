@@ -22,7 +22,6 @@ checkdepends = [
 ]
 depends = ["python-markupsafe"]
 pkgdesc = "WSGI swiss-army knife"
-maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"
 url = "https://werkzeug.palletsprojects.com"
 source = f"$(PYPI_SITE)/w/werkzeug/werkzeug-{pkgver}.tar.gz"

@@ -36,7 +36,6 @@ checkdepends = [
     "umockdev",
 ]
 pkgdesc = "Abstraction for enumerating power devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/upower/upower/-/archive/v{pkgver}/upower-v{pkgver}.tar.gz"

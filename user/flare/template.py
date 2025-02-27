@@ -23,7 +23,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Unofficial Signal Desktop app"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "AGPL-3.0-only"
 url = "https://mobile.schmidhuberj.de/flare"
 source = f"https://gitlab.com/schmiddi-on-mobile/flare/-/archive/{pkgver}/flare-{pkgver}.tar.gz"

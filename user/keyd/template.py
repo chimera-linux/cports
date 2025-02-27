@@ -6,7 +6,6 @@ make_check_target = "test"
 make_use_env = True
 makedepends = ["linux-headers"]
 pkgdesc = "Key remapping daemon for linux"
-maintainer = "feurry <=feurry@gmail.com>"
 license = "MIT"
 url = "https://github.com/rvaiya/keyd"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

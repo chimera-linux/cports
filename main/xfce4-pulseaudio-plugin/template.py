@@ -26,7 +26,6 @@ makedepends = [
 # Default mixer
 depends = ["pavucontrol"]
 pkgdesc = "Xfce pulseaudio panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-pulseaudio-plugin/{pkgver[:-2]}/xfce4-pulseaudio-plugin-{pkgver}.tar.bz2"

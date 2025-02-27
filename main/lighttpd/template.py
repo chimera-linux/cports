@@ -27,7 +27,6 @@ makedepends = [
 ]
 checkdepends = ["perl"]
 pkgdesc = "Lightweight web server"
-maintainer = "yanchan09 <yan@omg.lol>"
 license = "BSD-3-Clause"
 url = "https://lighttpd.net"
 source = f"https://download.lighttpd.net/lighttpd/releases-{pkgver[: pkgver.rfind('.')]}.x/lighttpd-{pkgver}.tar.xz"

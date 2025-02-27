@@ -38,7 +38,6 @@ checkdepends = ["bash", "python-lxml"]
 depends = ["dinit-dbus", "tangle-progs", "turnstile"]
 install_if = [self.with_pkgver("elogind-meta")]
 pkgdesc = "Standalone version of logind"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"

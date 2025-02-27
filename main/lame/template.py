@@ -8,7 +8,6 @@ configure_gen = []
 hostmakedepends = ["nasm"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Fast, high quality MP3 encoder"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://lame.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/lame/lame-{pkgver}.tar.gz"

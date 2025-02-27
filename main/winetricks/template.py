@@ -15,7 +15,6 @@ depends = [
     "cmd:xz!xz",
 ]
 pkgdesc = "Helper script for Wine"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/Winetricks/winetricks"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -64,7 +64,6 @@ makedepends = [
 ]
 provides = [self.with_pkgver("tracker-miners")]
 pkgdesc = "Data miners for tinysparql"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/localsearch/{pkgver[:-2]}/localsearch-{pkgver}.tar.xz"

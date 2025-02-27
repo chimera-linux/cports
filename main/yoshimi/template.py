@@ -22,7 +22,6 @@ makedepends = [
     "pipewire-jack-devel",
 ]
 pkgdesc = "Software synthesizer"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://yoshimi.github.io"
 source = f"https://github.com/Yoshimi/yoshimi/archive/refs/tags/{pkgver}.tar.gz"

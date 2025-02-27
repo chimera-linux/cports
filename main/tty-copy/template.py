@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "makefile"
 hostmakedepends = ["asciidoctor"]
 pkgdesc = "Copy content to system clipboard using OSC52"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/jirutka/tty-copy"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Tool for integrating Rust into an existing CMake project"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/corrosion-rs/corrosion"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

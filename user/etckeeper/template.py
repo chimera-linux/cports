@@ -10,7 +10,6 @@ make_check_target = "test"
 checkdepends = ["bats", "fakeroot", "git"]
 depends = ["git"]
 pkgdesc = "Store /etc in git"
-maintainer = "hge <h.gersen@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://etckeeper.branchable.com"
 source = f"https://git.joeyh.name/index.cgi/etckeeper.git/snapshot/etckeeper-{pkgver}.tar.gz"

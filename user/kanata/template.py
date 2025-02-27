@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Software keyboard remapper"
-maintainer = "hge <h.gersen@gmail.com>"
 license = "LGPL-3.0-only"
 url = "https://github.com/jtroo/kanata"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

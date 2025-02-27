@@ -36,7 +36,6 @@ makedepends = [
 ]
 checkdepends = ["gst-plugins-good"]
 pkgdesc = "Collection of plugins for Grilo"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/grilo-plugins"
 source = (

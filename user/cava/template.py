@@ -26,7 +26,6 @@ makedepends = [
     "sdl2-compat-devel",
 ]
 pkgdesc = "Console-based audio visualiser"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/karlstav/cava"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -12,7 +12,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "OpenSSL-based libtls implementation"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://git.causal.agency/libretls"
 source = f"{url}/snapshot/libretls-{pkgver}.tar.gz"

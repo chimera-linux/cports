@@ -7,7 +7,6 @@ hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libconfuse-devel", "libusb-devel"]
 checkdepends = ["boost-devel"]
 pkgdesc = "Library for communicating with FTDI USB devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-only"
 url = "https://www.intra2net.com/en/developer/libftdi/download.php"
 source = f"https://www.intra2net.com/en/developer/libftdi/download/libftdi1-{pkgver}.tar.bz2"

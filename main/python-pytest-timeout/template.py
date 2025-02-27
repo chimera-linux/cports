@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pexpect", "python-pytest"]
 depends = ["python-pytest"]
 pkgdesc = "Pytest plugin to abort hanging tests"
-maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-timeout"
 source = f"$(PYPI_SITE)/p/pytest-timeout/pytest-timeout-{pkgver}.tar.gz"

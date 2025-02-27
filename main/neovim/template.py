@@ -35,7 +35,6 @@ depends = [
 ]
 ignore_shlibs = ["/usr/lib/lua/5.1/lpeg.so"]
 pkgdesc = "Fork of Vim aiming to improve user experience, plugins and GUIs"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "Apache-2.0 AND custom:Vim"
 url = "https://neovim.io"
 source = f"https://github.com/neovim/neovim/archive/v{pkgver}.tar.gz"

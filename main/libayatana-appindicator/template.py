@@ -21,7 +21,6 @@ makedepends = [
 ]
 checkdepends = ["dbus-test-runner", "xserver-xorg-xvfb"]
 pkgdesc = "Ayatana App Indicators Shared Library"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-only AND (LGPL-3.0-only OR LGPL-2.1-only)"
 url = "https://github.com/AyatanaIndicators/libayatana-appindicator"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

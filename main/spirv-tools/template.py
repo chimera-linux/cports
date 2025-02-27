@@ -10,7 +10,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf", "python"]
 makedepends = ["spirv-headers"]
 pkgdesc = "API and commands for processing SPIR-V modules"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/SPIRV-Tools"
 source = f"{url}/archive/vulkan-sdk-{pkgver}.tar.gz"

@@ -29,7 +29,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("nmap-ncat")]
 pkgdesc = "Utility for network discovery and security auditing"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "custom:Nmap"
 url = "https://nmap.org"
 source = f"https://nmap.org/dist/nmap-{pkgver}.tar.bz2"

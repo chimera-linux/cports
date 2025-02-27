@@ -15,7 +15,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Functions for packaging and distribution of Python software"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "PSF-2.0"
 url = "https://github.com/vsajip/distlib"
 source = f"$(PYPI_SITE)/d/distlib/distlib-{pkgver}.tar.gz"

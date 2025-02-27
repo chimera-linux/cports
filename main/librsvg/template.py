@@ -38,7 +38,6 @@ makedepends = [
 ]
 provides = [self.with_pkgver("gdk-pixbuf-loader-svg")]
 pkgdesc = "SVG library for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/librsvg/{pkgver[:-2]}/librsvg-{pkgver}.tar.xz"

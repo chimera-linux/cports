@@ -12,7 +12,6 @@ hostmakedepends = [
 makedepends = ["linux-headers"]
 depends = ["perl-ipc-run"]
 pkgdesc = "Miscallaenous unix utilities"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://joeyh.name/code/moreutils"
 source = f"https://git.joeyh.name/index.cgi/moreutils.git/snapshot/moreutils-{pkgver}.tar.gz"

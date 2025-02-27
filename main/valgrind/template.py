@@ -19,7 +19,6 @@ hostmakedepends = [
 makedepends = ["linux-headers"]
 depends = ["perl", "python"]
 pkgdesc = "Instrumentation framework for building dynamic analysis tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://valgrind.org"
 source = f"https://sourceware.org/pub/valgrind/valgrind-{pkgver}.tar.bz2"

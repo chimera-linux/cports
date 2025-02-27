@@ -15,7 +15,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Configuration management and multinode orchestration framework"
-maintainer = "Mara <177581589+catgirlconspiracy@users.noreply.github.com>"
 license = "GPL-3.0-or-later"
 url = "https://ansible.com"
 source = f"$(PYPI_SITE)/a/ansible/ansible-{pkgver}.tar.gz"

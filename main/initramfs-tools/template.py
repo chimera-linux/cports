@@ -17,7 +17,6 @@ depends = [
     "cmd:logsave!e2fsprogs",
 ]
 pkgdesc = "Generic modular initramfs generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/kernel-team/initramfs-tools"
 source = f"{url}/-/archive/v{pkgver}/initramfs-tools-v{pkgver}.tar.gz"

@@ -32,7 +32,6 @@ makedepends = [
 ]
 checkdepends = ["xz"]
 pkgdesc = "Btrfs file system utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://btrfs.readthedocs.io/en/latest"
 source = f"$(KERNEL_SITE)/kernel/people/kdave/btrfs-progs/btrfs-progs-v{pkgver}.tar.xz"

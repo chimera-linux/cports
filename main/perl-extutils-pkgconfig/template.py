@@ -9,7 +9,6 @@ hostmakedepends = [
 makedepends = ["perl"]
 depends = ["perl", "pkgconf"]
 pkgdesc = "Perl module for pkg-config"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://metacpan.org/pod/ExtUtils::PkgConfig"
 source = f"$(CPAN_SITE)/ExtUtils/ExtUtils-PkgConfig-{pkgver}.tar.gz"

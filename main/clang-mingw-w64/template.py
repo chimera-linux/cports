@@ -11,7 +11,6 @@ depends = [
     "mingw-w64-winpthreads",
 ]
 pkgdesc = "Metapackage for Windows development"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 

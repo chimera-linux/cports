@@ -7,7 +7,6 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel", "rust-std"]
 checkdepends = ["git"]
 pkgdesc = "Alternative to ls command"
-maintainer = "aurelia <git@elia.garden>"
 license = "Apache-2.0"
 url = "https://github.com/lsd-rs/lsd"
 source = f"{url}/archive/v{pkgver}.tar.gz"

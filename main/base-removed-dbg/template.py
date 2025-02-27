@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 options = ["empty"]

@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "libtool", "perl-xml-parser"]
 makedepends = ["perl-xml-parser", "gettext"]
 depends = ["file", *makedepends]
 pkgdesc = "Internationalization tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://edge.launchpad.net/intltool"
 source = f"http://launchpad.net/intltool/trunk/{pkgver}/+download/intltool-{pkgver}.tar.gz"

@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python", "python-setuptools"]
 pkgdesc = "Python package manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pip.pypa.io"
 source = f"$(PYPI_SITE)/p/pip/pip-{pkgver}.tar.gz"

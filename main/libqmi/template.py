@@ -20,7 +20,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "libgudev-devel", "linux-headers"]
 pkgdesc = "QMI modem protocol helper library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/libqmi"
 source = f"https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/{pkgver}/libqmi-{pkgver}.tar.gz"

@@ -74,7 +74,6 @@ provides = [
     self.with_pkgver("libspa-videotestsrc"),
 ]
 pkgdesc = "Server and user space API to deal with multimedia pipelines"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"

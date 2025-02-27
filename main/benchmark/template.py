@@ -16,7 +16,6 @@ hostmakedepends = [
 ]
 checkdepends = ["gtest-devel"]
 pkgdesc = "Microbenchmark support library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/benchmark"
 source = f"{url}/archive/v{pkgver}.tar.gz"

@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-pam-devel", "libxml2-devel"]
 pkgdesc = "OATH one-time password toolkit"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "GPL-3.0-or-later"
 url = "http://www.nongnu.org/oath-toolkit"
 source = f"http://download.savannah.gnu.org/releases/oath-toolkit/oath-toolkit-{pkgver}.tar.gz"

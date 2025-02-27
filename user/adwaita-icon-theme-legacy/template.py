@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gtk+3-update-icon-cache"]
 pkgdesc = "Fullcolor icon theme providing fallback for legacy apps"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "LGPL-3.0-or-later OR CC-BY-SA-3.0"
 url = "https://gitlab.gnome.org/GNOME/adwaita-icon-theme-legacy"
 source = f"$(GNOME_SITE)/adwaita-icon-theme-legacy/{pkgver[:-2]}/adwaita-icon-theme-legacy-{pkgver}.tar.xz"

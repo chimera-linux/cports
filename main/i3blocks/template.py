@@ -7,7 +7,6 @@ make_dir = "."
 make_build_args = ["SYSCONFDIR=/etc"]
 hostmakedepends = ["automake", "bash-completion", "pkgconf"]
 pkgdesc = "Flexible scheduler for i3bar"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/vivien/i3blocks"
 source = f"{url}/archive/{pkgver}.tar.gz"

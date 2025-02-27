@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Library to version your Python objects"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/twisted/incremental"
 source = f"$(PYPI_SITE)/i/incremental/incremental-{pkgver}.tar.gz"

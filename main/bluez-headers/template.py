@@ -4,7 +4,6 @@ pkgrel = 0
 depends = ["!bluez-devel"]
 pkgdesc = "Linux Bluetooth stack"
 subdesc = "header files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/bluez-{pkgver}.tar.xz"

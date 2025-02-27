@@ -11,7 +11,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "VNC server for real X displays"
-maintainer = "breakgimme <adam@plock.com>"
 license = "GPL-2.0-or-later WITH x11vnc-openssl-exception"
 url = "https://github.com/LibVNC/x11vnc"
 source = f"https://github.com/LibVNC/x11vnc/archive/refs/tags/{pkgver}.tar.gz"

@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["flex", "meson", "perl", "pkgconf"]
 makedepends = ["libusb-devel", "udev-devel", "polkit-devel"]
 pkgdesc = "Middleware to access PC/SC smart cards using SCard API"
-maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://pcsclite.apdu.fr"
 source = f"https://pcsclite.apdu.fr/files/pcsc-lite-{pkgver}.tar.xz"

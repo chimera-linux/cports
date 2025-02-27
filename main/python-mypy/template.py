@@ -19,7 +19,6 @@ checkdepends = [
     "python-pytest-xdist",
 ]
 pkgdesc = "Optional static typing for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mypy-lang.org"
 source = f"$(PYPI_SITE)/m/mypy/mypy-{pkgver}.tar.gz"

@@ -23,7 +23,6 @@ makedepends = [
 ]
 checkdepends = ["xserver-xorg-xvfb"]
 pkgdesc = "Document viewer"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Zlib"
 url = "https://pwmt.org/projects/zathura"
 source = f"{url}/download/zathura-{pkgver}.tar.xz"

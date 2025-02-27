@@ -32,7 +32,6 @@ depends = [
 ]
 checkdepends = ["python-dbusmock", "python-dbus"]
 pkgdesc = "GTK Bluetooth Manager"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://blueman-project.github.io/blueman"
 source = f"https://github.com/blueman-project/blueman/releases/download/{pkgver}/blueman-{pkgver}.tar.xz"

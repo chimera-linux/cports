@@ -18,7 +18,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Improved open source engine for Arx Fatalis"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://arx-libertatis.org"
 source = [

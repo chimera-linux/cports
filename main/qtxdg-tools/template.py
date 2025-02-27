@@ -12,7 +12,6 @@ makedepends = [
     "libqtxdg-devel",
 ]
 pkgdesc = "User tools for libqtxdg"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/qtxdg-tools"
 source = f"{url}/releases/download/{pkgver}/qtxdg-tools-{pkgver}.tar.xz"

@@ -13,7 +13,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "Collection of methods to manipulate strings using various encodings"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcodecs/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcodecs-{pkgver}.tar.xz"

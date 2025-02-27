@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Terminal file manager"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "MIT"
 url = "https://github.com/gokcehan/lf"
 source = f"{url}/archive/refs/tags/r{pkgver}.tar.gz"

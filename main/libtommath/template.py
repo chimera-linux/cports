@@ -9,7 +9,6 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Portable number theoretic multiple-precision integer library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://www.libtom.net/LibTomMath"
 source = f"https://github.com/libtom/libtommath/releases/download/v{pkgver}/ltm-{pkgver}.tar.xz"

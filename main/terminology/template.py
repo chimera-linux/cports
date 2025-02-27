@@ -6,7 +6,6 @@ hostmakedepends = ["meson", "pkgconf", "gettext"]
 makedepends = ["efl-devel"]
 depends = ["xdg-utils"]
 pkgdesc = "EFL-based terminal emulator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org"
 source = f"http://download.enlightenment.org/rel/apps/terminology/terminology-{pkgver}.tar.xz"

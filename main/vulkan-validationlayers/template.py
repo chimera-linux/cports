@@ -22,7 +22,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Validation layers to catch Vulkan issues"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://vulkan.lunarg.com/doc/sdk/latest/linux/khronos_validation_layer.html"
 source = [

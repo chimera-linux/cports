@@ -9,7 +9,6 @@ hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "zstd-devel"]
 depends = ["ca-certificates"]
 pkgdesc = "Cargo plugin for linting dependencies"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/EmbarkStudios/cargo-deny"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

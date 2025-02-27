@@ -53,7 +53,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Developer-oriented editor for GNOME"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Builder"
 source = f"$(GNOME_SITE)/gnome-builder/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-builder-{pkgver}.tar.xz"

@@ -6,7 +6,6 @@ configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["mesa-devel", "libxkbcommon-devel"]
 pkgdesc = "General-purpose library for WPE WebKit"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/libwpe-{pkgver}.tar.xz"

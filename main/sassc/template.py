@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["libsass-devel"]
 pkgdesc = "Command line driver for libsass"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/sass/sassc"
 source = f"{url}/archive/{pkgver}.tar.gz"

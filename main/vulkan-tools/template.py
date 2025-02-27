@@ -25,7 +25,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Official Vulkan tools and utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = (

@@ -8,7 +8,6 @@ make_build_args = [
 ]
 hostmakedepends = ["go"]
 pkgdesc = "Tool for building, changing and versioning infrastructure"
-maintainer = "Gabriel M. Dutra <dmdutra@proton.me>"
 license = "MPL-2.0"
 url = "https://github.com/opentofu/opentofu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

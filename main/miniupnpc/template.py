@@ -5,7 +5,6 @@ build_style = "cmake"
 configure_args = ["-DUPNPC_BUILD_SAMPLE=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "UPnP client library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "http://miniupnp.free.fr"
 source = f"{url}/files/miniupnpc-{pkgver}.tar.gz"

@@ -19,7 +19,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Hex editor for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/ghex"
 source = f"$(GNOME_SITE)/ghex/{pkgver[:-2]}/ghex-{pkgver}.tar.xz"

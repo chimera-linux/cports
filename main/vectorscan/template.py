@@ -12,7 +12,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf", "ragel"]
 makedepends = ["boost-devel", "sqlite-devel"]
 pkgdesc = "High-performance regular expression matching library"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "BSD-3-Clause"
 url = "https://www.vectorcamp.gr/vectorscan"
 source = f"https://github.com/vectorcamp/vectorscan/archive/refs/tags/vectorscan/{pkgver}.tar.gz"

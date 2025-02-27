@@ -25,7 +25,6 @@ makedepends = [
 ]
 depends = ["libpeas", "python-gobject"]
 pkgdesc = "X-Apps text editor"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/xed/archive/refs/tags/{pkgver}.tar.gz"

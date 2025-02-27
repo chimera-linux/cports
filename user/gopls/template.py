@@ -6,7 +6,6 @@ build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["bash"]
 pkgdesc = "Official Go language server"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/golang/tools/tree/master/gopls"
 source = (

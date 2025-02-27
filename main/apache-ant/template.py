@@ -4,7 +4,6 @@ pkgrel = 1
 hostmakedepends = ["openjdk17-jdk"]
 depends = ["virtual:java-jre!openjdk17-jre"]
 pkgdesc = "Java build system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://ant.apache.org"
 source = (

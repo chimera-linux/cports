@@ -8,7 +8,6 @@ configure_args = ["-DLOCALE_PROFILE=OFF"]
 hostmakedepends = ["cmake", "gettext", "ninja"]
 makedepends = ["gettext-devel"]
 pkgdesc = "Locale program and translation files for musl"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-3.0-only AND MIT"
 url = "https://git.adelielinux.org/adelie/musl-locales"
 source = f"{url}/-/archive/{pkgver}/musl-locales-{pkgver}.tar.gz"

@@ -33,7 +33,6 @@ makedepends = [
 ]
 checkdepends = ["procps"]
 pkgdesc = "JavaScript runtime based on V8"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"

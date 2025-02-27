@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["exo-devel", "libxfce4ui-devel", "vte-gtk3-devel"]
 pkgdesc = "Xfce terminal emulator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-terminal/start"
 source = f"$(XFCE_SITE)/apps/xfce4-terminal/{pkgver[:-2]}/xfce4-terminal-{pkgver}.tar.bz2"

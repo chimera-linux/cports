@@ -26,7 +26,6 @@ makedepends = [
 ]
 depends = ["kdeclarative"]
 pkgdesc = "KDE Plasma Bluetooth integration"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/bluedevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/bluedevil-{pkgver}.tar.xz"

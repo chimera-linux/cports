@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["pipewire-jack-devel", "alsa-lib-devel"]
 pkgdesc = "Common API for realtime MIDI input/output"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://github.com/thestk/rtmidi"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

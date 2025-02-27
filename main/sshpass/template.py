@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 pkgdesc = "Non-interactive ssh password auth"
-maintainer = "Mara <177581589+catgirlconspiracy@users.noreply.github.com>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/sshpass"
 source = f"$(SOURCEFORGE_SITE)/sshpass/{pkgver}/sshpass-{pkgver}.tar.gz"

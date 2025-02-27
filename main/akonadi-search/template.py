@@ -35,7 +35,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Akonadi search libraries"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/kdepim/akonadi-search/html"
 source = (

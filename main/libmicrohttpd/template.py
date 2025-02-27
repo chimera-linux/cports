@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["gnutls-devel", "linux-headers"]
 checkdepends = ["curl-devel"]
 pkgdesc = "HTTP server library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnu.org/software/libmicrohttpd"
 source = f"$(GNU_SITE)/libmicrohttpd/libmicrohttpd-{pkgver}.tar.gz"

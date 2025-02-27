@@ -6,7 +6,6 @@ configure_args = ["lf_cv_sane_realloc=yes", "lf_cv_sane_malloc=yes"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libx11-devel", "libsm-devel", "xcb-util-devel"]
 pkgdesc = "Library for tracking application startup"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://www.freedesktop.org/wiki/Software/startup-notification"
 source = f"$(FREEDESKTOP_SITE)/startup-notification/releases/startup-notification-{pkgver}.tar.gz"

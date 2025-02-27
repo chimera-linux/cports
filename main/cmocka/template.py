@@ -5,7 +5,6 @@ build_style = "cmake"
 configure_args = ["-DUNIT_TESTING=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Unit testing framework in C"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://cmocka.org"
 source = f"{url}/files/{pkgver[:-2]}/cmocka-{pkgver}.tar.xz"

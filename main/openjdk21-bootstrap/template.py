@@ -14,7 +14,6 @@ makedepends = [
     "libxtst-devel",
 ]
 pkgdesc = "Bootstrap binaries of OpenJDK 21"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://repo.chimera-linux.org/distfiles/openjdk-bootstrap-{pkgver}-{self.profile().arch}.tar.xz"

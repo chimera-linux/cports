@@ -5,7 +5,6 @@ build_style = "makefile"
 make_check_target = "test"
 makedepends = ["lua5.1-devel"]
 pkgdesc = "Lua module for bitwise operations"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "http://bitop.luajit.org"
 source = f"{url}/download/LuaBitOp-{pkgver}.tar.gz"

@@ -7,7 +7,6 @@ hostmakedepends = ["python-build", "python-installer", "python-setuptools"]
 depends = ["gnupg", "python"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python bindings for GnuPG"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "BSD-3-Clause"
 url = "https://docs.red-dove.com/python-gnupg"
 source = (

@@ -6,7 +6,6 @@ hostmakedepends = ["meson", "glib-devel", "perl", "pkgconf"]
 makedepends = ["glib-devel", "libsigc++-devel"]
 checkdepends = ["glib-networking"]
 pkgdesc = "C++ bindings for GLib"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/glibmm/{pkgver[:-2]}/glibmm-{pkgver}.tar.xz"

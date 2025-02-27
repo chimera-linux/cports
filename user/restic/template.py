@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = [f"-ldflags=-X main.version=v{pkgver}", "./cmd/restic"]
 hostmakedepends = ["go"]
 pkgdesc = "Backup tool"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://restic.net"
 source = f"https://github.com/restic/restic/releases/download/v{pkgver}/restic-{pkgver}.tar.gz"

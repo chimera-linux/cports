@@ -35,7 +35,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Cross-platform C++ GUI toolkit"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.0-only WITH FLTK-exception"
 url = "https://www.fltk.org"
 source = f"https://github.com/fltk/fltk/releases/download/release-{pkgver}/fltk-{pkgver}-source.tar.gz"

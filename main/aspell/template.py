@@ -8,7 +8,6 @@ hostmakedepends = [
     "libtool",
 ]
 pkgdesc = "Spell checker with good multi-language support"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "LGPL-2.1-only"
 url = "http://aspell.net"
 source = f"https://ftp.gnu.org/gnu/aspell/aspell-{pkgver}.tar.gz"

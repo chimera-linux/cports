@@ -4,7 +4,6 @@ pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Tool for securing communications between a client and a DNS resolver"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "ISC"
 url = "https://dnscrypt.info"
 source = f"https://github.com/DNSCrypt/dnscrypt-proxy/archive/refs/tags/{pkgver}.tar.gz"

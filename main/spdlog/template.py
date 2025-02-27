@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["catch2-devel", "elogind-devel", "fmt-devel"]
 pkgdesc = "C++ logging library"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "MIT"
 url = "https://github.com/gabime/spdlog"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

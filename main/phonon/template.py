@@ -16,7 +16,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Multimedia backend"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/phonon/html"
 source = f"$(KDE_SITE)/phonon/{pkgver}/phonon-{pkgver}.tar.xz"

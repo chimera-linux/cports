@@ -19,7 +19,6 @@ makedepends = [
     "sdl12-compat-devel",
 ]
 pkgdesc = "SDL 1.2 image loading library"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://www.libsdl.org/projects/old/SDL_image/release-1.2.html"
 source = f"https://www.libsdl.org/projects/SDL_image/release/SDL_image-{pkgver}.tar.gz"

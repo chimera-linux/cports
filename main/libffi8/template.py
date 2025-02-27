@@ -27,7 +27,6 @@ hostmakedepends = ["pkgconf"]
 # actually only on x86 and arm (tramp.c code) but it does not hurt
 makedepends = ["linux-headers"]
 pkgdesc = "Library supporting Foreign Function Interfaces"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{pkgver}.tar.gz"

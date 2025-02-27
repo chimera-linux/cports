@@ -19,7 +19,6 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 pkgdesc = "KParts plugin for SVG"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/svgpart"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/svgpart-{pkgver}.tar.xz"

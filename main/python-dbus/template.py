@@ -7,7 +7,6 @@ makedepends = ["glib-devel", "dbus-devel", "python-devel"]
 checkdepends = ["dbus"]
 depends = ["python"]
 pkgdesc = "Python bindings for D-Bus"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/DBusBindings"
 source = f"https://dbus.freedesktop.org/releases/dbus-python/dbus-python-{pkgver}.tar.gz"

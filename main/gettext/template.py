@@ -13,7 +13,6 @@ hostmakedepends = ["automake", "libtool", "xz"]
 makedepends = ["libunistring-devel", "libxml2-devel", "ncurses-devel"]
 checkdepends = ["perl", "bash"]
 pkgdesc = "GNU internationalization utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gettext"
 source = f"$(GNU_SITE)/gettext/gettext-{pkgver}.tar.gz"

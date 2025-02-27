@@ -27,7 +27,6 @@ depends = [
 ]
 checkdepends = ["python", "bash"]
 pkgdesc = "Linux packet filtering system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.netfilter.org/projects/iptables"
 source = f"{url}/files/iptables-{pkgver}.tar.xz"

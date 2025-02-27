@@ -13,7 +13,6 @@ makedepends = [
     "ncurses-devel",
 ]
 pkgdesc = "Midnight Commander"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://midnight-commander.org"
 source = f"{url}/downloads/mc-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Unicode string library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC AND Unicode-3.0"
 url = "https://libs.suckless.org/libgrapheme"
 source = f"https://dl.suckless.org/libgrapheme/libgrapheme-{pkgver}.tar.gz"

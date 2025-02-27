@@ -6,7 +6,6 @@ hostmakedepends = ["autoconf-archive", "automake", "libtool"]
 makedepends = ["openssl3-devel"]
 checkdepends = ["python-cryptography"]
 pkgdesc = "TLS proxy to add TLS encryption to existing clients and servers"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "GPL-2.0-or-later"
 url = "https://stunnel.org"
 source = f"{url}/downloads/stunnel-{pkgver}.tar.gz"

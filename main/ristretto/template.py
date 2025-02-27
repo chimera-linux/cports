@@ -21,7 +21,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce image viewer"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/ristretto/start"
 source = f"$(XFCE_SITE)/apps/ristretto/{pkgver[:-2]}/ristretto-{pkgver}.tar.bz2"

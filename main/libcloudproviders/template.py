@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "DBus API for cloud storage sync clients to expose their services"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/libcloudproviders"
 source = f"{url}/-/archive/{pkgver}/libcloudproviders-{pkgver}.tar.gz"

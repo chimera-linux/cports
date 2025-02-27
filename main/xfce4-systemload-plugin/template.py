@@ -19,7 +19,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce system load panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-systemload-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-systemload-plugin/{pkgver[:-2]}/xfce4-systemload-plugin-{pkgver}.tar.bz2"

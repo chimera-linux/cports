@@ -5,7 +5,6 @@ build_style = "makefile"
 make_use_env = True
 makedepends = ["lua5.4-devel"]
 pkgdesc = "Platform independent system calls for Lua"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "http://lunarmodules.github.io/luasystem"
 source = f"https://github.com/lunarmodules/luasystem/archive/refs/tags/v{pkgver}.tar.gz"

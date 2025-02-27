@@ -7,7 +7,6 @@ configure_gen = ["./autogen.sh"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Librtas library for Linux on Power systems"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibm-power-utilities/librtas"
 source = f"{url}/archive/v{pkgver}.tar.gz"

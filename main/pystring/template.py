@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja"]
 pkgdesc = "C++ functions matching the interface of Python string methods"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://github.com/imageworks/pystring"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

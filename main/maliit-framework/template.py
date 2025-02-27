@@ -16,7 +16,6 @@ makedepends = [
     "libxcb-devel",
 ]
 pkgdesc = "Core libraries and server of Maliit input method framework"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only"
 url = "https://github.com/maliit/framework"
 source = f"{url}/archive/{pkgver}.tar.gz"

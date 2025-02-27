@@ -15,7 +15,6 @@ hostmakedepends = [
 ]
 makedepends = ["alsa-lib-devel"]
 pkgdesc = "Portable C audio library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/espeak-ng/pcaudiolib"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

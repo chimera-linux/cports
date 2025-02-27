@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja"]
 makedepends = ["catch2-devel"]
 pkgdesc = "LSDj save format tools"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://github.com/stijnfrishert/liblsdj"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

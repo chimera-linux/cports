@@ -2,7 +2,6 @@ pkgname = "fonts-noto-emoji-ttf"
 pkgver = "2.047"
 pkgrel = 0
 pkgdesc = "Google Noto emoji fonts"
-maintainer = "GeopJr <evan@geopjr.dev>"
 license = "OFL-1.1"
 url = "https://github.com/googlefonts/noto-emoji"
 source = f"{url}/archive/v{pkgver}/font-noto-emoji-{pkgver}.tar.gz"

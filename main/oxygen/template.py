@@ -30,7 +30,6 @@ depends = [
     "frameworkintegration",
 ]
 pkgdesc = "Oxygen visual style for the KDE Plasma Desktop"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"  # FIXME
 url = "https://invent.kde.org/plasma/oxygen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/oxygen-{pkgver}.tar.xz"

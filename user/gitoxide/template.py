@@ -16,7 +16,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Rust implementation of Git"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/Byron/gitoxide"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

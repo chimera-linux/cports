@@ -16,7 +16,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Powerful completion framework"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcompletion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcompletion-{pkgver}.tar.xz"

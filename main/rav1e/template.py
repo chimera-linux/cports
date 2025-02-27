@@ -17,7 +17,6 @@ hostmakedepends = [
 ]
 makedepends = ["rust-std"]
 pkgdesc = "AV1 encoder"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/xiph/rav1e"
 source = [

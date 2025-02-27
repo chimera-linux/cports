@@ -38,7 +38,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Extensible chat client"
-maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://weechat.org"
 source = f"https://weechat.org/files/src/weechat-{pkgver}.tar.gz"

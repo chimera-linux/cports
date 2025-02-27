@@ -9,7 +9,6 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "JSON data processing tool with jq compatible syntax"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/01mf02/jaq"
 source = f"{url}/archive/v{pkgver}.tar.gz"

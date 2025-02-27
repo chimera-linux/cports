@@ -10,7 +10,6 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf", "gobject-introspection"]
 makedepends = ["glib-devel"]
 pkgdesc = "Thin layer of graphic data types"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ebassi/graphene"
 source = f"$(GNOME_SITE)/graphene/{pkgver[:-2]}/graphene-{pkgver}.tar.xz"

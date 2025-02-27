@@ -38,7 +38,6 @@ makedepends = [
 ]
 provides = [self.with_pkgver("wlroots")]
 pkgdesc = "Modular Wayland compositor library 0.18.x"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/wlroots/wlroots"
 source = f"{url}/-/releases/{pkgver}/downloads/wlroots-{pkgver}.tar.gz"

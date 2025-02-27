@@ -19,7 +19,6 @@ makedepends = [
     "onetbb-devel",
 ]
 pkgdesc = "Implicit SPMD program compiler"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://ispc.github.io"
 source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz"

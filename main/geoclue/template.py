@@ -26,7 +26,6 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "D-Bus geoinformation service"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home"
 source = f"https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/{pkgver}/geoclue-{pkgver}.tar.bz2"

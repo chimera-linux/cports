@@ -6,7 +6,6 @@ make_build_args = ["-ldflags", f"-X main.Version={pkgver}"]
 hostmakedepends = ["go", "scdoc"]
 depends = ["jq"]
 pkgdesc = "Interactive jq repl to preview filters"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://git.sr.ht/~gpanders/ijq"
 source = f"{url}/archive/v{pkgver}.tar.gz"

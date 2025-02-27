@@ -25,7 +25,6 @@ makedepends = [
 ]
 depends = ["gsettings-desktop-schemas"]
 pkgdesc = "GNOME calculator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Calculator"
 source = f"$(GNOME_SITE)/gnome-calculator/{pkgver[:-2]}/gnome-calculator-{pkgver}.tar.xz"

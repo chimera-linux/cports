@@ -6,7 +6,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 depends = ["rust-std"]
 pkgdesc = "C++ code generator for `cxx` in non-Cargo builds"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/dtolnay/cxx"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

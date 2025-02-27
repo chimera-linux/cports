@@ -7,7 +7,6 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["catch2-devel", "fmt-devel", "spdlog-devel"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Application launcher using dmenu"
-maintainer = "wipet <47226783+whypet@users.noreply.github.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/enkore/j4-dmenu-desktop"
 source = f"{url}/archive/r{pkgver}.tar.gz"

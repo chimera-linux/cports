@@ -43,7 +43,6 @@ _plugindeps = [
 ]
 checkdepends = ["python-pytest-xdist", *depends, *_plugindeps]
 pkgdesc = "Tool to obtain certs from Let's Encrypt"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0 AND MIT"
 url = "https://github.com/certbot/certbot"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

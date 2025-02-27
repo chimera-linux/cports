@@ -36,7 +36,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE PIM library for incidence editing"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-3.0-only"
 url = "https://invent.kde.org/pim/incidenceeditor"
 source = (

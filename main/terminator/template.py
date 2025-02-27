@@ -33,7 +33,6 @@ depends = [
     "vte-gtk3",
 ]
 pkgdesc = "Tiling terminal emulator application"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "GPL-2.0-only"
 url = "https://gnome-terminator.org"
 source = f"https://github.com/gnome-terminator/terminator/releases/download/v{pkgver}/terminator-{pkgver}.tar.gz"

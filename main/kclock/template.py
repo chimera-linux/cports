@@ -25,7 +25,6 @@ makedepends = [
 ]
 depends = ["kirigami-addons"]
 pkgdesc = "KDE clock"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later AND LGPL-2.1-or-later"
 url = "https://apps.kde.org/kclock"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kclock-{pkgver}.tar.xz"

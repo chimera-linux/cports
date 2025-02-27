@@ -31,7 +31,6 @@ makedepends = [
 ]
 depends = ["plasma-workspace"]
 pkgdesc = "KDE System settings"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://userbase.kde.org/System_Settings"
 source = f"$(KDE_SITE)/plasma/{pkgver}/systemsettings-{pkgver}.tar.xz"

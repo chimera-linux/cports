@@ -17,7 +17,6 @@ makedepends = [
     "qt6-qtquicktimeline-devel",
 ]
 pkgdesc = "Qt6 Quick 3D component"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

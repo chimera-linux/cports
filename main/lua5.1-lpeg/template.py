@@ -6,7 +6,6 @@ make_build_target = "lpeg.so"
 make_check_target = "test"
 makedepends = ["lua5.1-devel"]
 pkgdesc = "Pattern-matching library based on Parsing Expression Grammars"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://www.inf.puc-rio.br/~roberto/lpeg"
 source = f"{url}/lpeg-{pkgver}.tar.gz"

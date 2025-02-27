@@ -9,7 +9,6 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Cantarell family of fonts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "OFL-1.1"
 url = "https://wiki.gnome.org/Projects/CantarellFonts"
 source = f"$(GNOME_SITE)/cantarell-fonts/{pkgver[:-2]}/cantarell-fonts-{pkgver}.tar.xz"

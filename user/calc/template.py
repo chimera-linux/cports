@@ -8,7 +8,6 @@ make_use_env = True
 hostmakedepends = ["bash", "mandoc"]
 makedepends = ["readline-devel"]
 pkgdesc = "C-style arbitrary precision calculator"
-maintainer = "peri <peri@periwinkle.sh>"
 license = "LGPL-2.1-only"
 url = "http://www.isthe.com/chongo/tech/comp/calc"
 source = f"https://github.com/lcn2/calc/releases/download/v{pkgver}/calc-{pkgver}.tar.bz2"

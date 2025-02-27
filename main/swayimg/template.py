@@ -29,7 +29,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Image viewer for sway/wayland"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/artemsen/swayimg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

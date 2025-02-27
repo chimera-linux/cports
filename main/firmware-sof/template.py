@@ -4,7 +4,6 @@ pkgrel = 0
 archs = ["x86_64"]
 install_if = [self.with_pkgver("base-firmware-sof")]
 pkgdesc = "Sound Open Firmware"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://thesofproject.github.io/latest/index.html"
 source = f"https://github.com/thesofproject/sof-bin/releases/download/v{pkgver}/sof-bin-{pkgver}.tar.gz"

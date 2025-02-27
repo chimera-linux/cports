@@ -16,7 +16,6 @@ makedepends = [
 ]
 depends = ["dinit-dbus", "polkit"]
 pkgdesc = "Implementation of hostnamed, localed, and timedated"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/postmarketOS/openrc-settingsd"
 source = f"{url}/-/archive/v{pkgver}/openrc-settingsd-v{pkgver}.tar.gz"

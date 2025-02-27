@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Kakoune language server protocol client"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT OR Unlicense"
 url = "https://github.com/kakoune-lsp/kakoune-lsp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

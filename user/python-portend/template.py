@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-tempora"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "TCP port monitoring and discovery"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jaraco/portend"
 source = f"$(PYPI_SITE)/p/portend/portend-{pkgver}.tar.gz"

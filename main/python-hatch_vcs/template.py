@@ -18,7 +18,6 @@ hostmakedepends = ["python-build", "python-installer", "python-hatchling"]
 depends = ["python-hatchling", "python-setuptools_scm"]
 checkdepends = ["python-pytest", "git", *depends]
 pkgdesc = "Hatch plugin for VCS versioning"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ofek/hatch-vcs"
 source = f"$(PYPI_SITE)/h/hatch_vcs/hatch_vcs-{pkgver}.tar.gz"

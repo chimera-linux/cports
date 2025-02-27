@@ -15,7 +15,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Wallpaper tool for Wayland compositors"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/swaywm/swaybg"
 source = f"{url}/releases/download/v{pkgver}/swaybg-{pkgver}.tar.gz"

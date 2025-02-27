@@ -9,7 +9,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Utilities to deal with sysfs"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "http://linux-diag.sourceforge.net/Sysfsutils.html"
 source = f"https://github.com/linux-ras/sysfsutils/archive/refs/tags/v{pkgver}.tar.gz"

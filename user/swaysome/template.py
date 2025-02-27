@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Workspace namespace navigation"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://gitlab.com/hyask/swaysome"
 source = f"{url}/-/archive/{pkgver}/swaysome-{pkgver}.tar.gz"

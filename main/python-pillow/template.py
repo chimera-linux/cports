@@ -20,7 +20,6 @@ makedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python Imaging Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT-CMU"
 url = "https://python-pillow.org"
 source = f"$(PYPI_SITE)/p/pillow/pillow-{pkgver}.tar.gz"

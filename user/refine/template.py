@@ -20,7 +20,6 @@ depends = [
     "python-gobject",
 ]
 pkgdesc = "Tweak various aspects of GNOME"
-maintainer = "Guilhem Baccialone <guilhem.baccialone@zaclys.net>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/TheEvilSkeleton/Refine"
 source = f"{url}/-/archive/{pkgver}/Refine-{pkgver}.tar.bz2"

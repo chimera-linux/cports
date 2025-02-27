@@ -13,7 +13,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Make Linux crash dump small by filtering and compressing pages"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/makedumpfile/makedumpfile"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

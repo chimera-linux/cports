@@ -3,7 +3,6 @@ pkgver = "20250124"
 pkgrel = 0
 hostmakedepends = ["osinfo-db-tools"]
 pkgdesc = "Osinfo database of information about operating systems"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://libosinfo.org"
 source = f"!https://releases.pagure.org/libosinfo/osinfo-db-{pkgver}.tar.xz"

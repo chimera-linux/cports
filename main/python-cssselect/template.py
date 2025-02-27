@@ -14,7 +14,6 @@ checkdepends = [
     "python-pytest",
 ]
 pkgdesc = "Python module for CSS selectors"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://cssselect.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/c/cssselect/cssselect-{pkgver}.tar.gz"

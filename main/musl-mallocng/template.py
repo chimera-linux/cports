@@ -19,7 +19,6 @@ provides = ["so:libc.so=0"]
 provider_priority = 0
 replaces = [f"musl~{pkgver}"]
 pkgdesc = "Musl C library with malloc-ng allocator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
 source = [

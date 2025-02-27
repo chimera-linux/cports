@@ -24,7 +24,6 @@ makedepends = [
 ]
 checkdepends = ["appstream", "desktop-file-utils"]
 pkgdesc = "GNOME system monitor"
-maintainer = "GeopJr <evan@geopjr.dev>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/SystemMonitor"
 source = f"$(GNOME_SITE)/gnome-system-monitor/{pkgver[0 : pkgver.find('.')]}/gnome-system-monitor-{pkgver}.tar.xz"

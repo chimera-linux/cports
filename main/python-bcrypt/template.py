@@ -12,7 +12,6 @@ makedepends = ["python-devel", "rust-std"]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Bcrypt password hashing for python"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://github.com/pyca/bcrypt"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

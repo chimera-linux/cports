@@ -9,7 +9,6 @@ make_check_target = "qcheck"
 hostmakedepends = ["automake", "pkgconf", "libxslt-progs"]
 makedepends = ["libxslt-devel", "libxml2-devel"]
 pkgdesc = "Command line utilities for XML manipulation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xmlstar.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/xmlstar/xmlstarlet/{pkgver}/xmlstarlet-{pkgver}.tar.gz"

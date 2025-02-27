@@ -55,7 +55,6 @@ checkdepends = [
 ]
 depends = ["iio-sensor-proxy-meta"]
 pkgdesc = "GNOME settings daemon"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
 source = f"$(GNOME_SITE)/gnome-settings-daemon/{pkgver[:-2]}/gnome-settings-daemon-{pkgver}.tar.xz"

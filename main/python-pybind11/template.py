@@ -32,7 +32,6 @@ makedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest-xdist"]
 pkgdesc = "Seamless operability between C++11 and Python"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "BSD-3-Clause"
 url = "https://pybind11.readthedocs.io/en/stable/index.html"
 source = (

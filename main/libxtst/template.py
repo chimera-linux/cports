@@ -14,7 +14,6 @@ makedepends = [
     "xorgproto",
 ]
 pkgdesc = "X Tst library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXtst-{pkgver}.tar.xz"

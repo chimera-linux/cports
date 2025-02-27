@@ -40,7 +40,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE IRC client"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only"
 url = "https://konversation.kde.org"
 source = (

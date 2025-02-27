@@ -57,7 +57,6 @@ hostmakedepends = [
 makedepends = ["zlib-ng-compat-devel", "gmp-devel", "mpfr-devel", "mpc-devel"]
 depends = [f"binutils-{_trip}"]
 pkgdesc = "GNU C compiler for ARM bare metal targets"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"

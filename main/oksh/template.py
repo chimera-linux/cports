@@ -6,7 +6,6 @@ configure_gen = []
 make_dir = "."
 makedepends = ["ncurses-devel"]
 pkgdesc = "Portable OpenBSD ksh, based on pdksh"
-maintainer = "ttyyls <contact@behri.org>"
 license = "custom:none"
 url = "https://github.com/ibara/oksh"
 source = f"{url}/archive/refs/tags/oksh-{pkgver}.tar.gz"

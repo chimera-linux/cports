@@ -22,7 +22,6 @@ checkdepends = [
     "python-pytest-rerunfailures",
 ]
 pkgdesc = "Python bindings for libssh2"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-only"
 url = "https://github.com/ParallelSSH/ssh2-python"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

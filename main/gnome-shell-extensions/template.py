@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
 depends = [f"gnome-shell~{pkgver[:-2]}", "nautilus", "gnome-menus"]
 pkgdesc = "Optional extensions for GNOME shell"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell/Extensions"
 source = f"$(GNOME_SITE)/gnome-shell-extensions/{pkgver[:-2]}/gnome-shell-extensions-{pkgver}.tar.xz"

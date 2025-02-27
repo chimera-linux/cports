@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers"]
 checkdepends = ["fftw-devel", "libsndfile-devel"]
 pkgdesc = "Sample Rate Converter for audio"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://libsndfile.github.io/libsamplerate"
 source = f"https://github.com/libsndfile/libsamplerate/releases/download/{pkgver}/libsamplerate-{pkgver}.tar.xz"

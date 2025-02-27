@@ -2,7 +2,6 @@ pkgname = "unicode-cldr-common"
 pkgver = "46.1"
 pkgrel = 0
 pkgdesc = "Common data from Unicode CLDR"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unicode-DFS-2016"
 url = "https://cldr.unicode.org"
 source = f"https://github.com/unicode-org/cldr/archive/refs/tags/release-{pkgver.replace('.', '-')}.tar.gz"

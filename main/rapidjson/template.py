@@ -20,7 +20,6 @@ makedepends = [
     "gtest-devel",
 ]
 pkgdesc = "JSON parser/generator for C++"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://rapidjson.org"
 source = (

@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["gtk4-devel", "wayland-protocols"]
 pkgdesc = "Library to create panels and other desktop components for Wayland"
-maintainer = "Val Packett <val@packett.cool>"
 license = "MIT"
 url = "https://github.com/wmww/gtk4-layer-shell"
 source = f"https://github.com/wmww/gtk4-layer-shell/archive/refs/tags/v{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["curl-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Prometheus Client Library for Modern C++"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jupp0r/prometheus-cpp"
 source = f"https://github.com/jupp0r/prometheus-cpp/releases/download/v{pkgver}/prometheus-cpp-with-submodules.tar.gz>prometheus-cpp-{pkgver}.tar.gz"

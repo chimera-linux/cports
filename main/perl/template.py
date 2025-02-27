@@ -10,7 +10,6 @@ make_check_env = {"PERL_BUILD_PACKAGING": "1"}
 makedepends = ["zlib-ng-compat-devel", "bzip2-devel"]
 checkdepends = ["perl-AnyEvent", "perl-Test-Pod", "procps"]
 pkgdesc = "Practical Extraction and Report Language"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://www.perl.org"
 source = [

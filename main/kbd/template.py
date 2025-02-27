@@ -11,7 +11,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-pam-devel", "linux-headers"]
 pkgdesc = "Linux keyboard utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://www.kbd-project.org"
 source = f"$(KERNEL_SITE)/utils/kbd/kbd-{pkgver}.tar.xz"

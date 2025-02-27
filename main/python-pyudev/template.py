@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python", "so:libudev.so.1!udev-libs"]
 checkdepends = ["python-pytest", "udev-libs"]
 pkgdesc = "Python bindings to libudev"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/pyudev/pyudev"
 source = f"$(PYPI_SITE)/p/pyudev/pyudev-{pkgver}.tar.gz"

@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Configurable sidebar-enabled Sphinx theme"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://alabaster.readthedocs.io"
 source = f"$(PYPI_SITE)/a/alabaster/alabaster-{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ configure_args = ["-DBUILD_SHARED_LIBS=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = []
 pkgdesc = "SoundTouch audio processing library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://www.surina.net/soundtouch"
 source = f"{url}/soundtouch-{pkgver}.tar.gz"

@@ -19,7 +19,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python html parser"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/html5lib/html5lib-python"
 source = f"$(PYPI_SITE)/h/html5lib/html5lib-{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ build_style = "makefile"
 hostmakedepends = ["gcc-aarch64-none-elf", "gcc-arm-none-eabi"]
 pkgdesc = "ARM Trusted Firmware for Rockchip rk3399 boards"
 subdesc = "bl31"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://developer.trustedfirmware.org/dashboard/view/6"
 # unstable tarball checksum

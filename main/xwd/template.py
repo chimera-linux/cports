@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool", "xorg-util-macros"]
 makedepends = ["libx11-devel", "libxkbfile-devel"]
 pkgdesc = "Dump an image of an X window"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xwd-{pkgver}.tar.gz"

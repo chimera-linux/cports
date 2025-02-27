@@ -26,7 +26,6 @@ makedepends = [
     "sqlite-devel",
 ]
 pkgdesc = "Ncurses UI for QEMU"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/nemuTUI/nemu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

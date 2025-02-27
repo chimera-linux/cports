@@ -7,7 +7,6 @@ prepare_after_patch = True
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Word list based passphrase generator"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "AGPL-3.0-only"
 url = "https://gitlab.com/yuvallanger/rusty-diceware"
 source = f"{url}/-/archive/diceware-v{pkgver}/rusty-diceware-diceware-v{pkgver}.tar.gz"

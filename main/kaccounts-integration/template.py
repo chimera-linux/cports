@@ -27,7 +27,6 @@ depends = [
     "signon-kwallet-extension",
 ]
 pkgdesc = "KDE integration for Accounts-SSO and SignOn-SSO"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/network/kaccounts-integration"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kaccounts-integration-{pkgver}.tar.xz"

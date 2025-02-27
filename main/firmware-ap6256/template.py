@@ -4,7 +4,6 @@ pkgrel = 0
 _commit = "056d5f6776e515f90bbbbead1be06857aaef17d0"
 archs = ["aarch64"]
 pkgdesc = "Firmware files for AP6256 WiFi/BT module"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = (
     "https://gitlab.manjaro.org/manjaro-arm/packages/community/ap6256-firmware"

@@ -18,7 +18,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library and tools for reading and writing TIFF data files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "libtiff"
 url = "http://libtiff.maptools.org"
 source = f"http://download.osgeo.org/libtiff/tiff-{pkgver}.tar.gz"

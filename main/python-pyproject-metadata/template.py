@@ -10,7 +10,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python-packaging"]
 pkgdesc = "PEP 621 metadata parsing"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://github.com/pypa/pyproject-metadata"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -23,7 +23,6 @@ makedepends = [
     "sdl2-compat-devel",
 ]
 pkgdesc = "High-performance real-time graphics toolkit"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:OpenSceneGraph"
 url = "https://openscenegraph.com"
 source = f"https://github.com/openscenegraph/OpenSceneGraph/archive/OpenSceneGraph-{pkgver}.tar.gz"

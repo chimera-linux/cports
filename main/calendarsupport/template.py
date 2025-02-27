@@ -28,7 +28,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE library for calendar support"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-3.0-only"
 url = "https://api.kde.org/kdepim/calendarsupport/html"
 source = (

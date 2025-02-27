@@ -23,7 +23,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce volume control app"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-mixer/start"
 source = (

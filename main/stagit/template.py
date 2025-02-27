@@ -11,7 +11,6 @@ make_build_args = [
 make_install_args = ["MANPREFIX=/usr/share/man"]
 makedepends = ["libgit2-devel"]
 pkgdesc = "Static git page generator"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://codemadness.org/stagit.html"
 source = f"https://codemadness.org/releases/stagit/stagit-{pkgver}.tar.gz"

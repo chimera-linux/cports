@@ -15,7 +15,6 @@ makedepends = [
     "libxrender-devel",
 ]
 pkgdesc = "Select region of X11 display"
-maintainer = "peri <peri@periwinkle.sh>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/naelstrof/slop"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

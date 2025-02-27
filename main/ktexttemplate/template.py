@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtdeclarative-devel"]
 pkgdesc = "KDE library for text templates"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/ktexttemplate/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ktexttemplate-{pkgver}.tar.xz"

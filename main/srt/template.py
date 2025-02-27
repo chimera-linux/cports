@@ -18,7 +18,6 @@ makedepends = [
     "openssl3-devel",
 ]
 pkgdesc = "Secure Reliable Transport library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.srtalliance.org"
 source = f"https://github.com/Haivision/srt/archive/refs/tags/v{pkgver}.tar.gz"

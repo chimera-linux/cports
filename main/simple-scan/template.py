@@ -24,7 +24,6 @@ makedepends = [
 ]
 depends = ["sane-backends"]
 pkgdesc = "GNOME scanning utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/simple-scan"
 source = f"$(GNOME_SITE)/simple-scan/{pkgver[:-2]}/simple-scan-{pkgver}.tar.xz"

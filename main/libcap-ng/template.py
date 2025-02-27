@@ -6,7 +6,6 @@ configure_args = ["--without-python3"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Alternate POSIX capabilities library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://people.redhat.com/sgrubb/libcap-ng"
 source = f"{url}/libcap-ng-{pkgver}.tar.gz"

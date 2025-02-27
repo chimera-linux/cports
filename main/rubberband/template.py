@@ -16,7 +16,6 @@ makedepends = [
     "vamp-plugin-sdk-devel",
 ]
 pkgdesc = "Time-stretching and pitch-shifting audio library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://breakfastquay.com/rubberband"
 source = f"https://breakfastquay.com/files/releases/rubberband-{pkgver}.tar.bz2"

@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python WHATWG encoding implementation"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/gsnedders/python-webencodings"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

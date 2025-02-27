@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-private-devel", "qt6-qtshadertools-devel"]
 pkgdesc = "Qt6 declarative component"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

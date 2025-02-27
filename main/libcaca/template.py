@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["automake", "pkgconf", "python", "slibtool"]
 makedepends = ["ncurses-devel", "imlib2-devel", "libx11-devel"]
 pkgdesc = "Graphics library that outputs text instead of pixels"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "WTFPL"
 url = "http://caca.zoy.org/wiki/libcaca"
 source = f"https://github.com/cacalabs/libcaca/releases/download/v{pkgver.replace('_', '.')}/libcaca-{pkgver.replace('_', '.')}.tar.gz"

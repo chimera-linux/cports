@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl", "perl-net-ssleay", "perl-uri"]
 depends = [*makedepends]
 pkgdesc = "SSL sockets with IO::Socket interface"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/IO-Socket-SSL"
 source = f"$(CPAN_SITE)/IO/IO-Socket-SSL-{pkgver}.tar.gz"

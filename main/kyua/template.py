@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["atf-devel", "automake", "libtool", "pkgconf"]
 makedepends = ["atf-devel", "lutok-devel", "sqlite-devel"]
 pkgdesc = "Test framework for infrastructure software"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/freebsd/kyua"
 source = f"{url}/releases/download/kyua-{pkgver}/kyua-{pkgver}.tar.gz"

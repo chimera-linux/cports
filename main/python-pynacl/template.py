@@ -14,7 +14,6 @@ makedepends = ["libsodium-devel", "python-devel"]
 checkdepends = ["python-hypothesis", "python-pytest"]
 depends = ["python-cffi"]
 pkgdesc = "Python bindings for libsodium"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/pyca/pynacl"
 source = f"$(PYPI_SITE)/P/PyNaCl/PyNaCl-{pkgver}.tar.gz"

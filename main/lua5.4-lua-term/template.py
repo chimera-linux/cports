@@ -7,7 +7,6 @@ make_install_args = ["LUA_VER=5.4"]
 make_use_env = True
 makedepends = ["lua5.4-devel"]
 pkgdesc = "Terminal operations for Lua"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/hoelzro/lua-term"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 make_use_env = True
 pkgdesc = "Unarchiver for .rar files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:unrar"
 url = "https://www.rarlab.com/rar_add.htm"
 source = f"https://www.rarlab.com/rar/unrarsrc-{pkgver}.tar.gz"

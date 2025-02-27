@@ -381,7 +381,6 @@ core_fields = [
     ("pkgrel", None, int, True, False, False),
     ("pkgver", None, str, True, False, False),
     ("url", None, str, True, False, False),
-    ("maintainer", None, str, True, False, False),
     # various options that can be set for the template
     ("options", [], list, False, True, False),
     # other core-ish fields
@@ -516,7 +515,6 @@ core_fields_priority = [
     ("origin", True),
     ("pkgdesc", True),
     ("subdesc", True),
-    ("maintainer", True),
     ("license", True),
     ("url", True),
     ("source", True),
@@ -1125,7 +1123,6 @@ class Template(Package):
             "pkgdesc": self.pkgdesc,
             "subdesc": self.subdesc,
             "license": self.license,
-            "maintainer": self.maintainer,
             "url": self.url,
             "broken": self.broken,
             "restricted": self.restricted,
@@ -1383,7 +1380,6 @@ class Template(Package):
             self.error("package name must be lowercase")
 
         self.validate_pkgdesc()
-        self.validate_maintainer()
         self.validate_url()
         self.validate_vars()
         with open(self.template_path / "template.py") as f:
@@ -1494,24 +1490,6 @@ class Template(Package):
                 "pkgdesc should not contain a (subdescription)",
                 hint="use the 'subdesc' field instead",
             )
-
-    def validate_maintainer(self):
-        m = re.fullmatch(r"^(.+) <([^>]+)>$", self.maintainer)
-        if not m:
-            self.error(
-                "maintainer has an invalid format",
-                hint="must follow the 'name <email>' format",
-            )
-
-        grp = m.groups()
-
-        if grp[0] != " ".join(grp[0].split()):
-            self.error("maintainer name has an invalid format")
-
-        addrp = r"^[A-Za-z0-9._%+=-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}$"
-
-        if not re.fullmatch(addrp, grp[1]):
-            self.error("maintainer email has an invalid format")
 
     def _get_fieldmap(self):
         global core_fields_map

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "HFS filesystem utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.mars.org/home/rob/proj/hfs"
 source = f"ftp://ftp.mars.org/pub/hfs/hfsutils-{pkgver}.tar.gz"

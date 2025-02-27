@@ -12,7 +12,6 @@ makedepends = [
     "ncurses-devel",
 ]
 pkgdesc = "Terminal IRC client"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://git.causal.agency/catgirl"
 source = f"{url}/snapshot/catgirl-{pkgver}.tar.gz"

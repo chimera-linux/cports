@@ -139,7 +139,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("ffmpeg-ffplay")]
 pkgdesc = "Decoding, encoding and streaming software"
-maintainer = "q66 <q66@chimera-linux.org>"
 # we use --enable-gpl; it enables useful filters
 license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"

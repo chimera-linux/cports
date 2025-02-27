@@ -10,7 +10,6 @@ make_install_args = [*make_build_args]
 make_use_env = True
 makedepends = ["lua5.4-devel"]
 pkgdesc = "Networking library for lua"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://lunarmodules.github.io/luasocket"
 source = f"https://github.com/lunarmodules/luasocket/archive/refs/tags/v{pkgver}.tar.gz"

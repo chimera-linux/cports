@@ -9,7 +9,6 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = ["elogind-devel", "linux-headers"]
 pkgdesc = "Universal seat management library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://sr.ht/~kennylevinsen/seatd"
 source = f"https://git.sr.ht/~kennylevinsen/seatd/archive/{pkgver}.tar.gz"

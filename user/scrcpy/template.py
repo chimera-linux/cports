@@ -19,7 +19,6 @@ makedepends = [
 ]
 depends = ["android-tools"]
 pkgdesc = "Display and control an Android device"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "Apache-2.0"
 url = "https://github.com/Genymobile/scrcpy"
 source = [

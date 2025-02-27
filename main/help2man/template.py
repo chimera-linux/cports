@@ -6,7 +6,6 @@ configure_gen = []
 hostmakedepends = ["perl-locale-gettext", "texinfo"]
 depends = ["perl-locale-gettext"]
 pkgdesc = "GNU conversion tool to create man pages"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/help2man"
 source = f"$(GNU_SITE)/help2man/help2man-{pkgver}.tar.xz"

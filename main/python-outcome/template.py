@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-attrs"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Capture the outcome of Python calls"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/python-trio/outcome"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

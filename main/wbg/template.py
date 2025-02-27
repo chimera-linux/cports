@@ -17,7 +17,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Wallpaper application for Wayland compositors"
-maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/wbg"
 source = f"{url}/releases/download/{pkgver}/wbg-{pkgver}.tar.gz"

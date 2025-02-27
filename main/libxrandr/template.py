@@ -6,7 +6,6 @@ configure_args = ["--enable-malloc0returnsnull"]
 hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
 makedepends = ["xorgproto", "libxext-devel", "libxrender-devel"]
 pkgdesc = "X RandR Library from X.org"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXrandr-{pkgver}.tar.gz"

@@ -76,7 +76,6 @@ depends = [
 ]
 checkdepends = ["dbus"]
 pkgdesc = "GNU Image Manipulation Program"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://www.gimp.org"
 source = f"https://download.gimp.org/pub/gimp/v{pkgver[:3]}/gimp-{pkgver.replace('_', '-').upper()}.tar.xz"

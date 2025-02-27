@@ -13,7 +13,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "View and edit keyring secrets"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://gitlab.gnome.org/World/key-rack"
 source = f"{url}/-/archive/{pkgver}.tar.gz"

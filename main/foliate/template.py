@@ -21,7 +21,6 @@ depends = [
 ]
 checkdepends = ["appstream-glib"]
 pkgdesc = "GTK e-book reader"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://johnfactotum.github.io/foliate"
 source = f"https://github.com/johnfactotum/foliate/releases/download/{pkgver}/com.github.johnfactotum.Foliate-{pkgver}.tar.xz"

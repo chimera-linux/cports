@@ -20,7 +20,6 @@ makedepends = [
 depends = ["qt6-qtbase-sql"]
 checkdepends = [*depends]
 pkgdesc = "KDE contact api"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kpeople/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kpeople-{pkgver}.tar.xz"

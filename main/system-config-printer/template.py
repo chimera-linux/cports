@@ -28,7 +28,6 @@ depends = [
     "python-pycups",
 ]
 pkgdesc = "Graphical user interface for CUPS administration"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/OpenPrinting/system-config-printer"
 source = (

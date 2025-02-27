@@ -7,7 +7,6 @@ hostmakedepends = ["automake"]
 makedepends = ["libxmu-devel"]
 checkdepends = ["psmisc", "xwayland-run"]
 pkgdesc = "Command line interface to the X11 clipboard"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/astrand/xclip"
 source = f"{url}/archive/{pkgver}.tar.gz"

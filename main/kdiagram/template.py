@@ -18,7 +18,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE libraries for creating diagrams"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/graphics/kdiagram"
 source = f"$(KDE_SITE)/kdiagram/{pkgver}/kdiagram-{pkgver}.tar.xz"

@@ -28,7 +28,6 @@ checkdepends = [
     "cmocka-devel",
 ]
 pkgdesc = "Desktop sync client for Nextcloud"
-maintainer = "doskel <doskel@doskel.net>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/nextcloud/desktop"
 source = f"{url}/archive/refs/tags/v{pkgver.replace('_', '-')}.tar.gz"

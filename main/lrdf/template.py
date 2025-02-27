@@ -6,7 +6,6 @@ make_dir = "."  # tests assume this build directory
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["raptor-devel", "ladspa-sdk"]
 pkgdesc = "RDF library with special support for LADSPA plugins"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/swh/LRDF"
 source = f"{url}/archive/v{pkgver}.tar.gz"

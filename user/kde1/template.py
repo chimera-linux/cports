@@ -7,7 +7,6 @@ depends = [
     f"kde1-kdeutils~{pkgver}",
 ]
 pkgdesc = "KDE 1.x historical version"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://kde.org"
 

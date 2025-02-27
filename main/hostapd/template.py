@@ -8,7 +8,6 @@ make_use_env = True
 hostmakedepends = ["pkgconf"]
 makedepends = ["libnl-devel", "linux-headers", "openssl3-devel"]
 pkgdesc = "IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-3-Clause"
 url = "https://w1.fi/hostapd"
 source = f"https://w1.fi/releases/hostapd-{pkgver}.tar.gz"

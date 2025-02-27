@@ -6,7 +6,6 @@ make_check_args = ["-j1"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libogg-devel"]
 pkgdesc = "Vorbis general audio compression codec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.xiph.org/vorbis"
 source = f"https://downloads.xiph.org/releases/vorbis/libvorbis-{pkgver}.tar.xz"

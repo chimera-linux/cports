@@ -7,7 +7,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Library for arbitrary precision arithmetic"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later OR GPL-2.0-or-later"
 url = "https://gmplib.org"
 source = f"{url}/download/gmp/gmp-{pkgver}.tar.xz"

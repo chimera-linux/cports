@@ -19,7 +19,6 @@ provides = [
 ]
 replaces = [f"zlib<{_cver}-r99"]
 pkgdesc = "Implementation of zlib compression library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://github.com/zlib-ng/zlib-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "libxau-devel", "linux-headers"]
 pkgdesc = "GNOME library to retrieve system information"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/libgtop"
 source = f"$(GNOME_SITE)/libgtop/{pkgver[:-2]}/libgtop-{pkgver}.tar.xz"

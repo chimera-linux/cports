@@ -7,7 +7,6 @@ configure_gen = []
 make_check_args = ["-j1"]
 hostmakedepends = ["pkgconf"]
 pkgdesc = "XML parser library written in C"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/libexpat/libexpat/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"

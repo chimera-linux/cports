@@ -35,7 +35,6 @@ makedepends = [
 ]
 # TODO: can't play anything without a phonon backend (vlc)
 pkgdesc = "KDE music player and manager"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only"
 url = "https://juk.kde.org"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/juk-{pkgver}.tar.xz"

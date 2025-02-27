@@ -9,7 +9,6 @@ hostmakedepends = ["pkgconf"]
 makedepends = ["attr-devel"]
 checkdepends = ["perl"]
 pkgdesc = "Access Control List filesystem support"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://savannah.nongnu.org/projects/acl"
 source = f"$(NONGNU_SITE)/acl/acl-{pkgver}.tar.gz"

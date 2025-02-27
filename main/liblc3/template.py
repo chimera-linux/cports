@@ -5,7 +5,6 @@ build_style = "meson"
 configure_args = ["-Dtools=true"]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Low complexity communicationcodec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/liblc3"
 source = f"{url}/archive/v{pkgver}.tar.gz"

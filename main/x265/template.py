@@ -7,7 +7,6 @@ configure_args = ["-DENABLE_PIC=1", "-DGIT_ARCHETYPE=1"]
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
 makedepends = ["numactl-devel", "linux-headers"]
 pkgdesc = "Open source H.265/HEVC encoder"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://x265.org"
 source = f"https://bitbucket.org/multicoreware/x265_git/get/{pkgver}.tar.gz"

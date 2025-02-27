@@ -9,7 +9,6 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "doxygen"]
 pkgdesc = "JSON implementation in C"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://json-c.github.io/json-c"
 source = (

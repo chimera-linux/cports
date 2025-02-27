@@ -6,7 +6,6 @@ make_build_args = ["./cmd/f2"]
 hostmakedepends = ["go"]
 checkdepends = ["perl-image-exiftool-progs"]
 pkgdesc = "Command-line tool for batch renaming files and directories"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "MIT"
 url = "https://github.com/ayoisaiah/f2"
 source = f"https://github.com/ayoisaiah/f2/archive/refs/tags/v{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["dinit-dbus"]
 pkgdesc = "Share a language server instance between multiple clients"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/pr2502/ra-multiplex"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

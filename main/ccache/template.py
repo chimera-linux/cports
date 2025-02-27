@@ -20,7 +20,6 @@ makedepends = [
 ]
 checkdepends = ["bash", "elfutils"]
 pkgdesc = "Fast C/C++ compiler cache"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://ccache.dev"
 source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/ccache-{pkgver}.tar.xz"

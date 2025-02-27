@@ -13,7 +13,6 @@ makedepends = ["fuse-devel", "python-devel", "linux-headers"]
 depends = ["python-trio"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Python bindings for libfuse"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.0-or-later"
 url = "https://github.com/libfuse/pyfuse3"
 source = f"{url}/releases/download/{pkgver}/pyfuse3-{pkgver}.tar.gz"

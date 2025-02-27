@@ -25,7 +25,6 @@ makedepends = [
 ]
 depends = ["dconf", "yelp-xsl"]
 pkgdesc = "Help browser for GNOME desktop"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Yelp"
 source = f"$(GNOME_SITE)/yelp/{pkgver[:-2]}/yelp-{pkgver}.tar.xz"

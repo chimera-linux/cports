@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 checkdepends = ["bash"]
 pkgdesc = "C implementation of the varlink protocol"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/varlink/libvarlink"
 source = (

@@ -32,7 +32,6 @@ depends = [
     "qemu-img",
 ]
 pkgdesc = "QEMU frontend for GNOME"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://apps.gnome.org/Boxes"
 source = f"$(GNOME_SITE)/gnome-boxes/{'.'.join(pkgver.rsplit('.')[:-1])}/gnome-boxes-{pkgver}.tar.xz"

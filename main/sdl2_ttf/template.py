@@ -9,7 +9,6 @@ hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["sdl2-compat-devel", "freetype-devel", "harfbuzz-devel"]
 provides = [self.with_pkgver("sdl_ttf")]
 pkgdesc = "TrueType font support for SDL"
-maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "Zlib"
 url = "https://github.com/libsdl-org/SDL_ttf"
 source = f"{url}/releases/download/release-{pkgver}/SDL2_ttf-{pkgver}.tar.gz"

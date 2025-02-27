@@ -24,7 +24,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Hardware lister"
-maintainer = "Guilhem Baccialone <guilhem.baccialone@zaclys.net>"
 license = "GPL-2.0-only"
 url = "https://ezix.org/project/wiki/HardwareLiSter"
 source = f"https://www.ezix.org/software/files/lshw-B.{pkgver}.tar.gz"

@@ -33,7 +33,6 @@ checkdepends = [
     "tang",
 ]
 pkgdesc = "Pluggable framework for automated decryption"
-maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later WITH custom:openssl-exception"
 url = "https://github.com/latchset/clevis"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

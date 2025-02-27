@@ -9,7 +9,6 @@ make_check_args = ["--no-default-features"]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Simple, fast and user-friendly alternative to find"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/fd"
 source = [

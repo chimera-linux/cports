@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python library for saving and loading PNG images"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://gitlab.com/drj11/pypng"
 source = f"$(PYPI_SITE)/p/pypng/pypng-{pkgver}.tar.gz"

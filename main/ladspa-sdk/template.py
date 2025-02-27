@@ -3,7 +3,6 @@ pkgver = "1.17"
 pkgrel = 1
 makedepends = ["libsndfile-devel"]
 pkgdesc = "Linux Audio Developer's Simple Plugin API"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.ladspa.org"
 source = f"{url}/download/ladspa_sdk_{pkgver}.tgz"

@@ -55,7 +55,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "GTK+3 widget for SPICE remote desktop client"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/spice/spice-gtk"
 source = f"https://www.spice-space.org/download/gtk/spice-gtk-{pkgver}.tar.xz"

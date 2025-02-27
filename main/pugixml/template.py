@@ -12,7 +12,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Light-weight, simple and fast XML parser for C++"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://pugixml.org"
 source = f"https://github.com/zeux/pugixml/archive/refs/tags/v{pkgver}.tar.gz"

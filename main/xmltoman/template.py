@@ -5,7 +5,6 @@ build_style = "makefile"
 hostmakedepends = ["perl", "perl-xml-parser"]
 depends = ["perl", "perl-xml-parser"]
 pkgdesc = "Convert XML to manpages in groff format or HTML"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/xmltoman"
 source = f"https://github.com/Distrotech/xmltoman/archive/{pkgver}.tar.gz"

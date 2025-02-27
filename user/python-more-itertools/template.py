@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "More routines for operating on iterables, beyond itertools"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/more-itertools/more-itertools"
 source = f"$(PYPI_SITE)/m/more-itertools/more-itertools-{pkgver}.tar.gz"

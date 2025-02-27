@@ -27,7 +27,6 @@ checkdepends = [
     "python-structlog",
 ]
 pkgdesc = "Emulated Input Library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/libinput/libei"
 _munit = "fbbdf1467eb0d04a6ee465def2e529e4c87f2118"

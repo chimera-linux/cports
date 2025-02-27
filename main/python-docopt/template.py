@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "CLI creating helper for python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/docopt/docopt"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -11,7 +11,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 pkgdesc = "Intel Graphics Memory Management Library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/intel/gmmlib"
 source = f"{url}/archive/refs/tags/intel-gmmlib-{pkgver}.tar.gz"

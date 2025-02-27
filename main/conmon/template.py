@@ -16,7 +16,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "OCI container monitor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containers/conmon"
 source = f"{url}/archive/v{pkgver}.tar.gz"

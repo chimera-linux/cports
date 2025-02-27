@@ -9,7 +9,6 @@ hostmakedepends = ["go"]
 checkdepends = ["gnupg"]
 go_build_tags = ["noembeddocs", "noupgrade"]
 pkgdesc = "Dotfiles manager"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"

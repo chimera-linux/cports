@@ -66,7 +66,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "RDP clients and libraries"
-maintainer = "fossdd <fossdd@pwned.life>"
 license = "Apache-2.0"
 url = "https://www.freerdp.com"
 source = f"https://pub.freerdp.com/releases/freerdp-{pkgver}.tar.gz"

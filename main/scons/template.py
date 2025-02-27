@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Build system nobody likes"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://scons.org"
 source = f"https://github.com/SCons/scons/archive/refs/tags/{pkgver}.tar.gz"

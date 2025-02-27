@@ -15,7 +15,6 @@ makedepends = ["yelp-xsl"]
 depends = ["libxslt-progs", "yelp-xsl", "python-lxml"]
 pkgdesc = "Help browser for GNOME desktopS"
 subdesc = "tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/yelp-tools"
 source = f"$(GNOME_SITE)/yelp-tools/{pkgver[:-2]}/yelp-tools-{pkgver}.tar.xz"

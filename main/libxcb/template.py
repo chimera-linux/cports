@@ -8,7 +8,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf", "libtool", "xorg-util-macros", "xcbproto"]
 makedepends = ["xcbproto", "libxdmcp-devel", "libxau-devel"]
 pkgdesc = "X protocol C language binding"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"https://xorg.freedesktop.org/archive/individual/lib/libxcb-{pkgver}.tar.xz"

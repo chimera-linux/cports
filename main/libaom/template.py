@@ -18,7 +18,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Reference implementation of the AV1 codec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://aomedia.org"
 source = [f"https://storage.googleapis.com/aom-releases/libaom-{pkgver}.tar.gz"]

@@ -25,7 +25,6 @@ makedepends = [
 # mp3 encoding
 depends = ["lame"]
 pkgdesc = "KDE bookmarks editor"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kio_audiocd"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/audiocd-kio-{pkgver}.tar.xz"

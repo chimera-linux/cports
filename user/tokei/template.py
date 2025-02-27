@@ -7,7 +7,6 @@ prepare_after_patch = True
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "CLI for counting lines of code with stats per language"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/XAMPPRocky/tokei"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

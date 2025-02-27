@@ -134,7 +134,6 @@ depends = [
     "xdg-utils",
 ]
 pkgdesc = "Web browser"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 # from gentoo

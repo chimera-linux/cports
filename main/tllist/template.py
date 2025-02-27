@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "C header file only implementation of a typed linked list"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/tllist"
 source = f"{url}/archive/{pkgver}.tar.gz"

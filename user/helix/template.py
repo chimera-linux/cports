@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "git"]
 makedepends = ["rust-std"]
 pkgdesc = "Fast modal terminal-based text editor"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MPL-2.0"
 url = "https://github.com/helix-editor/helix"
 source = f"{url}/releases/download/{pkgver}/helix-{pkgver}-source.tar.xz"

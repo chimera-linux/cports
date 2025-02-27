@@ -6,7 +6,6 @@ make_check_target = "test"
 make_use_env = True
 replaces = ["chimerautils-extra<=14.0.1-r0"]
 pkgdesc = "Implementation of POSIX bc with GNU extensions"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://git.yzena.com/gavin/bc"
 source = f"https://github.com/gavinhoward/bc/releases/download/{pkgver}/bc-{pkgver}.tar.xz"

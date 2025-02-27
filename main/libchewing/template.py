@@ -13,7 +13,6 @@ hostmakedepends = [
 ]
 makedepends = ["sqlite-devel", "ncurses-devel", "rust-std"]
 pkgdesc = "Intelligent phonetic input method library"
-maintainer = "xunil-cloud <river_electron@proton.me>"
 license = "LGPL-2.1-or-later"
 url = "https://chewing.im"
 source = f"https://github.com/chewing/libchewing/releases/download/v{pkgver}/libchewing-{pkgver}.tar.zst"

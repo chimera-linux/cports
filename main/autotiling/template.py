@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python-i3ipc"]
 pkgdesc = "Automatically switch horizontal/vertical split orientation in sway"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/nwg-piotr/autotiling"
 source = f"$(PYPI_SITE)/a/autotiling/autotiling-{pkgver}.tar.gz"

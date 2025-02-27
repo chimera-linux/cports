@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("supertuxkart-data")]
 pkgdesc = "Kart racing game"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://supertuxkart.net"
 source = f"https://github.com/supertuxkart/stk-code/releases/download/{pkgver}/SuperTuxKart-{pkgver}-src.tar.xz"

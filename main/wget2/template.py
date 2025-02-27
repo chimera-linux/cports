@@ -27,7 +27,6 @@ makedepends = [
 ]
 provides = [self.with_pkgver("wget")]
 pkgdesc = "GNU downloader"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/gnuwget/wget2"
 source = f"$(GNU_SITE)/wget/wget2-{pkgver}.tar.gz"

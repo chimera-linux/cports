@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-private-devel"]
 pkgdesc = "Qt6 Networkauth component"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

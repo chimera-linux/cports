@@ -31,7 +31,6 @@ depends = [
 # transitional, no longer a separate package
 provides = ["containerd-rootless=3"]
 pkgdesc = "Industry-standard container runtime"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/containerd"
 source = [

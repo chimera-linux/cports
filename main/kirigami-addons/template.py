@@ -36,7 +36,6 @@ depends = [
     "sonnet",
 ]
 pkgdesc = "Add-ons for the Kirigami framework"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kirigami-addons/html"
 source = f"$(KDE_SITE)/kirigami-addons/kirigami-addons-{pkgver}.tar.xz"

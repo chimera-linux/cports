@@ -8,7 +8,6 @@ hostmakedepends = [
 ]
 makedepends = ["ncurses-devel", "linux-headers"]
 pkgdesc = "Disk usage analyzer with an ncurses interface"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://dev.yorhel.nl/ncdu"
 source = f"https://dev.yorhel.nl/download/ncdu-{pkgver}.tar.gz"

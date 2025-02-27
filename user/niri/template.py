@@ -32,7 +32,6 @@ depends = [
 ]
 checkdepends = ["xkeyboard-config"]
 pkgdesc = "Scrollable-tiling wayland compositor"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

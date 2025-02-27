@@ -6,7 +6,6 @@ hostmakedepends = ["perl-io-string"]
 makedepends = ["perl-io-string"]
 depends = ["perl-io-string"]
 pkgdesc = "Perl module for TrueType Font hacking"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-2.0"
 url = "https://metacpan.org/release/Font-TTF"
 source = f"$(CPAN_SITE)/Font/Font-TTF-{pkgver}.tar.gz"

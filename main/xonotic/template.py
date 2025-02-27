@@ -17,7 +17,6 @@ makedepends = [
 ]
 depends = [f"xonotic-data~{pkgver}"]
 pkgdesc = "Free, fast-paced cross-platform first-person shooter"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND BSD-3-Clause"
 url = "https://xonotic.org"
 source = f"https://dl.xonotic.org/xonotic-{pkgver}-source.zip"

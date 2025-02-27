@@ -26,7 +26,6 @@ makedepends = [
     "xcb-util-wm-devel",
 ]
 pkgdesc = "Window switcher, run dialog, and dmenu replacement"
-maintainer = "Nova <froggo8311@proton.me>"
 license = "MIT"
 # rofi with wayland support
 url = "https://github.com/lbonn/rofi"

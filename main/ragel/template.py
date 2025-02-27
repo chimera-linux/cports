@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake"]
 pkgdesc = "Finite state machine compiler"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "GPL-2.0-or-later"
 url = "https://www.colm.net/open-source/ragel/index.html"
 source = f"https://www.colm.net/files/ragel/ragel-{pkgver}.tar.gz"

@@ -48,7 +48,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "XMPP client"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://gajim.org"
 source = f"{url}/downloads/{pkgver[: pkgver.rfind('.')]}/gajim-{pkgver}.tar.gz"

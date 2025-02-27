@@ -5,7 +5,6 @@ archs = ["aarch64", "ppc", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "meta"
 depends = ["chimera-repo-main"]
 pkgdesc = "Chimera user repository"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 

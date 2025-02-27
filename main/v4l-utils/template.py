@@ -19,7 +19,6 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "Userspace tools and libraries for V4L"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://linuxtv.org/wiki/index.php/V4l-utils"
 source = f"https://linuxtv.org/downloads/v4l-utils/v4l-utils-{pkgver}.tar.xz"

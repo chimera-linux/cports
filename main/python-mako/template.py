@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest", "python-setuptools", "python-markupsafe"]
 depends = ["python-setuptools", "python-markupsafe"]
 pkgdesc = "Fast and lightweight templating engine for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.makotemplates.org"
 source = f"$(PYPI_SITE)/M/Mako/Mako-{pkgver}.tar.gz"

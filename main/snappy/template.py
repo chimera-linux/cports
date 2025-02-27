@@ -9,7 +9,6 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja"]
 pkgdesc = "Fast compressor/decompressor"
-maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://google.github.io/snappy"
 source = f"https://github.com/google/snappy/archive/{pkgver}.tar.gz"

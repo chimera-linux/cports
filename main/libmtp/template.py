@@ -7,7 +7,6 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["libgcrypt-devel", "libusb-devel"]
 pkgdesc = "Media Transfer Protocol (MTP) library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libmtp.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libmtp/libmtp-{pkgver}.tar.gz"

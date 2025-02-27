@@ -5,7 +5,6 @@ build_style = "makefile"
 make_install_args = ["prefix=/usr"]
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Encoding data for the poppler PDF rendering library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://poppler.freedesktop.org"
 source = f"{url}/poppler-data-{pkgver}.tar.gz"

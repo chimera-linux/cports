@@ -15,7 +15,6 @@ makedepends = [
 ]
 checkdepends = ["jq"]
 pkgdesc = "JSON Object Signing and Encryption standards in C"
-maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/latchset/jose"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

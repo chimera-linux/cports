@@ -7,7 +7,6 @@ make_build_args = [
     f"hx_version={pkgver}",
 ]
 pkgdesc = "Terminal hex editor"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/krpors/hx"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ configure_gen = []
 make_dir = "."
 hostmakedepends = ["xmlto", "lynx"]
 pkgdesc = "Basic desktop integration scripts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/xdg-utils"
 source = (

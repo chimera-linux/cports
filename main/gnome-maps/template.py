@@ -41,7 +41,6 @@ depends = [
 ]
 checkdepends = ["libsecret"]
 pkgdesc = "GNOME maps"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0"
 url = "https://apps.gnome.org/Maps"
 source = f"$(GNOME_SITE)/gnome-maps/{pkgver.split('.')[0]}/gnome-maps-{pkgver}.tar.xz"

@@ -9,7 +9,6 @@ depends = [
     "lvm2-dm",
 ]
 pkgdesc = "Packages to be included in official live images"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 

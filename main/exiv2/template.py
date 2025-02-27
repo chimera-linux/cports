@@ -16,7 +16,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Image metadata manipulation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://exiv2.org"
 source = f"https://github.com/Exiv2/exiv2/archive/refs/tags/v{pkgver}.tar.gz"

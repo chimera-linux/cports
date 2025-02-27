@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["byacc"]
 makedepends = ["linux-pam-devel"]
 pkgdesc = "Portable OpenBSD doas to execute commands as another user"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC AND BSD-3-Clause"
 url = "https://github.com/Duncaen/OpenDoas"
 source = f"{url}/archive/v{pkgver}.tar.gz"

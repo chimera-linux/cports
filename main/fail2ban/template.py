@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python-pyasynchat"]
 pkgdesc = "Daemon to ban hosts that cause multiple auth errors"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://fail2ban.org"
 source = f"https://github.com/fail2ban/fail2ban/archive/{pkgver}.tar.gz"

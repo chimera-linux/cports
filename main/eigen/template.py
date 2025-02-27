@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "C++ template library for linear algebra"
-maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "MPL-2.0 AND BSD-3-Clause AND Minpack AND Apache-2.0"
 url = "https://gitlab.com/libeigen/eigen"
 source = f"{url}/-/archive/{pkgver}/eigen-{pkgver}.tar.bz2"

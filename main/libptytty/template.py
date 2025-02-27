@@ -9,7 +9,6 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Library for pty/tty/utmp/wtmp/lastlog handling"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://software.schmorp.de/pkg/libptytty.html"
 source = f"http://dist.schmorp.de/libptytty/libptytty-{pkgver}.tar.gz"

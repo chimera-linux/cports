@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson"]
 pkgdesc = "Standalone util-linux getopt"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/chimera-linux/ugetopt"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

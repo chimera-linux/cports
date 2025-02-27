@@ -6,7 +6,6 @@ configure_args = ["-Dgtk_doc=false"]
 hostmakedepends = ["meson", "pkgconf", "glib-devel", "gobject-introspection"]
 makedepends = ["glib-devel", "linux-headers"]
 pkgdesc = "Qualcomm IPC Router protocol helper library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/mobile-broadband/libqrtr-glib"
 source = f"{url}/-/archive/{pkgver}/libqrtr-glib-{pkgver}.tar.gz"

@@ -35,7 +35,6 @@ makedepends = [
 ]
 pkgdesc = "2D and 3D game engine"
 subdesc = "GUI editor"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://godotengine.org"
 source = f"https://github.com/godotengine/godot/releases/download/{pkgver}-stable/godot-{pkgver}-stable.tar.xz"

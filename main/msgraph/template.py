@@ -12,7 +12,6 @@ makedepends = [
 ]
 checkdepends = ["libxml2-devel", "uhttpmock-devel"]
 pkgdesc = "GLib-based library for MS Graph protocol"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/msgraph"
 source = f"$(GNOME_SITE)/msgraph/{pkgver[:-2]}/msgraph-{pkgver}.tar.xz"

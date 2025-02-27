@@ -6,7 +6,6 @@ prepare_after_patch = True
 hostmakedepends = ["apache-ant", "docbook-xsl-nons", "openjdk17-jdk"]
 depends = ["virtual:java-jre!openjdk17-jre"]
 pkgdesc = "Programming text editor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://jedit.org"
 source = f"$(SOURCEFORGE_SITE)/jedit/{pkgver}/jedit{pkgver}source.tar.bz2"

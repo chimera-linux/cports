@@ -6,7 +6,6 @@ configure_args = ["--enable-pulse"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libpulse-devel"]
 pkgdesc = "Cross-platform audio library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.xiph.org/ao"
 source = f"https://github.com/xiph/libao/archive/refs/tags/{pkgver}.tar.gz"

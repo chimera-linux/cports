@@ -29,7 +29,6 @@ makedepends = [
     "zxing-cpp-devel",
 ]
 pkgdesc = "KDE travel reservation parsing library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kitinerary/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kitinerary-{pkgver}.tar.xz"

@@ -6,7 +6,6 @@ hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 checkdepends = ["python-pytest"]  # and other stuff, but does not matter
 depends = ["python"]
 pkgdesc = "Attributes without boilerplate"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://attrs.readthedocs.io"
 source = f"$(PYPI_SITE)/a/attrs/attrs-{pkgver}.tar.gz"

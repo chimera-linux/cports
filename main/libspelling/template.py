@@ -26,7 +26,6 @@ makedepends = [
 # any lang
 checkdepends = ["aspell-en"]
 pkgdesc = "Spellcheck library for GTK 4"
-maintainer = "GeopJr <evan@geopjr.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libspelling"
 source = f"{url}/-/archive/{pkgver}/libspelling-{pkgver}.tar.gz"

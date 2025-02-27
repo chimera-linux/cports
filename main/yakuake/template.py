@@ -33,7 +33,6 @@ makedepends = [
 ]
 depends = ["konsole"]
 pkgdesc = "KDE drop-down terminal"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/yakuake"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/yakuake-{pkgver}.tar.xz"

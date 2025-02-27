@@ -7,7 +7,6 @@ configure_gen = ["./autogen.sh"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["argp-standalone"]
 pkgdesc = "Intel microcode manipulation utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/iucode-tool/iucode-tool"
 source = f"{url}/-/archive/v{pkgver}/iucode-tool-v{pkgver}.tar.gz"

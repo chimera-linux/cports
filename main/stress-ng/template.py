@@ -11,7 +11,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Stress test a computer in various selectable ways"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/ColinIanKing/stress-ng"
 source = f"https://github.com/ColinIanKing/stress-ng/archive/refs/tags/V{pkgver}.tar.gz"

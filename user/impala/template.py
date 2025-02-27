@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 pkgdesc = "TUI frontend for iwd"
-maintainer = "Bin Jin <bjin@protonmail.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/pythops/impala"
 source = f"{url}/archive/v{pkgver}.tar.gz"

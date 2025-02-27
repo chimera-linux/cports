@@ -17,7 +17,6 @@ makedepends = [
     "vulkan-loader-devel",
 ]
 pkgdesc = "Reimplementation of Gothic 2"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/Try/OpenGothic"
 source = [

@@ -35,7 +35,6 @@ makedepends = [
 ]
 depends = ["desktop-file-utils", "libpulse-progs", "python"]
 pkgdesc = "Themed window manager for X11"
-maintainer = "rane <rane+chimera@junkyard.systems>"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org/e16"
 source = f"$(SOURCEFORGE_SITE)/enlightenment/e16/{pkgver}/e16-{pkgver}.tar.xz"

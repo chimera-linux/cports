@@ -15,7 +15,6 @@ makedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python formatter and linter"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
 source = f"https://github.com/astral-sh/ruff/archive/refs/tags/{pkgver}.tar.gz"

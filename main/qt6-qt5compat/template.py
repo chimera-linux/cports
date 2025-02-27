@@ -7,7 +7,6 @@ make_check_args = ["-E", "(tst_qxmlinputsource|module_includes)"]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qtbase"]
 makedepends = ["qt6-qtbase-private-devel", "qt6-qtdeclarative-devel"]
 pkgdesc = "Module containing unsupported Qt5 APIs"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

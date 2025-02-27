@@ -18,7 +18,6 @@ makedepends = [
 ]
 checkdepends = ["dbus-test-runner", "xserver-xorg-xvfb"]
 pkgdesc = "Qt UI for signond"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://gitlab.com/accounts-sso/signon-ui"
 source = f"{url}/-/archive/{_gitrev}.tar.gz"

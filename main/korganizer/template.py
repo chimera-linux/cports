@@ -51,7 +51,6 @@ makedepends = [
 depends = ["kdepim-runtime"]
 checkdepends = ["xwayland-run", *depends]
 pkgdesc = "KDE Kontact calendar scheduler"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/korganizer"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/korganizer-{pkgver}.tar.xz"

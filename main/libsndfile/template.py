@@ -13,7 +13,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "C library for reading and writing files containing sampled sound"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libsndfile.github.io/libsndfile"
 source = f"https://github.com/libsndfile/libsndfile/releases/download/{pkgver}/libsndfile-{pkgver}.tar.xz"

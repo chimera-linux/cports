@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libusb-devel", "glib-devel"]
 pkgdesc = "Protocol for redirection USB traffic"
-maintainer = "eater <=@eater.me>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/spice/usbredir"
 source = (

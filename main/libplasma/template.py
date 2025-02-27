@@ -38,7 +38,6 @@ checkdepends = [
     "xwayland-run",
 ]
 pkgdesc = "Foundational libraries, components, and tools for Plasma workspaces"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/plasma/libplasma/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libplasma-{pkgver}.tar.xz"

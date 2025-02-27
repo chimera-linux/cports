@@ -29,7 +29,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("gdb-common")]
 pkgdesc = "GNU debugger"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gdb"
 source = f"$(GNU_SITE)/gdb/gdb-{pkgver}.tar.xz"

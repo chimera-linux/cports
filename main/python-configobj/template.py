@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python config file reader and writer"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "BSD-3-Clause"
 url = "https://github.com/DiffSK/configobj"
 source = f"https://github.com/DiffSK/configobj/archive/v{pkgver}.tar.gz"

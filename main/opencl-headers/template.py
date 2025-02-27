@@ -2,7 +2,6 @@ pkgname = "opencl-headers"
 pkgver = "2024.10.24"
 pkgrel = 0
 pkgdesc = "OpenCL header files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/OpenCL-Headers"
 source = f"{url}/archive/v{pkgver}.tar.gz"

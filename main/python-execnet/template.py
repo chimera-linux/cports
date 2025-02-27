@@ -13,7 +13,6 @@ checkdepends = [
     "python-pytest",
 ]
 pkgdesc = "Distributed python deployment and communication"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pytest-dev/execnet"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -14,7 +14,6 @@ depends = ["!libva", "!libva-devel"]
 # no provides needed, only for mesa which needs headers
 pkgdesc = "Video Acceleration API"
 subdesc = "bootstrap"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://01.org/linuxmedia/vaapi"
 source = f"https://github.com/intel/libva/archive/{pkgver}.tar.gz"

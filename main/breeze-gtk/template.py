@@ -13,7 +13,6 @@ hostmakedepends = [
 ]
 makedepends = ["breeze-devel", "qt6-qtbase-devel"]
 pkgdesc = "KDE Breeze widget theme for GTK"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "CC0-1.0"
 url = "https://invent.kde.org/plasma/breeze-gtk"
 source = f"$(KDE_SITE)/plasma/{pkgver}/breeze-gtk-{pkgver}.tar.xz"

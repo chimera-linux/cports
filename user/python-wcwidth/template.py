@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Measure display width of unicode strings in a terminal"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://github.com/jquast/wcwidth"
 source = f"$(PYPI_SITE)/w/wcwidth/wcwidth-{pkgver}.tar.gz"

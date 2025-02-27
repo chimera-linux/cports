@@ -8,7 +8,6 @@ hostmakedepends = ["perl", "autoconf"]
 checkdepends = ["flex", "gettext-devel", "pkgconf"]
 depends = ["perl", "autoconf"]
 pkgdesc = "GNU Standards-compliant Makefile generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.gnu.org/software/automake"
 source = f"$(GNU_SITE)/automake/automake-{pkgver}.tar.xz"

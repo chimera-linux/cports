@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-sortedcontainers"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Sorted collections library for Python"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "Apache-2.0"
 url = "https://www.grantjenks.com/docs/sortedcollections"
 source = f"https://github.com/grantjenks/python-sortedcollections/archive/refs/tags/v{pkgver}.tar.gz"

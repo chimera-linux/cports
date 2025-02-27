@@ -6,7 +6,6 @@ configure_args = ["--enable-thread-safe"]
 hostmakedepends = ["automake", "pkgconf", "slibtool", "texinfo"]
 makedepends = ["gmp-devel"]
 pkgdesc = "Library for multiple-precision floating-point computations"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://www.mpfr.org"
 source = f"{url}/mpfr-{pkgver}/mpfr-{pkgver}.tar.xz"

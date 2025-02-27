@@ -21,7 +21,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "FTP/HTTP client"
-maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "GPL-3.0-or-later"
 url = "https://lftp.yar.ru"
 source = f"https://lftp.yar.ru/ftp/lftp-{pkgver}.tar.xz"

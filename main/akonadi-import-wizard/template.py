@@ -30,7 +30,6 @@ makedepends = [
     "qtkeychain-devel",
 ]
 pkgdesc = "KDE Akonadi assistant for importing data into KDEPIM"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://invent.kde.org/pim/akonadi-import-wizard"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-import-wizard-{pkgver}.tar.xz"

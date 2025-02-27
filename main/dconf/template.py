@@ -20,7 +20,6 @@ makedepends = [
 ]
 checkdepends = ["dbus"]
 pkgdesc = "Low-level configuration system for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/dconf"
 source = f"$(GNOME_SITE)/dconf/{pkgver[:-2]}/dconf-{pkgver}.tar.xz"

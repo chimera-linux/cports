@@ -18,7 +18,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "XMPP Library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://dev.gajim.org/gajim/python-nbxmpp"
 source = f"$(PYPI_SITE)/n/nbxmpp/nbxmpp-{pkgver}.tar.gz"

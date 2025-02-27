@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "libtool", "asciidoc"]
 makedepends = ["alsa-lib-devel", "flac-devel", "linux-headers"]
 pkgdesc = "Library for reading and writing audio files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://audiofile.68k.org"
 source = f"https://github.com/sbaldovi/audiofile/archive/{_commit}.tar.gz"

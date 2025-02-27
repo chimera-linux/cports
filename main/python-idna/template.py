@@ -11,7 +11,6 @@ hostmakedepends = [
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Internationalized Domain Names in Applications (IDNA) for Python"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/kjd/idna"
 source = f"$(PYPI_SITE)/i/idna/idna-{pkgver}.tar.gz"

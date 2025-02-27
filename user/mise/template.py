@@ -25,7 +25,6 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "Development environment setup tool"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://mise.jdx.dev"
 source = f"https://github.com/jdx/mise/archive/refs/tags/v{pkgver}.tar.gz"

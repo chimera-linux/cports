@@ -28,7 +28,6 @@ checkdepends = [*depends]
 # transitional
 provides = [self.with_pkgver("libglycin")]
 pkgdesc = "Sandboxed and extendable image decoding"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glycin"
 source = f"$(GNOME_SITE)/glycin/{pkgver[:-2]}/glycin-{pkgver}.tar.xz"

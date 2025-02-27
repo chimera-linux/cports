@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "gettext-devel", "libtool"]
 pkgdesc = "Configuration file parser library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://github.com/martinh/libconfuse"
 source = f"{url}/releases/download/v{pkgver}/confuse-{pkgver}.tar.gz"

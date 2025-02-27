@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "DNS toolkit for Python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://www.dnspython.org"
 source = f"$(PYPI_SITE)/d/dnspython/dnspython-{pkgver}.tar.gz"

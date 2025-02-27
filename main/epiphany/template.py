@@ -34,7 +34,6 @@ makedepends = [
 ]
 depends = ["iso-codes"]
 pkgdesc = "GNOME web browser"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Web"
 source = (

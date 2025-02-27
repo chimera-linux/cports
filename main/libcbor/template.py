@@ -19,7 +19,6 @@ hostmakedepends = [
 ]
 makedepends = ["cmocka-devel"]
 pkgdesc = "CBOR serialization format implementation for C"
-maintainer = "Val Packett <val@packett.cool>"
 license = "MIT"
 url = "https://github.com/pjk/libcbor"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

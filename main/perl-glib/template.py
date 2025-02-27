@@ -10,7 +10,6 @@ hostmakedepends = [
 makedepends = ["glib-devel", "perl"]
 depends = ["perl"]
 pkgdesc = "Perl module for GLib"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://metacpan.org/dist/Glib"
 source = f"$(CPAN_SITE)/Glib/Glib-{pkgver}.tar.gz"

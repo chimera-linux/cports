@@ -29,7 +29,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *_deps]
 pkgdesc = "GUI for managing virtual machines"
-maintainer = "cesorious <cesorious@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://virt-manager.org"
 source = (

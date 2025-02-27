@@ -15,7 +15,6 @@ checkdepends = [
     "fdupes",
 ]
 pkgdesc = "Oxygen icon themes"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/oxygen-icons/html"
 source = f"$(KDE_SITE)/oxygen-icons/oxygen-icons-{pkgver}.tar.xz"

@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 checkdepends = ["boost-devel"]
 pkgdesc = "Collection of multi-dimensional data structures"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.com/mdds/mdds"
 source = f"https://gitlab.com/api/v4/projects/mdds%2Fmdds/packages/generic/source/{pkgver}/mdds-{pkgver}.tar.gz"

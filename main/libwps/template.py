@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel"]
 pkgdesc = "Library for importing Microsoft Works documents"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://sourceforge.net/p/libwps/wiki/Home"
 source = f"$(SOURCEFORGE_SITE)/libwps/libwps-{pkgver}.tar.xz"

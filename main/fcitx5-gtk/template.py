@@ -20,7 +20,6 @@ makedepends = [
     "libxkbcommon-devel",
 ]
 pkgdesc = "Gtk library and IM module for Fcitx5"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://fcitx-im.org"
 source = (

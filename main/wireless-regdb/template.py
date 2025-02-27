@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 make_install_args = ["FIRMWARE_PATH=/usr/lib/firmware"]
 pkgdesc = "Wireless CRDA database"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://wireless.wiki.kernel.org/en/developers/regulatory/wireless-regdb"
 source = f"https://mirrors.edge.kernel.org/pub/software/network/wireless-regdb/wireless-regdb-{pkgver}.tar.xz"

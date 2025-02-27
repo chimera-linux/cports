@@ -90,7 +90,6 @@ depends = [
     "xdg-dbus-proxy",
 ]
 pkgdesc = "GTK port of the WebKit browser engine"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/webkitgtk-{pkgver}.tar.xz"

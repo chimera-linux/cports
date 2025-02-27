@@ -62,7 +62,6 @@ makedepends = [
     "x264-devel",
 ]
 pkgdesc = "Live streaming and screen recording software"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://obsproject.com"
 source = f"https://github.com/obsproject/obs-studio/archive/refs/tags/{pkgver}.tar.gz"

@@ -26,7 +26,6 @@ go_build_tags = [
     "seccomp",
 ]
 pkgdesc = "OCI image building tool"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://buildah.io"
 source = (

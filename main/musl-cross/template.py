@@ -9,7 +9,6 @@ configure_gen = []
 makedepends = ["clang-rt-crt-cross"]
 depends = ["clang-rt-crt-cross"]
 pkgdesc = "Musl C library for cross-compiling"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
 source = [

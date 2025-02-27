@@ -12,7 +12,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Port of programs from Plan 9"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://9fans.github.io/plan9port"
 source = f"https://github.com/9fans/plan9port/archive/{_commit}.tar.gz"

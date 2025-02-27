@@ -10,7 +10,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Raw image decoder library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only OR CDDL-1.0"
 url = "https://libraw.org"
 source = f"{url}/data/LibRaw-{pkgver}.tar.gz"

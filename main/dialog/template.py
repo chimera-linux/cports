@@ -7,7 +7,6 @@ configure_args = ["--with-ncursesw", "--disable-nls"]
 configure_gen = []
 makedepends = ["ncurses-devel"]
 pkgdesc = "Tool to display dialog boxes from shell scripts"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://invisible-island.net/dialog"
 source = f"https://invisible-mirror.net/archives/dialog/dialog-{pkgver.replace('.2025', '-2025')}.tgz"

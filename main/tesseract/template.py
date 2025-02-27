@@ -24,7 +24,6 @@ depends = [
     "tesseract-data-osd",
 ]
 pkgdesc = "OCR engine"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://tesseract-ocr.github.io"
 source = f"https://github.com/tesseract-ocr/tesseract/archive/refs/tags/{pkgver}.tar.gz"

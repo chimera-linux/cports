@@ -46,7 +46,6 @@ makedepends = [
 ]
 checkdepends = ["dbus", "xwayland-run"]
 pkgdesc = "KDE web browser and file previewer"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-only AND GPL-2.0-or-later"
 url = "https://apps.kde.org/konqueror"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konqueror-{pkgver}.tar.xz"

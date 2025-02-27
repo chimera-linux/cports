@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["glib-devel", "nss-devel", "pcsc-lite-devel"]
 pkgdesc = "Common Access Card library"
-maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/spice/libcacard"
 source = (

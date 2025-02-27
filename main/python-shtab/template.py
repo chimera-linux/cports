@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["bash", "python-pytest"]
 pkgdesc = "Shell completion generation for Python CLI applications"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "Apache-2.0"
 url = "https://docs.iterative.ai/shtab"
 source = f"$(PYPI_SITE)/s/shtab/shtab-{pkgver}.tar.gz"

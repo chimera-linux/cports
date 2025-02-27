@@ -17,7 +17,6 @@ makedepends = [
     "sane-backends-devel",
 ]
 pkgdesc = "KDE integration for SANE"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries-ksanecore"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ksanecore-{pkgver}.tar.xz"

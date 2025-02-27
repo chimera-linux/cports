@@ -5,7 +5,6 @@ build_style = "makefile"
 make_dir = "source"
 make_use_env = True
 pkgdesc = "Library for resampling audio signals"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://kokkinizita.linuxaudio.org/linuxaudio"
 source = f"{url}/downloads/zita-resampler-{pkgver}.tar.xz"

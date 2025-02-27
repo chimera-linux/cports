@@ -6,7 +6,6 @@ configure_args = ["--disable-static"]
 hostmakedepends = ["automake", "libtool", "pkgconf", "flex", "bison"]
 makedepends = ["linux-headers"]
 pkgdesc = "Netlink Protocol Library Suite"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://github.com/thom311/libnl"
 source = f"{url}/releases/download/libnl{pkgver.replace('.', '_')}/libnl-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "cmake"
 configure_args = ["-DINSTALL_DOCUMENTATION=ON"]
 hostmakedepends = ["cmake", "ninja", "scdoc"]
 pkgdesc = "Named pipe management utility"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/Ferdi265/pipectl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

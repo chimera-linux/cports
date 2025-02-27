@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["libusb-devel"]
 pkgdesc = "Fastboot-like tool for Rockchip devices"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/pine64-org/quartz-bsp/rkdeveloptool"
 source = f"{url}/-/archive/{pkgver}/rkdeveloptool-{pkgver}.tar.gz"

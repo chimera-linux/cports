@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python-cryptography", "python-openssl"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "JOSE protocol implementation in Python"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"
 url = "https://josepy.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/j/josepy/josepy-{pkgver}.tar.gz"

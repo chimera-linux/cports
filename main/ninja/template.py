@@ -3,7 +3,6 @@ pkgver = "1.12.1"
 pkgrel = 0
 hostmakedepends = ["python"]
 pkgdesc = "Small build system with a focus on speed"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://ninja-build.org"
 source = f"https://github.com/ninja-build/ninja/archive/v{pkgver}.tar.gz"

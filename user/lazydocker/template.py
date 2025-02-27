@@ -7,7 +7,6 @@ make_build_args = [
 ]
 hostmakedepends = ["go"]
 pkgdesc = "TUI for docker resource visualization and management"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jesseduffield/lazydocker"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

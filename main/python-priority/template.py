@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest", "python-hypothesis"]
 pkgdesc = "Python implementation of HTTP/2 priority"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-hyper/priority"
 source = f"$(PYPI_SITE)/p/priority/priority-{pkgver}.tar.gz"

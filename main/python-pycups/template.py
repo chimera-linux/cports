@@ -11,7 +11,6 @@ hostmakedepends = [
 makedepends = ["cups-devel", "python-devel"]
 depends = ["python"]
 pkgdesc = "Python bindings for CUPS"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/OpenPrinting/pycups"
 source = f"$(PYPI_SITE)/p/pycups/pycups-{pkgver}.tar.gz"

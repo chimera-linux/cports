@@ -22,7 +22,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "D-Bus object mocks for python"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/martinpitt/python-dbusmock"
 source = (

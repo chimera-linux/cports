@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Library to handle VESA CVT modeline generation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"$(XORG_SITE)/lib/libxcvt-{pkgver}.tar.xz"

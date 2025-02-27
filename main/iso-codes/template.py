@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "gettext", "python", "pkgconf"]
 pkgdesc = "List of country, language and currency names"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://salsa.debian.org/iso-codes-team/iso-codes"
 source = f"https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/v{pkgver}.tar.gz"

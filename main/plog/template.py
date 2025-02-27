@@ -11,7 +11,6 @@ hostmakedepends = [
     "ninja",
 ]
 pkgdesc = "Portable, simple, and extensible C++ logging library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/SergiusTheBest/plog"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

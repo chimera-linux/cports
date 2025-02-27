@@ -24,7 +24,6 @@ makedepends = [
     "wayland-devel",
 ]
 pkgdesc = "Library for OpenGL window and input"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Zlib"
 url = "https://www.glfw.org"
 source = (

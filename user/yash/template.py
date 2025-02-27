@@ -18,7 +18,6 @@ configure_args = [
 makedepends = ["ncurses-devel"]
 checkdepends = ["procps"]
 pkgdesc = "Yet another shell"
-maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-2.0-only"
 url = "https://github.com/magicant/yash"
 source = f"{url}/releases/download/{pkgver}/yash-{pkgver}.tar.xz"

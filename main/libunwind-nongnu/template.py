@@ -17,7 +17,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Stack unwinding library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://www.nongnu.org/libunwind"
 source = f"https://github.com/libunwind/libunwind/releases/download/v{pkgver}/libunwind-{pkgver}.tar.gz"

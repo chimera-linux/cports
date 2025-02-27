@@ -21,7 +21,6 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "NTP client and server"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://chrony-project.org"
 source = f"https://chrony-project.org/releases/chrony-{pkgver}.tar.gz"

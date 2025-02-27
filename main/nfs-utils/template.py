@@ -35,7 +35,6 @@ makedepends = [
 ]
 depends = ["python", "rpcbind"]
 pkgdesc = "Utilities for managing NFS"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://linux-nfs.org"
 source = f"https://cdn.kernel.org/pub/linux/utils/nfs-utils/{pkgver}/nfs-utils-{pkgver}.tar.gz"

@@ -11,7 +11,6 @@ makedepends = [
 ]
 checkdepends = ["git"]
 pkgdesc = "Syntax-highlighting pager for git, diff, and grep output"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/dandavison/delta"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

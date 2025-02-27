@@ -81,7 +81,6 @@ checkdepends = [
 ]
 depends = ["dinit-dbus", "dnsmasq"]
 pkgdesc = "API, daemon, and management tool for virtualization"
-maintainer = "cesorious <cesorious@gmail.com>"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"

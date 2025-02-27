@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "xorg-util-macros"]
 makedepends = ["mesa-devel"]
 pkgdesc = "Library for handling OpenGL function pointers"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/anholt/libepoxy"
 source = f"{url}/archive/{pkgver}.tar.gz"

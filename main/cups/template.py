@@ -48,7 +48,6 @@ makedepends = [
 ]
 depends = ["xdg-utils"]
 pkgdesc = "Common Unix Printing System"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/OpenPrinting/cups"
 source = f"{url}/releases/download/v{pkgver}/cups-{pkgver}-source.tar.gz"

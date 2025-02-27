@@ -19,7 +19,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE wrapper around libraw"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/libkdcraw/html/index.html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdcraw-{pkgver}.tar.xz"

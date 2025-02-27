@@ -16,7 +16,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Qt6 addon providing access to numerous types of archives"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://develop.kde.org/docs/features/karchive"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/karchive-{pkgver}.tar.xz"

@@ -16,7 +16,6 @@ configure_args = [
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["zlib-ng-compat-devel", "bzip2-devel", "libedit-devel"]
 pkgdesc = "Perl Compatible Regular Expressions v2"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.pcre.org"
 source = f"https://github.com/PCRE2Project/pcre2/releases/download/pcre2-{pkgver}/pcre2-{pkgver}.tar.gz"

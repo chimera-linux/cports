@@ -16,7 +16,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Set of tools and libraries for working with SquashFS images"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://infraroot.at/projects/squashfs-tools-ng/index.html"
 source = f"https://infraroot.at/pub/squashfs/squashfs-tools-ng-{pkgver}.tar.xz"

@@ -40,7 +40,6 @@ makedepends = [
     "openexr-devel",
 ]
 pkgdesc = "Reference JpegXL implementation"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/libjxl/libjxl"
 _testdata = "ff8d743aaba05b3014f17e5475e576242fa979fc"

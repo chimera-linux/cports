@@ -20,7 +20,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Xfce task manager"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-taskmanager/start"
 source = f"$(XFCE_SITE)/apps/xfce4-taskmanager/{pkgver[:-2]}/xfce4-taskmanager-{pkgver}.tar.bz2"

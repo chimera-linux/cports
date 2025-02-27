@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["check-devel"]
 pkgdesc = "Pipeline manipulation library"
-maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://libpipeline.gitlab.io/libpipeline"
 source = f"https://download.savannah.nongnu.org/releases/libpipeline/libpipeline-{pkgver}.tar.gz"

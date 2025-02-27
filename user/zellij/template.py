@@ -11,7 +11,6 @@ make_check_args = [*make_build_args, "--release"]
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["curl-devel", "rust-std", "zstd-devel"]
 pkgdesc = "Terminal workspace with batteries included"
-maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "MIT"
 url = "https://zellij.dev"
 source = (

@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Plugin for nose/pytest that reruns flaky tests"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/box/flaky"
 source = f"$(PYPI_SITE)/f/flaky/flaky-{pkgver}.tar.gz"

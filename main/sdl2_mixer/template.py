@@ -41,7 +41,6 @@ makedepends = [
 ]
 provides = [self.with_pkgver("sdl_mixer")]
 pkgdesc = "SDL audio mixer library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org/projects/SDL_mixer"
 source = f"{url}/release/SDL2_mixer-{pkgver}.tar.gz"

@@ -30,7 +30,6 @@ makedepends = [
 ]
 depends = ["iproute2"]
 pkgdesc = "Open source VPN daemon"
-maintainer = "Gnarwhal <git.aspect893@passmail.net>"
 license = "GPL-2.0-only WITH openvpn-openssl-exception"
 url = "https://openvpn.net"
 source = f"https://github.com/OpenVPN/openvpn/releases/download/v{pkgver}/openvpn-{pkgver}.tar.gz"

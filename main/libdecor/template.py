@@ -16,7 +16,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Decorations library for Wayland clients"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/libdecor/libdecor"
 source = f"{url}/-/archive/{pkgver}/libdecor-{pkgver}.tar.gz"

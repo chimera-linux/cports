@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "libxslt-progs"]
 checkdepends = ["libxml2-progs"]
 pkgdesc = "Database of mobile broadband service providers"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info"
 source = (

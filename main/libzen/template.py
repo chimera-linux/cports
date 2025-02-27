@@ -5,7 +5,6 @@ build_wrksrc = "Project/CMake"
 build_style = "cmake"
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
 pkgdesc = "Shared library for libmediainfo and mediainfo"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://mediaarea.net/en/MediaInfo"
 source = f"https://mediaarea.net/download/source/libzen/{pkgver}/libzen_{pkgver}.tar.bz2"

@@ -24,7 +24,6 @@ depends = [
     "python-rpds-py",
 ]
 pkgdesc = "Implementation-agnostic implementation of JSON reference resolution"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-jsonschema/referencing"
 source = f"$(PYPI_SITE)/r/referencing/referencing-{pkgver}.tar.gz"

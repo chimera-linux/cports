@@ -6,7 +6,6 @@ hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libsndfile-devel"]
 checkdepends = ["perl"]
 pkgdesc = "Optimized MPEG Audio Layer 2 encoder"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.twolame.org"
 source = f"$(SOURCEFORGE_SITE)/twolame/twolame-{pkgver}.tar.gz"

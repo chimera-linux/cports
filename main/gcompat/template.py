@@ -10,7 +10,6 @@ makedepends = [
     "musl-devel-static",
 ]
 pkgdesc = "Glibc compatibility shim for musl"
-maintainer = "eater <=@eater.me>"
 license = "ISC"
 url = "https://git.adelielinux.org/adelie/gcompat"
 source = f"https://git.adelielinux.org/adelie/gcompat/-/archive/{pkgver}/gcompat-{pkgver}.tar.gz"

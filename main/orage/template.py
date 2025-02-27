@@ -20,7 +20,6 @@ makedepends = [
     "libxfce4util-devel",
 ]
 pkgdesc = "Xfce time-managing app"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/orage/start"
 source = f"$(XFCE_SITE)/apps/orage/{pkgver[:-2]}/orage-{pkgver}.tar.bz2"

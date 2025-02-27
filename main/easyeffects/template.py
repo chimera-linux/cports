@@ -40,7 +40,6 @@ makedepends = [
 # 9 million warnings), so just always pull it
 depends = ["dinit-dbus", "lsp-plugins-lv2"]
 pkgdesc = "PipeWire audio plugins"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/wwmm/easyeffects"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-docutils", "python-pytest"]
 pkgdesc = "Translate ASCII punctuation into HTML entities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/leohemsted/smartypants.py"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

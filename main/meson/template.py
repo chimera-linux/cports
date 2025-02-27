@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 depends = ["python", "ninja"]
 pkgdesc = "Meson build system"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://mesonbuild.com"
 source = f"https://github.com/mesonbuild/meson/releases/download/{pkgver}/meson-{pkgver}.tar.gz"

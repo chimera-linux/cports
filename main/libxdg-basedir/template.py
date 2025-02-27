@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 pkgdesc = "Implementation of the XDG Base Directory specifications"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/devnev/libxdg-basedir"
 source = f"{url}/archive/libxdg-basedir-{pkgver}.tar.gz"

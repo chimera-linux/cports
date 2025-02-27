@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 depends = ["git"]
 pkgdesc = "Container and image management tool"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://docker.com"
 source = f"https://github.com/docker/cli/archive/v{pkgver}.tar.gz"

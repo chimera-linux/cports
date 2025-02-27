@@ -3,7 +3,6 @@ pkgver = "0.2"
 pkgrel = 0
 build_style = "meta"
 pkgdesc = "Base package for development packages"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 options = ["empty"]

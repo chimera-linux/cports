@@ -6,7 +6,6 @@ build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["elogind-devel"]
 pkgdesc = "Intel CPU undervolting tool"
-maintainer = "Sid Pranjale <mail@sidonthe.net>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/kitsunyan/intel-undervolt"
 source = f"{url}/archive/{pkgver}/intel-undervolt-{pkgver}.tar.gz"

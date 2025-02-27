@@ -10,7 +10,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "gtest-devel", "abseil-cpp-devel"]
 pkgdesc = "Protocol buffers library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"https://github.com/protocolbuffers/protobuf/archive/v{pkgver}.tar.gz"

@@ -21,7 +21,6 @@ makedepends = [
 checkdepends = ["bash", "dbus"]
 depends = ["dinit-dbus"]
 pkgdesc = "Notification daemon"
-maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://dunst-project.org"
 source = (

@@ -7,7 +7,6 @@ build_style = "gnu_configure"
 configure_args = ["--enable-shared", "--enable-static"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "IJS raster image transport protocol library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.ghostscript.com"
 source = f"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs{_gsver.replace('.', '')}/ghostscript-{_gsver}.tar.xz"

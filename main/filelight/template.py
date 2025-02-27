@@ -26,7 +26,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE disk usage visualizer"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = " GPL-2.0-only OR GPL-3.0-only"
 url = "https://apps.kde.org/filelight"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/filelight-{pkgver}.tar.xz"

@@ -10,7 +10,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest", "python-pytest-asyncio"]
 pkgdesc = "Fast Python in-process signal/event dispatching system"
-maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"
 url = "https://github.com/pallets-eco/blinker"
 source = f"https://github.com/pallets-eco/blinker/archive/{pkgver}.tar.gz"

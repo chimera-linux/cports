@@ -6,7 +6,6 @@ configure_args = ["--with-libdvdcss"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["libdvdcss-devel"]
 pkgdesc = "DVD access library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.videolan.org/developers/libdvdread.html"
 source = f"https://download.videolan.org/pub/videolan/libdvdread/{pkgver}/libdvdread-{pkgver}.tar.bz2"

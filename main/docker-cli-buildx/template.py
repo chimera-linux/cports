@@ -11,7 +11,6 @@ hostmakedepends = ["go"]
 checkdepends = ["git"]
 depends = ["docker-cli"]
 pkgdesc = "Docker CLI plugin for extended build capabilities with BuildKit"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://github.com/docker/buildx"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

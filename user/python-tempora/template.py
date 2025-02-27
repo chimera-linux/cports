@@ -18,7 +18,6 @@ checkdepends = [
     "python-freezegun",
 ]
 pkgdesc = "Objects and routines pertaining to date and time"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jaraco/tempora"
 source = f"$(PYPI_SITE)/t/tempora/tempora-{pkgver}.tar.gz"

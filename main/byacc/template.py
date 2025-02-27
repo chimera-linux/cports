@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--program-transform=s,^,b,"]
 configure_gen = []
 pkgdesc = "Berkeley yacc, a LALR(1) parser generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:byacc"
 url = "http://invisible-island.net/byacc"
 source = f"https://invisible-island.net/archives/byacc/byacc-{pkgver}.tgz"

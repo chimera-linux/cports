@@ -13,7 +13,6 @@ hostmakedepends = [
     "texinfo",
 ]
 pkgdesc = "Configuration file library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://hyperrealm.com/libconfig/libconfig.html"
 source = f"https://github.com/hyperrealm/libconfig/archive/v{pkgver}.tar.gz"

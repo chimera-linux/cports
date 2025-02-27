@@ -14,7 +14,6 @@ checkdepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "OpenResty's LuaJIT fork"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/openresty/luajit2"
 source = [

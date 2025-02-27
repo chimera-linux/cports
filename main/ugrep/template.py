@@ -20,7 +20,6 @@ makedepends = [
 ]
 checkdepends = ["bash"]
 pkgdesc = "Grep-compatible file searcher"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://ugrep.com"
 source = f"https://github.com/Genivia/ugrep/archive/refs/tags/v{pkgver}.tar.gz"

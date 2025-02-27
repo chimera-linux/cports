@@ -13,7 +13,6 @@ makedepends = [
     "opencv-devel",
 ]
 pkgdesc = "Collection of video plugins"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://frei0r.dyne.org"
 source = f"https://github.com/dyne/frei0r/archive/refs/tags/v{pkgver}.tar.gz"

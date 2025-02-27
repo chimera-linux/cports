@@ -15,7 +15,6 @@ hostmakedepends = [
 makedepends = ["gtk+3-devel", "ibus-devel", "libskk-devel"]
 depends = ["ibus"]
 pkgdesc = "Japanese SKK engine for IBus"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/ueno/ibus-skk"
 source = f"{url}/releases/download/ibus-skk-{pkgver}/ibus-skk-{pkgver}.tar.xz"

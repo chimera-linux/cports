@@ -17,7 +17,6 @@ makedepends = [
     "libgee-devel",
 ]
 pkgdesc = "GTK widget extension library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/elementary/granite"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

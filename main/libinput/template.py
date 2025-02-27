@@ -16,7 +16,6 @@ makedepends = [
 ]
 checkdepends = ["check-devel", "python-pytest", "bash"]
 pkgdesc = "Input abstraction library for Wayland and X"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libinput"
 source = f"https://gitlab.freedesktop.org/libinput/libinput/-/archive/{pkgver}/libinput-{pkgver}.tar.gz"

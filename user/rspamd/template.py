@@ -36,7 +36,6 @@ makedepends = [
     "zstd-devel",
 ]
 pkgdesc = "Spam filtering system"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND LGPL-3.0-only AND MIT AND Zlib"
 url = "https://rspamd.com/index.html"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"

@@ -25,7 +25,6 @@ makedepends = [
     "userspace-rcu-devel",
 ]
 pkgdesc = "Authoritative-only DNS server"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "GPL-3.0-or-later"
 url = "https://www.knot-dns.cz"
 source = f"https://secure.nic.cz/files/knot-dns/knot-{pkgver}.tar.xz"

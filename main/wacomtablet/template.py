@@ -34,7 +34,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "GUI configurator for Wacom tablets"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/wacomtablet"
 source = f"$(KDE_SITE)/plasma/{pkgver}/wacomtablet-{pkgver}.tar.xz"

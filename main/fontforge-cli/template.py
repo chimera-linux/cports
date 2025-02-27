@@ -21,7 +21,6 @@ makedepends = [
 depends = ["!fontforge"]  # conflicts with gui version
 pkgdesc = "Create and modify PostScript, TrueType and SVG fonts"
 subdesc = "CLI version"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://fontforge.github.io/en-US"
 source = f"https://github.com/fontforge/fontforge/archive/{pkgver}.tar.gz"

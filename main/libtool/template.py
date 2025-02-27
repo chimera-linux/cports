@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 depends = ["gm4", "cmd:tar!base-files"]
 pkgdesc = "Generic library support script"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://www.gnu.org/software/libtool"
 source = f"$(GNU_SITE)/libtool/libtool-{pkgver}.tar.gz"

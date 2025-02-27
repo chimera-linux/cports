@@ -26,7 +26,6 @@ makedepends = [
     "xxhash-devel",
 ]
 pkgdesc = "Reusable library for GPU-accelerated video/image rendering"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://code.videolan.org/videolan/libplacebo"
 _fast_float = "v6.1.0"

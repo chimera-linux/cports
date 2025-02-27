@@ -11,7 +11,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "UCI chess engine designed to play via neural network"
-maintainer = "shtayerc <david.murko@mailbox.org>"
 license = "GPL-3.0-only"
 url = "https://github.com/LeelaChessZero/lc0"
 _lczero_commit = "55e1b382efadd57903e37f2a2e29caef3ea85799"

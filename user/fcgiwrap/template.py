@@ -8,7 +8,6 @@ make_dir = "."
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = ["fcgi-devel"]
 pkgdesc = "Simple server for running CGI applications over FastCGI"
-maintainer = "mia <mia@mia.jetzt>"
 license = "MIT"
 url = "https://github.com/gnosek/fcgiwrap"
 source = [

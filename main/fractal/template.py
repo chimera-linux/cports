@@ -27,7 +27,6 @@ makedepends = [
 ]
 depends = ["glycin-loaders"]
 pkgdesc = "GTK Matrix client"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/fractal"
 source = f"{url}/-/archive/{pkgver}/fractal-{pkgver}.tar.gz"

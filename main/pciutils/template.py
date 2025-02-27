@@ -23,7 +23,6 @@ hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "kmod-devel", "linux-headers"]
 depends = ["hwdata-pci"]
 pkgdesc = "PCI bus utilities"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://mj.ucw.cz/sw/pciutils"
 source = f"https://github.com/pciutils/pciutils/archive/v{pkgver}.tar.gz"

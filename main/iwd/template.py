@@ -19,7 +19,6 @@ makedepends = ["readline-devel", "dbus-devel", "linux-headers"]
 checkdepends = ["python", "dbus"]
 depends = ["dinit-dbus", "resolvconf"]
 pkgdesc = "Wireless daemon that replaces wpa_supplicant"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://iwd.wiki.kernel.org"
 source = f"$(KERNEL_SITE)/network/wireless/iwd-{pkgver}.tar.xz"

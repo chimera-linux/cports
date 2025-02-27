@@ -25,7 +25,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Qt 1.x"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:qt1"
 url = "https://github.com/KDE/qt1"
 source = f"{url}/archive/{_gitrev}.tar.gz"

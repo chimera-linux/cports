@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Version-string manager for python-setuptools projects"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Unlicense"
 url = "https://github.com/python-versioneer/python-versioneer"
 source = f"$(PYPI_SITE)/v/versioneer/versioneer-{pkgver}.tar.gz"

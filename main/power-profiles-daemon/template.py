@@ -23,7 +23,6 @@ depends = ["dinit-dbus", "!tlp", "python-gobject"]
 checkdepends = ["python-dbusmock", "umockdev"]
 install_if = [self.with_pkgver("power-profiles-daemon-meta")]
 pkgdesc = "D-Bus daemon for power management control"
-maintainer = "Val Packett <val@packett.cool>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/upower/power-profiles-daemon"
 source = f"{url}/-/archive/{pkgver}/power-profiles-daemon-{pkgver}.tar.bz2"

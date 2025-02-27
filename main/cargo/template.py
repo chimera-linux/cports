@@ -16,7 +16,6 @@ hostmakedepends = [
 ]
 makedepends = ["curl-devel", "openssl3-devel", "sqlite-devel"]
 pkgdesc = "Rust package manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://github.com/rust-lang/cargo/archive/{_cargover}.tar.gz"

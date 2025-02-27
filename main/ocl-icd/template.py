@@ -12,7 +12,6 @@ hostmakedepends = [
 ]
 makedepends = ["opencl-headers"]
 pkgdesc = "Generic OpenCL ICD loader"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://forge.imag.fr/projects/ocl-icd"
 source = f"https://github.com/OCL-dev/ocl-icd/archive/v{pkgver}.tar.gz"

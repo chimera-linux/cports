@@ -10,7 +10,6 @@ make_dir = "."
 hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["libcdio-devel", "linux-headers"]
 pkgdesc = "CD paranoia utility/libraries from libcdio"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libcdio"
 source = f"$(GNU_SITE)/libcdio/libcdio-paranoia-{_v1}+{_v2}.tar.bz2"

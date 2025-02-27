@@ -53,7 +53,6 @@ depends = [
     "qt6-qtlocation",
 ]
 pkgdesc = "KDE digital travel assistant"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://apps.kde.org/itinerary"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/itinerary-{pkgver}.tar.xz"

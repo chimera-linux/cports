@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python", "python-sphinxcontrib-jquery"]
 pkgdesc = "Sphinx theme for readthedocs.org"
-maintainer = "eater <=@eater.me>"
 license = "MIT"
 url = "https://github.com/readthedocs/sphinx_rtd_theme"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

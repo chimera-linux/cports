@@ -60,7 +60,6 @@ provides = [
     self.with_pkgver("firefox-wayland"),
 ]
 pkgdesc = "Mozilla Firefox web browser"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"

@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext"]
 makedepends = ["gstreamer-devel"]
 pkgdesc = "Collection of GStreamer effects for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-video-effects"
 source = f"$(GNOME_SITE)/gnome-video-effects/{pkgver[:-2]}/gnome-video-effects-{pkgver}.tar.xz"

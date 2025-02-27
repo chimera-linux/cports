@@ -33,7 +33,6 @@ makedepends = [
 ]
 depends = ["dinit-dbus"]
 pkgdesc = "Color management daemon"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.freedesktop.org/software/colord"
 source = f"{url}/releases/colord-{pkgver}.tar.xz"

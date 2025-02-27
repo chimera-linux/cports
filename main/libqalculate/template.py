@@ -19,7 +19,6 @@ makedepends = [
     "readline-devel",
 ]
 pkgdesc = "Multi-purpose desktop calculator library"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://qalculate.github.io"
 source = f"https://github.com/Qalculate/libqalculate/archive/refs/tags/v{pkgver}.tar.gz"

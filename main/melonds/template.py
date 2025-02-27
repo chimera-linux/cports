@@ -17,7 +17,6 @@ makedepends = [
     "sdl2-compat-devel",
 ]
 pkgdesc = "DS emulator"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://melonds.kuribo64.net"
 source = (

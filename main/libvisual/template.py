@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Abstraction library for audio visualization plugins"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libvisual.org"
 source = f"https://github.com/Libvisual/libvisual/releases/download/libvisual-{pkgver}/libvisual-{pkgver}.tar.gz"

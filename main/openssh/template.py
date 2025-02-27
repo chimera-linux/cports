@@ -39,7 +39,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "OpenSSH free Secure Shell (SSH) client and server implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-{pkgver.replace('_', '')}.tar.gz"

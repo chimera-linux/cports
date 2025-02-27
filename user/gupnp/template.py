@@ -12,7 +12,6 @@ makedepends = [
     "vala-devel",
 ]
 pkgdesc = "Framework for creating UPnP devices and control points"
-maintainer = "ttyyls <contact@behri.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GUPnP"
 source = f"$(GNOME_SITE)/gupnp/{pkgver[:-2]}/gupnp-{pkgver}.tar.xz"

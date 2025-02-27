@@ -8,7 +8,6 @@ hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["libpng-devel"]
 checkdepends = ["python"]
 pkgdesc = "JBIG2 decoder library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "AGPL-3.0-or-later"
 url = "https://www.jbig2dec.com"
 source = f"https://github.com/ArtifexSoftware/jbig2dec/archive/{pkgver}.tar.gz"

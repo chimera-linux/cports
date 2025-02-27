@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 makedepends = ["libxcb-devel"]
 pkgdesc = "XCB errors library"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/xcb-util-errors-{pkgver}.tar.gz"

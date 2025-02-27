@@ -6,7 +6,6 @@ make_build_args = ["./cmd/nerdctl"]
 hostmakedepends = ["go"]
 depends = ["containerd", "iptables"]
 pkgdesc = "Containerd CLI"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/nerdctl"
 source = f"{url}/archive/v{pkgver}.tar.gz"

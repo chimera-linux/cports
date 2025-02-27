@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["cmake", "ninja", "cargo", "corrosion", "cxxbridge"]
 makedepends = ["util-linux-uuid-devel", "rust-std", "sqlite-devel"]
 pkgdesc = "TODO list manager for the command line"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://taskwarrior.org"
 source = f"https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v{pkgver}/task-{pkgver}.tar.gz"

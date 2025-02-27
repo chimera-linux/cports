@@ -33,7 +33,6 @@ makedepends = [
 depends = ["so:libjxl.so.0.11!libjxl", "so:libavif.so.16!libavif"]
 provides = [self.with_pkgver("sdl_image")]
 pkgdesc = "SDL image loading library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org/projects/SDL_image"
 source = f"{url}/release/SDL2_image-{pkgver}.tar.gz"

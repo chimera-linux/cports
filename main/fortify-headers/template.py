@@ -6,7 +6,6 @@ make_check_target = "clang"
 make_check_args = ["-C", "tests", "run"]
 make_use_env = True
 pkgdesc = "Standalone fortify implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
 url = "https://git.2f30.org/fortify-headers"
 source = f"https://github.com/jvoisin/fortify-headers/archive/refs/tags/{pkgver}.tar.gz"

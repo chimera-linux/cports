@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["automake", "pkgconf", "flex", "slibtool"]
 makedepends = ["libnl-devel", "libusb-devel", "linux-headers"]
 pkgdesc = "System-independent interface for user-level packet capture"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
 source = f"{url}/release/libpcap-{pkgver}.tar.gz"

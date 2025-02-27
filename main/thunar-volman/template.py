@@ -20,7 +20,6 @@ makedepends = [
     "xfconf-devel",
 ]
 pkgdesc = "Thunar volume manager extension"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/thunar/thunar-volman"
 source = f"$(XFCE_SITE)/xfce/thunar-volman/{pkgver[:-2]}/thunar-volman-{pkgver}.tar.bz2"

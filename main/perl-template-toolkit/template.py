@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl"]
 pkgdesc = "Perl templating module"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/pod/Template"
 source = f"$(CPAN_SITE)/Template/Template-Toolkit-{pkgver}.tar.gz"

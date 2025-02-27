@@ -15,7 +15,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Dynamic menu library and client program inspired by dmenu"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "GPL-3.0-only AND LGPL-3.0-only"
 url = "https://github.com/Cloudef/bemenu"
 source = f"{url}/releases/download/{pkgver}/bemenu-{pkgver}.tar.gz"

@@ -21,7 +21,6 @@ makedepends = [
     "sonivox-devel",
 ]
 pkgdesc = "MIDI libraries for Qt"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://drumstick.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/drumstick/drumstick-{pkgver}.tar.gz"

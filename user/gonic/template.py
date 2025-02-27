@@ -9,7 +9,6 @@ depends = ["ffmpeg"]
 checkdepends = [*depends]
 go_build_tags = ["libsqlite3"]
 pkgdesc = "Music streaming server / subsonic server API implementation"
-maintainer = "samg <samg@fastmail.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/sentriz/gonic"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

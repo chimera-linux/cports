@@ -13,7 +13,6 @@ makedepends = [
     "musl-bsd-headers",
 ]
 pkgdesc = "Transport Independent RPC library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://sourceforge.net/projects/libtirpc"
 source = f"$(SOURCEFORGE_SITE)/libtirpc/libtirpc-{pkgver}.tar.bz2"

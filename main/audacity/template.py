@@ -56,7 +56,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Multitrack audio editor"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.audacityteam.org"
 source = f"https://github.com/audacity/audacity/releases/download/Audacity-{pkgver}/audacity-sources-{pkgver}.tar.gz"

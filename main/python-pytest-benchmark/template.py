@@ -13,7 +13,6 @@ depends = [
 ]
 checkdepends = [*depends]
 pkgdesc = "Pytest fixture for benchmarking"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/ionelmc/pytest-benchmark"
 source = f"$(PYPI_SITE)/p/pytest-benchmark/pytest-benchmark-{pkgver}.tar.gz"

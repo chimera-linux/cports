@@ -9,7 +9,6 @@ makedepends = ["gettext-devel"]
 checkdepends = ["flex", "autoconf"]
 depends = ["gm4"]
 pkgdesc = "GNU yacc(1) replacement"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bison"
 source = f"$(GNU_SITE)/bison/bison-{pkgver}.tar.xz"

@@ -7,7 +7,6 @@ hostmakedepends = [
 ]
 depends = ["aspell"]
 pkgdesc = "English dictionary for aspell"
-maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "custom:aspell-en"
 url = "http://aspell.net"
 source = f"https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-{pkgver}-0.tar.bz2"

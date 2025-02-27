@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
 makedepends = ["xorgproto", "libxfixes-devel", "libxrender-devel"]
 pkgdesc = "Client-side cursor loading library for X"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXcursor-{pkgver}.tar.gz"

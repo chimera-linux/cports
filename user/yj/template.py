@@ -4,7 +4,6 @@ pkgrel = 14
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Convert between YAML, TOML, JSON, and HCL"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "Apache-2.0"
 url = "https://github.com/sclevine/yj"
 source = f"{url}/archive/v{pkgver}.tar.gz"

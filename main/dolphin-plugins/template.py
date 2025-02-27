@@ -22,7 +22,6 @@ makedepends = [
     "solid-devel",
 ]
 pkgdesc = "Plugins for the KDE Dolphin file manager"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/dolphin_plugins"
 source = (

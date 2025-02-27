@@ -25,7 +25,6 @@ makedepends = [
 ]
 depends = ["tzdb"]
 pkgdesc = "GNOME Weather information access library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/LibGWeather"
 source = f"$(GNOME_SITE)/libgweather/{pkgver[:-2]}/libgweather-{pkgver}.tar.xz"

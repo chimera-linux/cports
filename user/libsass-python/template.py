@@ -7,7 +7,6 @@ hostmakedepends = ["python-build", "python-installer", "python-setuptools"]
 makedepends = ["python-devel", "libsass-devel"]
 depends = ["python"]
 pkgdesc = "Python bindings for libsass"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "MIT"
 url = "https://sass.github.io/libsass-python"
 source = (

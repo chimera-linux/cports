@@ -20,7 +20,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "Modernized LaTeX engine"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://tectonic-typesetting.github.io/en-US"
 source = f"https://github.com/tectonic-typesetting/tectonic/archive/refs/tags/tectonic@{pkgver}.tar.gz"

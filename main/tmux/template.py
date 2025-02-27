@@ -6,7 +6,6 @@ configure_args = ["--enable-sixel"]
 hostmakedepends = ["automake", "byacc", "pkgconf"]
 makedepends = ["libevent-devel", "ncurses-devel"]
 pkgdesc = "Terminal multiplexer"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "ISC"
 url = "https://tmux.github.io"
 source = f"https://github.com/tmux/tmux/releases/download/{pkgver}/tmux-{pkgver}.tar.gz"

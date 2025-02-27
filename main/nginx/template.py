@@ -76,7 +76,6 @@ checkdepends = [
     "perl-net-ssleay",
 ]
 pkgdesc = "Advanced load balancer, web server, and reverse proxy"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "BSD-2-Clause"
 url = "https://nginx.org"
 source = [

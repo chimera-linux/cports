@@ -11,7 +11,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Cap'n Proto serialization/RPC system"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://capnproto.org"
 source = f"{url}/capnproto-c++-{pkgver}.tar.gz"

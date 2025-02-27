@@ -17,7 +17,6 @@ checkdepends = [
     "python-devel",
 ]
 pkgdesc = "Charset converter tool and library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later AND LGPL-3.0-only"
 url = "https://github.com/rrthomas/recode"
 source = f"{url}/releases/download/v{pkgver}/recode-{pkgver}.tar.gz"

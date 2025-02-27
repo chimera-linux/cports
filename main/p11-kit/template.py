@@ -23,7 +23,6 @@ hostmakedepends = [
 ]
 makedepends = ["libtasn1-devel", "libffi8-devel"]
 pkgdesc = "Provides a way to load and enumerate PKCS#11 modules"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/p11-glue/p11-kit"
 source = f"{url}/releases/download/{pkgver}/p11-kit-{pkgver}.tar.xz"

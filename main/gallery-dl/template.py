@@ -16,7 +16,6 @@ hostmakedepends = [
 depends = ["python-requests"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "CLI program to download image galleries/collections"
-maintainer = "Nasado <hi@nasado.name>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/mikf/gallery-dl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

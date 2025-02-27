@@ -15,7 +15,6 @@ depends = [
 ]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Automounter for removable media"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://github.com/coldfix/udiskie"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

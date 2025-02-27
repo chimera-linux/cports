@@ -37,7 +37,6 @@ checkdepends = [
 ]
 depends = ["kdeclarative"]
 pkgdesc = "KDE Library and components for secure lock screen architecture"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://invent.kde.org/plasma/kscreenlocker"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreenlocker-{pkgver}.tar.xz"

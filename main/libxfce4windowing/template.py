@@ -23,7 +23,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Xfce windowing abstraction library"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://docs.xfce.org/xfce/libxfce4windowing/start"
 source = f"$(XFCE_SITE)/xfce/libxfce4windowing/{pkgver[:-2]}/libxfce4windowing-{pkgver}.tar.bz2"

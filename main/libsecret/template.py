@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "libgcrypt-devel", "vala"]
 pkgdesc = "GObject-based library for accessing the Secret Service API"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libsecret"
 source = f"$(GNOME_SITE)/libsecret/{pkgver[:-2]}/libsecret-{pkgver}.tar.xz"

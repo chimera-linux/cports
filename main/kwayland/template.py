@@ -15,7 +15,6 @@ makedepends = [
     "wayland-protocols",
 ]
 pkgdesc = "Qt-style Client and Server library wrapper for the Wayland libraries"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/frameworks/kwayland"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kwayland-{pkgver}.tar.xz"

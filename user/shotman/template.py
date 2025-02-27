@@ -6,7 +6,6 @@ hostmakedepends = ["cargo-auditable", "pkgconf", "scdoc"]
 makedepends = ["libxkbcommon-devel", "rust-std"]
 depends = ["slurp"]
 pkgdesc = "Screenshot GUI for Wayland"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "ISC"
 url = "https://sr.ht/~whynothugo/shotman"
 source = f"https://git.sr.ht/~whynothugo/shotman/archive/v{pkgver}.tar.gz"

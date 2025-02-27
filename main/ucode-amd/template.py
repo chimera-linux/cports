@@ -5,7 +5,6 @@ pkgrel = 0
 archs = ["x86_64"]
 makedepends = ["firmware-linux-amd-ucode"]
 pkgdesc = "AMD CPU microcode"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 options = ["!strip", "foreignelf", "!distlicense"]

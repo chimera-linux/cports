@@ -16,7 +16,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Functools like those found in stdlib"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jaraco/jaraco.functools"
 source = f"$(PYPI_SITE)/j/jaraco_functools/jaraco_functools-{pkgver}.tar.gz"

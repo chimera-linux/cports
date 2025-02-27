@@ -17,7 +17,6 @@ makedepends = [
     "startup-notification-devel",
 ]
 pkgdesc = "Window Navigator Construction Kit"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.0-only"
 url = "https://gitlab.gnome.org/GNOME/libwnck"
 source = f"$(GNOME_SITE)/libwnck/{pkgver[:-2]}/libwnck-{pkgver}.tar.xz"

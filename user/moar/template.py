@@ -5,7 +5,6 @@ build_style = "go"
 make_build_args = [f"-ldflags=-X main.versionString=v{pkgver}"]
 hostmakedepends = ["go"]
 pkgdesc = "Terminal pager program"
-maintainer = "Biswapriyo Nath <nathbappai@gmail.com>"
 license = "BSD-2-Clause"
 url = "https://github.com/walles/moar"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -7,7 +7,6 @@ hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["cargo"]
 pkgdesc = "Executes action on cargo project's source change"
-maintainer = "ttyyls <contact@behri.org>"
 license = "CC0-1.0"
 url = "https://github.com/watchexec/cargo-watch"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

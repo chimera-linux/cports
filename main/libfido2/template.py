@@ -20,7 +20,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Library and tools for FIDO devices over USB or NFC"
-maintainer = "Val Packett <val@packett.cool>"
 license = "BSD-2-Clause"
 url = "https://developers.yubico.com/libfido2"
 source = (

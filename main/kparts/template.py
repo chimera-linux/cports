@@ -18,7 +18,6 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE Plugin framework for UI components"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "LGPL-2.1-only AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 )

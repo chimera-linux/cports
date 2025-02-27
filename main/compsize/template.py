@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "makefile"
 makedepends = ["linux-headers", "btrfs-progs-devel"]
 pkgdesc = "Tool to find compression types and ratios of files in Btrfs"
-maintainer = "autumnontape <autumn@cyfox.net>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/kilobyte/compsize"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

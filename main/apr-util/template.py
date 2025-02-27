@@ -21,7 +21,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Apache Portable Runtime utility library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://apr.apache.org"
 source = f"https://archive.apache.org/dist/apr/apr-util-{pkgver}.tar.gz"

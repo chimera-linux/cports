@@ -11,7 +11,6 @@ hostmakedepends = [
 depends = ["python-mock", "python-pytest"]
 checkdepends = ["python-pytest-asyncio", *depends]
 pkgdesc = "Thin-wrapper around the mock package for easier use with pytest"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MIT"
 url = "https://pytest-mock.readthedocs.io/en/latest/index.html"
 source = f"$(PYPI_SITE)/p/pytest-mock/pytest-mock-{pkgver}.tar.gz"

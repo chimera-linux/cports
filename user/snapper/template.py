@@ -34,7 +34,6 @@ makedepends = [
     "util-linux-mount-devel",
 ]
 pkgdesc = "Filesystem snapshot manager"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/openSUSE/snapper"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

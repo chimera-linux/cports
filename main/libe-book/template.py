@@ -17,7 +17,6 @@ makedepends = [
 ]
 checkdepends = ["cppunit-devel"]
 pkgdesc = "Import reflowable e-book formats"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://sourceforge.net/projects/libebook"
 source = f"$(SOURCEFORGE_SITE)/project/libebook/libe-book-{pkgver}/libe-book-{pkgver}.tar.xz"

@@ -32,7 +32,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Color management framework"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
 url = "https://opencolorio.org"
 source = f"https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/refs/tags/v{pkgver}.tar.gz>v2.4.0-real-real-really-real.tar.gz"

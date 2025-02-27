@@ -22,7 +22,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Netfilter nftables userspace tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND GPL-2.0-or-later"
 url = "http://netfilter.org/projects/nftables"
 source = f"{url}/files/nftables-{pkgver}.tar.xz"

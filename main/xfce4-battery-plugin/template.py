@@ -16,7 +16,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce battery panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-battery-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-battery-plugin/{pkgver[:-2]}/xfce4-battery-plugin-{pkgver}.tar.bz2"

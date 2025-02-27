@@ -3,7 +3,6 @@ pkgver = "4.1.0"
 pkgrel = 0
 pkgdesc = "OCR engine"
 subdesc = "language files"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://tesseract-ocr.github.io"
 source = f"https://github.com/tesseract-ocr/tessdata_fast/archive/refs/tags/{pkgver}.tar.gz"

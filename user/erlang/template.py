@@ -17,7 +17,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Erlang OTP"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.erlang.org"
 source = f"https://github.com/erlang/otp/archive/OTP-{pkgver}.tar.gz"

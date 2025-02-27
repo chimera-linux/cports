@@ -16,7 +16,6 @@ makedepends = [
     "qt6-qtmultimedia-devel",  # unused but lightly checked anyway
 ]
 pkgdesc = "Qt6 Charts component"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

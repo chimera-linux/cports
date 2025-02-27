@@ -12,7 +12,6 @@ makedepends = ["python-devel"]
 depends = ["python-cryptography", "python-protobuf"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "OMEMO crypto library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://dev.gajim.org/gajim/omemo-dr"
 source = f"$(PYPI_SITE)/o/omemo-dr/omemo-dr-{pkgver}.tar.gz"

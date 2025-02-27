@@ -12,7 +12,6 @@ makedepends = [
     "libxext-devel",
 ]
 pkgdesc = "GNOME screenshot utility"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-screenshot"
 source = f"$(GNOME_SITE)/gnome-screenshot/{pkgver[:-2]}/gnome-screenshot-{pkgver}.tar.xz"

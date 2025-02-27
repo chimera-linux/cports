@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "CLI tool to decode and encode JWTs"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/mike-engel/jwt-cli"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

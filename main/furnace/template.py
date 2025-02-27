@@ -27,7 +27,6 @@ makedepends = [
 ]
 depends = ["zenity"]
 pkgdesc = "Multi-system chiptune tracker"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://tildearrow.org/furnace"
 _adpcm_commit = "ef7a217154badc3b99978ac481b268c8aab67bd8"

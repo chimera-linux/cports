@@ -16,7 +16,6 @@ makedepends = [
     "zlib-ng-devel",
 ]
 pkgdesc = "Lua 2D graphics library"
-maintainer = "sudan <sudanchapagain@proton.me>"
 license = "Zlib"
 url = "https://love2d.org"
 source = f"https://github.com/love2d/love/releases/download/{pkgver}/love-{pkgver}-linux-src.tar.gz"

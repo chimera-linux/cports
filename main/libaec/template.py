@@ -7,7 +7,6 @@ hostmakedepends = [
     "ninja",
 ]
 pkgdesc = "Adaptive entropy coding library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://gitlab.dkrz.de/k202009/libaec"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"

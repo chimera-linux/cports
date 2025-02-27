@@ -18,7 +18,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE library for accessing Google services"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-3.0-only"
 url = "https://api.kde.org/kdepim/libkgapi/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkgapi-{pkgver}.tar.xz"

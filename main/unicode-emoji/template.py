@@ -2,7 +2,6 @@ pkgname = "unicode-emoji"
 pkgver = "17.0"
 pkgrel = 0
 pkgdesc = "Unicode Emoji data files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unicode-DFS-2016"
 url = "https://home.unicode.org/emoji"
 source = [

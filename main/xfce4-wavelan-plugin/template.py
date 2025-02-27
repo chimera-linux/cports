@@ -15,7 +15,6 @@ makedepends = [
 ]
 depends = ["network-manager-applet"]
 pkgdesc = "Xfce WLAN stats panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-wavelan-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-wavelan-plugin/{pkgver[:-2]}/xfce4-wavelan-plugin-{pkgver}.tar.bz2"

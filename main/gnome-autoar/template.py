@@ -19,7 +19,6 @@ hostmakedepends = [
 ]
 makedepends = ["gtk+3-devel", "libarchive-devel"]
 pkgdesc = "Archiving functions and widgets for GNOME"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-autoar"
 source = (

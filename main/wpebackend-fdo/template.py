@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
 makedepends = ["glib-devel", "libepoxy-devel", "libwpe-devel", "wayland-devel"]
 pkgdesc = "Wayland backend for WPE WebKit"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/wpebackend-fdo-{pkgver}.tar.xz"

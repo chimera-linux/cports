@@ -3,7 +3,6 @@ pkgver = "20250201"
 pkgrel = 0
 build_style = "makefile"
 pkgdesc = "Pixel perfect icon theme"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PapirusDevelopmentTeam/papirus-icon-theme"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

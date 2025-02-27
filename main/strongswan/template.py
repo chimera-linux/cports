@@ -77,7 +77,6 @@ makedepends = [
     "unbound-devel",
 ]
 pkgdesc = "Open Source IKEv2 IPsec-based VPN solution"
-maintainer = "Renato Botelho do Couto <renato@netgate.com>"
 license = "GPL-2.0-or-later"
 url = "https://www.strongswan.org"
 source = f"https://download.strongswan.org/strongswan-{pkgver}.tar.bz2"

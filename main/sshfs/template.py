@@ -14,7 +14,6 @@ makedepends = [
     "glib-devel",
 ]
 pkgdesc = "FUSE client for SSH"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/libfuse/sshfs"
 source = f"{url}/releases/download/sshfs-{pkgver}/sshfs-{pkgver}.tar.xz"

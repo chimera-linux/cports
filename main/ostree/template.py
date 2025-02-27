@@ -35,7 +35,6 @@ makedepends = [
 ]
 checkdepends = ["attr-progs", "libarchive-progs", "gnupg", "xz"]
 pkgdesc = "Operating system and container binary deployment and upgrades"
-maintainer = "eater <=@eater.me>"
 license = "LGPL-2.0-or-later"
 url = "https://ostreedev.github.io/ostree"
 source = f"https://github.com/ostreedev/ostree/releases/download/v{pkgver}/libostree-{pkgver}.tar.xz"

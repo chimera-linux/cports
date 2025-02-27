@@ -10,7 +10,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["catch2-devel", "icu-devel"]
 pkgdesc = "Fast and safe spell checking software"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://nuspell.github.io"
 source = f"https://github.com/nuspell/nuspell/archive/v{pkgver}.tar.gz"

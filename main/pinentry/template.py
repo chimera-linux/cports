@@ -25,7 +25,6 @@ makedepends = [
 ]
 depends = ["virtual:pinentry-default!pinentry-curses-default"]
 pkgdesc = "PIN or passphrase entry dialogs for GnuPG"
-maintainer = "eater <=@eater.me>"
 license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/pinentry/pinentry-{pkgver}.tar.bz2"

@@ -17,7 +17,6 @@ makedepends = [
     "quazip-devel",
 ]
 pkgdesc = "Interactive whiteboard application"
-maintainer = "breakgimme <adam@plock.com>"
 license = "GPL-3.0-or-later"
 url = "https://openboard.ch"
 source = f"https://github.com/OpenBoard-org/OpenBoard/archive/refs/tags/v{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["automake", "libtool", "nasm"]
 pkgdesc = "ISO MPEG-4 compliant video codec"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.xvid.com"
 source = f"https://downloads.xvid.com/downloads/xvidcore-{pkgver}.tar.bz2"

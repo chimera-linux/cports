@@ -8,7 +8,6 @@ make_build_args = ["--no-default-features"]
 hostmakedepends = ["cargo-auditable", "protobuf-protoc", "pkgconf"]
 makedepends = ["sqlite-devel", "openssl3-devel", "rust-std"]
 pkgdesc = "Sync, search and backup tool for shell history"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/atuinsh/atuin"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

@@ -21,7 +21,6 @@ makedepends = [
     "solid-devel",
 ]
 pkgdesc = "KDE ISO USB writer"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-only"
 url = "https://apps.kde.org/isoimagewriter"
 source = (

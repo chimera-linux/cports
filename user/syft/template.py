@@ -8,7 +8,6 @@ make_build_args = [
 ]
 hostmakedepends = ["go"]
 pkgdesc = "SBOM generator CLI for container images, filesystems and binaries"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://github.com/anchore/syft"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

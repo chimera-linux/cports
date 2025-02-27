@@ -9,7 +9,6 @@ make_build_env = {
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "zstd-devel"]
 pkgdesc = "Jinja implementation"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://github.com/mitsuhiko/minijinja"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

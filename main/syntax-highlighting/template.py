@@ -14,7 +14,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Syntax highlighting engine for structured text and code"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT"
 url = "https://api.kde.org/frameworks/syntax-highlighting/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/syntax-highlighting-{pkgver}.tar.xz"

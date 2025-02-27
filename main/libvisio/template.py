@@ -17,7 +17,6 @@ makedepends = [
     "libxml2-devel",
 ]
 pkgdesc = "Library for reading and converting MS Visio diagrams"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://wiki.documentfoundation.org/DLP/Libraries/libvisio"
 source = f"http://dev-www.libreoffice.org/src/libvisio-{pkgver}.tar.xz"

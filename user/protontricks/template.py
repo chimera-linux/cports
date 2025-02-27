@@ -21,7 +21,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Winetricks wrapper for Steam games"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-only"
 url = "https://github.com/Matoking/protontricks"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

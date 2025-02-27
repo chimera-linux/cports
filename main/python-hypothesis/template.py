@@ -22,7 +22,6 @@ checkdepends = [
     *depends,
 ]
 pkgdesc = "Python library for property-based testing"
-maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MPL-2.0"
 url = "https://hypothesis.works/index.html"
 source = f"https://github.com/HypothesisWorks/hypothesis/archive/refs/tags/hypothesis-python-{pkgver}.tar.gz"

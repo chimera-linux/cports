@@ -24,7 +24,6 @@ makedepends = [
 ]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE PIM library for importing mail"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later AND GPL-2.0-only"
 url = "https://api.kde.org/kdepim/mailimporter/html"
 source = (

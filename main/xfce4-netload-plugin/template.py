@@ -15,7 +15,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce network load panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-netload-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-netload-plugin/{pkgver[:-2]}/xfce4-netload-plugin-{pkgver}.tar.bz2"

@@ -10,7 +10,6 @@ depends = []
 go_build_tags = ["netgo", "osusergo", "kvformat"]
 go_check_tags = ["netgo", "osusergo", "kvformat"]
 pkgdesc = "ActivityPub server"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "AGPL-3.0-or-later"
 url = "https://gotosocial.org"
 source = f"https://github.com/superseriousbusiness/gotosocial/archive/refs/tags/v{pkgver}.tar.gz"

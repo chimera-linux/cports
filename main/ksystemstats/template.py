@@ -29,7 +29,6 @@ checkdepends = [
     "dbus",
 ]
 pkgdesc = "KDE Plugin based system monitoring daemon"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/ksystemstats"
 source = f"$(KDE_SITE)/plasma/{pkgver}/ksystemstats-{pkgver}.tar.xz"

@@ -9,7 +9,6 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf", "scdoc", "wayland-progs"]
 makedepends = ["mesa-devel", "wayland-devel", "wayland-protocols"]
 pkgdesc = "Wayland output mirror client"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/Ferdi265/wl-mirror"
 source = f"{url}/releases/download/v{pkgver}/wl-mirror-{pkgver}.tar.gz"

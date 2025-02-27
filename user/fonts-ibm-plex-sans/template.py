@@ -2,7 +2,6 @@ pkgname = "fonts-ibm-plex-sans"
 pkgver = "1.1.0"
 pkgrel = 0
 pkgdesc = "IBM's typeface, IBM Plex Sans"
-maintainer = "surreal reverie <surrealreverie@proton.me>"
 license = "OFL-1.1"
 url = "https://www.ibm.com/plex"
 source = f"https://github.com/IBM/plex/releases/download/%40ibm%2Fplex-sans%40{pkgver}/ibm-plex-sans.zip"

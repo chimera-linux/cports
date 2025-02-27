@@ -21,7 +21,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Font rendering engine"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(SOURCEFORGE_SITE)/freetype/freetype-{pkgver}.tar.xz"

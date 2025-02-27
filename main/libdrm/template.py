@@ -6,7 +6,6 @@ configure_args = ["-Dudev=true", "-Dvalgrind=disabled"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["udev-devel", "libpciaccess-devel", "linux-headers"]
 pkgdesc = "Userspace interface to kernel DRM services"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://dri.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/mesa/drm/-/archive/libdrm-{pkgver}/drm-libdrm-{pkgver}.tar.gz"

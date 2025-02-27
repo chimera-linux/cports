@@ -7,7 +7,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 checkdepends = ["bash"]
 pkgdesc = "Language-neutral NUMBERTEXT and MONEYTEXT implementation"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/Numbertext/libnumbertext"
 source = f"http://dev-www.libreoffice.org/src/libnumbertext-{pkgver}.tar.xz"

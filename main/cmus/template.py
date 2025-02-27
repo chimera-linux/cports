@@ -38,7 +38,6 @@ makedepends = [
     "wavpack-devel",
 ]
 pkgdesc = "Console music player"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://cmus.github.io"
 source = f"https://github.com/cmus/cmus/archive/refs/tags/v{pkgver}.tar.gz"

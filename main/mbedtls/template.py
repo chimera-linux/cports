@@ -16,7 +16,6 @@ hostmakedepends = [
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Light-weight cryptographic and SSL/TLS library"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR GPL-2.0-or-later"
 url = "https://www.trustedfirmware.org/projects/mbed-tls"
 source = f"https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-{pkgver}/mbedtls-{pkgver}.tar.bz2"

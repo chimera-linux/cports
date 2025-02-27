@@ -28,7 +28,6 @@ makedepends = [
 ]
 depends = [self.with_pkgver("qt6-qttools-qdbus")]
 pkgdesc = "Qt6 tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )

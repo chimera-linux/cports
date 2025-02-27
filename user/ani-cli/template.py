@@ -3,7 +3,6 @@ pkgver = "4.9"
 pkgrel = 0
 depends = ["aria2", "curl", "fzf", "mpv", "yt-dlp"]
 pkgdesc = "CLI to browse and watch anime"
-maintainer = "Denis Strizhkin <strdenis02@gmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/pystardust/ani-cli"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

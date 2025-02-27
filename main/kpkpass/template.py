@@ -15,7 +15,6 @@ makedepends = [
     "shared-mime-info",
 ]
 pkgdesc = "KDE PIM library for Apple Wallet pass files"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kpkpass/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpkpass-{pkgver}.tar.xz"

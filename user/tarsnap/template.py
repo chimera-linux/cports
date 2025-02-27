@@ -9,7 +9,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "Online backups for the truly paranoid"
-maintainer = "Nasado <hi@nasado.name>"
 license = "custom:tarsnap"
 url = "https://www.tarsnap.com"
 source = f"{url}/download/tarsnap-autoconf-{pkgver}.tgz"

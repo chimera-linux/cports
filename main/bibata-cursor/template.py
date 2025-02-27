@@ -2,7 +2,6 @@ pkgname = "bibata-cursor"
 pkgver = "2.0.7"
 pkgrel = 0
 pkgdesc = "Material design cursor set"
-maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-3.0-only"
 url = "https://github.com/ful1e5/Bibata_Cursor"
 source = f"https://github.com/ful1e5/Bibata_Cursor/releases/download/v{pkgver}/Bibata.tar.xz"

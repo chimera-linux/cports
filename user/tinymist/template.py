@@ -7,7 +7,6 @@ hostmakedepends = ["cargo", "pkgconf"]
 makedepends = ["rust-std", "openssl3-devel"]
 depends = ["typst"]
 pkgdesc = "Language server for Typst"
-maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://myriad-dreamin.github.io/tinymist"
 source = f"https://github.com/Myriad-Dreamin/tinymist/archive/refs/tags/v{pkgver}.tar.gz"

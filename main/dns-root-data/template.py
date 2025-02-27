@@ -2,7 +2,6 @@ pkgname = "dns-root-data"
 pkgver = "2024071801"
 pkgrel = 0
 pkgdesc = "DNS root hints and DNSSEC trust anchor"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://data.iana.org/root-anchors"
 # we could use a source package to generate the files the same as debian

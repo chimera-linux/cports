@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 pkgdesc = "Perfect hash function generator"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gperf"
 source = f"$(GNU_SITE)/gperf/gperf-{pkgver}.tar.gz"

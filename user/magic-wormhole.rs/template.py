@@ -6,7 +6,6 @@ make_build_args = ["--bins"]
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Magic Wormhole CLI client"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "EUPL-1.2"
 url = "https://github.com/magic-wormhole/magic-wormhole.rs"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

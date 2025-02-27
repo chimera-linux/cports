@@ -18,7 +18,6 @@ makedepends = [
     "qt1-devel",
 ]
 pkgdesc = "KDE1 libraries"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.0-only"
 url = "https://github.com/KDE/kde1-kdelibs"
 source = f"{url}/archive/{_gitrev}.tar.gz"

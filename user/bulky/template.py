@@ -11,7 +11,6 @@ depends = [
     "python-setproctitle",
 ]
 pkgdesc = "Bulk renamer"
-maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://projects.linuxmint.com/xapps"
 source = f"https://github.com/linuxmint/bulky/archive/refs/tags/{pkgver}.tar.gz"

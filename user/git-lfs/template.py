@@ -10,7 +10,6 @@ hostmakedepends = ["asciidoctor", "go"]
 checkdepends = ["bash", "curl", "git", "perl"]
 depends = ["git"]
 pkgdesc = "Git extension for versioning large files"
-maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "MIT"
 url = "https://git-lfs.com"
 source = f"https://github.com/git-lfs/git-lfs/releases/download/v{pkgver}/git-lfs-v{pkgver}.tar.gz"

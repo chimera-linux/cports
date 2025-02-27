@@ -11,7 +11,6 @@ makedepends = [
     "libevent-devel",
 ]
 pkgdesc = "C implementation of the Frame Streams data transport protocol"
-maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/farsightsec/fstrm"
 source = f"{url}/archive/v{pkgver}.tar.gz"

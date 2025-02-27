@@ -3,7 +3,6 @@ pkgver = "1.0.4"
 pkgrel = 1
 build_style = "meta"
 pkgdesc = "X.org font packages"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://xorg.freedesktop.org"
 

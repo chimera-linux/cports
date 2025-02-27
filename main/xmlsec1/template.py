@@ -14,7 +14,6 @@ makedepends = [
     "nss-devel",
 ]
 pkgdesc = "XML Security Library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.aleksey.com/xmlsec"
 source = f"{url}/download/xmlsec1-{pkgver}.tar.gz"

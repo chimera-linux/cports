@@ -22,7 +22,6 @@ makedepends = [
 ]
 depends = ["fuse"]
 pkgdesc = "NTFS FUSE driver and tools"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/tuxera/ntfs-3g"
 source = f"https://tuxera.com/opensource/ntfs-3g_ntfsprogs-{pkgver}.tgz"

@@ -40,7 +40,6 @@ checkdepends = [
     "dbus",
 ]
 pkgdesc = "Qt Platform Theme integration plugins for the Plasma workspaces"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-integration"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-integration-{pkgver}.tar.xz"

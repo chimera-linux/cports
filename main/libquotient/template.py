@@ -19,7 +19,6 @@ makedepends = [
     "qtkeychain-devel",
 ]
 pkgdesc = "Qt library for Matrix clients"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://quotient-im.github.io/libQuotient"
 source = f"https://github.com/quotient-im/libQuotient/archive/refs/tags/{pkgver}.tar.gz"

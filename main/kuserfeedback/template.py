@@ -21,7 +21,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE user feedback integration"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kuserfeedback/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kuserfeedback-{pkgver}.tar.xz"

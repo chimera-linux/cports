@@ -56,7 +56,6 @@ makedepends = [
 ]
 depends = ["cmd:ugetopt!ugetopt"]
 pkgdesc = "Next generation logging daemon"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.syslog-ng.com/products/open-source-log-management"
 source = f"https://github.com/syslog-ng/syslog-ng/releases/download/syslog-ng-{pkgver}/syslog-ng-{pkgver}.tar.gz"

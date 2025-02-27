@@ -13,7 +13,6 @@ makedepends = [
 ]
 checkdepends = ["python-pytest", "python-requests"]
 pkgdesc = "Tools for managing osinfo database files"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://libosinfo.org"
 source = f"https://gitlab.com/libosinfo/osinfo-db-tools/-/archive/v{pkgver}/osinfo-db-tools-v{pkgver}.tar.gz"

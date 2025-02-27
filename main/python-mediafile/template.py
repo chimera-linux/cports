@@ -6,7 +6,6 @@ hostmakedepends = ["python-build", "python-flit_core", "python-installer"]
 depends = ["mutagen", "python-filetype"]
 checkdepends = ["python-pytest", *depends]
 pkgdesc = "Handles low-level interfacing for file tags in Python"
-maintainer = "Justin Berthault <justin.berthault@zaclys.net>"
 license = "MIT"
 url = "https://github.com/beetbox/mediafile"
 source = f"$(PYPI_SITE)/m/mediafile/mediafile-{pkgver}.tar.gz"

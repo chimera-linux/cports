@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = ["libdvdcss-devel", "libdvdread-devel"]
 pkgdesc = "DVD navigation library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.videolan.org/developers/libdvdnav.html"
 source = f"https://download.videolan.org/pub/videolan/libdvdnav/{pkgver}/libdvdnav-{pkgver}.tar.bz2"

@@ -12,7 +12,6 @@ hostmakedepends = [
 makedepends = ["python-devel"]
 checkdepends = ["python-pytest", "sqlite"]
 pkgdesc = "Database abstraction library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://www.sqlalchemy.org"
 source = f"$(PYPI_SITE)/S/SQLAlchemy/SQLAlchemy-{pkgver}.tar.gz"

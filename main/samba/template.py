@@ -92,7 +92,6 @@ self.depends = [
     "tdb-progs",
 ]
 pkgdesc = "SMB/CIFS file, print, and login server for Unix"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/samba-{pkgver}.tar.gz"

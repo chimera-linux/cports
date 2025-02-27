@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 makedepends = ["elogind-devel", "wayland-devel", "wayland-protocols"]
 pkgdesc = "Idle management daemon for Wayland"
-maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/swaywm/swayidle"
 source = f"{url}/releases/download/{pkgver}/swayidle-{pkgver}.tar.gz"

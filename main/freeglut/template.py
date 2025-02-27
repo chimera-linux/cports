@@ -5,7 +5,6 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libxxf86vm-devel", "libxi-devel", "mesa-devel", "glu-devel"]
 pkgdesc = "Open source implementation of the OpenGL Utility Toolkit library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://freeglut.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/freeglut/freeglut-{pkgver}.tar.gz"

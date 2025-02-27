@@ -27,7 +27,6 @@ makedepends = [
     "tinyxml2-devel",
 ]
 pkgdesc = "Static analysis of C/C++ code"
-maintainer = "xunil-cloud <river_electron@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://cppcheck.sourceforge.io"
 source = f"https://github.com/danmar/cppcheck/archive/refs/tags/{pkgver}.tar.gz"

@@ -6,7 +6,6 @@ make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["librevenge-devel", "boost-devel", "libxml2-devel"]
 pkgdesc = "ODF generator for librevenge"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-or-later"
 url = "https://sourceforge.net/p/libwpd/libodfgen"
 source = f"$(SOURCEFORGE_SITE)/libwpd/libodfgen/libodfgen-{pkgver}/libodfgen-{pkgver}.tar.xz"

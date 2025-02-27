@@ -11,7 +11,6 @@ hostmakedepends = [
 makedepends = ["linux-headers"]
 checkdepends = ["bash"]
 pkgdesc = "List open files"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "custom:lsof"
 url = "https://lsof.readthedocs.io/en/latest"
 source = f"https://github.com/lsof-org/lsof/archive/refs/tags/{pkgver}.tar.gz"

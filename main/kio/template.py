@@ -43,7 +43,6 @@ makedepends = [
 depends = ["kded"]
 checkdepends = ["dbus"]
 pkgdesc = "KDE Network transparent access to files and data"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = (
     "LGPL-2.1-only AND LGPL-2.1-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 )

@@ -19,7 +19,6 @@ makedepends = [
     "udev-devel",
 ]
 pkgdesc = "Control monitor settings using DDC/CI and USB"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.ddcutil.com"
 source = (

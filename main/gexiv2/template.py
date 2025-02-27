@@ -13,7 +13,6 @@ hostmakedepends = [
 ]
 makedepends = ["glib-devel", "exiv2-devel"]
 pkgdesc = "GObject wrapper for exiv2"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gexiv2"
 source = f"$(GNOME_SITE)/gexiv2/{pkgver[:-2]}/gexiv2-{pkgver}.tar.xz"

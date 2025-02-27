@@ -20,7 +20,6 @@ checkdepends = ["pipewire", "dbus"]
 depends = ["pipewire"]
 provides = [self.with_pkgver("pipewire-session-manager")]
 pkgdesc = "Session and policy manager implementation for PipeWire"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.pages.freedesktop.org/wireplumber"
 source = f"https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/{pkgver}/wireplumber-{pkgver}.tar.gz"

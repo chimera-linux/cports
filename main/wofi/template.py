@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["gtk+3-devel", "wayland-devel"]
 pkgdesc = "Launcher/menu program for wlroots-based wayland compositors"
-maintainer = "avgwst <avgwst@tutanota.de>"
 license = "GPL-3.0-or-later"
 url = "https://sr.ht/~scoopta/wofi"
 source = f"https://hg.sr.ht/~scoopta/wofi/archive/v{pkgver}.tar.gz"

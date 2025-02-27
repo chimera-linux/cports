@@ -14,7 +14,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "KDE Plugin based library to create window decorations"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/plasma/kdecoration/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdecoration-{pkgver}.tar.xz"

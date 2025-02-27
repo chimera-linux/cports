@@ -19,7 +19,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "GTK patchbay for PipeWire"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-only"
 url = "https://gitlab.freedesktop.org/pipewire/helvum"
 source = f"{url}/-/archive/{pkgver}/helvum-{pkgver}.tar.bz2"

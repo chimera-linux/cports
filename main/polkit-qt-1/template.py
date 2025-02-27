@@ -14,7 +14,6 @@ makedepends = [
     "qt6-qtbase-devel",
 ]
 pkgdesc = "Qt wrapper around polkit-1 client libraries"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/libraries/polkit-qt-1"
 source = f"$(KDE_SITE)/polkit-qt-1/polkit-qt-1-{pkgver}.tar.xz"

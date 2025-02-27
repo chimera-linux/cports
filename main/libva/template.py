@@ -13,7 +13,6 @@ makedepends = [
     "mesa-devel",
 ]
 pkgdesc = "Video Acceleration API"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://01.org/linuxmedia/vaapi"
 source = f"https://github.com/intel/libva/archive/{pkgver}.tar.gz"

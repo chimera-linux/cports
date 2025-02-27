@@ -8,7 +8,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Python parsing module"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pyparsing/pyparsing"
 source = f"{url}/archive/{pkgver}.tar.gz"

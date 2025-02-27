@@ -17,7 +17,6 @@ makedepends = [
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce free space guard panel plugin"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-fsguard-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-fsguard-plugin/{pkgver[:-2]}/xfce4-fsguard-plugin-{pkgver}.tar.bz2"

@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libdrm-devel", "libepoxy-devel", "mesa-devel"]
 pkgdesc = "VirGL virtual OpenGL renderer"
-maintainer = "eater <=@eater.me>"
 license = "MIT"
 url = "https://docs.mesa3d.org/drivers/virgl"
 source = f"https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/{pkgver}/virglrenderer-{pkgver}.tar.gz"

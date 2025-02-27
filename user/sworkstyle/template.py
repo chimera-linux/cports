@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Map workspace names to icons for sway"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/Lyr-7D1h/swayest_workstyle"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

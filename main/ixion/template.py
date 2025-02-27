@@ -11,7 +11,6 @@ hostmakedepends = [
 makedepends = ["boost-devel", "python-devel", "mdds"]
 checkdepends = ["bash"]
 pkgdesc = "General-purpose formula parser and interpreter"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://gitlab.com/ixion/ixion"
 source = f"{url}/-/archive/{pkgver}/ixion-{pkgver}.tar.gz"

@@ -5,7 +5,6 @@ build_style = "makefile"
 make_dir = "."
 makedepends = ["libexpat-devel", "lua5.4-devel"]
 pkgdesc = "SAX XML parser based on the Expat library"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://lunarmodules.github.io/luaexpat"
 source = f"https://github.com/lunarmodules/luaexpat/archive/refs/tags/{pkgver}.tar.gz"

@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 depends = ["python"]
 pkgdesc = "Parameterized testing with any Python test framework"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/wolever/parameterized"
 source = f"$(PYPI_SITE)/p/parameterized/parameterized-{pkgver}.tar.gz"

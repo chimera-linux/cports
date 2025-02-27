@@ -15,7 +15,6 @@ makedepends = [
     "linux-headers",
 ]
 pkgdesc = "Tools for deduplicating extents in filesystems like Btrfs"
-maintainer = "autumnontape <autumn@cyfox.net>"
 license = "GPL-2.0-only"
 url = "https://github.com/markfasheh/duperemove"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

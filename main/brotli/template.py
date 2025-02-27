@@ -5,7 +5,6 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "General-purpose lossless compression algorithm"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/google/brotli"
 source = f"{url}/archive/v{pkgver}.tar.gz"

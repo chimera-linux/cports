@@ -15,7 +15,6 @@ makedepends = [
     "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Widget addons for Qt Model/View"
-maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kitemviews/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kitemviews-{pkgver}.tar.xz"

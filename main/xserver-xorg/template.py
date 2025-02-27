@@ -91,7 +91,6 @@ depends = [
     "xwud",
 ]
 pkgdesc = "X.org X server"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND BSD-3-Clause"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/xorg-server-{pkgver}/xserver-xorg-server-{pkgver}.tar.gz"

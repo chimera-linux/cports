@@ -5,7 +5,6 @@ build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libmpdclient-devel"]
 pkgdesc = "Command line mpd client"
-maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-2.0-or-later"
 url = "https://musicpd.org/clients/mpc"
 source = f"https://musicpd.org/download/mpc/0/mpc-{pkgver}.tar.xz"

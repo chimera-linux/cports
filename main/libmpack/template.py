@@ -5,7 +5,6 @@ build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = ["libtool", "pkgconf"]
 pkgdesc = "Simple implementation of msgpack in C"
-maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://github.com/libmpack/libmpack"
 source = f"https://github.com/libmpack/libmpack/archive/{pkgver}.tar.gz"

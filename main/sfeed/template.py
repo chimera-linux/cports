@@ -10,7 +10,6 @@ make_install_args = [
 ]
 makedepends = ["ncurses-devel"]
 pkgdesc = "RSS and Atom feed fetcher"
-maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://codemadness.org/sfeed.html"
 source = f"https://codemadness.org/releases/sfeed/sfeed-{pkgver}.tar.gz"

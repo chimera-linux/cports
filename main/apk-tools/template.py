@@ -16,7 +16,6 @@ hostmakedepends = [
 ]
 makedepends = ["openssl3-devel", "zlib-ng-compat-devel"]
 pkgdesc = "Alpine package manager"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"https://gitlab.alpinelinux.org/alpine/apk-tools/-/archive/v{pkgver}/apk-tools-v{pkgver}.tar.gz"

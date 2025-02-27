@@ -11,7 +11,6 @@ configure_args = [
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["linux-headers"]
 pkgdesc = "Boehm garbage collector for C/C++"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.hboehm.info/gc"
 source = f"https://github.com/ivmai/bdwgc/releases/download/v{pkgver}/gc-{pkgver}.tar.gz"

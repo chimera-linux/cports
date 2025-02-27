@@ -19,7 +19,6 @@ depends = [
     *_deps,
 ]
 pkgdesc = "Xfce file search tool"
-maintainer = "triallax <triallax@tutanota.com>"
 # TODO: https://gitlab.xfce.org/apps/catfish/-/issues/106
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/catfish/start"

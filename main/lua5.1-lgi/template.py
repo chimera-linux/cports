@@ -15,7 +15,6 @@ makedepends = [
 depends = ["gobject-introspection-freedesktop"]
 checkdepends = ["xwayland-run", "dbus", "lua5.1", "gtk+3"]
 pkgdesc = "Lua binding to GObject libraries using GObject-Introspection"
-maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/lgi-devs/lgi"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 pkgdesc = "Ogg bitstream file format library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.xiph.org/ogg"
 source = f"https://downloads.xiph.org/releases/ogg/libogg-{pkgver}.tar.xz"

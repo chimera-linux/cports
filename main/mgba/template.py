@@ -23,7 +23,6 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "GBA emulator"
-maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MPL-2.0"
 url = "https://mgba.io"
 source = f"https://github.com/mgba-emu/mgba/archive/refs/tags/{pkgver}.tar.gz"

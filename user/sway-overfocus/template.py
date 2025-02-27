@@ -5,7 +5,6 @@ build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Better focus navigation for sway and i3"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/korreman/sway-overfocus"
 source = f"https://github.com/korreman/sway-overfocus/archive/refs/tags/v{pkgver}.tar.gz"

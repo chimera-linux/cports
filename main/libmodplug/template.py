@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--enable-static"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "MOD playing library"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "http://modplug-xmms.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/modplug-xmms/libmodplug-{pkgver}.tar.gz"

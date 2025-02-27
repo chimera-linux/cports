@@ -19,7 +19,6 @@ makedepends = [
     "rust-std",
 ]
 pkgdesc = "CLI for TOML"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://taplo.tamasfe.dev"
 source = f"https://github.com/tamasfe/taplo/archive/refs/tags/{pkgver}.tar.gz"

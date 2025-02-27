@@ -16,7 +16,6 @@ make_install_target = "install"
 make_install_args = ["install-lib-shared"]
 makedepends = ["openssl3-devel"]
 pkgdesc = "Utility for computing hash sums and creating magnet links"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
 url = "https://github.com/rhash/RHash"
 source = f"{url}/archive/v{pkgver}.tar.gz"

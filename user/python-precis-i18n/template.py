@@ -10,7 +10,6 @@ hostmakedepends = [
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "Internationalized usernames and passwords"
-maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/byllyfish/precis_i18n"
 source = f"$(PYPI_SITE)/p/precis_i18n/precis_i18n-{pkgver}.tar.gz"

@@ -8,7 +8,6 @@ make_check_args = [*make_build_args]
 hostmakedepends = ["cargo-auditable", "cmake"]
 makedepends = ["rust-std"]
 pkgdesc = "Parser generator tool for tree-sitter bindings"
-maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://tree-sitter.github.io/tree-sitter"
 source = f"https://github.com/tree-sitter/tree-sitter/archive/v{pkgver}.tar.gz"

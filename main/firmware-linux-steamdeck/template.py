@@ -5,7 +5,6 @@ archs = ["x86_64"]
 hostmakedepends = ["zstd-progs"]
 replaces = ["firmware-linux-qca"]
 pkgdesc = "Additional firmware for Steam Deck"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://gitlab.com/evlaV/linux-firmware-neptune"
 source = f"{url}/-/archive/jupiter-{pkgver}/linux-firmware-neptune-jupiter-{pkgver}.tar.gz"

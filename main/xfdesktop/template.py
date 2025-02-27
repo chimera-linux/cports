@@ -29,7 +29,6 @@ makedepends = [
 ]
 depends = ["chimera-artwork"]
 pkgdesc = "Xfce desktop manager"
-maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfdesktop/start"
 source = f"$(XFCE_SITE)/xfce/xfdesktop/{pkgver[:-2]}/xfdesktop-{pkgver}.tar.bz2"

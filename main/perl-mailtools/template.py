@@ -6,7 +6,6 @@ hostmakedepends = ["perl"]
 makedepends = ["perl", "perl-timedate"]
 depends = ["perl", "perl-timedate"]
 pkgdesc = "Various e-mail related modules"
-maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/MailTools"
 source = f"$(CPAN_SITE)/Mail/MailTools-{pkgver}.tar.gz"
