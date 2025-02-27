@@ -1,5 +1,5 @@
 pkgname = "bacon"
-pkgver = "3.9.1"
+pkgver = "3.10.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "AGPL-3.0-only"
 url = "https://dystroy.org/bacon"
 source = f"https://github.com/Canop/bacon/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cac962e77605079612ac3b4447681b6866113b8dacb56c7014b3b3cea9545f33"
+sha256 = "12f7bf631cccd1fb847741d0a2841fd6bda6b4fe6f650bde34fd47d94bfe88ca"
 
 
 def post_install(self):
