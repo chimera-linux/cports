@@ -1,10 +1,10 @@
 pkgname = "mpd"
-pkgver = "0.23.17"
-pkgrel = 1
+pkgver = "0.24.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddocumentation=enabled",
-    "-Dhtml_manual=true",
+    "-Dhtml_manual=false",
     "-Dmanpages=true",
     "-Dsyslog=enabled",
     "-Dinotify=true",
@@ -96,7 +96,6 @@ configure_args = [
     "-Diconv=enabled",
     "-Dpcre=enabled",
     "-Dsqlite=enabled",
-    "-Dyajl=enabled",
     "-Dzlib=enabled",
     "-Dzeroconf=avahi",
 ]
@@ -146,13 +145,14 @@ makedepends = [
 pkgdesc = "Music player daemon"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://www.musicpd.org"
-source = f"{url}/download/mpd/{pkgver[:-3]}/mpd-{pkgver}.tar.xz"
-sha256 = "a86f4fe811695743b08db82a9f1a840b8918bb4f46b06f48aa1d8d1b5386dff2"
+source = f"{url}/download/mpd/{pkgver[: pkgver.rfind('.')]}/mpd-{pkgver}.tar.xz"
+sha256 = "4225680e068b2ad87e3c2de414ec3209758de93d671f89fa3bae90b70af478a2"
 
 
 def post_install(self):
     self.install_license("COPYING")
     self.install_service(self.files_path / "mpd")
+    self.install_service(self.files_path / "mpd.user")
     self.install_file(self.files_path / "mpd.conf", "etc")
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
