@@ -1,5 +1,5 @@
 pkgname = "nemo"
-pkgver = "6.4.3"
+pkgver = "6.4.5"
 pkgrel = 0
 build_style = "meson"
 # XXX: drop libexec
@@ -36,7 +36,7 @@ maintainer = "Earldridge Jazzed Pineda <earldridgejazzedpineda@gmail.com>"
 license = "GPL-2.0-or-later AND GFDL-1.1-or-later AND LGPL-2.0-or-later"
 url = "https://projects.linuxmint.com/cinnamon"
 source = f"https://github.com/linuxmint/nemo/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "dc4b2ed52fd69551a53fd95a008a738fc9c904fc79d41c8e39ec49bfd739094e"
+sha256 = "06dc3c7884dc0ec8ce4d55ed48f0cd77cbf7bd6be5dba9ed883d49a43118ebdf"
 # Tests require its own GSettings schemas to be installed
 options = ["!check", "!cross"]
 
