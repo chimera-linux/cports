@@ -1,6 +1,6 @@
 pkgname = "xwayland-satellite"
-pkgver = "0.5"
-pkgrel = 1
+pkgver = "0.5.1"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
     "cargo-auditable",
@@ -18,6 +18,6 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/Supreeeme/xwayland-satellite"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b0845b711750b9850b87d8a62fd7d9a07235fe63a3b7e5bdd727884c066f1b4c"
+sha256 = "107d4a8004b24a871c6548a7c550e9260fcbb0367bd6337ae98f1fd2f3ecf645"
 # no idea how to run this
 options = ["!check"]
