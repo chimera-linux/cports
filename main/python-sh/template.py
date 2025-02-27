@@ -1,5 +1,5 @@
 pkgname = "python-sh"
-pkgver = "2.2.1"
+pkgver = "2.2.2"
 pkgrel = 0
 build_style = "python_pep517"
 # checks if the return code of `ls` for non-existent dir is '1' on macos and '2'
@@ -18,7 +18,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://sh.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/s/sh/sh-{pkgver}.tar.gz"
-sha256 = "287021ae84183dea49787985e33797dda7fe769e4f95f2c94dff8e245ab4cb00"
+sha256 = "653227a7c41a284ec5302173fbc044ee817c7bad5e6e4d8d55741b9aeb9eb65b"
 
 
 def post_install(self):
