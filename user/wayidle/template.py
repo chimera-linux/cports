@@ -1,5 +1,5 @@
 pkgname = "wayidle"
-pkgver = "1.0.0"
+pkgver = "1.0.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://git.sr.ht/~whynothugo/wayidle"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "e02ee79310c91de44466d245d6a12277d539ff7001fc5e53d3b3edf374512f05"
+sha256 = "90fd35d0e878a56eb5eef0e16b48599f6e635883cdb4e75f63d85fac305f2f3a"
 # no tests
 options = ["!check"]
 
