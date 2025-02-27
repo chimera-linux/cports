@@ -1,5 +1,5 @@
 pkgname = "niri"
-pkgver = "25.01"
+pkgver = "25.02"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -36,7 +36,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "86b89bcfc3fc6a8ed81f9e3f0ac7a29bd30267515efb2c19e1e0bc2ccd67b649"
+sha256 = "602b1f38c6ab01b19e95ac2ef86d7c91dfa9b212437d62fb40def9664c1419d6"
 # check may be disabled
 options = []
 
