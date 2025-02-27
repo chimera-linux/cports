@@ -1,5 +1,5 @@
 pkgname = "labwc"
-pkgver = "0.8.2"
+pkgver = "0.8.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -32,4 +32,4 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/labwc/labwc"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1adba1c87ec26f2f00409b47a0b79ccfd68bd160e1abc41822fb01f0a76ee947"
+sha256 = "746be2ff2d0c0c0b795c97fa24c7058f75586685c88a1194c243b6a846f938a5"
