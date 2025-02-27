@@ -1,5 +1,5 @@
 pkgname = "plasma-disks"
-pkgver = "6.3.1"
+pkgver = "6.3.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -29,5 +29,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-disks"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-disks-{pkgver}.tar.xz"
-sha256 = "eae814c033e83733f0925b0cbd8a400d7f30a2524e97b2032669596b35e66cbe"
+sha256 = "36da6e100f988186d574010e582bea09864ace4be6241d27f1d525b2b349e287"
 hardening = ["vis"]

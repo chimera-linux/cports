@@ -1,5 +1,5 @@
 pkgname = "bluedevil"
-pkgver = "6.3.1"
+pkgver = "6.3.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -30,5 +30,5 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/bluedevil"
 source = f"$(KDE_SITE)/plasma/{pkgver}/bluedevil-{pkgver}.tar.xz"
-sha256 = "a91358cc64aceace9273c2939ce325c913aeedfe896f53581c9ec4087258ffab"
+sha256 = "5c5a02a3afa7604fea9231952c7eed0ccb665c59db7b729a40ce1ad2e8e93d33"
 hardening = ["vis"]

@@ -1,5 +1,5 @@
 pkgname = "kglobalacceld"
-pkgver = "6.3.1"
+pkgver = "6.3.2"
 pkgrel = 0
 build_style = "cmake"
 # needs full init of kglobalaccel
@@ -27,7 +27,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kglobalacceld"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
-sha256 = "ddccbb289cabd689fab2b5aecb143e920f97c3a444f80f3f9c40db99bd46718a"
+sha256 = "a3263e42fb74ef087d263a25c7e3a55a960872262dbb4acfcf23514a3686b419"
 hardening = ["vis"]
 
 

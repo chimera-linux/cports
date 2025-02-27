@@ -1,5 +1,5 @@
 pkgname = "plasma-workspace-wallpapers"
-pkgver = "6.3.1"
+pkgver = "6.3.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -14,4 +14,4 @@ url = "https://invent.kde.org/plasma/plasma-workspace-wallpapers"
 source = (
     f"$(KDE_SITE)/plasma/{pkgver}/plasma-workspace-wallpapers-{pkgver}.tar.xz"
 )
-sha256 = "f4494bc3bbf16b67657f1fcf6bf62602bea6e9949a4e040744d557e7e177c60f"
+sha256 = "3c24f99f757ac7000753dbcdc3108fdace429bd0e0d1f169870849bf75c18585"

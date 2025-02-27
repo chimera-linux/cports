@@ -1,5 +1,5 @@
 pkgname = "libksysguard"
-pkgver = "6.3.1"
+pkgver = "6.3.2"
 pkgrel = 0
 build_style = "cmake"
 # some bug in the cmake files seems to not set this to on
@@ -39,7 +39,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/libksysguard/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libksysguard-{pkgver}.tar.xz"
-sha256 = "c223e5290562b52a910c70260b3ca27334728e6a635911eb6726a872e7178ba6"
+sha256 = "13323f687843f3e4f37f260a9f90ee3a477dde9cb1f03e6a5e5f455ea88ad595"
 # FIXME: drop with LLVM 20 where std::jthread & std::stop_token are deemed stable
 tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
 file_modes = {
