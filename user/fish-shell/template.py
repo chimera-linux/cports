@@ -1,9 +1,9 @@
 pkgname = "fish-shell"
 pkgver = "4.0.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_target = "fish_run_tests"
-hostmakedepends = ["cargo", "cmake", "ninja", "pkgconf", "gettext"]
+hostmakedepends = ["cargo-auditable", "cmake", "ninja", "pkgconf", "gettext"]
 makedepends = ["pcre2-devel", "rust-std"]
 checkdepends = ["python", "procps"]
 pkgdesc = "Friendly interactive command line shell"

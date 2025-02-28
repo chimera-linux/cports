@@ -1,10 +1,12 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -55,7 +55,7 @@ function(CREATE_TARGET target)
+@@ -54,8 +54,8 @@ function(CREATE_TARGET target)
+       "${CMAKE_COMMAND}" -E
          env ${VARS_FOR_CARGO}
            ${Rust_CARGO}
-             build --bin ${target}
+-            build --bin ${target}
 -            $<$<CONFIG:Release>:--release>
++            auditable build --bin ${target}
 +            $<$<CONFIG:None>:--release>
              $<$<CONFIG:RelWithDebInfo>:--profile=release-with-debug>
              --target ${Rust_CARGO_TARGET}
