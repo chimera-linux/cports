@@ -1,5 +1,5 @@
 pkgname = "mu"
-pkgver = "1.12.8"
+pkgver = "1.12.9"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "Maildir-utils indexer/searcher and mu4e extension for emacs"
 license = "GPL-3.0-or-later"
 url = "https://github.com/djcb/mu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bdb6fbeb8870aa422671fa0144d699900492a6f575c77fb5a7d60ac744214c27"
+sha256 = "4a45e18b8868f892273674ce24b3ab0687a65d4bf52279debcd40f807b3d9caf"
 
 
 @subpackage("mu-mu4e-emacs")
