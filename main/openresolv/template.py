@@ -2,8 +2,8 @@ pkgname = "openresolv"
 pkgver = "3.13.2"
 pkgrel = 2
 build_style = "gnu_configure"
-configure_gen = []
 configure_args = ["--libexecdir=/usr/libexec/resolvconf"]
+configure_gen = []
 make_dir = "."
 pkgdesc = "Management framework for resolv.conf"
 license = "BSD-2-Clause"
