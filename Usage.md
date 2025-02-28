@@ -204,8 +204,7 @@ Once generated, the tool will automatically update the configuration file you
 have, which is `etc/config.ini` by default, with the correct key path.
 
 If you don't have a key generated and set, you will not be able to build
-packages. It is possible to override this with `--allow-unsigned`, but it
-is not recommended to do that.
+packages.
 
 <a id="root_setup"></a>
 ### Build Root Setup
@@ -409,8 +408,6 @@ the default value is used.
 Optional arguments are global, separate from the command. However, some of them
 only have an effect with specific commands.
 
-* `--allow-unsigned` Do not sign packages and allow building without a signing
-  key set up.
 * `-A ARCH`, `--host-arch ARCH` Override the host architecture. The given host
   arch must be runnable on the current kernel. This is typically useful for e.g.
   32-bit builds on 64-bit architectures, or for emulated targets. Note that once

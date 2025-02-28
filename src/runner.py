@@ -30,7 +30,6 @@ opt_makejobs = 0
 opt_lthreads = 0
 opt_nocolor = False
 opt_signkey = None
-opt_unsigned = False
 opt_force = False
 opt_mdirtemp = False
 opt_nonet = False
@@ -112,7 +111,7 @@ def handle_options():
     global opt_arch, opt_cflags, opt_cxxflags, opt_fflags, opt_tltocache
     global opt_harch, opt_gen_dbg, opt_check, opt_ccache, opt_tltocachesize
     global opt_sccache, opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
-    global opt_unsigned, opt_force, opt_mdirtemp, opt_allowcat, opt_restricted
+    global opt_force, opt_mdirtemp, opt_allowcat, opt_restricted
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
@@ -258,13 +257,6 @@ def handle_options():
         const=True,
         default=opt_keeptemp,
         help="Keep temporary files and build dependencies after build.",
-    )
-    parser.add_argument(
-        "--allow-unsigned",
-        action="store_const",
-        const=True,
-        default=opt_unsigned,
-        help="Allow building without a signing key.",
     )
     parser.add_argument(
         "--stage",
@@ -453,9 +445,6 @@ def handle_options():
 
     if cmdline.keep_temporary:
         opt_keeptemp = True
-
-    if cmdline.allow_unsigned:
-        opt_unsigned = True
 
     if cmdline.force_check:
         opt_forcecheck = True
@@ -2838,7 +2827,7 @@ def fire():
     chroot.set_mirror(opt_apkrepo)
 
     # ensure we've got a signing key
-    if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
+    if not opt_signkey and cmdline.command[0] != "keygen":
         logger.get().out("\f[red]cbuild: no signing key set")
         sys.exit(1)
 
