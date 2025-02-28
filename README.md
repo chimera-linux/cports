@@ -3,9 +3,9 @@
 Cports is a collection of source package ports for Chimera. The system has been
 written specifically for the distribution using the Python scripting language.
 
-The system is largely inspired by `xbps-src` from Void Linux, but should not be
-considered a variant of it, nor should it be expected that the options and
-behaviors are the same.
+From user standpoint, it works similarly to many distro packaging systems (users
+of Void Linux `xbps-src` will most likely find it a little familiar) however it
+is not based on any existing system and should not be considered a variant of any.
 
 There are two authoritative documents on the system:
 
