@@ -19,7 +19,7 @@ options = []
 
 
 match self.profile().arch:
-    case "aarch64" | "ppc64le" | "riscv64" | "x86_64":
+    case "aarch64" | "loongarch64" | "ppc64le" | "riscv64" | "x86_64":
         checkdepends += ["nodejs"]
     case _:
         options += ["!check"]

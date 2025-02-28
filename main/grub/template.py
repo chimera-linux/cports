@@ -67,6 +67,7 @@ _platforms = [
     ("x86_64", "xen", "", "", "x86_64 Xen"),
     ("powerpc", "ieee1275", "-mno-altivec", "", "PowerPC OpenFirmware"),
     ("arm64", "efi", "", "", "Aarch64 EFI"),
+    ("loongarch64", "efi", "", "", "LoongArch64 EFI"),
     # relaxation causes R_RISCV_ALIGN
     ("riscv64", "efi", "-mno-relax", "-mno-relax", "64-bit RISC-V EFI"),
 ]
@@ -82,6 +83,8 @@ match self.profile().arch:
         _archs = ["riscv64"]
         # otherwise crashes llvm backend (unsupported code model for lowering)
         configure_args += ["grub_cv_cc_mcmodel=no"]
+    case "loongarch64":
+        _archs = ["loongarch64"]
     case _:
         _archs = []
         broken = f"Unsupported platform ({self.profile().arch})"

@@ -36,6 +36,9 @@ match self.profile().arch:
     case "riscv64":
         _glibc = "ld-linux-riscv64-lp64d.so.1"
         _musl = "ld-musl-riscv64.so.1"
+    case "loongarch64":
+        _glibc = "ld-linux-loongarch-lp64d.so.1"
+        _musl = "ld-musl-loongarch64.so.1"
     case _:
         _glibc = ""
         _musl = ""

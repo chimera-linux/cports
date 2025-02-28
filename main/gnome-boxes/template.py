@@ -42,7 +42,7 @@ options = ["!cross", "!lto"]
 
 _arch = self.profile().arch
 match _arch:
-    case "x86_64" | "aarch64" | "riscv64":
+    case "x86_64" | "aarch64" | "loongarch64" | "riscv64":
         depends += [f"qemu-system-{_arch}"]
     case "ppc64le" | "ppc64":
         depends += ["qemu-system-ppc64"]

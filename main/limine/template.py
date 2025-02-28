@@ -2,7 +2,7 @@ pkgname = "limine"
 pkgver = "9.0.1"
 pkgrel = 0
 # these targets implemented
-archs = ["aarch64", "x86_64", "riscv64"]
+archs = ["aarch64", "loongarch64", "riscv64", "x86_64"]
 build_style = "gnu_configure"
 configure_args = ["--enable-all", "TOOLCHAIN_FOR_TARGET=llvm"]
 hostmakedepends = ["automake", "mtools", "nasm"]

@@ -54,7 +54,15 @@ if self.profile().cross:
 
 # because this may not match the cbuild arch name
 match self.profile().arch:
-    case "x86_64" | "ppc64le" | "ppc64" | "ppc" | "aarch64" | "riscv64":
+    case (
+        "x86_64"
+        | "ppc64le"
+        | "ppc64"
+        | "ppc"
+        | "aarch64"
+        | "riscv64"
+        | "loongarch64"
+    ):
         _nssarch = self.profile().arch
     case _:
         broken = f"OS_TEST unknown for {self.profile().arch}"

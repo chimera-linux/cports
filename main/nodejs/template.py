@@ -42,7 +42,7 @@ hardening = ["!vis", "!cfi"]
 options = ["!cross"]
 
 match self.profile().arch:
-    case "ppc64le" | "ppc64" | "riscv64":
+    case "loongarch64" | "ppc64le" | "ppc64" | "riscv64":
         # trap in add_label_offset() (assembler-ppc.cc)
         # also crashes on riscv64
         hardening += ["!int"]

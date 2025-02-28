@@ -23,7 +23,7 @@ sha256 = "0e138387df7835d7403b8351e2226c1377da804e0737db0e071b48f07c9d12ee"
 
 match self.profile().arch:
     # aarch64 FIXME: segfault in pcre2_jit_neon_inc.h during testing
-    case "riscv64" | "aarch64":
+    case "riscv64" | "loongarch64" | "aarch64":
         configure_args += ["--disable-jit"]
 
 

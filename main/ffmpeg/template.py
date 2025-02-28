@@ -156,6 +156,7 @@ if self.has_lto(force=True):
 if self.profile().cross:
     _archmap = {
         "aarch64": "aarch64",
+        "loongarch64": "loongarch",
         "ppc64le": "ppc64",
         "ppc64": "ppc64",
         "ppc": "ppc",

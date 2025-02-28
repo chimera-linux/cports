@@ -64,12 +64,12 @@ _have_uefi_capsule = False
 _have_msr = self.profile().arch == "x86_64"
 
 match self.profile().arch:
-    case "x86_64" | "aarch64" | "riscv64":
+    case "x86_64" | "aarch64" | "loongarch64" | "riscv64":
         _have_uefi = True
 
 if _have_uefi:
     makedepends += ["efivar-devel"]
-    if self.profile().arch != "riscv64":
+    if self.profile().arch not in ["loongarch64", "riscv64"]:
         depends += ["fwupd-efi"]
         _have_uefi_capsule = True
     else:

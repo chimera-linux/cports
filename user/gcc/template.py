@@ -146,6 +146,11 @@ match self.profile().arch:
             "--with-abi=lp64d",
         ]
         broken = "takes forever in emulator"
+    case "loongarch64":
+        configure_args += [
+            "--with-arch=la64v1.0",
+            "--with-abi=lp64d",
+        ]
 
 _have_libgomp = False
 

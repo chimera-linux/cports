@@ -68,6 +68,8 @@ match self.profile().arch:
     case "x86_64":
         _arch, _abi = "x86", "sysv"
         _libs.append("stacktrace_from_exception")
+    case "loongarch64":
+        _arch, _abi = "loongarch", "sysv"
     case "riscv64":
         _arch, _abi = "riscv", "sysv"
     case _:
