@@ -416,7 +416,7 @@ def install(self):
     # remove rust copies of llvm tools
     self.log("cleaning up tools...")
     trip = self.profile().triplet
-    for f in (self.destdir / f"usr/lib/rustlib/{trip}/bin").glob("rust-ll*"):
+    for f in (self.destdir / f"usr/lib/rustlib/{trip}/bin").iterdir():
         f.unlink()
 
     # usr/lib stuff should be symlinks into rustlib
