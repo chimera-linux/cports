@@ -440,7 +440,7 @@ class Profile:
 
     def _has_lto(self, stage):
         # FIXME: enable when this is fixed in clang
-        if self._arch == "riscv64":
+        if self._arch == "riscv64" or self._arch == "loongarch64":
             return False
         # probably not worth it, no scudo makes linking slow
         if self._wordsize == 32:
