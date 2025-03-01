@@ -1,6 +1,6 @@
 pkgname = "dino"
-pkgver = "0.4.4"
-pkgrel = 1
+pkgver = "0.4.5"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_TESTS=ON",
@@ -38,7 +38,7 @@ pkgdesc = "Modern XMPP client"
 license = "GPL-3.0-or-later"
 url = "https://github.com/dino/dino"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "29f37dc3a54fb123f223964d01de76fcea038ca6d134aa35b75c62b07acb9d03"
+sha256 = "80761b625c4cb4cf6ed1a368dbd24a9df06b47a1c6379495aca4ed7e033d08be"
 
 
 def check(self):
