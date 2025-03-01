@@ -25,7 +25,7 @@ provides = [
     self.with_pkgver("musl-rpmatch"),
 ]
 pkgdesc = "Chimera Linux userland"
-license = "BSD-2-Clause"
+license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "122ee06196ad237148070b9dd9c7ab0a66aab8369090d21650da606492943bf2"
