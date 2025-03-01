@@ -15,7 +15,7 @@ provides = [self.with_pkgver(f"boost{pkgver[:-2]}")]
 pkgdesc = "Free peer-reviewed portable C++ source libraries"
 license = "BSL-1.0"
 url = "https://boost.org"
-source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
+source = f"https://archives.boost.io/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
 sha256 = "f55c340aa49763b1925ccf02b2e83f35fdcf634c9d5164a2acb87540173c741d"
 options = ["empty"]
 
