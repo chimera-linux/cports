@@ -1,5 +1,5 @@
 pkgname = "go-bootstrap"
-pkgver = "1.23.6"
+pkgver = "1.24.0"
 pkgrel = 0
 # just in case
 depends = ["!go"]
@@ -11,19 +11,23 @@ options = ["!strip", "!scanrundeps", "!lintstatic", "foreignelf", "execstack"]
 match self.profile().goarch:
     case "arm64":
         sha256 = (
-            "e13364ae0ba9545ee0af7120c902bffb8c3749ffb9ef4ed1b46a9a589b8c4e70"
+            "a694eb1a1e1c45f435f673040bfe5f5f0b6f028eb796fb9c50de7f72217fc50f"
+        )
+    case "loong64":
+        sha256 = (
+            "dc709c3762393fdb6ca28c23449b51568c59947bbebd1f3cd43633a76d361d02"
         )
     case "ppc64le":
         sha256 = (
-            "c71193824401538ef41cd981b1cf77710b7a35e25c3bad32304e692d365a0d59"
+            "158f4045f8a6ae0926d488e71582cfad962a1683d9ef6b2789e15ad5020f17a0"
         )
     case "riscv64":
         sha256 = (
-            "f5897db05a93e196f4b7abdfd75931a118a1850532b7b6473ddc9fc6da7b8774"
+            "263f04498e2e2479488728b3c1da7609b06cd18d8033f925538fd43b617fb318"
         )
     case "amd64":
         sha256 = (
-            "dcadf4d5ac3a7d812538f958509f4a45ef3244b1bae22f8bf5eeea4e3e029fb8"
+            "8f6ba7f20231f7c60ef1100fccda81ed49102f8fe9d32eef091df2d14d540604"
         )
     case _:
         broken = f"not yet built for {self.profile().arch}"
