@@ -15,7 +15,7 @@ options = ["!check"]
 
 
 match self.profile().arch:
-    case "aarch64" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
+    case "aarch64" | "loongarch64" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
         makedepends += ["libomp-devel"]
         _have_omp = True
     case _:

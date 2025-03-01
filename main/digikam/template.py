@@ -92,6 +92,7 @@ options = ["!check"]
 
 if self.profile().arch in [
     "aarch64",
+    "loongarch64",
     "ppc64le",
     "ppc64",
     "riscv64",

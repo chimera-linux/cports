@@ -132,7 +132,14 @@ _libs = [
     "xphoto",
 ]
 
-if self.profile().arch in ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]:
+if self.profile().arch in [
+    "aarch64",
+    "loongarch64",
+    "ppc64le",
+    "ppc64",
+    "riscv64",
+    "x86_64",
+]:
     configure_args += ["-DWITH_OPENMP=ON"]
     makedepends += ["libomp-devel"]
 

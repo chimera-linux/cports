@@ -11,7 +11,14 @@ url = "https://www.surina.net/soundtouch"
 source = f"{url}/soundtouch-{pkgver}.tar.gz"
 sha256 = "43b23dfac2f64a3aff55d64be096ffc7b73842c3f5665caff44975633a975a99"
 
-if self.profile().arch in ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]:
+if self.profile().arch in [
+    "aarch64",
+    "loongarch64",
+    "ppc64le",
+    "ppc64",
+    "riscv64",
+    "x86_64",
+]:
     configure_args += ["-DOPENMP=ON"]
     makedepends += ["libomp-devel"]
 

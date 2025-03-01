@@ -33,7 +33,14 @@ hardening = ["!vis"]
 # probably since clang17
 options = ["!lto"]
 
-if self.profile().arch in ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]:
+if self.profile().arch in [
+    "aarch64",
+    "loongarch64",
+    "ppc64le",
+    "ppc64",
+    "riscv64",
+    "x86_64",
+]:
     makedepends += ["libomp-devel"]
 else:
     configure_args += ["-Denable_openmp=false"]
