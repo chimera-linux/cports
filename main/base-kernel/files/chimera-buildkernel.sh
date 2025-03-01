@@ -99,6 +99,7 @@ case "$ARCH" in
     i?86) ARCH=i386;;
     arm*) ARCH=arm;;
     aarch64) ARCH=arm64;;
+    loongarch*) ARCH=loongarch;;
     ppc*) ARCH=powerpc;;
     riscv*) ARCH=riscv;;
     *) die "Unkonwn host architecture '$ARCH'";;
@@ -106,7 +107,7 @@ esac
 
 validate_arch() {
     case "$ARCH" in
-        x86_64|i386|arm|arm64|powerpc|riscv) ;;
+        x86_64|i386|arm|arm64|loongarch|powerpc|riscv) ;;
         *) die "Unknown kernel architecture '$ARCH'";;
     esac
 }
@@ -338,9 +339,10 @@ do_build() {
 
     case "$ARCH" in
         x86_64|i386) args="bzImage modules";;
-        powerpc) args="zImage modules";;
+        powerpc) args="zImage modules dtbs";;
         arm) args="zImage modules dtbs";;
         arm64|riscv) args="Image modules dtbs";;
+        loongarch) args="vmlinuz.efi dtbs";;
     esac
 
     unset LDFLAGS
@@ -433,10 +435,21 @@ do_install() {
                 INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}" \
                 || die "failed to install dtbs"
             ;;
+        loongarch)
+            install -m 644 "${OBJDIR}/arch/${ARCH}/boot/vmlinuz.efi" \
+                "${DESTDIR}/boot/vmlinuz-${kernver}" \
+                || die "failed to install kernel"
+            call_make dtbs_install \
+                INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}" \
+                || die "failed to install dtbs"
+            ;;
         powerpc)
             install -m 644 "${OBJDIR}/vmlinux" \
                 "${DESTDIR}/boot/vmlinux-${kernver}" \
                 || die "failed to install kernel"
+            call_make dtbs_install \
+                INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}" \
+                || die "failed to install dtbs"
             /usr/bin/llvm-strip "${DESTDIR}/boot/vmlinux-${kernver}"
             ;;
     esac
