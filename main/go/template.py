@@ -28,8 +28,8 @@ match self.profile().arch:
     case "aarch64":
         # FIXME: these fail for unknown reasons currently
         options += ["!check"]
-    case "ppc64le":
-        # assume gnu as
+    case "loongarch64" | "ppc64le":
+        # assume gcc / gnu as
         options += ["!check"]
 
 if self.profile().cross:
