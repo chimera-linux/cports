@@ -1,0 +1,252 @@
+adapted from https://lists.gnu.org/archive/html/grub-devel/2022-08/msg00111.html
+
+diff --git a/grub-core/kern/dl.c b/grub-core/kern/dl.c
+index 0bf40ca..e447fd0 100644
+--- a/grub-core/kern/dl.c
++++ b/grub-core/kern/dl.c
+@@ -225,8 +225,7 @@ grub_dl_load_segments (grub_dl_t mod, const Elf_Ehdr *e)
+   unsigned i;
+   const Elf_Shdr *s;
+   grub_size_t tsize = 0, talign = 1;
+-#if !defined (__i386__) && !defined (__x86_64__) && !defined(__riscv) && \
+-  !defined (__loongarch__)
++#if !defined (__i386__) && !defined (__x86_64__) && !defined(__riscv)
+   grub_size_t tramp;
+   grub_size_t got;
+   grub_err_t err;
+@@ -242,8 +241,7 @@ grub_dl_load_segments (grub_dl_t mod, const Elf_Ehdr *e)
+ 	talign = s->sh_addralign;
+     }
+ 
+-#if !defined (__i386__) && !defined (__x86_64__) && !defined(__riscv) && \
+-  !defined (__loongarch__)
++#if !defined (__i386__) && !defined (__x86_64__) && !defined(__riscv)
+   err = grub_arch_dl_get_tramp_got_size (e, &tramp, &got);
+   if (err)
+     return err;
+@@ -306,8 +304,7 @@ grub_dl_load_segments (grub_dl_t mod, const Elf_Ehdr *e)
+ 	  mod->segment = seg;
+ 	}
+     }
+-#if !defined (__i386__) && !defined (__x86_64__) && !defined(__riscv) && \
+-  !defined (__loongarch__)
++#if !defined (__i386__) && !defined (__x86_64__) && !defined(__riscv)
+   ptr = (char *) ALIGN_UP ((grub_addr_t) ptr, GRUB_ARCH_DL_TRAMP_ALIGN);
+   mod->tramp = ptr;
+   mod->trampptr = ptr;
+diff --git a/grub-core/kern/loongarch64/dl.c b/grub-core/kern/loongarch64/dl.c
+index 7f923b4..ed5abb8 100644
+--- a/grub-core/kern/loongarch64/dl.c
++++ b/grub-core/kern/loongarch64/dl.c
+@@ -49,6 +49,7 @@ grub_arch_dl_relocate_symbols (grub_dl_t mod, void *ehdr,
+ 			       Elf_Shdr *s, grub_dl_segment_t seg)
+ {
+   Elf_Rel *rel, *max;
++  unsigned unmatched_got_pc_page = 0;
+   struct grub_loongarch64_stack stack;
+   grub_loongarch64_stack_init (&stack);
+ 
+@@ -133,6 +134,41 @@ grub_arch_dl_relocate_symbols (grub_dl_t mod, void *ehdr,
+ 	    grub_loongarch64_xxx_lo12 (abs_place, sym_addr);
+ 	  }
+ 	  break;
++        case R_LARCH_GOT_PC_HI20:
++          {
++            grub_uint64_t *gp = mod->gotptr;
++            grub_int64_t gpoffset;
++            Elf_Rela *rel2;
++
++            gpoffset = (((grub_uint64_t) gp + 0x800) & ~0xfff) - (((grub_uint64_t) place) & ~0xfff);
++
++            *gp = (grub_uint64_t) sym_addr;
++            mod->gotptr = gp + 1;
++            unmatched_got_pc_page++;
++            grub_loongarch64_xxx_hi20 (place, gpoffset);
++            for (rel2 = (Elf_Rela *) ((char *) rel + s->sh_entsize);
++                 rel2 < (Elf_Rela *) max;
++                 rel2 = (Elf_Rela *) ((char *) rel2 + s->sh_entsize))
++              if (ELF_R_SYM (rel2->r_info) == ELF_R_SYM (rel->r_info)
++                  && ((Elf_Rela *) rel)->r_addend == rel2->r_addend
++                  && ELF_R_TYPE (rel2->r_info) == R_LARCH_GOT_PC_LO12)
++                {
++                  grub_uint32_t *place2;
++                  place2 = (grub_uint32_t *) ((grub_addr_t) seg->addr + rel2->r_offset);
++                  grub_loongarch64_xxx_lo12 (place2, (grub_uint64_t) gp);
++                  break;
++                }
++            if (rel2 >= (Elf_Rela *) max)
++              return grub_error (GRUB_ERR_BAD_MODULE,
++                                 "GOT_PC_HI20 without matching GOT_PC_LO12");
++          }
++          break;
++        case R_LARCH_GOT_PC_LO12:
++          if (unmatched_got_pc_page == 0)
++            return grub_error (GRUB_ERR_BAD_MODULE,
++                               "GOT_PC_LO12 without matching GOT_PC_HI20");
++          unmatched_got_pc_page--;
++          break;
+ 	GRUB_LOONGARCH64_RELOCATION (&stack, place, sym_addr)
+ 	default:
+ 	  {
+diff --git a/grub-core/kern/loongarch64/dl_helper.c b/grub-core/kern/loongarch64/dl_helper.c
+index 006e850..4d26a7d 100644
+--- a/grub-core/kern/loongarch64/dl_helper.c
++++ b/grub-core/kern/loongarch64/dl_helper.c
+@@ -252,6 +252,39 @@ void grub_loongarch64_xxx_lo12 (grub_uint32_t *place, grub_int64_t offset)
+   *place |= grub_cpu_to_le32 (offset << 10) & ~insmask;
+ }
+ 
++grub_err_t
++grub_arch_dl_get_tramp_got_size (const void *ehdr, grub_size_t *tramp,
++                                grub_size_t *got)
++{
++  const Elf64_Ehdr *e = ehdr;
++  const Elf64_Shdr *s;
++  unsigned i;
++
++  *tramp = 0;
++  *got = 0;
++
++  for (i = 0, s = (Elf64_Shdr *) ((char *) e + grub_le_to_cpu64 (e->e_shoff));
++       i < grub_le_to_cpu16 (e->e_shnum);
++       i++, s = (Elf64_Shdr *) ((char *) s + grub_le_to_cpu16 (e->e_shentsize)))
++    if (s->sh_type == grub_cpu_to_le32_compile_time (SHT_RELA))
++      {
++       const Elf64_Rela *rel, *max;
++
++       for (rel = (Elf64_Rela *) ((char *) e + grub_le_to_cpu64 (s->sh_offset)),
++              max = (const Elf64_Rela *) ((char *) rel + grub_le_to_cpu64 (s->sh_size));
++            rel < max; rel = (const Elf64_Rela *) ((char *) rel + grub_le_to_cpu64 (s->sh_entsize)))
++         switch (ELF64_R_TYPE (grub_le_to_cpu64 (rel->r_info)))
++           {
++           case R_LARCH_GOT_PC_HI20:
++           case R_LARCH_GOT_PC_LO12:
++             *got += 8;
++             break;
++           }
++      }
++
++  return GRUB_ERR_NONE;
++}
++
+ /*
+  * ABS64_HI12 relocation for the 64-bit absolute address
+  * (*(uint32_t *) PC) [21 ... 10] = (S + A) [63 ... 52]
+diff --git a/include/grub/elf.h b/include/grub/elf.h
+index bd313a7..e3df748 100644
+--- a/include/grub/elf.h
++++ b/include/grub/elf.h
+@@ -2565,6 +2565,8 @@ typedef Elf32_Addr Elf32_Conflict;
+ #define R_LARCH_ABS64_HI12		      70
+ #define R_LARCH_PCALA_HI20		      71
+ #define R_LARCH_PCALA_LO12		      72
++#define R_LARCH_GOT_PC_HI20                  75
++#define R_LARCH_GOT_PC_LO12                  76
+ 
+ extern grub_err_t grub_elf32_get_shnum (Elf32_Ehdr *e, Elf32_Shnum *shnum);
+ extern grub_err_t grub_elf32_get_shstrndx (Elf32_Ehdr *e, Elf32_Word *shstrndx);
+diff --git a/util/grub-mkimagexx.c b/util/grub-mkimagexx.c
+index e50b295..9fafb36 100644
+--- a/util/grub-mkimagexx.c
++++ b/util/grub-mkimagexx.c
+@@ -1183,6 +1183,42 @@ SUFFIX (relocate_addrs) (Elf_Ehdr *e, struct section_metadata *smd,
+ 		   case R_LARCH_PCALA_LO12:
+ 		     grub_loongarch64_xxx_lo12 (t32, sym_addr);
+ 		     break;
++
++                   case R_LARCH_GOT_PC_HI20:
++                     {
++                       Elf64_Rela *rel2;
++                       grub_int32_t hi20;
++                       unsigned k;
++
++                       grub_int64_t gpoffset = (char *) gpptr - (char *) pe_target + image_target->vaddr_offset;
++
++                       hi20 = ((gpoffset + 0x800) & ~0xfffULL) - (pc & ~0xfffULL);
++
++                       *gpptr = grub_host_to_target64 (sym_addr);
++                       unmatched_adr_got_page++;
++                       grub_loongarch64_xxx_hi20 ((grub_uint32_t *)target, hi20);
++                       for (k = 0, rel2 = (Elf_Rela *) ((char *) r + r_size);
++                            k < num_rs;
++                            k++, rel2 = (Elf_Rela *) ((char *) rel2 + r_size))
++                         if (ELF_R_SYM (rel2->r_info) == ELF_R_SYM (r->r_info)
++                             && r->r_addend == rel2->r_addend
++                             && ELF_R_TYPE (rel2->r_info) == R_LARCH_GOT_PC_LO12)
++                           {
++                             t32 = (grub_uint32_t *) SUFFIX (get_target_address) (e, target_section,
++                                                                                  grub_target_to_host (rel2->r_offset), image_target), 
++                             grub_loongarch64_xxx_lo12 (t32, gpoffset);
++                             break;
++                           }
++                       if (k >= num_rs)
++                         grub_util_error ("GOT_PC_HI20 without matching GOT_PC_LO12");
++                       gpptr++;
++                     }
++                     break;
++                   case R_LARCH_GOT_PC_LO12:
++                     if (unmatched_adr_got_page == 0)
++                       grub_util_error ("GOT_PC_LO12 without matching GOT_PC_HI20");
++                     unmatched_adr_got_page--;
++                     break;
+ 		   GRUB_LOONGARCH64_RELOCATION (&stack, target, sym_addr)
+ 		   default:
+ 		     grub_util_error (_("relocation 0x%x is not implemented yet"),
+@@ -1784,6 +1820,8 @@ translate_relocation_pe (struct translate_context *ctx,
+ 	case R_LARCH_ABS64_HI12:
+ 	case R_LARCH_PCALA_HI20:
+ 	case R_LARCH_PCALA_LO12:
++        case R_LARCH_GOT_PC_HI20:
++        case R_LARCH_GOT_PC_LO12:
+ 	  grub_util_info ("  %s:  not adding fixup: 0x%08x : 0x%08x",
+ 			  __FUNCTION__,
+ 			  (unsigned int) addr,
+@@ -2144,7 +2182,7 @@ make_reloc_section (Elf_Ehdr *e, struct grub_mkimage_layout *layout,
+ 		       + image_target->vaddr_offset,
+ 		       2 * layout->ia64jmpnum,
+ 		       image_target);
+-  if (image_target->elf_target == EM_IA_64 || image_target->elf_target == EM_AARCH64)
++  if (image_target->elf_target == EM_IA_64 || image_target->elf_target == EM_AARCH64 || image_target->elf_target == EM_LOONGARCH)
+     create_u64_fixups (&ctx,
+ 		       layout->got_off
+ 		       + image_target->vaddr_offset,
+@@ -2295,6 +2333,8 @@ SUFFIX (locate_sections) (Elf_Ehdr *e, const char *kernel_path,
+   /* Page-aligning simplifies relocation handling.  */
+   if (image_target->elf_target == EM_AARCH64)
+     layout->align = 4096;
++  if (image_target->elf_target == EM_LOONGARCH)
++    layout->align = 4096;
+ 
+   layout->kernel_size = 0;
+ 
+@@ -2513,6 +2553,17 @@ SUFFIX (grub_mkimage_load_image) (const char *kernel_path,
+ 
+ 	  grub_arm64_dl_get_tramp_got_size (e, &tramp, &layout->got_size);
+ 
++          layout->got_off = layout->kernel_size;
++          layout->kernel_size += ALIGN_UP (layout->got_size, 16);
++        }
++       if (image_target->elf_target == EM_LOONGARCH)
++        {
++          grub_size_t tramp;
++
++          layout->kernel_size = ALIGN_UP (layout->kernel_size, 16);
++
++          grub_arch_dl_get_tramp_got_size (e, &tramp, &layout->got_size);
++
+ 	  layout->got_off = layout->kernel_size;
+ 	  layout->kernel_size += ALIGN_UP (layout->got_size, 16);
+ 	}
+diff --git a/util/grub-module-verifier.c b/util/grub-module-verifier.c
+index 91d9e8f..b6d91bd 100644
+--- a/util/grub-module-verifier.c
++++ b/util/grub-module-verifier.c
+@@ -147,6 +147,8 @@ struct grub_module_verifier_arch archs[] = {
+       R_LARCH_ABS64_HI12,
+       R_LARCH_PCALA_HI20,
+       R_LARCH_PCALA_LO12,
++      R_LARCH_GOT_PC_HI20,
++      R_LARCH_GOT_PC_LO12,
+       -1
+     }, (int[]){
+       -1
