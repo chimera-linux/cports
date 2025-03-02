@@ -1,0 +1,11 @@
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -93,7 +93,7 @@ if is_asm_enabled
+             ],
+ 
+         include_directories: dav1d_inc_dirs,
+-        build_by_default: false,
++        build_by_default: true,
+         dependencies : [
+             thread_dependency,
+             rt_dependency,
