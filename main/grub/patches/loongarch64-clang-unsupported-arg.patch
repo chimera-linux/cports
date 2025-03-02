@@ -1,0 +1,13 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -897,8 +897,8 @@ if test "x$target_cpu" = xloongarch64; then
+     TARGET_CCASFLAGS="$TARGET_CCASFLAGS $grub_cv_target_cc_mno_relax"
+   fi
+ 
+-  TARGET_CFLAGS="$TARGET_CFLAGS -Wa,-mla-global-with-abs"
+-  TARGET_CCASFLAGS="$TARGET_CCASFLAGS -Wa,-mla-global-with-abs"
++  TARGET_CFLAGS="$TARGET_CFLAGS -mabi=lp64s"
++  TARGET_CCASFLAGS="$TARGET_CCASFLAGS -mabi=lp64s"
+ fi
+ 
+ # GRUB doesn't use float or doubles at all. Yet some toolchains may decide
