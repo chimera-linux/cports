@@ -100,7 +100,7 @@ _have_llvm = False
 
 # llvmpipe only properly supports a few archs
 match self.profile().arch:
-    case "x86_64" | "aarch64" | "ppc64le" | "riscv64":
+    case "x86_64" | "aarch64" | "loongarch64" | "ppc64le" | "riscv64":
         _have_llvm = True
     case _:
         configure_args += ["-Ddraw-use-llvm=false"]
@@ -125,6 +125,7 @@ _have_intel_igpu = False
 _have_vmware = False
 _have_nine = False
 _have_arm = False
+_have_loong = False
 _have_opencl = False
 _have_vulkan = False
 _have_zink = False
@@ -137,6 +138,8 @@ match self.profile().arch:
         _have_nine = True
     case "aarch64":
         _have_arm = True
+    case "loongarch64":
+        _have_loong = True
     case "ppc64le":
         configure_args += ["-Dpower8=true"]
     case "ppc64":
@@ -178,6 +181,9 @@ if _have_arm:
     ]
     if _have_vulkan:
         _vulkan_drivers += ["broadcom", "freedreno", "panfrost"]
+
+if _have_loong:
+    _gallium_drivers += ["etnaviv"]
 
 if _have_virgl:
     _gallium_drivers += ["virgl"]
