@@ -21,6 +21,11 @@ match self.profile().arch:
             "d802e9014030391045182ba5ebde796058fc210a43fb45333dccb2fc9a549bcd",
             "f944abc58e7a65f29303e49b3b72096459dfd9153dcb9fb2f9035d2188015614",
         ]
+    case "loongarch64":
+        sha256 = [
+            "b8b8e4e3575d7474f3c8e12d02c221bfe345d282a57ef5adb14fa831ea23b768",
+            "1bb0f75e1127ef23b0da051e1cf2d84e813ef11177870282a7621b6d5737d7c7",
+        ]
     case "ppc64le":
         sha256 = [
             "72360f97785d65b8a5f4f5b694c69e76704f8ee232aeec74df03115dbf902aab",
