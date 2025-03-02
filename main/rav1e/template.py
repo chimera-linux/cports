@@ -33,6 +33,19 @@ def post_extract(self):
     self.cp(self.sources_path / f"Cargo.lock.{pkgver}", "Cargo.lock")
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def post_build(self):
     self.cargo.cbuild()
 
