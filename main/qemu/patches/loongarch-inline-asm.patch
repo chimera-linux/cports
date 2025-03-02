@@ -1,0 +1,57 @@
+diff --git a/host/include/loongarch64/host/atomic128-ldst.h b/host/include/loongarch64/host/atomic128-ldst.h
+index 9a4a8f8..959ca11 100644
+--- a/host/include/loongarch64/host/atomic128-ldst.h
++++ b/host/include/loongarch64/host/atomic128-ldst.h
+@@ -28,7 +28,7 @@ static inline Int128 atomic16_read_ro(const Int128 *ptr)
+     asm("vld $vr0, %2, 0\n\t"
+         "vpickve2gr.d %0, $vr0, 0\n\t"
+         "vpickve2gr.d %1, $vr0, 1"
+-	: "=r"(l), "=r"(h) : "r"(ptr), "m"(*ptr) : "f0");
++	: "=r"(l), "=r"(h) : "r"(ptr), "m"(*ptr) : "$f0");
+ 
+     return int128_make128(l, h);
+ }
+@@ -46,7 +46,7 @@ static inline void atomic16_set(Int128 *ptr, Int128 val)
+     asm("vinsgr2vr.d $vr0, %1, 0\n\t"
+         "vinsgr2vr.d $vr0, %2, 1\n\t"
+         "vst $vr0, %3, 0"
+-	: "=m"(*ptr) : "r"(l), "r"(h), "r"(ptr) : "f0");
++	: "=m"(*ptr) : "r"(l), "r"(h), "r"(ptr) : "$f0");
+ }
+ 
+ #endif /* LOONGARCH_ATOMIC128_LDST_H */
+diff --git a/host/include/loongarch64/host/bufferiszero.c.inc b/host/include/loongarch64/host/bufferiszero.c.inc
+index 69891ea..95d9a8c 100644
+--- a/host/include/loongarch64/host/bufferiszero.c.inc
++++ b/host/include/loongarch64/host/bufferiszero.c.inc
+@@ -61,7 +61,7 @@ static bool buffer_is_zero_lsx(const void *buf, size_t len)
+     "2:"
+         : "=&r"(ret), "+r"(p)
+         : "r"(buf), "r"(e), "r"(l)
+-        : "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "fcc0");
++        : "$f0", "$f1", "$f2", "$f3", "$f4", "$f5", "$f6", "$f7", "$f8", "$fcc0");
+ 
+     return ret;
+ }
+@@ -119,7 +119,7 @@ static bool buffer_is_zero_lasx(const void *buf, size_t len)
+     "3:"
+         : "=&r"(ret), "+r"(p)
+         : "r"(buf), "r"(e), "r"(l)
+-        : "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "fcc0");
++        : "$f0", "$f1", "$f2", "$f3", "$f4", "$f5", "$f6", "$f7", "$f8", "$fcc0");
+ 
+     return ret;
+ }
+diff --git a/host/include/loongarch64/host/load-extract-al16-al8.h.inc b/host/include/loongarch64/host/load-extract-al16-al8.h.inc
+index d1fb59d..e22e11d 100644
+--- a/host/include/loongarch64/host/load-extract-al16-al8.h.inc
++++ b/host/include/loongarch64/host/load-extract-al16-al8.h.inc
+@@ -31,7 +31,7 @@ static inline uint64_t load_atom_extract_al16_or_al8(void *pv, int s)
+     asm("vld $vr0, %2, 0\n\t"
+         "vpickve2gr.d %0, $vr0, 0\n\t"
+         "vpickve2gr.d %1, $vr0, 1"
+-	: "=r"(l), "=r"(h) : "r"(ptr_align), "m"(*ptr_align) : "f0");
++	: "=r"(l), "=r"(h) : "r"(ptr_align), "m"(*ptr_align) : "$f0");
+ 
+     return (l >> shr) | (h << (-shr & 63));
+ }
