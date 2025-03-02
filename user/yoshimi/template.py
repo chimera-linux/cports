@@ -1,6 +1,6 @@
 pkgname = "yoshimi"
-pkgver = "2.3.3.2"
-pkgrel = 1
+pkgver = "2.3.3.3"
+pkgrel = 0
 build_style = "cmake"
 cmake_dir = "src"
 hostmakedepends = [
@@ -25,4 +25,4 @@ pkgdesc = "Software synthesizer"
 license = "GPL-2.0-or-later"
 url = "https://yoshimi.github.io"
 source = f"https://github.com/Yoshimi/yoshimi/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "edeeeb97d199396293b85296fb66157685bfcee69ca510327870525531803f8f"
+sha256 = "10b70d6bf577de3f36883b0e066d5de0b7291d4e4de3dee3b56df68feaed9469"
