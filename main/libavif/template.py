@@ -30,6 +30,8 @@ url = "https://github.com/AOMediaCodec/libavif"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "914662e16245e062ed73f90112fbb4548241300843a7772d8d441bb6859de45b"
 hardening = ["!vis", "!cfi"]
+# fails since libpng update, check again for 1.2
+options = ["!check"]
 
 
 def post_install(self):
