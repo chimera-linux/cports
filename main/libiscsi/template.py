@@ -2,6 +2,7 @@ pkgname = "libiscsi"
 pkgver = "1.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_args = ["--disable-werror"]
 configure_gen = ["./autogen.sh"]
 make_dir = "."
 hostmakedepends = ["automake", "libtool", "pkgconf"]
