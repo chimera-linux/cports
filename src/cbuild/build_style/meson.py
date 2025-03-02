@@ -20,7 +20,9 @@ def build(self):
         self.make_cmd,
         "-j",
         str(self.make_jobs),
+        self.make_build_target,
         *self.make_build_args,
+        "meson-test-prereq",
         wrksrc=self.make_dir,
         env=renv,
     )
@@ -57,6 +59,7 @@ def use(tmpl):
     tmpl.install = install
 
     tmpl.build_style_defaults = [
+        ("make_build_target", "all"),
         ("make_dir", "build"),
         ("make_cmd", "ninja"),
     ]

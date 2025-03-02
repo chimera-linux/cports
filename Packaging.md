@@ -1362,6 +1362,7 @@ Variables:
 
 Default values:
 
+* `make_build_target` = `all`
 * `make_dir` = `build`
 * `make_cmd` = `ninja`
 
@@ -1371,12 +1372,17 @@ around the `meson` utility module API `configure`, `install`, and `test`, except
 
 The `self.make_dir` value is passed as `build_dir`. The `self.configure_args`,
 `self.make_build_args`, `self.make_check_args`, `self.make_install_args` values
-are passed as extra arguments. The given environments are made up of the values
+are passed as extra arguments. The `self.make_build_target` is also passed and
+usually should not be user-set. The given environments are made up of the values
 of `self.make_env` (for every step besides `configure`) combined with the
 values of `self.configure_env`, `self.make_build_env`, `self.make_check_env`,
 `self.make_install_env`. Wrappers are allowed for everything but `configure`,
 using the combination of `self.make_wrapper` with `self.make_build_wrapper`,
 `self.make_check_wrapper` and `self.make_install_wrapper`.
+
+During build, `meson-test-prereq` is also unconditionally passed in the build
+targets to ensure all test prerequisites are built. There should never be a need
+to override this.
 
 Note these are passed by the build style only, and manual `meson` invocations
 do not receive them.
