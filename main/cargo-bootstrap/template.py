@@ -17,6 +17,10 @@ match self.profile().arch:
         sha256 = (
             "6b5d29babfcef4f8bc8300dacadc57b4d4d887d3fde98c876ada87f0f166887b"
         )
+    case "loongarch64":
+        sha256 = (
+            "b2586f6bc72bd1028379cc67bf2ee9373a048378072ebda0ffd5a23f2bd23d0c"
+        )
     case "ppc64le":
         sha256 = (
             "a37e89832f7aa73b268b3cb63f6c9b88966fc15e6a4ed1a3f52669f3ca432c54"
