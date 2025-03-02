@@ -18,6 +18,19 @@ sha256 = "1ef78b61a8792f5fd2f1b85ad8384d9e810e081c02668c40701aa00115e9503e"
 options = ["!check"]
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def post_patch(self):
     from cbuild.util import cargo
 
