@@ -1,0 +1,19 @@
+this gets enabled under clang but takes paths that do not build
+
+--- a/meson.build
++++ b/meson.build
+@@ -2948,10 +2948,13 @@ if has_int128_type
+       return 0;
+     }'''
+   has_atomic128 = cc.links(atomic_test_128, args: qemu_isa_flags)
++  if host_machine.cpu_family() == 'loongarch64'
++    has_atomic128 = false
++  endif
+ 
+   config_host_data.set('CONFIG_ATOMIC128', has_atomic128)
+ 
+-  if not has_atomic128
++  if not has_atomic128 and host_machine.cpu_family() != 'loongarch64'
+     # Even with __builtin_assume_aligned, the above test may have failed
+     # without optimization enabled.  Try again with optimizations locally
+     # enabled for the function.  See
