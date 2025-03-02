@@ -1,7 +1,7 @@
 pkgname = "binutils"
 pkgver = "2.44"
 _llvmver = "19.1.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -59,7 +59,15 @@ sha256 = [
 options = ["!check", "!lto", "linkundefver", "empty"]
 
 # currently built targets, includes the native target
-_targets = ["aarch64", "ppc64le", "ppc64", "ppc", "riscv64", "x86_64"]
+_targets = [
+    "aarch64",
+    "loongarch64",
+    "ppc64le",
+    "ppc64",
+    "ppc",
+    "riscv64",
+    "x86_64",
+]
 
 
 def post_extract(self):
