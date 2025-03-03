@@ -1,0 +1,12 @@
+pkgname = "perl-encode-locale"
+pkgver = "1.05"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Encode::Locale - Determine the locale encoding"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/release/Encode-Locale"
+source = f"$(CPAN_SITE)/Encode/Encode-Locale-{pkgver}.tar.gz"
+sha256 = "176fa02771f542a4efb1dbc2a4c928e8f4391bf4078473bd6040d8f11adb0ec1"
