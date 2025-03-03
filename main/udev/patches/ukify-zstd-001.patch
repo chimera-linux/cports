@@ -1,0 +1,75 @@
+From fbc6fecf1adbd34bd541c04d04ceef2695caa80a Mon Sep 17 00:00:00 2001
+From: Luca Boccassi <luca.boccassi@gmail.com>
+Date: Thu, 13 Feb 2025 19:38:45 +0000
+Subject: [PATCH] ukify: switch from zstd to zstandard
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The zstd library does not support stream decompression, and it
+requires the zstd header to contain extra metadata, that the kernel
+build does not append:
+
+$ file -k vmlinuz-6.13+unreleased-cloud-arm64
+vmlinuz-6.13+unreleased-cloud-arm64: PE32+ executable (EFI application) Aarch64 (stripped to external PDB), for MS Windows, 2 sections\012- data
+$ ukify build --linux vmlinuz-6.13+unreleased-cloud-arm64 --initrd /boot/initrd.img-6.12.12-amd64 --output uki
+Kernel version not specified, starting autodetection 😖.
+Real-Mode Kernel Header magic not found
++ readelf --notes vmlinuz-6.13+unreleased-cloud-arm64
+readelf: Error: Not an ELF file - it has the wrong magic bytes at the start
+Traceback (most recent call last):
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 2508, in <module>
+    main()
+    ~~~~^^
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 2497, in main
+    make_uki(opts)
+    ~~~~~~~~^^^^^^
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 1326, in make_uki
+    opts.uname = Uname.scrape(linux, opts=opts)
+                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 382, in scrape
+    version = func(filename, opts=opts)
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 372, in scrape_generic
+    text = maybe_decompress(filename)
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 219, in maybe_decompress
+    return get_zboot_kernel(f)
+  File "/home/bluca/git/systemd/src/ukify/ukify.py", line 199, in get_zboot_kernel
+    return cast(bytes, zstd.uncompress(f.read(size)))
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+zstd.Error: Input data invalid or missing content size in frame header.
+
+This appears to be by design:
+
+https://github.com/sergey-dryabzhinsky/python-zstd/issues/53
+
+Switch to python3-zstandard, which works.
+---
+ src/ukify/ukify.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/ukify/ukify.py b/src/ukify/ukify.py
+index 9013e64b62da5..85b8d612f5246 100755
+--- a/src/ukify/ukify.py
++++ b/src/ukify/ukify.py
+@@ -195,8 +195,8 @@ def get_zboot_kernel(f: IO[bytes]) -> bytes:
+     elif comp_type.startswith(b'xzkern'):
+         raise NotImplementedError('xzkern decompression not implemented')
+     elif comp_type.startswith(b'zstd22'):
+-        zstd = try_import('zstd')
+-        return zstd.uncompress(f.read(size))
++        zstd = try_import('zstandard')
++        return zstd.ZstdDecompressor().stream_reader(f.read(size)).read()
+     else:
+         raise NotImplementedError(f'unknown compressed type: {comp_type}')
+ 
+@@ -226,8 +226,8 @@ def maybe_decompress(filename: Union[str, Path]) -> bytes:
+         return gzip.open(f).read()
+ 
+     if start.startswith(b'\x28\xb5\x2f\xfd'):
+-        zstd = try_import('zstd')
+-        return zstd.uncompress(f.read())
++        zstd = try_import('zstandard')
++        return zstd.ZstdDecompressor().stream_reader(f.read()).read()
+ 
+     if start.startswith(b'\x02\x21\x4c\x18'):
+         lz4 = try_import('lz4.frame', 'lz4')

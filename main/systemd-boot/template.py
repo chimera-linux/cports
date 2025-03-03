@@ -1,6 +1,6 @@
 pkgname = "systemd-boot"
 pkgver = "256.11"
-pkgrel = 2
+pkgrel = 3
 archs = ["aarch64", "loongarch64", "riscv64", "x86_64"]
 build_style = "meson"
 configure_args = [
@@ -213,7 +213,9 @@ def _(self):
     self.provides = [self.with_pkgver("ukify")]
     self.depends = [
         self.with_pkgver("systemd-boot-efi"),
+        "cmd:readelf!llvm-binutils",
         "python-pefile",
+        "python-zstandard",
         "tpm2-tss",  # dlopened
     ]
 
