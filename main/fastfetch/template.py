@@ -1,5 +1,5 @@
 pkgname = "fastfetch"
-pkgver = "2.37.0"
+pkgver = "2.38.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -30,7 +30,7 @@ pkgdesc = "Neofetch-like system information fetching tool"
 license = "MIT"
 url = "https://github.com/fastfetch-cli/fastfetch"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a5739be74686fefc731f7ce1669c645ca98172ae3ed5e7c3d48176df43aea5af"
+sha256 = "f64635bfc1b42a2e845e3f3f38531a641de8203300112504b9eddc5a61f38f6a"
 tool_flags = {"CFLAGS": ["-DNDEBUG"]}
 # CFI: dies immediately (ffPlatformPathAddHome at FFlist.c:31:12)
 hardening = ["vis", "!cfi"]
