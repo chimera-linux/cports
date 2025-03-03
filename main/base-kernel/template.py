@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.2"
-pkgrel = 14
+pkgrel = 15
 depends = [
     "kmod",
     "procps",

@@ -342,7 +342,13 @@ do_build() {
         powerpc) args="zImage modules dtbs";;
         arm) args="zImage modules dtbs";;
         arm64|riscv) args="Image modules dtbs";;
-        loongarch) args="vmlinuz.efi dtbs";;
+        loongarch)
+            if grep "^CONFIG_EFI_ZBOOT=y" "${OBJDIR}/.config" > /dev/null; then
+                args="vmlinuz.efi dtbs"
+            else
+                args="vmlinux.efi dtbs"
+            fi
+        ;;
     esac
 
     unset LDFLAGS
@@ -436,9 +442,15 @@ do_install() {
                 || die "failed to install dtbs"
             ;;
         loongarch)
-            install -m 644 "${OBJDIR}/arch/${ARCH}/boot/vmlinuz.efi" \
-                "${DESTDIR}/boot/vmlinuz-${kernver}" \
+            if grep "^CONFIG_EFI_ZBOOT=y" "${OBJDIR}/.config" > /dev/null; then
+                kernel_name="vmlinuz"
+            else
+                kernel_name="vmlinux"
+            fi
+            install -m 644 "${OBJDIR}/arch/${ARCH}/boot/${kernel_name}.efi" \
+                "${DESTDIR}/boot/${kernel_name}-${kernver}" \
                 || die "failed to install kernel"
+            unset kernel_name
             call_make dtbs_install \
                 INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}" \
                 || die "failed to install dtbs"
