@@ -1,0 +1,10 @@
+--- a/Source/ThirdParty/skia/src/core/SkCpu.cpp
++++ b/Source/ThirdParty/skia/src/core/SkCpu.cpp
+@@ -73,6 +73,7 @@
+     }
+ #elif defined(SK_CPU_LOONGARCH)
+     #include <sys/auxv.h>
++    #include <asm/hwcap.h>
+     static uint32_t read_cpu_features(void)
+     {
+         uint64_t features = 0;
