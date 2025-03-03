@@ -1,0 +1,13 @@
+pkgname = "perl-digest-md5"
+pkgver = "1.9"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+checkdepends = ["perl"]
+depends = ["perl"]
+pkgdesc = "Perl implementation of Ron Rivests MD5 Algorithm"
+license = "Artistic-1.0-Perl"
+url = "https://metacpan.org/pod/Digest::Perl::MD5"
+source = f"https://cpan.metacpan.org/authors/id/D/DE/DELTA/Digest-Perl-MD5-{pkgver}.tar.gz"
+sha256 = "7100cba1710f45fb0e907d8b1a7bd8caef35c64acd31d7f225aff5affeecd9b1"
