@@ -47,6 +47,9 @@ nopie_files = ["usr/lib/grub/*"]
 # single completion file for multiple commands
 options = ["!lintcomp"]
 
+if self.profile().arch == "loongarch64":
+    broken = "causes a machine exception at runtime"
+
 exec_wrappers = []
 _tpl = self.profile().triplet
 # fool the build system into using llvm for these tools
