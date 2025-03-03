@@ -1,0 +1,13 @@
+pkgname = "perl-test-warn"
+pkgver = "0.37"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["perl"]
+makedepends = ["perl"]
+checkdepends = ["perl", "perl-sub-uplevel"]
+depends = [*checkdepends]
+pkgdesc = "Perl extension to test methods for warnings"
+license = "Artistic-1.0-Perl"
+url = "https://metacpan.org/pod/Test::Warn"
+source = f"$(CPAN_SITE)/Test/Test-Warn-{pkgver}.tar.gz"
+sha256 = "98ca32e7f2f5ea89b8bfb9a0609977f3d153e242e2e51705126cb954f1a06b57"
