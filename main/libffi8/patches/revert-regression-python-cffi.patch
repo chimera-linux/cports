@@ -1,0 +1,40 @@
+This manifests in python-cffi testsuite:
+
+    def test_cannot_pass_float():
+        for basetype in ['char', 'short', 'int', 'long', 'long long']:
+            for sign in ['signed', 'unsigned']:
+                type = '%s %s' % (sign, basetype)
+                ffi = FFI()
+                ffi.cdef("struct foo_s { %s x; };\n"
+                         "int foo(%s);" % (type, type))
+                lib = ffi.verify("""
+                    struct foo_s { %s x; };
+                    int foo(%s arg) {
+                        return !arg;
+                    }
+                """ % (type, type))
+                p = ffi.new("struct foo_s *")
+                with pytest.raises(TypeError):
+                    p.x = 0.0
+                assert lib.foo(42) == 0
+>               assert lib.foo(0) == 1
+E               AssertionError: assert 0 == 1
+E                +  where 0 = <cdata 'int(*)(unsigned char)' 0x7cc8b44286a0>(0)
+E                +    where <cdata 'int(*)(unsigned char)' 0x7cc8b44286a0> = <module ''>.foo
+
+testing/cffi0/test_verify.py:1558: AssertionError
+
+The commit https://github.com/libffi/libffi/commit/d21881f55ed4a44d464c9091871e69b0bb47611a
+was found to be the regression, so revert until the real culprit is identified.
+
+--- a/src/x86/ffi64.c
++++ b/src/x86/ffi64.c
+@@ -654,7 +654,7 @@ ffi_call_int (ffi_cif *cif, void (*fn)(void), void *rvalue,
+ 		      break;
+ 		    default:
+ 		      reg_args->gpr[gprcount] = 0;
+-		      memcpy (&reg_args->gpr[gprcount], a, sizeof(UINT64));
++		      memcpy (&reg_args->gpr[gprcount], a, size);
+ 		    }
+ 		  gprcount++;
+ 		  break;

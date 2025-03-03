@@ -1,6 +1,6 @@
 pkgname = "libffi8"
 pkgver = "3.4.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--includedir=/usr/include",
