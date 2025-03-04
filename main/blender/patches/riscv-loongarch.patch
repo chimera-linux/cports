@@ -17,7 +17,7 @@
 +#    define ARCH_CPU_LITTLE_ENDIAN 1
 +#  endif
 +#elif defined(__loongarch__)
-+#  if defined(__longarch64)
++#  if defined(__loongarch64)
 +#    define ARCH_CPU_LOONGARCH_FAMILY 1
 +#    define ARCH_CPU_LOONGARCH64 1
 +#    define ARCH_CPU_64_BITS 1
