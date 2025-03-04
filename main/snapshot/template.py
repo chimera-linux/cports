@@ -23,8 +23,8 @@ makedepends = [
 depends = [
     "glycin-loaders",
     "gst-plugins-rs-gtk4",
-    "gstreamer-libcamera",
-    "gstreamer-pipewire",
+    "libcamera-gstreamer",
+    "pipewire-gstreamer",
 ]
 pkgdesc = "GNOME camera app"
 license = "GPL-3.0-or-later"
