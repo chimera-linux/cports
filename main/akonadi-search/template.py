@@ -46,6 +46,18 @@ sha256 = "4db76af8f3ea51c15c45044ca8a9f56cc35660cd32eb2fbdbed88f4b1c19c038"
 def prepare(self):
     from cbuild.util import cargo
 
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+        wrksrc="agent/rs/htmlparser",
+    )
+
     cargo.Cargo(self, wrksrc="agent/rs/htmlparser").vendor()
 
 
