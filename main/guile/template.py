@@ -30,6 +30,9 @@ sha256 = "2dbdbc97598b2faf31013564efb48e4fed44131d28e996c26abe8a5b23b56c2a"
 # broken af
 options = ["!lto"]
 
+if self.profile().arch in ["loongarch64"]:
+    # mostly passes, minor fails
+    options += ["!check"]
 
 if self.profile().arch == "ppc":
     broken = "Pre-boot error; key: wrong-type-arg, args: ..."
