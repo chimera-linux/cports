@@ -39,6 +39,10 @@ sha256 = "19274fd739c023772b4212a0b6c201cf4364855fa7e6a7d3db49693f55db1ab8"
 # lto: some udp tests fail otherwise
 options = ["!lto"]
 
+if self.profile().arch in ["loongarch64"]:
+    # rwlock test timeout, otherwise good
+    options += ["!check"]
+
 
 def post_install(self):
     self.install_service(self.files_path / "named")
