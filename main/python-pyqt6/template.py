@@ -1,5 +1,5 @@
 pkgname = "python-pyqt6"
-pkgver = "6.8.0"
+pkgver = "6.8.1"
 pkgrel = 0
 build_style = "makefile"
 make_dir = "build"
@@ -26,8 +26,8 @@ depends = ["python-pyqt6_sip"]
 pkgdesc = "Python Qt6 bindings"
 license = "GPL-3.0-only"
 url = "https://www.riverbankcomputing.com/software/pyqt"
-source = f"$(PYPI_SITE)/P/PyQt6/PyQt6-{pkgver}.tar.gz"
-sha256 = "6d8628de4c2a050f0b74462e4c9cb97f839bf6ffabbca91711722ffb281570d9"
+source = f"$(PYPI_SITE)/P/PyQt6/pyqt6-{pkgver}.tar.gz"
+sha256 = "91d937d6166274fafd70f4dee11a8da6dbfdb0da53de05f5d62361ddf775e256"
 # qmake needs a lot of setup to cross anything
 options = ["!cross"]
 
