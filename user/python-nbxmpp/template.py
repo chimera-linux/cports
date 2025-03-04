@@ -1,5 +1,5 @@
 pkgname = "python-nbxmpp"
-pkgver = "5.0.4"
+pkgver = "6.0.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -21,4 +21,4 @@ pkgdesc = "XMPP Library"
 license = "GPL-3.0-or-later"
 url = "https://dev.gajim.org/gajim/python-nbxmpp"
 source = f"$(PYPI_SITE)/n/nbxmpp/nbxmpp-{pkgver}.tar.gz"
-sha256 = "166ea10ff643dae7911b764393d3baf5298062b431d48ac67a439436c861d611"
+sha256 = "5049a30222670edabcbd7d8ed657063e240d2cec0d3cdb19c8098e676f35f80a"
