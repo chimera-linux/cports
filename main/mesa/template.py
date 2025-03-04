@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "25.0.0"
-pkgrel = 0
+pkgver = "24.3.4"
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
