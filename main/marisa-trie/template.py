@@ -1,7 +1,7 @@
 pkgname = "marisa-trie"
 # match to python-marisa
 pkgver = "0.2.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
