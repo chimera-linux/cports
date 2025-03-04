@@ -1,0 +1,43 @@
+don't include it if we're not using it
+
+also a workaround for loongarch, highway.h fails to include
+
+--- a/numpy/_core/src/umath/loops_trigonometric.dispatch.cpp
++++ b/numpy/_core/src/umath/loops_trigonometric.dispatch.cpp
+@@ -3,8 +3,10 @@
+ #include "loops_utils.h"
+ 
+ #include "simd/simd.h"
++#if NPY_SIMD_FMA3
+ #include <hwy/highway.h>
+ namespace hn = hwy::HWY_NAMESPACE;
++#endif
+ 
+ /*
+  * Vectorized approximate sine/cosine algorithms: The following code is a
+--- a/numpy/_core/src/npysort/highway_qsort.hpp
++++ b/numpy/_core/src/npysort/highway_qsort.hpp
+@@ -1,10 +1,15 @@
+ #ifndef NUMPY_SRC_COMMON_NPYSORT_HWY_SIMD_QSORT_HPP
+ #define NUMPY_SRC_COMMON_NPYSORT_HWY_SIMD_QSORT_HPP
+ 
++#ifdef __loongarch__
++#define NPY_DISABLE_HIGHWAY_SORT
++#else
+ #include "hwy/highway.h"
++#endif
+ 
+ #include "common.hpp"
+ 
++#ifndef NPY_DISABLE_HIGHWAY_SORT
+ // This replicates VQSORT_ENABLED from hwy/contrib/sort/shared-inl.h
+ // without checking the scalar target as this is not built within the dynamic
+ // dispatched sources.
+@@ -15,6 +20,7 @@
+     (HWY_IS_HWASAN || HWY_IS_MSAN || HWY_IS_TSAN || HWY_IS_ASAN))
+ #define NPY_DISABLE_HIGHWAY_SORT
+ #endif
++#endif
+ 
+ #ifndef NPY_DISABLE_HIGHWAY_SORT
+ namespace np { namespace highway { namespace qsort_simd {
