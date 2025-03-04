@@ -45,7 +45,7 @@ sha256 = [
 options = ["!check"]
 
 
-if self.profile().arch == "riscv64":
+if self.profile().arch in ["loongarch64", "riscv64"]:
     broken = "cgo runtime stuff"
 
 
