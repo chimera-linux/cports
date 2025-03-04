@@ -23,10 +23,11 @@ source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkg
 sha256 = "ed6906f61834d687738d25988ae117683705636936cc605be0bb208b23df4d8f"
 hardening = ["!int"]
 
-if self.profile().arch == "aarch64":
+if self.profile().arch in ["aarch64", "loongarch64"]:
     # FIXME: segfault in python in
     # test_half_ordering and test_sort_degrade
     # with this enabled
+    # also fails to build on loongarch
     make_build_args += [
         "--config-setting",
         "setup-args=-Ddisable-highway=true",
