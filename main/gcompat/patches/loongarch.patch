@@ -1,0 +1,21 @@
+--- a/libgcompat/execinfo.c
++++ b/libgcompat/execinfo.c
+@@ -25,6 +25,10 @@
+ int backtrace(void **array, int size)
+ {
+ 	get_frame_level(array, size, 0);
++#ifdef __loongarch__
++	/* https://github.com/llvm/llvm-project/blob/llvmorg-19.1.7/llvm/lib/Target/LoongArch/LoongArchISelLowering.cpp#L1538 */
++	return 1;
++#else
+ 	get_frame_level(array, size, 1);
+ 	get_frame_level(array, size, 2);
+ 	get_frame_level(array, size, 3);
+@@ -35,6 +39,7 @@ int backtrace(void **array, int size)
+ 	get_frame_level(array, size, 8);
+ 	get_frame_level(array, size, 9);
+ 	return 10;
++#endif
+ }
+ 
+ /**
