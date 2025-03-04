@@ -7,10 +7,7 @@ hostmakedepends = [
     "python-installer",
     "python-setuptools",
 ]
-depends = [
-    "python-py-cpuinfo",
-    "python-pytest",
-]
+depends = ["python-pytest"]
 checkdepends = [*depends]
 pkgdesc = "Pytest fixture for benchmarking"
 license = "BSD-2-Clause"
@@ -19,6 +16,17 @@ source = f"$(PYPI_SITE)/p/pytest-benchmark/pytest-benchmark-{pkgver}.tar.gz"
 sha256 = "9ea661cdc292e8231f7cd4c10b0319e56a2118e2c09d9f50e1b3d150d2aca105"
 # FIXME
 options = ["!check"]
+
+if self.profile().arch in [
+    "aarch64",
+    "ppc64le",
+    "ppc64",
+    "ppc",
+    "riscv64",
+    "x86_64",
+]:
+    depends += ["python-py-cpuinfo"]
+    checkdepends += ["python-py-cpuinfo"]
 
 
 def post_install(self):

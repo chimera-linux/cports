@@ -1,0 +1,19 @@
+this is not available on all platforms
+
+--- a/src/pytest_benchmark/plugin.py
++++ b/src/pytest_benchmark/plugin.py
+@@ -389,9 +389,11 @@ def pytest_terminal_summary(terminalreporter):
+ 
+ 
+ def get_cpu_info():
+-    import cpuinfo
+-
+-    return cpuinfo.get_cpu_info() or {}
++    try:
++        import cpuinfo
++        return cpuinfo.get_cpu_info() or {}
++    except ModuleNotFoundError:
++        return {}
+ 
+ 
+ def pytest_benchmark_scale_unit(config, unit, benchmarks, best, worst, sort):
