@@ -1,7 +1,15 @@
 pkgname = "openblas"
 pkgver = "0.3.29"
 pkgrel = 0
-archs = ["aarch64", "ppc", "ppc64", "ppc64le", "riscv64", "x86_64"]
+archs = [
+    "aarch64",
+    "loongarch64",
+    "ppc",
+    "ppc64",
+    "ppc64le",
+    "riscv64",
+    "x86_64",
+]
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -21,6 +29,8 @@ _have_omp = True
 match self.profile().arch:
     case "aarch64":
         configure_args += ["-DTARGET=ARMV8"]
+    case "loongarch64":
+        configure_args += ["-DTARGET=LA64_GENERIC"]
     case "ppc":
         configure_args += ["-DTARGET=PPCG4"]
         _have_omp = False
@@ -33,7 +43,7 @@ match self.profile().arch:
     case "x86_64":
         configure_args += ["-DTARGET=GENERIC"]
 
-# riscv64 dynamic_arch is currently broken
+# riscv64/loongarch64 dynamic_arch is currently broken
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     configure_args += ["-DDYNAMIC_ARCH=ON"]
 
