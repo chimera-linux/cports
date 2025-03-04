@@ -196,7 +196,9 @@ def _(self):
     # transitional
     self.provides = [self.with_pkgver("libunwind-mingw-w64")]
     for an in _targets:
-        self.depends.append(self.with_pkgver(f"libunwind-mingw-w64-{an}"))
+        self.depends.append(
+            self.with_pkgver(f"llvm-runtimes-mingw-w64-libunwind-{an}")
+        )
 
     return []
 
@@ -209,7 +211,9 @@ def _(self):
     # transitional
     self.provides = [self.with_pkgver("libcxxabi-mingw-w64")]
     for an in _targets:
-        self.depends.append(self.with_pkgver(f"libcxxabi-mingw-w64-{an}"))
+        self.depends.append(
+            self.with_pkgver(f"llvm-runtimes-mingw-w64-libcxxabi-{an}")
+        )
 
     return []
 
@@ -222,6 +226,8 @@ def _(self):
     # transitional
     self.provides = [self.with_pkgver("libcxx-mingw-w64")]
     for an in _targets:
-        self.depends.append(self.with_pkgver(f"libcxx-mingw-w64-{an}"))
+        self.depends.append(
+            self.with_pkgver(f"llvm-runtimes-mingw-w64-libcxx-{an}")
+        )
 
     return []
