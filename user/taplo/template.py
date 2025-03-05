@@ -25,6 +25,19 @@ source = f"https://github.com/tamasfe/taplo/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "65510664071252541e66f603dc9aa04016c38d62299061419c95d3bffaa73125"
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def install(self):
     self.install_license("LICENSE.md")
     self.install_bin(f"target/{self.profile().triplet}/release/taplo")
