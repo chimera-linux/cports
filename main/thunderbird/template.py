@@ -98,7 +98,9 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.clear_vendor_checksums(self, "libc", vendor_dir="third_party/rust")
-    cargo.clear_vendor_checksums(self, "libc", vendor_dir="comm/third_party/rust")
+    cargo.clear_vendor_checksums(
+        self, "libc", vendor_dir="comm/third_party/rust"
+    )
 
 
 def init_configure(self):
