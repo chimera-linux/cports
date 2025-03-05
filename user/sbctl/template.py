@@ -16,7 +16,7 @@ sha256 = "528f852285cea2c96175db8872aa83427f5e200e2d09ea9383037432d45965be"
 # fails
 options = ["!cross"]
 
-if self.profile().arch in ["ppc64", "ppc64le"]:
+if self.profile().arch in ["loongarch64", "ppc64", "ppc64le"]:
     # not supported by go-tpm-tools simulator
     options += ["!check"]
 
