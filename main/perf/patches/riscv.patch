@@ -10,6 +10,8 @@ This seems to be because with an empty archive the linker cannot infer what
 target emulation to use (with bfd this does not happen as bfd is a single-arch
 linker where the default depends on build config).
 
+same thing happens on loongarch
+
 diff --git a/tools/arch/riscv/include/asm/barrier.h b/tools/arch/riscv/include/asm/barrier.h
 index e63eabc..12ebc65 100644
 --- a/tools/arch/riscv/include/asm/barrier.h
@@ -42,5 +44,26 @@ new file mode 100644
 index 0000000..4c875d2
 --- /dev/null
 +++ b/tools/perf/arch/riscv/tests/arch-tests.c
+@@ -0,0 +1 @@
++/* placeholder file so perf-test-in.o is not an empty archive, to allow linker to detect stuff */
+diff --git a/tools/perf/arch/loongarch/Build b/tools/perf/arch/loongarch/Build
+index e63eabc..12ebc65 100644
+--- a/tools/perf/arch/loongarch/Build
++++ b/tools/perf/arch/loongarch/Build
+@@ -1 +1,2 @@
+ perf-util-y += util/
++perf-test-y += tests/
+diff --git a/tools/perf/arch/loongarch/tests/Build b/tools/perf/arch/loongarch/tests/Build
+new file mode 100644
+index 0000000..06b2166
+--- /dev/null
++++ b/tools/perf/arch/loongarch/tests/Build
+@@ -0,0 +1 @@
++perf-test-y += arch-tests.o
+diff --git a/tools/perf/arch/loongarch/tests/arch-tests.c b/tools/perf/arch/loongarch/tests/arch-tests.c
+new file mode 100644
+index 0000000..4c875d2
+--- /dev/null
++++ b/tools/perf/arch/loongarch/tests/arch-tests.c
 @@ -0,0 +1 @@
 +/* placeholder file so perf-test-in.o is not an empty archive, to allow linker to detect stuff */
