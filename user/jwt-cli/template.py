@@ -13,6 +13,19 @@ sha256 = "49d67d920391978684dc32b75e553a2abbd46c775365c0fb4b232d22c0ed653a"
 options = ["!cross"]
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def post_build(self):
     for shell in ["bash", "fish", "zsh", "nushell"]:
         with open(self.cwd / f"jwt.{shell}", "w") as outf:
