@@ -1,6 +1,7 @@
 pkgname = "reptyr"
 pkgver = "0.10.0"
 pkgrel = 0
+archs = ["aarch64", "ppc64le", "ppc64", "ppc", "riscv64", "x86_64"]
 build_style = "makefile"
 make_install_args = ["BASHCOMPDIR=/usr/share/bash-completion/completions"]
 make_check_target = "test"
