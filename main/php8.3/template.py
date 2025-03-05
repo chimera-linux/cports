@@ -126,6 +126,10 @@ url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
 sha256 = "61441627dca50cf0173e3f054ffe8c4f5db6552555c43cab87a8ecacfd201c7e"
 
+if self.profile().arch in ["loongarch64"]:
+    makedepends += ["libucontext-devel"]
+    tool_flags = {"LDFLAGS": ["-lucontext"]}
+
 
 def post_patch(self):
     # Workaround issue with gettext tests
