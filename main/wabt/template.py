@@ -43,6 +43,12 @@ sha256 = [
     "052dbb79eeaedbaa7af068b7b85e1125d187719b597e2242fb2cfabf51226e73",
     "34010745593cfb395fd483a0f65688dcd61e3f16de574edb5d43ea2cfbd57131",
 ]
+# may disable check
+options = []
+
+if self.profile().arch in ["loongarch64"]:
+    # does unsupported rounding mode overrides in tests
+    options += ["!check"]
 
 
 def check(self):
