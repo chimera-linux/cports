@@ -1,0 +1,37 @@
+or we get:
+
+awk: gensub doesn't support backreferences (subst "\1")
+
+--- a/gcc/config/loongarch/genopts/genstr.sh
++++ b/gcc/config/loongarch/genopts/genstr.sh
+@@ -58,7 +58,7 @@ EOF
+     echo
+ 
+ 	# Generate the strings from isa-evolution.in.
+-	awk '{
++	gawk '{
+ 	  a=$3
+ 	  gsub(/-/, "_", a)
+ 	  print("#define OPTSTR_"toupper(a)"\t\""$3"\"")
+@@ -103,7 +103,7 @@ EOF
+     }
+ 
+     # Generate the strings from isa-evolution.in.
+-    awk '{
++    gawk '{
+       print("")
+       print("m"$3)
+       gsub(/-/, "_", $3)
+@@ -117,10 +117,10 @@ EOF
+ main() {
+     case "$1" in
+ 	evolution_h)
+-            awk -v header_p=1 -f gen-evolution.awk isa-evolution.in
++            gawk -v header_p=1 -f gen-evolution.awk isa-evolution.in
+             ;;
+ 	evolution_c)
+-            awk -v header_p=0 -f gen-evolution.awk isa-evolution.in
++            gawk -v header_p=0 -f gen-evolution.awk isa-evolution.in
+             ;;
+ 	header)
+             gen_defines
