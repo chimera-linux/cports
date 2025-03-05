@@ -1490,6 +1490,7 @@ def _get_unbuilt(outdated=False):
             False,
             None,
             init=False,
+            allow_restricted=opt_restricted,
         )
         mods[pn] = tmpl
         modv = tmpl._raw_mod
