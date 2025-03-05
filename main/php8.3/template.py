@@ -1,7 +1,7 @@
 pkgname = "php8.3"
 _majver = "8.3"
 pkgver = f"{_majver}.16"
-pkgrel = 0
+pkgrel = 1
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -53,6 +53,7 @@ configure_args = [
     "--with-bz2=shared",
     "--with-curl=shared",
     "--with-external-gd",
+    "--with-external-pcre",
     "--with-ffi=shared",
     "--with-gettext=shared",
     "--with-gmp=shared",
@@ -111,6 +112,7 @@ makedepends = [
     "oniguruma-devel",
     "openldap-devel",
     "openssl3-devel",
+    "pcre2-devel",
     "sqlite-devel",
     "unixodbc-devel",
     "zlib-ng-compat-devel",
@@ -204,6 +206,10 @@ def post_patch(self):
         "ext/intl/tests/bug62070_3.phpt",
         "ext/intl/tests/collator_get_sort_key_variant7.phpt",
         "ext/intl/tests/timezone_IDforWindowsID_basic2.phpt",
+        # external pcre
+        "ext/pcre/tests/bug75457.phpt",
+        # updated curl
+        "ext/curl/tests/curl_basic_022.phpt",
     ]:
         self.rm(f, glob=True)
 
