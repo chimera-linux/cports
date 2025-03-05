@@ -1471,10 +1471,14 @@ def _get_unbuilt(outdated=False):
 
     # stage versions come first
     for cat in cats:
-        _collect_vers(paths.stage_repository() / cat)
+        bpath = paths.stage_repository() / cat
+        _collect_vers(bpath)
+        _collect_vers(bpath / "debug")
     # actual repo
     for cat in cats:
-        _collect_vers(paths.repository() / cat)
+        bpath = paths.repository() / cat
+        _collect_vers(bpath)
+        _collect_vers(bpath / "debug")
 
     vers = []
     mods = {}
