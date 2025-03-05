@@ -12,3 +12,6 @@ sha256 = "eb7e11511f77558d72b5b3b0c9defb04b269637e5c8a4ad9b45d21382e9247d2"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
+
+if self.profile().arch in ["loongarch64"]:
+    broken = "outdated nix crate, can't update"
