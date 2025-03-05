@@ -28,3 +28,5 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.com/virt-viewer/virt-viewer"
 source = f"{url}/-/archive/v{pkgver}/virt-viewer-v{pkgver}.tar.bz2"
 sha256 = "9928f91c55029aaba270c0d29d31936d873e0e5b8fd073716d58401120d99e23"
+# unmatched bashcomp
+options = ["!lintcomp"]
