@@ -13,5 +13,18 @@ source = f"{url}/-/archive/diceware-v{pkgver}/rusty-diceware-diceware-v{pkgver}.
 sha256 = "a3301f585149af8818d10972238656b9586a3fd78a6842150aec6d0ae8e4dbe8"
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def post_install(self):
     self.install_license("LICENSE")
