@@ -18,6 +18,19 @@ env = {
 options = ["!check", "!cross"]
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def post_build(self):
     self.do("make", "shotman.1")
 
