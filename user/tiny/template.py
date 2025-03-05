@@ -19,6 +19,9 @@ url = "https://github.com/osa1/tiny"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "599697fa736d7500b093566a32204691093bd16abd76f43a76b761487a7c584c"
 
+if self.profile().arch in ["loongarch64"]:
+    broken = "outdated nix crate, can't update"
+
 
 def install(self):
     self.cargo.install(wrksrc="crates/tiny")
