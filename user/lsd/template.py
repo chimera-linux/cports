@@ -13,6 +13,19 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "120935c7e98f9b64488fde39987154a6a5b2236cb65ae847917012adf5e122d1"
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def post_install(self):
     self.install_completion(next(self.find("target/", "lsd.bash")), "bash")
     self.install_completion(next(self.find("target/", "_lsd")), "zsh")
