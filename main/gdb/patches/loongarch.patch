@@ -1,0 +1,46 @@
+diff --git a/gdb/loongarch-linux-nat.c b/gdb/loongarch-linux-nat.c
+index fd3581b..4d5094c 100644
+--- a/gdb/loongarch-linux-nat.c
++++ b/gdb/loongarch-linux-nat.c
+@@ -32,6 +32,18 @@
+ 
+ #include <asm/ptrace.h>
+ 
++typedef union
++{
++  double d[2];
++  float f[4];
++} __attribute__ ((__aligned__ (16))) elf_lsxregset_t[32];
++
++typedef union
++{
++  double d[4];
++  float f[8];
++} __attribute__ ((__aligned__ (32))) elf_lasxregset_t[32];
++
+ /* LoongArch Linux native additions to the default Linux support.  */
+ 
+ class loongarch_linux_nat_target final : public linux_nat_trad_target
+diff --git a/gdbserver/linux-loongarch-low.cc b/gdbserver/linux-loongarch-low.cc
+index cf7d6c0..9518c95 100644
+--- a/gdbserver/linux-loongarch-low.cc
++++ b/gdbserver/linux-loongarch-low.cc
+@@ -22,6 +22,18 @@
+ #include "elf/common.h"
+ #include "arch/loongarch.h"
+ 
++typedef union
++{
++  double d[2];
++  float f[4];
++} __attribute__ ((__aligned__ (16))) elf_lsxregset_t[32];
++
++typedef union
++{
++  double d[4];
++  float f[8];
++} __attribute__ ((__aligned__ (32))) elf_lasxregset_t[32];
++
+ /* Linux target ops definitions for the LoongArch architecture.  */
+ 
+ class loongarch_target : public linux_process_target
