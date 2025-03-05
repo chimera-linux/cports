@@ -25,6 +25,26 @@ options = ["!check"]
 def prepare(self):
     from cbuild.util import cargo
 
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "target-lexicon",
+        "--precise",
+        "0.12.16",
+        allow_network=True,
+    )
+
     cargo.Cargo(self).vendor()
 
 
