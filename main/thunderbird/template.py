@@ -97,8 +97,8 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in []:
-        cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
+    cargo.clear_vendor_checksums(self, "libc", vendor_dir="third_party/rust")
+    cargo.clear_vendor_checksums(self, "libc", vendor_dir="comm/third_party/rust")
 
 
 def init_configure(self):
@@ -165,6 +165,8 @@ def configure(self):
             # broken with rust 1.78 as it enables packed_simd feature that uses removed platform_intrinsics
             # conf_opts += ["--enable-rust-simd"]
             pass
+        case "loongarch64":
+            conf_opts += ["--disable-crashreporter"]
 
     if self.has_lto():
         conf_opts += ["--enable-lto=cross"]
