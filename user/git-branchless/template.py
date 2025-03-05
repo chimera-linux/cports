@@ -17,6 +17,9 @@ options = ["!cross", "!check"]
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
 
+if self.profile().arch in ["loongarch64"]:
+    broken = "outdated nix crate, can't update"
+
 
 def init_check(self):
     self.env["TEST_GIT"] = "/usr/bin/git"
