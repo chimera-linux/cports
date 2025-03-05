@@ -22,6 +22,19 @@ sha256 = "c1f7d2647538f3335dab8862a9c4b78bac8c41bb22a3917ec45989849fd035dd"
 options = ["!cross"]
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/sq-git")
     self.install_man("man/*.1", glob=True)
