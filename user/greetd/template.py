@@ -18,6 +18,19 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "ee5cb70e0add4ca9c9fe57e47581ab0002d44c07743fb5492469f3b570db640b"
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def post_build(self):
     self.do("make", "-C", "man", "all")
 
