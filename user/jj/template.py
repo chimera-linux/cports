@@ -22,6 +22,9 @@ sha256 = "099eeb346f32a4968ebb8273566321eff2e6ca6a7de0c9dcfd7eee016b37cba1"
 # generates completions with host binary
 options = ["!cross"]
 
+if self.profile().arch in ["loongarch64"]:
+    broken = "outdated nix crate, can't update"
+
 
 def post_prepare(self):
     from cbuild.util import cargo, patch
