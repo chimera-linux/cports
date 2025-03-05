@@ -12,6 +12,7 @@ makedepends = [
     "liblo-devel",
     "libpulse-devel",
     "libx11-devel",
+    "linux-headers",
 ]
 depends = ["python"]
 pkgdesc = "Audio plugin host"
