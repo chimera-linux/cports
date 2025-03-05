@@ -258,6 +258,39 @@ index 63041fd..23a92d2 100644
  	hppa/getcontext.S                      \
  	hppa/Lapply_reg_state.c                \
  	hppa/Lcreate_addr_space.c              \
+@@ -682,16 +682,16 @@ noinst_HEADERS +=                              \
+ 	loongarch64/init.h                     \
+ 	loongarch64/offsets.h                  \
+ 	loongarch64/unwind_i.h
+-libunwind_la_SOURCES_loongarch64_common =      \
+-	$(libunwind_la_SOURCES_common)         \
++libunwind_nongnu_la_SOURCES_loongarch64_common =      \
++	$(libunwind_nongnu_la_SOURCES_common)         \
+ 	loongarch64/is_fpreg.c                 \
+ 	loongarch64/regname.c
+ 
+ if ARCH_LOONGARCH64
+ # The list of files that go into libunwind:
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_loongarch64_common) \
+-	$(libunwind_la_SOURCES_local)          \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_loongarch64_common) \
++	$(libunwind_nongnu_la_SOURCES_local)          \
+ 	loongarch64/getcontext.S               \
+ 	loongarch64/Lapply_reg_state.c         \
+ 	loongarch64/Lcreate_addr_space.c       \
+@@ -712,8 +712,8 @@ libunwind_setjmp_la_SOURCES +=                 \
+ endif # ARCH_LOONGARCH64
+ 
+ libunwind_loongarch64_la_SOURCES =             \
+-	$(libunwind_la_SOURCES_loongarch64_common) \
+-	$(libunwind_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_loongarch64_common) \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
+ 	loongarch64/Gapply_reg_state.c         \
+ 	loongarch64/Gcreate_addr_space.c       \
+ 	loongarch64/Gget_proc_info.c           \
 @@ -795,7 +795,7 @@ libunwind_mips_la_LIBADD =                     \
  
  ### target PowerPC:
