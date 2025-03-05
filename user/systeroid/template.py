@@ -14,6 +14,9 @@ sha256 = "ed8bea7d111de32d0885fd36664bed8a4acb77775a0cc0034d29b5aa5db255e1"
 # needs kernel docs to exist
 options = ["!check"]
 
+if self.profile().arch in ["loongarch64"]:
+    broken = "outdated nix crate, can't update"
+
 
 def install(self):
     self.install_license("LICENSE-MIT")
