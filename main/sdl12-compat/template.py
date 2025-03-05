@@ -5,7 +5,7 @@ build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["glu-devel", "sdl2-compat-devel"]
 # is dlopen'ed
-depends = ["so:libSDL2-2.0.so.0!sdl"]
+depends = ["so:libSDL2-2.0.so.0!sdl2-compat"]
 pkgdesc = "Compatibility layer for SDL 1.2"
 license = "Zlib"
 url = "https://github.com/libsdl-org/sdl12-compat"
