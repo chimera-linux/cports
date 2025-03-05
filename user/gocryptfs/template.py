@@ -22,6 +22,9 @@ sha256 = "80c3771c9f7e65af9326b107ddb7a30e9c3c7bf8823412b9615b7f77352cdde7"
 # requires fuse kernel module
 options = ["!check"]
 
+if self.profile().arch in ["loongarch64"]:
+    broken = "vendor/github.com/aperturerobotics/jacobsa-crypto/cmac/hash.go:97:3: undefined: xorBlock"
+
 
 def post_install(self):
     self.install_man("Documentation/gocryptfs.1")
