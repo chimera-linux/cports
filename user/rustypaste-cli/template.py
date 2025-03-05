@@ -17,6 +17,19 @@ sha256 = "747c4690631082e3cfbdf7bf4656ac9a76db4ea6bb3f067f24a982ea00f16cc2"
 options = ["!check"]
 
 
+def pre_prepare(self):
+    # the version that is in there is busted on loongarch
+    self.do(
+        "cargo",
+        "update",
+        "--package",
+        "libc",
+        "--precise",
+        "0.2.170",
+        allow_network=True,
+    )
+
+
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/rpaste")
     self.install_license("LICENSE")
