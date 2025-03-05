@@ -10,6 +10,9 @@ url = "https://github.com/LGFae/swww"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "567e2ac76203ad47df5aaafab7d9d0e4e283a74e34690930a4730ecf0a667428"
 
+if self.profile().arch in ["loongarch64"]:
+    broken = "cannot find value `MADV_SOFT_OFFLINE` in module `c`"
+
 
 def post_build(self):
     self.do("./doc/gen.sh")
