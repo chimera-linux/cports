@@ -68,7 +68,7 @@ makedepends = [
     "gmp-devel",
     "libcap-devel",
     "curl-devel",
-    "libldns-devel",
+    "ldns-devel",
     "linux-headers",
     "linux-pam-devel",
     "openldap-devel",
