@@ -1,7 +1,6 @@
-# update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
-_majver = "3.12"
-pkgver = f"{_majver}.9"
+_majver = "3.13"
+pkgver = f"{_majver}.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -57,14 +56,14 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 checkdepends = ["ca-certificates"]
-depends = [self.with_pkgver(f"python-python{_majver}-meta"), "ca-certificates"]
+depends = [self.with_pkgver("python-meta"), "ca-certificates"]
 provides = [self.with_pkgver(f"python{_majver}")]
-install_if = [self.with_pkgver(f"python-python{_majver}-meta")]
+install_if = [self.with_pkgver("python-meta")]
 pkgdesc = "Python programming language"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "7220835d9f90b37c006e9842a8dff4580aaca4318674f947302b8d28f3f81112"
+sha256 = "d984bcc57cd67caab26f7def42e523b1c015bbc5dc07836cf4f0b63fa159eb56"
 # use a chunky stack; python by default does not use more than 1 thread
 # but anything dlopened from it will be stuck with the default stacksize
 # (e.g. python gtk programs, gtk loads icons from a threadpool and it may
@@ -107,7 +106,6 @@ def install(self):
     )
     self.install_license("LICENSE")
 
-    self.uninstall("usr/bin/2to3")
     self.uninstall("usr/bin/idle*", glob=True)
 
     lbase = "usr/lib/python" + _majver
@@ -160,10 +158,13 @@ def _(self):
     return ["usr/lib/python*/test"]
 
 
-@subpackage(f"python-python{_majver}-meta")
+@subpackage("python-meta")
 def _(self):
     self.subdesc = "recommends package"
     self.options = ["empty"]
-    self.provides = [self.with_pkgver(f"base-python{_majver}")]
+    self.provides = [
+        self.with_pkgver(f"base-python{_majver}"),
+        self.with_pkgver(f"python-python{_majver}-meta"),
+    ]
 
     return []

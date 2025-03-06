@@ -36,8 +36,8 @@ def invoke(pkg):
 
     for i in range(0, len(pkg.depends)):
         if pkg.depends[i] == "python":
-            pkg.depends[i] = f"python{pyver}~{pyver}"
+            pkg.depends[i] = f"python{pyver}"
             break
     else:
         # we have python stuff, add implied dependency
-        pkg.depends.append(f"python-python{pyver}-meta~{pyver}")
+        pkg.depends.append(f"python-python{pyver}-meta")
