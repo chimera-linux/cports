@@ -1,0 +1,13 @@
+diff --git a/yazi-plugin/preset/plugins/zoxide.lua b/yazi-plugin/preset/plugins/zoxide.lua
+index b5b5f0e..bd0c23a 100644
+--- a/yazi-plugin/preset/plugins/zoxide.lua
++++ b/yazi-plugin/preset/plugins/zoxide.lua
+@@ -35,7 +35,7 @@ local function options()
+ 	if ya.target_family() == "unix" then
+ 		default[#default + 1] = "--preview-window=down,30%,sharp"
+ 		if ya.target_os() == "linux" then
+-			default[#default + 1] = [[--preview='\command -p ls -Cp --color=always --group-directories-first {2..}']]
++			default[#default + 1] = [[--preview='\command -p ls -Cp --color=always {2..}']]
+ 		else
+ 			default[#default + 1] = [[--preview='\command -p ls -Cp {2..}']]
+ 		end
