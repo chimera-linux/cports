@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 1ab9dae..fde65c8 100644
+index d93e713d2..255ac1266 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1109,9 +1109,9 @@ checksum = "40ecd4077b5ae9fd2e9e169b102c6c330d0605168eb0e8bf79952b256dbefffd"
+@@ -1073,9 +1073,9 @@ checksum = "40ecd4077b5ae9fd2e9e169b102c6c330d0605168eb0e8bf79952b256dbefffd"
  
  [[package]]
  name = "git2"
@@ -14,7 +14,7 @@ index 1ab9dae..fde65c8 100644
  dependencies = [
   "bitflags 2.6.0",
   "libc",
-@@ -2395,9 +2395,9 @@ checksum = "b5aba8db14291edd000dfcc4d620c7ebfb122c613afb886ca8803fa4e128a20a"
+@@ -2439,9 +2439,9 @@ checksum = "875b3680cb2f8f71bdcf9a30f38d48282f5d3c95cbf9b3fa57269bb5d5c06828"
  
  [[package]]
  name = "libgit2-sys"
@@ -27,12 +27,12 @@ index 1ab9dae..fde65c8 100644
   "cc",
   "libc",
 diff --git a/Cargo.toml b/Cargo.toml
-index 01eb25c..977070b 100644
+index f69ac6c7b..f8a091462 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -46,7 +46,7 @@ dirs = "5.0.1"
+@@ -46,7 +46,7 @@ dirs = "6.0.0"
  dunce = "1.0.5"
- either = "1.13.0"
+ either = "1.14.0"
  futures = "0.3.31"
 -git2 = { version = "0.19.0", features = [
 +git2 = { version = "0.20.0", features = [

@@ -1,5 +1,5 @@
 pkgname = "jj"
-pkgver = "0.26.0"
+pkgver = "0.27.0"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
@@ -18,7 +18,7 @@ pkgdesc = "Git-compatible VCS frontend"
 license = "Apache-2.0"
 url = "https://martinvonz.github.io/jj"
 source = f"https://github.com/martinvonz/jj/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "099eeb346f32a4968ebb8273566321eff2e6ca6a7de0c9dcfd7eee016b37cba1"
+sha256 = "a9d2ab04698f971a215ae2510082d0bc00540188deb90d48e12e86a6d6a023af"
 # generates completions with host binary
 options = ["!cross"]
 
