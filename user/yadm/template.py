@@ -1,12 +1,12 @@
 pkgname = "yadm"
-pkgver = "3.4.0"
+pkgver = "3.5.0"
 pkgrel = 0
 depends = ["bash", "git"]
 pkgdesc = "Yet Another Dotfiles Manager"
 license = "GPL-3.0-only"
 url = "https://github.com/TheLocehiliosan/yadm"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "fb0ab375cc41a34e014fb4a34c65f12670aedc859823b943f626adff24bde95d"
+sha256 = "2a15ed91238dd2f15db9905eb56702272c079ad9c37c505dfee69c6b5e9054b6"
 
 
 def install(self):
