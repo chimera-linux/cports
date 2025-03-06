@@ -1,6 +1,6 @@
 pkgname = "mesa-amber"
 pkgver = "21.3.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -76,6 +76,7 @@ hardening = ["!int"]
 options = ["!cross"]
 
 _gallium_drivers = ["swrast"]
+_dri_drivers = []
 _vulkan_drivers = []
 
 # these are good assumptions on all targets we support for now
@@ -111,14 +112,17 @@ if _have_amd:
     # no radeonsi because amber branch does not support our latest llvm
     # therefore, no radv either as that would not make any sense
     _gallium_drivers += ["r300", "r600"]
+    _dri_drivers += ["r100", "r200"]
 
 if _have_intel:
-    _gallium_drivers += ["crocus", "iris", "i915"]
+    _gallium_drivers += ["crocus", "iris"]
+    _dri_drivers += ["i915", "i965"]
     if _have_vulkan:
         _vulkan_drivers += ["intel"]
 
 if _have_nvidia:
     _gallium_drivers += ["nouveau"]
+    _dri_drivers += ["nouveau"]
     if _have_arm:
         _gallium_drivers += ["tegra"]
 
@@ -162,7 +166,7 @@ if _have_zink:
 
 configure_args += ["-Dgallium-drivers=" + ",".join(_gallium_drivers)]
 configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
-configure_args += ["-Ddri-drivers="]
+configure_args += ["-Ddri-drivers=" + ",".join(_dri_drivers)]
 
 
 def post_install(self):
