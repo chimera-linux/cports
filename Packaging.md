@@ -156,6 +156,7 @@ Current architectures with best support:
 
 Other architectures with repositories:
 
+* `loongarch64` (generic, no LTO + unit tests enforced)
 * `ppc64` (ppc970+, unit tests only run for reference)
 * `ppc` (PowerPC 603+, unit tests only run for reference)
 * `riscv64` (rv64gc, no LTO + unit tests not run)
@@ -164,7 +165,6 @@ Other possible targets:
 
 * `armhf` (ARMv6 + VFP)
 * `armv7` (ARMv7 + VFP)
-* `loongarch64`
 
 <a id="quality_requirements"></a>
 ## Quality Requirements
