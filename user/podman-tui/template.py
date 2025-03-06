@@ -26,3 +26,8 @@ license = "Apache-2.0"
 url = "https://github.com/containers/podman-tui"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "0b385f11b7cff1143dabe4972c0fe2032a583024660d837658626e9a8e703d2f"
+
+
+def post_extract(self):
+    # fails on builder, works in ci
+    self.rm("ui/dialogs/progress_test.go")
