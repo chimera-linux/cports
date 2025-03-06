@@ -1,5 +1,5 @@
 pkgname = "bind"
-pkgver = "9.20.5"
+pkgver = "9.20.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-libidn2"]
@@ -35,7 +35,7 @@ pkgdesc = "ISC DNS server"
 license = "MPL-2.0"
 url = "https://www.isc.org/bind"
 source = f"https://downloads.isc.org/isc/bind9/{pkgver}/bind-{pkgver}.tar.xz"
-sha256 = "19274fd739c023772b4212a0b6c201cf4364855fa7e6a7d3db49693f55db1ab8"
+sha256 = "ed7f54b44f84a7201a2fa7a949f3021ea568529bfad90fca664fd55c05104134"
 # lto: some udp tests fail otherwise
 options = ["!lto"]
 
