@@ -1,6 +1,6 @@
 pkgname = "python-dbus"
 pkgver = "1.3.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf", "python-devel"]
 makedepends = ["glib-devel", "dbus-devel", "python-devel"]

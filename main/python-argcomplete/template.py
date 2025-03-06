@@ -1,6 +1,6 @@
 pkgname = "python-argcomplete"
 pkgver = "3.5.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 hostmakedepends = [

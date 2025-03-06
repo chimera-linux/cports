@@ -1,6 +1,6 @@
 pkgname = "python-munkres"
 pkgver = "1.1.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

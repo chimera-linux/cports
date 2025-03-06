@@ -1,6 +1,6 @@
 pkgname = "python-adblock"
 pkgver = "0.6.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",

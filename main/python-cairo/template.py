@@ -1,6 +1,6 @@
 pkgname = "python-cairo"
 pkgver = "1.27.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

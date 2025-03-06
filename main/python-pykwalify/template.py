@@ -1,6 +1,6 @@
 pkgname = "python-pykwalify"
 pkgver = "1.8.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_check_args = [
     # needs 'testfixtures'

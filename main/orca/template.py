@@ -1,6 +1,6 @@
 pkgname = "orca"
 pkgver = "47.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "gettext",

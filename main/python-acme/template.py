@@ -1,6 +1,6 @@
 pkgname = "python-acme"
 pkgver = "3.2.0"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "acme"
 build_style = "python_pep517"
 hostmakedepends = [

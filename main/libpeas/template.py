@@ -1,6 +1,6 @@
 pkgname = "libpeas"
 pkgver = "1.36.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 configure_args = ["-Ddemos=false", "-Dvapi=true"]
 make_check_wrapper = ["wlheadless-run", "--"]

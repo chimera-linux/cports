@@ -1,11 +1,10 @@
-diff --git a/test/units/utils/test_display.py b/test/units/utils/test_display.py
 --- a/test/units/utils/test_display.py
 +++ b/test/units/utils/test_display.py
-@@ -67,6 +67,7 @@ def test_Display_banner_get_text_width(monkeypatch):
+@@ -67,6 +67,7 @@ def test_Display_banner_get_text_width(monkeypatch, display_resource):
      assert msg.endswith(stars)
-
-
+ 
+ 
 +@pytest.mark.skip(reason='musl and glibc seem to disagree on the result of wcwidth')
- def test_Display_banner_get_text_width_fallback(monkeypatch):
+ def test_Display_banner_get_text_width_fallback(monkeypatch, display_resource):
      locale.setlocale(locale.LC_ALL, 'C.UTF-8')
      display = Display()

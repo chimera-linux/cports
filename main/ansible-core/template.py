@@ -1,5 +1,5 @@
 pkgname = "ansible-core"
-pkgver = "2.17.6"
+pkgver = "2.18.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,17 +18,20 @@ depends = [
 checkdepends = [
     "git",
     "openssh",
+    "python-bcrypt",
     "python-pytest",
     "python-pytest-mock",
     "python-pytest-xdist",
+    "util-linux-mount",
     *depends,
 ]
 pkgdesc = "Configuration management and multinode orchestration framework"
 subdesc = "core components"
 license = "GPL-3.0-or-later"
 url = "https://ansible.com"
-source = f"$(PYPI_SITE)/a/ansible-core/ansible_core-{pkgver}.tar.gz"
-sha256 = "3e53970b7cebfe2adb39b711c1e2f8bbfcbedac828da51dc0357a19070638e95"
+# pypi does not ship some files
+source = f"https://github.com/ansible/ansible/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "90820d73f124fe8b842e2471b09da2e389931217157b02e2d96dc0b1f0ff782a"
 
 
 def check(self):

@@ -1,6 +1,6 @@
 pkgname = "bulky"
 pkgver = "3.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 hostmakedepends = ["gettext"]
 depends = [

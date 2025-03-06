@@ -1,6 +1,6 @@
 pkgname = "python-pycares"
 pkgver = "4.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {"PYCARES_USE_SYSTEM_LIB": "1"}
 hostmakedepends = [

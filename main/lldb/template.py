@@ -1,6 +1,6 @@
 pkgname = "lldb"
 pkgver = "19.1.7"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "loongarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "cmake"
 configure_args = [

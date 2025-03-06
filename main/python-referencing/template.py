@@ -1,6 +1,6 @@
 pkgname = "python-referencing"
 pkgver = "0.36.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # the tests in suite/ depend on jsonschema
 make_check_args = ["referencing"]

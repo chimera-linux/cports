@@ -1,6 +1,6 @@
 pkgname = "python-qrcode"
 pkgver = "8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = ["--ignore=qrcode/tests/test_release.py"]
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "python-zope.interface"
 pkgver = "7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # useless setuptools version check
 make_build_args = ["--skip-dependency-check"]

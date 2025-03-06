@@ -1,6 +1,6 @@
 pkgname = "python-hyperlink"
 pkgver = "21.0.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 make_check_target = "build"
 hostmakedepends = [

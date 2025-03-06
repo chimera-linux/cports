@@ -1,6 +1,6 @@
 pkgname = "python-gitpython"
 pkgver = "3.1.44"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

@@ -1,6 +1,6 @@
 pkgname = "ufw"
 pkgver = "0.36.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "python_pep517"
 hostmakedepends = [
     "iptables",

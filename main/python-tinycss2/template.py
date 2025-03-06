@@ -1,6 +1,6 @@
 pkgname = "python-tinycss2"
 pkgver = "1.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

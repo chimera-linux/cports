@@ -1,6 +1,6 @@
 pkgname = "gdm-settings"
 pkgver = "5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",

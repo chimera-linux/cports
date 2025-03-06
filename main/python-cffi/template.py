@@ -1,6 +1,6 @@
 pkgname = "python-cffi"
 pkgver = "1.17.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "libffi8-devel",

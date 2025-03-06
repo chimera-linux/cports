@@ -1,6 +1,6 @@
 pkgname = "python-trio"
 pkgver = "0.28.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "--pyargs",

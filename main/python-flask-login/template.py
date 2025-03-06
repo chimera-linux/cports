@@ -1,6 +1,6 @@
 pkgname = "python-flask-login"
 pkgver = "0.6.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # need updating for werkzeug3

@@ -1,5 +1,5 @@
 pkgname = "python-setuptools_scm"
-pkgver = "8.1.0"
+pkgver = "8.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ pkgdesc = "Manage Python package versions with SCM tags"
 license = "MIT"
 url = "https://github.com/pypa/setuptools_scm"
 source = f"$(PYPI_SITE)/s/setuptools-scm/setuptools_scm-{pkgver}.tar.gz"
-sha256 = "42dea1b65771cba93b7a515d65a65d8246e560768a66b9106a592c8e7f26c8a7"
+sha256 = "a18396a1bc0219c974d1a74612b11f9dce0d5bd8b1dc55c65f6ac7fd609e8c28"
 # tests fail when the package is not installed
 options = ["!check"]
 

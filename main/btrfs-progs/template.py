@@ -1,6 +1,6 @@
 pkgname = "btrfs-progs"
 pkgver = "6.13"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--enable-python"]
 # build system assumes . is the root right off the bat

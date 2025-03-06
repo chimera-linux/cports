@@ -1,6 +1,6 @@
 pkgname = "lilv"
 pkgver = "0.24.26"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [

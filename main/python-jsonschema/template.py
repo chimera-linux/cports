@@ -1,6 +1,6 @@
 pkgname = "python-jsonschema"
 pkgver = "4.23.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # needs pip
 make_check_args = ["-k", "not test_license"]

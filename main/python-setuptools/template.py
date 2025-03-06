@@ -1,5 +1,5 @@
 pkgname = "python-setuptools"
-pkgver = "75.8.0"
+pkgver = "75.8.2"
 pkgrel = 0
 hostmakedepends = ["python-devel"]
 depends = ["python", "python-wheel"]
@@ -7,7 +7,7 @@ pkgdesc = "Easily build and distribute Python packages"
 license = "MIT"
 url = "https://github.com/pypa/setuptools"
 source = f"$(PYPI_SITE)/s/setuptools/setuptools-{pkgver}.tar.gz"
-sha256 = "c5afc8f407c626b8313a86e10311dd3f661c6cd9c09d4bf8c15c0e11f9f2b0e6"
+sha256 = "4880473a969e5f23f2a2be3646b2dfd84af9028716d398e46192f84bc36900d2"
 env = {
     "SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES": "0",
     "SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT": "1",

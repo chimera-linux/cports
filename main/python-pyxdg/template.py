@@ -1,6 +1,6 @@
 pkgname = "python-pyxdg"
 pkgver = "0.28"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

@@ -1,6 +1,6 @@
 pkgname = "python-lxns"
 pkgver = "0.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

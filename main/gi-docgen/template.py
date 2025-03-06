@@ -1,6 +1,6 @@
 pkgname = "gi-docgen"
 pkgver = "2024.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",

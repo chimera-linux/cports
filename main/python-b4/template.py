@@ -1,6 +1,6 @@
 pkgname = "python-b4"
 pkgver = "0.14.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # it tries to run the tests from the build dir if we don't do this...
 make_check_args = ["src/tests"]

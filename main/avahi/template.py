@@ -1,6 +1,6 @@
 pkgname = "avahi"
 pkgver = "0.8"
-pkgrel = 10
+pkgrel = 11
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",

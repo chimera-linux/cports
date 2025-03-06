@@ -1,6 +1,6 @@
 pkgname = "python-pyhamcrest"
 pkgver = "2.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 hostmakedepends = [

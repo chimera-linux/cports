@@ -1,6 +1,6 @@
 pkgname = "python-build"
 pkgver = "1.2.2"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "python-flit_core",
     "python-installer",

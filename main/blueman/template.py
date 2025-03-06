@@ -1,6 +1,6 @@
 pkgname = "blueman"
 pkgver = "2.4.4"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 # XXX drop libexec
 configure_args = [

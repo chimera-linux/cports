@@ -1,6 +1,6 @@
 pkgname = "cloud-utils"
 pkgver = "0.33"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 depends = [
     "bash",

@@ -1,6 +1,6 @@
 pkgname = "libpwquality"
 pkgver = "1.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",

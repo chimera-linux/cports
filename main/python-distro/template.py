@@ -1,6 +1,6 @@
 pkgname = "python-distro"
 pkgver = "1.9.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=tests/test_distro.py::TestLSBRelease::test_linuxmint17_lsb_release",

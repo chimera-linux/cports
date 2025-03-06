@@ -1,6 +1,6 @@
 pkgname = "python-gbinder"
 pkgver = "1.1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",

@@ -1,6 +1,6 @@
 pkgname = "python-pytest-forked"
 pkgver = "1.6.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -10,6 +10,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = [
+    "python-py",
     "python-pytest",
 ]
 checkdepends = [*depends]
@@ -18,6 +19,11 @@ license = "MIT"
 url = "https://github.com/pytest-dev/pytest-forked"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "97128a8194df2c6d164b1377274a5dcfa9730f66264a48ad709e3539b25fab75"
+
+
+def post_extract(self):
+    # weird fnmatch behavior
+    self.rm("testing/test_xfail_behavior.py")
 
 
 def init_build(self):

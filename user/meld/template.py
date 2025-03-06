@@ -1,6 +1,6 @@
 pkgname = "meld"
 pkgver = "3.22.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "desktop-file-utils",

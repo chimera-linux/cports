@@ -1,6 +1,6 @@
 pkgname = "itstool"
 pkgver = "2.0.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["python", "libxml2-python"]

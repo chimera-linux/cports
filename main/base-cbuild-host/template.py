@@ -1,6 +1,6 @@
 pkgname = "base-cbuild-host"
 pkgver = "0.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "meta"
 depends = [
     "apk-tools",

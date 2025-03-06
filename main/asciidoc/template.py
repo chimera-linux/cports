@@ -1,6 +1,6 @@
 pkgname = "asciidoc"
 pkgver = "10.2.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "docbook-xsl-nons",

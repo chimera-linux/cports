@@ -1,6 +1,6 @@
 pkgname = "python-trove-classifiers"
 pkgver = "2025.2.18.16"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

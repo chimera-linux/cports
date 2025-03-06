@@ -1,6 +1,6 @@
 pkgname = "python-magic"
 pkgver = "0.4.27"
-pkgrel = 3
+pkgrel = 4
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

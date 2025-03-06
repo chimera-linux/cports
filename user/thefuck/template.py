@@ -1,6 +1,6 @@
 pkgname = "thefuck"
 pkgver = "3.32"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # https://github.com/nvbn/thefuck/issues/1438

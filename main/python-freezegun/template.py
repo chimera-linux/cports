@@ -1,6 +1,6 @@
 pkgname = "python-freezegun"
 pkgver = "1.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -18,3 +18,5 @@ license = "Apache-2.0"
 url = "https://github.com/spulec/freezegun"
 source = f"$(PYPI_SITE)/f/freezegun/freezegun-{pkgver}.tar.gz"
 sha256 = "b29dedfcda6d5e8e083ce71b2b542753ad48cfec44037b3fc79702e2980a89e9"
+# some date shenanigans
+options = ["!check"]

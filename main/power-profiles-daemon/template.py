@@ -1,6 +1,6 @@
 pkgname = "power-profiles-daemon"
 pkgver = "0.23"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec

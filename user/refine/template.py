@@ -1,6 +1,6 @@
 pkgname = "refine"
 pkgver = "0.4.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",

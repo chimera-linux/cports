@@ -1,6 +1,6 @@
 pkgname = "i2c-tools"
 pkgver = "4.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_args = ["EXTRA=py-smbus"]
 make_install_args = ["sbindir=/usr/bin", *make_build_args]

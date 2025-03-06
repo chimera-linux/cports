@@ -1,6 +1,6 @@
 pkgname = "xfce4-screensaver"
 pkgver = "4.18.4"
-pkgrel = 0
+pkgrel = 1
 # workaround for lack of gdbus port
 _dbus_gmain_rev = "93e8fced640e29bd6fbcc066a6c854a8dd74f8ab"
 build_style = "gnu_configure"

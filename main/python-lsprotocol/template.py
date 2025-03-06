@@ -1,6 +1,6 @@
 pkgname = "python-lsprotocol"
 pkgver = "2023.0.1"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "packages/python"
 build_style = "python_pep517"
 make_check_args = ["../../tests/python"]

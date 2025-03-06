@@ -1,7 +1,7 @@
 # update libseccomp alongside this
 pkgname = "python-libseccomp"
 pkgver = "2.6.0"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "src/python"
 build_style = "python_pep517"
 make_build_env = {"VERSION_RELEASE": pkgver}

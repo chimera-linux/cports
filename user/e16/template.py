@@ -1,6 +1,6 @@
 pkgname = "e16"
 pkgver = "1.0.30"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-sound",

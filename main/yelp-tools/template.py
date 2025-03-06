@@ -1,6 +1,6 @@
 pkgname = "yelp-tools"
 pkgver = "42.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 hostmakedepends = [
     "meson",

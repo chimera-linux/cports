@@ -1,6 +1,6 @@
 pkgname = "python-cattrs"
 pkgver = "24.1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -35,6 +35,8 @@ def init_check(self):
         # python-bson
         "--ignore=tests/test_preconf.py",
         "--ignore=tests/preconf/test_pyyaml.py",
+        # python 3.13
+        "--ignore=tests/test_generics.py",
     ]
 
 

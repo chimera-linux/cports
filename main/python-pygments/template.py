@@ -1,6 +1,6 @@
 pkgname = "python-pygments"
 pkgver = "2.19.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

@@ -1,6 +1,6 @@
 pkgname = "python-setproctitle"
 pkgver = "1.3.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_target = "tests"
 hostmakedepends = [

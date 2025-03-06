@@ -1,6 +1,6 @@
 pkgname = "python-scikit_build_core"
 pkgver = "0.10.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

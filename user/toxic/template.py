@@ -25,7 +25,6 @@ makedepends = [
     "linux-headers",
     "ncurses-devel",
     "openal-soft-devel",
-    "python-devel",
     "qrencode-devel",
 ]
 pkgdesc = "Tox-based instant messaging and video chat client"

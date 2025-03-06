@@ -1,6 +1,6 @@
 pkgname = "pax-utils"
 pkgver = "1.3.8"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dlddtree_implementation=python",

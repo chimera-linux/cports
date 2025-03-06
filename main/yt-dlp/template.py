@@ -1,6 +1,6 @@
 pkgname = "yt-dlp"
 pkgver = "2025.02.19"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=test/test_socks.py",

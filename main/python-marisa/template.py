@@ -2,7 +2,7 @@
 pkgname = "python-marisa"
 # match to marisa-trie
 pkgver = "0.2.6"
-pkgrel = 1
+pkgrel = 2
 build_wrksrc = "bindings/python"
 build_style = "python_pep517"
 hostmakedepends = [

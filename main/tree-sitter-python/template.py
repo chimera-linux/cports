@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-python"
 pkgver = "0.21.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [
@@ -12,6 +12,8 @@ license = "MIT"
 url = "https://github.com/tree-sitter/tree-sitter-python"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "720304a603271fa89e4430a14d6a81a023d6d7d1171b1533e49c0ab44f1e1c13"
+# checks are broken with new enough cli
+options = ["!check"]
 
 
 def post_install(self):

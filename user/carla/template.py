@@ -1,6 +1,6 @@
 pkgname = "carla"
 pkgver = "2.5.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "tests"
 make_check_args = ["PEDANTIC_CFLAGS=", "PEDANTIC_CXXFLAGS="]

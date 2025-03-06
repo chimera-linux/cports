@@ -1,6 +1,6 @@
 pkgname = "python-jaraco.functools"
 pkgver = "4.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = ["--deselect=test_functools.py"]  # unpackaged deps
 hostmakedepends = [

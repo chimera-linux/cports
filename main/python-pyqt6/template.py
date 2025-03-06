@@ -1,6 +1,6 @@
 pkgname = "python-pyqt6"
 pkgver = "6.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_dir = "build"
 make_use_env = True

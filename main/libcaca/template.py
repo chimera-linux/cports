@@ -1,6 +1,6 @@
 pkgname = "libcaca"
 pkgver = "0.99_beta20"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["automake", "pkgconf", "python", "slibtool"]

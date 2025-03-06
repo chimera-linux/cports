@@ -1,6 +1,6 @@
 pkgname = "firewalld"
 pkgver = "2.3.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
 configure_gen = ["./autogen.sh"]

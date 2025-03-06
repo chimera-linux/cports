@@ -1,6 +1,6 @@
 pkgname = "xed"
 pkgver = "3.8.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared", "-Ddocs=true"]
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "python-dbus-fast"
 pkgver = "2.32.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [

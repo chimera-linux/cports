@@ -1,6 +1,6 @@
 pkgname = "python-ssh2"
 pkgver = "1.1.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {
     "SYSTEM_LIBSSH2": "1",

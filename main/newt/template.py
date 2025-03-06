@@ -1,6 +1,6 @@
 pkgname = "newt"
 pkgver = "0.52.24"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 # reconf breaks library soname stuff (???)
 configure_gen = []

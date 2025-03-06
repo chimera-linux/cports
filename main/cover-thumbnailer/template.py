@@ -1,6 +1,6 @@
 pkgname = "cover-thumbnailer"
 pkgver = "0.10.2"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["bash", "gettext"]
 depends = ["gtk+3", "python-gobject", "python-pillow"]
 pkgdesc = "Thumbnailer for music album and picture folder covers"

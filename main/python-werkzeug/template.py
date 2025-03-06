@@ -1,6 +1,6 @@
 pkgname = "python-werkzeug"
 pkgver = "3.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "--noconftest",

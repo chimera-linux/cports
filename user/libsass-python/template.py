@@ -1,6 +1,6 @@
 pkgname = "libsass-python"
 pkgver = "0.23.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {"SYSTEM_SASS": "1"}
 hostmakedepends = ["python-build", "python-installer", "python-setuptools"]

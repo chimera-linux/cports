@@ -1,6 +1,6 @@
 pkgname = "python-chess"
 pkgver = "1.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,7 +15,5 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/niklasf/python-chess"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "832fa7d589ffe916f5e84f08ece0d634dfb50568867932e525edcebb573041df"
-
-
-def check(self):
-    self.do("python", "setup.py", "test")
+# tests not runnable >=3.13
+options = ["!check"]

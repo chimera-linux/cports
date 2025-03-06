@@ -1,6 +1,6 @@
 pkgname = "python-boto3"
 pkgver = "1.37.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     # need credentials

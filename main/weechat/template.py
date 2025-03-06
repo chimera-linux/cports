@@ -1,6 +1,6 @@
 pkgname = "weechat"
 pkgver = "4.5.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DENABLE_ENCHANT=ON",

@@ -1,6 +1,6 @@
 pkgname = "python-pytest"
 pkgver = "8.3.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 _deps = [
     "python-iniconfig",

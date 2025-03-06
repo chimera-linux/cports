@@ -1,6 +1,6 @@
 pkgname = "gnome-tweaks"
 pkgver = "46.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "desktop-file-utils",

@@ -1,6 +1,6 @@
 pkgname = "python-gnupg"
 pkgver = "0.5.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_env = {"NO_EXTERNAL_TESTS": "1"}
 hostmakedepends = ["python-build", "python-installer", "python-setuptools"]

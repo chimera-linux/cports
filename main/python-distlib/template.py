@@ -1,6 +1,6 @@
 pkgname = "python-distlib"
 pkgver = "0.3.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_args = [
     "--deselect=tests/test_locators.py::LocatorTestCase",

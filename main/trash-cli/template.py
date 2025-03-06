@@ -1,6 +1,6 @@
 pkgname = "trash-cli"
 pkgver = "0.24.5.26"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # FIXME: fails with {'command output': "trash-put: 'link-to-dir/' trashed in ~/tmpsjbhqli4_trash_cli_test/trash-dir"} != {'command output': "trash-put: 'link-to-dir/' trashed in /trash-dir"}
 make_check_args = [

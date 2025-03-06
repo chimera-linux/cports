@@ -1,6 +1,6 @@
 pkgname = "python-sh"
 pkgver = "2.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # checks if the return code of `ls` for non-existent dir is '1' on macos and '2'
 # otherwise, and it's 1 for us since we use freebsd ls.

@@ -1,6 +1,6 @@
 pkgname = "ibus"
 pkgver = "1.5.31"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec

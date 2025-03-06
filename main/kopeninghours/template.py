@@ -1,6 +1,6 @@
 pkgname = "kopeninghours"
 pkgver = "24.12.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # make_check_wrapper = ["wlheadless-run", "--"]
 configure_args = ["-DQT_MAJOR_VERSION=6"]

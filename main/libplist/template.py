@@ -1,6 +1,6 @@
 pkgname = "libplist"
 pkgver = "2.6.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "nemo"
 pkgver = "6.4.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # XXX: drop libexec
 configure_args = ["--libexecdir=/usr/lib", "-Dgtk_doc=true", "-Dtracker=true"]

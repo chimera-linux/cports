@@ -1,6 +1,6 @@
 pkgname = "xapp"
 pkgver = "2.8.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # XXX: drop libexec
 configure_args = [

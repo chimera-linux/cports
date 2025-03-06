@@ -1,6 +1,6 @@
 pkgname = "glib"
 pkgver = "2.82.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddocumentation=false",
