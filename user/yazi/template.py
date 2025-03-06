@@ -1,5 +1,5 @@
 pkgname = "yazi"
-pkgver = "25.2.11"
+pkgver = "25.3.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
@@ -12,7 +12,7 @@ pkgdesc = "Terminal file manager"
 license = "MIT"
 url = "https://yazi-rs.github.io"
 source = f"https://github.com/sxyazi/yazi/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d3879b85465e036abfd69c53488e9bc90c9ad52a31080511a0fcd1b11f81f10b"
+sha256 = "bc1a7b6cd69310ea3369bec2a618e7a0f683f7d25f41a1abdcab82f6a1886bab"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"

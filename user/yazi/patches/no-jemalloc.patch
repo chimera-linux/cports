@@ -1,5 +1,5 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 78bd19b..5eb3f02 100644
+index ab18891..778ccc7 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
 @@ -2573,26 +2573,6 @@ dependencies = [
@@ -29,7 +29,7 @@ index 78bd19b..5eb3f02 100644
  [[package]]
  name = "time"
  version = "0.3.37"
-@@ -3485,7 +3465,6 @@ dependencies = [
+@@ -3492,7 +3472,6 @@ dependencies = [
   "signal-hook-tokio",
   "syntect",
   "textwrap",
@@ -38,7 +38,7 @@ index 78bd19b..5eb3f02 100644
   "tokio-stream",
   "tracing",
 diff --git a/yazi-fm/Cargo.toml b/yazi-fm/Cargo.toml
-index b09e9a1..cdb08ea 100644
+index de678a4..e96b0e8 100644
 --- a/yazi-fm/Cargo.toml
 +++ b/yazi-fm/Cargo.toml
 @@ -52,9 +52,6 @@ signal-hook-tokio = { version = "0.3.1", features = [ "futures-v0_3" ] }
@@ -52,17 +52,16 @@ index b09e9a1..cdb08ea 100644
  name = "yazi"
  path = "src/main.rs"
 diff --git a/yazi-fm/src/main.rs b/yazi-fm/src/main.rs
-index 96d8bff..df510ce 100644
+index 53fa047..f886155 100644
 --- a/yazi-fm/src/main.rs
 +++ b/yazi-fm/src/main.rs
-@@ -1,10 +1,6 @@
- #![allow(clippy::module_inception)]
- #![allow(clippy::unit_arg)]
+@@ -1,9 +1,5 @@
+ #![allow(clippy::module_inception, clippy::unit_arg)]
  
 -#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
 -#[global_allocator]
 -static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
 -
- yazi_macro::mod_pub!(app completion confirm help input lives manager notify pick spot tasks which);
+ yazi_macro::mod_pub!(app cmp confirm help input lives mgr notify pick spot tasks which);
  
  yazi_macro::mod_flat!(context executor logs panic root router signals term);
