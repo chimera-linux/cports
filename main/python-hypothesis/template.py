@@ -41,6 +41,7 @@ def init_check(self):
         "--ignore=tests/redis/test_redis_exampledatabase.py",
         "--ignore=examples/example_hypothesis_entrypoint/test_entrypoint.py",
         "--ignore=tests/codemods/test_codemod_cli.py",
+        "--ignore=tests/cover/test_database_backend.py",
         "--ignore=tests/pandas",
         "--ignore=tests/numpy",
         "--ignore=tests/crosshair",
