@@ -1,6 +1,6 @@
 pkgname = "libblockdev"
 pkgver = "3.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     # TODO: volume_key
