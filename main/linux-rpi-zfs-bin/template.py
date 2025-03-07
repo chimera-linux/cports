@@ -1,7 +1,7 @@
 pkgname = "linux-rpi-zfs-bin"
-_kernver = "6.12.15"
-_zfsver = "2.3.0"
-pkgver = f"{_zfsver}.{_kernver}"
+pkgver = "2.3.0.6.12.15"
+_zfsver = ".".join(pkgver.split(".")[0:3])
+_kernver = pkgver[len(_zfsver) + 1 :]
 pkgrel = 0
 archs = ["aarch64"]
 hostmakedepends = ["perl", "python", "ckms"]

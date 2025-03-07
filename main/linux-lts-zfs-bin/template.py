@@ -1,7 +1,7 @@
 pkgname = "linux-lts-zfs-bin"
-_kernver = "6.12.16"
-_zfsver = "2.3.0"
-pkgver = f"{_zfsver}.{_kernver}"
+pkgver = "2.3.0.6.12.16"
+_zfsver = ".".join(pkgver.split(".")[0:3])
+_kernver = pkgver[len(_zfsver) + 1 :]
 pkgrel = 0
 hostmakedepends = ["perl", "python", "ckms"]
 makedepends = ["linux-lts-devel", "zfs-ckms"]

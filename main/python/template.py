@@ -1,6 +1,6 @@
 pkgname = "python"
-_majver = "3.13"
-pkgver = f"{_majver}.2"
+pkgver = "3.13.2"
+_majver = pkgver[: pkgver.rfind(".")]
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [

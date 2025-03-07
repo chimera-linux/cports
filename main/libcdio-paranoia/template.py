@@ -1,7 +1,7 @@
 pkgname = "libcdio-paranoia"
-_v1 = "10.2"
-_v2 = "2.0.2"
-pkgver = f"{_v1}.{_v2}"
+pkgver = "10.2.2.0.2"
+_v1 = ".".join(pkgver.split(".")[0:2])
+_v2 = pkgver[len(_v1) + 1 :]
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-example-progs", "--enable-cpp-progs"]

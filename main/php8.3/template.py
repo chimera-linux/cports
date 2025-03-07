@@ -1,6 +1,6 @@
 pkgname = "php8.3"
-_majver = "8.3"
-pkgver = f"{_majver}.16"
+pkgver = "8.3.16"
+_majver = pkgver[0 : pkgver.rfind(".")]
 pkgrel = 1
 _apiver = "20230831"
 build_style = "gnu_configure"

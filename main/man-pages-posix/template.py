@@ -1,11 +1,10 @@
 pkgname = "man-pages-posix"
-_pver = "2017-a"
-pkgver = f"{_pver.replace('-', '')}"
+pkgver = "2017a"
 pkgrel = 1
 pkgdesc = "POSIX man pages"
 license = "custom:posix"
 url = "https://pubs.opengroup.org/onlinepubs/9699919799/nframe.html"
-source = f"https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/man-pages-posix/man-pages-posix-{_pver}.tar.xz"
+source = f"https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/man-pages-posix/man-pages-posix-{pkgver[:-1]}-{pkgver[-1]}.tar.xz"
 sha256 = "ce67bb25b5048b20dad772e405a83f4bc70faf051afa289361c81f9660318bc3"
 options = ["!autosplit"]
 
