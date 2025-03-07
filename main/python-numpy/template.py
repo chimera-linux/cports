@@ -68,10 +68,10 @@ def check(self):
         f"--numprocesses={self.make_jobs}",
         "--dist=worksteal",
         # fails casts/float stuff on aarch64
-        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_casting_floatingpoint_errors.py",
-        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_umath.py",
-        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/linalg/tests/test_linalg.py",
-        "--ignore=../.cbuild-checkenv/lib/python3.12/site-packages/numpy/_core/tests/test_numeric.py",
+        f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/_core/tests/test_casting_floatingpoint_errors.py",
+        f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/_core/tests/test_umath.py",
+        f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/linalg/tests/test_linalg.py",
+        f"--ignore=../.cbuild-checkenv/lib/python{self.python_version}/site-packages/numpy/_core/tests/test_numeric.py",
         "-k",
         "not test_cython"
         # more float aarch64 stuff
