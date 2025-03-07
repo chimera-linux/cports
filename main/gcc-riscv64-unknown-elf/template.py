@@ -1,5 +1,5 @@
-_trip = "riscv64-unknown-elf"
-pkgname = f"gcc-{_trip}"
+pkgname = "gcc-riscv64-unknown-elf"
+_trip = pkgname.removeprefix("gcc-")
 pkgver = "14.2.0"
 pkgrel = 0
 build_style = "gnu_configure"

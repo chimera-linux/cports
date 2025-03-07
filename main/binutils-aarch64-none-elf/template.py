@@ -1,5 +1,5 @@
-_trip = "aarch64-none-elf"
-pkgname = f"binutils-{_trip}"
+pkgname = "binutils-aarch64-none-elf"
+_trip = pkgname.removeprefix("binutils-")
 pkgver = "2.44"
 pkgrel = 0
 build_style = "gnu_configure"

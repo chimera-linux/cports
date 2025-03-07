@@ -1,5 +1,5 @@
-_trip = "riscv64-unknown-elf"
-pkgname = f"binutils-{_trip}"
+pkgname = "binutils-riscv64-unknown-elf"
+_trip = pkgname.removeprefix("binutils-")
 pkgver = "2.44"
 pkgrel = 0
 build_style = "gnu_configure"

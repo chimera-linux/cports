@@ -1,5 +1,5 @@
-_trip = "arm-none-eabi"
-pkgname = f"binutils-{_trip}"
+pkgname = "binutils-arm-none-eabi"
+_trip = pkgname.removeprefix("binutils-")
 pkgver = "2.44"
 pkgrel = 0
 build_style = "gnu_configure"

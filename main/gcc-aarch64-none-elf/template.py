@@ -1,5 +1,5 @@
-_trip = "aarch64-none-elf"
-pkgname = f"gcc-{_trip}"
+pkgname = "gcc-aarch64-none-elf"
+_trip = pkgname.removeprefix("gcc-")
 pkgver = "14.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
