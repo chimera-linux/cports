@@ -38,7 +38,7 @@ sha256 = [
 ]
 env = {
     "U_BOOT_TRIPLET": "aarch64-none-elf",
-    "U_BOOT_TARGETS": "idbloader.img u-boot.itb",
+    "U_BOOT_TARGETS": "idbloader.img:64 u-boot.itb:16384",
 }
 hardening = ["!int"]
 # not relevant

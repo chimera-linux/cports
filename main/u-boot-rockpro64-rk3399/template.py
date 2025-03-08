@@ -31,7 +31,7 @@ source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
 sha256 = "cdef7d507c93f1bbd9f015ea9bc21fa074268481405501945abc6f854d5b686f"
 env = {
     "U_BOOT_TRIPLET": "aarch64-none-elf",
-    "U_BOOT_TARGETS": "idbloader.img u-boot.itb",
+    "U_BOOT_TARGETS": "idbloader.img:64 u-boot.itb:16384",
 }
 hardening = ["!int"]
 # not relevant

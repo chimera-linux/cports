@@ -24,7 +24,7 @@ source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
 sha256 = "cdef7d507c93f1bbd9f015ea9bc21fa074268481405501945abc6f854d5b686f"
 env = {
     "U_BOOT_TRIPLET": "riscv64-unknown-elf",
-    "U_BOOT_TARGETS": "spl/u-boot-spl.bin u-boot.itb",
+    "U_BOOT_TARGETS": "spl/u-boot-spl.bin:34 u-boot.itb:2082",
 }
 hardening = ["!int"]
 # not relevant
