@@ -1,6 +1,6 @@
 pkgname = "python-evdev"
-pkgver = "1.9.0"
-pkgrel = 1
+pkgver = "1.9.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,8 +15,8 @@ pkgdesc = "Python bindings for evdev"
 license = "BSD-3-Clause"
 url = "https://github.com/gvalkov/python-evdev"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "9783a80dca381b9258f74a80a8f7be3fcd7e1c8206752bc428b1b88be22ab369"
-# can't find itself
+sha256 = "958e8aad958250428a57ff6c6fb8e2c254737affaca654165d9222f5a279698b"
+# tests want /dev/uinput
 options = ["!check"]
 
 
