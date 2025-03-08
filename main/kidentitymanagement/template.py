@@ -1,5 +1,5 @@
 pkgname = "kidentitymanagement"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -27,7 +27,7 @@ pkgdesc = "KDE library for managing user identities"
 license = "LGPL-3.0-only"
 url = "https://api.kde.org/kdepim/kidentitymanagement/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kidentitymanagement-{pkgver}.tar.xz"
-sha256 = "b6a10f2c650db4ba99c5a2a786fb4213701250126aa853dc909c81cf37c0f21e"
+sha256 = "501bcb321b1f41bba14d14084c3a2708f4a84666ad62eab299d7730bd181407f"
 
 
 @subpackage("kidentitymanagement-devel")

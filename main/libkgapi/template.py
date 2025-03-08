@@ -1,5 +1,5 @@
 pkgname = "libkgapi"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ pkgdesc = "KDE library for accessing Google services"
 license = "LGPL-3.0-only"
 url = "https://api.kde.org/kdepim/libkgapi/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkgapi-{pkgver}.tar.xz"
-sha256 = "8244eb43498d06343ca00d0eace138fdd5c7cc67320ce705f7bbef125f1d188c"
+sha256 = "71f2c0ed7131c4c74d988285b89591e138881448d3b867466680f4b4b742e177"
 # tests all segfault with missing data
 options = ["!check"]
 

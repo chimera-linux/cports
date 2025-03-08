@@ -1,5 +1,5 @@
 pkgname = "libksane"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -23,7 +23,7 @@ pkgdesc = "KDE image scanning library"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/graphics/libksane"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libksane-{pkgver}.tar.xz"
-sha256 = "cc38a3d399525f8a9f2b62271e460794a6376a858c2140bab73bb0405f85a062"
+sha256 = "bcbc7ec1ccd96a8f24d77708f8a28859ff7089e4e5f84b7ba15201cc885b0cac"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

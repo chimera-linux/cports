@@ -1,5 +1,5 @@
 pkgname = "kweathercore"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 # needs to get location
@@ -23,7 +23,7 @@ url = "https://api.kde.org/kweathercore/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kweathercore-{pkgver}.tar.xz"
 )
-sha256 = "e61d9a3b426b150d71ece164eee824eb65833a292d31b7204bb6a5f357bd82de"
+sha256 = "18c9562a01c2295cb55ae8be42c93b9ec0065a3fb4a4bb7b11933db97d0cc285"
 
 
 @subpackage("kweathercore-devel")

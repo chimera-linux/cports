@@ -1,5 +1,5 @@
 pkgname = "tokodon"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -40,4 +40,4 @@ pkgdesc = "KDE Mastodon client"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.0-or-later"
 url = "https://apps.kde.org/tokodon"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/tokodon-{pkgver}.tar.xz"
-sha256 = "cbcd2a96689a3545613972dc8704398650cb83c2b0c290f61b7cad89c5be7763"
+sha256 = "62b2ddcc8caee8889d835a01d06340199040cea46bf858dbaea3b391bb36a6aa"

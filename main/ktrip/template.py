@@ -1,5 +1,5 @@
 pkgname = "ktrip"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,4 +24,4 @@ pkgdesc = "KDE trip planner"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ktrip"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ktrip-{pkgver}.tar.xz"
-sha256 = "85165a8a5769609e119d5fc3ecddacab62f0ce07f0bf3f34275b5ae89b19952e"
+sha256 = "9eb032811755f04d628d5a173c07da9ef92b554087d53d203cd56a630cf09b28"

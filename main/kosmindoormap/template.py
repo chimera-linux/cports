@@ -1,5 +1,5 @@
 pkgname = "kosmindoormap"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -28,7 +28,7 @@ url = "https://invent.kde.org/libraries/kosmindoormap"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kosmindoormap-{pkgver}.tar.xz"
 )
-sha256 = "8a43b2e157727e44ac4a3ee81ac7049a8a6a425bcb4257b3e824f615cdc2fcee"
+sha256 = "d935c46736040ba0013bb02c3aa30ebd3e9417f0f13cac0e37c24cf41de9747d"
 
 
 @subpackage("kosmindoormap-devel")

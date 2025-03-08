@@ -1,6 +1,6 @@
 pkgname = "kitinerary"
-pkgver = "24.12.2"
-pkgrel = 1
+pkgver = "24.12.3"
+pkgrel = 0
 build_style = "cmake"
 # extractortest: difference in AT/österreich key
 # knowledgedbtest: flaky SIBBUS crash in ki18n IsoCodesCache::subdivisionCount from accessing cache (weird pointer stuff)
@@ -32,7 +32,7 @@ pkgdesc = "KDE travel reservation parsing library"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kitinerary/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kitinerary-{pkgver}.tar.xz"
-sha256 = "1bdc0b18677634ead42e2fb589cd83b3dba0522730d2668b07a3847906cc41bf"
+sha256 = "da895934f27f99ba7b463a4df8f365fb4b12f15458c266e910c13ebb8ef00784"
 
 
 @subpackage("kitinerary-devel")

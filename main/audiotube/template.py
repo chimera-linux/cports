@@ -1,6 +1,6 @@
 pkgname = "audiotube"
-pkgver = "24.12.2"
-pkgrel = 1
+pkgver = "24.12.3"
+pkgrel = 0
 build_style = "cmake"
 _deps = [
     "kirigami-addons",
@@ -35,6 +35,6 @@ pkgdesc = "KDE Youtube Music player"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/audiotube"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/audiotube-{pkgver}.tar.xz"
-sha256 = "ce7df872dab4605ce86cd39d39f261d6c0e29716b79151cebf919cd959c0b46d"
+sha256 = "67eb1db939c12054e5bc22bc1fffad01e027cb4775360eff9b800d6fff2a17be"
 # only test needs net
 options = ["!check"]

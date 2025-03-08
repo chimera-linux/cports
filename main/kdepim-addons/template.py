@@ -1,5 +1,5 @@
 pkgname = "kdepim-addons"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = [
@@ -74,7 +74,7 @@ url = "https://invent.kde.org/pim/kdepim-addons"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdepim-addons-{pkgver}.tar.xz"
 )
-sha256 = "e218af13ea76ec06fb72483af0f2ed3986595a23dbeef76f15e9d00cb5e338f9"
+sha256 = "0ab482e5725d02c702ba65a3a41c7ee774b1e621cedb84734d8a8fbea41f97d9"
 # date diffs, formatting diffs, cant find plugins, ...
 options = ["!check"]
 

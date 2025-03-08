@@ -1,5 +1,5 @@
 pkgname = "calendarsupport"
-pkgver = "24.12.2"
+pkgver = "24.12.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -33,7 +33,7 @@ url = "https://api.kde.org/kdepim/calendarsupport/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/calendarsupport-{pkgver}.tar.xz"
 )
-sha256 = "11b9df68749ad88fb2720265c4044c31a0ee224e8bea54ac32a2a9ac434ccb60"
+sha256 = "d16123e94fced97454a94604498b5ede9a14f9214334d316a4ce799b7f66d0ab"
 
 
 @subpackage("calendarsupport-devel")
