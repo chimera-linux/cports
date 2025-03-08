@@ -1,6 +1,6 @@
 pkgname = "imagemagick"
-pkgver = "7.1.1.43"
-pkgrel = 1
+pkgver = "7.1.1.44"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -72,7 +72,7 @@ pkgdesc = "Create, edit, compose, or convert digital images"
 license = "ImageMagick"
 url = "https://www.imagemagick.org"
 source = f"https://github.com/ImageMagick/ImageMagick/archive/{'-'.join(pkgver.rsplit('.', 1))}.tar.gz"
-sha256 = "ceb972266b23dc7c1cfce0da5a7f0c9acfb4dc81f40eb542a49476fedbc2618f"
+sha256 = "c7cae9f885a995750909ee2ad79ea1f66a6a353f0c6da7b688aa4850aa1c26df"
 # runs out of file descriptors
 options = ["!cross", "!check"]
 
