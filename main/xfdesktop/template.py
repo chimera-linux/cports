@@ -1,6 +1,6 @@
 pkgname = "xfdesktop"
-pkgver = "4.20.0"
-pkgrel = 1
+pkgver = "4.20.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-default-backdrop-filename=/usr/share/backgrounds/chimera/bg-l.svg"
@@ -19,6 +19,7 @@ makedepends = [
     "garcon-devel",
     "glib-devel",
     "gtk+3-devel",
+    "gtk-layer-shell-devel",
     "libnotify-devel",
     "libxfce4ui-devel",
     "libxfce4util-devel",
@@ -32,7 +33,7 @@ pkgdesc = "Xfce desktop manager"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfdesktop/start"
 source = f"$(XFCE_SITE)/xfce/xfdesktop/{pkgver[:-2]}/xfdesktop-{pkgver}.tar.bz2"
-sha256 = "227041ba80c7f3eb9c99dec817f1132b35d8aec7a4335703f61ba1735cd65632"
+sha256 = "acccde849265bbf4093925ba847977b7abf70bb2977e4f78216570e887c157b8"
 
 
 @subpackage("xfdesktop-backgrounds")
