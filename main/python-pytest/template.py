@@ -1,6 +1,6 @@
 pkgname = "python-pytest"
-pkgver = "8.3.4"
-pkgrel = 1
+pkgver = "8.3.5"
+pkgrel = 0
 build_style = "python_pep517"
 _deps = [
     "python-iniconfig",
@@ -19,7 +19,7 @@ pkgdesc = "Python unit testing framework"
 license = "MIT"
 url = "https://docs.pytest.org/en/latest"
 source = f"$(PYPI_SITE)/p/pytest/pytest-{pkgver}.tar.gz"
-sha256 = "965370d062bce11e73868e0335abac31b4d3de0e82f4007408d242b4f8610761"
+sha256 = "f4efe70cc14e511565ac476b57c279e12a855b11f48f212af1080ef2263d3845"
 # missing checkdepends
 options = ["!check"]
 
