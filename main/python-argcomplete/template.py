@@ -1,6 +1,6 @@
 pkgname = "python-argcomplete"
-pkgver = "3.5.3"
-pkgrel = 1
+pkgver = "3.6.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "Python tab completion plugin"
 license = "Apache-2.0"
 url = "https://github.com/kislyuk/argcomplete"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "1e20c3da3d8d16dd7e2270e156e2b2aee20075bbe1426e786d22b034d04577ff"
+sha256 = "b734c4e8aeba199242729356daaed22bd1dde438ceb93ae6ca936eef1f3979a0"
 
 
 # this is identical to the default check, but without pytest
