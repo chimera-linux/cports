@@ -1,5 +1,5 @@
 pkgname = "xfce4-settings"
-pkgver = "4.20.0"
+pkgver = "4.20.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -39,7 +39,7 @@ pkgdesc = "Xfce settings app"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/xfce/xfce4-settings/start"
 source = f"$(XFCE_SITE)/xfce/xfce4-settings/{pkgver[:-2]}/xfce4-settings-{pkgver}.tar.bz2"
-sha256 = "23548da3429a296501fbfdbc98a861ee241b9fdd47e8d5de1781f57c6bbce5a9"
+sha256 = "fd0d602853ea75d94024e5baae2d2bf5ca8f8aa4dad7bfd5d08f9ff8afee77b2"
 
 
 @subpackage("xfce4-settings-default-themes")

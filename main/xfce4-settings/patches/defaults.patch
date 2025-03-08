@@ -1,5 +1,5 @@
 diff --git a/xfsettingsd/xsettings.xml b/xfsettingsd/xsettings.xml
-index de4ddb66..f7259ab0 100644
+index d0528de9..c7189347 100644
 --- a/xfsettingsd/xsettings.xml
 +++ b/xfsettingsd/xsettings.xml
 @@ -6,8 +6,8 @@
@@ -16,7 +16,7 @@ index de4ddb66..f7259ab0 100644
 @@ -19,9 +19,9 @@
    </property>
    <property name="Xft" type="empty">
-     <property name="DPI" type="int" value="-1"/>
+     <property name="DPI" type="int" value="96"/>
 -    <property name="Antialias" type="int" value="-1"/>
 +    <property name="Antialias" type="int" value="1"/>
      <property name="Hinting" type="int" value="-1"/>
