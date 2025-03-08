@@ -1,6 +1,6 @@
 pkgname = "python-psutil"
-pkgver = "6.1.1"
-pkgrel = 1
+pkgver = "7.0.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,7 +15,7 @@ pkgdesc = "Process and system monitoring module for Python"
 license = "BSD-3-Clause"
 url = "https://github.com/giampaolo/psutil"
 source = f"$(PYPI_SITE)/p/psutil/psutil-{pkgver}.tar.gz"
-sha256 = "cf8496728c18f2d0b45198f06895be52f36611711746b7f30c464b422b50e2f5"
+sha256 = "7be9c3eba38beccb6495ea33afd982a44074b78f28c434a1f51cc07fd315c456"
 # cwd import memes
 options = ["!check"]
 
