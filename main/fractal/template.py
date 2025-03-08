@@ -1,6 +1,6 @@
 pkgname = "fractal"
 pkgver = "10.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "cargo-auditable",
@@ -25,7 +25,7 @@ makedepends = [
     "sqlite-devel",
     "xdg-desktop-portal-devel",
 ]
-depends = ["glycin-loaders"]
+depends = ["glycin-loaders", "gst-plugins-rs-gtk4"]
 pkgdesc = "GTK Matrix client"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/fractal"
