@@ -1,6 +1,6 @@
 pkgname = "power-profiles-daemon"
-pkgver = "0.23"
-pkgrel = 3
+pkgver = "0.30"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -15,6 +15,7 @@ hostmakedepends = [
     "python-shtab",
 ]
 makedepends = [
+    "bash-completion",
     "libgudev-devel",
     "polkit-devel",
     "upower-devel",
@@ -26,7 +27,7 @@ pkgdesc = "D-Bus daemon for power management control"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/upower/power-profiles-daemon"
 source = f"{url}/-/archive/{pkgver}/power-profiles-daemon-{pkgver}.tar.bz2"
-sha256 = "a71f79e9cb1c184b7a8e25c3ae70d624ea4313edec3401495992c364b5f22599"
+sha256 = "528ee5b8ca0a27d8d66128ebf850e23be9571dc130cf2a82dd2463dac7d3a92f"
 hardening = ["vis"]
 
 
