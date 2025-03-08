@@ -1,6 +1,6 @@
 pkgname = "pipewire"
-pkgver = "1.2.7"
-pkgrel = 3
+pkgver = "1.4.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -13,6 +13,7 @@ configure_args = [
     "-Droc=disabled",  # TODO
     "-Dselinux=disabled",
     "-Dsnap=disabled",
+    "-Debur128=disabled",  # missing dep
     "-Dbluez5-codec-lc3plus=disabled",
     "-Djack=disabled",  # spa plugin (to be a jackd client)
     "-Djack-devel=true",  # jack development files (we don't ship jackd)
@@ -77,7 +78,7 @@ pkgdesc = "Server and user space API to deal with multimedia pipelines"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
-sha256 = "e75568ed18bcbe75e9779af57cb9cc256fd7ebfaadc12bb347a0717055d1d3a9"
+sha256 = "81076aac2020ec53ef6c3e2f6e8b5bee7275dad15c295bacab5c73e2727955ec"
 
 if self.profile().endian == "big":
     configure_args += [

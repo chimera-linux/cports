@@ -1,0 +1,14 @@
+--- a/spa/plugins/audioconvert/meson.build
++++ b/spa/plugins/audioconvert/meson.build
+@@ -8,11 +8,6 @@ simd_cargs = []
+ simd_dependencies = []
+ 
+ opt_flags = []
+-if host_machine.cpu_family() != 'alpha'
+-  opt_flags += '-Ofast'
+-else
+-  opt_flags += '-O3'
+-endif
+ 
+ audioconvert_c = static_library('audioconvert_c',
+   [ 'channelmix-ops-c.c',
