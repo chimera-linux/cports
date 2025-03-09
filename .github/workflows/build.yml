@@ -59,12 +59,12 @@ jobs:
           path: |
             ./cbuild_cache
             ./sources
-          key: ${{ runner.os }}-cbuild-ci-cache-${{ github.run_id }}
+          key: ${{ runner.os }}-${{ runner.arch }}-cbuild-ci-cache-${{ github.run_id }}
           # checks prefix of cache stored below and grabs the one from the latest run_id that is
           # always saved. we do this because things like source fetch / dependencies don't care
           # about success.
           restore-keys: |
-            ${{ runner.os }}-cbuild-ci-cache
+            ${{ runner.os }}-${{ runner.arch }}-cbuild-ci-cache
 
       - name: Set up cbuild configuration
         run: sh .ci/setup-cbuild.sh
@@ -79,4 +79,4 @@ jobs:
           path: |
             ./cbuild_cache
             ./sources
-          key: ${{ runner.os }}-cbuild-ci-cache-${{ github.run_id }}
+          key: ${{ runner.os }}-${{ runner.arch }}-cbuild-ci-cache-${{ github.run_id }}
