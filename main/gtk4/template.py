@@ -1,6 +1,6 @@
 pkgname = "gtk4"
 pkgver = "4.16.12"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -95,11 +95,9 @@ hardening = ["!int"]
 options = ["!cross", "!check"]
 
 
-def post_install(self):
-    # we don't really need it (provided by gtk3)
-    # note: there are no changes in this since gtk3 aside from warning cleanups anyway
-    self.uninstall("usr/bin/gtk4-update-icon-cache")
-    self.uninstall("usr/share/man/man1/gtk4-update-icon-cache.1")
+@subpackage("gtk4-update-icon-cache")
+def _(self):
+    return ["cmd:gtk4-update-icon-cache"]
 
 
 @subpackage("gtk4-devel")
