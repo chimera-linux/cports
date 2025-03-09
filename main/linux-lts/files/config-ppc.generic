@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.12.16 Kernel Configuration
+# Linux/powerpc 6.12.18 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 19.1.7"
 CONFIG_GCC_VERSION=0
@@ -1921,7 +1921,6 @@ CONFIG_FW_CFG_SYSFS=m
 CONFIG_FW_CFG_SYSFS_CMDLINE=y
 CONFIG_FW_CS_DSP=m
 # CONFIG_GOOGLE_FIRMWARE is not set
-CONFIG_IMX_SCMI_MISC_DRV=m
 
 #
 # Qualcomm firmware drivers
@@ -7325,7 +7324,6 @@ CONFIG_R8712U=m
 # CONFIG_FIELDBUS_DEV is not set
 # CONFIG_VME_BUS is not set
 # CONFIG_GOLDFISH is not set
-# CONFIG_CZNIC_PLATFORMS is not set
 CONFIG_HAVE_CLK=y
 CONFIG_HAVE_CLK_PREPARE=y
 CONFIG_COMMON_CLK=y
