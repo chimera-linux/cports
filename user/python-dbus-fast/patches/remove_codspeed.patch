@@ -1,9 +1,10 @@
-diff --color -ruN python-dbus-fast-2.32.0/tests/benchmarks/test_marshall.py python-dbus-fast-2.32.0-patched/tests/benchmarks/test_marshall.py
---- python-dbus-fast-2.32.0/tests/benchmarks/test_marshall.py	2025-01-07 23:06:33.000000000 +0000
-+++ python-dbus-fast-2.32.0-patched/tests/benchmarks/test_marshall.py	1970-01-01 00:00:00.000000000 +0000
-@@ -1,17 +0,0 @@
--from dbus_fast import Message
+diff --color -ruN python-dbus-fast-2.39.3/tests/benchmarks/test_marshall.py python-dbus-fast-2.39.3-patched/tests/benchmarks/test_marshall.py
+--- python-dbus-fast-2.39.3/tests/benchmarks/test_marshall.py	2025-03-07 00:45:10.000000000 +0000
++++ python-dbus-fast-2.39.3-patched/tests/benchmarks/test_marshall.py	1970-01-01 00:00:00.000000000 +0000
+@@ -1,18 +0,0 @@
 -from pytest_codspeed import BenchmarkFixture
+-
+-from dbus_fast import Message
 -
 -message = Message(
 -    destination="org.bluez",
@@ -19,15 +20,15 @@ diff --color -ruN python-dbus-fast-2.32.0/tests/benchmarks/test_marshall.py pyth
 -    @benchmark
 -    def marhsall_bluez_get_managed_objects_message():
 -        message._marshall(False)
-diff --color -ruN python-dbus-fast-2.32.0/tests/benchmarks/test_unmarshall.py python-dbus-fast-2.32.0-patched/tests/benchmarks/test_unmarshall.py
---- python-dbus-fast-2.32.0/tests/benchmarks/test_unmarshall.py	2025-01-07 23:06:33.000000000 +0000
-+++ python-dbus-fast-2.32.0-patched/tests/benchmarks/test_unmarshall.py	1970-01-01 00:00:00.000000000 +0000
+diff --color -ruN python-dbus-fast-2.39.3/tests/benchmarks/test_unmarshall.py python-dbus-fast-2.39.3-patched/tests/benchmarks/test_unmarshall.py
+--- python-dbus-fast-2.39.3/tests/benchmarks/test_unmarshall.py	2025-03-07 00:45:10.000000000 +0000
++++ python-dbus-fast-2.39.3-patched/tests/benchmarks/test_unmarshall.py	1970-01-01 00:00:00.000000000 +0000
 @@ -1,66 +0,0 @@
 -import io
 -
--from dbus_fast._private.unmarshaller import Unmarshaller
--
 -from pytest_codspeed import BenchmarkFixture
+-
+-from dbus_fast._private.unmarshaller import Unmarshaller
 -
 -
 -def test_unmarshall_bluez_rssi_message(benchmark: BenchmarkFixture) -> None:
