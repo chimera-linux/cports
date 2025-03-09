@@ -1,5 +1,5 @@
 pkgname = "television"
-pkgver = "0.10.6"
+pkgver = "0.10.7"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Fuzzy finder"
 license = "MIT"
 url = "https://github.com/alexpasmantier/television"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "d316ddd82aa725e381f238aec190423c6dd1569b25697a3e318fef990205ade3"
+sha256 = "39a490a394a0ce975b1144c775acb1bb53e29383cd0ebf023ed7c2b66ad96d88"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
