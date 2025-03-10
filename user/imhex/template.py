@@ -1,5 +1,5 @@
 pkgname = "imhex"
-pkgver = "1.37.3"
+pkgver = "1.37.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -54,8 +54,8 @@ source_paths = [
     "ImHex-Patterns",
 ]
 sha256 = [
-    "38f670293fcc1e5a06fccf7d35dd8c23a4be8c6ab4a5e3b2900f730d2a8ad2f5",
-    "dc009ad616e73209f8eed1a1a36ebea70e1288a038e756d4ad0c341991fcbfb3",
+    "711481cc8dfc368d1b88f5d3e8a44d65f23fa43eb9db092599924f3a4cf1aaa2",
+    "541eddc8cc427d1aeb749bc455911fccc87f64a7784bd4bbc35ecb7b56c03ad5",
 ]
 # FIXME: drop with LLVM 20 where std::jthread & std::stop_token are deemed stable
 tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
