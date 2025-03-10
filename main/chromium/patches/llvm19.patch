@@ -1,0 +1,210 @@
+work around a deficiency in our version of the stdlib
+
+diff --git a/chrome/browser/extensions/menu_manager.cc b/chrome/browser/extensions/menu_manager.cc
+index 6f774b5..da1764a 100644
+--- a/chrome/browser/extensions/menu_manager.cc
++++ b/chrome/browser/extensions/menu_manager.cc
+@@ -878,9 +878,13 @@ void MenuManager::WriteToStorageInternal(
+     observer.WillWriteToStorage(extension_key.extension_id);
+ 
+   if (store_) {
++    base::Value::List list;
++    for (auto &cv: all_items) {
++      list.Append(cv->ToValue());
++    }
+     store_->SetExtensionValue(
+         extension_key.extension_id, kContextMenusKey,
+-        base::Value(base::ToValueList(all_items, &MenuItem::ToValue)));
++        base::Value(std::move(list)));
+   }
+ }
+ 
+diff --git a/chrome/browser/ui/webui/support_tool/support_tool_ui_utils.cc b/chrome/browser/ui/webui/support_tool/support_tool_ui_utils.cc
+index 39408b5..a6315df 100644
+--- a/chrome/browser/ui/webui/support_tool/support_tool_ui_utils.cc
++++ b/chrome/browser/ui/webui/support_tool/support_tool_ui_utils.cc
+@@ -233,7 +233,8 @@ std::string GetPIITypeDescription(redaction::PIIType type_enum) {
+ //   keep: boolean,
+ // }
+ base::Value::List GetDetectedPIIDataItems(const PIIMap& detected_pii) {
+-  return base::ToValueList(detected_pii, [](const auto& detected_pii_entry) {
++  base::Value::List list;
++  auto conv = [](const auto& detected_pii_entry) {
+     const auto& [pii_key, pii_data] = detected_pii_entry;
+     return base::Value::Dict()
+         .Set(support_tool_ui::kPiiItemDescriptionKey,
+@@ -246,7 +247,11 @@ base::Value::List GetDetectedPIIDataItems(const PIIMap& detected_pii) {
+         // TODO(b/200511640): Set `keep` field to the value we'll get from
+         // URL's pii_masking_on query if it exists.
+         .Set(support_tool_ui::kPiiItemKeepKey, true);
+-  });
++  };
++  for (auto &entry: detected_pii) {
++    list.Append(conv(entry));
++  }
++  return list;
+ }
+ 
+ std::set<redaction::PIIType> GetPIITypesToKeep(
+diff --git a/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_integrity_block_data.cc b/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_integrity_block_data.cc
+index 25134a3..6894595 100644
+--- a/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_integrity_block_data.cc
++++ b/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_integrity_block_data.cc
+@@ -155,8 +155,7 @@ IsolatedWebAppIntegrityBlockData::ToProto() const {
+ }
+ 
+ base::Value IsolatedWebAppIntegrityBlockData::AsDebugValue() const {
+-  return base::Value(base::Value::Dict().Set(
+-      "signatures", base::ToValueList(signatures_, [](const auto& signature) {
++  auto conv = [](const auto& signature) {
+         return absl::visit(
+             base::Overloaded{
+                 [](const web_package::SignedWebBundleSignatureInfoEd25519&
+@@ -190,7 +189,12 @@ base::Value IsolatedWebAppIntegrityBlockData::AsDebugValue() const {
+                                                  base::Value::Dict());
+                 }},
+             signature);
+-      })));
++  };
++  base::Value::List list;
++  for (auto &sig: signatures_) {
++    list.Append(conv(sig));
++  }
++  return base::Value(base::Value::Dict().Set("signatures", std::move(list)));
+ }
+ 
+ bool IsolatedWebAppIntegrityBlockData::HasPublicKey(
+diff --git a/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_update_discovery_task.cc b/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_update_discovery_task.cc
+index e6901c8..cadb082 100644
+--- a/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_update_discovery_task.cc
++++ b/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_update_discovery_task.cc
+@@ -234,16 +234,19 @@ void IsolatedWebAppUpdateDiscoveryTask::OnUpdateManifestFetched(
+     return;
+   }
+ 
+-  debug_log_.Set(
+-      "available_versions",
+-      base::ToValueList(update_manifest.versions(), [](const auto& entry) {
++  auto conv = [](const auto& entry) {
+         return base::Value::Dict()
+             .Set("version", entry.version().GetString())
+             .Set("update_channels",
+                  base::ToValueList(entry.channels(), [](const auto& channel) {
+                    return channel.ToString();
+                  }));
+-      }));
++  };
++  base::Value::List list;
++  for (auto &dv: update_manifest.versions()) {
++    list.Append(conv(dv));
++  }
++  debug_log_.Set("available_versions", std::move(list));
+ 
+   debug_log_.Set(
+       "version_entry",
+diff --git a/chrome/browser/web_applications/isolated_web_apps/policy/isolated_web_app_policy_manager.cc b/chrome/browser/web_applications/isolated_web_apps/policy/isolated_web_app_policy_manager.cc
+index 64d987d..e884083 100644
+--- a/chrome/browser/web_applications/isolated_web_apps/policy/isolated_web_app_policy_manager.cc
++++ b/chrome/browser/web_applications/isolated_web_apps/policy/isolated_web_app_policy_manager.cc
+@@ -436,26 +436,26 @@ void IsolatedWebAppPolicyManager::DoProcessPolicy(
+     }
+   }
+ 
+-  debug_info.Set("apps_in_policy",
+-                 base::ToValueList(apps_in_policy, [](const auto& options) {
+-                   return base::ToString(options.web_bundle_id());
+-                 }));
+-  debug_info.Set(
+-      "installed_iwas",
+-      base::ToValueList(installed_iwas, [](const auto& installed_iwa) {
+-        const auto& [web_bundle_id, _] = installed_iwa;
+-        return base::ToString(web_bundle_id);
+-      }));
+-  debug_info.Set(
+-      "app_actions", base::ToValueList(app_actions, [](const auto& entry) {
++  base::Value::List list1, list2, list3;
++  for (auto &options: apps_in_policy) {
++    list1.Append(base::ToString(options.web_bundle_id()));
++  }
++  debug_info.Set("apps_in_policy", std::move(list1));
++  for (auto &installed_iwa: installed_iwas) {
++    const auto& [web_bundle_id, _] = installed_iwa;
++    list2.Append(base::ToString(web_bundle_id));
++  }
++  debug_info.Set("installed_iwas", std::move(list2));
++  for (auto &entry: app_actions) {
+         const auto& [web_bundle_id, app_action] = entry;
+-        return base::Value::Dict()
++        list3.Append(base::Value::Dict()
+             .Set("web_bundle_id", base::ToString(web_bundle_id))
+             .Set("action", std::visit(base::Overloaded{[](const auto& action) {
+                                         return action.GetDebugValue();
+                                       }},
+-                                      app_action));
+-      }));
++                                      app_action)));
++  }
++  debug_info.Set("app_actions", std::move(list3));
+   current_process_log_.Merge(debug_info.Clone());
+ 
+   auto action_done_callback = base::BarrierClosure(
+@@ -634,7 +634,11 @@ void IsolatedWebAppPolicyManager::ProcessLogs::AppendCompletedStep(
+ }
+ 
+ base::Value IsolatedWebAppPolicyManager::ProcessLogs::ToDebugValue() const {
+-  return base::Value(base::ToValueList(logs_, &base::Value::Dict::Clone));
++  base::Value::List list;
++  for (auto &cv: logs_) {
++    list.Append(cv.Clone());
++  }
++  return base::Value(std::move(list));
+ }
+ 
+ }  // namespace web_app
+diff --git a/components/services/app_service/public/cpp/permission.cc b/components/services/app_service/public/cpp/permission.cc
+index 1b1d820..6337f84 100644
+--- a/components/services/app_service/public/cpp/permission.cc
++++ b/components/services/app_service/public/cpp/permission.cc
+@@ -166,7 +166,13 @@ PermissionPtr ConvertDictToPermission(const base::Value::Dict& dict) {
+ }
+ 
+ base::Value::List ConvertPermissionsToList(const Permissions& permissions) {
+-  return base::ToValueList(permissions, &ConvertPermissionToDict);
++  base::Value::List list;
++
++  for (auto &perm: permissions) {
++    list.Append(ConvertPermissionToDict(perm));
++  }
++
++  return list;
+ }
+ 
+ Permissions ConvertListToPermissions(const base::Value::List* list) {
+diff --git a/printing/print_settings_conversion.cc b/printing/print_settings_conversion.cc
+index 974fc61..081f1fb 100644
+--- a/printing/print_settings_conversion.cc
++++ b/printing/print_settings_conversion.cc
+@@ -368,13 +368,16 @@ base::Value::Dict PrintSettingsToJobSettingsDebug(
+           .Set(kSettingPagesPerSheet, settings.pages_per_sheet());
+ 
+   if (!settings.ranges().empty()) {
+-    job_settings.Set(
+-        kSettingPageRange,
+-        base::ToValueList(settings.ranges(), [](const auto& range) {
+-          return base::Value::Dict()
+-              .Set(kSettingPageRangeFrom, static_cast<int>(range.from + 1))
+-              .Set(kSettingPageRangeTo, static_cast<int>(range.to + 1));
+-        }));
++    auto conv = [](const auto& range) {
++      return base::Value::Dict()
++          .Set(kSettingPageRangeFrom, static_cast<int>(range.from + 1))
++          .Set(kSettingPageRangeTo, static_cast<int>(range.to + 1));
++    };
++    base::Value::List list;
++    for (auto &cv: settings.ranges()) {
++      list.Append(conv(cv));
++    }
++    job_settings.Set(kSettingPageRange, std::move(list));
+   }
+ 
+   // Following values are not read form JSON by InitSettings, so do not have
