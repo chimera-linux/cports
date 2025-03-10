@@ -1,8 +1,8 @@
 pkgname = "wlsunset"
 pkgver = "0.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-hostmakedepends = ["meson", "pkgconf", "scdoc"]
+hostmakedepends = ["meson", "pkgconf", "scdoc", "wayland-progs"]
 makedepends = ["wayland-devel", "wayland-protocols"]
 pkgdesc = "Day/night gamma adjustments for Wayland"
 license = "MIT"
