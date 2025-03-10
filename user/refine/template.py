@@ -1,5 +1,5 @@
 pkgname = "refine"
-pkgver = "0.5.2"
+pkgver = "0.5.4"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -23,4 +23,4 @@ pkgdesc = "Tweak various aspects of GNOME"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/TheEvilSkeleton/Refine"
 source = f"{url}/-/archive/{pkgver}/Refine-{pkgver}.tar.bz2"
-sha256 = "2e0d5bc3bd709b727c306e6d430c92f06d32eec77034f7a107ee0dbbb55227b5"
+sha256 = "38283d86388105f1a23601747e96122828ec116b6642ddf7dcbca301d7820862"
