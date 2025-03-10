@@ -1,7 +1,7 @@
 pkgname = "gn"
-pkgver = "0_git20240402"
+pkgver = "0_git20250113"
 pkgrel = 0
-_gitrev = "415b3b19e094cd4b6982147693485df65037f942"
+_gitrev = "ed1abc107815210dc66ec439542bee2f6cbabc00"
 hostmakedepends = ["ninja", "python"]
 depends = ["ninja"]
 pkgdesc = "Build system that generates ninja"
@@ -9,7 +9,7 @@ license = "BSD-3-Clause"
 url = "https://gn.googlesource.com/gn"
 # shamelessly leech off alpine
 source = f"https://ab-sn.lnl.gay/gn-{_gitrev}.tar.zst"
-sha256 = "47419d585f533f7b903d7dc85b66b88a72bc7f8bf788d9e2093a981acc7379a6"
+sha256 = "1d092838aea0fbb184b0398bfabd07d894b8a03ddf543b81fb3fd238f43d205d"
 hardening = ["vis", "cfi"]
 
 
