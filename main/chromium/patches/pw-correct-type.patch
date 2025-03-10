@@ -1,0 +1,13 @@
+pw_node_add_listener will not take pw_proxy* and it is a wrong type
+
+--- a/third_party/webrtc/modules/video_capture/linux/pipewire_session.h
++++ b/third_party/webrtc/modules/video_capture/linux/pipewire_session.h
+@@ -68,7 +68,7 @@ class PipeWireNode {
+                           const spa_pod* param);
+   static bool ParseFormat(const spa_pod* param, VideoCaptureCapability* cap);
+ 
+-  pw_proxy* proxy_;
++  pw_node* proxy_;
+   spa_hook node_listener_;
+   PipeWireSession* session_;
+   uint32_t id_;
