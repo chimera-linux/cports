@@ -1,6 +1,6 @@
 pkgname = "vte"
-pkgver = "0.78.3"
-pkgrel = 1
+pkgver = "0.78.4"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-D_systemd=false",
@@ -41,7 +41,7 @@ url = "https://wiki.gnome.org/Apps/Terminal/VTE"
 source = (
     f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
 )
-sha256 = "cf3cd0568a41f058ae09e09c7ca4cf2d103c4a614ff3a6284295576d190643ae"
+sha256 = "cc6820090d160fbfb627da821954d4693ee4538b155a747a04021be536448e37"
 # assert in meson
 options = ["!lto", "!cross"]
 
