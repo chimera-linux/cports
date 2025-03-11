@@ -1,5 +1,5 @@
 pkgname = "cargo-deny"
-pkgver = "0.16.4"
+pkgver = "0.18.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=native-certs"]
@@ -12,7 +12,7 @@ pkgdesc = "Cargo plugin for linting dependencies"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/EmbarkStudios/cargo-deny"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9b6bdbf90f2610203708065afc653b9e1e1ba8cc425ffe5d8957da68d9347c01"
+sha256 = "bb47741fada886c166e2a697a87fe93fca38ec083db489d404c73bcb0b9d7445"
 # TODO
 options = ["!check"]
 
