@@ -1,6 +1,6 @@
 pkgname = "glow"
-pkgver = "2.0.0"
-pkgrel = 5
+pkgver = "2.1.0"
+pkgrel = 0
 build_style = "go"
 # needs net
 make_check_args = ["-skip", "TestGlowSources", "./..."]
@@ -9,7 +9,7 @@ pkgdesc = "Render markdown on the CLI"
 license = "MIT"
 url = "https://github.com/charmbracelet/glow"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "55872e36c006e7e715b86283baf14add1f85b0a0304e867dd0d80e8d7afe49a8"
+sha256 = "f1875a73ed81e5d8e6c81443e9a9d18bd9d1489c563c9fa2ff5425f2f8e2af6f"
 # uses binary for completions
 options = ["!cross"]
 
