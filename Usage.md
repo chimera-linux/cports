@@ -513,6 +513,8 @@ The following commands are recognized:
 * `bulk-print` Like `bulk-pkg`, but only print the template names instead of
   building them. The status reporting still works but obviously won't include
   build failures, only parse failures and the likes.
+* `bulk-print-ver` Like `bulk-print`, but include the version in the listing
+  like `pkgname=pkgver-rN`.
 * `bulk-raw` Perform a raw bulk build. In this mode, only template names may
   be given, no special expressions, and no sorting is done, i.e. packages are
   built in the order that is given.

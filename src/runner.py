@@ -1842,7 +1842,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         do_unstage(tgt, bstage < 3)
 
 
-def _bulkpkg(pkgs, statusf, do_build, do_raw):
+def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
     import graphlib
 
     from cbuild.core import logger, template, chroot, errors, build
@@ -2049,7 +2049,10 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             if not opt_force and tp.is_built(not do_build):
                 statusf.write(f"{pn} done\n")
                 continue
-            flist.append(pn)
+            if not version or not tp.pkgver or not tp.pkgrel:
+                flist.append(pn)
+            else:
+                flist.append(f"{pn}={tp.pkgver}-r{tp.pkgrel}")
 
     if not failed or opt_bulkcont:
         if not do_build:
@@ -2221,7 +2224,7 @@ def _collect_blist(pkgs):
     return list(set(rpkgs))
 
 
-def do_bulkpkg(tgt, do_build=True, do_raw=False):
+def do_bulkpkg(tgt, do_build=True, do_raw=False, version=False):
     import os
     from cbuild.core import errors
 
@@ -2246,7 +2249,7 @@ def do_bulkpkg(tgt, do_build=True, do_raw=False):
         sout = open(os.devnull, "w")
 
     try:
-        _bulkpkg(pkgs, sout, do_build, do_raw)
+        _bulkpkg(pkgs, sout, do_build, do_raw, version)
     except Exception:
         sout.close()
         raise
@@ -2672,6 +2675,10 @@ command_handlers = {
     "bulk-print": (
         lambda cmd: do_bulkpkg(cmd, False),
         "Print a bulk build list",
+    ),
+    "bulk-print-ver": (
+        lambda cmd: do_bulkpkg(cmd, False, version=True),
+        "Print a bulk build list with versions",
     ),
     "bulk-raw": (
         lambda cmd: do_bulkpkg(cmd, True, True),
