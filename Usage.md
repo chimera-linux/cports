@@ -498,9 +498,9 @@ The following commands are recognized:
   The special expressions include `list:XXX` (a list of template names separated
   by whitespace, but given as a single string), `file:PATH` (a file containing
   a list of bulk expressions each on a new line), `-` or `file:-` (expressions
-  are collected from `stdin`), `status:unbuilt` (all templates that would be
-  printed by `print-unbuilt`), `status:outdated` (all templates that would be
-  printed by `print-outdated`), `status:FILE` (given a status file emitted by
+  are collected from `stdin`), `status:unbuilt` (all templates that are not
+  built in a local repo), `status:outdated` (all templates that are built
+  locally but not up to date), `status:FILE` (given a status file emitted by
   `--status-fd` in a previous bulk, build those that were skipped or failed to
   build; broken/invalid/missing/built templates are not included), or `git:EXPR`
   (templates affected by the given Git expression; this may be a single commit
@@ -569,10 +569,6 @@ The following commands are recognized:
   specified in configuration, this will fail).
 * `lint` Read and parse the template, and do lint checks on it. Do nothing
   else. Error on failures.
-* `list-outdated` Sort of like `print-outdated`, but separate the outputs by
-  newlines and include a version (in the format `PNAME=PVER`) if possible.
-* `list-unbuilt` Sort of like `print-unbuilt`, but separate the outputs by
-  newlines and include a version (in the format `PNAME=PVER`) if possible.
 * `prepare-upgrade` Given a template name (one), read the template, fetch its
   sources, update the `sha256` fields appropriately to match what was
   downloaded, and reset `pkgrel` to zero. Note that you still need to manually
@@ -581,12 +577,6 @@ The following commands are recognized:
   repository was empty, accounting for dependencies. Each further build level
   (i.e. when a template is built as a dependency of another) is indented by
   an extra space. Otherwise, the template names are printed on their own lines.
-* `print-outdated` Parse all templates and compare the local repository
-  against them. Print a spaces-separated list of templates that are out of date
-  but present in the repo. Templates that are not buildable are not included.
-* `print-unbuilt` Parse all templates and compare the local repository
-  against them. Print a spaces-separated list of templates that are either
-  out of date or missing. Templates that are not buildable are not included.
 * `prune-pkgs` Like running `prune-obsolete` followed by `prune-removed`.
 * `prune-obsolete` Prune obsolete packages within all repositories for the
   current architecture (can be set with `-a`). This works for recursively

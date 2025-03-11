@@ -1590,20 +1590,6 @@ def _get_unbuilt(outdated=False):
     return fvers
 
 
-def do_print_unbuilt(tgt, do_list, do_outdated):
-    unb = _get_unbuilt(do_outdated)
-    if not unb:
-        return
-    if do_list:
-        for pn, pv in sorted(unb, key=lambda t: t[0]):
-            if not pv:
-                print(pn)
-            else:
-                print(f"{pn}={pv}")
-        return
-    print(" ".join(map(lambda tp: tp[0], unb)))
-
-
 def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot
 
@@ -2704,14 +2690,6 @@ command_handlers = {
     "invoke-custom": (do_pkg, "Run a custom template-specific target"),
     "keygen": (do_keygen, "Generate a new signing key"),
     "lint": (do_lint, "Parse a template and lint it"),
-    "list-outdated": (
-        lambda cmd: do_print_unbuilt(cmd, True, True),
-        "Like list-unbuilt, but only consider packages in local repository",
-    ),
-    "list-unbuilt": (
-        lambda cmd: do_print_unbuilt(cmd, True, False),
-        "Print a newline-separated versioned list of unbuilt templates",
-    ),
     "patch": (do_pkg, "Run up to patch phase of a template"),
     "pkg": (do_pkg, "Build a package or multiple packages"),
     "prepare": (do_pkg, "Run up to prepare phase of a template"),
@@ -2726,14 +2704,6 @@ command_handlers = {
     "print-mismatched-subpkgs": (
         do_print_mismatched,
         "Print subpackages that have wrong names",
-    ),
-    "print-outdated": (
-        lambda cmd: do_print_unbuilt(cmd, False, True),
-        "Like print-unbuilt, but only consider packages in local repository",
-    ),
-    "print-unbuilt": (
-        lambda cmd: do_print_unbuilt(cmd, False, False),
-        "Print a space-separated list of unbuilt templates",
     ),
     "prune-pkgs": (
         do_prune_pkgs,
