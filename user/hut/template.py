@@ -1,6 +1,6 @@
 pkgname = "hut"
 pkgver = "0.6.0"
-pkgrel = 10
+pkgrel = 11
 build_style = "go"
 hostmakedepends = ["go", "scdoc"]
 pkgdesc = "CLI tool for sr.ht"

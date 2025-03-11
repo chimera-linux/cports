@@ -1,6 +1,6 @@
 pkgname = "gopass"
 pkgver = "1.15.15"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["git", "gnupg"]

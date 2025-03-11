@@ -1,6 +1,6 @@
 pkgname = "containerd"
 pkgver = "2.0.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "makefile"
 make_build_args = [
     # invokes go, so slower in parallel since races for cache and overloads threads

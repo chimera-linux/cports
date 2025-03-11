@@ -1,5 +1,5 @@
 pkgname = "go"
-pkgver = "1.24.0"
+pkgver = "1.24.1"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
@@ -11,7 +11,7 @@ pkgdesc = "Go programming language"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "d14120614acb29d12bcab72bd689f257eb4be9e0b6f88a8fb7e41ac65f8556e5"
+sha256 = "8244ebf46c65607db10222b5806aeb31c1fcf8979c1b6b12f60c677e9a3c0656"
 env = {}
 # see below
 options = [
