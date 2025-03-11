@@ -2049,7 +2049,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
             if not opt_force and tp.is_built(not do_build):
                 statusf.write(f"{pn} done\n")
                 continue
-            if not version or not tp.pkgver or not tp.pkgrel:
+            if not version or tp.pkgver is None or tp.pkgrel is None:
                 flist.append(pn)
             else:
                 flist.append(f"{pn}={tp.pkgver}-r{tp.pkgrel}")
