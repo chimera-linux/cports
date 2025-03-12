@@ -1,5 +1,5 @@
 pkgname = "font-manager"
-pkgver = "0.9.2"
+pkgver = "0.9.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -20,6 +20,7 @@ hostmakedepends = [
 makedepends = [
     "gtk4-devel",
     "json-glib-devel",
+    "libarchive-devel",
     "libsoup-devel",
     "nautilus-devel",
     "thunar-devel",
@@ -29,7 +30,7 @@ pkgdesc = "Font management application"
 license = "GPL-3.0-or-later"
 url = "https://fontmanager.github.io"
 source = f"https://github.com/FontManager/font-manager/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2e4eff44d9cee01ae14cf7271ae27170c327ddfbc776f4c0908b7589f2eb1bfb"
+sha256 = "3e4aefdaa0fbd37410c35421501819b19ba1f6847bad7a1f51707209c4147063"
 # gobject-introspection
 options = ["!cross"]
 
