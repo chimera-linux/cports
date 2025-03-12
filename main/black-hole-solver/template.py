@@ -1,5 +1,5 @@
 pkgname = "black-hole-solver"
-pkgver = "1.12.0"
+pkgver = "1.14.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ pkgdesc = "Solver for various solitaire card games"
 license = "MIT"
 url = "https://github.com/shlomif/black-hole-solitaire"
 source = f"https://fc-solve.shlomifish.org/downloads/fc-solve/black-hole-solver-{pkgver}.tar.xz"
-sha256 = "d32f32536f7573292588f41bb0d85ae42d561376c218dc4ab6badfe4904a37a7"
+sha256 = "5c47bd093dbb160f4b090fd670ab7c12b4371d39b17b3bbd8c6c4a12975557c0"
 # needs another 10 perl modules
 options = ["!check"]
 
