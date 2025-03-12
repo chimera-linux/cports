@@ -1,5 +1,5 @@
 pkgname = "libksysguard"
-pkgver = "6.3.2"
+pkgver = "6.3.3"
 pkgrel = 0
 build_style = "cmake"
 # some bug in the cmake files seems to not set this to on
@@ -38,7 +38,7 @@ pkgdesc = "KDE system monitor library"
 license = "LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/libksysguard/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libksysguard-{pkgver}.tar.xz"
-sha256 = "13323f687843f3e4f37f260a9f90ee3a477dde9cb1f03e6a5e5f455ea88ad595"
+sha256 = "74d1f4ba8b0929cb4b257d679718825c6d501f071ded0a51b506ea467b1d07bd"
 # FIXME: drop with LLVM 20 where std::jthread & std::stop_token are deemed stable
 tool_flags = {"CXXFLAGS": ["-fexperimental-library"]}
 file_modes = {

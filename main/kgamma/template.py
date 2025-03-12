@@ -1,5 +1,5 @@
 pkgname = "kgamma"
-pkgver = "6.3.2"
+pkgver = "6.3.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,5 +21,5 @@ pkgdesc = "KDE tool for adjusting monitor gamma"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kgamma"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kgamma-{pkgver}.tar.xz"
-sha256 = "f5c9446a44b28c7472f787bd32104078d51f7959ef56c86c4d2c195f3552c901"
+sha256 = "c662baa46a12aff4faa98189d94282d1ce0731fcb0e82112c2019a3d93e0e0c5"
 hardening = ["vis"]
