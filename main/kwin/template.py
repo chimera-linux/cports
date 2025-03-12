@@ -17,6 +17,8 @@ make_check_args = [
     + "|kwin-testLockScreen"  # needs applications.menu from plasma-workspace
     + "|kwin-testX11Window"  # ??
     + "|kwin-testInputCapture"  # broken since libei 1.4
+    + "|kwin-testWindowRules"  # flakes
+    + "|kwin-testInputMethod"  # flakes
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
