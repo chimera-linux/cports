@@ -1,5 +1,5 @@
 pkgname = "exiv2"
-pkgver = "0.28.4"
+pkgver = "0.28.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Image metadata manipulation"
 license = "GPL-2.0-or-later"
 url = "https://exiv2.org"
 source = f"https://github.com/Exiv2/exiv2/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "65cb3a813f34fb6db7a72bba3fc295dd6c419082d2d8bbf96518be6d1024b784"
+sha256 = "e1671f744e379a87ba0c984617406fdf8c0ad0c594e5122f525b2fb7c28d394d"
 
 
 @subpackage("exiv2-devel")
