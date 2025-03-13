@@ -1,0 +1,42 @@
+--- a/cmake/arch.cmake
++++ b/cmake/arch.cmake
+@@ -10,6 +10,8 @@ set(is_arm7 0)
+ set(arm_use_neon 0)
+ set(is_riscv64 0)
+ set(riscv_use_rvv 0)
++set(is_loongarch64 0)
++set(is_ppc64 0)
+ 
+ option(TG_OWT_ARCH_ARMV7_USE_NEON "Use NEON SIMD instructions when building for ARMv7" ON)
+ 
+@@ -127,10 +129,30 @@ if (HAVE_RISCV64_DEF)
+         message(STATUS "RISC-V Vector extension is not supported.")
+     endif()
+ 
++else()
++
++# Check for ppc64:
++check_symbol_exists(__powerpc64__  "stddef.h" HAVE_PPC64_DEF)
++
++if (HAVE_PPC64_DEF)
++    message(STATUS "Processor architecture is ppc64.")
++    set(is_ppc64 1)
++
++else()
++
++# Check for loongarch64:
++check_symbol_exists(__loongarch64  "stddef.h" HAVE_LOONGARCH64_DEF)
++
++if (HAVE_LOONGARCH64_DEF)
++    message(STATUS "Processor architecture is loongarch64.")
++    set(is_loongarch64 1)
++
+ # TODO: Add support for other architectures.
+ else()
+     message(WARNING "Unsupported CPU architecture.")
+ 
++endif() # ppc64le
++endif() # loongarch64
+ endif() # riscv64
+ endif() # arm32
+ endif() # aarch64
