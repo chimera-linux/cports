@@ -1,0 +1,55 @@
+diff --git a/Makefile b/Makefile
+index 440e919..6f4f6fb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -5,6 +5,8 @@ CFLAGS ?= -Os -Wall -Wpedantic -Wextra
+ # link options
+ LDFLAGS ?= -s
+ 
++PKG_CONFIG ?= pkg-config
++
+ # install path is: $(DESTDIR)$(PREFIX)/$(BINDIR)/$(BINARY)
+ DESTDIR ?=
+ PREFIX ?= /usr/local
+@@ -53,14 +55,14 @@ ifeq ($(filter gdi,$(<<backends>>)),gdi)
+ 	override LDFLAGS += -lgdi32
+ endif
+ 
+-ifeq ($(shell pkg-config --exists libconfig && echo exists),exists)
++ifeq ($(shell $(PKG_CONFIG) --exists libconfig && echo exists),exists)
+ 	override PKGS += libconfig
+ 	override CFLAGS += -DLIBCONFIG
+ endif
+ 
+ ifneq ($(PKGS),)
+-	override CFLAGS += $(shell pkg-config --cflags $(PKGS))
+-	override LDFLAGS += $(shell pkg-config --libs $(PKGS))
++	override CFLAGS += $(shell $(PKG_CONFIG) --cflags $(PKGS))
++	override LDFLAGS += $(shell $(PKG_CONFIG) --libs $(PKGS))
+ endif
+ 
+ <<sources>> := \
+diff --git a/src/wayland/xdg-shell.cgen b/src/wayland/xdg-shell.cgen
+index 82a9224..fdeeea4 100644
+--- a/src/wayland/xdg-shell.cgen
++++ b/src/wayland/xdg-shell.cgen
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-PROTOCOLS=$(pkg-config --variable=pkgdatadir wayland-protocols)
++PROTOCOLS=$(${PKG_CONFIG:-pkg-config} --variable=pkgdatadir wayland-protocols)
+ 
+ wayland-scanner private-code \
+ 	"$PROTOCOLS/stable/xdg-shell/xdg-shell.xml" \
+diff --git a/src/x11/XEventTypes.cgen b/src/x11/XEventTypes.cgen
+index 62ab5b7..d5f1f9b 100644
+--- a/src/x11/XEventTypes.cgen
++++ b/src/x11/XEventTypes.cgen
+@@ -4,7 +4,7 @@ cat << EOF
+ const char *XEventName(int type) {
+ 	switch(type) {
+ EOF
+-DIR="$(pkg-config x11 --variable=includedir)/X11"
++DIR="$(${PKG_CONFIG:-pkg-config} x11 --variable=includedir)/X11"
+ if [ -f "$DIR/X.h" ]; then
+ 	gawk '
+ 		/Event names\./,/must be bigger than any event/ {
