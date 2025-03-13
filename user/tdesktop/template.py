@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",
     "-DTDESKTOP_API_ID=22760243",
-    "-DTDESKTOP_API_HASH= adf3bb6bd970f0381a929f47072c4a91",
+    "-DTDESKTOP_API_HASH=adf3bb6bd970f0381a929f47072c4a91",
     "-DDESKTOP_APP_DISABLE_CRASH_REPORTS=ON",
 ]
 hostmakedepends = [
