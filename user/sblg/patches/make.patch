@@ -1,0 +1,26 @@
+diff --git a/Makefile b/Makefile
+index 962d19a..b1adb12 100644
+--- a/Makefile
++++ b/Makefile
+@@ -89,7 +89,7 @@ VALGRIND	 = valgrind
+ VALGRIND_ARGS	 = -q --leak-check=full --leak-resolution=high --show-reachable=yes
+ REGRESS_ENV	 = TZ=GMT LC_ALL=en_US
+ 
+-all: sblg sblg.a sblg.1
++all: sblg sblg.1
+ 
+ sblg: $(OBJS)
+ 	$(CC) -o $@ $(OBJS) $(LDFLAGS) $(LDADD)
+diff --git a/configure b/configure
+index 1a06e2c..9a7fb57 100755
+--- a/configure
++++ b/configure
+@@ -94,7 +94,7 @@ LDADD_LIB_SOCKET=
+ LDADD_SCAN_SCALED=
+ LDADD_STATIC=
+ CPPFLAGS=
+-LDFLAGS=
++LDFLAGS="${LDFLAGS}"
+ LINKER_SONAME=
+ DESTDIR=
+ PREFIX="/usr/local"
