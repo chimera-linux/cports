@@ -10,8 +10,8 @@ def invoke(pkg):
     plist = sorted(pkg.patches_path.glob("*"))
 
     if pkg.patch_style == "git" or not pkg.patch_style:
-        patch.patch_git(pkg, plist, apply_args=pkg.patch_args)
+        patch.patch_git(pkg, plist, apply_args=pkg.patch_args, stamp=True)
     elif pkg.patch_style == "patch":
-        patch.patch(pkg, plist, patch_args=pkg.patch_args)
+        patch.patch(pkg, plist, patch_args=pkg.patch_args, stamp=True)
     else:
         pkg.error(f"invalid patch style: '{pkg.patch_style}'")

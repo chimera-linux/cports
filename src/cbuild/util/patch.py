@@ -73,12 +73,17 @@ def _patch_one(pkg, patch_path, wrksrc, patch_args):
     )
 
 
-def patch(pkg, patch_list, wrksrc=None, patch_args=[]):
+def patch(pkg, patch_list, wrksrc=None, patch_args=[], stamp=False):
     for p in patch_list:
-        _patch_one(pkg, p, wrksrc, patch_args)
+        if stamp:
+            with pkg.stamp(f"patch_{p.name}") as s:
+                s.check()
+                _patch_one(pkg, p, wrksrc, patch_args)
+        else:
+            _patch_one(pkg, p, wrksrc, patch_args)
 
 
-def patch_git(pkg, patch_list, wrksrc=None, apply_args=[]):
+def patch_git(pkg, patch_list, wrksrc=None, apply_args=[], stamp=False):
     if len(patch_list) == 0:
         return
 
@@ -103,10 +108,19 @@ def patch_git(pkg, patch_list, wrksrc=None, apply_args=[]):
         "--whitespace=nowarn",
         *apply_args,
     ]
-    for p in patch_list:
-        pkg.log(f"patching: {p.name}")
+
+    def _apply(p):
         if subprocess.run([*srcmd, p], cwd=pkg.srcdir).returncode != 0:
             pkg.error(f"failed to apply '{p.name}'")
+
+    for p in patch_list:
+        pkg.log(f"patching: {p.name}")
+        if stamp:
+            with pkg.stamp(f"patch_{p.name}") as s:
+                s.check()
+                _apply(p)
+        else:
+            _apply(p)
 
     # now remove the repo so we don't give build systems ideas
     shutil.rmtree(pkg.srcdir / ".git")
