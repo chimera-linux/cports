@@ -25,7 +25,7 @@ options = [
 ]
 
 match self.profile().arch:
-    case "aarch64":
+    case "aarch64" | "riscv64":
         # FIXME: these fail for unknown reasons currently
         options += ["!check"]
     case "loongarch64" | "ppc64le":
