@@ -1,6 +1,6 @@
 pkgname = "swww"
 pkgver = "0.9.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf", "scdoc"]
 makedepends = ["lz4-devel", "rust-std"]
@@ -21,6 +21,7 @@ def post_build(self):
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/swww")
     self.install_bin(f"target/{self.profile().triplet}/release/swww-daemon")
+    self.install_service(self.files_path / "swww.user")
     self.install_man("doc/generated/*", glob=True)
     with self.pushd("completions"):
         self.install_completion("swww.bash", "bash")
