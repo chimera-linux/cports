@@ -1,6 +1,6 @@
 pkgname = "python-pyproject-metadata"
-pkgver = "0.9.0"
-pkgrel = 1
+pkgver = "0.9.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,7 +13,7 @@ pkgdesc = "PEP 621 metadata parsing"
 license = "MIT"
 url = "https://github.com/pypa/pyproject-metadata"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "e23f57ee2c83e364badf6503a21e0d80db3440afe520b211c1d1e9060010f0f8"
+sha256 = "95213045cf74cb32642034ccb4b3223c2a4337fa675fa886cbd48be6780241c7"
 
 
 def post_install(self):
