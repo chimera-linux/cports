@@ -1,6 +1,6 @@
 pkgname = "grub"
 pkgver = "2.12"
-pkgrel = 0
+pkgrel = 1
 configure_args = [
     "--sysconfdir=/etc",
     "--prefix=/usr",

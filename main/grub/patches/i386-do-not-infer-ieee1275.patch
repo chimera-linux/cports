@@ -1,0 +1,20 @@
+This is a wrong assumption on most machines, as the
+path may exist without this being an ieee1275 machine
+at all, plus we don't package it anyways.
+
+--- a/grub-core/osdep/linux/platform.c
++++ b/grub-core/osdep/linux/platform.c
+@@ -144,13 +144,5 @@ grub_install_get_default_x86_platform (void)
+ 	return "i386-efi";
+     }
+ 
+-  grub_util_info ("Looking for /proc/device-tree ..");
+-  if (is_not_empty_directory ("/proc/device-tree"))
+-    {
+-      grub_util_info ("...found");
+-      return "i386-ieee1275";
+-    }
+-
+-  grub_util_info ("... not found");
+   return "i386-pc";
+ }
