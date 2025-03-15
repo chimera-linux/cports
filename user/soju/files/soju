@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/soju
+run-as = _soju
+log-type = file
+logfile = /var/log/soju.log
+depends-on = network.target
+depends-on = local.target
