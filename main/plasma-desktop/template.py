@@ -1,6 +1,6 @@
 pkgname = "plasma-desktop"
 pkgver = "6.3.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 # tst_calibrationtool: broken on ppc64le
@@ -74,7 +74,6 @@ depends = [
     "breeze",
     "breeze-icons",
     "ocean-sound-theme",
-    "plasma-workspace-wallpapers",
     # default KDE fonts
     "fonts-hack-ttf",
     "fonts-noto",
@@ -349,4 +348,13 @@ def _(self):
     ]
     self.options = ["empty"]
 
+    return []
+
+
+@subpackage("plasma-desktop-wallpapers-meta")
+def _(self):
+    self.subdesc = "default wallpapers package"
+    self.install_if = [self.with_pkgver("plasma-desktop-meta")]
+    self.depends = ["plasma-workspace-wallpapers"]
+    self.options = ["empty"]
     return []
