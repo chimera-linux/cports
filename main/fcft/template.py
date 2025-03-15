@@ -1,5 +1,5 @@
 pkgname = "fcft"
-pkgver = "3.2.0"
+pkgver = "3.3.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
@@ -15,7 +15,7 @@ pkgdesc = "Simple library for font loading and glyph rasterization"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fcft"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "6d946befcd4edf54d9ae173b8883faa46d84ab554b250f6cb3c659fb8d6b0f71"
+sha256 = "f18bf79562e06d41741690cd1e07a02eb2600ae39eb5752eef8a698f603a482c"
 
 
 def post_install(self):
