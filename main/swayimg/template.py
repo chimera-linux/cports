@@ -1,6 +1,6 @@
 pkgname = "swayimg"
-pkgver = "3.8"
-pkgrel = 1
+pkgver = "3.9"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     f"-Dversion={pkgver}",
@@ -21,6 +21,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libjxl-devel",
     "libpng-devel",
+    "libraw-devel",
     "librsvg-devel",
     "libtiff-devel",
     "libwebp-devel",
@@ -32,7 +33,7 @@ pkgdesc = "Image viewer for sway/wayland"
 license = "MIT"
 url = "https://github.com/artemsen/swayimg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b50b4ea3bac96e6262a9d75439e55d7137752d10091840745021842fa73c2d84"
+sha256 = "d21a7ca9ef4d21cf852889932999e9edd4ecf2c587321120f5b4d6147580e7cb"
 hardening = ["vis", "cfi"]
 
 
