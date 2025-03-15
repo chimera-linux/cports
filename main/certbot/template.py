@@ -1,6 +1,6 @@
 pkgname = "certbot"
-pkgver = "3.2.0"
-pkgrel = 1
+pkgver = "3.3.0"
+pkgrel = 0
 build_wrksrc = "certbot"
 build_style = "python_pep517"
 _plugins = [
@@ -46,7 +46,7 @@ pkgdesc = "Tool to obtain certs from Let's Encrypt"
 license = "Apache-2.0 AND MIT"
 url = "https://github.com/certbot/certbot"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bd6d3030ff2436c1feff15733f6245168e418318453c74fdc943f9496b3b9300"
+sha256 = "b5e2d4405c67ef7f5d699e750d1b85a7c520e8534253d37f3836b66757ea3138"
 
 
 def post_build(self):
