@@ -22,7 +22,6 @@ if self.profile().arch in [
     "ppc64le",
     "ppc64",
     "ppc",
-    "riscv64",
     "x86_64",
 ]:
     depends += ["python-py-cpuinfo"]
