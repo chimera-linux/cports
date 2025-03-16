@@ -1,6 +1,6 @@
 pkgname = "base-bootstrap"
 pkgver = "0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 depends = [
     "chimerautils",
@@ -12,5 +12,13 @@ url = "https://chimera-linux.org"
 
 
 match self.profile().arch:
-    case "aarch64" | "ppc" | "ppc64" | "ppc64le" | "riscv64" | "x86_64":
+    case (
+        "aarch64"
+        | "loongarch64"
+        | "ppc"
+        | "ppc64"
+        | "ppc64le"
+        | "riscv64"
+        | "x86_64"
+    ):
         depends += ["chimera-repo-main"]
