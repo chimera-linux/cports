@@ -12,7 +12,7 @@ source = f"https://github.com/jbeder/yaml-cpp/archive/{pkgver}.tar.gz"
 sha256 = "fbe74bbdcee21d656715688706da3c8becfd946d92cd44705cc6098bb23b3a16"
 hardening = ["vis"]
 
-if self.profile().wordsize == 32:
+if self.profile().wordsize == 32 or self.profile().arch == "riscv64":
     # narrowing
     configure_args += ["-DYAML_CPP_BUILD_TESTS=OFF"]
 
