@@ -29,6 +29,8 @@ match self.profile().arch:
         _machine = "tppc32le"
     case "riscv64":
         _machine = "trv64le"
+        # runs for hours
+        options += ["!check"]
     case "x86_64":
         _machine = "ta6le"
     case _:
