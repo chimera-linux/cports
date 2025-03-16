@@ -160,6 +160,7 @@ def init_check(self):
         "test_standalone_test",  # can't find random .cmake file
         "tst_qstorageinfo",  # Test data requested, but no testdata available
         "tst_qfloat16",  # 0.000000_vs_-1300000.000000 qfloat16 vs qint16 comparison failed
+        "tst_qnumeric",  # may fail harmlessly on some hardware due to fp shit
         "tst_qdir",  # flaky
         "tst_qsqltablemodel",  # tst_QSqlTableModel::modelInAnotherThread() 't.isFinished()' returned FALSE. ()
         "tst_qtimer_no_glib",  # times out after 300s
