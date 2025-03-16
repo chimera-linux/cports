@@ -5,7 +5,11 @@ build_style = "python_pep517"
 # checks if the return code of `ls` for non-existent dir is '1' on macos and '2'
 # otherwise, and it's 1 for us since we use freebsd ls.
 # posix just says >0, useless test
-make_check_args = ["-k", "not test_ok_code"]
+# the latter times out on riscv
+make_check_args = [
+    "-k",
+    "not test_ok_code and not test_done_callback_no_deadlock",
+]
 hostmakedepends = [
     "python-build",
     "python-installer",
