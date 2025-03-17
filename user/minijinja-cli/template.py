@@ -13,6 +13,12 @@ license = "Apache-2.0"
 url = "https://github.com/mitsuhiko/minijinja"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "bdad3b19ffaf09c34eb97b254a05a9184f021003a66d69f01f20a5b6417b8bba"
+# check may be disabled
+options = []
+
+if self.profile().arch == "riscv64":
+    # lots of undefined pyo3 references when linking
+    options += ["!check"]
 
 
 def install(self):
