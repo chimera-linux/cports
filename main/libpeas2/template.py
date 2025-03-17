@@ -3,6 +3,7 @@ pkgver = "2.0.5"
 pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dvapi=true"]
+make_check_args = ["--timeout-multiplier=5"]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "gettext",
