@@ -2,6 +2,7 @@ pkgname = "snapshot"
 pkgver = "47.1"
 pkgrel = 0
 build_style = "meson"
+make_check_args = ["--timeout-multiplier=5"]
 hostmakedepends = [
     "appstream",
     "cargo-auditable",
