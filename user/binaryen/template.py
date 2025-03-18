@@ -32,9 +32,15 @@ sha256 = [
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # FIXME: negoverflow wasm::Literal::abs in tests
 hardening = ["!int"]
+# check sometimes disabled
+options = []
 # 'filecheck' is a shitty python port of the llvm FileCheck, just use the original
 # only for 'lit' below
 exec_wrappers = [("/usr/bin/FileCheck", "filecheck")]
+
+if self.profile().arch == "riscv64":
+    # some float test fails due to messed up hw fp on the builder
+    options += ["!check"]
 
 
 def check(self):
