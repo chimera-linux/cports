@@ -19,6 +19,8 @@ options = []
 if self.profile().arch == "riscv64":
     # lots of undefined pyo3 references when linking
     options += ["!check"]
+elif self.profile().wordsize == 32:
+    broken = "needs atomic64"
 
 
 def install(self):
