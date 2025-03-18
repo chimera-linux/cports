@@ -10,8 +10,8 @@ makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Virtual machine for x86-64 Linux programs"
 license = "ISC"
 url = "https://github.com/jart/blink"
-source = f"{url}/releases/download/{pkgver}/blink-{pkgver}.tar.gz"
-sha256 = "9ac213c7d34a672d2077e79a2aaa85737eb1692d6e533ab2483c07369c60d834"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "2649793e1ebf12027f5e240a773f452434cefd9494744a858cd8bff8792dba68"
 
 
 def post_install(self):
