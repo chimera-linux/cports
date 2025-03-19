@@ -13,6 +13,12 @@ license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
 sha256 = "de4cfaf2aee8d2eaa83a4945253386991a08d3d2e9262846b18df3bfa0252419"
+# may be disabled
+options = []
+
+if self.profile().arch in ["riscv64"]:
+    # times out
+    options += ["!check"]
 
 
 def check(self):
