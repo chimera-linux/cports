@@ -1,0 +1,11 @@
+--- a/shell-rs/src/meson.build
++++ b/shell-rs/src/meson.build
+@@ -9,7 +9,7 @@ source_root = meson.current_source_dir()
+ 
+ cargo = find_program('cargo', required: true)
+ 
+-cargo_options = [ '--manifest-path', shell_rs_root / 'Cargo.toml' ]
++cargo_options = [ '--offline', '--config', shell_rs_root / '.cargo/config.toml', '--manifest-path', shell_rs_root / 'Cargo.toml' ]
+ cargo_options += [ '--target-dir', meson.current_build_dir() ]
+ 
+ if get_option('profile') == 'devel'
