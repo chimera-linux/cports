@@ -21,6 +21,11 @@ source = f"$(PYPI_SITE)/t/tqdm/tqdm-{pkgver}.tar.gz"
 sha256 = "f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2"
 
 
+def post_extract(self):
+    # slow, fails on some
+    self.rm("tests/tests_perf.py")
+
+
 def init_check(self):
     self.make_check_args += [f"--numprocesses={self.make_jobs}"]
 
