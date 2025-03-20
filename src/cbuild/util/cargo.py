@@ -11,7 +11,7 @@ def write_vendor_checksum(pkg, crate, cksum, vendor_dir="vendor"):
     p.write_text(f'{{"files":{{}},"package":"{cksum}"}}')
 
 
-def get_environment(pkg, jobs=None):
+def get_environment(pkg, jobs=None, cache=False):
     if not jobs:
         jobs = pkg.make_jobs
 
@@ -27,7 +27,7 @@ def get_environment(pkg, jobs=None):
         "CARGO_PROFILE_RELEASE_STRIP": "false",
         "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
         "CARGO_REGISTRIES_CRATES_IO_PROTOCOL": "sparse",
-        "CARGO_HOME": "/cbuild_cache/cargo",
+        "CARGO_HOME": "/cbuild_cache/cargo" if cache else "/tmp",
         # gettext-rs
         "GETTEXT_BIN_DIR": "/usr/bin",
         "GETTEXT_LIB_DIR": str(sroot / "usr/lib/gettext"),
@@ -107,7 +107,7 @@ class Cargo:
         if not jobs:
             jobs = tmpl.make_jobs
 
-        renv = get_environment(tmpl, jobs=jobs)
+        renv = get_environment(tmpl, jobs=jobs, cache=not offline)
         renv.update(tmpl.make_env)
 
         if base_env:
