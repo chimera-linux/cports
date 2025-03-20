@@ -45,7 +45,7 @@ you have.
 If you want access to local `-dbg` packages, you will also want to add the `debug`
 sub-repositories, e.g. `/home/user/cports/packages/main/debug`.
 
-You will also want to drop your signing public key in `/etc/apk/keys`. The key
+You will also want to drop your signing public key into `/etc/apk/keys`. The key
 can be located in `etc/keys` in the `cports` directory, with the `.pub` extension
 (do not put in the private key).
 
