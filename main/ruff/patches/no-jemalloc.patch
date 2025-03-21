@@ -1,16 +1,16 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index b41802e43..d10811d63 100644
+index 772b55efa..0325ea3ff 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2698,7 +2698,6 @@ dependencies = [
+@@ -2708,7 +2708,6 @@ dependencies = [
   "tempfile",
   "test-case",
-  "thiserror 2.0.11",
+  "thiserror 2.0.12",
 - "tikv-jemallocator",
   "toml",
   "tracing",
   "walkdir",
-@@ -2736,7 +2735,6 @@ dependencies = [
+@@ -2746,7 +2745,6 @@ dependencies = [
   "ruff_python_parser",
   "ruff_python_trivia",
   "rustc-hash 2.1.1",
@@ -18,7 +18,7 @@ index b41802e43..d10811d63 100644
  ]
  
  [[package]]
-@@ -3809,26 +3807,6 @@ dependencies = [
+@@ -3829,26 +3827,6 @@ dependencies = [
   "num_cpus",
  ]
  
@@ -46,10 +46,10 @@ index b41802e43..d10811d63 100644
  name = "tinystr"
  version = "0.7.6"
 diff --git a/crates/ruff/Cargo.toml b/crates/ruff/Cargo.toml
-index a5efc9576..2987b2f1a 100644
+index be6b3dc37..d1711d81d 100644
 --- a/crates/ruff/Cargo.toml
 +++ b/crates/ruff/Cargo.toml
-@@ -79,8 +79,5 @@ ignored = ["chrono"]
+@@ -80,8 +80,5 @@ ignored = ["chrono"]
  [target.'cfg(target_os = "windows")'.dependencies]
  mimalloc = { workspace = true }
  
