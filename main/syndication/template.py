@@ -1,5 +1,5 @@
 pkgname = "syndication"
-pkgver = "6.11.0"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "KDE's RSS/Atom parser library"
 license = "LGPL-2.0-or-later AND BSD-2-Clause"
 url = "https://api.kde.org/frameworks/syndication/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/syndication-{pkgver}.tar.xz"
-sha256 = "d889c553a5189339217e8d06b628595aba3c842b74693e7a8179606b13629e1d"
+sha256 = "bc7d02822b6705f9312eca11f2f1c4dda4ee137f898185754e9a171e428e4720"
 hardening = ["vis"]
 
 

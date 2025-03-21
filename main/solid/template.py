@@ -1,5 +1,5 @@
 pkgname = "solid"
-pkgver = "6.11.0"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ pkgdesc = "KDE Hardware integration and detection"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://develop.kde.org/docs/features/solid"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/solid-{pkgver}.tar.xz"
-sha256 = "cdecc7665b801a508b9ad0929b025ac93fe287be503589c8d8c38a520c2508d7"
+sha256 = "4bd96b394723be533a30404804be40be495dfae05a4430c011223d603d7d8666"
 hardening = ["vis"]
 
 

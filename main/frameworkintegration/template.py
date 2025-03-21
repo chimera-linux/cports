@@ -1,5 +1,5 @@
 pkgname = "frameworkintegration"
-pkgver = "6.11.0"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -25,7 +25,7 @@ pkgdesc = "Integration of Qt application with KDE workspaces"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/frameworkintegration/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/frameworkintegration-{pkgver}.tar.xz"
-sha256 = "a7447a587040284463846a479e01b7d821c89b5f3b8683cbb367f568cea81fb2"
+sha256 = "9b0d6aa1a51493331de12e48e091db1d54eef41120c7cf3ea8ba67dff8ed3c41"
 hardening = ["vis"]
 
 

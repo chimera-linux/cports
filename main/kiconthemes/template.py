@@ -1,5 +1,5 @@
 pkgname = "kiconthemes"
-pkgver = "6.11.0"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky tests when parallel
@@ -27,7 +27,7 @@ pkgdesc = "KDE Icon GUI utilities"
 license = "LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kiconthemes/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kiconthemes-{pkgver}.tar.xz"
-sha256 = "1671ab3fd9b1e0753a7062bab80f5489f3ac750ecb30b91db99a6689988afb87"
+sha256 = "54b1b5f2839162d980873328716b30cf08f90fd079ad854cc09878ad9b376ecf"
 hardening = ["vis"]
 
 

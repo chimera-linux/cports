@@ -1,5 +1,5 @@
 pkgname = "extra-cmake-modules"
-pkgver = "6.11.0"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -11,7 +11,7 @@ pkgdesc = "Extra modules and scripts for CMake"
 license = "BSD-3-Clause"
 url = "https://api.kde.org/frameworks/extra-cmake-modules/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/extra-cmake-modules-{pkgver}.tar.xz"
-sha256 = "69fdab5f0fedfb73d1accff5012d510b486e1dd75c711e925a6912a3e71814b0"
+sha256 = "e54e87365e193c806966e9698320bde81981219574721ff1970a98163c8ed5a0"
 
 
 def post_install(self):

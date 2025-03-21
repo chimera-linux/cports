@@ -1,5 +1,5 @@
 pkgname = "kstatusnotifieritem"
-pkgver = "6.11.0"
+pkgver = "6.12.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -17,7 +17,7 @@ pkgdesc = "KDE Implementation of Status Notifier Items"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/frameworks/kstatusnotifieritem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kstatusnotifieritem-{pkgver}.tar.xz"
-sha256 = "26c92c25b1f70296bde9e71fba1f719778c85cb57227f6045f606af99c48a8bd"
+sha256 = "5b0e7b20492dbd9d5742bbafd6f8577dc682480a615e1965f3c53741e684fc3d"
 hardening = ["vis"]
 
 
