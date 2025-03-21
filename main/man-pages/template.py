@@ -1,12 +1,12 @@
 pkgname = "man-pages"
-pkgver = "6.11"
+pkgver = "6.13"
 pkgrel = 0
 hostmakedepends = ["gsed", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
 source = f"$(KERNEL_SITE)/docs/man-pages/man-pages-{pkgver}.tar.xz"
-sha256 = "ddaa2eda2e8d286fbec221d115f12d3fff5d36cc5066cdfecc8d24a258d58b19"
+sha256 = "a2c8a0c2efe8a978ce51ce800461eb9e8931f12cc7ba4b7faa3082b69ba7f12c"
 options = ["!autosplit"]
 
 
@@ -18,7 +18,6 @@ def install(self):
         "SED=gsed",
         "VERBOSE=1",
         "LINK_PAGES=symlink",
-        f"VERSION={pkgver}",
         f"prefix={self.chroot_destdir}/usr",
     )
 
