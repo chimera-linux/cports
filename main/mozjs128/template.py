@@ -1,5 +1,5 @@
 pkgname = "mozjs128"
-pkgver = "128.7.0"
+pkgver = "128.8.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo",
@@ -28,7 +28,7 @@ source = [
 ]
 source_paths = [".", "libc"]
 sha256 = [
-    "e0a7bf4eddfa33cbc8797d68ecea8fb4e6404ca197d3b2242cbc8daed03794f7",
+    "201fcb12c285470f2b3cdf050f0fe7d96d5e0c5d352e86ef8957b595329a32bf",
     "ee5684d57baaec2cc08f5b9edb083627d6f7a9d545f9759acaed78a0575220e9",
 ]
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
