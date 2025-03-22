@@ -13,10 +13,12 @@ if [ ! -b "$DEVICE" ]; then
     exit 1
 fi
 
+U_BOOT_SYSTEM_CFG="${ROOT}/usr/lib/u-boot/u-boot"
 U_BOOT_CFG="${ROOT}/etc/default/u-boot"
-U_BOOT_DEVICE_FILE="${ROOT}/etc/default/u-boot-device"
+U_BOOT_DEVICE_FILE="${ROOT}/usr/lib/u-boot/device"
 U_BOOT_DEVICE=
 
+[ -r "$U_BOOT_SYSTEM_CFG" ] && . "$U_BOOT_SYSTEM_CFG"
 [ -r "$U_BOOT_CFG" ] && . "$U_BOOT_CFG"
 
 if [ -z "$U_BOOT_DEVICE" -a -r "$U_BOOT_DEVICE_FILE" ]; then

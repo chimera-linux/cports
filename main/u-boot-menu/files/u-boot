@@ -1,6 +1,9 @@
 # The configuration file for u-boot manager.
 # Commented out lines are just defaults.
 #
+# To override anything, create a file in /etc/default/u-boot
+# and set any of these variables as necessary.
+#
 
 # The file device-specific additional cmdline is sourced from.
 #U_BOOT_CMDLINE_FILE=/etc/default/u-boot-cmdline
@@ -12,7 +15,7 @@
 #U_BOOT_FDTDIR_FILE=/etc/default/u-boot-fdtdir
 
 # The file u-boot device name is sourced from when no U_BOOT_DEVICE is set.
-#U_BOOT_DEVICE_FILE=/etc/default/u-boot-device
+#U_BOOT_DEVICE_FILE=/usr/lib/u-boot/device
 
 # The additional cmdline to use always.
 U_BOOT_CMDLINE=
