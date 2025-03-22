@@ -1,6 +1,6 @@
 pkgname = "gnome-shell-extension-appindicator"
 pkgver = "59"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "gettext",

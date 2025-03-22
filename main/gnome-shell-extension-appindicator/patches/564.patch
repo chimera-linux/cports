@@ -1,0 +1,58 @@
+From b84d70b7fa4229a2849fceccd7a044e5a04628a9 Mon Sep 17 00:00:00 2001
+From: thankjura <me@slie.ru>
+Date: Wed, 12 Feb 2025 11:26:05 +0300
+Subject: [PATCH] gnome 48 compability
+
+---
+ appIndicator.js | 9 +++++++--
+ metadata.json   | 3 ++-
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/appIndicator.js b/appIndicator.js
+index 3514dcc..9d2b8a6 100644
+--- a/appIndicator.js
++++ b/appIndicator.js
+@@ -23,6 +23,7 @@ import St from 'gi://St';
+ 
+ import * as Params from 'resource:///org/gnome/shell/misc/params.js';
+ import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
++import * as Config from 'resource:///org/gnome/shell/misc/config.js';
+ 
+ import * as IconCache from './iconCache.js';
+ import * as Util from './util.js';
+@@ -42,6 +43,7 @@ Gio._promisify(Gio.DBusConnection.prototype, 'call');
+ const MAX_UPDATE_FREQUENCY = 30; // In ms
+ const FALLBACK_ICON_NAME = 'image-loading-symbolic';
+ const PIXMAPS_FORMAT = imports.gi.Cogl.PixelFormat.ARGB_8888;
++const GNOME_48_PLUS = Number(Config.PACKAGE_VERSION.split(".")[0]) >= 48;
+ 
+ export const SNICategory = Object.freeze({
+     APPLICATION: 'ApplicationStatus',
+@@ -1325,8 +1327,11 @@ class AppIndicatorsIconActor extends St.Icon {
+             preferredHeight: height,
+         });
+ 
+-        imageContent.set_bytes(pixmapVariant.get_data_as_bytes(), PIXMAPS_FORMAT,
+-            width, height, rowStride);
++        const setBytesArgs = [pixmapVariant.get_data_as_bytes(), PIXMAPS_FORMAT, width, height, rowStride];
++        if (GNOME_48_PLUS) {
++            setBytesArgs.unshift(global.stage.context.get_backend().get_cogl_context());
++        }
++        imageContent.set_bytes(...setBytesArgs);
+ 
+         if (iconType !== SNIconType.OVERLAY && !this._indicator.hasOverlayIcon) {
+             const scaledSize = iconSize * scaleFactor;
+diff --git a/metadata.json b/metadata.json
+index 1f8632a..592e37f 100644
+--- a/metadata.json
++++ b/metadata.json
+@@ -2,7 +2,8 @@
+     "shell-version": [
+         "45",
+         "46",
+-        "47"
++        "47",
++        "48"
+     ],
+     "gettext-domain": "AppIndicatorExtension",
+     "settings-schema": "org.gnome.shell.extensions.appindicator",
