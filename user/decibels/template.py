@@ -1,5 +1,5 @@
 pkgname = "decibels"
-pkgver = "46.0"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,6 +22,6 @@ source = [
 ]
 source_paths = [".", "gi-types"]
 sha256 = [
-    "ab43bc4f6a9fe697e3a78700d525c03b3fca124a9fb6fc5591239af00f07d31f",
+    "1ffe2c4ab2502314c74f017f2b58b9d110548a9cbc237096e6712e67c03b2e10",
     "6c625c8a01bd15e9f35fd6ea6823b5afb2288e6a40e34d852d37b6fa0fa51e57",
 ]
