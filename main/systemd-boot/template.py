@@ -190,7 +190,7 @@ def post_install(self):
     self.install_bin(
         self.files_path / "gen-systemd-boot.sh", name="gen-systemd-boot"
     )
-    self.install_file(self.files_path / "systemd-boot", "etc/default")
+    self.install_file(self.files_path / "systemd-boot", "usr/lib/systemd/boot")
 
 
 @subpackage("systemd-boot-efi")

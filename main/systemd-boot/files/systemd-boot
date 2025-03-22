@@ -1,6 +1,9 @@
 # The configuration file for systemd-boot entry generator.
 # Commented out lines are just defaults.
 #
+# To override anything, create /etc/default/systemd-boot and
+# put your values there.
+#
 
 # Whether to disable the hook. Normally it's always run
 # and uses autodetection to find if to generate entries.
