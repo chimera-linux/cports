@@ -1,6 +1,6 @@
 pkgname = "u-boot-menu"
 pkgver = "0.1"
-pkgrel = 2
+pkgrel = 3
 depends = ["base-kernel"]
 pkgdesc = "Common U-Boot boot menu generator for device targets"
 license = "custom:meta"
@@ -17,7 +17,7 @@ def install(self):
         self.files_path / "install-u-boot.sh", name="install-u-boot"
     )
     # config file
-    self.install_file(self.files_path / "u-boot", "etc/default")
+    self.install_file(self.files_path / "u-boot", "usr/lib/u-boot")
     # kernel hook
     self.install_file(
         self.files_path / "99-gen-uboot.sh", "usr/lib/kernel.d", mode=0o755

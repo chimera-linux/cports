@@ -6,8 +6,12 @@ if [ -z "$CONFIG" ]; then
     CONFIG="/boot/extlinux/extlinux.conf"
 fi
 
+U_BOOT_SYSTEM_CFG=/usr/lib/u-boot/u-boot
 U_BOOT_CFG=/etc/default/u-boot
 # overridable defaults
+U_BOOT_SYSTEM_CMDLINE_FILE=/usr/lib/u-boot/cmdline
+U_BOOT_SYSTEM_FDT_FILE=/usr/lib/u-boot/fdt
+U_BOOT_SYSTEM_FDTDIR_FILE=/usr/lib/u-boot/fdtdir
 U_BOOT_CMDLINE_FILE=/etc/default/u-boot-cmdline
 U_BOOT_FDT_FILE=/etc/default/u-boot-fdt
 U_BOOT_FDTDIR_FILE=/etc/default/u-boot-fdtdir
@@ -18,6 +22,7 @@ U_BOOT_DISABLE_RECOVERY=
 U_BOOT_DISABLE_FDT=
 
 # source global config if present
+[ -r $U_BOOT_SYSTEM_CFG ] && . $U_BOOT_SYSTEM_CFG
 [ -r $U_BOOT_CFG ] && . $U_BOOT_CFG
 
 DEV_CMDLINE=$U_BOOT_CMDLINE
@@ -28,14 +33,24 @@ DEV_FDTDIR=$U_BOOT_FDTDIR
 
 if [ -r "$U_BOOT_CMDLINE_FILE" ]; then
     DEV_EXTRA_CMDLINE=$(cat "$U_BOOT_CMDLINE_FILE")
+elif [ -r "$U_BOOT_SYSTEM_CMDLINE_FILE" ]; then
+    DEV_EXTRA_CMDLINE=$(cat "$U_BOOT_SYSTEM_CMDLINE_FILE")
 fi
 
-if [ -r "$U_BOOT_FDT_FILE" -a -z "$DEV_FDT" ]; then
-    DEV_FDT=$(cat "$U_BOOT_FDT_FILE")
+if [ -z "$DEV_FDT" ]; then
+    if [ -r "$U_BOOT_FDT_FILE" ]; then
+        DEV_FDT=$(cat "$U_BOOT_FDT_FILE")
+    elif [ -r "$U_BOOT_SYSTEM_FDT_FILE" ]; then
+        DEV_FDT=$(cat "$U_BOOT_SYSTEM_FDT_FILE")
+    fi
 fi
 
-if [ -r "$U_BOOT_FDTDIR_FILE" -a -z "$DEV_FDTDIR" ]; then
-    DEV_FDTDIR=$(cat "$U_BOOT_FDTDIR_FILE")
+if [ -z "$DEV_FDTDIR" ]; then
+    if [ -r "$U_BOOT_FDTDIR_FILE" ]; then
+        DEV_FDTDIR=$(cat "$U_BOOT_FDTDIR_FILE")
+    elif [ -r "$U_BOOT_SYSTEM_FDTDIR_FILE" ]; then
+        DEV_FDTDIR=$(cat "$U_BOOT_SYSTEM_FDTDIR_FILE")
+    fi
 fi
 
 # silently remove old
