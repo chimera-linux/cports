@@ -1,0 +1,22 @@
+diff --git a/functions.sh b/functions.sh
+index fd400ff..9aa265c 100644
+--- a/functions.sh
++++ b/functions.sh
+@@ -28,7 +28,7 @@ mount_sys_esp() {
+         umount "$mountpoint"
+     done
+ 
+-    esp_uuid="$(cat /proc/device-tree/chosen/asahi,efi-system-partition 2>/dev/null | sed 's/\x00//')"
++    esp_uuid="$(cat /proc/device-tree/chosen/asahi,efi-system-partition 2>/dev/null | tr -d '\0')"
+     if [ -e /boot/efi/.builder ] || [ -e /boot/.builder ] || [ -z "$esp_uuid" ]; then
+         if [ -e "/boot/efi/m1n1" ]; then
+             bootmnt="/boot/efi"
+@@ -63,7 +63,7 @@ mount_boot_esp() {
+     elif [ -e "/boot/efi/boot" ]; then
+         mount --bind "/boot" "$mountpoint"
+     else
+-        esp_uuid="$(cat /proc/device-tree/chosen/asahi,efi-system-partition | sed 's/\x00//')"
++        esp_uuid="$(cat /proc/device-tree/chosen/asahi,efi-system-partition | tr -d '\0')"
+ 
+         if [ -z "$esp_uuid" ]; then
+             echo "Boot ESP not found and cannot determine ESP PARTUUID."
