@@ -1,5 +1,5 @@
 pkgname = "iio-sensor-proxy"
-pkgver = "3.6"
+pkgver = "3.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "D-Bus proxy for IIO sensors"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/hadess/iio-sensor-proxy"
 source = f"{url}/-/archive/{pkgver}/iio-sensor-proxy-{pkgver}.tar.gz"
-sha256 = "387cffea8b55d3087b199975cf3e00f2405d4dfe4a9bfb311b396e6473c67a96"
+sha256 = "4d7eb0ae23506919a9a40bc1aab0e144c218be60457b3137533724814c41997b"
 hardening = ["vis", "cfi"]
 
 
