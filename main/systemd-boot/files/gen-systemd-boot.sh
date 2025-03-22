@@ -67,20 +67,22 @@ if [ ! -b "$ESP_DEV" -o ! -b "$BOOT_DEV" ]; then
     exit 3
 fi
 
-# make sure ESP is really an ESP
-ESP_PTTYPE=$(lsblk -no PARTTYPE "$ESP_DEV")
+if [ "$SYSTEMD_RELAX_ESP_CHECKS" != "1" ]; then
+    # make sure ESP is really an ESP
+    ESP_PTTYPE=$(lsblk -no PARTTYPE "$ESP_DEV")
 
-if [ "$ESP_PTTYPE" != "c12a7328-f81f-11d2-ba4b-00a0c93ec93b" ]; then
-    echo "The ESP is not an ESP." >&2
-    exit 4
-fi
+    if [ "$ESP_PTTYPE" != "c12a7328-f81f-11d2-ba4b-00a0c93ec93b" ]; then
+        echo "The ESP is not an ESP." >&2
+        exit 4
+    fi
 
-# make sure ESP is FAT32
-ESP_FSTYPE=$(lsblk -no FSTYPE "$ESP_DEV")
+    # make sure ESP is FAT32
+    ESP_FSTYPE=$(lsblk -no FSTYPE "$ESP_DEV")
 
-if [ "$ESP_FSTYPE" != "vfat" ]; then
-    echo "The ESP is not FAT32." >&2
-    exit 5
+    if [ "$ESP_FSTYPE" != "vfat" ]; then
+        echo "The ESP is not FAT32." >&2
+        exit 5
+    fi
 fi
 
 # /boot must be XBOOTLDR when separate
