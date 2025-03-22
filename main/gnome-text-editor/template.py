@@ -1,5 +1,5 @@
 pkgname = "gnome-text-editor"
-pkgver = "47.3"
+pkgver = "48.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -26,4 +26,4 @@ pkgdesc = "GNOME text editor"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-text-editor"
 source = f"$(GNOME_SITE)/gnome-text-editor/{pkgver[:-2]}/gnome-text-editor-{pkgver}.tar.xz"
-sha256 = "46c672bfe86e44de980797636a280f05cc5eaf6cde9b42dc4bcc956405629725"
+sha256 = "52089ba978a665841803b1b69e0e7be75b09a7d54e01e8d0bb29926e0f342437"
