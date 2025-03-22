@@ -1,0 +1,48 @@
+From 40661a0e90c18d895e44fdf98cf581a4b8104392 Mon Sep 17 00:00:00 2001
+From: ant2a <antsa@tutanota.de>
+Date: Wed, 12 Feb 2025 20:43:28 +0100
+Subject: [PATCH] notifications: Fix import of NotificationMessage for GNOME
+ shell 48
+
+NotificationMessage widget was moved from `calendar.js` to `messageList.js`
+
+See https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/64aadeece3c72de8bb627e8bc9df268f8ce04ffb
+---
+ data/metadata.json.in     | 2 +-
+ src/shell/notification.js | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/data/metadata.json.in b/data/metadata.json.in
+index 60d577688..a5b5bf110 100644
+--- a/data/metadata.json.in
++++ b/data/metadata.json.in
+@@ -3,6 +3,6 @@
+     "name": "GSConnect",
+     "description": "GSConnect is a complete implementation of KDE Connect especially for GNOME Shell with Nautilus, Chrome and Firefox integration. It does not rely on the KDE Connect desktop application and will not work with it installed.\n\nKDE Connect allows devices to securely share content like notifications or files and other features like SMS messaging and remote control. The KDE Connect team has applications for Linux, BSD, Android, Sailfish, iOS, macOS and Windows.\n\nPlease report issues on Github!",
+     "version": @PACKAGE_VERSION@,
+-    "shell-version": [ "46", "47" ],
++    "shell-version": [ "48" ],
+     "url": "@PACKAGE_URL@/wiki"
+ }
+diff --git a/src/shell/notification.js b/src/shell/notification.js
+index bd344e8d5..f0d93dd45 100644
+--- a/src/shell/notification.js
++++ b/src/shell/notification.js
+@@ -9,7 +9,7 @@ import St from 'gi://St';
+ 
+ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+ import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
+-import * as Calendar from 'resource:///org/gnome/shell/ui/calendar.js';
++import * as MessageList from 'resource:///org/gnome/shell/ui/messageList.js';
+ import * as NotificationDaemon from 'resource:///org/gnome/shell/ui/notificationDaemon.js';
+ 
+ import {gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+@@ -45,7 +45,7 @@ const GtkNotificationDaemon = Main.notificationDaemon._gtkNotificationDaemon.con
+  */
+ const NotificationBanner = GObject.registerClass({
+     GTypeName: 'GSConnectNotificationBanner',
+-}, class NotificationBanner extends Calendar.NotificationMessage {
++}, class NotificationBanner extends MessageList.NotificationMessage {
+ 
+     constructor(notification) {
+         super(notification);
