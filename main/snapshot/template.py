@@ -1,5 +1,5 @@
 pkgname = "snapshot"
-pkgver = "47.1"
+pkgver = "48.0.1"
 pkgrel = 0
 build_style = "meson"
 make_check_args = ["--timeout-multiplier=5"]
@@ -33,7 +33,7 @@ url = "https://apps.gnome.org/Snapshot"
 source = (
     f"$(GNOME_SITE)/snapshot/{pkgver.split('.')[0]}/snapshot-{pkgver}.tar.xz"
 )
-sha256 = "e4b162679af24c7e96ee6e22b47d5ff0da96e0a0f616d13aeb1207c609f89483"
+sha256 = "393176859a20b7d235dfc303031ba20c686441106988dc911dd91b7b6d66e1fd"
 
 
 def init_build(self):
