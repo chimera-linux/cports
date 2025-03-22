@@ -1,5 +1,5 @@
 pkgname = "xdg-desktop-portal-gtk"
-pkgver = "1.15.2"
+pkgver = "1.15.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -23,7 +23,7 @@ pkgdesc = "Gtk implementation of xdg-desktop-portal"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/flatpak/xdg-desktop-portal-gtk"
 source = f"https://github.com/flatpak/xdg-desktop-portal-gtk/releases/download/{pkgver}/xdg-desktop-portal-gtk-{pkgver}.tar.xz"
-sha256 = "0295af247fc0d8c94e722731c29a2db7a045d38b132325b22e508709a235300b"
+sha256 = "47a3743d2419a8601e691db37e85bb5fac5ae4b26842177065cd5f22ada23b37"
 
 
 def post_install(self):
