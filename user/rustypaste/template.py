@@ -1,6 +1,6 @@
 pkgname = "rustypaste"
-pkgver = "0.16.0"
-pkgrel = 1
+pkgver = "0.16.1"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
@@ -25,7 +25,7 @@ pkgdesc = "File upload/pastebin service"
 license = "MIT"
 url = "https://github.com/orhun/rustypaste"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "e37381a7183ec170b386f2e7c9cf3e58c6cb8864268afc76e45caf52b15026c2"
+sha256 = "7e3154888b90113555a0d5dbe40dae83f5ff2fdbb32b3aea998eb3fc79ebce35"
 
 
 def post_install(self):
