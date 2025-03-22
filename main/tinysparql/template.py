@@ -1,5 +1,5 @@
 pkgname = "tinysparql"
-pkgver = "3.8.2"
+pkgver = "3.9.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -39,7 +39,7 @@ pkgdesc = "Search engine and triplestore for desktop, embedded and mobile"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/tinysparql/{pkgver[:-2]}/tinysparql-{pkgver}.tar.xz"
-sha256 = "bb8643386c8edc591a03205d4a0eda661dcdd2094473bffb9bbdb94e93589cb2"
+sha256 = "98e8933b946d8c54a77eadabd7f1d14cddd88fa43eef0d0ace3c0fcce646722b"
 # check may be disabled
 options = ["!cross"]
 
