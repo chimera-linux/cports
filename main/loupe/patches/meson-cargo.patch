@@ -1,25 +1,18 @@
 --- a/src/meson.build
 +++ b/src/meson.build
-@@ -27,15 +27,12 @@ if gtk4_x11.found()
-   cargo_options += ['--features', 'x11']
+@@ -16,7 +16,6 @@ elif profile == 'release'
  endif
  
--cargo_env = {'CARGO_HOME': build_root / 'cargo-home'}
--
- cargo_build = custom_target(
-   'cargo-build',
-   build_by_default: true,
-   build_always_stale: true,
-   output: 'src',
-   console: true,
--  env: cargo_env,
-   command: [
-     cargo,
-     'build',
-@@ -43,21 +40,6 @@ cargo_build = custom_target(
+ cargo_env = {
+-  'CARGO_HOME': build_root / 'cargo-home',
+   'APP_ID': app_id,
+   'VERSION': version,
+   'LOCALEDIR': localedir,
+@@ -37,22 +36,6 @@ cargo_build = custom_target(
    ],
  )
  
+-# Copy binary
 -custom_target(
 -  'cp-binary',
 -  depends: cargo_build,
@@ -38,7 +31,7 @@
  custom_target(
    'cargo-doc',
    build_by_default: false,
-@@ -82,4 +64,4 @@ test(
+@@ -78,4 +61,4 @@ test(
    ],
    is_parallel: false,
    timeout: 1800,
