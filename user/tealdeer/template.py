@@ -1,6 +1,6 @@
 pkgname = "tealdeer"
-pkgver = "1.7.1"
-pkgrel = 1
+pkgver = "1.7.2"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features", "native-tls"]
 make_check_args = [
@@ -21,7 +21,7 @@ pkgdesc = "Alternative implementation of tldr"
 license = "MIT"
 url = "https://github.com/tealdeer-rs/tealdeer"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2b10e141774d2a50d25a1d3ca3d911dedc0e1313366ce0a364068c7a686300d8"
+sha256 = "d0675b9aa48c00e78abafc318b9bfbcb7ea3cce63e58a42c1f9e2395abcfe0e8"
 
 
 def install(self):
