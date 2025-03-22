@@ -1,6 +1,6 @@
 pkgname = "showtime"
-pkgver = "47.0"
-pkgrel = 2
+pkgver = "48.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",
@@ -21,4 +21,4 @@ pkgdesc = "GNOME video player"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/Incubator/showtime"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "31deffae0be27851068b35f23e04ef36189759c4466e2d13e0127550fec0b772"
+sha256 = "b68cdcffe76ecd5c11a51939552879d8a4680d8b16022273f9c6fb162fd6c95a"
