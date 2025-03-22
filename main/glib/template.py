@@ -56,7 +56,8 @@ def post_install(self):
     from cbuild.util import python
 
     self.install_license("COPYING")
-    self.uninstall("usr/lib/installed-tests")
+    if self.profile().arch != "riscv64":
+        self.uninstall("usr/lib/installed-tests")
 
     python.precompile(self, "usr/share/glib-2.0/codegen")
     python.precompile(self, "usr/share/glib-2.0/gdb")
