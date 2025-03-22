@@ -16,8 +16,8 @@ SD_BOOT_SYSTEM_CMDLINE_FILE=/usr/lib/systemd/boot/cmdline
 SD_BOOT_CMDLINE_FILE=/etc/default/systemd-boot-cmdline
 SD_BOOT_OS_TITLE="$PRETTY_NAME"
 SD_BOOT_DISABLE_RECOVERY=
-SD_BOOT_ESP_PATH=$("$BOOTCTL_CMD" -p)
-SD_BOOT_BOOT_PATH=$("$BOOTCTL_CMD" -x)
+SD_BOOT_ESP_PATH=
+SD_BOOT_BOOT_PATH=
 SD_BOOT_ENTRY_TOKEN=
 SD_BOOT_COUNT_TRIES=
 
@@ -40,6 +40,21 @@ elif [ -r "$SD_BOOT_SYSTEM_CMDLINE_FILE" ]; then
     DEV_EXTRA_CMDLINE=$(cat "$SD_BOOT_SYSTEM_CMDLINE_FILE")
 fi
 
+if [ -n "$SD_BOOT_RELAX_ESP_CHECKS" ]; then
+    export SYSTEMD_RELAX_ESP_CHECKS=1
+fi
+
+if [ -e "$SD_BOOT_SYSTEM_RELAX_ESP_FILE" ]; then
+    export SYSTEMD_RELAX_ESP_CHECKS=1
+fi
+
+if [ -z "$SD_BOOT_ESP_PATH" ]; then
+    SD_BOOT_ESP_PATH=$("$BOOTCTL_CMD" -p)
+fi
+if [ -z "$SD_BOOT_BOOT_PATH" ]; then
+    SD_BOOT_BOOT_PATH=$("$BOOTCTL_CMD" -x)
+fi
+
 # args override whatever autodetection or config
 if [ -n "$1" ]; then
     SD_BOOT_ESP_PATH="$1"
@@ -51,14 +66,6 @@ fi
 # disabled?
 if [ -n "$SD_BOOT_DISABLE_KERNEL_HOOK" ]; then
     exit 1
-fi
-
-if [ -n "$SD_BOOT_RELAX_ESP_CHECKS" ]; then
-    export SYSTEMD_RELAX_ESP_CHECKS=1
-fi
-
-if [ -e "$SD_BOOT_SYSTEM_RELAX_ESP_FILE" ]; then
-    export SYSTEMD_RELAX_ESP_CHECKS=1
 fi
 
 # not installed?
