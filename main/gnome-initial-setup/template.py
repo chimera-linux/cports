@@ -1,5 +1,5 @@
 pkgname = "gnome-initial-setup"
-pkgver = "47.4"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -36,4 +36,4 @@ pkgdesc = "GNOME initial setup"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Design/OS/InitialSetup"
 source = f"$(GNOME_SITE)/gnome-initial-setup/{pkgver[:-2]}/gnome-initial-setup-{pkgver}.tar.xz"
-sha256 = "2c0299dc2b7168118235950d5898a351c94cb9db8fd808daad5d6e4ba95b87b8"
+sha256 = "7ab30dddeacbe385968ff0d85b409f9286fb745193309fcab36be52798141589"
