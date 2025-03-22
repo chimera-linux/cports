@@ -9,8 +9,8 @@ Date:   Thu Mar 21 16:26:26 2024 +0100
 
 diff --git a/src/libtracker-miners-common/tracker-seccomp.c b/src/libtracker-miners-common/tracker-seccomp.c
 index b2ad0b7..a322216 100644
---- a/src/libtracker-miners-common/tracker-seccomp.c
-+++ b/src/libtracker-miners-common/tracker-seccomp.c
+--- a/src/common/tracker-seccomp.c
++++ b/src/common/tracker-seccomp.c
 @@ -320,9 +320,8 @@
  	/* Syscalls may differ between libcs */
  #if !defined(__GLIBC__)

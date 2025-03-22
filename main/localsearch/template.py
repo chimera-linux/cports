@@ -1,5 +1,5 @@
 pkgname = "localsearch"
-pkgver = "3.8.2"
+pkgver = "3.9.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -10,7 +10,6 @@ configure_args = [
     "-Dman=true",
     "-Dsystemd_user_services=false",
     # features
-    "-Dminer_rss=false",  # libgrss hasn't been touched in a while
     "-Dplaylist=enabled",
     "-Dlandlock=enabled",
     "-Dexif=enabled",
@@ -40,14 +39,15 @@ makedepends = [
     "tinysparql-devel",
     "glib-devel",
     "dbus-devel",
-    "gstreamer-devel",
-    "gst-plugins-base-devel",
+    "ffmpeg-devel",
     "icu-devel",
     "libexif-devel",
+    "libgudev-devel",
     "libseccomp-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libtiff-devel",
+    "linux-headers",
     "giflib-devel",
     "libxml2-devel",
     "poppler-devel",
@@ -67,7 +67,7 @@ pkgdesc = "Data miners for tinysparql"
 license = "GPL-2.0-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tinysparql"
 source = f"$(GNOME_SITE)/localsearch/{pkgver[:-2]}/localsearch-{pkgver}.tar.xz"
-sha256 = "cda69195f6845357a8d91c023670efe92238f4d138a1ef7a1401f45a2a8403ce"
+sha256 = "d42f408dc3fb28fe54f5a9abbf5f1decf5818db9c2e9ec51c09464bdfd0c14b9"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]
