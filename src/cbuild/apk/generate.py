@@ -124,6 +124,10 @@ def _get_new_deps(pkg, origin):
     if hasattr(pkg, "pc_requires"):
         deps += map(lambda v: f"pc:{v}", sorted(pkg.pc_requires))
 
+    # dinit service requires
+    if hasattr(pkg, "svc_requires"):
+        deps += map(lambda v: f"svc:{v}", sorted(pkg.svc_requires))
+
     # alternatives provider
     if pkg.alternative:
         provides += [f"{origin}=0"]
