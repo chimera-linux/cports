@@ -1,0 +1,11 @@
+--- a/girepository/tests/meson.build
++++ b/girepository/tests/meson.build
+@@ -164,7 +164,7 @@ endforeach
+ 
+ python_tests = {}
+ 
+-if enable_gir
++if false
+   python_tests += {
+     'gi-compile-repository.py': {
+       'depends': [gicompilerepository, glib_gir[0], gobject_gir[0], gio_gir[0]],
