@@ -1,5 +1,5 @@
 pkgname = "gnome-user-docs"
-pkgver = "47.2"
+pkgver = "47.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -15,5 +15,5 @@ pkgdesc = "User documentation for GNOME"
 license = "CC-BY-3.0"
 url = "https://gitlab.gnome.org/GNOME/gnome-user-docs"
 source = f"$(GNOME_SITE)/gnome-user-docs/{pkgver[:-2]}/gnome-user-docs-{pkgver}.tar.xz"
-sha256 = "d9bf08b9a6c284d1e04f6fe9237a6deedad161e0e5ba7810bffecf285e2bcddf"
+sha256 = "727cd30d80a801412be4085bfedc870f962a49fd057d904c6d42534bae1f2133"
 options = ["!splitdoc"]
