@@ -1,5 +1,5 @@
 pkgname = "libsoup"
-pkgver = "3.6.4"
+pkgver = "3.6.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -34,7 +34,7 @@ pkgdesc = "HTTP library for glib"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libsoup"
 source = f"$(GNOME_SITE)/libsoup/{pkgver[:-2]}/libsoup-{pkgver}.tar.xz"
-sha256 = "9b54c76f5276b05bebcaf2b6c2a141a188fc7bb1d0624eda259dac13a6665c8a"
+sha256 = "6891765aac3e949017945c3eaebd8cc8216df772456dc9f460976fbdb7ada234"
 # krb5-config may be problematic
 options = ["!cross"]
 
