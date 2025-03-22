@@ -1,0 +1,29 @@
+this shits itself with new g-i and so on
+
+diff --git a/vala/valagirparser.c b/vala/valagirparser.c
+index 05733ad..1ab5657 100644
+--- a/vala/valagirparser.c
++++ b/vala/valagirparser.c
+@@ -3746,6 +3746,8 @@ vala_gir_parser_parse_repository (ValaGirParser* self)
+ 					_tmp30_ = _tmp29_;
+ 					if (g_strcmp0 (_tmp30_, "c:include") == 0) {
+ 						vala_gir_parser_parse_c_include (self);
++					} else if (g_strcmp0 (_tmp30_, "doc:format") == 0) {
++						vala_gir_parser_skip_element (self);
+ 					} else {
+ 						ValaSourceReference* _tmp31_;
+ 						ValaSourceReference* _tmp32_;
+diff --git a/vala/valagirparser.vala b/vala/valagirparser.vala
+index dde72ee..5bfa628 100644
+--- a/vala/valagirparser.vala
++++ b/vala/valagirparser.vala
+@@ -2057,6 +2057,9 @@ public class Vala.GirParser : CodeVisitor {
+ 				}
+ 			} else if (reader.name == "c:include") {
+ 				parse_c_include ();
++			} else if (reader.name == "doc:format") {
++				//TODO Handle this format information properly
++				skip_element ();
+ 			} else {
+ 				// error
+ 				Report.error (get_current_src (), "unknown child element `%s' in `repository'", reader.name);
