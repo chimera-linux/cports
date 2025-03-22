@@ -1,5 +1,5 @@
 pkgname = "vte"
-pkgver = "0.78.4"
+pkgver = "0.80.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -38,10 +38,15 @@ pkgdesc = "Gtk terminal widget"
 subdesc = "common files"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal/VTE"
-source = (
-    f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
-)
-sha256 = "cc6820090d160fbfb627da821954d4693ee4538b155a747a04021be536448e37"
+source = [
+    f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz",
+    "https://github.com/fastfloat/fast_float/archive/refs/tags/v8.0.2.tar.gz",
+]
+source_paths = [".", "subprojects/fast_float"]
+sha256 = [
+    "c81b765b0f2cd9e823684c3ae5bb6fb30f08b8e2e9ff31accc239ddfa7f07be3",
+    "e14a33089712b681d74d94e2a11362643bd7d769ae8f7e7caefe955f57f7eacd",
+]
 # assert in meson
 options = ["!lto", "!cross"]
 
@@ -54,6 +59,13 @@ tool_flags = {
         "-Wno-float-equal",
     ],
 }
+
+
+def post_extract(self):
+    self.mv(
+        "subprojects/packagefiles/fast_float/meson.build",
+        "subprojects/fast_float",
+    )
 
 
 @subpackage("vte-gtk3")
