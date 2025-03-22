@@ -1,13 +1,11 @@
 pkgname = "papers"
-pkgver = "47.3"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dcomics=enabled",
     "-Ddocumentation=false",
-    "-Dps=enabled",
     "-Dtiff=enabled",
-    "-Dxps=enabled",
     "-Ddjvu=enabled",
 ]
 hostmakedepends = [
@@ -37,13 +35,13 @@ pkgdesc = "GNOME document viewer"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/Incubator/papers"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "27b38c620ec201a91a268ca6c34bc1464fe262a90693e4b3404da59cc81c52c4"
+sha256 = "ca787d23ae199b300f7cc645fed504d60913a557faccd32a5e72ec73133a9bcd"
 
 
 def post_patch(self):
     from cbuild.util import cargo
 
-    cargo.Cargo(self, wrksrc="shell-rs").vendor()
+    cargo.Cargo(self, wrksrc="shell").vendor()
 
 
 def init_build(self):
@@ -55,7 +53,7 @@ def init_build(self):
 
 def post_install(self):
     self.install_bin(
-        f"./build/shell-rs/src/{self.profile().triplet}/release/papers"
+        f"./build/shell/src/{self.profile().triplet}/release/papers"
     )
 
 

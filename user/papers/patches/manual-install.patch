@@ -1,10 +1,10 @@
---- a/shell-rs/src/meson.build	2024-09-11 00:07:27.984662989 -0300
-+++ b/shell-rs/src/meson.build	2024-09-11 00:07:49.580379578 -0300
+--- a/shell/src/meson.build	2024-09-11 00:07:27.984662989 -0300
++++ b/shell/src/meson.build	2024-09-11 00:07:49.580379578 -0300
 @@ -51,21 +51,6 @@
    ]
  )
  
--copy_binary = custom_target(
+-custom_target(
 -  'cp-binary',
 -  depends: cargo_build,
 -  build_by_default: true,
@@ -19,6 +19,6 @@
 -  ],
 -)
 -
- cargo_doc = custom_target(
+ custom_target(
    'cargo-doc',
    build_by_default: false,
