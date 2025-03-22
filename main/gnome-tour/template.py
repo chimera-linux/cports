@@ -1,5 +1,5 @@
 pkgname = "gnome-tour"
-pkgver = "47.0"
+pkgver = "48.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -17,7 +17,7 @@ pkgdesc = "GNOME tour and greeter"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Tour"
 source = f"$(GNOME_SITE)/gnome-tour/{pkgver.split('.')[0]}/gnome-tour-{pkgver}.tar.xz"
-sha256 = "72faaf89e006c89324a7e1572046916961b38aeba38f6d6d4cc41e3d3d466944"
+sha256 = "b8a03b2574eb956abe9af1414161ccb17f830d53600b9c0499cef3bb6f4127c5"
 
 
 def init_build(self):
