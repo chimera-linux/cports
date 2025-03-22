@@ -11,6 +11,7 @@ fi
 SD_BOOT_SYSTEM_CFG=/usr/lib/systemd/boot/systemd-boot
 SD_BOOT_CFG=/etc/default/systemd-boot
 # overridable defaults
+SD_BOOT_SYSTEM_RELAX_ESP_FILE=/usr/lib/systemd/boot/relax-esp
 SD_BOOT_SYSTEM_CMDLINE_FILE=/usr/lib/systemd/boot/cmdline
 SD_BOOT_CMDLINE_FILE=/etc/default/systemd-boot-cmdline
 SD_BOOT_OS_TITLE="$PRETTY_NAME"
@@ -50,6 +51,14 @@ fi
 # disabled?
 if [ -n "$SD_BOOT_DISABLE_KERNEL_HOOK" ]; then
     exit 1
+fi
+
+if [ -n "$SD_BOOT_RELAX_ESP_CHECKS" ]; then
+    export SYSTEMD_RELAX_ESP_CHECKS=1
+fi
+
+if [ -e "$SD_BOOT_SYSTEM_RELAX_ESP_FILE" ]; then
+    export SYSTEMD_RELAX_ESP_CHECKS=1
 fi
 
 # not installed?

@@ -9,6 +9,11 @@
 # and uses autodetection to find if to generate entries.
 #SD_BOOT_DISABLE_KERNEL_HOOK=
 
+# Whether to be strict about the ESP being a FAT32
+# partition of the right type. Some devices may not
+# meet this criteria.
+#SD_BOOT_RELAX_ESP_CHECKS=
+
 # The ESP path to use, or leave to autodetect.
 # May be overridden by command line.
 #SD_BOOT_ESP_PATH=
