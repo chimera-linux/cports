@@ -1,0 +1,21 @@
+diff -ruN a/epan/dissectors/packet-x11.c b/epan/dissectors/packet-x11.c
+--- a/epan/dissectors/packet-x11.c	2025-02-24 19:33:39.000000000 +0100
++++ b/epan/dissectors/packet-x11.c	2025-03-22 18:14:23.452888534 +0100
+@@ -3368,7 +3368,7 @@
+                                      x11_conv_data_t *state, unsigned byte_order)
+ {
+       const char *extname;
+-      int extension, length;
++      unsigned extension, length;
+ 
+       extension = tvb_get_uint8(tvb, *offsetp);
+       (*offsetp)++;
+@@ -3383,7 +3383,7 @@
+       CARD16(event_sequencenumber);
+ 
+       length = REPLYLENGTH(eventlength);
+-      length = length * 4 + 32;
++      length = length * 4 + 32; // offending operation here
+       *offsetp += 4;
+ 
+       if (extname) {
