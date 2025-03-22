@@ -1,5 +1,5 @@
 pkgname = "adwaita-icon-theme"
-pkgver = "47.0"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,4 +8,4 @@ pkgdesc = "Icon theme for GTK+"
 license = "LGPL-3.0-or-later OR CC-BY-SA-3.0"
 url = "https://gitlab.gnome.org/GNOME/adwaita-icon-theme"
 source = f"$(GNOME_SITE)/adwaita-icon-theme/{pkgver[:-2]}/adwaita-icon-theme-{pkgver}.tar.xz"
-sha256 = "ad088a22958cb8469e41d9f1bba0efb27e586a2102213cd89cc26db2e002bdfe"
+sha256 = "847068888650d9673115be6dbf2bfdc31a46aebc528a6a9db4420e60e656b8d4"
