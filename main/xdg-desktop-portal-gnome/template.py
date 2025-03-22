@@ -1,5 +1,5 @@
 pkgname = "xdg-desktop-portal-gnome"
-pkgver = "47.2"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dsystemduserunitdir=/tmp/delete_me"]
@@ -15,7 +15,7 @@ pkgdesc = "Backend implementation for xdg-desktop-portal for GNOME"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome"
 source = f"https://download.gnome.org/sources/xdg-desktop-portal-gnome/{pkgver.split('.')[0]}/xdg-desktop-portal-gnome-{pkgver}.tar.xz"
-sha256 = "4b5368aa19dc0aa62c8a84e481c8a26490b4d77c7900b8e5c9d432ce91f1274c"
+sha256 = "cd15aca2e1364da308eb3796bb8ae4a577e60ca4fe12006b315232cfd19c8861"
 
 
 def post_install(self):
