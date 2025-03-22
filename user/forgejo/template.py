@@ -1,6 +1,6 @@
 pkgname = "forgejo"
-pkgver = "10.0.1"
-pkgrel = 1
+pkgver = "10.0.2"
+pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
 make_check_target = "test-backend"
@@ -17,15 +17,11 @@ source = [
 ]
 source_paths = [".", "go-sqlite3-patched"]
 sha256 = [
-    "4e7087e453a703c173ec5367b2cec063e4e595559776abacd24c21bb38807b15",
+    "bfc7f201a96274a251c033e3e10d2039f91bd737284b8be6132c57482805af56",
     "8fa3b0b66914ae2dd4ddef9a954f614c5b3eb6ac9d80ee61ae2d08e3178507ec",
 ]
 # check takes quite a bit
 options = ["!check", "!cross"]
-
-
-if self.profile().arch == "riscv64":
-    broken = "npx stuck forever in build env"
 
 
 def prepare(self):
