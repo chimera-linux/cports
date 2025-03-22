@@ -278,6 +278,83 @@ def _scan_pc(pkg):
         )
 
 
+def _scan_svc(pkg):
+    svcreq = {}
+    log = logger.get()
+
+    def scan_svc(v, pfx):
+        if not v.is_file():
+            return
+        with v.open() as df:
+            for ln in df:
+                if ln.startswith("#"):
+                    continue
+                ln = ln.strip()
+                eq = ln.find("=")
+                cl = ln.find(":")
+                if cl > 0 and (eq < 0 or cl < eq):
+                    eq = -1
+                    key = ln[0:cl].strip()
+                    val = ln[cl + 1 :].strip()
+                elif eq > 0:
+                    cl = -1
+                    key = ln[0:eq].strip()
+                    val = ln[eq + 1 :].strip()
+                else:
+                    continue
+                match key:
+                    case "depends-on" | "depends-ms" | "waits-for":
+                        svcreq[val] = pfx
+                    case _:
+                        pass
+
+    def subpkg_provides_svc(pn, pfx):
+        for sp in pkg.rparent.subpkg_list:
+            pth = sp.destdir / "usr/lib/dinit.d"
+            if pfx == "usvc":
+                pth = pth / "user"
+            if (pth / pn).exists():
+                return sp.pkgname
+        return None
+
+    pkg.svc_requires = []
+
+    for f in pkg.destdir.glob("usr/lib/dinit.d/*"):
+        scan_svc(f, "svc")
+
+    for f in pkg.destdir.glob("usr/lib/dinit.d/user/*"):
+        scan_svc(f, "usvc")
+
+    for sv in svcreq:
+        pfx = svcreq[sv]
+        # provided by one of ours or by a dependency
+        in_subpkg = subpkg_provides_svc(sv, pfx)
+        if not in_subpkg:
+            info = cli.call(
+                "search",
+                ["--from", "none", "-q", "-e", f"{pfx}:" + sv],
+                pkg,
+                capture_output=True,
+                allow_untrusted=True,
+            )
+            if info.returncode == 0:
+                prov = info.stdout.strip().decode().split("\n")
+                if len(prov) >= 1:
+                    prov = prov[0]
+                else:
+                    prov = None
+        else:
+            prov = in_subpkg
+        if prov:
+            log.out_plain(
+                f"  \f[cyan]{pfx}: \f[orange]{sv}\f[] (provider: \f[green]{prov}\f[])"
+            )
+            pkg.svc_requires.append(f"{pfx}:{sv}")
+            continue
+        # no provider found
+        pkg.error(f"  {pfx}: {sv} (unknown provider)")
+
+
 def _scan_symlinks(pkg):
     brokenlinks = pkg.options["brokenlinks"]
     log = logger.get()
@@ -359,10 +436,12 @@ def _scan_symlinks(pkg):
 
 
 def invoke(pkg):
-    if not pkg.options["scanrundeps"] or pkg.autopkg:
+    if not pkg.options["scanrundeps"]:
         return
 
     with flock.lock(flock.apklock(pkg.rparent.profile().arch)):
-        _scan_so(pkg)
-        _scan_pc(pkg)
-        _scan_symlinks(pkg)
+        if not pkg.autopkg:
+            _scan_so(pkg)
+            _scan_pc(pkg)
+            _scan_symlinks(pkg)
+        _scan_svc(pkg)
