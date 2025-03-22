@@ -1,0 +1,17 @@
+diff --git a/src/mixer/simple_none.c b/src/mixer/simple_none.c
+index dd03fcf1..18dbb11f 100644
+--- a/src/mixer/simple_none.c
++++ b/src/mixer/simple_none.c
+@@ -215,10 +215,10 @@ static int get_compare_weight(const char *name, unsigned int idx)
+ 
+ static long to_user(selem_none_t *s, int dir, selem_ctl_t *c, long value)
+ {
+-	int64_t n;
++	uint64_t n;
+ 	if (c->max == c->min)
+ 		return s->str[dir].min;
+-	n = (int64_t) (value - c->min) * (s->str[dir].max - s->str[dir].min);
++	n = (uint64_t) (value - c->min) * (uint64_t) (s->str[dir].max - s->str[dir].min);
+ 	return s->str[dir].min + (n + (c->max - c->min) / 2) / (c->max - c->min);
+ }
+ 
