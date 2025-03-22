@@ -1,16 +1,14 @@
 pkgname = "gnome-keyring"
 # pam_gnome_keyring may be moved to libsecret later?
-# as of 46 it does not install it and distros don't use it
-pkgver = "46.2"
+# as of 48 it does not install it and distros don't use it
+pkgver = "48.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 configure_args = [
-    "--with-pam-dir=/usr/lib/security",
-    "--disable-schemas-compile",
     # TODO replace with gcr + user service
-    "--enable-ssh-agent",
+    "-Dssh-agent=true",
+    "-Dsystemd=disabled",
 ]
-make_check_args = ["-j1"]
 make_check_wrapper = [
     "wlheadless-run",
     "--",
@@ -18,12 +16,11 @@ make_check_wrapper = [
     "--",
 ]
 hostmakedepends = [
-    "automake",
     "docbook-xsl-nons",
     "gettext-devel",
     "glib-devel",
     "libtasn1-progs",
-    "libtool",
+    "meson",
     "openssh",
     "pkgconf",
     "python",
@@ -32,6 +29,7 @@ hostmakedepends = [
 makedepends = [
     "gcr3-devel",
     "glib-devel",
+    "libcap-ng-devel",
     "libgcrypt-devel",
     "linux-pam-devel",
 ]
@@ -43,4 +41,4 @@ url = "https://gitlab.gnome.org/GNOME/gnome-keyring"
 source = (
     f"$(GNOME_SITE)/gnome-keyring/{pkgver[:-2]}/gnome-keyring-{pkgver}.tar.xz"
 )
-sha256 = "bf26c966b8a8b7f3285ecc8bb3e467b9c20f9535b94dc451c9c559ddcff61925"
+sha256 = "f20518c920e9ea3f9c9b8b44be8c50d8d7feecd0dd5624960f77bd2ca4fbeb9d"
