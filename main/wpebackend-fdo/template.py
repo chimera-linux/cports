@@ -1,5 +1,5 @@
 pkgname = "wpebackend-fdo"
-pkgver = "1.14.3"
+pkgver = "1.16.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
@@ -8,7 +8,7 @@ pkgdesc = "Wayland backend for WPE WebKit"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/wpebackend-fdo-{pkgver}.tar.xz"
-sha256 = "10121842595a850291db3e82f3db0b9984df079022d386ce42c2b8508159dc6c"
+sha256 = "beddf321232d5bd08106c179dbc600f8ce88eb3620b4a59a6329063b78f64635"
 
 
 def post_install(self):
