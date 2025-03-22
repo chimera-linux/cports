@@ -9,6 +9,8 @@ fi
 [ -r /etc/os-release ] && . /etc/os-release
 
 SD_BOOT_CFG=/etc/default/systemd-boot
+# overridable defaults
+SD_BOOT_CMDLINE_FILE=/etc/default/systemd-boot-cmdline
 SD_BOOT_OS_TITLE="$PRETTY_NAME"
 SD_BOOT_DISABLE_RECOVERY=
 SD_BOOT_ESP_PATH=$("$BOOTCTL_CMD" -p)
@@ -27,6 +29,10 @@ SD_BOOT_COUNT_TRIES=
 DEV_CMDLINE=$SD_BOOT_CMDLINE
 DEV_CMDLINE_DEFAULT=$SD_BOOT_CMDLINE_DEFAULT
 DEV_EXTRA_CMDLINE=
+
+if [ -r "$SD_BOOT_CMDLINE_FILE" ]; then
+    DEV_EXTRA_CMDLINE=$(cat "$SD_BOOT_CMDLINE_FILE")
+fi
 
 # args override whatever autodetection or config
 if [ -n "$1" ]; then
