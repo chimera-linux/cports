@@ -1,5 +1,5 @@
 pkgname = "epiphany"
-pkgver = "47.3.1"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dunit_tests=disabled"]
@@ -39,4 +39,4 @@ url = "https://wiki.gnome.org/Apps/Web"
 source = (
     f"$(GNOME_SITE)/epiphany/{pkgver.split('.')[0]}/epiphany-{pkgver}.tar.xz"
 )
-sha256 = "795d7b81f18b7487d9e9bfc0cb2d68a893d2200f45f9397cd42cb3392b2081a9"
+sha256 = "c9d1f6dffbad03b0916436901c770da302879ca60a636d2b72b25b142ec05f80"
