@@ -1,6 +1,6 @@
 pkgname = "htop"
 pkgver = "3.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-capabilities",
@@ -20,8 +20,8 @@ makedepends = [
 ]
 depends = [
     # dlopened
-    "so:libnl-3.so!libnl",
-    "so:libnl-genl-3.so!libnl",
+    "so:libnl-3.so.200!libnl",
+    "so:libnl-genl-3.so.200!libnl",
     "so:libsensors.so.5!lm-sensors-libs",
 ]
 pkgdesc = "Interactive process viewer"
