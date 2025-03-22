@@ -1,0 +1,32 @@
+From 1601668155c4ae9e46bc3411d775e18f3b9442ab Mon Sep 17 00:00:00 2001
+From: Sasha Finkelstein <fnkl.kernel@gmail.com>
+Date: Mon, 3 Mar 2025 14:16:09 +0100
+Subject: [PATCH] vtn_bindgen2: Fix memory corruption
+
+This sometimes causes memory corruption, specifically on 32-bit x86
+where it can result in a build failure
+
+Signed-off-by: Sasha Finkelstein <fnkl.kernel@gmail.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/33847>
+---
+ src/compiler/spirv/vtn_bindgen2.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/compiler/spirv/vtn_bindgen2.c b/src/compiler/spirv/vtn_bindgen2.c
+index bb12fb1502d42..94e23082b721e 100644
+--- a/src/compiler/spirv/vtn_bindgen2.c
++++ b/src/compiler/spirv/vtn_bindgen2.c
+@@ -75,8 +75,8 @@ lower_to_bindgen_return(nir_shader *nir)
+        * parameters.
+        */
+       libfunc->num_params--;
+-      memcpy(libfunc->params, libfunc->params + 1,
+-             sizeof(libfunc->params[0]) * libfunc->num_params);
++      memmove(libfunc->params, libfunc->params + 1,
++              sizeof(libfunc->params[0]) * libfunc->num_params);
+    }
+ }
+ 
+-- 
+GitLab
+
