@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "1.4.0"
+pkgver = "1.4.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -78,7 +78,7 @@ pkgdesc = "Server and user space API to deal with multimedia pipelines"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
-sha256 = "81076aac2020ec53ef6c3e2f6e8b5bee7275dad15c295bacab5c73e2727955ec"
+sha256 = "1eba67c6e5acfa23e32d70bdbabab5a3d221c4bfbb12e17aa29fd5051c095fa4"
 
 if self.profile().endian == "big":
     configure_args += [
