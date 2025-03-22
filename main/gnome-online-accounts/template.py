@@ -1,5 +1,5 @@
 pkgname = "gnome-online-accounts"
-pkgver = "3.52.3.1"
+pkgver = "3.54.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -37,8 +37,8 @@ makedepends = [
 pkgdesc = "GNOME service to access online accounts"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
-source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-4]}/gnome-online-accounts-{pkgver}.tar.xz"
-sha256 = "49ed727d6fc49474996fa7edf0919b21e4fc856ea37e6e30f17b50b103af9701"
+source = f"$(GNOME_SITE)/gnome-online-accounts/{pkgver[:-2]}/gnome-online-accounts-{pkgver}.tar.xz"
+sha256 = "9d058b3aac8b2d8b6b2ae7cb57c8a8abe539e73c88220c315b5b99f87ce6efd8"
 options = ["!cross"]
 
 
