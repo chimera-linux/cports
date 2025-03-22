@@ -1,5 +1,5 @@
 pkgname = "glibmm"
-pkgver = "2.82.0"
+pkgver = "2.84.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "glib-devel", "perl", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "C++ bindings for GLib"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/glibmm/{pkgver[:-2]}/glibmm-{pkgver}.tar.xz"
-sha256 = "38684cff317273615c67b8fa9806f16299d51e5506d9b909bae15b589fa99cb6"
+sha256 = "56ee5f51c8acfc0afdf46959316e4c8554cb50ed2b6bc5ce389d979cbb642509"
 
 
 @subpackage("glibmm-devel")
