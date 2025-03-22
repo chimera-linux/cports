@@ -1,0 +1,64 @@
+From 15d74887189fd5abff04425b01d195068b655db7 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Mon, 11 Mar 2024 00:08:57 +0100
+Subject: [PATCH 2/4] Add xiaomi-davinci config
+
+Currently only speaker is supported
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ ucm2/Xiaomi/davinci/HiFi.conf        | 26 ++++++++++++++++++++++++++
+ ucm2/conf.d/sm8250/Xiaomi Mi 9T.conf |  8 ++++++++
+ 2 files changed, 34 insertions(+)
+ create mode 100644 ucm2/Xiaomi/davinci/HiFi.conf
+ create mode 100644 ucm2/conf.d/sm8250/Xiaomi Mi 9T.conf
+
+diff --git a/ucm2/Xiaomi/davinci/HiFi.conf b/ucm2/Xiaomi/davinci/HiFi.conf
+new file mode 100644
+index 0000000..8f31d88
+--- /dev/null
++++ b/ucm2/Xiaomi/davinci/HiFi.conf
+@@ -0,0 +1,26 @@
++# Use case configuration for Xiaomi Mi 9T / Redmi K20
++# Author: Jens Reidel <adrian@travitia.xyz>
++
++SectionVerb {
++        EnableSequence [
++                # SPEAKER AND EARPIECE PLAYBACK
++                cset "name='PRI_MI2S_RX Audio Mixer MultiMedia1' 1"
++        ]
++
++        DisableSequence [
++                cset "name='PRI_MI2S_RX Audio Mixer MultiMedia1' 0"
++        ]
++
++        Value {
++                TQ "HiFi"
++        }
++}
++
++SectionDevice."Speaker" {
++        Comment "Speaker playback"
++
++        Value {
++                PlaybackPriority 200
++                PlaybackPCM "hw:${CardId},0"
++        }
++}
+diff --git a/ucm2/conf.d/sm8250/Xiaomi Mi 9T.conf b/ucm2/conf.d/sm8250/Xiaomi Mi 9T.conf
+new file mode 100644
+index 0000000..ef7f031
+--- /dev/null
++++ b/ucm2/conf.d/sm8250/Xiaomi Mi 9T.conf	
+@@ -0,0 +1,8 @@
++# Use case configuration for Xiaomi Mi 9T / Redmi K20
++
++Syntax 3
++
++SectionUseCase."HiFi" {
++        File "/Xiaomi/davinci/HiFi.conf"
++        Comment "HiFi quality Music."
++}
+-- 
+2.49.0
+

@@ -1,6 +1,6 @@
 pkgname = "alsa-ucm-conf"
 pkgver = "1.2.13"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "ALSA Use Case Manager topology files"
 license = "BSD-3-Clause"
 url = "https://github.com/alsa-project/alsa-ucm-conf"
