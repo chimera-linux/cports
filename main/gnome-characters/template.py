@@ -1,5 +1,5 @@
 pkgname = "gnome-characters"
-pkgver = "47.0"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -26,4 +26,4 @@ pkgdesc = "GNOME character map utility"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Design/Apps/CharacterMap"
 source = f"$(GNOME_SITE)/gnome-characters/{pkgver[:-2]}/gnome-characters-{pkgver}.tar.xz"
-sha256 = "6bcf05a22f30f131d8a8035b0f63d86a9567007a5f6df5ce8556ba06777b7574"
+sha256 = "a2c32ca54d911db2404420350d3442e691a2dce8b0f5d00899f66cff8c3c8d71"
