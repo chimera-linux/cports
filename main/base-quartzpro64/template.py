@@ -1,6 +1,6 @@
 pkgname = "base-quartzpro64"
 pkgver = "0.1"
-pkgrel = 1
+pkgrel = 2
 archs = ["aarch64"]
 depends = [
     "firmware-linux-rockchip",
@@ -14,8 +14,5 @@ url = "https://chimera-linux.org"
 
 def install(self):
     # u-boot-menu
-    self.install_file(self.files_path / "u-boot-device", "etc/default")
-    self.install_file(self.files_path / "u-boot-cmdline", "etc/default")
-    # agetty service customization
-    self.install_file(self.files_path / "agetty", "etc/default")
-    self.install_file(self.files_path / "agetty-ttyS2", "etc/default")
+    self.install_file(self.files_path / "device", "usr/lib/u-boot")
+    self.install_file(self.files_path / "cmdline", "usr/lib/u-boot")

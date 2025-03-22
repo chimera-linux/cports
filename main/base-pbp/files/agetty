@@ -1,2 +1,0 @@
-# Enable serial console on Pinebook Pro by default.
-EXTRA_GETTYS="/dev/ttyS2"

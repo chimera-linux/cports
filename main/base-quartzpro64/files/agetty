@@ -1,2 +1,0 @@
-# Enable serial console on RockPro64 by default.
-EXTRA_GETTYS="/dev/ttyS2"
