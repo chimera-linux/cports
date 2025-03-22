@@ -28,6 +28,14 @@ SD_BOOT_CMDLINE=
 # The additional cmdline to use in normal (non-recovery) boot only.
 SD_BOOT_CMDLINE_DEFAULT="quiet splash"
 
+# The device tree blob, specified either as a relative path
+# (which will expand to /dtbs/dtbs-KERNVER/DEVICETREE)
+# or an absolute path
+SD_BOOT_DEVICETREE=
+
+# If set, devicetree will not be emitted.
+#SD_BOOT_DISABLE_DEVICETREE=
+
 # If set, recovery mode entries will be disabled.
 #SD_BOOT_DISABLE_RECOVERY=
 

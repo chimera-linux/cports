@@ -1,6 +1,6 @@
 pkgname = "systemd-boot"
 pkgver = "256.11"
-pkgrel = 4
+pkgrel = 5
 archs = ["aarch64", "loongarch64", "riscv64", "x86_64"]
 build_style = "meson"
 configure_args = [

@@ -13,13 +13,16 @@ SD_BOOT_CFG=/etc/default/systemd-boot
 # overridable defaults
 SD_BOOT_SYSTEM_RELAX_ESP_FILE=/usr/lib/systemd/boot/relax-esp
 SD_BOOT_SYSTEM_CMDLINE_FILE=/usr/lib/systemd/boot/cmdline
+SD_BOOT_SYSTEM_DEVICETREE_FILE=/usr/lib/systemd/boot/devicetree
 SD_BOOT_CMDLINE_FILE=/etc/default/systemd-boot-cmdline
+SD_BOOT_DEVICETREE_FILE=/etc/default/systemd-boot-devicetree
 SD_BOOT_OS_TITLE="$PRETTY_NAME"
 SD_BOOT_DISABLE_RECOVERY=
 SD_BOOT_ESP_PATH=
 SD_BOOT_BOOT_PATH=
 SD_BOOT_ENTRY_TOKEN=
 SD_BOOT_COUNT_TRIES=
+SD_BOOT_DISABLE_DEVICETREE=
 
 [ -z "$SD_BOOT_OS_TITLE" ] && SD_BOOT_OS_TITLE="Chimera Linux"
 [ -r /etc/kernel/entry-token ] && SD_BOOT_ENTRY_TOKEN=$(cat /etc/kernel/entry-token)
@@ -33,11 +36,20 @@ SD_BOOT_COUNT_TRIES=
 DEV_CMDLINE=$SD_BOOT_CMDLINE
 DEV_CMDLINE_DEFAULT=$SD_BOOT_CMDLINE_DEFAULT
 DEV_EXTRA_CMDLINE=
+DEV_DEVICETREE=$SD_BOOT_DEVICETREE
 
 if [ -r "$SD_BOOT_CMDLINE_FILE" ]; then
     DEV_EXTRA_CMDLINE=$(cat "$SD_BOOT_CMDLINE_FILE")
 elif [ -r "$SD_BOOT_SYSTEM_CMDLINE_FILE" ]; then
     DEV_EXTRA_CMDLINE=$(cat "$SD_BOOT_SYSTEM_CMDLINE_FILE")
+fi
+
+if [ -z "$DEV_DEVICETREE" ]; then
+    if [ -r "$SD_BOOT_DEVICETREE_FILE" ]; then
+        DEV_DEVICETREE=$(cat "$SD_BOOT_DEVICETREE_FILE")
+    elif [ -r "$SD_BOOT_SYSTEM_DEVICETREE_FILE" ]; then
+        DEV_DEVICETREE=$(cat "$SD_BOOT_SYSTEM_DEVICETREE_FILE")
+    fi
 fi
 
 if [ -n "$SD_BOOT_RELAX_ESP_CHECKS" ]; then
@@ -130,6 +142,21 @@ write_cfg() {
     echo "$@" >> "$OUTF"
 }
 
+write_devicetree() {
+    # do not write if explicitly disabled
+    [ -n "$SD_BOOT_DISABLE_DEVICETREE" ] && return 0
+    # we don't have dtbdir, so this is best we can do
+    case "$2" in
+        '') ;;
+        /*)
+            write_cfg "$CONF_NAME" "devicetree $2"
+            ;;
+        *)
+            write_cfg "$CONF_NAME" "devicetree /dtbs/dtbs-$1/$2"
+            ;;
+    esac
+}
+
 build_cmdline() {
     if [ -z "$1" ]; then
         printf "ro single "
@@ -169,6 +196,7 @@ write_entry() {
     if [ -f "/boot/initrd.img-${2}" ]; then
         write_cfg "$CONF_NAME" "initrd /initrd.img-${2}"
     fi
+    write_devicetree "$2" "$DEV_DEVICETREE"
     write_cfg "$CONF_NAME" "options ${4}"
 }
 
