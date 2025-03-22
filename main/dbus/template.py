@@ -1,6 +1,6 @@
 pkgname = "dbus"
-pkgver = "1.16.0"
-pkgrel = 5
+pkgver = "1.16.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -24,7 +24,7 @@ pkgdesc = "Message bus system"
 license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
 source = f"https://dbus.freedesktop.org/releases/dbus/dbus-{pkgver}.tar.xz"
-sha256 = "9f8ca5eb51cbe09951aec8624b86c292990ae2428b41b856e2bed17ec65c8849"
+sha256 = "0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
 file_modes = {"usr/lib/dbus-daemon-launch-helper": ("root", "root", 0o4755)}
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]
