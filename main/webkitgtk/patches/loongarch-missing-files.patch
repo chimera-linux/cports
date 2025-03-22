@@ -31,4 +31,4 @@
 +    src/opts/SkOpts_lasx.cpp
      src/opts/SkOpts_skx.cpp
  
-     src/ports/SkFontConfigInterface.cpp
+     src/ports/SkGlobalInitialization_default.cpp

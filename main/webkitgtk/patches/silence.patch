@@ -1,0 +1,10 @@
+--- a/Source/cmake/OptionsCommon.cmake
++++ b/Source/cmake/OptionsCommon.cmake
+@@ -230,7 +230,6 @@ set(CXX_STDLIB_TEST_SOURCE "
+ check_cxx_source_compiles("${CXX_STDLIB_TEST_SOURCE}" CXX_STDLIB_IS_LIBCPP)
+ if (CXX_STDLIB_IS_LIBCPP)
+     set(CXX_STDLIB_VARIANT "LIBCPP")
+-    set(CXX_STDLIB_ASSERTIONS_MACRO _LIBCPP_ENABLE_ASSERTIONS)
+ else ()
+     set(CXX_STDLIB_TEST_SOURCE "
+     #include <utility>
