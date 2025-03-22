@@ -1,5 +1,5 @@
 pkgname = "gnome-clocks"
-pkgver = "47.0"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -31,4 +31,4 @@ url = "https://wiki.gnome.org/Apps/Clocks"
 source = (
     f"$(GNOME_SITE)/gnome-clocks/{pkgver[:-2]}/gnome-clocks-{pkgver}.tar.xz"
 )
-sha256 = "428bdf4bd17e26de6cef014cd7a7eebd89143c3f2732b24b7da69812baa52131"
+sha256 = "616ee1fb75300b1f26b9766219e954751360ca0fa0f491311bcf83bf38087c62"
