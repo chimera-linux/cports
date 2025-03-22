@@ -1,5 +1,5 @@
 pkgname = "libayatana-appindicator"
-pkgver = "0.5.93"
+pkgver = "0.5.94"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTS=ON", "-DENABLE_BINDINGS_MONO=OFF"]
@@ -24,7 +24,7 @@ pkgdesc = "Ayatana App Indicators Shared Library"
 license = "GPL-3.0-only AND (LGPL-3.0-only OR LGPL-2.1-only)"
 url = "https://github.com/AyatanaIndicators/libayatana-appindicator"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "cbefed7a918a227bf71286246e237fcd3a9c8499b3eaac4897811a869409edf0"
+sha256 = "884a6bc77994c0b58c961613ca4c4b974dc91aa0f804e70e92f38a542d0d0f90"
 options = ["linkundefver", "!cross"]
 
 
