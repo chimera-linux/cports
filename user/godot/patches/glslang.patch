@@ -12,7 +12,7 @@ Patch-Source: https://gitlab.alpinelinux.org/alpine/aports/-/blob/8dd3d8861eff2b
          if not env["builtin_glslang"]:
              # No pkgconfig file so far, hardcode expected lib name.
 -            env.Append(LIBS=["glslang", "SPIRV"])
-+            env.Append(LIBS=["glslang", "SPIRV", "glslang-default-resource-limits"])
++            env.Append(LIBS=["glslang", "glslang-default-resource-limits"])
  
      if env["opengl3"]:
          env.Append(CPPDEFINES=["GLES3_ENABLED"])
