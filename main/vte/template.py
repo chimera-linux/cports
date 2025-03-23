@@ -1,6 +1,6 @@
 pkgname = "vte"
 pkgver = "0.80.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-D_systemd=false",
@@ -73,7 +73,6 @@ def _(self):
     self.subdesc = "Gtk+3"
     self.depends = [self.parent]
     return [
-        "usr/bin/vte-2.91",
         "usr/lib/libvte-2.91.so.*",
         "usr/lib/girepository-1.0/Vte-2.91.typelib",
     ]
@@ -84,7 +83,6 @@ def _(self):
     self.subdesc = "Gtk4"
     self.depends = [self.parent]
     return [
-        "usr/bin/vte-2.91-gtk4",
         "usr/lib/libvte-2.91-gtk4.so.*",
         "usr/lib/girepository-1.0/Vte-3.91.typelib",
     ]
@@ -111,4 +109,18 @@ def _(self):
         "usr/lib/pkgconfig/vte-2.91-gtk4.pc",
         "usr/share/gir-1.0/Vte-3.91.gir",
         "usr/share/vala/vapi/vte-2.91-gtk4.*",
+    ]
+
+
+@subpackage("vte-demos")
+def _(self):
+    self.subdesc = "example applications"
+    self.depends = [self.parent]
+    return [
+        "usr/bin/vte-2.91",
+        "usr/bin/vte-2.91-gtk4",
+        "usr/share/applications/org.gnome.Vte.App.Gtk3.desktop",
+        "usr/share/xdg-terminals/org.gnome.Vte.App.Gtk3.desktop",
+        "usr/share/applications/org.gnome.Vte.App.Gtk4.desktop",
+        "usr/share/xdg-terminals/org.gnome.Vte.App.Gtk4.desktop",
     ]
