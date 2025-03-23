@@ -1,0 +1,23 @@
+--- a/libass/ass_render.c
++++ b/libass/ass_render.c
+@@ -1254,12 +1254,18 @@ size_t ass_outline_construct(void *key, void *value, void *priv)
+     case OUTLINE_DRAWING:
+         {
+             ASS_Rect bbox;
++            uint32_t advance, asc;
+             const char *text = outline_key->u.drawing.text.str;  // always zero-terminated
+             if (!ass_drawing_parse(&v->outline[0], &bbox, text, render_priv->library))
+                 return 1;
+ 
+-            v->advance = bbox.x_max - bbox.x_min;
+-            v->asc = bbox.y_max - bbox.y_min;
++            advance = bbox.x_max;
++            advance -= bbox.x_min;
++            asc = bbox.y_max;
++            asc -= bbox.y_min;
++
++            v->advance = advance;
++            v->asc = asc;
+             v->desc = 0;
+             break;
+         }

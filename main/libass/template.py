@@ -1,6 +1,6 @@
 pkgname = "libass"
 pkgver = "0.17.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
