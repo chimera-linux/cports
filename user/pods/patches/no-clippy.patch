@@ -1,6 +1,5 @@
-clippy doesnt do anything useful (for us), its just a linter
 diff --git a/src/meson.build b/src/meson.build
-index a86c6ded..83c7db3c 100644
+index 00d81d59..83c7db3c 100644
 --- a/src/meson.build
 +++ b/src/meson.build
 @@ -65,20 +65,3 @@ cargo = find_program('cargo', required: true)
@@ -20,7 +19,7 @@ index a86c6ded..83c7db3c 100644
 -  ],
 -  env: [
 -    'CARGO_HOME=@0@'.format(cargo_home),
--    'PATH=/app/bin:/usr/bin:/usr/lib/sdk/llvm18/bin:/usr/lib/sdk/rust-stable/bin',
+-    'PATH=/app/bin:/usr/bin:/usr/lib/sdk/llvm19/bin:/usr/lib/sdk/rust-stable/bin',
 -  ],
 -  timeout: 300, # Give cargo more time
 -)
