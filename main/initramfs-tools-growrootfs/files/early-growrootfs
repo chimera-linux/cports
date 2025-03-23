@@ -1,0 +1,3 @@
+type = scripted
+command = /usr/bin/sh -c "[ -e /run/growrootfs-done ] && rm -f /etc/growrootfs || :"
+depends-on = early-root-rw.target
