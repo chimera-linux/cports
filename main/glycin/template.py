@@ -38,6 +38,8 @@ options = ["!cross", "!check"]
 
 
 def post_prepare(self):
+    from cbuild.util import cargo
+
     cargo.clear_vendor_checksums(self, "zvariant")
 
 
