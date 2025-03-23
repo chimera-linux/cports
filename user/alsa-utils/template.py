@@ -4,7 +4,13 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-udev-rules-dir=no"]
 make_dir = "."
-hostmakedepends = ["automake", "libtool", "gettext-devel", "pkgconf"]
+hostmakedepends = [
+    "alsa-lib-devel",
+    "automake",
+    "libtool",
+    "gettext-devel",
+    "pkgconf",
+]
 makedepends = ["alsa-lib-devel", "linux-headers", "ncurses-devel"]
 pkgdesc = "ALSA utilities"
 license = "LGPL-2.1-or-later"
