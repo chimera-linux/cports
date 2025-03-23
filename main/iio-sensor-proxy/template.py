@@ -7,7 +7,7 @@ configure_args = [
     "-Dsystemdsystemunitdir=",
     "-Dgeoclue-user=_geoclue",
 ]
-hostmakedepends = ["meson", "pkgconf"]
+hostmakedepends = ["glib-devel", "meson", "pkgconf"]
 makedepends = [
     "glib-devel",
     "libgudev-devel",
