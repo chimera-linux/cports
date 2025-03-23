@@ -6,7 +6,6 @@ configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dsystemdsystemunitdir=",
     "-Dgeoclue-user=_geoclue",
-    "-Dtests=true",
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -29,6 +28,10 @@ url = "https://gitlab.freedesktop.org/hadess/iio-sensor-proxy"
 source = f"{url}/-/archive/{pkgver}/iio-sensor-proxy-{pkgver}.tar.gz"
 sha256 = "4d7eb0ae23506919a9a40bc1aab0e144c218be60457b3137533724814c41997b"
 hardening = ["vis", "cfi"]
+
+if not self.profile().cross:
+    # don't pull in checkdepends for cross
+    configure_args += ["-Dtests=true"]
 
 
 def post_install(self):
