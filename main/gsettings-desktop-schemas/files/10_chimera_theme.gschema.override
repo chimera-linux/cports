@@ -1,0 +1,6 @@
+[org.gnome.desktop.interface]
+accent-color='pink'
+
+[org.gnome.desktop.background]
+picture-uri='file:///usr/share/backgrounds/chimera/bg-l.svg'
+picture-uri-dark='file:///usr/share/backgrounds/chimera/bg-d.svg'
