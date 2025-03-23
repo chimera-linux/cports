@@ -1,7 +1,8 @@
---- a/source/blender/blenlib/BLI_build_config.h
-+++ b/source/blender/blenlib/BLI_build_config.h
-@@ -337,6 +337,30 @@
- #    define ARCH_CPU_32_BITS 1
+diff -ruN a/source/blender/blenlib/BLI_build_config.h b/source/blender/blenlib/BLI_build_config.h
+--- a/source/blender/blenlib/BLI_build_config.h	2025-02-05 14:43:27.000000000 +0100
++++ b/source/blender/blenlib/BLI_build_config.h	2025-03-23 15:24:46.273040428 +0100
+@@ -354,6 +354,30 @@
+ #  else
  #    define ARCH_CPU_BIG_ENDIAN 1
  #  endif
 +#elif defined(__riscv)

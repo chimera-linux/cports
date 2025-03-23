@@ -1,6 +1,6 @@
 pkgname = "blender"
-pkgver = "4.3.2"
-pkgrel = 2
+pkgver = "4.4.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -74,7 +74,7 @@ pkgdesc = "3D creation suite"
 license = "GPL-2.0-or-later"
 url = "https://www.blender.org"
 source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"
-sha256 = "c8d6ad4e32751431e0fafaf4f3184b70622297ab0b0c6e5a9fa134f72bd696d8"
+sha256 = "54d498b83ca0975e38a2e89a4ae9bdea7602eab9c095ccb2fc01386ac795fabc"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
     # guilty until proven innocent
@@ -123,12 +123,15 @@ def init_configure(self):
 def post_install(self):
     from cbuild.util import python
 
+    # we don't allow elfs in usr/share, but this solib is loaded from
+    # this location as it's relative to the io_scene_gltf2 module path
+    draco_path = f"usr/share/blender/{pkgver[:-2]}/scripts/addons_core/io_scene_gltf2/libextern_draco.so"
+    self.install_dir("usr/lib/blender")
     self.rename(
-        "usr/share/blender/4.*/python/lib/python*",
-        "usr/lib",
-        glob=True,
-        keep_name=True,
-        relative=False,
+        draco_path, "usr/lib/blender/libextern_draco.so", relative=False
+    )
+    self.install_link(
+        draco_path, "../../../../../../lib/blender/libextern_draco.so"
     )
 
     python.precompile(self, "usr/share/blender")
