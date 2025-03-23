@@ -27,8 +27,6 @@ url = "https://github.com/marhkb/pods"
 source = f"https://github.com/marhkb/pods/releases/download/v{pkgver}/pods-v{pkgver}.tar.xz"
 sha256 = "c54b7ea13645714bd9f247d3330708046864739fcb1d27270fa0d5997d55e0b9"
 
-broken = "temporary cargo registry issues"
-
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
 
