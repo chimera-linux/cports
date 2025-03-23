@@ -1,6 +1,6 @@
 pkgname = "blender"
-pkgver = "4.3.2"
-pkgrel = 2
+pkgver = "4.4.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -74,7 +74,7 @@ pkgdesc = "3D creation suite"
 license = "GPL-2.0-or-later"
 url = "https://www.blender.org"
 source = f"https://download.blender.org/source/blender-{pkgver}.tar.xz"
-sha256 = "c8d6ad4e32751431e0fafaf4f3184b70622297ab0b0c6e5a9fa134f72bd696d8"
+sha256 = "54d498b83ca0975e38a2e89a4ae9bdea7602eab9c095ccb2fc01386ac795fabc"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
     # guilty until proven innocent
@@ -124,8 +124,8 @@ def post_install(self):
     from cbuild.util import python
 
     self.rename(
-        "usr/share/blender/4.*/python/lib/python*",
-        "usr/lib",
+        "usr/share/blender/4.*/scripts/addons_core/io_scene_gltf2/libextern_draco.so",
+        f"usr/lib/python{self.python_version}/site-packages",
         glob=True,
         keep_name=True,
         relative=False,
