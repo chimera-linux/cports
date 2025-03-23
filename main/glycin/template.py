@@ -37,6 +37,10 @@ sha256 = "16ab4a48398639ef701c7c3e27a2d31075b30e0dcaf3f1652c907b188f4290d0"
 options = ["!cross", "!check"]
 
 
+def post_prepare(self):
+    cargo.clear_vendor_checksums(self, "zvariant")
+
+
 def init_build(self):
     from cbuild.util import cargo
 
