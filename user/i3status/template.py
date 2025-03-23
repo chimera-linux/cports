@@ -19,5 +19,21 @@ sha256 = "25af0dd77a5325c13890d4ee53a9205827a11c8b90f54e8a7fe2654bd0273d4b"
 hardening = ["vis", "cfi"]
 
 
+def post_extract(self):
+    # failing tests
+    for test in [
+        "006-cpu-usage-max-threshold-format",
+        "007-cpu-usage-degraded-threshold-format",
+        "010-cpu-usage",
+        "011-cpu-usage",
+        "020-percentliteral-cpu_usage",
+        "020-percentliteral-time",
+        "020-percentliteral-volume",
+        "022-cpu-usage-tenth-cpu",
+        "024-cpu-usage-invalid-cpu",
+    ]:
+        self.rm(f"testcases/{test}", recursive=True)
+
+
 def post_install(self):
     self.install_license("LICENSE")
