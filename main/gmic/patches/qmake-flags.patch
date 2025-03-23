@@ -4,11 +4,10 @@ Date:   Thu Aug 31 21:24:24 2023 +0200
 
     unfuck passing of cxxflags/ldflags when compiling qt
 
-diff --git a/gmic-qt/gmic_qt.pro b/gmic-qt/gmic_qt.pro
-index d3de5d3..8177886 100644
---- a/gmic-qt/gmic_qt.pro
-+++ b/gmic-qt/gmic_qt.pro
-@@ -482,10 +482,6 @@ RESOURCES += wip_translations.qrc
+diff -ruN a/gmic-qt/gmic_qt.pro b/gmic-qt/gmic_qt.pro
+--- a/gmic-qt/gmic_qt.pro	2025-03-07 09:30:37.000000000 +0100
++++ b/gmic-qt/gmic_qt.pro	2025-03-23 19:54:02.788973915 +0100
+@@ -490,10 +490,6 @@
  # Prevent overwriting of these files by lupdate
  # TRANSLATIONS += translations/filters/fr.ts
  
@@ -19,11 +18,10 @@ index d3de5d3..8177886 100644
  unix { DEFINES += cimg_use_vt100 }
  
  CONFIG(release, debug|release) {
-diff --git a/src/Makefile b/src/Makefile
-index 079ec9b..2d40342 100644
---- a/src/Makefile
-+++ b/src/Makefile
-@@ -616,7 +616,7 @@
+diff -ruN a/src/Makefile b/src/Makefile
+--- a/src/Makefile	2025-03-07 09:30:37.000000000 +0100
++++ b/src/Makefile	2025-03-23 19:54:02.788973915 +0100
+@@ -654,7 +654,7 @@
  	@echo "Executable 'gmic_gimp_qt' has been successfully compiled in '../gmic-qt/'."
  
  gmic_qt_shared: gmic_qt_files CImg.h gmic_stdlib_community.h
@@ -31,4 +29,4 @@ index 079ec9b..2d40342 100644
 +	cd ../gmic-qt && $(QMAKE) CONFIG+=release GMIC_PATH=$(SRC_PATH) PRERELEASE=$(PRERELEASE) "QMAKE_CXXFLAGS_RELEASE+=$(CXXFLAGS)" "QMAKE_LFLAGS_RELEASE+=$(LDFLAGS)" GMIC_DYNAMIC_LINKING=on HOST=none gmic_qt.pro && $(MAKE)
  	@echo "Executable 'gmic_qt' has been successfully compiled in '../gmic-qt/'."
  
- # ZArt.
+ # ZArt
