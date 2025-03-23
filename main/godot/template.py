@@ -1,6 +1,6 @@
 pkgname = "godot"
-pkgver = "4.3"
-pkgrel = 6
+pkgver = "4.4.1"
+pkgrel = 0
 hostmakedepends = [
     "gettext",
     "pkgconf",
@@ -14,8 +14,6 @@ makedepends = [
     "freetype-devel",
     "glslang-devel",
     "graphite2-devel",
-    "harfbuzz-devel",
-    "icu-devel",
     "libdecor-devel",
     "libogg-devel",
     "libpng-devel",
@@ -24,6 +22,7 @@ makedepends = [
     "libvorbis-devel",
     "libwebp-devel",
     "libxkbcommon-devel",
+    "mbedtls-devel",
     "miniupnpc-devel",
     "pcre2-devel",
     "speechd-devel",
@@ -38,7 +37,7 @@ subdesc = "GUI editor"
 license = "MIT"
 url = "https://godotengine.org"
 source = f"https://github.com/godotengine/godot/releases/download/{pkgver}-stable/godot-{pkgver}-stable.tar.xz"
-sha256 = "751e55bfad8e04b846f9cf7b6eb80e058986a2cb1b103fc0fe6a4d8526a20e56"
+sha256 = "ddbd6527cdb3ddb02910b383301a5c9117b1c33c777ef1c86d1b1eea43dcb651"
 # cross: nah
 options = ["!cross"]
 
@@ -75,8 +74,6 @@ _scons_flags = [
     "use_sowrap=false",
     "alsa=false",
     "x11=false",
-    # https://github.com/godotengine/godot/issues/95608
-    "openxr=false",
     # devendored:
     "builtin_brotli=false",
     "builtin_certs=false",
@@ -84,21 +81,22 @@ _scons_flags = [
     "builtin_freetype=false",
     "builtin_glslang=false",
     "builtin_graphite=false",
-    "builtin_harfbuzz=false",
-    "builtin_icu4c=false",
     "builtin_libogg=false",
     "builtin_libpng=false",
     "builtin_libtheora=false",
     "builtin_libvorbis=false",
     "builtin_libwebp=false",
+    "builtin_mbedtls=false",
     "builtin_miniupnpc=false",
     "builtin_pcre2=false",
     "builtin_wslay=false",
     "builtin_zlib=false",
     "builtin_zstd=false",
-    # https://github.com/godotengine/godot/issues/95890
-    # https://gitlab.archlinux.org/archlinux/packaging/packages/godot/-/issues/3
-    "builtin_mbedtls=true",
+    # https://github.com/godotengine/godot/issues/91401
+    "builtin_harfbuzz=true",
+    # https://github.com/godotengine/godot/issues/91401
+    # https://github.com/godotengine/godot/issues/100301
+    "builtin_icu4c=true",
     # also kept vendored:
     "builtin_clipper2=true",
     "builtin_msdfgen=true",
