@@ -1,11 +1,5 @@
-commit e5040773b04ae19e7b3b963203e63b8f821d144f
-Author: q66 <q66@chimera-linux.org>
-Date:   Sat Sep 28 21:34:24 2024 +0200
-
-    add tangle support
-
 diff --git a/include/dbus.h b/include/dbus.h
-index def15ca..7cd216b 100644
+index aa5c4d6..eda9fa5 100644
 --- a/include/dbus.h
 +++ b/include/dbus.h
 @@ -8,6 +8,8 @@
@@ -43,8 +37,21 @@ index dc2c372..860ef74 100644
  #endif
  
  #include "config.h"
+diff --git a/makoctl.c b/makoctl.c
+index c4114f6..7a55763 100644
+--- a/makoctl.c
++++ b/makoctl.c
+@@ -13,6 +13,8 @@
+ #include <elogind/sd-bus.h>
+ #elif defined(HAVE_BASU)
+ #include <basu/sd-bus.h>
++#elif defined(HAVE_TANGLE)
++#include <tangle/sd-bus.h>
+ #endif
+ 
+ static void log_neg_errno(int ret, const char *msg, ...) {
 diff --git a/meson.build b/meson.build
-index 8d39d86..59909cf 100644
+index c3284e4..164a89b 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -42,7 +42,7 @@ endif
