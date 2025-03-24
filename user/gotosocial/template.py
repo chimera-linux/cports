@@ -1,6 +1,6 @@
 pkgname = "gotosocial"
-pkgver = "0.18.1"
-pkgrel = 1
+pkgver = "0.18.3"
+pkgrel = 0
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.Version=${pkgver}", "./cmd/gotosocial"]
 make_check_env = {"GTS_DB_TYPE": "sqlite", "GTS_DB_ADDRESS": ":memory:"}
@@ -13,7 +13,7 @@ pkgdesc = "ActivityPub server"
 license = "AGPL-3.0-or-later"
 url = "https://gotosocial.org"
 source = f"https://github.com/superseriousbusiness/gotosocial/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "704d15d2d27ca287944439d83c382f1036d144fe615849e00ab509deb744754d"
+sha256 = "759edb9f8f75f91962948e2373e74d19c97b13fb50e0a0b477188923512935d5"
 # flaky
 options = ["!check"]
 
