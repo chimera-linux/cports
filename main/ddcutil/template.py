@@ -1,8 +1,7 @@
 pkgname = "ddcutil"
-pkgver = "2.1.4"
+pkgver = "2.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--disable-x11"]
 make_dir = "."
 hostmakedepends = [
     "automake",
@@ -15,6 +14,9 @@ makedepends = [
     "kmod-devel",
     "libdrm-devel",
     "libusb-devel",
+    "libx11-devel",
+    "libxext-devel",
+    "libxrandr-devel",
     "linux-headers",
     "udev-devel",
 ]
@@ -24,7 +26,7 @@ url = "https://www.ddcutil.com"
 source = (
     f"https://github.com/rockowitz/ddcutil/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "cd8325d399399edba3df4ec58a4051c7c54fcf4fbc8f62937c6f19adb303f4ba"
+sha256 = "2a9a994b885974423a5b765aaa2c17159f7341881d15f9cb430c0bf1842185ee"
 # breaks symbols
 hardening = ["!vis"]
 # no tests
