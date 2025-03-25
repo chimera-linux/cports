@@ -1,6 +1,6 @@
 pkgname = "bulky"
 pkgver = "3.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 hostmakedepends = ["gettext"]
 depends = [
@@ -9,6 +9,7 @@ depends = [
     "python-gobject",
     "python-magic",
     "python-setproctitle",
+    "python-unidecode",
 ]
 pkgdesc = "Bulk renamer"
 license = "GPL-3.0-or-later"
