@@ -14,4 +14,3 @@ sha256 = "1e283fa544468fd67046e593c63c8ad01ae832462653b2c9b97eaed791954f7e"
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/agate")
     self.install_license("LICENSE-MIT")
-    self.install_license("LICENSE-APACHE")
