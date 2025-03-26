@@ -1,5 +1,5 @@
 pkgname = "libmediaart"
-pkgver = "1.9.6"
+pkgver = "1.9.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dimage_library=gdk-pixbuf"]
@@ -14,7 +14,7 @@ pkgdesc = "Library for handling media art caches"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libmediaart"
 source = f"$(GNOME_SITE)/libmediaart/{pkgver[:-2]}/libmediaart-{pkgver}.tar.xz"
-sha256 = "c3bc5025d7db380587f9c8eb800c611f6b5a16d6b4b78fcff93f62876a677f17"
+sha256 = "2b43dd9f54f0d8d0b89e2addb83341ab06d7b98cb1b2e704383584af9c560f6b"
 options = ["!cross"]
 
 
