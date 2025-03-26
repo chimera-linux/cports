@@ -1,5 +1,5 @@
 pkgname = "enlightenment"
-pkgver = "0.27.0"
+pkgver = "0.27.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -38,7 +38,7 @@ pkgdesc = "Enlightenment desktop shell"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org"
 source = f"http://download.enlightenment.org/rel/apps/enlightenment/enlightenment-{pkgver}.tar.xz"
-sha256 = "5b66b914c6d90a916b3fe66b5ff70a9fd912088aa6399bdde1b3a505aae50331"
+sha256 = "b41df8771f60e3b96a1973ae566d7425c53a8339f18e54e31230218781da2fa9"
 file_modes = {
     "usr/lib/enlightenment/utils/enlightenment_ckpasswd": (
         "root",
