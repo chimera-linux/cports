@@ -1,5 +1,5 @@
 pkgname = "libdatachannel"
-pkgver = "0.22.5"
+pkgver = "0.22.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,7 +24,7 @@ pkgdesc = "WebRTC network library"
 license = "MPL-2.0"
 url = "https://libdatachannel.org"
 source = f"https://github.com/paullouisageneau/libdatachannel/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "bdb6aa8a79b981799282c4e71d5f9e6134b40fde2bf33f6119fd03223428d149"
+sha256 = "cfadd3155cea2546a0c4d3760cf1fec1753dc28f3b8ce703b05f33d5f129b1c5"
 hardening = ["cfi", "vis"]
 # tests seem to need network access (the tests themselves don't seem to work
 # with cfi either; library itself works just fine though)
