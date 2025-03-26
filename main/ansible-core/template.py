@@ -1,5 +1,5 @@
 pkgname = "ansible-core"
-pkgver = "2.18.3"
+pkgver = "2.18.4"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -33,7 +33,7 @@ url = "https://ansible.com"
 source = (
     f"https://github.com/ansible/ansible/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "90820d73f124fe8b842e2471b09da2e389931217157b02e2d96dc0b1f0ff782a"
+sha256 = "d360405b5799090f2aab5f41f68543419020ba8243b20088260f6b6081b72bc5"
 
 
 def check(self):
