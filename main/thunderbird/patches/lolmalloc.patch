@@ -37,7 +37,7 @@
  
  #include "mozilla/mozalloc.h"
  
--#if defined(XP_LINUX)
+-#if defined(XP_LINUX) && !defined(ANDROID)
 +#if 0
  
  #define malloc moz_xmalloc

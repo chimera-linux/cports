@@ -1,11 +1,12 @@
 pkgname = "thunderbird"
-pkgver = "128.7.1"
+pkgver = "136.0.1"
 pkgrel = 0
 hostmakedepends = [
     "automake",
     "cargo",
     "cbindgen",
     "clang-devel",
+    "dbus",
     "gettext",
     "libtool",
     "llvm-devel",
@@ -56,8 +57,8 @@ provides = [
 pkgdesc = "Thunderbird mail client"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
-source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}esr/source/thunderbird-{pkgver}esr.source.tar.xz"
-sha256 = "93f9b754ed68bdfa6bf15c5787c1845441be02b3830c1730b6379cec9b8f275e"
+source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}/source/thunderbird-{pkgver}.source.tar.xz"
+sha256 = "687a2ca31d6f23bb68c2c225ef593ecd8dc025dad9a1a3ef44b0f19ed24b2ffe"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -80,8 +81,6 @@ options = ["!cross", "!check"]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."
-elif self.profile().arch == "riscv64":
-    broken = "fails to compile uniffi_bindgen since rust 1.84"
 
 # crashes compiler in gl.c
 if self.profile().arch == "riscv64":
@@ -97,10 +96,8 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    cargo.clear_vendor_checksums(self, "libc", vendor_dir="third_party/rust")
-    cargo.clear_vendor_checksums(
-        self, "libc", vendor_dir="comm/third_party/rust"
-    )
+    for crate in []:
+        cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
 def init_configure(self):
@@ -203,6 +200,8 @@ def configure(self):
             for d in self.cwd.glob("obj-*"):
                 ldp = self.chroot_cwd / d.name / "dist/thunderbird"
             self.do(
+                "dbus-run-session",
+                "--",
                 "xvfb-run",
                 "-s",
                 "-screen 0 1920x1080x24",
