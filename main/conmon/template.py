@@ -1,6 +1,6 @@
 pkgname = "conmon"
-pkgver = "2.1.12"
-pkgrel = 1
+pkgver = "2.1.13"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -19,7 +19,7 @@ pkgdesc = "OCI container monitor"
 license = "Apache-2.0"
 url = "https://github.com/containers/conmon"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "842f0b5614281f7e35eec2a4e35f9f7b9834819aa58ecdad8d0ff6a84f6796a6"
+sha256 = "350992cb2fe4a69c0caddcade67be20462b21b4078dae00750e8da1774926d60"
 
 
 def post_build(self):
