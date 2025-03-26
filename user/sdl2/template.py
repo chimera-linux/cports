@@ -1,5 +1,5 @@
 pkgname = "sdl2"
-pkgver = "2.32.0"
+pkgver = "2.32.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -59,7 +59,7 @@ pkgdesc = "Simple DirectMedia Layer"
 license = "Zlib"
 url = "https://libsdl.org"
 source = f"https://www.libsdl.org/release/SDL2-{pkgver}.tar.gz"
-sha256 = "f5c2b52498785858f3de1e2996eba3c1b805d08fe168a47ea527c7fc339072d0"
+sha256 = "c5f30c427fd8107ee4a400c84d4447dd211352512eaf0b6e89cc6a50a2821922"
 # no check target
 options = ["!check"]
 
