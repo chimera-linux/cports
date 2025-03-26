@@ -1,5 +1,5 @@
 pkgname = "buildkit"
-pkgver = "0.20.1"
+pkgver = "0.20.2"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
@@ -9,7 +9,7 @@ pkgdesc = "Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit"
 license = "Apache-2.0"
 url = "https://github.com/moby/buildkit"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f188a443233a1c3f9c2a66fdebc0d7667442e17da34a4f05d227bbf73168e820"
+sha256 = "a6ec208e0572a16e52c33b1e145b59f9ea994f6a57f19715b244c4c11c6998ec"
 # cannot work in bwrap
 options = ["!check"]
 
