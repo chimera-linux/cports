@@ -1,28 +1,24 @@
 pkgname = "kmod"
-pkgver = "33"
-pkgrel = 5
-build_style = "gnu_configure"
-configure_args = [
-    "--with-zlib",
-    "--with-zstd",
-    "--disable-test-modules",
-]
-make_check_args = ["-j1"]
+pkgver = "34.1"
+pkgrel = 0
+build_style = "meson"
+configure_args = ["-Dxz=disabled"]
 hostmakedepends = [
-    "automake",
+    "bash",
+    "meson",
     "pkgconf",
     "scdoc",
-    "slibtool",
 ]
-makedepends = ["zlib-ng-compat-devel", "zstd-devel"]
-checkdepends = ["bash"]
+makedepends = [
+    "openssl3-devel",
+    "zlib-ng-compat-devel",
+    "zstd-devel",
+]
 pkgdesc = "Linux kernel module handling"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git"
 source = f"$(KERNEL_SITE)/utils/kernel/kmod/kmod-{pkgver}.tar.gz"
-sha256 = "d7c59c76bb3dd0eeeecdb1302365cf4bd5cb54e977be43a00efa2c96c519c1dc"
-# broken testsuite build system
-options = ["!check"]
+sha256 = "a1e213f07390230b2b2d1869e703ad327c6ddbf33f5e49bcf018134d63e023ea"
 
 
 def post_install(self):
@@ -39,7 +35,6 @@ def post_install(self):
 
 @subpackage("kmod-devel")
 def _(self):
-    self.depends += makedepends
     # transitional
     self.provides = [self.with_pkgver("libkmod-devel")]
 
