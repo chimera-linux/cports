@@ -18,7 +18,6 @@ makedepends = [
     "libevent-devel",
     "libretls-devel",
     "linux-headers",
-    "musl-devel",
     "ncurses-devel",
     "openssl3-devel",
     "util-linux-uuid-devel",
