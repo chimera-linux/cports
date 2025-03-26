@@ -1,29 +1,27 @@
-we are not running from git tree, eliminate build-time libgit2
-
 diff --git a/Cargo.toml b/Cargo.toml
-index a175848..d7141fd 100644
+index 7dad3e4..c0eb483 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -40,7 +40,7 @@ clap = { version = "4.0", features = [ "cargo", "derive", "env", "string", "wrap
- clap_complete = "4"
+@@ -47,7 +47,7 @@ clap_complete = "4"
  clap_mangen = "0.2"
- dirs = "5"
+ dirs = { version = ">=5, <7" }
+ roff = "0.2.1"
 -vergen = { version = "8", features = [ "git", "git2" ] }
 +vergen = { version = "8", features = [ ] }
+ sequoia-directories = "0.1"
+ sequoia-man = "0.3"
  
- [[bin]]
- name = "sq-git"
 diff --git a/build.rs b/build.rs
-index a501d3d..97f5790 100644
+index 527f9b8..3806857 100644
 --- a/build.rs
 +++ b/build.rs
-@@ -23,30 +23,10 @@ pub mod openpgp {
- }
- 
+@@ -28,30 +28,10 @@ pub mod openpgp {
  fn main() {
+     let mut cli = cli::build(false);
+ 
 -    git_version();
      completions();
-     man_pages();
+     generate_man_pages(&mut cli).expect("can generate man pages");
  }
  
 -fn git_version() {

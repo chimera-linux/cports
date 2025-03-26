@@ -37,10 +37,10 @@ index d5253a6..4576b52 100644
 -            std::env::current_dir()?.join("target")
 -        }.join("debug/sq-git"))
 +        Ok(std::env::current_dir()?.join("target")
-+            .join(format!("{}/release/sq-git", std::env::var("TARGET")?)))
++            .join(format!("{}/release/sq-git", std::env::var("TARGET").unwrap())))
      }
  
-     pub fn sq_git<A: AsRef<str>>(&self, args: &[A]) -> Result<Output> {
+     pub fn sq_git<A: AsRef<str>>(&self, args: &[A]) -> std::result::Result<Output, Error> {
 -- 
 2.44.0
 

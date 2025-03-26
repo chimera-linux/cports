@@ -1,9 +1,9 @@
 pkgname = "sequoia-git"
-pkgver = "0.1.0"
-pkgrel = 3
+pkgver = "0.4.0"
+pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
-make_check_env = {"TARGET": self.profile().triplet}
+make_check_env = {"TARGET": self.profile().triplet, "NO_FAKETIME": "1"}
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "bzip2-devel",
@@ -18,7 +18,7 @@ pkgdesc = "Tool to verify git commit signatures based on a policy"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.com/sequoia-pgp/sequoia-git"
 source = f"{url}/-/archive/v{pkgver}/sequoia-git-v{pkgver}.tar.gz"
-sha256 = "c1f7d2647538f3335dab8862a9c4b78bac8c41bb22a3917ec45989849fd035dd"
+sha256 = "8148f94e107371454988ff897973dfb5f6d2b8c021565011a34728faf9e33d75"
 options = ["!cross"]
 
 
@@ -37,7 +37,10 @@ def pre_prepare(self):
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/sq-git")
-    self.install_man("man/*.1", glob=True)
+    self.install_man(
+        f"target/{self.profile().triplet}/release/build/sequoia-git-*/out/man-pages/*.1",
+        glob=True,
+    )
 
     self.install_completion("completions/sq-git.bash", "bash", "sq-git")
     self.install_completion("completions/sq-git.fish", "fish", "sq-git")
