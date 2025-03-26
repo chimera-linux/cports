@@ -1,6 +1,6 @@
 pkgname = "shaderc"
-pkgver = "2024.4"
-pkgrel = 1
+pkgver = "2025.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSHADERC_SKIP_TESTS=ON",
@@ -12,7 +12,7 @@ pkgdesc = "Collection of tools and libraries for shader compilation"
 license = "Apache-2.0"
 url = "https://github.com/google/shaderc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "989a46c0bc0e58ab8ac9ef9c1fb8000e0209d482b242a514b385d8f8c4cbfa06"
+sha256 = "358f9fa87b503bc7a3efe1575fbf581fca7f16dbc6d502ea2b02628d2d0d4014"
 tool_flags = {
     "CXXFLAGS": [f"-I{self.profile().sysroot / 'usr/include/glslang'}"]
 }
