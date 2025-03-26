@@ -1,5 +1,5 @@
 pkgname = "libinput"
-pkgver = "1.27.1"
+pkgver = "1.28.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Input abstraction library for Wayland and X"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libinput"
 source = f"https://gitlab.freedesktop.org/libinput/libinput/-/archive/{pkgver}/libinput-{pkgver}.tar.gz"
-sha256 = "f6d623dd8230db337a6457645ebca96b9d4788a56385463bb14b8174910dfe23"
+sha256 = "d4719ff614835b305f9649899c5c2966f47e9295fa1b3925787d00171f869c21"
 
 
 def post_install(self):
