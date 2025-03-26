@@ -30,6 +30,12 @@ source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/ccache-{
 sha256 = "319390f276123968cfa565acc3da0b1e18414374b40ff25274230e6860352125"
 # cfi crashes in fmt template expansion
 hardening = ["vis", "!cfi"]
+# check may be disabled
+options = []
+
+if self.profile().arch in ["loongarch64"]:
+    # some file permissions weirdness: Expected permissions for remote to be drwxr-x-wx, actual drwxr-s-wx
+    options += ["!check"]
 
 
 def post_install(self):
