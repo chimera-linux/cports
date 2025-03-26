@@ -1,7 +1,7 @@
 # AGPL: forbidden from being a dependency except in special unambiguous cases
 pkgname = "ghostscript"
-pkgver = "10.04.0"
-pkgrel = 1
+pkgver = "10.05.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-dynamic",
@@ -45,7 +45,7 @@ pkgdesc = "PostScript and PDF language interpreter"
 license = "AGPL-3.0-or-later"
 url = "https://www.ghostscript.com"
 source = f"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs{pkgver.replace('.', '')}/ghostscript-{pkgver}.tar.xz"
-sha256 = "527eef0b6cd04ecf1c8d7a11796c69a52d34ffe36afca86a400729a2fc01c887"
+sha256 = "aac9c4fdf61805a76f6220012735c1ae832813788314bfc04055cc0c8959b9a3"
 # breaks ps2pdf
 hardening = ["!int"]
 # busted; undefined references
