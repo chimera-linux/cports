@@ -1,6 +1,6 @@
 pkgname = "docker-cli"
-pkgver = "27.5.1"
-pkgrel = 3
+pkgver = "28.0.4"
+pkgrel = 0
 build_style = "makefile"
 _commit = "ce1223035ac3ab8922717092e63a184cf67b493d"
 make_build_target = "dynbinary"
@@ -15,7 +15,7 @@ pkgdesc = "Container and image management tool"
 license = "Apache-2.0"
 url = "https://docker.com"
 source = f"https://github.com/docker/cli/archive/v{pkgver}.tar.gz"
-sha256 = "abd16e3911bc7bbd00596ebe4f58baf3d577160d99eefd749a908507ddfc587b"
+sha256 = "09b41aa5ff656bc135feb80cb9b73c70aeba099ef9756c3cef7bcb2eb3c98ba6"
 env = {
     "AUTO_GOPATH": "1",
     "GITCOMMIT": _commit,
@@ -60,4 +60,3 @@ def install(self):
     self.install_man("man/man1/docker-run.1")
     self.install_man("man/man5/Dockerfile.5")
     self.install_man("man/man5/docker-config-json.5")
-    self.install_man("man/man8/dockerd.8")
