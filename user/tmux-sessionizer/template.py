@@ -1,6 +1,6 @@
 pkgname = "tmux-sessionizer"
-pkgver = "0.4.4"
-pkgrel = 2
+pkgver = "0.4.5"
+pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Tool for opening git repositories as tmux sessions"
 license = "MIT"
 url = "https://github.com/jrmoulton/tmux-sessionizer"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9dfbe99a3c1fe7f48be0c1ab9056e49f36c4f85d023e24f874254f6791a9894e"
+sha256 = "37cceae77bad373452d08b990065e7d1e8ed7b038a0af126aa4403332364530e"
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
