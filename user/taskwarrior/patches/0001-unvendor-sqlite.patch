@@ -50,8 +50,8 @@ index b806f986f..7c2d6e419 100644
  crate-type = ["staticlib"]
  
  [dependencies]
--taskchampion = "=1.0.2"
-+taskchampion = { version = "=1.0.2", default-features = false, features = ["sync"] }
+-taskchampion = "=2.0.2"
++taskchampion = { version = "=2.0.2", default-features = false, features = ["sync"] }
  cxx = "1.0.133"
  
  [features]
