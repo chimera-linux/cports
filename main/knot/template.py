@@ -1,5 +1,5 @@
 pkgname = "knot"
-pkgver = "3.4.4"
+pkgver = "3.4.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,7 +28,7 @@ pkgdesc = "Authoritative-only DNS server"
 license = "GPL-3.0-or-later"
 url = "https://www.knot-dns.cz"
 source = f"https://secure.nic.cz/files/knot-dns/knot-{pkgver}.tar.xz"
-sha256 = "e7d9d6de97f21bf33e907bd986a4038025f394879af0a5fd19787203ac3b2131"
+sha256 = "359af70afafa7ccaa18439a7c1eb35270ff9eece81d0756ae4ca716b1433cb4b"
 
 
 def post_install(self):
