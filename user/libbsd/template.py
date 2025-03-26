@@ -12,7 +12,6 @@ makedepends = [
     "libmd-devel",
     "linux-headers",
     "musl-bsd-headers",
-    "musl-devel",
 ]
 pkgdesc = "Commonly used BSD functions not implemented by all libcs"
 license = "BSD-3-Clause"
