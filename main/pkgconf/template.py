@@ -1,6 +1,6 @@
 pkgname = "pkgconf"
-pkgver = "2.3.0"
-pkgrel = 2
+pkgver = "2.4.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 checkdepends = ["kyua"]
@@ -8,7 +8,7 @@ pkgdesc = "Provides compiler and linker configuration"
 license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
-sha256 = "3a9080ac51d03615e7c1910a0a2a8df08424892b5f13b0628a204d3fcce0ea8b"
+sha256 = "51203d99ed573fa7344bf07ca626f10c7cc094e0846ac4aa0023bd0c83c25a41"
 hardening = ["!vis", "!cfi"]
 # check: cycle
 options = ["bootstrap", "!check"]
