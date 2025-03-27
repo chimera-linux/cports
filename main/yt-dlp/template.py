@@ -25,7 +25,7 @@ pkgdesc = "CLI program to download videos from YouTube and other sites"
 license = "Unlicense"
 url = "https://github.com/yt-dlp/yt-dlp"
 source = f"{url}/releases/download/{pkgver}/yt-dlp.tar.gz"
-sha256 = "2e5729077a75f262130823feb19e299c35138383e75d5695b80ba0d9af879447"
+sha256 = "de52bfc9e56f28e73f884171100e680831ea3dd11f360c164acdbf9d7c8f4342"
 
 
 @subpackage("yt-dlp-recommends")
