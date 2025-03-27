@@ -1,5 +1,5 @@
 pkgname = "mgba"
-pkgver = "0.10.4"
+pkgver = "0.10.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -26,7 +26,7 @@ pkgdesc = "GBA emulator"
 license = "MPL-2.0"
 url = "https://mgba.io"
 source = f"https://github.com/mgba-emu/mgba/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "f85eeb8f78f847f5217a87bd5e2d6c1214b461ffd4ec129cc656162ab707cb24"
+sha256 = "91d6fbd32abcbdf030d58d3f562de25ebbc9d56040d513ff8e5c19bee9dacf14"
 hardening = ["!int"]
 
 
