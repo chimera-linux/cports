@@ -1,6 +1,7 @@
 pkgname = "winetricks"
 pkgver = "20250102"
 pkgrel = 0
+archs = ["x86_64"]
 build_style = "makefile"
 depends = [
     "cmd:7z!7zip",
