@@ -1,5 +1,5 @@
 pkgname = "rust-analyzer"
-pkgver = "2025.03.17"
+pkgver = "2025.03.24"
 _pver = pkgver.replace(".", "-")
 pkgrel = 0
 build_style = "cargo"
@@ -14,7 +14,7 @@ pkgdesc = "Rust compiler LSP server"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/rust-lang/rust-analyzer"
 source = f"{url}/archive/refs/tags/{_pver}.tar.gz"
-sha256 = "e1ff4570db94f3ae2c3f46bae925be1c02dbc20243cf95e778906858b1231a72"
+sha256 = "a959dd1007b2073a88c93d8731c33ff0474d6be835bc56c6d89aa2498df8d3f7"
 # invokes rustfmt via rustup arg, also take longer to build than the actual
 # build..
 options = ["!check"]
