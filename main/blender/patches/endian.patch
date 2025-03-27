@@ -1,0 +1,10 @@
+--- a/source/blender/blenloader/intern/writefile.cc
++++ b/source/blender/blenloader/intern/writefile.cc
+@@ -89,6 +89,7 @@
+ #include "DNA_sdna_types.h"
+ 
+ #include "BLI_endian_defines.h"
++#include "BLI_endian_switch.h"
+ #include "BLI_fileops.hh"
+ #include "BLI_implicit_sharing.hh"
+ #include "BLI_math_base.h"
