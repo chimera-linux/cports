@@ -1,6 +1,6 @@
 pkgname = "nicotine-plus"
-pkgver = "3.3.8"
-pkgrel = 1
+pkgver = "3.3.10"
+pkgrel = 0
 build_style = "python_pep517"
 # test_update_check: no networking + patched
 # FIXME test_gui_startup: for some reason there's a sigill in python somewhere
@@ -35,4 +35,4 @@ url = "https://nicotine-plus.github.io/nicotine-plus"
 source = (
     f"https://github.com/Nicotine-Plus/nicotine-plus/archive/{pkgver}.tar.gz"
 )
-sha256 = "9b8db64d0d3f850b012910be9a799b19731317435da183b1fb21efd2e1b474b9"
+sha256 = "3917ebc562f2d6a6b26b3d815d7cbdf1d11c058d994b1f47794bbb850489b35e"
