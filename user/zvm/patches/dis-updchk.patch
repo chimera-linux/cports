@@ -5,7 +5,7 @@
  	upSig := make(chan string, 1)
  
 -	if !checkUpgradeDisabled {
-+	if true {
++	if false {
  		go func(out chan<- string) {
  			if tag, ok, _ := cli.CanIUpgrade(); ok {
  				out <- tag
