@@ -2,10 +2,18 @@ pkgname = "turnstile"
 pkgver = "0.1.10"
 pkgrel = 3
 build_style = "meson"
-configure_args = ["-Dmanage_rundir=true", "-Dpamdir=/usr/lib/pam.d"]
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX libexec
+    "-Dmanage_rundir=true",
+    "-Dpamdir=/usr/lib/pam.d",
+]
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = ["linux-pam-devel"]
 depends = ["dinit-chimera"]
+provides = [
+    self.with_pkgver("usvc:graphical.target"),
+    self.with_pkgver("usvc:login.target"),
+]
 pkgdesc = "Chimera user service manager and session tracker"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/turnstile"
