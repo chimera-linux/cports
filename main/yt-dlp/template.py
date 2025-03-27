@@ -1,5 +1,5 @@
 pkgname = "yt-dlp"
-pkgver = "2025.03.21"
+pkgver = "2025.03.26"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -25,7 +25,7 @@ pkgdesc = "CLI program to download videos from YouTube and other sites"
 license = "Unlicense"
 url = "https://github.com/yt-dlp/yt-dlp"
 source = f"{url}/releases/download/{pkgver}/yt-dlp.tar.gz"
-sha256 = "eb8a34ddf0e0e0ff928ef6d048ea559eb4483be12a481ec049f0daa62c6eddba"
+sha256 = "2e5729077a75f262130823feb19e299c35138383e75d5695b80ba0d9af879447"
 
 
 @subpackage("yt-dlp-recommends")
