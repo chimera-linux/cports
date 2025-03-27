@@ -1,5 +1,5 @@
 pkgname = "nestopia"
-pkgver = "1.53.0"
+pkgver = "1.53.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["autoconf-archive", "automake", "pkgconf"]
@@ -21,5 +21,5 @@ pkgdesc = "NES/Famicom emulator"
 license = "GPL-2.0-or-later"
 url = "http://0ldsk00l.ca/nestopia"
 source = f"https://github.com/0ldsk00l/nestopia/archive/{pkgver}.tar.gz"
-sha256 = "27a26a6fd92e6acc2093bbd6c1e3ab7f2fff419d9ed6de13bc43349b52e1f705"
+sha256 = "21aa45f6c608fe290d73fdec0e6f362538a975455b16a4cc54bcdd10962fff3e"
 tool_flags = {"CXXFLAGS": ["-Wno-c++11-narrowing"]}
