@@ -8,3 +8,24 @@
  
  #ifdef __BIG_ENDIAN__
  #  include "BLI_endian_switch.h"
+--- a/source/blender/blenloader/intern/writefile.cc
++++ b/source/blender/blenloader/intern/writefile.cc
+@@ -89,6 +89,7 @@
+ #include "DNA_sdna_types.h"
+ 
+ #include "BLI_endian_defines.h"
++#include "BLI_endian_switch.h"
+ #include "BLI_fileops.hh"
+ #include "BLI_implicit_sharing.hh"
+ #include "BLI_math_base.h"
+@@ -307,8 +308,9 @@ bool ZstdWriteWrap::open(const char *filepath)
+   return true;
+ }
+ 
+-void ZstdWriteWrap::write_u32_le(const uint32_t val)
++void ZstdWriteWrap::write_u32_le(const uint32_t cval)
+ {
++  uint32_t val = cval;
+ #ifdef __BIG_ENDIAN__
+   BLI_endian_switch_uint32(&val);
+ #endif
