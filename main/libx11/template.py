@@ -1,5 +1,5 @@
 pkgname = "libx11"
-pkgver = "1.8.11"
+pkgver = "1.8.12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,7 +16,7 @@ pkgdesc = "Base X libraries from Xorg"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libX11-{pkgver}.tar.gz"
-sha256 = "17a37d1597354a1d8040196f1cdac54240c78c0bd1a1a95e97cc23215cf0b734"
+sha256 = "220fbcf54b6e4d8dc40076ff4ab87954358019982490b33c7802190b62d89ce1"
 # FIXME int (_XkbReadGetIndicatorMapReply)
 hardening = ["!int"]
 
