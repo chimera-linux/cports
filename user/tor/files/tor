@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/tor
+working-dir = /var/lib/tor
+depends-on = network.target
+depends-on = time-sync.target
+run-as = _tor
