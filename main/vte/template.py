@@ -1,6 +1,6 @@
 pkgname = "vte"
 pkgver = "0.80.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-D_systemd=false",
@@ -76,6 +76,8 @@ def _(self):
         "usr/bin/vte-2.91",
         "usr/lib/libvte-2.91.so.*",
         "usr/lib/girepository-1.0/Vte-2.91.typelib",
+        "usr/share/applications/org.gnome.Vte.App.Gtk3.desktop",
+        "usr/share/xdg-terminals/org.gnome.Vte.App.Gtk3.desktop",
     ]
 
 
@@ -87,6 +89,8 @@ def _(self):
         "usr/bin/vte-2.91-gtk4",
         "usr/lib/libvte-2.91-gtk4.so.*",
         "usr/lib/girepository-1.0/Vte-3.91.typelib",
+        "usr/share/applications/org.gnome.Vte.App.Gtk4.desktop",
+        "usr/share/xdg-terminals/org.gnome.Vte.App.Gtk4.desktop",
     ]
 
 
