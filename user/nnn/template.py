@@ -1,6 +1,6 @@
 pkgname = "nnn"
-pkgver = "5.0"
-pkgrel = 1
+pkgver = "5.1"
+pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["chimerautils-devel", "libedit-readline-devel"]
@@ -8,7 +8,7 @@ pkgdesc = "Unorthodox terminal file manager"
 license = "BSD-2-Clause"
 url = "https://github.com/jarun/nnn"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "31e8fd85f3dd7ab2bf0525c3c0926269a1e6d35a5343a6714315642370d8605a"
+sha256 = "9faaff1e3f5a2fd3ed570a83f6fb3baf0bfc6ebd6a9abac16203d057ac3fffe3"
 tool_flags = {"LDFLAGS": ["-lfts"]}
 hardening = ["vis", "cfi"]
 # it does not have any tests
