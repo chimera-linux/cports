@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "5.4.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 # for install.bin compat
 make_dir = "bin"

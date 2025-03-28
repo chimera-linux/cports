@@ -1,0 +1,30 @@
+From c94003105f6746533ca9830916ac80fd36b2490d Mon Sep 17 00:00:00 2001
+From: Jami Kettunen <jami.kettunen@protonmail.com>
+Date: Fri, 28 Mar 2025 14:38:58 +0200
+Subject: [PATCH] Revert "podman run: fix --pids-limit -1 wrt runc"
+
+Breaks "distrobox enter" for newly created containers.
+
+This reverts commit fea21e9bc06b9df53f2b5255b87fbd3017233e69.
+---
+ cmd/podman/containers/create.go | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/cmd/podman/containers/create.go b/cmd/podman/containers/create.go
+index dd3411bef..22f98b9eb 100644
+--- a/cmd/podman/containers/create.go
++++ b/cmd/podman/containers/create.go
+@@ -212,6 +212,10 @@ func replaceContainer(name string) error {
+ func createOrUpdateFlags(cmd *cobra.Command, vals *entities.ContainerCreateOptions) error {
+ 	if cmd.Flags().Changed("pids-limit") {
+ 		val := cmd.Flag("pids-limit").Value.String()
++		// Convert -1 to 0, so that -1 maps to unlimited pids limit
++		if val == "-1" {
++			val = "0"
++		}
+ 		pidsLimit, err := strconv.ParseInt(val, 10, 32)
+ 		if err != nil {
+ 			return err
+-- 
+2.49.0
+
