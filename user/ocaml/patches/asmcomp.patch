@@ -1,0 +1,56 @@
+--- a/asmcomp/arm64/proc.ml
++++ b/asmcomp/arm64/proc.ml
+@@ -292,7 +292,7 @@
+ let assemble_file infile outfile =
+   Ccomp.command (Config.asm ^ " " ^
+                  (String.concat " " (Misc.debug_prefix_map_flags ())) ^
+-                 " -o " ^ Filename.quote outfile ^ " " ^ Filename.quote infile)
++                 " -c -o " ^ Filename.quote outfile ^ " " ^ Filename.quote infile)
+ 
+ 
+ let init () = ()
+diff --color -ru asmcomp/power/proc.ml asmcomp/power/proc.ml
+--- a/asmcomp/power/proc.ml
++++ b/asmcomp/power/proc.ml
+@@ -271,6 +271,6 @@
+ let assemble_file infile outfile =
+   Ccomp.command (Config.asm ^ " " ^
+                  (String.concat " " (Misc.debug_prefix_map_flags ())) ^
+-                 " -o " ^ Filename.quote outfile ^ " " ^ Filename.quote infile)
++                 " -c -o " ^ Filename.quote outfile ^ " " ^ Filename.quote infile)
+ 
+ let init () = ()
+diff --color -ru asmcomp/riscv/proc.ml asmcomp/riscv/proc.ml
+--- a/asmcomp/riscv/proc.ml
++++ b/asmcomp/riscv/proc.ml
+@@ -303,6 +303,6 @@
+ 
+ let assemble_file infile outfile =
+   Ccomp.command
+-    (Config.asm ^ " -o " ^ Filename.quote outfile ^ " " ^ Filename.quote infile)
++    (Config.asm ^ " -c -o " ^ Filename.quote outfile ^ " " ^ Filename.quote infile)
+ 
+ let init () = ()
+diff --color -ru asmcomp/s390x/proc.ml asmcomp/s390x/proc.ml
+--- a/asmcomp/s390x/proc.ml
++++ b/asmcomp/s390x/proc.ml
+@@ -215,6 +215,6 @@
+ let assemble_file infile outfile =
+   Ccomp.command (Config.asm ^ " " ^
+                  (String.concat " " (Misc.debug_prefix_map_flags ())) ^
+-                 " -o " ^ Filename.quote outfile ^ " " ^ Filename.quote infile)
++                 " -c -o " ^ Filename.quote outfile ^ " " ^ Filename.quote infile)
+ 
+ let init () = ()
+diff --color -ru asmcomp/x86_proc.ml asmcomp/x86_proc.ml
+--- a/asmcomp/x86_proc.ml
++++ b/asmcomp/x86_proc.ml
+@@ -257,7 +257,7 @@
+   else
+     Ccomp.command (Config.asm ^ " " ^
+                    (String.concat " " (Misc.debug_prefix_map_flags ())) ^
+-                   " -o " ^ Filename.quote outfile ^ " " ^
++                   " -c -o " ^ Filename.quote outfile ^ " " ^
+                    Filename.quote infile)
+ 
+ let assemble_file infile outfile =
