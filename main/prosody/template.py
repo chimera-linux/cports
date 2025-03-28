@@ -1,6 +1,7 @@
 pkgname = "prosody"
-pkgver = "0.12.5"
-pkgrel = 1
+pkgver = "0.13.0"
+_ver = "13.0.0"
+pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
 make_use_env = True
@@ -23,8 +24,8 @@ checkdepends = ["lua5.4-busted", *depends]
 pkgdesc = "Modern xmpp communication server"
 license = "MIT"
 url = "https://prosody.im"
-source = f"https://prosody.im/downloads/source/prosody-{pkgver}.tar.gz"
-sha256 = "778fb7707a0f10399595ba7ab9c66dd2a2288c0ae3a7fe4ab78f97d462bd399f"
+source = f"https://prosody.im/downloads/source/prosody-{_ver}.tar.gz"
+sha256 = "4309c5cfeb1a74d3f97185f6243a0c1068eb39fa7e91abc42cf2194bf067fc54"
 
 
 def configure(self):
