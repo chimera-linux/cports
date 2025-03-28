@@ -1,6 +1,6 @@
-diff --color -ruN python-dbus-fast-2.32.0/pyproject.toml python-dbus-fast-2.32.0-patched/pyproject.toml
---- python-dbus-fast-2.32.0/pyproject.toml	2025-02-02 22:56:04.000000000 +0000
-+++ python-dbus-fast-2.32.0-patched/pyproject.toml	2025-02-04 03:47:01.804985877 +0000
+diff --color -ruN python-dbus-fast-2.43.0/pyproject.toml python-dbus-fast-2.43.0-patched/pyproject.toml
+--- python-dbus-fast-2.43.0/pyproject.toml	2025-03-23 10:46:21.000000000 +0000
++++ python-dbus-fast-2.43.0-patched/pyproject.toml	2025-03-28 02:01:46.677206000 +0000
 @@ -46,7 +46,6 @@
  
  [tool.poetry.group.dev.dependencies]
@@ -8,8 +8,8 @@ diff --color -ruN python-dbus-fast-2.32.0/pyproject.toml python-dbus-fast-2.32.0
 -pytest-cov = ">=3,<7"
  pytest-asyncio = ">=0.19,<0.26"
  pycairo = "^1.21.0"
- PyGObject = "^3.42.2"
-@@ -62,7 +61,7 @@
+ PyGObject = {version = ">=3.50,<3.51", python = "<4"}
+@@ -63,7 +62,7 @@
  build_command = "pip install poetry && poetry build"
  
  [tool.pytest.ini_options]
