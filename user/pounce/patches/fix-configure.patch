@@ -1,0 +1,37 @@
+--- a/configure
++++ b/configure
+@@ -1,28 +1,30 @@
+ #!/bin/sh
+ set -eu
+
++: ${PKG_CONFIG:=pkg-config}
++
+ cflags() {
+ 	echo "CFLAGS += $*"
+ }
+ defstr() {
+ 	cflags "-D'$1=\"$2\"'"
+ }
+ defvar() {
+-	defstr "$1" "$(pkg-config --variable=$3 $2)${4:-}"
++	defstr "$1" "$(${PKG_CONFIG} --variable=$3 $2)${4:-}"
+ }
+ ldadd() {
+ 	lib=$1; shift
+ 	echo "LDADD.${lib} = $*"
+ }
+ config() {
+-	pkg-config --print-errors "$@"
+-	cflags $(pkg-config --cflags "$@")
+-	for lib; do ldadd $lib $(pkg-config --libs $lib); done
++	${PKG_CONFIG} --print-errors "$@"
++	cflags $(${PKG_CONFIG} --cflags "$@")
++	for lib; do ldadd $lib $(${PKG_CONFIG} --libs $lib); done
+ }
+
+ exec >config.mk
+
+ for opt; do
+ 	case "${opt}" in
+ 		(--prefix=*) echo "PREFIX = ${opt#*=}" ;;
+ 		(--bindir=*) echo "BINDIR = ${opt#*=}" ;;
