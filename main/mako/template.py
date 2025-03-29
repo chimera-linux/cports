@@ -1,6 +1,6 @@
 pkgname = "mako"
-pkgver = "1.9.0"
-pkgrel = 2
+pkgver = "1.10.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dbash-completions=true",
@@ -26,7 +26,7 @@ pkgdesc = "Lightweight notification daemon for Wayland"
 license = "MIT"
 url = "https://wayland.emersion.fr/mako"
 source = f"https://github.com/emersion/mako/releases/download/v{pkgver}/mako-{pkgver}.tar.gz"
-sha256 = "16d821ef49acfc8503367e1a886d28b2f8578ae9ceb1a7e284888b1e32b3a337"
+sha256 = "a72543f7b92568a0c3c45a5c0e3487ced65c18003eecd9b7d017a6464e7cef82"
 hardening = ["vis", "cfi"]
 
 
