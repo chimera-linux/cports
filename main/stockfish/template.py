@@ -1,5 +1,5 @@
 pkgname = "stockfish"
-pkgver = "17"
+pkgver = "17.1"
 pkgrel = 0
 build_wrksrc = "src"
 build_style = "makefile"
@@ -8,7 +8,7 @@ make_build_args = ["optimize=no", "SUPPORTED_ARCH=true", "arch=any"]
 pkgdesc = "Free UCI chess engine derived from Glaurung"
 license = "GPL-3.0-or-later"
 url = "https://stockfishchess.org"
-_net_file_big = "nn-1111cefa1111.nnue"
+_net_file_big = "nn-1c0000000000.nnue"
 _net_file_small = "nn-37f18f62d772.nnue"
 source = [
     f"https://github.com/official-stockfish/Stockfish/archive/sf_{pkgver}.tar.gz",
@@ -16,8 +16,8 @@ source = [
     f"!https://tests.stockfishchess.org/api/nn/{_net_file_small}",
 ]
 sha256 = [
-    "8f9b52285c3348c065b7cb58410626df16d7416a2e60a3b04f3ec7c038e67ad1",
-    "1111cefa11116b77161bd4b14dab4c50f26e5920c756f4861592be3dcd6de174",
+    "0cfd9396438798cc68f5c0d5fa0bb458bb8ffff7de06add841aaeace86bec1f1",
+    "1c0000000000a67d629999d932d0c373f7450ce43cd12d0562868f4eaf9ae2ad",
     "37f18f62d772f3107e1d6aaca3898c130c3c86f2ab63e6555fbbca20635a899d",
 ]
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
