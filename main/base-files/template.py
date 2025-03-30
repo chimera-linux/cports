@@ -1,13 +1,24 @@
 pkgname = "base-files"
-pkgver = "0.1.20241220"
-_iana_ver = pkgver.split(".")[2]
-pkgrel = 4
+pkgver = "0.2"
+pkgrel = 0
+_netbase_ver = "6.5"
 replaces = ["dinit-chimera<0.99.11-r2", "gcompat<1.1.0-r2"]
 # highest priority dir owner
 replaces_priority = 65535
 pkgdesc = "Chimera Linux base system files"
 license = "custom:meta"
 url = "https://chimera-linux.org"
+# netbase files from debian; iana does not provide aliases
+# which e.g. breaks rpcbind (which assumes "portmapper" service
+# which should be an alias of "sunrpc" but is not in iana files)
+source = [
+    f"!https://salsa.debian.org/md/netbase/-/raw/v{_netbase_ver}/etc/protocols>protocols-{_netbase_ver}",
+    f"!https://salsa.debian.org/md/netbase/-/raw/v{_netbase_ver}/etc/services>services-{_netbase_ver}",
+]
+sha256 = [
+    "4959498abbadaa1e50894a266f8d0d94500101cfe5b5f09dcad82e9d5bdfab46",
+    "20c48954659cf753baa383ecde0e6f026fadc06c2c9fbe29d88d928188c3ec17",
+]
 # no tests
 options = ["!check", "bootstrap", "keepempty", "brokenlinks"]
 
@@ -107,9 +118,13 @@ def install(self):
 
     self.install_bin(self.files_path / "lsb_release")
 
-    # iana etc files
+    # files from debian netbase
     for f in [
         "protocols",
         "services",
     ]:
-        self.install_file(self.files_path / "iana" / f, "usr/share/iana")
+        self.install_file(
+            self.sources_path / f"{f}-{_netbase_ver}",
+            "usr/share/netbase",
+            name=f,
+        )
