@@ -1,0 +1,10 @@
+--- a/meson.build
++++ b/meson.build
+@@ -1,6 +1,6 @@
+ project(
+   'gnome-settings-daemon', 'c',
+-  version: '48.rc',
++  version: '48.0',
+   license: [ 'GPL2+', 'LGPLv2+' ],
+   meson_version: '>= 0.57.0'
+ )
