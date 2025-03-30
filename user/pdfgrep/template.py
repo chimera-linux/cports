@@ -1,0 +1,12 @@
+pkgname = "pdfgrep"
+pkgver = "2.2.0"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["automake", "pkgconf"]
+makedepends = ["libgcrypt-devel", "pcre2-devel", "poppler-devel"]
+pkgdesc = "Tool to search text in PDF files"
+license = "GPL-2.0-or-later"
+url = "https://pdfgrep.org"
+source = f"https://pdfgrep.org/download/pdfgrep-{pkgver}.tar.gz"
+sha256 = "0661e531e4c0ef097959aa1c9773796585db39c72c84a02ff87d2c3637c620cb"
+hardening = ["vis", "cfi"]
