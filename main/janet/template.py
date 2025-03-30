@@ -1,5 +1,5 @@
 pkgname = "janet"
-pkgver = "1.37.1"
+pkgver = "1.38.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Depoll=true"]
@@ -10,7 +10,7 @@ url = "https://janet-lang.org"
 source = (
     f"https://github.com/janet-lang/janet/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "85a87115fb7b59a3fb4dab7d291627ce109eecdcf84b403ec8787ef54082519f"
+sha256 = "84dbf7db9c09677618549fb4be23631fd64f527af21051db02753241a2f6f752"
 
 if self.profile().arch == "ppc":
     broken = "fails to boot"
