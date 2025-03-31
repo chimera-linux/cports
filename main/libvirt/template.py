@@ -1,6 +1,6 @@
 pkgname = "libvirt"
-pkgver = "11.0.0"
-pkgrel = 1
+pkgver = "11.1.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -84,14 +84,14 @@ pkgdesc = "API, daemon, and management tool for virtualization"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
-sha256 = "01a176ff4042ad58cf83c09fe0925d6bc8eed0ecce1e0ee19b8ef4c1ffa3806e"
+sha256 = "19aebfd98d209792d569cdcf944dafb85c00d264f3b55fa1216b18f9bc9cb226"
 
 if self.profile().wordsize != 32:
     depends += ["virtiofsd-meta"]
 
 
 def post_install(self):
-    self.uninstall("usr/lib/sysusers.d/libvirt-qemu.conf")
+    self.uninstall("usr/lib/sysusers.d")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_sysusers(self.files_path / "sysusers.conf")
 
