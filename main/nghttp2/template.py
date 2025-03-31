@@ -1,6 +1,6 @@
 pkgname = "nghttp2"
-pkgver = "1.64.0"
-pkgrel = 1
+pkgver = "1.65.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
@@ -18,7 +18,7 @@ pkgdesc = "HTTP/2 C Library"
 license = "MIT"
 url = "https://nghttp2.org"
 source = f"https://github.com/tatsuhiro-t/nghttp2/releases/download/v{pkgver}/nghttp2-{pkgver}.tar.xz"
-sha256 = "88bb94c9e4fd1c499967f83dece36a78122af7d5fb40da2019c56b9ccc6eb9dd"
+sha256 = "f1b9df5f02e9942b31247e3d415483553bc4ac501c87aa39340b6d19c92a9331"
 # CFI; reproduces in e.g. libsoup
 hardening = ["vis", "!cfi"]
 
