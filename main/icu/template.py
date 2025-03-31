@@ -1,5 +1,5 @@
 pkgname = "icu"
-pkgver = "76.1"  # change path in build.patch when updating
+pkgver = "77.1"  # change path in build.patch when updating
 pkgrel = 0
 build_wrksrc = "source"
 build_style = "gnu_configure"
@@ -17,7 +17,7 @@ pkgdesc = "Robust and fully-featured Unicode libraries"
 license = "ICU"
 url = "https://home.unicode.org"
 source = f"https://github.com/unicode-org/icu/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz"
-sha256 = "dfacb46bfe4747410472ce3e1144bf28a102feeaa4e3875bac9b4c6cf30f4f3e"
+sha256 = "588e431f77327c39031ffbb8843c0e3bc122c211374485fa87dc5f3faff24061"
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
 # FIXME int
 hardening = ["!int"]
