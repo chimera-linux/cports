@@ -5,6 +5,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+    "-DENABLE_TRANSLATIONS=ON",
 ]
 hostmakedepends = [
     "cmake",
@@ -19,9 +20,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libuv-devel",
-    "libvterm-devel",
     "lua5.1-libluv-devel",
-    "msgpack-c-devel",
     "tree-sitter-devel",
     "unibilium-devel",
     "utf8proc-devel",
