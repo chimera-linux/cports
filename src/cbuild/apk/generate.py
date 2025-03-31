@@ -131,6 +131,13 @@ def _get_new_deps(pkg, origin):
     # explicit provides
     provides += pkg.provides
 
+    # renames are provides
+    for ren in pkg.renames:
+        if ren.find("=") < 0:
+            provides.append(f"{ren}={pkg.pkgver}-r{pkg.pkgrel}")
+        else:
+            provides.append(ren)
+
     # shlib provides
     if hasattr(pkg, "aso_provides"):
         provides += map(

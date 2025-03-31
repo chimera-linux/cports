@@ -35,15 +35,13 @@ def post_install(self):
 
 @subpackage("kmod-devel")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("libkmod-devel")]
+    self.renames = ["libkmod-devel"]
 
     return self.default_devel()
 
 
 @subpackage("kmod-libs")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("libkmod")]
+    self.renames = ["libkmod"]
 
     return self.default_libs()

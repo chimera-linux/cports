@@ -407,6 +407,7 @@ core_fields = [
     # other package lists + related
     ("provides", [], list, False, True, False),
     ("provider_priority", 0, int, False, True, True),
+    ("renames", [], list, False, True, False),
     ("replaces", [], list, False, True, False),
     ("replaces_priority", 0, int, False, True, True),
     ("install_if", [], list, False, True, False),
@@ -507,6 +508,7 @@ core_fields_priority = [
     ("go_check_tags", False),
     ("provides", True),
     ("provider_priority", True),
+    ("renames", True),
     ("replaces", True),
     ("replaces_priority", True),
     ("install_if", True),
@@ -2330,16 +2332,24 @@ class Subpackage(Package):
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
-        # set up options/replaces if automatic, also setup paths
+        # set up options/replaces/renames if automatic, also setup paths
         # basically for each parent replace, we also replace matching
         # autopkg, e.g. foo replaces bar == foo-man replaces bar-man
         if auto:
+            asfx = self.pkgname.removeprefix(parent.pkgname)
             self.options = parent.options
             for rep in parent.replaces:
                 sn, sv, sop = autil.split_pkg_name(rep)
                 if sn:
-                    asfx = self.pkgname.removeprefix(parent.pkgname)
                     self.replaces.append(f"{sn}{asfx}{sop}{sv}")
+            # renames are a bit simpler to deal with
+            self.renames = []
+            for ren in parent.renames:
+                eq = ren.find("=")
+                if eq < 0:
+                    self.renames.append(f"{ren}{asfx}")
+                else:
+                    self.renames.append(f"{ren[0:eq]}{asfx}{ren[eq:]}")
             self.setup_paths()
 
         ddeps = []

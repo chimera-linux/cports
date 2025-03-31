@@ -13,11 +13,8 @@ configure_env = {}
 hostmakedepends = ["pkgconf"]
 # we need to explicitly provide higher ver or apk won't upgrade it,
 # even with provider_priority set which is strange but it is how it is
-provides = [
-    f"so:libz.so.1={_cver}.99",
-    f"zlib={_cver}-r99",
-]
-replaces = [f"zlib<{_cver}-r99"]
+provides = [f"so:libz.so.1={_cver}.99"]
+renames = [f"zlib={_cver}-r99"]
 pkgdesc = "Implementation of zlib compression library"
 license = "Zlib"
 url = "https://github.com/zlib-ng/zlib-ng"
@@ -32,17 +29,8 @@ if self.profile().cross:
     configure_env["CHOST"] = self.profile().triplet
 
 
-@subpackage("zlib-ng-compat-devel-static")
-def _(self):
-    self.provides = [f"zlib-devel-static={_cver}-r99"]
-    self.replaces = [f"zlib-devel-static<{_cver}-r99"]
-
-    return ["usr/lib/*.a"]
-
-
 @subpackage("zlib-ng-compat-devel")
 def _(self):
-    self.provides = [f"zlib-devel={_cver}-r99"]
-    self.replaces = [f"zlib-devel<{_cver}-r99"]
+    self.renames = [f"zlib-devel={_cver}-r99"]
 
     return self.default_devel()

@@ -965,6 +965,11 @@ Keep in mind that default values may be overridden by build styles.
   library scanning is automatic; but sometimes libraries provide either a
   non-conforming `SONAME` which the scanner does not pick up, or the
   scanner is disabled explicitly.
+* `renames` *(list)* A list of old names for the package. This is like
+  `provides` except no explicit version is required (it always takes on
+  the version of the package by default, but an explicit version can be
+  specified if needed) and they always make it into autosplit packages
+  with the appropriate suffix. This ensures a clean rename upgrade path.
 * `replaces_priority` *(int)* When used with `replaces`, this specifies
   which of the packages gets to keep the files (i.e. the higher-priority
   package will keep them). Defaults to 0.
