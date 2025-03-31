@@ -1,6 +1,6 @@
 pkgname = "gspell"
 pkgver = "1.14.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false", "-Dinstall_tests=false"]
 hostmakedepends = [

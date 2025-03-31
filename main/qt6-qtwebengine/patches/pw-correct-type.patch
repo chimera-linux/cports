@@ -3,7 +3,7 @@ pw_node_add_listener will not take pw_proxy* and it is a wrong type
 --- a/src/3rdparty/chromium/third_party/webrtc/modules/video_capture/linux/pipewire_session.cc
 +++ b/src/3rdparty/chromium/third_party/webrtc/modules/video_capture/linux/pipewire_session.cc
 @@ -78,8 +78,11 @@ PipeWireNode::PipeWireNode(PipeWireSession* session,
-       unique_id_(spa_dict_lookup(props, PW_KEY_NODE_NAME)) {
+       unique_id_(rtc::ToString(id)) {
    RTC_LOG(LS_VERBOSE) << "Found Camera: " << display_name_;
  
 -  proxy_ = static_cast<pw_proxy*>(pw_registry_bind(
@@ -24,7 +24,7 @@ pw_node_add_listener will not take pw_proxy* and it is a wrong type
 +  pw_node_add_listener(node_, &node_listener_, &node_events, this);
  }
  
- // static
+ PipeWireNode::~PipeWireNode() {
 @@ -119,7 +122,7 @@ void PipeWireNode::OnNodeInfo(void* data, const pw_node_info* info) {
        uint32_t id = info->params[i].id;
        if (id == SPA_PARAM_EnumFormat &&

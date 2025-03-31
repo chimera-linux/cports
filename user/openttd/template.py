@@ -1,6 +1,6 @@
 pkgname = "openttd"
 pkgver = "14.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [

@@ -1,6 +1,6 @@
 pkgname = "maim"
 pkgver = "5.8.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

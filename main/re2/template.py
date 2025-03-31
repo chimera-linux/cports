@@ -1,6 +1,6 @@
 pkgname = "re2"
 pkgver = "2024.07.02"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",

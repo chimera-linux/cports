@@ -1,6 +1,6 @@
 pkgname = "sq"
 pkgver = "0.48.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/neilotoole/sq/cli/buildinfo.Version=v{pkgver}"

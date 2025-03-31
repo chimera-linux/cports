@@ -1,7 +1,7 @@
 pkgname = "php8.3"
 pkgver = "8.3.19"
 _majver = pkgver[0 : pkgver.rfind(".")]
-pkgrel = 0
+pkgrel = 1
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -210,6 +210,9 @@ def post_patch(self):
         "ext/intl/tests/bug62070_3.phpt",
         "ext/intl/tests/collator_get_sort_key_variant7.phpt",
         "ext/intl/tests/timezone_IDforWindowsID_basic2.phpt",
+        # icu 77
+        "ext/intl/tests/locale_get_display_name8.phpt",
+        "ext/intl/tests/locale_get_display_variant2.phpt",
         # external pcre
         "ext/pcre/tests/bug75457.phpt",
         # updated curl
