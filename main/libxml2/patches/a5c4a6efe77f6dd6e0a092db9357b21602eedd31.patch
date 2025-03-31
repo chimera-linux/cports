@@ -1,0 +1,127 @@
+From a5c4a6efe77f6dd6e0a092db9357b21602eedd31 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Fri, 28 Mar 2025 16:31:14 +0100
+Subject: [PATCH] parser: Fix XML_PARSE_NOBLANKS dropping non-whitespace text
+
+Regressed with 1f5b5371.
+
+Fixes #884.
+---
+ parser.c     | 13 +++++++------
+ testparser.c | 34 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 41 insertions(+), 6 deletions(-)
+
+diff --git a/parser.c b/parser.c
+index aacaf1f8c..d8d590ffd 100644
+--- a/parser.c
++++ b/parser.c
+@@ -4778,7 +4778,8 @@ static const unsigned char test_char_data[256] = {
+ };
+ 
+ static void
+-xmlCharacters(xmlParserCtxtPtr ctxt, const xmlChar *buf, int size) {
++xmlCharacters(xmlParserCtxtPtr ctxt, const xmlChar *buf, int size,
++              int isBlank) {
+     int checkBlanks;
+ 
+     if ((ctxt->sax == NULL) || (ctxt->disableSAX))
+@@ -4793,7 +4794,7 @@ xmlCharacters(xmlParserCtxtPtr ctxt, const xmlChar *buf, int size) {
+      * essentially unusable.
+      */
+     if ((checkBlanks) &&
+-        (areBlanks(ctxt, buf, size, 1))) {
++        (areBlanks(ctxt, buf, size, isBlank))) {
+         if ((ctxt->sax->ignorableWhitespace != NULL) &&
+             (ctxt->keepBlanks))
+             ctxt->sax->ignorableWhitespace(ctxt->userData, buf, size);
+@@ -4855,7 +4856,7 @@ get_more_space:
+                 const xmlChar *tmp = ctxt->input->cur;
+                 ctxt->input->cur = in;
+ 
+-                xmlCharacters(ctxt, tmp, nbchar);
++                xmlCharacters(ctxt, tmp, nbchar, 1);
+             }
+             return;
+         }
+@@ -4891,7 +4892,7 @@ get_more:
+             const xmlChar *tmp = ctxt->input->cur;
+             ctxt->input->cur = in;
+ 
+-            xmlCharacters(ctxt, tmp, nbchar);
++            xmlCharacters(ctxt, tmp, nbchar, 0);
+ 
+             line = ctxt->input->line;
+             col = ctxt->input->col;
+@@ -4958,7 +4959,7 @@ xmlParseCharDataComplex(xmlParserCtxtPtr ctxt, int partial) {
+ 	if (nbchar >= XML_PARSER_BIG_BUFFER_SIZE) {
+ 	    buf[nbchar] = 0;
+ 
+-            xmlCharacters(ctxt, buf, nbchar);
++            xmlCharacters(ctxt, buf, nbchar, 0);
+ 	    nbchar = 0;
+             SHRINK;
+ 	}
+@@ -4967,7 +4968,7 @@ xmlParseCharDataComplex(xmlParserCtxtPtr ctxt, int partial) {
+     if (nbchar != 0) {
+         buf[nbchar] = 0;
+ 
+-        xmlCharacters(ctxt, buf, nbchar);
++        xmlCharacters(ctxt, buf, nbchar, 0);
+     }
+     /*
+      * cur == 0 can mean
+diff --git a/testparser.c b/testparser.c
+index 5cca7b679..85fee9b4c 100644
+--- a/testparser.c
++++ b/testparser.c
+@@ -255,6 +255,39 @@ testCtxtParseContent(void) {
+ 
+     return err;
+ }
++
++static int
++testNoBlanks(void) {
++    const xmlChar xml[] =
++        "<refentry>\n"
++        "  <refsect1>\n"
++        "    <para>\n"
++        "      Run <command>tester --help</command> for more options.\n"
++        "    </para>\n"
++        "  </refsect1>\n"
++        "</refentry>\n";
++    const xmlChar expect[] =
++        "<?xml version=\"1.0\"?>\n"
++        "<refentry><refsect1><para>\n"
++        "      Run <command>tester --help</command> for more options.\n"
++        "    </para></refsect1></refentry>\n";
++    xmlDocPtr doc;
++    xmlChar *out;
++    int size;
++    int err = 0;
++
++    doc = xmlReadDoc(xml, NULL, NULL, XML_PARSE_NOBLANKS);
++    xmlDocDumpMemory(doc, &out, &size);
++    xmlFreeDoc(doc);
++
++    if (!xmlStrEqual(out, expect)) {
++        fprintf(stderr, "parsing with XML_PARSE_NOBLANKS failed\n");
++        err = 1;
++    }
++    xmlFree(out);
++
++    return err;
++}
+ #endif /* LIBXML_OUTPUT_ENABLED */
+ 
+ #ifdef LIBXML_SAX1_ENABLED
+@@ -1123,6 +1156,7 @@ main(void) {
+ #endif
+ #ifdef LIBXML_OUTPUT_ENABLED
+     err |= testCtxtParseContent();
++    err |= testNoBlanks();
+ #endif
+ #ifdef LIBXML_SAX1_ENABLED
+     err |= testBalancedChunk();
+-- 
+GitLab
+
