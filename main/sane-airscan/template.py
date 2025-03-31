@@ -1,6 +1,6 @@
 pkgname = "sane-airscan"
-pkgver = "0.99.32"
-pkgrel = 1
+pkgver = "0.99.33"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -20,4 +20,4 @@ pkgdesc = "SANE backend for AirScan (eSCL) and WSD document scanners"
 license = "GPL-2.0-or-later WITH SANE-exception"
 url = "https://github.com/alexpevzner/sane-airscan"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a8fc59f5dd14ad3d6704e0a0de42417167224181fd84c4f4a9e2a9ed0dfbdfd0"
+sha256 = "647f41f84f9bce743c796ca84c1fda67e519968fab407490c28fd0cc6d7ac485"
