@@ -33,7 +33,6 @@ hostmakedepends = [
     "ninja",
     "perl",
     "pkgconf",
-    "xmlstarlet",
 ]
 makedepends = [
     "brotli-devel",
