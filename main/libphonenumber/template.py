@@ -1,6 +1,6 @@
 pkgname = "libphonenumber"
-pkgver = "9.0.1"
-pkgrel = 1
+pkgver = "9.0.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DREGENERATE_METADATA=OFF",
@@ -25,7 +25,7 @@ pkgdesc = "Library for parsing, formatting, and validating phone numbers"
 license = "Apache-2.0"
 url = "https://github.com/google/libphonenumber"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "853f980ac2aa549e8a5bc12e0edcd7124a44ac2160d0b8611f35cbf613793fd7"
+sha256 = "ccc54c3ff073f6f9be3260d0e93a17ab6e98be6906a15625a614b41de0d1693b"
 
 
 @subpackage("libphonenumber-devel")
