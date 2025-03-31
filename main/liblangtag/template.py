@@ -1,6 +1,6 @@
 pkgname = "liblangtag"
 pkgver = "0.6.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "autoconf-archive",

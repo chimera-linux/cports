@@ -1,6 +1,6 @@
 pkgname = "libgsf"
 pkgver = "1.14.53"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-introspection"]
 hostmakedepends = [

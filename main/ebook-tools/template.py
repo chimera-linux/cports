@@ -1,6 +1,6 @@
 pkgname = "ebook-tools"
 pkgver = "0.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

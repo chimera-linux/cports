@@ -1,6 +1,6 @@
 pkgname = "xmlsec1"
 pkgver = "1.3.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-docs", "--enable-http"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "gnutls-devel"]

@@ -1,6 +1,6 @@
 pkgname = "nemu"
 pkgver = "3.3.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DNM_WITH_DBUS=ON",

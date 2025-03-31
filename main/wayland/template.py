@@ -1,6 +1,6 @@
 pkgname = "wayland"
 pkgver = "1.23.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddocumentation=false"]
 hostmakedepends = ["meson", "pkgconf", "flex"]

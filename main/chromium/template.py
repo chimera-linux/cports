@@ -1,7 +1,7 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
 pkgver = "134.0.6998.165"
-pkgrel = 1
+pkgrel = 2
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
     'custom_toolchain="//build/toolchain/linux/unbundle:default"',

@@ -1,6 +1,6 @@
 pkgname = "akonadi"
 pkgver = "24.12.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # TODO: add mariadb since it's usually the default
 configure_args = [

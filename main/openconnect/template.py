@@ -1,6 +1,6 @@
 pkgname = "openconnect"
 pkgver = "9.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-vpnc-script=/usr/libexec/vpnc-script"]
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "aria2"
 pkgver = "1.37.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-libaria2",

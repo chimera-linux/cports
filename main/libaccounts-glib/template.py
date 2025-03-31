@@ -1,6 +1,6 @@
 pkgname = "libaccounts-glib"
 pkgver = "1.27"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 make_check_wrapper = ["dbus-run-session", "--"]
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "emacs-console"
 pkgver = "30.1"
-pkgrel = 9
+pkgrel = 10
 build_style = "gnu_configure"
 # TODO gccjit (cba to figure it out for now)
 configure_args = [

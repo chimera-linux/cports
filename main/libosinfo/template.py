@@ -1,6 +1,6 @@
 pkgname = "libosinfo"
 pkgver = "1.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Denable-introspection=enabled",

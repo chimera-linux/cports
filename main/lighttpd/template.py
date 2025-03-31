@@ -1,6 +1,6 @@
 pkgname = "lighttpd"
 pkgver = "1.4.77"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dwith_brotli=enabled",

@@ -1,6 +1,6 @@
 pkgname = "wcm"
 pkgver = "0.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Denable_wdisplays=false"]
 hostmakedepends = [

@@ -1,6 +1,6 @@
 pkgname = "nghttp2"
 pkgver = "1.64.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]

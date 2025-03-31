@@ -1,6 +1,6 @@
 pkgname = "rest"
 pkgver = "0.9.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsoup2=false",

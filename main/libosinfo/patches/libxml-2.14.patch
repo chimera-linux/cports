@@ -1,0 +1,11 @@
+--- a/osinfo/osinfo_loader.c
++++ b/osinfo/osinfo_loader.c
+@@ -1902,7 +1902,7 @@ static void osinfo_loader_root(OsinfoLoader *loader,
+ }
+ 
+ static void
+-catchXMLError(void *ctx, const char *msg ATTRIBUTE_UNUSED, ...)
++catchXMLError(void *ctx, const char *msg __attribute__((unused)), ...)
+ {
+     xmlParserCtxtPtr ctxt = (xmlParserCtxtPtr) ctx;
+ 

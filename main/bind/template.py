@@ -1,6 +1,6 @@
 pkgname = "bind"
 pkgver = "9.20.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-libidn2"]
 make_dir = "."

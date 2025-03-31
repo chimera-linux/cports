@@ -1,6 +1,6 @@
 pkgname = "totem-pl-parser"
 pkgver = "3.26.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Denable-libarchive=yes",

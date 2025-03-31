@@ -1,6 +1,6 @@
 pkgname = "gupnp"
 pkgver = "1.6.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["gobject-introspection", "libxslt-progs", "meson", "pkgconf"]
 makedepends = [

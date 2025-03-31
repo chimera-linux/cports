@@ -1,6 +1,6 @@
 pkgname = "raptor"
 pkgver = "2.0.16"
-pkgrel = 7
+pkgrel = 8
 build_style = "gnu_configure"
 configure_args = ["--with-yajl=no"]
 # fails tests when regen

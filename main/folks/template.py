@@ -1,6 +1,6 @@
 pkgname = "folks"
 pkgver = "0.15.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dtelepathy_backend=false",

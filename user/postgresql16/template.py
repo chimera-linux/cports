@@ -1,6 +1,6 @@
 pkgname = "postgresql16"
 pkgver = "16.8"
-pkgrel = 2
+pkgrel = 3
 # NOTE: version 16 doesn't work with meson + tarball
 # switch to meson for version 17
 build_style = "gnu_configure"

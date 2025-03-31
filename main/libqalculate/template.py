@@ -1,7 +1,7 @@
 pkgname = "libqalculate"
 # match to qalculate-gtk/qt
 pkgver = "5.5.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",

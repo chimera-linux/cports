@@ -1,0 +1,11 @@
+--- a/snapper/Logger.cc
++++ b/snapper/Logger.cc
+@@ -169,7 +169,7 @@ namespace snapper
+ 	log_do = NULL;
+ 	log_query = NULL;
+ 
+-	initGenericErrorDefaultFunc(&xml_error_func_ptr);
++	initGenericErrorDefaultFunc(xml_error_func_ptr);
+     }
+ 
+ }

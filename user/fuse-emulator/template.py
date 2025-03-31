@@ -1,6 +1,6 @@
 pkgname = "fuse-emulator"
 pkgver = "1.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-desktop-integration",

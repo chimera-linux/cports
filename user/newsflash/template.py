@@ -1,6 +1,6 @@
 pkgname = "newsflash"
 pkgver = "3.3.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "blueprint-compiler",

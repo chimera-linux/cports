@@ -1,6 +1,6 @@
 pkgname = "gtksourceview4"
 pkgver = "4.8.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dglade_catalog=false",

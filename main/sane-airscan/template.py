@@ -1,6 +1,6 @@
 pkgname = "sane-airscan"
 pkgver = "0.99.32"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

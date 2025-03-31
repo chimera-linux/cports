@@ -1,6 +1,6 @@
 pkgname = "flatpak-builder"
 pkgver = "1.4.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "appstream",

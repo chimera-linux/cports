@@ -1,6 +1,6 @@
 pkgname = "libmusicbrainz"
 pkgver = "5.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["neon-devel", "libxml2-devel"]

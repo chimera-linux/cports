@@ -1,6 +1,6 @@
 pkgname = "xfce4-weather-plugin"
 pkgver = "0.11.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",

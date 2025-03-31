@@ -1,6 +1,6 @@
 pkgname = "wf-config"
 pkgver = "0.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

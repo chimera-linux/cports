@@ -1,6 +1,6 @@
 pkgname = "osinfo-db-tools"
 pkgver = "1.12.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = [

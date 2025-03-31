@@ -1,6 +1,6 @@
 pkgname = "libvirt"
 pkgver = "11.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec

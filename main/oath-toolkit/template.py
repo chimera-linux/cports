@@ -1,6 +1,6 @@
 pkgname = "oath-toolkit"
 pkgver = "2.6.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [

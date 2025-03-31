@@ -1,6 +1,6 @@
 pkgname = "wireshark"
 pkgver = "4.4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DENABLE_GNUTLS=ON",

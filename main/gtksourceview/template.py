@@ -1,6 +1,6 @@
 pkgname = "gtksourceview"
 pkgver = "5.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled", "-Dvapi=true"]
 make_check_wrapper = ["dbus-run-session", "wlheadless-run", "--"]

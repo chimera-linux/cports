@@ -1,6 +1,6 @@
 pkgname = "thermald"
 pkgver = "2.5.9"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 # don't use autogen.sh, it generates files that force reconf in build phase
 build_style = "gnu_configure"

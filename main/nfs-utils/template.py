@@ -1,6 +1,6 @@
 pkgname = "nfs-utils"
 pkgver = "2.8.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-sbin-override",

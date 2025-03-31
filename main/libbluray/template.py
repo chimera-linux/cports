@@ -1,6 +1,6 @@
 pkgname = "libbluray"
 pkgver = "1.3.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-optimizations", "--disable-bdjava-jar"]
 # slibtool breaks dlfcn.h check
