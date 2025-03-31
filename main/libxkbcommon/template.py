@@ -1,6 +1,6 @@
 pkgname = "libxkbcommon"
-pkgver = "1.8.0"
-pkgrel = 1
+pkgver = "1.8.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX libexecdir
@@ -31,7 +31,7 @@ pkgdesc = "Library to handle keyboard descriptions"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-{pkgver}.tar.gz"
-sha256 = "025c53032776ed850fbfb92683a703048cd70256df4ac1a1ec41ed3455d5d39c"
+sha256 = "c65c668810db305c4454ba26a10b6d84a96b5469719fe3c729e1c6542b8d0d87"
 
 
 def post_install(self):
