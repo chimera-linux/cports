@@ -5,6 +5,7 @@ build_style = "meson"
 configure_args = [
     "-Dlua=disabled",
     "-Dlua_version=5.4",
+    "-Dpython=disabled",
 ]
 make_check_env = {"APK_CONFIG": "/dev/null"}
 hostmakedepends = [
