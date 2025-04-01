@@ -1,6 +1,6 @@
 pkgname = "transmission"
 pkgver = "4.0.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DENABLE_DAEMON=ON",
@@ -41,6 +41,10 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/transmission/transmission"
 source = f"{url}/releases/download/{pkgver}/transmission-{pkgver}.tar.xz"
 sha256 = "2a38fe6d8a23991680b691c277a335f8875bdeca2b97c6b26b598bc9c7b0c45f"
+# FIXME miscompiles:
+# https://gist.github.com/q66/f390de866e5bb9848715bb037e91bd0e
+# https://gist.github.com/q66/619638ff860450b0313eccff3beaa7c9
+options = ["!lto"]
 
 
 def pre_install(self):
