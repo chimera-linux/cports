@@ -674,7 +674,6 @@ def enter(
         "USER": "root" if fakeroot else "cbuild",
         "LC_COLLATE": "C",
         "LANG": "C.UTF-8",
-        "UNAME_m": hprof.machine,
         **env,
     }
 
