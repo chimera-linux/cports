@@ -1,0 +1,27 @@
+Workaround for a bug in chimerautils cat(1)
+
+cat(1) currently seeks the input fd to offset=0 before printing its contents,
+which defeats the purpose of the preceding `while IFS='' read headerline`
+So, instead of redirection, we use pipes, so that cat(1) cannot seek.
+
+--- a/git-filter-branch.sh
++++ b/git-filter-branch.sh
+@@ -456,7 +456,7 @@
+ 				die "parent filter failed: $filter_parent"
+ 	fi
+ 
+-	{
++	cat ../commit | {
+ 		while IFS='' read -r header_line && test -n "$header_line"
+ 		do
+ 			# skip header lines...
+@@ -464,8 +464,7 @@
+ 		done
+ 		# and output the actual commit message
+ 		cat
+-	} <../commit |
+-		eval "$filter_msg" > ../message ||
++	} | eval "$filter_msg" > ../message ||
+ 			die "msg filter failed: $filter_msg"
+ 
+ 	if test -n "$need_index"
