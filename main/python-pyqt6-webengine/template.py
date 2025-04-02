@@ -1,6 +1,6 @@
 pkgname = "python-pyqt6-webengine"
 pkgver = "6.8.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_dir = "build"
 make_use_env = True

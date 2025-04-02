@@ -1,0 +1,11 @@
+--- a/src/base/http/types.h
++++ b/src/base/http/types.h
+@@ -32,6 +32,8 @@
+ #include <QHostAddress>
+ #include <QString>
+ #include <QVector>
++#include <QHash>
++#include <QMap>
+ 
+ #include "base/global.h"
+ 

@@ -1,6 +1,6 @@
 pkgname = "kio"
 pkgver = "6.12.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 # flaky
 make_check_args = ["-E", "kiocore-krecentdocumenttest"]

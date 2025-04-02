@@ -1,6 +1,6 @@
 pkgname = "maliit-framework"
 pkgver = "2.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON", "-Denable-docs=OFF"]
 # testLoadPlugins() segfaults but works on runtime?

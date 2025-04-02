@@ -1,0 +1,1375 @@
+From 1e547d6d49bbdba2abea2ce3662139ecb1910e05 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 3 Apr 2025 02:00:06 +0200
+Subject: [PATCH] backport qt 6.9 support
+
+---
+ project.py                                  |  5 +-
+ qpy/QtCore/qpycore_enums_flags_metatype.cpp |  8 +++
+ sip/QtCore/QtCoremod.sip                    |  4 +-
+ sip/QtCore/qabstractitemmodel.sip           |  2 +-
+ sip/QtCore/qchar.sip                        | 21 ++++++
+ sip/QtCore/qcommandlineoption.sip           |  3 +
+ sip/QtCore/qcommandlineparser.sip           | 12 ++++
+ sip/QtCore/qconcatenatetablesproxymodel.sip |  3 +
+ sip/QtCore/qcoreevent.sip                   |  6 ++
+ sip/QtCore/qdatastream.sip                  |  3 +
+ sip/QtCore/qfile.sip                        |  8 +++
+ sip/QtCore/qiodevice.sip                    |  3 +
+ sip/QtCore/qjsondocument.sip                |  4 ++
+ sip/QtCore/qjsonparseerror.sip              | 55 ++++++++++++++
+ sip/QtCore/qjsonvalue.sip                   | 10 +++
+ sip/QtCore/qlocale.sip                      |  6 ++
+ sip/QtCore/qmetaobject.sip                  | 13 ++++
+ sip/QtCore/qnamespace.sip                   |  6 ++
+ sip/QtCore/qprocess.sip                     |  3 +
+ sip/QtCore/qpycore_std_chrono_duration.sip  | 79 +++++++++++++++++++++
+ sip/QtCore/qsortfilterproxymodel.sip        |  9 +--
+ sip/QtCore/qstringconverter_base.sip        |  3 +
+ sip/QtCore/qthread.sip                      | 16 +++++
+ sip/QtCore/qthreadpool.sip                  |  6 ++
+ sip/QtCore/quuid.sip                        |  8 ++-
+ sip/QtGui/QtGuimod.sip                      |  2 +
+ sip/QtGui/qbrush.sip                        | 25 +++++++
+ sip/QtGui/qcolorspace.sip                   | 22 ++++++
+ sip/QtGui/qfontdatabase.sip                 | 12 ++++
+ sip/QtGui/qfontinfo.sip                     |  3 +
+ sip/QtGui/qfontvariableaxis.sip             | 48 +++++++++++++
+ sip/QtGui/qimage.sip                        |  6 ++
+ sip/QtGui/qinputdevice.sip                  |  3 +
+ sip/QtGui/qpainterstateguard.sip            | 48 +++++++++++++
+ sip/QtGui/qpdfwriter.sip                    |  6 ++
+ sip/QtGui/qpen.sip                          | 18 +++++
+ sip/QtGui/qtextoption.sip                   |  6 ++
+ sip/QtGui/qwindow.sip                       |  8 +++
+ sip/QtNetwork/qhttp2configuration.sip       |  6 ++
+ sip/QtNetwork/qnetworkrequestfactory.sip    | 12 +---
+ sip/QtQuick/qquickitem.sip                  |  6 ++
+ sip/QtQuickWidgets/qquickwidget.sip         | 13 +++-
+ sip/QtSerialPort/qserialport.sip            | 13 ++++
+ sip/QtSql/qsqldriver.sip                    |  3 +
+ sip/QtSql/qsqlquerymodel.sip                |  3 +
+ sip/QtSvg/qtsvgglobal.sip                   |  9 +++
+ sip/QtWidgets/qabstractitemview.sip         |  8 +++
+ sip/QtWidgets/qcombobox.sip                 | 15 ++++
+ sip/QtWidgets/qdockwidget.sip               |  8 +++
+ sip/QtWidgets/qstackedlayout.sip            |  3 +
+ sip/QtWidgets/qstackedwidget.sip            |  3 +
+ sip/QtWidgets/qstyleoption.sip              |  9 +++
+ sip/QtWidgets/qwidget.sip                   |  6 ++
+ sip/QtXml/qdom.sip                          | 10 +++
+ uic/uiparser.py                             |  4 +-
+ 55 files changed, 611 insertions(+), 23 deletions(-)
+ create mode 100644 sip/QtCore/qjsonparseerror.sip
+ create mode 100644 sip/QtCore/qpycore_std_chrono_duration.sip
+ create mode 100644 sip/QtGui/qfontvariableaxis.sip
+ create mode 100644 sip/QtGui/qpainterstateguard.sip
+
+diff --git a/project.py b/project.py
+index b22ca69..15d77b4 100644
+--- a/project.py
++++ b/project.py
+@@ -834,7 +834,10 @@ class QtStateMachine(PyQtBindings):
+     def __init__(self, project):
+         """ Initialise the bindings. """
+ 
+-        super().__init__(project, 'QtStateMachine', qmake_QT=['statemachine'],
++        super().__init__(project, 'QtStateMachine',
++                # The need to specify 'scxmlglobal_private' is probably a bug
++                # Qt v6.9.0rc.
++                qmake_QT=['statemachine', 'scxmlglobal_private'],
+                 test_headers=['qstate.h'],
+                 test_statement='new QState()')
+ 
+diff --git a/qpy/QtCore/qpycore_enums_flags_metatype.cpp b/qpy/QtCore/qpycore_enums_flags_metatype.cpp
+index 9628769..d71131e 100644
+--- a/qpy/QtCore/qpycore_enums_flags_metatype.cpp
++++ b/qpy/QtCore/qpycore_enums_flags_metatype.cpp
+@@ -45,7 +45,11 @@ QMetaType qpycore_register_enum_metatype(const QByteArray &fq_cpp_name,
+     {
+         mti->alignment = alignof(unsigned);
+         mti->size = sizeof(unsigned);
++#if QT_VERSION >= 0x060900
++        mti->flags = QtPrivate::QMetaTypeForType<unsigned>::flags() | QMetaType::IsEnumeration | QMetaType::IsUnsignedEnumeration;
++#else
+         mti->flags = QtPrivate::QMetaTypeForType<unsigned>::Flags | QMetaType::IsEnumeration | QMetaType::IsUnsignedEnumeration;
++#endif
+         mti->defaultCtr = QtPrivate::QMetaTypeForType<unsigned>::getDefaultCtr();
+         mti->copyCtr = QtPrivate::QMetaTypeForType<unsigned>::getCopyCtr();
+         mti->moveCtr = QtPrivate::QMetaTypeForType<unsigned>::getMoveCtr();
+@@ -61,7 +65,11 @@ QMetaType qpycore_register_enum_metatype(const QByteArray &fq_cpp_name,
+     {
+         mti->alignment = alignof(int);
+         mti->size = sizeof(int);
++#if QT_VERSION >= 0x060900
++        mti->flags = QtPrivate::QMetaTypeForType<int>::flags() | QMetaType::IsEnumeration;
++#else
+         mti->flags = QtPrivate::QMetaTypeForType<int>::Flags | QMetaType::IsEnumeration;
++#endif
+         mti->defaultCtr = QtPrivate::QMetaTypeForType<int>::getDefaultCtr();
+         mti->copyCtr = QtPrivate::QMetaTypeForType<int>::getCopyCtr();
+         mti->moveCtr = QtPrivate::QMetaTypeForType<int>::getMoveCtr();
+diff --git a/sip/QtCore/QtCoremod.sip b/sip/QtCore/QtCoremod.sip
+index 9ff0491..721b37e 100644
+--- a/sip/QtCore/QtCoremod.sip
++++ b/sip/QtCore/QtCoremod.sip
+@@ -22,7 +22,7 @@
+ 
+ %Module(name=PyQt6.QtCore, call_super_init=True, default_VirtualErrorHandler=PyQt6, keyword_arguments="Optional", use_limited_api=True, py_ssize_t_clean=True)
+ 
+-%Timeline {Qt_6_0_0 Qt_6_1_0 Qt_6_2_0 Qt_6_3_0 Qt_6_4_0 Qt_6_5_0 Qt_6_6_0 Qt_6_7_0 Qt_6_8_0}
++%Timeline {Qt_6_0_0 Qt_6_1_0 Qt_6_2_0 Qt_6_3_0 Qt_6_4_0 Qt_6_5_0 Qt_6_6_0 Qt_6_7_0 Qt_6_8_0 Qt_6_9_0}
+ 
+ %Platforms {Android iOS Linux macOS WebAssembly Windows}
+ 
+@@ -126,6 +126,7 @@ static const char *PYQT_VERSION_STR = "6.8.1";
+ %Include qiodevicebase.sip
+ %Include qitemselectionmodel.sip
+ %Include qjsondocument.sip
++%Include qjsonparseerror.sip
+ %Include qjsonvalue.sip
+ %Include qlibrary.sip
+ %Include qlibraryinfo.sip
+@@ -200,6 +201,7 @@ static const char *PYQT_VERSION_STR = "6.8.1";
+ %Include qxmlstream.sip
+ %Include qyieldcpu.sip
+ %Include qanystringview.sip
++%Include qpycore_std_chrono_duration.sip
+ %Include qflags.sip
+ %Include qstring.sip
+ %Include qbytearraylist.sip
+diff --git a/sip/QtCore/qabstractitemmodel.sip b/sip/QtCore/qabstractitemmodel.sip
+index 2c526cb..d5002fe 100644
+--- a/sip/QtCore/qabstractitemmodel.sip
++++ b/sip/QtCore/qabstractitemmodel.sip
+@@ -344,7 +344,7 @@ static void qpycore_gc_modelroledata(PyObject *mrd_obj);
+ // The capsule destructor for a QModelRoleData array.
+ static void qpycore_gc_modelroledata(PyObject *mrd_obj)
+ {
+-    delete[] reinterpret_cast<QList<QModelRoleData>* >(PyCapsule_GetPointer(mrd_obj, NULL));
++    delete reinterpret_cast<QList<QModelRoleData>* >(PyCapsule_GetPointer(mrd_obj, NULL));
+ }
+ %End
+ 
+diff --git a/sip/QtCore/qchar.sip b/sip/QtCore/qchar.sip
+index 6a6a911..ad52909 100644
+--- a/sip/QtCore/qchar.sip
++++ b/sip/QtCore/qchar.sip
+@@ -218,6 +218,27 @@ public:
+         Script_Vithkuqi,
+         Script_Kawi,
+         Script_NagMundari,
++%If (Qt_6_9_0 -)
++        Script_Garay,
++%End
++%If (Qt_6_9_0 -)
++        Script_GurungKhema,
++%End
++%If (Qt_6_9_0 -)
++        Script_KiratRai,
++%End
++%If (Qt_6_9_0 -)
++        Script_OlOnal,
++%End
++%If (Qt_6_9_0 -)
++        Script_Sunuwar,
++%End
++%If (Qt_6_9_0 -)
++        Script_Todhri,
++%End
++%If (Qt_6_9_0 -)
++        Script_TuluTigalari,
++%End
+     };
+ };
+ 
+diff --git a/sip/QtCore/qcommandlineoption.sip b/sip/QtCore/qcommandlineoption.sip
+index 5185002..acdc102 100644
+--- a/sip/QtCore/qcommandlineoption.sip
++++ b/sip/QtCore/qcommandlineoption.sip
+@@ -47,6 +47,9 @@ public:
+     {
+         HiddenFromHelp,
+         ShortOptionStyle,
++%If (Qt_6_9_0 -)
++        IgnoreOptionsAfter,
++%End
+     };
+ 
+     typedef QFlags<QCommandLineOption::Flag> Flags;
+diff --git a/sip/QtCore/qcommandlineparser.sip b/sip/QtCore/qcommandlineparser.sip
+index c0a465d..1ada9bf 100644
+--- a/sip/QtCore/qcommandlineparser.sip
++++ b/sip/QtCore/qcommandlineparser.sip
+@@ -69,6 +69,18 @@ public:
+     };
+ 
+     void setOptionsAfterPositionalArgumentsMode(QCommandLineParser::OptionsAfterPositionalArgumentsMode mode);
++%If (Qt_6_9_0 -)
++
++    enum class MessageType
++    {
++        Information,
++        Error,
++    };
++
++%End
++%If (Qt_6_9_0 -)
++    static void showMessageAndExit(QCommandLineParser::MessageType type, const QString &message, int exitCode = 0);
++%End
+ 
+ private:
+     QCommandLineParser(const QCommandLineParser &);
+diff --git a/sip/QtCore/qconcatenatetablesproxymodel.sip b/sip/QtCore/qconcatenatetablesproxymodel.sip
+index 5ac7f63..8555c96 100644
+--- a/sip/QtCore/qconcatenatetablesproxymodel.sip
++++ b/sip/QtCore/qconcatenatetablesproxymodel.sip
+@@ -87,4 +87,7 @@ public:
+     virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
+     virtual QSize span(const QModelIndex &index) const;
+     QList<QAbstractItemModel *> sourceModels() const;
++%If (Qt_6_9_0 -)
++    virtual QHash<int, QByteArray> roleNames() const;
++%End
+ };
+diff --git a/sip/QtCore/qcoreevent.sip b/sip/QtCore/qcoreevent.sip
+index 7498ba8..c567b4d 100644
+--- a/sip/QtCore/qcoreevent.sip
++++ b/sip/QtCore/qcoreevent.sip
+@@ -216,6 +216,9 @@ public:
+ %End
+ %If (Qt_6_7_0 -)
+         ParentWindowChange,
++%End
++%If (Qt_6_9_0 -)
++        SafeAreaMarginsChange,
+ %End
+         User,
+         MaxUser,
+@@ -262,6 +265,9 @@ public:
+         sipRes = qToUnderlying<Qt::TimerId>(sipCpp->id());
+ %End
+ 
++%End
++%If (Qt_6_9_0 -)
++    bool matches(const QBasicTimer &timer) const;
+ %End
+ };
+ 
+diff --git a/sip/QtCore/qdatastream.sip b/sip/QtCore/qdatastream.sip
+index 9377674..6cdb748 100644
+--- a/sip/QtCore/qdatastream.sip
++++ b/sip/QtCore/qdatastream.sip
+@@ -85,6 +85,9 @@ public:
+ %End
+ %If (Qt_6_8_0 -)
+         Qt_6_8,
++%End
++%If (Qt_6_9_0 -)
++        Qt_6_9,
+ %End
+     };
+ 
+diff --git a/sip/QtCore/qfile.sip b/sip/QtCore/qfile.sip
+index 4b6e322..fc799f3 100644
+--- a/sip/QtCore/qfile.sip
++++ b/sip/QtCore/qfile.sip
+@@ -28,7 +28,12 @@ class QFile : public QFileDevice
+ 
+ public:
+     QFile();
++%If (Qt_6_9_0 -)
++    explicit QFile(const QString &name);
++%End
++%If (- Qt_6_9_0)
+     QFile(const QString &name);
++%End
+     explicit QFile(QObject *parent /TransferThis/);
+     QFile(const QString &name, QObject *parent /TransferThis/);
+     virtual ~QFile();
+@@ -63,4 +68,7 @@ public:
+     static bool setPermissions(const QString &filename, QFileDevice::Permissions permissionSpec);
+     bool moveToTrash();
+     static bool moveToTrash(const QString &fileName, QString *pathInTrash /Out/ = 0);
++%If (Qt_6_9_0 -)
++    static bool supportsMoveToTrash();
++%End
+ };
+diff --git a/sip/QtCore/qiodevice.sip b/sip/QtCore/qiodevice.sip
+index dba2ba3..205a9af 100644
+--- a/sip/QtCore/qiodevice.sip
++++ b/sip/QtCore/qiodevice.sip
+@@ -127,6 +127,9 @@ public:
+         Py_END_ALLOW_THREADS
+ %End
+ 
++%If (Qt_6_9_0 -)
++    bool readLineInto(QByteArray *result, qint64 maxSize = 0) /ReleaseGIL/;
++%End
+     QByteArray readAll() /ReleaseGIL/;
+     virtual bool canReadLine() const;
+     void startTransaction();
+diff --git a/sip/QtCore/qjsondocument.sip b/sip/QtCore/qjsondocument.sip
+index 27d4f2e..44200c9 100644
+--- a/sip/QtCore/qjsondocument.sip
++++ b/sip/QtCore/qjsondocument.sip
+@@ -20,6 +20,8 @@
+ // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ 
+ 
++%If (- Qt_6_9_0)
++
+ struct QJsonParseError
+ {
+ %TypeHeaderCode
+@@ -50,6 +52,8 @@ struct QJsonParseError
+     QJsonParseError::ParseError error;
+ };
+ 
++%End
++
+ class QJsonDocument
+ {
+ %TypeHeaderCode
+diff --git a/sip/QtCore/qjsonparseerror.sip b/sip/QtCore/qjsonparseerror.sip
+new file mode 100644
+index 0000000..dea3a69
+--- /dev/null
++++ b/sip/QtCore/qjsonparseerror.sip
+@@ -0,0 +1,55 @@
++// qjsonparseerror.sip generated by MetaSIP
++//
++// This file is part of the QtCore Python extension module.
++//
++// Copyright (c) 2025 Riverbank Computing Limited <info@riverbankcomputing.com>
++// 
++// This file is part of PyQt6.
++// 
++// This file may be used under the terms of the GNU General Public License
++// version 3.0 as published by the Free Software Foundation and appearing in
++// the file LICENSE included in the packaging of this file.  Please review the
++// following information to ensure the GNU General Public License version 3.0
++// requirements will be met: http://www.gnu.org/copyleft/gpl.html.
++// 
++// If you do not wish to use this file under the terms of the GPL version 3.0
++// then you may purchase a commercial license.  For more information contact
++// info@riverbankcomputing.com.
++// 
++// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
++// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
++
++
++%If (Qt_6_9_0 -)
++
++struct QJsonParseError
++{
++%TypeHeaderCode
++#include <qjsonparseerror.h>
++%End
++
++    enum ParseError
++    {
++        NoError,
++        UnterminatedObject,
++        MissingNameSeparator,
++        UnterminatedArray,
++        MissingValueSeparator,
++        IllegalValue,
++        TerminationByNumber,
++        IllegalNumber,
++        IllegalEscapeSequence,
++        IllegalUTF8String,
++        UnterminatedString,
++        MissingObject,
++        DeepNesting,
++        DocumentTooLarge,
++        GarbageAtEnd,
++    };
++
++    QString errorString() const;
++    int offset;
++    QJsonParseError::ParseError error;
++};
++
++%End
+diff --git a/sip/QtCore/qjsonvalue.sip b/sip/QtCore/qjsonvalue.sip
+index 7a6cc3e..e4c281c 100644
+--- a/sip/QtCore/qjsonvalue.sip
++++ b/sip/QtCore/qjsonvalue.sip
+@@ -81,6 +81,16 @@ public:
+ %MethodCode
+         sipRes = qHash(*sipCpp);
+ %End
++
++%If (Qt_6_9_0 -)
++    typedef QJsonDocument::JsonFormat JsonFormat;
++%End
++%If (Qt_6_9_0 -)
++    static QJsonValue fromJson(QByteArrayView json, QJsonParseError *error /Out/ = 0);
++%End
++%If (Qt_6_9_0 -)
++    QByteArray toJson(QJsonValue::JsonFormat format = QJsonDocument::Indented) const;
++%End
+ };
+ 
+ QDataStream &operator<<(QDataStream &, const QJsonValue & /Constrained/) /ReleaseGIL/;
+diff --git a/sip/QtCore/qlocale.sip b/sip/QtCore/qlocale.sip
+index 3c17d0d..0fbe765 100644
+--- a/sip/QtCore/qlocale.sip
++++ b/sip/QtCore/qlocale.sip
+@@ -427,6 +427,12 @@ public:
+ %End
+ %If (Qt_6_8_0 -)
+         Kuvi,
++%End
++%If (Qt_6_9_0 -)
++        KaraKalpak,
++%End
++%If (Qt_6_9_0 -)
++        SwampyCree,
+ %End
+     };
+ 
+diff --git a/sip/QtCore/qmetaobject.sip b/sip/QtCore/qmetaobject.sip
+index 877fea7..772ef38 100644
+--- a/sip/QtCore/qmetaobject.sip
++++ b/sip/QtCore/qmetaobject.sip
+@@ -164,15 +164,28 @@ public:
+     int value(int index) const;
+     const char *scope() const;
+     int keyToValue(const char *key, bool *ok = 0) const;
++%If (Qt_6_9_0 -)
++    const char *valueToKey(quint64 value) const;
++%End
++%If (- Qt_6_9_0)
+     const char *valueToKey(int value) const;
++%End
+     int keysToValue(const char *keys, bool *ok = 0) const;
++%If (Qt_6_9_0 -)
++    QByteArray valueToKeys(quint64 value) const;
++%End
++%If (- Qt_6_9_0)
+     QByteArray valueToKeys(int value) const;
++%End
+     bool isValid() const;
+     bool isScoped() const;
+     const char *enumName() const;
+ %If (Qt_6_6_0 -)
+     QMetaType metaType() const;
+ %End
++%If (Qt_6_9_0 -)
++    bool is64Bit() const;
++%End
+ };
+ 
+ class QMetaProperty
+diff --git a/sip/QtCore/qnamespace.sip b/sip/QtCore/qnamespace.sip
+index 70e1906..f059a4c 100644
+--- a/sip/QtCore/qnamespace.sip
++++ b/sip/QtCore/qnamespace.sip
+@@ -220,6 +220,12 @@ namespace Qt
+         BypassWindowManagerHint,
+         CoverWindow,
+         MaximizeUsingFullscreenGeometryHint,
++%If (Qt_6_9_0 -)
++        ExpandedClientAreaHint,
++%End
++%If (Qt_6_9_0 -)
++        NoTitleBarBackgroundHint,
++%End
+     };
+ 
+     typedef QFlags<Qt::WindowType> WindowFlags;
+diff --git a/sip/QtCore/qprocess.sip b/sip/QtCore/qprocess.sip
+index a59f5ea..97929a1 100644
+--- a/sip/QtCore/qprocess.sip
++++ b/sip/QtCore/qprocess.sip
+@@ -215,6 +215,9 @@ public:
+ %End
+ %If (Qt_6_7_0 -)
+         ResetIds,
++%End
++%If (Qt_6_9_0 -)
++        DisableCoreDumps,
+ %End
+     };
+ 
+diff --git a/sip/QtCore/qpycore_std_chrono_duration.sip b/sip/QtCore/qpycore_std_chrono_duration.sip
+new file mode 100644
+index 0000000..8e6d65d
+--- /dev/null
++++ b/sip/QtCore/qpycore_std_chrono_duration.sip
+@@ -0,0 +1,79 @@
++// This is the SIP interface definition for the std::chrono::duration based
++// mapped types.
++//
++// Copyright (c) 2025 Riverbank Computing Limited <info@riverbankcomputing.com>
++// 
++// This file is part of PyQt6.
++// 
++// This file may be used under the terms of the GNU General Public License
++// version 3.0 as published by the Free Software Foundation and appearing in
++// the file LICENSE included in the packaging of this file.  Please review the
++// following information to ensure the GNU General Public License version 3.0
++// requirements will be met: http://www.gnu.org/copyleft/gpl.html.
++// 
++// If you do not wish to use this file under the terms of the GPL version 3.0
++// then you may purchase a commercial license.  For more information contact
++// info@riverbankcomputing.com.
++// 
++// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
++// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
++
++
++%If (Qt_6_8_0 -)
++
++%MappedType std::chrono::milliseconds /TypeHint="int"/
++{
++%TypeHeaderCode
++#include <chrono>
++%End
++
++%ConvertFromTypeCode
++    return PyLong_FromLong(sipCpp->count());
++%End
++
++%ConvertToTypeCode
++    if (!sipIsErr)
++    {
++        PyErr_Clear();
++        sipLong_AsLong(sipPy);
++
++        return !PyErr_Occurred();
++    }
++
++    *sipCppPtr = new std::chrono::milliseconds(sipLong_AsLong(sipPy));
++ 
++    return sipGetState(sipTransferObj);
++%End
++};
++
++%End
++
++
++%If (Qt_6_9_0 -)
++
++%MappedType std::chrono::seconds /TypeHint="int"/
++{
++%TypeHeaderCode
++#include <chrono>
++%End
++
++%ConvertFromTypeCode
++    return PyLong_FromLong(sipCpp->count());
++%End
++
++%ConvertToTypeCode
++    if (!sipIsErr)
++    {
++        PyErr_Clear();
++        sipLong_AsLong(sipPy);
++
++        return !PyErr_Occurred();
++    }
++
++    *sipCppPtr = new std::chrono::seconds(sipLong_AsLong(sipPy));
++ 
++    return sipGetState(sipTransferObj);
++%End
++};
++
++%End
+diff --git a/sip/QtCore/qsortfilterproxymodel.sip b/sip/QtCore/qsortfilterproxymodel.sip
+index 345280c..04e3b66 100644
+--- a/sip/QtCore/qsortfilterproxymodel.sip
++++ b/sip/QtCore/qsortfilterproxymodel.sip
+@@ -95,7 +95,12 @@ public:
+     void setRecursiveFilteringEnabled(bool recursive);
+ 
+ protected:
++%If (Qt_6_9_0 -)
++    void beginFilterChange();
++%End
+     void invalidateFilter();
++    void invalidateRowsFilter();
++    void invalidateColumnsFilter();
+ 
+ signals:
+     void dynamicSortFilterChanged(bool dynamicSortFilter);
+@@ -110,10 +115,6 @@ public:
+     bool autoAcceptChildRows() const;
+     void setAutoAcceptChildRows(bool accept);
+ 
+-protected:
+-    void invalidateRowsFilter();
+-    void invalidateColumnsFilter();
+-
+ signals:
+     void autoAcceptChildRowsChanged(bool autoAcceptChildRows);
+ };
+diff --git a/sip/QtCore/qstringconverter_base.sip b/sip/QtCore/qstringconverter_base.sip
+index 883d15e..8f6b557 100644
+--- a/sip/QtCore/qstringconverter_base.sip
++++ b/sip/QtCore/qstringconverter_base.sip
+@@ -42,6 +42,9 @@ public:
+     typedef QFlags<QStringConverterBase::Flag> Flags;
+ 
+ protected:
++%If (Qt_6_9_0 -)
++    QStringConverterBase();
++%End
+     ~QStringConverterBase();
+ };
+ 
+diff --git a/sip/QtCore/qthread.sip b/sip/QtCore/qthread.sip
+index 5fac8e2..aca670b 100644
+--- a/sip/QtCore/qthread.sip
++++ b/sip/QtCore/qthread.sip
+@@ -88,4 +88,20 @@ public:
+ %If (Qt_6_8_0 -)
+     bool isCurrentThread() const;
+ %End
++%If (Qt_6_9_0 -)
++
++    enum class QualityOfService
++    {
++        Auto,
++        High,
++        Eco,
++    };
++
++%End
++%If (Qt_6_9_0 -)
++    void setServiceLevel(QThread::QualityOfService serviceLevel);
++%End
++%If (Qt_6_9_0 -)
++    QThread::QualityOfService serviceLevel() const;
++%End
+ };
+diff --git a/sip/QtCore/qthreadpool.sip b/sip/QtCore/qthreadpool.sip
+index 6135832..e16af39 100644
+--- a/sip/QtCore/qthreadpool.sip
++++ b/sip/QtCore/qthreadpool.sip
+@@ -176,5 +176,11 @@ public:
+         Py_END_ALLOW_THREADS
+ %End
+ 
++%End
++%If (Qt_6_9_0 -)
++    void setServiceLevel(QThread::QualityOfService serviceLevel);
++%End
++%If (Qt_6_9_0 -)
++    QThread::QualityOfService serviceLevel() const;
+ %End
+ };
+diff --git a/sip/QtCore/quuid.sip b/sip/QtCore/quuid.sip
+index 7800a14..1c9ca98 100644
+--- a/sip/QtCore/quuid.sip
++++ b/sip/QtCore/quuid.sip
+@@ -45,6 +45,9 @@ public:
+         Name,
+         Random,
+         Sha1,
++%If (Qt_6_9_0 -)
++        UnixEpoch,
++%End
+     };
+ 
+     enum StringFormat
+@@ -106,14 +109,17 @@ public:
+ %If (- Qt_6_8_0)
+     static QUuid createUuidV3(const QUuid &ns, const QByteArray &baseData);
+ %End
++    static QUuid createUuidV3(const QUuid &ns, const QString &baseData);
+ %If (Qt_6_8_0 -)
+     static QUuid createUuidV5(QUuid ns, QByteArrayView baseData);
+ %End
+ %If (- Qt_6_8_0)
+     static QUuid createUuidV5(const QUuid &ns, const QByteArray &baseData);
+ %End
+-    static QUuid createUuidV3(const QUuid &ns, const QString &baseData);
+     static QUuid createUuidV5(const QUuid &ns, const QString &baseData);
++%If (Qt_6_9_0 -)
++    static QUuid createUuidV7();
++%End
+     QUuid::Variant variant() const;
+     QUuid::Version version() const;
+     QByteArray toByteArray(QUuid::StringFormat mode = QUuid::WithBraces) const;
+diff --git a/sip/QtGui/QtGuimod.sip b/sip/QtGui/QtGuimod.sip
+index 138f8f4..019bc54 100644
+--- a/sip/QtGui/QtGuimod.sip
++++ b/sip/QtGui/QtGuimod.sip
+@@ -66,6 +66,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ %Include qfontdatabase.sip
+ %Include qfontinfo.sip
+ %Include qfontmetrics.sip
++%Include qfontvariableaxis.sip
+ %Include qgenericmatrix.sip
+ %Include qglyphrun.sip
+ %Include qguiapplication.sip
+@@ -91,6 +92,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ %Include qpaintengine.sip
+ %Include qpainter.sip
+ %Include qpainterpath.sip
++%Include qpainterstateguard.sip
+ %Include qpalette.sip
+ %Include qpdfoutputintent.sip
+ %Include qpdfwriter.sip
+diff --git a/sip/QtGui/qbrush.sip b/sip/QtGui/qbrush.sip
+index dfeca7e..36f23d0 100644
+--- a/sip/QtGui/qbrush.sip
++++ b/sip/QtGui/qbrush.sip
+@@ -420,3 +420,28 @@ public:
+     void setCenter(qreal x, qreal y);
+     void setAngle(qreal angle);
+ };
++
++%If (Qt_6_9_0 -)
++bool operator!=(const QBrush &lhs, const Qt::BrushStyle &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator!=(const QBrush &lhs, const Qt::GlobalColor &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator!=(const QBrush &lhs, const QColor &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator!=(const QColor &lhs, const QBrush &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator==(const QBrush &lhs, const Qt::BrushStyle &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator==(const QBrush &lhs, const Qt::GlobalColor &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator==(const QBrush &lhs, const QColor &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator==(const QColor &lhs, const QBrush &rhs);
++%End
+diff --git a/sip/QtGui/qcolorspace.sip b/sip/QtGui/qcolorspace.sip
+index d25c7f4..583be8a 100644
+--- a/sip/QtGui/qcolorspace.sip
++++ b/sip/QtGui/qcolorspace.sip
+@@ -117,6 +117,9 @@ public:
+     QColorSpace(QPointF whitePoint, QColorSpace::TransferFunction transferFunction, float gamma = 0.F);
+ %End
+     QColorSpace(const QColorSpace &colorSpace);
++%If (Qt_6_9_0 -)
++    QColorSpace(const QColorSpace::PrimaryPoints &primaryPoints, QColorSpace::TransferFunction transferFunction, float gamma = 0.F);
++%End
+     ~QColorSpace();
+     void swap(QColorSpace &colorSpace /Constrained/);
+     QColorSpace::Primaries primaries() const;
+@@ -163,6 +166,25 @@ public:
+ %If (Qt_6_8_0 -)
+     bool isValidTarget() const;
+ %End
++%If (Qt_6_9_0 -)
++
++    struct PrimaryPoints
++    {
++%TypeHeaderCode
++#include <qcolorspace.h>
++%End
++
++        static QColorSpace::PrimaryPoints fromPrimaries(QColorSpace::Primaries primaries);
++        bool isValid() const;
++    };
++
++%End
++%If (Qt_6_9_0 -)
++    void setPrimaryPoints(const QColorSpace::PrimaryPoints &primaryPoints);
++%End
++%If (Qt_6_9_0 -)
++    QColorSpace::PrimaryPoints primaryPoints() const;
++%End
+ };
+ 
+ bool operator==(const QColorSpace &colorSpace1, const QColorSpace &colorSpace2);
+diff --git a/sip/QtGui/qfontdatabase.sip b/sip/QtGui/qfontdatabase.sip
+index d053ee0..d5d5e08 100644
+--- a/sip/QtGui/qfontdatabase.sip
++++ b/sip/QtGui/qfontdatabase.sip
+@@ -113,6 +113,18 @@ public:
+ %If (Qt_6_8_0 -)
+     static QStringList applicationFallbackFontFamilies(QChar::Script script);
+ %End
++%If (Qt_6_9_0 -)
++    static void addApplicationEmojiFontFamily(const QString &familyName);
++%End
++%If (Qt_6_9_0 -)
++    static bool removeApplicationEmojiFontFamily(const QString &familyName);
++%End
++%If (Qt_6_9_0 -)
++    static void setApplicationEmojiFontFamilies(const QStringList &familyNames);
++%End
++%If (Qt_6_9_0 -)
++    static QStringList applicationEmojiFontFamilies();
++%End
+ 
+ private:
+     QFontDatabase();
+diff --git a/sip/QtGui/qfontinfo.sip b/sip/QtGui/qfontinfo.sip
+index 9a164fa..3fb7841 100644
+--- a/sip/QtGui/qfontinfo.sip
++++ b/sip/QtGui/qfontinfo.sip
+@@ -43,4 +43,7 @@ public:
+     bool exactMatch() const;
+     QString styleName() const;
+     void swap(QFontInfo &other /Constrained/);
++%If (Qt_6_9_0 -)
++    QList<QFontVariableAxis> variableAxes() const;
++%End
+ };
+diff --git a/sip/QtGui/qfontvariableaxis.sip b/sip/QtGui/qfontvariableaxis.sip
+new file mode 100644
+index 0000000..f03d513
+--- /dev/null
++++ b/sip/QtGui/qfontvariableaxis.sip
+@@ -0,0 +1,48 @@
++// qfontvariableaxis.sip generated by MetaSIP
++//
++// This file is part of the QtGui Python extension module.
++//
++// Copyright (c) 2025 Riverbank Computing Limited <info@riverbankcomputing.com>
++// 
++// This file is part of PyQt6.
++// 
++// This file may be used under the terms of the GNU General Public License
++// version 3.0 as published by the Free Software Foundation and appearing in
++// the file LICENSE included in the packaging of this file.  Please review the
++// following information to ensure the GNU General Public License version 3.0
++// requirements will be met: http://www.gnu.org/copyleft/gpl.html.
++// 
++// If you do not wish to use this file under the terms of the GPL version 3.0
++// then you may purchase a commercial license.  For more information contact
++// info@riverbankcomputing.com.
++// 
++// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
++// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
++
++
++%If (Qt_6_9_0 -)
++
++class QFontVariableAxis
++{
++%TypeHeaderCode
++#include <qfontvariableaxis.h>
++%End
++
++public:
++    QFontVariableAxis();
++    QFontVariableAxis(const QFontVariableAxis &axis);
++    ~QFontVariableAxis();
++    void swap(QFontVariableAxis &other /Constrained/);
++    QFont::Tag tag() const;
++    void setTag(QFont::Tag tag);
++    QString name() const;
++    void setName(const QString &name);
++    qreal minimumValue() const;
++    void setMinimumValue(qreal minimumValue);
++    qreal maximumValue() const;
++    void setMaximumValue(qreal maximumValue);
++    qreal defaultValue() const;
++    void setDefaultValue(qreal defaultValue);
++};
++
++%End
+diff --git a/sip/QtGui/qimage.sip b/sip/QtGui/qimage.sip
+index 7f27cba..8545f8c 100644
+--- a/sip/QtGui/qimage.sip
++++ b/sip/QtGui/qimage.sip
+@@ -342,6 +342,12 @@ public:
+ %If (Qt_6_8_0 -)
+     QImage colorTransformed(const QColorTransform &transform, QImage::Format format, Qt::ImageConversionFlags flags = Qt::AutoColor);
+ %End
++%If (Qt_6_9_0 -)
++    QImage flipped(Qt::Orientations orient = Qt::Vertical) const;
++%End
++%If (Qt_6_9_0 -)
++    void flip(Qt::Orientations orient = Qt::Vertical);
++%End
+ };
+ 
+ QDataStream &operator<<(QDataStream &, const QImage &) /ReleaseGIL/;
+diff --git a/sip/QtGui/qinputdevice.sip b/sip/QtGui/qinputdevice.sip
+index ac44a31..a5d9c41 100644
+--- a/sip/QtGui/qinputdevice.sip
++++ b/sip/QtGui/qinputdevice.sip
+@@ -81,6 +81,9 @@ public:
+ 
+ signals:
+     void availableVirtualGeometryChanged(QRect area);
++%If (Qt_6_9_0 -)
++    void capabilitiesChanged(QInputDevice::Capabilities capabilities);
++%End
+ 
+ public:
+ %If (Qt_6_3_0 -)
+diff --git a/sip/QtGui/qpainterstateguard.sip b/sip/QtGui/qpainterstateguard.sip
+new file mode 100644
+index 0000000..0009e8d
+--- /dev/null
++++ b/sip/QtGui/qpainterstateguard.sip
+@@ -0,0 +1,48 @@
++// qpainterstateguard.sip generated by MetaSIP
++//
++// This file is part of the QtGui Python extension module.
++//
++// Copyright (c) 2025 Riverbank Computing Limited <info@riverbankcomputing.com>
++// 
++// This file is part of PyQt6.
++// 
++// This file may be used under the terms of the GNU General Public License
++// version 3.0 as published by the Free Software Foundation and appearing in
++// the file LICENSE included in the packaging of this file.  Please review the
++// following information to ensure the GNU General Public License version 3.0
++// requirements will be met: http://www.gnu.org/copyleft/gpl.html.
++// 
++// If you do not wish to use this file under the terms of the GPL version 3.0
++// then you may purchase a commercial license.  For more information contact
++// info@riverbankcomputing.com.
++// 
++// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
++// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
++
++
++%If (Qt_6_9_0 -)
++
++class QPainterStateGuard
++{
++%TypeHeaderCode
++#include <qpainterstateguard.h>
++%End
++
++public:
++    enum class InitialState
++    {
++        Save,
++        NoSave,
++    };
++
++    QPainterStateGuard(QPainter *painter, QPainterStateGuard::InitialState state = QPainterStateGuard::InitialState::Save);
++    ~QPainterStateGuard();
++    void swap(QPainterStateGuard &other /Constrained/);
++    void save();
++    void restore();
++
++private:
++    QPainterStateGuard(const QPainterStateGuard &);
++};
++
++%End
+diff --git a/sip/QtGui/qpdfwriter.sip b/sip/QtGui/qpdfwriter.sip
+index 2a32eab..2c48657 100644
+--- a/sip/QtGui/qpdfwriter.sip
++++ b/sip/QtGui/qpdfwriter.sip
+@@ -77,4 +77,10 @@ public:
+ %If (Qt_6_8_0 -)
+     void setOutputIntent(const QPdfOutputIntent &intent);
+ %End
++%If (Qt_6_9_0 -)
++    QString author() const;
++%End
++%If (Qt_6_9_0 -)
++    void setAuthor(const QString &author);
++%End
+ };
+diff --git a/sip/QtGui/qpen.sip b/sip/QtGui/qpen.sip
+index a4c2b04..324c4df 100644
+--- a/sip/QtGui/qpen.sip
++++ b/sip/QtGui/qpen.sip
+@@ -101,3 +101,21 @@ public:
+ 
+ QDataStream &operator<<(QDataStream &, const QPen &) /ReleaseGIL/;
+ QDataStream &operator>>(QDataStream &, QPen & /Constrained/) /ReleaseGIL/;
++%If (Qt_6_9_0 -)
++bool operator!=(const QPen &lhs, const Qt::PenStyle &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator!=(const QPen &lhs, const QColor &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator!=(const QColor &lhs, const QPen &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator==(const QPen &lhs, const Qt::PenStyle &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator==(const QPen &lhs, const QColor &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator==(const QColor &lhs, const QPen &rhs);
++%End
+diff --git a/sip/QtGui/qtextoption.sip b/sip/QtGui/qtextoption.sip
+index f82c607..7912414 100644
+--- a/sip/QtGui/qtextoption.sip
++++ b/sip/QtGui/qtextoption.sip
+@@ -55,6 +55,12 @@ public:
+         AddSpaceForLineAndParagraphSeparators,
+         SuppressColors,
+         ShowDocumentTerminator,
++%If (Qt_6_9_0 -)
++        ShowDefaultIgnorables,
++%End
++%If (Qt_6_9_0 -)
++        DisableEmojiParsing,
++%End
+     };
+ 
+     typedef QFlags<QTextOption::Flag> Flags;
+diff --git a/sip/QtGui/qwindow.sip b/sip/QtGui/qwindow.sip
+index 6c907e8..b5b6ef0 100644
+--- a/sip/QtGui/qwindow.sip
++++ b/sip/QtGui/qwindow.sip
+@@ -221,4 +221,12 @@ public:
+ %If (PyQt_Vulkan)
+     QVulkanInstance *vulkanInstance() const;
+ %End
++%If (Qt_6_9_0 -)
++    QMargins safeAreaMargins() const;
++%End
++
++signals:
++%If (Qt_6_9_0 -)
++    void safeAreaMarginsChanged(QMargins arg);
++%End
+ };
+diff --git a/sip/QtNetwork/qhttp2configuration.sip b/sip/QtNetwork/qhttp2configuration.sip
+index 7532a6f..c451070 100644
+--- a/sip/QtNetwork/qhttp2configuration.sip
++++ b/sip/QtNetwork/qhttp2configuration.sip
+@@ -41,6 +41,12 @@ public:
+     bool setMaxFrameSize(unsigned int size);
+     unsigned int maxFrameSize() const;
+     void swap(QHttp2Configuration &other /Constrained/);
++%If (Qt_6_9_0 -)
++    void setMaxConcurrentStreams(unsigned int value);
++%End
++%If (Qt_6_9_0 -)
++    unsigned int maxConcurrentStreams() const;
++%End
+ };
+ 
+ bool operator==(const QHttp2Configuration &lhs, const QHttp2Configuration &rhs);
+diff --git a/sip/QtNetwork/qnetworkrequestfactory.sip b/sip/QtNetwork/qnetworkrequestfactory.sip
+index 915cac9..35b90cc 100644
+--- a/sip/QtNetwork/qnetworkrequestfactory.sip
++++ b/sip/QtNetwork/qnetworkrequestfactory.sip
+@@ -58,16 +58,8 @@ public:
+     QString password() const;
+     void setPassword(const QString &password);
+     void clearPassword();
+-    void setTransferTimeout(qint64 timeout);
+-%MethodCode
+-        sipCpp->setTransferTimeout(std::chrono::milliseconds(a0));
+-%End
+-
+-    qint64 transferTimeout() const;
+-%MethodCode
+-        sipRes = sipCpp->transferTimeout().count();
+-%End
+-
++    void setTransferTimeout(std::chrono::milliseconds timeout);
++    std::chrono::milliseconds transferTimeout() const;
+     QUrlQuery queryParameters() const;
+     void setQueryParameters(const QUrlQuery &query);
+     void clearQueryParameters();
+diff --git a/sip/QtQuick/qquickitem.sip b/sip/QtQuick/qquickitem.sip
+index 8c0730a..e73b559 100644
+--- a/sip/QtQuick/qquickitem.sip
++++ b/sip/QtQuick/qquickitem.sip
+@@ -57,6 +57,12 @@ public:
+         ItemAntialiasingHasChanged,
+         ItemDevicePixelRatioHasChanged,
+         ItemEnabledHasChanged,
++%If (Qt_6_9_0 -)
++        ItemScaleHasChanged,
++%End
++%If (Qt_6_9_0 -)
++        ItemTransformHasChanged,
++%End
+     };
+ 
+     struct ItemChangeData
+diff --git a/sip/QtQuickWidgets/qquickwidget.sip b/sip/QtQuickWidgets/qquickwidget.sip
+index e15fe08..3072d0a 100644
+--- a/sip/QtQuickWidgets/qquickwidget.sip
++++ b/sip/QtQuickWidgets/qquickwidget.sip
+@@ -34,6 +34,9 @@ public:
+     explicit QQuickWidget(QWidget *parent /TransferThis/ = 0);
+     QQuickWidget(QQmlEngine *engine, QWidget *parent /TransferThis/);
+     QQuickWidget(const QUrl &source, QWidget *parent /TransferThis/ = 0);
++%If (Qt_6_9_0 -)
++    QQuickWidget(QAnyStringView uri, QAnyStringView typeName, QWidget *parent /TransferThis/ = 0);
++%End
+     virtual ~QQuickWidget();
+     QUrl source() const;
+     QQmlEngine *engine() const;
+@@ -91,12 +94,16 @@ protected:
+     virtual void dragLeaveEvent(QDragLeaveEvent *);
+     virtual void dropEvent(QDropEvent *);
+     virtual void paintEvent(QPaintEvent *event);
++    virtual bool focusNextPrevChild(bool next);
+ 
+ public:
+     QImage grabFramebuffer() const;
+     void setClearColor(const QColor &color);
+     QQuickWindow *quickWindow() const;
+-
+-protected:
+-    virtual bool focusNextPrevChild(bool next);
++%If (Qt_6_9_0 -)
++    void setInitialProperties(const QVariantMap &initialProperties);
++%End
++%If (Qt_6_9_0 -)
++    void loadFromModule(QAnyStringView uri, QAnyStringView typeName);
++%End
+ };
+diff --git a/sip/QtSerialPort/qserialport.sip b/sip/QtSerialPort/qserialport.sip
+index 8a8dcab..cf3c71b 100644
+--- a/sip/QtSerialPort/qserialport.sip
++++ b/sip/QtSerialPort/qserialport.sip
+@@ -277,6 +277,19 @@ public:
+ signals:
+     void breakEnabledChanged(bool set);
+     void errorOccurred(QSerialPort::SerialPortError error);
++
++public:
++%If (Qt_6_9_0 -)
++    bool settingsRestoredOnClose() const;
++%End
++%If (Qt_6_9_0 -)
++    void setSettingsRestoredOnClose(bool restore);
++%End
++
++signals:
++%If (Qt_6_9_0 -)
++    void settingsRestoredOnCloseChanged(bool restore);
++%End
+ };
+ 
+ %End
+diff --git a/sip/QtSql/qsqldriver.sip b/sip/QtSql/qsqldriver.sip
+index cb76e34..eae311f 100644
+--- a/sip/QtSql/qsqldriver.sip
++++ b/sip/QtSql/qsqldriver.sip
+@@ -156,4 +156,7 @@ public:
+ 
+     QSqlDriver::DbmsType dbmsType() const;
+     virtual int maximumIdentifierLength(QSqlDriver::IdentifierType type) const;
++%If (Qt_6_9_0 -)
++    QString connectionName() const;
++%End
+ };
+diff --git a/sip/QtSql/qsqlquerymodel.sip b/sip/QtSql/qsqlquerymodel.sip
+index af4a234..2fd365b 100644
+--- a/sip/QtSql/qsqlquerymodel.sip
++++ b/sip/QtSql/qsqlquerymodel.sip
+@@ -72,4 +72,7 @@ protected:
+ 
+ public:
+     virtual QHash<int, QByteArray> roleNames() const;
++%If (Qt_6_9_0 -)
++    void refresh();
++%End
+ };
+diff --git a/sip/QtSvg/qtsvgglobal.sip b/sip/QtSvg/qtsvgglobal.sip
+index a24b740..d269d93 100644
+--- a/sip/QtSvg/qtsvgglobal.sip
++++ b/sip/QtSvg/qtsvgglobal.sip
+@@ -34,6 +34,15 @@ namespace QtSvg
+         Tiny12FeaturesOnly,
+ %If (Qt_6_8_0 -)
+         AssumeTrustedSource,
++%End
++%If (Qt_6_9_0 -)
++        DisableSMILAnimations,
++%End
++%If (Qt_6_9_0 -)
++        DisableCSSAnimations,
++%End
++%If (Qt_6_9_0 -)
++        DisableAnimations,
+ %End
+     };
+ 
+diff --git a/sip/QtWidgets/qabstractitemview.sip b/sip/QtWidgets/qabstractitemview.sip
+index d863fca..84607c4 100644
+--- a/sip/QtWidgets/qabstractitemview.sip
++++ b/sip/QtWidgets/qabstractitemview.sip
+@@ -279,4 +279,12 @@ public:
+ 
+ protected:
+     virtual void initViewItemOption(QStyleOptionViewItem *option) const;
++
++public:
++%If (Qt_6_9_0 -)
++    int updateThreshold() const;
++%End
++%If (Qt_6_9_0 -)
++    void setUpdateThreshold(int threshold);
++%End
+ };
+diff --git a/sip/QtWidgets/qcombobox.sip b/sip/QtWidgets/qcombobox.sip
+index 3c007a5..7311c27 100644
+--- a/sip/QtWidgets/qcombobox.sip
++++ b/sip/QtWidgets/qcombobox.sip
+@@ -151,4 +151,19 @@ signals:
+ public:
+     void setPlaceholderText(const QString &placeholderText);
+     QString placeholderText() const;
++%If (Qt_6_9_0 -)
++
++    enum class LabelDrawingMode
++    {
++        UseStyle,
++        UseDelegate,
++    };
++
++%End
++%If (Qt_6_9_0 -)
++    QComboBox::LabelDrawingMode labelDrawingMode() const;
++%End
++%If (Qt_6_9_0 -)
++    void setLabelDrawingMode(QComboBox::LabelDrawingMode labelDrawing);
++%End
+ };
+diff --git a/sip/QtWidgets/qdockwidget.sip b/sip/QtWidgets/qdockwidget.sip
+index c64b157..24dc2b5 100644
+--- a/sip/QtWidgets/qdockwidget.sip
++++ b/sip/QtWidgets/qdockwidget.sip
+@@ -67,4 +67,12 @@ protected:
+     virtual void closeEvent(QCloseEvent *event);
+     virtual void paintEvent(QPaintEvent *event);
+     virtual bool event(QEvent *event);
++
++public:
++%If (Qt_6_9_0 -)
++    void setDockLocation(Qt::DockWidgetArea area);
++%End
++%If (Qt_6_9_0 -)
++    Qt::DockWidgetArea dockLocation() const;
++%End
+ };
+diff --git a/sip/QtWidgets/qstackedlayout.sip b/sip/QtWidgets/qstackedlayout.sip
+index c07e10e..afb3c72 100644
+--- a/sip/QtWidgets/qstackedlayout.sip
++++ b/sip/QtWidgets/qstackedlayout.sip
+@@ -99,6 +99,9 @@ public:
+ signals:
+     void widgetRemoved(int index);
+     void currentChanged(int index);
++%If (Qt_6_9_0 -)
++    void widgetAdded(int index);
++%End
+ 
+ public slots:
+     void setCurrentIndex(int index);
+diff --git a/sip/QtWidgets/qstackedwidget.sip b/sip/QtWidgets/qstackedwidget.sip
+index 4f60550..4573199 100644
+--- a/sip/QtWidgets/qstackedwidget.sip
++++ b/sip/QtWidgets/qstackedwidget.sip
+@@ -44,6 +44,9 @@ public slots:
+ 
+ signals:
+     void currentChanged(int);
++%If (Qt_6_9_0 -)
++    void widgetAdded(int index);
++%End
+     void widgetRemoved(int index);
+ 
+ protected:
+diff --git a/sip/QtWidgets/qstyleoption.sip b/sip/QtWidgets/qstyleoption.sip
+index 9fecea7..e202b0e 100644
+--- a/sip/QtWidgets/qstyleoption.sip
++++ b/sip/QtWidgets/qstyleoption.sip
+@@ -464,6 +464,9 @@ public:
+     {
+         None,
+         HasFrame,
++%If (Qt_6_9_0 -)
++        MinimumSizeHint,
++%End
+     };
+ 
+     typedef QFlags<QStyleOptionTab::TabFeature> TabFeatures;
+@@ -619,6 +622,12 @@ public:
+         HasCheckIndicator,
+         HasDisplay,
+         HasDecoration,
++%If (Qt_6_9_0 -)
++        IsDecoratedRootColumn,
++%End
++%If (Qt_6_9_0 -)
++        IsDecorationForRootColumn,
++%End
+     };
+ 
+     typedef QFlags<QStyleOptionViewItem::ViewItemFeature> ViewItemFeatures;
+diff --git a/sip/QtWidgets/qwidget.sip b/sip/QtWidgets/qwidget.sip
+index 2863260..a1f231f 100644
+--- a/sip/QtWidgets/qwidget.sip
++++ b/sip/QtWidgets/qwidget.sip
+@@ -515,4 +515,10 @@ public:
+     void setWindowFlag(Qt::WindowType, bool on = true);
+     QScreen *screen() const;
+     void setScreen(QScreen *);
++%If (Qt_6_9_0 -)
++    QString accessibleIdentifier() const;
++%End
++%If (Qt_6_9_0 -)
++    void setAccessibleIdentifier(const QString &identifier);
++%End
+ };
+diff --git a/sip/QtXml/qdom.sip b/sip/QtXml/qdom.sip
+index 5c93a6e..00708bf 100644
+--- a/sip/QtXml/qdom.sip
++++ b/sip/QtXml/qdom.sip
+@@ -158,8 +158,12 @@ public:
+     QDomNodeList();
+     QDomNodeList(const QDomNodeList &);
+     ~QDomNodeList();
++%If (- Qt_6_9_0)
+     bool operator==(const QDomNodeList &) const;
++%End
++%If (- Qt_6_9_0)
+     bool operator!=(const QDomNodeList &) const;
++%End
+     QDomNode item(int index) const;
+     QDomNode at(int index) const;
+     int length() const;
+@@ -526,3 +530,9 @@ public:
+ };
+ 
+ QTextStream &operator<<(QTextStream &, const QDomNode &) /ReleaseGIL/;
++%If (Qt_6_9_0 -)
++bool operator!=(const QDomNodeList &lhs, const QDomNodeList &rhs);
++%End
++%If (Qt_6_9_0 -)
++bool operator==(const QDomNodeList &lhs, const QDomNodeList &rhs);
++%End
+diff --git a/uic/uiparser.py b/uic/uiparser.py
+index 4a3d2c3..2bf450f 100644
+--- a/uic/uiparser.py
++++ b/uic/uiparser.py
+@@ -1,4 +1,4 @@
+-# Copyright (c) 2023 Riverbank Computing Limited.
++# Copyright (c) 2025 Riverbank Computing Limited.
+ # Copyright (c) 2006 Thorsten Marek.
+ # All right reserved.
+ #
+@@ -58,7 +58,7 @@ def _parse_alignment(alignment):
+ 
+     align_flags = None
+     for qt_align in alignment.split('|'):
+-        _, qt_align = qt_align.split('::')
++        *_, qt_align = qt_align.split('::')
+         align = getattr(QtCore.Qt.AlignmentFlag, qt_align)
+ 
+         if align_flags is None:
+-- 
+2.48.1
+

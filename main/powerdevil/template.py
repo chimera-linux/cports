@@ -1,6 +1,6 @@
 pkgname = "powerdevil"
 pkgver = "6.3.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # FIXME: all tests broken like on alpine, migrateconfig_test*
 make_check_args = [
