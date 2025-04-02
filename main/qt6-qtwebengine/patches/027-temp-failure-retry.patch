@@ -1,4 +1,7 @@
-random glibc macro
+random glibc macro, not provided by musl.
+https://www.gnu.org/software/libc/manual/html_node/Interrupted-Primitives.html
+diff --git a/sandbox/linux/suid/process_util.h b/sandbox/linux/suid/process_util.h
+index b0b92c1bcc..db6a122ea8 100644
 --- a/src/3rdparty/chromium/sandbox/linux/suid/process_util.h
 +++ b/src/3rdparty/chromium/sandbox/linux/suid/process_util.h
 @@ -12,6 +12,15 @@

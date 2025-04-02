@@ -1,13 +1,11 @@
-this can never work because musl doesn't support it; all it does is print warnings
-on startup after downloading the plugin
 --- a/src/core/CMakeLists.txt
 +++ b/src/core/CMakeLists.txt
-@@ -333,7 +333,7 @@
-             dawn_use_swiftshader=false
+@@ -351,7 +351,7 @@ foreach(arch ${archs})
+             pdf_enable_fontations=false
              enable_vr=false
              enable_web_speech=false
 -            enable_widevine=true
 +            enable_widevine=false
-             enable_library_cdms=true
+             enable_bound_session_credentials=false
              fatal_linker_warnings=false
              has_native_accessibility=false

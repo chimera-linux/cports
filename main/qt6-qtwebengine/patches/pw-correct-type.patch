@@ -24,7 +24,7 @@ pw_node_add_listener will not take pw_proxy* and it is a wrong type
 +  pw_node_add_listener(node_, &node_listener_, &node_events, this);
  }
  
- PipeWireNode::~PipeWireNode() {
+ // static
 @@ -119,7 +122,7 @@ void PipeWireNode::OnNodeInfo(void* data, const pw_node_info* info) {
        uint32_t id = info->params[i].id;
        if (id == SPA_PARAM_EnumFormat &&

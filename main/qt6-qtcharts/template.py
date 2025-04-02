@@ -1,5 +1,5 @@
 pkgname = "qt6-qtcharts"
-pkgver = "6.8.2"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 # module_includes: fails to find cmake imports
@@ -21,7 +21,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtcharts-everywhere-src-{pkgver}.tar.xz"
-sha256 = "ec7c84da1a5d7b2f8cea610df6f993fa3c48990dc9f6bec995c69c5bfb34c55f"
+sha256 = "8a1c9287f25fe47b110ada87e8c73b928a93f05435440d0a27f591d25c317f28"
 # cross: TODO
 options = ["!cross"]
 

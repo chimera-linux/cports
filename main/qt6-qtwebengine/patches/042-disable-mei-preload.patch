@@ -1,44 +1,40 @@
-# Disables use of a binary for preloading the Media Engagement index
-# Said binary is: chrome/browser/resources/media/mei_preload/preloaded_data.pb
-# According to media/base/media_switches (for PreloadMediaEngagementData), it
-# "enables a list of origins to be considered as having a high MEI until there
-# is enough local data to determine the user's preferred behavior." This feature
-# does not seem to outweigh the benefit of removing the binary, thus this patch.
-
+Disables use of a binary for preloading the Media Engagement index
+Said binary is: chrome/browser/resources/media/mei_preload/preloaded_data.pb
+According to media/base/media_switches (for PreloadMediaEngagementData), it
+"enables a list of origins to be considered as having a high MEI until there
+is enough local data to determine the user's preferred behavior." This feature
+does not seem to outweigh the benefit of removing the binary, thus this patch.
+--
+diff --git a/chrome/BUILD.gn b/chrome/BUILD.gn
+index 19c940ccf3..9b45db7d91 100644
 --- a/src/3rdparty/chromium/chrome/BUILD.gn
 +++ b/src/3rdparty/chromium/chrome/BUILD.gn
-@@ -382,7 +382,6 @@ if (!is_android && !is_mac) {
+@@ -386,7 +386,6 @@ if (!is_android && !is_mac) {
        }
  
        data_deps += [
 -        "//chrome/browser/resources/media/mei_preload:component",
+         "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
          "//third_party/widevine/cdm",
        ]
-       if (invoker.collect_inputs_only) {
-@@ -1256,7 +1255,6 @@ if (is_win) {
-       ":optimization_guide_library",
-       ":swiftshader_library",
-       ":widevine_cdm_library",
--      "//chrome/browser/resources/media/mei_preload:component_bundle",
-     ]
- 
-     if (is_chrome_branded) {
+diff --git a/chrome/installer/linux/BUILD.gn b/chrome/installer/linux/BUILD.gn
+index 51f7c978a0..e4bd1692d6 100644
 --- a/src/3rdparty/chromium/chrome/installer/linux/BUILD.gn
 +++ b/src/3rdparty/chromium/chrome/installer/linux/BUILD.gn
-@@ -96,8 +96,6 @@ packaging_files = packaging_files_binaries + [
+@@ -68,8 +68,6 @@ packaging_files = packaging_files_binaries + [
                      "$root_out_dir/xdg-mime",
                      "$root_out_dir/xdg-settings",
                      "$root_out_dir/locales/en-US.pak",
 -                    "$root_out_dir/MEIPreload/manifest.json",
 -                    "$root_out_dir/MEIPreload/preloaded_data.pb",
+                     "$root_out_dir/PrivacySandboxAttestationsPreloaded/manifest.json",
+                     "$root_out_dir/PrivacySandboxAttestationsPreloaded/privacy-sandbox-attestations.dat",
                    ]
- if (enable_swiftshader) {
-   packaging_files += [ "$root_out_dir/vk_swiftshader_icd.json" ]
-@@ -401,7 +399,6 @@ group("installer_deps") {
+@@ -374,7 +372,6 @@ group("installer_deps") {
      "//chrome",
      "//chrome:packed_resources",
      "//chrome/browser/enterprise/connectors/device_trust/key_management/installer/management_service:chrome_management_service",
 -    "//chrome/browser/resources/media/mei_preload:component",
      "//components/crash/core/app:chrome_crashpad_handler",
+     "//components/privacy_sandbox/privacy_sandbox_attestations/preload:component",
      "//sandbox/linux:chrome_sandbox",
-   ]

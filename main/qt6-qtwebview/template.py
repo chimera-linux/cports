@@ -1,5 +1,5 @@
 pkgname = "qt6-qtwebview"
-pkgver = "6.8.2"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 # hangs for 2 minutes then fails on initing gl
@@ -16,7 +16,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwebview-everywhere-src-{pkgver}.tar.xz"
-sha256 = "86b436271193d958119bf8866dec16b6ad3879c8e3e06458e3f79ca846bed043"
+sha256 = "5b24070e8ceb12c3c4df5a887f3ffc3544193646386e6ce18e41c20d42d7ed6b"
 # cross: TODO
 options = ["!cross"]
 

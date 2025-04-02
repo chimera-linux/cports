@@ -1,8 +1,8 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 # rebuild qt6-qtbase-private-devel consumers on upgrades
 pkgname = "qt6-qtbase"
-pkgver = "6.8.2"
-pkgrel = 1
+pkgver = "6.9.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_WITH_PCH=OFF",
@@ -74,7 +74,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "012043ce6d411e6e8a91fdc4e05e6bedcfa10fcb1347d3c33908f7fdd10dfe05"
+sha256 = "c1800c2ea835801af04a05d4a32321d79a93954ee3ae2172bbeacf13d1f0598c"
 # FIXME
 hardening = ["!int"]
 # TODO
@@ -212,7 +212,7 @@ def post_install(self):
     ) as f:
         for line in f.readlines():
             a, b = line.split()
-            self.install_link(b, a.replace("/usr/lib", "../lib"))
+            self.install_link(b, a.replace("../../lib", "../lib"))
 
 
 @subpackage("qt6-qtbase-gui")

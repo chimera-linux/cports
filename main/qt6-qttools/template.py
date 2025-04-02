@@ -1,5 +1,5 @@
 pkgname = "qt6-qttools"
-pkgver = "6.8.2"
+pkgver = "6.9.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -33,7 +33,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qttools-everywhere-src-{pkgver}.tar.xz"
-sha256 = "326381b7d43f07913612f291abc298ae79bd95382e2233abce982cff2b53d2c0"
+sha256 = "fa645589cc3f939022401a926825972a44277dead8ec8607d9f2662e6529c9a4"
 # FIXME
 hardening = ["!int"]
 # TODO
@@ -53,7 +53,7 @@ def post_install(self):
     ) as f:
         for line in f.readlines():
             a, b = line.split()
-            self.install_link(b, a.replace("/usr/lib", "../lib"))
+            self.install_link(b, a.replace("../../lib", "../lib"))
 
 
 @subpackage("qt6-qttools-qdbus")

@@ -12,12 +12,3 @@
  #elif defined(__s390x__) || defined(__zarch__)
  #define XR_ARCH_ABI "s390x"
  #elif defined(__hppa__)
-@@ -71,6 +73,8 @@
- #define XR_ARCH_ABI "riscv64"
- #elif defined(__sparc__) && defined(__arch64__)
- #define XR_ARCH_ABI "sparc64"
-+#elif defined(__loongarch__) && defined(__loongarch64)
-+#define XR_ARCH_ABI "loongarch64"
- #else
- #error "No architecture string known!"
- #endif

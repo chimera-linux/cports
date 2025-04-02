@@ -1,3 +1,7 @@
+the linux one sometimes crashes, and this is optional/not required, so use the
+stub fuschia one
+https://gitlab.alpinelinux.org/alpine/aports/-/issues/15660
+--
 diff --git a/net/dns/BUILD.gn b/net/dns/BUILD.gn
 index f36bf68..805d9a6 100644
 --- a/src/3rdparty/chromium/net/dns/BUILD.gn

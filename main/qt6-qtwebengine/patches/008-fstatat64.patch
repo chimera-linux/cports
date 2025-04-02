@@ -15,4 +15,3 @@ expansion below evaluates correctly.
                           const char *,      p,
                           struct kernel_stat64 *,   b,    int,   f)
    #endif
-
