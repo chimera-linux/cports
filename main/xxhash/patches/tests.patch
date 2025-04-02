@@ -1,0 +1,28 @@
+the realloc seems to change the pointer position of `hashCandidates` for us so
+assert(checkPtr == hashCandidates)` fails
+
+we don't seem to need this whole if block anyway so just nuke it
+diff --git a/tests/collisions/main.c b/tests/collisions/main.c
+index 30aee4a..8ea6f24 100644
+--- a/tests/collisions/main.c
++++ b/tests/collisions/main.c
+@@ -764,19 +764,6 @@ static size_t search_collisions(
+             addHashCandidate(hashCandidates, h, htype, nbCandidates++);
+         }
+     }
+-    if (nbCandidates < maxNbH) {
+-        /* Try to mitigate gnuc_quicksort behavior, by reducing allocated memory,
+-         * since gnuc_quicksort uses a lot of additional memory for mergesort */
+-        void* const checkPtr = realloc(hashCandidates, nbCandidates * hashByteSize);
+-        assert(checkPtr != NULL);
+-        assert(checkPtr == hashCandidates);  /* simplification: since we are reducing the size,
+-                                              * we hope to keep the same ptr position.
+-                                              * Otherwise, hashCandidates must be mutable. */
+-        DISPLAY(" List of hashes reduced to %u MB from %u MB (saved %u MB) \n",
+-                (unsigned)((nbCandidates * hashByteSize) >> 20),
+-                (unsigned)(tableSize >> 20),
+-                (unsigned)((tableSize - (nbCandidates * hashByteSize)) >> 20) );
+-    }
+     double const storeTDelay = difftime(time(NULL), storeTBegin);
+     DISPLAY(" Stored %llu hash candidates in %s \n",
+             (unsigned long long) nbCandidates, displayDelay(storeTDelay));

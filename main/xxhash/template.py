@@ -1,6 +1,6 @@
 pkgname = "xxhash"
-pkgver = "0.8.2"
-pkgrel = 1
+pkgver = "0.8.3"
+pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
 # sporadically breaks in parallel
@@ -11,15 +11,7 @@ pkgdesc = "Fast non-cryptographic hashing algorithm"
 license = "BSD-2-Clause"
 url = "https://cyan4973.github.io/xxHash"
 source = f"https://github.com/Cyan4973/xxhash/archive/v{pkgver}.tar.gz"
-sha256 = "baee0c6afd4f03165de7a4e67988d16f0f2b257b51d0e3cb91909302a26a79c4"
-
-
-if self.profile().arch == "x86_64":
-    # on x86_64, there can be runtime dispatch for sse/avx etc
-    # this is not automatically detected by the makefile
-    make_build_args = ["DISPATCH=1"]
-    # XXX: rebuilds in install so pass twice
-    make_install_args = ["DISPATCH=1"]
+sha256 = "aae608dfe8213dfd05d909a57718ef82f30722c392344583d3f39050c7f29a80"
 
 
 def post_install(self):
