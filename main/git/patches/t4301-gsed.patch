@@ -1,0 +1,14 @@
+anonymize_hash is used upon binary files that contain NULs
+sed(1) from chimerautils doesn't support binary files yet.
+
+--- a/t/t4301-merge-tree-write-tree.sh
++++ b/t/t4301-merge-tree-write-tree.sh
+@@ -134,7 +134,7 @@
+ '
+ 
+ anonymize_hash() {
+-	sed -e "s/[0-9a-f]\{40,\}/HASH/g" "$@"
++	gsed -e "s/[0-9a-f]\{40,\}/HASH/g" "$@"
+ }
+ 
+ test_expect_success 'test conflict notices and such' '
