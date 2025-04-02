@@ -1,0 +1,9 @@
+type = process
+command = /usr/bin/caddy run --config /etc/caddy/Caddyfile
+working-dir = /var/lib/caddy
+logfile = /var/log/caddy.log
+run-as = _caddy
+depends-on = local.target
+smooth-recovery = true
+load-options: export-passwd-vars
+capabilities = ^cap_net_bind_service
