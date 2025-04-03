@@ -1,0 +1,21 @@
+From 0276dfa61b71152953676fbf38e9c84856a88b54 Mon Sep 17 00:00:00 2001
+From: LN Liberda <lauren@selfisekai.rocks>
+Date: Thu, 20 Mar 2025 03:43:30 +0100
+Subject: [PATCH] gn: Internal headers depend on simdutf
+
+---
+ BUILD.gn | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/v8/BUILD.gn b/v8/BUILD.gn
+index 95403be81a0..7a2c37b1088 100644
+--- a/v8/BUILD.gn
++++ b/v8/BUILD.gn
+@@ -4916,6 +4916,7 @@ v8_header_set("v8_internal_headers") {
+     ":v8_abseil",
+     ":v8_heap_base_headers",
+     ":v8_libbase",
++    "//third_party/simdutf:simdutf",
+   ]
+ }
+ 

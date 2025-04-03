@@ -1,7 +1,7 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "134.0.6998.165"
-pkgrel = 2
+pkgver = "135.0.7049.52"
+pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
     'custom_toolchain="//build/toolchain/linux/unbundle:default"',
@@ -40,7 +40,6 @@ configure_args = [
     "use_dwarf5=true",
     "use_lld=true",
     "use_pulseaudio=true",
-    "use_qt=true",  # qt5 manually patched out
     "use_qt5=false",
     "use_qt6=true",
     "use_sysroot=false",
@@ -139,7 +138,7 @@ license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 # from gentoo
 source = f"https://chromium-tarballs.syd1.digitaloceanspaces.com/chromium-{pkgver}-linux.tar.xz"
-sha256 = "dd6a8d05771dc4879a8a74779e54fff0313ef1345be721167a594dd7bfe4c239"
+sha256 = "bc07d4b8f8377a218a2f5b5c5ae8276535650b2a524706d4959ed54322874950"
 debug_level = 1
 tool_flags = {
     "CFLAGS": [
