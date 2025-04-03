@@ -1,0 +1,22 @@
+commit 5982a87542153b7289bbbe9144a049baffa9d26b
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Apr 3 11:02:31 2025 +0200
+
+    breaks liking on aarch64:
+    
+    ld: error: obj/third_party/libyuv/libyuv_neon.a(row_neon64.o at 5836) <inline asm>:13:1: instruction requires: dotprod
+    
+    and many more messages
+
+diff --git a/src/3rdparty/chromium/third_party/libyuv/libyuv.gni b/src/3rdparty/chromium/third_party/libyuv/libyuv.gni
+index e812dcee06..be3b2994b4 100644
+--- a/src/3rdparty/chromium/third_party/libyuv/libyuv.gni
++++ b/src/3rdparty/chromium/third_party/libyuv/libyuv.gni
+@@ -16,7 +16,6 @@ declare_args() {
+   libyuv_disable_jpeg = false
+   libyuv_disable_rvv = false
+   libyuv_use_neon =
+-      (current_cpu == "arm64" && !is_msvc) ||
+       (current_cpu == "arm" && (arm_use_neon || arm_optionally_use_neon))
+   libyuv_use_sve = current_cpu == "arm64"
+ 
