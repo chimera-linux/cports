@@ -1,4 +1,4 @@
-From 6623240661c16ed414067836b05ab2c830a65cc3 Mon Sep 17 00:00:00 2001
+From f58c097aeb676ec8221c0718e2e2d87aaf905ed8 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:53:26 +0200
 Subject: [PATCH 05/14] get rid of wrong linkage
@@ -12,14 +12,13 @@ in just disabling nodefaultlibs for our platform.
  vendor/libc-0.2.119/src/unix/mod.rs |  7 +------
  vendor/libc-0.2.121/src/unix/mod.rs |  7 +------
  vendor/libc-0.2.124/src/unix/mod.rs |  7 +------
- vendor/libc-0.2.150/src/unix/mod.rs |  7 +------
  vendor/libc-0.2.155/src/unix/mod.rs |  7 +------
- vendor/libc-0.2.158/src/unix/mod.rs |  7 +------
  vendor/libc-0.2.167/src/unix/mod.rs | 15 +--------------
+ vendor/libc-0.2.168/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.169/src/unix/mod.rs | 15 +--------------
  vendor/libc-0.2.94/src/unix/mod.rs  |  7 +------
  vendor/libc-0.2.97/src/unix/mod.rs  |  7 +------
- 12 files changed, 12 insertions(+), 88 deletions(-)
+ 11 files changed, 11 insertions(+), 90 deletions(-)
 
 diff --git a/vendor/libc-0.2.107/src/unix/mod.rs b/vendor/libc-0.2.107/src/unix/mod.rs
 index 52f875218..51837c6b1 100644
@@ -111,24 +110,6 @@ index cb03b50d7..bf4d21a0b 100644
      } else if #[cfg(target_os = "emscripten")] {
          #[link(name = "c")]
          extern {}
-diff --git a/vendor/libc-0.2.150/src/unix/mod.rs b/vendor/libc-0.2.150/src/unix/mod.rs
-index 9daebcaa6..549877b53 100644
---- a/vendor/libc-0.2.150/src/unix/mod.rs
-+++ b/vendor/libc-0.2.150/src/unix/mod.rs
-@@ -352,12 +352,7 @@ cfg_if! {
-         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
-         extern {}
-     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", kind = "static", modifiers = "-bundle",
--                        cfg(target_feature = "crt-static")))]
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
--        extern {}
-+        // we don't set -nodefaultlibs, so no need to link anything
-     } else if #[cfg(target_os = "emscripten")] {
-         #[link(name = "c")]
-         extern {}
 diff --git a/vendor/libc-0.2.155/src/unix/mod.rs b/vendor/libc-0.2.155/src/unix/mod.rs
 index 49984d3f0..76890a787 100644
 --- a/vendor/libc-0.2.155/src/unix/mod.rs
@@ -147,28 +128,36 @@ index 49984d3f0..76890a787 100644
      } else if #[cfg(target_os = "emscripten")] {
          #[link(name = "c")]
          extern {}
-diff --git a/vendor/libc-0.2.158/src/unix/mod.rs b/vendor/libc-0.2.158/src/unix/mod.rs
-index 8b3d988ae..5ac630248 100644
---- a/vendor/libc-0.2.158/src/unix/mod.rs
-+++ b/vendor/libc-0.2.158/src/unix/mod.rs
-@@ -348,12 +348,7 @@ cfg_if! {
-         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
-         extern {}
-     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", kind = "static", modifiers = "-bundle",
--                        cfg(target_feature = "crt-static")))]
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
--        extern {}
-+        // we don't set -nodefaultlibs, so no need to link anything
-     } else if #[cfg(target_os = "emscripten")] {
-         #[link(name = "c")]
-         extern {}
 diff --git a/vendor/libc-0.2.167/src/unix/mod.rs b/vendor/libc-0.2.167/src/unix/mod.rs
 index 661405f50..483da6157 100644
 --- a/vendor/libc-0.2.167/src/unix/mod.rs
 +++ b/vendor/libc-0.2.167/src/unix/mod.rs
+@@ -445,20 +445,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern "C" {}
+     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
+-        #[cfg_attr(
+-            feature = "rustc-dep-of-std",
+-            link(
+-                name = "c",
+-                kind = "static",
+-                modifiers = "-bundle",
+-                cfg(target_feature = "crt-static")
+-            )
+-        )]
+-        #[cfg_attr(
+-            feature = "rustc-dep-of-std",
+-            link(name = "c", cfg(not(target_feature = "crt-static")))
+-        )]
+-        extern "C" {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         // Don't pass -lc to Emscripten, it breaks. See:
+         // https://github.com/emscripten-core/emscripten/issues/22758
+diff --git a/vendor/libc-0.2.168/src/unix/mod.rs b/vendor/libc-0.2.168/src/unix/mod.rs
+index a14dafdf0..d15249951 100644
+--- a/vendor/libc-0.2.168/src/unix/mod.rs
++++ b/vendor/libc-0.2.168/src/unix/mod.rs
 @@ -445,20 +445,7 @@ cfg_if! {
          #[link(name = "c", cfg(not(target_feature = "crt-static")))]
          extern "C" {}

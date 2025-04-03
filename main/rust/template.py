@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.85.0"
+pkgver = "1.86.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap",
@@ -29,7 +29,7 @@ pkgdesc = "Rust programming language"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "d542c397217b5ba5bac7eb274f5ca62d031f61842c3ba4cc5328c709c38ea1e7"
+sha256 = "d939eada065dc827a9d4dbb55bd48533ad14c16e7f0a42e70147029c82a7707b"
 tool_flags = {
     "RUSTFLAGS": [
         # make the std debugging symbols point to rust-src
@@ -73,7 +73,7 @@ if self.current_target == "custom:bootstrap":
 def post_patch(self):
     from cbuild.util import cargo
 
-    cargo.clear_vendor_checksums(self, "compiler_builtins-0.1.140")
+    cargo.clear_vendor_checksums(self, "compiler_builtins-0.1.146")
     # nice fucking meme
     cargo.clear_vendor_checksums(self, "libc-0.2.94")
     cargo.clear_vendor_checksums(self, "libc-0.2.97")
@@ -82,14 +82,10 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.119")
     cargo.clear_vendor_checksums(self, "libc-0.2.121")
     cargo.clear_vendor_checksums(self, "libc-0.2.124")
-    cargo.clear_vendor_checksums(self, "libc-0.2.150")
     cargo.clear_vendor_checksums(self, "libc-0.2.155")
-    cargo.clear_vendor_checksums(self, "libc-0.2.158")
     cargo.clear_vendor_checksums(self, "libc-0.2.167")
+    cargo.clear_vendor_checksums(self, "libc-0.2.168")
     cargo.clear_vendor_checksums(self, "libc-0.2.169")
-    # aaaaaargh
-    cargo.clear_vendor_checksums(self, "cc-1.2.0")
-    cargo.clear_vendor_checksums(self, "cc-1.2.6")
 
 
 def configure(self):
@@ -174,7 +170,7 @@ extern {}
     with open(self.cwd / "config.toml", "w") as cfg:
         cfg.write(
             f"""
-change-id = 134650
+change-id = 136941
 
 [llvm]
 ninja = false
@@ -416,8 +412,7 @@ def install(self):
     # remove rust copies of llvm tools
     self.log("cleaning up tools...")
     trip = self.profile().triplet
-    for f in (self.destdir / f"usr/lib/rustlib/{trip}/bin").iterdir():
-        f.unlink()
+    self.uninstall(f"usr/lib/rustlib/{trip}/bin")
 
     # usr/lib stuff should be symlinks into rustlib
     self.log("relinking rustlibs...")

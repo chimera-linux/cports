@@ -1,4 +1,4 @@
-From b84e9e8688d30e0178b892fa237c3f44b806c3c1 Mon Sep 17 00:00:00 2001
+From 7fb527f527309cae5dec5fed0356e407f4bb851f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:39:19 +0100
 Subject: [PATCH 02/14] remove a bunch of unused junk
@@ -7,11 +7,12 @@ Subject: [PATCH 02/14] remove a bunch of unused junk
  compiler/rustc_target/src/spec/crt_objects.rs | 22 -----
  src/bootstrap/configure.py                    | 90 -------------------
  src/bootstrap/src/core/build_steps/compile.rs | 44 +--------
- src/bootstrap/src/core/config/config.rs       | 12 ---
+ src/bootstrap/src/core/build_steps/llvm.rs    |  3 -
+ src/bootstrap/src/core/config/config.rs       | 16 ----
  src/bootstrap/src/core/sanity.rs              | 22 -----
  src/bootstrap/src/lib.rs                      | 19 ----
  src/bootstrap/src/utils/cc_detect.rs          | 24 -----
- 7 files changed, 1 insertion(+), 232 deletions(-)
+ 8 files changed, 1 insertion(+), 239 deletions(-)
 
 diff --git a/compiler/rustc_target/src/spec/crt_objects.rs b/compiler/rustc_target/src/spec/crt_objects.rs
 index e3b6430a4..13a96e2cb 100644
@@ -47,10 +48,10 @@ index e3b6430a4..13a96e2cb 100644
      new(&[
          (LinkOutputKind::DynamicNoPicExe, &["crt2.o", "rsbegin.o"]),
 diff --git a/src/bootstrap/configure.py b/src/bootstrap/configure.py
-index a86c20d46..ee9afdd8b 100755
+index ac971a64d..836b84f14 100755
 --- a/src/bootstrap/configure.py
 +++ b/src/bootstrap/configure.py
-@@ -175,96 +175,6 @@ v("llvm-config", None, "set path to llvm-config")
+@@ -179,96 +179,6 @@ v("llvm-config", None, "set path to llvm-config")
  v("llvm-filecheck", None, "set path to LLVM's FileCheck utility")
  v("python", "build.python", "set path to python")
  v("android-ndk", "build.android-ndk", "set path to Android NDK")
@@ -148,10 +149,10 @@ index a86c20d46..ee9afdd8b 100755
      "qemu-armhf-rootfs",
      "target.arm-unknown-linux-gnueabihf.qemu-rootfs",
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index eeb5b18fd..002949163 100644
+index 479327d63..5cdd6588b 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
-@@ -330,40 +330,7 @@ fn copy_self_contained_objects(
+@@ -332,40 +332,7 @@ fn copy_self_contained_objects(
      t!(fs::create_dir_all(&libdir_self_contained));
      let mut target_deps = vec![];
  
@@ -162,7 +163,7 @@ index eeb5b18fd..002949163 100644
 -    // to using gcc from a glibc-targeting toolchain for linking.
 -    // To do that we have to distribute musl startup objects as a part of Rust toolchain
 -    // and link with them manually in the self-contained mode.
--    if target.contains("musl") && !target.contains("unikraft") {
+-    if target.needs_crt_begin_end() {
 -        let srcdir = builder.musl_libdir(target).unwrap_or_else(|| {
 -            panic!("Target {:?} does not have a \"musl-libdir\" key", target.triple)
 -        });
@@ -193,7 +194,7 @@ index eeb5b18fd..002949163 100644
          let srcdir = builder.wasi_libdir(target).unwrap_or_else(|| {
              panic!(
                  "Target {:?} does not have a \"wasi-root\" key in Config.toml \
-@@ -530,15 +497,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
+@@ -573,15 +540,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
              .arg("--manifest-path")
              .arg(builder.src.join("library/sysroot/Cargo.toml"));
  
@@ -209,11 +210,25 @@ index eeb5b18fd..002949163 100644
          if target.contains("-wasi") {
              if let Some(dir) = builder.wasi_libdir(target) {
                  let root = format!("native={}", dir.to_str().unwrap());
+diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
+index 18da0e825..1836510cf 100644
+--- a/src/bootstrap/src/core/build_steps/llvm.rs
++++ b/src/bootstrap/src/core/build_steps/llvm.rs
+@@ -1332,9 +1332,6 @@ impl Step for CrtBeginEnd {
+     }
+ 
+     fn make_run(run: RunConfig<'_>) {
+-        if run.target.needs_crt_begin_end() {
+-            run.builder.ensure(CrtBeginEnd { target: run.target });
+-        }
+     }
+ 
+     /// Build crtbegin.o/crtend.o for musl target.
 diff --git a/src/bootstrap/src/core/config/config.rs b/src/bootstrap/src/core/config/config.rs
-index 0587408e9..57ddf55da 100644
+index 65f286a05..6e3b6fa4e 100644
 --- a/src/bootstrap/src/core/config/config.rs
 +++ b/src/bootstrap/src/core/config/config.rs
-@@ -345,8 +345,6 @@ pub struct Config {
+@@ -349,8 +349,6 @@ pub struct Config {
      pub print_step_timings: bool,
      pub print_step_rusage: bool,
  
@@ -222,7 +237,18 @@ index 0587408e9..57ddf55da 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -627,8 +625,6 @@ pub struct Target {
+@@ -575,10 +573,6 @@ impl TargetSelection {
+         env::var("OSTYPE").is_ok_and(|v| v.to_lowercase().contains("cygwin"))
+     }
+ 
+-    pub fn needs_crt_begin_end(&self) -> bool {
+-        self.contains("musl") && !self.contains("unikraft")
+-    }
+-
+     /// Path to the file defining the custom target, if any.
+     pub fn filepath(&self) -> Option<&Path> {
+         self.file.as_ref().map(Path::new)
+@@ -635,8 +629,6 @@ pub struct Target {
      pub profiler: Option<StringOrBool>,
      pub rpath: Option<bool>,
      pub crt_static: Option<bool>,
@@ -231,7 +257,7 @@ index 0587408e9..57ddf55da 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub runner: Option<String>,
-@@ -1157,7 +1153,6 @@ define_config! {
+@@ -1171,7 +1163,6 @@ define_config! {
          default_linker: Option<String> = "default-linker",
          channel: Option<String> = "channel",
          description: Option<String> = "description",
@@ -239,7 +265,7 @@ index 0587408e9..57ddf55da 100644
          rpath: Option<bool> = "rpath",
          strip: Option<bool> = "strip",
          frame_pointers: Option<bool> = "frame-pointers",
-@@ -1212,8 +1207,6 @@ define_config! {
+@@ -1226,8 +1217,6 @@ define_config! {
          profiler: Option<StringOrBool> = "profiler",
          rpath: Option<bool> = "rpath",
          crt_static: Option<bool> = "crt-static",
@@ -248,7 +274,7 @@ index 0587408e9..57ddf55da 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1758,7 +1751,6 @@ impl Config {
+@@ -1821,7 +1810,6 @@ impl Config {
                  default_linker,
                  channel: _, // already handled above
                  description,
@@ -256,15 +282,15 @@ index 0587408e9..57ddf55da 100644
                  rpath,
                  verbose_tests,
                  optimize_tests,
-@@ -1866,7 +1858,6 @@ impl Config {
+@@ -1929,7 +1917,6 @@ impl Config {
              config.llvm_enzyme =
                  llvm_enzyme.unwrap_or(config.channel == "dev" || config.channel == "nightly");
              config.rustc_default_linker = default_linker;
 -            config.musl_root = musl_root.map(PathBuf::from);
              config.save_toolstates = save_toolstates.map(PathBuf::from);
-             set(&mut config.deny_warnings, match flags.warnings {
-                 Warnings::Deny => Some(true),
-@@ -2088,8 +2079,6 @@ impl Config {
+             set(
+                 &mut config.deny_warnings,
+@@ -2152,8 +2139,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -273,7 +299,7 @@ index 0587408e9..57ddf55da 100644
                  target.wasi_root = cfg.wasi_root.map(PathBuf::from);
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
                  target.runner = cfg.runner;
-@@ -3212,7 +3201,6 @@ fn check_incompatible_options_for_ci_rustc(
+@@ -3295,7 +3280,6 @@ fn check_incompatible_options_for_ci_rustc(
          debuginfo_level_tools: _,
          debuginfo_level_tests: _,
          backtrace: _,
@@ -282,10 +308,10 @@ index 0587408e9..57ddf55da 100644
          optimize_tests: _,
          codegen_tests: _,
 diff --git a/src/bootstrap/src/core/sanity.rs b/src/bootstrap/src/core/sanity.rs
-index ed0155622..fb18e7989 100644
+index 9e4a0816e..0e5a44532 100644
 --- a/src/bootstrap/src/core/sanity.rs
 +++ b/src/bootstrap/src/core/sanity.rs
-@@ -321,28 +321,6 @@ than building it.
+@@ -325,28 +325,6 @@ than building it.
              continue;
          }
  
@@ -293,7 +319,7 @@ index ed0155622..fb18e7989 100644
 -        if target.contains("musl") && !target.contains("unikraft") {
 -            // If this is a native target (host is also musl) and no musl-root is given,
 -            // fall back to the system toolchain in /usr before giving up
--            if build.musl_root(*target).is_none() && build.config.build == *target {
+-            if build.musl_root(*target).is_none() && build.is_builder_target(target) {
 -                let target = build.config.target_config.entry(*target).or_default();
 -                target.musl_root = Some("/usr".into());
 -            }
@@ -315,10 +341,10 @@ index ed0155622..fb18e7989 100644
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
 diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index ccc115a27..7cc8cc0c5 100644
+index 21b02a3b5..491d924d4 100644
 --- a/src/bootstrap/src/lib.rs
 +++ b/src/bootstrap/src/lib.rs
-@@ -1283,25 +1283,6 @@ Executed at: {executed_at}"#,
+@@ -1322,25 +1322,6 @@ Executed at: {executed_at}"#,
          }
      }
  
@@ -345,10 +371,10 @@ index ccc115a27..7cc8cc0c5 100644
      /// configured.
      ///
 diff --git a/src/bootstrap/src/utils/cc_detect.rs b/src/bootstrap/src/utils/cc_detect.rs
-index 4aec554b4..211efb6e3 100644
+index 45797c127..12393b659 100644
 --- a/src/bootstrap/src/utils/cc_detect.rs
 +++ b/src/bootstrap/src/utils/cc_detect.rs
-@@ -220,30 +220,6 @@ fn default_compiler(
+@@ -210,30 +210,6 @@ fn default_compiler(
              }
          }
  

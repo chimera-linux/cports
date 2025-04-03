@@ -1,4 +1,4 @@
-From 14d2ef7bf909811cf6a3d0c97150325f89ed5d8e Mon Sep 17 00:00:00 2001
+From 1f632063149efd2d4f64bdf8513293997699baff Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 20 Feb 2025 20:32:31 +0100
 Subject: [PATCH 01/14] add chimera targets, always dynamic musl + static pie
@@ -72,10 +72,10 @@ index 1a854fe36..6a9265c40 100644
      base
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index 02962d55a..a8009de22 100644
+index 794d6457c..faa59e1ab 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -1649,6 +1649,15 @@ macro_rules! supported_targets {
+@@ -1672,6 +1672,15 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {
@@ -231,11 +231,11 @@ index 003600c26..1d4461704 100644
      base.linker_flavor = LinkerFlavor::Unix(Cc::Yes);
  
 diff --git a/compiler/rustc_target/src/spec/targets/i586_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/i586_unknown_linux_musl.rs
-index 8ad93496f..623422a89 100644
+index 42babb90d..87628fcad 100644
 --- a/compiler/rustc_target/src/spec/targets/i586_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/i586_unknown_linux_musl.rs
-@@ -4,7 +4,5 @@ pub(crate) fn target() -> Target {
-     let mut base = super::i686_unknown_linux_musl::target();
+@@ -5,7 +5,5 @@ pub(crate) fn target() -> Target {
+     base.rustc_abi = None; // overwrite the SSE2 ABI set by the base target
      base.cpu = "pentium".into();
      base.llvm_target = "i586-unknown-linux-musl".into();
 -    // FIXME(compiler-team#422): musl targets should be dynamically linked by default.
@@ -243,10 +243,10 @@ index 8ad93496f..623422a89 100644
      base
  }
 diff --git a/compiler/rustc_target/src/spec/targets/i686_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/i686_unknown_linux_musl.rs
-index 6ba87c732..b805b80b8 100644
+index 3d25c951e..f509c9825 100644
 --- a/compiler/rustc_target/src/spec/targets/i686_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/i686_unknown_linux_musl.rs
-@@ -6,8 +6,6 @@ pub(crate) fn target() -> Target {
+@@ -9,8 +9,6 @@ pub(crate) fn target() -> Target {
      base.max_atomic_width = Some(64);
      base.add_pre_link_args(LinkerFlavor::Gnu(Cc::Yes, Lld::No), &["-m32", "-Wl,-melf_i386"]);
      base.stack_probes = StackProbeType::Inline;
@@ -284,10 +284,10 @@ index d7044dde0..b7c7b39a8 100644
                  | SanitizerSet::CFI
                  | SanitizerSet::LEAK
 diff --git a/compiler/rustc_target/src/spec/targets/mips64_unknown_linux_muslabi64.rs b/compiler/rustc_target/src/spec/targets/mips64_unknown_linux_muslabi64.rs
-index 32f5c79d6..69af2da11 100644
+index 03c8fa924..a1681073f 100644
 --- a/compiler/rustc_target/src/spec/targets/mips64_unknown_linux_muslabi64.rs
 +++ b/compiler/rustc_target/src/spec/targets/mips64_unknown_linux_muslabi64.rs
-@@ -22,8 +22,6 @@ pub(crate) fn target() -> Target {
+@@ -23,8 +23,6 @@ pub(crate) fn target() -> Target {
              abi: "abi64".into(),
              endian: Endian::Big,
              mcount: "_mcount".into(),
@@ -326,10 +326,10 @@ index 000000000..5953e1565
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
-index a54b17c87..a964f4177 100644
+index 417c8b63c..05101ee8f 100644
 --- a/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/powerpc64_unknown_linux_musl.rs
-@@ -7,8 +7,6 @@ pub(crate) fn target() -> Target {
+@@ -8,8 +8,6 @@ pub(crate) fn target() -> Target {
      base.add_pre_link_args(LinkerFlavor::Gnu(Cc::Yes, Lld::No), &["-m64"]);
      base.max_atomic_width = Some(64);
      base.stack_probes = StackProbeType::Inline;
@@ -384,10 +384,10 @@ index 000000000..65b2d62ba
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_musl.rs
-index 0cd0ea96a..5372a83e2 100644
+index 5b5fea666..107908bc1 100644
 --- a/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_musl.rs
-@@ -6,8 +6,6 @@ pub(crate) fn target() -> Target {
+@@ -7,8 +7,6 @@ pub(crate) fn target() -> Target {
      base.add_pre_link_args(LinkerFlavor::Gnu(Cc::Yes, Lld::No), &["-m32"]);
      base.max_atomic_width = Some(32);
      base.stack_probes = StackProbeType::Inline;
@@ -397,10 +397,10 @@ index 0cd0ea96a..5372a83e2 100644
      Target {
          llvm_target: "powerpc-unknown-linux-musl".into(),
 diff --git a/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_muslspe.rs b/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_muslspe.rs
-index b86c3c2e8..2305db81c 100644
+index dfd99635d..e8a8c7612 100644
 --- a/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_muslspe.rs
 +++ b/compiler/rustc_target/src/spec/targets/powerpc_unknown_linux_muslspe.rs
-@@ -6,8 +6,6 @@ pub(crate) fn target() -> Target {
+@@ -7,8 +7,6 @@ pub(crate) fn target() -> Target {
      base.add_pre_link_args(LinkerFlavor::Gnu(Cc::Yes, Lld::No), &["-mspe"]);
      base.max_atomic_width = Some(32);
      base.stack_probes = StackProbeType::Inline;
@@ -439,10 +439,10 @@ index 000000000..8c26403ce
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs b/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
-index fbe8c48ec..7a7800492 100644
+index 61c01eba7..df891e6b7 100644
 --- a/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
 +++ b/compiler/rustc_target/src/spec/targets/s390x_unknown_linux_musl.rs
-@@ -12,8 +12,6 @@ pub(crate) fn target() -> Target {
+@@ -13,8 +13,6 @@ pub(crate) fn target() -> Target {
      base.stack_probes = StackProbeType::Inline;
      base.supported_sanitizers =
          SanitizerSet::ADDRESS | SanitizerSet::LEAK | SanitizerSet::MEMORY | SanitizerSet::THREAD;
