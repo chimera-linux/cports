@@ -1,0 +1,12 @@
+--- a/src/corelib/global/qsimd.cpp
++++ b/src/corelib/global/qsimd.cpp
+@@ -39,6 +39,9 @@
+ // the kernel header definitions for HWCAP_*
+ // (the ones we need/may need anyway)
+ 
++#define HWCAP_LOONGARCH_LSX (1 << 4)
++#define HWCAP_LOONGARCH_LASX (1 << 5)
++
+ // copied from <asm/hwcap.h> (ARM)
+ #define HWCAP_NEON      4096
+ 
