@@ -1,5 +1,5 @@
 pkgname = "discover"
-pkgver = "6.3.3"
+pkgver = "6.3.4"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -60,7 +60,7 @@ pkgdesc = "KDE application manager"
 license = "(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://userbase.kde.org/Discover"
 source = f"$(KDE_SITE)/plasma/{pkgver}/discover-{pkgver}.tar.xz"
-sha256 = "de29ad7e914e9bbd30a3466222f9542449583871afe856aca0071409cf5c586d"
+sha256 = "2a18caed673493cbeb840aa166626d4283272c97578af0bf67e8887b672cf3d8"
 
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:

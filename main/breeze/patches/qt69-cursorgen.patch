@@ -1,0 +1,10 @@
+--- a/cursors/src/kcursorgen/main.cpp
++++ b/cursors/src/kcursorgen/main.cpp
+@@ -8,6 +8,7 @@
+ 
+ #include <QCommandLineParser>
+ #include <QCoreApplication>
++#include <QDebug>
+ #include <QString>
+ 
+ int main(int argc, char **argv)

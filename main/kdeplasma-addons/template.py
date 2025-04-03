@@ -1,6 +1,6 @@
 pkgname = "kdeplasma-addons"
-pkgver = "6.3.3"
-pkgrel = 1
+pkgver = "6.3.4"
+pkgrel = 0
 build_style = "cmake"
 # FIXME: failed tz comparison / scientific notation number e uppercase
 make_check_args = ["-E", "(converterrunnertest|datetimerunnertest)"]
@@ -51,7 +51,7 @@ pkgdesc = "KDE Plasma addons"
 license = "GPL-3.0-only AND CC0-1.0 AND LGPL-3.0-or-later"
 url = "https://invent.kde.org/plasma/kdeplasma-addons"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdeplasma-addons-{pkgver}.tar.xz"
-sha256 = "55f8ff0df5921d48549cd59bed91ae9e8575b190031089f80972b9441b80d733"
+sha256 = "ad3661e396a6e2deefe6d4d5c68b25d31663de30d7e6aeabde4fea95a36881a7"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]
