@@ -1,11 +1,14 @@
 pkgname = "wl-kbptr"
-pkgver = "0.2.3"
-pkgrel = 1
+pkgver = "0.3.0"
+pkgrel = 0
 build_style = "meson"
+configure_args = ["-Dopencv=enabled"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "cairo-devel",
     "libxkbcommon-devel",
+    "opencv-devel",
+    "pixman-devel",
     "wayland-devel",
     "wayland-protocols",
 ]
@@ -14,7 +17,7 @@ pkgdesc = "Control the mouse pointer with the keyboard"
 license = "GPL-3.0-or-later"
 url = "https://github.com/moverest/wl-kbptr"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "0d03f83d94b6acfdb07f3ee3760c1abc207eef5a8346af38978d6bcb46ac58b8"
+sha256 = "69775029acb8ff7d814a2868afe22e72b8c9c99cbb35b0acf57eccd3609b089c"
 hardening = ["vis", "!cfi"]
 
 
