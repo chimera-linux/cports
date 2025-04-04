@@ -1,0 +1,1 @@
+root=PARTLABEL=root rootwait console=ttyS2,1500000 console=tty1
