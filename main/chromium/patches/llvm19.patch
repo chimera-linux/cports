@@ -46,6 +46,65 @@ index 39408b5..a6315df 100644
  }
  
  std::set<redaction::PIIType> GetPIITypesToKeep(
+diff --git a/chrome/browser/ui/webui/web_app_internals/web_app_internals_handler.cc b/chrome/browser/ui/webui/web_app_internals/web_app_internals_handler.cc
+index 08f1122..66f3034 100644
+--- a/chrome/browser/ui/webui/web_app_internals/web_app_internals_handler.cc
++++ b/chrome/browser/ui/webui/web_app_internals/web_app_internals_handler.cc
+@@ -122,18 +122,26 @@ base::Value::Dict BuildPreinstalledWebAppConfigsJson(
+         .Set("Config", config.first.AsDebugValue());
+   };
+ 
++  auto to_value_list = [](auto &lst, auto &&cb) {
++      base::Value::List rlst;
++      for (auto &v: lst) {
++          rlst.Append(cb(v));
++      }
++      return rlst;
++  };
++
+   root.Set(
+       kPreinstalledWebAppConfigs,
+       base::Value::Dict()
+           .Set("ConfigParseErrors", base::ToValueList(debug_info->parse_errors))
+           .Set("UninstallConfigs",
+-               base::ToValueList(debug_info->uninstall_configs, config_to_dict))
++               to_value_list(debug_info->uninstall_configs, config_to_dict))
+           .Set("InstallConfigs",
+-               base::ToValueList(debug_info->install_configs, config_to_dict))
++               to_value_list(debug_info->install_configs, config_to_dict))
+           .Set("IgnoreConfigs",
+-               base::ToValueList(debug_info->ignore_configs, config_to_dict))
++               to_value_list(debug_info->ignore_configs, config_to_dict))
+           .Set("InstallResults",
+-               base::ToValueList(
++               to_value_list(
+                    debug_info->install_results,
+                    [](const auto& install_result) {
+                      return base::Value::Dict()
+@@ -145,7 +153,7 @@ base::Value::Dict BuildPreinstalledWebAppConfigsJson(
+                    }))
+           .Set("IsStartUpTaskComplete", debug_info->is_start_up_task_complete)
+           .Set("UninstallResults",
+-               base::ToValueList(
++               to_value_list(
+                    debug_info->uninstall_results,
+                    [](const auto& uninstall_result) {
+                      return base::Value::Dict()
+@@ -238,8 +246,12 @@ base::Value::Dict BuildInstallProcessErrorLogJson(
+     return root;
+   }
+ 
+-  root.Set(kInstallationProcessErrorLog,
+-           base::ToValueList(*error_log, &base::Value::Clone));
++  base::Value::List lst;
++  for (auto &cv: *error_log) {
++      lst.Append(cv.Clone());
++  }
++
++  root.Set(kInstallationProcessErrorLog, std::move(lst));
+ 
+   return root;
+ }
 diff --git a/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_integrity_block_data.cc b/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_integrity_block_data.cc
 index 25134a3..6894595 100644
 --- a/chrome/browser/web_applications/isolated_web_apps/isolated_web_app_integrity_block_data.cc
