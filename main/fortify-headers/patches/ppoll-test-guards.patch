@@ -1,0 +1,50 @@
+From be49666ba508283b8ba35a2ef05576b86ba455f5 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Thu, 3 Apr 2025 17:23:31 +0200
+Subject: [PATCH] Add missing ifdef guards for ppoll tests
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ tests/test_ppoll_dynamic.c | 3 +++
+ tests/test_ppoll_static.c  | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/tests/test_ppoll_dynamic.c b/tests/test_ppoll_dynamic.c
+index 7b049d1..9afefa7 100644
+--- a/tests/test_ppoll_dynamic.c
++++ b/tests/test_ppoll_dynamic.c
+@@ -6,10 +6,13 @@
+ int main(int argc, char** argv) {
+   struct pollfd buffer[8] = {0};
+ 
++#if !_REDIR_TIME64
+   CHK_FAIL_START
+   ppoll(buffer, argc, NULL, NULL);
+   CHK_FAIL_END
+ 
+   puts((const char*)buffer);
+   return ret;
++#endif
++  return 0;
+ }
+diff --git a/tests/test_ppoll_static.c b/tests/test_ppoll_static.c
+index 186bafe..f247515 100644
+--- a/tests/test_ppoll_static.c
++++ b/tests/test_ppoll_static.c
+@@ -6,10 +6,13 @@
+ int main(int argc, char** argv) {
+   struct pollfd buffer[12] = {0};
+ 
++#if !_REDIR_TIME64
+   CHK_FAIL_START
+   ppoll(buffer, 14, NULL, NULL);
+   CHK_FAIL_END
+ 
+   puts((const char*)buffer);
+   return ret;
++#endif
++  return 0;
+ }
+-- 
+2.49.0
+
