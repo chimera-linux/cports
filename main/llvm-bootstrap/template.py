@@ -93,6 +93,8 @@ match self.profile().arch:
         _arch = "PowerPC"
     case "riscv64":
         _arch = "RISCV64"
+    case "armhf" | "armv7":
+        _arch = "ARM"
     case "loongarch64" | "loongarch32":
         _arch = "LoongArch"
     case _:
