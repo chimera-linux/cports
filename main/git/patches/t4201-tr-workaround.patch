@@ -1,0 +1,27 @@
+--- a/t/t4201-shortlog.sh
++++ b/t/t4201-shortlog.sh
+@@ -12,4 +12,8 @@
+ . ./test-lib.sh
+ 
++subst() {
++	awk '{ gsub(/'"$1"'/, "'"$2"'"); print; }'
++}
++
+ test_expect_success 'setup' '
+ 	test_tick &&
+@@ -28,6 +32,5 @@
+ 	git commit --quiet -m "$(
+ 		echo "This is a very, very long first line for the commit message to see if it is wrapped correctly" |
+-		sed "s/i/1234/g" |
+-		tr 1234 "\360\235\204\236")" a1 &&
++		subst i "\360\235\204\236")" a1 &&
+ 
+ 	# now fsck up the utf8
+@@ -36,6 +39,5 @@
+ 	git commit --quiet -m "$(
+ 		echo "This is a very, very long first line for the commit message to see if it is wrapped correctly" |
+-		sed "s/i/1234/g" |
+-		tr 1234 "\370\235\204\236")" a1 &&
++		subst i "\370\235\204\236")" a1 &&
+ 
+ 	echo 5 >a1 &&

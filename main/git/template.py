@@ -1,6 +1,6 @@
 pkgname = "git"
-pkgver = "2.48.1"
-pkgrel = 1
+pkgver = "2.49.0"
+pkgrel = 0
 hostmakedepends = [
     "asciidoc",
     "gettext",
@@ -22,13 +22,13 @@ depends = [
     "perl-mime-tools",
     "perl-net-smtp-ssl",
 ]
-checkdepends = ["gnupg"]
+checkdepends = ["gnupg", "gsed"]
 pkgdesc = "Fast, distributed version control system"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/git/git-{pkgver}.tar.xz"
-sha256 = "1c5d545f5dc1eb51e95d2c50d98fdf88b1a36ba1fa30e9ae5d5385c6024f82ad"
-hardening = ["!vis", "!cfi"]
+sha256 = "618190cf590b7e9f6c11f91f23b1d267cd98c3ab33b850416d8758f8b5a85628"
+hardening = ["cfi", "vis"]
 
 
 def configure(self):
@@ -53,8 +53,6 @@ PYTHON_PATH = /usr/bin/python
 DEFAULT_TEST_TARGET=prove
 GIT_PROVE_OPTS=--jobs={self.make_jobs}
 HOST_CPU = {self.profile().arch}
-# FIXME: figure out why these fail
-export GIT_SKIP_TESTS=t4201 t4301 t7008 t7003
 """
         )
 
