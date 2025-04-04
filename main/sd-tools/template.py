@@ -1,6 +1,6 @@
 pkgname = "sd-tools"
 pkgver = "0.99.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
