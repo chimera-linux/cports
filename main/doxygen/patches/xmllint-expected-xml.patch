@@ -1,0 +1,42 @@
+From 02b51e2bb5cd7d8c0f45d50f2904628ec05b08c3 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Fri, 4 Apr 2025 18:56:50 +0200
+Subject: [PATCH] Run expected XML through xmllint as well
+
+This fixes test inconsistencies when xmllint changes its output.
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ testing/runtests.py | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/testing/runtests.py b/testing/runtests.py
+index f4f0cb6d6..3a39a16fa 100755
+--- a/testing/runtests.py
++++ b/testing/runtests.py
+@@ -331,7 +331,21 @@ class Tester:
+                     with xopen(out_file,'w') as f:
+                         print(data,file=f)
+                     ref_file='%s/%s/%s' % (self.args.inputdir,self.test_id,check)
+-                    (failed_xml,xml_msg) = self.compare_ok(out_file,ref_file,self.test_name)
++                    # convert reference file to canonical form
++                    ref_file = ref_file.replace('\\','/')
++                    data = xpopen('%s --format --noblanks --nowarning %s' % (self.args.xmllint,ref_file))
++                    if data:
++                        # strip version
++                        data = re.sub(r'xsd" version="[0-9.-]+"','xsd" version=""',data).rstrip('\n')
++                    else:
++                        msg += ('Failed to run %s on the reference output file %s' % (self.args.xmllint,ref_file),)
++                        break
++                    if self.args.subdirs:
++                        data = re.sub('d[0-9a-f]/d[0-9a-f][0-9a-f]/','',data)
++                    ref_file_fmt = ref_file + '.new'
++                    with xopen(ref_file_fmt,'w') as f:
++                        print(data,file=f)
++                    (failed_xml,xml_msg) = self.compare_ok(out_file,ref_file_fmt,self.test_name)
+                     if failed_xml:
+                         msg+= (xml_msg,)
+                         break
+-- 
+2.49.0
+
