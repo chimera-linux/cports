@@ -16,6 +16,8 @@ hardening = ["vis", "cfi"]
 def post_extract(self):
     # needs texlive stuff
     self.rm("testing/012_cite.dox")
+    # xmllint produces different outputs on semantically identical input
+    self.rm("testing/009_bug.cpp")
 
 
 def post_install(self):
