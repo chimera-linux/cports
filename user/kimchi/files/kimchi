@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/kimchi
+run-as = _kimchi
+logfile = /var/log/kimchi.log
+depends-on: network.target
+depends-on: local.target
