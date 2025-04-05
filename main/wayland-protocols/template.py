@@ -12,7 +12,7 @@ sha256 = "f25b0d00f3c610158b00b57b1b7b6e59c4bfd4d91aed46f24d9eba7acf220788"
 # check conditional
 options = []
 
-if self.profile().arch in ["loongarch64", "riscv64"]:
+if self.profile().arch in ["armv7", "loongarch64", "riscv64"]:
     # several pedantic tests complain about symbol not found
     options += ["!check"]
 
