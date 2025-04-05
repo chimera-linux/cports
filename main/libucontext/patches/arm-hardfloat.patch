@@ -1,0 +1,61 @@
+From 2a806cd9919f0f39bf3daadef4f10abc843cd37a Mon Sep 17 00:00:00 2001
+From: Richard Campbell <rlcamp@users.noreply.github.com>
+Date: Wed, 20 Nov 2024 13:29:46 -0800
+Subject: [PATCH] fix arm hard float code path broken by 9e5de65076
+
+---
+ Makefile               |  3 +--
+ arch/arm/swapcontext.S | 11 ++++++-----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 0c68f13..1fb1580 100644
+--- a/Makefile
++++ b/Makefile
+@@ -42,8 +42,7 @@ else
+ 	CPPFLAGS += -Iarch/common/include
+ endif
+ 
+-# ARM hard float support is presently broken.
+-FORCE_SOFT_FLOAT := yes
++FORCE_SOFT_FLOAT := no
+ 
+ ifeq ($(FORCE_SOFT_FLOAT),yes)
+         CPPFLAGS += -DFORCE_SOFT_FLOAT
+diff --git a/arch/arm/swapcontext.S b/arch/arm/swapcontext.S
+index f0627bf..e072002 100644
+--- a/arch/arm/swapcontext.S
++++ b/arch/arm/swapcontext.S
+@@ -16,13 +16,17 @@ ALIAS(swapcontext, libucontext_swapcontext)
+ ALIAS(__swapcontext, libucontext_swapcontext)
+ 
+ FUNC(libucontext_swapcontext)
++	/* copy all of the current registers into the ucontext structure */
++	str	r13, [r0,#REG_OFFSET(13)]
++	str	r14, [r0,#REG_OFFSET(15)]
++
+ #ifndef FORCE_SOFT_FLOAT
+ #ifndef FORCE_HARD_FLOAT
+ 	/* test for vfp magic number, copy to other ucontext */
+ 	ldr	r3, [r1, #VFP_MAGIC_OFFSET]
+-	ldr	r4, =#0x56465001
++	ldr	r2, =#0x56465001
+ 	str	r3, [r0, #VFP_MAGIC_OFFSET]
+-	cmp	r3, r4
++	cmp	r3, r2
+ 	bne	1f
+ #endif
+ 	/* if vfp in use, save and restore d8-d15 */
+@@ -36,9 +40,6 @@ FUNC(libucontext_swapcontext)
+ 1:
+ #endif
+ 
+- 	/* copy all of the current registers into the ucontext structure */
+- 	str	r13, [r0,#REG_OFFSET(13)]
+- 	str	r14, [r0,#REG_OFFSET(15)]
+ 	add	r2, r0, #REG_OFFSET(0)
+ 	/* copy r0 with value 0 to indicate success (return value 0) */
+ 	mov r0, #0
+-- 
+2.49.0
+
