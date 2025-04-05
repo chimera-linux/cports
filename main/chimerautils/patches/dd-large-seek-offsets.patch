@@ -1,0 +1,71 @@
+From a4bbd768b717626a872f8db4461c4feda7f6e5bc Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 6 Apr 2025 01:50:23 +0200
+Subject: [PATCH] dd: handle large seek offsets correctly
+
+---
+ patches/src.freebsd.patch           | 23 +++++++++++------------
+ src.freebsd/coreutils/dd/position.c |  8 ++++++--
+ 2 files changed, 17 insertions(+), 14 deletions(-)
+
+diff --git a/patches/src.freebsd.patch b/patches/src.freebsd.patch
+index 56be471..db68f81 100644
+--- a/patches/src.freebsd.patch
++++ b/patches/src.freebsd.patch
+@@ -2816,18 +2816,17 @@
+  void dd_out(int);
+ --- src.orig/coreutils/dd/position.c
+ +++ src.freebsd/coreutils/dd/position.c
+-@@ -70,9 +70,9 @@
+- 	 *
+- 	 * Bail out if the calculation of a file offset would overflow.
+- 	 */
+--	if ((io->flags & ISCHR) == 0 && (n < 0 || n > OFF_MAX / (ssize_t)sz))
+-+	if ((io->flags & ISCHR) == 0 && (n < 0 || n > LONG_MAX / (ssize_t)sz))
+- 		errx(1, "seek offsets cannot be larger than %jd",
+--		    (intmax_t)OFF_MAX);
+-+		    (intmax_t)LONG_MAX);
+- 	else if ((io->flags & ISCHR) != 0 && (uint64_t)n > UINT64_MAX / sz)
+- 		errx(1, "seek offsets cannot be larger than %ju",
+- 		    (uintmax_t)UINT64_MAX);
++@@ -52,6 +52,10 @@
++ #include "dd.h"
++ #include "extern.h"
++ 
+++#ifndef OFF_MAX
+++#define OFF_MAX ((off_t)(((1ULL << (sizeof(off_t) * CHAR_BIT - 2)) - 1) * 2 + 1))
+++#endif
+++
++ static off_t
++ seek_offset(IO *io)
++ {
+ --- src.orig/coreutils/df/df.1
+ +++ src.freebsd/coreutils/df/df.1
+ @@ -38,7 +38,7 @@
+diff --git a/src.freebsd/coreutils/dd/position.c b/src.freebsd/coreutils/dd/position.c
+index 7e98249..cdc78f0 100644
+--- a/src.freebsd/coreutils/dd/position.c
++++ b/src.freebsd/coreutils/dd/position.c
+@@ -52,6 +52,10 @@ static char sccsid[] = "@(#)position.c	8.3 (Berkeley) 4/2/94";
+ #include "dd.h"
+ #include "extern.h"
+ 
++#ifndef OFF_MAX
++#define OFF_MAX ((off_t)(((1ULL << (sizeof(off_t) * CHAR_BIT - 2)) - 1) * 2 + 1))
++#endif
++
+ static off_t
+ seek_offset(IO *io)
+ {
+@@ -70,9 +74,9 @@ seek_offset(IO *io)
+ 	 *
+ 	 * Bail out if the calculation of a file offset would overflow.
+ 	 */
+-	if ((io->flags & ISCHR) == 0 && (n < 0 || n > LONG_MAX / (ssize_t)sz))
++	if ((io->flags & ISCHR) == 0 && (n < 0 || n > OFF_MAX / (ssize_t)sz))
+ 		errx(1, "seek offsets cannot be larger than %jd",
+-		    (intmax_t)LONG_MAX);
++		    (intmax_t)OFF_MAX);
+ 	else if ((io->flags & ISCHR) != 0 && (uint64_t)n > UINT64_MAX / sz)
+ 		errx(1, "seek offsets cannot be larger than %ju",
+ 		    (uintmax_t)UINT64_MAX);
