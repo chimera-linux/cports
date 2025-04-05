@@ -1,5 +1,5 @@
 pkgname = "dolphin-emu"
-pkgver = "2412"
+pkgver = "2503"
 pkgrel = 0
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
@@ -12,8 +12,18 @@ configure_args = [
     "-DENABLE_TESTS=OFF",
     "-DUSE_SANITIZERS=OFF",
     "-DWITH_SANITIZER=OFF",
+    # use system libs by default
+    "-DUSE_SYSTEM_LIBS=ON",
+    # wants 2.x, we have 3.x
+    "-DUSE_SYSTEM_MBEDTLS=OFF",
+    # mismatch in headers
+    "-DUSE_SYSTEM_LIBMGBA=OFF",
+    # not packaged
+    "-DUSE_SYSTEM_CUBEB=OFF",
+    "-DUSE_SYSTEM_SFML=OFF",
 ]
 hostmakedepends = [
+    "clang-tools-extra",
     "cmake",
     "gettext",
     "ninja",
@@ -22,6 +32,7 @@ hostmakedepends = [
 makedepends = [
     "bluez-devel",
     "bzip2-devel",
+    "enet-devel",
     "ffmpeg-devel",
     "fmt-devel",
     "hidapi-devel",
@@ -30,9 +41,11 @@ makedepends = [
     "libpulse-devel",
     "libspng-devel",
     "libxi-devel",
+    "llvm-devel",
     "lz4-devel",
     "lzo-devel",
     "mesa-devel",
+    "miniupnpc-devel",
     "minizip-ng-devel",
     "pugixml-devel",
     "qt6-qtdeclarative-devel",
@@ -50,17 +63,15 @@ pkgdesc = "GameCube and Wii emulator"
 license = "GPL-3.0-only"
 url = "https://dolphin-emu.org"
 _commit_cubeb = "54217bca3f3e0cd53c073690a23dd25d83557909"
-_commit_enet = "2a85cd64459f6ba038d233a634d9440490dbba12"
 _commit_tinygltf = "c5641f2c22d117da7971504591a8f6a41ece488b"
-_commit_implot = "cc5e1daa5c7f2335a9460ae79c829011dc5cef2d"
+_commit_implot = "18c72431f8265e2b0b5378a3a73d8a883b2175ff"
 _commit_rcheevos = "d54cf8f1059cebc90a6f5ecdf03df69259f22054"
-_commit_spirv = "50b4d5389b6a06f86fb63a2848e1a7da6d9755ca"
-_commit_vulkan_memory = "009ecd192c1289c7529bff248a16cfe896254816"
+_commit_spirv = "ebe2aa0cd80f5eb5cd8a605da604cacf72205f3b"
+_commit_vulkan_memory = "3bab6924988e5f19bf36586a496156cf72f70d9f"
 _commit_mgba = "8739b22fbc90fdf0b4f6612ef9c0520f0ba44a51"
 source = [
     f"https://github.com/dolphin-emu/dolphin/archive/refs/tags/{pkgver}.tar.gz",
     f"https://github.com/mozilla/cubeb/archive/{_commit_cubeb}.tar.gz",
-    f"https://github.com/lsalzman/enet/archive/{_commit_enet}.tar.gz",
     f"https://github.com/syoyo/tinygltf/archive/{_commit_tinygltf}.tar.gz",
     f"https://github.com/epezent/implot/archive/{_commit_implot}.tar.gz",
     f"https://github.com/RetroAchievements/rcheevos/archive/{_commit_rcheevos}.tar.gz",
@@ -71,7 +82,6 @@ source = [
 source_paths = [
     ".",
     "Externals/cubeb/cubeb",
-    "Externals/enet/enet",
     "Externals/tinygltf/tinygltf",
     "Externals/implot/implot",
     "Externals/rcheevos/rcheevos",
@@ -80,14 +90,13 @@ source_paths = [
     "Externals/mGBA/mgba",
 ]
 sha256 = [
-    "6aafc7d3b6f735a727db26c329679d4973b1b15e028c82e4452c33c4eb9fefa4",
+    "aad77fa841feb35e32467c9a0641596403c0e63ac6ad4006260e47d72a9c4ed2",
     "a795511bf56183ff7bad8fb2d2836ca5bb158e12ddd519caced62946ffa69c83",
-    "526c5af3980edfaebb510119c3311a9062d33ca5599e9f137a88e0d8a3be67a6",
     "6352803f1ed18d479ea93abf96ac75c0222a21403be22840bde1072ee5935dfa",
-    "af51940ae6482c0e96ffb4309982fa309f9aa383cd8f980081681010c8c3a835",
+    "4787c77e6050f3bdc19f39eecf87d5b321bd3096321142b63f8169e1aa8f9b34",
     "bf8e6e9afa865c51ab796c8329df206297b329f008ef0c1308c642480fb2d289",
-    "ed27481a78470fe9905cdfec8fd2ebb6c8f68a17377c2879527c2fcb2a01751c",
-    "5ed5125086a92666f1698df907a29f54f11197c382996094b556a1b22186ecaf",
+    "ff848426a2eabfa0dfb5ee961440210f6cdec190883ed438ee7252ba595c9128",
+    "618dc35e4f571a508575fc1fc914eb15ab513e4443986509aff08dfb8844ba24",
     "07e73f02198affccf83cc9740d377b78ba27866b0d654a5e55cafae69d1dfa1c",
 ]
 # for some reason only -lz-ng is passed but the normal symbols are used
