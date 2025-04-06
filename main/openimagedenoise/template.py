@@ -1,6 +1,6 @@
 pkgname = "openimagedenoise"
-pkgver = "2.3.2"
-pkgrel = 2
+pkgver = "2.3.3"
+pkgrel = 0
 # ispc
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
@@ -18,7 +18,7 @@ pkgdesc = "Ray-tracing denoising library"
 license = "Apache-2.0"
 url = "https://www.openimagedenoise.org"
 source = f"https://github.com/RenderKit/oidn/releases/download/v{pkgver}/oidn-{pkgver}.src.tar.gz"
-sha256 = "0ca50e621294e8be238bee2d814fb0391e252e3f3c93fdd4bc253a60e0d00c68"
+sha256 = "ccf221535b4007607fb53d3ff5afa74de25413bb8ef5d03d215f46c7cc2f96cf"
 # set in release
 tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
 # guilty until proven innocent
