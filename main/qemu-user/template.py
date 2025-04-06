@@ -29,6 +29,7 @@ hostmakedepends = [
     "ugetopt",
 ]
 makedepends = [
+    "glib-devel",
     "glib-devel-static",
     "libatomic-chimera-devel-static",
     "libcxx-devel-static",
@@ -37,7 +38,9 @@ makedepends = [
     "liburing-devel-static",
     "linux-headers",
     "musl-devel-static",
+    "pcre2-devel",
     "pcre2-devel-static",
+    "zlib-ng-compat-devel",
     "zlib-ng-compat-devel-static",
 ]
 pkgdesc = "QEMU user mode emulators"
