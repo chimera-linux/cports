@@ -1,5 +1,5 @@
 pkgname = "obs-studio"
-pkgver = "31.0.2"
+pkgver = "31.0.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -65,7 +65,7 @@ pkgdesc = "Live streaming and screen recording software"
 license = "GPL-2.0-or-later"
 url = "https://obsproject.com"
 source = f"https://github.com/obsproject/obs-studio/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "74563ebbee5fcd448e6a790569cf3ca1a01bdcbc6bc2b3f61a9421ff8dfa6eb2"
+sha256 = "299bc7e55af949b15c3d45634c414c995d5d01f460fceb30d04e5d5c781dbe4b"
 hardening = ["vis", "!cfi"]
 # don't build with lto
 options = ["!check"]
