@@ -1,5 +1,5 @@
 pkgname = "glib"
-pkgver = "2.84.0"
+pkgver = "2.84.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -42,7 +42,7 @@ pkgdesc = "GLib library of C routines"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/glib/{pkgver[:-2]}/glib-{pkgver}.tar.xz"
-sha256 = "f8823600cb85425e2815cfad82ea20fdaa538482ab74e7293d58b3f64a5aff6a"
+sha256 = "2b4bc2ec49611a5fc35f86aca855f2ed0196e69e53092bab6bb73396bf30789a"
 # FIXME int - strfuncs failure
 hardening = ["!int"]
 
@@ -56,8 +56,6 @@ def post_install(self):
     from cbuild.util import python
 
     self.install_license("COPYING")
-    if self.profile().arch != "riscv64":
-        self.uninstall("usr/lib/installed-tests")
 
     python.precompile(self, "usr/share/glib-2.0/codegen")
     python.precompile(self, "usr/share/glib-2.0/gdb")
