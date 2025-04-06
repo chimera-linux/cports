@@ -1,6 +1,6 @@
 pkgname = "openexr"
-pkgver = "3.3.2"
-pkgrel = 1
+pkgver = "3.3.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -26,7 +26,7 @@ pkgdesc = "Reference implementation of the EXR format"
 license = "BSD-3-Clause"
 url = "https://www.openexr.com"
 source = f"https://github.com/openexr/openexr/archive/v{pkgver}.tar.gz"
-sha256 = "5013e964de7399bff1dd328cbf65d239a989a7be53255092fa10b85a8715744d"
+sha256 = "0ffbd842a7ee2128d44affdea30f42294b4061293cde3aa75b61a53573413d1e"
 # CIF: has a bunch of test failures
 hardening = ["vis", "!cfi"]
 
