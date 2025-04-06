@@ -1,5 +1,5 @@
 pkgname = "firmware-sof"
-pkgver = "2025.01"
+pkgver = "2025.01.1"
 pkgrel = 0
 archs = ["x86_64"]
 install_if = [self.with_pkgver("base-firmware-sof")]
@@ -7,7 +7,7 @@ pkgdesc = "Sound Open Firmware"
 license = "BSD-3-Clause"
 url = "https://thesofproject.github.io/latest/index.html"
 source = f"https://github.com/thesofproject/sof-bin/releases/download/v{pkgver}/sof-bin-{pkgver}.tar.gz"
-sha256 = "34d565db757a32450106317cc51f38bf67962e0fc8b7f7c72e6e39fd89e99263"
+sha256 = "a36210d9c245e81b0d9674d6b27d1fd4122968cf925aefc55b486d3650f88323"
 options = ["!strip", "foreignelf"]
 
 
