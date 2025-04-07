@@ -2,6 +2,9 @@ pkgname = "helix"
 pkgver = "25.01.1"
 pkgrel = 0
 build_style = "cargo"
+make_build_env = {
+    "RUSTFLAGS": "-C target-feature=-crt-static",
+}
 hostmakedepends = ["cargo-auditable", "git"]
 makedepends = ["rust-std"]
 pkgdesc = "Fast modal terminal-based text editor"
@@ -11,7 +14,6 @@ source = f"{url}/releases/download/{pkgver}/helix-{pkgver}-source.tar.xz"
 sha256 = "12508c4f5b9ae6342299bd40d281cd9582d3b51487bffe798f3889cb8f931609"
 env = {
     "HELIX_DEFAULT_RUNTIME": "/usr/lib/helix/runtime",
-    "RUSTFLAGS": "-C target-feature=-crt-static",
 }
 
 if self.profile().wordsize == 32:
