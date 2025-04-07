@@ -38,6 +38,9 @@ configure_args = [
     "-DWITH_VTK=OFF",
     "-DWITH_VULKAN=ON",
 ]
+# configuration shits itself with ninja?
+# ninja: error: build.ninja:14764: bad $-escape (literal $ must be written as $$)
+make_cmd = "make"
 hostmakedepends = [
     "cmake",
     "ninja",
