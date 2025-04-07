@@ -1,6 +1,6 @@
 pkgname = "tdesktop"
-pkgver = "5.13.0"
-pkgrel = 2
+pkgver = "5.13.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",
@@ -60,7 +60,7 @@ pkgdesc = "Telegram desktop app"
 license = "GPL-3.0-or-later"
 url = "https://desktop.telegram.org"
 source = f"https://github.com/telegramdesktop/tdesktop/releases/download/v{pkgver}/tdesktop-{pkgver}-full.tar.gz"
-sha256 = "4a75fe1a768f9d8bef23f754822a7b711a256d581db2f8c54fdb4306a947c162"
+sha256 = "caa37bbf7d9fcdfecdb5f596f02a44becbe468ea5c6af7f3c670b61952744a80"
 # crashes
 hardening = ["!int"]
 
