@@ -31,16 +31,15 @@ configure_args = [
     "-DWITH_IPP=OFF",
     "-DWITH_OPENCL=ON",
     "-DWITH_OPENGL=ON",
-    "-DWITH_QT=ON",
+    # FIXME fails with qt 6.9 in a way i don't get
+    # uses gtk instead
+    "-DWITH_QT=OFF",
     "-DWITH_TBB=ON",
     "-DWITH_VA=ON",
     "-DWITH_VA_INTEL=ON",
     "-DWITH_VTK=OFF",
     "-DWITH_VULKAN=ON",
 ]
-# configuration shits itself with ninja?
-# ninja: error: build.ninja:14764: bad $-escape (literal $ must be written as $$)
-make_cmd = "make"
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -58,6 +57,7 @@ makedepends = [
     "glog-devel",
     "gst-plugins-base-devel",
     "gstreamer-devel",
+    "gtk+3-devel",
     "harfbuzz-devel",
     "libva-devel",
     "libwebp-devel",
@@ -70,8 +70,8 @@ makedepends = [
     "openexr-devel",
     "openjpeg-devel",
     "protobuf-devel",
-    "qt6-qt5compat-devel",
-    "qt6-qtbase-devel",
+    # "qt6-qt5compat-devel",
+    # "qt6-qtbase-devel",
     "vulkan-headers",
     "vulkan-loader-devel",
 ]
