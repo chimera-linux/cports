@@ -104,7 +104,7 @@ _libs = [
     "calib3d",
     "ccalib",
     "core",
-    "cvv",
+    # "cvv",  # needs qt
     "dnn",
     "features2d",
     "flann",
@@ -166,7 +166,7 @@ def post_extract(self):
             "alphamat",
             "aruco",
             "ccalib",
-            "cvv",
+            # "cvv",
             "freetype",
             "optflow",
             "plot",
