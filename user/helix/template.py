@@ -9,7 +9,10 @@ license = "MPL-2.0"
 url = "https://github.com/helix-editor/helix"
 source = f"{url}/releases/download/{pkgver}/helix-{pkgver}-source.tar.xz"
 sha256 = "12508c4f5b9ae6342299bd40d281cd9582d3b51487bffe798f3889cb8f931609"
-env = {"HELIX_DEFAULT_RUNTIME": "/usr/lib/helix/runtime"}
+env = {
+    "HELIX_DEFAULT_RUNTIME": "/usr/lib/helix/runtime",
+    "RUSTFLAGS": "-C target-feature=-crt-static",
+}
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
