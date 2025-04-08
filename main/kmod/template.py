@@ -1,5 +1,5 @@
 pkgname = "kmod"
-pkgver = "34.1"
+pkgver = "34.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dxz=disabled"]
@@ -18,7 +18,7 @@ pkgdesc = "Linux kernel module handling"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git"
 source = f"$(KERNEL_SITE)/utils/kernel/kmod/kmod-{pkgver}.tar.gz"
-sha256 = "a1e213f07390230b2b2d1869e703ad327c6ddbf33f5e49bcf018134d63e023ea"
+sha256 = "d60a79fb12a85feab75674ce5b86b2c8bae1714f775f481eae926bd2657b2ffe"
 
 
 def post_install(self):
