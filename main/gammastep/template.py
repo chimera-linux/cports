@@ -1,5 +1,5 @@
 pkgname = "gammastep"
-pkgver = "2.0.10"
+pkgver = "2.0.11"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -25,7 +25,7 @@ pkgdesc = "Adjusts the color temperature of the screen"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.com/chinstrap/gammastep"
 source = f"{url}/-/archive/v{pkgver}/gammastep-v{pkgver}.tar.gz"
-sha256 = "f00549fa856ebdcdbbbcd2bcb35cc3e355e6f19284d9e8fb6cadff9bee17c325"
+sha256 = "e16026b8f21d5e02cfe7cd2f738c80f150c1f06a098e5e47e0fc088244a763bd"
 
 
 def post_install(self):
