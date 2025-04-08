@@ -2,6 +2,7 @@ pkgname = "ldacbt"
 pkgver = "2.0.2.3"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "AOSP libldac dispatcher"
 license = "Apache-2.0"
