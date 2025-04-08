@@ -5,6 +5,7 @@ pkgrel = 0
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DCMAKE_BUILD_TYPE=Release",
     "-DDISTRIBUTOR=chimera-linux.org",
     "-DENABLE_ANALYTICS=ON",
