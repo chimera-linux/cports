@@ -1,5 +1,5 @@
 pkgname = "foliate"
-pkgver = "3.2.1"
+pkgver = "3.3.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -24,5 +24,5 @@ pkgdesc = "GTK e-book reader"
 license = "GPL-3.0-or-later"
 url = "https://johnfactotum.github.io/foliate"
 source = f"https://github.com/johnfactotum/foliate/releases/download/{pkgver}/com.github.johnfactotum.Foliate-{pkgver}.tar.xz"
-sha256 = "01c27a8c481a9ebc4a3237e2947c3e86ef36cc0fac2f4199e7a79e554d676ea4"
+sha256 = "09d0cc0a34426a2e57af25d67147dfe9b77ebf638a5a041b9f5c42499c4db672"
 options = ["!cross"]
