@@ -1,0 +1,9 @@
+type = process
+command = /usr/bin/i2pd --service --certsdir /usr/share/i2pd/certificates --conf /usr/share/i2pd/i2pd.conf --tunconf /usr/share/i2pd/tunnels.conf
+pid-file = /var/lib/i2pd/i2pd.pid
+working-dir = /var/lib/i2pd
+depends-on = local.target
+depends-on = network.target
+depends-on = time-sync.target
+restart = no
+run-as = _i2pd
