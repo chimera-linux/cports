@@ -1,5 +1,5 @@
 pkgname = "jaq"
-pkgver = "2.1.0"
+pkgver = "2.1.1"
 pkgrel = 0
 build_style = "cargo"
 # disable the default mimalloc feature and just use the system allocator
@@ -12,7 +12,7 @@ pkgdesc = "JSON data processing tool with jq compatible syntax"
 license = "MIT"
 url = "https://github.com/01mf02/jaq"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "59cd17e806a4797e28fa42073c6c8a4d6fb40e28efd7a63f3004d1d738d5be93"
+sha256 = "b8276f6618bd69b2d8feb8d76b927a6debe1bc950742d344643cc4e4d0849009"
 
 
 def install(self):
