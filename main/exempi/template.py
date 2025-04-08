@@ -1,6 +1,6 @@
 pkgname = "exempi"
-pkgver = "2.6.5"
-pkgrel = 4
+pkgver = "2.6.6"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
 makedepends = ["boost-devel", "libexpat-devel", "zlib-ng-compat-devel"]
@@ -8,7 +8,7 @@ pkgdesc = "Library for easy parsing of XMP metadata"
 license = "BSD-3-Clause"
 url = "https://libopenraw.freedesktop.org/exempi"
 source = f"https://libopenraw.freedesktop.org/download/exempi-{pkgver}.tar.bz2"
-sha256 = "e9f9a3d42bff73b5eb0f77ec22cd0163c3e21949cc414ad1f19a0465dde41ffe"
+sha256 = "7513b7e42c3bd90a58d77d938c60d2e87c68f81646e7cb8b12d71fe334391c6f"
 hardening = ["vis", "!cfi"]
 
 
