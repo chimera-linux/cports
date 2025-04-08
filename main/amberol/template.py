@@ -1,5 +1,5 @@
 pkgname = "amberol"
-pkgver = "2024.2"
+pkgver = "2025.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -24,7 +24,7 @@ pkgdesc = "Music player for GNOME"
 license = "GPL-3.0-or-later"
 url = "https://apps.gnome.org/Amberol"
 source = f"https://gitlab.gnome.org/World/amberol/-/archive/{pkgver}/amberol-{pkgver}.tar.gz"
-sha256 = "93b1ef0c2ec5711aa5e170a4a0c81d62f97f6a92c0a74a011955be7022e7e555"
+sha256 = "087623631bee272240d64258c47efbbdf64c5fc46ce8f5e2d3d987feb30ad69d"
 # broken below
 options = ["!cross"]
 
