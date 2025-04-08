@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -73,7 +73,6 @@ for _pkg in [
     "libkadm5srv",
     "libkafs",
     "libkdc",
-    "libkmod",
     "libkrb5",
     "libldns",
     "libltdl",
@@ -150,7 +149,6 @@ for _pkg in [
     "valadoc",
     "xmlwf",
     "xsltproc",
-    "zlib",
     "zramctl",
 ]:
     provides += [f"{_pkg}-dbg=9999"]
