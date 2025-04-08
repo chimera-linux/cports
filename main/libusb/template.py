@@ -1,5 +1,5 @@
 pkgname = "libusb"
-pkgver = "1.0.27"
+pkgver = "1.0.28"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf"]
@@ -8,7 +8,7 @@ pkgdesc = "Library for userspace USB device access"
 license = "LGPL-2.1-or-later"
 url = "https://libusb.info"
 source = f"https://github.com/libusb/libusb/releases/download/v{pkgver}/libusb-{pkgver}.tar.bz2"
-sha256 = "ffaa41d741a8a3bee244ac8e54a72ea05bf2879663c098c82fc5757853441575"
+sha256 = "966bb0d231f94a474eaae2e67da5ec844d3527a1f386456394ff432580634b29"
 
 
 @subpackage("libusb-devel")
