@@ -1,5 +1,5 @@
 pkgname = "blake3"
-pkgver = "1.7.0"
+pkgver = "1.8.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DBLAKE3_USE_TBB=ON"]
@@ -14,7 +14,7 @@ pkgdesc = "BLAKE3 cryptographic hash implementation"
 license = "CC0-1.0 OR Apache-2.0"
 url = "https://github.com/BLAKE3-team/BLAKE3"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "59bb6f42ecf1bd136b40eaffe40232fc76488b03954ef25cb588404b8d66a7e0"
+sha256 = "fc2aac36643db7e45c3653fd98a2a745e6d4d16ff3711e4b7abd3b88639463dd"
 hardening = ["vis", "cfi"]
 
 
