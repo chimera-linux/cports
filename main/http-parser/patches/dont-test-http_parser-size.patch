@@ -1,0 +1,30 @@
+From efec29370bfe51c63dc2c2cd88aaadc0933072e5 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Tue, 8 Apr 2025 22:42:05 +0200
+Subject: [PATCH] Don't test http_parser size
+
+This test is pointless and not portable because alignment differs
+between architectures (notably 32-bit ARM fails this test).
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ test.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/test.c b/test.c
+index 7983424..7dd83c6 100644
+--- a/test.c
++++ b/test.c
+@@ -4220,9 +4220,6 @@ main (void)
+   patch = version & 255;
+   printf("http_parser v%u.%u.%u (0x%06lx)\n", major, minor, patch, version);
+ 
+-  printf("sizeof(http_parser) = %u\n", (unsigned int)sizeof(http_parser));
+-  assert(sizeof(http_parser) == 4 + 4 + 8 + 2 + 2 + 4 + sizeof(void *));
+-
+   //// API
+   test_preserve_data();
+   test_parse_url();
+-- 
+2.49.0
+
