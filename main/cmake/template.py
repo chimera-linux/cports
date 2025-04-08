@@ -1,5 +1,5 @@
 pkgname = "cmake"
-pkgver = "3.31.6"
+pkgver = "4.0.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -25,7 +25,7 @@ pkgdesc = "Cross-platform, open source build system"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
 source = f"https://www.cmake.org/files/v{pkgver[:-2]}/cmake-{pkgver}.tar.gz"
-sha256 = "653427f0f5014750aafff22727fb2aa60c6c732ca91808cfb78ce22ddd9e55f0"
+sha256 = "ddc54ad63b87e153cf50be450a6580f1b17b4881de8941da963ff56991a4083b"
 # prevent cmake self-bootstrap false positive nonsense
 tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
@@ -85,6 +85,6 @@ if self.profile().cross:
 
 
 def post_install(self):
-    self.install_license("Copyright.txt")
+    self.install_license("LICENSE.rst")
     self.cp("Utilities/KWIML/Copyright.txt", "KWIML-Copyright.txt")
     self.install_license("KWIML-Copyright.txt")
