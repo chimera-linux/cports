@@ -1,6 +1,6 @@
 pkgname = "kea"
-pkgver = "2.6.1"
-pkgrel = 3
+pkgver = "2.6.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -22,7 +22,7 @@ pkgdesc = "Alternative DHCP implementation by ISC"
 license = "MPL-2.0"
 url = "https://kea.isc.org"
 source = f"https://downloads.isc.org/isc/kea/cur/{pkgver[: pkgver.rfind('.')]}/kea-{pkgver}.tar.gz"
-sha256 = "d2ce14a91c2e248ad2876e29152d647bcc5e433bc68dafad0ee96ec166fcfad1"
+sha256 = "8a50b63103734b59c3b8619ccd6766d2dfee3f02e3a5f9f3abc1cd55f70fa424"
 
 
 def post_install(self):
