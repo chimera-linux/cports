@@ -34,7 +34,7 @@ tool_flags = {
 match self.profile().arch:
     case "ppc64":
         configure_args += ["-DENABLE_VSX=0"]
-    case "aarch64":
+    case "aarch64" | "armv7":
         # requires an explicit assembler
         configure_args += ["-DCMAKE_ASM_COMPILER=clang"]
 
