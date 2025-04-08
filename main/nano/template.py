@@ -1,5 +1,5 @@
 pkgname = "nano"
-pkgver = "8.3"
+pkgver = "8.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-utf8"]
@@ -10,7 +10,7 @@ pkgdesc = "GNU nano text editor"
 license = "GPL-3.0-or-later"
 url = "https://www.nano-editor.org"
 source = f"https://www.nano-editor.org/dist/v{pkgver[0]}/nano-{pkgver}.tar.xz"
-sha256 = "551b717b2e28f7e90f749323686a1b5bbbd84cfa1390604d854a3ca3778f111e"
+sha256 = "5ad29222bbd55624d87ea677928b3106a743114d6c6f9b41f36c97be2a8e628d"
 hardening = ["vis", "cfi"]
 
 
