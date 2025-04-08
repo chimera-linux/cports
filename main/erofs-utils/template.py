@@ -1,5 +1,5 @@
 pkgname = "erofs-utils"
-pkgver = "1.8.5"
+pkgver = "1.8.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -29,5 +29,8 @@ pkgdesc = "Userspace tools for the EROFS filesystem"
 license = "Apache-2.0 AND GPL-2.0-or-later"
 url = "https://github.com/erofs/erofs-utils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cd8611270e9c86fe062f647103ca6ada9ed710e4430fdd5960d514777919200d"
-tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
+sha256 = "5b221dc3fd6d151425b30534ede46fb7a90dc233a8659cba0372796b0a066547"
+tool_flags = {
+    "CFLAGS": ["-D_LARGEFILE64_SOURCE"],
+    "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
+}
