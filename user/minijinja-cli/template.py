@@ -1,5 +1,5 @@
 pkgname = "minijinja-cli"
-pkgver = "2.8.0"
+pkgver = "2.9.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bin", "minijinja-cli"]
@@ -12,15 +12,13 @@ pkgdesc = "Jinja implementation"
 license = "Apache-2.0"
 url = "https://github.com/mitsuhiko/minijinja"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "bdad3b19ffaf09c34eb97b254a05a9184f021003a66d69f01f20a5b6417b8bba"
+sha256 = "22efb07f6129d78752b75c80a0dcd938bc1a59fbe53ab573c3591b12dceb77cf"
 # check may be disabled
 options = []
 
 if self.profile().arch == "riscv64":
     # lots of undefined pyo3 references when linking
     options += ["!check"]
-elif self.profile().wordsize == 32:
-    broken = "needs atomic64"
 
 
 def install(self):
