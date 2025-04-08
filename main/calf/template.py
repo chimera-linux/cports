@@ -1,14 +1,10 @@
 pkgname = "calf"
-pkgver = "0.90.4"
+pkgver = "0.90.6"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = [
-    "--disable-experimental",
-    "--disable-static",
-]
+build_style = "cmake"
 hostmakedepends = [
-    "automake",
-    "libtool",
+    "cmake",
+    "ninja",
     "pkgconf",
 ]
 makedepends = [
@@ -20,7 +16,7 @@ pkgdesc = "Calf Studio Gear audio plugins"
 license = "LGPL-2.0-or-later"
 url = "https://calf-studio-gear.org"
 source = f"https://github.com/calf-studio-gear/calf/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "60ddef9062d92b245c71e9e8a565fbaaf015a5973eaebed615e0f63c89a14f8f"
+sha256 = "e9e58f2b35177765be756987787079730579f351fa5ccf0fd2405ceab4da036d"
 # vis breaks symbols
 hardening = ["!vis"]
 
