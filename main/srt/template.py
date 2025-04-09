@@ -3,6 +3,7 @@ pkgver = "1.5.4"
 pkgrel = 1
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DBUILD_SHARED_LIBS=ON",
     "-DENABLE_UNITTESTS=OFF",
     "-DUSE_ENCLIB=openssl-evp",
