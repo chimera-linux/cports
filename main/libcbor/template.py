@@ -3,6 +3,7 @@ pkgver = "0.11.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DBUILD_SHARED_LIBS=ON",
     "-DWITH_EXAMPLES=OFF",
     "-DWITH_TESTS=ON",
