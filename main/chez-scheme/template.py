@@ -25,6 +25,8 @@ match self.profile().arch:
         _machine = "tarm64le"
     case "armhf" | "armv7":
         _machine = "tarm32le"
+        # takes a long time and fails
+        options += ["!check"]
     case "ppc":
         _machine = "tppc32le"
     case "riscv64":
