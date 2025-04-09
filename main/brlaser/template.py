@@ -2,6 +2,7 @@ pkgname = "brlaser"
 pkgver = "6.2.7"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja"]
 makedepends = ["cups-devel"]
 pkgdesc = "CUPS driver for monochrome Brother laser printers"
