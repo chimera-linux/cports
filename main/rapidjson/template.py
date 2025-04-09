@@ -4,6 +4,7 @@ pkgver = "1.1.0"
 pkgrel = 1
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DGTESTSRC_FOUND=ON",
     "-DGTEST_SOURCE_DIR=.",
     "-DRAPIDJSON_BUILD_DOC=OFF",
