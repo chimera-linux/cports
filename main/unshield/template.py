@@ -2,6 +2,7 @@ pkgname = "unshield"
 pkgver = "1.5.1"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Utility for InstallShield CAB archive extraction"
