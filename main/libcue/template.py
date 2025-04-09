@@ -2,7 +2,10 @@ pkgname = "libcue"
 pkgver = "2.3.0"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=ON"]
+configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "-DBUILD_SHARED_LIBS=ON",
+]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "bison", "flex"]
 pkgdesc = "CUE sheet parser library"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
