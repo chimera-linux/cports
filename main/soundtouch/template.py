@@ -2,7 +2,10 @@ pkgname = "soundtouch"
 pkgver = "2.3.3"
 pkgrel = 1
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=ON"]
+configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "-DBUILD_SHARED_LIBS=ON",
+]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = []
 pkgdesc = "SoundTouch audio processing library"
