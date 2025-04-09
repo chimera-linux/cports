@@ -2,6 +2,7 @@ pkgname = "pystring"
 pkgver = "1.1.4"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja"]
 pkgdesc = "C++ functions matching the interface of Python string methods"
 license = "BSD-3-Clause"
