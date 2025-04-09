@@ -2,6 +2,7 @@ pkgname = "ledger"
 pkgver = "3.3.2"
 pkgrel = 3
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 make_dir = "."
 # see https://github.com/ledger/ledger/issues/1783
 make_check_args = ["-E", "(BaselineTest_cmd-pricedb|BaselineTest_cmd-prices)"]
