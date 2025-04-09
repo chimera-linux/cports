@@ -22,3 +22,7 @@ license = "GPL-2.0-only"
 url = "https://github.com/fenrus75/powertop"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "e58ab3fd7b8ff5f4dd0d17f11848817e7d83c0a6918145ac81de03b5dccf8f49"
+
+
+def post_extract(self):
+    self.rm("po/Makefile.in.in")
