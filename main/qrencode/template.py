@@ -1,6 +1,6 @@
 pkgname = "qrencode"
 pkgver = "4.1.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--with-tests"]
 hostmakedepends = ["automake", "libtool", "pkgconf"]
@@ -8,8 +8,10 @@ makedepends = ["libpng-devel"]
 pkgdesc = "Library for encoding QR codes"
 license = "LGPL-2.1-or-later"
 url = "https://fukuchi.org/works/qrencode/index.html.en"
-source = f"https://fukuchi.org/works/qrencode/qrencode-{pkgver}.tar.bz2"
-sha256 = "e455d9732f8041cf5b9c388e345a641fd15707860f928e94507b1961256a6923"
+source = (
+    f"https://github.com/fukuchi/libqrencode/archive/refs/tags/v{pkgver}.tar.gz"
+)
+sha256 = "5385bc1b8c2f20f3b91d258bf8ccc8cf62023935df2d2676b5b67049f31a049c"
 
 
 @subpackage("qrencode-devel")
