@@ -2,7 +2,10 @@ pkgname = "libebml"
 pkgver = "1.4.5"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=ON"]
+configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "-DBUILD_SHARED_LIBS=ON",
+]
 hostmakedepends = [
     "cmake",
     "ninja",
