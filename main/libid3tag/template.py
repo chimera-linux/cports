@@ -2,6 +2,7 @@ pkgname = "libid3tag"
 pkgver = "0.16.3"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = [
     "cmake",
     "ninja",
