@@ -3,6 +3,7 @@ pkgver = "1.2.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DENABLE_TESTS=OFF",
 ]
 hostmakedepends = [
