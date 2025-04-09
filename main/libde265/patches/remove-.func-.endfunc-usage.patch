@@ -1,0 +1,40 @@
+From 9dc25da617f3c66cb82b7f46386c19100e6e375d Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Wed, 9 Apr 2025 02:50:39 +0200
+Subject: [PATCH] Remove .func/.endfunc usage
+
+Only necessary when generating STABS debug info, which is practically
+not used anymore (DWARF is used nowadays).
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ libde265/arm/asm.S | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/libde265/arm/asm.S b/libde265/arm/asm.S
+index 1d0e5a97..4fe674f7 100644
+--- a/libde265/arm/asm.S
++++ b/libde265/arm/asm.S
+@@ -72,7 +72,6 @@ ELF     .section .note.GNU-stack,"",%progbits @ Mark stack as non-executable
+         .noaltmacro
+       .endif
+ ELF     .size   \name, . - \name
+-FUNC    .endfunc
+         .purgem endfunc
+     .endm
+         .text
+@@ -80,11 +79,9 @@ FUNC    .endfunc
+     .if \export
+         .global EXTERN_ASM\name
+ ELF     .type   EXTERN_ASM\name, %function
+-FUNC    .func   EXTERN_ASM\name
+ EXTERN_ASM\name:
+     .else
+ ELF     .type   \name, %function
+-FUNC    .func   \name
+ \name:
+     .endif
+ .endm
+-- 
+2.49.0
+

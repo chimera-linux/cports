@@ -1,0 +1,38 @@
+From 75cb1d496125ff34818bcc7b902e9ee2122daa98 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Wed, 9 Apr 2025 02:42:48 +0200
+Subject: [PATCH] Fix ARM include paths
+
+Akin to 4b63f6b07cfc692058fda254b901ea817ef2bbd5.
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ libde265/arm/Makefile.am | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/libde265/arm/Makefile.am b/libde265/arm/Makefile.am
+index 9ef62d98..faea8af9 100644
+--- a/libde265/arm/Makefile.am
++++ b/libde265/arm/Makefile.am
+@@ -1,6 +1,6 @@
+ noinst_LTLIBRARIES = libde265_arm.la
+ 
+-libde265_arm_la_CXXFLAGS = -I.. $(CFLAG_VISIBILITY)
++libde265_arm_la_CXXFLAGS = -I$(top_srcdir)/libde265 $(CFLAG_VISIBILITY)
+ libde265_arm_la_SOURCES = arm.cc arm.h
+ libde265_arm_la_LIBADD =
+ 
+@@ -14,8 +14,8 @@ if ENABLE_NEON_OPT
+ 
+ noinst_LTLIBRARIES += libde265_arm_neon.la
+ libde265_arm_la_LIBADD += libde265_arm_neon.la
+-libde265_arm_neon_la_CXXFLAGS = -mfpu=neon -I.. $(CFLAG_VISIBILITY)
+-libde265_arm_neon_la_CCASFLAGS = -mfpu=neon -I.. \
++libde265_arm_neon_la_CXXFLAGS = -mfpu=neon -I$(top_srcdir)/libde265 $(CFLAG_VISIBILITY)
++libde265_arm_neon_la_CCASFLAGS = -mfpu=neon -I$(top_srcdir)/libde265 \
+ 	-DHAVE_NEON \
+ 	-DEXTERN_ASM= \
+ 	-DHAVE_AS_FUNC \
+-- 
+2.49.0
+
