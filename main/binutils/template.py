@@ -1,7 +1,7 @@
 pkgname = "binutils"
 pkgver = "2.44"
 _llvmver = "19.1.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -61,6 +61,7 @@ options = ["!check", "!lto", "linkundefver", "empty"]
 # currently built targets, includes the native target
 _targets = [
     "aarch64",
+    "armv7",
     "loongarch64",
     "ppc64le",
     "ppc64",
