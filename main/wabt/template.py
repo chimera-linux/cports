@@ -46,7 +46,7 @@ sha256 = [
 # may disable check
 options = []
 
-if self.profile().arch in ["loongarch64"]:
+if self.profile().arch in ["armv7", "loongarch64"]:
     # does unsupported rounding mode overrides in tests
     options += ["!check"]
 
