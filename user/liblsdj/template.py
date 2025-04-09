@@ -2,6 +2,7 @@ pkgname = "liblsdj"
 pkgver = "2.2.0"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja"]
 makedepends = ["catch2-devel"]
 pkgdesc = "LSDj save format tools"
