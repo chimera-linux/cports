@@ -3,6 +3,7 @@ pkgver = "4.11.0"
 pkgrel = 6
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     # rm NDEBUG
     "-DCMAKE_BUILD_TYPE=Release",
     # misc
