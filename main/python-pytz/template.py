@@ -1,6 +1,6 @@
 pkgname = "python-pytz"
-pkgver = "2025.1"
-pkgrel = 2
+pkgver = "2025.2"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,7 +13,7 @@ pkgdesc = "Python timezone library"
 license = "MIT"
 url = "https://pythonhosted.org/pytz"
 source = f"$(PYPI_SITE)/p/pytz/pytz-{pkgver}.tar.gz"
-sha256 = "c2db42be2a2518b28e65f9207c4d05e6ff547d1efa4086469ef855e4ab70178e"
+sha256 = "360b9e3dbb49a209c21ad61809c7fb453643e048b38924c765813546746e81c3"
 broken_symlinks = ["usr/lib/python*/site-packages/pytz/zoneinfo"]
 # TODO
 options = ["!check"]
