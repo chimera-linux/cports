@@ -3,7 +3,10 @@ pkgver = "24.12"
 pkgrel = 0
 build_wrksrc = "Project/CMake"
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=ON"]
+configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "-DBUILD_SHARED_LIBS=ON",
+]
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
 makedepends = [
     "curl-devel",
