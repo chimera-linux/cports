@@ -1,6 +1,6 @@
 pkgname = "python-pyasn1_modules"
-pkgver = "0.4.1"
-pkgrel = 1
+pkgver = "0.4.2"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,7 +14,7 @@ pkgdesc = "Python ASN.1 protocol modules"
 license = "BSD-2-Clause"
 url = "https://pyasn1.readthedocs.io/en/latest/contents.html"
 source = f"$(PYPI_SITE)/p/pyasn1_modules/pyasn1_modules-{pkgver}.tar.gz"
-sha256 = "c28e2dbf9c06ad61c71a075c7e0f9fd0f1b0bb2d2ad4377f240d33ac2ab60a7c"
+sha256 = "677091de870a80aae844b1ca6134f54652fa2c8c5a52aa396440ac3106e941e6"
 
 
 def post_install(self):
