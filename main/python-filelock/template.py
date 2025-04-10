@@ -1,6 +1,6 @@
 pkgname = "python-filelock"
-pkgver = "3.17.0"
-pkgrel = 1
+pkgver = "3.18.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,6 +14,6 @@ pkgdesc = "Platform-independent file lock for Python"
 license = "Unlicense"
 url = "https://github.com/tox-dev/filelock"
 source = f"$(PYPI_SITE)/f/filelock/filelock-{pkgver}.tar.gz"
-sha256 = "ee4e77401ef576ebb38cd7f13b9b28893194acc20a8e68e18730ba9c0e54660e"
+sha256 = "adbc88eabb99d2fec8c9c1b229b171f18afa655400173ddc653d5d01501fb9f2"
 # missing check dependencies
 options = ["!check"]
