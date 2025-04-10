@@ -1,6 +1,6 @@
 pkgname = "python-trio"
-pkgver = "0.28.0"
-pkgrel = 1
+pkgver = "0.29.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     "--pyargs",
@@ -28,7 +28,7 @@ pkgdesc = "Python library for async concurrency"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/python-trio/trio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f1d79311e706884278d883f624b4213697a56c3bfdf8ff05cd770cd2e45bda37"
+sha256 = "80da11933df9ec7fa8636966b2b4006e936dcf8127cdc97688af10bb1eb6cb24"
 
 
 def post_install(self):
