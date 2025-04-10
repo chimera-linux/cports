@@ -22,7 +22,13 @@ source = f"$(SOURCEFORGE_SITE)/clucene/clucene-core-{pkgver}.tar.gz"
 sha256 = "ddfdc433dd8ad31b5c5819cc4404a8d2127472a3b720d3e744e8c51d79732eab"
 # TODO fails multiple tests
 hardening = ["!int"]
+# check may be disabled
 options = ["!cross"]
+
+if self.profile().wordsize == 32:
+    # 32-bit tests are broken, see e.g.:
+    # https://git.adelielinux.org/adelie/packages/-/issues/873
+    options += ["!check"]
 
 
 def post_check(self):
