@@ -1,6 +1,6 @@
 pkgname = "python-bcrypt"
-pkgver = "4.2.1"
-pkgrel = 1
+pkgver = "4.3.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
@@ -15,7 +15,7 @@ pkgdesc = "Bcrypt password hashing for python"
 license = "Apache-2.0"
 url = "https://github.com/pyca/bcrypt"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2e50951602bec025ec8b9fdd0df820d0a133f11f97c45c3c2a091785cb5311db"
+sha256 = "5cf3964765a9e2ed592ceb721948592f6227abcf22dd7314c897363ddd49ac3e"
 
 
 def prepare(self):
@@ -29,3 +29,5 @@ def init_build(self):
 
     renv = cargo.get_environment(self)
     self.make_env.update(renv)
+    # siigh
+    self.make_env["CARGO_HOME"] = str(self.chroot_cwd / "src/_bcrypt/.cargo")
