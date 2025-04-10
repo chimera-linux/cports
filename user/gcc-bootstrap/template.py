@@ -5,7 +5,7 @@ depends = [f"binutils-{self.profile().arch}"]
 pkgdesc = "GCC bootstrap binaries"
 license = "GPL-3.0-or-later"
 url = "https://musl.cc"
-source = f"https://more.musl.cc/{pkgver}/x86_64-linux-musl/{self.profile().triplet.split('-')[0]}-linux-musl-native.tgz"
+source = f"https://more.musl.cc/{pkgver}/x86_64-linux-musl/{self.profile().machine}-linux-{self.profile().triplet.split('-')[-1]}-native.tgz"
 options = [
     "!strip",
     "!scanrundeps",
@@ -18,6 +18,10 @@ match self.profile().arch:
     case "aarch64":
         sha256 = (
             "daf336cafa2c3c7daf42f6a46edc960f10a181fcf15ab9f1c43b192e8ad2a069"
+        )
+    case "armv7":
+        sha256 = (
+            "2b37466f716d28a9ef313a8916543f53f9c8c78509e1c8d57a18ca4b171f2205"
         )
     case "ppc64le":
         sha256 = (
@@ -52,11 +56,11 @@ def install(self):
     self.install_link("usr/lib/gcc-bootstrap/usr", ".")
     # default to our native linker because what they ship does not support
     # relr so it will fail to link to any of our regular libraries...
-    archn = self.profile().triplet.split("-")[0]
+    triple = f"{self.profile().machine}-linux-{self.profile().triplet.split('-')[-1]}"
     self.uninstall("usr/lib/gcc-bootstrap/bin/ld")
-    self.uninstall(f"usr/lib/gcc-bootstrap/{archn}-linux-musl/bin/ld")
+    self.uninstall(f"usr/lib/gcc-bootstrap/{triple}/bin/ld")
     self.install_link("usr/lib/gcc-bootstrap/bin/ld", "../../../bin/ld.bfd")
     self.install_link(
-        f"usr/lib/gcc-bootstrap/{archn}-linux-musl/bin/ld",
+        f"usr/lib/gcc-bootstrap/{triple}/bin/ld",
         "../../../../bin/ld.bfd",
     )
