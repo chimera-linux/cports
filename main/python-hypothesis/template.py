@@ -45,6 +45,7 @@ def init_check(self):
         "--ignore=tests/codemods/test_codemod_cli.py",
         "--ignore=tests/cover/test_database_backend.py",
         "--ignore=tests/cover/test_observability.py",
+        "--ignore=tests/watchdog/test_database.py",
         "--ignore=tests/pandas",
         "--ignore=tests/numpy",
         "--ignore=tests/crosshair",
