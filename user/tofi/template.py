@@ -1,6 +1,6 @@
 pkgname = "tofi"
 pkgver = "0.9.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
     "meson",
