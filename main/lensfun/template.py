@@ -2,7 +2,11 @@ pkgname = "lensfun"
 pkgver = "0.3.4"
 pkgrel = 3
 build_style = "cmake"
-configure_args = ["-DINSTALL_HELPER_SCRIPTS=OFF", "-DBUILD_TESTS=ON"]
+configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "-DINSTALL_HELPER_SCRIPTS=OFF",
+    "-DBUILD_TESTS=ON",
+]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "python-setuptools"]
 makedepends = ["glib-devel"]
 pkgdesc = "Photographic lens distortion library"
