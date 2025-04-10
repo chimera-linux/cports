@@ -10,7 +10,7 @@ hostmakedepends = [
     "libtool",
     "pkgconf",
 ]
-makedepends = ["libxml2-devel"]
+makedepends = ["glib-devel", "libxml2-devel"]
 pkgdesc = "Interface library to access tags for identifying languages"
 license = "MPL-2.0 OR LGPL-3.0-or-later"
 url = "https://bitbucket.org/tagoh/liblangtag"
