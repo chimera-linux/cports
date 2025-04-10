@@ -112,7 +112,9 @@ broken_symlinks = [
 _use_bootstrap = False
 
 match self.profile().arch:
-    case "aarch64" | "ppc64le" | "ppc64" | "ppc" | "riscv64" | "x86_64":
+    case (
+        "aarch64" | "armv7" | "ppc64le" | "ppc64" | "ppc" | "riscv64" | "x86_64"
+    ):
         _use_bootstrap = True
         hostmakedepends += ["gcc-bootstrap"]
 
@@ -121,6 +123,15 @@ match self.profile().arch:
         configure_args += [
             "--with-arch=armv8-a",
             "--with-abi=lp64",
+        ]
+    case "armv7":
+        configure_args += [
+            "--with-arch=armv7-a",
+            "--with-tune=generic-armv7-a",
+            "--with-fpu=vfpv3-d16",
+            "--with-float=hard",
+            "--with-abi=aapcs-linux",
+            "--with-mode=thumb",
         ]
     case "ppc64":
         configure_args += [
@@ -155,7 +166,7 @@ match self.profile().arch:
 _have_libgomp = False
 
 match self.profile().arch:
-    case "aarch64" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
+    case "aarch64" | "armv7" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
         _have_libgomp = True
     case _:
         configure_args += ["--disable-libgomp"]
