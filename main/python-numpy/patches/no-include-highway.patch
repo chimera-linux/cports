@@ -17,24 +17,21 @@ also a workaround for loongarch, highway.h fails to include
   * Vectorized approximate sine/cosine algorithms: The following code is a
 --- a/numpy/_core/src/npysort/highway_qsort.hpp
 +++ b/numpy/_core/src/npysort/highway_qsort.hpp
-@@ -1,10 +1,15 @@
- #ifndef NUMPY_SRC_COMMON_NPYSORT_HWY_SIMD_QSORT_HPP
+@@ -2,14 +2,20 @@
  #define NUMPY_SRC_COMMON_NPYSORT_HWY_SIMD_QSORT_HPP
  
+ #define VQSORT_ONLY_STATIC 1
 +#ifdef __loongarch__
 +#define NPY_DISABLE_HIGHWAY_SORT
 +#else
  #include "hwy/highway.h"
+ #include "hwy/contrib/sort/vqsort-inl.h"
 +#endif
  
  #include "common.hpp"
  
 +#ifndef NPY_DISABLE_HIGHWAY_SORT
- // This replicates VQSORT_ENABLED from hwy/contrib/sort/shared-inl.h
- // without checking the scalar target as this is not built within the dynamic
- // dispatched sources.
-@@ -15,6 +20,7 @@
-     (HWY_IS_HWASAN || HWY_IS_MSAN || HWY_IS_TSAN || HWY_IS_ASAN))
+ #if !VQSORT_COMPILER_COMPATIBLE
  #define NPY_DISABLE_HIGHWAY_SORT
  #endif
 +#endif
