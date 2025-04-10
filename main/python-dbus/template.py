@@ -1,16 +1,22 @@
 pkgname = "python-dbus"
-pkgver = "1.3.2"
-pkgrel = 4
+pkgver = "1.4.0"
+pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["automake", "libtool", "pkgconf", "python-devel"]
+hostmakedepends = [
+    "autoconf-archive",
+    "automake",
+    "libtool",
+    "pkgconf",
+    "python-devel",
+]
 makedepends = ["glib-devel", "dbus-devel", "python-devel"]
 checkdepends = ["dbus"]
 depends = ["python"]
 pkgdesc = "Python bindings for D-Bus"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/DBusBindings"
-source = f"https://dbus.freedesktop.org/releases/dbus-python/dbus-python-{pkgver}.tar.gz"
-sha256 = "ad67819308618b5069537be237f8e68ca1c7fcc95ee4a121fe6845b1418248f8"
+source = f"https://dbus.freedesktop.org/releases/dbus-python/dbus-python-{pkgver}.tar.xz"
+sha256 = "c36b28f10ffcc8f1f798aca973bcc132f91f33eb9b6b8904381b4077766043d5"
 
 
 def post_install(self):
