@@ -1,5 +1,5 @@
 pkgname = "python-boto3"
-pkgver = "1.37.11"
+pkgver = "1.37.31"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -25,7 +25,7 @@ pkgdesc = "Python AWS SDK"
 license = "Apache-2.0"
 url = "https://github.com/boto/boto3"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "189924e9bdb1a66377d3ffab70bcc1d0cb6ddde704a2c0ede2b25c1deb3e0398"
+sha256 = "b3fd3d61707f7a258c4dbef0cdc515fe72667e6f718510a1cb698824d4e9623c"
 
 
 def init_check(self):
