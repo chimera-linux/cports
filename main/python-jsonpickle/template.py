@@ -1,6 +1,6 @@
 pkgname = "python-jsonpickle"
-pkgver = "4.0.0"
-pkgrel = 1
+pkgver = "4.0.5"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     # needs atheris
@@ -20,13 +20,14 @@ depends = ["python"]
 checkdepends = [
     "python-numpy",
     # "python-pandas",
+    "python-simplejson",
     "python-pytest",
 ]
 pkgdesc = "Serializing any arbitrary object graph into JSON"
 license = "BSD-3-Clause"
 url = "https://github.com/jsonpickle/jsonpickle"
 source = f"$(PYPI_SITE)/j/jsonpickle/jsonpickle-{pkgver}.tar.gz"
-sha256 = "fc670852b204d77601b08f8f9333149ac37ab6d3fe4e6ed3b578427291f63736"
+sha256 = "f299818b39367c361b3f26bdba827d4249ab5d383cd93144d0f94b5417aacb35"
 
 
 def post_install(self):
