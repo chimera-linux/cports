@@ -82,6 +82,7 @@ def post_install(self):
 
 _skip_32bit = {
     "i386": "x86_64",
+    "aarch64": "arm",
     "arm": "aarch64",
     "ppc": "ppc64",
     "ppc64": "ppc",
@@ -99,7 +100,13 @@ def _upkg(uname):
         return [f"usr/bin/qemu-{uname}"]
 
     do_pkg = True
-    curarch = self.profile().arch
+
+    match self.profile().arch:
+        case "armv7":
+            curarch = "arm"
+        case arch:
+            curarch = arch
+
     if uname == curarch:
         do_pkg = False
     elif uname in _skip_32bit and _skip_32bit[uname] == curarch:
