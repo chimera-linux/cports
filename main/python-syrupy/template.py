@@ -1,6 +1,6 @@
 pkgname = "python-syrupy"
-pkgver = "4.7.2"
-pkgrel = 1
+pkgver = "4.9.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,6 +13,6 @@ pkgdesc = "Pytest snapshot plugin"
 license = "Apache-2.0"
 url = "https://syrupy-project.github.io/syrupy"
 source = f"$(PYPI_SITE)/s/syrupy/syrupy-{pkgver}.tar.gz"
-sha256 = "ea45e099f242de1bb53018c238f408a5bb6c82007bc687aefcbeaa0e1c2e935a"
+sha256 = "b7d0fcadad80a7d2f6c4c71917918e8ebe2483e8c703dfc8d49cdbb01081f9a4"
 # unpackaged dependencies
 options = ["!check"]
