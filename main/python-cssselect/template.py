@@ -1,6 +1,6 @@
 pkgname = "python-cssselect"
-pkgver = "1.2.0"
-pkgrel = 2
+pkgver = "1.3.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -17,7 +17,7 @@ pkgdesc = "Python module for CSS selectors"
 license = "BSD-3-Clause"
 url = "https://cssselect.readthedocs.io/en/latest"
 source = f"$(PYPI_SITE)/c/cssselect/cssselect-{pkgver}.tar.gz"
-sha256 = "666b19839cfaddb9ce9d36bfe4c969132c647b92fc9088c4e23f786b30f1b3dc"
+sha256 = "57f8a99424cfab289a1b6a816a43075a4b00948c86b4dcf3ef4ee7e15f7ab0c7"
 
 
 def post_install(self):
