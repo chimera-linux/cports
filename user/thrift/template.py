@@ -3,6 +3,7 @@ pkgver = "0.21.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DWITH_AS3=OFF",
     "-DBUILD_SHARED_LIBS=ON",
     "-DWITH_JAVA=OFF",
