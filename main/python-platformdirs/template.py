@@ -1,6 +1,6 @@
 pkgname = "python-platformdirs"
-pkgver = "4.3.6"
-pkgrel = 1
+pkgver = "4.3.7"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 checkdepends = ["python-pytest", "python-appdirs", "python-pytest-mock"]
@@ -9,7 +9,7 @@ pkgdesc = "Platform-specific system directory library"
 license = "MIT"
 url = "https://platformdirs.readthedocs.io"
 source = f"$(PYPI_SITE)/p/platformdirs/platformdirs-{pkgver}.tar.gz"
-sha256 = "357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907"
+sha256 = "eb437d586b6a0986388f0d6f74aa0cde27b48d0e3d66843640bfb6bdcdb6e351"
 # unpackaged checkdepends
 options = ["!check"]
 
