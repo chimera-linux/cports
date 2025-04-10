@@ -1,6 +1,6 @@
 pkgname = "python-scikit_build_core"
-pkgver = "0.10.7"
-pkgrel = 1
+pkgver = "0.11.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,6 +14,6 @@ pkgdesc = "Python CMake adaptor"
 license = "Apache-2.0"
 url = "https://scikit-build-core.readthedocs.io"
 source = f"$(PYPI_SITE)/s/scikit_build_core/scikit_build_core-{pkgver}.tar.gz"
-sha256 = "04cbb59fe795202a7eeede1849112ee9dcbf3469feebd9b8b36aa541336ac4f8"
+sha256 = "4e5988df5cd33f0bdb9967b72663ca99f50383c9bc21d8b24fa40c0661ae72b7"
 # needs virtualenv
 options = ["!check"]
