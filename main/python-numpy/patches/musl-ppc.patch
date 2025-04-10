@@ -1,0 +1,40 @@
+there is no float128 on musl/ppc*
+
+--- a/numpy/_core/tests/test_scalarprint.py
++++ b/numpy/_core/tests/test_scalarprint.py
+@@ -267,7 +267,7 @@ def test_dragon4(self):
+     @pytest.mark.parametrize("tp", available_float_dtypes)
+     def test_dragon4_positional_interface(self, tp):
+         # test is flaky for musllinux on np.float128
+-        if IS_MUSL and tp == np.float128:
++        if IS_MUSL and hasattr(np, 'float128') and tp == np.float128:
+             pytest.skip("Skipping flaky test of float128 on musllinux")
+                 
+         fpos = np.format_float_positional
+@@ -284,7 +284,7 @@ def test_dragon4_positional_interface(self, tp):
+     @pytest.mark.parametrize("tp", available_float_dtypes)
+     def test_dragon4_positional_interface_trim(self, tp):
+         # test is flaky for musllinux on np.float128
+-        if IS_MUSL and tp == np.float128:
++        if IS_MUSL and hasattr(np, 'float128') and tp == np.float128:
+             pytest.skip("Skipping flaky test of float128 on musllinux")
+                         
+         fpos = np.format_float_positional
+@@ -316,7 +316,7 @@ def test_dragon4_positional_interface_trim(self, tp):
+     @pytest.mark.parametrize("pad_val", [10**5, np.iinfo("int32").max])
+     def test_dragon4_positional_interface_overflow(self, tp, pad_val):
+         # test is flaky for musllinux on np.float128
+-        if IS_MUSL and tp == np.float128:
++        if IS_MUSL and hasattr(np, 'float128') and tp == np.float128:
+             pytest.skip("Skipping flaky test of float128 on musllinux")
+                 
+         fpos = np.format_float_positional
+@@ -337,7 +337,7 @@ def test_dragon4_positional_interface_overflow(self, tp, pad_val):
+     @pytest.mark.parametrize("tp", available_float_dtypes)
+     def test_dragon4_scientific_interface(self, tp):
+         # test is flaky for musllinux on np.float128
+-        if IS_MUSL and tp == np.float128:
++        if IS_MUSL and hasattr(np, 'float128') and tp == np.float128:
+             pytest.skip("Skipping flaky test of float128 on musllinux")
+                         
+         fsci = np.format_float_scientific
