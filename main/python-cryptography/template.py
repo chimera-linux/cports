@@ -1,7 +1,8 @@
 pkgname = "python-cryptography"
-pkgver = "44.0.1"
-pkgrel = 1
+pkgver = "44.0.2"
+pkgrel = 0
 build_style = "python_pep517"
+make_build_env = {"MATURIN_PEP517_ARGS": "--offline"}
 hostmakedepends = [
     "cargo",
     "pkgconf",
@@ -25,7 +26,7 @@ pkgdesc = "Cryptographic primitives for Python"
 license = "BSD-3-Clause OR Apache-2.0"
 url = "https://github.com/pyca/cryptography"
 source = f"$(PYPI_SITE)/c/cryptography/cryptography-{pkgver}.tar.gz"
-sha256 = "f51f5705ab27898afda1aaa430f34ad90dc117421057782022edf0600bec5f14"
+sha256 = "c63454aa261a0cf0c5b4718349629793e9e634993538db841165b3df74f37ec0"
 
 
 def prepare(self):
@@ -38,6 +39,8 @@ def init_build(self):
     from cbuild.util import cargo
 
     self.env.update(cargo.get_environment(self))
+    # because maturin is stupid
+    self.env["CARGO_HOME"] = str(self.chroot_cwd / "src/rust/.cargo")
 
 
 def init_check(self):
