@@ -1,6 +1,6 @@
 pkgname = "python-flit_core"
-pkgver = "3.11.0"
-pkgrel = 1
+pkgver = "3.12.0"
+pkgrel = 0
 hostmakedepends = ["python"]
 checkdepends = ["python-pytest", "python-testpath"]
 depends = ["python"]
@@ -8,7 +8,7 @@ pkgdesc = "Simplified PEP 517 packaging backend"
 license = "BSD-3-Clause"
 url = "https://flit.pypa.io"
 source = f"$(PYPI_SITE)/f/flit_core/flit_core-{pkgver}.tar.gz"
-sha256 = "6ceeee3219e9d2ea282041f3e027c441597b450b33007cb81168e887b6113a8f"
+sha256 = "18f63100d6f94385c6ed57a72073443e1a71a4acb4339491615d0f16d6ff01b2"
 # missing checkdepends
 options = ["!check"]
 
