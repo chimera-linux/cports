@@ -1,6 +1,6 @@
 pkgname = "python-typing_extensions"
-pkgver = "4.12.2"
-pkgrel = 1
+pkgver = "4.13.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-flit_core"]
 depends = ["python"]
@@ -8,6 +8,6 @@ pkgdesc = "Static typing extensions for Python"
 license = "Python-2.0"
 url = "https://github.com/python/typing_extensions"
 source = f"$(PYPI_SITE)/t/typing_extensions/typing_extensions-{pkgver}.tar.gz"
-sha256 = "1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"
+sha256 = "98795af00fb9640edec5b8e31fc647597b4691f099ad75f469a2616be1a76dff"
 # in early path
 options = ["!check"]
