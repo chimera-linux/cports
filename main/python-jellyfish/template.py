@@ -1,6 +1,6 @@
 pkgname = "python-jellyfish"
-pkgver = "1.1.3"
-pkgrel = 1
+pkgver = "1.2.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "cargo",
@@ -15,7 +15,7 @@ pkgdesc = "Python library for approximate and phonetic string matching"
 license = "BSD-2-Clause"
 url = "https://jamesturk.github.io/jellyfish"
 source = f"$(PYPI_SITE)/j/jellyfish/jellyfish-{pkgver}.tar.gz"
-sha256 = "650ba1ddabd716499f85fae0e1f3fa3e6532a69b68985d9294e86a1e04f08f9f"
+sha256 = "5c7d73db4045dcc53b6efbfea21f3d3da432d3e052dc51827574d1a447fc23b4"
 
 
 def init_build(self):
