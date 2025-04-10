@@ -3,7 +3,11 @@ pkgver = "4.0"
 pkgrel = 0
 build_wrksrc = "source"
 build_style = "cmake"
-configure_args = ["-DENABLE_PIC=1", "-DGIT_ARCHETYPE=1"]
+configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "-DENABLE_PIC=1",
+    "-DGIT_ARCHETYPE=1",
+]
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
 makedepends = ["numactl-devel", "linux-headers"]
 pkgdesc = "Open source H.265/HEVC encoder"
