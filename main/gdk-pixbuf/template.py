@@ -29,7 +29,12 @@ source = f"$(GNOME_SITE)/gdk-pixbuf/{pkgver[:-3]}/gdk-pixbuf-{pkgver}.tar.xz"
 sha256 = "b9505b3445b9a7e48ced34760c3bcb73e966df3ac94c95a148cb669ab748e3c7"
 # FIXME int
 hardening = ["!int"]
+# check may be disabled
 options = ["!cross"]
+
+if self.profile().wordsize == 32:
+    # https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/issues/215
+    options += ["!check"]
 
 
 @subpackage("gdk-pixbuf-devel")
