@@ -1,5 +1,5 @@
 pkgname = "python-botocore"
-pkgver = "1.37.11"
+pkgver = "1.37.31"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,6 +18,6 @@ pkgdesc = "Core module supporting boto3 and aws cli"
 license = "Apache-2.0"
 url = "https://github.com/boto/botocore"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "6b1f7563a07a637420e30f12e56892def65add56767a8fcdd71aaf2782c03f92"
+sha256 = "68de2d5876ab650c0305f903f1ad0388183d03213489954ebae6194742f19b4b"
 # takes forever
 options = ["!check"]
