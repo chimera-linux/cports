@@ -1,6 +1,6 @@
 pkgname = "python-responses"
-pkgver = "0.25.3"
-pkgrel = 1
+pkgver = "0.25.7"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -17,6 +17,6 @@ pkgdesc = "Utility library for mocking out the requests python library"
 license = "Apache-2.0"
 url = "https://github.com/getsentry/responses"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "3c3f3cd9f9c00bfe962a895cdbd961fd33d258c1c1f66b79c7a3ceff6ec1615e"
+sha256 = "c77e5800fb747f952a8222f3040b6f1c9023d3b8758cf4ef0372359847c66652"
 # deprecated check dependencies
 options = ["!check"]
