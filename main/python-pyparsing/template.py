@@ -1,6 +1,6 @@
 pkgname = "python-pyparsing"
-pkgver = "3.2.1"
-pkgrel = 1
+pkgver = "3.2.3"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-flit_core",
@@ -11,7 +11,7 @@ pkgdesc = "Python parsing module"
 license = "MIT"
 url = "https://github.com/pyparsing/pyparsing"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "f514be1b50afaba317ff42cbf41c9115127c4ed35825b61cdcfad43cdf79a95a"
+sha256 = "3ad3397385c3f68c89d313529af4cafc9a9117845bc0cb6b38f02e621d151d38"
 # calls urlopen
 options = ["!check"]
 
