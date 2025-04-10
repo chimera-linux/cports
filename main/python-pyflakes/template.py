@@ -1,6 +1,6 @@
 pkgname = "python-pyflakes"
-pkgver = "3.2.0"
-pkgrel = 1
+pkgver = "3.3.2"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,7 +14,7 @@ pkgdesc = "Python code linter"
 license = "MIT"
 url = "https://github.com/PyCQA/pyflakes"
 source = f"$(PYPI_SITE)/p/pyflakes/pyflakes-{pkgver}.tar.gz"
-sha256 = "1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f"
+sha256 = "6dfd61d87b97fba5dcfaaf781171ac16be16453be6d816147989e7f6e6a9576b"
 
 
 def post_install(self):
