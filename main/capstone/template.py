@@ -16,6 +16,11 @@ source = f"https://github.com/capstone-engine/capstone/archive/refs/tags/{pkgver
 sha256 = "240ebc834c51aae41ca9215d3190cc372fd132b9c5c8aa2d5f19ca0c325e28f9"
 hardening = ["vis", "!cfi"]
 
+if self.profile().arch == "armv7":
+    # capstone_test_mos65xx segfaults
+    # https://github.com/capstone-engine/capstone/issues/2676
+    make_check_args = ["-E", "capstone_test_mos65xx"]
+
 
 def post_install(self):
     self.install_license("LICENSE.TXT")
