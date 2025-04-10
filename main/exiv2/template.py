@@ -20,6 +20,13 @@ license = "GPL-2.0-or-later"
 url = "https://exiv2.org"
 source = f"https://github.com/Exiv2/exiv2/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "e1671f744e379a87ba0c984617406fdf8c0ad0c594e5122f525b2fb7c28d394d"
+# check may be disabled
+options = []
+
+if self.profile().wordsize == 32:
+    # Tests fail with overflow in addition
+    # https://github.com/Exiv2/exiv2/issues/2539
+    options += ["!check"]
 
 
 @subpackage("exiv2-devel")
