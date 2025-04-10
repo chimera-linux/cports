@@ -3,6 +3,7 @@ pkgver = "2.3.3.4"
 pkgrel = 8
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DENABLE_ASCII_MODE=OFF",
     "-DENABLE_PACKAGING=OFF",
     "-DBUILD_CONTRIBS_LIB=ON",
