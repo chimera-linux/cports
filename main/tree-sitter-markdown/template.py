@@ -1,6 +1,6 @@
 pkgname = "tree-sitter-markdown"
-pkgver = "0.2.3"
-pkgrel = 1
+pkgver = "0.4.1"
+pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
 hostmakedepends = [
@@ -12,7 +12,7 @@ pkgdesc = "Markdown grammar for tree-sitter"
 license = "MIT"
 url = "https://github.com/tree-sitter-grammars/tree-sitter-markdown"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4909d6023643f1afc3ab219585d4035b7403f3a17849782ab803c5f73c8a31d5"
+sha256 = "e0fdb2dca1eb3063940122e1475c9c2b069062a638c95939e374c5427eddee9f"
 
 
 def configure(self):
@@ -21,9 +21,14 @@ def configure(self):
             self.do(
                 "tree-sitter",
                 "generate",
-                "--no-bindings",
                 env={"ALL_EXTENSIONS": "1"},
             )
+    # weird bug with the make stuff
+    self.cp("tree-sitter-markdown/grammar.js", "tree-sitter-markdown/src")
+    self.cp(
+        "tree-sitter-markdown-inline/grammar.js",
+        "tree-sitter-markdown-inline/src",
+    )
 
 
 def post_install(self):
@@ -31,11 +36,11 @@ def post_install(self):
     self.install_dir("usr/lib/tree-sitter")
     self.install_link(
         "usr/lib/tree-sitter/markdown.so",
-        "../libtree-sitter-markdown.so.0",
+        "../libtree-sitter-markdown.so.15",
     )
     self.install_link(
         "usr/lib/tree-sitter/markdown_inline.so",
-        "../libtree-sitter-markdown-inline.so.0",
+        "../libtree-sitter-markdown-inline.so.15",
     )
 
 

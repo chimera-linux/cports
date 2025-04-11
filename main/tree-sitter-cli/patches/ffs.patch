@@ -9,7 +9,7 @@ otherwise open an issue with `cc-rs`:
 https://github.com/rust-lang/cc-rs/issues/new
 
 diff --git a/vendor/cc/src/target/generated.rs b/vendor/cc/src/target/generated.rs
-index bfaa2937..ac9c5cac 100644
+index bfaa2937..fdff3e4e 100644
 --- a/vendor/cc/src/target/generated.rs
 +++ b/vendor/cc/src/target/generated.rs
 @@ -124,6 +124,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
@@ -31,7 +31,26 @@ index bfaa2937..ac9c5cac 100644
      (
          "aarch64-fuchsia",
          TargetInfo {
-@@ -1420,6 +1432,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+@@ -748,6 +760,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+             unversioned_llvm_target: "armv7-apple-ios",
+         },
+     ),
++    (
++        "armv7-chimera-linux-musleabihf",
++        TargetInfo {
++            full_arch: "armv7",
++            arch: "arm",
++            vendor: "chimera",
++            os: "linux",
++            env: "musl",
++            abi: "eabihf",
++            unversioned_llvm_target: "armv7-chimera-linux-musleabihf",
++        },
++    ),
+     (
+         "armv7-linux-androideabi",
+         TargetInfo {
+@@ -1420,6 +1444,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
              unversioned_llvm_target: "i686-unknown-linux-gnu",
          },
      ),
@@ -50,7 +69,7 @@ index bfaa2937..ac9c5cac 100644
      (
          "loongarch64-unknown-linux-gnu",
          TargetInfo {
-@@ -1780,6 +1804,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+@@ -1780,6 +1816,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
              unversioned_llvm_target: "nvptx64-nvidia-cuda",
          },
      ),
@@ -69,7 +88,7 @@ index bfaa2937..ac9c5cac 100644
      (
          "powerpc-unknown-freebsd",
          TargetInfo {
-@@ -1888,6 +1924,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+@@ -1888,6 +1936,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
              unversioned_llvm_target: "powerpc-unknown-linux-gnuspe",
          },
      ),
@@ -88,7 +107,7 @@ index bfaa2937..ac9c5cac 100644
      (
          "powerpc64-ibm-aix",
          TargetInfo {
-@@ -1960,6 +2008,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+@@ -1960,6 +2020,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
              unversioned_llvm_target: "powerpc64-unknown-linux-gnu",
          },
      ),
@@ -107,7 +126,7 @@ index bfaa2937..ac9c5cac 100644
      (
          "powerpc64le-unknown-freebsd",
          TargetInfo {
-@@ -2236,6 +2296,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+@@ -2236,6 +2308,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
              unversioned_llvm_target: "riscv32",
          },
      ),
@@ -126,7 +145,7 @@ index bfaa2937..ac9c5cac 100644
      (
          "riscv64-linux-android",
          TargetInfo {
-@@ -2896,6 +2968,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
+@@ -2896,6 +2980,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
              unversioned_llvm_target: "x86_64-apple-watchos-simulator",
          },
      ),

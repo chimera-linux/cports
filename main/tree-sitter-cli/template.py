@@ -1,7 +1,7 @@
 pkgname = "tree-sitter-cli"
 # match to tree-sitter
-pkgver = "0.25.2"
-pkgrel = 1
+pkgver = "0.25.3"
+pkgrel = 0
 build_style = "cargo"
 make_build_args = ["-p", "tree-sitter-cli"]
 make_check_args = [*make_build_args]
@@ -11,7 +11,7 @@ pkgdesc = "Parser generator tool for tree-sitter bindings"
 license = "MIT"
 url = "https://tree-sitter.github.io/tree-sitter"
 source = f"https://github.com/tree-sitter/tree-sitter/archive/v{pkgver}.tar.gz"
-sha256 = "26791f69182192fef179cd58501c3226011158823557a86fe42682cb4a138523"
+sha256 = "862fac52653bc7bc9d2cd0630483e6bdf3d02bcd23da956ca32663c4798a93e3"
 # requires fetching fixtures
 options = ["!check"]
 
