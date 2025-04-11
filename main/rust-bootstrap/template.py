@@ -65,7 +65,6 @@ def install(self):
         )
     # remove rust copies of llvm tools
     trip = self.profile().triplet
-    for f in (self.destdir / f"usr/lib/rustlib/{trip}/bin").iterdir():
-        f.unlink()
+    self.uninstall(f"usr/lib/rustlib/{trip}/bin")
     # licenses
     self.install_license(f"rustc-{pkgver}-{self.profile().triplet}/LICENSE-MIT")
