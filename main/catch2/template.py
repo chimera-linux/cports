@@ -1,5 +1,5 @@
 pkgname = "catch2"
-pkgver = "3.8.0"
+pkgver = "3.8.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ pkgdesc = "C++-based test framework"
 license = "BSL-1.0"
 url = "https://github.com/catchorg/Catch2"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "1ab2de20460d4641553addfdfe6acd4109d871d5531f8f519a52ea4926303087"
+sha256 = "18b3f70ac80fccc340d8c6ff0f339b2ae64944782f8d2fca2bd705cf47cadb79"
 # vis breaks symbols
 hardening = ["!vis"]
 
