@@ -1,5 +1,5 @@
 pkgname = "poppler"
-pkgver = "25.03.0"
+pkgver = "25.04.0"
 _test_commit = "91ee031c882634c36f2f0f2f14eb6646dd542fb9"
 pkgrel = 0
 build_style = "cmake"
@@ -44,7 +44,7 @@ source = [
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "97da4ff88517a6bbd729529f195f85c8d7a0c3bb4a3d57cb0c685cbb052fe837",
+    "b010c596dce127fba88532fd2f1043e55ea30601767952d0f2c0a80e7dc0da3d",
     "4155211ed0e5b05ffd0b57e7e4679215ba02c7f58fcd16e6b82844b2f6a6f590",
 ]
 # check_qt6_goostring crashes
