@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86_64 6.12.22 Kernel Configuration
+# Linux/x86_64 6.12.23 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 19.1.7"
 CONFIG_GCC_VERSION=0
@@ -2195,8 +2195,6 @@ CONFIG_ETHTOOL_NETLINK=y
 #
 # Device Drivers
 #
-CONFIG_HAVE_EISA=y
-# CONFIG_EISA is not set
 CONFIG_HAVE_PCI=y
 CONFIG_GENERIC_PCI_IOMAP=y
 CONFIG_PCI=y
