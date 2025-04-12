@@ -2,7 +2,7 @@ commit 0c00511118404ab13139f0c869f488f30028ccb3
 Author: q66 <q66@chimera-linux.org>
 Date:   Sun Oct 9 13:30:22 2022 +0200
 
-    patch makefile for bmake, include cflags when linking
+    include cflags when linking
 
 diff --git a/Makefile b/Makefile
 index 71c11f1..93c63af 100644
@@ -34,16 +34,3 @@ index 71c11f1..93c63af 100644
  RM= rm -f
  INSTALL= install -p
  INSTALLPATH= $(LUA) installpath.lua
-@@ -33,10 +32,10 @@ macosx:
- 	$(MAKE) all "SOCC=MACOSX_DEPLOYMENT_TARGET=10.4 $(CC) -dynamiclib -single_module -undefined dynamic_lookup"
- 
- $(MODNAME).o: $(MODNAME).c
--	$(CC) $(SOCFLAGS) -c -o $@ $<
-+	$(CC) $(SOCFLAGS) -c -o $(MODNAME).o $(MODNAME).c
- 
- $(MODSO): $(MODNAME).o
--	$(SOCC) $(SOLDFLAGS) -o $@ $<
-+	$(SOCC) $(SOLDFLAGS) -o $(MODSO) $(MODNAME).o
- 
- install: $(MODSO)
- 	$(INSTALL) $< `$(INSTALLPATH) $(MODNAME)`
