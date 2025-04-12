@@ -7,9 +7,8 @@ configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
     "-DBUILD_TESTING=ON",
 ]
-hostmakedepends = ["cmake", "pkgconf", "ninja", "openssl3-devel"]
-makedepends = ["openssl3-devel"]
-checkdepends = ["check-devel"]
+hostmakedepends = ["cmake", "pkgconf", "ninja"]
+makedepends = ["check-devel", "openssl3-devel"]
 pkgdesc = "Signal protocol C library"
 license = "GPL-3.0-or-later"
 url = "https://www.whispersystems.org"
