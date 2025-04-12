@@ -30,13 +30,15 @@ makedepends = [
     "libsrtp-devel",
     "qrencode-devel",
     "sqlite-devel",
-    "webrtc-audio-processing-devel",
 ]
 pkgdesc = "Modern XMPP client"
 license = "GPL-3.0-or-later"
 url = "https://github.com/dino/dino"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "4c57f20677f47f41b440b7d6eebb697ee89d5d8c38d334ad47c6b5de19894768"
+
+if self.profile().endian != "big":
+    makedepends += ["webrtc-audio-processing-devel"]
 
 
 def _genmod(pname, pdesc):
