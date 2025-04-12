@@ -1,5 +1,5 @@
 pkgname = "pinentry"
-# Keep pkgver in sync with contrib/pinentry-qt
+# Keep pkgver in sync with main/pinentry-qt
 pkgver = "1.3.1"
 pkgrel = 1
 build_style = "gnu_configure"

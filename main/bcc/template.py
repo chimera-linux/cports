@@ -1,5 +1,5 @@
 pkgname = "bcc"
-# keep in sync with contrib/libbpf-tools
+# keep in sync with main/libbpf-tools
 pkgver = "0.33.0"
 pkgrel = 2
 build_style = "cmake"
