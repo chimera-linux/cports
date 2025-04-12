@@ -1,19 +1,16 @@
 pkgname = "dino"
-pkgver = "0.4.5"
-pkgrel = 1
-build_style = "cmake"
+pkgver = "0.5.0"
+pkgrel = 0
+build_style = "meson"
 configure_args = [
-    "-DBUILD_TESTS=ON",
-    "-DDINO_PLUGIN_ENABLED_notification-sound=ON",
-    "-DUSE_SOUP3=ON",
+    "-Ddefault_library=shared",
+    "-Dplugin-notification-sound=enabled",
 ]
 hostmakedepends = [
-    "cmake",
     "gettext",
     "glib-devel",
-    "ninja",
+    "meson",
     "pkgconf",
-    "unzip",
     "vala",
 ]
 makedepends = [
@@ -28,22 +25,18 @@ makedepends = [
     "libgcrypt-devel",
     "libgee-devel",
     "libnice-devel",
-    "libsignal-protocol-c-devel",
+    "libomemo-c-devel",
     "libsoup-devel",
     "libsrtp-devel",
     "qrencode-devel",
     "sqlite-devel",
+    "webrtc-audio-processing-devel",
 ]
 pkgdesc = "Modern XMPP client"
 license = "GPL-3.0-or-later"
 url = "https://github.com/dino/dino"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "80761b625c4cb4cf6ed1a368dbd24a9df06b47a1c6379495aca4ed7e033d08be"
-
-
-def check(self):
-    for test in ["libdino", "signal-protocol-vala", "xmpp-vala"]:
-        self.do(f"./build/{test}-test")
+sha256 = "4c57f20677f47f41b440b7d6eebb697ee89d5d8c38d334ad47c6b5de19894768"
 
 
 def _genmod(pname, pdesc):
