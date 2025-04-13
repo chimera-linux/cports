@@ -1,0 +1,17 @@
+diff --git a/configure.ac b/configure.ac
+index 5ac96850..eff955d5 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -113,7 +113,11 @@ XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [libxfce4ui_min_version])
+ XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [xfce4_min_version])
+ XDT_CHECK_PACKAGE([LIBXFCE4WINDOWING], [libxfce4windowing-0], [libxfce4windowing_min_version])
+ 
+-XDT_CHECK_PACKAGE_BINARY([GLIB_COMPILE_RESOURCES], [gio-2.0], [glib_compile_resources], [glib-compile-resources])
++AC_PATH_PROG([GLIB_COMPILE_RESOURCES], [glib-compile-resources])
++if test x"$GLIB_COMPILE_RESOURCES" = x""; then
++  AC_MSG_ERROR([Could not find glib-compile-resources in PATH, please install it])
++fi
++
+ 
+ XDT_CHECK_OPTIONAL_FEATURE([X11],
+                            [x11],
