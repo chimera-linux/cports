@@ -1,6 +1,6 @@
 pkgname = "xscope"
-pkgver = "1.4.4"
-pkgrel = 1
+pkgver = "1.4.5"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -13,7 +13,7 @@ pkgdesc = "Program to monitor X11 Server/Client conversations"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"{url}/archive/individual/app/xscope-{pkgver}.tar.gz"
-sha256 = "4d1d538fc7b32a25eda3570abdb94c145dd1adfd900bda1d33654c83c96dbb9d"
+sha256 = "b9b85fff1c441f8da8831d4d7cc5c8a0f511b2c652a311cc399ba5ebbc8c8939"
 
 
 def post_install(self):
