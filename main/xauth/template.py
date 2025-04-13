@@ -1,6 +1,6 @@
 pkgname = "xauth"
-pkgver = "1.1.3"
-pkgrel = 2
+pkgver = "1.1.4"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = ["xtrans", "libxau-devel", "libxext-devel", "libxmu-devel"]
@@ -8,7 +8,7 @@ pkgdesc = "X authentication utility"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xauth-{pkgver}.tar.gz"
-sha256 = "88c288e0a30bf071631118644f5232cae3a79713a7c82dd31a236e8e2c6fca15"
+sha256 = "c1149ecf010d7cf717952325c54f3cd78e75b435758b6d09172b0445be477537"
 hardening = ["vis", "cfi"]
 # needs cmdtest
 options = ["!check"]
