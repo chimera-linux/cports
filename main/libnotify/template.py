@@ -33,8 +33,9 @@ license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libnotify"
 source = f"$(GNOME_SITE)/libnotify/{pkgver[:-2]}/libnotify-{pkgver}.tar.xz"
 sha256 = "c5540aaefb60e1d63b1c587c05f2284ebe72ece7d0c0e5e4a778cfd5844b6b58"
-# introspection
-optiosn = ["!cross"]
+# cross: introspection
+# check: cycle with xwayland-run
+options = ["!cross", "!check"]
 
 
 @subpackage("libnotify-devel")
