@@ -1,11 +1,11 @@
 pkgname = "fonts-noto"
-pkgver = "2025.03.01"
+pkgver = "2025.04.01"
 pkgrel = 0
 pkgdesc = "Google Noto fonts"
 license = "OFL-1.1"
 url = "https://github.com/notofonts/notofonts.github.io"
 source = f"{url}/archive/refs/tags/noto-monthly-release-{pkgver}.zip"
-sha256 = "babc8a3530aa68e60c606a0037bec7f6992ddc96c075c7070641c4fc77310a44"
+sha256 = "71518a1c3fdfbfb679d702bcd3857f230385010c64f88c861601fc958595a1e0"
 
 
 def install(self):
