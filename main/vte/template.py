@@ -1,6 +1,6 @@
 pkgname = "vte"
-pkgver = "0.80.0"
-pkgrel = 2
+pkgver = "0.80.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-D_systemd=false",
@@ -44,7 +44,7 @@ source = [
 ]
 source_paths = [".", "subprojects/fast_float"]
 sha256 = [
-    "c81b765b0f2cd9e823684c3ae5bb6fb30f08b8e2e9ff31accc239ddfa7f07be3",
+    "b6333000bd0867349b0d5f87443bbd0afa1a006706e0f5b4426dc1a0352715bb",
     "e14a33089712b681d74d94e2a11362643bd7d769ae8f7e7caefe955f57f7eacd",
 ]
 # assert in meson
