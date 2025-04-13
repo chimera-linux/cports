@@ -1,18 +1,24 @@
 pkgname = "xfce4-terminal"
-pkgver = "1.1.4"
+pkgver = "1.1.5"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
-    "gtk-doc-tools",
+    "docbook-xsl-nons",
+    "gettext",
+    "glib-devel",
+    "libxslt-progs",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
-makedepends = ["exo-devel", "libxfce4ui-devel", "vte-gtk3-devel"]
+makedepends = [
+    "exo-devel",
+    "glib-devel",
+    "gtk-layer-shell-devel",
+    "libxfce4ui-devel",
+    "vte-gtk3-devel",
+]
 pkgdesc = "Xfce terminal emulator"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-terminal/start"
-source = f"$(XFCE_SITE)/apps/xfce4-terminal/{pkgver[:-2]}/xfce4-terminal-{pkgver}.tar.bz2"
-sha256 = "873c921da1f4b986ffb459d4960789c9c063af98648c9f0ca146dc6f6f5b71b7"
+source = f"$(XFCE_SITE)/apps/xfce4-terminal/{pkgver[:-2]}/xfce4-terminal-{pkgver}.tar.xz"
+sha256 = "3c5b1d3a01a9a113852ac0f77d1c85bf3a356b43de33ec805b21ceca7d6f0a63"
