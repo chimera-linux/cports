@@ -1,6 +1,6 @@
 pkgname = "reaction"
 pkgver = "1.4.1"
-pkgrel = 10
+pkgrel = 11
 build_style = "go"
 make_build_args = [f"-ldflags=-X main.version={pkgver}"]
 hostmakedepends = ["go"]

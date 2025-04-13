@@ -1,6 +1,6 @@
 pkgname = "opentofu"
 pkgver = "1.9.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X github.com/opentofu/opentofu/version.dev=no",

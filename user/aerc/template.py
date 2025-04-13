@@ -1,6 +1,6 @@
 pkgname = "aerc"
 pkgver = "0.20.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "makefile"
 make_build_args = ["LIBEXECDIR=/usr/lib/aerc"]
 make_install_args = [*make_build_args]

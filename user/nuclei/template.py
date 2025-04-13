@@ -1,6 +1,6 @@
 pkgname = "nuclei"
 pkgver = "3.3.9"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 make_build_args = ["./cmd/nuclei"]
 hostmakedepends = ["go"]

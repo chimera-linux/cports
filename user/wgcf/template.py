@@ -1,6 +1,6 @@
 pkgname = "wgcf"
 pkgver = "2.2.25"
-pkgrel = 2
+pkgrel = 3
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Unofficial CLI for Cloudflare Warp"
