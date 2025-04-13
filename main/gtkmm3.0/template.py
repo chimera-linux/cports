@@ -1,5 +1,5 @@
 pkgname = "gtkmm3.0"
-pkgver = "3.24.9"
+pkgver = "3.24.10"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dbuild-demos=false", "-Dbuild-tests=true"]
@@ -16,8 +16,10 @@ checkdepends = ["xwayland-run"]
 pkgdesc = "C++ bindings for Gtk+3"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
-source = f"$(GNOME_SITE)/gtkmm/{pkgver[:-2]}/gtkmm-{pkgver}.tar.xz"
-sha256 = "30d5bfe404571ce566a8e938c8bac17576420eb508f1e257837da63f14ad44ce"
+source = (
+    f"$(GNOME_SITE)/gtkmm/{pkgver[: pkgver.rfind('.')]}/gtkmm-{pkgver}.tar.xz"
+)
+sha256 = "7ab7e2266808716e26c39924ace1fb46da86c17ef39d989624c42314b32b5a76"
 
 
 @subpackage("gtkmm3.0-devel")
