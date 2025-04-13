@@ -1,5 +1,5 @@
 pkgname = "inih"
-pkgver = "58"
+pkgver = "60"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -10,7 +10,7 @@ pkgdesc = "Simple ini parser library"
 license = "BSD-3-Clause"
 url = "https://github.com/benhoyt/inih"
 source = f"{url}/archive/r{pkgver}.tar.gz"
-sha256 = "e79216260d5dffe809bda840be48ab0eec7737b2bb9f02d2275c1b46344ea7b7"
+sha256 = "706aa05c888b53bd170e5d8aa8f8a9d9ccf5449dfed262d5103d1f292af26774"
 # CFI: breaks xdg-desktop-portal-wlr when it loads an empty config
 hardening = ["vis", "!cfi"]
 
