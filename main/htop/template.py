@@ -1,6 +1,6 @@
 pkgname = "htop"
-pkgver = "3.4.0"
-pkgrel = 1
+pkgver = "3.4.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-capabilities",
@@ -28,6 +28,6 @@ pkgdesc = "Interactive process viewer"
 license = "GPL-2.0-only"
 url = "https://htop.dev"
 source = f"https://github.com/htop-dev/htop/releases/download/{pkgver}/htop-{pkgver}.tar.xz"
-sha256 = "feaabd2d31ca27c09c367a3b1b547ea9f96105fc41f4dfa799e2f49daad5de29"
+sha256 = "904f7d4580fc11cffc7e0f06895a4789e0c1c054435752c151e812fead9f6220"
 # CFI cannot work with libsensors dlsym() stuff
 hardening = ["vis", "!cfi"]
