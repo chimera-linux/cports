@@ -1,5 +1,5 @@
 pkgname = "xinit"
-pkgver = "1.4.3"
+pkgver = "1.4.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-xinitdir=/etc/X11/xinit"]
@@ -10,7 +10,7 @@ pkgdesc = "X init program"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xinit-{pkgver}.tar.gz"
-sha256 = "9d876569b84ff384fa4c3e4354b1e1830f0517d504b7674b05ec9958a84b77f8"
+sha256 = "45cca1b0f3a963105f43cecc24e9cc4db0d14faa87bd9860b9ec563e8c73fc47"
 hardening = ["vis", "cfi"]
 
 
