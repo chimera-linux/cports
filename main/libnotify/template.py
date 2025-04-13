@@ -1,5 +1,5 @@
 pkgname = "libnotify"
-pkgver = "0.8.4"
+pkgver = "0.8.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -7,12 +7,18 @@ configure_args = [
     "-Ddocbook_docs=disabled",
     "-Dgtk_doc=false",
 ]
+make_check_wrapper = [
+    "dbus-run-session",
+    "--",
+    "wlheadless-run",
+    "--",
+]
 hostmakedepends = [
     "meson",
     "pkgconf",
     "glib-devel",
     "libxslt-progs",
-    "docbook-xsl-nons",
+    "docbook-xsl",
     "gobject-introspection",
 ]
 makedepends = [
@@ -21,11 +27,14 @@ makedepends = [
     "gdk-pixbuf-devel",
     "gtk+3-devel",
 ]
+checkdepends = ["xwayland-run", "dbus"]
 pkgdesc = "Desktop notification library"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libnotify"
 source = f"$(GNOME_SITE)/libnotify/{pkgver[:-2]}/libnotify-{pkgver}.tar.xz"
-sha256 = "8fa04d4ebdc155b0a239df88bd9f09e8f2739d5707a1390b427ab4985f83d25a"
+sha256 = "c5540aaefb60e1d63b1c587c05f2284ebe72ece7d0c0e5e4a778cfd5844b6b58"
+# introspection
+optiosn = ["!cross"]
 
 
 @subpackage("libnotify-devel")
