@@ -1,5 +1,5 @@
 pkgname = "libxfce4ui"
-pkgver = "4.20.0"
+pkgver = "4.20.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -39,7 +39,8 @@ url = "https://docs.xfce.org/xfce/libxfce4ui/start"
 source = (
     f"$(XFCE_SITE)/xfce/libxfce4ui/{pkgver[:-2]}/libxfce4ui-{pkgver}.tar.bz2"
 )
-sha256 = "75e8996984f20375aadecd5c16f5147c211ed0bd26d7861ab0257561eb76eaee"
+sha256 = "ec99f0b8f6d7cd4222c8f8e3bca51d144fb240d719829344b354900eb3a07100"
+# introspection
 options = ["!cross"]
 
 
