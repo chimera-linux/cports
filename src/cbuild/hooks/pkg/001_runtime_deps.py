@@ -308,12 +308,17 @@ def _scan_svc(pkg):
                     case _:
                         pass
 
+    def pkg_provides_svc(pkg, pn, pfx):
+        pth = pkg.destdir / "usr/lib/dinit.d"
+        if pfx == "usvc":
+            pth = pth / "user"
+        if (pth / pn).exists():
+            return True
+        return False
+
     def subpkg_provides_svc(pn, pfx):
         for sp in pkg.rparent.subpkg_list:
-            pth = sp.destdir / "usr/lib/dinit.d"
-            if pfx == "usvc":
-                pth = pth / "user"
-            if (pth / pn).exists():
+            if pkg_provies_svc(sp, pn, pfx):
                 return sp.pkgname
         return None
 
@@ -327,6 +332,9 @@ def _scan_svc(pkg):
 
     for sv in svcreq:
         pfx = svcreq[sv]
+        # provided by self
+        if pkg_provides_svc(pkg, sv, pfx):
+            continue
         # provided by one of ours or by a dependency
         in_subpkg = subpkg_provides_svc(sv, pfx)
         if not in_subpkg:
