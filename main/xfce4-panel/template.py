@@ -1,5 +1,5 @@
 pkgname = "xfce4-panel"
-pkgver = "4.20.3"
+pkgver = "4.20.4"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -33,7 +33,8 @@ url = "https://docs.xfce.org/xfce/xfce4-panel/start"
 source = (
     f"$(XFCE_SITE)/xfce/xfce4-panel/{pkgver[:-2]}/xfce4-panel-{pkgver}.tar.bz2"
 )
-sha256 = "4006dddf465a4ae02e14355941458c718f6da0896eae68435c9fd24fcd89b6b8"
+sha256 = "695b23af490719e734c8659394821b43cc94d3bee69994bafdc42ef40daa0d2c"
+# introspection
 options = ["!cross"]
 
 
