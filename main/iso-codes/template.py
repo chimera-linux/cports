@@ -1,5 +1,5 @@
 pkgname = "iso-codes"
-pkgver = "4.17.0"
+pkgver = "4.18.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "gettext", "python", "pkgconf"]
@@ -7,4 +7,4 @@ pkgdesc = "List of country, language and currency names"
 license = "LGPL-2.1-or-later"
 url = "https://salsa.debian.org/iso-codes-team/iso-codes"
 source = f"https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/v{pkgver}.tar.gz"
-sha256 = "109e41510f4c3c4d1e3961315a36a0322c53e7ec69122c7307e2353c4c5382e1"
+sha256 = "9575eb616f4f5f11e26071f8ef815cb941fbb938c8655f9c75e2dfa2d5fab345"
