@@ -1,6 +1,6 @@
 pkgname = "evolution-data-server"
-pkgver = "3.56.0"
-pkgrel = 2
+pkgver = "3.56.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DWITH_LIBDB=OFF",
@@ -44,7 +44,7 @@ pkgdesc = "Centralized access to appointments and contacts"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/evolution-data-server"
 source = f"$(GNOME_SITE)/evolution-data-server/{pkgver[:-2]}/evolution-data-server-{pkgver}.tar.xz"
-sha256 = "7ae5482aa4ee2894467716c5be982500e1d511dddf4ab29b68fdb107d7f8a8ff"
+sha256 = "646cc0037da3f9f295794c637d95394ad76f8c9bee2268be2c4183e27720c137"
 options = ["!cross"]
 
 
