@@ -1,6 +1,6 @@
 pkgname = "python-markdown"
-pkgver = "3.7"
-pkgrel = 1
+pkgver = "3.8"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,7 +14,7 @@ pkgdesc = "Python implementation of Markdown"
 license = "BSD-3-Clause"
 url = "https://github.com/Python-Markdown/markdown"
 source = f"$(PYPI_SITE)/M/Markdown/markdown-{pkgver}.tar.gz"
-sha256 = "2ae2471477cfd02dbbf038d5d9bc226d40def84b4fe2986e49b59b6b472bbed2"
+sha256 = "7df81e63f0df5c4b24b7d156eb81e4690595239b7d70937d0409f1b0de319c6f"
 
 
 def check(self):
