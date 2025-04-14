@@ -1,8 +1,9 @@
 pkgname = "gnome-session"
-pkgver = "47.0.1"
-pkgrel = 1
+pkgver = "48.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
     "-Dsystemduserunitdir=/tmp",
 ]
 hostmakedepends = [
@@ -33,7 +34,7 @@ pkgdesc = "GNOME session management utilities"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-session"
 source = f"$(GNOME_SITE)/gnome-session/{pkgver[: pkgver.find('.')]}/gnome-session-{pkgver}.tar.xz"
-sha256 = "56ae9c68e49995793eb2096bcdc4533b111669e1e54c8b6e0b1d952f6a5e8a70"
+sha256 = "dd909fbc5b22cdbdb2fc4df1a47d78d1b5943ccc5e61e6a20a1846246347c417"
 hardening = ["vis"]
 
 
