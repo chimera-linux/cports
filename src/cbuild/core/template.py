@@ -1059,7 +1059,7 @@ class Template(Package):
         elif self.repository not in _allow_cats:
             self.broken = f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})"
         elif self.profile().cross and not self.options["cross"]:
-            self.broken = f"cannot be cross-compiled for {self.profile().arch}"
+            self.broken = "cannot be cross-compiled"
 
         # if archs is present, validate it, it may mark the package broken
         self.validate_arch()
