@@ -1,5 +1,5 @@
 pkgname = "wpaperd"
-pkgver = "1.1.1"
+pkgver = "1.2.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features", "avif"]
@@ -14,7 +14,7 @@ pkgdesc = "Wallpaper daemon for Wayland"
 license = "GPL-3.0-or-later"
 url = "https://github.com/danyspin97/wpaperd"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0d2e51a6c6703787857efa2cb2f61c8f6dc7bc162467d16b6c74d3689531054e"
+sha256 = "c6ac215502ba13816eac061c47a18376f43ad6131d9b242f1aa699fc03adebe8"
 # check: no meaningful tests
 options = ["!check"]
 
@@ -28,6 +28,7 @@ def post_build(self):
 def install(self):
     self.install_license("LICENSE.md")
     self.install_man("wpaperd-output.5")
+    self.install_service(self.files_path / "wpaperd.user")
     with self.pushd(f"target/{self.profile().triplet}/release"):
         self.install_bin("wpaperd")
         self.install_bin("wpaperctl")
