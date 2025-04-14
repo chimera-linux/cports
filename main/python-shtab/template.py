@@ -1,6 +1,6 @@
 pkgname = "python-shtab"
-pkgver = "1.7.1"
-pkgrel = 1
+pkgver = "1.7.2"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,4 +14,4 @@ pkgdesc = "Shell completion generation for Python CLI applications"
 license = "Apache-2.0"
 url = "https://docs.iterative.ai/shtab"
 source = f"$(PYPI_SITE)/s/shtab/shtab-{pkgver}.tar.gz"
-sha256 = "4e4bcb02eeb82ec45920a5d0add92eac9c9b63b2804c9196c1f1fdc2d039243c"
+sha256 = "8c16673ade76a2d42417f03e57acf239bfb5968e842204c17990cae357d07d6f"
