@@ -1,5 +1,5 @@
 pkgname = "libadwaita"
-pkgver = "1.7.0"
+pkgver = "1.7.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ pkgdesc = "GTK4 building blocks for modern adaptive applications"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libadwaita"
 source = f"$(GNOME_SITE)/libadwaita/{pkgver[:-2]}/libadwaita-{pkgver}.tar.xz"
-sha256 = "58bf99b8a9f8b0171964de0ae741d01d5a09db3662134fa67541c99a8ed7dec0"
+sha256 = "28ee2ff589c6debe47af9da7a56e37c97d6849e003918a4b223f690d25f960be"
 options = ["!cross"]
 
 
