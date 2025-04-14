@@ -1,6 +1,6 @@
 pkgname = "harfbuzz"
-pkgver = "11.0.0"
-pkgrel = 1
+pkgver = "11.0.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
@@ -14,13 +14,14 @@ configure_args = [
     "-Dintrospection=enabled",
 ]
 hostmakedepends = [
+    # prevent installing self through freetype
+    "freetype-bootstrap",
     "glib-devel",
     "gobject-introspection",
     "gtk-doc-tools",
+    "help2man",
     "meson",
     "pkgconf",
-    # prevent installing self through freetype
-    "freetype-bootstrap",
 ]
 makedepends = [
     "cairo-devel",
@@ -32,7 +33,7 @@ pkgdesc = "Text shaping engine"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/harfbuzz/harfbuzz/releases/download/{pkgver}/harfbuzz-{pkgver}.tar.xz"
-sha256 = "f16351bafe214725fe2c1d5b59f0d93e49905a4b247899fb90d70cff953a2b9b"
+sha256 = "4a7890090538136db64742073af4b4d776ab8b50e6855676a8165eb8b7f60b7a"
 options = ["!cross"]
 
 
