@@ -2,13 +2,18 @@ pkgname = "gobject-introspection"
 pkgver = "1.84.0"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["meson", "pkgconf", "flex", "bison"]
+hostmakedepends = [
+    "bison",
+    "flex",
+    "meson",
+    "pkgconf",
+    "python-mako",
+    "python-markdown",
+]
 makedepends = [
     "glib-bootstrap",
     "libffi8-devel",
     "python-devel",
-    "python-mako",
-    "python-markdown",
 ]
 depends = [
     "gobject-introspection-devel",
