@@ -1,5 +1,5 @@
 pkgname = "imlib2"
-pkgver = "1.12.4"
+pkgver = "1.12.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -24,7 +24,7 @@ pkgdesc = "Image manipulation library"
 license = "Imlib2"
 url = "https://www.enlightenment.org"
 source = f"$(SOURCEFORGE_SITE)/enlightenment/imlib2-src/imlib2-{pkgver}.tar.gz"
-sha256 = "3dd6538dd012ef140e051b9579633a7c4b073e088326d65df4d3b2d6099193b9"
+sha256 = "097d40aee4cf4a349187615b796b37db1652fcc84bb0e8d5c0b380ab651d9095"
 hardening = ["!cfi"]  # investigate
 
 
