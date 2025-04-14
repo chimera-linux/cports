@@ -1,7 +1,10 @@
 pkgname = "gnome-terminal"
-pkgver = "3.56.0"
+pkgver = "3.56.1"
 pkgrel = 0
 build_style = "meson"
+configure_args = [
+    "--libexecdir=/usr/lib",  # XXX drop libexec
+]
 hostmakedepends = [
     "docbook-xsl-nons",
     "gettext",
@@ -25,7 +28,7 @@ pkgdesc = "GNOME terminal emulator"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal"
 source = f"https://gitlab.gnome.org/GNOME/gnome-terminal/-/archive/{pkgver}/gnome-terminal-{pkgver}.tar.gz"
-sha256 = "aaa248152c62a51657367376d1c3262ce7c09d5c8321b30de63043a6de3720b1"
+sha256 = "5b4625d3e5e02172cdd7cb01854d8146e97ae2b5b82e132f27348eaa25e2348c"
 # Upstream claims "LTO very much NOT supported"
 # https://gitlab.gnome.org/GNOME/gnome-terminal/-/blob/09c8b31168460c325ac00820759d6eefdf3957ab/meson.build#L226
 options = ["!cross", "!lto"]
