@@ -318,7 +318,7 @@ def _scan_svc(pkg):
 
     def subpkg_provides_svc(pn, pfx):
         for sp in pkg.rparent.subpkg_list:
-            if pkg_provies_svc(sp, pn, pfx):
+            if pkg_provides_svc(sp, pn, pfx):
                 return sp.pkgname
         return None
 
