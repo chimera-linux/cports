@@ -1,6 +1,6 @@
 pkgname = "upower"
-pkgver = "1.90.7"
-pkgrel = 1
+pkgver = "1.90.9"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -39,7 +39,7 @@ pkgdesc = "Abstraction for enumerating power devices"
 license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/upower/upower/-/archive/v{pkgver}/upower-v{pkgver}.tar.gz"
-sha256 = "7d616e529ddfd4a4ced9dcf701c1d77628ef12e242d0603f32bedfa1a2c7e3ed"
+sha256 = "fffd45c50d29ed73ecdcfb11c3a7bb042ef14e84b14b0c2d5fdb78c7b4435d6c"
 options = ["!cross"]
 
 
