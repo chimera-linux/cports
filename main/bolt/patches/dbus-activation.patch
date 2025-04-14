@@ -1,0 +1,11 @@
+we don't want dbus activation to race the service
+
+--- a/data/org.freedesktop.bolt.service.in
++++ b/data/org.freedesktop.bolt.service.in
+@@ -1,5 +1,5 @@
+ [D-BUS Service]
+ Name=org.freedesktop.bolt
+-Exec=@libexecdir@/boltd
++Exec=/usr/bin/dinitctl --quiet start boltd
+ User=root
+ SystemdService=bolt.service

@@ -1,6 +1,6 @@
 pkgname = "bolt"
 pkgver = "0.9.8"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 # XXX drop libexec
 configure_args = [
