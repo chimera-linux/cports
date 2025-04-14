@@ -1,0 +1,26 @@
+From 329af51142700bf1d3594e75613045e79ea69b1e Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Sat, 12 Apr 2025 12:34:08 +0200
+Subject: [PATCH] Don't force static linkage for shim
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 3fce2bf7b..e709f6d35 100644
+--- a/Makefile
++++ b/Makefile
+@@ -108,7 +108,7 @@ ifneq ($(STATIC),)
+ endif
+ GO_LDFLAGS+='
+ 
+-SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) -extldflags "-static" $(EXTRA_LDFLAGS)'
++SHIM_GO_LDFLAGS=-ldflags '-X $(PKG)/version.Version=$(VERSION) -X $(PKG)/version.Revision=$(REVISION) -X $(PKG)/version.Package=$(PACKAGE) $(EXTRA_LDFLAGS)'
+ 
+ # Project packages.
+ PACKAGES=$(shell $(GO) list ${GO_TAGS} ./... | grep -v /vendor/ | grep -v /integration)
+-- 
+2.49.0
+

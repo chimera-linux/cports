@@ -10,6 +10,7 @@ make_build_args = [
     "man",
     f"REVISION=chimera-r{pkgrel}",
     f"VERSION={pkgver}",
+    "SHIM_CGO_ENABLED=1",
 ]
 make_install_args = [
     "install-man",
