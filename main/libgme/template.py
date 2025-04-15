@@ -2,7 +2,10 @@ pkgname = "libgme"
 pkgver = "0.6.3"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DENABLE_UBSAN=OFF"]
+configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "-DENABLE_UBSAN=OFF",
+]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "sdl2-compat-devel"]
 pkgdesc = "Video game music file emulation/playback library"
