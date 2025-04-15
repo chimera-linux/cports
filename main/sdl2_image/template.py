@@ -1,5 +1,5 @@
 pkgname = "sdl2_image"
-pkgver = "2.8.5"
+pkgver = "2.8.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -36,7 +36,7 @@ pkgdesc = "SDL image loading library"
 license = "Zlib"
 url = "https://libsdl.org/projects/SDL_image"
 source = f"{url}/release/SDL2_image-{pkgver}.tar.gz"
-sha256 = "8bc4c57f41e2c0db7f9b749b253ef6cecdc6f0b689ecbe36ee97b50115fff645"
+sha256 = "2213b56fdaff2220d0e38c8e420cbe1a83c87374190cba8c70af2156097ce30a"
 # no check target
 options = ["!check"]
 
