@@ -1,0 +1,28 @@
+From 874381b28466ab0c240b46292089be0e63117a1c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?MrSm=C3=B6r?= <66489839+MrSmoer@users.noreply.github.com>
+Date: Wed, 16 Apr 2025 01:11:31 +0200
+Subject: [PATCH] Change arg_print_date argument to time_t
+
+arg_print_date was casting a long* to time_t*.
+This is undefined behaviour (eg. with 64-bit time_t and 32-bit long,
+64 bits will be read from a 32-bit wide location).
+---
+ src/args.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/args.c b/src/args.c
+index c2cc3de..93dc910 100644
+--- a/src/args.c
++++ b/src/args.c
+@@ -251,7 +251,7 @@ static void next_arg(void)
+ /*
+  * Print the date on stdout.
+  */
+-static void arg_print_date(long date)
++static void arg_print_date(time_t date)
+ {
+ 	char date_str[BUFSIZ];
+ 	struct tm lt;
+-- 
+2.48.1
+
