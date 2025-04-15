@@ -3,6 +3,7 @@ pkgver = "3.4.2"
 pkgrel = 6
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DMYGUI_BUILD_DEMOS=OFF",
     "-DMYGUI_BUILD_TOOLS=OFF",
     "-DMYGUI_RENDERSYSTEM=1",
