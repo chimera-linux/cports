@@ -17,11 +17,11 @@ license = "MIT"
 url = "https://drawterm.9front.org"
 _wlr_protocols_commit = "ffb89ac790096f6e6272822c8d5df7d0cc6fcdfa"
 source = [
-    f"https://git.9front.org/git/plan9front/drawterm/{_commit}/snap.tar.gz",
+    f"https://git.9front.org/git/plan9front/drawterm/{_commit}/snap.tar.gz>snap-{_commit}.tar.gz",
     f"!https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/raw/{_wlr_protocols_commit}/unstable/wlr-virtual-pointer-unstable-v1.xml>{_wlr_protocols_commit}.xml",
 ]
 sha256 = [
-    "5d9adb910e6e6681584c61e800dddbb927a25c19858d504b2e0f340d5889e106",
+    "0080192d1ee0e60840b4fda6362814eded11ed9f364bab4fef626487be1aa94f",
     "3ff6d540be0bc5228195bf072bde42117ea17945a5c2061add5d3cf97d6bb524",
 ]
 # no tests
