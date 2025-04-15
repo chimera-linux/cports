@@ -1,5 +1,5 @@
 pkgname = "kdnssd"
-pkgver = "6.12.0"
+pkgver = "6.13.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "KDE zeroconf integration"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kdnssd/html/index.html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdnssd-{pkgver}.tar.xz"
-sha256 = "abb4538ea56c7dfe9eda06338a2dd3b80f47326383a6c5a23f2a09ad5facbe98"
+sha256 = "e3d25dfaa3886dff4851e5b88f652f6bc6e8e8718708bd80ba49875141907e82"
 hardening = ["vis"]
 
 

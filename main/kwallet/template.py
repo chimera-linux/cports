@@ -1,5 +1,5 @@
 pkgname = "kwallet"
-pkgver = "6.12.0"
+pkgver = "6.13.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -29,7 +29,7 @@ pkgdesc = "KDE Safe desktop-wide storage for passwords"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kwallet/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwallet-{pkgver}.tar.xz"
-sha256 = "d23e7fdbda666490462bbbfd5087924ed451b70dcff6fa4c9ad354db9ed5ad00"
+sha256 = "1a6ff2ccf660a433bda6b00ac873796dcb46bd2443787fcf5fbe4c433ca8cb36"
 hardening = ["vis"]
 
 

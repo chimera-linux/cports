@@ -1,6 +1,6 @@
 pkgname = "kwindowsystem"
-pkgver = "6.12.0"
-pkgrel = 1
+pkgver = "6.13.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -42,7 +42,7 @@ pkgdesc = "KDE windowing system access"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
-sha256 = "6e7f0ea1bd5b1b0f81f785ff0fddeb943222382f1c11b5201f69b6c62763b6f6"
+sha256 = "4fa83424f39a97d7fe784533d2ad4d4969ff878d26438dda9dc00e30745959ac"
 hardening = ["vis"]
 
 

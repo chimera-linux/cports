@@ -1,5 +1,5 @@
 pkgname = "kconfig"
-pkgver = "6.12.0"
+pkgver = "6.13.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: kconfigtest can work with right env
@@ -23,7 +23,7 @@ pkgdesc = "KDE Persistent platform-independent application settings"
 license = "LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kconfig/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kconfig-{pkgver}.tar.xz"
-sha256 = "03d1d09054d646c67fcaa9f1fa53157811ad07ef40a38b9f4e0b52ae3173b1bf"
+sha256 = "2ec66c996288df472fcc3aba50540e266fb6218d60d38e7a4a445d4b193f9445"
 hardening = ["vis"]
 
 

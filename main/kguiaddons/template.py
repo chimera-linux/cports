@@ -1,6 +1,6 @@
 pkgname = "kguiaddons"
-pkgver = "6.12.0"
-pkgrel = 1
+pkgver = "6.13.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "KDE addons to QtGui"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/frameworks/kguiaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kguiaddons-{pkgver}.tar.xz"
-sha256 = "e394826cade1c5d9491166f3a3f4d0c3d625bf27106352678a06d2ec5364c532"
+sha256 = "9280a0f04f29b8e4ffabe3c942621e2c6092bdc0037a3ab9e0b99e5ea56884bf"
 hardening = ["vis"]
 
 
