@@ -9,18 +9,18 @@ index a39de88..91cd5be 100644
 --- a/offload/tools/deviceinfo/CMakeLists.txt
 +++ b/offload/tools/deviceinfo/CMakeLists.txt
 @@ -1,8 +1,4 @@
--message(STATUS "Building the llvm-omp-device-info tool")
+-message(STATUS "Building the llvm-offload-device-info tool")
 -
--add_openmp_tool(llvm-omp-device-info llvm-omp-device-info.cpp)
+-add_openmp_tool(llvm-offload-device-info llvm-offload-device-info.cpp)
 -
--llvm_update_compile_flags(llvm-omp-device-info)
-+add_executable(llvm-omp-device-info llvm-omp-device-info.cpp)
+-llvm_update_compile_flags(llvm-offload-device-info)
++add_executable(llvm-offload-device-info llvm-offload-device-info.cpp)
  
- target_include_directories(llvm-omp-device-info PRIVATE
+ target_include_directories(llvm-offload-device-info PRIVATE
    ${LIBOMPTARGET_INCLUDE_DIR}
 @@ -11,3 +7,5 @@ target_link_libraries(llvm-omp-device-info PRIVATE
    omp
    omptarget
  )
 +
-+install(TARGETS llvm-omp-device-info DESTINATION bin)
++install(TARGETS llvm-offload-device-info DESTINATION bin)

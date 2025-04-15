@@ -1,17 +1,17 @@
-From a045fd8aededbe15339bc067c1b68a75ea8b9679 Mon Sep 17 00:00:00 2001
+From aef527f16bc8cf69f5253691c807881538597d5f Mon Sep 17 00:00:00 2001
 From: Erica Z <zerica@callcc.eu>
 Date: Fri, 29 Nov 2024 19:49:16 +0100
-Subject: [PATCH 27/30] 32-bit musl sanitizer fixes
+Subject: [PATCH 27/29] 32-bit musl sanitizer fixes
 
 ---
  .../lib/sanitizer_common/sanitizer_linux.cpp  | 48 +++----------------
  1 file changed, 7 insertions(+), 41 deletions(-)
 
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-index 0b69fedcc..067e16922 100644
+index a782d5221..6ebf10aa6 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-@@ -317,25 +317,6 @@ uptr internal_ftruncate(fd_t fd, uptr size) {
+@@ -329,25 +329,6 @@ uptr internal_ftruncate(fd_t fd, uptr size) {
    return res;
  }
  
@@ -37,7 +37,7 @@ index 0b69fedcc..067e16922 100644
  #    if SANITIZER_LINUX && defined(__loongarch__)
  static void statx_to_stat(struct statx *in, struct stat *out) {
    internal_memset(out, 0, sizeof(*out));
-@@ -434,17 +415,11 @@ uptr internal_stat(const char *path, void *buf) {
+@@ -447,17 +428,11 @@ uptr internal_stat(const char *path, void *buf) {
    kernel_stat_to_stat(&buf64, (struct stat *)buf);
    return res;
  #      else
@@ -58,7 +58,7 @@ index 0b69fedcc..067e16922 100644
  #    endif
  }
  
-@@ -472,17 +447,11 @@ uptr internal_lstat(const char *path, void *buf) {
+@@ -486,17 +461,11 @@ uptr internal_lstat(const char *path, void *buf) {
    kernel_stat_to_stat(&buf64, (struct stat *)buf);
    return res;
  #      else
@@ -79,7 +79,7 @@ index 0b69fedcc..067e16922 100644
  #    endif
  }
  
-@@ -510,10 +479,7 @@ uptr internal_fstat(fd_t fd, void *buf) {
+@@ -524,10 +493,7 @@ uptr internal_fstat(fd_t fd, void *buf) {
    return internal_syscall(SYSCALL(fstat), fd, (uptr)buf);
  #      endif
  #    else
@@ -92,5 +92,5 @@ index 0b69fedcc..067e16922 100644
  }
  
 -- 
-2.47.0
+2.49.0
 

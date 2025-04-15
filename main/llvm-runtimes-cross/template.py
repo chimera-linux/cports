@@ -1,6 +1,6 @@
 pkgname = "llvm-runtimes-cross"
-pkgver = "19.1.7"
-pkgrel = 2
+pkgver = "20.1.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -25,10 +25,12 @@ configure_args = [
     "-DLIBCXX_HARDENING_MODE=fast",
     "-DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx",
 ]
-hostmakedepends = ["cmake", "ninja", "python"]
+hostmakedepends = ["clang-tools-extra", "cmake", "ninja", "python"]
 makedepends = [
+    "clang-devel",
     "clang-rt-crt-cross",
     "libatomic-chimera-cross",
+    "llvm-devel",
     "musl-cross",
     "linux-headers-cross",
 ]
@@ -37,7 +39,7 @@ pkgdesc = "Cross-toolchain LLVM runtimes"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "82401fea7b79d0078043f7598b835284d6650a75b93e64b6f761ea7b63097501"
+sha256 = "b6183c41281ee3f23da7fda790c6d4f5877aed103d1e759763b1008bdd0e2c50"
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "empty"]
 

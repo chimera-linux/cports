@@ -1,14 +1,14 @@
-From 482239199924666a5a9500f4147231139145bee5 Mon Sep 17 00:00:00 2001
+From da1c921a45908cd05aed5bd44245d2b424a8580a Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:41:14 +0200
-Subject: [PATCH 08/30] compiler-rt: lsan: basic musl fixes on various archs
+Subject: [PATCH 08/29] compiler-rt: lsan: basic musl fixes on various archs
 
 ---
- .../sanitizer_common/sanitizer_linux_libcdep.cpp  | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ .../lib/sanitizer_common/sanitizer_linux_libcdep.cpp  | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
-index c3c717bbd..5062b0a75 100644
+index e11eff13c..96e823ae7 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
 @@ -28,6 +28,14 @@
@@ -26,25 +26,7 @@ index c3c717bbd..5062b0a75 100644
  #  if SANITIZER_NETBSD
  #    define _RTLD_SOURCE  // for __lwp_gettcb_fast() / __lwp_getprivate_fast()
  #  endif
-@@ -319,6 +327,7 @@ static uptr ThreadDescriptorSizeFallback() {
-   return val;
- }
- 
-+#if SANITIZER_GLIBC
- uptr ThreadDescriptorSize() {
-   uptr val = atomic_load_relaxed(&thread_descriptor_size);
-   if (val)
-@@ -333,6 +342,9 @@ uptr ThreadDescriptorSize() {
-   atomic_store_relaxed(&thread_descriptor_size, val);
-   return val;
- }
-+#else
-+uptr ThreadDescriptorSize() { return 0; }
-+#endif
- 
- #    if defined(__mips__) || defined(__powerpc64__) || SANITIZER_RISCV64 || \
-         SANITIZER_LOONGARCH64
-@@ -424,6 +436,7 @@ static int CollectStaticTlsBlocks(struct dl_phdr_info *info, size_t size,
+@@ -467,6 +475,7 @@ static int CollectStaticTlsBlocks(struct dl_phdr_info *info, size_t size,
      begin = (uptr)__tls_get_addr(mod_and_off);
  #    endif
    }
@@ -52,7 +34,7 @@ index c3c717bbd..5062b0a75 100644
    for (unsigned i = 0; i != info->dlpi_phnum; ++i)
      if (info->dlpi_phdr[i].p_type == PT_TLS) {
        static_cast<InternalMmapVector<TlsBlock> *>(data)->push_back(
-@@ -581,9 +594,11 @@ static void GetTls(uptr *addr, uptr *size) {
+@@ -624,9 +633,11 @@ static void GetTls(uptr *addr, uptr *size) {
    else if (SANITIZER_FREEBSD)
      *size += 128;  // RTLD_STATIC_TLS_EXTRA
  #        if defined(__mips__) || defined(__powerpc64__) || SANITIZER_RISCV64
@@ -65,5 +47,5 @@ index c3c717bbd..5062b0a75 100644
    // arm and aarch64 reserve two words at TP, so this underestimates the range.
    // However, this is sufficient for the purpose of finding the pointers to
 -- 
-2.47.0
+2.49.0
 

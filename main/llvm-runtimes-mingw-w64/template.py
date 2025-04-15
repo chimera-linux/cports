@@ -1,5 +1,5 @@
 pkgname = "llvm-runtimes-mingw-w64"
-pkgver = "19.1.7"
+pkgver = "20.1.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -49,7 +49,7 @@ pkgdesc = "LLVM libc++ for Windows development"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "82401fea7b79d0078043f7598b835284d6650a75b93e64b6f761ea7b63097501"
+sha256 = "b6183c41281ee3f23da7fda790c6d4f5877aed103d1e759763b1008bdd0e2c50"
 hardening = ["!scp"]
 # crosstoolchain
 options = ["!check", "empty", "!relr"]

@@ -1,20 +1,20 @@
-From 187a99af41a82d4301ecfb1d8e34ea65b383cb89 Mon Sep 17 00:00:00 2001
+From 2e1760e66725a8afabf9dd3680312a54403c8e53 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 29 Nov 2024 19:42:47 +0100
-Subject: [PATCH 12/30] libc++,libc++abi,libunwind: disable multiarch locations
+Subject: [PATCH 12/29] libc++,libc++abi,libunwind: disable multiarch locations
 
 ---
- libcxx/CMakeLists.txt            | 2 +-
- libcxx/benchmarks/CMakeLists.txt | 2 +-
- libcxxabi/CMakeLists.txt         | 2 +-
- libunwind/CMakeLists.txt         | 2 +-
+ libcxx/CMakeLists.txt                 | 2 +-
+ libcxx/test/benchmarks/CMakeLists.txt | 2 +-
+ libcxxabi/CMakeLists.txt              | 2 +-
+ libunwind/CMakeLists.txt              | 2 +-
  4 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index d830d6b4c..a5627f686 100644
+index 17cf7c7ed..6eba3b170 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -430,7 +430,7 @@ set(LIBCXX_INSTALL_MODULES_DIR "share/libc++/v1" CACHE STRING
+@@ -414,7 +414,7 @@ set(LIBCXX_INSTALL_MODULES_DIR "share/libc++/v1" CACHE STRING
  set(LIBCXX_SHARED_OUTPUT_NAME "c++" CACHE STRING "Output name for the shared libc++ runtime library.")
  set(LIBCXX_STATIC_OUTPUT_NAME "c++" CACHE STRING "Output name for the static libc++ runtime library.")
  
@@ -23,11 +23,11 @@ index d830d6b4c..a5627f686 100644
    set(LIBCXX_TARGET_SUBDIR ${LLVM_DEFAULT_TARGET_TRIPLE})
    if(LIBCXX_LIBDIR_SUBDIR)
      string(APPEND LIBCXX_TARGET_SUBDIR /${LIBCXX_LIBDIR_SUBDIR})
-diff --git a/libcxx/benchmarks/CMakeLists.txt b/libcxx/benchmarks/CMakeLists.txt
-index d96ccc1e4..ce99a8186 100644
---- a/libcxx/benchmarks/CMakeLists.txt
-+++ b/libcxx/benchmarks/CMakeLists.txt
-@@ -15,7 +15,7 @@ set(BENCHMARK_COMPILE_FLAGS
+diff --git a/libcxx/test/benchmarks/CMakeLists.txt b/libcxx/test/benchmarks/CMakeLists.txt
+index b0fe60062..304d68e10 100644
+--- a/libcxx/test/benchmarks/CMakeLists.txt
++++ b/libcxx/test/benchmarks/CMakeLists.txt
+@@ -11,7 +11,7 @@ set(BENCHMARK_COMPILE_FLAGS
      -Wl,-rpath,${LIBCXX_LIBRARY_DIR}
      ${SANITIZER_FLAGS}
      )
@@ -37,7 +37,7 @@ index d96ccc1e4..ce99a8186 100644
      -isystem "${LIBCXX_GENERATED_INCLUDE_TARGET_DIR}")
  endif()
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index dc1f4cd6f..9560ec30c 100644
+index 1d03714f5..d69813bd0 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
 @@ -182,7 +182,7 @@ set(CMAKE_MODULE_PATH
@@ -50,10 +50,10 @@ index dc1f4cd6f..9560ec30c 100644
    if(LIBCXXABI_LIBDIR_SUBDIR)
      string(APPEND LIBCXXABI_TARGET_SUBDIR /${LIBCXXABI_LIBDIR_SUBDIR})
 diff --git a/libunwind/CMakeLists.txt b/libunwind/CMakeLists.txt
-index 28d67b0fe..c5d624d5b 100644
+index 3c8499fd3..93b078659 100644
 --- a/libunwind/CMakeLists.txt
 +++ b/libunwind/CMakeLists.txt
-@@ -130,7 +130,7 @@ set(LIBUNWIND_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
+@@ -140,7 +140,7 @@ set(LIBUNWIND_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
  set(LIBUNWIND_SHARED_OUTPUT_NAME "unwind" CACHE STRING "Output name for the shared libunwind runtime library.")
  set(LIBUNWIND_STATIC_OUTPUT_NAME "unwind" CACHE STRING "Output name for the static libunwind runtime library.")
  
@@ -63,5 +63,5 @@ index 28d67b0fe..c5d624d5b 100644
    if(LIBUNWIND_LIBDIR_SUBDIR)
      string(APPEND LIBUNWIND_TARGET_SUBDIR /${LIBUNWIND_LIBDIR_SUBDIR})
 -- 
-2.47.0
+2.49.0
 

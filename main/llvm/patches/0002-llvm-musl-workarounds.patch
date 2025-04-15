@@ -1,18 +1,18 @@
-From 6f1be080b311c23d8905539111d649060de6c8d9 Mon Sep 17 00:00:00 2001
+From f8a083e37fd50672621504ce33e99b862ec4f49b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 08:50:28 +0100
-Subject: [PATCH 02/30] llvm: musl workarounds
+Subject: [PATCH 02/29] llvm: musl workarounds
 
 ---
  llvm/include/llvm/Analysis/TargetLibraryInfo.h | 9 +++++++++
  1 file changed, 9 insertions(+)
 
 diff --git a/llvm/include/llvm/Analysis/TargetLibraryInfo.h b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
-index db5e80ccd..5043c1a1a 100644
+index f51d2bb9d..c3cbe951b 100644
 --- a/llvm/include/llvm/Analysis/TargetLibraryInfo.h
 +++ b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
-@@ -17,6 +17,15 @@
- #include "llvm/TargetParser/Triple.h"
+@@ -19,6 +19,15 @@
+ #include <bitset>
  #include <optional>
  
 +#undef fopen64
@@ -28,5 +28,5 @@ index db5e80ccd..5043c1a1a 100644
  
  template <typename T> class ArrayRef;
 -- 
-2.47.0
+2.49.0
 

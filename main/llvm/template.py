@@ -1,6 +1,6 @@
 pkgname = "llvm"
-pkgver = "19.1.7"
-pkgrel = 1
+pkgver = "20.1.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -54,7 +54,7 @@ pkgdesc = "Low Level Virtual Machine"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "82401fea7b79d0078043f7598b835284d6650a75b93e64b6f761ea7b63097501"
+sha256 = "b6183c41281ee3f23da7fda790c6d4f5877aed103d1e759763b1008bdd0e2c50"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -123,20 +123,9 @@ else:
         "-DCOMPILER_RT_BUILD_CTX_PROFILE=OFF",
     ]
 
-_enable_flang = False
 # from stage 2 only, pointless to build before
 _enable_mlir = self.stage >= 2
-
-match self.profile().arch:
-    # consistently runs out of memory in flang ConvertExpr
-    case "ppc64" | "riscv64" | "loongarch64":
-        pass
-    # unsupported on 32 bit cpus
-    case "ppc" | "armhf" | "armv7":
-        pass
-    # elsewhere is okay
-    case _:
-        _enable_flang = _enable_mlir
+_enable_flang = _enable_mlir and self.profile().wordsize == 64
 
 if _enable_mlir:
     _enabled_projects += ["mlir"]
@@ -183,7 +172,6 @@ def init_configure(self):
         "-DLLVM_TABLEGEN=/usr/bin/llvm-tblgen",
         "-DLLVM_HEADERS_TABLEGEN=/usr/bin/llvm-tblgen",
         "-DCLANG_TABLEGEN=/usr/bin/clang-tblgen",
-        "-DCLANG_PSEUDO_GEN=/usr/bin/clang-pseudo-gen",
         "-DCLANG_TIDY_CONFUSABLE_CHARS_GEN=/usr/bin/clang-tidy-confusable-chars-gen",
         "-DMLIR_TABLEGEN=/usr/bin/mlir-tblgen",
         "-DMLIR_PDLL_TABLEGEN=/usr/bin/mlir-pdll",
@@ -251,7 +239,6 @@ def post_install(self):
 
     # extra cross bins, not super useful outside of that but harmless
     self.install_bin("build/bin/clang-tidy-confusable-chars-gen")
-    self.install_bin("build/bin/clang-pseudo-gen")
     # FIXME: make it build for cross so we get consistent packages
     if _enable_mlir and not self.profile().cross:
         self.install_bin("build/bin/mlir-src-sharder")
@@ -282,8 +269,6 @@ def _(self):
         "usr/include/clang-tidy",
         "usr/bin/clang-apply-replacements",
         "usr/bin/clang-query",
-        "usr/bin/clang-pseudo-gen",
-        "usr/bin/clang-rename",
         "usr/bin/clang-tidy",
         "usr/bin/clang-tidy-confusable-chars-gen",
         "usr/bin/diagtool",

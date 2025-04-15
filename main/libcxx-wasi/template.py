@@ -1,5 +1,5 @@
 pkgname = "libcxx-wasi"
-pkgver = "19.1.7"
+pkgver = "20.1.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -41,6 +41,7 @@ configure_args = [
 ]
 cmake_dir = "runtimes"
 hostmakedepends = [
+    "clang-devel",
     "clang-rt-crt-wasi",
     "clang-tools-extra",
     "cmake",
@@ -54,7 +55,7 @@ pkgdesc = "Compiler runtime for WASI"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "82401fea7b79d0078043f7598b835284d6650a75b93e64b6f761ea7b63097501"
+sha256 = "b6183c41281ee3f23da7fda790c6d4f5877aed103d1e759763b1008bdd0e2c50"
 hardening = ["!int", "!scp", "!var-init"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "!strip"]

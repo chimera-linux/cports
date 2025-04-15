@@ -1,7 +1,7 @@
-From 4333f61c097c1e493591dca6b972a015284275d1 Mon Sep 17 00:00:00 2001
+From 14dca6a04af1828917ab1602ff8b1d225411bf7b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Fri, 29 Nov 2024 19:55:07 +0100
-Subject: [PATCH 30/30] libcxx: default to type 2
+Date: Wed, 16 Apr 2025 00:29:41 +0200
+Subject: [PATCH 29/29] libcxx: default to type 2
 
 // This implementation of type_info does not assume there is always a unique
 // copy of the RTTI for a given type inside a program. For various reasons
@@ -19,18 +19,18 @@ https://bugs.kde.org/show_bug.cgi?id=479679
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libcxx/include/typeinfo b/libcxx/include/typeinfo
-index 2727cad02..d6cb084ac 100644
+index 799c6ebd5..12572e646 100644
 --- a/libcxx/include/typeinfo
 +++ b/libcxx/include/typeinfo
-@@ -177,7 +177,7 @@ public:
+@@ -182,7 +182,7 @@ public:
  
  // On all other platforms, assume the Itanium C++ ABI and use the Unique implementation.
- #      else
--#        define _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION 1
-+#        define _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION 2
+ #        else
+-#          define _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION 1
++#          define _LIBCPP_TYPEINFO_COMPARISON_IMPLEMENTATION 2
+ #        endif
  #      endif
- #    endif
  
 -- 
-2.47.0
+2.49.0
 

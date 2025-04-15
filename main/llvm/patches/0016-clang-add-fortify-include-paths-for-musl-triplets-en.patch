@@ -1,7 +1,7 @@
-From c548eea97d45051a4dc52f414d3f2520b3a9ee98 Mon Sep 17 00:00:00 2001
+From e54c80ab9def177802bb2bd758041933db24f76a Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sun, 14 Apr 2024 14:47:34 +0200
-Subject: [PATCH 16/30] clang: add fortify include paths for musl triplets +
+Subject: [PATCH 16/29] clang: add fortify include paths for musl triplets +
  enable fortify
 
 ---
@@ -10,10 +10,10 @@ Subject: [PATCH 16/30] clang: add fortify include paths for musl triplets +
  2 files changed, 13 insertions(+), 4 deletions(-)
 
 diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
-index 0bedc73de..bd7c77969 100644
+index 2ac0139dc..9a9b40a25 100644
 --- a/clang/lib/Driver/ToolChains/Linux.cpp
 +++ b/clang/lib/Driver/ToolChains/Linux.cpp
-@@ -676,10 +676,14 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
+@@ -688,10 +688,14 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
    if (getTriple().getOS() == llvm::Triple::RTEMS)
      return;
  
@@ -33,10 +33,10 @@ index 0bedc73de..bd7c77969 100644
    addExternCSystemInclude(DriverArgs, CC1Args, concat(SysRoot, "/usr/include"));
  
 diff --git a/clang/lib/Frontend/InitPreprocessor.cpp b/clang/lib/Frontend/InitPreprocessor.cpp
-index 3ed7243de..0d4e05915 100644
+index 17f624e96..c239342fa 100644
 --- a/clang/lib/Frontend/InitPreprocessor.cpp
 +++ b/clang/lib/Frontend/InitPreprocessor.cpp
-@@ -1508,6 +1508,11 @@ static void InitializePredefinedMacros(const TargetInfo &TI,
+@@ -1523,6 +1523,11 @@ static void InitializePredefinedMacros(const TargetInfo &TI,
  #undef TARGET_OS
    }
  
@@ -49,5 +49,5 @@ index 3ed7243de..0d4e05915 100644
    TI.getTargetDefines(LangOpts, Builder);
  }
 -- 
-2.47.0
+2.49.0
 

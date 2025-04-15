@@ -1,7 +1,7 @@
-From 081636719a981183342493e184da90b3d0c370e4 Mon Sep 17 00:00:00 2001
+From 35970d6bd6bedb1f3db60d8da8c9bed63708a91b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 29 Nov 2024 19:54:08 +0100
-Subject: [PATCH 29/30] fix scan-build
+Subject: [PATCH 28/29] fix scan-build
 
 ---
  clang/tools/scan-build/libexec/ccc-analyzer | 4 ++--
@@ -23,5 +23,5 @@ index 74f812aef..72bbab742 100755
  
  if ($FindBin::Script =~ /c\+\+-analyzer/) {
 -- 
-2.47.0
+2.49.0
 
