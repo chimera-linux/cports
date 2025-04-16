@@ -1,9 +1,10 @@
 pkgname = "bcc"
 # keep in sync with main/libbpf-tools
 pkgver = "0.33.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DCMAKE_USE_LIBBPF_PACKAGE=ON",
     "-DENABLE_EXAMPLES=OFF",
     "-DENABLE_LIBDEBUGINFOD=OFF",

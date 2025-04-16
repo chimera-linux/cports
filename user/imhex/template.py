@@ -1,8 +1,9 @@
 pkgname = "imhex"
 pkgver = "1.37.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DIMHEX_BUNDLE_DOTNET=OFF",
     "-DIMHEX_DISABLE_STACKTRACE=ON",
     "-DIMHEX_ENABLE_UNIT_TESTS=ON",

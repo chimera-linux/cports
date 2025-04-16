@@ -1,0 +1,15 @@
+diff --git a/layout/style/ServoBindings.toml b/layout/style/ServoBindings.toml
+--- a/layout/style/ServoBindings.toml
++++ b/layout/style/ServoBindings.toml
+@@ -299,10 +299,11 @@
+     "std::.*::tuple.*",
+ 
+     "mozilla::dom::Touch",
+     "mozilla::dom::Sequence",
+     "mozilla::SmallPointerArray",
++    "mozilla::SmallPointerArray_Element",
+     "mozilla::dom::Optional",
+     "mozilla::dom::OwningNodeOrString_Value",
+     "mozilla::dom::Nullable",
+     "mozilla::external::AtomicRefCounted",
+     "RefPtr_Proxy",

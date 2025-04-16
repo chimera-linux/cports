@@ -1,6 +1,6 @@
 pkgname = "bpftrace"
 pkgver = "0.23.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # cant run them anyway

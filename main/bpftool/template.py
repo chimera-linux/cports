@@ -1,6 +1,6 @@
 pkgname = "bpftool"
 pkgver = "7.5.0"
-pkgrel = 1
+pkgrel = 2
 build_wrksrc = "src"
 build_style = "makefile"
 make_build_args = [
