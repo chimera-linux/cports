@@ -2,7 +2,10 @@ pkgname = "chromaprint"
 pkgver = "1.5.1"
 pkgrel = 2
 build_style = "cmake"
-configure_args = ["-DBUILD_TOOLS=ON"]
+configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+    "-DBUILD_TOOLS=ON",
+]
 make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["fftw-devel", "ffmpeg-devel"]
