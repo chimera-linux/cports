@@ -2,6 +2,7 @@ pkgname = "freealut"
 pkgver = "1.1.0"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["openal-soft-devel"]
 pkgdesc = "OpenAL Utility Toolkit"
