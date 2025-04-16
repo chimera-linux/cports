@@ -3,6 +3,7 @@ pkgver = "0.6.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DSYSTEM_RTAUDIO=ON",
     "-DSYSTEM_RTMIDI=ON",
     "-DWARNINGS_ARE_ERRORS=OFF",
