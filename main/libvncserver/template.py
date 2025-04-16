@@ -3,6 +3,7 @@ pkgver = "0.9.15"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DWITH_EXAMPLES=OFF",
     "-DWITH_GCRYPT=OFF",
     "-DWITH_GNUTLS=OFF",
