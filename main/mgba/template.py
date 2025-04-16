@@ -2,6 +2,7 @@ pkgname = "mgba"
 pkgver = "0.10.5"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = [
     "cmake",
     "libzip-progs",
