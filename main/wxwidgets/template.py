@@ -3,6 +3,7 @@ pkgver = "3.2.6"
 pkgrel = 1
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DwxBUILD_PRECOMP=OFF",
     "-DwxBUILD_TESTS=OFF",
     "-DwxBUILD_TOOLKIT=gtk3",
