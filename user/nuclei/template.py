@@ -1,6 +1,6 @@
 pkgname = "nuclei"
-pkgver = "3.3.9"
-pkgrel = 3
+pkgver = "3.4.2"
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/nuclei"]
 hostmakedepends = ["go"]
@@ -8,7 +8,7 @@ pkgdesc = "Web vulnerability scanner"
 license = "MIT"
 url = "https://github.com/projectdiscovery/nuclei"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2eedcb04b82e8ce973eced74a2e900ab778ddb67c8f7e970b79003271a3db0c0"
+sha256 = "9c7188baa161430942a751f2c95fa1c557d1afa0846110a8dcc08167c97c8399"
 # Nuclei tests requires network connection
 options = ["!check"]
 
