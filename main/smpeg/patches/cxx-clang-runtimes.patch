@@ -1,0 +1,46 @@
+From c363f7dc9c656a9fa9128d3659b35f39742d8b7f Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Mon, 17 Sep 2001 00:00:00 +0200
+Subject: [PATCH] permit clang builtins library to be linked in
+
+libtool links c++ stuff with -nostdlib and manually extracts the
+allowed libs, but this did not previously cover the clang runtimes
+and broke builds on some targets where builtins are needed.
+---
+ acinclude/libtool.m4 | 2 +-
+ ltmain.sh            | 6 ++++++
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/acinclude/libtool.m4 b/acinclude/libtool.m4
+index 7dfd109..8aae878 100644
+--- a/acinclude/libtool.m4
++++ b/acinclude/libtool.m4
+@@ -6422,7 +6422,7 @@ if AC_TRY_EVAL(ac_compile); then
+   for p in `eval "$output_verbose_link_cmd"`; do
+     case $p in
+ 
+-    -L* | -R* | -l*)
++    -L* | -R* | -l* | */libclang_rt*.a)
+        # Some compilers place space between "-{L,R}" and the path.
+        # Remove the space.
+        if test $p = "-L" ||
+diff --git a/ltmain.sh b/ltmain.sh
+index d2b860f..62babe2 100644
+--- a/ltmain.sh
++++ b/ltmain.sh
+@@ -5220,6 +5220,12 @@ func_mode_link ()
+ 	  lib)
+ 	    # Linking convenience modules into shared libraries is allowed,
+ 	    # but linking other static libraries is non-portable.
++	    case "$deplib" in
++	      */libclang_rt*.$libext)
++	        deplibs="$deplib $deplibs"
++	        continue
++	      ;;
++	    esac
+ 	    case " $dlpreconveniencelibs " in
+ 	    *" $deplib "*) ;;
+ 	    *)
+-- 
+2.49.0
+
