@@ -1,6 +1,6 @@
 pkgname = "konqueror"
-pkgver = "24.12.3"
-pkgrel = 1
+pkgver = "25.04.0"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -49,7 +49,7 @@ pkgdesc = "KDE web browser and file previewer"
 license = "LGPL-3.0-only AND GPL-2.0-or-later"
 url = "https://apps.kde.org/konqueror"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/konqueror-{pkgver}.tar.xz"
-sha256 = "2ed2abaedcef8f98faf224c2875933f8c14d99d5a6ca633ddecfcc75567d6eb1"
+sha256 = "cb62ee7d33a531d48447556b0fea88a34618b969c94f95d7f009c5c5bd9a9a45"
 hardening = ["vis"]
 
 

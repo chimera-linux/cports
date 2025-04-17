@@ -1,5 +1,5 @@
 pkgname = "libkdegames"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -32,7 +32,7 @@ pkgdesc = "KDE common games library"
 license = "LGPL-2.0-only"
 url = "https://invent.kde.org/games/libkdegames"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkdegames-{pkgver}.tar.xz"
-sha256 = "d640d5a590450e476e903a341e916004a46ad72d0db07f4201e75e4e5a7c02e5"
+sha256 = "69a21bae741b28e8c79c2dfdee352a7cebc9c6658aaa58388d581b2a7a40047f"
 
 
 @subpackage("libkdegames-devel")

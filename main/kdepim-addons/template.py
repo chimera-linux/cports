@@ -1,5 +1,5 @@
 pkgname = "kdepim-addons"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = [
@@ -30,6 +30,7 @@ makedepends = [
     "kaddressbook-devel",
     "kcalendarcore-devel",
     "kcalutils-devel",
+    "kcmutils-devel",
     "kconfig-devel",
     "kcontacts-devel",
     "kdbusaddons-devel",
@@ -74,7 +75,7 @@ url = "https://invent.kde.org/pim/kdepim-addons"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdepim-addons-{pkgver}.tar.xz"
 )
-sha256 = "0ab482e5725d02c702ba65a3a41c7ee774b1e621cedb84734d8a8fbea41f97d9"
+sha256 = "a1dc706cba1e83687b804554bc341db678a71d80540364ae13d0f6c42f0736e1"
 # date diffs, formatting diffs, cant find plugins, ...
 options = ["!check"]
 

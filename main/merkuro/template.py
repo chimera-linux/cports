@@ -1,5 +1,5 @@
 pkgname = "merkuro"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-E", "akonadi-sqlite-.*"]
@@ -15,6 +15,7 @@ makedepends = [
     "akonadi-calendar-devel",
     "akonadi-contacts-devel",
     "akonadi-devel",
+    "akonadi-search-devel",
     "gpgme-devel",
     "kcalendarcore-devel",
     "kcalutils-devel",
@@ -23,6 +24,7 @@ makedepends = [
     "kcoreaddons-devel",
     "kcrash-devel",
     "kdbusaddons-devel",
+    "kholidays-devel",
     "ki18n-devel",
     "kiconthemes-devel",
     "kidentitymanagement-devel",
@@ -41,6 +43,7 @@ makedepends = [
     "pimcommon-devel",
     "qqc2-desktop-style-devel",
     "qt6-qtdeclarative-devel",
+    "qt6-qtlocation-devel",
     "qt6-qtsvg-devel",
 ]
 depends = [
@@ -54,4 +57,4 @@ pkgdesc = "KDE calendar with cloud sync"
 license = "LGPL-3.0-only AND GPL-3.0-or-later"
 url = "https://apps.kde.org/merkuro.calendar"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/merkuro-{pkgver}.tar.xz"
-sha256 = "925e75b66d0b6166c34c808731e921f83132c5c45c8c3723ebb9fd424ef4f153"
+sha256 = "7ed33d7f95dbff3a6c96b7b8a252333d0a70f4041854133ba8b2132073de4c5d"

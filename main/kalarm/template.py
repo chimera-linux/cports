@@ -1,5 +1,5 @@
 pkgname = "kalarm"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_LIBMPV=ON", "-DENABLE_LIBVLC=OFF"]
@@ -29,6 +29,7 @@ makedepends = [
     "kguiaddons-devel",
     "kholidays-devel",
     "ki18n-devel",
+    "kiconthemes-devel",
     "kidentitymanagement-devel",
     "kio-devel",
     "kitemmodels-devel",
@@ -54,4 +55,4 @@ pkgdesc = "KDE personal alarm scheduler"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://apps.kde.org/kalarm"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kalarm-{pkgver}.tar.xz"
-sha256 = "0a5ac651a95f632595c662d570676643995a73a55fa87810ba8ef392559cbe91"
+sha256 = "bf5675423f080235c22309f448e4dfb6d4a1baaa8c60cbfa6326b558516e3e92"

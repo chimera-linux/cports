@@ -1,5 +1,5 @@
 pkgname = "kdepim-runtime"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-j1", "-E", "(akonadi-sqlite-.*)"]
@@ -47,6 +47,7 @@ makedepends = [
     "qt6-qtspeech-devel",
     "qt6-qtwebengine-devel",
     "qtkeychain-devel",
+    "pimcommon-devel",
     "shared-mime-info",
 ]
 depends = ["shared-mime-info"]
@@ -57,4 +58,4 @@ url = "https://invent.kde.org/pim/kdepim-runtime"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kdepim-runtime-{pkgver}.tar.xz"
 )
-sha256 = "a207537bc5f05057bb6fdb0a445fd281d6829370c987e50aa6db67fb51e4892c"
+sha256 = "92f8759b1f1d3cc5c6681b51a77079d78ac100e1dd9165ce641675d619a42a92"

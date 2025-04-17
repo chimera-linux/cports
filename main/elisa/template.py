@@ -1,5 +1,5 @@
 pkgname = "elisa"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky
@@ -39,7 +39,7 @@ pkgdesc = "KDE music player"
 license = "LGPL-3.0-or-later"
 url = "https://apps.kde.org/elisa"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/elisa-{pkgver}.tar.xz"
-sha256 = "5d19ab3db41cb2133ac5198f686db49e82b2228e80a3d6f425e04f244588ffc3"
+sha256 = "96499190370f78e07b3ad21d94d924d021dd17c4bf598b21d01bf02a2a7496af"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

@@ -1,5 +1,5 @@
 pkgname = "kimap"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 # no valid mechs
@@ -23,7 +23,7 @@ pkgdesc = "KDE IMAP access API"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kimap/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kimap-{pkgver}.tar.xz"
-sha256 = "751a0eda85aa7e084d97e7f83eada02c90fcd4c23f3e99523b9fb1a4bade6f3f"
+sha256 = "7ca05ba88966a5723f67e48d11167edc71113f6179e51ed3f112680727916a8f"
 
 
 @subpackage("kimap-devel-static")

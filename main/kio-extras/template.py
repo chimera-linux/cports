@@ -1,5 +1,5 @@
 pkgname = "kio-extras"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 # thumbnail: fails for some reason
@@ -28,6 +28,7 @@ makedepends = [
     "kguiaddons-devel",
     "ki18n-devel",
     "kio-devel",
+    "knotifications-devel",
     "ktextwidgets-devel",
     "libimobiledevice-devel",
     "libkexiv2-devel",
@@ -39,6 +40,7 @@ makedepends = [
     "plasma-activities-devel",
     "plasma-activities-stats-devel",
     "qcoro-devel",
+    "qt6-qtbase-private-devel",
     "qt6-qt5compat-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
@@ -51,7 +53,7 @@ pkgdesc = "KDE KIO additional plugins"
 license = "LGPL-3.0-or-later"
 url = "https://invent.kde.org/network/kio-extras"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-extras-{pkgver}.tar.xz"
-sha256 = "c4374fe36e87e7b0eb745a1bba8f4b066f58b84139f9cd7b42cab6711bfb6e2f"
+sha256 = "7c87dc107ed375f5dfed74ffaf86a25990c131e539a4789b78ba70751b2fefac"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

@@ -1,5 +1,5 @@
 pkgname = "kpimtextedit"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 # hangs
@@ -32,7 +32,7 @@ url = "https://api.kde.org/kdepim/kpimtextedit/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kpimtextedit-{pkgver}.tar.xz"
 )
-sha256 = "2f3239d612b7617815fa1748fadce28110814047db2bab7c6ec2b760b1eebc2e"
+sha256 = "3baa3794889f0c9bbc862c5d7021ea7c4c59528f9fb1ee4c053611325783e9c9"
 
 
 @subpackage("kpimtextedit-devel")

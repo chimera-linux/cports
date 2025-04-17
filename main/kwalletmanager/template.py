@@ -1,5 +1,5 @@
 pkgname = "kwalletmanager"
-pkgver = "24.12.3"
+pkgver = "25.04.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -31,5 +31,5 @@ url = "https://invent.kde.org/utilities/kwalletmanager"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/kwalletmanager-{pkgver}.tar.xz"
 )
-sha256 = "9f9753b62f7886f9ad86a38e318f76d3b5677e929cf552512ebb3d95b6dd2a50"
+sha256 = "74c7f414a5dfcae0daafa03807410d8fa02357f5d11d2294126a1e95983e9d62"
 hardening = ["vis"]
