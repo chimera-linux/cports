@@ -1,0 +1,66 @@
+From bb26903a1c1c8b93819ce264eef8cd0b214b4397 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Thu, 17 Apr 2025 03:40:24 +0200
+Subject: [PATCH] We have 64-bit time
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ lang/qt/tests/t-addexistingsubkey.cpp | 42 ++++++++++++---------------
+ 1 file changed, 18 insertions(+), 24 deletions(-)
+
+diff --git a/lang/qt/tests/t-addexistingsubkey.cpp b/lang/qt/tests/t-addexistingsubkey.cpp
+index df620dd..a579f1b 100644
+--- a/lang/qt/tests/t-addexistingsubkey.cpp
++++ b/lang/qt/tests/t-addexistingsubkey.cpp
+@@ -213,30 +213,24 @@ private Q_SLOTS:
+ 
+         const auto result = job->exec(key, sourceSubkey);
+ 
+-        if (sourceSubkey.expirationTime() > 0) {
+-            QCOMPARE(result.code(), static_cast<int>(GPG_ERR_NO_ERROR));
+-            key.update();
+-            QCOMPARE(key.numSubkeys(), 3u);
+-
+-            // allow 1 second different expiration because gpg calculates with
+-            // expiration as difference to current time and takes current time
+-            // several times
+-            const auto allowedDeltaTSeconds = 1;
+-            const auto expectedExpirationRange = std::make_pair(
+-                uint_least32_t(sourceSubkey.expirationTime()) - allowedDeltaTSeconds,
+-                uint_least32_t(sourceSubkey.expirationTime()) + allowedDeltaTSeconds);
+-            const auto actualExpiration = uint_least32_t(key.subkey(2).expirationTime());
+-            QVERIFY2(actualExpiration >= expectedExpirationRange.first,
+-                    ("actual: " + std::to_string(actualExpiration) +
+-                    "; expected: " + std::to_string(expectedExpirationRange.first)).c_str());
+-            QVERIFY2(actualExpiration <= expectedExpirationRange.second,
+-                    ("actual: " + std::to_string(actualExpiration) +
+-                    "; expected: " + std::to_string(expectedExpirationRange.second)).c_str());
+-        } else {
+-            // on 32-bit systems the expiration date of the test key overflows;
+-            // in this case we expect an appropriate error code
+-            QCOMPARE(result.code(), static_cast<int>(GPG_ERR_INV_TIME));
+-        }
++        QCOMPARE(result.code(), static_cast<int>(GPG_ERR_NO_ERROR));
++        key.update();
++        QCOMPARE(key.numSubkeys(), 3u);
++
++        // allow 1 second different expiration because gpg calculates with
++        // expiration as difference to current time and takes current time
++        // several times
++        const auto allowedDeltaTSeconds = 1;
++        const auto expectedExpirationRange = std::make_pair(
++            uint_least32_t(sourceSubkey.expirationTime()) - allowedDeltaTSeconds,
++            uint_least32_t(sourceSubkey.expirationTime()) + allowedDeltaTSeconds);
++        const auto actualExpiration = uint_least32_t(key.subkey(2).expirationTime());
++        QVERIFY2(actualExpiration >= expectedExpirationRange.first,
++                ("actual: " + std::to_string(actualExpiration) +
++                "; expected: " + std::to_string(expectedExpirationRange.first)).c_str());
++        QVERIFY2(actualExpiration <= expectedExpirationRange.second,
++                ("actual: " + std::to_string(actualExpiration) +
++                "; expected: " + std::to_string(expectedExpirationRange.second)).c_str());
+     }
+ 
+ private:
+-- 
+2.49.0
+
