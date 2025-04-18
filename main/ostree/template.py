@@ -1,9 +1,8 @@
 pkgname = "ostree"
 pkgver = "2025.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--with-builtin-grub2-mkconfig",
     "--with-crypto=openssl",
     "--with-modern-grub",
     "--with-openssl",
@@ -46,3 +45,12 @@ options = ["!check"]
 @subpackage("ostree-devel")
 def _(self):
     return self.default_devel()
+
+
+@subpackage("ostree-grub")
+def _(self):
+    self.install_if = [self.parent, "grub"]
+    return [
+        "etc/grub.d/*",
+        "usr/libexec/libostree/grub2-*",
+    ]
