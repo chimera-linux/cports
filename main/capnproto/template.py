@@ -21,6 +21,10 @@ if self.profile().cross:
     hostmakedepends += ["capnproto-devel"]
     configure_args += ["-DEXTERNAL_CAPNP=ON", "-DBUILD_TESTING=OFF"]
 
+if self.profile().arch == "armv7":
+    # mutex-test.c++ has timing issues
+    make_check_args = ["-E", "kj-tests-run"]
+
 
 def post_install(self):
     self.install_license("LICENSE.txt")
