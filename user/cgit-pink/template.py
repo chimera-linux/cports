@@ -67,7 +67,7 @@ def check(self):
     for line in headers.split("\r\n"):
         key, value = line.split(": ", 1)
         if key.lower() == "status" and not value.startswith("200"):
-            raise Exception(f"test call returned status {value}")
+            self.error(f"test call returned status {value}")
 
 
 @subpackage("cgit-pink-filters")
