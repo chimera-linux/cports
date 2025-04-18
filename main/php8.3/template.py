@@ -74,7 +74,6 @@ configure_args = [
     "--with-zip=shared",
     "--with-zlib=shared",
 ]
-configure_gen = []
 make_check_target = "test"
 make_check_env = {
     "LANG": "",
