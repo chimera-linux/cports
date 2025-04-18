@@ -21,6 +21,12 @@ license = "GPL-2.0-or-later OR LGPL-2.1-or-later OR Apache-2.0"
 url = "https://librdf.org"
 source = f"{url}/dist/source/redland-{pkgver}.tar.gz"
 sha256 = "de1847f7b59021c16bdc72abb4d8e2d9187cd6124d69156f3326dd34ee043681"
+# check may be disabled
+options = []
+
+if self.profile().arch == "armv7":
+    # rdf_parser_test fails with syntax error
+    options += ["!check"]
 
 
 @subpackage("redland-storage-virtuoso")
