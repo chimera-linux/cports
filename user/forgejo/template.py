@@ -1,6 +1,6 @@
 pkgname = "forgejo"
 pkgver = "11.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_target = "all"
 make_check_target = "test-backend"
@@ -52,7 +52,7 @@ def init_build(self):
     self.make_env["GITEA_VERSION"] = pkgver
     self.make_env["TAGS"] = "bindata libsqlite3 sqlite sqlite_unlock_notify pam"
 
-    setting = "code.gitea.io/gitea/modules/setting"
+    setting = "forgejo.org/modules/setting"
     self.make_env["LDFLAGS"] = (
         f"-X '{setting}.AppWorkPath=/var/lib/forgejo/' -X '{setting}.CustomConf=/etc/forgejo/app.ini' -linkmode=external"
     )
