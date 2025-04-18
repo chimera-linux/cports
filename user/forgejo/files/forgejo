@@ -1,10 +1,9 @@
-# forgejo service
-
 type = process
-command = /usr/bin/forgejo web
+command = /usr/bin/env FORGEJO_WORK_DIR=/var/lib/forgejo /usr/bin/forgejo web
 logfile = /var/log/forgejo.log
-depends-on = network.target
-depends-on = local.target
+depends-on: network.target
+depends-on: local.target
 smooth-recovery = true
 run-as = _forgejo
-load-options = export-passwd-vars
+load-options: export-passwd-vars
+working-dir = /var/lib/forgejo
