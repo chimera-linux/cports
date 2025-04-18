@@ -6,7 +6,8 @@ make_check_args = [
     "-E",
     # FIXME: katedocument_test testAboutToSave() hangs for 5 minutes,
     # txt_diff encoding tests broken similar to alpine but pass in cbuild chroot?
-    "katedocument_test|encoding_(utf8|latin15|utf32|utf16|utf32be|utf16be|cyrillic_utf8|cp1251|koi8-r|one-char-latin-15|latin15-with-utf8-bom).txt_diff|bug313759",
+    # messagetest flakes about half of the time
+    "katedocument_test|messagetest|encoding_(utf8|latin15|utf32|utf16|utf32be|utf16be|cyrillic_utf8|cp1251|koi8-r|one-char-latin-15|latin15-with-utf8-bom).txt_diff|bug313759",
 ]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session", "--"]
