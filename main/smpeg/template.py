@@ -5,8 +5,8 @@ build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 hostmakedepends = [
     "automake",
-    "libtool",
     "pkgconf",
+    "slibtool",
 ]
 makedepends = ["sdl2-compat-devel"]
 pkgdesc = "MPEG decoding library"
