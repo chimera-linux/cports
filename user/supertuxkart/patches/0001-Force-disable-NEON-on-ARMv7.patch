@@ -1,0 +1,30 @@
+From 59893c8475b85f8bda7d2ff2ca45a48b913bac51 Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Wed, 16 Apr 2025 15:02:36 +0200
+Subject: [PATCH] Force disable NEON on ARMv7
+
+Works around an internal compiler bug in LLVM and makes the game run on
+a wider variety of ARMv7 devices. This should be re-evaluated with LLVM
+20.
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ lib/simd_wrapper/simde/simde-arch.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/simd_wrapper/simde/simde-arch.h b/lib/simd_wrapper/simde/simde-arch.h
+index 2d09ff7..aaf9efa 100644
+--- a/lib/simd_wrapper/simde/simde-arch.h
++++ b/lib/simd_wrapper/simde/simde-arch.h
+@@ -112,7 +112,7 @@
+ #endif
+ 
+ /* ARM SIMD ISA extensions */
+-#if defined(__ARM_NEON) || defined(SIMDE_ARCH_AARCH64)
++#if (defined(__ARM_NEON) && false) || defined(SIMDE_ARCH_AARCH64)
+ #  if defined(SIMDE_ARCH_AARCH64)
+ #    define SIMDE_ARCH_ARM_NEON SIMDE_ARCH_AARCH64
+ #  elif defined(SIMDE_ARCH_ARM)
+-- 
+2.49.0
+
