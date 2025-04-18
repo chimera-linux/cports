@@ -1,6 +1,6 @@
 pkgname = "qutebrowser"
-pkgver = "3.4.0"
-pkgrel = 1
+pkgver = "3.5.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "asciidoc",
@@ -27,7 +27,7 @@ pkgdesc = "Keyboard driven web browser with a minimalist gui"
 license = "GPL-3.0-only"
 url = "https://qutebrowser.org"
 source = f"https://github.com/qutebrowser/qutebrowser/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6b48eb5b5cdc8965564ffa259cc9c1891ef3ff62e24e64b5af7c00276ffd9098"
+sha256 = "fb61c84bf3590e5f44f94b65d491b74b95eafb0e0ffd45b93565152c547b45c8"
 # not worth it
 options = ["!check"]
 
