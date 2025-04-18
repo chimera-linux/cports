@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "137.0.1"
+pkgver = "137.0.2"
 pkgrel = 1
 hostmakedepends = [
     "automake",
@@ -63,7 +63,7 @@ pkgdesc = "Mozilla Firefox web browser"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "081da8602e19c97b1de4c89a24ddade9d14d38a31eac75dcdb854f0cdd2e0be4"
+sha256 = "06fc3abaa822148bfa5ee7b759428d74052493876c053c05379c3f6c302bcd07"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -82,7 +82,8 @@ env = {
 # FIXME: youtube causes crashes in libxul after some seconds
 hardening = ["!int"]
 # XXX: maybe someday
-options = ["!cross", "!check"]
+# FIXME: llvm 20 likely miscomp causing crashes in session code
+options = ["!cross", "!check", "!lto"]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."
