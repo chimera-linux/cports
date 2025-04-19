@@ -1,0 +1,13 @@
+pkgname = "zk"
+pkgver = "0.15.0"
+pkgrel = 0
+build_style = "go"
+hostmakedepends = ["go"]
+depends = ["fzf"]
+go_build_tags = ["fts5"]
+go_check_tags = ["fts5"]
+pkgdesc = "Plain text note-taking assistant"
+license = "GPL-3.0-or-later"
+url = "https://github.com/zk-org/zk"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "a99c3a3ef376b9afb3d35cc955b588ce35b35e2ebe3492e65b21d9fe4e9ba4e9"
