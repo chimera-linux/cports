@@ -2,5 +2,5 @@
 
 type = process
 command = /usr/bin/ddclient -foreground
-depends-on = network.target
 logfile = /var/log/ddclient.log
+depends-on: network.target
