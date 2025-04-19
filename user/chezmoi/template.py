@@ -1,5 +1,5 @@
 pkgname = "chezmoi"
-pkgver = "2.62.0"
+pkgver = "2.62.2"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -12,7 +12,7 @@ pkgdesc = "Dotfiles manager"
 license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
-sha256 = "d8f553d871d35caf3d446b6f1032f4cad81a75fc41955bd3d71216a2aa6e17a4"
+sha256 = "623220e410898cd98028a65d2f5d1e6a6d46c5cca74b3b3f2ff65ab270c8171c"
 # may be disabled
 options = []
 
