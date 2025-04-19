@@ -1,6 +1,6 @@
 pkgname = "turnstile"
 pkgver = "0.1.10"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX libexec
