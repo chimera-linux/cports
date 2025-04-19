@@ -1,13 +1,15 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20250211"
+pkgver = "20250410"
 pkgrel = 0
 hostmakedepends = ["rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
-source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "30f181fa8fb03a49da3b76b82dc525ca094426f92e54c540fe784ff44c91e1d6"
+# stuck and eventually generates 502
+# source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
+source = f"https://gitlab.com/kernel-firmware/linux-firmware/-/archive/{pkgver}.tar.gz"
+sha256 = "ab9e5db4e0538bf25bed5cf4ae5e082949003ce48c1e896a2ed69bfb40c46284"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -19,6 +21,7 @@ _arch_arm64 = _arch == "aarch64"
 # name | description | install-if condition | install-if parent | contents
 _pkgs = [
     ("advansys", "Advansys SCSI", None, "storage", ["advansys"]),
+    ("aeonsemi", "Aeonsemi Ethernet PHY", None, "network", ["aeonsemi"]),
     ("airoha", "Airoha Ethernet PHY", None, "network", ["airoha"]),
     ("amd-ucode", "AMD CPU microcode", _arch_x86, "misc", ["amd-ucode"]),
     ("amd-sev", "AMD SEV firmware", _arch_x86, "misc", ["amd"]),
@@ -169,6 +172,13 @@ _pkgs = [
         _arch_x86,
         "misc",
         ["intel/vsc"],
+    ),
+    (
+        "intel-vpu",
+        "Intel VPU",
+        _arch_x86,
+        "misc",
+        ["intel/vpu"],
     ),
     (
         "inside-secure",
