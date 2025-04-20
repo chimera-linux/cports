@@ -82,8 +82,7 @@ env = {
 # FIXME: youtube causes crashes in libxul after some seconds
 hardening = ["!int"]
 # XXX: maybe someday
-# FIXME: llvm 20 likely miscomp causing crashes in session code
-options = ["!cross", "!check", "!lto"]
+options = ["!cross", "!check"]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."
