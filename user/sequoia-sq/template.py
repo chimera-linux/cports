@@ -1,5 +1,5 @@
 pkgname = "sequoia-sq"
-pkgver = "1.3.0"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_env = {"ASSET_OUT_DIR": "assets"}
@@ -16,7 +16,7 @@ pkgdesc = "Command-line frontend for Sequoia, a new OpenPGP implementation"
 license = "LGPL-2.0-or-later"
 url = "https://sequoia-pgp.org/projects#sq"
 source = f"https://gitlab.com/sequoia-pgp/sequoia-sq/-/archive/v{pkgver}/sequoia-sq-v{pkgver}.tar.gz"
-sha256 = "81ad0c5604d024ed131391350f520a99737bed37577ba418906dc271ad05215f"
+sha256 = "9f112096f413e195ec737c81abb5649604f16e1f6dbe64a8accc5bb3ad39e239"
 options = ["!cross"]
 
 
