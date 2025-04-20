@@ -1,5 +1,5 @@
 pkgname = "television"
-pkgver = "0.11.4"
+pkgver = "0.11.7"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Fuzzy finder"
 license = "MIT"
 url = "https://github.com/alexpasmantier/television"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "c4e8a87d65135fb5a6006c7c08dd34cf6aeb24c2d59e9ea6772e9ff714bfed29"
+sha256 = "d3687a286b4813ab8534d7ce8653908dcf17ad291bc865f3f64c183163f0b650"
 # generates completions with host binary
 options = ["!cross"]
 
