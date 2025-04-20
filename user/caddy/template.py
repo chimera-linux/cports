@@ -1,5 +1,5 @@
 pkgname = "caddy"
-pkgver = "2.9.1"
+pkgver = "2.10.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -13,7 +13,7 @@ pkgdesc = "Extensible HTTP server with automatic HTTPS"
 license = "Apache-2.0"
 url = "https://caddyserver.com"
 source = f"https://github.com/caddyserver/caddy/archive/v{pkgver}.tar.gz"
-sha256 = "beb52478dfb34ad29407003520d94ee0baccbf210d1af72cebf430d6d7dd7b63"
+sha256 = "e07e2747c394a6549751950ec8f7457ed346496f131ee38538ae39cf89ebcc68"
 
 
 def post_install(self):
