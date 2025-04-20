@@ -1,15 +1,28 @@
-From 28f0b429a908f433b347e592050774f4578f7ed8 Mon Sep 17 00:00:00 2001
+From b4bf56504af902c2f0a721c4d1862325cd97bcdc Mon Sep 17 00:00:00 2001
 From: Jens Reidel <adrian@travitia.xyz>
 Date: Mon, 14 Apr 2025 20:52:55 +0200
 Subject: [PATCH] Fix build for 32-bit targets
 
 Signed-off-by: Jens Reidel <adrian@travitia.xyz>
 ---
- output/cloud/expv2/metrics_client.go                            | 2 +-
- vendor/github.com/grafana/xk6-dashboard/dashboard/sse.go        | 2 +-
- .../grafana/xk6-output-prometheus-remote/pkg/remote/client.go   | 2 +-
+ internal/output/prometheusrw/remote/client.go            | 2 +-
+ output/cloud/expv2/metrics_client.go                     | 2 +-
+ vendor/github.com/grafana/xk6-dashboard/dashboard/sse.go | 2 +-
  3 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/internal/output/prometheusrw/remote/client.go b/internal/output/prometheusrw/remote/client.go
+index 43a9932..fcd2702 100644
+--- a/internal/output/prometheusrw/remote/client.go
++++ b/internal/output/prometheusrw/remote/client.go
+@@ -128,7 +128,7 @@ func newWriteRequestBody(series []*prompb.TimeSeries) ([]byte, error) {
+ 	}
+ 	if snappy.MaxEncodedLen(len(b)) < 0 {
+ 		return nil, fmt.Errorf("the protobuf message is too large to be handled by Snappy encoder; "+
+-			"size: %d, limit: %d", len(b), math.MaxUint32)
++			"size: %d, limit: %d", len(b), uint32(math.MaxUint32))
+ 	}
+ 	return snappy.Encode(nil, b), nil
+ }
 diff --git a/output/cloud/expv2/metrics_client.go b/output/cloud/expv2/metrics_client.go
 index e46f13c..367f6d2 100644
 --- a/output/cloud/expv2/metrics_client.go
@@ -36,19 +49,6 @@ index 9282025..9504de4 100644
  	}
  
  	id := strconv.FormatInt(emitter.id.Add(1), 10)
-diff --git a/vendor/github.com/grafana/xk6-output-prometheus-remote/pkg/remote/client.go b/vendor/github.com/grafana/xk6-output-prometheus-remote/pkg/remote/client.go
-index 2cf4902..35c1e01 100644
---- a/vendor/github.com/grafana/xk6-output-prometheus-remote/pkg/remote/client.go
-+++ b/vendor/github.com/grafana/xk6-output-prometheus-remote/pkg/remote/client.go
-@@ -128,7 +128,7 @@ func newWriteRequestBody(series []*prompb.TimeSeries) ([]byte, error) {
- 	}
- 	if snappy.MaxEncodedLen(len(b)) < 0 {
- 		return nil, fmt.Errorf("the protobuf message is too large to be handled by Snappy encoder; "+
--			"size: %d, limit: %d", len(b), math.MaxUint32)
-+			"size: %d, limit: %d", len(b), uint32(math.MaxUint32))
- 	}
- 	return snappy.Encode(nil, b), nil
- }
 -- 
 2.49.0
 
