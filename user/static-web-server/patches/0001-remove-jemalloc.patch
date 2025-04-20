@@ -1,4 +1,4 @@
-From ac634d51c0b3163a7265cc1b13e698cd8c0d612b Mon Sep 17 00:00:00 2001
+From defe298788d68b6ba3801b911752a37b74f9b810 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
  <jan.christian@gruenhage.xyz>
 Date: Fri, 30 Aug 2024 08:44:42 +0200
@@ -11,10 +11,10 @@ Subject: [PATCH] remove jemalloc
  3 files changed, 28 deletions(-)
 
 diff --git a/Cargo.lock b/Cargo.lock
-index edff330..9944b7d 100644
+index 2bf2ec9..0ebe0d2 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1837,7 +1837,6 @@ dependencies = [
+@@ -1839,7 +1839,6 @@ dependencies = [
   "shadow-rs",
   "signal-hook",
   "signal-hook-tokio",
@@ -22,7 +22,7 @@ index edff330..9944b7d 100644
   "tokio",
   "tokio-metrics-collector",
   "tokio-rustls",
-@@ -1938,26 +1937,6 @@ dependencies = [
+@@ -1941,26 +1940,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -48,14 +48,14 @@ index edff330..9944b7d 100644
 -
  [[package]]
  name = "time"
- version = "0.3.37"
+ version = "0.3.41"
 diff --git a/Cargo.toml b/Cargo.toml
-index 93df6b1..77a606e 100644
+index c746ec5..b04ccfa 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -97,9 +97,6 @@ toml = "0.8"
- tracing = { version = "0.1", default-features = false, features = ["std"] }
- tracing-subscriber = { version = "0.3", default-features = false, features = ["smallvec", "registry", "parking_lot", "fmt", "ansi", "tracing-log"] }
+@@ -102,9 +102,6 @@ zerofrom = "=0.1.5"
+ zerofrom-derive = "=0.1.5"
+ litemap = "=0.7.4"
  
 -[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.tikv-jemallocator]
 -version = "0.6"
@@ -79,5 +79,5 @@ index 95bf386..6316d53 100644
      settings::{cli::General, Commands},
      Result, Settings,
 -- 
-2.47.1
+2.49.0
 
