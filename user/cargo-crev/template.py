@@ -1,5 +1,5 @@
 pkgname = "cargo-crev"
-pkgver = "0.26.3"
+pkgver = "0.26.4"
 pkgrel = 0
 build_wrksrc = "cargo-crev"
 build_style = "cargo"
@@ -14,7 +14,7 @@ source = [
 ]
 source_paths = [".", "git2"]
 sha256 = [
-    "887f3af119b1501be27a35b293087ce2a1c94ae05e00c6052bc91ae86db680b2",
+    "f8413baf3dc420d7cd217f8330dc6665e3e8ed87312c1d75fde3e6afbe84b6a3",
     "d4b8b2b2526944d6cb75ecf8bcc2c1757fc1fa6deef94b6d32410b1f84f38d1b",
 ]
 # takes forever to run literally 2 unittests

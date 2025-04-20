@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 75adb6c..6d3ad35 100644
+index 98730e8..df57e26 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1659,9 +1659,9 @@ checksum = "07e28edb80900c19c28f1072f2e8aeca7fa06b23cd4169cefe1af5aa3260783f"
+@@ -1668,9 +1668,9 @@ checksum = "07e28edb80900c19c28f1072f2e8aeca7fa06b23cd4169cefe1af5aa3260783f"
  
  [[package]]
  name = "git2"
@@ -12,9 +12,9 @@ index 75adb6c..6d3ad35 100644
 -checksum = "b903b73e45dc0c6c596f2d37eccece7c1c8bb6e4407b001096387c63d0d93724"
 +checksum = "3fda788993cc341f69012feba8bf45c0ba4f3291fcc08e214b4d5a7332d88aff"
  dependencies = [
-  "bitflags 2.7.0",
+  "bitflags 2.9.0",
   "libc",
-@@ -1674,9 +1674,9 @@ dependencies = [
+@@ -1683,9 +1683,9 @@ dependencies = [
  
  [[package]]
  name = "git2-curl"
@@ -26,7 +26,7 @@ index 75adb6c..6d3ad35 100644
  dependencies = [
   "curl",
   "git2",
-@@ -3068,9 +3068,9 @@ dependencies = [
+@@ -3114,9 +3114,9 @@ dependencies = [
  
  [[package]]
  name = "libgit2-sys"
@@ -39,7 +39,7 @@ index 75adb6c..6d3ad35 100644
   "cc",
   "libc",
 diff --git a/vendor/cargo/Cargo.toml b/vendor/cargo/Cargo.toml
-index 8eac87d..9aaf673 100644
+index fa9073c..92cbc35 100644
 --- a/vendor/cargo/Cargo.toml
 +++ b/vendor/cargo/Cargo.toml
 @@ -110,10 +110,10 @@ features = ["zlib"]
@@ -54,7 +54,7 @@ index 8eac87d..9aaf673 100644
 +version = "0.21.0"
  
  [dependencies.gix]
- version = "0.67.0"
+ version = "0.69.1"
 @@ -163,7 +163,7 @@ version = "0.1.32"
  version = "1.3.0"
  
