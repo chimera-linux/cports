@@ -1,5 +1,5 @@
 pkgname = "u-boot-quartzpro64-rk3588"
-pkgver = "2025.01"
+pkgver = "2025.04"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "u_boot"
@@ -33,7 +33,7 @@ source = [
     f"!https://github.com/rockchip-linux/rkbin/raw/refs/heads/master/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v{_ddr_ver}.bin>ddr-v{_ddr_ver}.bin",
 ]
 sha256 = [
-    "cdef7d507c93f1bbd9f015ea9bc21fa074268481405501945abc6f854d5b686f",
+    "439d3bef296effd54130be6a731c5b118be7fddd7fcc663ccbc5fb18294d8718",
     "d89d40a8183b099589bfcffc5cc2ce9d874eb5b1d19b78bdad2cfcf45b9cb68f",
 ]
 env = {
