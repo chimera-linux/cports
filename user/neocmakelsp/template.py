@@ -1,5 +1,5 @@
 pkgname = "neocmakelsp"
-pkgver = "0.8.21"
+pkgver = "0.8.22"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "CMake language server"
 license = "MIT"
 url = "https://neocmakelsp.github.io"
 source = f"https://github.com/neocmakelsp/neocmakelsp/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4651073b51f903d7b3706e404c1bae11e44a2a5a3c71c3ef57c52e155c251cf5"
+sha256 = "ec6c505fd74b5160c29e6c52bba4c5835f5456bf39983c105bccf0b0622bc72b"
 
 
 def post_install(self):
