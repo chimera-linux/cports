@@ -1,6 +1,6 @@
 pkgname = "bcachefs-tools"
-pkgver = "1.25.0"
-pkgrel = 1
+pkgver = "1.25.2"
+pkgrel = 0
 build_style = "makefile"
 make_install_args = [
     "ROOT_SBINDIR=/usr/bin",
@@ -27,7 +27,7 @@ pkgdesc = "Bcachefs utilities"
 license = "GPL-2.0-only"
 url = "https://github.com/koverstreet/bcachefs-tools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "01b9aff1e34a5b8b013e4cee7fac7574f3839b9b4044fe24127a73e77cc7d328"
+sha256 = "47a82e7f4199a75b6649face84c0a2f61ec9c0bb59b6ffdd3b2a1904d9909be4"
 # no tests
 options = ["!check"]
 
