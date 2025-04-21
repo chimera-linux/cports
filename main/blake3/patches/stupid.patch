@@ -10,6 +10,6 @@
 +  else()
 +    list(APPEND PKG_CONFIG_REQUIRES "tbb32 >= ${TBB_VERSION}")
 +  endif()
-   list(APPEND BLAKE3_PKGCONFIG_CFLAGS -DBLAKE3_USE_TBB)
- endif()
- 
+   list(APPEND PKG_CONFIG_CFLAGS -DBLAKE3_USE_TBB)
+   include(CheckCXXSymbolExists)
+   check_cxx_symbol_exists(_LIBCPP_VERSION "version" BLAKE3_HAVE_LIBCPP)
