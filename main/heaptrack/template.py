@@ -7,6 +7,7 @@ configure_args = [
     "-DLIBUNWIND_INCLUDE_DIR=/usr/include/libunwind-nongnu",
     "-DLIBUNWIND_LIBRARY=unwind-nongnu",
 ]
+configure_env = {"CMAKE_POLICY_VERSION_MINIMUM": "3.5"}
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
