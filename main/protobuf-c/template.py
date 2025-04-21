@@ -1,6 +1,6 @@
 pkgname = "protobuf-c"
-pkgver = "1.5.1"
-pkgrel = 3
+pkgver = "1.5.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-protoc",
@@ -11,7 +11,7 @@ pkgdesc = "Protobuf implementation in C"
 license = "BSD-2-Clause"
 url = "https://github.com/protobuf-c/protobuf-c"
 source = f"{url}/releases/download/v{pkgver}/protobuf-c-{pkgver}.tar.gz"
-sha256 = "20d1dc257da96f8ddff8be4dd9779215bbd0a6069ed53bbe9de38fa7629be06b"
+sha256 = "e2c86271873a79c92b58fef7ebf8de1aa0df4738347a8bd5d4e65a80a16d0d24"
 
 
 def post_install(self):
