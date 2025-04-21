@@ -2,7 +2,7 @@ pkgname = "libftdi1"
 pkgver = "1.5"
 pkgrel = 6
 build_style = "cmake"
-configure_args = ["-DLIB_SUFFIX="]
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5", "-DLIB_SUFFIX="]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libconfuse-devel", "libusb-devel"]
 checkdepends = ["boost-devel"]
