@@ -3,6 +3,7 @@ pkgver = "2.5.0"
 pkgrel = 3
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DBUILD_SHARED_LIBS=ON",
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
 ]
