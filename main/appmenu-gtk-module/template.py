@@ -1,5 +1,5 @@
 pkgname = "appmenu-gtk-module"
-pkgver = "24.05"
+pkgver = "25.04"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk=3"]
@@ -13,7 +13,7 @@ pkgdesc = "GTK module for appmenu"
 license = "LGPL-3.0-only"
 url = "https://gitlab.com/vala-panel-project/vala-panel-appmenu"
 source = f"{url}/-/archive/{pkgver}/vala-panel-appmenu-{pkgver}.tar.gz"
-sha256 = "989f1e44cd38aad137640c1d39803e81bb37c971e18b6282abe4f3e0ba622703"
+sha256 = "48d0be87b260056a65a9056a9be7e190b67a508540ebcb1fc18a67349cca0177"
 # CFI: check
 hardening = ["vis", "!cfi"]
 
