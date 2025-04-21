@@ -1,6 +1,6 @@
 pkgname = "openvdb"
-pkgver = "12.0.0"
-pkgrel = 3
+pkgver = "12.0.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DOPENVDB_CORE_STATIC=OFF",  # 1.4gb lol
@@ -25,7 +25,7 @@ pkgdesc = "Sparse volume data tools"
 license = "MPL-2.0"
 url = "https://www.openvdb.org"
 source = f"https://github.com/AcademySoftwareFoundation/openvdb/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "23ceb5b18a851f45af118f718a9dd3001efaee364e3f623c37ffbdad03b8905f"
+sha256 = "a3c8724ecadabaf558b6e1bd6f1d695e93b82a7cfdf144b8551e5253340ddce0"
 # 4 unittests fail outside of x86_64 with no easy way to skip them
 options = []
 
