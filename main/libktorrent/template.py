@@ -1,6 +1,6 @@
 pkgname = "libktorrent"
 pkgver = "25.04.0"
-pkgrel = 0
+pkgrel = 2
 build_style = "cmake"
 # flakes sometimes
 make_check_args = ["-E", "superseedtest"]

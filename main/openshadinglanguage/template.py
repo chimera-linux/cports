@@ -1,6 +1,6 @@
 pkgname = "openshadinglanguage"
 pkgver = "1.13.12.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_CXX_STANDARD=17",

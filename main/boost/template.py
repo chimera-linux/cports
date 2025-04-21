@@ -1,6 +1,6 @@
 pkgname = "boost"
-pkgver = "1.87.0"
-pkgrel = 2
+pkgver = "1.88.0"
+pkgrel = 0
 hostmakedepends = ["pkgconf", "python"]
 makedepends = [
     "bzip2-devel",
@@ -16,7 +16,7 @@ pkgdesc = "Free peer-reviewed portable C++ source libraries"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://archives.boost.io/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "f55c340aa49763b1925ccf02b2e83f35fdcf634c9d5164a2acb87540173c741d"
+sha256 = "3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4"
 options = ["empty"]
 
 # libs have semi-auto-generated subpkgs using this array

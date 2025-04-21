@@ -1,6 +1,6 @@
 pkgname = "libftdi1"
 pkgver = "1.5"
-pkgrel = 6
+pkgrel = 7
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5", "-DLIB_SUFFIX="]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]

@@ -1,6 +1,6 @@
 pkgname = "libpagemaker"
 pkgver = "0.0.4"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = ["pkgconf", "automake", "slibtool"]

@@ -1,6 +1,6 @@
 pkgname = "heaptrack"
 pkgver = "1.5.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DHEAPTRACK_USE_QT6=ON",

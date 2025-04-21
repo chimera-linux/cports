@@ -1,6 +1,6 @@
 pkgname = "guitarix"
 pkgver = "0.46.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "waf"
 hostmakedepends = [
     "binutils",

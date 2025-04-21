@@ -1,6 +1,6 @@
 pkgname = "kactivitymanagerd"
 pkgver = "6.3.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",

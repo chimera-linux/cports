@@ -1,6 +1,6 @@
 pkgname = "valve-hardware-audio-processing"
 pkgver = "0.56"
-pkgrel = 2
+pkgrel = 3
 # steamdeck only
 archs = ["x86_64"]
 build_style = "makefile"

@@ -1,6 +1,6 @@
 pkgname = "clucene"
 pkgver = "2.3.3.4"
-pkgrel = 8
+pkgrel = 9
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
