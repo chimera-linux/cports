@@ -1,6 +1,6 @@
 pkgname = "cups"
-pkgver = "2.4.11"
-pkgrel = 2
+pkgver = "2.4.12"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-relro",
@@ -51,7 +51,7 @@ pkgdesc = "Common Unix Printing System"
 license = "Apache-2.0"
 url = "https://github.com/OpenPrinting/cups"
 source = f"{url}/releases/download/v{pkgver}/cups-{pkgver}-source.tar.gz"
-sha256 = "9a88fe1da3a29a917c3fc67ce6eb3178399d68e1a548c6d86c70d9b13651fd71"
+sha256 = "b1dde191a4ae2760c47220c82ca6155a28c382701e6c1a0159d1054990231d59"
 # build system is bad
 tool_flags = {
     "CFLAGS": ["-Wno-unused-command-line-argument"],
