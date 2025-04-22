@@ -1,6 +1,6 @@
 pkgname = "borg"
-pkgver = "1.4.0"
-pkgrel = 1
+pkgver = "1.4.1"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 make_check_args = [
@@ -50,7 +50,7 @@ pkgdesc = "Deduplicating backup program"
 license = "BSD-3-Clause"
 url = "https://www.borgbackup.org"
 source = f"https://github.com/borgbackup/borg/archive/tags/{pkgver}.tar.gz"
-sha256 = "34fa63c8921ad7c6c1eadc3029ed3261a8494f9c264f900d7079197a1584bcd5"
+sha256 = "bf492c900d4eacce099639509e77caaf05edf74966a1c3153a36c63779aee10b"
 
 
 def init_check(self):
