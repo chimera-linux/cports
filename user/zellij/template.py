@@ -1,5 +1,5 @@
 pkgname = "zellij"
-pkgver = "0.42.1"
+pkgver = "0.42.2"
 pkgrel = 0
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
@@ -16,7 +16,7 @@ url = "https://zellij.dev"
 source = (
     f"https://github.com/zellij-org/zellij/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "e9516879483c1bb617a13e6278878883943c05f87bdc41fc02cc550a7b06c0b4"
+sha256 = "f1cd4b36775dd367b839e394b54e91042b0cd0f2b9e0901b1dec8517ff3929c0"
 # generates completions with host bin
 options = ["!cross"]
 
