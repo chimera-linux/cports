@@ -1,5 +1,5 @@
 pkgname = "fish-shell"
-pkgver = "4.0.1"
+pkgver = "4.0.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_target = "fish_run_tests"
@@ -10,7 +10,7 @@ pkgdesc = "Friendly interactive command line shell"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
-sha256 = "4ed63a70207283e15cf21fc5f21db4230421e4f98d4826b5b1c8254d69c762b5"
+sha256 = "6e1ecdb164285fc057b2f35acbdc20815c1623099e7bb47bbfc011120adf7e83"
 
 
 def prepare(self):
