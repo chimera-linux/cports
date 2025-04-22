@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -138,7 +138,6 @@ for _pkg in [
     "python-opencolorio",
     "python-opencv",
     "python-openimageio",
-    "python-openshadinglanguage",
     "python-openvdb",
     "qalc",
     "rename",

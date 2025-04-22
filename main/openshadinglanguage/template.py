@@ -1,6 +1,6 @@
 pkgname = "openshadinglanguage"
-pkgver = "1.13.12.0"
-pkgrel = 5
+pkgver = "1.14.5.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_CXX_STANDARD=17",
@@ -40,6 +40,7 @@ makedepends = [
     "openimageio-progs",
     "pugixml-devel",
     "python-pybind11-devel",
+    "robin-map",
     "qt6-qtbase-devel",
     "zlib-ng-compat-devel",
 ]
@@ -47,9 +48,12 @@ pkgdesc = "Shading language library for renderers"
 license = "BSD-3-Clause"
 url = "https://github.com/AcademySoftwareFoundation/OpenShadingLanguage"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a1d359b236a691a1cc0d4a241de3081ce137a0d54be0d2db43f415802291ea88"
+sha256 = "2621a0018896d0aff0e38ef185d51badb20b8c9e9c1594561fe81422bd81fdaa"
 # set in rel
-tool_flags = {"CFLAGS": ["-DNDEBUG"], "CXXFLAGS": ["-DNDEBUG"]}
+tool_flags = {
+    "CFLAGS": ["-DNDEBUG", "-D_LARGEFILE64_SOURCE"],
+    "CXXFLAGS": ["-DNDEBUG", "-D_LARGEFILE64_SOURCE"],
+}
 # CFI: instantly crashes
 # INT: guilty until proven innocent
 hardening = ["vis", "!cfi", "!int"]
@@ -81,7 +85,6 @@ def _(self):
 def _(self):
     self.subdesc = "Python modules"
     self.depends = ["openimageio-python"]
-    # transitional
-    self.provides = [self.with_pkgver("python-openshadinglanguage")]
+    self.renames = ["python-openshadinglanguage"]
 
     return ["usr/lib/python*"]

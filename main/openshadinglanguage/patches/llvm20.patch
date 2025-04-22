@@ -3,12 +3,12 @@
 @@ -117,7 +117,7 @@ checked_find_package (pugixml REQUIRED
  # LLVM library setup
  checked_find_package (LLVM REQUIRED
-                       VERSION_MIN 9.0
+                       VERSION_MIN 11.0
 -                      VERSION_MAX 19.9
 +                      VERSION_MAX 20.9
-                       PRINT LLVM_SYSTEM_LIBRARIES CLANG_LIBRARIES)
+                       PRINT LLVM_SYSTEM_LIBRARIES CLANG_LIBRARIES
+                             LLVM_SHARED_MODE)
  # ensure include directory is added (in case of non-standard locations
- include_directories (BEFORE SYSTEM "${LLVM_INCLUDES}")
 --- a/src/liboslexec/llvm_util.cpp
 +++ b/src/liboslexec/llvm_util.cpp
 @@ -3204,7 +3204,7 @@ LLVM_Util::loop_after_block() const
