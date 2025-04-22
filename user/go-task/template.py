@@ -1,10 +1,8 @@
 pkgname = "go-task"
-pkgver = "3.42.1"
-pkgrel = 1
+pkgver = "3.43.2"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
-    f"-ldflags=-X github.com/go-task/task/v3/internal/version.version=v{pkgver}"
-    " -X github.com/go-task/task/v3/internal/version.sum=chimera",
     "./cmd/task",
 ]
 hostmakedepends = ["go"]
@@ -12,7 +10,7 @@ pkgdesc = "Task runner / simpler Make alternative written in Go"
 license = "MIT"
 url = "https://taskfile.dev"
 source = f"https://github.com/go-task/task/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ebda29f1ec14e3e78f6d1e89136822c8177cc0b6d214fac8b1f027abce3c9042"
+sha256 = "41ed911af61d582e2824e2ee6ac8b1a845968b09ed188e79846557226aa96bed"
 # conditionally disabled check
 options = []
 
