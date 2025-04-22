@@ -3,6 +3,7 @@ pkgver = "0.47.0"
 pkgrel = 10
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     # enable once we have proper qt6 support (0.49)
     "-DBUILD_OPENCS=OFF",
     "-DOPENMW_USE_SYSTEM_BULLET=OFF",
