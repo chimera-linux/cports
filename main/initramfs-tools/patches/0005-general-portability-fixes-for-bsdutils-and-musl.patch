@@ -1,19 +1,20 @@
-From e265129acd4f16ebdfa2560b356c3f7547e6ab20 Mon Sep 17 00:00:00 2001
+From cedc4b27f5d0746769ba8b6dd9db29d93f0b7260 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Mon, 3 Jun 2024 16:45:18 +0200
-Subject: [PATCH 5/9] general portability fixes for bsdutils and musl
+Date: Tue, 22 Apr 2025 16:21:48 +0200
+Subject: [PATCH 5/8] general portability fixes for bsdutils and musl
 
 ---
- hook-functions | 35 ++++++++---------------------------
- mkinitramfs    | 24 ++++++------------------
- unmkinitramfs  | 12 ++++++------
- 3 files changed, 20 insertions(+), 51 deletions(-)
+ hook-functions   | 35 ++++++++---------------------------
+ mkinitramfs      | 33 ++++++++++++---------------------
+ unmkinitramfs    | 21 ++++++++++-----------
+ update-initramfs |  2 +-
+ 4 files changed, 31 insertions(+), 60 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index d3f7a32..d301b6f 100644
+index fa4a48e..058b95d 100644
 --- a/hook-functions
 +++ b/hook-functions
-@@ -229,30 +229,10 @@ copy_exec() {
+@@ -260,30 +260,10 @@ copy_exec() {
  	copy_file binary "${src}" "${target}" || return $(($? - 1))
  
  	# Copy the dependant libraries
@@ -37,7 +38,7 @@ index d3f7a32..d301b6f 100644
 -		# Handle common dlopen() dependency (Debian bug #950254)
 -		case "${x}" in
 -		*/libpthread.so.*)
--			copy_libgcc "${x%/*}" || return
+-			copy_libgcc || return
 -			;;
 -		esac
 -
@@ -48,7 +49,7 @@ index d3f7a32..d301b6f 100644
  		copy_file binary "${x}" || {
  			ret=$?
  			[ ${ret} = 1 ] || return $((ret - 1))
-@@ -300,7 +280,8 @@ copy_modules_dir()
+@@ -339,7 +319,8 @@ copy_modules_dir()
  	done
  
  	# shellcheck disable=SC2044
@@ -58,7 +59,7 @@ index d3f7a32..d301b6f 100644
  		modules="$modules ${kmod%%.*}"
  	done
  	# shellcheck disable=SC2086
-@@ -396,8 +377,8 @@ block_dev_mod_add()
+@@ -435,8 +416,8 @@ block_dev_mod_add()
  	dev_node="$1"
  
  	# Look up device number and convert to decimal as it appears in sysfs
@@ -70,10 +71,10 @@ index d3f7a32..d301b6f 100644
  	# Look up device in sysfs
  	dev_sys_path="/sys/dev/block/$dev_num"
 diff --git a/mkinitramfs b/mkinitramfs
-index efb3f78..c15833c 100755
+index 2102d1d..6b5e2c6 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
-@@ -386,16 +386,16 @@ add_builtin_firmware
+@@ -393,16 +393,16 @@ add_builtin_firmware
  cp -p /usr/share/initramfs-tools/init "${DESTDIR}/init"
  
  # add existant boot scripts
@@ -94,7 +95,7 @@ index efb3f78..c15833c 100755
  	[ -d "${DESTDIR}/scripts/$(dirname "${b}")" ] \
  		|| mkdir -p "${DESTDIR}/scripts/$(dirname "${b}")"
  	cp -p "${CONFDIR}/scripts/${b}" "${DESTDIR}/scripts/$(dirname "${b}")/"
-@@ -467,19 +467,6 @@ done
+@@ -456,19 +456,6 @@ hidden_dep_add_modules
  depmod -a -b "${DESTDIR}" "${version}"
  rm -f "${DESTDIR}/lib/modules/${version}"/modules.*map
  
@@ -114,7 +115,28 @@ index efb3f78..c15833c 100755
  # Apply DSDT to initramfs
  if [ -e "${CONFDIR}/DSDT.aml" ]; then
  	copy_file DSDT "${CONFDIR}/DSDT.aml"
-@@ -518,8 +505,9 @@ fi
+@@ -485,8 +472,8 @@ if [ -n "${SOURCE_DATE_EPOCH}" ]; then
+ 	find "${DESTDIR}" -newermt "@${SOURCE_DATE_EPOCH}" -print0 | \
+ 		xargs -0r touch --no-dereference --date="@${SOURCE_DATE_EPOCH}"
+ 
+-	# --reproducible requires cpio >= 2.12
+-	cpio_reproducible="--reproducible"
++	# FIXME handle
++	cpio_reproducible=
+ fi
+ 
+ # Read list of files and echo them plus all leading directories.
+@@ -537,14 +524,18 @@ cd  "${DESTDIR}" || exit 1
+ 		fi
+ 
+ 		if [ -s "${__TMPUNCOMPRESSEDFILES}" ]; then
++		{
++			cd "$DESTDIR"
+ 			# shellcheck disable=SC2086
+-			cpio --quiet $cpio_owner_root $cpio_reproducible -o -H newc -D "${DESTDIR}" <"${__TMPUNCOMPRESSEDFILES}" ||
++			cpio --quiet $cpio_owner_root $cpio_reproducible -o -H newc <"${__TMPUNCOMPRESSEDFILES}" ||
+ 				{ echo "E: mkinitramfs failure uncompressed cpio $?" >&2; echo 1 >&3; exit; }
++		}
  		fi
  
  		{
@@ -126,39 +148,63 @@ index efb3f78..c15833c 100755
  		} | $compress -c ||
  			{ echo "E: mkinitramfs failure $compress $?" >&2; echo 1 >&3; exit; }
 diff --git a/unmkinitramfs b/unmkinitramfs
-index a296029..b3b101d 100755
+index 9bce38a..9c7090f 100755
 --- a/unmkinitramfs
 +++ b/unmkinitramfs
-@@ -110,13 +110,13 @@ splitinitramfs()
- 		else
- 			subdir=early$count
- 		fi
--		dd < "$initramfs" skip=$start count=$((end - start)) iflag=skip_bytes,count_bytes 2> /dev/null |
-+		dd < "$initramfs" skip=$((start / 512)) count=$(((end - start) / 512)) 2> /dev/null |
- 		(
- 			if [ -n "$dir" ]; then
- 				mkdir -p -- "$dir/$subdir"
- 				cd -- "$dir/$subdir"
+@@ -121,8 +121,8 @@ splitinitramfs()
+ 		# kernel looks for in an early initramfs begin with
+ 		# kernel/ subdirectory, but we should never create
+ 		# this in the main initramfs.
+-		if dd < "$initramfs" skip=$start count=$((end - start)) \
+-			iflag=skip_bytes,count_bytes 2> /dev/null |
++		if dd < "$initramfs" ibs=4 skip=$((start / 4)) count=$(((end - start) / 4)) \
++			2> /dev/null |
+ 		   cpio -i --list 2> /dev/null |
+ 		   grep -q ^kernel/; then
+ 			# Extract to early, early2, ... subdirectories
+@@ -132,22 +132,21 @@ splitinitramfs()
+ 			else
+ 				subdir=early$count
  			fi
--			cpio -i "$@"
-+			cpio -di "$@"
- 		)
- 		start=$end
- 	done
-@@ -125,18 +125,18 @@ splitinitramfs()
- 		# Extract to main subdirectory
- 		subarchive=$(mktemp "${TMPDIR:-/var/tmp}/unmkinitramfs_XXXXXX")
- 		trap 'rm -f "$subarchive"' EXIT
+-			dd < "$initramfs" skip=$start count=$((end - start)) \
+-				iflag=skip_bytes,count_bytes 2> /dev/null |
++			dd < "$initramfs" ibs=4 skip=$((start / 4)) count=$(((end - start) / 4)) \
++				2> /dev/null |
+ 			(
+ 				if [ -n "$dir" ]; then
+ 					mkdir -p -- "$dir/$subdir"
+ 					cd -- "$dir/$subdir"
+ 				fi
+-				cpio -i "$@"
++				cpio -di "$@"
+ 			)
+ 		else
+ 			# Append to main-uncomp.cpio, excluding the
+ 			# trailer so cpio won't stop before the
+ 			# (de)compressed part.
+-			dd < "$initramfs" skip=$start \
+-				count=$((headoff - start)) \
+-				iflag=skip_bytes,count_bytes \
++			dd < "$initramfs" ibs=4 skip=$((start / 4)) \
++				count=$(((headoff - start) / 4)) \
+ 				>> "$tempdir/main-uncomp.cpio" 2> /dev/null
+ 		fi
+ 
+@@ -157,7 +156,7 @@ splitinitramfs()
+ 	# Split out final archive if necessary
+ 	if [ "$end" -gt 0 ]; then
+ 		subarchive="$tempdir/main-comp.cpio"
 -		dd < "$initramfs" skip="$end" iflag=skip_bytes 2> /dev/null \
-+		dd < "$initramfs" skip=$((end / 512)) 2> /dev/null \
++		dd < "$initramfs" ibs=4 skip=$((end / 4)) 2> /dev/null \
  			> "$subarchive"
--		xcpio "$subarchive" "${dir:+$dir/main}" -i "$@"
-+		xcpio "$subarchive" "${dir:+$dir/main}" -di "$@"
  	else
- 		# Don't use subdirectories (for backward compatibility)
--		xcpio "$initramfs" "$dir" -i "$@"
-+		xcpio "$initramfs" "$dir" -di "$@"
+ 		subarchive="$initramfs"
+@@ -173,12 +172,12 @@ splitinitramfs()
  	fi
+ 
+ 	xcpio "$tempdir/main-uncomp.cpio" "$subarchive" \
+-		"${dir:+$dir/$subdir}" -i "$@"
++		"${dir:+$dir/$subdir}" -di "$@"
  }
  
  OPTIONS=$(getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
@@ -168,6 +214,19 @@ index a296029..b3b101d 100755
  expected_args=2
  eval set -- "$OPTIONS"
  
+diff --git a/update-initramfs b/update-initramfs
+index 30131e0..6db6aa1 100755
+--- a/update-initramfs
++++ b/update-initramfs
+@@ -224,7 +224,7 @@ set_highest_version()
+ 
+ has_been_updated_since_timestamp() {
+ 	local initramfs_timestamp timestamp="$1"
+-	initramfs_timestamp=$(stat -c %Y "${initramfs}")
++	initramfs_timestamp=$(stat -f %m "${initramfs}")
+ 	test "$initramfs_timestamp" -gt "$timestamp"
+ }
+ 
 -- 
-2.46.0
+2.49.0
 

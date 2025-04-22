@@ -1,7 +1,8 @@
 pkgname = "initramfs-tools"
-pkgver = "0.145"
-pkgrel = 4
+pkgver = "0.147"
+pkgrel = 0
 build_style = "makefile"
+make_install_args = [f"VERSION={pkgver}"]
 depends = [
     "base-kernel",
     "dracut-install",
@@ -20,7 +21,7 @@ pkgdesc = "Generic modular initramfs generator"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/kernel-team/initramfs-tools"
 source = f"{url}/-/archive/v{pkgver}/initramfs-tools-v{pkgver}.tar.gz"
-sha256 = "e2c2db8f096e0a71e0e55362c74e48b621ce8a2f455f309eefca8d113f31e0ff"
+sha256 = "313b605dd67f0ba83f19b16ede9e9074ba989bf805aa60dafb136b9cb4b25c7f"
 # no tests
 options = ["!check"]
 

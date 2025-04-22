@@ -1,7 +1,7 @@
-From 077c2a8dc90189c3ffcdf1bc8451de3837fc2b82 Mon Sep 17 00:00:00 2001
+From 75748cc9cfec8d061d7b1856232ce7b6242f6466 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Wed, 28 Aug 2024 14:02:04 +0200
-Subject: [PATCH 8/9] force ugetopt
+Date: Tue, 22 Apr 2025 16:31:40 +0200
+Subject: [PATCH 8/8] force ugetopt
 
 ---
  lsinitramfs      | 2 +-
@@ -24,24 +24,24 @@ index 8d2a967..0e75019 100755
  eval set -- "$OPTIONS"
  
 diff --git a/mkinitramfs b/mkinitramfs
-index c15833c..6e2df7e 100755
+index 6b5e2c6..325f54b 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -34,7 +34,7 @@ usage_error()
  	exit 2
  }
  
--OPTIONS=$(getopt -o c:d:hl:m:ko:r:v --long help -n "$0" -- "$@") || usage_error
-+OPTIONS=$(ugetopt -o c:d:hl:m:ko:r:v --long help -n "$0" -- "$@") || usage_error
+-OPTIONS=$(getopt -o c:d:hl:m:ko:r:v --long help,version -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o c:d:hl:m:ko:r:v --long help,version -n "$0" -- "$@") || usage_error
  
  eval set -- "$OPTIONS"
  
 diff --git a/unmkinitramfs b/unmkinitramfs
-index b3b101d..edcc5c0 100755
+index 9c7090f..f0205d6 100755
 --- a/unmkinitramfs
 +++ b/unmkinitramfs
-@@ -134,7 +134,7 @@ splitinitramfs()
- 	fi
+@@ -175,7 +175,7 @@ splitinitramfs()
+ 		"${dir:+$dir/$subdir}" -di "$@"
  }
  
 -OPTIONS=$(getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
@@ -50,18 +50,18 @@ index b3b101d..edcc5c0 100755
  cpio_opts="--preserve-modification-time --quiet"
  expected_args=2
 diff --git a/update-initramfs b/update-initramfs
-index f45169e..ae98df4 100755
+index 6db6aa1..579e521 100755
 --- a/update-initramfs
 +++ b/update-initramfs
-@@ -291,7 +291,7 @@ verbose=0
+@@ -301,7 +301,7 @@ verbose=0
  
  ##
  
--OPTIONS=$(getopt -o "k:cudvtb:h?" --long help -n "$0" -- "$@") || usage_error
-+OPTIONS=$(ugetopt -o "k:cudvtb:h?" --long help -n "$0" -- "$@") || usage_error
+-OPTIONS=$(getopt -o "k:cudvtb:s:h?" --long help,version -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o "k:cudvtb:s:h?" --long help,version -n "$0" -- "$@") || usage_error
  
  eval set -- "$OPTIONS"
  
 -- 
-2.46.0
+2.49.0
 

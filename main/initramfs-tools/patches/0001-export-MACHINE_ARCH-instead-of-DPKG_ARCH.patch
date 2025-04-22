@@ -1,7 +1,7 @@
-From d7273eb68bc6cccdb30eb580573d8305b3fec326 Mon Sep 17 00:00:00 2001
+From 28972964c329dae295ec6199a88e83b50012df62 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Mon, 3 Jun 2024 16:39:26 +0200
-Subject: [PATCH 1/9] export MACHINE_ARCH instead of DPKG_ARCH
+Date: Tue, 22 Apr 2025 15:55:29 +0200
+Subject: [PATCH 1/8] export MACHINE_ARCH instead of DPKG_ARCH
 
 ---
  hooks/thermal     | 4 ++--
@@ -27,12 +27,12 @@ index 37eae63..89c6622 100755
  	# Only G5 Mac machines need to load
  	# windfarm_core or one of the windfarm_pm* modules.
 diff --git a/init b/init
-index 5752dd8..74a69d9 100755
+index 1bd9669..2b4e0e9 100755
 --- a/init
 +++ b/init
 @@ -44,8 +44,8 @@ mount -t devtmpfs -o nosuid,mode=0755 udev /dev
  mkdir /dev/pts
- mount -t devpts -o noexec,nosuid,gid=5,mode=0620 devpts /dev/pts || true
+ mount -t devpts -o noexec,nosuid,gid=5,mode=0600 devpts /dev/pts || true
  
 -# Export the dpkg architecture
 -export DPKG_ARCH=
@@ -41,7 +41,7 @@ index 5752dd8..74a69d9 100755
  . /conf/arch.conf
  
  # Set modprobe env
-@@ -304,7 +304,7 @@ maybe_break init
+@@ -307,7 +307,7 @@ maybe_break init
  # (keep init, rootmnt, drop_caps)
  unset debug
  unset MODPROBE_OPTIONS
@@ -73,10 +73,10 @@ index 2d5d2d2..6d1bde2 100644
  .TP
  \fB\fI blacklist, panic, quiet, resume, noresume, resume_offset
 diff --git a/mkinitramfs b/mkinitramfs
-index e14251f..58b072e 100755
+index 9fb3e40..774ef68 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
-@@ -304,7 +304,7 @@ __TMPCPIOGZ="$(mktemp "${TMPDIR:-/var/tmp}/mkinitramfs-OL_XXXXXX")" || exit 1
+@@ -311,7 +311,7 @@ __TMPCPIOGZ="$(mktemp "${TMPDIR:-/var/tmp}/mkinitramfs-OL_XXXXXX")" || exit 1
  __TMPEARLYCPIO="$(mktemp "${TMPDIR:-/var/tmp}/mkinitramfs-FW_XXXXXX")" || exit 1
  __MODULES_TO_ADD="$(mktemp "${TMPDIR:-/var/tmp}/modules_XXXXXX")" || exit 1
  
@@ -85,7 +85,7 @@ index e14251f..58b072e 100755
  
  # Export environment for hook scripts.
  #
-@@ -312,7 +312,7 @@ export MODULESDIR
+@@ -319,7 +319,7 @@ export MODULESDIR
  export version
  export CONFDIR
  export DESTDIR
@@ -94,7 +94,7 @@ index e14251f..58b072e 100755
  export verbose
  export KEYMAP
  export MODULES
-@@ -399,7 +399,7 @@ for b in $(cd "${CONFDIR}/scripts" && find . -maxdepth 2 -name '.?*' -prune -o \
+@@ -406,7 +406,7 @@ for b in $(cd "${CONFDIR}/scripts" && find . -maxdepth 2 -name '.?*' -prune -o \
  	cp -p "${CONFDIR}/scripts/${b}" "${DESTDIR}/scripts/$(dirname "${b}")/"
  done
  
@@ -104,5 +104,5 @@ index e14251f..58b072e 100755
  for i in ${EXTRA_CONF}; do
  	copy_file config "${i}" /conf/conf.d
 -- 
-2.46.0
+2.49.0
 

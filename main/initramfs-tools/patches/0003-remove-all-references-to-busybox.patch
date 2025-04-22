@@ -1,14 +1,14 @@
-From af840c25f83daf5bac93c2a5a3ce12f22861a78d Mon Sep 17 00:00:00 2001
+From 1bd2548df352b806a3b74536403a364ab7c18395 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Mon, 3 Jun 2024 16:41:14 +0200
-Subject: [PATCH 3/9] remove all references to busybox
+Date: Tue, 22 Apr 2025 15:58:30 +0200
+Subject: [PATCH 3/8] remove all references to busybox
 
 ---
  conf/initramfs.conf | 10 ----------
  initramfs-tools.7   | 13 +++----------
- initramfs.conf.5    |  8 --------
+ initramfs.conf.5    |  7 -------
  mkinitramfs         |  8 ++------
- 4 files changed, 5 insertions(+), 34 deletions(-)
+ 4 files changed, 5 insertions(+), 33 deletions(-)
 
 diff --git a/conf/initramfs.conf b/conf/initramfs.conf
 index aa561bd..5e1a319 100644
@@ -71,10 +71,10 @@ index 6d1bde2..d3ac64f 100644
  
  .SH BOOT SCRIPTS
 diff --git a/initramfs.conf.5 b/initramfs.conf.5
-index 76e4010..aff04c0 100644
+index 76e4010..a53eb32 100644
 --- a/initramfs.conf.5
 +++ b/initramfs.conf.5
-@@ -41,14 +41,6 @@ only adds those modules.
+@@ -41,13 +41,6 @@ only adds those modules.
  
  The default setting is \fImost\fP.
  
@@ -85,12 +85,11 @@ index 76e4010..aff04c0 100644
 -.B mkinitramfs
 -will build an initramfs without busybox.
 -Beware that many boot scripts need busybox utilities.
--
+ 
  .TP
  \fB KEYMAP
- If set to 'y', the console keymap will be loaded during the initramfs stage.
 diff --git a/mkinitramfs b/mkinitramfs
-index 8dce5fb..72d694f 100755
+index 5c850a1..ba181ba 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -7,9 +7,6 @@ export PATH='/usr/bin:/sbin:/bin'
@@ -103,7 +102,7 @@ index 8dce5fb..72d694f 100755
  
  usage()
  {
-@@ -134,8 +131,8 @@ for i in /usr/share/initramfs-tools/conf-hooks.d/*; do
+@@ -138,8 +135,8 @@ for i in /usr/share/initramfs-tools/conf-hooks.d/*; do
  done
  
  # Check busybox dependency
@@ -114,7 +113,7 @@ index 8dce5fb..72d694f 100755
  	exit 1
  fi
  
-@@ -316,7 +313,6 @@ export MACHINE_ARCH
+@@ -323,7 +320,6 @@ export MACHINE_ARCH
  export verbose
  export KEYMAP
  export MODULES
@@ -123,5 +122,5 @@ index 8dce5fb..72d694f 100755
  export FSTYPE
  
 -- 
-2.46.0
+2.49.0
 

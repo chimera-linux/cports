@@ -1,7 +1,7 @@
-From 181a84db79d50f76821f86a250ef07dcf1223550 Mon Sep 17 00:00:00 2001
+From 2a474e6994a9ce056c4214d60be69ec18862f4e2 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Wed, 28 Aug 2024 13:59:58 +0200
-Subject: [PATCH 4/9] enforce strictly usrmerged layout
+Date: Tue, 22 Apr 2025 16:03:27 +0200
+Subject: [PATCH 4/8] enforce strictly usrmerged layout
 
 ---
  docs/framebuffer                 |  6 +++---
@@ -87,7 +87,7 @@ index 64f8e6d..e2d4e55 100755
  	exit 0
  fi
 diff --git a/init b/init
-index 74a69d9..041235f 100755
+index 2b4e0e9..8bc0d2e 100755
 --- a/init
 +++ b/init
 @@ -1,8 +1,7 @@
@@ -110,7 +110,7 @@ index 74a69d9..041235f 100755
  export readonly=y
  export rootmnt=/root
  export debug=
-@@ -220,7 +219,7 @@ run_scripts /scripts/init-top
+@@ -223,7 +222,7 @@ run_scripts /scripts/init-top
  
  maybe_break modules
  [ "$quiet" != "y" ] && log_begin_msg "Loading essential drivers"
@@ -119,7 +119,7 @@ index 74a69d9..041235f 100755
  load_modules
  [ "$quiet" != "y" ] && log_end_msg
  
-@@ -285,12 +284,6 @@ validate_init() {
+@@ -288,12 +287,6 @@ validate_init() {
  if ! validate_init "$init"; then
  	echo "Target filesystem doesn't have requested ${init}."
  	init=
@@ -188,7 +188,7 @@ index d3ac64f..eac47ca 100644
  \fB\fI readonly
  is the default for mounting the root corresponds to the ro bootarg.
 diff --git a/mkinitramfs b/mkinitramfs
-index 72d694f..efb3f78 100755
+index ba181ba..2102d1d 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -1,7 +1,7 @@
@@ -200,7 +200,7 @@ index 72d694f..efb3f78 100755
  
  # Defaults
  keep="n"
-@@ -325,12 +325,18 @@ export __TMPEARLYCPIO
+@@ -332,12 +332,18 @@ export __TMPEARLYCPIO
  # Private, used by 'manual_add_modules'.
  export __MODULES_TO_ADD
  
@@ -225,7 +225,7 @@ index 72d694f..efb3f78 100755
  for d in conf/conf.d etc run scripts ${MODULESDIR}; do
  	mkdir -p "${DESTDIR}/${d}"
  done
-@@ -416,8 +422,8 @@ touch "${DESTDIR}/etc/fstab"
+@@ -423,8 +429,8 @@ touch "${DESTDIR}/etc/fstab"
  ln -s /proc/mounts "${DESTDIR}/etc/mtab"
  
  # module-init-tools
@@ -237,7 +237,7 @@ index 72d694f..efb3f78 100755
  for file in /etc/modprobe.d/*.conf /lib/modprobe.d/*.conf ; do
  	if test -e "$file" || test -L "$file" ; then
 diff --git a/scripts/functions b/scripts/functions
-index 3d95f04..3878015 100644
+index ef009e2..799f15a 100644
 --- a/scripts/functions
 +++ b/scripts/functions
 @@ -100,13 +100,13 @@ maybe_break()
@@ -346,5 +346,5 @@ index f7dc89f..ea08f82 100644
  	wait_for_udev 10
  
 -- 
-2.46.0
+2.49.0
 

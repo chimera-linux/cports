@@ -1,19 +1,19 @@
-From ba62f9cc37c84fb26ad69be70caa5030e29bf796 Mon Sep 17 00:00:00 2001
+From e018dec6294b7348c067c5e914745abb6a306232 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 22 Oct 2021 02:59:12 +0200
-Subject: [PATCH 6/9] add Makefile
+Subject: [PATCH 6/8] add Makefile
 
 ---
- Makefile | 103 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 103 insertions(+)
+ Makefile | 104 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 104 insertions(+)
  create mode 100644 Makefile
 
 diff --git a/Makefile b/Makefile
 new file mode 100644
-index 0000000..fee205c
+index 0000000..9f945f0
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,103 @@
+@@ -0,0 +1,104 @@
 +PREFIX     ?= /usr
 +SYSCONFDIR ?= /etc
 +BINDIR     ?= $(PREFIX)/bin
@@ -74,6 +74,7 @@ index 0000000..fee205c
 +	install -m 755 update-initramfs $(DESTDIR)$(BINDIR)
 +	install -m 755 lsinitramfs $(DESTDIR)$(BINDIR)
 +	install -m 755 mkinitramfs $(DESTDIR)$(BINDIR)
++	sed -i '' "s,@VERSION@,$(VERSION)," $(DESTDIR)$(BINDIR)/mkinitramfs
 +	install -m 755 unmkinitramfs $(DESTDIR)$(BINDIR)
 +	# manpages
 +	install -m 644 initramfs.conf.5 $(DESTDIR)$(MANDIR)/man5
@@ -118,5 +119,5 @@ index 0000000..fee205c
 +	install -m 755 scripts/local-premount/resume \
 +		$(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts/local-premount
 -- 
-2.46.0
+2.49.0
 
