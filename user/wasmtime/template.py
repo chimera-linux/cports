@@ -1,5 +1,5 @@
 pkgname = "wasmtime"
-pkgver = "32.0.0"
+pkgver = "31.0.0"
 pkgrel = 0
 # no implementation for other architectures
 archs = ["aarch64", "riscv64", "x86_64"]
@@ -24,7 +24,7 @@ pkgdesc = "Runtime for webassembly"
 license = "Apache-2.0"
 url = "https://wasmtime.dev"
 source = f"https://github.com/bytecodealliance/wasmtime/releases/download/v{pkgver}/wasmtime-v{pkgver}-src.tar.gz"
-sha256 = "3ca74b3d242f9bbb7c3ecdd1ce7d80b683f1dff7e7abc76759df618a0492fac6"
+sha256 = "7f58f9a5b398ed6d8ef3682e60729320e2cc671da387e8f97de8dc021e154a64"
 # wast tests take like an hour
 options = ["!check"]
 
