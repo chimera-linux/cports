@@ -1,5 +1,5 @@
 pkgname = "console-setup"
-pkgver = "1.233"
+pkgver = "1.236"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "build-linux"
@@ -18,7 +18,7 @@ pkgdesc = "Console font and keymap setup program"
 license = "GPL-2.0-or-later AND custom:console-setup"
 url = "https://salsa.debian.org/installer-team/console-setup"
 source = f"{url}/-/archive/{pkgver}/console-setup-{pkgver}.tar.gz"
-sha256 = "afb0c1e45d89092e3b09079eb4f05db7f616120d5265c8b8d825c0214752a8bb"
+sha256 = "f19dc35849050f7dcf48fd9e373cb68e83e113ccefb93dab0e687f7fc99901f4"
 # no tests
 options = ["bootstrap", "!check"]
 
