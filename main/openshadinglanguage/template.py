@@ -14,6 +14,8 @@ make_check_args = [
     + "|getattribute-shader.opt"
     + "|gettextureinfo.opt"
     + "|gettextureinfo-udim.opt"
+    + "|render-displacement.opt"
+    + "|render-microfacet.opt"
     + "|matrix-reg.regress.rsbitcode"
     + "|oslc-err-intoverflow"
     + "|osl-imageio"
