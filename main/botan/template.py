@@ -34,8 +34,8 @@ options = []
 
 
 if self.profile().arch == "ppc64":
-    # hangs forever in tests
-    options += ["!check"]
+    # hangs the compiler (no lto)/linker (lto)
+    broken = "idc"
     configure_args += ["--disable-modules=aes_power8"]
 
 
