@@ -1,5 +1,5 @@
 pkgname = "qemu-user"
-pkgver = "9.2.3"
+pkgver = "10.0.0"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde libssh capstone
@@ -47,7 +47,7 @@ pkgdesc = "QEMU user mode emulators"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "baed494270c361bf69816acc84512e3efed71c7a23f76691642b80bc3de7693e"
+sha256 = "22c075601fdcf8c7b2671a839ebdcef1d4f2973eb6735254fd2e1bd0f30b3896"
 # maybe someday
 options = ["!cross", "!check", "empty"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
