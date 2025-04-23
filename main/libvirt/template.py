@@ -1,5 +1,5 @@
 pkgname = "libvirt"
-pkgver = "11.1.0"
+pkgver = "11.2.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -84,7 +84,7 @@ pkgdesc = "API, daemon, and management tool for virtualization"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
-sha256 = "19aebfd98d209792d569cdcf944dafb85c00d264f3b55fa1216b18f9bc9cb226"
+sha256 = "07b91052b4e44cf2e5c21bfe1a8095f98db47a917b38d95d2a7ec50ff6bdade9"
 
 if self.profile().wordsize != 32:
     depends += ["virtiofsd-meta"]
