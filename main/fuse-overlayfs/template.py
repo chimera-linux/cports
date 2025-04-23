@@ -1,6 +1,6 @@
 pkgname = "fuse-overlayfs"
 pkgver = "1.14"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",

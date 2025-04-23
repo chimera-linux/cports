@@ -1,6 +1,6 @@
 pkgname = "python-pyfuse3"
 pkgver = "3.4.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",

@@ -1,6 +1,6 @@
 pkgname = "ostree"
 pkgver = "2025.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-builtin-grub2-mkconfig",

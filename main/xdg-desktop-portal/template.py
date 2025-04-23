@@ -1,6 +1,6 @@
 pkgname = "xdg-desktop-portal"
 pkgver = "1.20.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "bubblewrap",

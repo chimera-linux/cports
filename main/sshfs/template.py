@@ -1,6 +1,6 @@
 pkgname = "sshfs"
 pkgver = "3.7.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

@@ -1,6 +1,6 @@
 pkgname = "kio-fuse"
 pkgver = "5.1.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
 hostmakedepends = [
