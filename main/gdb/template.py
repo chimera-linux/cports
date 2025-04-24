@@ -1,6 +1,6 @@
 pkgname = "gdb"
-pkgver = "16.2"
-pkgrel = 1
+pkgver = "16.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-werror",
@@ -32,7 +32,7 @@ pkgdesc = "GNU debugger"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gdb"
 source = f"$(GNU_SITE)/gdb/gdb-{pkgver}.tar.xz"
-sha256 = "4002cb7f23f45c37c790536a13a720942ce4be0402d929c9085e92f10d480119"
+sha256 = "bcfcd095528a987917acf9fff3f1672181694926cc18d609c99d0042c00224c5"
 # weird autotools bullshittery
 env = {"SED": "gsed"}
 # massive
