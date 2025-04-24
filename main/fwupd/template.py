@@ -69,8 +69,6 @@ if _have_uefi:
     makedepends += ["efivar-devel"]
     if self.profile().arch not in ["loongarch64", "riscv64"]:
         depends += ["fwupd-efi"]
-    else:
-        configure_args += ["-Dplugin_uefi_capsule=disabled"]
 
 
 def post_install(self):
