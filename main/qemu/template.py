@@ -149,6 +149,14 @@ def post_install(self):
 
     self.uninstall("usr/share/doc")
 
+    if self.profile().wordsize == 32:
+        self.uninstall("usr/lib/qemu/palcode-clipper")
+        self.uninstall("usr/lib/qemu/hppa-firmware.img")
+        self.uninstall("usr/lib/qemu/hppa-firmware64.img")
+        self.uninstall("usr/lib/qemu/opensbi-riscv64-generic-fw_dynamic.bin")
+        self.uninstall("usr/lib/qemu/s390-ccw.img")
+        self.uninstall("usr/lib/qemu/openbios-sparc64")
+
 
 @subpackage("qemu-guest-agent")
 def _(self):
