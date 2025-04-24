@@ -99,14 +99,19 @@ _skip_32bit = {
 
 
 def _upkg(uname, wordsize):
-    @subpackage(f"qemu-user-{uname}")
+    do_epkg = True
+
+    if self.profile().wordsize == 32 and wordsize == 64:
+        do_epkg = False
+
+    @subpackage(f"qemu-user-{uname}", do_epkg)
     def _(self):
         self.subdesc = uname
         self.install_if = [self.parent]
 
         return [f"usr/bin/qemu-{uname}"]
 
-    do_pkg = True
+    do_bpkg = do_epkg
 
     match self.profile().arch:
         case "armv7":
@@ -115,14 +120,12 @@ def _upkg(uname, wordsize):
             curarch = arch
 
     if uname == curarch:
-        do_pkg = False
+        do_bpkg = False
     elif uname in _skip_32bit and _skip_32bit[uname] == curarch:
-        do_pkg = False
-    elif self.profile().wordsize == 32 and wordsize == 64:
-        do_pkg = False
+        do_bpkg = False
 
     # binfmt package is not generated for current arch
-    @subpackage(f"qemu-user-{uname}-binfmt", do_pkg)
+    @subpackage(f"qemu-user-{uname}-binfmt", do_bpkg)
     def _(self):
         self.subdesc = f"{uname} binfmt"
         self.install_if = [self.with_pkgver(f"qemu-user-{uname}")]
