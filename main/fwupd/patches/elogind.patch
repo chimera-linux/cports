@@ -1,0 +1,57 @@
+add this back because redhatters like to make things
+a pain for us even if it's zero effort for them not to
+
+diff --git a/data/meson.build b/data/meson.build
+index 4e42922..502c3a7 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -173,7 +173,7 @@ if build_daemon
+     )
+   endif
+ 
+-  if libsystemd.found()
++  if libsystemd.found() or elogind.found()
+     con2 = configuration_data()
+     con2.set('libexecdir', libexecdir)
+ 
+diff --git a/meson.build b/meson.build
+index 7b8a0ea..4911b54 100644
+--- a/meson.build
++++ b/meson.build
+@@ -514,6 +514,11 @@ if libsystemd.found()
+   endif
+ endif
+ 
++elogind = dependency('systemd', 'libelogind', required: get_option('elogind'))
++if elogind.found()
++  conf.set('HAVE_LOGIND' , '1')
++endif
++
+ supported_build = get_option('supported_build').disable_auto_if(not tag).allowed()
+ if supported_build
+     conf.set('SUPPORTED_BUILD', '1')
+diff --git a/meson_options.txt b/meson_options.txt
+index f880269..bd491cc 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -165,6 +165,10 @@ option('systemd',
+   type: 'feature',
+   description: 'systemd support',
+ )
++option('elogind',
++  type: 'feature',
++  description: 'elogind support',
++)
+ option('systemd_root_prefix',
+   type: 'string',
+   value: '',
+diff --git a/plugins/logind/meson.build b/plugins/logind/meson.build
+index f07118c..257b8f4 100644
+--- a/plugins/logind/meson.build
++++ b/plugins/logind/meson.build
+@@ -1,4 +1,4 @@
+-if libsystemd.found()
++if libsystemd.found() or elogind.found()
+ cargs = ['-DG_LOG_DOMAIN="FuPluginLogind"']
+ plugins += {meson.current_source_dir().split('/')[-1]: true}
+ 
