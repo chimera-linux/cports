@@ -1,6 +1,6 @@
 pkgname = "gawk"
-pkgver = "5.3.1"
-pkgrel = 1
+pkgver = "5.3.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -14,7 +14,7 @@ pkgdesc = "GNU awk utility"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gawk"
 source = f"$(GNU_SITE)/gawk/gawk-{pkgver}.tar.xz"
-sha256 = "694db764812a6236423d4ff40ceb7b6c4c441301b72ad502bb5c27e00cd56f78"
+sha256 = "f8c3486509de705192138b00ef2c00bbbdd0e84c30d5c07d23fc73a9dc4cc9cc"
 
 
 def post_install(self):
