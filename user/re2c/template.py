@@ -1,5 +1,5 @@
 pkgname = "re2c"
-pkgver = "4.1"
+pkgver = "4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
@@ -16,7 +16,7 @@ pkgdesc = "Regular Expressions to Code, lexer generator"
 license = "custom:none"  # Public Domain dedication
 url = "https://re2c.org"
 source = f"https://github.com/skvadrik/re2c/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "439c5ca02f2dcc280d01054622272f34d54c05919a41859614ec386cc7f89b6d"
+sha256 = "01b56c67ca2d5054b1aafc41ef5c15c50fbb6a7e760b1b2346e6116ef039525e"
 
 
 def post_install(self):
