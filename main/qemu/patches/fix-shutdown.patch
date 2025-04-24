@@ -1,0 +1,24 @@
+commit 086bccdaa
+Author: Renato Botelho do Couto <renato@netgate.com>
+Date:   Thu Apr 24 08:50:54 2025
+
+    qga: Adjust shutdown call to dinit
+    
+    Do not pass time and wall parameters since they are unsupported
+
+diff --git a/qga/commands-posix.c b/qga/commands-posix.c
+index 12bc086d7..c4786a13d 100644
+--- a/qga/commands-posix.c
++++ b/qga/commands-posix.c
+@@ -251,9 +251,9 @@ void qmp_guest_shutdown(const char *mode, Error **errp)
+ #elif defined(CONFIG_BSD)
+                           shutdown_flag, "+0",
+ #else
+-                          "-h", shutdown_flag, "+0",
++                          "-h", shutdown_flag,
+ #endif
+-                          "hypervisor initiated shutdown", (char *) NULL};
++                          (char *) NULL};
+ 
+     ga_run_command(argv, NULL, "shutdown", &local_err);
+     if (local_err) {
