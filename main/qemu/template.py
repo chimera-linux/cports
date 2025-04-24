@@ -219,8 +219,13 @@ def _(self):
     ]
 
 
-def _spkg(sname):
-    @subpackage(f"qemu-system-{sname}")
+def _spkg(sname, wordsize):
+    do_epkg = True
+
+    if self.profile().wordsize == 32 and wordsize == 64:
+        do_epkg = False
+
+    @subpackage(f"qemu-system-{sname}", do_epkg)
     def _(self):
         self.subdesc = f"system-{sname}"
         self.depends = [self.parent]
@@ -285,35 +290,35 @@ def _spkg(sname):
         return [f"usr/bin/qemu-system-{sname}", *extras]
 
 
-for _sys in [
-    "aarch64",
-    "alpha",
-    "arm",
-    "avr",
-    "hppa",
-    "i386",
-    "loongarch64",
-    "m68k",
-    "microblaze",
-    "microblazeel",
-    "mips",
-    "mips64",
-    "mips64el",
-    "mipsel",
-    "or1k",
-    "ppc",
-    "ppc64",
-    "riscv32",
-    "riscv64",
-    "rx",
-    "s390x",
-    "sh4",
-    "sh4eb",
-    "sparc",
-    "sparc64",
-    "tricore",
-    "x86_64",
-    "xtensa",
-    "xtensaeb",
+for _sys, _ws in [
+    ("aarch64", 64),
+    ("alpha", 64),
+    ("arm", 32),
+    ("avr", 32),
+    ("hppa", 64),
+    ("i386", 32),
+    ("loongarch64", 64),
+    ("m68k", 32),
+    ("microblaze", 64),
+    ("microblazeel", 64),
+    ("mips", 32),
+    ("mips64", 64),
+    ("mips64el", 64),
+    ("mipsel", 32),
+    ("or1k", 32),
+    ("ppc", 32),
+    ("ppc64", 64),
+    ("riscv32", 32),
+    ("riscv64", 64),
+    ("rx", 32),
+    ("s390x", 64),
+    ("sh4", 32),
+    ("sh4eb", 32),
+    ("sparc", 32),
+    ("sparc64", 64),
+    ("tricore", 32),
+    ("x86_64", 64),
+    ("xtensa", 32),
+    ("xtensaeb", 32),
 ]:
-    _spkg(_sys)
+    _spkg(_sys, _ws)
