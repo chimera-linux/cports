@@ -79,19 +79,26 @@ def post_install(self):
         "yes",
     )
 
+    # drop binfmts with no corresponding emulator
+    for x in (self.destdir / "usr/lib/binfmt.d").iterdir():
+        name = x.name.removesuffix(".conf")
+        # we need to match this
+        if name == "qemu-i486":
+            name = "qemu-i386"
+        if not (self.destdir / "usr/bin" / name).is_file():
+            x.unlink()
+
 
 _skip_32bit = {
     "i386": "x86_64",
-    "aarch64": "arm",
     "arm": "aarch64",
     "ppc": "ppc64",
-    "ppc64": "ppc",
     "ppcle": "ppc64le",
     "riscv32": "riscv64",
 }
 
 
-def _upkg(uname):
+def _upkg(uname, wordsize):
     @subpackage(f"qemu-user-{uname}")
     def _(self):
         self.subdesc = uname
@@ -111,6 +118,8 @@ def _upkg(uname):
         do_pkg = False
     elif uname in _skip_32bit and _skip_32bit[uname] == curarch:
         do_pkg = False
+    elif self.profile().wordsize == 32 and wordsize == 64:
+        do_pkg = False
 
     # binfmt package is not generated for current arch
     @subpackage(f"qemu-user-{uname}-binfmt", do_pkg)
@@ -128,39 +137,39 @@ def _upkg(uname):
         return [f"usr/lib/binfmt.d/qemu-{uname}.conf", *extra]
 
 
-for _u in [
-    "aarch64",
-    "aarch64_be",
-    "alpha",
-    "arm",
-    "armeb",
-    "hexagon",
-    "hppa",
-    "i386",
-    "loongarch64",
-    "m68k",
-    "microblaze",
-    "microblazeel",
-    "mips",
-    "mips64",
-    "mips64el",
-    "mipsel",
-    "mipsn32",
-    "mipsn32el",
-    "or1k",
-    "ppc",
-    "ppc64",
-    "ppc64le",
-    "riscv32",
-    "riscv64",
-    "s390x",
-    "sh4",
-    "sh4eb",
-    "sparc",
-    "sparc32plus",
-    "sparc64",
-    "x86_64",
-    "xtensa",
-    "xtensaeb",
+for _u, _w in [
+    ("aarch64", 64),
+    ("aarch64_be", 64),
+    ("alpha", 64),
+    ("arm", 32),
+    ("armeb", 32),
+    ("hexagon", 32),
+    ("hppa", 64),
+    ("i386", 32),
+    ("loongarch64", 64),
+    ("m68k", 32),
+    ("microblaze", 32),
+    ("microblazeel", 32),
+    ("mips", 32),
+    ("mips64", 64),
+    ("mips64el", 64),
+    ("mipsel", 32),
+    ("mipsn32", 64),
+    ("mipsn32el", 64),
+    ("or1k", 32),
+    ("ppc", 32),
+    ("ppc64", 64),
+    ("ppc64le", 64),
+    ("riscv32", 32),
+    ("riscv64", 64),
+    ("s390x", 64),
+    ("sh4", 32),
+    ("sh4eb", 32),
+    ("sparc", 32),
+    ("sparc32plus", 64),
+    ("sparc64", 64),
+    ("x86_64", 64),
+    ("xtensa", 32),
+    ("xtensaeb", 32),
 ]:
-    _upkg(_u)
+    _upkg(_u, _w)
