@@ -60,8 +60,6 @@ sha256 = "354f2e217a5e87bb153815268430d7407c59a27f56acbfa8a3c7f34e6c5fd2da"
 options = ["!cross"]
 
 _have_uefi = False
-_have_uefi_capsule = False
-_have_msr = self.profile().arch == "x86_64"
 
 match self.profile().arch:
     case "x86_64" | "aarch64" | "loongarch64" | "riscv64":
@@ -71,18 +69,8 @@ if _have_uefi:
     makedepends += ["efivar-devel"]
     if self.profile().arch not in ["loongarch64", "riscv64"]:
         depends += ["fwupd-efi"]
-        _have_uefi_capsule = True
     else:
         configure_args += ["-Dplugin_uefi_capsule=disabled"]
-else:
-    configure_args += [
-        "-Dplugin_redfish=disabled",
-        "-Dplugin_uefi_capsule=disabled",
-        "-Dplugin_uefi_pk=disabled",
-    ]
-
-if not _have_msr:
-    configure_args += ["-Dplugin_msr=disabled"]
 
 
 def post_install(self):
