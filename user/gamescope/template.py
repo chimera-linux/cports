@@ -1,5 +1,5 @@
 pkgname = "gamescope"
-pkgver = "3.16.1"
+pkgver = "3.16.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -11,6 +11,7 @@ configure_args = [
     "-Drt_cap=enabled",
     "-Dsdl2_backend=enabled",
 ]
+configure_env = {"CMAKE_POLICY_VERSION_MINIMUM": "3.5"}
 make_install_args = ["--skip-subprojects"]
 hostmakedepends = [
     "cmake",
@@ -72,7 +73,7 @@ source_paths = [
     "src/reshade",
 ]
 sha256 = [
-    "acaa77c80670357ed29b8aacd59cc960b7314eb092ca8f2a2f127c456d2ae281",
+    "70fea8a3f63cfe192421523d38420b41c9351a66aa2f25cef26cb4ab1b783e64",
     "c1913dbd1f3218b113ca7921d8cf9a1c1ddd28b432452c236cdd027dfbd7a95b",
     "37b77586e91f7ebee70380dcddd73bf01ae4acef1053e6be41d0485ede022422",
     "41272ce410c2815de1e268f5baa906b26286bb910e514677d15b8e69f81c5a04",

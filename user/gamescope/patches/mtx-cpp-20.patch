@@ -62,7 +62,7 @@ is a little bit slower
 +		}
  		PushUserEvent( GAMESCOPE_SDL_EVENT_ICON );
  	}
- 	void CSDLBackend::SetSelection( std::shared_ptr<std::string> szContents, GamescopeSelection eSelection )
+ 
 @@ -842,7 +852,11 @@ namespace gamescope
  					}
  					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_TITLE ) )
