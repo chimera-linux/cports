@@ -1,0 +1,33 @@
+commit 934357de5497c3877e5fd5da97a38c7d2868c57a
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Apr 25 11:51:35 2025 +0200
+
+    powerpc, loongarch: make DVECTOR_ALIGNMENT same as VECTOR_ALIGNMENT
+    
+    It makes sense to make dvector alignment less. For example,
+    DMat44 uses DVECTOR_ALIGNMENT but contains an array of 3 Vec4
+    which uses VECTOR_ALIGNMENT. That means DMat44 must be at least
+    as aligned as Vec4.
+
+diff --git a/thirdparty/jolt_physics/Jolt/Core/Core.h b/thirdparty/jolt_physics/Jolt/Core/Core.h
+index 01b6afb..2f375ef 100644
+--- a/thirdparty/jolt_physics/Jolt/Core/Core.h
++++ b/thirdparty/jolt_physics/Jolt/Core/Core.h
+@@ -215,7 +215,7 @@
+ 		#define JPH_CPU_BIG_ENDIAN
+ 	#endif
+ 	#define JPH_VECTOR_ALIGNMENT 16
+-	#define JPH_DVECTOR_ALIGNMENT 8
++	#define JPH_DVECTOR_ALIGNMENT 16
+ #elif defined(__loongarch__)
+ 	// LoongArch CPU architecture
+ 	#define JPH_CPU_LOONGARCH
+@@ -225,7 +225,7 @@
+ 		#define JPH_CPU_ADDRESS_BITS 32
+ 	#endif
+ 	#define JPH_VECTOR_ALIGNMENT 16
+-	#define JPH_DVECTOR_ALIGNMENT 8
++	#define JPH_DVECTOR_ALIGNMENT 16
+ #elif defined(__e2k__)
+ 	// E2K CPU architecture (MCST Elbrus 2000)
+ 	#define JPH_CPU_E2K
