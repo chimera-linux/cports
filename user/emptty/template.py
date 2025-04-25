@@ -1,6 +1,6 @@
 pkgname = "emptty"
-pkgver = "0.13.0"
-pkgrel = 8
+pkgver = "0.14.0"
+pkgrel = 0
 build_style = "go"
 make_env = {"CGO_ENABLED": "1"}
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ pkgdesc = "TTY display manager"
 license = "MIT"
 url = "https://github.com/tvrzna/emptty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3bed150f359fa46664ff28bff9d15306b899e147e60d486eb3a415afd7e2f3ba"
+sha256 = "f4b95a8b6d7d09bd4c80fb16e33ac8295344d81186f6f5c2601f237795e93859"
 
 
 def post_install(self):
