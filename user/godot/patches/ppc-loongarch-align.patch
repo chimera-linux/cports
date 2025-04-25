@@ -4,7 +4,7 @@ Date:   Fri Apr 25 11:51:35 2025 +0200
 
     powerpc, loongarch: make DVECTOR_ALIGNMENT same as VECTOR_ALIGNMENT
     
-    It makes sense to make dvector alignment less. For example,
+    It makes no sense to make dvector alignment less. For example,
     DMat44 uses DVECTOR_ALIGNMENT but contains an array of 3 Vec4
     which uses VECTOR_ALIGNMENT. That means DMat44 must be at least
     as aligned as Vec4.
