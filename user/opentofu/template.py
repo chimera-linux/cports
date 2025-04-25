@@ -1,6 +1,6 @@
 pkgname = "opentofu"
-pkgver = "1.9.0"
-pkgrel = 4
+pkgver = "1.9.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X github.com/opentofu/opentofu/version.dev=no",
@@ -11,4 +11,4 @@ pkgdesc = "Tool for building, changing and versioning infrastructure"
 license = "MPL-2.0"
 url = "https://github.com/opentofu/opentofu"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "95234f00bb8a6d73bcd3f3920e376a32189004df3aaf26cb95917cec5441f8a8"
+sha256 = "8fc573e33db7336d307aa671ccea407bd6c3d092a84d22b65f4c1e9968502972"
