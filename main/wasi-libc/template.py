@@ -1,12 +1,13 @@
 pkgname = "wasi-libc"
-pkgver = "0.20240724"
+pkgver = "0.20250204"
 pkgrel = 0
-_gitrev = "b9ef79d7dbd47c6c5bafdae760823467c2f60b70"
+_gitrev = "e9524a0980b9bb6bb92e87a41ed1055bdda5bb86"
+hostmakedepends = ["bash"]
 pkgdesc = "WebAssembly libc implementation"
 license = "Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND CC0-1.0 AND BSD-2-Clause"
 url = "https://github.com/WebAssembly/wasi-libc"
 source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "9f557e81f7622cbf51b59eaf2d2ebceaa74eb745c4e557dbb5a01e9a36142040"
+sha256 = "9bae87650be66d10662055ec138c6550b127f1ceedaf079266f89b7c7dfb7f34"
 # no tests
 options = ["!check", "!lto"]
 

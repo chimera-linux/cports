@@ -1,10 +1,8 @@
-diff --git a/Makefile b/Makefile
-index 542b43e..327169c 100644
---- a/Makefile
-+++ b/Makefile
-@@ -959,7 +959,7 @@ check-symbols: startup_files libc
- 	# This ignores whitespace because on Windows the output has CRLF line endings.
- 	diff -wur "$(EXPECTED_TARGET_DIR)" "$(SYSROOT_SHARE)"
+--- Makefile.old	2025-04-26 18:38:09.994484652 +1000
++++ Makefile	2025-04-26 18:38:21.610694502 +1000
+@@ -814,7 +814,7 @@
+ endif
+ endif
  
 -install: finish
 +install:
