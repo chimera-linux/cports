@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cmake"
 # We patch musl to default `MUSL_LOCPATH` to the appropriate path, so the
 # profile script isn't necessary
-configure_args = ["-DLOCALE_PROFILE=OFF"]
+configure_args = ["-DLOCALE_PROFILE=OFF", "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "gettext", "ninja"]
 makedepends = ["gettext-devel"]
 pkgdesc = "Locale program and translation files for musl"
