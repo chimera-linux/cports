@@ -6,6 +6,7 @@ configure_args = [
     "-DENABLE_THREADING=ON",
     "-DBUILD_STATIC_LIBS=ON",
     "-DDISABLE_WERROR=ON",
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "doxygen"]
 pkgdesc = "JSON implementation in C"
