@@ -2,7 +2,10 @@ pkgname = "graphite2"
 pkgver = "1.3.14"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DGRAPHITE2_COMPARE_RENDERER=OFF"]
+configure_args = [
+    "-DGRAPHITE2_COMPARE_RENDERER=OFF",
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "python"]
 pkgdesc = "Reimplementation of the SIL Graphite text processing engine"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
