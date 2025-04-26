@@ -1,6 +1,7 @@
 pkgname = "libimobiledevice"
-pkgver = "1.3.0"
-pkgrel = 7
+_commit = "a6b6c35d1550acbd2552d49c2fe38115deec8fc0"
+pkgver = "1.3.0_git20250228"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
 hostmakedepends = [
@@ -18,13 +19,19 @@ makedepends = [
     "libusb-devel",
     "libusbmuxd-devel",
     "libplist-devel",
+    "libtatsu-devel",
 ]
 pkgdesc = "Library to communicate with Apple devices"
 license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
-source = f"https://github.com/libimobiledevice/libimobiledevice/archive/{pkgver}.tar.gz"
-sha256 = "acbfb73eabee162e64c0d9de207d71c0a5f47c40cd5ad32a5097f734328ce10a"
+source = f"https://github.com/libimobiledevice/libimobiledevice/archive/{_commit}.tar.gz"
+sha256 = "047e785299592be9bb130ca37ecd3a4b6f991b1e34ee0d614b201f79e4a03e66"
 options = ["!cross"]
+
+
+def pre_configure(self):
+    # remove if building from release tarball
+    (self.srcdir / ".tarball-version").write_text(pkgver)
 
 
 @subpackage("libimobiledevice-python")
