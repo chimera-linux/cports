@@ -353,11 +353,11 @@ class UpdateCheck:
                 rxg = 1
             elif "git.sr.ht" in url:
                 pn = "/".join(url.split("/")[3:5])
-                url = f"https://git.sr.ht/{pn}/refs"
+                url = f"https://git.sr.ht/{pn}/info/refs"
                 rx = rf"""
-                    /archive/
+                    refs/tags/
                     (v?|V?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\.tar\.gz") # match
+                    ([\d.]+)(?!^) # match
                 """
                 rxg = 1
             elif "pkgs.fedoraproject.org" in url:
