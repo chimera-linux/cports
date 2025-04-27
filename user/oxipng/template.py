@@ -1,5 +1,5 @@
 pkgname = "oxipng"
-pkgver = "9.1.4"
+pkgver = "9.1.5"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Multithreaded PNG optimizer"
 license = "MIT"
 url = "https://github.com/shssoichiro/oxipng"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "90c5e32c556c49e8fb2170f281586e87f7619fd574b4ccf1bc76e2f6819bba77"
+sha256 = "8f99d5c67efa2a7550023bf610b90e65d421375c9ed7f37097f83ae5c05f85bd"
 
 
 def post_extract(self):
