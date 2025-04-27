@@ -1,5 +1,5 @@
 pkgname = "texstudio"
-pkgver = "4.8.6"
+pkgver = "4.8.7"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -16,4 +16,4 @@ pkgdesc = "Integrated writing environment for creating LaTeX documents"
 license = "GPL-3.0-or-later"
 url = "https://www.texstudio.org"
 source = f"https://github.com/texstudio-org/texstudio/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "ea09549e65a11520995a5b542f88ac4d21ea550c070008e1087add87856db02f"
+sha256 = "b8272bc6a067b7132805f8877aad9bee077e80970728cdb889edef2bb23e3b70"
