@@ -1,5 +1,5 @@
 pkgname = "harfbuzz"
-pkgver = "11.0.1"
+pkgver = "11.1.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -33,7 +33,7 @@ pkgdesc = "Text shaping engine"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/harfbuzz/harfbuzz/releases/download/{pkgver}/harfbuzz-{pkgver}.tar.xz"
-sha256 = "4a7890090538136db64742073af4b4d776ab8b50e6855676a8165eb8b7f60b7a"
+sha256 = "477f0d48c34dc32093b45304178eb9733361ca1832b5159879c99e6d40227969"
 options = ["!cross"]
 
 
