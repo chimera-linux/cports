@@ -2,6 +2,7 @@ pkgname = "freeglut"
 pkgver = "3.6.0"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libxxf86vm-devel", "libxi-devel", "mesa-devel", "glu-devel"]
 pkgdesc = "Open source implementation of the OpenGL Utility Toolkit library"
