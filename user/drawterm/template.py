@@ -1,6 +1,6 @@
 pkgname = "drawterm"
-_commit = "daf2ab4550e555cdb6c58f2a9e647c2259a634de"
-pkgver = "0_git20250112"
+_commit = "0b43ac046ca81d78e9eca535ab1e92971d30405a"
+pkgver = "0_git20250318"
 pkgrel = 0
 build_style = "makefile"
 make_env = {"CONF": "linux"}
@@ -15,13 +15,13 @@ makedepends = [
 pkgdesc = "Interface to Plan 9 systems"
 license = "MIT"
 url = "https://drawterm.9front.org"
-_wlr_protocols_commit = "ffb89ac790096f6e6272822c8d5df7d0cc6fcdfa"
+_wlr_protocols_commit = "2ec67ebd26b73bada12f3fa6afdd51563b656722"
 source = [
     f"https://git.9front.org/git/plan9front/drawterm/{_commit}/snap.tar.gz>snap-{_commit}.tar.gz",
     f"!https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/raw/{_wlr_protocols_commit}/unstable/wlr-virtual-pointer-unstable-v1.xml>{_wlr_protocols_commit}.xml",
 ]
 sha256 = [
-    "0080192d1ee0e60840b4fda6362814eded11ed9f364bab4fef626487be1aa94f",
+    "b3925431647d88f7b2eaf4bdea405d6ab09a7f38458ae210bae4866bcf292791",
     "3ff6d540be0bc5228195bf072bde42117ea17945a5c2061add5d3cf97d6bb524",
 ]
 # no tests
