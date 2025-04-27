@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-base"
-pkgver = "1.26.0"
+pkgver = "1.26.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -60,7 +60,7 @@ pkgdesc = "GStreamer base plugins"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-base/gst-plugins-base-{pkgver}.tar.xz"
-sha256 = "e23189fbed2ec486690382d1055c19eeaf5aae3e95e2576fc4c884d96a90e69e"
+sha256 = "659553636f84dcf388cad5cf6530e02b0b2d3dc450e76199287ba9db6a6c5226"
 # FIXME int
 hardening = ["!int"]
 # gobject-introspection

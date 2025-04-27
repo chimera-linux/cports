@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-good"
-pkgver = "1.26.0"
-pkgrel = 2
+pkgver = "1.26.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -74,7 +74,7 @@ pkgdesc = "GStreamer good plugins"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/gst-plugins-good/gst-plugins-good-{pkgver}.tar.xz"
-sha256 = "9e18f139ef69ad0867c2dfbb8fe1d1736d76df11aac83f60e8d3adb1e2eaf03b"
+sha256 = "fcdcb2f77620a599557b2843d1c6c55c2b660f5fc28222b542847d11d9ca982f"
 # FIXME int (extra tests fail, look for SIGILL)
 # in 1.24.4, pipelines_effectv only
 hardening = ["!int"]
