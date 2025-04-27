@@ -1,10 +1,10 @@
 pkgname = "buildkit"
 pkgver = "0.21.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = ["go"]
-depends = ["containerd"]
+depends = ["containerd", "rootlesskit"]
 pkgdesc = "Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit"
 license = "Apache-2.0"
 url = "https://github.com/moby/buildkit"
@@ -17,3 +17,4 @@ options = ["!check"]
 def post_install(self):
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_service(self.files_path / "buildkitd")
+    self.install_service(self.files_path / "buildkitd.user")
