@@ -1,6 +1,6 @@
 pkgname = "waybar"
-pkgver = "0.11.0"
-pkgrel = 4
+pkgver = "0.12.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dcava=disabled",
@@ -57,7 +57,7 @@ pkgdesc = "Wayland bar for Sway and wlroots-based compositors"
 license = "MIT"
 url = "https://github.com/Alexays/Waybar"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "6a0e9f0f7f2eff503951958cbb16dc39041c0b67e86c35154e8507677c61be9d"
+sha256 = "80454a0778176f575c112bdef9107f272621b578aa629bcc257ad9844a6c7165"
 options = ["!cross"]
 
 
