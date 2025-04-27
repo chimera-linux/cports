@@ -1,6 +1,6 @@
 pkgname = "libplacebo"
 pkgver = "7.349.0"
-pkgrel = 6
+pkgrel = 7
 build_style = "meson"
 configure_args = [
     "-Dshaderc=enabled",
