@@ -7,6 +7,7 @@ configure_args = [
     "-DBUILD_STATIC_LIBS=ON",
     "-DBUILD_TESTING=ON",
     "-DREGISTER_INSTALL_PREFIX=OFF",
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
 ]
 hostmakedepends = [
     "cmake",
