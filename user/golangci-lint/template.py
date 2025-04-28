@@ -1,6 +1,6 @@
 pkgname = "golangci-lint"
-pkgver = "1.64.5"
-pkgrel = 3
+pkgver = "2.1.5"
+pkgrel = 0
 build_style = "go"
 make_dir = "build-cccc"
 make_build_args = ["./cmd/golangci-lint"]
@@ -9,6 +9,6 @@ pkgdesc = "Linters runner for Go"
 license = "GPL-3.0-or-later"
 url = "https://golangci-lint.run"
 source = f"https://github.com/golangci/golangci-lint/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fa773db33252b38233364859cbceaa746cd4cd607b9fefedce6845aa65d2ee71"
+sha256 = "57a29dfc7b9e81b5ee42b8f3e807d3c68f9e0e74ddc9e66649bdf625ebd92a12"
 # some tests fail because of chroot and some need network
 options = ["!check"]
