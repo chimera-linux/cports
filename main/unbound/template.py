@@ -1,6 +1,6 @@
 pkgname = "unbound"
-pkgver = "1.22.0"
-pkgrel = 1
+pkgver = "1.23.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-cachedb",
@@ -42,7 +42,7 @@ pkgdesc = "Validating, recursive, and caching DNS resolver"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/unbound/unbound-{pkgver}.tar.gz"
-sha256 = "c5dd1bdef5d5685b2cedb749158dd152c52d44f65529a34ac15cd88d4b1b3d43"
+sha256 = "959bd5f3875316d7b3f67ee237a56de5565f5b35fc9b5fc3cea6cfe735a03bb8"
 
 
 def post_install(self):
