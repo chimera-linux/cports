@@ -18,5 +18,5 @@ upstream bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1657849
        }
 +      // sched_setscheduler gets special treatment here (bug 1657849):
 +      case __NR_sched_setscheduler:
-+        return Allow();
++        return Some(Allow());
  
