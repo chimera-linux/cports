@@ -1,5 +1,5 @@
 pkgname = "libgpg-error"
-pkgver = "1.51"
+pkgver = "1.55"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -12,7 +12,7 @@ pkgdesc = "Library for error values used by GnuPG components"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
 source = f"{url}/ftp/gcrypt/libgpg-error/libgpg-error-{pkgver}.tar.bz2"
-sha256 = "be0f1b2db6b93eed55369cdf79f19f72750c8c7c39fc20b577e724545427e6b2"
+sha256 = "95b178148863f07d45df0cea67e880a79b9ef71f5d230baddc0071128516ef78"
 
 
 def post_install(self):
