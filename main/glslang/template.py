@@ -1,5 +1,5 @@
 pkgname = "glslang"
-pkgver = "15.2.0"
+pkgver = "15.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ pkgdesc = "Khronos reference front-end for GLSL/ESSL + sample SPIR-V generator"
 license = "BSD-3-Clause"
 url = "https://github.com/KhronosGroup/glslang"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "45e3920d264d5c2cc3bfaec0e5dbb66cffd549255e0aaaf38cd283918e35c8ba"
+sha256 = "c6c21fe1873c37e639a6a9ac72d857ab63a5be6893a589f34e09a6c757174201"
 # FIXME: tests reveal a suboverflow in TIntermConstantUnion::fold that should be fixed
 hardening = ["!int"]
 
