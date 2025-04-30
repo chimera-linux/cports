@@ -1,0 +1,13 @@
+diff --git a/src/proxy.cpp b/src/proxy.cpp
+index 78d6ba6..5bb4634 100644
+--- a/src/proxy.cpp
++++ b/src/proxy.cpp
+@@ -499,7 +499,7 @@ int zmq::proxy_steerable (class socket_base_t *frontend_,
+     zmq_pollitem_t itemsout[] = {{frontend_, 0, ZMQ_POLLOUT, 0},
+                                  {backend_, 0, ZMQ_POLLOUT, 0}};
+ 
+-    stats_proxy stats = {0};
++    stats_proxy stats = {};
+ 
+     //  Proxy can be in these three states
+     proxy_state_t state = active;
