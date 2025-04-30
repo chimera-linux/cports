@@ -9,8 +9,8 @@ index 00de65d..98882cd 100644
 -           current_cpu == "loong64" || current_cpu == "riscv64") {
 +           current_cpu == "loong64" || current_cpu == "riscv64" || current_cpu == "ppc64") {
    has_64_bit_pointers = true
- } else if (current_cpu == "x86" || current_cpu == "arm") {
-   has_64_bit_pointers = false
+ } else if (current_cpu == "x86" || current_cpu == "arm" ||
+            current_cpu == "wasm") {
 diff --git a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h b/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
 index 6516c20..7d32eed 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/page_allocator_constants.h
@@ -101,19 +101,6 @@ index 1b86a4b..bc95083 100755
    script_dir = os.path.dirname(os.path.abspath(__file__))
    src_dir = os.path.dirname(script_dir)
    nacl_dir = os.path.join(src_dir, 'native_client')
-diff --git a/build/rust/cargo_crate.gni b/build/rust/cargo_crate.gni
-index 7290451..9592120 100644
---- a/build/rust/cargo_crate.gni
-+++ b/build/rust/cargo_crate.gni
-@@ -430,7 +430,7 @@ template("cargo_crate") {
-         ]
-       }
-       if (current_cpu == "arm64" || current_cpu == "x64" ||
--          current_cpu == "loong64" || current_cpu == "riscv64") {
-+          current_cpu == "loong64" || current_cpu == "riscv64" || current_cpu == "ppc64") {
-         args += [
-           "--pointer-width",
-           "64",
 diff --git a/sandbox/features.gni b/sandbox/features.gni
 index 8434144..c92bf1a 100644
 --- a/sandbox/features.gni
@@ -1574,12 +1561,12 @@ index 93dae35..1e3f08a 100644
 @@ -141,7 +141,9 @@ class MicrodumpWriter {
                    const MicrodumpExtraInfo& microdump_extra_info,
                    LinuxDumper* dumper)
-       : ucontext_(context ? &context->context : NULL),
+       : ucontext_(context ? &context->context : nullptr),
 -#if GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE
 +#if defined(__powerpc64__)
-+        vector_state_(context ? &context->vector_state : NULL),
++        vector_state_(context ? &context->vector_state : nullptr),
 +#elif GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE
-         float_state_(context ? &context->float_state : NULL),
+         float_state_(context ? &context->float_state : nullptr),
  #endif
          dumper_(dumper),
 @@ -348,6 +350,8 @@ class MicrodumpWriter {
@@ -1782,12 +1769,12 @@ index a95dd25..242d738 100644
 @@ -144,7 +144,9 @@ class MinidumpWriter {
        : fd_(minidump_fd),
          path_(minidump_path),
-         ucontext_(context ? &context->context : NULL),
+         ucontext_(context ? &context->context : nullptr),
 -#if GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE
 +#if defined(__powerpc64__)
-+        vector_state_(context ? &context->vector_state : NULL),
++        vector_state_(context ? &context->vector_state : nullptr),
 +#elif GOOGLE_BREAKPAD_CRASH_CONTEXT_HAS_FLOAT_STATE
-         float_state_(context ? &context->float_state : NULL),
+         float_state_(context ? &context->float_state : nullptr),
  #endif
          dumper_(dumper),
 @@ -476,7 +478,9 @@ class MinidumpWriter {
@@ -1899,12 +1886,12 @@ index 8ef6891..37f05e6 100644
    EXPECT_EQ(0U, allocator.pages_allocated());
    uint8_t* p = reinterpret_cast<uint8_t*>(allocator.Alloc(10000));
 +  uint64_t expected_pages = 1 + ((10000 - 1) / getpagesize());
-   ASSERT_FALSE(p == NULL);
+   ASSERT_FALSE(p == nullptr);
 -  EXPECT_EQ(3U, allocator.pages_allocated());
 +  EXPECT_EQ(expected_pages, allocator.pages_allocated());
    for (unsigned i = 1; i < 10; ++i) {
      uint8_t* p = reinterpret_cast<uint8_t*>(allocator.Alloc(i));
-     ASSERT_FALSE(p == NULL);
+     ASSERT_FALSE(p == nullptr);
 diff --git a/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc b/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc
 index 09e4690..3396bca 100644
 --- a/third_party/breakpad/breakpad/src/processor/exploitability_unittest.cc
@@ -3457,7 +3444,7 @@ index 680a374..2fa226f 100755
 +gen_rtcd_header linux/ppc64 generic
  gen_rtcd_header linux/generic generic
  gen_rtcd_header win/arm64-highbd armv8 "${require_neon} ${disable_sve}"
- gen_rtcd_header win/ia32 x86 "${require_sse2}"
+ gen_rtcd_header win/ia32 x86 "${require_sse3}"
 diff --git a/third_party/lss/linux_syscall_support.h b/third_party/lss/linux_syscall_support.h
 index 1e9fa47..b8d0db3 100644
 --- a/third_party/lss/linux_syscall_support.h
@@ -3466,20 +3453,20 @@ index 1e9fa47..b8d0db3 100644
        LSS_REG(2, buf);
        LSS_BODY(void*, mmap2, "0"(__r2));
      }
--#else
-+#elif !defined(__powerpc64__)
+-#elif defined(__NR_mmap2)
++#elif defined(__NR_mmap2) && !defined(__powerpc64__)
      #define __NR__mmap2 __NR_mmap2
      LSS_INLINE _syscall6(void*, _mmap2,            void*, s,
                           size_t,                   l, int,               p,
-@@ -4749,7 +4749,7 @@ struct kernel_statx {
-   #if defined(__i386__) ||                                                    \
-       defined(__ARM_ARCH_3__) || defined(__ARM_EABI__) ||                     \
-      (defined(__mips__) && _MIPS_SIM == _MIPS_SIM_ABI32) ||                   \
--      defined(__PPC__) ||                                                     \
-+     (defined(__PPC__) && !defined(__powerpc64__)) ||                         \
-      (defined(__s390__) && !defined(__s390x__))
+@@ -4809,7 +4809,7 @@ struct kernel_statx {
+                                LSS_SYSCALL_ARG(p), LSS_SYSCALL_ARG(f),
+                                LSS_SYSCALL_ARG(d), (uint64_t)(o));
+     }
+-  #elif defined(__NR_mmap2)
++  #elif defined(__NR_mmap2) && !defined(__powerpc64__)
      /* On these architectures, implement mmap() with mmap2(). */
      LSS_INLINE void* LSS_NAME(mmap)(void *s, size_t l, int p, int f, int d,
+                                     int64_t o) {
 @@ -4872,11 +4872,11 @@ struct kernel_statx {
        LSS_SC_BODY(4, int, 8, d, type, protocol, sv);
      }
