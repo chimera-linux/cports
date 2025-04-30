@@ -156,7 +156,6 @@ match self.profile().arch:
             "--with-arch=rv64gc",
             "--with-abi=lp64d",
         ]
-        broken = "takes forever in emulator"
     case "loongarch64":
         configure_args += [
             "--with-arch=la64v1.0",
