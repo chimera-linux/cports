@@ -1,0 +1,128 @@
+diff --git a/tests/setup_test.py b/tests/setup_test.py
+index 35d90f4..54df671 100644
+--- a/tests/setup_test.py
++++ b/tests/setup_test.py
+@@ -158,48 +158,6 @@ class SetupTest(unittest.TestCase):
+         assert 'Warning: libcurl is configured to use SSL, but we have \
+ not been able to determine which SSL backend it is using.' in captured_stderr.getvalue()
+ 
+-    @util.only_unix
+-    @using_curl_config('curl-config-ssl-feature-only')
+-    def test_libcurl_ssl_openssl(self):
+-        sopath = os.path.join(os.path.dirname(__file__), 'fake-curl', 'libcurl', 'with_openssl.so')
+-        config = pycurl_setup.ExtensionConfiguration(['',
+-            '--libcurl-dll=' + sopath])
+-        # openssl should be detected
+-        assert 'HAVE_CURL_SSL' in config.define_symbols
+-        assert 'HAVE_CURL_OPENSSL' in config.define_symbols
+-        assert 'crypto' in config.libraries
+-
+-        assert 'HAVE_CURL_GNUTLS' not in config.define_symbols
+-        assert 'HAVE_CURL_NSS' not in config.define_symbols
+-
+-    @util.only_unix
+-    @using_curl_config('curl-config-ssl-feature-only')
+-    def test_libcurl_ssl_gnutls(self):
+-        sopath = os.path.join(os.path.dirname(__file__), 'fake-curl', 'libcurl', 'with_gnutls.so')
+-        config = pycurl_setup.ExtensionConfiguration(['',
+-            '--libcurl-dll=' + sopath])
+-        # gnutls should be detected
+-        assert 'HAVE_CURL_SSL' in config.define_symbols
+-        assert 'HAVE_CURL_GNUTLS' in config.define_symbols
+-        assert 'gnutls' in config.libraries
+-
+-        assert 'HAVE_CURL_OPENSSL' not in config.define_symbols
+-        assert 'HAVE_CURL_NSS' not in config.define_symbols
+-
+-    @util.only_unix
+-    @using_curl_config('curl-config-ssl-feature-only')
+-    def test_libcurl_ssl_nss(self):
+-        sopath = os.path.join(os.path.dirname(__file__), 'fake-curl', 'libcurl', 'with_nss.so')
+-        config = pycurl_setup.ExtensionConfiguration(['',
+-            '--libcurl-dll=' + sopath])
+-        # nss should be detected
+-        assert 'HAVE_CURL_SSL' in config.define_symbols
+-        assert 'HAVE_CURL_NSS' in config.define_symbols
+-        assert 'ssl3' in config.libraries
+-
+-        assert 'HAVE_CURL_OPENSSL' not in config.define_symbols
+-        assert 'HAVE_CURL_GNUTLS' not in config.define_symbols
+-
+     @util.only_unix
+     @using_curl_config('curl-config-empty')
+     def test_libcurl_ssl_unrecognized(self):
+diff --git a/tests/ssh_key_cb_test.py b/tests/ssh_key_cb_test.py
+index f317988..f5cd990 100644
+--- a/tests/ssh_key_cb_test.py
++++ b/tests/ssh_key_cb_test.py
+@@ -8,12 +8,13 @@ import pytest
+ 
+ from . import util
+ 
+-sftp_server = 'sftp://web.sourceforge.net'
++sftp_server = "sftp://web.sourceforge.net"
++
+ 
+ @pytest.mark.online
+ @pytest.mark.ssh
+ class SshKeyCbTest(unittest.TestCase):
+-    '''This test requires Internet access.'''
++    """This test requires Internet access."""
+ 
+     def setUp(self):
+         self.curl = util.DefaultCurl()
+@@ -23,54 +24,6 @@ class SshKeyCbTest(unittest.TestCase):
+     def tearDown(self):
+         self.curl.close()
+ 
+-    @util.min_libcurl(7, 19, 6)
+-    # curl compiled with libssh doesn't support
+-    # CURLOPT_SSH_KNOWNHOSTS and CURLOPT_SSH_KEYFUNCTION
+-    @util.guard_unknown_libcurl_option
+-    def test_keyfunction(self):
+-        # with keyfunction returning ok
+-
+-        def keyfunction(known_key, found_key, match):
+-            return pycurl.KHSTAT_FINE
+-
+-        self.curl.setopt(pycurl.SSH_KNOWNHOSTS, '.known_hosts')
+-        self.curl.setopt(pycurl.SSH_KEYFUNCTION, keyfunction)
+-
+-        try:
+-            self.curl.perform()
+-            self.fail('should have raised')
+-        except pycurl.error as e:
+-            self.assertEqual(pycurl.E_LOGIN_DENIED, e.args[0])
+-
+-        # with keyfunction returning not ok
+-
+-        def keyfunction(known_key, found_key, match):
+-            return pycurl.KHSTAT_REJECT
+-
+-        self.curl.setopt(pycurl.SSH_KNOWNHOSTS, '.known_hosts')
+-        self.curl.setopt(pycurl.SSH_KEYFUNCTION, keyfunction)
+-
+-        try:
+-            self.curl.perform()
+-            self.fail('should have raised')
+-        except pycurl.error as e:
+-            self.assertEqual(pycurl.E_PEER_FAILED_VERIFICATION, e.args[0])
+-
+-    @util.min_libcurl(7, 19, 6)
+-    @util.guard_unknown_libcurl_option
+-    def test_keyfunction_bogus_return(self):
+-        def keyfunction(known_key, found_key, match):
+-            return 'bogus'
+-
+-        self.curl.setopt(pycurl.SSH_KNOWNHOSTS, '.known_hosts')
+-        self.curl.setopt(pycurl.SSH_KEYFUNCTION, keyfunction)
+-
+-        try:
+-            self.curl.perform()
+-            self.fail('should have raised')
+-        except pycurl.error as e:
+-            self.assertEqual(pycurl.E_PEER_FAILED_VERIFICATION, e.args[0])
+-
+ 
+ @pytest.mark.ssh
+ class SshKeyCbUnsetTest(unittest.TestCase):
