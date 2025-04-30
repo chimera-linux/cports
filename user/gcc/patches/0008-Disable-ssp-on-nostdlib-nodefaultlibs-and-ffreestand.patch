@@ -33,7 +33,7 @@ index 13e4f93..d8f0b5d 100644
 - %{fsyntax-only:-o %j} %{-param*}\
 + %{fsyntax-only:-o %j} %{-param*} " NO_SSP_SPEC "\
   %{coverage:-fprofile-arcs -ftest-coverage}\
-  %{fprofile-arcs|fcondition-coverage|fprofile-generate*|coverage:\
+  %{fprofile-arcs|fcondition-coverage|fpath-coverage|fprofile-generate*|coverage:\
     %{!fprofile-update=single:\
 diff --git a/gcc/params.opt b/gcc/params.opt
 index d34ef54..807e5a4 100644

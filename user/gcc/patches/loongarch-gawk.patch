@@ -7,14 +7,14 @@ awk: gensub doesn't support backreferences (subst "\1")
 @@ -58,7 +58,7 @@ EOF
      echo
  
- 	# Generate the strings from isa-evolution.in.
--	awk '{
-+	gawk '{
- 	  a=$3
- 	  gsub(/-/, "_", a)
- 	  print("#define OPTSTR_"toupper(a)"\t\""$3"\"")
+     # Generate the strings from isa-evolution.in.
+-    awk '{
++    gawk '{
+       a=$3
+       gsub(/-/, "_", a)
+       print("#define OPTSTR_"toupper(a)"\t\""$3"\"")
 @@ -103,7 +103,7 @@ EOF
-     }
+ 
  
      # Generate the strings from isa-evolution.in.
 -    awk '{

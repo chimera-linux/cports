@@ -1,10 +1,10 @@
 # rebuild on major clang version updates
 pkgname = "gcc"
 _clangver = "20"
-pkgver = "14.2.0"
+pkgver = "15.1.0"
 _bver = pkgver
 _mnver = _bver[0 : _bver.rfind(".")]
-pkgrel = 1
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -85,7 +85,7 @@ pkgdesc = "GNU Compiler Collection"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
-sha256 = "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9"
+sha256 = "e2b09ec21660f01fecffb715e0120265216943f038d0e48a9868713e54f06cea"
 hardening = ["!int", "!format", "!var-init"]
 # no tests to run
 options = ["!check", "!lto", "!relr", "!cross", "!scanshlibs"]
