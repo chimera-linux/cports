@@ -1,0 +1,38 @@
+From b876efd53a82972684ecc2bab817d7847306f128 Mon Sep 17 00:00:00 2001
+From: ayushnix <ayush@ayushnix.com>
+Date: Wed, 30 Apr 2025 10:27:31 +0530
+Subject: [PATCH] update getrandom
+
+See <https://github.com/rust-random/getrandom/blob/master/CHANGELOG.md#029---2023-04-06>
+---
+ Cargo.lock | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index d8ffb3c..25e12e0 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -403,19 +403,19 @@ dependencies = [
+  "libc",
+  "log",
+  "rustversion",
+  "windows",
+ ]
+
+ [[package]]
+ name = "getrandom"
+-version = "0.2.8"
++version = "0.2.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c05aeb6a22b8f62540c194aac980f2115af067bfe15a0734d7277a768d396b31"
++checksum = "c85e1d9ab2eadba7e5040d4e09cbd6d072b76a557ad64e797c2cb9d4da21d7e4"
+ dependencies = [
+  "cfg-if",
+  "libc",
+  "wasi 0.11.0+wasi-snapshot-preview1",
+ ]
+
+ [[package]]
+ name = "gimli"
+--
+2.49.0
