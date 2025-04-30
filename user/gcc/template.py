@@ -162,12 +162,11 @@ match self.profile().arch:
             "--with-abi=lp64d",
         ]
 
-_have_libgomp = False
+_have_libgomp = True
 
 match self.profile().arch:
-    case "aarch64" | "armv7" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
-        _have_libgomp = True
-    case _:
+    case "ppc":
+        _have_libgomp = False
         configure_args += ["--disable-libgomp"]
 
 
