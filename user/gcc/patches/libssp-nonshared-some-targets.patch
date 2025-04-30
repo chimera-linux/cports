@@ -1,0 +1,127 @@
+From b64c41a916fa72e4c5cda21e7b0cd9b8dbb11e0a Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 30 Apr 2025 19:01:46 +0200
+Subject: [PATCH] add a workaround for always linking libssp_nonshared
+
+This is needed on ppc and 32-bit x86, only with gcc.
+---
+ gcc/config.in    |  6 ++++++
+ gcc/configure    | 24 ++++++++++++++++++++++++
+ gcc/configure.ac | 17 +++++++++++++++++
+ gcc/gcc.cc       |  4 ++++
+ 4 files changed, 51 insertions(+)
+
+diff --git a/gcc/config.in b/gcc/config.in
+index 46313c199..39bd4738a 100644
+--- a/gcc/config.in
++++ b/gcc/config.in
+@@ -137,6 +137,12 @@
+ #endif
+ 
+ 
++/* Define if libssp_nonshared should always be linked. */
++#ifndef USED_FOR_TARGET
++#undef ENABLE_AUTOLINK_LIBSSP
++#endif
++
++
+ /* Define to 1 to specify that we are using the BID decimal floating point
+    format instead of DPD */
+ #ifndef USED_FOR_TARGET
+diff --git a/gcc/configure b/gcc/configure
+index 280a2afcd..a236db45a 100755
+--- a/gcc/configure
++++ b/gcc/configure
+@@ -1004,6 +1004,7 @@ enable_languages
+ with_multilib_list
+ with_multilib_generator
+ enable_autolink_libatomic
++enable_autolink_libssp
+ with_zstd
+ with_zstd_include
+ with_zstd_lib
+@@ -1746,6 +1747,8 @@ Optional Features:
+                           enable automatic linking of libatomic (ignored if
+                           not built)
+   --disable-rpath         do not hardcode runtime library paths
++  --enable-autolink-libssp
++                          enable automatic linking of libssp_nonshared
+   --enable-sjlj-exceptions
+                           arrange to use setjmp/longjmp exception handling
+   --disable-win32-utf8-manifest
+@@ -8434,6 +8437,27 @@ $as_echo "$as_me: WARNING: libatomic is not build for this target, --enable-auto
+   fi
+ fi
+ 
++# If to force link libssp_nonshared
++# Check whether --enable-autolink-libssp was given.
++if test "${enable_autolink_libssp+set}" = set; then :
++  enableval=$enable_autolink_libssp;
++  case $enable_autolink_libssp in
++    yes | no) ;;
++    *) as_fn_error $? "'$enable_autolink_libssp' is an invalid value for
++--enable-autolink-libssp.  Valid choices are 'yes' and 'no'." "$LINENO" 5 ;;
++  esac
++
++else
++  enable_autolink_libssp=''
++fi
++
++
++if test x$enable_autolink_libssp = xyes; then
++
++$as_echo "#define ENABLE_AUTOLINK_LIBSSP 1" >>confdefs.h
++
++fi
++
+ 
+ # -------------------------
+ # Checks for other programs
+diff --git a/gcc/configure.ac b/gcc/configure.ac
+index 763438f41..7223718d8 100644
+--- a/gcc/configure.ac
++++ b/gcc/configure.ac
+@@ -1248,6 +1248,23 @@ if test x$enable_autolink_libatomic = xyes; then
+   fi
+ fi
+ 
++# If to force link libssp_nonshared
++AC_ARG_ENABLE(autolink-libssp,
++[AS_HELP_STRING([--enable-autolink-libssp],
++    [enable automatic linking of libssp_nonshared])],
++[
++  case $enable_autolink_libssp in
++    yes | no) ;;
++    *) AC_MSG_ERROR(['$enable_autolink_libssp' is an invalid value for
++--enable-autolink-libssp.  Valid choices are 'yes' and 'no'.]) ;;
++  esac
++], [enable_autolink_libssp=''])
++
++if test x$enable_autolink_libssp = xyes; then
++    AC_DEFINE(ENABLE_AUTOLINK_LIBSSP, 1,
++        [Define if libssp_nonshared should always be linked.])
++fi
++
+ # -------------------------
+ # Checks for other programs
+ # -------------------------
+diff --git a/gcc/gcc.cc b/gcc/gcc.cc
+index 8279c473a..900bb2cfb 100644
+--- a/gcc/gcc.cc
++++ b/gcc/gcc.cc
+@@ -1021,8 +1021,12 @@ proper position among the other output files.  */
+ 
+ #ifndef LINK_SSP_SPEC
+ #ifdef TARGET_LIBC_PROVIDES_SSP
++#ifdef ENABLE_AUTOLINK_LIBSSP
++#define LINK_SSP_SPEC "-lssp_nonshared"
++#else
+ #define LINK_SSP_SPEC "%{fstack-protector|fstack-protector-all" \
+ 		       "|fstack-protector-strong|fstack-protector-explicit:}"
++#endif
+ #else
+ #define LINK_SSP_SPEC "%{fstack-protector|fstack-protector-all" \
+ 		       "|fstack-protector-strong|fstack-protector-explicit" \
+-- 
+2.49.0
+

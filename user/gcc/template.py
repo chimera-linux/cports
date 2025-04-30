@@ -150,7 +150,6 @@ match self.profile().arch:
             "--enable-secureplt",
             "--disable-decimal-float",
         ]
-        broken = "libssp shenanigans"
     case "riscv64":
         configure_args += [
             "--with-arch=rv64gc",
@@ -162,12 +161,11 @@ match self.profile().arch:
             "--with-abi=lp64d",
         ]
 
-_have_libgomp = True
-
 match self.profile().arch:
-    case "ppc":
-        _have_libgomp = False
-        configure_args += ["--disable-libgomp"]
+    case "ppc" | "x86":
+        makedepends += ["musl-libssp-static"]
+        depends += ["musl-libssp-static"]
+        configure_args += ["--enable-autolink-libssp"]
 
 
 def init_configure(self):
@@ -277,7 +275,7 @@ def _(self):
     return ["usr/lib/libobjc.so.*"]
 
 
-@subpackage("gcc-gomp-devel", _have_libgomp)
+@subpackage("gcc-gomp-devel")
 def _(self):
     self.subdesc = "OpenMP develpment files"
     return [
@@ -289,7 +287,7 @@ def _(self):
     ]
 
 
-@subpackage("gcc-gomp-libs", _have_libgomp)
+@subpackage("gcc-gomp-libs")
 def _(self):
     self.subdesc = "OpenMP runtime"
     return ["usr/lib/libgomp.so.*"]
