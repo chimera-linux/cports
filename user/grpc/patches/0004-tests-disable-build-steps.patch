@@ -1,0 +1,55 @@
+From ebdb6de829ad7d8ddee7bb41e688e610900ed2de Mon Sep 17 00:00:00 2001
+From: sonata-chen <sonatachen39@gmail.com>
+Date: Sun, 25 Aug 2024 15:19:45 +0800
+Subject: [PATCH 4/4] tests disable build steps
+
+---
+ tools/run_tests/run_tests.py | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/tools/run_tests/run_tests.py b/tools/run_tests/run_tests.py
+index e2b5f92262..c9467a32ea 100755
+--- a/tools/run_tests/run_tests.py
++++ b/tools/run_tests/run_tests.py
+@@ -1434,22 +1434,22 @@ def _build_and_run(
+ ):
+     """Do one pass of building & running tests."""
+     # build latest sequentially
+-    num_failures, resultset = jobset.run(
+-        build_steps,
+-        maxjobs=1,
+-        stop_on_failure=True,
+-        newline_on_success=newline_on_success,
+-        travis=args.travis,
+-    )
+-    if num_failures:
+-        return [BuildAndRunError.BUILD]
+-
+-    if build_only:
+-        if xml_report:
+-            report_utils.render_junit_xml_report(
+-                resultset, xml_report, suite_name=args.report_suite_name
+-            )
+-        return []
++    # num_failures, resultset = jobset.run(
++    #     build_steps,
++    #     maxjobs=1,
++    #     stop_on_failure=True,
++    #     newline_on_success=newline_on_success,
++    #     travis=args.travis,
++    # )
++    # if num_failures:
++    #     return [BuildAndRunError.BUILD]
++    #
++    # if build_only:
++    #     if xml_report:
++    #         report_utils.render_junit_xml_report(
++    #             resultset, xml_report, suite_name=args.report_suite_name
++    #         )
++    #     return []
+ 
+     # start antagonists
+     antagonists = [
+-- 
+2.46.0
+
