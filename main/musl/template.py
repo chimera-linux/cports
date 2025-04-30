@@ -1,6 +1,6 @@
 pkgname = "musl"
 pkgver = "1.2.5_git20240705"
-pkgrel = 9
+pkgrel = 10
 _commit = "dd1e63c3638d5f9afb857fccf6ce1415ca5f1b8b"
 _mimalloc_ver = "2.1.7"
 build_style = "gnu_configure"
@@ -80,11 +80,25 @@ def post_build(self):
     self.cp(self.files_path / "getent.c", ".")
     self.cp(self.files_path / "getconf.c", ".")
     self.cp(self.files_path / "iconv.c", ".")
+    self.cp(self.files_path / "__stack_chk_fail_local.c", ".")
 
     cc = compiler.C(self)
+
     cc.invoke(["getent.c"], "getent")
     cc.invoke(["getconf.c"], "getconf")
     cc.invoke(["iconv.c"], "iconv")
+
+    cc.invoke(
+        ["__stack_chk_fail_local.c"],
+        "__stack_chk_fail_local.o",
+        obj_file=True,
+    )
+    self.do(
+        self.get_tool("AR"),
+        "r",
+        "libssp_nonshared.a",
+        "__stack_chk_fail_local.o",
+    )
 
 
 def pre_install(self):
@@ -111,6 +125,8 @@ def post_install(self):
     self.install_bin("getent")
     self.install_bin("getconf")
 
+    self.install_file("libssp_nonshared.a", "usr/lib")
+
     self.install_man(self.files_path / "getent.1")
     self.install_man(self.files_path / "getconf.1")
 
@@ -128,6 +144,14 @@ def _(self):
 @subpackage("musl-devel-static")
 def _(self):
     return ["usr/lib/libc.a"]
+
+
+@subpackage("musl-libssp-static")
+def _(self):
+    self.subdesc = "libssp_nonshared for some targets"
+    self.depends = []
+
+    return ["usr/lib/libssp_nonshared.a"]
 
 
 @subpackage("musl-devel")
