@@ -1,5 +1,5 @@
 pkgname = "mpfr"
-pkgver = "4.2.1"
+pkgver = "4.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-thread-safe"]
@@ -9,7 +9,7 @@ pkgdesc = "Library for multiple-precision floating-point computations"
 license = "LGPL-3.0-or-later"
 url = "https://www.mpfr.org"
 source = f"{url}/mpfr-{pkgver}/mpfr-{pkgver}.tar.xz"
-sha256 = "277807353a6726978996945af13e52829e3abd7a9a5b7fb2793894e18f1fcbb2"
+sha256 = "b67ba0383ef7e8a8563734e2e889ef5ec3c3b898a01d00fa0a6869ad81c6ce01"
 
 
 @subpackage("mpfr-devel")
