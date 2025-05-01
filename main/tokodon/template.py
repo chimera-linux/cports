@@ -24,7 +24,6 @@ makedepends = [
     "kitemmodels-devel",
     "knotifications-devel",
     "kunifiedpush-devel",
-    "mpvqt-devel",
     "purpose-devel",
     "qqc2-desktop-style-devel",
     "qt6-qtmultimedia-devel",
