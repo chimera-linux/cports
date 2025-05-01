@@ -1,5 +1,5 @@
 pkgname = "tinyxml2"
-pkgver = "10.1.0"
+pkgver = "11.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -12,7 +12,7 @@ pkgdesc = "C++ XML parser"
 license = "Zlib"
 url = "https://github.com/leethomason/tinyxml2"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9da7e1aebbf180ef6f39044b9740a4e96fa69e54a01318488512ae92ca97a685"
+sha256 = "5556deb5081fb246ee92afae73efd943c889cef0cafea92b0b82422d6a18f289"
 
 
 @subpackage("tinyxml2-devel")
