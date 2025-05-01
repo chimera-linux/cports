@@ -13,6 +13,9 @@ sha256 = "acdee42ef6794050cd08eb658b450712be7b678295267a1d9a990eb0ccd9eb79"
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
 
+if self.profile().arch in ["loongarch64"]:
+    broken = "sigbus in tests"
+
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/typstyle")
