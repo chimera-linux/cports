@@ -1,5 +1,5 @@
 pkgname = "haruna"
-pkgver = "1.3.3"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -31,4 +31,4 @@ pkgdesc = "Qt/libmpv based video player"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/haruna"
 source = f"$(KDE_SITE)/haruna/{pkgver}/haruna-{pkgver}.tar.xz"
-sha256 = "d7fd662c8d3b795deb26fe0e6214731cd7b82cd1983b2b4fc0506e435c0ccc79"
+sha256 = "3cb47be3148dcc8637ff5262573390ca5edc2ece00028af790d7355347d8df6e"
