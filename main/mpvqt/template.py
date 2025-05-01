@@ -1,5 +1,5 @@
 pkgname = "mpvqt"
-pkgver = "1.0.1"
+pkgver = "1.1.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -15,7 +15,7 @@ pkgdesc = "QML libmpv wrapper"
 license = " LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://invent.kde.org/libraries/mpvqt"
 source = f"$(KDE_SITE)/mpvqt/mpvqt-{pkgver}.tar.xz"
-sha256 = "9f37b85f319c27f6244743c4259402b0aa2474ed851f0d833d9bd2a0731c178c"
+sha256 = "bdd1ea69338cf3017f628a886218b8c185ca24e8257f03207a3cf1bbb51e3d32"
 hardening = ["vis"]
 
 
