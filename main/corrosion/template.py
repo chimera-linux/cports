@@ -1,5 +1,5 @@
 pkgname = "corrosion"
-pkgver = "0.5.1"
+pkgver = "0.5.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Tool for integrating Rust into an existing CMake project"
 license = "MIT"
 url = "https://github.com/corrosion-rs/corrosion"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "843334a9f0f5efbc225dccfa88031fe0f2ec6fd787ca1e7d55ed27b2c25d9c97"
+sha256 = "6bc02411e29183a896aa60c58db6819ec6cf57c08997481d0b0da9029356b529"
 # Checks require rustup, because they support specifying specific toolchains
 options = ["!check"]
 
