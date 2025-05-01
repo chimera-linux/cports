@@ -1,13 +1,13 @@
 pkgname = "go-md2man"
-pkgver = "2.0.6"
-pkgrel = 4
+pkgver = "2.0.7"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Markdown to manpage converter"
 license = "MIT"
 url = "https://github.com/cpuguy83/go-md2man"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "5fa29154237bc840a10a06231c066f9ddbe06bb31d1c3372eab12e1ed977271f"
+sha256 = "ca3a5b57e2c01759f5a00ad2a578d034c5370fae9aa7a6c3af5648b2fc802a92"
 
 
 def post_build(self):
