@@ -1,6 +1,6 @@
 pkgname = "plasmatube"
 pkgver = "25.04.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
