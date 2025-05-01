@@ -1,5 +1,5 @@
 pkgname = "openssl3"
-pkgver = "3.4.1"
+pkgver = "3.5.0"
 pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
@@ -30,7 +30,7 @@ pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 license = "Apache-2.0"
 url = "https://www.openssl.org"
 source = f"https://github.com/openssl/openssl/releases/download/openssl-{pkgver}/openssl-{pkgver}.tar.gz"
-sha256 = "002a2d6b30b58bf4bea46c43bdd96365aaf8daa6c428782aa4feee06da197df3"
+sha256 = "344d0a79f1a9b08029b0744e2cc401a43f9c90acd1044d09a530b4885a8e9fc0"
 compression = "deflate"
 # the codebase is not LTO-ready:
 # https://github.com/openssl/openssl/issues/18663
@@ -76,11 +76,8 @@ def init_check(self):
 
 @subpackage("openssl3-libs")
 def _(self):
-    # transitional
-    self.provides = [
-        self.with_pkgver("libcrypto3"),
-        self.with_pkgver("libssl3"),
-    ]
+    self.renames = ["libcrypto3", "libssl3"]
+
     return self.default_libs(
         extra=["usr/lib/engines-3", "usr/lib/ossl-modules"]
     )
