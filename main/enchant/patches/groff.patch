@@ -5,30 +5,29 @@ Date:   Thu Jun 1 23:02:13 2023 +0200
     drop groff requirement
 
 diff --git a/src/Makefile.am b/src/Makefile.am
-index 48fce70..53545b4 100644
+index 6c5e77e..409c42e 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -14,16 +14,13 @@
- AM_CPPFLAGS = -I$(top_srcdir) $(ISYSTEM)$(top_builddir)/libgnu $(ISYSTEM)$(top_srcdir)/libgnu -I$(top_srcdir)/lib $(GLIB_CFLAGS) $(WARN_CFLAGS) -DG_LOG_DOMAIN='"libenchant"'
+@@ -26,13 +26,10 @@ BUILT_VAPIS = util.vapi
+ util.h util.vapi: libutil.la
  
  dist_man_MANS = enchant-@ENCHANT_MAJOR_VERSION@.1 enchant-lsmod-@ENCHANT_MAJOR_VERSION@.1
 -nodist_doc_DATA = enchant-@ENCHANT_MAJOR_VERSION@.html enchant-lsmod-@ENCHANT_MAJOR_VERSION@.html
 +nodist_doc_DATA =
  
- edit = sed \
- 	-e 's|@PKGDATADIR[@]|$(pkgdatadir)|g' \
- 	-e 's|@SYSCONFDIR[@]|$(sysconfdir)|g'
- 
- DISTCLEANFILES = $(dist_man_MANS) $(nodist_doc_DATA)
+ DISTCLEANFILES = $(dist_man_MANS) $(nodist_doc_DATA) dummy.vala
 -
 -.1.html:
 -	groff -mandoc -Thtml $< > $@
  
  enchant-@ENCHANT_MAJOR_VERSION@.1: $(builddir)/enchant.1 Makefile.am $(top_builddir)/config.status
  	cp $(abs_builddir)/enchant.1 $@
+ 
+diff --git a/lib/Makefile.am b/lib/Makefile.am
+index 5b47714..7ea4382 100644
 --- a/lib/Makefile.am
 +++ b/lib/Makefile.am
-@@ -47,7 +47,7 @@
+@@ -43,7 +43,7 @@ libenchant_datadir = $(pkgdatadir)-@ENCHANT_MAJOR_VERSION@
  libenchant_data_DATA = enchant.ordering
  
  dist_man_MANS = enchant.5
@@ -37,8 +36,7 @@ index 48fce70..53545b4 100644
  
  edit = sed \
  	-e 's|@PKGDATADIR[@]|$(pkgdatadir)|g' \
-@@ -59,8 +59,5 @@
- 	rm -f $@ $@.tmp
+@@ -56,9 +56,6 @@ enchant.5: $(builddir)/enchant.5.in Makefile.am $(top_builddir)/config.status
  	$(edit) $(abs_builddir)/enchant.5.in >$@.tmp
  	mv $@.tmp $@
 -
@@ -46,3 +44,5 @@ index 48fce70..53545b4 100644
 -	groff -mandoc -Thtml $< > $@
  
  EXTRA_DIST = $(libenchant_data_DATA) $(VAPIS)
+ 
+ loc:
