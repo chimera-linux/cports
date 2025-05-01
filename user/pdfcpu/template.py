@@ -1,6 +1,6 @@
 pkgname = "pdfcpu"
-pkgver = "0.9.1"
-pkgrel = 5
+pkgver = "0.10.2"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["-ldflags", f"-X main.commit=v{pkgver}", "./cmd/pdfcpu"]
 make_check_args = ["-p", "1", "./..."]
@@ -9,4 +9,4 @@ pkgdesc = "PDF processor written in Go"
 license = "Apache-2.0"
 url = "https://pdfcpu.io"
 source = f"https://github.com/pdfcpu/pdfcpu/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "79572e599deddfaa72109f3e029b74b8cd6070657355e8cc9d8c7fb91da73c71"
+sha256 = "a07cc50446ef6526fa26d5fe2c9e207724971e0b6917f3d70680ec39cfc53aec"
