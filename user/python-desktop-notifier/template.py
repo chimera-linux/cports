@@ -1,5 +1,5 @@
 pkgname = "python-desktop-notifier"
-pkgver = "6.1.0"
+pkgver = "6.1.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_wrapper = ["dbus-run-session"]
@@ -14,7 +14,7 @@ pkgdesc = "Cross-platform desktop notification library"
 license = "MIT"
 url = "https://pypi.org/project/desktop-notifier"
 source = f"https://github.com/samschott/desktop-notifier/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6f9015a9aa96ad6a271e2b206b38b46c6fbfe7a7cdebea0cfa5e9432696a6a64"
+sha256 = "60b1eef6edb645ce48eb89fa8ef955e6c0aa34787808247587acc16c281fe871"
 # no org.freedesktop.Notifications in chroot
 options = ["!check"]
 
