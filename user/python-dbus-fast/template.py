@@ -1,5 +1,5 @@
 pkgname = "python-dbus-fast"
-pkgver = "2.43.0"
+pkgver = "2.44.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_wrapper = ["dbus-run-session"]
@@ -19,7 +19,7 @@ pkgdesc = "DBus library for python"
 license = "MIT"
 url = "https://pypi.org/project/dbus-fast"
 source = f"https://github.com/Bluetooth-Devices/dbus-fast/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3461c0b8353cea40a6bc93c00cf8e28a4a5075fcb4b57b33eb2e51108b61b043"
+sha256 = "1f25e21eb7c6f771b53e45caba9ea7ecd640b3d39fb1cb68b3cdc8bc8f9bc002"
 
 
 def post_prepare(self):
