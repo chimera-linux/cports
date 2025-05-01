@@ -74,8 +74,16 @@ configure_args = [
     "--with-zip=shared",
     "--with-zlib=shared",
 ]
+# php normally includes its own libtool which is an old version that is not
+# patched to correctly link in libclang_rt.builtins for us, and slibtool
+# does not work as it results in buggy modules, so instead override things
+# to force system libtool which should be correct
+configure_env = {"LIBTOOL": "/usr/bin/libtool"}
 configure_gen = []
+make_build_args = ["LIBTOOL=/usr/bin/libtool"]
+make_install_args = ["LIBTOOL=/usr/bin/libtool"]
 make_check_target = "test"
+make_check_args = ["LIBTOOL=/usr/bin/libtool"]
 make_check_env = {
     "LANG": "",
     "LC_ALL": "",
