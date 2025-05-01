@@ -1,6 +1,6 @@
 pkgname = "bzip3"
-pkgver = "1.5.1"
-pkgrel = 1
+pkgver = "1.5.2"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -11,7 +11,7 @@ pkgdesc = "Better and stronger spiritual successor to BZip2"
 license = "LGPL-3.0-or-later AND Apache-2.0"
 url = "https://github.com/kspalaiologos/bzip3"
 source = f"{url}/releases/download/{pkgver}/bzip3-{pkgver}.tar.zst"
-sha256 = "6223fc69a0e983712242d225930b212879454b81eb2712f5f8d9cda3a69b08e1"
+sha256 = "d1b9d07dcb0b191c47497da4a52553a7328e0446ae60b1b6981701a21133fae7"
 
 
 @subpackage("bzip3-libs")
