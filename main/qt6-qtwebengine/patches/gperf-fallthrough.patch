@@ -1,0 +1,17 @@
+this is not needed with gperf 3.2 and actually breaks
+the build
+
+--- a/src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py
++++ b/src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py
+@@ -34,11 +34,6 @@ def generate_gperf(gperf_path, gperf_input, gperf_args):
+         # it from gperf's output.
+         # https://savannah.gnu.org/bugs/index.php?53028
+         gperf_output = re.sub(r'\bregister ', '', gperf_output)
+-        # -Wimplicit-fallthrough needs an explicit fallthrough statement,
+-        # so replace gperf's /*FALLTHROUGH*/ comment with the statement.
+-        # https://savannah.gnu.org/bugs/index.php?53029
+-        gperf_output = gperf_output.replace('/*FALLTHROUGH*/',
+-                                            '  [[fallthrough]];')
+         # -Wpointer-to-int-cast warns about casting pointers to smaller ints
+         # Replace {(int)(long)&(foo), bar} with
+         # {static_cast<int>(reinterpret_cast<uintptr_t>(&(foo)), bar}
