@@ -1,6 +1,6 @@
 pkgname = "cppcheck"
 pkgver = "2.17.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DUSE_MATCHCOMPILER=ON",
