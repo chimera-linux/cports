@@ -1,6 +1,6 @@
 pkgname = "senpai"
-pkgver = "0.4.0"
-pkgrel = 1
+pkgver = "0.4.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/senpai"]
 hostmakedepends = ["go", "scdoc"]
@@ -8,7 +8,7 @@ pkgdesc = "IRC client that works best with bouncers"
 license = "ISC"
 url = "https://git.sr.ht/~delthas/senpai"
 source = f"https://git.sr.ht/~delthas/senpai/archive/v{pkgver}.tar.gz"
-sha256 = "ff5697bc09a133b73a93db17302309b81d6d11281ea85d80157f1977e8b1a1e2"
+sha256 = "ab786b7b3cffce69d080c3b58061e14792d9065ba8831f745838c850acfeab24"
 
 
 def post_build(self):
