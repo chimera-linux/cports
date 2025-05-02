@@ -1,5 +1,5 @@
 pkgname = "lldb"
-pkgver = "20.1.3"
+pkgver = "20.1.4"
 pkgrel = 0
 archs = ["aarch64", "loongarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -38,8 +38,8 @@ source = [
 ]
 source_paths = [".", "llvm-cmake"]
 sha256 = [
-    "2884c79b2134d794b8570bdc6a37b1ee0428ac4ef52effe8b494811c27c28e0a",
-    "d5423ec180f14df6041058a2b66e321e4420499e111235577e09515a38a03451",
+    "f7b93fc0cd94849f727f64c1baf36662985dc0e60c67b41dee9f1ca6e2589df5",
+    "d6fe52e4fd709590284127cfef143f67ff1b917865f1b4731f6600c330bf9c27",
 ]
 # tests are not enabled
 options = ["!check"]

@@ -1,6 +1,6 @@
 pkgname = "llvm"
-pkgver = "20.1.3"
-pkgrel = 1
+pkgver = "20.1.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -54,7 +54,7 @@ pkgdesc = "Low Level Virtual Machine"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "b6183c41281ee3f23da7fda790c6d4f5877aed103d1e759763b1008bdd0e2c50"
+sha256 = "a95365b02536ed4aef29b325c205dd89c268cba41503ab2fc05f81418613ab63"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
