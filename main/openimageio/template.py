@@ -1,6 +1,6 @@
 pkgname = "openimageio"
-pkgver = "3.0.5.0"
-pkgrel = 2
+pkgver = "3.0.6.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # disabled below
@@ -49,7 +49,7 @@ pkgdesc = "Toolset for manipulating VFX-related image file formats"
 license = "Apache-2.0"
 url = "https://github.com/AcademySoftwareFoundation/OpenImageIO"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "340bb14a084d94918de8d46af14e361168215430f3dd6c336b2ffb895fe9d5cb"
+sha256 = "4d0fb92e4964f79dfaed77ac73f1a7f754c671a9f5ad29c7950c0844916ce5f5"
 # simulate release with none
 tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
