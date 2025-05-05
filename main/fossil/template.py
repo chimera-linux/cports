@@ -1,5 +1,5 @@
 pkgname = "fossil"
-pkgver = "2.25"
+pkgver = "2.26"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -17,7 +17,7 @@ pkgdesc = "Distributed software configuration management system"
 license = "BSD-2-Clause"
 url = "https://fossil-scm.org"
 source = f"https://fossil-scm.org/home/tarball/version-{pkgver}/fossil-src-{pkgver}.tar.gz"
-sha256 = "611cfa50d08899eb993a5f475f988b4512366cded82688c906cf913e5191b525"
+sha256 = "a9be104c8055ada40985a158392d73f3c84829accb5b5d404e361fea360774c2"
 # tests are unmaintained: https://fossil-scm.org/forum/forumpost/77cd773882607d94
 options = ["!cross", "!check"]
 
