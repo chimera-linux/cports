@@ -1,5 +1,5 @@
 pkgname = "ccache"
-pkgver = "4.11.2"
+pkgver = "4.11.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "Fast C/C++ compiler cache"
 license = "GPL-3.0-or-later"
 url = "https://ccache.dev"
 source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/ccache-{pkgver}.tar.xz"
-sha256 = "319390f276123968cfa565acc3da0b1e18414374b40ff25274230e6860352125"
+sha256 = "d5a340e199977b7b1e89c0add794132c977fdc2ecc7ca5451e03d43627a1b1be"
 # cfi crashes in fmt template expansion
 hardening = ["vis", "!cfi"]
 # check may be disabled
