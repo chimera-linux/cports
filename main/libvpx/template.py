@@ -1,5 +1,5 @@
 pkgname = "libvpx"
-pkgver = "1.15.0"
+pkgver = "1.15.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -23,7 +23,7 @@ pkgdesc = "VP8 and VP9 codec implementation"
 license = "BSD-3-Clause"
 url = "http://www.webmproject.org"
 source = [f"https://github.com/webmproject/libvpx/archive/v{pkgver}.tar.gz"]
-sha256 = ["e935eded7d81631a538bfae703fd1e293aad1c7fd3407ba00440c95105d2011e"]
+sha256 = ["6cba661b22a552bad729bd2b52df5f0d57d14b9789219d46d38f73c821d3a990"]
 # tests take several hours and require ~a gigabyte of test data
 options = ["!check"]
 
