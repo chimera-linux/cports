@@ -1,6 +1,6 @@
 pkgname = "imv"
 pkgver = "4.5.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dfreeimage=disabled",
