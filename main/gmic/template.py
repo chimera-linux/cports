@@ -1,5 +1,5 @@
 pkgname = "gmic"
-pkgver = "3.5.3"
+pkgver = "3.5.4"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -27,7 +27,7 @@ pkgdesc = "Full-featured Open-Source Framework for Image Processing"
 license = "CECILL-2.1"
 url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"
-sha256 = "e91a7cac4d0dc7c0ca2620f03bb14af82aa738c85a11b4f82fcc738654606442"
+sha256 = "7e3a1aa75c00603fb01fa2cad686c8d2f1ec81dd820f6688cba3c44dd255aeef"
 # vis broken
 # FIXME int: gmic_qt PreviewWidget::updateOriginalImagePosition
 hardening = ["!int"]
