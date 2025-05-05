@@ -1,5 +1,5 @@
 pkgname = "liblxqt"
-pkgver = "2.1.0"
+pkgver = "2.2.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "Core utility library for all LXQt components"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/liblxqt"
 source = f"{url}/releases/download/{pkgver}/liblxqt-{pkgver}.tar.xz"
-sha256 = "10820b62f83c5f53439b8690c9d71deaad7aa31e6506f9ec53cb789d47b13ce0"
+sha256 = "4a898b1bf059fb73102011bca79bb96d33c49c95f6d56135ef13a8e91d0a09c8"
 
 
 @subpackage("liblxqt-devel")
