@@ -1,18 +1,17 @@
 pkgname = "libgme"
-pkgver = "0.6.3"
+pkgver = "0.6.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DENABLE_UBSAN=OFF",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["zlib-ng-compat-devel", "sdl2-compat-devel"]
 pkgdesc = "Video game music file emulation/playback library"
 license = "LGPL-2.1-or-later"
-url = "https://bitbucket.org/mpyne/game-music-emu/wiki/Home"
-source = f"https://bitbucket.org/mpyne/game-music-emu/downloads/game-music-emu-{pkgver}.tar.xz"
-sha256 = "aba34e53ef0ec6a34b58b84e28bf8cfbccee6585cebca25333604c35db3e051d"
+url = "https://github.com/libgme/game-music-emu"
+source = f"{url}/releases/download/{pkgver}/libgme-{pkgver}-src.tar.gz"
+sha256 = "6f94eac735d86bca998a7ce1170d007995191ef6d4388345a0dc5ffa1de0bafa"
 hardening = ["!vis", "!cfi"]
 # no test target
 options = ["!check"]
