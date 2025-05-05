@@ -1,5 +1,5 @@
 pkgname = "dracut-install"
-pkgver = "106"
+pkgver = "107"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-dracut-cpio"]
@@ -13,7 +13,7 @@ pkgdesc = "Dracut-install command from dracut"
 license = "GPL-2.0-or-later"
 url = "https://github.com/dracut-ng/dracut-ng"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "9009ac13072c9b583822ad1a17f2cca47af463190f0d6623e90b0f1107c71f95"
+sha256 = "b39d0d1cd35ff43aba8771c5367d8c6c59bb432c0cac62f49601f21c0d634895"
 hardening = ["vis", "cfi"]
 # assumes rw filesystem
 options = ["!check"]
