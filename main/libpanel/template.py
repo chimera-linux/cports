@@ -1,5 +1,5 @@
 pkgname = "libpanel"
-pkgver = "1.8.1"
+pkgver = "1.10.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=disabled"]
@@ -14,7 +14,7 @@ pkgdesc = "Dock/panel library for GTK 4"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libpanel"
 source = f"$(GNOME_SITE)/libpanel/{'.'.join(pkgver.rsplit('.')[:-1])}/libpanel-{pkgver}.tar.xz"
-sha256 = "b87b8fa9b79768cc704243793f0158a040a1e46d37b9889188545a7f7dcaa6fb"
+sha256 = "578ce512278ff2bb5eeebb55099392c52537a5abd9bd0629567f102532b38b25"
 # gobject-introspection
 options = ["!cross"]
 
