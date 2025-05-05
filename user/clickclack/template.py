@@ -1,6 +1,6 @@
 pkgname = "clickclack"
 pkgver = "0.2.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 makedepends = ["linux-headers", "sdl2-compat-devel"]
 pkgdesc = "Haptic and audio feedback utility"
