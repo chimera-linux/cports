@@ -1,6 +1,6 @@
 pkgname = "ibus"
-pkgver = "1.5.31"
-pkgrel = 3
+pkgver = "1.5.32"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -38,6 +38,7 @@ hostmakedepends = [
     "unicode-cldr-common",
     "unicode-emoji",
     "vala",
+    "wayland-protocols",
 ]
 makedepends = [
     "dconf-devel",
@@ -57,7 +58,7 @@ pkgdesc = "Intelligent Input Bus"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/ibus-{pkgver}.tar.gz"
-sha256 = "5093994c8342551134c81f2d271575efbc459bb756cef1173c22430c8601a1e1"
+sha256 = "b24f41ae38b236b254c09f1a8f53c2354b69b0789e89cea888d0494b09d15d67"
 # gtk3 can't handle seatless wayland displays
 options = ["!cross", "!check"]
 
