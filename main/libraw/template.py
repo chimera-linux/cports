@@ -1,5 +1,5 @@
 pkgname = "libraw"
-pkgver = "0.21.3"
+pkgver = "0.21.4"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "slibtool"]
@@ -13,7 +13,7 @@ pkgdesc = "Raw image decoder library"
 license = "LGPL-2.1-only OR CDDL-1.0"
 url = "https://libraw.org"
 source = f"{url}/data/LibRaw-{pkgver}.tar.gz"
-sha256 = "dba34b7fc1143503942fa32ad9db43e94f714e62a4a856e91617f8f3e1e0aa5c"
+sha256 = "6be43f19397e43214ff56aab056bf3ff4925ca14012ce5a1538a172406a09e63"
 
 
 def post_install(self):
