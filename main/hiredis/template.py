@@ -1,5 +1,5 @@
 pkgname = "hiredis"
-pkgver = "1.2.0"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["USE_SSL=1"]
@@ -10,7 +10,7 @@ pkgdesc = "Minimalistic C client library for Redis"
 license = "BSD-3-Clause"
 url = "https://github.com/redis/hiredis"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "82ad632d31ee05da13b537c124f819eb88e18851d9cb0c30ae0552084811588c"
+sha256 = "25cee4500f359cf5cad3b51ed62059aadfc0939b05150c1f19c7e2829123631c"
 # needs redis
 options = ["!check"]
 
