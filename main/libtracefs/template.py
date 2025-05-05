@@ -1,5 +1,5 @@
 pkgname = "libtracefs"
-pkgver = "1.8.1"
+pkgver = "1.8.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,9 +25,11 @@ pkgdesc = "Linux kernel trace file system library"
 license = "LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/about"
 source = f"https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/snapshot/libtracefs-{pkgver}.tar.gz"
-sha256 = "d295aa20d711c313a9e229dbd15ba14026f0c1a50d57ae8b0823cc561b23745f"
+sha256 = "255980e1da5648fbbc32777ed8457b485b2b96f3449674610b46d9c437271209"
 # vis breaks symbols
 hardening = ["!vis"]
+# bashcomp name does not match
+options = ["!lintcomp"]
 
 
 @subpackage("libtracefs-devel")
