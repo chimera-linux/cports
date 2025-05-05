@@ -1,6 +1,6 @@
 pkgname = "libcgroup"
-pkgver = "3.1.0"
-pkgrel = 2
+pkgver = "3.2.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -22,7 +22,7 @@ pkgdesc = "Cgroup library and commandline utilities for managing cgroups"
 license = "LGPL-2.1-only"
 url = "https://github.com/libcgroup/libcgroup"
 source = f"{url}/releases/download/v{pkgver}/libcgroup-{pkgver}.tar.gz"
-sha256 = "976ec4b1e03c0498308cfd28f1b256b40858f636abc8d1f9db24f0a7ea9e1258"
+sha256 = "9a0fc2d6c377215c3e0d849f9189ecd91fd075f1da0a24b73f56c8892e86bdfe"
 # vis breaks symbols
 hardening = []
 # tests need.. sudo..
