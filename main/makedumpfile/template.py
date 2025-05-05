@@ -1,5 +1,5 @@
 pkgname = "makedumpfile"
-pkgver = "1.7.6"
+pkgver = "1.7.7"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["LINKTYPE=dynamic", "USELZO=on", "USEZSTD=on"]
@@ -16,7 +16,7 @@ pkgdesc = "Make Linux crash dump small by filtering and compressing pages"
 license = "GPL-2.0-or-later"
 url = "https://github.com/makedumpfile/makedumpfile"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "c949a5b2ad95e5f83a6d1b4faac0972510e4286b0e3257020762e45357816a61"
+sha256 = "69b4d24ace3024cf2a41f343e162838b62b1b37d6edc7bbad4260fa36217efee"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
