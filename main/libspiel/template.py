@@ -1,6 +1,6 @@
 pkgname = "libspiel"
-pkgver = "1.0.3"
-pkgrel = 2
+pkgver = "1.0.4"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
 hostmakedepends = ["gobject-introspection", "meson", "pkgconf"]
@@ -22,7 +22,7 @@ pkgdesc = "Speech synthesis client library"
 license = "LGPL-2.1-or-later"
 url = "https://project-spiel.org"
 source = f"https://github.com/project-spiel/libspiel/archive/refs/tags/SPIEL_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "9a191f9c9836ce8e5ccbd199ad5ccb8c27f936bbbffa5c0e0241137d85dad974"
+sha256 = "6060024bd640c1d94d3860731e15a7171aa440b3a52d3bebf83d23088096eb75"
 
 
 @subpackage("libspiel-devel")
