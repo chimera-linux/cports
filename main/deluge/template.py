@@ -38,7 +38,8 @@ def post_install(self):
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     self.install_file(
-        "deluge/ui/data/share/metainfo/deluge.metainfo.xml", "usr/share/metainfo"
+        "deluge/ui/data/share/metainfo/deluge.metainfo.xml",
+        "usr/share/metainfo",
     )
     self.install_file(
         "deluge/ui/data/share/applications/deluge.desktop",
