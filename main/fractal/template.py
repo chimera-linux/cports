@@ -1,6 +1,6 @@
 pkgname = "fractal"
-pkgver = "10.1"
-pkgrel = 1
+pkgver = "11"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "cargo-auditable",
@@ -30,7 +30,7 @@ pkgdesc = "GTK Matrix client"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/fractal"
 source = f"{url}/-/archive/{pkgver}/fractal-{pkgver}.tar.gz"
-sha256 = "17fcf774bb795c37dd6ab1d27737ae754215da800659c06c05e6f95bc89eb272"
+sha256 = "a42a307b8fdcaf5ebc2ddccc2ca6a70e044643c83c6d20fccbb4688ff5547c06"
 # check: has few actual tests, not worth a time-consuming cargo rebuild
 # debug: quite massive, CARGO_PROFILE_RELEASE_DEBUG=line-tables-only in
 # env makes it better but it's still ~260M
