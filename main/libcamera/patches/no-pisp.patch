@@ -1,13 +1,13 @@
 we don't have libpisp rn, disable it
 
---- a/meson_options.txt
-+++ b/meson_options.txt
-@@ -32,7 +32,7 @@ option('gstreamer',
- 
- option('ipas',
-         type : 'array',
--        choices : ['ipu3', 'mali-c55', 'rkisp1', 'rpi/pisp', 'rpi/vc4', 'simple',
-+        choices : ['ipu3', 'mali-c55', 'rkisp1', 'rpi/vc4', 'simple',
-                    'vimc'],
-         description : 'Select which IPA modules to build')
- 
+--- a/meson.build
++++ b/meson.build
+@@ -215,7 +215,7 @@ pipelines_support = {
+     'ipu3':         arch_x86,
+     'mali-c55':     arch_arm,
+     'rkisp1':       arch_arm,
+-    'rpi/pisp':     arch_arm,
++    'rpi/pisp':     [],
+     'rpi/vc4':      arch_arm,
+     'simple':       ['any'],
+     'uvcvideo':     ['any'],
