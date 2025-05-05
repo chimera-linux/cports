@@ -1,5 +1,5 @@
 pkgname = "pavucontrol-qt"
-pkgver = "2.1.0"
+pkgver = "2.2.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,4 +18,4 @@ pkgdesc = "Qt Pulseaudio mixer"
 license = "GPL-2.0-or-later"
 url = "https://github.com/lxqt/pavucontrol-qt"
 source = f"{url}/releases/download/{pkgver}/pavucontrol-qt-{pkgver}.tar.xz"
-sha256 = "6c3cfc8a4bc0b232b66516b16c32ebcd2d1d1ddb144d9e3adeea6cdffb386bbf"
+sha256 = "f1d213426ac1033d23a8239732dc7f5fdeb393b064f11c9582e01b0c8310aee9"
