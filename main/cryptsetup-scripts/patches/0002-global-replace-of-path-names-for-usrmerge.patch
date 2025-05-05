@@ -673,7 +673,7 @@ index 18ab575..d6d572a 100644
 +	if ! /usr/lib/cryptsetup/askpass "Enter passphrase for key $1: " | \
  		/usr/bin/gpg -q --batch --no-options  \
  		--no-random-seed-file --no-default-keyring \
- 		--keyring /dev/null --secret-keyring /dev/null \
+ 		--keyring /dev/null \
 diff --git a/debian/scripts/decrypt_keyctl b/debian/scripts/decrypt_keyctl
 index 6032db0..cc82653 100644
 --- a/debian/scripts/decrypt_keyctl
