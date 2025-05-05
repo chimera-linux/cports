@@ -1,5 +1,5 @@
 pkgname = "iwd"
-pkgver = "3.6"
+pkgver = "3.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -22,7 +22,7 @@ pkgdesc = "Wireless daemon that replaces wpa_supplicant"
 license = "LGPL-2.1-or-later"
 url = "https://iwd.wiki.kernel.org"
 source = f"$(KERNEL_SITE)/network/wireless/iwd-{pkgver}.tar.xz"
-sha256 = "cc5e02068d7407b9dac000429d667af32e9d91c7bff3183a241d8fdb0f75734b"
+sha256 = "ba3e577a61e78f860f376025c3243bbf19eac7ccbfdfac3aebe566556ace2e08"
 tool_flags = {
     "CFLAGS": ["-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"]
 }
