@@ -1,5 +1,5 @@
 pkgname = "libcbor"
-pkgver = "0.11.0"
+pkgver = "0.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ pkgdesc = "CBOR serialization format implementation for C"
 license = "MIT"
 url = "https://github.com/pjk/libcbor"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "89e0a83d16993ce50651a7501355453f5250e8729dfc8d4a251a78ea23bb26d7"
+sha256 = "5368add109db559f546d7ed10f440f39a273b073daa8da4abffc83815069fa7f"
 
 
 def post_install(self):
