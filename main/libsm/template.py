@@ -1,5 +1,5 @@
 pkgname = "libsm"
-pkgver = "1.2.5"
+pkgver = "1.2.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool", "pkgconf", "xorg-util-macros"]
@@ -8,7 +8,7 @@ pkgdesc = "X session management library"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libSM-{pkgver}.tar.gz"
-sha256 = "a11c3d23b60dce0c13256a8ce9478c1ea330719c0747b5adfbce60571198fa57"
+sha256 = "166b4b50d606cdd83f1ddc61b5b9162600034f848b3e32ccbb0e63536b7d6cdd"
 
 
 def post_install(self):
