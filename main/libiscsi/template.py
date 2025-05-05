@@ -1,5 +1,5 @@
 pkgname = "libiscsi"
-pkgver = "1.20.0"
+pkgver = "1.20.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-werror"]
@@ -11,7 +11,7 @@ pkgdesc = "ISCSI client library and utilities"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://foo.software"
 source = f"https://github.com/sahlberg/libiscsi/archive/{pkgver}.tar.gz"
-sha256 = "6321d802103f2a363d3afd9a5ae772de0b4052c84fe6a301ecb576b34e853caa"
+sha256 = "6bd6feef2904de1bb1869cec935b58995bc1311cad57184a2221e09ed6137eec"
 tool_flags = {"CFLAGS": ["-Wno-strict-prototypes"]}
 
 
