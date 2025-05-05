@@ -1,6 +1,6 @@
 pkgname = "libnvme"
-pkgver = "1.11.1"
-pkgrel = 1
+pkgver = "1.13"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
 hostmakedepends = ["meson", "pkgconf", "bash", "swig"]
@@ -16,7 +16,7 @@ pkgdesc = "C library for NVMe on Linux"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/linux-nvme/libnvme"
 source = f"{url}/archive/v{pkgver}/libnvme-v{pkgver}.tar.gz"
-sha256 = "6d5d8ba2cc4c94a61a994c9f7f25b3b26ef973fb5c0daa37729890903f37a1f1"
+sha256 = "f083c21f525644a2bcca6d367d96fab813de880cba9f1746a850f3a8692a5980"
 
 
 @subpackage("libnvme-python")
