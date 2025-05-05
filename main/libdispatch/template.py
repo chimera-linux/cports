@@ -1,5 +1,5 @@
 pkgname = "libdispatch"
-pkgver = "6.0.3"
+pkgver = "6.1"
 pkgrel = 0
 build_style = "cmake"
 # these always fail on linux for some reason on musl
@@ -16,7 +16,7 @@ pkgdesc = "Apple's concurrent threading library"
 license = "Apache-2.0"
 url = "https://apple.github.io/swift-corelibs-libdispatch"
 source = f"https://github.com/apple/swift-corelibs-libdispatch/archive/refs/tags/swift-{pkgver}-RELEASE.tar.gz"
-sha256 = "444c0de5fe18e148548a3f3b60b3bac3d4d586285c21064346c7ca17ed1d4fac"
+sha256 = "5bba8d7442890f7dbd37a9245340c5bb0c4c924dee6180ba30385b24e3fdf121"
 hardening = ["vis", "!cfi"]
 
 
