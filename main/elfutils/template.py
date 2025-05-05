@@ -1,6 +1,6 @@
 pkgname = "elfutils"
-pkgver = "0.192"
-pkgrel = 1
+pkgver = "0.193"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-nls",
@@ -43,7 +43,7 @@ url = "https://sourceware.org/elfutils"
 source = (
     f"https://sourceware.org/elfutils/ftp/{pkgver}/elfutils-{pkgver}.tar.bz2"
 )
-sha256 = "616099beae24aba11f9b63d86ca6cc8d566d968b802391334c91df54eab416b4"
+sha256 = "7857f44b624f4d8d421df851aaae7b1402cfe6bcdd2d8049f15fc07d3dde7635"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE", "-Wno-unaligned-access"],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
