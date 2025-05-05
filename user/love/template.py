@@ -1,6 +1,6 @@
 pkgname = "love"
 pkgver = "11.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
 makedepends = [
