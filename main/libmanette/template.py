@@ -1,5 +1,5 @@
 pkgname = "libmanette"
-pkgver = "0.2.11"
+pkgver = "0.2.12"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgudev=enabled"]
@@ -16,7 +16,7 @@ pkgdesc = "Simple GObject game controller library"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libmanette"
 source = f"$(GNOME_SITE)/libmanette/{pkgver[:-3]}/libmanette-{pkgver}.tar.xz"
-sha256 = "b812b94e08632ba62a30960a8de29217a73a2fff5da2f12acc8a5d4771a49a70"
+sha256 = "48b349267180f1dc34d405a9e1e90ba16f054a19ce907930e679493d911ea1d8"
 
 
 @subpackage("libmanette-devel")
