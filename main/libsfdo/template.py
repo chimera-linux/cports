@@ -1,5 +1,5 @@
 pkgname = "libsfdo"
-pkgver = "0.1.3"
+pkgver = "0.1.4"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -10,7 +10,7 @@ pkgdesc = "Libraries for Freedesktop specifications"
 license = "BSD-2-Clause"
 url = "https://gitlab.freedesktop.org/vyivel/libsfdo"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "a792ae8545d532703b7b61a65b4630936f50711f290fc59d57d13839c849bcec"
+sha256 = "3de485e2ea8bcb46f8673a8c3bc8dacb43c3d7e4e662233b11b877d9259f0921"
 hardening = ["vis"]
 
 
