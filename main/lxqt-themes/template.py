@@ -1,5 +1,5 @@
 pkgname = "lxqt-themes"
-pkgver = "2.1.0"
+pkgver = "2.2.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -13,4 +13,4 @@ pkgdesc = "Themes, graphics and icons for LXQt"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-themes"
 source = f"{url}/releases/download/{pkgver}/lxqt-themes-{pkgver}.tar.xz"
-sha256 = "cdd0101c5a53a0e49315c7af3ba784e70a8a2410526eab3d63f32a6678bd0fac"
+sha256 = "92c5a8d8ad08ca5510a32cd82fba231606a56c9338ef633a0a98a97b02baf4f2"
