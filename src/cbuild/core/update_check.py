@@ -307,11 +307,11 @@ class UpdateCheck:
                 rxg = 1
             elif "bitbucket.org" in url:
                 pn = "/".join(url.split("/")[3:5])
-                url = f"https://bitbucket.org/{pn}/downloads"
+                url = f"https://bitbucket.org/{pn}/info/refs?service=git-upload-pack"
                 rx = rf"""
-                    /(get|downloads)/
-                    (v?|{re.escape(pname)}-)?
-                    ([\d.]+)(?=\.tar) # match
+                    refs/tags/
+                    (v?|V?|{re.escape(pname)}-)?
+                    ([\d.]+)(?!^) # match
                 """
                 rxg = 1
             elif "ftp.gnome.org" in url or "download.gnome.org" in url:
