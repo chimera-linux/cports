@@ -9,4 +9,4 @@ this pulls in libyuv, we don't want that but still want tests
 -    'virtual':      ['test'],
  }
  
- if pipelines.contains('all')
+ if wanted_pipelines.contains('all')
