@@ -1,5 +1,5 @@
 pkgname = "libtheora"
-pkgver = "1.1.1"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,9 +15,11 @@ pkgdesc = "Theora video compression codec"
 license = "BSD-3-Clause"
 url = "https://theora.org"
 source = f"https://downloads.xiph.org/releases/theora/libtheora-{pkgver}.tar.xz"
-sha256 = "f36da409947aa2b3dcc6af0a8c2e3144bc19db2ed547d64e9171c59c66561c61"
+sha256 = "ebdf77a8f5c0a8f7a9e42323844fa09502b34eb1d1fece7b5f54da41fe2122ec"
 # FIXME int
 hardening = ["!int"]
+# lto miscompiles in analyze.c
+options = ["!lto"]
 
 
 def post_install(self):
