@@ -1,6 +1,6 @@
 pkgname = "labwc"
-pkgver = "0.8.3"
-pkgrel = 1
+pkgver = "0.8.4"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dman-pages=enabled",
@@ -31,4 +31,4 @@ pkgdesc = "Stacking wayland compositor"
 license = "GPL-2.0-only"
 url = "https://github.com/labwc/labwc"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "746be2ff2d0c0c0b795c97fa24c7058f75586685c88a1194c243b6a846f938a5"
+sha256 = "2d3ded90f78efb5060f7057ea802c78a79dc9b2e82ae7a2ad902af957b8b9797"
