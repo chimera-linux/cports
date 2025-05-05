@@ -1,5 +1,5 @@
 pkgname = "libfreeaptx"
-pkgver = "0.1.1"
+pkgver = "0.2.2"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
@@ -7,7 +7,7 @@ pkgdesc = "Free implementation of aptX codec"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/iamthehorker/libfreeaptx"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "7acf514446cae59585d9bc21e4f98f4a3856f4741c3a7a09d06e8ac5bf2f7315"
+sha256 = "5ab5ebddf3f2eb7ce47a505b87460b00fc1ede99c70010796d3575ab31ea80bf"
 # no test suite
 options = ["!check"]
 
