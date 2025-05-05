@@ -1,6 +1,6 @@
 pkgname = "fcitx5"
 pkgver = "5.1.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
