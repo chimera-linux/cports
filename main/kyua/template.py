@@ -1,5 +1,5 @@
 pkgname = "kyua"
-pkgver = "0.13"
+pkgver = "0.14.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["atf-devel", "automake", "libtool", "pkgconf"]
@@ -8,10 +8,9 @@ pkgdesc = "Test framework for infrastructure software"
 license = "BSD-3-Clause"
 url = "https://github.com/freebsd/kyua"
 source = f"{url}/releases/download/kyua-{pkgver}/kyua-{pkgver}.tar.gz"
-sha256 = "db6e5d341d5cf7e49e50aa361243e19087a00ba33742b0855d2685c0b8e721d6"
+sha256 = "3caf30a7e316f4f21c32e1c419ec80371fe113e3eed10ba1db9e6efc7ee15ecb"
 tool_flags = {"CXXFLAGS": ["-std=gnu++11"]}
 
 
 def post_install(self):
-    self.uninstall("usr/tests")
     self.install_license("LICENSE")
