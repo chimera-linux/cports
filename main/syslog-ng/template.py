@@ -1,6 +1,6 @@
 pkgname = "syslog-ng"
 pkgver = "4.8.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--sysconfdir=/etc/syslog-ng",

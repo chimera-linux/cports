@@ -1,6 +1,6 @@
 pkgname = "rspamd"
 pkgver = "3.11.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DCONFDIR=/etc/rspamd",
