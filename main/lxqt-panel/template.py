@@ -1,5 +1,5 @@
 pkgname = "lxqt-panel"
-pkgver = "2.1.4"
+pkgver = "2.2.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -33,4 +33,4 @@ pkgdesc = "LXQt desktop panel"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lxqt/lxqt-panel"
 source = f"{url}/releases/download/{pkgver}/lxqt-panel-{pkgver}.tar.xz"
-sha256 = "ffd1b8ee73d20c61e7f4b8888593fa8c484ab9aa0f902c628415646eed2915e6"
+sha256 = "e5011840140fe1c06cfe4deadbb1a88c0395b33d274c2a68d7e657b6622f1adb"
