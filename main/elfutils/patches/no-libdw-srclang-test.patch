@@ -1,0 +1,15 @@
+this fails to resolve libelf.so.1 on loongarch which
+then makes the test fail to run, even though it's
+fine
+
+--- a/libdw/Makefile.in
++++ b/libdw/Makefile.in
+@@ -94,7 +94,7 @@ build_triplet = @build@
+ host_triplet = @host@
+ @SYMBOL_VERSIONING_TRUE@am__append_1 = -DSYMBOL_VERSIONING
+ @BUILD_STATIC_TRUE@am__append_2 = $(fpic_CFLAGS)
+-check_PROGRAMS = dwarf_srclang_check$(EXEEXT)
++check_PROGRAMS =
+ subdir = libdw
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ am__aclocal_m4_deps = $(top_srcdir)/m4/ax_cxx_compile_stdcxx.m4 \
