@@ -1,0 +1,13 @@
+There is a memcpy issue somewhere in initialization,
+to be debugged.
+
+--- a/Source/ThirdParty/skia/CMakeLists.txt
++++ b/Source/ThirdParty/skia/CMakeLists.txt
+@@ -952,6 +952,7 @@ target_link_libraries(Skia PRIVATE
+ WEBKIT_ADD_TARGET_CXX_FLAGS(Skia
+     -ffp-contract=off
+     -fstrict-aliasing
++    -U_FORTIFY_SOURCE
+ 
+     -Wno-attributes
+     -Wno-cast-align

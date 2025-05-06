@@ -1,6 +1,6 @@
 pkgname = "webkitgtk"
 pkgver = "2.48.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DPORT=GTK",
@@ -102,6 +102,8 @@ tool_flags = {
     "CXXFLAGS": [
         # also silence some really loud warnings...
         "-DNDEBUG",
+        # libc++ >= 20 detects some overflows in std::span?
+        "-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_NONE",
         "-Wno-deprecated-declarations",
         "-Wno-deprecated-copy",
     ],
