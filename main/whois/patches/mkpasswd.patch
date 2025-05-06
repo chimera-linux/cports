@@ -14,7 +14,7 @@ index f258701..1f18929 100644
  install-pos:
  	cd po && $(MAKE) install
 diff --git a/mkpasswd.1 b/mkpasswd.1
-index 121cc5a..e964b46 100644
+index 4097f53..fe7dbd5 100644
 --- a/mkpasswd.1
 +++ b/mkpasswd.1
 @@ -1,12 +1,12 @@
@@ -34,9 +34,9 @@ index 121cc5a..e964b46 100644
  encrypts the given password with the
  .BR crypt (3)
  libc function, using the given salt.
-@@ -86,7 +86,7 @@ This program suffers of a bad case of featuritis.
- .IR crypt_gensalt (3),
- .IR getpass (3).
+@@ -84,7 +84,7 @@ This program suffers of a bad case of featuritis.
+ .BR crypt_gensalt (3),
+ .BR getpass (3).
  .SH AUTHOR
 -.B mkpasswd
 +.B whois-mkpasswd
