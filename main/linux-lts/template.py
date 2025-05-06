@@ -1,7 +1,7 @@
 # update linux-lts-zfs-bin when bumping
 pkgname = "linux-lts"
 pkgver = "6.12.26"
-pkgrel = 0
+pkgrel = 1
 archs = [
     "aarch64",
     "loongarch64",
