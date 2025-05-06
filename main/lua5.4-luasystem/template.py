@@ -1,5 +1,5 @@
 pkgname = "lua5.4-luasystem"
-pkgver = "0.5.0"
+pkgver = "0.6.2"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -8,7 +8,7 @@ pkgdesc = "Platform independent system calls for Lua"
 license = "MIT"
 url = "http://lunarmodules.github.io/luasystem"
 source = f"https://github.com/lunarmodules/luasystem/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "39dbfe34afe31de78f5f587abbfedf617f7023228b191f3e907977f55f082706"
+sha256 = "fc7b9e3d74f74a39bae585b9bb2d1b25e75e50be9981948ccafe1aafdace49ea"
 # no tests
 options = ["!check"]
 
