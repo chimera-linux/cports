@@ -1,0 +1,25 @@
+From 5ff49f17d1a84e31d4eaa94a2ae0483a17148047 Mon Sep 17 00:00:00 2001
+From: Philippe Normand <philn@igalia.com>
+Date: Wed, 23 Apr 2025 16:37:05 +0100
+Subject: [PATCH] Install generated spiel-provider-proxy.h file
+
+In commit e1e6181aeaf526aae35402293d050e3beb25fd08 this header was made public
+but wasn't made installable with Meson, leading to include errors in apps making
+use of the spiel.h header.
+---
+ libspiel/meson.build | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libspiel/meson.build b/libspiel/meson.build
+index 761a63c..9cccfe7 100644
+--- a/libspiel/meson.build
++++ b/libspiel/meson.build
+@@ -8,6 +8,8 @@ spiel_iface_sources = gnome.gdbus_codegen(
+     annotations : [
+       ['org.freedesktop.Speech.Provider', 'org.gtk.GDBus.C.Name', 'ProviderProxy']
+     ],
++    install_header : true,
++    install_dir : 'include/spiel',
+     extra_args: '--glib-min-required=2.64')
+ 
+ python_module = import('python')
