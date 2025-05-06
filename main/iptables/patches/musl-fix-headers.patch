@@ -1,0 +1,35 @@
+Patch-Source: https://bugs.gentoo.org/show_bug.cgi?id=946073#c1
+--- a/extensions/libipt_CLUSTERIP.c
++++ a/extensions/libipt_CLUSTERIP.c
+@@ -13,7 +13,7 @@ 
+ #if defined(__GLIBC__) && __GLIBC__ == 2
+ #include <net/ethernet.h>
+ #else
+-#include <linux/if_ether.h>
++#include <netinet/if_ether.h>
+ #endif
+ 
+ #include <xtables.h>
+--- a/extensions/libipt_realm.c
++++ a/extensions/libipt_realm.c
+@@ -5,7 +5,7 @@ 
+ #if defined(__GLIBC__) && __GLIBC__ == 2
+ #include <net/ethernet.h>
+ #else
+-#include <linux/if_ether.h>
++#include <netinet/if_ether.h>
+ #endif
+ #include <xtables.h>
+ #include <linux/netfilter_ipv4/ipt_realm.h>
+--- a/extensions/libxt_mac.c
++++ a/extensions/libxt_mac.c
+@@ -2,7 +2,7 @@ 
+ #if defined(__GLIBC__) && __GLIBC__ == 2
+ #include <net/ethernet.h>
+ #else
+-#include <linux/if_ether.h>
++#include <netinet/if_ether.h>
+ #endif
+ #include <xtables.h>
+ #include <linux/netfilter/xt_mac.h>
+-- 
