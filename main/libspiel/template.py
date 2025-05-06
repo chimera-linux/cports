@@ -1,6 +1,6 @@
 pkgname = "libspiel"
 pkgver = "1.0.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
 hostmakedepends = ["gobject-introspection", "meson", "pkgconf"]
