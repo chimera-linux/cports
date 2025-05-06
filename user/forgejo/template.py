@@ -1,6 +1,6 @@
 pkgname = "forgejo"
-pkgver = "11.0.0"
-pkgrel = 1
+pkgver = "11.0.1"
+pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
 make_check_target = "test-backend"
@@ -11,15 +11,8 @@ depends = ["git", "git-lfs"]
 pkgdesc = "Git forge"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://forgejo.org"
-source = [
-    f"https://codeberg.org/forgejo/forgejo/archive/v{pkgver}.tar.gz",
-    "https://github.com/mattn/go-sqlite3/archive/refs/tags/v1.14.24.tar.gz",
-]
-source_paths = [".", "go-sqlite3-patched"]
-sha256 = [
-    "50f33d4d07b8b9f52c8c8ecfea1174247c132008800fd857955b69a32179f5e0",
-    "8fa3b0b66914ae2dd4ddef9a954f614c5b3eb6ac9d80ee61ae2d08e3178507ec",
-]
+source = f"https://codeberg.org/forgejo/forgejo/archive/v{pkgver}.tar.gz"
+sha256 = "ca1a6dddbf142a5338f803b24832dec0f9bb23b40e3f88aa5970f5dd69eb5dfb"
 # check takes quite a bit
 options = ["!check", "!cross"]
 
@@ -28,15 +21,6 @@ def prepare(self):
     from cbuild.util import golang
 
     golang.Golang(self).mod_download()
-
-    # replace the go dep
-    self.do(
-        "go",
-        "mod",
-        "edit",
-        "-replace",
-        f"github.com/mattn/go-sqlite3@v1.14.24={self.chroot_srcdir / 'go-sqlite3-patched'}",
-    )
 
     self.log("installing npm dependencies...")
     self.do("npm", "ci", allow_network=True)
