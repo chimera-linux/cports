@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "25.0.4"
+pkgver = "25.0.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -88,7 +88,7 @@ _subproject_list = [
     "unicode-ident",
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "76293cf4372ca4e4e73fd6c36c567b917b608a4db9d11bd2e33068199a7df04d"
+sha256 = "c0d245dea0aa4b49f74b3d474b16542e4a8799791cd33d676c69f650ad4378d0"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
