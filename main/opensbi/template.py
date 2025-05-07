@@ -1,5 +1,5 @@
 pkgname = "opensbi"
-pkgver = "1.5.1"
+pkgver = "1.6"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -14,7 +14,7 @@ pkgdesc = "RISC-V Open Source Supervisor Binary Interface"
 license = "BSD-2-Clause"
 url = "https://github.com/riscv-software-src/opensbi"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6bab6fadd69f38f08e5c767517aafbf8525f54454b2848d6a7eb0e74b683153b"
+sha256 = "d11702103f177a2914e94eec57ce5ed820296d874f6b6525c4482e55d71a3667"
 hardening = ["!int"]
 # no test suite
 options = ["!check", "!lto", "!strip", "!debug", "foreignelf"]
