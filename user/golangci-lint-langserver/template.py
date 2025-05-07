@@ -1,6 +1,6 @@
 pkgname = "golangci-lint-langserver"
-pkgver = "0.0.10"
-pkgrel = 5
+pkgver = "0.0.11"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["golangci-lint"]
@@ -9,7 +9,7 @@ pkgdesc = "Language server for golangci-lint"
 license = "MIT"
 url = "https://github.com/nametake/golangci-lint-langserver"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "65c2ffa9b71da3fe7298d4b86ae5cd64108bdc8313026d9613f19956d5855abc"
+sha256 = "d9f1fc02861eeb9ce60c89e79be706d7ec636f653d5039a76857b18cb98875fb"
 
 
 def post_install(self):
