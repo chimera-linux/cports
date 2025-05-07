@@ -1,6 +1,6 @@
 pkgname = "transmission"
 pkgver = "4.0.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DENABLE_DAEMON=ON",
@@ -14,6 +14,7 @@ configure_args = [
     "-DUSE_SYSTEM_PSL=ON",
     "-DUSE_SYSTEM_GTEST=ON",
 ]
+make_env = {"CMAKE_POLICY_VERSION_MINIMUM": "3.5"}
 # needs net
 make_check_args = ["-E", "LT.DhtTest.usesBootstrapFile"]
 hostmakedepends = [
