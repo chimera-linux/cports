@@ -40,14 +40,8 @@ class Golang:
         if not command:
             self.template.error("golang: missing go command argument")
 
-        moddir = self.template.cwd
-        if wrksrc is not None:
-            moddir = moddir / wrksrc
-        elif self.wrksrc is not None:
-            moddir = moddir / self.wrksrc
-
         # support only go.mod "mode" for now
-        gomod = moddir / "go.mod"
+        gomod = self.template.cwd / "go.mod"
 
         if not gomod.is_file():
             self.template.error(f"golang: missing file {gomod}")
