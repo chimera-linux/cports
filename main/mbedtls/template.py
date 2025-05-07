@@ -1,5 +1,5 @@
 pkgname = "mbedtls"
-pkgver = "3.6.2"
+pkgver = "3.6.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Light-weight cryptographic and SSL/TLS library"
 license = "Apache-2.0 OR GPL-2.0-or-later"
 url = "https://www.trustedfirmware.org/projects/mbed-tls"
 source = f"https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-{pkgver}/mbedtls-{pkgver}.tar.bz2"
-sha256 = "8b54fb9bcf4d5a7078028e0520acddefb7900b3e66fec7f7175bb5b7d85ccdca"
+sha256 = "64cd73842cdc05e101172f7b437c65e7312e476206e1dbfd644433d11bc56327"
 
 
 def pre_configure(self):
