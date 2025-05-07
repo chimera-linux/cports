@@ -1,5 +1,5 @@
 pkgname = "miniupnpd"
-pkgver = "2.3.7"
+pkgver = "2.3.9"
 pkgrel = 0
 build_wrksrc = "miniupnpd"
 build_style = "configure"
@@ -13,7 +13,7 @@ configure_args = [
     "--portinuse",
     "--vendorcfg",
 ]
-make_env = {"SBININSTALLDIR": "/usr/bin"}
+make_env = {"SBINDIR": "/usr/bin"}
 hostmakedepends = [
     "musl-bsd-headers",
     "pkgconf",
@@ -31,7 +31,7 @@ pkgdesc = "UPnP IGD and PCP/NAT-PMP daemon for gateway router"
 license = "BSD-3-Clause"
 url = "https://github.com/miniupnp/miniupnp"
 source = f"{url}/archive/refs/tags/miniupnpd_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "bbcada94edb0ae6340533cac4633f7a36a515c81bd2815ec0c4e97164c577e8b"
+sha256 = "ec7981351ad6a046eee0abf522ed1a45a3b0517e1da64e03826051f5f5354ea5"
 
 
 def post_install(self):
