@@ -4,7 +4,7 @@ please use a real build system
 +++ b/makefile
 @@ -32,7 +32,7 @@
  
- install: install-newsraft install-man install-examples
+ install: install-newsraft install-man install-icon install-examples
  
 -install-newsraft: newsraft
 +install-newsraft:
