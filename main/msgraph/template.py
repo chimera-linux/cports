@@ -1,5 +1,5 @@
 pkgname = "msgraph"
-pkgver = "0.2.3"
+pkgver = "0.3.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false"]
@@ -15,7 +15,7 @@ pkgdesc = "GLib-based library for MS Graph protocol"
 license = "LGPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/msgraph"
 source = f"$(GNOME_SITE)/msgraph/{pkgver[:-2]}/msgraph-{pkgver}.tar.xz"
-sha256 = "ed42e800cb7f0a07477cd9e3e744cdc1a240a6ad7ab96b8a875806267a9fddb0"
+sha256 = "37d7e12f2a990490aea21184f0b27e0b915ebb4e5096f4d6632c62051c054012"
 options = ["!cross"]
 
 
