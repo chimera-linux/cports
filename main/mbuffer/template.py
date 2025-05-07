@@ -1,7 +1,8 @@
 pkgname = "mbuffer"
-pkgver = "20241007"
+pkgver = "20250429"
 pkgrel = 0
 build_style = "cmake"
+configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
 make_dir = "."
 hostmakedepends = ["cmake", "ninja"]
 makedepends = [
@@ -12,7 +13,8 @@ pkgdesc = "Tool for buffering data streams"
 license = "GPL-3.0-only"
 url = "https://www.maier-komor.de/mbuffer.html"
 source = f"https://www.maier-komor.de/software/mbuffer/mbuffer-{pkgver}.tgz"
-sha256 = "9d7363010b4ef45b1646f6b5f5027b49bb6a209c502fb84e281c7bd771d56bed"
+sha256 = "a853ef720d5fc3ef47c1788f9657477b76d70ab0c9b8a7d96e995e31e3536bbf"
+tool_flags = {"CFLAGS": ['-DSYSCONFDIR="/etc"']}
 
 
 def pre_configure(self):
