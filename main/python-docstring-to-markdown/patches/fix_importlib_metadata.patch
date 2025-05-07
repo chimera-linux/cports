@@ -1,0 +1,28 @@
+diff --color -ruN python-docstring-to-markdown-0.17/docstring_to_markdown/__init__.py python-docstring-to-markdown-0.17-patched/docstring_to_markdown/__init__.py
+--- python-docstring-to-markdown-0.17/docstring_to_markdown/__init__.py	2025-05-03 15:27:21.150492344 +0000
++++ python-docstring-to-markdown-0.17-patched/docstring_to_markdown/__init__.py	2025-05-03 15:26:38.923868852 +0000
+@@ -1,10 +1,10 @@
+-from importlib_metadata import entry_points
++from importlib.metadata import entry_points
+ from typing import List, TYPE_CHECKING
+ 
+ from .types import Converter
+ 
+ if TYPE_CHECKING:
+-    from importlib_metadata import EntryPoint
++    from importlib.metadata import EntryPoint
+ 
+ __version__ = "0.17"
+ 
+diff --color -ruN python-docstring-to-markdown-0.17/tests/test_convert.py python-docstring-to-markdown-0.17-patched/tests/test_convert.py
+--- python-docstring-to-markdown-0.17/tests/test_convert.py	2025-05-03 15:26:49.752202548 +0000
++++ python-docstring-to-markdown-0.17-patched/tests/test_convert.py	2025-05-03 15:26:38.923868852 +0000
+@@ -2,7 +2,7 @@
+ from docstring_to_markdown import convert, UnknownFormatError
+ from docstring_to_markdown.types import Converter
+ from docstring_to_markdown.cpython import CPythonConverter
+-from importlib_metadata import EntryPoint, entry_points, distribution
++from importlib.metadata import EntryPoint, entry_points, distribution
+ from unittest.mock import patch
+ import docstring_to_markdown
+ import pytest
