@@ -1,5 +1,5 @@
 pkgname = "lighttpd"
-pkgver = "1.4.78"
+pkgver = "1.4.79"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ pkgdesc = "Lightweight web server"
 license = "BSD-3-Clause"
 url = "https://lighttpd.net"
 source = f"https://download.lighttpd.net/lighttpd/releases-{pkgver[: pkgver.rfind('.')]}.x/lighttpd-{pkgver}.tar.xz"
-sha256 = "3c0739e8bc75c9e9fc1cfa89e1c304dd4b0e4abb87adc646a1d20bc6a2db2a3e"
+sha256 = "3b29a625b3ad88702d1fea4f5f42bb7d87488f2e4efc977d7f185329ca6084bd"
 
 
 def post_install(self):
