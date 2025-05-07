@@ -1,5 +1,5 @@
 pkgname = "lsp-plugins"
-pkgver = "1.2.20"
+pkgver = "1.2.21"
 pkgrel = 0
 build_style = "makefile"
 make_use_env = True
@@ -20,7 +20,7 @@ pkgdesc = "Collection of free audio plugins"
 license = "LGPL-3.0-or-later"
 url = "https://lsp-plug.in"
 source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.tar.gz"
-sha256 = "ca8860dca6bfb1e7bcaba342c153e5fc5d3a025c91db66a4433e37829fb591c9"
+sha256 = "ae2da1d0557ed645371d54a779061240a0295e399c2aa441c96fa236d76e12d9"
 hardening = ["vis", "!cfi"]
 # no tests
 # cross broken because of dumb uname arch detection
