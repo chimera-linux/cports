@@ -62,7 +62,7 @@ license = "GPL-3.0-or-later"
 url = "https://desktop.telegram.org"
 source = [
     f"https://github.com/telegramdesktop/tdesktop/releases/download/v{pkgver}/tdesktop-{pkgver}-full.tar.gz",
-    f"https://github.com/tdlib/td/archive/34c390f9afe074071e01c623e42adfbd17e350ab.tar.gz",
+    "https://github.com/tdlib/td/archive/34c390f9afe074071e01c623e42adfbd17e350ab.tar.gz",
 ]
 source_paths = [".", "td"]
 sha256 = [
