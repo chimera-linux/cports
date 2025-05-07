@@ -1,5 +1,5 @@
 pkgname = "notmuch"
-pkgver = "0.38.3"
+pkgver = "0.39"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--prefix=/usr"]
@@ -18,7 +18,7 @@ pkgdesc = "Fast, global-search, tag-based email system"
 license = "GPL-3.0-or-later"
 url = "https://notmuchmail.org"
 source = f"{url}/releases/notmuch-{pkgver}.tar.xz"
-sha256 = "9af46cc80da58b4301ca2baefcc25a40d112d0315507e632c0f3f0f08328d054"
+sha256 = "b88bb02a76c46bad8d313fd2bb4f8e39298b51f66fcbeb304d9f80c3eef704e3"
 hardening = ["vis", "!cfi"]
 # FIXME: they hang forever, after failing a test for -v not silencing output in harness
 # zsh completions don't match command
