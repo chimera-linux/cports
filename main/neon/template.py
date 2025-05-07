@@ -1,5 +1,5 @@
 pkgname = "neon"
-pkgver = "0.34.0"
+pkgver = "0.34.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -33,7 +33,7 @@ pkgdesc = "HTTP and WebDAV client library"
 license = "LGPL-2.0-or-later"
 url = "https://notroj.github.io/neon"
 source = f"{url}/neon-{pkgver}.tar.gz"
-sha256 = "2e3ee8535039966c80764f539d5c9bfee1651a17e2f36e5ca462632181253977"
+sha256 = "f98ce3c74300be05eddf05dccbdca498b14d40c289f773195dd1a559cffa5856"
 
 
 @subpackage("neon-devel")
