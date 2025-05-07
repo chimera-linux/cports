@@ -1,5 +1,5 @@
 pkgname = "plasma-browser-integration"
-pkgver = "6.3.4"
+pkgver = "6.3.5"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -34,6 +34,6 @@ url = "https://community.kde.org/Plasma/Browser_Integration"
 source = (
     f"$(KDE_SITE)/plasma/{pkgver}/plasma-browser-integration-{pkgver}.tar.xz"
 )
-sha256 = "f8c2b983d0c94b8ab990a0e20afb949b0ef69f2b9b7e1764b676ad0c41a1ed70"
+sha256 = "ffe11d390f3112dbe67f1c7dbc8000a1d414749ae9c67fe7a79489f20ae3c24a"
 # the MIT one has no attribution in it..
 options = ["!distlicense"]
