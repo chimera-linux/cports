@@ -1,0 +1,12 @@
+This is used specifiaclly for td, we don't want to have
+paths like /builddir/Libraries because that is invalid.
+
+--- a/cmake/variables.cmake
++++ b/cmake/variables.cmake
+@@ -97,5 +97,5 @@ endif()
+ if (build_win64)
+     get_filename_component(libs_loc "../Libraries/win64" REALPATH)
+ else()
+-    get_filename_component(libs_loc "../Libraries" REALPATH)
++    get_filename_component(libs_loc "." REALPATH)
+ endif()
