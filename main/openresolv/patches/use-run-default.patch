@@ -25,9 +25,9 @@ index 89981c5..0c9772e 100644
  fi
 -: ${resolv_conf:=/etc/resolv.conf}
 +: ${resolv_conf:=/run/resolvconf/resolv.conf}
- : ${resolv_conf_tmp:="$resolv_conf.$$.openresolv"}
- : ${libc_service:=nscd}
- : ${list_resolv:=@SBINDIR@/resolvconf -l}
+ if [ "$resolv_conf" = "/dev/null" ]; then
+ 	exit 0
+ fi
 diff --git a/resolvconf.conf b/resolvconf.conf
 index 4f5f2e6..c50d73b 100644
 --- a/resolvconf.conf
@@ -52,8 +52,8 @@ index a24d559..c5a4726 100644
 -.Pa /etc/resolv.conf
 +.Pa /run/resolvconf/resolv.conf
  if not set.
- .It Sy resolv_conf_options
- A list of libc resolver options, as specified in
+ Set to
+ .Pa /dev/null
 -- 
 2.39.0
 
