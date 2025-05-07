@@ -1,7 +1,7 @@
 # update main/python-nftables alongside this
 pkgname = "nftables"
-pkgver = "1.1.1"
-pkgrel = 1
+pkgver = "1.1.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-cli=editline",
@@ -25,7 +25,7 @@ pkgdesc = "Netfilter nftables userspace tools"
 license = "GPL-2.0-only AND GPL-2.0-or-later"
 url = "http://netfilter.org/projects/nftables"
 source = f"{url}/files/nftables-{pkgver}.tar.xz"
-sha256 = "6358830f3a64f31e39b0ad421d7dadcd240b72343ded48d8ef13b8faf204865a"
+sha256 = "9c8a64b59c90b0825e540a9b8fcb9d2d942c636f81ba50199f068fde44f34ed8"
 hardening = ["vis", "cfi"]
 
 
