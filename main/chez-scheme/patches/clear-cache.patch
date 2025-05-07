@@ -3,7 +3,7 @@ other one don't exist
 --- a/c/clearcache.c
 +++ b/c/clearcache.c
 @@ -45,7 +45,7 @@
- #ifdef TARGET_OS_IPHONE
+ #ifdef S_TARGET_OS_IPHONE
    sys_icache_invalidate((void *)start, (char *)end-(char *)start);
  #else
 -  __clear_cache((char *)start, (char *)end);
