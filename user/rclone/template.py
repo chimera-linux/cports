@@ -1,6 +1,6 @@
 pkgname = "rclone"
 pkgver = "1.69.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Rsync for cloud storage"

@@ -1,6 +1,6 @@
 pkgname = "ijq"
 pkgver = "1.1.2"
-pkgrel = 9
+pkgrel = 10
 build_style = "go"
 make_build_args = ["-ldflags", f"-X main.Version={pkgver}"]
 hostmakedepends = ["go", "scdoc"]

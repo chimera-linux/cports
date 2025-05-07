@@ -1,6 +1,6 @@
 pkgname = "skopeo"
 pkgver = "1.17.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "go"
 # for compatibility with Makefile targets
 make_dir = "bin"

@@ -1,6 +1,6 @@
 pkgname = "pdfcpu"
 pkgver = "0.10.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["-ldflags", f"-X main.commit=v{pkgver}", "./cmd/pdfcpu"]
 make_check_args = ["-p", "1", "./..."]

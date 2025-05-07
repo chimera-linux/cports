@@ -1,6 +1,6 @@
 pkgname = "cliphist"
 pkgver = "0.6.1"
-pkgrel = 6
+pkgrel = 7
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["wl-clipboard", "xdg-utils"]
