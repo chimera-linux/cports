@@ -1,11 +1,11 @@
 pkgname = "tg_owt-static"
-pkgver = "0_git20241203"
-pkgrel = 1
+pkgver = "0_git20250501"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",
 ]
-_gitrev = "be39b8c8d0db1f377118f813f0c4bd331d341d5e"
+_gitrev = "c4192e8e2e10ccb72704daa79fa108becfa57b01"
 _libyuv_gitrev = "04821d1e7d60845525e8db55c7bcd41ef5be9406"
 _crc32c_gitrev = "1c51f87c9ad8157b4461e2216b9272f13fd0be3b"
 hostmakedepends = [
@@ -58,7 +58,7 @@ source_paths = [
     "src/third_party/libyuv",
 ]
 sha256 = [
-    "b17301264d43272e7033b5434617ed9376020da9c4d118b16e0c3fcde2c89e03",
+    "d54b560ddcf6a329b1e74fe7f7397f66716589effe5884f10436ab995bb26dc6",
     "b0397b85ddf0ee10be288687a017ad057f93bac5e1a28f30fcd67665d4271285",
     "eadc1c7276135320f42a22599f23a2f55419e1d90a3c6a4c58cd1586f7b83bff",
 ]
