@@ -1,6 +1,6 @@
 pkgname = "nginx"
-pkgver = "1.26.3"
-pkgrel = 1
+pkgver = "1.28.0"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/var/lib/nginx",
@@ -84,7 +84,7 @@ source = [
 ]
 source_paths = [".", "nginx-tests"]
 sha256 = [
-    "69ee2b237744036e61d24b836668aad3040dda461fe6f570f1787eab570c75aa",
+    "c6b5c6b086c0df9d3ca3ff5e084c1d0ef909e6038279c71c1c3e985f576ff76a",
     "9056dca56c96922c7d3fc6100c183d8262d6faa46685a817e611ade2479d676a",
 ]
 file_modes = {
@@ -112,7 +112,7 @@ def check(self):
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_file("README", "usr/share/doc/nginx")
+    self.install_file("README.md", "usr/share/doc/nginx")
     self.install_man("man/nginx.8")
     self.install_sysusers(self.files_path / "sysusers.conf")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
