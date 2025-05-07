@@ -1,5 +1,5 @@
 pkgname = "ngtcp2"
-pkgver = "1.11.0"
+pkgver = "1.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_GNUTLS=ON", "-DENABLE_OPENSSL=OFF"]
@@ -14,7 +14,7 @@ pkgdesc = "C IETF QUIC protocol implementation"
 license = "MIT"
 url = "https://github.com/ngtcp2/ngtcp2"
 source = f"{url}/releases/download/v{pkgver}/ngtcp2-{pkgver}.tar.xz"
-sha256 = "382c15bf66b630f26021631b25b7eb1feac42c67c1d6826189d61091dfaa4d09"
+sha256 = "2527a4c9305dbed610a000a88f94696526aa8959f74249a59f2b96ee73630629"
 
 
 def post_install(self):
