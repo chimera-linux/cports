@@ -1,6 +1,6 @@
 pkgname = "openal-soft"
-pkgver = "1.24.2"
-pkgrel = 1
+pkgver = "1.24.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DALSOFT_EXAMPLES=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -16,7 +16,7 @@ pkgdesc = "Cross-platform 3D audio API"
 license = "LGPL-2.1-or-later"
 url = "https://openal-soft.org"
 source = f"{url}/openal-releases/openal-soft-{pkgver}.tar.bz2"
-sha256 = "cd4c88c9b7311cb6785db71c0ed64f5430c9d5b3454e0158314b2ef25ace3e61"
+sha256 = "cb5e6197a1c0da0edcf2a81024953cc8fa8545c3b9474e48c852af709d587892"
 # no test target
 options = ["!check"]
 
