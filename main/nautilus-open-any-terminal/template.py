@@ -1,6 +1,6 @@
 pkgname = "nautilus-open-any-terminal"
-pkgver = "0.6.0"
-pkgrel = 1
+pkgver = "0.6.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "gettext",
@@ -17,7 +17,7 @@ pkgdesc = "Open a terminal from inside nautilus"
 license = "GPL-3.0-only"
 url = "https://github.com/Stunkymonkey/nautilus-open-any-terminal"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "96a1cf9ebd24b3a0b33c70c37f6ab39b11e6d11dc374c9199e54a0b1f19e163a"
+sha256 = "30f6569bbf2e05166669467d523fae6328d15e5f7ea83e8b93af46353990f8b2"
 # no tests
 options = ["!check"]
 
