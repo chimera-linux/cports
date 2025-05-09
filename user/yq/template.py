@@ -1,6 +1,6 @@
 pkgname = "yq"
-pkgver = "4.45.1"
-pkgrel = 6
+pkgver = "4.45.4"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 checkdepends = ["bash", "tzdb"]
@@ -8,7 +8,7 @@ pkgdesc = "Command-line YAML processor"
 license = "MIT"
 url = "https://github.com/mikefarah/yq"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "074a21a002c32a1db3850064ad1fc420083d037951c8102adecfea6c5fd96427"
+sha256 = "e06b9b219ad885b08cf983a7ce5ff6d946587ab4ffc62de4538655bb50e39111"
 # generates completions with host binary
 options = ["!cross"]
 
