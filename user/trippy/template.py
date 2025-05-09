@@ -1,5 +1,5 @@
 pkgname = "trippy"
-pkgver = "0.12.2"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bin", "trip"]
@@ -12,7 +12,7 @@ url = "https://trippy.rs"
 source = (
     f"https://github.com/fujiapple852/trippy/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "6f23549e5f398113ecd0d2f15c829f5ab84fcdf99dde9942c61746e72f990085"
+sha256 = "72e598d2e0b947e8bc46706021c511f169b7e7634a734c326e492e0f30725c35"
 # generates completions with host binary
 options = ["!cross"]
 
