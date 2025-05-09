@@ -2,9 +2,8 @@ pkgname = "lutok"
 pkgver = "0.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-atf=no"]
 make_dir = "."
-hostmakedepends = ["atf-devel", "automake", "libtool", "pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = ["lua5.4-devel"]
 pkgdesc = "C++ API for Lua"
 license = "BSD-3-Clause"
