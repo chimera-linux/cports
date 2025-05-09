@@ -1,5 +1,5 @@
 pkgname = "libkexiv2"
-pkgver = "25.04.0"
+pkgver = "25.04.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ pkgdesc = "KDE wrapper around exiv2"
 license = "GPL-2.0-or-later"
 url = "https://api.kde.org/libkexiv2/html/index.html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libkexiv2-{pkgver}.tar.xz"
-sha256 = "1381a5ddbb421c51c5f9f72df8f33ba8b649c3627fa9f3002c1d0d2b60c94879"
+sha256 = "f0669527d1fe7ef22c3ef7c8270ef29deafb0923ec782a22f1ced1b775367190"
 hardening = ["vis"]
 
 

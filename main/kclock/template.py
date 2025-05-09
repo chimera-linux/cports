@@ -1,5 +1,5 @@
 pkgname = "kclock"
-pkgver = "25.04.0"
+pkgver = "25.04.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -28,5 +28,5 @@ pkgdesc = "KDE clock"
 license = "GPL-3.0-or-later AND LGPL-2.1-or-later"
 url = "https://apps.kde.org/kclock"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kclock-{pkgver}.tar.xz"
-sha256 = "24895305b1576d80cb65347353eb0a12af287f98efcc46598f1e90cd871a7ccd"
+sha256 = "9b972f248c7f7810fed693b3911e1825c0e2a5e2722a2b59aeb4390d3d3fd656"
 hardening = ["vis"]

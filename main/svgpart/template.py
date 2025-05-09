@@ -1,5 +1,5 @@
 pkgname = "svgpart"
-pkgver = "25.04.0"
+pkgver = "25.04.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,5 +22,5 @@ pkgdesc = "KParts plugin for SVG"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/svgpart"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/svgpart-{pkgver}.tar.xz"
-sha256 = "539f725720599ca67d507f3c4e07524ac8192325f173b3449f83098bd4aaa652"
+sha256 = "a30903c758fc1818334de4cd6f7d72a4fe9a2842326e187d442ee0e79ae1caf8"
 hardening = ["vis"]

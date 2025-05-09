@@ -1,5 +1,5 @@
 pkgname = "kmime"
-pkgver = "25.04.0"
+pkgver = "25.04.1"
 pkgrel = 0
 build_style = "cmake"
 # fails on ppc64le with wrong encoding
@@ -21,7 +21,7 @@ pkgdesc = "KDE library for mail messages"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kmime/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kmime-{pkgver}.tar.xz"
-sha256 = "7a8e4176ef28c117d55936b703bb541ec6c0410c52de8e40182aea8965e21ba4"
+sha256 = "8a039adc6ca02a709498a81a81cbf1d28d27525ae37ce7147d4349b0d37a501d"
 
 
 @subpackage("kmime-devel")

@@ -1,5 +1,5 @@
 pkgname = "mimetreeparser"
-pkgver = "25.04.0"
+pkgver = "25.04.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = ["-j1"]
@@ -29,7 +29,7 @@ url = "https://invent.kde.org/pim/mimetreeparser"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/mimetreeparser-{pkgver}.tar.xz"
 )
-sha256 = "752fe60a4e6d21e339e0d9607441f3c227b023f4c349d861f039a57e9ab052a5"
+sha256 = "8ab8cca0d49fcac50cefe4a7f27a03bee8d31f247a24e0517ee23b69059f277e"
 
 
 @subpackage("mimetreeparser-devel")

@@ -1,5 +1,5 @@
 pkgname = "konversation"
-pkgver = "25.04.0"
+pkgver = "25.04.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -45,4 +45,4 @@ url = "https://konversation.kde.org"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/konversation-{pkgver}.tar.xz"
 )
-sha256 = "92d1dfc7cbafa9e1c9e3a426ac4e80e28df4a157e08f076f0654c3ce6e9894d4"
+sha256 = "ea5e11f96640fd6ae40f045daa4449aeb1621efa3ac4f0cd8d8ddac2f91461c2"

@@ -1,5 +1,5 @@
 pkgname = "baloo-widgets"
-pkgver = "25.04.0"
+pkgver = "25.04.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_MAJOR_VERSION=6"]
@@ -27,5 +27,5 @@ url = "https://api.kde.org/baloo-widgets/html/index.html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/baloo-widgets-{pkgver}.tar.xz"
 )
-sha256 = "a3dc18ddd6059c88a113da09a5472a93cf08f11dd0c358c3d3b6a98127c45c45"
+sha256 = "d7bd1dd2fac57083b801036b70b78e7aef312a976ccc4bc227e98a973ff08993"
 hardening = ["vis"]

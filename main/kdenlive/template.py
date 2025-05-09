@@ -1,5 +1,5 @@
 pkgname = "kdenlive"
-pkgver = "25.04.0"
+pkgver = "25.04.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_TESTING=OFF", "-DFETCH_OTIO=OFF"]
@@ -49,7 +49,7 @@ pkgdesc = "KDE video editor"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kdenlive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdenlive-{pkgver}.tar.xz"
-sha256 = "3f07e23e5e58441acd02b89d969b33940994d9d1a8a8006b15e61eb575abd519"
+sha256 = "ca01121fde6f52e415b5b84ff2f4d9ff689e03759b568bec005127125ab1e947"
 # avoid crashes
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # INT: crashes spacertest/trimmingtest
