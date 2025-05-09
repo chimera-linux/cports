@@ -1,6 +1,6 @@
 pkgname = "satty"
-pkgver = "0.16.0"
-pkgrel = 1
+pkgver = "0.18.1"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "Screenshot annotation tool"
 license = "MPL-2.0"
 url = "https://github.com/gabm/Satty"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "36ffbea973fd844d92998f1d5aed53c779692e956ed07490d324812223eab4bd"
+sha256 = "9dc519e572982956db2e7165ab2931c19fe0e88db133a3776d4293ddcd13ca49"
 # no tests defined
 options = ["!check"]
 
