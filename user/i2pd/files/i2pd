@@ -1,0 +1,7 @@
+type = process
+command = /usr/libexec/i2pd.wrapper
+working-dir = /var/lib/i2pd
+run-as = _i2pd
+depends-on: local.target
+depends-on: network.target
+depends-on: time-sync.target
