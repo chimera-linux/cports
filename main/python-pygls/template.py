@@ -1,6 +1,6 @@
 pkgname = "python-pygls"
-pkgver = "1.3.1"
-pkgrel = 1
+pkgver = "2.0.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -21,7 +21,7 @@ license = "Apache-2.0"
 url = "https://pygls.readthedocs.io/en/latest"
 # no tests in pypi
 source = f"https://github.com/openlawlibrary/pygls/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d2dc2b8e298cac8d3945b237cff1f103b0bf6349f0308361b0041dcdae59ab2f"
+sha256 = "33f28ac94aef0b40097f21205531ba35e95caf86fca4d553854d35ec964915f6"
 
 
 def init_check(self):
