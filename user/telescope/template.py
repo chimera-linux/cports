@@ -1,5 +1,5 @@
 pkgname = "telescope"
-pkgver = "0.10.1"
+pkgver = "0.11"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-default-editor=vi"]
@@ -14,8 +14,8 @@ makedepends = [
 pkgdesc = "Terminal browser for gemini/gopher/finger"
 license = "ISC AND Unicode-3.0 AND BSD-3-Clause AND MIT"
 url = "https://www.telescope-browser.org"
-source = f"https://ftp.omarpolo.com/telescope-{pkgver}.tar.gz"
-sha256 = "01446a1129741c6a201c4b5446390e9331487af844cef6bfd35419989168e618"
+source = f"https://ftp.telescope-browser.org/telescope-{pkgver}.tar.gz"
+sha256 = "0b56fc56958d4b4c2ecc7dc971d4f7c156ca827d5bd97b70dcb541cf9e423927"
 hardening = ["vis", "cfi"]
 
 
