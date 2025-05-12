@@ -1,5 +1,5 @@
 pkgname = "schismtracker"
-pkgver = "20250313"
+pkgver = "20250415"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,7 +16,7 @@ pkgdesc = "Reimplementation of Impulse Tracker"
 license = "GPL-2.0-or-later"
 url = "https://schismtracker.org"
 source = f"https://github.com/schismtracker/schismtracker/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0811a1133cb7a8c4c69713a15389b6601ec909b406b9e4d7e8ca2833887f0124"
+sha256 = "ba9b8e4381e9f3a3110ae7bb4e7794ac2399e88bb26a50c86a6f45beed57c5f3"
 tool_flags = {
     "CFLAGS": [
         f'-DVERSION2="{pkgver}"',
