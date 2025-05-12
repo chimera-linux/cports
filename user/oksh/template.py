@@ -1,5 +1,5 @@
 pkgname = "oksh"
-pkgver = "7.6"
+pkgver = "7.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -9,7 +9,7 @@ pkgdesc = "Portable OpenBSD ksh, based on pdksh"
 license = "custom:none"
 url = "https://github.com/ibara/oksh"
 source = f"{url}/archive/refs/tags/oksh-{pkgver}.tar.gz"
-sha256 = "159fb914694d6f14d23eb87ecb551b42d4356907820e5cc1cc8c327dc5c24c6a"
+sha256 = "c78684a4d0e1d4b828b9b5f4d53aab54eed692a281b81be6d7e2e81d0ce8ae6a"
 hardening = ["vis", "cfi"]
 # There are no tests
 options = ["!check"]
