@@ -1,5 +1,5 @@
 pkgname = "prismlauncher"
-pkgver = "9.2"
+pkgver = "9.4"
 pkgrel = 0
 build_style = "cmake"
 configure_env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
@@ -26,7 +26,7 @@ pkgdesc = "Minecraft launcher with multiple instances support"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PrismLauncher/PrismLauncher"
 source = f"{url}/releases/download/{pkgver}/prismlauncher-{pkgver}.tar.gz"
-sha256 = "8702b40393b44a364633f1bab2a5c29abc634b5d053541fd8f85c4d1aaf50e83"
+sha256 = "77ab52239c2a2a9f77d7c4607e1d9cf40970f9240d2f5061b116a7b1b8fd0277"
 
 
 @subpackage("prismlauncher-natives")
