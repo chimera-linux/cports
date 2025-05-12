@@ -1,5 +1,5 @@
 pkgname = "gettext"
-pkgver = "0.24.1"
+pkgver = "0.25"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,7 +16,7 @@ pkgdesc = "GNU internationalization utilities"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gettext"
 source = f"$(GNU_SITE)/gettext/gettext-{pkgver}.tar.gz"
-sha256 = "7387ec048971a1b42c0aab866c51222f63af3cf51938695f555609c33d89e486"
+sha256 = "aee02dab79d9138fdcc7226b67ec985121bce6007edebe30d0e39d42f69a340e"
 # most tests fail to find an adequate shell ???
 options = ["!check"]
 
