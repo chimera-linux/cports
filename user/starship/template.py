@@ -30,6 +30,12 @@ sha256 = "be3ba025a64bd808899dce256e1511145b55cc5eefc5fca82bf5537cd8e09c72"
 options = ["!cross"]
 
 
+def post_prepare(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "zvariant")
+
+
 def post_build(self):
     for shell in ["bash", "fish", "nushell", "zsh"]:
         with open(self.cwd / f"starship.{shell}", "w") as outf:
