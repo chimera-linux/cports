@@ -1,6 +1,6 @@
 pkgname = "flatpak"
-pkgver = "1.16.0"
-pkgrel = 3
+pkgver = "1.16.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddconf=enabled",
@@ -67,7 +67,7 @@ pkgdesc = "Linux application sandboxing and distribution framework"
 license = "LGPL-2.1-or-later"
 url = "https://flatpak.org"
 source = f"https://github.com/flatpak/flatpak/releases/download/{pkgver}/flatpak-{pkgver}.tar.xz"
-sha256 = "cb0ac565adcb62127c6d11ed50ee7044d6a836fa69c354b2f4b640a22bfa4b2a"
+sha256 = "2b47e8f2d90d35d29339ed78e1a6eabb36eefa9cfa5a5ca3b0d1f27502c43675"
 # test runner expects a different env (possible FIXME?)
 options = ["!check", "!cross"]
 
