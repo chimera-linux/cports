@@ -1,5 +1,5 @@
 pkgname = "perf"
-pkgver = "6.13.6"
+pkgver = "6.14.6"
 pkgrel = 0
 build_wrksrc = "tools/perf"
 build_style = "makefile"
@@ -57,7 +57,7 @@ pkgdesc = "Linux performance analyzer"
 license = "GPL-2.0-only"
 url = "https://perf.wiki.kernel.org/index.php/Main_Page"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[: pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"
-sha256 = "de0053cb413d408f20fd1d5788219951b8a4403e5dac1b1d9032090938acd199"
+sha256 = "21817f1998e2230f81f7e4f605fa6fdcb040e14fa27d99c27ddb16ce749797a9"
 # nope
 # docs are a single tips file that gets displayed in the TUI
 options = ["!check", "!splitdoc"]
