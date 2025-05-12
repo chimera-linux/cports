@@ -1,5 +1,5 @@
 pkgname = "benchmark"
-pkgver = "1.9.2"
+pkgver = "1.9.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Microbenchmark support library"
 license = "Apache-2.0"
 url = "https://github.com/google/benchmark"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "409075176168dc46bbb81b74c1b4b6900385b5d16bfc181d678afb060d928bd3"
+sha256 = "b94263b018042007eb53f79639f21ae47800808c73cf1b7df85622b6e2b1aa32"
 
 
 @subpackage("benchmark-devel")
