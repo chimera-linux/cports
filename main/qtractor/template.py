@@ -1,5 +1,5 @@
 pkgname = "qtractor"
-pkgver = "1.5.3"
+pkgver = "1.5.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCONFIG_WAYLAND=1"]
@@ -22,4 +22,4 @@ pkgdesc = "Audio/MIDI multi-track sequencer"
 license = "GPL-2.0-or-later"
 url = "https://www.qtractor.org"
 source = f"$(SOURCEFORGE_SITE)/qtractor/qtractor-{pkgver}.tar.gz"
-sha256 = "3b4081f0b3db5cf139dadf7b3641302f8edf31f39bf5717a7fe11053063c25d5"
+sha256 = "815e8880503b19e9de69b44293a1cb65531f9d2f78a9b760c89406c3044ef74e"
