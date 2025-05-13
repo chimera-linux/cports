@@ -1,6 +1,6 @@
 pkgname = "mesa-demos"
 pkgver = "9.0.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dlibdrm=enabled",
