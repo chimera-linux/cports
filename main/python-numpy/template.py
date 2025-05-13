@@ -78,11 +78,24 @@ def check(self):
 
 def post_install(self):
     self.install_license("LICENSE.txt")
-    # remove static libs
-    self.uninstall(
-        f"usr/lib/python{self.python_version}/site-packages/numpy/*/lib/lib*.a",
-        glob=True,
-    )
+
+
+@subpackage("python-numpy-devel")
+def _(self):
+    self.depends = [self.parent]
+
+    def install():
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/include"
+        )
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/lib"
+        )
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/src"
+        )
+
+    return install
 
 
 @subpackage("python-numpy-tests")
