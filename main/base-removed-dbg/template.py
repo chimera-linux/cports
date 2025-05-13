@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 7
+pkgrel = 8
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -39,17 +39,11 @@ for _pkg in [
     "libdjvulibre",
     "libecpg",
     "libefivar",
-    "libegl",
     "libelogind",
     "libfdisk",
     "libflac",
-    "libgbm",
     "libgdm",
     "libgirepository",
-    "libgl",
-    "libglapi",
-    "libgles1",
-    "libgles2",
     "libglycin",
     "libglycin-gtk4",
     "libgs",
@@ -109,10 +103,10 @@ for _pkg in [
     "libwoff2common",
     "libwoff2dec",
     "libwoff2enc",
-    "libxatracker",
     "libxtables",
     "lidb-progs",
     "lscpu",
+    "mesa-osmesa-libs",
     "mkfs",
     "mount",
     "nfs-server",

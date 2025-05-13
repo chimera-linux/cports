@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "25.0.6"
+pkgver = "25.1.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -13,9 +13,7 @@ configure_args = [
     "-Dglx=dri",
     "-Dllvm=enabled",
     "-Dlmsensors=enabled",
-    "-Dosmesa=true",
     "-Dplatforms=x11,wayland",
-    "-Dshared-glapi=enabled",
     "-Dvideo-codecs=all",
     "-Dgallium-vdpau=disabled",
 ]
@@ -88,7 +86,7 @@ _subproject_list = [
     "unicode-ident",
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "0d179e019e3441f5d957330d7abb3b0ef38e6782cc85a382608cd1a4a77fa2e1"
+sha256 = "cf942a18b7b9e9b88524dcbf0b31fed3cde18e6d52b3375b0ab6587a14415bce"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -140,10 +138,6 @@ match self.profile().arch:
         _have_arm = True
     case "loongarch64":
         _have_loong = True
-    case "ppc64le":
-        configure_args += ["-Dpower8=true"]
-    case "ppc64":
-        configure_args += ["-Dpower8=false"]
 
 _have_opencl = _have_amd or _have_intel
 _have_vulkan = _have_amd or _have_intel or _have_arm
@@ -172,15 +166,16 @@ if _have_nvidia:
 
 if _have_arm:
     _gallium_drivers += [
-        "v3d",
-        "vc4",
-        "freedreno",
+        "asahi",
         "etnaviv",
+        "freedreno",
         "lima",
         "panfrost",
+        "v3d",
+        "vc4",
     ]
     if _have_vulkan:
-        _vulkan_drivers += ["broadcom", "freedreno", "panfrost"]
+        _vulkan_drivers += ["asahi", "broadcom", "freedreno", "panfrost"]
 
 if _have_loong:
     _gallium_drivers += ["etnaviv"]
@@ -250,10 +245,6 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.install_file(
-        self.files_path / "00-radeonsi-gnome-no-glthread.conf",
-        "usr/share/drirc.d",
-    )
     self.install_license("docs/license.rst")
 
 
@@ -261,8 +252,7 @@ def post_install(self):
 def _(self):
     self.pkgdesc = "Generic Buffer Management"
     self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libgbm")]
+    self.renames = ["libgbm"]
 
     return [
         "usr/lib/gbm",
@@ -273,8 +263,7 @@ def _(self):
 @subpackage("mesa-gbm-devel")
 def _(self):
     self.pkgdesc = "Generic Buffer Management"
-    # transitional
-    self.provides = [self.with_pkgver("libgbm-devel")]
+    self.renames = ["libgbm-devel"]
 
     return [
         "usr/include/gbm.h",
@@ -283,22 +272,11 @@ def _(self):
     ]
 
 
-@subpackage("mesa-osmesa-libs")
-def _(self):
-    self.pkgdesc = "Mesa off-screen interface"
-    self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libosmesa")]
-
-    return ["usr/lib/libOSMesa.so.*"]
-
-
 @subpackage("mesa-gles1-libs")
 def _(self):
     self.pkgdesc = "Free implementation of OpenGL ES 1.x API"
     self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libgles1")]
+    self.renames = ["libgles1"]
 
     return ["usr/lib/libGLESv1_CM.so.*"]
 
@@ -307,8 +285,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "Free implementation of OpenGL ES 2.x API"
     self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libgles2")]
+    self.renames = ["libgles2"]
 
     return ["usr/lib/libGLESv2.so.*"]
 
@@ -317,8 +294,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "Free implementation of the EGL API"
     self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libegl")]
+    self.renames = ["libegl"]
 
     return ["usr/lib/libEGL.so.*"]
 
@@ -327,8 +303,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "Free implementation of the OpenGL API"
     self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libgl")]
+    self.renames = ["libgl"]
 
     return ["usr/lib/libGL.so.*"]
 
@@ -337,8 +312,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "X acceleration library"
     self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libxatracker")]
+    self.renames = ["libxatracker"]
 
     return ["usr/lib/libxatracker*.so.*"]
 
@@ -368,11 +342,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "Mesa gallium loader"
     self.depends += [self.parent]
-    # swallowed by libgallium
-    self.provides = [
-        self.with_pkgver("libglapi"),
-        self.with_pkgver("mesa-glapi-libs"),
-    ]
+    self.renames = ["libglapi", "mesa-glapi-libs"]
 
     return ["usr/lib/libgallium-*.so"]
 
@@ -382,8 +352,7 @@ def _(self):
     self.pkgdesc = "Mesa DRI drivers"
     self.depends += [self.parent]
     self.install_if = [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("mesa-vaapi")]
+    self.renames = ["mesa-vaapi"]
 
     return ["usr/lib/dri"]
 
