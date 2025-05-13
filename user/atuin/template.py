@@ -16,8 +16,6 @@ sha256 = "aba26698471ef7ad2757416d01fcc327d3bd800c58cc3fcae638e625524e1b40"
 # generates completions using host binary
 options = ["!check", "!cross"]
 
-# TODO service + sysusers
-
 
 def build(self):
     tgt_base = f"target/{self.profile().triplet}/release"
@@ -51,14 +49,24 @@ def install(self):
         "crates/atuin-server/server.toml", "usr/share/examples/atuin"
     )
 
+    self.install_service(self.files_path / "atuin.user")
+
+    self.install_service(self.files_path / "atuin-server")
+    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+
+    self.install_file(self.files_path / "atuin-server.default", "usr/share/atuin")
+
     self.install_license("LICENSE")
 
 
 @subpackage("atuin-server")
 def _(self):
     self.subdesc = "server"
+    self.depends = ["postgresql"]
 
     return [
         "usr/bin/atuin-server",
         "usr/share/examples",
+        "usr/share/atuin",
+        "usr/lib/dinit.d/atuin-server",
     ]
