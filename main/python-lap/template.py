@@ -6,10 +6,12 @@ hostmakedepends = [
     "python-build",
     "python-cython",
     "python-installer",
-    "python-numpy",
     "python-setuptools",
 ]
-makedepends = ["python-devel"]
+makedepends = [
+    "python-devel",
+    "python-numpy-devel",
+]
 depends = ["python-numpy"]
 pkgdesc = "Linear Assignment Problem solver for LAPJV/LAPMOD"
 license = "BSD-2-Clause"
