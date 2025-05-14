@@ -1,5 +1,5 @@
 pkgname = "perl-uri"
-pkgver = "5.31"
+pkgver = "5.32"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["perl"]
@@ -9,6 +9,6 @@ pkgdesc = "Perl Uniform Resource Identifiers module"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/pod/URI"
 source = f"$(CPAN_SITE)/URI/URI-{pkgver}.tar.gz"
-sha256 = "b9c4d58b2614b8611ae03a95a6d60ed996f4b311ef3cd5a937b92f1825ecc564"
+sha256 = "9632067d34e14e0dae2da94631c4f25a387fcc48d06fa29330e8b3c04c4e913d"
 # missing checkdepends
 options = ["!check"]
