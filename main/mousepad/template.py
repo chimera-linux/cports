@@ -1,12 +1,11 @@
 pkgname = "mousepad"
-pkgver = "0.6.3"
+pkgver = "0.6.5"
 pkgrel = 0
-build_style = "gnu_configure"
-make_dir = "."
+build_style = "meson"
+configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = [
-    "automake",
     "gettext-devel",
-    "libtool",
+    "meson",
     "pkgconf",
     "xfce4-dev-tools",
 ]
@@ -21,5 +20,5 @@ makedepends = [
 pkgdesc = "Xfce text editor"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/mousepad/start"
-source = f"$(XFCE_SITE)/apps/mousepad/{pkgver[:-2]}/mousepad-{pkgver}.tar.bz2"
-sha256 = "2ff162c185f18014ab9c82c2ac2dfce4fba20eb0005e7690ee27f00b9cb929b9"
+source = f"$(XFCE_SITE)/apps/mousepad/{pkgver[:-2]}/mousepad-{pkgver}.tar.xz"
+sha256 = "21762bc8c3c4f120a4a509ce39f4a5a58dbc10e3f0da66cdc6d9a8c735fff2ac"
