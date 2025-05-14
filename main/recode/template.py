@@ -1,5 +1,5 @@
 pkgname = "recode"
-pkgver = "3.7.14"
+pkgver = "3.7.15"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -15,14 +15,13 @@ hostmakedepends = [
 checkdepends = [
     "python-cython",
     "python-devel",
+    "python-setuptools",
 ]
 pkgdesc = "Charset converter tool and library"
 license = "GPL-3.0-or-later AND LGPL-3.0-only"
 url = "https://github.com/rrthomas/recode"
 source = f"{url}/releases/download/v{pkgver}/recode-{pkgver}.tar.gz"
-sha256 = "786aafd544851a2b13b0a377eac1500f820ce62615ccc2e630b501e7743b9f33"
-# tests need cython + python devel, does not build with our versions
-options = ["!check"]
+sha256 = "f590407fc51badb351973fc1333ee33111f05ec83a8f954fd8cf0c5e30439806"
 
 
 @subpackage("recode-devel")
