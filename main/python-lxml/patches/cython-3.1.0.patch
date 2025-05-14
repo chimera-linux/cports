@@ -1,0 +1,84 @@
+Mostly backported from https://github.com/lxml/lxml/commit/6d5d6aed2e38e1abc625f29c0b3e97fc8c60ae3b
+
+--- a/pyproject.toml	2025-04-22 13:15:22.000000000 +0100
++++ b/pyproject.toml	2025-05-14 21:19:51.676743127 +0100
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["Cython>=3.0.11, < 3.1.0", "setuptools", "wheel"]
++requires = ["Cython>=3.1.0,  < 3.2.0", "setuptools", "wheel"]
+ 
+ [tool.cibuildwheel]
+ build-verbosity = 1
+--- a/src/lxml/etree.pyx	2025-04-22 13:15:22.000000000 +0100
++++ b/src/lxml/etree.pyx	2025-05-14 21:34:13.521063753 +0100
+@@ -1637,11 +1637,6 @@
+         return CSSSelector(expr, translator=translator)(self)
+ 
+ 
+-cdef extern from "includes/etree_defs.h":
+-    # macro call to 't->tp_new()' for fast instantiation
+-    cdef object NEW_ELEMENT "PY_NEW" (object t)
+-
+-
+ @cython.linetrace(False)
+ cdef _Element _elementFactory(_Document doc, xmlNode* c_node):
+     cdef _Element result
+@@ -1651,12 +1646,15 @@
+     if c_node is NULL:
+         return None
+ 
+-    element_class = LOOKUP_ELEMENT_CLASS(
++    element_class = <type> LOOKUP_ELEMENT_CLASS(
+         ELEMENT_CLASS_LOOKUP_STATE, doc, c_node)
++    if type(element_class) is not type:
++        if not isinstance(element_class, type):
++            raise TypeError(f"Element class is not a type, got {type(element_class)}")
+     if hasProxy(c_node):
+         # prevent re-entry race condition - we just called into Python
+         return getProxy(c_node)
+-    result = NEW_ELEMENT(element_class)
++    result = element_class.__new__(element_class)
+     if hasProxy(c_node):
+         # prevent re-entry race condition - we just called into Python
+         result._c_node = NULL
+--- a/src/lxml/includes/etree_defs.h	2025-04-22 13:15:22.000000000 +0100
++++ b/src/lxml/includes/etree_defs.h	2025-05-14 21:34:13.521063753 +0100
+@@ -177,7 +177,7 @@
+ 
+ #ifdef __GNUC__
+ /* Test for GCC > 2.95 */
+-#if __GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)) 
++#if __GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95))
+ #define unlikely_condition(x) __builtin_expect((x), 0)
+ #else /* __GNUC__ > 2 ... */
+ #define unlikely_condition(x) (x)
+@@ -190,10 +190,6 @@
+   #define Py_TYPE(ob)   (((PyObject*)(ob))->ob_type)
+ #endif
+ 
+-#define PY_NEW(T) \
+-     (((PyTypeObject*)(T))->tp_new( \
+-             (PyTypeObject*)(T), __pyx_empty_tuple, NULL))
+-
+ #define _fqtypename(o)  ((Py_TYPE(o))->tp_name)
+ 
+ #define lxml_malloc(count, item_size) \
+@@ -268,7 +264,7 @@
+  * 'inclusive' is 1).  The _ELEMENT_ variants will only stop on nodes
+  * that match _isElement(), the normal variant will stop on every node
+  * except text nodes.
+- * 
++ *
+  * To traverse the node and all of its children and siblings in Pyrex, call
+  *    cdef xmlNode* some_node
+  *    BEGIN_FOR_EACH_ELEMENT_FROM(some_node.parent, some_node, 1)
+--- a/src/lxml/python.pxd	2025-04-22 13:15:22.000000000 +0100
++++ b/src/lxml/python.pxd	2025-05-14 21:35:05.483296785 +0100
+@@ -131,7 +131,6 @@
+     cdef void* lxml_unpack_xmldoc_capsule(object capsule, bint* is_owned) except? NULL
+     cdef bint _isString(object obj)
+     cdef const_char* _fqtypename(object t)
+-    cdef object PY_NEW(object t)
+     cdef bint IS_PYPY
+     cdef object PyOS_FSPath(object obj)
+ 
