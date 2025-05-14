@@ -1,5 +1,5 @@
 pkgname = "ucode-intel"
-pkgver = "20250211"
+pkgver = "20250512"
 pkgrel = 0
 archs = ["x86_64"]
 hostmakedepends = ["iucode-tool"]
@@ -8,7 +8,7 @@ pkgdesc = "Intel CPU microcode"
 license = "custom:proprietary"
 url = "https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files"
 source = f"{url}/archive/microcode-{pkgver}.tar.gz"
-sha256 = "1da88b51953c9da2e20b5c94b3d7270cf87ea5babcaa56e3d6a5c9eaf11694b3"
+sha256 = "041af7d2f5791a47c1e914abd7d6255de4d4fc61b0f8e49ada6ee7014bcc3614"
 options = ["!strip", "foreignelf"]
 
 
