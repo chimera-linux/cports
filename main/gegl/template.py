@@ -1,5 +1,5 @@
 pkgname = "gegl"
-pkgver = "0.4.58"
+pkgver = "0.4.62"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -15,26 +15,27 @@ configure_args = [
     "-Dumfpack=disabled",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
+    "gettext",
     "glib-devel",
     "gobject-introspection",
+    "meson",
+    "pkgconf",
+    "python",
     "vala-devel",
-    "gettext",
 ]
 makedepends = [
     "babl-devel",
     "exiv2-devel",
     "gexiv2-devel",
-    "librsvg-devel",
+    "json-glib-devel",
+    "lensfun-devel",
     "libraw-devel",
+    "librsvg-devel",
     "libwebp-devel",
     "openexr-devel",
     "pango-devel",
     "poppler-devel",
-    "lensfun-devel",
     "v4l-utils-devel",
-    "json-glib-devel",
     "vala-devel",
 ]
 pkgdesc = "Graph-based image processing framework"
@@ -43,7 +44,7 @@ url = "https://gegl.org"
 source = (
     f"https://download.gimp.org/pub/gegl/{pkgver[:-3]}/gegl-{pkgver}.tar.xz"
 )
-sha256 = "d5678bbd5fe535941b82f965b97fcc9385ce936f70c982bd565a53d5519d1bff"
+sha256 = "5887576371ebf1d9e90797d10e4b9a7f1658228d4827583e79e1db3d94505c6c"
 # TODO
 hardening = ["!int"]
 
