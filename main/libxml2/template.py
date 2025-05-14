@@ -1,5 +1,5 @@
 pkgname = "libxml2"
-pkgver = "2.14.2"
+pkgver = "2.14.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,7 +28,7 @@ pkgdesc = "XML parsing library"
 license = "MIT"
 url = "http://www.xmlsoft.org"
 source = f"$(GNOME_SITE)/libxml2/{pkgver[: pkgver.rfind('.')]}/libxml2-{pkgver}.tar.xz"
-sha256 = "353f3c83535d4224a4e5f1e88c90b5d4563ea8fec11f6407df640fd28fc8b8c6"
+sha256 = "6de55cacc8c2bc758f2ef6f93c313cb30e4dd5d84ac5d3c7ccbd9344d8cc6833"
 
 
 def post_install(self):
