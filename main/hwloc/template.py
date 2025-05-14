@@ -1,6 +1,6 @@
 pkgname = "hwloc"
-pkgver = "2.12.0"
-pkgrel = 1
+pkgver = "2.12.1"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -17,7 +17,7 @@ pkgdesc = "Hardware resource locality library"
 license = "BSD-3-Clause"
 url = "https://www.open-mpi.org/projects/hwloc"
 source = f"https://www.open-mpi.org/software/hwloc/v{'.'.join(pkgver.split('.')[0:2])}/downloads/hwloc-{pkgver}.tar.bz2"
-sha256 = "06a0a2bdc0a5714e839164683846a0e936a896213758e9d37e49e232b89c58d4"
+sha256 = "38a90328bb86259f9bb2fe1dc57fd841e111d1e6358012bef23dfd95d21dc66b"
 # can't run them in bwrap with no sysfs
 # lintcomp: eager preload under different name
 options = ["!check", "!lintcomp"]
