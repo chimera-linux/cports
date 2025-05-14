@@ -1,5 +1,5 @@
 pkgname = "yyjson"
-pkgver = "0.10.0"
+pkgver = "0.11.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DYYJSON_BUILD_TESTS=ON"]
@@ -8,7 +8,7 @@ pkgdesc = "High performance C JSON library"
 license = "MIT"
 url = "https://ibireme.github.io/yyjson"
 source = f"https://github.com/ibireme/yyjson/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0d901cb2c45c5586e3f3a4245e58c2252d6b24bf4b402723f6179523d389b165"
+sha256 = "610a38a5e59192063f5f581ce0c3c1869971c458ea11b58dfe00d1c8269e255d"
 
 
 def post_install(self):
