@@ -1,6 +1,6 @@
 pkgname = "perl-test-deep"
-pkgver = "1.204"
-pkgrel = 1
+pkgver = "1.205"
+pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["perl"]
 makedepends = ["perl"]
@@ -9,6 +9,6 @@ pkgdesc = "Extremely flexible deep comparison"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/Test-Deep"
 source = f"$(CPAN_SITE)/Test/Test-Deep-{pkgver}.tar.gz"
-sha256 = "b6591f6ccdd853c7efc9ff3c5756370403211cffe46047f082b1cd1611a84e5f"
+sha256 = "42781e9943a7a215e662c4973b9feafdc019fd16469bdb849a8537ee58956273"
 # FIXME isa.t
 options = ["!check"]
