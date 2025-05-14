@@ -1,5 +1,5 @@
 pkgname = "tailspin"
-pkgver = "5.2.1"
+pkgver = "5.4.2"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = ["--bins"]  # disable integration tests
@@ -9,7 +9,7 @@ pkgdesc = "Log file highlighter"
 license = "MIT"
 url = "https://github.com/bensadeh/tailspin"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "c74823ad1f63017001db6f891f8d4c37b50cbbcad8be61634a67bb9ac7d74ad7"
+sha256 = "2226229e6c85859a094bbe4e672a467976d7563fb7ba0454e75135c2a6537ee7"
 
 
 def post_install(self):
