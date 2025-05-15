@@ -1,20 +1,14 @@
 pkgname = "gumbo-parser"
-pkgver = "0.13.0"
+pkgver = "0.13.1"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_gen = ["./autogen.sh"]
-hostmakedepends = [
-    "automake",
-    "gm4",
-    "slibtool",
-    "pkgconf",
-]
+build_style = "meson"
+hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["gtest-devel"]
 pkgdesc = "HTML5 parsing library in pure C99"
 license = "Apache-2.0"
 url = "https://codeberg.org/gumbo-parser/gumbo-parser"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "7ad2ee259f35e8951233e4c9ad80968fb880f20d8202cb9c48f0b65f67d38e61"
+sha256 = "1a054d1e53d556641a6666537247411a77b0c18ef6ad5df23e30d2131676ef81"
 
 
 @subpackage("gumbo-parser-devel")
