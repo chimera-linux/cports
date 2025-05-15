@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -124,6 +124,7 @@ for _pkg in [
     "libxtables",
     "lidb-progs",
     "lscpu",
+    "mesa-osmesa-libs",
     "mkfs",
     "mount",
     "nautilus-gnome-terminal-extension",

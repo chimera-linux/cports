@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "25.0.5"
+pkgver = "25.1.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -13,9 +13,7 @@ configure_args = [
     "-Dglx=dri",
     "-Dllvm=enabled",
     "-Dlmsensors=enabled",
-    "-Dosmesa=true",
     "-Dplatforms=x11,wayland",
-    "-Dshared-glapi=enabled",
     "-Dvideo-codecs=all",
     "-Dgallium-vdpau=disabled",
 ]
@@ -88,7 +86,7 @@ _subproject_list = [
     "unicode-ident",
 ]
 source = f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz"
-sha256 = "c0d245dea0aa4b49f74b3d474b16542e4a8799791cd33d676c69f650ad4378d0"
+sha256 = "b1c45888969ee5df997e2542654f735ab1b772924b442f3016d2293414c99c14"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -140,10 +138,6 @@ match self.profile().arch:
         _have_arm = True
     case "loongarch64":
         _have_loong = True
-    case "ppc64le":
-        configure_args += ["-Dpower8=true"]
-    case "ppc64":
-        configure_args += ["-Dpower8=false"]
 
 _have_opencl = _have_amd or _have_intel
 _have_vulkan = _have_amd or _have_intel or _have_arm
@@ -281,16 +275,6 @@ def _(self):
         "usr/lib/libgbm.so",
         "usr/lib/pkgconfig/gbm.pc",
     ]
-
-
-@subpackage("mesa-osmesa-libs")
-def _(self):
-    self.pkgdesc = "Mesa off-screen interface"
-    self.depends += [self.parent]
-    # transitional
-    self.provides = [self.with_pkgver("libosmesa")]
-
-    return ["usr/lib/libOSMesa.so.*"]
 
 
 @subpackage("mesa-gles1-libs")
