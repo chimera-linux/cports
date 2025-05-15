@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-rs"
 # separate versioning from main gst
-pkgver = "0.13.5"
+pkgver = "0.13.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
@@ -25,7 +25,7 @@ pkgdesc = "GStreamer rust plugins"
 license = "(MIT OR Apache-2.0) AND MPL-2.0 AND LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/{pkgver}.tar.gz"
-sha256 = "fb2f5f1d874e010655724365d28dc0d5b86c68b97b94cde4e89b78ed055ccfcd"
+sha256 = "9d7dd50aebc24e00a39729c88ca2c60b4c58425a6bc884de3248d6506a952410"
 # takes forever
 options = ["!check"]
 
