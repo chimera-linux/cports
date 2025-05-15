@@ -1,5 +1,5 @@
 pkgname = "python-structlog"
-pkgver = "25.2.0"
+pkgver = "25.3.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ pkgdesc = "Python logging library"
 license = "Apache-2.0 OR MIT"
 url = "https://structlog.org"
 source = f"$(PYPI_SITE)/s/structlog/structlog-{pkgver}.tar.gz"
-sha256 = "d9f9776944207d1035b8b26072b9b140c63702fd7aa57c2f85d28ab701bd8e92"
+sha256 = "8dab497e6f6ca962abad0c283c46744185e0c9ba900db52a423cb6db99f7abeb"
 
 
 def post_install(self):
