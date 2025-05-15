@@ -1,19 +1,18 @@
 pkgname = "python-snowballstemmer"
-pkgver = "2.2.0"
-pkgrel = 2
+pkgver = "3.0.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 depends = ["python"]
 pkgdesc = "Snowball stemming library collection for Python"
 license = "BSD-3-Clause"
-url = "https://github.com/shibukawa/snowball_py"
+url = "https://snowballstem.org"
 source = f"$(PYPI_SITE)/s/snowballstemmer/snowballstemmer-{pkgver}.tar.gz"
-sha256 = "09b16deb8547d3412ad7b590689584cd0fe25ec8db3be37788be3810cbf19cb1"
+sha256 = "6d5eeeec8e9f84d4d56b847692bacf79bc2c8e90c7f80ca4444ff8b6f2e52895"
 # no tests
 options = ["!check"]
 
