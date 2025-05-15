@@ -1,5 +1,5 @@
 pkgname = "neomutt"
-pkgver = "2025.04.04"
+pkgver = "2025.05.10"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -32,7 +32,7 @@ pkgdesc = "Mail reader"
 license = "GPL-2.0-or-later"
 url = "https://neomutt.org"
 source = f"https://github.com/neomutt/neomutt/archive/refs/tags/{pkgver.replace('.', '')}.tar.gz"
-sha256 = "732d4fd006856030971c99ef0e569846d0358feababea115a353f90ab02d3142"
+sha256 = "12d225e270d8e16cda41d855880b9d938750a4f1d647f55c6353337d32ffd653"
 env = {"autosetup_tclsh": "tclsh"}
 # no tests defined
 options = ["!check"]
