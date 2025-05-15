@@ -9,7 +9,7 @@ hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "ninja",
-    "pkgconf"
+    "pkgconf",
 ]
 makedepends = [
     "qt6-qtdeclarative-devel",
