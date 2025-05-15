@@ -1,7 +1,7 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -868,11 +868,6 @@
- ifneq ($(shell uname -s),FreeBSD)
+@@ -922,11 +923,6 @@
+ ifneq ($(NATIVE_GOOS),freebsd)
  	install ${SELINUXOPT} -m 755 bin/rootlessport $(DESTDIR)$(LIBEXECPODMAN)/rootlessport
  	test -z "${SELINUXOPT}" || chcon --verbose --reference=$(DESTDIR)$(LIBEXECPODMAN)/rootlessport bin/rootlessport
 -	install ${SELINUXOPT} -m 755 bin/quadlet $(DESTDIR)$(LIBEXECPODMAN)/quadlet
