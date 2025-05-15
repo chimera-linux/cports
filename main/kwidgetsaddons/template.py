@@ -1,5 +1,5 @@
 pkgname = "kwidgetsaddons"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "cmake"
 # kcolumnresizertest broken, tooltipwidget hangs indefinitely with QT_QPA_PLATFORM=offscreen
@@ -24,7 +24,7 @@ pkgdesc = "KDE addons to QtWidgets"
 license = "GPL-2.0-only AND LGPL-2.1-only AND Unicode-DFS-2016"
 url = "https://api.kde.org/frameworks/kwidgetsaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwidgetsaddons-{pkgver}.tar.xz"
-sha256 = "a1538829997319f8af0044ed7ae84f79b4e18cf2b32cacd4fdc4748b8f1c7406"
+sha256 = "602720bc3e86cba2384f0f45e16c8524a1974796a3d5b7c5c1ed90e768cf121f"
 hardening = ["vis"]
 # fails
 options = ["!cross"]

@@ -1,5 +1,5 @@
 pkgname = "kcoreaddons"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky
@@ -9,6 +9,7 @@ hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "ninja",
+    "pkgconf"
 ]
 makedepends = [
     "qt6-qtdeclarative-devel",
@@ -18,7 +19,7 @@ pkgdesc = "Qt6 addon library with a collection of non-GUI utilities"
 license = "LGPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://api.kde.org/frameworks/kcoreaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcoreaddons-{pkgver}.tar.xz"
-sha256 = "a110bc3303c541fbac3e2d3aa93c2eb25413055de24634a69034210f6dfddbdb"
+sha256 = "9555d17295f4fece18b46e3d289055baf58b352e082e4da6e6e352d8d5c042ee"
 hardening = ["vis"]
 
 

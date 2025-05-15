@@ -1,5 +1,5 @@
 pkgname = "kio"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "cmake"
 # flaky
@@ -50,7 +50,7 @@ url = "https://api.kde.org/frameworks/kio/html"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kio-{pkgver}.tar.xz"
 )
-sha256 = "431552d0b740f357c4db7de2e28dcf0ec28e2bfb041a042da5708ae26ec2a203"
+sha256 = "9b03746fd008504a96f569f37ad8ff902cc71495e7e123daa3c6de79ff2acc45"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 hardening = ["vis"]
 # >60% (40/62) tests fail, pain to get working in a limited enviroment due to expecting e.g. real disks

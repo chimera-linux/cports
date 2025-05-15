@@ -1,5 +1,5 @@
 pkgname = "kcodecs"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "Collection of methods to manipulate strings using various encodings"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcodecs/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcodecs-{pkgver}.tar.xz"
-sha256 = "dddde05d970d026ae6a2b31e3559532107f4de60f26d7d87a45733176e122082"
+sha256 = "008f5912162d394498022d0e955c860c77c33867e8fa448e99448f3a364d6914"
 hardening = ["vis"]
 
 

@@ -1,5 +1,5 @@
 pkgname = "baloo"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: "not connected to dbus server"
@@ -30,7 +30,7 @@ pkgdesc = "KDE Framework for searching and metadata"
 license = "LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/frameworks/baloo/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/baloo-{pkgver}.tar.xz"
-sha256 = "5b4574d9a4a080bdc975e931bd411a7386a0c17ff0d5c5751dd26c92010133f8"
+sha256 = "ab60f943607f67929b619c029498f07fa8767aec6a7fb02ecf7392ced25734b4"
 hardening = ["vis"]
 
 

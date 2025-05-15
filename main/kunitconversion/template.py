@@ -1,5 +1,5 @@
 pkgname = "kunitconversion"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "cmake"
 # most tests require network access, pass in cbuild chroot
@@ -18,7 +18,7 @@ pkgdesc = "KDE Converting physical units"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kunitconversion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kunitconversion-{pkgver}.tar.xz"
-sha256 = "208f037e8089f999e0bb0aaf85571b3a2d341cd8e40c111b35ead9d2610017ea"
+sha256 = "d07d60ec2c5c21246f3aa9f89e01226e084c90fe99b62b08b651933c311cf08d"
 hardening = ["vis"]
 
 

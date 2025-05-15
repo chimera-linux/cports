@@ -1,5 +1,5 @@
 pkgname = "kguiaddons"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -13,12 +13,13 @@ makedepends = [
     "plasma-wayland-protocols",
     "qt6-qtbase-private-devel",  # qtguiglobal_p.h
     "qt6-qtwayland-devel",
+    "wayland-protocols",
 ]
 pkgdesc = "KDE addons to QtGui"
 license = "LGPL-2.1-only OR LGPL-3.0-only"
 url = "https://api.kde.org/frameworks/kguiaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kguiaddons-{pkgver}.tar.xz"
-sha256 = "9280a0f04f29b8e4ffabe3c942621e2c6092bdc0037a3ab9e0b99e5ea56884bf"
+sha256 = "3f3cc7e3748bd74d476a4a3616654786e7d861f7b391e8499aebc7c410f21ec5"
 hardening = ["vis"]
 
 

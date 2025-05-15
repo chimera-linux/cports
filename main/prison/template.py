@@ -1,5 +1,5 @@
 pkgname = "prison"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "KDE library to produce QR codes and DataMatrix barcodes"
 license = "MIT"
 url = "https://api.kde.org/frameworks/prison/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/prison-{pkgver}.tar.xz"
-sha256 = "23c46e289c27f1dacb0c83117abdc621b5c0bfeab45cd187464b0068f70003e1"
+sha256 = "b50454ab0a0d7891ac1f9b6c4e4e00ccd3269bad630a6a392f410c4e252ffb64"
 hardening = ["vis"]
 
 
