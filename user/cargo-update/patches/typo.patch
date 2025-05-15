@@ -1,0 +1,14 @@
+diff --git a/src/ops/mod.rs b/src/ops/mod.rs
+index ea62c4db14..c40e2cee1f 100644
+--- a/src/ops/mod.rs
++++ b/src/ops/mod.rs
+@@ -1132,8 +1132,7 @@ pub fn crate_versions(buf: &[u8]) -> Result<Vec<Semver>, Cow<'static, str>> {
+ /// # Examples
+ ///
+ /// ```
+-/// # #[cfg(all(target_pointer_width="64", target_endian="little"))] //
+-/// https://github.com/nabijaczleweli/cargo-update/issues/235
++/// # #[cfg(all(target_pointer_width="64", target_endian="little"))]
+ /// # {
+ /// # use cargo_update::ops::assert_index_path;
+ /// # use std::env::temp_dir;
