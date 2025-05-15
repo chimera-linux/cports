@@ -1,5 +1,5 @@
 pkgname = "openresolv"
-pkgver = "3.16.2"
+pkgver = "3.16.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--libexecdir=/usr/libexec/resolvconf"]
@@ -9,7 +9,7 @@ pkgdesc = "Management framework for resolv.conf"
 license = "BSD-2-Clause"
 url = "https://roy.marples.name/projects/openresolv"
 source = f"https://github.com/NetworkConfiguration/openresolv/releases/download/v{pkgver}/openresolv-{pkgver}.tar.xz"
-sha256 = "17d8486e53931b00cb06673cfeb038de12636eff59ead79f29379d036cfb6eb5"
+sha256 = "389cb94b57dca1e39a501c95efd448452adffbf311bb8a3bebd39f7f202ac284"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["!check"]
