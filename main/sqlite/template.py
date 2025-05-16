@@ -1,6 +1,6 @@
 pkgname = "sqlite"
-pkgver = "3.49.1"
-_amalg = "3490100"
+pkgver = "3.49.2"
+_amalg = "3490200"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "SQL Database Engine in a C library"
 license = "blessing"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2025/sqlite-autoconf-{_amalg}.tar.gz"
-sha256 = "106642d8ccb36c5f7323b64e4152e9b719f7c0215acf5bfeac3d5e7f97b59254"
+sha256 = "5c6d8697e8a32a1512a9be5ad2b2e7a891241c334f56f8b0fb4fc6051e1652e8"
 # no tests
 options = ["!parallel", "!check"]
 
