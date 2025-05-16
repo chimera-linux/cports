@@ -1,7 +1,7 @@
 pkgname = "php8.3"
-pkgver = "8.3.19"
+pkgver = "8.3.21"
 _majver = pkgver[0 : pkgver.rfind(".")]
-pkgrel = 2
+pkgrel = 0
 _apiver = "20230831"
 build_style = "gnu_configure"
 configure_args = [
@@ -132,7 +132,7 @@ pkgdesc = "HTML-embedded scripting language"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "bb21d1a5eb9a8b27668b2926fa9279a5878bb6fdee55450621f7865e062dcf3a"
+sha256 = "e7f1748c1fa3d2bf8ef2e00508bd62325ba68c3b830b253bc561225a9ba5457d"
 
 if self.profile().arch in ["loongarch64"]:
     makedepends += ["libucontext-devel"]
@@ -191,40 +191,10 @@ def post_patch(self):
         "sapi/cli/tests/009.phpt",
         "sapi/cli/tests/012-2.phpt",
         "sapi/fpm/tests/bug77780-header-sent-error.phpt",
-        # fails with new xml libs
-        "ext/dom/tests/DOMDocument_loadHTMLfile_error1.phpt",
-        "ext/dom/tests/DOMDocument_loadXML_error2_gte2_12.phpt",
-        "ext/dom/tests/DOMDocument_load_error2_gte2_12.phpt",
-        "ext/dom/tests/DOMDocument_relaxNGValidate_error2.phpt",
-        "ext/dom/tests/DOMDocument_saveHTMLFile_basic.phpt",
-        "ext/dom/tests/DOMDocument_saveHTMLFile_formatOutput.phpt",
-        "ext/dom/tests/DOMDocument_schemaValidate_error5.phpt",
-        "ext/dom/tests/DOMElement_insertAdjacentText.phpt",
-        "ext/dom/tests/DOMEntityReference_predefined_free.phpt",
-        "ext/dom/tests/dom_create_element.phpt",
-        "ext/libxml/tests/bug61367-read_2.phpt",
-        "ext/libxml/tests/libxml_disable_entity_loader_2.phpt",
-        "ext/libxml/tests/libxml_set_external_entity_loader_variation1.phpt",
-        "ext/simplexml/tests/bug63575.phpt",
-        "ext/simplexml/tests/bug76712.phpt",
-        "ext/simplexml/tests/bug79971_1.phpt",
-        "ext/soap/tests/bug69668.phpt",
-        "ext/soap/tests/bugs/bug42151.phpt",
         # probably fails because of zlib-ng-compat
         "ext/zlib/tests/bug48725.phpt",
         # most of these try connect to an ldap server and wait for timeout then autoskip
         "ext/ldap/tests/*.phpt",
-        # icu 76
-        "ext/intl/tests/bug62070_3.phpt",
-        "ext/intl/tests/collator_get_sort_key_variant7.phpt",
-        "ext/intl/tests/timezone_IDforWindowsID_basic2.phpt",
-        # icu 77
-        "ext/intl/tests/locale_get_display_name8.phpt",
-        "ext/intl/tests/locale_get_display_variant2.phpt",
-        # external pcre
-        "ext/pcre/tests/bug75457.phpt",
-        # updated curl
-        "ext/curl/tests/curl_basic_022.phpt",
     ]:
         self.rm(f, glob=True)
 
