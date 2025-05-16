@@ -1,6 +1,6 @@
 pkgname = "fonts-liberation"
 pkgver = "2.1.5"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 hostmakedepends = ["fontforge-cli", "python-fonttools"]
 depends = ["mkfontscale"]
