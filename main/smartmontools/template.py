@@ -1,5 +1,5 @@
 pkgname = "smartmontools"
-pkgver = "7.4"
+pkgver = "7.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -14,7 +14,7 @@ pkgdesc = "Utilities for SMART-enabled drives"
 license = "GPL-2.0-or-later"
 url = "https://www.smartmontools.org"
 source = f"$(SOURCEFORGE_SITE)/smartmontools/smartmontools-{pkgver}.tar.gz"
-sha256 = "e9a61f641ff96ca95319edfb17948cd297d0cd3342736b2c49c99d4716fb993d"
+sha256 = "690b83ca331378da9ea0d9d61008c4b22dde391387b9bbad7f29387f2595f76e"
 hardening = ["vis", "cfi"]
 
 
