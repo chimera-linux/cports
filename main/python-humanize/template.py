@@ -1,5 +1,5 @@
 pkgname = "python-humanize"
-pkgver = "4.12.2"
+pkgver = "4.12.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "Python humanization utilities"
 license = "MIT"
 url = "https://humanize.readthedocs.io"
 source = f"$(PYPI_SITE)/h/humanize/humanize-{pkgver}.tar.gz"
-sha256 = "ce0715740e9caacc982bb89098182cf8ded3552693a433311c6a4ce6f4e12a2c"
+sha256 = "8430be3a615106fdfceb0b2c1b41c4c98c6b0fc5cc59663a5539b111dd325fb0"
 
 
 def post_install(self):
