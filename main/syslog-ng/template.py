@@ -1,6 +1,6 @@
 pkgname = "syslog-ng"
-pkgver = "4.8.1"
-pkgrel = 2
+pkgver = "4.8.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--sysconfdir=/etc/syslog-ng",
@@ -59,7 +59,7 @@ pkgdesc = "Next generation logging daemon"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.syslog-ng.com/products/open-source-log-management"
 source = f"https://github.com/syslog-ng/syslog-ng/releases/download/syslog-ng-{pkgver}/syslog-ng-{pkgver}.tar.gz"
-sha256 = "e8b8b98c60a5b68b25e3462c4104c35d05b975e6778d38d8a81b8ff7c0e64c5b"
+sha256 = "f82732a8e639373037d2b69c0e6d5d6594290f0350350f7a146af4cd8ab9e2c7"
 # tests need https://github.com/Snaipe/Criterion
 options = ["!check"]
 
