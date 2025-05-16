@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/woodpecker-server
+run-as = _woodpecker
+env-file = /etc/default/woodpecker-server
+working-dir = /var/lib/woodpecker
+logfile = /var/log/woodpecker/server.log
+depends-on: network.target
+depends-on: local.target
