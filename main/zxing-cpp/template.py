@@ -2,14 +2,14 @@ pkgname = "zxing-cpp"
 pkgver = "2.3.0"
 pkgrel = 1
 build_style = "cmake"
-# racey
-make_check_args = ["-j1"]
 configure_args = [
     "-DBUILD_UNIT_TESTS=ON",
     "-DBUILD_EXAMPLES=ON",
     "-DBUILD_BLACKBOX_TESTS=OFF",
     "-DBUILD_DEPENDENCIES=LOCAL",
 ]
+# racey
+make_check_args = ["-j1"]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "stb"]
 checkdepends = ["gtest-devel"]
 pkgdesc = "Multi-format 1D/2D barcode library"
