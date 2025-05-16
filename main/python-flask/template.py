@@ -1,6 +1,6 @@
 pkgname = "python-flask"
-pkgver = "3.1.0"
-pkgrel = 1
+pkgver = "3.1.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -20,7 +20,7 @@ pkgdesc = "Python micro framework for building web applications"
 license = "MIT"
 url = "https://github.com/pallets/flask"
 source = f"https://github.com/pallets/flask/archive/{pkgver}.tar.gz"
-sha256 = "2b362a35e92c72df6da86b4ca2fdc2bc86d667a79e8a1791dc5bda97f5cbb060"
+sha256 = "80af55cb764cb4d2303ea13877d752a4aa19af898d4e374e0bcdcf1e98fa56e0"
 
 
 def post_install(self):
