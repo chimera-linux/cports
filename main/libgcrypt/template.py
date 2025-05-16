@@ -1,6 +1,6 @@
 pkgname = "libgcrypt"
-pkgver = "1.11.1"
-pkgrel = 0
+pkgver = "1.11.0"
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-static",
