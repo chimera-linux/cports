@@ -1,6 +1,6 @@
 pkgname = "screen"
-pkgver = "5.0.0"
-pkgrel = 1
+pkgver = "5.0.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pam",
@@ -24,7 +24,7 @@ pkgdesc = "GNU screen"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/screen"
 source = f"$(GNU_SITE)/screen/screen-{pkgver}.tar.gz"
-sha256 = "f04a39d00a0e5c7c86a55338808903082ad5df4d73df1a2fd3425976aed94971"
+sha256 = "2dae36f4db379ffcd14b691596ba6ec18ac3a9e22bc47ac239789ab58409869d"
 hardening = ["vis", "cfi"]
 # don't build due to type errors
 options = ["!check"]
