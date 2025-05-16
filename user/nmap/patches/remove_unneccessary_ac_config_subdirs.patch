@@ -1,6 +1,6 @@
-diff --color -ruN nmap-7.95/configure.ac nmap-7.95-patched/configure.ac
---- nmap-7.95/configure.ac	2024-04-12 17:20:04.000000000 +0000
-+++ nmap-7.95-patched/configure.ac	2024-07-09 06:08:34.372883728 +0000
+diff --color -ruN nmap-7.97/configure.ac nmap-7.97-patched/configure.ac
+--- nmap-7.97/configure.ac	2024-04-12 17:20:04.000000000 +0000
++++ nmap-7.97-patched/configure.ac	2024-07-09 06:08:34.372883728 +0000
 @@ -471,7 +471,6 @@
  fi
  
