@@ -2,6 +2,8 @@ pkgname = "zxing-cpp"
 pkgver = "2.3.0"
 pkgrel = 1
 build_style = "cmake"
+# racey
+make_check_args = ["-j1"]
 configure_args = [
     "-DBUILD_UNIT_TESTS=ON",
     "-DBUILD_EXAMPLES=ON",
