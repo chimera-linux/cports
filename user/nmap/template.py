@@ -1,6 +1,6 @@
 pkgname = "nmap"
-pkgver = "7.95"
-pkgrel = 1
+pkgver = "7.97"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-openssl=yes",
@@ -10,7 +10,6 @@ configure_args = [
     "--with-libssh2=yes",
     "--with-libz-prefix=/usr/lib",
     "--without-zenmap",
-    "CPP=",
 ]
 make_dir = "."
 hostmakedepends = [
@@ -32,7 +31,7 @@ pkgdesc = "Utility for network discovery and security auditing"
 license = "custom:Nmap"
 url = "https://nmap.org"
 source = f"https://nmap.org/dist/nmap-{pkgver}.tar.bz2"
-sha256 = "e14ab530e47b5afd88f1c8a2bac7f89cd8fe6b478e22d255c5b9bddb7a1c5778"
+sha256 = "af98f27925c670c257dd96a9ddf2724e06cb79b2fd1e0d08c9206316be1645c0"
 
 
 def post_install(self):
