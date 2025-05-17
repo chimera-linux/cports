@@ -1,0 +1,12 @@
+diff --git a/requirements/base.txt b/requirements/base.txt
+index bd8c8f5..431c137 100644
+--- a/requirements/base.txt
++++ b/requirements/base.txt
+@@ -16,6 +16,6 @@ packaging>=21.3
+ looseversion
+ croniter>=0.3.0,!=0.3.22; sys_platform != 'win32'
+ # We need contextvars for salt-ssh
+-contextvars
++contextvars; python_version<"3.7"
+ cryptography>=42.0.0
+ urllib3>=1.26.18

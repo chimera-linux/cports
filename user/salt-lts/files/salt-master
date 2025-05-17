@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/salt-master
+restart = yes
+depends-on = network.target
+before = login.target
+logfile = /var/log/salt/master
