@@ -1,5 +1,5 @@
 pkgname = "python-numpy"
-pkgver = "2.2.4"
+pkgver = "2.2.5"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_args = []
@@ -20,7 +20,7 @@ pkgdesc = "Package for scientific computing with Python"
 license = "BSD-3-Clause"
 url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
-sha256 = "9ba03692a45d3eef66559efe1d1096c4b9b75c0986b5dff5530c378fb8331d4f"
+sha256 = "a9c0d994680cd991b1cb772e8b297340085466a6fe964bc9d4e80f5e2f43c291"
 hardening = ["!int"]
 
 if self.profile().arch in ["aarch64", "loongarch64"]:
@@ -91,11 +91,22 @@ def check(self):
 
 def post_install(self):
     self.install_license("LICENSE.txt")
-    # remove static libs
-    self.uninstall(
-        f"usr/lib/python{self.python_version}/site-packages/numpy/*/lib/lib*.a",
-        glob=True,
-    )
+
+
+@subpackage("python-numpy-devel")
+def _(self):
+    def install():
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/include"
+        )
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/lib"
+        )
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/src"
+        )
+
+    return install
 
 
 @subpackage("python-numpy-tests")
