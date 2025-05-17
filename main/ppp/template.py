@@ -1,7 +1,7 @@
 # fix up networkmanager when updating this (versioned .so paths)
 pkgname = "ppp"
 pkgver = "2.5.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
