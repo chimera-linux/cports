@@ -1,5 +1,5 @@
 pkgname = "wpaperd"
-pkgver = "1.2.1"
+pkgver = "1.2.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features", "avif"]
@@ -14,7 +14,7 @@ pkgdesc = "Wallpaper daemon for Wayland"
 license = "GPL-3.0-or-later"
 url = "https://github.com/danyspin97/wpaperd"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "c6ac215502ba13816eac061c47a18376f43ad6131d9b242f1aa699fc03adebe8"
+sha256 = "16320b90cadd7a8ba7498b89d6142e47dcffcc8ea8ace04b28f8793d2c313ddf"
 # check: no meaningful tests
 options = ["!check"]
 
