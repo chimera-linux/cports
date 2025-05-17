@@ -1,5 +1,5 @@
 pkgname = "got"
-pkgver = "0.111"
+pkgver = "0.112"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,7 +28,7 @@ pkgdesc = "VCS prioritizing simplicity over flexibily"
 license = "ISC"
 url = "https://gameoftrees.org"
 source = f"{url}/releases/portable/got-portable-{pkgver}.tar.gz"
-sha256 = "d096f76e91a700dd0d22fbaf9641c2b94f8a6de16f09b0f4939c9b96a9d878ce"
+sha256 = "e336694fe91112bf8c804a574e46f796e1538793e931dd7c4c0a0413672afd89"
 env = {"GOT_RELEASE": "Yes"}
 hardening = ["vis", "cfi"]
 # tests require pre-installing got/tog in pre_check and running ssh locally
