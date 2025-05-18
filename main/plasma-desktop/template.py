@@ -1,7 +1,9 @@
 pkgname = "plasma-desktop"
-pkgver = "6.3.5"
-pkgrel = 1
+pkgver = "6.4.0"
+pkgrel = 0
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # FIXME: missing layout memory xml file? QTemporaryFile broken?
 # tst_calibrationtool: broken on ppc64le
 make_check_args = [
@@ -83,7 +85,6 @@ depends = [
     "accountsservice",
     "kactivitymanagerd",
     "kded",  # bg services
-    "kgamma",
     "kio-admin",
     "kio-zeroconf",
     "kirigami-addons",  # needed by tons of apps, should be direct dep but also just pull it here
@@ -108,7 +109,7 @@ pkgdesc = "KDE Plasma Desktop"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
-sha256 = "047f79e931f2094354b184d4b1fca9154a732c7498bf1871a8010207f8029f9a"
+sha256 = "18e114033c182d263c937f5bc41793252931dcdac22b04d49d33a0109bb2aeb2"
 hardening = ["vis"]
 
 # most kdepim stuff depends on messagelib which depends on qtwebengine
@@ -160,7 +161,6 @@ def _(self):
         "plasma-thunderbolt",  # user device authentication
         "print-manager",  # printer configuration
         "svgpart",  # svg renderer kpart plugin
-        "wacomtablet",  # wacom tablet settings
         "xwaylandvideobridge",  # x11 screen capture compat under wayland, TODO: test on baremetal
         # non-kde, misc integrations
         "desktop-file-utils",
@@ -178,10 +178,13 @@ def _(self):
 def _(self):
     self.subdesc = "X11 session recommends package"
     self.depends = [
-        "xserver-xorg-input-libinput",  # general input
-        # "xserver-xorg-input-evdev",  # TODO: used by mouse KCM? page loads even without it at least
-        "setxkbmap",  # configure non-us layout
+        "kgamma",  # monitor gamma settings
+        "plasma-workspace-x11",  # xsession
         "qt6-qtvirtualkeyboard",  # lockscreen virtual keyboard, any alternative that's also usable on wayland side (too?) -> maliit
+        "setxkbmap",  # configure non-us layout
+        "wacomtablet",  # wacom tablet settings
+        # "xserver-xorg-input-evdev",  # TODO: used by mouse KCM? page loads even without it at least
+        "xserver-xorg-input-libinput",  # general input
     ]
     self.install_if = [self.parent, "xserver-xorg-core"]
     self.options = ["empty"]

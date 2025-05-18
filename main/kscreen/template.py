@@ -1,13 +1,16 @@
 pkgname = "kscreen"
-pkgver = "6.3.5"
-pkgrel = 1
+pkgver = "6.4.0"
+pkgrel = 0
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "gettext",
     "ninja",
+    "pkgconf",
 ]
 makedepends = [
     "kcmutils-devel",
@@ -23,6 +26,8 @@ makedepends = [
     "libplasma-devel",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtsensors-devel",
+    "qt6-qtwayland-devel",
+    "wayland-protocols",
     "xcb-util-devel",
 ]
 depends = ["kdeclarative"]
@@ -30,7 +35,7 @@ pkgdesc = "KDE screen management"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kscreen-{pkgver}.tar.xz"
-sha256 = "71dcb79021681d8e48d819b810e6736e88b2a464e6b159a5f70fe945fa910a25"
+sha256 = "e4cee0890a534053151fa5e85372ad82e9269b94cd3dc332b737c36c4711727f"
 hardening = ["vis"]
 
 

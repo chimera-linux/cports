@@ -1,5 +1,5 @@
 pkgname = "polkit-kde-agent-1"
-pkgver = "6.3.5"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -12,19 +12,20 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "polkit-qt-1-devel",
-    "ki18n-devel",
-    "kcrash-devel",
-    "kwindowsystem-devel",
-    "kdbusaddons-devel",
     "kcoreaddons-devel",
+    "kcrash-devel",
+    "kdbusaddons-devel",
+    "ki18n-devel",
+    "knotifications-devel",
+    "kwindowsystem-devel",
+    "polkit-qt-1-devel",
     "qt6-qtdeclarative-devel",
 ]
 pkgdesc = "KDE polkit authentication daemon"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/polkit-kde-agent-1"
 source = f"$(KDE_SITE)/plasma/{pkgver}/polkit-kde-agent-1-{pkgver}.tar.xz"
-sha256 = "58071b3529a53b6c99f1a2ab51b452c71bac02d1f4456eb4b0149c9bc9bd5ba0"
+sha256 = "a8ab5df6ab1ea05e63ef08ebbe536e1393d4f6d6dd4b297305619fc1e87515c5"
 hardening = ["vis"]
 
 

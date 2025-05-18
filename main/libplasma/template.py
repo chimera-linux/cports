@@ -1,6 +1,6 @@
 pkgname = "libplasma"
-pkgver = "6.3.5"
-pkgrel = 1
+pkgver = "6.4.0"
+pkgrel = 0
 build_style = "cmake"
 # DialogNativeTest::position() upper_left_y + anchorY is 0 instead of 49
 make_check_args = ["-E", "(bug485688test|dialognativetest)"]
@@ -32,6 +32,7 @@ makedepends = [
     "qt6-qtbase-private-devel",  # qplatformwindow_p.h/qtguiglobal_p.h
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
+    "qt6-qttools-devel",
     "qt6-qtwayland-devel",
 ]
 checkdepends = [
@@ -41,7 +42,7 @@ pkgdesc = "Foundational libraries, components, and tools for Plasma workspaces"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://api.kde.org/plasma/libplasma/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libplasma-{pkgver}.tar.xz"
-sha256 = "5012c83d2da265de960709b4f2138f3978aa44e1fb2bb0d6b3ef95de98e6eae4"
+sha256 = "ff86f0d906254bbc9f9107f383b19fbb5ba7db243fab7f2d7d278fe83146354c"
 hardening = ["vis"]
 
 

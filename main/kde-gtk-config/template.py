@@ -1,7 +1,9 @@
 pkgname = "kde-gtk-config"
-pkgver = "6.3.5"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -26,4 +28,4 @@ pkgdesc = "KDE settings synchronization for GTK applications"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/plasma/kde-gtk-config"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kde-gtk-config-{pkgver}.tar.xz"
-sha256 = "450adb5512c30c4a5abba763c4f92861ea18ba334cd85a2113ede545e157c236"
+sha256 = "ca066da84272280c3fd6a181970d94f39e117bec8cee91d71a2e252c2145efcf"

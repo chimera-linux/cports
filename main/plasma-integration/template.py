@@ -1,6 +1,6 @@
 pkgname = "plasma-integration"
-pkgver = "6.3.5"
-pkgrel = 1
+pkgver = "6.4.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_QT5=OFF"]
 make_check_args = [
@@ -43,5 +43,5 @@ pkgdesc = "Qt Platform Theme integration plugins for the Plasma workspaces"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/plasma-integration"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-integration-{pkgver}.tar.xz"
-sha256 = "db945100ac461b9be01ba374ebd047c309b4f0776668ca570560870094d0911a"
+sha256 = "a7186820528def6f887b642efa7bfb4c4e148d14e65ef0ab787fc35a62e281d0"
 hardening = ["vis"]

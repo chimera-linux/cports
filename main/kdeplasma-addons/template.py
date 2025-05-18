@@ -1,7 +1,9 @@
 pkgname = "kdeplasma-addons"
-pkgver = "6.3.5"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # FIXME: failed tz comparison / scientific notation number e uppercase
 make_check_args = ["-E", "(converterrunnertest|datetimerunnertest)"]
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -40,18 +42,13 @@ makedepends = [
     "qt6-qtquick3d-devel",
     "sonnet-devel",
 ]
-depends = [
-    "kirigami-addons",
-    "kitemmodels",
-    "purpose",
-    "qt6-qtquick3d",
-]
+depends = ["kirigami-addons", "kitemmodels", "purpose", "qt6-qtquick3d"]
 checkdepends = ["xwayland-run"]
 pkgdesc = "KDE Plasma addons"
 license = "GPL-3.0-only AND CC0-1.0 AND LGPL-3.0-or-later"
 url = "https://invent.kde.org/plasma/kdeplasma-addons"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kdeplasma-addons-{pkgver}.tar.xz"
-sha256 = "27bc430a2d4f5ff85b02c120c45afe3e02287e5b13bd730eabb8ed484d5ea4ba"
+sha256 = "5f04b71668cb8400e094bece6bb6c746b6bb9365bc116938b66d8aabd849355a"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]

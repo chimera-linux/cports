@@ -1,19 +1,27 @@
 "Applications view is unsupported on your system" until we have turnstile user slice cgroup anyway
+--- a/src/page/systemmonitor.kcfg
++++ b/src/page/systemmonitor.kcfg
+@@ -13,9 +13,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
+             <default>false</default>
+         </entry>
+         <entry name="pageOrder" type="StringList">
+-            <default>overview.page,applications.page,history.page,processes.page</default>
++            <default>overview.page,processes.page,history.page</default>
+         </entry>
+         <entry name="hiddenPages" type="StringList">
++            <default>applications.page</default>
+         </entry>
+         <entry name="startPage" type="String">
+             <default>overview.page</default>
 --- a/src/pages/overview.page
 +++ b/src/pages/overview.page
-@@ -122,7 +122,7 @@ totalSensors=["network/(?!all).*/network"]
- groupByTotal=true
+@@ -232,58 +232,57 @@ Title[zh_TW]=硬碟
+ highPrioritySensorIds=["disk/(?!all).*/used"]
  
- [Face-94410254040128][Appearance]
+ [Face-108592549200736][Appearance]
 -chartFace=org.kde.ksysguard.applicationstable
 +chartFace=org.kde.ksysguard.processtable
- 
- [Face-94410261307168][Appearance]
- chartFace=org.kde.ksysguard.piechart
-@@ -552,56 +552,56 @@ name=section-4
- isTitle=true
- name=row-3
- heightMode=minimum
+ showTitle=true
 -Title=Applications
 -Title[ar]=التّطبيقات
 -Title[ast]=Aplicaciones
@@ -65,7 +73,7 @@
 -Title[zh_CN]=应用程序
 -Title[zh_TW]=應用程式
 +Title=Processes
-+Title[ar]=العمليات
++Title[ar]=ﺎﻠﻌﻤﻠﻳﺎﺗ
 +Title[ast]=Procesos
 +Title[az]=Proseslər
 +Title[be]=Працэсы
@@ -104,30 +112,15 @@
 +Title[pt_BR]=Processos
 +Title[ro]=Procese
 +Title[ru]=Процессы
-+Title[sa]=प्रक्रियाः
-+Title[sk]=Procesy
++Title[sa]=प्रक्रियाःTitle[sk]=Procesy
 +Title[sl]=Procesi
 +Title[sv]=Processer
-+Title[ta]=பணிகள்
++Title[ta]=பணிகள்s
 +Title[tr]=Süreçler
 +Title[uk]=Процеси
 +Title[x-test]=xxProcessesxx
 +Title[zh_CN]=进程列表
 +Title[zh_TW]=行程
  
- [page][row-4]
- isTitle=false
---- a/src/systemmonitor.kcfg
-+++ b/src/systemmonitor.kcfg
-@@ -24,9 +24,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
-             <default>false</default>
-         </entry>
-         <entry name="pageOrder" type="StringList">
--            <default>overview.page,applications.page,history.page,processes.page</default>
-+            <default>overview.page,processes.page,history.page</default>
-         </entry>
-         <entry name="hiddenPages" type="StringList">
-+            <default>applications.page</default>
-         </entry>
-         <entry name="startPage" type="String">
-             <default>overview.page</default>
+ [Face-108592549200736][org.kde.ksysguard.applicationstable][General]
+ showToolBar=true

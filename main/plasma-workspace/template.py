@@ -1,9 +1,12 @@
 pkgname = "plasma-workspace"
-pkgver = "6.3.5"
-pkgrel = 1
+pkgver = "6.4.0"
+pkgrel = 0
 build_style = "cmake"
 # TODO: -DINSTALL_SDDM_WAYLAND_SESSION=ON experiments?
-configure_args = ["-DGLIBC_LOCALE_GEN=OFF"]
+configure_args = [
+    "-DGLIBC_LOCALE_GEN=OFF",
+    "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib",  # XXX drop libexec
+]
 make_check_args = [
     "-E",
     "(^tasksmodeltest$"  # failing test_moveLauncherBug472524() & test_moveBug444816()
@@ -20,6 +23,7 @@ make_check_args = [
     + "|lockedtest"  # needs selenium
     + "|klipper*"  # most of these segfault
     + "|dbusmethodcalltest"  # fails to send something to ksplash (?)
+    + "|dbussignalwatchertest"  # ^ same as above
     + "|servicerunnertest"  # fails to spawn stuff in sandbox somehow
     + "|lookandfeel-kcmTest"  # segfaults with our patch to default theme
     + "|testimagebackend"  # cannot find org.kde.plasma.wallpapers.image QML module, try QML2_IMPORT_PATH
@@ -97,6 +101,7 @@ makedepends = [
     "qt6-qt5compat-devel",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h
     "qt6-qtdeclarative-devel",
+    "qt6-qtlocation-devel",
     "qt6-qtpositioning-devel",
     "qt6-qtsvg-devel",
     "qt6-qtwayland-devel",
@@ -122,13 +127,13 @@ checkdepends = [
     "python-gobject",
     *depends,
 ]
-# kde-portals.conf is now here
-replaces = ["xdg-desktop-portal-kde<6.2.1"]
+# kde-portals.conf & kcm_componentchooser respectively are now here
+replaces = ["xdg-desktop-portal-kde<6.2.1", "plasma-desktop<6.4.0"]
 pkgdesc = "KDE Plasma Workspace"
 license = "MIT AND GPL-3.0-only AND LGPL-3.0-only"
 url = "https://api.kde.org/plasma/plasma-workspace/html"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/plasma-workspace-{pkgver}.tar.xz"
-sha256 = "7f508f6ca27d7d615eee27919dd0b0f94d168ba81c3a4d543968046bccb787f2"
+sha256 = "961ef54f7fd21f212f8d633300f1bb0520524aa9794e433ae1abe16ac0560b2b"
 hardening = ["vis"]
 
 
@@ -146,6 +151,14 @@ def post_install(self):
         self.uninstall(f"{previews_path}/*", glob=True)
 
     self.uninstall("usr/lib/systemd/user")
+
+
+@subpackage("plasma-workspace-x11")
+def _(self):
+    self.subdesc = "X11 session support"
+    self.depends = ["kwin-x11"]
+
+    return ["cmd:startplasma-x11", "usr/share/xsessions/plasmax11.desktop"]
 
 
 @subpackage("plasma-workspace-devel")

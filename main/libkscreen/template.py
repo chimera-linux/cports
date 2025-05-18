@@ -1,28 +1,21 @@
 pkgname = "libkscreen"
-pkgver = "6.3.5"
-pkgrel = 1
+pkgver = "6.4.0"
+pkgrel = 0
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # testbackendloader testEnv(xrandr 1.1) 'preferred.fileName().startsWith(backend)' returned FALSE, flaky tests when parallel
 make_check_args = ["-E", "testbackendloader", "-j1"]
 # kscreen-testqscreenbackend needs X11
 make_check_wrapper = ["xwfb-run", "--"]
-hostmakedepends = [
-    "cmake",
-    "extra-cmake-modules",
-    "ninja",
-    "pkgconf",
-]
+hostmakedepends = ["cmake", "extra-cmake-modules", "ninja", "pkgconf"]
 makedepends = [
     "plasma-wayland-protocols",
     "qt6-qtbase-private-devel",  # qtx11extras_p.h/qtguiglobal_p.h
     "qt6-qttools-devel",
     "qt6-qtwayland-devel",
 ]
-checkdepends = [
-    "dbus-x11",
-    "hwdata",
-    "xwayland-run",
-]
+checkdepends = ["dbus-x11", "hwdata", "xwayland-run"]
 # depends = ["jq"] for zsh completions to work at their full capacity
 pkgdesc = "KDE screen management library"
 license = (
@@ -30,7 +23,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/libkscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
-sha256 = "5a5d14bacfec9b0591c1e6d6e14f398e694366c1ff2f38f6e0cd752eda91b9e3"
+sha256 = "e240476e15c57e85a79107fefbdccb07082889a494b57aa5c7c4e6f208e9121a"
 hardening = ["vis"]
 
 

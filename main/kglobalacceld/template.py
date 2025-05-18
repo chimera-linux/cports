@@ -1,15 +1,13 @@
 pkgname = "kglobalacceld"
-pkgver = "6.3.5"
-pkgrel = 1
+pkgver = "6.4.0"
+pkgrel = 0
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # needs full init of kglobalaccel
 make_check_args = ["-E", "shortcutstest"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
-hostmakedepends = [
-    "cmake",
-    "extra-cmake-modules",
-    "ninja",
-]
+hostmakedepends = ["cmake", "extra-cmake-modules", "ninja"]
 makedepends = [
     "kconfig-devel",
     "kcoreaddons-devel",
@@ -26,7 +24,7 @@ pkgdesc = "KDE Daemon for global keyboard shortcut functionality"
 license = "LGPL-2.0-or-later"
 url = "https://invent.kde.org/plasma/kglobalacceld"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kglobalacceld-{pkgver}.tar.xz"
-sha256 = "f76c9ff4df0f6de0c9ee475c7e357497f77d2615a7add097b669dd68b59a6900"
+sha256 = "f7e67a7367b60bd4530558ef91980dfa16bb500d5516eb689eb50041e10b0f32"
 hardening = ["vis"]
 
 

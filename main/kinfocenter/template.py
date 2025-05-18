@@ -1,7 +1,9 @@
 pkgname = "kinfocenter"
-pkgver = "6.3.5"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -22,15 +24,12 @@ makedepends = [
     "qt6-qtbase-devel",
     # TODO: SeleniumWebDriverATSPI? (GUI accessibility tests)
 ]
-depends = [
-    "kdeclarative",
-    "systemsettings",
-]
+depends = ["kdeclarative", "systemsettings"]
 pkgdesc = "Utility providing information about your system"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kinfocenter"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kinfocenter-{pkgver}.tar.xz"
-sha256 = "403544aeeb606ffb3be55da4213d1712cbf93534c0982e38204ad863e01ae8c3"
+sha256 = "4d2deaf4c1ff76ff100ed6b07d7cb158ba116c4c221b7b5f7b25440285054494"
 # symlink to systemsettings, runtime dep provided
 broken_symlinks = ["usr/bin/kinfocenter"]
 hardening = ["vis"]
@@ -49,6 +48,7 @@ def _(self):
         "aha",
         "fwupd",
         "pciutils",
+        "lm-sensors",
         # graphics
         "clinfo",
         "mesa-demos-core",

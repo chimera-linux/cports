@@ -1,5 +1,5 @@
 pkgname = "kpipewire"
-pkgver = "6.3.5"
+pkgver = "6.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,7 +24,7 @@ pkgdesc = "KDE Components for Flatpak pipewire usage in Plasma"
 license = "LGPL-2.1-or-later"
 url = "https://invent.kde.org/plasma/kpipewire"
 source = f"$(KDE_SITE)/plasma/{pkgver}/kpipewire-{pkgver}.tar.xz"
-sha256 = "99b612bbe0fe3f44054fc57131e05fc005f675ccc071a088b5a0f154d03af2f7"
+sha256 = "d597665a4ee57a4993d908e62151242ae9a5a3a25e76d0ba003f39ca6869e35a"
 hardening = ["vis"]
 # only available test needs running pipewire
 options = ["!check"]
