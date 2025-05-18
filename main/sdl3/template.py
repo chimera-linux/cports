@@ -1,5 +1,5 @@
 pkgname = "sdl3"
-pkgver = "3.2.10"
+pkgver = "3.2.14"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -49,7 +49,7 @@ pkgdesc = "Simple DirectMedia Layer version 3"
 license = "Zlib"
 url = "https://libsdl.org"
 source = f"https://github.com/libsdl-org/SDL/releases/download/release-{pkgver}/SDL3-{pkgver}.zip"
-sha256 = "01d9ab20fc071b076be91df5396b464b4ef159e93b2b2addda1cc36750fc1f29"
+sha256 = "46a17d3ea71fe2580a7f43ca7da286c5b9106dd761e2fd5533bb113e5d86b633"
 
 
 def post_install(self):
