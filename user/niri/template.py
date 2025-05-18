@@ -1,5 +1,5 @@
 pkgname = "niri"
-pkgver = "25.02"
+pkgver = "25.05"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -35,7 +35,7 @@ pkgdesc = "Scrollable-tiling wayland compositor"
 license = "GPL-3.0-or-later"
 url = "https://github.com/YaLTeR/niri"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "602b1f38c6ab01b19e95ac2ef86d7c91dfa9b212437d62fb40def9664c1419d6"
+sha256 = "deb067a8af2febb29bdcf72b98a2e654e3e2a199e7f3b3d622436983071ebe32"
 # check may be disabled
 options = []
 
