@@ -1,5 +1,5 @@
 pkgname = "python-poetry-core"
-pkgver = "2.1.2"
+pkgver = "2.1.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -12,14 +12,18 @@ depends = [
     "python-lark-parser",
     "python-packaging",
 ]
-checkdepends = ["python-pytest"]
+checkdepends = [
+    "git",
+    "python-devel",
+    "python-pytest-mock",
+    "python-tomli-w",
+    "python-trove-classifiers",
+]
 pkgdesc = "PEP517 build backend for Poetry"
 license = "MIT"
 url = "https://github.com/python-poetry/poetry-core"
 source = f"$(PYPI_SITE)/p/poetry_core/poetry_core-{pkgver}.tar.gz"
-sha256 = "f9dbbbd0ebf9755476a1d57f04b30e9aecf71ca9dc2fcd4b17aba92c0002aa04"
-# FIXME
-options = ["!check"]
+sha256 = "0522a015477ed622c89aad56a477a57813cace0c8e7ff2a2906b7ef4a2e296a4"
 
 
 def post_install(self):
