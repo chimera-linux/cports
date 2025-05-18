@@ -1,6 +1,6 @@
 pkgname = "python-pytest-rerunfailures"
-pkgver = "15.0"
-pkgrel = 1
+pkgver = "15.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,8 +13,8 @@ pkgdesc = "Pytest plugin to rerun failed tests multiple times"
 license = "MPL-2.0"
 url = "https://github.com/pytest-dev/pytest-rerunfailures"
 source = (
-    f"$(PYPI_SITE)/p/pytest-rerunfailures/pytest-rerunfailures-{pkgver}.tar.gz"
+    f"$(PYPI_SITE)/p/pytest-rerunfailures/pytest_rerunfailures-{pkgver}.tar.gz"
 )
-sha256 = "2d9ac7baf59f4c13ac730b47f6fa80e755d1ba0581da45ce30b72fb3542b4474"
+sha256 = "c6040368abd7b8138c5b67288be17d6e5611b7368755ce0465dda0362c8ece80"
 # fail with pytest 8.2
 options = ["!check"]
