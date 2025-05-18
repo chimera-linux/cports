@@ -1,5 +1,5 @@
 pkgname = "nbfc-linux"
-pkgver = "0.3.14"
+pkgver = "0.3.16"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["confdir=/etc"]
@@ -9,7 +9,7 @@ pkgdesc = "NoteBook FanControl for Linux"
 license = "GPL-3.0-or-later"
 url = "https://github.com/nbfc-linux/nbfc-linux"
 source = f"{url}/archive/{pkgver}/nbfc-linux-{pkgver}.tar.gz"
-sha256 = "f49eba952c31396f858a6b338d68ea8c66b2ebc0659a49296f2d851f284a9969"
+sha256 = "3661c6335a6ef357e69d03bfa7e1ca3b19d2465ef4a942332514e3dd818fda7a"
 # recursive json parser
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # no tests
