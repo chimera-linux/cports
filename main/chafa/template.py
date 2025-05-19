@@ -1,5 +1,5 @@
 pkgname = "chafa"
-pkgver = "1.14.5"
+pkgver = "1.16.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-man"]
@@ -27,7 +27,7 @@ pkgdesc = "Character art facsimile generator"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://hpjansson.org/chafa"
 source = f"https://github.com/hpjansson/chafa/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "788cb29e6d9cd29578c2040b3a11f69f4c9408e04f6c93c994c071e2a85d5ba4"
+sha256 = "5b92d2e44647b0a4cd7e34ffa040bd2ae533240382c9610751c7fb36a5595fe4"
 
 
 @subpackage("chafa-devel")
