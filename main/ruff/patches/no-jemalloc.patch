@@ -1,95 +1,39 @@
-diff --git a/Cargo.lock b/Cargo.lock
-index 2be38f358..899fc0edc 100644
---- a/Cargo.lock
-+++ b/Cargo.lock
-@@ -2608,7 +2608,6 @@ dependencies = [
-  "tempfile",
-  "test-case",
-  "thiserror 2.0.12",
-- "tikv-jemallocator",
-  "toml",
-  "tracing",
-  "walkdir",
-@@ -2645,7 +2644,6 @@ dependencies = [
-  "ruff_python_parser",
-  "ruff_python_trivia",
-  "rustc-hash 2.1.1",
-- "tikv-jemallocator",
-  "ty_project",
- ]
- 
-@@ -3766,26 +3764,6 @@ dependencies = [
-  "num_cpus",
- ]
- 
--[[package]]
--name = "tikv-jemalloc-sys"
--version = "0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7"
--source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "cd3c60906412afa9c2b5b5a48ca6a5abe5736aec9eb48ad05037a677e52e4e2d"
--dependencies = [
-- "cc",
-- "libc",
--]
--
--[[package]]
--name = "tikv-jemallocator"
--version = "0.6.0"
--source = "registry+https://github.com/rust-lang/crates.io-index"
--checksum = "4cec5ff18518d81584f477e9bfdf957f5bb0979b0bac3af4ca30b5b3ae2d2865"
--dependencies = [
-- "libc",
-- "tikv-jemalloc-sys",
--]
--
- [[package]]
- name = "tinystr"
- version = "0.7.6"
 diff --git a/crates/ruff/Cargo.toml b/crates/ruff/Cargo.toml
-index c740f5882..1c97eb83d 100644
+index 25f3ee7a0..559f4d93f 100644
 --- a/crates/ruff/Cargo.toml
 +++ b/crates/ruff/Cargo.toml
-@@ -84,8 +84,5 @@ dist = true
+@@ -84,7 +84,7 @@ dist = true
  [target.'cfg(target_os = "windows")'.dependencies]
  mimalloc = { workspace = true }
  
--[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), not(target_os = "aix"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
--tikv-jemallocator = { workspace = true }
--
+-[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), not(target_os = "aix"), not(target_os = "android"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
++[target.'cfg(all(not(target_vendor = "chimera"), not(target_os = "windows"), not(target_os = "openbsd"), not(target_os = "aix"), not(target_os = "android"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
+ tikv-jemallocator = { workspace = true }
+ 
  [lints]
- workspace = true
 diff --git a/crates/ruff/src/main.rs b/crates/ruff/src/main.rs
-index b33260bf3..fd5298de6 100644
+index 6957afb9d..b8f9054d5 100644
 --- a/crates/ruff/src/main.rs
 +++ b/crates/ruff/src/main.rs
-@@ -11,19 +11,6 @@ use ruff::{run, ExitStatus};
- #[global_allocator]
+@@ -12,6 +12,7 @@ use ruff::{run, ExitStatus};
  static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
  
--#[cfg(all(
--    not(target_os = "windows"),
--    not(target_os = "openbsd"),
--    not(target_os = "aix"),
--    any(
--        target_arch = "x86_64",
--        target_arch = "aarch64",
--        target_arch = "powerpc64"
--    )
--))]
--#[global_allocator]
--static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
--
- pub fn main() -> ExitCode {
-     // Enabled ANSI colors on Windows 10.
-     #[cfg(windows)]
+ #[cfg(all(
++    not(target_vendor = "chimera"),
+     not(target_os = "windows"),
+     not(target_os = "openbsd"),
+     not(target_os = "aix"),
 diff --git a/crates/ruff_benchmark/Cargo.toml b/crates/ruff_benchmark/Cargo.toml
-index b5c2a50a1..03894012d 100644
+index b5c2a50a1..325d5432f 100644
 --- a/crates/ruff_benchmark/Cargo.toml
 +++ b/crates/ruff_benchmark/Cargo.toml
-@@ -59,6 +59,3 @@ codspeed = ["codspeed-criterion-compat"]
- 
+@@ -60,5 +60,5 @@ codspeed = ["codspeed-criterion-compat"]
  [target.'cfg(target_os = "windows")'.dev-dependencies]
  mimalloc = { workspace = true }
--
+ 
 -[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dev-dependencies]
--tikv-jemallocator = { workspace = true }
++[target.'cfg(all(not(target_vendor = "chimera"), not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dev-dependencies]
+ tikv-jemallocator = { workspace = true }
+-- 
+2.49.0
+
