@@ -1,5 +1,5 @@
 pkgname = "k9s"
-pkgver = "0.50.5"
+pkgver = "0.50.6"
 pkgrel = 0
 build_style = "go"
 make_build_args = [f"-ldflags= -X github.com/derailed/k9s/cmd.version={pkgver}"]
@@ -8,7 +8,7 @@ pkgdesc = "Terminal UI to interact with Kubernetes clusters"
 license = "Apache-2.0"
 url = "https://k9scli.io"
 source = f"https://github.com/derailed/k9s/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "86dd0d54f3bcd1ea57d383982d85c3e31fe7af5dcdb87cc0dc19ec6bf815170a"
+sha256 = "10ee539aa24199a5d6c21af9c8b7759bed9e3a3c6d433644aea4598d37fd1dd3"
 
 
 def post_build(self):
