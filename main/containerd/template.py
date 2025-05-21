@@ -1,6 +1,6 @@
 pkgname = "containerd"
-pkgver = "2.0.5"
-pkgrel = 1
+pkgver = "2.1.1"
+pkgrel = 0
 _rootless_ver = "2.0.4"
 build_style = "makefile"
 make_build_args = [
@@ -11,7 +11,11 @@ make_build_args = [
     f"REVISION=chimera-r{pkgrel}",
     f"VERSION={pkgver}",
 ]
-make_install_args = ["install-man"]
+make_install_args = [
+    "install-man",
+    f"VERSION={pkgver}",
+    f"REVISION=chimera-r{pkgrel}",
+]
 make_check_target = "test"
 make_check_args = ["TESTFLAGS_RACE="]
 hostmakedepends = [
@@ -39,7 +43,7 @@ source = [
     f"!https://raw.githubusercontent.com/containerd/nerdctl/refs/tags/v{_rootless_ver}/extras/rootless/containerd-rootless.sh>containerd-rootless-{pkgver}",
 ]
 sha256 = [
-    "617917606c64df1cab19a0f5cc20fd724ed9187314bcd40eaacf66a9e75b1eb8",
+    "6ac779e87926ac1fe4360ffee63efd9f829b15a887e612be9a7d2f8a652674e9",
     "1f8101ce7680ce4533ced18b4e3e39bd300c08210c336d30f6969c8cb1727a7c",
 ]
 # can't run tests inside namespaces
