@@ -1,5 +1,5 @@
 pkgname = "qpdf"
-pkgver = "11.10.1"
+pkgver = "12.2.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,22 +22,20 @@ pkgdesc = "Command-line tool and C++ library for PDF files"
 license = "Apache-2.0"
 url = "https://github.com/qpdf/qpdf"
 source = f"{url}/releases/download/v{pkgver}/qpdf-{pkgver}.tar.gz"
-sha256 = "defca435cf57d26f8a0619864841aa21f5469fddc6eb5662f62d8443021c069d"
+sha256 = "b3d1575b2218badc3549d6977524bb0f8c468c6528eebc8967bbe3078cf2cace"
 # for some reason some tests have an empty output for diff
 options = ["!check"]
 
 
 @subpackage("qpdf-devel")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("libqpdf-devel")]
+    self.renames = ["libqpdf-devel"]
 
     return self.default_devel()
 
 
 @subpackage("qpdf-libs")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("libqpdf-libs")]
+    self.renames = ["libqpdf-libs"]
 
     return self.default_libs()
