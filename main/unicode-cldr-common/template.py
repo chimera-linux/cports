@@ -1,11 +1,11 @@
 pkgname = "unicode-cldr-common"
-pkgver = "46.1"
+pkgver = "47"
 pkgrel = 0
 pkgdesc = "Common data from Unicode CLDR"
 license = "Unicode-DFS-2016"
 url = "https://cldr.unicode.org"
 source = f"https://github.com/unicode-org/cldr/archive/refs/tags/release-{pkgver.replace('.', '-')}.tar.gz"
-sha256 = "56287d1e0380870e880162cc291f12fff6d598f22df86e3c40747670c6cd5b90"
+sha256 = "da858185edee37877c98951e12926970372eed45f209ef54a56b32013667bf9b"
 
 
 def install(self):
