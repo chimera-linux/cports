@@ -1,5 +1,5 @@
 pkgname = "totem"
-pkgver = "43.1"
+pkgver = "43.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -37,9 +37,9 @@ depends = [
 ]
 pkgdesc = "GNOME media player"
 license = "GPL-2.0-or-later"
-url = "https://wiki.gnome.org/Apps/Videos"
+url = "https://apps.gnome.org/Totem"
 source = f"$(GNOME_SITE)/totem/{pkgver[:-2]}/totem-{pkgver}.tar.xz"
-sha256 = "5668291e9c6444985cb3ffe4ea4f0212f54c2bbe60dd01114c1a950f94759e6d"
+sha256 = "0b007d30fbb93b95a604f14848a497f57fc333a75c2e638a249972e99c01e6a4"
 # needs graphical environment
 options = ["!check"]
 

@@ -7,7 +7,7 @@ we don't need to check this, we guarantee this
  
 -gst_inspect = find_program(
 -  'gst-inspect-1.0',
--  join_paths(gst_dep.get_pkgconfig_variable('toolsdir'), 'gst-inspect-1.0'),
+-  join_paths(gst_dep.get_variable(pkgconfig : 'toolsdir'), 'gst-inspect-1.0'),
 -  required: false
 -)
 -
@@ -28,7 +28,7 @@ we don't need to check this, we guarantee this
  gst_good_plugins = [
    'autoaudiosink',
    'scaletempo',
-@@ -27,12 +12,6 @@ gst_good_plugins = [
+@@ -28,12 +13,6 @@ gst_good_plugins = [
    'glsinkbin'
  ]
  
