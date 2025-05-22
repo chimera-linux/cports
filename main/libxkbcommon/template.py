@@ -1,5 +1,5 @@
 pkgname = "libxkbcommon"
-pkgver = "1.9.2"
+pkgver = "1.10.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,13 +25,12 @@ makedepends = [
     "xorgproto",
 ]
 depends = ["xkeyboard-config"]
-# transitional
-provides = [self.with_pkgver("libxkbregistry")]
+renames = ["libxkbregistry"]
 pkgdesc = "Library to handle keyboard descriptions"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-{pkgver}.tar.gz"
-sha256 = "8d68a8b45796f34f7cace357b9f89b8c92b158557274fef5889b03648b55fe59"
+sha256 = "0427585a4d6ca17c9fc1ac4b539bf303348e9080af70c5ea402503bc370a9631"
 
 
 def post_install(self):
