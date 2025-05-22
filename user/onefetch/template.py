@@ -15,6 +15,8 @@ license = "MIT"
 url = "https://onefetch.dev"
 source = f"https://github.com/o2sh/onefetch/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "41f457c9a8145de94980bcae497d84a56cd75c1598a6a9eeb45984947bf4f1f8"
+# cross: generates completions with host binary
+options = ["!cross"]
 
 
 def post_build(self):

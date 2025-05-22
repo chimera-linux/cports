@@ -12,8 +12,9 @@ license = "Apache-2.0 OR MIT"
 url = "https://github.com/flamegraph-rs/flamegraph"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "2673a04bd4de142220d42706e0c25a4dea08aee52cdffbf87cca5738cec649ff"
-# no tests
-options = ["!check"]
+# check: no tests
+# cross: generates completions with host binary
+options = ["!check", "!cross"]
 
 
 def post_build(self):

@@ -12,6 +12,8 @@ license = "MIT"
 url = "https://github.com/go-delve/delve"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "c26cce64c4cbef25b7652708cda198e9c081ea3abfbe411ed8048e131dba6275"
+# cross: generates completions with host binary
+options = ["!cross"]
 
 
 def post_build(self):

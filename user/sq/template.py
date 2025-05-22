@@ -22,8 +22,9 @@ license = "MIT"
 url = "https://sq.io"
 source = f"https://github.com/neilotoole/sq/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "4ed9cef836e66174b6e01c8d410cd393aeae7f7069a428a7ab2adcd1e282cf68"
-# some tests require network
-options = ["!check"]
+# check: some tests require network
+# cross: generates manpages/completions with host bins
+options = ["!check", "!cross"]
 
 
 def post_build(self):

@@ -11,8 +11,8 @@ license = "Apache-2.0"
 url = "https://myriad-dreamin.github.io/tinymist"
 source = f"https://github.com/Myriad-Dreamin/tinymist/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "5af73d3793d2c243f4e758951c5c62e39b539ba3a9ebe4b1af2d712de99e8f03"
-# takes forever
-options = ["!check"]
+# check: takes forever
+options = ["!check", "!cross"]
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"

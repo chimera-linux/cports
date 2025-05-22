@@ -13,6 +13,8 @@ license = "MIT"
 url = "https://elkowar.github.io/eww"
 source = f"https://github.com/elkowar/eww/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "cef361946946c566b79f8ddc6208d1a3f16b4ff9961439a3f86935e1cfa174a1"
+# cross: generates completions with host binary
+options = ["!cross"]
 
 
 def pre_prepare(self):

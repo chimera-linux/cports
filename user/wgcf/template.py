@@ -8,6 +8,8 @@ license = "MIT"
 url = "https://github.com/ViRb3/wgcf"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "386e8ec5985d86ab25588070a737f761a6687127162dcc990370bf77eb108c1d"
+# cross: generates completions with host binary
+options = ["!cross"]
 
 
 def post_build(self):
