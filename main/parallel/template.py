@@ -1,5 +1,5 @@
 pkgname = "parallel"
-pkgver = "20250422"
+pkgver = "20250522"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake"]
@@ -8,4 +8,4 @@ pkgdesc = "Shell tool for executing jobs in parallel"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/parallel"
 source = f"https://ftp.gnu.org/gnu/parallel/parallel-{pkgver}.tar.bz2"
-sha256 = "10f0a7b7fbed87edcbd63a403fdc0ee1a1f86c241a3605f33162b4b9aff248dd"
+sha256 = "fc13926bb04153d8aae2f4eecc49814325ae2023dc7b4a1e6b081cd4dc813ec0"
