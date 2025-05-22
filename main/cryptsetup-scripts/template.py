@@ -8,7 +8,7 @@ make_build_args = [
     f"VERSION={pkgver}",
 ]
 hostmakedepends = ["perl", "docbook-xsl-nons", "libxslt-progs"]
-depends = ["cryptsetup", "lvm2-dm", "util-linux-mount", "util-linux-mkfs"]
+depends = ["cryptsetup", "lvm2-dm-initramfs-tools", "util-linux-mount", "util-linux-mkfs"]
 pkgdesc = "Supporting infrastructure for cryptsetup from Debian"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/cryptsetup-team/cryptsetup"
