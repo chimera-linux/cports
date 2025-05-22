@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -93,7 +93,6 @@ for _pkg in [
     "libpostproc",
     "libpq",
     "libpytalloc-util",
-    "libqpdf-libs",
     "libroken",
     "librtmp",
     "libsane",
@@ -120,7 +119,6 @@ for _pkg in [
     "libwoff2dec",
     "libwoff2enc",
     "libxatracker",
-    "libxkbregistry",
     "libxtables",
     "lidb-progs",
     "lscpu",
@@ -132,7 +130,6 @@ for _pkg in [
     "pam_elogind",
     "pam_winbind",
     "projucer",
-    "python-mlt",
     "python-opencolorio",
     "python-opencv",
     "python-openimageio",
