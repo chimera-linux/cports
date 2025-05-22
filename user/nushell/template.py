@@ -2,7 +2,6 @@ pkgname = "nushell"
 pkgver = "0.104.0"
 pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 make_check_args = [
     "--",
     "--skip=shell::environment::env::env_shlvl_in_exec_repl",

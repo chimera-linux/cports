@@ -2,7 +2,6 @@ pkgname = "broot"
 pkgver = "1.46.3"
 pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",

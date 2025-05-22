@@ -2,7 +2,6 @@ pkgname = "git-cliff"
 pkgver = "2.8.0"
 pkgrel = 0
 build_style = "cargo"
-prepare_after_patch = True
 make_check_args = [
     "--",
     "--skip=repo::test::commit_search",
