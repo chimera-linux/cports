@@ -1,6 +1,6 @@
 pkgname = "assimp"
 pkgver = "5.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DASSIMP_BUILD_ASSIMP_TOOLS=ON",
