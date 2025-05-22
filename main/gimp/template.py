@@ -1,5 +1,5 @@
 pkgname = "gimp"
-pkgver = "3.0.2"
+pkgver = "3.0.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -79,7 +79,7 @@ pkgdesc = "GNU Image Manipulation Program"
 license = "GPL-3.0-only"
 url = "https://www.gimp.org"
 source = f"https://download.gimp.org/pub/gimp/v{pkgver[:3]}/gimp-{pkgver.replace('_', '-').upper()}.tar.xz"
-sha256 = "546ddc30cb2d0e79123c7fcb4d78211e1ee7a6aace91a6a0ad8cbcbf6ea571a2"
+sha256 = "8caa2ec275bf09326575654ac276afc083f8491e7cca45d19cf29e696aecab25"
 # FIXME: it worksish but crashes often/early
 hardening = ["!int"]
 # needs graphical env (gtk3 broken in weston headless)
