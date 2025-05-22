@@ -1,9 +1,9 @@
 pkgname = "libyang"
 pkgver = "2.1.148"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DCMAKE_POLICY_VERSION_MINIMUM=3.5"]
-hostmakedepends = ["cmake", "ninja"]
+hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["pcre2-devel"]
 pkgdesc = "YANG data modelling language parser and toolkit"
 license = "BSD-3-Clause"
