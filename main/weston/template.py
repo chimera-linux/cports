@@ -1,5 +1,5 @@
 pkgname = "weston"
-pkgver = "14.0.1"
+pkgver = "14.0.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -45,7 +45,7 @@ pkgdesc = "Reference implementation of a Wayland compositor"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/wayland/weston/-/releases/{pkgver}/downloads/weston-{pkgver}.tar.xz"
-sha256 = "a8150505b126a59df781fe8c30c8e6f87da7013e179039eb844a5bbbcc7c79b3"
+sha256 = "b47216b3530da76d02a3a1acbf1846a9cd41d24caa86448f9c46f78f20b6e0ac"
 
 
 def post_install(self):
