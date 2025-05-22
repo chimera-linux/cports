@@ -21,7 +21,7 @@ checkdepends = [
 pkgdesc = "Command-line X11 automation tool"
 license = "BSD-3-Clause"
 url = "https://github.com/jordansissel/xdotool"
-source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/v{pkgver}/xdotool-{pkgver}.tar.gz"
 sha256 = "96f0facfde6d78eacad35b91b0f46fecd0b35e474c03e00e30da3fdd345f9ada"
 # uses a ruby module (minitest) that used to be bundled and is no more
 options = ["!check"]

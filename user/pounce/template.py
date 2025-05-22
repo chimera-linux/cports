@@ -14,7 +14,7 @@ makedepends = ["curl-devel", "libretls-devel", "sqlite-devel"]
 pkgdesc = "TLS-only multi-client IRC bouncer"
 license = "GPL-3.0-or-later"
 url = "https://git.causal.agency/pounce"
-source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/snapshot/pounce-{pkgver}.tar.gz"
 sha256 = "97f245556b1cc940553fca18f4d7d82692e6c11a30f612415e5e391e5d96604e"
 hardening = ["vis", "cfi"]
 # no tests
