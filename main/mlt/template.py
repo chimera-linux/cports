@@ -1,6 +1,6 @@
 pkgname = "mlt"
-pkgver = "7.30.0"
-pkgrel = 3
+pkgver = "7.32.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # needs an ancient abandoned ruby kwalify
@@ -49,7 +49,7 @@ pkgdesc = "Multimedia framework for video editors"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-3.0-or-later"
 url = "https://www.mltframework.org"
 source = f"https://github.com/mltframework/mlt/releases/download/v{pkgver}/mlt-{pkgver}.tar.gz"
-sha256 = "c802a5fdc16324f6c69273d0bb9718d30c2f635422e171ee01c0e7745e0e793c"
+sha256 = "1ca5aadfe27995c879b9253b3a48d1dcc3b1247ea0b5620b087d58f5521be028"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
 # suboverflow in find_first_pts for certain files
 hardening = ["!int"]
@@ -65,7 +65,6 @@ def _(self):
 def _(self):
     self.subdesc = "python module"
     self.depends += ["python"]
-    # transitional
-    self.provides = [self.with_pkgver("python-mlt")]
+    self.renames = ["python-mlt"]
 
     return ["usr/lib/python*"]
