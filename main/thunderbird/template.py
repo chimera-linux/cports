@@ -1,6 +1,6 @@
 pkgname = "thunderbird"
-pkgver = "138.0"
-pkgrel = 1
+pkgver = "138.0.2"
+pkgrel = 0
 hostmakedepends = [
     "automake",
     "cargo",
@@ -58,7 +58,7 @@ pkgdesc = "Thunderbird mail client"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/thunderbird/releases/{pkgver}/source/thunderbird-{pkgver}.source.tar.xz"
-sha256 = "c92ce790e32f29c76162817db5f73a5769e16b7b8c8942fa40b120d261ef8d9b"
+sha256 = "1bedb532edbd9d377022e398ae234348f9c91d9e89a6c9fe2352aed41c42121a"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -88,9 +88,7 @@ if self.profile().arch == "riscv64":
 
 
 def post_extract(self):
-    self.cp(
-        self.files_path / "stab.h", "toolkit/crashreporter/google-breakpad/src"
-    )
+    self.cp("^/stab.h", "toolkit/crashreporter/google-breakpad/src")
 
 
 def post_patch(self):
@@ -244,17 +242,9 @@ def install(self):
         env={"DESTDIR": str(self.chroot_destdir)},
     )
 
-    self.install_file(
-        self.files_path / "vendor.js",
-        "usr/lib/thunderbird/defaults/preferences",
-    )
-    self.install_file(
-        self.files_path / "distribution.ini",
-        "usr/lib/thunderbird/distribution",
-    )
-    self.install_file(
-        self.files_path / "thunderbird.desktop", "usr/share/applications"
-    )
+    self.install_file("^/vendor.js", "usr/lib/thunderbird/defaults/preferences")
+    self.install_file("^/distribution.ini", "usr/lib/thunderbird/distribution")
+    self.install_file("^/thunderbird.desktop", "usr/share/applications")
 
     # icons
     for sz in [16, 22, 24, 32, 48, 128, 256]:
