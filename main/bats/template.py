@@ -1,5 +1,5 @@
 pkgname = "bats"
-pkgver = "1.11.1"
+pkgver = "1.12.0"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = ["bash", "procps"]
@@ -8,7 +8,7 @@ pkgdesc = "Bash Automated Testing System"
 license = "MIT"
 url = "https://github.com/bats-core/bats-core"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5c57ed9616b78f7fd8c553b9bae3c7c9870119edd727ec17dbd1185c599f79d9"
+sha256 = "e36b020436228262731e3319ed013d84fcd7c4bd97a1b34dee33d170e9ae6bab"
 
 
 def check(self):
