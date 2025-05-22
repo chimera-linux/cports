@@ -1,6 +1,6 @@
 pkgname = "texstudio"
 pkgver = "4.8.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
