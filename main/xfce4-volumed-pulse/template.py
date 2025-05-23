@@ -1,13 +1,11 @@
 pkgname = "xfce4-volumed-pulse"
-pkgver = "0.2.5"
+pkgver = "0.3.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "glib-devel",
@@ -19,9 +17,6 @@ makedepends = [
 ]
 pkgdesc = "Xfce volume keys control daemon"
 license = "GPL-3.0-or-later"
-# FIXME: Should be https://gitlab.xfce.org/apps/xfce4-volumed-pulse but that
-# causes the update check to not find any versions, seems like some kind of race
-# condition but not sure
-url = "https://xfce.org"
-source = f"$(XFCE_SITE)/apps/xfce4-volumed-pulse/{pkgver[:-2]}/xfce4-volumed-pulse-{pkgver}.tar.bz2"
-sha256 = "30ebee3a16e467a2120db63b53d4cd3a603b310c6141c9514371c2dedf68bb03"
+url = "https://gitlab.xfce.org/apps/xfce4-volumed-pulse"
+source = f"$(XFCE_SITE)/apps/xfce4-volumed-pulse/{pkgver[:-2]}/xfce4-volumed-pulse-{pkgver}.tar.xz"
+sha256 = "7031c3597d1a1e791afaf83a7b494b436aa54397ab1661e38ab32acb01c7fe85"
