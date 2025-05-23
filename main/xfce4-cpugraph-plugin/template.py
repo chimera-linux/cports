@@ -1,14 +1,11 @@
 pkgname = "xfce4-cpugraph-plugin"
-pkgver = "1.2.11"
+pkgver = "1.3.0"
 pkgrel = 0
-build_style = "gnu_configure"
-make_dir = "."
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "gtk+3-devel",
@@ -20,10 +17,5 @@ makedepends = [
 pkgdesc = "Xfce clipboard manager app and panel plugin"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-cpugraph-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-cpugraph-plugin/{pkgver[: pkgver.rfind('.')]}/xfce4-cpugraph-plugin-{pkgver}.tar.bz2"
-sha256 = "58aa31df1934afc2a352744754a730a3d796b1246e12c7a5e86f7b6a403ca20d"
-
-
-def post_install(self):
-    # TODO: figure out why build system installs this
-    self.uninstall("usr/lib/xfce4/panel/plugins/libcpugraph.a")
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-cpugraph-plugin/{pkgver[: pkgver.rfind('.')]}/xfce4-cpugraph-plugin-{pkgver}.tar.xz"
+sha256 = "c3305edea13ae785ea8b7ce8efbb40b5d5cac69a6f8bf790e4f2efaa780ca097"
