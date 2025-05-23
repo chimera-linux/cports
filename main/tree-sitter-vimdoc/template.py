@@ -1,5 +1,5 @@
 pkgname = "tree-sitter-vimdoc"
-pkgver = "3.0.1"
+pkgver = "4.0.0"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -11,13 +11,13 @@ pkgdesc = "Vimdoc grammar for tree-sitter"
 license = "Apache-2.0"
 url = "https://github.com/neovim/tree-sitter-vimdoc"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "76b65e5bee9ff78eb21256619b1995aac4d80f252c19e1c710a4839481ded09e"
+sha256 = "8096794c0f090b2d74b7bff94548ac1be3285b929ec74f839bd9b3ff4f4c6a0b"
 
 
 def post_install(self):
     self.install_dir("usr/lib/tree-sitter")
     self.install_link(
-        "usr/lib/tree-sitter/vimdoc.so", "../libtree-sitter-vimdoc.so.3"
+        "usr/lib/tree-sitter/vimdoc.so", "../libtree-sitter-vimdoc.so.4"
     )
 
 
