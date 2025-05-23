@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/atuin-server server start
+run-as = _atuin
+working-dir = /var/lib/atuin
+logfile = /var/log/atuin.log
+capabilities = ^cap_net_bind_service
+depends-on: local.target
+load-options: export-passwd-vars
