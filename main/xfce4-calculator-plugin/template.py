@@ -1,5 +1,5 @@
 pkgname = "xfce4-calculator-plugin"
-pkgver = "0.7.3"
+pkgver = "0.8.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -18,5 +18,5 @@ makedepends = [
 pkgdesc = "Xfce calculator panel plugin"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-calculator-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-calculator-plugin/{pkgver[:-2]}/xfce4-calculator-plugin-{pkgver}.tar.bz2"
-sha256 = "3feb5f56092ceef2858c3c1bd443317d4caf289a6409f9db506f49088e19a2e8"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-calculator-plugin/{pkgver[:-2]}/xfce4-calculator-plugin-{pkgver}.tar.xz"
+sha256 = "aaf3d7e9654ef6cf8ec442ad9e4316c481f9a6087a8e8949261140f5ae136aeb"
