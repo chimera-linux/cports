@@ -1,13 +1,12 @@
 pkgname = "xfce4-docklike-plugin"
-pkgver = "0.4.3"
+pkgver = "0.5.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
-    "libtool",
+    "gettext",
+    "glib-devel",
+    "meson",
     "pkgconf",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "cairo-devel",
@@ -17,10 +16,11 @@ makedepends = [
     "libxfce4ui-devel",
     "libxfce4util-devel",
     "libxfce4windowing-devel",
+    "libxi-devel",
     "xfce4-panel-devel",
 ]
 pkgdesc = "Xfce taskbar panel plugin"
 license = "GPL-3.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-docklike-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-docklike-plugin/{pkgver[:-2]}/xfce4-docklike-plugin-{pkgver}.tar.bz2"
-sha256 = "e81e16b4ab1c655a3202473d78cc81617bb4829e5dd102eecabf9addd7668a9d"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-docklike-plugin/{pkgver[:-2]}/xfce4-docklike-plugin-{pkgver}.tar.xz"
+sha256 = "418aa01f51f6528d95ceeb3b19d52bdc0ac554447bdb7afa9975cca5234f244b"
