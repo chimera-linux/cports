@@ -1,13 +1,11 @@
 pkgname = "xfce4-mailwatch-plugin"
-pkgver = "1.3.2"
+pkgver = "1.4.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "exo-devel",
@@ -21,5 +19,5 @@ makedepends = [
 pkgdesc = "Xfce mail watcher panel plugin"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/panel-plugins/xfce4-mailwatch-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-mailwatch-plugin/{pkgver[:-2]}/xfce4-mailwatch-plugin-{pkgver}.tar.bz2"
-sha256 = "c4783f1533891cd2e0c34066da859864dce45a23caa6015b58cb9fa9d65a7e44"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-mailwatch-plugin/{pkgver[:-2]}/xfce4-mailwatch-plugin-{pkgver}.tar.xz"
+sha256 = "5c211025db1096663fa6b8cc41213464a6d71f24e76326499d857ff81ea3861f"
