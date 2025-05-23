@@ -1,13 +1,12 @@
 pkgname = "gigolo"
-pkgver = "0.5.4"
+pkgver = "0.6.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "glib-devel",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "glib-devel",
@@ -16,5 +15,5 @@ makedepends = [
 pkgdesc = "Xfce GIO/GVFS frontend"
 license = "GPL-2.0-only"
 url = "https://docs.xfce.org/apps/gigolo/start"
-source = f"$(XFCE_SITE)/apps/gigolo/{pkgver[:-2]}/gigolo-{pkgver}.tar.bz2"
-sha256 = "29951a16ca48c5350fa862417a253bc45c2762106027c216bb7a56eabdd7f0f6"
+source = f"$(XFCE_SITE)/apps/gigolo/{pkgver[:-2]}/gigolo-{pkgver}.tar.xz"
+sha256 = "f27dbb51abe8144c1b981f2d820ad1b279c1bc4623d7333b7d4f5f4777eb45ed"
