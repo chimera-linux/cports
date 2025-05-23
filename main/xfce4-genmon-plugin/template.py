@@ -1,13 +1,11 @@
 pkgname = "xfce4-genmon-plugin"
-pkgver = "4.2.1"
+pkgver = "4.3.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "gtk+3-devel",
@@ -19,5 +17,5 @@ makedepends = [
 pkgdesc = "Xfce generic program monitor panel plugin"
 license = "LGPL-2.1-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-genmon-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-genmon-plugin/{pkgver[:-2]}/xfce4-genmon-plugin-{pkgver}.tar.bz2"
-sha256 = "de540562e1ea58f35a9c815e20736d26af541a0a9372011148cb75b5f0b65951"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-genmon-plugin/{pkgver[:-2]}/xfce4-genmon-plugin-{pkgver}.tar.xz"
+sha256 = "077197911d84e5ba22e7bb895ce6c038dbbd8e8e0067ed6f4e48502b7167a282"
