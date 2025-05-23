@@ -1,15 +1,12 @@
 pkgname = "xfce4-mixer"
-pkgver = "4.18.2"
+pkgver = "4.20.0"
 pkgrel = 0
-build_style = "gnu_configure"
-make_dir = "."
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
     "glib-devel",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "glib-devel",
@@ -26,6 +23,6 @@ pkgdesc = "Xfce volume control app"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-mixer/start"
 source = (
-    f"$(XFCE_SITE)/apps/xfce4-mixer/{pkgver[:-2]}/xfce4-mixer-{pkgver}.tar.bz2"
+    f"$(XFCE_SITE)/apps/xfce4-mixer/{pkgver[:-2]}/xfce4-mixer-{pkgver}.tar.xz"
 )
-sha256 = "101580c15bfe7fe430a149da3603357558b7d0a66258dfdb78d04c1bf3c791a1"
+sha256 = "d603be3aec26a16b9d98b9bd71555f80467d556547de50b86337bbf4708ddcaf"
