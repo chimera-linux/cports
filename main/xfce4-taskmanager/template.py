@@ -1,13 +1,12 @@
 pkgname = "xfce4-taskmanager"
-pkgver = "1.5.8"
+pkgver = "1.6.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "glib-devel",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "cairo-devel",
@@ -22,5 +21,5 @@ makedepends = [
 pkgdesc = "Xfce task manager"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-taskmanager/start"
-source = f"$(XFCE_SITE)/apps/xfce4-taskmanager/{pkgver[:-2]}/xfce4-taskmanager-{pkgver}.tar.bz2"
-sha256 = "14b9d68b8feb88a642a9885b8549efe7fc9e6c155f638003f2a4a58d9eb2baab"
+source = f"$(XFCE_SITE)/apps/xfce4-taskmanager/{pkgver[:-2]}/xfce4-taskmanager-{pkgver}.tar.xz"
+sha256 = "29bdc7840ab8b9025f6c0e456a83a31090d1c9fd9e26b359baa4a4010cfb0b90"
