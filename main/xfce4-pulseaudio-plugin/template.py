@@ -1,5 +1,5 @@
 pkgname = "xfce4-pulseaudio-plugin"
-pkgver = "0.5.0"
+pkgver = "0.5.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -28,4 +28,4 @@ pkgdesc = "Xfce pulseaudio panel plugin"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/start"
 source = f"$(XFCE_SITE)/panel-plugins/xfce4-pulseaudio-plugin/{pkgver[:-2]}/xfce4-pulseaudio-plugin-{pkgver}.tar.xz"
-sha256 = "3fe69bc6f9c0dd68bd317c0a7813975cf162ba1dd64e23c2ffef372d4b4f808a"
+sha256 = "8e1f3a505f37aa3bc2816a58bec5f9555366f1c476f10eab59fd0e6581d08c47"
