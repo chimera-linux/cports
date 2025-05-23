@@ -1,13 +1,11 @@
 pkgname = "xfce4-diskperf-plugin"
-pkgver = "2.7.1"
+pkgver = "2.8.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "gtk+3-devel",
@@ -18,8 +16,8 @@ makedepends = [
 pkgdesc = "Xfce disk performance panel plugin"
 license = "BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-diskperf-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-diskperf-plugin/{pkgver[:-2]}/xfce4-diskperf-plugin-{pkgver}.tar.bz2"
-sha256 = "dd5f521cc4ab40a42958dcf59b6bec5da8fafacf71f3266971942e25b43af8ae"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-diskperf-plugin/{pkgver[:-2]}/xfce4-diskperf-plugin-{pkgver}.tar.xz"
+sha256 = "3833920a3a4a81b3c676c4fab6dd178f4a222d66f316a0783a9149a0153b7fb6"
 
 
 def post_install(self):
