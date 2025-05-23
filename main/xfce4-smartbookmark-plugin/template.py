@@ -1,13 +1,11 @@
 pkgname = "xfce4-smartbookmark-plugin"
-pkgver = "0.5.3"
+pkgver = "0.6.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "libxfce4ui-devel",
@@ -16,5 +14,5 @@ makedepends = [
 pkgdesc = "Xfce browser search panel plugin"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-smartbookmark-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-smartbookmark-plugin/{pkgver[:-2]}/xfce4-smartbookmark-plugin-{pkgver}.tar.bz2"
-sha256 = "3b4db0ac198339197a7682935f0bba5a7e8dd7f35bf575ac6665afa4cecec236"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-smartbookmark-plugin/{pkgver[:-2]}/xfce4-smartbookmark-plugin-{pkgver}.tar.xz"
+sha256 = "d8a619dcad703071f7fcda538cc34154f9952cf4ec0816df23a56e98e3cc05d8"
