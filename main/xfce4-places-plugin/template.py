@@ -1,13 +1,11 @@
 pkgname = "xfce4-places-plugin"
-pkgver = "1.8.4"
+pkgver = "1.9.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "exo-devel",
@@ -22,5 +20,5 @@ makedepends = [
 pkgdesc = "Xfce folders and media quick access panel plugin"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-places-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-places-plugin/{pkgver[:-2]}/xfce4-places-plugin-{pkgver}.tar.bz2"
-sha256 = "ba766a5d31580fad043fbd1fd66b811cbda706229473d24a734a590d49ef710e"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-places-plugin/{pkgver[:-2]}/xfce4-places-plugin-{pkgver}.tar.xz"
+sha256 = "76d95687e0bea267465e832eea6266563a18d2219192f9e8af6f88e899262e43"
