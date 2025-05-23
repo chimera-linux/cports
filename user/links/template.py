@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 # TODO: configure fails with 'conditional "am__fastdepCXX" was never defined.'???
 configure_gen = []
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "libjpeg-turbo-devel",
     "libtiff-devel",
