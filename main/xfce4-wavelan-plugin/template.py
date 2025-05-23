@@ -1,13 +1,11 @@
 pkgname = "xfce4-wavelan-plugin"
-pkgver = "0.6.4"
+pkgver = "0.7.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "libxfce4ui-devel",
@@ -17,8 +15,8 @@ depends = ["network-manager-applet"]
 pkgdesc = "Xfce WLAN stats panel plugin"
 license = "BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-wavelan-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-wavelan-plugin/{pkgver[:-2]}/xfce4-wavelan-plugin-{pkgver}.tar.bz2"
-sha256 = "129c917b40ffa10d96f3d2c0d03f1e8ad8037c79133e9a6436661e37dd7bb3de"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-wavelan-plugin/{pkgver[:-2]}/xfce4-wavelan-plugin-{pkgver}.tar.xz"
+sha256 = "5fdce1e1b0d29d0a258dca86bab9d4edcbc12098134b92e00ea1502086a49116"
 
 
 def post_install(self):
