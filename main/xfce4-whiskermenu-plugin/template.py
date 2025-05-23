@@ -1,5 +1,5 @@
 pkgname = "xfce4-whiskermenu-plugin"
-pkgver = "2.9.2"
+pkgver = "2.10.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -22,5 +22,5 @@ makedepends = [
 pkgdesc = "Xfce application launcher panel plugin"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-whiskermenu-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-whiskermenu-plugin/{pkgver[:-2]}/xfce4-whiskermenu-plugin-{pkgver}.tar.bz2"
-sha256 = "e2f28c066709bdcfe30236307026a562ec9aed790f9929a4e40aa411a5c7e3de"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-whiskermenu-plugin/{pkgver[:-2]}/xfce4-whiskermenu-plugin-{pkgver}.tar.xz"
+sha256 = "c2efb3782816d44d421dcbee2900b9513bdb2469b695b776641f495601f33a10"
