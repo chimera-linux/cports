@@ -1,13 +1,11 @@
 pkgname = "xfce4-systemload-plugin"
-pkgver = "1.3.3"
+pkgver = "1.4.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "gtk+3-devel",
@@ -21,8 +19,8 @@ makedepends = [
 pkgdesc = "Xfce system load panel plugin"
 license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://docs.xfce.org/panel-plugins/xfce4-systemload-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-systemload-plugin/{pkgver[:-2]}/xfce4-systemload-plugin-{pkgver}.tar.bz2"
-sha256 = "6852d5d9c9a74d0e0db582c6f5fe7390ebe48a2eb5692177ae12e1c4ccc6efc9"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-systemload-plugin/{pkgver[:-2]}/xfce4-systemload-plugin-{pkgver}.tar.xz"
+sha256 = "6e363bcf845bb88329b52858d65a1ec6e00db5121ae9246e46eb03135d9569c6"
 
 
 def post_install(self):
