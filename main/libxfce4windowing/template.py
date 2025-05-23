@@ -1,5 +1,5 @@
 pkgname = "libxfce4windowing"
-pkgver = "4.20.2"
+pkgver = "4.20.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-tests"]
@@ -26,7 +26,7 @@ pkgdesc = "Xfce windowing abstraction library"
 license = "LGPL-2.1-or-later"
 url = "https://docs.xfce.org/xfce/libxfce4windowing/start"
 source = f"$(XFCE_SITE)/xfce/libxfce4windowing/{pkgver[:-2]}/libxfce4windowing-{pkgver}.tar.bz2"
-sha256 = "0b9b95aee8b868a2953920c2feafc026672ad19584976f19e89119e93ab1abc8"
+sha256 = "df2419a6bd960c0bfac3307eff593050857524642597eb35a26fb4f8261a017b"
 options = ["!cross"]
 
 
