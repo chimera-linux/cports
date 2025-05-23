@@ -1,13 +1,11 @@
 pkgname = "xfce4-calculator-plugin"
 pkgver = "0.8.0"
-pkgrel = 0
-build_style = "gnu_configure"
+pkgrel = 1
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "gtk+3-devel",
