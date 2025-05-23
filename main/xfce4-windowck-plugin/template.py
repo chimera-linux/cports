@@ -1,14 +1,12 @@
 pkgname = "xfce4-windowck-plugin"
-pkgver = "0.5.2"
+pkgver = "0.6.1"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "glib-devel",
+    "meson",
     "pkgconf",
-    "python",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "gtk+3-devel",
@@ -22,5 +20,5 @@ makedepends = [
 pkgdesc = "Xfce window controls/title bar panel plugin"
 license = "GPL-3.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-windowck-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-windowck-plugin/{pkgver[:-2]}/xfce4-windowck-plugin-{pkgver}.tar.bz2"
-sha256 = "dc4ed5dc94bd05de5495441f0cabb260ab3e1f6ce27b1fac92e37f909c0cfe0a"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-windowck-plugin/{pkgver[:-2]}/xfce4-windowck-plugin-{pkgver}.tar.xz"
+sha256 = "032e305d74f17bd65b28bd260cf192fcf8aa0df33d116087e485fd1368b7cf39"
