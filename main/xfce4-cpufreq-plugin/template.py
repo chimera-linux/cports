@@ -1,13 +1,11 @@
 pkgname = "xfce4-cpufreq-plugin"
-pkgver = "1.2.9"
+pkgver = "1.3.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
-    "libtool",
+    "gettext",
+    "meson",
     "pkgconf",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "gtk+3-devel",
@@ -18,5 +16,5 @@ makedepends = [
 pkgdesc = "Xfce CPU governor and frequency panel plugin"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-cpufreq-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-cpufreq-plugin/{pkgver[:-2]}/xfce4-cpufreq-plugin-{pkgver}.tar.bz2"
-sha256 = "d0714720d588c649457590e5de3d95859b922a98d5fa9d0d1416f36a76bd3ef9"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-cpufreq-plugin/{pkgver[:-2]}/xfce4-cpufreq-plugin-{pkgver}.tar.xz"
+sha256 = "baa5b90f72e8c262777f1e246acae125af489e2c168a5f7f890d9d2b5567ec20"
