@@ -1,13 +1,12 @@
 pkgname = "xfce4-indicator-plugin"
-pkgver = "2.4.3"
+pkgver = "2.5.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 hostmakedepends = [
-    "automake",
-    "gettext-devel",
+    "gettext",
+    "glib-devel",
+    "meson",
     "pkgconf",
-    "slibtool",
-    "xfce4-dev-tools",
 ]
 makedepends = [
     "ayatana-ido-devel",
@@ -21,5 +20,5 @@ makedepends = [
 pkgdesc = "Xfce messaging menu panel plugin"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/panel-plugins/xfce4-indicator-plugin/start"
-source = f"$(XFCE_SITE)/panel-plugins/xfce4-indicator-plugin/{pkgver[:-2]}/xfce4-indicator-plugin-{pkgver}.tar.bz2"
-sha256 = "4fd9fe74b3ef0ea1fb6d2b2507873108052f4f532b609e3297321dbf3a52d2db"
+source = f"$(XFCE_SITE)/panel-plugins/xfce4-indicator-plugin/{pkgver[:-2]}/xfce4-indicator-plugin-{pkgver}.tar.xz"
+sha256 = "e1a29a2c4837f53dd4825c51f0bd81da42cf36e6eec85d266d04c3d49511b451"
