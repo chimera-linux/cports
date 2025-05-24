@@ -1,6 +1,6 @@
 pkgname = "vapoursynth"
-pkgver = "70.11"
-pkgrel = 1
+pkgver = "71"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 make_dir = "."
@@ -16,7 +16,7 @@ pkgdesc = "Video processing framework"
 license = "LGPL-2.1-or-later"
 url = "https://www.vapoursynth.com"
 source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"
-sha256 = "41af974964a20aec670f5d2b235e043cb9c3a68db90fa39cc57c609c7d8baa91"
+sha256 = "c56d6de16d0a24db7eee1bd5e633229b0bd8a746eafcfe41945a22f9d44f8bd6"
 
 
 @subpackage("vapoursynth-devel")
