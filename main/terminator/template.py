@@ -1,6 +1,6 @@
 pkgname = "terminator"
-pkgver = "2.1.4"
-pkgrel = 1
+pkgver = "2.1.5"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "tests"
 make_check_wrapper = ["xvfb-run"]
@@ -36,7 +36,7 @@ pkgdesc = "Tiling terminal emulator application"
 license = "GPL-2.0-only"
 url = "https://gnome-terminator.org"
 source = f"https://github.com/gnome-terminator/terminator/releases/download/v{pkgver}/terminator-{pkgver}.tar.gz"
-sha256 = "af27b0ece862e61dde71d0827afa4a29a414e44599effe3edeebc52cbdf0c5e8"
+sha256 = "f0219cd8bd3db45d5173d850619145d55f9e864fe2106f6ceb9e736c575d0e03"
 hardening = ["vis"]
 # testsuite fails within container and xvfb
 options = ["!check"]
