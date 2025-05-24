@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 5
+pkgrel = 6
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -11,7 +11,6 @@ options = ["empty"]
 for _pkg in [
     "alsa-pipewire",
     "bsatool",
-    "bsdtar",
     "debuginfod",
     "debuginfod-libs",
     "device-mapper",
@@ -28,11 +27,6 @@ for _pkg in [
     "heif-thumbnailer",
     "irqtop",
     "libasn1",
-    "libavcodec",
-    "libavdevice",
-    "libavfilter",
-    "libavformat",
-    "libavutil",
     "libblkid",
     "libbluetooth",
     "libbtrfs",
@@ -90,7 +84,6 @@ for _pkg in [
     "libpoppler-cpp",
     "libpoppler-glib",
     "libpoppler-qt6",
-    "libpostproc",
     "libpq",
     "libpytalloc-util",
     "libroken",
@@ -102,8 +95,6 @@ for _pkg in [
     "libsmbclient",
     "libspirv-tools-shared",
     "libsquashfs",
-    "libswresample",
-    "libswscale",
     "libsysfs",
     "libtotem-plparser-mini",
     "libtspi",
