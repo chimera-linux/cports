@@ -1,5 +1,5 @@
 pkgname = "nerdctl"
-pkgver = "2.1.1"
+pkgver = "2.1.2"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/nerdctl"]
@@ -9,7 +9,7 @@ pkgdesc = "Containerd CLI"
 license = "Apache-2.0"
 url = "https://github.com/containerd/nerdctl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "fb8dbdc8954aaf9dbf05396f51289a094a4927e385cc974bc410ecc3fcf16d03"
+sha256 = "0d07600ef9f54943893634559ef67b903530656efc0b5069cbc174efdf273e21"
 # can't run tests inside namespaces
 # cross: generates completions with host binary
 options = ["!check", "!cross"]
