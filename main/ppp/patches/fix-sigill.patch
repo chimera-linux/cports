@@ -1,0 +1,13 @@
+diff --git a/pppd/sys-linux.c b/pppd/sys-linux.c
+index 9e0e890..f400227 100644
+--- a/pppd/sys-linux.c
++++ b/pppd/sys-linux.c
+@@ -3512,7 +3512,7 @@ sifnpmode(int u, int proto, enum NPmode mode)
+ int
+ get_host_seed(void)
+ {
+-    int h;
++    unsigned int h;
+     const char *p;
+ 
+     h = 407;
