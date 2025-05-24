@@ -1,6 +1,6 @@
 pkgname = "python-configargparse"
-pkgver = "1.7"
-pkgrel = 2
+pkgver = "1.7.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,8 +13,8 @@ checkdepends = ["python-pytest", "python-pyyaml"]
 pkgdesc = "Drop-in replacement for argparse"
 license = "MIT"
 url = "https://github.com/bw2/ConfigArgParse"
-source = f"$(PYPI_SITE)/C/ConfigArgParse/ConfigArgParse-{pkgver}.tar.gz"
-sha256 = "e7067471884de5478c58a511e529f0f9bd1c66bfef1dea90935438d6c23306d1"
+source = f"$(PYPI_SITE)/C/ConfigArgParse/configargparse-{pkgver}.tar.gz"
+sha256 = "79c2ddae836a1e5914b71d58e4b9adbd9f7779d4e6351a637b7d2d9b6c46d3d9"
 # needs updating for 3.13
 options = ["!check"]
 
