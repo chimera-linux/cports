@@ -1,5 +1,5 @@
 pkgname = "libarchive"
-pkgver = "3.7.9"
+pkgver = "3.8.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -23,9 +23,9 @@ makedepends = [
 ]
 pkgdesc = "Library to read/write several different streaming archive formats"
 license = "BSD-2-Clause"
-url = "http://www.libarchive.org"
+url = "https://www.libarchive.org"
 source = f"https://github.com/libarchive/libarchive/releases/download/v{pkgver}/libarchive-{pkgver}.tar.gz"
-sha256 = "aa90732c5a6bdda52fda2ad468ac98d75be981c15dde263d7b5cf6af66fd009f"
+sha256 = "191b5b24811499d5c2e5efa3248975fa6daa5e6a227700cc7b8e54d6d7c06eef"
 # encoding failures on musl; harmless
 options = ["bootstrap", "!check"]
 
@@ -52,8 +52,7 @@ def post_install(self):
 
 @subpackage("libarchive-progs")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("bsdtar")]
+    self.renames = ["bsdtar"]
 
     return self.default_progs(man="15")
 
