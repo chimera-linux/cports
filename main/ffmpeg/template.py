@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "7.1.1"
-pkgrel = 5
+pkgrel = 6
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -197,8 +197,7 @@ def _genlib(lname, ldesc):
     @subpackage(f"ffmpeg-{lname}-libs")
     def _(self):
         self.pkgdesc = f"FFmpeg {ldesc} library"
-        # transitional
-        self.provides = [self.with_pkgver(f"lib{lname}")]
+        self.renames = [f"lib{lname}"]
         return [f"usr/lib/lib{lname}.so.*"]
 
 
@@ -227,7 +226,6 @@ def _(self):
 @subpackage("ffmpeg-ffplay")
 def _(self):
     self.pkgdesc = "Simple video player using FFmpeg and SDL"
-    # transitional
-    self.provides = [self.with_pkgver("ffplay")]
+    self.renames = ["ffplay"]
 
     return ["cmd:ffplay"]
