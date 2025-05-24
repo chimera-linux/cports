@@ -1,17 +1,18 @@
 pkgname = "stb"
-pkgver = "0_git20230129"
-_commit = "5736b15f7ea0ffb08dd38af21067c314d6a3aae9"
+pkgver = "0_git20250512"
+_commit = "802cd454f25469d3123e678af41364153c132c2a"
 pkgrel = 0
 hostmakedepends = ["pkgconf"]
 pkgdesc = "Single-header libraries for C/C++"
 license = "MIT"
 url = "https://github.com/nothings/stb"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "d00921d49b06af62aa6bfb97c1b136bec661dd11dd4eecbcb0da1f6da7cedb4c"
+sha256 = "d7f870bbe53a4171d5d5526043926b2f26194e6b08de63fc3f1cf4b54e5d5249"
 
 
 def install(self):
-    self.install_file("stb_*", "usr/include", glob=True)
+    self.install_file("*.h", "usr/include", glob=True)
+    self.install_file("deprecated/*.h", "usr/include", glob=True)
     self.install_file("docs/*", "usr/share/doc/stb", glob=True)
     self.install_license("LICENSE")
     # .pc file
