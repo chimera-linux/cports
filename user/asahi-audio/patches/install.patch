@@ -1,0 +1,29 @@
+diff --git a/Makefile b/Makefile
+index 8faf6ad..1fb563d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -33,18 +33,18 @@ clean:
+ 	rm -f firs/*/graph-*.json
+ 
+ core:
+-	install -dDm0755 $(DESTDIR)/$(DATA_DIR)/wireplumber/scripts/device/
+-	install -dDm0755 $(DESTDIR)/$(DATA_DIR)/wireplumber/wireplumber.conf.d/
+-	install -dDm0755 $(DESTDIR)/$(DATA_DIR)/pipewire/pipewire.conf.d/
+-	install -dDm0755 $(DESTDIR)/$(DATA_DIR)/pipewire/pipewire-pulse.conf.d/
++	install -dm0755 $(DESTDIR)/$(DATA_DIR)/wireplumber/scripts/device/
++	install -dm0755 $(DESTDIR)/$(DATA_DIR)/wireplumber/wireplumber.conf.d/
++	install -dm0755 $(DESTDIR)/$(DATA_DIR)/pipewire/pipewire.conf.d/
++	install -dm0755 $(DESTDIR)/$(DATA_DIR)/pipewire/pipewire-pulse.conf.d/
+ 	install -pm0644 conf/wireplumber.conf $(DESTDIR)/$(DATA_DIR)/wireplumber/wireplumber.conf.d/99-asahi.conf
+ 	install -pm0644 conf/asahi-limit-volume.lua $(DESTDIR)/$(DATA_DIR)/wireplumber/scripts/device/asahi-limit-volume.lua
+ 	install -pm0644 conf/pipewire.conf $(DESTDIR)/$(DATA_DIR)/pipewire/pipewire.conf.d/99-asahi.conf
+ 	install -pm0644 conf/pipewire.conf $(DESTDIR)/$(DATA_DIR)/pipewire/pipewire-pulse.conf.d/99-asahi.conf
+-	install -dDm0755 $(DESTDIR)/$(DATA_DIR)/asahi-audio/
++	install -dm0755 $(DESTDIR)/$(DATA_DIR)/asahi-audio/
+ 
+ j%: core
+-	install -dDm0755 $(DESTDIR)/$(DATA_DIR)/asahi-audio/$@/
++	install -dm0755 $(DESTDIR)/$(DATA_DIR)/asahi-audio/$@/
+ 	install -pm0644 -t $(DESTDIR)/$(DATA_DIR)/asahi-audio/$@/ $(wildcard firs/$@/*)
+ 
+ 
