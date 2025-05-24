@@ -1,5 +1,5 @@
 pkgname = "rhash"
-pkgver = "1.4.5"
+pkgver = "1.4.6"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Utility for computing hash sums and creating magnet links"
 license = "0BSD"
 url = "https://github.com/rhash/RHash"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "6db837e7bbaa7c72c5fd43ca5af04b1d370c5ce32367b9f6a1f7b49b2338c09a"
+sha256 = "9f6019cfeeae8ace7067ad22da4e4f857bb2cfa6c2deaa2258f55b2227ec937a"
 
 
 def init_configure(self):
