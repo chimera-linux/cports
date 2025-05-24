@@ -60,6 +60,7 @@ match self.profile().arch:
         | "ppc64"
         | "ppc"
         | "aarch64"
+        | "armv7"
         | "riscv64"
         | "loongarch64"
     ):
