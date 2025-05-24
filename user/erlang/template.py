@@ -1,7 +1,7 @@
 # TODO: split devel, maybe the libs too? (may not be worth it)
 pkgname = "erlang"
 pkgver = "27.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 make_dir = "."

@@ -1,6 +1,6 @@
 pkgname = "spek"
 pkgver = "0.8.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",

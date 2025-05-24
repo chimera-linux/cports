@@ -1,8 +1,10 @@
 pkgname = "gnuplot"
 pkgver = "6.0.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
+    # XXX drop libexec
+    "--libexecdir=/usr/lib",
     "--with-readline=bsd",
     "--with-gpic",
     "--with-metapost",
@@ -132,7 +134,7 @@ def _(self):
     self.subdesc = "X11 common files"
     self.depends += [self.with_pkgver("gnuplot-common")]
 
-    return ["usr/libexec/gnuplot/*/gnuplot_x11"]
+    return ["usr/lib/gnuplot/*/gnuplot_x11"]
 
 
 @subpackage("gnuplot-qt")
@@ -142,7 +144,7 @@ def _(self):
 
     return [
         "usr/bin/gnuplot-qt",
-        "usr/libexec/gnuplot/*/gnuplot_qt",
+        "usr/lib/gnuplot/*/gnuplot_qt",
         "usr/share/gnuplot/*/qt",
     ]
 
