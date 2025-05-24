@@ -1,5 +1,5 @@
 pkgname = "yara"
-pkgver = "4.5.2"
+pkgver = "4.5.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -25,7 +25,7 @@ url = "https://virustotal.github.io/yara"
 source = (
     f"https://github.com/VirusTotal/yara/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "1f87056fcb10ee361936ee7b0548444f7974612ebb0e681734d8de7df055d1ec"
+sha256 = "59323f69b55615fda3ee863062370b90a09016616da660ae00c7f84adf12238e"
 # tests may be disabled
 options = []
 
