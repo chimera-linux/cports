@@ -1,5 +1,5 @@
 pkgname = "snowball"
-pkgver = "2.2.0"
+pkgver = "3.0.1"
 pkgrel = 0
 build_style = "makefile"
 # check_utf8 check_iso_8859_1 check_iso_8859_2 check_koi8r
@@ -10,7 +10,7 @@ pkgdesc = "Snowball rule-based stemming algorithms"
 license = "BSD-3-Clause"
 url = "https://snowballstem.org/index.html"
 source = f"https://github.com/snowballstem/snowball/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "425cdb5fba13a01db59a1713780f0662e984204f402d3dae1525bda9e6d30f1a"
+sha256 = "80ac10ce40dc4fcfbfed8d085c457b5613da0e86a73611a3d5527d044a142d60"
 # needed for tests to find libstemmer
 env = {"LD_LIBRARY_PATH": "./"}
 # snowball is run during compilation giving error
