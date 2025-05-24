@@ -1,5 +1,5 @@
 pkgname = "xapian-core"
-pkgver = "1.4.27"
+pkgver = "1.4.29"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "Open source search engine library"
 license = "GPL-2.0-or-later"
 url = "https://xapian.org"
 source = f"https://oligarchy.co.uk/xapian/{pkgver}/xapian-core-{pkgver}.tar.xz"
-sha256 = "bcbc99cfbf16080119c2571fc296794f539bd542ca3926f17c2999600830ab61"
+sha256 = "c55c9bc8613ad3ec2c218eafca088c218ab7cddcba7ef08f3af0e542f4e521bc"
 hardening = ["vis", "cfi"]
 # see below
 options = []
