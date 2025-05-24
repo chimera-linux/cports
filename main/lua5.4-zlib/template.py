@@ -1,5 +1,5 @@
 pkgname = "lua5.4-zlib"
-pkgver = "1.2"
+pkgver = "1.3"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "linux"
@@ -10,7 +10,7 @@ pkgdesc = "Zlib streaming interface for Lua 5.4"
 license = "MIT"
 url = "https://github.com/brimworks/lua-zlib"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d"
+sha256 = "d026eda33b7c3456696bcecdc0b26d7bd779de4f5a4d4215ebe3897095c6c9c8"
 # no test suite
 options = ["!check"]
 

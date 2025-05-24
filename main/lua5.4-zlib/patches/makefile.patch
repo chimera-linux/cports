@@ -5,12 +5,12 @@ Date:   Sun Oct 9 14:11:28 2022 +0200
     clean up makefile
 
 diff --git a/Makefile b/Makefile
-index 801ea04..1c050d1 100644
+index bd7d05b..57beac8 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,9 +1,9 @@
  # This Makefile is based on LuaSec's Makefile. Thanks to the LuaSec developers.
- # Inform the location to intall the modules
+ # Inform the location to install the modules
 -LUAPATH  ?= /usr/share/lua/5.1
 -LUACPATH ?= /usr/lib/lua/5.1
 -INCDIR   ?= -I/usr/include/lua5.1
