@@ -1,6 +1,6 @@
 pkgname = "xcursorgen"
-pkgver = "1.0.8"
-pkgrel = 1
+pkgver = "1.0.9"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = [
@@ -14,7 +14,7 @@ pkgdesc = "X cursor generator"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/xcursorgen-{pkgver}.tar.gz"
-sha256 = "b8bb2756918343b8bc15a4ce875e9efb6c4e7777adba088280e53dd09753b6ac"
+sha256 = "21082be975472e469dd79d46166cee3720fda80a54382dc8d03fa7a4cd39837a"
 hardening = ["vis", "cfi"]
 
 
