@@ -1,6 +1,6 @@
 pkgname = "wxwidgets"
 pkgver = "3.2.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
@@ -26,14 +26,13 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "curl-devel",
     "glu-devel",
     "gspell-devel",
     "gst-plugins-base-devel",
     "gtk+3-devel",
-    "curl-devel",
     "libexpat-devel",
     "libjpeg-turbo-devel",
-    "xz-devel",
     "libnotify-devel",
     "libsecret-devel",
     "libsm-devel",
@@ -41,6 +40,8 @@ makedepends = [
     "mesa-devel",
     "pcre2-devel",
     "sdl2-compat-devel",
+    "webkitgtk-devel",
+    "xz-devel",
     "zlib-ng-compat-devel",
 ]
 pkgdesc = "WXwidgets GUI toolkit"
