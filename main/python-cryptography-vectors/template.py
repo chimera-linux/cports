@@ -1,5 +1,5 @@
 pkgname = "python-cryptography-vectors"
-pkgver = "44.0.3"
+pkgver = "45.0.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ url = "https://github.com/pyca/cryptography"
 source = (
     f"$(PYPI_SITE)/c/cryptography_vectors/cryptography_vectors-{pkgver}.tar.gz"
 )
-sha256 = "340e790dd7dbe81a0bbec128bfb4ab58e4e10081b05ecb24a8c69380909a3a4b"
+sha256 = "53e3e6447c4299854cf9195bdc19f7b04660dc823fd2ea4468305c22caec19a7"
 # vectors for python-cryptography tests
 options = ["!check"]
 
