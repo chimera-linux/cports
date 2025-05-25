@@ -1,8 +1,8 @@
-diff --git a/app/example.yml b/app/example.yml
-index 06e953e..03908fc 100644
---- a/app/example.yml
-+++ b/app/example.yml
-@@ -47,7 +47,7 @@ streams:
+diff --git a/config/example.yml b/config/example.yml
+index 759f597..85ff697 100644
+--- a/config/example.yml
++++ b/config/example.yml
+@@ -56,7 +56,7 @@ streams:
    ssh:
      # note that if the command is not in environment's `PATH`
      # its full path must be given.
