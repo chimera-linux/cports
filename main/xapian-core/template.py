@@ -19,6 +19,10 @@ hardening = ["vis", "cfi"]
 # see below
 options = []
 
+if self.profile().arch == "ppc":
+    # FIXME: hangs (or takes eons? idk) due to a load of "NetworkTimeoutError"
+    options += ["!check"]
+
 if self.profile().arch == "ppc64":
     # FIXME: hangs after replacedoc9
     options += ["!check"]
