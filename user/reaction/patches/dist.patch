@@ -1,0 +1,25 @@
+diff --git a/build.rs b/build.rs
+index 39c0dca..d8f3e1f 100644
+--- a/build.rs
++++ b/build.rs
+@@ -46,11 +46,6 @@ fn main() -> io::Result<()> {
+     if var_os("PROFILE").ok_or(ErrorKind::NotFound)? == "release" {
+         let out_dir = PathBuf::from(var_os("OUT_DIR").ok_or(ErrorKind::NotFound)?).join("../../..");
+ 
+-        // Compile C helpers
+-        let cc = gcc();
+-        println!("CC is: {}", cc);
+-        compile_helper(&cc, "ip46tables", &out_dir)?;
+-        compile_helper(&cc, "nft46", &out_dir)?;
+ 
+         // Build CLI
+         let cli = clap::Command::new("reaction");
+@@ -74,8 +69,6 @@ See usage examples, service configurations and good practices on the wiki: https
+ 
+     println!("cargo::rerun-if-changed=build.rs");
+     println!("cargo::rerun-if-changed=src/cli.rs");
+-    println!("cargo::rerun-if-changed=helpers_c/ip46tables.c");
+-    println!("cargo::rerun-if-changed=helpers_c/nft46.c");
+ 
+     Ok(())
+ }
