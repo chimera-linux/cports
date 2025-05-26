@@ -1,7 +1,8 @@
 pkgname = "topgrade"
 pkgver = "16.0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+prepare_after_patch = True
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Multiple package-manager system updater"
