@@ -1,5 +1,5 @@
 pkgname = "bpftrace"
-pkgver = "0.23.2"
+pkgver = "0.23.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -33,7 +33,7 @@ pkgdesc = "High-level eBPF tracing language"
 license = "Apache-2.0"
 url = "https://github.com/bpftrace/bpftrace"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7e0da01b23599d6ad9762b61cda5be2b72c3526414c56093d4b63d9f720de300"
+sha256 = "3b374c3618ff055d279ddd2fcf4393feb88b4b03284b8b6f69f1e0dedd20662c"
 # bpftrace/bpftrace-aotrt binaries need keeping BEGIN/END_trigger syms
 # just skip strip for now until we can plumb through --keep-symbol to objcopy
 options = ["!strip"]
