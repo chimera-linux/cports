@@ -137,6 +137,8 @@ def _lint_devel(pkg):
             pkg.log_warn(f"{v} should be in the -devel package")
 
     for v in pkg.destdir.rglob("usr/lib/*.so"):
+        if not v.is_symlink():
+            continue
         pkg.log_warn(".so symlinks should be in the -devel package")
         break
 
