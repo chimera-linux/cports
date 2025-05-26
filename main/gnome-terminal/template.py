@@ -1,5 +1,5 @@
 pkgname = "gnome-terminal"
-pkgver = "3.56.1"
+pkgver = "3.56.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,8 +27,8 @@ makedepends = [
 pkgdesc = "GNOME terminal emulator"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal"
-source = f"https://gitlab.gnome.org/GNOME/gnome-terminal/-/archive/{pkgver}/gnome-terminal-{pkgver}.tar.gz"
-sha256 = "5b4625d3e5e02172cdd7cb01854d8146e97ae2b5b82e132f27348eaa25e2348c"
+source = f"$(GNOME_SITE)/gnome-terminal/{pkgver[: pkgver.rfind('.')]}/gnome-terminal-{pkgver}.tar.xz"
+sha256 = "235bc09dfa34cc5f1e95122e9bf60203a84daf861cfacf7e4496c5f548239978"
 # Upstream claims "LTO very much NOT supported"
 # https://gitlab.gnome.org/GNOME/gnome-terminal/-/blob/09c8b31168460c325ac00820759d6eefdf3957ab/meson.build#L226
 options = ["!cross", "!lto"]
@@ -43,8 +43,7 @@ def _(self):
     self.pkgdesc = "GNOME terminal extension for Nautilus"
     self.depends += [self.parent]
     self.install_if = [self.parent, "nautilus"]
-    # transitional
-    self.provides = [self.with_pkgver("nautilus-gnome-terminal-extension")]
+    self.renames = ["nautilus-gnome-terminal-extension"]
 
     return [
         "usr/lib/nautilus",
