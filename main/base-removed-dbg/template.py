@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 6
+pkgrel = 7
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -115,7 +115,6 @@ for _pkg in [
     "lscpu",
     "mkfs",
     "mount",
-    "nautilus-gnome-terminal-extension",
     "nfs-server",
     "pam_cgroup",
     "pam_elogind",
