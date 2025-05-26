@@ -1,14 +1,23 @@
 pkgname = "swww"
-pkgver = "0.9.5"
-pkgrel = 2
+pkgver = "0.10.0"
+pkgrel = 0
 build_style = "cargo"
-hostmakedepends = ["cargo-auditable", "pkgconf", "scdoc"]
-makedepends = ["lz4-devel", "rust-std"]
+hostmakedepends = [
+    "cargo-auditable",
+    "pkgconf",
+    "scdoc",
+]
+makedepends = [
+    "lz4-devel",
+    "rust-std",
+    "wayland-devel",
+    "wayland-protocols",
+]
 pkgdesc = "Solution to your Wayland Wallpaper Woes"
 license = "GPL-3.0-only"
 url = "https://github.com/LGFae/swww"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "567e2ac76203ad47df5aaafab7d9d0e4e283a74e34690930a4730ecf0a667428"
+sha256 = "a1717c3af60c3840b1ff75164d9c3a0b90fb6931beddf6df5950996d289dd616"
 
 if self.profile().arch in ["loongarch64"]:
     broken = "cannot find value `MADV_SOFT_OFFLINE` in module `c`"
