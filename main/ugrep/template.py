@@ -1,5 +1,5 @@
 pkgname = "ugrep"
-pkgver = "7.2.2"
+pkgver = "7.4.3"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -23,7 +23,7 @@ pkgdesc = "Grep-compatible file searcher"
 license = "BSD-3-Clause"
 url = "https://ugrep.com"
 source = f"https://github.com/Genivia/ugrep/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "09aad04eb20f34ca6a9cc5626f04286b9ad722407b88581c5dabf2599a0bba93"
+sha256 = "105b495f4d2773802b5a71e2375ba07bca4e67fd6837e5fc1d00be5cf4938f16"
 
 
 def post_install(self):
