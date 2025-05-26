@@ -1,6 +1,6 @@
 pkgname = "python-openssl"
-pkgver = "25.0.0"
-pkgrel = 1
+pkgver = "25.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -18,4 +18,4 @@ pkgdesc = "Python interface to OpenSSL"
 license = "Apache-2.0"
 url = "https://pyopenssl.org"
 source = f"$(PYPI_SITE)/p/pyopenssl/pyopenssl-{pkgver}.tar.gz"
-sha256 = "cd2cef799efa3936bb08e8ccb9433a575722b9dd986023f1cabc4ae64e9dac16"
+sha256 = "8d031884482e0c67ee92bf9a4d8cceb08d92aba7136432ffb0703c5280fc205b"
