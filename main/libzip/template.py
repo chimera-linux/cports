@@ -1,5 +1,5 @@
 pkgname = "libzip"
-pkgver = "1.11.3"
+pkgver = "1.11.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "C library for manipulating zip archives"
 license = "BSD-3-Clause"
 url = "https://libzip.org"
 source = f"{url}/download/libzip-{pkgver}.tar.gz"
-sha256 = "76653f135dde3036036c500e11861648ffbf9e1fc5b233ff473c60897d9db0ea"
+sha256 = "82e9f2f2421f9d7c2466bbc3173cd09595a88ea37db0d559a9d0a2dc60dc722e"
 hardening = ["vis"]
 
 
