@@ -1,6 +1,6 @@
 pkgname = "swaync"
-pkgver = "0.10.1"
-pkgrel = 3
+pkgver = "0.11.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "gobject-introspection",
@@ -23,7 +23,7 @@ pkgdesc = "Notification daemon for sway"
 license = "GPL-3.0-or-later"
 url = "https://github.com/ErikReider/SwayNotificationCenter"
 source = f"https://github.com/ErikReider/SwayNotificationCenter/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5586d8a679dde5e530cb8b6f0c86abdd0d5e41362fc1c4e56e2211edea0f7a13"
+sha256 = "7f69fe248994404af4115d335929b3bd2faf8c6321374b5b3e3fa2c97d169c90"
 
 
 def post_install(self):
