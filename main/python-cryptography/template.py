@@ -1,5 +1,5 @@
 pkgname = "python-cryptography"
-pkgver = "45.0.2"
+pkgver = "45.0.3"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"MATURIN_PEP517_ARGS": "--offline"}
@@ -26,7 +26,7 @@ pkgdesc = "Cryptographic primitives for Python"
 license = "BSD-3-Clause OR Apache-2.0"
 url = "https://github.com/pyca/cryptography"
 source = f"$(PYPI_SITE)/c/cryptography/cryptography-{pkgver}.tar.gz"
-sha256 = "d784d57b958ffd07e9e226d17272f9af0c41572557604ca7554214def32c26bf"
+sha256 = "ec21313dd335c51d7877baf2972569f40a4291b76a0ce51391523ae358d05899"
 
 
 def prepare(self):
