@@ -31,7 +31,7 @@ pkgdesc = "GNOME file manager"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
 source = f"$(GNOME_SITE)/nautilus/{pkgver[: pkgver.find('.')]}/nautilus-{pkgver}.tar.xz"
-sha256 = "7995a2a17c29d4b09abf9dd9aca14b8dee7dec3bd74776dd379512f2e6d7347f"
+sha256 = "a030f6163f8a68064fae5a9e89e37f19cbb293de2e12a19dd5e210956d0df4b5"
 options = ["!cross"]
 
 
