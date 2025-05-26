@@ -1,6 +1,6 @@
 # update with python-pycryptodome
 pkgname = "python-pycryptodomex"
-pkgver = "3.22.0"
+pkgver = "3.23.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ license = "BSD-2-Clause AND Unlicense"
 url = "https://www.pycryptodome.org"
 # tests not on pypi
 source = f"https://github.com/Legrandin/pycryptodome/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d1499d50dfe0628fe45157956e9c522011f37043a2d3f2457631c97e56f9e6c1"
+sha256 = "5a905f0f4237b79aefee47f3e04568db2ecb70c55dd7cb118974c5260aa9e285"
 
 
 def post_extract(self):
