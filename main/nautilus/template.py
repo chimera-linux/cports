@@ -1,5 +1,5 @@
 pkgname = "nautilus"
-pkgver = "48.1"
+pkgver = "48.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtests=headless"]
