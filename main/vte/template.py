@@ -1,5 +1,5 @@
 pkgname = "vte"
-pkgver = "0.80.1"
+pkgver = "0.80.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -32,19 +32,18 @@ makedepends = [
     "zlib-ng-compat-devel",
     "linux-headers",
 ]
-# transitional
-provides = [self.with_pkgver("vte-common")]
+renames = ["vte-common"]
 pkgdesc = "Gtk terminal widget"
 subdesc = "common files"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal/VTE"
 source = [
-    f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz",
+    f"$(GNOME_SITE)/vte/{pkgver[: pkgver.rfind('.')]}/vte-{pkgver}.tar.xz",
     "https://github.com/fastfloat/fast_float/archive/refs/tags/v8.0.2.tar.gz",
 ]
 source_paths = [".", "subprojects/fast_float"]
 sha256 = [
-    "b6333000bd0867349b0d5f87443bbd0afa1a006706e0f5b4426dc1a0352715bb",
+    "b225bebd043633bd491f2ea171374d0f3f9de62dfec07653053bc08c4face46f",
     "e14a33089712b681d74d94e2a11362643bd7d769ae8f7e7caefe955f57f7eacd",
 ]
 # assert in meson
