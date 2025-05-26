@@ -1,5 +1,5 @@
 pkgname = "wmenu"
-pkgver = "0.1.9"
+pkgver = "0.2.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Dynamic menu for wlroots compositors"
 license = "MIT"
 url = "https://codeberg.org/adnano/wmenu"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "1b457dfdbf8404748a036d8ee4fab1853d5dd28b132531321b7afc78e85bc1cd"
+sha256 = "4e6aea3f8975fec720f6eb87aad620d5297a8a5a137615e4cf047e95d2b9d308"
 hardening = ["vis", "cfi"]
 
 
