@@ -1,5 +1,5 @@
 pkgname = "icewm"
-pkgver = "3.7.4"
+pkgver = "3.7.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -41,7 +41,7 @@ pkgdesc = "Window manager for X11"
 license = "GPL-2.0-or-later"
 url = "https://ice-wm.org"
 source = f"https://github.com/ice-wm/icewm/archive/{pkgver}.tar.gz"
-sha256 = "1e9998edbb79c8c33effc97ebc04f49a072b8327721b406a894d5d2a11912508"
+sha256 = "ffcaa0eb86af022edbf8b3ad7d57c6c20125a64f678cf451a0665d891a4683e0"
 
 
 def post_install(self):
