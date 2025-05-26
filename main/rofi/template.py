@@ -1,5 +1,5 @@
 pkgname = "rofi"
-pkgver = "1.7.8_p1"
+pkgver = "1.7.9_p1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["bison", "cmake", "meson", "ninja", "pkgconf"]
@@ -30,7 +30,7 @@ license = "MIT"
 # rofi with wayland support
 url = "https://github.com/lbonn/rofi"
 source = f"{url}/releases/download/{pkgver.replace('_p', '+wayland')}/rofi-{pkgver.replace('_p', '+wayland')}.tar.gz"
-sha256 = "45ec7c8e8484b2e18b9abeaf54fe1d64e7b7fe4fd1c589559a544dd3c81af7c8"
+sha256 = "688c5f477ad2ddb144b66786f9c188b6bf48f1e1bec38f7977aef94ed267d90f"
 
 
 def post_install(self):
