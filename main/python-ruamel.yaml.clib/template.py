@@ -4,10 +4,10 @@ pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
-    "python-devel",
     "python-installer",
     "python-setuptools",
 ]
+makedepends = ["python-devel"]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "C interface for ruamel.yaml"
