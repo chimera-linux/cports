@@ -1,5 +1,5 @@
 pkgname = "mold"
-pkgver = "2.39.1"
+pkgver = "2.40.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ pkgdesc = "High-performance linker"
 license = "MIT"
 url = "https://github.com/rui314/mold"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "231ea3643a14fe5b88478c97b68b31f7c975b57b247a81356ffd889d015b5cc1"
+sha256 = "ee93ef0868cd54d1f30dfba1070dbacf04c1a35428bbea307a4b9242a883ad20"
 # TODO: a portion of the tests fail, for various reasons, such as assuming
 # presence of gcc, gnu grep, and various toolchain specifics; around 70%
 # of the tests pass right now, fix the rest later
