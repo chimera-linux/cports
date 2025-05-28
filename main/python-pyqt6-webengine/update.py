@@ -1,1 +1,1 @@
-pkgname = "PyQt6_WebEngine"
+pkgname = "pyqt6_webengine"
