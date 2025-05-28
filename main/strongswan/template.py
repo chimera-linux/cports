@@ -1,5 +1,5 @@
 pkgname = "strongswan"
-pkgver = "6.0.0"
+pkgver = "6.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -62,7 +62,7 @@ configure_args = [
     "--enable-xauth-generic",
     "--enable-xauth-pam",
 ]
-hostmakedepends = ["automake", "libtool", "pkgconf"]
+hostmakedepends = ["automake", "slibtool", "pkgconf"]
 makedepends = [
     "gettext-devel",
     "gmp-devel",
@@ -80,11 +80,11 @@ pkgdesc = "Open Source IKEv2 IPsec-based VPN solution"
 license = "GPL-2.0-or-later"
 url = "https://www.strongswan.org"
 source = f"https://download.strongswan.org/strongswan-{pkgver}.tar.bz2"
-sha256 = "72fe58b7523155703b65b08c3cc559c2c9a5c96da54afebd8136f6623e7dda82"
+sha256 = "212368cbc674fed31f3292210303fff06da8b90acad2d1387375ed855e6879c4"
 
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service(self.files_path / "strongswan")
-    self.install_sysusers(self.files_path / "sysusers.conf")
-    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_service("^/strongswan")
+    self.install_sysusers("^/sysusers.conf")
+    self.install_tmpfiles("^/tmpfiles.conf")
