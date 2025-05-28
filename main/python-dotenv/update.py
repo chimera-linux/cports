@@ -1,1 +1,1 @@
-url = "https://pypi.org/simple/python-dotenv"
+pkgname = "python_dotenv"

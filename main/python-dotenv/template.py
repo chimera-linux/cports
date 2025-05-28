@@ -1,6 +1,6 @@
 pkgname = "python-dotenv"
-pkgver = "1.0.1"
-pkgrel = 2
+pkgver = "1.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -16,8 +16,8 @@ depends = ["python"]
 pkgdesc = "Python module that reads env vars from a .env file"
 license = "BSD-3-Clause"
 url = "https://saurabh-kumar.com/python-dotenv"
-source = f"$(PYPI_SITE)/p/python-dotenv/python-dotenv-{pkgver}.tar.gz"
-sha256 = "e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"
+source = f"$(PYPI_SITE)/p/python-dotenv/python_dotenv-{pkgver}.tar.gz"
+sha256 = "41f90bc6f5f177fb41f53e87666db362025010eb28f60a01c9143bfa33a2b2d5"
 
 
 def post_install(self):
