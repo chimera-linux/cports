@@ -14,7 +14,7 @@ pkgdesc = "Pytest plugin for adding environment variables"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-env"
 source = f"$(PYPI_SITE)/p/pytest-env/pytest_env-{pkgver}.tar.gz"
-sha256 = "fcd7dc23bb71efd3d35632bde1bbe5ee8c8dc4489d6617fb010674880d96216b"
+sha256 = "91209840aa0e43385073ac464a554ad2947cc2fd663a9debf88d03b01e0cc1cf"
 
 
 def post_install(self):
