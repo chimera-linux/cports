@@ -1,5 +1,5 @@
 pkgname = "zoxide"
-pkgver = "0.9.7"
+pkgver = "0.9.8"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,12 +8,14 @@ pkgdesc = "Fuzzy cd command for interactive shells"
 license = "MIT"
 url = "https://github.com/ajeetdsouza/zoxide"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "d93ab17a01de68529ef37b599524f882dc654835cc121a9097dd3f2952fd207e"
+sha256 = "1b276edbf328aafc86afe1ebce41f45ccba3a3125412e89c8c5d8e825b0c7407"
 
 
 def post_install(self):
     self.install_license("LICENSE")
     self.install_man("man/man1/*.1", glob=True)
-    self.install_completion("contrib/completions/zoxide.bash", "bash")
-    self.install_completion("contrib/completions/zoxide.fish", "fish")
-    self.install_completion("contrib/completions/_zoxide", "zsh")
+    with self.pushd("contrib/completions"):
+        self.install_completion("zoxide.bash", "bash")
+        self.install_completion("zoxide.fish", "fish")
+        self.install_completion("_zoxide", "zsh")
+        self.install_completion("zoxide.nu", "nushell")
