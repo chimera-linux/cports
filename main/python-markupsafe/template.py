@@ -1,12 +1,11 @@
 pkgname = "python-markupsafe"
-pkgver = "2.1.5"
-pkgrel = 1
+pkgver = "3.0.2"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-    "python-wheel",
 ]
 makedepends = ["python-devel"]
 checkdepends = ["python-pytest"]
@@ -14,11 +13,11 @@ depends = ["python"]
 pkgdesc = "XML/HTML/XHTML Markup safe string for Python"
 license = "BSD-3-Clause"
 url = "https://palletsprojects.com/p/markupsafe"
-source = f"$(PYPI_SITE)/M/MarkupSafe/MarkupSafe-{pkgver}.tar.gz"
-sha256 = "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
-# dependency of pytest; also needs itsself to be installed
+source = f"$(PYPI_SITE)/M/MarkupSafe/markupsafe-{pkgver}.tar.gz"
+sha256 = "ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
+# dependency of pytest; also needs itself to be installed
 options = ["!check"]
 
 
 def post_install(self):
-    self.install_license("LICENSE.rst")
+    self.install_license("LICENSE.txt")
