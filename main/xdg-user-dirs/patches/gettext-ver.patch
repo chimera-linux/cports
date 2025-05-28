@@ -16,7 +16,7 @@ index 2cce082..aca8a81 100644
  AC_SUBST(GETTEXT_PACKAGE)
  
  AM_GNU_GETTEXT([external])
-+AM_GNU_GETTEXT_VERSION([0.24])
++AM_GNU_GETTEXT_VERSION([0.23])
  
  dnl ==========================================================================
  dnl Turn on the additional warnings last, so -Werror doesn't affect other tests.
