@@ -54,11 +54,24 @@ def verify_cksum(dfile, cksum, pkg):
 
 
 def link_cksum(dfile, cksum, pkg):
+    # it's already in the destination, don't try to link
+    if dfile.is_file():
+        return True
     shapath = paths.sources() / "by_sha256"
     linkpath = shapath / f"{cksum}_{dfile.name}"
     if len(cksum) > 0 and linkpath.is_file():
         dfile.hardlink_to(linkpath)
         pkg.log(f"using known source '{dfile.name}'")
+        # do an early verify in case the known source is corrupt
+        if not verify_cksum(dfile, cksum, pkg):
+            pkg.log_warn(f"corrupt by_sha256 entry '{dfile.name}' - removing")
+            linkpath.unlink()
+            dfile.unlink()
+            return False
+        else:
+            return True
+    else:
+        return False
 
 
 def get_nameurl(pkg, d):
@@ -250,15 +263,13 @@ def invoke(pkg):
         d, hdrs, ck = dc
         url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
-        dfiles.append((dfile, ck))
-        if not dfile.is_file():
-            link_cksum(dfile, ck, pkg)
-        if not dfile.is_file():
+        if not link_cksum(dfile, ck, pkg):
             idx = len(tofetch)
             tofetch.append((url, dfile, hdrs, idx))
             fstatus.append(0)
             flens.append(-1)
             pkg.log(f"fetching source '{fname}'...")
+            dfiles.append((dfile, ck))
 
     def do_fetch_url(mv):
         url, dfile, hdrs, idx = mv
