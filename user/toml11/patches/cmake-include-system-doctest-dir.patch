@@ -1,0 +1,48 @@
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 50e086c..aec69a8 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -46,14 +46,14 @@ set(TOML11_TEST_NAMES
+ if(BUILD_TESTING)
+     add_library(toml11_test_utility STATIC utility.cpp)
+     target_include_directories(toml11_test_utility
+-        PRIVATE ${PROJECT_SOURCE_DIR}/tests/extlib/doctest/doctest/
++        PRIVATE /usr/include/doctest/
+         )
+     target_link_libraries(toml11_test_utility PUBLIC toml11)
+ 
+     foreach(TEST_NAME ${TOML11_TEST_NAMES})
+         add_executable(${TEST_NAME} ${TEST_NAME}.cpp)
+         target_include_directories(${TEST_NAME}
+-            PRIVATE ${PROJECT_SOURCE_DIR}/tests/extlib/doctest/doctest/
++            PRIVATE /usr/include/doctest/
+             )
+         target_link_libraries(${TEST_NAME} PUBLIC toml11 toml11_test_utility)
+         if(MSVC)
+@@ -92,7 +92,7 @@ if(TOML11_BUILD_TOML_TESTS)
+ 
+     add_executable(toml11_decoder to_json.cpp)
+     target_include_directories(toml11_decoder
+-        PRIVATE ${PROJECT_SOURCE_DIR}/tests/extlib/doctest/doctest/
++        PRIVATE /usr/include/doctest/
+         PRIVATE ${PROJECT_SOURCE_DIR}/tests/extlib/json/include/
+         )
+     target_link_libraries(toml11_decoder PRIVATE toml11)
+@@ -123,7 +123,7 @@ if(TOML11_BUILD_TOML_TESTS)
+ 
+     add_executable(toml11_decoder_v1_1_0 to_json.cpp)
+     target_include_directories(toml11_decoder_v1_1_0
+-        PRIVATE ${PROJECT_SOURCE_DIR}/tests/extlib/doctest/doctest/
++        PRIVATE /usr/include/doctest/
+         PRIVATE ${PROJECT_SOURCE_DIR}/tests/extlib/json/include/
+         )
+     target_compile_definitions(toml11_decoder_v1_1_0 PRIVATE -DTOML11_TO_JSON_USE_V1_1_0)
+@@ -155,7 +155,7 @@ if(TOML11_BUILD_TOML_TESTS)
+ 
+     add_executable(toml11_encoder to_toml.cpp)
+     target_include_directories(toml11_encoder
+-        PRIVATE ${PROJECT_SOURCE_DIR}/tests/extlib/doctest/doctest/
++        PRIVATE /usr/include/doctest/
+         PRIVATE ${PROJECT_SOURCE_DIR}/tests/extlib/json/include/
+         )
+     target_link_libraries(toml11_encoder PRIVATE toml11)
