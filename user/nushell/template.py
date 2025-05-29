@@ -1,5 +1,5 @@
 pkgname = "nushell"
-pkgver = "0.104.0"
+pkgver = "0.104.1"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = [
@@ -20,7 +20,7 @@ pkgdesc = "Shell with a focus on structured data"
 license = "MIT"
 url = "https://www.nushell.sh"
 source = f"https://github.com/nushell/nushell/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2964ef7148d0f67fa4860fa3eab1c7d15c51ec5292be0cd0865996816f46fe84"
+sha256 = "3dafca8bf892f5a2afaac1122a88a7eb7f22a0b62ef901f550173a11d5cbdf6e"
 
 
 def post_install(self):
