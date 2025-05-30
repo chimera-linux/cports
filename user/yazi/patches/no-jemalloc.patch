@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 35284d1..98bc60c 100644
+index 4b8d36f2..15eaee3c 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2405,26 +2405,6 @@ dependencies = [
+@@ -2550,26 +2550,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -29,7 +29,7 @@ index 35284d1..98bc60c 100644
  [[package]]
  name = "time"
  version = "0.3.41"
-@@ -3324,7 +3304,6 @@ dependencies = [
+@@ -3489,7 +3469,6 @@ dependencies = [
   "scopeguard",
   "signal-hook-tokio",
   "textwrap",
@@ -38,10 +38,10 @@ index 35284d1..98bc60c 100644
   "tokio-stream",
   "tracing",
 diff --git a/yazi-fm/Cargo.toml b/yazi-fm/Cargo.toml
-index 9752b87..745c38f 100644
+index 26cbb769..7ab21d80 100644
 --- a/yazi-fm/Cargo.toml
 +++ b/yazi-fm/Cargo.toml
-@@ -55,9 +55,6 @@ signal-hook-tokio = { version = "0.3.1", features = [ "futures-v0_3" ] }
+@@ -56,9 +56,6 @@ signal-hook-tokio = { version = "0.3.1", features = [ "futures-v0_3" ] }
  [target.'cfg(target_os = "macos")'.dependencies]
  crossterm = { workspace = true, features = [ "use-dev-tty", "libc" ] }
  
@@ -52,11 +52,11 @@ index 9752b87..745c38f 100644
  name = "yazi"
  path = "src/main.rs"
 diff --git a/yazi-fm/src/main.rs b/yazi-fm/src/main.rs
-index 53fa047..f886155 100644
+index cf807a5f..ac81bb53 100644
 --- a/yazi-fm/src/main.rs
 +++ b/yazi-fm/src/main.rs
 @@ -1,9 +1,5 @@
- #![allow(clippy::module_inception, clippy::unit_arg)]
+ #![allow(clippy::if_same_then_else, clippy::module_inception, clippy::unit_arg)]
  
 -#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
 -#[global_allocator]
