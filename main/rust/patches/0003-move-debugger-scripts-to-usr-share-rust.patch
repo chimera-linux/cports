@@ -1,4 +1,4 @@
-From 2601af222271a2002de08c6133b6538c70d8d036 Mon Sep 17 00:00:00 2001
+From bbd794ad58ee92fd0e85ba3530b5067025741128 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:01:57 +0100
 Subject: [PATCH 03/14] move debugger scripts to /usr/share/rust
@@ -11,10 +11,10 @@ Subject: [PATCH 03/14] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index f9ff133b6..4467de13d 100644
+index 83f71aeed..b869e1089 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
-@@ -541,7 +541,7 @@ impl Step for DebuggerScripts {
+@@ -559,7 +559,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let host = self.host;
          let sysroot = self.sysroot;
@@ -22,7 +22,7 @@ index f9ff133b6..4467de13d 100644
 +        let dst = sysroot.join("share/rust");
          t!(fs::create_dir_all(&dst));
          let cp_debugger_script = |file: &str| {
-             builder.install(&builder.src.join("src/etc/").join(file), &dst, 0o644);
+             builder.install(&builder.src.join("src/etc/").join(file), &dst, FileType::Regular);
 diff --git a/src/etc/rust-gdb b/src/etc/rust-gdb
 index 9abed30ea..4c7f953ed 100755
 --- a/src/etc/rust-gdb
@@ -65,5 +65,5 @@ index bce72f1ba..8abb01245 100755
  # Call LLDB with the commands added to the argument list
  exec "$lldb" --one-line-before-file "$script_import" --source-before-file "$commands_file" "$@"
 -- 
-2.48.1
+2.49.0
 

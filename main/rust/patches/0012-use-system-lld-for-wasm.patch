@@ -1,4 +1,4 @@
-From 8801f54a781d253e33db54f4e7b167addc93e7d6 Mon Sep 17 00:00:00 2001
+From 8aec4db7f027b86a6bc6326eb8d4281022fb7529 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:11:57 +0100
 Subject: [PATCH 12/14] use system lld for wasm
@@ -8,10 +8,10 @@ Subject: [PATCH 12/14] use system lld for wasm
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/compiler/rustc_target/src/spec/base/wasm.rs b/compiler/rustc_target/src/spec/base/wasm.rs
-index 81b96cd39..bacc65825 100644
+index 88e7af5e6..ca9e0584a 100644
 --- a/compiler/rustc_target/src/spec/base/wasm.rs
 +++ b/compiler/rustc_target/src/spec/base/wasm.rs
-@@ -85,8 +85,8 @@ pub(crate) fn options() -> TargetOptions {
+@@ -86,8 +86,8 @@ pub(crate) fn options() -> TargetOptions {
          // arguments just yet
          limit_rdylib_exports: false,
  
@@ -23,5 +23,5 @@ index 81b96cd39..bacc65825 100644
  
          pre_link_args,
 -- 
-2.48.1
+2.49.0
 

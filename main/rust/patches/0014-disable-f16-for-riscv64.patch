@@ -1,24 +1,24 @@
-From 4d23ed902de90f6c81ab582d69ad0360fa644096 Mon Sep 17 00:00:00 2001
+From 50e2cbec7ad00730092da2938c55c15bdbf06c3f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 20 Feb 2025 20:47:24 +0100
+Date: Fri, 30 May 2025 12:38:56 +0200
 Subject: [PATCH 14/14] disable f16 for riscv64
 
 ---
- vendor/compiler_builtins-0.1.146/configure.rs | 1 +
+ vendor/compiler_builtins-0.1.152/configure.rs | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/vendor/compiler_builtins-0.1.146/configure.rs b/vendor/compiler_builtins-0.1.146/configure.rs
-index fa3e302ea..fd754a17b 100644
---- a/vendor/compiler_builtins-0.1.146/configure.rs
-+++ b/vendor/compiler_builtins-0.1.146/configure.rs
-@@ -80,6 +80,7 @@ pub fn configure_f16_f128(target: &Target) {
-         "loongarch64" => false,
-         "mips" | "mips64" | "mips32r6" | "mips64r6" => false,
+diff --git a/vendor/compiler_builtins-0.1.152/configure.rs b/vendor/compiler_builtins-0.1.152/configure.rs
+index 2f134e578..bab7f1aa2 100644
+--- a/vendor/compiler_builtins-0.1.152/configure.rs
++++ b/vendor/compiler_builtins-0.1.152/configure.rs
+@@ -99,6 +99,7 @@ pub fn configure_f16_f128(target: &Target) {
+         "csky" => false,
+         "hexagon" => false,
          "powerpc" | "powerpc64" => false,
 +        "riscv64" | "riscv64gc" => false,
          "sparc" | "sparc64" => false,
          "wasm32" | "wasm64" => false,
          // Most everything else works as of LLVM 19
 -- 
-2.48.1
+2.49.0
 
