@@ -1,5 +1,5 @@
 pkgname = "bacon"
-pkgver = "3.12.0"
+pkgver = "3.15.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Background rust code checker"
 license = "AGPL-3.0-only"
 url = "https://dystroy.org/bacon"
 source = f"https://github.com/Canop/bacon/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "729d4672793369a2de7e120232e39c656f15745e4403cb7af6bafc17a6781b4c"
+sha256 = "b162a0e9f827d849c962a5a0623ba9435182e3bf6c8e3fe4630a2446a8326bc7"
 
 
 def post_install(self):
