@@ -1,5 +1,5 @@
 pkgname = "gallery-dl"
-pkgver = "1.29.3"
+pkgver = "1.29.7"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -19,7 +19,7 @@ pkgdesc = "CLI program to download image galleries/collections"
 license = "GPL-2.0-or-later"
 url = "https://github.com/mikf/gallery-dl"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3c604eb980189ab8a1d53d357ba3387e0b44dd1363decaa308a1d817c7d32f0b"
+sha256 = "b0ec950cfdcae6fa989de0afce8a83336ea5ce50d712edea15eebc85ca93bc1d"
 
 
 def pre_build(self):
