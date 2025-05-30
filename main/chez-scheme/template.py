@@ -1,6 +1,6 @@
 pkgname = "chez-scheme"
 pkgver = "10.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = ["--enable-libffi", "LZ4=-llz4", "ZLIB=-lz"]
 make_check_target = "test-some-fast"
@@ -27,6 +27,8 @@ match self.profile().arch:
         _machine = "tarm32le"
         # takes a long time and fails
         options += ["!check"]
+    case "loongarch64":
+        _machine = "tla64le"
     case "ppc":
         _machine = "tppc32le"
     case "riscv64":
