@@ -1,7 +1,8 @@
-From d049e7b1b37d7981cce4c81d0ad156e352062f4d Mon Sep 17 00:00:00 2001
+From da7ec7d63ad555afb32702dac6eefb0d8b21bc22 Mon Sep 17 00:00:00 2001
 From: Sloane Hertel <19572925+s-hertel@users.noreply.github.com>
 Date: Tue, 11 Feb 2025 10:03:58 -0500
-Subject: [PATCH] fix broken ansible-galaxy-collection resolvelib test (#84626)
+Subject: [PATCH 3/4] fix broken ansible-galaxy-collection resolvelib test
+ (#84626)
 
 ---
  .../ansible-galaxy-collection/tasks/fail_fast_resolvelib.yml   | 3 +++
@@ -9,7 +10,7 @@ Subject: [PATCH] fix broken ansible-galaxy-collection resolvelib test (#84626)
  2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/test/integration/targets/ansible-galaxy-collection/tasks/fail_fast_resolvelib.yml b/test/integration/targets/ansible-galaxy-collection/tasks/fail_fast_resolvelib.yml
-index f0c94629f10f44..30835522f473ee 100644
+index f0c94629f1..30835522f4 100644
 --- a/test/integration/targets/ansible-galaxy-collection/tasks/fail_fast_resolvelib.yml
 +++ b/test/integration/targets/ansible-galaxy-collection/tasks/fail_fast_resolvelib.yml
 @@ -37,6 +37,9 @@
@@ -23,7 +24,7 @@ index f0c94629f10f44..30835522f473ee 100644
    always:
      - name: cleanup resolvelib test
 diff --git a/test/integration/targets/ansible-galaxy-collection/tasks/supported_resolvelib.yml b/test/integration/targets/ansible-galaxy-collection/tasks/supported_resolvelib.yml
-index bff3689275ac0f..47982184f04ff1 100644
+index bff3689275..47982184f0 100644
 --- a/test/integration/targets/ansible-galaxy-collection/tasks/supported_resolvelib.yml
 +++ b/test/integration/targets/ansible-galaxy-collection/tasks/supported_resolvelib.yml
 @@ -1,6 +1,7 @@
@@ -42,3 +43,6 @@ index bff3689275ac0f..47982184f04ff1 100644
          test_id: '{{ test_name }} (resolvelib {{ resolvelib_version }})'
          test_server: '{{ galaxy_ng_server }}'
          test_api_server: '{{ galaxy_ng_server }}'
+-- 
+2.49.0
+
