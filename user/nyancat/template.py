@@ -1,0 +1,9 @@
+pkgname = "nyancat"
+pkgver = "1.2.1"
+pkgrel = 0
+build_style = "makefile"
+pkgdesc = "Nyancat in your terminal, rendered through ANSI escape sequences"
+license = "NCSA"
+url = "https://nyancat.dakko.us"
+source = f"https://github.com/klange/nyancat/archive/v{pkgver}.tar.gz"
+sha256 = "39ca31bc417094ed14406f98d024b22ff4c357d059f4162ee1a069b889e083ff"
