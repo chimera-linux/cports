@@ -1,0 +1,4 @@
+type = scripted
+command = /usr/lib/frr/frrinit.sh start
+stop-command = /usr/lib/frr/frrinit.sh stop
+depends-on = network.target
