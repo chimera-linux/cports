@@ -1,5 +1,5 @@
 pkgname = "python-numpy"
-pkgver = "2.2.4"
+pkgver = "2.2.6"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_args = []
@@ -20,7 +20,7 @@ pkgdesc = "Package for scientific computing with Python"
 license = "BSD-3-Clause"
 url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
-sha256 = "9ba03692a45d3eef66559efe1d1096c4b9b75c0986b5dff5530c378fb8331d4f"
+sha256 = "e29554e2bef54a90aa5cc07da6ce955accb83f21ab5de01a62c8478897b264fd"
 hardening = ["!int"]
 
 if self.profile().arch in ["aarch64", "loongarch64"]:
