@@ -43,5 +43,5 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
 -enable_safe_libcxx = true
 +enable_safe_libcxx = false
  
- # Features used by //base/trace_event and //services/tracing.
- declare_args() {
+ if (is_cronet_build) {
+   # Used by //third_party/perfetto.

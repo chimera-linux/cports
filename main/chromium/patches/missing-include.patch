@@ -1,0 +1,20 @@
+--- a/content/browser/tpcd_heuristics/opener_heuristic_utils.h
++++ b/content/browser/tpcd_heuristics/opener_heuristic_utils.h
+@@ -6,6 +6,7 @@
+ #define CONTENT_BROWSER_TPCD_HEURISTICS_OPENER_HEURISTIC_UTILS_H_
+ 
+ #include <map>
++#include <set>
+ 
+ #include "base/types/optional_ref.h"
+ #include "content/common/content_export.h"
+--- a/chrome/browser/ui/safety_hub/disruptive_notification_permissions_manager.h
++++ b/chrome/browser/ui/safety_hub/disruptive_notification_permissions_manager.h
+@@ -6,6 +6,7 @@
+ #define CHROME_BROWSER_UI_SAFETY_HUB_DISRUPTIVE_NOTIFICATION_PERMISSIONS_MANAGER_H_
+ 
+ #include <memory>
++#include <set>
+ 
+ #include "base/scoped_observation.h"
+ #include "base/time/clock.h"
