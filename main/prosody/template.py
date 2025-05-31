@@ -1,5 +1,5 @@
 pkgname = "prosody"
-pkgver = "13.0.1"
+pkgver = "13.0.2"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -24,7 +24,7 @@ pkgdesc = "Modern xmpp communication server"
 license = "MIT"
 url = "https://prosody.im"
 source = f"https://prosody.im/downloads/source/prosody-{pkgver}.tar.gz"
-sha256 = "7bde8a5bf3cce195fd454970001b9faeac1a4601bcaa5c74eed7c6b74e48d806"
+sha256 = "3e61bd396f37ca5245debfd6be49a47a6191332f0faa2d4ee5f00fbb040addb0"
 
 
 def configure(self):
