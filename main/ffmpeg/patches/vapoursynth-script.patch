@@ -1,0 +1,12 @@
+libvapoursynth-script.so goes in vapoursynth-devel and not the main package
+--- a/libavformat/vapoursynth.c	2025-05-25 02:55:12.995404830 +0100
++++ b/libavformat/vapoursynth.c	2025-05-25 02:55:25.273460968 +0100
+@@ -49,7 +49,7 @@
+ #else
+   #include <dlfcn.h>
+   #define VSSCRIPT_NAME "libvapoursynth-script"
+-  #define VSSCRIPT_LIB VSSCRIPT_NAME SLIBSUF
++  #define VSSCRIPT_LIB VSSCRIPT_NAME SLIBSUF ".0"
+ #endif
+ 
+ struct VSState {
