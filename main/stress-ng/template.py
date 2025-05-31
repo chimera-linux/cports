@@ -1,5 +1,5 @@
 pkgname = "stress-ng"
-pkgver = "0.18.10"
+pkgver = "0.19.00"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]
@@ -14,7 +14,7 @@ pkgdesc = "Stress test a computer in various selectable ways"
 license = "GPL-2.0-or-later"
 url = "https://github.com/ColinIanKing/stress-ng"
 source = f"https://github.com/ColinIanKing/stress-ng/archive/refs/tags/V{pkgver}.tar.gz"
-sha256 = "bb729844b5a3c8953e58ddb705dce8a62078ad75f0b6f49092f8027d9c699700"
+sha256 = "7d0be69dcdad655145026f499863de01d317e87ff87acd48c3343d451540d172"
 env = {
     "MAN_COMPRESS": "0",
     "PRESERVE_CFLAGS": "1",
