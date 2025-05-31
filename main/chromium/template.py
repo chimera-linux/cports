@@ -169,36 +169,6 @@ match self.profile().arch:
         # also crashes on riscv64
         hardening += ["!int"]
 
-# remove these with llvm 19
-match self.profile().arch:
-    case "aarch64":
-        tool_flags["CFLAGS"] += [
-            "-D__GCC_CONSTRUCTIVE_SIZE=64",
-            "-D__GCC_DESTRUCTIVE_SIZE=256",
-        ]
-        tool_flags["CXXFLAGS"] += [
-            "-D__GCC_CONSTRUCTIVE_SIZE=64",
-            "-D__GCC_DESTRUCTIVE_SIZE=256",
-        ]
-    case "ppc64le":
-        tool_flags["CFLAGS"] += [
-            "-D__GCC_CONSTRUCTIVE_SIZE=128",
-            "-D__GCC_DESTRUCTIVE_SIZE=128",
-        ]
-        tool_flags["CXXFLAGS"] += [
-            "-D__GCC_CONSTRUCTIVE_SIZE=128",
-            "-D__GCC_DESTRUCTIVE_SIZE=128",
-        ]
-    case "x86_64":
-        tool_flags["CFLAGS"] += [
-            "-D__GCC_CONSTRUCTIVE_SIZE=64",
-            "-D__GCC_DESTRUCTIVE_SIZE=64",
-        ]
-        tool_flags["CXXFLAGS"] += [
-            "-D__GCC_CONSTRUCTIVE_SIZE=64",
-            "-D__GCC_DESTRUCTIVE_SIZE=64",
-        ]
-
 
 def post_patch(self):
     self.rm("third_party/node/linux/node-linux-x64/bin/node", force=True)
