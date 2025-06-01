@@ -2067,6 +2067,13 @@ class Template(Package):
             if len(srcs) < 1:
                 self.error(f"path '{src}' does not match any files", bt=True)
         for absmn in srcs:
+            origf = absmn
+            comp = absmn.suffix == ".gz"
+            if comp:
+                absmn = absmn.with_suffix("")
+                esuf = ".gz"
+            else:
+                esuf = ""
             mnf = absmn.name
             if not cat:
                 if len(absmn.suffix) == 0:
@@ -2085,7 +2092,8 @@ class Template(Package):
             mandir.mkdir(parents=True, exist_ok=True)
             if name:
                 mnf = f"{name}.{mcat}"
-            shutil.copy2(absmn, mandir / mnf)
+            mnf = f"{mnf}{esuf}"
+            shutil.copy2(origf, mandir / mnf)
             (mandir / mnf).chmod(0o644)
 
     def install_license(self, src, name=None, pkgname=None):

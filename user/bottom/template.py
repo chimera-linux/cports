@@ -9,8 +9,8 @@ license = "MIT"
 url = "https://github.com/ClementTsang/bottom"
 source = [
     f"{url}/archive/refs/tags/{pkgver}.tar.gz",
-    f"{url}/releases/download/{pkgver}/completion.tar.gz",
-    f"{url}/releases/download/{pkgver}/manpage.tar.gz",
+    f"{url}/releases/download/{pkgver}/completion.tar.gz>completion-{pkgver}.tar.gz",
+    f"{url}/releases/download/{pkgver}/manpage.tar.gz>manpage-{pkgver}.tar.gz",
 ]
 source_paths = [
     ".",
@@ -26,8 +26,7 @@ sha256 = [
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.do("gunzip", self.chroot_cwd / "man/btm.1.gz")
-    self.install_man("man/btm.1")
+    self.install_man("man/btm.1.gz")
     self.install_completion("completions/btm.bash", "bash", "btm")
     self.install_completion("completions/btm.fish", "fish", "btm")
     self.install_completion("completions/_btm", "zsh", "btm")

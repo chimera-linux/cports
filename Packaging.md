@@ -3067,6 +3067,9 @@ from the filename, or as specified by `cat`).
 The permissions will be `644`. All paths are created as necessary. The
 `glob` argument is equivalent to `install_file`.
 
+The input may be compressed, which is determined from whether it has the `.gz`
+extension.
+
 ##### def install_license(self, src, name = None, pkgname = None)
 
 Equivalent to `self.install_file(src, "usr/share/licenses/" + pkgname, 0o644, name)`.
