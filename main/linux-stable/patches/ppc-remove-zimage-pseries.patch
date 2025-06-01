@@ -28,13 +28,12 @@ index 1ff6ad4..ef15a78 100644
  		   $(call cc-option,-mno-mma) \
  		   $(call cc-option,-mno-spe) $(call cc-option,-mspe=no) \
  		   -fomit-frame-pointer -fno-builtin -fPIC
-@@ -274,17 +270,6 @@ quiet_cmd_wrap	= WRAP    $@
+@@ -274,16 +270,6 @@ quiet_cmd_wrap	= WRAP    $@
  		$(CROSSWRAP) $(if $3, -s $3)$(if $4, -d $4)$(if $5, -i $5) \
  		vmlinux
  
 -image-$(CONFIG_PPC_PSERIES)		+= zImage.pseries
 -image-$(CONFIG_PPC_POWERNV)		+= zImage.pseries
--image-$(CONFIG_PPC_IBM_CELL_BLADE)	+= zImage.pseries
 -image-$(CONFIG_PPC_PS3)			+= dtbImage.ps3
 -image-$(CONFIG_PPC_CHRP)		+= zImage.chrp
 -image-$(CONFIG_PPC_EFIKA)		+= zImage.chrp

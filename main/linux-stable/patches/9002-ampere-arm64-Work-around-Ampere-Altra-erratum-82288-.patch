@@ -145,7 +145,7 @@ index 269f2f6..51d3b0f 100644
 +#endif
 +
  void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
- 			   unsigned long prot)
+ 			   pgprot_t pgprot)
  {
 @@ -37,6 +50,11 @@ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
  		return NULL;

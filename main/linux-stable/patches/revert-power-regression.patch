@@ -1,0 +1,123 @@
+From 70523f335734b0b42f97647556d331edf684c7dc Mon Sep 17 00:00:00 2001
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Date: Thu, 29 May 2025 15:40:43 +0200
+Subject: Revert "x86/smp: Eliminate mwait_play_dead_cpuid_hint()"
+
+Revert commit 96040f7273e2 ("x86/smp: Eliminate mwait_play_dead_cpuid_hint()")
+because it introduced a significant power regression on systems that
+start with "nosmt" in the kernel command line.
+
+Namely, on such systems, SMT siblings permanently go offline early,
+when cpuidle has not been initialized yet, so after the above commit,
+hlt_play_dead() is called for them.  Later on, when the processor
+attempts to enter a deep package C-state, including PC10 which is
+requisite for reaching minimum power in suspend-to-idle, it is not
+able to do that because of the SMT siblings staying in C1 (which
+they have been put into by HLT).
+
+As a result, the idle power (including power in suspend-to-idle)
+rises quite dramatically on those systems with all of the possible
+consequences, which (needless to say) may not be expected by their
+users.
+
+This issue is hard to debug and potentially dangerous, so it needs to
+be addressed as soon as possible in a way that will work for 6.15.y,
+hence the revert.
+
+Of course, after this revert, the issue that commit 96040f7273e2
+attempted to address will be back and it will need to be fixed again
+later.
+
+Fixes: 96040f7273e2 ("x86/smp: Eliminate mwait_play_dead_cpuid_hint()")
+Reported-by: Todd Brandt <todd.e.brandt@linux.intel.com>
+Tested-by: Todd Brandt <todd.e.brandt@linux.intel.com>
+Cc: 6.15+ <stable@vger.kernel.org> # 6.15+
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
+Link: https://patch.msgid.link/12674167.O9o76ZdvQC@rjwysocki.net
+---
+ arch/x86/kernel/smpboot.c | 54 +++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 47 insertions(+), 7 deletions(-)
+
+diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+index d6cf1e23c2a326..96355ab9aed953 100644
+--- a/arch/x86/kernel/smpboot.c
++++ b/arch/x86/kernel/smpboot.c
+@@ -1238,10 +1238,6 @@ void play_dead_common(void)
+ 	local_irq_disable();
+ }
+ 
+-/*
+- * We need to flush the caches before going to sleep, lest we have
+- * dirty data in our caches when we come back up.
+- */
+ void __noreturn mwait_play_dead(unsigned int eax_hint)
+ {
+ 	struct mwait_cpu_dead *md = this_cpu_ptr(&mwait_cpu_dead);
+@@ -1287,6 +1283,50 @@ void __noreturn mwait_play_dead(unsigned int eax_hint)
+ 	}
+ }
+ 
++/*
++ * We need to flush the caches before going to sleep, lest we have
++ * dirty data in our caches when we come back up.
++ */
++static inline void mwait_play_dead_cpuid_hint(void)
++{
++	unsigned int eax, ebx, ecx, edx;
++	unsigned int highest_cstate = 0;
++	unsigned int highest_subcstate = 0;
++	int i;
++
++	if (boot_cpu_data.x86_vendor == X86_VENDOR_AMD ||
++	    boot_cpu_data.x86_vendor == X86_VENDOR_HYGON)
++		return;
++	if (!this_cpu_has(X86_FEATURE_MWAIT))
++		return;
++	if (!this_cpu_has(X86_FEATURE_CLFLUSH))
++		return;
++
++	eax = CPUID_LEAF_MWAIT;
++	ecx = 0;
++	native_cpuid(&eax, &ebx, &ecx, &edx);
++
++	/*
++	 * eax will be 0 if EDX enumeration is not valid.
++	 * Initialized below to cstate, sub_cstate value when EDX is valid.
++	 */
++	if (!(ecx & CPUID5_ECX_EXTENSIONS_SUPPORTED)) {
++		eax = 0;
++	} else {
++		edx >>= MWAIT_SUBSTATE_SIZE;
++		for (i = 0; i < 7 && edx; i++, edx >>= MWAIT_SUBSTATE_SIZE) {
++			if (edx & MWAIT_SUBSTATE_MASK) {
++				highest_cstate = i;
++				highest_subcstate = edx & MWAIT_SUBSTATE_MASK;
++			}
++		}
++		eax = (highest_cstate << MWAIT_SUBSTATE_SIZE) |
++			(highest_subcstate - 1);
++	}
++
++	mwait_play_dead(eax);
++}
++
+ /*
+  * Kick all "offline" CPUs out of mwait on kexec(). See comment in
+  * mwait_play_dead().
+@@ -1337,9 +1377,9 @@ void native_play_dead(void)
+ 	play_dead_common();
+ 	tboot_shutdown(TB_SHUTDOWN_WFS);
+ 
+-	/* Below returns only on error. */
+-	cpuidle_play_dead();
+-	hlt_play_dead();
++	mwait_play_dead_cpuid_hint();
++	if (cpuidle_play_dead())
++		hlt_play_dead();
+ }
+ 
+ #else /* ... !CONFIG_HOTPLUG_CPU */
+-- 
+cgit 1.2.3-korg
+
