@@ -1,5 +1,5 @@
 pkgname = "libomp"
-pkgver = "20.1.4"
+pkgver = "20.1.6"
 pkgrel = 0
 archs = ["aarch64", "loongarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -20,7 +20,7 @@ pkgdesc = "LLVM OpenMP runtime"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "a95365b02536ed4aef29b325c205dd89c268cba41503ab2fc05f81418613ab63"
+sha256 = "5c70549d524284c184fe9fbff862c3d2d7a61b787570611b5a30e5cc345f145e"
 # no lit
 options = ["!check"]
 
