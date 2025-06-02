@@ -87,8 +87,8 @@ def pre_configure(self):
         # the "out/Release" path is significant as tdesktop expects it
         cmake.configure(
             self,
-            build_dir="td/out/Release",
-            cmake_dir="td",
+            build_dir="tde2e/out/Release",
+            cmake_dir="tde2e",
             extra_args=[
                 "-DBUILD_SHARED_LIBS=OFF",
                 "-DBUILD_TESTING=OFF",
@@ -100,4 +100,4 @@ def pre_configure(self):
     # set up requires a build directory of tdlib present, so...
     with self.stamp("tdlib_build") as s:
         s.check()
-        cmake.build(self, "td/out/Release")
+        cmake.build(self, "tde2e/out/Release")
