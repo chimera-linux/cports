@@ -1,6 +1,6 @@
 pkgname = "python-platformdirs"
 pkgver = "4.3.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 checkdepends = ["python-pytest", "python-appdirs", "python-pytest-mock"]
