@@ -1,6 +1,6 @@
 pkgname = "protobuf"
-pkgver = "30.2"
-pkgrel = 1
+pkgver = "31.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -13,7 +13,7 @@ pkgdesc = "Protocol buffers library"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"https://github.com/protocolbuffers/protobuf/archive/v{pkgver}.tar.gz"
-sha256 = "07a43d88fe5a38e434c7f94129cad56a4c43a51f99336074d0799c2f7d4e44c5"
+sha256 = "c3a0a9ece8932e31c3b736e2db18b1c42e7070cd9b881388b26d01aa71e24ca2"
 # FIXME vis breaks linking lite-test, cfi makes protoc not compile any tests
 hardening = ["!vis", "!cfi"]
 
@@ -44,7 +44,7 @@ def _(self):
 def _(self):
     self.pkgdesc = "Protocol buffers compiler and its library"
     self.depends = [self.with_pkgver("protobuf-devel")]
-    self.provides = [self.with_pkgver("protoc")]
+    self.renames = ["protoc"]
 
     return [
         "usr/bin",
