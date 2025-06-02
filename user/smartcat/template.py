@@ -1,0 +1,11 @@
+pkgname = "smartcat"
+pkgver = "2.2.0"
+pkgrel = 0
+build_style = "cargo"
+hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
+pkgdesc = "Integrating language models through text streams"
+license = "Apache-2.0"
+url = "https://github.com/efugier/smartcat"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "17f88fa0e4ce8b7bc4b98f8f953b788086b84201d2e52ee25e17b9f3ade87e6f"
