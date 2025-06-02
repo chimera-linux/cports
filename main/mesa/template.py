@@ -160,7 +160,8 @@ if _have_intel_igpu:
 
 if _have_nvidia:
     _gallium_drivers += ["nouveau"]
-    _vulkan_drivers += ["nouveau"]
+    if self.profile().endian != "big":
+        _vulkan_drivers += ["nouveau"]
     if _have_arm:
         _gallium_drivers += ["tegra"]
 
