@@ -1,10 +1,10 @@
 this is pointless and takes time
 
---- a/td/CMakeLists.txt
-+++ b/td/CMakeLists.txt
+--- a/tde2e/CMakeLists.txt
++++ b/tde2e/CMakeLists.txt
 @@ -213,11 +213,6 @@ endif()
- set(TDE2E_ENABLE_INSTALL ${TD_INSTALL_STATIC_LIBRARIES} CACHE BOOL "" FORCE)
- add_subdirectory(tde2e)
+   add_subdirectory(test)
+ endif()
  
 -if (NOT CMAKE_CROSSCOMPILING)
 -  add_subdirectory(benchmark)
@@ -14,16 +14,14 @@ this is pointless and takes time
  get_directory_property(HAS_PARENT PARENT_DIRECTORY)
  if (HAS_PARENT)
    set(TL_TD_JSON_AUTO ${TL_TD_JSON_AUTO_SOURCE} PARENT_SCOPE) # used in tdbot
-@@ -1284,18 +1284,9 @@ set(TD_JSON_SOURCE td/telegram/td_json_client.cpp td/telegram/td_log.cpp)
+@@ -1284,16 +1284,9 @@ set(TD_JSON_SOURCE td/telegram/td_json_client.cpp td/telegram/td_log.cpp)
  
  include(GenerateExportHeader)
  
 -add_library(tdjson SHARED ${TD_JSON_SOURCE} ${TD_JSON_HEADERS})
 -target_link_libraries(tdjson PRIVATE tdjson_private)
 -generate_export_header(tdjson EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/td/telegram/tdjson_export.h)
--target_include_directories(tdjson PUBLIC
--  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
--  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+-target_include_directories(tdjson PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
 -if (APPLE)
 -  set_target_properties(tdjson PROPERTIES LINK_FLAGS "-Wl,-exported_symbols_list,${CMAKE_CURRENT_SOURCE_DIR}/tdclientjson_export_list")
 -endif()
@@ -32,8 +30,8 @@ this is pointless and takes time
  target_link_libraries(tdjson_static PRIVATE tdjson_private)
 +generate_export_header(tdjson_static BASE_NAME tdjson EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/td/telegram/tdjson_export.h)
  target_compile_definitions(tdjson_static PUBLIC TDJSON_STATIC_DEFINE)
- target_include_directories(tdjson_static PUBLIC
-   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+ target_include_directories(tdjson_static PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}> $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+ 
 @@ -1309,36 +1309,6 @@ if (EMSCRIPTEN)
    target_link_libraries(${TD_EMSCRIPTEN} PRIVATE tdjson_static tdactor)
  endif()
@@ -78,8 +76,8 @@ this is pointless and takes time
 -
 -# Add SOVERSION to shared libraries
 -set_property(TARGET tdjson PROPERTY SOVERSION "${TDLib_VERSION}")
---- a/td/tdactor/CMakeLists.txt
-+++ b/td/tdactor/CMakeLists.txt
+--- a/tde2e/tdactor/CMakeLists.txt
++++ b/tde2e/tdactor/CMakeLists.txt
 @@ -48,11 +48,6 @@ add_library(tdactor STATIC ${TDACTOR_SOURCE})
  target_include_directories(tdactor PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
  target_link_libraries(tdactor PUBLIC tdutils)
@@ -92,8 +90,8 @@ this is pointless and takes time
  if (TDACTOR_ENABLE_INSTALL)
    install(TARGETS tdactor EXPORT TdStaticTargets
      LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
---- a/td/tddb/CMakeLists.txt
-+++ b/td/tddb/CMakeLists.txt
+--- a/tde2e/tddb/CMakeLists.txt
++++ b/tde2e/tddb/CMakeLists.txt
 @@ -52,11 +52,6 @@ add_library(tddb STATIC ${TDDB_SOURCE})
  target_include_directories(tddb PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
  target_link_libraries(tddb PUBLIC tdactor tdutils PRIVATE tdsqlite)

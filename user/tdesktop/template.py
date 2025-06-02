@@ -1,6 +1,6 @@
 pkgname = "tdesktop"
-pkgver = "5.14.1"
-pkgrel = 1
+pkgver = "5.14.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=OFF",
@@ -62,12 +62,12 @@ license = "GPL-3.0-or-later"
 url = "https://desktop.telegram.org"
 source = [
     f"https://github.com/telegramdesktop/tdesktop/releases/download/v{pkgver}/tdesktop-{pkgver}-full.tar.gz",
-    "https://github.com/tdlib/td/archive/34c390f9afe074071e01c623e42adfbd17e350ab.tar.gz",
+    "https://github.com/tdlib/td/archive/e894536b2f46caad93f997448d2daff9431b19dd.tar.gz",
 ]
-source_paths = [".", "td"]
+source_paths = [".", "tde2e"]
 sha256 = [
-    "42d3130292b21928f04e39539f4e7358206bde913ea6e5171b0ffdeb38b9872e",
-    "2a58a9ad2bb0c1defae75bf3712cca1f0f2b84d2d744e040946ee36fc387ff32",
+    "af15716f053403dc42233775e931a711759c8f0468a0aff5f3dfabdf98bf6861",
+    "4a98c3ed3512d4db1ea718b6ac3ff58af45aeea572e0c72d86c8aabb3a96014a",
 ]
 # crashes
 hardening = ["!int"]
