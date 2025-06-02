@@ -1,6 +1,6 @@
 pkgname = "libphonenumber"
 pkgver = "9.0.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DREGENERATE_METADATA=OFF",
