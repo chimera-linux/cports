@@ -1,6 +1,6 @@
 pkgname = "opencv"
 pkgver = "4.11.0"
-pkgrel = 6
+pkgrel = 7
 build_style = "cmake"
 configure_args = [
     # rm NDEBUG
@@ -207,8 +207,7 @@ def _(self):
 def _(self):
     self.subdesc = "python module"
     self.depends += ["python-numpy"]
-    # transitional
-    self.provides = [self.with_pkgver("python-opencv")]
+    self.renames = ["python-opencv"]
 
     return ["usr/lib/python*"]
 
