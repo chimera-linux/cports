@@ -1,0 +1,106 @@
+From 8c0f7619b23f8756afe3c9cb75c261f4362205bf Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Tue, 8 Apr 2025 20:47:43 +1000
+Subject: [PATCH] Linux 6.2/6.15: del_timer_sync() renamed to
+ timer_delete_sync()
+
+Renamed in 6.2, and the compat wrapper removed in 6.15. No signature or
+functional change apart from that, so a very minimal update for us.
+
+Sponsored-by: https://despairlabs.com/sponsor/
+Reviewed-by: Brian Behlendorf <behlendorf1@llnl.gov>
+Reviewed-by: Tony Hutter <hutter2@llnl.gov>
+Reviewed-by: Pavel Snajdr <snajpa@snajpa.net>
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+Closes #17229
+(cherry picked from commit 841be1d0495224a47d3dbfd8647c7fcbf58b205c)
+---
+ config/kernel-timer.m4          | 32 ++++++++++++++++++++++++++++++++
+ config/kernel.m4                |  2 ++
+ module/os/linux/spl/spl-taskq.c |  7 ++++++-
+ 3 files changed, 40 insertions(+), 1 deletion(-)
+ create mode 100644 config/kernel-timer.m4
+
+diff --git a/config/kernel-timer.m4 b/config/kernel-timer.m4
+new file mode 100644
+index 000000000000..c89ea204e83d
+--- /dev/null
++++ b/config/kernel-timer.m4
+@@ -0,0 +1,32 @@
++dnl #
++dnl # 6.2: timer_delete_sync introduced, del_timer_sync deprecated and made
++dnl #      into a simple wrapper
++dnl # 6.15: del_timer_sync removed
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_TIMER_DELETE_SYNC], [
++	ZFS_LINUX_TEST_SRC([timer_delete_sync], [
++		#include <linux/timer.h>
++	],[
++		struct timer_list *timer __attribute__((unused)) = NULL;
++		timer_delete_sync(timer);
++	])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_TIMER_DELETE_SYNC], [
++	AC_MSG_CHECKING([whether timer_delete_sync() is available])
++	ZFS_LINUX_TEST_RESULT([timer_delete_sync], [
++		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_TIMER_DELETE_SYNC, 1,
++		    [timer_delete_sync is available])
++	],[
++		AC_MSG_RESULT(no)
++	])
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_SRC_TIMER], [
++	ZFS_AC_KERNEL_SRC_TIMER_DELETE_SYNC
++])
++
++AC_DEFUN([ZFS_AC_KERNEL_TIMER], [
++	ZFS_AC_KERNEL_TIMER_DELETE_SYNC
++])
+diff --git a/config/kernel.m4 b/config/kernel.m4
+index 29bf588688f8..b933475e9e70 100644
+--- a/config/kernel.m4
++++ b/config/kernel.m4
+@@ -130,6 +130,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_SRC], [
+ 	ZFS_AC_KERNEL_SRC_MM_PAGE_MAPPING
+ 	ZFS_AC_KERNEL_SRC_FILE
+ 	ZFS_AC_KERNEL_SRC_PIN_USER_PAGES
++	ZFS_AC_KERNEL_SRC_TIMER
+ 	case "$host_cpu" in
+ 		powerpc*)
+ 			ZFS_AC_KERNEL_SRC_CPU_HAS_FEATURE
+@@ -244,6 +245,7 @@ AC_DEFUN([ZFS_AC_KERNEL_TEST_RESULT], [
+ 	ZFS_AC_KERNEL_1ARG_ASSIGN_STR
+ 	ZFS_AC_KERNEL_FILE
+ 	ZFS_AC_KERNEL_PIN_USER_PAGES
++	ZFS_AC_KERNEL_TIMER
+ 	case "$host_cpu" in
+ 		powerpc*)
+ 			ZFS_AC_KERNEL_CPU_HAS_FEATURE
+diff --git a/module/os/linux/spl/spl-taskq.c b/module/os/linux/spl/spl-taskq.c
+index d5b42fdfaf20..700ec1c7fc04 100644
+--- a/module/os/linux/spl/spl-taskq.c
++++ b/module/os/linux/spl/spl-taskq.c
+@@ -38,6 +38,11 @@
+ #include <sys/kstat.h>
+ #include <linux/cpuhotplug.h>
+ 
++/* Linux 6.2 renamed timer_delete_sync(); point it at its old name for those. */
++#ifndef HAVE_TIMER_DELETE_SYNC
++#define	timer_delete_sync(t)	del_timer_sync(t)
++#endif
++
+ typedef struct taskq_kstats {
+ 	/* static values, for completeness */
+ 	kstat_named_t tqks_threads_max;
+@@ -633,7 +638,7 @@ taskq_cancel_id(taskq_t *tq, taskqid_t id)
+ 		 */
+ 		if (timer_pending(&t->tqent_timer)) {
+ 			spin_unlock_irqrestore(&tq->tq_lock, flags);
+-			del_timer_sync(&t->tqent_timer);
++			timer_delete_sync(&t->tqent_timer);
+ 			spin_lock_irqsave_nested(&tq->tq_lock, flags,
+ 			    tq->tq_lock_class);
+ 		}
