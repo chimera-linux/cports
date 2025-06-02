@@ -14,6 +14,7 @@ checkdepends = [
     "python-click",
     "python-dateutil",
     "python-pexpect",
+    "python-platformdirs",
     "python-ptyprocess",
     "python-pytest",
     "python-pytest-xdist",
