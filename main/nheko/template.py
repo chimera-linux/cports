@@ -47,6 +47,3 @@ source = (
 sha256 = "a3a7578bd9386a0b9a4188fa1296fdddb7df0f846c39728b80a998f9d06f36d1"
 # big stack usage
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x200000"]}
-
-
-broken = "undefined symbol mtx::events::state::space::to_json"
