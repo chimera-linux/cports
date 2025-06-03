@@ -1,6 +1,6 @@
 pkgname = "kakoune"
-pkgver = "2024.05.18"
-pkgrel = 1
+pkgver = "2025.06.03"
+pkgrel = 0
 build_style = "makefile"
 make_install_args = ["gzip_man=no"]
 make_use_env = True
@@ -9,7 +9,7 @@ pkgdesc = "Modal code editor inspired by vim"
 license = "Unlicense"
 url = "https://kakoune.org"
 source = f"https://github.com/mawww/kakoune/releases/download/v{pkgver}/kakoune-{pkgver}.tar.bz2"
-sha256 = "dae8ac2e61d21d9bcd10145aa70b421234309a7b0bc57fad91bc34dbae0cb9fa"
+sha256 = "ced5941f1bdfb8ef6b0265b00bfd7389e392fb41b2bf11990cee9d6e95316499"
 hardening = ["vis", "cfi"]
 # check may be disabled
 options = []
