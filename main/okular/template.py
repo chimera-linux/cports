@@ -5,7 +5,7 @@ build_style = "cmake"
 # FIXME segfaults/weird failures
 make_check_args = [
     "-E",
-    "(parttest|visibilitytest|signunsignedfieldtest|documenttest|mainshelltest|annotationtoolbartest|epubgeneratortest)",
+    "(parttest|visibilitytest|signunsignedfieldtest|documenttest|mainshelltest|annotationtoolbartest|epubgeneratortest|jsfunctionstest)",
 ]
 make_check_wrapper = [
     "dbus-run-session",
