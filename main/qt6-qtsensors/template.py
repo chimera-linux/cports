@@ -1,5 +1,5 @@
 pkgname = "qt6-qtsensors"
-pkgver = "6.9.0"
+pkgver = "6.9.1"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -15,7 +15,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtsensors-everywhere-src-{pkgver}.tar.xz"
-sha256 = "a46137c1f4a768d00397a2f83de7018318b0ca35d39c848da62d1783b368e467"
+sha256 = "f04b131acacfd42dfe056bd5861ff1e12e2ab57b3e20332becefa3644a409c6c"
 # TODO
 options = ["!cross"]
 

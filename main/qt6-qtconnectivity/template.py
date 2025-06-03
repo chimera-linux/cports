@@ -1,5 +1,5 @@
 pkgname = "qt6-qtconnectivity"
-pkgver = "6.9.0"
+pkgver = "6.9.1"
 pkgrel = 0
 build_style = "cmake"
 # cmake import
@@ -21,7 +21,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtconnectivity-everywhere-src-{pkgver}.tar.xz"
-sha256 = "ff402f8dacb2b9f9308afcea67118ae1645ce6466f2d41a8d5c12fd2fa168598"
+sha256 = "4988e50112104d5ad85e5b3cef66036ca445f18c22cf375d3dac9dcca95e0a17"
 
 
 def init_check(self):

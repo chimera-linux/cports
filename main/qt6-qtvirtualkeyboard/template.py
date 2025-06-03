@@ -1,5 +1,5 @@
 pkgname = "qt6-qtvirtualkeyboard"
-pkgver = "6.9.0"
+pkgver = "6.9.1"
 pkgrel = 0
 build_style = "cmake"
 # doesn't find own installed styles
@@ -21,7 +21,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtvirtualkeyboard-everywhere-src-{pkgver}.tar.xz"
-sha256 = "b85489ffbdd50cc42ea6a74f266215782045668a99cafc73007f6b4b28d69127"
+sha256 = "80059a38bdb836f0785292396970edc108f477a68d9a35bed8393750de3d281f"
 hardening = ["vis", "!cfi"]
 # cross: TODO
 options = ["!cross"]
