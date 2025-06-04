@@ -1,0 +1,11 @@
+--- a/deps/v8/third_party/highway/src/hwy/detect_targets.h
++++ b/deps/v8/third_party/highway/src/hwy/detect_targets.h
+@@ -715,7 +715,7 @@
+ #endif
+ 
+ #if HWY_ARCH_RISCV && HWY_HAVE_RUNTIME_DISPATCH
+-#define HWY_ATTAINABLE_RISCV HWY_RVV
++#define HWY_ATTAINABLE_RISCV 0
+ #else
+ #define HWY_ATTAINABLE_RISCV HWY_BASELINE_RVV
+ #endif
