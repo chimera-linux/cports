@@ -1,24 +1,16 @@
 pkgname = "jj"
-pkgver = "0.29.0"
+pkgver = "0.30.0"
 pkgrel = 0
 build_style = "cargo"
 prepare_after_patch = True
-hostmakedepends = [
-    "cargo-auditable",
-    "pkgconf",
-]
-makedepends = [
-    "libgit2-devel",
-    "libssh2-devel",
-    "openssl3-devel",
-    "rust-std",
-]
+hostmakedepends = ["cargo-auditable"]
+makedepends = ["rust-std"]
 checkdepends = ["git", "openssh"]
 pkgdesc = "Git-compatible VCS frontend"
 license = "Apache-2.0"
 url = "https://martinvonz.github.io/jj"
 source = f"https://github.com/martinvonz/jj/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "57df34a06b1d2125ccd6e8383ea08f24160c48e33e9daecd883a2e59567a9fd9"
+sha256 = "86f8df1e4e76c6a4bcdb728fa74876bacf931641157d16f6e93ebeb5bac0151c"
 # generates completions with host binary
 options = ["!cross"]
 
