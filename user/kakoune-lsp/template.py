@@ -1,5 +1,5 @@
 pkgname = "kakoune-lsp"
-pkgver = "18.1.3"
+pkgver = "18.2.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Kakoune language server protocol client"
 license = "MIT OR Unlicense"
 url = "https://github.com/kakoune-lsp/kakoune-lsp"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b819358d0f0972c499aa3fbe7841fcc356b710b99653ea864c6905c8c26ce2df"
+sha256 = "4823bb733dc3d1e1119af60873b73a62d71d305573abc7d0b016c9077c99913e"
 
 
 def install(self):
