@@ -1,6 +1,6 @@
 pkgname = "gpgme"
-pkgver = "1.24.2"
-pkgrel = 1
+pkgver = "1.24.3"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -26,7 +26,7 @@ pkgdesc = "GnuPG Made Easy"
 license = "GPL-3.0-or-later"
 url = "https://gnupg.org/software/gpgme/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/gpgme/gpgme-{pkgver}.tar.bz2"
-sha256 = "e11b1a0e361777e9e55f48a03d89096e2abf08c63d84b7017cfe1dce06639581"
+sha256 = "bfc17f5bd1b178c8649fdd918956d277080f33df006a2dc40acdecdce68c50dd"
 
 
 def post_build(self):
