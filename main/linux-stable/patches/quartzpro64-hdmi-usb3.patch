@@ -54,7 +54,7 @@ index 088cfad..0c50796 100644
 +	};
 +};
 +
-+&hdptxphy_hdmi0 {
++&hdptxphy0 {
 +	status = "okay";
 +};
 +
