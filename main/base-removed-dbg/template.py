@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 9
+pkgrel = 10
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -35,7 +35,6 @@ for _pkg in [
     "libcdparanoia",
     "libcolord",
     "libcryptsetup",
-    "libcurl",
     "libdjvulibre",
     "libecpg",
     "libefivar",
