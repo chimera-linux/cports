@@ -1,0 +1,19 @@
+Broken by https://github.com/LibreOffice/core/commit/08533ca4e2526644b803c40c0c3d3c96f43762af
+
+--- a/avmedia/source/qt6/QtPlayer.cxx
++++ b/avmedia/source/qt6/QtPlayer.cxx
+@@ -41,6 +41,14 @@
+ 
+ using namespace ::com::sun::star;
+ 
++namespace
++{
++inline OUString toOUString(const QString& s)
++{
++    return OUString(reinterpret_cast<const sal_Unicode*>(s.data()), s.length());
++}
++}
++
+ namespace avmedia::qt
+ {
+ QtPlayer::QtPlayer()
