@@ -1,6 +1,6 @@
 pkgname = "kio-extras"
-pkgver = "25.04.1"
-pkgrel = 1
+pkgver = "25.04.2"
+pkgrel = 0
 build_style = "cmake"
 # thumbnail: fails for some reason
 # testkioarchive: fails to open tar, support seems to not be detected
@@ -53,7 +53,7 @@ pkgdesc = "KDE KIO additional plugins"
 license = "LGPL-3.0-or-later"
 url = "https://invent.kde.org/network/kio-extras"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-extras-{pkgver}.tar.xz"
-sha256 = "f8277fbf8aa4725926b252e2de0367677673c8db585a5ef7bd26760d3c534458"
+sha256 = "d36c0a8827f09007d257ef4ca06eb4f2123db7a38255ba37fe0748ab639d7f99"
 hardening = ["vis"]
 # TODO
 options = ["!cross"]

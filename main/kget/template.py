@@ -1,5 +1,5 @@
 pkgname = "kget"
-pkgver = "25.04.1"
+pkgver = "25.04.2"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -42,4 +42,4 @@ pkgdesc = "KDE download manager"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kget"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kget-{pkgver}.tar.xz"
-sha256 = "9443bd78d043dffac2055ed75cd9382a7b0803abe505430eb6705d150b913471"
+sha256 = "c6c9d107bdffbc2d19855f298c5634a341a82d6ca3e1b430ce608c7c10d580c1"

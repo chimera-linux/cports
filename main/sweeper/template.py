@@ -1,5 +1,5 @@
 pkgname = "sweeper"
-pkgver = "25.04.1"
+pkgver = "25.04.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -26,4 +26,4 @@ pkgdesc = "KDE cache cleaner"
 license = "LGPL-2.1-or-later"
 url = "https://apps.kde.org/sweeper"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/sweeper-{pkgver}.tar.xz"
-sha256 = "8c63e413c39eab3bf6678470f860d0dbc6df7eed765a426160b3ee4439c6d664"
+sha256 = "752905ee132f4a9bb4f77ad4726d8dc7faf031fe5508724c9c2889c00d39bd51"

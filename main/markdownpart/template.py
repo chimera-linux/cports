@@ -1,5 +1,5 @@
 pkgname = "markdownpart"
-pkgver = "25.04.1"
+pkgver = "25.04.2"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -20,5 +20,5 @@ url = "https://apps.kde.org/markdownpart"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/markdownpart-{pkgver}.tar.xz"
 )
-sha256 = "5f428319841ca83b871f00dfff0100dd23d69f8ccbc9766955a711234a5d8782"
+sha256 = "87a451d88c0bd35a7e3cc7c61c75dfc7dad974e7d5d4178801ab319980119fd4"
 hardening = ["vis"]
