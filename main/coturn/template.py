@@ -1,6 +1,6 @@
 pkgname = "coturn"
-pkgver = "4.6.3"
-pkgrel = 2
+pkgver = "4.7.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--turndbdir=/var/lib/coturn"]
 configure_gen = []
@@ -18,7 +18,7 @@ pkgdesc = "VoIP media traffic NAT traversal server and gateway"
 license = "BSD-3-Clause"
 url = "https://github.com/coturn/coturn"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "dc3a529fd9956dc8771752a7169c5ad4c18b9deef3ec96049de30fabf1637704"
+sha256 = "adbc90550d326e1b0fef4ccf9955c0ea32e63792acedcbc9cdbe9f71f380e622"
 
 
 def post_install(self):
