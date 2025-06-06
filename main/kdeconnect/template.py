@@ -25,6 +25,7 @@ makedepends = [
     "kio-devel",
     "kirigami-addons-devel",
     "kirigami-devel",
+    "kitemmodels-devel",
     "knotifications-devel",
     "kpackage-devel",
     "kpeople-devel",
