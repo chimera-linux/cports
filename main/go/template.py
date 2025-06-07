@@ -1,5 +1,5 @@
 pkgname = "go"
-pkgver = "1.24.3"
+pkgver = "1.24.4"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
@@ -11,7 +11,7 @@ pkgdesc = "Go programming language"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "229c08b600b1446798109fae1f569228102c8473caba8104b6418cb5bc032878"
+sha256 = "5a86a83a31f9fa81490b8c5420ac384fd3d95a3e71fba665c7b3f95d1dfef2b4"
 env = {}
 # see below
 options = [
@@ -43,11 +43,6 @@ if self.profile().goarch:
     env["GOARCH"] = self.profile().goarch
 else:
     broken = f"Unsupported platform ({self.profile().arch})"
-
-
-def post_extract(self):
-    # https://github.com/golang/go/issues/39905
-    self.rm("src/cmd/link/internal/ld/fallocate_test.go")
 
 
 def build(self):
