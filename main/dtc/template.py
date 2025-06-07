@@ -3,7 +3,7 @@ pkgver = "1.7.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dpython=disabled", "-Ddefault_library=shared"]
-hostmakedepends = ["meson", "ninja", "flex", "bison", "pkgconf"]
+hostmakedepends = ["meson", "flex", "bison", "pkgconf"]
 makedepends = ["libyaml-devel"]
 pkgdesc = "Device Tree Compiler"
 license = "GPL-2.0-only"

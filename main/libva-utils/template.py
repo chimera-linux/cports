@@ -3,7 +3,7 @@ pkgver = "2.22.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddrm=true", "-Dx11=true", "-Dwayland=true"]
-hostmakedepends = ["pkgconf", "meson", "ninja"]
+hostmakedepends = ["pkgconf", "meson"]
 makedepends = ["libva-devel", "libdrm-devel", "libx11-devel"]
 pkgdesc = "Collection of utilities for libva"
 license = "MIT"

@@ -3,7 +3,7 @@ pkgver = "0.8.0"
 pkgrel = 0
 build_style = "meson"
 meson_dir = "sc2"
-hostmakedepends = ["meson", "ninja", "pkgconf"]
+hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "libmikmod-devel",
     "libpng-devel",
