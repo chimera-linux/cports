@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "7.1.1"
-pkgrel = 9
+pkgrel = 10
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
