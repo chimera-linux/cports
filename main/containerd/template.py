@@ -1,6 +1,6 @@
 pkgname = "containerd"
 pkgver = "2.1.1"
-pkgrel = 0
+pkgrel = 1
 _rootless_ver = "2.0.4"
 build_style = "makefile"
 make_build_args = [

@@ -1,6 +1,6 @@
 pkgname = "forgejo"
 pkgver = "11.0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_target = "all"
 make_check_target = "test-backend"
