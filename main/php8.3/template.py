@@ -1,5 +1,5 @@
 pkgname = "php8.3"
-pkgver = "8.3.21"
+pkgver = "8.3.22"
 _majver = pkgver[0 : pkgver.rfind(".")]
 pkgrel = 0
 _apiver = "20230831"
@@ -132,7 +132,7 @@ pkgdesc = "HTML-embedded scripting language"
 license = "PHP-3.01"
 url = "https://www.php.net"
 source = f"{url}/distributions/php-{pkgver}.tar.gz"
-sha256 = "e7f1748c1fa3d2bf8ef2e00508bd62325ba68c3b830b253bc561225a9ba5457d"
+sha256 = "8fc57c9df455354679e4a127defb60e1af8718ece4cd4827e500f5c7f2449103"
 
 if self.profile().arch in ["loongarch64"]:
     makedepends += ["libucontext-devel"]
@@ -146,8 +146,9 @@ def post_patch(self):
         "ext/gettext/tests/locale/en_US",
         True,
     )
+
     # Remove tests that don't work
-    for f in [
+    failing_tests = [
         # Obtained from Alpine
         "ext/iconv/tests/bug48147.phpt",
         "ext/iconv/tests/bug52211.phpt",
@@ -171,23 +172,9 @@ def post_patch(self):
         "ext/gd/tests/bug53504.phpt",
         "ext/gd/tests/bug65148.phpt",
         "ext/gd/tests/bug73272.phpt",
-        # aarch64; all related to chunked encoding?
-        "ext/soap/tests/bug47021.phpt",
-        "ext/standard/tests/filters/chunked_001.phpt",
-        "ext/standard/tests/http/bug47021.phpt",
-        "ext/standard/tests/http/bug80256.phpt",
-        # ppc64le; all related to fibers?
-        "Zend/tests/fibers/no-switch-force-close-finally.phpt",
-        "Zend/tests/fibers/suspend-in-force-close-fiber-after-shutdown.phpt",
-        "Zend/tests/fibers/throw-in-multiple-destroyed-fibers-after-shutdown.phpt",
-        "Zend/tests/gh9916-009.phpt",
         # Under investigation
         "ext/gettext/tests/bug53251.phpt",
-        "ext/gettext/tests/gettext_bind_textdomain_codeset-retval.phpt",
-        "ext/gettext/tests/gettext_bindtextdomain-cwd.phpt",
         "ext/posix/tests/posix_errno_variation1.phpt",
-        "ext/standard/tests/http/gh16810.phpt",
-        "ext/zip/tests/oo_encryption.phpt",
         "sapi/cli/tests/009.phpt",
         "sapi/cli/tests/012-2.phpt",
         "sapi/fpm/tests/bug77780-header-sent-error.phpt",
@@ -195,7 +182,28 @@ def post_patch(self):
         "ext/zlib/tests/bug48725.phpt",
         # most of these try connect to an ldap server and wait for timeout then autoskip
         "ext/ldap/tests/*.phpt",
-    ]:
+    ]
+
+    match self.profile().arch:
+        case "aarch64":
+            # all related to chunked encoding?
+            failing_tests += [
+                "ext/soap/tests/bug47021.phpt",
+                "ext/standard/tests/filters/chunked_001.phpt",
+                "ext/standard/tests/http/bug47021.phpt",
+                "ext/standard/tests/http/bug80256.phpt",
+            ]
+
+        case "ppc64le":
+            # all related to fibers?
+            failing_tests += [
+                "Zend/tests/fibers/no-switch-force-close-finally.phpt",
+                "Zend/tests/fibers/suspend-in-force-close-fiber-after-shutdown.phpt",
+                "Zend/tests/fibers/throw-in-multiple-destroyed-fibers-after-shutdown.phpt",
+                "Zend/tests/gh9916-009.phpt",
+            ]
+
+    for f in failing_tests:
         self.rm(f, glob=True)
 
 
@@ -214,14 +222,12 @@ def init_install(self):
 def post_install(self):
     self.install_license("LICENSE")
     self.install_file("README.md", f"usr/share/doc/php{_majver}")
-    self.install_service(self.files_path / f"php-fpm{_majver}")
+    self.install_service(f"^/php-fpm{_majver}")
     # default php-fpm config files
     self.rename(f"etc/php{_majver}/php-fpm.conf.default", "php-fpm.conf")
     for f in ["pear", "peardev", "pecl"]:
         self.rename(f"usr/bin/{f}", f"{f}{_majver}")
-    self.install_file(
-        self.files_path / "www.conf", f"etc/php{_majver}/php-fpm.d"
-    )
+    self.install_file("^/www.conf", f"etc/php{_majver}/php-fpm.d")
     # these are unnecessary with apk backups
     self.uninstall(f"etc/php{_majver}/php-fpm.d/*.default", glob=True)
     # extensions
