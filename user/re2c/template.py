@@ -3,7 +3,6 @@ pkgver = "4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
-make_cmd = "gmake"
 hostmakedepends = [
     "automake",
     "bison",

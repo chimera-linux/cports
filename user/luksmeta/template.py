@@ -2,12 +2,10 @@ pkgname = "luksmeta"
 pkgver = "9"
 pkgrel = 0
 build_style = "gnu_configure"
-make_cmd = "gmake"
 hostmakedepends = [
     "asciidoc",
     "autoconf",
     "automake",
-    "gmake",
     "libtool",
     "libxml2-progs",
     "pkgconf",
