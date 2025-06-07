@@ -1,4 +1,3 @@
-# nb: requires CXX14+ to use it
 pkgname = "gtest"
 pkgver = "1.17.0"
 pkgrel = 0
