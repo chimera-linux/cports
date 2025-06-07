@@ -1,0 +1,12 @@
+gtest 1.17.0 bumps min c++ requirement to c++17
+--- a/CMakeLists.txt	2024-08-03 04:45:16.000000000 +0100
++++ b/CMakeLists.txt	2025-06-07 04:44:08.594509031 +0100
+@@ -154,7 +154,7 @@
+ 
+ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+   add_definitions(
+-    -std=c++14
++    -std=c++17
+     -Wall
+   )
+   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
