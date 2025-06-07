@@ -1,5 +1,5 @@
 pkgname = "x265"
-pkgver = "4.0"
+pkgver = "4.1"
 pkgrel = 0
 build_wrksrc = "source"
 build_style = "cmake"
@@ -14,7 +14,7 @@ pkgdesc = "Open source H.265/HEVC encoder"
 license = "GPL-2.0-or-later"
 url = "https://x265.org"
 source = f"https://bitbucket.org/multicoreware/x265_git/get/{pkgver}.tar.gz"
-sha256 = "66b64be4b316362fdadb33ad8273a74236042cc380691bdbec42946b0437a389"
+sha256 = "7d23cdcdbd510728202c0dfbf7c51eda26a395de2096c504c2b10d6035711102"
 # guilty until proven wrong
 hardening = ["!int"]
 # cannot be reliably tested, testing option is conditional
