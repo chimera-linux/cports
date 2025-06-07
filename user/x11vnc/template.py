@@ -2,7 +2,7 @@ pkgname = "x11vnc"
 pkgver = "0.9.17"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["autoconf", "automake", "pkgconf"]
+hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "libx11-devel",
     "libvncserver-devel",

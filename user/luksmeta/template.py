@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "asciidoc",
-    "autoconf",
     "automake",
     "libtool",
     "libxml2-progs",
