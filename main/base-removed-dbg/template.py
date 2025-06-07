@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 10
+pkgrel = 11
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -9,7 +9,6 @@ url = "https://chimera-linux.org"
 options = ["empty"]
 
 for _pkg in [
-    "alsa-pipewire",
     "bsatool",
     "debuginfod",
     "debuginfod-libs",
@@ -23,7 +22,6 @@ for _pkg in [
     "fuse2fs",
     "gmpxx",
     "gstreamer-libcamera",
-    "gstreamer-pipewire",
     "heif-thumbnailer",
     "irqtop",
     "libasn1",
