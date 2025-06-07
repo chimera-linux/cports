@@ -2,7 +2,7 @@ pkgname = "rofi"
 pkgver = "1.7.9_p1"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["bison", "cmake", "meson", "ninja", "pkgconf"]
+hostmakedepends = ["bison", "meson", "ninja", "pkgconf"]
 makedepends = [
     "cairo-devel",
     "flex",
