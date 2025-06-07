@@ -1,5 +1,5 @@
 pkgname = "bluez"
-pkgver = "5.82"
+pkgver = "5.83"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -39,7 +39,7 @@ pkgdesc = "Linux Bluetooth stack"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/bluez-{pkgver}.tar.xz"
-sha256 = "0739fa608a837967ee6d5572b43fb89946a938d1c6c26127158aaefd743a790b"
+sha256 = "108522d909d220581399bfec93daab62035539ceef3dda3e79970785c63bd24c"
 tool_flags = {
     "CFLAGS": ["-Wno-deprecated-declarations"],
     # workaround for --gc-sections breaking in test files
@@ -48,13 +48,12 @@ tool_flags = {
 
 
 def post_install(self):
-    self.install_service(self.files_path / "bluetoothd")
+    self.install_service("^/bluetoothd")
 
 
 @subpackage("bluez-libs")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("libbluetooth")]
+    self.renames = ["libbluetooth"]
 
     return self.default_libs()
 
