@@ -1,5 +1,5 @@
 pkgname = "xwayland-satellite"
-pkgver = "0.5.1"
+pkgver = "0.6"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -17,6 +17,6 @@ pkgdesc = "Xwayland manager for Wayland"
 license = "MPL-2.0"
 url = "https://github.com/Supreeeme/xwayland-satellite"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "107d4a8004b24a871c6548a7c550e9260fcbb0367bd6337ae98f1fd2f3ecf645"
+sha256 = "81d23bf4b75e841f14039efc0b2b1a0ffa81ed6715ca21339d63423e056ccb25"
 # no idea how to run this
 options = ["!check"]
