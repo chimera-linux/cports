@@ -6,12 +6,12 @@ hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "boost-devel",
     "glog-devel",
+    "gtest-devel",
     "leveldb-devel",
     "marisa-trie-devel",
     "opencc-devel",
     "yaml-cpp-devel",
 ]
-checkdepends = ["gtest-devel"]
 pkgdesc = "Rime Input Method Engine"
 license = "BSD-3-Clause"
 url = "https://github.com/rime/librime"

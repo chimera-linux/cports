@@ -9,8 +9,7 @@ configure_args = [
     "-DLEVELDB_BUILD_TESTS=ON",
 ]
 hostmakedepends = ["cmake", "ninja"]
-makedepends = ["snappy-devel"]
-checkdepends = ["benchmark-devel", "gtest-devel"]
+makedepends = ["benchmark-devel", "gtest-devel", "snappy-devel"]
 pkgdesc = "Key/value database library"
 license = "BSD-3-Clause"
 url = "https://github.com/google/leveldb"

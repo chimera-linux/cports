@@ -14,7 +14,7 @@ hostmakedepends = [
     "ninja",
     "pkgconf",
 ]
-checkdepends = ["gtest-devel"]
+makedepends = ["gtest-devel"]
 pkgdesc = "Microbenchmark support library"
 license = "Apache-2.0"
 url = "https://github.com/google/benchmark"
