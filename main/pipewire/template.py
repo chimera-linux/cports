@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "1.4.2"
+pkgver = "1.4.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -78,7 +78,7 @@ pkgdesc = "Server and user space API to deal with multimedia pipelines"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/pipewire-{pkgver}.tar.gz"
-sha256 = "4712aada64b9b49ad41fbb8b440914481432a560f2619ffbdd49461f8d22994f"
+sha256 = "8dc846cdb060ee93050ccdae1517e9709b22fcf827b0b2f1a76dd53acb5a6b9e"
 
 if self.profile().endian == "big":
     configure_args += [
@@ -157,8 +157,7 @@ def _(self):
 def _(self):
     self.subdesc = "gstreamer plugin"
     self.install_if = [self.parent, "gst-plugins-base"]
-    # transitional
-    self.provides = [self.with_pkgver("gstreamer-pipewire")]
+    self.renames = ["gstreamer-pipewire"]
 
     return ["usr/lib/gstreamer-1.0"]
 
@@ -167,8 +166,7 @@ def _(self):
 def _(self):
     self.subdesc = "ALSA client library"
     self.install_if = [self.parent, "alsa-lib"]
-    # transitional
-    self.provides = [self.with_pkgver("alsa-pipewire")]
+    self.renames = ["alsa-pipewire"]
 
     return [
         "usr/lib/alsa-lib",
@@ -180,8 +178,7 @@ def _(self):
 def _(self):
     self.subdesc = "use for ALSA by default"
     self.install_if = [self.with_pkgver("pipewire-alsa")]
-    # transitional
-    self.provides = [self.with_pkgver("alsa-pipewire-default")]
+    self.renames = ["alsa-pipewire-default"]
 
     return [
         "@etc/alsa/conf.d/99-pipewire-default.conf=>../../../usr/share/alsa/alsa.conf.d/99-pipewire-default.conf"
