@@ -1,0 +1,37 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 37baee8..4e6c1ba 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -9,7 +9,6 @@ readme = "README.md"
+ homepage = "https://reaction.ppom.me"
+ repository = "https://framagit.org/ppom/reaction"
+ keywords = ["security", "sysadmin", "fail2ban", "logs", "monitoring"]
+-build = "build.rs"
+ 
+ [package.metadata.deb]
+ maintainer-scripts = "packaging/"
+diff --git a/build.rs b/build.rs
+index f7de30e..ee5c0b4 100644
+--- a/build.rs
++++ b/build.rs
+@@ -25,10 +25,6 @@ fn main() -> io::Result<()> {
+     if var_os("PROFILE").ok_or(ErrorKind::NotFound)? == "release" {
+         let out_dir = PathBuf::from(var_os("OUT_DIR").ok_or(ErrorKind::NotFound)?).join("../../..");
+ 
+-        // Compile C helpers
+-        compile_helper("ip46tables", &out_dir)?;
+-        compile_helper("nft46", &out_dir)?;
+-
+         // Build CLI
+         let cli = clap::Command::new("reaction");
+         let cli = SubCommand::augment_subcommands(cli);
+@@ -51,8 +47,6 @@ See usage examples, service configurations and good practices on the wiki: https
+ 
+     println!("cargo::rerun-if-changed=build.rs");
+     println!("cargo::rerun-if-changed=src/cli.rs");
+-    println!("cargo::rerun-if-changed=helpers_c/ip46tables.c");
+-    println!("cargo::rerun-if-changed=helpers_c/nft46.c");
+ 
+     Ok(())
+ }
+
