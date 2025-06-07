@@ -1,17 +1,17 @@
 pkgname = "zxing-cpp"
 pkgver = "2.3.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
-    "-DBUILD_UNIT_TESTS=ON",
-    "-DBUILD_EXAMPLES=ON",
-    "-DBUILD_BLACKBOX_TESTS=OFF",
-    "-DBUILD_DEPENDENCIES=LOCAL",
+    "-DZXING_UNIT_TESTS=ON",
+    "-DZXING_BLACKBOX_TESTS=OFF",
+    "-DZXING_EXAMPLES=ON",
+    "-DZXING_DEPENDENCIES=LOCAL",
 ]
 # racey
 make_check_args = ["-j1"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-checkdepends = ["gtest-devel", "stb"]
+makedepends = ["gtest-devel", "stb"]
 pkgdesc = "Multi-format 1D/2D barcode library"
 license = "Apache-2.0"
 url = "https://github.com/nu-book/zxing-cpp"
