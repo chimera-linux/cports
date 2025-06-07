@@ -1,0 +1,14 @@
+Nix uses `close_range()` when it is available (aka when compiled against glibc)
+If it is not available, it uses the syscall `SYS_close_range`, but the header file
+which defines this constant is not included in the file, so it fails to compile
+because it cannot find the symbol `SYS_close_range`. This is not fixed upstream.
+--- a/src/libutil/unix/file-descriptor.cc
++++ b/src/libutil/unix/file-descriptor.cc
+@@ -5,6 +5,7 @@
+ 
+ #include <fcntl.h>
+ #include <unistd.h>
++#include <sys/syscall.h>
+ #include <poll.h>
+ 
+ #include "util-config-private.hh"
