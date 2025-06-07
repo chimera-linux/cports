@@ -16,6 +16,9 @@ sha256 = "ca1a6dddbf142a5338f803b24832dec0f9bb23b40e3f88aa5970f5dd69eb5dfb"
 # check takes quite a bit
 options = ["!check", "!cross"]
 
+if self.profile().arch == "riscv64":
+    broken = "runs out of memory on builder"
+
 
 def prepare(self):
     from cbuild.util import golang
