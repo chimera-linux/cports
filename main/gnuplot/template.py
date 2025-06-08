@@ -1,6 +1,6 @@
 pkgname = "gnuplot"
-pkgver = "6.0.2"
-pkgrel = 2
+pkgver = "6.0.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     # XXX drop libexec
@@ -38,7 +38,7 @@ pkgdesc = "Command-line-driven graphing utility"
 license = "gnuplot"
 url = "http://www.gnuplot.info"
 source = f"$(SOURCEFORGE_SITE)/gnuplot/gnuplot/{pkgver}/gnuplot-{pkgver}.tar.gz"
-sha256 = "f68a3b0bbb7bbbb437649674106d94522c00bf2f285cce0c19c3180b1ee7e738"
+sha256 = "ec52e3af8c4083d4538152b3f13db47f6d29929a3f6ecec5365c834e77f251ab"
 # fails tests
 hardening = ["!int"]
 # parallel: build fails since 6.0.2 with parallelism
