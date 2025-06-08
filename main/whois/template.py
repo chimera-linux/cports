@@ -1,5 +1,5 @@
 pkgname = "whois"
-pkgver = "5.6.1"
+pkgver = "5.6.2"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -20,7 +20,7 @@ pkgdesc = "Intelligent WHOIS Client"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rfc1036/whois"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d219c7f130c6f1565f769b0e079d9509a6aadfe6690423b4428d027fdd43ecd1"
+sha256 = "0773cf51fc9a980af3954fb3859c7673f8bb7901c5be4041a12c926609edeb89"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
