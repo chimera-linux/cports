@@ -1,6 +1,6 @@
 pkgname = "jq"
-pkgver = "1.7.1"
-pkgrel = 1
+pkgver = "1.8.0"
+pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
 hostmakedepends = [
@@ -13,9 +13,10 @@ pkgdesc = "Command-line JSON processor"
 license = "MIT"
 url = "https://github.com/jqlang/jq"
 source = f"{url}/releases/download/jq-{pkgver}/jq-{pkgver}.tar.gz"
-sha256 = "478c9ca129fd2e3443fe27314b455e211e0d8c60bc8ff7df703873deeee580c2"
+sha256 = "91811577f91d9a6195ff50c2bffec9b72c8429dc05ec3ea022fd95c06d2b319c"
 # FIXME int: null meme in jqtest
-hardening = ["!int", "vis", "cfi"]
+# FIXME vis: fails to link
+hardening = ["!int", "!vis", "!cfi"]
 
 
 def post_extract(self):
