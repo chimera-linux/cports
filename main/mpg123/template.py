@@ -1,6 +1,6 @@
 pkgname = "mpg123"
-pkgver = "1.32.10"
-pkgrel = 1
+pkgver = "1.33.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-optimization=0",
@@ -26,7 +26,7 @@ pkgdesc = "MPEG 1.0/2.0/2.5 audio player"
 license = "LGPL-2.1-only"
 url = "https://www.mpg123.org"
 source = f"$(SOURCEFORGE_SITE)/mpg123/mpg123-{pkgver}.tar.bz2"
-sha256 = "87b2c17fe0c979d3ef38eeceff6362b35b28ac8589fbf1854b5be75c9ab6557c"
+sha256 = "2290e3aede6f4d163e1a17452165af33caad4b5f0948f99429cfa2d8385faa9d"
 
 
 def _genlib(libn, descn, iif):
