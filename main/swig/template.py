@@ -1,5 +1,5 @@
 pkgname = "swig"
-pkgver = "4.3.0"
+pkgver = "4.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
 # broken
@@ -8,9 +8,9 @@ hostmakedepends = ["byacc"]
 makedepends = ["zlib-ng-compat-devel", "pcre2-devel"]
 pkgdesc = "Simplified Wrapper and Interface Generator"
 license = "GPL-3.0-or-later"
-url = "http://www.swig.org"
+url = "https://www.swig.org"
 source = f"$(SOURCEFORGE_SITE)/swig/swig-{pkgver}.tar.gz"
-sha256 = "f7203ef796f61af986c70c05816236cbd0d31b7aa9631e5ab53020ab7804aa9e"
+sha256 = "44fc829f70f1e17d635a2b4d69acab38896699ecc24aa023e516e0eabbec61b8"
 hardening = ["!vis", "!cfi"]
 # broken check target?
 options = ["!check"]
