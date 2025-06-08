@@ -1,5 +1,5 @@
 pkgname = "iputils"
-pkgver = "20240905"
+pkgver = "20250605"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,7 +19,7 @@ pkgdesc = "Useful utilities for Linux networking"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "https://github.com/iputils/iputils"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "055b4e6e4f298c97fd5848898099e59b4590db63fac3f7ad4fa796354ad44403"
+sha256 = "19e680c9eef8c079da4da37040b5f5453763205b4edfb1e2c114de77908927e4"
 file_modes = {
     "usr/bin/clockdiff": ("root", "root", 0o755),
     "usr/bin/ping": ("root", "root", 0o755),
