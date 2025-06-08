@@ -1,6 +1,6 @@
 pkgname = "python-jsonschema"
-pkgver = "4.23.0"
-pkgrel = 1
+pkgver = "4.24.0"
+pkgrel = 0
 build_style = "python_pep517"
 # needs pip
 make_check_args = ["-k", "not test_license"]
@@ -24,7 +24,7 @@ pkgdesc = "Implementation of the JSON Schema specification for Python"
 license = "MIT"
 url = "https://github.com/python-jsonschema/jsonschema"
 source = f"$(PYPI_SITE)/j/jsonschema/jsonschema-{pkgver}.tar.gz"
-sha256 = "d71497fef26351a33265337fa77ffeb82423f3ea21283cd9467bb03999266bc4"
+sha256 = "0b4e8069eb12aedfa881333004bccaec24ecef5a8a6a4b6df142b2cc9599d196"
 
 
 def init_check(self):
