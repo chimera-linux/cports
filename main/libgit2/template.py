@@ -1,5 +1,5 @@
 pkgname = "libgit2"
-pkgver = "1.9.0"
+pkgver = "1.9.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "Linkable library for using git"
 license = "GPL-2.0-only WITH GCC-exception-2.0"
 url = "https://libgit2.org"
 source = f"https://github.com/libgit2/libgit2/archive/v{pkgver}.tar.gz"
-sha256 = "75b27d4d6df44bd34e2f70663cfd998f5ec41e680e1e593238bbe517a84c7ed2"
+sha256 = "14cab3014b2b7ad75970ff4548e83615f74d719afe00aa479b4a889c1e13fc00"
 
 
 def post_extract(self):
