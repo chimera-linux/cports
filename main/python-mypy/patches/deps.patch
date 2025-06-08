@@ -1,12 +1,13 @@
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -5,13 +5,6 @@ requires = [
+@@ -4,14 +4,6 @@
      # and build-requirements.txt, because those are both needed for
      # self-typechecking :/
      "setuptools >= 75.1.0",
 -    # the following is from mypy-requirements.txt/setup.py
 -    "typing_extensions>=4.6.0",
 -    "mypy_extensions>=1.0.0",
+-    "pathspec>=0.9.0",
 -    "tomli>=1.1.0; python_version<'3.11'",
 -    # the following is from build-requirements.txt
 -    "types-psutil",
