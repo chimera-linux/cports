@@ -1,5 +1,5 @@
 pkgname = "iotop"
-pkgver = "1.29"
+pkgver = "1.30"
 pkgrel = 0
 build_style = "makefile"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "Top-like utility for IO"
 license = "GPL-2.0-or-later"
 url = "https://github.com/Tomas-M/iotop"
 source = f"https://github.com/Tomas-M/iotop/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8afcd3f2a91a5246c4b187e39cb87fafdb5c2dd27a0386fb8381361c271f8f60"
+sha256 = "862e3d3d0263e4171aa9c5aaed2dd7d76ca746afa58ecbb6eca002717e9fa240"
 hardening = ["cfi", "vis"]
 # no tests
 options = ["!check"]
