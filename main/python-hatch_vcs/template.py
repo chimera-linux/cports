@@ -1,6 +1,6 @@
 pkgname = "python-hatch_vcs"
-pkgver = "0.4.0"
-pkgrel = 2
+pkgver = "0.5.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
     "--deselect",
@@ -21,7 +21,7 @@ pkgdesc = "Hatch plugin for VCS versioning"
 license = "MIT"
 url = "https://github.com/ofek/hatch-vcs"
 source = f"$(PYPI_SITE)/h/hatch_vcs/hatch_vcs-{pkgver}.tar.gz"
-sha256 = "093810748fe01db0d451fabcf2c1ac2688caefd232d4ede967090b1c1b07d9f7"
+sha256 = "0395fa126940340215090c344a2bf4e2a77bcbe7daab16f41b37b98c95809ff9"
 # cycle
 options = ["!check"]
 
