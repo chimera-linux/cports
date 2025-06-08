@@ -1,5 +1,5 @@
 pkgname = "papers"
-pkgver = "48.0"
+pkgver = "48.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,6 +27,7 @@ makedepends = [
     "libarchive-devel",
     "libgxps-devel",
     "libsecret-devel",
+    "libspelling-devel",
     "nautilus-devel",
     "poppler-devel",
     "rust-std",
@@ -35,7 +36,7 @@ pkgdesc = "GNOME document viewer"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/Incubator/papers"
 source = f"{url}/-/archive/{pkgver}.tar.gz"
-sha256 = "ca787d23ae199b300f7cc645fed504d60913a557faccd32a5e72ec73133a9bcd"
+sha256 = "2c9f00bb479b7305fca5261f871370be07997b7191db0c7ae1f61d5f1247d27d"
 
 
 def post_patch(self):
