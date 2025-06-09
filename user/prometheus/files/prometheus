@@ -1,0 +1,13 @@
+type = process
+command = /usr/bin/prometheus \
+    --config.file /etc/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/db/prometheus/ \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries
+working-dir = /usr/share/prometheus/web
+logfile = /var/log/prometheus.log
+smooth-recovery = true
+run-as = _prometheus
+depends-on: local.target
+depends-on: network.target
+load-options: export-passwd-vars
