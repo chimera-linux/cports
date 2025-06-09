@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/node_exporter
+logfile = /var/log/node_exporter.log
+smooth-recovery = true
+run-as = _node_exporter
+depends-on: local.target
+depends-on: network.target
+load-options: export-passwd-vars
