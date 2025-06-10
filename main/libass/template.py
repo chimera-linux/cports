@@ -1,12 +1,12 @@
 pkgname = "libass"
-pkgver = "0.17.3"
-pkgrel = 1
+pkgver = "0.17.4"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
     "libtool",
-    "pkgconf",
     "nasm",
+    "pkgconf",
 ]
 makedepends = [
     "fontconfig-devel",
@@ -18,7 +18,7 @@ pkgdesc = "Portable library for SSA/ASS subtitle rendering"
 license = "MIT"
 url = "https://github.com/libass/libass"
 source = f"{url}/releases/download/{pkgver}/libass-{pkgver}.tar.gz"
-sha256 = "da7c348deb6fa6c24507afab2dee7545ba5dd5bbf90a137bfe9e738f7df68537"
+sha256 = "a886b3b80867f437bc55cff3280a652bfa0d37b43d2aff39ddf3c4f288b8c5a8"
 
 
 def post_install(self):
