@@ -1,5 +1,5 @@
 pkgname = "nghttp3"
-pkgver = "1.9.0"
+pkgver = "1.10.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -11,7 +11,7 @@ pkgdesc = "C HTTP/3 library"
 license = "MIT"
 url = "https://nghttp2.org/nghttp3"
 source = f"https://github.com/ngtcp2/nghttp3/releases/download/v{pkgver}/nghttp3-{pkgver}.tar.xz"
-sha256 = "b1b531cf6ae5c9366abea2d3319e4ac932fd64c072c8aafd69cf6295733ce12a"
+sha256 = "e6b8ebaadf8e57cba77a3e34ee8de465fe952481fbf77c4f98d48737bdf50e03"
 
 
 def post_install(self):
