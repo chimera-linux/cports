@@ -1227,6 +1227,7 @@ def do_prune_sources(tgt):
 
     logger.get().out("Collecting inodes and pruning hardlinks...")
     inoset = set()
+    (paths.sources() / "by_sha256").mkdir(parents=True, exist_ok=True)
     for sf in (paths.sources() / "by_sha256").iterdir():
         cks = sf.name[0:64].lower()
         if (
