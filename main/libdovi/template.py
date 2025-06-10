@@ -1,5 +1,5 @@
 pkgname = "libdovi"
-pkgver = "3.3.1"
+pkgver = "3.3.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -12,7 +12,7 @@ pkgdesc = "Library to read & write Dolby Vision metadata"
 license = "MIT"
 url = "https://github.com/quietvoid/dovi_tool"
 source = f"{url}/archive/refs/tags/libdovi-{pkgver}.tar.gz"
-sha256 = "4cd7a4c418fd8af1da13278ce7524c15b7fdf61e1fe53663aa291c68c5062777"
+sha256 = "8ccb1922d7dbb57bc4f2c15c10b90c462f7a5f292efe317c116db923728dd3f1"
 # literally one test lol
 options = ["!check"]
 
