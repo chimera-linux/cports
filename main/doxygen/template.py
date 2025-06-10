@@ -1,5 +1,5 @@
 pkgname = "doxygen"
-pkgver = "1.13.2"
+pkgver = "1.14.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
@@ -9,7 +9,7 @@ pkgdesc = "Source code documentation generator tool"
 license = "GPL-2.0-only"
 url = "https://doxygen.nl"
 source = f"{url}/files/doxygen-{pkgver}.src.tar.gz"
-sha256 = "3a25e3386c26ea5494c784e946327225debfbc5dbfa8b13549010a315aace66d"
+sha256 = "d4536d11ab13037327d8d026b75f5a86b7ccb2093e2f546235faf61fd86e6b5d"
 hardening = ["vis", "cfi"]
 
 
