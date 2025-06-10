@@ -1,5 +1,5 @@
 pkgname = "gnome-software"
-pkgver = "48.1"
+pkgver = "48.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -46,7 +46,7 @@ url = "https://gitlab.gnome.org/GNOME/gnome-software"
 source = (
     f"$(GNOME_SITE)/gnome-software/{pkgver[:-2]}/gnome-software-{pkgver}.tar.xz"
 )
-sha256 = "084a985040294c36454b464a2144f981c0274906b4c49d71613e61ced6a96e8f"
+sha256 = "abfd30643a86c65f4886b6765eb3bb6215c9ea09817d6bd165c50056890822c9"
 # Most tests need system dbus
 options = ["!check"]
 
