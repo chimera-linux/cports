@@ -1,6 +1,6 @@
 pkgname = "activate-linux"
 pkgver = "1.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 hostmakedepends = [
     "gawk",

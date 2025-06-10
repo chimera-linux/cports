@@ -1,6 +1,6 @@
 pkgname = "picom"
 pkgver = "12.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dunittest=true", "-Dwith_docs=true"]
 hostmakedepends = ["asciidoctor", "meson", "pkgconf"]
