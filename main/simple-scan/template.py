@@ -1,5 +1,5 @@
 pkgname = "simple-scan"
-pkgver = "46.0"
+pkgver = "48.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -26,6 +26,8 @@ depends = ["sane-backends"]
 pkgdesc = "GNOME scanning utility"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/simple-scan"
-source = f"$(GNOME_SITE)/simple-scan/{pkgver[:-2]}/simple-scan-{pkgver}.tar.xz"
-sha256 = "c16e6590142fe563be5143122b3bbb53f6b00a7da9d952f61c47fa26f7b4f0a9"
+# tarball is missing on GNOME_SITE
+# source = f"$(GNOME_SITE)/simple-scan/{pkgver[:-2]}/simple-scan-{pkgver}.tar.xz"
+source = f"https://gitlab.gnome.org/GNOME/simple-scan/-/archive/{pkgver}/simple-scan-{pkgver}.tar.gz"
+sha256 = "9f9d711e1b65c32ec088fc297b48040f8eebbe2e98565dfc18e7f6b994f8f300"
 hardening = ["vis", "!cfi"]
