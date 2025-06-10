@@ -1,5 +1,5 @@
 pkgname = "xfsprogs"
-pkgver = "6.13.0"
+pkgver = "6.14.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -27,7 +27,7 @@ pkgdesc = "XFS file system utilities"
 license = "LGPL-2.1-or-later"
 url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/xfsprogs/xfsprogs-{pkgver}.tar.xz"
-sha256 = "0459933f93d94c82bc2789e7bd63742273d9d74207cdae67dc3032038da08337"
+sha256 = "fa5ab77f8b5169ce48dd8de09446ad7e29834a05b8f52012bae411cf53ec1f58"
 tool_flags = {"CFLAGS": ["-DOVERRIDE_SYSTEM_STATX"]}
 # no check target
 options = ["!check"]
