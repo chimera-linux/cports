@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwebengine"
 pkgver = "6.9.1"
-pkgrel = 1
+pkgrel = 2
 # latest from https://github.com/qt/qtwebengine-chromium/commits/130-based
 # check CHROMIUM_VERSION on qt majors
 # note that like half the chromium patches are probably unneeded but
