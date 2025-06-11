@@ -1,6 +1,6 @@
 pkgname = "mingw-w64-crt"
-pkgver = "12.0.0"
-pkgrel = 1
+pkgver = "13.0.0"
+pkgrel = 0
 build_wrksrc = "mingw-w64-crt"
 build_style = "gnu_configure"
 configure_args = ["--disable-dependency-tracking"]
@@ -10,7 +10,7 @@ pkgdesc = "C runtime for Windows development"
 license = "ZPL-2.1"
 url = "https://www.mingw-w64.org"
 source = f"$(SOURCEFORGE_SITE)/mingw-w64/mingw-w64-v{pkgver}.tar.bz2"
-sha256 = "cc41898aac4b6e8dd5cffd7331b9d9515b912df4420a3a612b5ea2955bbeed2f"
+sha256 = "5afe822af5c4edbf67daaf45eec61d538f49eef6b19524de64897c6b95828caf"
 # checks fail
 options = ["empty", "!check", "!lto"]
 
@@ -44,6 +44,7 @@ def configure(self):
                 wrksrc=f"build-{an}",
                 env={
                     "CC": f"clang -target {at}",
+                    "CPP": "",
                     "CFLAGS": "",
                     "LDFLAGS": "",
                 },
