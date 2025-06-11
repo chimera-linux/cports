@@ -6,7 +6,7 @@ pkgrel = 1
 # note that like half the chromium patches are probably unneeded but
 # they are taken directly from chromium patches/ for that major for
 # ease of maintenance
-_qtwebengine_gitrev = "059a95d6de7aa67975c4f52ea48549e56f35c058"
+_qtwebengine_gitrev = "0e01f03726a82bd9f924ab711a7cb29dacaeb5d2"
 archs = ["aarch64", "ppc64le", "x86_64"]
 build_style = "cmake"
 configure_args = [
@@ -96,7 +96,7 @@ source = [
 source_paths = [".", "3rdparty-chromium"]
 sha256 = [
     "787dfde22b348f6d620f2207ed7e32ad0a5389373182614272de28ff3f91c26c",
-    "a233cd06b25aef5c2a172189a8b0757d8958683b24875c310a09efdcf01d5d89",
+    "fdd33f3713c94067e4d05a98a52a2e288a1c624c6c21cdb2d900c04482fb90fb",
 ]
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
