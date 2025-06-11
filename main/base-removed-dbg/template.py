@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 12
+pkgrel = 13
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -81,7 +81,6 @@ for _pkg in [
     "libsl",
     "libsmartcols",
     "libsmbclient",
-    "libspirv-tools-shared",
     "libsquashfs",
     "libsysfs",
     "libtotem-plparser-mini",
