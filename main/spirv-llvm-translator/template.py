@@ -1,5 +1,5 @@
 pkgname = "spirv-llvm-translator"
-pkgver = "20.1.1"
+pkgver = "20.1.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ pkgdesc = "API and commands for processing SPIR-V modules"
 license = "NCSA"
 url = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3b2a750bbaea4a084e90fd88de317f9a03879056e3bd429bb56c588f4c77ca16"
+sha256 = "8e953931a09b0a4c2a77ddc8f1df4783571d8ffca9546150346c401573866062"
 # FIXME int: crashes libclc build
 hardening = ["!int"]
 # tests disabled
