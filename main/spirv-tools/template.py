@@ -1,6 +1,6 @@
 # update and rebuild shaderc when updating
 pkgname = "spirv-tools"
-pkgver = "1.4.309.0"
+pkgver = "1.4.313.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,7 +13,7 @@ pkgdesc = "API and commands for processing SPIR-V modules"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/SPIRV-Tools"
 source = f"{url}/archive/vulkan-sdk-{pkgver}.tar.gz"
-sha256 = "6b8577054c575573ead3ad71cb6a2c0b3397b64c746cc3c99e48cc5e324c1b55"
+sha256 = "6b60f723345ceed5291cceebbcfacf7fea9361a69332261fa08ae57e2a562005"
 hardening = ["!vis", "!cfi"]
 
 # Note: only some tests are run, the others need subfolders of gtest and effcee
@@ -31,8 +31,7 @@ def _(self):
 @subpackage("spirv-tools-libs")
 def _(self):
     self.subdesc = "shared library"
-    # transitional
-    self.provides = [self.with_pkgver("libspirv-tools-shared")]
+    self.renames = ["libspirv-tools-shared"]
 
     return ["usr/lib/*.so"]
 
