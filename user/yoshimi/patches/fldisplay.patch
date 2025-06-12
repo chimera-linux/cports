@@ -1,35 +1,21 @@
 This cannot work with wayland yet since it
 directly uses fl_display.
 
-diff --git a/src/UI/MiscGui.cpp b/src/UI/MiscGui.cpp
-index 10df075..7ec0afb 100644
---- a/src/UI/MiscGui.cpp
-+++ b/src/UI/MiscGui.cpp
+diff -ruN a/src/UI/MiscGui.cpp b/src/UI/MiscGui.cpp
+--- a/src/UI/MiscGui.cpp	2025-06-10 21:37:04.000000000 +0200
++++ b/src/UI/MiscGui.cpp	2025-06-26 11:45:39.365013159 +0200
 @@ -28,6 +28,7 @@
  
  #include <FL/Fl.H>
  #include <FL/fl_draw.H>
 +#include <FL/platform.H>
  
+ #include <FL/platform.H>
  #include <cairo.h>
- #include <cairo-xlib.h>
-diff --git a/src/UI/WidgetPDial.cpp b/src/UI/WidgetPDial.cpp
-index 0839f1f..6f42767 100644
---- a/src/UI/WidgetPDial.cpp
-+++ b/src/UI/WidgetPDial.cpp
-@@ -32,6 +32,7 @@
- #include <FL/fl_draw.H>
- #include <FL/Fl_Tooltip.H>
- #include <FL/Fl_Group.H>
-+#include <FL/platform.H>
- #include <FL/x.H>
- #include <cairo.h>
- #include <cairo-xlib.h>
-diff --git a/src/main.cpp b/src/main.cpp
-index 100348c..f324a86 100644
---- a/src/main.cpp
-+++ b/src/main.cpp
-@@ -182,6 +182,8 @@ string runShellCommand(string command)
+diff -ruN a/src/main.cpp b/src/main.cpp
+--- a/src/main.cpp	2025-06-10 21:37:04.000000000 +0200
++++ b/src/main.cpp	2025-06-26 11:45:39.365013159 +0200
+@@ -182,6 +182,8 @@
   */
  int main(int argc, char *argv[])
  {
