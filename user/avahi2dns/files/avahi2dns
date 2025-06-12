@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/avahi2dns
+depends-on: avahi-daemon
+depends-on: dbus
+depends-on: local.target
