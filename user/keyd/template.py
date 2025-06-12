@@ -1,6 +1,6 @@
 pkgname = "keyd"
 pkgver = "2.5.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_check_target = "test"
 make_use_env = True
@@ -20,5 +20,6 @@ if self.profile().wordsize == 32:
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service(self.files_path / "keyd")
-    self.install_sysusers(self.files_path / "keyd.conf")
+    self.install_service("^/keyd")
+    self.install_service("^/keyd.user")
+    self.install_sysusers("^/sysusers.conf")
