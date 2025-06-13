@@ -1,6 +1,6 @@
 pkgname = "dolphin-emu"
-pkgver = "2503a"
-pkgrel = 2
+pkgver = "2506a"
+pkgrel = 0
 # others have no jit support (so too slow)
 archs = ["aarch64", "x86_64"]
 build_style = "cmake"
@@ -21,7 +21,6 @@ configure_args = [
     "-DUSE_SYSTEM_LIBMGBA=OFF",
     # not packaged
     "-DUSE_SYSTEM_CUBEB=OFF",
-    "-DUSE_SYSTEM_SFML=OFF",
 ]
 hostmakedepends = [
     "clang-tools-extra",
@@ -33,11 +32,11 @@ hostmakedepends = [
 makedepends = [
     "bluez-devel",
     "bzip2-devel",
+    "curl-devel",
     "enet-devel",
     "ffmpeg-devel",
     "fmt-devel",
     "hidapi-devel",
-    "curl-devel",
     "libevdev-devel",
     "libpulse-devel",
     "libspng-devel",
@@ -52,6 +51,7 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
     "sdl2-compat-devel",
+    "sfml-devel",
     "speexdsp-devel",
     "udev-devel",
     "xxhash-devel",
@@ -66,7 +66,7 @@ url = "https://dolphin-emu.org"
 _commit_cubeb = "54217bca3f3e0cd53c073690a23dd25d83557909"
 _commit_tinygltf = "c5641f2c22d117da7971504591a8f6a41ece488b"
 _commit_implot = "18c72431f8265e2b0b5378a3a73d8a883b2175ff"
-_commit_rcheevos = "d54cf8f1059cebc90a6f5ecdf03df69259f22054"
+_commit_rcheevos = "0115d9198ff7a73ff6568027dfb948ef6031818c"
 _commit_spirv = "ebe2aa0cd80f5eb5cd8a605da604cacf72205f3b"
 _commit_vulkan_memory = "3bab6924988e5f19bf36586a496156cf72f70d9f"
 _commit_mgba = "8739b22fbc90fdf0b4f6612ef9c0520f0ba44a51"
@@ -91,11 +91,11 @@ source_paths = [
     "Externals/mGBA/mgba",
 ]
 sha256 = [
-    "e91266a210b9334a45fc51121cca41ff0fe2de9a1ef95f5e6781d9d0f1a85bc6",
+    "0531c69ad0261a62ac4c051471e3d597b720eb5c93b4a04d4b028db2d0b4a179",
     "a795511bf56183ff7bad8fb2d2836ca5bb158e12ddd519caced62946ffa69c83",
     "6352803f1ed18d479ea93abf96ac75c0222a21403be22840bde1072ee5935dfa",
     "4787c77e6050f3bdc19f39eecf87d5b321bd3096321142b63f8169e1aa8f9b34",
-    "bf8e6e9afa865c51ab796c8329df206297b329f008ef0c1308c642480fb2d289",
+    "81d5d35e8b03194c103ceaedab1f37c473062d0907b496c50481f862f80c654d",
     "ff848426a2eabfa0dfb5ee961440210f6cdec190883ed438ee7252ba595c9128",
     "618dc35e4f571a508575fc1fc914eb15ab513e4443986509aff08dfb8844ba24",
     "07e73f02198affccf83cc9740d377b78ba27866b0d654a5e55cafae69d1dfa1c",
