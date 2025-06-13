@@ -1,16 +1,16 @@
 pkgname = "onscripter-en"
-pkgver = "2024.07.21"
+pkgver = "2025.06.08"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 make_dir = "."
 hostmakedepends = [
-    "gsed",
     "pkgconf",
 ]
 makedepends = [
     "bzip2-devel",
     "freetype-devel",
+    "libjpeg-turbo-devel",
     "libogg-devel",
     "libvorbis-devel",
     "libx11-devel",
@@ -20,12 +20,11 @@ makedepends = [
     "sdl12-compat-devel",
     "smpeg0-devel",
 ]
+checkdepends = ["gtest-devel"]
 pkgdesc = "Visual novel engine"
 license = "GPL-2.0-or-later"
 url = "https://galladite.net/~galladite/ons-en"
 source = f"https://github.com/Galladite27/ONScripter-EN/archive/refs/tags/{pkgver.replace('.', '-')}.tar.gz"
-sha256 = "af61fac4833b717b4175b6a66969cf8ef4fc97f89b6255b0dcecac2bc9daec28"
+sha256 = "29d15582fafebbd7c06feb598af74871f1a346397752e970c867360b367d47b8"
 # cross: scuffed custom configure script
-# check: no tests
-options = ["!cross", "!check"]
-exec_wrappers = [("/usr/bin/gsed", "sed")]
+options = ["!cross"]
