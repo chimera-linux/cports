@@ -1,5 +1,5 @@
 pkgname = "gnome-shell-extension-gsconnect"
-pkgver = "62"
+pkgver = "66"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dinstalled_tests=false"]
@@ -24,6 +24,6 @@ pkgdesc = "KDE Connect implementation for GNOME"
 license = "GPL-2.0-or-later"
 url = "https://github.com/GSConnect/gnome-shell-extension-gsconnect"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "34301389690937eabf4bb89703b2d050a8afd6664c965743df03fe52235ce13d"
+sha256 = "3af2022ddb9318bddfc9aaeed8c310a373b225960a1fa4240494bad0a91d97af"
 # All tests fail in latest release https://github.com/GSConnect/gnome-shell-extension-gsconnect/issues/1786
 options = ["!check"]
