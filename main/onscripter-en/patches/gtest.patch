@@ -1,0 +1,60 @@
+diff -ruN a/test/Makefile b/test/Makefile
+--- a/test/Makefile	2025-06-08 20:40:46.000000000 +0200
++++ b/test/Makefile	2025-06-13 17:26:28.366300513 +0200
+@@ -8,7 +8,7 @@
+ LIBSUFFIX ?= .a
+ 
+ CXX ?= g++
+-CXXSTD = -std=c++98
++CXXSTD = -std=c++17
+ CXXFLAGS = -g -Wall -Wextra -DGTEST_LANG_CXX11=0 $(DEFS) -pthread
+ 
+ ifeq ($(COVERAGE),1)
+@@ -29,38 +29,36 @@
+ 	LIBS_bz2=$(shell pkg-config --libs bzip2 || echo -lbz2)
+ endif
+ 
+-GTEST_DIR=googletest/googletest
+-GTEST_INCDIR=$(GTEST_DIR)/include
+-GMOCK_DIR=googletest/googlemock
+-GMOCK_INCDIR=$(GMOCK_DIR)/include
++GTEST_INCDIR=/usr/include/gtest
++GMOCK_INCDIR=/usr/include/gmock
+ 
+ all: test
+ 
+ include Makefile.testlibs
+ 
+ .cpp$(OBJSUFFIX):
+-	$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) -I$(GTEST_DIR) $(CXXFLAGS) -c $< -o $@
++	$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) $(CXXFLAGS) -c $< -o $@
+ 
+ .cc$(OBJSUFFIX):
+-	$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) -I$(GTEST_DIR) $(CXXFLAGS) -c $< -o $@
++	$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) $(CXXFLAGS) -c $< -o $@
+ 
+-test_%$(EXESUFFIX): test_%.cpp $(TOPSRC)/%.cpp libgtest$(LIBSUFFIX)
++test_%$(EXESUFFIX): test_%.cpp $(TOPSRC)/%.cpp /usr/lib/libgtest.so /usr/lib/libgtest_main.so
+ 	$(Q)$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) -I$(TOPSRC) $(CXXFLAGS) $^ -o $@
+ 	./$@
+ 
+-test_Encoding$(EXESUFFIX): test_Encoding.cpp $(TOPSRC)/Encoding.cpp $(TOPSRC)/sjis2utf16.cpp libgtest$(LIBSUFFIX)
++test_Encoding$(EXESUFFIX): test_Encoding.cpp $(TOPSRC)/Encoding.cpp $(TOPSRC)/sjis2utf16.cpp /usr/lib/libgtest.so /usr/lib/libgtest_main.so
+ 	$(Q)$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) -I$(TOPSRC) $(CXXFLAGS) $^ -o $@
+ 	./$@
+ 
+-test_BaseReader$(EXESUFFIX): test_BaseReader.cpp libgtest$(LIBSUFFIX)
++test_BaseReader$(EXESUFFIX): test_BaseReader.cpp /usr/lib/libgtest.so /usr/lib/libgtest_main.so
+ 	$(Q)$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) -I$(TOPSRC) $(CXXFLAGS) $^ -o $@
+ 	./$@
+ 
+-test_DirPaths$(EXESUFFIX): test_DirPaths.cpp $(TOPSRC)/DirPaths.cpp libgtest$(LIBSUFFIX)
++test_DirPaths$(EXESUFFIX): test_DirPaths.cpp $(TOPSRC)/DirPaths.cpp /usr/lib/libgtest.so /usr/lib/libgtest_main.so
+ 	$(Q)$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) -I$(TOPSRC) $(CXXFLAGS) $^ -o $@
+ 	./$@
+ 
+-test_DirectReader$(EXESUFFIX): test_DirectReader.cpp $(TOPSRC)/DirectReader.cpp libgtest$(LIBSUFFIX) libgmock$(LIBSUFFIX)
++test_DirectReader$(EXESUFFIX): test_DirectReader.cpp $(TOPSRC)/DirectReader.cpp /usr/lib/libgtest.so /usr/lib/libgmock.so /usr/lib/libgtest_main.so
+ 	$(Q)$(CXX) $(CXXSTD) -isystem $(GTEST_INCDIR) -isystem $(GMOCK_INCDIR) -I$(TOPSRC) $(CXXFLAGS) $(BZIP2_CPPFLAGS) $^ $(LIBS_bz2) -o $@
+ 	./$@
+ 
