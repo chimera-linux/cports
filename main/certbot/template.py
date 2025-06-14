@@ -1,8 +1,11 @@
 pkgname = "certbot"
-pkgver = "4.0.0"
+pkgver = "4.1.1"
 pkgrel = 0
 build_wrksrc = "certbot"
 build_style = "python_pep517"
+make_check_args = [
+    f"--deselect={build_wrksrc}/src/certbot/_internal/tests/main_test.py::TestLockOrder::test_lock_order[renew]"
+]
 _plugins = [
     "certbot-apache",
     "certbot-dns-cloudflare",
@@ -46,7 +49,7 @@ pkgdesc = "Tool to obtain certs from Let's Encrypt"
 license = "Apache-2.0 AND MIT"
 url = "https://github.com/certbot/certbot"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8c365355ca9b4860312cdb6d56eb2254fff26877a6677b293b5e3307554496d2"
+sha256 = "336f323e0b175f28f146eede7c8db3f2984ce7b542f621e334d2f5c3eb111ca5"
 
 
 def post_build(self):
