@@ -1,9 +1,8 @@
 pkgname = "thrift"
-pkgver = "0.21.0"
-pkgrel = 1
+pkgver = "0.22.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DWITH_AS3=OFF",
     "-DBUILD_SHARED_LIBS=ON",
     "-DWITH_JAVA=OFF",
@@ -47,7 +46,7 @@ subdesc = "compiler"
 license = "Apache-2.0"
 url = "https://thrift.apache.org"
 source = f"https://github.com/apache/thrift/archive/v{pkgver}.tar.gz"
-sha256 = "31e46de96a7b36b8b8a457cecd2ee8266f81a83f8e238a9d324d8c6f42a717bc"
+sha256 = "c4649c5879dd56c88f1e7a1c03e0fbfcc3b2a2872fb81616bffba5aa8a225a37"
 
 
 @subpackage("thrift-devel")
