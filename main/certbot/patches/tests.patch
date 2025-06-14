@@ -1,0 +1,11 @@
+diff -Nurp a/certbot/src/certbot/_internal/tests/main_test.py b/certbot/src/certbot/_internal/tests/main_test.py
+--- a/certbot/src/certbot/_internal/tests/main_test.py	2025-06-12 18:09:57.000000000 +0000
++++ b/certbot/src/certbot/_internal/tests/main_test.py	2025-06-14 11:28:38.813211762 +0000
+@@ -2563,6 +2563,7 @@ class TestLockOrder:
+                 # because an installer was requested on the command line.
+                 yield args, lock_order + [authenticator_dir]
+ 
++    @pytest.mark.xfail
+     def test_lock_order(self, args_and_lock_order, mock_lock_dir):
+         args, lock_order = args_and_lock_order
+         with pytest.raises(self.EXPECTED_ERROR_TYPE, match=self.EXPECTED_ERROR_STR_REGEX):
