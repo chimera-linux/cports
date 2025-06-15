@@ -1,6 +1,6 @@
 pkgname = "mdadm"
 pkgver = "4.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_build_args = ["CWFLAGS=", "BINDIR=/usr/bin"]
 make_install_args = ["STRIP=", "PREFIX=/usr", "BINDIR=/usr/bin"]
