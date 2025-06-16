@@ -19,7 +19,7 @@ url = "https://halloy.chat"
 source = f"https://github.com/squidowl/halloy/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "aedab3b6919d2fa43577b7a5e91a22eb9fced3ad8b31222770c42dc6088295ce"
 
-if self.profile().arch in ["ppc", "ppc64", "ppc64le", "loongarch64"]:
+if self.profile().arch in ["loongarch64", "ppc", "ppc64", "ppc64le", "riscv64"]:
     broken = "ring 0.16.20 fails to build"
 
 
