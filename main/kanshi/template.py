@@ -1,6 +1,6 @@
 pkgname = "kanshi"
 pkgver = "1.7.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 hostmakedepends = [
     "meson",

@@ -1,6 +1,6 @@
 pkgname = "hostapd"
 pkgver = "2.11"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "hostapd"
 build_style = "makefile"
 make_install_args = ["BINDIR=/usr/bin"]

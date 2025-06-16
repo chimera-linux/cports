@@ -225,8 +225,9 @@ def invoke(pkg):
         pkg.log_red("package marked empty but not actually empty")
         lintfail = True
 
-    # stuff in /etc that should go in /usr/lib
+    # stuff in /etc that should go in /usr or /usr/lib
     for d in [
+        "dinit.d",
         "kernel.d",
         "modprobe.d",
         "pam.d",
@@ -238,7 +239,11 @@ def invoke(pkg):
         if d == "modprobe.d" and pkg.pkgname == "kmod":
             continue
         if (pkg.destdir / "etc" / d).exists():
-            pkg.log_red(f"{d} should go in /usr/lib, not /etc")
+            if d == "dinit.d":
+                exp_dest = ""
+            else:
+                exp_dest = "/lib"
+            pkg.log_red(f"{d} should go in /usr{exp_dest}, not /etc")
             lintfail = True
 
     # stuff in /etc that should go in /usr/share

@@ -1,6 +1,6 @@
 pkgname = "turnstile"
 pkgver = "0.1.10"
-pkgrel = 4
+pkgrel = 6
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX libexec
@@ -30,5 +30,6 @@ def post_install(self):
     self.install_license("COPYING.md")
     self.install_tmpfiles(self.files_path / "tmpfiles.conf")
     # also default systemwide link
+    self.rename("etc/dinit.d", "usr/lib/dinit.d", relative=False)
     self.install_dir("usr/lib/dinit.d/boot.d")
     self.install_link("usr/lib/dinit.d/boot.d/turnstiled", "../turnstiled")

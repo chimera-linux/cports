@@ -1,6 +1,6 @@
 pkgname = "intel-undervolt"
 pkgver = "1.7"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 build_style = "makefile"
 hostmakedepends = ["pkgconf"]

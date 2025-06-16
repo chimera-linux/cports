@@ -1,6 +1,6 @@
 pkgname = "rpcbind"
 pkgver = "1.2.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-warmstarts",

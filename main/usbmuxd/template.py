@@ -1,6 +1,6 @@
 pkgname = "usbmuxd"
 pkgver = "1.1.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--without-systemd"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
