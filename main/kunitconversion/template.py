@@ -1,24 +1,18 @@
 pkgname = "kunitconversion"
-pkgver = "6.14.0"
+pkgver = "6.15.0"
 pkgrel = 0
 build_style = "cmake"
+# unpackaged pyside6
+configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
 # most tests require network access, pass in cbuild chroot
 make_check_args = ["-E", "(category|converter|currencytableinit)test"]
-hostmakedepends = [
-    "cmake",
-    "extra-cmake-modules",
-    "gettext",
-    "ninja",
-]
-makedepends = [
-    "ki18n-devel",
-    "qt6-qtbase-devel",
-]
+hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
+makedepends = ["ki18n-devel", "qt6-qttools-devel",]
 pkgdesc = "KDE Converting physical units"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kunitconversion/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kunitconversion-{pkgver}.tar.xz"
-sha256 = "d07d60ec2c5c21246f3aa9f89e01226e084c90fe99b62b08b651933c311cf08d"
+sha256 = "413b0254d51e357171d41f1cb16262be45775fb94a6ae5c26934fb5ff00d2af8"
 hardening = ["vis"]
 
 

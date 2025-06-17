@@ -1,14 +1,11 @@
 pkgname = "kcmutils"
-pkgver = "6.14.0"
+pkgver = "6.15.0"
 pkgrel = 0
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
-hostmakedepends = [
-    "cmake",
-    "extra-cmake-modules",
-    "gettext",
-    "ninja",
-]
+hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
 makedepends = [
     "kconfig-devel",
     "kconfigwidgets-devel",
@@ -18,12 +15,13 @@ makedepends = [
     "kxmlgui-devel",
     "plasma-activities-devel",
     "qt6-qtdeclarative-devel",
+    "qt6-qttools-devel",
 ]
 pkgdesc = "Utilities for KDE System Settings modules"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kcmutils/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcmutils-{pkgver}.tar.xz"
-sha256 = "2336f05ee46668de2be70c301660c9d3a881c40046ef90d1205e408260b46005"
+sha256 = "56e7a7648651ce9698ea7d1ff98b7fec6598111d37d2f28ae0d6547d3c98ff04"
 hardening = ["vis"]
 
 

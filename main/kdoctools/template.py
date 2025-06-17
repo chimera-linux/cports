@@ -1,5 +1,5 @@
 pkgname = "kdoctools"
-pkgver = "6.14.0"
+pkgver = "6.15.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,17 +16,14 @@ makedepends = [
     "karchive-devel",
     "ki18n-devel",
     "libxslt-devel",
-    "qt6-qtbase-devel",
+    "qt6-qttools-devel",
 ]
-depends = [
-    "docbook-xsl",
-    "libxml2-progs",
-]
+depends = ["docbook-xsl", "libxml2-progs"]
 pkgdesc = "KDE Documentation generation from docbook"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kdoctools/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kdoctools-{pkgver}.tar.xz"
-sha256 = "acb9c761e8e10c30f2c32061f64096965459a0513250edf4432f40831a0f536e"
+sha256 = "430be5905b0bf6dfb4b7e0e2c0aeb75986eef0a30f13320d9d4cab907fd6bef7"
 hardening = ["vis"]
 
 

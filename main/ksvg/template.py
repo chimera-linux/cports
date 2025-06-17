@@ -1,13 +1,9 @@
 pkgname = "ksvg"
-pkgver = "6.14.0"
+pkgver = "6.15.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
-hostmakedepends = [
-    "cmake",
-    "extra-cmake-modules",
-    "ninja",
-]
+hostmakedepends = ["cmake", "extra-cmake-modules", "ninja"]
 makedepends = [
     "karchive-devel",
     "kcolorscheme-devel",
@@ -17,6 +13,7 @@ makedepends = [
     "kirigami-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtsvg-devel",
+    "qt6-qttools-devel",
 ]
 pkgdesc = "KDE Components for handling SVGs"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
@@ -24,7 +21,7 @@ url = "https://invent.kde.org/frameworks/ksvg"
 source = (
     f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/ksvg-{pkgver}.tar.xz"
 )
-sha256 = "1456649ff2e1397e2a666ce24bbb6f074fda5cb96ada425d122bcc14744a5dce"
+sha256 = "955c5ceb28879d10106cb807f4f259810c705bbbbddaf170af0d563fbd580197"
 hardening = ["vis"]
 
 

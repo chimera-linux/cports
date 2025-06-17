@@ -1,5 +1,5 @@
 pkgname = "kcalendarcore"
-pkgver = "6.14.0"
+pkgver = "6.15.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -10,19 +10,13 @@ hostmakedepends = [
     "ninja",
     "pkgconf",
 ]
-makedepends = [
-    "libical-devel",
-    "qt6-qtdeclarative-devel",
-]
-checkdepends = [
-    "perl",
-    "xwayland-run",
-]
+makedepends = ["libical-devel", "qt6-qtdeclarative-devel", "qt6-qttools-devel"]
+checkdepends = ["perl", "xwayland-run"]
 pkgdesc = "KDE calendar access library"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/frameworks/kcalendarcore/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kcalendarcore-{pkgver}.tar.xz"
-sha256 = "702bfc2edfced4d0903365657434fd8c2dc0b8f66d0ce96e4ea0b6950ef8798b"
+sha256 = "131434f19c931742d84f07113fbb053ea1a3db610130253e2bb927e8eacd1d39"
 # a ton of failures due to different sort order and whatnot
 options = ["!check"]
 

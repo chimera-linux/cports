@@ -1,7 +1,9 @@
 pkgname = "kwidgetsaddons"
-pkgver = "6.14.0"
+pkgver = "6.15.0"
 pkgrel = 0
 build_style = "cmake"
+# unpackaged pyside6
+configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
 # kcolumnresizertest broken, tooltipwidget hangs indefinitely with QT_QPA_PLATFORM=offscreen
 # ktimecombobox: musl locale memes
 make_check_args = [
@@ -24,7 +26,7 @@ pkgdesc = "KDE addons to QtWidgets"
 license = "GPL-2.0-only AND LGPL-2.1-only AND Unicode-DFS-2016"
 url = "https://api.kde.org/frameworks/kwidgetsaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kwidgetsaddons-{pkgver}.tar.xz"
-sha256 = "602720bc3e86cba2384f0f45e16c8524a1974796a3d5b7c5c1ed90e768cf121f"
+sha256 = "23557e83da5d49bf1722aad07846015a1fcecc10a70342ac9cb54b7acff88435"
 hardening = ["vis"]
 # fails
 options = ["!cross"]

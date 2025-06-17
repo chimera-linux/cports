@@ -1,15 +1,12 @@
 pkgname = "kxmlgui"
-pkgver = "6.14.0"
-pkgrel = 1
+pkgver = "6.15.0"
+pkgrel = 0
 build_style = "cmake"
+# unpackaged pyside6
+configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
-hostmakedepends = [
-    "cmake",
-    "extra-cmake-modules",
-    "gettext",
-    "ninja",
-]
+hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
 makedepends = [
     "kconfig-devel",
     "kconfigwidgets-devel",
@@ -23,15 +20,12 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]
-checkdepends = [
-    "breeze-icons",
-    "dbus",
-]
+checkdepends = ["breeze-icons", "dbus"]
 pkgdesc = "KDE Framework for managing menu and toolbar actions"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kxmlgui/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kxmlgui-{pkgver}.tar.xz"
-sha256 = "5f9a35d168e5be85c43e566f87bf7108c18e3a19420e1d9379b493e28880914b"
+sha256 = "40ce8d472d171a819806af0d5a68c3f91d596b5ae8b4b29c46592a0978d7c305"
 hardening = ["vis"]
 
 
