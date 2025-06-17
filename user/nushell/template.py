@@ -2,6 +2,11 @@ pkgname = "nushell"
 pkgver = "0.105.1"
 pkgrel = 0
 build_style = "cargo"
+make_build_args = [
+    "--no-default-features",
+    "--features=plugin,trash-support,sqlite,native-tls",
+]
+make_install_args = [*make_build_args]
 make_check_args = [
     "--",
     "--skip=shell::environment::env::env_shlvl_in_exec_repl",
