@@ -1,5 +1,5 @@
 pkgname = "furnace"
-pkgver = "0.6.8.2"
+pkgver = "0.6.8.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -36,6 +36,6 @@ source = [
 ]
 source_paths = [".", "extern/adpcm"]
 sha256 = [
-    "e821cbdd3f0c7ca7cca99a80eb2c90e6732d7bba2410702caa4694bbde89eaa2",
+    "c54b93dc7211a8e86828ea6b436628920df7a7dc87b130b3752f2251f5466e9c",
     "46da29342d2968ff222ba00e07c646e038b76af2e6c86de037c653059a056251",
 ]
