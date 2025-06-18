@@ -1,5 +1,5 @@
 pkgname = "orca"
-pkgver = "48.1"
+pkgver = "48.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -32,4 +32,4 @@ pkgdesc = "GNOME screen reader"
 license = "LGPL-2.1-or-later"
 url = "https://orca.gnome.org"
 source = f"$(GNOME_SITE)/orca/{pkgver[:-2]}/orca-{pkgver}.tar.xz"
-sha256 = "66c6f09822149da243a4633a7d84a7b1dbaaf14534a9feb9df2bfe01a505178a"
+sha256 = "a083da57864b54ba2a3e5f481b540cfcbe618804a3643668277270e2635369fe"
