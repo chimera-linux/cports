@@ -1,5 +1,5 @@
 pkgname = "cpupower"
-pkgver = "6.14.8"
+pkgver = "6.15.2"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "cpupower"
@@ -33,7 +33,7 @@ pkgdesc = "Linux CPU power management tools"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[: pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"
-sha256 = "62b12ecd3075a357eb320935657de84e01552803717dad383fa7cc3aa4aa2905"
+sha256 = "3458cd6a6c508e161dbc5406e72b99d5dbdf929faf704a67db9ba46d07514858"
 # nope
 options = ["!check"]
 
