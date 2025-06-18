@@ -1,5 +1,5 @@
 pkgname = "libvirt"
-pkgver = "11.3.0"
+pkgver = "11.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -37,13 +37,10 @@ configure_args = [
 hostmakedepends = [
     "gettext",
     "libxml2-progs",
-    "lvm2",  # buildtime check
     "meson",
     "perl",
     "pkgconf",
     "python-docutils",
-    "util-linux-mkfs",  # buildtime check
-    "util-linux-mount",  # buildtime check
     "libxslt-progs",
 ]
 makedepends = [
@@ -84,7 +81,7 @@ pkgdesc = "API, daemon, and management tool for virtualization"
 license = "LGPL-2.1-only"
 url = "https://libvirt.org"
 source = f"https://download.libvirt.org/libvirt-{pkgver}.tar.xz"
-sha256 = "6bcb0c42c4580436fea262ced56f68a6afe20f7390b1bea2116718cc034a0283"
+sha256 = "e10059efc655532b0cfe44d961c87c5a56e45393cc7bd343bd3348b40d73b267"
 
 if self.profile().wordsize != 32:
     depends += ["virtiofsd-meta"]
@@ -92,8 +89,8 @@ if self.profile().wordsize != 32:
 
 def post_install(self):
     self.uninstall("usr/lib/sysusers.d")
-    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
-    self.install_sysusers(self.files_path / "sysusers.conf")
+    self.install_tmpfiles("^/tmpfiles.conf")
+    self.install_sysusers("^/sysusers.conf")
 
     for service in [
         "ch",
@@ -110,7 +107,7 @@ def post_install(self):
         "storage",
         "vbox",
     ]:
-        self.install_service(self.files_path / f"virt{service}d")
+        self.install_service(f"^/virt{service}d")
 
 
 @subpackage("libvirt-devel")
