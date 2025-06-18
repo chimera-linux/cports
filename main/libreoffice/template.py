@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "25.2.4.2"
+pkgver = "25.2.4.3"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -204,10 +204,10 @@ source = [
     f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "d1064417ab7716cc32e831c08ab1cee23346b6ffe045c711ef17afad931cdfee",
-    "6e920f030c3025d9aeab5f5e791abf3096d579468333984d769e67680295cc95",
-    "7190590e25ee62855cfc5d2678c6592a751716dc20f09fb767cb52697d8d3fdb",
-    "64c797f50756306538c8fb267c8f00fe8dfc934e71c7b71e6e6ea04cf95b7c70",
+    "01e1985f66c60da0e5cd9d1bb3773b7b46e9a920e318f35c6702d28e78e1c14f",
+    "7e4ca2a62c9dbe4f32ce70064b65073effcdd54f7f296da61ea71d012c787699",
+    "5f3bbca9fc96284b6ee78a31f9719c6b9930dd884ec5394b71af9e99b05e0bea",
+    "ecbce6336e596f26f9645672075efde19547648a622f215587dc615b6a20616c",
     "42fce6baf1bf789b62bf938b8e8ec18a1ac92c989dd6e7221e9531454cbd97fa",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -254,8 +254,8 @@ def post_extract(self):
         self.cp(self.sources_path / s[s.rfind("/") + 1 :], self.cwd)
 
     # copy over patches
-    self.cp(self.files_path / "ppc-skia-musttail.patch.1", "external/skia")
-    self.cp(self.files_path / "libcmis-libxml2.patch.1", "external/libcmis")
+    self.cp("^/ppc-skia-musttail.patch.1", "external/skia")
+    self.cp("^/libcmis-libxml2.patch.1", "external/libcmis")
 
 
 def init_configure(self):
