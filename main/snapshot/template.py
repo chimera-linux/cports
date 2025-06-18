@@ -1,6 +1,6 @@
 pkgname = "snapshot"
 pkgver = "48.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 make_check_args = ["--timeout-multiplier=5"]
 hostmakedepends = [
@@ -23,6 +23,8 @@ makedepends = [
 ]
 depends = [
     "glycin-loaders",
+    "gst-plugins-bad",
+    "gst-plugins-good",
     "gst-plugins-rs-gtk4",
     "libcamera-gstreamer",
     "pipewire-gstreamer",
