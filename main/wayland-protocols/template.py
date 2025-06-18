@@ -1,5 +1,5 @@
 pkgname = "wayland-protocols"
-pkgver = "1.44"
+pkgver = "1.45"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
@@ -8,7 +8,7 @@ pkgdesc = "Wayland compositor protocols"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/wayland/wayland-protocols/-/archive/{pkgver}/wayland-protocols-{pkgver}.tar.gz"
-sha256 = "a8670a81a92a7108deff767a7b725afaa819b6c5a8b857cba41eac6acba783eb"
+sha256 = "460dad72a6c84b2a7d80745bee43d96ba117f4e3dfc4d7c45f83f66469ea27df"
 # check conditional
 options = []
 
