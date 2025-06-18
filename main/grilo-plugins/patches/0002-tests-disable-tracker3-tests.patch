@@ -12,12 +12,12 @@ diff --git a/tests/meson.build b/tests/meson.build
 index 7ba2236b..97b66e33 100644
 --- a/tests/meson.build
 +++ b/tests/meson.build
-@@ -38,7 +38,3 @@ endif
+@@ -38,7 +38,3 @@
  if local_metadata_enabled and lua_factory_enabled
      subdir('local-metadata')
  endif
 -
--if get_option('enable-tracker3') != 'no' and tracker3_dep.found() and tracker3_testutils_dep.found()
+-if get_option('enable-tracker3') != 'no' and tracker3_dep.found()
 -    subdir('tracker3')
 -endif
 -- 
