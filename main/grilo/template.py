@@ -1,5 +1,5 @@
 pkgname = "grilo"
-pkgver = "0.3.16"
+pkgver = "0.3.19"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -28,7 +28,7 @@ pkgdesc = "Framework for media discovery"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Grilo"
 source = f"$(GNOME_SITE)/grilo/{pkgver[:-3]}/grilo-{pkgver}.tar.xz"
-sha256 = "884580e8c5ece280df23aa63ff5234b7d48988a404df7d6bfccd1e77b473bd96"
+sha256 = "0869c81d19ab139c667d79567c14ddcb6cb5cbfc0108d04cade287eb29536706"
 
 
 @subpackage("grilo-devel")
