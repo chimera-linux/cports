@@ -1,17 +1,15 @@
 pkgname = "yelp"
-pkgver = "42.2"
-pkgrel = 4
-build_style = "gnu_configure"
-configure_args = [
-    "--disable-schemas-compile",
-    "--disable-static",
-]
-configure_gen = []
+pkgver = "42.3"
+pkgrel = 0
+build_style = "meson"
+configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = [
-    "glib-devel",
-    "pkgconf",
+    "bash",
     "gettext",
+    "glib-devel",
     "itstool",
+    "meson",
+    "pkgconf",
 ]
 makedepends = [
     "glib-devel",
@@ -28,7 +26,7 @@ pkgdesc = "Help browser for GNOME desktop"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Yelp"
 source = f"$(GNOME_SITE)/yelp/{pkgver[:-2]}/yelp-{pkgver}.tar.xz"
-sha256 = "a2c5fd0787a9089c722cc66bd0f85cdf7088d870e7b6cc85799f8e5bff9eac4b"
+sha256 = "26ccc422679a9e6a7a3aa083d90fcdb347f5f2300be3e01431a30d0cdd2a89a3"
 
 
 @subpackage("yelp-devel")
