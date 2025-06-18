@@ -1,5 +1,5 @@
 diff --git a/run-tests b/run-tests
-index 0601b564..74c374b9 100755
+index ab8a516d..f02d5de5 100755
 --- a/run-tests
 +++ b/run-tests
 @@ -5,10 +5,6 @@ for f in bin/*; do
@@ -10,11 +10,11 @@ index 0601b564..74c374b9 100755
 -if [ -r /proc/cpuinfo ]; then
 -	NPROCS=$(grep ^proc /proc/cpuinfo|wc -l)
 -fi
+ export XBPS_SYSLOG=false
  LIBRARY_PATH=$PWD/lib LD_LIBRARY_PATH=$PWD/lib ATF_SHELL=/bin/sh kyua --variable parallelism=$NPROCS test -r result.db -k tests/xbps/Kyuafile
  rv=$?
- kyua report --verbose -r result.db
 diff --git a/tests/xbps/libxbps/shell/conf_files_test.sh b/tests/xbps/libxbps/shell/conf_files_test.sh
-index 8f10a86a..fc8961e6 100644
+index 1aef7ce8..c7727ef2 100644
 --- a/tests/xbps/libxbps/shell/conf_files_test.sh
 +++ b/tests/xbps/libxbps/shell/conf_files_test.sh
 @@ -21,7 +21,7 @@ tc1_body() {
@@ -307,7 +307,7 @@ index 28a8a35d..c8538ad4 100644
  }
  
 diff --git a/tests/xbps/libxbps/shell/replace_test.sh b/tests/xbps/libxbps/shell/replace_test.sh
-index e442da16..eda8e244 100644
+index daa1af22..8431131b 100644
 --- a/tests/xbps/libxbps/shell/replace_test.sh
 +++ b/tests/xbps/libxbps/shell/replace_test.sh
 @@ -32,7 +32,7 @@ replace_dups_body() {
@@ -408,7 +408,7 @@ index 084069f0..26748083 100644
  	atf_check_equal $link gtar
  }
 diff --git a/tests/xbps/xbps-checkvers/checkvers_test.sh b/tests/xbps/xbps-checkvers/checkvers_test.sh
-index 27c36395..22162c91 100755
+index 25fa940d..3a69681c 100755
 --- a/tests/xbps/xbps-checkvers/checkvers_test.sh
 +++ b/tests/xbps/xbps-checkvers/checkvers_test.sh
 @@ -519,7 +519,7 @@ EOF
@@ -476,7 +476,7 @@ index 9ff6c7f3..dfa2dc74 100644
  }
  
 diff --git a/tests/xbps/xbps-rindex/clean_test.sh b/tests/xbps/xbps-rindex/clean_test.sh
-index e7cb0253..43e499c0 100644
+index 6c5ca636..aaff5bb8 100644
 --- a/tests/xbps/xbps-rindex/clean_test.sh
 +++ b/tests/xbps/xbps-rindex/clean_test.sh
 @@ -18,7 +18,7 @@ noremove_body() {

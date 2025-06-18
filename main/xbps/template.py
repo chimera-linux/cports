@@ -1,6 +1,6 @@
 pkgname = "xbps"
-pkgver = "0.59.2"
-pkgrel = 2
+pkgver = "0.60.3"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -15,7 +15,7 @@ pkgdesc = "XBPS package manager"
 license = "BSD-2-Clause AND BSD-3-Clause AND MIT"
 url = "https://github.com/void-linux/xbps"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "a6607e83fcd654a0ae846d729e43fefd8da9a61323e91430f884caf895b4f59b"
+sha256 = "01ba4b7faad994560c6be5aeb50e39b6950e1d304e2d91c2668f0a9406d6af68"
 # one bashcomp for all
 options = ["!lintcomp"]
 
@@ -25,11 +25,9 @@ def init_check(self):
 
 
 def post_install(self):
-    self.install_license("LICENSE")
-    self.install_license("LICENSE.3RDPARTY")
     # lol kyua
     self.uninstall("usr/tests")
-    # this xpbs is only for xbps-src and bootstrapping
+    # this xbps is only for xbps-src and bootstrapping
     self.uninstall("usr/share/xbps.d")
     self.uninstall("var/db/xbps")
 
