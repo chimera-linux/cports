@@ -1,5 +1,5 @@
 pkgname = "iproute2"
-pkgver = "6.14.0"
+pkgver = "6.15.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--color", "auto"]
@@ -23,7 +23,7 @@ pkgdesc = "IP routing utilities"
 license = "GPL-2.0-only"
 url = "https://wiki.linuxfoundation.org/networking/iproute2"
 source = f"$(KERNEL_SITE)/utils/net/iproute2/iproute2-{pkgver}.tar.xz"
-sha256 = "a6d23588150096591c3d00fc27a324a82ee71d7a1a9eea78df5df17ad9b8461f"
+sha256 = "8041854a882583ad5263466736c9c8c68c74b1a35754ab770d23343f947528fb"
 # causes some part of the build to silently break which drops support for various features
 hardening = ["!vis"]
 
