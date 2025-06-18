@@ -1,9 +1,8 @@
 pkgname = "hidapi"
-pkgver = "0.14.0"
+pkgver = "0.15.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DBUILD_SHARED_LIBS=ON",
 ]
 hostmakedepends = [
@@ -20,7 +19,7 @@ pkgdesc = "Cross-platform library for communicating with HID devices"
 license = "BSD-3-Clause OR custom:hidapi OR GPL-3.0-only"
 url = "https://github.com/libusb/hidapi"
 source = f"{url}/archive/refs/tags/hidapi-{pkgver}.tar.gz"
-sha256 = "a5714234abe6e1f53647dd8cba7d69f65f71c558b7896ed218864ffcf405bcbd"
+sha256 = "5d84dec684c27b97b921d2f3b73218cb773cf4ea915caee317ac8fc73cef8136"
 
 
 def post_install(self):
