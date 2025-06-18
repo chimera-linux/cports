@@ -1,5 +1,5 @@
 pkgname = "capnproto"
-pkgver = "1.1.0"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -14,7 +14,7 @@ pkgdesc = "Cap'n Proto serialization/RPC system"
 license = "MIT"
 url = "https://capnproto.org"
 source = f"{url}/capnproto-c++-{pkgver}.tar.gz"
-sha256 = "07167580e563f5e821e3b2af1c238c16ec7181612650c5901330fa9a0da50939"
+sha256 = "ed00e44ecbbda5186bc78a41ba64a8dc4a861b5f8d4e822959b0144ae6fd42ef"
 
 
 if self.profile().cross:
