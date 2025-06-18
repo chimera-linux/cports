@@ -1,5 +1,5 @@
 pkgname = "libcamera"
-pkgver = "0.5.0"
+pkgver = "0.5.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtest=true"]
@@ -24,7 +24,7 @@ pkgdesc = "Open source camera stack and framework"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://libcamera.org"
 source = f"https://github.com/libcamera-org/libcamera/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "3651c1fc68f365e775ab270016d25d74426976362bd2c8ae708af71f78ca1027"
+sha256 = "fea84c1b42e2e94604a530b173b7962427ff045508e0f43fd58b1581df953f26"
 nostrip_files = ["usr/lib/libcamera/ipa*.so"]
 
 
@@ -47,8 +47,7 @@ def post_install(self):
 def _(self):
     self.subdesc = "GStreamer support"
     self.install_if = [self.parent, "gstreamer"]
-    # transitional
-    self.provides = [self.with_pkgver("gstreamer-libcamera")]
+    self.renames = ["gstreamer-libcamera"]
     return ["usr/lib/gstreamer-1.0"]
 
 
