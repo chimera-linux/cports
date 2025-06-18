@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 13
+pkgrel = 14
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -21,7 +21,6 @@ for _pkg in [
     "fstrim",
     "fuse2fs",
     "gmpxx",
-    "gstreamer-libcamera",
     "irqtop",
     "libasn1",
     "libblkid",
