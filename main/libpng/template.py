@@ -2,6 +2,10 @@ pkgname = "libpng"
 pkgver = "1.6.49"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_args = [
+    # TODO: breaks riscv64 build
+    "--disable-riscv-rvv",
+]
 hostmakedepends = ["automake", "pkgconf", "libtool"]
 makedepends = ["zlib-ng-compat-devel"]
 pkgdesc = "Library for manipulating PNG images"
