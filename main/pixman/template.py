@@ -1,5 +1,5 @@
 pkgname = "pixman"
-pkgver = "0.46.0"
+pkgver = "0.46.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -15,7 +15,7 @@ pkgdesc = "Library of low-level pixel manipulation routines"
 license = "MIT"
 url = "https://pixman.org"
 source = f"https://www.cairographics.org/releases/pixman-{pkgver}.tar.gz"
-sha256 = "02d9ff7b8458ef61731c3d355f854bbf461fd0a4d3563c51f1c1c7b00638050d"
+sha256 = "3e0de5ba6e356916946a3d958192f15505dcab85134771bfeab4ce4e29bbd733"
 # needs a lot larger stack than musl default
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
 # FIXME int (test fails)
