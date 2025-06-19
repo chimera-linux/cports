@@ -1,5 +1,5 @@
 pkgname = "maven"
-pkgver = "3.9.9"
+pkgver = "3.9.10"
 pkgrel = 0
 hostmakedepends = ["openjdk21"]
 depends = ["virtual:java-jre!openjdk21-jre"]
@@ -15,8 +15,8 @@ source_paths = [
     "bootstrap",
 ]
 sha256 = [
-    "8a24c448d4ac397e6b0c019a4d7250068c02d1cdb553299e6bb71c3ccca78b2c",
-    "7a9cdf674fc1703d6382f5f330b3d110ea1b512b51f1652846d9e4e8a588d766",
+    "6617e95a1907e7e560ea7cb8e31e3d0c074a13165ba737458b150f22fd8c2c2a",
+    "e036059b0ac63cdcc934afffaa125c9bf3f4a4cd2d2b9995e1aee92190a0979c",
 ]
 
 
