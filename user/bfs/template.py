@@ -1,5 +1,5 @@
 pkgname = "bfs"
-pkgver = "4.0.6"
+pkgver = "4.0.7"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -18,5 +18,5 @@ pkgdesc = "Breadth-first version of the UNIX find command"
 license = "0BSD"
 url = "https://github.com/tavianator/bfs"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "446a0a1a5bcbf8d026aab2b0f70f3d99c08e5fe18d3c564a8b7d9acde0792112"
+sha256 = "37b11768b9b9bb50c7016d261317a4cd1ce047751681cfad528ccd700a65cd9e"
 hardening = ["cfi", "vis"]
