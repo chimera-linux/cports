@@ -1,0 +1,15 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 62243360..6317faa2 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -58,9 +58,8 @@ envlist = ["py", "flake8", "isort", "mypy"]
+ extras = ["test"]
+ deps = [
+     "pytest",
+-    "pytest-cov"
+ ]
+-commands = [["pytest", "-r", "s", "--cov", "--cov-report=term", "--cov-report=xml", "."]]
++commands = [["pytest", "-r", "s", "."]]
+ 
+ [tool.tox.env.flake8]
+ deps = ["flake8==7.1.0"]
