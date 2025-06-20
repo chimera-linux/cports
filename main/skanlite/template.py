@@ -2,7 +2,6 @@ pkgname = "skanlite"
 pkgver = "25.04.2"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DQT_MAJOR_VERSION=6"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",

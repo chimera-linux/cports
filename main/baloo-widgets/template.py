@@ -2,9 +2,8 @@ pkgname = "baloo-widgets"
 pkgver = "25.04.2"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DQT_MAJOR_VERSION=6"]
-# FIXME: 'not connected to dbus server'
-make_check_args = ["-E", "filemetadataitemcounttest"]
+# flaky filemetadataitemcounttest when parallel
+make_check_args = ["-j1"]
 make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",

@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DQUAZIP_ENABLE_TESTS=ON",
-    "-DQUAZIP_QT_MAJOR_VERSION=6",
 ]
 hostmakedepends = [
     "cmake",
