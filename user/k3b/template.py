@@ -1,7 +1,9 @@
 pkgname = "k3b"
 pkgver = "25.04.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -57,3 +59,8 @@ sha256 = "afa7d50e85cad7998dfc74bf48c88f17be2449d07f8004cd7db49fa0b546ffc2"
 
 if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
     makedepends += ["qt6-qtwebengine-devel"]
+
+
+@subpackage("k3b-devel")
+def _(self):
+    return self.default_devel()
