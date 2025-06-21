@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-scikit_build_core",
 ]
 depends = ["python"]
-checkdepends = ["cmake", "python-devel", "python-pytest"]
+checkdepends = ["cmake", "python-devel", "python-pytest", "python-tests"]
 pkgdesc = "C++/Python bindings generator"
 license = "BSD-3-Clause"
 url = "https://github.com/wjakob/nanobind"

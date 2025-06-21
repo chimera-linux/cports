@@ -1,0 +1,22 @@
+From 64726a514872736e245b2fa00dcec53ec1e94b3a Mon Sep 17 00:00:00 2001
+From: Wenzel Jakob <wenzel.jakob@epfl.ch>
+Date: Thu, 5 Jun 2025 09:51:00 +0900
+Subject: [PATCH] fix test suite on recent Python versions
+
+---
+ tests/test_chrono.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/test_chrono.py b/tests/test_chrono.py
+index 37155f0d..fac98e48 100644
+--- a/tests/test_chrono.py
++++ b/tests/test_chrono.py
+@@ -331,7 +331,7 @@ def second(self):
+             # attribute accesses.
+             pass
+         else:
+-            from _pytest.unraisableexception import catch_unraisable_exception
++            from test.support import catch_unraisable_exception
+ 
+             with catch_unraisable_exception() as cm:
+                 with pytest.raises(TypeError, match="incompatible function arguments"):
