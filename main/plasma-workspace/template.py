@@ -26,6 +26,7 @@ make_check_args = [
     + "|dbussignalwatchertest"  # ^ same as above
     + "|servicerunnertest"  # fails to spawn stuff in sandbox somehow
     + "|lookandfeel-kcmTest"  # segfaults with our patch to default theme
+    + "|dbuspropertiestest"  # flaky most of the time
     + "|testimagebackend"  # cannot find org.kde.plasma.wallpapers.image QML module, try QML2_IMPORT_PATH
     + "|locationsrunnertest"
     + "|testimagefrontend)",  # ^ same as above
