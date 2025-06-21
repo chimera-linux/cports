@@ -1,14 +1,13 @@
 pkgname = "kio-extras"
 pkgver = "25.04.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 # thumbnail: fails for some reason
 # testkioarchive: fails to open tar, support seems to not be detected
 make_check_args = ["-E", "(thumbnailtest|testkioarchive)"]
-make_check_wrapper = [
-    "wlheadless-run",
-    "--",
-]
+make_check_wrapper = ["wlheadless-run", "--"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",

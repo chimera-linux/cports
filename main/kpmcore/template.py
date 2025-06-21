@@ -1,7 +1,9 @@
 pkgname = "kpmcore"
 pkgver = "25.04.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
+# XXX drop libexec
+configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -16,10 +18,7 @@ makedepends = [
     "polkit-qt-1-devel",
     "qt6-qtdeclarative-devel",
 ]
-depends = [
-    "smartmontools",
-    "util-linux-fdisk",
-]
+depends = ["smartmontools", "util-linux-fdisk"]
 pkgdesc = "KDE library for partition management"
 license = "GPL-3.0-or-later"
 url = "https://apps.kde.org/kate"

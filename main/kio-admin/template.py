@@ -1,8 +1,9 @@
 pkgname = "kio-admin"
 pkgver = "25.04.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = ["-DQT_MAJOR_VERSION=6"]
+# XXX drop libexec
+configure_args = ["-DQT_MAJOR_VERSION=6", "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",

@@ -1,8 +1,12 @@
 pkgname = "kalarm"
 pkgver = "25.04.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = ["-DENABLE_LIBMPV=ON", "-DENABLE_LIBVLC=OFF"]
+configure_args = [
+    "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib",  # XXX drop libexec
+    "-DENABLE_LIBMPV=ON",
+    "-DENABLE_LIBVLC=OFF",
+]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
