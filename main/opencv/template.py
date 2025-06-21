@@ -1,6 +1,6 @@
 pkgname = "opencv"
 pkgver = "4.11.0"
-pkgrel = 8
+pkgrel = 9
 build_style = "cmake"
 configure_args = [
     # rm NDEBUG
@@ -46,7 +46,6 @@ hostmakedepends = [
     "pkgconf",
     "protobuf-protoc",
     "python-devel",
-    "python-numpy",
 ]
 makedepends = [
     "eigen",
@@ -70,6 +69,7 @@ makedepends = [
     "openexr-devel",
     "openjpeg-devel",
     "protobuf-devel",
+    "python-numpy-devel",
     # "qt6-qt5compat-devel",
     # "qt6-qtbase-devel",
     "vulkan-headers",
