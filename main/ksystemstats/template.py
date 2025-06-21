@@ -6,6 +6,8 @@ build_style = "cmake"
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
+# appended to below
+make_check_args = []
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -49,6 +51,13 @@ file_xattrs = {
     },
 }
 hardening = ["vis"]
+
+
+if self.profile().arch == "ppc64le":
+    make_check_args += [
+        "-E",
+        "TestLinuxCpu",  # "Subprocess aborted"?
+    ]
 
 
 def post_install(self):
