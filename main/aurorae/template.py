@@ -1,6 +1,6 @@
 pkgname = "aurorae"
 pkgver = "6.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -18,6 +18,8 @@ makedepends = [
     "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
 ]
+# was previously in kwin
+replaces = ["kwin<6.4.0"]
 pkgdesc = "Themeable window decoration for KWin"
 license = "GPL-2.0-or-later"
 url = "https://develop.kde.org/docs/plasma/aurorae"
