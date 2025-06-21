@@ -7,7 +7,7 @@ configure_args = ["-DBUILD_PYTHON_BINDINGS=OFF"]
 # most tests require network access, pass in cbuild chroot
 make_check_args = ["-E", "(category|converter|currencytableinit)test"]
 hostmakedepends = ["cmake", "extra-cmake-modules", "gettext", "ninja"]
-makedepends = ["ki18n-devel", "qt6-qttools-devel",]
+makedepends = ["ki18n-devel", "qt6-qttools-devel"]
 pkgdesc = "KDE Converting physical units"
 license = "LGPL-2.1-or-later"
 url = "https://api.kde.org/frameworks/kunitconversion/html"
