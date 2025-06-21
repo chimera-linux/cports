@@ -1,8 +1,9 @@
 pkgname = "kio-fuse"
 pkgver = "5.1.0"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
-configure_args = ["-DBUILD_WITH_QT6=ON"]
+# XXX drop libexec
+configure_args = ["-DBUILD_WITH_QT6=ON", "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
