@@ -38,6 +38,11 @@ source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-welcome-{pkgver}.tar.xz"
 sha256 = "2f0d3c3489903a86586b83ad6fb52bc152e1b459e4abec82ff022b51b8d2b436"
 
 
+@subpackage("plasma-welcome-devel-static")
+def _(self):
+    return ["usr/lib/*.a"]
+
+
 @subpackage("plasma-welcome-devel")
 def _(self):
     # pull in static-only public plugin lib .a
