@@ -155,13 +155,13 @@ def configure(self):
             f.write(
                 """
 #[link(name = "ffi")]
-extern {}
+unsafe extern "C" {}
 #[link(name = "z")]
-extern {}
+unsafe extern "C" {}
 #[link(name = "zstd")]
-extern {}
+unsafe extern "C" {}
 #[link(name = "ncursesw")]
-extern {}
+unsafe extern "C" {}
 """
             )
 
