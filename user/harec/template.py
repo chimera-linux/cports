@@ -1,10 +1,12 @@
 pkgname = "harec"
-pkgver = "0.24.2"
-pkgrel = 1
+pkgver = "0.25.2"
+pkgrel = 0
 archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "makefile"
-make_env = {"VERSION": pkgver, "LOCALVER": "chimera"}
-make_build_args = [f"ARCH={self.profile().arch}"]
+make_build_args = [
+    f"ARCH={self.profile().arch}",
+    f"VERSION={pkgver}-chimera",
+]
 make_check_args = [*make_build_args]
 depends = ["qbe"]
 checkdepends = ["binutils", *depends]
@@ -12,7 +14,7 @@ pkgdesc = "Hare compiler"
 license = "GPL-3.0-only"
 url = "https://git.sr.ht/~sircmpwn/harec"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "88b3961b236fbfe3a0dfb46bb954741fa5c031bbda6d07fbc238c98f0abb41a2"
+sha256 = "e2038a6feeadcd6d4dfd7d7ab000bec91f32617720632829f5658916cd3cb17a"
 tool_flags = {
     # Taken from configs/linux.mk
     "CFLAGS": ["-std=c11", "-D_XOPEN_SOURCE=700", "-Iinclude"],
