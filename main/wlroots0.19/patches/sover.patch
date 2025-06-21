@@ -1,0 +1,22 @@
+diff --git a/meson.build b/meson.build
+index 016e5984..5b426190 100644
+--- a/meson.build
++++ b/meson.build
+@@ -145,16 +145,17 @@ subdir('xwayland')
+ subdir('include')
+ 
+ wlr_inc = include_directories('include')
+ 
+ symbols_file = 'wlroots.syms'
+ symbols_flag = '-Wl,--version-script,@0@/@1@'.format(meson.current_source_dir(), symbols_file)
+ lib_wlr = library(
+ 	versioned_name, wlr_files,
++	soversion: 0,
+ 	dependencies: wlr_deps,
+ 	include_directories: [wlr_inc],
+ 	install: true,
+ 	link_args: symbols_flag,
+ 	link_depends: symbols_file,
+ )
+ 
+ wlr_vars = {}
