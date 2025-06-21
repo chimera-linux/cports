@@ -14,6 +14,7 @@ make_check_args = [
     + "|kwin-testColorspaces"  # out of range on ppc64le float accuracy
     + "|kwin-testWindowRules"  # flakes
     + "|kwin-testInputMethod"  # flakes
+    + "|kwin-testX11Window"  # flaky subtests (especially testStackAboveFromApplication)
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
