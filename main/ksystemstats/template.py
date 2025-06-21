@@ -4,10 +4,10 @@ pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
-make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
-make_check_wrapper = ["dbus-run-session"]
 # appended to below
 make_check_args = []
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
+make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
