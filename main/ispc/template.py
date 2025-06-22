@@ -1,6 +1,6 @@
 pkgname = "ispc"
-pkgver = "1.26.0"
-pkgrel = 1
+pkgver = "1.27.0"
+pkgrel = 0
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
@@ -17,12 +17,18 @@ makedepends = [
     "llvm-devel",
     "ncurses-devel",
     "onetbb-devel",
+    "python-devel",
+    "python-nanobind-devel",
 ]
 pkgdesc = "Implicit SPMD program compiler"
 license = "BSD-3-Clause"
 url = "https://ispc.github.io"
 source = f"https://github.com/ispc/ispc/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f75b26894af1429a3dc6929ae03e2c9e99bb8c5930eda14add5d2f6674db7afb"
+sha256 = "c41ae29e4f6b1d37154610e68e9b7a0eb225cd7c080242ab56fa0119e49dbd7a"
+tool_flags = {
+    # `warning: '_FORTIFY_SOURCE' macro redefined` noise
+    "CXXFLAGS": ["-Wno-macro-redefined"],
+}
 
 
 def post_install(self):
