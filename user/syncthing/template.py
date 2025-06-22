@@ -23,6 +23,12 @@ source = f"https://github.com/syncthing/syncthing/archive/v{pkgver}.tar.gz"
 sha256 = "0e2f2574334fc65220977156caffc521314298c43b361a669ea3ea0507267652"
 
 
+if self.profile().wordsize == 32:
+    # 32-bit targets OOM in tests, maintainer recommends using -short to skip
+    # those kinds of tests: https://github.com/syncthing/syncthing/issues/6209#issuecomment-561272903
+    make_check_args += ["-short"]
+
+
 def pre_build(self):
     self.do("go", "generate", "github.com/syncthing/syncthing/lib/api/auto")
 
