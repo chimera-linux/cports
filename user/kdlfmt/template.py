@@ -1,5 +1,5 @@
 pkgname = "kdlfmt"
-pkgver = "0.1.0"
+pkgver = "0.1.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Formatter for KDL documents"
 license = "MIT"
 url = "https://github.com/hougesen/kdlfmt"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "1eecb815877ca1aa1006a8b07becb8ed40843e40f680323a7df111b2ad13e080"
+sha256 = "f9c2acccd781249153715f4951ba8e64abe01423c077898ff2a1ef9436df51e2"
 # generates completions with host binary
 options = ["!cross"]
 
