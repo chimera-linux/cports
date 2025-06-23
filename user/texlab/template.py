@@ -1,5 +1,5 @@
 pkgname = "texlab"
-pkgver = "5.22.1"
+pkgver = "5.23.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "LaTeX LSP server"
 license = "GPL-3.0-or-later"
 url = "https://github.com/latex-lsp/texlab"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "dd7602c069e8411c1a744d5b25f80686339ef18e6f12c1bc971f27912e3e9714"
+sha256 = "f14a3e100706cc217a6720057dea2e30b7c7a3a7297e6d28ea741a533500a1cf"
 
 
 def install(self):
