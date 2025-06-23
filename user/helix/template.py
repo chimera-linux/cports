@@ -1,6 +1,6 @@
 pkgname = "helix"
 pkgver = "25.01.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "git"]
 makedepends = ["rust-std"]
@@ -13,6 +13,12 @@ env = {"HELIX_DEFAULT_RUNTIME": "/usr/lib/helix/runtime"}
 
 if self.profile().wordsize == 32:
     broken = "needs atomic64"
+
+
+def post_prepare(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(self, "cc")
 
 
 def install(self):
