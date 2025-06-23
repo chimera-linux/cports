@@ -1,5 +1,5 @@
 pkgname = "git-cliff"
-pkgver = "2.8.0"
+pkgver = "2.9.1"
 pkgrel = 0
 build_style = "cargo"
 make_check_args = [
@@ -22,7 +22,7 @@ pkgdesc = "Changelog generator for conventional commits"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/orhun/git-cliff"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "dfcf7b7d903c6479e58c8e7594364d67ce59e3e50351b3277eb33482a783418d"
+sha256 = "dd5a707fba4549ab4ea5e9e95ea7ed302852eb1916b93a1a369019f005ad4cc4"
 # generates manpages/completions with host bins
 options = ["!cross"]
 
