@@ -1,0 +1,8 @@
+type = process
+command = /usr/bin/woodpecker-agent
+run-as = _woodpecker
+env-file = /etc/default/woodpecker-agent
+working-dir = /var/lib/woodpecker
+logfile = /var/log/woodpecker/agent.log
+depends-on: network.target
+depends-on: local.target
