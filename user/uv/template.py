@@ -1,5 +1,5 @@
 pkgname = "uv"
-pkgver = "0.7.13"
+pkgver = "0.7.14"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Python package installer"
 license = "Apache-2.0 OR MIT"
 url = "https://github.com/astral-sh/uv"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0bad8f89f2ee0a741a8c21095e17e9fa090fb1124748e4bc12407417b5bfadd2"
+sha256 = "2da4a90351eff695e5d2cb9b5d5e95edb85abe3c271162042d9e3be673a48e73"
 # too many of them need net
 # completions with host bin
 options = ["!check", "!cross"]
