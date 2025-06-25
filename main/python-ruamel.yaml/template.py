@@ -1,5 +1,5 @@
 pkgname = "python-ruamel.yaml"
-pkgver = "0.18.11"
+pkgver = "0.18.14"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "YAML parser/emitter for Python"
 license = "MIT"
 url = "https://sourceforge.net/projects/ruamel-yaml"
 source = f"$(PYPI_SITE)/r/ruamel.yaml/ruamel.yaml-{pkgver}.tar.gz"
-sha256 = "b586a3416676566ed45bf679a0909719f7ea7b58c03a9b6e03f905a1e2cd5076"
+sha256 = "7227b76aaec364df15936730efbf7d72b30c0b79b1d578bbb8e3dcb2d81f52b7"
 # no tests on pypi
 options = ["!check"]
 
