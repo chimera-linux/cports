@@ -1,6 +1,6 @@
 pkgname = "libblockdev"
-pkgver = "3.3.0"
-pkgrel = 1
+pkgver = "3.3.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     # TODO: volume_key
@@ -29,7 +29,7 @@ pkgdesc = "Library for manipulating block devices"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libblockdev"
 source = f"{url}/releases/download/{pkgver}/libblockdev-{pkgver}.tar.gz"
-sha256 = "c4738e1abedefffe886521f9f0e7a9306c6f50f7691d88e011438c88608bdfa7"
+sha256 = "a2e2e448a19d420480b8cce5e0752197482a65cb62a9ed55d88b237da36600d1"
 
 tool_flags = {
     "CFLAGS": ["-Wno-error=typedef-redefinition", "-Wno-error=unused-variable"]
