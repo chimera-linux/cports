@@ -1,5 +1,5 @@
 pkgname = "xkeyboard-config"
-pkgver = "2.44"
+pkgver = "2.45"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dxorg-rules-symlinks=true", "-Dcompat-rules=true"]
@@ -11,7 +11,7 @@ pkgdesc = "X Keyboard Configuration Database"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/XKeyboardConfig"
 source = f"$(XORG_SITE)/data/xkeyboard-config/xkeyboard-config-{pkgver}.tar.xz"
-sha256 = "54d2c33eeebb031d48fa590c543e54c9bcbd0f00386ebc6489b2f47a0da4342a"
+sha256 = "169e075a92d957a57787c199e84e359df2931b7196c1c5b4a3d576ee6235a87c"
 hardening = ["vis", "cfi"]
 
 
