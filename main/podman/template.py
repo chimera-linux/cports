@@ -1,5 +1,5 @@
 pkgname = "podman"
-pkgver = "5.5.1"
+pkgver = "5.5.2"
 pkgrel = 0
 build_style = "go"
 # for install.bin compat
@@ -49,7 +49,7 @@ pkgdesc = "Container and image management tool"
 license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
-sha256 = "00d02f85ad27a46e77456fef1be81865a43147544ed2487e6c4c8decd0e3748f"
+sha256 = "a2dbd8280cd92d4741f32f5a99d385d7fc6f0dd36bc9cc90a7273767e26d43d9"
 # nah
 options = ["!check"]
 
