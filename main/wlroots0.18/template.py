@@ -36,6 +36,7 @@ makedepends = [
     "xcb-util-renderutil-devel",
     "xcb-util-wm-devel",
 ]
+# do not carry over; unversioned names are deprecated
 provides = [self.with_pkgver("wlroots")]
 pkgdesc = "Modular Wayland compositor library 0.18.x"
 license = "MIT"
