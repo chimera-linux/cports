@@ -1,15 +1,14 @@
 pkgname = "opencl-headers"
-pkgver = "2024.10.24"
+pkgver = "2025.06.13"
 pkgrel = 0
 pkgdesc = "OpenCL header files"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/OpenCL-Headers"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "159f2a550592bae49859fee83d372acd152328fdf95c0dcd8b9409f8fad5db93"
+sha256 = "8bf2fda271c3511ee1cd9780b97446e9fa0cf2b0765cdd54aee60074a4567644"
 # no test suite
 options = ["!check"]
 
 
 def install(self):
-    for f in (self.cwd / "CL").glob("*.h"):
-        self.install_file(f, "usr/include/CL")
+    self.install_file("CL/*.h", "usr/include/CL", glob=True)
