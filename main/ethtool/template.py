@@ -1,5 +1,5 @@
 pkgname = "ethtool"
-pkgver = "6.14"
+pkgver = "6.15"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -8,6 +8,6 @@ pkgdesc = "Utility for controlling network drivers and hardware"
 license = "GPL-2.0-only"
 url = "http://www.kernel.org/pub/software/network/ethtool"
 source = f"{url}/ethtool-{pkgver}.tar.xz"
-sha256 = "9338bb00e492878d3bbe3cd2894e60db35813634c208db0b20f5c7ee84da69b1"
+sha256 = "9477c365114d910120aaec5336a1d16196c833d8486f7c6da67bedef57880ade"
 # FIXME int
 hardening = ["vis", "cfi", "!int"]
