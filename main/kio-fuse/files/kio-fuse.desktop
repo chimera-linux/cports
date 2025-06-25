@@ -2,6 +2,6 @@
 Name=kio-fuse
 Comment=Fuse interface for KIO
 Type=Application
-Exec=/usr/libexec/kio-fuse -f
-TryExec=/usr/libexec/kio-fuse
+Exec=/usr/lib/kio-fuse -f
+TryExec=/usr/lib/kio-fuse
 Terminal=false

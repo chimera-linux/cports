@@ -1,6 +1,6 @@
 pkgname = "kio-fuse"
 pkgver = "5.1.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DBUILD_WITH_QT6=ON", "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -29,10 +29,10 @@ options = ["!check"]
 
 def post_install(self):
     # TODO: port to dinit user instead
-    self.install_file(self.files_path / "kio-fuse.desktop", "etc/xdg/autostart")
+    self.install_file("^/kio-fuse.desktop", "etc/xdg/autostart")
     self.uninstall("usr/lib/systemd/user")
     self.install_file(
-        self.files_path / "modules-load.conf",
+        "^/modules-load.conf",
         "usr/lib/modules-load.d",
         name="kio-fuse.conf",
     )
