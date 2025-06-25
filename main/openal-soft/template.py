@@ -15,8 +15,8 @@ makedepends = [
 pkgdesc = "Cross-platform 3D audio API"
 license = "LGPL-2.1-or-later"
 url = "https://openal-soft.org"
-source = f"{url}/openal-releases/openal-soft-{pkgver}.tar.bz2"
-sha256 = "cb5e6197a1c0da0edcf2a81024953cc8fa8545c3b9474e48c852af709d587892"
+source = f"https://github.com/kcat/openal-soft/archive/{pkgver}.tar.gz"
+sha256 = "7e1fecdeb45e7f78722b776c5cf30bd33934b961d7fd2a11e0494e064cc631ce"
 # no test target
 options = ["!check"]
 
