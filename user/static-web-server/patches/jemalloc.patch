@@ -1,20 +1,8 @@
-From defe298788d68b6ba3801b911752a37b74f9b810 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
- <jan.christian@gruenhage.xyz>
-Date: Fri, 30 Aug 2024 08:44:42 +0200
-Subject: [PATCH] remove jemalloc
-
----
- Cargo.lock        | 21 ---------------------
- Cargo.toml        |  3 ---
- src/bin/server.rs |  4 ----
- 3 files changed, 28 deletions(-)
-
 diff --git a/Cargo.lock b/Cargo.lock
-index 2bf2ec9..0ebe0d2 100644
+index cac7cdd..40ae9fc 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -1839,7 +1839,6 @@ dependencies = [
+@@ -2175,7 +2175,6 @@ dependencies = [
   "shadow-rs",
   "signal-hook",
   "signal-hook-tokio",
@@ -22,7 +10,7 @@ index 2bf2ec9..0ebe0d2 100644
   "tokio",
   "tokio-metrics-collector",
   "tokio-rustls",
-@@ -1941,26 +1940,6 @@ dependencies = [
+@@ -2295,26 +2294,6 @@ dependencies = [
   "once_cell",
  ]
  
@@ -50,34 +38,29 @@ index 2bf2ec9..0ebe0d2 100644
  name = "time"
  version = "0.3.41"
 diff --git a/Cargo.toml b/Cargo.toml
-index c746ec5..b04ccfa 100644
+index 6ecdfaf..49bd386 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -102,9 +102,6 @@ zerofrom = "=0.1.5"
- zerofrom-derive = "=0.1.5"
- litemap = "=0.7.4"
+@@ -100,8 +100,6 @@ toml = "0.8"
+ tracing = { version = "0.1", default-features = false, features = ["std"] }
+ tracing-subscriber = { version = "0.3", default-features = false, features = ["smallvec", "registry", "parking_lot", "fmt", "ansi", "tracing-log"] }
  
 -[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.tikv-jemallocator]
 -version = "0.6"
--
+ 
  [target.'cfg(unix)'.dependencies]
  signal-hook = { version = "0.3", features = ["extended-siginfo"] }
- signal-hook-tokio = { version = "0.3", features = ["futures-v0_3"], default-features = false }
 diff --git a/src/bin/server.rs b/src/bin/server.rs
-index 95bf386..6316d53 100644
+index 4cdd82b..f13bce7 100644
 --- a/src/bin/server.rs
 +++ b/src/bin/server.rs
-@@ -8,10 +8,6 @@
+@@ -8,9 +8,6 @@
  #![deny(rust_2018_idioms)]
  #![deny(dead_code)]
  
 -#[cfg(all(target_env = "musl", target_pointer_width = "64"))]
 -#[global_allocator]
 -static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
--
+ 
  use static_web_server::{
      settings::{cli::General, Commands},
-     Result, Settings,
--- 
-2.49.0
-
