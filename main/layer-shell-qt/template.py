@@ -1,5 +1,5 @@
 pkgname = "layer-shell-qt"
-pkgver = "6.4.0"
+pkgver = "6.4.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Qt6 component exposing Wayland wl-layer-shell protocol"
 license = "GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)"
 url = "https://api.kde.org/plasma/layer-shell-qt/html"
 source = f"$(KDE_SITE)/plasma/{pkgver}/layer-shell-qt-{pkgver}.tar.xz"
-sha256 = "2b9e4133d09be858e2ee6107a568abd31a160b466545ab4b66311c68395c77b0"
+sha256 = "e781cadec00b4c389b9143cb3a40df7788aa4d4d211c8847f6b9b65176e6e9ce"
 hardening = ["vis"]
 
 

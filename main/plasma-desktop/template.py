@@ -1,5 +1,5 @@
 pkgname = "plasma-desktop"
-pkgver = "6.4.0"
+pkgver = "6.4.1"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -109,7 +109,7 @@ pkgdesc = "KDE Plasma Desktop"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://kde.org/plasma-desktop"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-desktop-{pkgver}.tar.xz"
-sha256 = "18e114033c182d263c937f5bc41793252931dcdac22b04d49d33a0109bb2aeb2"
+sha256 = "b5cf7bf560c8a4aff5a1219cfa417a876b982071a3bb801d2aff53dbf18a0584"
 hardening = ["vis"]
 
 # most kdepim stuff depends on messagelib which depends on qtwebengine
