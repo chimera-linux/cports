@@ -1,5 +1,5 @@
 pkgname = "drm_info"
-pkgver = "2.7.0"
+pkgver = "2.8.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -16,7 +16,7 @@ pkgdesc = "Utility to dump info about DRM devices"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/emersion/drm_info"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "6a810415d798235c61e69920de1fe923f493c4d3f3027102f4542bbdddf8f795"
+sha256 = "e9709d10e93734bff13f29a44378cb2ee92fe02b32bef4271343b8e1975c7b7e"
 hardening = ["vis", "cfi"]
 
 
