@@ -1,5 +1,5 @@
 pkgname = "netavark"
-pkgver = "1.15.0"
+pkgver = "1.15.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "go-md2man", "protobuf-protoc"]
@@ -8,7 +8,7 @@ pkgdesc = "Container network stack"
 license = "Apache-2.0"
 url = "https://github.com/containers/netavark"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "efda776e538ce33050b1f6ce58c5070efeb45653d48fe4d17a47524c8fc17cf1"
+sha256 = "84325e03aa0a2818aef9fb57b62cda8e9472584744d91ce5e5b191098f9e6d6a"
 
 
 def post_build(self):
