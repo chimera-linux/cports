@@ -1,5 +1,5 @@
 pkgname = "python-maturin"
-pkgver = "1.8.6"
+pkgver = "1.9.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {
@@ -14,14 +14,14 @@ hostmakedepends = [
     "python-setuptools-rust",
     "python-wheel",
 ]
-makedepends = ["rust-std", "openssl3-devel"]
+makedepends = ["rust-std", "openssl3-devel", "zstd-devel"]
 checkdepends = ["pytest"]
 depends = ["python"]
 pkgdesc = "Tool for building and publishing Rust-based Python packages"
 license = "Apache-2.0 OR MIT"
 url = "https://www.maturin.rs"
 source = f"https://github.com/PyO3/maturin/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ab092813266355e08b2feeb0b138c8a47be7cac44a0ed45c9e04722ae94b8bf5"
+sha256 = "84a74988960a19f4e6ffa6f3a349803403496ced10dd3ff83baf4feed88c3fd8"
 # yeah no
 options = ["!check"]
 
