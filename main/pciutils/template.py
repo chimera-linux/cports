@@ -1,6 +1,6 @@
 pkgname = "pciutils"
-pkgver = "3.13.0"
-pkgrel = 2
+pkgver = "3.14.0"
+pkgrel = 0
 build_style = "makefile"
 make_dir = "."
 make_build_args = [
@@ -26,7 +26,7 @@ pkgdesc = "PCI bus utilities"
 license = "GPL-2.0-or-later"
 url = "https://mj.ucw.cz/sw/pciutils"
 source = f"https://github.com/pciutils/pciutils/archive/v{pkgver}.tar.gz"
-sha256 = "861fc26151a4596f5c3cb6f97d6c75c675051fa014959e26fb871c8c932ebc67"
+sha256 = "9f99bb89876510435fbfc47bbc8653bc57e736a21915ec0404e0610460756cb8"
 # no check target
 # ld: error: undefined symbol: pci_alloc ... and so on
 options = ["!check", "!lto"]
