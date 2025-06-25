@@ -1,6 +1,6 @@
 pkgname = "xkeyboard-config"
 pkgver = "2.45"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dxorg-rules-symlinks=true", "-Dcompat-rules=true"]
 hostmakedepends = ["meson", "pkgconf", "libxslt-progs", "python", "perl"]
@@ -16,4 +16,10 @@ hardening = ["vis", "cfi"]
 
 
 def post_install(self):
+    # apk bug: can't migrate directory -> symlink
+    self.uninstall("usr/share/X11/xkb")
+    self.rename(
+        "usr/share/xkeyboard-config-2", "usr/share/X11/xkb", relative=False
+    )
+    self.install_link("usr/share/xkeyboard-config-2", "X11/xkb")
     self.install_license("COPYING")
