@@ -1,5 +1,5 @@
 pkgname = "pgn-extract"
-pkgver = "24.11"
+pkgver = "25.01"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["OPTIMISE="]
@@ -10,7 +10,12 @@ pkgdesc = "Portable Game Notation (PGN) Manipulator for Chess Games"
 license = "GPL-3.0-or-later"
 url = "https://www.cs.kent.ac.uk/people/staff/djb/pgn-extract"
 source = f"{url}/pgn-extract-{pkgver.replace('.', '-')}.tgz"
-sha256 = "e9a32aca95666fca86e563a2df4843bf6c0f6508d777aad2d7438ad6b88c7ff5"
+sha256 = "c024a2d64abaedc873bd4e70b19d3ffdbbfa4dd054e6856b4a4262238af10eaa"
+
+
+def post_extract(self):
+    self.mv("pgn-extract/*", ".", glob=True)
+    self.rm("pgn-extract", recursive=True)
 
 
 def init_build(self):

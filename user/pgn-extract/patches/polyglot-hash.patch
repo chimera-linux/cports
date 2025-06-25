@@ -1,0 +1,14 @@
+strtoull does not change errno if successful, so if errno was non-zero before,
+the errno check below will fail even if strtoull succeeded
+
+one of the tests trips up on this in fact and fails
+--- a/apply.c	2025-01-07 22:07:29.000000000 +0000
++++ b/apply.c	2025-06-25 13:38:17.620401751 +0100
+@@ -2536,6 +2536,7 @@
+              */
+             uint64_t hash = 0x0;
+             char *end;
++            errno = 0;
+             hash = strtoull(value, &end, 16);
+             Ok = (errno == 0 && *end == '\0');
+             if (Ok) {
