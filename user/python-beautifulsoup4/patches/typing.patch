@@ -1,0 +1,77 @@
+diff --git a/bs4/_typing.py b/bs4/_typing.py
+index ac4ec34..62cb1b1 100644
+--- a/bs4/_typing.py
++++ b/bs4/_typing.py
+@@ -13,7 +13,7 @@
+ #   but it's removed in 3.12, so to support the widest possible set of
+ #   versions I'm not using it.
+ 
+-from typing_extensions import (
++from typing import (
+     runtime_checkable,
+     Protocol,
+     TypeAlias,
+diff --git a/bs4/builder/_html5lib.py b/bs4/builder/_html5lib.py
+index c13439d..af97934 100644
+--- a/bs4/builder/_html5lib.py
++++ b/bs4/builder/_html5lib.py
+@@ -16,7 +16,7 @@ from typing import (
+     Tuple,
+     Union,
+ )
+-from typing_extensions import TypeAlias
++from typing import TypeAlias
+ from bs4._typing import (
+     _AttributeValue,
+     _AttributeValues,
+diff --git a/bs4/builder/_lxml.py b/bs4/builder/_lxml.py
+index 1f367da..bfd7f44 100644
+--- a/bs4/builder/_lxml.py
++++ b/bs4/builder/_lxml.py
+@@ -22,7 +22,7 @@ from typing import (
+     TYPE_CHECKING,
+     Union,
+ )
+-from typing_extensions import TypeAlias
++from typing import TypeAlias
+ 
+ from io import BytesIO
+ from io import StringIO
+diff --git a/bs4/dammit.py b/bs4/dammit.py
+index c9f4244..900474e 100644
+--- a/bs4/dammit.py
++++ b/bs4/dammit.py
+@@ -31,7 +31,7 @@ from typing import (
+     Union,
+     cast,
+ )
+-from typing_extensions import Literal
++from typing import Literal
+ from bs4._typing import (
+     _Encoding,
+     _Encodings,
+diff --git a/bs4/element.py b/bs4/element.py
+index 42afbe4..3457985 100644
+--- a/bs4/element.py
++++ b/bs4/element.py
+@@ -38,7 +38,7 @@ from typing import (
+     Union,
+     cast,
+ )
+-from typing_extensions import (
++from typing import (
+     Self,
+     TypeAlias,
+ )
+diff --git a/bs4/formatter.py b/bs4/formatter.py
+index 34c3351..a95760c 100644
+--- a/bs4/formatter.py
++++ b/bs4/formatter.py
+@@ -1,6 +1,6 @@
+ from __future__ import annotations
+ from typing import Callable, Dict, Iterable, Optional, Set, Tuple, TYPE_CHECKING, Union
+-from typing_extensions import TypeAlias
++from typing import TypeAlias
+ from bs4.dammit import EntitySubstitution
+ 
+ if TYPE_CHECKING:
