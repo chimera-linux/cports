@@ -1,5 +1,5 @@
 pkgname = "libimobiledevice-glue"
-pkgver = "1.3.1"
+pkgver = "1.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -12,7 +12,7 @@ pkgdesc = "Common code library for the libimobiledevice project"
 license = "LGPL-2.1-or-later"
 url = "https://libimobiledevice.org"
 source = f"https://github.com/libimobiledevice/libimobiledevice-glue/releases/download/{pkgver}/libimobiledevice-glue-{pkgver}.tar.bz2"
-sha256 = "6e2849f221e6ab970566a115d42f3c20f8848e4d40c2ed61ac20dc85f40fa54f"
+sha256 = "6489a3411b874ecd81c87815d863603f518b264a976319725e0ed59935546774"
 
 
 @subpackage("libimobiledevice-glue-devel")
