@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 14
+pkgrel = 15
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -28,7 +28,6 @@ for _pkg in [
     "libbtrfsutil",
     "libbzip3",
     "libcdparanoia",
-    "libcolord",
     "libcryptsetup",
     "libdjvulibre",
     "libecpg",
@@ -106,7 +105,6 @@ for _pkg in [
     "pam_winbind",
     "projucer",
     "python-opencolorio",
-    "python-openimageio",
     "python-openvdb",
     "rename",
     "rfkill",
