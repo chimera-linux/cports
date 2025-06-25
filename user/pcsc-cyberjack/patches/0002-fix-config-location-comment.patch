@@ -1,0 +1,25 @@
+From f6d1dd8c44c80e3ce7fea3fe84eefd3302dfd381 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Thu, 8 May 2025 09:34:52 +0200
+Subject: [PATCH 2/2] fix config location comment
+
+---
+ etc/cyberjack.conf.default | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/etc/cyberjack.conf.default b/etc/cyberjack.conf.default
+index 0b72228..c4e5a02 100644
+--- a/etc/cyberjack.conf.default
++++ b/etc/cyberjack.conf.default
+@@ -1,6 +1,6 @@
+ # Version: 3.99.5final.SP16
+ # This file modifies the behaviour of the Cyberjack driver.
+-# Please copy this file to the same folder but under the name "cyberjack.conf"
++# The config file is read from "/etc/cyberjack.conf"
+ # (i.e. without the trailing ".default").
+ #
+ 
+-- 
+2.49.0
+
