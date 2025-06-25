@@ -1,6 +1,6 @@
 pkgname = "wlroots0.18"
 pkgver = "0.18.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     # all auto features are needed,
@@ -50,4 +50,5 @@ def post_install(self):
 
 @subpackage("wlroots0.18-devel")
 def _(self):
+    self.provides = [self.with_pkgver("wlroots-devel")]
     return self.default_devel()
