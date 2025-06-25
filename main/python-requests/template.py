@@ -1,6 +1,6 @@
 pkgname = "python-requests"
-pkgver = "2.32.3"
-pkgrel = 1
+pkgver = "2.32.4"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -19,6 +19,6 @@ pkgdesc = "Python HTTP library for human beings"
 license = "Apache-2.0"
 url = "https://requests.readthedocs.io"
 source = f"$(PYPI_SITE)/r/requests/requests-{pkgver}.tar.gz"
-sha256 = "55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"
+sha256 = "27d0316682c8a29834d3264820024b62a36942083d52caf2f14c0591336d3422"
 # needs pytest, is a dependency of pytest
 options = ["!check"]

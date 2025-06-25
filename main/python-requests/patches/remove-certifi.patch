@@ -9,7 +9,7 @@ index 1b0eb37..03d19b0 100755
 -    "certifi>=2017.4.17",
  ]
  test_requirements = [
-     "pytest-httpbin==2.0.0",
+     "pytest-httpbin==2.1.0",
 diff --git a/src/requests/certs.py b/src/requests/certs.py
 index be422c3..5e51719 100644
 --- a/src/requests/certs.py
