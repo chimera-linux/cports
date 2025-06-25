@@ -42,3 +42,9 @@ source = (
     f"$(GNOME_SITE)/gnome-keyring/{pkgver[:-2]}/gnome-keyring-{pkgver}.tar.xz"
 )
 sha256 = "f20518c920e9ea3f9c9b8b44be8c50d8d7feecd0dd5624960f77bd2ca4fbeb9d"
+# check may be disabled
+options = []
+
+if self.profile().wordsize == 32:
+    # 32-bit targets fail 2 tests: https://gitlab.gnome.org/GNOME/gnome-keyring/-/issues/124
+    options += ["!check"]
