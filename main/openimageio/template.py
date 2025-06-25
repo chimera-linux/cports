@@ -1,6 +1,6 @@
 pkgname = "openimageio"
-pkgver = "3.0.6.1"
-pkgrel = 1
+pkgver = "3.0.7.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # disabled below
@@ -49,7 +49,7 @@ pkgdesc = "Toolset for manipulating VFX-related image file formats"
 license = "Apache-2.0"
 url = "https://github.com/AcademySoftwareFoundation/OpenImageIO"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4d0fb92e4964f79dfaed77ac73f1a7f754c671a9f5ad29c7950c0844916ce5f5"
+sha256 = "2798e398b6ffd836ba7810e8ea510902a4aabc4a373ca0523a3f0d830c5eb103"
 # simulate release with none
 tool_flags = {"CXXFLAGS": ["-DNDEBUG"]}
 hardening = ["!int"]
@@ -72,7 +72,6 @@ def _(self):
 def _(self):
     self.pkgdesc = "Python bindings for openimageio"
     self.depends += ["python"]
-    # transitional
-    self.provides = [self.with_pkgver("python-openimageio")]
+    self.renames = ["python-openimageio"]
 
     return ["usr/lib/python*"]
