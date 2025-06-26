@@ -1,5 +1,5 @@
 pkgname = "python-s3transfer"
-pkgver = "0.11.4"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_args = [
@@ -18,7 +18,7 @@ pkgdesc = "Amazon S3 transfer manager for python"
 license = "Apache-2.0"
 url = "https://github.com/boto/s3transfer"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "2c0c097f6f1172126b311ffed6da96923433c36aa149050e7feb83b5949c036b"
+sha256 = "27b51cd0c8464540ffcfc494eed977f702202f3f44ea5e56204175340a3ac95c"
 
 
 def init_check(self):
