@@ -1,6 +1,6 @@
 pkgname = "darktable"
-pkgver = "5.0.1"
-pkgrel = 3
+pkgver = "5.2.0"
+pkgrel = 0
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -67,7 +67,7 @@ pkgdesc = "Open source photography workflow application and raw developer"
 license = "GPL-3.0-or-later"
 url = "https://www.darktable.org"
 source = f"https://github.com/darktable-org/darktable/releases/download/release-{pkgver}/darktable-{pkgver}.tar.xz"
-sha256 = "4a918d094ebba983ef67a10cc715c3d7e8ca738009920a9ff65d33417b6dd984"
+sha256 = "53a46cd46ef7118485c4abf4ab407c181639bb8634243ec0ed1f7c1e8299bec6"
 
 # with lto: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6')
 # without lto: ICE: fatal error: error in backend: Cannot select: 0x3fff9b420de0: ...
