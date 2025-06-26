@@ -1,5 +1,5 @@
 pkgname = "cbindgen"
-pkgver = "0.28.0"
+pkgver = "0.29.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,7 +8,7 @@ pkgdesc = "Tool to generate C bindings for Rust code"
 license = "MPL-2.0"
 url = "https://github.com/eqrion/cbindgen"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "b0ed39dda089cafba583e407183e43de151d2ae9d945d74fb4870db7e4ca858e"
+sha256 = "6697f449d4a15d814d991249a611af961c97e36d9344c7ced6df35c5c25b40cc"
 # only expected to work with rust nightly
 options = ["!check"]
 
