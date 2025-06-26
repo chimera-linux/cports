@@ -1,5 +1,5 @@
 pkgname = "bolt"
-pkgver = "0.9.9"
+pkgver = "0.9.10"
 pkgrel = 0
 build_style = "meson"
 # XXX drop libexec
@@ -24,7 +24,7 @@ pkgdesc = "Thunderbolt device manager"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/bolt/bolt"
 source = f"{url}/-/archive/{pkgver}/bolt-{pkgver}.tar.gz"
-sha256 = "d2b05e3ee1ffa9b4fc1c4a11138c69bf1f60acba86f07b1b4b40b4d456048936"
+sha256 = "0e9646ff153f4445d85bfaac1b0d77d86df9c639f84888f15ee7b0f1fa892b58"
 
 
 def post_install(self):
