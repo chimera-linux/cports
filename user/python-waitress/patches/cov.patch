@@ -1,0 +1,10 @@
+diff --git a/setup.cfg b/setup.cfg
+index be07731..a1d7f98 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -66,4 +66,4 @@ python_files = test_*.py
+ python_classes = Test*
+ testpaths =
+     tests
+-addopts = --cov -W always
++addopts = -W always
