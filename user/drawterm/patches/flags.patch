@@ -1,8 +1,8 @@
 make sure our CFLAGS/LDFLAGS are respected
 
 diff -ruN a/Make.linux b/Make.linux
---- a/Make.linux	2024-10-04 03:22:35.000000000 +0200
-+++ b/Make.linux	2024-10-06 14:03:04.320760656 +0200
+--- a/Make.linux	2025-06-13 17:07:53.000000000 +0200
++++ b/Make.linux	2025-06-28 15:52:27.803270772 +0200
 @@ -4,12 +4,12 @@
  AS=as
  RANLIB=ranlib
@@ -12,9 +12,9 @@ diff -ruN a/Make.linux b/Make.linux
  O=o
  OS=posix
  GUI=wl
--LDADD=-lwayland-client -lxkbcommon -ggdb -lm -lrt -lpipewire-0.3
+-LDADD=-lwayland-client -lxkbcommon -ggdb -lm -lrt -lpipewire-0.3 -ldecor-0
 -LDFLAGS=$(PTHREAD)
-+LDADD=-lwayland-client -lxkbcommon -lm -lrt -lpipewire-0.3
++LDADD=-lwayland-client -lxkbcommon -lm -lrt -lpipewire-0.3 -ldecor-0
 +override LDFLAGS := $(PTHREAD) $(LDFLAGS)
  TARG=drawterm
  # AUDIO=none
