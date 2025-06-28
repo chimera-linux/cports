@@ -32,24 +32,20 @@ options = ["!check", "!cross"]
 # same as main/chez-scheme
 match self.profile().arch:
     case "aarch64":
-        _machine = "tarm64le"
+        configure_args += ["--enable-mach=tarm64le"]
     case "armhf" | "armv7":
-        _machine = "tarm32le"
+        configure_args += ["--enable-mach=tarm32le"]
     case "loongarch64":
-        _machine = "tla64le"
+        configure_args += ["--enable-mach=tla64le"]
     case "ppc":
-        _machine = "tppc32le"
+        configure_args += ["--enable-mach=tppc32le"]
     case "riscv64":
-        _machine = "trv64le"
+        configure_args += ["--enable-mach=trv64le"]
     case "x86_64":
-        _machine = "ta6le"
+        configure_args += ["--enable-mach=ta6le"]
     case _:
         # portable bytecode
-        _machine = f"tpb{self.profile().wordsize}{self.profile().endian[0]}"
-
-configure_args += [
-    f"--enable-mach={_machine}",
-]
+        configure_args += ["--enable-pb"]
 
 
 def post_extract(self):
