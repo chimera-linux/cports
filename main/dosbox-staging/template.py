@@ -1,6 +1,6 @@
 pkgname = "dosbox-staging"
 pkgver = "0.82.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Duse_zlib_ng=false"]
 hostmakedepends = ["bash", "meson", "pkgconf"]
@@ -22,6 +22,6 @@ pkgdesc = "Modern continuation of DOSBox"
 license = "GPL-2.0-or-later"
 url = "https://www.dosbox-staging.org"
 source = f"https://github.com/dosbox-staging/dosbox-staging/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d84c87e4b6ec3bdaac126c6354a5d2a94429987c55afbe76d0cb4536bae98428"
+sha256 = "387c97b373c3164ab5abbbc2b210bf94b5567057abe44ee1e8b4d4e725bd422c"
 # CFI: breaks the tests
 hardening = ["!cfi", "vis"]
