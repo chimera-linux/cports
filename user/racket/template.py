@@ -45,6 +45,9 @@ match self.profile().arch:
         configure_args += ["--enable-mach=ta6le"]
     case _:
         # portable bytecode
+        configure_args += [
+            f"--enable-mach=tpb{self.profile().wordsize}{self.profile().endian[0]}",
+        ]
         configure_args += ["--enable-pb"]
 
 
