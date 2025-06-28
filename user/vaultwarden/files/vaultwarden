@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/vaultwarden
+working-dir = /var/lib/vaultwarden
+env-file = /etc/default/vaultwarden
+logfile = /var/log/vaultwarden.log
+depends-on: network.target
