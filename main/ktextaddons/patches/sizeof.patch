@@ -1,0 +1,44 @@
+From e75fce77922a744da657389065902e675358397c Mon Sep 17 00:00:00 2001
+From: Jens Reidel <adrian@travitia.xyz>
+Date: Sun, 29 Jun 2025 02:05:36 +0200
+Subject: [PATCH] Stop asserting sizeof values in tests
+
+This is highly unreliable and differs between architectures.
+
+Signed-off-by: Jens Reidel <adrian@travitia.xyz>
+---
+ textautogeneratetext/autotests/textautogeneratechattest.cpp    | 3 ---
+ textautogeneratetext/autotests/textautogeneratemessagetest.cpp | 3 ---
+ 2 files changed, 6 deletions(-)
+
+diff --git a/textautogeneratetext/autotests/textautogeneratechattest.cpp b/textautogeneratetext/autotests/textautogeneratechattest.cpp
+index 60552a9e..ccb03b4d 100644
+--- a/textautogeneratetext/autotests/textautogeneratechattest.cpp
++++ b/textautogeneratetext/autotests/textautogeneratechattest.cpp
+@@ -22,9 +22,6 @@ void TextAutoGenerateChatTest::shouldHaveDefaultValues()
+     QVERIFY(!w.archived());
+     QVERIFY(w.title().isEmpty());
+     QVERIFY(w.identifier().isEmpty());
+-
+-    // 10/05/2025 => size 72
+-    QCOMPARE(sizeof(TextAutoGenerateText::TextAutoGenerateChat), 80);
+ }
+ 
+ void TextAutoGenerateChatTest::shouldSerializeDeserialize()
+diff --git a/textautogeneratetext/autotests/textautogeneratemessagetest.cpp b/textautogeneratetext/autotests/textautogeneratemessagetest.cpp
+index 7f688ba5..51e25017 100644
+--- a/textautogeneratetext/autotests/textautogeneratemessagetest.cpp
++++ b/textautogeneratetext/autotests/textautogeneratemessagetest.cpp
+@@ -27,9 +27,6 @@ void TextAutoGenerateMessageTest::shouldHaveDefaultValues()
+     QVERIFY(msg.answerUuid().isEmpty());
+     QVERIFY(msg.engineName().isEmpty());
+     QVERIFY(msg.modelName().isEmpty());
+-
+-    // 10/05/2025 => size 224
+-    QCOMPARE(sizeof(TextAutoGenerateText::TextAutoGenerateMessage), 184);
+ }
+ 
+ #include "moc_textautogeneratemessagetest.cpp"
+-- 
+2.50.0
+
