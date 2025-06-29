@@ -1,11 +1,12 @@
 pkgname = "drawterm"
-_commit = "0b43ac046ca81d78e9eca535ab1e92971d30405a"
-pkgver = "0_git20250318"
+_commit = "4e32a9fa6e58c1474f747a99083303c4a2f14ea7"
+pkgver = "0_git20250614"
 pkgrel = 0
 build_style = "makefile"
 make_env = {"CONF": "linux"}
 hostmakedepends = ["pkgconf", "wayland-progs"]
 makedepends = [
+    "libdecor-devel",
     "libxkbcommon-devel",
     "linux-headers",
     "pipewire-devel",
@@ -21,7 +22,7 @@ source = [
     f"!https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/raw/{_wlr_protocols_commit}/unstable/wlr-virtual-pointer-unstable-v1.xml>{_wlr_protocols_commit}.xml",
 ]
 sha256 = [
-    "b3925431647d88f7b2eaf4bdea405d6ab09a7f38458ae210bae4866bcf292791",
+    "033994e8b1647239894ac4db091868ad252843c4b8c3bc7ad1b64ef70608ed30",
     "3ff6d540be0bc5228195bf072bde42117ea17945a5c2061add5d3cf97d6bb524",
 ]
 # no tests
