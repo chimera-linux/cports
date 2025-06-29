@@ -1,5 +1,5 @@
 pkgname = "waycheck"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -12,4 +12,4 @@ pkgdesc = "GUI that displays the protocols implemented by a Wayland compositor"
 license = "Apache-2.0"
 url = "https://gitlab.freedesktop.org/serebit/waycheck"
 source = f"{url}/-/archive/v{pkgver}.tar.gz"
-sha256 = "ce19b05ef7739c0dc5b11d227c80b18ed1fb70c86822122ca50015b03e406bf5"
+sha256 = "135c375c8b6c35ddffc577b757b812dd96852fa039247d7adc0584168e870fe9"
