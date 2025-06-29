@@ -4,6 +4,7 @@ pkgrel = 0
 archs = ["x86_64", "aarch64", "armv7"]
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
+make_check_target = "check-all"
 hostmakedepends = [
     "bison",
     "cmake",
@@ -29,6 +30,11 @@ tool_flags = {
     # `warning: '_FORTIFY_SOURCE' macro redefined` noise
     "CXXFLAGS": ["-Wno-macro-redefined"],
 }
+
+
+def pre_check(self):
+    # expects a commit id in the output
+    self.rm("tests/lit-tests/llvm_ident.ispc")
 
 
 def post_install(self):
