@@ -1,5 +1,5 @@
 pkgname = "openblas"
-pkgver = "0.3.29"
+pkgver = "0.3.30"
 pkgrel = 0
 archs = [
     "aarch64",
@@ -22,7 +22,7 @@ pkgdesc = "Optimized BLAS library"
 license = "BSD-3-Clause"
 url = "https://www.openblas.net"
 source = f"https://github.com/OpenMathLib/OpenBLAS/releases/download/v{pkgver}/OpenBLAS-{pkgver}.tar.gz"
-sha256 = "38240eee1b29e2bde47ebb5d61160207dc68668a54cac62c076bb5032013b1eb"
+sha256 = "27342cff518646afb4c2b976d809102e368957974c250a25ccc965e53063c95d"
 
 _have_omp = True
 
@@ -44,7 +44,8 @@ match self.profile().arch:
         configure_args += ["-DTARGET=GENERIC"]
 
 # riscv64/loongarch64 dynamic_arch is currently broken
-if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+# aarch64 fails on ci: https://github.com/OpenMathLib/OpenBLAS/issues/5324
+if self.profile().arch in ["ppc64le", "x86_64"]:
     configure_args += ["-DDYNAMIC_ARCH=ON"]
 
 if self.profile().arch in ["ppc", "ppc64", "ppc64le"]:
