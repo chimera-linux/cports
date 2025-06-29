@@ -1,6 +1,6 @@
 pkgname = "fluidsynth"
 pkgver = "2.4.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DLIB_SUFFIX=",
@@ -9,6 +9,7 @@ configure_args = [
 make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
+    "alsa-lib-devel",
     "dbus-devel",
     "glib-devel",
     "pipewire-devel",
@@ -30,7 +31,7 @@ hardening = ["vis", "!cfi"]
 
 @subpackage("fluidsynth-libs")
 def _(self):
-    self.provides = [self.with_pkgver("libfluidsynth")]
+    self.renames = ["libfluidsynth"]
     return self.default_libs()
 
 
