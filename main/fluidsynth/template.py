@@ -1,6 +1,6 @@
 pkgname = "fluidsynth"
 pkgver = "2.4.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DLIB_SUFFIX=",
@@ -9,6 +9,7 @@ configure_args = [
 make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
+    "alsa-lib-devel",
     "dbus-devel",
     "glib-devel",
     "pipewire-devel",
