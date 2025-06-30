@@ -1,4 +1,4 @@
-From ec1e9e9b22eb2dcfda82190a362ccfb63c2f04c1 Mon Sep 17 00:00:00 2001
+From 6775a67f04d1de4b4731a2fd3bc811b3980310b5 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Mon, 9 Sep 2024 17:56:05 +0200
 Subject: [PATCH 11/14] drop -latomic on riscv and elsewhere
@@ -45,10 +45,10 @@ index 31c1383be..089cc3beb 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index 4848a84bc..69c768e84 100644
+index 6f37d6428..0555562ba 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -399,25 +399,6 @@ impl Step for Llvm {
+@@ -386,25 +386,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  

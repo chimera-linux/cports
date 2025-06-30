@@ -1,4 +1,4 @@
-From bbd794ad58ee92fd0e85ba3530b5067025741128 Mon Sep 17 00:00:00 2001
+From 7abf1d50c44eadad8047adea9f7f31c4c04549b8 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:01:57 +0100
 Subject: [PATCH 03/14] move debugger scripts to /usr/share/rust
@@ -11,7 +11,7 @@ Subject: [PATCH 03/14] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
-index 83f71aeed..b869e1089 100644
+index 3c412683b..0cfa28032 100644
 --- a/src/bootstrap/src/core/build_steps/dist.rs
 +++ b/src/bootstrap/src/core/build_steps/dist.rs
 @@ -559,7 +559,7 @@ impl Step for DebuggerScripts {

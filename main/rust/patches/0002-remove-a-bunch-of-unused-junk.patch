@@ -1,4 +1,4 @@
-From da3004ab87700d66fb2a7bd7c817aee304cb06a1 Mon Sep 17 00:00:00 2001
+From 265179b5f1012a2998cf31bb126f491b740c696a Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Fri, 30 May 2025 12:33:02 +0200
 Subject: [PATCH 02/14] remove a bunch of unused junk
@@ -159,10 +159,10 @@ index 0d4d6e0ff..d897a5775 100755
      "qemu-armhf-rootfs",
      "target.arm-unknown-linux-gnueabihf.qemu-rootfs",
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index 18b5d4426..1c4dad992 100644
+index 2e5865e50..42128e722 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
-@@ -375,54 +375,7 @@ fn copy_self_contained_objects(
+@@ -371,54 +371,7 @@ fn copy_self_contained_objects(
      t!(fs::create_dir_all(&libdir_self_contained));
      let mut target_deps = vec![];
  
@@ -218,7 +218,7 @@ index 18b5d4426..1c4dad992 100644
          let srcdir = builder.wasi_libdir(target).unwrap_or_else(|| {
              panic!(
                  "Target {:?} does not have a \"wasi-root\" key in bootstrap.toml \
-@@ -630,15 +583,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
+@@ -626,15 +579,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
              .arg("--manifest-path")
              .arg(builder.src.join("library/sysroot/Cargo.toml"));
  
@@ -235,10 +235,10 @@ index 18b5d4426..1c4dad992 100644
              if let Some(dir) = builder.wasi_libdir(target) {
                  let root = format!("native={}", dir.to_str().unwrap());
 diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
-index e21804fa3..4848a84bc 100644
+index 86af95653..6f37d6428 100644
 --- a/src/bootstrap/src/core/build_steps/llvm.rs
 +++ b/src/bootstrap/src/core/build_steps/llvm.rs
-@@ -1318,9 +1318,6 @@ impl Step for CrtBeginEnd {
+@@ -1305,9 +1305,6 @@ impl Step for CrtBeginEnd {
      }
  
      fn make_run(run: RunConfig<'_>) {
@@ -249,10 +249,10 @@ index e21804fa3..4848a84bc 100644
  
      /// Build crtbegin.o/crtend.o for musl target.
 diff --git a/src/bootstrap/src/core/config/config.rs b/src/bootstrap/src/core/config/config.rs
-index bbb0fbfbb..aeb4f67c5 100644
+index 65a3e7667..6ab909250 100644
 --- a/src/bootstrap/src/core/config/config.rs
 +++ b/src/bootstrap/src/core/config/config.rs
-@@ -369,8 +369,6 @@ pub struct Config {
+@@ -371,8 +371,6 @@ pub struct Config {
      pub print_step_timings: bool,
      pub print_step_rusage: bool,
  
@@ -261,7 +261,7 @@ index bbb0fbfbb..aeb4f67c5 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -597,10 +595,6 @@ impl TargetSelection {
+@@ -605,10 +603,6 @@ impl TargetSelection {
          env::var("OSTYPE").is_ok_and(|v| v.to_lowercase().contains("cygwin"))
      }
  
@@ -272,7 +272,7 @@ index bbb0fbfbb..aeb4f67c5 100644
      /// Path to the file defining the custom target, if any.
      pub fn filepath(&self) -> Option<&Path> {
          self.file.as_ref().map(Path::new)
-@@ -657,8 +651,6 @@ pub struct Target {
+@@ -665,8 +659,6 @@ pub struct Target {
      pub profiler: Option<StringOrBool>,
      pub rpath: Option<bool>,
      pub crt_static: Option<bool>,
@@ -281,7 +281,7 @@ index bbb0fbfbb..aeb4f67c5 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub runner: Option<String>,
-@@ -1228,7 +1220,6 @@ define_config! {
+@@ -1296,7 +1288,6 @@ define_config! {
          channel: Option<String> = "channel",
          // FIXME: Remove this field at Q2 2025, it has been replaced by build.description
          description: Option<String> = "description",
@@ -289,7 +289,7 @@ index bbb0fbfbb..aeb4f67c5 100644
          rpath: Option<bool> = "rpath",
          strip: Option<bool> = "strip",
          frame_pointers: Option<bool> = "frame-pointers",
-@@ -1283,8 +1274,6 @@ define_config! {
+@@ -1351,8 +1342,6 @@ define_config! {
          profiler: Option<StringOrBool> = "profiler",
          rpath: Option<bool> = "rpath",
          crt_static: Option<bool> = "crt-static",
@@ -298,7 +298,7 @@ index bbb0fbfbb..aeb4f67c5 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1904,7 +1893,6 @@ impl Config {
+@@ -2018,7 +2007,6 @@ impl Config {
                  default_linker,
                  channel: _, // already handled above
                  description: rust_description,
@@ -306,7 +306,7 @@ index bbb0fbfbb..aeb4f67c5 100644
                  rpath,
                  verbose_tests,
                  optimize_tests,
-@@ -2017,7 +2005,6 @@ impl Config {
+@@ -2132,7 +2120,6 @@ impl Config {
              config.llvm_enzyme =
                  llvm_enzyme.unwrap_or(config.channel == "dev" || config.channel == "nightly");
              config.rustc_default_linker = default_linker;
@@ -314,7 +314,7 @@ index bbb0fbfbb..aeb4f67c5 100644
              config.save_toolstates = save_toolstates.map(PathBuf::from);
              set(
                  &mut config.deny_warnings,
-@@ -2251,8 +2238,6 @@ impl Config {
+@@ -2364,8 +2351,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -323,7 +323,7 @@ index bbb0fbfbb..aeb4f67c5 100644
                  target.wasi_root = cfg.wasi_root.map(PathBuf::from);
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
                  target.runner = cfg.runner;
-@@ -3439,7 +3424,6 @@ fn check_incompatible_options_for_ci_rustc(
+@@ -3583,7 +3568,6 @@ fn check_incompatible_options_for_ci_rustc(
          debuginfo_level_tools: _,
          debuginfo_level_tests: _,
          backtrace: _,
@@ -332,7 +332,7 @@ index bbb0fbfbb..aeb4f67c5 100644
          optimize_tests: _,
          codegen_tests: _,
 diff --git a/src/bootstrap/src/core/sanity.rs b/src/bootstrap/src/core/sanity.rs
-index dbfebd11f..22a13387c 100644
+index eb0bf1d16..e2d25f613 100644
 --- a/src/bootstrap/src/core/sanity.rs
 +++ b/src/bootstrap/src/core/sanity.rs
 @@ -322,28 +322,6 @@ than building it.
@@ -343,7 +343,7 @@ index dbfebd11f..22a13387c 100644
 -        if target.contains("musl") && !target.contains("unikraft") {
 -            // If this is a native target (host is also musl) and no musl-root is given,
 -            // fall back to the system toolchain in /usr before giving up
--            if build.musl_root(*target).is_none() && build.is_builder_target(*target) {
+-            if build.musl_root(*target).is_none() && build.config.is_host_target(*target) {
 -                let target = build.config.target_config.entry(*target).or_default();
 -                target.musl_root = Some("/usr".into());
 -            }
@@ -365,10 +365,10 @@ index dbfebd11f..22a13387c 100644
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
 diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index 843d474f9..b9937b03b 100644
+index 1e6acad5c..923904111 100644
 --- a/src/bootstrap/src/lib.rs
 +++ b/src/bootstrap/src/lib.rs
-@@ -1390,25 +1390,6 @@ Executed at: {executed_at}"#,
+@@ -1360,25 +1360,6 @@ Executed at: {executed_at}"#,
          }
      }
  
@@ -395,10 +395,10 @@ index 843d474f9..b9937b03b 100644
      /// configured.
      ///
 diff --git a/src/bootstrap/src/utils/cc_detect.rs b/src/bootstrap/src/utils/cc_detect.rs
-index 147b009d3..0fae1c7fa 100644
+index ceac24d43..49bcb7b3a 100644
 --- a/src/bootstrap/src/utils/cc_detect.rs
 +++ b/src/bootstrap/src/utils/cc_detect.rs
-@@ -225,30 +225,6 @@ fn default_compiler(
+@@ -226,30 +226,6 @@ fn default_compiler(
              }
          }
  
