@@ -1,6 +1,6 @@
 pkgname = "incus"
-pkgver = "6.12.0"
-pkgrel = 1
+pkgver = "6.14.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
 make_check_args = ["-skip", "TestConvertNetworkConfig", "./..."]
@@ -29,6 +29,7 @@ depends = [
     "dnsmasq",
     "gtar",
     "iptables",
+    "lego",
     "libvirt",
     "lxc",
     "rsync",
@@ -43,7 +44,7 @@ pkgdesc = "Powerful system container and virtual machine manager"
 license = "Apache-2.0"
 url = "https://github.com/lxc/incus"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "98532b05b2083b3ff112a08c5f39643b7e744366bdd698a32cbe8b60decb42f3"
+sha256 = "94ce05af2ceff63949f402205c9f0967191c526ba6fab354c1b6bcc1499ee203"
 # fail to link because of post_build overrides
 options = ["!check"]
 
