@@ -23,4 +23,4 @@ index ae310fff519..8d875836a52 100644
 +DEFINE_BOOL(decommit_pooled_pages, false,
              "decommit, rather than discard pooled pages")
  DEFINE_BOOL(
-     zero_unused_memory, false,
+     zero_unused_memory, true,

@@ -44,7 +44,7 @@ diff --git a/base/allocator/partition_allocator/src/partition_alloc/partition_al
 index d38db0a..038ffeb 100644
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_forward.h
-@@ -28,12 +28,17 @@ namespace internal {
+@@ -29,6 +29,10 @@
  // the second one 16. We could technically return something different for
  // malloc() and operator new(), but this would complicate things, and most of
  // our allocations are presumably coming from operator new() anyway.
@@ -52,16 +52,17 @@ index d38db0a..038ffeb 100644
 +/* we want this to be 16 here always */
 +constexpr size_t kAlignment = 16;
 +#else
- constexpr size_t kAlignment =
+ constexpr inline size_t kAlignment =
      std::max(alignof(max_align_t),
               static_cast<size_t>(__STDCPP_DEFAULT_NEW_ALIGNMENT__));
+@@ -37,6 +41,7 @@
  static_assert(kAlignment <= 16,
                "PartitionAlloc doesn't support a fundamental alignment larger "
                "than 16 bytes.");
 +#endif
  
- class PA_LOCKABLE Lock;
- 
+ constexpr inline size_t kAlignmentIndex = base::bits::CountrZero(kAlignment);
+ static_assert(kAlignment == (1 << kAlignmentIndex));
 --- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
 +++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_base/compiler_specific.h
 @@ -138,7 +138,7 @@
