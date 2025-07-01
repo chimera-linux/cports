@@ -170,7 +170,13 @@ def configure(self):
         case "loongarch64":
             conf_opts += ["--disable-crashreporter"]
 
-    if self.has_lto():
+    _use_pgo = self.has_lto()
+
+    # gets stuck busy-looping in profiling pass in ff140
+    if self.profile().arch == "aarch64":
+        _use_pgo = False
+
+    if _use_pgo:
         conf_opts += ["--enable-lto=cross"]
         # configure for profiling
         self.log("bootstrapping profile...")
