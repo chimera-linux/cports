@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/clatd
+restart = on-failure
+before: network.target
+depends-on: local.target
+depends-on: pre-network.target
