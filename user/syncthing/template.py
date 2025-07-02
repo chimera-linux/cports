@@ -1,5 +1,5 @@
 pkgname = "syncthing"
-pkgver = "1.29.7"
+pkgver = "1.30.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -20,7 +20,7 @@ pkgdesc = "Continuous file synchronization program"
 license = "MPL-2.0"
 url = "https://syncthing.net"
 source = f"https://github.com/syncthing/syncthing/archive/v{pkgver}.tar.gz"
-sha256 = "0e2f2574334fc65220977156caffc521314298c43b361a669ea3ea0507267652"
+sha256 = "1e9eb93be73960f748fe85d2738793b5a11c88e63839254057d4fd86cd4321a3"
 
 
 if self.profile().wordsize == 32:
@@ -55,7 +55,7 @@ def post_install(self):
         name="syncthing.svg",
     )
 
-    self.install_service(self.files_path / "syncthing.user")
+    self.install_service("^/syncthing.user")
 
 
 @subpackage("syncthing-relaysrv")
@@ -64,9 +64,8 @@ def _(self):
     self.license = "MIT"
 
     return [
-        "usr/bin/strelaysrv",
+        "cmd:strelaysrv",
         "usr/share/licenses/syncthing-relaysrv",
-        "usr/share/man/man1/strelaysrv.1",
     ]
 
 
@@ -74,4 +73,4 @@ def _(self):
 def _(self):
     self.subdesc = "discovery server"
 
-    return ["usr/bin/stdiscosrv", "usr/share/man/man1/stdiscosrv.1"]
+    return ["cmd:stdiscosrv"]
