@@ -1,0 +1,11 @@
+diff -ruN a/scripts/clatd.networkmanager b/scripts/clatd.networkmanager
+--- a/scripts/clatd.networkmanager	2025-03-21 08:46:54.000000000 +0100
++++ b/scripts/clatd.networkmanager	2025-07-02 10:54:00.329593875 +0200
+@@ -29,3 +29,7 @@
+ if which systemctl &> /dev/null; then
+   systemctl --no-block restart clatd.service
+ fi
++
++dinitctl stop clatd
++# only actually restart if enabled
++dinitctl --no-wait wake clatd
