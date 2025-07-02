@@ -1,0 +1,247 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index aec8293d..003d7782 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,15 +1,10 @@
++cmake_minimum_required(VERSION 3.12)
+ 
+-cmake_minimum_required(VERSION 3.5)
+-project(MD4C C)
+-
+-set(MD_VERSION_MAJOR 0)
+-set(MD_VERSION_MINOR 5)
+-set(MD_VERSION_RELEASE 2)
+-set(MD_VERSION "${MD_VERSION_MAJOR}.${MD_VERSION_MINOR}.${MD_VERSION_RELEASE}")
+-
+-set(PROJECT_VERSION "${MD_VERSION}")
+-set(PROJECT_URL "https://github.com/mity/md4c")
+-
++project(MD4C
++    VERSION "0.5.2"
++    HOMEPAGE_URL "https://github.com/mity/md4c"
++    LANGUAGES C
++)
+ 
+ option(BUILD_MD2HTML_EXECUTABLE "Whether to compile the md2html executable" ON)
+ 
+@@ -17,30 +12,24 @@ option(BUILD_MD2HTML_EXECUTABLE "Whether to compile the md2html executable" ON)
+ if(WIN32)
+     # On Windows, given there is no standard lib install dir etc., we rather
+     # by default build static lib.
+-    option(BUILD_SHARED_LIBS "help string describing option" OFF)
++    option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
+ else()
+     # On Linux, MD4C is slowly being adding into some distros which prefer
+     # shared lib.
+-    option(BUILD_SHARED_LIBS "help string describing option" ON)
++    option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+ endif()
+ 
+-add_definitions(
+-    -DMD_VERSION_MAJOR=${MD_VERSION_MAJOR}
+-    -DMD_VERSION_MINOR=${MD_VERSION_MINOR}
+-    -DMD_VERSION_RELEASE=${MD_VERSION_RELEASE}
+-)
+-
+ set(CMAKE_CONFIGURATION_TYPES Debug Release RelWithDebInfo MinSizeRel)
+-if("${CMAKE_BUILD_TYPE}" STREQUAL "")
++if(NOT CMAKE_BUILD_TYPE)
+     set(CMAKE_BUILD_TYPE $ENV{CMAKE_BUILD_TYPE})
+ 
+-    if("${CMAKE_BUILD_TYPE}" STREQUAL "")
++    if(NOT CMAKE_BUILD_TYPE)
+         set(CMAKE_BUILD_TYPE "Release")
+     endif()
+ endif()
+ 
+ 
+-if(${CMAKE_C_COMPILER_ID} MATCHES GNU|Clang)
++if(CMAKE_C_COMPILER_ID MATCHES GNU|Clang)
+     add_compile_options(-Wall -Wextra -Wshadow)
+ 
+     # We enforce -Wdeclaration-after-statement because Qt project needs to
+@@ -49,7 +38,7 @@ if(${CMAKE_C_COMPILER_ID} MATCHES GNU|Clang)
+     add_compile_options(-Wdeclaration-after-statement)
+ elseif(MSVC)
+     # Disable warnings about the so-called unsecured functions:
+-    add_definitions(/D_CRT_SECURE_NO_WARNINGS)
++    add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+     add_compile_options(/W3)
+ 
+     # Specify proper C runtime library:
+diff --git a/md2html/CMakeLists.txt b/md2html/CMakeLists.txt
+index 14de6712..10680c17 100644
+--- a/md2html/CMakeLists.txt
++++ b/md2html/CMakeLists.txt
+@@ -1,22 +1,18 @@
+-
+-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG")
+-
+-
+ # Build rules for md2html command line utility
+ 
+-include_directories("${PROJECT_SOURCE_DIR}/src")
+ add_executable(md2html cmdline.c cmdline.h md2html.c)
+-target_link_libraries(md2html md4c-html)
++target_link_libraries(md2html PRIVATE md4c-html)
++target_compile_definitions(md2html PRIVATE
++    MD_VERSION_MAJOR=${PROJECT_VERSION_MAJOR}
++    MD_VERSION_MINOR=${PROJECT_VERSION_MINOR}
++    MD_VERSION_RELEASE=${PROJECT_VERSION_PATCH}
++)
+ 
+ 
+ # Install rules
+ 
+ install(
+     TARGETS md2html
+-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+ )
+ install(FILES "md2html.1" DESTINATION "${CMAKE_INSTALL_MANDIR}/man1")
+-
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 767c259e..f0a71825 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -1,16 +1,22 @@
+-
+ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
+-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG")
+ 
++# Handle absolute include and lib dirs outside of CMAKE_INSTALL_PREFIX
++include(JoinPaths.cmake) # can be replaced by cmake_path(APPEND) in CMake 3.20
++join_paths(PKGCONFIG_INCLUDEDIR "\${prefix}" "${CMAKE_INSTALL_INCLUDEDIR}")
++join_paths(PKGCONFIG_LIBDIR "\${prefix}" "${CMAKE_INSTALL_LIBDIR}")
+ 
+ # Build rules for MD4C parser library
+ 
+ configure_file(md4c.pc.in md4c.pc @ONLY)
+ add_library(md4c md4c.c md4c.h)
++target_include_directories(md4c PUBLIC
++    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
++    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
++)
++target_compile_definitions(md4c PRIVATE "$<$<CONFIG:Debug>:DEBUG>")
+ set_target_properties(md4c PROPERTIES
+-    COMPILE_FLAGS "-DMD4C_USE_UTF8"
+-    VERSION ${MD_VERSION}
+-    SOVERSION ${MD_VERSION_MAJOR}
++    VERSION ${PROJECT_VERSION}
++    SOVERSION ${PROJECT_VERSION_MAJOR}
+     PUBLIC_HEADER md4c.h
+ )
+ 
+@@ -18,12 +24,16 @@ set_target_properties(md4c PROPERTIES
+ 
+ configure_file(md4c-html.pc.in md4c-html.pc @ONLY)
+ add_library(md4c-html md4c-html.c md4c-html.h entity.c entity.h)
++target_include_directories(md4c-html PUBLIC
++    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
++    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
++)
+ set_target_properties(md4c-html PROPERTIES
+-    VERSION ${MD_VERSION}
+-    SOVERSION ${MD_VERSION_MAJOR}
++    VERSION ${PROJECT_VERSION}
++    SOVERSION ${PROJECT_VERSION_MAJOR}
+     PUBLIC_HEADER md4c-html.h
+ )
+-target_link_libraries(md4c-html md4c)
++target_link_libraries(md4c-html PUBLIC md4c)
+ 
+ 
+ # Install rules
+@@ -35,9 +45,8 @@ install(
+     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+ )
+-install(FILES ${CMAKE_BINARY_DIR}/src/md4c.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}/md4c.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+ 
+ install(
+     TARGETS md4c-html
+@@ -47,7 +56,6 @@ install(
+     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+ )
+-install(FILES ${CMAKE_BINARY_DIR}/src/md4c-html.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}/md4c-html.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+ 
+ install(EXPORT md4cConfig DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/md4c/ NAMESPACE md4c::)
+-
+diff --git a/src/JoinPaths.cmake b/src/JoinPaths.cmake
+new file mode 100644
+index 00000000..c68d91b8
+--- /dev/null
++++ b/src/JoinPaths.cmake
+@@ -0,0 +1,23 @@
++# This module provides function for joining paths
++# known from most languages
++#
++# SPDX-License-Identifier: (MIT OR CC0-1.0)
++# Copyright 2020 Jan Tojnar
++# https://github.com/jtojnar/cmake-snips
++#
++# Modelled after Python’s os.path.join
++# https://docs.python.org/3.7/library/os.path.html#os.path.join
++# Windows not supported
++function(join_paths joined_path first_path_segment)
++    set(temp_path "${first_path_segment}")
++    foreach(current_segment IN LISTS ARGN)
++        if(NOT ("${current_segment}" STREQUAL ""))
++            if(IS_ABSOLUTE "${current_segment}")
++                set(temp_path "${current_segment}")
++            else()
++                set(temp_path "${temp_path}/${current_segment}")
++            endif()
++        endif()
++    endforeach()
++    set(${joined_path} "${temp_path}" PARENT_SCOPE)
++endfunction()
+diff --git a/src/md4c-html.pc.in b/src/md4c-html.pc.in
+index 504bb52e..6900239f 100644
+--- a/src/md4c-html.pc.in
++++ b/src/md4c-html.pc.in
+@@ -1,13 +1,11 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+-exec_prefix=@CMAKE_INSTALL_PREFIX@
+-libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
++libdir=@PKGCONFIG_LIBDIR@
++includedir=@PKGCONFIG_INCLUDEDIR@
+ 
+ Name: @PROJECT_NAME@ HTML renderer
+ Description: Markdown to HTML converter library.
+ Version: @PROJECT_VERSION@
+-URL: @PROJECT_URL@
+-
++URL: @PROJECT_HOMEPAGE_URL@
+ Requires: md4c = @PROJECT_VERSION@
+ Libs: -L${libdir} -lmd4c-html
+ Cflags: -I${includedir}
+diff --git a/src/md4c.pc.in b/src/md4c.pc.in
+index cd8842dd..7dc3e8fe 100644
+--- a/src/md4c.pc.in
++++ b/src/md4c.pc.in
+@@ -1,13 +1,10 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+-exec_prefix=@CMAKE_INSTALL_PREFIX@
+-libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
++libdir=@PKGCONFIG_LIBDIR@
++includedir=@PKGCONFIG_INCLUDEDIR@
+ 
+ Name: @PROJECT_NAME@
+ Description: Markdown parser library with a SAX-like callback-based interface.
+ Version: @PROJECT_VERSION@
+-URL: @PROJECT_URL@
+-
+-Requires:
++URL: @PROJECT_HOMEPAGE_URL@
+ Libs: -L${libdir} -lmd4c
+ Cflags: -I${includedir}
