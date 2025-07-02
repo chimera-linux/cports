@@ -1,5 +1,5 @@
 pkgname = "zam-plugins"
-pkgver = "4.3"
+pkgver = "4.4"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["CLANG=true"]
@@ -20,8 +20,8 @@ makedepends = [
 pkgdesc = "Collection of audio plugins for high-quality audio processing"
 license = "GPL-2.0-or-later"
 url = "https://github.com/zamaudio/zam-plugins"
-_dpf = "077fcf5758ed6038bfe6e7aee1e407aa02e807b2"
-_pugl = "e33b2f6b0cea6d6263990aa9abe6a69fdfba5973"
+_dpf = "f5815166356e85a5fe244f6024c2e401f04b10fa"
+_pugl = "edd13c1b952b16633861855fcdbdd164e87b3c0a"
 source = [
     f"{url}/archive/refs/tags/{pkgver}.tar.gz",
     f"https://github.com/DISTRHO/DPF/archive/{_dpf}.tar.gz",
@@ -33,9 +33,9 @@ source_paths = [
     "dpf/dgl/src/pugl-upstream",
 ]
 sha256 = [
-    "5c681e2830f1f5400364a4a5c7df72c95a3a5e81aa82c87a4cbf387511752857",
-    "c4e8ca5ef8637dc9c6fdaa7ac88eee8227c46d91cf30f781b79e1b471fced50c",
-    "7e813d35d619a0ba3e790be5e102cfd2dc7c1f7b99333c9aa0a8661ca8419e02",
+    "b3601235c6769fd4c5c3390ec44ac12c429e95556768f9276fe0adac38ce2435",
+    "f38c2314662bd9b310d0a2f03ca308d6dbfde35ec633dc98567684b5803e32c3",
+    "eb6106c8413596bd2bd25e1a2c3766b5c46143f513713301cd2eae49cf1f3893",
 ]
 hardening = ["vis", "!cfi"]
 # no tests
