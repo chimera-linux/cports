@@ -1,5 +1,5 @@
 pkgname = "libkscreen"
-pkgver = "6.4.1"
+pkgver = "6.4.2"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -23,7 +23,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/libkscreen"
 source = f"$(KDE_SITE)/plasma/{pkgver}/libkscreen-{pkgver}.tar.xz"
-sha256 = "74153c1940ddeec099ba120c7a79bbcb39ffe36344e7cd5c43608776af5b2d14"
+sha256 = "73dfbaf6c437a5c1d01f768b4f140070d047f8fec306442acd93ab54837ec1aa"
 hardening = ["vis"]
 
 
