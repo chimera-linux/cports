@@ -1,6 +1,4 @@
-# sysprofd service
-
 type = process
 command = /usr/lib/sysprofd
-depends-on = local.target
-depends-on = dbus
+depends-on: local.target
+depends-on: dbus

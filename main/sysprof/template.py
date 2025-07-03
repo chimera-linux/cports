@@ -1,6 +1,6 @@
 # sync with main/sysprof-capture
 pkgname = "sysprof"
-pkgver = "47.2"
+pkgver = "48.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -20,6 +20,7 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "elfutils-devel",
     "elogind-devel",
     "gtk4-devel",
     "json-glib-devel",
@@ -36,14 +37,14 @@ pkgdesc = "System-wide profiler for Linux"
 license = "GPL-3.0-or-later AND BSD-2-Clause-Patent"
 url = "https://www.sysprof.com"
 source = f"$(GNOME_SITE)/sysprof/{'.'.join(pkgver.rsplit('.')[:-1])}/sysprof-{pkgver}.tar.xz"
-sha256 = "e4b5ede9fd978ec3f0d5a0d44d0429a6d201c362bf6cb4527319031ae462c54f"
+sha256 = "1b0f0380f2f30708ba87829321a06fee1db36dfa87797bbf07f0a7acf4498d18"
 # sysprof`sysprof_disk_usage_record_fiber muloverflow when busy i/o
 hardening = ["!int"]
 
 
 def post_install(self):
     self.install_license("src/libsysprof-capture/COPYING")
-    self.install_service(self.files_path / "sysprof")
+    self.install_service("^/sysprof")
     self.uninstall("usr/systemd")
 
 
