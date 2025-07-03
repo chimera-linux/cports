@@ -1,5 +1,5 @@
 pkgname = "cargo-update"
-pkgver = "16.3.0"
+pkgver = "16.3.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
@@ -13,8 +13,11 @@ pkgdesc = "Cargo subcommand for updating installed executables"
 license = "MIT"
 url = "https://github.com/nabijaczleweli/cargo-update"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f6a87615d72db3f1068aef2ad383813a96238c4963f6498c675c555a32e95bd3"
+sha256 = "49e016c8189b779af4663c62c2b304f770e5a4358ed5348ae61e68bf3034a689"
 
 
-def post_install(self):
+def install(self):
+    with self.pushd(f"target/{self.profile().triplet}/release"):
+        self.install_bin("cargo-install-update")
+        self.install_bin("cargo-install-update-config")
     self.install_license("LICENSE")
