@@ -1,5 +1,5 @@
 pkgname = "kpkpass"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "KDE PIM library for Apple Wallet pass files"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kpkpass/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kpkpass-{pkgver}.tar.xz"
-sha256 = "f317db3bd8c7c34d70727353315c831673a16b0a70da75f075cbb5a9dad2f931"
+sha256 = "68a9a069cd2ed7c911b6c4a515feec75a88507a445294d5a5391bbb8030081de"
 
 
 @subpackage("kpkpass-devel")

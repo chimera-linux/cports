@@ -1,5 +1,5 @@
 pkgname = "mailimporter"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 make_check_wrapper = ["wlheadless-run", "--"]
@@ -29,7 +29,7 @@ url = "https://api.kde.org/kdepim/mailimporter/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/mailimporter-{pkgver}.tar.xz"
 )
-sha256 = "bf9b9d4875f3cd5b338366a6e5e71ae508a21d53f3b2874744e707f254d88231"
+sha256 = "7e026f46b6a974b5ad82cd74b44fff6026228b28d8ba89e4af9eaa08fe0b367e"
 
 
 @subpackage("mailimporter-devel")

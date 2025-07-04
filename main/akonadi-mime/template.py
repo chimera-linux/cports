@@ -1,5 +1,5 @@
 pkgname = "akonadi-mime"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 # broken for some reason
@@ -31,7 +31,7 @@ url = "https://api.kde.org/kdepim/akonadi-mime/html"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/akonadi-mime-{pkgver}.tar.xz"
 )
-sha256 = "db1e4f9105cee6aafaef1d5caf5abc9926e8ad1a8b60389d1321a648bcd16168"
+sha256 = "29588a629e6f961ee48b2825c980840311f1207f7ea1d62d454addadf195c6be"
 
 
 @subpackage("akonadi-mime-devel")

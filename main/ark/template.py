@@ -1,5 +1,5 @@
 pkgname = "ark"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 # kerfuffle-extracttest: needs arj/unar etc
@@ -37,7 +37,7 @@ pkgdesc = "KDE archive manager"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/ark"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/ark-{pkgver}.tar.xz"
-sha256 = "54a374c2f06ff65abe577865a7fc2521de70f10f438b399f81bbe3c0dd4be68a"
+sha256 = "f93a428c88226d61e5a632e0660391189731f80adb574825108015a07bb1051c"
 
 
 @subpackage("ark-computils")

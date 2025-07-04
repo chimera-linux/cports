@@ -1,5 +1,5 @@
 pkgname = "libgravatar"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 # needs net
@@ -26,7 +26,7 @@ pkgdesc = "KDE PIM Gravatar lookup library"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/libgravatar/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/libgravatar-{pkgver}.tar.xz"
-sha256 = "40ccbcd2af7ff3963bd55d5ebbc2608b1a2920ffc2e4a8aa7e97e504ae1a00f0"
+sha256 = "24e8be07bb69aae682c30e2c6fc056664f97d74c0ef5b3c6f2ebe25f16d00647"
 
 
 @subpackage("libgravatar-devel")

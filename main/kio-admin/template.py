@@ -1,6 +1,6 @@
 pkgname = "kio-admin"
-pkgver = "25.04.2"
-pkgrel = 1
+pkgver = "25.04.3"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DQT_MAJOR_VERSION=6", "-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -21,5 +21,5 @@ pkgdesc = "KDE KIO admin:// protocol implementation"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://invent.kde.org/system/kio-admin"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-admin-{pkgver}.tar.xz"
-sha256 = "c7a7e869396a7a68770a13c5b115c71169ea4ae84e1eb8f73c4020361243ca47"
+sha256 = "cb580866f484050fd06cb81ac557bfde0bfe074bb1394eb31cd9222be08b5b59"
 hardening = ["vis"]

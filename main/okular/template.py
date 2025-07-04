@@ -1,5 +1,5 @@
 pkgname = "okular"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 # FIXME segfaults/weird failures
@@ -58,7 +58,7 @@ pkgdesc = "KDE document viewer"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/okular"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/okular-{pkgver}.tar.xz"
-sha256 = "bf2102fe7769b504e1934d46bf299398a6529fa2a96ca302bf7898c131b25cea"
+sha256 = "d0b5bb0b0eeab46aa2367c8d81096185bd2261710701c84f1c6e2398e5058bfb"
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 hardening = ["vis"]
 # TODO

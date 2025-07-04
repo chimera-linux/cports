@@ -1,5 +1,5 @@
 pkgname = "isoimagewriter"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -26,4 +26,4 @@ url = "https://apps.kde.org/isoimagewriter"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/isoimagewriter-{pkgver}.tar.xz"
 )
-sha256 = "69f0ef855d7abff93e538399241ba1d122923de229e43a01d328fc71f6c901be"
+sha256 = "8dba9def6659ead823b1dcb1aec7080d9fab8700f7956bebeea78d1ba4d94aa6"

@@ -1,5 +1,5 @@
 pkgname = "kio-gdrive"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -24,4 +24,4 @@ pkgdesc = "KDE KIO plugin for Google Drive"
 license = "GPL-2.0-or-later"
 url = "https://apps.kde.org/kio_gdrive"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kio-gdrive-{pkgver}.tar.xz"
-sha256 = "6a73522ba1fe8224efeb8adc6a5b2902d55928706e5520ad4b4a3bbb4f114cf0"
+sha256 = "a927c8e98907e6e83e0d6761b26cdd5c25ce48605fcc3a5cbc2c1a8b3bfa1b22"

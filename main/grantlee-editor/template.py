@@ -1,5 +1,5 @@
 pkgname = "grantlee-editor"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -33,4 +33,4 @@ url = "https://invent.kde.org/pim/grantlee-editor"
 source = (
     f"$(KDE_SITE)/release-service/{pkgver}/src/grantlee-editor-{pkgver}.tar.xz"
 )
-sha256 = "b6bc4b6b9394f87aac06d549ed224af68cf295614182ff434d41da06cd646aeb"
+sha256 = "b37a34e419d901b11ded495bfde240dbb0b7d47a978d4e76289ba3d9bbe33214"

@@ -1,5 +1,5 @@
 pkgname = "kdegraphics-mobipocket"
-pkgver = "25.04.2"
+pkgver = "25.04.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_WITH_QT6=ON"]
@@ -19,7 +19,7 @@ pkgdesc = "KDE plugins for mobipocket files"
 license = "GPL-2.0-or-later"
 url = "https://invent.kde.org/graphics/kdegraphics-mobipocket"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kdegraphics-mobipocket-{pkgver}.tar.xz"
-sha256 = "ddd546e8fff5552e5b7e7294f3c63b6130d9a98f6155ea280fa861f793cf2337"
+sha256 = "12f66c78d190867c1c994f650f1409c87bde0fd592911ad3a475b7502045f3d3"
 hardening = ["vis"]
 
 

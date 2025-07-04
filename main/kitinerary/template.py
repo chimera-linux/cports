@@ -1,6 +1,6 @@
 pkgname = "kitinerary"
-pkgver = "25.04.2"
-pkgrel = 1
+pkgver = "25.04.3"
+pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
 configure_args = ["-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib"]
@@ -34,7 +34,7 @@ pkgdesc = "KDE travel reservation parsing library"
 license = "LGPL-2.0-or-later"
 url = "https://api.kde.org/kdepim/kitinerary/html"
 source = f"$(KDE_SITE)/release-service/{pkgver}/src/kitinerary-{pkgver}.tar.xz"
-sha256 = "76e3a3406836f631b304e94e8fed10b19c52cc0cc14658d139eccf4128c3536f"
+sha256 = "ca93a086feccf0f36d4ca56a9f5ccf51943d7e1945b392daf211e42f128139d4"
 
 
 @subpackage("kitinerary-devel")
