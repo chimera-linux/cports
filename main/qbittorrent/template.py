@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
-pkgver = "5.1.0"
-pkgrel = 2
+pkgver = "5.1.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DSTACKTRACE=OFF"]
 hostmakedepends = [
@@ -22,7 +22,7 @@ pkgdesc = "QT-based torrent client"
 license = "GPL-2.0-or-later"
 url = "https://www.qbittorrent.org"
 source = f"https://github.com/qbittorrent/qBittorrent/archive/refs/tags/release-{pkgver}.tar.gz"
-sha256 = "ac54cd8b3c6035cfcd684be5afd0eccc8c5fbbc3008a9b6f9ba42f6ef91105af"
+sha256 = "a35448f3c8cb57d033bd3c4bd66c63417b0ca793ae7e9c5c5053960e2229ad9e"
 # CFI: BitTorrent::SessionImpl::SessionImpl crash
 hardening = ["vis", "!cfi"]
 # don't build
@@ -53,9 +53,9 @@ def install(self):
     cmake.install(self, "build-gui")
     cmake.install(self, "build-nox")
 
-    self.install_service(self.files_path / "qbittorrent-nox")
-    self.install_sysusers(self.files_path / "sysusers.conf")
-    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_service("^/qbittorrent-nox")
+    self.install_sysusers("^/sysusers.conf")
+    self.install_tmpfiles("^/tmpfiles.conf")
 
 
 @subpackage("qbittorrent-nox")
