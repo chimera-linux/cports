@@ -1,25 +1,35 @@
 pkgname = "efivar"
-pkgver = "37"
-pkgrel = 2
+pkgver = "39"
+pkgrel = 0
 build_style = "makefile"
 make_build_target = "all"
 make_build_args = ["libdir=/usr/lib", "ERRORS="]
 make_install_args = ["libdir=/usr/lib"]
 make_check_target = "test"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["mandoc", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Tools and libraries to work with EFI variables"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/rhboot/efivar"
-source = f"{url}/releases/download/{pkgver}/efivar-{pkgver}.tar.bz2"
-sha256 = "3c67feb93f901b98fbb897d5ca82931a6698b5bcd6ac34f0815f670d77747b9f"
+# source = f"{url}/releases/download/{pkgver}/efivar-{pkgver}.tar.bz2"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "c9edd15f2eeeea63232f3e669a48e992c7be9aff57ee22672ac31f5eca1609a6"
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-D_FILE_OFFSET_BITS=64"]}
+
+
+def init_build(self):
+    self.make_build_args += [
+        "HOSTCC=" + self.get_tool("CC", target="host"),
+        "HOST_CFLAGS=" + self.get_cflags(target="host", shell=True),
+        "HOST_LDFLAGS=" + self.get_ldflags(target="host", shell=True),
+    ]
+    self.make_check_args += self.make_build_args
+    self.make_install_args += self.make_install_args
 
 
 @subpackage("efivar-libs")
 def _(self):
-    # transitional
-    self.provides = [self.with_pkgver("libefivar")]
+    self.renames = ["libefivar"]
 
     return self.default_libs()
 
