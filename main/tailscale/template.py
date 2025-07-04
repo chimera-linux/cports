@@ -1,5 +1,5 @@
 pkgname = "tailscale"
-pkgver = "1.84.2"
+pkgver = "1.84.3"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -15,7 +15,7 @@ pkgdesc = "Mesh VPN daemon based on WireGuard"
 license = "BSD-3-Clause"
 url = "https://github.com/tailscale/tailscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "32673e5552e1176f1028a6a90a4c892d2475c92d1e952ca16156dc523d14d914"
+sha256 = "56bb9498bd688422e1ff570f91afa02db8e234eab818f1e30789328daa00dcdf"
 # check: needs network access
 # cross: completions with host bin
 options = ["!check", "!cross"]
