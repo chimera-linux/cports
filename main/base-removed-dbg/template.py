@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 15
+pkgrel = 16
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -31,7 +31,6 @@ for _pkg in [
     "libcryptsetup",
     "libdjvulibre",
     "libecpg",
-    "libefivar",
     "libelogind",
     "libfdisk",
     "libflac",
