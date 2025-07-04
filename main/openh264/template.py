@@ -1,6 +1,7 @@
+# ensure soname for links matches and manifest file is updated
 pkgname = "openh264"
 pkgver = "2.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = [
     f"ARCH={self.profile().arch}",
@@ -38,22 +39,20 @@ match self.profile().arch:
 
 def post_install(self):
     self.install_license("LICENSE")
+    _nspath = "usr/lib/nsbrowser/plugins/gmp-gmpopenh264/system-installed"
     # grab the main pkgver lib
     self.install_file(
         f"libgmpopenh264.so.{pkgver}",
-        "usr/lib/nsbrowser/plugins/gmp-gmpopenh264/system-installed",
+        _nspath,
     )
-    # then the symlinks. we can't use glob= install because it derefs the
-    # symlinks and installs 3 copies of the same lib.
-    self.install_file(
-        "libgmpopenh264.so.8",
-        "usr/lib/nsbrowser/plugins/gmp-gmpopenh264/system-installed",
+    # symlinks; ensure the soname is right
+    self.install_link(
+        f"{_nspath}/libgmpopenh264.so.8", f"libgmpopenh264.so.{pkgver}"
     )
-    self.install_file(
-        "libgmpopenh264.so",
-        "usr/lib/nsbrowser/plugins/gmp-gmpopenh264/system-installed",
-    )
-
+    self.install_link(f"{_nspath}/libgmpopenh264.so", "libgmpopenh264.so.8")
+    # manifest file
+    self.install_file(self.files_path / "gmpopenh264.info", _nspath)
+    # profile and other stuff
     self.install_file(
         self.files_path / "profile.conf",
         "etc/profile.d",
