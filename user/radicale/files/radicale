@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/radicale
+logfile = /var/log/radicale.log
+run-as = _radicale
+depends-on: local.target
+depends-on: network.target
