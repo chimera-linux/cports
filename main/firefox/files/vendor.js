@@ -20,3 +20,7 @@ pref("toolkit.telemetry.shutdownPingSender.enabled", false);
 
 // ad shit
 pref("dom.private-attribution.submission.enabled", false);
+
+// prevent firefox from downloading external binaries
+// they don't work anyway, and it's bad
+pref("media.gmp-manager.updateEnabled", false);
