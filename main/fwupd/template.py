@@ -1,6 +1,6 @@
 pkgname = "fwupd"
-pkgver = "2.0.8"
-pkgrel = 1
+pkgver = "2.0.13"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -56,7 +56,7 @@ pkgdesc = "Firmware updater"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "354f2e217a5e87bb153815268430d7407c59a27f56acbfa8a3c7f34e6c5fd2da"
+sha256 = "07b09f1d37792b5194840bc3e213c3cbf21d3d652f85489b2a028be47c1c9b84"
 options = ["!cross"]
 
 _have_uefi = False

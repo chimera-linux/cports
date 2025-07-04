@@ -2,18 +2,48 @@ add this back because redhatters like to make things
 a pain for us even if it's zero effort for them not to
 
 diff --git a/data/meson.build b/data/meson.build
-index 4e42922..502c3a7 100644
+index 7b8a0ea..4911b54 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -173,7 +173,7 @@ if build_daemon
-     )
-   endif
+@@ -62,7 +62,7 @@
+   build_conf = configuration_data()
+   build_conf.set('libexecdir', libexecdir)
  
 -  if libsystemd.found()
 +  if libsystemd.found() or elogind.found()
-     con2 = configuration_data()
-     con2.set('libexecdir', libexecdir)
- 
+     build_conf.set('bindir', bindir)
+     build_conf.set('datadir', datadir)
+     build_conf.set('localstatedir', localstatedir)
+@@ -158,29 +158,6 @@
+     endif
+     build_conf.set('dynamic_options', '\n'.join(dynamic_options))
+     build_conf.set('motd_dir', motd_dir)
+-
+-    # replace @dynamic_options@
+-    configure_file(
+-      input: 'fwupd.service.in',
+-      output: 'fwupd.service',
+-      configuration: build_conf,
+-      install: true,
+-      install_dir: systemdunitdir,
+-    )
+-
+-    # for various plugins
+-    install_data(['fwupd-i2c.conf'],
+-      install_dir: systemd_modules_load_dir,
+-    )
+-
+-    # for activation
+-    configure_file(
+-      input: 'fwupd.shutdown.in',
+-      output: 'fwupd.shutdown',
+-      configuration: build_conf,
+-      install: true,
+-      install_dir: systemd_shutdown_dir,
+-    )
+   else
+     build_conf.set('systemd_service', '')
+   endif
 diff --git a/meson.build b/meson.build
 index 7b8a0ea..4911b54 100644
 --- a/meson.build
@@ -46,12 +76,12 @@ index f880269..bd491cc 100644
    type: 'string',
    value: '',
 diff --git a/plugins/logind/meson.build b/plugins/logind/meson.build
-index f07118c..257b8f4 100644
+index bd66fabbc..7fe59f594 100644
 --- a/plugins/logind/meson.build
 +++ b/plugins/logind/meson.build
 @@ -1,4 +1,4 @@
--if libsystemd.found()
-+if libsystemd.found() or elogind.found()
+-libsystemd.found() or subdir_done()
++libsystemd.found() or elogind.found() or subdir_done()
+ 
  cargs = ['-DG_LOG_DOMAIN="FuPluginLogind"']
  plugins += {meson.current_source_dir().split('/')[-1]: true}
- 
