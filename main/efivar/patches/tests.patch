@@ -1,0 +1,14 @@
+these tests use grub2-editenv, but pulling in grub creates a cycle
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -3,9 +3,7 @@
+ # Peter Jones, 2019-06-18 11:10
+ #
+ 
+-TESTS = test.dmpstore.export \
+-	test.efivar.export \
+-	test.grubenv.var \
++TESTS = \
+ 	test.bootorder.var \
+ 	test.conin.var \
+ 	test.efivar.threading \
