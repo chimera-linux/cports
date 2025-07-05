@@ -9,6 +9,7 @@ configure_args = [
     "--with-bzlib",
     "--with-ssl",
     "--with-zlib",
+    "--enable-externs",
 ]
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
