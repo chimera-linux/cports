@@ -1,5 +1,5 @@
 pkgname = "sway-overfocus"
-pkgver = "0.2.4"
+pkgver = "0.2.5"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -8,8 +8,9 @@ pkgdesc = "Better focus navigation for sway and i3"
 license = "MIT"
 url = "https://github.com/korreman/sway-overfocus"
 source = f"https://github.com/korreman/sway-overfocus/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4d15bc8a307b58e62e3f1a6bd93820bd18307de4bd921dd646ccc715f2348c71"
+sha256 = "fc5f8103e740a21bb34083bb5cd06291c0d059cea502f693320d98f31817647f"
 
 
-def post_install(self):
+def install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/sway-overfocus")
     self.install_license("LICENSE")
