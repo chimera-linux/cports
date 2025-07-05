@@ -1,0 +1,9 @@
+diff -ruN a/utils/keytable/bpf_protocols/clang_sys_includes.sh b/utils/keytable/bpf_protocols/clang_sys_includes.sh
+--- a/utils/keytable/bpf_protocols/clang_sys_includes.sh	2025-05-01 14:15:21.000000000 +0200
++++ b/utils/keytable/bpf_protocols/clang_sys_includes.sh	2025-07-05 11:05:52.312990541 +0200
+@@ -6,4 +6,4 @@
+ # Use '-idirafter': Don't interfere with include mechanics except where the
+ # build would have failed anyways.
+ $CLANG -v -E - </dev/null 2>&1 \
+-	| sed -n '/<...> search starts here:/,/End of search list./{ s| \(/.*\)|-idirafter \1|p }'
++	| gsed -n '/<...> search starts here:/,/End of search list./{ s| \(/.*\)|-idirafter \1|p }'
