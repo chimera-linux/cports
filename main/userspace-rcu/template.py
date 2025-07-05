@@ -1,17 +1,15 @@
 pkgname = "userspace-rcu"
-pkgver = "0.15.1"
+pkgver = "0.15.3"
 pkgrel = 0
 build_style = "gnu_configure"
-make_check_args = ["-j1"]
 hostmakedepends = ["automake", "pkgconf", "slibtool"]
+checkdepends = ["bash"]
 pkgdesc = "Userspace RCU library"
 license = "LGPL-2.1-or-later"
 url = "https://liburcu.org"
 source = f"https://www.lttng.org/files/urcu/userspace-rcu-{pkgver}.tar.bz2"
-sha256 = "98d66cc12f2c5881879b976f0c55d10d311401513be254e3bd28cf3811fb50c8"
+sha256 = "26687ec84e3e114759454c884a08abeaf79dec09b041895ddf4c45ec150acb6d"
 tool_flags = {"CFLAGS": ["-DLITTLE_ENDIAN=4321", "-DBIG_ENDIAN=1234"]}
-# XXX: tests pass when run outside the suite...
-options = ["!check"]
 
 if self.profile().endian == "big":
     tool_flags["CFLAGS"] += ["-DBYTE_ORDER=1234"]
