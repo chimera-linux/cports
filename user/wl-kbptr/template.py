@@ -1,5 +1,5 @@
 pkgname = "wl-kbptr"
-pkgver = "0.3.0"
+pkgver = "0.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dopencv=enabled"]
@@ -17,7 +17,7 @@ pkgdesc = "Control the mouse pointer with the keyboard"
 license = "GPL-3.0-or-later"
 url = "https://github.com/moverest/wl-kbptr"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "69775029acb8ff7d814a2868afe22e72b8c9c99cbb35b0acf57eccd3609b089c"
+sha256 = "e3655f5305987dbac389a25e64c2f5a028c1651db70ea757024c4efa55c24338"
 hardening = ["vis", "!cfi"]
 
 
