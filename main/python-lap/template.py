@@ -1,15 +1,17 @@
 pkgname = "python-lap"
 pkgver = "0.5.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-cython",
     "python-installer",
-    "python-numpy",
     "python-setuptools",
 ]
-makedepends = ["python-devel"]
+makedepends = [
+    "python-devel",
+    "python-numpy-devel",
+]
 depends = ["python-numpy"]
 pkgdesc = "Linear Assignment Problem solver for LAPJV/LAPMOD"
 license = "BSD-2-Clause"

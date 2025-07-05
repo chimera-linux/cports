@@ -1,6 +1,6 @@
 pkgname = "python-numpy"
-pkgver = "2.2.4"
-pkgrel = 0
+pkgver = "2.3.1"
+pkgrel = 1
 build_style = "python_pep517"
 make_build_args = []
 hostmakedepends = [
@@ -20,7 +20,7 @@ pkgdesc = "Package for scientific computing with Python"
 license = "BSD-3-Clause"
 url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
-sha256 = "9ba03692a45d3eef66559efe1d1096c4b9b75c0986b5dff5530c378fb8331d4f"
+sha256 = "1ec9ae20a4226da374362cca3c62cd753faf2f951440b0e3b98e93c235441d2b"
 hardening = ["!int"]
 
 if self.profile().arch in ["aarch64", "loongarch64"]:
@@ -76,6 +76,7 @@ def check(self):
         "not test_cython"
         # more float aarch64 stuff
         + " and not test_vecdot_complex"
+        + " and not test_dot_errstate[longdouble]"
         # f2py stuff
         + " and not test_limited_api"
         + " and not test_no_py312_distutils_fcompiler"
@@ -91,11 +92,24 @@ def check(self):
 
 def post_install(self):
     self.install_license("LICENSE.txt")
-    # remove static libs
-    self.uninstall(
-        f"usr/lib/python{self.python_version}/site-packages/numpy/*/lib/lib*.a",
-        glob=True,
-    )
+
+
+@subpackage("python-numpy-devel")
+def _(self):
+    self.depends = [self.parent]
+
+    def install():
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/include"
+        )
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/lib"
+        )
+        self.take(
+            f"usr/lib/python{self.parent.python_version}/site-packages/numpy/*/src"
+        )
+
+    return install
 
 
 @subpackage("python-numpy-tests")
