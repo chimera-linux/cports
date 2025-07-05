@@ -1,6 +1,6 @@
 pkgname = "assimp"
-pkgver = "5.4.3"
-pkgrel = 1
+pkgver = "6.0.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DASSIMP_BUILD_ASSIMP_TOOLS=ON",
@@ -21,7 +21,7 @@ pkgdesc = "Open asset importing library"
 license = "BSD-3-Clause"
 url = "https://www.assimp.org"
 source = f"https://github.com/assimp/assimp/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "66dfbaee288f2bc43172440a55d0235dfc7bf885dda6435c038e8000e79582cb"
+sha256 = "d1822d9a19c9205d6e8bc533bf897174ddb360ce504680f294170cc1d6319751"
 hardening = ["vis", "!cfi"]
 
 
