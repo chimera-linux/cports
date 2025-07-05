@@ -1,6 +1,6 @@
 pkgname = "lynx"
 pkgver = "2.9.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-widec",
@@ -9,6 +9,7 @@ configure_args = [
     "--with-bzlib",
     "--with-ssl",
     "--with-zlib",
+    "--enable-externs",
 ]
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
