@@ -1,5 +1,5 @@
 pkgname = "difftastic"
-pkgver = "0.63.0"
+pkgver = "0.64.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
@@ -14,8 +14,9 @@ url = "https://difftastic.wilfred.me.uk"
 source = (
     f"https://github.com/Wilfred/difftastic/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "f96bcf4fc961921d52cd9fe5aa94017924abde3d5a3b5a4727b103e9c2d4b416"
+sha256 = "54c7c93309ff9a2cbe87153ac1d16e80bacac4042c80f6b7206e9b71a6f10d0b"
 
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_man("difft.1")
