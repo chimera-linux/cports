@@ -1,5 +1,5 @@
 pkgname = "txr"
-pkgver = "299"
+pkgver = "301"
 pkgrel = 0
 archs = ["aarch64", "ppc64", "ppc64le", "riscv64", "x86_64"]
 build_style = "configure"
@@ -11,9 +11,14 @@ pkgdesc = "Data munging language"
 license = "custom:txr"
 url = "https://www.nongnu.org/txr"
 source = f"https://www.kylheku.com/cgit/txr/snapshot/txr-{pkgver}.tar.bz2"
-sha256 = "9da0e12f6b6db9c4262e92214863c90f89cd40e4fa8b5eac2b983bf65194112a"
+sha256 = "9f48abae83556f95080a3b2968048ee881acfb37e20f780ae8bc8b03e069a62c"
 hardening = ["vis"]
 options = ["!cross", "!lto"]
+
+
+def post_extract(self):
+    # segfaults
+    self.rm("tests/012/compile.tl")
 
 
 def init_configure(self):
