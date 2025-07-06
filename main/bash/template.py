@@ -1,6 +1,6 @@
 pkgname = "bash"
-pkgver = "5.2.37"
-pkgrel = 1
+pkgver = "5.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--without-bash-malloc",
@@ -19,7 +19,7 @@ pkgdesc = "GNU Bourne Again Shell"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/bash/bash-{pkgver}.tar.gz"
-sha256 = "9599b22ecd1d5787ad7d3b7bf0c59f312b3396d1e281175dd1f8a4014da621ff"
+sha256 = "0d5cd86965f869a26cf64f4b71be7b96f90a3ba8b3d74e27e8e9d9d5550f31ba"
 tool_flags = {
     "CFLAGS": [
         '-DSYS_BASHRC="/etc/bash/bashrc"',
@@ -31,7 +31,7 @@ hardening = ["vis", "!cfi", "!int"]
 
 
 def post_install(self):
-    self.install_tmpfiles(self.files_path / "tmpfiles.conf")
+    self.install_tmpfiles("^/tmpfiles.conf")
 
     # register with shells
     self.install_shell("/usr/bin/bash")
@@ -40,8 +40,8 @@ def post_install(self):
 
     self.install_link("usr/bin/rbash", "bash")
 
-    self.install_file(self.files_path / "bashrc", "etc/bash")
-    self.install_file(self.files_path / "bash.sh", "etc/profile.d")
+    self.install_file("^/bashrc", "etc/bash")
+    self.install_file("^/bash.sh", "etc/profile.d")
 
     # remove devel files
     self.uninstall("usr/lib")
