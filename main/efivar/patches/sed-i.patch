@@ -1,0 +1,31 @@
+diff --git a/src/include/deps.mk b/src/include/deps.mk
+index b33a926..82e9628 100644
+--- a/src/include/deps.mk
++++ b/src/include/deps.mk
+@@ -8,11 +8,11 @@ include $(TOPDIR)/src/include/defaults.mk
+ 
+ .%.d : %.c
+ 	@$(CC) $(CFLAGS) $(CPPFLAGS) -MM -MG -MF $@ $^
+-	@sed -i 's/:/: |/g' $@
++	@sed -i '' 's/:/: |/g' $@
+ 
+ .%.d : %.S
+ 	@$(CC) $(CFLAGS) $(CPPFLAGS) -MM -MG -MF $@ $^
+-	@sed -i 's/:/: |/g' $@
++	@sed -i '' 's/:/: |/g' $@
+ 
+ SOURCES ?=
+ 
+diff --git a/src/include/rules.mk b/src/include/rules.mk
+index 8d0b68a..1d3e9ab 100644
+--- a/src/include/rules.mk
++++ b/src/include/rules.mk
+@@ -40,7 +40,7 @@ family = $(foreach FAMILY_SUFFIX,$(FAMILY_SUFFIXES),$($(1)_$(FAMILY_SUFFIX)))
+ 
+ %.abixml : %.so
+ 	$(ABIDW) --headers-dir $(TOPDIR)/src/include/efivar/ --out-file $@ $^
+-	@sed -i -s 's,$(TOPDIR)/,,g' $@
++	@sed -i '' -s 's,$(TOPDIR)/,,g' $@
+ 
+ %.abicheck : %.so
+ 	$(ABIDIFF) \
