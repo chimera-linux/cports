@@ -1,32 +1,19 @@
 pkgname = "xh"
 pkgver = "0.24.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
-make_check_args = [
-    "--",
-    # need net
-    "--skip=cert_without_key",
-    "--skip=compress_request_body_online",
-    "--skip=digest_auth_with_response_meta",
-    "--skip=formatted_certificate_expired_message",
-    "--skip=good_tls_version",
-    "--skip=http1_0",
-    "--skip=http1_1",
-    "--skip=http2",
-    "--skip=successful_digest_auth",
-    "--skip=unsuccessful_digest_auth",
-    "--skip=use_ipv4",
-    "--skip=verify_default_yes",
-    "--skip=verify_explicit_yes",
-    "--skip=verify_no",
-    "--skip=verify_valid_file",
+make_build_args = [
+    "--no-default-features",
+    "--features=native-tls",
 ]
+make_check_args = [*make_build_args]
 hostmakedepends = [
     "cargo-auditable",
     "pkgconf",
 ]
 makedepends = [
     "oniguruma-devel",
+    "openssl3-devel",
     "rust-std",
 ]
 pkgdesc = "Tool for sending HTTP requests"
@@ -38,6 +25,7 @@ sha256 = "c5902052c66e20fd2c0b49db14edb027f54500b502108327e17260c64a42edee"
 
 def install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/xh")
+    self.install_link("usr/bin/xhs", "xh")
     self.install_license("LICENSE")
     self.install_man("doc/xh.1")
     self.install_completion("completions/_xh", "zsh")
