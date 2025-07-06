@@ -1,5 +1,5 @@
 pkgname = "nettle"
-pkgver = "3.10.1"
+pkgver = "3.10.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "texinfo", "automake", "libtool"]
@@ -8,7 +8,7 @@ pkgdesc = "Low-level cryptographic library"
 license = "GPL-2.0-or-later OR LGPL-3.0-or-later"
 url = "https://www.lysator.liu.se/~nisse/nettle"
 source = f"$(GNU_SITE)/nettle/nettle-{pkgver}.tar.gz"
-sha256 = "b0fcdd7fc0cdea6e80dcf1dd85ba794af0d5b4a57e26397eee3bc193272d9132"
+sha256 = "fe9ff51cb1f2abb5e65a6b8c10a92da0ab5ab6eaf26e7fc2b675c45f1fb519b5"
 
 
 @subpackage("nettle-devel")
