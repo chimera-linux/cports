@@ -1,5 +1,5 @@
 pkgname = "python-resolvelib"
-pkgver = "1.1.0"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -13,7 +13,7 @@ pkgdesc = "Resolve abstract dependencies into concrete ones"
 license = "ISC"
 url = "https://github.com/sarugaku/resolvelib"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "660e2cef5342adfcdf2144539b4bfcba660682db3a8f3feb31d9ff153af8c461"
+sha256 = "cb5858fcd2c91bd14a77654883ec64d3de309fbca349494b084c36f4ff3ff05c"
 
 
 def post_install(self):
