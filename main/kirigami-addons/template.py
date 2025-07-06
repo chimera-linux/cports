@@ -1,5 +1,5 @@
 pkgname = "kirigami-addons"
-pkgver = "1.8.1"
+pkgver = "1.9.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_args = [
@@ -31,9 +31,9 @@ checkdepends = ["qt6-qtmultimedia", "sound-theme-freedesktop"]
 depends = ["kirigami", "qt6-qtmultimedia", "sonnet"]
 pkgdesc = "Add-ons for the Kirigami framework"
 license = "LGPL-2.0-or-later AND GPL-2.0-or-later"
-url = "https://api.kde.org/frameworks/kirigami-addons/html"
+url = "https://api.kde.org/kirigami-addons/html/index.html"
 source = f"$(KDE_SITE)/kirigami-addons/kirigami-addons-{pkgver}.tar.xz"
-sha256 = "00028ae4df99e250518345ea28d9cdf49d700e9acac482734bb51384da11f945"
+sha256 = "21314a91f26b1c962def3fd7ff2e762d3358b075f63f4d7e0144fb2c63b7ebc7"
 hardening = ["vis"]
 
 
