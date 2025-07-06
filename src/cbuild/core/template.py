@@ -2017,7 +2017,9 @@ class Template(Package):
         if mode is not None:
             dirp.chmod(mode)
 
-    def install_file(self, src, dest, mode=0o644, name=None, glob=False):
+    def install_file(
+        self, src, dest, mode=0o644, name=None, glob=False, follow_symlinks=True
+    ):
         if not glob:
             srcs = [self.cwd / _subst_path(self, src)]
         else:
@@ -2043,8 +2045,8 @@ class Template(Package):
                     f"install_file: destination file '{dfn}' already exists"
                 )
             self.install_dir(dest)
-            shutil.copy2(self.cwd / src, dfn)
-            if mode is not None:
+            shutil.copy2(self.cwd / src, dfn, follow_symlinks=follow_symlinks)
+            if mode is not None and (follow_symlinks or not dfn.is_symlink()):
                 dfn.chmod(mode)
 
     def install_bin(self, src, mode=0o755, name=None, glob=False):

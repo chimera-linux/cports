@@ -3030,7 +3030,7 @@ Usage:
 self.install_dir("usr/include")
 ```
 
-##### def install_file(self, src, dest, mode = 0o644, name = None, glob = False)
+##### def install_file(self, src, dest, mode = 0o644, name = None, glob = False, follow_symlinks = True)
 
 Installs `src` into `dest`, where `src` refers to a file (absolute or
 relative to `cwd`) and `dest` refers to a directory (must exist and be
