@@ -22,6 +22,8 @@ url = "https://numpy.org"
 source = f"https://github.com/numpy/numpy/releases/download/v{pkgver}/numpy-{pkgver}.tar.gz"
 sha256 = "1ec9ae20a4226da374362cca3c62cd753faf2f951440b0e3b98e93c235441d2b"
 hardening = ["!int"]
+# exec format error
+options = ["!cross"]
 
 if self.profile().arch in ["aarch64", "loongarch64"]:
     # FIXME: segfault in python in
