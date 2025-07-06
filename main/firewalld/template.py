@@ -1,6 +1,6 @@
 pkgname = "firewalld"
-pkgver = "2.3.0"
-pkgrel = 2
+pkgver = "2.3.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
 configure_gen = ["./autogen.sh"]
@@ -28,7 +28,7 @@ pkgdesc = "Stateful zone-based firewall daemon with D-Bus interface"
 license = "GPL-2.0-or-later"
 url = "https://firewalld.org"
 source = f"https://github.com/firewalld/firewalld/releases/download/v{pkgver}/firewalld-{pkgver}.tar.bz2"
-sha256 = "f6ba846c92fc08aebda8dfd2856e6c6224d170a5288a2ae1c181d6a43036c009"
+sha256 = "719890d82caa7d162b021ed646034883b9eb354a45de3685c28ead057d139d4d"
 # tests don't work in our build env
 options = ["!check"]
 
@@ -41,15 +41,14 @@ def post_install(self):
     from cbuild.util import python
 
     python.precompile(self, "usr/lib")
-    self.install_service(self.files_path / "firewalld")
+    self.install_service("^/firewalld")
 
 
 @subpackage("firewalld-firewall-config")
 def _(self):
     self.pkgdesc = "GTK-based configuration utility for firewalld"
     self.depends = [self.parent, "gtk+3"]
-    # transitional
-    self.provides = [self.with_pkgver("firewall-config")]
+    self.renames = ["firewall-config"]
     return [
         "usr/bin/firewall-config",
         "usr/share/applications",

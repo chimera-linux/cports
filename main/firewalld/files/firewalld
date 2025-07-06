@@ -1,5 +1,5 @@
 type = process
 command = /usr/bin/firewalld --nofork --nopid
-before = pre-network.target
-depends-on = dbus
-depends-on = pre-local.target
+before: pre-network.target
+depends-on: dbus
+depends-on: pre-local.target
