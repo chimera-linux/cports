@@ -5,8 +5,8 @@ diff --git a/cmake/compilers/Clang.cmake b/cmake/compilers/Clang.cmake
 index f56b5fb..b2e41ac 100644
 --- a/cmake/compilers/Clang.cmake
 +++ b/cmake/compilers/Clang.cmake
-@@ -66,7 +66,7 @@ if (NOT APPLE)
-     set(TBB_LIB_LINK_FLAGS ${TBB_LIB_LINK_FLAGS} -Wl,-z,relro,-z,now)
+@@ -74,7 +74,7 @@
+     set(TBB_LIB_LINK_FLAGS ${TBB_LIB_LINK_FLAGS} -Wl,-z,relro,-z,now,-z,noexecstack)
  endif()
  
 -set(TBB_COMMON_LINK_LIBS ${CMAKE_DL_LIBS})
