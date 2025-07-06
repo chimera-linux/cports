@@ -285,7 +285,7 @@ def check_stage(arch, force=False, remote=False):
                 del checkdeps[d]
                 break
 
-    # we can safely unstage as there is ntohing left
+    # we can safely unstage as there is nothing left
     if len(checkdeps) == 0:
         return rs
 
