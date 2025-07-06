@@ -1,6 +1,6 @@
 pkgname = "transmission"
 pkgver = "4.0.6"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DENABLE_DAEMON=ON",
