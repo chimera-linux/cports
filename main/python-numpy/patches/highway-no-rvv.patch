@@ -1,0 +1,14 @@
+--- a/numpy/_core/src/highway/hwy/detect_targets.h
++++ b/numpy/_core/src/highway/hwy/detect_targets.h
+@@ -786,9 +786,9 @@
+ #endif
+ 
+ #if HWY_ARCH_RISCV && HWY_HAVE_RUNTIME_DISPATCH
+-#define HWY_ATTAINABLE_RISCV HWY_RVV
++#define HWY_ATTAINABLE_RISCV 0
+ #else
+-#define HWY_ATTAINABLE_RISCV HWY_BASELINE_RVV
++#define HWY_ATTAINABLE_RISCV 0
+ #endif
+ 
+ #if HWY_ARCH_LOONGARCH && HWY_HAVE_RUNTIME_DISPATCH
