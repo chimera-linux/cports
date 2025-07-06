@@ -1,6 +1,6 @@
 pkgname = "base-removed-dbg"
 pkgver = "1.0"
-pkgrel = 15
+pkgrel = 16
 build_style = "meta"
 provides = []
 pkgdesc = "Removed debug packages"
@@ -15,8 +15,6 @@ for _pkg in [
     "device-mapper",
     "dmesg",
     "esmtool",
-    "fcitx5-gtk3",
-    "fcitx5-gtk4",
     "fdisk",
     "fstrim",
     "fuse2fs",
