@@ -1,6 +1,6 @@
 pkgname = "python-lsprotocol"
-pkgver = "2023.0.1"
-pkgrel = 1
+pkgver = "2025.0.0"
+pkgrel = 0
 build_wrksrc = "packages/python"
 build_style = "python_pep517"
 make_check_args = ["../../tests/python"]
@@ -24,7 +24,7 @@ license = "MIT"
 url = "https://github.com/microsoft/lsprotocol"
 # no tests in pypi
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "0697ef66ca1b547cadb4c27080d6095c2e403b9aeb05401de383126a70720a56"
+sha256 = "f5e93c080c01ac27896114b996929e8474943b189b2a2dbf304dcd4663596d5c"
 
 
 def post_install(self):
