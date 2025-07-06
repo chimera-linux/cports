@@ -1,6 +1,6 @@
 pkgname = "qt6-qtquick3d"
 pkgver = "6.9.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DQT_FEATURE_system_assimp=ON"]
 make_check_args = ["-E", "module_includes"]
