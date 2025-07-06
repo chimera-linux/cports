@@ -25,7 +25,7 @@ hardening = ["!int"]
 # exec format error
 options = ["!cross"]
 
-if self.profile().arch in ["aarch64", "loongarch64"]:
+if self.profile().arch in ["aarch64", "loongarch64", "riscv64"]:
     # FIXME: segfault in python in
     # test_half_ordering and test_sort_degrade
     # with this enabled
