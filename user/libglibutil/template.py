@@ -1,5 +1,5 @@
 pkgname = "libglibutil"
-pkgver = "1.0.79"
+pkgver = "1.0.80"
 pkgrel = 0
 build_style = "makefile"
 make_install_target = "install-dev"
@@ -11,7 +11,7 @@ pkgdesc = "Library of glib utilities"
 license = "BSD-3-Clause"
 url = "https://github.com/sailfishos/libglibutil"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "4d689cb79f8ea061e46b89008370dc771b07164ee496850d9d56d9d85f1be1c3"
+sha256 = "ab4728157b68f84492512c7a451fe193924ae2aac3aa851de06eb3fd5acdc714"
 
 
 def post_install(self):
