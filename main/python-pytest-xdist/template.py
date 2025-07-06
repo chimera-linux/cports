@@ -1,5 +1,5 @@
 pkgname = "python-pytest-xdist"
-pkgver = "3.7.0"
+pkgver = "3.8.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -18,7 +18,7 @@ pkgdesc = "Pytest plugin for testing parallelisation"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-xdist"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "42ce53fa3d1aec0e2b6843a082f6fc248412bfc2a27ec454dac2a94967d34e77"
+sha256 = "0badaac301fcd0c4b4ae0e591f70f086b12543087d30bc2b17f0514edba02462"
 
 
 def init_build(self):
