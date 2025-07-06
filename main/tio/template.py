@@ -1,5 +1,5 @@
 pkgname = "tio"
-pkgver = "3.8"
+pkgver = "3.9"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -16,4 +16,4 @@ pkgdesc = "Terminal Serial I/O tool"
 license = "GPL-2.0-or-later"
 url = "https://github.com/tio/tio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c0e68c96f28a5b4daaf94eba31b066853efd1f1ea396c75a6cc168f2e95cdea3"
+sha256 = "88e6fc49f458526a265357601e4fb3e7400685e9720a9150227cbd288432e6f1"
