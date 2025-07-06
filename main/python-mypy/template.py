@@ -1,5 +1,5 @@
 pkgname = "python-mypy"
-pkgver = "1.16.0"
+pkgver = "1.16.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "mypy/test"
@@ -24,7 +24,7 @@ pkgdesc = "Optional static typing for Python"
 license = "MIT"
 url = "https://www.mypy-lang.org"
 source = f"$(PYPI_SITE)/m/mypy/mypy-{pkgver}.tar.gz"
-sha256 = "84b94283f817e2aa6350a14b4a8fb2a35a53c286f97c9d30f53b63620e7af8ab"
+sha256 = "6bd00a0a2094841c5e47e7374bb42b83d64c527a502e3334e1173a0c24437bab"
 # they take ages, also there are like 3 failures
 options = ["!check"]
 
