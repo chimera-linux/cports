@@ -1,5 +1,5 @@
 pkgname = "fcitx5-chewing"
-pkgver = "5.1.7"
+pkgver = "5.1.8"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -20,4 +20,4 @@ url = "https://fcitx-im.org"
 source = (
     f"https://github.com/fcitx/fcitx5-chewing/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "a7b142f8ab638504eaddc08a8936cc614cfa6f588da288fa3582ed74ef08c64f"
+sha256 = "cd82f808303834f089e70277e214cb17d02f5b60c352182e75c88b69bc2708cc"
