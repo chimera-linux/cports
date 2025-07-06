@@ -1,0 +1,56 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index f569729..613a56f 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: MIT
+ 
+ [build-system]
+-requires = ["hatchling", "hatch-vcs", "hatch-fancy-pypi-readme"]
++requires = ["hatchling", "hatch-vcs"]
+ build-backend = "hatchling.build"
+ 
+ 
+@@ -62,41 +62,6 @@ source = "vcs"
+ raw-options = { local_scheme = "no-local-version" }
+ 
+ 
+-[tool.hatch.metadata.hooks.fancy-pypi-readme]
+-content-type = "text/markdown"
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+-text = "# *argon2-cffi*: Argon2 for Python\n\n"
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+-path = "README.md"
+-start-after = "<!-- begin pypi -->\n"
+-end-before = "\n<!-- end pypi -->"
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+-text = """
+-
+-## Release Information
+-
+-"""
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+-path = "CHANGELOG.md"
+-start-after = "<!-- changelog follows -->"
+-pattern = "\n(###.+?\n)## "
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+-text = """
+----
+-
+-[Full Changelog →](https://github.com/hynek/argon2-cffi/blob/main/CHANGELOG.md)
+-
+-
+-"""
+-
+-[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+-path = "README.md"
+-start-at = "## Credits"
+ 
+ 
+ [tool.pytest.ini_options]
+
