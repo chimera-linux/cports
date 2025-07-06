@@ -1,5 +1,5 @@
 pkgname = "python-hypothesis"
-pkgver = "6.135.14"
+pkgver = "6.135.26"
 pkgrel = 0
 build_wrksrc = "hypothesis-python"
 build_style = "python_pep517"
@@ -25,7 +25,7 @@ pkgdesc = "Python library for property-based testing"
 license = "MPL-2.0"
 url = "https://hypothesis.works/index.html"
 source = f"https://github.com/HypothesisWorks/hypothesis/archive/refs/tags/hypothesis-python-{pkgver}.tar.gz"
-sha256 = "258941fa235587e108bbd3925bd35938e03cf7813ec59d59576d96380f0c1e86"
+sha256 = "85b11a73f70593d1f0a85453eb2b15c9378a7856d21caa11cfb323c2fa536b7e"
 
 
 def init_check(self):
