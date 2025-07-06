@@ -1,6 +1,6 @@
 pkgname = "freecell-solver"
-pkgver = "6.12.0"
-pkgrel = 1
+pkgver = "6.14.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # needs a million more perl things
@@ -31,7 +31,7 @@ pkgdesc = "Solver for various Freecell-based solitaire games"
 license = "MIT"
 url = "https://github.com/shlomif/fc-solve"
 source = f"https://fc-solve.shlomifish.org/downloads/fc-solve/freecell-solver-{pkgver}.tar.xz"
-sha256 = "a2b89e804ce4b918ef749031676210f2095fea3a8cb129805602843c7c4884a0"
+sha256 = "1d1125d85422bcd521102d7cb1e7c84b76863fe445dd21879f9779dc6b2ce7dc"
 
 
 def post_install(self):
