@@ -1,8 +1,8 @@
 # don't forget to update files/ckms.ini when bumping
 # also update linux-*-zfs-bin
 pkgname = "zfs"
-pkgver = "2.3.2"
-pkgrel = 1
+pkgver = "2.3.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
@@ -37,7 +37,7 @@ source = [
     f"!https://raw.githubusercontent.com/openzfs/zfs/zfs-{pkgver}/contrib/debian/tree/zfs-initramfs/usr/share/initramfs-tools/hooks/zdev>zdev-{pkgver}",
 ]
 sha256 = [
-    "80da628a9543ec3355bf410617450e167706948ceb287541455a1b8d87b8758a",
+    "844122118f0ea81205a01753bbcb1315330f8967c1f866dcd10155273131f071",
     "c541dfec33ba7dfec3fb85a4532fc9c7a72035316716e93074b2cfa030ca2d12",
 ]
 hardening = ["!vis", "!cfi"]

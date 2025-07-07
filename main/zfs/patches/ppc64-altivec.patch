@@ -17,7 +17,7 @@ and so on.
 --- a/module/Kbuild.in
 +++ b/module/Kbuild.in
 @@ -494,5 +494,5 @@ OBJECT_FILES_NON_STANDARD_vdev_raidz_math_avx512bw.o := y
- OBJECT_FILES_NON_STANDARD_vdev_raidz_math_avx512f.o := y
+ UBSAN_SANITIZE_zfs/sa.o := n
  
  ifeq ($(CONFIG_ALTIVEC),y)
 -$(obj)/zfs/vdev_raidz_math_powerpc_altivec.o : c_flags += -maltivec
