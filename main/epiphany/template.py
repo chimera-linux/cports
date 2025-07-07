@@ -1,6 +1,6 @@
 pkgname = "epiphany"
 pkgver = "48.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dunit_tests=disabled"]
 hostmakedepends = [
