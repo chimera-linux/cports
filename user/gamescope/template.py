@@ -1,6 +1,6 @@
 pkgname = "gamescope"
 pkgver = "3.16.4"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=static",
