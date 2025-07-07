@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/rbw-agent --no-daemonize
+log-type = buffer
+before: graphical.target
