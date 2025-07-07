@@ -1,3 +1,14 @@
+--- a/Makefile	2024-08-07 18:01:14.000000000 -0300
++++ b/Makefile	2024-09-08 13:55:52.827469906 -0300
+@@ -54,7 +54,7 @@
+ 		cp systemd/waydroid-container.service $(INSTALL_SYSD_DIR); \
+ 	fi
+ 	if [ $(USE_NFTABLES) = 1 ]; then \
+-		sed '/LXC_USE_NFT=/ s/false/true/' -i $(INSTALL_WAYDROID_DIR)/data/scripts/waydroid-net.sh; \
++		sed -i '' '/LXC_USE_NFT=/ s/false/true/' $(INSTALL_WAYDROID_DIR)/data/scripts/waydroid-net.sh; \
+ 	fi
+ 
+ install_apparmor:
 --- a/tools/helpers/lxc.py	2024-09-07 13:39:38.419147354 -0300
 +++ b/tools/helpers/lxc.py	2024-09-07 14:10:55.719543931 -0300
 @@ -157,12 +157,12 @@

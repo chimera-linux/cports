@@ -1,0 +1,9 @@
+--- a/dbus/id.waydro.Container.service
++++ b/dbus/id.waydro.Container.service
+@@ -1,5 +1,5 @@
+ [D-BUS Service]
+ Name=id.waydro.Container
+-Exec=/usr/bin/waydroid -w container start
++Exec=/usr/bin/dinitctl --quiet start waydroid-container
+ User=root
+ SystemdService=waydroid-container.service
