@@ -1,6 +1,6 @@
 pkgname = "shfmt"
-pkgver = "3.11.0"
-pkgrel = 4
+pkgver = "3.12.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags",
@@ -13,7 +13,7 @@ pkgdesc = "Shell language formatter"
 license = "BSD-3-Clause"
 url = "https://github.com/mvdan/sh"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "69aebb0dd4bf5e62842c186ad38b76f6ec2e781188cd71cea33cb4e729086e94"
+sha256 = "ac15f42feeba55af29bd07698a881deebed1cd07e937effe140d9300e79d5ceb"
 
 
 def post_install(self):
