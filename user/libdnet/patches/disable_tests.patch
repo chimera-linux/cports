@@ -1,0 +1,19 @@
+commit 2322f48
+Author: Renato Botelho do Couto <renato@netgate.com>
+Date:   Wed Sep 11 16:35:45 2024
+
+    Disable tests that require network
+
+diff --git a/test/check/Makefile.am b/test/check/Makefile.am
+index 07b0c47..c571b03 100644
+--- a/test/check/Makefile.am
++++ b/test/check/Makefile.am
+@@ -5,7 +5,7 @@ include $(top_srcdir)/Makefile.am.common
+ AM_CPPFLAGS += @CHECKINC@
+ 
+ if HAVE_CHECK
+-TESTS = check_addr check_arp check_blob check_eth check_fw check_ip \
++TESTS = check_addr check_arp check_blob check_eth \
+ 	check_intf check_rand check_route
+ else
+ TESTS =
