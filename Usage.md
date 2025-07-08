@@ -606,9 +606,10 @@ The following commands are recognized:
   prevent it from doing so (i.e. missing rebuilds and so on) you will get
   a warning instead, and nothing will happen. Warnings will result in
   return code 32, success is 0, other values are a failure.
-* `unstage-check-remote` Treating the local repository as a stage, check
-  if the local packages would unstage cleanly in the remote repo. This is
-  useful to check if you've missed some rebuilds locally when rebuilding
+* `unstage-check-remote` Treating the local repository as a stage, check if the
+  local packages would unstage cleanly in the remote repo. Return with exit code
+  0 if the packages can be cleanly unstaged, other values indicate a failure.
+  This is useful to check if you've missed some rebuilds locally when rebuilding
   for changed SONAMEs and so on.
 * `update-check` Check the given template for new versions. An extra argument
   (may be any) makes the output verbose. See the relevant section inside the

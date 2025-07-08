@@ -69,8 +69,14 @@ jobs:
       - name: Set up cbuild configuration
         run: sh .ci/setup-cbuild.sh
 
+      - name: Set up build root
+        run: python3.12 cbuild -W binary-bootstrap
+
       - name: Build and test packages
-        run: python3.12 cbuild -W ${{ env.update_check }} -t bulk-pkg 'git:master..+!\[ci skip\]'
+        run: python3.12 cbuild -W ${{ env.update_check }} bulk-pkg 'git:master..+!\[ci skip\]'
+
+      - name: Check repository is unstageable
+        run: python3.12 cbuild -W unstage-check-remote
 
       - name: Save cbuild cache
         uses: actions/cache/save@v4
