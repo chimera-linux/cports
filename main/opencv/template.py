@@ -1,6 +1,6 @@
 pkgname = "opencv"
-pkgver = "4.11.0"
-pkgrel = 11
+pkgver = "4.12.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # rm NDEBUG
@@ -87,8 +87,8 @@ source_paths = [
     "extra-modules",
 ]
 sha256 = [
-    "9a7c11f924eff5f8d8070e297b322ee68b9227e003fd600d4b8122198091665f",
-    "2dfc5957201de2aa785064711125af6abb2e80a64e2dc246aca4119b19687041",
+    "44c106d5bb47efec04e531fd93008b3fcd1d27138985c5baf4eafac0e1ec9e9d",
+    "4197722b4c5ed42b476d42e29beb29a52b6b25c34ec7b4d589c3ae5145fee98e",
 ]
 # insane spam on ppc64le
 tool_flags = {"CXXFLAGS": ["-Wno-deprecate-lax-vec-conv-all"]}
