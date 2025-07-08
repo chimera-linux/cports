@@ -1,6 +1,5 @@
 type = process
-command = /usr/libexec/postgresql16/postgres -D /var/lib/postgresql
-depends-on = network.target
+command = /usr/lib/postgresql16/postgres -D /var/lib/postgresql
 smooth-recovery = true
 logfile = /var/log/postgresql.log
 run-as = _postgres
@@ -12,3 +11,5 @@ stop-timeout = 60.0
 # long-running server processes will be using the same connection constantly and
 # not making new ones and never let postgres drop to 0 connections and exit.
 term-signal = INT
+depends-on: local.target
+depends-on: network.target
