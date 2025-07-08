@@ -1,11 +1,11 @@
 pkgname = "postgresql16"
-pkgver = "16.8"
-pkgrel = 3
+pkgver = "16.10"
+pkgrel = 0
 # NOTE: version 16 doesn't work with meson + tarball
 # switch to meson for version 17
 build_style = "gnu_configure"
 configure_args = [
-    f"--bindir=/usr/libexec/{pkgname}",
+    f"--bindir=/usr/lib/{pkgname}",
     f"--datadir=/usr/share/{pkgname}",
     "--includedir=/usr/include/postgresql",
     f"--sysconfdir=/etc/{pkgname}",
@@ -44,7 +44,7 @@ pkgdesc = "Sophisticated object-relational DBMS, version 16.x"
 license = "PostgreSQL"
 url = "https://www.postgresql.org"
 source = f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
-sha256 = "9468083a56ce0ee7d294601b74dad3dd9fc69d87aff61f0a9fb63c813ff7efd8"
+sha256 = ["de8485f4ce9c32e3ddfeef0b7c261eed1cecb54c9bcd170e437ff454cb292b42"]
 # checks depend on libpq already being installed
 options = ["!check"]
 
@@ -173,7 +173,7 @@ def post_install(self):
     # move some stuff not meant to be multiversioned
     if _default_ver:
         self.rename(
-            f"usr/libexec/{pkgname}/pg_config",
+            f"usr/lib/{pkgname}/pg_config",
             "usr/bin/pg_config",
             relative=False,
         )
@@ -229,10 +229,8 @@ def _(self):
 
     def _links():
         # executables
-        for f in (self.parent.destdir / f"usr/libexec/{pkgname}").iterdir():
-            self.make_link(
-                f"usr/bin/{f.name}", f"../libexec/{pkgname}/{f.name}"
-            )
+        for f in (self.parent.destdir / f"usr/lib/{pkgname}").iterdir():
+            self.make_link(f"usr/bin/{f.name}", f"../lib/{pkgname}/{f.name}")
         # manpages
         for f in (
             self.parent.destdir / f"usr/share/{pkgname}/man/man1"
@@ -268,7 +266,7 @@ def _contrib_alt(pn, pl):
 
         def inst():
             for lnk in pl:
-                self.make_link(f"usr/bin/{lnk}", f"../libexec/{pkgname}/{lnk}")
+                self.make_link(f"usr/bin/{lnk}", f"../lib/{pkgname}/{lnk}")
 
         return inst
 
@@ -332,7 +330,7 @@ def _(self):
     self.provides = [self.with_pkgver("libecpg-devel")]
 
     return [
-        f"usr/libexec/{pkgname}/ecpg",
+        f"usr/lib/{pkgname}/ecpg",
         "usr/include/postgresql/ecpg*.h",
         "usr/include/postgresql/sqlca.h",
         "usr/include/postgresql/sqlda*.h",

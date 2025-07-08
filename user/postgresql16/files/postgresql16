@@ -1,5 +1,5 @@
 type = process
-command = /usr/libexec/postgresql16/postgres -D /var/lib/postgresql
+command = /usr/lib/postgresql16/postgres -D /var/lib/postgresql
 depends-on = network.target
 smooth-recovery = true
 logfile = /var/log/postgresql.log
