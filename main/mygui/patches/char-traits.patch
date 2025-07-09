@@ -4,7 +4,7 @@ types, so switch these types so they work with std::string
 --- a/MyGUIEngine/include/MyGUI_UString.h
 +++ b/MyGUIEngine/include/MyGUI_UString.h
 @@ -164,10 +164,10 @@ namespace MyGUI
- 		static const size_type npos = static_cast<size_type>(~0);
+ 		static const size_type npos = std::numeric_limits<size_t>::max();
  
  		//! a single 32-bit Unicode character
 -		using unicode_char = uint32;
