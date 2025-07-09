@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/salt-api
+logfile = /var/log/salt/api
+before: login.target
+depends-on: local.target
+depends-on: network.target

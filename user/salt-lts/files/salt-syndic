@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/salt-syndic
+logfile = /var/log/salt/syndic
+before: login.target
+depends-on: local.target
+depends-on: network.target
