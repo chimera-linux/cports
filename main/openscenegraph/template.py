@@ -1,10 +1,11 @@
 pkgname = "openscenegraph"
 pkgver = "3.6.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     # avoid lib64
-    "-DLIB_POSTFIX="
+    "-DLIB_POSTFIX=",
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [

@@ -1,0 +1,50 @@
+From 81234f6da327689e8921cefdc645e724a1a24937 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 10 Jul 2025 01:02:33 +0200
+Subject: [PATCH] GLExtensions: use glXGetProcAddress as fallback for dlsym on
+ linux
+
+The decision to use dlsym is a poor one as the libGL may not
+contain all the symbols that are supported. Since rewriting this
+for a downstream distro is not exactly an option and to do it
+correctly it's a lot more involved, do something nasty:
+
+Use dlsym first, which will pass for *most* GL symbols (and all
+when on most distros and using libglvnd with its own library),
+and if something is missing, dlsym a glXGetProcAddress instead,
+which should always work on linux, and call it with the same
+symbol name.
+
+For e.g. glClipControl when not using glvnd and using mesa's
+dispatch instead, this is crucial, as the latter will return
+a valid function pointer.
+---
+ src/osg/GLExtensions.cpp | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/src/osg/GLExtensions.cpp b/src/osg/GLExtensions.cpp
+index 478b503..1982935 100644
+--- a/src/osg/GLExtensions.cpp
++++ b/src/osg/GLExtensions.cpp
+@@ -395,7 +395,17 @@ OSG_INIT_SINGLETON_PROXY(GLExtensionDisableStringInitializationProxy, osg::getGL
+ 
+     #elif defined (__linux__)
+ 
+-        return dlsym(0, funcName);
++        void *func = dlsym(0, funcName);
++        if (func) {
++            return func;
++        }
++        /* cry */
++        /* very non-portable but should work on linux and is only a fallback! */
++        auto *getproc = (void *(*)(const char *))dlsym(0, "glXGetProcAddress");
++        if (!getproc) {
++            return NULL;
++        }
++        return getproc(funcName);
+ 
+     #elif defined (__QNX__)
+ 
+-- 
+2.49.0
+
