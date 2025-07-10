@@ -1,6 +1,6 @@
 pkgname = "grim"
-pkgver = "1.4.1"
-pkgrel = 2
+pkgver = "1.5.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dfish-completions=true",
@@ -23,9 +23,9 @@ makedepends = [
 ]
 pkgdesc = "Grab images from a wayland compositor"
 license = "MIT"
-url = "https://sr.ht/~emersion/grim"
-source = f"https://git.sr.ht/~emersion/grim/archive/v{pkgver}.tar.gz"
-sha256 = "5ed8e70fcd83a7e203e92d34dbb82a1342d3f13ad98a6b0310cc97e1a9342ded"
+url = "https://gitlab.freedesktop.org/emersion/grim"
+source = f"{url}/-/archive/v{pkgver}.tar.gz"
+sha256 = "17771517611c5ce1c56e6c0ce4e860ec27052273ca51f010672dbfac7d540f1f"
 hardening = ["vis", "cfi"]
 
 
