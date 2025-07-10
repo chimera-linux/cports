@@ -1,4 +1,4 @@
-from cbuild.core import chroot
+from cbuild.core import chroot, paths
 
 import shutil
 import pathlib
@@ -111,10 +111,14 @@ def patch_git(pkg, patch_list, wrksrc=None, apply_args=[], stamp=False):
 
     def _apply(p):
         if subprocess.run([*srcmd, p], cwd=pkg.srcdir).returncode != 0:
+            pkg.log(f"failed to apply '{p.name}', repeating in verbose mode")
+            subprocess.run([*srcmd, "--verbose", p], cwd=pkg.srcdir)
             pkg.error(f"failed to apply '{p.name}'")
 
+    relative_srcdir_path = pkg.srcdir.resolve().relative_to(paths.distdir())
+
     for p in patch_list:
-        pkg.log(f"patching: {p.name}")
+        pkg.log(f"patching {relative_srcdir_path}: {p.name}")
         if stamp:
             with pkg.stamp(f"patch_{p.name}") as s:
                 s.check()
