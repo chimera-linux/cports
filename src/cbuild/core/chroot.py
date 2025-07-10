@@ -177,11 +177,21 @@ def setup_keys(rootp):
 
 _crepos = None
 _mirror = None
+_depcheck = True
 
 
 def set_mirror(mirror):
     global _mirror
     _mirror = mirror
+
+
+def set_depcheck(depcheck):
+    global _depcheck
+    _depcheck = depcheck
+
+
+def get_depcheck():
+    return _depcheck
 
 
 def get_confrepos():

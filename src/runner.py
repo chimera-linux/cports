@@ -56,6 +56,7 @@ opt_acceptsum = False
 opt_maint = "unknown <cports@local>"
 opt_tdata = {}
 opt_nolock = False
+opt_nodepcheck = False
 
 #
 # INITIALIZATION ROUTINES
@@ -116,7 +117,7 @@ def handle_options():
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
     global opt_acceptsum, opt_comp, opt_maint, opt_epkgs, opt_tdata, opt_nolock
-    global opt_keypath, opt_apkrepo
+    global opt_keypath, opt_apkrepo, opt_nodepcheck
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -257,6 +258,13 @@ def handle_options():
         const=True,
         default=opt_keeptemp,
         help="Keep temporary files and build dependencies after build.",
+    )
+    parser.add_argument(
+        "--no-depends-check",
+        action="store_const",
+        const=True,
+        default=opt_nodepcheck,
+        help="Skip checking of build/run dependency presence/versions.",
     )
     parser.add_argument(
         "--stage",
@@ -451,6 +459,9 @@ def handle_options():
 
     if cmdline.check_fail:
         opt_checkfail = True
+
+    if cmdline.no_depends_check:
+        opt_nodepcheck = True
 
     if cmdline.temporary:
         mdp = pathlib.Path.cwd() / opt_bldroot
@@ -2808,6 +2819,9 @@ def fire():
 
     # set the repo mirror
     chroot.set_mirror(opt_apkrepo)
+
+    # set depcheck
+    chroot.set_depcheck(not opt_nodepcheck)
 
     # ensure we've got a signing key
     if not opt_signkey and cmdline.command[0] != "keygen":

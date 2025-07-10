@@ -446,6 +446,14 @@ only have an effect with specific commands.
 * `-L`, `--no-color` Color output will be suppressed. By default color output
   is used, unless `NO_COLOR` is set in the environment or the output is being
   redirected/piped.
+* `--no-depends-check` Skip checking availability of host/makedepends with
+  the same version as the template in the repository. Instead, the packages
+  are simply installed from the repository regardless of version. Runtime
+  dependency availability checks are skipped. This mode is potentially
+  unsafe and should not be used most of the time, but can be used e.g. when
+  locally building a package with build dependencies that are still being
+  built on remote builders to avoid `cbuild` rebuilding them without having
+  to revert the versions in the templates.
 * `-N`, `--no-remote` Never use remote repositories to fetch dependencies.
 * `-r REPO`, `--repository-path REPO` *(default: `packages`)* Set the path to the
   local repository to build packages in.

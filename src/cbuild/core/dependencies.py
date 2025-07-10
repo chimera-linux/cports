@@ -356,7 +356,12 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         tarch,
     )
 
+    depcheck = chroot.get_depcheck()
+
     for sver, pkgn, fulln in ihdeps:
+        if not depcheck:
+            host_binpkg_deps.append(pkgn)
+            continue
         # check if available in repository
         aver = _is_available(pkgn, "=", sver, pkg, hvers, hrepos, hsys, None)
         if aver:
@@ -377,6 +382,9 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         host_binpkg_deps.append(f"{pkgn}={sver}")
 
     for sver, pkgn, fulln in itdeps:
+        if not depcheck:
+            binpkg_deps.append(pkgn)
+            continue
         # check if available in repository
         aver = _is_available(pkgn, "=", sver, pkg, tvers, trepos, tsys, tarch)
         if aver:
@@ -397,6 +405,8 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
         binpkg_deps.append(f"{pkgn}={sver}")
 
     for origin, dep in irdeps:
+        if not depcheck:
+            continue
         pkgn, pkgv, pkgop = autil.split_pkg_name(dep)
         # sanitize
         if not pkgn:
