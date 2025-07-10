@@ -65,6 +65,8 @@ keep_stage = no
 # whether to attempt using remote repositories (if available)
 remote = yes
 # categories that are permitted to build; primarily for bulk builds
+# custom categories are not supported! the mechanism though which
+# they work is an implementation detail subject to change at any time
 categories = main user
 # whether restricted packages can be considered for building
 allow_restricted = no

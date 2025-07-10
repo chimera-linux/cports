@@ -124,6 +124,12 @@ and likely to be well tested). Trusted contributors active in the community
 for a longer time may submit theirs in `main`. Random leaf packages that
 contain shell scripts, themes, fonts, and so on should usually go in `user`.
 
+Note that it is not supported to create your own categories. While the
+mechanism they are implemented with is transparent and obvious and there
+isn't anything that blocks you from doing so, it is purely an implementation
+detail and subject to change in the future, especially with the template
+resolution system still being WIP.
+
 <a id="targets"></a>
 ## Targets
 
