@@ -20,7 +20,6 @@ makedepends = [
     "ffmpeg-devel",
     "libxt-devel",
     "lz4-devel",
-    "luajit-devel",
     "mygui-devel",
     "openal-soft-devel",
     "openscenegraph-devel",
@@ -56,6 +55,12 @@ options = ["!check"]
 
 if self.profile().endian == "big":
     broken = "esm loader is not ready etc."
+
+if self.profile().arch in ["aarch64", "ppc64le", "x86_64"]:
+    makedepends += ["luajit-devel"]
+else:
+    makedepends += ["lua5.1-devel"]
+    configure_args += ["-DUSE_LUAJIT=OFF"]
 
 
 @subpackage("openmw-cs")
