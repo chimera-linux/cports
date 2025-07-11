@@ -1,8 +1,9 @@
 pkgname = "nemu"
 pkgver = "3.3.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
     "-DNM_WITH_DBUS=ON",
     "-DNM_WITH_NETWORK_MAP=ON",
     "-DNM_WITH_REMOTE=ON",
