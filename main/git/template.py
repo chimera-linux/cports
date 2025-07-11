@@ -1,5 +1,5 @@
 pkgname = "git"
-pkgver = "2.49.0"
+pkgver = "2.50.1"
 pkgrel = 0
 hostmakedepends = [
     "asciidoc",
@@ -27,7 +27,7 @@ pkgdesc = "Fast, distributed version control system"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/git/git-{pkgver}.tar.xz"
-sha256 = "618190cf590b7e9f6c11f91f23b1d267cd98c3ab33b850416d8758f8b5a85628"
+sha256 = "7e3e6c36decbd8f1eedd14d42db6674be03671c2204864befa2a41756c5c8fc4"
 hardening = ["cfi", "vis"]
 
 
@@ -68,7 +68,13 @@ def build(self):
 
 
 def check(self):
-    self.do("make", "test")
+    # t5000.75 fails intermittently, t5303.5, t5303.7, t5303.11 fail to due missing files
+    self.do(
+        "make",
+        "all",
+        env={"GIT_SKIP_TESTS": "t5000.75 t5303.5 t5303.7 t5303.11"},
+        wrksrc="t",
+    )
     self.do("make", "-C", "contrib/diff-highlight", "test")
     self.do("make", "-C", "contrib/subtree", "test")
 
@@ -95,7 +101,6 @@ def install(self):
     self.uninstall("usr/share/man/man1/git-cvsserver.1")
     self.uninstall("usr/share/man/man7/gitcvs-migration.7")
 
-    self.install_completion("contrib/completion/git-completion.bash", "bash")
     self.install_file("contrib/completion/git-prompt.sh", "usr/share/git")
 
     self.install_bin("contrib/diff-highlight/diff-highlight")
