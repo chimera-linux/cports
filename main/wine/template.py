@@ -1,11 +1,10 @@
 pkgname = "wine"
 pkgver = "10.11"
 pkgrel = 0
-archs = ["x86_64"]
+archs = ["aarch64", "x86_64"]
 build_style = "gnu_configure"
 configure_args = [
     "--disable-tests",
-    "--enable-archs=x86_64,i386",
     "--enable-tools",
     "--enable-win64",
 ]
@@ -67,6 +66,10 @@ hardening = ["!int", "!var-init"]
 # check: tests hard to run, etc, meh
 options = ["!lto", "!check"]
 
+match self.profile().arch:
+    case "x86_64":
+        configure_args += ["--enable-archs=x86_64,i386"]
+
 
 def post_install(self):
     self.install_link("usr/bin/wine64", "wine")
@@ -76,8 +79,7 @@ def post_install(self):
 def _(self):
     # llvm-strip/objcopy cannot handle windows .a's
     self.nostrip_files = [
-        "usr/lib/wine/i386-windows/*.a",
-        "usr/lib/wine/x86_64-windows/*.a",
+        "usr/lib/wine/*-*/*.a",
     ]
     return self.default_devel(
         extra=[
@@ -92,8 +94,6 @@ def _(self):
             "usr/bin/winemaker",
             "usr/bin/wmc",
             "usr/bin/wrc",
-            "usr/lib/wine/i386-windows/*.a",
-            "usr/lib/wine/x86_64-unix/*.a",
-            "usr/lib/wine/x86_64-windows/*.a",
+            "usr/lib/wine/*-*/*.a",
         ]
     )
