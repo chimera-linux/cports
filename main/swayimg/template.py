@@ -1,5 +1,5 @@
 pkgname = "swayimg"
-pkgver = "4.3"
+pkgver = "4.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -33,7 +33,7 @@ pkgdesc = "Image viewer for sway/wayland"
 license = "MIT"
 url = "https://github.com/artemsen/swayimg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5213a9627421eb8907cfff5b3f6d91d53597281b42e4871cebf83fc7dfc1d2a6"
+sha256 = "4f0c491f873e37b85342a92d9b0ecc570a059bb971040c23075d4c3ab401680b"
 hardening = ["vis", "cfi"]
 
 
