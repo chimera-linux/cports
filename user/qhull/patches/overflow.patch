@@ -1,0 +1,16 @@
+../src/libqhull_r/rboxlib_r.c:371:15: runtime error: signed integer overflow: 11 * 219530282 cannot be represented in type 'int'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ../src/libqhull_r/rboxlib_r.c:371:15 
+
+diff -ruN a/src/libqhull_r/rboxlib_r.c b/src/libqhull_r/rboxlib_r.c
+--- a/src/libqhull_r/rboxlib_r.c	2020-09-04 04:33:16.000000000 +0200
++++ b/src/libqhull_r/rboxlib_r.c	2025-05-16 16:28:31.537926940 +0200
+@@ -94,7 +94,8 @@
+   int i,j,k;
+   int gendim;
+   int coincidentcount=0, coincidenttotal=0, coincidentpoints=0;
+-  int cubesize, diamondsize, seed=0, count, apex;
++  int cubesize, diamondsize, count, apex;
++  unsigned seed = 0;
+   int dim=3, numpoints=0, totpoints, addpoints=0;
+   int issphere=0, isaxis=0,  iscdd=0, islens=0, isregular=0, iswidth=0, addcube=0;
+   int isgap=0, isspiral=0, NOcommand=0, adddiamond=0;
