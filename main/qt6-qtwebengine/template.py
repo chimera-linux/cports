@@ -1,12 +1,12 @@
 pkgname = "qt6-qtwebengine"
 pkgver = "6.9.1"
-pkgrel = 2
+pkgrel = 3
 # latest from https://github.com/qt/qtwebengine-chromium/commits/130-based
 # check CHROMIUM_VERSION on qt majors
 # note that like half the chromium patches are probably unneeded but
 # they are taken directly from chromium patches/ for that major for
 # ease of maintenance
-_qtwebengine_gitrev = "0e01f03726a82bd9f924ab711a7cb29dacaeb5d2"
+_qtwebengine_gitrev = "7592edd81c396412408d04ff610fbc99304bd7f2"
 archs = ["aarch64", "ppc64le", "x86_64"]
 build_style = "cmake"
 configure_args = [
@@ -96,7 +96,7 @@ source = [
 source_paths = [".", "3rdparty-chromium"]
 sha256 = [
     "787dfde22b348f6d620f2207ed7e32ad0a5389373182614272de28ff3f91c26c",
-    "fdd33f3713c94067e4d05a98a52a2e288a1c624c6c21cdb2d900c04482fb90fb",
+    "78ed373a1a063ca36a6fa8aec0ba27295926e9ec47945e7388012efad4875992",
 ]
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
