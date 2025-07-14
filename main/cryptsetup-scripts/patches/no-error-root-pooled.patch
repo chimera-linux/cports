@@ -1,3 +1,5 @@
+diff --git a/debian/functions b/debian/functions
+index 63ecf5d..8b553e1 100644
 --- a/debian/functions
 +++ b/debian/functions
 @@ -596,6 +596,14 @@ _resolve_device() {
@@ -15,3 +17,15 @@
          cryptsetup_message "ERROR: Couldn't resolve device $spec"
      fi
      return 1
+diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
+index ca759bd..d8f9741 100644
+--- a/debian/initramfs/hooks/cryptroot
++++ b/debian/initramfs/hooks/cryptroot
+@@ -349,6 +349,7 @@ manual_add_modules dm_mod dm_crypt
+ 
+ copy_exec /usr/bin/cryptsetup
+ copy_exec /usr/bin/dmsetup
++copy_exec /usr/bin/findmnt
+ 
+ [ "$ASKPASS" = n ] || copy_exec /usr/lib/cryptsetup/askpass
+ 
