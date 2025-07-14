@@ -1,5 +1,5 @@
 pkgname = "strongswan"
-pkgver = "6.0.1"
+pkgver = "6.0.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -80,7 +80,7 @@ pkgdesc = "Open Source IKEv2 IPsec-based VPN solution"
 license = "GPL-2.0-or-later"
 url = "https://www.strongswan.org"
 source = f"https://download.strongswan.org/strongswan-{pkgver}.tar.bz2"
-sha256 = "212368cbc674fed31f3292210303fff06da8b90acad2d1387375ed855e6879c4"
+sha256 = "b8bfc897b84001fd810a281918d6c9ce37503cae0f41b39c43d4aba0201277cf"
 
 
 def post_install(self):
