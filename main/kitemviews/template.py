@@ -1,5 +1,5 @@
 pkgname = "kitemviews"
-pkgver = "6.15.0"
+pkgver = "6.16.0"
 pkgrel = 0
 build_style = "cmake"
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
@@ -18,7 +18,7 @@ pkgdesc = "KDE Widget addons for Qt Model/View"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://api.kde.org/frameworks/kitemviews/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[: pkgver.rfind('.')]}/kitemviews-{pkgver}.tar.xz"
-sha256 = "0f27d189147bb992b94e1a6a55ced62e2aaf5c5b3d83e41f26d6b0e269765780"
+sha256 = "c45541d85ec1b06d160b819c03f073cf001a60411f1d45706a611d9eab9214dd"
 hardening = ["vis"]
 # fails
 options = ["!cross"]
