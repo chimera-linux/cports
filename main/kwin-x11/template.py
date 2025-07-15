@@ -1,5 +1,5 @@
 pkgname = "kwin-x11"
-pkgver = "6.4.2"
+pkgver = "6.4.3"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -15,6 +15,7 @@ make_check_args = [
     + "|kwin-testWindowRules"  # flakes
     + "|kwin-testInputMethod"  # flakes
     + "|kwin-testX11Window"  # flaky subtests (especially testStackAboveFromApplication)
+    + "|kwin-testXwaylandInput"  # flaky testPointerEnterLeaveSsd() '!window->readyForPainting()' returned FALSE
     + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
@@ -79,7 +80,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin-x11"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-x11-{pkgver}.tar.xz"
-sha256 = "6edfb204a1ab9af991bf057ae376c12595170d591d0801674bba64148d452c23"
+sha256 = "4f2b60193967c24a067b9dda82d59f811f5663f5783d59e03424fc0281ccd188"
 hardening = ["vis"]
 
 

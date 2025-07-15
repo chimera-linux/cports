@@ -1,5 +1,5 @@
 pkgname = "kwin"
-pkgver = "6.4.2"
+pkgver = "6.4.3"
 pkgrel = 0
 build_style = "cmake"
 # XXX drop libexec
@@ -15,6 +15,7 @@ make_check_args = [
     + "|kwin-testWindowRules"  # flakes
     + "|kwin-testInputMethod"  # flakes
     + "|kwin-testFifo"  # always fails on 24Hz when run with other tests, works alone
+    + "|kwin-testXwaylandInput"  # flaky testPointerEnterLeaveSsd() '!window->readyForPainting()' returned FALSE
     + "|^kwayland-testServerSideDecoration$"  # Tried to add event to destroyed queue
     + ")",
     # parallel tests cause a bunch of flakes
@@ -84,7 +85,7 @@ license = (
 )
 url = "https://invent.kde.org/plasma/kwin"
 source = f"$(KDE_SITE)/plasma/{'.'.join(pkgver.split('.')[0:3])}/kwin-{pkgver}.tar.xz"
-sha256 = "1cb00c603bb010d450e08be27439418be659940e885a90ac4e2f5bc61ae3b71b"
+sha256 = "a13568c918eca7803eb44a3a2778b860edc3f03b36797851c4f3aeeed4b502a8"
 file_modes = {
     "usr/bin/kwin_wayland": ("root", "root", 0o755),
 }

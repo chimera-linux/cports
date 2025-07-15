@@ -1,5 +1,5 @@
 pkgname = "plasma-welcome"
-pkgver = "6.4.2"
+pkgver = "6.4.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -35,7 +35,7 @@ pkgdesc = "KDE onboarding wizard"
 license = "GPL-3.0-only"
 url = "https://invent.kde.org/plasma/plasma-welcome"
 source = f"$(KDE_SITE)/plasma/{pkgver}/plasma-welcome-{pkgver}.tar.xz"
-sha256 = "6d57c8ae4458a61fb60574b0175b2ea766d0f28221422194ef103c0fb7ec7c84"
+sha256 = "d71cd6399f759fa4fcfa30f508a460ab37d2ab4fbdcddf9a2e7f2b5ab870b463"
 
 
 @subpackage("plasma-welcome-devel-static")
