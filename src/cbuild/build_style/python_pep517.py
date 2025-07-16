@@ -1,4 +1,5 @@
 from cbuild.core import chroot
+from cbuild.util import python
 
 
 def build(self):
@@ -51,41 +52,17 @@ def check(self):
             hint="put 'python-pytest' in checkdepends",
         )
 
-    whl = list(
-        map(
-            lambda p: str(p.relative_to(self.cwd)),
-            self.cwd.glob(self.make_install_target),
-        )
-    )
-
     ctgt = []
     if len(self.make_check_target) > 0:
         ctgt = [self.make_check_target]
 
-    self.rm(".cbuild-checkenv", recursive=True, force=True)
-    self.do(
-        "python3",
-        "-m",
-        "venv",
-        "--without-pip",
-        "--system-site-packages",
-        "--clear",
+    python.setup_wheel_venv(
+        self,
         ".cbuild-checkenv",
+        args=self.make_install_args,
+        wrapper=[*self.make_wrapper, *self.make_install_wrapper],
     )
 
-    envpy = self.chroot_cwd / ".cbuild-checkenv/bin/python3"
-
-    self.do(
-        *self.make_wrapper,
-        *self.make_install_wrapper,
-        envpy,
-        "-m",
-        "installer",
-        "--compile-bytecode",
-        "0",
-        *self.make_install_args,
-        *whl,
-    )
     self.do(
         *self.make_wrapper,
         *self.make_check_wrapper,
@@ -95,7 +72,7 @@ def check(self):
         *self.make_check_args,
         *ctgt,
         env=renv,
-        path=[envpy.parent],
+        path=[self.chroot_cwd / ".cbuild-checkenv/bin"],
     )
 
 
