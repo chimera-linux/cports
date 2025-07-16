@@ -1,6 +1,6 @@
 pkgname = "prosody"
 pkgver = "13.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 make_use_env = True
@@ -18,6 +18,7 @@ depends = [
     "lua5.4-luasec",
     "lua5.4-luasocket",
     "lua5.4-luaunbound",
+    "luarocks5.4",
 ]
 checkdepends = ["lua5.4-busted", *depends]
 pkgdesc = "Modern xmpp communication server"
