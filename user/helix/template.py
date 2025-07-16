@@ -1,6 +1,6 @@
 pkgname = "helix"
-pkgver = "25.01.1"
-pkgrel = 1
+pkgver = "25.07.1"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "git"]
 makedepends = ["rust-std"]
@@ -8,7 +8,7 @@ pkgdesc = "Fast modal terminal-based text editor"
 license = "MPL-2.0"
 url = "https://github.com/helix-editor/helix"
 source = f"{url}/releases/download/{pkgver}/helix-{pkgver}-source.tar.xz"
-sha256 = "12508c4f5b9ae6342299bd40d281cd9582d3b51487bffe798f3889cb8f931609"
+sha256 = "2d0cf264ac77f8c25386a636e2b3a09a23dec555568cc9a5b2927f84322f544e"
 env = {"HELIX_DEFAULT_RUNTIME": "/usr/lib/helix/runtime"}
 
 if self.profile().wordsize == 32:
