@@ -1,0 +1,4 @@
+type             = process
+command          = /usr/bin/darkman run
+smooth-recovery  = no
+log-type         = buffer
