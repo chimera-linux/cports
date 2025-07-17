@@ -1,0 +1,72 @@
+diff -rU3 a/Makefile b/Makefile
+--- a/Makefile	2024-05-01 16:49:18.000000000 -0300
++++ b/Makefile	2025-07-09 17:49:01.467364534 -0300
+@@ -27,6 +27,9 @@
+ 	vis-registers.c \
+ 	vis-text-objects.c \
+ 	vis-subprocess.c \
++	termkey.c \
++	driver-csi.c \
++	driver-ti.c \
+ 	$(REGEX_SRC)
+ OBJ = $(SRC:%.c=obj/%.o)
+ 
+diff -rU3 a/configure b/configure
+--- a/configure	2024-05-01 16:49:18.000000000 -0300
++++ b/configure	2025-07-09 17:47:43.827425123 -0300
+@@ -342,36 +342,7 @@
+ 	test "$curses" = "yes" -a $CONFIG_CURSES -ne 1 && fail "$0: cannot find libcurses"
+ fi
+ 
+-# libtermkey is a mandatory dependency
+-
+-printf "checking for libtermkey... "
+-cat > "$tmpc" <<EOF
+-#include <termkey.h>
+-
+-int main(int argc, char *argv[]) {
+-	TERMKEY_CHECK_VERSION;
+-	return 0;
+-}
+-EOF
+-
+-if test "$have_pkgconfig" = "yes" ; then
+-	CFLAGS_TERMKEY=$(pkg-config --cflags termkey 2>/dev/null)
+-	LDFLAGS_TERMKEY=$(pkg-config --libs termkey 2>/dev/null)
+-fi
+-
+-if test -z "$LDFLAGS_TERMKEY"; then
+-	CFLAGS_TERMKEY=""
+-	LDFLAGS_TERMKEY="-ltermkey"
+-fi
+-
+-if $CC $CFLAGS $CFLAGS_TERMKEY "$tmpc" $LDFLAGS $LDFLAGS_TERMKEY $LDFLAGS_CURSES \
+-	-o "$tmpo" >/dev/null 2>&1; then
+-	printf "%s\n" "yes"
+-else
+-	printf "%s\n" "no"
+-	fail "$0: cannot find libtermkey"
+-fi
+-
++CFLAGS_TERMKEY="-isystem $PWD"
+ CONFIG_TRE=0
+ REGEX_SRC=text-regex.c
+
+diff -rU3 a/test/util/Makefile b/test/util/Makefile
+--- a/test/util/Makefile	2020-11-19 04:45:46.000000000 -0300
++++ b/test/util/Makefile	2025-07-09 18:05:52.264409333 -0300
+@@ -1,8 +1,13 @@
+ -include ../../config.mk
+ 
++TERMKEY_SRCS = \
++	../../termkey.c \
++	../../driver-csi.c \
++	../../driver-ti.c
++
+ keys: keys.c
+ 	@echo Compiling keys utility
+-	$(CC) $(CFLAGS) $(CFLAGS_TERMKEY) keys.c $(LDFLAGS) $(LDFLAGS_TERMKEY) $(LDFLAGS_CURSES) -o keys
++	$(CC) $(CFLAGS) $(CFLAGS_TERMKEY) keys.c $(TERMKEY_SRCS) $(LDFLAGS) $(LDFLAGS_TERMKEY) $(LDFLAGS_CURSES) -o keys
+ 
+ clean:
+ 	@echo cleaning
