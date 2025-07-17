@@ -56,7 +56,7 @@ def check(self):
     if len(self.make_check_target) > 0:
         ctgt = [self.make_check_target]
 
-    python.setup_wheel_venv(
+    pybin = python.setup_wheel_venv(
         self,
         ".cbuild-checkenv",
         args=self.make_install_args,
@@ -66,13 +66,13 @@ def check(self):
     self.do(
         *self.make_wrapper,
         *self.make_check_wrapper,
-        self.chroot_cwd / ".cbuild-checkenv/bin/python3",
+        pybin,
         "-m",
         "pytest",
         *self.make_check_args,
         *ctgt,
         env=renv,
-        path=[self.chroot_cwd / ".cbuild-checkenv/bin"],
+        path=[pybin.parent],
     )
 
 

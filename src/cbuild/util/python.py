@@ -38,9 +38,11 @@ def setup_wheel_venv(pkg, dest, target="dist/*.whl", args=[], wrapper=[]):
         dest,
     )
 
+    pybin = pkg.chroot_cwd / dest / "bin/python3"
+
     pkg.do(
         *wrapper,
-        pkg.chroot_cwd / dest / "bin/python3",
+        pybin,
         "-m",
         "installer",
         "--compile-bytecode",
@@ -48,3 +50,5 @@ def setup_wheel_venv(pkg, dest, target="dist/*.whl", args=[], wrapper=[]):
         *args,
         *whl,
     )
+
+    return pybin
