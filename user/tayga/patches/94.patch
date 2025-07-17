@@ -1,0 +1,61 @@
+From 028a64ff492e3ec44333ae54554151f02a0592d0 Mon Sep 17 00:00:00 2001
+From: apalrd <adventure@apalrd.net>
+Date: Thu, 19 Jun 2025 19:45:47 +0000
+Subject: [PATCH] Fix ipv6-addr check
+
+---
+ conffile.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
+
+diff --git a/conffile.c b/conffile.c
+index 5037e30..7825f18 100644
+--- a/conffile.c
++++ b/conffile.c
+@@ -582,7 +582,18 @@ void config_validate(void)
+ 	if (insert_map4(&m->map4, &m4) < 0)
+ 		abort_on_conflict4("Error: ipv4-addr", 0, m4);
+ 
+-	if (gcfg->local_addr6.s6_addr32[0]) {
++	/* ipv6-addr is configured and is within the well known prefix */
++	if (gcfg->local_addr6.s6_addr32[0] == WKPF &&
++		gcfg->local_addr6.s6_addr32[1] == 0 &&
++		gcfg->local_addr6.s6_addr32[2] == 0 &&
++		gcfg->wkpf_strict)
++	{
++		slog(LOG_CRIT, "Error: ipv6-addr directive cannot contain an "
++				"address in the Well-Known Prefix "
++				"(64:ff9b::/96)\n");
++		exit(1);
++	/* ipv6-addr is configured but not within the well known prefix */
++	} else if (gcfg->local_addr6.s6_addr32[0]) {
+ 		m->map6.addr = gcfg->local_addr6;
+ 		if (insert_map6(&m->map6, &m6) < 0) {
+ 			if (m6->type == MAP_TYPE_RFC6052) {
+@@ -596,7 +607,8 @@ void config_validate(void)
+ 			} else {
+ 				abort_on_conflict6("Error: ipv6-addr", 0, m6);
+ 			}
+-		}
++		}	
++	/* ipv6-addr is zero (not set), generate from ipv4-addr and prefix */
+ 	} else {
+ 		m6 = list_entry(gcfg->map6_list.prev, struct map6, list);
+ 		if (m6->type != MAP_TYPE_RFC6052) {
+@@ -618,16 +630,5 @@ void config_validate(void)
+ 		}
+ 		m->map6.addr = gcfg->local_addr6;
+ 	}
+-	
+-	if (gcfg->local_addr6.s6_addr32[0] == WKPF &&
+-		gcfg->local_addr6.s6_addr32[1] == 0 &&
+-		gcfg->local_addr6.s6_addr32[2] == 0 &&
+-		gcfg->wkpf_strict)
+-	{
+-		slog(LOG_CRIT, "Error: ipv6-addr directive cannot contain an "
+-				"address in the Well-Known Prefix "
+-				"(64:ff9b::/96)\n");
+-		exit(1);
+-	}
+ 	return;
+ }
+\ No newline at end of file
