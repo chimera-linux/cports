@@ -1,6 +1,6 @@
 pkgname = "borg"
 pkgver = "1.4.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
 make_check_args = [
@@ -39,7 +39,11 @@ makedepends = [
     "xxhash-devel",
     "zstd-devel",
 ]
-depends = ["python-packaging", "python-msgpack", "python-pyfuse3"]
+depends = [
+    "python-msgpack",
+    "python-packaging",
+    "python-pyfuse3",
+]
 checkdepends = [
     "python-dateutil",
     "python-pytest-benchmark",
