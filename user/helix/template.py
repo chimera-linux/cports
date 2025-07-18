@@ -1,6 +1,6 @@
 pkgname = "helix"
-pkgver = "25.01.1"
-pkgrel = 1
+pkgver = "25.07"
+pkgrel = 2
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "git"]
 makedepends = ["rust-std"]
