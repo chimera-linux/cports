@@ -9,158 +9,69 @@ otherwise open an issue with `cc-rs`:
 https://github.com/rust-lang/cc-rs/issues/new
 
 diff --git a/vendor/cc/src/target/generated.rs b/vendor/cc/src/target/generated.rs
-index bfaa2937..fdff3e4e 100644
+index 7db389d9f..c5265b226 100644
 --- a/vendor/cc/src/target/generated.rs
 +++ b/vendor/cc/src/target/generated.rs
-@@ -124,6 +124,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
-             unversioned_llvm_target: "arm64-apple-watchos-simulator",
-         },
-     ),
-+    (
-+        "aarch64-chimera-linux-musl",
-+        TargetInfo {
-+            full_arch: "aarch64",
-+            arch: "aarch64",
-+            vendor: "chimera",
-+            os: "linux",
-+            env: "musl",
-+            abi: "",
-+            unversioned_llvm_target: "aarch64-chimera-linux-musl",
-+        },
-+    ),
-     (
-         "aarch64-fuchsia",
-         TargetInfo {
-@@ -748,6 +760,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
-             unversioned_llvm_target: "armv7-apple-ios",
-         },
-     ),
-+    (
-+        "armv7-chimera-linux-musleabihf",
-+        TargetInfo {
-+            full_arch: "armv7",
-+            arch: "arm",
-+            vendor: "chimera",
-+            os: "linux",
-+            env: "musl",
-+            abi: "eabihf",
-+            unversioned_llvm_target: "armv7-chimera-linux-musleabihf",
-+        },
-+    ),
-     (
-         "armv7-linux-androideabi",
-         TargetInfo {
-@@ -1420,6 +1444,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
-             unversioned_llvm_target: "i686-unknown-linux-gnu",
-         },
-     ),
-+    (
-+        "loongarch64-chimera-linux-musl",
-+        TargetInfo {
-+            full_arch: "loongarch64",
-+            arch: "loongarch64",
-+            vendor: "chimera",
-+            os: "linux",
-+            env: "musl",
-+            abi: "",
-+            unversioned_llvm_target: "loongarch64-chimera-linux-musl",
-+        },
-+    ),
-     (
-         "loongarch64-unknown-linux-gnu",
-         TargetInfo {
-@@ -1780,6 +1816,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
-             unversioned_llvm_target: "nvptx64-nvidia-cuda",
-         },
-     ),
-+    (
-+        "powerpc-chimera-linux-musl",
-+        TargetInfo {
-+            full_arch: "powerpc",
-+            arch: "powerpc",
-+            vendor: "chimera",
-+            os: "linux",
-+            env: "musl",
-+            abi: "",
-+            unversioned_llvm_target: "powerpc-chimera-linux-musl",
-+        },
-+    ),
-     (
-         "powerpc-unknown-freebsd",
-         TargetInfo {
-@@ -1888,6 +1936,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
-             unversioned_llvm_target: "powerpc-unknown-linux-gnuspe",
-         },
-     ),
-+    (
-+        "powerpc64-chimera-linux-musl",
-+        TargetInfo {
-+            full_arch: "powerpc64",
-+            arch: "powerpc64",
-+            vendor: "chimera",
-+            os: "linux",
-+            env: "musl",
-+            abi: "",
-+            unversioned_llvm_target: "powerpc64-chimera-linux-musl",
-+        },
-+    ),
-     (
-         "powerpc64-ibm-aix",
-         TargetInfo {
-@@ -1960,6 +2020,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
-             unversioned_llvm_target: "powerpc64-unknown-linux-gnu",
-         },
-     ),
-+    (
-+        "powerpc64le-chimera-linux-musl",
-+        TargetInfo {
-+            full_arch: "powerpc64le",
-+            arch: "powerpc64",
-+            vendor: "chimera",
-+            os: "linux",
-+            env: "musl",
-+            abi: "",
-+            unversioned_llvm_target: "powerpc64le-chimera-linux-musl",
-+        },
-+    ),
-     (
-         "powerpc64le-unknown-freebsd",
-         TargetInfo {
-@@ -2236,6 +2308,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
-             unversioned_llvm_target: "riscv32",
-         },
-     ),
-+    (
-+        "riscv64-chimera-linux-musl",
-+        TargetInfo {
-+            full_arch: "riscv64",
-+            arch: "riscv64",
-+            vendor: "chimera",
-+            os: "linux",
-+            env: "musl",
-+            abi: "",
-+            unversioned_llvm_target: "riscv64-chimera-linux-musl",
-+        },
-+    ),
-     (
-         "riscv64-linux-android",
-         TargetInfo {
-@@ -2896,6 +2980,18 @@ pub(crate) const LIST: &[(&str, TargetInfo<'static>)] = &[
-             unversioned_llvm_target: "x86_64-apple-watchos-simulator",
-         },
-     ),
-+    (
-+        "x86_64-chimera-linux-musl",
-+        TargetInfo {
-+            full_arch: "x86_64",
-+            arch: "x86_64",
-+            vendor: "chimera",
-+            os: "linux",
-+            env: "musl",
-+            abi: "",
-+            unversioned_llvm_target: "x86_64-chimera-linux-musl",
-+        },
-+    ),
-     (
-         "x86_64-fortanix-unknown-sgx",
-         TargetInfo {
+@@ -13,6 +13,7 @@
+     ("aarch64-apple-visionos", "arm64-apple-xros"),
+     ("aarch64-apple-visionos-sim", "arm64-apple-xros-simulator"),
+     ("aarch64-apple-watchos", "arm64-apple-watchos"),
++    ("aarch64-chimera-linux-musl", "aarch64-chimera-linux-musl"),
+     ("aarch64-apple-watchos-sim", "arm64-apple-watchos-simulator"),
+     ("aarch64-fuchsia", "aarch64-fuchsia"),
+     ("aarch64-kmc-solid_asp3", "aarch64-unknown-none"),
+@@ -70,6 +71,7 @@
+     ("armv6-unknown-netbsd-eabihf", "armv6-unknown-netbsdelf-eabihf"),
+     ("armv6k-nintendo-3ds", "armv6k-none-eabihf"),
+     ("armv7-apple-ios", "armv7-apple-ios7.0.0"),
++    ("armv7-chimera-linux-musleabihf", "armv7-chimera-linux-musleabihf"),
+     ("armv7-linux-androideabi", "armv7-none-linux-android"),
+     ("armv7-rtems-eabihf", "armv7-unknown-none-eabihf"),
+     ("armv7-sony-vita-newlibeabihf", "thumbv7a-sony-vita-eabihf"),
+@@ -131,6 +133,7 @@
+     ("i686-wrs-vxworks", "i686-unknown-linux-gnu"),
+     ("loongarch32-unknown-none", "loongarch32-unknown-none"),
+     ("loongarch32-unknown-none-softfloat", "loongarch32-unknown-none"),
++    ("loongarch64-chimera-linux-musl", "loongarch64-chimera-linux-musl"),
+     ("loongarch64-unknown-linux-gnu", "loongarch64-unknown-linux-gnu"),
+     ("loongarch64-unknown-linux-musl", "loongarch64-unknown-linux-musl"),
+     ("loongarch64-unknown-linux-ohos", "loongarch64-unknown-linux-ohos"),
+@@ -162,6 +165,7 @@
+     ("msp430-none-elf", "msp430-none-elf"),
+     ("nvptx64-nvidia-cuda", "nvptx64-nvidia-cuda"),
+     ("powerpc-unknown-freebsd", "powerpc-unknown-freebsd13.0"),
++    ("powerpc-chimera-linux-musl", "powerpc-chimera-linux-musl"),
+     ("powerpc-unknown-linux-gnu", "powerpc-unknown-linux-gnu"),
+     ("powerpc-unknown-linux-gnuspe", "powerpc-unknown-linux-gnuspe"),
+     ("powerpc-unknown-linux-musl", "powerpc-unknown-linux-musl"),
+@@ -170,12 +174,14 @@
+     ("powerpc-unknown-openbsd", "powerpc-unknown-openbsd"),
+     ("powerpc-wrs-vxworks", "powerpc-unknown-linux-gnu"),
+     ("powerpc-wrs-vxworks-spe", "powerpc-unknown-linux-gnuspe"),
++    ("powerpc64-chimera-linux-musl", "powerpc64-chimera-linux-musl"),
+     ("powerpc64-ibm-aix", "powerpc64-ibm-aix"),
+     ("powerpc64-unknown-freebsd", "powerpc64-unknown-freebsd"),
+     ("powerpc64-unknown-linux-gnu", "powerpc64-unknown-linux-gnu"),
+     ("powerpc64-unknown-linux-musl", "powerpc64-unknown-linux-musl"),
+     ("powerpc64-unknown-openbsd", "powerpc64-unknown-openbsd"),
+     ("powerpc64-wrs-vxworks", "powerpc64-unknown-linux-gnu"),
++    ("powerpc64le-chimera-linux-musl", "powerpc64le-chimera-linux-musl"),
+     ("powerpc64le-unknown-freebsd", "powerpc64le-unknown-freebsd"),
+     ("powerpc64le-unknown-linux-gnu", "powerpc64le-unknown-linux-gnu"),
+     ("powerpc64le-unknown-linux-musl", "powerpc64le-unknown-linux-musl"),
+@@ -199,6 +205,7 @@
+     ("riscv32imc-esp-espidf", "riscv32"),
+     ("riscv32imc-unknown-none-elf", "riscv32"),
+     ("riscv32imc-unknown-nuttx-elf", "riscv32"),
++    ("riscv64-chimera-linux-musl", "riscv64-chimera-linux-musl"),
+     ("riscv64-linux-android", "riscv64-linux-android"),
+     ("riscv64-wrs-vxworks", "riscv64-unknown-linux-gnu"),
+     ("riscv64gc-unknown-freebsd", "riscv64-unknown-freebsd"),
+@@ -257,6 +264,7 @@
+     ("x86_64-apple-ios-macabi", "x86_64-apple-ios-macabi"),
+     ("x86_64-apple-tvos", "x86_64-apple-tvos-simulator"),
+     ("x86_64-apple-watchos-sim", "x86_64-apple-watchos-simulator"),
++    ("x86_64-chimera-linux-musl", "x86_64-chimera-linux-musl"),
+     ("x86_64-fortanix-unknown-sgx", "x86_64-elf"),
+     ("x86_64-fuchsia", "x86_64-fuchsia"),
+     ("x86_64-linux-android", "x86_64-linux-android"),
