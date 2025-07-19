@@ -1,6 +1,6 @@
 pkgname = "gcc-arm-none-eabi"
 _trip = pkgname.removeprefix("gcc-")
-pkgver = "14.2.0"
+pkgver = "15.1.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -62,7 +62,7 @@ pkgdesc = "GNU C compiler for ARM bare metal targets"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
-sha256 = "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9"
+sha256 = "e2b09ec21660f01fecffb715e0120265216943f038d0e48a9868713e54f06cea"
 env = {
     "CFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
     "CXXFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
