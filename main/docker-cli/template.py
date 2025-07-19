@@ -1,6 +1,6 @@
 pkgname = "docker-cli"
-pkgver = "28.1.1"
-pkgrel = 2
+pkgver = "28.3.2"
+pkgrel = 0
 build_style = "makefile"
 _commit = "ce1223035ac3ab8922717092e63a184cf67b493d"
 make_build_target = "dynbinary"
@@ -15,7 +15,7 @@ pkgdesc = "Container and image management tool"
 license = "Apache-2.0"
 url = "https://docker.com"
 source = f"https://github.com/docker/cli/archive/v{pkgver}.tar.gz"
-sha256 = "98b305725d453b6802a4df1e4c8184b66cf8d74e9050bbf3d92b2804621cb9f6"
+sha256 = "b65cd415e63be23fcaa63107bc47a762173a06c84fb78b1575edc5443bb39867"
 env = {
     "AUTO_GOPATH": "1",
     "GITCOMMIT": _commit,
