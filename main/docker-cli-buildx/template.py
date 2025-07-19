@@ -1,6 +1,6 @@
 pkgname = "docker-cli-buildx"
-pkgver = "0.23.0"
-pkgrel = 2
+pkgver = "0.25.0"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/docker/buildx/version.Version=v{pkgver}",
@@ -14,7 +14,7 @@ pkgdesc = "Docker CLI plugin for extended build capabilities with BuildKit"
 license = "Apache-2.0"
 url = "https://github.com/docker/buildx"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a6c8d86c55a733ddd6aeac8da0624aa9d0cb966846e955399f5a075590499fd8"
+sha256 = "e5a7573a5995c0f12c86d35a8148b2a10a6f1b11d1cf8c6977bf03ac281e6959"
 # some tests rely on network
 options = ["!check"]
 
