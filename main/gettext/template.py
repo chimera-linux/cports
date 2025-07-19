@@ -1,6 +1,6 @@
 pkgname = "gettext"
-pkgver = "0.23.1"
-pkgrel = 2
+pkgver = "0.23.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-java",
@@ -16,7 +16,7 @@ pkgdesc = "GNU internationalization utilities"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gettext"
 source = f"$(GNU_SITE)/gettext/gettext-{pkgver}.tar.gz"
-sha256 = "52a578960fe308742367d75cd1dff8552c5797bd0beba7639e12bdcda28c0e49"
+sha256 = "40e21f07b71199fb2796fc43cee82635928eca244c62d3768f581adf928b4f06"
 # most tests fail to find an adequate shell ???
 options = ["!check"]
 
