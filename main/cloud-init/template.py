@@ -1,5 +1,5 @@
 pkgname = "cloud-init"
-pkgver = "25.1.2"
+pkgver = "25.1.4"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -46,7 +46,7 @@ url = "https://cloud-init.io"
 source = (
     f"https://github.com/canonical/cloud-init/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "04580f85b6eff7be288c724ca944c108063c103ae50025e0aab1711a1bc2f38a"
+sha256 = "fa70a77fc3cd3167a051e9ab04af4d4f56d3ffa0deb320735c889a6a367d3a3d"
 # checkdepends
 options = ["!check"]
 
