@@ -2006,7 +2006,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
                 failed = ofailed
             continue
         elif tp.broken:
-            if do_build:
+            if do_build is True:
                 tp.log_red(f"ERROR: {tp.broken}")
             statusf.write(f"{pn} broken\n")
             continue
@@ -2044,7 +2044,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
                 continue
             tp = templates[pn]
             # if already built, mark it specially
-            if not opt_force and tp.is_built(not do_build):
+            if not opt_force and tp.is_built(do_build is not True):
                 statusf.write(f"{pn} done\n")
                 continue
             if not version or tp.pkgver is None or tp.pkgrel is None:
@@ -2053,17 +2053,20 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
                 flist.append(f"{pn}={tp.pkgver}-r{tp.pkgrel}")
 
     if not failed or opt_bulkcont:
-        if not do_build:
+        if do_build is not True:
             if len(flist) > 0:
-                print(" ".join(flist))
+                if isinstance(do_build, list):
+                    for tmpn in flist:
+                        do_build.append(tmpn)
+                else:
+                    print(" ".join(flist))
         else:
             for pn in flist:
                 tp = templates[pn]
                 # if we previously failed and want it this way, skip
                 if failed and not opt_bulkcont:
                     statusf.write(f"{pn} skipped\n")
-                    if do_build:
-                        log.out(f"\f[red]cbuild: skipping template '{pn}'")
+                    log.out(f"\f[red]cbuild: skipping template '{pn}'")
                     continue
                 # ensure to write the status
                 if _do_with_exc(
@@ -2085,7 +2088,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw, version):
 
     if failed:
         raise errors.CbuildException("at least one bulk package failed")
-    elif not opt_stage and do_build:
+    elif not opt_stage and do_build is True:
         do_unstage("pkg", False)
 
 
@@ -2475,6 +2478,7 @@ def do_commit(tgt):
     from cbuild.core import errors, chroot, paths, template, logger
     import subprocess
     import tempfile
+    import os
 
     # filter the args for valid templates
     copts = []
@@ -2597,8 +2601,26 @@ def do_commit(tgt):
             tfiles.add(tf)
             changes.add(tf)
 
-    # now for each, run git commit...
+    # commit in topologically sorted order where possible, for that
+    # we need a sorted list of templates (reuse the bulk build code)
+    itmpls = list(map(lambda v: v[0].full_pkgname, tmplos))
+    stmpls = []
+    sout = open(os.devnull, "w")
+    _bulkpkg(itmpls, sout, stmpls, False, False)
+
+    bulkset = set(stmpls)
+    bulkmap = {}
+
     for tmpl, otmpl, tfiles in tmplos:
+        if tmpl.full_pkgname not in bulkset:
+            # put unsortable stuff at the end
+            stmpls.append(tmpl.full_pkgname)
+        # for later lookup
+        bulkmap[tmpl.full_pkgname] = (tmpl, otmpl, tfiles)
+
+    # now for each, run git commit...
+    for tmpln in stmpls:
+        tmpl, otmpls, tfiles = bulkmap[tmpln]
         if otmpl is False:
             # new package
             msg = f"{tmpl.full_pkgname}: new package"
