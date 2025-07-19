@@ -1,5 +1,5 @@
 pkgname = "fakeroot"
-pkgver = "1.37.1.1"
+pkgver = "1.37.1.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
@@ -12,7 +12,7 @@ pkgdesc = "Tool for simulating superuser privileges"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"{url}/-/archive/upstream/{pkgver}/fakeroot-upstream-{pkgver}.tar.gz"
-sha256 = "caeef85642445245e4e994ce3633d21718a0baf16d5398e280b3149cbfcfae35"
+sha256 = "2ffa2384d4b8f8d59ee54d94fa12d3ecdfe04d51dfa9c4e4668ba8b3c6e3424e"
 options = ["bootstrap"]
 
 if self.stage > 0:
