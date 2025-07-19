@@ -2472,17 +2472,20 @@ class InteractiveCompleter:
 
 
 def do_commit(tgt):
-    from cbuild.core import errors, chroot, paths, template
+    from cbuild.core import errors, chroot, paths, template, logger
     import subprocess
     import tempfile
 
     # filter the args for valid templates
     copts = []
     tmpls = []
+    try_all = False
 
     for cmd in cmdline.command[1:]:
         if cmd.startswith("-"):
             copts.append(cmd)
+        elif cmd == "all":
+            try_all = True
         else:
             tmpls.append(cmd)
 
@@ -2491,16 +2494,43 @@ def do_commit(tgt):
     if subp.returncode != 0:
         raise errors.CbuildException("failed to resolve git changes")
 
+    # mew mew
+    cats = list(map(lambda v: f"{v}/", opt_allowcat.strip().split()))
+
+    chtmpls = {}
+
     # track changes in a set so we know what we can pass to commit
     changes = set()
     for ln in subp.stdout.splitlines():
         ln = ln.strip().split(b" ", 1)
         if len(ln) != 2:
             continue
-        changes.add(ln[1].decode())
+        chng = ln[1].decode()
+        for cat in cats:
+            if not chng.startswith(cat):
+                continue
+            tmpn = cat + chng.removeprefix(cat).split("/")[0]
+            if template.sanitize_pkgname(tmpn, False):
+                if tmpn not in chtmpls or not chtmpls[tmpn]:
+                    chtmpls[tmpn] = ln[0] == b"M"
+            break
+        changes.add(chng)
 
     if len(tmpls) < 1:
-        raise errors.CbuildException("commit needs at least one template")
+        # just print changed status
+        log = logger.get()
+        if len(chtmpls) == 0:
+            log.out("No templates changed.")
+            return
+        if try_all:
+            tmpls = list(chtmpls)
+        else:
+            log.out("Changed templates:")
+            for tmp in sorted(chtmpls):
+                log.out(
+                    f"  \f[{'green' if not chtmpls[tmp] else 'orange'}]* {tmp}"
+                )
+            return
 
     hcpu = chroot.host_cpu()
 

@@ -542,6 +542,8 @@ The following commands are recognized:
 * `commit` Commit a given template or templates. Currently, only individual
   templates are supported, and one commit will be generated for each. Any
   optional arguments after `--` will be passed to `git commit` directly.
+  Passing `all` will try to generate commits for all changed or new templates.
+  Not passing anything will print the current status.
 * `cycle-check` Scan all templates or a single template for build-time
   dependency cycles. Only one cycle at a time is printed. The goal is to
   keep the tree free of cycles at all times. Therefore, if you encounter
