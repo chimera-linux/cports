@@ -17,6 +17,6 @@ index 775a4aff6..09584786e 100644
  {
 -#if !defined ANDROID && !defined MACOSX
 +#if 0
-    static void (*clear_cache)(unsigned char const *, unsigned char const *)
-        = (void (*)(unsigned char const *, unsigned char const *)) dlsym(
-            RTLD_DEFAULT, "__clear_cache");
+     static void (*clear_cache)(unsigned char const *, unsigned char const *)
+         = reinterpret_cast<void (*)(unsigned char const *, unsigned char const *)>
+             (dlsym(RTLD_DEFAULT, "__clear_cache"));

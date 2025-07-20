@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "25.2.5.1"
+pkgver = "25.8.0.1"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -41,6 +41,7 @@ configure_args = [
     "--without-fonts",
     "--without-system-box2d",
     "--without-system-libcmis",
+    "--without-system-libeot",
     "--without-system-libzmf",
     "--without-system-libstaroffice",
     "--without-system-dragonbox",
@@ -182,9 +183,10 @@ source = [
     f"{_aurl}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip",
     f"{_aurl}/box2d-2.4.1.tar.gz",
     f"{_aurl}/libcmis-0.6.2.tar.xz",
+    f"{_aurl}/libeot-0.01.tar.bz2",
     f"{_aurl}/libstaroffice-0.0.7.tar.xz",
     f"{_aurl}/libzmf-0.0.2.tar.xz",
-    f"{_aurl}/pdfium-6764.tar.bz2",
+    f"{_aurl}/pdfium-7012.tar.bz2",
     f"{_eurl}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar",
     f"{_eurl}/odfvalidator-0.9.0-RC2-SNAPSHOT-jar-with-dependencies-2726ab578664434a545f8379a01a9faffac0ae73.jar",
     f"{_aurl}/dtoa-20180411.tgz",
@@ -198,16 +200,16 @@ source = [
     f"{_aurl}/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip",
     f"{_aurl}/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip",
     f"{_aurl}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip",
-    f"{_aurl}/skia-m130-3c64459d5df2fa9794b277f0959ed8a92552bf4c.tar.xz",
+    f"{_aurl}/skia-m136-28685d899b0a35894743e2cedad4c9f525e90e1e.tar.xz",
     f"{_aurl}/dragonbox-1.1.3.tar.gz",
     f"{_aurl}/frozen-1.2.0.tar.gz",
     f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "a2fac1b278d88c42a1b36ff556e44904f0d8fdcfabad31bb431a48a4f95d22e6",
-    "be63ce6df0d5653029193e32f5ce9827d9023f7b7de0fb2cfcbcab0b8b4d9796",
-    "33315f72745540b4ca1e0ff863520322434b6177008befbca8cc391659feea00",
-    "5e0c621f25169d54aa2a65c4b22f6c63076020f5ba5748baff32aa9f08b51631",
+    "0d7cfce9a93edeeee425f20fe051fa269c3426391638bba0c328608998691192",
+    "aea001c8d031310e3932f46df8b74cddfe0f67743adcc4e47e5e8a2dd0c334da",
+    "a37ef22d20fa944ff7544d96fbb56ac4902bd228e6240759559521bd4f1d619d",
+    "29f797023d3759d2d7032d78ca54f1dfcdfbf21894fc67a8afc492698122eceb",
     "42fce6baf1bf789b62bf938b8e8ec18a1ac92c989dd6e7221e9531454cbd97fa",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -217,9 +219,10 @@ sha256 = [
     "233f66e8d25c5dd971716d4200203a612a407649686ef3b52075d04b4c9df0dd",
     "d6b4650ff897ee1ead27cf77a5933ea197cbeef6705638dd181adc2e816b23c2",
     "1b5c2d7258ff93eb5f9958ff0e4dfd7332dc75a071bb717dde2217a26602a644",
+    "cf5091fa8e7dcdbe667335eb90a2cfdd0a3fe8f8c7c8d1ece44d9d055736a06a",
     "f94fb0ad8216f97127bedef163a45886b43c62deac5e5b0f5e628e234220c8db",
     "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
-    "59d5df3b38312b069d96a8de9d4f8d7f44a29835c9dc82bd792ea02be86c4e49",
+    "e647ca4fcc2c91d9dca717452e1b1be1ab6155ac4977dca716041652c7b10bdd",
     "f2443f27561af52324eee03a1892d9f569adc8db9e7bca55614898bc2a13a770",
     "d55495ab3a86544650587de2a72180ddf8bfc6376d14ddfa923992dbc86a06e0",
     "0082d0684f7db6f62361b76c4b7faba19e0c7ce5cb8e36c4b65fea8281e711b4",
@@ -233,7 +236,7 @@ sha256 = [
     "abe2c57ac12ba45d83563b02e240fa95d973376de2f720aab8fe11f2e621c095",
     "05640a1f6805b2b2d7e2cb9c50db9a5cb084e3c52ab1a71ce015239b4a1d4343",
     "085f2112c51fa8c1783fac12fbd452650596415121348393bb51f0f7e85a9045",
-    "53f55303821158b6de9e6b90f1cc3a548611a7e430c1a0883ff159a8db89677d",
+    "2384f5f44a0b714d8dc78923fdf17453ab5a1808ca638154e3e27b361531db25",
     "09d63b05e9c594ec423778ab59b7a5aa1d76fdd71d25c7048b0258c4ec9c3384",
     "ed8339c017d7c5fe019ac2c642477f435278f0dc643c1d69d3f3b1e95915e823",
     "77d6c6ecb35952a8d8ce7f736b7a2bf466275c48210e309b73782d6b7e84dffd",
@@ -254,7 +257,6 @@ def post_extract(self):
         self.cp(self.sources_path / s[s.rfind("/") + 1 :], self.cwd)
 
     # copy over patches
-    self.cp("^/ppc-skia-musttail.patch.1", "external/skia")
     self.cp("^/libcmis-libxml2.patch.1", "external/libcmis")
 
 
