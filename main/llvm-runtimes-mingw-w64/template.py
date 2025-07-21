@@ -42,8 +42,8 @@ hostmakedepends = [
     "python",
 ]
 depends = [
-    self.with_pkgver("llvm-runtimes-mingw-w64-libcxx"),
     "mingw-w64-headers",
+    self.with_pkgver("llvm-runtimes-mingw-w64-libcxx"),
 ]
 pkgdesc = "LLVM libc++ for Windows development"
 license = "Apache-2.0 WITH LLVM-exception AND NCSA"

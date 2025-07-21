@@ -13,9 +13,9 @@ depends = [
     "perl-regexp-common",
 ]
 checkdepends = [
-    *depends,
     "git",
     "unzip",
+    *depends,
 ]
 pkgdesc = "Count lines of source code"
 license = "GPL-2.0-or-later"

@@ -33,9 +33,9 @@ makedepends = [
     "zlib-ng-compat-devel",
 ]
 depends = [
-    self.with_pkgver("bcc-python"),
     # dep of half the programs in /usr/share/bcc/tools
     "bash",
+    self.with_pkgver("bcc-python"),
 ]
 pkgdesc = "Toolkit for creating eBPF programs"
 license = "Apache-2.0"

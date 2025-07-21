@@ -25,9 +25,9 @@ makedepends = [
     "qt6-qtsvg-devel",
 ]
 depends = [
-    self.with_pkgver("breeze-cursors"),
     "breeze-icons",
     "frameworkintegration",
+    self.with_pkgver("breeze-cursors"),
 ]
 pkgdesc = "Breeze visual style for the KDE Plasma Desktop"
 license = "GPL-2.0-or-later"

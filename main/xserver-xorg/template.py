@@ -57,9 +57,7 @@ makedepends = [
 ]
 checkdepends = ["xkeyboard-config"]
 depends = [
-    self.with_pkgver("xserver-xorg-minimal"),
     "fonts-xorg",
-    # additional utilities and other packages for most users
     "iceauth",
     "setxkbmap",
     "transset",
@@ -89,6 +87,7 @@ depends = [
     "xwd",
     "xwininfo",
     "xwud",
+    self.with_pkgver("xserver-xorg-minimal"),
 ]
 pkgdesc = "X.org X server"
 license = "MIT AND BSD-3-Clause"

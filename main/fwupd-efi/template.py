@@ -8,11 +8,11 @@ configure_args = [
     "--libexecdir=/usr/lib",  # XXX drop libexec
 ]
 hostmakedepends = [
+    f"binutils-{self.profile().arch}",
     "efivar",
     "meson",
     "pkgconf",
     "python-pefile",
-    f"binutils-{self.profile().arch}",
 ]
 makedepends = [
     "efivar-devel",

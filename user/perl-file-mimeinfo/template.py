@@ -10,10 +10,10 @@ makedepends = [
 ]
 depends = [*makedepends, "shared-mime-info"]
 checkdepends = [
-    *makedepends,
     "perl-test-pod",
     "perl-test-pod-coverage",
     "perl-path-tiny",
+    *makedepends,
 ]
 pkgdesc = "Parses streams to create MIME entities"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"

@@ -19,13 +19,13 @@ hostmakedepends = [
     "python-docutils",
 ]
 depends = [
-    self.with_pkgver("virt-manager-progs"),
     "gtk-vnc",
     "gtksourceview4",
     "libvirt-glib",
     "python",
     "spice-gtk",
     "vte-gtk3",
+    self.with_pkgver("virt-manager-progs"),
 ]
 checkdepends = ["python-pytest", *_deps]
 pkgdesc = "GUI for managing virtual machines"

@@ -6,8 +6,8 @@ hostmakedepends = ["perl"]
 makedepends = ["perl"]
 depends = ["perl-moo"]
 checkdepends = [
-    *depends,
     "perl-test-warn",
+    *depends,
 ]
 pkgdesc = "Parallel processing fork manager"
 license = "Artistic-1.0-Perl"

@@ -11,8 +11,8 @@ configure_args = [
 ]
 configure_gen = []
 depends = [
-    f"musl-progs~{pkgver}",
     "base-files",
+    f"musl-progs~{pkgver}",
     "virtual:musl-safety-override!base-files",
 ]
 provides = ["so:libc.so=0"]

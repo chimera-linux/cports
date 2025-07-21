@@ -1,9 +1,9 @@
 pkgname = "intel-vaapi-driver"
 pkgver = "2.4.1"
 pkgrel = 0
-build_style = "meson"
 # only usable here
 archs = ["x86_64"]
+build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libdrm-devel", "libva-devel", "libx11-devel"]
 pkgdesc = "VA-API driver for Haswell and older Intel GPUs"

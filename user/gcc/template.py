@@ -58,12 +58,12 @@ configure_args = [
 ]
 configure_gen = []
 hostmakedepends = [
+    f"binutils-{self.profile().arch}",
     "bison",
     "flex",
     "gawk",
     "perl",
     "texinfo",
-    f"binutils-{self.profile().arch}",
 ]
 makedepends = [
     "gmp-devel",

@@ -86,10 +86,10 @@ makedepends = [
     "tevent-devel",
     "zlib-ng-compat-devel",
 ]
-self.depends = [
+depends = [
+    "tdb-progs",
     self.with_pkgver("samba-common"),
     self.with_pkgver("samba-libs"),
-    "tdb-progs",
 ]
 pkgdesc = "SMB/CIFS file, print, and login server for Unix"
 license = "GPL-3.0-or-later"

@@ -25,9 +25,9 @@ makedepends = [
     "qt6-qtdeclarative-devel",
 ]
 depends = [
-    self.with_pkgver("oxygen-cursors"),
-    "oxygen-icons",
     "frameworkintegration",
+    "oxygen-icons",
+    self.with_pkgver("oxygen-cursors"),
 ]
 pkgdesc = "Oxygen visual style for the KDE Plasma Desktop"
 license = "GPL-2.0-or-later"  # FIXME
