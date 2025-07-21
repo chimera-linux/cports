@@ -1538,6 +1538,12 @@ class Template(Package):
             ass = ln.find("=")
             if ass < 0:
                 continue
+            # self-assignment is an error
+            if sln.startswith("self."):
+                self.error(
+                    "lint failed: change to self object at top level",
+                    hint="remove the 'self.' and assign a variable",
+                )
             # get the assigned name
             vnm = ln[0:ass].strip()
             # not an actual name or it starts with underscore, so skip it
