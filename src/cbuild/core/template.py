@@ -665,6 +665,11 @@ class AstValidatorVisitor(ast.NodeVisitor):
             if isinstance(e, ast.Starred):
                 unsorted.append(f"*{e.value.id}")
                 continue
+            elif isinstance(e, ast.Call):
+                # calls sort before starred expressions
+                # don't bother sorting by criteria as that would be fragile
+                unsorted.append("#")
+                continue
             elif isinstance(e, ast.Constant) and isinstance(e.value, str):
                 # force literals to sort before list expansions
                 unsorted.append(f"!{e.value}")
@@ -1506,9 +1511,7 @@ class Template(Package):
         return core_fields_map
 
     def validate_ast(self, contents):
-        # templates are not ready for now
-        # AstValidatorVisitor(self).visit(ast.parse(contents))
-        pass
+        AstValidatorVisitor(self).visit(ast.parse(contents))
 
     def validate_order(self, contents):
         fmap = self._get_fieldmap()
